@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="base_accent">#FF4BB9E6</color>
+  <color name="base_accent_pressed">#FF3C9BBE</color>
+
+  <color name="icon_tint">#FFC4C6C7</color>
+
+  <color name="icon_tint_light">#FF76797C</color>
+
+  <color name="divider">#1EFFFFFF</color>
+
+  <!-- Backgrounds -->
+  <color name="bg_window">#FF32363A</color>
+  <color name="bg_primary">#1E2226</color>
+  <color name="bg_cards">#FF3C4044</color>
+  <color name="bg_panel">@color/bg_window</color>
+  <color name="bg_primary_dark">#14181C</color>
+
+  <color name="bg_menu">#CC2D3237</color>
+
+  <color name="bg_statusbar">#121417</color>
+
+  <!-- Buttons -->
+  <color name="button_pressed">#40CCCCCC</color>
+  <color name="button_disabled">@color/white_12</color>
+  <color name="button_text">#FFFFFFFF</color>
+  <color name="button_text_disabled">#4CFFFFFF</color>
+
+  <color name="button_accent_normal">@color/base_accent</color>
+  <color name="button_accent_pressed">#FF3C9BBE</color>
+  <color name="button_accent_disabled">#FF505050</color>
+  <color name="button_accent_text">#FF000000</color>
+  <color name="button_accent_text_disabled">#4CFFFFFF</color>
+
+  <!-- LanesView -->
+  <color name="nav_lane_arrow_active">@color/black_primary</color>
+
+  <color name="elevation_profile_dot_enabled">#FF9600</color>
+  <color name="elevation_profile">#4BB9E6</color>
+</resources>

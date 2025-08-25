@@ -34,13 +34,6 @@ public class SearchActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  @StyleRes
-  public int getThemeResourceId(@NonNull String theme)
-  {
-    return ThemeUtils.getCardBgThemeResourceId(theme);
-  }
-
-  @Override
   protected Class<? extends Fragment> getFragmentClass()
   {
     return SearchFragment.class;

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector
-  xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:drawable="@drawable/button_accent_pressed_night"
-        android:state_pressed="true"/>
-  <item android:drawable="@drawable/button_accent_normal_night"
-        android:state_enabled="true"/>
-  <item android:drawable="@drawable/button_accent_disabled_night"/>
-</selector>

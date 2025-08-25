@@ -4,7 +4,6 @@ import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,14 +21,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import app.organicmaps.downloader.DownloaderActivity;
 import app.organicmaps.intent.Factory;
-import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.SharingUtils;
-import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.IOException;
@@ -59,15 +56,6 @@ public class SplashActivity extends AppCompatActivity
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-
-    final String theme = Config.UiTheme.getCurrent();
-    if (Config.UiTheme.isDefault(theme))
-      setTheme(R.style.MwmTheme_Splash);
-    else if (Config.UiTheme.isNight(theme))
-      setTheme(R.style.MwmTheme_Night_Splash);
-    else
-      throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
-
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     setContentView(R.layout.activity_splash);
 

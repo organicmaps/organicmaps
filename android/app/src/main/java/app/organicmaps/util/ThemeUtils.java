@@ -6,8 +6,6 @@ import android.util.TypedValue;
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
-import androidx.annotation.StyleRes;
-import app.organicmaps.R;
 import app.organicmaps.sdk.util.Config;
 
 public final class ThemeUtils
@@ -63,29 +61,5 @@ public final class ThemeUtils
   public static boolean isNavAutoTheme()
   {
     return Config.UiTheme.isNavAuto(Config.UiTheme.getUiThemeSettings());
-  }
-
-  @StyleRes
-  public static int getCardBgThemeResourceId(@NonNull String theme)
-  {
-    if (Config.UiTheme.isDefault(theme))
-      return R.style.MwmTheme_CardBg;
-
-    if (Config.UiTheme.isNight(theme))
-      return R.style.MwmTheme_Night_CardBg;
-
-    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
-  }
-
-  @StyleRes
-  public static int getWindowBgThemeResourceId(@NonNull String theme)
-  {
-    if (Config.UiTheme.isDefault(theme))
-      return R.style.MwmTheme_WindowBg;
-
-    if (Config.UiTheme.isNight(theme))
-      return R.style.MwmTheme_Night_WindowBg;
-
-    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
   }
 }

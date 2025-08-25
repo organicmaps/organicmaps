@@ -86,7 +86,7 @@ public enum ThemeSwitcher
     String oldTheme = Config.UiTheme.getCurrent();
 
     MapStyle style;
-    if (ThemeUtils.isNightTheme())
+    if (Config.UiTheme.isNight(theme))
     {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
         uiModeManager.setApplicationNightMode(UiModeManager.MODE_NIGHT_YES);

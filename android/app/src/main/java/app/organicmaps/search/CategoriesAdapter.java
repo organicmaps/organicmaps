@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.sdk.search.DisplayedCategories;
 import app.organicmaps.sdk.util.Language;
-import app.organicmaps.util.ThemeUtils;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Locale;
@@ -90,11 +88,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   @DrawableRes
   private static int getDrawableResIdByKey(@NonNull Context context, @NonNull String packageName, @NonNull String key)
   {
-    final boolean isNightTheme = ThemeUtils.isNightTheme();
-    String iconId = "ic_" + key;
-    if (isNightTheme)
-      iconId = iconId + "_night";
-    return context.getResources().getIdentifier(iconId, "drawable", packageName);
+    return context.getResources().getIdentifier("ic_" + key, "drawable", packageName);
   }
 
   @Override

@@ -153,7 +153,7 @@
 
   <style name="MwmWidget.ToolbarTheme.Light" parent="MwmWidget.ToolbarTheme">
     <item name="android:gravity">center_vertical</item>
-    <item name="colorAccent">@color/bg_window_night</item>
+    <item name="colorAccent">@color/bg_window</item>
   </style>
 
   <style name="MwmWidget.ToolbarTheme.Transparent" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">

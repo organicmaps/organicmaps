@@ -6,13 +6,11 @@ import android.os.Bundle;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseToolbarActivity;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
-import app.organicmaps.util.ThemeUtils;
 
 public class BookmarkCategoriesActivity extends BaseToolbarActivity
 {
@@ -36,13 +34,6 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
     BookmarkManager.INSTANCE.setNotificationsEnabled(true);
 
     super.onPause();
-  }
-
-  @Override
-  @StyleRes
-  public int getThemeResourceId(@NonNull String theme)
-  {
-    return ThemeUtils.getWindowBgThemeResourceId(theme);
   }
 
   @Override
