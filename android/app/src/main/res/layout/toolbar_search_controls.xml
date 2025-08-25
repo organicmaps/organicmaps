@@ -20,20 +20,32 @@
     tools:src="@drawable/ic_down"
     android:contentDescription="@string/back"/>
 
-  <com.google.android.material.textfield.TextInputEditText
-    android:id="@+id/query"
-    style="@style/MwmTextAppearance.Toolbar.Search"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
+  <com.google.android.material.textfield.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_weight="1"
-    android:background="@null"
-    android:hint="@string/search"
-    android:imeOptions="actionSearch|flagNoExtractUi"
-    android:inputType="text"
-    android:padding="@dimen/margin_half_plus"
-    android:singleLine="true"
-    android:textCursorDrawable="@drawable/cursor_drawable"
-    tools:ignore="UnusedAttribute"/>
+    android:layout_gravity="center_vertical"
+    app:endIconMode="clear_text"
+    app:endIconTint="@android:color/white"
+    style="@style/MwmTextAppearance.Toolbar.Search"
+    app:boxBackgroundMode="none"
+    app:hintEnabled="false">
+
+    <com.google.android.material.textfield.TextInputEditText
+      android:id="@+id/query"
+      style="@style/MwmTextAppearance.Toolbar.Search"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:hint="@string/search"
+      android:imeOptions="actionSearch|flagNoExtractUi"
+      android:inputType="text"
+      android:singleLine="true"
+      android:background="@null"
+      android:paddingStart="@dimen/margin_half"
+      android:paddingEnd="0dp"
+      android:gravity="center_vertical"
+      android:textCursorDrawable="@drawable/cursor_drawable"/>
+  </com.google.android.material.textfield.TextInputLayout>
 
   <ProgressBar
     android:id="@+id/progress"
@@ -45,17 +57,6 @@
     android:background="@null"
     android:minHeight="@dimen/search_progress_size"
     android:minWidth="@dimen/search_progress_size"/>
-
-  <ImageView
-    android:id="@+id/clear"
-    android:layout_width="?actionBarSize"
-    android:layout_height="?actionBarSize"
-    android:layout_gravity="center_vertical"
-    android:layout_weight="0"
-    android:background="?attr/selectableItemBackgroundBorderless"
-    android:contentDescription="@string/clear_the_search"
-    android:scaleType="center"
-    app:srcCompat="@drawable/ic_cancel"/>
 
   <ImageView
     android:id="@+id/voice_input"

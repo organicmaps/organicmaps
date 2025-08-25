@@ -34,8 +34,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
   @NonNull
   private final View mProgress;
   @NonNull
-  private final View mClear;
-  @NonNull
   private final View mVoiceInput;
   private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(requireActivity());
   @NonNull
@@ -79,8 +77,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
     mProgress = mSearchContainer.findViewById(R.id.progress);
     mVoiceInput = mSearchContainer.findViewById(R.id.voice_input);
     mVoiceInput.setOnClickListener(this);
-    mClear = mSearchContainer.findViewById(R.id.clear);
-    mClear.setOnClickListener(this);
 
     showProgress(false);
     updateViewsVisibility(true);
@@ -90,7 +86,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
   {
     UiUtils.showIf(showBackButton(), mBack);
     UiUtils.showIf(supportsVoiceSearch() && queryEmpty && mVoiceInputSupported, mVoiceInput);
-    UiUtils.showIf(alwaysShowClearButton() || !queryEmpty, mClear);
   }
 
   protected boolean showBackButton()
@@ -107,11 +102,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
     return true;
   }
 
-  protected void onClearClick()
-  {
-    clear();
-  }
-
   protected void startVoiceRecognition(Intent intent)
   {
     throw new RuntimeException("To be used startVoiceRecognition() must be implemented by descendant class");
@@ -121,11 +111,6 @@ public class SearchToolbarController extends ToolbarController implements View.O
    * Return true to display & activate voice search. Turned OFF by default.
    */
   protected boolean supportsVoiceSearch()
-  {
-    return false;
-  }
-
-  protected boolean alwaysShowClearButton()
   {
     return false;
   }
@@ -205,9 +190,7 @@ public class SearchToolbarController extends ToolbarController implements View.O
   public void onClick(View v)
   {
     final int id = v.getId();
-    if (id == R.id.clear)
-      onClearClick();
-    else if (id == R.id.query)
+    if (id == R.id.query)
       onQueryClick(getQuery());
     else if (id == R.id.voice_input)
       onVoiceInputClick();
