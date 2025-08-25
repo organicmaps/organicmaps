@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.Objects;
 
-public class ClientUtils
+class ClientUtils
 {
   private static final String TAG = ClientUtils.class.getSimpleName();
   private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.RFC_1123_DATE_TIME;

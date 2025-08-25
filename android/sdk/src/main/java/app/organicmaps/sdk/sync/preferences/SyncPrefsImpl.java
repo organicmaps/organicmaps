@@ -30,6 +30,7 @@ public class SyncPrefsImpl implements SyncPrefs
   private static final String PREF_KEY_SYNC_INTERVAL = "interval";
   private static final String PREF_KEY_LAST_RUN = "lastRun";
   private static final String PREF_KEY_NC_POLL = "ncPollParams";
+  private static final String PREF_KEY_GOOGLE_OAUTH_PARAMS = "googleOAuthParams";
 
   private static final String PREF_KEY_PREFIX_ENABLED = "enabled-";
   private static final String PREF_KEY_PREFIX_LAST_SYNCED = "lastSynced-";
@@ -343,5 +344,16 @@ public class SyncPrefsImpl implements SyncPrefs
   public String getNextcloudPollParams()
   {
     return prefsAccounts.getString(PREF_KEY_NC_POLL, null);
+  }
+
+  public void setGoogleOauthParams(String params)
+  {
+    prefsAccounts.edit().putString(PREF_KEY_GOOGLE_OAUTH_PARAMS, params).apply();
+  }
+
+  @Nullable
+  public String getGoogleOauthParams()
+  {
+    return prefsAccounts.getString(PREF_KEY_GOOGLE_OAUTH_PARAMS, null);
   }
 }

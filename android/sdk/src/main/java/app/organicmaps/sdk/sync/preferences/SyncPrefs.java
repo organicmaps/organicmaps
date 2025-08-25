@@ -77,4 +77,9 @@ public interface SyncPrefs
 
   @Nullable
   String getNextcloudPollParams();
+
+  void setGoogleOauthParams(String params);
+
+  @Nullable
+  String getGoogleOauthParams();
 }

@@ -42,6 +42,7 @@ public enum SyncManager
 
   private SyncPrefs mSyncPrefs;
   private OkHttpClient mInsecureOkHttpClient;
+  private OkHttpClient mOkHttpClient;
   private SyncScheduler mSyncScheduler;
   private File mTempDir;
   private final Map<SyncAccount, Syncer> mSyncers = new ConcurrentHashMap<>();
@@ -98,6 +99,13 @@ public enum SyncManager
     if (mInsecureOkHttpClient == null)
       mInsecureOkHttpClient = InsecureHttpsHelper.createInsecureOkHttpClient();
     return mInsecureOkHttpClient;
+  }
+
+  public OkHttpClient getOkHttpClient()
+  {
+    if (mOkHttpClient == null)
+      mOkHttpClient = new OkHttpClient();
+    return mOkHttpClient;
   }
 
   public SyncPrefs getPrefs()

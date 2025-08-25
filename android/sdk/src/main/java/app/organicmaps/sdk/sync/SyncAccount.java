@@ -2,6 +2,8 @@ package app.organicmaps.sdk.sync;
 
 import androidx.annotation.NonNull;
 import app.organicmaps.sdk.sync.engine.SyncClient;
+import app.organicmaps.sdk.sync.googledrive.DriveClient;
+import app.organicmaps.sdk.sync.googledrive.GoogleDriveAuth;
 import app.organicmaps.sdk.sync.nextcloud.NextcloudAuth;
 import app.organicmaps.sdk.sync.nextcloud.NextcloudClient;
 import java.util.Objects;
@@ -46,6 +48,7 @@ public class SyncAccount
     return switch (Objects.requireNonNull(BackendType.idToBackendType.get(mBackendTypeId)))
     {
       case Nextcloud -> new NextcloudClient((NextcloudAuth) mAuthState);
+      case GoogleDrive -> new DriveClient((GoogleDriveAuth) mAuthState);
     };
   }
 
@@ -55,6 +58,7 @@ public class SyncAccount
     AuthState authState = switch (Objects.requireNonNull(BackendType.idToBackendType.get(backendType)))
     {
       case Nextcloud -> new NextcloudAuth(json.getJSONObject(KEY_AUTH_STATE));
+      case GoogleDrive -> new GoogleDriveAuth(json.getJSONObject(KEY_AUTH_STATE));
     };
     return new SyncAccount(json.getInt(KEY_ACCOUNT_ID), backendType, authState);
   }

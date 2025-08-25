@@ -907,6 +907,7 @@
     <string name="authorization_expired">Login session expired. Please login again.</string>
     <!-- SECTION: Sync account settings -->
     <string name="nextcloud">Nextcloud</string>
+    <string name="google_drive">Google Drive</string>
     <string name="cloud_sync_accounts">Cloud Sync Accounts</string>
     <string name="add_sync_account_hint">No cloud storage account linked yet. Add an account to get started.</string>
     <!-- Button to add Sync Account -->

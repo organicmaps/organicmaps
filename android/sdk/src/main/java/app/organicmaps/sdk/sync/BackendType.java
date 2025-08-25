@@ -12,6 +12,13 @@ public enum BackendType implements SyncBackend
     {
       return 0;
     }
+  },
+  GoogleDrive {
+    @Override
+    public int getId()
+    {
+      return 1;
+    }
   };
 
   public static final Map<Integer, BackendType> idToBackendType =
