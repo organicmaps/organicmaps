@@ -88,7 +88,7 @@ public class Syncer
     // we mark changed files cache as outdated.
     mLocalState.setChangedFilesCacheOutdated(true);
 
-    try (SyncClient.EditSession editSession = mSyncClient.getEditSession())
+    try (EditSession editSession = mSyncClient.getEditSession())
     {
       if (cloudHasChanges)
         bidirectionalSync(editSession, tempDir, false);
@@ -106,8 +106,7 @@ public class Syncer
   /**
    * Sync routine when cloud state has changed since last sync on this account from this device.
    */
-  private void bidirectionalSync(SyncClient.EditSession editSession, File tempDir, boolean isRerun)
-      throws SyncOpException
+  private void bidirectionalSync(EditSession editSession, File tempDir, boolean isRerun) throws SyncOpException
   {
     boolean asyncChanges = false; // Indicates if there are async changes (suffixing or importing user-uploaded files)
                                   // is probably underway.
@@ -208,8 +207,8 @@ public class Syncer
    * @param cloudFilesState is <b>mutated</b> by this method.
    * @return {@code true} iff a file is being changed asynchronously, so we should wait a while.
    */
-  private boolean syncChangedFile(SyncClient.EditSession editSession, String locallyChangedFile,
-                                  CloudFilesState cloudFilesState) throws SyncOpException
+  private boolean syncChangedFile(EditSession editSession, String locallyChangedFile, CloudFilesState cloudFilesState)
+      throws SyncOpException
   {
     boolean asyncChanges = false;
     final String cloudName = getCloudBmNameFromFilepath(locallyChangedFile);
@@ -327,7 +326,7 @@ public class Syncer
    * Sync routine when only the local state (and not the cloud state) has changed
    * since last sync on this account from this device.
    */
-  private void unidirectionalSync(SyncClient.EditSession editSession) throws SyncOpException
+  private void unidirectionalSync(EditSession editSession) throws SyncOpException
   {
     while (!mChangedFiles.isEmpty())
     {
