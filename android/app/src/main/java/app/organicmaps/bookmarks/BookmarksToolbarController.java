@@ -17,19 +17,6 @@ public class BookmarksToolbarController extends SearchToolbarController
   }
 
   @Override
-  protected boolean alwaysShowClearButton()
-  {
-    return true;
-  }
-
-  @Override
-  protected void onClearClick()
-  {
-    super.onClearClick();
-    mFragment.deactivateSearch();
-  }
-
-  @Override
   protected void onTextChanged(String query)
   {
     if (hasQuery())
