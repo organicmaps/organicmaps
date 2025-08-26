@@ -13,25 +13,19 @@ namespace geojson
 
 // Data structures
 
-struct GeoJsonGeometry {
+struct GeoJsonGeometry
+{
   std::string type;
   std::vector<glz::json_t> coordinates;
 
   bool operator==(GeoJsonGeometry const & data) const
   {
-      return type == data.type; // && coordinates == data.coordinates;
+    return type == data.type;  // && coordinates == data.coordinates;
   }
 
-  bool operator!=(GeoJsonGeometry const & data) const
-  {
-      return !operator==(data);
-  }
+  bool operator!=(GeoJsonGeometry const & data) const { return !operator==(data); }
 
-
-  friend std::string DebugPrint(GeoJsonGeometry const & c)
-  {
-    return "GeoJsonGeometry [" + c.type + "]";
-  }
+  friend std::string DebugPrint(GeoJsonGeometry const & c) { return "GeoJsonGeometry [" + c.type + "]"; }
 };
 
 struct GeoJsonFeature
@@ -42,14 +36,10 @@ struct GeoJsonFeature
 
   bool operator==(GeoJsonFeature const & data) const
   {
-    return type == data.type; //&& m_properties == data.m_properties;
+    return type == data.type;  //&& m_properties == data.m_properties;
   }
 
-  bool operator!=(GeoJsonFeature const & data) const
-  {
-    return !operator==(data);
-  }
-
+  bool operator!=(GeoJsonFeature const & data) const { return !operator==(data); }
 
   // Returns 'true' if geometry type is 'Point'.
   bool isPoint();
@@ -59,13 +49,12 @@ struct GeoJsonFeature
 
   friend std::string DebugPrint(GeoJsonFeature const & c)
   {
-      std::ostringstream out;
-      out << "[type = " << c.type << ", geometry = " << DebugPrint(c.geometry)
-          << ", properties = " /*<< json_dumps(&c.m_properties, JSON_COMPACT)*/ << "]";
-      return out.str();
+    std::ostringstream out;
+    out << "[type = " << c.type << ", geometry = " << DebugPrint(c.geometry)
+        << ", properties = " /*<< json_dumps(&c.m_properties, JSON_COMPACT)*/ << "]";
+    return out.str();
   }
 };
-
 
 struct GeoJsonData
 {
@@ -78,12 +67,8 @@ struct GeoJsonData
     return type == data.type && features == data.features && properties == data.properties;
   }
 
-  bool operator!=(GeoJsonData const & data) const
-  {
-    return !operator==(data);
-  }
+  bool operator!=(GeoJsonData const & data) const { return !operator==(data); }
 };
-
 
 // Writer and reader
 class GeojsonWriter
@@ -104,7 +89,7 @@ private:
 class GeojsonParser
 {
 public:
-  explicit GeojsonParser(FileData & data): m_fileData(data) {};
+  explicit GeojsonParser(FileData & data) : m_fileData(data) {}
 
   bool Parse(std::string_view & json_content);
 
@@ -117,14 +102,14 @@ private:
 class DeserializerGeoJson
 {
 public:
-    DECLARE_EXCEPTION(DeserializeException, RootException);
+  DECLARE_EXCEPTION(DeserializeException, RootException);
 
-    explicit DeserializerGeoJson(FileData & fileData): m_fileData(fileData) {};
+  explicit DeserializerGeoJson(FileData & fileData) : m_fileData(fileData) {}
 
-    void Deserialize(std::string_view & content);
+  void Deserialize(std::string_view & content);
 
 private:
-    FileData & m_fileData;
+  FileData & m_fileData;
 };
 
 }  // namespace kml

@@ -4,8 +4,8 @@
 
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
-#include "kml/serdes_gpx.hpp"
 #include "kml/serdes_geojson.hpp"
+#include "kml/serdes_gpx.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_data.hpp"
@@ -356,11 +356,11 @@ std::string GenerateValidAndUniqueFilePathForGPX(std::string const & fileName)
 
 std::string GenerateValidAndUniqueFilePathForGeoJson(std::string const & fileName)
 {
-    std::string filePath = RemoveInvalidSymbols(fileName);
-    if (filePath.empty())
-        filePath = kDefaultBookmarksFileName;
+  std::string filePath = RemoveInvalidSymbols(fileName);
+  if (filePath.empty())
+    filePath = kDefaultBookmarksFileName;
 
-    return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kGeoJsonExtension);
+  return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kGeoJsonExtension);
 }
 
 std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName)
@@ -519,10 +519,10 @@ std::vector<std::string> GetFilePathsToLoadFromKml(std::string const & filePath)
 
 std::vector<std::string> GetFilePathsToLoadFromGeoJson(std::string const & filePath)
 {  // Copy input file to temp GeoJson with unique name.
-    auto fileSavePath = GenerateValidAndUniqueFilePathForGeoJson(base::FileNameFromFullPath(filePath));
-    if (!base::CopyFileX(filePath, fileSavePath))
-        return {};
-    return {std::move(fileSavePath)};
+  auto fileSavePath = GenerateValidAndUniqueFilePathForGeoJson(base::FileNameFromFullPath(filePath));
+  if (!base::CopyFileX(filePath, fileSavePath))
+    return {};
+  return {std::move(fileSavePath)};
 }
 
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType)
@@ -547,12 +547,12 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fi
     }
     else if (fileType == KmlFileType::GeoJson)
     {
-        kml::DeserializerGeoJson des(*data);
-        std::string content;
-        reader.ReadAsString(content);
+      kml::DeserializerGeoJson des(*data);
+      std::string content;
+      reader.ReadAsString(content);
 
-        std::string_view content_view(content);
-        des.Deserialize(content_view);
+      std::string_view content_view(content);
+      des.Deserialize(content_view);
     }
     else
     {
