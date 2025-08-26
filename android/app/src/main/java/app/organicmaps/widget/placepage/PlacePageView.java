@@ -751,6 +751,14 @@ public class PlacePageView extends Fragment
         }
       }
       builder.append("▲").append(Framework.nativeFormatAltitude(altitude));
+      
+      // Show geoid correction status for debugging/user info
+      if (locationHelper.hasGeoidHeightCorrection()) {
+        Double geoidHeight = locationHelper.getCurrentGeoidHeight();
+        if (geoidHeight != null) {
+          builder.append(" MSL"); // Indicate this is Mean Sea Level altitude
+        }
+      }
     }
     if (l.hasSpeed())
       builder.append("   ").append(Framework.nativeFormatSpeed(l.getSpeed()));

@@ -68,12 +68,13 @@ public class GeoidHeightCorrection {
    */
   public double applyCorrection(double ellipsoidAltitude) {
     if (mCurrentGeoidHeight == null) {
+      Logger.v(TAG, "No geoid height correction available, using ellipsoid altitude: " + ellipsoidAltitude);
       return ellipsoidAltitude;
     }
     
     // MSL altitude = ellipsoid altitude - geoid height
     double mslAltitude = ellipsoidAltitude - mCurrentGeoidHeight;
-    Logger.v(TAG, "Applied correction: " + ellipsoidAltitude + " - " + mCurrentGeoidHeight + " = " + mslAltitude);
+    Logger.d(TAG, "Applied MSL correction: " + ellipsoidAltitude + " (ellipsoid) - " + mCurrentGeoidHeight + " (geoid) = " + mslAltitude + " (MSL)");
     return mslAltitude;
   }
 
