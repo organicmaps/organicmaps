@@ -305,6 +305,7 @@ area|z15-[landuse=landfill],
 area|z15-[landuse=railway],
 area|z15-[landuse=quarry],
 area|z15-[landuse=garages],
+area|z15-[power=plant],
 area|z15-[power=station],
 area|z15-[power=substation],
 {fill-color: @industrial; fill-opacity: 1;}

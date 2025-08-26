@@ -451,30 +451,37 @@ line[waterway][tunnel]
 
 /* 7. LANDUSE */
 
-/*7.2 Hospital 7.3 University & Sport */
+/* 7.1 Industrial */
 
-/* 	7.1 Industrial */
+node|z16-[power=plant],
+node|z16-[power=station],
+node|z16-[power=substation],
+{icon-image: power-m.svg;}
+
+area|z17-[landuse=railway],
+area|z17-[landuse=quarry],
+node|z17-[landuse=landfill],
+node|z17-[landuse=railway],
+node|z17-[landuse=quarry],
+node|z17-[power=plant],
+node|z17-[power=station],
+node|z17-[power=substation],
+{text-offset: 1; text: name; font-size: 10; text-color: @poi_label;}
 
 
-
-area|z15-[landuse=railway],
-area|z15-[landuse=quarry],
-node|z15-[landuse=landfill],
-node|z15-[landuse=railway],
-node|z15-[landuse=quarry],
-node|z15-[power=station],
-node|z15-[power=substation],
-{text: name;font-size: 10;text-color: @city_label;text-position: center;}
-
-/* 	7.4 Cemetery */
+/* 7.2 Hospital 7.3 University & Sport */
 
 
+/* 7.4 Cemetery */
 
-/* 	7.5 Pedestrian areas */
+
+/* 7.5 Pedestrian areas */
+
 area|z16-[place=square],
 {text: name;font-size: 10;text-color: @city_label;text-position: center;}
 
-/* 	7.6 Military */
+
+/* 7.6 Military */
 
 area|z16-[landuse=military],
 {icon-image: military-m.svg;}
@@ -483,8 +490,7 @@ area|z17-[landuse=military],
 {text-offset: 1; text: name; font-size: 10; text-color: @poi_label;}
 
 
-/* 	7.7 Commercial */
-
+/* 7.7 Commercial */
 
 
 /* 8.BUILDINGS */
