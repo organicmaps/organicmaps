@@ -2089,6 +2089,8 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
         kmlData = LoadKmlFile(fileToLoad, KmlFileType::Text);
       else if (ext == kGpxExtension)
         kmlData = LoadKmlFile(fileToLoad, KmlFileType::Gpx);
+      else if (ext == kGeoJsonExtension)
+          kmlData = LoadKmlFile(fileToLoad, KmlFileType::GeoJson);
       else
         ASSERT(false, ("Unsupported bookmarks extension", ext));
 
