@@ -285,6 +285,9 @@ line|z18-[highway=footway][bicycle=designated]::cycleline,
 line|z18-[highway=path][bicycle=designated]::cycleline,
 {width: 2.4;}
 
+/* Do not draw highway-footway-area like lines */
+line|z11-[highway=footway][area?],
+{width: 0;}
 
 /* Ski pistes */
 

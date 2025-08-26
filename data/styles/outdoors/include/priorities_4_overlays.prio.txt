@@ -575,7 +575,6 @@ shop-supermarket                                    # icon z16- (also has captio
 
 area:highway-pedestrian                             # caption z15- (also has area z14-)
 highway-pedestrian                                  # pathtext z14- (also has line z13-)
-highway-pedestrian-area                             # pathtext z14- (also has line z13-, area z14-)
 highway-pedestrian-bridge                           # pathtext z14- (also has line z13-, line::bridgeblack z14-, line::bridgewhite z13-)
 highway-pedestrian-tunnel                           # pathtext z14- (also has line z13-, line(casing) z16-)
 highway-tertiary                                    # pathtext z12- (also has shield::shield z13-, line z11-)
@@ -676,7 +675,6 @@ highway-cycleway-tunnel                             # pathtext z13- (also has li
 
 area:highway-footway                                # caption z15- (also has area z14-)
 highway-footway                                     # pathtext z13- (also has line z11-)
-highway-footway-area                                # pathtext z13- (also has line z11-, area z14-)
 highway-footway-bicycle                             # pathtext z13- (also has line z11-, line::cycleline z13-)
 highway-footway-bridge                              # pathtext z13- (also has line z11-, line::bridgeblack z17-, line::bridgewhite z15-)
 highway-footway-tunnel                              # pathtext z13- (also has line z11-, line::tunnelBackground z17-, line::tunnelCasing z17-)
