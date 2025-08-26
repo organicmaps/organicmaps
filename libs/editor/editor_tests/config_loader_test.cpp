@@ -7,19 +7,17 @@
 
 #include "base/atomic_shared_ptr.hpp"
 
-#include <pugixml.hpp>
 
 namespace
 {
 using namespace editor;
 using platform::tests_support::ScopedFile;
 
-void CheckGeneralTags(pugi::xml_document const & doc)
+void CheckGeneralTags(std::string const & jsonContent)
 {
-  auto const types = doc.select_nodes("/omaps/editor/types");
-  TEST(!types.empty(), ());
-  auto const fields = doc.select_nodes("/omaps/editor/fields");
-  TEST(!fields.empty(), ());
+  TEST(!jsonContent.empty(), ("JSON content is empty"));
+  TEST(jsonContent.find("\"fields\"") != std::string::npos, ("'fields' key is missing"));
+  TEST(jsonContent.find("\"types\"") != std::string::npos, ("'types' key is missing"));
 }
 
 UNIT_TEST(ConfigLoader_Base)
@@ -48,8 +46,7 @@ UNIT_TEST(ConfigLoader_Base)
 
 UNIT_TEST(ConfigLoader_LoadFromLocal)
 {
-  pugi::xml_document doc;
-  ConfigLoader::LoadFromLocal(doc);
-  CheckGeneralTags(doc);
+  auto const content = ConfigLoader::LoadFromLocal();
+  CheckGeneralTags(content);
 }
 }  // namespace

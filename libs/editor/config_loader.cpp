@@ -3,12 +3,12 @@
 
 #include "platform/platform.hpp"
 
+#include <stdexcept>
+
+#include "coding/file_reader.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/reader.hpp"
 
-#include <stdexcept>
-
-#include <pugixml.hpp>
 
 namespace editor
 {
@@ -17,7 +17,7 @@ using std::string;
 namespace
 {
 
-constexpr char kConfigFileName[] = "editor.config";
+constexpr char kConfigFileName[] = "editor.json";
 
 }  // namespace
 
@@ -27,15 +27,12 @@ void Waiter::Interrupt()
     std::lock_guard lock(m_mutex);
     m_interrupted = true;
   }
-
   m_event.notify_all();
 }
 
 ConfigLoader::ConfigLoader(base::AtomicSharedPtr<EditorConfig> & config) : m_config(config)
 {
-  pugi::xml_document doc;
-  LoadFromLocal(doc);
-  ResetConfig(doc);
+  ResetConfig(LoadFromLocal());
 }
 
 ConfigLoader::~ConfigLoader()
@@ -43,15 +40,15 @@ ConfigLoader::~ConfigLoader()
   m_waiter.Interrupt();
 }
 
-void ConfigLoader::ResetConfig(pugi::xml_document const & doc)
+void ConfigLoader::ResetConfig(std::string_view buffer)
 {
   auto config = std::make_shared<EditorConfig>();
-  config->SetConfig(doc);
+  config->SetConfig(buffer);
   m_config.Set(config);
 }
 
 // static
-void ConfigLoader::LoadFromLocal(pugi::xml_document & doc)
+std::string ConfigLoader::LoadFromLocal()
 {
   string content;
   std::unique_ptr<ModelReader> reader;
@@ -63,19 +60,12 @@ void ConfigLoader::LoadFromLocal(pugi::xml_document & doc)
   }
   catch (RootException const & ex)
   {
-    LOG(LERROR, (ex.Msg()));
-    return;
+    LOG(LERROR, ("Failed to read editor config:", ex.Msg()));
   }
 
   if (reader)
     reader->ReadAsString(content);
-
-  auto const result = doc.load_buffer(content.data(), content.size());
-  if (!result)
-  {
-    LOG(LERROR, (kConfigFileName, "can not be loaded:", result.description(), "error offset:", result.offset));
-    doc.reset();
-  }
+  
+  return content;
 }
-
 }  // namespace editor

@@ -203,7 +203,10 @@ endif()
 # Used in qt/ and shaders/
 find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
+
+
 add_subdirectory(libs)
+
 
 if (PLATFORM_DESKTOP)
   add_subdirectory(dev_sandbox)

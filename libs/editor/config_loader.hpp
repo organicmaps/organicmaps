@@ -4,16 +4,12 @@
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 
+
 #include <condition_variable>
 #include <memory>
 #include <mutex>
 #include <string>
 #include <thread>
-
-namespace pugi
-{
-class xml_document;
-}
 
 namespace editor
 {
@@ -51,14 +47,14 @@ public:
   explicit ConfigLoader(base::AtomicSharedPtr<EditorConfig> & config);
   ~ConfigLoader();
 
-  // Static methods for production and testing.
-  static void LoadFromLocal(pugi::xml_document & doc);
+  // Static method to load the config from the JSON file(editor.json)
+  static std::string LoadFromLocal();
 
 private:
-  void ResetConfig(pugi::xml_document const & doc);
+  void ResetConfig(std::string_view buffer);
 
   base::AtomicSharedPtr<EditorConfig> & m_config;
-
+  
   Waiter m_waiter;
 };
 }  // namespace editor

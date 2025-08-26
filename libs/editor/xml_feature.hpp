@@ -23,6 +23,11 @@ class EditableMapObject;
 
 namespace editor
 {
+class EditorConfig;
+}
+
+namespace editor
+{
 DECLARE_EXCEPTION(XMLFeatureError, RootException);
 DECLARE_EXCEPTION(InvalidXML, XMLFeatureError);
 DECLARE_EXCEPTION(NoLatLon, XMLFeatureError);
@@ -210,14 +215,15 @@ void ApplyPatch(XMLFeature const & xml, osm::EditableMapObject & object);
 /// @param serializeType if false, types are not serialized.
 /// Useful for applying modifications to existing OSM features, to avoid issues when someone
 /// has changed a type in OSM, but our users uploaded invalid outdated type after modifying feature.
-XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType);
+XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType, editor::EditorConfig const & config);
 
 /// Used to generate XML for created objects in the new editor
-XMLFeature TypeToXML(uint32_t type, feature::GeomType geomType, m2::PointD mercator);
+XMLFeature TypeToXML(uint32_t type, feature::GeomType geomType, m2::PointD mercator,
+                     editor::EditorConfig const & config);
 
 /// Creates new feature, including geometry and types.
 /// @Note: only nodes (points) are supported at the moment.
-bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object);
+bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object, editor::EditorConfig const & config);
 
 std::string DebugPrint(XMLFeature const & feature);
 std::string DebugPrint(XMLFeature::Type const type);
