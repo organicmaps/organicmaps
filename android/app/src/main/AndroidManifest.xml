@@ -186,6 +186,28 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="http"/>
+        <data android:scheme="https"/>
+        <data android:scheme="content"/>
+        <data android:scheme="file"/>
+        <data android:scheme="data"/>
+        <data android:host="*"/>
+        <data android:mimeType="application/geo+json"/>
+        <data android:mimeType="application/vnd.geo+json"/>
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.SEND"/>
+        <action android:name="android.intent.action.SEND_MULTIPLE"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:mimeType="application/geo+json"/>
+        <data android:mimeType="application/vnd.geo+json"/>
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="content"/>
         <data android:scheme="file"/>
         <data android:scheme="data"/>
@@ -257,6 +279,15 @@
         <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.KMB" />
         <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.kmb" />
         <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.KMB" />
+        <!-- GeoJson format -->
+        <data android:pathPattern="/.*\\.geojson" />
+        <data android:pathPattern="/.*\\..*\\.geojson" />
+        <data android:pathPattern="/.*\\..*\\..*\\.geojson" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.geojson" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.geojson" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.geojson" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.geojson" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.geojson" />
       </intent-filter>
 
       <!-- Duplicates the intent-filter above except it doesn't have mimeType, see
