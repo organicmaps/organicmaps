@@ -446,6 +446,12 @@ struct RGBAToGarmin
   std::string_view color;
 };
 
+struct RGBAToPredefined
+{
+  uint32_t rgba;
+  PredefinedColor predefinedColor;
+};
+
 auto constexpr kRGBAToGarmin = std::to_array<RGBAToGarmin>({{0x000000ff, "Black"},
                                                             {0x8b0000ff, "DarkRed"},
                                                             {0x006400ff, "DarkGreen"},
@@ -462,6 +468,36 @@ auto constexpr kRGBAToGarmin = std::to_array<RGBAToGarmin>({{0x000000ff, "Black"
                                                             {0xff00ffff, "Magenta"},
                                                             {0x00ffffff, "Cyan"},
                                                             {0xffffffff, "White"}});
+
+std::array<RGBAToPredefined, kOrderedPredefinedColors.size()> buildRGBAToPredefined()
+{
+  auto res = std::array<RGBAToPredefined, kOrderedPredefinedColors.size()>();
+  for (size_t i = 0; i < kOrderedPredefinedColors.size(); ++i)
+    res[i] = {ColorFromPredefinedColor(kOrderedPredefinedColors[i]).GetRGBA(), kOrderedPredefinedColors[i]};
+  return res;
+}
+
+auto const kRGBAToPredefined = gpx::buildRGBAToPredefined();
+
+PredefinedColor MapPredefinedColor(uint32_t rgba)
+{
+  auto closestColor = kRGBAToPredefined[0].predefinedColor;
+  auto minDistance = std::numeric_limits<int>::max();
+  for (auto const & [rgbaGarmin, color] : kRGBAToPredefined)
+  {
+    auto const distance = ColorDistance(rgba, rgbaGarmin);
+
+    if (distance == 0)
+      return color;  // Exact match.
+
+    if (distance < minDistance)
+    {
+      minDistance = distance;
+      closestColor = color;
+    }
+  }
+  return closestColor;
+}
 
 std::string_view MapGarminColor(uint32_t rgba)
 {
@@ -524,6 +560,14 @@ void SaveCategoryData(Writer & writer, CategoryData const & categoryData)
   writer << "</metadata>\n";
 }
 
+uint32_t BookmarkColor(BookmarkData const & bookmarkData)
+{
+  auto const & [predefinedColor, rgba] = bookmarkData.m_color;
+  if (predefinedColor != PredefinedColor::Red)
+    return ColorFromPredefinedColor(predefinedColor).GetRGBA();
+  return rgba;
+}
+
 void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
 {
   auto const [lat, lon] = mercator::ToLatLon(bookmarkData.m_point);
@@ -543,6 +587,14 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
     writer << kIndent2 << "<desc>";
     SaveStringWithCDATA(writer, *description);
     writer << "</desc>\n";
+  }
+  if (auto const color = BookmarkColor(bookmarkData); color != kInvalidColor)
+  {
+    writer << kIndent2 << "<extensions>\n";
+    writer << kIndent4 << "<xsi:gpx><color>#";
+    SaveColorToARGB(writer, color);
+    writer << "</color></xsi:gpx>\n";
+    writer << kIndent2 << "</extensions>\n";
   }
   writer << "</wpt>\n";
 }

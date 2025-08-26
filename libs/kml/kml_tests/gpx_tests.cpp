@@ -38,14 +38,19 @@ static std::string ReadFile(char const * testFile)
   return sourceFileText;
 }
 
-static std::string ReadFileAndSerialize(char const * testFile)
+static std::string Serialize(kml::FileData const & dataFromFile)
 {
-  kml::FileData const dataFromFile = LoadGpxFromFile(testFile);
   std::string resultBuffer;
   MemWriter<decltype(resultBuffer)> sink(resultBuffer);
   kml::gpx::SerializerGpx ser(dataFromFile);
   ser.Serialize(sink);
   return resultBuffer;
+}
+
+static std::string ReadFileAndSerialize(char const * testFile)
+{
+  kml::FileData const dataFromFile = LoadGpxFromFile(testFile);
+  return Serialize(dataFromFile);
 }
 
 void ImportExportCompare(char const * testFile)
@@ -321,6 +326,20 @@ UNIT_TEST(Empty)
   kml::FileData dataFromFile = LoadGpxFromFile("test_data/gpx/empty.gpx");
   TEST_EQUAL("new", dataFromFile.m_categoryData.m_name[kml::kDefaultLang], ());
   TEST_EQUAL(0, dataFromFile.m_tracksData.size(), ());
+}
+
+UNIT_TEST(ImportExportWptColor)
+{
+  ImportExportCompare("test_data/gpx/point_with_predefined_color_2.gpx");
+}
+
+UNIT_TEST(PointWithPredefinedColor)
+{
+  kml::FileData dataFromFile = LoadGpxFromFile("test_data/gpx/point_with_predefined_color_1.gpx");
+  dataFromFile.m_bookmarksData[0].m_color.m_predefinedColor = kml::PredefinedColor::Blue;
+  auto const actual = Serialize(dataFromFile);
+  auto const expected = ReadFile("test_data/gpx/point_with_predefined_color_2.gpx");
+  TEST_EQUAL(expected, actual, ());
 }
 
 UNIT_TEST(OsmandColor1)

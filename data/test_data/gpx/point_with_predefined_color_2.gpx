@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<gpx version="1.1" creator="Organic Maps" xmlns="http://www.topografix.com/GPX/1/1"
+    xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3"
+    xmlns:gpx_style="http://www.topografix.com/GPX/gpx_style/0/2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.topografix.com/GPX/1/1 https://www.topografix.com/GPX/1/1/gpx.xsd http://www.topografix.com/GPX/gpx_style/0/2 https://www.topografix.com/GPX/gpx_style/0/2/gpx_style.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 https://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd">
+<metadata>
+</metadata>
+<wpt lat="48.209846" lon="16.376023">
+  <name>Point 1</name>
+  <desc>Point 1</desc>
+  <extensions>
+    <xsi:gpx><color>#FF0066CC</color></xsi:gpx>
+  </extensions>
+</wpt>
+</gpx>
