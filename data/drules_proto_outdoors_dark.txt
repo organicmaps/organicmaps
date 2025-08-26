@@ -25084,222 +25084,52 @@ cont {
 cont {
   name: "highway-footway-area"
   element {
-    scale: 11
-    lines {
-      width: 1.0
-      color: 4933187
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 180
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 1.1
-      color: 4933187
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 180
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.3
-      color: 4933187
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 180
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 6710886
-        stroke_color: 856756480
-      }
-      priority: 2950
-    }
-  }
-  element {
     scale: 14
-    lines {
-      width: 1.6
-      color: 4933187
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 180
-      cap: BUTTCAP
-    }
     area {
       color: 2499106
       priority: -1840
-    }
-    path_text {
-      primary {
-        height: 11
-        color: 6710886
-        stroke_color: 856756480
-      }
-      priority: 2950
     }
   }
   element {
     scale: 15
-    lines {
-      width: 2.0
-      color: 4933187
-      dashdot {
-        dd: 6.0
-        dd: 3.5
-      }
-      priority: 180
-      cap: BUTTCAP
-    }
     area {
       color: 2499106
       priority: -1840
-    }
-    path_text {
-      primary {
-        height: 11
-        color: 6710886
-        stroke_color: 856756480
-      }
-      priority: 2950
     }
   }
   element {
     scale: 16
-    lines {
-      width: 2.6
-      color: 4933187
-      dashdot {
-        dd: 6.0
-        dd: 3.5
-      }
-      priority: 180
-    }
     area {
       color: 2499106
       priority: -1840
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2950
     }
   }
   element {
     scale: 17
-    lines {
-      width: 3.3
-      color: 4933187
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 180
-    }
     area {
       color: 2499106
       priority: -1840
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2950
     }
   }
   element {
     scale: 18
-    lines {
-      width: 4.0
-      color: 4933187
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 180
-    }
     area {
       color: 2499106
       priority: -1840
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2950
     }
   }
   element {
     scale: 19
-    lines {
-      width: 4.0
-      color: 4933187
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 180
-    }
     area {
       color: 2499106
       priority: -1840
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2950
     }
   }
   element {
     scale: 20
-    lines {
-      width: 4.0
-      color: 4933187
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 180
-    }
     area {
       color: 2499106
       priority: -1840
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2950
     }
   }
 }
@@ -30811,172 +30641,51 @@ cont {
   }
   element {
     scale: 14
-    lines {
-      width: 1.6
-      color: 659375940
-      dashdot {
-        dd: 3.6
-        dd: 1.6
-      }
-      priority: 200
-      cap: BUTTCAP
-    }
     area {
       color: 2499106
       priority: -1830
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 6710886
-        stroke_color: 437326080
-      }
-      priority: 3150
     }
   }
   element {
     scale: 15
-    lines {
-      width: 2.0
-      color: 659375940
-      dashdot {
-        dd: 5.0
-        dd: 2.2
-      }
-      priority: 200
-      cap: BUTTCAP
-    }
     area {
       color: 2499106
       priority: -1830
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 6710886
-        stroke_color: 437326080
-      }
-      priority: 3150
     }
   }
   element {
     scale: 16
-    lines {
-      width: 2.4
-      color: 659375940
-      dashdot {
-        dd: 5.4
-        dd: 2.7
-      }
-      priority: 200
-    }
     area {
       color: 2499106
       priority: -1830
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 394752
-      }
-      priority: 3150
     }
   }
   element {
     scale: 17
-    lines {
-      width: 3.0
-      color: 659375940
-      dashdot {
-        dd: 5.0
-        dd: 2.0
-      }
-      priority: 200
-    }
     area {
       color: 2499106
       priority: -1830
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 394752
-      }
-      priority: 3150
     }
   }
   element {
     scale: 18
-    lines {
-      width: 4.0
-      color: 5064516
-      dashdot {
-        dd: 7.0
-        dd: 3.0
-      }
-      priority: 200
-    }
     area {
       color: 2499106
       priority: -1830
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 7829367
-        stroke_color: 394752
-      }
-      priority: 3150
     }
   }
   element {
     scale: 19
-    lines {
-      width: 5.0
-      color: 5064516
-      dashdot {
-        dd: 16.2
-        dd: 8.1
-      }
-      priority: 200
-    }
     area {
       color: 2499106
       priority: -1830
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 7829367
-        stroke_color: 394752
-      }
-      priority: 3150
     }
   }
   element {
     scale: 20
-    lines {
-      width: 5.0
-      color: 5064516
-      dashdot {
-        dd: 16.2
-        dd: 8.1
-      }
-      priority: 200
-    }
     area {
       color: 2499106
       priority: -1830
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 7829367
-        stroke_color: 394752
-      }
-      priority: 3150
     }
   }
 }
