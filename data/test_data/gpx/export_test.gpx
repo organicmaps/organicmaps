@@ -19,6 +19,12 @@
     <xsi:gpx><color>#FF00FF00</color></xsi:gpx>
   </extensions>
 </wpt>
+<wpt lat="48.209849" lon="16.376029">
+  <name>Point with color</name>
+  <extensions>
+    <xsi:gpx><color>#FFFFC800</color></xsi:gpx>
+  </extensions>
+</wpt>
 <trk>
   <name>Some random route</name>
   <extensions>

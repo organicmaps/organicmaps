@@ -70,6 +70,54 @@ void GpxParser::ResetPoint()
   m_timestamp = base::INVALID_TIME_STAMP;
 }
 
+std::tuple<int, int, int> ExtractRGB(uint32_t color)
+{
+  return {(color >> 24) & 0xFF, (color >> 16) & 0xFF, (color >> 8) & 0xFF};
+}
+
+int ColorDistance(uint32_t color1, uint32_t color2)
+{
+  auto const [r1, g1, b1] = ExtractRGB(color1);
+  auto const [r2, g2, b2] = ExtractRGB(color2);
+  return (r1 - r2) * (r1 - r2) + (g1 - g2) * (g1 - g2) + (b1 - b2) * (b1 - b2);
+}
+
+struct RGBAToPredefined
+{
+  uint32_t rgba;
+  PredefinedColor predefinedColor;
+};
+
+std::array<RGBAToPredefined, kOrderedPredefinedColors.size()> buildRGBAToPredefined()
+{
+  auto res = std::array<RGBAToPredefined, kOrderedPredefinedColors.size()>();
+  for (size_t i = 0; i < kOrderedPredefinedColors.size(); ++i)
+    res[i] = {ColorFromPredefinedColor(kOrderedPredefinedColors[i]).GetRGBA(), kOrderedPredefinedColors[i]};
+  return res;
+}
+
+auto const kRGBAToPredefined = gpx::buildRGBAToPredefined();
+
+static PredefinedColor MapPredefinedColor(uint32_t rgba)
+{
+  auto closestColor = kRGBAToPredefined[0].predefinedColor;
+  auto minDistance = std::numeric_limits<int>::max();
+  for (auto const & [rgbaGarmin, color] : kRGBAToPredefined)
+  {
+    auto const distance = ColorDistance(rgba, rgbaGarmin);
+
+    if (distance == 0)
+      return color;  // Exact match.
+
+    if (distance < minDistance)
+    {
+      minDistance = distance;
+      closestColor = color;
+    }
+  }
+  return closestColor;
+}
+
 bool GpxParser::MakeValid()
 {
   if (GEOMETRY_TYPE_POINT == m_geometryType)
@@ -80,11 +128,10 @@ bool GpxParser::MakeValid()
       // Set default name.
       if (m_name.empty())
         m_name = kml::PointToLineString(m_org);
-
-      // Set default pin.
-      if (m_predefinedColor == PredefinedColor::None)
+      if (m_color != kInvalidColor)
+        m_predefinedColor = MapPredefinedColor(m_color);
+      else
         m_predefinedColor = PredefinedColor::Red;
-
       return true;
     }
     return false;
@@ -428,28 +475,10 @@ std::string GpxParser::BuildDescription() const
   return m_description + "\n\n" + m_comment;
 }
 
-std::tuple<int, int, int> ExtractRGB(uint32_t color)
-{
-  return {(color >> 24) & 0xFF, (color >> 16) & 0xFF, (color >> 8) & 0xFF};
-}
-
-int ColorDistance(uint32_t color1, uint32_t color2)
-{
-  auto const [r1, g1, b1] = ExtractRGB(color1);
-  auto const [r2, g2, b2] = ExtractRGB(color2);
-  return (r1 - r2) * (r1 - r2) + (g1 - g2) * (g1 - g2) + (b1 - b2) * (b1 - b2);
-}
-
 struct RGBAToGarmin
 {
   uint32_t rgba;
   std::string_view color;
-};
-
-struct RGBAToPredefined
-{
-  uint32_t rgba;
-  PredefinedColor predefinedColor;
 };
 
 auto constexpr kRGBAToGarmin = std::to_array<RGBAToGarmin>({{0x000000ff, "Black"},
@@ -468,36 +497,6 @@ auto constexpr kRGBAToGarmin = std::to_array<RGBAToGarmin>({{0x000000ff, "Black"
                                                             {0xff00ffff, "Magenta"},
                                                             {0x00ffffff, "Cyan"},
                                                             {0xffffffff, "White"}});
-
-std::array<RGBAToPredefined, kOrderedPredefinedColors.size()> buildRGBAToPredefined()
-{
-  auto res = std::array<RGBAToPredefined, kOrderedPredefinedColors.size()>();
-  for (size_t i = 0; i < kOrderedPredefinedColors.size(); ++i)
-    res[i] = {ColorFromPredefinedColor(kOrderedPredefinedColors[i]).GetRGBA(), kOrderedPredefinedColors[i]};
-  return res;
-}
-
-auto const kRGBAToPredefined = gpx::buildRGBAToPredefined();
-
-static PredefinedColor MapPredefinedColor(uint32_t rgba)
-{
-  auto closestColor = kRGBAToPredefined[0].predefinedColor;
-  auto minDistance = std::numeric_limits<int>::max();
-  for (auto const & [rgbaGarmin, color] : kRGBAToPredefined)
-  {
-    auto const distance = ColorDistance(rgba, rgbaGarmin);
-
-    if (distance == 0)
-      return color;  // Exact match.
-
-    if (distance < minDistance)
-    {
-      minDistance = distance;
-      closestColor = color;
-    }
-  }
-  return closestColor;
-}
 
 std::string_view MapGarminColor(uint32_t rgba)
 {
@@ -563,9 +562,11 @@ void SaveCategoryData(Writer & writer, CategoryData const & categoryData)
 uint32_t BookmarkColor(BookmarkData const & bookmarkData)
 {
   auto const & [predefinedColor, rgba] = bookmarkData.m_color;
-  if (predefinedColor != PredefinedColor::Red)
+  if (rgba != kInvalidColor)
+    return rgba;
+  if (predefinedColor != PredefinedColor::None && predefinedColor != PredefinedColor::Red)
     return ColorFromPredefinedColor(predefinedColor).GetRGBA();
-  return rgba;
+  return kInvalidColor;
 }
 
 void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
