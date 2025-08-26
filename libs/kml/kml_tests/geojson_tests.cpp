@@ -10,12 +10,13 @@ namespace geojson_tests
 static kml::FileData LoadGeojsonFromString(std::string_view content)
 {
   TEST_NO_THROW(
-  {
-    kml::FileData dataFromText;
-    kml::DeserializerGeoJson des(dataFromText);
-    des.Deserialize(content);
-    return dataFromText;
-  }, ());
+      {
+        kml::FileData dataFromText;
+        kml::DeserializerGeoJson des(dataFromText);
+        des.Deserialize(content);
+        return dataFromText;
+      },
+      ());
 }
 
 UNIT_TEST(GeoJson_Parse_Basic)
@@ -81,10 +82,11 @@ UNIT_TEST(GeoJson_Parse_Basic)
 
 UNIT_TEST(GeoJson_Parse_basic_2)
 {
-    std::string_view constexpr input = R"({"type":"FeatureCollection","features":[{"type":"Feature","properties":{"marker-color":"#000000","label":"Hello GeoJson","description":"First import test"},"geometry":{"coordinates":[30.568097444337525,50.46385629798317],"type":"Point"},"id":0}]})";
-    kml::FileData const dataFromText = LoadGeojsonFromString(input);
+  std::string_view constexpr input =
+      R"({"type":"FeatureCollection","features":[{"type":"Feature","properties":{"marker-color":"#000000","label":"Hello GeoJson","description":"First import test"},"geometry":{"coordinates":[30.568097444337525,50.46385629798317],"type":"Point"},"id":0}]})";
+  kml::FileData const dataFromText = LoadGeojsonFromString(input);
 
-    TEST_EQUAL(dataFromText.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(dataFromText.m_bookmarksData.size(), 1, ());
 }
 
 }  // namespace geojson_tests

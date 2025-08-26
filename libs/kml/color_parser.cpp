@@ -214,15 +214,15 @@ std::optional<uint32_t> ParseOSMColor(std::string_view c)
 // Try to parse sequentially: Hex color, OSM color, Garmin color.
 std::optional<uint32_t> ParseColor(std::string_view c)
 {
-    auto maybeColor = ParseHexColor(c);
-    if (maybeColor)
-        return maybeColor;
+  auto maybeColor = ParseHexColor(c);
+  if (maybeColor)
+    return maybeColor;
 
-    maybeColor = ParseOSMColor(c);
-    if (maybeColor)
-        return maybeColor;
+  maybeColor = ParseOSMColor(c);
+  if (maybeColor)
+    return maybeColor;
 
-    return ParseGarminColor(c);
+  return ParseGarminColor(c);
 }
 
 }  // namespace kml
