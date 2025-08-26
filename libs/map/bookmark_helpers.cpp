@@ -5,6 +5,7 @@
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
 #include "kml/serdes_gpx.hpp"
+#include "kml/serdes_geojson.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_data.hpp"
@@ -353,6 +354,15 @@ std::string GenerateValidAndUniqueFilePathForGPX(std::string const & fileName)
   return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kGpxExtension);
 }
 
+std::string GenerateValidAndUniqueFilePathForGeoJson(std::string const & fileName)
+{
+    std::string filePath = RemoveInvalidSymbols(fileName);
+    if (filePath.empty())
+        filePath = kDefaultBookmarksFileName;
+
+    return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kGeoJsonExtension);
+}
+
 std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName)
 {
   std::string extension = base::GetFileExtension(fileName);
@@ -443,6 +453,10 @@ std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePat
   {
     return GetFilePathsToLoadFromKmz(filePath);
   }
+  else if (fileExt == kGeoJsonExtension)
+  {
+    return GetFilePathsToLoadFromGeoJson(filePath);
+  }
   else
   {
     LOG(LWARNING, ("Unknown file type", filePath));
@@ -503,6 +517,14 @@ std::vector<std::string> GetFilePathsToLoadFromKml(std::string const & filePath)
   return {std::move(fileSavePath)};
 }
 
+std::vector<std::string> GetFilePathsToLoadFromGeoJson(std::string const & filePath)
+{  // Copy input file to temp GeoJson with unique name.
+    auto fileSavePath = GenerateValidAndUniqueFilePathForGeoJson(base::FileNameFromFullPath(filePath));
+    if (!base::CopyFileX(filePath, fileSavePath))
+        return {};
+    return {std::move(fileSavePath)};
+}
+
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType)
 {
   auto data = std::make_unique<kml::FileData>();
@@ -522,6 +544,15 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fi
     {
       kml::DeserializerGpx des(*data);
       des.Deserialize(reader);
+    }
+    else if (fileType == KmlFileType::GeoJson)
+    {
+        kml::DeserializerGeoJson des(*data);
+        std::string content;
+        reader.ReadAsString(content);
+
+        std::string_view content_view(content);
+        des.Deserialize(content_view);
     }
     else
     {
