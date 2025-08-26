@@ -51,7 +51,7 @@ landuse-cemetery-christian                          # area z14- (also has icon z
 === 180
 
 amenity-marketplace                                 # area z16- (also has icon z16-, caption(optional) z16-)
-highway-pedestrian-area                             # area z14- (also has line z13-, pathtext z14-)
+highway-pedestrian-area                             # area z14- (also has line z13)
 highway-rest_area                                   # area z15- (also has icon z14-, caption(optional) z15-)
 highway-services                                    # area z14- (also has icon z14-, caption(optional) z14-)
 landuse-retail                                      # area z15-
@@ -60,7 +60,7 @@ leisure-water_park                                  # area z16- (also has icon z
 tourism-camp_site                                   # area z13- (also has icon z13-, caption(optional) z13-)
 === 170
 
-highway-footway-area                                # area z14- (also has line z11-, pathtext z13-)
+highway-footway-area                                # area z14-
 leisure-track-area                                  # area z15- (also has caption z16-)
 === 160
 
