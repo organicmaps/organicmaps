@@ -47,31 +47,35 @@ bool GeojsonParser::Parse(std::string_view & json_content)
       BookmarkData bookmark;
 
       // Parse label
-      if (props_json->contains("name") && (*props_json)["name"].is_string())
+      auto nameVal = (*props_json)["name"];
+      auto labelVal = (*props_json)["label"];
+      if (nameVal.is_string())
       {
         auto name = kml::LocalizableString();
-        kml::SetDefaultStr(name, (*props_json)["name"].get_string());
+        kml::SetDefaultStr(name, nameVal.get_string());
         bookmark.m_name = name;
       }
-      else if (props_json->contains("label") && (*props_json)["label"].is_string())
+      else if (labelVal.is_string())
       {
         auto name = kml::LocalizableString();
-        kml::SetDefaultStr(name, (*props_json)["label"].get_string());
+        kml::SetDefaultStr(name, labelVal.get_string());
         bookmark.m_name = name;
       }
 
       // Parse description
-      if (props_json->contains("description") && (*props_json)["description"].is_string())
+      auto descriptionVal = (*props_json)["description"];
+      if (descriptionVal.is_string())
       {
         auto descr = kml::LocalizableString();
-        kml::SetDefaultStr(descr, (*props_json)["description"].get_string());
+        kml::SetDefaultStr(descr, descriptionVal.get_string());
         bookmark.m_description = descr;
       }
 
       // Parse color
-      if (props_json->contains("marker-color") && (*props_json)["marker-color"].is_string())
+      auto markerColorVal = (*props_json)["marker-color"];
+      if (markerColorVal.is_string())
       {
-        auto colorRGBA = ParseColor((*props_json)["marker-color"].get_string());
+        auto colorRGBA = ParseColor(markerColorVal.get_string());
         if (colorRGBA)
           bookmark.m_color = ColorData{.m_rgba = *colorRGBA};
       }
@@ -83,18 +87,20 @@ bool GeojsonParser::Parse(std::string_view & json_content)
       //}
 
       // UMap custom properties
-      if (props_json->contains("_umap_options") && (*props_json)["_umap_options"].is_object())
+      auto umapOptionsVal = (*props_json)["_umap_options"];
+      if (umapOptionsVal.is_object())
       {
-        glz::json_t::object_t umap_options = (*props_json)["_umap_options"].get_object();
+        glz::json_t::object_t umap_options = umapOptionsVal.get_object();
         // Parse color from properties['_umap_options']['color']
-        if (umap_options.contains("color") && umap_options["color"].is_string())
+        auto colorVal = umap_options["color"];
+        if (colorVal.is_string())
         {
-          auto colorRGBA = ParseColor(umap_options["color"].get_string());
+          auto colorRGBA = ParseColor(colorVal.get_string());
           if (colorRGBA)
             bookmark.m_color = ColorData{.m_rgba = *colorRGBA};
         }
 
-        // TODO: Store 'umap_options' as a JSON string in some bookmark field.
+        // TODO: Store '_umap_options' as a JSON string in some bookmark field.
       }
 
       bookmark.m_point = mercator::FromLatLon(latitude, longitude);
@@ -131,44 +137,50 @@ bool GeojsonParser::Parse(std::string_view & json_content)
       TrackData track;
 
       // Parse label
-      if (props_json->contains("name") && (*props_json)["name"].is_string())
+      auto nameVal = (*props_json)["name"];
+      auto labelVal = (*props_json)["label"];
+      if (nameVal.is_string())
       {
         auto name = kml::LocalizableString();
-        kml::SetDefaultStr(name, (*props_json)["name"].get_string());
+        kml::SetDefaultStr(name, nameVal.get_string());
         track.m_name = name;
       }
-      else if (props_json->contains("label") && (*props_json)["label"].is_string())
+      else if (labelVal.is_string())
       {
         auto name = kml::LocalizableString();
-        kml::SetDefaultStr(name, (*props_json)["label"].get_string());
+        kml::SetDefaultStr(name, labelVal.get_string());
         track.m_name = name;
       }
 
       // Parse color
       ColorData * lineColor = nullptr;
-      if (props_json->contains("stroke") && (*props_json)["stroke"].is_string())
+      auto strokeVal = (*props_json)["stroke"];
+      if (strokeVal.is_string())
       {
-        auto colorRGBA = ParseColor((*props_json)["stroke"].get_string());
+        auto colorRGBA = ParseColor(strokeVal.get_string());
         if (colorRGBA)
-        {
-          // track.m_layers.push_back(TrackLayer{.m_color = ColorData{.m_rgba = *colorRGBA}});
           lineColor = new ColorData{.m_rgba = *colorRGBA};
-        }
       }
 
       // UMap custom properties
-      if (props_json->contains("_umap_options") && (*props_json)["_umap_options"].is_object())
+      auto umapOptionsVal = (*props_json)["_umap_options"];
+      if (umapOptionsVal.is_object())
       {
-        glz::json_t::object_t umap_options = (*props_json)["_umap_options"].get_object();
+        glz::json_t::object_t umap_options = umapOptionsVal.get_object();
         // Parse color from properties['_umap_options']['color']
-        if (umap_options.contains("color") && umap_options["color"].is_string())
+        auto colorVal = (*props_json)["color"];
+        if (colorVal.is_string())
         {
-          auto colorRGBA = ParseColor(umap_options["color"].get_string());
+          auto colorRGBA = ParseColor(colorVal.get_string());
           if (colorRGBA)
+          {
+            if (lineColor != nullptr)
+              delete lineColor;
             lineColor = new ColorData{.m_rgba = *colorRGBA};
+          }
         }
 
-        // TODO: Store 'umap_options' as a JSON string in some bookmark field.
+        // TODO: Store '_umap_options' as a JSON string in some bookmark field.
       }
 
       if (lineColor != nullptr)
