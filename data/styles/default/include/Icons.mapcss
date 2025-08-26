@@ -1041,8 +1041,12 @@ node|z17-[amenity=post_office],
 area|z17-[amenity=post_office],
 node|z18-[post_office=post_partner],
 area|z18-[post_office=post_partner],
+node|z17-[power=plant],
+area|z17-[power=plant],
 node|z17-[power=station],
 area|z17-[power=station],
+node|z17-[power=substation],
+area|z17-[power=substation],
 node|z17-[man_made=works],
 area|z17-[man_made=works],
 node|z17-[amenity=parcel_locker],
@@ -1100,8 +1104,6 @@ area|z18-[amenity=stripclub],
 node|z18-[amenity=love_hotel],
 node|z18-[amenity=public_bookcase],
 area|z18-[amenity=public_bookcase],
-node|z17-[power=substation],
-area|z17-[power=substation],
 node|z18-[man_made=survey_point],
 node|z18-[man_made=petroleum_well],
 node|z18-[man_made=flare],
@@ -1771,15 +1773,15 @@ node|z17-[amenity=waste_transfer_station],
 area|z17-[amenity=waste_transfer_station],
 {icon-image: recycling-m.svg;}
 
-node|z17-[power=station],
-area|z17-[power=station],
 node|z17-[power=plant],
 area|z17-[power=plant],
+node|z17-[power=station],
+area|z17-[power=station],
+node|z17-[power=substation],
+area|z17-[power=substation],
 /* Skip individual solar generators, because there are a lot of mapped panels */
 node|z17-[power=generator][generator:source!=solar],
 area|z17-[power=generator][generator:source!=solar],
-node|z17-[power=substation],
-area|z17-[power=substation],
 {icon-image: power-m.svg;font-size: 11;}
 
 
@@ -1793,9 +1795,6 @@ area|z18-[power=generator][generator:source=wind],
 node|z15-[power=plant][plant:source=wind],
 area|z15-[power=plant][plant:source=wind],
 {icon-image: power_plant_wind-m.svg;}
-node|z16-[power=plant][plant:source=wind],
-area|z16-[power=plant][plant:source=wind],
-{text: name;text-color: @poi_label; text-offset: 1; font-size: 10;}
 
 node|z17-[amenity=shower],
 area|z17-[amenity=shower]

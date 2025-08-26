@@ -728,6 +728,12 @@ building-address                                    # caption z18-
 landuse-landfill                                    # caption z15- (also has area z15-)
 landuse-quarry                                      # caption z15- (also has area z15-)
 landuse-railway                                     # caption z15- (also has area z15-)
+power-plant
+power-plant-coal
+power-plant-gas
+power-plant-hydro
+power-plant-solar
+power-plant-wind
 power-station                                       # caption z15- (also has area z15-)
 power-substation                                    # caption z15- (also has area z15-)
 === 150

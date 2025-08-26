@@ -93,6 +93,12 @@ landuse-landfill                                    # area z15- (also has captio
 landuse-quarry                                      # area z15- (also has caption z15-)
 landuse-railway                                     # area z15- (also has caption z15-)
 landuse-religious                                   # area z15-
+power-plant
+power-plant-coal
+power-plant-gas
+power-plant-hydro
+power-plant-solar
+power-plant-wind
 power-station                                       # area z15- (also has caption z15-)
 power-substation                                    # area z15- (also has caption z15-)
 === 40
