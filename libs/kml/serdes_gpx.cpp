@@ -479,7 +479,7 @@ std::array<RGBAToPredefined, kOrderedPredefinedColors.size()> buildRGBAToPredefi
 
 auto const kRGBAToPredefined = gpx::buildRGBAToPredefined();
 
-PredefinedColor MapPredefinedColor(uint32_t rgba)
+static PredefinedColor MapPredefinedColor(uint32_t rgba)
 {
   auto closestColor = kRGBAToPredefined[0].predefinedColor;
   auto minDistance = std::numeric_limits<int>::max();
