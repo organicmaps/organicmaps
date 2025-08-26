@@ -31,4 +31,5 @@
     <string name="maps_storage_shared">Armazenamento interno partilhado</string>
     <string name="maps_storage_external">Armazenamento externo partilhado</string>
     <string name="maps_storage_removable">Cartão SD</string>
+    <string name="routes_update_maps_text">Para exibir rotas, os mapas devem ser atualizados.</string>
 </resources>
