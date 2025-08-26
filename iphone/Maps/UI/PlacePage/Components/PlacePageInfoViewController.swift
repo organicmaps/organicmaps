@@ -187,6 +187,7 @@ class PlacePageInfoViewController: UIViewController {
   private var outdoorSeatingView: InfoItemView?
   private var driveThroughView: InfoItemView?
   private var networkView: InfoItemView?
+  private var routeRefsView: InfoItemView?
 
   weak var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
@@ -225,6 +226,10 @@ class PlacePageInfoViewController: UIViewController {
 
     if let cuisine = placePageInfoData.cuisine {
       cuisineView = createInfoItem(cuisine, icon: UIImage(named: "ic_placepage_cuisine"))
+    }
+
+    if let routeRefs = placePageInfoData.routeRefs {
+      routeRefsView = createInfoItem(routeRefs, icon: UIImage(resource: .icPlacepageBus))
     }
 
     /// @todo Entrance is missing compared with Android. It's shown in title, but anyway ..
