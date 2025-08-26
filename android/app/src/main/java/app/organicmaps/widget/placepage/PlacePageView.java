@@ -349,6 +349,12 @@ public class PlacePageView extends Fragment
     BookmarkManager.INSTANCE.removeSharingListener(this);
     MwmApplication.from(requireContext()).getLocationHelper().removeListener(this);
     MwmApplication.from(requireContext()).getSensorHelper().removeListener(this);
+    
+    // Ensure NMEA subscription is cleaned up when fragment stops
+    if (mMapObject != null && mMapObject.isMyPosition()) {
+      MwmApplication.from(requireContext()).getLocationHelper().unsubscribeFromNmeaUpdates();
+    }
+    
     detachCountry();
   }
 
@@ -734,7 +740,18 @@ public class PlacePageView extends Fragment
 
     final StringBuilder builder = new StringBuilder();
     if (l.hasAltitude())
-      builder.append("▲").append(Framework.nativeFormatAltitude(l.getAltitude()));
+    {
+      // Apply geoid height correction for MSL altitude display
+      double altitude = l.getAltitude();
+      final var locationHelper = MwmApplication.from(requireContext()).getLocationHelper();
+      if (locationHelper.hasGeoidHeightCorrection()) {
+        Double geoidHeight = locationHelper.getCurrentGeoidHeight();
+        if (geoidHeight != null) {
+          altitude = altitude - geoidHeight; // MSL = ellipsoid - geoid height
+        }
+      }
+      builder.append("▲").append(Framework.nativeFormatAltitude(altitude));
+    }
     if (l.hasSpeed())
       builder.append("   ").append(Framework.nativeFormatSpeed(l.getSpeed()));
 
@@ -960,6 +977,18 @@ public class PlacePageView extends Fragment
     if (!mapObject.sameAs(mMapObject))
       detachCountry();
     setCurrentCountry();
+
+    // Handle NMEA subscription for My Position place page
+    final boolean wasMyPosition = mMapObject != null && mMapObject.isMyPosition();
+    final boolean isMyPosition = mapObject.isMyPosition();
+    
+    if (!wasMyPosition && isMyPosition) {
+      // User just opened My Position place page - subscribe to NMEA for geoid height correction
+      MwmApplication.from(requireContext()).getLocationHelper().subscribeToNmeaUpdates();
+    } else if (wasMyPosition && !isMyPosition) {
+      // User closed My Position place page - unsubscribe from NMEA
+      MwmApplication.from(requireContext()).getLocationHelper().unsubscribeFromNmeaUpdates();
+    }
 
     mMapObject = mapObject;
 

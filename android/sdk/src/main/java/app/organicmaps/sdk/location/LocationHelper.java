@@ -6,6 +6,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Handler;
@@ -59,6 +60,11 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private Handler mHandler;
   private Runnable mLocationTimeoutRunnable = this::notifyLocationUpdateTimeout;
 
+  // MSL altitude correction support
+  @NonNull
+  private final GeoidHeightCorrection mGeoidHeightCorrection;
+  private boolean mNmeaListenerActive = false;
+
   @NonNull
   private final GnssStatusCompat.Callback mGnssStatusCallback = new GnssStatusCompat.Callback() {
     @Override
@@ -96,6 +102,21 @@ public class LocationHelper implements BaseLocationProvider.Listener
     }
   };
 
+  @SuppressWarnings("deprecation")
+  @NonNull
+  private final GpsStatus.NmeaListener mNmeaListener = new GpsStatus.NmeaListener() {
+    @Override
+    public void onNmeaReceived(long timestamp, String nmea) {
+      if (NmeaParser.isValidGgaSentence(nmea)) {
+        Double geoidHeight = NmeaParser.parseGeoidHeight(nmea);
+        if (geoidHeight != null && mSavedLocation != null) {
+          mGeoidHeightCorrection.updateGeoidHeight(geoidHeight, 
+              mSavedLocation.getLatitude(), mSavedLocation.getLongitude());
+        }
+      }
+    }
+  };
+
   public LocationHelper(@NonNull Context context, @NonNull SensorHelper sensorHelper,
                         @NonNull LocationProviderFactory locationProviderFactory)
   {
@@ -103,6 +124,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mSensorHelper = sensorHelper;
     mLocationProvider = locationProviderFactory.getProvider(mContext, this);
     mHandler = new Handler();
+    mGeoidHeightCorrection = new GeoidHeightCorrection(context);
   }
 
   /**
@@ -166,9 +188,15 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
     }
 
+    // Apply geoid height correction to altitude for MSL display
+    double altitude = mSavedLocation.getAltitude();
+    if (altitude != 0.0 && mGeoidHeightCorrection.hasValidCorrection()) {
+      altitude = mGeoidHeightCorrection.applyCorrection(altitude);
+    }
+
     LocationState.nativeLocationUpdated(mSavedLocation.getTime(), mSavedLocation.getLatitude(),
                                         mSavedLocation.getLongitude(), mSavedLocation.getAccuracy(),
-                                        mSavedLocation.getAltitude(), mSavedLocation.getSpeed(),
+                                        altitude, mSavedLocation.getSpeed(),
                                         mSavedLocation.getBearing());
   }
 
@@ -390,6 +418,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     Logger.i(TAG);
     mLocationProvider.stop();
     unsubscribeFromGnssStatusUpdates();
+    unsubscribeFromNmeaUpdates(); // Ensure NMEA listener is also stopped
     mSensorHelper.stop();
     mHandler.removeCallbacks(mLocationTimeoutRunnable);
     mActive = false;
@@ -460,6 +489,72 @@ public class LocationHelper implements BaseLocationProvider.Listener
     LocationManagerCompat.unregisterGnssStatusCallback(locationManager, mGnssStatusCallback);
   }
 
+  /**
+   * Subscribes to NMEA updates to get geoid height correction for MSL altitude.
+   * This should be called when user views their position details (e.g., My Position place page).
+   */
+  @SuppressWarnings("deprecation")
+  @UiThread
+  public void subscribeToNmeaUpdates()
+  {
+    if (mNmeaListenerActive)
+    {
+      Logger.d(TAG, "NMEA listener already active");
+      return;
+    }
+
+    if (!LocationUtils.checkFineLocationPermission(mContext))
+    {
+      Logger.w(TAG, "Fine location permission not granted, cannot subscribe to NMEA");
+      return;
+    }
+
+    final LocationManager locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+    if (locationManager != null)
+    {
+      try
+      {
+        locationManager.addNmeaListener(mNmeaListener);
+        mNmeaListenerActive = true;
+        Logger.d(TAG, "Subscribed to NMEA updates for geoid height correction");
+      }
+      catch (SecurityException e)
+      {
+        Logger.e(TAG, "Failed to subscribe to NMEA updates", e);
+      }
+    }
+  }
+
+  /**
+   * Unsubscribes from NMEA updates.
+   * This should be called when user closes their position details (e.g., My Position place page).
+   */
+  @SuppressWarnings("deprecation")
+  @UiThread
+  public void unsubscribeFromNmeaUpdates()
+  {
+    if (!mNmeaListenerActive)
+    {
+      Logger.d(TAG, "NMEA listener not active");
+      return;
+    }
+
+    final LocationManager locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+    if (locationManager != null)
+    {
+      try
+      {
+        locationManager.removeNmeaListener(mNmeaListener);
+        mNmeaListenerActive = false;
+        Logger.d(TAG, "Unsubscribed from NMEA updates");
+      }
+      catch (SecurityException e)
+      {
+        Logger.e(TAG, "Failed to unsubscribe from NMEA updates", e);
+      }
+    }
+  }
+
   @UiThread
   public boolean isInFirstRun()
   {
@@ -490,5 +585,26 @@ public class LocationHelper implements BaseLocationProvider.Listener
       Logger.d(TAG, "Current location is available, so play the nice zoom animation");
       Framework.nativeRunFirstLaunchAnimation();
     }
+  }
+
+  /**
+   * Gets the current geoid height correction being applied.
+   * 
+   * @return geoid height in meters, or null if no correction is available
+   */
+  @Nullable
+  public Double getCurrentGeoidHeight()
+  {
+    return mGeoidHeightCorrection.getCurrentGeoidHeight();
+  }
+
+  /**
+   * Checks if geoid height correction is available and being applied.
+   * 
+   * @return true if MSL altitude correction is active
+   */
+  public boolean hasGeoidHeightCorrection()
+  {
+    return mGeoidHeightCorrection.hasValidCorrection();
   }
 }
