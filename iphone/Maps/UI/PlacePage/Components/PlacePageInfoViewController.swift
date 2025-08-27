@@ -300,6 +300,7 @@ class PlacePageInfoViewController: UIViewController {
     }
     coordinatesView = createInfoItem(coordFormats[formatId],
                                      icon: UIImage(resource: .icPlacepageCoordinate),
+                                     style: .link,
                                      accessoryImage: UIImage(resource: .icPlacepageChange),
                                      tapHandler: { [weak self] in
       guard let self else { return }
