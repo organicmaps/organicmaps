@@ -89,12 +89,12 @@ class PlacePageInfoViewController: UIViewController {
       addToStack(openingHoursViewController.view)
       openingHoursViewController.didMove(toParent: self)
     } else if let openingHoursString = placePageInfoData.openingHoursString {
-      rawOpeningHoursView = createInfoItem(openingHoursString, icon: UIImage(named: "ic_placepage_open_hours"))
+      rawOpeningHoursView = createInfoItem(openingHoursString, icon: UIImage(resource: .icPlacepageOpenHours))
       rawOpeningHoursView?.infoLabel.numberOfLines = 0
     }
 
     if let cuisine = placePageInfoData.cuisine {
-      cuisineView = createInfoItem(cuisine, icon: UIImage(named: "ic_placepage_cuisine"))
+      cuisineView = createInfoItem(cuisine, icon: UIImage(resource: .icPlacepageCuisine))
     }
 
     if let routeRefs = placePageInfoData.routeRefs {
@@ -109,7 +109,7 @@ class PlacePageInfoViewController: UIViewController {
         cellStyle = .link
       }
       return createInfoItem(phone.phone,
-                                 icon: UIImage(named: "ic_placepage_phone_number"),
+                                 icon: UIImage(resource: .icPlacepagePhoneNumber),
                                  style: cellStyle,
                                  tapHandler: { [weak self] in
         self?.delegate?.didPressCall(to: phone)
@@ -120,17 +120,17 @@ class PlacePageInfoViewController: UIViewController {
     })
 
     if let ppOperator = placePageInfoData.ppOperator {
-      operatorView = createInfoItem(ppOperator, icon: UIImage(named: "ic_placepage_operator"))
+      operatorView = createInfoItem(ppOperator, icon: UIImage(resource: .icPlacepageOperator))
     }
 
     if let network = placePageInfoData.network {
-      networkView = createInfoItem(network, icon: UIImage(named: "ic_placepage_network"))
+      networkView = createInfoItem(network, icon: UIImage(resource: .icPlacepageNetwork))
     }
 
     if let website = placePageInfoData.website {
       // Strip website url only when the value is displayed, to avoid issues when it's opened or edited.
       websiteView = createInfoItem(stripUrl(str: website),
-                                   icon: UIImage(named: "ic_placepage_website"),
+                                   icon: UIImage(resource: .icPlacepageWebsite),
                                    style: .link,
                                    tapHandler: { [weak self] in
         self?.delegate?.didPressWebsite()
@@ -142,7 +142,7 @@ class PlacePageInfoViewController: UIViewController {
 
     if let websiteMenu = placePageInfoData.websiteMenu {
       websiteView = createInfoItem(L("website_menu"),
-                                   icon: UIImage(named: "ic_placepage_website_menu"),
+                                   icon: UIImage(resource: .icPlacepageWebsiteMenu),
                                    style: .link,
                                    tapHandler: { [weak self] in
         self?.delegate?.didPressWebsiteMenu()
@@ -154,7 +154,7 @@ class PlacePageInfoViewController: UIViewController {
 
     if let wikipedia = placePageInfoData.wikipedia {
       wikipediaView = createInfoItem(L("read_in_wikipedia"),
-                                     icon: UIImage(named: "ic_placepage_wiki"),
+                                     icon: UIImage(resource: .icPlacepageWiki),
                                      style: .link,
                                      tapHandler: { [weak self] in
         self?.delegate?.didPressWikipedia()
@@ -166,7 +166,7 @@ class PlacePageInfoViewController: UIViewController {
 
     if let wikimediaCommons = placePageInfoData.wikimediaCommons {
       wikimediaCommonsView = createInfoItem(L("wikimedia_commons"),
-                                            icon: UIImage(named: "ic_placepage_wikimedia_commons"),
+                                            icon: UIImage(resource: .icPlacepageWikimediaCommons),
                                             style: .link,
                                             tapHandler: { [weak self] in
         self?.delegate?.didPressWikimediaCommons()
@@ -177,40 +177,40 @@ class PlacePageInfoViewController: UIViewController {
     }
 
     if let wifi = placePageInfoData.wifiAvailable {
-      wifiView = createInfoItem(wifi, icon: UIImage(named: "ic_placepage_wifi"))
+      wifiView = createInfoItem(wifi, icon: UIImage(resource: .icPlacepageWifi))
     }
 
     if let atm = placePageInfoData.atm {
-      atmView = createInfoItem(atm, icon: UIImage(named: "ic_placepage_atm"))
+      atmView = createInfoItem(atm, icon: UIImage(resource: .icPlacepageAtm))
     }
 
     if let level = placePageInfoData.level {
-      levelView = createInfoItem(level, icon: UIImage(named: "ic_placepage_level"))
+      levelView = createInfoItem(level, icon: UIImage(resource: .icPlacepageLevel))
     }
 
     if let capacity = placePageInfoData.capacity {
-      capacityView = createInfoItem(capacity, icon: UIImage(named: "ic_placepage_capacity"))
+      capacityView = createInfoItem(capacity, icon: UIImage(resource: .icPlacepageCapacity))
     }
 
     if let wheelchair = placePageInfoData.wheelchair {
-      wheelchairView = createInfoItem(wheelchair, icon: UIImage(named: "ic_placepage_wheelchair"))
+      wheelchairView = createInfoItem(wheelchair, icon: UIImage(resource: .icPlacepageWheelchair))
     }
 
     if let selfService = placePageInfoData.selfService {
-      selfServiceView = createInfoItem(selfService, icon: UIImage(named: "ic_placepage_self_service"))
+      selfServiceView = createInfoItem(selfService, icon: UIImage(resource: .icPlacepageSelfService))
     }
 
     if let outdoorSeating = placePageInfoData.outdoorSeating {
-      outdoorSeatingView = createInfoItem(outdoorSeating, icon: UIImage(named: "ic_placepage_outdoor_seating"))
+      outdoorSeatingView = createInfoItem(outdoorSeating, icon: UIImage(resource: .icPlacepageOutdoorSeating))
     }
 
     if let driveThrough = placePageInfoData.driveThrough {
-      driveThroughView = createInfoItem(driveThrough, icon: UIImage(named: "ic_placepage_drive_through"))
+      driveThroughView = createInfoItem(driveThrough, icon: UIImage(resource: .icPlacepageDriveThrough))
     }
 
     if let email = placePageInfoData.email {
       emailView = createInfoItem(email,
-                                 icon: UIImage(named: "ic_placepage_email"),
+                                 icon: UIImage(resource: .icPlacepageEmail),
                                  style: .link,
                                  tapHandler: { [weak self] in
         self?.delegate?.didPressEmail()
@@ -222,7 +222,7 @@ class PlacePageInfoViewController: UIViewController {
 
     if let facebook = placePageInfoData.facebook {
       facebookView = createInfoItem(facebook,
-                                    icon: UIImage(named: "ic_placepage_facebook"),
+                                    icon: UIImage(resource: .icPlacepageFacebook),
                                     style: .link,
                                     tapHandler: { [weak self] in
         self?.delegate?.didPressFacebook()
@@ -234,7 +234,7 @@ class PlacePageInfoViewController: UIViewController {
 
     if let instagram = placePageInfoData.instagram {
       instagramView = createInfoItem(instagram,
-                                     icon: UIImage(named: "ic_placepage_instagram"),
+                                     icon: UIImage(resource: .icPlacepageInstagram),
                                      style: .link,
                                      tapHandler: { [weak self] in
         self?.delegate?.didPressInstagram()
@@ -246,7 +246,7 @@ class PlacePageInfoViewController: UIViewController {
 
     if let twitter = placePageInfoData.twitter {
       twitterView = createInfoItem(twitter,
-                                   icon: UIImage(named: "ic_placepage_twitter"),
+                                   icon: UIImage(resource: .icPlacepageTwitter),
                                    style: .link,
                                    tapHandler: { [weak self] in
         self?.delegate?.didPressTwitter()
@@ -258,7 +258,7 @@ class PlacePageInfoViewController: UIViewController {
 
     if let vk = placePageInfoData.vk {
       vkView = createInfoItem(vk,
-                              icon: UIImage(named: "ic_placepage_vk"),
+                              icon: UIImage(resource: .icPlacepageVk),
                               style: .link,
                               tapHandler: { [weak self] in
         self?.delegate?.didPressVk()
@@ -270,7 +270,7 @@ class PlacePageInfoViewController: UIViewController {
 
     if let line = placePageInfoData.line {
       lineView = createInfoItem(line,
-                                icon: UIImage(named: "ic_placepage_line"),
+                                icon: UIImage(resource: .icPlacepageLine),
                                 style: .link,
                                 tapHandler: { [weak self] in
         self?.delegate?.didPressLine()
@@ -282,7 +282,7 @@ class PlacePageInfoViewController: UIViewController {
 
     if let address = placePageInfoData.address {
       addressView = createInfoItem(address,
-                                   icon: UIImage(named: "ic_placepage_address"),
+                                   icon: UIImage(resource: .icPlacepageAddress),
                                    longPressHandler: { [weak self] in
         self?.delegate?.didCopy(address)
       })
@@ -299,8 +299,8 @@ class PlacePageInfoViewController: UIViewController {
       formatId = 0
     }
     coordinatesView = createInfoItem(coordFormats[formatId],
-                                     icon: UIImage(named: "ic_placepage_coordinate"),
-                                     accessoryImage: UIImage(named: "ic_placepage_change"),
+                                     icon: UIImage(resource: .icPlacepageCoordinate),
+                                     accessoryImage: UIImage(resource: .icPlacepageChange),
                                      tapHandler: { [weak self] in
       guard let self else { return }
       let formatId = (self.coordinatesFormatId + 1) % coordFormats.count
@@ -337,7 +337,7 @@ class PlacePageInfoViewController: UIViewController {
   private func setupOpenWithAppView() {
     guard let delegate, delegate.shouldShowOpenInApp else { return }
     openWithAppView = createInfoItem(L("open_in_app"),
-                                     icon: UIImage(named: "ic_open_in_app"),
+                                     icon: UIImage(resource: .icOpenInApp),
                                      style: .link,
                                      tapHandler: { [weak self] in
       guard let self, let openWithAppView else { return }
