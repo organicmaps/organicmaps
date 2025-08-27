@@ -1069,17 +1069,14 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iB6-kj-Bi1">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wB7-XJ-Nck" userLabel="Edit View" customClass="InfoItemView" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wB7-XJ-Nck" userLabel="Edit View" customClass="InfoItemView" customModule="Organic_Maps" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="Dh1-Jl-owY"/>
-                                        </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6GV-eD-5Hj" userLabel="Expandable Label Container">
-                                        <rect key="frame" x="0.0" y="44" width="375" height="156"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6GV-eD-5Hj" userLabel="Expandable Label Container">
+                                        <rect key="frame" x="0.0" y="50" width="375" height="150"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5nz-eA-gNS" customClass="ExpandableLabel" customModule="Organic_Maps" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5nz-eA-gNS" customClass="ExpandableLabel" customModule="Organic_Maps" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="8" width="343" height="140"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <userDefinedRuntimeAttributes>
