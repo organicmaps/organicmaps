@@ -1,11 +1,9 @@
 final class InfoItemView: UIView {
   private enum Constants {
-    static let viewHeight: CGFloat = 44
-    static let stackViewSpacing: CGFloat = 0
+    static let contentInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
     static let iconButtonSize: CGFloat = 56
     static let iconButtonEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
-    static let infoLabelFontSize: CGFloat = 16
-    static let infoLabelTopBottomSpacing: CGFloat = 10
+    static let infoLabelMinHeight: CGFloat = 28
     static let accessoryButtonSize: CGFloat = 44
   }
 
@@ -43,9 +41,8 @@ final class InfoItemView: UIView {
     addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onInfoLabelTap)))
     addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(onInfoLabelLongPress(_:))))
 
-    infoLabel.lineBreakMode = .byTruncatingTail
-    infoLabel.numberOfLines = 1
-    infoLabel.allowsDefaultTighteningForTruncation = true
+    infoLabel.lineBreakMode = .byWordWrapping
+    infoLabel.numberOfLines = 0
     infoLabel.isUserInteractionEnabled = false
 
     iconButton.imageView?.contentMode = .scaleAspectFit
@@ -60,14 +57,11 @@ final class InfoItemView: UIView {
     addSubview(infoLabel)
     addSubview(accessoryButton)
 
-    translatesAutoresizingMaskIntoConstraints = false
     iconButton.translatesAutoresizingMaskIntoConstraints = false
     infoLabel.translatesAutoresizingMaskIntoConstraints = false
     accessoryButton.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
-      heightAnchor.constraint(equalToConstant: Constants.viewHeight),
-
       iconButton.leadingAnchor.constraint(equalTo: leadingAnchor),
       iconButton.centerYAnchor.constraint(equalTo: centerYAnchor),
       iconButton.widthAnchor.constraint(equalToConstant: Constants.iconButtonSize),
@@ -75,9 +69,10 @@ final class InfoItemView: UIView {
       iconButton.bottomAnchor.constraint(equalTo: bottomAnchor),
 
       infoLabel.leadingAnchor.constraint(equalTo: iconButton.trailingAnchor),
-      infoLabel.topAnchor.constraint(equalTo: topAnchor),
-      infoLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+      infoLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constants.contentInsets.top),
+      infoLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Constants.contentInsets.bottom),
       infoLabel.trailingAnchor.constraint(equalTo: accessoryButton.leadingAnchor),
+      infoLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.infoLabelMinHeight),
 
       accessoryButton.trailingAnchor.constraint(equalTo: trailingAnchor),
       accessoryButton.centerYAnchor.constraint(equalTo: centerYAnchor),
