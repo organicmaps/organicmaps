@@ -109,11 +109,12 @@ final class InfoItemView: UIView {
     case .regular:
       iconButton.setStyleAndApply(.black)
       infoLabel.setFontStyleAndApply(.regular16, color: .blackPrimary)
+      accessoryButton.setStyleAndApply(.black)
     case .link:
       iconButton.setStyleAndApply(.blue)
       infoLabel.setFontStyleAndApply(.regular16, color: .linkBlue)
+      accessoryButton.setStyleAndApply(.blue)
     }
-    accessoryButton.setStyleAndApply(.black)
     self.style = style
   }
 
