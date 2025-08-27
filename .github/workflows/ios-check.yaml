@@ -85,25 +85,16 @@ jobs:
         if: matrix.buildType == 'Debug'
         shell: bash
         run: |
-          # Change back "build" to "test" after fixing https://github.com/organicmaps/organicmaps/issues/9867
+          # Change back "build" to "test" after fixing https://github.com/organicmaps/organicmaps/issues/9867 and revert 6dede38cccfbdbed6c35abf3fea1b76553018f05
           xcodebuild build \
             -workspace xcode/omim.xcworkspace \
             -scheme OMaps \
             -configuration Debug \
             -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 16 Pro Max,OS=latest' \
+            -destination 'generic/platform=iOS' \
             -quiet \
-            -resultBundlePath ${{ env.TEST_RESULTS_BUNDLE_NAME }}.xcresult \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
-
-      - name: Upload Test Results On Failure (Debug)
-        if: ${{ matrix.buildType == 'Debug' && failure() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.TEST_RESULTS_BUNDLE_NAME }}-${{ github.run_number }}.xcresult
-          path: ${{ env.TEST_RESULTS_BUNDLE_NAME }}.xcresult
-          if-no-files-found: error
 
       - name: Build (Release)
         if: matrix.buildType == 'Release'
