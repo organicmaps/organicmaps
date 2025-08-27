@@ -503,6 +503,7 @@
 		ED9DDF882D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9DDF872D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift */; };
 		ED9DDF9D2D6F6F7900645BC8 /* TrackRecordingManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */; };
 		EDA1EAA42CC7ECAD00DBDCAA /* ElevationProfileFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA1EAA32CC7ECAD00DBDCAA /* ElevationProfileFormatter.swift */; };
+		EDA6D3FA2E5EF97100D6C1F3 /* InfoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA6D3F92E5EF97100D6C1F3 /* InfoItemView.swift */; };
 		EDB71D8C2D8474A0004A6A7F /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB71D8B2D8474A0004A6A7F /* CornerRadius.swift */; };
 		EDB71E002D8B0338004A6A7F /* ModalPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB71DFF2D8B0338004A6A7F /* ModalPresentationAnimator.swift */; };
 		EDB71E042D8B0943004A6A7F /* SearchOnMapAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB71E032D8B0943004A6A7F /* SearchOnMapAreaView.swift */; };
@@ -1510,6 +1511,7 @@
 		ED9DDF872D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageTrackRecordingLayout.swift; sourceTree = "<group>"; };
 		ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingManagerTests.swift; sourceTree = "<group>"; };
 		EDA1EAA32CC7ECAD00DBDCAA /* ElevationProfileFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfileFormatter.swift; sourceTree = "<group>"; };
+		EDA6D3F92E5EF97100D6C1F3 /* InfoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoItemView.swift; sourceTree = "<group>"; };
 		EDB71D8B2D8474A0004A6A7F /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 		EDB71DFF2D8B0338004A6A7F /* ModalPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationAnimator.swift; sourceTree = "<group>"; };
 		EDB71E032D8B0943004A6A7F /* SearchOnMapAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapAreaView.swift; sourceTree = "<group>"; };
@@ -3023,6 +3025,7 @@
 		99C6531F23F2F178004322F3 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				EDA6D3F92E5EF97100D6C1F3 /* InfoItemView.swift */,
 				99A906D423F6F7020005872B /* ActionBarViewController.swift */,
 				99A906D523F6F7020005872B /* OpeningHoursViewController.swift */,
 				99A906CD23F6F7010005872B /* PlacePageEditBookmarkOrTrackViewController.swift */,
@@ -4554,6 +4557,7 @@
 				B33D21AF20DAF9F000BAD749 /* Toast.swift in Sources */,
 				6741A9D41BF340DE002C974C /* MWMAlertViewController.mm in Sources */,
 				34D3B0181E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.swift in Sources */,
+				EDA6D3FA2E5EF97100D6C1F3 /* InfoItemView.swift in Sources */,
 				993DF12223F6BDB100AC231A /* UINavigationItemRenderer.swift in Sources */,
 				993DF12B23F6BDB100AC231A /* StyleManager.swift in Sources */,
 				ED43B8BD2C12063500D07BAA /* DocumentPicker.swift in Sources */,
