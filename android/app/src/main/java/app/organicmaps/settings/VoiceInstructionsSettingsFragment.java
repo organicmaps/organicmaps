@@ -5,6 +5,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.speech.tts.TextToSpeech;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -33,6 +35,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
 {
@@ -61,38 +65,63 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
   private List<String> mTtsTestStringArray;
   private int mTestStringIndex;
 
+  // Track if voice preferences are currently visible and should stay constant
+  private boolean mVoicePreferencesVisible = false;
+  // Track if this is the first time setting up the fragment
+  private boolean mIsFirstSetup = true;
+
+  // Add crash prevention
+  private final ExecutorService mBackgroundExecutor = Executors.newSingleThreadExecutor();
+  private final Handler mMainHandler = new Handler(Looper.getMainLooper());
+  private volatile boolean mIsDestroyed = false;
+
   @NonNull
   private final Map<String, LanguageData> mLanguages = new HashMap<>();
   private LanguageData mCurrentLanguage;
   private String mSelectedLanguage;
 
   private final ActivityResultLauncher<Intent> startInstallDataIntentForResult =
-      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> {
-        if (activityResult.getResultCode() == Activity.RESULT_OK)
-        {
-          onInstallDataResult();
-        }
-      });
+          registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> {
+            if (activityResult.getResultCode() == Activity.RESULT_OK)
+            {
+              onInstallDataResult();
+            }
+          });
 
   private final Preference.OnPreferenceChangeListener mEnabledListener = (preference, newValue) ->
   {
     final boolean set = (Boolean) newValue;
+
     if (!set)
     {
-      TtsPlayer.setEnabled(false);
-      mTtsPrefLanguages.setVisible(false);
-      mTtsPrefStreetNames.setVisible(false);
-      mTtsVolume.setVisible(false);
+      // Disabling voice instructions - hide preferences and mark as not visible
+      mMainHandler.post(() -> {
+        if (mIsDestroyed || getActivity() == null || !isAdded()) return;
+        try {
+          TtsPlayer.setEnabled(false);
+        } catch (Exception e) {
+          // Handle crashes
+        }
+      });
+      hideVoicePreferences();
+      mVoicePreferencesVisible = false;
       mTtsLangInfo.setSummary(R.string.prefs_languages_information_off);
-      mTtsVoiceTest.setVisible(false);
       return true;
     }
 
+    // Enabling voice instructions
     mTtsLangInfo.setSummary(R.string.prefs_languages_information);
-    mTtsPrefLanguages.setVisible(true);
-    mTtsPrefStreetNames.setVisible(true);
-    mTtsVolume.setVisible(true);
-    mTtsVoiceTest.setVisible(true);
+
+    if (mIsFirstSetup && TtsPlayer.isEnabled())
+    {
+      showVoicePreferencesImmediately();
+      mVoicePreferencesVisible = true;
+    }
+    else if (!mVoicePreferencesVisible)
+    {
+      showVoicePreferencesWithAnimation();
+      mVoicePreferencesVisible = true;
+    }
 
     if (mCurrentLanguage != null && mCurrentLanguage.downloaded)
     {
@@ -117,7 +146,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       setLanguage(lang);
     else
       UiUtils.startActivityForResult(startInstallDataIntentForResult,
-                                     new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA));
+              new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA));
 
     return false;
   };
@@ -137,6 +166,27 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
   }
 
   @Override
+  public void onCreatePreferences(Bundle bundle, String root)
+  {
+    super.onCreatePreferences(bundle, root);
+
+    if (TtsPlayer.isEnabled())
+    {
+      Preference langPref = findPreference(getString(R.string.pref_tts_language));
+      Preference streetPref = findPreference(getString(R.string.pref_tts_street_names));
+      Preference volumePref = findPreference(getString(R.string.pref_tts_volume));
+      Preference testPref = findPreference(getString(R.string.pref_tts_test_voice));
+
+      if (langPref != null) langPref.setVisible(true);
+      if (streetPref != null) streetPref.setVisible(true);
+      if (volumePref != null) volumePref.setVisible(true);
+      if (testPref != null) testPref.setVisible(true);
+
+      mVoicePreferencesVisible = true;
+    }
+  }
+
+  @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
@@ -151,7 +201,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       try
       {
         final Intent intent =
-            new Intent().setAction("com.android.settings.TTS_SETTINGS").setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                new Intent().setAction("com.android.settings.TTS_SETTINGS").setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         return true;
       }
@@ -169,38 +219,102 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
         return false;
 
       Utils.showSnackbar(view, getString(R.string.pref_tts_playing_test_voice));
-      TtsPlayer.INSTANCE.speak(mTtsTestStringArray.get(mTestStringIndex));
-      mTestStringIndex++;
-      if (mTestStringIndex >= mTtsTestStringArray.size())
-        mTestStringIndex = 0;
+
+      mMainHandler.post(() -> {
+        if (mIsDestroyed || getActivity() == null || !isAdded()) return;
+        try {
+          TtsPlayer.INSTANCE.speak(mTtsTestStringArray.get(mTestStringIndex));
+          mTestStringIndex++;
+          if (mTestStringIndex >= mTtsTestStringArray.size())
+            mTestStringIndex = 0;
+        } catch (Exception e) {
+          // Handle TTS errors
+        }
+      });
+
       return true;
     });
 
     TtsPlayer.sOnReloadCallback = () ->
     {
+      if (mIsDestroyed || getActivity() == null || !isAdded()) return;
       Toast.makeText(requireContext(), "TTS engine reloaded", Toast.LENGTH_SHORT).show();
       updateTts();
     };
 
+    // Initialize all preferences
     initVolume();
     initTtsLangInfoLink();
     initSpeedCamerasPrefs();
-    updateTts();
+
+    // Show cached enabled state immediately to prevent freeze
+    mTtsPrefEnabled.setChecked(TtsPlayer.isEnabled());
+
+    // Defer heavy TTS operations to background to prevent freeze
+    mBackgroundExecutor.execute(() -> {
+      if (!mIsDestroyed && getActivity() != null) {
+        mMainHandler.post(() -> {
+          if (!mIsDestroyed && getActivity() != null && isAdded()) {
+            updateTts();
+          }
+        });
+      }
+    });
   }
 
   @Override
   public void onResume()
   {
     super.onResume();
-
     updateTts();
+  }
+
+  @Override
+  public void onPause()
+  {
+    super.onPause();
+    mIsDestroyed = true;
   }
 
   @Override
   public void onDestroyView()
   {
+    mIsDestroyed = true;
     TtsPlayer.sOnReloadCallback = null;
+
+    if (mBackgroundExecutor != null && !mBackgroundExecutor.isShutdown()) {
+      mBackgroundExecutor.shutdownNow();
+    }
+    if (mMainHandler != null) {
+      mMainHandler.removeCallbacksAndMessages(null);
+    }
+
     super.onDestroyView();
+  }
+
+  private void hideVoicePreferences()
+  {
+    mTtsPrefLanguages.setVisible(false);
+    mTtsPrefStreetNames.setVisible(false);
+    mTtsVolume.setVisible(false);
+    mTtsVoiceTest.setVisible(false);
+  }
+
+  private void showVoicePreferencesImmediately()
+  {
+    mTtsPrefLanguages.setVisible(true);
+    mTtsPrefStreetNames.setVisible(true);
+    mTtsVolume.setVisible(true);
+    mTtsVoiceTest.setVisible(true);
+  }
+
+  private void showVoicePreferencesWithAnimation()
+  {
+    // This will cause the preferences to slide down when they become visible
+    mTtsPrefLanguages.setVisible(true);
+    mTtsPrefStreetNames.setVisible(true);
+    mTtsVolume.setVisible(true);
+    mTtsVoiceTest.setVisible(true);
   }
 
   private void onInstallDataResult()
@@ -214,6 +328,8 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
 
   private void enableListeners(boolean enable)
   {
+    if (mIsDestroyed || getActivity() == null || !isAdded()) return;
+
     mTtsPrefEnabled.setOnPreferenceChangeListener(enable ? mEnabledListener : null);
     mTtsPrefLanguages.setOnPreferenceChangeListener(enable ? mLangListener : null);
     mTtsPrefStreetNames.setOnPreferenceChangeListener(enable ? mStreetNameListener : null);
@@ -221,18 +337,34 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
 
   private void setLanguage(@NonNull LanguageData lang)
   {
-    TtsPlayer.setEnabled(true);
-    TtsPlayer.INSTANCE.setLanguage(lang);
-    mTtsPrefLanguages.setSummary(lang.name);
-
-    updateTts();
+    mMainHandler.post(() -> {
+      if (mIsDestroyed || getActivity() == null || !isAdded()) return;
+      try {
+        TtsPlayer.setEnabled(true);
+        TtsPlayer.INSTANCE.setLanguage(lang);
+        mTtsPrefLanguages.setSummary(lang.name);
+        updateTts();
+      } catch (Exception e) {
+        // Handle crashes
+      }
+    });
   }
 
   private void updateTts()
   {
+    if (mIsDestroyed || getActivity() == null || !isAdded()) return;
+
     enableListeners(false);
 
-    final List<LanguageData> languages = TtsPlayer.INSTANCE.refreshLanguages();
+    final List<LanguageData> languages;
+    try {
+      languages = TtsPlayer.INSTANCE.refreshLanguages();
+    } catch (Exception e) {
+      // Handle TTS errors gracefully
+      enableListeners(true);
+      return;
+    }
+
     mLanguages.clear();
     mCurrentLanguage = null;
     mTtsTestStringArray = null;
@@ -242,19 +374,16 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       mTtsPrefEnabled.setChecked(false);
       mTtsPrefEnabled.setEnabled(false);
       mTtsPrefEnabled.setSummary(R.string.pref_tts_unavailable);
-      mTtsPrefStreetNames.setVisible(false);
-      mTtsPrefLanguages.setVisible(false);
-      mTtsPrefLanguages.setSummary(null);
-      mTtsVolume.setVisible(false);
-      mTtsVoiceTest.setVisible(false);
+      hideVoicePreferences();
+      mVoicePreferencesVisible = false;
+      if (mTtsPrefLanguages != null) {
+        mTtsPrefLanguages.setSummary(null);
+      }
       mTtsLangInfo.setSummary(R.string.prefs_languages_information_off);
 
       enableListeners(true);
       return;
     }
-
-    final boolean enabled = TtsPlayer.isEnabled();
-    mTtsLangInfo.setSummary(enabled ? R.string.prefs_languages_information : R.string.prefs_languages_information_off);
 
     final CharSequence[] entries = new CharSequence[languages.size()];
     final CharSequence[] values = new CharSequence[languages.size()];
@@ -263,7 +392,6 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       LanguageData lang = languages.get(i);
       entries[i] = lang.name;
       values[i] = lang.internalCode;
-
       mLanguages.put(lang.internalCode, lang);
     }
 
@@ -272,23 +400,45 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
 
     mCurrentLanguage = TtsPlayer.getSelectedLanguage(languages);
     final boolean available = (mCurrentLanguage != null && mCurrentLanguage.downloaded);
-    mTtsPrefEnabled.setChecked(available && TtsPlayer.isEnabled());
-    mTtsPrefLanguages.setVisible(available && TtsPlayer.isEnabled());
+    final boolean ttsEnabled = available && TtsPlayer.isEnabled();
+
+    // Update the enabled checkbox
+    mTtsPrefEnabled.setChecked(ttsEnabled);
+
+    // ONLY set visibility during first setup or if TTS state actually changed
+    if (mIsFirstSetup)
+    {
+      // First setup - preferences visibility was already set in onViewCreated if TTS was enabled
+      // So we only need to handle the case where TTS is disabled
+      if (!ttsEnabled && mVoicePreferencesVisible)
+      {
+        hideVoicePreferences();
+        mVoicePreferencesVisible = false;
+      }
+      mIsFirstSetup = false;
+    }
+    // For subsequent calls, visibility changes are handled only by the user toggle listener
+    // This prevents unwanted animations on resume/refresh
+
+    // Always update summaries and values regardless of visibility
     mTtsPrefLanguages.setSummary(available ? mCurrentLanguage.name : null);
     mTtsPrefLanguages.setValue(available ? mCurrentLanguage.internalCode : null);
-    mTtsPrefStreetNames.setVisible(enabled && available && TtsPlayer.isEnabled());
-    mTtsVolume.setVisible(enabled && available && TtsPlayer.isEnabled());
-    mTtsVoiceTest.setVisible(enabled && available && TtsPlayer.isEnabled());
+
+    mTtsLangInfo.setSummary(ttsEnabled ? R.string.prefs_languages_information : R.string.prefs_languages_information_off);
 
     if (available)
     {
-      // Update array of TTS test strings. Strings are taken from resources using selected TTS language.
-      final Configuration config = new Configuration(getResources().getConfiguration());
-      config.setLocale(mCurrentLanguage.locale);
-      mTtsTestStringArray = Arrays.asList(
-          requireContext().createConfigurationContext(config).getResources().getStringArray(R.array.app_tips));
-      Collections.shuffle(mTtsTestStringArray);
-      mTestStringIndex = 0;
+      try {
+        final Configuration config = new Configuration(getResources().getConfiguration());
+        config.setLocale(mCurrentLanguage.locale);
+        mTtsTestStringArray = Arrays.asList(
+                requireContext().createConfigurationContext(config).getResources().getStringArray(R.array.app_tips));
+        Collections.shuffle(mTtsTestStringArray);
+        mTestStringIndex = 0;
+      } catch (Exception e) {
+        // Handle configuration errors
+        mTtsTestStringArray = null;
+      }
     }
 
     enableListeners(true);
@@ -309,7 +459,12 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       setTtsVolume(((float) ((int) newValue)) / 100);
       return true;
     });
-    setTtsVolume(TtsPlayer.INSTANCE.getVolume());
+
+    try {
+      setTtsVolume(TtsPlayer.INSTANCE.getVolume());
+    } catch (Exception e) {
+      setTtsVolume(Config.TTS.Defaults.VOLUME);
+    }
   }
 
   private void setTtsVolume(final float volume)
@@ -317,7 +472,15 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     final int volumeInt = (int) (volume * 100);
     mTtsVolume.setValue(volumeInt);
     mTtsVolume.setSummary(Integer.toString(volumeInt));
-    TtsPlayer.INSTANCE.setVolume(volume);
+
+    mMainHandler.post(() -> {
+      if (mIsDestroyed || getActivity() == null || !isAdded()) return;
+      try {
+        TtsPlayer.INSTANCE.setVolume(volume);
+      } catch (Exception e) {
+        // Handle crashes
+      }
+    });
   }
 
   private void initTtsLangInfoLink()
@@ -327,9 +490,9 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     final Spannable link = new SpannableString(ttsLinkText + "↗");
     // Set link color.
     link.setSpan(
-        new ForegroundColorSpan(ContextCompat.getColor(
-            requireContext(), UiUtils.getStyledResourceId(requireContext(), androidx.appcompat.R.attr.colorAccent))),
-        0, ttsLinkText.length(), 0);
+            new ForegroundColorSpan(ContextCompat.getColor(
+                    requireContext(), UiUtils.getStyledResourceId(requireContext(), androidx.appcompat.R.attr.colorAccent))),
+            0, ttsLinkText.length(), 0);
     ttsLangInfoLink.setSummary(link);
 
     final String ttsInfoUrl = requireActivity().getString(R.string.tts_info_link);
