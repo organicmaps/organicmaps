@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "kml/color_parser.hpp"
 #include "kml/serdes_common.hpp"
 #include "kml/serdes_gpx.hpp"
 
@@ -413,11 +414,11 @@ UNIT_TEST(ParseFromString)
 
 UNIT_TEST(MapGarminColor)
 {
-  TEST_EQUAL("DarkCyan", kml::gpx::MapGarminColor(0x008b8bff), ());
-  TEST_EQUAL("White", kml::gpx::MapGarminColor(0xffffffff), ());
-  TEST_EQUAL("DarkYellow", kml::gpx::MapGarminColor(0xb4b820ff), ());
-  TEST_EQUAL("DarkYellow", kml::gpx::MapGarminColor(0xb6b820ff), ());
-  TEST_EQUAL("DarkYellow", kml::gpx::MapGarminColor(0xb5b721ff), ());
+  TEST_EQUAL("DarkCyan", kml::MapGarminColor(0x008b8bff), ());
+  TEST_EQUAL("White", kml::MapGarminColor(0xffffffff), ());
+  TEST_EQUAL("DarkYellow", kml::MapGarminColor(0xb4b820ff), ());
+  TEST_EQUAL("DarkYellow", kml::MapGarminColor(0xb6b820ff), ());
+  TEST_EQUAL("DarkYellow", kml::MapGarminColor(0xb5b721ff), ());
 }
 
 }  // namespace gpx_tests

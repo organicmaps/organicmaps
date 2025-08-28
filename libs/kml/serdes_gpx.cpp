@@ -70,54 +70,6 @@ void GpxParser::ResetPoint()
   m_timestamp = base::INVALID_TIME_STAMP;
 }
 
-std::tuple<int, int, int> ExtractRGB(uint32_t color)
-{
-  return {(color >> 24) & 0xFF, (color >> 16) & 0xFF, (color >> 8) & 0xFF};
-}
-
-int ColorDistance(uint32_t color1, uint32_t color2)
-{
-  auto const [r1, g1, b1] = ExtractRGB(color1);
-  auto const [r2, g2, b2] = ExtractRGB(color2);
-  return (r1 - r2) * (r1 - r2) + (g1 - g2) * (g1 - g2) + (b1 - b2) * (b1 - b2);
-}
-
-struct RGBAToPredefined
-{
-  uint32_t rgba;
-  PredefinedColor predefinedColor;
-};
-
-std::array<RGBAToPredefined, kOrderedPredefinedColors.size()> buildRGBAToPredefined()
-{
-  auto res = std::array<RGBAToPredefined, kOrderedPredefinedColors.size()>();
-  for (size_t i = 0; i < kOrderedPredefinedColors.size(); ++i)
-    res[i] = {ColorFromPredefinedColor(kOrderedPredefinedColors[i]).GetRGBA(), kOrderedPredefinedColors[i]};
-  return res;
-}
-
-auto const kRGBAToPredefined = gpx::buildRGBAToPredefined();
-
-static PredefinedColor MapPredefinedColor(uint32_t rgba)
-{
-  auto closestColor = kRGBAToPredefined[0].predefinedColor;
-  auto minDistance = std::numeric_limits<int>::max();
-  for (auto const & [rgbaGarmin, color] : kRGBAToPredefined)
-  {
-    auto const distance = ColorDistance(rgba, rgbaGarmin);
-
-    if (distance == 0)
-      return color;  // Exact match.
-
-    if (distance < minDistance)
-    {
-      minDistance = distance;
-      closestColor = color;
-    }
-  }
-  return closestColor;
-}
-
 bool GpxParser::MakeValid()
 {
   if (GEOMETRY_TYPE_POINT == m_geometryType)
@@ -475,49 +427,6 @@ std::string GpxParser::BuildDescription() const
   return m_description + "\n\n" + m_comment;
 }
 
-struct RGBAToGarmin
-{
-  uint32_t rgba;
-  std::string_view color;
-};
-
-auto constexpr kRGBAToGarmin = std::to_array<RGBAToGarmin>({{0x000000ff, "Black"},
-                                                            {0x8b0000ff, "DarkRed"},
-                                                            {0x006400ff, "DarkGreen"},
-                                                            {0xb5b820ff, "DarkYellow"},
-                                                            {0x00008bff, "DarkBlue"},
-                                                            {0x8b008bff, "DarkMagenta"},
-                                                            {0x008b8bff, "DarkCyan"},
-                                                            {0xccccccff, "LightGray"},
-                                                            {0x444444ff, "DarkGray"},
-                                                            {0xff0000ff, "Red"},
-                                                            {0x00ff00ff, "Green"},
-                                                            {0xffff00ff, "Yellow"},
-                                                            {0x0000ffff, "Blue"},
-                                                            {0xff00ffff, "Magenta"},
-                                                            {0x00ffffff, "Cyan"},
-                                                            {0xffffffff, "White"}});
-
-std::string_view MapGarminColor(uint32_t rgba)
-{
-  std::string_view closestColor = kRGBAToGarmin[0].color;
-  auto minDistance = std::numeric_limits<int>::max();
-  for (auto const & [rgbaGarmin, color] : kRGBAToGarmin)
-  {
-    auto const distance = ColorDistance(rgba, rgbaGarmin);
-
-    if (distance == 0)
-      return color;  // Exact match.
-
-    if (distance < minDistance)
-    {
-      minDistance = distance;
-      closestColor = color;
-    }
-  }
-  return closestColor;
-}
-
 namespace
 {
 
@@ -636,7 +545,7 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
   {
     writer << kIndent2 << "<extensions>\n";
     writer << kIndent4 << "<gpxx:TrackExtension><gpxx:DisplayColor>";
-    writer << MapGarminColor(color);
+    writer << kml::MapGarminColor(color);
     writer << "</gpxx:DisplayColor></gpxx:TrackExtension>\n";
     writer << kIndent4 << "<gpx_style:line><gpx_style:color>";
     SaveColorToRGB(writer, color);
