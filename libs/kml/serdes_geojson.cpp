@@ -13,12 +13,18 @@ namespace geojson
 
 bool GeoJsonFeature::isPoint()
 {
-  return this->geometry.type == "Point";
+  if (std::get_if<GeoJsonGeometryPoint>(&this->geometry) != nullptr)
+    return true;
+  else
+    return false;
 }
 
 bool GeoJsonFeature::isLine()
 {
-  return this->geometry.type == "LineString";
+  if (std::get_if<GeoJsonGeometryLine>(&this->geometry) != nullptr)
+    return true;
+  else
+    return false;
 }
 
 bool GeojsonParser::Parse(std::string_view & json_content)
@@ -40,8 +46,9 @@ bool GeojsonParser::Parse(std::string_view & json_content)
   {
     if (feature.isPoint())
     {
-      double longitude = feature.geometry.coordinates.at(0).get_number();
-      double latitude = feature.geometry.coordinates.at(1).get_number();
+      GeoJsonGeometryPoint const * point = std::get_if<GeoJsonGeometryPoint>(&feature.geometry);
+      double longitude = point->coordinates.at(0);
+      double latitude = point->coordinates.at(1);
 
       std::map<std::string, glz::json_t> * props_json = &feature.properties;
       BookmarkData bookmark;
@@ -113,24 +120,8 @@ bool GeojsonParser::Parse(std::string_view & json_content)
   {
     if (feature.isLine())
     {
-      auto rawCoordinates = feature.geometry.coordinates;
-      std::vector<std::vector<double>> lineCoords;
-
-      lineCoords.resize(rawCoordinates.size());
-
-      // Convert 'rawCoordinates' from json_t to vector<double> with type checks
-      std::transform(rawCoordinates.begin(), rawCoordinates.end(), lineCoords.begin(), [](glz::json_t const & json)
-      {
-        std::vector<double> result;
-        if (json.is_array())
-        {
-          for (glz::json_t json_element : json.get_array())
-            if (json_element.is_number())
-              result.push_back(json_element.get_number());
-        }
-
-        return result;
-      });
+      GeoJsonGeometryLine const * lineGeometry = std::get_if<GeoJsonGeometryLine>(&feature.geometry);
+      std::vector<std::vector<double>> lineCoords = lineGeometry->coordinates;
 
       // Convert GeoJson properties to KML properties
       std::map<std::string, glz::json_t> * props_json = &feature.properties;

@@ -13,20 +13,39 @@ namespace geojson
 
 // Data structures
 
-struct GeoJsonGeometry
+struct GeoJsonGeometryPoint
 {
-  std::string type;
-  std::vector<glz::json_t> coordinates;
+  std::vector<double> coordinates;
 
-  bool operator==(GeoJsonGeometry const & data) const
+  bool operator==(GeoJsonGeometryPoint const & data) const { return coordinates == data.coordinates; }
+
+  bool operator!=(GeoJsonGeometryPoint const & data) const { return !operator==(data); }
+
+  friend std::string DebugPrint(GeoJsonGeometryPoint const & c)
   {
-    return type == data.type;  // && coordinates == data.coordinates;
+    std::ostringstream out;
+    out << "GeoJsonGeometryPoint [coordinates = " << c.coordinates.at(1) << ", " << c.coordinates.at(0) << "]";
+    return out.str();
   }
-
-  bool operator!=(GeoJsonGeometry const & data) const { return !operator==(data); }
-
-  friend std::string DebugPrint(GeoJsonGeometry const & c) { return "GeoJsonGeometry [" + c.type + "]"; }
 };
+
+struct GeoJsonGeometryLine
+{
+  std::vector<std::vector<double>> coordinates;
+
+  bool operator==(GeoJsonGeometryLine const & data) const { return coordinates == data.coordinates; }
+
+  bool operator!=(GeoJsonGeometryLine const & data) const { return !operator==(data); }
+
+  friend std::string DebugPrint(GeoJsonGeometryLine const & c)
+  {
+    std::ostringstream out;
+    out << "GeoJsonGeometryLine [coordinates = " << c.coordinates.size() << " point(s)]";
+    return out.str();
+  }
+};
+
+using GeoJsonGeometry = std::variant<GeoJsonGeometryPoint, GeoJsonGeometryLine>;
 
 struct GeoJsonFeature
 {
@@ -50,7 +69,7 @@ struct GeoJsonFeature
   friend std::string DebugPrint(GeoJsonFeature const & c)
   {
     std::ostringstream out;
-    out << "[type = " << c.type << ", geometry = " << DebugPrint(c.geometry)
+    out << "GeoJsonFeature [type = " << c.type  // << ", geometry = " << DebugPrint(c.geometry)
         << ", properties = " /*<< json_dumps(&c.m_properties, JSON_COMPACT)*/ << "]";
     return out.str();
   }
@@ -113,3 +132,27 @@ private:
 };
 
 }  // namespace kml
+
+/* Glaze setup */
+
+template <>
+struct glz::meta<kml::geojson::GeoJsonGeometryPoint>
+{
+  using T = kml::geojson::GeoJsonGeometryPoint;
+  static constexpr auto value = object("coordinates", &T::coordinates);
+};
+
+template <>
+struct glz::meta<kml::geojson::GeoJsonGeometryLine>
+{
+  using T = kml::geojson::GeoJsonGeometryLine;
+  static constexpr auto value = object("coordinates", &T::coordinates);
+};
+
+// Tell Glaze to pick GeoJsonGeometryPoint or GeoJsonGeometryLine depending on "type" property
+template <>
+struct glz::meta<kml::geojson::GeoJsonGeometry>
+{
+  static constexpr std::string_view tag = "type";
+  static constexpr auto ids = std::array{"Point", "LineString"};
+};
