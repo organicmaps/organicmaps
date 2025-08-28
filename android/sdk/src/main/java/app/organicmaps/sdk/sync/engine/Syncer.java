@@ -62,7 +62,7 @@ public class Syncer
     return new File(dir, cloudName);
   }
 
-  public void performSync(File tempDir) throws SyncOpException, LockAlreadyHeldException
+  public void performSync() throws SyncOpException, LockAlreadyHeldException
   {
     final String cloudDirState = mSyncClient.fetchBookmarksDirState();
     if (cloudDirState == null)
@@ -91,7 +91,7 @@ public class Syncer
     try (EditSession editSession = mSyncClient.getEditSession())
     {
       if (cloudHasChanges)
-        bidirectionalSync(editSession, tempDir, false);
+        bidirectionalSync(editSession, false);
       else
         unidirectionalSync(editSession);
 
@@ -106,7 +106,7 @@ public class Syncer
   /**
    * Sync routine when cloud state has changed since last sync on this account from this device.
    */
-  private void bidirectionalSync(EditSession editSession, File tempDir, boolean isRerun) throws SyncOpException
+  private void bidirectionalSync(EditSession editSession, boolean isRerun) throws SyncOpException
   {
     boolean asyncChanges = false; // Indicates if there are async changes (suffixing or importing user-uploaded files)
                                   // is probably underway.
@@ -144,7 +144,7 @@ public class Syncer
       String localFilePath = getLocalBmFileFromCloudName(bmDir, cloudFileName).getPath();
       if (!cloudFileChecksum.equals(cachedChecksums.getOrDefault(localFilePath, null)))
       {
-        File tempFile = getLocalBmFileFromCloudName(tempDir, cloudFileName);
+        File tempFile = getLocalBmFileFromCloudName(SyncManager.INSTANCE.getTempDir(), cloudFileName);
         mSyncClient.downloadBookmarkFile(cloudFileName, tempFile);
         String downloadedFileChecksum = mSyncClient.computeLocalFileChecksum(tempFile.getPath());
 
@@ -178,7 +178,7 @@ public class Syncer
 
     for (String userFilename : cloudFilesState.userUploadedFiles())
     {
-      File tempFile = getLocalBmFileFromCloudName(tempDir, userFilename);
+      File tempFile = getLocalBmFileFromCloudName(SyncManager.INSTANCE.getTempDir(), userFilename);
       mSyncClient.downloadBookmarkFile(userFilename, tempFile);
       // We now schedule this file to be loaded
       UiThread.run(() -> BookmarkManager.INSTANCE.loadBookmarksFile(tempFile.getPath(), true));
@@ -195,7 +195,7 @@ public class Syncer
       try
       {
         Thread.sleep(ASYNC_LOADING_WAIT_TIME);
-        bidirectionalSync(editSession, tempDir, true);
+        bidirectionalSync(editSession, true);
       }
       catch (InterruptedException ignored)
       {}

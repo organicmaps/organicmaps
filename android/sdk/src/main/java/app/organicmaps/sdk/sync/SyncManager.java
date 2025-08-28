@@ -145,18 +145,21 @@ public enum SyncManager
     {
       try
       {
-        entry.getValue().performSync(mTempDir);
+        entry.getValue().performSync();
         mSyncPrefs.setLastSynced(entry.getKey().getAccountId(), System.currentTimeMillis());
-      }
-      catch (SyncOpException e)
-      {
-        mSyncPrefs.setErrorInfo(entry.getKey().getAccountId(), e);
-        Logger.e(TAG, "Error syncing " + entry.getKey().getAuthState().getClass().getSimpleName(), e);
       }
       catch (LockAlreadyHeldException e)
       {
         Logger.e(TAG, "Lock held by another device", e);
         // TODO(savsch) implement retry policy (low priority as this clause should execute rarely)
+      }
+      catch (Exception e)
+      {
+        Logger.e(TAG, "Error syncing " + entry.getKey().getAuthState().getClass().getSimpleName(), e);
+        mSyncPrefs.setErrorInfo(entry.getKey().getAccountId(),
+                                e instanceof SyncOpException
+                                    ? (SyncOpException) e
+                                    : new SyncOpException.UnexpectedException(e.getLocalizedMessage()));
       }
     }
     mSyncPrefs.setLastRun(System.currentTimeMillis());
@@ -165,6 +168,11 @@ public enum SyncManager
   public File getBookmarksDir()
   {
     return new File(nativeGetBookmarksDir());
+  }
+
+  public File getTempDir()
+  {
+    return mTempDir;
   }
 
   /**
