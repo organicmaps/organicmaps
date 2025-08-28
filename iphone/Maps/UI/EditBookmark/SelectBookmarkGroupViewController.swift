@@ -63,6 +63,7 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
     case .groups:
       let bookmarkGroup = bookmarkGroups[indexPath.row]
       cell.textLabel?.text = bookmarkGroup.title
+      cell.textLabel?.numberOfLines = 3
       cell.accessoryType = bookmarkGroup.categoryId == groupId ? .checkmark : .none
     default:
       fatalError()
