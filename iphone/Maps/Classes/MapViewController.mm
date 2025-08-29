@@ -229,7 +229,7 @@ NSString * const kSettingsSegue = @"Map2Settings";
 - (void)hideRegularPlacePage
 {
   [self stopObservingTrackRecordingUpdates];
-  [self.placePageVC closeAnimatedWithCompletion:^{
+  [self.placePageVC closeWithCompletion:^{
     [self.placePageVC.view removeFromSuperview];
     [self.placePageVC willMoveToParentViewController:nil];
     [self.placePageVC removeFromParentViewController];

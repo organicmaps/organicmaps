@@ -2,6 +2,7 @@ protocol PlacePageInteractorProtocol: AnyObject {
   func viewWillAppear()
   func viewWillDisappear()
   func updateTopBound(_ bound: CGFloat, duration: TimeInterval)
+  func close()
 }
 
 class PlacePageInteractor: NSObject {
@@ -95,6 +96,10 @@ extension PlacePageInteractor: PlacePageInteractorProtocol {
 
   func updateTopBound(_ bound: CGFloat, duration: TimeInterval) {
     mapViewController?.setPlacePageTopBound(bound, duration: duration)
+  }
+
+  func close() {
+    presenter?.closeAnimated()
   }
 }
 
