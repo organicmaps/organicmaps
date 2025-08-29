@@ -157,8 +157,9 @@ public:
   using ChangesetTags = std::map<std::string, std::string>;
   /// Tries to upload all local changes to OSM server in a separate thread.
   /// @param[in] tags should provide additional information about client to use in changeset.
+  /// @param[in] timeout is a maximum time allowed for upload operation.
   void UploadChanges(std::string const & oauthToken, ChangesetTags tags,
-                     FinishUploadCallback callBack = FinishUploadCallback());
+                     FinishUploadCallback callBack = FinishUploadCallback(), double const timeout = 120.0);
   // TODO(mgsergio): Test new types from new config but with old classificator (where these types are absent).
   // Editor should silently ignore all types in config which are unknown to him.
   NewFeatureCategories GetNewFeatureCategories() const;
@@ -236,6 +237,7 @@ private:
                     bool needMigrate);
 
   static bool HaveMapEditsToUpload(FeaturesContainer const & features);
+  static bool IsOSMServerReachable(int64_t const pingTimeoutInSeconds);
 
   static FeatureStatus GetFeatureStatusImpl(FeaturesContainer const & features, MwmId const & mwmId, uint32_t index);
 

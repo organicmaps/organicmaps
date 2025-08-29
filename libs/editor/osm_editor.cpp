@@ -20,6 +20,8 @@
 #include "base/thread_checker.hpp"
 #include "base/timer.hpp"
 
+#include "storage/pinger.hpp"
+
 #include <algorithm>
 #include <array>
 #include <sstream>
@@ -574,10 +576,34 @@ bool Editor::HaveMapEditsToUpload(MwmId const & mwmId) const
   return false;
 }
 
-void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, FinishUploadCallback callback)
+void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, FinishUploadCallback callback,
+                           double const timeout)
 {
+  LOG(LDEBUG, ("Start uploading changes with timeout: ", timeout));
+
+  uint64_t const kPingTimeoutInSeconds = 1;
+  if (!IsOSMServerReachable(kPingTimeoutInSeconds))
+  {
+    LOG(LWARNING, ("OSM server is not reachable, exiting."));
+    return;
+  }
+
+  base::Timer timer;
+  auto isRemainingTimeLessThan = [this, timeout, timer](double threshold)
+  {
+    auto const remaining = timeout - timer.ElapsedSeconds();
+    LOG(LDEBUG, ("Time left for uploading edits: ", remaining, " seconds."));
+    return remaining < threshold;
+  };
+
   if (m_notes->NotUploadedNotesCount())
     m_notes->Upload(OsmOAuth::ServerAuth(oauthToken));
+
+  if (isRemainingTimeLessThan(9 * kPingTimeoutInSeconds))
+  {
+    LOG(LINFO, ("Not enough time to upload map edits, exiting."));
+    return;
+  }
 
   auto const features = m_features.Get();
 
@@ -587,7 +613,7 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
     return;
   }
 
-  auto upload = [this](string secret, ChangesetTags tags, FinishUploadCallback callback)
+  auto upload = [this, isRemainingTimeLessThan](string secret, ChangesetTags tags, FinishUploadCallback callback)
   {
     int uploadedFeaturesCount = 0, errorsCount = 0;
     ChangesetWrapper changeset(secret, std::move(tags));
@@ -604,6 +630,12 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
         // Do not process already uploaded features or those failed permanently.
         if (!NeedsUpload(fti.m_uploadStatus))
           continue;
+
+        if (isRemainingTimeLessThan(3 * kPingTimeoutInSeconds))
+        {
+          LOG(LINFO, ("Not enough time to upload map edits, exiting."));
+          return;
+        }
 
         // TODO(a): Use UploadInfo as part of FeatureTypeInfo.
         UploadInfo uploadInfo = {fti.m_uploadAttemptTimestamp, fti.m_uploadStatus, fti.m_uploadError};
@@ -1302,6 +1334,24 @@ bool Editor::HaveMapEditsToUpload(FeaturesContainer const & features)
         return true;
   }
   return false;
+}
+
+bool Editor::IsOSMServerReachable(int64_t const pingTimeoutInSeconds)
+{
+/* When the Pinger is used to check the reachability of the OSM site, it also verifies that no redirection occurred by
+ comparing the request and response URL strings. However, OSM always returns the path with a trailing slash:
+ https://www.openstreetmap.org/
+ instead of
+ https://www.openstreetmap.org (which is used when sending edits).
+ As a result, the Ping check fails due to a false positive redirection. This is a workaround to avoid this issue.
+ */
+#ifdef DEBUG
+  std::string osmServerUrl = "https://master.apis.dev.openstreetmap.org/";
+#else
+  std::string osmServerUrl = "https://www.openstreetmap.org/";
+#endif
+  auto const sorted = storage::Pinger::ExcludeUnavailableAndSortEndpoints({osmServerUrl}, pingTimeoutInSeconds);
+  return !sorted.empty();
 }
 
 FeatureStatus Editor::GetFeatureStatusImpl(FeaturesContainer const & features, MwmId const & mwmId, uint32_t index)
