@@ -6,18 +6,10 @@
 
 #include "base/assert.hpp"
 
-using namespace jni;
-
 namespace sync_manager
 {
-jobject g_syncManagerInstance;
-jmethodID g_onFileChangedMethod;
-
-void InitMethodIds(JNIEnv * env, jobject syncManagerInstance)
-{
-  g_syncManagerInstance = env->NewGlobalRef(syncManagerInstance);
-  g_onFileChangedMethod = jni::GetMethodID(env, syncManagerInstance, "onFileChanged", "(Ljava/lang/String;)V");
-}
+static jobject g_syncManagerInstance;
+static jmethodID g_onFileChangedMethod;
 
 void OnFileChanged(JNIEnv * env, std::string filePath)
 {
@@ -36,7 +28,8 @@ extern "C"
 {
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_sync_SyncManager_nativeInit(JNIEnv * env, jobject thiz)
 {
-  sync_manager::InitMethodIds(env, thiz);
+  sync_manager::g_syncManagerInstance = env->NewGlobalRef(thiz);
+  sync_manager::g_onFileChangedMethod = jni::GetMethodID(env, thiz, "onFileChanged", "(Ljava/lang/String;)V");
   frm()->GetBookmarkManager().SetFileChangedCallback(
       std::bind(&sync_manager::OnFileChanged, env, std::placeholders::_1));
 }
