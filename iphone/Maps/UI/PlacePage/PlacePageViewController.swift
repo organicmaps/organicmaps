@@ -2,7 +2,6 @@ protocol PlacePageViewProtocol: AnyObject {
   var interactor: PlacePageInteractorProtocol? { get set }
 
   func setLayout(_ layout: IPlacePageLayout)
-  func closeAnimated(completion: (() -> Void)?)
   func updatePreviewOffset()
   func showNextStop()
   func layoutIfNeeded()
@@ -37,9 +36,6 @@ final class PlacePageScrollView: UIScrollView {
   }()
   var interactor: PlacePageInteractorProtocol?
   var beginDragging = false
-  var rootViewController: MapViewController {
-    MapViewController.shared()!
-  }
 
   private var previousTraitCollection: UITraitCollection?
   private var layout: IPlacePageLayout!
@@ -111,7 +107,7 @@ final class PlacePageScrollView: UIScrollView {
     let state = gesture.state
     if state == .ended || state == .cancelled {
       if alpha < 0.8 {
-        closeAnimated()
+        interactor?.close()
       } else {
         UIView.animate(withDuration: kDefaultAnimationDuration) {
           self.view.minX = 0
@@ -341,23 +337,21 @@ extension PlacePageViewController: PlacePageViewProtocol {
   }
 
   @objc
-  func closeAnimated(completion: (() -> Void)? = nil) {
+  func close(completion: @escaping (() -> Void)) {
+    print(#function)
     view.isUserInteractionEnabled = false
     alternativeSizeClass(iPhone: {
       self.scrollTo(CGPoint(x: 0, y: -self.scrollView.height + 1),
-                    forced: true) {
-                self.rootViewController.dismissPlacePage()
-                completion?()
-      }
+                    forced: true,
+                    completion: completion)
     }, iPad: {
       UIView.animate(withDuration: kDefaultAnimationDuration,
                      animations: {
-                      let frame = self.view.frame
-                      self.view.minX = frame.minX - frame.width
-                      self.view.alpha = 0
+        let frame = self.view.frame
+        self.view.minX = frame.minX - frame.width
+        self.view.alpha = 0
       }) { complete in
-        self.rootViewController.dismissPlacePage()
-        completion?()
+        completion()
       }
     })
   }
@@ -372,7 +366,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
 extension PlacePageViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     if scrollView.contentOffset.y < -scrollView.height + 1 && beginDragging {
-      closeAnimated()
+      interactor?.close()
     }
     onOffsetChanged(scrollView.contentOffset.y)
 

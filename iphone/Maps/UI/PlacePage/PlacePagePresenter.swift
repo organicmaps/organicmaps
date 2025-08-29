@@ -10,10 +10,14 @@ protocol PlacePagePresenterProtocol: AnyObject {
 final class PlacePagePresenter: NSObject {
   private weak var view: PlacePageViewProtocol!
   private weak var headerView: PlacePageHeaderViewProtocol!
+  private weak var mapViewController: MapViewController?
 
-  init(view: PlacePageViewProtocol, headerView: PlacePageHeaderViewProtocol) {
+  init(view: PlacePageViewProtocol,
+       headerView: PlacePageHeaderViewProtocol,
+       mapViewController: MapViewController) {
     self.view = view
     self.headerView = headerView
+    self.mapViewController = mapViewController
   }
 }
 
@@ -33,7 +37,7 @@ extension PlacePagePresenter: PlacePagePresenterProtocol {
   }
 
   func closeAnimated() {
-    view.closeAnimated(completion: nil)
+    mapViewController?.dismissPlacePage()
   }
 
   func showAlert(_ alert: UIAlertController) {
