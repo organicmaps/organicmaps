@@ -471,6 +471,7 @@
 		ED4DC7792CAEDECC0029B338 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7742CAEDECC0029B338 /* ProductsViewController.swift */; };
 		ED5BAF4B2D688F5B0088D7B1 /* SearchOnMapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5BAF4A2D688F5A0088D7B1 /* SearchOnMapHeaderView.swift */; };
 		ED5E02142D8B17B600A5CC7B /* ModalPresentationStepsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5E02132D8B17B600A5CC7B /* ModalPresentationStepsController.swift */; };
+		ED62ADE72E007A8000725950 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = ED62ADE62E007A8000725950 /* AppIcon.icon */; };
 		ED63CEB92BDF8F9D006155C4 /* SettingsTableViewiCloudSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED63CEB62BDF8F9C006155C4 /* SettingsTableViewiCloudSwitchCell.swift */; };
 		ED70D55C2D5396F300738C1E /* SearchResult.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED70D55A2D5396F300738C1E /* SearchResult.mm */; };
 		ED70D5892D539A2500738C1E /* SearchOnMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED70D5872D539A2500738C1E /* SearchOnMapViewController.swift */; };
@@ -1433,6 +1434,7 @@
 		ED4DC7752CAEDECC0029B338 /* ProductsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsViewModel.swift; sourceTree = "<group>"; };
 		ED5BAF4A2D688F5A0088D7B1 /* SearchOnMapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapHeaderView.swift; sourceTree = "<group>"; };
 		ED5E02132D8B17B600A5CC7B /* ModalPresentationStepsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationStepsController.swift; sourceTree = "<group>"; };
+		ED62ADE62E007A8000725950 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AppIcon.icon; sourceTree = "<group>"; };
 		ED63CEB62BDF8F9C006155C4 /* SettingsTableViewiCloudSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewiCloudSwitchCell.swift; sourceTree = "<group>"; };
 		ED70D5582D5396F300738C1E /* SearchItemType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchItemType.h; sourceTree = "<group>"; };
 		ED70D5592D5396F300738C1E /* SearchResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchResult.h; sourceTree = "<group>"; };
@@ -1955,6 +1957,7 @@
 				F6E2FBFB1E097B9F0083EBEC /* UI */,
 				ED1ADA312BC6B19E0029209F /* Tests */,
 				ED2D74372D14337500660FBF /* OMapsWidgetExtension */,
+				ED62ADE62E007A8000725950 /* AppIcon.icon */,
 			);
 			indentWidth = 2;
 			name = Maps;
@@ -4384,6 +4387,7 @@
 				6741A95D1BF340DE002C974C /* types.txt in Resources */,
 				340E1EFE1E2F614400CE49BF /* Welcome.storyboard in Resources */,
 				6741A9521BF340DE002C974C /* World.mwm in Resources */,
+				ED62ADE72E007A8000725950 /* AppIcon.icon in Resources */,
 				6741A9751BF340DE002C974C /* WorldCoasts.mwm in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
