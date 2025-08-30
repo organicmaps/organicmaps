@@ -13,18 +13,17 @@ namespace geojson
 
 bool GeoJsonFeature::isPoint()
 {
-  if (std::get_if<GeoJsonGeometryPoint>(&this->geometry) != nullptr)
-    return true;
-  else
-    return false;
+  return std::holds_alternative<GeoJsonGeometryPoint>(geometry);
 }
 
 bool GeoJsonFeature::isLine()
 {
-  if (std::get_if<GeoJsonGeometryLine>(&this->geometry) != nullptr)
-    return true;
-  else
-    return false;
+  return std::holds_alternative<GeoJsonGeometryLine>(geometry);
+}
+
+bool GeoJsonFeature::isUnknown()
+{
+  return std::holds_alternative<GeoJsonGeometryUnknown>(geometry);
 }
 
 bool GeojsonParser::Parse(std::string_view & json_content)
@@ -112,6 +111,11 @@ bool GeojsonParser::Parse(std::string_view & json_content)
 
       bookmark.m_point = mercator::FromLatLon(latitude, longitude);
       m_fileData.m_bookmarksData.push_back(bookmark);
+    }
+    else if (feature.isUnknown())
+    {
+      GeoJsonGeometryUnknown const * unknownGeometry = std::get_if<GeoJsonGeometryUnknown>(&feature.geometry);
+      LOG(LWARNING, ("GeoJson contains unsupported geometry type:", unknownGeometry->type));
     }
   }
 

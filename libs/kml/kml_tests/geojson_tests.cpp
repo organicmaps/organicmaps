@@ -61,6 +61,26 @@ UNIT_TEST(GeoJson_Parse_Basic)
         /* Bookmark color */
         "marker-color": "red"
       }
+    },
+    {
+      /* MultiPoint feature is not supported and should be ignored */
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          [
+            31.055034,
+            29.989067
+          ],
+          [
+            35.182237,
+            31.773850
+          ]
+        ],
+        "type": "MultiPoint"
+      },
+      "properties": {
+        "marker-color": "green"
+      }
     }
   ]
 })";
