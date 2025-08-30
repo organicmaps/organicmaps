@@ -15,6 +15,7 @@ namespace geojson
 
 struct GeoJsonGeometryPoint
 {
+  std::string type{"Point"};  // Embedded tag field
   std::vector<double> coordinates;
 
   bool operator==(GeoJsonGeometryPoint const & data) const { return coordinates == data.coordinates; }
@@ -31,6 +32,7 @@ struct GeoJsonGeometryPoint
 
 struct GeoJsonGeometryLine
 {
+  std::string type{"LineString"};  // Embedded tag field
   std::vector<std::vector<double>> coordinates;
 
   bool operator==(GeoJsonGeometryLine const & data) const { return coordinates == data.coordinates; }
@@ -45,7 +47,13 @@ struct GeoJsonGeometryLine
   }
 };
 
-using GeoJsonGeometry = std::variant<GeoJsonGeometryPoint, GeoJsonGeometryLine>;
+struct GeoJsonGeometryUnknown
+{
+  std::string type;
+  glz::json_t coordinates;
+};
+
+using GeoJsonGeometry = std::variant<GeoJsonGeometryPoint, GeoJsonGeometryLine, GeoJsonGeometryUnknown>;
 
 struct GeoJsonFeature
 {
@@ -65,6 +73,9 @@ struct GeoJsonFeature
 
   // Returns 'true' if geometry type is 'LineString'.
   bool isLine();
+
+  // Returns 'true' if geometry type is neither 'Point' nor 'LineString'.
+  bool isUnknown();
 
   friend std::string DebugPrint(GeoJsonFeature const & c)
   {
@@ -133,26 +144,12 @@ private:
 
 }  // namespace kml
 
-/* Glaze setup */
-
-template <>
-struct glz::meta<kml::geojson::GeoJsonGeometryPoint>
-{
-  using T = kml::geojson::GeoJsonGeometryPoint;
-  static constexpr auto value = object("coordinates", &T::coordinates);
-};
-
-template <>
-struct glz::meta<kml::geojson::GeoJsonGeometryLine>
-{
-  using T = kml::geojson::GeoJsonGeometryLine;
-  static constexpr auto value = object("coordinates", &T::coordinates);
-};
-
-// Tell Glaze to pick GeoJsonGeometryPoint or GeoJsonGeometryLine depending on "type" property
+/* Glaze setup.
+   Tell Glaze to pick GeoJsonGeometryPoint, GeoJsonGeometryLine or GeoJsonGeometryUnknown depending on "type" property
+*/
 template <>
 struct glz::meta<kml::geojson::GeoJsonGeometry>
 {
-  static constexpr std::string_view tag = "type";
+  static constexpr std::string_view tag = "type";  // Field name that serves as tag
   static constexpr auto ids = std::array{"Point", "LineString"};
 };
