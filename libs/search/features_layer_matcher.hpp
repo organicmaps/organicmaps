@@ -115,11 +115,16 @@ private:
 
   static bool HouseNumbersMatch(FeatureType & feature, std::vector<house_numbers::Token> const & queryParse)
   {
+    ASSERT(!queryParse.empty(), ());
+
     auto const interpol = ftypes::IsAddressInterpolChecker::Instance().GetInterpolType(feature);
     if (interpol != feature::InterpolType::None)
       return house_numbers::HouseNumbersMatchRange(feature.GetRef(), queryParse, interpol);
 
     auto const uniHouse = strings::MakeUniString(feature.GetHouseNumber());
+    if (uniHouse.empty())
+      return false;
+
     if (feature.GetID().IsEqualCountry({"Czech", "Slovakia"}))
       return house_numbers::HouseNumbersMatchConscription(uniHouse, queryParse);
 
@@ -327,14 +332,14 @@ private:
       if (std::binary_search(buildings.begin(), buildings.end(), houseId))
         return true;
 
+      if (!child.m_hasDelayedFeatures || queryParse.empty())
+        return false;
+
       if (m_postcodes && !m_postcodes->HasBit(houseId) && !m_postcodes->HasBit(streetId))
         return false;
 
       std::unique_ptr<FeatureType> feature = GetByIndex(houseId);
       if (!feature)
-        return false;
-
-      if (!child.m_hasDelayedFeatures)
         return false;
 
       return HouseNumbersMatch(*feature, queryParse);
@@ -384,6 +389,8 @@ private:
 
     std::vector<house_numbers::Token> queryParse;
     ParseQuery(child.m_subQuery, child.m_lastTokenIsPrefix, queryParse);
+    if (queryParse.empty())
+      return;
 
     uint32_t numFilterInvocations = 0;
     auto const houseNumberFilter = [&](uint32_t houseId)
