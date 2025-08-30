@@ -516,8 +516,7 @@ void ParseQuery(UniString const & query, bool queryIsPrefix, TokensT & parse)
 
 bool HouseNumbersMatch(UniString const & houseNumber, TokensT const & queryParse)
 {
-  if (houseNumber.empty() || queryParse.empty())
-    return false;
+  ASSERT(!houseNumber.empty() && !queryParse.empty(), ());
 
   // Fast pre-check, helps to early exit without complex house number parsing.
   if (IsASCIIDigit(houseNumber[0]) && IsASCIIDigit(queryParse[0].m_value[0]) &&
@@ -559,7 +558,7 @@ bool HouseNumbersMatchConscription(UniString const & houseNumber, TokensT const 
 bool HouseNumbersMatchRange(std::string_view const & hnRange, TokensT const & queryParse,
                             feature::InterpolType interpol)
 {
-  ASSERT(interpol != feature::InterpolType::None, ());
+  ASSERT(!queryParse.empty() && interpol != feature::InterpolType::None, ());
 
   if (queryParse[0].m_type != Token::TYPE_NUMBER)
     return false;
