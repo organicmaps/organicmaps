@@ -307,6 +307,8 @@ public class Framework
 
   public static native String nativeGetActiveObjectFormattedCuisine();
 
+  public static native String nativeGetActiveObjectFormattedRouteRefs();
+
   public static native void nativeSetVisibleRect(int left, int top, int right, int bottom);
 
   // Navigation.

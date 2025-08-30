@@ -1498,3 +1498,8 @@
 "type.amenity.ranger_station" = "Σταθμός δασοφύλακα";
 "type.amenity.luggage_locker" = "Ντουλάπι αποσκευών";
 "type.leisure.escape_game" = "Δωμάτιο απόδρασης";
+"type.barrier.wicket_gate" = "Wicket Gate";
+"type.barrier.yes" = "Barrier";
+"type.building.guardhouse" = "Guard";
+"type.office.security" = "Security Office";
+"type.power.portal" = "Power Tower (Portal)";

@@ -35,4 +35,5 @@
     <string name="access_rules_author_only">Edición en línea</string>
     <string name="mb">MB</string>
     <string name="gb">GB</string>
+    <string name="routes_update_maps_text">Para mostrar las rutas, debes actualizar los mapas.</string>
 </resources>

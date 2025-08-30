@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "Για την προβολή των διαδρομών, οι χάρτες πρέπει να είναι ενημερωμένοι.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "Συνεισφέρετε στο OpenStreetMap";
+"contribute_to_osm_add_place" = "Προσθήκη τοποθεσίας";
+"contribute_to_osm_update_map" = "Ενημερώστε τον χάρτη για να συνεισφέρετε";
+"contribute_to_osm_update_map_description" = "Πρέπει να ενημερώσετε τον χάρτη %@ στην πιο πρόσφατη έκδοση πριν μπορέσετε να συνεισφέρετε στα δεδομένα του OpenStreetMap";

@@ -30,10 +30,10 @@ void RelationsDrawInfo::Init(FeatureType & ft)
   for (uint32_t relID : ft.GetRelations())
   {
     auto const rel = ft.ReadRelation(relID);
-    if ((m_sett.hiking && (rel.GetType() == RR::Type::Foot || rel.GetType() == RR::Type::Hiking)) ||
-        (m_sett.cycling && (rel.GetType() == RR::Type::Bicycle || rel.GetType() == RR::Type::MTB)) ||
-        (m_sett.PT &&
-         (rel.GetType() == RR::Type::Bus || rel.GetType() == RR::Type::Tram || rel.GetType() == RR::Type::Trolleybus)))
+    auto const type = rel.GetType();
+    if ((m_sett.hiking && (type == RR::Type::Foot || type == RR::Type::Hiking)) ||
+        (m_sett.cycling && (type == RR::Type::Bicycle || type == RR::Type::MTB)) ||
+        (m_sett.PT && (type == RR::Type::Bus || type == RR::Type::Tram || type == RR::Type::Trolleybus)))
     {
       auto clr = rel.GetColor();
       if (clr == kEmptyColor)

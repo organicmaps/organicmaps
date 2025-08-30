@@ -303,7 +303,7 @@ railway-preserved-tunnel                            # line z13-
 === 160
 
 highway-footway-bridge                              # line z11- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z13-)
-highway-footway-sidewalk                            # line z16-
+highway-footway-sidewalk                            # line z13-
 highway-footway-tunnel                              # line z11- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z13-)
 highway-path-bridge                                 # line z11- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z13-)
 highway-path-horse                                  # line z11- (also has pathtext z13-)
@@ -398,6 +398,7 @@ railway-subway-bridge::bridgeblack                  # line::bridgeblack z16- (al
 
 building                                            # area z14- (also has caption z16-)
 building-garage                                     # area z14- (also has caption z16-)
+building-guardhouse                                 # area z14- (also has icon z17-, caption z16, caption(optional) z17-)
 building-has_parts                                  # area z14- (also has caption z16-)
 building-train_station                              # area z14- (also has caption z16-)
 === 130

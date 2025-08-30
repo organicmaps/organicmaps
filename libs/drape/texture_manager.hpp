@@ -50,9 +50,7 @@ public:
     uint32_t m_textureIndex = 0;
   };
 
-  // TODO(AB): Remove?
-  class GlyphRegion : public BaseRegion
-  {};
+  using GlyphRegion = BaseRegion;
 
   class StippleRegion : public BaseRegion
   {
@@ -60,8 +58,7 @@ public:
     m2::PointU GetMaskPixelSize() const;
   };
 
-  class ColorRegion : public BaseRegion
-  {};
+  using ColorRegion = BaseRegion;
 
   struct Params
   {

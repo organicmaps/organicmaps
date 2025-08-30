@@ -36,6 +36,10 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
     if (!cuisines.empty())
       _cuisine = ToNSString(cuisines);
 
+    auto const routeRefs = rawData.FormatRouteRefs();
+    if (!routeRefs.empty())
+      _routeRefs = ToNSString(routeRefs);
+
     /// @todo Refactor PlacePageInfoData to have a map of simple string properties.
     using MetadataID = MapObject::MetadataID;
     rawData.ForEachMetadataReadable([&](MetadataID metaID, std::string const & value)

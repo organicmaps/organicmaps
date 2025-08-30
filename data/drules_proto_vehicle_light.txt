@@ -8501,6 +8501,136 @@ cont {
   }
 }
 cont {
+  name: "building-guardhouse"
+  element {
+    scale: 15
+    area {
+      color: 1523897290
+      border {
+        width: 1.0
+        color: 13947850
+      }
+      priority: 50
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 1943327690
+      border {
+        width: 1.0
+        color: 13947850
+      }
+      priority: 50
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 1943327690
+      border {
+        width: 1.0
+        color: 13947850
+      }
+      priority: 50
+    }
+    symbol {
+      name: "security-m"
+      priority: 30
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 1943327690
+      border {
+        width: 1.0
+        color: 13947850
+      }
+      priority: 50
+    }
+    symbol {
+      name: "security-m"
+      priority: 30
+    }
+    caption {
+      primary {
+        height: 13
+        color: 6381914
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 12
+        color: 6381914
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9970
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 1943327690
+      border {
+        width: 1.0
+        color: 13947850
+      }
+      priority: 50
+    }
+    symbol {
+      name: "security-m"
+      priority: 30
+    }
+    caption {
+      primary {
+        height: 14
+        color: 6381914
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 13
+        color: 6381914
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9970
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 1943327690
+      border {
+        width: 1.0
+        color: 13947850
+      }
+      priority: 50
+    }
+    symbol {
+      name: "security-m"
+      priority: 30
+    }
+    caption {
+      primary {
+        height: 14
+        color: 6381914
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 13
+        color: 6381914
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9970
+    }
+  }
+}
+cont {
   name: "building-has_parts"
   element {
     scale: 15
@@ -28518,26 +28648,12 @@ cont {
       color: 14802147
       priority: -1960
     }
-    caption {
-      primary {
-        height: 10
-        color: 6710886
-      }
-      priority: 150
-    }
   }
   element {
     scale: 16
     area {
       color: 14802147
       priority: -1960
-    }
-    caption {
-      primary {
-        height: 10
-        color: 6710886
-      }
-      priority: 150
     }
   }
   element {
@@ -28549,7 +28665,8 @@ cont {
     caption {
       primary {
         height: 10
-        color: 6710886
+        color: 4473924
+        offset_y: 1
       }
       priority: 150
     }
@@ -28563,7 +28680,8 @@ cont {
     caption {
       primary {
         height: 10
-        color: 6710886
+        color: 4473924
+        offset_y: 1
       }
       priority: 150
     }
@@ -28577,7 +28695,8 @@ cont {
     caption {
       primary {
         height: 10
-        color: 6710886
+        color: 4473924
+        offset_y: 1
       }
       priority: 150
     }
@@ -28591,7 +28710,8 @@ cont {
     caption {
       primary {
         height: 10
-        color: 6710886
+        color: 4473924
+        offset_y: 1
       }
       priority: 150
     }
@@ -28995,26 +29115,12 @@ cont {
       color: 14802147
       priority: -1960
     }
-    caption {
-      primary {
-        height: 10
-        color: 6710886
-      }
-      priority: 150
-    }
   }
   element {
     scale: 16
     area {
       color: 14802147
       priority: -1960
-    }
-    caption {
-      primary {
-        height: 10
-        color: 6710886
-      }
-      priority: 150
     }
   }
   element {
@@ -29026,7 +29132,8 @@ cont {
     caption {
       primary {
         height: 10
-        color: 6710886
+        color: 4473924
+        offset_y: 1
       }
       priority: 150
     }
@@ -29040,7 +29147,8 @@ cont {
     caption {
       primary {
         height: 10
-        color: 6710886
+        color: 4473924
+        offset_y: 1
       }
       priority: 150
     }
@@ -29054,7 +29162,8 @@ cont {
     caption {
       primary {
         height: 10
-        color: 6710886
+        color: 4473924
+        offset_y: 1
       }
       priority: 150
     }
@@ -29068,7 +29177,8 @@ cont {
     caption {
       primary {
         height: 10
-        color: 6710886
+        color: 4473924
+        offset_y: 1
       }
       priority: 150
     }
@@ -29082,26 +29192,12 @@ cont {
       color: 14802147
       priority: -1960
     }
-    caption {
-      primary {
-        height: 10
-        color: 6710886
-      }
-      priority: 150
-    }
   }
   element {
     scale: 16
     area {
       color: 14802147
       priority: -1960
-    }
-    caption {
-      primary {
-        height: 10
-        color: 6710886
-      }
-      priority: 150
     }
   }
   element {
@@ -29113,7 +29209,8 @@ cont {
     caption {
       primary {
         height: 10
-        color: 6710886
+        color: 4473924
+        offset_y: 1
       }
       priority: 150
     }
@@ -29127,7 +29224,8 @@ cont {
     caption {
       primary {
         height: 10
-        color: 6710886
+        color: 4473924
+        offset_y: 1
       }
       priority: 150
     }
@@ -29141,7 +29239,8 @@ cont {
     caption {
       primary {
         height: 10
-        color: 6710886
+        color: 4473924
+        offset_y: 1
       }
       priority: 150
     }
@@ -29155,7 +29254,8 @@ cont {
     caption {
       primary {
         height: 10
-        color: 6710886
+        color: 4473924
+        offset_y: 1
       }
       priority: 150
     }
@@ -37166,6 +37266,37 @@ cont {
   }
 }
 cont {
+  name: "office-security"
+  element {
+    scale: 17
+    symbol {
+      name: "security-m"
+      priority: 200
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "security-m"
+      priority: 200
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "security-m"
+      priority: 200
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "security-m"
+      priority: 200
+    }
+  }
+}
+cont {
   name: "place-city"
   element {
     scale: 4
@@ -42842,6 +42973,814 @@ cont {
         is_optional: true
       }
       priority: -9800
+    }
+  }
+}
+cont {
+  name: "power-plant"
+  element {
+    scale: 15
+    area {
+      color: 14802147
+      priority: -1960
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+}
+cont {
+  name: "power-plant-coal"
+  element {
+    scale: 15
+    area {
+      color: 14802147
+      priority: -1960
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+}
+cont {
+  name: "power-plant-gas"
+  element {
+    scale: 15
+    area {
+      color: 14802147
+      priority: -1960
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+}
+cont {
+  name: "power-plant-hydro"
+  element {
+    scale: 15
+    area {
+      color: 14802147
+      priority: -1960
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+}
+cont {
+  name: "power-plant-solar"
+  element {
+    scale: 15
+    area {
+      color: 14802147
+      priority: -1960
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+}
+cont {
+  name: "power-plant-wind"
+  element {
+    scale: 15
+    area {
+      color: 14802147
+      priority: -1960
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+}
+cont {
+  name: "power-station"
+  element {
+    scale: 15
+    area {
+      color: 14802147
+      priority: -1960
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+}
+cont {
+  name: "power-substation"
+  element {
+    scale: 15
+    area {
+      color: 14802147
+      priority: -1960
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    symbol {
+      name: "power-m"
+      priority: 150
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9850
     }
   }
 }

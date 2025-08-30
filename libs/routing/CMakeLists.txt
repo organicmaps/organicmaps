@@ -16,6 +16,14 @@ set(SRC
   base/routing_result.hpp
   base/small_list.hpp
   base/small_list.cpp
+  lanes/lane_info.cpp
+  lanes/lane_info.hpp
+  lanes/lane_way.cpp
+  lanes/lane_way.hpp
+  lanes/lanes_parser.cpp
+  lanes/lanes_parser.hpp
+  lanes/lanes_recommendation.cpp
+  lanes/lanes_recommendation.hpp
   car_directions.cpp
   car_directions.hpp
   checkpoint_predictor.cpp

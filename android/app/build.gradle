@@ -319,7 +319,6 @@ dependencies {
   // https://github.com/organicmaps/organicmaps/issues/6106
   implementation 'com.google.guava:guava:33.4.8-android'
   implementation 'com.github.devnullorthrow:MPAndroidChart:3.2.0-alpha'
-  implementation 'net.jcip:jcip-annotations:1.0'
 
   // Test Dependencies
   androidTestImplementation 'androidx.test.ext:junit:1.2.1'

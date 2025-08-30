@@ -27,7 +27,7 @@
 "type.amenity.bicycle_parking" = "Aparcamiento de bicicletas";
 "type.amenity.bicycle_rental" = "Alquiler de bicicletas";
 "type.amenity.bicycle_repair_station" = "Estación de reparación de bicicletas";
-"type.amenity.biergarten" = "Biergarten";
+"type.amenity.biergarten" = "Patio cervecero";
 "type.amenity.brothel" = "Burdel";
 "type.amenity.bureau_de_change" = "Casa de cambio";
 "type.amenity.bus_station" = "Estación de autobuses";
@@ -335,14 +335,14 @@
 "type.cuisine.pizza" = "Pizzas";
 "type.cuisine.polish" = "Polaca";
 "type.cuisine.portuguese" = "Portuguesa";
-"type.cuisine.ramen" = "Ramen";
+"type.cuisine.ramen" = "Ramen (sopa de fideos)";
 "type.cuisine.regional" = "Cocina regional";
 "type.cuisine.russian" = "Rusa";
 "type.cuisine.sandwich" = "Sándwiches";
 "type.cuisine.sausage" = "Salchichas";
 "type.cuisine.savory_pancakes" = "Tortitas saladas";
 "type.cuisine.seafood" = "Mariscos";
-"type.cuisine.soba" = "Soba";
+"type.cuisine.soba" = "Soba (fideos japoneses)";
 "type.cuisine.spanish" = "Española";
 "type.cuisine.steak_house" = "Asador";
 "type.cuisine.sushi" = "Sushi";
@@ -1404,7 +1404,7 @@
 "type.tourism.motel" = "Motel";
 "type.tourism.museum" = "Museo";
 "type.tourism.picnic_site" = "Zona de picnic";
-"type.leisure.resort" = "Resort";
+"type.leisure.resort" = "Complejo turístico";
 "type.tourism.theme_park" = "Parque temático";
 "type.tourism.viewpoint" = "Mirador";
 
@@ -1495,6 +1495,11 @@
 "type.railway.station.subway.qingdao" = "Estación de metro";
 "type.amenity.bicycle_parking.covered" = "Aparcamiento de bicicletas cubierto";
 "type.amenity.ranger_station" = "Estación de guardabosques";
-"type.leisure.escape_game" = "Escape Room";
+"type.leisure.escape_game" = "Sala de escape";
 "type.amenity.luggage_locker" = "Guardaequipaje";
 "type.post_office.post_partner" = "Proveedor de servicios postales";
+"type.barrier.wicket_gate" = "Wicket Gate";
+"type.barrier.yes" = "Barrier";
+"type.building.guardhouse" = "Guard";
+"type.office.security" = "Security Office";
+"type.power.portal" = "Power Tower (Portal)";

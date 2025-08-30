@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "Teekondade kuvamiseks peavad kaardid olema uuendatud.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "Panusta OpenStreetMap-i";
+"contribute_to_osm_add_place" = "Lisa koht";
+"contribute_to_osm_update_map" = "Uuenda kaarti, et panustada";
+"contribute_to_osm_update_map_description" = "Enne OpenStreetMap andmetesse panustamist peate uuendama %@ kaardi uusimale versioonile";

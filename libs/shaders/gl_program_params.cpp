@@ -50,12 +50,10 @@ class GLTypeWrapper;
 
 BIND_GL_TYPE(float, gl_const::GLFloatType)
 BIND_GL_TYPE(glsl::vec2, gl_const::GLFloatVec2)
-BIND_GL_TYPE(glsl::vec3, gl_const::GLFloatVec4)
 BIND_GL_TYPE(glsl::vec4, gl_const::GLFloatVec4)
 BIND_GL_TYPE(glsl::mat4, gl_const::GLFloatMat4)
 BIND_GL_TYPE(int, gl_const::GLIntType)
 BIND_GL_TYPE(glsl::ivec2, gl_const::GLIntVec2)
-BIND_GL_TYPE(glsl::ivec3, gl_const::GLIntVec4)
 BIND_GL_TYPE(glsl::ivec4, gl_const::GLIntVec4)
 
 class Parameter

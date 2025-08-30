@@ -45,14 +45,6 @@ public class FloatingSearchToolbarController extends SearchToolbarController
       mListener.onSearchQueryClick(getQuery());
   }
 
-  @Override
-  protected void onClearClick()
-  {
-    super.onClearClick();
-    if (mListener != null)
-      mListener.onSearchClearClick();
-  }
-
   public void cancelSearchApiAndHide(boolean clearText)
   {
     SearchEngine.INSTANCE.cancel();

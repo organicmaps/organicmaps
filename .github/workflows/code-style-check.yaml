@@ -49,9 +49,9 @@ jobs:
 
       - name: Post clang-format comments
         if: failure()
-        uses: reviewdog/action-suggester@v1.21.0
+        uses: reviewdog/action-suggester@4747dbc9f9e37adba0943e681cc20db466642158 # v1.21.0
         with:
-          tool_name: clang-format
           fail_level: error
+          tool_name: clang-format
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.REVIEWDOG_TOKEN }}

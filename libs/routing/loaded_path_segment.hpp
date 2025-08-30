@@ -1,7 +1,6 @@
 #pragma once
 
-#include "routing/maxspeeds.hpp"
-#include "routing/road_point.hpp"
+#include "routing/lanes/lane_info.hpp"
 #include "routing/route.hpp"
 #include "routing/segment.hpp"
 #include "routing/turns.hpp"
@@ -10,7 +9,6 @@
 
 #include "geometry/point_with_altitude.hpp"
 
-#include <string>
 #include <vector>
 
 namespace routing
@@ -23,7 +21,7 @@ namespace routing
 struct LoadedPathSegment
 {
   std::vector<geometry::PointWithAltitude> m_path;
-  std::vector<turns::SingleLaneInfo> m_lanes;
+  turns::lanes::LanesInfo m_lanes;
   RouteSegment::RoadNameInfo m_roadNameInfo;
   // double m_weight = 0.0; /*!< Time in seconds to pass the segment. */
   SegmentRange m_segmentRange;

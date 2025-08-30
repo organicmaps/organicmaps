@@ -89,10 +89,18 @@ landuse-forest-mixed                                # area z10- (also has icon z
 landuse-construction                                # area z15-
 landuse-industrial                                  # area z15-
 landuse-industrial-mine                             # area z15-
-landuse-landfill                                    # area z15- (also has caption z15-)
-landuse-quarry                                      # area z15- (also has caption z15-)
-landuse-railway                                     # area z15- (also has caption z15-)
+landuse-landfill                                    # area z15- (also has caption z17-)
+landuse-quarry                                      # area z15- (also has caption z17-)
+landuse-railway                                     # area z15- (also has caption z17-)
 landuse-religious                                   # area z15-
+power-plant                                         # area z15- (also has icon z16-, caption(optional) z17-)
+power-plant-coal                                    # area z15- (also has icon z16-, caption(optional) z17-)
+power-plant-gas                                     # area z15- (also has icon z16-, caption(optional) z17-)
+power-plant-hydro                                   # area z15- (also has icon z16-, caption(optional) z17-)
+power-plant-solar                                   # area z15- (also has icon z16-, caption(optional) z17-)
+power-plant-wind                                    # area z15- (also has icon z16-, caption(optional) z17-)
+power-station                                       # area z15- (also has icon z16-, caption(optional) z17-)
+power-substation                                    # area z15- (also has icon z16-, caption(optional) z17-)
 === 40
 
 aeroway-aerodrome                                   # area z10- (also has icon z14-, caption(optional) z14-)

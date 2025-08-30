@@ -8,14 +8,15 @@ import androidx.car.app.CarContext;
 import androidx.car.app.model.CarIcon;
 import androidx.car.app.navigation.model.Destination;
 import androidx.car.app.navigation.model.Lane;
+import androidx.car.app.navigation.model.LaneDirection;
 import androidx.car.app.navigation.model.Step;
 import androidx.car.app.navigation.model.TravelEstimate;
 import androidx.car.app.navigation.model.Trip;
 import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.routing.LaneInfo;
 import app.organicmaps.sdk.routing.LaneWay;
 import app.organicmaps.sdk.routing.RoutingInfo;
-import app.organicmaps.sdk.routing.SingleLaneInfo;
 import app.organicmaps.sdk.util.Distance;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.widget.LanesDrawable;
@@ -69,11 +70,12 @@ public final class RoutingUtils
     builder.setManeuver(RoutingHelpers.createManeuver(context, info.carDirection, info.exitNum));
     if (info.lanes != null)
     {
-      for (final SingleLaneInfo laneInfo : info.lanes)
+      for (final LaneInfo laneInfo : info.lanes)
       {
         final Lane.Builder laneBuilder = new Lane.Builder();
-        for (final LaneWay laneWay : laneInfo.mLane)
-          laneBuilder.addDirection(RoutingHelpers.createLaneDirection(laneWay, laneInfo.mIsActive));
+        for (final LaneWay laneWay : laneInfo.mLaneWays)
+          laneBuilder.addDirection(
+              RoutingHelpers.createLaneDirection(laneWay, /* isRecommended */ laneWay == laneInfo.mActiveLaneWay));
         builder.addLane(laneBuilder.build());
       }
       final LanesDrawable lanesDrawable = new LanesDrawable(context, info.lanes);

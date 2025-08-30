@@ -11,8 +11,7 @@ public final class Colors
   public static final CarColor OPENING_HOURS_CLOSES_SOON = CarColor.YELLOW;
   public static final CarColor OPENING_HOURS_CLOSED = CarColor.RED;
   public static final CarColor START_NAVIGATION = CarColor.GREEN;
-  public static final CarColor NAVIGATION_TEMPLATE_BACKGROUND_DAY = CarColor.GREEN;
-  public static final CarColor NAVIGATION_TEMPLATE_BACKGROUND_NIGHT = CarColor.DEFAULT;
+  public static final CarColor NAVIGATION_TEMPLATE_BACKGROUND = CarColor.GREEN;
   public static final CarColor BUTTON_ACCEPT = CarColor.GREEN;
 
   private Colors() {}

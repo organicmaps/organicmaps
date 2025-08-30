@@ -25,6 +25,9 @@ class BottomMenuPresenter: NSObject {
   private let menuCells: [CellType]
   private let trackRecorder = TrackRecordingManager.shared
   private var cellToHighlight: CellType?
+  private let mapsStorage: Storage
+  private let countryId: String?
+  private let shouldUpdateMapToContribute: Bool
 
   init(view: BottomMenuViewProtocol,
        interactor: BottomMenuInteractorProtocol,
@@ -35,6 +38,13 @@ class BottomMenuPresenter: NSObject {
     let disableDonate = Settings.donateUrl() == nil
     self.menuCells = CellType.allCases.filter { disableDonate ? $0 != .donate : true }
     self.cellToHighlight = Self.getCellToHighlight()
+    let mapsStorage = Storage.shared()
+    self.mapsStorage = mapsStorage
+    self.countryId = mapsStorage.countryForViewportCenter()
+    self.shouldUpdateMapToContribute =
+      !(MWMNavigationDashboardManager.shared().state == .hidden &&
+      FrameworkHelper.canEditMapAtViewportCenter() &&
+      self.countryId != nil)
     super.init()
   }
 
@@ -95,30 +105,29 @@ extension BottomMenuPresenter {
       let cell = tableView.dequeueReusableCell(cell: BottomMenuItemCell.self)!
       switch menuCells[indexPath.row] {
       case .addPlace:
-        let enabled = MWMNavigationDashboardManager.shared().state == .hidden && FrameworkHelper.canEditMapAtViewportCenter()
-        cell.configure(imageName: "ic_add_place",
+        cell.configure(image: shouldUpdateMapToContribute ? UIImage(resource: .icMenuAddPlaceExclamation) : UIImage(resource: .icMenuAddPlace),
                        title: L("placepage_add_place_button"),
-                       enabled: enabled)
+                       enabled: countryId != nil)
       case .recordTrack:
         switch trackRecorder.recordingState {
         case .inactive:
-          cell.configure(imageName: "track_recorder_inactive", title: L("start_track_recording"))
+          cell.configure(image: UIImage(resource: .icMenuTrackRecording), title: L("start_track_recording"))
         case .active:
-          cell.configure(imageName: "track_recorder_active", title: L("stop_track_recording"))
+          cell.configure(image: UIImage(resource: .icMenuTrackRecording), title: L("stop_track_recording"), imageStyle: .red)
         }
         return cell
       case .downloadMaps:
-        cell.configure(imageName: "ic_menu_download",
+        cell.configure(image: UIImage(resource: .icMenuDownload),
                        title: L("download_maps"),
                        badgeCount: MapsAppDelegate.theApp().badgeNumber())
       case .donate:
-        cell.configure(imageName: Settings.isNY() ? "ic_christmas_tree" : "ic_menu_donate",
+        cell.configure(image: Settings.isNY() ? UIImage(resource: .icChristmasTree) : UIImage(resource: .icMenuDonate),
                        title: L("donate"))
       case .settings:
-        cell.configure(imageName: "ic_menu_settings",
+        cell.configure(image: UIImage(resource: .icMenuSettings),
                        title: L("settings"))
       case .share:
-        cell.configure(imageName: "ic_menu_share",
+        cell.configure(image: UIImage(resource: .icMenuShare),
                        title: L("share_my_location"))
       }
       return cell
@@ -144,7 +153,22 @@ extension BottomMenuPresenter {
     case .items:
       switch menuCells[indexPath.row] {
       case .addPlace:
-        interactor.addPlace()
+        if shouldUpdateMapToContribute {
+          guard let countryId else {
+            fatalError("Add place button should be disabled when there is no country")
+          }
+          let countryName = mapsStorage.name(forCountry: countryId)
+          MWMAlertViewController.activeAlert().presentDefaultAlert(
+            withTitle: L("contribute_to_osm_update_map"),
+            message: String(format: L("contribute_to_osm_update_map_description"), countryName),
+            rightButtonTitle: L("download_button"),
+            leftButtonTitle: L("cancel")
+          ) { [weak self] in
+            self?.interactor.startDownloadingMapForCountry(countryId)
+          }
+        } else {
+          interactor.addPlace()
+        }
       case .recordTrack:
         interactor.toggleTrackRecording()
       case .downloadMaps:

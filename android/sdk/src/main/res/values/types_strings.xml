@@ -1411,4 +1411,10 @@
     <string name="type.leisure.sports_hall">Sports hall</string>
     <string name="type.sport.diving">Diving</string>
     <string name="type.man_made.crane">Crane</string>
+
+    <string name="type.barrier.wicket_gate">Wicket Gate</string>
+    <string name="type.barrier.yes">Barrier</string>
+    <string name="type.building.guardhouse">Guard</string>
+    <string name="type.office.security">Security Office</string>
+    <string name="type.power.portal">Power Tower (Portal)</string>
 </resources>

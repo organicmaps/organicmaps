@@ -615,7 +615,7 @@
     <string name="privacy_policy">Política de privacidade</string>
     <string name="terms_of_use">Termos de utilização</string>
     <string name="button_layer_traffic">Tráfego</string>
-    <string name="button_layer_hiking">Caminhadas</string>
+    <string name="button_layer_hiking">Caminhada</string>
     <string name="button_layer_cycling">Ciclismo</string>
     <string name="button_layer_subway">Metropolitano</string>
     <string name="layers_title">Estilos e camadas de mapas</string>
@@ -856,4 +856,12 @@
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="translated_om_site_url">https://organicmaps.app/pt/</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="bookmarks_text_placement_title">Nomes de marcadores no mapa</string>
+    <string name="bookmarks_text_placement_description">Se houver muitos favoritos, exibir seus nomes no mapa pode deixar o aplicativo lento.</string>
+    <string name="show_to_the_right">Mostrar à direita</string>
+    <string name="show_at_the_bottom">Mostrar na parte inferior</string>
+    <string name="osm_note_hint">Ou, alternativamente, deixe uma nota para a comunidade do OpenStreetMap para que outra pessoa possa adicionar ou corrigir um lugar aqui.</string>
+    <string name="osm_note_toast">A nota será enviada ao OpenStreetMap</string>
+    <string name="share_track">Compartilhar trilha</string>
+    <string name="delete_track_dialog_title">Excluir %s?</string>
 </resources>

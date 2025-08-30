@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "Az útvonalak megjelenítéséhez frissíteni kell a térképeket.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "Hozzájárulás az OpenStreetMaphez";
+"contribute_to_osm_add_place" = "Hely hozzáadása";
+"contribute_to_osm_update_map" = "Frissítse a térképet a hozzájáruláshoz";
+"contribute_to_osm_update_map_description" = "A hozzájáruláshoz frissítenie kell a %@ térképet a legújabb verzióra az OpenStreetMap adataihoz";

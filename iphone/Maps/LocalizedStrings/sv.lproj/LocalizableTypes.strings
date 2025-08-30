@@ -1498,3 +1498,8 @@
 "type.tourism.zoo.petting" = "Petting Zoo";
 "type.sport.diving" = "Diving";
 "type.man_made.crane" = "Crane";
+"type.barrier.wicket_gate" = "Wicket Gate";
+"type.barrier.yes" = "Barrier";
+"type.building.guardhouse" = "Guard";
+"type.office.security" = "Security Office";
+"type.power.portal" = "Power Tower (Portal)";

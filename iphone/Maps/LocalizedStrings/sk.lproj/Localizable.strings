@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "To display routes, maps must be updated.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "Prispieť do OpenStreetMap";
+"contribute_to_osm_add_place" = "Pridať miesto";
+"contribute_to_osm_update_map" = "Aktualizovať mapu na prispievanie";
+"contribute_to_osm_update_map_description" = "Musíte aktualizovať mapu %@ na najnovšiu verziu, aby ste mohli prispievať do údajov OpenStreetMap";

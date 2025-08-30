@@ -17,25 +17,25 @@ class PlacePageTrackLayout: IPlacePageLayout {
     placePageNavigationViewController
   }
 
-  lazy var headerViewControllers: [UIViewController] = {
+  var headerViewControllers: [UIViewController] {
     [headerViewController, previewViewController]
-  }()
+  }
 
   lazy var headerViewController: PlacePageHeaderViewController = {
     PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .flexible)
   }()
 
-  lazy var previewViewController: PlacePagePreviewViewController = {
+  private lazy var previewViewController: PlacePagePreviewViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePagePreviewViewController.self)
     vc.placePagePreviewData = placePageData.previewData
     return vc
   }()
 
-  lazy var placePageNavigationViewController: PlacePageHeaderViewController = {
+  private lazy var placePageNavigationViewController: PlacePageHeaderViewController = {
     return PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .fixed)
   }()
 
-  lazy var editTrackViewController: PlacePageEditBookmarkOrTrackViewController = {
+  private lazy var editTrackViewController: PlacePageEditBookmarkOrTrackViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePageEditBookmarkOrTrackViewController.self)
     vc.view.isHidden = true
     vc.delegate = interactor
@@ -49,7 +49,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
     return ElevationProfileBuilder.build(trackData: trackData, delegate: interactor)
   }()
 
-  lazy var actionBarViewController: ActionBarViewController = {
+  private lazy var actionBarViewController: ActionBarViewController = {
     let vc = storyboard.instantiateViewController(ofType: ActionBarViewController.self)
     vc.placePageData = placePageData
     vc.canAddStop = MWMRouter.canAddIntermediatePoint()

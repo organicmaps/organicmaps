@@ -1409,4 +1409,10 @@
     <string name="type.amenity.ranger_station">Пост лесников</string>
     <string name="type.amenity.luggage_locker">Камера хранения</string>
     <string name="type.leisure.escape_game">Игра Escape Room</string>
+
+    <string name="type.barrier.wicket_gate">Калитка</string>
+    <string name="type.barrier.yes">Барьер</string>
+    <string name="type.building.guardhouse">Сторож</string>
+    <string name="type.office.security">Охрана</string>
+    <string name="type.power.portal">Опора (Портал)</string>
 </resources>

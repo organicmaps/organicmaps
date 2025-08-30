@@ -85,5 +85,5 @@
   branch = master
 [submodule "3party/glaze"]
   path = 3party/glaze
-  url = https://github.com/stephenberry/glaze
-  branch = main
+  url = https://github.com/organicmaps/glaze
+  branch = organicmaps

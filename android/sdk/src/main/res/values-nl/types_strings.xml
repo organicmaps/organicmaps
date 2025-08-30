@@ -1344,9 +1344,9 @@
     <string name="type.piste_type.sled">Sleebaan</string>
     <string name="type.piste_type.sled.area">Sleebaan</string>
     <string name="type.piste_type.snow_park">Sneeuwpark</string>
-    <string name="type.piste_type.hike">Sneeuwwandelpad</string>
+    <string name="type.piste_type.hike">Sneeuwwandelroute</string>
     <string name="type.piste_type.connection">Pisteverbinding</string>
-    <string name="type.piste_type.skitour">Skitourspoor</string>
+    <string name="type.piste_type.skitour">Skitochtroute</string>
     <string name="type.amenity.events_venue">Evenementenlocatie</string>
     <string name="type.shop.auction">Veiling</string>
     <string name="type.shop.collector">Verzamelobjecten</string>
@@ -1355,11 +1355,11 @@
     <string name="type.self_service.partially">Gedeeltelijke zelfbediening</string>
     <string name="type.self_service.no">Geen zelfbediening</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
-    <string name="type.amenity.social_facility">Sociale voorziening</string>
+    <string name="type.amenity.social_facility">Sociale Voorziening</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
-    <string name="type.emergency.emergency_ward_entrance">Ingang noodafdeling</string>
+    <string name="type.emergency.emergency_ward_entrance">Ingang spoedeisende hulp</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
-    <string name="type.amenity.dojo">Dojo</string>
+    <string name="type.amenity.dojo">Sportschool</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Sporthal</string>
     <string name="type.cuisine.bubble_tea">Bubbelthee</string>

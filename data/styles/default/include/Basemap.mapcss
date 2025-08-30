@@ -358,6 +358,9 @@ area|z14-[landuse=landfill],
 area|z14-[landuse=railway],
 area|z14-[landuse=quarry],
 area|z14-[landuse=garages],
+area|z15-[power=plant],
+area|z15-[power=station],
+area|z15-[power=substation],
 {fill-color: @industrial; fill-opacity: 1;}
 
 /* 7.2 Hospital */

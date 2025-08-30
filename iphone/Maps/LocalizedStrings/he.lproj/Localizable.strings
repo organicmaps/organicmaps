@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "To display routes, maps must be updated.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "תרום ל-OpenStreetMap";
+"contribute_to_osm_add_place" = "הוסף מקום";
+"contribute_to_osm_update_map" = "עדכן את המפה כדי לתרום";
+"contribute_to_osm_update_map_description" = "עליך לעדכן את המפה של %@ לגרסה האחרונה לפני שתוכל לתרום לנתוני OpenStreetMap";

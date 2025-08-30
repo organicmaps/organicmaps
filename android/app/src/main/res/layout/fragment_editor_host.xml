@@ -22,17 +22,16 @@
 
       <include
         layout="@layout/toolbar_search_controls"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
         app:layout_constraintEnd_toStartOf="@id/save"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginEnd="?actionBarSize"
         tools:visibility="gone" />
       <TextView
         android:id="@+id/save"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:padding="@dimen/margin_base"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_half_plus"
         android:text="@string/save"
         android:gravity="center"
         android:background="?selectableItemBackgroundBorderless"
