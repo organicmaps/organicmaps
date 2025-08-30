@@ -1,0 +1,3276 @@
+{
+    "data_format": 1,
+    "data_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/taginfo.json",
+    "data_updated": "2025-10-04T10:49:05Z",
+    "project": {
+        "name": "Organic Maps",
+        "description": "Free Android & iOS offline maps app for travelers, tourists, hikers, and cyclists",
+        "project_url": "https://organicmaps.app",
+        "doc_url": "https://github.com/organicmaps/organicmaps",
+        "icon_url": "https://organicmaps.app/logos/green-on-transparent.svg",
+        "contact_name": "Organic Maps",
+        "contact_email": "hello@organicmaps.app"
+    },
+    "tags": [
+        {
+            "description": "aerialway=station",
+            "key": "aerialway",
+            "value": "station",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cable-car-m.svg"
+        },
+        {
+            "description": "aeroway=aerodrome",
+            "key": "aeroway",
+            "value": "aerodrome",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/airport-m.svg"
+        },
+        {
+            "description": "aeroway=aerodrome + aerodrome=international",
+            "key": "aerodrome",
+            "value": "international",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/airport-m.svg"
+        },
+        {
+            "description": "aeroway=aerodrome + aerodrome=international",
+            "key": "aeroway",
+            "value": "aerodrome",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/airport-m.svg"
+        },
+        {
+            "description": "aeroway=gate",
+            "key": "aeroway",
+            "value": "gate",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/airport_gate-m.svg"
+        },
+        {
+            "description": "aeroway=helipad",
+            "key": "aeroway",
+            "value": "helipad",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/helipad-m.svg"
+        },
+        {
+            "description": "amenity=*",
+            "key": "amenity"
+        },
+        {
+            "description": "amenity=arts_centre",
+            "key": "amenity",
+            "value": "arts_centre",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/gallery-m.svg"
+        },
+        {
+            "description": "amenity=atm",
+            "key": "amenity",
+            "value": "atm",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/atm-m.svg"
+        },
+        {
+            "description": "amenity=bank",
+            "key": "amenity",
+            "value": "bank",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bank-m.svg"
+        },
+        {
+            "description": "amenity=bar",
+            "key": "amenity",
+            "value": "bar",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bar-m.svg"
+        },
+        {
+            "description": "amenity=bbq",
+            "key": "amenity",
+            "value": "bbq",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bbq-m.svg"
+        },
+        {
+            "description": "amenity=bench",
+            "key": "amenity",
+            "value": "bench",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bench-m.svg"
+        },
+        {
+            "description": "amenity=bicycle_parking",
+            "key": "amenity",
+            "value": "bicycle_parking",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bicycle-parking-m.svg"
+        },
+        {
+            "description": "amenity=bicycle_parking + covered=yes",
+            "key": "amenity",
+            "value": "bicycle_parking",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bicycle-parking-covered-m.svg"
+        },
+        {
+            "description": "amenity=bicycle_parking + covered=yes",
+            "key": "covered",
+            "value": "yes",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bicycle-parking-covered-m.svg"
+        },
+        {
+            "description": "amenity=bicycle_rental",
+            "key": "amenity",
+            "value": "bicycle_rental"
+        },
+        {
+            "description": "amenity=bicycle_rental + bicycle_rental!=shop",
+            "key": "amenity",
+            "value": "bicycle_rental",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bicycle-rental-m.svg"
+        },
+        {
+            "description": "amenity=bicycle_rental + bicycle_rental!=shop",
+            "key": "bicycle_rental!",
+            "value": "shop",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bicycle-rental-m.svg"
+        },
+        {
+            "description": "amenity=bicycle_rental + bicycle_rental=shop",
+            "key": "amenity",
+            "value": "bicycle_rental",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shop-rental-bicycle-m.svg"
+        },
+        {
+            "description": "amenity=bicycle_rental + bicycle_rental=shop",
+            "key": "bicycle_rental",
+            "value": "shop",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shop-rental-bicycle-m.svg"
+        },
+        {
+            "description": "amenity=bicycle_repair_station",
+            "key": "amenity",
+            "value": "bicycle_repair_station",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bicycle-repair-station-m.svg"
+        },
+        {
+            "description": "amenity=biergarten",
+            "key": "amenity",
+            "value": "biergarten",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pub-m.svg"
+        },
+        {
+            "description": "amenity=brothel",
+            "key": "amenity",
+            "value": "brothel",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/stripclub-m.svg"
+        },
+        {
+            "description": "amenity=bureau_de_change",
+            "key": "amenity",
+            "value": "bureau_de_change",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/banknote-m.svg"
+        },
+        {
+            "description": "amenity=bus_station",
+            "key": "amenity",
+            "value": "bus_station",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bus-m.svg"
+        },
+        {
+            "description": "amenity=cafe",
+            "key": "amenity",
+            "value": "cafe",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cafe-m.svg"
+        },
+        {
+            "description": "amenity=car_rental",
+            "key": "amenity",
+            "value": "car_rental",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car_sharing-m.svg"
+        },
+        {
+            "description": "amenity=car_sharing",
+            "key": "amenity",
+            "value": "car_sharing",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car_sharing-m.svg"
+        },
+        {
+            "description": "amenity=car_wash",
+            "key": "amenity",
+            "value": "car_wash",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car-wash-m.svg"
+        },
+        {
+            "description": "amenity=casino",
+            "key": "amenity",
+            "value": "casino",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/casino-m.svg"
+        },
+        {
+            "description": "amenity=charging_station",
+            "key": "amenity",
+            "value": "charging_station",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/charging-station-m.svg"
+        },
+        {
+            "description": "amenity=charging_station + motorcar?=*",
+            "key": "amenity",
+            "value": "charging_station",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/charging-station-m.svg"
+        },
+        {
+            "description": "amenity=charging_station + motorcar?=*",
+            "key": "motorcar?",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/charging-station-m.svg"
+        },
+        {
+            "description": "amenity=childcare",
+            "key": "amenity",
+            "value": "childcare",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/kindergarten-m.svg"
+        },
+        {
+            "description": "amenity=cinema",
+            "key": "amenity",
+            "value": "cinema",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cinema-m.svg"
+        },
+        {
+            "description": "amenity=clinic",
+            "key": "amenity",
+            "value": "clinic",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/clinic-m.svg"
+        },
+        {
+            "description": "amenity=college",
+            "key": "amenity",
+            "value": "college",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/college-m.svg"
+        },
+        {
+            "description": "amenity=community_centre",
+            "key": "amenity",
+            "value": "community_centre",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/community-m.svg"
+        },
+        {
+            "description": "amenity=compressed_air",
+            "key": "amenity",
+            "value": "compressed_air",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/compressed_air-m.svg"
+        },
+        {
+            "description": "amenity=conference_centre",
+            "key": "amenity",
+            "value": "conference_centre",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/community-m.svg"
+        },
+        {
+            "description": "amenity=courthouse",
+            "key": "amenity",
+            "value": "courthouse",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/public-building-m.svg"
+        },
+        {
+            "description": "amenity=dentist",
+            "key": "amenity",
+            "value": "dentist",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dentist-m.svg"
+        },
+        {
+            "description": "amenity=doctors",
+            "key": "amenity",
+            "value": "doctors",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/clinic-m.svg"
+        },
+        {
+            "description": "amenity=dojo",
+            "key": "amenity",
+            "value": "dojo",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/martial-arts-m.svg"
+        },
+        {
+            "description": "amenity=drinking_water",
+            "key": "amenity",
+            "value": "drinking_water",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-m.svg"
+        },
+        {
+            "description": "amenity=driving_school",
+            "key": "amenity",
+            "value": "driving_school",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/driving_school-m.svg"
+        },
+        {
+            "description": "amenity=events_venue",
+            "key": "amenity",
+            "value": "events_venue",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/community-m.svg"
+        },
+        {
+            "description": "amenity=exhibition_centre",
+            "key": "amenity",
+            "value": "exhibition_centre",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/community-m.svg"
+        },
+        {
+            "description": "amenity=fast_food",
+            "key": "amenity",
+            "value": "fast_food",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/fastfood-m.svg"
+        },
+        {
+            "description": "amenity=ferry_terminal",
+            "key": "amenity",
+            "value": "ferry_terminal",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/ship-m.svg"
+        },
+        {
+            "description": "amenity=fire_station",
+            "key": "amenity",
+            "value": "fire_station",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/fire_station-m.svg"
+        },
+        {
+            "description": "amenity=food_court",
+            "key": "amenity",
+            "value": "food_court",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/restaurant-m.svg"
+        },
+        {
+            "description": "amenity=fountain",
+            "key": "amenity",
+            "value": "fountain",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/fountain-m.svg"
+        },
+        {
+            "description": "amenity=fuel",
+            "key": "amenity",
+            "value": "fuel",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/fuel-m.svg"
+        },
+        {
+            "description": "amenity=gambling",
+            "key": "amenity",
+            "value": "gambling",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/gambling-m.svg"
+        },
+        {
+            "description": "amenity=hospital",
+            "key": "amenity",
+            "value": "hospital",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hospital-m.svg"
+        },
+        {
+            "description": "amenity=hunting_stand",
+            "key": "amenity",
+            "value": "hunting_stand",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hunting-tower-m.svg"
+        },
+        {
+            "description": "amenity=ice_cream",
+            "key": "amenity",
+            "value": "ice_cream",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/ice_cream-m.svg"
+        },
+        {
+            "description": "amenity=internet_cafe",
+            "key": "amenity",
+            "value": "internet_cafe",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/internet_cafe-m.svg"
+        },
+        {
+            "description": "amenity=kindergarten",
+            "key": "amenity",
+            "value": "kindergarten",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/kindergarten-m.svg"
+        },
+        {
+            "description": "amenity=language_school",
+            "key": "amenity",
+            "value": "language_school",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/language_school-m.svg"
+        },
+        {
+            "description": "amenity=library",
+            "key": "amenity",
+            "value": "library",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/library-m.svg"
+        },
+        {
+            "description": "amenity=love_hotel",
+            "key": "amenity",
+            "value": "love_hotel",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/stripclub-m.svg"
+        },
+        {
+            "description": "amenity=luggage_locker",
+            "key": "amenity",
+            "value": "luggage_locker",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/luggage_locker-m.svg"
+        },
+        {
+            "description": "amenity=marketplace",
+            "key": "amenity",
+            "value": "marketplace",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/marketplace-m.svg"
+        },
+        {
+            "description": "amenity=money_transfer",
+            "key": "amenity",
+            "value": "money_transfer",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/banknote-m.svg"
+        },
+        {
+            "description": "amenity=motorcycle_parking",
+            "key": "amenity",
+            "value": "motorcycle_parking",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/motorcycle-parking-m.svg"
+        },
+        {
+            "description": "amenity=motorcycle_rental",
+            "key": "amenity",
+            "value": "motorcycle_rental",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/motorcycle_rental-m.svg"
+        },
+        {
+            "description": "amenity=music_school",
+            "key": "amenity",
+            "value": "music_school",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/music_school-m.svg"
+        },
+        {
+            "description": "amenity=nightclub",
+            "key": "amenity",
+            "value": "nightclub",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/nightclub-m.svg"
+        },
+        {
+            "description": "amenity=nursing_home",
+            "key": "amenity",
+            "value": "nursing_home",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/home-m.svg"
+        },
+        {
+            "description": "amenity=parcel_locker",
+            "key": "amenity",
+            "value": "parcel_locker",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parcel_locker-m.svg"
+        },
+        {
+            "description": "amenity=parking",
+            "key": "amenity",
+            "value": "parking",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking-m.svg"
+        },
+        {
+            "description": "amenity=parking + access=no",
+            "key": "access",
+            "value": "no",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_private-m.svg"
+        },
+        {
+            "description": "amenity=parking + access=no",
+            "key": "amenity",
+            "value": "parking",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_private-m.svg"
+        },
+        {
+            "description": "amenity=parking + access=private",
+            "key": "access",
+            "value": "private",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_private-m.svg"
+        },
+        {
+            "description": "amenity=parking + access=private",
+            "key": "amenity",
+            "value": "parking",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_private-m.svg"
+        },
+        {
+            "description": "amenity=parking + fee?=*",
+            "key": "amenity",
+            "value": "parking",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_pay-m.svg"
+        },
+        {
+            "description": "amenity=parking + fee?=*",
+            "key": "fee?",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_pay-m.svg"
+        },
+        {
+            "description": "amenity=parking + location=underground",
+            "key": "amenity",
+            "value": "parking",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_underground-m.svg"
+        },
+        {
+            "description": "amenity=parking + location=underground",
+            "key": "location",
+            "value": "underground",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_underground-m.svg"
+        },
+        {
+            "description": "amenity=parking + location=underground + access=private",
+            "key": "access",
+            "value": "private",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_underground_private-m.svg"
+        },
+        {
+            "description": "amenity=parking + location=underground + access=private",
+            "key": "amenity",
+            "value": "parking",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_underground_private-m.svg"
+        },
+        {
+            "description": "amenity=parking + location=underground + access=private",
+            "key": "location",
+            "value": "underground",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_underground_private-m.svg"
+        },
+        {
+            "description": "amenity=parking + location=underground + fee?=*",
+            "key": "amenity",
+            "value": "parking",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_underground_pay-m.svg"
+        },
+        {
+            "description": "amenity=parking + location=underground + fee?=*",
+            "key": "fee?",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_underground_pay-m.svg"
+        },
+        {
+            "description": "amenity=parking + location=underground + fee?=*",
+            "key": "location",
+            "value": "underground",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_underground_pay-m.svg"
+        },
+        {
+            "description": "amenity=parking + parking=lane",
+            "key": "amenity",
+            "value": "parking",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking-s.svg"
+        },
+        {
+            "description": "amenity=parking + parking=lane",
+            "key": "parking",
+            "value": "lane",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking-s.svg"
+        },
+        {
+            "description": "amenity=parking + parking=lane + access=private",
+            "key": "access",
+            "value": "private",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_private-s.svg"
+        },
+        {
+            "description": "amenity=parking + parking=lane + access=private",
+            "key": "amenity",
+            "value": "parking",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_private-s.svg"
+        },
+        {
+            "description": "amenity=parking + parking=lane + access=private",
+            "key": "parking",
+            "value": "lane",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_private-s.svg"
+        },
+        {
+            "description": "amenity=parking + parking=lane + fee?=*",
+            "key": "amenity",
+            "value": "parking",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_pay-s.svg"
+        },
+        {
+            "description": "amenity=parking + parking=lane + fee?=*",
+            "key": "fee?",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_pay-s.svg"
+        },
+        {
+            "description": "amenity=parking + parking=lane + fee?=*",
+            "key": "parking",
+            "value": "lane",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_pay-s.svg"
+        },
+        {
+            "description": "amenity=parking + parking=street_side",
+            "key": "amenity",
+            "value": "parking",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking-s.svg"
+        },
+        {
+            "description": "amenity=parking + parking=street_side",
+            "key": "parking",
+            "value": "street_side",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking-s.svg"
+        },
+        {
+            "description": "amenity=parking + parking=street_side + access=private",
+            "key": "access",
+            "value": "private",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_private-s.svg"
+        },
+        {
+            "description": "amenity=parking + parking=street_side + access=private",
+            "key": "amenity",
+            "value": "parking",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_private-s.svg"
+        },
+        {
+            "description": "amenity=parking + parking=street_side + access=private",
+            "key": "parking",
+            "value": "street_side",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_private-s.svg"
+        },
+        {
+            "description": "amenity=parking + parking=street_side + fee?=*",
+            "key": "amenity",
+            "value": "parking",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_pay-s.svg"
+        },
+        {
+            "description": "amenity=parking + parking=street_side + fee?=*",
+            "key": "fee?",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_pay-s.svg"
+        },
+        {
+            "description": "amenity=parking + parking=street_side + fee?=*",
+            "key": "parking",
+            "value": "street_side",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_pay-s.svg"
+        },
+        {
+            "description": "amenity=parking_entrance",
+            "key": "amenity",
+            "value": "parking_entrance",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_entrance-m.svg"
+        },
+        {
+            "description": "amenity=parking_entrance + access=private",
+            "key": "access",
+            "value": "private",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_entrance_private-m.svg"
+        },
+        {
+            "description": "amenity=parking_entrance + access=private",
+            "key": "amenity",
+            "value": "parking_entrance",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_entrance_private-m.svg"
+        },
+        {
+            "description": "amenity=parking_space + parking_space=disabled",
+            "key": "amenity",
+            "value": "parking_space",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking-disabled-m.svg"
+        },
+        {
+            "description": "amenity=parking_space + parking_space=disabled",
+            "key": "parking_space",
+            "value": "disabled",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking-disabled-m.svg"
+        },
+        {
+            "description": "amenity=payment_terminal",
+            "key": "amenity",
+            "value": "payment_terminal",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/vending-m.svg"
+        },
+        {
+            "description": "amenity=pharmacy",
+            "key": "amenity",
+            "value": "pharmacy",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pharmacy-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship",
+            "key": "amenity",
+            "value": "place_of_worship",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/place-of-worship-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=buddhist",
+            "key": "amenity",
+            "value": "place_of_worship",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/buddhist-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=buddhist",
+            "key": "religion",
+            "value": "buddhist",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/buddhist-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=christian",
+            "key": "amenity",
+            "value": "place_of_worship",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/christian-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=christian",
+            "key": "religion",
+            "value": "christian",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/christian-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=christian + denomination=jehovahs_witness",
+            "key": "amenity",
+            "value": "place_of_worship",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/place-of-worship-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=christian + denomination=jehovahs_witness",
+            "key": "denomination",
+            "value": "jehovahs_witness",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/place-of-worship-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=christian + denomination=jehovahs_witness",
+            "key": "religion",
+            "value": "christian",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/place-of-worship-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=christian + denomination=mormon",
+            "key": "amenity",
+            "value": "place_of_worship",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mormon-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=christian + denomination=mormon",
+            "key": "denomination",
+            "value": "mormon",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mormon-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=christian + denomination=mormon",
+            "key": "religion",
+            "value": "christian",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mormon-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=hindu",
+            "key": "amenity",
+            "value": "place_of_worship",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hindu-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=hindu",
+            "key": "religion",
+            "value": "hindu",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hindu-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=jewish",
+            "key": "amenity",
+            "value": "place_of_worship",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/jewish-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=jewish",
+            "key": "religion",
+            "value": "jewish",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/jewish-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=muslim",
+            "key": "amenity",
+            "value": "place_of_worship",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/muslim-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=muslim",
+            "key": "religion",
+            "value": "muslim",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/muslim-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=shinto",
+            "key": "amenity",
+            "value": "place_of_worship",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shinto-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=shinto",
+            "key": "religion",
+            "value": "shinto",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shinto-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=taoist",
+            "key": "amenity",
+            "value": "place_of_worship",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/taoist-m.svg"
+        },
+        {
+            "description": "amenity=place_of_worship + religion=taoist",
+            "key": "religion",
+            "value": "taoist",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/taoist-m.svg"
+        },
+        {
+            "description": "amenity=police",
+            "key": "amenity",
+            "value": "police",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/police-m.svg"
+        },
+        {
+            "description": "amenity=post_box",
+            "key": "amenity",
+            "value": "post_box",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/postbox-m.svg"
+        },
+        {
+            "description": "amenity=post_office",
+            "key": "amenity",
+            "value": "post_office",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mail-m.svg"
+        },
+        {
+            "description": "amenity=prison",
+            "key": "amenity",
+            "value": "prison",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/prison-m.svg"
+        },
+        {
+            "description": "amenity=pub",
+            "key": "amenity",
+            "value": "pub",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pub-m.svg"
+        },
+        {
+            "description": "amenity=public_bath",
+            "key": "amenity",
+            "value": "public_bath",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/public_bath-m.svg"
+        },
+        {
+            "description": "amenity=public_bookcase",
+            "key": "amenity",
+            "value": "public_bookcase",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bookcase-m.svg"
+        },
+        {
+            "description": "amenity=ranger_station",
+            "key": "amenity",
+            "value": "ranger_station",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/ranger-station-m.svg"
+        },
+        {
+            "description": "amenity=recycling",
+            "key": "amenity",
+            "value": "recycling",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/recycling-m.svg"
+        },
+        {
+            "description": "amenity=restaurant",
+            "key": "amenity",
+            "value": "restaurant",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/restaurant-m.svg"
+        },
+        {
+            "description": "amenity=sanitary_dump_station",
+            "key": "amenity",
+            "value": "sanitary_dump_station",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dump-station-m.svg"
+        },
+        {
+            "description": "amenity=school",
+            "key": "amenity",
+            "value": "school",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/school-m.svg"
+        },
+        {
+            "description": "amenity=shelter",
+            "key": "amenity",
+            "value": "shelter",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shelter-m.svg"
+        },
+        {
+            "description": "amenity=shelter + shelter_type=basic_hut",
+            "key": "amenity",
+            "value": "shelter",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alpine_hut-m.svg"
+        },
+        {
+            "description": "amenity=shelter + shelter_type=basic_hut",
+            "key": "shelter_type",
+            "value": "basic_hut",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alpine_hut-m.svg"
+        },
+        {
+            "description": "amenity=shelter + shelter_type=lean_to",
+            "key": "amenity",
+            "value": "shelter",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shelter-m.svg"
+        },
+        {
+            "description": "amenity=shelter + shelter_type=lean_to",
+            "key": "shelter_type",
+            "value": "lean_to",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shelter-m.svg"
+        },
+        {
+            "description": "amenity=shelter + shelter_type=public_transport",
+            "key": "amenity",
+            "value": "shelter",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shelter-public_transport-m.svg"
+        },
+        {
+            "description": "amenity=shelter + shelter_type=public_transport",
+            "key": "shelter_type",
+            "value": "public_transport",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shelter-public_transport-m.svg"
+        },
+        {
+            "description": "amenity=shower",
+            "key": "amenity",
+            "value": "shower",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shower-m.svg"
+        },
+        {
+            "description": "amenity=social_facility",
+            "key": "amenity",
+            "value": "social_facility",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/social_facility-m.svg"
+        },
+        {
+            "description": "amenity=stripclub",
+            "key": "amenity",
+            "value": "stripclub",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/stripclub-m.svg"
+        },
+        {
+            "description": "amenity=studio",
+            "key": "amenity",
+            "value": "studio",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/studio-m.svg"
+        },
+        {
+            "description": "amenity=taxi",
+            "key": "amenity",
+            "value": "taxi",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/taxi-m.svg"
+        },
+        {
+            "description": "amenity=telephone",
+            "key": "amenity",
+            "value": "telephone",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/phone-m.svg"
+        },
+        {
+            "description": "amenity=theatre",
+            "key": "amenity",
+            "value": "theatre",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/theatre-m.svg"
+        },
+        {
+            "description": "amenity=toilets",
+            "key": "amenity",
+            "value": "toilets",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/toilets-m.svg"
+        },
+        {
+            "description": "amenity=townhall",
+            "key": "amenity",
+            "value": "townhall",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/embassy-m.svg"
+        },
+        {
+            "description": "amenity=university",
+            "key": "amenity",
+            "value": "university"
+        },
+        {
+            "description": "amenity=university + name=*",
+            "key": "amenity",
+            "value": "university",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/college-m.svg"
+        },
+        {
+            "description": "amenity=university + name=*",
+            "key": "name",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/college-m.svg"
+        },
+        {
+            "description": "amenity=vehicle_inspection",
+            "key": "amenity",
+            "value": "vehicle_inspection",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/vehicle_inspection-m.svg"
+        },
+        {
+            "description": "amenity=vending_machine",
+            "key": "amenity",
+            "value": "vending_machine",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/vending-m.svg"
+        },
+        {
+            "description": "amenity=vending_machine + vending=excrement_bags",
+            "key": "amenity",
+            "value": "vending_machine",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/excrement_bags-m.svg"
+        },
+        {
+            "description": "amenity=vending_machine + vending=excrement_bags",
+            "key": "vending",
+            "value": "excrement_bags",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/excrement_bags-m.svg"
+        },
+        {
+            "description": "amenity=vending_machine + vending=fuel",
+            "key": "amenity",
+            "value": "vending_machine",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/fuel-dispenser-m.svg"
+        },
+        {
+            "description": "amenity=vending_machine + vending=fuel",
+            "key": "vending",
+            "value": "fuel",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/fuel-dispenser-m.svg"
+        },
+        {
+            "description": "amenity=vending_machine + vending=parking_tickets",
+            "key": "amenity",
+            "value": "vending_machine",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking-meter-m.svg"
+        },
+        {
+            "description": "amenity=vending_machine + vending=parking_tickets",
+            "key": "vending",
+            "value": "parking_tickets",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking-meter-m.svg"
+        },
+        {
+            "description": "amenity=vending_machine + vending=public_transport_tickets",
+            "key": "amenity",
+            "value": "vending_machine",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/vending-m.svg"
+        },
+        {
+            "description": "amenity=vending_machine + vending=public_transport_tickets",
+            "key": "vending",
+            "value": "public_transport_tickets",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/vending-m.svg"
+        },
+        {
+            "description": "amenity=veterinary",
+            "key": "amenity",
+            "value": "veterinary",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/veterinary-m.svg"
+        },
+        {
+            "description": "amenity=waste_basket",
+            "key": "amenity",
+            "value": "waste_basket",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/waste-basket-s.svg"
+        },
+        {
+            "description": "amenity=waste_disposal",
+            "key": "amenity",
+            "value": "waste_disposal",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/waste-basket-m.svg"
+        },
+        {
+            "description": "amenity=waste_transfer_station",
+            "key": "amenity",
+            "value": "waste_transfer_station",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/recycling-m.svg"
+        },
+        {
+            "description": "amenity=water_point",
+            "key": "amenity",
+            "value": "water_point",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-m.svg"
+        },
+        {
+            "description": "amenity=water_point + drinking_water=no",
+            "key": "amenity",
+            "value": "water_point",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-no-m.svg"
+        },
+        {
+            "description": "amenity=water_point + drinking_water=no",
+            "key": "drinking_water",
+            "value": "no",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-no-m.svg"
+        },
+        {
+            "description": "attraction=amusement_ride",
+            "key": "attraction",
+            "value": "amusement_ride",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg"
+        },
+        {
+            "description": "attraction=animal",
+            "key": "attraction",
+            "value": "animal",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/animal-m.svg"
+        },
+        {
+            "description": "attraction=big_wheel",
+            "key": "attraction",
+            "value": "big_wheel",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg"
+        },
+        {
+            "description": "attraction=bumper_car",
+            "key": "attraction",
+            "value": "bumper_car",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg"
+        },
+        {
+            "description": "attraction=carousel",
+            "key": "attraction",
+            "value": "carousel",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg"
+        },
+        {
+            "description": "attraction=historic",
+            "key": "attraction",
+            "value": "historic",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg"
+        },
+        {
+            "description": "attraction=maze",
+            "key": "attraction",
+            "value": "maze",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg"
+        },
+        {
+            "description": "attraction=roller_coaster",
+            "key": "attraction",
+            "value": "roller_coaster",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg"
+        },
+        {
+            "description": "barrier=block",
+            "key": "barrier",
+            "value": "block",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg"
+        },
+        {
+            "description": "barrier=bollard",
+            "key": "barrier",
+            "value": "bollard",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg"
+        },
+        {
+            "description": "barrier=border_control",
+            "key": "barrier",
+            "value": "border_control",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bcontrol-m.svg"
+        },
+        {
+            "description": "barrier=chain",
+            "key": "barrier",
+            "value": "chain",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg"
+        },
+        {
+            "description": "barrier=cycle_barrier",
+            "key": "barrier",
+            "value": "cycle_barrier",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cycle_barrier-s.svg"
+        },
+        {
+            "description": "barrier=debris",
+            "key": "barrier",
+            "value": "debris",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg"
+        },
+        {
+            "description": "barrier=entrance",
+            "key": "barrier",
+            "value": "entrance",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/entrance-barrier-s.svg"
+        },
+        {
+            "description": "barrier=gate",
+            "key": "barrier",
+            "value": "gate",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/gate-s.svg"
+        },
+        {
+            "description": "barrier=jersey_barrier",
+            "key": "barrier",
+            "value": "jersey_barrier",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg"
+        },
+        {
+            "description": "barrier=kissing_gate",
+            "key": "barrier",
+            "value": "kissing_gate",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/gate-s.svg"
+        },
+        {
+            "description": "barrier=lift_gate",
+            "key": "barrier",
+            "value": "lift_gate",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/lift_gate-m.svg"
+        },
+        {
+            "description": "barrier=log",
+            "key": "barrier",
+            "value": "log",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg"
+        },
+        {
+            "description": "barrier=stile",
+            "key": "barrier",
+            "value": "stile",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg"
+        },
+        {
+            "description": "barrier=swing_gate",
+            "key": "barrier",
+            "value": "swing_gate",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/lift_gate-m.svg"
+        },
+        {
+            "description": "barrier=toll_booth",
+            "key": "barrier",
+            "value": "toll_booth",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/toll_booth-m.svg"
+        },
+        {
+            "description": "barrier=turnstile",
+            "key": "barrier",
+            "value": "turnstile",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg"
+        },
+        {
+            "description": "barrier=wicket_gate",
+            "key": "barrier",
+            "value": "wicket_gate",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/gate-s.svg"
+        },
+        {
+            "description": "barrier=yes",
+            "key": "barrier",
+            "value": "yes",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg"
+        },
+        {
+            "description": "boundary=aboriginal_lands",
+            "key": "boundary",
+            "value": "aboriginal_lands"
+        },
+        {
+            "description": "boundary=national_park",
+            "key": "boundary",
+            "value": "national_park",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/nparkf-outline-m.svg"
+        },
+        {
+            "description": "boundary=protected_area",
+            "key": "boundary",
+            "value": "protected_area",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/nparkf-outline-m.svg"
+        },
+        {
+            "description": "building=guardhouse",
+            "key": "building",
+            "value": "guardhouse",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/security-m.svg"
+        },
+        {
+            "description": "craft=*",
+            "key": "craft",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/craft-m.svg"
+        },
+        {
+            "description": "craft=beekeeper",
+            "key": "craft",
+            "value": "beekeeper",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/beekeeper-m.svg"
+        },
+        {
+            "description": "craft=blacksmith",
+            "key": "craft",
+            "value": "blacksmith",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/blacksmith-m.svg"
+        },
+        {
+            "description": "craft=brewery",
+            "key": "craft",
+            "value": "brewery",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/brewery-m.svg"
+        },
+        {
+            "description": "craft=carpenter",
+            "key": "craft",
+            "value": "carpenter",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/carpenter-m.svg"
+        },
+        {
+            "description": "craft=caterer",
+            "key": "craft",
+            "value": "caterer",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/caterer-m.svg"
+        },
+        {
+            "description": "craft=confectionery",
+            "key": "craft",
+            "value": "confectionery",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/confectionery-m.svg"
+        },
+        {
+            "description": "craft=electrician",
+            "key": "craft",
+            "value": "electrician",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/electrician-m.svg"
+        },
+        {
+            "description": "craft=electronics_repair",
+            "key": "craft",
+            "value": "electronics_repair",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/electrician-m.svg"
+        },
+        {
+            "description": "craft=gardener",
+            "key": "craft",
+            "value": "gardener",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/florist-m.svg"
+        },
+        {
+            "description": "craft=grinding_mill",
+            "key": "craft",
+            "value": "grinding_mill",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/grinding_mill-m.svg"
+        },
+        {
+            "description": "craft=handicraft",
+            "key": "craft",
+            "value": "handicraft",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/handicraft-m.svg"
+        },
+        {
+            "description": "craft=hvac",
+            "key": "craft",
+            "value": "hvac",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/plumber-m.svg"
+        },
+        {
+            "description": "craft=key_cutter",
+            "key": "craft",
+            "value": "key_cutter",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/key_cutter-m.svg"
+        },
+        {
+            "description": "craft=locksmith",
+            "key": "craft",
+            "value": "locksmith",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/key_cutter-m.svg"
+        },
+        {
+            "description": "craft=metal_construction",
+            "key": "craft",
+            "value": "metal_construction",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/metal_construction-m.svg"
+        },
+        {
+            "description": "craft=painter",
+            "key": "craft",
+            "value": "painter",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/painter-m.svg"
+        },
+        {
+            "description": "craft=photographer",
+            "key": "craft",
+            "value": "photographer",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/photo-shop-m.svg"
+        },
+        {
+            "description": "craft=plumber",
+            "key": "craft",
+            "value": "plumber",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/plumber-m.svg"
+        },
+        {
+            "description": "craft=sawmill",
+            "key": "craft",
+            "value": "sawmill",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/sawmill-m.svg"
+        },
+        {
+            "description": "craft=shoemaker",
+            "key": "craft",
+            "value": "shoemaker",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shoes-m.svg"
+        },
+        {
+            "description": "craft=tailor",
+            "key": "craft",
+            "value": "tailor",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/clothes-m.svg"
+        },
+        {
+            "description": "craft=winery",
+            "key": "craft",
+            "value": "winery",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/winery-m.svg"
+        },
+        {
+            "description": "emergency=assembly_point",
+            "key": "emergency",
+            "value": "assembly_point",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/assembly_point-m.svg"
+        },
+        {
+            "description": "emergency=defibrillator",
+            "key": "emergency",
+            "value": "defibrillator",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/defibrillator-m.svg"
+        },
+        {
+            "description": "emergency=fire_hydrant",
+            "key": "emergency",
+            "value": "fire_hydrant",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/firehydrant-m.svg"
+        },
+        {
+            "description": "emergency=lifeguard",
+            "key": "emergency",
+            "value": "lifeguard",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/lifeguard-m.svg"
+        },
+        {
+            "description": "emergency=mountain_rescue",
+            "key": "emergency",
+            "value": "mountain_rescue",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hospital-m.svg"
+        },
+        {
+            "description": "emergency=phone",
+            "key": "emergency",
+            "value": "phone",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/emergency-phone-m.svg"
+        },
+        {
+            "description": "healthcare=alternative",
+            "key": "healthcare",
+            "value": "alternative",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alternative-m.svg"
+        },
+        {
+            "description": "healthcare=audiologist",
+            "key": "healthcare",
+            "value": "audiologist",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/audiologist-m.svg"
+        },
+        {
+            "description": "healthcare=blood_donation",
+            "key": "healthcare",
+            "value": "blood_donation",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/blood_donation-m.svg"
+        },
+        {
+            "description": "healthcare=laboratory",
+            "key": "healthcare",
+            "value": "laboratory",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/sample_collection-m.svg"
+        },
+        {
+            "description": "healthcare=optometrist",
+            "key": "healthcare",
+            "value": "optometrist",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/optometrist-m.svg"
+        },
+        {
+            "description": "healthcare=physiotherapist",
+            "key": "healthcare",
+            "value": "physiotherapist",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/physiotherapist-m.svg"
+        },
+        {
+            "description": "healthcare=podiatrist",
+            "key": "healthcare",
+            "value": "podiatrist",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/podiatrist-m.svg"
+        },
+        {
+            "description": "healthcare=psychotherapist",
+            "key": "healthcare",
+            "value": "psychotherapist",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/psychotherapist-m.svg"
+        },
+        {
+            "description": "healthcare=sample_collection",
+            "key": "healthcare",
+            "value": "sample_collection",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/sample_collection-m.svg"
+        },
+        {
+            "description": "healthcare=speech_therapist",
+            "key": "healthcare",
+            "value": "speech_therapist",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/speech_therapist-m.svg"
+        },
+        {
+            "description": "highway=bus_stop",
+            "key": "highway",
+            "value": "bus_stop",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bus-m.svg"
+        },
+        {
+            "description": "highway=elevator",
+            "key": "highway",
+            "value": "elevator",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/elevator-s.svg"
+        },
+        {
+            "description": "highway=ford",
+            "key": "highway",
+            "value": "ford",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/ford-m.svg"
+        },
+        {
+            "description": "highway=ladder",
+            "key": "highway",
+            "value": "ladder",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/ladder-s.svg"
+        },
+        {
+            "description": "highway=rest_area",
+            "key": "highway",
+            "value": "rest_area",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/picnic-m.svg"
+        },
+        {
+            "description": "highway=services",
+            "key": "highway",
+            "value": "services",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car-repair-m.svg"
+        },
+        {
+            "description": "highway=traffic_signals",
+            "key": "highway",
+            "value": "traffic_signals"
+        },
+        {
+            "description": "historic=aircraft",
+            "key": "historic",
+            "value": "aircraft",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/aircraft-m.svg"
+        },
+        {
+            "description": "historic=anchor",
+            "key": "historic",
+            "value": "anchor",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/anchor-m.svg"
+        },
+        {
+            "description": "historic=archaeological_site",
+            "key": "historic",
+            "value": "archaeological_site",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/archaeological-site-m.svg"
+        },
+        {
+            "description": "historic=battlefield",
+            "key": "historic",
+            "value": "battlefield",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/monument-m.svg"
+        },
+        {
+            "description": "historic=boundary_stone",
+            "key": "historic",
+            "value": "boundary_stone",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/monument-m.svg"
+        },
+        {
+            "description": "historic=cannon",
+            "key": "historic",
+            "value": "cannon",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cannon-m.svg"
+        },
+        {
+            "description": "historic=castle",
+            "key": "historic",
+            "value": "castle",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/remains-m.svg"
+        },
+        {
+            "description": "historic=city_gate",
+            "key": "historic",
+            "value": "city_gate",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/remains-m.svg"
+        },
+        {
+            "description": "historic=cross",
+            "key": "historic",
+            "value": "cross"
+        },
+        {
+            "description": "historic=fort",
+            "key": "historic",
+            "value": "fort",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/remains-m.svg"
+        },
+        {
+            "description": "historic=gallows",
+            "key": "historic",
+            "value": "gallows",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/monument-m.svg"
+        },
+        {
+            "description": "historic=locomotive",
+            "key": "historic",
+            "value": "locomotive",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/locomotive-m.svg"
+        },
+        {
+            "description": "historic=memorial",
+            "key": "historic",
+            "value": "memorial",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/monument-m.svg"
+        },
+        {
+            "description": "historic=memorial + memorial=cross",
+            "key": "historic",
+            "value": "memorial",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cross-m.svg"
+        },
+        {
+            "description": "historic=memorial + memorial=cross",
+            "key": "memorial",
+            "value": "cross",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cross-m.svg"
+        },
+        {
+            "description": "historic=memorial + memorial=plaque",
+            "key": "historic",
+            "value": "memorial",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/plaque-m.svg"
+        },
+        {
+            "description": "historic=memorial + memorial=plaque",
+            "key": "memorial",
+            "value": "plaque",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/plaque-m.svg"
+        },
+        {
+            "description": "historic=memorial + memorial=stolperstein",
+            "key": "historic",
+            "value": "memorial",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/plaque-m.svg"
+        },
+        {
+            "description": "historic=memorial + memorial=stolperstein",
+            "key": "memorial",
+            "value": "stolperstein",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/plaque-m.svg"
+        },
+        {
+            "description": "historic=mine",
+            "key": "historic",
+            "value": "mine",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mine-m.svg"
+        },
+        {
+            "description": "historic=monument",
+            "key": "historic",
+            "value": "monument",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/monument-m.svg"
+        },
+        {
+            "description": "historic=pillory",
+            "key": "historic",
+            "value": "pillory",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/monument-m.svg"
+        },
+        {
+            "description": "historic=ruins",
+            "key": "historic",
+            "value": "ruins",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/remains-m.svg"
+        },
+        {
+            "description": "historic=ruins + name=*",
+            "key": "historic",
+            "value": "ruins",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/remains-m.svg"
+        },
+        {
+            "description": "historic=ruins + name=*",
+            "key": "name",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/remains-m.svg"
+        },
+        {
+            "description": "historic=ship",
+            "key": "historic",
+            "value": "ship",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/historic-ship-m.svg"
+        },
+        {
+            "description": "historic=stone",
+            "key": "historic",
+            "value": "stone",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/stone-m.svg"
+        },
+        {
+            "description": "historic=tank",
+            "key": "historic",
+            "value": "tank",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/tank-m.svg"
+        },
+        {
+            "description": "historic=tomb",
+            "key": "historic",
+            "value": "tomb",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/tomb-m.svg"
+        },
+        {
+            "description": "historic=wayside_cross",
+            "key": "historic",
+            "value": "wayside_cross",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/wayside_cross-m.svg"
+        },
+        {
+            "description": "historic=wayside_shrine",
+            "key": "historic",
+            "value": "wayside_shrine",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/wayside_shrine-m.svg"
+        },
+        {
+            "description": "historic=wreck",
+            "key": "historic",
+            "value": "wreck",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/wreck-m.svg"
+        },
+        {
+            "description": "landuse=forest",
+            "key": "landuse",
+            "value": "forest"
+        },
+        {
+            "description": "landuse=forest + name=*",
+            "key": "landuse",
+            "value": "forest",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/nparkf-outline-m.svg"
+        },
+        {
+            "description": "landuse=forest + name=*",
+            "key": "name",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/nparkf-outline-m.svg"
+        },
+        {
+            "description": "landuse=industrial + industrial=mine",
+            "key": "industrial",
+            "value": "mine",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mine-m.svg"
+        },
+        {
+            "description": "landuse=industrial + industrial=mine",
+            "key": "landuse",
+            "value": "industrial",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mine-m.svg"
+        },
+        {
+            "description": "landuse=landfill",
+            "key": "landuse",
+            "value": "landfill",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/waste-basket-m.svg"
+        },
+        {
+            "description": "landuse=plant_nursery",
+            "key": "landuse",
+            "value": "plant_nursery",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/plant_nursery-m.svg"
+        },
+        {
+            "description": "landuse=quarry",
+            "key": "landuse",
+            "value": "quarry",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mine-m.svg"
+        },
+        {
+            "description": "leisure=adult_gaming_centre",
+            "key": "leisure",
+            "value": "adult_gaming_centre",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/slots-m.svg"
+        },
+        {
+            "description": "leisure=amusement_arcade",
+            "key": "leisure",
+            "value": "amusement_arcade",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/arcade-m.svg"
+        },
+        {
+            "description": "leisure=beach_resort",
+            "key": "leisure",
+            "value": "beach_resort",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/beach-m.svg"
+        },
+        {
+            "description": "leisure=bowling_alley",
+            "key": "leisure",
+            "value": "bowling_alley",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bowling_alley-m.svg"
+        },
+        {
+            "description": "leisure=dance",
+            "key": "leisure",
+            "value": "dance",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dance-m.svg"
+        },
+        {
+            "description": "leisure=dog_park",
+            "key": "leisure",
+            "value": "dog_park",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dog_park-m.svg"
+        },
+        {
+            "description": "leisure=escape_game",
+            "key": "leisure",
+            "value": "escape_game",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/escape_game-m.svg"
+        },
+        {
+            "description": "leisure=firepit",
+            "key": "leisure",
+            "value": "firepit",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/firepit-m.svg"
+        },
+        {
+            "description": "leisure=fitness_centre",
+            "key": "leisure",
+            "value": "fitness_centre",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/fitness_centre-m.svg"
+        },
+        {
+            "description": "leisure=fitness_station",
+            "key": "leisure",
+            "value": "fitness_station",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/fitness_station-m.svg"
+        },
+        {
+            "description": "leisure=golf_course",
+            "key": "leisure",
+            "value": "golf_course",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/golf-m.svg"
+        },
+        {
+            "description": "leisure=hackerspace",
+            "key": "leisure",
+            "value": "hackerspace",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hackerspace-m.svg"
+        },
+        {
+            "description": "leisure=ice_rink",
+            "key": "leisure",
+            "value": "ice_rink",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pitch-m.svg"
+        },
+        {
+            "description": "leisure=marina",
+            "key": "leisure",
+            "value": "marina",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/marina-m.svg"
+        },
+        {
+            "description": "leisure=miniature_golf",
+            "key": "leisure",
+            "value": "miniature_golf",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/golf-m.svg"
+        },
+        {
+            "description": "leisure=nature_reserve",
+            "key": "leisure",
+            "value": "nature_reserve",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/nparkf-outline-m.svg"
+        },
+        {
+            "description": "leisure=outdoor_seating",
+            "key": "leisure",
+            "value": "outdoor_seating",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/outdoor_seating-m.svg"
+        },
+        {
+            "description": "leisure=picnic_table",
+            "key": "leisure",
+            "value": "picnic_table",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/picnic_table-m.svg"
+        },
+        {
+            "description": "leisure=pitch",
+            "key": "leisure",
+            "value": "pitch",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pitch-m.svg"
+        },
+        {
+            "description": "leisure=playground",
+            "key": "leisure",
+            "value": "playground",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg"
+        },
+        {
+            "description": "leisure=resort",
+            "key": "leisure",
+            "value": "resort",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hotel-m.svg"
+        },
+        {
+            "description": "leisure=sauna",
+            "key": "leisure",
+            "value": "sauna",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/public_bath-m.svg"
+        },
+        {
+            "description": "leisure=sports_centre",
+            "key": "leisure",
+            "value": "sports_centre",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pitch-m.svg"
+        },
+        {
+            "description": "leisure=sports_hall",
+            "key": "leisure",
+            "value": "sports_hall",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pitch-m.svg"
+        },
+        {
+            "description": "leisure=stadium",
+            "key": "leisure",
+            "value": "stadium",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/stadium-m.svg"
+        },
+        {
+            "description": "leisure=swimming_pool",
+            "key": "leisure",
+            "value": "swimming_pool",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/swimming-m.svg"
+        },
+        {
+            "description": "leisure=swimming_pool + access=private",
+            "key": "access",
+            "value": "private"
+        },
+        {
+            "description": "leisure=swimming_pool + access=private",
+            "key": "leisure",
+            "value": "swimming_pool"
+        },
+        {
+            "description": "leisure=water_park",
+            "key": "leisure",
+            "value": "water_park",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/swimming-m.svg"
+        },
+        {
+            "description": "man_made=cairn",
+            "key": "man_made",
+            "value": "cairn",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cairn-m.svg"
+        },
+        {
+            "description": "man_made=chimney",
+            "key": "man_made",
+            "value": "chimney",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/chimney-m.svg"
+        },
+        {
+            "description": "man_made=communications_tower",
+            "key": "man_made",
+            "value": "communications_tower",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mast-s.svg"
+        },
+        {
+            "description": "man_made=crane",
+            "key": "man_made",
+            "value": "crane",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/crane-m.svg"
+        },
+        {
+            "description": "man_made=cross",
+            "key": "man_made",
+            "value": "cross",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cross-m.svg"
+        },
+        {
+            "description": "man_made=flagpole",
+            "key": "man_made",
+            "value": "flagpole",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg"
+        },
+        {
+            "description": "man_made=flare",
+            "key": "man_made",
+            "value": "flare",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mast-s.svg"
+        },
+        {
+            "description": "man_made=lighthouse",
+            "key": "man_made",
+            "value": "lighthouse",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/lighthouse-m.svg"
+        },
+        {
+            "description": "man_made=mast",
+            "key": "man_made",
+            "value": "mast",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg"
+        },
+        {
+            "description": "man_made=petroleum_well",
+            "key": "man_made",
+            "value": "petroleum_well",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mast-s.svg"
+        },
+        {
+            "description": "man_made=silo",
+            "key": "man_made",
+            "value": "silo",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/storage-tank-m.svg"
+        },
+        {
+            "description": "man_made=storage_tank",
+            "key": "man_made",
+            "value": "storage_tank",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/storage-tank-m.svg"
+        },
+        {
+            "description": "man_made=survey_point",
+            "key": "man_made",
+            "value": "survey_point",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/survey_point-m.svg"
+        },
+        {
+            "description": "man_made=tower",
+            "key": "man_made",
+            "value": "tower",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mast-s.svg"
+        },
+        {
+            "description": "man_made=tower + tower:type=communication",
+            "key": "man_made",
+            "value": "tower",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mast-s.svg"
+        },
+        {
+            "description": "man_made=tower + tower:type=communication",
+            "key": "tower:type",
+            "value": "communication",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mast-s.svg"
+        },
+        {
+            "description": "man_made=water_tap",
+            "key": "man_made",
+            "value": "water_tap",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-m.svg"
+        },
+        {
+            "description": "man_made=water_tap + drinking_water=no",
+            "key": "drinking_water",
+            "value": "no",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-no-m.svg"
+        },
+        {
+            "description": "man_made=water_tap + drinking_water=no",
+            "key": "man_made",
+            "value": "water_tap",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-no-m.svg"
+        },
+        {
+            "description": "man_made=water_tower",
+            "key": "man_made",
+            "value": "water_tower",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/storage-tank-m.svg"
+        },
+        {
+            "description": "man_made=water_well",
+            "key": "man_made",
+            "value": "water_well",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-m.svg"
+        },
+        {
+            "description": "man_made=water_well + drinking_water=no",
+            "key": "drinking_water",
+            "value": "no",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-no-m.svg"
+        },
+        {
+            "description": "man_made=water_well + drinking_water=no",
+            "key": "man_made",
+            "value": "water_well",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-no-m.svg"
+        },
+        {
+            "description": "man_made=windmill",
+            "key": "man_made",
+            "value": "windmill",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/windmill-m.svg"
+        },
+        {
+            "description": "man_made=works",
+            "key": "man_made",
+            "value": "works",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/factory-m.svg"
+        },
+        {
+            "description": "mountain_pass=*",
+            "key": "mountain_pass",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mountain-pass-m.svg"
+        },
+        {
+            "description": "natural=bare_rock",
+            "key": "natural",
+            "value": "bare_rock"
+        },
+        {
+            "description": "natural=beach",
+            "key": "natural",
+            "value": "beach"
+        },
+        {
+            "description": "natural=cave_entrance",
+            "key": "natural",
+            "value": "cave_entrance",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cave-m.svg"
+        },
+        {
+            "description": "natural=geyser",
+            "key": "natural",
+            "value": "geyser",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/geyser-m.svg"
+        },
+        {
+            "description": "natural=hot_spring",
+            "key": "natural",
+            "value": "hot_spring",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-m.svg"
+        },
+        {
+            "description": "natural=peak",
+            "key": "natural",
+            "value": "peak",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/peak-s.svg"
+        },
+        {
+            "description": "natural=peak + name=*",
+            "key": "name",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/peak-s.svg"
+        },
+        {
+            "description": "natural=peak + name=*",
+            "key": "natural",
+            "value": "peak",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/peak-s.svg"
+        },
+        {
+            "description": "natural=rock",
+            "key": "natural",
+            "value": "rock",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/peak-xs.svg"
+        },
+        {
+            "description": "natural=saddle",
+            "key": "natural",
+            "value": "saddle",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mountain-pass-m.svg"
+        },
+        {
+            "description": "natural=spring",
+            "key": "natural",
+            "value": "spring",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-m.svg"
+        },
+        {
+            "description": "natural=spring + drinking_water=no",
+            "key": "drinking_water",
+            "value": "no",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-no-m.svg"
+        },
+        {
+            "description": "natural=spring + drinking_water=no",
+            "key": "natural",
+            "value": "spring",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-no-m.svg"
+        },
+        {
+            "description": "natural=volcano",
+            "key": "natural",
+            "value": "volcano",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/volcano-m.svg"
+        },
+        {
+            "description": "office=*",
+            "key": "office",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/office-m.svg"
+        },
+        {
+            "description": "office=diplomatic",
+            "key": "office",
+            "value": "diplomatic",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/embassy-m.svg"
+        },
+        {
+            "description": "office=lawyer",
+            "key": "office",
+            "value": "lawyer",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/lawyer-m.svg"
+        },
+        {
+            "description": "office=security",
+            "key": "office",
+            "value": "security",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/security-m.svg"
+        },
+        {
+            "description": "post_office=post_partner",
+            "key": "post_office",
+            "value": "post_partner",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mail-m.svg"
+        },
+        {
+            "description": "power=generator + generator:source!=solar",
+            "key": "generator:source!",
+            "value": "solar",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/power-m.svg"
+        },
+        {
+            "description": "power=generator + generator:source!=solar",
+            "key": "power",
+            "value": "generator",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/power-m.svg"
+        },
+        {
+            "description": "power=generator + generator:source=wind",
+            "key": "generator:source",
+            "value": "wind",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/wind_turbine-m.svg"
+        },
+        {
+            "description": "power=generator + generator:source=wind",
+            "key": "power",
+            "value": "generator",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/wind_turbine-m.svg"
+        },
+        {
+            "description": "power=plant",
+            "key": "power",
+            "value": "plant",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/power-m.svg"
+        },
+        {
+            "description": "power=plant + plant:source=wind",
+            "key": "plant:source",
+            "value": "wind",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/power_plant_wind-m.svg"
+        },
+        {
+            "description": "power=plant + plant:source=wind",
+            "key": "power",
+            "value": "plant",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/power_plant_wind-m.svg"
+        },
+        {
+            "description": "power=portal",
+            "key": "power",
+            "value": "portal",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg"
+        },
+        {
+            "description": "power=station",
+            "key": "power",
+            "value": "station",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/power-m.svg"
+        },
+        {
+            "description": "power=substation",
+            "key": "power",
+            "value": "substation",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/power-m.svg"
+        },
+        {
+            "description": "power=tower",
+            "key": "power",
+            "value": "tower",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg"
+        },
+        {
+            "description": "railway=halt",
+            "key": "railway",
+            "value": "halt",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/train-m.svg"
+        },
+        {
+            "description": "railway=level_crossing",
+            "key": "railway",
+            "value": "level_crossing",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/railway-crossing-m.svg"
+        },
+        {
+            "description": "railway=station",
+            "key": "railway",
+            "value": "station",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/train-m.svg"
+        },
+        {
+            "description": "railway=station + station=funicular",
+            "key": "railway",
+            "value": "station",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/funicular-m.svg"
+        },
+        {
+            "description": "railway=station + station=funicular",
+            "key": "station",
+            "value": "funicular",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/funicular-m.svg"
+        },
+        {
+            "description": "railway=tram_stop",
+            "key": "railway",
+            "value": "tram_stop",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/tram-m.svg"
+        },
+        {
+            "description": "shop=*",
+            "key": "shop",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shop-m.svg"
+        },
+        {
+            "description": "shop=alcohol",
+            "key": "shop",
+            "value": "alcohol",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alcohol-m.svg"
+        },
+        {
+            "description": "shop=antiques",
+            "key": "shop",
+            "value": "antiques",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/antiques-m.svg"
+        },
+        {
+            "description": "shop=art",
+            "key": "shop",
+            "value": "art",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/art-m.svg"
+        },
+        {
+            "description": "shop=auction",
+            "key": "shop",
+            "value": "auction",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/auction-m.svg"
+        },
+        {
+            "description": "shop=bakery",
+            "key": "shop",
+            "value": "bakery",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bakery-m.svg"
+        },
+        {
+            "description": "shop=beauty",
+            "key": "shop",
+            "value": "beauty",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/beauty-m.svg"
+        },
+        {
+            "description": "shop=beverages",
+            "key": "shop",
+            "value": "beverages",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alcohol-m.svg"
+        },
+        {
+            "description": "shop=bicycle",
+            "key": "shop",
+            "value": "bicycle",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shop-bicycle-m.svg"
+        },
+        {
+            "description": "shop=bookmaker",
+            "key": "shop",
+            "value": "bookmaker",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/lottery-m.svg"
+        },
+        {
+            "description": "shop=books",
+            "key": "shop",
+            "value": "books",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/book-shop-m.svg"
+        },
+        {
+            "description": "shop=butcher",
+            "key": "shop",
+            "value": "butcher",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/butcher-m.svg"
+        },
+        {
+            "description": "shop=camera",
+            "key": "shop",
+            "value": "camera",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/photo-shop-m.svg"
+        },
+        {
+            "description": "shop=car",
+            "key": "shop",
+            "value": "car",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car_shop-m.svg"
+        },
+        {
+            "description": "shop=car_parts",
+            "key": "shop",
+            "value": "car_parts",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car-part-m.svg"
+        },
+        {
+            "description": "shop=car_repair",
+            "key": "shop",
+            "value": "car_repair",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car-repair-m.svg"
+        },
+        {
+            "description": "shop=car_repair + service=tyres",
+            "key": "service",
+            "value": "tyres",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car-repair-m.svg"
+        },
+        {
+            "description": "shop=car_repair + service=tyres",
+            "key": "shop",
+            "value": "car_repair",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car-repair-m.svg"
+        },
+        {
+            "description": "shop=caravan",
+            "key": "shop",
+            "value": "caravan",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/caravan-shop-m.svg"
+        },
+        {
+            "description": "shop=charity",
+            "key": "shop",
+            "value": "charity",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/charity_shop-m.svg"
+        },
+        {
+            "description": "shop=cheese",
+            "key": "shop",
+            "value": "cheese",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cheese-m.svg"
+        },
+        {
+            "description": "shop=chemist",
+            "key": "shop",
+            "value": "chemist",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/chemist-m.svg"
+        },
+        {
+            "description": "shop=chocolate",
+            "key": "shop",
+            "value": "chocolate",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/confectionery-m.svg"
+        },
+        {
+            "description": "shop=clothes",
+            "key": "shop",
+            "value": "clothes",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/clothes-m.svg"
+        },
+        {
+            "description": "shop=collector",
+            "key": "shop",
+            "value": "collector",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shop-m.svg"
+        },
+        {
+            "description": "shop=computer",
+            "key": "shop",
+            "value": "computer",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/computer-m.svg"
+        },
+        {
+            "description": "shop=confectionery",
+            "key": "shop",
+            "value": "confectionery",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/confectionery-m.svg"
+        },
+        {
+            "description": "shop=convenience",
+            "key": "shop",
+            "value": "convenience",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/convenience-m.svg"
+        },
+        {
+            "description": "shop=copyshop",
+            "key": "shop",
+            "value": "copyshop",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/copyshop-m.svg"
+        },
+        {
+            "description": "shop=cosmetics",
+            "key": "shop",
+            "value": "cosmetics",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/beauty-m.svg"
+        },
+        {
+            "description": "shop=deli",
+            "key": "shop",
+            "value": "deli",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/convenience-m.svg"
+        },
+        {
+            "description": "shop=department_store",
+            "key": "shop",
+            "value": "department_store",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/department_store-m.svg"
+        },
+        {
+            "description": "shop=doityourself",
+            "key": "shop",
+            "value": "doityourself",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/doityourself-m.svg"
+        },
+        {
+            "description": "shop=dry_cleaning",
+            "key": "shop",
+            "value": "dry_cleaning",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dry_cleaning-m.svg"
+        },
+        {
+            "description": "shop=electrical",
+            "key": "shop",
+            "value": "electrical",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/electrician-m.svg"
+        },
+        {
+            "description": "shop=electronics",
+            "key": "shop",
+            "value": "electronics",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/electronics-m.svg"
+        },
+        {
+            "description": "shop=erotic",
+            "key": "shop",
+            "value": "erotic",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/erotic-m.svg"
+        },
+        {
+            "description": "shop=fabric",
+            "key": "shop",
+            "value": "fabric",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shop-m.svg"
+        },
+        {
+            "description": "shop=farm",
+            "key": "shop",
+            "value": "farm",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/convenience-m.svg"
+        },
+        {
+            "description": "shop=florist",
+            "key": "shop",
+            "value": "florist",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/florist-m.svg"
+        },
+        {
+            "description": "shop=funeral_directors",
+            "key": "shop",
+            "value": "funeral_directors",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/funeral_directors-m.svg"
+        },
+        {
+            "description": "shop=furniture",
+            "key": "shop",
+            "value": "furniture",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/furniture-m.svg"
+        },
+        {
+            "description": "shop=garden_centre",
+            "key": "shop",
+            "value": "garden_centre",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/garden_center-m.svg"
+        },
+        {
+            "description": "shop=gift",
+            "key": "shop",
+            "value": "gift",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/gift-m.svg"
+        },
+        {
+            "description": "shop=greengrocer",
+            "key": "shop",
+            "value": "greengrocer",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/greengrocer-m.svg"
+        },
+        {
+            "description": "shop=grocery",
+            "key": "shop",
+            "value": "grocery",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/convenience-m.svg"
+        },
+        {
+            "description": "shop=hairdresser",
+            "key": "shop",
+            "value": "hairdresser",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hairdresser-m.svg"
+        },
+        {
+            "description": "shop=hardware",
+            "key": "shop",
+            "value": "hardware",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/doityourself-m.svg"
+        },
+        {
+            "description": "shop=health_food",
+            "key": "shop",
+            "value": "health_food",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/convenience-m.svg"
+        },
+        {
+            "description": "shop=hearing_aids",
+            "key": "shop",
+            "value": "hearing_aids",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hearing_aids-m.svg"
+        },
+        {
+            "description": "shop=houseware",
+            "key": "shop",
+            "value": "houseware",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/doityourself-m.svg"
+        },
+        {
+            "description": "shop=interior_decoration",
+            "key": "shop",
+            "value": "interior_decoration",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/interior_decoration-m.svg"
+        },
+        {
+            "description": "shop=jewelry",
+            "key": "shop",
+            "value": "jewelry",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/jewelry-m.svg"
+        },
+        {
+            "description": "shop=kiosk",
+            "key": "shop",
+            "value": "kiosk",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/kiosk-m.svg"
+        },
+        {
+            "description": "shop=kitchen",
+            "key": "shop",
+            "value": "kitchen",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/furniture-m.svg"
+        },
+        {
+            "description": "shop=laundry",
+            "key": "shop",
+            "value": "laundry",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/laundry-m.svg"
+        },
+        {
+            "description": "shop=lighting",
+            "key": "shop",
+            "value": "lighting",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/electrician-m.svg"
+        },
+        {
+            "description": "shop=lottery",
+            "key": "shop",
+            "value": "lottery",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/lottery-m.svg"
+        },
+        {
+            "description": "shop=mall",
+            "key": "shop",
+            "value": "mall",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shop-m.svg"
+        },
+        {
+            "description": "shop=massage",
+            "key": "shop",
+            "value": "massage",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/public_bath-m.svg"
+        },
+        {
+            "description": "shop=mobile_phone",
+            "key": "shop",
+            "value": "mobile_phone",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mobile_phone-m.svg"
+        },
+        {
+            "description": "shop=money_lender",
+            "key": "shop",
+            "value": "money_lender",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bank-m.svg"
+        },
+        {
+            "description": "shop=motorcycle",
+            "key": "shop",
+            "value": "motorcycle",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/motorcycle_shop-m.svg"
+        },
+        {
+            "description": "shop=motorcycle_repair",
+            "key": "shop",
+            "value": "motorcycle_repair",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/motorcycle_repair-m.svg"
+        },
+        {
+            "description": "shop=music",
+            "key": "shop",
+            "value": "music",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/music-m.svg"
+        },
+        {
+            "description": "shop=musical_instrument",
+            "key": "shop",
+            "value": "musical_instrument",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/musical-instrument-m.svg"
+        },
+        {
+            "description": "shop=newsagent",
+            "key": "shop",
+            "value": "newsagent",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/newsagent_shop-m.svg"
+        },
+        {
+            "description": "shop=optician",
+            "key": "shop",
+            "value": "optician",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/optician-m.svg"
+        },
+        {
+            "description": "shop=outdoor",
+            "key": "shop",
+            "value": "outdoor",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/outdoor-shop-m.svg"
+        },
+        {
+            "description": "shop=pasta",
+            "key": "shop",
+            "value": "pasta",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shop-m.svg"
+        },
+        {
+            "description": "shop=pastry",
+            "key": "shop",
+            "value": "pastry",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bakery-m.svg"
+        },
+        {
+            "description": "shop=pawnbroker",
+            "key": "shop",
+            "value": "pawnbroker",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bookmaker-m.svg"
+        },
+        {
+            "description": "shop=pet",
+            "key": "shop",
+            "value": "pet",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/petshop-m.svg"
+        },
+        {
+            "description": "shop=photo",
+            "key": "shop",
+            "value": "photo",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/photo-shop-m.svg"
+        },
+        {
+            "description": "shop=rental",
+            "key": "shop",
+            "value": "rental",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/rental-m.svg"
+        },
+        {
+            "description": "shop=seafood",
+            "key": "shop",
+            "value": "seafood",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/seafood-shop-m.svg"
+        },
+        {
+            "description": "shop=second_hand",
+            "key": "shop",
+            "value": "second_hand",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/second_hand_shop-m.svg"
+        },
+        {
+            "description": "shop=sewing",
+            "key": "shop",
+            "value": "sewing",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/needle_and_thread-m.svg"
+        },
+        {
+            "description": "shop=shoes",
+            "key": "shop",
+            "value": "shoes",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shoes-m.svg"
+        },
+        {
+            "description": "shop=sports",
+            "key": "shop",
+            "value": "sports",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/sports-m.svg"
+        },
+        {
+            "description": "shop=stationery",
+            "key": "shop",
+            "value": "stationery",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/stationery_shop-m.svg"
+        },
+        {
+            "description": "shop=supermarket",
+            "key": "shop",
+            "value": "supermarket",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/supermarket-m.svg"
+        },
+        {
+            "description": "shop=tattoo",
+            "key": "shop",
+            "value": "tattoo",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/craft-m.svg"
+        },
+        {
+            "description": "shop=ticket",
+            "key": "shop",
+            "value": "ticket",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/ticket-shop-m.svg"
+        },
+        {
+            "description": "shop=tobacco",
+            "key": "shop",
+            "value": "tobacco",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/tobacco-m.svg"
+        },
+        {
+            "description": "shop=toys",
+            "key": "shop",
+            "value": "toys",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/toys-m.svg"
+        },
+        {
+            "description": "shop=tyres",
+            "key": "shop",
+            "value": "tyres",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car-repair-m.svg"
+        },
+        {
+            "description": "shop=variety_store",
+            "key": "shop",
+            "value": "variety_store",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shop-m.svg"
+        },
+        {
+            "description": "shop=video",
+            "key": "shop",
+            "value": "video",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/media-m.svg"
+        },
+        {
+            "description": "shop=video_games",
+            "key": "shop",
+            "value": "video_games",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/video-games-m.svg"
+        },
+        {
+            "description": "shop=wholesale",
+            "key": "shop",
+            "value": "wholesale",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/wholesale-m.svg"
+        },
+        {
+            "description": "shop=wine",
+            "key": "shop",
+            "value": "wine",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alcohol-m.svg"
+        },
+        {
+            "description": "sport=*",
+            "key": "sport",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pitch-m.svg"
+        },
+        {
+            "description": "sport=10pin",
+            "key": "sport",
+            "value": "10pin",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bowling-m.svg"
+        },
+        {
+            "description": "sport=9pin",
+            "key": "sport",
+            "value": "9pin",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bowling-m.svg"
+        },
+        {
+            "description": "sport=american_football",
+            "key": "sport",
+            "value": "american_football",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/america-football-m.svg"
+        },
+        {
+            "description": "sport=archery",
+            "key": "sport",
+            "value": "archery",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/archery-m.svg"
+        },
+        {
+            "description": "sport=australian_football",
+            "key": "sport",
+            "value": "australian_football",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/australian-football-m.svg"
+        },
+        {
+            "description": "sport=badminton",
+            "key": "sport",
+            "value": "badminton",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/badminton-m.svg"
+        },
+        {
+            "description": "sport=baseball",
+            "key": "sport",
+            "value": "baseball",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/baseball-m.svg"
+        },
+        {
+            "description": "sport=basketball",
+            "key": "sport",
+            "value": "basketball",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/basketball-m.svg"
+        },
+        {
+            "description": "sport=beachvolleyball",
+            "key": "sport",
+            "value": "beachvolleyball",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/volleyball-m.svg"
+        },
+        {
+            "description": "sport=chess",
+            "key": "sport",
+            "value": "chess",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/chess-m.svg"
+        },
+        {
+            "description": "sport=climbing",
+            "key": "sport",
+            "value": "climbing",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/climbing-m.svg"
+        },
+        {
+            "description": "sport=cricket",
+            "key": "sport",
+            "value": "cricket",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cricket-m.svg"
+        },
+        {
+            "description": "sport=curling",
+            "key": "sport",
+            "value": "curling",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/curling-m.svg"
+        },
+        {
+            "description": "sport=diving",
+            "key": "sport",
+            "value": "diving",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/diving-m.svg"
+        },
+        {
+            "description": "sport=equestrian",
+            "key": "sport",
+            "value": "equestrian",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/equestrian-m.svg"
+        },
+        {
+            "description": "sport=field_hockey",
+            "key": "sport",
+            "value": "field_hockey",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hockey-m.svg"
+        },
+        {
+            "description": "sport=futsal",
+            "key": "sport",
+            "value": "futsal",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/soccer-m.svg"
+        },
+        {
+            "description": "sport=golf",
+            "key": "sport",
+            "value": "golf",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/golf-m.svg"
+        },
+        {
+            "description": "sport=handball",
+            "key": "sport",
+            "value": "handball",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/handball-m.svg"
+        },
+        {
+            "description": "sport=ice_hockey",
+            "key": "sport",
+            "value": "ice_hockey",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hockey-m.svg"
+        },
+        {
+            "description": "sport=padel",
+            "key": "sport",
+            "value": "padel",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/padel-m.svg"
+        },
+        {
+            "description": "sport=pelota",
+            "key": "sport",
+            "value": "pelota",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pelota-m.svg"
+        },
+        {
+            "description": "sport=scuba_diving",
+            "key": "sport",
+            "value": "scuba_diving",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/diving-m.svg"
+        },
+        {
+            "description": "sport=shooting",
+            "key": "sport",
+            "value": "shooting",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/archery-m.svg"
+        },
+        {
+            "description": "sport=skateboard",
+            "key": "sport",
+            "value": "skateboard",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/skateboard-m.svg"
+        },
+        {
+            "description": "sport=skiing",
+            "key": "sport",
+            "value": "skiing",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/skiing-m.svg"
+        },
+        {
+            "description": "sport=soccer",
+            "key": "sport",
+            "value": "soccer",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/soccer-m.svg"
+        },
+        {
+            "description": "sport=swimming",
+            "key": "sport",
+            "value": "swimming",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/swimming-m.svg"
+        },
+        {
+            "description": "sport=table_tennis",
+            "key": "sport",
+            "value": "table_tennis",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/table-tennis-m.svg"
+        },
+        {
+            "description": "sport=tennis",
+            "key": "sport",
+            "value": "tennis",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/tennis-m.svg"
+        },
+        {
+            "description": "sport=volleyball",
+            "key": "sport",
+            "value": "volleyball",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/volleyball-m.svg"
+        },
+        {
+            "description": "sport=yoga",
+            "key": "sport",
+            "value": "yoga",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/yoga-m.svg"
+        },
+        {
+            "description": "tourism=*",
+            "key": "tourism"
+        },
+        {
+            "description": "tourism=alpine_hut",
+            "key": "tourism",
+            "value": "alpine_hut",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alpine_hut-m.svg"
+        },
+        {
+            "description": "tourism=apartment",
+            "key": "tourism",
+            "value": "apartment",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/apartment-m.svg"
+        },
+        {
+            "description": "tourism=aquarium",
+            "key": "tourism",
+            "value": "aquarium",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/aquarium-m.svg"
+        },
+        {
+            "description": "tourism=artwork",
+            "key": "tourism",
+            "value": "artwork",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/artwork-m.svg"
+        },
+        {
+            "description": "tourism=artwork + artwork_type=statue",
+            "key": "artwork_type",
+            "value": "statue",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/statue-m.svg"
+        },
+        {
+            "description": "tourism=artwork + artwork_type=statue",
+            "key": "tourism",
+            "value": "artwork",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/statue-m.svg"
+        },
+        {
+            "description": "tourism=attraction",
+            "key": "tourism",
+            "value": "attraction",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/tourism-m.svg"
+        },
+        {
+            "description": "tourism=camp_site",
+            "key": "tourism",
+            "value": "camp_site",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/campsite-m.svg"
+        },
+        {
+            "description": "tourism=caravan_site",
+            "key": "tourism",
+            "value": "caravan_site",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/caravan_site-m.svg"
+        },
+        {
+            "description": "tourism=chalet",
+            "key": "tourism",
+            "value": "chalet",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alpine_hut-m.svg"
+        },
+        {
+            "description": "tourism=gallery",
+            "key": "tourism",
+            "value": "gallery",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/gallery-m.svg"
+        },
+        {
+            "description": "tourism=guest_house",
+            "key": "tourism",
+            "value": "guest_house",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/apartment-m.svg"
+        },
+        {
+            "description": "tourism=hostel",
+            "key": "tourism",
+            "value": "hostel",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hostel-m.svg"
+        },
+        {
+            "description": "tourism=hotel",
+            "key": "tourism",
+            "value": "hotel",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hotel-m.svg"
+        },
+        {
+            "description": "tourism=information",
+            "key": "tourism",
+            "value": "information",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/information-m.svg"
+        },
+        {
+            "description": "tourism=information + information=board",
+            "key": "information",
+            "value": "board",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/board-m.svg"
+        },
+        {
+            "description": "tourism=information + information=board",
+            "key": "tourism",
+            "value": "information",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/board-m.svg"
+        },
+        {
+            "description": "tourism=information + information=guidepost",
+            "key": "information",
+            "value": "guidepost",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/guidepost-m.svg"
+        },
+        {
+            "description": "tourism=information + information=guidepost",
+            "key": "tourism",
+            "value": "information",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/guidepost-m.svg"
+        },
+        {
+            "description": "tourism=information + information=map",
+            "key": "information",
+            "value": "map",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/map-m.svg"
+        },
+        {
+            "description": "tourism=information + information=map",
+            "key": "tourism",
+            "value": "information",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/map-m.svg"
+        },
+        {
+            "description": "tourism=information + information=office",
+            "key": "information",
+            "value": "office",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/information-office-m.svg"
+        },
+        {
+            "description": "tourism=information + information=office",
+            "key": "tourism",
+            "value": "information",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/information-office-m.svg"
+        },
+        {
+            "description": "tourism=information + information=visitor_centre",
+            "key": "information",
+            "value": "visitor_centre",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/information-office-m.svg"
+        },
+        {
+            "description": "tourism=information + information=visitor_centre",
+            "key": "tourism",
+            "value": "information",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/information-office-m.svg"
+        },
+        {
+            "description": "tourism=motel",
+            "key": "tourism",
+            "value": "motel",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hotel-m.svg"
+        },
+        {
+            "description": "tourism=museum",
+            "key": "tourism",
+            "value": "museum",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/museum-m.svg"
+        },
+        {
+            "description": "tourism=picnic_site",
+            "key": "tourism",
+            "value": "picnic_site",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/picnic-m.svg"
+        },
+        {
+            "description": "tourism=theme_park",
+            "key": "tourism",
+            "value": "theme_park",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/theme_park-m.svg"
+        },
+        {
+            "description": "tourism=viewpoint",
+            "key": "tourism",
+            "value": "viewpoint",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/viewpoint-m.svg"
+        },
+        {
+            "description": "tourism=wilderness_hut",
+            "key": "tourism",
+            "value": "wilderness_hut",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alpine_hut-m.svg"
+        },
+        {
+            "description": "tourism=zoo",
+            "key": "tourism",
+            "value": "zoo",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/zoo-m.svg"
+        },
+        {
+            "description": "tourism=zoo + zoo=petting_zoo",
+            "key": "tourism",
+            "value": "zoo",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/petting_zoo-m.svg"
+        },
+        {
+            "description": "tourism=zoo + zoo=petting_zoo",
+            "key": "zoo",
+            "value": "petting_zoo",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/petting_zoo-m.svg"
+        },
+        {
+            "description": "waterway=waterfall",
+            "key": "waterway",
+            "value": "waterfall",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/waterfall-m.svg"
+        }
+    ]
+}
