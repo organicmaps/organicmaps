@@ -295,10 +295,10 @@
     <string name="type.cuisine.georgian">Gruusia</string>
     <string name="type.cuisine.german">Saksa</string>
     <string name="type.cuisine.greek">Kreeka</string>
-    <string name="type.cuisine.grill">Grill</string>
+    <string name="type.cuisine.grill">Grillroad</string>
     <string name="type.cuisine.heuriger">Austria hooajaline veinikõrts (heuriger)</string>
     <string name="type.cuisine.hotdog">Hotdog</string>
-    <string name="type.cuisine.hungarian">Ungari</string>
+    <string name="type.cuisine.hungarian">Ungari köök</string>
     <string name="type.cuisine.ice_cream">Jäätis</string>
     <string name="type.cuisine.indian">India</string>
     <string name="type.cuisine.indonesian">Indoneesia</string>
@@ -336,7 +336,7 @@
     <string name="type.cuisine.soba">Jaapani soba-nuudlid</string>
     <string name="type.cuisine.spanish">Hispaania</string>
     <string name="type.cuisine.steak_house">Liharestoran</string>
-    <string name="type.cuisine.sushi">Sushi</string>
+    <string name="type.cuisine.sushi">Suši</string>
     <string name="type.cuisine.tapas">Tapas</string>
     <string name="type.cuisine.tea">Tee</string>
     <string name="type.cuisine.thai">Tai</string>
@@ -1408,4 +1408,9 @@
     <string name="type.amenity.ranger_station">Pargivahi maja</string>
     <string name="type.amenity.luggage_locker">Pagasihoid</string>
     <string name="type.leisure.escape_game">Põgenemistuba</string>
+    <string name="type.barrier.wicket_gate">Jalgvärav</string>
+    <string name="type.office.security">Turvateenuste firma kontor</string>
+    <string name="type.power.portal">Õhuliini värava-tüüpi mast</string>
+    <string name="type.building.guardhouse">Valvuriputka</string>
+    <string name="type.barrier.yes">Barjäär</string>
 </resources>

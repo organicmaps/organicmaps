@@ -1312,8 +1312,8 @@
 "type.amenity.ranger_station" = "Landvarðastöð";
 "type.amenity.luggage_locker" = "Læstur farangursskápur";
 "type.leisure.escape_game" = "Flóttarými";
-"type.barrier.wicket_gate" = "Wicket Gate";
-"type.barrier.yes" = "Barrier";
-"type.building.guardhouse" = "Guard";
-"type.office.security" = "Security Office";
-"type.power.portal" = "Power Tower (Portal)";
+"type.barrier.wicket_gate" = "Sveifluhlið";
+"type.barrier.yes" = "Hindrun";
+"type.building.guardhouse" = "Vörður";
+"type.office.security" = "Öryggisskrifstofa";
+"type.power.portal" = "Raflínumastur (tenging)";

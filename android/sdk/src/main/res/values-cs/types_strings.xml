@@ -1405,4 +1405,9 @@
     <string name="type.amenity.ranger_station">Správci parku</string>
     <string name="type.amenity.luggage_locker">Úschovná skříňka</string>
     <string name="type.leisure.escape_game">Úniková hra</string>
+    <string name="type.barrier.wicket_gate">Vjezdová brána</string>
+    <string name="type.barrier.yes">Bariéra</string>
+    <string name="type.building.guardhouse">Strážce</string>
+    <string name="type.office.security">Bezpečnostní agentura</string>
+    <string name="type.power.portal">Energetická věž (portál)</string>
 </resources>

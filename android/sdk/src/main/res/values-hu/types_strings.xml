@@ -1405,4 +1405,9 @@
     <string name="type.post_office.post_partner">Postapartnerpont</string>
     <string name="type.amenity.luggage_locker">Csomagmegőrző</string>
     <string name="type.leisure.escape_game">Szabadulószoba</string>
+    <string name="type.barrier.wicket_gate">Személybejáró</string>
+    <string name="type.barrier.yes">Akadály</string>
+    <string name="type.office.security">Biztonsági őr irodája</string>
+    <string name="type.building.guardhouse">Őrség</string>
+    <string name="type.power.portal">Villanytorony (Portál)</string>
 </resources>
