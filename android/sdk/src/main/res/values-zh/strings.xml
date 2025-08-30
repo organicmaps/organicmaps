@@ -29,7 +29,7 @@
     <!-- A unit of measure -->
     <string name="ft">英尺</string>
     <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">退出</string>
+    <string name="core_exit">出口</string>
     <string name="core_entrance">入口</string>
     <string name="subway_data_unavailable">地铁地图不可用</string>
     <string name="public_access">允许公众访问</string>
