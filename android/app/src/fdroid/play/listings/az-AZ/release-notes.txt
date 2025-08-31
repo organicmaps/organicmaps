@@ -6,6 +6,4 @@
 • Nərdivanlar göstərilir və marşrutlaşdırmada istifadə olunur
 • Elektrik stansiyaları, yarımstansiyalar, maneələr, dönər qapılar, təhlükəsizlik ofisləri və keşikçi evləri göstər
 • Aralıq dayanacaqlar əlavə edərkən avtomatik yaxınlaşdırma yoxdur
-• Elektrik stansiyası əraziləri sənaye kimi göstərilir
-
 …ətraflı omaps.org/news

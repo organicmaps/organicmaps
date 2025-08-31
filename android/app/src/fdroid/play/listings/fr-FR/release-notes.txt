@@ -6,6 +6,5 @@
 • Échelles affichées et utilisées dans le routage
 • Afficher centrales électriques, sous-stations, barrières, portillons, bureaux de sécurité et postes de garde
 • Pas de zoom automatique lors de l'ajout d'arrêts intermédiaires
-• Zones de centrales électriques rendues comme industrielles
 
 …plus sur omaps.org/news

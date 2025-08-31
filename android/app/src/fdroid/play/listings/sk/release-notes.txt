@@ -1,12 +1,11 @@
 • NOVÉ! Čísla liniek zobrazené na autobusových zastávkach
-• OSM mapy k 29. augustu
+• OSM mapy z 29. augusta
 • Nové ikony vrstiev
 • Väčšia dotyková oblasť pre ikonu úpravy záložky (ceruzka)
 • Obnovené poradie preddefinovaných farieb
-• Rebríky zobrazené a používané pri navigácii
+• Rebríky zobrazené a používané v navigácii
 • Zobraziť elektrárne, rozvodne, bariéry, turnikety, bezpečnostné kancelárie a strážnice
 • Žiadne automatické priblíženie pri pridávaní medzizastávok
-• Oblasti elektrární vykreslené ako priemyselné
 • Vonkajší štýl: chodníky viditeľné od priblíženia 13
 
 …viac na omaps.org/news

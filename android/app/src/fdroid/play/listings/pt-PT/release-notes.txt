@@ -6,7 +6,5 @@
 • Escadas exibidas e usadas no encaminhamento
 • Mostrar centrais eléctricas, subestações, barreiras, catracas, escritórios de segurança e casas da guarda
 • Sem zoom automático ao adicionar paragens intermédias
-• Áreas de centrais eléctricas renderizadas como industriais
-• Estilo exterior: passeios visíveis a partir do zoom 13
 
 …mais em omaps.org/news

@@ -7,6 +7,5 @@
 • Prikaži elektrarne, razdelilne postaje, ovire, turnikete, varnostne pisarne in čuvarnice
 • Brez samodejnega povečanja pri dodajanju vmesnih postajališč
 • Območja elektrarn prikazana kot industrijska
-• Zunanji slog: pločniki vidni od povečave 13
 
 …več na omaps.org/news

@@ -7,6 +7,5 @@
 • Zobrazit elektrárny, rozvodny, bariéry, turnikety, bezpečnostní kanceláře a strážnice
 • Žádné automatické přiblížení při přidávání mezistavek
 • Oblasti elektráren vykresleny jako průmyslové
-• Venkovní styl: chodníky viditelné od přiblížení 13
 
 …více na omaps.org/news

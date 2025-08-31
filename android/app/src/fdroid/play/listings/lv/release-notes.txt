@@ -1,12 +1,11 @@
 • JAUNS! Maršrutu numuri parādīti autobusu pieturās
-• OSM kartes uz 29. augustu
+• OSM kartes no 29. augusta
 • Jaunas slāņu ikonas
-• Lielāka pieskāriena zona grāmatzīmes labošanas (zīmuļa) ikonai
+• Lielāka pieskāriena zona grāmatzīmju rediģēšanas (zīmuļa) ikonai
 • Atjaunota iepriekš noteikto krāsu secība
-• Kāpnes attēlotas un izmantotas maršrutēšanā
-• Rādīt elektrostacijas, apakšstacijas, barjeras, turniketus, drošības birojs un apsardzes mājas
-• Nav automātiska tuvināšana pievienojot starppieturas
-• Elektrostaciju apgabali attēloti kā rūpnieciski
+• Kāpnes parādītas un izmantotas maršrutēšanā
+• Rādīt elektrostacijas, apakšstacijas, barjeras, vārtiņus, drošības birojs un sarga mājas
+• Nav automātiskās mērogošanas, pievienojot starppieturas
 • Āra stils: ietves redzamas no 13. tuvināšanas
 
 …vairāk omaps.org/news

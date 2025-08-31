@@ -7,6 +7,5 @@
 • Visa kraftverk, transformatorstationer, barriärer, vändkorsar, säkerhetskontor och vaktposter
 • Ingen automatisk zoom vid tillägg av mellanliggande stopp
 • Kraftverksområden renderade som industriella
-• Utomhusstil: trottoarer synliga från zoom 13
 
 …mer på omaps.org/news

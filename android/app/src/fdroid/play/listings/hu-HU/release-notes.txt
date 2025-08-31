@@ -6,6 +6,5 @@
 • Létrák megjelenítve és használva az útvonaltervezésben
 • Erőművek, alállomások, akadályok, forgóajtók, biztonsági irodák és őrházak megjelenítése
 • Nincs automatikus nagyítás közbenső megállók hozzáadásakor
-• Erőmű területek ipari területként megjelenítve
 
 …több a omaps.org/news oldalon

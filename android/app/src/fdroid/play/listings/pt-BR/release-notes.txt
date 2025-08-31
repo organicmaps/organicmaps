@@ -7,6 +7,5 @@
 • Mostrar usinas, subestações, barreiras, catracas, escritórios de segurança e guaritas
 • Sem zoom automático ao adicionar paradas intermediárias
 • Áreas de usinas renderizadas como industriais
-• Estilo outdoor: calçadas visíveis a partir do zoom 13
 
 …mais em omaps.org/news

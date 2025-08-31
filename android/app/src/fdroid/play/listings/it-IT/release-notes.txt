@@ -1,11 +1,10 @@
-• NUOVO! Numeri di linea mostrati alle fermate dell'autobus
+• NUOVO! Numeri delle linee mostrati alle fermate degli autobus
 • Mappe OSM del 29 agosto
 • Nuove icone dei livelli
-• Area touch più ampia per l'icona modifica segnalibro (matita)
-• Ripristinato l'ordine dei colori predefiniti
+• Area di tocco più grande per l'icona di modifica segnalibro (matita)
+• Ripristinato l'ordine dei colori preimpostati
 • Scale visualizzate e utilizzate nel routing
-• Mostra centrali elettriche, sottostazioni, barriere, cancelletti, uffici di sicurezza e casette di guardia
-• Nessun zoom automatico quando si aggiungono fermate intermedie
-• Aree delle centrali elettriche renderizzate come industriali
+• Mostra centrali elettriche, sottostazioni, barriere, tornelli, uffici di sicurezza e casette di guardia
+• Nessuno zoom automatico quando si aggiungono fermate intermedie
 
 …altro su omaps.org/news

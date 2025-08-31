@@ -1,12 +1,10 @@
 • NOU! Numerele rutelor afișate la stațiile de autobuz
 • Hărți OSM din 29 august
-• Noi pictograme pentru straturi
-• Zonă de atingere mai mare pentru pictograma de editare marcaj (creion)
-• Ordinea culorilor predefinite restaurată
-• Scări afișate și folosite în rutare
-• Afișează centrale electrice, posturi, bariere, turnicheți, birouri de securitate și case de pază
+• Noi icoane pentru straturi
+• Zonă tactilă mai mare pentru iconița de editare marcaj (creion)
+• Restaurată ordinea culorilor predefinite
+• Scări afișate și utilizate în rutare
+• Afișează centrale electrice, posturi de transformare, bariere, turnicheți, birouri de securitate și case de pază
 • Fără zoom automat la adăugarea stațiilor intermediare
-• Zonele centralelor electrice redate ca industriale
-• Stil exterior: trotuare vizibile de la zoom 13
 
 …mai mult la omaps.org/news

@@ -6,7 +6,5 @@
 • Escaleiras mostradas e usadas no encamiñamento
 • Mostrar centrais eléctricas, subestacións, barreiras, tornos, oficinas de seguridade e casetas de garda
 • Sen zoom automático ao engadir paradas intermedias
-• Áreas de centrais eléctricas renderizadas como industriais
-• Estilo exterior: beirarrúas visibles desde o zoom 13
 
 …máis en omaps.org/news

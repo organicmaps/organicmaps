@@ -6,6 +6,5 @@
 • Escaleras mostradas y utilizadas en el enrutamiento
 • Mostrar centrales eléctricas, subestaciones, barreras, puertas, oficinas de seguridad y casetas de guardia
 • Sin zoom automático al agregar paradas intermedias
-• Áreas de centrales eléctricas renderizadas como industriales
 
 …más en omaps.org/news

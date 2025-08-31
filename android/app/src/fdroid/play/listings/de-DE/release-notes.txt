@@ -6,6 +6,5 @@
 • Leitern werden angezeigt und beim Routing verwendet
 • Kraftwerke, Umspannstationen, Barrieren, Wicket-Tore, Sicherheitsbüros und Wachhäuser anzeigen
 • Kein automatisches Zoomen beim Hinzufügen von Zwischenstopps
-• Kraftwerksgebiete als Industriegebiete dargestellt
 
 …mehr auf omaps.org/news

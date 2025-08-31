@@ -7,6 +7,5 @@
 • Vis kraftværker, transformerstationer, barrierer, drejekors, sikkerhedskontorer og vagtstuer
 • Ingen automatisk zoom ved tilføjelse af mellemstop
 • Kraftværksområder gengivet som industrielle
-• Udendørsstil: fortove synlige fra zoom 13
 
 …mere på omaps.org/news

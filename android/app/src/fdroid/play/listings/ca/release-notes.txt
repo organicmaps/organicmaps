@@ -6,7 +6,5 @@
 • Escales mostrades i utilitzades en l'enrutament
 • Mostra centrals elèctriques, subestacions, barreres, torniquets, oficines de seguretat i casetes de guàrdia
 • Sense zoom automàtic en afegir parades intermèdies
-• Àrees de centrals elèctriques renderitzades com industrials
-• Estil exterior: voreres visibles des del zoom 13
 
 …més a omaps.org/news

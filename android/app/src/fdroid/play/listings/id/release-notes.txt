@@ -7,6 +7,5 @@
 • Tampilkan pembangkit listrik, gardu induk, penghalang, gerbang putar, kantor keamanan, dan pos jaga
 • Tidak ada zoom otomatis saat menambah perhentian antara
 • Area pembangkit listrik ditampilkan sebagai industri
-• Gaya luar ruang: trotoar terlihat dari zoom 13
 
 …selengkapnya di omaps.org/news

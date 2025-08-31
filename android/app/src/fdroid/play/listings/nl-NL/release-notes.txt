@@ -6,6 +6,5 @@
 • Ladders weergegeven en gebruikt in routering
 • Toon energiecentrales, onderstations, barrières, tourniquets, beveiligingskantoren en wachtposten
 • Geen automatisch zoomen bij het toevoegen van tussenstops
-• Energiecentralegebieden weergegeven als industrieel
 
 …meer op omaps.org/news

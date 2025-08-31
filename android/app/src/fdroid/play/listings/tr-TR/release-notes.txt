@@ -1,11 +1,10 @@
-• YENİ! Otobüs duraklarında hat numaraları gösteriliyor
+• YENİ! Otobüs duraklarında rota numaraları gösteriliyor
 • 29 Ağustos OSM haritaları
 • Yeni katman simgeleri
 • Yer imi düzenleme (kalem) simgesi için daha büyük dokunma alanı
-• Önceden tanımlanmış renklerin sırası geri yüklendi
+• Önceden ayarlanmış renklerin sırası geri yüklendi
 • Merdivenler gösteriliyor ve yönlendirmede kullanılıyor
-• Elektrik santralleri, trafo merkezleri, bariyerler, turnikeler, güvenlik ofisleri ve bekçi kulübeleri göster
-• Ara duraklar eklerken otomatik yakınlaştırma yok
-• Elektrik santrali alanları endüstriyel olarak işlendi
+• Enerji santrallerini, trafo merkezlerini, bariyerleri, geçit kapılarını, güvenlik ofislerini ve bekçi kulübelerini göster
+• Ara duraklar eklenirken otomatik yakınlaştırma yok
 
 …daha fazlası omaps.org/news
