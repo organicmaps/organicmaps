@@ -235,7 +235,6 @@ NSString * const kSettingsSegue = @"Map2Settings";
     [self.placePageVC removeFromParentViewController];
     self.placePageVC = nil;
     self.placePageContainer.hidden = YES;
-    [self setPlacePageTopBound:0 duration:0];
   }];
 }
 
@@ -854,7 +853,7 @@ NSString * const kSettingsSegue = @"Map2Settings";
   return _downloadDialog;
 }
 
-- (void)setPlacePageTopBound:(CGFloat)bound duration:(double)duration
+- (void)setPlacePageTopBound:(CGFloat)bound
 {
   self.visibleAreaBottom.constant = bound;
   self.sideButtonsAreaBottom.constant = bound;

@@ -1,6 +1,6 @@
 protocol PlacePagePresenterProtocol: AnyObject {
   func layoutIfNeeded()
-  func updateTopBound(_ bound: CGFloat, duration: TimeInterval)
+  func updateTopBound(_ bound: CGFloat)
   func updatePreviewOffset()
   func showNextStop()
   func openURL(_ path: String)
@@ -33,8 +33,8 @@ extension PlacePagePresenter: PlacePagePresenterProtocol {
     view.layoutIfNeeded()
   }
 
-  func updateTopBound(_ bound: CGFloat, duration: TimeInterval) {
-    mapViewController?.setPlacePageTopBound(bound, duration: duration)
+  func updateTopBound(_ bound: CGFloat) {
+    mapViewController?.setPlacePageTopBound(bound)
   }
 
   func updatePreviewOffset() {
