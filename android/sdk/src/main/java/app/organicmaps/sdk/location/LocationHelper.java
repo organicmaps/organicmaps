@@ -30,10 +30,14 @@ import org.chromium.base.ObserverList;
 
 public class LocationHelper implements BaseLocationProvider.Listener
 {
-  private static final long INTERVAL_FOLLOW_MS = 0;
+  // Replaced 0 with 100ms. Seems like it is not working on Lineage, EOS, MicroG, ...
+  // https://github.com/organicmaps/organicmaps/issues/11076
+  // Probably https://github.com/organicmaps/organicmaps/issues/10133
+  // Probably https://github.com/organicmaps/organicmaps/issues/9018
+  private static final long INTERVAL_FOLLOW_MS = 100;
   private static final long INTERVAL_NOT_FOLLOW_MS = 3000;
-  private static final long INTERVAL_NAVIGATION_MS = 0;
-  private static final long INTERVAL_TRACK_RECORDING = 0;
+  private static final long INTERVAL_NAVIGATION_MS = 100;
+  private static final long INTERVAL_TRACK_RECORDING = 100;
 
   private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
   private static final long LOCATION_UPDATE_TIMEOUT_MS = 30 * 1000; // 30 seconds
