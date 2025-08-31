@@ -102,7 +102,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
 private extension PlacePageTrackLayout {
   func updateTrackRelatedSections() {
     guard let trackData = placePageData.trackData else {
-      presenter?.closeAnimated()
+      presenter?.close()
       return
     }
     editTrackViewController.data = .track(trackData)

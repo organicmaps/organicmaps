@@ -4,11 +4,8 @@
     guard let viewController = storyboard.instantiateInitialViewController() as? PlacePageViewController else {
       fatalError()
     }
-    let mapViewController = MapViewController.shared()!
     viewController.isPreviewPlus = data.isPreviewPlus
-    let interactor = PlacePageInteractor(viewController: viewController,
-                                         data: data,
-                                         mapViewController: mapViewController)
+    let interactor = PlacePageInteractor(data: data)
     let layout: IPlacePageLayout
     switch data.objectType {
     case .POI, .bookmark:
@@ -24,7 +21,7 @@
     }
     let presenter = PlacePagePresenter(view: viewController,
                                        headerView: layout.headerViewController,
-                                       mapViewController: mapViewController)
+                                       mapViewController: MapViewController.shared()!)
     viewController.setLayout(layout)
     viewController.interactor = interactor
     interactor.presenter = presenter
@@ -34,9 +31,7 @@
 
   @objc static func update(_ viewController: PlacePageViewController, with data: PlacePageData) {
     viewController.isPreviewPlus = data.isPreviewPlus
-    let interactor = PlacePageInteractor(viewController: viewController,
-                                         data: data,
-                                         mapViewController: MapViewController.shared()!)
+    let interactor = PlacePageInteractor(data: data)
     let layout: IPlacePageLayout
     let storyboard = viewController.storyboard!
     switch data.objectType {
