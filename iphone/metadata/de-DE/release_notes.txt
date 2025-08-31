@@ -1,30 +1,23 @@
-# Versionshinweise
-• NEU! Anzeige von Wander- und Fahrradrouten aus OpenStreetMap (siehe „Ebenen“-Schaltfläche)
-• NEU! Anzeige von Lesezeichen-Namen auf der Karte (siehe „App-Einstellungen“)
-• Aktualisierte OpenStreetMap-Daten vom 4. August
-• Fehler mit fehlenden Start-/Endpunkten bei der Streckenaufzeichnung behoben
-• Landwirtschafts- und Forststraßen sind von der Routenführung ausgeschlossen
-
-## iOS
-• Mehrere Abstürze und iCloud-Synchronisierungsfehler behoben
-• Mehrzeilige Titel in der Lesezeichenliste eingeführt
-• Zoom-Problem beim Abwählen einer Strecke behoben
-• Fehlende Übersetzungen für Geldautomaten korrigiert
-• Probleme beim Öffnen von Webseiten mit Prozentkodierung behoben
-• Fehlende Übersetzungen durch englische Begriffe ersetzt
-
-## Verbesserungen bei Stil & Symbolen
-• Feuchtgebiete mit horizontaler Schraffur markiert
-• Gabel-und-Messer-Symbol für Food Courts
-• Symbole für Fast Food und Fahrräder in Suchergebnissen und Lesezeichen
-• Überdachte Fahrradparkplätze, Gepäckschließfächer und Escape Games
-• Rangerstationen und Partner der Post
-• Anzeige von Marktplätzen, Rastplätzen, Servicestandorten, Einzelhandelsflächen und Wasserparks
-• Farbkorrekturen für Wälder, Buschland und Wiesen in allen Zoomstufen
-• Korrekte Priorisierung von diplomatischen Einrichtungen
-
-## Verschiedene Verbesserungen
-• Die Eingabe von „Polizei“ findet Polizeistationen, „Film“ oder „Kino“ findet Kinos
-• „In anderer App öffnen“ zeigt den gewählten Punkt nun in Google Maps
-• Spanische Übersetzungen für weitere Suchkategorien
-• Verschiedene Übersetzungen aktualisiert
+• NEU! Routennummern werden an Bushaltestellen angezeigt
+• NEUES Aussehen für "Ort zu OpenStreetMap hinzufügen" und "Ort bearbeiten" Schaltflächen
+• Aktualisierte OpenStreetMap-Daten vom 29. August
+• Neue Icons für Kartenebenen und Menü
+• Springendes Fadenkreuz beim Hinzufügen eines neuen Ortes zu OpenStreetMap behoben
+• Kraftwerke, Umspannstationen, Barrieren, Wicket-Tore, Sicherheitsbüros und Wachhäuser anzeigen
+• Kein automatisches Zoomen zur vollständigen Route beim Hinzufügen von Zwischenstopps
+• Outdoor-Stil: Gehwege sind ab Zoom 13 sichtbar
+• Mehrzeilige Titel im Lesezeichen-Listenauswahl
+• Mehrzeilige Titel auf der Ortsinfo-Seite
+• Leitern werden angezeigt und beim Routing verwendet
+• Icons für Kommunikationstürme behoben
+• Klarere Navigationsanweisungen für Kreisverkehr
+• Erweiterte suchbare Küchenkategorien
+• Kraftwerksgebiete als Industriegebiete dargestellt
+• Braune Tourismus-POIs im Dunkelmodus
+• Bibliotheken erscheinen früher, ab Zoom 16
+• Redundante Höhenaktualisierungen während der Spuraufzeichnung entfernt
+• Zuverlässigeres Starten/Stoppen der Spuraufzeichnung und Punktaktualisierungen
+• Einheitliche blaue Farbe für alle antippen Icons auf der Ortsdetailseite
+• "Karten aktualisieren zum Beitragen" Button im Menü angezeigt, wenn Karten zu veraltet sind
+• Viele Kartenicons von PNG zu SVG konvertiert
+• Aktualisierte Übersetzungen

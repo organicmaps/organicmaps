@@ -1,9 +1,11 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• جديد! أرقام الخطوط معروضة في محطات الحافلات
+• خرائط OSM بتاريخ 29 أغسطس
+• أيقونات طبقات جديدة
+• منطقة لمس أكبر لأيقونة تحرير الإشارة المرجعية (قلم رصاص)
+• ترتيب الألوان المحددة مسبقاً مُستعاد
+• السلالم معروضة ومُستخدمة في التوجيه
+• عرض محطات الطاقة والمحطات الفرعية والحواجز والبوابات ومكاتب الأمن ونقاط الحراسة
+• لا تكبير تلقائي عند إضافة محطات وسطية
+• مناطق محطات الطاقة معروضة كمناطق صناعية
 
-…more at omaps.org/news
+…المزيد في omaps.org/news

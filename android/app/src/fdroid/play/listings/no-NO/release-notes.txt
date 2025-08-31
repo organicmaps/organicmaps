@@ -1,9 +1,12 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• NYTT! Rutenumre vist på bussholdeplasser
+• OSM-kart fra 29. august
+• Nye lagikoner
+• Større berøringsområde for rediger bokmerke (blyant) ikon
+• Gjenopprettet rekkefølge av forhåndsdefinerte farger
+• Stiger vist og brukt i ruting
+• Vis kraftverk, transformatorstasjoner, barrierer, vendekors, sikkerhetskontor og vakthus
+• Ingen automatisk zoom ved tillegg av mellomstoppesteder
+• Kraftverksområder gjengitt som industrielle
+• Utendørsstil: fortau synlige fra zoom 13
 
-…more at omaps.org/news
+…mer på omaps.org/news

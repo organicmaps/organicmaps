@@ -1,9 +1,11 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• ახალი! მარშრუტის ნომრები ნაჩვენებია ავტობუსის გაჩერებებზე
+• OSM რუკები 29 აგვისტოდან
+• ახალი ფენის იკონები
+• გაზრდილი შეხების არეა სანიშნის რედაქტირების (ფანქრის) იკონისთვის
+• აღდგენილია წინასწარ განსაზღვრული ფერების რიგი
+• კიბეები ნაჩვენებია და გამოიყენება მარშრუტიზაციაში
+• აჩვენე ელექტროსადგურები, ქვესადგურები, ბარიერები, ბრუნვის კარიბჭეები, უსაფრთხოების ოფისები და დარაჯი
+• არ არის ავტომატური ზუმი შუალედური გაჩერებების დამატებისას
+• ელექტროსადგურის ტერიტორიები რენდერებულია როგორც ინდუსტრიული
 
-…more at omaps.org/news
+…მეტი omaps.org/news-ზე

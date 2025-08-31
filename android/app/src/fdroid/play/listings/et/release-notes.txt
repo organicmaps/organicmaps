@@ -1,9 +1,12 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• UUS! Marsruudinumbrid näidatakse bussipeatustes
+• OSM kaardid 29. augustist
+• Uued kihi ikoonid
+• Suurem puuteala järjehoidja redigeerimise (pliiats) ikooni jaoks
+• Taastatud eelmääratletud värvide järjekord
+• Redelid kuvatud ja kasutatud marsruutimisel
+• Näita elektrijaamu, alajaamu, tõkkeid, väravaid, turvakontorid ja valvehooneid
+• Vahejaamas peatuste lisamisel automaatset suumimist ei ole
+• Elektrijaama alad kuvatud tööstusaladena
+• Välisõhustil: kõnniteed nähtavad alates suumist 13
 
-…more at omaps.org/news
+…rohkem omaps.org/news

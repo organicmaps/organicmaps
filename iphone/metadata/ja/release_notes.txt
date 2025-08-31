@@ -1,31 +1,23 @@
-# Release Notes
-
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+• 新機能！バス停での路線番号表示
+• 「OpenStreetMapに場所を追加」と「場所を編集」ボタンの新しい外観
+• 8月29日時点のOpenStreetMapデータに更新
+• 地図レイヤーとメニューの新しいアイコン
+• OpenStreetMapに新しい場所を追加する際の十字線の跳ねを修正
+• 発電所、変電所、バリア、改札、警備室、警備所を表示
+• 中間停留所追加時の全ルートへの自動ズーム無効化
+• アウトドアスタイル：ズーム13から歩道が見える
+• ブックマークリストセレクターの複数行タイトル
+• 場所情報ページの複数行タイトル
+• はしごの表示とルーティングでの使用
+• 通信塔のアイコンを修正
+• より明確なラウンドアバウトナビゲーション指示
+• 検索可能な料理カテゴリを拡張
+• 発電所エリアを工業地域として描画
+• ダークモードでの茶色の観光POI
+• 図書館がより早く、ズーム16から表示
+• トラック記録中の冗長な標高更新を削除
+• より信頼性の高いトラック記録の開始/停止とポイント更新
+• 場所詳細ページのすべてのタップ可能アイコンの統一青色
+• 地図が古すぎる場合にメニューに「貢献のために地図を更新」ボタンを表示
+• 多くの地図アイコンをPNGからSVGに変換
+• 翻訳を更新

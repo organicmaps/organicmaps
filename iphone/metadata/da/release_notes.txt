@@ -1,31 +1,23 @@
-# Release Notes
-
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+• NYT! Rutenumre vist ved busstoppesteder
+• NYT udseende for "Tilføj sted til OpenStreetMap" og "Rediger sted" knapper
+• Opdateret OpenStreetMap data pr. 29. august
+• Nye ikoner til kortlag og menu
+• Rettet hoppende sigtekorn når et nyt sted tilføjes til OpenStreetMap
+• Vis kraftstationer, transformerstationer, barrierer, låger, sikkerhedskontorer og vagtstueer
+• Ingen auto-zoom til den fulde rute når mellemstationer tilføjes
+• Udendørs stil: fortorve er synlige fra zoom 13
+• Fleerlinjede titler i bogmærkelistevalger
+• Fleerlinjede titler på stedinformationssiden
+• Stiger vist og brugt i ruteplanlægning
+• Rettede ikoner for kommunikationstårne
+• Klarere rundkørselsinstruktioner
+• Udvidede søgbare køkkenkategorier
+• Kraftværksområder gengivet som industrielle
+• Brune turisme POI'er i mørk tilstand
+• Biblioteker vises tidligere, fra zoom 16
+• Fjernet overflødige højdeopdateringer under sporoptag
+• Mere pålidelig start/stop af sporoptag og punktopdateringer
+• Ensartet blå farve for alle klikbare ikoner på steddetaljersiden
+• "Opdater kort for at bidrage" knap vist i menuen når kort er for forældede
+• Mange kortikoner konverteret fra PNG til SVG
+• Opdaterede oversættelser

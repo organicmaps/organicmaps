@@ -1,31 +1,23 @@
-# Release Notes
-
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+• NOVÉ! Čísla linek zobrazená na autobusových zastávkách
+• NOVÝ vzhled pro tlačítka "Přidat místo do OpenStreetMap" a "Upravit místo"
+• Aktualizovaná data OpenStreetMap k 29. srpnu
+• Nové ikony pro vrstvy map a menu
+• Opravený skákající zaměřovač při přidávání nového místa do OpenStreetMap
+• Zobrazit elektrárny, rozvodny, bariéry, turnikety, bezpečnostní kanceláře a strážnice
+• Žádné automatické přiblížení na celou trasu při přidávání mezistavek
+• Venkovní styl: chodníky viditelné od přiblížení 13
+• Víceřádkové titulky ve výběru seznamu záložek
+• Víceřádkové titulky na stránce informací o místě
+• Žebříky zobrazené a používané v plánování tras
+• Opravené ikony pro komunikační věže
+• Jasnější navigační pokyny pro kruhové objezdy
+• Rozšířené prohledávatelné kategorie kuchyně
+• Oblasti elektráren vykreslené jako průmyslové
+• Hnědé turistické POI v tmavém režimu
+• Knihovny se objevují dříve, od přiblížení 16
+• Odstraněné redundantní aktualizace výšky během nahrávání stopy
+• Spolehlivější spuštění/zastavení nahrávání stopy a aktualizace bodů
+• Sjednocená modrá barva pro všechny klepnutelné ikony na stránce podrobností místa
+• Tlačítko "Aktualizovat mapy pro přispění" zobrazené v menu když jsou mapy příliš zastaralé
+• Mnoho ikon map převedeno z PNG na SVG
+• Aktualizované překlady

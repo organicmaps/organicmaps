@@ -1,9 +1,12 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• 新功能！公交站显示路线号码
+• 8月29日的OSM地图
+• 新图层图标
+• 编辑书签（铅笔）图标触摸区域更大
+• 恢复预定义颜色顺序
+• 显示梯子并用于路径规划
+• 显示发电站、变电站、路障、检票口、保安室和警卫室
+• 添加中间站点时不自动缩放
+• 发电厂区域渲染为工业区
+• 户外样式：从缩放级别13开始显示人行道
 
-…more at omaps.org/news
+…更多请访问 omaps.org/news
