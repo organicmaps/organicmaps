@@ -1,31 +1,23 @@
-# Release Notes
-
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+• 新功能！公車站顯示路線號碼
+• 「新增地點至 OpenStreetMap」和「編輯地點」按鈕的全新外觀
+• 更新至 8 月 29 日的 OpenStreetMap 資料
+• 地圖圖層和選單的全新圖示
+• 修復新增地點至 OpenStreetMap 時跳動的十字準線
+• 顯示電廠、變電站、屏障、小門、保安辦公室和警衛室
+• 新增中途站時不會自動縮放至完整路線
+• 戶外樣式：人行道從縮放 13 開始可見
+• 書籤清單選擇器中的多行標題
+• 地點資訊頁面中的多行標題
+• 顯示階梯並用於路線規劃
+• 修復通訊塔的圖示
+• 更清晰的圓環導航指示
+• 擴展可搜尋的料理類別
+• 電廠區域呈現為工業區
+• 深色模式下的棕色旅遊景點
+• 圖書館提早出現，從縮放 16 開始
+• 移除軌跡記錄期間多餘的海拔更新
+• 更可靠的軌跡記錄開始/停止和點位更新
+• 地點詳情頁面上所有可觸控圖示的統一藍色
+• 當地圖過於過時時，選單中顯示「更新地圖以貢獻」按鈕
+• 許多地圖圖示從 PNG 轉換為 SVG
+• 更新翻譯

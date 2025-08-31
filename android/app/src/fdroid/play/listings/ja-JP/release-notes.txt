@@ -1,9 +1,12 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• 新機能！バス停での路線番号表示
+• 8月29日時点のOSMマップ
+• 新しいレイヤーアイコン
+• ブックマーク編集（鉛筆）アイコンのタッチエリアを拡大
+• 定義済み色の順序を復元
+• はしごの表示とルーティングでの使用
+• 発電所、変電所、バリア、改札、警備室、警備所を表示
+• 中間停留所追加時の自動ズーム無効化
+• 発電所エリアを工業地域として描画
+• アウトドアスタイル：ズーム13から歩道が見える
 
-…more at omaps.org/news
+…詳細は omaps.org/news

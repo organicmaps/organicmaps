@@ -1,31 +1,23 @@
-# Release Notes
-
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+• NOU! Números de ruta mostrats a les parades d'autobús
+• NOU aspecte per als botons "Afegir lloc a OpenStreetMap" i "Editar lloc"
+• Dades d'OpenStreetMap actualitzades al 29 d'agost
+• Noves icones per a capes del mapa i menú
+• Corregida creu saltant en afegir un nou lloc a OpenStreetMap
+• Mostrar centrals elèctriques, subestacions, barreres, portetes, oficines de seguretat i casetes de guàrdia
+• Sense zoom automàtic a la ruta completa en afegir parades intermèdies
+• Estil exterior: voreres visibles des del zoom 13
+• Títols multilínia al selector de llista de marcadors
+• Títols multilínia a la pàgina d'informació del lloc
+• Escales mostrades i utilitzades en el enrutament
+• Icones corregides per a torres de comunicació
+• Instruccions de navegació més clares per a rotondes
+• Categories de cuina ampliades i cercables
+• Àrees de centrals elèctriques renderitzades com a industrials
+• POIs de turisme marrons en mode fosc
+• Biblioteques apareixen abans, des del zoom 16
+• Eliminades actualitzacions redundants d'elevació durant l'enregistrament de pista
+• Inici/aturada més fiable de l'enregistrament de pista i actualitzacions de punts
+• Color blau unificat per a totes les icones tocables a la pàgina de detalls del lloc
+• Botó "Actualitzar mapes per contribuir" mostrat al menú quan els mapes estan massa obsolets
+• Moltes icones del mapa convertides de PNG a SVG
+• Traduccions actualitzades

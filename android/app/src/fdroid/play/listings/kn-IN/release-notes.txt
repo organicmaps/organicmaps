@@ -1,9 +1,10 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• ಹೊಸ! ಬಸ್ ನಿಲ್ದಾಣಗಳಲ್ಲಿ ಮಾರ್ಗ ಸಂಖ್ಯೆಗಳನ್ನು ತೋರಿಸಲಾಗಿದೆ
+• ಆಗಸ್ಟ್ 29 ರ OSM ನಕ್ಷೆಗಳು
+• ಹೊಸ ಪದರ ಚಿಹ್ನೆಗಳು
+• ಬುಕ್‌ಮಾರ್ಕ್ ಸಂಪಾದನೆ (ಪೆನ್ಸಿಲ್) ಚಿಹ್ನೆಗೆ ದೊಡ್ಡ ಸ್ಪರ್ಶ ಪ್ರದೇಶ
+• ಪೂರ್ವ-ನಿರ್ಧರಿತ ಬಣ್ಣಗಳ ಕ್ರಮವನ್ನು ಮರುಸ್ಥಾಪಿಸಲಾಗಿದೆ
+• ನೆಲೆಯನ್ನು ಪ್ರದರ್ಶಿಸಲಾಗಿದೆ ಮತ್ತು ಮಾರ್ಗದರ್ಶನದಲ್ಲಿ ಬಳಸಲಾಗಿದೆ
+• ವಿದ್ಯುತ್ ಕೇಂದ್ರಗಳು, ಉಪಕೇಂದ್ರಗಳು, ಅಡೆತಡೆಗಳು, ಗೇಟ್‌ಗಳು, ಭದ್ರತಾ ಕಚೇರಿಗಳು ಮತ್ತು ಕಾವಲು ಮನೆಗಳನ್ನು ತೋರಿಸಿ
+• ಮಧ್ಯಂತರ ನಿಲ್ದಾಣಗಳನ್ನು ಸೇರಿಸುವಾಗ ಯಾವುದೇ ಸ್ವಯಂ-ಜೂಮ್ ಇಲ್ಲ
 
-…more at omaps.org/news
+…ಹೆಚ್ಚು omaps.org/news ನಲ್ಲಿ

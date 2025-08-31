@@ -1,9 +1,12 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• 신기능! 버스 정류장에 노선 번호 표시
+• 8월 29일 OSM 지도
+• 새로운 레이어 아이콘
+• 북마크 편집(연필) 아이콘의 터치 영역 확대
+• 미리 정의된 색상 순서 복원
+• 사다리 표시 및 경로 찾기에 사용
+• 발전소, 변전소, 장벽, 개찰구, 보안 사무소, 경비실 표시
+• 중간 정류장 추가 시 자동 확대 없음
+• 발전소 지역을 산업 지역으로 렌더링
+• 야외 스타일: 확대 레벨 13부터 보도 표시
 
-…more at omaps.org/news
+…자세한 내용은 omaps.org/news

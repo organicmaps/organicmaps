@@ -1,9 +1,10 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• NOVO! Números de ruta mostrados nas paradas de autobús
+• Mapas OSM do 29 de agosto
+• Novas iconas de capas
+• Área táctil máis grande para a icona de editar marcador (lapis)
+• Restaurada a orde das cores predefinidas
+• Escaleiras mostradas e usadas no encamiñamento
+• Mostrar centrais eléctricas, subestacións, barreiras, tornos, oficinas de seguridade e casetas de garda
+• Sen zoom automático ao engadir paradas intermedias
 
-…more at omaps.org/news
+…máis en omaps.org/news

@@ -1,9 +1,11 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• ថ្មី! លេខកម្មវិធីដឹកជញ្ជូនបានបង្ហាញនៅស្ថានីយ៍ឡានក្រុង
+• ផែនទី OSM ថ្ងៃទី២៩ សីហា
+• រូបតំណាងស្រទាប់ថ្មី
+• តំបន់ប៉ះធំជាងសម្រាប់រូបតំណាងកែសម្រួលចំណាំ (ខ្មៅដៃ)
+• បានស្តារលំដាប់ពណ៌កំណត់ជាមុន
+• ជណ្តើរបានបង្ហាញ និងប្រើប្រាស់ក្នុងការរកផ្លូវ
+• បង្ហាញស្ថានីយ៍ថាមពល ស្ថានីយ៍រង ទំនាស់ ច្រកចូល ការិយាល័យសន្តិសុខ និងផ្ទះយាម
+• គ្មានការពង្រីកស្វ័យប្រវត្តិពេលបន្ថែមចំណតកណ្តាល
+• តំបន់រោងចក្រថាមពលត្រូវបានបង្ហាញជាឧស្សាហកម្ម
 
-…more at omaps.org/news
+…បន្ថែមទៀតនៅ omaps.org/news

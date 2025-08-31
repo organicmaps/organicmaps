@@ -1,9 +1,11 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• নতুন! বাস স্টপে রুট নম্বর দেখানো হচ্ছে
+• ২৯ আগস্টের OSM ম্যাপ
+• নতুন লেয়ার আইকন
+• বুকমার্ক সম্পাদনা (পেন্সিল) আইকনের জন্য বড় স্পর্শ এলাকা
+• পূর্ব-নির্ধারিত রংগুলির ক্রম পুনরুদ্ধার
+• সিঁড়ি প্রদর্শিত এবং রুটিংয়ে ব্যবহৃত
+• পাওয়ার স্টেশন, সাবস্টেশন, বাধা, উইকেট গেট, নিরাপত্তা অফিস এবং গার্ডহাউস দেখান
+• মধ্যবর্তী স্টপ যোগ করার সময় কোনো অটো-জুম নেই
+• পাওয়ার প্ল্যান্ট এলাকা শিল্প হিসেবে রেন্ডার করা
 
-…more at omaps.org/news
+…আরো omaps.org/news এ

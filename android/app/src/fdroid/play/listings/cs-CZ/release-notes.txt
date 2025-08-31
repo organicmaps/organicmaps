@@ -1,9 +1,11 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• NOVÉ! Čísla linek zobrazená na autobusových zastávkách
+• Mapy OSM k 29. srpnu
+• Nové ikony vrstev
+• Větší dotyková oblast pro ikonu úpravy záložky (tužka)
+• Obnoveno pořadí předdefinovaných barev
+• Žebříky zobrazeny a používány při plánování tras
+• Zobrazit elektrárny, rozvodny, bariéry, turnikety, bezpečnostní kanceláře a strážnice
+• Žádné automatické přiblížení při přidávání mezistavek
+• Oblasti elektráren vykresleny jako průmyslové
 
-…more at omaps.org/news
+…více na omaps.org/news

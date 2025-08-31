@@ -1,9 +1,12 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• नवीन! बस स्टॉपवर मार्ग क्रमांक दाखवले आहेत
+• 29 ऑगस्टचे OSM नकाशे
+• नवीन स्तर चिन्हे
+• बुकमार्क संपादन (पेन्सिल) चिन्हासाठी मोठे स्पर्श क्षेत्र
+• पूर्व-निर्धारित रंगांचा क्रम पुनर्संचयित
+• शिडी दाखवल्या आणि मार्गीकरणामध्ये वापरल्या
+• वीज केंद्रे, उपकेंद्रे, अडथळे, गेट, सुरक्षा कार्यालये आणि संरक्षक गृहे दाखवा
+• मध्यवर्ती थांबे जोडताना कोणतेही स्वयं-झूम नाही
+• वीज केंद्राचे क्षेत्र औद्योगिक म्हणून प्रस्तुत केले
+• मैदानी शैली: झूम 13 पासून फुटपाथ दिसतात
 
-…more at omaps.org/news
+…अधिक माहिती omaps.org/news वर

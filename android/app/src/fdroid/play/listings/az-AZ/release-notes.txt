@@ -1,9 +1,9 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
-
-…more at omaps.org/news
+• YENİ! Avtobus dayanacaqlarında marşrut nömrələri göstərilir
+• 29 avqust OSM xəritələri
+• Yeni qat ikonları
+• Əlfəcin redaktə (qələm) ikonu üçün daha böyük toxunma sahəsi
+• Əvvəlcədən müəyyən edilmiş rənglərin sırası bərpa edildi
+• Nərdivanlar göstərilir və marşrutlaşdırmada istifadə olunur
+• Elektrik stansiyaları, yarımstansiyalar, maneələr, dönər qapılar, təhlükəsizlik ofisləri və keşikçi evləri göstər
+• Aralıq dayanacaqlar əlavə edərkən avtomatik yaxınlaşdırma yoxdur
+…ətraflı omaps.org/news

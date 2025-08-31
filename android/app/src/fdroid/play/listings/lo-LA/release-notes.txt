@@ -1,9 +1,11 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• ໃໝ່! ເລກເສັ້ນທາງສະແດງໃນສະຖານີລົດເມ
+• ແຜນທີ່ OSM ເຖິງວັນທີ 29 ສິງຫາ
+• ໄອຄອນຊັ້ນໃໝ່
+• ພື້ນທີ່ສຳພັດຂະໜາດໃຫຍ່ສຳລັບໄອຄອນແກ້ໄຂບຸກມາກ (ດິນສໍ)
+• ຄືນຄຳສັ່ງຂອງສີທີ່ກຳນົດໄວ້ລ່ວງໜ້າ
+• ສະແດງບັນໄດ ແລະ ໃຊ້ໃນການຊອກເສັ້ນທາງ
+• ສະແດງໂຮງໄຟຟ້າ, ສະຖານີຍ່ອຍ, ອຸປະສັກ, ປະຕູຫມຸນ, ຫ້ອງການຮັກສາຄວາມປອດໄພ ແລະ ໂຮງຍາມ
+• ບໍ່ມີການຊູມອັດຕະໂນມັດເມື່ອເພີ່ມຈຸດຢຸດກາງທາງ
+• ພື້ນທີ່ໂຮງໄຟຟ້າສະແດງເປັນອຸດສາຫະກຳ
 
-…more at omaps.org/news
+…ເພີ່ມເຕີມທີ່ omaps.org/news

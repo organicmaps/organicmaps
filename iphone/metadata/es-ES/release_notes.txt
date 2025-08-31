@@ -1,31 +1,23 @@
-# Release Notes
-
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+• ¡NUEVO! Números de ruta mostrados en paradas de autobús
+• NUEVO aspecto para los botones "Agregar lugar a OpenStreetMap" y "Editar lugar"
+• Datos actualizados de OpenStreetMap del 29 de agosto
+• Nuevos iconos para capas de mapa y menú
+• Solucionado el salto de la cruz al agregar un nuevo lugar a OpenStreetMap
+• Mostrar centrales eléctricas, subestaciones, barreras, puertas, oficinas de seguridad y casetas de guardia
+• Sin zoom automático a la ruta completa al agregar paradas intermedias
+• Estilo exterior: aceras visibles desde zoom 13
+• Títulos multilínea en selector de lista de marcadores
+• Títulos multilínea en página de información del lugar
+• Escaleras mostradas y utilizadas en enrutamiento
+• Iconos corregidos para torres de comunicación
+• Instrucciones de navegación más claras para rotondas
+• Categorías de cocina ampliadas para búsqueda
+• Áreas de centrales eléctricas renderizadas como industriales
+• POIs de turismo marrón en modo oscuro
+• Bibliotecas aparecen antes, desde zoom 16
+• Eliminadas actualizaciones redundantes de elevación durante grabación de track
+• Inicio/parada más confiable de grabación de track y actualizaciones de puntos
+• Color azul unificado para todos los iconos tocables en página de detalles del lugar
+• Botón "Actualizar mapas para contribuir" mostrado en menú cuando mapas están obsoletos
+• Muchos iconos de mapa convertidos de PNG a SVG
+• Traducciones actualizadas

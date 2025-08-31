@@ -1,8 +1,10 @@
-• NEU! Anzeige von Wander- und Fahrradrouten aus OpenStreetMap (siehe Ebenen-Schaltfläche)
-• NEU! Höhenprofil und Streckenauswahl auf der Karte hinzugefügt
-• NEU! Anzeige von Lesezeichen-Namen auf der Karte (siehe App-Einstellungen)
-• Neue OpenStreetMap-Daten vom 4. August
-• Fehler mit fehlenden Start-/Endpunkten bei der Aufzeichnung von Strecken behoben
-• Hinterlasse eine OSM-Notiz, wenn ein neu hinzugefügter POI noch nicht unterstützt wird
+• NEU! Routennummern werden an Bushaltestellen angezeigt
+• OSM-Karten vom 29. August
+• Neue Ebenen-Icons
+• Größerer Berührungsbereich für das Lesezeichen-Bearbeitungs-Icon (Stift)
+• Reihenfolge der vordefinierten Farben wiederhergestellt
+• Leitern werden angezeigt und beim Routing verwendet
+• Kraftwerke, Umspannstationen, Barrieren, Wicket-Tore, Sicherheitsbüros und Wachhäuser anzeigen
+• Kein automatisches Zoomen beim Hinzufügen von Zwischenstopps
 
-…mehr unter omaps.org/news
+…mehr auf omaps.org/news

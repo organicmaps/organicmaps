@@ -1,31 +1,23 @@
-# Release Notes
-
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+• NIEUW! Lijnnummers getoond bij bushaltes
+• NIEUWE look voor "Plaats toevoegen aan OpenStreetMap" en "Plaats bewerken" knoppen
+• Bijgewerkte OpenStreetMap data per 29 augustus
+• Nieuwe iconen voor kaartlagen en menu
+• Springend dradenkruis opgelost bij toevoegen nieuwe plaats aan OpenStreetMap
+• Toon energiecentrales, onderstations, barrières, tourniquets, beveiligingskantoren en wachtposten
+• Geen automatisch zoomen naar volledige route bij toevoegen tussenstops
+• Buitenstijl: trottoirs zichtbaar vanaf zoom 13
+• Meerregelige titels in bladwijzerlijst selector
+• Meerregelige titels in plaatsinformatie pagina
+• Ladders weergegeven en gebruikt in routering
+• Iconen voor communicatietorens opgelost
+• Duidelijkere rotonde navigatie-instructies
+• Uitgebreide doorzoekbare keuken categorieën
+• Energiecentrale gebieden weergegeven als industrieel
+• Bruine toerisme POI's in donkere modus
+• Bibliotheken verschijnen eerder, vanaf zoom 16
+• Overtollige hoogte-updates verwijderd tijdens track opname
+• Betrouwbaardere track opname start/stop en punt updates
+• Geünificeerde blauwe kleur voor alle tikbare iconen op plaatsdetails pagina
+• "Kaarten bijwerken om bij te dragen" knop getoond in menu wanneer kaarten te verouderd zijn
+• Veel kaart iconen geconverteerd van PNG naar SVG
+• Bijgewerkte vertalingen

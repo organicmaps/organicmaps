@@ -1,9 +1,10 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• NIEUW! Lijnnummers getoond bij bushaltes
+• OSM kaarten van 29 augustus
+• Nieuwe laag iconen
+• Groter aanraakgebied voor het bladwijzer bewerkingspictogram (potlood)
+• Volgorde van vooraf gedefinieerde kleuren hersteld
+• Ladders weergegeven en gebruikt in routering
+• Toon energiecentrales, onderstations, barrières, tourniquets, beveiligingskantoren en wachtposten
+• Geen automatisch zoomen bij het toevoegen van tussenstops
 
-…more at omaps.org/news
+…meer op omaps.org/news
