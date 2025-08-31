@@ -413,8 +413,9 @@ bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
   m2::PointD const & center = centerEvent->GetCenter();
   auto const zoom = centerEvent->GetZoom();
   auto const scaleFactor = centerEvent->GetScaleFactor();
+  auto const trackVisibleViewport = centerEvent->TrackVisibleViewport();
 
-  if (centerEvent->TrackVisibleViewport())
+  if (trackVisibleViewport)
   {
     m_needTrackCenter = true;
     m_trackedCenter = center;
@@ -425,7 +426,10 @@ bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
   if (zoom != kDoNotChangeZoom)
   {
     screen.SetFromParams(center, screen.GetAngle(), GetScreenScale(zoom));
-    screen.MatchGandP3d(center, m_visibleViewport.Center());
+    if (trackVisibleViewport)
+      screen.MatchGandP3d(center, m_visibleViewport.Center());
+    else
+      screen.MatchGandP3d(center, screen.PixelRectIn3d().Center());
   }
   else if (scaleFactor > 0.0)
   {
@@ -435,7 +439,10 @@ bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
   else
   {
     GetTargetScreen(screen);
-    screen.MatchGandP3d(center, m_visibleViewport.Center());
+    if (trackVisibleViewport)
+      screen.MatchGandP3d(center, m_visibleViewport.Center());
+    else
+      screen.MatchGandP3d(center, screen.PixelRectIn3d().Center());
   }
 
   ShrinkAndScaleInto(screen, df::GetWorldRect());
