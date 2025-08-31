@@ -1,9 +1,11 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• جدید! شماره‌های مسیر در ایستگاه‌های اتوبوس نمایش داده می‌شود
+• نقشه‌های OSM تا ۲۹ اوت
+• نمادهای لایه جدید
+• ناحیه لمس بزرگ‌تر برای نماد ویرایش نشانک (مداد)
+• ترتیب رنگ‌های از پیش تعریف شده بازیابی شد
+• نردبان‌ها نمایش داده و در مسیریابی استفاده می‌شوند
+• نمایش نیروگاه‌ها، پست‌ها، موانع، دروازه‌های چرخشی، دفاتر امنیتی و نگهبانخانه‌ها
+• هیچ بزرگ‌نمایی خودکار هنگام اضافه کردن توقف‌های میانی
+• نواحی نیروگاه به عنوان صنعتی رندر شده
 
-…more at omaps.org/news
+…بیشتر در omaps.org/news

@@ -1,9 +1,12 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• BAHARU! Nombor laluan ditunjukkan di hentian bas
+• Peta OSM pada 29 Ogos
+• Ikon lapisan baharu
+• Kawasan sentuh lebih besar untuk ikon edit penanda buku (pensil)
+• Susunan warna yang telah ditetapkan dipulihkan
+• Tangga dipaparkan dan digunakan dalam penghalaan
+• Tunjukkan stesen janakuasa, substesen, penghalang, pintu pusing, pejabat keselamatan dan pos kawalan
+• Tiada zum automatik apabila menambah perhentian perantaraan
+• Kawasan loji janakuasa dipaparkan sebagai perindustrian
+• Gaya luar: kaki lima kelihatan dari zum 13
 
-…more at omaps.org/news
+…lagi di omaps.org/news

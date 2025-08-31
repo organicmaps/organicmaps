@@ -1,9 +1,11 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• नया! बस स्टॉप पर रूट नंबर दिखाए गए
+• 29 अगस्त के OSM मैप्स
+• नए लेयर आइकन
+• बुकमार्क संपादन (पेंसिल) आइकन के लिए बड़ा टच एरिया
+• पूर्व-निर्धारित रंगों का क्रम बहाल
+• सीढ़ियां प्रदर्शित और रूटिंग में उपयोग
+• पावर स्टेशन, सबस्टेशन, बैरियर, विकेट गेट, सिक्योरिटी ऑफिस और गार्डहाउस दिखाएं
+• मध्यवर्ती स्टॉप जोड़ते समय कोई ऑटो-ज़ूम नहीं
+• पावर प्लांट एरिया को औद्योगिक के रूप में रेंडर किया गया
 
-…more at omaps.org/news
+…अधिक जानकारी omaps.org/news पर

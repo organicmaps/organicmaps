@@ -1,9 +1,12 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• BARU! Nomor rute ditampilkan di halte bus
+• Peta OSM per 29 Agustus
+• Ikon layer baru
+• Area sentuh lebih besar untuk ikon edit bookmark (pensil)
+• Urutan warna yang telah ditentukan dipulihkan
+• Tangga ditampilkan dan digunakan dalam perutean
+• Tampilkan pembangkit listrik, gardu induk, penghalang, gerbang putar, kantor keamanan, dan pos jaga
+• Tidak ada zoom otomatis saat menambah perhentian antara
+• Area pembangkit listrik ditampilkan sebagai industri
+• Gaya luar ruang: trotoar terlihat dari zoom 13
 
-…more at omaps.org/news
+…selengkapnya di omaps.org/news

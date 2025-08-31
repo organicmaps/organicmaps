@@ -1,31 +1,23 @@
-# Release Notes
-
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+• NYTT! Linjenummer visas vid busshållplatser
+• NYTT utseende för knapparna "Lägg till plats på OpenStreetMap" och "Redigera plats"
+• Uppdaterad OpenStreetMap-data från 29 augusti
+• Nya ikoner för kartlager och meny
+• Åtgärdat hoppande hårkors när en ny plats läggs till på OpenStreetMap
+• Visa kraftstationer, transformatorstationer, barriärer, vändkors, säkerhetskontor och vaktstugor
+• Ingen automatisk zoom till hela rutten när mellanliggande stopp läggs till
+• Utomhusstil: trottoarer syns från zoom 13
+• Flerlinjiga titlar i bokmärkeslistväljaren
+• Flerlinjiga titlar på platsinformationssidan
+• Stegar visas och används vid navigering
+• Åtgärdade ikoner för kommunikationstorn
+• Tydligare navigeringsinstruktioner för rondeller
+• Utökade sökbara kökskategorier
+• Kraftverksområden renderade som industriella
+• Bruna turist-POI:er i mörkt läge
+• Bibliotek visas tidigare, från zoom 16
+• Borttagna redundanta höjduppdateringar under spårinspelning
+• Mer tillförlitlig start/stopp av spårinspelning och punktuppdateringar
+• Enhetlig blå färg för alla klickbara ikoner på platsdetaljsidan
+• Knappen "Uppdatera kartor för att bidra" visas i menyn när kartorna är för föråldrade
+• Många kartikoner konverterade från PNG till SVG
+• Uppdaterade översättningar

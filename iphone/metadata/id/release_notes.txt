@@ -1,31 +1,23 @@
-# Release Notes
-
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+• BARU! Nomor rute ditampilkan di halte bus
+• Tampilan BARU untuk tombol "Tambah Tempat ke OpenStreetMap" dan "Edit Tempat"
+• Data OpenStreetMap diperbarui hingga 29 Agustus
+• Ikon baru untuk lapisan peta dan menu
+• Perbaikan crosshair melompat saat menambah tempat baru ke OpenStreetMap
+• Tampilkan pembangkit listrik, gardu induk, penghalang, gerbang putar, kantor keamanan, dan pos jaga
+• Tidak ada zoom otomatis ke rute penuh saat menambah perhentian antara
+• Gaya luar ruang: trotoar terlihat dari zoom 13
+• Judul multi-baris dalam pemilih daftar bookmark
+• Judul multi-baris di halaman informasi tempat
+• Tangga ditampilkan dan digunakan dalam perutean
+• Ikon diperbaiki untuk menara komunikasi
+• Instruksi navigasi bundaran yang lebih jelas
+• Kategori masakan yang dapat dicari diperluas
+• Area pembangkit listrik ditampilkan sebagai industri
+• POI pariwisata coklat dalam mode gelap
+• Perpustakaan muncul lebih awal, dari zoom 16
+• Menghapus pembaruan ketinggian berlebihan selama perekaman jalur
+• Mulai/berhenti perekaman jalur yang lebih andal dan pembaruan titik
+• Warna biru terpadu untuk semua ikon yang dapat disentuh di halaman detail tempat
+• Tombol "Perbarui peta untuk berkontribusi" ditampilkan di menu saat peta terlalu usang
+• Banyak ikon peta dikonversi dari PNG ke SVG
+• Terjemahan diperbarui

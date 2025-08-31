@@ -1,9 +1,12 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• НОВО! Бројеви рута приказани на аутобуским станицама
+• OSM мапе од 29. августа
+• Нове иконе слојева
+• Већа област додира за икону уређивања обележивача (оловка)
+• Враћен редослед унапред дефинисаних боја
+• Мердевине приказане и коришћене у рутирању
+• Прикажи електране, подстанице, баријере, турникете, безбедносне канцеларије и чуварнице
+• Нема аутоматског зумирања при додавању међустаница
+• Подручја електрана приказана као индустријска
+• Спољашњи стил: тротоари видљиви од зума 13
 
-…more at omaps.org/news
+…више на omaps.org/news

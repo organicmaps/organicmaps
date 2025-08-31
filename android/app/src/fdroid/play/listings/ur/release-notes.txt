@@ -1,9 +1,12 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• نیا! بس سٹاپس پر روٹ نمبرز دکھائے گئے
+• 29 اگست کے OSM نقشے
+• نئے لیئر آئیکنز
+• بک مارک ایڈٹ (پنسل) آئیکن کے لیے بڑا ٹچ ایریا
+• پہلے سے طے شدہ رنگوں کی ترتیب بحال
+• سیڑھیاں دکھائی گئیں اور روٹنگ میں استعمال ہوئیں
+• پاور سٹیشنز، سب سٹیشنز، بیریئرز، گیٹس، سیکیورٹی آفسز اور گارڈ ہاؤسز دکھائیں
+• درمیانی اسٹاپس شامل کرتے وقت کوئی آٹو زوم نہیں
+• پاور پلانٹ کے علاقے صنعتی کے طور پر رینڈر کیے گئے
+• آؤٹ ڈور اسٹائل: زوم 13 سے فٹ پاتھ نظر آتے ہیں
 
-…more at omaps.org/news
+…مزید omaps.org/news پر

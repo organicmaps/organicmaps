@@ -1,31 +1,23 @@
-# Release Notes
-
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+• 신기능! 버스 정류장에 노선 번호 표시
+• "OpenStreetMap에 장소 추가" 및 "장소 편집" 버튼의 새로운 디자인
+• 8월 29일 기준 OpenStreetMap 데이터 업데이트
+• 지도 레이어 및 메뉴용 새 아이콘
+• OpenStreetMap에 새 장소 추가 시 점프하는 십자선 수정
+• 발전소, 변전소, 장벽, 개찰구, 보안 사무소, 경비실 표시
+• 중간 정류장 추가 시 전체 경로로 자동 확대 없음
+• 야외 스타일: 확대 레벨 13부터 보도 표시
+• 북마크 목록 선택기의 여러 줄 제목
+• 장소 정보 페이지의 여러 줄 제목
+• 사다리 표시 및 경로 찾기에 사용
+• 통신탑 아이콘 수정
+• 더 명확한 로터리 내비게이션 안내
+• 검색 가능한 요리 카테고리 확장
+• 발전소 지역을 산업 지역으로 렌더링
+• 다크 모드에서 갈색 관광 POI
+• 도서관이 더 일찍, 확대 레벨 16부터 표시
+• 트랙 기록 중 중복 고도 업데이트 제거
+• 더 안정적인 트랙 기록 시작/중지 및 포인트 업데이트
+• 장소 세부 정보 페이지의 모든 터치 가능한 아이콘에 통일된 파란색
+• 지도가 너무 오래된 경우 메뉴에 "기여를 위한 지도 업데이트" 버튼 표시
+• 많은 지도 아이콘을 PNG에서 SVG로 변환
+• 번역 업데이트

@@ -1,9 +1,11 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• අළුත්! බස් නැවතුම්වල මාර්ග අංක පෙන්වයි
+• අගෝස්තු 29 වන දිනේ OSM සිතියම්
+• නව ස්ථර නිරූපක
+• පොත්යොමු සංස්කරණ (පෙන්සල) නිරූපකය සඳහා විශාල ස්පර්ශ ප්‍රදේශයක්
+• පූර්ව-නිර්ධාරිත වර්ණවල අනුපිළිවෙල ප්‍රතිසාධනය කරන ලදී
+• ඉණිමඟ පෙන්වන ලද සහ මාර්ගගත කිරීමේදී භාවිතා වේ
+• විදුලි බලාගාර, උප බලාගාර, බාධක, ගේට්ටු, ආරක්ෂක කාර්යාල සහ මුරකරුවන්ගේ නිවාස පෙන්වන්න
+• අතරමැදි නැවතුම් එකතු කරන විට ස්වයංක්‍රීය විශාලනයක් නැත
+• විදුලි බලාගාර ප්‍රදේශ කර්මාන්ත ලෙස පෙන්වා ඇත
 
-…more at omaps.org/news
+…තවත් omaps.org/news හි

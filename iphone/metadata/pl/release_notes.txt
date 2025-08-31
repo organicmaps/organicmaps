@@ -1,31 +1,23 @@
-# Release Notes
-
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+• NOWOŚĆ! Numery linii pokazane na przystankach autobusowych
+• NOWY wygląd przycisków "Dodaj miejsce do OpenStreetMap" i "Edytuj miejsce"
+• Zaktualizowane dane OpenStreetMap z 29 sierpnia
+• Nowe ikony dla warstw map i menu
+• Naprawiono skaczący celownik przy dodawaniu nowego miejsca do OpenStreetMap
+• Pokazuj elektrownie, podstacje, bariery, bramki, biura ochrony i wartownie
+• Brak automatycznego powiększania do pełnej trasy przy dodawaniu przystanków pośrednich
+• Styl zewnętrzny: chodniki widoczne od powiększenia 13
+• Wieloliniowe tytuły w selektorze listy zakładek
+• Wieloliniowe tytuły na stronie informacji o miejscu
+• Drabiny wyświetlane i używane w trasowaniu
+• Naprawione ikony dla wież komunikacyjnych
+• Jaśniejsze instrukcje nawigacji dla rond
+• Rozszerzone kategorie kuchni do wyszukiwania
+• Obszary elektrowni renderowane jako przemysłowe
+• Brązowe POI turystyczne w trybie ciemnym
+• Biblioteki pojawiają się wcześniej, od powiększenia 16
+• Usunięto nadmiarowe aktualizacje wysokości podczas nagrywania śladu
+• Bardziej niezawodne uruchamianie/zatrzymywanie nagrywania śladu i aktualizacje punktów
+• Ujednolicony niebieski kolor dla wszystkich klikalnych ikon na stronie szczegółów miejsca
+• Przycisk "Aktualizuj mapy aby wnieść wkład" pokazany w menu gdy mapy są zbyt przestarzałe
+• Wiele ikon map przekonwertowano z PNG na SVG
+• Zaktualizowane tłumaczenia

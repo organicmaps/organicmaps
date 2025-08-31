@@ -1,31 +1,23 @@
-# Release Notes
-
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+• חדש! מספרי קווים מוצגים בתחנות אוטובוס
+• מראה חדש לכפתורי "הוסף מקום ל-OpenStreetMap" ו"ערוך מקום"
+• נתוני OpenStreetMap מעודכנים ל-29 באוגוסט
+• אייקונים חדשים לשכבות מפה ותפריט
+• תוקן קו הכוונת הקופץ בעת הוספת מקום חדש ל-OpenStreetMap
+• הצגת תחנות כוח, תחנות משנה, מחסומים, שערים, משרדי אבטחה ובתי שמירה
+• ללא זום אוטומטי לנתיב המלא בעת הוספת תחנות ביניים
+• סגנון חיצוני: מדרכות נראות מזום 13
+• כותרות רב-שורתיות בבורר רשימת סימניות
+• כותרות רב-שורתיות בעמוד מידע על המקום
+• סולמות מוצגים ונמצאים בשימוש בניווט
+• אייקונים מתוקנים למגדלי תקשורת
+• הוראות ניווט ברורות יותר לכיכרות
+• קטגוריות מטבח מורחבות לחיפוש
+• אזורי תחנות כוח מוצגים כתעשייתיים
+• נקודות עניין תיירותיות חומות במצב כהה
+• ספריות מופיעות מוקדם יותר, מזום 16
+• הוסרו עדכוני גובה מיותרים במהלך הקלטת מסלול
+• התחלה/עצירה אמינה יותר של הקלטת מסלול ועדכוני נקודות
+• צבע כחול אחיד לכל האייקונים הניתנים למגע בעמוד פרטי המקום
+• כפתור "עדכן מפות כדי לתרום" מוצג בתפריט כאשר המפות מיושנות מדי
+• אייקוני מפה רבים הומרו מ-PNG ל-SVG
+• תרגומים מעודכנים
