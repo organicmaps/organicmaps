@@ -1,7 +1,7 @@
 protocol PlacePageInteractorProtocol: AnyObject {
   func viewWillAppear()
   func viewWillDisappear()
-  func updateTopBound(_ bound: CGFloat, duration: TimeInterval)
+  func updateTopBound(_ bound: CGFloat)
   func close()
 }
 
@@ -90,8 +90,8 @@ extension PlacePageInteractor: PlacePageInteractorProtocol {
     unsubscribeFromTrackActivePointUpdates()
   }
 
-  func updateTopBound(_ bound: CGFloat, duration: TimeInterval) {
-    presenter?.updateTopBound(bound, duration: duration)
+  func updateTopBound(_ bound: CGFloat) {
+    presenter?.updateTopBound(bound)
   }
 
   func close() {

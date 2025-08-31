@@ -38,8 +38,7 @@
 - (void)openFullPlaceDescriptionWithHtml:(NSString * _Nonnull)htmlString;
 - (void)openDrivingOptions;
 - (void)showTrackRecordingPlacePage;
-
-- (void)setPlacePageTopBound:(CGFloat)bound duration:(double)duration;
+- (void)setPlacePageTopBound:(CGFloat)bound;
 
 + (void)setViewport:(double)lat lon:(double)lon zoomLevel:(int)zoomlevel;
 
