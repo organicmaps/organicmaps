@@ -1,5 +1,6 @@
 protocol PlacePageViewProtocol: AnyObject {
   var interactor: PlacePageInteractorProtocol? { get set }
+  var view: UIView! { get }
 
   func setLayout(_ layout: IPlacePageLayout)
   func updatePreviewOffset()
