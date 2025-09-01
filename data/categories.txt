@@ -17425,6 +17425,47 @@ vi:Đồ trang trí nội thất
 zh-Hans:室内装饰
 zh-Hant:室內裝飾
 
+shop-lighting|@shop
+en:4Lighting|4Lamps
+ar:مصابيح
+be:Лямпы
+bg:Лампи
+ca:Làmpades
+cs:Lampy
+da:Lamper
+de:Lampen
+el:Λάμπες
+es:Lámparas
+et:Lambid
+eu:Lanparak
+fa:لامپ
+fi:Lamput
+fr:Lampes
+he:מנורות
+hi:लैंप
+hu:Lámpák
+id:Lampu
+it:Lampade
+ja:照明
+ko:조명
+lv:Lampas
+mr:दिवे
+nb:Lamper
+nl:Lampen
+pl:Lampy
+pt:Lâmpadas
+ro:Lămpi
+ru:лампы|световые приборы
+sk:Lampy
+sv:Lampor
+sw:Taa
+th:โคมไฟ
+tr:Lambalar
+uk:лампи|світлові прилади
+vi:Đèn
+zh-Hans:灯具
+zh-Hant:灯具
+
 shop-lottery|@gambling
 en:Lottery Tickets
 ar:ﺐﻴﺼﻧﺎﻴﻟﺍ ﺮﻛﺍﺬﺗ
