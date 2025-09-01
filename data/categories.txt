@@ -17425,6 +17425,10 @@ vi:Đồ trang trí nội thất
 zh-Hans:室内装饰
 zh-Hant:室內裝飾
 
+shop-lighting|@shop
+en:4Lighting|Lamps
+ru:Свет|Световые приборы
+
 shop-lottery|@gambling
 en:Lottery Tickets
 ar:ﺐﻴﺼﻧﺎﻴﻟﺍ ﺮﻛﺍﺬﺗ
