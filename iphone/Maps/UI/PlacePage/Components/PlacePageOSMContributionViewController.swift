@@ -50,14 +50,12 @@ final class PlacePageOSMContributionViewController: UIViewController {
   private func setupView() {
     view.setStyle(.background)
 
-    osmHeaderView.iconButton.setImage(UIImage(resource: .osmLogo), for: .normal)
-    osmHeaderView.infoLabel.text = L("contribute_to_osm")
-    osmHeaderView.infoLabel.setFontStyle(.regular16, color: .blackPrimary)
-    osmHeaderView.accessoryButton.setImage(UIImage(resource: .icQuestionmark), for: .normal)
-    osmHeaderView.accessoryButton.setStyle(.blue)
-    osmHeaderView.accessoryImageTapHandler = { [weak self] in
+    osmHeaderView.setIcon(image: UIImage(resource: .osmLogo))
+    osmHeaderView.setTitle(L("contribute_to_osm"))
+    osmHeaderView.setAccessory(image: UIImage(resource: .icQuestionmark),
+                               tapHandler: { [weak self] in
       self?.onOSMInfo()
-    }
+    })
 
     configureButton(addPlaceButton, enabledTitle: L("contribute_to_osm_add_place"), action: #selector(onAddPlace))
     configureButton(editPlaceButton, enabledTitle: L("edit_place"), action: #selector(onEditPlace))

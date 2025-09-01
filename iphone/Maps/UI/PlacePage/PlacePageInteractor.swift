@@ -117,10 +117,6 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
   func didPressWebsiteMenu() {
     MWMPlacePageManagerHelper.openWebsiteMenu(placePageData)
   }
-
-  func didPressWikipedia() {
-    MWMPlacePageManagerHelper.openWikipedia(placePageData)
-  }
   
   func didPressWikimediaCommons() {
     MWMPlacePageManagerHelper.openWikimediaCommons(placePageData)
@@ -177,6 +173,10 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
 extension PlacePageInteractor: WikiDescriptionViewControllerDelegate {
   func didPressMore() {
     MWMPlacePageManagerHelper.showPlaceDescription(placePageData.wikiDescriptionHtml)
+  }
+
+  func didPressWikipedia() {
+    MWMPlacePageManagerHelper.openWikipedia(placePageData)
   }
 }
 
