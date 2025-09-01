@@ -1,28 +1,44 @@
 final class ExpandableLabel: UIView {
-  typealias OnExpandClosure = (() -> Void) -> Void
+  typealias OnExpandClosure = () -> Void
+
+  private enum Constants {
+    static let defaultContentInsets = UIEdgeInsets(top: 8, left: 16, bottom: -8, right: -16)
+  }
 
   private let stackView = UIStackView()
   private let textView = UITextView()
   private let expandLabel = UILabel()
+  private var contentInsets: UIEdgeInsets = Constants.defaultContentInsets
 
-  var onExpandClosure: OnExpandClosure?
+  private var containerText: String?
+  private var containerMaximumNumberOfLines = 2 {
+    didSet {
+      textView.textContainer.maximumNumberOfLines = containerMaximumNumberOfLines
+      textView.invalidateIntrinsicContentSize()
+    }
+  }
+  private var oldWidth: CGFloat = 0
 
-  var font = UIFont.systemFont(ofSize: 16) {
+  // MARK: - Public properties
+
+  var didTapExpandButton: OnExpandClosure?
+
+  var font = UIFont.regular14() {
     didSet {
       textView.font = font
       expandLabel.font = font
     }
   }
 
-  var textColor = UIColor.black {
+  var textStyle: TextColorStyleSheet = .blackPrimary {
     didSet {
-      textView.textColor = textColor
+      textView.setStyle(textStyle)
     }
   }
 
-  var expandColor = UIColor.systemBlue {
+  var expandStyle: TextColorStyleSheet = .linkBlue {
     didSet {
-      expandLabel.textColor = expandColor
+      expandLabel.setStyle(expandStyle)
     }
   }
 
@@ -50,7 +66,7 @@ final class ExpandableLabel: UIView {
     }
   }
 
-  var expandText = "More" {
+  var expandText = L("text_more_button") {
     didSet {
       expandLabel.text = expandText
     }
@@ -62,15 +78,7 @@ final class ExpandableLabel: UIView {
     }
   }
 
-  private var containerText: String?
-  private var containerMaximumNumberOfLines = 2 {
-    didSet {
-      textView.textContainer.maximumNumberOfLines = containerMaximumNumberOfLines
-      textView.invalidateIntrinsicContentSize()
-    }
-  }
-
-  private var oldWidth: CGFloat = 0
+  // MARK: - Init
 
   override func setContentHuggingPriority(_ priority: UILayoutPriority, for axis: NSLayoutConstraint.Axis) {
     super.setContentHuggingPriority(priority, for: axis)
@@ -80,58 +88,73 @@ final class ExpandableLabel: UIView {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    commonInit()
+    setupView()
+  }
+
+  init(contentInsets: UIEdgeInsets = Constants.defaultContentInsets) {
+    self.contentInsets = contentInsets
+    super.init(frame: .zero)
+    setupView()
   }
 
   required init?(coder: NSCoder) {
     super.init(coder: coder)
-    commonInit()
+    setupView()
   }
 
-  private func commonInit() {
+  // MARK: - Private methods
+
+  private func setupView() {
     stackView.axis = .vertical
     stackView.alignment = .leading
+
     containerMaximumNumberOfLines = numberOfLines > 0 ? numberOfLines + 1 : 0
+
     textView.textContainer.lineFragmentPadding = 0
     textView.isScrollEnabled = false
     textView.isEditable = false
     textView.textContainerInset = .zero
     textView.contentMode = .topLeft
     textView.font = font
-    textView.textColor = textColor
+    textView.setStyle(textStyle)
     textView.text = text
     textView.attributedText = attributedText
     textView.setContentHuggingPriority(contentHuggingPriority(for: .vertical), for: .vertical)
     textView.backgroundColor = .clear
     textView.dataDetectorTypes = [.link, .phoneNumber]
+
     expandLabel.setContentHuggingPriority(contentHuggingPriority(for: .vertical), for: .vertical)
     expandLabel.font = font
-    expandLabel.textColor = expandColor
+    expandLabel.setStyle(expandStyle)
     expandLabel.text = expandText
-    expandLabel.isHidden = true
-    addSubview(stackView)
-
-    stackView.addArrangedSubview(textView)
-    stackView.addArrangedSubview(expandLabel)
-    stackView.alignToSuperview()
     let gr = UITapGestureRecognizer(target: self, action: #selector(onExpand(_:)))
     addGestureRecognizer(gr)
+
+    layoutView()
   }
 
-  @objc func onExpand(_ sender: UITapGestureRecognizer) {
-    if expandLabel.isHidden { return }
+  private func layoutView() {
+    addSubview(stackView)
+    stackView.addArrangedSubview(textView)
+    stackView.addArrangedSubview(expandLabel)
+    stackView.alignToSuperview(contentInsets)
+  }
 
-    let expandClosure = {
-      UIView.animate(withDuration: kDefaultAnimationDuration) {
-        self.containerMaximumNumberOfLines = 0
-        self.expandLabel.isHidden = true
-        self.stackView.layoutIfNeeded()
-      }
-    }
-    if let onExpandClosure = onExpandClosure {
-      onExpandClosure(expandClosure)
-    } else {
-      expandClosure()
+  // MARK: - Actions
+
+  @objc
+  private func onExpand(_ sender: UITapGestureRecognizer) {
+    didTapExpandButton?()
+  }
+
+  // MARK: - Public methods
+
+  func setExpanded(_ expanded: Bool) {
+    guard expandLabel.isHidden != expanded else { return }
+    UIView.animate(withDuration: kFastAnimationDuration) {
+      self.containerMaximumNumberOfLines = expanded ? 0 : (self.numberOfLines > 0 ? self.numberOfLines + 1 : 0)
+      self.expandLabel.isHidden = expanded ? true : false
+      self.stackView.layoutIfNeeded()
     }
   }
 
@@ -143,7 +166,7 @@ final class ExpandableLabel: UIView {
       self.attributedText = attributedText
       oldWidth = bounds.width
     }
-    
+
     guard containerMaximumNumberOfLines > 0,
       containerMaximumNumberOfLines != numberOfLines,
       let s = containerText,
