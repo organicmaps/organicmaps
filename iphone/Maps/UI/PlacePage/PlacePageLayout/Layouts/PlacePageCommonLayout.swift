@@ -7,6 +7,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   private var interactor: PlacePageInteractor
   private let storyboard: UIStoryboard
   private var lastLocation: CLLocation?
+  private weak var editBookmarkInteractor: PlacePageEditBookmarkAndTrackSectionInteractor?
 
   weak var presenter: PlacePagePresenterProtocol?
 
@@ -36,17 +37,18 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return vc
   }()
 
-  private lazy var wikiDescriptionViewController: WikiDescriptionViewController = {
-    let vc = storyboard.instantiateViewController(ofType: WikiDescriptionViewController.self)
-    vc.view.isHidden = true
-    vc.delegate = interactor
-    return vc
+  private lazy var wikiDescriptionViewController: UIViewController? = {
+    guard let wikiDescriptionHtml = placePageData.wikiDescriptionHtml else { return nil }
+    let showLinkButton = placePageData.infoData?.wikipedia != nil
+    return PlacePageExpandableDetailsSectionBuilder.buildWikipediaSection(wikiDescriptionHtml,
+                                                                          showLinkButton: showLinkButton,
+                                                                          delegate: interactor)
   }()
 
-  private lazy var editBookmarkViewController: PlacePageEditBookmarkOrTrackViewController = {
-    let vc = storyboard.instantiateViewController(ofType: PlacePageEditBookmarkOrTrackViewController.self)
+  private lazy var editBookmarkViewController: PlacePageExpandableDetailsSectionViewController = {
+    let vc = PlacePageExpandableDetailsSectionBuilder.buildEditBookmarkAndTrackSection(data: nil, delegate: interactor)
     vc.view.isHidden = true
-    vc.delegate = interactor
+    editBookmarkInteractor = vc.interactor as? PlacePageEditBookmarkAndTrackSectionInteractor
     return vc
   }()
 
@@ -95,14 +97,12 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
 
     viewControllers.append(editBookmarkViewController)
     if let bookmarkData = placePageData.bookmarkData {
-      editBookmarkViewController.data = .bookmark(bookmarkData)
       editBookmarkViewController.view.isHidden = false
+      editBookmarkInteractor?.data = .bookmark(bookmarkData)
     }
 
-    viewControllers.append(wikiDescriptionViewController)
-    if let wikiDescriptionHtml = placePageData.wikiDescriptionHtml {
-      wikiDescriptionViewController.descriptionHtml = wikiDescriptionHtml
-      wikiDescriptionViewController.view.isHidden = false
+    if let wikiDescriptionViewController {
+      viewControllers.append(wikiDescriptionViewController)
     }
 
     if placePageData.infoData != nil {
@@ -180,7 +180,7 @@ extension PlacePageCommonLayout {
   func updateBookmarkRelatedSections() {
     var isBookmark = false
     if let bookmarkData = placePageData.bookmarkData {
-      editBookmarkViewController.data = .bookmark(bookmarkData)
+      editBookmarkInteractor?.data = .bookmark(bookmarkData)
       isBookmark = true
     }
     if let title = placePageData.previewData.title, let headerViewController = headerViewControllers.compactMap({ $0 as? PlacePageHeaderViewController }).first {

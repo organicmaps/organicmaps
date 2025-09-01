@@ -3,6 +3,8 @@ class PlacePageTrackLayout: IPlacePageLayout {
   private var trackData: PlacePageTrackData
   private var interactor: PlacePageInteractor
   private let storyboard: UIStoryboard
+  private weak var editTrackInteractor: PlacePageEditBookmarkAndTrackSectionInteractor?
+
   weak var presenter: PlacePagePresenterProtocol?
 
   lazy var bodyViewControllers: [UIViewController] = {
@@ -35,10 +37,10 @@ class PlacePageTrackLayout: IPlacePageLayout {
     return PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .fixed)
   }()
 
-  private lazy var editTrackViewController: PlacePageEditBookmarkOrTrackViewController = {
-    let vc = storyboard.instantiateViewController(ofType: PlacePageEditBookmarkOrTrackViewController.self)
+  private lazy var editTrackViewController: PlacePageExpandableDetailsSectionViewController = {
+    let vc = PlacePageExpandableDetailsSectionBuilder.buildEditBookmarkAndTrackSection(data: nil, delegate: interactor)
     vc.view.isHidden = true
-    vc.delegate = interactor
+    editTrackInteractor = vc.interactor as? PlacePageEditBookmarkAndTrackSectionInteractor
     return vc
   }()
 
@@ -77,7 +79,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
     viewControllers.append(editTrackViewController)
     if let trackData = placePageData.trackData {
       editTrackViewController.view.isHidden = false
-      editTrackViewController.data = .track(trackData)
+      editTrackInteractor?.data = .track(trackData)
     }
 
     placePageData.onBookmarkStatusUpdate = { [weak self] in
@@ -108,7 +110,7 @@ private extension PlacePageTrackLayout {
       presenter?.close()
       return
     }
-    editTrackViewController.data = .track(trackData)
+    editTrackInteractor?.data = .track(trackData)
     let previewData = placePageData.previewData
     if let headerViewController = headerViewControllers.compactMap({ $0 as? PlacePageHeaderViewController }).first {
       headerViewController.setTitle(previewData.title, secondaryTitle: previewData.secondaryTitle)

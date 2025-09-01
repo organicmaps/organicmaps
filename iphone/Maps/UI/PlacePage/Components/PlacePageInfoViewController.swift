@@ -90,7 +90,6 @@ class PlacePageInfoViewController: UIViewController {
       openingHoursViewController.didMove(toParent: self)
     } else if let openingHoursString = placePageInfoData.openingHoursString {
       rawOpeningHoursView = createInfoItem(openingHoursString, icon: UIImage(resource: .icPlacepageOpenHours))
-      rawOpeningHoursView?.infoLabel.numberOfLines = 0
     }
 
     if let cuisine = placePageInfoData.cuisine {
@@ -317,8 +316,7 @@ class PlacePageInfoViewController: UIViewController {
           self?.copyCoordinatesToPasteboard()
         })
       })
-      coordinatesView?.accessoryButton.menu = menu
-      coordinatesView?.accessoryButton.showsMenuAsPrimaryAction = true
+      coordinatesView?.setAccessoryMenu(menu)
     }
   }
 
@@ -326,7 +324,7 @@ class PlacePageInfoViewController: UIViewController {
     guard let coordFormats = placePageInfoData.coordFormats as? Array<String> else { return }
     coordinatesFormatId = formatId
     let coordinates: String = coordFormats[formatId]
-    coordinatesView?.infoLabel.text = coordinates
+    coordinatesView?.setTitle(coordinates, style: .link)
   }
 
   private func copyCoordinatesToPasteboard() {
@@ -356,12 +354,8 @@ class PlacePageInfoViewController: UIViewController {
                               accessoryImageTapHandler: TapHandler? = nil) -> InfoItemView {
     let view = InfoItemView()
     addToStack(view)
-    view.iconButton.setImage(icon?.withRenderingMode(.alwaysTemplate), for: .normal)
-    view.iconButtonTapHandler = tapIconHandler
-    view.infoLabel.text = info
-    view.setStyle(style)
-    view.infoLabelTapHandler = tapHandler
-    view.infoLabelLongPressHandler = longPressHandler
+    view.setTitle(info, style: style, tapHandler: tapHandler, longPressHandler: longPressHandler)
+    view.setIcon(image: icon?.withRenderingMode(.alwaysTemplate), tapHandler: tapIconHandler)
     view.setAccessory(image: accessoryImage, tapHandler: accessoryImageTapHandler)
     return view
   }
