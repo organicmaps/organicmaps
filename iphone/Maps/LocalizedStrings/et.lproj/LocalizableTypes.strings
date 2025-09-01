@@ -1503,3 +1503,4 @@
 "type.building.guardhouse" = "Valvuriputka";
 "type.office.security" = "Turvateenuste firma kontor";
 "type.power.portal" = "Õhuliini värava-tüüpi mast";
+"type.shop.lighting" = "Lighting Shop";

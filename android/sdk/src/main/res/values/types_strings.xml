@@ -1417,4 +1417,5 @@
     <string name="type.building.guardhouse">Guard</string>
     <string name="type.office.security">Security Office</string>
     <string name="type.power.portal">Power Tower (Portal)</string>
+    <string name="type.shop.lighting">Lighting Shop</string>
 </resources>

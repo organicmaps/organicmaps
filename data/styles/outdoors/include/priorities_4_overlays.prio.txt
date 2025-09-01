@@ -961,6 +961,7 @@ shop-interior_decoration                            # icon z16- (also has captio
 shop-jewelry                                        # icon z16- (also has caption(optional) z16-)
 shop-kiosk                                          # icon z16- (also has caption(optional) z16-)
 shop-kitchen                                        # icon z16- (also has caption(optional) z16-)
+shop-lighting
 shop-massage                                        # icon z17- (also has caption(optional) z18-)
 shop-money_lender                                   # icon z17- (also has caption(optional) z17-)
 shop-motorcycle                                     # icon z16- (also has caption(optional) z16-)

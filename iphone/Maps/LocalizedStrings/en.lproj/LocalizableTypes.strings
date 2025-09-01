@@ -1520,3 +1520,4 @@
 "type.building.guardhouse" = "Guard";
 "type.office.security" = "Security Office";
 "type.power.portal" = "Power Tower (Portal)";
+"type.shop.lighting" = "Lighting Shop";

@@ -1503,3 +1503,4 @@
 "type.building.guardhouse" = "Garde";
 "type.office.security" = "Bureau de sécurité";
 "type.power.portal" = "Tour de puissance (Portail)";
+"type.shop.lighting" = "Lighting Shop";

@@ -2013,6 +2013,8 @@ node|z16-[shop=interior_decoration],
 area|z16-[shop=interior_decoration],
 node|z16-[shop=doityourself],
 area|z16-[shop=doityourself],
+node|z16-[shop=electrical],
+area|z16-[shop=electrical],
 node|z16-[shop=electronics],
 area|z16-[shop=electronics],
 node|z16-[shop=florist],
@@ -2048,6 +2050,8 @@ node|z16-[shop=kiosk],
 area|z16-[shop=kiosk],
 node|z16-[shop=laundry],
 area|z16-[shop=laundry],
+node|z16-[shop=lighting],
+area|z16-[shop=lighting],
 node|z16-[shop=dry_cleaning],
 area|z16-[shop=dry_cleaning],
 node|z16-[shop=mobile_phone],
@@ -2058,8 +2062,6 @@ node|z16-[shop=outdoor],
 area|z16-[shop=outdoor],
 node|z16-[shop=rental],
 area|z16-[shop=rental],
-node|z16-[shop=rental][rental=bike],
-area|z16-[shop=rental][rental=bike],
 node|z16-[shop=seafood],
 area|z16-[shop=seafood],
 node|z16-[shop=shoes],
@@ -2239,6 +2241,11 @@ area|z16[shop=interior_decoration]
 node|z16[shop=doityourself],
 area|z16[shop=doityourself]
 {icon-image: doityourself-m.svg;}
+node|z16[shop=electrical],
+area|z16[shop=electrical],
+node|z16[shop=lighting],
+area|z16[shop=lighting],
+{icon-image: electrician-m.svg;}
 node|z16[shop=electronics],
 area|z16[shop=electronics]
 {icon-image: electronics-m.svg;}
@@ -2453,6 +2460,11 @@ area|z17-[shop=interior_decoration]
 node|z17-[shop=doityourself],
 area|z17-[shop=doityourself]
 {icon-image: doityourself-m.svg;icon-min-distance: 24;}
+node|z17-[shop=electrical],
+area|z17-[shop=electrical],
+node|z17-[shop=lighting],
+area|z17-[shop=lighting],
+{icon-image: electrician-m.svg; icon-min-distance: 24;}
 node|z17-[shop=electronics],
 area|z17-[shop=electronics]
 {icon-image: electronics-m.svg;icon-min-distance: 24;}

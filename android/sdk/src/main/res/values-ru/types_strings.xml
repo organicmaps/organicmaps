@@ -1415,4 +1415,5 @@
     <string name="type.building.guardhouse">Сторож</string>
     <string name="type.office.security">Охрана</string>
     <string name="type.power.portal">Опора (Портал)</string>
+    <string name="type.shop.lighting">Магазин освещения</string>
 </resources>
