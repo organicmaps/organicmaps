@@ -63,6 +63,10 @@
       <category android:name="android.intent.category.BROWSABLE" />
       <data android:scheme="https" />
     </intent>
+    <intent>
+      <!-- To check presence of Custom Tabs support, see https://developer.chrome.com/docs/android/custom-tabs/howto-custom-tab-check -->
+      <action android:name="android.support.customtabs.action.CustomTabsService" />
+    </intent>
   </queries>
 
   <supports-screens
@@ -466,6 +470,20 @@
         android:name="app.organicmaps.MapPlaceholderActivity"/>
     <activity
         android:name="app.organicmaps.car.screens.permissions.RequestPermissionsActivity"/>
+    <activity
+        android:name="app.organicmaps.sync.googledrive.GoogleLoginActivity"
+        android:excludeFromRecents="true"
+        android:exported="true"
+        android:theme="@style/Theme.AppCompat.Translucent">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data android:scheme="${applicationId}" />
+      </intent-filter>
+    </activity>
     <service
         android:name="app.organicmaps.car.CarAppService"
         android:exported="true"

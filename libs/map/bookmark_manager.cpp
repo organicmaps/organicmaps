@@ -1656,6 +1656,19 @@ std::string BookmarkManager::GetCategoryFileName(kml::MarkGroupId categoryId) co
   return GetBmCategory(categoryId)->GetFileName();
 }
 
+std::vector<std::string> BookmarkManager::GetLoadedCategoryPaths() const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  std::vector<std::string> filePaths;
+  for (auto const & c : m_categories)
+  {
+    std::string fileName = c.second->GetFileName();
+    if (!fileName.empty())
+      filePaths.push_back(fileName);
+  }
+  return filePaths;
+}
+
 kml::MarkGroupId BookmarkManager::GetCategoryByFileName(std::string const & fileName) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1850,6 +1863,11 @@ void BookmarkManager::SetCategoriesChangedCallback(CategoriesChangedCallback && 
 void BookmarkManager::SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks)
 {
   m_asyncLoadingCallbacks = std::move(callbacks);
+}
+
+void BookmarkManager::SetFileChangedCallback(FileChangedCallback && callback)
+{
+  m_fileChangedCallback = std::move(callback);
 }
 
 bool BookmarkManager::AreSymbolSizesAcquired(BookmarkManager::OnSymbolSizesAcquiredCallback && callback)
@@ -2108,7 +2126,11 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
         if (!SaveKmlFileSafe(*kmlData, kmlFileToLoad, KmlFileType::Text))
           base::DeleteFileX(kmlFileToLoad);
         else
+        {
+          if (m_fileChangedCallback)
+            m_fileChangedCallback(kmlFileToLoad);
           collection->emplace_back(std::move(kmlFileToLoad), std::move(kmlData));
+        }
       }
     }
 
@@ -2539,7 +2561,9 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool permanentl
   auto const & filePath = it->second->GetFileName();
   if (permanently)
   {
-    base::DeleteFileX(filePath);
+    auto result = base::DeleteFileX(filePath);
+    if (result && m_fileChangedCallback)
+      m_fileChangedCallback(filePath);
     LOG(LINFO, ("Category at", filePath, "is deleted"));
   }
   else
@@ -2936,10 +2960,14 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::File, [kmlDataCollection = std::move(kmlDataCollection)]()
+  GetPlatform().RunTask(Platform::Thread::File, [this, kmlDataCollection = std::move(kmlDataCollection)]()
   {
     for (auto const & kmlItem : *kmlDataCollection)
-      SaveKmlFileByExt(*kmlItem.second, kmlItem.first);
+    {
+      bool success = SaveKmlFileByExt(*kmlItem.second, kmlItem.first);
+      if (success && m_fileChangedCallback)
+        m_fileChangedCallback(kmlItem.first);
+    }
   });
 }
 
@@ -3074,6 +3102,36 @@ void BookmarkManager::SetChildCategoriesVisibility(kml::MarkGroupId categoryId, 
         category.SetIsVisible(true);
     }
   }
+}
+
+void BookmarkManager::AddSuffixToCategoryName(std::string const & filePath)
+{
+  std::promise<void> promise;
+  std::future<void> future = promise.get_future();
+  GetPlatform().RunTask(Platform::Thread::File, [this, &filePath, &promise]()
+  {
+    auto const bmDir = GetBookmarksDirectory();
+    auto newPath = GenerateUniqueFileName(bmDir, base::FileNameFromFullPath(filePath), kKmlExtension);
+    base::MoveFileX(filePath, newPath);
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, &filePath, &promise, newPath = std::move(newPath)]()
+    {
+      auto groupId = GetCategoryByFileName(filePath);
+      if (groupId != kml::kInvalidMarkGroupId)
+      {
+        auto * group = GetBmCategory(groupId);
+        group->SetFileName(newPath);
+        kml::CategoryData const & categoryData = group->GetCategoryData();
+        auto originalName = kml::GetDefaultStr(categoryData.m_name);
+        int counter = 1;
+        auto uniqueName = originalName + strings::to_string(counter);
+        while (IsUsedCategoryName(uniqueName))
+          uniqueName = originalName + strings::to_string(++counter);
+        GetEditSession().SetCategoryName(groupId, uniqueName);
+      }
+      promise.set_value();
+    });
+  });
+  future.get();
 }
 
 void BookmarkManager::SetNotificationsEnabled(bool enabled)
