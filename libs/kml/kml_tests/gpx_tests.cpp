@@ -311,6 +311,13 @@ UNIT_TEST(Color)
   TEST_EQUAL(dataFromFile.m_tracksData.size(), 3, ());
 }
 
+UNIT_TEST(ParseExportedGpxColor)
+{
+  kml::FileData const dataFromFile = LoadGpxFromFile("test_data/gpx/point_with_predefined_color_2.gpx");
+  TEST_EQUAL(0x0066CCFF, dataFromFile.m_bookmarksData[0].m_color.m_rgba, ());
+  TEST_EQUAL(kml::PredefinedColor::Blue, dataFromFile.m_bookmarksData[0].m_color.m_predefinedColor, ());
+}
+
 UNIT_TEST(MultiTrackNames)
 {
   kml::FileData dataFromFile = LoadGpxFromFile("test_data/gpx/color.gpx");
