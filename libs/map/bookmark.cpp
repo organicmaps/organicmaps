@@ -216,11 +216,16 @@ kml::PredefinedColor Bookmark::GetColor() const
   return m_data.m_color.m_predefinedColor;
 }
 
+void Bookmark::InvalidateRGBAColor()
+{
+  m_data.m_color.m_rgba = kInvalidColor;
+}
+
 void Bookmark::SetColor(kml::PredefinedColor color)
 {
   SetDirty();
   m_data.m_color.m_predefinedColor = color;
-  m_data.m_color.m_rgba = kInvalidColor;
+  InvalidateRGBAColor();
 }
 
 std::string Bookmark::GetPreferredName() const

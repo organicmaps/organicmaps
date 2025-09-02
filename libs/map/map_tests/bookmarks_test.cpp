@@ -371,6 +371,27 @@ UNIT_TEST(Bookmarks_Timestamp)
   DeleteCategoryFiles(arrCat);
 }
 
+UNIT_TEST(Bookmarks_ChangeColorForImportedBookmark)
+{
+  Framework fm(kFrameworkParams);
+  BookmarkManager & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+
+  auto const cat1 = bmManager.CreateBookmarkCategory("cat1", false /* autoSave */);
+  kml::BookmarkData bm1;
+  kml::SetDefaultStr(bm1.m_name, "1");
+  bm1.m_point = m2::PointD(38, 20);
+  bm1.m_color.m_predefinedColor = kml::PredefinedColor::Blue;
+  bm1.m_color.m_rgba = 0x0066CCFF;
+  auto const * pBm1 = bmManager.GetEditSession().CreateBookmark(std::move(bm1), cat1);
+  bm1.m_color.m_predefinedColor = kml::PredefinedColor::Orange;
+  bmManager.GetEditSession().UpdateBookmark(pBm1->GetId(), bm1);
+  bmManager.SaveBookmarkCategory(cat1);
+  pBm1 = bmManager.GetBookmark(pBm1->GetId());
+  TEST_EQUAL(pBm1->GetData().m_color.m_predefinedColor, kml::PredefinedColor::Orange, ());
+  TEST_EQUAL(pBm1->GetData().m_color.m_rgba, 0, ());
+}
+
 UNIT_TEST(Bookmarks_Getting)
 {
   Framework fm(kFrameworkParams);
