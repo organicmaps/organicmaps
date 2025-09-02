@@ -60,6 +60,8 @@ jobs:
     name: Android Release
     runs-on: ubuntu-latest
     environment: production
+    permissions:
+      contents: write  # To publish the release on GitHub Releases.
     needs: tag
     strategy:
       fail-fast: false
