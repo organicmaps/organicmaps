@@ -80,11 +80,10 @@ bool GpxParser::MakeValid()
       // Set default name.
       if (m_name.empty())
         m_name = kml::PointToLineString(m_org);
-
-      // Set default pin.
-      if (m_predefinedColor == PredefinedColor::None)
+      if (m_color != kInvalidColor)
+        m_predefinedColor = MapPredefinedColor(m_color);
+      else
         m_predefinedColor = PredefinedColor::Red;
-
       return true;
     }
     return false;
@@ -428,61 +427,6 @@ std::string GpxParser::BuildDescription() const
   return m_description + "\n\n" + m_comment;
 }
 
-std::tuple<int, int, int> ExtractRGB(uint32_t color)
-{
-  return {(color >> 24) & 0xFF, (color >> 16) & 0xFF, (color >> 8) & 0xFF};
-}
-
-int ColorDistance(uint32_t color1, uint32_t color2)
-{
-  auto const [r1, g1, b1] = ExtractRGB(color1);
-  auto const [r2, g2, b2] = ExtractRGB(color2);
-  return (r1 - r2) * (r1 - r2) + (g1 - g2) * (g1 - g2) + (b1 - b2) * (b1 - b2);
-}
-
-struct RGBAToGarmin
-{
-  uint32_t rgba;
-  std::string_view color;
-};
-
-auto constexpr kRGBAToGarmin = std::to_array<RGBAToGarmin>({{0x000000ff, "Black"},
-                                                            {0x8b0000ff, "DarkRed"},
-                                                            {0x006400ff, "DarkGreen"},
-                                                            {0xb5b820ff, "DarkYellow"},
-                                                            {0x00008bff, "DarkBlue"},
-                                                            {0x8b008bff, "DarkMagenta"},
-                                                            {0x008b8bff, "DarkCyan"},
-                                                            {0xccccccff, "LightGray"},
-                                                            {0x444444ff, "DarkGray"},
-                                                            {0xff0000ff, "Red"},
-                                                            {0x00ff00ff, "Green"},
-                                                            {0xffff00ff, "Yellow"},
-                                                            {0x0000ffff, "Blue"},
-                                                            {0xff00ffff, "Magenta"},
-                                                            {0x00ffffff, "Cyan"},
-                                                            {0xffffffff, "White"}});
-
-std::string_view MapGarminColor(uint32_t rgba)
-{
-  std::string_view closestColor = kRGBAToGarmin[0].color;
-  auto minDistance = std::numeric_limits<int>::max();
-  for (auto const & [rgbaGarmin, color] : kRGBAToGarmin)
-  {
-    auto const distance = ColorDistance(rgba, rgbaGarmin);
-
-    if (distance == 0)
-      return color;  // Exact match.
-
-    if (distance < minDistance)
-    {
-      minDistance = distance;
-      closestColor = color;
-    }
-  }
-  return closestColor;
-}
-
 namespace
 {
 
@@ -524,6 +468,16 @@ void SaveCategoryData(Writer & writer, CategoryData const & categoryData)
   writer << "</metadata>\n";
 }
 
+uint32_t BookmarkColor(BookmarkData const & bookmarkData)
+{
+  auto const & [predefinedColor, rgba] = bookmarkData.m_color;
+  if (rgba != kInvalidColor)
+    return rgba;
+  if (predefinedColor != PredefinedColor::None && predefinedColor != PredefinedColor::Red)
+    return ColorFromPredefinedColor(predefinedColor).GetRGBA();
+  return kInvalidColor;
+}
+
 void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
 {
   auto const [lat, lon] = mercator::ToLatLon(bookmarkData.m_point);
@@ -543,6 +497,14 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
     writer << kIndent2 << "<desc>";
     SaveStringWithCDATA(writer, *description);
     writer << "</desc>\n";
+  }
+  if (auto const color = BookmarkColor(bookmarkData); color != kInvalidColor)
+  {
+    writer << kIndent2 << "<extensions>\n";
+    writer << kIndent4 << "<xsi:gpx><color>#";
+    SaveColorToARGB(writer, color);
+    writer << "</color></xsi:gpx>\n";
+    writer << kIndent2 << "</extensions>\n";
   }
   writer << "</wpt>\n";
 }
@@ -583,7 +545,7 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
   {
     writer << kIndent2 << "<extensions>\n";
     writer << kIndent4 << "<gpxx:TrackExtension><gpxx:DisplayColor>";
-    writer << MapGarminColor(color);
+    writer << kml::MapGarminColor(color);
     writer << "</gpxx:DisplayColor></gpxx:TrackExtension>\n";
     writer << kIndent4 << "<gpx_style:line><gpx_style:color>";
     SaveColorToRGB(writer, color);
