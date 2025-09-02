@@ -242,15 +242,12 @@ line|z18-[highway=trunk_link][bridge?]::bridgeblack,
 line|z8-10[highway=primary],
 {color: @primary0; opacity: 0.7; casing-linecap: butt;}
 
-line|z11-14[highway=primary],
-line|z11-14[highway=primary_link]
-{color: @primary1;opacity: 0.7;casing-linecap: butt; casing-color:@casing_road; casing-opacity: 0.7;}
-line|z15-17[highway=primary],
-line|z15-17[highway=primary_link]
+line|z11-[highway=primary],
+line|z11-[highway=primary_link]
 {color: @primary1;opacity: 0.7;casing-linecap: butt; casing-color:@casing_road; casing-opacity: 0.7;}
 line|z18-[highway=primary],
 line|z18-[highway=primary_link]
-{color: @primary2;opacity: 0.7;casing-linecap: butt; casing-color:@casing_road; casing-opacity: 0.7;}
+{color: @primary2}
 
 line|z14-[highway=primary][bridge?]::bridgewhite,
 line|z14-[highway=primary_link][bridge?]::bridgewhite,
