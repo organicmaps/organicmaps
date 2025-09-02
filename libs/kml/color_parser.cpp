@@ -32,16 +32,15 @@ std::optional<uint32_t> ParseHexColor(std::string_view c)
   }
 }
 
-std::tuple<int, int, int> ExtractRGB(uint32_t color)
+std::tuple<int, int, int> ExtractRGB(uint32_t rgbaColor)
 {
-  return {(color >> 24) & 0xFF, (color >> 16) & 0xFF, (color >> 8) & 0xFF};
+  return {(rgbaColor >> 24) & 0xFF, (rgbaColor >> 16) & 0xFF, (rgbaColor >> 8) & 0xFF};
 }
 
-
-static int ColorDistance(uint32_t color1, uint32_t color2)
+static int ColorDistance(uint32_t rgbaColor1, uint32_t rgbaColor2)
 {
-  auto const [r1, g1, b1] = ExtractRGB(color1);
-  auto const [r2, g2, b2] = ExtractRGB(color2);
+  auto const [r1, g1, b1] = ExtractRGB(rgbaColor1);
+  auto const [r2, g2, b2] = ExtractRGB(rgbaColor2);
   return (r1 - r2) * (r1 - r2) + (g1 - g2) * (g1 - g2) + (b1 - b2) * (b1 - b2);
 }
 
