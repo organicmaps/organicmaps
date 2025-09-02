@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.text.TextUtils;
@@ -345,5 +346,11 @@ public class Utils
   public static int dimen(@NonNull Context context, @DimenRes int id)
   {
     return context.getResources().getDimensionPixelSize(id);
+  }
+
+  public static boolean isDarkMode(@NonNull Context context)
+  {
+    return (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+ == Configuration.UI_MODE_NIGHT_YES;
   }
 }
