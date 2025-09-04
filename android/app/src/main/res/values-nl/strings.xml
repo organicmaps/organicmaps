@@ -628,8 +628,8 @@
     <string name="privacy_policy">Privacybeleid</string>
     <string name="terms_of_use">Gebruiksvoorwaarden</string>
     <string name="button_layer_traffic">Verkeer</string>
-    <string name="button_layer_hiking">Wandelen</string>
-    <string name="button_layer_cycling">Fietsen</string>
+    <string name="button_layer_hiking">Wandel</string>
+    <string name="button_layer_cycling">Fiets</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Kaartstijlen en -lagen</string>
     <string name="bookmarks_empty_list_title">Deze lijst is leeg</string>

@@ -30,4 +30,5 @@
     <string name="maps_storage_removable">Scheda SD</string>
     <string name="mb">MB</string>
     <string name="gb">GB</string>
+    <string name="routes_update_maps_text">Aggiornare le mappe per visualizzare i percorsi.</string>
 </resources>

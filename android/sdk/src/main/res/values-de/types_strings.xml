@@ -1406,4 +1406,9 @@
     <string name="type.leisure.escape_game">Escape Room</string>
     <string name="type.railway.station.subway.qingdao">U-Bahn-Station</string>
     <string name="type.amenity.ranger_station">Rangerstation</string>
+    <string name="type.barrier.wicket_gate">Schlupftür</string>
+    <string name="type.barrier.yes">Barriere</string>
+    <string name="type.building.guardhouse">Wache</string>
+    <string name="type.office.security">Sicherheitsbüro</string>
+    <string name="type.power.portal">Hochspannungsmast (Portal)</string>
 </resources>

@@ -1061,14 +1061,14 @@
 "track_recording_toast_nothing_to_save" = "Route is leeg - niets om op te slaan";
 "edit_track" = "Route bewerken";
 "saved" = "Opgeslagen";
-"button_layer_hiking" = "Hiking";
-"button_layer_cycling" = "Cycling";
+"button_layer_hiking" = "Wandel";
+"button_layer_cycling" = "Fiets";
 
 /* Settings/Bookmark Text Placement */
 "bookmarks_text_placement_title" = "Markeer namen op de map";
 "bookmarks_text_placement_description" = "Wanneer er teveel markeringen zijn, kan weergave van de namen op de map vertragen.";
 "show_to_the_right" = "Rechts weergeven";
-"right" = "Right";
+"right" = "Rechts";
 "show_at_the_bottom" = "Onderaan weergeven";
 "bottom" = "Bottom";
 

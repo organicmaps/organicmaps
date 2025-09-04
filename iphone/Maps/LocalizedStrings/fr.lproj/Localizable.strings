@@ -970,7 +970,7 @@
 "car_continue_in_the_car" = "Afficher dans la voiture";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Randonnée";
+"button_layer_outdoor" = "Plein air";
 
 /* Hiking routes layer name in the Styles and Layers dialog */
 "button_layer_hiking" = "Itinéraires de randonnée";

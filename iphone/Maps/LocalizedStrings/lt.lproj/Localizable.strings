@@ -970,7 +970,7 @@
 "car_continue_in_the_car" = "Į automobilio ekraną";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Žygiai pėsčiomis";
+"button_layer_outdoor" = "Laukas";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Eksportuoti visas žymes ir trasas";
@@ -1061,19 +1061,19 @@
 "track_recording_toast_nothing_to_save" = "Trasa tuščia – nėra ką įrašyti";
 "edit_track" = "Redaguoti trasą";
 "saved" = "Įrašyta";
-"button_layer_hiking" = "Hiking";
-"button_layer_cycling" = "Cycling";
+"button_layer_hiking" = "Žygiavimas";
+"button_layer_cycling" = "Kelionės dviračiu";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"right" = "Right";
-"show_at_the_bottom" = "Show at the bottom";
-"bottom" = "Bottom";
+"bookmarks_text_placement_title" = "Žymių pavadinimai žemėlapyje";
+"bookmarks_text_placement_description" = "Jei turite per daug žymių, jų vaizdavimas žemėlapyje gali lėtinti programėlės veikimą.";
+"show_to_the_right" = "Rodyti dešinėje";
+"right" = "Dešinėje";
+"show_at_the_bottom" = "Rodyti apačioje";
+"bottom" = "Apačioje";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Prieš parodant kelius, reikia atnaujinti žemėlapius.";
 
 /* OpenStreetMap contribution section on the PlacePage. */
 "contribute_to_osm" = "Prisidėti prie OpenStreetMap";

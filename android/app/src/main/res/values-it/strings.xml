@@ -860,4 +860,8 @@
     <string name="saved">Salvato</string>
     <string name="osm_note_hint">Oppure, in alternativa, lascia un appunto alla community di OpenStreetMap, in modo che un utente possa aggiungere o sistemare il luogo.</string>
     <string name="osm_note_toast">L\'appunto sarà inviato ad OpenStreetMap</string>
+    <string name="bookmarks_text_placement_title">Nomi dei segnalibri sulla mappa</string>
+    <string name="bookmarks_text_placement_description">Se ci sono troppi segnalibri, la loro visualizzazione può rallentare l\'applicazione.</string>
+    <string name="share_track">Condividi traccia</string>
+    <string name="delete_track_dialog_title">Cancellare %s?</string>
 </resources>
