@@ -37,6 +37,11 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return vc
   }()
 
+  private lazy var osmDescriptionViewController: UIViewController? = {
+    guard let osmDescription = placePageData.osmDescription else { return nil }
+    return PlacePageExpandableDetailsSectionBuilder.buildOSMDescriptionSection(osmDescription)
+  }()
+
   private lazy var wikiDescriptionViewController: UIViewController? = {
     guard let wikiDescriptionHtml = placePageData.wikiDescriptionHtml else { return nil }
     let showLinkButton = placePageData.infoData?.wikipedia != nil
@@ -99,6 +104,10 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     if let bookmarkData = placePageData.bookmarkData {
       editBookmarkViewController.view.isHidden = false
       editBookmarkInteractor?.data = .bookmark(bookmarkData)
+    }
+
+    if let osmDescriptionViewController {
+      viewControllers.append(osmDescriptionViewController)
     }
 
     if let wikiDescriptionViewController {

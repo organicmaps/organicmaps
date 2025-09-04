@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) PlacePageBookmarkData * bookmarkData;
 @property(nonatomic, readonly) PlacePageRoadType roadType;
 @property(nonatomic, readonly, nullable) NSString * wikiDescriptionHtml;
+@property(nonatomic, readonly, nullable) NSString * osmDescription;
 @property(nonatomic, readonly, nullable) PlacePageTrackData * trackData;
 @property(nonatomic, readonly, nullable) MWMMapNodeAttributes * mapNodeAttributes;
 @property(nonatomic, readonly, nullable) NSString * bookingSearchUrl;
