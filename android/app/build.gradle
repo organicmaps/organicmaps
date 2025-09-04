@@ -273,14 +273,6 @@ dependencies {
   coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
 
   // Google Play Location Services
-  //
-  // Please add symlinks to google/java/app/organicmaps/location for each new gms-enabled flavor below:
-  // ```
-  // mkdir -p src/$flavor/java/app/organicmaps/
-  // ln -sf ../../../../google/java/app/organicmaps/location src/$flavor/java/app/organicmaps/
-  // ls -la src/$flavor/java/app/organicmaps/location/GoogleFusedLocationProvider.java
-  // ```
-  //
   webImplementation 'com.google.android.gms:play-services-location:21.3.0'
   googleImplementation 'com.google.android.gms:play-services-location:21.3.0'
   huaweiImplementation 'com.google.android.gms:play-services-location:21.3.0'
