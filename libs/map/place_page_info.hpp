@@ -129,7 +129,8 @@ public:
   {
     return !m_uiTrackStatistics.empty() ? m_uiTrackStatistics : m_uiAddress;
   }
-  std::string const & GetWikiDescription() const { return m_description; }
+  std::string const & GetWikiDescription() const { return m_wikiDescription; }
+  std::string const & GetOSMDescription() const { return m_osmDescription; }
   /// @returns coordinate in DMS format if isDMS is true
   std::string GetFormattedCoordinate(CoordinatesFormat format) const;
 
@@ -198,7 +199,8 @@ public:
   /// MapObject
   void SetFromFeatureType(FeatureType & ft);
 
-  void SetWikiDescription(std::string && description) { m_description = std::move(description); }
+  void SetWikiDescription(std::string && description) { m_wikiDescription = std::move(description); }
+  void SetOSMDescription(std::string && description) { m_osmDescription = std::move(description); }
 
   void SetMercator(m2::PointD const & mercator);
   std::vector<std::string> GetRawTypes() const { return m_types.ToObjectNames(); }
@@ -226,7 +228,8 @@ private:
   std::string m_uiSecondaryTitle;
   std::string m_uiAddress;
   std::string m_uiTrackStatistics;
-  std::string m_description;
+  std::string m_wikiDescription;
+  std::string m_osmDescription;
   /// Booking rating string
   std::string m_localizedRatingString;
 
