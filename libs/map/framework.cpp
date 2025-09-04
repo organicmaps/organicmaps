@@ -714,7 +714,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
 
   info.SetFromFeatureType(ft);
 
-  FillDescription(ft, info);
+  FillDescriptions(ft, info);
 
   auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();
   bool const isMapVersionEditable = CanEditMapForPosition(info.GetMercator());
@@ -3273,7 +3273,7 @@ void Framework::SetPlacePageLocation(place_page::Info & info)
   }
 }
 
-void Framework::FillDescription(FeatureType & ft, place_page::Info & info) const
+void Framework::FillDescriptions(FeatureType & ft, place_page::Info & info) const
 {
   if (!ft.GetID().m_mwmId.IsAlive())
     return;
@@ -3288,6 +3288,29 @@ void Framework::FillDescription(FeatureType & ft, place_page::Info & info) const
     info.SetOpeningMode(m_routingManager.IsRoutingActive() ? place_page::OpeningMode::Preview
                                                            : place_page::OpeningMode::PreviewPlus);
   }
+
+  std::string_view const osmDescriptionValue = ft.GetMetadata(feature::Metadata::FMD_DESCRIPTION);
+  if (osmDescriptionValue.empty())
+    return;
+
+  std::vector<int8_t> langCodes;
+  for (auto const & lang : languages::GetSystemPreferred())
+  {
+    auto const code = StringUtf8Multilang::GetLangIndex(languages::Normalize(lang));
+    if (code != StringUtf8Multilang::kUnsupportedLanguageCode)
+      langCodes.push_back(code);
+  }
+  langCodes.push_back(StringUtf8Multilang::kDefaultCode);
+  langCodes.push_back(StringUtf8Multilang::kEnglishCode);
+
+  auto const osmDescriptionMultilang = StringUtf8Multilang::FromBuffer(std::string(osmDescriptionValue));
+  osmDescriptionMultilang.ForEach([&langCodes](int8_t code, std::string_view _) { langCodes.push_back(code); });
+  std::string_view osmDescription;
+  for (auto const code : langCodes)
+    if (osmDescriptionMultilang.GetString(code, osmDescription) && !osmDescription.empty())
+      break;
+
+  info.SetOSMDescription(std::string(osmDescription));
 }
 
 void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)
