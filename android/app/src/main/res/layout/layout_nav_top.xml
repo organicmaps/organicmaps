@@ -50,28 +50,16 @@
       android:orientation="vertical"
       android:background="?navNextTurnFrame"
       android:elevation="@dimen/nav_elevation">
-      <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/nav_next_turn_top"
-        android:layout_marginBottom="@dimen/nav_next_turn_space"
-        android:layout_gravity="center_horizontal">
-        <app.organicmaps.widget.ArrowView
+      <ImageView
           android:id="@+id/turn"
           android:theme="?navigationTheme"
           android:layout_width="@dimen/nav_next_turn_sign"
           android:layout_height="@dimen/nav_next_turn_sign"
+          android:layout_marginTop="@dimen/nav_next_turn_top"
+          android:layout_marginBottom="@dimen/nav_next_turn_space"
+          android:layout_gravity="center_horizontal"
           app:tint="?iconTint"
-          tools:background="#400000FF"/>
-
-        <TextView
-          android:id="@+id/circle_exit"
-          style="@style/MwmWidget.TextView.NavNextTurn.Exit"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          tools:text="9"/>
-      </FrameLayout>
+          tools:src="@drawable/ic_roundabout_exit_12"/>
 
       <TextView
         android:id="@+id/distance"

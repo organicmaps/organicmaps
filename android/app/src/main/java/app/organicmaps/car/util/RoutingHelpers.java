@@ -9,6 +9,7 @@ import androidx.car.app.navigation.model.Maneuver;
 import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.sdk.routing.CarDirection;
 import app.organicmaps.sdk.routing.LaneWay;
+import app.organicmaps.sdk.util.RoundaboutExit;
 
 public final class RoutingHelpers
 {
@@ -73,8 +74,14 @@ public final class RoutingHelpers
     };
     final Maneuver.Builder builder = new Maneuver.Builder(maneuverType);
     if (maneuverType == Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW)
+    {
       builder.setRoundaboutExitNumber(roundaboutExitNum > 0 ? roundaboutExitNum : 1);
-    builder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(context, carDirection.getTurnRes())).build());
+      builder.setIcon(
+          new CarIcon.Builder(IconCompat.createWithResource(context, RoundaboutExit.getRes(roundaboutExitNum)))
+              .build());
+    }
+    else
+      builder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(context, carDirection.getTurnRes())).build());
     return builder.build();
   }
 }
