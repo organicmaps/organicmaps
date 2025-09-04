@@ -36,4 +36,5 @@
     <string name="limited_access">Ribota prieiga</string>
     <string name="not_shared">Privatus</string>
     <string name="access_rules_author_only">Taisymas internete</string>
+    <string name="routes_update_maps_text">Prieš parodant kelius, reikia atnaujinti žemėlapius.</string>
 </resources>

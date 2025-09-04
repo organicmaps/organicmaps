@@ -802,7 +802,7 @@
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Accorder l\'accès</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">Randonnée</string>
+    <string name="button_layer_outdoor">Plein air</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">Le navigateur Web n\'est pas disponible</string>
     <string name="volume">Volume</string>

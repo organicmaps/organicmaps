@@ -591,8 +591,8 @@
     <string name="privacy_policy">Privatumo politika</string>
     <string name="terms_of_use">Naudojimo sąlygos</string>
     <string name="button_layer_traffic">Eismas</string>
-    <string name="button_layer_hiking">Žygiai</string>
-    <string name="button_layer_cycling">Dviračių takai</string>
+    <string name="button_layer_hiking">Žygiavimas</string>
+    <string name="button_layer_cycling">Kelionės dviračiu</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Žemėlapio stiliai ir sluoksniai</string>
     <string name="bookmarks_empty_list_title">Sąrašas tuščias</string>
@@ -722,7 +722,7 @@
     <!-- The text in the activity for location permission request. -->
     <string name="aa_request_permission_activity_text">Kad „Android Auto“ sistemoje „Organic Maps“ veiktų efektyviai, reikia leidimo nustatyti buvimo vietą</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">Žygiai pėsčiomis</string>
+    <string name="button_layer_outdoor">Laukas</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">Saityno naršyklė nepasiekiama</string>
     <string name="volume">Garsumas</string>
@@ -829,4 +829,12 @@
     <string name="aa_grant_permissions">Suteikti leidimą</string>
     <string name="translated_om_site_url">https://organicmaps.app/</string>
     <string name="saved">Įrašyta</string>
+    <string name="osm_note_toast">Pastaba bus nusiųsta į „OpenStreetMap“</string>
+    <string name="osm_note_hint">Arba galite palikti pastabą „OpenStreetMap“ bendruomenei, kad norimą vietą pridėtų ar patikslintų kažkas kitas.</string>
+    <string name="bookmarks_text_placement_title">Žymių pavadinimai žemėlapyje</string>
+    <string name="bookmarks_text_placement_description">Jei turite per daug žymių, jų vaizdavimas žemėlapyje gali lėtinti programėlės veikimą.</string>
+    <string name="show_to_the_right">Rodyti dešinėje</string>
+    <string name="show_at_the_bottom">Rodyti apačioje</string>
+    <string name="share_track">Dalintis trasa</string>
+    <string name="delete_track_dialog_title">Šalinti „%s“?</string>
 </resources>
