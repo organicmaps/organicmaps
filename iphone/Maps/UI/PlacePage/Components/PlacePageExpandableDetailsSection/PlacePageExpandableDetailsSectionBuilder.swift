@@ -25,4 +25,17 @@ struct PlacePageExpandableDetailsSectionBuilder {
     presenter.view = viewController
     return viewController
   }
+
+  static func buildOSMDescriptionSection(_ osmDescription: String) -> PlacePageExpandableDetailsSectionViewController {
+    let viewModel = PlacePageExpandableDetailsSectionViewModel(title: "OpenStreetMap",
+                                                               style: .header,
+                                                               expandableText: osmDescription,
+                                                               expandedState: .collapsed)
+    let presenter = PlacePageExpandableDetailsSectionPresenter(viewModel: viewModel)
+    let interactor = PlacePageOSMDescriptionSectionInteractor(presenter: presenter, description: osmDescription)
+    let viewController = PlacePageExpandableDetailsSectionViewController(interactor: interactor)
+    presenter.view = viewController
+    return viewController
+  }
+
 }
