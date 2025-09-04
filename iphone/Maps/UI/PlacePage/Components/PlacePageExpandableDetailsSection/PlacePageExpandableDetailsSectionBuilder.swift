@@ -20,4 +20,22 @@ struct PlacePageExpandableDetailsSectionBuilder {
     presenter.view = viewController
     return viewController
   }
+
+  static func buildOSMDescriptionSection(_ osmDescription: String) -> PlacePageExpandableDetailsSectionViewController {
+    var isTranslationAllowed = false
+    if #available(iOS 18.0, *), !ProcessInfo.processInfo.isiOSAppOnMac {
+      isTranslationAllowed = true
+    }
+    let viewModel = PlacePageExpandableDetailsSectionViewModel(title: "OpenStreetMap",
+                                                               style: .header,
+                                                               accessory: isTranslationAllowed ? UIImage(resource: .icPlacepageTranslate) : nil,
+                                                               expandableText: osmDescription,
+                                                               expandedState: .collapsed)
+    let presenter = PlacePageExpandableDetailsSectionPresenter(viewModel: viewModel)
+    let interactor = PlacePageOSMDescriptionSectionInteractor(description: osmDescription, presenter: presenter)
+    let viewController = PlacePageExpandableDetailsSectionViewController(interactor: interactor)
+    presenter.view = viewController
+    return viewController
+  }
+
 }
