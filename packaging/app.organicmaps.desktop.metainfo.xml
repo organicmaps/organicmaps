@@ -115,6 +115,27 @@
   </screenshots>
 
   <releases>
+   <release version="2025.09.01-6" date="2025-09-01">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>NEW! Route numbers shown at bus stops</li>
+           <li>Updated OpenStreetMap data as of August 29</li>
+           <li>Outdoor style: sidewalks are visible from zoom 13 (Viktor Govako)</li>
+           <li>Many map icons converted from PNG to SVG (David Martinez)</li>
+           <li>Ladders displayed and used in routing (Viktor Govako)</li>
+           <li>Show power stations, substations, barriers, wicket gates, security offices, and guardhouses (Viktor Govako)</li>
+           <li>Fixed icons for communication towers (Viktor Govako)</li>
+           <li>Clearer roundabout navigation instructions (Viktor Govako)</li>
+           <li>Expanded searchable cuisine categories (Interactiondesigner)</li>
+           <li>Power plant areas rendered as industrial (Viktor Govako)</li>
+           <li>Brown tourism POIs in dark mode (David Martinez)</li>
+           <li>Libraries appear earlier, from zoom 16 (David Martinez)</li>
+           <li>No auto‑zoom to the full route when adding intermediate stops (Alexander Borsuk)</li>
+           <li>Updated translations (Weblate contributors)</li>
+        </ul>
+     </description>
+   </release>
    <release version="2025.08.10-20" date="2025-08-10">
      <description>
        <p>Highlights:</p>
