@@ -481,7 +481,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 - (void)onRouteReady:(BOOL)hasWarnings
 {
   self.routingOptions = [MWMRoutingOptions new];
-  GetFramework().DeactivateMapSelection();
+  GetFramework().DeactivateMapSelection(true);
 
   auto startPoint = [MWMRouter startPoint];
   if (!startPoint || !startPoint.isMyPosition)

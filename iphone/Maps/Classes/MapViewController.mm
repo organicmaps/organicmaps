@@ -223,7 +223,7 @@ NSString * const kSettingsSegue = @"Map2Settings";
 
 - (void)dismissPlacePage
 {
-  GetFramework().DeactivateMapSelection();
+  GetFramework().DeactivateMapSelection(true);
 }
 
 - (void)hideRegularPlacePage

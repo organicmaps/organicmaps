@@ -5,28 +5,6 @@
   xmlns:tools="http://schemas.android.com/tools"
   tools:showIn="@layout/elevation_profile_bottom_sheet">
   <LinearLayout
-    android:id="@+id/title_container"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <TextView
-      android:id="@+id/title"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/margin_base"
-      android:layout_marginEnd="@dimen/margin_base"
-      android:paddingTop="@dimen/margin_half"
-      android:paddingBottom="@dimen/margin_base"
-      android:textAppearance="?fontHeadline6"
-      tools:text="Xindian Shitoushan Trail" />
-    <include
-      layout="@layout/list_divider"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/divider_height"
-      android:layout_marginStart="@dimen/margin_base"
-      android:layout_marginEnd="@dimen/margin_base" />
-  </LinearLayout>
-  <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin_half"
@@ -207,7 +185,8 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"
-      android:orientation="horizontal">
+      android:orientation="horizontal"
+      android:visibility="gone">
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -241,30 +220,6 @@
           android:background="@drawable/dot_elevation_difficulty"
           android:enabled="false" />
       </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-      android:id="@+id/time_container"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentEnd="true"
-      android:layout_toEndOf="@id/difficulty_container"
-      android:gravity="end"
-      android:orientation="horizontal">
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/elevation_profile_time"
-        android:textAppearance="?android:textAppearance" />
-      <TextView
-        android:id="@+id/time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_half"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textStyle="bold"
-        tools:text="3 h. 25 min." />
     </LinearLayout>
   </RelativeLayout>
 </merge>

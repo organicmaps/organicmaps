@@ -612,9 +612,9 @@ void Framework::ExecuteMapApiRequest()
   return m_work.ExecuteMapApiRequest();
 }
 
-void Framework::DeactivatePopup()
+void Framework::DeactivatePopup(bool notifyListeners)
 {
-  m_work.DeactivateMapSelection();
+  m_work.DeactivateMapSelection(notifyListeners);
 }
 
 void Framework::DeactivateMapSelectionCircle(bool restoreViewport)
@@ -1389,9 +1389,10 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetRoutingLoadPo
     g_loadRouteHandler = nullptr;
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeDeactivatePopup(JNIEnv * env, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeDeactivatePopup(JNIEnv * env, jclass,
+                                                                                jboolean notifyListeners)
 {
-  return g_framework->DeactivatePopup();
+  return g_framework->DeactivatePopup(notifyListeners);
 }
 
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeDeactivateMapSelectionCircle(JNIEnv * env, jclass,
