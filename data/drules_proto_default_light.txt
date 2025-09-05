@@ -17244,8 +17244,15 @@ cont {
   name: "boundary-aboriginal_lands"
   element {
     scale: 10
+    lines {
+      width: 2.0
+      color: 7556390
+      priority: 20
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     area {
-      color: 4000533798
+      color: 3866316070
       priority: 20
     }
     caption {
@@ -17259,8 +17266,15 @@ cont {
   }
   element {
     scale: 11
+    lines {
+      width: 2.0
+      color: 7556390
+      priority: 20
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     area {
-      color: 4000533798
+      color: 3866316070
       priority: 20
     }
     caption {
@@ -17274,8 +17288,15 @@ cont {
   }
   element {
     scale: 12
+    lines {
+      width: 2.0
+      color: 7556390
+      priority: 20
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     area {
-      color: 4000533798
+      color: 3866316070
       priority: 20
     }
     caption {
@@ -17289,8 +17310,14 @@ cont {
   }
   element {
     scale: 13
+    lines {
+      width: 2.0
+      color: 7556390
+      priority: 20
+      cap: BUTTCAP
+    }
     area {
-      color: 4000533798
+      color: 3866316070
       priority: 20
     }
     caption {
@@ -17304,8 +17331,14 @@ cont {
   }
   element {
     scale: 14
+    lines {
+      width: 2.0
+      color: 7556390
+      priority: 20
+      cap: BUTTCAP
+    }
     area {
-      color: 4000533798
+      color: 3866316070
       priority: 20
     }
     caption {
@@ -17319,8 +17352,14 @@ cont {
   }
   element {
     scale: 15
+    lines {
+      width: 2.0
+      color: 7556390
+      priority: 20
+      cap: BUTTCAP
+    }
     area {
-      color: 4000533798
+      color: 3866316070
       priority: 20
     }
     caption {
@@ -17334,8 +17373,13 @@ cont {
   }
   element {
     scale: 16
+    lines {
+      width: 2.0
+      color: 7556390
+      priority: 20
+    }
     area {
-      color: 4000533798
+      color: 3866316070
       priority: 20
     }
     caption {
@@ -17345,6 +17389,38 @@ cont {
         stroke_color: 872415231
       }
       priority: 6700
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 2.0
+      color: 7556390
+      priority: 20
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 2.0
+      color: 7556390
+      priority: 20
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 2.0
+      color: 7556390
+      priority: 20
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 2.0
+      color: 7556390
+      priority: 20
     }
   }
 }
@@ -17763,6 +17839,13 @@ cont {
   name: "boundary-national_park"
   element {
     scale: 10
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     area {
       color: 3431500856
       priority: 20
@@ -17770,6 +17853,13 @@ cont {
   }
   element {
     scale: 11
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     area {
       color: 3431500856
       priority: 20
@@ -17782,6 +17872,13 @@ cont {
   }
   element {
     scale: 12
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     area {
       color: 3431500856
       priority: 20
@@ -17804,6 +17901,12 @@ cont {
   }
   element {
     scale: 13
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+      cap: BUTTCAP
+    }
     area {
       color: 3431500856
       priority: 20
@@ -17826,6 +17929,12 @@ cont {
   }
   element {
     scale: 14
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+      cap: BUTTCAP
+    }
     area {
       color: 3431500856
       priority: 20
@@ -17848,6 +17957,12 @@ cont {
   }
   element {
     scale: 15
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+      cap: BUTTCAP
+    }
     area {
       color: 3431500856
       priority: 20
@@ -17869,6 +17984,11 @@ cont {
   }
   element {
     scale: 16
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+    }
     area {
       color: 3431500856
       priority: 20
@@ -17890,6 +18010,11 @@ cont {
   }
   element {
     scale: 17
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+    }
     area {
       color: 3431500856
       priority: 20
@@ -17907,6 +18032,30 @@ cont {
         is_optional: true
       }
       priority: -3300
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
     }
   }
 }
@@ -18030,6 +18179,13 @@ cont {
   name: "boundary-protected_area-1"
   element {
     scale: 10
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     area {
       color: 3431500856
       priority: 20
@@ -18037,6 +18193,13 @@ cont {
   }
   element {
     scale: 11
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     area {
       color: 3431500856
       priority: 20
@@ -18049,6 +18212,13 @@ cont {
   }
   element {
     scale: 12
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
     area {
       color: 3431500856
       priority: 20
@@ -18071,6 +18241,12 @@ cont {
   }
   element {
     scale: 13
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+      cap: BUTTCAP
+    }
     area {
       color: 3431500856
       priority: 20
@@ -18093,6 +18269,12 @@ cont {
   }
   element {
     scale: 14
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+      cap: BUTTCAP
+    }
     area {
       color: 3431500856
       priority: 20
@@ -18115,6 +18297,12 @@ cont {
   }
   element {
     scale: 15
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+      cap: BUTTCAP
+    }
     area {
       color: 3431500856
       priority: 20
@@ -18136,6 +18324,11 @@ cont {
   }
   element {
     scale: 16
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+    }
     area {
       color: 3431500856
       priority: 20
@@ -18157,6 +18350,11 @@ cont {
   }
   element {
     scale: 17
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+    }
     area {
       color: 3431500856
       priority: 20
@@ -18174,6 +18372,30 @@ cont {
         is_optional: true
       }
       priority: -3300
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 2.0
+      color: 8948792
+      priority: 20
     }
   }
 }
@@ -47795,35 +48017,35 @@ cont {
     scale: 12
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
   }
   element {
     scale: 13
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
   }
   element {
     scale: 14
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
   }
   element {
     scale: 15
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
   }
   element {
     scale: 16
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
     symbol {
       name: "military-m"
@@ -47835,7 +48057,7 @@ cont {
     scale: 17
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
     symbol {
       name: "military-m"
@@ -47855,7 +48077,7 @@ cont {
     scale: 18
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
     symbol {
       name: "military-m"
@@ -47875,7 +48097,7 @@ cont {
     scale: 19
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
     symbol {
       name: "military-m"
@@ -47895,7 +48117,7 @@ cont {
     scale: 20
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
     symbol {
       name: "military-m"
@@ -47918,49 +48140,49 @@ cont {
     scale: 10
     area {
       color: 15022389
-      priority: 20
+      priority: 25
     }
   }
   element {
     scale: 11
     area {
       color: 15022389
-      priority: 20
+      priority: 25
     }
   }
   element {
     scale: 12
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
   }
   element {
     scale: 13
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
   }
   element {
     scale: 14
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
   }
   element {
     scale: 15
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
   }
   element {
     scale: 16
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
     symbol {
       name: "military-m"
@@ -47972,7 +48194,7 @@ cont {
     scale: 17
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
     symbol {
       name: "military-m"
@@ -47992,7 +48214,7 @@ cont {
     scale: 18
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
     symbol {
       name: "military-m"
@@ -48012,7 +48234,7 @@ cont {
     scale: 19
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
     symbol {
       name: "military-m"
@@ -48032,7 +48254,7 @@ cont {
     scale: 20
     area {
       color: 2162506037
-      priority: 20
+      priority: 25
     }
     symbol {
       name: "military-m"
@@ -48730,20 +48952,11 @@ cont {
     }
     caption {
       primary {
-        height: 9
+        height: 10
         color: 4495803
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 14
-    area {
-      color: 9163744
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 15
@@ -48753,20 +48966,11 @@ cont {
     }
     caption {
       primary {
-        height: 9
+        height: 10
         color: 4495803
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 15
-    area {
-      color: 9163744
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 16
@@ -48776,20 +48980,11 @@ cont {
     }
     caption {
       primary {
-        height: 9
+        height: 11
         color: 4495803
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 16
-    area {
-      color: 9163744
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 17
@@ -48799,20 +48994,11 @@ cont {
     }
     caption {
       primary {
-        height: 9
+        height: 11
         color: 4495803
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 17
-    area {
-      color: 9163744
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 18
@@ -48822,20 +49008,11 @@ cont {
     }
     caption {
       primary {
-        height: 9
+        height: 11
         color: 4495803
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 18
-    area {
-      color: 9163744
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 19
@@ -48845,20 +49022,11 @@ cont {
     }
     caption {
       primary {
-        height: 9
+        height: 11
         color: 4495803
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 19
-    area {
-      color: 9163744
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 20
@@ -48868,20 +49036,11 @@ cont {
     }
     caption {
       primary {
-        height: 9
+        height: 11
         color: 4495803
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 20
-    area {
-      color: 9163744
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
 }
 cont {
@@ -58875,22 +59034,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 14
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 15
@@ -58905,22 +59048,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 15
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 16
@@ -58935,22 +59062,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 16
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 17
@@ -58965,22 +59076,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 17
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 18
@@ -58995,22 +59090,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 18
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 19
@@ -59025,22 +59104,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 19
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 20
@@ -59055,22 +59118,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 20
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
 }
 cont {
@@ -59243,22 +59290,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 14
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 15
@@ -59273,22 +59304,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 15
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 16
@@ -59303,22 +59318,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 16
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 17
@@ -59333,22 +59332,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 17
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 18
@@ -59363,22 +59346,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 18
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 19
@@ -59393,22 +59360,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 19
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 20
@@ -59423,22 +59374,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 20
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
 }
 cont {
@@ -59465,15 +59400,6 @@ cont {
       color: 10340289
       priority: -980
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 14
-    area {
-      color: 10340289
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 15
@@ -59481,15 +59407,6 @@ cont {
       color: 10340289
       priority: -980
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 15
-    area {
-      color: 10340289
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 16
@@ -59497,15 +59414,6 @@ cont {
       color: 10340289
       priority: -980
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 16
-    area {
-      color: 10340289
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 17
@@ -59520,22 +59428,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 17
-    area {
-      color: 10340289
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 18
@@ -59550,22 +59442,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 18
-    area {
-      color: 10340289
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 19
@@ -59580,22 +59456,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 19
-    area {
-      color: 10340289
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 20
@@ -59610,22 +59470,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 20
-    area {
-      color: 10340289
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
 }
 cont {
@@ -59652,15 +59496,6 @@ cont {
       color: 10340289
       priority: -980
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 14
-    area {
-      color: 10340289
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 15
@@ -59668,15 +59503,6 @@ cont {
       color: 10340289
       priority: -980
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 15
-    area {
-      color: 10340289
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 16
@@ -59684,15 +59510,6 @@ cont {
       color: 10340289
       priority: -980
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 16
-    area {
-      color: 10340289
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 17
@@ -59707,22 +59524,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 17
-    area {
-      color: 10340289
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 18
@@ -59737,22 +59538,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 18
-    area {
-      color: 10340289
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 19
@@ -59767,22 +59552,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 19
-    area {
-      color: 10340289
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 20
@@ -59797,22 +59566,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 20
-    area {
-      color: 10340289
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
 }
 cont {
@@ -59985,22 +59738,6 @@ cont {
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 14
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 6650
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 15
@@ -60015,22 +59752,6 @@ cont {
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 15
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 6650
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 16
@@ -60045,22 +59766,6 @@ cont {
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 16
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 6650
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 17
@@ -60075,22 +59780,6 @@ cont {
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 17
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 6650
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 18
@@ -60105,22 +59794,6 @@ cont {
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 18
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 6650
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 19
@@ -60135,22 +59808,6 @@ cont {
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 19
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 6650
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 20
@@ -60165,22 +59822,6 @@ cont {
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 20
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 6650
-    }
-    apply_if: "bbox_area<4000000"
   }
 }
 cont {
@@ -60353,22 +59994,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 14
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 15
@@ -60383,22 +60008,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 15
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 16
@@ -60413,22 +60022,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 16
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 17
@@ -60443,22 +60036,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 17
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 18
@@ -60473,22 +60050,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 18
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 19
@@ -60503,22 +60064,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 19
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 20
@@ -60533,22 +60078,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 20
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
 }
 cont {
@@ -60686,15 +60215,6 @@ cont {
       color: 9163744
       priority: -980
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 14
-    area {
-      color: 9163744
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 15
@@ -60702,15 +60222,6 @@ cont {
       color: 9163744
       priority: -980
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 15
-    area {
-      color: 9163744
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 16
@@ -60718,15 +60229,6 @@ cont {
       color: 9163744
       priority: -980
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 16
-    area {
-      color: 9163744
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 17
@@ -60741,22 +60243,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 17
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 18
@@ -60771,22 +60257,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 18
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 19
@@ -60801,22 +60271,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 19
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 20
@@ -60831,22 +60285,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 20
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
 }
 cont {
@@ -61019,22 +60457,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 14
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 15
@@ -61049,22 +60471,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 15
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 16
@@ -61079,22 +60485,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 16
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 17
@@ -61109,22 +60499,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 17
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 18
@@ -61139,22 +60513,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 18
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 19
@@ -61169,22 +60527,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 19
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 20
@@ -61199,22 +60541,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 20
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
 }
 cont {
@@ -61387,22 +60713,6 @@ cont {
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 14
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 6650
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 15
@@ -61417,22 +60727,6 @@ cont {
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 15
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 6650
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 16
@@ -61447,22 +60741,6 @@ cont {
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 16
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 6650
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 17
@@ -61477,22 +60755,6 @@ cont {
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 17
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 6650
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 18
@@ -61507,22 +60769,6 @@ cont {
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 18
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 6650
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 19
@@ -61537,22 +60783,6 @@ cont {
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 19
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 6650
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 20
@@ -61567,22 +60797,6 @@ cont {
       }
       priority: 6650
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 20
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 6650
-    }
-    apply_if: "bbox_area<4000000"
   }
 }
 cont {
@@ -61755,22 +60969,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 14
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 15
@@ -61785,22 +60983,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 15
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 16
@@ -61815,22 +60997,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 16
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 17
@@ -61845,22 +61011,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 17
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 18
@@ -61875,22 +61025,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 18
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 19
@@ -61905,22 +61039,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 19
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 20
@@ -61935,22 +61053,6 @@ cont {
       }
       priority: 3150
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 20
-    area {
-      color: 9163744
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 3150
-    }
-    apply_if: "bbox_area<4000000"
   }
 }
 cont {
@@ -62038,15 +61140,6 @@ cont {
       color: 10340289
       priority: -980
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 14
-    area {
-      color: 10340289
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 15
@@ -62054,15 +61147,6 @@ cont {
       color: 10340289
       priority: -980
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 15
-    area {
-      color: 10340289
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 16
@@ -62070,15 +61154,6 @@ cont {
       color: 10340289
       priority: -980
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 16
-    area {
-      color: 10340289
-      priority: -980
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 17
@@ -62093,22 +61168,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 17
-    area {
-      color: 10340289
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 18
@@ -62123,22 +61182,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 18
-    area {
-      color: 10340289
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 19
@@ -62153,22 +61196,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 19
-    area {
-      color: 10340289
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
   element {
     scale: 20
@@ -62183,22 +61210,6 @@ cont {
       }
       priority: 2900
     }
-    apply_if: "bbox_area>=4000000"
-  }
-  element {
-    scale: 20
-    area {
-      color: 10340289
-      priority: -980
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4495803
-      }
-      priority: 2900
-    }
-    apply_if: "bbox_area<4000000"
   }
 }
 cont {
@@ -70763,6 +69774,23 @@ cont {
 cont {
   name: "power-line"
   element {
+    scale: 18
+    lines {
+      width: 4.0
+      color: 2157352326
+      dashdot {
+        dd: 1.0
+        dd: 80.0
+      }
+      priority: 340
+    }
+    lines {
+      width: 1.0
+      color: 2576782726
+      priority: 350
+    }
+  }
+  element {
     scale: 19
     lines {
       width: 4.0
@@ -71390,6 +70418,13 @@ cont {
 cont {
   name: "power-portal"
   element {
+    scale: 18
+    symbol {
+      name: "dot-m"
+      priority: 450
+    }
+  }
+  element {
     scale: 19
     symbol {
       name: "dot-m"
@@ -71428,7 +70463,7 @@ cont {
     }
     symbol {
       name: "power-m"
-      priority: 230
+      priority: 240
     }
     caption {
       primary {
@@ -71437,7 +70472,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9770
+      priority: -9760
     }
   }
   element {
@@ -71448,7 +70483,7 @@ cont {
     }
     symbol {
       name: "power-m"
-      priority: 230
+      priority: 240
     }
     caption {
       primary {
@@ -71457,7 +70492,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9770
+      priority: -9760
     }
   }
   element {
@@ -71468,7 +70503,7 @@ cont {
     }
     symbol {
       name: "power-m"
-      priority: 230
+      priority: 240
     }
     caption {
       primary {
@@ -71477,7 +70512,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9770
+      priority: -9760
     }
   }
   element {
@@ -71488,7 +70523,7 @@ cont {
     }
     symbol {
       name: "power-m"
-      priority: 230
+      priority: 240
     }
     caption {
       primary {
@@ -71497,7 +70532,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9770
+      priority: -9760
     }
   }
 }
@@ -71525,7 +70560,7 @@ cont {
     }
     symbol {
       name: "power-m"
-      priority: -9990
+      priority: 240
     }
     caption {
       primary {
@@ -71534,7 +70569,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -10000
+      priority: -9760
     }
   }
   element {
@@ -71545,7 +70580,7 @@ cont {
     }
     symbol {
       name: "power-m"
-      priority: -9990
+      priority: 240
     }
     caption {
       primary {
@@ -71554,7 +70589,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -10000
+      priority: -9760
     }
   }
   element {
@@ -71565,7 +70600,7 @@ cont {
     }
     symbol {
       name: "power-m"
-      priority: -9990
+      priority: 240
     }
     caption {
       primary {
@@ -71574,7 +70609,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -10000
+      priority: -9760
     }
   }
   element {
@@ -71585,7 +70620,7 @@ cont {
     }
     symbol {
       name: "power-m"
-      priority: -9990
+      priority: 240
     }
     caption {
       primary {
@@ -71594,12 +70629,19 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -10000
+      priority: -9760
     }
   }
 }
 cont {
   name: "power-tower"
+  element {
+    scale: 18
+    symbol {
+      name: "dot-m"
+      priority: 450
+    }
+  }
   element {
     scale: 19
     symbol {
@@ -116289,11 +115331,45 @@ cont {
 cont {
   name: "shop-electrical"
   element {
-    scale: 18
+    scale: 16
     symbol {
-      name: "shop-m"
+      name: "electrician-m"
       priority: 1600
       min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "electrician-m"
+      priority: 1600
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "electrician-m"
+      priority: 1600
+      min_distance: 24
     }
     caption {
       primary {
@@ -116308,9 +115384,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-m"
+      name: "electrician-m"
       priority: 1600
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -116325,9 +115401,9 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "shop-m"
+      name: "electrician-m"
       priority: 1600
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -118353,6 +117429,94 @@ cont {
         is_optional: true
       }
       priority: -7600
+    }
+  }
+}
+cont {
+  name: "shop-lighting"
+  element {
+    scale: 16
+    symbol {
+      name: "electrician-m"
+      priority: 1600
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "electrician-m"
+      priority: 1600
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "electrician-m"
+      priority: 1600
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "electrician-m"
+      priority: 1600
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "electrician-m"
+      priority: 1600
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
     }
   }
 }

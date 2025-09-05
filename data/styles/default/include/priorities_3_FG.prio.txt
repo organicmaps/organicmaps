@@ -39,10 +39,10 @@ aerialway-t-bar                                     # line z13- (also has line::
 historic-citywalls                                  # line z14- (also has pathtext z16-)
 === 360
 
-power-line                                          # line z19- (also has line::dash z19-)
+power-line                                          # line z18- (also has line::dash z18-)
 === 350
 
-power-line::dash                                    # line::dash z19- (also has line z19-)
+power-line::dash                                    # line::dash z18- (also has line z18-)
 === 340
 
 highway-cycleway                                    # line z13- (also has pathtext z15-)
@@ -462,9 +462,9 @@ landuse-military-danger_area                        # area z10- (also has icon z
 === 25
 
 amenity-prison                                      # area z12- (also has icon z17-, caption(optional) z17-)
-boundary-aboriginal_lands                           # area z10-16 (also has caption z10-16)
-boundary-national_park                              # area z10-17 (also has icon z11-17, caption(optional) z12-17)
-boundary-protected_area-1                           # area z10-17 (also has icon z11-17, caption(optional) z12-17)
+boundary-aboriginal_lands                           # line z10- and area z10-16 (also has caption z10-16)
+boundary-national_park                              # line z10- and area z10-17 (also has icon z11-17, caption(optional) z12-17)
+boundary-protected_area-1                           # line z10- and area z10-17 (also has icon z11-17, caption(optional) z12-17)
 leisure-nature_reserve                              # area z10-17 (also has icon z11-17, caption(optional) z12-17, caption z18-)
 === 20
 

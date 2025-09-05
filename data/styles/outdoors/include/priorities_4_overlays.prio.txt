@@ -94,10 +94,10 @@ highway-trunk-bridge::shield                        # shield::shield z10- (also 
 highway-trunk-tunnel::shield                        # shield::shield z10- (also has pathtext z10-, line z6-, line(casing) z12-)
 === 6740
 
-boundary-aboriginal_lands                           # caption z10-16 (also has area z10-16)
-boundary-national_park                              # icon z10-17 (also has caption(optional) z11-17, area z10-17)
+boundary-aboriginal_lands                           # caption z10-16 (also has line z10-, area z10-16)
+boundary-national_park                              # icon z10-17 (also has caption(optional) z11-17, line z10-, area z10-17)
 boundary-protected_area                             # icon z10-17 (also has caption(optional) z11-17)
-boundary-protected_area-1                           # icon z10-17 (also has caption(optional) z11-17, area z10-17)
+boundary-protected_area-1                           # icon z10-17 (also has caption(optional) z11-17, line z10-, area z10-17)
 boundary-protected_area-2                           # icon z10-17 (also has caption(optional) z11-17)
 boundary-protected_area-3                           # icon z10-17 (also has caption(optional) z11-17)
 boundary-protected_area-4                           # icon z10-17 (also has caption(optional) z11-17)
@@ -950,7 +950,7 @@ shop-coffee                                         # icon z18- (also has captio
 shop-copyshop                                       # icon z16- (also has caption(optional) z16-)
 shop-doityourself                                   # icon z16- (also has caption(optional) z16-)
 shop-dry_cleaning                                   # icon z16- (also has caption(optional) z16-)
-shop-electrical                                     # icon z18- (also has caption(optional) z18-)
+shop-electrical                                     # icon z16- (also has caption(optional) z16-)
 shop-erotic                                         # icon z16- (also has caption(optional) z16-)
 shop-furniture                                      # icon z16- (also has caption(optional) z16-)
 shop-garden_centre                                  # icon z16- (also has caption(optional) z16-)
@@ -961,7 +961,7 @@ shop-interior_decoration                            # icon z16- (also has captio
 shop-jewelry                                        # icon z16- (also has caption(optional) z16-)
 shop-kiosk                                          # icon z16- (also has caption(optional) z16-)
 shop-kitchen                                        # icon z16- (also has caption(optional) z16-)
-shop-lighting
+shop-lighting                                       # icon z16- (also has caption(optional) z16-)
 shop-massage                                        # icon z17- (also has caption(optional) z18-)
 shop-money_lender                                   # icon z17- (also has caption(optional) z17-)
 shop-motorcycle                                     # icon z16- (also has caption(optional) z16-)
@@ -1213,8 +1213,8 @@ amenity-parking_entrance-permissive                 # icon z17- (also has captio
 emergency-emergency_ward_entrance                   # icon z18- (also has caption(optional) z18-)
 === 250
 
-power-station
-power-substation
+power-station                                       # icon z17- (also has caption(optional) z17-, area z15-)
+power-substation                                    # icon z17- (also has caption(optional) z17-, area z15-)
 === 240
 
 building                                            # caption z16- (also has area z14-)
@@ -1305,9 +1305,9 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # railway-station                                   # caption(optional) z12- (also has icon z12-)
 # === -3200
 
-# boundary-national_park                            # caption(optional) z11-17 (also has icon z10-17, area z10-17)
+# boundary-national_park                            # caption(optional) z11-17 (also has icon z10-17, line z10-, area z10-17)
 # boundary-protected_area                           # caption(optional) z11-17 (also has icon z10-17)
-# boundary-protected_area-1                         # caption(optional) z11-17 (also has icon z10-17, area z10-17)
+# boundary-protected_area-1                         # caption(optional) z11-17 (also has icon z10-17, line z10-, area z10-17)
 # boundary-protected_area-2                         # caption(optional) z11-17 (also has icon z10-17)
 # boundary-protected_area-3                         # caption(optional) z11-17 (also has icon z10-17)
 # boundary-protected_area-4                         # caption(optional) z11-17 (also has icon z10-17)
@@ -1919,7 +1919,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # shop-copyshop                                     # caption(optional) z16- (also has icon z16-)
 # shop-doityourself                                 # caption(optional) z16- (also has icon z16-)
 # shop-dry_cleaning                                 # caption(optional) z16- (also has icon z16-)
-# shop-electrical                                   # caption(optional) z18- (also has icon z18-)
+# shop-electrical                                   # caption(optional) z16- (also has icon z16-)
 # shop-erotic                                       # caption(optional) z16- (also has icon z16-)
 # shop-furniture                                    # caption(optional) z16- (also has icon z16-)
 # shop-garden_centre                                # caption(optional) z16- (also has icon z16-)
@@ -1930,6 +1930,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # shop-jewelry                                      # caption(optional) z16- (also has icon z16-)
 # shop-kiosk                                        # caption(optional) z16- (also has icon z16-)
 # shop-kitchen                                      # caption(optional) z16- (also has icon z16-)
+# shop-lighting                                     # caption(optional) z16- (also has icon z16-)
 # shop-massage                                      # caption(optional) z18- (also has icon z17-)
 # shop-money_lender                                 # caption(optional) z17- (also has icon z17-)
 # shop-motorcycle                                   # caption(optional) z16- (also has icon z16-)
@@ -2157,6 +2158,10 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # emergency-emergency_ward_entrance                 # caption(optional) z18- (also has icon z18-)
 # === -9750
 
+# power-station                                     # caption(optional) z17- (also has icon z17-, area z15-)
+# power-substation                                  # caption(optional) z17- (also has icon z17-, area z15-)
+# === -9760
+
 # building-guardhouse                               # caption(optional) z17- (also has icon z17-, caption z16, area z14-)
 # power-plant                                       # caption(optional) z17- (also has icon z17-, area z15-)
 # power-plant-coal                                  # caption(optional) z17- (also has icon z17-, area z15-)
@@ -2164,7 +2169,6 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # power-plant-hydro                                 # caption(optional) z17- (also has icon z17-, area z15-)
 # power-plant-solar                                 # caption(optional) z17- (also has icon z17-, area z15-)
 # power-plant-wind                                  # caption(optional) z17- (also has icon z13-, area z15-)
-# power-station                                     # caption(optional) z17- (also has icon z17-, area z15-)
 # === -9770
 
 # barrier-entrance                                  # caption(optional) z16- (also has icon z16-)
@@ -2271,7 +2275,6 @@ entrance-exit                                       # icon z19- (also has captio
 # entrance-exit                                     # caption(optional) z19- (also has icon z19-)
 # man_made-cairn                                    # caption(optional) z17- (also has icon z17-)
 # man_made-survey_point                             # caption(optional) z15- (also has icon z14-)
-# power-substation                                  # caption(optional) z17- (also has icon z17-, area z15-)
 # tourism-information                               # caption(optional) z15- (also has icon z15-)
 # tourism-information-board                         # caption(optional) z15- (also has icon z15-)
 # tourism-information-guidepost                     # caption(optional) z15- (also has icon z15-)
