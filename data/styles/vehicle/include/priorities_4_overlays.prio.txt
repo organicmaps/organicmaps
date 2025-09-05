@@ -62,11 +62,9 @@ highway-motorway_junction                           # caption z15-
 highway-primary_link                                # pathtext z11- (also has shield::shield z11-, line z11-, line(casing) z14-)
 highway-primary_link-bridge                         # pathtext z11- (also has shield::shield z11-, line z11-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
 highway-primary_link-tunnel                         # pathtext z11- (also has shield::shield z11-, line z11-, line(casing) z14-)
-highway-services                                    # icon z12- (also has caption(optional) z13-, area z12-)
 === 4200
 
 highway-ford                                        # icon z14-
-highway-rest_area                                   # icon z14- (also has caption(optional) z14-, area z14-)
 highway-secondary                                   # pathtext z10- (also has shield::shield z12-, line z10-, line(casing) z14-)
 highway-secondary-bridge                            # pathtext z10- (also has shield::shield z12-, line z10-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
 highway-secondary-tunnel                            # pathtext z10- (also has shield::shield z12-, line z10-, line(casing) z14-)
@@ -228,6 +226,12 @@ amenity-compressed_air                              # icon z18-
 amenity-sanitary_dump_station                       # icon z15- (also has caption(optional) z15-)
 shop-caravan                                        # icon z17-
 === 2600
+
+highway-rest_area
+highway-services
+tourism-camp_site
+tourism-caravan_site
+=== 2570
 
 amenity-parking                                     # icon z15- (also has caption(optional) z16-, area z15-)
 amenity-parking-fee                                 # icon z15- (also has caption(optional) z16-, area z15-)
