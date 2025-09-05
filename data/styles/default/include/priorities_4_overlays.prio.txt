@@ -1212,6 +1212,10 @@ amenity-parking_entrance-permissive                 # icon z17- (also has captio
 emergency-emergency_ward_entrance                   # icon z18- (also has caption(optional) z18-)
 === 250
 
+power-station
+power-substation
+=== 240
+
 building                                            # caption z16- (also has area z14-)
 building-garage                                     # caption z16- (also has area z14-)
 building-guardhouse                                 # icon z17- and caption z16 (also has caption(optional) z17-, area z14-)
@@ -1222,7 +1226,6 @@ power-plant-gas                                     # icon z17- (also has captio
 power-plant-hydro                                   # icon z17- (also has caption(optional) z17-, area z15-)
 power-plant-solar                                   # icon z17- (also has caption(optional) z17-, area z15-)
 power-plant-wind                                    # icon z15- (also has caption(optional) z17-, area z15-)
-power-station                                       # icon z17- (also has caption(optional) z17-, area z15-)
 === 230
 
 barrier-entrance                                    # icon z16- (also has caption(optional) z16-)
@@ -2237,7 +2240,6 @@ emergency-phone                                     # icon z17-
 
 amenity-waste_basket                                # icon z18- (also has caption(optional) z19-)
 emergency-fire_hydrant                              # icon z19- (also has caption(optional) z19-)
-power-substation                                    # icon z17- (also has caption(optional) z17-, area z15-)
 === -9990
 
 # amenity-bench                                     # caption(optional) z19- (also has icon z18-)
