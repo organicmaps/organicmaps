@@ -15770,7 +15770,7 @@ cont {
     }
     symbol {
       name: "picnic-m"
-      priority: 4150
+      priority: 2570
       min_distance: 10
     }
     caption {
@@ -15780,7 +15780,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -5850
+      priority: -7430
     }
   }
   element {
@@ -15791,7 +15791,7 @@ cont {
     }
     symbol {
       name: "picnic-m"
-      priority: 4150
+      priority: 2570
     }
     caption {
       primary {
@@ -15800,7 +15800,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -5850
+      priority: -7430
     }
   }
   element {
@@ -15811,7 +15811,7 @@ cont {
     }
     symbol {
       name: "picnic-m"
-      priority: 4150
+      priority: 2570
     }
     caption {
       primary {
@@ -15820,7 +15820,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -5850
+      priority: -7430
     }
   }
   element {
@@ -15831,7 +15831,7 @@ cont {
     }
     symbol {
       name: "picnic-m"
-      priority: 4150
+      priority: 2570
     }
     caption {
       primary {
@@ -15840,7 +15840,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -5850
+      priority: -7430
     }
   }
   element {
@@ -15851,7 +15851,7 @@ cont {
     }
     symbol {
       name: "picnic-m"
-      priority: 4150
+      priority: 2570
     }
     caption {
       primary {
@@ -15860,7 +15860,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -5850
+      priority: -7430
     }
   }
   element {
@@ -15871,7 +15871,7 @@ cont {
     }
     symbol {
       name: "picnic-m"
-      priority: 4150
+      priority: 2570
     }
     caption {
       primary {
@@ -15880,7 +15880,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -5850
+      priority: -7430
     }
   }
   element {
@@ -15891,7 +15891,7 @@ cont {
     }
     symbol {
       name: "picnic-m"
-      priority: 4150
+      priority: 2570
     }
     caption {
       primary {
@@ -15900,7 +15900,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -5850
+      priority: -7430
     }
   }
 }
@@ -16318,7 +16318,7 @@ cont {
     scale: 10
     lines {
       width: 1.55
-      color: 872415231
+      color: 872398674
       priority: 210
       join: BEVELJOIN
       cap: BUTTCAP
@@ -16336,7 +16336,7 @@ cont {
     scale: 11
     lines {
       width: 1.8
-      color: 872415231
+      color: 872398674
       priority: 210
       join: BEVELJOIN
       cap: BUTTCAP
@@ -16354,7 +16354,7 @@ cont {
     scale: 12
     lines {
       width: 2.5
-      color: 872415231
+      color: 872398674
       priority: 210
       join: BEVELJOIN
       cap: BUTTCAP
@@ -16378,7 +16378,7 @@ cont {
     scale: 13
     lines {
       width: 2.9
-      color: 872415231
+      color: 872398674
       priority: 210
       cap: BUTTCAP
     }
@@ -16407,7 +16407,7 @@ cont {
     }
     lines {
       width: 3.2
-      color: 872415231
+      color: 872398674
       priority: 210
       cap: BUTTCAP
     }
@@ -16436,7 +16436,7 @@ cont {
     }
     lines {
       width: 4.2
-      color: 16777215
+      color: 16760658
       priority: 210
       cap: BUTTCAP
     }
@@ -16465,7 +16465,7 @@ cont {
     }
     lines {
       width: 6.0
-      color: 16777215
+      color: 16760658
       priority: 210
     }
     path_text {
@@ -16493,7 +16493,7 @@ cont {
     }
     lines {
       width: 9.6
-      color: 16777215
+      color: 16760658
       priority: 210
     }
     path_text {
@@ -16521,7 +16521,7 @@ cont {
     }
     lines {
       width: 15.0
-      color: 16777215
+      color: 16760658
       priority: 210
     }
     path_text {
@@ -16549,7 +16549,7 @@ cont {
     }
     lines {
       width: 22.0
-      color: 16777215
+      color: 16760658
       priority: 210
     }
     path_text {
@@ -16577,7 +16577,7 @@ cont {
     }
     lines {
       width: 22.0
-      color: 16777215
+      color: 16760658
       priority: 210
     }
     path_text {
@@ -16602,7 +16602,7 @@ cont {
     scale: 10
     lines {
       width: 1.55
-      color: 872415231
+      color: 872398674
       priority: 210
       join: BEVELJOIN
       cap: BUTTCAP
@@ -16620,7 +16620,7 @@ cont {
     scale: 11
     lines {
       width: 1.8
-      color: 872415231
+      color: 872398674
       priority: 210
       join: BEVELJOIN
       cap: BUTTCAP
@@ -16638,7 +16638,7 @@ cont {
     scale: 12
     lines {
       width: 2.5
-      color: 872415231
+      color: 872398674
       priority: 210
       join: BEVELJOIN
       cap: BUTTCAP
@@ -16662,7 +16662,7 @@ cont {
     scale: 13
     lines {
       width: 2.9
-      color: 872415231
+      color: 872398674
       priority: 210
       cap: BUTTCAP
     }
@@ -16703,7 +16703,7 @@ cont {
     }
     lines {
       width: 3.2
-      color: 872415231
+      color: 872398674
       priority: 210
       cap: BUTTCAP
     }
@@ -16744,7 +16744,7 @@ cont {
     }
     lines {
       width: 4.2
-      color: 16777215
+      color: 16760658
       priority: 210
       cap: BUTTCAP
     }
@@ -16785,7 +16785,7 @@ cont {
     }
     lines {
       width: 6.0
-      color: 16777215
+      color: 16760658
       priority: 210
     }
     path_text {
@@ -16825,7 +16825,7 @@ cont {
     }
     lines {
       width: 9.6
-      color: 16777215
+      color: 16760658
       priority: 210
     }
     path_text {
@@ -16865,7 +16865,7 @@ cont {
     }
     lines {
       width: 15.0
-      color: 16777215
+      color: 16760658
       priority: 210
     }
     path_text {
@@ -16905,7 +16905,7 @@ cont {
     }
     lines {
       width: 22.0
-      color: 16777215
+      color: 16760658
       priority: 210
     }
     path_text {
@@ -16945,7 +16945,7 @@ cont {
     }
     lines {
       width: 22.0
-      color: 16777215
+      color: 16760658
       priority: 210
     }
     path_text {
@@ -16970,7 +16970,7 @@ cont {
     scale: 10
     lines {
       width: 1.55
-      color: 872415231
+      color: 872398674
       priority: 210
       join: BEVELJOIN
       cap: BUTTCAP
@@ -16988,7 +16988,7 @@ cont {
     scale: 11
     lines {
       width: 1.8
-      color: 872415231
+      color: 872398674
       priority: 210
       join: BEVELJOIN
       cap: BUTTCAP
@@ -17006,7 +17006,7 @@ cont {
     scale: 12
     lines {
       width: 2.5
-      color: 872415231
+      color: 872398674
       priority: 210
       join: BEVELJOIN
       cap: BUTTCAP
@@ -17030,7 +17030,7 @@ cont {
     scale: 13
     lines {
       width: 2.9
-      color: 872415231
+      color: 872398674
       priority: 210
       cap: BUTTCAP
     }
@@ -17059,7 +17059,7 @@ cont {
     }
     lines {
       width: 3.2
-      color: 872415231
+      color: 872398674
       priority: 210
       cap: BUTTCAP
     }
@@ -17088,7 +17088,7 @@ cont {
     }
     lines {
       width: 4.2
-      color: 16777215
+      color: 16760658
       priority: 210
       cap: BUTTCAP
     }
@@ -17274,7 +17274,7 @@ cont {
     scale: 13
     lines {
       width: 2.9
-      color: 872415231
+      color: 872398674
       priority: 164
       cap: BUTTCAP
     }
@@ -17289,7 +17289,7 @@ cont {
     }
     lines {
       width: 3.2
-      color: 872415231
+      color: 872398674
       priority: 164
       cap: BUTTCAP
     }
@@ -17304,7 +17304,7 @@ cont {
     }
     lines {
       width: 4.2
-      color: 16777215
+      color: 16760658
       priority: 164
       cap: BUTTCAP
     }
@@ -17319,7 +17319,7 @@ cont {
     }
     lines {
       width: 6.0
-      color: 16777215
+      color: 16760658
       priority: 164
     }
     path_text {
@@ -17341,7 +17341,7 @@ cont {
     }
     lines {
       width: 9.6
-      color: 16777215
+      color: 16760658
       priority: 164
     }
     path_text {
@@ -17363,7 +17363,7 @@ cont {
     }
     lines {
       width: 15.0
-      color: 16777215
+      color: 16760658
       priority: 164
     }
     path_text {
@@ -17385,7 +17385,7 @@ cont {
     }
     lines {
       width: 22.0
-      color: 16777215
+      color: 16760658
       priority: 164
     }
     path_text {
@@ -17407,7 +17407,7 @@ cont {
     }
     lines {
       width: 22.0
-      color: 16777215
+      color: 16760658
       priority: 164
     }
     path_text {
@@ -17426,7 +17426,7 @@ cont {
     scale: 13
     lines {
       width: 2.9
-      color: 872415231
+      color: 872398674
       priority: 164
       cap: BUTTCAP
     }
@@ -17453,7 +17453,7 @@ cont {
     }
     lines {
       width: 3.2
-      color: 872415231
+      color: 872398674
       priority: 164
       cap: BUTTCAP
     }
@@ -17480,7 +17480,7 @@ cont {
     }
     lines {
       width: 4.2
-      color: 16777215
+      color: 16760658
       priority: 164
       cap: BUTTCAP
     }
@@ -17507,7 +17507,7 @@ cont {
     }
     lines {
       width: 6.0
-      color: 16777215
+      color: 16760658
       priority: 164
     }
     path_text {
@@ -17541,7 +17541,7 @@ cont {
     }
     lines {
       width: 9.6
-      color: 16777215
+      color: 16760658
       priority: 164
     }
     path_text {
@@ -17575,7 +17575,7 @@ cont {
     }
     lines {
       width: 15.0
-      color: 16777215
+      color: 16760658
       priority: 164
     }
     path_text {
@@ -17609,7 +17609,7 @@ cont {
     }
     lines {
       width: 22.0
-      color: 16777215
+      color: 16760658
       priority: 164
     }
     path_text {
@@ -17643,7 +17643,7 @@ cont {
     }
     lines {
       width: 22.0
-      color: 16777215
+      color: 16760658
       priority: 164
     }
     path_text {
@@ -17662,7 +17662,7 @@ cont {
     scale: 13
     lines {
       width: 2.9
-      color: 872415231
+      color: 872398674
       priority: 164
       cap: BUTTCAP
     }
@@ -17677,7 +17677,7 @@ cont {
     }
     lines {
       width: 3.2
-      color: 872415231
+      color: 872398674
       priority: 164
       cap: BUTTCAP
     }
@@ -17692,7 +17692,7 @@ cont {
     }
     lines {
       width: 4.2
-      color: 16777215
+      color: 16760658
       priority: 164
       cap: BUTTCAP
     }
@@ -18435,7 +18435,7 @@ cont {
     }
     symbol {
       name: "car-repair-s"
-      priority: 4200
+      priority: 2570
       min_distance: 20
     }
   }
@@ -18447,7 +18447,7 @@ cont {
     }
     symbol {
       name: "car-repair-m"
-      priority: 4200
+      priority: 2570
       min_distance: 20
     }
     caption {
@@ -18457,7 +18457,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -5800
+      priority: -7430
     }
   }
   element {
@@ -18468,7 +18468,7 @@ cont {
     }
     symbol {
       name: "car-repair-m"
-      priority: 4200
+      priority: 2570
       min_distance: 20
     }
     caption {
@@ -18478,7 +18478,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -5800
+      priority: -7430
     }
   }
   element {
@@ -18489,7 +18489,7 @@ cont {
     }
     symbol {
       name: "car-repair-m"
-      priority: 4200
+      priority: 2570
       min_distance: 10
     }
     caption {
@@ -18499,7 +18499,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -5800
+      priority: -7430
     }
   }
   element {
@@ -18510,7 +18510,7 @@ cont {
     }
     symbol {
       name: "car-repair-m"
-      priority: 4200
+      priority: 2570
       min_distance: 10
     }
     caption {
@@ -18520,7 +18520,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -5800
+      priority: -7430
     }
   }
   element {
@@ -18531,7 +18531,7 @@ cont {
     }
     symbol {
       name: "car-repair-m"
-      priority: 4200
+      priority: 2570
     }
     caption {
       primary {
@@ -18540,7 +18540,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -5800
+      priority: -7430
     }
   }
   element {
@@ -18551,7 +18551,7 @@ cont {
     }
     symbol {
       name: "car-repair-m"
-      priority: 4200
+      priority: 2570
     }
     caption {
       primary {
@@ -18560,7 +18560,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -5800
+      priority: -7430
     }
   }
   element {
@@ -18571,7 +18571,7 @@ cont {
     }
     symbol {
       name: "car-repair-m"
-      priority: 4200
+      priority: 2570
     }
     caption {
       primary {
@@ -18580,7 +18580,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -5800
+      priority: -7430
     }
   }
   element {
@@ -18591,7 +18591,7 @@ cont {
     }
     symbol {
       name: "car-repair-m"
-      priority: 4200
+      priority: 2570
     }
     caption {
       primary {
@@ -18600,7 +18600,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -5800
+      priority: -7430
     }
   }
 }
@@ -82934,6 +82934,172 @@ cont {
         is_optional: true
       }
       priority: -8800
+    }
+  }
+}
+cont {
+  name: "tourism-camp_site"
+  element {
+    scale: 16
+    symbol {
+      name: "campsite-m"
+      priority: 2570
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7430
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "campsite-m"
+      priority: 2570
+    }
+    caption {
+      primary {
+        height: 13
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7430
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "campsite-m"
+      priority: 2570
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7430
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "campsite-m"
+      priority: 2570
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7430
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "campsite-m"
+      priority: 2570
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7430
+    }
+  }
+}
+cont {
+  name: "tourism-caravan_site"
+  element {
+    scale: 16
+    symbol {
+      name: "caravan_site-m"
+      priority: 2570
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7430
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "caravan_site-m"
+      priority: 2570
+    }
+    caption {
+      primary {
+        height: 13
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7430
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "caravan_site-m"
+      priority: 2570
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7430
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "caravan_site-m"
+      priority: 2570
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7430
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "caravan_site-m"
+      priority: 2570
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7430
     }
   }
 }
