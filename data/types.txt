@@ -1629,3 +1629,4 @@ amenity|recycling|container
 *amenity|luggage_locker
 *building|guardhouse
 *office|security
+*shop|lighting
