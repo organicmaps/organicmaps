@@ -141,16 +141,22 @@ public final class UiUtils
       invisible(views);
   }
 
-  public static void showIf(boolean condition, View view) {
-    if (view == null) return;
+  public static void showIf(boolean condition, View view)
+  {
+    if (view == null)
+      return;
 
-    if (condition) {
+    if (condition)
+    {
       view.setVisibility(View.VISIBLE);
 
-      if (view instanceof LinearProgressIndicator) {
+      if (view instanceof LinearProgressIndicator)
+      {
         ((LinearProgressIndicator) view).setIndeterminate(true);
       }
-    } else {
+    }
+    else
+    {
       view.setVisibility(View.GONE);
     }
   }
