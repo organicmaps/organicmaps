@@ -34,6 +34,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
@@ -140,9 +141,18 @@ public final class UiUtils
       invisible(views);
   }
 
-  public static void showIf(boolean condition, View view)
-  {
-    view.setVisibility(condition ? View.VISIBLE : View.GONE);
+  public static void showIf(boolean condition, View view) {
+    if (view == null) return;
+
+    if (condition) {
+      view.setVisibility(View.VISIBLE);
+
+      if (view instanceof LinearProgressIndicator) {
+        ((LinearProgressIndicator) view).setIndeterminate(true);
+      }
+    } else {
+      view.setVisibility(View.GONE);
+    }
   }
 
   public static void hideIf(boolean condition, View... views)
