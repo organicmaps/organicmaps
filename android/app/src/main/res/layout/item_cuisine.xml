@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="@dimen/height_item_oneline"
   android:background="?clickableBackground"
   android:gravity="center_vertical"
   android:orientation="horizontal"
-  android:padding="@dimen/margin_base">
+  android:padding="@dimen/margin_base"
+  tools:showIn="@layout/recycler_default">
 
   <CheckBox
     android:id="@+id/selected"
@@ -20,6 +22,7 @@
     android:layout_height="wrap_content"
     android:layout_weight="1"
     android:singleLine="true"
-    android:textAppearance="@style/MwmTextAppearance.Body1"/>
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    tools:text="Cuisine" />
 
 </LinearLayout>

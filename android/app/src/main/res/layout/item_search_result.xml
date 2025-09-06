@@ -6,8 +6,7 @@
   android:layout_height="wrap_content"
   android:background="?selectableItemBackground"
   android:minHeight="@dimen/search_item_height"
-  android:padding="@dimen/margin_base"
-  tools:background="#20FF0000">
+  android:padding="@dimen/margin_base">
 
   <TextView
       android:id="@+id/title"

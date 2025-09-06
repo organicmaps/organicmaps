@@ -35,7 +35,7 @@ public class ColorsAdapter extends ArrayAdapter<Integer>
     if (convertView == null)
     {
       LayoutInflater inflater = LayoutInflater.from(getContext());
-      convertView = inflater.inflate(R.layout.color_row, parent, false);
+      convertView = inflater.inflate(R.layout.item_color, parent, false);
       holder = new SpinnerViewHolder(convertView);
       convertView.setTag(holder);
     }
