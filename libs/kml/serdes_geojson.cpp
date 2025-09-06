@@ -83,7 +83,7 @@ bool GeojsonParser::Parse(std::string_view & json_content)
       {
         auto colorRGBA = ParseColor(markerColorVal.get_string());
         if (colorRGBA)
-          bookmark.m_color = ColorData{.m_rgba = *colorRGBA};
+          bookmark.m_color = ColorData{.m_predefinedColor = MapPredefinedColor(*colorRGBA), .m_rgba = *colorRGBA};
       }
 
       // Parse icon
