@@ -30,7 +30,6 @@
         android:inputType="textMultiLine"
         android:padding="@dimen/margin_base"
         android:textAppearance="@style/MwmTextAppearance.Body3"
-        tools:hint="hint"
         tools:text="trololo \ntrololo \ntrololo"/>
 
     </androidx.cardview.widget.CardView>

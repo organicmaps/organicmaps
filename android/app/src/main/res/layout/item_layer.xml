@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="wrap_content"
-  android:layout_height="match_parent"
+  android:layout_height="wrap_content"
   android:layout_marginTop="@dimen/margin_direction_big"
   android:orientation="vertical">
 
@@ -21,7 +21,7 @@
       android:minWidth="@dimen/margin_double_plus"
       android:minHeight="@dimen/margin_double_plus"
       android:src="@drawable/ic_layers_outline_selector"
-      tools:background="?attr/subwayMenuIcon" />
+      tools:background="@drawable/ic_layers_subway" />
 
     <View
       android:id="@+id/marker"

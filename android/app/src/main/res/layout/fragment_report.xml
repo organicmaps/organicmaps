@@ -91,7 +91,8 @@
           android:layout_marginStart="@dimen/margin_base"
           android:layout_marginEnd="@dimen/margin_base"
           android:layout_marginTop="@dimen/margin_quarter_plus"
-          android:text="@string/editor_report_problem_desription_2"/>
+          android:text="@string/editor_report_problem_desription_2"
+          android:autoLink="web"/>
 
       </LinearLayout>
 

@@ -27,7 +27,6 @@
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/input"
       style="@style/MwmWidget.Editor.FieldLayout.EditText"
-      tools:hint="Hint"
       android:padding="@dimen/margin_half_double_plus"
       tools:text="Input" />
   </com.google.android.material.textfield.TextInputLayout>

@@ -32,7 +32,6 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input"
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
-            tools:hint="Hint"
             tools:text="Input"
             android:inputType="phone"/>
     </com.google.android.material.textfield.TextInputLayout>

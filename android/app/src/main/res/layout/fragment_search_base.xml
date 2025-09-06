@@ -8,7 +8,8 @@
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recycler"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    tools:listitem="@layout/item_search_result" />
 
   <app.organicmaps.widget.PlaceholderView
     android:id="@+id/placeholder"
@@ -19,5 +20,6 @@
     android:paddingEnd="@dimen/margin_double_and_half"
     android:paddingTop="@dimen/placeholder_margin_top"
     android:visibility="gone"
-    tools:visibility="visible"/>
+    tools:visibility="visible"
+    tools:background="#20FF0000" />
 </FrameLayout>
