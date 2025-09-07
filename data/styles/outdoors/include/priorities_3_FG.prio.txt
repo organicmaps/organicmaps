@@ -459,12 +459,14 @@ man_made-pier                                       # line z14- and area z12- (a
 waterway-dam                                        # line z14- and area z14- (also has pathtext z15-)
 === 30
 
+landuse-military                                    # area z12- (also has icon z16-, caption(optional) z17-)
+landuse-military-danger_area                        # area z10- (also has icon z16-, caption(optional) z17-)
+=== 25
+
 amenity-prison                                      # area z12- (also has icon z17-, caption(optional) z17-)
 boundary-aboriginal_lands                           # area z10-16 (also has caption z10-16)
 boundary-national_park                              # area z10-17 (also has icon z10-17, caption(optional) z11-17)
 boundary-protected_area-1                           # area z10-17 (also has icon z10-17, caption(optional) z11-17)
-landuse-military                                    # area z12- (also has icon z16-, caption(optional) z17-)
-landuse-military-danger_area                        # area z10- (also has icon z16-, caption(optional) z17-)
 leisure-nature_reserve                              # area z10-17 (also has icon z10-17, caption(optional) z11-17, caption z18-)
 === 20
 
