@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "장소 추가";
 "contribute_to_osm_update_map" = "기여하려면 지도를 업데이트하세요";
 "contribute_to_osm_update_map_description" = "OpenStreetMap 데이터에 기여하기 전에 %@ 지도를 최신 버전으로 업데이트해야 합니다";
+"placepage_replace_stop" = "Replace Stop";

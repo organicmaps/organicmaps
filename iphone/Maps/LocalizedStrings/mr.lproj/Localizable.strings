@@ -1078,3 +1078,4 @@
 "contribute_to_osm_add_place" = "ठिकाण जोडा";
 "contribute_to_osm_update_map" = "योगदान देण्यासाठी नकाशा अद्यतनित करा";
 "contribute_to_osm_update_map_description" = "OpenStreetMap डेटामध्ये योगदान देण्यापूर्वी तुम्हाला %@ नकाशा नवीनतम आवृत्तीत अद्यतनित करणे आवश्यक आहे";
+"placepage_replace_stop" = "Replace Stop";

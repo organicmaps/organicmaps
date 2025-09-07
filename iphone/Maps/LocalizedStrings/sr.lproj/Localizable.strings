@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Додај место";
 "contribute_to_osm_update_map" = "Ажурирајте мапу да бисте допринели";
 "contribute_to_osm_update_map_description" = "Морате ажурирати %@ мапу на најновију верзију пре него што можете да допринесете OpenStreetMap подацима";
+"placepage_replace_stop" = "Replace Stop";

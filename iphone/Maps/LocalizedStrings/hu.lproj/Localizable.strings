@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Hely hozzáadása";
 "contribute_to_osm_update_map" = "Frissítse a térképet a hozzájáruláshoz";
 "contribute_to_osm_update_map_description" = "A hozzájáruláshoz frissítenie kell a %@ térképet a legújabb verzióra az OpenStreetMap adataihoz";
+"placepage_replace_stop" = "Replace Stop";

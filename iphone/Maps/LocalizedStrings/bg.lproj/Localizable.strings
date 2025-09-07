@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Добави място";
 "contribute_to_osm_update_map" = "Актуализирайте картата, за да допринесете";
 "contribute_to_osm_update_map_description" = "Трябва да актуализирате картата %@ до последната версия, преди да можете да допринесете с данни към OpenStreetMap";
+"placepage_replace_stop" = "Replace Stop";

@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Məkan əlavə et";
 "contribute_to_osm_update_map" = "Töhfə vermək üçün xəritəni yenilə";
 "contribute_to_osm_update_map_description" = "OpenStreetMap məlumatlarına töhfə verməzdən əvvəl %@ xəritəsini ən son versiyaya yeniləməlisiniz";
+"placepage_replace_stop" = "Replace Stop";

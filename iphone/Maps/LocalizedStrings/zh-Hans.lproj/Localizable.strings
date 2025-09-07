@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "添加地点";
 "contribute_to_osm_update_map" = "更新地图以贡献";
 "contribute_to_osm_update_map_description" = "您需要将 %@ 地图更新到最新版本后才能贡献 OpenStreetMap 数据";
+"placepage_replace_stop" = "Replace Stop";

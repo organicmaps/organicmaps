@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "הוסף מקום";
 "contribute_to_osm_update_map" = "עדכן את המפה כדי לתרום";
 "contribute_to_osm_update_map_description" = "עליך לעדכן את המפה של %@ לגרסה האחרונה לפני שתוכל לתרום לנתוני OpenStreetMap";
+"placepage_replace_stop" = "Replace Stop";

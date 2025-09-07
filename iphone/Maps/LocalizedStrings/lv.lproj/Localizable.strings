@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Pievienot vietu";
 "contribute_to_osm_update_map" = "Atjauniniet karti, lai piedalītos";
 "contribute_to_osm_update_map_description" = "Jums ir jāatjaunina %@ karte uz jaunāko versiju, pirms varat piedalīties OpenStreetMap datos";
+"placepage_replace_stop" = "Replace Stop";
