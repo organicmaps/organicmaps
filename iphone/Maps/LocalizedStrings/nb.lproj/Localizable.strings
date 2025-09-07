@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Legg til sted";
 "contribute_to_osm_update_map" = "Oppdater kartet for å bidra";
 "contribute_to_osm_update_map_description" = "Du må oppdatere %@-kartet til den nyeste versjonen før du kan bidra til OpenStreetMap-dataene";
+"placepage_replace_stop" = "Replace Stop";

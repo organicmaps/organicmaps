@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Lisa koht";
 "contribute_to_osm_update_map" = "Uuenda kaarti, et panustada";
 "contribute_to_osm_update_map_description" = "Enne OpenStreetMap andmetesse panustamist peate uuendama %@ kaardi uusimale versioonile";
+"placepage_replace_stop" = "Replace Stop";

@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "افزودن مکان";
 "contribute_to_osm_update_map" = "برای مشارکت نقشه را به‌روزرسانی کنید";
 "contribute_to_osm_update_map_description" = "برای مشارکت در داده‌های OpenStreetMap باید نقشه %@ را به آخرین نسخه به‌روزرسانی کنید";
+"placepage_replace_stop" = "Replace Stop";

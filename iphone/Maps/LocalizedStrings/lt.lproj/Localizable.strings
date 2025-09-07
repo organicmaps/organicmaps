@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Pridėti vietą";
 "contribute_to_osm_update_map" = "Atnaujinti žemėlapį, kad prisidėtumėte";
 "contribute_to_osm_update_map_description" = "Prieš prisidėdami prie OpenStreetMap duomenų, turite atnaujinti %@ žemėlapį į naujausią versiją";
+"placepage_replace_stop" = "Replace Stop";

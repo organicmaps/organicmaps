@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Προσθήκη τοποθεσίας";
 "contribute_to_osm_update_map" = "Ενημερώστε τον χάρτη για να συνεισφέρετε";
 "contribute_to_osm_update_map_description" = "Πρέπει να ενημερώσετε τον χάρτη %@ στην πιο πρόσφατη έκδοση πριν μπορέσετε να συνεισφέρετε στα δεδομένα του OpenStreetMap";
+"placepage_replace_stop" = "Replace Stop";

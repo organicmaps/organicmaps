@@ -1084,3 +1084,4 @@
 "contribute_to_osm_add_place" = "Дадаць месца";
 "contribute_to_osm_update_map" = "Абнавіць карту, каб унесьці ўклад";
 "contribute_to_osm_update_map_description" = "Перш чым унесці ўклад у даныя OpenStreetMap, неабходна абнавіць карту %@ да апошняй версіі";
+"placepage_replace_stop" = "Replace Stop";

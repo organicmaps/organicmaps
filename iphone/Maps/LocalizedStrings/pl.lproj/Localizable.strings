@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Dodaj miejsce";
 "contribute_to_osm_update_map" = "Zaktualizuj mapę, aby współtworzyć";
 "contribute_to_osm_update_map_description" = "Musisz zaktualizować mapę %@ do najnowszej wersji, zanim będziesz mógł współtworzyć dane OpenStreetMap";
+"placepage_replace_stop" = "Replace Stop";

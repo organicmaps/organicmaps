@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Żid Post";
 "contribute_to_osm_update_map" = "Aġġorna l-mappa biex tikkontribwixxi";
 "contribute_to_osm_update_map_description" = "Trid taġġorna l-mappa %@ għall-aħħar verżjoni qabel ma tkun tista' tikkontribwixxi għad-data ta' OpenStreetMap";
+"placepage_replace_stop" = "Replace Stop";
