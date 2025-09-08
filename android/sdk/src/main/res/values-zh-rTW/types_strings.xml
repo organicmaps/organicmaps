@@ -10,4 +10,10 @@
     <string name="type.shop.chemist">藥妝店</string>
     <string name="type.tourism.information.visitor_centre">遊客中心</string>
     <string name="type.tourism.viewpoint">觀景點</string>
+    <string name="type.shop.hairdresser">理髮店</string>
+    <string name="type.barrier.wicket_gate">大門人行入口</string>
+    <string name="type.barrier.yes">障礙物</string>
+    <string name="type.building.guardhouse">警衛</string>
+    <string name="type.office.security">保全辦公室</string>
+    <string name="type.power.portal">H架電塔</string>
 </resources>
