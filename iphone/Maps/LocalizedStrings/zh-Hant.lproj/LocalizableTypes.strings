@@ -1253,7 +1253,7 @@
 "type.shop.gift" = "禮品店";
 "type.shop.greengrocer" = "蔬果零售店";
 "type.shop.grocery" = "雜貨店";
-"type.shop.hairdresser" = "理髮師";
+"type.shop.hairdresser" = "理髮店";
 "type.shop.hardware" = "五金店";
 "type.shop.health_food" = "保健食品店";
 "type.shop.hearing_aids" = "助聽器商店";
@@ -1498,9 +1498,9 @@
 "type.amenity.ranger_station" = "森林巡警站";
 "type.sport.diving" = "潛水";
 "type.man_made.crane" = "起重機";
-"type.barrier.wicket_gate" = "Wicket Gate";
-"type.barrier.yes" = "Barrier";
-"type.building.guardhouse" = "Guard";
-"type.office.security" = "Security Office";
-"type.power.portal" = "Power Tower (Portal)";
+"type.barrier.wicket_gate" = "大門人行入口";
+"type.barrier.yes" = "障礙物";
+"type.building.guardhouse" = "警衛";
+"type.office.security" = "保全辦公室";
+"type.power.portal" = "H架電塔";
 "type.shop.lighting" = "Lighting Shop";

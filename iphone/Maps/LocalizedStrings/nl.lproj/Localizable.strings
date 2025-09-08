@@ -778,8 +778,8 @@
 "power_managment_setting_never" = "Nooit";
 "power_managment_setting_auto" = "Wanneer batterij bijna leeg is";
 "power_managment_setting_manual_max" = "Maximale energiebesparing";
-"enable_logging_warning_message" = "Deze optie is ingeschakeld voor logboekregistraties voor diagnostische doeleinden. Het helpt bij het identificeren van problemen met de applicatie. Schakel de optie alleen in op verzoek van Organic Maps-ondersteuning.";
-"driving_options_title" = "Route-instellingen";
+"enable_logging_warning_message" = "Schakel deze optie tijdelijk in om gedetailleerde logboekregistraties omtrent jouw probleem op te slaan en te verzenden tijdens \" Rapporteer een probleem\" in het help menu. Schakel deze optie alleen in op verzoek van Organic Maps ondersteuning.";
+"driving_options_title" = "Route instellingen";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Vermijd tolwegen";
@@ -792,14 +792,14 @@
 "avoid_motorways" = "Vermijd snelwegen";
 "unable_to_calc_alert_title" = "Kan route niet berekenen";
 "unable_to_calc_alert_subtitle" = "Helaas konden we geen route berekenen. Dit kan komen door uw gekozen opties of door incomplete OpenStreetMap-data. Wijzig de instellingen en probeer het opnieuw.";
-"define_to_avoid_btn" = "Configureer wegen om te vermijden";
+"define_to_avoid_btn" = "Definieer wegen om te vermijden";
 "change_driving_options_btn" = "Route-instellingen ingeschakeld";
 "toll_road" = "Tolweg";
 "unpaved_road" = "Onverharde weg";
-"ferry_crossing" = "Veerboot";
+"ferry_crossing" = "Veerbootverbinding";
 "trip_start" = "Laten we gaan";
 "pick_destination" = "Bestemming";
-"follow_my_position" = "Centreer";
+"follow_my_position" = "Opnieuw centreren";
 "search_results" = "Zoekresultaten";
 "then_turn" = "Dan";
 "redirect_route_alert" = "Wilt u de route wijzigen?";
@@ -828,14 +828,14 @@
 "dialog_routing_check_gps_carplay" = "Geen GPS-signaal. Ga naar een open omgeving";
 "dialog_routing_unable_locate_route_carplay" = "Kan route niet berekenen. Selecteer andere tussenpunten";
 "dialog_routing_download_files_carplay" = "Om een route te berekenen, download de ontbrekende kaarten";
-"dialog_routing_system_error_carplay" = "Iets is fout gegaan. Start de app opnieuw";
+"dialog_routing_system_error_carplay" = "Iets is fout gegaan. Start de applicatie opnieuw";
 "dialog_routing_rebuild_from_current_location_carplay" = "De route wordt opnieuw berekend vanaf uw huidige locatie";
 "dialog_routing_rebuild_for_vehicle_carplay" = "De route wordt veranderd naar een autoroute";
 "not_all_shown_bookmarks_carplay" = "Niet alle bladwijzers worden getoond";
 "switch_to_phone_bookmarks_carplay" = "Schakel over naar de telefoon om alle bladwijzers te zien";
 "ok" = "Oké";
 "speedcams_alert_title_carplay_1" = "Snelheidscamera's";
-"speedcams_alert_title_carplay_2" = "Over snelheidscamera's";
+"speedcams_alert_title_carplay_2" = "Snelheidswaarschuwingen";
 "download_map_carplay" = "Download kaarten in de Organic Maps app op uw apparaat";
 "carplay_roundabout_exit" = "Afrit nr. %@";
 
@@ -873,7 +873,7 @@
 "transit_not_found" = "Metro-navigatie is nog niet beschikbaar in deze regio";
 "dialog_pedestrian_route_is_long_header" = "Geen metroroute gevonden";
 "dialog_pedestrian_route_is_long_message" = "Kies een begin- of eindpunt dichter bij het metrostation";
-"button_layer_isolines" = "Hoogtes";
+"button_layer_isolines" = "Contourlijnen";
 "isolines_activation_error_dialog" = "Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden";
 "isolines_location_error_dialog" = "Hoogtelijnen zijn nog niet beschikbaar in deze regio";
 "elevation_profile_diff_level" = "Moeilijkheidsgraad";
@@ -884,7 +884,7 @@
 "elevation_profile_descent" = "Daling";
 "elevation_profile_min_elevation" = "Min. hoogte";
 "elevation_profile_max_elevation" = "Max. hoogte";
-"isolines_toast_zooms_1_10" = "Zoom in om hoogtelijnen te bekijken";
+"isolines_toast_zooms_1_10" = "Zoom in om hoogte/dal lijnen te bekijken";
 "downloader_updating_ios" = "Updaten";
 "downloader_loading_ios" = "Downloaden";
 
@@ -922,7 +922,7 @@
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
 
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
-"translated_om_site_url" = "https://organicmaps.app/nl/";
+"translated_om_site_url" = "https://organicmaps.app/";
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F";
@@ -934,7 +934,7 @@
 "app_tip_01" = "Met uw donaties en steun kunnen we de beste kaarten ter wereld maken!";
 
 /* App tip #02 */
-"app_tip_02" = "Vind je onze app leuk? Doneer alsjeblieft om de ontwikkeling te ondersteunen! Vind je het nog niet leuk? Laat het ons weten, dan lossen we het op!";
+"app_tip_02" = "Vind je onze app leuk? Doneer alstublieft om de ontwikkeling te ondersteunen! Vind je het nog niet leuk? Laat het ons weten, dan lossen we het op!";
 
 /* App tip #03 */
 "app_tip_03" = "Als u een softwareontwikkelaar kent, kunt u hem of haar vragen een functie te implementeren die u nodig heeft.";
@@ -970,7 +970,7 @@
 "car_continue_in_the_car" = "Naar het autoscherm";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Wandelen";
+"button_layer_outdoor" = "Buiten";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Exporteer alle bladwijzers en tracks";
@@ -1019,7 +1019,7 @@
 "icloud_synchronization_error_cloud_is_unavailable" = "Fout: iCloud is niet beschikbaar";
 
 /* Title for the "Open in Another App" button on the PlacePage. */
-"open_in_app" = "Openen in een andere app";
+"open_in_app" = "Openen in een andere applicatie";
 
 /* To indicate if the place proposed self service... */
 "self_service" = "Zelfbediening";
@@ -1070,7 +1070,7 @@
 "show_to_the_right" = "Rechts weergeven";
 "right" = "Rechts";
 "show_at_the_bottom" = "Onderaan weergeven";
-"bottom" = "Bottom";
+"bottom" = "Bodem";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "Om routes weer te geven moeten de kaarten bijgewerkt worden.";
