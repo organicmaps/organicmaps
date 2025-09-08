@@ -38,6 +38,15 @@ private:
   DISALLOW_COPY_AND_MOVE(ScopedDir);
 };
 
+class ScopedDirCleanup
+{
+  std::string const m_fullPath;
+
+public:
+  explicit ScopedDirCleanup(std::string const & path);
+  ~ScopedDirCleanup();
+};
+
 std::string DebugPrint(ScopedDir const & dir);
 }  // namespace tests_support
 }  // namespace platform

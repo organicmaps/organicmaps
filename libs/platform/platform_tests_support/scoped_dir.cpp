@@ -57,5 +57,16 @@ std::string DebugPrint(ScopedDir const & dir)
   os << "ScopedDir [" << dir.GetFullPath() << "]";
   return os.str();
 }
+
+ScopedDirCleanup::ScopedDirCleanup(std::string const & path) : m_fullPath(path)
+{
+  UNUSED_VALUE(Platform::MkDir(m_fullPath));
+}
+
+ScopedDirCleanup::~ScopedDirCleanup()
+{
+  UNUSED_VALUE(Platform::RmDirRecursively(m_fullPath));
+}
+
 }  // namespace tests_support
 }  // namespace platform
