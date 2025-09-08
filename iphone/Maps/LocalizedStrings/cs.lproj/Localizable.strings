@@ -1080,4 +1080,4 @@
 "contribute_to_osm_add_place" = "Přidat místo";
 "contribute_to_osm_update_map" = "Aktualizujte mapu pro příspěvek";
 "contribute_to_osm_update_map_description" = "Musíte aktualizovat mapu %@ na nejnovější verzi, než budete moci přispět do dat OpenStreetMap";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Nahradit zastávku";
