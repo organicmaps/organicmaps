@@ -73,19 +73,18 @@ void TestMaxspeedsSection(Features const & roads, string const & maxspeedsCsvCon
                           FeatureIdToOsmId const & featureIdToOsmId)
 {
   classificator::Load();
+
   string const testDirFullPath = base::JoinPath(GetPlatform().WritableDir(), kTestDir);
-  ScopedDir testScopedDir(kTestDir);
+  ScopedDirCleanup testScopedDir(testDirFullPath);
 
   // Writing |maxspeedsCsvContent| to a file in |kTestDir|.
   ScopedFile testScopedMaxspeedsCsv(base::JoinPath(kTestDir, kCsv), maxspeedsCsvContent);
 
   // Writing |roads| to test mwm.
   LocalCountryFile country(testDirFullPath, CountryFile(kTestMwm), 1 /* version */);
-  string const testMwm = kTestMwm + DATA_FILE_EXTENSION;
-  ScopedFile testScopedMwm(base::JoinPath(kTestDir, testMwm), ScopedFile::Mode::Create);
   BuildGeometry(roads, country);
 
-  string const testMwmFullPath = base::JoinPath(testDirFullPath, testMwm);
+  string const testMwmFullPath = base::JoinPath(testDirFullPath, kTestMwm + DATA_FILE_EXTENSION);
 
   // Create routing graph for test mwm.
   auto const countryParentGetter = [](std::string const &) { return string(); };

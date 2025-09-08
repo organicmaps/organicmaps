@@ -64,18 +64,15 @@ std::unique_ptr<CityRoads> LoadCityRoads(LocalCountryFile const & country)
 /// section and then read from it.
 void TestCityRoadsBuilding(vector<uint32_t> && cityRoadFeatureIds)
 {
-  string const writableDir = GetPlatform().WritableDir();
+  string const testDir = base::JoinPath(GetPlatform().WritableDir(), kTestDir);
+  ScopedDirCleanup scopedDir(testDir);
 
   // Building empty mwm.
-  LocalCountryFile country(base::JoinPath(writableDir, kTestDir), CountryFile(kTestMwm), 0 /* version */);
-  ScopedDir const scopedDir(kTestDir);
-
-  string const mwmRelativePath = base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
-  ScopedFile const scopedMwm(mwmRelativePath, ScopedFile::Mode::Create);
+  LocalCountryFile country(testDir, CountryFile(kTestMwm), 0 /* version */);
   BuildEmptyMwm(country);
 
   // Adding city_roads section to mwm.
-  string const mwmFullPath = base::JoinPath(writableDir, mwmRelativePath);
+  string const mwmFullPath = base::JoinPath(testDir, kTestMwm + DATA_FILE_EXTENSION);
   vector<uint32_t> originalCityRoadFeatureIds = cityRoadFeatureIds;
   routing_builder::SerializeCityRoads(mwmFullPath, std::move(cityRoadFeatureIds));
 

@@ -165,18 +165,16 @@ void TestAltitudesBuilding(std::vector<TPoint3DList> const & roads, bool hasAlti
                            AltitudeGetter & altitudeGetter)
 {
   classificator::Load();
-  Platform & platform = GetPlatform();
-  std::string const testDirFullPath = base::JoinPath(platform.WritableDir(), kTestDir);
+
+  std::string const testDirFullPath = base::JoinPath(GetPlatform().WritableDir(), kTestDir);
+  ScopedDirCleanup testScopedDir(testDirFullPath);
 
   // Building mwm without altitude section.
   LocalCountryFile country(testDirFullPath, CountryFile(kTestMwm), 1);
-  ScopedDir testScopedDir(kTestDir);
-  ScopedFile testScopedMwm(base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION), ScopedFile::Mode::Create);
-
   BuildMwmWithoutAltitudes(roads, country);
 
   // Adding altitude section to mwm.
-  auto const mwmPath = testScopedMwm.GetFullPath();
+  auto const mwmPath = base::JoinPath(testDirFullPath, kTestMwm + DATA_FILE_EXTENSION);
   BuildRoadAltitudes(mwmPath, altitudeGetter);
 
   // Reading from mwm and testing altitude information.
