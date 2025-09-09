@@ -68,10 +68,8 @@ final class SearchOnMapInteractor: NSObject {
       searchManager.setSearchMode(searchModeForPresentationStep(step))
       return .updatePresentationStep(step)
 
-    case .updatePresentationFrame(let frame):
-      let bottomBound = frame.height - frame.origin.y
-      MapViewController.shared()!.setSearchTopBound(bottomBound)
-
+    case .updateVisibleAreaInsets(let insets):
+      MapViewController.shared()!.updateVisibleAreaInsets(for: self, insets: insets)
       return .none
     case .closeSearch:
       return closeSearch()

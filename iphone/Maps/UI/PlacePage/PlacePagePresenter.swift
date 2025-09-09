@@ -1,6 +1,6 @@
 protocol PlacePagePresenterProtocol: AnyObject {
   func layoutIfNeeded()
-  func updateTopBound(_ bound: CGFloat)
+  func updateVisibleAreaInsets(_ insets: UIEdgeInsets)
   func updatePreviewOffset()
   func showNextStop()
   func openURL(_ path: String)
@@ -33,8 +33,8 @@ extension PlacePagePresenter: PlacePagePresenterProtocol {
     view.layoutIfNeeded()
   }
 
-  func updateTopBound(_ bound: CGFloat) {
-    mapViewController?.setPlacePageTopBound(bound)
+  func updateVisibleAreaInsets(_ insets: UIEdgeInsets) {
+    mapViewController.updateVisibleAreaInsets(for: self, insets: insets)
   }
 
   func updatePreviewOffset() {

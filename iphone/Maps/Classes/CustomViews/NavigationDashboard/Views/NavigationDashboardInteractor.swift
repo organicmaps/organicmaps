@@ -113,9 +113,8 @@ extension NavigationDashboard {
         router.rebuild(withBestRouter: false)
         return .show(points: router.points(), routerType: router.type())
 
-      case .updatePresentationFrame(let frame):
-        let bottomBound = frame.height - frame.origin.y
-        mapViewController.setRoutePreviewTopBound(bottomBound)
+      case .updateVisibleAreaInsets(let insets):
+        mapViewController.updateVisibleAreaInsets(for: self, insets: insets)
         return .none
 
       case .setHidden(let hidden):

@@ -21,7 +21,7 @@ extension NavigationDashboard {
     case updateRouteBuildingProgress(CGFloat, routerType: MWMRouterType)
     case updateNavigationInfo(MWMNavigationDashboardEntity)
     case updateElevationInfo(ElevationInfo?)
-    case updatePresentationFrame(CGRect)
+    case updateVisibleAreaInsets(UIEdgeInsets)
     case updateNavigationInfoAvailableArea(CGRect)
     case updateSearchState(SearchOnMapState)
     case updateDrivingOptionsState(MWMDrivingOptionsState)

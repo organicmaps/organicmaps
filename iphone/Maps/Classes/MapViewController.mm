@@ -89,18 +89,19 @@ NSString * const kSettingsSegue = @"Map2Settings";
 @property(nonatomic) CGPoint pointerLocation API_AVAILABLE(ios(14.0));
 @property(nonatomic) CGFloat currentScale;
 @property(nonatomic) CGFloat currentRotation;
-@property(nonatomic) CGFloat placePageTopBound;
-@property(nonatomic) CGFloat routePreviewTopBound;
-@property(nonatomic) CGFloat searchTopBound;
+@property(nonatomic) NSMapTable<NSObject *, NSValue *> * availableAreaInsetsMap;
 
 @property(nonatomic, readwrite) MWMMapDownloadDialog * downloadDialog;
 
 @property(nonatomic) BOOL skipForceTouch;
 
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint * visibleAreaBottom;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint * visibleAreaLeading;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint * visibleAreaTrailing;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint * visibleAreaKeyboard;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint * placePageAreaKeyboard;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint * sideButtonsAreaBottom;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * sideButtonsAreaCompactBottom;  // Enabled only in landscape
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint * sideButtonsAreaKeyboard;
 @property(strong, nonatomic) IBOutlet UIView * carplayPlaceholderView;
 @property(strong, nonatomic) BookmarksCoordinator * bookmarksCoordinator;
@@ -629,6 +630,7 @@ NSString * const kSettingsSegue = @"Map2Settings";
 - (void)initialize
 {
   self.listeners = [NSHashTable<id<MWMLocationModeListener>> weakObjectsHashTable];
+  self.availableAreaInsetsMap = [NSMapTable weakToStrongObjectsMapTable];
   Framework & f = GetFramework();
   // TODO: Review and improve this code.
   f.SetPlacePageListeners([self]() { [self onMapObjectSelected]; }, [self]() { [self onMapObjectDeselected]; },
@@ -878,29 +880,52 @@ NSString * const kSettingsSegue = @"Map2Settings";
   return _downloadDialog;
 }
 
-- (void)setPlacePageTopBound:(CGFloat)bound
+- (void)updateVisibleAreaInsetsFor:(NSObject *)object insets:(UIEdgeInsets)insets
 {
-  _placePageTopBound = bound;
-  [self updateAvailableAreaBound];
+  if (object == nil)
+    return;
+  [self.availableAreaInsetsMap setObject:[NSValue valueWithUIEdgeInsets:insets] forKey:object];
+  [self updateVisibleAreaBounds];
 }
 
-- (void)setRoutePreviewTopBound:(CGFloat)bound
+- (UIEdgeInsets)availableAreaInsets
 {
-  _routePreviewTopBound = bound;
-  [self updateAvailableAreaBound];
+  CGRect bounds = self.view.bounds;
+
+  CGFloat top = 0;
+  CGFloat left = 0;
+  CGFloat bottom = 0;
+  CGFloat right = 0;
+
+  for (id key in self.availableAreaInsetsMap)
+  {
+    NSValue * value = [self.availableAreaInsetsMap objectForKey:key];
+    if (!value)
+      continue;
+
+    UIEdgeInsets areaInsets = [value UIEdgeInsetsValue];
+
+    top = MAX(top, areaInsets.top);
+    left = MAX(left, areaInsets.left);
+    bottom = MAX(bottom, areaInsets.bottom);
+    right = MAX(right, areaInsets.right);
+  }
+
+  if (top + bottom >= CGRectGetHeight(bounds) || left + right >= CGRectGetWidth(bounds))
+    return UIEdgeInsetsZero;
+
+  return UIEdgeInsetsMake(top, left, bottom, right);
 }
 
-- (void)setSearchTopBound:(CGFloat)bound
+- (void)updateVisibleAreaBounds
 {
-  _searchTopBound = bound;
-  [self updateAvailableAreaBound];
-}
+  UIEdgeInsets availableAreaInsets = [self availableAreaInsets];
 
-- (void)updateAvailableAreaBound
-{
-  CGFloat bound = MAX(self.placePageTopBound, MAX(self.routePreviewTopBound, self.searchTopBound));
-  self.visibleAreaBottom.constant = bound;
-  self.sideButtonsAreaBottom.constant = bound;
+  self.visibleAreaBottom.constant = availableAreaInsets.bottom;
+  self.visibleAreaLeading.constant = availableAreaInsets.left;
+  self.visibleAreaTrailing.constant = availableAreaInsets.right;
+  self.sideButtonsAreaBottom.constant = availableAreaInsets.bottom;
+  self.sideButtonsAreaCompactBottom.constant = availableAreaInsets.bottom;
 }
 
 + (void)setViewport:(double)lat lon:(double)lon zoomLevel:(int)zoomLevel

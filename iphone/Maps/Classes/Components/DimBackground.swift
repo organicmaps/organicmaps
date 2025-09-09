@@ -1,6 +1,6 @@
 @objc(MWMDimBackground)
 final class DimBackground: SolidTouchView {
-  private let mainView: UIView
+  private weak var mainView: UIView?
   private var tapAction: () -> Void
 
   @objc init(mainView: UIView, tapAction: @escaping () -> Void) {
@@ -17,7 +17,7 @@ final class DimBackground: SolidTouchView {
   }
 
   @objc func setVisible(_ visible: Bool, completion: (() -> Void)?) {
-    if visible {
+    if let mainView, visible {
       let sv = mainView.superview!
       frame = sv.bounds
       sv.insertSubview(self, belowSubview: mainView)

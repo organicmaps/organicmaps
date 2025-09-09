@@ -41,8 +41,9 @@ final class PlacePageScrollView: UIScrollView {
   private var previousTraitCollection: UITraitCollection?
   private var layout: IPlacePageLayout!
   private var scrollSteps: [PlacePageState] = []
-  var isPreviewPlus: Bool = false
   private var isNavigationBarVisible = false
+
+  var isPreviewPlus: Bool = false
 
   // MARK: - VC Lifecycle
 
@@ -270,7 +271,7 @@ final class PlacePageScrollView: UIScrollView {
       beginDragging = true
     }
     let scrollPosition = CGPoint(x: point.x, y: min(scrollView.contentSize.height - scrollView.height, point.y))
-    let bound = view.height + scrollPosition.y
+    let bound = view.frame.height + scrollPosition.y
     if animated {
       updateTopBound(bound)
       UIView.animate(withDuration: kDefaultAnimationDuration, animations: { [weak scrollView] in
@@ -295,7 +296,9 @@ final class PlacePageScrollView: UIScrollView {
 
   private func updateTopBound(_ bound: CGFloat) {
     alternativeSizeClass(iPhone: {
-      interactor?.updateTopBound(bound)
+      let isCompact = traitCollection.verticalSizeClass == .compact
+      let insets = UIEdgeInsets(top: 0, left: 0, bottom: isCompact ? 0 : bound, right: 0)
+      self.interactor?.updateVisibleAreaInsets(insets)
     }, iPad: {})
   }
 }
@@ -341,7 +344,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
   func close(completion: @escaping (() -> Void)) {
     view.isUserInteractionEnabled = false
     let onCloseCompletion = {
-      self.interactor?.updateTopBound(.zero)
+      self.updateTopBound(.zero)
       completion()
     }
     alternativeSizeClass(iPhone: {
@@ -373,7 +376,6 @@ extension PlacePageViewController: UIScrollViewDelegate {
       interactor?.close()
     }
     onOffsetChanged(scrollView.contentOffset.y)
-
     let bound = view.height + scrollView.contentOffset.y
     updateTopBound(bound)
   }
