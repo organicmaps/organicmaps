@@ -155,12 +155,19 @@ final class NavigationDashboardViewController: UIViewController {
       case .didClose:
         self.interactor?.process(.close)
       case .didUpdateFrame(let frame):
-        self.interactor?.process(.updatePresentationFrame(frame))
+        self.interactor?.process(.updateVisibleAreaInsets(visibleAreaInsets(for: frame)))
       case .didUpdateStep(let step):
         self.interactor?.process(.didUpdatePresentationStep(step))
         break
       }
     }
+  }
+
+  private func visibleAreaInsets(for frame: CGRect) -> UIEdgeInsets {
+    let isCompact = traitCollection.verticalSizeClass == .compact
+    let bottom = (isCompact || isiPad) ? 0 : frame.height - frame.origin.y
+    let left = isiPad ? frame.origin.x + frame.width : 0
+    return UIEdgeInsets(top: 0, left: left, bottom: bottom, right: 0)
   }
 
   private func setupGestureRecognizers() {
@@ -369,6 +376,7 @@ final class NavigationDashboardViewController: UIViewController {
   }
 
   private func close() {
+    navigationControlView.isVisible = false
     bottomActionsMenu.setHidden(true)
     willMove(toParent: nil)
     presentationStepsController.close { [weak self] in

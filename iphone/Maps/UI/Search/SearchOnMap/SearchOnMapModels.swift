@@ -58,7 +58,7 @@ enum SearchOnMap {
     case didSelectPlaceOnMap
     case didDeselectPlaceOnMap
     case didUpdatePresentationStep(SearchOnMapModalPresentationStep)
-    case updatePresentationFrame(CGRect)
+    case updateVisibleAreaInsets(UIEdgeInsets)
   }
 
   enum Response: Equatable {

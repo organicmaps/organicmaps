@@ -64,7 +64,8 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
 
       dimBackground.setVisible(isExtended, completion: nil)
       extendedView.isHidden = !isExtended
-      superview!.animateConstraints(animations: {
+      superview!.animateConstraints(animations: { [weak self] in
+        guard let self else { return }
         if (self.isExtended) {
           self.notExtendedConstraint.isActive = false
           self.extendedConstraint.isActive = true
@@ -77,7 +78,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
   }
 
   private func addView() {
-    guard superview != ownerView else { return }
+    guard superview != ownerView, !ownerView.subviews.contains(self) else { return }
     ownerView.addSubview(self)
 
     let lg = ownerView.safeAreaLayoutGuide
@@ -89,9 +90,12 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
 
     notExtendedConstraint = progressView.bottomAnchor.constraint(equalTo: lg.bottomAnchor)
     notExtendedConstraint.isActive = true
+
+    updateVisibleViewportArea()
   }
 
   private func removeView() {
+    updateVisibleViewportArea(onClose: true)
     dimBackground.setVisible(false, completion: {
       self.removeFromSuperview()
     })
@@ -109,6 +113,13 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
     updateLegendSize()
+    updateVisibleViewportArea()
+  }
+
+  private func updateVisibleViewportArea(onClose: Bool = false) {
+    let bottom = frame.height / 2
+    let insets = UIEdgeInsets(top: 0, left: 0, bottom: onClose ? 0 : bottom, right: 0)
+    MapViewController.shared()?.updateVisibleAreaInsets(for: self, insets: insets)
   }
 
   func updateLegendSize() {

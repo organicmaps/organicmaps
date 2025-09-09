@@ -262,13 +262,20 @@ final class SearchOnMapViewController: UIViewController {
       case .didClose:
         self.interactor?.handle(.closeSearch)
       case .didUpdateFrame(let frame):
-        self.interactor?.handle(.updatePresentationFrame(frame))
         self.presentationFrameDidChange(frame)
+        self.interactor?.handle(.updateVisibleAreaInsets(visibleAreaInsets(for: frame)))
         self.updateDimView(for: frame)
       case .didUpdateStep(let step):
         self.interactor?.handle(.didUpdatePresentationStep(step))
       }
     }
+  }
+
+  private func visibleAreaInsets(for frame: CGRect) -> UIEdgeInsets {
+    let isCompact = traitCollection.verticalSizeClass == .compact
+    let bottom = (isCompact || isiPad) ? 0 : frame.height - frame.origin.y
+    let left = isiPad ? frame.origin.x + frame.width : 0
+    return UIEdgeInsets(top: 0, left: left, bottom: bottom, right: 0)
   }
 
   private func updateDimView(for frame: CGRect) {
