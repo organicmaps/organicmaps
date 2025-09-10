@@ -1,5 +1,4 @@
-@objc(MWMNavigationControlView)
-final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapOverlayManagerObserver {
+final class NavigationControlView: SolidTouchView {
   @IBOutlet private weak var distanceLabel: UILabel!
   @IBOutlet private weak var distanceLegendLabel: UILabel!
   @IBOutlet private weak var distanceWithLegendLabel: UILabel!
@@ -11,6 +10,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
   @IBOutlet private weak var speedWithLegendLabel: UILabel!
   @IBOutlet private weak var timeLabel: UILabel!
   @IBOutlet private weak var timePageControl: UIPageControl!
+  @IBOutlet private weak var extendedView: UIView!
 
   @IBOutlet private weak var extendButton: UIButton! {
     didSet {
@@ -20,9 +20,9 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
 
   @IBOutlet private weak var ttsButton: UIButton! {
     didSet {
-      ttsButton.setImage(#imageLiteral(resourceName: "ic_voice_off"), for: .normal)
-      ttsButton.setImage(#imageLiteral(resourceName: "ic_voice_on"), for: .selected)
-      ttsButton.setImage(#imageLiteral(resourceName: "ic_voice_on"), for: [.selected, .highlighted])
+      ttsButton.setImage(UIImage(resource: .icVoiceOff), for: .normal)
+      ttsButton.setImage(UIImage(resource: .icVoiceOn), for: .selected)
+      ttsButton.setImage(UIImage(resource: .icVoiceOn), for: [.selected, .highlighted])
       onTTSStatusUpdated()
     }
   }
@@ -33,16 +33,15 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     })
   }()
 
-  @objc weak var ownerView: UIView!
-  @objc weak var delegate: RouteNavigationControlsDelegate!
-
-  @IBOutlet private weak var extendedView: UIView!
+  weak var ownerView: UIView!
+  weak var delegate: RouteNavigationControlsDelegate!
 
   private weak var navigationInfo: MWMNavigationDashboardEntity?
-
   private var extendedConstraint: NSLayoutConstraint!
   private var notExtendedConstraint: NSLayoutConstraint!
-  @objc var isVisible = false {
+  private let diminishSelector = #selector(diminish)
+
+  var isVisible = false {
     didSet {
       guard isVisible != oldValue else { return }
       if isVisible {
@@ -77,6 +76,20 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     }
   }
 
+  override func awakeFromNib() {
+    super.awakeFromNib()
+
+    updateLegendSize()
+
+    MWMTextToSpeech.add(self)
+  }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    updateLegendSize()
+    updateVisibleViewportArea()
+  }
+
   private func addView() {
     guard superview != ownerView, !ownerView.subviews.contains(self) else { return }
     ownerView.addSubview(self)
@@ -95,25 +108,12 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
   }
 
   private func removeView() {
+    // Cancel diminish timer on remove, otherwise performSelector keeps the view alive ~5s after close, blocking deinit.
+    cancelDiminishTimer()
     updateVisibleViewportArea(onClose: true)
     dimBackground.setVisible(false, completion: {
       self.removeFromSuperview()
     })
-  }
-
-  override func awakeFromNib() {
-    super.awakeFromNib()
-
-    updateLegendSize()
-
-    MWMTextToSpeech.add(self)
-    MapOverlayManager.add(self)
-  }
-
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    super.traitCollectionDidChange(previousTraitCollection)
-    updateLegendSize()
-    updateVisibleViewportArea()
   }
 
   private func updateVisibleViewportArea(onClose: Bool = false) {
@@ -122,7 +122,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     MapViewController.shared()?.updateVisibleAreaInsets(for: self, insets: insets)
   }
 
-  func updateLegendSize() {
+  private func updateLegendSize() {
     let isCompact = traitCollection.verticalSizeClass == .compact
     distanceLabel.isHidden = isCompact
     distanceLegendLabel.isHidden = isCompact
@@ -135,7 +135,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     timePageControl.transform = CGAffineTransform(scaleX: pgScale, y: pgScale)
   }
 
-  @objc func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
+  func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
     navigationInfo = info
     guard isVisible else { return }
     let routingNumberAttributes: [NSAttributedString.Key: Any] =
@@ -260,29 +260,23 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
       if imageView.isAnimating {
         self.setExtendButtonImage()
       } else {
-        self.extendButton.setImage(self.isExtended ? #imageLiteral(resourceName: "ic_menu_down") : #imageLiteral(resourceName: "ic_menu"), for: .normal)
+        self.extendButton.setImage(UIImage(resource: self.isExtended ? .icMenuDown : .icMenu), for: .normal)
       }
     }
   }
 
   private func refreshDiminishTimer() {
-    let sel = #selector(diminish)
-    NSObject.cancelPreviousPerformRequests(withTarget: self, selector: sel, object: self)
-    perform(sel, with: self, afterDelay: 5)
+    cancelDiminishTimer()
+    perform(diminishSelector, with: self, afterDelay: 5)
+  }
+
+  private func cancelDiminishTimer() {
+    NSObject.cancelPreviousPerformRequests(withTarget: self, selector: diminishSelector, object: self)
   }
 
   @objc
   private func diminish() {
     isExtended = false
-  }
-
-  func onTTSStatusUpdated() {
-    guard MWMRouter.isRoutingActive() else { return }
-    ttsButton.isHidden = !MWMTextToSpeech.isTTSEnabled()
-    if !ttsButton.isHidden {
-      ttsButton.isSelected = MWMTextToSpeech.tts().active
-    }
-    refreshDiminishTimer()
   }
 
   override func applyTheme() {
@@ -300,5 +294,16 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
 
   override var trackRecordingButtonAreaAffectDirections: MWMAvailableAreaAffectDirections {
     return .bottom
+  }
+}
+
+extension NavigationControlView: MWMTextToSpeechObserver {
+  func onTTSStatusUpdated() {
+    guard MWMRouter.isRoutingActive() else { return }
+    ttsButton.isHidden = !MWMTextToSpeech.isTTSEnabled()
+    if !ttsButton.isHidden {
+      ttsButton.isSelected = MWMTextToSpeech.tts().active
+    }
+    refreshDiminishTimer()
   }
 }

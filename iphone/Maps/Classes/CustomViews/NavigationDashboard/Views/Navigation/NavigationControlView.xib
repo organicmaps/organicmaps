@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMNavigationDashboardManager"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9fq-65-qd9" customClass="MWMNavigationControlView" propertyAccessControl="none">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9fq-65-qd9" customClass="NavigationControlView" customModule="Organic_Maps" customModuleProvider="target" propertyAccessControl="none">
             <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jBZ-WO-Nz7">
