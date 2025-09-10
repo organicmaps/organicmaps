@@ -2,14 +2,11 @@
 
 #include "generator/generator_tests_support/test_with_classificator.hpp"
 
-#include "indexer/classificator_loader.hpp"
-#include "indexer/data_header.hpp"
 #include "indexer/data_source.hpp"
 
 #include "search/categories_cache.hpp"
 #include "search/locality_finder.hpp"
 
-#include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
@@ -66,8 +63,8 @@ public:
     for (size_t i = 0; i < input.size(); ++i)
     {
       std::string_view result;
-      m_finder.GetLocality(mercator::FromLatLon(input[i]), [&](search::LocalityItem const & item)
-      { item.GetSpecifiedOrDefaultName(StringUtf8Multilang::kEnglishCode, result); });
+      if (auto loc = m_finder.GetBestLocality(mercator::FromLatLon(input[i])))
+        loc->GetSpecifiedOrDefaultName(StringUtf8Multilang::kEnglishCode, result);
       TEST_EQUAL(result, results[i], ());
     }
   }

@@ -98,12 +98,11 @@ private:
   friend class RankerResultMaker;
 
   void MakeRankerResults();
+  std::string ResolveAddress(RankerResult const & res) const;
 
   void GetBestMatchName(FeatureType & f, std::string & name) const;
   void MatchForSuggestions(strings::UniString const & token, int8_t locale, std::string const & prolog);
   void ProcessSuggestions(std::vector<RankerResult> const & vec) const;
-
-  std::string GetLocalizedRegionInfoForResult(RankerResult const & result) const;
 
   Params m_params;
   Geocoder::Params m_geocoderParams;

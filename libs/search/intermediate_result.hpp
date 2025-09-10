@@ -138,8 +138,7 @@ public:
   double GetDistanceToPivot() const { return m_info.m_distanceToPivot; }
   double GetLinearModelRank() const { return m_finalRank; }
 
-  bool GetCountryId(storage::CountryInfoGetter const & infoGetter, uint32_t ftype,
-                    storage::CountryId & countryId) const;
+  bool GetCountryId(storage::CountryInfoGetter const & infoGetter, storage::CountryId & countryId) const;
 
   bool IsEqualBasic(RankerResult const & r) const;
   bool IsEqualCommon(RankerResult const & r) const;

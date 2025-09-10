@@ -280,23 +280,6 @@ ftypes::LocalityType GetLocalityIndex(feature::TypesHolder const & types)
   UNREACHABLE();
 }
 
-// TODO: Format street and house number according to local country's rules.
-string FormatStreetAndHouse(ReverseGeocoder::Address const & addr)
-{
-  return addr.GetStreetName() + ", " + addr.GetHouseNumber();
-}
-
-// TODO: Share common formatting code for search results and place page.
-string FormatFullAddress(ReverseGeocoder::Address const & addr, string const & region)
-{
-  /// @todo Print "near" for not exact addresses.
-  /// Add some threshold for addr:interpolation or refactor ReverseGeocoder?
-  if (addr.GetDistance() != 0)
-    return region;
-
-  return FormatStreetAndHouse(addr) + (region.empty() ? "" : ", ") + region;
-}
-
 }  // namespace
 
 class RankerResultMaker
@@ -450,6 +433,10 @@ private:
         name = platform::GetLocalizedBrandName(std::string{brand});
     }
 
+    /// @todo Ensure that we actually need to get and assign address here? Needed for the ranking?
+    /// Why not to prolong until MakeResult? If yes, avoid reading street's FeatureType,
+    /// since we already have addr.m_street.m_multilangName
+
     // Insert exact address (street and house number) instead of empty result name.
     if (!m_isViewportMode && name.empty())
     {
@@ -481,7 +468,7 @@ private:
         {
           string streetName;
           m_ranker.GetBestMatchName(*streetFeature, streetName);
-          name = streetName + ", " + addr.GetHouseNumber();
+          name = addr.FormatStreetHN(streetName);
         }
       }
     }
@@ -704,26 +691,57 @@ void Ranker::Finish(bool cancelled)
   m_emitter.Finish(cancelled);
 }
 
+std::string Ranker::ResolveAddress(RankerResult const & res) const
+{
+  std::string region, st_hn_post;
+
+  storage::CountryId countryID;
+  if (res.GetCountryId(m_infoGetter, countryID))
+    region = m_regionInfoGetter.GetLocalizedFullName(countryID);
+
+  // Format full address only for suitable results.
+  if (ftypes::IsAddressObjectChecker::Instance()(res.GetTypes()))
+  {
+    ReverseGeocoder::Address addr;
+    if (!(res.GetID().IsValid() && m_reverseGeocoder.GetExactAddress(res.GetID(), addr)))
+      m_reverseGeocoder.GetNearbyAddress(res.GetCenter(), addr);
+
+    /// @todo Print "near" for not exact addresses.
+    /// Add some threshold for addr:interpolation or refactor ReverseGeocoder?
+    if (addr.GetDistance() == 0)
+      st_hn_post = addr.FormatAddress();
+  }
+
+  if (LocalityItem const * pLoc = m_localities.GetBestLocality(res.GetCenter()); pLoc)
+  {
+    /// @todo https://github.com/organicmaps/organicmaps/issues/2613
+    std::string_view cityDefName;
+    if (countryID.starts_with("China_") && pLoc->GetName(StringUtf8Multilang::kDefaultCode, cityDefName) &&
+        (cityDefName.contains("Macau") || cityDefName.contains("Hong Kong")))
+      region.clear();
+
+    if (ftypes::IsLocalityChecker::Instance().GetType(res.GetTypes()) == ftypes::LocalityType::None)
+    {
+      std::string city;
+      if (pLoc->GetReadableName(city))
+      {
+        if (!region.empty())
+          city += ", ";
+        if (!region.starts_with(city))
+          region = city + region;
+      }
+    }
+  }
+
+  return ReverseGeocoder::Join(st_hn_post, region);
+}
+
 Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, bool needHighlighting) const
 {
   Result res(rankerResult.GetCenter(), rankerResult.m_str);
 
   if (needAddress)
-  {
-    string address = GetLocalizedRegionInfoForResult(rankerResult);
-
-    // Format full address only for suitable results.
-    if (ftypes::IsAddressObjectChecker::Instance()(rankerResult.GetTypes()))
-    {
-      ReverseGeocoder::Address addr;
-      if (!(rankerResult.GetID().IsValid() && m_reverseGeocoder.GetExactAddress(rankerResult.GetID(), addr)))
-        m_reverseGeocoder.GetNearbyAddress(rankerResult.GetCenter(), addr);
-
-      address = FormatFullAddress(addr, address);
-    }
-
-    res.SetAddress(std::move(address));
-  }
+    res.SetAddress(ResolveAddress(rankerResult));
 
   switch (rankerResult.GetResultType())
   {
@@ -734,17 +752,6 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, b
     break;
   case RankerResult::Type::LatLon: res.SetType(Result::Type::LatLon); break;
   case RankerResult::Type::Postcode: res.SetType(Result::Type::Postcode); break;
-  }
-
-  if (needAddress &&
-      ftypes::IsLocalityChecker::Instance().GetType(rankerResult.GetTypes()) == ftypes::LocalityType::None)
-  {
-    m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item)
-    {
-      string_view city;
-      if (item.GetReadableName(city))
-        res.PrependCity(city);
-    });
   }
 
   if (needHighlighting)
@@ -990,17 +997,6 @@ void Ranker::ProcessSuggestions(vector<RankerResult> const & vec) const
       }
     }
   }
-}
-
-string Ranker::GetLocalizedRegionInfoForResult(RankerResult const & result) const
-{
-  auto const type = result.GetBestType(&m_params.m_preferredTypes);
-
-  storage::CountryId id;
-  if (!result.GetCountryId(m_infoGetter, type, id))
-    return {};
-
-  return m_regionInfoGetter.GetLocalizedFullName(id);
 }
 
 }  // namespace search
