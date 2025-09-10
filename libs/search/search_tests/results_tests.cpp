@@ -38,21 +38,4 @@ UNIT_TEST(Results_Sorting)
     TEST_EQUAL(result.GetPositionInResults(), std::distance(r.begin(), it), ());
   }
 }
-
-UNIT_TEST(Result_PrependCity)
-{
-  {
-    search::Result r(m2::PointD::Zero(), {});
-    r.SetAddress("Moscow, Russia");
-    r.PrependCity("Moscow");
-    TEST_EQUAL(r.GetAddress(), "Moscow, Russia", ());
-  }
-
-  {
-    search::Result r(m2::PointD::Zero(), "улица Михася Лынькова");
-    r.SetAddress("Минская область, Беларусь");
-    r.PrependCity("Минск");
-    TEST_EQUAL(r.GetAddress(), "Минск, Минская область, Беларусь", ());
-  }
-}
 }  // namespace search_tests

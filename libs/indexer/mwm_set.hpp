@@ -82,9 +82,7 @@ public:
   MwmTypeT GetType() const;
 
   feature::RegionData const & GetRegionData() const { return m_data; }
-
-  /// Returns the lock counter value for test needs.
-  uint8_t GetNumRefs() const { return m_numRefs; }
+  bool IsAddressLikeUS() const;
 
 protected:
   Status SetStatus(Status status)

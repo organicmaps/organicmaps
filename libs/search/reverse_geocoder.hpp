@@ -7,7 +7,6 @@
 
 #include "coding/string_utf8_multilang.hpp"
 
-#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -65,16 +64,33 @@ public:
   struct Building : public Object
   {
     m2::PointD m_center;
+    std::string m_postcode;
 
     // To investigate possible errors.
     // There are no houses in (0, 0) coordinates.
     Building() : m_center(0, 0) {}
 
-    Building(FeatureID const & id, double dist, std::string const & number, m2::PointD const & center)
+    Building(FeatureID const & id, double dist, std::string const & number, m2::PointD const & center,
+             std::string_view postcode)
       : Object(id, dist, number)
       , m_center(center)
+      , m_postcode(postcode)
     {}
   };
+
+  // Following methods join only non-empty arguments in order with commas.
+  static std::string Join(std::string const & s) { return s; }
+
+  template <typename... Args>
+  static std::string Join(std::string const & s, Args &&... args)
+  {
+    auto tail = Join(std::forward<Args>(args)...);
+    if (s.empty())
+      return tail;
+    if (tail.empty())
+      return s;
+    return s + ", " + tail;
+  }
 
   struct Address
   {
@@ -85,9 +101,10 @@ public:
     std::string const & GetStreetName() const { return m_street.m_name; }
     double GetDistance() const { return m_building.m_distanceMeters; }
     bool IsValid() const { return m_building.IsValid() && m_street.IsValid(); }
+    bool IsAddressLikeUS() const;
 
-    // 7 vulica Frunze
     std::string FormatAddress() const;
+    std::string FormatStreetHN(std::string const & street) const;
   };
 
   struct RegionAddress

@@ -129,6 +129,9 @@ public:
   {
     return !m_uiTrackStatistics.empty() ? m_uiTrackStatistics : m_uiAddress;
   }
+  /// Used in desktop PP (instead of GetSecondarySubtitle).
+  std::string const & GetAddress() const { return m_address; }
+
   std::string const & GetWikiDescription() const { return m_wikiDescription; }
   std::string const & GetOSMDescription() const { return m_osmDescription; }
   /// @returns coordinate in DMS format if isDMS is true

@@ -14,7 +14,6 @@
 #include "map/framework.hpp"
 
 #include "search/result.hpp"
-#include "search/reverse_geocoder.hpp"
 
 #include "routing/following_info.hpp"
 #include "routing/routing_callbacks.hpp"
@@ -661,23 +660,13 @@ void DrawWidget::OnRouteRecommendation(RoutingManager::Recommendation recommenda
 void DrawWidget::ShowPlacePage()
 {
   place_page::Info const & info = m_framework.GetCurrentPlacePageInfo();
-  search::ReverseGeocoder::Address address;
-  if (info.IsFeature())
-  {
-    search::ReverseGeocoder const coder(m_framework.GetDataSource());
-    coder.GetExactAddress(info.GetID(), address);
-  }
-  else
-  {
-    address = m_framework.GetAddressAtPoint(info.GetMercator());
-  }
 
   std::unique_ptr<QDialog> placePageDialog = nullptr;
   bool developerMode;
   if (settings::Get(settings::kDeveloperMode, developerMode) && developerMode)
-    placePageDialog = std::make_unique<PlacePageDialogDeveloper>(this, info, address);
+    placePageDialog = std::make_unique<PlacePageDialogDeveloper>(this, info);
   else
-    placePageDialog = std::make_unique<PlacePageDialogUser>(this, info, address);
+    placePageDialog = std::make_unique<PlacePageDialogUser>(this, info);
 
   switch (placePageDialog->exec())
   {
@@ -705,25 +694,20 @@ void DrawWidget::ShowPlacePage()
   }
   break;
   case place_page_dialog::RouteFrom:
-  {
     SetRoutePointAddMode(RouteMarkType::Start);
     SubmitRoutingPoint(info.GetMercator(), true);
-  }
-  break;
+    break;
   case place_page_dialog::AddStop:
-  {
     SetRoutePointAddMode(RouteMarkType::Intermediate);
     SubmitRoutingPoint(info.GetMercator(), true);
-  }
-  break;
+    break;
   case place_page_dialog::RouteTo:
-  {
     SetRoutePointAddMode(RouteMarkType::Finish);
     SubmitRoutingPoint(info.GetMercator(), true);
-  }
-  break;
+    break;
   default: break;
   }
+
   m_framework.DeactivateMapSelection();
 }
 

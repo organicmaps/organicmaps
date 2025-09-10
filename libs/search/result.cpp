@@ -195,17 +195,6 @@ pair<uint16_t, uint16_t> const & Result::GetDescHighlightRange(size_t idx) const
   return m_descHightlightRanges[idx];
 }
 
-void Result::PrependCity(string_view city)
-{
-  // It is expected that if |m_address| is not empty,
-  // it starts with the region name. Avoid duplication
-  // in the case where this region name coincides with
-  // the city name and prepend otherwise.
-  strings::SimpleTokenizer tok(m_address, ",");
-  if (tok && *tok != city)
-    m_address = std::string(city) + ", " + m_address;
-}
-
 string Result::ToStringForStats() const
 {
   string readableType;

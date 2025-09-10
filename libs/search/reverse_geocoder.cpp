@@ -40,27 +40,9 @@ m2::RectD GetLookupRect(m2::PointD const & center, double radiusM)
   return mercator::RectByCenterXYAndSizeInMeters(center, radiusM);
 }
 
-// Following methods join only non-empty arguments in order with
-// commas.
-string Join(string const & s)
-{
-  return s;
-}
-
-template <typename... Args>
-string Join(string const & s, Args &&... args)
-{
-  auto tail = Join(std::forward<Args>(args)...);
-  if (s.empty())
-    return tail;
-  if (tail.empty())
-    return s;
-  return s + ", " + tail;
-}
-
 ReverseGeocoder::Building FromFeatureImpl(FeatureType & ft, std::string const & hn, double distMeters)
 {
-  return {ft.GetID(), distMeters, hn, feature::GetCenter(ft)};
+  return {ft.GetID(), distMeters, hn, feature::GetCenter(ft), ft.GetMetadata(feature::Metadata::FMD_POSTCODE)};
 }
 
 std::string const & GetHouseNumber(FeatureType & ft)
@@ -238,15 +220,12 @@ bool ReverseGeocoder::GetNearbyAddress(HouseTable & table, Building const & bld,
     //  }
   case HouseToStreetTable::StreetIdType::FeatureId:
   {
-    FeatureID streetFeature(bld.m_id.m_mwmId, res->m_streetId);
-    CHECK(bld.m_id.m_mwmId.IsAlive(), (bld.m_id.m_mwmId));
     m_dataSource.ReadFeature([&bld, &addr](FeatureType & ft)
     {
-      double distance = feature::GetMinDistanceMeters(ft, bld.m_center);
+      double const distance = feature::GetMinDistanceMeters(ft, bld.m_center);
       addr.m_street = Street(ft.GetID(), distance, ft.GetReadableName(), ft.GetNames());
-    }, streetFeature);
+    }, FeatureID(bld.m_id.m_mwmId, res->m_streetId));
 
-    CHECK(!addr.m_street.m_multilangName.IsEmpty(), (bld.m_id.m_mwmId, res->m_streetId));
     addr.m_building = bld;
     return true;
   }
@@ -354,17 +333,31 @@ std::optional<HouseToStreetTable::Result> ReverseGeocoder::HouseTable::Get(Featu
   return res;
 }
 
+bool ReverseGeocoder::Address::IsAddressLikeUS() const
+{
+  if (m_building.m_id.m_mwmId.IsAlive())
+    return m_building.m_id.m_mwmId.GetInfo()->IsAddressLikeUS();
+  return false;
+}
+
 string ReverseGeocoder::Address::FormatAddress() const
 {
-  // Check whether we can format address according to the query type
-  // and actual address distance.
-
-  // TODO (@m, @y): we can add "Near" prefix here in future according
-  // to the distance.
+  // TODO (@m, @y): we can add "Near" prefix here in future according to the distance.
   if (m_building.m_distanceMeters > 200.0)
     return {};
 
-  return Join(m_street.m_name, m_building.m_name);
+  if (IsAddressLikeUS())
+    return Join(m_building.m_name, m_street.m_name, m_building.m_postcode);
+  else
+    return Join(m_street.m_name, m_building.m_name, m_building.m_postcode);
+}
+
+std::string ReverseGeocoder::Address::FormatStreetHN(std::string const & street) const
+{
+  if (IsAddressLikeUS())
+    return Join(m_building.m_name, street);
+  else
+    return Join(street, m_building.m_name);
 }
 
 bool ReverseGeocoder::RegionAddress::IsValid() const
