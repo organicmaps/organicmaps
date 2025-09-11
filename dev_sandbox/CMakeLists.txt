@@ -66,15 +66,12 @@ set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${BUNDLE_NAME})
 
 set(BUNDLE_EXECUTABLE ${BUNDLE_NAME})
 
-set(BUNDLE_FOLDER ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/${BUNDLE_NAME}.app)
+set(BUNDLE_FOLDER ${CMAKE_BINARY_DIR}/${BUNDLE_NAME}.app)
 set(RESOURCES_FOLDER ${BUNDLE_FOLDER}/Contents/Resources)
 set(DATA_DIR ${OMIM_ROOT}/data)
 
-execute_process(
-  COMMAND mkdir -p ${RESOURCES_FOLDER}/shaders_compiler
-)
-
 function(copy_resources)
+  execute_process(COMMAND mkdir -p ${RESOURCES_FOLDER})
   foreach(file ${ARGN})
     execute_process(
       COMMAND cp -r ${DATA_DIR}/${file} ${RESOURCES_FOLDER}
