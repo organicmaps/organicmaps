@@ -825,7 +825,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     AddUserEvent(make_unique_dp<SetVisibleViewportEvent>(msg->GetRect()));
     m_myPositionController->SetVisibleViewport(msg->GetRect());
     m_myPositionController->UpdatePosition();
-    PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
+    // PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
     break;
   }
 
@@ -2055,7 +2055,7 @@ void FrontendRenderer::OnScaleEnded()
 void FrontendRenderer::OnAnimatedScaleEnded()
 {
   m_myPositionController->ResetBlockAutoZoomTimer();
-  PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
+  // PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
   m_firstLaunchAnimationInterrupted = true;
   m_selectionTrackInfo.reset();
 }
