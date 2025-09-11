@@ -85,6 +85,7 @@ set(SRC
   app/organicmaps/sdk/util/StringUtils.cpp
   app/organicmaps/sdk/util/UiThread.cpp
   app/organicmaps/sdk/vulkan/android_vulkan_context_factory.cpp
+  app/organicmaps/sdk/widget/gui/SpeedLimit.cpp
 )
 
 omim_add_library(${PROJECT_NAME} SHARED ${SRC})

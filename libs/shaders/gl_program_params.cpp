@@ -160,9 +160,18 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<
   Parameter::CheckApply(guard, "u_projection", params.m_projection);
   Parameter::CheckApply(guard, "u_contrastGamma", params.m_contrastGamma);
   Parameter::CheckApply(guard, "u_position", params.m_position);
+
+  Parameter::CheckApply(guard, "u_colorTexCoords", params.m_colorTexCoords);
+  Parameter::CheckApply(guard, "u_outlineColorTexCoords", params.m_outlineColorTexCoords);
+  Parameter::CheckApply(guard, "u_edgeColorTexCoords", params.m_edgeColorTexCoords);
+
   Parameter::CheckApply(guard, "u_isOutlinePass", params.m_isOutlinePass);
   Parameter::CheckApply(guard, "u_opacity", params.m_opacity);
   Parameter::CheckApply(guard, "u_length", params.m_length);
+  Parameter::CheckApply(guard, "u_radius", params.m_radius);
+
+  Parameter::CheckApply(guard, "u_outlineWidthRatio", params.m_outlineWidthRatio);
+  Parameter::CheckApply(guard, "u_edgeWidthRatio", params.m_edgeWidthRatio);
 }
 
 void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
