@@ -417,6 +417,8 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   m_route->GetNextNextTurnStreetName(nextNextRoadNameInfo);
   GetFullRoadName(nextNextRoadNameInfo, info.m_nextNextStreetName);
 
+  info.m_isInTunnel = m_route->IsInTunnel();
+
   info.m_completionPercent = GetCompletionPercent();
 
   // Lane information
