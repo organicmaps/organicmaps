@@ -81,7 +81,7 @@ bool GeojsonParser::Parse(std::string_view & json_content)
       auto markerColorVal = (*props_json)["marker-color"];
       if (markerColorVal.is_string())
       {
-        auto colorRGBA = ParseColor(markerColorVal.get_string());
+        auto colorRGBA = ParseHexOsmGarminColor(markerColorVal.get_string());
         if (colorRGBA)
           bookmark.m_color = ColorData{.m_predefinedColor = MapPredefinedColor(*colorRGBA), .m_rgba = *colorRGBA};
       }
@@ -101,7 +101,7 @@ bool GeojsonParser::Parse(std::string_view & json_content)
         auto colorVal = umap_options["color"];
         if (colorVal.is_string())
         {
-          auto colorRGBA = ParseColor(colorVal.get_string());
+          auto colorRGBA = ParseHexOsmGarminColor(colorVal.get_string());
           if (colorRGBA)
             bookmark.m_color = ColorData{.m_rgba = *colorRGBA};
         }
@@ -152,7 +152,7 @@ bool GeojsonParser::Parse(std::string_view & json_content)
       auto strokeVal = (*props_json)["stroke"];
       if (strokeVal.is_string())
       {
-        auto colorRGBA = ParseColor(strokeVal.get_string());
+        auto colorRGBA = ParseHexOsmGarminColor(strokeVal.get_string());
         if (colorRGBA)
           lineColor = new ColorData{.m_rgba = *colorRGBA};
       }
@@ -166,7 +166,7 @@ bool GeojsonParser::Parse(std::string_view & json_content)
         auto colorVal = (*props_json)["color"];
         if (colorVal.is_string())
         {
-          auto colorRGBA = ParseColor(colorVal.get_string());
+          auto colorRGBA = ParseHexOsmGarminColor(colorVal.get_string());
           if (colorRGBA)
           {
             if (lineColor != nullptr)
