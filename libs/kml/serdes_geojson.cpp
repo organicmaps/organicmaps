@@ -11,17 +11,64 @@ namespace kml
 namespace geojson
 {
 
-bool GeoJsonFeature::isPoint()
+std::string DebugPrint(GeoJsonGeometry const & g)
+{
+  if (std::holds_alternative<GeoJsonGeometryPoint>(g))
+  {
+    auto geoPoint = std::get_if<GeoJsonGeometryPoint>(&g);
+    return DebugPrint(*geoPoint);
+  }
+  else if (std::holds_alternative<GeoJsonGeometryLine>(g))
+  {
+    auto geoLine = std::get_if<GeoJsonGeometryLine>(&g);
+    return DebugPrint(*geoLine);
+  }
+  else
+  {
+    auto geoUnknown = std::get_if<GeoJsonGeometryUnknown>(&g);
+    return "GeoJsonGeometryUnknown [type = " + geoUnknown->type + "]";
+  }
+}
+
+std::string DebugPrint(std::map<std::string, glz::json_t> const & p)
+{
+  std::ostringstream out;
+  bool isFirst = true;
+  out << "{";
+  for (auto const & pair : p)
+  {
+    // Add seperator if needed
+    if (isFirst)
+      isFirst = false;
+    else
+      out << ", ";
+
+    out << '"' << pair.first << "\" = " << DebugPrint(pair.second) << ", ";
+  }
+  return out.str();
+}
+
+std::string DebugPrint(glz::json_t const & json)
+{
+  std::string buffer{};
+  if (glz::write_json(json, buffer))
+    return buffer;
+  else
+    return "<JSON_ERROR>";
+  // return glz::write_json(json).value_or("<JSON_ERROR>");
+}
+
+bool GeoJsonFeature::isPoint() const
 {
   return std::holds_alternative<GeoJsonGeometryPoint>(geometry);
 }
 
-bool GeoJsonFeature::isLine()
+bool GeoJsonFeature::isLine() const
 {
   return std::holds_alternative<GeoJsonGeometryLine>(geometry);
 }
 
-bool GeoJsonFeature::isUnknown()
+bool GeoJsonFeature::isUnknown() const
 {
   return std::holds_alternative<GeoJsonGeometryUnknown>(geometry);
 }
