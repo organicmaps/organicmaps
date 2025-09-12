@@ -8,19 +8,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.AppManager;
 import androidx.car.app.CarContext;
-import androidx.car.app.CarToast;
 import androidx.car.app.SurfaceCallback;
 import androidx.car.app.SurfaceContainer;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.MwmApplication;
-import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.MapRenderingListener;
 import app.organicmaps.sdk.settings.UnitLocale;
-import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 
 public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallback, MapRenderingListener
@@ -96,7 +93,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
       mSurface.release();
       mSurface = null;
     }
-    mMap.onSurfaceDestroyed(false, true);
+    mMap.onSurfaceDestroyed(false);
   }
 
   @Override
@@ -112,7 +109,6 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   {
     Logger.d(TAG);
     mMap.onStart();
-    mMap.setCallbackUnsupported(this::reportUnsupported);
   }
 
   @Override
@@ -121,14 +117,14 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     Logger.d(TAG);
     mMap.onResume();
     if (MwmApplication.from(mCarContext).getDisplayManager().isCarDisplayUsed())
-      UiThread.runLater(() -> mMap.updateMyPositionRoutingOffset(0));
+      mMap.updateMyPositionRoutingOffset(0);
   }
 
   @Override
   public void onPause(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
-    mMap.onPause(mCarContext);
+    mMap.onPause();
   }
 
   @Override
@@ -199,7 +195,8 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     }
 
     mCarContext.getCarService(AppManager.class).setSurfaceCallback(null);
-    mMap.onSurfaceDestroyed(false, true);
+    mMap.onPause();
+    mMap.onSurfaceDestroyed(false);
     mMap.onStop();
     mMap.setCallbackUnsupported(null);
     mMap.setMapRenderingListener(null);
@@ -217,9 +214,8 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
 
     mCarContext.getCarService(AppManager.class).setSurfaceCallback(this);
     mMap.onStart();
-    mMap.setCallbackUnsupported(this::reportUnsupported);
     mMap.setMapRenderingListener(this);
-    UiThread.runLater(() -> mMap.updateMyPositionRoutingOffset(0));
+    mMap.updateMyPositionRoutingOffset(0);
 
     mIsRunning = true;
   }
@@ -227,13 +223,6 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   public boolean isRenderingActive()
   {
     return mIsRunning;
-  }
-
-  private void reportUnsupported()
-  {
-    String message = mCarContext.getString(R.string.unsupported_phone);
-    Logger.e(TAG, message);
-    CarToast.makeText(mCarContext, message, CarToast.LENGTH_LONG).show();
   }
 
   @Override
