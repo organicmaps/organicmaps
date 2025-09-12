@@ -216,7 +216,7 @@ bool GeojsonParser::Parse(std::string_view & json_content)
           points[i] = mercator::FromLatLon(pointCoords[1], pointCoords[0]);
       }
 
-      track.m_geometry.AddLine(points);
+      track.m_geometry.m_lines.push_back(std::move(points));
       track.m_geometry.AddTimestamps({});
       m_fileData.m_tracksData.push_back(track);
     }

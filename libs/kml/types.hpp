@@ -413,7 +413,6 @@ struct MultiGeometry
 
   /// This method should be used for tests only.
   void AddLine(std::initializer_list<geometry::PointWithAltitude> lst);
-  void AddLine(std::vector<geometry::PointWithAltitude> const & lst);
   /// This method should be used for tests only.
   void AddTimestamps(std::initializer_list<double> lst);
 

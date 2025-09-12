@@ -87,11 +87,6 @@ void MultiGeometry::AddLine(std::initializer_list<geometry::PointWithAltitude> l
   m_lines.back().assign(lst);
 }
 
-void MultiGeometry::AddLine(std::vector<geometry::PointWithAltitude> const & lst)
-{
-  m_lines.push_back(lst);
-}
-
 void MultiGeometry::AddTimestamps(std::initializer_list<double> lst)
 {
   m_timestamps.emplace_back();
