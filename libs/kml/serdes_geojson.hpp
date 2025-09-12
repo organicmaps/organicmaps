@@ -55,6 +55,12 @@ struct GeoJsonGeometryUnknown
 
 using GeoJsonGeometry = std::variant<GeoJsonGeometryPoint, GeoJsonGeometryLine, GeoJsonGeometryUnknown>;
 
+std::string DebugPrint(GeoJsonGeometry const & g);
+
+std::string DebugPrint(glz::json_t const & json);
+
+std::string DebugPrint(std::map<std::string, glz::json_t> const & p);
+
 struct GeoJsonFeature
 {
   std::string type = "Feature";
@@ -69,19 +75,19 @@ struct GeoJsonFeature
   bool operator!=(GeoJsonFeature const & data) const { return !operator==(data); }
 
   // Returns 'true' if geometry type is 'Point'.
-  bool isPoint();
+  bool isPoint() const;
 
   // Returns 'true' if geometry type is 'LineString'.
-  bool isLine();
+  bool isLine() const;
 
   // Returns 'true' if geometry type is neither 'Point' nor 'LineString'.
-  bool isUnknown();
+  bool isUnknown() const;
 
   friend std::string DebugPrint(GeoJsonFeature const & c)
   {
     std::ostringstream out;
-    out << "GeoJsonFeature [type = " << c.type  // << ", geometry = " << DebugPrint(c.geometry)
-        << ", properties = " /*<< json_dumps(&c.m_properties, JSON_COMPACT)*/ << "]";
+    out << "GeoJsonFeature [type = " << c.type << ", geometry = " << DebugPrint(c.geometry)
+        << ", properties = " << DebugPrint(c.properties) << "]";
     return out.str();
   }
 };
