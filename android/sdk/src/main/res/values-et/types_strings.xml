@@ -1413,4 +1413,5 @@
     <string name="type.power.portal">Õhuliini värava-tüüpi mast</string>
     <string name="type.building.guardhouse">Valvuriputka</string>
     <string name="type.barrier.yes">Barjäär</string>
+    <string name="type.shop.lighting">Lambipood</string>
 </resources>

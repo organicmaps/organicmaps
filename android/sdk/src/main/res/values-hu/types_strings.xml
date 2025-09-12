@@ -1410,4 +1410,5 @@
     <string name="type.office.security">Biztonsági őr irodája</string>
     <string name="type.building.guardhouse">Őrség</string>
     <string name="type.power.portal">Villanytorony (Portál)</string>
+    <string name="type.shop.lighting">Világítástechnikai szaküzlet</string>
 </resources>

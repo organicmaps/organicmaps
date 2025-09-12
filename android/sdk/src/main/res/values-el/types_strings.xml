@@ -1400,4 +1400,10 @@
     <string name="type.amenity.ranger_station">Σταθμός δασοφύλακα</string>
     <string name="type.amenity.luggage_locker">Ντουλάπι αποσκευών</string>
     <string name="type.leisure.escape_game">Δωμάτιο απόδρασης</string>
+    <string name="type.building.guardhouse">Φυλάκιο</string>
+    <string name="type.barrier.yes">Εμπόδιο</string>
+    <string name="type.office.security">Εταιρεία φύλαξης</string>
+    <string name="type.shop.lighting">Κατάστημα φωτιστικών</string>
+    <string name="type.barrier.wicket_gate">Πόρτα πεζών</string>
+    <string name="type.power.portal">Πυλώνας ρεύματος (πύλη)</string>
 </resources>

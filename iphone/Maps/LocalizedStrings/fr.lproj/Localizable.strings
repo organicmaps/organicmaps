@@ -310,7 +310,7 @@
 "pref_calibration_title" = "Étalonnage de la boussole";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
-"long_tap_toast" = "Appuie à nouveau longuement sur la carte pour voir l'interface.";
+"long_tap_toast" = "Appuyer à nouveau longuement sur la carte pour voir l'interface.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Tout mettre à jour";
@@ -414,7 +414,7 @@
 "dialog_routing_disclaimer_priority" = "— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l'appareil de navigation ;";
 "dialog_routing_disclaimer_precision" = "— La carte peut être imprécise et l'itinéraire proposé n'est pas forcément le plus direct pour arriver à destination ;";
 "dialog_routing_disclaimer_recommendations" = "— L'itinéraire proposé doit être considéré comme une simple recommandation ;";
-"dialog_routing_disclaimer_borders" = "— Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l'application peuvent parfois franchir des frontières étatiques dans des zones interdites ;";
+"dialog_routing_disclaimer_borders" = "— Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l'application peuvent parfois franchir des frontières étatiques dans des zones interdites.";
 "dialog_routing_disclaimer_beware" = "Restez vigilant et soyez prudent sur la route !";
 "dialog_routing_check_gps" = "Vérifiez le signal GPS";
 "dialog_routing_error_location_not_found" = "Impossible de créer l'itinéraire. Les coordonnées GPS actuelles n'ont pas pu être identifiées.";
@@ -432,7 +432,7 @@
 "dialog_routing_end_not_determined" = "Impossible de localiser la destination. L'itinéraire n'a pas pu être créé.";
 "dialog_routing_select_closer_end" = "Choisissez un lieu de destination à proximité d'une route.";
 "dialog_routing_change_intermediate" = "Impossible de localiser le point intermédiaire.";
-"dialog_routing_intermediate_not_determined" = "Veuillez modifier votre point intermédiaire";
+"dialog_routing_intermediate_not_determined" = "Veuillez modifier votre point intermédiaire.";
 "dialog_routing_system_error" = "Erreur système";
 "dialog_routing_application_error" = "Impossible de créer l'itinéraire à cause d'une erreur dans l'application.";
 "dialog_routing_try_again" = "Veuillez réessayer";
