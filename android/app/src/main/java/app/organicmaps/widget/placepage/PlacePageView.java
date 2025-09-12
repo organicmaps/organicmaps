@@ -372,7 +372,7 @@ public class PlacePageView extends Fragment
       refreshDistanceToObject(loc);
     UiUtils.hideIf(mMapObject.isTrack(), mFrame.findViewById(R.id.ll__place_latlon),
                    mFrame.findViewById(R.id.ll__place_open_in));
-    if (mMapObject.isTrack() || mMapObject.isBookmark())
+    if (mMapObject.isTrack())
     {
       UiUtils.hide(mTvSubtitle);
       UiUtils.hide(mTvAzimuth, mAvDirection, mTvDistance);
