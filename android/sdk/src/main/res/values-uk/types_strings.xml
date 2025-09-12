@@ -1414,4 +1414,5 @@
     <string name="type.building.guardhouse">Охоронець</string>
     <string name="type.office.security">Офіс безпеки</string>
     <string name="type.power.portal">Силова вежа (Портал)</string>
+    <string name="type.shop.lighting">Магазин освітлення</string>
 </resources>

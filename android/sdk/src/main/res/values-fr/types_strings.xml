@@ -1413,4 +1413,5 @@
     <string name="type.building.guardhouse">Garde</string>
     <string name="type.office.security">Bureau de sécurité</string>
     <string name="type.power.portal">Tour de puissance (Portail)</string>
+    <string name="type.shop.lighting">Magasin d\'éclairage</string>
 </resources>
