@@ -18,10 +18,6 @@ struct GeoJsonGeometryPoint
   std::string type{"Point"};  // Embedded tag field
   std::vector<double> coordinates;
 
-  bool operator==(GeoJsonGeometryPoint const & data) const { return coordinates == data.coordinates; }
-
-  bool operator!=(GeoJsonGeometryPoint const & data) const { return !operator==(data); }
-
   friend std::string DebugPrint(GeoJsonGeometryPoint const & c)
   {
     std::ostringstream out;
@@ -34,10 +30,6 @@ struct GeoJsonGeometryLine
 {
   std::string type{"LineString"};  // Embedded tag field
   std::vector<std::vector<double>> coordinates;
-
-  bool operator==(GeoJsonGeometryLine const & data) const { return coordinates == data.coordinates; }
-
-  bool operator!=(GeoJsonGeometryLine const & data) const { return !operator==(data); }
 
   friend std::string DebugPrint(GeoJsonGeometryLine const & c)
   {
@@ -67,13 +59,6 @@ struct GeoJsonFeature
   GeoJsonGeometry geometry;
   std::map<std::string, glz::json_t> properties;
 
-  bool operator==(GeoJsonFeature const & data) const
-  {
-    return type == data.type;  //&& m_properties == data.m_properties;
-  }
-
-  bool operator!=(GeoJsonFeature const & data) const { return !operator==(data); }
-
   // Returns 'true' if geometry type is 'Point'.
   bool isPoint() const;
 
@@ -97,10 +82,6 @@ struct GeoJsonData
   std::string type = "FeatureCollection";
   std::vector<GeoJsonFeature> features;
   std::map<std::string, std::string> properties;
-
-  bool operator==(GeoJsonData const & data) const = default;
-
-  bool operator!=(GeoJsonData const & data) const { return !operator==(data); }
 };
 
 // Writer and reader
