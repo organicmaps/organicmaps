@@ -250,7 +250,7 @@ private:
   kml::MarkGroupId m_markGroupId = kml::kInvalidMarkGroupId;
   /// If not invalid, bookmark is bound to this place page.
   kml::MarkId m_bookmarkId = kml::kInvalidMarkId;
-  /// Bookmark category name. Empty, if it's not bookmark;
+  /// Bookmark category name. Empty, if it's not bookmark; used only on iOS now.
   std::string m_bookmarkCategoryName;
   kml::BookmarkData m_bookmarkData;
   /// If not invalid, track is bound to this place page.
