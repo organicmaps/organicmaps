@@ -232,12 +232,17 @@ bool GeojsonParser::Parse(std::string_view & json_content)
       }
 
       // Copy coordinates
-      std::vector<m2::PointD> points;
+      std::vector<geometry::PointWithAltitude> points;
       points.resize(lineCoords.size());
       for (size_t i = 0; i < lineCoords.size(); i++)
       {
-        auto pairCoords = lineCoords[i];
-        points.at(i) = mercator::FromLatLon(pairCoords[1], pairCoords[0]);
+        auto pointCoords = lineCoords[i];
+        if (pointCoords.size() >= 3)
+          // Third coordinate (if present) means altitude
+          points.at(i) =
+              geometry::PointWithAltitude(mercator::FromLatLon(pointCoords[1], pointCoords[0]), pointCoords[2]);
+        else
+          points.at(i) = mercator::FromLatLon(pointCoords[1], pointCoords[0]);
       }
 
       track.m_geometry.AddLine(points);
@@ -251,7 +256,7 @@ bool GeojsonParser::Parse(std::string_view & json_content)
 
 }  // namespace geojson
 
-void DeserializerGeoJson::Deserialize(std::string_view & content)
+void DeserializerGeoJson::Deserialize(std::string_view content)
 {
   geojson::GeojsonParser parser(m_fileData);
   if (!parser.Parse(content))

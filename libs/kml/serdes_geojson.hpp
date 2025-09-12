@@ -98,16 +98,13 @@ struct GeoJsonData
   std::vector<GeoJsonFeature> features;
   std::map<std::string, std::string> properties;
 
-  bool operator==(GeoJsonData const & data) const
-  {
-    return type == data.type && features == data.features && properties == data.properties;
-  }
+  bool operator==(GeoJsonData const & data) const = default;
 
   bool operator!=(GeoJsonData const & data) const { return !operator==(data); }
 };
 
 // Writer and reader
-class GeojsonWriter
+class GeoJsonWriter
 {
 public:
   /*DECLARE_EXCEPTION(WriteGeojsonException, RootException);
@@ -142,7 +139,7 @@ public:
 
   explicit DeserializerGeoJson(FileData & fileData) : m_fileData(fileData) {}
 
-  void Deserialize(std::string_view & content);
+  void Deserialize(std::string_view content);
 
 private:
   FileData & m_fileData;
@@ -150,12 +147,11 @@ private:
 
 }  // namespace kml
 
-/* Glaze setup.
-   Tell Glaze to pick GeoJsonGeometryPoint, GeoJsonGeometryLine or GeoJsonGeometryUnknown depending on "type" property
-*/
+// Tell Glaze to pick GeoJsonGeometryPoint, GeoJsonGeometryLine or GeoJsonGeometryUnknown depending on "type" property
 template <>
 struct glz::meta<kml::geojson::GeoJsonGeometry>
 {
   static constexpr std::string_view tag = "type";  // Field name that serves as tag
+  // TODO: Support Polygon, MultiPoint, MultiLineString, and MultiPolygon
   static constexpr auto ids = std::array{"Point", "LineString"};
 };
