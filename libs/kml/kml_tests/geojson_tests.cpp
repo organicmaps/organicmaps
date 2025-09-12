@@ -59,7 +59,7 @@ UNIT_TEST(GeoJson_Parse_Basic)
       "properties": {
         "name": "Bookmark 1",
         /* Bookmark color */
-        "marker-color": "red"
+        "marker-color": "green"
       }
     },
     {
@@ -89,7 +89,8 @@ UNIT_TEST(GeoJson_Parse_Basic)
 
   TEST_EQUAL(dataFromText.m_bookmarksData.size(), 1, ());
   auto bookmark = dataFromText.m_bookmarksData.front();
-  TEST_EQUAL(bookmark.m_color, kml::ColorData{.m_rgba = 0xFF0000FF}, ());
+  auto green = kml::ColorData{.m_predefinedColor = kml::PredefinedColor::Green, .m_rgba = 0x008000FF};
+  TEST_EQUAL(bookmark.m_color, green, ());
   TEST_EQUAL(kml::GetDefaultStr(bookmark.m_name), "Bookmark 1", ());
   TEST_EQUAL(bookmark.m_point, mercator::FromLatLon(29.8310316130992, 31.02177966625902), ());
 
@@ -107,6 +108,12 @@ UNIT_TEST(GeoJson_Parse_basic_2)
   kml::FileData const dataFromText = LoadGeojsonFromString(input);
 
   TEST_EQUAL(dataFromText.m_bookmarksData.size(), 1, ());
+  auto bookmark = dataFromText.m_bookmarksData.front();
+  // We don't have PredefinedColor::Black option. So fallback to the closest one Brown
+  auto brownColor = kml::ColorData{.m_predefinedColor = kml::PredefinedColor::Brown, .m_rgba = 0x00000FF};
+  TEST_EQUAL(bookmark.m_color, brownColor, ());
+  TEST_EQUAL(kml::GetDefaultStr(bookmark.m_name), "Hello GeoJson", ());
+  TEST(bookmark.m_point.EqualDxDy(mercator::FromLatLon(50.46385629798317, 30.568097444337525), 0.000001), ());
 }
 
 }  // namespace geojson_tests
