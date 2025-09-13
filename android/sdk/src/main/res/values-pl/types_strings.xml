@@ -1404,4 +1404,8 @@
     <string name="type.leisure.escape_game">Pokój zagadek</string>
     <string name="type.amenity.ranger_station">Stacja Straży Leśnej</string>
     <string name="type.piste_type.nordic">Trasa narciarstwa biegowego</string>
+    <string name="type.barrier.yes">Bariera</string>
+    <string name="type.building.guardhouse">Strażnik</string>
+    <string name="type.office.security">Biuro ochrony</string>
+    <string name="type.shop.lighting">Sklep z oświetleniem</string>
 </resources>
