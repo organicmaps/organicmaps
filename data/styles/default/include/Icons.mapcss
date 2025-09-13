@@ -484,12 +484,10 @@ node|z17-[attraction=maze],
 node|z17-[attraction=historic],
 node|z17-[attraction=big_wheel],
 node|z17-[attraction=bumper_car],
-node|z17-[historic=ruins],
-area|z17-[historic=ruins],
+node|z16-[historic=ruins],
 node|z17-[historic=wayside_shrine],
 area|z17-[historic=wayside_shrine],
-node|z17-[historic=archaeological_site],
-area|z17-[historic=archaeological_site],
+node|z16-[historic=archaeological_site],
 node|z17-[historic=gallows],
 area|z17-[historic=gallows],
 node|z17-[historic=pillory],
@@ -499,38 +497,21 @@ area|z17-[amenity=arts_centre],
 node|z18-[historic=anchor],
 node|z18-[historic=cannon],
 node|z18-[historic=stone],
-{text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+{text: name; text-offset: 1; font-size: 10; text-color: @poi_label;}
 
 node|z12-14[historic=fort],
-area|z12-14[historic=fort],
 node|z12-14[historic=castle],
-area|z12-14[historic=castle]
-{icon-image: remains-s.svg;text-offset: 1;icon-min-distance: 12;}
-node|z15[historic=fort],
-area|z15[historic=fort],
-node|z15[historic=castle],
-area|z15[historic=castle]
-{icon-image: remains-m.svg;icon-min-distance: 5;}
-node|z16[historic=fort],
-area|z16[historic=fort],
-node|z16[historic=castle],
-area|z16[historic=castle]
-{icon-image: remains-m.svg;text-offset: 1;}
-node|z17-[historic=ruins][name],
-area|z17-[historic=ruins][name],
-node|z17-[historic=fort],
-area|z17-[historic=fort],
-node|z17-[historic=castle],
-area|z17-[historic=castle]
+{icon-image: remains-s.svg; icon-min-distance: 12;}
+node|z15-[historic=fort],
+node|z15-[historic=castle],
+node|z16-[historic=ruins][name],
 {icon-image: remains-m.svg;}
 
-node|z17-[historic=archaeological_site],
-area|z17-[historic=archaeological_site]
+node|z16-[historic=archaeological_site],
 {icon-image: archaeological-site-m.svg;}
 
-node|z19-[historic=ruins][!name],
-area|z19-[historic=ruins][!name],
-{icon-image: remains-m.svg;}
+node|z18-[historic=ruins][!name],
+{text: none; icon-image: remains-m.svg;}
 
 node|z15-[historic=mine],
 {icon-image: mine-m.svg;}
