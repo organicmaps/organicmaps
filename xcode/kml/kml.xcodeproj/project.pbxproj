@@ -15,6 +15,7 @@
 		45E456142058509200D9F45E /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45E456122058508C00D9F45E /* testingmain.cpp */; };
 		464344F3294F952700984CB7 /* gpx_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 464344F2294F952700984CB7 /* gpx_tests.cpp */; };
 		46AA9E60294549B000ECED73 /* serdes_gpx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 464BD0FB294546B20011955A /* serdes_gpx.cpp */; };
+		859113D62227E6252DCB19C5 /* serdes_geojson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C0232A44C3B0B3F5CF24DD9 /* serdes_geojson.cpp */; };
 		ACBAA59E2E47C53800769B1B /* color_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACBAA59D2E47C53800769B1B /* color_parser.cpp */; };
 		ACDD8A7B2A73684F000F2C43 /* serdes_common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACDD8A782A736045000F2C43 /* serdes_common.cpp */; };
 		E2AA225E25275C6B002589E2 /* minzoom_quadtree_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2AA225C25275C6B002589E2 /* minzoom_quadtree_tests.cpp */; };
@@ -61,6 +62,8 @@
 		464344F2294F952700984CB7 /* gpx_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gpx_tests.cpp; sourceTree = "<group>"; };
 		464BD0FB294546B20011955A /* serdes_gpx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = serdes_gpx.cpp; sourceTree = "<group>"; };
 		464BD0FC294546B20011955A /* serdes_gpx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.h; path = serdes_gpx.hpp; sourceTree = "<group>"; };
+		4C0232A44C3B0B3F5CF24DD9 /* serdes_geojson.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = serdes_geojson.cpp; sourceTree = "<group>"; };
+		4C0232A54C3B0B3F5CF24DD9 /* serdes_geojson.hpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.h; path = serdes_geojson.hpp; sourceTree = "<group>"; };
 		ACBAA59C2E47C53800769B1B /* color_parser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = color_parser.hpp; sourceTree = "<group>"; };
 		ACBAA59D2E47C53800769B1B /* color_parser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = color_parser.cpp; sourceTree = "<group>"; };
 		ACDD8A772A736045000F2C43 /* serdes_common.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = serdes_common.hpp; sourceTree = "<group>"; };
@@ -149,6 +152,8 @@
 				ACDD8A772A736045000F2C43 /* serdes_common.hpp */,
 				464BD0FB294546B20011955A /* serdes_gpx.cpp */,
 				464BD0FC294546B20011955A /* serdes_gpx.hpp */,
+				4C0232A44C3B0B3F5CF24DD9 /* serdes_geojson.cpp */,
+				4C0232A54C3B0B3F5CF24DD9 /* serdes_geojson.hpp */,
 				4568C86320BD455600E2192B /* type_utils.cpp */,
 				45E4558F20584AB900D9F45E /* type_utils.hpp */,
 				E2DC9C8925264E0C0098174E /* types_v3.hpp */,
@@ -287,6 +292,7 @@
 				464344F3294F952700984CB7 /* gpx_tests.cpp in Sources */,
 				4568C86420BD455700E2192B /* type_utils.cpp in Sources */,
 				46AA9E60294549B000ECED73 /* serdes_gpx.cpp in Sources */,
+				859113D62227E6252DCB19C5 /* serdes_geojson.cpp in Sources */,
 				ACBAA59E2E47C53800769B1B /* color_parser.cpp in Sources */,
 				45E4559520584ABA00D9F45E /* serdes.cpp in Sources */,
 				E2DC9C9125264E3E0098174E /* types.cpp in Sources */,

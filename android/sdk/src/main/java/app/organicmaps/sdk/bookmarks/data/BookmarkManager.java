@@ -410,7 +410,7 @@ public enum BookmarkManager {
   @WorkerThread
   public boolean importBookmarksFile(@NonNull ContentResolver resolver, @NonNull Uri uri, @NonNull File tempDir)
   {
-    Logger.w(TAG, "Importing bookmarks from " + uri);
+    Logger.i(TAG, "Importing bookmarks from " + uri);
     try
     {
       String filename = getBookmarksFilenameFromUri(resolver, uri);
