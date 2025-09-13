@@ -537,25 +537,25 @@ area|z19-[historic=ruins][!name],
 node|z15-[historic=mine],
 {icon-image: mine-m.svg;}
 
-node|z16-[historic=aircraft],
+node|z15-[historic=aircraft],
 {icon-image: aircraft-m.svg;}
 
-node|z16-[historic=tank],
+node|z15-[historic=tank],
 {icon-image: tank-m.svg;}
 
-node|z16-[historic=wreck],
+node|z15-[historic=wreck],
 {icon-image: wreck-m.svg;}
 
-node|z16-[historic=locomotive],
+node|z15-[historic=locomotive],
 {icon-image: locomotive-m.svg;}
 
-node|z18-[historic=cannon],
+node|z17-[historic=cannon],
 {icon-image: cannon-m.svg;}
 
-node|z18-[historic=anchor],
+node|z17-[historic=anchor],
 {icon-image: anchor-m.svg;}
 
-node|z18-[historic=stone],
+node|z17-[historic=stone],
 {icon-image: stone-m.svg;}
 
 node|z13-14[historic=monument],
@@ -673,10 +673,10 @@ node|z15-[amenity=ranger_station],
 
 node|z16-[historic=boundary_stone],
 area|z16-[historic=boundary_stone],
-node|z16-[historic=gallows],
-area|z16-[historic=gallows],
-node|z16-[historic=pillory],
-area|z16-[historic=pillory],
+node|z15-[historic=gallows],
+area|z15-[historic=gallows],
+node|z15-[historic=pillory],
+area|z15-[historic=pillory],
 {icon-image: monument-m.svg;font-size: 11;icon-min-distance: 8;}
 node|z16-[historic=wayside_cross],
 {icon-image: wayside_cross-m.svg; font-size: 11;}
@@ -962,6 +962,7 @@ area|z16-[amenity=exhibition_centre],
 node|z16-[amenity=library],
 area|z16-[amenity=library],
 node|z16-[emergency=mountain_rescue],
+node|z16-[building=guardhouse],
 node|z17-[amenity=pharmacy],
 area|z17-[amenity=pharmacy],
 node|z17-[amenity=clinic],
@@ -1018,7 +1019,6 @@ node|z17-[leisure=bowling_alley],
 area|z17-[leisure=bowling_alley],
 node|z17-[amenity=police],
 area|z17-[amenity=police],
-node|z17-[building=guardhouse],
 node|z17-[office=security],
 node|z17-[amenity=prison],
 area|z17-[amenity=prison],
