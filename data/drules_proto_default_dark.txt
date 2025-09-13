@@ -40523,6 +40523,22 @@ cont {
 cont {
   name: "historic-archaeological_site"
   element {
+    scale: 16
+    symbol {
+      name: "archaeological-site-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "archaeological-site-m"
@@ -40889,7 +40905,6 @@ cont {
     symbol {
       name: "remains-m"
       priority: 6550
-      min_distance: 5
     }
     caption {
       primary {
@@ -41040,7 +41055,6 @@ cont {
     symbol {
       name: "remains-m"
       priority: 6550
-      min_distance: 5
     }
     caption {
       primary {
@@ -41191,7 +41205,6 @@ cont {
     symbol {
       name: "remains-m"
       priority: 6550
-      min_distance: 5
     }
     caption {
       primary {
@@ -41342,7 +41355,6 @@ cont {
     symbol {
       name: "remains-m"
       priority: 6550
-      min_distance: 5
     }
     caption {
       primary {
@@ -41493,7 +41505,6 @@ cont {
     symbol {
       name: "remains-m"
       priority: 6550
-      min_distance: 5
     }
     caption {
       primary {
@@ -41644,7 +41655,6 @@ cont {
     symbol {
       name: "remains-m"
       priority: 6550
-      min_distance: 5
     }
     caption {
       primary {
@@ -41795,7 +41805,6 @@ cont {
     symbol {
       name: "remains-m"
       priority: 6550
-      min_distance: 5
     }
     caption {
       primary {
@@ -41946,7 +41955,6 @@ cont {
     symbol {
       name: "remains-m"
       priority: 6550
-      min_distance: 5
     }
     caption {
       primary {
@@ -42097,7 +42105,6 @@ cont {
     symbol {
       name: "remains-m"
       priority: 6550
-      min_distance: 5
     }
     caption {
       primary {
@@ -42248,7 +42255,6 @@ cont {
     symbol {
       name: "remains-m"
       priority: 6550
-      min_distance: 5
     }
     caption {
       primary {
@@ -42399,7 +42405,6 @@ cont {
     symbol {
       name: "remains-m"
       priority: 6550
-      min_distance: 5
     }
     caption {
       primary {
@@ -42820,7 +42825,6 @@ cont {
     symbol {
       name: "remains-m"
       priority: 6550
-      min_distance: 5
     }
     caption {
       primary {
@@ -43977,6 +43981,23 @@ cont {
 cont {
   name: "historic-ruins"
   element {
+    scale: 16
+    symbol {
+      name: "remains-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+    apply_if: "name"
+  }
+  element {
     scale: 17
     symbol {
       name: "remains-m"
@@ -44011,6 +44032,14 @@ cont {
     apply_if: "name"
   }
   element {
+    scale: 18
+    symbol {
+      name: "remains-m"
+      priority: 850
+    }
+    apply_if: "!name"
+  }
+  element {
     scale: 19
     symbol {
       name: "remains-m"
@@ -44032,15 +44061,6 @@ cont {
     symbol {
       name: "remains-m"
       priority: 850
-    }
-    caption {
-      primary {
-        height: 10
-        color: 9211020
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9150
     }
     apply_if: "!name"
   }
@@ -44066,15 +44086,6 @@ cont {
     symbol {
       name: "remains-m"
       priority: 850
-    }
-    caption {
-      primary {
-        height: 10
-        color: 9211020
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9150
     }
     apply_if: "!name"
   }
