@@ -42600,6 +42600,22 @@ cont {
 cont {
   name: "historic-aircraft"
   element {
+    scale: 15
+    symbol {
+      name: "aircraft-m"
+      priority: 3050
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6950
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "aircraft-m"
@@ -42683,6 +42699,54 @@ cont {
 cont {
   name: "historic-anchor"
   element {
+    scale: 15
+    symbol {
+      name: "anchor-m"
+      priority: 210
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9790
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "anchor-m"
+      priority: 210
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9790
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "anchor-m"
+      priority: 210
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9790
+    }
+  }
+  element {
     scale: 18
     symbol {
       name: "anchor-m"
@@ -42734,6 +42798,115 @@ cont {
 cont {
   name: "historic-archaeological_site"
   element {
+    scale: 12
+    symbol {
+      name: "archaeological-site-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "archaeological-site-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "archaeological-site-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "archaeological-site-m"
+      priority: 1550
+    }
+    apply_if: "!name"
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "archaeological-site-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "archaeological-site-m"
+      priority: 1550
+    }
+    apply_if: "!name"
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "archaeological-site-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "archaeological-site-m"
+      priority: 1550
+    }
+    apply_if: "!name"
+  }
+  element {
     scale: 17
     symbol {
       name: "archaeological-site-m"
@@ -42748,6 +42921,24 @@ cont {
       }
       priority: -8450
     }
+    apply_if: "name"
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "archaeological-site-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+    apply_if: "!name"
   }
   element {
     scale: 18
@@ -42764,6 +42955,24 @@ cont {
       }
       priority: -8450
     }
+    apply_if: "name"
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "archaeological-site-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+    apply_if: "!name"
   }
   element {
     scale: 19
@@ -42780,6 +42989,24 @@ cont {
       }
       priority: -8450
     }
+    apply_if: "name"
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "archaeological-site-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+    apply_if: "!name"
   }
   element {
     scale: 20
@@ -42796,6 +43023,24 @@ cont {
       }
       priority: -8450
     }
+    apply_if: "name"
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "archaeological-site-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+    apply_if: "!name"
   }
 }
 cont {
@@ -42906,6 +43151,22 @@ cont {
 cont {
   name: "historic-boundary_stone"
   element {
+    scale: 15
+    symbol {
+      name: "monument-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "monument-m"
@@ -42993,6 +43254,54 @@ cont {
 }
 cont {
   name: "historic-cannon"
+  element {
+    scale: 15
+    symbol {
+      name: "cannon-m"
+      priority: 210
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9790
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "cannon-m"
+      priority: 210
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9790
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "cannon-m"
+      priority: 210
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9790
+    }
+  }
   element {
     scale: 18
     symbol {
@@ -45127,11 +45436,36 @@ cont {
 cont {
   name: "historic-gallows"
   element {
+    scale: 15
+    symbol {
+      name: "monument-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "monument-m"
       priority: 1550
       min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
     }
   }
   element {
@@ -45205,6 +45539,22 @@ cont {
 }
 cont {
   name: "historic-locomotive"
+  element {
+    scale: 15
+    symbol {
+      name: "locomotive-m"
+      priority: 3050
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6950
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -46109,11 +46459,36 @@ cont {
 cont {
   name: "historic-pillory"
   element {
+    scale: 15
+    symbol {
+      name: "monument-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "monument-m"
       priority: 1550
       min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
     }
   }
   element {
@@ -46188,7 +46563,66 @@ cont {
 cont {
   name: "historic-ruins"
   element {
+    scale: 15
+    symbol {
+      name: "remains-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "remains-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+    apply_if: "name"
+  }
+  element {
     scale: 17
+    symbol {
+      name: "remains-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "remains-m"
+      priority: 850
+    }
+    apply_if: "!name"
+  }
+  element {
+    scale: 18
     symbol {
       name: "remains-m"
       priority: 850
@@ -46210,16 +46644,7 @@ cont {
       name: "remains-m"
       priority: 850
     }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9150
-    }
-    apply_if: "name"
+    apply_if: "!name"
   }
   element {
     scale: 19
@@ -46243,15 +46668,6 @@ cont {
     symbol {
       name: "remains-m"
       priority: 850
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9150
     }
     apply_if: "!name"
   }
@@ -46277,15 +46693,6 @@ cont {
     symbol {
       name: "remains-m"
       priority: 850
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9150
     }
     apply_if: "!name"
   }
@@ -46398,6 +46805,54 @@ cont {
 cont {
   name: "historic-stone"
   element {
+    scale: 15
+    symbol {
+      name: "stone-m"
+      priority: 210
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9790
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "stone-m"
+      priority: 210
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9790
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "stone-m"
+      priority: 210
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9790
+    }
+  }
+  element {
     scale: 18
     symbol {
       name: "stone-m"
@@ -46448,6 +46903,22 @@ cont {
 }
 cont {
   name: "historic-tank"
+  element {
+    scale: 15
+    symbol {
+      name: "tank-m"
+      priority: 3050
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6950
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -46531,6 +47002,22 @@ cont {
 }
 cont {
   name: "historic-tomb"
+  element {
+    scale: 15
+    symbol {
+      name: "tomb-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -46620,6 +47107,22 @@ cont {
 cont {
   name: "historic-wayside_cross"
   element {
+    scale: 15
+    symbol {
+      name: "wayside_cross-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "wayside_cross-m"
@@ -46703,11 +47206,36 @@ cont {
 cont {
   name: "historic-wayside_shrine"
   element {
+    scale: 15
+    symbol {
+      name: "wayside_shrine-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "wayside_shrine-m"
       priority: 1550
       min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
     }
   }
   element {
@@ -46781,6 +47309,22 @@ cont {
 }
 cont {
   name: "historic-wreck"
+  element {
+    scale: 15
+    symbol {
+      name: "wreck-m"
+      priority: 3050
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6950
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -57159,6 +57703,15 @@ cont {
     symbol {
       name: "cross-m"
       priority: 1550
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
     }
   }
   element {
