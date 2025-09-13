@@ -41,10 +41,91 @@ area|z12-[natural=geyser],
 node|z14-[natural=beach],
 area|z14-[natural=beach],
 area|z13-[natural=bare_rock][name],
-{text: name;text-color: @poi_label;text-position: center;text-offset: 1;font-size: 10;}
+
+/* z12- for castle and fort are inherited from the default style */
+node|z15-[historic=aircraft],
+node|z15-[historic=tank],
+node|z15-[historic=wreck],
+node|z15-[historic=locomotive],
+node|z15-[historic=ruins],
+node|z15-[historic=anchor],
+node|z15-[historic=cannon],
+node|z15-[historic=stone],
+/* z16- are inherited from the main style */
+node|z15[historic=boundary_stone],
+node|z15-16[historic=gallows],
+node|z15-16[historic=pillory],
+node|z15[historic=tomb],
+node|z15[historic=wayside_cross],
+node|z15-16[historic=wayside_shrine],
+node|z15[man_made=cross],
+{text: name; text-color: @poi_label; text-position: center; text-offset: 1; font-size: 10;}
+
+/*
+  ToDo: Looks like a kothic bug, but we can't combine [name] and [!name] selectors with one value.
+        Next entry produce incorrect result
+node|z12-[historic=archaeological_site][name],
+node|z14-[historic=archaeological_site][!name],
+{icon-image: archaeological-site-m.svg;}
+or
+node|z12-[historic=archaeological_site][name],
+node|z14-[historic=archaeological_site],
+{icon-image: archaeological-site-m.svg;}
+*/
+
+node|z12-13[historic=archaeological_site][name],
+{icon-image: archaeological-site-m.svg; text: name; text-color: @poi_label; text-position: center; text-offset: 1; font-size: 10;}
+node|z14-[historic=archaeological_site],
+{icon-image: archaeological-site-m.svg; text: name; text-color: @poi_label; text-position: center; text-offset: 1; font-size: 10;}
+
 node|z11-[natural=peak][!name],
 area|z13-[natural=bare_rock][!name],
 {text: none;}
+
+node|z15-[historic=ruins][name],
+{icon-image: remains-m.svg;}
+node|z17-[historic=ruins][!name],
+{text: none; icon-image: remains-m.svg;}
+
+node|z15-[historic=aircraft],
+{icon-image: aircraft-m.svg;}
+
+node|z15-[historic=tank],
+{icon-image: tank-m.svg;}
+
+node|z15-[historic=wreck],
+{icon-image: wreck-m.svg;}
+
+node|z15-[historic=locomotive],
+{icon-image: locomotive-m.svg;}
+
+node|z15-[historic=cannon],
+{icon-image: cannon-m.svg;}
+
+node|z15-[historic=anchor],
+{icon-image: anchor-m.svg;}
+
+node|z15-[historic=stone],
+{icon-image: stone-m.svg;}
+
+/* z16- are inherited from the main style */
+node|z15[historic=boundary_stone],
+node|z15[historic=gallows],
+node|z15[historic=pillory],
+{icon-image: monument-m.svg;}
+
+node|z15[man_made=cross],
+{icon-image: cross-m.svg;}
+
+node|z15[historic=tomb],
+{icon-image: tomb-m.svg;}
+
+node|z15[historic=wayside_cross],
+{icon-image: wayside_cross-m.svg;}
+
+node|z15[historic=wayside_shrine],
+{icon-image: wayside_shrine-m.svg;}
+
 
 node|z11-17[boundary=national_park],
 area|z11-17[boundary=national_park],
