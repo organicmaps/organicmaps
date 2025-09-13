@@ -12,16 +12,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%d إشارة مرجعية</string>
+			<key>zero</key>
+			<string>إشارة مرجعية</string>
 			<key>two</key>
-			<string>%d إشارتان مرجعيتان</string>
-			<key>few</key>
-			<string>%d إشارات مرجعية</string>
-			<key>many</key>
-			<string>%d إشارةً مرجعيةً</string>
-			<key>other</key>
-			<string>%d إشارةً مرجعيةً</string>
+			<string>إشارة مرجعية</string>
 		</dict>
 	</dict>
 	<key>bookmarks_detect_message</key>
@@ -56,6 +50,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d المسارات</string>
+			<key>two</key>
+			<string>%d المسارات</string>
 			<key>other</key>
 			<string>%d المسارات</string>
 		</dict>
