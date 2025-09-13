@@ -2,11 +2,18 @@
 #import <CoreApi/AppInfo.h>
 #import "MWMAuthorizationCommon.h"
 
+#include "editor/osm_auth.hpp"
 #include "editor/osm_editor.hpp"
 
 @implementation MWMEditorHelper
 
-+ (void)uploadEdits:(void (^)(UIBackgroundFetchResult))completionHandler
++ (BOOL)hasMapEditsOrNotesToUpload
+{
+  return osm::Editor::Instance().HaveMapEditsOrNotesToUpload();
+}
+
++ (void)uploadEditsWithTimeout:(NSTimeInterval)timeout
+             completionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
   if (!osm_auth_ios::AuthorizationHaveCredentials() ||
       Platform::EConnectionType::CONNECTION_NONE == Platform::ConnectionStatus())
@@ -29,7 +36,7 @@
         oauthToken,
         {{"created_by", std::string("Organic Maps " OMIM_OS_NAME " ") + AppInfo.sharedInfo.bundleVersion.UTF8String},
          {"bundle_id", NSBundle.mainBundle.bundleIdentifier.UTF8String}},
-        lambda);
+        lambda, timeout);
   }
 }
 
