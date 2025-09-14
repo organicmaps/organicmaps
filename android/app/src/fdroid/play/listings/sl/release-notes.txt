@@ -1,11 +1,13 @@
-• NOVO! Številke prog prikazane na avtobusnih postajališčih
-• OSM zemljevidi z dne 29. avgusta
-• Nove ikone plasti
-• Večje področje dotika za ikono urejanja zaznamka (svinčnik)
-• Obnovljen vrstni red vnaprej določenih barv
-• Lestve prikazane in uporabljene pri usmerjanju
-• Prikaži elektrarne, razdelilne postaje, ovire, turnikete, varnostne pisarne in čuvarnice
-• Brez samodejnega povečanja pri dodajanju vmesnih postajališč
-• Območja elektrarn prikazana kot industrijska
+• OSM podatki 13. sept
+• Prikaži poštno številko v naslovih
+• Nove ikone krožišč (Android Auto)
+• Odstranjeni manjši otoki
+• Popravljeno centriranje zemljevida
+• Barve zaznamkov ostanejo v GPX
+• Trgovine z razsvetljavo
+• Meje narodnih parkov
+• Arheološka mesta od zoom 12
+• Kampi in karavane v navigaciji
+• Popravljena barva sekundarne ceste
 
-…več na omaps.org/news
+…več: omaps.org/news

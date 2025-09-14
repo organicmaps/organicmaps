@@ -1,23 +1,20 @@
-• ¡NUEVO! Números de ruta mostrados en paradas de autobús
-• NUEVO aspecto para los botones "Agregar lugar a OpenStreetMap" y "Editar lugar"
-• Datos actualizados de OpenStreetMap del 29 de agosto
-• Nuevos iconos para capas de mapa y menú
-• Solucionado el salto de la cruz al agregar un nuevo lugar a OpenStreetMap
-• Mostrar centrales eléctricas, subestaciones, barreras, puertas, oficinas de seguridad y casetas de guardia
-• Sin zoom automático a la ruta completa al agregar paradas intermedias
-• Estilo exterior: aceras visibles desde zoom 13
-• Títulos multilínea en selector de lista de marcadores
-• Títulos multilínea en página de información del lugar
-• Escaleras mostradas y utilizadas en enrutamiento
-• Iconos corregidos para torres de comunicación
-• Instrucciones de navegación más claras para rotondas
-• Categorías de cocina ampliadas para búsqueda
-• Áreas de centrales eléctricas renderizadas como industriales
-• POIs de turismo marrón en modo oscuro
-• Bibliotecas aparecen antes, desde zoom 16
-• Eliminadas actualizaciones redundantes de elevación durante grabación de track
-• Inicio/parada más confiable de grabación de track y actualizaciones de puntos
-• Color azul unificado para todos los iconos tocables en página de detalles del lugar
-• Botón "Actualizar mapas para contribuir" mostrado en menú cuando mapas están obsoletos
-• Muchos iconos de mapa convertidos de PNG a SVG
-• Traducciones actualizadas
+• NUEVO: Planificación de rutas rediseñada (más clara y rápida para añadir o mover paradas).
+• NUEVO: Se muestra el contenido de la etiqueta OSM "description" en los objetos (prueba con ?description en la búsqueda).
+• Datos de OpenStreetMap a 13 de septiembre.
+• Se corrigieron varios errores de CarPlay
+• Eliminadas islas menores poco relevantes del mapa mundial.
+• Ahora se muestra el código postal en las direcciones.
+• Corregido el centrado erróneo alrededor de la posición actual.
+• Los colores de tus marcadores se conservan al exportar/importar GPX.
+• Traducciones actualizadas.
+
+Estilos de mapa:
+• Tiendas de iluminación visibles en el mapa.
+• Líneas de alta tensión desde el zoom 18.
+• Nombres de centrales y subestaciones.
+• Campings y áreas para caravanas en modo navegación.
+• Color de la carretera secundaria corregido en navegación.
+• Límites de parques nacionales dibujados.
+• Sitios arqueológicos desde zoom 12 en el estilo outdoor.
+
+Cada donación o buena reseña motiva a los voluntarios. ¡Gracias!

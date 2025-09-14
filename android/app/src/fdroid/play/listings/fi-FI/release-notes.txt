@@ -1,11 +1,13 @@
-• UUTTA! Reittinumerot näytetään bussipysäkeillä
-• OSM-kartat 29. elokuuta
-• Uudet tason kuvakkeet
-• Suurempi kosketusalue kirjanmerkin muokkaussymbolia (kynä) varten
-• Palautettu ennalta määritettyjen värien järjestys
-• Tikkaat näytetään ja käytetään reitityksessä
-• Näytä voimalaitokset, sähköasemat, esteet, kääntöportit, turvakeskukset ja vartiotalot
-• Ei automaattista zoomausta välipysäkkejä lisättäessä
-• Voimalaitosalueet piirretty teollisuusalueina
+• OSM-data 13. syyskuuta
+• Näytä postinumero osoitteissa
+• Uudet liikenneymp. ikonit (Android Auto)
+• Pienet saaret poistettu
+• Kartan keskitys korjattu
+• Kirjanmerkkien värit säilyvät GPX:ssä
+• Valaistusliikkeet
+• Kansallispuistojen rajat
+• Arkeologiset kohteet zoom 12
+• Leiri & karavaani navigoinnissa
+• Toissij. tien väri korjattu
 
-…lisää omaps.org/news
+…lisää: omaps.org/news

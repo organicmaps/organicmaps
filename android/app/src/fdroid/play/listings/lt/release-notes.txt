@@ -1,10 +1,13 @@
-• NAUJA! Maršrutų numeriai rodomi autobusų stotelėse
-• OSM žemėlapiai nuo rugpjūčio 29 d.
-• Naujos sluoksnių piktogramos
-• Didesnė paliesti sritis žymės redagavimo (pieštuko) piktogramai
-• Atkurta iš anksto nustatytų spalvų tvarka
-• Kopėčios rodomos ir naudojamos maršrutų planavime
-• Rodyti elektrinės, pastotės, barjerai, turniketai, apsaugos biurai ir sargybos namai
-• Nėra automatinio artinimo pridedant tarpinius sustojimus
+• OSM duomenys 09-13
+• Rodyti pašto kodą adresuose
+• Naujos žiedinės ikonėlės (Android Auto)
+• Pašalintos mažos salos
+• Ištaisyta žemėlapio centravimas
+• Žymelių spalvos GPX išlieka
+• Apšvietimo parduotuvės
+• Nacionalinių parkų ribos
+• Archeologija nuo mastelio 12
+• Stovyklos ir kemperių vietos
+• Antrinio kelio spalva pataisyta
 
-…daugiau omaps.org/news
+…daugiau: omaps.org/news

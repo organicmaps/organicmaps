@@ -1,11 +1,13 @@
-• NOWOŚĆ! Numery linii pokazane na przystankach autobusowych
-• Mapy OSM z 29 sierpnia
-• Nowe ikony warstw
-• Większy obszar dotykowy dla ikony edycji zakładki (ołówek)
-• Przywrócona kolejność predefiniowanych kolorów
-• Drabiny wyświetlane i używane w trasowaniu
-• Pokazuj elektrownie, podstacje, bariery, bramki, biura ochrony i wartownie
-• Brak automatycznego powiększania przy dodawaniu przystanków pośrednich
-• Obszary elektrowni renderowane jako przemysłowe
+• Dane OSM z 13 września
+• Pokazuj kod pocztowy w adresach
+• Nowe ikony rond (Android Auto)
+• Usunięto małe wyspy z mapy świata
+• Poprawiono centrowanie mapy
+• Kolory zakładek zachowane w GPX
+• Sklepy oświetleniowe
+• Granice parków narodowych
+• Stanowiska archeologiczne od zoom 12
+• Kempingi i miejsca karawan w nawigacji
+• Poprawiono kolor dróg drugorzędnych
 
-…więcej na omaps.org/news
+…więcej: omaps.org/news
