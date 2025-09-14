@@ -1,23 +1,20 @@
-• NYT! Rutenumre vist ved busstoppesteder
-• NYT udseende for "Tilføj sted til OpenStreetMap" og "Rediger sted" knapper
-• Opdateret OpenStreetMap data pr. 29. august
-• Nye ikoner til kortlag og menu
-• Rettet hoppende sigtekorn når et nyt sted tilføjes til OpenStreetMap
-• Vis kraftstationer, transformerstationer, barrierer, låger, sikkerhedskontorer og vagtstueer
-• Ingen auto-zoom til den fulde rute når mellemstationer tilføjes
-• Udendørs stil: fortorve er synlige fra zoom 13
-• Fleerlinjede titler i bogmærkelistevalger
-• Fleerlinjede titler på stedinformationssiden
-• Stiger vist og brugt i ruteplanlægning
-• Rettede ikoner for kommunikationstårne
-• Klarere rundkørselsinstruktioner
-• Udvidede søgbare køkkenkategorier
-• Kraftværksområder gengivet som industrielle
-• Brune turisme POI'er i mørk tilstand
-• Biblioteker vises tidligere, fra zoom 16
-• Fjernet overflødige højdeopdateringer under sporoptag
-• Mere pålidelig start/stop af sporoptag og punktopdateringer
-• Ensartet blå farve for alle klikbare ikoner på steddetaljersiden
-• "Opdater kort for at bidrage" knap vist i menuen når kort er for forældede
-• Mange kortikoner konverteret fra PNG til SVG
-• Opdaterede oversættelser
+• NYT: Ruteplanlægning helt redesignet (hurtigere og mere overskueligt).
+• NYT: Viser indholdet af OSM-tagget "description" (?description i søgefeltet for at teste).
+• OpenStreetMap-data pr. 13. september.
+• Rettet flere CarPlay-fejl
+• Små ubetydelige øer fjernet fra verdenskort.
+• Postnumre vises i adresser.
+• Forkert kortcentrering rettet.
+• Farver på bogmærker bevares ved GPX eksport/import.
+• Opdaterede oversættelser.
+
+Kortstile:
+• Belysningsbutikker på kortet.
+• Højspændingsledninger fra zoom 18.
+• Navne på kraftværker og transformerstationer.
+• Camping- og caravanpladser i navigationstilstand.
+• Sekundær vejfarve rettet i navigation.
+• Nationalparkgrænser.
+• Arkæologiske steder fra zoom 12 (outdoor-stil).
+
+Hver donation og god anmeldelse motiverer vores frivillige. Tak!

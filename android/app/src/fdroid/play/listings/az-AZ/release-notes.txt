@@ -1,9 +1,13 @@
-• YENİ! Avtobus dayanacaqlarında marşrut nömrələri göstərilir
-• 29 avqust OSM xəritələri
-• Yeni qat ikonları
-• Əlfəcin redaktə (qələm) ikonu üçün daha böyük toxunma sahəsi
-• Əvvəlcədən müəyyən edilmiş rənglərin sırası bərpa edildi
-• Nərdivanlar göstərilir və marşrutlaşdırmada istifadə olunur
-• Elektrik stansiyaları, yarımstansiyalar, maneələr, dönər qapılar, təhlükəsizlik ofisləri və keşikçi evləri göstər
-• Aralıq dayanacaqlar əlavə edərkən avtomatik yaxınlaşdırma yoxdur
-…ətraflı omaps.org/news
+• OSM məlumatları: 13 sentyabr
+• Ünvanlarda poçt indeksi
+• Android Auto üçün yeni dairəvi yol ikonları
+• Xırda adalar silindi
+• Xəritə mərkəzləşməsi düzəldildi
+• Əlfəcin rəngləri GPX-də qalır
+• İşıqlandırma mağazaları
+• Milli park sərhədləri
+• Arxeoloji yerlər zoom 12-dən
+• Düşərgə və karvan yerləri
+• İkincil yol rəngi düzəldildi
+
+…daha çox: omaps.org/news

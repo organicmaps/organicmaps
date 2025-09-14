@@ -1,10 +1,13 @@
-• NOU! Números de ruta mostrats a les parades d'autobús
-• Mapes OSM del 29 d'agost
-• Noves icones de capes
-• Àrea tàctil més gran per a la icona d'editar marcador (llapis)
-• Ordre restaurat dels colors predefinits
-• Escales mostrades i utilitzades en l'enrutament
-• Mostra centrals elèctriques, subestacions, barreres, torniquets, oficines de seguretat i casetes de guàrdia
-• Sense zoom automàtic en afegir parades intermèdies
+• Dades OSM al 13 setembre
+• Mostrar codi postal
+• Nous icones de rotonda (Android Auto)
+• Illes menors eliminades
+• Centre de mapa corregit
+• Colors de marcadors a GPX
+• Botigues d'il·luminació
+• Fronteres de parcs nacionals
+• Jaciments arqueològics des del zoom 12
+• Càmpings i caravanes en navegació
+• Color carretera secundària corregit
 
-…més a omaps.org/news
+…més: omaps.org/news

@@ -1,23 +1,20 @@
-• NEW! Route numbers shown at bus stops
-• NEW look for "Add Place to OpenStreetMap" and "Edit Place" buttons
-• Updated OpenStreetMap data as of 29 August
-• New icons for map layers and menu
-• Fixed jumping crosshair when adding a new place to the OpenStreetMap
-• Show power stations, substations, barriers, wicket gates, security offices, and guardhouses
-• No auto‑zoom to the full route when adding intermediate stops
-• Outdoor style: pavements are visible from zoom 13
-• Multi-line titles in bookmark list selector
-• Multi-line titles in Place Information Page
-• Ladders displayed and used in routing
-• Fixed icons for communication towers
-• Clearer roundabout navigation instructions
-• Expanded searchable cuisine categories
-• Power plant areas rendered as industrial
-• Brown tourism POIs in dark mode
-• Libraries appear earlier, from zoom 16
-• Removed redundant elevation updates during track recording
-• More reliable track recording start/stop and point updates
-• Unified blue colour for all tappable icons on the place details page
-• "Update maps to contribute" button shown in the menu when maps are too outdated
-• Many map icons converted from PNG to SVG
+• NEW! Redesigned route planning
+• NEW! Show OSM "description" tag contents for features on the map (type ?description in the search box to test it)
+• OpenStreetMap data as of September 13
+• Fixed several CarPlay bugs
+• Removed minor islands from the World map
+• Show Postcode/zip code for addresses
+• Fixed wrong map centering around the current position
+• Bookmark colors are preserved when exporting and importing GPX files
 • Updated translations
+
+Map Styles:
+• Display lighting shops on the map
+• Show power lines from zoom 18
+• Show reference names for power stations and substations
+• Show campsites and caravan sites in navigation mode
+• Fixed secondary highway color in navigation mode
+• Draw national park borders
+• Draw archaeological sites from zoom 12 in outdoor mode
+
+Every donation and good review motivates our volunteers to build better maps, thank you!

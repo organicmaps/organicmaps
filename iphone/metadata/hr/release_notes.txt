@@ -1,23 +1,20 @@
-• NOVO! Brojevi ruta prikazani na autobusnim stanicama
-• NOVI izgled za "Dodaj mjesto na OpenStreetMap" i "Uredi mjesto" gumbove
-• Ažurirani OpenStreetMap podaci od 29. kolovoza
-• Nove ikone za slojeve karte i izbornik
-• Popravljena skakutava nišanska linija kada se dodaje novo mjesto na OpenStreetMap
-• Prikaži elektrane, trafostanice, barijere, prolazna vrata, sigurnosne urede i čuvarnice
-• Nema automatskog zumiranja na cijelu rutu kad se dodaju međustanice
-• Vanjski stil: pločnici su vidljivi od zuma 13
-• Višelinijski naslovi u odabrniku liste oznaka
-• Višelinijski naslovi na stranici s informacijama o mjestu
-• Ljestve prikazane i korištene u usmjeravanju
-• Popravljene ikone za komunikacijske tornjeve
-• Jasniji navigacijski upute za kružne tokove
-• Proširene kategorije kuhinje koje se mogu pretraživati
-• Područja elektrana prikazana kao industrijska
-• Smeđi turizam POI-jevi u tamnom načinu
-• Knjižnice se pojavljuju ranije, od zuma 16
-• Uklonjene suvišne nadmorske visine tijekom snimanja staze
-• Pouzdaniji početak/kraj snimanja staze i ažuriranje točaka
-• Jedinstvena plava boja za sve ikone na koje se može dodirnuti na stranici detalja mjesta
-• Gumb "Ažuriraj karte za doprinos" prikazan u izborniku kada su karte previše zastarjele
-• Mnoge ikone karata pretvorene iz PNG u SVG
-• Ažurirani prijevodi
+• NOVO: Potpuno redizajnirano planiranje ruta (brže prilagodbe, jasnije točke prolaza).
+• NOVO: Prikaz sadržaja OSM taga "description" za objekte (upišite ?description u pretragu).
+• OpenStreetMap podaci na dan 13. rujna.
+• Ispravljena je nekoliko grešaka CarPlay
+• Uklonjeni manji beznačajni otoci s karte svijeta.
+• Prikaz poštanskih brojeva u adresama.
+• Ispravljeno pogrešno centriranje karte oko trenutne pozicije.
+• Boje oznaka ostaju pri izvozu/uvozu GPX datoteka.
+• Ažurirani prijevodi.
+
+Stilovi karte:
+• Trgovine rasvjetom na karti.
+• Dalekovodi od zuma 18.
+• Nazivi elektrana i trafostanica.
+• Kampovi i mjesta za kamp-prikolice u navigaciji.
+• Ispravljena boja sekundarnih cesta u navigaciji.
+• Granice nacionalnih parkova.
+• Arheološka nalazišta od zuma 12 (outdoor stil).
+
+Svaka donacija i dobra recenzija motivira volontere. Hvala!

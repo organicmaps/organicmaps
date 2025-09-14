@@ -1,23 +1,20 @@
-• NOVO! Números de rotas mostrados em pontos de ônibus
-• NOVA aparência para os botões "Adicionar Local ao OpenStreetMap" e "Editar Local"
-• Dados do OpenStreetMap atualizados até 29 de agosto
-• Novos ícones para camadas do mapa e menu
-• Corrigida cruz saltitante ao adicionar novo local ao OpenStreetMap
-• Mostrar usinas, subestações, barreiras, catracas, escritórios de segurança e guaritas
-• Sem zoom automático para rota completa ao adicionar paradas intermediárias
-• Estilo outdoor: calçadas visíveis a partir do zoom 13
-• Títulos em múltiplas linhas no seletor de lista de favoritos
-• Títulos em múltiplas linhas na página de informações do local
-• Escadas exibidas e usadas no roteamento
-• Ícones corrigidos para torres de comunicação
-• Instruções de navegação mais claras para rotatórias
-• Categorias de culinária pesquisáveis expandidas
-• Áreas de usinas renderizadas como industriais
-• POIs de turismo marrons no modo escuro
-• Bibliotecas aparecem mais cedo, a partir do zoom 16
-• Removidas atualizações redundantes de elevação durante gravação de trilha
-• Início/parada mais confiável de gravação de trilha e atualizações de pontos
-• Cor azul unificada para todos os ícones tocáveis na página de detalhes do local
-• Botão "Atualizar mapas para contribuir" mostrado no menu quando mapas estão obsoletos
-• Muitos ícones do mapa convertidos de PNG para SVG
-• Traduções atualizadas
+• NOVO: Planejamento de rotas totalmente redesenhado (mais rápido e claro para ajustar paradas).
+• NOVO: Exibe o conteúdo da tag OSM "description" nos objetos (?description na busca para testar).
+• Dados OpenStreetMap de 13 de setembro.
+• Corrigidos vários bugs do CarPlay
+• Pequenas ilhas irrelevantes removidas do mapa mundial.
+• CEP exibido nos endereços.
+• Correção do centramento incorreto da posição.
+• Cores dos favoritos preservadas ao exportar/importar GPX.
+• Traduções atualizadas.
+
+Estilos de mapa:
+• Lojas de iluminação no mapa.
+• Linhas de energia a partir do zoom 18.
+• Nomes de usinas e subestações.
+• Campings e áreas para trailers na navegação.
+• Cor de estrada secundária corrigida na navegação.
+• Limites de parques nacionais.
+• Sítios arqueológicos desde o zoom 12 (estilo outdoor).
+
+Cada doação e boa avaliação motiva os voluntários. Obrigado!

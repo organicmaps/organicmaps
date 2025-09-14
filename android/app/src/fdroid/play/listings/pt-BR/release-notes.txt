@@ -1,11 +1,13 @@
-• NOVO! Números de rotas mostrados em pontos de ônibus
-• Mapas OSM de 29 de agosto
-• Novos ícones de camadas
-• Área de toque maior para o ícone de editar favorito (lápis)
-• Ordem das cores predefinidas restaurada
-• Escadas exibidas e usadas no roteamento
-• Mostrar usinas, subestações, barreiras, catracas, escritórios de segurança e guaritas
-• Sem zoom automático ao adicionar paradas intermediárias
-• Áreas de usinas renderizadas como industriais
+• Dados OSM de 13 set
+• Mostrar CEP nos endereços
+• Novos ícones de rotatória (Android Auto)
+• Pequenas ilhas removidas
+• Centralização do mapa corrigida
+• Cores de favoritos mantidas no GPX
+• Lojas de iluminação
+• Limites de parques nacionais
+• Sítios arqueológicos desde zoom 12
+• Acamp. e locais de trailer na navegação
+• Cor de via secundária corrigida
 
-…mais em omaps.org/news
+…mais: omaps.org/pt/news

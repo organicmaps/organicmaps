@@ -1,23 +1,20 @@
-• BARU! Nomor rute ditampilkan di halte bus
-• Tampilan BARU untuk tombol "Tambah Tempat ke OpenStreetMap" dan "Edit Tempat"
-• Data OpenStreetMap diperbarui hingga 29 Agustus
-• Ikon baru untuk lapisan peta dan menu
-• Perbaikan crosshair melompat saat menambah tempat baru ke OpenStreetMap
-• Tampilkan pembangkit listrik, gardu induk, penghalang, gerbang putar, kantor keamanan, dan pos jaga
-• Tidak ada zoom otomatis ke rute penuh saat menambah perhentian antara
-• Gaya luar ruang: trotoar terlihat dari zoom 13
-• Judul multi-baris dalam pemilih daftar bookmark
-• Judul multi-baris di halaman informasi tempat
-• Tangga ditampilkan dan digunakan dalam perutean
-• Ikon diperbaiki untuk menara komunikasi
-• Instruksi navigasi bundaran yang lebih jelas
-• Kategori masakan yang dapat dicari diperluas
-• Area pembangkit listrik ditampilkan sebagai industri
-• POI pariwisata coklat dalam mode gelap
-• Perpustakaan muncul lebih awal, dari zoom 16
-• Menghapus pembaruan ketinggian berlebihan selama perekaman jalur
-• Mulai/berhenti perekaman jalur yang lebih andal dan pembaruan titik
-• Warna biru terpadu untuk semua ikon yang dapat disentuh di halaman detail tempat
-• Tombol "Perbarui peta untuk berkontribusi" ditampilkan di menu saat peta terlalu usang
-• Banyak ikon peta dikonversi dari PNG ke SVG
-• Terjemahan diperbarui
+• BARU: Perencanaan rute didesain ulang (lebih jelas & cepat menata titik lewat).
+• BARU: Menampilkan isi tag OSM "description" untuk objek (coba ketik ?description di pencarian).
+• Data OpenStreetMap per 13 September.
+• Memperbaiki beberapa bug CarPlay
+• Pulau kecil tak penting dihapus dari peta dunia.
+• Kode pos kini tampil di alamat.
+• Perbaikan pemusatan peta yang salah.
+• Warna penanda tetap saat ekspor/impor GPX.
+• Terjemahan diperbarui.
+
+Gaya peta:
+• Toko pencahayaan di peta.
+• Saluran listrik dari zoom 18.
+• Nama pembangkit & gardu listrik.
+• Perkemahan & area karavan di mode navigasi.
+• Perbaikan warna jalan sekunder di navigasi.
+• Batas taman nasional.
+• Situs arkeologi mulai zoom 12 (gaya outdoor).
+
+Setiap donasi & ulasan baik memotivasi relawan kami. Terima kasih!

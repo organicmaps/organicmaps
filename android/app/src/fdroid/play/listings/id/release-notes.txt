@@ -1,11 +1,13 @@
-• BARU! Nomor rute ditampilkan di halte bus
-• Peta OSM per 29 Agustus
-• Ikon layer baru
-• Area sentuh lebih besar untuk ikon edit bookmark (pensil)
-• Urutan warna yang telah ditentukan dipulihkan
-• Tangga ditampilkan dan digunakan dalam perutean
-• Tampilkan pembangkit listrik, gardu induk, penghalang, gerbang putar, kantor keamanan, dan pos jaga
-• Tidak ada zoom otomatis saat menambah perhentian antara
-• Area pembangkit listrik ditampilkan sebagai industri
+• Data OSM 13 Sept
+• Tampilkan kode pos alamat
+• Ikon bundaran baru (Android Auto)
+• Pulau kecil dihapus
+• Perbaikan pemusatan peta
+• Warna penanda tersisa di GPX
+• Toko pencahayaan
+• Batas taman nasional
+• Situs arkeologi dari zoom 12
+• Perkemahan & karavan di navigasi
+• Warna jalan sekunder diperbaiki
 
-…selengkapnya di omaps.org/news
+…lebih: omaps.org/news

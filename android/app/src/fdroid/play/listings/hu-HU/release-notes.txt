@@ -1,10 +1,13 @@
-• ÚJ! Útvonalszámok megjelenítése buszmegállókban
-• OSM térképek augusztus 29-től
-• Új réteg ikonok
-• Nagyobb érintési terület a könyvjelző szerkesztő (ceruza) ikonhoz
-• Előre meghatározott színek sorrendje helyreállítva
-• Létrák megjelenítve és használva az útvonaltervezésben
-• Erőművek, alállomások, akadályok, forgóajtók, biztonsági irodák és őrházak megjelenítése
-• Nincs automatikus nagyítás közbenső megállók hozzáadásakor
+• OSM adatok: szept 13.
+• Irányítószám megjelenítése
+• Új körforgalom ikonok (Android Auto)
+• Kis szigetek eltávolítva
+• Térkép középre igazítása javítva
+• Könyvjelző színek maradnak GPX-ben
+• Világítás üzletek
+• Nemzeti park határok
+• Régészeti helyek zoom 12-től
+• Kemping & lakókocsi helyek
+• Másodlagos út színe javítva
 
-…több a omaps.org/news oldalon
+…több: omaps.org/hu/news

@@ -1,23 +1,20 @@
-• ÚJ! Útvonalszámok megjelenítése buszmegállókban
-• ÚJ megjelenés az "Hely hozzáadása OpenStreetMap-hez" és "Hely szerkesztése" gombokhoz
-• Frissített OpenStreetMap adatok augusztus 29-ig
-• Új ikonok térképrétegekhez és menühöz
-• Javított ugráló célkereszt új hely OpenStreetMap-hez adásakor
-• Erőművek, alállomások, akadályok, forgóajtók, biztonsági irodák és őrházak megjelenítése
-• Nincs automatikus nagyítás a teljes útvonalra közbenső megállók hozzáadásakor
-• Szabadtéri stílus: járdák láthatók 13-as nagyítástól
-• Többsoros címek a könyvjelző lista választóban
-• Többsoros címek a helyinformáció oldalon
-• Létrák megjelenítve és használva útvonaltervezésben
-• Javított ikonok kommunikációs tornyokhoz
-• Tisztább körforgalom navigációs utasítások
-• Bővített kereshető konyha kategóriák
-• Erőmű területek ipari területként megjelenítve
-• Barna turizmus POI-k sötét módban
-• Könyvtárak korábban jelennek meg, 16-os nagyítástól
-• Eltávolított redundáns magasság frissítések nyomvonal rögzítés alatt
-• Megbízhatóbb nyomvonal rögzítés indítás/leállítás és pont frissítések
-• Egységes kék szín minden érinthetős ikonhoz a hely részletek oldalon
-• "Térképek frissítése a hozzájáruláshoz" gomb megjelenítve a menüben amikor a térképek túl elavultak
-• Számos térkép ikon átalakítva PNG-ről SVG-re
-• Frissített fordítások
+• ÚJ: Teljesen átdolgozott útvonaltervezés – gyorsabb szerkesztés, áttekinthetőbb pontok.
+• ÚJ: OSM "description" tag tartalmának megjelenítése (próbáld ki a ?description keresést).
+• OpenStreetMap adatok szept. 13-i állapot szerint.
+• Több CarPlay hiba kijavítva
+• Apró jelentéktelen szigetek eltávolítva a világtérképről.
+• Irányítószám megjelenítése a címekben.
+• Hibás térkép-középre igazítás javítva.
+• Könyvjelző színek megmaradnak GPX export/import során.
+• Frissített fordítások.
+
+Térkép stílusok:
+• Világítástechnikai üzletek a térképen.
+• Távvezetékek 18-as nagyítástól.
+• Erőművek és alállomások nevei.
+• Kempingek és lakókocsi helyek navigáció módban.
+• Másodlagos utak színének javítása.
+• Nemzeti park határok.
+• Régészeti helyszínek 12-es nagyítástól (outdoor stílus).
+
+Minden adomány és jó értékelés motiválja önkénteseinket. Köszönjük!

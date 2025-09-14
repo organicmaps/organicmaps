@@ -1,11 +1,13 @@
-• NYT! Rutenumre vist ved busstoppesteder
-• OSM kort fra 29. august
-• Nye lag-ikoner
-• Større berøringsområde for rediger bogmærke-ikonet (blyant)
-• Genetableret rækkefølge af foruddefinerede farver
-• Stiger vist og brugt i ruteplanlægning
-• Vis kraftværker, transformerstationer, barrierer, drejekors, sikkerhedskontorer og vagtstuer
-• Ingen automatisk zoom ved tilføjelse af mellemstop
-• Kraftværksområder gengivet som industrielle
+• OSM-data pr. 13. sep
+• Vis postnumre i adresser
+• Nye rundkørselsikoner (Android Auto)
+• Små øer fjernet
+• Kortcentrering rettet
+• Bogmærkefarver bevares i GPX
+• Belysningsbutikker
+• Nationalparkgrænser
+• Arkæologi fra zoom 12
+• Camping & caravan i navigation
+• Sekundær vejfarve rettet
 
-…mere på omaps.org/news
+…mere: omaps.org/news

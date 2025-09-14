@@ -1,23 +1,20 @@
-• नया! बस स्टॉप पर रूट नंबर दिखाए गए
-• "OpenStreetMap में स्थान जोड़ें" और "स्थान संपादित करें" बटन के लिए नया रूप
-• 29 अगस्त तक अपडेट किया गया OpenStreetMap डेटा
-• मैप लेयर्स और मेनू के लिए नए आइकन
-• OpenStreetMap में नई जगह जोड़ते समय कूदने वाले क्रॉसहेयर को ठीक किया गया
-• पावर स्टेशन, सबस्टेशन, बैरियर, विकेट गेट्स, सिक्यूरिटी ऑफिस और गार्डहाउस दिखाएं
-• इंटरमीडिएट स्टॉप जोड़ते समय पूरे रूट में कोई ऑटो-ज़ूम नहीं
-• आउटडोर स्टाइल: फुटपाथ ज़ूम 13 से दिखाई देते हैं
-• बुकमार्क लिस्ट सेलेक्टर में मल्टी-लाइन टाइटल
-• प्लेस इन्फॉर्मेशन पेज में मल्टी-लाइन टाइटल
-• सीढ़ियां दिखाई गईं और रूटिंग में इस्तेमाल की गईं
-• कम्युनिकेशन टावर के लिए आइकन ठीक किए गए
-• राउंडअबाउट नेवीगेशन के लिए स्पष्ट निर्देश
-• विस्तारित खोजने योग्य व्यंजन श्रेणियां
-• पावर प्लांट एरिया को औद्योगिक के रूप में रेंडर किया गया
-• डार्क मोड में भूरे रंग के पर्यटन POI
-• लाइब्रेरी पहले दिखाई देती हैं, ज़ूम 16 से
-• ट्रैक रिकॉर्डिंग के दौरान अनावश्यक एलिवेशन अपडेट हटाए गए
-• अधिक विश्वसनीय ट्रैक रिकॉर्डिंग स्टार्ट/स्टॉप और पॉइंट अपडेट
-• प्लेस डिटेल पेज पर सभी टैप करने योग्य आइकन के लिए एकीकृत नीला रंग
-• जब मैप बहुत पुराने हो जाते हैं तो मेनू में "योगदान के लिए मैप अपडेट करें" बटन दिखाया जाता है
-• कई मैप आइकन PNG से SVG में बदले गए
-• अपडेट किए गए अनुवाद
+• NEW! Redesigned route planning
+• NEW! Show OSM "description" tag contents for features on the map (type ?description in the search box to test it)
+• OpenStreetMap data as of September 13
+• कई CarPlay बग्स को ठीक किया गया
+• Removed minor islands from the World map
+• Show Postcode/zip code for addresses
+• Fixed wrong map centering around the current position
+• Bookmark colors are preserved when exporting and importing GPX files
+• Updated translations
+
+Map Styles:
+• Display lighting shops on the map
+• Show power lines from zoom 18
+• Show reference names for power stations and substations
+• Show campsites and caravan sites in navigation mode
+• Fixed secondary highway color in navigation mode
+• Draw national park borders
+• Draw archaeological sites from zoom 12 in outdoor mode
+
+Every donation and good review motivates our volunteers to build better maps, thank you!

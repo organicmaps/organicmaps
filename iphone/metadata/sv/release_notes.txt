@@ -1,23 +1,20 @@
-• NYTT! Linjenummer visas vid busshållplatser
-• NYTT utseende för knapparna "Lägg till plats på OpenStreetMap" och "Redigera plats"
-• Uppdaterad OpenStreetMap-data från 29 augusti
-• Nya ikoner för kartlager och meny
-• Åtgärdat hoppande hårkors när en ny plats läggs till på OpenStreetMap
-• Visa kraftstationer, transformatorstationer, barriärer, vändkors, säkerhetskontor och vaktstugor
-• Ingen automatisk zoom till hela rutten när mellanliggande stopp läggs till
-• Utomhusstil: trottoarer syns från zoom 13
-• Flerlinjiga titlar i bokmärkeslistväljaren
-• Flerlinjiga titlar på platsinformationssidan
-• Stegar visas och används vid navigering
-• Åtgärdade ikoner för kommunikationstorn
-• Tydligare navigeringsinstruktioner för rondeller
-• Utökade sökbara kökskategorier
-• Kraftverksområden renderade som industriella
-• Bruna turist-POI:er i mörkt läge
-• Bibliotek visas tidigare, från zoom 16
-• Borttagna redundanta höjduppdateringar under spårinspelning
-• Mer tillförlitlig start/stopp av spårinspelning och punktuppdateringar
-• Enhetlig blå färg för alla klickbara ikoner på platsdetaljsidan
-• Knappen "Uppdatera kartor för att bidra" visas i menyn när kartorna är för föråldrade
-• Många kartikoner konverterade från PNG till SVG
-• Uppdaterade översättningar
+• NYTT: Helt omgjord ruttplanering (snabbare ändringar, tydligare via‑punkter).
+• NYTT: Visar innehåll i OSM‑taggen "description" (?description i sök för test).
+• OpenStreetMap‑data 13 september.
+• Åtgärdat flera CarPlay-buggar
+• Små oviktiga öar borttagna.
+• Postnummer visas i adresser.
+• Felaktig kartcentrering korrigerad.
+• Bokmärkesfärger bevaras vid GPX export/import.
+• Uppdaterade översättningar.
+
+Kartstilar:
+• Belysningsbutiker på kartan.
+• Kraftledningar från zoom 18.
+• Namn på kraftverk och transformatorstationer.
+• Camping- och husbilsplatser i navigationsläge.
+• Sekundär väg-färg korrigerad.
+• Nationalparksgränser.
+• Arkeologiska platser från zoom 12 (outdoor-stil).
+
+Varje donation och bra recension motiverar volontärer. Tack!
