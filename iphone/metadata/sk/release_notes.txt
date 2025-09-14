@@ -1,23 +1,20 @@
-• NOVÉ! Čísla liniek zobrazené na autobusových zastávkach
-• NOVÝ vzhľad pre tlačidlá "Pridať miesto do OpenStreetMap" a "Upraviť miesto"
-• Aktualizované dáta OpenStreetMap k 29. augustu
-• Nové ikony pre vrstvy máp a menu
-• Opravený skákajúci zameriavač pri pridávaní nového miesta do OpenStreetMap
-• Zobraziť elektrárne, rozvodne, bariéry, turnikety, bezpečnostné kancelárie a strážnice
-• Žiadne automatické priblíženie na celú trasu pri pridávaní medzizastávok
-• Vonkajší štýl: chodníky viditeľné od priblíženia 13
-• Viacriadkové názvy vo výbere zoznamu záložiek
-• Viacriadkové názvy na stránke informácií o mieste
-• Rebríky zobrazené a používané v navigácii
-• Opravené ikony pre komunikačné veže
-• Jasnejšie navigačné pokyny pre kruhové objazdy
-• Rozšírené vyhľadávateľné kategórie kuchyne
-• Oblasti elektrární vykreslené ako priemyselné
-• Hnedé turistické POI v tmavom režime
-• Knižnice sa objavujú skôr, od priblíženia 16
-• Odstránené redundantné aktualizácie výšky počas nahrávania stopy
-• Spoľahlivejšie spustenie/zastavenie nahrávania stopy a aktualizácie bodov
-• Zjednotená modrá farba pre všetky klikateľné ikony na stránke podrobností miesta
-• Tlačidlo "Aktualizovať mapy na prispievanie" zobrazené v menu keď sú mapy príliš zastarané
-• Mnoho ikon máp konvertovaných z PNG na SVG
-• Aktualizované preklady
+• NOVÉ: Úplne prepracované plánovanie trás (rýchlejšie úpravy, jasnejšie body).
+• NOVÉ: Zobrazenie obsahu OSM tagu "description" (?description do vyhľadávania na test).
+• Dáta OpenStreetMap k 13. septembru.
+• Opravených niekoľko chýb CarPlay
+• Odstránené malé nepodstatné ostrovy z mapy sveta.
+• Zobrazovanie PSČ v adresách.
+• Opravené chybné centrovanie mapy.
+• Farby záložiek zostávajú pri exporte/importe GPX.
+• Aktualizované preklady.
+
+Mapové štýly:
+• Obchody s osvetlením na mape.
+• Vedenia vysokého napätia od zoomu 18.
+• Názvy elektrární a trafostaníc.
+• Kempy a karavanové miesta v navigácii.
+• Opravená farba sekundárnych ciest.
+• Hranice národných parkov.
+• Archeologické lokality od zoomu 12 (outdoor štýl).
+
+Každý dar a dobré hodnotenie motivuje dobrovoľníkov. Ďakujeme!

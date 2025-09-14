@@ -1,11 +1,13 @@
-• MỚI! Số tuyến hiển thị tại trạm xe buýt
-• Bản đồ OSM ngày 29 tháng 8
-• Biểu tượng lớp mới
-• Vùng chạm lớn hơn cho biểu tượng chỉnh sửa dấu trang (bút chì)
-• Khôi phục thứ tự màu được định trước
-• Thang được hiển thị và sử dụng trong định tuyến
-• Hiển thị nhà máy điện, trạm biến áp, rào cản, cửa xoay, văn phòng bảo vệ và nhà gác
-• Không tự động phóng to khi thêm điểm dừng trung gian
-• Khu vực nhà máy điện được hiển thị như khu công nghiệp
+• Dữ liệu OSM đến 13/9
+• Hiện mã bưu chính trong địa chỉ
+• Biểu tượng vòng xoay mới (Android Auto)
+• Gỡ đảo nhỏ khỏi bản đồ thế giới
+• Sửa lệch tâm bản đồ
+• Màu dấu trang giữ trong GPX
+• Cửa hàng chiếu sáng
+• Ranh giới công viên quốc gia
+• Di chỉ khảo cổ từ zoom 12
+• Điểm cắm trại & caravan trong dẫn đường
+• Sửa màu đường phụ
 
-…thêm tại omaps.org/news
+…thêm: omaps.org/news

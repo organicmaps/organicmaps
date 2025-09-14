@@ -1,23 +1,20 @@
-• YENİ! Otobüs duraklarında rota numaraları gösteriliyor
-• "OpenStreetMap'e Yer Ekle" ve "Yeri Düzenle" butonları için YENİ görünüm
-• 29 Ağustos itibarıyla güncellenmiş OpenStreetMap verisi
-• Harita katmanları ve menü için yeni simgeler
-• OpenStreetMap'e yeni yer eklenirken zıplayan artı işareti düzeltildi
-• Enerji santrallerini, trafo merkezlerini, bariyerleri, geçit kapılarını, güvenlik ofislerini ve bekçi kulübelerini göster
-• Ara duraklar eklenirken tüm rotaya otomatik yakınlaştırma yok
-• Dış mekan stili: kaldırımlar yakınlaştırma 13'ten itibaren görünür
-• Yer imi listesi seçicisinde çok satırlı başlıklar
-• Yer Bilgi Sayfasında çok satırlı başlıklar
-• Merdivenler gösteriliyor ve yönlendirmede kullanılıyor
-• İletişim kuleleri için simgeler düzeltildi
-• Daha net dönel kavşak navigasyon talimatları
-• Genişletilmiş aranabilir mutfak kategorileri
-• Enerji santrali alanları endüstriyel olarak işlendi
-• Karanlık modda kahverengi turizm POI'leri
-• Kütüphaneler daha erken, yakınlaştırma 16'dan itibaren görünüyor
-• İz kaydı sırasında gereksiz yükseklik güncellemeleri kaldırıldı
-• Daha güvenilir iz kaydı başlatma/durdurma ve nokta güncellemeleri
-• Yer detayları sayfasındaki tüm dokunulabilir simgeler için birleşik mavi renk
-• Haritalar çok eski olduğunda menüde "Katkıda bulunmak için haritaları güncelle" butonu gösteriliyor
-• Birçok harita simgesi PNG'den SVG'ye dönüştürüldü
-• Güncellenmiş çeviriler
+• YENİ: Tamamen yenilenen rota planlama (daha hızlı ve anlaşılır durak yönetimi).
+• YENİ: Haritadaki nesneler için OSM "description" etiketi içeriği (?description aramada deneyin).
+• 13 Eylül tarihli OpenStreetMap verileri.
+• Birkaç CarPlay hatası düzeltildi
+• Küçük önemsiz adalar dünya haritasından kaldırıldı.
+• Adreslerde posta kodu gösterimi.
+• Mevcut konum etrafında hatalı merkezleme düzeltildi.
+• Yer imi (bookmark) renkleri GPX içe/dışa aktarımında korunur.
+• Güncellenmiş çeviriler.
+
+Harita stilleri:
+• Aydınlatma mağazaları haritada.
+• Elektrik hatları 18. yakınlaştırmadan.
+• Santral ve trafo merkezi adları.
+• Kamp ve karavan alanları navigasyonda.
+• Navigasyonda ikincil yol rengi düzeltildi.
+• Milli park sınırları.
+• Arkeolojik alanlar 12. yakınlaştırmadan (outdoor stili).
+
+Her bağış ve iyi yorum gönüllülerimizi motive eder. Teşekkürler!

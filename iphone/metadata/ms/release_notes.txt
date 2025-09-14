@@ -1,23 +1,20 @@
-• BAHARU! Nombor laluan ditunjukkan di hentian bas
-• Rupa BAHARU untuk butang "Tambah Tempat ke OpenStreetMap" dan "Edit Tempat"
-• Data OpenStreetMap dikemas kini sehingga 29 Ogos
-• Ikon baharu untuk lapisan peta dan menu
-• Betulkan crosshair melompat semasa menambah tempat baharu ke OpenStreetMap
-• Tunjukkan stesen janakuasa, substesen, penghalang, pintu pusing, pejabat keselamatan, dan pos kawalan
-• Tiada zum automatik ke laluan penuh semasa menambah hentian perantaraan
-• Gaya luar: kaki lima kelihatan dari zum 13
-• Tajuk berbilang baris dalam pemilih senarai penanda buku
-• Tajuk berbilang baris dalam halaman maklumat tempat
-• Tangga dipaparkan dan digunakan dalam penghalaan
-• Ikon diperbaiki untuk menara komunikasi
-• Arahan navigasi bulatan yang lebih jelas
-• Kategori masakan boleh cari diperluaskan
-• Kawasan loji janakuasa dipaparkan sebagai perindustrian
-• POI pelancongan coklat dalam mod gelap
-• Perpustakaan muncul lebih awal, dari zum 16
-• Mengeluarkan kemas kini ketinggian berlebihan semasa rakaman trek
-• Mula/berhenti rakaman trek yang lebih dipercayai dan kemas kini titik
-• Warna biru bersatu untuk semua ikon boleh sentuh pada halaman butiran tempat
-• Butang "Kemas kini peta untuk menyumbang" ditunjukkan dalam menu apabila peta terlalu lapuk
-• Banyak ikon peta ditukar dari PNG ke SVG
-• Terjemahan dikemas kini
+• BARU: Perancangan laluan direka semula (lebih pantas & jelas).
+• BARU: Papar kandungan tag OSM "description" pada objek (?description dalam carian).
+• Data OpenStreetMap setakat 13 September.
+• Membaiki beberapa ralat CarPlay
+• Pulau kecil tidak penting dibuang.
+• Poskod kini dipaparkan dalam alamat.
+• Pepusat peta yang salah dibetulkan.
+• Warna penanda kekal semasa eksport/import GPX.
+• Terjemahan dikemas kini.
+
+Gaya peta:
+• Kedai pencahayaan di peta.
+• Talian kuasa dari zoom 18.
+• Nama stesen jana & pencawang.
+• Tapak perkhemahan & karavan dalam mod navigasi.
+• Warna jalan sekunder dibetulkan.
+• Sempadan taman negara dilukis.
+• Tapak arkeologi dari zoom 12 (gaya outdoor).
+
+Setiap derma & ulasan baik memotivasikan sukarelawan kami. Terima kasih!

@@ -1,10 +1,13 @@
-• NOVO! Números de ruta mostrados nas paradas de autobús
-• Mapas OSM do 29 de agosto
-• Novas iconas de capas
-• Área táctil máis grande para a icona de editar marcador (lapis)
-• Restaurada a orde das cores predefinidas
-• Escaleiras mostradas e usadas no encamiñamento
-• Mostrar centrais eléctricas, subestacións, barreiras, tornos, oficinas de seguridade e casetas de garda
-• Sen zoom automático ao engadir paradas intermedias
+• Datos OSM ao 13 setembro
+• Mostrar código postal
+• Novas iconas de rotondas (Android Auto)
+• Illas menores eliminadas
+• Centrado do mapa arranxado
+• Cores dos marcadores en GPX
+• Tendas de iluminación
+• Limites de parques nacionais
+• Sitios arqueolóxicos dende zoom 12
+• Campings e caravanas en navegación
+• Cor estrada secundaria arranxada
 
-…máis en omaps.org/news
+…máis: omaps.org/news

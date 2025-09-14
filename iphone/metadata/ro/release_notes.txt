@@ -1,23 +1,20 @@
-• NOU! Numerele rutelor afișate la stațiile de autobuz
-• Aspect NOU pentru butoanele "Adaugă loc în OpenStreetMap" și "Editează loc"
-• Date OpenStreetMap actualizate la 29 august
-• Icoane noi pentru straturile de hartă și meniu
-• Reparată crucea săritoare la adăugarea unui loc nou în OpenStreetMap
-• Afișează centrale electrice, posturi de transformare, bariere, turnicheți, birouri de securitate și case de pază
-• Fără zoom automat la ruta completă la adăugarea stațiilor intermediare
-• Stil exterior: trotuare vizibile de la zoom 13
-• Titluri pe mai multe linii în selectorul listei de marcaje
-• Titluri pe mai multe linii în pagina informațiilor locului
-• Scări afișate și folosite în rutare
-• Icoane reparate pentru turnurile de comunicații
-• Instrucțiuni de navigare mai clare pentru sensuri giratorii
-• Categorii de bucătărie căutabile extinse
-• Zonele centralelor electrice redate ca industriale
-• POI-uri turistice maro în modul întunecat
-• Bibliotecile apar mai devreme, de la zoom 16
-• Eliminate actualizările redundante de altitudine în timpul înregistrării traselor
-• Pornire/oprire mai fiabilă a înregistrării traselor și actualizări de puncte
-• Culoare albastră unificată pentru toate iconițele atingibile de pe pagina detaliilor locului
-• Butonul "Actualizează hărțile pentru a contribui" afișat în meniu când hărțile sunt prea învechite
-• Multe icoane de hartă convertite din PNG în SVG
-• Traduceri actualizate
+• NOU: Planificare a traseelor reproiectată complet (mai rapidă și mai clară pentru etape).
+• NOU: Afișarea conținutului tagului OSM "description" pentru obiecte (?description în căutare pentru test).
+• Date OpenStreetMap la 13 septembrie.
+• Corectat mai multe erori CarPlay
+• Insule mici neimportante eliminate de pe harta lumii.
+• Afișare cod poștal în adrese.
+• Centrare greșită a hărții corectată.
+• Culorile marcajelor păstrate la export/import GPX.
+• Traduceri actualizate.
+
+Stiluri hartă:
+• Magazine de iluminat pe hartă.
+• Linii de înaltă tensiune de la zoom 18.
+• Nume centrale și stații de transformare.
+• Campinguri și locuri pentru rulote în navigație.
+• Culoare drum secundar corectată.
+• Granițe parcuri naționale.
+• Situri arheologice de la zoom 12 (stil outdoor).
+
+Fiecare donație și recenzie bună motivează voluntarii. Mulțumim!

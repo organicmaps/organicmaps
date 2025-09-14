@@ -1,11 +1,13 @@
-• НОВО! Бројеви рута приказани на аутобуским станицама
-• OSM мапе од 29. августа
-• Нове иконе слојева
-• Већа област додира за икону уређивања обележивача (оловка)
-• Враћен редослед унапред дефинисаних боја
-• Мердевине приказане и коришћене у рутирању
-• Прикажи електране, подстанице, баријере, турникете, безбедносне канцеларије и чуварнице
-• Нема аутоматског зумирања при додавању међустаница
-• Подручја електрана приказана као индустријска
+• OSM podaci 13. sept
+• Prikaz pošt. broja u adresama
+• Nove ikone kružnih (Android Auto)
+• Uklonj. manja ostrva
+• Ispravljeno centriranje mape
+• Boje obeleživača ostaju u GPX
+• Prodavnice rasvete
+• Granice nacionalnih parkova
+• Arheološka mesta od zuma 12
+• Kampovi & karavani u navigaciji
+• Ispravljena boja sekundarnog puta
 
-…више на omaps.org/news
+…više: omaps.org/news

@@ -1,11 +1,13 @@
-• NOVÉ! Čísla liniek zobrazené na autobusových zastávkach
-• OSM mapy z 29. augusta
-• Nové ikony vrstiev
-• Väčšia dotyková oblasť pre ikonu úpravy záložky (ceruzka)
-• Obnovené poradie preddefinovaných farieb
-• Rebríky zobrazené a používané v navigácii
-• Zobraziť elektrárne, rozvodne, bariéry, turnikety, bezpečnostné kancelárie a strážnice
-• Žiadne automatické priblíženie pri pridávaní medzizastávok
-• Vonkajší štýl: chodníky viditeľné od priblíženia 13
+• OSM dáta k 13. septembru
+• Zobraziť PSČ v adresách
+• Nové ikony kruháčov (Android Auto)
+• Odstránené malé ostrovy
+• Opravené centrovanie mapy
+• Farby záložiek ostanú v GPX
+• Obchody s osvetlením
+• Hranice národných parkov
+• Archeologické lokality od zoom 12
+• Kempy a karavany v navigácii
+• Opravená farba sekundárnej cesty
 
-…viac na omaps.org/news
+…viac: omaps.org/news

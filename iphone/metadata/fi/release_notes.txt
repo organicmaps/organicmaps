@@ -1,23 +1,20 @@
-• UUTTA! Reitin numerot näkyvät bussipysäkeillä
-• UUSI ulkoasu "Lisää paikka OpenStreetMapiin" ja "Muokkaa paikkaa" painikkeille
-• Päivitetty OpenStreetMap data 29. elokuuta
-• Uudet kuvakkeet karttakerroksille ja valikolle
-• Korjattu hyppivä tähtäin uutta paikkaa lisättäessä OpenStreetMapiin
-• Näytä voimalaitokset, muuntoasemat, esteet, porttikäytävät, turvallisuustoimistot ja vartiotuvat
-• Ei automaattista zoomausta koko reitille välipysäkkejä lisättäessä
-• Ulkotyyli: jalkakäytävät näkyvissä zoomista 13
-• Monirivinen otsikot kirjanmerkkilistavalitsimessa
-• Monirivinen otsikot paikan tietosivulla
-• Tikkaat näkyvissä ja käytetään reitityksessä
-• Korjatut kuvakkeet viestintätorneille
-• Selkeämmät liikenneympyrän navigointiohjeet
-• Laajennetut hakukelpoiset keittiökategoriat
-• Voimalaitosalueet renderöity teollisina
-• Ruskeat matkailukohteet pimeässä tilassa
-• Kirjastot näkyvät aikaisemmin, zoomista 16
-• Poistettu tarpeettomat korkeuspäivitykset radan tallennuksen aikana
-• Luotettavampi radan tallennuksen käynnistys/pysäytys ja pistepäivitykset
-• Yhtenäinen sininen väri kaikille kosketettaville kuvakkeille paikan yksityiskohtasivulla
-• "Päivitä kartat osallistuaksesi" painike näytetään valikossa kun kartat ovat liian vanhentuneita
-• Monia karttakuvakkeita muunnettu PNG:stä SVG:hen
-• Päivitetyt käännökset
+• UUTTA: Uudistettu reittisuunnittelu – nopeammat muutokset ja selkeämmät välipisteet.
+• UUTTA: OSM "description" ‑tunnisteen sisältö näkyy kohteilla (?description hakuun testiksi).
+• OpenStreetMap‑data 13. syyskuuta.
+• Korjattu useita CarPlay-virheitä
+• Pienet merkityksettömät saaret poistettu maailmankartalta.
+• Postinumerot näytetään osoitteissa.
+• Virheellinen kartan keskitys korjattu.
+• Kirjanmerkkien värit säilyvät GPX vienti/tuonti -toiminnossa.
+• Päivitetyt käännökset.
+
+Karttatyylit:
+• Valaistusliikkeet kartalla.
+• Sähkölinjat zoomista 18.
+• Voimaloiden ja sähköasemien nimet.
+• Leiri- ja karavaanipaikat navigaatiotilassa.
+• Toissijaisten teiden väri korjattu navigaatiossa.
+• Kansallispuistojen rajat.
+• Arkeologiset kohteet zoomista 12 (outdoor-tila).
+
+Jokainen lahjoitus ja hyvä arvio motivoi vapaaehtoisia. Kiitos!

@@ -1,23 +1,20 @@
-• NIEUW! Lijnnummers getoond bij bushaltes
-• NIEUWE look voor "Plaats toevoegen aan OpenStreetMap" en "Plaats bewerken" knoppen
-• Bijgewerkte OpenStreetMap data per 29 augustus
-• Nieuwe iconen voor kaartlagen en menu
-• Springend dradenkruis opgelost bij toevoegen nieuwe plaats aan OpenStreetMap
-• Toon energiecentrales, onderstations, barrières, tourniquets, beveiligingskantoren en wachtposten
-• Geen automatisch zoomen naar volledige route bij toevoegen tussenstops
-• Buitenstijl: trottoirs zichtbaar vanaf zoom 13
-• Meerregelige titels in bladwijzerlijst selector
-• Meerregelige titels in plaatsinformatie pagina
-• Ladders weergegeven en gebruikt in routering
-• Iconen voor communicatietorens opgelost
-• Duidelijkere rotonde navigatie-instructies
-• Uitgebreide doorzoekbare keuken categorieën
-• Energiecentrale gebieden weergegeven als industrieel
-• Bruine toerisme POI's in donkere modus
-• Bibliotheken verschijnen eerder, vanaf zoom 16
-• Overtollige hoogte-updates verwijderd tijdens track opname
-• Betrouwbaardere track opname start/stop en punt updates
-• Geünificeerde blauwe kleur voor alle tikbare iconen op plaatsdetails pagina
-• "Kaarten bijwerken om bij te dragen" knop getoond in menu wanneer kaarten te verouderd zijn
-• Veel kaart iconen geconverteerd van PNG naar SVG
-• Bijgewerkte vertalingen
+• NIEUW: Volledig vernieuwde routeplanning (snellere aanpassingen, duidelijkere tussenstops).
+• NIEUW: Inhoud van het OSM-tag "description" zichtbaar (typ ?description in zoeken).
+• OpenStreetMap-data per 13 september.
+• Verschillende CarPlay-bugs opgelost
+• Kleine onbelangrijke eilanden van de wereldkaart verwijderd.
+• Postcodes worden bij adressen getoond.
+• Verkeerd centreren van de kaart rond huidige positie verholpen.
+• Bladwijzerkleuren blijven bij GPX import/export behouden.
+• Vertalingen bijgewerkt.
+
+Kaartstijlen:
+• Verlichtingswinkels op de kaart.
+• Hoogspanningslijnen vanaf zoom 18.
+• Namen van centrales & onderstations.
+• Campings & caravanplaatsen in navigatiemodus.
+• Kleur secundaire weg hersteld (navigatie).
+• Grenzen van nationale parken.
+• Archeologische sites vanaf zoom 12 (outdoorstijl).
+
+Elke donatie of goede review motiveert onze vrijwilligers. Dank je!

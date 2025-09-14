@@ -1,23 +1,20 @@
-• NOUVEAU ! Numéros de ligne affichés aux arrêts d'autobus
-• NOUVEAU look pour les boutons « Ajouter un lieu à OpenStreetMap » et « Modifier le lieu »
-• Données OpenStreetMap mises à jour au 29 août
-• Nouvelles icônes pour les couches de carte et le menu
-• Correction du réticule sautillant lors de l'ajout d'un nouveau lieu à OpenStreetMap
-• Afficher les centrales électriques, postes de transformation, barrières, portillons, bureaux de sécurité et postes de garde
-• Pas de zoom automatique sur l'itinéraire complet lors de l'ajout d'arrêts intermédiaires
-• Style extérieur : trottoirs visibles à partir du zoom 13
-• Titres multilignes dans le sélecteur de liste de signets
-• Titres multilignes dans la page d'information du lieu
-• Échelles affichées et utilisées dans le routage
-• Icônes corrigées pour les tours de communication
-• Instructions de navigation plus claires pour les rond-points
-• Catégories de cuisine recherchables étendues
-• Zones de centrales électriques rendues comme industrielles
-• POI touristiques bruns en mode sombre
-• Bibliothèques apparaissent plus tôt, à partir du zoom 16
-• Suppression des mises à jour d'altitude redondantes pendant l'enregistrement de piste
-• Démarrage/arrêt plus fiable de l'enregistrement de piste et mises à jour de points
-• Couleur bleue unifiée pour toutes les icônes tactiles sur la page de détails du lieu
-• Bouton « Mettre à jour les cartes pour contribuer » affiché dans le menu quand les cartes sont trop obsolètes
-• Nombreuses icônes de carte converties de PNG en SVG
-• Traductions mises à jour
+• NOUVEAU : Planification d’itinéraire entièrement repensée (étapes plus claires, ajustements plus rapides).
+• NOUVEAU : Affichage du contenu du tag OSM « description » pour les objets (tapez ?description dans la recherche pour tester).
+• Données OpenStreetMap au 13 septembre.
+• Correction de plusieurs bugs CarPlay
+• Petites îles secondaires retirées de la carte mondiale.
+• Affichage des codes postaux dans les adresses.
+• Correction du recentrage incorrect autour de la position.
+• Les couleurs de vos signets sont conservées à l’export/import GPX.
+• Traductions mises à jour.
+
+Styles de carte :
+• Magasins d’éclairage visibles sur la carte.
+• Lignes électriques à partir du zoom 18.
+• Noms de centrales et sous-stations affichés.
+• Campings & aires de caravanes en mode navigation.
+• Couleur des routes secondaires corrigée en navigation.
+• Tracé des limites des parcs nationaux.
+• Sites archéologiques dès le zoom 12 (style plein air).
+
+Chaque don ou avis positif motive nos bénévoles à améliorer les cartes. Merci !

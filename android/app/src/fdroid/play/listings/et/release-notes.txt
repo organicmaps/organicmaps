@@ -1,11 +1,13 @@
-• UUS! Marsruudinumbrid näidatakse bussipeatustes
-• OSM kaardid 29. augustist
-• Uued kihi ikoonid
-• Suurem puuteala järjehoidja redigeerimise (pliiats) ikooni jaoks
-• Taastatud eelmääratletud värvide järjekord
-• Redelid kuvatud ja kasutatud marsruutimisel
-• Näita elektrijaamu, alajaamu, tõkkeid, väravaid, turvakontorid ja valvehooneid
-• Vahejaamas peatuste lisamisel automaatset suumimist ei ole
-• Elektrijaama alad kuvatud tööstusaladena
+• OSM andmed 13. sept
+• Näita postiindeksit
+• Uued ringtee ikoonid (Android Auto)
+• Väikesed saared eemaldatud
+• Kaardi tsentreerimine parandatud
+• Järjehoidja värvid GPX-is
+• Valgustuspoed
+• Rahvuspargi piirid
+• Arheoloogilised kohad zoom 12
+• Laagrid ja karavanid navis
+• Teis. tee värv parandatud
 
-…rohkem omaps.org/news
+…veel: omaps.org/news
