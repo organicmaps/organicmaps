@@ -108,7 +108,6 @@ public class PlacePageView extends Fragment
   private TextView mTvSubtitle;
   private ArrowView mAvDirection;
   private TextView mTvDistance;
-  private TextView mTvAzimuth;
   private TextView mTvAddress;
   // Details.
   private TextView mTvLatlon;
@@ -246,11 +245,9 @@ public class PlacePageView extends Fragment
 
     View directionFrame = mPreview.findViewById(R.id.direction_frame);
     mTvDistance = mPreview.findViewById(R.id.tv__straight_distance);
-    mTvAzimuth = mPreview.findViewById(R.id.tv__azimuth);
     mAvDirection = mPreview.findViewById(R.id.av__direction);
     UiUtils.hide(mTvDistance);
     UiUtils.hide(mAvDirection);
-    UiUtils.hide(mTvAzimuth);
     directionFrame.setOnClickListener(this);
 
     mTvAddress = mPreview.findViewById(R.id.tv__address);
@@ -373,10 +370,7 @@ public class PlacePageView extends Fragment
     UiUtils.hideIf(mMapObject.isTrack(), mFrame.findViewById(R.id.ll__place_latlon),
                    mFrame.findViewById(R.id.ll__place_open_in));
     if (mMapObject.isTrack())
-    {
       UiUtils.hide(mTvSubtitle);
-      UiUtils.hide(mTvAzimuth, mAvDirection, mTvDistance);
-    }
   }
 
   private <T extends Fragment> void updateViewFragment(Class<T> controllerClass, String fragmentTag,
@@ -727,7 +721,6 @@ public class PlacePageView extends Fragment
   {
     UiUtils.hide(mTvDistance);
     UiUtils.hide(mAvDirection);
-    UiUtils.hide(mTvAzimuth);
 
     if (l == null)
       return;
@@ -750,7 +743,6 @@ public class PlacePageView extends Fragment
     if (mMapObject.isTrack())
       return;
     UiUtils.showIf(l != null, mTvDistance);
-    UiUtils.showIf(l != null, mTvAzimuth);
     if (l == null)
       return;
 
@@ -759,7 +751,6 @@ public class PlacePageView extends Fragment
     DistanceAndAzimut distanceAndAzimuth =
         Framework.nativeGetDistanceAndAzimuthFromLatLon(lat, lon, l.getLatitude(), l.getLongitude(), 0.0);
     mTvDistance.setText(distanceAndAzimuth.getDistance().toString(requireContext()));
-    mTvAzimuth.setText(StringUtils.formatUsingUsLocale("%.0f°", Math.toDegrees(distanceAndAzimuth.getAzimuth())));
   }
 
   private void refreshLatLon()

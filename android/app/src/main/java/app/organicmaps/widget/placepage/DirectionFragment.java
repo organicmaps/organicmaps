@@ -32,6 +32,7 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
   private TextView mTvDistance;
   private TextView mTvAzimuth;
 
+  // It is always non-null, initialized immediately after creating this fragment.
   private MapObject mMapObject;
 
   @Override
@@ -78,7 +79,7 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
     });
   }
 
-  public void setMapObject(MapObject object)
+  public void setMapObject(@NonNull MapObject object)
   {
     mMapObject = object;
     refreshViews();
@@ -86,6 +87,7 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
 
   private void refreshViews()
   {
+    // TODO(AB): Remove unnecessary null check.
     if (mMapObject != null && isResumed())
     {
       mTvTitle.setText(mMapObject.getTitle());
@@ -107,8 +109,8 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
   public void onPause()
   {
     super.onPause();
-    MwmApplication.from(requireContext()).getLocationHelper().removeListener(this);
     MwmApplication.from(requireContext()).getSensorHelper().removeListener(this);
+    MwmApplication.from(requireContext()).getLocationHelper().removeListener(this);
   }
 
   @Override
@@ -121,11 +123,13 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
   @Override
   public void onLocationUpdated(@NonNull Location location)
   {
+    // TODO(AB): Remove unnecessary null check.
     if (mMapObject != null)
     {
       final DistanceAndAzimut distanceAndAzimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(
           mMapObject.getLat(), mMapObject.getLon(), location.getLatitude(), location.getLongitude(), 0.0);
       mTvDistance.setText(distanceAndAzimuth.getDistance().toString(requireContext()));
+      mTvAzimuth.setText(StringUtils.formatUsingUsLocale("%.0f°", Math.toDegrees(distanceAndAzimuth.getAzimuth())));
     }
   }
 
@@ -133,6 +137,7 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
   public void onCompassUpdated(double north)
   {
     final Location last = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
+    // TODO(AB): Remove unnecessary null check.
     if (last == null || mMapObject == null)
       return;
 
@@ -140,11 +145,6 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
         mMapObject.getLat(), mMapObject.getLon(), last.getLatitude(), last.getLongitude(), north);
 
     if (da.getAzimuth() >= 0)
-    {
       mAvDirection.setAzimuth(da.getAzimuth());
-      final DistanceAndAzimut daAbs = Framework.nativeGetDistanceAndAzimuthFromLatLon(
-          mMapObject.getLat(), mMapObject.getLon(), last.getLatitude(), last.getLongitude(), 0.0);
-      mTvAzimuth.setText(StringUtils.formatUsingUsLocale("%.0f°", Math.toDegrees(daAbs.getAzimuth())));
-    }
   }
 }

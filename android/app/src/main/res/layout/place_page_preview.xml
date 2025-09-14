@@ -171,13 +171,6 @@
             android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
             android:textSize="@dimen/text_size_body_3"
             tools:text="2000 km" />
-          <TextView
-            android:id="@+id/tv__azimuth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
-            android:textSize="@dimen/text_size_body_4"
-            tools:text="123°" />
         </LinearLayout>
       </LinearLayout>
     </LinearLayout>
