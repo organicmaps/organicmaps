@@ -1,10 +1,13 @@
-• BERRIA! Lerro zenbakiak autobus geltokeetan erakutsita
-• Abuztuaren 29ko OSM mapak
-• Geruza ikono berriak
-• Laster-marka editatzeko (arkatz) ikonoaren ukipen area handiagoa
-• Aurrez definitutako koloreen ordena leheneratu
-• Eskailerak erakutsita eta ibilbidetan erabili
-• Erakutsi energia zentralak, azpiestazioak, hesiak, tornuak, segurtasun bulegoak eta zaindari etxeak
-• Ez da automatikoki gerturatu tarteko geltuneetan gehitzean
+• OSM datuak: irailak 13
+• Posta kodea erakutsi
+• Biribilgune ikono berriak (Android Auto)
+• Uharte txikiak ezabatuak
+• Maparen zentratzea zuzendua
+• Laster-marken koloreak GPXen
+• Argiztapen dendak
+• Parke nazional mugak
+• Gune arkeologikoak zoom 12tik
+• Kanpin & karabana guneak nabig.
+• Bigarren mailako errep kolorea ok
 
-…gehiago omaps.org/news
+…gehiago: omaps.org/news

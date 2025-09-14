@@ -1,11 +1,13 @@
-• JAUNS! Maršrutu numuri parādīti autobusu pieturās
-• OSM kartes no 29. augusta
-• Jaunas slāņu ikonas
-• Lielāka pieskāriena zona grāmatzīmju rediģēšanas (zīmuļa) ikonai
-• Atjaunota iepriekš noteikto krāsu secība
-• Kāpnes parādītas un izmantotas maršrutēšanā
-• Rādīt elektrostacijas, apakšstacijas, barjeras, vārtiņus, drošības birojs un sarga mājas
-• Nav automātiskās mērogošanas, pievienojot starppieturas
-• Āra stils: ietves redzamas no 13. tuvināšanas
+• OSM dati 13. sept
+• Parādīt pasta indeksu adresēs
+• Jaunas apļveida krust. ikonas (Android Auto)
+• Noņemtas mazās salas
+• Izlabota kartes centrēšana
+• Grāmatzīmju krāsas GPX saglabājas
+• Apgaismojuma veikali
+• Nacionālo parku robežas
+• Arheoloģija no mēroga 12
+• Kempingi un karavāni navigācijā
+• Otr. ceļa krāsa labota
 
-…vairāk omaps.org/news
+…vairāk: omaps.org/news

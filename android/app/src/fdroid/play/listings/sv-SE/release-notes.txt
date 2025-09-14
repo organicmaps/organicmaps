@@ -1,11 +1,13 @@
-• NYTT! Ruttnummer visas vid busshållplatser
-• OSM-kartor från 29 augusti
-• Nya lagerikoner
-• Större pekyta för redigera bokmärke-ikonen (penna)
-• Återställd ordning för fördefinierade färger
-• Stegar visas och används vid vägledning
-• Visa kraftverk, transformatorstationer, barriärer, vändkorsar, säkerhetskontor och vaktposter
-• Ingen automatisk zoom vid tillägg av mellanliggande stopp
-• Kraftverksområden renderade som industriella
+• OSM-data 13 sep
+• Visa postnummer i adresser
+• Nya rondellikoner (Android Auto)
+• Små öar borttagna
+• Felaktig kartcentrering fixad
+• Bokmärkesfärger kvar i GPX
+• Belysningsbutiker
+• Nationalparksgränser
+• Arkeologi från zoom 12
+• Camping & husbilsplatser i nav
+• Sekundär väg-färg fixad
 
-…mer på omaps.org/news
+…mer: omaps.org/news

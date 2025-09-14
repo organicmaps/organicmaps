@@ -1,23 +1,20 @@
-• NOVO! Números de rota mostrados nas paragens de autocarro
-• NOVO visual para os botões "Adicionar Local ao OpenStreetMap" e "Editar Local"
-• Dados do OpenStreetMap atualizados até 29 de agosto
-• Novos ícones para camadas do mapa e menu
-• Corrigida mira saltitante ao adicionar um novo local ao OpenStreetMap
-• Mostrar centrais elétricas, subestações, barreiras, portões de acesso, escritórios de segurança e casas da guarda
-• Sem zoom automático para a rota completa ao adicionar paragens intermédias
-• Estilo exterior: passeios visíveis a partir do zoom 13
-• Títulos de múltiplas linhas no seletor da lista de marcadores
-• Títulos de múltiplas linhas na Página de Informações do Local
-• Escadas exibidas e usadas no encaminhamento
-• Ícones corrigidos para torres de comunicação
-• Instruções de navegação mais claras para rotundas
-• Categorias de culinária pesquisáveis expandidas
-• Áreas de centrais elétricas renderizadas como industriais
-• POIs de turismo castanhos no modo escuro
-• Bibliotecas aparecem mais cedo, a partir do zoom 16
-• Removidas atualizações redundantes de elevação durante a gravação de trilhas
-• Início/paragem de gravação de trilhas mais fiável e atualizações de pontos
-• Cor azul unificada para todos os ícones tocáveis na página de detalhes do local
-• Botão "Atualizar mapas para contribuir" mostrado no menu quando os mapas estão muito desatualizados
-• Muitos ícones do mapa convertidos de PNG para SVG
-• Traduções atualizadas
+• NOVO: Planeamento de rotas totalmente redesenhado (mais rápido e claro ao ajustar paragens).
+• NOVO: Mostra o conteúdo da tag OSM "description" nos objetos (teste com ?description na pesquisa).
+• Dados OpenStreetMap de 13 de setembro.
+• Corrigidos vários bugs do CarPlay
+• Pequenas ilhas irrelevantes removidas do mapa mundial.
+• Código postal exibido nas moradas.
+• Corrigido centramento incorreto da posição.
+• Cores dos marcadores preservadas ao exportar/importar GPX.
+• Traduções atualizadas.
+
+Estilos de mapa:
+• Lojas de iluminação no mapa.
+• Linhas de energia a partir do zoom 18.
+• Nomes de centrais e subestações.
+• Parques de campismo e caravanas na navegação.
+• Cor de estrada secundária corrigida na navegação.
+• Limites de parques nacionais.
+• Sítios arqueológicos desde o zoom 12 (estilo outdoor).
+
+Cada doação e boa avaliação motiva os voluntários. Obrigado!

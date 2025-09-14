@@ -1,10 +1,13 @@
-• NEU! Routennummern werden an Bushaltestellen angezeigt
-• OSM-Karten vom 29. August
-• Neue Ebenen-Icons
-• Größerer Berührungsbereich für das Lesezeichen-Bearbeitungs-Icon (Stift)
-• Reihenfolge der vordefinierten Farben wiederhergestellt
-• Leitern werden angezeigt und beim Routing verwendet
-• Kraftwerke, Umspannstationen, Barrieren, Wicket-Tore, Sicherheitsbüros und Wachhäuser anzeigen
-• Kein automatisches Zoomen beim Hinzufügen von Zwischenstopps
+• OSM-Daten Stand 13. September
+• Postleitzahlen bei Adressen anzeigen
+• Neue Kreisverkehr-Symbole in Android Auto
+• Kleine Inseln aus Weltkarte entfernt
+• Falsche Karten-Zentrierung beim Standort behoben
+• Lesezeichenfarben bleiben in GPX erhalten
+• Beleuchtungsgeschäfte
+• Nationalpark-Grenzen zeichnen
+• Archäologische Stätten ab Zoom 12 (Outdoor)
+• Camping- & Stellplätze in Navigation
+• Sekundäre Straßenfarbe korrigiert
 
-…mehr auf omaps.org/news
+…mehr: omaps.org/news

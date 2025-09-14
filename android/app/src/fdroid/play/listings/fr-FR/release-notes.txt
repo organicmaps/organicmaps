@@ -1,10 +1,13 @@
-• NOUVEAU ! Numéros de ligne affichés aux arrêts de bus
-• Cartes OSM du 29 août
-• Nouvelles icônes de couches
-• Zone tactile plus large pour l'icône d'édition de signets (crayon)
-• Ordre des couleurs prédéfinies restauré
-• Échelles affichées et utilisées dans le routage
-• Afficher centrales électriques, sous-stations, barrières, portillons, bureaux de sécurité et postes de garde
-• Pas de zoom automatique lors de l'ajout d'arrêts intermédiaires
+• Données OSM au 13 septembre
+• Afficher le code postal des adresses
+• Nouveaux pictos de ronds-points (Android Auto)
+• Petites îles retirées de la carte mondiale
+• Correction du centrage autour de la position
+• Couleurs des signets conservées en GPX
+• Magasins d’éclairage
+• Tracer les limites des parcs nationaux
+• Sites archéologiques dès le zoom 12 (extérieur)
+• Campings & aires dans le mode navigation
+• Couleur des routes secondaires corrigée
 
-…plus sur omaps.org/news
+…plus: omaps.org/fr/news

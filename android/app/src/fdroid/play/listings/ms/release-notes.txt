@@ -1,10 +1,13 @@
-• BAHARU! Nombor laluan ditunjukkan di hentian bas
-• Peta OSM pada 29 Ogos
-• Ikon lapisan baharu
-• Kawasan sentuh lebih besar untuk ikon edit penanda buku (pensil)
-• Susunan warna yang telah ditetapkan dipulihkan
-• Tangga dipaparkan dan digunakan dalam penghalaan
-• Tunjukkan stesen janakuasa, substesen, penghalang, pintu pusing, pejabat keselamatan dan pos kawalan
-• Tiada zum automatik apabila menambah perhentian perantaraan
+• Data OSM 13 Sept
+• Papar poskod alamat
+• Ikon bulatan baharu (Android Auto)
+• Pulau kecil dibuang
+• Pusat peta dibetulkan
+• Warna penanda kekal dalam GPX
+• Kedai pencahayaan
+• Sempadan taman negara
+• Tapak arkeologi dari zum 12
+• Tapak kem & karavan
+• Warna jalan sekunder dibetul
 
-…lagi di omaps.org/news
+…lagi: omaps.org/news

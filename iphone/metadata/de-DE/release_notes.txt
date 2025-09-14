@@ -1,23 +1,20 @@
-• NEU! Routennummern werden an Bushaltestellen angezeigt
-• NEUES Aussehen für "Ort zu OpenStreetMap hinzufügen" und "Ort bearbeiten" Schaltflächen
-• Aktualisierte OpenStreetMap-Daten vom 29. August
-• Neue Icons für Kartenebenen und Menü
-• Springendes Fadenkreuz beim Hinzufügen eines neuen Ortes zu OpenStreetMap behoben
-• Kraftwerke, Umspannstationen, Barrieren, Wicket-Tore, Sicherheitsbüros und Wachhäuser anzeigen
-• Kein automatisches Zoomen zur vollständigen Route beim Hinzufügen von Zwischenstopps
-• Outdoor-Stil: Gehwege sind ab Zoom 13 sichtbar
-• Mehrzeilige Titel im Lesezeichen-Listenauswahl
-• Mehrzeilige Titel auf der Ortsinfo-Seite
-• Leitern werden angezeigt und beim Routing verwendet
-• Icons für Kommunikationstürme behoben
-• Klarere Navigationsanweisungen für Kreisverkehr
-• Erweiterte suchbare Küchenkategorien
-• Kraftwerksgebiete als Industriegebiete dargestellt
-• Braune Tourismus-POIs im Dunkelmodus
-• Bibliotheken erscheinen früher, ab Zoom 16
-• Redundante Höhenaktualisierungen während der Spuraufzeichnung entfernt
-• Zuverlässigeres Starten/Stoppen der Spuraufzeichnung und Punktaktualisierungen
-• Einheitliche blaue Farbe für alle antippen Icons auf der Ortsdetailseite
-• "Karten aktualisieren zum Beitragen" Button im Menü angezeigt, wenn Karten zu veraltet sind
-• Viele Kartenicons von PNG zu SVG konvertiert
-• Aktualisierte Übersetzungen
+• NEU: Komplett überarbeitete Routenplanung – schnelleres Umplanen, klarere Zwischenziele.
+• NEU: Anzeige des Inhalts des OSM-Tags „description“ für Kartenobjekte (?description ins Suchfeld eingeben zum Testen).
+• OpenStreetMap-Datenstand: 13. September.
+• Mehrere CarPlay-Fehler behoben
+• Kleine, unwichtige Inseln von der Weltkarte entfernt.
+• Postleitzahlen in Adressen werden jetzt angezeigt.
+• Falsches Zentrieren der Karte um die aktuelle Position behoben.
+• Farben deiner Lesezeichen bleiben beim Export/Import von GPX erhalten.
+• Aktualisierte Übersetzungen.
+
+Kartendarstellung:
+• Beleuchtungsgeschäfte erscheinen auf der Karte.
+• Hochspannungsleitungen ab Zoomstufe 18.
+• Referenznamen von Kraftwerken und Umspannwerken sichtbar.
+• Camping- und Stellplätze im Navigationsmodus.
+• Farbe sekundärer Straßen im Navigationsmodus korrigiert.
+• Grenzen von Nationalparks werden gezeichnet.
+• Archäologische Stätten ab Zoom 12 im Outdoor-Stil.
+
+Deine Spende oder Bewertung motiviert unsere Freiwilligen, bessere Karten zu bauen. Danke! ❤️

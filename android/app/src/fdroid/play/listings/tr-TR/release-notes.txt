@@ -1,10 +1,13 @@
-• YENİ! Otobüs duraklarında rota numaraları gösteriliyor
-• 29 Ağustos OSM haritaları
-• Yeni katman simgeleri
-• Yer imi düzenleme (kalem) simgesi için daha büyük dokunma alanı
-• Önceden ayarlanmış renklerin sırası geri yüklendi
-• Merdivenler gösteriliyor ve yönlendirmede kullanılıyor
-• Enerji santrallerini, trafo merkezlerini, bariyerleri, geçit kapılarını, güvenlik ofislerini ve bekçi kulübelerini göster
-• Ara duraklar eklenirken otomatik yakınlaştırma yok
+• 13 Eyl OSM verileri
+• Adreslerde posta kodu göster
+• Yeni dönel kavşak ikonları (Android Auto)
+• Küçük adalar kaldırıldı
+• Yanlış harita ortası düzeltildi
+• Yer imi renkleri GPX'te kalır
+• Aydınlatma mağazaları
+• Milli park sınırları
+• Arkeoloji alanları zoom 12
+• Kamp & karavan noktaları
+• İkincil yol rengi düzeltildi
 
-…daha fazlası omaps.org/news
+…daha fazla: omaps.org/news

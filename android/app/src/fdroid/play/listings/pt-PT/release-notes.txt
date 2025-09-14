@@ -1,10 +1,13 @@
-• NOVO! Números de rotas mostrados em paragens de autocarro
-• Mapas OSM de 29 de agosto
-• Novos ícones de camadas
-• Área de toque maior para o ícone de editar marcador (lápis)
-• Ordem restaurada das cores predefinidas
-• Escadas exibidas e usadas no encaminhamento
-• Mostrar centrais eléctricas, subestações, barreiras, catracas, escritórios de segurança e casas da guarda
-• Sem zoom automático ao adicionar paragens intermédias
+• Dados OSM a 13 set
+• Mostrar código postal em endereços
+• Novos ícones de rotunda (Android Auto)
+• Pequenas ilhas removidas
+• Centralização incorreta corrigida
+• Cores de marcadores mantidas no GPX
+• Lojas de iluminação
+• Limites de parques nacionais
+• Sítios arqueológicos desde zoom 12
+• Parques de campismo e caravanas
+• Cor de estrada secundária corrigida
 
-…mais em omaps.org/news
+…mais: omaps.org/news

@@ -1,10 +1,13 @@
-• NOU! Numerele rutelor afișate la stațiile de autobuz
-• Hărți OSM din 29 august
-• Noi icoane pentru straturi
-• Zonă tactilă mai mare pentru iconița de editare marcaj (creion)
-• Restaurată ordinea culorilor predefinite
-• Scări afișate și utilizate în rutare
-• Afișează centrale electrice, posturi de transformare, bariere, turnicheți, birouri de securitate și case de pază
-• Fără zoom automat la adăugarea stațiilor intermediare
+• Date OSM la 13 sept
+• Afișare cod poștal în adrese
+• Icoane noi sens giratoriu (Android Auto)
+• Insule mici eliminate
+• Centrare greșită hartă fixată
+• Culori marcaje păstrate în GPX
+• Magazine iluminat
+• Granițe parcuri naționale
+• Situri arheologice de la zoom 12
+• Camping & rulote în navigație
+• Culoare drum secundar corectată
 
-…mai mult la omaps.org/news
+…mai mult: omaps.org/news

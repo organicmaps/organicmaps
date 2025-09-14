@@ -1,23 +1,20 @@
-• MỚI! Số tuyến hiển thị tại trạm xe buýt
-• Giao diện MỚI cho nút "Thêm địa điểm vào OpenStreetMap" và "Chỉnh sửa địa điểm"
-• Dữ liệu OpenStreetMap cập nhật đến ngày 29 tháng 8
-• Biểu tượng mới cho lớp bản đồ và menu
-• Sửa lỗi con trỏ nhảy khi thêm địa điểm mới vào OpenStreetMap
-• Hiển thị nhà máy điện, trạm biến áp, rào cản, cửa xoay, văn phòng bảo vệ và nhà gác
-• Không tự động phóng to toàn bộ tuyến đường khi thêm điểm dừng trung gian
-• Kiểu ngoài trời: vỉa hè hiển thị từ mức phóng to 13
-• Tiêu đề nhiều dòng trong bộ chọn danh sách dấu trang
-• Tiêu đề nhiều dòng trong trang thông tin địa điểm
-• Thang hiển thị và sử dụng trong định tuyến
-• Sửa biểu tượng cho tháp viễn thông
-• Hướng dẫn điều hướng rõ ràng hơn cho vòng xuyến
-• Mở rộng danh mục ẩm thực có thể tìm kiếm
-• Khu vực nhà máy điện được hiển thị như công nghiệp
-• POI du lịch màu nâu ở chế độ tối
-• Thư viện xuất hiện sớm hơn, từ mức phóng to 16
-• Loại bỏ cập nhật độ cao dư thừa trong quá trình ghi track
-• Bắt đầu/dừng ghi track đáng tin cậy hơn và cập nhật điểm
-• Màu xanh thống nhất cho tất cả biểu tượng có thể chạm trên trang chi tiết địa điểm
-• Nút "Cập nhật bản đồ để đóng góp" hiển thị trong menu khi bản đồ quá cũ
-• Nhiều biểu tượng bản đồ được chuyển đổi từ PNG sang SVG
-• Bản dịch được cập nhật
+• MỚI: Thiết kế lại hoàn toàn lập kế hoạch tuyến (chỉnh sửa điểm dừng nhanh và rõ hơn).
+• MỚI: Hiển thị nội dung thẻ OSM "description" cho đối tượng (gõ ?description để thử).
+• Dữ liệu OpenStreetMap tính đến 13/9.
+• Đã sửa một số lỗi CarPlay
+• Gỡ bỏ các đảo nhỏ không quan trọng khỏi bản đồ thế giới.
+• Hiển thị mã bưu chính trong địa chỉ.
+• Sửa lỗi căn giữa bản đồ quanh vị trí hiện tại.
+• Giữ nguyên màu dấu trang khi xuất/nhập GPX.
+• Cập nhật bản dịch.
+
+Kiểu bản đồ:
+• Cửa hàng chiếu sáng trên bản đồ.
+• Đường dây điện từ mức thu phóng 18.
+• Tên nhà máy điện & trạm biến áp.
+• Điểm cắm trại & khu caravan ở chế độ điều hướng.
+• Sửa màu đường phụ trong điều hướng.
+• Vẽ ranh giới công viên quốc gia.
+• Địa điểm khảo cổ từ mức zoom 12 (kiểu outdoor).
+
+Mỗi khoản đóng góp và đánh giá tốt đều tiếp thêm động lực cho tình nguyện viên. Cảm ơn!

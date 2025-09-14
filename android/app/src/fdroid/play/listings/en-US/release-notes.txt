@@ -1,12 +1,13 @@
-• NEW! Route numbers shown at bus stops
-• OSM maps as of August 29
-• New layer icons
-• Larger touch area for the edit bookmark (pencil) icon
-• Restored order of predefined colors
-• Ladders displayed and used in routing
-• Show power stations, substations, barriers, wicket gates, security offices, and guardhouses
-• No auto‑zoom when adding intermediate stops
-• Power plant areas rendered as industrial
-• Outdoor style: sidewalks are visible from zoom 13
+• OSM data as of September 13
+• Show Postcode/zip code for addresses
+• New roundabout icons in Android Auto
+• Removed minor islands from the World map
+• Fixed wrong map centering around the current position
+• Bookmark colors are preserved in GPX
+• Lighting shops
+• Draw national park borders
+• Draw archaeological sites from zoom 12 in outdoor mode
+• Show campsites and caravan sites in navigation mode
+• Fixed secondary highway color in navigation mode
 
 …more at omaps.org/news

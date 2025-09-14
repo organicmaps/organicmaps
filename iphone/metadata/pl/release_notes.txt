@@ -1,23 +1,20 @@
-• NOWOŚĆ! Numery linii pokazane na przystankach autobusowych
-• NOWY wygląd przycisków "Dodaj miejsce do OpenStreetMap" i "Edytuj miejsce"
-• Zaktualizowane dane OpenStreetMap z 29 sierpnia
-• Nowe ikony dla warstw map i menu
-• Naprawiono skaczący celownik przy dodawaniu nowego miejsca do OpenStreetMap
-• Pokazuj elektrownie, podstacje, bariery, bramki, biura ochrony i wartownie
-• Brak automatycznego powiększania do pełnej trasy przy dodawaniu przystanków pośrednich
-• Styl zewnętrzny: chodniki widoczne od powiększenia 13
-• Wieloliniowe tytuły w selektorze listy zakładek
-• Wieloliniowe tytuły na stronie informacji o miejscu
-• Drabiny wyświetlane i używane w trasowaniu
-• Naprawione ikony dla wież komunikacyjnych
-• Jaśniejsze instrukcje nawigacji dla rond
-• Rozszerzone kategorie kuchni do wyszukiwania
-• Obszary elektrowni renderowane jako przemysłowe
-• Brązowe POI turystyczne w trybie ciemnym
-• Biblioteki pojawiają się wcześniej, od powiększenia 16
-• Usunięto nadmiarowe aktualizacje wysokości podczas nagrywania śladu
-• Bardziej niezawodne uruchamianie/zatrzymywanie nagrywania śladu i aktualizacje punktów
-• Ujednolicony niebieski kolor dla wszystkich klikalnych ikon na stronie szczegółów miejsca
-• Przycisk "Aktualizuj mapy aby wnieść wkład" pokazany w menu gdy mapy są zbyt przestarzałe
-• Wiele ikon map przekonwertowano z PNG na SVG
-• Zaktualizowane tłumaczenia
+• NOWE: Całkowicie przeprojektowane planowanie trasy (szybsze i czytelniejsze punkty pośrednie).
+• NOWE: Wyświetlanie zawartości tagu OSM "description" dla obiektów (wpisz ?description w wyszukiwaniu).
+• Dane OpenStreetMap z 13 września.
+• Naprawiono kilka błędów CarPlay
+• Usunięto małe, nieistotne wyspy z mapy świata.
+• Pokazywanie kodów pocztowych w adresach.
+• Naprawiono błędne centrowanie mapy wokół bieżącej pozycji.
+• Kolory zakładek zachowane przy eksporcie/imporcie GPX.
+• Zaktualizowane tłumaczenia.
+
+Style mapy:
+• Sklepy oświetleniowe na mapie.
+• Linie energetyczne od powiększenia 18.
+• Nazwy elektrowni i stacji elektro.
+• Kempingi i miejsca dla kamperów w nawigacji.
+• Poprawiono kolor dróg drugorzędnych w nawigacji.
+• Granice parków narodowych.
+• Stanowiska archeologiczne od zoom 12 (styl outdoor).
+
+Każda darowizna i dobra opinia motywuje wolontariuszy. Dziękujemy!
