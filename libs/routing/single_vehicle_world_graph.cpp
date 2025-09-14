@@ -126,6 +126,12 @@ bool SingleVehicleWorldGraph::IsOneWay(NumMwmId mwmId, uint32_t featureId)
   return GetRoadGeometry(mwmId, featureId).IsOneWay();
 }
 
+bool SingleVehicleWorldGraph::IsTunnel(Segment const & segment)
+{
+  ASSERT(segment.IsRealSegment(), ());
+  return GetIndexGraph(segment.GetMwmId()).GetGeometry().IsTunnel(segment.GetFeatureId());
+}
+
 bool SingleVehicleWorldGraph::IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId)
 {
   return GetRoadGeometry(mwmId, featureId).IsPassThroughAllowed();
