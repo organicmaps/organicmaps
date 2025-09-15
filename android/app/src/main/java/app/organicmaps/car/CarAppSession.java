@@ -251,7 +251,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     // TODO (AndrewShkrob): Implement the 'Add stop' functionality
     if (mapObject.isMyPosition() || RoutingController.get().isNavigating())
     {
-      Framework.nativeDeactivatePopup();
+      Framework.nativeDeactivatePopup(true);
       return;
     }
     final PlaceScreen placeScreen =

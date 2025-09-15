@@ -163,7 +163,7 @@ public class Framework
   public static native double[] nativeGetParsedCenterLatLon();
   public static native @Nullable String nativeGetParsedBackUrl();
 
-  public static native void nativeDeactivatePopup();
+  public static native void nativeDeactivatePopup(boolean notifyListeners);
   public static native void nativeDeactivateMapSelectionCircle(boolean restoreViewport);
 
   public static native String nativeGetDataFileExt();
