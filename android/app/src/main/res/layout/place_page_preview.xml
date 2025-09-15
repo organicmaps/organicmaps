@@ -31,6 +31,7 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/margin_base"
       android:layout_marginEnd="@dimen/margin_base"
+      android:layout_marginBottom="@dimen/margin_half"
       android:layout_weight="1"
       android:orientation="vertical">
       <TextView
@@ -143,7 +144,6 @@
         android:id="@+id/direction_frame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_half_plus"
         android:layout_marginBottom="@dimen/margin_quarter"
         android:background="?attr/selectableItemBackground"
         android:gravity="center"
@@ -191,9 +191,9 @@
       <ImageView
         android:id="@+id/item_icon"
         android:layout_width="@dimen/place_page_icon_size"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/place_page_icon_size"
         android:layout_gravity="center"
-        android:padding="@dimen/margin_half_plus"
+        android:paddingHorizontal="@dimen/margin_half_plus"
         android:background="?clickableBackground"
         android:clickable="true"
         android:focusable="true"
