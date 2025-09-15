@@ -29,12 +29,10 @@ class CarplayPlaceholderView: UIView {
     descriptionLabel.numberOfLines = 0
     containerView.addSubview(descriptionLabel)
 
+    switchButton.setStyleAndApply(.flatNormalButtonBig)
     switchButton.setTitle(L("car_continue_on_the_phone"), for: .normal)
     switchButton.addTarget(self, action: #selector(onSwitchButtonTap), for: .touchUpInside)
-    switchButton.titleLabel?.font = UIFont.medium16()
     switchButton.titleLabel?.lineBreakMode = .byWordWrapping
-    switchButton.titleLabel?.textAlignment = .center
-    switchButton.layer.cornerRadius = 8
     containerView.addSubview(switchButton)
 
     updateColors()
