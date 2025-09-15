@@ -220,7 +220,7 @@
         tools:text="@string/categories" />
       <ImageView
         android:id="@+id/edit_Bookmark"
-        app:tint="?iconTint"
+        app:tint="?colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:paddingHorizontal="@dimen/margin_base_plus"
