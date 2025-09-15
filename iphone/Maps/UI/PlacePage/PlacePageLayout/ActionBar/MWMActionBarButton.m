@@ -14,8 +14,8 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
   case MWMActionBarButtonTypeOpentable: return L(@"book_button");
   case MWMActionBarButtonTypeBookingSearch: return L(@"booking_search");
   case MWMActionBarButtonTypeCall: return L(@"placepage_call_button");
-  case MWMActionBarButtonTypeBookmark:
-  case MWMActionBarButtonTypeTrack: return L(isSelected ? @"delete" : @"save");
+  case MWMActionBarButtonTypeBookmark: return L(isSelected ? @"delete" : @"save");
+  case MWMActionBarButtonTypeTrack: return L(@"delete");
   case MWMActionBarButtonTypeSaveTrackRecording: return L(@"save");
   case MWMActionBarButtonTypeRouteFrom: return L(@"p2p_from_here");
   case MWMActionBarButtonTypeRouteTo: return L(@"p2p_to_here");
