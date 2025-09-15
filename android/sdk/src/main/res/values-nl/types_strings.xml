@@ -1408,4 +1408,5 @@
     <string name="type.leisure.escape_game">Ontsnapkamer</string>
     <string name="type.railway.station.subway.qingdao">Metro Station</string>
     <string name="type.amenity.ranger_station">Boswachtershuis</string>
+    <string name="type.shop.lighting">Verlichtingswinkel</string>
 </resources>
