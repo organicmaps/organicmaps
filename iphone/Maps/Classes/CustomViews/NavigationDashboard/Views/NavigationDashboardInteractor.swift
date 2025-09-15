@@ -109,7 +109,11 @@ extension NavigationDashboard {
         return .updateDrivingOptionsState(routingOptions)
 
       case let .moveRoutePoint(from, to):
-        router.movePoint(at: from, to: to)
+        if router.pointsCount() == 1 {
+          router.swapStartAndFinish()
+        } else {
+          router.movePoint(at: from, to: to)
+        }
         router.rebuild(withBestRouter: false)
         return .show(points: router.points(), routerType: router.type())
 

@@ -83,6 +83,7 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *, NSString *);
 + (void)applyRouteManagerTransaction;
 + (void)cancelRouteManagerTransaction;
 + (void)movePointAtIndex:(NSInteger)index toIndex:(NSInteger)newIndex;
++ (void)swapStartAndFinish;
 + (void)updatePreviewMode;
 
 @end

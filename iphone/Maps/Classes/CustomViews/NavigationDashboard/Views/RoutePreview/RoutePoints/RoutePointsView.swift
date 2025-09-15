@@ -105,7 +105,7 @@ extension RoutePointsView: UIScrollViewDelegate {
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 extension RoutePointsView: UICollectionViewDataSource, UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    routePoints.count + 1
+    routePoints.hasStartAndFinish ? routePoints.count + 1 : routePoints.count
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -149,17 +149,16 @@ extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDel
 
   func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
     guard let destinationIndexPath = coordinator.destinationIndexPath,
-          destinationIndexPath.item < routePoints.count else { return }
+          destinationIndexPath.row < routePoints.count else { return }
 
     for item in coordinator.items {
-      if let sourceIndexPath = item.sourceIndexPath, let _ = item.dragItem.localObject as? MWMRoutePoint {
+      if let sourceIndexPath = item.sourceIndexPath {
         guard sourceIndexPath != destinationIndexPath,
-              sourceIndexPath.row < routePoints.count,
-              destinationIndexPath.row < routePoints.count else {
+              sourceIndexPath.row < routePoints.count else {
           return
         }
 
-        routePoints.movePoint(from: sourceIndexPath.item, to: destinationIndexPath.item)
+        routePoints.movePoint(from: sourceIndexPath.row, to: destinationIndexPath.row)
         collectionView.performBatchUpdates {
           collectionView.moveItem(at: sourceIndexPath, to: destinationIndexPath)
         }
@@ -169,7 +168,7 @@ extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDel
           configure(cell, at: indexPath)
         }
         coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
-        interactor?.process(.moveRoutePoint(from: sourceIndexPath.item, to: destinationIndexPath.item))
+        interactor?.process(.moveRoutePoint(from: sourceIndexPath.row, to: destinationIndexPath.row))
       }
     }
   }
@@ -191,11 +190,11 @@ private extension NavigationDashboard.RoutePoints {
   func cellViewModel(for index: Int, onCloseHandler: (() -> Void)?) -> RoutePointCollectionViewCell.CellType {
     let point = self[index]
     let maskedCorners: CACornerMask
-    switch point?.type {
-    case .start:
+    switch index {
+    case 0:
       maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     default:
-      maskedCorners = []
+      maskedCorners = hasStartAndFinish ? [] : [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
     let viewModel = RoutePointCollectionViewCell.PointViewModel(
       title: title(for: index),
@@ -203,6 +202,7 @@ private extension NavigationDashboard.RoutePoints {
       showCloseButton: point?.type == .intermediate,
       maskedCorners: maskedCorners,
       isPlaceholder: point == nil,
+      showSeparator: hasStartAndFinish ? true : index < points.count,
       onCloseHandler: onCloseHandler
     )
     return .point(viewModel)

@@ -18,6 +18,7 @@ extension NavigationDashboard.RoutePoints {
   static let empty = NavigationDashboard.RoutePoints(points: [])
 
   var count: Int { 2 + intermediate.count }
+  var hasStartAndFinish: Bool { start != nil && finish != nil }
 
   subscript(index: Int) -> MWMRoutePoint? {
     switch index {
@@ -65,19 +66,22 @@ extension NavigationDashboard.RoutePoints {
   mutating func movePoint(from sourceIndex: Int, to destinationIndex: Int) {
     guard sourceIndex != destinationIndex else { return }
     var points = self.points
-    let pointToMove = points[sourceIndex]
-    points.remove(at: sourceIndex)
-    points.insert(pointToMove, at: destinationIndex)
-    for (index, point) in points.enumerated() {
-      switch index {
-      case 0:
-        point.type = .start
-      case points.count - 1:
-        point.type = .finish
-      default:
-        point.type = .intermediate
+    if points.count == 1, let point = points.first {
+      point.type = point.type == .start ? .finish : .start
+    } else {
+      let pointToMove = points.remove(at: sourceIndex)
+      points.insert(pointToMove, at: destinationIndex)
+      for (index, point) in points.enumerated() {
+        switch index {
+        case 0:
+          point.type = .start
+        case points.count - 1:
+          point.type = .finish
+        default:
+          point.type = .intermediate
+        }
       }
-      self = NavigationDashboard.RoutePoints(points: points)
     }
+    self = NavigationDashboard.RoutePoints(points: points)
   }
 }
