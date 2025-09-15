@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) NSString * twoLetterLanguageId;
 @property(nonatomic, readonly) NSString * deviceModel;
 @property(nonatomic, readonly) MWMOpenGLDriver openGLDriver;
-@property(nonatomic, readonly) BOOL canMakeCalls;
 
 @end
 
