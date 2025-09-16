@@ -78,6 +78,8 @@ public class PlacePageController
   private ValueAnimator mCustomPeekHeightAnimator;
   private PlacePageRouteSettingsListener mPlacePageRouteSettingsListener;
   private Dialog mAlertDialog;
+  // Add this field to PlacePageController class:
+  private int mLastPlacePageState = BottomSheetBehavior.STATE_COLLAPSED; // Store last non-hidden state
 
   private final Observer<Integer> mPlacePageDistanceToTopObserver = new Observer<>() {
     private float mPlacePageCornerRadius;
@@ -133,6 +135,12 @@ public class PlacePageController
           Logger.d(TAG, "State change, new = " + PlacePageUtils.toString(newState));
           if (PlacePageUtils.isSettlingState(newState) || PlacePageUtils.isDraggingState(newState))
             return;
+          // NEW: Store the last non-hidden state
+          if (!PlacePageUtils.isHiddenState(newState)) {
+            mLastPlacePageState = newState;
+            // Store in ViewModel so it persists across POI changes
+            mViewModel.setLastPlacePageState(newState);
+          }
 
           PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
 
@@ -390,6 +398,15 @@ public class PlacePageController
         // Make sure to reset the scroll position when opening the place page
         if (mPlacePage.getScrollY() != 0)
           mPlacePage.setScrollY(0);
+      }
+      else if (!mShouldCollapse)
+      {
+        // NEW: Restore the last state when switching POIs instead of always collapsing
+        int stateToRestore = mViewModel.getLastPlacePageState();
+        if (stateToRestore != BottomSheetBehavior.STATE_HIDDEN &&
+                stateToRestore != mPlacePageBehavior.getState()) {
+          mPlacePageBehavior.setState(stateToRestore);
+        }
       }
       mShouldCollapse = false;
     });
@@ -653,9 +670,12 @@ public class PlacePageController
     if (mapObject != null)
     {
       setPlacePageInteractions(true);
-      // Only collapse the place page if the data is different from the one already available
-      mShouldCollapse = PlacePageUtils.isHiddenState(mPlacePageBehavior.getState())
-                     || !MapObject.same(mPreviousMapObject, mMapObject);
+      // MODIFIED: Only collapse if place page is hidden OR if this is the first time opening
+      boolean isPlacePageCurrentlyHidden = PlacePageUtils.isHiddenState(mPlacePageBehavior.getState());
+      boolean isFirstTimeOpening = mPreviousMapObject == null;
+
+      // Only collapse when switching POIs if place page was hidden, otherwise retain last state
+      mShouldCollapse = isPlacePageCurrentlyHidden || isFirstTimeOpening;
       mPreviousMapObject = mMapObject;
       // Place page will automatically open when the bottom sheet content is loaded so we can compute the peek height
       createPlacePageFragments();
