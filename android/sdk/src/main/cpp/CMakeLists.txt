@@ -76,7 +76,6 @@ set(SRC
   app/organicmaps/sdk/platform/PThreadImpl.cpp
   app/organicmaps/sdk/platform/SecureStorage.cpp
   app/organicmaps/sdk/platform/SocketImpl.cpp
-  app/organicmaps/sdk/sync/SyncManager.cpp
   app/organicmaps/sdk/util/Config.cpp
   app/organicmaps/sdk/util/FileUtils.cpp
   app/organicmaps/sdk/util/GeoUtils.cpp

@@ -20,7 +20,6 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.settings.StoragePathManager;
 import app.organicmaps.sdk.sound.TtsPlayer;
-import app.organicmaps.sdk.sync.SyncManager;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import app.organicmaps.sdk.util.StorageUtils;
@@ -183,7 +182,6 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     initNativeStrings();
     SearchEngine.INSTANCE.initialize();
     BookmarkManager.loadBookmarks();
-    SyncManager.INSTANCE.initialize();
     TtsPlayer.INSTANCE.initialize(mContext);
     RoutingController.get().initialize(mLocationHelper);
     TrafficManager.INSTANCE.initialize();
