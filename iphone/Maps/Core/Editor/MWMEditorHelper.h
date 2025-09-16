@@ -1,5 +1,6 @@
 @interface MWMEditorHelper : NSObject
 
-+ (void)uploadEdits:(void (^)(UIBackgroundFetchResult))completionHandler;
++ (BOOL)hasMapEditsOrNotesToUpload;
++ (void)uploadEditsWithTimeout:(NSTimeInterval)timeout completionHandler:(void (^)(UIBackgroundFetchResult))completionHandler;
 
 @end
