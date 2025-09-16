@@ -8,6 +8,6 @@ class MapFilesDownloaderWithPing : public MapFilesDownloader
 {
 public:
   // MapFilesDownloader overrides:
-  void GetMetaConfig(MetaConfigCallback const & callback) override;
+  void GetMetaConfig(MetaConfigCallback && callback) override;
 };
 }  // namespace storage

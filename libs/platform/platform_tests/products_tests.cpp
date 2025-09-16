@@ -2,13 +2,11 @@
 
 #include "platform/products.hpp"
 
-#include "cppjansson/cppjansson.hpp"
-
-using namespace products;
-
+namespace products
+{
 UNIT_TEST(ProductsConfig_ValidConfig)
 {
-  std::string jsonStr = R"({
+  std::string const json = R"({
     "placePagePrompt": "prompt1",
     "products": [
       {
@@ -22,23 +20,21 @@ UNIT_TEST(ProductsConfig_ValidConfig)
     ]
   })";
 
-  auto const result = ProductsConfig::Parse(jsonStr);
-  TEST(result.has_value(), ());
-  auto const productsConfig = result.value();
-  TEST_EQUAL(productsConfig.GetPlacePagePrompt(), "prompt1", ());
+  auto const productsConfig = ProductsConfig::LoadFromString(json);
+  TEST(productsConfig, ());
+  TEST_EQUAL(productsConfig->placePagePrompt, "prompt1", ());
 
-  auto const products = productsConfig.GetProducts();
+  auto const & products = productsConfig->products;
   TEST_EQUAL(products.size(), 2, ());
-  TEST_EQUAL(products[0].GetTitle(), "Product 1", ());
-  TEST_EQUAL(products[0].GetLink(), "http://product1", ());
-  TEST_EQUAL(products[1].GetTitle(), "Product 2", ());
-  TEST_EQUAL(products[1].GetLink(), "http://product2", ());
+  TEST_EQUAL(products[0].title, "Product 1", ());
+  TEST_EQUAL(products[0].link, "http://product1", ());
+  TEST_EQUAL(products[1].title, "Product 2", ());
+  TEST_EQUAL(products[1].link, "http://product2", ());
 }
 
 UNIT_TEST(ProductsConfig_EmptyPrompts)
 {
-  std::string jsonStr = R"({
-    "aboutScreenPrompt": "",
+  std::string const json = R"({
     "products": [
       {
         "title": "Product 1",
@@ -51,16 +47,15 @@ UNIT_TEST(ProductsConfig_EmptyPrompts)
     ]
   })";
 
-  auto const result = ProductsConfig::Parse(jsonStr);
-  TEST(result.has_value(), ());
-  auto const productsConfig = result.value();
-  TEST_EQUAL(productsConfig.GetPlacePagePrompt(), "", ());
-  TEST_EQUAL(productsConfig.GetProducts().size(), 2, ());
+  auto const productsConfig = ProductsConfig::LoadFromString(json);
+  TEST(productsConfig, ());
+  TEST(!productsConfig->placePagePrompt, ());
+  TEST_EQUAL(productsConfig->products.size(), 2, ());
 }
 
 UNIT_TEST(ProductsConfig_InvalidProduct)
 {
-  std::string jsonStr = R"({
+  std::string const json = R"({
     "placePagePrompt": "prompt1",
     "products": [
       {
@@ -73,34 +68,28 @@ UNIT_TEST(ProductsConfig_InvalidProduct)
     ]
   })";
 
-  auto const result = ProductsConfig::Parse(jsonStr);
-  TEST(result.has_value(), ());
-  auto const productsConfig = result.value();
-  TEST_EQUAL(productsConfig.GetPlacePagePrompt(), "prompt1", ());
-
-  auto const products = productsConfig.GetProducts();
-  TEST_EQUAL(products.size(), 1, ());
-  TEST_EQUAL(products[0].GetTitle(), "Product 2", ());
-  TEST_EQUAL(products[0].GetLink(), "http://product2", ());
+  auto const productsConfig = ProductsConfig::LoadFromString(json);
+  TEST(!productsConfig, ());
 }
 
 UNIT_TEST(ProductsConfig_EmptyProducts)
 {
-  std::string jsonStr = R"({
+  std::string const json = R"({
     "placePagePrompt": "prompt1",
     "products": []
   })";
 
-  auto const result = ProductsConfig::Parse(jsonStr);
-  TEST(!result.has_value(), ());
+  auto const productsConfig = ProductsConfig::LoadFromString(json);
+  TEST(!productsConfig, ("Empty products list"));
 }
 
 UNIT_TEST(ProductsConfig_MissedProductsField)
 {
-  std::string jsonStr = R"({
+  std::string const json = R"({
     "placePagePrompt": "prompt1"
   })";
 
-  auto const result = ProductsConfig::Parse(jsonStr);
-  TEST(!result.has_value(), ());
+  auto const productsConfig = ProductsConfig::LoadFromString(json);
+  TEST(!productsConfig, ());
 }
+}  // namespace products
