@@ -26,8 +26,6 @@ using namespace storage;
 
 @implementation MWMPlacePageManager
 
-std::optional<place_page::BuildInfo> placePageBuildInfoToRecover;
-
 - (BOOL)isPPShown
 {
   return GetFramework().HasPlacePageInfo();
@@ -38,15 +36,6 @@ std::optional<place_page::BuildInfo> placePageBuildInfoToRecover;
   return MapViewController.sharedController.searchManager;
 }
 
-- (void)recoverPlacePage
-{
-  if (placePageBuildInfoToRecover.has_value())
-  {
-    GetFramework().BuildAndSetPlacePageInfo(placePageBuildInfoToRecover.value());
-    placePageBuildInfoToRecover.reset();
-  }
-}
-
 - (void)closePlacePage
 {
   GetFramework().DeactivateMapSelection();
@@ -54,8 +43,6 @@ std::optional<place_page::BuildInfo> placePageBuildInfoToRecover;
 
 - (void)routeFrom:(PlacePageData *)data
 {
-  [self savePlacePageBuildInfoToRecover];
-
   MWMRoutePoint * point = [self routePoint:data withType:MWMRoutePointTypeStart intermediateIndex:0];
   [MWMRouter buildFromPoint:point bestRouter:YES];
   [self.searchManager close];
@@ -64,8 +51,6 @@ std::optional<place_page::BuildInfo> placePageBuildInfoToRecover;
 
 - (void)routeTo:(PlacePageData *)data
 {
-  [self savePlacePageBuildInfoToRecover];
-
   if ([MWMRouter isOnRoute])
     [MWMRouter stopRouting];
 
@@ -76,12 +61,6 @@ std::optional<place_page::BuildInfo> placePageBuildInfoToRecover;
   [MWMRouter buildToPoint:point bestRouter:YES];
   [self.searchManager close];
   [self closePlacePage];
-}
-
-- (void)savePlacePageBuildInfoToRecover
-{
-  if (!placePageBuildInfoToRecover.has_value())
-    placePageBuildInfoToRecover = GetFramework().GetCurrentPlacePageInfo().GetBuildInfo();
 }
 
 - (void)routeAddStop:(PlacePageData *)data
