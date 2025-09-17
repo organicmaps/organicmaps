@@ -152,31 +152,6 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType)
 
 #pragma mark - Private
 
-- (void)updateBookmarkStatus
-{
-  if (!GetFramework().HasPlacePageInfo())
-    return;
-  if (rawData().IsBookmark())
-  {
-    _bookmarkData = [[PlacePageBookmarkData alloc] initWithRawData:rawData()];
-  }
-  else if (rawData().IsTrack())
-  {
-    __weak auto weakSelf = self;
-    _trackData =
-        [[PlacePageTrackData alloc] initWithRawData:rawData()
-                               onActivePointChanged:^(void) { [weakSelf handleActiveTrackSelectionPointChanged]; }];
-  }
-  else
-  {
-    _bookmarkData = nil;
-  }
-  _previewData = [[PlacePagePreviewData alloc] initWithRawData:rawData()];
-  _objectType = [self objectTypeFromRawData];
-  if (self.onBookmarkStatusUpdate != nil)
-    self.onBookmarkStatusUpdate();
-}
-
 - (PlacePageObjectType)objectTypeFromRawData
 {
   if (rawData().IsBookmark())

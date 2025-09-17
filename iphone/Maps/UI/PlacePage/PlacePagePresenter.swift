@@ -1,7 +1,6 @@
 protocol PlacePagePresenterProtocol: AnyObject {
   func layoutIfNeeded()
   func updateVisibleAreaInsets(_ insets: UIEdgeInsets)
-  func updatePreviewOffset()
   func showNextStop()
   func openURL(_ path: String)
   func showActivity(_ activity: ActivityViewController, from sourceView: UIView)
@@ -35,10 +34,6 @@ extension PlacePagePresenter: PlacePagePresenterProtocol {
 
   func updateVisibleAreaInsets(_ insets: UIEdgeInsets) {
     mapViewController.updateVisibleAreaInsets(for: self, insets: insets)
-  }
-
-  func updatePreviewOffset() {
-    view.updatePreviewOffset()
   }
 
   func showNextStop() {
