@@ -29,7 +29,7 @@
     return viewController
 	}
 
-  @objc static func update(_ viewController: PlacePageViewController, with data: PlacePageData) {
+  @objc static func update(_ viewController: PlacePageViewController, with data: PlacePageData, isNewSelection: Bool) {
     viewController.isPreviewPlus = data.isPreviewPlus
     let interactor = PlacePageInteractor(data: data)
     let layout: IPlacePageLayout
@@ -53,6 +53,6 @@
     interactor.presenter = presenter
     layout.presenter = presenter
     viewController.updateWithLayout(layout)
-    viewController.updatePreviewOffset()
+    viewController.updatePreviewOffset(reset: isNewSelection)
   }
 }

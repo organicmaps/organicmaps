@@ -190,7 +190,6 @@ final class EditBookmarkViewController: MWMTableViewController {
                                              description: bookmarkDescription ?? "")
     if let placePageData = placePageData {
       FrameworkHelper.updatePlacePageData()
-      placePageData.updateBookmarkStatus()
     }
     editingCompleted?(true)
     goBack()
@@ -234,7 +233,6 @@ extension EditBookmarkViewController: MWMButtonCellDelegate {
     BookmarksManager.shared().deleteBookmark(bookmarkId)
     if let placePageData = placePageData {
       FrameworkHelper.updateAfterDeleteBookmark()
-      placePageData.updateBookmarkStatus()
     }
     goBack()
   }
