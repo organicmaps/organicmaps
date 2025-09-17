@@ -4,7 +4,6 @@
 
 @interface MWMPlacePageManagerHelper : NSObject
 
-+ (void)recoverPlacePage;
 + (void)updateAvailableArea:(CGRect)frame;
 + (void)editPlace;
 + (void)addBusiness;
