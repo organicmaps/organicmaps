@@ -50,8 +50,6 @@
 		671ED38F20D403B300D4317E /* search_api_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671ED38A20D403B300D4317E /* search_api_tests.cpp */; };
 		674A29F01B26FD6F001A525C /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29EE1B26FD5F001A525C /* testingmain.cpp */; };
 		674A2A2F1B26FF7B001A525C /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675345BB1A4054AD00A0A8C3 /* libmap.a */; };
-		674A2A361B27011A001A525C /* working_time_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A2A351B27011A001A525C /* working_time_tests.cpp */; };
-		674A2A381B2715FB001A525C /* osm_opening_hours.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674A2A371B2715FB001A525C /* osm_opening_hours.hpp */; };
 		674C38621BFF3095000D603B /* user_mark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674C385F1BFF3095000D603B /* user_mark.cpp */; };
 		675346481A4054E800A0A8C3 /* bookmark_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345D91A4054E800A0A8C3 /* bookmark_manager.cpp */; };
 		675346491A4054E800A0A8C3 /* bookmark_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675345DA1A4054E800A0A8C3 /* bookmark_manager.hpp */; };
@@ -202,8 +200,6 @@
 		674A29CF1B26FCFE001A525C /* mwm_url_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_url_tests.cpp; sourceTree = "<group>"; };
 		674A29DF1B26FD1C001A525C /* map_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = map_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		674A29EE1B26FD5F001A525C /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../libs/testing/testingmain.cpp; sourceTree = "<group>"; };
-		674A2A351B27011A001A525C /* working_time_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = working_time_tests.cpp; sourceTree = "<group>"; };
-		674A2A371B2715FB001A525C /* osm_opening_hours.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_opening_hours.hpp; sourceTree = "<group>"; };
 		674C385F1BFF3095000D603B /* user_mark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user_mark.cpp; sourceTree = "<group>"; };
 		675345BB1A4054AD00A0A8C3 /* libmap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmap.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		675345D91A4054E800A0A8C3 /* bookmark_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bookmark_manager.cpp; sourceTree = "<group>"; };
@@ -357,7 +353,6 @@
 				671ED38A20D403B300D4317E /* search_api_tests.cpp */,
 				674A29EE1B26FD5F001A525C /* testingmain.cpp */,
 				BB421D6A1E8C0026005BFA4D /* transliteration_test.cpp */,
-				674A2A351B27011A001A525C /* working_time_tests.cpp */,
 				ED49D74B2CEF3CE3004AF27E /* elevation_info_tests.cpp */,
 				ED85D1CF2D5F508700D8075D /* track_statistics_tests.cpp */,
 			);
@@ -430,7 +425,6 @@
 				45F6EE9B1FB1C77500019892 /* mwm_tree.hpp */,
 				675346051A4054E800A0A8C3 /* mwm_url.cpp */,
 				675346061A4054E800A0A8C3 /* mwm_url.hpp */,
-				674A2A371B2715FB001A525C /* osm_opening_hours.hpp */,
 				34583BCD1C88556800F94664 /* place_page_info.cpp */,
 				34583BCE1C88556800F94664 /* place_page_info.hpp */,
 				3DF528D5237DC82E000ED0D5 /* position_provider.hpp */,
@@ -517,7 +511,6 @@
 				6753469C1A4054E800A0A8C3 /* track.hpp in Headers */,
 				675346651A4054E800A0A8C3 /* framework.hpp in Headers */,
 				BBA014B120754997007402E4 /* user_mark_id_storage.hpp in Headers */,
-				674A2A381B2715FB001A525C /* osm_opening_hours.hpp in Headers */,
 				ED85D1CC2D5F4B5B00D8075D /* track_statistics.hpp in Headers */,
 				3DEE1ADF21EE03B400054A91 /* power_manager.hpp in Headers */,
 				F6D2CE7F1EDEB7F500636DFD /* routing_manager.hpp in Headers */,
@@ -669,7 +662,6 @@
 				FAA8387426BB3C0F002E54C6 /* countries_names_tests.cpp in Sources */,
 				679624B01D1017DB00AE4E3C /* gps_track_storage_test.cpp in Sources */,
 				674A29F01B26FD6F001A525C /* testingmain.cpp in Sources */,
-				674A2A361B27011A001A525C /* working_time_tests.cpp in Sources */,
 				679624B11D1017DB00AE4E3C /* gps_track_test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
