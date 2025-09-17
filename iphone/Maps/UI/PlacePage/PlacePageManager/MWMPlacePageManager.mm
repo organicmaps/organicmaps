@@ -218,7 +218,7 @@ std::optional<place_page::BuildInfo> placePageBuildInfoToRecover;
   kml::BookmarkData bmData;
   bmData.m_name = info.FormatNewBookmarkName();
   bmData.m_color.m_predefinedColor = f.LastEditedBMColor();
-  bmData.m_point = info.GetMercator();
+  bmData.m_point = location_helpers::ToMercator(data.locationCoordinate);
   if (info.IsFeature())
     SaveFeatureTypes(info.GetTypes(), bmData);
   auto editSession = bmManager.GetEditSession();
@@ -228,7 +228,6 @@ std::optional<place_page::BuildInfo> placePageBuildInfoToRecover;
   buildInfo.m_match = place_page::BuildInfo::Match::Everything;
   buildInfo.m_userMarkId = bookmark->GetId();
   f.UpdatePlacePageInfoForCurrentSelection(buildInfo);
-  [data updateBookmarkStatus];
 }
 
 - (void)updateBookmark:(PlacePageData *)data color:(MWMBookmarkColor)color category:(MWMMarkGroupID)category
@@ -240,7 +239,6 @@ std::optional<place_page::BuildInfo> placePageBuildInfoToRecover;
                              color:color
                        description:data.bookmarkData.bookmarkDescription];
   [MWMFrameworkHelper updatePlacePageData];
-  [data updateBookmarkStatus];
 }
 
 - (void)removeBookmark:(PlacePageData *)data
@@ -248,7 +246,6 @@ std::optional<place_page::BuildInfo> placePageBuildInfoToRecover;
   auto & f = GetFramework();
   f.GetBookmarkManager().GetEditSession().DeleteBookmark(data.bookmarkData.bookmarkId);
   [MWMFrameworkHelper updateAfterDeleteBookmark];
-  [data updateBookmarkStatus];
 }
 
 - (void)updateTrack:(PlacePageData *)data color:(UIColor *)color category:(MWMMarkGroupID)category
@@ -256,7 +253,6 @@ std::optional<place_page::BuildInfo> placePageBuildInfoToRecover;
   MWMBookmarksManager * bookmarksManager = [MWMBookmarksManager sharedManager];
   [bookmarksManager updateTrack:data.trackData.trackId setGroupId:category color:color title:data.previewData.title];
   [MWMFrameworkHelper updatePlacePageData];
-  [data updateBookmarkStatus];
 }
 
 - (void)removeTrack:(PlacePageData *)data
@@ -293,7 +289,6 @@ std::optional<place_page::BuildInfo> placePageBuildInfoToRecover;
                                           if (!edited)
                                             return;
                                           [MWMFrameworkHelper updatePlacePageData];
-                                          [data updateBookmarkStatus];
                                         }];
   [[MapViewController sharedController].navigationController pushViewController:editTrackController animated:YES];
 }
