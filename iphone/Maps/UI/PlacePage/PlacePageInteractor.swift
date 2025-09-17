@@ -27,7 +27,6 @@ class PlacePageInteractor: NSObject {
   private func updatePlacePageIfNeeded() {
     func updatePlacePage() {
       FrameworkHelper.updatePlacePageData()
-      placePageData.updateBookmarkStatus()
     }
 
     switch placePageData.objectType {

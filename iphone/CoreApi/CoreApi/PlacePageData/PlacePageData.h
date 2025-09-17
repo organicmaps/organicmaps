@@ -49,7 +49,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) BOOL isRoutePoint;
 @property(nonatomic, readonly) PlacePageObjectType objectType;
 @property(nonatomic, readonly) CLLocationCoordinate2D locationCoordinate;
-@property(nonatomic, copy, nullable) MWMVoidBlock onBookmarkStatusUpdate;
 @property(nonatomic, copy, nullable) MWMVoidBlock onMapNodeStatusUpdate;
 @property(nonatomic, copy, nullable) MWMVoidBlock onTrackRecordingProgressUpdate;
 @property(nonatomic, copy, nullable) void (^onMapNodeProgressUpdate)(uint64_t downloadedBytes, uint64_t totalBytes);
@@ -59,7 +58,6 @@ NS_ASSUME_NONNULL_BEGIN
                     elevationInfo:(ElevationProfileData * _Nullable)elevationInfo;
 - (instancetype)init NS_UNAVAILABLE;
 
-- (void)updateBookmarkStatus;
 - (void)updateWithTrackInfo:(TrackInfo * _Nonnull)trackInfo
               elevationInfo:(ElevationProfileData * _Nullable)elevationInfo;
 
