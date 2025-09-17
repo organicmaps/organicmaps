@@ -530,6 +530,11 @@ void RoutingSession::GenerateNotifications(std::vector<std::string> & notificati
   }
 
   m_speedCameraManager.GenerateNotifications(notifications);
+
+  // Log turn notifications TTS
+  for (auto const & n : notifications)
+    LOG(LINFO, ("TTS:", n));
+
 }
 
 void RoutingSession::AssignRoute(std::shared_ptr<Route> const & route, RouterResultCode e)
