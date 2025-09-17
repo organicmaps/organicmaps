@@ -178,7 +178,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       }
       steps.append(.expanded(-scrollHeight * 0.3))
     }
-    steps.append(.full(0))
+    steps.append(.full)
     return steps
   }
 }
