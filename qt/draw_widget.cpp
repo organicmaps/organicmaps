@@ -546,6 +546,9 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
       LOG(LDEBUG, ("Distance:", loc.m_distToTarget, "Time:", loc.m_time, speed, GetTurnString(loc.m_turn),
                    (loc.m_exitNum != 0 ? ":" + std::to_string(loc.m_exitNum) : ""), "in", loc.m_distToTurn.ToString(),
                    loc.m_nextStreetName.empty() ? "" : "to " + loc.m_nextStreetName));
+
+      std::vector<std::string> notifications;
+      routingManager.GenerateNotifications(notifications, true /* announceStreets */);
     }
   }
 }
@@ -615,6 +618,11 @@ void DrawWidget::SubmitBookmark(m2::PointD const & pt)
 void DrawWidget::FollowRoute()
 {
   auto & routingManager = m_framework.GetRoutingManager();
+
+  /// @DebugNote
+  /// Uncomment to debug TTS.
+  // routingManager.SetTurnNotificationsLocale("es");
+  // routingManager.EnableTurnNotifications(true);
 
   auto const points = routingManager.GetRoutePoints();
   if (points.size() < 2)
