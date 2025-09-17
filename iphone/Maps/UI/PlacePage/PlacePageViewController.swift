@@ -26,11 +26,12 @@ final class PlacePageScrollView: UIScrollView {
   @IBOutlet private var scrollView: UIScrollView!
   @IBOutlet private var stackView: UIStackView!
   @IBOutlet private var actionBarContainerView: UIView!
+  @IBOutlet private var actionBarDivider: UIView!
   @IBOutlet private var actionBarHeightConstraint: NSLayoutConstraint!
   @IBOutlet private var panGesture: UIPanGestureRecognizer!
 
-  private var headerStackView = UIStackView()
-
+  private let headerStackView = UIStackView()
+  private let backgroundView = UIView()
   private var beginDragging = false
   private var previousTraitCollection: UITraitCollection?
   private var layout: IPlacePageLayout!
@@ -91,7 +92,6 @@ final class PlacePageScrollView: UIScrollView {
     }
   }
 
-
   // MARK: - Actions
 
   @IBAction func onPan(gesture: UIPanGestureRecognizer) {
@@ -151,9 +151,8 @@ final class PlacePageScrollView: UIScrollView {
   }
 
   private func setupView() {
-    let bgView = UIView()
-    stackView.insertSubview(bgView, at: 0)
-    bgView.alignToSuperview()
+    stackView.insertSubview(backgroundView, at: 0)
+    backgroundView.alignToSuperview()
 
     headerStackView.axis = .vertical
     headerStackView.distribution = .fill
@@ -161,11 +160,15 @@ final class PlacePageScrollView: UIScrollView {
     scrollView.decelerationRate = .fast
     scrollView.backgroundColor = .clear
 
+    let topCorners: CACornerMask = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    stackView.layer.setCornerRadius(.modalSheet, maskedCorners: topCorners)
     stackView.backgroundColor = .clear
 
-    let cornersToMask: CACornerMask = alternativeSizeClass(iPhone: [], iPad: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
-    actionBarContainerView.layer.setCornerRadius(.modalSheet, maskedCorners: cornersToMask)
-    actionBarContainerView.layer.masksToBounds = true
+    if isiPad {
+      let bottomCorners: CACornerMask = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+      actionBarContainerView.layer.setCornerRadius(.modalSheet, maskedCorners: bottomCorners)
+      actionBarContainerView.layer.masksToBounds = true
+    }
 
     // See https://github.com/organicmaps/organicmaps/issues/6917 for the details.
     if #available(iOS 13.0, *), previousTraitCollection == nil {
@@ -350,24 +353,21 @@ extension PlacePageViewController: PlacePageViewProtocol {
   @objc
   func close(completion: @escaping (() -> Void)) {
     view.isUserInteractionEnabled = false
-    let onCloseCompletion = {
-      self.updateTopBound(.zero)
-      completion()
-    }
-    alternativeSizeClass(iPhone: {
-      self.scrollTo(CGPoint(x: 0, y: -self.scrollView.height + 1),
-                    forced: true,
-                    completion: onCloseCompletion)
-    }, iPad: {
-      UIView.animate(withDuration: kDefaultAnimationDuration,
-                     animations: {
-        let frame = self.view.frame
-        self.view.minX = frame.minX - frame.width
-        self.view.alpha = 0
-      }) { _ in
-        onCloseCompletion()
-      }
-    })
+    updateTopBound(.zero)
+    ModalPresentationAnimator.animate(
+      animations: {
+        self.alternativeSizeClass(iPhone: {
+          let frame = self.view.frame.offsetBy(dx: 0, dy: self.stackView.height + self.actionBarContainerView.frame.height)
+          self.view.frame = frame
+        }, iPad: {
+          let frame = self.view.frame
+          self.view.minX = frame.minX - frame.width
+          self.view.alpha = 0
+        })
+      },
+      completion: { _ in
+        completion()
+      })
   }
 
   func showAlert(_ alert: UIAlertController) {
@@ -394,6 +394,7 @@ extension PlacePageViewController: UIScrollViewDelegate {
   func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                  withVelocity velocity: CGPoint,
                                  targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    print("velocity", velocity)
     let maxOffset = scrollSteps.last?.offset ?? 0
     if targetContentOffset.pointee.y > maxOffset {
       return
