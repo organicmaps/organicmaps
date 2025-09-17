@@ -223,15 +223,6 @@ final class ActionBarViewController: UIViewController {
       fatalError()
     }
   }
-
-  func updateBookmarkButtonState(isSelected: Bool) {
-    guard let bookmarkButton else { return }
-    if !isSelected && BookmarksManager.shared().hasRecentlyDeletedBookmark() {
-      bookmarkButton.setBookmarkButtonState(.recover)
-      return
-    }
-    bookmarkButton.setBookmarkButtonState(isSelected ? .delete : .save)
-  }
 }
 
 extension ActionBarViewController: ActionBarButtonDelegate {
