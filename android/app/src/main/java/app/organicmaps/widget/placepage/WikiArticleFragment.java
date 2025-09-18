@@ -14,9 +14,9 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
 import java.util.Objects;
 
-public class PlaceDescriptionFragment extends BaseMwmFragment
+public class WikiArticleFragment extends BaseMwmFragment
 {
-  public static final String EXTRA_DESCRIPTION = "description";
+  public static final String EXTRA_WIKI_ARTICLE = "description";
   private static final String SOURCE_SUFFIX = "<p><b>wikipedia.org</b></p>";
 
   @SuppressWarnings("NullableProblems")
@@ -27,7 +27,7 @@ public class PlaceDescriptionFragment extends BaseMwmFragment
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mDescription = Objects.requireNonNull(requireArguments().getString(EXTRA_DESCRIPTION));
+    mDescription = Objects.requireNonNull(requireArguments().getString(EXTRA_WIKI_ARTICLE));
   }
 
   @Nullable

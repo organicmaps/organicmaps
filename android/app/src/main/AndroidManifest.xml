@@ -463,7 +463,7 @@
       android:label="@string/edit"
       android:windowSoftInputMode="stateVisible"/>
     <activity
-      android:name="app.organicmaps.widget.placepage.PlaceDescriptionActivity"
+      android:name="app.organicmaps.widget.placepage.WikiArticleActivity"
       android:label="@string/place_description_title"/>
     <activity
       android:name="app.organicmaps.settings.DrivingOptionsActivity"
