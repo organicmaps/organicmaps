@@ -453,6 +453,7 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
     m_transitManager.OnMwmDeregistered(localFile);
     m_isolinesManager.OnMwmDeregistered(localFile);
     m_trafficManager.OnMwmDeregistered(localFile);
+    m_descriptionsLoader->OnMwmDeregistered(localFile);
 
     m_storage.DeleteCustomCountryVersion(localFile);
   };
