@@ -287,7 +287,7 @@
     <!-- Preference text -->
     <string name="pref_use_google_play">Bluetooth, Wi-Fi vagy mobilhálózat segítségével gyorsan meghatározhatja hozzávetőleges tartózkodási helyét</string>
     <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Az összes térkép letöltése az útvonal mentén</string>
+    <string name="routing_download_maps_along">Összes térkép letöltése az útvonal mentén</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Az útvonal létrehozásához le kell töltenie és frissítenie kell az összes térképet az Ön tartózkodási helyétől a célig.</string>
     <!-- Text for routing error dialog -->
@@ -372,7 +372,7 @@
     <string name="search_history_title">Keresési előzmények</string>
     <string name="search_history_text">Legutóbbi keresések megtekintése.</string>
     <string name="clear_search">A keresési előzmények törlése</string>
-    <string name="p2p_your_location">Saját tartózkodási hely</string>
+    <string name="p2p_your_location">Saját tartózkodási helyszín</string>
     <string name="p2p_start">Indítás</string>
     <string name="p2p_from_here">Kiindulópont</string>
     <string name="p2p_to_here">Célpont</string>
@@ -760,7 +760,7 @@
     <string name="browser_not_available">A webböngésző nem érhető el</string>
     <string name="volume">Hangerő</string>
     <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-    <string name="bookmarks_export">Az összes könyvjelző és nyomvonal exportálása</string>
+    <string name="bookmarks_export">Összes könyvjelző és nyomvonal exportálása</string>
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Beszédszintézis-beállítások</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->

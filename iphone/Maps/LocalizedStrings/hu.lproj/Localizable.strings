@@ -75,7 +75,7 @@
 "bookmarks_and_tracks" = "Könyvjelzők és nyomvonalak";
 
 /* Default bookmark list name */
-"core_my_places" = "Saját helyek";
+"core_my_places" = "Saját helyszínek";
 
 /* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Cím";
@@ -353,7 +353,7 @@
 "downloader_delete_map" = "Térkép törlése";
 
 /* Text for routing error dialog */
-"routing_download_maps_along" = "Az összes térkép letöltése az útvonal mentén";
+"routing_download_maps_along" = "Összes térkép letöltése az útvonal mentén";
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "Az útvonal létrehozásához le kell töltenie és frissítenie kell az összes térképet az Ön tartózkodási helyétől a célig.";
@@ -468,7 +468,7 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
-"p2p_your_location" = "Saját tartózkodási hely";
+"p2p_your_location" = "Saját tartózkodási helyszín";
 "p2p_start" = "Indítás";
 "p2p_from_here" = "Kiindulópont";
 "p2p_to_here" = "Célpont";
@@ -973,7 +973,7 @@
 "button_layer_outdoor" = "Szabadtéri";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Az összes könyvjelző és nyomvonal exportálása";
+"bookmarks_export" = "Összes könyvjelző és nyomvonal exportálása";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Szín módosítása";

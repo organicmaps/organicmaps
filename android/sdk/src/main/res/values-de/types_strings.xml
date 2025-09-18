@@ -1411,4 +1411,5 @@
     <string name="type.building.guardhouse">Wache</string>
     <string name="type.office.security">Sicherheitsbüro</string>
     <string name="type.power.portal">Hochspannungsmast (Portal)</string>
+    <string name="type.shop.lighting">Beleuchtungsgeschäft</string>
 </resources>

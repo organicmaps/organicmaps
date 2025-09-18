@@ -12,8 +12,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>other</key>
-			<string>%d 個書籤</string>
+			<key>zero</key>
+			<string>書籤</string>
 		</dict>
 	</dict>
 	<key>bookmarks_detect_message</key>
@@ -40,6 +40,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d 軌跡</string>
 			<key>other</key>
 			<string>%d 軌跡</string>
 		</dict>

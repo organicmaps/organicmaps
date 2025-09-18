@@ -3,7 +3,7 @@
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">Saját tartózkodási helyszín</string>
     <!-- Default bookmark list name -->
-    <string name="core_my_places">Saját helyek</string>
+    <string name="core_my_places">Saját helyszínek</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
     <string name="maps_storage_internal">Belső privát tárhely</string>
     <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->

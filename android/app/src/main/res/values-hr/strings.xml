@@ -2,20 +2,20 @@
 <resources>
     <string name="back">Nazad</string>
     <string name="download_has_failed">Preuzimanje neuspješno. Dotaknite za ponovni pokušaj.</string>
-    <string name="cancel">Odustani</string>
-    <string name="delete">Obriši</string>
+    <string name="cancel">Otkaži</string>
+    <string name="delete">Izbriši</string>
     <string name="kilometres">Kilometri</string>
     <string name="downloading">Preuzimanje…</string>
-    <string name="download_maps">Preuzmi Karte</string>
+    <string name="download_maps">Preuzmi karte</string>
     <string name="miles">Milje</string>
     <string name="later">Kasnije</string>
-    <string name="search">Traži</string>
+    <string name="search">Pretraživaj</string>
     <string name="search_map">Pretraži kartu</string>
     <string name="limited_accuracy">Ograničena preciznost</string>
     <string name="zoom_to_country">Prikaži na karti</string>
-    <string name="country_status_download_failed">Preuzimanje neuspješno</string>
+    <string name="country_status_download_failed">Preuzimanje nije uspjelo</string>
     <string name="try_again">Pokušaj ponovo</string>
-    <string name="about_proposition_2">Štedi bateriju, radi offline</string>
+    <string name="about_proposition_2">• Nema pražnjenja baterije, radi izvan mreže</string>
     <string name="close">Zatvori</string>
     <string name="download">Preuzmi</string>
     <string name="download_resources_continue">Prikaži kartu</string>
@@ -65,8 +65,8 @@
         <item quantity="few">Pronađene su %d datoteke. Možeš ih vidjeti nakon pretvorbe.</item>
         <item quantity="other">Pronađeno je %d datoteka. Možeš ih vidjeti nakon pretvorbe.</item>
     </plurals>
-    <string name="bookmark_set_name">Ime popisa zabilješki</string>
-    <string name="bookmarks">Zabilješke</string>
+    <string name="bookmark_set_name">Naziv popisa oznaka</string>
+    <string name="bookmarks">Oznake</string>
     <string name="share_bookmarks_email_subject">Organic Maps zabilješke su s tobom dijeljene</string>
     <string name="share_bookmarks_email_body">Zdravo! \n \nU privitku su moje zabilješke; otvori ih u aplikaciji Organic Maps. Ako nije instalirana, možeš je preuzeti ovdje: https://omaps.app/get?kmz \n \nUživaj u putovanju s Organic Maps!</string>
     <string name="load_kmz_title">Učitavanje zabilješki</string>
@@ -352,4 +352,20 @@
     <string name="editor_add_phone">Dodaj telefon</string>
     <string name="level">Kat</string>
     <string name="level_value_generic">Kat: %s</string>
+    <string name="location_is_disabled_long_text">Vi trenutno imate sve lokacijske servise za ovaj uređaj ili aplikaciju isključene. Molim vas uključite ih u postavkama.</string>
+    <string name="precise_location_is_disabled_long_text">Za točnu navigaciju omogućite Preciznu lokaciju u postavkama.</string>
+    <string name="about_headline">Besplatno za sve, napravljeno sa ljubavi</string>
+    <string name="about_proposition_1">• Nema reklama, nema praćenja, nema prikupljanja podataka</string>
+    <string name="about_menu_title">O Organic Maps</string>
+    <string name="about_proposition_3">• Brzo, minimalističko, razvijeno od zajednice</string>
+    <string name="about_developed_by_enthusiasts">Otvorenog koda aplikacija napravljena od entuzijasta i volontera.</string>
+    <string name="add_new_set">Dodaj novi popis</string>
+    <string name="unsupported_phone">Aplikacija zahtijeva hardverski ubrzani OpenGL. Nažalost, vaš uređaj nije podržan.</string>
+    <string name="bookmarks_and_tracks">Oznake i tragovi</string>
+    <string name="disconnect_usb_cable">Isključite USB kabel ili umetnite memorijsku karticu kako biste koristili Organic Maps</string>
+    <string name="not_enough_free_space_on_sdcard">Prvo oslobodite prostor na SD kartici/USB memoriji kako biste mogli koristiti aplikaciju</string>
+    <string name="download_resources">Prije što počnete koristiti aplikaciju, molim vas preuzmite svijetsku preglednu kartu na vaš uređaj.\nIskoristit če %s od memorije.</string>
+    <string name="measurement_units">Mjerne jedinice</string>
+    <string name="downloading_country_can_proceed">Preuzimanje %s. Sada možete\nnastaviti na kartu.</string>
+    <string name="update_country_ask">Ažurirati %s?</string>
 </resources>
