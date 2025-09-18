@@ -55,7 +55,7 @@ struct TransportOptionsSegmentedControlView: View {
 
   var body: some View {
     HStack(spacing: Constants.spacing) {
-      ForEach(viewModel.options, id: \.self) { type in
+      ForEach(viewModel.options, id: \.rawValue) { type in
         Button {
           impactGenerator.impactOccurred()
           withAnimation {
@@ -80,6 +80,7 @@ struct TransportOptionsSegmentedControlView: View {
           .frame(maxWidth: .infinity)
           .animation(.easeIn(duration: Constants.animationDuration), value: viewModel.selected)
         }
+        .buttonStyle(.plain)
       }
     }
     .frame(maxWidth: .infinity)
