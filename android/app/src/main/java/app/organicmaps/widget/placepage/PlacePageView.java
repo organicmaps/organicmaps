@@ -421,8 +421,8 @@ public class PlacePageView extends Fragment
   private boolean hasWikipediaEntry()
   {
     final String wikipediaLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA);
-    final String description = mMapObject.getDescription();
-    return !TextUtils.isEmpty(wikipediaLink) || !TextUtils.isEmpty(description);
+    final String wikiArticle = mMapObject.getWikiArticle();
+    return !TextUtils.isEmpty(wikipediaLink) || !TextUtils.isEmpty(wikiArticle);
   }
 
   private void updateWikipediaView()

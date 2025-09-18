@@ -44,7 +44,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObje
   //  public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
   //                   @Nullable String secondaryTitle, String subtitle, String address,
   //                   double lat, double lon, String apiId, @Nullable RoutePointInfo routePointInfo,
-  //                   @OpeningMode int openingMode, @NonNull Popularity popularity, @NonNull String description,
+  //                   @OpeningMode int openingMode, @NonNull Popularity popularity, @NonNull String wikiArticle,
   //                   int roadWarningType, @Nullable String[] rawTypes)
   static jmethodID const ctorId =
       jni::GetConstructorID(env, g_mapObjectClazz,
@@ -60,7 +60,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObje
                             "Lapp/organicmaps/sdk/routing/RoutePointInfo;"    // routePointInfo
                             "I"                                               // openingMode
                             "Lapp/organicmaps/sdk/search/Popularity;"         // popularity
-                            "Ljava/lang/String;"                              // description
+                            "Ljava/lang/String;"                              // wikiArticle
                             "I"                                               // roadWarnType
                             "[Ljava/lang/String;"                             // rawTypes
                             ")V");
@@ -131,7 +131,7 @@ jobject CreateBookmark(JNIEnv * env, place_page::Info const & info, jni::TScoped
   // public Bookmark(@NonNull FeatureId featureId, @IntRange(from = 0) long categoryId,
   //                 @IntRange(from = 0) long bookmarkId, String title, @Nullable String secondaryTitle,
   //                 @Nullable String subtitle, @Nullable String address, @Nullable RoutePointInfo routePointInfo,
-  //                 @OpeningMode int openingMode, @NonNull Popularity popularity, @NonNull String description,
+  //                 @OpeningMode int openingMode, @NonNull Popularity popularity, @NonNull String wikiArticle,
   //                 @Nullable String[] rawTypes)
   static jmethodID const ctorId =
       jni::GetConstructorID(env, g_bookmarkClazz,
