@@ -90,9 +90,8 @@ bool GeojsonParser::Parse(std::string_view & json_content)
   // Copy bookmarks from parsed geoJsonData into m_fileData.
   for (auto & feature : geoJsonData.features)
   {
-    if (feature.isPoint())
+    if (auto const * point = std::get_if<GeoJsonGeometryPoint>(&feature.geometry))
     {
-      GeoJsonGeometryPoint const * point = std::get_if<GeoJsonGeometryPoint>(&feature.geometry);
       double longitude = point->coordinates.at(0);
       double latitude = point->coordinates.at(1);
 
@@ -143,9 +142,8 @@ bool GeojsonParser::Parse(std::string_view & json_content)
       bookmark.m_point = mercator::FromLatLon(latitude, longitude);
       m_fileData.m_bookmarksData.push_back(bookmark);
     }
-    else if (feature.isUnknown())
+    else if (auto const * unknownGeometry = std::get_if<GeoJsonGeometryUnknown>(&feature.geometry))
     {
-      GeoJsonGeometryUnknown const * unknownGeometry = std::get_if<GeoJsonGeometryUnknown>(&feature.geometry);
       LOG(LWARNING, ("GeoJson contains unsupported geometry type:", unknownGeometry->type));
     }
   }
@@ -153,9 +151,8 @@ bool GeojsonParser::Parse(std::string_view & json_content)
   // Copy tracks from parsed geoJsonData into m_fileData.
   for (auto & feature : geoJsonData.features)
   {
-    if (feature.isLine())
+    if (auto const * lineGeometry = std::get_if<GeoJsonGeometryLine>(&feature.geometry))
     {
-      GeoJsonGeometryLine const * lineGeometry = std::get_if<GeoJsonGeometryLine>(&feature.geometry);
       std::vector<std::vector<double>> lineCoords = lineGeometry->coordinates;
 
       // Convert GeoJson properties to KML properties
