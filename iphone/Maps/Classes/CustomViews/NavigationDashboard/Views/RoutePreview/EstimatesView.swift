@@ -24,6 +24,11 @@ final class EstimatesView: UIView {
   }
 
   private func layout() {
+    estimatesLabel.adjustsFontSizeToFitWidth = true
+    estimatesLabel.minimumScaleFactor = 0.5
+    estimatesLabel.allowsDefaultTighteningForTruncation = true
+    estimatesLabel.numberOfLines = 1
+
     addSubview(estimatesLabel)
 
     estimatesLabel.translatesAutoresizingMaskIntoConstraints = false
