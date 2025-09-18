@@ -16,7 +16,7 @@ final class NavigationDashboardViewController: UIViewController {
     static let settingsButtonInsetRight: CGFloat = -16
     static let settingsButtonSpacing: CGFloat = 8
 
-    static let transportOptionsCollectionInsets = UIEdgeInsets(top: 6, left: 16, bottom: 0, right: -36)
+    static let transportOptionsCollectionInsets = UIEdgeInsets(top: 6, left: 16, bottom: 0, right: -20)
     static let transportOptionsCollectionHeight: CGFloat = 44
 
     static let routePointsInsets = UIEdgeInsets(top: 8, left: 16, bottom: -8, right: -16)
