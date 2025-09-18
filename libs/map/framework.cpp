@@ -285,7 +285,6 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */), kMaxTrafficCacheSizeBytes,
                      m_routingManager.RoutingSession())
   , m_lastReportedCountry(kInvalidCountryId)
-  , m_popularityLoader(m_featuresFetcher.GetDataSource(), POPULARITY_RANKS_FILE_TAG)
   , m_descriptionsLoader(std::make_unique<descriptions::Loader>(m_featuresFetcher.GetDataSource()))
 {
   // Editor should be initialized from the main thread to set its ThreadChecker.
@@ -454,7 +453,6 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
     m_transitManager.OnMwmDeregistered(localFile);
     m_isolinesManager.OnMwmDeregistered(localFile);
     m_trafficManager.OnMwmDeregistered(localFile);
-    m_popularityLoader.OnMwmDeregistered(localFile);
 
     m_storage.DeleteCustomCountryVersion(localFile);
   };

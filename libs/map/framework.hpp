@@ -32,7 +32,6 @@
 #include "editor/new_feature_categories.hpp"
 #include "editor/osm_editor.hpp"
 
-#include "indexer/caching_rank_table_loader.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/data_source_helpers.hpp"
 #include "indexer/map_object.hpp"
@@ -492,8 +491,6 @@ private:
                                       TrackStatistics const & trackStatistics);
 
   TrackRecordingUpdateHandler m_trackRecordingUpdateHandler;
-
-  CachingRankTableLoader m_popularityLoader;
 
   std::unique_ptr<descriptions::Loader> m_descriptionsLoader;
 
