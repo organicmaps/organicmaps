@@ -21,12 +21,13 @@ final class PlacePageScrollView: UIScrollView {
   private enum Constants {
     static let actionBarHeight: CGFloat = 50
     static let additionalPreviewOffset: CGFloat = 80
+    static let fastSwipeDownVelocity: CGFloat = -3.5
+    static let fastSwipeUpVelocity: CGFloat = 2.5
   }
   
   @IBOutlet private var scrollView: UIScrollView!
   @IBOutlet private var stackView: UIStackView!
   @IBOutlet private var actionBarContainerView: UIView!
-  @IBOutlet private var actionBarDivider: UIView!
   @IBOutlet private var actionBarHeightConstraint: NSLayoutConstraint!
   @IBOutlet private var panGesture: UIPanGestureRecognizer!
 
@@ -276,14 +277,14 @@ final class PlacePageScrollView: UIScrollView {
     let bound = view.frame.height + contentOffset.y
     if animated {
       updateTopBound(bound)
-      UIView.animate(withDuration: kDefaultAnimationDuration, animations: { [weak scrollView] in
+      ModalPresentationAnimator.animate(animations: { [weak scrollView] in
         scrollView?.contentOffset = contentOffset
         self.layoutIfNeeded()
-      }) { complete in
+      }, completion: { complete in
         if complete {
           completion?()
         }
-      }
+      })
     } else {
       scrollView?.contentOffset = contentOffset
       completion?()
@@ -357,7 +358,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
     ModalPresentationAnimator.animate(
       animations: {
         self.alternativeSizeClass(iPhone: {
-          let frame = self.view.frame.offsetBy(dx: 0, dy: self.stackView.height + self.actionBarContainerView.frame.height)
+          let frame = self.view.frame.offsetBy(dx: 0, dy: self.view.height - self.stackView.convert(self.stackView.origin, to: self.view).y)
           self.view.frame = frame
         }, iPad: {
           let frame = self.view.frame
@@ -394,7 +395,15 @@ extension PlacePageViewController: UIScrollViewDelegate {
   func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                  withVelocity velocity: CGPoint,
                                  targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-    print("velocity", velocity)
+    if velocity.y < Constants.fastSwipeDownVelocity {
+      interactor?.close()
+      return
+    }
+    if velocity.y > Constants.fastSwipeUpVelocity {
+      showLastStop()
+      return
+    }
+    
     let maxOffset = scrollSteps.last?.offset ?? 0
     if targetContentOffset.pointee.y > maxOffset {
       return
