@@ -23,6 +23,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 @MainThread
 public enum BookmarkManager {
@@ -127,6 +129,15 @@ public enum BookmarkManager {
   public void onBookmarksChanged()
   {
     updateCache();
+  }
+
+  // Called from JNI
+  @Keep
+  @SuppressWarnings("unused")
+  @MainThread
+  public void onFileChanged(String filePath)
+  {
+    // TODO (PR #10651)
   }
 
   // Called from JNI.
@@ -294,6 +305,48 @@ public enum BookmarkManager {
   public static void loadBookmarks()
   {
     nativeLoadBookmarks();
+  }
+
+  public static void reloadBookmark(String filePath)
+  {
+    UiThread.run(() -> nativeReloadBookmark(filePath));
+  }
+
+  /**
+   * Adds a suffix to the category name (as well as the file name). The original file is deleted.
+   * <p>
+   * {@link #onFileChanged(String)} is not triggered for the original filename, it's triggered only for
+   * the new filename.
+   * Blocks until complete. Must not be called from the main thread.
+   */
+  public static void addSuffixToCategory(@NonNull String filePath)
+  {
+    nativeAddSuffixToCategory(filePath);
+  }
+
+  public static File getBookmarksDir()
+  {
+    return new File(nativeGetBookmarksDir());
+  }
+
+  public static String[] getLoadedCategoryPaths()
+  {
+    if (UiThread.isUiThread())
+      return nativeGetLoadedCategoryPaths();
+    else
+    {
+      FutureTask<String[]> task = new FutureTask<>(BookmarkManager::nativeGetLoadedCategoryPaths);
+      UiThread.run(task);
+      try
+      {
+        return task.get();
+      }
+      catch (ExecutionException | InterruptedException e)
+      {
+        Logger.e(TAG, "Error retrieving category paths", e);
+        return new String[0];
+      }
+    }
   }
 
   public void deleteCategory(long catId)
@@ -781,6 +834,8 @@ public enum BookmarkManager {
 
   private native boolean nativeDeleteCategory(long catId);
 
+  private native boolean nativeDeleteCategoryByFilename(String fileName);
+
   private native void nativeDeleteTrack(long trackId);
 
   private native void nativeDeleteBookmark(long bmkId);
@@ -801,6 +856,14 @@ public enum BookmarkManager {
   private native int nativeGetLastEditedColor();
 
   private static native void nativeLoadBookmarksFile(@NonNull String path, boolean isTemporaryFile);
+
+  private static native void nativeReloadBookmark(@NonNull String filePath);
+
+  private static native void nativeAddSuffixToCategory(@NonNull String filePath);
+
+  private static native String nativeGetBookmarksDir();
+
+  private static native String[] nativeGetLoadedCategoryPaths();
 
   private static native boolean nativeIsAsyncBookmarksLoadingInProgress();
 
