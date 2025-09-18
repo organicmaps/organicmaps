@@ -1,0 +1,8 @@
+plugins {
+  id 'com.android.library'
+}
+
+android {
+  namespace 'app.organicmaps.sdk.maps.world'
+  compileSdk = propCompileSdkVersion.toInteger()
+}
