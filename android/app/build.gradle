@@ -256,6 +256,9 @@ android {
 
 dependencies {
   implementation project(':sdk')
+  // World maps
+  googleImplementation project(':sdk:maps:world')
+  huaweiImplementation project(':sdk:maps:world')
 
   coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
 
