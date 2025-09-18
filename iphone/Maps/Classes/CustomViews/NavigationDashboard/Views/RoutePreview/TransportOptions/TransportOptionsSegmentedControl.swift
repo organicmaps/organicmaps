@@ -43,9 +43,9 @@ struct TransportOptionsSegmentedControlView: View {
   let onSelect: (MWMRouterType) -> Void
 
   private enum Constants {
-    static let spacing: CGFloat = 8
-    static let imageSize: CGFloat = 20
+    static let spacing: CGFloat = 4
     static let padding: CGFloat = 6
+    static let imagePadding: CGFloat = 4
     static let animationDuration: Double = kDefaultAnimationDuration / 2
   }
 
@@ -55,7 +55,7 @@ struct TransportOptionsSegmentedControlView: View {
 
   var body: some View {
     HStack(spacing: Constants.spacing) {
-      ForEach(viewModel.options, id: \.self) { type in
+      ForEach(viewModel.options, id: \.rawValue) { type in
         Button {
           impactGenerator.impactOccurred()
           withAnimation {
@@ -73,13 +73,14 @@ struct TransportOptionsSegmentedControlView: View {
               .renderingMode(.template)
               .resizable()
               .scaledToFit()
-              .frame(height: Constants.imageSize)
+              .padding(.vertical, Constants.imagePadding)
               .foregroundColor(viewModel.selected == type ? .white : Color(uiColor: .blackSecondaryText()))
           }
           .padding(Constants.padding)
           .frame(maxWidth: .infinity)
           .animation(.easeIn(duration: Constants.animationDuration), value: viewModel.selected)
         }
+        .buttonStyle(.plain)
       }
     }
     .frame(maxWidth: .infinity)
