@@ -1,5 +1,9 @@
 #include "drape_frontend/visual_params.hpp"
 
+#include "indexer/scales.hpp"
+
+#include "coding/point_coding.hpp"  // kMwmPointAccuracy
+
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
@@ -12,20 +16,10 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
-#include <utility>
 
 namespace df
 {
 using VisualScale = std::pair<std::string, double>;
-
-#ifdef DEBUG
-static bool g_isInited = false;
-#define RISE_INITED   g_isInited = true
-#define ASSERT_INITED ASSERT(g_isInited, ())
-#else
-#define RISE_INITED
-#define ASSERT_INITED
-#endif
 
 VisualParams & VisualParams::Instance()
 {
@@ -35,7 +29,8 @@ VisualParams & VisualParams::Instance()
 
 void VisualParams::Init(double vs, uint32_t tileSize)
 {
-  ASSERT_LESS_OR_EQUAL(vs, kMaxVisualScale, ());
+  CHECK(vs >= 1.0 && vs <= kMaxVisualScale, (vs));
+  CHECK(tileSize >= 32, (tileSize));
 
   VisualParams & vizParams = Instance();
   vizParams.m_tileSize = tileSize;
@@ -47,35 +42,34 @@ void VisualParams::Init(double vs, uint32_t tileSize)
   else
     vizParams.m_glyphVisualParams = {0.5f, 0.06f, 0.2f, 0.01f, 0.49f, 0.04f};
 
-  RISE_INITED;
+  vizParams.m_isInited = true;
 
   LOG(LINFO, ("Visual scale =", vs, "; Tile size =", tileSize, "; Resources =", GetResourcePostfix(vs)));
 }
 
 double VisualParams::GetFontScale() const
 {
-  ASSERT_INITED;
+  ASSERT(m_isInited, ());
   return m_fontScale;
 }
 
 void VisualParams::SetFontScale(double fontScale)
 {
-  ASSERT_INITED;
+  ASSERT(m_isInited, ());
   m_fontScale = math::Clamp(fontScale, 0.5, 2.0);
 }
 
-void VisualParams::SetVisualScale(double visualScale)
+void VisualParams::SetVisualScale(double vs)
 {
-  ASSERT_INITED;
-  ASSERT_LESS_OR_EQUAL(visualScale, kMaxVisualScale, ());
-  m_visualScale = visualScale;
+  ASSERT(m_isInited, ());
+  CHECK(vs >= 1.0 && vs <= kMaxVisualScale, (vs));
+  m_visualScale = vs;
 
-  LOG(LINFO, ("Visual scale =", visualScale));
+  LOG(LINFO, ("Visual scale =", vs));
 }
 
 std::string const & VisualParams::GetResourcePostfix(double visualScale)
 {
-  ASSERT_INITED;
   static VisualScale postfixes[] = {
       /// @todo Not used in mobile because of minimal visual scale (@see visual_scale.hpp)
       {"mdpi", kMdpiScale},
@@ -103,52 +97,46 @@ std::string const & VisualParams::GetResourcePostfix(double visualScale)
 
 std::string const & VisualParams::GetResourcePostfix() const
 {
-  ASSERT_INITED;
+  ASSERT(m_isInited, ());
   return VisualParams::GetResourcePostfix(m_visualScale);
 }
 
 double VisualParams::GetVisualScale() const
 {
-  ASSERT_INITED;
+  ASSERT(m_isInited, ());
   return m_visualScale;
-}
-
-double VisualParams::GetPoiExtendScale() const
-{
-  ASSERT_INITED;
-  return m_poiExtendScale;
 }
 
 uint32_t VisualParams::GetTileSize() const
 {
-  ASSERT_INITED;
+  CHECK(m_isInited, ());
   return m_tileSize;
 }
 
 uint32_t VisualParams::GetTouchRectRadius() const
 {
-  ASSERT_INITED;
+  ASSERT(m_isInited, ());
   float const kRadiusInPixels = 20.0f;
   return static_cast<uint32_t>(kRadiusInPixels * GetVisualScale());
 }
 
 double VisualParams::GetDragThreshold() const
 {
-  ASSERT_INITED;
+  ASSERT(m_isInited, ());
   double const kDragThresholdInPixels = 10.0;
   return kDragThresholdInPixels * GetVisualScale();
 }
 
 double VisualParams::GetScaleThreshold() const
 {
-  ASSERT_INITED;
+  ASSERT(m_isInited, ());
   double const kScaleThresholdInPixels = 2.0;
   return kScaleThresholdInPixels * GetVisualScale();
 }
 
 VisualParams::GlyphVisualParams const & VisualParams::GetGlyphVisualParams() const
 {
-  ASSERT_INITED;
+  ASSERT(m_isInited, ());
   return m_glyphVisualParams;
 }
 
@@ -178,8 +166,7 @@ int GetTileScaleBase(ScreenBase const & s)
 
 int GetTileScaleBase(m2::RectD const & r)
 {
-  double const sz = std::max(r.SizeX(), r.SizeY());
-  ASSERT_GREATER(sz, 0., ("Rect should not be a point:", r));
+  double const sz = std::max(std::max(r.SizeX(), r.SizeY()), kMwmPointAccuracy);
   return std::max(1, math::iround(std::log2(mercator::Bounds::kRangeX / sz)));
 }
 
@@ -190,7 +177,7 @@ double GetTileScaleBase(double drawScale)
 
 int GetTileScaleIncrement(uint32_t tileSize, double visualScale)
 {
-  return static_cast<int>(std::log2(tileSize / 256.0 / visualScale));
+  return math::iround(std::log2(tileSize / 256.0 / visualScale));
 }
 
 int GetTileScaleIncrement()
@@ -257,10 +244,18 @@ uint32_t CalculateTileSize(uint32_t screenWidth, uint32_t screenHeight)
 #endif
 }
 
+namespace
+{
+double GetDrawTileScale(double baseScale)
+{
+  return baseScale + GetTileScaleIncrement();
+}
+
 int GetDrawTileScale(int baseScale, uint32_t tileSize, double visualScale)
 {
-  return std::max(1, baseScale + GetTileScaleIncrement(tileSize, visualScale));
+  return baseScale + GetTileScaleIncrement(tileSize, visualScale);
 }
+}  // namespace
 
 int GetDrawTileScale(ScreenBase const & s, uint32_t tileSize, double visualScale)
 {
@@ -270,17 +265,6 @@ int GetDrawTileScale(ScreenBase const & s, uint32_t tileSize, double visualScale
 int GetDrawTileScale(m2::RectD const & r, uint32_t tileSize, double visualScale)
 {
   return GetDrawTileScale(GetTileScaleBase(r), tileSize, visualScale);
-}
-
-int GetDrawTileScale(int baseScale)
-{
-  VisualParams const & p = VisualParams::Instance();
-  return GetDrawTileScale(baseScale, p.GetTileSize(), p.GetVisualScale());
-}
-
-double GetDrawTileScale(double baseScale)
-{
-  return std::max(1.0, baseScale + GetTileScaleIncrement());
 }
 
 int GetDrawTileScale(ScreenBase const & s)
