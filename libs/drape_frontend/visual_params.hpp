@@ -1,15 +1,10 @@
 #pragma once
-#include "indexer/scales.hpp"
-
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
 #include "base/macros.hpp"
 
-#include <atomic>
-#include <cstdint>
 #include <string>
-#include <vector>
 
 namespace df
 {
@@ -36,8 +31,6 @@ public:
   std::string const & GetResourcePostfix() const;
 
   double GetVisualScale() const;
-  /// This is a scale factor to decrease extending of bbox for POI icons. It could be removed with new style
-  double GetPoiExtendScale() const;
   uint32_t GetTileSize() const;
 
   /// How many pixels around touch point are used to get bookmark or POI in consideration of visual scale.
@@ -62,7 +55,7 @@ public:
   void SetFontScale(double fontScale);
 
   // This method can be called ONLY if rendering is disabled.
-  void SetVisualScale(double visualScale);
+  void SetVisualScale(double vs);
 
 private:
   VisualParams() = default;
@@ -71,8 +64,8 @@ private:
 
   uint32_t m_tileSize = 0;
   double m_visualScale = 0.0;
-  double m_poiExtendScale = 0.1;  // Found empirically.
-  std::atomic<double> m_fontScale = 1.0;
+  double m_fontScale = 1.0;
+  bool m_isInited = false;
 
   DISALLOW_COPY_AND_MOVE(VisualParams);
 };
@@ -89,11 +82,8 @@ double GetTileScaleBase(double drawScale);
 int GetTileScaleIncrement(uint32_t tileSize, double visualScale);
 int GetTileScaleIncrement();
 
-int GetDrawTileScale(int baseScale, uint32_t tileSize, double visualScale);
 int GetDrawTileScale(ScreenBase const & s, uint32_t tileSize, double visualScale);
 int GetDrawTileScale(m2::RectD const & r, uint32_t tileSize, double visualScale);
-int GetDrawTileScale(int baseScale);
-double GetDrawTileScale(double baseScale);
 int GetDrawTileScale(ScreenBase const & s);
 int GetDrawTileScale(m2::RectD const & r);
 
