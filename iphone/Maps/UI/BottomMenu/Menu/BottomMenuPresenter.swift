@@ -110,10 +110,13 @@ extension BottomMenuPresenter {
                        enabled: countryId != nil)
       case .recordTrack:
         switch trackRecorder.recordingState {
-        case .inactive:
+        case .disabled:
           cell.configure(image: UIImage(resource: .icMenuTrackRecording), title: L("start_track_recording"))
-        case .active:
+        case .recording:
           cell.configure(image: UIImage(resource: .icMenuTrackRecording), title: L("stop_track_recording"), imageStyle: .red)
+        case .paused:
+          cell.configure(image: UIImage(resource: .icMenuTrackRecordingResume), title: L("resume_track_recording"))
+          break
         }
         return cell
       case .downloadMaps:

@@ -18,6 +18,7 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
   case MWMActionBarButtonTypeTrack: return L(@"delete");
   case MWMActionBarButtonTypeSaveTrackRecording: return L(@"save");
   case MWMActionBarButtonTypeDeleteTrackRecording: return L(@"delete");
+  case MWMActionBarButtonTypePauseTrackRecording: return L(isSelected ? @"resume" : @"pause");
   case MWMActionBarButtonTypeRouteFrom: return L(@"p2p_from_here");
   case MWMActionBarButtonTypeRouteTo: return L(@"p2p_to_here");
   case MWMActionBarButtonTypeMore: return L(@"placepage_more_button");
@@ -119,6 +120,11 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
                               imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
                   forState:UIControlStateNormal];
     self.button.coloring = MWMButtonColoringRed;
+    break;
+  case MWMActionBarButtonTypePauseTrackRecording:
+    [self.button setImage:[UIImage imageNamed:@"ic_placepage_pause"] forState:UIControlStateNormal];
+    [self.button setImage:[UIImage imageNamed:@"ic_placepage_resume"] forState:UIControlStateSelected];
+    self.button.selected = isSelected;
     break;
   case MWMActionBarButtonTypeRouteFrom:
     [self.button setImage:[UIImage imageNamed:@"ic_route_from"] forState:UIControlStateNormal];

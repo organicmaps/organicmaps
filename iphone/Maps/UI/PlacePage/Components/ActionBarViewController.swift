@@ -89,6 +89,7 @@ final class ActionBarViewController: UIViewController {
     case .trackRecording:
       buttons.append(.deleteTrackRecording)
       buttons.append(.saveTrackRecording)
+	  buttons.append(.pauseTrackRecording)
     @unknown default:
       fatalError()
     }
@@ -128,11 +129,13 @@ final class ActionBarViewController: UIViewController {
     var selected = false
     let enabled = true
     switch buttonType {
-      case .bookmark:
+    case .bookmark:
       selected = placePageData.bookmarkData != nil
-      case .track:
+    case .track:
       selected = placePageData.trackData != nil
-      default:
+    case .pauseTrackRecording:
+      selected = TrackRecordingManager.shared.recordingState == .paused
+    default:
       break
     }
     return (selected, enabled)

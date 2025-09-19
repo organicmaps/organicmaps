@@ -271,6 +271,10 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       }
     case .deleteTrackRecording:
       showTrackRecordingDiscardingConfirmationDialog()
+    case .pauseTrackRecording:
+      let isPaused = trackRecordingManager.recordingState == .paused
+      trackRecordingManager.setPaused(!isPaused)
+      actionBar.resetButtons()
     @unknown default:
       fatalError()
     }

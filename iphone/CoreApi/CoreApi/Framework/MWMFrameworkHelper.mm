@@ -253,6 +253,11 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().StopTrackRecording();
 }
 
++ (void)setTrackRecordingPaused:(BOOL)paused
+{
+  GetFramework().SetTrackRecordingPaused(paused);
+}
+
 + (void)saveTrackRecordingWithName:(nonnull NSString *)name
 {
   GetFramework().SaveTrackRecordingWithName(name.UTF8String);
@@ -261,6 +266,11 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 + (BOOL)isTrackRecordingEnabled
 {
   return GetFramework().IsTrackRecordingEnabled();
+}
+
++ (BOOL)isTrackRecordingPaused
+{
+  return GetFramework().IsTrackRecordingPaused();
 }
 
 + (BOOL)isTrackRecordingEmpty
