@@ -23,7 +23,6 @@ import app.organicmaps.api.Const;
 
 public final class CarAppService extends androidx.car.app.CarAppService
 {
-  private static final int NOTIFICATION_ID = CarAppService.class.getSimpleName().hashCode();
   public static final String ANDROID_AUTO_NOTIFICATION_CHANNEL_ID = "ANDROID_AUTO";
 
   public static final String API_CAR_HOST = Const.AUTHORITY + ".car";
