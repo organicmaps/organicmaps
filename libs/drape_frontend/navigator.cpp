@@ -4,14 +4,8 @@
 
 #include "indexer/scales.hpp"
 
-#include "platform/settings.hpp"
-
 #include "geometry/angles.hpp"
-#include "geometry/distance_on_sphere.hpp"
 #include "geometry/point2d.hpp"
-#include "geometry/transformations.hpp"
-
-#include "base/logging.hpp"
 
 namespace df
 {
