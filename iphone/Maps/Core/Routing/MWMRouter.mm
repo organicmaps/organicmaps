@@ -267,7 +267,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 + (void)swapStartAndFinish
 {
   auto const points = GetFramework().GetRoutingManager().GetRoutePoints();
-  CHECK(points.empty(), ("Should never be empty"));
+  CHECK(!points.empty(), ("Should never be empty"));
   auto & rm = GetFramework().GetRoutingManager();
   if (points.size() == 1)
   {
