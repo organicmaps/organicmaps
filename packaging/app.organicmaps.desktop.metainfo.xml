@@ -115,6 +115,29 @@
   </screenshots>
 
   <releases>
+   <release version="2025.09.15-18" date="2025-09-15">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OpenStreetMap data as of September 13</li>
+           <li>Removed minor islands from the World map</li>
+           <li>Show Postcode/zip code for addresses</li>
+           <li>Fixed wrong map centering around the current position</li>
+           <li>Bookmark colors are preserved when exporting and importing GPX files</li>
+           <li>Updated translations</li>
+        </ul>
+       <p>Map Styles:</p>
+         <ul>
+           <li>Display lighting shops on the map</li>
+           <li>Show power lines from zoom 18</li>
+           <li>Show reference names for power stations and substations</li>
+           <li>Show campsites and caravan sites in navigation mode</li>
+           <li>Fixed secondary highway color in navigation mode</li>
+           <li>Draw national park borders</li>
+           <li>Draw archaeological sites from zoom 12 in outdoor mode</li>
+        </ul>
+     </description>
+   </release>
    <release version="2025.09.01-6" date="2025-09-01">
      <description>
        <p>Highlights:</p>
