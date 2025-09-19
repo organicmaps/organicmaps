@@ -489,6 +489,11 @@
     </service>
 
     <service
+        android:name="app.organicmaps.car.CarLocationService"
+        android:foregroundServiceType="location"
+        android:exported="false" />
+
+    <service
         android:name=".routing.NavigationService"
         android:foregroundServiceType="location|mediaPlayback"
         android:exported="false"
