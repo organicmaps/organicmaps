@@ -11,6 +11,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     let showCloseButton: Bool
     let maskedCorners: CACornerMask
     let isPlaceholder: Bool
+    let showSeparator: Bool
     let onCloseHandler: (() -> Void)?
   }
 
@@ -34,7 +35,6 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     let separatorInsets = UIEdgeInsets(top: 0, left: Constants.logoImageLeadingInset + Constants.logoSize + Constants.horizontalSpacing, bottom: 0, right: 0)
     return contentBackgroundView.addSeparator(.bottom, insets: separatorInsets)
   }()
-  private lazy var dotSeparatorView: UIView = makeDotSeparator()
   private var didTapClose: (() -> Void)?
 
   override init(frame: CGRect) {
@@ -79,7 +79,6 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     contentView.addSubview(contentBackgroundView)
     textStackView.addArrangedSubview(titleLabel)
     contentBackgroundView.addSubview(logoImageView)
-    contentBackgroundView.addSubview(dotSeparatorView)
     contentBackgroundView.addSubview(textStackView)
     contentBackgroundView.addSubview(closeButton)
     contentBackgroundView.addSubview(reorderButton)
@@ -100,9 +99,6 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       logoImageView.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
       logoImageView.widthAnchor.constraint(equalToConstant: Constants.logoSize),
       logoImageView.heightAnchor.constraint(equalToConstant: Constants.logoSize),
-
-      dotSeparatorView.centerXAnchor.constraint(equalTo: logoImageView.centerXAnchor),
-      dotSeparatorView.centerYAnchor.constraint(equalTo: bottomAnchor),
 
       textStackView.leadingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: Constants.horizontalSpacing),
       textStackView.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
@@ -143,8 +139,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       closeButton.isHidden = !viewModel.showCloseButton
       reorderButton.isHidden = false
       contentBackgroundView.layer.maskedCorners = viewModel.maskedCorners
-      separatorView.isHidden = false
-      dotSeparatorView.isHidden = false
+      separatorView.isHidden = !viewModel.showSeparator
     case .addPoint:
       titleLabel.text = L("placepage_add_stop")
       logoImageView.image = UIImage(resource: .icAddButton)
@@ -154,7 +149,6 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       reorderButton.isHidden = true
       contentBackgroundView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
       separatorView.isHidden = true
-      dotSeparatorView.isHidden = true
     }
   }
 
