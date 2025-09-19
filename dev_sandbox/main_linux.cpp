@@ -12,12 +12,6 @@
 #include <dlfcn.h>
 
 #include <vulkan_wrapper.h>
-// Workaround for TestFunction::Always compilation issue:
-// /usr/include/X11/X.h:441:33: note: expanded from macro 'Always'
-#undef Always
-// Workaround for storage::Status compilation issue:
-// /usr/include/X11/Xlib.h:83:16: note: expanded from macro 'Status'
-#undef Status
 
 #include "drape/vulkan/vulkan_context_factory.hpp"
 

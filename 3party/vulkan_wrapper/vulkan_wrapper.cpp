@@ -41,7 +41,7 @@ int InitVulkan(void) {
     if (!libvulkan) {
         libvulkan = dlopen("libMoltenVK.dylib", RTLD_NOW | RTLD_LOCAL);
     }
-#elif defined( _WIN32 )
+#elif defined( VK_USE_PLATFORM_WIN32_KHR )
     HMODULE libvulkan = LoadLibraryA("vulkan-1.dll");
     auto dlsym = [](HMODULE h, char const * name) { return GetProcAddress(h, name); };
 #else
