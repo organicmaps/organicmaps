@@ -2,8 +2,6 @@
 
 #include "geometry/screenbase.hpp"
 
-#include "base/matrix.hpp"
-
 namespace df
 {
 extern double const kDefault3dScale;

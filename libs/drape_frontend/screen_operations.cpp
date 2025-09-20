@@ -1,9 +1,5 @@
 #include "screen_operations.hpp"
 
-#include "drape_frontend/animation/interpolators.hpp"
-#include "drape_frontend/animation/linear_animation.hpp"
-#include "drape_frontend/animation/scale_animation.hpp"
-#include "drape_frontend/animation_constants.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "indexer/scales.hpp"

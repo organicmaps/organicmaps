@@ -440,9 +440,11 @@ void ApplyPointFeature::ProcessPointRules(SymbolRuleProto const * symbolRule, Ca
     params.m_depth = PriorityToDepth(symbolRule->priority(), drule::symbol, 0);
     params.m_symbolName = symbolRule->name();
     ASSERT_GREATER_OR_EQUAL(symbolRule->min_distance(), 0, ());
+
+    // Where 0.1 comes from: https://github.com/organicmaps/organicmaps/pull/649
     auto const & vp = df::VisualParams::Instance();
-    params.m_extendingSize =
-        static_cast<uint32_t>(vp.GetVisualScale() * symbolRule->min_distance() * vp.GetPoiExtendScale());
+    params.m_extendingSize = static_cast<uint32_t>(vp.GetVisualScale() * symbolRule->min_distance() * 0.1);
+
     params.m_posZ = m_posZ;
     params.m_hasArea = HasArea();
     params.m_prioritized = createdByEditor;
