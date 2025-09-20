@@ -12,7 +12,7 @@ import androidx.car.app.notification.CarPendingIntent;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.api.Const;
 import app.organicmaps.car.CarAppService;
-import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.renderer.Renderer;
 import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.search.SearchScreen;
 import app.organicmaps.sdk.Framework;
@@ -30,7 +30,7 @@ public final class IntentUtils
 
   private static final int SEARCH_IN_VIEWPORT_ZOOM = 16;
 
-  public static void processIntent(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer,
+  public static void processIntent(@NonNull CarContext carContext, @NonNull Renderer surfaceRenderer,
                                    @NonNull Intent intent)
   {
     final String action = intent.getAction();
@@ -50,8 +50,8 @@ public final class IntentUtils
   }
 
   // https://developer.android.com/reference/androidx/car/app/CarContext#startCarApp(android.content.Intent)
-  private static void processNavigationIntent(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer,
-                                              @NonNull Intent intent)
+  private static void processNavigationIntent(@NonNull CarContext carContext,
+                                              @NonNull Renderer surfaceRenderer, @NonNull Intent intent)
   {
     // TODO (AndrewShkrob): This logic will need to be revised when we introduce support for adding stops during
     // navigation or route planning. Skip navigation intents during navigation

@@ -15,7 +15,7 @@ import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.R;
-import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.renderer.Renderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.search.SearchOnMapScreen;
 import app.organicmaps.car.util.UiHelpers;
@@ -37,7 +37,7 @@ public class CategoriesScreen extends BaseMapScreen
 
   private final int MAX_CATEGORIES_SIZE;
 
-  public CategoriesScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
+  public CategoriesScreen(@NonNull CarContext carContext, @NonNull Renderer surfaceRenderer)
   {
     super(carContext, surfaceRenderer);
     final ConstraintManager constraintManager = getCarContext().getCarService(ConstraintManager.class);

@@ -14,7 +14,7 @@ import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.R;
-import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.renderer.Renderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.bookmarks.BookmarkCategoriesScreen;
 import app.organicmaps.car.screens.search.SearchScreen;
@@ -24,7 +24,7 @@ import app.organicmaps.car.util.UiHelpers;
 
 public class MapScreen extends BaseMapScreen
 {
-  public MapScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
+  public MapScreen(@NonNull CarContext carContext, @NonNull Renderer surfaceRenderer)
   {
     super(carContext, surfaceRenderer);
   }

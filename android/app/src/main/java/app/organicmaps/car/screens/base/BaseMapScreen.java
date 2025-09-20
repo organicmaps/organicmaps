@@ -2,21 +2,21 @@ package app.organicmaps.car.screens.base;
 
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
-import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.renderer.Renderer;
 
 public abstract class BaseMapScreen extends BaseScreen
 {
   @NonNull
-  private final SurfaceRenderer mSurfaceRenderer;
+  private final Renderer mSurfaceRenderer;
 
-  public BaseMapScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
+  public BaseMapScreen(@NonNull CarContext carContext, @NonNull Renderer surfaceRenderer)
   {
     super(carContext);
     mSurfaceRenderer = surfaceRenderer;
   }
 
   @NonNull
-  protected SurfaceRenderer getSurfaceRenderer()
+  protected Renderer getSurfaceRenderer()
   {
     return mSurfaceRenderer;
   }
