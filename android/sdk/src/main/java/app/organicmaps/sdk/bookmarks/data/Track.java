@@ -25,7 +25,7 @@ public class Track extends MapObject
 
   Track(long trackId, long categoryId, String name, Distance length, int color)
   {
-    super(FeatureId.EMPTY, TRACK, name, "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW, null, "",
+    super(FeatureId.EMPTY, TRACK, name, "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW, null, "", "",
           RoadWarningMarkType.UNKNOWN.ordinal(), null);
     mTrackId = trackId;
     mCategoryId = categoryId;
@@ -38,10 +38,11 @@ public class Track extends MapObject
   Track(@NonNull FeatureId featureId, @IntRange(from = 0) long categoryId, @IntRange(from = 0) long trackId,
         String title, @Nullable String secondaryTitle, @Nullable String subtitle, @Nullable String address,
         @Nullable RoutePointInfo routePointInfo, @OpeningMode int openingMode, @NonNull Popularity popularity,
-        @NonNull String description, @Nullable String[] rawTypes, int color, Distance length, double lat, double lon)
+        @NonNull String wikiArticle, @NonNull String osmDescription, @Nullable String[] rawTypes, int color,
+        Distance length, double lat, double lon)
   {
     super(featureId, TRACK, title, secondaryTitle, subtitle, address, lat, lon, "", routePointInfo, openingMode,
-          popularity, description, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
+          popularity, wikiArticle, osmDescription, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
     mTrackId = trackId;
     mCategoryId = categoryId;
     mColor = color;

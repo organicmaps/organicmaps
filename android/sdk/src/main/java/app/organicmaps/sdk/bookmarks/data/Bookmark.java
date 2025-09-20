@@ -29,11 +29,11 @@ public class Bookmark extends MapObject
   public Bookmark(@NonNull FeatureId featureId, @IntRange(from = 0) long categoryId,
                   @IntRange(from = 0) long bookmarkId, String title, @Nullable String secondaryTitle,
                   @Nullable String subtitle, @Nullable String address, @Nullable RoutePointInfo routePointInfo,
-                  @OpeningMode int openingMode, @NonNull Popularity popularity, @NonNull String description,
-                  @Nullable String[] rawTypes)
+                  @OpeningMode int openingMode, @NonNull Popularity popularity, @NonNull String wikiArticle,
+                  @NonNull String osmDescription, @Nullable String[] rawTypes)
   {
     super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "", routePointInfo, openingMode,
-          popularity, description, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
+          popularity, wikiArticle, osmDescription, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;

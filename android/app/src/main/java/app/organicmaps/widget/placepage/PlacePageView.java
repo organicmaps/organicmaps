@@ -146,6 +146,8 @@ public class PlacePageView extends Fragment
   private ImageView mColorIcon;
   private TextView mTvCategory;
   private ImageView mEditBookmark;
+  private View mOsmDescriptionContainer;
+  private TextView mTvOsmDescription;
   private MaterialButton mShareButton;
 
   // Data
@@ -263,6 +265,9 @@ public class PlacePageView extends Fragment
     mColorIcon.setOnClickListener(this);
     mTvCategory.setOnClickListener(this);
     mEditBookmark.setOnClickListener(this);
+
+    mOsmDescriptionContainer = mFrame.findViewById(R.id.osm_description_container);
+    mTvOsmDescription = mFrame.findViewById(R.id.tv__osm_description);
 
     mShareButton = mPreview.findViewById(R.id.share_button);
     mShareButton.setOnClickListener(this::shareClickListener);
@@ -494,7 +499,17 @@ public class PlacePageView extends Fragment
       mToolbar.setTitle(mMapObject.getTitle());
     setTextAndColorizeSubtitle();
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mMapObject.getAddress());
+
     refreshCategoryPreview();
+
+    final String osmDescription = mMapObject.getOsmDescription();
+    if (osmDescription.isEmpty())
+      mOsmDescriptionContainer.setVisibility(GONE);
+    else
+    {
+      mTvOsmDescription.setText(osmDescription);
+      mOsmDescriptionContainer.setVisibility(VISIBLE);
+    }
   }
 
   void refreshCategoryPreview()
