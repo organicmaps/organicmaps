@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = 'Organic Maps'
 include ':app'
 include ':sdk'
+include ':sdk:maps:world'
