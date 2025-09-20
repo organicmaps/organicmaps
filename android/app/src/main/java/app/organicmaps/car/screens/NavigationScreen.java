@@ -20,7 +20,7 @@ import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.car.CarAppService;
-import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.renderer.Renderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.settings.DrivingOptionsScreen;
 import app.organicmaps.car.util.Colors;
@@ -261,9 +261,9 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     @NonNull
     private final CarContext mCarContext;
     @NonNull
-    private final SurfaceRenderer mSurfaceRenderer;
+    private final Renderer mSurfaceRenderer;
 
-    public Builder(@NonNull final CarContext carContext, @NonNull final SurfaceRenderer surfaceRenderer)
+    public Builder(@NonNull final CarContext carContext, @NonNull final Renderer surfaceRenderer)
     {
       mCarContext = carContext;
       mSurfaceRenderer = surfaceRenderer;

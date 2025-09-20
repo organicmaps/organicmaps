@@ -17,7 +17,7 @@ import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.renderer.Renderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
@@ -175,7 +175,7 @@ public class SearchOnMapScreen extends BaseMapScreen implements SearchListener
     @NonNull
     private final CarContext mCarContext;
     @NonNull
-    private final SurfaceRenderer mSurfaceRenderer;
+    private final Renderer mSurfaceRenderer;
 
     @NonNull
     private String mQuery = "";
@@ -183,7 +183,7 @@ public class SearchOnMapScreen extends BaseMapScreen implements SearchListener
     private String mLocale;
     private boolean mIsCategory;
 
-    public Builder(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
+    public Builder(@NonNull CarContext carContext, @NonNull Renderer surfaceRenderer)
     {
       mCarContext = carContext;
       mSurfaceRenderer = surfaceRenderer;

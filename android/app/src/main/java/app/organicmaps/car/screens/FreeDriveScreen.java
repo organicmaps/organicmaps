@@ -9,13 +9,13 @@ import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.NavigationTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.R;
-import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.renderer.Renderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.UiHelpers;
 
 public class FreeDriveScreen extends BaseMapScreen
 {
-  public FreeDriveScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
+  public FreeDriveScreen(@NonNull CarContext carContext, @NonNull Renderer surfaceRenderer)
   {
     super(carContext, surfaceRenderer);
   }
