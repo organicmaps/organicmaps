@@ -113,6 +113,10 @@ extension NavigationDashboard {
         router.rebuild(withBestRouter: false)
         return .show(points: router.points(), routerType: router.type())
 
+      case .swapStartAndFinishPoints:
+        router.swapStartAndFinish()
+        return .show(points: router.points(), routerType: router.type())
+
       case .updateVisibleAreaInsets(let insets):
         mapViewController.updateVisibleAreaInsets(for: self, insets: insets)
         return .none
