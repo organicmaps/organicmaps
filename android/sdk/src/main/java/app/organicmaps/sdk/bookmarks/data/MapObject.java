@@ -13,7 +13,6 @@ import app.organicmaps.sdk.search.Popularity;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -49,18 +48,18 @@ public class MapObject implements PlacePageData
   private static final String kHttp = "http://";
   private static final String kHttps = "https://";
 
-  @NonNull
-  private final FeatureId mFeatureId;
   @MapObjectType
   private final int mMapObjectType;
+  @NonNull
+  private final FeatureId mFeatureId;
 
   private String mTitle;
   @Nullable
   private final String mSecondaryTitle;
   private final String mSubtitle;
+  private final String mAddress;
   private double mLat;
   private double mLon;
-  private final String mAddress;
   @NonNull
   private final Metadata mMetadata;
   private final String mApiId;
@@ -70,9 +69,9 @@ public class MapObject implements PlacePageData
   //  @NonNull
   //  private final Popularity mPopularity;
   @NonNull
-  private final RoadWarningMarkType mRoadWarningMarkType;
-  @NonNull
   private String mWikiArticle;
+  @NonNull
+  private final RoadWarningMarkType mRoadWarningMarkType;
   @Nullable
   private List<String> mRawTypes;
 
@@ -91,8 +90,8 @@ public class MapObject implements PlacePageData
                    @OpeningMode int openingMode, Popularity popularity, @NonNull String wikiArticle,
                    int roadWarningType, @Nullable String[] rawTypes)
   {
-    mFeatureId = featureId;
     mMapObjectType = mapObjectType;
+    mFeatureId = featureId;
     mTitle = title;
     mSecondaryTitle = secondaryTitle;
     mSubtitle = subtitle;
@@ -107,32 +106,32 @@ public class MapObject implements PlacePageData
     mWikiArticle = wikiArticle;
     mRoadWarningMarkType = RoadWarningMarkType.values()[roadWarningType];
     if (rawTypes != null)
-      mRawTypes = new ArrayList<>(Arrays.asList(rawTypes));
+      mRawTypes = Arrays.asList(rawTypes);
   }
 
+  // Also called from Bookmark constructor.
   protected MapObject(@MapObjectType int type, Parcel source)
   {
-    this(Objects.requireNonNull(
-             ParcelCompat.readParcelable(source, FeatureId.class.getClassLoader(), FeatureId.class)), // FeatureId
-         type, // MapObjectType
-         source.readString(), // Title
-         source.readString(), // SecondaryTitle
-         source.readString(), // Subtitle
-         source.readString(), // Address
-         source.readDouble(), // Lat
-         source.readDouble(), // Lon
-         ParcelCompat.readParcelable(source, Metadata.class.getClassLoader(), Metadata.class),
-         source.readString(), // ApiId;
-         ParcelCompat.readParcelable(source, RoutePointInfo.class.getClassLoader(),
-                                     RoutePointInfo.class), // RoutePointInfo
-         source.readInt(), // mOpeningMode
-         Objects.requireNonNull(
-             ParcelCompat.readParcelable(source, Popularity.class.getClassLoader(), Popularity.class)),
-         Objects.requireNonNull(source.readString()), source.readInt(),
-         null // mRawTypes
-    );
-
-    mRawTypes = readRawTypes(source);
+    // Type has already been read in readFromParcel method.
+    mMapObjectType = type;
+    // Reading order must be the same as writing order in writeToParcel.
+    mFeatureId =
+        Objects.requireNonNull(ParcelCompat.readParcelable(source, FeatureId.class.getClassLoader(), FeatureId.class));
+    mTitle = source.readString();
+    mSecondaryTitle = source.readString();
+    mSubtitle = source.readString();
+    mAddress = source.readString();
+    mLat = source.readDouble();
+    mLon = source.readDouble();
+    mMetadata = ParcelCompat.readParcelable(source, Metadata.class.getClassLoader(), Metadata.class);
+    mApiId = source.readString();
+    mRoutePointInfo = ParcelCompat.readParcelable(source, RoutePointInfo.class.getClassLoader(), RoutePointInfo.class);
+    mOpeningMode = source.readInt();
+    // mPopularity =
+    //     ParcelCompat.readParcelable(source, Popularity.class.getClassLoader(), Popularity.class);
+    mWikiArticle = Objects.requireNonNull(source.readString());
+    mRoadWarningMarkType = RoadWarningMarkType.values()[source.readInt()];
+    source.readStringList(mRawTypes);
   }
 
   @NonNull
@@ -142,14 +141,6 @@ public class MapObject implements PlacePageData
     return new MapObject(featureId, mapObjectType, title, "", subtitle, "", lat, lon, null, "", null,
                          OPENING_MODE_PREVIEW, Popularity.defaultInstance(), "", RoadWarningMarkType.UNKNOWN.ordinal(),
                          new String[0]);
-  }
-
-  @NonNull
-  private static List<String> readRawTypes(@NonNull Parcel source)
-  {
-    List<String> types = new ArrayList<>();
-    source.readStringList(types);
-    return types;
   }
 
   /**
@@ -303,6 +294,8 @@ public class MapObject implements PlacePageData
 
   public boolean hasAtm()
   {
+    if (mRawTypes == null)
+      return false;
     return mRawTypes.contains("amenity-atm");
   }
 
@@ -358,7 +351,7 @@ public class MapObject implements PlacePageData
   @Override
   public void writeToParcel(Parcel dest, int flags)
   {
-    // A map object type must be written first, since it's used in readParcel method to distinguish
+    // A map object type must be written first, since it's used in readFromParcel method to distinguish
     // what type of object should be read from the parcel.
     dest.writeInt(mMapObjectType);
     dest.writeParcelable(mFeatureId, 0);
