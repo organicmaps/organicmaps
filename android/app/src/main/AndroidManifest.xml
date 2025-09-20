@@ -40,6 +40,7 @@
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
   <!--
@@ -489,7 +490,7 @@
 
     <service
         android:name=".routing.NavigationService"
-        android:foregroundServiceType="location"
+        android:foregroundServiceType="location|mediaPlayback"
         android:exported="false"
         android:enabled="true"
         android:stopWithTask="false"/>
