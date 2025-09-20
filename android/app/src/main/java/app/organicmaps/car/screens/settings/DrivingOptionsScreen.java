@@ -13,7 +13,7 @@ import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.R;
-import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.renderer.Renderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.Toggle;
 import app.organicmaps.car.util.UiHelpers;
@@ -36,7 +36,7 @@ public class DrivingOptionsScreen extends BaseMapScreen
   @NonNull
   private final Map<RoadType, Boolean> mInitialDrivingOptionsState = new HashMap<>();
 
-  public DrivingOptionsScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
+  public DrivingOptionsScreen(@NonNull CarContext carContext, @NonNull Renderer surfaceRenderer)
   {
     super(carContext, surfaceRenderer);
 

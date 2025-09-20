@@ -16,7 +16,7 @@ import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.renderer.Renderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
@@ -38,7 +38,7 @@ class SortingScreen extends BaseMapScreen
 
   private @BookmarkManager.SortingType int mNewSortingType;
 
-  public SortingScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer,
+  public SortingScreen(@NonNull CarContext carContext, @NonNull Renderer surfaceRenderer,
                        @NonNull BookmarkCategory bookmarkCategory)
   {
     super(carContext, surfaceRenderer);
