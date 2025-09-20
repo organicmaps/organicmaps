@@ -9,18 +9,21 @@ namespace df
 MapDataProvider::MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader,
                                  TIsCountryLoadedByNameFn && isCountryLoadedByNameFn,
                                  TUpdateCurrentCountryFn && updateCurrentCountryFn,
-                                 TTileBackgroundReadFn && tileBackgroundReadFn)
+                                 TTileBackgroundReadFn && tileBackgroundReadFn,
+                                 TCancelTileBackgroundReadingFn && cancelTileBackgroundReadingFn)
   : m_isCountryLoadedByName(std::move(isCountryLoadedByNameFn))
   , m_featureReader(std::move(featureReader))
   , m_idsReader(std::move(idsReader))
   , m_updateCurrentCountry(std::move(updateCurrentCountryFn))
   , m_tileBackgroundReader(std::move(tileBackgroundReadFn))
+  , m_cancelTileBackgroundReading(std::move(cancelTileBackgroundReadingFn))
 {
   CHECK(m_isCountryLoadedByName != nullptr, ());
   CHECK(m_featureReader != nullptr, ());
   CHECK(m_idsReader != nullptr, ());
   CHECK(m_updateCurrentCountry != nullptr, ());
   CHECK(m_tileBackgroundReader != nullptr, ());
+  CHECK(m_cancelTileBackgroundReading != nullptr, ());
 }
 
 void MapDataProvider::ReadFeaturesID(TReadCallback<FeatureID const> const & fn, m2::RectD const & r, int scale) const
@@ -36,6 +39,11 @@ void MapDataProvider::ReadFeatures(TReadCallback<FeatureType> const & fn, std::v
 void MapDataProvider::ReadTileBackground(df::TileKey const & tileKey, dp::BackgroundMode mode) const
 {
   m_tileBackgroundReader(tileKey, mode);
+}
+
+void MapDataProvider::CancelTileBackgroundReading(df::TileKey const & tileKey) const
+{
+  m_cancelTileBackgroundReading(tileKey);
 }
 
 MapDataProvider::TUpdateCurrentCountryFn const & MapDataProvider::UpdateCurrentCountryFn() const
