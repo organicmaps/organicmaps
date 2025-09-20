@@ -19,5 +19,6 @@ public interface PlacePageActivationListener
   // Called from JNI
   @Keep
   @SuppressWarnings("unused")
-  void onSwitchFullScreenMode();
+  default void onSwitchFullScreenMode()
+  {}
 }
