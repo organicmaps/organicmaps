@@ -50,8 +50,8 @@ public final class IntentUtils
   }
 
   // https://developer.android.com/reference/androidx/car/app/CarContext#startCarApp(android.content.Intent)
-  private static void processNavigationIntent(@NonNull CarContext carContext,
-                                              @NonNull Renderer surfaceRenderer, @NonNull Intent intent)
+  private static void processNavigationIntent(@NonNull CarContext carContext, @NonNull Renderer surfaceRenderer,
+                                              @NonNull Intent intent)
   {
     // TODO (AndrewShkrob): This logic will need to be revised when we introduce support for adding stops during
     // navigation or route planning. Skip navigation intents during navigation
