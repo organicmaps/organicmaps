@@ -128,7 +128,3 @@ project.afterEvaluate {
     }
   }
 }
-
-tasks.withType(JavaCompile).configureEach {
-  options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
-}

@@ -27,6 +27,12 @@ rootProject.ext {
     versionName = ver.V2
 }
 
+subprojects {
+    tasks.withType(JavaCompile).configureEach {
+        options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
+    }
+}
+
 tasks.register("lintAllModules") {
     group = "verification"
     description = "Run lint on all modules and produce a merged report"
@@ -42,7 +48,7 @@ tasks.register("lintAllModules") {
 
         def mergedReport = new File(reportsDir, "lint.xml")
         // start of merged XML
-        mergedReport.text = '<?xml version="1.0" encoding="UTF-8"?>\n<lint-report>\n<issues>'
+        mergedReport.text = '<?xml version="1.0" encoding="UTF-8"?>\n<issues format="6">'
 
         subprojects.each { p ->
             // Find any lint-results*.xml in this module
@@ -56,13 +62,13 @@ tasks.register("lintAllModules") {
                 // strip XML prolog and root tags
                 content = content
                     .replaceFirst(/<\?xml.*?\?>/, "")
-                    .replaceAll("<issues.*>", "")
+                    .replaceAll("<issues.*?>", "")
                     .replaceAll("</issues>", "")
                 mergedReport.append(content)
             }
         }
 
-        mergedReport.append("</issues></lint-report>")
+        mergedReport.append("</issues>")
         println "✅ Merged lint report written to: $mergedReport"
     }
 }
