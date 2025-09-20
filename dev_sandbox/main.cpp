@@ -625,6 +625,15 @@ int main(int argc, char * argv[])
     }
 #endif
 
+    char const * tileBackgroundLabels[] = {"Default", "Satellite"};
+    static int currentTileBackground = 0;
+    if (ImGui::Combo("Tile Background", &currentTileBackground, tileBackgroundLabels,
+                     IM_ARRAYSIZE(tileBackgroundLabels)))
+      framework.GetDrapeEngine()->SetTileBackgroundMode(static_cast<dp::BackgroundMode>(currentTileBackground));
+    ImGui::NewLine();
+    ImGui::Separator();
+    ImGui::NewLine();
+
     ImGui::End();
   };
 
