@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <limits>
+#include <set>
 #include <string>
 #include <utility>
 #include <vector>
@@ -94,6 +95,84 @@ drape_ptr<Texture> CreateArrowTexture(ref_ptr<dp::GraphicsContext> context,
   return make_unique_dp<StaticTexture>(context, "arrow-texture.png", StaticTexture::kDefaultResource,
                                        dp::TextureFormat::RGBA8, textureAllocator, true /* allowOptional */);
 }
+
+class StaticTexturePool : public TexturePool
+{
+public:
+  StaticTexturePool(TexturePoolDesc const & desc, ref_ptr<HWTextureAllocator> allocator)
+    : TexturePool(desc)
+    , m_allocator(allocator)
+  {
+    m_textures.reserve(m_desc.m_maxTextureCount);
+  }
+
+  size_t GetAvailableCount() const override
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    return GetAvailableCountUnsafe();
+  }
+
+  TexturePool::TextureId AcquireTexture(ref_ptr<dp::GraphicsContext> context) override
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    CHECK(context != nullptr, ());
+    CHECK(GetAvailableCountUnsafe() > 0, ());
+    if (!m_freeIndices.empty())
+    {
+      auto const id = *m_freeIndices.begin();
+      m_freeIndices.erase(m_freeIndices.begin());
+      return id;
+    }
+
+    CHECK(m_textures.size() < m_desc.m_maxTextureCount, ());
+    auto texture = make_unique_dp<StaticTexture>();
+
+    dp::Texture::Params const params{.m_width = m_desc.m_textureWidth,
+                                     .m_height = m_desc.m_textureHeight,
+                                     .m_format = m_desc.m_format,
+                                     .m_allocator = m_allocator};
+    texture->Create(context, params);
+
+    size_t id = m_textures.size();
+    m_textures.push_back(std::move(texture));
+    return id;
+  }
+
+  void ReleaseTexture(ref_ptr<dp::GraphicsContext> context, TextureId id) override
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_freeIndices.insert(id);
+  }
+
+  void UpdateTextureData(ref_ptr<dp::GraphicsContext> context, TextureId id, uint32_t x, uint32_t y, uint32_t width,
+                         uint32_t height, ref_ptr<void> data) override
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    CHECK(context != nullptr, ());
+    CHECK(id < m_textures.size(), ());
+    CHECK(data != nullptr, ());
+
+    m_textures[id]->UploadData(context, x, y, width, height, data);
+  }
+
+  ref_ptr<dp::Texture> GetTexture(TextureId id) override
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    CHECK(id < m_textures.size(), ());
+    return make_ref(m_textures[id]);
+  }
+
+private:
+  size_t GetAvailableCountUnsafe() const
+  {
+    return m_freeIndices.size() + static_cast<size_t>(m_desc.m_maxTextureCount) - m_textures.size();
+  }
+
+  ref_ptr<HWTextureAllocator> m_allocator;
+  std::vector<drape_ptr<dp::StaticTexture>> m_textures;
+  std::set<size_t> m_freeIndices;
+  mutable std::mutex m_mutex;
+};
 }  // namespace
 
 TextureManager::TextureManager() : m_maxTextureSize(0), m_maxGlypsCount(0)
@@ -169,6 +248,9 @@ void TextureManager::Release()
   m_glyphTextures.clear();
 
   m_glyphManager.reset();
+
+  for (auto & pool : m_pools)
+    pool.clear();
 
   m_isInitialized = false;
   m_nothingToUpload.test_and_set();
@@ -621,5 +703,31 @@ constexpr size_t TextureManager::GetInvalidGlyphGroup()
 ref_ptr<HWTextureAllocator> TextureManager::GetTextureAllocator() const
 {
   return make_ref(m_textureAllocator);
+}
+
+TexturePool::TexturePool(TexturePoolDesc const & desc) : m_desc(desc) {}
+
+ref_ptr<TexturePool> TextureManager::GetTexturePool(ref_ptr<dp::GraphicsContext> context, BackgroundMode mode,
+                                                    TexturePoolDesc const & desc)
+{
+  size_t modeIndex = static_cast<size_t>(mode);
+  if (modeIndex >= static_cast<size_t>(BackgroundMode::Count))
+    return nullptr;
+
+  for (auto const & pool : m_pools[modeIndex])
+  {
+    if (pool->GetDesc().m_textureWidth == desc.m_textureWidth &&
+        pool->GetDesc().m_textureHeight == desc.m_textureHeight &&
+        pool->GetDesc().m_needMipMaps == desc.m_needMipMaps && pool->GetDesc().m_format == desc.m_format &&
+        pool->GetAvailableCount() > 0)
+    {
+      return make_ref(pool);
+    }
+  }
+
+  auto pool = make_unique_dp<StaticTexturePool>(desc, make_ref(m_textureAllocator));
+  ref_ptr<TexturePool> poolRef = make_ref(pool);
+  m_pools[modeIndex].push_back(std::move(pool));
+  return poolRef;
 }
 }  // namespace dp

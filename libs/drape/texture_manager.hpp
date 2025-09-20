@@ -9,6 +9,7 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
+#include <array>
 #include <atomic>
 #include <map>
 #include <mutex>
@@ -18,6 +19,38 @@
 namespace dp
 {
 class HWTextureAllocator;
+
+struct TexturePoolDesc
+{
+  uint32_t m_maxTextureCount = 0;
+  uint32_t m_textureWidth = 0;
+  uint32_t m_textureHeight = 0;
+  dp::TextureFormat m_format = dp::TextureFormat::Unspecified;
+  bool m_needMipMaps = false;
+};
+
+class TexturePool
+{
+public:
+  using TextureId = size_t;
+
+  explicit TexturePool(TexturePoolDesc const & desc);
+  virtual ~TexturePool() = default;
+
+  virtual size_t GetAvailableCount() const = 0;
+
+  [[nodiscard]] virtual TextureId AcquireTexture(ref_ptr<dp::GraphicsContext> context) = 0;
+  virtual void ReleaseTexture(ref_ptr<dp::GraphicsContext> context, TextureId id) = 0;
+  virtual void UpdateTextureData(ref_ptr<dp::GraphicsContext> context, TextureId id, uint32_t x, uint32_t y,
+                                 uint32_t width, uint32_t height, ref_ptr<void> data) = 0;
+
+  virtual ref_ptr<dp::Texture> GetTexture(TextureId id) = 0;
+
+  inline TexturePoolDesc const & GetDesc() const { return m_desc; }
+
+protected:
+  TexturePoolDesc m_desc;
+};
 
 class TextureManager
 {
@@ -121,6 +154,9 @@ public:
 
   ref_ptr<HWTextureAllocator> GetTextureAllocator() const;
 
+  ref_ptr<TexturePool> GetTexturePool(ref_ptr<dp::GraphicsContext> context, BackgroundMode mode,
+                                      TexturePoolDesc const & desc);
+
 private:
   void InitStipplePen(Params const & params);
 
@@ -203,6 +239,8 @@ private:
   drape_ptr<HWTextureAllocator> m_textureAllocator;
 
   buffer_vector<GlyphGroup, 4> m_glyphGroups;
+
+  std::array<std::vector<drape_ptr<TexturePool>>, static_cast<size_t>(BackgroundMode::Count)> m_pools;
 
   std::vector<drape_ptr<HWTexture>> m_texturesToCleanup;
 
