@@ -8,7 +8,6 @@ import androidx.car.app.CarContext;
 import androidx.car.app.model.CarIcon;
 import androidx.car.app.navigation.model.Destination;
 import androidx.car.app.navigation.model.Lane;
-import androidx.car.app.navigation.model.LaneDirection;
 import androidx.car.app.navigation.model.Step;
 import androidx.car.app.navigation.model.TravelEstimate;
 import androidx.car.app.navigation.model.Trip;
