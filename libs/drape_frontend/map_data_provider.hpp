@@ -1,6 +1,10 @@
 #pragma once
 
+#include "drape_frontend/tile_key.hpp"
+
 #include "storage/storage_defines.hpp"
+
+#include "drape/drape_global.hpp"
 
 #include "geometry/rect2d.hpp"
 #include "indexer/feature.hpp"
@@ -21,13 +25,15 @@ public:
   using TIsCountryLoadedFn = std::function<bool(m2::PointD const &)>;
   using TIsCountryLoadedByNameFn = std::function<bool(std::string_view)>;
   using TUpdateCurrentCountryFn = std::function<void(m2::PointD const &, int)>;
+  using TTileBackgroundReadFn = std::function<void(df::TileKey const &, dp::BackgroundMode)>;
 
   MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader,
                   TIsCountryLoadedByNameFn && isCountryLoadedByNameFn,
-                  TUpdateCurrentCountryFn && updateCurrentCountryFn);
+                  TUpdateCurrentCountryFn && updateCurrentCountryFn, TTileBackgroundReadFn && tileBackgroundReadFn);
 
   void ReadFeaturesID(TReadCallback<FeatureID const> const & fn, m2::RectD const & r, int scale) const;
   void ReadFeatures(TReadCallback<FeatureType> const & fn, std::vector<FeatureID> const & ids) const;
+  void ReadTileBackground(df::TileKey const & tileKey, dp::BackgroundMode mode) const;
 
   TUpdateCurrentCountryFn const & UpdateCurrentCountryFn() const;
 
@@ -37,5 +43,6 @@ private:
   TReadFeaturesFn m_featureReader;
   TReadIDsFn m_idsReader;
   TUpdateCurrentCountryFn m_updateCurrentCountry;
+  TTileBackgroundReadFn m_tileBackgroundReader;
 };
 }  // namespace df
