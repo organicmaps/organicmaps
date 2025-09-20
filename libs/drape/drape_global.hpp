@@ -63,7 +63,9 @@ enum LineJoin
 enum class BackgroundMode
 {
   Default = 0,
-  Satellite = 1
+  Satellite,
+
+  Count
 };
 
 using DrapeID = uint64_t;
