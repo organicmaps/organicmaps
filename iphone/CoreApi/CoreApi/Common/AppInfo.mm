@@ -85,22 +85,4 @@
   return MWMOpenGLDriverMetal;
 }
 
-- (BOOL)canMakeCalls
-{
-  if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone)
-    return NO;
-  NSURL * telURL = [NSURL URLWithString:@"tel://"];
-  if (![UIApplication.sharedApplication canOpenURL:telURL])
-    return NO;
-  NSDictionary<NSString *, CTCarrier *> * dict =
-      [[CTTelephonyNetworkInfo alloc] init].serviceSubscriberCellularProviders;
-  for (id key in dict)
-  {
-    NSString * networkCode = [dict objectForKey:key].mobileNetworkCode;
-    if (networkCode != nil && networkCode.length > 0 && ![networkCode isEqualToString:@"65535"])
-      return YES;
-  }
-  return NO;
-}
-
 @end

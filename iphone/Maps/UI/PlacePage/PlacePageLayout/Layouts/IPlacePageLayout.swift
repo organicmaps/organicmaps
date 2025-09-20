@@ -3,7 +3,7 @@ enum PlacePageState {
   case preview(CGFloat)
   case previewPlus(CGFloat)
   case expanded(CGFloat)
-  case full(CGFloat)
+  case full
 
   var offset: CGFloat {
     switch self {
@@ -15,8 +15,8 @@ enum PlacePageState {
       return value
     case .expanded(let value):
       return value
-    case .full(let value):
-      return value
+    case .full:
+      return .zero
     }
   }
 }
@@ -34,5 +34,5 @@ protocol IPlacePageLayout: AnyObject {
 }
 
 extension IPlacePageLayout {
-  var sectionSpacing: CGFloat { return 24.0 }
+  var sectionSpacing: CGFloat { return 12.0 }
 }
