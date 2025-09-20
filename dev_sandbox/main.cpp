@@ -503,12 +503,12 @@ int main(int argc, char * argv[])
     if (ImGui::GetIO().WantCaptureMouse)
       framework.MakeFrameActive();
 
-    if (touchActive)
 #if defined(OMIM_OS_MAC)
-      x *= visualScale;
+    x *= visualScale;
     y *= visualScale;
 #endif
-    framework.TouchEvent(GetTouchEvent(framework, x, y, touchMods, df::TouchEvent::TOUCH_MOVE));
+    if (touchActive)
+      framework.TouchEvent(GetTouchEvent(framework, x, y, touchMods, df::TouchEvent::TOUCH_MOVE));
   };
   glfwSetCursorPosCallback(window, [](GLFWwindow *, double x, double y) { handlers.onMouseMove(x, y); });
 
