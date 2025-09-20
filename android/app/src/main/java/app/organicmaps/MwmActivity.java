@@ -232,7 +232,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   ManageRouteBottomSheet mManageRouteBottomSheet;
 
   private boolean mRemoveDisplayListener = true;
-  private int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
+  private static int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
 
   public interface LeftAnimationTrackListener
   {
@@ -483,12 +483,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onConfigurationChanged(newConfig);
 
     final int newUiMode = newConfig.uiMode & Configuration.UI_MODE_TYPE_MASK;
-    final boolean newUiModeIsCarConnected = newUiMode == Configuration.UI_MODE_TYPE_CAR;
-    final boolean newUiModeIsCarDisconnected =
-        mLastUiMode == Configuration.UI_MODE_TYPE_CAR && newUiMode == Configuration.UI_MODE_TYPE_NORMAL;
+    final boolean carModeChanged = (newUiMode | mLastUiMode & Configuration.UI_MODE_TYPE_CAR) != 0;
     mLastUiMode = newUiMode;
 
-    if (newUiModeIsCarConnected || newUiModeIsCarDisconnected)
+    if (carModeChanged)
       return;
 
     makeNavigationBarTransparentInLightMode();

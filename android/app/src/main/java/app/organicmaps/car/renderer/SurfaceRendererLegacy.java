@@ -4,23 +4,23 @@ import static app.organicmaps.sdk.display.DisplayType.Car;
 
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
-import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.sdk.Map;
+import app.organicmaps.sdk.display.DisplayManager;
+import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.log.Logger;
 
-public class SurfaceRendererLegacy extends Renderer
+class SurfaceRendererLegacy extends Renderer
 {
   private static final String TAG = SurfaceRendererLegacy.class.getSimpleName();
 
   @NonNull
   private final Map mMap = new Map(Car);
 
-  public SurfaceRendererLegacy(@NonNull CarContext carContext, @NonNull Lifecycle lifecycle)
+  public SurfaceRendererLegacy(@NonNull CarContext carContext, @NonNull DisplayManager displayManager,
+                               @NonNull LocationHelper locationHelper, @NonNull LifecycleOwner lifecycleOwner)
   {
-    super(carContext, MwmApplication.from(carContext).getDisplayManager(),
-          MwmApplication.from(carContext).getLocationHelper(), lifecycle);
+    super(carContext, displayManager, locationHelper, lifecycleOwner);
     setSurfaceCallback(new SurfaceCallbackLegacy(mCarContext, mMap, mLocationHelper));
     mMap.setMapRenderingListener(getMapRenderingListener());
   }
