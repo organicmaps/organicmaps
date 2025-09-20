@@ -39,8 +39,7 @@ public final class UiHelpers
   }
 
   @NonNull
-  public static ActionStrip createMapActionStrip(@NonNull CarContext context,
-                                                 @NonNull Renderer surfaceRenderer)
+  public static ActionStrip createMapActionStrip(@NonNull CarContext context, @NonNull Renderer surfaceRenderer)
   {
     final CarIcon iconPlus = new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_plus)).build();
     final CarIcon iconMinus = new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_minus)).build();
@@ -59,15 +58,13 @@ public final class UiHelpers
   }
 
   @NonNull
-  public static MapController createMapController(@NonNull CarContext context,
-                                                  @NonNull Renderer surfaceRenderer)
+  public static MapController createMapController(@NonNull CarContext context, @NonNull Renderer surfaceRenderer)
   {
     return new MapController.Builder().setMapActionStrip(createMapActionStrip(context, surfaceRenderer)).build();
   }
 
   @NonNull
-  public static Action createSettingsAction(@NonNull BaseMapScreen mapScreen,
-                                            @NonNull Renderer surfaceRenderer)
+  public static Action createSettingsAction(@NonNull BaseMapScreen mapScreen, @NonNull Renderer surfaceRenderer)
   {
     return createSettingsAction(mapScreen, surfaceRenderer, null);
   }
@@ -81,8 +78,7 @@ public final class UiHelpers
   }
 
   @NonNull
-  private static Action createSettingsAction(@NonNull BaseMapScreen mapScreen,
-                                             @NonNull Renderer surfaceRenderer,
+  private static Action createSettingsAction(@NonNull BaseMapScreen mapScreen, @NonNull Renderer surfaceRenderer,
                                              @Nullable OnScreenResultListener onScreenResultListener)
   {
     final CarContext context = mapScreen.getCarContext();
