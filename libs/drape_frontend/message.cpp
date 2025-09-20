@@ -103,6 +103,8 @@ std::string DebugPrint(Message::Type msgType)
   case Message::Type::EnableIsolines: return "EnableIsolines";
   case Message::Type::OnEnterBackground: return "OnEnterBackground";
   case Message::Type::Arrow3dRecache: return "Arrow3dRecache";
+  case Message::Type::SetTileBackgroundData: return "SetTileBackgroundData";
+  case Message::Type::SetTileBackgroundMode: return "SetTileBackgroundMode";
   }
   ASSERT(false, ("Unknown message type."));
   return "Unknown type";

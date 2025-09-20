@@ -103,7 +103,9 @@ public:
     NotifyGraphicsReady,
     EnableIsolines,
     OnEnterBackground,
-    Arrow3dRecache
+    Arrow3dRecache,
+    SetTileBackgroundData,
+    SetTileBackgroundMode
   };
 
   virtual ~Message() = default;

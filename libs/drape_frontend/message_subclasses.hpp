@@ -17,6 +17,7 @@
 #include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/route_builder.hpp"
 #include "drape_frontend/selection_shape.hpp"
+#include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/traffic_generator.hpp"
 #include "drape_frontend/transit_scheme_builder.hpp"
@@ -24,8 +25,10 @@
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/user_marks_provider.hpp"
 
+#include "drape/drape_global.hpp"
 #include "drape/pointers.hpp"
 #include "drape/render_bucket.hpp"
+#include "drape/texture_types.hpp"
 #include "drape/viewport.hpp"
 
 #include "platform/location.hpp"
@@ -1364,5 +1367,49 @@ public:
 
 private:
   std::optional<Arrow3dCustomDecl> m_arrow3dCustomDecl;
+};
+
+class SetTileBackgroundDataMessage : public Message
+{
+public:
+  SetTileBackgroundDataMessage(df::TileKey const & tileKey, uint32_t width, uint32_t height, dp::TextureFormat format,
+                               dp::BackgroundMode mode, std::vector<uint8_t> && bytes)
+    : m_tileKey(tileKey)
+    , m_width(width)
+    , m_height(height)
+    , m_format(format)
+    , m_mode(mode)
+    , m_bytes(std::move(bytes))
+  {}
+
+  Type GetType() const override { return Type::SetTileBackgroundData; }
+
+  df::TileKey const & GetTileKey() const { return m_tileKey; }
+  uint32_t GetWidth() const { return m_width; }
+  uint32_t GetHeight() const { return m_height; }
+  dp::TextureFormat GetFormat() const { return m_format; }
+  dp::BackgroundMode GetMode() const { return m_mode; }
+  std::vector<uint8_t> const & GetBytes() const { return m_bytes; }
+
+private:
+  df::TileKey m_tileKey;
+  uint32_t m_width;
+  uint32_t m_height;
+  dp::TextureFormat m_format;
+  dp::BackgroundMode m_mode;
+  std::vector<uint8_t> m_bytes;
+};
+
+class SetTileBackgroundModeMessage : public Message
+{
+public:
+  explicit SetTileBackgroundModeMessage(dp::BackgroundMode mode) : m_mode(mode) {}
+
+  Type GetType() const override { return Type::SetTileBackgroundMode; }
+
+  dp::BackgroundMode GetMode() const { return m_mode; }
+
+private:
+  dp::BackgroundMode m_mode;
 };
 }  // namespace df
