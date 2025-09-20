@@ -15,7 +15,7 @@ import androidx.car.app.navigation.model.MapController;
 import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.car.SurfaceRenderer;
+import app.organicmaps.car.renderer.Renderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.settings.SettingsScreen;
 import app.organicmaps.sdk.Map;
@@ -33,13 +33,14 @@ public final class UiHelpers
 {
   @NonNull
   public static ActionStrip createSettingsActionStrip(@NonNull BaseMapScreen mapScreen,
-                                                      @NonNull SurfaceRenderer surfaceRenderer)
+                                                      @NonNull Renderer surfaceRenderer)
   {
     return new ActionStrip.Builder().addAction(createSettingsAction(mapScreen, surfaceRenderer)).build();
   }
 
   @NonNull
-  public static ActionStrip createMapActionStrip(@NonNull CarContext context, @NonNull SurfaceRenderer surfaceRenderer)
+  public static ActionStrip createMapActionStrip(@NonNull CarContext context,
+                                                 @NonNull Renderer surfaceRenderer)
   {
     final CarIcon iconPlus = new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_plus)).build();
     final CarIcon iconMinus = new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_minus)).build();
@@ -58,27 +59,30 @@ public final class UiHelpers
   }
 
   @NonNull
-  public static MapController createMapController(@NonNull CarContext context, @NonNull SurfaceRenderer surfaceRenderer)
+  public static MapController createMapController(@NonNull CarContext context,
+                                                  @NonNull Renderer surfaceRenderer)
   {
     return new MapController.Builder().setMapActionStrip(createMapActionStrip(context, surfaceRenderer)).build();
   }
 
   @NonNull
-  public static Action createSettingsAction(@NonNull BaseMapScreen mapScreen, @NonNull SurfaceRenderer surfaceRenderer)
+  public static Action createSettingsAction(@NonNull BaseMapScreen mapScreen,
+                                            @NonNull Renderer surfaceRenderer)
   {
     return createSettingsAction(mapScreen, surfaceRenderer, null);
   }
 
   @NonNull
   public static Action createSettingsActionForResult(@NonNull BaseMapScreen mapScreen,
-                                                     @NonNull SurfaceRenderer surfaceRenderer,
+                                                     @NonNull Renderer surfaceRenderer,
                                                      @NonNull OnScreenResultListener onScreenResultListener)
   {
     return createSettingsAction(mapScreen, surfaceRenderer, onScreenResultListener);
   }
 
   @NonNull
-  private static Action createSettingsAction(@NonNull BaseMapScreen mapScreen, @NonNull SurfaceRenderer surfaceRenderer,
+  private static Action createSettingsAction(@NonNull BaseMapScreen mapScreen,
+                                             @NonNull Renderer surfaceRenderer,
                                              @Nullable OnScreenResultListener onScreenResultListener)
   {
     final CarContext context = mapScreen.getCarContext();
