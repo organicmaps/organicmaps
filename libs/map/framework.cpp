@@ -1474,6 +1474,12 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
     // This is a placeholder implementation; actual logic will depend on application requirements.
   };
 
+  auto cancelTileBackgroundReadingFn = [](df::TileKey const & tileKey) -> void
+  {
+    // Handle cancellation of tile background reading for the specified tile.
+    // This is a placeholder implementation; actual logic will depend on application requirements.
+  };
+
   auto myPositionModeChangedFn = [this](location::EMyPositionMode mode, bool routingActive)
   {
     GetPlatform().RunTask(Platform::Thread::Gui, [this, mode, routingActive]()
@@ -1516,7 +1522,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   df::DrapeEngine::Params p(
       params.m_apiVersion, contextFactory, dp::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
       df::MapDataProvider(std::move(idReadFn), std::move(featureReadFn), std::move(isCountryLoadedByNameFn),
-                          std::move(updateCurrentCountryFn), std::move(tileBackgroundReadFn)),
+                          std::move(updateCurrentCountryFn), std::move(tileBackgroundReadFn),
+                          std::move(cancelTileBackgroundReadingFn)),
       params.m_hints, params.m_visualScale, fontsScaleFactor, std::move(params.m_widgetsInitInfo),
       std::move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, isolinesEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
