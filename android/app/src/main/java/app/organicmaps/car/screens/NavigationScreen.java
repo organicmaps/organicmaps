@@ -104,7 +104,11 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   public void onAutoDriveEnabled()
   {
     Logger.i(TAG);
-    final JunctionInfo[] points = Framework.nativeGetRouteJunctionPoints();
+
+    /// @todo Pass maxDistM from RouteSimulationProvider?
+    /// Result speed between points will be in range (25, 50] km/h (for 1 second update interval).
+    final double kMaxDistM = 13.9; // 13.9 m/s == 50 km/h
+    final JunctionInfo[] points = Framework.nativeGetRouteJunctionPoints(kMaxDistM);
     if (points == null)
     {
       Logger.e(TAG, "Navigation has not started yet");

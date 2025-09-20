@@ -2,8 +2,6 @@
 
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 
-#include "geometry/point_with_altitude.hpp"
-
 #include <vector>
 
 jobjectArray CreateJunctionInfoArray(JNIEnv * env, std::vector<geometry::PointWithAltitude> const & junctionPoints)
@@ -15,7 +13,7 @@ jobjectArray CreateJunctionInfoArray(JNIEnv * env, std::vector<geometry::PointWi
   return jni::ToJavaArray(env, junctionClazz, junctionPoints,
                           [](JNIEnv * env, geometry::PointWithAltitude const & pointWithAltitude)
   {
-    auto & point = pointWithAltitude.GetPoint();
-    return env->NewObject(junctionClazz, junctionConstructor, mercator::YToLat(point.y), mercator::XToLon(point.x));
+    auto const & ll = pointWithAltitude.ToLatLon();
+    return env->NewObject(junctionClazz, junctionConstructor, ll.m_lat, ll.m_lon);
   });
 }
