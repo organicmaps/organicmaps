@@ -51,7 +51,12 @@ public class MapView extends SurfaceView
 
   public MapView(Context context)
   {
-    this(context, null);
+    this(context, null, 0);
+  }
+
+  public MapView(Context context, DisplayType displayType)
+  {
+    this(context, null, 0, 0, displayType);
   }
 
   public MapView(Context context, AttributeSet attrs)
@@ -66,8 +71,14 @@ public class MapView extends SurfaceView
 
   public MapView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
   {
+    this(context, attrs, defStyleAttr, defStyleRes, DisplayType.Device);
+  }
+
+  private MapView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes,
+                  @NonNull DisplayType displayType)
+  {
     super(context, attrs, defStyleAttr, defStyleRes);
-    mMap = new Map(DisplayType.Device);
+    mMap = new Map(displayType);
     super.getHolder().addCallback(new SurfaceHolderCallback());
   }
 

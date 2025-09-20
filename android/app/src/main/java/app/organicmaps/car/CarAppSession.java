@@ -13,7 +13,7 @@ import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.car.renderer.Renderer;
-import app.organicmaps.car.renderer.SurfaceRendererLegacy;
+import app.organicmaps.car.renderer.RendererFactory;
 import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.screens.MapPlaceholderScreen;
 import app.organicmaps.car.screens.MapScreen;
@@ -113,10 +113,11 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
   public void onCreate(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
-    mSurfaceRenderer = new SurfaceRendererLegacy(getCarContext(), getLifecycle());
     mSensorsManager = new CarSensorsManager(getCarContext());
     mDisplayManager = MwmApplication.from(getCarContext()).getDisplayManager();
     mDisplayManager.addListener(DisplayType.Car, this);
+    mSurfaceRenderer = RendererFactory.create(getCarContext(), mDisplayManager,
+                                              MwmApplication.from(getCarContext()).getLocationHelper(), this);
     init();
   }
 

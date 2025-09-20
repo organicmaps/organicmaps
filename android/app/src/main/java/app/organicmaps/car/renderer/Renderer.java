@@ -19,6 +19,10 @@ public abstract class Renderer implements DefaultLifecycleObserver
 {
   private static final String TAG = Renderer.class.getSimpleName();
 
+  private SurfaceCallback mSurfaceCallback;
+
+  private boolean mIsRunning;
+
   @NonNull
   protected final CarContext mCarContext;
 
@@ -28,9 +32,8 @@ public abstract class Renderer implements DefaultLifecycleObserver
   @NonNull
   protected final LocationHelper mLocationHelper;
 
-  private boolean mIsRunning;
-
-  private SurfaceCallback mSurfaceCallback;
+  @NonNull
+  protected final LifecycleOwner mLifecycleOwner;
 
   @NonNull
   private final MapRenderingListener mMapRenderingListener = new MapRenderingListener() {
@@ -42,14 +45,15 @@ public abstract class Renderer implements DefaultLifecycleObserver
   };
 
   public Renderer(@NonNull CarContext carContext, @NonNull DisplayManager displayManager,
-                  @NonNull LocationHelper locationHelper, @NonNull Lifecycle lifecycle)
+                  @NonNull LocationHelper locationHelper, @NonNull LifecycleOwner lifecycleOwner)
   {
     Logger.d(TAG, "SurfaceRenderer()");
+    mIsRunning = true;
     mCarContext = carContext;
     mDisplayManager = displayManager;
     mLocationHelper = locationHelper;
-    mIsRunning = true;
-    lifecycle.addObserver(this);
+    mLifecycleOwner = lifecycleOwner;
+    mLifecycleOwner.getLifecycle().addObserver(this);
   }
 
   protected void setSurfaceCallback(@NonNull SurfaceCallback surfaceCallback)
