@@ -6,7 +6,6 @@ import androidx.car.app.AppManager;
 import androidx.car.app.CarContext;
 import androidx.car.app.SurfaceCallback;
 import androidx.lifecycle.DefaultLifecycleObserver;
-import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.MapRenderingListener;
