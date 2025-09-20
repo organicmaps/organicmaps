@@ -246,6 +246,36 @@
     </LinearLayout>
   </LinearLayout>
 
+  <LinearLayout
+    android:id="@+id/osm_description_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?ppBackground"
+    android:orientation="vertical">
+
+    <include layout="@layout/place_page_shadow_gap" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="?ppBackground"
+      android:orientation="horizontal">
+
+      <TextView
+        android:id="@+id/tv__osm_description"
+        style="@style/MwmTextAppearance.PlacePage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/margin_half_plus"
+        android:layout_weight="1"
+        android:background="?clickableBackground"
+        android:textAllCaps="false"
+        tools:text="Some very long text for a very very very very very very very very very very very very very very very very very very very very very very very very looooooong descriptions that doesn't fit into the cell. Interesting, how will it look for even longer text" />
+    </LinearLayout>
+
+  </LinearLayout>
+
   <androidx.fragment.app.FragmentContainerView
     android:id="@+id/place_page_track_fragment"
     android:layout_width="match_parent"

@@ -71,6 +71,8 @@ public class MapObject implements PlacePageData
   @NonNull
   private String mWikiArticle;
   @NonNull
+  private final String mOsmDescription;
+  @NonNull
   private final RoadWarningMarkType mRoadWarningMarkType;
   @Nullable
   private List<String> mRawTypes;
@@ -78,17 +80,18 @@ public class MapObject implements PlacePageData
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
                    @Nullable String secondaryTitle, String subtitle, String address, double lat, double lon,
                    String apiId, @Nullable RoutePointInfo routePointInfo, @OpeningMode int openingMode,
-                   Popularity popularity, @NonNull String wikiArticle, int roadWarningType, @Nullable String[] rawTypes)
+                   Popularity popularity, @NonNull String wikiArticle, @NonNull String osmDescription,
+                   int roadWarningType, @Nullable String[] rawTypes)
   {
     this(featureId, mapObjectType, title, secondaryTitle, subtitle, address, lat, lon, new Metadata(), apiId,
-         routePointInfo, openingMode, popularity, wikiArticle, roadWarningType, rawTypes);
+         routePointInfo, openingMode, popularity, wikiArticle, osmDescription, roadWarningType, rawTypes);
   }
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
                    @Nullable String secondaryTitle, String subtitle, String address, double lat, double lon,
                    Metadata metadata, String apiId, @Nullable RoutePointInfo routePointInfo,
                    @OpeningMode int openingMode, Popularity popularity, @NonNull String wikiArticle,
-                   int roadWarningType, @Nullable String[] rawTypes)
+                   @NonNull String osmDescription, int roadWarningType, @Nullable String[] rawTypes)
   {
     mMapObjectType = mapObjectType;
     mFeatureId = featureId;
@@ -104,6 +107,7 @@ public class MapObject implements PlacePageData
     mOpeningMode = openingMode;
     // mPopularity = popularity;
     mWikiArticle = wikiArticle;
+    mOsmDescription = osmDescription;
     mRoadWarningMarkType = RoadWarningMarkType.values()[roadWarningType];
     if (rawTypes != null)
       mRawTypes = Arrays.asList(rawTypes);
@@ -130,6 +134,7 @@ public class MapObject implements PlacePageData
     // mPopularity =
     //     ParcelCompat.readParcelable(source, Popularity.class.getClassLoader(), Popularity.class);
     mWikiArticle = Objects.requireNonNull(source.readString());
+    mOsmDescription = source.readString();
     mRoadWarningMarkType = RoadWarningMarkType.values()[source.readInt()];
     source.readStringList(mRawTypes);
   }
@@ -139,8 +144,8 @@ public class MapObject implements PlacePageData
                                           @NonNull String title, @NonNull String subtitle, double lat, double lon)
   {
     return new MapObject(featureId, mapObjectType, title, "", subtitle, "", lat, lon, null, "", null,
-                         OPENING_MODE_PREVIEW, Popularity.defaultInstance(), "", RoadWarningMarkType.UNKNOWN.ordinal(),
-                         new String[0]);
+                         OPENING_MODE_PREVIEW, Popularity.defaultInstance(), "", null,
+                         RoadWarningMarkType.UNKNOWN.ordinal(), new String[0]);
   }
 
   /**
@@ -235,6 +240,12 @@ public class MapObject implements PlacePageData
   public void setWikiArticle(@NonNull String wikiArticle)
   {
     mWikiArticle = wikiArticle;
+  }
+
+  @NonNull
+  public String getOsmDescription()
+  {
+    return mOsmDescription;
   }
 
   @NonNull
@@ -367,6 +378,7 @@ public class MapObject implements PlacePageData
     dest.writeInt(mOpeningMode);
     // dest.writeParcelable(mPopularity, 0);
     dest.writeString(mWikiArticle);
+    dest.writeString(mOsmDescription);
     dest.writeInt(getRoadWarningMarkType().ordinal());
     // All collections are deserialized AFTER non-collection and primitive type objects,
     // so collections must be always serialized at the end.
