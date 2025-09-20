@@ -201,7 +201,8 @@ public class Framework
   public static native RoutingInfo nativeGetRouteFollowingInfo();
 
   @Nullable
-  public static native JunctionInfo[] nativeGetRouteJunctionPoints();
+  /// @param[in] maxDistM Max distance between points in meters.
+  public static native JunctionInfo[] nativeGetRouteJunctionPoints(double maxDistM);
 
   @Nullable
   public static native final int[] nativeGenerateRouteAltitudeChartBits(int width, int height,
