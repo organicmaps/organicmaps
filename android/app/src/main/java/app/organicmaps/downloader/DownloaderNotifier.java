@@ -136,6 +136,8 @@ public class DownloaderNotifier
               .setContentTitle(mContext.getString(R.string.app_name))
               .setContentIntent(getNotificationPendingIntent(countryId))
               .setContentText(mContext.getString(R.string.downloader_downloading) + " " + countryName)
+              .setOnlyAlertOnce(true)
+              .setSilent(true)
               .setSound(null);
     }
     return mProgressNotificationBuilder;
