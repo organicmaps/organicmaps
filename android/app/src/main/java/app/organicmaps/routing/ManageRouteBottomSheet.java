@@ -204,21 +204,12 @@ public class ManageRouteBottomSheet
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
                           @NonNull RecyclerView.ViewHolder target)
     {
-      mManageRouteAdapter.moveRoutePoint(viewHolder.getAbsoluteAdapterPosition(), target.getAbsoluteAdapterPosition());
+      mManageRouteAdapter.moveRoutePoint(viewHolder, target);
       return true;
     }
 
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction)
     {}
-
-    @Override
-    public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder)
-    {
-      super.clearView(recyclerView, viewHolder);
-
-      // Called when dragging action has finished.
-      mManageRouteAdapter.notifyDataSetChanged();
-    }
   }
 }
