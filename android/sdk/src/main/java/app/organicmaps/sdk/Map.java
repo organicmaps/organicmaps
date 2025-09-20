@@ -280,7 +280,7 @@ public final class Map
     return mSurfaceCreated;
   }
 
-  public void onScroll(double distanceX, double distanceY)
+  public static void onScroll(double distanceX, double distanceY)
   {
     Map.nativeOnScroll(distanceX, distanceY);
   }
@@ -327,6 +327,11 @@ public final class Map
   public static void executeMapApiRequest()
   {
     nativeExecuteMapApiRequest();
+  }
+
+  public DisplayType getDisplayType()
+  {
+    return mDisplayType;
   }
 
   private void setupWidgets(final Context context, int width, int height)

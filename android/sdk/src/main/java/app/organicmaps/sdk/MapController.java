@@ -9,9 +9,13 @@ import app.organicmaps.sdk.util.log.Logger;
 
 public class MapController implements DefaultLifecycleObserver
 {
-  private static final String TAG = MapController.class.getSimpleName();
+  private static final String TAG_PEFRIX = MapController.class.getSimpleName();
+  @NonNull
+  private final String TAG;
 
+  @NonNull
   private final MapView mMapView;
+  @NonNull
   private final Map mMap;
 
   @Nullable
@@ -19,7 +23,7 @@ public class MapController implements DefaultLifecycleObserver
 
   public MapController(@NonNull MapView mapView, @NonNull LocationHelper locationHelper,
                        @NonNull MapRenderingListener mapRenderingListener,
-                       @NonNull Map.CallbackUnsupported callbackUnsupported, boolean launchByDeepLink)
+                       @Nullable Map.CallbackUnsupported callbackUnsupported, boolean launchByDeepLink)
   {
     mMapView = mapView;
     mMap = mMapView.getMap();
@@ -27,6 +31,7 @@ public class MapController implements DefaultLifecycleObserver
     mMap.setLocationHelper(locationHelper);
     mMap.setMapRenderingListener(mapRenderingListener);
     mMap.setCallbackUnsupported(callbackUnsupported);
+    TAG = TAG_PEFRIX + "[" + mMap.getDisplayType() + "]";
   }
 
   public MapView getView()
