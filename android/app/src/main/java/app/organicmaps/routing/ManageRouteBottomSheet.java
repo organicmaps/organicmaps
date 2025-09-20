@@ -24,6 +24,7 @@ import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.log.Logger;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -33,6 +34,8 @@ import java.util.ArrayList;
 public class ManageRouteBottomSheet
     extends BottomSheetDialogFragment implements View.OnClickListener, ManageRouteAdapter.ManageRouteListener
 {
+  private static final String TAG = ManageRouteBottomSheet.class.getSimpleName();
+
   ManageRouteAdapter mManageRouteAdapter;
   ItemTouchHelper mTouchHelper;
   ImageView mMyLocationImageView;
@@ -217,8 +220,28 @@ public class ManageRouteBottomSheet
     {
       super.clearView(recyclerView, viewHolder);
 
-      // Called when dragging action has finished.
-      mManageRouteAdapter.notifyDataSetChanged();
+      // clearView() is called when dragging action has finished.
+      // In order to avoid random crashes due to incorrect RecyclerView status, adapter shall not
+      // be updated while computing layout or while scrolling.
+      if (!recyclerView.isComputingLayout() &&
+          recyclerView.getScrollState() == RecyclerView.SCROLL_STATE_IDLE)
+      {
+        mManageRouteAdapter.notifyDataSetChanged();
+      }
+      else
+      {
+        // Postpone adapter update.
+        recyclerView.post(() -> {
+          try
+          {
+            mManageRouteAdapter.notifyDataSetChanged();
+          }
+          catch (IllegalStateException e)
+          {
+            Logger.e(TAG, "IllegalStateException in clearView(): " + e.getMessage());
+          }
+        });
+      }
     }
   }
 }
