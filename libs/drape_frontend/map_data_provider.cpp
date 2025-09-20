@@ -41,9 +41,9 @@ void MapDataProvider::ReadTileBackground(df::TileKey const & tileKey, dp::Backgr
   m_tileBackgroundReader(tileKey, mode);
 }
 
-void MapDataProvider::CancelTileBackgroundReading(df::TileKey const & tileKey) const
+void MapDataProvider::CancelTileBackgroundReading(df::TileKey const & tileKey, dp::BackgroundMode mode) const
 {
-  m_cancelTileBackgroundReading(tileKey);
+  m_cancelTileBackgroundReading(tileKey, mode);
 }
 
 MapDataProvider::TUpdateCurrentCountryFn const & MapDataProvider::UpdateCurrentCountryFn() const

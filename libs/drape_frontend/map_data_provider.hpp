@@ -26,7 +26,7 @@ public:
   using TIsCountryLoadedByNameFn = std::function<bool(std::string_view)>;
   using TUpdateCurrentCountryFn = std::function<void(m2::PointD const &, int)>;
   using TTileBackgroundReadFn = std::function<void(df::TileKey const &, dp::BackgroundMode)>;
-  using TCancelTileBackgroundReadingFn = std::function<void(df::TileKey const &)>;
+  using TCancelTileBackgroundReadingFn = std::function<void(df::TileKey const &, dp::BackgroundMode)>;
 
   MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader,
                   TIsCountryLoadedByNameFn && isCountryLoadedByNameFn,
@@ -36,7 +36,7 @@ public:
   void ReadFeaturesID(TReadCallback<FeatureID const> const & fn, m2::RectD const & r, int scale) const;
   void ReadFeatures(TReadCallback<FeatureType> const & fn, std::vector<FeatureID> const & ids) const;
   void ReadTileBackground(df::TileKey const & tileKey, dp::BackgroundMode mode) const;
-  void CancelTileBackgroundReading(df::TileKey const & tileKey) const;
+  void CancelTileBackgroundReading(df::TileKey const & tileKey, dp::BackgroundMode mode) const;
 
   TUpdateCurrentCountryFn const & UpdateCurrentCountryFn() const;
 

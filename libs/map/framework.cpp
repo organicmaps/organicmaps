@@ -1474,9 +1474,9 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
     // This is a placeholder implementation; actual logic will depend on application requirements.
   };
 
-  auto cancelTileBackgroundReadingFn = [](df::TileKey const & tileKey) -> void
+  auto cancelTileBackgroundReadingFn = [](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
   {
-    // Handle cancellation of tile background reading for the specified tile.
+    // Handle cancellation of tile background reading for the specified tile and mode.
     // This is a placeholder implementation; actual logic will depend on application requirements.
   };
 

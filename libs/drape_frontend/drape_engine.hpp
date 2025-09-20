@@ -17,6 +17,7 @@
 #include "drape/drape_global.hpp"
 #include "drape/pointers.hpp"
 #include "drape/texture_manager.hpp"
+#include "drape/texture_types.hpp"
 #include "drape/viewport.hpp"
 
 #include "transit/transit_display_info.hpp"
@@ -240,6 +241,10 @@ public:
   location::EMyPositionMode GetMyPositionMode() const;
 
   void SetCustomArrow3d(std::optional<Arrow3dCustomDecl> arrow3dCustomDecl);
+
+  void SetTileBackgroundData(df::TileKey const & tileKey, uint32_t width, uint32_t height, dp::TextureFormat format,
+                             dp::BackgroundMode mode, std::vector<uint8_t> && bytes);
+  void SetTileBackgroundMode(dp::BackgroundMode mode);
 
   dp::ApiVersion GetApiVersion() const { return m_frontend->GetApiVersion(); }
 
