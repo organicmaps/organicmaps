@@ -339,7 +339,8 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
     auto types = feature::TypesHolder(ft);
     types.SortBySpec();
     for (auto const & type : types.ToObjectNames())
-      concat += type + " ";
+      concat = concat + type + " ";
+    concat = concat + "| " + DebugPrint(ft.GetGeomType());
     addStringFn(concat);
 
     // Name
