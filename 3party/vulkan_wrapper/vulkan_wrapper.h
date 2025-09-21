@@ -22,8 +22,14 @@ extern "C" {
 #endif
 
 #define VK_NO_PROTOTYPES 1
-#define VK_USE_PLATFORM_ANDROID_KHR 1
 #include <vulkan/vulkan.h>
+
+#ifdef VK_USE_PLATFORM_XLIB_KHR
+// Undefine conflicting macros introduced by X11 headers.
+#undef Always
+#undef None
+#undef Status
+#endif
 
 #if defined(__APPLE__)
 #include <vulkan/vulkan_macos.h>
@@ -504,7 +510,7 @@ extern PFN_vkCreateDebugReportCallbackEXT vkCreateDebugReportCallbackEXT;
 extern PFN_vkDestroyDebugReportCallbackEXT vkDestroyDebugReportCallbackEXT;
 extern PFN_vkDebugReportMessageEXT vkDebugReportMessageEXT;
 
-#if defined(__APPLE__)
+#ifdef VK_USE_PLATFORM_MACOS_MVK
 extern PFN_vkCreateMacOSSurfaceMVK vkCreateMacOSSurfaceMVK;
 #endif
 

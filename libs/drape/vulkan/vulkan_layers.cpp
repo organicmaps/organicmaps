@@ -21,7 +21,7 @@ char const * const kInstanceExtensions[] = {
     "VK_KHR_android_surface",
     kDebugReportExtension,
     kValidationFeaturesExtension,
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX) || defined(OMIM_OS_WINDOWS)
     "VK_EXT_debug_utils",
 #endif
 #if defined(OMIM_OS_MAC)
@@ -31,6 +31,9 @@ char const * const kInstanceExtensions[] = {
 #endif
 #if defined(OMIM_OS_LINUX)
     "VK_KHR_xlib_surface",
+#endif
+#if defined(OMIM_OS_WINDOWS)
+    "VK_KHR_win32_surface",
 #endif
 };
 
