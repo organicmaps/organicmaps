@@ -10,6 +10,7 @@
 [<img src="docs/badges/huawei-appgallery.png" alt="AppGallery" width="160">](https://appgallery.huawei.com/#/app/C104325611)
 [<img src="docs/badges/obtainium.png" alt="Obtainium" width="160">](https://github.com/organicmaps/organicmaps/wiki/Installing-Organic-Maps-from-GitHub-using-Obtainium)
 [<img src="docs/badges/fdroid.png" alt="F-Droid" width="160">](https://f-droid.org/en/packages/app.organicmaps/)
+[<img src="docs/badges/accrescent.png" alt="Accrescent" width="160">](https://accrescent.app/app/app.organicmaps)
 
 <p float="left">
   <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/1.jpg" width="400" />
