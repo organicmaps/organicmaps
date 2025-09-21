@@ -82,8 +82,7 @@
       android:layout_alignEnd="@id/nav_next_turn_frame"
       android:background="?navNextNextTurnFrame"
       android:elevation="@dimen/nav_elevation"
-      android:visibility="invisible"
-      tools:visibility="visible">
+      android:visibility="gone">
       <ImageView
         android:id="@id/turn"
         android:layout_width="wrap_content"

@@ -119,7 +119,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     else
       info.carDirection.setTurnDrawable(mNextTurnImage);
 
-    UiUtils.visibleIf(info.nextCarDirection.containsNextTurn(), mNextNextTurnFrame);
+    UiUtils.showIf(info.nextCarDirection.containsNextTurn(), mNextNextTurnFrame);
     if (info.nextCarDirection.containsNextTurn())
       info.nextCarDirection.setNextTurnDrawable(mNextNextTurnImage);
 
