@@ -2,20 +2,16 @@ plugins {
   id 'com.android.library'
 }
 
+apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+
 android {
   namespace = 'app.organicmaps.sdk'
-  compileSdk = propCompileSdkVersion.toInteger()
-
-  ndkVersion = '29.0.14206865'
 
   buildFeatures {
     buildConfig = true
   }
 
   defaultConfig {
-    minSdk = propMinSdkVersion.toInteger()
-    targetSdk = propTargetSdkVersion.toInteger()
-
     externalNativeBuild {
       def pchFlag = 'OFF'
       if (project.hasProperty('pch')) pchFlag = 'ON'
@@ -71,21 +67,6 @@ android {
     }
   }
 
-  buildTypes {
-    debug {
-      jniDebuggable true // Enable jni debug build
-    }
-    release {
-//      minifyEnabled true
-//      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-    }
-    beta {
-//      minifyEnabled true
-//      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-      matchingFallbacks = ['debug', 'release']
-    }
-  }
-
   externalNativeBuild {
     cmake {
       version = '3.22.1+'
@@ -96,9 +77,6 @@ android {
 
   compileOptions {
     coreLibraryDesugaringEnabled true
-
-    sourceCompatibility JavaVersion.VERSION_17
-    targetCompatibility JavaVersion.VERSION_17
   }
 }
 
