@@ -963,7 +963,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::SetTileBackgroundMode:
   {
     ref_ptr<SetTileBackgroundModeMessage> msg = message;
-    m_tileBackgroundRenderer->SetBackgroundMode(msg->GetMode());
+    m_tileBackgroundRenderer->SetBackgroundMode(m_context, msg->GetMode());
     break;
   }
 
@@ -1047,7 +1047,7 @@ void FrontendRenderer::UpdateContextDependentResources()
   }
 
   m_trafficRenderer->ClearContextDependentResources();
-  m_tileBackgroundRenderer->ClearContextDependentResources();
+  m_tileBackgroundRenderer->ClearContextDependentResources(m_context);
 
   if (IsValidCurrentZoom())
   {
@@ -2249,7 +2249,7 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
   { return group->GetTileKey().m_zoomLevel != GetCurrentZoom(); });
 
   m_trafficRenderer->OnUpdateViewport(result, GetCurrentZoom(), tilesToDelete);
-  m_tileBackgroundRenderer->OnUpdateViewport(result, GetCurrentZoom(), tilesToDelete);
+  m_tileBackgroundRenderer->OnUpdateViewport(m_context, result, GetCurrentZoom(), tilesToDelete);
 
 #if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
   DrapeMeasurer::Instance().StartScenePreparing();
@@ -2286,7 +2286,7 @@ void FrontendRenderer::OnContextDestroy()
   m_routeRenderer->ClearContextDependentResources();
   m_gpsTrackRenderer->ClearRenderData();
   m_trafficRenderer->ClearContextDependentResources();
-  m_tileBackgroundRenderer->ClearContextDependentResources();
+  m_tileBackgroundRenderer->ClearContextDependentResources(m_context);
   m_drapeApiRenderer->Clear();
   m_postprocessRenderer->ClearContextDependentResources();
   m_transitSchemeRenderer->ClearContextDependentResources(nullptr /* overlayTree */);
