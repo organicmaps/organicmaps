@@ -36,14 +36,14 @@ void MapDataProvider::ReadFeatures(TReadCallback<FeatureType> const & fn, std::v
   m_featureReader(fn, ids);
 }
 
-void MapDataProvider::ReadTileBackground(df::TileKey const & tileKey, dp::BackgroundMode mode) const
+MapDataProvider::TTileBackgroundReadFn MapDataProvider::ReadTileBackgroundFn() const
 {
-  m_tileBackgroundReader(tileKey, mode);
+  return m_tileBackgroundReader;
 }
 
-void MapDataProvider::CancelTileBackgroundReading(df::TileKey const & tileKey, dp::BackgroundMode mode) const
+MapDataProvider::TCancelTileBackgroundReadingFn MapDataProvider::CancelTileBackgroundReadingFn() const
 {
-  m_cancelTileBackgroundReading(tileKey, mode);
+  return m_cancelTileBackgroundReading;
 }
 
 MapDataProvider::TUpdateCurrentCountryFn const & MapDataProvider::UpdateCurrentCountryFn() const

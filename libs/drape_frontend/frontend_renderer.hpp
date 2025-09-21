@@ -5,6 +5,7 @@
 #include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/gps_track_renderer.hpp"
 #include "drape_frontend/gui/layer_render.hpp"
+#include "drape_frontend/map_data_provider.hpp"
 #include "drape_frontend/my_position_controller.hpp"
 #include "drape_frontend/overlays_tracker.hpp"
 #include "drape_frontend/postprocess_renderer.hpp"
@@ -13,6 +14,7 @@
 #include "drape_frontend/requested_tiles.hpp"
 #include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/threads_commutator.hpp"
+#include "drape_frontend/tile_background_renderer.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/transit_scheme_renderer.hpp"
 #include "drape_frontend/user_event_stream.hpp"
@@ -95,7 +97,9 @@ public:
            OverlaysShowStatsCallback && overlaysShowStatsCallback, bool allow3dBuildings, bool trafficEnabled,
            bool blockTapEvents, std::vector<PostprocessRenderer::Effect> && enabledEffects,
            OnGraphicsContextInitialized const & onGraphicsContextInitialized,
-           dp::RenderInjectionHandler && renderInjectionHandler)
+           dp::RenderInjectionHandler && renderInjectionHandler,
+           MapDataProvider::TTileBackgroundReadFn && tileBackgroundReadFn,
+           MapDataProvider::TCancelTileBackgroundReadingFn && cancelTileBackgroundReadingFn)
       : BaseRenderer::Params(apiVersion, commutator, factory, texMng, onGraphicsContextInitialized)
       , m_myPositionParams(std::move(myPositionParams))
       , m_viewport(viewport)
@@ -109,6 +113,8 @@ public:
       , m_blockTapEvents(blockTapEvents)
       , m_enabledEffects(std::move(enabledEffects))
       , m_renderInjectionHandler(std::move(renderInjectionHandler))
+      , m_tileBackgroundReadFn(std::move(tileBackgroundReadFn))
+      , m_cancelTileBackgroundReadingFn(std::move(cancelTileBackgroundReadingFn))
     {}
 
     MyPositionController::Params m_myPositionParams;
@@ -123,6 +129,8 @@ public:
     bool m_blockTapEvents;
     std::vector<PostprocessRenderer::Effect> m_enabledEffects;
     dp::RenderInjectionHandler m_renderInjectionHandler;
+    MapDataProvider::TTileBackgroundReadFn m_tileBackgroundReadFn;
+    MapDataProvider::TCancelTileBackgroundReadingFn m_cancelTileBackgroundReadingFn;
   };
 
   explicit FrontendRenderer(Params && params);
@@ -180,6 +188,7 @@ private:
     void Sort(ref_ptr<dp::OverlayTree> overlayTree);
   };
   // Render part of scene
+  void RenderTileBackgroundLayer(ScreenBase const & modelView);
   void Render2dLayer(ScreenBase const & modelView);
   void PreRender3dLayer(ScreenBase const & modelView);
   void Render3dLayer(ScreenBase const & modelView);
@@ -314,6 +323,7 @@ private:
   std::optional<SelectionTrackInfo> m_selectionTrackInfo;
 
   drape_ptr<RouteRenderer> m_routeRenderer;
+  drape_ptr<TileBackgroundRenderer> m_tileBackgroundRenderer;
   drape_ptr<TrafficRenderer> m_trafficRenderer;
   drape_ptr<TransitSchemeRenderer> m_transitSchemeRenderer;
   drape_ptr<dp::Framebuffer> m_buildingsFramebuffer;
