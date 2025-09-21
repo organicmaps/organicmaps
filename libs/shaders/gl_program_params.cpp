@@ -6,6 +6,7 @@
 #include "base/assert.hpp"
 #include "base/macros.hpp"
 
+#include <cstddef>
 #include <string>
 
 namespace gpu
@@ -66,6 +67,14 @@ public:
       guard.m_counter++;
   }
 
+  // Specialization for C arrays
+  template <typename ParamType, size_t N>
+  static void CheckApply(UniformsGuard & guard, std::string const & name, ParamType const (&array)[N])
+  {
+    if (ApplyArray<ParamType, N>(guard.m_program, name, array))
+      guard.m_counter++;
+  }
+
 private:
   template <typename ParamType>
   static bool Apply(ref_ptr<dp::GLGpuProgram> program, std::string const & name, ParamType const & p)
@@ -76,6 +85,18 @@ private:
 
     ASSERT_EQUAL(program->GetUniformType(name), GLTypeWrapper<ParamType>::Value(), ());
     dp::UniformValue::ApplyRaw(location, p);
+    return true;
+  }
+
+  template <typename ParamType, size_t N>
+  static bool ApplyArray(ref_ptr<dp::GLGpuProgram> program, std::string const & name, ParamType const (&array)[N])
+  {
+    auto const location = program->GetUniformLocation(name);
+    if (location < 0)
+      return false;
+
+    ASSERT_EQUAL(program->GetUniformType(name), GLTypeWrapper<ParamType>::Value(), ());
+    dp::UniformValue::ApplyRaw(location, array, N);
     return true;
   }
 };
@@ -219,6 +240,19 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<
   UniformsGuard guard(program, params);
 
   Parameter::CheckApply(guard, "u_framebufferMetrics", params.m_framebufferMetrics);
+}
+
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
+                                  TileBackgroundProgramParams const & params)
+{
+  UNUSED_VALUE(context);
+  UniformsGuard guard(program, params);
+
+  Parameter::CheckApply(guard, "u_tileCoordsMinMax", params.m_tileCoordsMinMax);
+  Parameter::CheckApply(guard, "u_textureIndex", params.m_textureIndex);
+  Parameter::CheckApply(guard, "u_modelView", params.m_modelView);
+  Parameter::CheckApply(guard, "u_projection", params.m_projection);
+  Parameter::CheckApply(guard, "u_pivotTransform", params.m_pivotTransform);
 }
 
 void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,

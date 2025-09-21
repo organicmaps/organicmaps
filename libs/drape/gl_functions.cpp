@@ -114,6 +114,7 @@ typedef void(DP_APIENTRY * TglUniform2fFn)(GLint location, GLfloat v1, GLfloat v
 typedef void(DP_APIENTRY * TglUniform3fFn)(GLint location, GLfloat v1, GLfloat v2, GLfloat v3);
 typedef void(DP_APIENTRY * TglUniform4fFn)(GLint location, GLfloat v1, GLfloat v2, GLfloat v3, GLfloat v4);
 typedef void(DP_APIENTRY * TglUniform1fvFn)(GLint location, GLsizei count, GLfloat const * value);
+typedef void(DP_APIENTRY * TglUniform4fvFn)(GLint location, GLsizei count, GLfloat const * value);
 typedef void(DP_APIENTRY * TglUniformMatrix4fvFn)(GLint location, GLsizei count, GLboolean transpose,
                                                   GLfloat const * value);
 
@@ -192,6 +193,7 @@ TglUniform2fFn glUniform2fFn = nullptr;
 TglUniform3fFn glUniform3fFn = nullptr;
 TglUniform4fFn glUniform4fFn = nullptr;
 TglUniform1fvFn glUniform1fvFn = nullptr;
+TglUniform1fvFn glUniform4fvFn = nullptr;
 TglUniformMatrix4fvFn glUniformMatrix4fvFn = nullptr;
 
 /// FBO
@@ -325,6 +327,7 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
   glUniform3fFn = LOAD_GL_FUNC(TglUniform3fFn, glUniform3f);
   glUniform4fFn = LOAD_GL_FUNC(TglUniform4fFn, glUniform4f);
   glUniform1fvFn = LOAD_GL_FUNC(TglUniform1fvFn, glUniform1fv);
+  glUniform4fvFn = LOAD_GL_FUNC(TglUniform4fvFn, glUniform4fv);
 
   glUniformMatrix4fvFn = LOAD_GL_FUNC(TglUniformMatrix4fvFn, glUniformMatrix4fv);
 
@@ -836,7 +839,7 @@ void GLFunctions::glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32
   GLCHECK(glUniform4iFn(location, v1, v2, v3, v4));
 }
 
-void GLFunctions::glUniformValueiv(int8_t location, int32_t * v, uint32_t size)
+void GLFunctions::glUniformValueiv(int8_t location, int32_t const * v, uint32_t size)
 {
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
   ASSERT(glUniform1ivFn != nullptr, ());
@@ -876,12 +879,20 @@ void GLFunctions::glUniformValuef(int8_t location, float v1, float v2, float v3,
   GLCHECK(glUniform4fFn(location, v1, v2, v3, v4));
 }
 
-void GLFunctions::glUniformValuefv(int8_t location, float * v, uint32_t size)
+void GLFunctions::glUniformValuefv(int8_t location, float const * v, uint32_t size)
 {
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
   ASSERT(glUniform1fvFn != nullptr, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform1fvFn(location, size, v));
+}
+
+void GLFunctions::glUniformValue4fv(int8_t location, float const * v, uint32_t size)
+{
+  ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
+  ASSERT(glUniform4fvFn != nullptr, ());
+  ASSERT(location != -1, ());
+  GLCHECK(glUniform4fvFn(location, size, v));
 }
 
 void GLFunctions::glUniformMatrix4x4Value(int8_t location, float const * values)

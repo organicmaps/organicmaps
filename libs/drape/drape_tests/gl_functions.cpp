@@ -178,6 +178,16 @@ void GLFunctions::glUniformMatrix4x4Value(int8_t location, float const * values)
   MOCK_CALL(glUniformMatrix4x4Value(location, values));
 }
 
+void GLFunctions::glUniformValueiv(int8_t location, int32_t const * v, uint32_t size)
+{
+  MOCK_CALL(glUniformValueiv(location, v, size));
+}
+
+void GLFunctions::glUniformValue4fv(int8_t location, float const * v, uint32_t size)
+{
+  MOCK_CALL(glUniformValue4fv(location, v, size));
+}
+
 uint32_t GLFunctions::glGetCurrentProgram()
 {
   return MOCK_CALL(glGetCurrentProgram());
@@ -313,8 +323,6 @@ void GLFunctions::glDebugMessageControl(glConst source, glConst type, glConst se
 void GLFunctions::glDisable(glConst mode) {}
 
 void GLFunctions::glDepthFunc(glConst depthFunc) {}
-
-void GLFunctions::glUniformValueiv(int8_t location, int32_t * v, uint32_t size) {}
 
 void * GLFunctions::glMapBuffer(glConst, glConst)
 {

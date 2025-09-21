@@ -37,6 +37,8 @@ public:
   MOCK_METHOD3(glUniformValuei, void(int8_t location, int32_t v1, int32_t v2));
   MOCK_METHOD4(glUniformValuei, void(int8_t location, int32_t v1, int32_t v2, int32_t v3));
   MOCK_METHOD5(glUniformValuei, void(int8_t location, int32_t v1, int32_t v2, int32_t v3, int32_t v4));
+  MOCK_METHOD3(glUniformValueiv, void(int8_t location, int32_t const * v, uint32_t size));
+  MOCK_METHOD3(glUniformValue4fv, void(int8_t location, float const * v, uint32_t size));
 
   MOCK_METHOD2(glUniformValuef, void(int8_t location, float v));
   MOCK_METHOD3(glUniformValuef, void(int8_t location, float v1, float v2));

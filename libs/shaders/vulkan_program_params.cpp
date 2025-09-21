@@ -208,6 +208,12 @@ void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_
 }
 
 void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
+                                      TileBackgroundProgramParams const & params)
+{
+  ApplyImpl(context, program, params);
+}
+
+void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                       SMAAProgramParams const & params)
 {
   ApplyImpl(context, program, params);

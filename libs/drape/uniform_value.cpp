@@ -67,9 +67,21 @@ void UniformValue::ApplyRaw(int8_t location, glsl::vec4 const & v)
 }
 
 // static
+void UniformValue::ApplyRaw(int8_t location, glsl::vec4 const * v, uint32_t count)
+{
+  GLFunctions::glUniformValue4fv(location, reinterpret_cast<float const *>(v), count);
+}
+
+// static
 void UniformValue::ApplyRaw(int8_t location, int i)
 {
   ApplyInt(location, &i, 1);
+}
+
+// static
+void UniformValue::ApplyRaw(int8_t location, int const * i, uint32_t count)
+{
+  GLFunctions::glUniformValueiv(location, i, count);
 }
 
 // static

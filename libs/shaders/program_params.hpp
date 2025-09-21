@@ -17,6 +17,8 @@
 
 namespace gpu
 {
+constexpr uint32_t kTileBackgroundMaxCount = 64;
+
 class ProgramParams
 {
 public:
@@ -215,6 +217,17 @@ struct ALIGNMENT SMAAProgramParams
   BIND_PROGRAMS(SMAAProgramParams, Program::SmaaEdges, Program::SmaaBlendingWeight, Program::SmaaFinal)
 };
 
+struct ALIGNMENT TileBackgroundProgramParams
+{
+  glsl::vec4 m_tileCoordsMinMax[kTileBackgroundMaxCount];
+  int m_textureIndex[kTileBackgroundMaxCount];
+  glsl::mat4 m_modelView;
+  glsl::mat4 m_projection;
+  glsl::mat4 m_pivotTransform;
+
+  BIND_PROGRAMS(TileBackgroundProgramParams, Program::TileBackground)
+};
+
 struct ALIGNMENT ImGuiProgramParams
 {
   glsl::mat4 m_projection;
@@ -248,6 +261,8 @@ public:
                      ScreenQuadProgramParams const & params) = 0;
   virtual void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                      SMAAProgramParams const & params) = 0;
+  virtual void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
+                     TileBackgroundProgramParams const & params) = 0;
   virtual void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                      ImGuiProgramParams const & params) = 0;
 };

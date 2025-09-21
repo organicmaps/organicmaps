@@ -14,7 +14,9 @@ public:
   static void ApplyRaw(int8_t location, glsl::vec2 const & v);
   static void ApplyRaw(int8_t location, glsl::vec3 const & v);
   static void ApplyRaw(int8_t location, glsl::vec4 const & v);
+  static void ApplyRaw(int8_t location, glsl::vec4 const * v, uint32_t count);
   static void ApplyRaw(int8_t location, int i);
+  static void ApplyRaw(int8_t location, int const * i, uint32_t count);
   static void ApplyRaw(int8_t location, glsl::ivec2 const & v);
   static void ApplyRaw(int8_t location, glsl::ivec3 const & v);
   static void ApplyRaw(int8_t location, glsl::ivec4 const & v);
