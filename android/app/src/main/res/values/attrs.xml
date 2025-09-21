@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <declare-styleable name="SpeedLimitView">
-    <attr name="speedLimitBackgroundColor" format="color" />
-    <attr name="speedLimitBorderColor" format="color" />
-    <attr name="speedLimitAlertColor" format="color" />
-    <attr name="speedLimitTextColor" format="color" />
-    <attr name="speedLimitTextAlertColor" format="color" />
-    <!-- These values are used only in edit mode -->
-    <attr name="speedLimitEditModeSpeedLimit" format="integer" />
-    <attr name="speedLimitEditModeAlert" format="boolean" />
-  </declare-styleable>
-
   <declare-styleable name="LanesView">
     <attr name="lanesActiveLaneTintColor" format="reference" />
     <attr name="lanesInactiveLaneTintColor" format="color" />
