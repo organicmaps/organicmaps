@@ -407,6 +407,10 @@ void MapWidget::initializeGL()
   emit BeforeEngineCreation();
   CreateEngine();
   m_framework.EnterForeground();
+
+  doneCurrent();
+  m_contextFactory->WaitForInitialization(nullptr);
+  makeCurrent();
 }
 
 void MapWidget::paintGL()
