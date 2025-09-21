@@ -71,6 +71,8 @@ set(shader_files
     GL/texturing_gui.fsh.glsl
     GL/texturing_gui.vsh.glsl
     GL/texturing_position.fsh.glsl
+    GL/tile_background.fsh.glsl
+    GL/tile_background.vsh.glsl
     GL/traffic.fsh.glsl
     GL/traffic.vsh.glsl
     GL/traffic_circle.fsh.glsl
