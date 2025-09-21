@@ -1,4 +1,4 @@
-package app.organicmaps.widget;
+package app.organicmaps.sdk.widgets.roadsign;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -13,7 +13,6 @@ import android.view.View;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import app.organicmaps.R;
 
 public class SpeedLimitView extends View
 {

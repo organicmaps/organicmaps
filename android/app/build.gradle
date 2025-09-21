@@ -248,6 +248,8 @@ android {
 
 dependencies {
   implementation project(':sdk')
+  implementation project(':sdk:widgets:roadsign')
+
   // World maps
   googleImplementation project(':sdk:maps:world')
   huaweiImplementation project(':sdk:maps:world')
