@@ -8,11 +8,14 @@
 
 #include "drape/drape_global.hpp"
 #include "drape/pointers.hpp"
+#include "drape/texture_manager.hpp"
 
 #include "geometry/screenbase.hpp"
 
 #include "base/buffer_vector.hpp"
 
+#include <map>
+#include <set>
 #include <vector>
 
 namespace df
@@ -26,12 +29,16 @@ public:
   void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
               int zoomLevel, FrameValues const & frameValues);
 
-  void ClearContextDependentResources();
+  void ClearContextDependentResources(ref_ptr<dp::GraphicsContext> context);
 
-  void OnUpdateViewport(CoverageResult const & coverage, int currentZoomLevel,
+  void OnUpdateViewport(ref_ptr<dp::GraphicsContext> context, CoverageResult const & coverage, int currentZoomLevel,
                         buffer_vector<TileKey, 8> const & tilesToDelete);
 
-  void SetBackgroundMode(dp::BackgroundMode mode);
+  void AssignTileBackgroundTexture(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                                   ref_ptr<dp::TexturePool> texturePool, dp::TexturePool::TextureId textureId,
+                                   dp::BackgroundMode mode);
+
+  void SetBackgroundMode(ref_ptr<dp::GraphicsContext> context, dp::BackgroundMode mode);
   dp::BackgroundMode GetBackgroundMode() const;
 
 private:
@@ -39,5 +46,17 @@ private:
   MapDataProvider::TCancelTileBackgroundReadingFn m_cancelTileBackgroundReadingFn;
 
   dp::BackgroundMode m_currentMode = dp::BackgroundMode::Default;
+
+  struct TextureInfo
+  {
+    ref_ptr<dp::TexturePool> m_texturePool;
+    dp::TexturePool::TextureId m_textureId{};
+  };
+
+  std::set<TileKey> m_awaitingTiles;
+  std::map<TileKey, TextureInfo> m_tileTextures;
+
+  CoverageResult m_lastCoverage;
+  int m_lastCurrentZoomLevel = 0;
 };
 }  // namespace df
