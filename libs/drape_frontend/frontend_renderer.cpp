@@ -967,6 +967,15 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
+  case Message::Type::AssignTileBackgroundTexture:
+  {
+    ref_ptr<AssignTileBackgroundTextureMessage> msg = message;
+    m_tileBackgroundRenderer->AssignTileBackgroundTexture(m_context, msg->GetTileKey(), msg->GetTexturePool(),
+                                                          msg->GetTextureId(), msg->GetMode());
+    msg->MarkProcessed();
+    break;
+  }
+
 #if defined(OMIM_OS_DESKTOP)
   case Message::Type::NotifyGraphicsReady:
   {
