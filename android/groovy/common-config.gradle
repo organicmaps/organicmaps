@@ -1,0 +1,28 @@
+// Use the following command to apply common configuration to your module:
+// apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+
+android {
+  compileSdk = propCompileSdkVersion.toInteger()
+  ndkVersion = propNdkVersion
+
+  defaultConfig {
+    minSdk = propMinSdkVersion.toInteger()
+    targetSdk = propTargetSdkVersion.toInteger()
+
+    buildTypes {
+      debug {
+        // Enable jni debug build
+        jniDebuggable true
+      }
+      beta {
+        matchingFallbacks = ['debug', 'release']
+      }
+      release {}
+    }
+
+    compileOptions {
+      sourceCompatibility JavaVersion.VERSION_17
+      targetCompatibility JavaVersion.VERSION_17
+    }
+  }
+}

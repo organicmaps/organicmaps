@@ -48,6 +48,7 @@ if (googleFirebaseServicesEnabled) {
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'ru.cian.huawei-publish-gradle-plugin'
 
+apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 apply from: "${rootProject.rootDir}/groovy/permission-checker.gradle"
 
 import com.github.triplet.gradle.androidpublisher.ReleaseStatus
@@ -62,9 +63,6 @@ project.ext.appName = 'Organic Maps'
 android {
   namespace = 'app.organicmaps'
 
-  // TODO: it should not be here, but in sdk/build.gradle. But for some reason it should be specified here as well.
-  ndkVersion = '29.0.14206865'
-
   buildFeatures {
     dataBinding = true
     buildConfig = true
@@ -77,16 +75,11 @@ android {
     }
   }
 
-  // All properties are read from gradle.properties file
-  compileSdk = propCompileSdkVersion.toInteger()
-
   defaultConfig {
     versionCode = rootProject.ext.versionCode
     versionName = rootProject.ext.versionName
     println('Version: ' + versionName)
     println('VersionCode: ' + versionCode)
-    minSdk = propMinSdkVersion.toInteger()
-    targetSdk = propTargetSdkVersion.toInteger()
     applicationId project.ext.appId
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@organicmaps.app"'
     // Should be customized in flavors.
@@ -250,9 +243,6 @@ android {
 
   compileOptions {
     coreLibraryDesugaringEnabled = true
-
-    sourceCompatibility JavaVersion.VERSION_17
-    targetCompatibility JavaVersion.VERSION_17
   }
 }
 
