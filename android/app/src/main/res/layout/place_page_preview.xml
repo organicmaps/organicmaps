@@ -237,7 +237,7 @@
         app:tint="?colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingHorizontal="@dimen/margin_base_plus"
+        android:paddingHorizontal="@dimen/margin_base"
         android:layout_gravity="center"
         android:background="?clickableBackground"
         android:clickable="true"
