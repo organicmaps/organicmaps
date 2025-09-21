@@ -184,6 +184,8 @@ set(SRC
   text_shape.hpp
   threads_commutator.cpp
   threads_commutator.hpp
+  tile_background_renderer.cpp
+  tile_background_renderer.hpp
   tile_info.cpp
   tile_info.hpp
   tile_key.cpp

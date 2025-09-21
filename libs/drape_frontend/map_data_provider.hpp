@@ -35,8 +35,9 @@ public:
 
   void ReadFeaturesID(TReadCallback<FeatureID const> const & fn, m2::RectD const & r, int scale) const;
   void ReadFeatures(TReadCallback<FeatureType> const & fn, std::vector<FeatureID> const & ids) const;
-  void ReadTileBackground(df::TileKey const & tileKey, dp::BackgroundMode mode) const;
-  void CancelTileBackgroundReading(df::TileKey const & tileKey, dp::BackgroundMode mode) const;
+
+  TTileBackgroundReadFn ReadTileBackgroundFn() const;
+  TCancelTileBackgroundReadingFn CancelTileBackgroundReadingFn() const;
 
   TUpdateCurrentCountryFn const & UpdateCurrentCountryFn() const;
 
