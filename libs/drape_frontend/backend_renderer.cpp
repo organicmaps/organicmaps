@@ -647,8 +647,25 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::SetTileBackgroundData:
   {
     ref_ptr<SetTileBackgroundDataMessage> msg = message;
-    // TODO: Process tile background data
-    UNUSED_VALUE(msg);
+
+    dp::TexturePoolDesc const desc{.m_maxTextureCount = 64,  // TODO: use max texture 2D array size here
+                                   .m_textureWidth = msg->GetWidth(),
+                                   .m_textureHeight = msg->GetHeight(),
+                                   .m_format = msg->GetFormat(),
+                                   .m_needMipMaps = (msg->GetMode() == dp::BackgroundMode::Satellite)};
+
+    auto texturePool = m_texMng->GetTexturePool(m_context, msg->GetMode(), desc);
+    ASSERT(texturePool != nullptr, ());
+
+    auto textureId = texturePool->AcquireTexture(m_context);
+    void * data = msg->GetBytes().data();
+    texturePool->UpdateTextureData(m_context, textureId, 0, 0, msg->GetWidth(), msg->GetHeight(), make_ref(data));
+
+    m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                              make_unique_dp<AssignTileBackgroundTextureMessage>(
+                                  m_context, msg->GetTileKey(), texturePool, textureId, msg->GetMode()),
+                              MessagePriority::Normal);
+
     break;
   }
 

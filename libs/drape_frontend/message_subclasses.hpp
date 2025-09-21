@@ -1397,7 +1397,7 @@ public:
   uint32_t GetHeight() const { return m_height; }
   dp::TextureFormat GetFormat() const { return m_format; }
   dp::BackgroundMode GetMode() const { return m_mode; }
-  std::vector<uint8_t> const & GetBytes() const { return m_bytes; }
+  std::vector<uint8_t> & GetBytes() { return m_bytes; }
 
 private:
   df::TileKey m_tileKey;
@@ -1418,6 +1418,45 @@ public:
   dp::BackgroundMode GetMode() const { return m_mode; }
 
 private:
+  dp::BackgroundMode m_mode;
+};
+
+class AssignTileBackgroundTextureMessage : public Message
+{
+public:
+  AssignTileBackgroundTextureMessage(ref_ptr<dp::GraphicsContext> context, df::TileKey const & tileKey,
+                                     ref_ptr<dp::TexturePool> texturePool, dp::TexturePool::TextureId textureId,
+                                     dp::BackgroundMode mode)
+    : m_context(context)
+    , m_tileKey(tileKey)
+    , m_texturePool(texturePool)
+    , m_textureId(textureId)
+    , m_mode(mode)
+  {
+    if (m_context && m_texturePool)
+      m_texturePool->ReleaseTexture(m_context, m_textureId);
+  }
+
+  Type GetType() const override { return Type::AssignTileBackgroundTexture; }
+  bool IsGraphicsContextDependent() const override { return true; }
+
+  df::TileKey const & GetTileKey() const { return m_tileKey; }
+  ref_ptr<dp::TexturePool> GetTexturePool() const { return m_texturePool; }
+  dp::TexturePool::TextureId GetTextureId() const { return m_textureId; }
+  dp::BackgroundMode GetMode() const { return m_mode; }
+
+  // Use this method to avoid texture release in destructor.
+  void MarkProcessed()
+  {
+    m_context = nullptr;
+    m_texturePool = nullptr;
+  }
+
+private:
+  ref_ptr<dp::GraphicsContext> m_context;
+  df::TileKey m_tileKey;
+  ref_ptr<dp::TexturePool> m_texturePool;
+  dp::TexturePool::TextureId m_textureId;
   dp::BackgroundMode m_mode;
 };
 }  // namespace df

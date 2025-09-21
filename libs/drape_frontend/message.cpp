@@ -106,6 +106,7 @@ std::string DebugPrint(Message::Type msgType)
   case Message::Type::VisualScaleChanged: return "VisualScaleChanged";
   case Message::Type::SetTileBackgroundData: return "SetTileBackgroundData";
   case Message::Type::SetTileBackgroundMode: return "SetTileBackgroundMode";
+  case Message::Type::AssignTileBackgroundTexture: return "AssignTileBackgroundTexture";
   }
   ASSERT(false, ("Unknown message type."));
   return "Unknown type";

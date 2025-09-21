@@ -65,9 +65,12 @@ void MetalTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & p
     texDesc.storageMode = MTLStorageModeShared;
     m_texture = [metalDevice newTextureWithDescriptor:texDesc];
     CHECK(m_texture != nil, ());
-    MTLRegion region = MTLRegionMake2D(0, 0, m_params.m_width, m_params.m_height);
-    auto const rowBytes = m_params.m_width * GetBytesPerPixel(m_params.m_format);
-    [m_texture replaceRegion:region mipmapLevel:0 withBytes:data.get() bytesPerRow:rowBytes];
+    if (data)
+    {
+      MTLRegion region = MTLRegionMake2D(0, 0, m_params.m_width, m_params.m_height);
+      auto const rowBytes = m_params.m_width * GetBytesPerPixel(m_params.m_format);
+      [m_texture replaceRegion:region mipmapLevel:0 withBytes:data.get() bytesPerRow:rowBytes];
+    }
   }
 }
 

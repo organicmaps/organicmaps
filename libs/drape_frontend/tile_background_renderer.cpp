@@ -21,6 +21,8 @@ void TileBackgroundRenderer::OnUpdateViewport(ref_ptr<dp::GraphicsContext> conte
 {
   m_lastCoverage = coverage;
   m_lastCurrentZoomLevel = currentZoomLevel;
+  if (m_currentMode == dp::BackgroundMode::Default)
+    return;
 
   // Cancel awaiting tile background reading requests for deleted tiles
   for (auto const & tileKey : tilesToDelete)
