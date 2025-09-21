@@ -1,7 +1,9 @@
 package app.organicmaps.sdk.location;
 
+import androidx.annotation.Keep;
 import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.bookmarks.data.TrackStatistics;
+
 public class TrackRecorder
 {
   public static native void nativeStartTrackRecording();
@@ -20,6 +22,8 @@ public class TrackRecorder
 
   public interface TrackRecordingUpdateHandler
   {
+    @Keep
+    @SuppressWarnings("unused")
     void onTrackRecordingUpdate(TrackStatistics trackStatistics);
   }
 }
