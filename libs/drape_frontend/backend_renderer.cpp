@@ -652,14 +652,6 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
-  case Message::Type::SetTileBackgroundMode:
-  {
-    ref_ptr<SetTileBackgroundModeMessage> msg = message;
-    // TODO: Process tile background mode change
-    UNUSED_VALUE(msg);
-    break;
-  }
-
   default: ASSERT(false, ()); break;
   }
 }
