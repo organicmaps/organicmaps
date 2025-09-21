@@ -5,16 +5,13 @@
 
 #include <chrono>
 
-using namespace jni;
-
 extern "C"
 {
-std::shared_ptr<jobject> g_onUpdate;
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_location_TrackRecorder_nativeSetEnabled(JNIEnv * env, jclass clazz,
                                                                                         jboolean enable)
 {
   GpsTracker::Instance().SetEnabled(enable);
-  Framework * const f = frm();
+  Framework * f = frm();
   if (f == nullptr)
     return;
   if (enable)
@@ -35,27 +32,29 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_location_TrackRecorder_nativeSta
 }
 
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_location_TrackRecorder_nativeSetTrackRecordingStatsListener(
-    JNIEnv * env, jclass clazz, jobject TrackRecordingListener)
+    JNIEnv * env, jclass clazz, jobject updateListener)
 {
   if (!frm()->IsTrackRecordingEnabled())
     return;
-  if (TrackRecordingListener == nullptr)
+  if (updateListener == nullptr)
   {
     frm()->SetTrackRecordingUpdateHandler(nullptr);
     return;
   }
   static jmethodID const cId = jni::GetConstructorID(env, g_trackStatisticsClazz, "(DDDDII)V");
-  g_onUpdate = jni::make_global_ref(TrackRecordingListener);
-  frm()->SetTrackRecordingUpdateHandler([](TrackStatistics const & trackStats)
+
+  frm()->SetTrackRecordingUpdateHandler(
+      [listener = jni::make_global_ref(updateListener)](TrackStatistics const & trackStats)
   {
     JNIEnv * env = jni::GetEnvSafe();
     jobject stats =
         env->NewObject(g_trackStatisticsClazz, cId, trackStats.m_length, trackStats.m_duration, trackStats.m_ascent,
                        trackStats.m_descent, trackStats.m_minElevation, static_cast<jint>(trackStats.m_maxElevation));
-    static jmethodID const g_onTrackRecordingUpdate =
-        jni::GetMethodID(env, g_onUpdate.operator*(), "onTrackRecordingUpdate",
-                         "(Lapp/organicmaps/sdk/bookmarks/data/TrackStatistics;)V");
-    env->CallVoidMethod(g_onUpdate.operator*(), g_onTrackRecordingUpdate, stats);
+
+    jmethodID onUpdateFn = jni::GetMethodID(env, *listener, "onTrackRecordingUpdate",
+                                            "(Lapp/organicmaps/sdk/bookmarks/data/TrackStatistics;)V");
+    env->CallVoidMethod(*listener, onUpdateFn, stats);
+
     env->DeleteLocalRef(stats);
     env->ExceptionDescribe();
     env->ExceptionClear();
