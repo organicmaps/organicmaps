@@ -119,13 +119,14 @@ public:
   static void glUniformValuei(int8_t location, int32_t v1, int32_t v2);
   static void glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32_t v3);
   static void glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32_t v3, int32_t v4);
-  static void glUniformValueiv(int8_t location, int32_t * v, uint32_t size);
+  static void glUniformValueiv(int8_t location, int32_t const * v, uint32_t size);
 
   static void glUniformValuef(int8_t location, float v);
   static void glUniformValuef(int8_t location, float v1, float v2);
   static void glUniformValuef(int8_t location, float v1, float v2, float v3);
   static void glUniformValuef(int8_t location, float v1, float v2, float v3, float v4);
-  static void glUniformValuefv(int8_t location, float * v, uint32_t size);
+  static void glUniformValuefv(int8_t location, float const * v, uint32_t size);
+  static void glUniformValue4fv(int8_t location, float const * v, uint32_t size);
 
   static void glUniformMatrix4x4Value(int8_t location, float const * values);
 

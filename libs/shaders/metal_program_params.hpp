@@ -32,6 +32,8 @@ public:
   void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
              SMAAProgramParams const & params) override;
   void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
+             TileBackgroundProgramParams const & params) override;
+  void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
              ImGuiProgramParams const & params) override;
 };
 }  // namespace metal
