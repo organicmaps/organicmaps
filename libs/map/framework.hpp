@@ -330,7 +330,7 @@ private:
   void DeactivateHotelSearchMark();
 
 public:
-  void DeactivateMapSelection(bool notifyListeners);
+  void DeactivateMapSelection();
   void DeactivateMapSelectionCircle(bool restoreViewport);
   void SwitchFullScreen();
   /// Used to "refresh" UI in some cases (e.g. feature editing).

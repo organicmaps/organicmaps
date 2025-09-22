@@ -32,6 +32,7 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.RoadWarningMarkType;
 import app.organicmaps.sdk.bookmarks.data.Track;
+import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.sdk.util.log.Logger;
@@ -230,7 +231,7 @@ public class PlacePageController
   private void onHiddenInternal()
   {
     if (ChoosePositionMode.get() == ChoosePositionMode.None)
-      Framework.nativeDeactivatePopup(true);
+      Framework.nativeDeactivatePopup();
     Framework.nativeDeactivateMapSelectionCircle(false);
     PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
     resetPlacePageHeightBounds();
@@ -240,7 +241,7 @@ public class PlacePageController
   private void onTrackRecordingSelected()
   {
     if (ChoosePositionMode.get() == ChoosePositionMode.None)
-      Framework.nativeDeactivatePopup(false);
+      Framework.nativeDeactivatePopup();
     Framework.nativeDeactivateMapSelectionCircle(false);
   }
 
@@ -634,7 +635,8 @@ public class PlacePageController
         buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
       else if (mapObject.isTrackRecording())
       {
-        buttons.add(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE);
+        if (!TrackRecorder.nativeIsTrackRecordingEmpty())
+          buttons.add(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE);
         buttons.add(PlacePageButtons.ButtonType.TRACK_RECORDING_DELETE);
       }
       else
@@ -679,9 +681,7 @@ public class PlacePageController
       if (mViewModel.isAlertDialogShowing)
         showTrackDeleteAlertDialog();
       if (mMapObject.isTrackRecording())
-      {
         onTrackRecordingSelected();
-      }
     }
     else
       close();

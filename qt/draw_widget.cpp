@@ -708,7 +708,7 @@ void DrawWidget::ShowPlacePage()
   default: break;
   }
 
-  m_framework.DeactivateMapSelection(true);
+  m_framework.DeactivateMapSelection();
 }
 
 void DrawWidget::SetRuler(bool enabled)

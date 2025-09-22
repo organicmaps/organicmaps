@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
+import app.organicmaps.sdk.bookmarks.data.TrackRecording;
 import app.organicmaps.sdk.bookmarks.data.TrackStatistics;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.util.Utils;
@@ -64,9 +66,19 @@ public class PlacePageTrackRecordingFragment
   @Override
   public void onTrackRecordingUpdate(TrackStatistics trackStatistics)
   {
-    mElevationProfileViewRenderer.render(TrackRecorder.nativeGetElevationInfo(), trackStatistics, Utils.INVALID_ID);
-    mViewModel.setTrackRecordingPPDescription(
-        Framework.nativeFormatAltitude(trackStatistics.getLength()) + " • "
-        + Utils.formatRoutingTime(getContext(), (int) trackStatistics.getDuration(), R.dimen.text_size_body_3));
+    if (!TrackRecorder.nativeIsTrackRecordingEnabled())
+      return;
+    if (mViewModel.getMapObject().getValue() == null || !mViewModel.getMapObject().getValue().isTrackRecording())
+      return;
+    ((TrackRecording) mViewModel.getMapObject().getValue())
+        .setTrackRecordingPPDescription(
+            Framework.nativeFormatAltitude(trackStatistics.getLength()) + " • "
+            + Utils.formatRoutingTime(getContext(), (int) trackStatistics.getDuration(), R.dimen.text_size_body_3));
+    ElevationInfo elevationInfo = TrackRecorder.nativeGetElevationInfo();
+    // This check is needed because the elevationInfo can be null in case there are no elevation data.
+    // When Track Recording has just started
+    if (elevationInfo == null)
+      return;
+    mElevationProfileViewRenderer.render(elevationInfo, trackStatistics, Utils.INVALID_ID);
   }
 }

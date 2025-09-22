@@ -46,7 +46,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -726,7 +725,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ChoosePositionMode mode = ChoosePositionMode.get();
     ChoosePositionMode.set(ChoosePositionMode.None, false, false);
     mMapButtonsViewModel.setButtonsHidden(false);
-    Framework.nativeDeactivatePopup(true);
+    Framework.nativeDeactivatePopup();
     refreshLightStatusBar();
     if (mode == ChoosePositionMode.Api)
       finish();
@@ -1215,6 +1214,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlacePageDeactivated()
   {
+    if (mPlacePageViewModel.getMapObject().getValue() == null
+        || mPlacePageViewModel.getMapObject().getValue().isTrackRecording())
+      return;
     closePlacePage();
   }
 
@@ -2275,10 +2277,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void saveAndStopTrackRecording()
   {
-    closePlacePage();
+    // we are detaching the listener before saving the track to stop getting updates and fetching data from wrong
+    // mapObject
+    TrackRecorder.nativeSetTrackRecordingStatsListener(null);
     if (!TrackRecorder.nativeIsTrackRecordingEmpty())
       TrackRecorder.nativeSaveTrackRecordingWithName("");
-    TrackRecorder.nativeStopTrackRecording();
     stopTrackRecording();
   }
 

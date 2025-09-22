@@ -38,7 +38,7 @@ using namespace storage;
 
 - (void)closePlacePage
 {
-  GetFramework().DeactivateMapSelection(true);
+  GetFramework().DeactivateMapSelection();
 }
 
 - (void)routeFrom:(PlacePageData *)data
