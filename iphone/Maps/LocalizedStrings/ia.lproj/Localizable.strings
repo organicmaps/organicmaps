@@ -363,8 +363,6 @@
 "log_file_size" = "Log file size: %@";
 "transliteration_title" = "Transliterate into Latin alphabet";
 "core_exit" = "Exit";
-"routing_add_start_point" = "Use search or tap on the map to add a route starting point";
-"routing_add_finish_point" = "Use search or tap on the map to add a destination point";
 "planning_route_manage_route" = "Manage Route";
 "button_plan" = "Plan";
 "placepage_remove_stop" = "Remove Stop";

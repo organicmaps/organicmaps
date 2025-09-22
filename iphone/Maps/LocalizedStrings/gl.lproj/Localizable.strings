@@ -376,8 +376,6 @@
 "log_file_size" = "Tamaño do arquivo de rexistro: %@";
 "transliteration_title" = "Transliteración ao alfabeto latino";
 "core_exit" = "Saída";
-"routing_add_start_point" = "Busca ou toca no mapa para engadir a orixe da ruta";
-"routing_add_finish_point" = "Busca ou toca no mapa para engadir o destino";
 "placepage_remove_stop" = "Eliminar parada";
 "planning_route_remove_title" = "Arrastre aquí para eliminar";
 "placepage_add_stop" = "Engadir parada";
