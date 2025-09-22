@@ -195,18 +195,18 @@ area|z16-[natural=volcano],
 {font-size: 12;}
 
 node|z10-12[natural=peak][name],
-{icon-image: peakt-s.svg;icon-min-distance: 10;}
+{icon-image: peak-s.svg;icon-min-distance: 10;}
 node|z13-[natural=peak][name],
-{icon-image: peakt-m.svg;font-size: 11;}
+{icon-image: peak-m.svg;font-size: 11;}
 node|z16-[natural=peak][name],
 {font-size: 12;}
 node|z13-15[natural=peak][!name],
-{icon-image: peakt-s.svg;}
+{icon-image: peak-s.svg;}
 node|z16-[natural=peak][!name],
-{icon-image: peakt-m.svg;}
+{icon-image: peak-m.svg;}
 
 node|z14-[natural=rock],
-{icon-image: peakt-s.svg; font-size: 11;}
+{icon-image: peak-s.svg; font-size: 11;}
 node|z16-[natural=rock],
 {font-size: 12;}
 
