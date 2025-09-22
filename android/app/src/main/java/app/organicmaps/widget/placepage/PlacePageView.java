@@ -677,14 +677,14 @@ public class PlacePageView extends Fragment
       UiUtils.showIf(Editor.nativeShouldShowEditPlace(), mEditPlace);
       UiUtils.showIf(Editor.nativeShouldShowAddBusiness(), mAddOrganisation);
       UiUtils.showIf(Editor.nativeShouldShowAddPlace(), mAddPlace);
-      mEditPlace.setEnabled(Editor.nativeShouldEnableEditPlace());
-      mAddOrganisation.setEnabled(Editor.nativeShouldEnableAddPlace());
-      mAddPlace.setEnabled(Editor.nativeShouldEnableAddPlace());
+      mEditPlace.setEnabled(Editor.nativeCanEditPlace());
+      mAddOrganisation.setEnabled(Editor.nativeCanEditPlace());
+      mAddPlace.setEnabled(Editor.nativeCanEditPlace());
       TextView mTvEditPlace = mEditPlace.findViewById(R.id.tv__editor);
       TextView mTvAddBusiness = mAddPlace.findViewById(R.id.tv__editor);
       TextView mTvAddPlace = mAddPlace.findViewById(R.id.tv__editor);
       final int editPlaceButtonColor =
-          Editor.nativeShouldEnableEditPlace()
+          Editor.nativeCanEditPlace()
               ? ContextCompat.getColor(getContext(),
                                        UiUtils.getStyledResourceId(getContext(), androidx.appcompat.R.attr.colorAccent))
               : getResources().getColor(R.color.button_accent_text_disabled);
