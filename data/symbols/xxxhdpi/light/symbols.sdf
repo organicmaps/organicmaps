@@ -162,7 +162,7 @@
   <symbol maxX="476" maxY="603" minX="408" minY="535" name="travel_agency_shop-m"/>
   <symbol maxX="544" maxY="603" minX="476" minY="535" name="tram-m"/>
   <symbol maxX="612" maxY="603" minX="544" minY="535" name="train-m"/>
-  <symbol maxX="680" maxY="603" minX="612" minY="535" name="traffic_signals"/>
+  <symbol maxX="680" maxY="603" minX="612" minY="535" name="traffic_signals-m"/>
   <symbol maxX="748" maxY="603" minX="680" minY="535" name="toys-m"/>
   <symbol maxX="816" maxY="603" minX="748" minY="535" name="tourism-m"/>
   <symbol maxX="884" maxY="603" minX="816" minY="535" name="tomb-m"/>
@@ -398,7 +398,7 @@
   <symbol maxX="204" maxY="875" minX="136" minY="807" name="handball-m"/>
   <symbol maxX="272" maxY="875" minX="204" minY="807" name="hairdresser-m"/>
   <symbol maxX="340" maxY="875" minX="272" minY="807" name="hackerspace-m"/>
-  <symbol maxX="408" maxY="875" minX="340" minY="807" name="guidepost"/>
+  <symbol maxX="408" maxY="875" minX="340" minY="807" name="guidepost-m"/>
   <symbol maxX="476" maxY="875" minX="408" minY="807" name="grinding_mill-m"/>
   <symbol maxX="544" maxY="875" minX="476" minY="807" name="greengrocer-m"/>
   <symbol maxX="612" maxY="875" minX="544" minY="807" name="golf-m"/>
@@ -491,7 +491,7 @@
   <symbol maxX="2448" maxY="943" minX="2380" minY="875" name="book-shop-m"/>
   <symbol maxX="2516" maxY="943" minX="2448" minY="875" name="blood_donation-m"/>
   <symbol maxX="2584" maxY="943" minX="2516" minY="875" name="blacksmith-m"/>
-  <symbol maxX="2652" maxY="943" minX="2584" minY="875" name="bicycle-repair-station"/>
+  <symbol maxX="2652" maxY="943" minX="2584" minY="875" name="bicycle-repair-station-m"/>
   <symbol maxX="2720" maxY="943" minX="2652" minY="875" name="beekeeper-m"/>
   <symbol maxX="2788" maxY="943" minX="2720" minY="875" name="beauty-m"/>
   <symbol maxX="2856" maxY="943" minX="2788" minY="875" name="beach-m"/>
@@ -561,7 +561,7 @@
   <symbol maxX="2992" maxY="1000" minX="2878" minY="943" name="coloredmark-default-s"/>
   <symbol maxX="3106" maxY="1000" minX="2992" minY="943" name="coloredmark-bg-s"/>
   <symbol maxX="3163" maxY="1000" minX="3106" minY="943" name="cairn-m"/>
-  <symbol maxX="3220" maxY="1000" minX="3163" minY="943" name="bicycle-rental"/>
+  <symbol maxX="3220" maxY="1000" minX="3163" minY="943" name="bicycle-rental-m"/>
   <symbol maxX="3277" maxY="1000" minX="3220" minY="943" name="bicycle-parking-m"/>
   <symbol maxX="3334" maxY="1000" minX="3277" minY="943" name="bicycle-parking-covered-m"/>
   <symbol maxX="3391" maxY="1000" minX="3334" minY="943" name="anchor-m"/>
@@ -764,13 +764,13 @@
   <symbol maxX="1785" maxY="1158" minX="1717" minY="1115" name="subway-brussel-s"/>
   <symbol maxX="1846" maxY="1158" minX="1785" minY="1115" name="subway-barcelona-s"/>
   <symbol maxX="1900" maxY="1158" minX="1846" minY="1115" name="subway-alicante-s"/>
-  <symbol maxX="1943" maxY="1158" minX="1900" minY="1115" name="storage-tank"/>
+  <symbol maxX="1943" maxY="1158" minX="1900" minY="1115" name="storage-tank-m"/>
   <symbol maxX="1986" maxY="1158" minX="1943" minY="1115" name="parking-disabled-m"/>
   <symbol maxX="2029" maxY="1158" minX="1986" minY="1115" name="parcel_locker-m"/>
-  <symbol maxX="2072" maxY="1158" minX="2029" minY="1115" name="map"/>
+  <symbol maxX="2072" maxY="1158" minX="2029" minY="1115" name="map-m"/>
   <symbol maxX="2115" maxY="1158" minX="2072" minY="1115" name="lightrail-berlin-s"/>
   <symbol maxX="2158" maxY="1158" minX="2115" minY="1115" name="information-m"/>
-  <symbol maxX="2201" maxY="1158" minX="2158" minY="1115" name="board"/>
+  <symbol maxX="2201" maxY="1158" minX="2158" minY="1115" name="board-m"/>
   <symbol maxX="2251" maxY="1155" minX="2201" minY="1115" name="subway_entrance-london-s"/>
   <symbol maxX="2291" maxY="1155" minX="2251" minY="1115" name="subway-ubahn-s"/>
   <symbol maxX="2359" maxY="1155" minX="2291" minY="1115" name="subway-sendai-s"/>
@@ -805,7 +805,7 @@
   <symbol maxX="3724" maxY="1151" minX="3699" minY="1115" name="entrance-barrier-s"/>
   <symbol maxX="3760" maxY="1151" minX="3724" minY="1115" name="cycle_barrier-s"/>
   <symbol maxX="3807" maxY="1151" minX="3760" minY="1115" name="cave-m"/>
-  <symbol maxX="3850" maxY="1151" minX="3807" minY="1115" name="bench"/>
+  <symbol maxX="3850" maxY="1151" minX="3807" minY="1115" name="bench-m"/>
   <symbol maxX="3890" maxY="1147" minX="3850" minY="1115" name="volcano-m"/>
   <symbol maxX="3944" maxY="1147" minX="3890" minY="1115" name="subway-minsk-m"/>
   <symbol maxX="4008" maxY="1147" minX="3944" minY="1115" name="subway-malaga-s"/>
@@ -816,7 +816,7 @@
   <symbol maxX="236" maxY="1194" minX="172" minY="1162" name="subway-baku-s"/>
   <symbol maxX="268" maxY="1194" minX="236" minY="1162" name="star-m"/>
   <symbol maxX="318" maxY="1194" minX="268" minY="1162" name="railway-crossing-m"/>
-  <symbol maxX="354" maxY="1194" minX="318" minY="1162" name="plaque"/>
+  <symbol maxX="354" maxY="1194" minX="318" minY="1162" name="plaque-m"/>
   <symbol maxX="408" maxY="1191" minX="354" minY="1162" name="subway-taipei-s"/>
   <symbol maxX="458" maxY="1191" minX="408" minY="1162" name="subway-minsk-s"/>
   <symbol maxX="526" maxY="1191" minX="458" minY="1162" name="subway-chongqing-s"/>

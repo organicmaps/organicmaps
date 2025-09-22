@@ -20715,42 +20715,42 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "traffic_signals"
+      name: "traffic_signals-m"
       priority: 175
     }
   }
   element {
     scale: 16
     symbol {
-      name: "traffic_signals"
+      name: "traffic_signals-m"
       priority: 175
     }
   }
   element {
     scale: 17
     symbol {
-      name: "traffic_signals"
+      name: "traffic_signals-m"
       priority: 175
     }
   }
   element {
     scale: 18
     symbol {
-      name: "traffic_signals"
+      name: "traffic_signals-m"
       priority: 175
     }
   }
   element {
     scale: 19
     symbol {
-      name: "traffic_signals"
+      name: "traffic_signals-m"
       priority: 175
     }
   }
   element {
     scale: 20
     symbol {
-      name: "traffic_signals"
+      name: "traffic_signals-m"
       priority: 175
     }
   }

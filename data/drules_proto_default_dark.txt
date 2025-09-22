@@ -3468,14 +3468,14 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bench"
+      name: "bench-m"
       priority: -9980
     }
   }
   element {
     scale: 19
     symbol {
-      name: "bench"
+      name: "bench-m"
       priority: -9980
     }
     caption {
@@ -3491,7 +3491,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "bench"
+      name: "bench-m"
       priority: -9980
     }
     caption {
@@ -3644,7 +3644,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bicycle-rental"
+      name: "bicycle-rental-m"
       priority: 2600
     }
     caption {
@@ -3660,7 +3660,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bicycle-rental"
+      name: "bicycle-rental-m"
       priority: 2600
     }
     caption {
@@ -3676,7 +3676,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bicycle-rental"
+      name: "bicycle-rental-m"
       priority: 2600
     }
     caption {
@@ -3692,7 +3692,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "bicycle-rental"
+      name: "bicycle-rental-m"
       priority: 2600
     }
     caption {
@@ -3711,7 +3711,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bicycle-repair-station"
+      name: "bicycle-repair-station-m"
       priority: 2500
     }
     caption {
@@ -3727,7 +3727,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bicycle-repair-station"
+      name: "bicycle-repair-station-m"
       priority: 2500
     }
     caption {
@@ -3743,7 +3743,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bicycle-repair-station"
+      name: "bicycle-repair-station-m"
       priority: 2500
     }
     caption {
@@ -3759,7 +3759,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "bicycle-repair-station"
+      name: "bicycle-repair-station-m"
       priority: 2500
     }
     caption {
@@ -37458,14 +37458,14 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "traffic_signals"
+      name: "traffic_signals-m"
       priority: 215
     }
   }
   element {
     scale: 20
     symbol {
-      name: "traffic_signals"
+      name: "traffic_signals-m"
       priority: 215
     }
   }
@@ -43260,7 +43260,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "plaque"
+      name: "plaque-m"
       priority: 210
       min_distance: 12
     }
@@ -43277,7 +43277,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "plaque"
+      name: "plaque-m"
       priority: 210
       min_distance: 12
     }
@@ -43294,7 +43294,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "plaque"
+      name: "plaque-m"
       priority: 210
       min_distance: 12
     }
@@ -43524,7 +43524,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "plaque"
+      name: "plaque-m"
       priority: 200
       min_distance: 12
     }
@@ -43541,7 +43541,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "plaque"
+      name: "plaque-m"
       priority: 200
       min_distance: 12
     }
@@ -55258,21 +55258,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "storage-tank"
+      name: "storage-tank-m"
       priority: 450
     }
   }
   element {
     scale: 17
     symbol {
-      name: "storage-tank"
+      name: "storage-tank-m"
       priority: 450
     }
   }
   element {
     scale: 18
     symbol {
-      name: "storage-tank"
+      name: "storage-tank-m"
       priority: 450
     }
     caption {
@@ -55288,7 +55288,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "storage-tank"
+      name: "storage-tank-m"
       priority: 450
     }
     caption {
@@ -55304,7 +55304,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "storage-tank"
+      name: "storage-tank-m"
       priority: 450
     }
     caption {
@@ -55323,21 +55323,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "storage-tank"
+      name: "storage-tank-m"
       priority: 450
     }
   }
   element {
     scale: 17
     symbol {
-      name: "storage-tank"
+      name: "storage-tank-m"
       priority: 450
     }
   }
   element {
     scale: 18
     symbol {
-      name: "storage-tank"
+      name: "storage-tank-m"
       priority: 450
     }
     caption {
@@ -55353,7 +55353,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "storage-tank"
+      name: "storage-tank-m"
       priority: 450
     }
     caption {
@@ -55369,7 +55369,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "storage-tank"
+      name: "storage-tank-m"
       priority: 450
     }
     caption {
@@ -55685,21 +55685,21 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "storage-tank"
+      name: "storage-tank-m"
       priority: 450
     }
   }
   element {
     scale: 17
     symbol {
-      name: "storage-tank"
+      name: "storage-tank-m"
       priority: 450
     }
   }
   element {
     scale: 18
     symbol {
-      name: "storage-tank"
+      name: "storage-tank-m"
       priority: 450
     }
     caption {
@@ -55715,7 +55715,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "storage-tank"
+      name: "storage-tank-m"
       priority: 450
     }
     caption {
@@ -55731,7 +55731,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "storage-tank"
+      name: "storage-tank-m"
       priority: 450
     }
     caption {
@@ -125565,7 +125565,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "board"
+      name: "board-m"
       priority: -9950
       min_distance: 10
     }
@@ -125582,7 +125582,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "board"
+      name: "board-m"
       priority: -9950
       min_distance: 10
     }
@@ -125599,7 +125599,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "board"
+      name: "board-m"
       priority: -9950
       min_distance: 10
     }
@@ -125616,7 +125616,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "board"
+      name: "board-m"
       priority: -9950
       min_distance: 10
     }
@@ -125633,7 +125633,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "board"
+      name: "board-m"
       priority: -9950
       min_distance: 10
     }
@@ -125653,7 +125653,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "guidepost"
+      name: "guidepost-m"
       priority: -9950
       min_distance: 10
     }
@@ -125670,7 +125670,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "guidepost"
+      name: "guidepost-m"
       priority: -9950
       min_distance: 10
     }
@@ -125687,7 +125687,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "guidepost"
+      name: "guidepost-m"
       priority: -9950
       min_distance: 10
     }
@@ -125704,7 +125704,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "guidepost"
+      name: "guidepost-m"
       priority: -9950
       min_distance: 10
     }
@@ -125721,7 +125721,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "guidepost"
+      name: "guidepost-m"
       priority: -9950
       min_distance: 10
     }
@@ -125741,7 +125741,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "map"
+      name: "map-m"
       priority: -9950
       min_distance: 10
     }
@@ -125758,7 +125758,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "map"
+      name: "map-m"
       priority: -9950
       min_distance: 10
     }
@@ -125775,7 +125775,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "map"
+      name: "map-m"
       priority: -9950
       min_distance: 10
     }
@@ -125792,7 +125792,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "map"
+      name: "map-m"
       priority: -9950
       min_distance: 10
     }
@@ -125809,7 +125809,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "map"
+      name: "map-m"
       priority: -9950
       min_distance: 10
     }
