@@ -34,13 +34,12 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_location_TrackRecorder_nativeSta
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_location_TrackRecorder_nativeSetTrackRecordingStatsListener(
     JNIEnv * env, jclass clazz, jobject updateListener)
 {
-  if (!frm()->IsTrackRecordingEnabled())
-    return;
   if (updateListener == nullptr)
   {
     frm()->SetTrackRecordingUpdateHandler(nullptr);
     return;
   }
+  ASSERT(frm()->IsTrackRecordingEnabled(), ());
   static jmethodID const cId = jni::GetConstructorID(env, g_trackStatisticsClazz, "(DDDDII)V");
 
   frm()->SetTrackRecordingUpdateHandler(
@@ -54,19 +53,17 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_location_TrackRecorder_nativeSet
     jmethodID onUpdateFn = jni::GetMethodID(env, *listener, "onTrackRecordingUpdate",
                                             "(Lapp/organicmaps/sdk/bookmarks/data/TrackStatistics;)V");
     env->CallVoidMethod(*listener, onUpdateFn, stats);
-
-    env->DeleteLocalRef(stats);
-    env->ExceptionDescribe();
-    env->ExceptionClear();
+    jni::HandleJavaException(env);
   });
 }
 
 JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_location_TrackRecorder_nativeGetElevationInfo(JNIEnv * env,
                                                                                                  jclass clazz)
 {
-  if (!frm()->IsTrackRecordingEnabled())
-    return nullptr;
+  ASSERT(frm()->IsTrackRecordingEnabled(), ("Track recording is not started"));
   auto const & elevationInfo = frm()->GetTrackRecordingElevationInfo();
+  if (elevationInfo.GetSize() == 0)
+    return nullptr;
   return usermark_helper::CreateElevationInfo(env, elevationInfo);
 }
 

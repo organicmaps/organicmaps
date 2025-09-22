@@ -49,7 +49,7 @@ std::optional<place_page::BuildInfo> placePageBuildInfoToRecover;
 
 - (void)closePlacePage
 {
-  GetFramework().DeactivateMapSelection(true);
+  GetFramework().DeactivateMapSelection();
 }
 
 - (void)routeFrom:(PlacePageData *)data

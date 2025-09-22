@@ -52,6 +52,7 @@ import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
 import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
 import app.organicmaps.sdk.bookmarks.data.Track;
+import app.organicmaps.sdk.bookmarks.data.TrackRecording;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.editor.Editor;
@@ -148,6 +149,7 @@ public class PlacePageView extends Fragment
   private ImageView mEditBookmark;
   private View mOsmDescriptionContainer;
   private TextView mTvOsmDescription;
+  private MaterialButton mShareButton;
 
   // Data
   private CoordinatesFormat mCoordsFormat = CoordinatesFormat.LatLonDecimal;
@@ -269,8 +271,8 @@ public class PlacePageView extends Fragment
     mTvOsmDescription = mFrame.findViewById(R.id.tv__osm_description);
     mTvOsmDescription.setOnLongClickListener(this);
 
-    MaterialButton shareButton = mPreview.findViewById(R.id.share_button);
-    shareButton.setOnClickListener(this::shareClickListener);
+    mShareButton = mPreview.findViewById(R.id.share_button);
+    mShareButton.setOnClickListener(this::shareClickListener);
 
     final MaterialButton closeButton = mPreview.findViewById(R.id.close_button);
     closeButton.setOnClickListener((v) -> mPlacePageViewListener.onPlacePageRequestClose());
@@ -382,18 +384,15 @@ public class PlacePageView extends Fragment
       UiUtils.hide(mTvSubtitle);
       UiUtils.hide(mAvDirection, mTvDistance);
     }
-    UiUtils.hideIf(mMapObject.isTrackRecording(), mFrame.findViewById(R.id.ll__place_latlon),
+    UiUtils.hideIf(mMapObject.isTrackRecording(), mShareButton, mFrame.findViewById(R.id.ll__place_latlon),
                    mFrame.findViewById(R.id.ll__place_open_in));
-    mViewModel.getTrackRecordingPPDescription().observe(requireActivity(), new Observer<String>() {
-      @Override
-      public void onChanged(String s)
-      {
-        if (mMapObject.isTrackRecording() && mViewModel.getTrackRecordingPPDescription().getValue() != null)
-        {
-          UiUtils.setTextAndHideIfEmpty(mTvSubtitle, mViewModel.getTrackRecordingPPDescription().getValue());
-        }
-      }
-    });
+    if (mMapObject.isTrackRecording())
+    {
+      TrackRecording trackRecording = (TrackRecording) mMapObject;
+      trackRecording.getTrackRecordingPPDescription().observe(requireActivity(), s -> {
+        UiUtils.setTextAndHideIfEmpty(mTvSubtitle, trackRecording.getTrackRecordingPPDescription().getValue());
+      });
+    }
   }
 
   private <T extends Fragment> void updateViewFragment(Class<T> controllerClass, String fragmentTag,
@@ -1041,6 +1040,8 @@ public class PlacePageView extends Fragment
 
   void shareClickListener(View v)
   {
+    if (mMapObject.isTrackRecording())
+      return;
     if (mMapObject.isTrack())
     {
       MenuBottomSheetFragment.newInstance(TRACK_SHARE_MENU_ID, getString(R.string.share_track))

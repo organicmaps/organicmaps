@@ -16,7 +16,6 @@ public class PlacePageViewModel extends ViewModel
   private final MutableLiveData<Integer> mPlacePageWidth = new MutableLiveData<>();
   private final MutableLiveData<Integer> mPlacePageDistanceToTop = new MutableLiveData<>();
   public boolean isAlertDialogShowing = false;
-  private final MutableLiveData<String> mTrackRecordingPPDescription = new MutableLiveData<>();
 
   public LiveData<List<PlacePageButtons.ButtonType>> getCurrentButtons()
   {
@@ -56,15 +55,5 @@ public class PlacePageViewModel extends ViewModel
   public void setPlacePageDistanceToTop(int top)
   {
     mPlacePageDistanceToTop.setValue(top);
-  }
-
-  public LiveData<String> getTrackRecordingPPDescription()
-  {
-    return mTrackRecordingPPDescription;
-  }
-
-  public void setTrackRecordingPPDescription(String description)
-  {
-    mTrackRecordingPPDescription.setValue(description);
   }
 }
