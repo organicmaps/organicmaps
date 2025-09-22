@@ -671,9 +671,8 @@ area|z13-[barrier=toll_booth],
 node|z14-[barrier=border_control],
 {icon-image: bcontrol-m.svg;}
 
-/* TODO: needs a better icon */
 node|z15-[man_made=communications_tower],
-{icon-image: mast-m.svg;}
+{icon-image: mast-s.svg;}
 
 node|z16-[barrier=lift_gate],
 area|z16-[barrier=lift_gate]
