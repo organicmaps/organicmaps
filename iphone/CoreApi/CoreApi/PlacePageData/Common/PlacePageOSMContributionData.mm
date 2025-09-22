@@ -33,7 +33,7 @@
     case MWMMapNodeStatusNotDownloaded:
     case MWMMapNodeStatusOnDiskOutOfDate:
     case MWMMapNodeStatusPartly:
-      BOOL needsToUpdateMap = !rawData.ShouldEnableAddPlace() || !rawData.ShouldEnableEditPlace();
+      BOOL needsToUpdateMap = !rawData.CanEditPlace();
       _state = needsToUpdateMap ? PlacePageOSMContributionStateShouldUpdateMap
                                 : PlacePageOSMContributionStateCanAddOrEditPlace;
       _showAddPlace = !needsToUpdateMap && shouldShowAddPlace;

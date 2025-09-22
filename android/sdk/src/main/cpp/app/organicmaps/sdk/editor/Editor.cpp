@@ -185,22 +185,13 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeShouldSh
   return g_framework->GetPlacePageInfo().ShouldShowAddPlace();
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeShouldEnableEditPlace(JNIEnv *, jclass)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeCanEditPlace(JNIEnv *, jclass)
 {
   ::Framework * frm = g_framework->NativeFramework();
   if (!frm->HasPlacePageInfo())
     return static_cast<jboolean>(false);
 
-  return g_framework->GetPlacePageInfo().ShouldEnableEditPlace();
-}
-
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeShouldEnableAddPlace(JNIEnv *, jclass)
-{
-  ::Framework * frm = g_framework->NativeFramework();
-  if (!frm->HasPlacePageInfo())
-    return static_cast<jboolean>(false);
-
-  return g_framework->GetPlacePageInfo().ShouldEnableAddPlace();
+  return g_framework->GetPlacePageInfo().CanEditPlace();
 }
 
 JNIEXPORT jintArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetEditableProperties(JNIEnv * env,
