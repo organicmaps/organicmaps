@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="Theme" />
+
+  <style name="Theme.SpeedLimitView" />
+
+  <style name="Theme.SpeedLimitView.Vienna">
+    <item name="speedLimitViewStyle">@style/SpeedLimitView.Vienna</item>
+  </style>
+
+  <style name="Theme.SpeedLimitView.Japan">
+    <item name="speedLimitViewStyle">@style/SpeedLimitView.Japan</item>
+  </style>
+
+  <style name="Theme.SpeedLimitView.Mutcd">
+    <item name="speedLimitViewStyle">@style/SpeedLimitView.Mutcd</item>
+  </style>
+
+  <style name="Theme.SpeedLimitView.Alert">
+    <item name="editModeAlert">true</item>
+  </style>
+</resources>

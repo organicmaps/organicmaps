@@ -18,7 +18,7 @@ import androidx.car.app.CarContext;
 import androidx.car.app.SurfaceContainer;
 import app.organicmaps.sdk.MapController;
 import app.organicmaps.sdk.util.log.Logger;
-import app.organicmaps.widget.SpeedLimitView;
+import app.organicmaps.sdk.widgets.roadsign.SpeedLimitView;
 
 @RequiresApi(23)
 class SurfaceCallback extends SurfaceCallbackBase

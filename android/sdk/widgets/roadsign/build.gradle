@@ -2,7 +2,7 @@ plugins {
   id 'com.android.library'
 }
 
-apply from: "${rootProject.rootDir}/config/common-config.gradle"
+apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 
 android {
   namespace 'app.organicmaps.sdk.widgets.roadsign'

@@ -5,9 +5,9 @@
 
   <style name="MwmWidget.ProgressWheel"/>
 
-  <style name="MwmWidget.SpeedLimit">
-    <item name="speedLimitAlertColor">@color/base_red</item>
-    <item name="speedLimitBorderColor">@color/base_red</item>
+  <style name="MwmWidget.SpeedLimit" parent="SpeedLimitView.Vienna">
+    <item name="backgroundAlertColor">@color/base_red</item>
+    <item name="outlineColor">@color/base_red</item>
   </style>
 
   <style name="MwmWidget.FrameLayout"/>
