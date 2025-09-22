@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Lisää paikka";
 "contribute_to_osm_update_map" = "Päivitä kartta osallistuaksesi";
 "contribute_to_osm_update_map_description" = "Sinun täytyy päivittää %@-kartta uusimpaan versioon ennen kuin voit osallistua OpenStreetMapin tietoihin";
+"placepage_replace_stop" = "Replace Stop";

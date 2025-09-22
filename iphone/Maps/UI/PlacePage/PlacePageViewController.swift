@@ -1,8 +1,8 @@
 protocol PlacePageViewProtocol: AnyObject {
   var interactor: PlacePageInteractorProtocol? { get set }
+  var view: UIView! { get }
 
   func setLayout(_ layout: IPlacePageLayout)
-  func closeAnimated(completion: (() -> Void)?)
   func updatePreviewOffset()
   func showNextStop()
   func layoutIfNeeded()
@@ -37,15 +37,13 @@ final class PlacePageScrollView: UIScrollView {
   }()
   var interactor: PlacePageInteractorProtocol?
   var beginDragging = false
-  var rootViewController: MapViewController {
-    MapViewController.shared()!
-  }
 
   private var previousTraitCollection: UITraitCollection?
   private var layout: IPlacePageLayout!
   private var scrollSteps: [PlacePageState] = []
-  var isPreviewPlus: Bool = false
   private var isNavigationBarVisible = false
+
+  var isPreviewPlus: Bool = false
 
   // MARK: - VC Lifecycle
 
@@ -111,7 +109,7 @@ final class PlacePageScrollView: UIScrollView {
     let state = gesture.state
     if state == .ended || state == .cancelled {
       if alpha < 0.8 {
-        closeAnimated()
+        interactor?.close()
       } else {
         UIView.animate(withDuration: kDefaultAnimationDuration) {
           self.view.minX = 0
@@ -273,9 +271,9 @@ final class PlacePageScrollView: UIScrollView {
       beginDragging = true
     }
     let scrollPosition = CGPoint(x: point.x, y: min(scrollView.contentSize.height - scrollView.height, point.y))
-    let bound = view.height + scrollPosition.y
+    let bound = view.frame.height + scrollPosition.y
     if animated {
-      updateTopBound(bound, duration: kDefaultAnimationDuration)
+      updateTopBound(bound)
       UIView.animate(withDuration: kDefaultAnimationDuration, animations: { [weak scrollView] in
         scrollView?.contentOffset = scrollPosition
         self.layoutIfNeeded()
@@ -296,9 +294,11 @@ final class PlacePageScrollView: UIScrollView {
     }
   }
 
-  private func updateTopBound(_ bound: CGFloat, duration: TimeInterval) {
+  private func updateTopBound(_ bound: CGFloat) {
     alternativeSizeClass(iPhone: {
-      interactor?.updateTopBound(bound, duration: duration)
+      let isCompact = traitCollection.verticalSizeClass == .compact
+      let insets = UIEdgeInsets(top: 0, left: 0, bottom: isCompact ? 0 : bound, right: 0)
+      self.interactor?.updateVisibleAreaInsets(insets)
     }, iPad: {})
   }
 }
@@ -341,23 +341,24 @@ extension PlacePageViewController: PlacePageViewProtocol {
   }
 
   @objc
-  func closeAnimated(completion: (() -> Void)? = nil) {
+  func close(completion: @escaping (() -> Void)) {
     view.isUserInteractionEnabled = false
+    let onCloseCompletion = {
+      self.updateTopBound(.zero)
+      completion()
+    }
     alternativeSizeClass(iPhone: {
       self.scrollTo(CGPoint(x: 0, y: -self.scrollView.height + 1),
-                    forced: true) {
-                self.rootViewController.dismissPlacePage()
-                completion?()
-      }
+                    forced: true,
+                    completion: onCloseCompletion)
     }, iPad: {
       UIView.animate(withDuration: kDefaultAnimationDuration,
                      animations: {
-                      let frame = self.view.frame
-                      self.view.minX = frame.minX - frame.width
-                      self.view.alpha = 0
-      }) { complete in
-        self.rootViewController.dismissPlacePage()
-        completion?()
+        let frame = self.view.frame
+        self.view.minX = frame.minX - frame.width
+        self.view.alpha = 0
+      }) { _ in
+        onCloseCompletion()
       }
     })
   }
@@ -372,12 +373,11 @@ extension PlacePageViewController: PlacePageViewProtocol {
 extension PlacePageViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     if scrollView.contentOffset.y < -scrollView.height + 1 && beginDragging {
-      closeAnimated()
+      interactor?.close()
     }
     onOffsetChanged(scrollView.contentOffset.y)
-
     let bound = view.height + scrollView.contentOffset.y
-    updateTopBound(bound, duration: 0)
+    updateTopBound(bound)
   }
 
   func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

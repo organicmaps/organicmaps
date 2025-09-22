@@ -1408,4 +1408,10 @@
     <string name="type.amenity.ranger_station">Poste de garde forestier</string>
     <string name="type.amenity.luggage_locker">Casier à bagages</string>
     <string name="type.leisure.escape_game">Jeu d’évasion</string>
+    <string name="type.barrier.wicket_gate">Portillon</string>
+    <string name="type.barrier.yes">Barrière</string>
+    <string name="type.building.guardhouse">Garde</string>
+    <string name="type.office.security">Bureau de sécurité</string>
+    <string name="type.power.portal">Tour de puissance (Portail)</string>
+    <string name="type.shop.lighting">Magasin d\'éclairage</string>
 </resources>

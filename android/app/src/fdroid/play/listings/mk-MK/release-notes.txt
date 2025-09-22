@@ -1,9 +1,13 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• OSM податоци 13 септ
+• Прикажи поштенски кодови
+• Нови икони кружни (Android Auto)
+• Отстранети мали острови
+• Поправено центрирање на картата
+• Бои на обележувачи во GPX
+• Продавници за осветлување
+• Граници на нац. паркови
+• Археолошки места од зум 12
+• Камп и каравани во навигација
+• Боја второстепен пат поправена
 
-…more at omaps.org/news
+…повеќе: omaps.org/news

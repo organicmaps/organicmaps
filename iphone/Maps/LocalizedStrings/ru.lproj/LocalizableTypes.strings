@@ -1504,3 +1504,4 @@
 "type.building.guardhouse" = "Сторож";
 "type.office.security" = "Охрана";
 "type.power.portal" = "Опора (Портал)";
+"type.shop.lighting" = "Магазин освещения";

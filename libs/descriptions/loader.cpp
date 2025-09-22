@@ -2,8 +2,6 @@
 
 #include "indexer/data_source.hpp"
 
-#include "base/assert.hpp"
-
 #include "defines.hpp"
 
 namespace descriptions
@@ -20,17 +18,28 @@ std::string Loader::GetWikiDescription(FeatureID const & featureId, std::vector<
   if (!value.m_cont.IsExist(DESCRIPTIONS_FILE_TAG))
     return {};
 
-  EntryPtr entry;
-  {
-    std::lock_guard<std::mutex> lock(m_mutex);
-    entry = m_deserializers.try_emplace(featureId.m_mwmId, std::make_shared<Entry>()).first->second;
-  }
+  // No need to have separate mutexes for each MWM since there is no concurrent Wiki pages reading.
+  // Pros: lock is called once and a simple logic with OnMwmDeregistered synchronization.
+  /// @todo Consider removing mutex at all or make wiki loading async (PlacePage info).
 
-  ASSERT(entry, ());
+  std::lock_guard lock(m_mutex);
+  Deserializer & deserializer = m_deserializers[featureId.m_mwmId];
 
   auto readerPtr = value.m_cont.GetReader(DESCRIPTIONS_FILE_TAG);
-
-  std::lock_guard<std::mutex> lock(entry->m_mutex);
-  return entry->m_deserializer.Deserialize(*readerPtr.GetPtr(), featureId.m_index, langPriority);
+  return deserializer.Deserialize(*readerPtr.GetPtr(), featureId.m_index, langPriority);
 }
+
+void Loader::OnMwmDeregistered(platform::LocalCountryFile const & countryFile)
+{
+  std::lock_guard lock(m_mutex);
+  for (auto it = m_deserializers.begin(); it != m_deserializers.end(); ++it)
+  {
+    if (it->first.IsDeregistered(countryFile))
+    {
+      m_deserializers.erase(it);
+      break;
+    }
+  }
+}
+
 }  // namespace descriptions

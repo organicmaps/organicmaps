@@ -1,31 +1,20 @@
-# Release Notes
+• NOU: Planificació de rutes redissenyada (més clara i àgil).
+• NOU: Es mostra el contingut de l'etiqueta OSM "description" (prova ?description a la cerca).
+• Dades d'OpenStreetMap del 13 de setembre.
+• S'han corregit diversos errors de CarPlay
+• Illes menors eliminades del mapa mundial.
+• Es mostra el codi postal en les adreces.
+• Centrat incorrecte del mapa corregit.
+• Els colors dels marcadors es conserven en exportar/importar GPX.
+• Traduccions actualitzades.
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+Estils de mapa:
+• Botigues d’il·luminació al mapa.
+• Línies elèctriques des del zoom 18.
+• Noms de centrals i subestacions.
+• Càmpings i zones de caravanes en mode navegació.
+• Color de carretera secundària corregit.
+• Límits de parcs nacionals.
+• Jaciments arqueològics des del zoom 12 (estil outdoor).
 
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+Cada donació o ressenya positiva motiva els voluntaris. Gràcies!

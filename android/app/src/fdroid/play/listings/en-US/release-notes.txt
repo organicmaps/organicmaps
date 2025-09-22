@@ -1,9 +1,13 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• OSM data as of September 13
+• Show Postcode/zip code for addresses
+• New roundabout icons in Android Auto
+• Removed minor islands from the World map
+• Fixed wrong map centering around the current position
+• Bookmark colors are preserved in GPX
+• Lighting shops
+• Draw national park borders
+• Draw archaeological sites from zoom 12 in outdoor mode
+• Show campsites and caravan sites in navigation mode
+• Fixed secondary highway color in navigation mode
 
 …more at omaps.org/news

@@ -1404,4 +1404,7 @@
     <string name="type.piste_type.sled">Траса для катання на санках</string>
     <string name="type.piste_type.sled.area">Траса для катання на санках</string>
     <string name="type.power">Сілавы</string>
+    <string name="type.barrier.yes">Бар\'ер</string>
+    <string name="type.building.guardhouse">Ахоўнік</string>
+    <string name="type.shop.lighting">Крама асвятлення</string>
 </resources>

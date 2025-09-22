@@ -242,6 +242,10 @@ line|z18-[highway=service][service=busway],
 line|z18-[highway=busway],
 {font-size: 12; text-color: @label_medium; text-halo-opacity: 1; text-halo-color: @label_halo_light;}
 
+/* Do not draw texts for highway-pedestrian-area */
+line|z13-[highway=pedestrian][area?],
+{text: none;}
+
 /* 8.OTHERS ROADS 15-22 ZOOM */
 
 line|z15-[highway=cycleway],
@@ -288,6 +292,10 @@ line|z18-[highway=path],
 line|z18-[highway=bridleway],
 line|z18-[highway=footway],
 {font-size: 10;}
+
+/* Do not draw texts for highway-footway-area */
+line|z15-[highway=footway][area?],
+{text: none;}
 
 /* 10.PISTE 15-22 ZOOM */
 

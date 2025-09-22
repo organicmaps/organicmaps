@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Voeg Plek By";
 "contribute_to_osm_update_map" = "Werk die Kaart By om By te Dra";
 "contribute_to_osm_update_map_description" = "Jy moet die %@ kaart na die nuutste weergawe bywerk voordat jy tot die OpenStreetMap-data kan bydra";
+"placepage_replace_stop" = "Replace Stop";

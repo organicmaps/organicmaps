@@ -832,4 +832,12 @@
     <string name="error_enter_correct_instagram_page">Insira um nome de usuário ou endereço web válido do Instagram</string>
     <string name="osm_note_hint">Ou então escreva uma nota para a comunidade OpenStreetMap para que outra pessoa possa adicionar ou corrigir um lugar aqui.</string>
     <string name="osm_note_toast">A nota será enviada para o OpenStreetMap</string>
+    <string name="button_layer_hiking">Caminhada</string>
+    <string name="button_layer_cycling">Ciclismo</string>
+    <string name="bookmarks_text_placement_title">Nomes de marcadores no mapa</string>
+    <string name="bookmarks_text_placement_description">Se houver muitos favoritos, a exibição de seus nomes no mapa pode deixar o aplicativo lento.</string>
+    <string name="show_to_the_right">Mostrar à direita</string>
+    <string name="show_at_the_bottom">Mostrar na parte inferior</string>
+    <string name="share_track">Compartilhar trilha</string>
+    <string name="delete_track_dialog_title">Excluir %s?</string>
 </resources>

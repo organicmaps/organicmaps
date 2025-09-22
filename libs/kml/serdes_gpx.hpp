@@ -106,8 +106,6 @@ private:
   std::string BuildDescription() const;
 };
 
-std::string_view MapGarminColor(uint32_t rgba);
-
 }  // namespace gpx
 
 class DeserializerGpx

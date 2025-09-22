@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Yer Ekle";
 "contribute_to_osm_update_map" = "Katkıda bulunmak için haritayı güncelle";
 "contribute_to_osm_update_map_description" = "%@ haritasını en son sürüme güncellemeniz gerekir; böylece OpenStreetMap verilerine katkıda bulunabilirsiniz";
+"placepage_replace_stop" = "Durağı Değiştir";

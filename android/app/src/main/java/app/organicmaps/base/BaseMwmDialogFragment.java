@@ -8,14 +8,13 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.DialogFragment;
 import app.organicmaps.R;
-import app.organicmaps.util.ThemeUtils;
 
 public class BaseMwmDialogFragment extends DialogFragment
 {
   @StyleRes
   protected final int getFullscreenTheme()
   {
-    return ThemeUtils.isNightTheme() ? getFullscreenDarkTheme() : getFullscreenLightTheme();
+    return R.style.MwmTheme_DialogFragment_Fullscreen;
   }
 
   protected int getStyle()
@@ -23,7 +22,8 @@ public class BaseMwmDialogFragment extends DialogFragment
     return STYLE_NORMAL;
   }
 
-  protected @StyleRes int getCustomTheme()
+  @StyleRes
+  protected int getCustomTheme()
   {
     return 0;
   }
@@ -38,18 +38,6 @@ public class BaseMwmDialogFragment extends DialogFragment
     if (style != STYLE_NORMAL || theme != 0)
       // noinspection WrongConstant
       setStyle(style, theme);
-  }
-
-  @StyleRes
-  protected int getFullscreenLightTheme()
-  {
-    return R.style.MwmTheme_DialogFragment_Fullscreen;
-  }
-
-  @StyleRes
-  protected int getFullscreenDarkTheme()
-  {
-    return R.style.MwmTheme_DialogFragment_Fullscreen_Night;
   }
 
   @NonNull

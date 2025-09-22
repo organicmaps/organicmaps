@@ -1,9 +1,13 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• 截至9月13日的OSM数据
+• 地址显示邮编
+• 新环岛图标 (Android Auto)
+• 移除世界地图小岛
+• 修复地图居中问题
+• 书签颜色保留在GPX
+• 照明商店
+• 绘制国家公园边界
+• 户外模式缩放12起考古点
+• 导航露营 & 旅居车点
+• 修复次级公路颜色
 
-…more at omaps.org/news
+…更多: omaps.org/news

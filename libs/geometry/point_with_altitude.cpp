@@ -1,6 +1,8 @@
 #include "geometry/point_with_altitude.hpp"
 
-#include "std/boost_container_hash.hpp"
+#include "geometry/mercator.hpp"
+
+#include <boost/functional/hash.hpp>
 
 #include <sstream>
 
@@ -24,6 +26,11 @@ bool PointWithAltitude::operator<(PointWithAltitude const & r) const
     return m_point < r.m_point;
 
   return m_altitude < r.m_altitude;
+}
+
+ms::LatLon PointWithAltitude::ToLatLon() const
+{
+  return ms::LatLon(mercator::YToLat(m_point.y), mercator::XToLon(m_point.x));
 }
 
 std::string DebugPrint(PointWithAltitude const & r)

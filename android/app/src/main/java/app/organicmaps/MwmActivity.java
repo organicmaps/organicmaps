@@ -40,7 +40,6 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StyleRes;
 import androidx.annotation.UiThread;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -80,6 +79,7 @@ import app.organicmaps.routing.RoutingPlanInplaceController;
 import app.organicmaps.sdk.ChoosePositionMode;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Map;
+import app.organicmaps.sdk.MapController;
 import app.organicmaps.sdk.MapRenderingListener;
 import app.organicmaps.sdk.PlacePageActivationListener;
 import app.organicmaps.sdk.Router;
@@ -130,10 +130,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class MwmActivity extends BaseMwmFragmentActivity
-    implements PlacePageActivationListener, View.OnTouchListener, MapRenderingListener, RoutingController.Container,
-               LocationListener, SensorListener, LocationState.ModeChangeListener,
-               RoutingPlanInplaceController.RoutingPlanListener, RoutingBottomMenuListener,
-               BookmarkManager.BookmarksLoadingListener, FloatingSearchToolbarController.SearchToolbarListener,
+    implements PlacePageActivationListener, MapRenderingListener, RoutingController.Container, LocationListener,
+               SensorListener, LocationState.ModeChangeListener, RoutingPlanInplaceController.RoutingPlanListener,
+               RoutingBottomMenuListener, BookmarkManager.BookmarksLoadingListener,
+               FloatingSearchToolbarController.SearchToolbarListener,
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
                PlacePageController.PlacePageRouteSettingsListener, MapButtonsController.MapButtonClickListener,
                DisplayChangedListener
@@ -163,8 +163,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private static final String POWER_SAVE_DISCLAIMER_SHOWN = "POWER_SAVE_DISCLAIMER_SHOWN";
 
-  @Nullable
-  private MapFragment mMapFragment;
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private MapController mMapController;
 
   private View mPointChooser;
   private Toolbar mPointChooserToolbar;
@@ -468,24 +469,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  @StyleRes
-  protected int getThemeResourceId(@NonNull String theme)
-  {
-    if (Config.UiTheme.isDefault(theme))
-      return R.style.MwmTheme_MainActivity;
-
-    if (Config.UiTheme.isNight(theme))
-      return R.style.MwmTheme_Night_MainActivity;
-
-    return super.getThemeResourceId(theme);
-  }
-
-  @Override
   public void onDisplayChangedToCar(@NonNull Runnable onTaskFinishedCallback)
   {
     mRemoveDisplayListener = false;
     startActivity(new Intent(this, MapPlaceholderActivity.class));
-    Objects.requireNonNull(mMapFragment).notifyOnSurfaceDestroyed(onTaskFinishedCallback);
+    mMapController.setOnDestroyListener(onTaskFinishedCallback);
     finish();
   }
 
@@ -559,7 +547,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     updateViewsInsets();
 
     if (getIntent().getBooleanExtra(EXTRA_UPDATE_THEME, false))
-      ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
+      ThemeSwitcher.INSTANCE.restart(mMapController.isRenderingActive());
 
     /*
      * onRenderingInitializationFinished() hook is not called when MwmActivity is recreated with the already
@@ -608,7 +596,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initViews(boolean isLaunchByDeeplink)
   {
-    initMap(isLaunchByDeeplink);
+    mMapController = new MapController(findViewById(R.id.map), MwmApplication.from(this).getLocationHelper(), this,
+                                       this::reportUnsupported, isLaunchByDeeplink);
+    getLifecycle().addObserver(mMapController);
+
     initNavigationButtons();
 
     if (!mIsTabletLayout)
@@ -722,16 +713,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void showPositionChooser(ChoosePositionMode mode, boolean isBusiness, boolean applyPosition)
   {
     closeFloatingToolbarsAndPanels(false);
-    if (mMapFragment != null)
-    {
-      final View mapView = mMapFragment.getView();
-      if (mapView != null)
-      {
-        int width = mapView.getWidth();
-        int height = mapView.getHeight();
-        Framework.nativeSetVisibleRect(0, 0, width, height);
-      }
-    }
     UiUtils.show(mPointChooser);
     mMapButtonsViewModel.setButtonsHidden(true);
     ChoosePositionMode.set(mode, isBusiness, applyPosition);
@@ -748,29 +729,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     refreshLightStatusBar();
     if (mode == ChoosePositionMode.Api)
       finish();
-  }
-
-  private void initMap(boolean isLaunchByDeepLink)
-  {
-    final FragmentManager manager = getSupportFragmentManager();
-    mMapFragment = (MapFragment) manager.findFragmentByTag(MapFragment.class.getName());
-    if (mMapFragment == null)
-    {
-      Bundle args = new Bundle();
-      args.putBoolean(Map.ARG_LAUNCH_BY_DEEP_LINK, isLaunchByDeepLink);
-      final FragmentFactory factory = manager.getFragmentFactory();
-      mMapFragment = (MapFragment) factory.instantiate(getClassLoader(), MapFragment.class.getName());
-      mMapFragment.setArguments(args);
-      manager.beginTransaction()
-          .replace(R.id.map_fragment_container, mMapFragment, MapFragment.class.getName())
-          .commit();
-    }
-
-    View container = findViewById(R.id.map_fragment_container);
-    if (container != null)
-    {
-      container.setOnTouchListener(this);
-    }
   }
 
   private void initNavigationButtons()
@@ -1075,7 +1033,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     setIntent(intent);
     super.onNewIntent(intent);
-    if (isMapRendererActive())
+    if (mMapController.isRenderingActive())
       processIntent();
     if (intent.getAction() != null && intent.getAction().equals(TrackRecordingService.STOP_TRACK_RECORDING))
     {
@@ -1085,17 +1043,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private boolean isMapRendererActive()
-  {
-    return mMapFragment != null && Map.isEngineCreated() && mMapFragment.isContextCreated();
-  }
-
   @CallSuper
   @Override
   protected void onResume()
   {
     super.onResume();
-    ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
+    ThemeSwitcher.INSTANCE.restart(mMapController.isRenderingActive());
     refreshSearchToolbar();
     setFullscreen(isFullscreen());
     makeNavigationBarTransparentInLightMode();
@@ -1111,15 +1064,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     refreshLightStatusBar();
 
     MwmApplication.from(this).getSensorHelper().addListener(this);
-  }
-
-  @Override
-  public void recreate()
-  {
-    // Explicitly destroy surface before activity recreation.
-    if (mMapFragment != null)
-      mMapFragment.destroySurface(true);
-    super.recreate();
   }
 
   @Override
@@ -1318,12 +1262,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return super.onGenericMotionEvent(event);
   }
 
-  @Override
-  public boolean onTouch(View view, MotionEvent event)
-  {
-    return mMapFragment != null && mMapFragment.onTouch(view, event);
-  }
-
   public void customOnNavigateUp()
   {
     if (removeCurrentFragment(true))
@@ -1339,10 +1277,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   void updateCompassOffset(int offsetY, int offsetX)
   {
-    if (mMapFragment == null || !mMapFragment.isAdded())
-      return;
-
-    mMapFragment.updateCompassOffset(offsetX, offsetY);
+    mMapController.updateCompassOffset(offsetX, offsetY);
 
     final double north = MwmApplication.from(this).getSensorHelper().getSavedNorth();
     if (!Double.isNaN(north))
@@ -1361,9 +1296,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void updateBottomWidgetsOffset(int offsetX)
   {
-    if (mMapFragment == null || !mMapFragment.isAdded())
-      return;
-
     int offsetY = mNavBarHeight;
     final Float bottomButtonHeight = mMapButtonsViewModel.getBottomButtonsHeight().getValue();
     if (bottomButtonHeight != null)
@@ -1378,8 +1310,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (mDisplayManager.isDeviceDisplayUsed())
     {
-      mMapFragment.updateBottomWidgetsOffset(offsetX, offsetY);
-      mMapFragment.updateMyPositionRoutingOffset(offsetY);
+      mMapController.updateBottomWidgetsOffset(offsetX, offsetY);
+      mMapController.updateMyPositionRoutingOffset(offsetY);
     }
   }
 
@@ -1597,7 +1529,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onNavigationCancelled()
   {
     closeFloatingToolbarsAndPanels(true);
-    ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
+    ThemeSwitcher.INSTANCE.restart(mMapController.isRenderingActive());
     if (mRoutingPlanInplaceController == null)
       return;
 
@@ -1613,7 +1545,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onNavigationStarted()
   {
     closeFloatingToolbarsAndPanels(true);
-    ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
+    ThemeSwitcher.INSTANCE.restart(mMapController.isRenderingActive());
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.navigation);
     refreshLightStatusBar();
 
@@ -1649,7 +1581,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onResetToPlanningState()
   {
     closeFloatingToolbarsAndPanels(true);
-    ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
+    ThemeSwitcher.INSTANCE.restart(mMapController.isRenderingActive());
     NavigationService.stopService(this);
     mMapButtonsViewModel.setSearchOption(null);
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.planning);
@@ -2458,5 +2390,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
         window.setNavigationBarContrastEnforced(false);
     }
+  }
+
+  private void reportUnsupported()
+  {
+    new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+        .setMessage(R.string.unsupported_phone)
+        .setCancelable(false)
+        .setPositiveButton(R.string.close, (dlg, which) -> this.moveTaskToBack(true))
+        .show();
   }
 }

@@ -1,9 +1,13 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• 13 सितम्बर तक OSM डेटा
+• पतों पर पिनकोड दिखाएँ
+• नए राउंडअबाउट आइकन (Android Auto)
+• छोटी द्वीप हटाए गए
+• मानचित्र केंद्र सुधार
+• बुकमार्क रंग GPX में
+• लाइटिंग दुकानें
+• राष्ट्रीय उद्यान सीमाएँ
+• पुरातात्विक स्थल ज़ूम 12
+• कैम्प व करावन साइट्स
+• सेकेंडरी हाईवे रंग ठीक
 
-…more at omaps.org/news
+…और: omaps.org/news

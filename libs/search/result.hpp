@@ -115,8 +115,6 @@ public:
   std::pair<uint16_t, uint16_t> const & GetDescHighlightRange(size_t idx) const;
   size_t GetDescHighlightRangesCount() const { return m_descHightlightRanges.size(); }
 
-  void PrependCity(std::string_view name);
-
   int32_t GetPositionInResults() const { return m_positionInResults; }
   void SetPositionInResults(int32_t pos) { m_positionInResults = pos; }
 

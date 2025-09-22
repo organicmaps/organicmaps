@@ -1,9 +1,13 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• OSM məlumatları: 13 sentyabr
+• Ünvanlarda poçt indeksi
+• Android Auto üçün yeni dairəvi yol ikonları
+• Xırda adalar silindi
+• Xəritə mərkəzləşməsi düzəldildi
+• Əlfəcin rəngləri GPX-də qalır
+• İşıqlandırma mağazaları
+• Milli park sərhədləri
+• Arxeoloji yerlər zoom 12-dən
+• Düşərgə və karvan yerləri
+• İkincil yol rəngi düzəldildi
 
-…more at omaps.org/news
+…daha çox: omaps.org/news

@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIFont *)bold28;
 + (UIFont *)bold36;
 + (UIFont *)semibold16;
++ (UIFont *)semibold17;
 
 @end
 NS_ASSUME_NONNULL_END

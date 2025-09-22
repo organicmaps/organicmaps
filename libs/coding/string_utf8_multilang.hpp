@@ -1,6 +1,4 @@
 #pragma once
-
-#include "coding/read_write_utils.hpp"
 #include "coding/varint.hpp"
 
 #include "base/assert.hpp"
@@ -181,6 +179,11 @@ public:
     else
       return false;
   }
+
+  /// @return Best matching translation by language priority (in the given order) or empty if no match.
+  std::string_view GetBestString(buffer_vector<int8_t, 4> const & preferredLangs) const;
+  /// @return First string.
+  std::string_view GetFirstString() const;
 
   bool HasString(int8_t lang) const;
 

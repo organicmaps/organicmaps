@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "เพิ่มสถานที่";
 "contribute_to_osm_update_map" = "อัปเดตแผนที่เพื่อมีส่วนร่วม";
 "contribute_to_osm_update_map_description" = "คุณต้องอัปเดตแผนที่ %@ เป็นเวอร์ชันล่าสุดก่อนจึงจะสามารถมีส่วนร่วมกับข้อมูล OpenStreetMap ได้";
+"placepage_replace_stop" = "Replace Stop";

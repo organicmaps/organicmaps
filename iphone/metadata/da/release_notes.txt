@@ -1,31 +1,20 @@
-# Release Notes
+• NYT: Ruteplanlægning helt redesignet (hurtigere og mere overskueligt).
+• NYT: Viser indholdet af OSM-tagget "description" (?description i søgefeltet for at teste).
+• OpenStreetMap-data pr. 13. september.
+• Rettet flere CarPlay-fejl
+• Små ubetydelige øer fjernet fra verdenskort.
+• Postnumre vises i adresser.
+• Forkert kortcentrering rettet.
+• Farver på bogmærker bevares ved GPX eksport/import.
+• Opdaterede oversættelser.
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+Kortstile:
+• Belysningsbutikker på kortet.
+• Højspændingsledninger fra zoom 18.
+• Navne på kraftværker og transformerstationer.
+• Camping- og caravanpladser i navigationstilstand.
+• Sekundær vejfarve rettet i navigation.
+• Nationalparkgrænser.
+• Arkæologiske steder fra zoom 12 (outdoor-stil).
 
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+Hver donation og god anmeldelse motiverer vores frivillige. Tak!

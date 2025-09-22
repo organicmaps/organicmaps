@@ -1,9 +1,13 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• OSM duomenys 09-13
+• Rodyti pašto kodą adresuose
+• Naujos žiedinės ikonėlės (Android Auto)
+• Pašalintos mažos salos
+• Ištaisyta žemėlapio centravimas
+• Žymelių spalvos GPX išlieka
+• Apšvietimo parduotuvės
+• Nacionalinių parkų ribos
+• Archeologija nuo mastelio 12
+• Stovyklos ir kemperių vietos
+• Antrinio kelio spalva pataisyta
 
-…more at omaps.org/news
+…daugiau: omaps.org/news

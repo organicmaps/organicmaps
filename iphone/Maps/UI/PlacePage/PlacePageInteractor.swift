@@ -1,23 +1,20 @@
 protocol PlacePageInteractorProtocol: AnyObject {
   func viewWillAppear()
   func viewWillDisappear()
-  func updateTopBound(_ bound: CGFloat, duration: TimeInterval)
+  func updateVisibleAreaInsets(_ insets: UIEdgeInsets)
+  func close()
 }
 
 class PlacePageInteractor: NSObject {
   var presenter: PlacePagePresenterProtocol?
-  weak var viewController: UIViewController?
-  weak var mapViewController: MapViewController?
   weak var trackActivePointPresenter: TrackActivePointPresenter?
 
   private let bookmarksManager = BookmarksManager.shared()
   private var placePageData: PlacePageData
   private var viewWillAppearIsCalledForTheFirstTime = false
 
-  init(viewController: UIViewController, data: PlacePageData, mapViewController: MapViewController) {
+  init(data: PlacePageData) {
     self.placePageData = data
-    self.viewController = viewController
-    self.mapViewController = mapViewController
     super.init()
     addToBookmarksManagerObserverList()
     subscribeOnTrackActivePointUpdatesIfNeeded()
@@ -38,13 +35,13 @@ class PlacePageInteractor: NSObject {
       break
     case .bookmark:
       guard let bookmarkData = placePageData.bookmarkData, bookmarksManager.hasBookmark(bookmarkData.bookmarkId) else {
-        presenter?.closeAnimated()
+        presenter?.close()
         return
       }
       updatePlacePage()
     case .track:
       guard let trackData = placePageData.trackData, bookmarksManager.hasTrack(trackData.trackId) else {
-        presenter?.closeAnimated()
+        presenter?.close()
         return
       }
       updatePlacePage()
@@ -93,8 +90,12 @@ extension PlacePageInteractor: PlacePageInteractorProtocol {
     unsubscribeFromTrackActivePointUpdates()
   }
 
-  func updateTopBound(_ bound: CGFloat, duration: TimeInterval) {
-    mapViewController?.setPlacePageTopBound(bound, duration: duration)
+  func updateVisibleAreaInsets(_ insets: UIEdgeInsets) {
+    presenter?.updateVisibleAreaInsets(insets)
+  }
+
+  func close() {
+    presenter?.close()
   }
 }
 
@@ -115,10 +116,6 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
 
   func didPressWebsiteMenu() {
     MWMPlacePageManagerHelper.openWebsiteMenu(placePageData)
-  }
-
-  func didPressWikipedia() {
-    MWMPlacePageManagerHelper.openWikipedia(placePageData)
   }
   
   func didPressWikimediaCommons() {
@@ -153,7 +150,7 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
     UIPasteboard.general.string = content
     let message = String(format: L("copied_to_clipboard"), content)
     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-    Toast.show(withText: message, alignment: .bottom)
+    presenter?.showToast(message)
   }
 
   func didPressOpenInApp(from sourceView: UIView) {
@@ -165,7 +162,7 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
     let openInAppActionSheet = UIAlertController.presentInAppActionSheet(from: sourceView, apps: availableApps) { [weak self] selectedApp in
       guard let self else { return }
       let link = selectedApp.linkWith(coordinates: self.placePageData.locationCoordinate, destinationName: self.placePageData.previewData.title)
-      self.mapViewController?.openUrl(link, externally: true)
+      self.presenter?.openURL(link)
     }
     presenter?.showAlert(openInAppActionSheet)
   }
@@ -176,6 +173,10 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
 extension PlacePageInteractor: WikiDescriptionViewControllerDelegate {
   func didPressMore() {
     MWMPlacePageManagerHelper.showPlaceDescription(placePageData.wikiDescriptionHtml)
+  }
+
+  func didPressWikipedia() {
+    MWMPlacePageManagerHelper.openWikipedia(placePageData)
   }
 }
 
@@ -191,11 +192,11 @@ extension PlacePageInteractor: PlacePageOSMContributionViewControllerDelegate {
   }
 
   func didPressUpdateMap() {
-    startDownloading()
+    startMapDownloading()
   }
 
   func didPressOSMInfo() {
-    viewController?.openUrl("https://welcome.openstreetmap.org", externally: true)
+    presenter?.openURL("https://welcome.openstreetmap.org")
   }
 }
 
@@ -248,10 +249,10 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
         showPhoneNumberPicker(phones, handler: MWMPlacePageManagerHelper.call)
       }
     case .download:
-      startDownloading()
+      startMapDownloading()
     case .opentable:
       fatalError("Opentable is not supported and will be deleted")
-    case .routeAddStop:
+    case .routeAddStop, .routeReplaceStop:
       MWMPlacePageManagerHelper.routeAddStop(placePageData)
     case .routeFrom:
       MWMPlacePageManagerHelper.route(from: placePageData)
@@ -269,8 +270,6 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       fatalError("More button should've been handled in ActionBarViewContoller")
     case .track:
       guard placePageData.trackData != nil else { return }
-      // TODO: (KK) This is temporary solution. Remove the dialog and use the MWMPlacePageManagerHelper.removeTrack
-      // directly here when the track recovery mechanism will be implemented.
       showTrackDeletionConfirmationDialog()
     case .saveTrackRecording:
       // TODO: (KK) pass name typed by user
@@ -279,7 +278,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
         case .success:
           break
         case .trackIsEmpty:
-          self?.presenter?.closeAnimated()
+          self?.presenter?.close()
         }
       }
     @unknown default:
@@ -287,7 +286,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
     }
   }
 
-  private func startDownloading() {
+  private func startMapDownloading() {
     guard let mapNodeAttributes = placePageData.mapNodeAttributes else {
       fatalError("Download button can't be displayed if mapNodeAttributes is empty")
     }
@@ -311,22 +310,15 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
         fatalError("The track data should not be nil during the track deletion")
       }
       MWMPlacePageManagerHelper.removeTrack(self.placePageData)
-      self.presenter?.closeAnimated()
+      self.presenter?.close()
     }
     let cancelAction = UIAlertAction(title: L("cancel"), style: .cancel)
     alert.addAction(deleteAction)
     alert.addAction(cancelAction)
-    guard let viewController else { return }
-    iPadSpecific {
-      alert.popoverPresentationController?.sourceView = viewController.view
-      alert.popoverPresentationController?.sourceRect = viewController.view.frame
-    }
-    viewController.present(alert, animated: true)
+    presenter?.showAlert(alert)
   }
 
   private func showPhoneNumberPicker(_ phones: [PlacePagePhone], handler: @escaping (PlacePagePhone) -> Void) {
-    guard let viewController else { return }
-
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     phones.forEach({phone in
       alert.addAction(UIAlertAction(title: phone.phone, style: .default, handler: { _ in
@@ -334,8 +326,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       }))
     })
     alert.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
-
-    viewController.present(alert, animated: true)
+    presenter?.showAlert(alert)
   }
 }
 
@@ -357,7 +348,7 @@ extension PlacePageInteractor: ElevationProfileViewControllerDelegate {
 
 extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
   func previewDidPressClose() {
-    presenter?.closeAnimated()
+    presenter?.close()
   }
 
   func previewDidPressExpand() {
@@ -365,21 +356,7 @@ extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
   }
 
   func previewDidPressShare(from sourceView: UIView) {
-    guard let mapViewController else { return }
-    switch placePageData.objectType {
-    case .POI, .bookmark:
-      let shareViewController = ActivityViewController.share(forPlacePage: placePageData)
-      shareViewController.present(inParentViewController: mapViewController, anchorView: sourceView)
-    case .track:
-      presenter?.showShareTrackMenu()
-    default:
-      guard let coordinates = LocationManager.lastLocation()?.coordinate else {
-        viewController?.present(UIAlertController.unknownCurrentPosition(), animated: true, completion: nil)
-        return
-      }
-      let activity = ActivityViewController.share(forMyPosition: coordinates)
-      activity.present(inParentViewController: mapViewController, anchorView: sourceView)
-    }
+    presenter?.showShareSheet(for: placePageData, from: sourceView)
   }
 
   func previewDidPressExportTrack(_ type: KmlFileType, from sourceView: UIView) {
@@ -387,26 +364,22 @@ extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
       fatalError("Track data should not be nil during the track export")
     }
     bookmarksManager.shareTrack(trackId, fileType: type) { [weak self] status, url in
-      guard let self, let mapViewController else { return }
+      guard let self else { return }
       switch status {
       case .success:
         guard let url else { fatalError("Invalid sharing url") }
         let shareViewController = ActivityViewController.share(for: url, message: self.placePageData.previewData.title!) { _,_,_,_ in
           self.bookmarksManager.finishSharing()
         }
-        shareViewController.present(inParentViewController: mapViewController, anchorView: sourceView)
+        self.presenter?.showActivity(shareViewController, from: sourceView)
       case .emptyCategory:
-        self.showAlert(withTitle: L("bookmarks_error_title_share_empty"),
-                        message: L("bookmarks_error_message_share_empty"))
+        self.presenter?.showInfoAlert(title: L("bookmarks_error_title_share_empty"),
+                                      message: L("bookmarks_error_message_share_empty"))
       case .archiveError, .fileError:
-        self.showAlert(withTitle: L("dialog_routing_system_error"),
-                        message: L("bookmarks_error_message_share_general"))
+        self.presenter?.showInfoAlert(title: L("dialog_routing_system_error"),
+                                      message: L("bookmarks_error_message_share_general"))
       }
     }
-  }
-
-  private func showAlert(withTitle title: String, message: String) {
-    MWMAlertViewController.activeAlert().presentInfoAlert(title, text: message)
   }
 }
 
@@ -419,8 +392,7 @@ extension PlacePageInteractor: BookmarksObserver {
   func onBookmarksCategoryDeleted(_ groupId: MWMMarkGroupID) {
     guard let bookmarkGroupId = placePageData.bookmarkData?.bookmarkGroupId else { return }
     if bookmarkGroupId == groupId {
-      presenter?.closeAnimated()
+      presenter?.close()
     }
   }
 }
-

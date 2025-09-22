@@ -1,31 +1,20 @@
-# Release Notes
+• 新機能: ルート計画を再設計 (経由地操作がより直感的で高速)。
+• 新機能: 地図上オブジェクトの OSM "description" タグ内容を表示 (?description を検索でテスト)。
+• 2024年9月13日時点の OpenStreetMap データ。
+• CarPlayのバグをいくつか修正
+• 世界地図から小さな島を整理。
+• 住所に郵便番号を表示。
+• 現在位置周辺の誤った再センタリングを修正。
+• ブックマーク色は GPX 入出力で保持されます。
+• 翻訳を更新。
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+マップスタイル:
+• 照明ショップを表示。
+• ズーム18から送電線を表示。
+• 発電所・変電所の参照名称。
+• ナビゲーションモードでキャンプ/カラバン地点表示。
+• ナビで第二道路の色を修正。
+• 国立公園境界を描画。
+• アウトドアスタイルでズーム12から遺跡表示。
 
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+寄付と高評価が私たちのボランティアの励みです。ありがとうございます！

@@ -1498,8 +1498,9 @@
 "type.amenity.ranger_station" = "Správci parku";
 "type.amenity.luggage_locker" = "Úschovná skříňka";
 "type.leisure.escape_game" = "Úniková hra";
-"type.barrier.wicket_gate" = "Wicket Gate";
-"type.barrier.yes" = "Barrier";
-"type.building.guardhouse" = "Guard";
-"type.office.security" = "Security Office";
-"type.power.portal" = "Power Tower (Portal)";
+"type.barrier.wicket_gate" = "Vjezdová brána";
+"type.barrier.yes" = "Bariéra";
+"type.building.guardhouse" = "Strážce";
+"type.office.security" = "Bezpečnostní agentura";
+"type.power.portal" = "Energetická věž (portál)";
+"type.shop.lighting" = "Obchod s osvětlením";

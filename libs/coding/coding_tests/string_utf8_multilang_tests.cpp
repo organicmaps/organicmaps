@@ -6,14 +6,13 @@
 
 #include <utf8.h>
 
-#include <cstddef>
 #include <string>
 #include <vector>
 
+namespace string_utf8_multilang_tests
+{
 using namespace std;
 
-namespace
-{
 struct lang_string
 {
   char const * m_lang;
@@ -51,7 +50,6 @@ void TestMultilangString(lang_string const * arr, size_t count)
   string_view test;
   TEST(!s.GetString("xxx", test), ());
 }
-}  // namespace
 
 UNIT_TEST(MultilangString_Smoke)
 {
@@ -261,3 +259,23 @@ UNIT_TEST(MultilangString_Buffers)
   TEST(ss.GetString(StringUtf8Multilang::kInternationalCode, test), ());
   TEST_EQUAL(test, "blabla", ());
 }
+
+UNIT_TEST(MultilangString_GetBest)
+{
+  StringUtf8Multilang s;
+  s.AddString("ru", "ру_строка");
+  s.AddString("en", "en_string");
+  s.AddString("default", "default");
+
+  auto res = s.GetBestString(
+      {StringUtf8Multilang::kAltNameCode, StringUtf8Multilang::kDefaultCode, StringUtf8Multilang::kEnglishCode});
+  TEST_EQUAL(res, "default", ());
+
+  res = s.GetBestString({StringUtf8Multilang::kAltNameCode});
+  TEST(res.empty(), ());
+
+  res = s.GetFirstString();
+  TEST_EQUAL(res, "ру_строка", ());
+}
+
+}  // namespace string_utf8_multilang_tests

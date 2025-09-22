@@ -755,6 +755,10 @@ line|z16-[highway=service][bridge?]::bridgeblack
 line|z16-[highway=pedestrian][bridge?]::bridgeblack,
 {casing-width-add: 0.6;}
 
+/* Do not draw highway-pedestrian-area like lines, but keep z13 lines so as not to break routing */
+line|z14-[highway=pedestrian][area?],
+{width: 0;}
+
 /* 8.4 Cycleway 13-22 ZOOM */
 
 line|z13[highway=cycleway],
@@ -989,6 +993,12 @@ line|z15-[highway=footway][bridge?]::bridgewhite
 {casing-width-add: 0.5;}
 line|z17-[highway=footway][bridge?]::bridgeblack
 {casing-width-add: 1;}
+
+/* Do not draw highway-footway-area like lines, but keep z13 lines so as not to break routing */
+line|z13[highway=footway][area?],
+{color: @pedestrian; opacity: 0.85; width: 1; dashes: 2,1;}
+line|z14-[highway=footway][area?],
+{width: 0;}
 
 /* 8.8 Steps 15-22 ZOOM */
 
@@ -1491,9 +1501,9 @@ line|z17-[aerialway=platter]::dash,
 line|z17-[aerialway=rope_tow]::dash,
 {width: 4; dashes: 1,22; opacity: 1;}
 
-line|z19-[power=line],
+line|z18-[power=line],
 {color: @powerline; width: 1; opacity: 0.4;}
-line|z19-[power=line]::dash,
+line|z18-[power=line]::dash,
 {color: @powerline; width: 4; opacity: 0.5; dashes: 1,80;}
 
 /* 10.3 Piste & Route 14-22 ZOOM */

@@ -43,7 +43,12 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *, NSString *);
 + (void)addPoint:(MWMRoutePoint *)point;
 + (void)removePoint:(MWMRoutePoint *)point;
 + (void)addPointAndRebuild:(MWMRoutePoint *)point;
++ (void)continueRouteToPointAndRebuild:(MWMRoutePoint *)point;
 + (void)removePointAndRebuild:(MWMRoutePoint *)point;
++ (void)replacePointAndRebuild:(MWMRoutePoint *)point withPoint:(MWMRoutePoint *)newPoint;
+/// Swaps start and finish points and rebuilds the route.
+/// If there is only start or finish point, it becomes the opposite.
++ (void)swapStartAndFinish;
 + (void)removePoints;
 
 + (void)buildFromPoint:(MWMRoutePoint *)start bestRouter:(BOOL)bestRouter;

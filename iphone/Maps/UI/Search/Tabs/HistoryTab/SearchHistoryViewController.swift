@@ -1,4 +1,4 @@
-protocol SearchHistoryViewControllerDelegate: SearchOnMapScrollViewDelegate {
+protocol SearchHistoryViewControllerDelegate: UIScrollViewDelegate {
   func searchHistoryViewController(_ viewController: SearchHistoryViewController,
                                    didSelect query: String)
 }
@@ -117,7 +117,7 @@ extension SearchHistoryViewController: UITableViewDelegate {
   }
 
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    delegate?.scrollViewDidScroll(scrollView)
+    delegate?.scrollViewDidScroll?(scrollView)
   }
 }
 

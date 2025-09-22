@@ -1,31 +1,20 @@
-# Release Notes
+• 新：重新設計的路線規劃（更直觀更快速調整經過點）。
+• 新：顯示地圖要素的 OSM「description」標籤內容（搜尋輸入 ?description 測試）。
+• 截至 9 月 13 日的 OpenStreetMap 資料。
+• 修復了數個 CarPlay 錯誤
+• 移除世界地圖上次要小島。
+• 地址顯示郵遞區號。
+• 修正圍繞目前位置的地圖置中錯誤。
+• 匯出/匯入 GPX 時保留書籤顏色。
+• 更新多語翻譯。
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+地圖樣式：
+• 顯示照明商店。
+• 縮放 18 起顯示高壓線。
+• 顯示電廠與變電所參考名稱。
+• 導航模式顯示露營與旅居車地點。
+• 修正導航模式次要公路顏色。
+• 繪製國家公園邊界。
+• 戶外樣式縮放 12 起顯示考古遺址。
 
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+每一次捐款與好評都激勵志工改進地圖，感謝！

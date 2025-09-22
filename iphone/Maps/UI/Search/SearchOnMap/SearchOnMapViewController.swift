@@ -5,12 +5,6 @@ protocol SearchOnMapView: AnyObject {
 }
 
 @objc
-protocol SearchOnMapScrollViewDelegate: AnyObject {
-  func scrollViewDidScroll(_ scrollView: UIScrollView)
-  func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>)
-}
-
-@objc
 protocol ModallyPresentedViewController: AnyObject {
   @objc func presentationFrameDidChange(_ frame: CGRect)
 }
@@ -18,6 +12,7 @@ protocol ModallyPresentedViewController: AnyObject {
 final class SearchOnMapViewController: UIViewController {
   typealias ViewModel = SearchOnMap.ViewModel
   typealias Content = SearchOnMap.ViewModel.Content
+  typealias StepsController = ModalPresentationStepsController<SearchOnMapModalPresentationStep>
 
   fileprivate enum Constants {
     static let estimatedRowHeight: CGFloat = 80
@@ -40,33 +35,30 @@ final class SearchOnMapViewController: UIViewController {
   private var dimView: UIView?
 
   private var internalScrollViewContentOffset: CGFloat = .zero
-  private let presentationStepsController = ModalPresentationStepsController()
+  private var presentationStepsController: StepsController!
   private var searchResults = SearchOnMap.SearchResults([])
 
   // MARK: - Init
   init() {
     super.init(nibName: nil, bundle: nil)
-    configureModalPresentation()
+    self.configureModalPresentation()
   }
 
   private func configureModalPresentation() {
     guard let mapViewController = MapViewController.shared() else {
       fatalError("MapViewController is not available")
     }
-    presentationStepsController.set(presentedView: availableAreaView, containerViewController: self)
-    presentationStepsController.didUpdateHandler = presentationUpdateHandler
-
+    let stepsController = StepsController(presentedView: availableAreaView,
+                                          containerViewController: self,
+                                          stepStrategy: SearchOnMapModalPresentationStepStrategy(),
+                                          currentStep: .hidden,
+                                          didUpdateHandler: presentationUpdateHandler)
+    presentationStepsController = stepsController
     mapViewController.searchContainer.addSubview(view)
     mapViewController.addChild(self)
     view.frame = mapViewController.searchContainer.bounds
     view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     didMove(toParent: mapViewController)
-
-    let affectedAreaViews = [
-      mapViewController.sideButtonsArea,
-      mapViewController.trafficButtonArea,
-    ]
-    affectedAreaViews.forEach { $0?.addAffectingView(availableAreaView) }
   }
 
   @available(*, unavailable)
@@ -245,8 +237,7 @@ final class SearchOnMapViewController: UIViewController {
 
   // MARK: - Handle Presentation Steps
   private func updateFrameOfPresentedViewInContainerView() {
-    presentationStepsController.updateMaxAvailableFrame()
-    availableAreaView.frame = presentationStepsController.currentFrame
+    presentationStepsController.updateFrame()
     view.layoutIfNeeded()
   }
 
@@ -264,7 +255,7 @@ final class SearchOnMapViewController: UIViewController {
     presentationStepsController.handlePan(gesture)
   }
 
-  private var presentationUpdateHandler: (ModalPresentationStepsController.StepUpdate) -> Void {
+  private var presentationUpdateHandler: (ModalPresentationStepsController<SearchOnMapModalPresentationStep>.StepUpdate) -> Void {
     { [weak self] update in
       guard let self else { return }
       switch update {
@@ -272,11 +263,19 @@ final class SearchOnMapViewController: UIViewController {
         self.interactor?.handle(.closeSearch)
       case .didUpdateFrame(let frame):
         self.presentationFrameDidChange(frame)
+        self.interactor?.handle(.updateVisibleAreaInsets(visibleAreaInsets(for: frame)))
         self.updateDimView(for: frame)
       case .didUpdateStep(let step):
         self.interactor?.handle(.didUpdatePresentationStep(step))
       }
     }
+  }
+
+  private func visibleAreaInsets(for frame: CGRect) -> UIEdgeInsets {
+    let isCompact = traitCollection.verticalSizeClass == .compact
+    let bottom = (isCompact || isiPad) ? 0 : frame.height - frame.origin.y
+    let left = isiPad ? frame.origin.x + frame.width : 0
+    return UIEdgeInsets(top: 0, left: left, bottom: bottom, right: 0)
   }
 
   private func updateDimView(for frame: CGRect) {
@@ -450,7 +449,7 @@ extension SearchOnMapViewController: SearchOnMapHeaderViewDelegate {
   }
 
   func grabberDidTap() {
-    interactor?.handle(.didUpdatePresentationStep(.fullScreen))
+    interactor?.handle(.didUpdatePresentationStep(.expanded))
   }
 }
 
@@ -476,15 +475,14 @@ extension SearchOnMapViewController: UIGestureRecognizerDelegate {
   }
 }
 
-// MARK: - SearchOnMapScrollViewDelegate
-extension SearchOnMapViewController: SearchOnMapScrollViewDelegate {
+// MARK: - ScrollViewDelegate
+extension SearchOnMapViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    let hasReachedTheTop = Int(availableAreaView.frame.origin.y) > Int(presentationStepsController.maxAvailableFrame.origin.y)
-    let hasZeroContentOffset = internalScrollViewContentOffset == 0
-    if hasReachedTheTop && hasZeroContentOffset {
-      // prevent the internal scroll view scrolling
-      scrollView.contentOffset.y = internalScrollViewContentOffset
-      return
+    let hasContainerReachedTheTop = Int(availableAreaView.frame.origin.y) > Int(presentationStepsController.maxAvailableFrame.origin.y)
+    let scrollViewHasZeroContentOffset = internalScrollViewContentOffset == 0
+    let shouldLockScrollView = hasContainerReachedTheTop && scrollViewHasZeroContentOffset
+    if shouldLockScrollView {
+      scrollView.contentOffset.y = 0
     }
     internalScrollViewContentOffset = scrollView.contentOffset.y
   }

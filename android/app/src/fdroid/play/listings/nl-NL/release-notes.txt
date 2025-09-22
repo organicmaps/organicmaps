@@ -1,9 +1,13 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• OSM-data t/m 13 sept
+• Postcode tonen bij adressen
+• Nieuwe rotonde-iconen (Android Auto)
+• Kleine eilanden verwijderd
+• Onjuiste kaartcentrering gefixt
+• Bladwijzerkleuren blijven in GPX
+• Verlichtingswinkels
+• Grenzen nationale parken
+• Archeologie vanaf zoom 12 (outdoor)
+• Campings & caravanplaatsen navigatie
+• Kleur secundaire weg hersteld
 
-…more at omaps.org/news
+…meer: omaps.org/news

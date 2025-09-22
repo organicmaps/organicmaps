@@ -21,7 +21,6 @@ public final class Map
     void report();
   }
 
-  public static final String ARG_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
   private static final String TAG = Map.class.getSimpleName();
 
   // Should correspond to android::MultiTouchAction from Framework.cpp
@@ -220,11 +219,10 @@ public final class Map
       mMapRenderingListener.onRenderingRestored();
   }
 
-  public void onSurfaceDestroyed(boolean activityIsChangingConfigurations, boolean isAdded)
+  public void onSurfaceDestroyed(boolean activityIsChangingConfigurations)
   {
-    Logger.d(TAG, "mSurfaceCreated = " + mSurfaceCreated + ", mSurfaceAttached = " + mSurfaceAttached
-                      + ", isAdded = " + isAdded);
-    if (!mSurfaceCreated || !mSurfaceAttached || !isAdded)
+    Logger.d(TAG, "mSurfaceCreated = " + mSurfaceCreated + ", mSurfaceAttached = " + mSurfaceAttached);
+    if (!mSurfaceCreated || !mSurfaceAttached)
       return;
 
     nativeDetachSurface(!activityIsChangingConfigurations);
@@ -261,7 +259,7 @@ public final class Map
     nativeSetRenderingInitializationFinishedListener(null);
   }
 
-  public void onPause(final Context context)
+  public void onPause()
   {
     mUiThemeOnPause = Config.UiTheme.getCurrent();
 

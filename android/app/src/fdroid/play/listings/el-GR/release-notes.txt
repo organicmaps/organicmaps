@@ -1,9 +1,13 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• Δεδομένα OSM 13 Σεπ
+• Εμφάνιση ταχυδρομικού κώδικα
+• Νέα εικονίδια κυκλικών (Android Auto)
+• Μικρά νησιά αφαιρέθηκαν
+• Διόρθωση κεντραρίσματος χάρτη
+• Χρώματα σελιδοδεικτών στο GPX
+• Καταστήματα φωτισμού
+• Όρια εθνικών πάρκων
+• Αρχαιολογικοί χώροι από zoom 12
+• Κάμπινγκ & τροχόσπιτα πλοήγηση
+• Χρώμα δευτ. οδών διορθώθηκε
 
-…more at omaps.org/news
+…περισσότερα: omaps.org/news

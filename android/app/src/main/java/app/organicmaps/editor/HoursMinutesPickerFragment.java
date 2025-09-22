@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
-import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.FragmentManager;
@@ -21,7 +20,6 @@ import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.sdk.editor.data.HoursMinutes;
 import app.organicmaps.sdk.util.DateUtils;
-import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
@@ -78,15 +76,13 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     // noinspection ConstantConditions
     mTabs.getTabAt(mSelectedTab).select();
 
-    @StyleRes
-    final int theme = ThemeUtils.isNightTheme() ? R.style.MwmMain_DialogFragment_TimePicker_Night
-                                                : R.style.MwmMain_DialogFragment_TimePicker;
-    final AlertDialog dialog = new MaterialAlertDialogBuilder(requireActivity(), theme)
-                                   .setView(root)
-                                   .setNegativeButton(R.string.cancel, null)
-                                   .setPositiveButton(R.string.ok, null)
-                                   .setCancelable(true)
-                                   .create();
+    final AlertDialog dialog =
+        new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmMain_DialogFragment_TimePicker)
+            .setView(root)
+            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(R.string.ok, null)
+            .setCancelable(true)
+            .create();
 
     dialog.setOnShowListener(dialogInterface -> {
       mOkButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
@@ -140,9 +136,8 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     mTabs = root.findViewById(R.id.tabs);
     TextView tabView = (TextView) inflater.inflate(R.layout.tab_timepicker, mTabs, false);
     tabView.setText(getResources().getString(R.string.editor_time_from));
-    final ColorStateList textColor = AppCompatResources.getColorStateList(
-        requireContext(),
-        ThemeUtils.isNightTheme() ? R.color.accent_color_selector_night : R.color.accent_color_selector);
+    final ColorStateList textColor =
+        AppCompatResources.getColorStateList(requireContext(), R.color.accent_color_selector);
     tabView.setTextColor(textColor);
     mTabs.addTab(mTabs.newTab().setCustomView(tabView), true);
     tabView = (TextView) inflater.inflate(R.layout.tab_timepicker, mTabs, false);

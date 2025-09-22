@@ -171,32 +171,20 @@ final class CarPlayMapViewController: MWMViewController {
   }
 
   private func updateVisibleViewPortToPreviewState() {
-    let viewBounds = view.bounds
-    let previewWidth = self.view.frame.width * 0.45
-    let navigationHeight: CGFloat = 45.0
-    var frame = CGRect.zero
-    let origin = isLeftWheelCar ? CGPoint(x: previewWidth, y: navigationHeight) : CGPoint(x: 0, y: navigationHeight)
-    frame.origin = origin
-    frame.size = CGSize(width: viewBounds.width - origin.x,
-                        height: viewBounds.height - origin.y)
-    FrameworkHelper.setVisibleViewport(frame, scaleFactor: mapView?.contentScaleFactor ?? 1)
+    updateVisibleViewPort(frame: view.frame.inset(by: view.safeAreaInsets))
   }
 
   private func updateVisibleViewPortToNavigationState() {
-    let viewBounds = view.bounds
-    let previewWidth = viewBounds.width * 0.45
-    let mapControlsWidth = viewBounds.width * 0.15
-    let navigationHeight: CGFloat = 45.0
-    var frame = CGRect.zero
-    let origin = isLeftWheelCar ? CGPoint(x: previewWidth, y: navigationHeight) : CGPoint(x: 0, y: navigationHeight)
-    frame.origin = origin
-    frame.size = CGSize(width: viewBounds.width - (origin.x + mapControlsWidth),
-                        height: viewBounds.height - origin.y)
-    FrameworkHelper.setVisibleViewport(frame, scaleFactor: mapView?.contentScaleFactor ?? 1)
+    updateVisibleViewPort(frame: view.frame.inset(by: view.safeAreaInsets))
   }
 
   private func updateVisibleViewPortToDefaultState() {
-    FrameworkHelper.setVisibleViewport(view.bounds, scaleFactor: mapView?.contentScaleFactor ?? 1)
+    updateVisibleViewPort(frame: view.bounds)
+  }
+
+  private func updateVisibleViewPort(frame: CGRect) {
+    guard CarPlayService.shared.isCarplayActivated else { return }
+    FrameworkHelper.setVisibleViewport(frame, scaleFactor: mapView?.contentScaleFactor ?? 1)
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

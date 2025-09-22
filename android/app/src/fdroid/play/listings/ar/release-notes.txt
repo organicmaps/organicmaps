@@ -1,9 +1,13 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• بيانات OSM حتى 13 سبتمبر
+• عرض الرمز البريدي للعناوين
+• رموز دوارات جديدة (Android Auto)
+• إزالة جزر صغيرة من خريطة العالم
+• إصلاح تمركز الخريطة حول الموقع
+• ألوان العلامات تبقى في GPX
+• متاجر إضاءة
+• حدود المتنزهات الوطنية
+• مواقع أثرية من تكبير 12 (خارجي)
+• مخيمات وكرفانات في الملاحة
+• إصلاح لون الطرق الثانوية
 
-…more at omaps.org/news
+…المزيد: omaps.org/ar/news

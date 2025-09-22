@@ -44,7 +44,7 @@ struct LocalityItem
     return GetName(lang, name) || GetName(StringUtf8Multilang::kDefaultCode, name);
   }
 
-  bool GetReadableName(std::string_view & name) const
+  bool GetReadableName(std::string & name) const
   {
     auto const mwmInfo = m_id.m_mwmId.GetInfo();
     if (!mwmInfo)
@@ -74,21 +74,14 @@ public:
 
   void operator()(LocalityItem const & item);
 
-  template <typename Fn>
-  bool WithBestLocality(Fn && fn) const
-  {
-    if (!m_locality)
-      return false;
-    fn(*m_locality);
-    return true;
-  }
+  LocalityItem const * Get() const { return m_locality; }
 
 private:
   m2::PointD const m_p;
 
-  bool m_inside = false;
   double m_score = std::numeric_limits<double>::max();
   LocalityItem const * m_locality = nullptr;
+  bool m_inside = false;
 };
 
 class LocalityFinder
@@ -121,8 +114,7 @@ public:
   LocalityFinder(DataSource const & dataSource, CitiesBoundariesTable const & boundaries,
                  VillagesCache & villagesCache);
 
-  template <typename Fn>
-  bool GetLocality(m2::PointD const & p, Fn && fn)
+  LocalityItem const * GetBestLocality(m2::PointD const & p)
   {
     m2::RectD const crect = m_cities.GetRect(p);
     m2::RectD const vrect = m_villages.GetRect(p);
@@ -133,7 +125,7 @@ public:
     m_cities.ForEachInVicinity(crect, selector);
     m_villages.ForEachInVicinity(vrect, selector);
 
-    return selector.WithBestLocality(std::forward<Fn>(fn));
+    return selector.Get();
   }
 
   void ClearCache();

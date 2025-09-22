@@ -285,7 +285,6 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */), kMaxTrafficCacheSizeBytes,
                      m_routingManager.RoutingSession())
   , m_lastReportedCountry(kInvalidCountryId)
-  , m_popularityLoader(m_featuresFetcher.GetDataSource(), POPULARITY_RANKS_FILE_TAG)
   , m_descriptionsLoader(std::make_unique<descriptions::Loader>(m_featuresFetcher.GetDataSource()))
 {
   // Editor should be initialized from the main thread to set its ThreadChecker.
@@ -454,7 +453,7 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
     m_transitManager.OnMwmDeregistered(localFile);
     m_isolinesManager.OnMwmDeregistered(localFile);
     m_trafficManager.OnMwmDeregistered(localFile);
-    m_popularityLoader.OnMwmDeregistered(localFile);
+    m_descriptionsLoader->OnMwmDeregistered(localFile);
 
     m_storage.DeleteCustomCountryVersion(localFile);
   };
@@ -714,7 +713,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
 
   info.SetFromFeatureType(ft);
 
-  FillDescription(ft, info);
+  FillDescriptions(ft, info);
 
   auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();
   bool const isMapVersionEditable = CanEditMapForPosition(info.GetMercator());
@@ -3273,10 +3272,11 @@ void Framework::SetPlacePageLocation(place_page::Info & info)
   }
 }
 
-void Framework::FillDescription(FeatureType & ft, place_page::Info & info) const
+void Framework::FillDescriptions(FeatureType & ft, place_page::Info & info) const
 {
   if (!ft.GetID().m_mwmId.IsAlive())
     return;
+
   auto const & regionData = ft.GetID().m_mwmId.GetInfo()->GetRegionData();
   auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentMapLanguage());
   auto const langPriority = feature::GetDescriptionLangPriority(regionData, deviceLang);
@@ -3288,6 +3288,26 @@ void Framework::FillDescription(FeatureType & ft, place_page::Info & info) const
     info.SetOpeningMode(m_routingManager.IsRoutingActive() ? place_page::OpeningMode::Preview
                                                            : place_page::OpeningMode::PreviewPlus);
   }
+
+  std::string_view const osmDescriptionValue = ft.GetMetadata(feature::Metadata::FMD_DESCRIPTION);
+  if (osmDescriptionValue.empty())
+    return;
+
+  buffer_vector<int8_t, 4> langCodes;
+  for (auto const & lang : languages::GetSystemPreferred())
+  {
+    auto const code = StringUtf8Multilang::GetLangIndex(languages::Normalize(lang));
+    if (code != StringUtf8Multilang::kUnsupportedLanguageCode)
+      langCodes.push_back(code);
+  }
+  langCodes.push_back(StringUtf8Multilang::kDefaultCode);
+  langCodes.push_back(StringUtf8Multilang::kEnglishCode);
+
+  auto const osmDescriptionMultilang = StringUtf8Multilang::FromBuffer(std::string(osmDescriptionValue));
+  std::string_view osmDescription = osmDescriptionMultilang.GetBestString(langCodes);
+  if (osmDescription.empty())
+    osmDescription = osmDescriptionMultilang.GetFirstString();
+  info.SetOSMDescription(std::string(osmDescription));
 }
 
 void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)

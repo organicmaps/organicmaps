@@ -509,12 +509,17 @@ line|z18-[historic=citywalls],
 line|z18-[man_made=embankment],
 {font-size: 10;}
 
-/* 6.WATER */
+/* 6.WATER
+  Treat landuse=reservoir same as natural=water.
+  It is deprectated and will be replaced with natural=water=reservoir.
+*/
 
 node|z1-[place=ocean],
 node|z4-[place=sea],
-area|z10-[landuse=reservoir][bbox_area>=4000000],
-area|z10-[natural=water][!tunnel][bbox_area>=4000000],
+area|z10-13[landuse=reservoir][bbox_area>=4000000],
+area|z10-13[natural=water][!tunnel][bbox_area>=4000000],
+area|z14-[landuse=reservoir],
+area|z14-[natural=water][!tunnel],
 line|z11-[waterway=river],
 line|z13-[waterway=stream],
 line|z13-[waterway=canal],
@@ -524,13 +529,11 @@ node|z14-[natural=strait],
 node|z14-[natural=bay],
 node|z16-[natural=wetland],
 area|z16-[natural=wetland],
-{text:name;text-color: @water_label;}
+{text: name; text-color: @water_label;}
 
-area|z10-[natural=water][!tunnel][bbox_area<4000000],
-{text:name;text-color: @water_label;}
-
-area|z12-[landuse=reservoir][bbox_area<4000000],
-{text:name;text-color: @water_label;}
+area|z10-13[landuse=reservoir][bbox_area<4000000],
+area|z10-13[natural=water][!tunnel][bbox_area<4000000],
+{text: none;}
 
 /*6.1 Area water(ocean,sea,lake,pond etc.)*/
 
@@ -546,14 +549,11 @@ node|z5-[place=ocean]
 node|z4-[place=sea]
 {font-size: 12;}
 
-area|z10-[landuse=reservoir][bbox_area>=4000000],
-area|z10-13[natural=water][!tunnel][bbox_area>=4000000],
+area|z10-[landuse=reservoir],
+area|z10-[natural=water][!tunnel],
 {font-size: 9;}
-area|z12-[landuse=reservoir][bbox_area<4000000],
-area|z10-13[natural=water][!tunnel][bbox_area<4000000],
-{text: none;}
 
-/*only render caption z17-*/
+/* only render caption z17- */
 area|z10-16[natural=water][water=moat],
 area|z10-16[natural=water][water=ditch],
 area|z10-16[natural=water][water=drain],
@@ -562,18 +562,15 @@ area|z10-16[natural=water][water=wastewater],
 
 node|z14-15[natural=bay],
 node|z14-15[natural=strait],
-area|z14-15[natural=water][!tunnel][bbox_area>=4000000],
-{font-size: 10;}
-area|z14-15[natural=water][!tunnel][bbox_area<4000000],
+area|z14-15[natural=water][!tunnel],
+area|z14-15[landuse=reservoir],
 {font-size: 10;}
 
 node|z16-[natural=bay],
 node|z16-[natural=strait],
-node|z16-[natural=wetland],
-area|z16-[natural=water][!tunnel][bbox_area>=4000000],
 area|z16-[natural=wetland],
-{font-size: 11;}
-area|z16-[natural=water][!tunnel][bbox_area<4000000],
+area|z16-[natural=water][!tunnel],
+area|z16-[landuse=reservoir],
 {font-size: 11;}
 
 /* 6.2 Line water(river,canal etc.) Do not draw tunnel waterways */

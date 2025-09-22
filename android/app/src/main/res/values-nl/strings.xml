@@ -628,8 +628,8 @@
     <string name="privacy_policy">Privacybeleid</string>
     <string name="terms_of_use">Gebruiksvoorwaarden</string>
     <string name="button_layer_traffic">Verkeer</string>
-    <string name="button_layer_hiking">Wandelen</string>
-    <string name="button_layer_cycling">Fietsen</string>
+    <string name="button_layer_hiking">Wandel</string>
+    <string name="button_layer_cycling">Fiets</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Kaartstijlen en -lagen</string>
     <string name="bookmarks_empty_list_title">Deze lijst is leeg</string>
@@ -653,8 +653,8 @@
     <string name="power_managment_setting_never">Nooit</string>
     <string name="power_managment_setting_auto">Wanneer batterij bijna leeg is</string>
     <string name="power_managment_setting_manual_max">Maximale energiebesparing</string>
-    <string name="enable_logging_warning_message">Deze optie is ingeschakeld voor logboekregistraties voor diagnostische doeleinden. Het helpt bij het identificeren van problemen met de applicatie. Schakel de optie alleen in op verzoek van Organic Maps-ondersteuning.</string>
-    <string name="driving_options_title">Route-instellingen</string>
+    <string name="enable_logging_warning_message">Schakel deze optie tijdelijk in om gedetailleerde logboekregistraties omtrent jouw probleem op te slaan en te verzenden tijdens \" Rapporteer een probleem\" in het help menu. Schakel deze optie alleen in op verzoek van Organic Maps ondersteuning.</string>
+    <string name="driving_options_title">Route instellingen</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Vermijd tolwegen</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -664,11 +664,11 @@
     <string name="avoid_motorways">Vermijd snelwegen</string>
     <string name="unable_to_calc_alert_title">Kan route niet berekenen</string>
     <string name="unable_to_calc_alert_subtitle">Helaas konden we geen route berekenen. Dit kan komen door uw gekozen opties of door incomplete OpenStreetMap-data. Wijzig de instellingen en probeer het opnieuw.</string>
-    <string name="define_to_avoid_btn">Configureer wegen om te vermijden</string>
+    <string name="define_to_avoid_btn">Definieer wegen om te vermijden</string>
     <string name="change_driving_options_btn">Route-instellingen ingeschakeld</string>
     <string name="toll_road">Tolweg</string>
     <string name="unpaved_road">Onverharde weg</string>
-    <string name="ferry_crossing">Veerboot</string>
+    <string name="ferry_crossing">Veerbootverbinding</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Ja</string>
     <!-- A generic "No" button in dialogs -->
@@ -724,7 +724,7 @@
     <string name="transit_not_found">Metro-navigatie is nog niet beschikbaar in deze regio</string>
     <string name="dialog_pedestrian_route_is_long_header">Geen metroroute gevonden</string>
     <string name="dialog_pedestrian_route_is_long_message">Kies een begin- of eindpunt dichter bij het metrostation</string>
-    <string name="button_layer_isolines">Hoogtes</string>
+    <string name="button_layer_isolines">Contourlijnen</string>
     <string name="isolines_activation_error_dialog">Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden</string>
     <string name="isolines_location_error_dialog">Hoogtelijnen zijn nog niet beschikbaar in deze regio</string>
     <string name="elevation_profile_ascent">Stijging</string>
@@ -734,7 +734,7 @@
     <string name="elevation_profile_difficulty">Moeilijkheid</string>
     <string name="elevation_profile_distance">Afst.:</string>
     <string name="elevation_profile_time">Tijd:</string>
-    <string name="isolines_toast_zooms_1_10">Zoom in om hoogtelijnen te bekijken</string>
+    <string name="isolines_toast_zooms_1_10">Zoom in om hoogte/dal lijnen te bekijken</string>
     <string name="downloader_loading_ios">Downloaden</string>
     <string name="download_map_title">Download de wereldoverzichtskaart</string>
     <!-- Used in DownloadResources startup screen -->
@@ -757,7 +757,7 @@
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Kaartgegevens van OpenStreetMap</string>
     <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
-    <string name="translated_om_site_url">https://organicmaps.app/nl/</string>
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F</string>
     <!-- App Tip #00 -->
@@ -765,7 +765,7 @@
     <!-- App tip #01 -->
     <string name="app_tip_01">Met uw donaties en steun kunnen we de beste kaarten ter wereld maken!</string>
     <!-- App tip #02 -->
-    <string name="app_tip_02">Vind je onze app leuk? Doneer alsjeblieft om de ontwikkeling te ondersteunen! Vind je het nog niet leuk? Laat het ons weten, dan lossen we het op!</string>
+    <string name="app_tip_02">Vind je onze app leuk? Doneer alstublieft om de ontwikkeling te ondersteunen! Vind je het nog niet leuk? Laat het ons weten, dan lossen we het op!</string>
     <!-- App tip #03 -->
     <string name="app_tip_03">Als u een softwareontwikkelaar kent, kunt u hem of haar vragen een functie te implementeren die u nodig heeft.</string>
     <!-- App tip #04 -->
@@ -799,7 +799,7 @@
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Geef toestemming</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">Wandelen</string>
+    <string name="button_layer_outdoor">Buiten</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">Webbrowser is niet beschikbaar</string>
     <string name="volume">Volume</string>
@@ -819,7 +819,7 @@
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Bekijk menu</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
-    <string name="open_in_app">Openen in een andere app</string>
+    <string name="open_in_app">Openen in een andere applicatie</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Zelfbediening</string>
     <string name="select_option">Selecteer optie</string>

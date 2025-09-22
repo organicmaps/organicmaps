@@ -1409,4 +1409,10 @@
     <string name="type.amenity.ranger_station">Лісництво</string>
     <string name="type.amenity.luggage_locker">Камера схову</string>
     <string name="type.leisure.escape_game">Кімната втечі</string>
+    <string name="type.barrier.wicket_gate">Ворота-хвіртка</string>
+    <string name="type.barrier.yes">Бар\'єр</string>
+    <string name="type.building.guardhouse">Охоронець</string>
+    <string name="type.office.security">Офіс безпеки</string>
+    <string name="type.power.portal">Силова вежа (Портал)</string>
+    <string name="type.shop.lighting">Магазин освітлення</string>
 </resources>

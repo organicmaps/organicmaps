@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Ongeza mahali";
 "contribute_to_osm_update_map" = "Sasisha ramani ili kuchangia";
 "contribute_to_osm_update_map_description" = "Unahitaji kusasisha ramani ya %@ hadi toleo jipya zaidi kabla ya kuchangia kwenye data ya OpenStreetMap";
+"placepage_replace_stop" = "Replace Stop";

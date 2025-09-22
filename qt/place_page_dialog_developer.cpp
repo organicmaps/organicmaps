@@ -13,9 +13,7 @@
 
 #include <string>
 
-PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page::Info const & info,
-                                                   search::ReverseGeocoder::Address const & address)
-  : QDialog(parent)
+PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page::Info const & info) : QDialog(parent)
 {
   QVBoxLayout * layout = new QVBoxLayout();
   QGridLayout * grid = new QGridLayout();
@@ -51,7 +49,7 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
   if (auto const & subTitle = info.GetSubtitle(); !subTitle.empty())
     addEntry("Subtitle", subTitle);
 
-  addEntry("Address", address.FormatAddress());
+  addEntry("Address", info.GetAddress());
 
   if (info.IsBookmark())
   {

@@ -1,9 +1,13 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• 9月13日時点のOSMデータ
+• 住所に郵便番号表示
+• 新しいラウンドアバウトアイコン(Android Auto)
+• 小さな島を世界地図から削除
+• 現在地中心がずれる不具合修正
+• ブックマーク色はGPXに保持
+• 照明ショップ
+• 国立公園境界を描画
+• ズーム12から遺跡表示(アウトドア)
+• ナビでキャンプ/カラバン地点
+• 第二道路の色修正
 
-…more at omaps.org/news
+…詳細: omaps.org/news

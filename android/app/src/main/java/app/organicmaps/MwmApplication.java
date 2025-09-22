@@ -147,8 +147,8 @@ public class MwmApplication extends Application implements Application.ActivityL
 
   public boolean initOrganicMaps(@NonNull Runnable onComplete) throws IOException
   {
+    ThemeSwitcher.INSTANCE.initialize(this);
     return mOrganicMaps.init(() -> {
-      ThemeSwitcher.INSTANCE.initialize(this);
       ThemeSwitcher.INSTANCE.restart(false);
       ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
       onComplete.run();

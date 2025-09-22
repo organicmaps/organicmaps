@@ -26,28 +26,14 @@ using namespace std;
 
 namespace
 {
-class SkipRegionInfo
+class SkipRegionInfo : public ftypes::BaseChecker
 {
-  static size_t const kCount = 2;
-  uint32_t m_types[kCount];
-
 public:
-  SkipRegionInfo()
+  SkipRegionInfo() : ftypes::BaseChecker(2)
   {
-    base::StringIL arr[] = {{"place", "continent"}, {"place", "country"}};
-    static_assert(kCount == ARRAY_SIZE(arr), "");
-
     Classificator const & c = classif();
-    for (size_t i = 0; i < kCount; ++i)
-      m_types[i] = c.GetTypeByPath(arr[i]);
-  }
-
-  bool IsSkip(uint32_t type) const
-  {
-    for (uint32_t t : m_types)
-      if (t == type)
-        return true;
-    return false;
+    m_types.push_back(c.GetTypeByPath({"place", "continent"}));
+    m_types.push_back(c.GetTypeByPath({"place", "country"}));
   }
 };
 }  // namespace
@@ -183,11 +169,10 @@ RankerResult::RankerResult(m2::PointD const & coord, string_view postcode)
   m_region.SetParams({}, coord);
 }
 
-bool RankerResult::GetCountryId(storage::CountryInfoGetter const & infoGetter, uint32_t ftype,
-                                storage::CountryId & countryId) const
+bool RankerResult::GetCountryId(storage::CountryInfoGetter const & infoGetter, storage::CountryId & countryId) const
 {
-  static SkipRegionInfo const checker;
-  if (checker.IsSkip(ftype))
+  static SkipRegionInfo checker;
+  if (checker(GetBestType()))
     return false;
   return m_region.GetCountryId(infoGetter, countryId);
 }

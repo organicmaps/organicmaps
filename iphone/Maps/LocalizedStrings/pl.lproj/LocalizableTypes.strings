@@ -1499,7 +1499,8 @@
 "type.leisure.escape_game" = "Pokój zagadek";
 "type.amenity.ranger_station" = "Stacja Straży Leśnej";
 "type.barrier.wicket_gate" = "Wicket Gate";
-"type.barrier.yes" = "Barrier";
-"type.building.guardhouse" = "Guard";
-"type.office.security" = "Security Office";
+"type.barrier.yes" = "Bariera";
+"type.building.guardhouse" = "Strażnik";
+"type.office.security" = "Biuro ochrony";
 "type.power.portal" = "Power Tower (Portal)";
+"type.shop.lighting" = "Sklep z oświetleniem";

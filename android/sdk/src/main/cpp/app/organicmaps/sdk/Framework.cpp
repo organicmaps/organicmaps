@@ -1242,16 +1242,32 @@ JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_Framework_nativeGetRouteFollo
   return CreateRoutingInfo(env, info, rm);
 }
 
-JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_Framework_nativeGetRouteJunctionPoints(JNIEnv * env, jclass)
+JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_Framework_nativeGetRouteJunctionPoints(JNIEnv * env, jclass,
+                                                                                               jdouble maxDistM)
 {
-  vector<geometry::PointWithAltitude> junctionPoints;
-  if (!frm()->GetRoutingManager().RoutingSession().GetRouteJunctionPoints(junctionPoints))
+  vector<geometry::PointWithAltitude> points;
+  if (!frm()->GetRoutingManager().RoutingSession().GetRouteJunctionPoints(points))
   {
     LOG(LWARNING, ("Can't get the route junction points"));
     return nullptr;
   }
 
-  return CreateJunctionInfoArray(env, junctionPoints);
+  vector<geometry::PointWithAltitude> result;
+  result.reserve(points.size());
+  result.push_back(points[0]);
+  for (size_t i = 1; i < points.size(); ++i)
+  {
+    double const dist = ms::DistanceOnEarth(points[i - 1].ToLatLon(), points[i].ToLatLon());
+    if (dist > maxDistM)
+    {
+      int const steps = static_cast<int>(dist / maxDistM) + 1;
+      for (int s = 1; s < steps; ++s)
+        result.push_back(points[i - 1].Interpolate(points[i], static_cast<double>(s) / steps));
+    }
+    result.push_back(points[i]);
+  }
+
+  return CreateJunctionInfoArray(env, result);
 }
 
 JNIEXPORT jintArray JNICALL Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitudeChartBits(

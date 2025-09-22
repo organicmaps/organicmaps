@@ -1498,8 +1498,9 @@
 "type.amenity.ranger_station" = "Σταθμός δασοφύλακα";
 "type.amenity.luggage_locker" = "Ντουλάπι αποσκευών";
 "type.leisure.escape_game" = "Δωμάτιο απόδρασης";
-"type.barrier.wicket_gate" = "Wicket Gate";
-"type.barrier.yes" = "Barrier";
-"type.building.guardhouse" = "Guard";
-"type.office.security" = "Security Office";
-"type.power.portal" = "Power Tower (Portal)";
+"type.barrier.wicket_gate" = "Πόρτα πεζών";
+"type.barrier.yes" = "Εμπόδιο";
+"type.building.guardhouse" = "Φυλάκιο";
+"type.office.security" = "Εταιρεία φύλαξης";
+"type.power.portal" = "Πυλώνας ρεύματος (πύλη)";
+"type.shop.lighting" = "Κατάστημα φωτιστικών";

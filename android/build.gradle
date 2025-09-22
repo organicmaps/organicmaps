@@ -2,8 +2,8 @@ import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id 'com.android.application' version '8.11.0' apply false
-    id 'com.android.library' version '8.11.0' apply false
+    id 'com.android.application' version '8.13.0' apply false
+    id 'com.android.library' version '8.13.0' apply false
 }
 
 def run(cmd) {
@@ -25,4 +25,50 @@ rootProject.ext {
     def ver = getVersion()
     versionCode = ver.V1
     versionName = ver.V2
+}
+
+subprojects {
+    tasks.withType(JavaCompile).configureEach {
+        options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
+    }
+}
+
+tasks.register("lintAllModules") {
+    group = "verification"
+    description = "Run lint on all modules and produce a merged report"
+
+    // Run all submodules' lint tasks
+    dependsOn(subprojects.collect { p ->
+        p.tasks.named("lint")
+    })
+
+    doLast {
+        def reportsDir = file("$rootDir/build/reports/lint")
+        reportsDir.mkdirs()
+
+        def mergedReport = new File(reportsDir, "lint.xml")
+        // start of merged XML
+        mergedReport.text = '<?xml version="1.0" encoding="UTF-8"?>\n<issues format="6">'
+
+        subprojects.each { p ->
+            // Find any lint-results*.xml in this module
+            def reportFiles = p.layout.buildDirectory.dir("reports").get().asFileTree.matching {
+                include "**/lint-results*.xml"
+            }
+
+            reportFiles.each { reportFile ->
+                println "Merging report from: ${reportFile}"
+                def content = reportFile.getText("UTF-8")
+                // strip XML prolog and root tags
+                content = content
+                    .replaceFirst(/<\?xml.*?\?>/, "")
+                    .replaceAll("<issues.*?>", "")
+                    .replaceAll("</issues>", "")
+                mergedReport.append(content)
+            }
+        }
+
+        mergedReport.append("</issues>")
+        println "✅ Merged lint report written to: $mergedReport"
+    }
 }

@@ -1,9 +1,13 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• Data OSM 13 Sept
+• Papar poskod alamat
+• Ikon bulatan baharu (Android Auto)
+• Pulau kecil dibuang
+• Pusat peta dibetulkan
+• Warna penanda kekal dalam GPX
+• Kedai pencahayaan
+• Sempadan taman negara
+• Tapak arkeologi dari zum 12
+• Tapak kem & karavan
+• Warna jalan sekunder dibetul
 
-…more at omaps.org/news
+…lagi: omaps.org/news

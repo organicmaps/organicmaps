@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "場所を追加";
 "contribute_to_osm_update_map" = "地図を更新して貢献する";
 "contribute_to_osm_update_map_description" = "OpenStreetMap データに貢献する前に、%@ の地図を最新バージョンに更新する必要があります";
+"placepage_replace_stop" = "Replace Stop";

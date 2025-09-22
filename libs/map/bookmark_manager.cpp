@@ -2240,7 +2240,10 @@ void BookmarkManager::UpdateBookmark(kml::MarkId bmID, kml::BookmarkData const &
   ASSERT(bookmark->GetGroupId() != kml::kInvalidMarkGroupId, ());
 
   if (prevColor != bookmark->GetColor())
+  {
+    bookmark->InvalidateRGBAColor();
     SetLastEditedBmColor(bookmark->GetColor());
+  }
 }
 
 void BookmarkManager::ChangeTrackColor(kml::TrackId trackId, dp::Color color)

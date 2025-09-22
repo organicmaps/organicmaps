@@ -24,9 +24,9 @@ public enum CarDirection
   U_TURN_LEFT(R.drawable.ic_turn_uleft, R.drawable.ic_then_uleft),
   U_TURN_RIGHT(R.drawable.ic_turn_uright, R.drawable.ic_then_uright),
 
-  ENTER_ROUND_ABOUT(R.drawable.ic_turn_round, R.drawable.ic_then_round),
-  LEAVE_ROUND_ABOUT(R.drawable.ic_turn_round, R.drawable.ic_then_round),
-  STAY_ON_ROUND_ABOUT(R.drawable.ic_turn_round, R.drawable.ic_then_round),
+  ENTER_ROUND_ABOUT(R.drawable.ic_turn_round, R.drawable.ic_turn_round),
+  LEAVE_ROUND_ABOUT(R.drawable.ic_turn_round, R.drawable.ic_turn_round),
+  STAY_ON_ROUND_ABOUT(R.drawable.ic_turn_round, R.drawable.ic_turn_round),
 
   START_AT_THE_END_OF_STREET(0, 0),
   REACHED_YOUR_DESTINATION(R.drawable.ic_turn_finish, R.drawable.ic_then_finish),
@@ -51,7 +51,6 @@ public enum CarDirection
   public void setTurnDrawable(@NonNull ImageView imageView)
   {
     imageView.setImageResource(mTurnRes);
-    imageView.setRotation(0.0f);
   }
 
   public void setNextTurnDrawable(@NonNull ImageView imageView)

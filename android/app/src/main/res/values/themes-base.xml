@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-  <!-- Default theme -->
-  <style name="MwmTheme.Base" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+  <style name="MwmTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
     <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
     <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
     <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
@@ -48,8 +47,8 @@
     <item name="navNextTurnFrame">@drawable/bg_nav_next_turn</item>
     <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn</item>
     <item name="navLanesBackgroundColor">@color/base_accent</item>
-    <item name="navLaneArrowActiveColor">@color/nav_lane_arrow_active_light</item>
-    <item name="navLaneArrowInactiveColor">@color/nav_lane_arrow_inactive_light</item>
+    <item name="navLaneArrowActiveColor">@color/nav_lane_arrow_active</item>
+    <item name="navLaneArrowInactiveColor">@color/nav_lane_arrow_inactive</item>
 
     <item name="buttonBackground">@drawable/button</item>
     <item name="buttonTextColor">@color/button_text</item>
@@ -81,19 +80,11 @@
 
     <item name="routingButtonHint">@color/routing_button_tint</item>
 
-    <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
-
     <item name="android:listDivider">@drawable/list_divider</item>
 
     <item name="transitPedestrianBackground">@color/black_4</item>
     <item name="transitRulerBackground">@color/black_4</item>
     <item name="transitStepDivider">@drawable/dot_divider</item>
-    <item name="outdoorsMenuIcon">@drawable/ic_layers_outdoors_light</item>
-    <item name="isolinesMenuIcon">@drawable/ic_layers_isoline_light</item>
-    <item name="hikingMenuIcon">@drawable/ic_layers_hiking_light</item>
-    <item name="cyclingMenuIcon">@drawable/ic_layers_cycling_light</item>
-    <item name="subwayMenuIcon">@drawable/ic_layers_subway_light</item>
-    <item name="trafficMenuIcon">@drawable/ic_layers_traffic_inactive</item>
     <item name="accentColorSelector">@color/accent_color_selector</item>
     <item name="android:textAppearance">@style/TextAppearance</item>
     <item name="android:textAppearanceSmall">@style/TextAppearance.Small</item>
@@ -132,134 +123,5 @@
     <item name="bottomSheetStyle">@style/MwmWidget.BottomSheet</item>
     <!-- Theme used for bottom sheet dialog components -->
     <item name="bottomSheetDialogTheme">@style/MwmTheme.BottomSheetDialog</item>
-  </style>
-
-  <!-- Night theme -->
-  <style name="MwmTheme.Night.Base" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-    <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
-    <item name="materialCalendarFullscreenTheme">@style/MwmWidget.MaterialCalendar.Theme.FullScreen.Dark</item>
-    <item name="materialCalendarTheme">@style/MwmWidget.MaterialCalendar.Theme.Dark</item>
-    <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
-    <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
-    <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item>
-
-    <item name="android:textColorPrimary">@color/text_light</item>
-    <item name="android:textColorPrimaryInverse">@color/text_dark</item>
-    <item name="android:textColorSecondary">@color/text_light_subtitle</item>
-    <item name="android:windowBackground">?windowBackgroundForced</item>
-    <item name="android:colorPrimaryDark">@color/bg_primary_dark_night</item>
-    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
-    <item name="android:fontFamily">@string/robotoRegular</item>
-    <item name="android:colorBackgroundCacheHint">@null</item>
-    <item name="android:windowActionBarOverlay">true</item>
-    <item name="clickableBackground">?selectableItemBackground</item>
-    <item name="android:statusBarColor">?colorPrimary</item>
-    <item name="android:windowTranslucentNavigation">false</item>
-
-    <item name="alertDialogTheme">@style/MwmTheme.Night.AlertDialog</item>
-    <item name="windowBackgroundForced">@color/bg_window_night</item>
-    <item name="cardBackground">@color/bg_cards_night</item>
-    <item name="titleDialogTheme">@color/white_primary</item>
-    <item name="textDialogTheme">@color/white_secondary</item>
-    <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen.Night</item>
-    <item name="colorPrimary">@color/bg_primary_night</item>
-    <item name="colorControlNormal">?secondary</item>
-    <item name="colorAccent">@color/base_accent_night</item>
-    <item name="colorAccentTransparent">@color/base_accent_transparent</item>
-    <item name="colorBtnHighlight">@color/white_24</item>
-    <item name="panel">@color/bg_panel_night</item>
-    <item name="colorLogo">@color/white_primary</item>
-    <item name="iconTint">@color/white_secondary</item>
-    <item name="iconTintDisabled">@color/white_12</item>
-    <item name="iconTintActive">@color/yellow</item>
-    <item name="iconTintLight">@color/icon_tint_light_night</item>
-
-    <item name="secondary">@color/text_light_hint</item>
-    <item name="dividerHorizontal">@color/divider_night</item>
-
-    <item name="ppBackground">@color/bg_cards_night</item>
-    <item name="ppButtonsBackground">@color/bg_window_night</item>
-    <item name="ppFloatingMarkerIconColor">@color/white_54</item>
-
-    <item name="navNextTurnFrame">@drawable/bg_nav_next_turn_night</item>
-    <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn_night</item>
-    <item name="navLanesBackgroundColor">@color/base_accent_night</item>
-    <item name="navLaneArrowActiveColor">@color/nav_lane_arrow_active_night</item>
-    <item name="navLaneArrowInactiveColor">@color/nav_lane_arrow_inactive_night</item>
-
-    <item name="buttonBackground">@drawable/button_night</item>
-    <item name="buttonTextColor">@color/button_text_night</item>
-    <item name="buttonTextColorDisabled">@color/button_text_disabled_night</item>
-    <item name="buttonDialogTextColor">@color/base_accent_night</item>
-
-    <item name="accentButtonBackground">@drawable/button_accent_night</item>
-    <item name="accentButtonTextColor">@color/button_accent_text_night</item>
-    <!-- TODO: remove accentButtonTextColorDisabled attribute and use everywhere
-               accentButtonTextColor selector -->
-    <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled_night</item>
-
-    <item name="redButtonBackground">@drawable/button_red</item>
-    <item name="redButtonTextColor">@color/button_red_text</item>
-    <item name="redButtonTextColorDisabled">@color/button_red_text_disabled</item>
-
-    <item name="primaryButtonBackground">@drawable/button_accent</item>
-
-    <item name="menuBackground">@color/bg_menu_night</item>
-
-    <item name="myPositionButtonAnimation">@drawable/ic_menu_location_pending_night</item>
-    <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
-    <item name="trafficLoadingAnimation">@drawable/anim_traffic_loading_night</item>
-
-    <item name="navButtonsThemeRect">@style/MwmTheme.NavButtonsRect.Night</item>
-    <item name="navButtonsThemeRound">@style/MwmTheme.NavButtonsRound.Night</item>
-    <item name="downloaderTheme">@style/MwmTheme.Downloader.Night</item>
-    <item name="navigationTheme">@style/MwmTheme.Navigation.Night</item>
-
-    <item name="routingButtonHint">@color/routing_button_tint</item>
-
-    <item name="android:listDivider">@drawable/list_divider_night</item>
-
-    <item name="transitPedestrianBackground">@color/white_4</item>
-    <item name="transitRulerBackground">@color/white_4</item>
-    <item name="transitStepDivider">@drawable/dot_divider_night</item>
-    <item name="accentColorSelector">@color/accent_color_selector_night</item>
-    <item name="android:textAppearance">@style/TextAppearance</item>
-    <item name="android:textAppearanceSmall">@style/TextAppearance.Small</item>
-    <item name="android:textAppearanceMedium">@style/TextAppearance.Medium</item>
-    <item name="android:textAppearanceLarge">@style/TextAppearance.Large</item>
-    <item name="fontHeadline1">@style/TextAppearance.MdcTypographyStyles.Headline1</item>
-    <item name="fontHeadline2">@style/TextAppearance.MdcTypographyStyles.Headline2</item>
-    <item name="fontHeadline3">@style/TextAppearance.MdcTypographyStyles.Headline3</item>
-    <item name="fontHeadline4">@style/TextAppearance.MdcTypographyStyles.Headline4</item>
-    <item name="fontHeadline5">@style/TextAppearance.MaterialComponents.Headline5</item>
-    <item name="fontHeadline6">@style/TextAppearance.MdcTypographyStyles.Headline6</item>
-    <item name="fontSubtitle1">@style/TextAppearance.MdcTypographyStyles.Subtitle1</item>
-    <item name="fontSubtitle2">@style/TextAppearance.MdcTypographyStyles.Subtitle2</item>
-    <item name="fontBody1">@style/TextAppearance.MdcTypographyStyles.Body1</item>
-    <item name="fontBody2">@style/TextAppearance.MdcTypographyStyles.Body2</item>
-    <item name="fontButton">@style/TextAppearance.MdcTypographyStyles.Button</item>
-    <item name="fontCaption">@style/TextAppearance.MdcTypographyStyles.Caption</item>
-    <item name="fontOverline">@style/TextAppearance.MdcTypographyStyles.Overline</item>
-    <item name="drivingOptionsViewBg">@color/driving_options_bg_black</item>
-    <item name="elevationProfilePropertyBg">@drawable/bg_rounded_rect_night</item>
-    <item name="elevationProfilePropIconTint">@color/white_secondary</item>
-    <item name="altitudeBg">@drawable/bg_altitude_night</item>
-    <item name="elevationProfileAxisLabelColor">@color/white_54</item>
-    <item name="elevationProfileYourLocationPinBg">@drawable/bg_your_location_pin_night</item>
-    <item name="elevationProfileSelectedPointBg">@drawable/bg_point_desc_night</item>
-    <item name="elevationProfileSelectedPointTriangle">@drawable/ic_triangle_night</item>
-    <item name="elevationProfileFloatingTriangle">@drawable/ic_triangle_elevation_night</item>
-    <item name="elevationProfileColor">@color/elevation_profile_dark</item>
-    <item name="android:popupMenuStyle">@style/PopupMenu.Dark</item>
-
-    <item name="bottomSheetStyle">@style/MwmWidget.BottomSheet</item>
-    <item name="bottomSheetDialogTheme">@style/MwmTheme.BottomSheetDialog</item>
-
-    <item name="outdoorsMenuIcon">@drawable/ic_layers_outdoors_dark</item>
-    <item name="isolinesMenuIcon">@drawable/ic_layers_isoline_dark</item>
-    <item name="hikingMenuIcon">@drawable/ic_layers_hiking_dark</item>
-    <item name="cyclingMenuIcon">@drawable/ic_layers_cycling_dark</item>
-    <item name="subwayMenuIcon">@drawable/ic_layers_subway_dark</item>
-    <item name="trafficMenuIcon">@drawable/ic_layers_traffic_inactive</item>
   </style>
 </resources>

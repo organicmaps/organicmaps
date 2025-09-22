@@ -12,7 +12,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
-import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.ScrollableContentInsetsListener;
 
@@ -35,24 +34,17 @@ abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
   }
 
   @Override
-  public void onAttach(Context context)
+  public void onAttach(@NonNull Context context)
   {
     super.onAttach(context);
     Utils.detachFragmentIfCoreNotInitialized(context, this);
   }
 
   @Override
-  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-
-    int color;
-    if (ThemeUtils.isDefaultTheme())
-      color = ContextCompat.getColor(requireContext(), R.color.bg_cards);
-    else
-      color = ContextCompat.getColor(requireContext(), R.color.bg_cards_night);
-    view.setBackgroundColor(color);
-
+    view.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.bg_cards));
     RecyclerView recyclerView = getListView();
     ViewCompat.setOnApplyWindowInsetsListener(recyclerView, new ScrollableContentInsetsListener(recyclerView));
   }

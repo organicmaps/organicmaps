@@ -10,7 +10,6 @@
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
-#include "base/logging.hpp"
 
 #include <functional>
 #include <string>
@@ -324,22 +323,21 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
   // show feature types
   QMenu menu;
   auto const addStringFn = [&menu](std::string const & s)
-  {
-    if (!s.empty())
-      menu.addAction(QString::fromUtf8(s.c_str()));
-  };
+  { return s.empty() ? nullptr : menu.addAction(QString::fromUtf8(s.c_str())); };
 
   m_framework.ForEachFeatureAtPoint([&](FeatureType & ft)
   {
     // ID
-    addStringFn(DebugPrint(ft.GetID()));
+    QAction * pAction = addStringFn(DebugPrint(ft.GetID()));
+    connect(pAction, &QAction::triggered, std::bind(&Framework::ShowFeature, &m_framework, ft.GetID()));
 
     // Types
     std::string concat;
     auto types = feature::TypesHolder(ft);
     types.SortBySpec();
     for (auto const & type : types.ToObjectNames())
-      concat += type + " ";
+      concat = concat + type + " ";
+    concat = concat + "| " + DebugPrint(ft.GetGeomType());
     addStringFn(concat);
 
     // Name

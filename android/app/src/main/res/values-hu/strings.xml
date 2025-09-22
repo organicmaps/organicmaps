@@ -264,7 +264,7 @@
     <!-- Downloaded maps list header -->
     <string name="downloader_downloaded_subtitle">Letöltve</string>
     <!-- Country queued for download -->
-    <string name="downloader_queued">Sorbaállítva</string>
+    <string name="downloader_queued">Várólistához adva</string>
     <string name="downloader_near_me_subtitle">A közelben</string>
     <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
     <string name="downloader_status_maps">Térképek</string>

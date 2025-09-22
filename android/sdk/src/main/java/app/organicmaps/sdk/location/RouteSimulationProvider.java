@@ -16,6 +16,7 @@ class RouteSimulationProvider extends BaseLocationProvider
 
   private final JunctionInfo[] mPoints;
   private int mCurrentPoint = 0;
+  private Location mPrev = null;
   private boolean mActive = false;
 
   RouteSimulationProvider(@NonNull Context context, @NonNull Listener listener, JunctionInfo[] points)
@@ -56,9 +57,20 @@ class RouteSimulationProvider extends BaseLocationProvider
     location.setLatitude(mPoints[mCurrentPoint].mLat);
     location.setLongitude(mPoints[mCurrentPoint].mLon);
     location.setAccuracy(1.0f);
+
+    if (mPrev != null)
+    {
+      location.setSpeed(mPrev.distanceTo(location) / (INTERVAL_MS / 1000));
+      location.setBearing(mPrev.bearingTo(location));
+    }
+
     location.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
+    location.setTime(System.currentTimeMillis());
+
     mListener.onLocationChanged(location);
     mCurrentPoint += 1;
+    mPrev = location;
+
     UiThread.runLater(this::nextPoint, INTERVAL_MS);
   }
 }

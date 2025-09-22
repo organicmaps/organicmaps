@@ -1,31 +1,20 @@
-# Release Notes
+• NUEVO: Rediseñamos la planificación de rutas (más clara y rápida al mover paradas).
+• NUEVO: Se muestra el contenido de la etiqueta OSM "description" en los objetos (?description en la búsqueda).
+• Datos de OpenStreetMap al 13 de septiembre.
+• Se corrigieron varios errores de CarPlay
+• Eliminamos islas menores poco relevantes.
+• Se muestran códigos postales en direcciones.
+• Corregido centrado incorrecto del mapa.
+• Los colores de tus marcadores se conservan al exportar/importar GPX.
+• Traducciones actualizadas.
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+Estilos de mapa:
+• Tiendas de iluminación en el mapa.
+• Líneas eléctricas desde zoom 18.
+• Nombres de plantas y subestaciones.
+• Campings y zonas de caravanas en navegación.
+• Color de carretera secundaria corregido.
+• Límites de parques nacionales.
+• Sitios arqueológicos desde zoom 12 (estilo outdoor).
 
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+Tus donaciones y reseñas motivan al equipo voluntario. ¡Gracias!

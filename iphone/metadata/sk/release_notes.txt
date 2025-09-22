@@ -1,31 +1,20 @@
-# Release Notes
+• NOVÉ: Úplne prepracované plánovanie trás (rýchlejšie úpravy, jasnejšie body).
+• NOVÉ: Zobrazenie obsahu OSM tagu "description" (?description do vyhľadávania na test).
+• Dáta OpenStreetMap k 13. septembru.
+• Opravených niekoľko chýb CarPlay
+• Odstránené malé nepodstatné ostrovy z mapy sveta.
+• Zobrazovanie PSČ v adresách.
+• Opravené chybné centrovanie mapy.
+• Farby záložiek zostávajú pri exporte/importe GPX.
+• Aktualizované preklady.
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+Mapové štýly:
+• Obchody s osvetlením na mape.
+• Vedenia vysokého napätia od zoomu 18.
+• Názvy elektrární a trafostaníc.
+• Kempy a karavanové miesta v navigácii.
+• Opravená farba sekundárnych ciest.
+• Hranice národných parkov.
+• Archeologické lokality od zoomu 12 (outdoor štýl).
 
-## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
-
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
-
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+Každý dar a dobré hodnotenie motivuje dobrovoľníkov. Ďakujeme!

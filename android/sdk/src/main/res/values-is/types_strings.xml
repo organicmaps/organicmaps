@@ -1314,4 +1314,10 @@
     <string name="type.amenity.ranger_station">Landvarðastöð</string>
     <string name="type.amenity.luggage_locker">Læstur farangursskápur</string>
     <string name="type.leisure.escape_game">Flóttarými</string>
+    <string name="type.barrier.wicket_gate">Sveifluhlið</string>
+    <string name="type.barrier.yes">Hindrun</string>
+    <string name="type.building.guardhouse">Vörður</string>
+    <string name="type.office.security">Öryggisskrifstofa</string>
+    <string name="type.power.portal">Raflínumastur (tenging)</string>
+    <string name="type.shop.lighting">Ljósaverslun</string>
 </resources>

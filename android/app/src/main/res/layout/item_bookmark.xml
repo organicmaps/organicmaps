@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:minHeight="@dimen/height_item_multiline"
   android:background="@drawable/bg_clickable_card"
-  android:paddingStart="@dimen/margin_base">
+  android:paddingStart="@dimen/margin_base"
+  android:paddingEnd="0dp">
 
   <ImageView
     android:id="@+id/iv__bookmark_color"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerVertical="true"
-    android:layout_alignParentStart="true"
-    android:layout_marginEnd="@dimen/margin_base"/>
+    android:layout_width="@dimen/track_circle_size"
+    android:layout_height="@dimen/track_circle_size"
+    android:layout_gravity="center"
+    android:layout_marginEnd="@dimen/margin_base"
+    tools:background="@color/base_red"
+    tools:src="@drawable/ic_bookmark_transport" />
 
   <LinearLayout
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_centerVertical="true"
-    android:layout_toEndOf="@id/iv__bookmark_color"
-    android:layout_toStartOf="@id/more">
+    android:layout_gravity="center_vertical">
     <TextView
       android:id="@+id/tv__bookmark_name"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:singleLine="true"
-      android:textAppearance="@style/MwmTextAppearance.Body1"/>
+      android:textAppearance="@style/MwmTextAppearance.Body1"
+      tools:text="Bookmark name" />
 
     <TextView
       android:id="@+id/tv__bookmark_distance"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textAppearance="@style/MwmTextAppearance.Body3"/>
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      tools:text="3.3 km · Category"/>
   </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

@@ -304,10 +304,10 @@
 "type.cuisine.georgian" = "Gruusia";
 "type.cuisine.german" = "Saksa";
 "type.cuisine.greek" = "Kreeka";
-"type.cuisine.grill" = "Grill";
+"type.cuisine.grill" = "Grillroad";
 "type.cuisine.heuriger" = "Austria hooajaline veinikõrts (heuriger)";
 "type.cuisine.hotdog" = "Hotdog";
-"type.cuisine.hungarian" = "Ungari";
+"type.cuisine.hungarian" = "Ungari köök";
 "type.cuisine.ice_cream" = "Jäätis";
 "type.cuisine.indian" = "India";
 "type.cuisine.indonesian" = "Indoneesia";
@@ -345,7 +345,7 @@
 "type.cuisine.soba" = "Jaapani soba-nuudlid";
 "type.cuisine.spanish" = "Hispaania";
 "type.cuisine.steak_house" = "Liharestoran";
-"type.cuisine.sushi" = "Sushi";
+"type.cuisine.sushi" = "Suši";
 "type.cuisine.tapas" = "Tapas";
 "type.cuisine.tea" = "Tee";
 "type.cuisine.thai" = "Tai";
@@ -1498,8 +1498,9 @@
 "type.amenity.ranger_station" = "Pargivahi maja";
 "type.amenity.luggage_locker" = "Pagasihoid";
 "type.leisure.escape_game" = "Põgenemistuba";
-"type.barrier.wicket_gate" = "Wicket Gate";
-"type.barrier.yes" = "Barrier";
-"type.building.guardhouse" = "Guard";
-"type.office.security" = "Security Office";
-"type.power.portal" = "Power Tower (Portal)";
+"type.barrier.wicket_gate" = "Jalgvärav";
+"type.barrier.yes" = "Barjäär";
+"type.building.guardhouse" = "Valvuriputka";
+"type.office.security" = "Turvateenuste firma kontor";
+"type.power.portal" = "Õhuliini värava-tüüpi mast";
+"type.shop.lighting" = "Lambipood";

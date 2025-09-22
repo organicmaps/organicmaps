@@ -1,30 +1,20 @@
-# Versionshinweise
-• NEU! Anzeige von Wander- und Fahrradrouten aus OpenStreetMap (siehe „Ebenen“-Schaltfläche)
-• NEU! Anzeige von Lesezeichen-Namen auf der Karte (siehe „App-Einstellungen“)
-• Aktualisierte OpenStreetMap-Daten vom 4. August
-• Fehler mit fehlenden Start-/Endpunkten bei der Streckenaufzeichnung behoben
-• Landwirtschafts- und Forststraßen sind von der Routenführung ausgeschlossen
+• NEU: Komplett überarbeitete Routenplanung – schnelleres Umplanen, klarere Zwischenziele.
+• NEU: Anzeige des Inhalts des OSM-Tags „description“ für Kartenobjekte (?description ins Suchfeld eingeben zum Testen).
+• OpenStreetMap-Datenstand: 13. September.
+• Mehrere CarPlay-Fehler behoben
+• Kleine, unwichtige Inseln von der Weltkarte entfernt.
+• Postleitzahlen in Adressen werden jetzt angezeigt.
+• Falsches Zentrieren der Karte um die aktuelle Position behoben.
+• Farben deiner Lesezeichen bleiben beim Export/Import von GPX erhalten.
+• Aktualisierte Übersetzungen.
 
-## iOS
-• Mehrere Abstürze und iCloud-Synchronisierungsfehler behoben
-• Mehrzeilige Titel in der Lesezeichenliste eingeführt
-• Zoom-Problem beim Abwählen einer Strecke behoben
-• Fehlende Übersetzungen für Geldautomaten korrigiert
-• Probleme beim Öffnen von Webseiten mit Prozentkodierung behoben
-• Fehlende Übersetzungen durch englische Begriffe ersetzt
+Kartendarstellung:
+• Beleuchtungsgeschäfte erscheinen auf der Karte.
+• Hochspannungsleitungen ab Zoomstufe 18.
+• Referenznamen von Kraftwerken und Umspannwerken sichtbar.
+• Camping- und Stellplätze im Navigationsmodus.
+• Farbe sekundärer Straßen im Navigationsmodus korrigiert.
+• Grenzen von Nationalparks werden gezeichnet.
+• Archäologische Stätten ab Zoom 12 im Outdoor-Stil.
 
-## Verbesserungen bei Stil & Symbolen
-• Feuchtgebiete mit horizontaler Schraffur markiert
-• Gabel-und-Messer-Symbol für Food Courts
-• Symbole für Fast Food und Fahrräder in Suchergebnissen und Lesezeichen
-• Überdachte Fahrradparkplätze, Gepäckschließfächer und Escape Games
-• Rangerstationen und Partner der Post
-• Anzeige von Marktplätzen, Rastplätzen, Servicestandorten, Einzelhandelsflächen und Wasserparks
-• Farbkorrekturen für Wälder, Buschland und Wiesen in allen Zoomstufen
-• Korrekte Priorisierung von diplomatischen Einrichtungen
-
-## Verschiedene Verbesserungen
-• Die Eingabe von „Polizei“ findet Polizeistationen, „Film“ oder „Kino“ findet Kinos
-• „In anderer App öffnen“ zeigt den gewählten Punkt nun in Google Maps
-• Spanische Übersetzungen für weitere Suchkategorien
-• Verschiedene Übersetzungen aktualisiert
+Deine Spende oder Bewertung motiviert unsere Freiwilligen, bessere Karten zu bauen. Danke!

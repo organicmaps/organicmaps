@@ -31,6 +31,11 @@ MwmInfo::MwmTypeT MwmInfo::GetType() const
   return COASTS;
 }
 
+bool MwmInfo::IsAddressLikeUS() const
+{
+  return GetRegionData().Get(feature::RegionData::RD_ADDRESS_FORMAT) == "us";
+}
+
 bool MwmSet::MwmId::IsDeregistered(platform::LocalCountryFile const & deregisteredCountryFile) const
 {
   return m_info && m_info->GetStatus() == MwmInfo::STATUS_DEREGISTERED &&

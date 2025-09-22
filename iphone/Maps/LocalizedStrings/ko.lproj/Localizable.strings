@@ -232,10 +232,10 @@
 "pref_tts_enable_title" = "음성 지침";
 
 /* Settings «Route» category: «Tts announce street names» title */
-"pref_tts_street_names_title" = "\"거리 이름 발표\"";
+"pref_tts_street_names_title" = "거리 이름 말하기";
 
 /* Settings «Route» category: «Tts announce street names» description */
-"pref_tts_street_names_description" = "\"사용하도록 설정하면 회전할 거리 또는 출구의 이름을 소리내어 말합니다.\"";
+"pref_tts_street_names_description" = "사용하도록 설정하면 회전할 거리 또는 출구의 이름을 소리 내어 말합니다.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "음성 언어";
@@ -516,7 +516,7 @@
 "invalid_username_or_password" = "잘못된 사용자 이름 또는 암호.";
 "login" = "로그인";
 "login_osm" = "OpenStreetMap에 로그인";
-"forgot_password" = "암호를 잊으 셨나요?";
+"forgot_password" = "암호를 잊으셨나요?";
 "osm_account" = "OSM 계정";
 "logout" = "로그 아웃";
 
@@ -624,7 +624,7 @@
 "km" = "km";
 
 /* abbreviation for kilometers per hour */
-"kilometers_per_hour" = "km/시";
+"kilometers_per_hour" = "km/h";
 
 /* abbreviation for mile(s) */
 "mi" = "mi";
@@ -632,7 +632,7 @@
 /* A unit of measure */
 "ft" = "풋";
 "miles_per_hour" = "mph";
-"hour" = "t";
+"hour" = "h";
 "minute" = "min";
 "day" = "일";
 "placepage_more_button" = "자세히";
@@ -1065,11 +1065,11 @@
 "button_layer_cycling" = "Cycling";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
+"bookmarks_text_placement_title" = "지도에 북마크 이름 표시";
+"bookmarks_text_placement_description" = "북마크가 너무 많을 경우 지도에 북마크 이름을 표시하면 앱 속도가 느려질 수 있습니다.";
+"show_to_the_right" = "오른쪽에 표시";
 "right" = "Right";
-"show_at_the_bottom" = "Show at the bottom";
+"show_at_the_bottom" = "하단에 표시";
 "bottom" = "Bottom";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "장소 추가";
 "contribute_to_osm_update_map" = "기여하려면 지도를 업데이트하세요";
 "contribute_to_osm_update_map_description" = "OpenStreetMap 데이터에 기여하기 전에 %@ 지도를 최신 버전으로 업데이트해야 합니다";
+"placepage_replace_stop" = "Replace Stop";

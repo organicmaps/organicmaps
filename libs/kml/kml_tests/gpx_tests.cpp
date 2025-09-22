@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "kml/color_parser.hpp"
 #include "kml/serdes_common.hpp"
 #include "kml/serdes_gpx.hpp"
 
@@ -38,14 +39,19 @@ static std::string ReadFile(char const * testFile)
   return sourceFileText;
 }
 
-static std::string ReadFileAndSerialize(char const * testFile)
+static std::string Serialize(kml::FileData const & dataFromFile)
 {
-  kml::FileData const dataFromFile = LoadGpxFromFile(testFile);
   std::string resultBuffer;
   MemWriter<decltype(resultBuffer)> sink(resultBuffer);
   kml::gpx::SerializerGpx ser(dataFromFile);
   ser.Serialize(sink);
   return resultBuffer;
+}
+
+static std::string ReadFileAndSerialize(char const * testFile)
+{
+  kml::FileData const dataFromFile = LoadGpxFromFile(testFile);
+  return Serialize(dataFromFile);
 }
 
 void ImportExportCompare(char const * testFile)
@@ -305,6 +311,13 @@ UNIT_TEST(Color)
   TEST_EQUAL(dataFromFile.m_tracksData.size(), 3, ());
 }
 
+UNIT_TEST(ParseExportedGpxColor)
+{
+  kml::FileData const dataFromFile = LoadGpxFromFile("test_data/gpx/point_with_predefined_color_2.gpx");
+  TEST_EQUAL(0x0066CCFF, dataFromFile.m_bookmarksData[0].m_color.m_rgba, ());
+  TEST_EQUAL(kml::PredefinedColor::Blue, dataFromFile.m_bookmarksData[0].m_color.m_predefinedColor, ());
+}
+
 UNIT_TEST(MultiTrackNames)
 {
   kml::FileData dataFromFile = LoadGpxFromFile("test_data/gpx/color.gpx");
@@ -321,6 +334,20 @@ UNIT_TEST(Empty)
   kml::FileData dataFromFile = LoadGpxFromFile("test_data/gpx/empty.gpx");
   TEST_EQUAL("new", dataFromFile.m_categoryData.m_name[kml::kDefaultLang], ());
   TEST_EQUAL(0, dataFromFile.m_tracksData.size(), ());
+}
+
+UNIT_TEST(ImportExportWptColor)
+{
+  ImportExportCompare("test_data/gpx/point_with_predefined_color_2.gpx");
+}
+
+UNIT_TEST(PointWithPredefinedColor)
+{
+  kml::FileData dataFromFile = LoadGpxFromFile("test_data/gpx/point_with_predefined_color_1.gpx");
+  dataFromFile.m_bookmarksData[0].m_color.m_predefinedColor = kml::PredefinedColor::Blue;
+  auto const actual = Serialize(dataFromFile);
+  auto const expected = ReadFile("test_data/gpx/point_with_predefined_color_2.gpx");
+  TEST_EQUAL(expected, actual, ());
 }
 
 UNIT_TEST(OsmandColor1)
@@ -394,11 +421,11 @@ UNIT_TEST(ParseFromString)
 
 UNIT_TEST(MapGarminColor)
 {
-  TEST_EQUAL("DarkCyan", kml::gpx::MapGarminColor(0x008b8bff), ());
-  TEST_EQUAL("White", kml::gpx::MapGarminColor(0xffffffff), ());
-  TEST_EQUAL("DarkYellow", kml::gpx::MapGarminColor(0xb4b820ff), ());
-  TEST_EQUAL("DarkYellow", kml::gpx::MapGarminColor(0xb6b820ff), ());
-  TEST_EQUAL("DarkYellow", kml::gpx::MapGarminColor(0xb5b721ff), ());
+  TEST_EQUAL("DarkCyan", kml::MapGarminColor(0x008b8bff), ());
+  TEST_EQUAL("White", kml::MapGarminColor(0xffffffff), ());
+  TEST_EQUAL("DarkYellow", kml::MapGarminColor(0xb4b820ff), ());
+  TEST_EQUAL("DarkYellow", kml::MapGarminColor(0xb6b820ff), ());
+  TEST_EQUAL("DarkYellow", kml::MapGarminColor(0xb5b721ff), ());
 }
 
 }  // namespace gpx_tests

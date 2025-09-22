@@ -18,23 +18,23 @@ import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
-import app.organicmaps.widget.placepage.PlaceDescriptionActivity;
 import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
+import app.organicmaps.widget.placepage.WikiArticleActivity;
 
 public class PlacePageWikipediaFragment extends Fragment implements Observer<MapObject>
 {
   private View mFrame;
   private View mWiki;
-  private View mPlaceDescriptionViewContainer;
+  private View mWikiArticleViewContainer;
 
-  private TextView mPlaceDescriptionView;
+  private TextView mWikiArticleView;
 
   private PlacePageViewModel mViewModel;
 
   private MapObject mMapObject;
 
-  private int mDescriptionMaxLength;
+  private int mWikiArticleMaxLength;
 
   @Nullable
   @Override
@@ -49,56 +49,56 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mDescriptionMaxLength = getResources().getInteger(R.integer.place_page_description_max_length);
+    mWikiArticleMaxLength = getResources().getInteger(R.integer.place_page_wiki_article_max_length);
 
     mFrame = view;
 
-    mPlaceDescriptionView = view.findViewById(R.id.poi_description);
-    View placeDescriptionMoreBtn = view.findViewById(R.id.more_btn);
-    mPlaceDescriptionViewContainer = view.findViewById(R.id.poi_description_container);
-    placeDescriptionMoreBtn.setOnClickListener(v -> showDescriptionScreen());
-    mPlaceDescriptionView.setOnClickListener(v -> showDescriptionScreen());
+    mWikiArticleView = view.findViewById(R.id.poi_wiki_article);
+    View wikiArticleMoreBtn = view.findViewById(R.id.more_btn);
+    mWikiArticleViewContainer = view.findViewById(R.id.poi_wiki_article_container);
+    wikiArticleMoreBtn.setOnClickListener(v -> showWikiArticleScreen());
+    mWikiArticleView.setOnClickListener(v -> showWikiArticleScreen());
     mWiki = view.findViewById(R.id.ll__place_wiki);
   }
 
-  private void showDescriptionScreen()
+  private void showWikiArticleScreen()
   {
-    PlaceDescriptionActivity.start(requireContext(), mMapObject.getName(), mMapObject.getDescription());
+    WikiArticleActivity.start(requireContext(), mMapObject.getName(), mMapObject.getWikiArticle());
   }
 
-  private Spanned getShortDescription()
+  private Spanned getShortWikiArticle()
   {
-    String htmlDescription = mMapObject.getDescription();
-    final int paragraphStart = htmlDescription.indexOf("<p>");
-    final int paragraphEnd = htmlDescription.indexOf("</p>");
+    String htmlWikiArticle = mMapObject.getWikiArticle();
+    final int paragraphStart = htmlWikiArticle.indexOf("<p>");
+    final int paragraphEnd = htmlWikiArticle.indexOf("</p>");
     if (paragraphStart == 0 && paragraphEnd != -1)
-      htmlDescription = htmlDescription.substring(3, paragraphEnd);
+      htmlWikiArticle = htmlWikiArticle.substring(3, paragraphEnd);
 
-    Spanned description = Utils.fromHtml(htmlDescription);
-    if (description.length() > mDescriptionMaxLength)
+    Spanned wikiArticle = Utils.fromHtml(htmlWikiArticle);
+    if (wikiArticle.length() > mWikiArticleMaxLength)
     {
-      description = (Spanned) new SpannableStringBuilder(description)
-                        .insert(mDescriptionMaxLength - 3, "...")
-                        .subSequence(0, mDescriptionMaxLength);
+      wikiArticle = (Spanned) new SpannableStringBuilder(wikiArticle)
+                        .insert(mWikiArticleMaxLength - 3, "...")
+                        .subSequence(0, mWikiArticleMaxLength);
     }
 
-    return description;
+    return wikiArticle;
   }
 
   private void updateViews()
   {
     // There are two sources of wiki info in OrganicMaps:
     // wiki links from OpenStreetMaps, and wiki pages explicitly parsed into OrganicMaps.
-    // This part hides the DescriptionView if the wiki page has not been parsed.
-    if (TextUtils.isEmpty(mMapObject.getDescription()))
-      UiUtils.hide(mPlaceDescriptionViewContainer);
+    // This part hides the WikiArticleView if the wiki page has not been parsed.
+    if (TextUtils.isEmpty(mMapObject.getWikiArticle()))
+      UiUtils.hide(mWikiArticleViewContainer);
     else
     {
-      UiUtils.show(mPlaceDescriptionViewContainer);
-      mPlaceDescriptionView.setText(getShortDescription());
-      final String descriptionString = mPlaceDescriptionView.getText().toString();
-      mPlaceDescriptionView.setOnLongClickListener((v) -> {
-        PlacePageUtils.copyToClipboard(requireContext(), mFrame, descriptionString);
+      UiUtils.show(mWikiArticleViewContainer);
+      mWikiArticleView.setText(getShortWikiArticle());
+      final String wikiArticleString = mWikiArticleView.getText().toString();
+      mWikiArticleView.setOnLongClickListener((v) -> {
+        PlacePageUtils.copyToClipboard(requireContext(), mFrame, wikiArticleString);
         return true;
       });
     }

@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Додати місце";
 "contribute_to_osm_update_map" = "Оновіть карту, щоб долучитися";
 "contribute_to_osm_update_map_description" = "Ви повинні оновити карту %@ до останньої версії, перш ніж зможете долучитися до даних OpenStreetMap";
+"placepage_replace_stop" = "Замінити зупинку";

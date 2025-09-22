@@ -7,6 +7,7 @@
 #import "PlacePageOSMContributionData+Core.h"
 #import "PlacePagePreviewData+Core.h"
 #import "PlacePageTrackData+Core.h"
+#import "StringUtils.h"
 
 #include <CoreApi/CoreApi.h>
 #include "platform/network_policy.hpp"
@@ -55,6 +56,9 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType)
 
     if (auto const & wikiDescription = rawData().GetWikiDescription(); !wikiDescription.empty())
       _wikiDescriptionHtml = @(("<html><body>" + wikiDescription + "</body></html>").c_str());
+
+    if (auto const & omsDescription = rawData().GetOSMDescription(); !omsDescription.empty())
+      _osmDescription = @(omsDescription.c_str());
 
     _roadType = convertRoadType(rawData().GetRoadType());
 

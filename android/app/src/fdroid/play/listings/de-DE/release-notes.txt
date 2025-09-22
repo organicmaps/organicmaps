@@ -1,8 +1,13 @@
-• NEU! Anzeige von Wander- und Fahrradrouten aus OpenStreetMap (siehe Ebenen-Schaltfläche)
-• NEU! Höhenprofil und Streckenauswahl auf der Karte hinzugefügt
-• NEU! Anzeige von Lesezeichen-Namen auf der Karte (siehe App-Einstellungen)
-• Neue OpenStreetMap-Daten vom 4. August
-• Fehler mit fehlenden Start-/Endpunkten bei der Aufzeichnung von Strecken behoben
-• Hinterlasse eine OSM-Notiz, wenn ein neu hinzugefügter POI noch nicht unterstützt wird
+• OSM-Daten Stand 13. September
+• Postleitzahlen bei Adressen anzeigen
+• Neue Kreisverkehr-Symbole in Android Auto
+• Kleine Inseln aus Weltkarte entfernt
+• Falsche Karten-Zentrierung beim Standort behoben
+• Lesezeichenfarben bleiben in GPX erhalten
+• Beleuchtungsgeschäfte
+• Nationalpark-Grenzen zeichnen
+• Archäologische Stätten ab Zoom 12 (Outdoor)
+• Camping- & Stellplätze in Navigation
+• Sekundäre Straßenfarbe korrigiert
 
-…mehr unter omaps.org/news
+…mehr: omaps.org/news

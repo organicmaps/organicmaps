@@ -56,6 +56,7 @@ std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
 
 std::string const kCustomImageProperty = "CustomImage";
 std::string const kHasElevationProfileProperty = "has_elevation_profile";
+int constexpr kInvalidColor = 0;
 }  // namespace
 
 Bookmark::Bookmark(m2::PointD const & ptOrg) : Base(ptOrg, UserMark::BOOKMARK), m_groupId(kml::kInvalidMarkGroupId)
@@ -215,10 +216,16 @@ kml::PredefinedColor Bookmark::GetColor() const
   return m_data.m_color.m_predefinedColor;
 }
 
+void Bookmark::InvalidateRGBAColor()
+{
+  m_data.m_color.m_rgba = kInvalidColor;
+}
+
 void Bookmark::SetColor(kml::PredefinedColor color)
 {
   SetDirty();
   m_data.m_color.m_predefinedColor = color;
+  InvalidateRGBAColor();
 }
 
 std::string Bookmark::GetPreferredName() const

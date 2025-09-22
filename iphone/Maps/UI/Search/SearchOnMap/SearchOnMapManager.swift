@@ -1,11 +1,4 @@
 @objc
-enum SearchOnMapState: Int {
-  case searching
-  case hidden
-  case closed
-}
-
-@objc
 enum SearchOnMapRoutingTooltipSearch: Int {
   case none
   case start

@@ -5,7 +5,6 @@
 
 #include "indexer/validate_and_format_contacts.hpp"
 #include "map/place_page_info.hpp"
-#include "platform/settings.hpp"
 
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
@@ -14,13 +13,11 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 
-#include <sstream>
 #include <string>
 
 namespace
 {
 static int constexpr kMaxLengthOfPlacePageDescription = 500;
-static int constexpr kMinWidthOfShortDescription = 390;
 
 std::string getShortDescription(std::string const & description)
 {
@@ -57,9 +54,7 @@ public:
   }
 };
 
-PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info const & info,
-                                         search::ReverseGeocoder::Address const & address)
-  : QDialog(parent)
+PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info const & info) : QDialog(parent)
 {
   auto const & title = info.GetTitle();
 
@@ -81,9 +76,9 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
       header->addWidget(subtitleLabel);
     }
 
-    if (auto const addressFormatted = address.FormatAddress(); !addressFormatted.empty())
+    if (auto const & address = info.GetSecondarySubtitle(); !address.empty())
     {
-      QLabel * addressLabel = new QLabel(QString::fromStdString(addressFormatted));
+      QLabel * addressLabel = new QLabel(QString::fromStdString(address));
       addressLabel->setWordWrap(true);
       header->addWidget(addressLabel);
     }

@@ -185,20 +185,19 @@ UNIT_TEST(TurnsNearAltufievskoeShosseLongFakeSegmentTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  integration::TestTurnCount(route, 5 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 4 /* expectedTurnCount */);
 
   // Complicated case.
   // RoutingEngineResult::GetPossibleTurns at (turn_m_index == 3)
   // return nodes with isCandidatesAngleValid and 2 candidates with m_angle == 0
   // In fact they are -90 and +90, but we don't know it.
   // But this should not prevent from proper directions.
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
-  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnSlightLeft);
-  integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnLeft);
 
-  integration::TestRouteLength(route, 268.783);
+  integration::TestRouteLength(route, 275.251);
 }
 
 UNIT_TEST(TurnsNearMoscowRiverShortFakeSegmentTest)
@@ -233,12 +232,12 @@ UNIT_TEST(TurnsNearMKAD85kmShortFakeSegmentTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  TestRouteLength(route, 1685.31);
+  TestRouteLength(route, 2157.1);
 
   TestTurnCount(route, 10);
   GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
-  GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightLeft);
-  GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+  GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
   GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnRight);
   GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::EnterRoundAbout);
   GetNthTurn(route, 5).TestValid().TestDirection(CarDirection::LeaveRoundAbout);

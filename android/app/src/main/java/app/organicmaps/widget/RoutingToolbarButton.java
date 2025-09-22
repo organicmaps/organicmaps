@@ -35,9 +35,8 @@ public class RoutingToolbarButton extends AppCompatRadioButton
 
   private void initView()
   {
-    final boolean isNightTheme = ThemeUtils.isNightTheme();
-    setBackgroundResource(isNightTheme ? R.drawable.routing_toolbar_button_night : R.drawable.routing_toolbar_button);
-    setButtonTintList(isNightTheme ? R.color.routing_toolbar_icon_tint_night : R.color.routing_toolbar_icon_tint);
+    setBackgroundResource(R.drawable.routing_toolbar_button);
+    setButtonTintList(R.color.routing_toolbar_icon_tint);
   }
 
   public void progress()

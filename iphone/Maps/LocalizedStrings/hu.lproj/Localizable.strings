@@ -322,7 +322,7 @@
 "downloader_available_maps" = "Elérhető";
 
 /* Country queued for download */
-"downloader_queued" = "Sorbaállítva";
+"downloader_queued" = "Várólistához adva";
 "downloader_near_me_subtitle" = "A közelben";
 
 /* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Hely hozzáadása";
 "contribute_to_osm_update_map" = "Frissítse a térképet a hozzájáruláshoz";
 "contribute_to_osm_update_map_description" = "A hozzájáruláshoz frissítenie kell a %@ térképet a legújabb verzióra az OpenStreetMap adataihoz";
+"placepage_replace_stop" = "Megálló lecserélése";

@@ -108,8 +108,7 @@ public:
   bool ShouldShowAddBusiness() const { return IsBuilding(); }
   bool ShouldShowEditPlace() const;
 
-  bool ShouldEnableAddPlace() const { return m_canEditOrAdd; }
-  bool ShouldEnableEditPlace() const { return m_canEditOrAdd; }
+  bool CanEditPlace() const { return m_canEditOrAdd; }
 
   /// @returns true if Back API button should be displayed.
   bool HasApiUrl() const { return !m_apiUrl.empty(); }
@@ -129,7 +128,11 @@ public:
   {
     return !m_uiTrackStatistics.empty() ? m_uiTrackStatistics : m_uiAddress;
   }
-  std::string const & GetWikiDescription() const { return m_description; }
+  /// Used in desktop PP (instead of GetSecondarySubtitle).
+  std::string const & GetAddress() const { return m_address; }
+
+  std::string const & GetWikiDescription() const { return m_wikiDescription; }
+  std::string const & GetOSMDescription() const { return m_osmDescription; }
   /// @returns coordinate in DMS format if isDMS is true
   std::string GetFormattedCoordinate(CoordinatesFormat format) const;
 
@@ -198,7 +201,8 @@ public:
   /// MapObject
   void SetFromFeatureType(FeatureType & ft);
 
-  void SetWikiDescription(std::string && description) { m_description = std::move(description); }
+  void SetWikiDescription(std::string && description) { m_wikiDescription = std::move(description); }
+  void SetOSMDescription(std::string && description) { m_osmDescription = std::move(description); }
 
   void SetMercator(m2::PointD const & mercator);
   std::vector<std::string> GetRawTypes() const { return m_types.ToObjectNames(); }
@@ -226,7 +230,8 @@ private:
   std::string m_uiSecondaryTitle;
   std::string m_uiAddress;
   std::string m_uiTrackStatistics;
-  std::string m_description;
+  std::string m_wikiDescription;
+  std::string m_osmDescription;
   /// Booking rating string
   std::string m_localizedRatingString;
 
@@ -244,7 +249,7 @@ private:
   kml::MarkGroupId m_markGroupId = kml::kInvalidMarkGroupId;
   /// If not invalid, bookmark is bound to this place page.
   kml::MarkId m_bookmarkId = kml::kInvalidMarkId;
-  /// Bookmark category name. Empty, if it's not bookmark;
+  /// Bookmark category name. Empty, if it's not bookmark; used only on iOS now.
   std::string m_bookmarkCategoryName;
   kml::BookmarkData m_bookmarkData;
   /// If not invalid, track is bound to this place page.

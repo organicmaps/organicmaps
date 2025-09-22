@@ -881,4 +881,9 @@
     <string name="saved">حُفظت</string>
     <string name="osm_note_hint">أو، بدلاً من ذلك، اترك ملاحظة لمجتمع OpenStreetMap حتى يتمكن شخص آخر من إضافة أو إصلاح مكان هنا.</string>
     <string name="osm_note_toast">سيتم إرسال ملاحظتك إلى OpenStreetMap</string>
+    <string name="bookmarks_text_placement_title">أسماء الإشارات المرجعية على الخريطة</string>
+    <string name="bookmarks_text_placement_description">إذا كان هناك عدد كبير جدًا من الإشارات المرجعية، فقد يؤدي عرض أسمائها على الخريطة إلى إبطاء التطبيق.</string>
+    <string name="show_at_the_bottom">اعرض في الأسفل</string>
+    <string name="share_track">شارك المسار</string>
+    <string name="delete_track_dialog_title">احذف %s؟</string>
 </resources>

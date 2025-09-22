@@ -40,6 +40,7 @@ public:
   void SetCustomName(std::string const & customName);
 
   kml::PredefinedColor GetColor() const;
+  void InvalidateRGBAColor();
   void SetColor(kml::PredefinedColor color);
 
   m2::RectD GetViewport() const;

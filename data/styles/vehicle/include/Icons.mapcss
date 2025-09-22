@@ -405,6 +405,23 @@ area|z17-[historic=wayside_shrine]
 node|z18-[tourism=artwork]
 {icon-image: tourism-m.svg;}
 
+/* ToDo: Make some common POIs font-size setting in range [12, 15] (copied from amenity=* below). */
+node|z16-[tourism=camp_site],
+node|z16-[tourism=caravan_site],
+{text: name; text-color: @poi_label; text-offset: 1; font-size: 12.5;}
+node|z17-[tourism=camp_site],
+node|z17-[tourism=caravan_site],
+{font-size: 13.5;}
+node|z18-[tourism=camp_site],
+node|z18-[tourism=caravan_site],
+{font-size: 14.5;}
+
+node|z16-[tourism=camp_site],
+{icon-image: campsite-m.svg;}
+node|z16-[tourism=caravan_site],
+{icon-image: caravan_site-m.svg;}
+
+/* ToDo: What is the logic behind different icon-min-distance here (and everywhere else)? */
 node|z14[tourism=theme_park],
 area|z14[tourism=theme_park]
 {icon-image: theme_park-m.svg;icon-min-distance: 12;}

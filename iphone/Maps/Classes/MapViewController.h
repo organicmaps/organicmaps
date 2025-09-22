@@ -11,6 +11,7 @@
 @class WidgetsArea;
 @class TrafficButtonArea;
 @class PlacePageArea;
+@class NavigationInfoArea;
 
 @protocol MWMLocationModeListener;
 
@@ -39,7 +40,11 @@
 - (void)openDrivingOptions;
 - (void)showTrackRecordingPlacePage;
 
-- (void)setPlacePageTopBound:(CGFloat)bound duration:(double)duration;
+/// Updates the map's visible viewport area.
+/// - Parameters:
+///   - object: The source object for which the visible area is being set.
+///   - insets: The insets defining the portion of the map that is not covered or obstructed by the source object's view.
+- (void)updateVisibleAreaInsetsFor:(NSObject * _Nonnull)object insets:(UIEdgeInsets)insets;
 
 + (void)setViewport:(double)lat lon:(double)lon zoomLevel:(int)zoomlevel;
 
@@ -57,11 +62,13 @@
 @property(nonatomic) MWMMyPositionMode currentPositionMode;
 @property(strong, nonatomic) IBOutlet EAGLView * _Nonnull mapView;
 @property(strong, nonatomic) IBOutlet UIView * _Nonnull controlsView;
+@property(nonatomic) UIView * _Nonnull placePageContainer;
 @property(nonatomic) UIView * _Nonnull searchContainer;
 
 @property(weak, nonatomic) IBOutlet SideButtonsArea * sideButtonsArea;
 @property(weak, nonatomic) IBOutlet WidgetsArea * widgetsArea;
 @property(weak, nonatomic) IBOutlet TrafficButtonArea * trafficButtonArea;
 @property(weak, nonatomic) IBOutlet PlacePageArea * placePageArea;
+@property(weak, nonatomic) IBOutlet NavigationInfoArea * navigationInfoArea;
 
 @end

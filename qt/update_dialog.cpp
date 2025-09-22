@@ -8,7 +8,6 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-#include <algorithm>
 #include <functional>
 #include <limits>
 
@@ -200,7 +199,7 @@ void UpdateDialog::OnItemClick(QTreeWidgetItem * item, int column)
   case NodeStatus::Partly: st.DownloadNode(countryId); break;
 
   case NodeStatus::InQueue:
-  case NodeStatus::Downloading: st.DeleteNode(countryId); break;
+  case NodeStatus::Downloading: st.CancelDownloadNode(countryId); break;
 
   case NodeStatus::Applying:
     // Do nothing.

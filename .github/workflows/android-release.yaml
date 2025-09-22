@@ -32,10 +32,10 @@ jobs:
           build=$(($(tools/unix/version.sh count) + 1))
           code=$(($(tools/unix/version.sh android_code) + 1))
           tag=$version-$build-android
-          echo "::set-output name=version::$version"
-          echo "::set-output name=build::$build"
-          echo "::set-output name=tag::$tag"
-          echo "::set-output name=code::$code"
+          echo "name=version::$version" >> $GITHUB_OUTPUT
+          echo "name=build::$build" >> $GITHUB_OUTPUT
+          echo "name=tag::$tag" >> $GITHUB_OUTPUT
+          echo "name=code::$code" >> $GITHUB_OUTPUT
           echo "version: ${version}-${build}-FDroid+${code}" > ${{ env.FDROID_VERSION }}
           git add ${{ env.FDROID_VERSION }}
           {
@@ -60,6 +60,9 @@ jobs:
     name: Android Release
     runs-on: ubuntu-latest
     environment: production
+    permissions:
+      contents: write     # To publish the release on GitHub Releases.
+      discussions: write  # To publish the release on GitHub Discussions.
     needs: tag
     strategy:
       fail-fast: false
@@ -134,32 +137,47 @@ jobs:
         run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
 
       - name: Compile and upload to Google Play
+        if: ${{ matrix.flavor == 'google' }}
         shell: bash
         working-directory: android
         run: |
           ./gradlew bundleGoogleRelease publishGoogleReleaseBundle
-        if: ${{ matrix.flavor == 'google' }}
 
-      - name: Upload universal release apk to GitHub artifacts
+      - name: Upload Google aab to GitHub artifacts
+        if: ${{ matrix.flavor == 'google' }}
         uses: actions/upload-artifact@v4
         with:
           name: OrganicMaps-${{ needs.tag.outputs.code }}-google-release.aab
-          path: ./app/build/outputs/bundle/googleRelease/OrganicMaps-${{ needs.tag.outputs.code }}-google-release.aab
+          path: ./android/app/build/outputs/bundle/googleRelease/OrganicMaps-${{ needs.tag.outputs.code }}-google-release.aab
 
       - name: Compile and upload to Huawei AppGallery
+        if: ${{ matrix.flavor == 'huawei' }}
         shell: bash
         working-directory: android
         run: |
           ./gradlew bundleHuaweiRelease
           ./gradlew publishHuaweiAppGalleryHuaweiRelease
-        if: ${{ matrix.flavor == 'huawei' }}
 
-      - name: Compile universal APK
+      - name: Upload Huawei aab to GitHub artifacts
+        if: ${{ matrix.flavor == 'huawei' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: OrganicMaps-${{ needs.tag.outputs.code }}-huawei-release.aab
+          path: ./android/app/build/outputs/bundle/huaweiRelease/OrganicMaps-${{ needs.tag.outputs.code }}-huawei-release.aab
+
+      - name: Compile universal web APK
+        if: ${{ matrix.flavor == 'web' }}
         shell: bash
         working-directory: android
         run: |
           ./gradlew assembleWebRelease
+
+      - name: Upload web release apk and its sha256sum to GitHub artifacts
         if: ${{ matrix.flavor == 'web' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk
+          path: ./android/app/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.*
 
       - name: Prepare release notes
         if: ${{ matrix.flavor == 'web' }}
@@ -179,8 +197,8 @@ jobs:
           } > ${{ runner.temp }}/release-notes.txt
 
       - name: Upload universal APK to GitHub
-        uses: softprops/action-gh-release@v2
         if: ${{ matrix.flavor == 'web' }}
+        uses: softprops/action-gh-release@v2
         with:
           body_path: ${{ runner.temp }}/release-notes.txt
           token: ${{ secrets.GITHUB_TOKEN }}

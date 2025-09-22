@@ -1498,8 +1498,9 @@
 "type.amenity.ranger_station" = "Лісництво";
 "type.amenity.luggage_locker" = "Камера схову";
 "type.leisure.escape_game" = "Кімната втечі";
-"type.barrier.wicket_gate" = "Wicket Gate";
-"type.barrier.yes" = "Barrier";
-"type.building.guardhouse" = "Guard";
-"type.office.security" = "Security Office";
-"type.power.portal" = "Power Tower (Portal)";
+"type.barrier.wicket_gate" = "Ворота-хвіртка";
+"type.barrier.yes" = "Бар'єр";
+"type.building.guardhouse" = "Охоронець";
+"type.office.security" = "Офіс безпеки";
+"type.power.portal" = "Силова вежа (Портал)";
+"type.shop.lighting" = "Магазин освітлення";

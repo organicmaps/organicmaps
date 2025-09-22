@@ -55,12 +55,6 @@
     <attr name="subTitleDefault" format="reference"/>
   </declare-styleable>
 
-  <attr name="outdoorsMenuIcon" format="reference"/>
-  <attr name="isolinesMenuIcon" format="reference"/>
-  <attr name="hikingMenuIcon" format="reference" />
-  <attr name="cyclingMenuIcon" format="reference" />
-  <attr name="subwayMenuIcon" format="reference"/>
-  <attr name="trafficMenuIcon" format="reference"/>
   <attr name="accentColorSelector" format="color"/>
   <attr name="bookingFilterTitleColor" format="color"/>
   <attr name="adsRemovalOptionsBg" format="reference"/>

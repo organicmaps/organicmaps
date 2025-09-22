@@ -1,9 +1,13 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• OSM მონაცემები 13 სექტ
+• საფოსტო კოდის ჩვენება მისამართებში
+• ახალი რკალის ხატები (Android Auto)
+• წვრილი კუნძულები მოცილდა
+• რუკის არასწორი ცენტრი გამოსწორდა
+• სანიშნეების ფერები GPX-ში
+• განათების მაღაზიები
+• ეროვნული პარკების საზღვრები
+• არქეოლოგია ზუმიდან 12
+• ბანაკები და ქარავნები ნავიგაციაში
+• მეორეული გზის ფერი გამოსწორებული
 
-…more at omaps.org/news
+…მეტი: omaps.org/news

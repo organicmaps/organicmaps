@@ -622,7 +622,7 @@
 "type.historic.mine" = "Történelmi bánya";
 "type.historic.monument" = "Monumentális, épületszerű műemlék";
 "type.historic.pillory" = "Pellengér";
-"type.historic.ruins" = "Történelmi rom";
+"type.historic.ruins" = "Történelmi romok";
 "type.historic.ship" = "Hajó";
 "type.historic.tank" = "Történelmi tank";
 "type.historic.tomb" = "Történelmi sír";
@@ -1494,8 +1494,9 @@
 "type.post_office.post_partner" = "Postapartnerpont";
 "type.amenity.luggage_locker" = "Csomagmegőrző";
 "type.leisure.escape_game" = "Szabadulószoba";
-"type.barrier.wicket_gate" = "Wicket Gate";
-"type.barrier.yes" = "Barrier";
-"type.building.guardhouse" = "Guard";
-"type.office.security" = "Security Office";
-"type.power.portal" = "Power Tower (Portal)";
+"type.barrier.wicket_gate" = "Személybejáró";
+"type.barrier.yes" = "Akadály";
+"type.building.guardhouse" = "Őrség";
+"type.office.security" = "Biztonsági őr irodája";
+"type.power.portal" = "Villanytorony (Portál)";
+"type.shop.lighting" = "Világítástechnikai szaküzlet";

@@ -125,7 +125,7 @@ public class Bookmark extends MapObject
     if (icon != null)
       mIcon = icon;
     setTitle(title);
-    setDescription(description);
+    setWikiArticle(description);
   }
 
   public long getCategoryId()

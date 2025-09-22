@@ -68,6 +68,9 @@ final class SearchOnMapInteractor: NSObject {
       searchManager.setSearchMode(searchModeForPresentationStep(step))
       return .updatePresentationStep(step)
 
+    case .updateVisibleAreaInsets(let insets):
+      MapViewController.shared()!.updateVisibleAreaInsets(for: self, insets: insets)
+      return .none
     case .closeSearch:
       return closeSearch()
     }
@@ -147,9 +150,9 @@ final class SearchOnMapInteractor: NSObject {
     return .close
   }
 
-  private func searchModeForPresentationStep(_ step: ModalPresentationStep) -> SearchMode {
+  private func searchModeForPresentationStep(_ step: SearchOnMapModalPresentationStep) -> SearchMode {
     switch step {
-    case .fullScreen:
+    case .expanded:
       return isiPad ? .everywhereAndViewport : .everywhere
     case .halfScreen, .compact:
       return  .everywhereAndViewport

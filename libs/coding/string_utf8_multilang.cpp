@@ -283,6 +283,35 @@ bool StringUtf8Multilang::GetString(int8_t lang, std::string_view & utf8s) const
   return false;
 }
 
+std::string_view StringUtf8Multilang::GetBestString(buffer_vector<int8_t, 4> const & langs) const
+{
+  size_t langIdx = langs.size() + 1;
+  std::string_view res;
+
+  ForEach([&res, &langIdx, &langs](int8_t code, std::string_view s)
+  {
+    auto it = std::find(langs.begin(), langs.end(), code);
+    if (it != langs.end())
+    {
+      size_t const idx = std::distance(langs.begin(), it);
+      if (idx < langIdx)
+      {
+        res = s;
+        langIdx = idx;
+      }
+    }
+  });
+
+  return res;
+}
+
+std::string_view StringUtf8Multilang::GetFirstString() const
+{
+  if (m_s.empty())
+    return {};
+  return std::string_view(m_s).substr(1, GetNextIndex(0) - 1);
+}
+
 bool StringUtf8Multilang::HasString(int8_t lang) const
 {
   if (!IsSupportedLangCode(lang))

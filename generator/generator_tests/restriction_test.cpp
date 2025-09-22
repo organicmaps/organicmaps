@@ -134,33 +134,26 @@ void LoadRestrictions(string const & mwmFilePath, vector<Restriction> & restrict
 /// loads the restriction section and test loaded restrictions.
 /// \param |restrictionPath| comma separated text with restrictions in osm id terms.
 /// \param |osmIdsToFeatureIdContent| comma separated text with mapping from osm ids to feature ids.
-void TestRestrictionBuilding(string const & restrictionPath, string const & osmIdsToFeatureIdContent,
+void TestRestrictionBuilding(string const & restrictionContent, string const & osmIdsToFeatureIdContent,
                              unique_ptr<IndexGraph> graph, vector<Restriction> & expectedNotUTurn,
                              vector<RestrictionUTurnForTests> & expectedUTurn)
 {
-  Platform & platform = GetPlatform();
-  string const writableDir = platform.WritableDir();
+  string const targetDir = base::JoinPath(GetPlatform().WritableDir(), kTestDir);
+  ScopedDirCleanup scopedDir(targetDir);
 
-  string const targetDir = base::JoinPath(writableDir, kTestDir);
   // Building empty mwm.
   LocalCountryFile country(targetDir, CountryFile(kTestMwm), 0 /* version */);
-  ScopedDir const scopedDir(kTestDir);
-  string const mwmRelativePath = base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
-  ScopedFile const scopedMwm(mwmRelativePath, ScopedFile::Mode::Create);
   BuildEmptyMwm(country);
 
   // Creating a file with restrictions.
-  string const restrictionRelativePath = base::JoinPath(kTestDir, kRestrictionFileName);
-  ScopedFile const restrictionScopedFile(restrictionRelativePath, restrictionPath);
+  ScopedFile const restrictionScopedFile(base::JoinPath(kTestDir, kRestrictionFileName), restrictionContent);
 
   // Creating osm ids to feature ids mapping.
-  string const mappingRelativePath = base::JoinPath(kTestDir, kOsmIdsToFeatureIdsName);
-  ScopedFile const mappingFile(mappingRelativePath, ScopedFile::Mode::Create);
-  string const & osmIdsToFeatureIdFullPath = mappingFile.GetFullPath();
+  string const osmIdsToFeatureIdFullPath = base::JoinPath(targetDir, kOsmIdsToFeatureIdsName);
   ReEncodeOsmIdsToFeatureIdsMapping(osmIdsToFeatureIdContent, osmIdsToFeatureIdFullPath);
 
-  string const restrictionFullPath = base::JoinPath(writableDir, restrictionRelativePath);
-  string const & mwmFullPath = scopedMwm.GetFullPath();
+  string const restrictionFullPath = base::JoinPath(targetDir, kRestrictionFileName);
+  string const mwmFullPath = base::JoinPath(targetDir, kTestMwm + DATA_FILE_EXTENSION);
 
   // Prepare data to collector.
   auto restrictionCollector =

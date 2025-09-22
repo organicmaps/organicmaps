@@ -395,7 +395,7 @@
     <string name="failed_to_open_file">Mistókst að opna skrána %1$s \n \n%2$s</string>
     <string name="routing_download_maps_along">Sækja öll landakort meðfram leiðinni þinni</string>
     <string name="about_developed_by_enthusiasts">Forrit með opinn grunnkóða sem útbúið er af áhugafólki og sjálfboðaliðum.</string>
-    <string name="dialog_routing_change_start_or_end">Aðlagaðu upphafsstaðinn eða áfangastað.</string>
+    <string name="dialog_routing_change_start_or_end">Aðlagaðu upphafsstaðinn eða ákvörðunarstað.</string>
     <string name="about_proposition_1">• Engar auglýsingar, engar njósnir, engin gagnasöfnun</string>
     <string name="bookmark_set_name">Heiti bókamerkjalista</string>
     <string name="category_children">Fjölskylduafþreying</string>
@@ -408,7 +408,7 @@
     <string name="pref_map_auto_zoom">Sjálfvirkur aðdráttur</string>
     <string name="google_play_services">Google Play staðsetningarþjónustur</string>
     <string name="dialog_routing_change_start">Aðlaga upphafsstað</string>
-    <string name="dialog_routing_change_end">Aðlaga áfangastað</string>
+    <string name="dialog_routing_change_end">Aðlaga ákvörðunarstað</string>
     <string name="dialog_routing_intermediate_not_determined">Aðlagaðu milliáfangann þinn.</string>
     <string name="editor_time_allday">Allan sólarhringinn (24 klst)</string>
     <string name="select_cuisine">Veldu matreiðsluhefð</string>
@@ -490,7 +490,7 @@
     <string name="app_tip_09">Meginmarkmið okkar er að byggja hraðvirk og auðveld landakort sm þú kannt að meta og sem passa upp á persónuupplýsingar þínar.</string>
     <string name="car_used_on_the_phone_screen">Þú ert núna að nota Organic Maps á símaskjánum</string>
     <string name="aa_request_permission_activity_text">Organic Maps í Android Auto þarf heimildir fyrir staðsetningar til að virka eðlilega</string>
-    <string name="routing_add_finish_point">Notaðu leit eða ýttu á kortið til að bæta við áfangastað</string>
+    <string name="routing_add_finish_point">Notaðu leit eða ýttu á kortið til að bæta við ákvörðunarstað</string>
     <string name="alert_reauth_message">Skráðu þig inn á OpenStreetMap til að senda sjálfkrafa inn allar breytingar þínar á kortinu. Kannaðu þetta nánar <a href="https://github.com/organicmaps/organicmaps/issues/6144">hér</a>.</string>
     <string name="dialog_routing_disclaimer_title">Þegar ferðast er eftir leið, skaltu hafa eftirfarandi í huga:</string>
     <string name="dialog_routing_disclaimer_beware">Vertu vakandi og settu öryggið ofar öllu á vegum úti!</string>
@@ -501,8 +501,8 @@
     <string name="dialog_routing_cant_build_route">Tókst ekki að útbúa leið.</string>
     <string name="dialog_routing_start_not_determined">Leið var ekki útbúin. Tókst ekki að staðsetja upphafsstaðinn.</string>
     <string name="dialog_routing_select_closer_start">Veldu upphafsstað sem er nær vegi.</string>
-    <string name="dialog_routing_end_not_determined">Leið var ekki útbúin. Tókst ekki að staðsetja áfangastaðinn.</string>
-    <string name="dialog_routing_select_closer_end">Veldu áfangastað sem er nær vegi.</string>
+    <string name="dialog_routing_end_not_determined">Leið var ekki útbúin. Tókst ekki að staðsetja ákvörðunarstaðinn.</string>
+    <string name="dialog_routing_select_closer_end">Veldu ákvörðunarstað sem er nær vegi.</string>
     <string name="dialog_routing_change_intermediate">Tókst ekki að staðsetja milliáfangann.</string>
     <string name="dialog_routing_application_error">Tókst ekki að útbúa leið vegna villu í forriti.</string>
     <string name="dialog_routing_download_and_build_cross_route">Myndirðu vilja sækja landakortið og útbúa þægilegri leið sem spannar fleiri en eitt landakort?</string>
@@ -563,9 +563,9 @@
     <string name="nav_auto">Sjálfvirkt við leiðsögn</string>
     <string name="dialog_routing_disclaimer_borders">— Sýndu aðgætni á leiðum nálægt jaðarsvæðum: leiðirnar sem forritið útbýr gætu stundum farið yfir landamæri á stöðum sem ekki er leyfilegt að fara um.</string>
     <string name="routing_failed_cross_mwm_building">Leiðir er aðeins hægt að útbúa þar sem þær eru að fullu innan landakorts af stöku héraði.</string>
-    <string name="routing_requires_all_map">Til þess að geta útbúið leiðina, þá þarf að sækja og uppfæra öll landakortin frá staðsetningunni þinni og að áfangastað.</string>
+    <string name="routing_requires_all_map">Til þess að geta útbúið leiðina, þá þarf að sækja og uppfæra öll landakortin frá staðsetningunni þinni og að ákvörðunarstað.</string>
     <string name="dialog_routing_disclaimer_priority">— Ástand vega, umferðarreglur og vegmerkingar hafa alltaf forgang fram yfir ábendingar í leiðsögn;</string>
-    <string name="dialog_routing_disclaimer_precision">— Landakortið getur verið ónákvæmt og leiðin sem stungið er upp á þarf ekki að vera besta leiðin til að ná á áfangastað;</string>
+    <string name="dialog_routing_disclaimer_precision">— Landakortið getur verið ónákvæmt og leiðin sem stungið er upp á þarf ekki að vera besta leiðin til að ná á ákvörðunarstað;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Leiðir sem stungið er upp á ætti einungis að skilja sem meðmæli;</string>
     <string name="search_without_internet_advertisement">Til að byrja að leita og útbúa leiðir skaltu sækja landakortið. Eftir það er internettenging ekki nauðsynleg.</string>
     <string name="search_not_found_query">Sæktu kortið af því svæði sem þú ert að leita á eða prófaðu að bæta við nafni á nálægum bæ eða þorpi.</string>

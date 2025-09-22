@@ -1080,3 +1080,4 @@
 "contribute_to_osm_add_place" = "Adicionar local";
 "contribute_to_osm_update_map" = "Atualizar o mapa para contribuir";
 "contribute_to_osm_update_map_description" = "Você precisa atualizar o mapa %@ para a versão mais recente antes de poder contribuir com os dados do OpenStreetMap";
+"placepage_replace_stop" = "Substituir Parada";

@@ -11,7 +11,6 @@ import androidx.activity.SystemBarStyle;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -21,7 +20,6 @@ import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.SplashActivity;
 import app.organicmaps.sdk.util.Config;
-import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.RtlUtils;
 import java.util.Objects;
@@ -32,24 +30,9 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
 
   private boolean mSafeCreated;
 
-  @NonNull
-  private String mThemeName;
-
-  @StyleRes
-  protected int getThemeResourceId(@NonNull String theme)
-  {
-    if (Config.UiTheme.isDefault(theme))
-      return R.style.MwmTheme;
-
-    if (Config.UiTheme.isNight(theme))
-      return R.style.MwmTheme_Night;
-
-    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
-  }
-
   /**
    * Shows splash screen and initializes the core in case when it was not initialized.
-   *
+   * <p>
    * Do not override this method!
    * Use {@link #onSafeCreate(Bundle savedInstanceState)}
    */
@@ -58,8 +41,6 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   protected final void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mThemeName = Config.UiTheme.getCurrent();
-    setTheme(getThemeResourceId(mThemeName));
     EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
     RtlUtils.manageRtl(this);
     if (!MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
@@ -111,18 +92,6 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   protected void onSafeDestroy()
   {
     mSafeCreated = false;
-  }
-
-  @CallSuper
-  @Override
-  public void onPostResume()
-  {
-    super.onPostResume();
-    if (!mThemeName.equals(Config.UiTheme.getCurrent()))
-    {
-      // Workaround described in https://code.google.com/p/android/issues/detail?id=93731
-      UiThread.runLater(this::recreate);
-    }
   }
 
   @Override

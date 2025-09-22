@@ -1085,3 +1085,4 @@
 "contribute_to_osm_add_place" = "Добавить место";
 "contribute_to_osm_update_map" = "Обновить карту, чтобы внести вклад";
 "contribute_to_osm_update_map_description" = "Чтобы внести изменения в данные OpenStreetMap, необходимо сначала обновить карту %@ до последней версии";
+"placepage_replace_stop" = "Replace Stop";
