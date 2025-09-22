@@ -268,6 +268,7 @@ public class PlacePageView extends Fragment
 
     mOsmDescriptionContainer = mFrame.findViewById(R.id.osm_description_container);
     mTvOsmDescription = mFrame.findViewById(R.id.tv__osm_description);
+    mTvOsmDescription.setOnLongClickListener(this);
 
     mShareButton = mPreview.findViewById(R.id.share_button);
     mShareButton.setOnClickListener(this::shareClickListener);
@@ -879,6 +880,8 @@ public class PlacePageView extends Fragment
       items.add(mTvSecondaryTitle.getText().toString());
     else if (id == R.id.tv__address)
       items.add(mTvAddress.getText().toString());
+    else if (id == R.id.tv__osm_description)
+      items.add(mTvOsmDescription.getText().toString());
     else if (id == R.id.ll__place_latlon)
     {
       final double lat = mMapObject.getLat();
