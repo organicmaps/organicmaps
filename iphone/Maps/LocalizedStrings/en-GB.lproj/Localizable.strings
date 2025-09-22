@@ -705,11 +705,6 @@
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Exit";
 
-/* User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". */
-"routing_add_start_point" = "Use search or tap on the map to add a route starting point";
-
-/* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
-"routing_add_finish_point" = "Use search or tap on the map to add a destination point";
 "planning_route_manage_route" = "Manage Route";
 "button_plan" = "Plan";
 "placepage_remove_stop" = "Remove Stop";

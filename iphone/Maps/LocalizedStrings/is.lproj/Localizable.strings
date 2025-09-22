@@ -362,8 +362,6 @@
 "log_file_size" = "Stærð atvikaskrár: %@";
 "transliteration_title" = "Umrita yfir í latneskt stafróf";
 "core_exit" = "Útgangur";
-"routing_add_start_point" = "Notaðu leit eða ýttu á kortið til að bæta við upphafspunkti leiðar";
-"routing_add_finish_point" = "Notaðu leit eða ýttu á kortið til að bæta við ákvörðunarstað";
 "planning_route_manage_route" = "Sýsla með leið";
 "button_plan" = "Skipuleggja";
 "placepage_remove_stop" = "Fjarlægja stopp";
