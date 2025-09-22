@@ -111,19 +111,19 @@ node|z17-[natural=volcano],
 {font-size: 11;}
 
 node|z13[natural=peak][name],
-{icon-image: peakt-s.svg; font-size: 9;}
+{icon-image: peak-xs.svg; font-size: 9;}
 node|z14[natural=peak][name],
-{icon-image: peakt-s.svg; font-size: 10;}
+{icon-image: peak-xs.svg; font-size: 10;}
 node|z15-[natural=peak][name],
-{icon-image: peakt-m.svg; font-size: 10;}
+{icon-image: peak-s.svg; font-size: 10;}
 node|z17-[natural=peak][name],
 {font-size: 11;}
 
 node|z15-[natural=peak][!name],
-{icon-image: peakt-m.svg;font-size: 10;}
+{icon-image: peak-s.svg;font-size: 10;}
 
 node|z17-[natural=rock],
-{icon-image: peakt-s.svg; font-size: 10;}
+{icon-image: peak-xs.svg; font-size: 10;}
 
 node|z14[mountain_pass],
 {icon-image: mountain-pass-s.svg;}
