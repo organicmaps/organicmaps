@@ -20715,42 +20715,42 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "traffic_signals"
+      name: "traffic_signals-m"
       priority: 175
     }
   }
   element {
     scale: 16
     symbol {
-      name: "traffic_signals"
+      name: "traffic_signals-m"
       priority: 175
     }
   }
   element {
     scale: 17
     symbol {
-      name: "traffic_signals"
+      name: "traffic_signals-m"
       priority: 175
     }
   }
   element {
     scale: 18
     symbol {
-      name: "traffic_signals"
+      name: "traffic_signals-m"
       priority: 175
     }
   }
   element {
     scale: 19
     symbol {
-      name: "traffic_signals"
+      name: "traffic_signals-m"
       priority: 175
     }
   }
   element {
     scale: 20
     symbol {
-      name: "traffic_signals"
+      name: "traffic_signals-m"
       priority: 175
     }
   }
@@ -32370,14 +32370,14 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "mast-m"
+      name: "mast-s"
       priority: 1950
     }
   }
   element {
     scale: 16
     symbol {
-      name: "mast-m"
+      name: "mast-s"
       priority: 1950
     }
     caption {
@@ -32393,7 +32393,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "mast-m"
+      name: "mast-s"
       priority: 1950
     }
     caption {
@@ -32409,7 +32409,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "mast-m"
+      name: "mast-s"
       priority: 1950
     }
     caption {
@@ -32425,7 +32425,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "mast-m"
+      name: "mast-s"
       priority: 1950
     }
     caption {
@@ -32441,7 +32441,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "mast-m"
+      name: "mast-s"
       priority: 1950
     }
     caption {
