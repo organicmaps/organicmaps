@@ -410,11 +410,11 @@ node|z13-[tourism=information][information=office],
 node|z13-[tourism=information][information=visitor_centre],
 {icon-image: information-office-m.svg;}
 node|z15-[tourism=information][information=board],
-{icon-image: board.svg;}
+{icon-image: board-m.svg;}
 node|z15-[tourism=information][information=guidepost],
-{icon-image: guidepost.svg;}
+{icon-image: guidepost-m.svg;}
 node|z15-[tourism=information][information=map],
-{icon-image: map.svg;}
+{icon-image: map-m.svg;}
 
 node|z14-[amenity=ranger_station],
 {icon-image: ranger-station-m.svg; icon-min-distance: 10;}
@@ -501,7 +501,7 @@ node|z13-[man_made=flare],
 {icon-image: mast-m.svg; font-size: 11;}
 
 node|z14-[man_made=tower][tower:type!=communication],
-{icon-image: storage-tank.svg;}
+{icon-image: storage-tank-m.svg;}
 node|z16-[man_made=tower],
 {font-size: 12;}
 
@@ -526,7 +526,7 @@ node|z13-[man_made=water_tower],
 node|z14-[man_made=silo],
 node|z14-[man_made=storage_tank],
 node|z14-[man_made=water_tower],
-{icon-image: storage-tank.svg; font-size: 11;}
+{icon-image: storage-tank-m.svg; font-size: 11;}
 node|z16-[man_made=silo],
 node|z16-[man_made=storage_tank],
 node|z16-[man_made=water_tower],
