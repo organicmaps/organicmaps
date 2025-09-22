@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="road_sign_white">@android:color/white</color>
+  <color name="road_sign_black">@android:color/black</color>
+  <color name="road_sign_red">#FFF54137</color>
+</resources>
