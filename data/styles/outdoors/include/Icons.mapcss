@@ -460,13 +460,16 @@ node|z16-[highway=ladder],
 
 node|z13-[power=portal],
 node|z13[power=tower],
-{icon-image: mast-m.svg;}
+{icon-image: mast-s.svg;}
 node|z14-[power=portal],
 node|z14-[power=tower],
+{icon-image: power-tower-s.svg;}
+node|z16-[power=portal],
+node|z16-[power=tower],
 {icon-image: power-tower-m.svg;}
 node|z15-[power=pole],
 node|z15-[man_made=utility_pole],
-{icon-image: mast-m.svg;}
+{icon-image: mast-s.svg;}
 
 node|z13-[power=generator][generator:source=wind],
 area|z13-[power=generator][generator:source=wind],
@@ -484,26 +487,31 @@ node|z13-[man_made=mast],
 {icon-image: dot-m.svg;}
 node|z14-[man_made=flagpole],
 node|z14-[man_made=mast],
+{icon-image: mast-s.svg;}
+node|z16-[man_made=flagpole],
+node|z16-[man_made=mast],
 {icon-image: mast-m.svg;}
 
-/* TODO: needs a better icon */
 node|z12-[man_made=communications_tower],
-{icon-image: mast-m.svg;}
+{icon-image: mast-s.svg;}
 node|z13-[man_made=communications_tower],
 {font-size: 11;}
 node|z14-[man_made=communications_tower],
-{icon-image: power-tower-m.svg;}
+{icon-image: tower-communication-m.svg;}
 node|z16-[man_made=communications_tower],
 {font-size: 12;}
 
 node|z13-[man_made=tower],
 node|z13-[man_made=flare],
-{icon-image: mast-m.svg; font-size: 11;}
+{icon-image: mast-s.svg; font-size: 11;}
 
-node|z14-[man_made=tower][tower:type!=communication],
-{icon-image: storage-tank-m.svg;}
+node|z14-[man_made=tower],
+{icon-image: tower-m.svg;}
 node|z16-[man_made=tower],
 {font-size: 12;}
+
+node|z14-[man_made=tower][tower:type=communication],
+{icon-image: tower-communication-m.svg;}
 
 node|z14-[amenity=hunting_stand],
 {icon-image: hunting-tower-m.svg; font-size: 11;}
