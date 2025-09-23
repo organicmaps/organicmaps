@@ -65,6 +65,7 @@ final class SearchOnMapHeaderView: UIView {
     searchBar.setStyle(.defaultSearchBar)
     searchBar.placeholder = L("search")
     searchBar.showsCancelButton = false
+    searchBar.searchBarStyle = .minimal
     if #available(iOS 13.0, *) {
       searchBar.searchTextField.clearButtonMode = .always
       searchBar.returnKeyType = .search
@@ -82,10 +83,14 @@ final class SearchOnMapHeaderView: UIView {
   private func layoutView() {
     addSubview(grabberView)
     addSubview(grabberTapHandlerView)
-    addSubview(searchBar)
     addSubview(cancelContainer)
+    addSubview(searchBar)
+
     cancelContainer.addSubview(cancelButton)
-    separator = addSeparator(.bottom)
+    if #available(iOS 26.0, *) {}
+    else {
+      separator = addSeparator(.bottom)
+    }
 
     grabberView.translatesAutoresizingMaskIntoConstraints = false
     grabberTapHandlerView.translatesAutoresizingMaskIntoConstraints = false
