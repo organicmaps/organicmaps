@@ -36,8 +36,6 @@ public:
 
   void Invalidate(ref_ptr<dp::GraphicsContext> context, std::string const & skinPathName,
                   ref_ptr<HWTextureAllocator> allocator);
-  void Invalidate(ref_ptr<dp::GraphicsContext> context, std::string const & skinPathName,
-                  ref_ptr<HWTextureAllocator> allocator, std::vector<drape_ptr<HWTexture>> & internalTextures);
 
   bool IsSymbolContained(std::string const & symbolName) const;
 

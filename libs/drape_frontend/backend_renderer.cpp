@@ -17,8 +17,6 @@
 #include "drape/support_manager.hpp"
 #include "drape/texture_manager.hpp"
 
-#include "indexer/scales.hpp"
-
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -355,18 +353,37 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     m_trafficGenerator->InvalidateTexturesCache();
     m_transitBuilder->RebuildSchemes(m_context, m_texMng);
 
-    // For Vulkan we initialize deferred cleaning up.
-    if (m_context->GetApiVersion() == dp::ApiVersion::Vulkan)
-    {
-      std::vector<drape_ptr<dp::HWTexture>> textures;
-      m_texMng->GetTexturesToCleanup(textures);
-      if (!textures.empty())
-      {
-        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<CleanupTexturesMessage>(std::move(textures)), MessagePriority::Normal);
-      }
-    }
+    CleanupTextures();
+    break;
+  }
 
+  case Message::Type::VisualScaleChanged:
+  {
+    ref_ptr<VisualScaleChangedMessage> msg = message;
+    msg->FilterDependentMessages();
+
+    CHECK(m_context != nullptr, ());
+
+    dp::TextureManager::Params params;
+    params.m_resPostfix = VisualParams::Instance().GetResourcePostfix();
+    params.m_visualScale = df::VisualParams::Instance().GetVisualScale();
+#ifdef BUILD_DESIGNER
+    params.m_patterns = "patterns_design.txt";
+#else
+    params.m_patterns = "patterns.txt";
+#endif  // BUILD_DESIGNER
+
+    m_texMng->OnVisualScaleChanged(m_context, params);
+
+    RecacheMapShapes();
+    RecacheGui(m_lastWidgetsInfo, false /* needResetOldGui */);
+#ifdef RENDER_DEBUG_INFO_LABELS
+    RecacheDebugLabels();
+#endif
+    m_trafficGenerator->InvalidateTexturesCache();
+    m_transitBuilder->RebuildSchemes(m_context, m_texMng);
+
+    CleanupTextures();
     break;
   }
 
@@ -611,21 +628,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_arrow3dPreloadedData = Arrow3d::PreloadMesh(m_arrow3dCustomDecl, m_texMng);
     }
 
-    // Recache map shapes.
     RecacheMapShapes();
-
-    // For Vulkan we initialize deferred cleaning up.
-    if (m_context->GetApiVersion() == dp::ApiVersion::Vulkan)
-    {
-      std::vector<drape_ptr<dp::HWTexture>> textures;
-      m_texMng->GetTexturesToCleanup(textures);
-      if (!textures.empty())
-      {
-        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<CleanupTexturesMessage>(std::move(textures)), MessagePriority::Normal);
-      }
-    }
-
+    CleanupTextures();
     break;
   }
 
@@ -770,6 +774,18 @@ void BackendRenderer::RecacheMapShapes()
                                        make_unique_dp<SelectionShape>(m_context, m_texMng), m_arrow3dPreloadedData);
   m_context->Flush();
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, std::move(msg), MessagePriority::Normal);
+}
+
+void BackendRenderer::CleanupTextures()
+{
+  // For Vulkan we initialize deferred cleaning up.
+  if (m_context->GetApiVersion() == dp::ApiVersion::Vulkan)
+  {
+    auto textures = m_texMng->GetTexturesToCleanup();
+    if (!textures.empty())
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<CleanupTexturesMessage>(std::move(textures)), MessagePriority::Normal);
+  }
 }
 
 void BackendRenderer::FlushGeometry(TileKey const & key, dp::RenderState const & state,

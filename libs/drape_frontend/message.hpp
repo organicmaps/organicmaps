@@ -103,7 +103,8 @@ public:
     NotifyGraphicsReady,
     EnableIsolines,
     OnEnterBackground,
-    Arrow3dRecache
+    Arrow3dRecache,
+    VisualScaleChanged,
   };
 
   virtual ~Message() = default;
