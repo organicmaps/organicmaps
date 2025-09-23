@@ -68,7 +68,7 @@ public class MapView extends SurfaceView
   {
     super(context, attrs, defStyleAttr, defStyleRes);
     mMap = new Map(DisplayType.Device);
-    super.getHolder().addCallback(new SurfaceHolderCallback());
+    getHolder().addCallback(new SurfaceHolderCallback());
   }
 
   public final void onDraw(@NonNull Canvas canvas)
@@ -114,12 +114,6 @@ public class MapView extends SurfaceView
   {
     super.performClick();
     return false;
-  }
-
-  @Override
-  public final SurfaceHolder getHolder()
-  {
-    throw new UnsupportedOperationException("Not supported.");
   }
 
   @NonNull
