@@ -215,7 +215,6 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
   func viewDidLoad() {
     reload()
     view.setTitle(bookmarkGroup.title)
-    view.setMoreItemTitle(L("placepage_more_button"))
     view.enableEditing(true)
 
     let info = BookmarksListInfo(title: bookmarkGroup.title,
