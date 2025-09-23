@@ -129,7 +129,7 @@ function(export_directory_flags filename)
   set(options "$<$<BOOL:${options}>:$<JOIN:${options},\n>\n>")
   file(
     GENERATE OUTPUT
-    ${filename}
+    "${filename}"
     CONTENT
     "${definitions}${include_directories}${platform_flags}\n${flags}${options}\n"
   )
