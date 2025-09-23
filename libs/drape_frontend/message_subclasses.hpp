@@ -1,7 +1,6 @@
 #pragma once
 
 #include "drape_frontend/circles_pack_shape.hpp"
-#include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/custom_features_context.hpp"
 #include "drape_frontend/drape_api.hpp"
 #include "drape_frontend/drape_api_builder.hpp"
@@ -14,8 +13,7 @@
 #include "drape_frontend/overlay_batcher.hpp"
 #include "drape_frontend/postprocess_renderer.hpp"
 #include "drape_frontend/render_node.hpp"
-#include "drape_frontend/render_state_extension.hpp"
-#include "drape_frontend/route_builder.hpp"
+#include "drape_frontend/route_shape.hpp"
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/traffic_generator.hpp"
@@ -26,13 +24,10 @@
 
 #include "drape/pointers.hpp"
 #include "drape/render_bucket.hpp"
-#include "drape/viewport.hpp"
 
 #include "platform/location.hpp"
 
-#include "geometry/polyline2d.hpp"
 #include "geometry/rect2d.hpp"
-#include "geometry/screenbase.hpp"
 #include "geometry/triangle2d.hpp"
 
 #include <condition_variable>
@@ -40,7 +35,6 @@
 #include <map>
 #include <mutex>
 #include <optional>
-#include <utility>
 #include <vector>
 
 namespace df
@@ -730,6 +724,12 @@ public:
   Type GetType() const override { return Type::UpdateMapStyle; }
 };
 
+class UpdateVisualScaleMessage : public Message
+{
+public:
+  Type GetType() const override { return Type::VisualScaleChanged; }
+};
+
 class FollowRouteMessage : public Message
 {
 public:
@@ -774,6 +774,14 @@ public:
 
 private:
   FilterMessagesHandler m_filterMessagesHandler;
+};
+
+class VisualScaleChangedMessage : public SwitchMapStyleMessage
+{
+public:
+  using SwitchMapStyleMessage::SwitchMapStyleMessage;
+
+  Type GetType() const override { return Type::VisualScaleChanged; }
 };
 
 class InvalidateMessage : public Message

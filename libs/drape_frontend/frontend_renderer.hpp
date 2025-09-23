@@ -246,6 +246,9 @@ private:
   void ReleaseResources();
   void UpdateContextDependentResources();
 
+  template <class MessageT>
+  void UpdateAll();
+
   void BeginUpdateOverlayTree(ScreenBase const & modelView);
   void UpdateOverlayTree(ScreenBase const & modelView, drape_ptr<RenderGroup> & renderGroup);
   void EndUpdateOverlayTree();

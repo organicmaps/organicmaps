@@ -76,7 +76,9 @@ public:
 
   void Init(ref_ptr<dp::GraphicsContext> context, Params const & params);
   void OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context);
-  void GetTexturesToCleanup(std::vector<drape_ptr<HWTexture>> & textures);
+  void OnVisualScaleChanged(ref_ptr<dp::GraphicsContext> context, Params const & params);
+
+  std::vector<drape_ptr<HWTexture>> GetTexturesToCleanup();
 
   bool GetSymbolRegionSafe(std::string const & symbolName, SymbolRegion & region);
   void GetSymbolRegion(std::string const & symbolName, SymbolRegion & region);
@@ -120,6 +122,8 @@ public:
   ref_ptr<HWTextureAllocator> GetTextureAllocator() const;
 
 private:
+  void InitStipplePen(Params const & params);
+
   struct GlyphGroup
   {
     std::set<GlyphFontAndId> m_glyphKeys;

@@ -231,14 +231,6 @@ void SymbolsTexture::Invalidate(ref_ptr<dp::GraphicsContext> context, std::strin
   Load(context, skinPathName, allocator);
 }
 
-void SymbolsTexture::Invalidate(ref_ptr<dp::GraphicsContext> context, std::string const & skinPathName,
-                                ref_ptr<HWTextureAllocator> allocator,
-                                std::vector<drape_ptr<HWTexture>> & internalTextures)
-{
-  internalTextures.push_back(std::move(m_hwTexture));
-  Invalidate(context, skinPathName, allocator);
-}
-
 ref_ptr<Texture::ResourceInfo> SymbolsTexture::FindResource(Texture::Key const & key, bool & newResource)
 {
   newResource = false;

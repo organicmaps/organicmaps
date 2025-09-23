@@ -73,6 +73,12 @@ public:
 
   static bool IsPowerOfTwo(uint32_t width, uint32_t height);
 
+  void DeferredCleanup(std::vector<drape_ptr<HWTexture>> & toCleanup)
+  {
+    toCleanup.push_back(std::move(m_hwTexture));
+    Destroy();
+  }
+
 protected:
   void Destroy();
   bool AllocateTexture(ref_ptr<dp::GraphicsContext> context, ref_ptr<HWTextureAllocator> allocator);

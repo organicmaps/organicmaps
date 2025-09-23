@@ -87,6 +87,10 @@ drape_ptr<Texture> CreateArrowTexture(ref_ptr<dp::GraphicsContext> context,
                                          useDefaultResourceFolder ? StaticTexture::kDefaultResource : std::string(),
                                          dp::TextureFormat::RGBA8, textureAllocator, true /* allowOptional */);
   }
+
+  // There is no "arrow-texture.png".
+  // BackendRenderer::m_arrow3dPreloadedData mesh is used by default.
+  /// @todo Texture arrow is still present in case if somebody wants to use it?
   return make_unique_dp<StaticTexture>(context, "arrow-texture.png", StaticTexture::kDefaultResource,
                                        dp::TextureFormat::RGBA8, textureAllocator, true /* allowOptional */);
 }
@@ -321,39 +325,7 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   m_smaaSearchTexture = make_unique_dp<StaticTexture>(context, "smaa-search.png", StaticTexture::kDefaultResource,
                                                       dp::TextureFormat::Red, make_ref(m_textureAllocator));
 
-  // Initialize patterns (reserved ./data/patterns.txt lines count).
-  std::set<PenPatternT> patterns;
-
-  double const visualScale = params.m_visualScale;
-  uint32_t rowsCount = 0;
-  impl::ParsePatternsList(params.m_patterns, [&](buffer_vector<double, 8> const & pattern)
-  {
-    PenPatternT toAdd;
-    for (double d : pattern)
-      toAdd.push_back(PatternFloat2Pixel(d * visualScale));
-
-    if (!patterns.insert(toAdd).second)
-      return;
-
-    if (IsTrianglePattern(toAdd))
-    {
-      rowsCount = rowsCount + toAdd[2] + toAdd[3];
-    }
-    else
-    {
-      ASSERT_EQUAL(toAdd.size(), 2, ());
-      ++rowsCount;
-    }
-  });
-
-  m_stipplePenTexture = make_unique_dp<StipplePenTexture>(StipplePenTextureSize(rowsCount, m_maxTextureSize),
-                                                          make_ref(m_textureAllocator));
-
-  LOG(LDEBUG, ("Patterns texture size =", m_stipplePenTexture->GetWidth(), m_stipplePenTexture->GetHeight()));
-
-  ref_ptr<StipplePenTexture> stipplePenTex = make_ref(m_stipplePenTexture);
-  for (auto const & p : patterns)
-    stipplePenTex->ReservePattern(p);
+  InitStipplePen(params);
 
   // Initialize colors (reserved ./data/colors.txt lines count).
   std::vector<dp::Color> colors;
@@ -385,23 +357,71 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   m_nothingToUpload.clear();
 }
 
+void TextureManager::InitStipplePen(Params const & params)
+{
+  // Initialize patterns (reserved ./data/patterns.txt lines count).
+  std::set<PenPatternT> patterns;
+  uint32_t rowsCount = 0;
+
+  impl::ParsePatternsList(params.m_patterns, [&](buffer_vector<double, 8> const & pattern)
+  {
+    PenPatternT toAdd;
+    for (double d : pattern)
+      toAdd.push_back(PatternFloat2Pixel(d * params.m_visualScale));
+
+    if (!patterns.insert(toAdd).second)
+      return;
+
+    if (IsTrianglePattern(toAdd))
+    {
+      rowsCount = rowsCount + toAdd[2] + toAdd[3];
+    }
+    else
+    {
+      ASSERT_EQUAL(toAdd.size(), 2, ());
+      ++rowsCount;
+    }
+  });
+
+  m_stipplePenTexture = make_unique_dp<StipplePenTexture>(StipplePenTextureSize(rowsCount, m_maxTextureSize),
+                                                          make_ref(m_textureAllocator));
+
+  LOG(LDEBUG, ("Patterns texture size =", m_stipplePenTexture->GetWidth(), m_stipplePenTexture->GetHeight()));
+
+  ref_ptr<StipplePenTexture> stipplePenTex = make_ref(m_stipplePenTexture);
+  for (auto const & p : patterns)
+    stipplePenTex->ReservePattern(p);
+}
+
 void TextureManager::OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context)
 {
   CHECK(m_isInitialized, ());
 
+  bool const isVulkan = context->GetApiVersion() == dp::ApiVersion::Vulkan;
+
   // Here we need invalidate only textures which can be changed in map style switch.
   // Now we update only symbol textures, if we need update other textures they must be added here.
   // For Vulkan we use m_texturesToCleanup to defer textures destroying.
-  for (auto const & m_symbolTexture : m_symbolTextures)
+  for (auto const & texture : m_symbolTextures)
   {
-    ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTexture);
-    ASSERT(symbolsTexture != nullptr, ());
+    ref_ptr<SymbolsTexture> symbolsTexture = make_ref(texture);
+    if (isVulkan)
+      symbolsTexture->DeferredCleanup(m_texturesToCleanup);
 
-    if (context->GetApiVersion() != dp::ApiVersion::Vulkan)
-      symbolsTexture->Invalidate(context, m_resPostfix, make_ref(m_textureAllocator));
-    else
-      symbolsTexture->Invalidate(context, m_resPostfix, make_ref(m_textureAllocator), m_texturesToCleanup);
+    symbolsTexture->Invalidate(context, m_resPostfix, make_ref(m_textureAllocator));
   }
+}
+
+void TextureManager::OnVisualScaleChanged(ref_ptr<dp::GraphicsContext> context, Params const & params)
+{
+  m_resPostfix = params.m_resPostfix;
+
+  OnSwitchMapStyle(context);
+
+  if (context->GetApiVersion() == dp::ApiVersion::Vulkan)
+    m_stipplePenTexture->DeferredCleanup(m_texturesToCleanup);
+
+  InitStipplePen(params);
 }
 
 void TextureManager::InvalidateArrowTexture(ref_ptr<dp::GraphicsContext> context,
@@ -421,10 +441,13 @@ void TextureManager::ApplyInvalidatedStaticTextures()
   }
 }
 
-void TextureManager::GetTexturesToCleanup(std::vector<drape_ptr<HWTexture>> & textures)
+std::vector<drape_ptr<HWTexture>> TextureManager::GetTexturesToCleanup()
 {
   CHECK(m_isInitialized, ());
-  std::swap(textures, m_texturesToCleanup);
+
+  auto res = std::move(m_texturesToCleanup);
+  m_texturesToCleanup.clear();
+  return res;
 }
 
 bool TextureManager::GetSymbolRegionSafe(std::string const & symbolName, SymbolRegion & region)

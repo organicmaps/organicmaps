@@ -920,10 +920,8 @@ void DrapeEngine::UpdateVisualScale(double vs, bool needStopRendering)
   if (needStopRendering)
     SetRenderingEnabled();
 
-  RecacheGui(false);
-  RecacheMapShapes();
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<RecoverContextDependentResourcesMessage>(), MessagePriority::Normal);
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread, make_unique_dp<UpdateVisualScaleMessage>(),
+                                  MessagePriority::High);
 }
 
 void DrapeEngine::UpdateMyPositionRoutingOffset(bool useDefault, int offsetY)
