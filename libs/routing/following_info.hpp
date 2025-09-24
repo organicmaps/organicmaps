@@ -20,6 +20,7 @@ public:
     , m_nextTurn(turns::CarDirection::None)
     , m_exitNum(0)
     , m_time(0)
+    , m_isInTunnel(false)
     , m_completionPercent(0)
     , m_pedestrianTurn(turns::PedestrianDirection::None)
   {}
@@ -51,6 +52,8 @@ public:
   std::string m_nextStreetName;
   // The next next street name. May be empty.
   std::string m_nextNextStreetName;
+
+  bool m_isInTunnel;
 
   // Percentage of the route completion.
   double m_completionPercent;
