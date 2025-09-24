@@ -165,11 +165,8 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     }
     let previewFrame = scrollView.convert(preview.bounds, from: preview)
     steps.append(.preview(previewFrame.maxY - scrollHeight))
-    if !compact {
-      if placePageData.isPreviewPlus {
-        steps.append(.previewPlus(-scrollHeight * 0.55))
-      }
-      steps.append(.expanded(-scrollHeight * 0.3))
+    if !compact, placePageData.isPreviewPlus {
+      steps.append(.previewPlus(-scrollHeight * 0.55))
     }
     steps.append(.full)
     return steps
