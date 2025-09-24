@@ -40,6 +40,7 @@ final class PlacePageScrollView: UIScrollView {
   private var previousScrollContentOffset: CGPoint?
   private var userDefinedStep: PlacePageState?
   private var isNavigationBarVisible = false
+  private var isFirstOpening = true
 
   var interactor: PlacePageInteractorProtocol?
   var isPreviewPlus: Bool = false
@@ -277,7 +278,10 @@ final class PlacePageScrollView: UIScrollView {
     let contentOffset = CGPoint(x: point.x, y: min(scrollView.contentSize.height - scrollView.height, point.y))
     let bound = view.frame.height + contentOffset.y
     if animated {
-      updateTopBound(bound)
+      if isFirstOpening {
+        updateTopBound(bound)
+        isFirstOpening = false
+      }
       ModalPresentationAnimator.animate(animations: { [weak scrollView] in
         scrollView?.contentOffset = contentOffset
         self.layoutIfNeeded()
@@ -344,8 +348,6 @@ extension PlacePageViewController: PlacePageViewProtocol {
         offset.y = scrollSteps[1].offset
       case .previewPlus(let yOffset):
         offset.y = yOffset
-      case .expanded(let yOffset):
-        offset.y = yOffset
       case .full:
         offset.y = previousScrollContentOffset?.y ?? scrollSteps.last?.offset ?? 0
       case .closed:
@@ -397,8 +399,6 @@ extension PlacePageViewController: UIScrollViewDelegate {
       interactor?.close()
     }
     onOffsetChanged(scrollView.contentOffset.y)
-    let bound = view.height + scrollView.contentOffset.y
-    updateTopBound(bound)
   }
 
   func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
