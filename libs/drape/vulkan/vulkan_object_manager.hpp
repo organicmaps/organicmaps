@@ -70,8 +70,8 @@ public:
                            VkImageAspectFlags aspectFlags, uint32_t width, uint32_t height);
   DescriptorSetGroup CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program);
 
-  // Use unsafe function ONLY if an object exists on the only thread, otherwise
-  // use safe Fill function.
+  // Use unsafe function ONLY if an object exists on one thread, otherwise
+  // use safe Fill() function.
   uint8_t * MapUnsafe(VulkanObject object);
   void FlushUnsafe(VulkanObject object, uint32_t offset = 0, uint32_t size = 0);
   void UnmapUnsafe(VulkanObject object);

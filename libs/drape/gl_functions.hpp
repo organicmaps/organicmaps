@@ -114,21 +114,21 @@ public:
   static void glGetActiveUniform(uint32_t programID, uint32_t uniformIndex, int32_t * uniformSize, glConst * type,
                                  std::string & name);
 
-  static int8_t glGetUniformLocation(uint32_t programID, std::string const & name);
-  static void glUniformValuei(int8_t location, int32_t v);
-  static void glUniformValuei(int8_t location, int32_t v1, int32_t v2);
-  static void glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32_t v3);
-  static void glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32_t v3, int32_t v4);
-  static void glUniformValueiv(int8_t location, int32_t const * v, uint32_t size);
+  static int glGetUniformLocation(uint32_t programID, std::string const & name);
+  static void glUniformValuei(int location, int32_t v);
+  static void glUniformValuei(int location, int32_t v1, int32_t v2);
+  static void glUniformValuei(int location, int32_t v1, int32_t v2, int32_t v3);
+  static void glUniformValuei(int location, int32_t v1, int32_t v2, int32_t v3, int32_t v4);
+  static void glUniformValueiv(int location, int32_t const * v, uint32_t size);
 
-  static void glUniformValuef(int8_t location, float v);
-  static void glUniformValuef(int8_t location, float v1, float v2);
-  static void glUniformValuef(int8_t location, float v1, float v2, float v3);
-  static void glUniformValuef(int8_t location, float v1, float v2, float v3, float v4);
-  static void glUniformValuefv(int8_t location, float const * v, uint32_t size);
-  static void glUniformValue4fv(int8_t location, float const * v, uint32_t size);
+  static void glUniformValuef(int location, float v);
+  static void glUniformValuef(int location, float v1, float v2);
+  static void glUniformValuef(int location, float v1, float v2, float v3);
+  static void glUniformValuef(int location, float v1, float v2, float v3, float v4);
+  static void glUniformValuefv(int location, float const * v, uint32_t size);
+  static void glUniformValue4fv(int location, float const * v, uint32_t size);
 
-  static void glUniformMatrix4x4Value(int8_t location, float const * values);
+  static void glUniformMatrix4x4Value(int location, float const * values);
 
   static uint32_t glGetCurrentProgram();
 
@@ -147,6 +147,7 @@ public:
   // Draw support
   static void glDrawElements(glConst primitive, uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex = 0);
   static void glDrawArrays(glConst mode, int32_t first, uint32_t count);
+  static void glDrawArraysInstanced(glConst mode, int32_t first, uint32_t count, uint32_t instanceCount);
 
   // FBO support
   static void glGenFramebuffer(uint32_t * fbo);

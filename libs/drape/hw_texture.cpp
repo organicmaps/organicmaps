@@ -204,6 +204,7 @@ void OpenGLHWTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t 
                                  uint32_t height, ref_ptr<void> data)
 {
   ASSERT(Validate(), ());
+
   uint32_t const mappingSize = height * width * m_pixelBufferElementSize;
   if (m_pixelBufferID != 0 && m_pixelBufferSize >= mappingSize)
   {
@@ -215,7 +216,10 @@ void OpenGLHWTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t 
   }
   else
   {
+    Bind(context);
     GLFunctions::glTexSubImage2D(x, y, width, height, m_unpackedLayout, m_unpackedPixelType, data.get());
+    GLFunctions::glBindTexture(0);
+    GLFunctions::glFlush();
   }
 }
 

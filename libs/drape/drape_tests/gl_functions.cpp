@@ -128,62 +128,62 @@ void GLFunctions::glVertexAttributePointer(int32_t attrLocation, uint32_t count,
   MOCK_CALL(glVertexAttributePointer(attrLocation, count, type, needNormalize, stride, offset));
 }
 
-int8_t GLFunctions::glGetUniformLocation(uint32_t programID, std::string const & name)
+int GLFunctions::glGetUniformLocation(uint32_t programID, std::string const & name)
 {
   return MOCK_CALL(glGetUniformLocation(programID, name));
 }
 
-void GLFunctions::glUniformValuei(int8_t location, int32_t v)
+void GLFunctions::glUniformValuei(int location, int32_t v)
 {
   MOCK_CALL(glUniformValuei(location, v));
 }
 
-void GLFunctions::glUniformValuei(int8_t location, int32_t v1, int32_t v2)
+void GLFunctions::glUniformValuei(int location, int32_t v1, int32_t v2)
 {
   MOCK_CALL(glUniformValuei(location, v1, v2));
 }
 
-void GLFunctions::glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32_t v3)
+void GLFunctions::glUniformValuei(int location, int32_t v1, int32_t v2, int32_t v3)
 {
   MOCK_CALL(glUniformValuei(location, v1, v2, v3));
 }
 
-void GLFunctions::glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32_t v3, int32_t v4)
+void GLFunctions::glUniformValuei(int location, int32_t v1, int32_t v2, int32_t v3, int32_t v4)
 {
   MOCK_CALL(glUniformValuei(location, v1, v2, v3, v4));
 }
 
-void GLFunctions::glUniformValuef(int8_t location, float v)
+void GLFunctions::glUniformValuef(int location, float v)
 {
   MOCK_CALL(glUniformValuef(location, v));
 }
 
-void GLFunctions::glUniformValuef(int8_t location, float v1, float v2)
+void GLFunctions::glUniformValuef(int location, float v1, float v2)
 {
   MOCK_CALL(glUniformValuef(location, v1, v2));
 }
 
-void GLFunctions::glUniformValuef(int8_t location, float v1, float v2, float v3)
+void GLFunctions::glUniformValuef(int location, float v1, float v2, float v3)
 {
   MOCK_CALL(glUniformValuef(location, v1, v2, v3));
 }
 
-void GLFunctions::glUniformValuef(int8_t location, float v1, float v2, float v3, float v4)
+void GLFunctions::glUniformValuef(int location, float v1, float v2, float v3, float v4)
 {
   MOCK_CALL(glUniformValuef(location, v1, v2, v3, v4));
 }
 
-void GLFunctions::glUniformMatrix4x4Value(int8_t location, float const * values)
+void GLFunctions::glUniformMatrix4x4Value(int location, float const * values)
 {
   MOCK_CALL(glUniformMatrix4x4Value(location, values));
 }
 
-void GLFunctions::glUniformValueiv(int8_t location, int32_t const * v, uint32_t size)
+void GLFunctions::glUniformValueiv(int location, int32_t const * v, uint32_t size)
 {
   MOCK_CALL(glUniformValueiv(location, v, size));
 }
 
-void GLFunctions::glUniformValue4fv(int8_t location, float const * v, uint32_t size)
+void GLFunctions::glUniformValue4fv(int location, float const * v, uint32_t size)
 {
   MOCK_CALL(glUniformValue4fv(location, v, size));
 }
@@ -339,6 +339,8 @@ void GLFunctions::glUnmapBuffer(glConst target) {}
 void GLFunctions::glDrawElements(glConst primitive, uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex) {}
 
 void GLFunctions::glDrawArrays(glConst mode, int32_t first, uint32_t count) {}
+
+void GLFunctions::glDrawArraysInstanced(glConst mode, int32_t first, uint32_t count, uint32_t instanceCount) {}
 
 void GLFunctions::glPixelStore(glConst name, uint32_t value) {}
 

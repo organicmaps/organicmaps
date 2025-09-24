@@ -57,7 +57,7 @@ int8_t GLGpuProgram::GetAttributeLocation(std::string const & attributeName) con
   return GLFunctions::glGetAttribLocation(m_programID, attributeName);
 }
 
-int8_t GLGpuProgram::GetUniformLocation(std::string const & uniformName) const
+int GLGpuProgram::GetUniformLocation(std::string const & uniformName) const
 {
   auto const it = m_uniforms.find(uniformName);
   if (it == m_uniforms.end())

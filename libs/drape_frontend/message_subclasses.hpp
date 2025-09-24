@@ -1432,6 +1432,23 @@ public:
     , m_texturePool(texturePool)
     , m_textureId(textureId)
     , m_mode(mode)
+  {}
+
+  AssignTileBackgroundTextureMessage(ref_ptr<dp::GraphicsContext> context, df::TileKey const & tileKey,
+                                     ref_ptr<dp::TexturePool> texturePool, dp::TexturePool::TextureId textureId,
+                                     dp::BackgroundMode mode, std::vector<uint8_t> && bytes, uint32_t width,
+                                     uint32_t height)
+    : m_context(context)
+    , m_tileKey(tileKey)
+    , m_texturePool(texturePool)
+    , m_textureId(textureId)
+    , m_mode(mode)
+    , m_bytes(std::move(bytes))
+    , m_width(width)
+    , m_height(height)
+  {}
+
+  ~AssignTileBackgroundTextureMessage() override
   {
     if (m_context && m_texturePool)
       m_texturePool->ReleaseTexture(m_context, m_textureId);
@@ -1439,6 +1456,10 @@ public:
 
   Type GetType() const override { return Type::AssignTileBackgroundTexture; }
   bool IsGraphicsContextDependent() const override { return true; }
+
+  std::vector<uint8_t> & GetBytes() { return m_bytes; }
+  uint32_t GetWidth() const { return m_width; }
+  uint32_t GetHeight() const { return m_height; }
 
   df::TileKey const & GetTileKey() const { return m_tileKey; }
   ref_ptr<dp::TexturePool> GetTexturePool() const { return m_texturePool; }
@@ -1458,5 +1479,8 @@ private:
   ref_ptr<dp::TexturePool> m_texturePool;
   dp::TexturePool::TextureId m_textureId;
   dp::BackgroundMode m_mode;
+  std::vector<uint8_t> m_bytes;
+  uint32_t m_width = 0;
+  uint32_t m_height = 0;
 };
 }  // namespace df
