@@ -1,5 +1,8 @@
 #include "drape_frontend/tile_background_renderer.hpp"
 
+#include "drape_frontend/render_state_extension.hpp"
+#include "drape_frontend/shape_view_params.hpp"
+
 #include "base/logging.hpp"
 
 #include <algorithm>
@@ -11,9 +14,14 @@ TileBackgroundRenderer::TileBackgroundRenderer(
     MapDataProvider::TCancelTileBackgroundReadingFn && cancelTileBackgroundReadingFn)
   : m_tileBackgroundReadFn(std::move(tileBackgroundReadFn))
   , m_cancelTileBackgroundReadingFn(std::move(cancelTileBackgroundReadingFn))
+  , m_state(CreateRenderState(gpu::Program::TileBackground, DepthLayer::GeometryLayer))
+  , m_instancing(std::make_unique<dp::Instancing>())
 {
   CHECK(m_tileBackgroundReadFn != nullptr, ());
   CHECK(m_cancelTileBackgroundReadingFn != nullptr, ());
+
+  m_state.SetBlending(dp::Blending(false /* isEnabled */));
+  m_state.SetDepthTestEnabled(false);
 }
 
 void TileBackgroundRenderer::OnUpdateViewport(ref_ptr<dp::GraphicsContext> context, CoverageResult const & coverage,
@@ -60,8 +68,8 @@ void TileBackgroundRenderer::AssignTileBackgroundTexture(ref_ptr<dp::GraphicsCon
   if (context == nullptr)
     return;
 
-  // Ignore textures for wrong background mode
-  if (mode != m_currentMode)
+  // Ignore textures for wrong background mode and zoom level
+  if (mode != m_currentMode || tileKey.m_zoomLevel != m_lastCurrentZoomLevel)
   {
     texturePool->ReleaseTexture(context, textureId);
     return;
@@ -85,6 +93,21 @@ void TileBackgroundRenderer::AssignTileBackgroundTexture(ref_ptr<dp::GraphicsCon
     info.m_texturePool->ReleaseTexture(context, info.m_textureId);
   }
 
+  // Remove tiles with different zoom levels
+  auto tileIt = m_tileTextures.begin();
+  while (tileIt != m_tileTextures.end())
+  {
+    if (tileIt->first.m_zoomLevel != tileKey.m_zoomLevel)
+    {
+      tileIt->second.m_texturePool->ReleaseTexture(context, tileIt->second.m_textureId);
+      tileIt = m_tileTextures.erase(tileIt);
+    }
+    else
+    {
+      ++tileIt;
+    }
+  }
+
   m_tileTextures[tileKey] = {texturePool, textureId};
   m_awaitingTiles.erase(it);
 }
@@ -95,7 +118,75 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
   if (m_currentMode == dp::BackgroundMode::Default)
     return;
 
-  // TODO
+  auto program = mng->GetProgram(m_state.GetProgram<gpu::Program>());
+  bool programBound = false;
+
+  // Render tiles relative to the screen center.
+  frameValues.SetTo(m_programParams);
+  auto const pivot = screen.GlobalRect().Center();
+  math::Matrix<float, 4, 4> const mv = screen.GetModelView(pivot, 1.0f);
+  m_programParams.m_modelView = glsl::make_mat4(mv.m_data);
+
+  // Sort tiles by texture pointer to minimize texture switches.
+  static std::vector<std::pair<TileKey, TextureInfo>> sortedTiles;
+  sortedTiles.assign(m_tileTextures.begin(), m_tileTextures.end());
+  std::sort(sortedTiles.begin(), sortedTiles.end(), [](auto const & lhs, auto const & rhs)
+  {
+    auto const lhsTex = lhs.second.m_texturePool->GetTexture(lhs.second.m_textureId);
+    auto const rhsTex = rhs.second.m_texturePool->GetTexture(rhs.second.m_textureId);
+    if (lhsTex == rhsTex)
+      return lhs.first < rhs.first;
+    return lhsTex < rhsTex;
+  });
+
+  uint32_t instanceIndex = 0;
+  ref_ptr<dp::Texture> prevTex = nullptr;
+  for (size_t i = 0; i < sortedTiles.size(); ++i)
+  {
+    auto const & [tileKey, textureInfo] = sortedTiles[i];
+    auto const r = tileKey.GetGlobalRect();
+    if (!screen.ClipRect().IsIntersect(r))
+      continue;
+
+    auto const minR = (m2::PointD(r.minX(), r.minY()) - pivot);
+    auto const maxR = (m2::PointD(r.maxX(), r.maxY()) - pivot);
+    m_programParams.m_tileCoordsMinMax[instanceIndex] = glsl::vec4(
+        static_cast<float>(minR.x), static_cast<float>(minR.y), static_cast<float>(maxR.x), static_cast<float>(maxR.y));
+    m_programParams.m_textureIndex[instanceIndex] = static_cast<int>(textureInfo.m_textureId);
+
+    auto const tex = textureInfo.m_texturePool->GetTexture(textureInfo.m_textureId);
+    bool const nextTextureIsDifferent =
+        (i + 1 < sortedTiles.size() &&
+         tex != sortedTiles[i + 1].second.m_texturePool->GetTexture(sortedTiles[i + 1].second.m_textureId));
+    if ((instanceIndex + 1) == gpu::kTileBackgroundMaxCount || (i + 1 == sortedTiles.size()) || nextTextureIsDifferent)
+    {
+      m_state.SetColorTexture(tex);
+      if (!programBound)
+      {
+        context->SetCullingEnabled(false);
+        program->Bind();
+        dp::ApplyState(context, program, m_state);
+        programBound = true;
+      }
+      mng->GetParamsSetter()->Apply(context, program, m_programParams);
+
+      m_instancing->DrawInstancedTriangleStrip(context, instanceIndex + 1, 4);
+
+      // Restart filling from the beginning
+      instanceIndex = 0;
+    }
+    else
+    {
+      ++instanceIndex;
+    }
+    prevTex = tex;
+  }
+
+  if (programBound)
+  {
+    program->Unbind();
+    context->SetCullingEnabled(true);
+  }
 }
 
 void TileBackgroundRenderer::ClearContextDependentResources(ref_ptr<dp::GraphicsContext> context)

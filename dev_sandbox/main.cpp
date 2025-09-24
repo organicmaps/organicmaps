@@ -545,8 +545,9 @@ int main(int argc, char * argv[])
   { handlers.onKeyboardButton(key, scancode, action, mods); });
 
   // imGui UI
-  bool enableDebugRectRendering = false;
-  bool enableAA = false;
+  static bool enableDebugRectRendering = false;
+  static bool enableAA = false;
+  static int currentTileBackground = 0;
   auto imGuiUI = [&]()
   {
     ImGui::SetNextWindowPos(ImVec2(5, 20), ImGuiCond_Appearing);
@@ -570,6 +571,9 @@ int main(int argc, char * argv[])
       {
         DestroyDrapeEngine();
         CreateDrapeEngine(apiVersion);
+        framework.EnableDebugRectRendering(enableDebugRectRendering);
+        framework.GetDrapeEngine()->SetPosteffectEnabled(df::PostprocessRenderer::Antialiasing, enableAA);
+        framework.GetDrapeEngine()->SetTileBackgroundMode(static_cast<dp::BackgroundMode>(currentTileBackground));
       }
     }
     if (ImGui::Checkbox("Debug rect rendering", &enableDebugRectRendering))
@@ -626,10 +630,11 @@ int main(int argc, char * argv[])
 #endif
 
     char const * tileBackgroundLabels[] = {"Default", "Satellite"};
-    static int currentTileBackground = 0;
     if (ImGui::Combo("Tile Background", &currentTileBackground, tileBackgroundLabels,
                      IM_ARRAYSIZE(tileBackgroundLabels)))
+    {
       framework.GetDrapeEngine()->SetTileBackgroundMode(static_cast<dp::BackgroundMode>(currentTileBackground));
+    }
     ImGui::NewLine();
     ImGui::Separator();
     ImGui::NewLine();

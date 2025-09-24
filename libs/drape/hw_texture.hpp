@@ -27,6 +27,7 @@ public:
     bool m_usePixelBuffer = false;
     bool m_isRenderTarget = false;
     bool m_isMutable = false;
+    bool m_usePersistentStagingBuffer = false;
 
     ref_ptr<HWTextureAllocator> m_allocator;
 

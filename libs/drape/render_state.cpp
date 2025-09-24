@@ -217,7 +217,7 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
     for (auto const & texture : state.GetTextures())
     {
       auto const tex = texture.second;
-      int8_t texLoc = -1;
+      int texLoc = -1;
       if (tex != nullptr && (texLoc = p->GetUniformLocation(texture.first)) >= 0)
       {
         GLFunctions::glActiveTexture(gl_const::GLTexture0 + m_usedSlots);
