@@ -229,14 +229,17 @@ world  +
         chain  -
         city_wall  -
         cycle_barrier  -
+        debris  -
         ditch  -
         entrance  -
         fence  -
         gate  -
         guard_rail  -
         hedge  -
+        jersey_barrier  -
         kissing_gate  -
         lift_gate  -
+        log  -
         retaining_wall  -
         stile  -
         swing_gate  -

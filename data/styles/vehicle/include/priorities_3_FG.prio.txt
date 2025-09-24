@@ -29,7 +29,7 @@ barrier-city_wall                                   # line z15-
 barrier-fence                                       # line z17-
 barrier-guard_rail                                  # line z17-
 barrier-hedge                                       # line z18-
-barrier-jersey_barrier
+barrier-jersey_barrier                              # line z17-
 barrier-wall                                        # line z17-
 railway-monorail                                    # line z14-
 railway-monorail-bridge                             # line z14-

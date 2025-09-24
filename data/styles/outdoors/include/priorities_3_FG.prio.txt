@@ -63,7 +63,7 @@ barrier-city_wall                                   # line z14- (also has pathte
 barrier-fence                                       # line z15-
 barrier-guard_rail                                  # line z15-
 barrier-hedge                                       # line z16-
-barrier-jersey_barrier
+barrier-jersey_barrier                              # line z15- (also has icon z16-, caption(optional) z16-)
 barrier-wall                                        # line z15-
 railway-funicular                                   # line z12-
 railway-funicular-bridge                            # line z12-

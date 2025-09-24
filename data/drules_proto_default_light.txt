@@ -16047,6 +16047,89 @@ cont {
   }
 }
 cont {
+  name: "barrier-debris"
+  element {
+    scale: 16
+    symbol {
+      name: "dot-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "dot-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "dot-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "dot-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "dot-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+}
+cont {
   name: "barrier-ditch"
   element {
     scale: 16
@@ -16405,6 +16488,114 @@ cont {
   }
 }
 cont {
+  name: "barrier-jersey_barrier"
+  element {
+    scale: 16
+    lines {
+      width: 1.0
+      color: 3012069512
+      priority: 320
+    }
+    symbol {
+      name: "dot-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.3
+      color: 2575861896
+      priority: 320
+    }
+    symbol {
+      name: "dot-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.5
+      color: 1720223880
+      priority: 320
+    }
+    symbol {
+      name: "dot-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.5
+      color: 1720223880
+      priority: 320
+    }
+    symbol {
+      name: "dot-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.5
+      color: 1720223880
+      priority: 320
+    }
+    symbol {
+      name: "dot-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+}
+cont {
   name: "barrier-kissing_gate"
   element {
     scale: 16
@@ -16567,6 +16758,89 @@ cont {
     caption {
       primary {
         height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+}
+cont {
+  name: "barrier-log"
+  element {
+    scale: 16
+    symbol {
+      name: "dot-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "dot-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "dot-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "dot-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "dot-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 11
         color: 4473924
         offset_y: 1
         is_optional: true
