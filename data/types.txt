@@ -752,9 +752,9 @@ boundary|administrative|4
 *landuse|flowerbed
 *barrier|yes
 *barrier|wicket_gate
-mapswithme
-mapswithme
-mapswithme
+*barrier|jersey_barrier
+*barrier|log
+*barrier|debris
 mapswithme
 mapswithme
 mapswithme
