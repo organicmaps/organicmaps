@@ -7,7 +7,9 @@
 #include "shaders/program_manager.hpp"
 
 #include "drape/drape_global.hpp"
+#include "drape/instancing.hpp"
 #include "drape/pointers.hpp"
+#include "drape/render_state.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "geometry/screenbase.hpp"
@@ -58,5 +60,10 @@ private:
 
   CoverageResult m_lastCoverage;
   int m_lastCurrentZoomLevel = 0;
+
+  dp::RenderState m_state;
+  gpu::TileBackgroundProgramParams m_programParams{};
+
+  drape_ptr<dp::Instancing> m_instancing;
 };
 }  // namespace df

@@ -180,13 +180,13 @@ def write_shader_line(output_file, line, shader_file, binding_info):
         exit(2)
 
     output_line = line.rstrip()
-    
+
     # Extract and remove layout binding
-    binding_match = re.search(r"layout\s*\(\s*binding\s*=\s*(\d+)\s*\)", output_line)
+    binding_match = re.search(r"layout\s*\([^)]*binding\s*=\s*(\d+)[^)]*\)", output_line)
     if binding_match:
         binding_index = int(binding_match.group(1))
-        # Remove the matched layout part from the string
-        output_line = re.sub(r"layout\s*\(\s*binding\s*=\s*\d+\s*\)\s*", "", output_line)
+        # Remove the entire layout(...) part from the string
+        output_line = re.sub(r"layout\s*\([^)]*\)\s*", "", output_line)
     else:
         binding_index = None
         
@@ -202,7 +202,7 @@ def write_shader_line(output_file, line, shader_file, binding_info):
         exit(2)
     
     ubo_started = False    
-    if line.find("uniform UBO") >= 0:
+    if line.find("uniform UBO") >= 0 or line.find("buffer UBO") >= 0:
         if binding_index is not None:
             binding_info[shader_file].append({UBO_KEY: binding_index})
             ubo_started = True
@@ -234,17 +234,22 @@ def write_uniform_shader_line(output_file, line, shader_file, binding_info):
     if output_line.find(",") >= 0 or output_line.count("u_") > 1:
         print(f"Incorrect shader {shader_file}. Only one uniform per line")
         exit(2)
-        
+       
     find_by_name_in_list(binding_info[shader_file], UNIFORMS_KEY).append(output_line)
         
     output_file.write("  uniform %s \\n\\\n" % output_line)
     return False
 
 
+def replace_gl_constants(line):
+    return line.replace("gl_VertexIndex", "gl_VertexID").replace("gl_InstanceIndex", "gl_InstanceID")
+
+
 def write_shader_body(output_file, shader_file, shader_dir, shaders_library, binding_info):
     lib_content = get_shaders_lib_content(shader_file, shaders_library)
     ubo_started = False
     for line in open(os.path.join(shader_dir, shader_file)):
+        line = replace_gl_constants(line)
         if ubo_started:
             if write_uniform_shader_line(output_file, line, shader_file, binding_info):
                 ubo_started = False

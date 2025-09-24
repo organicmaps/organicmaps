@@ -248,8 +248,8 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<
   UNUSED_VALUE(context);
   UniformsGuard guard(program, params);
 
-  Parameter::CheckApply(guard, "u_tileCoordsMinMax", params.m_tileCoordsMinMax);
-  Parameter::CheckApply(guard, "u_textureIndex", params.m_textureIndex);
+  Parameter::CheckApply(guard, "u_tileCoordsMinMax[0]", params.m_tileCoordsMinMax);
+  Parameter::CheckApply(guard, "u_textureIndex[0]", params.m_textureIndex);
   Parameter::CheckApply(guard, "u_modelView", params.m_modelView);
   Parameter::CheckApply(guard, "u_projection", params.m_projection);
   Parameter::CheckApply(guard, "u_pivotTransform", params.m_pivotTransform);
