@@ -658,12 +658,22 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     ASSERT(texturePool != nullptr, ());
 
     auto textureId = texturePool->AcquireTexture(m_context);
-    void * data = msg->GetBytes().data();
-    texturePool->UpdateTextureData(m_context, textureId, 0, 0, msg->GetWidth(), msg->GetHeight(), make_ref(data));
+
+    // In OpenGL we need to update texture data in frontend renderer thread because we can't access the same texture
+    // from multiple threads simultaneously in OpenGL.
+    if (m_context->GetApiVersion() != dp::ApiVersion::OpenGLES3)
+    {
+      void * data = msg->GetBytes().data();
+      texturePool->UpdateTextureData(m_context, textureId, 0, 0, msg->GetWidth(), msg->GetHeight(), make_ref(data));
+    }
 
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<AssignTileBackgroundTextureMessage>(
-                                  m_context, msg->GetTileKey(), texturePool, textureId, msg->GetMode()),
+                              m_context->GetApiVersion() == dp::ApiVersion::OpenGLES3
+                                  ? make_unique_dp<AssignTileBackgroundTextureMessage>(
+                                        m_context, msg->GetTileKey(), texturePool, textureId, msg->GetMode(),
+                                        std::move(msg->GetBytes()), msg->GetWidth(), msg->GetHeight())
+                                  : make_unique_dp<AssignTileBackgroundTextureMessage>(
+                                        m_context, msg->GetTileKey(), texturePool, textureId, msg->GetMode()),
                               MessagePriority::Normal);
 
     break;

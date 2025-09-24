@@ -8,7 +8,7 @@ using namespace metal;
 typedef struct
 {
   float4 position [[position]];
-  float2 texCoords;
+  float3 texCoords;
 } Fragment_T;
 
 typedef struct
@@ -34,7 +34,7 @@ vertex Fragment_T vsTileBackground(uint vertexId [[vertex_id]],
   float4 pos = float4(worldPos, 0.0, 1.0) * uniforms.u_modelView * uniforms.u_projection;
   out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
   
-  out.texCoords = quadVertex;
+  out.texCoords = float3(quadVertex, float(uniforms.u_textureIndex[instanceId]));
   
   return out;
 }
@@ -43,5 +43,5 @@ fragment float4 fsTileBackground(const Fragment_T in [[stage_in]],
                                  texture2d<float> u_colorTex [[texture(0)]],
                                  sampler u_colorTexSampler [[sampler(0)]])
 {
-  return u_colorTex.sample(u_colorTexSampler, in.texCoords);
+  return u_colorTex.sample(u_colorTexSampler, in.texCoords.xy);
 }

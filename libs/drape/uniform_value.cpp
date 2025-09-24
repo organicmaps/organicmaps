@@ -5,7 +5,7 @@ namespace dp
 {
 namespace
 {
-void ApplyInt(int8_t location, int32_t const * pointer, size_t componentCount)
+void ApplyInt(int location, int32_t const * pointer, size_t componentCount)
 {
   switch (componentCount)
   {
@@ -17,7 +17,7 @@ void ApplyInt(int8_t location, int32_t const * pointer, size_t componentCount)
   }
 }
 
-void ApplyFloat(int8_t location, float const * pointer, size_t componentCount)
+void ApplyFloat(int location, float const * pointer, size_t componentCount)
 {
   switch (componentCount)
   {
@@ -29,75 +29,75 @@ void ApplyFloat(int8_t location, float const * pointer, size_t componentCount)
   }
 }
 
-void ApplyMatrix(int8_t location, float const * matrix)
+void ApplyMatrix(int location, float const * matrix)
 {
   GLFunctions::glUniformMatrix4x4Value(location, matrix);
 }
 }  // namespace
 
 // static
-void UniformValue::ApplyRaw(int8_t location, glsl::mat4 const & m)
+void UniformValue::ApplyRaw(int location, glsl::mat4 const & m)
 {
   ASSERT_GREATER_OR_EQUAL(location, 0, ());
   ApplyMatrix(location, glsl::value_ptr(m));
 }
 
 // static
-void UniformValue::ApplyRaw(int8_t location, float f)
+void UniformValue::ApplyRaw(int location, float f)
 {
   ApplyFloat(location, &f, 1);
 }
 
 // static
-void UniformValue::ApplyRaw(int8_t location, glsl::vec2 const & v)
+void UniformValue::ApplyRaw(int location, glsl::vec2 const & v)
 {
   ApplyFloat(location, glsl::value_ptr(v), 2);
 }
 
 // static
-void UniformValue::ApplyRaw(int8_t location, glsl::vec3 const & v)
+void UniformValue::ApplyRaw(int location, glsl::vec3 const & v)
 {
   ApplyFloat(location, glsl::value_ptr(v), 3);
 }
 
 // static
-void UniformValue::ApplyRaw(int8_t location, glsl::vec4 const & v)
+void UniformValue::ApplyRaw(int location, glsl::vec4 const & v)
 {
   ApplyFloat(location, glsl::value_ptr(v), 4);
 }
 
 // static
-void UniformValue::ApplyRaw(int8_t location, glsl::vec4 const * v, uint32_t count)
+void UniformValue::ApplyRaw(int location, glsl::vec4 const * v, uint32_t count)
 {
   GLFunctions::glUniformValue4fv(location, reinterpret_cast<float const *>(v), count);
 }
 
 // static
-void UniformValue::ApplyRaw(int8_t location, int i)
+void UniformValue::ApplyRaw(int location, int i)
 {
   ApplyInt(location, &i, 1);
 }
 
 // static
-void UniformValue::ApplyRaw(int8_t location, int const * i, uint32_t count)
+void UniformValue::ApplyRaw(int location, int const * i, uint32_t count)
 {
   GLFunctions::glUniformValueiv(location, i, count);
 }
 
 // static
-void UniformValue::ApplyRaw(int8_t location, glsl::ivec2 const & v)
+void UniformValue::ApplyRaw(int location, glsl::ivec2 const & v)
 {
   ApplyInt(location, glsl::value_ptr(v), 2);
 }
 
 // static
-void UniformValue::ApplyRaw(int8_t location, glsl::ivec3 const & v)
+void UniformValue::ApplyRaw(int location, glsl::ivec3 const & v)
 {
   ApplyInt(location, glsl::value_ptr(v), 3);
 }
 
 // static
-void UniformValue::ApplyRaw(int8_t location, glsl::ivec4 const & v)
+void UniformValue::ApplyRaw(int location, glsl::ivec4 const & v)
 {
   ApplyInt(location, glsl::value_ptr(v), 4);
 }

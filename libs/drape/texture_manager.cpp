@@ -131,6 +131,7 @@ public:
                                      .m_height = m_desc.m_textureHeight,
                                      .m_format = m_desc.m_format,
                                      .m_isMutable = true,
+                                     .m_usePersistentStagingBuffer = true,
                                      .m_allocator = m_allocator};
     texture->Create(context, params);
 

@@ -49,6 +49,8 @@ set(DRAPE_TESTABLE_SRC
   graphics_context.hpp
   graphics_context_factory.cpp
   graphics_context_factory.hpp
+  instancing.cpp
+  instancing.hpp
   hatching_decl.hpp
   hw_texture.cpp
   hw_texture.hpp
@@ -114,6 +116,7 @@ set(DRAPE_TESTABLE_SRC
   vulkan/vulkan_gpu_buffer_impl.cpp
   vulkan/vulkan_gpu_buffer_impl.hpp
   vulkan/vulkan_gpu_program.hpp
+  vulkan/vulkan_instancing.cpp
   vulkan/vulkan_layers.cpp
   vulkan/vulkan_layers.hpp
   vulkan/vulkan_memory_manager.cpp
@@ -142,6 +145,7 @@ if (PLATFORM_IPHONE OR PLATFORM_MAC)
     metal/metal_cleaner.mm
     metal/metal_gpu_buffer_impl.mm
     metal/metal_gpu_program.hpp
+    metal/metal_instancing.mm
     metal/metal_mesh_object_impl.mm
     metal/metal_states.hpp
     metal/metal_states.mm

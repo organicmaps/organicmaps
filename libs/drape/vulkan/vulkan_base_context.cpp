@@ -730,7 +730,8 @@ void VulkanBaseContext::SetPrimitiveTopology(VkPrimitiveTopology topology)
 
 void VulkanBaseContext::SetBindingInfo(BindingInfoArray const & bindingInfo, uint8_t bindingInfoCount)
 {
-  std::copy(bindingInfo.begin(), bindingInfo.begin() + bindingInfoCount, m_pipelineKey.m_bindingInfo.begin());
+  if (bindingInfoCount != 0)
+    std::copy(bindingInfo.begin(), bindingInfo.begin() + bindingInfoCount, m_pipelineKey.m_bindingInfo.begin());
   m_pipelineKey.m_bindingInfoCount = bindingInfoCount;
 }
 
