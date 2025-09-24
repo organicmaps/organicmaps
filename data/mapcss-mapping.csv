@@ -872,9 +872,11 @@ landuse|industrial|mine;[landuse=industrial][industrial=mine];;name;int_name;751
 landuse|flowerbed;752;
 barrier|yes;753;
 barrier|wicket_gate;754;
-deprecated|deprecated;755;x
-deprecated|deprecated;756;x
-deprecated|deprecated;757;x
+barrier|jersey_barrier;755;
+# Actually, log and debris have the same "meaning" in terms of restrictions (car->no, bicycle->mostly yes, foot->yes).
+# Can be added in replace_tags, but keep different types for the UI strings.
+barrier|log;756;
+barrier|debris;757;
 deprecated|deprecated;758;x
 deprecated|deprecated;759;x
 deprecated|deprecated;760;x

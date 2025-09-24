@@ -867,9 +867,12 @@ barrier-block                                       # icon z16- (also has captio
 barrier-bollard                                     # icon z16- (also has caption(optional) z16-)
 barrier-chain                                       # icon z16- (also has caption(optional) z16-)
 barrier-cycle_barrier                               # icon z16- (also has caption(optional) z16-)
+barrier-debris
 barrier-gate                                        # icon z16- (also has caption(optional) z16-)
+barrier-jersey_barrier
 barrier-kissing_gate                                # icon z16- (also has caption(optional) z16-)
 barrier-lift_gate                                   # icon z16- (also has caption(optional) z16-)
+barrier-log
 barrier-stile                                       # icon z16- (also has caption(optional) z16-)
 barrier-swing_gate                                  # icon z16- (also has caption(optional) z16-)
 barrier-turnstile                                   # icon z16- (also has caption(optional) z16-)

@@ -56,7 +56,7 @@ ford=stream : highway=ford
 ford=stepping_stones : highway=ford
 ford=yes : highway=ford
 
-barrier=jersey_barrier : barrier=block
+barrier=hampshire_gate : barrier=gate
 barrier=sliding_gate : barrier=gate
 
 drinkable=yes : drinking_water=yes
