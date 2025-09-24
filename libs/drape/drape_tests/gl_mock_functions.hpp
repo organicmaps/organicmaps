@@ -32,19 +32,19 @@ public:
   MOCK_METHOD4(glBufferSubData, void(glConst target, uint32_t size, void const * data, uint32_t offset));
   MOCK_METHOD2(glGetBufferParameter, int32_t(glConst target, glConst name));
 
-  MOCK_METHOD2(glGetUniformLocation, int8_t(uint32_t programID, std::string const & name));
-  MOCK_METHOD2(glUniformValuei, void(int8_t location, int32_t v));
-  MOCK_METHOD3(glUniformValuei, void(int8_t location, int32_t v1, int32_t v2));
-  MOCK_METHOD4(glUniformValuei, void(int8_t location, int32_t v1, int32_t v2, int32_t v3));
-  MOCK_METHOD5(glUniformValuei, void(int8_t location, int32_t v1, int32_t v2, int32_t v3, int32_t v4));
-  MOCK_METHOD3(glUniformValueiv, void(int8_t location, int32_t const * v, uint32_t size));
-  MOCK_METHOD3(glUniformValue4fv, void(int8_t location, float const * v, uint32_t size));
+  MOCK_METHOD2(glGetUniformLocation, int(uint32_t programID, std::string const & name));
+  MOCK_METHOD2(glUniformValuei, void(int location, int32_t v));
+  MOCK_METHOD3(glUniformValuei, void(int location, int32_t v1, int32_t v2));
+  MOCK_METHOD4(glUniformValuei, void(int location, int32_t v1, int32_t v2, int32_t v3));
+  MOCK_METHOD5(glUniformValuei, void(int location, int32_t v1, int32_t v2, int32_t v3, int32_t v4));
+  MOCK_METHOD3(glUniformValueiv, void(int location, int32_t const * v, uint32_t size));
+  MOCK_METHOD3(glUniformValue4fv, void(int location, float const * v, uint32_t size));
 
-  MOCK_METHOD2(glUniformValuef, void(int8_t location, float v));
-  MOCK_METHOD3(glUniformValuef, void(int8_t location, float v1, float v2));
-  MOCK_METHOD4(glUniformValuef, void(int8_t location, float v1, float v2, float v3));
-  MOCK_METHOD5(glUniformValuef, void(int8_t location, float v1, float v2, float v3, float v4));
-  MOCK_METHOD2(glUniformMatrix4x4Value, void(int8_t location, float const * values));
+  MOCK_METHOD2(glUniformValuef, void(int location, float v));
+  MOCK_METHOD3(glUniformValuef, void(int location, float v1, float v2));
+  MOCK_METHOD4(glUniformValuef, void(int location, float v1, float v2, float v3));
+  MOCK_METHOD5(glUniformValuef, void(int location, float v1, float v2, float v3, float v4));
+  MOCK_METHOD2(glUniformMatrix4x4Value, void(int location, float const * values));
   MOCK_METHOD0(glGetCurrentProgram, uint32_t());
 
   MOCK_METHOD1(glCreateShader, uint32_t(glConst type));

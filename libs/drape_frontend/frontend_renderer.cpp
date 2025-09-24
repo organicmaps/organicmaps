@@ -970,6 +970,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::AssignTileBackgroundTexture:
   {
     ref_ptr<AssignTileBackgroundTextureMessage> msg = message;
+    if (m_context->GetApiVersion() == dp::ApiVersion::OpenGLES3)
+    {
+      void * data = msg->GetBytes().data();
+      msg->GetTexturePool()->UpdateTextureData(m_context, msg->GetTextureId(), 0, 0, msg->GetWidth(), msg->GetHeight(),
+                                               make_ref(data));
+    }
+
     m_tileBackgroundRenderer->AssignTileBackgroundTexture(m_context, msg->GetTileKey(), msg->GetTexturePool(),
                                                           msg->GetTextureId(), msg->GetMode());
     msg->MarkProcessed();

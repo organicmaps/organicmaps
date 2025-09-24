@@ -1482,12 +1482,13 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   auto tileBackgroundReadFn = [this](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
   {
 #if DEBUG_BACKGROUND_TILE
-    constexpr uint32_t kTileSize = 32;
+    constexpr uint32_t kTileSize = 64;
     constexpr uint32_t kBlockSize = 8;
     constexpr uint32_t kBytesPerPixel = 4;
-    static std::vector<uint8_t> kPixels(kTileSize * kTileSize * kBytesPerPixel);
+    static std::vector<uint8_t> kPixels;
     if (kPixels.empty())
     {
+      kPixels.resize(kTileSize * kTileSize * kBytesPerPixel);
       for (uint32_t y = 0; y < kTileSize; ++y)
       {
         for (uint32_t x = 0; x < kTileSize; ++x)
@@ -2800,6 +2801,13 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
     return true;
   }
 
+#if DEBUG_BACKGROUND_TILE
+  if (query == "?satellite")
+  {
+    m_drapeEngine->SetTileBackgroundMode(dp::BackgroundMode::Satellite);
+    return true;
+  }
+#endif
 #if defined(OMIM_METAL_AVAILABLE)
   if (query == "?metal")
   {

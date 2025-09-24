@@ -44,6 +44,10 @@ drape_ptr<HWTexture> VulkanTextureAllocator::CreateTexture(ref_ptr<dp::GraphicsC
 VulkanTexture::~VulkanTexture()
 {
   m_objectManager->DestroyObject(m_textureObject);
+
+  std::lock_guard<std::mutex> lock(m_dedicatedStagingBufferMutex);
+  m_objectManager->DestroyObject(m_dedicatedStagingBuffer);
+  m_dedicatedStagingBuffer = {};
 }
 
 void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data)
@@ -92,18 +96,43 @@ void VulkanTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
   }
   else
   {
-    auto const bufferSize = GetBytesPerPixel(params.m_format) * params.m_width * params.m_height;
+    if (data != nullptr || params.m_usePersistentStagingBuffer)
+    {
+      std::lock_guard<std::mutex> lock(m_dedicatedStagingBufferMutex);
 
-    // Create temporary staging buffer.
-    m_creationStagingBuffer = make_unique_dp<VulkanStagingBuffer>(m_objectManager, bufferSize);
-    ASSERT(m_creationStagingBuffer->HasEnoughSpace(bufferSize), ());
-    VulkanStagingBuffer::StagingData staging;
-    m_reservationId = m_creationStagingBuffer->ReserveWithId(bufferSize, staging);
-    if (data != nullptr)
-      memcpy(staging.m_pointer, data.get(), bufferSize);
-    else
-      memset(staging.m_pointer, 0, bufferSize);
-    m_creationStagingBuffer->Flush();
+      if (m_dedicatedStagingBuffer.m_buffer)
+        m_objectManager->DestroyObject(m_dedicatedStagingBuffer);
+
+      // Create dedicated staging buffer.
+      auto const notAlignedSize = GetBytesPerPixel(params.m_format) * params.m_width * params.m_height;
+      auto bufferSize = VulkanMemoryManager::GetAligned(notAlignedSize, 64);
+
+      auto constexpr kStagingBuffer = VulkanMemoryManager::ResourceType::Staging;
+      VkDevice device = m_objectManager->GetDevice();
+      auto const & mm = m_objectManager->GetMemoryManager();
+
+      m_dedicatedStagingBuffer = m_objectManager->CreateBuffer(kStagingBuffer, bufferSize, 0 /* batcherHash */);
+      VkMemoryRequirements memReqs = {};
+      vkGetBufferMemoryRequirements(device, m_dedicatedStagingBuffer.m_buffer, &memReqs);
+
+      // We must be able to map the whole range.
+      size_t const sizeAlignment = mm.GetSizeAlignment(memReqs);
+      auto const alignedSize = mm.GetAligned(bufferSize, sizeAlignment);
+      if (bufferSize > alignedSize)
+      {
+        // This GPU uses non-standard alignment we have to recreate buffer.
+        bufferSize = VulkanMemoryManager::GetAligned(bufferSize, sizeAlignment);
+        m_objectManager->DestroyObjectUnsafe(m_dedicatedStagingBuffer);
+        m_dedicatedStagingBuffer = m_objectManager->CreateBuffer(kStagingBuffer, bufferSize, 0 /* batcherHash */);
+        vkGetBufferMemoryRequirements(device, m_dedicatedStagingBuffer.m_buffer, &memReqs);
+      }
+
+      if (data != nullptr)
+        m_objectManager->Fill(m_dedicatedStagingBuffer, data.get(), notAlignedSize);
+
+      m_copyRegion = BufferCopyRegion(0, 0, params.m_width, params.m_height, 0);
+    }
+    m_usePersistentStagingBuffer = params.m_usePersistentStagingBuffer;
 
     // Create image.
     m_textureObject = m_objectManager->CreateImage(VK_IMAGE_USAGE_SAMPLED_BIT, format, tiling,
@@ -115,13 +144,23 @@ void VulkanTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x,
                                uint32_t height, ref_ptr<void> data)
 {
   CHECK(m_isMutable, ("Upload data is avaivable only for mutable textures."));
-  CHECK(m_creationStagingBuffer == nullptr, ());
   CHECK(m_objectManager != nullptr, ());
   CHECK(data != nullptr, ());
 
   ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
   VkCommandBuffer commandBuffer = vulkanContext->GetCurrentMemoryCommandBuffer();
-  CHECK(commandBuffer != nullptr, ());
+  if (commandBuffer == nullptr)
+  {
+    // Upload may happen in backend renderer.
+    // Copy data to staging buffer that will be used in frontend renderer in the closest Bind() call.
+    std::lock_guard<std::mutex> lock(m_dedicatedStagingBufferMutex);
+    CHECK(m_dedicatedStagingBuffer.m_buffer, ());
+    auto const bufferSize = GetBytesPerPixel(GetFormat()) * width * height;
+    CHECK(bufferSize <= m_dedicatedStagingBuffer.GetAlignedSize(), ());
+    m_objectManager->Fill(m_dedicatedStagingBuffer, data.get(), bufferSize);
+    m_copyRegion = BufferCopyRegion(x, y, width, height, 0);
+    return;
+  }
 
   Bind(context);
 
@@ -171,25 +210,31 @@ void VulkanTexture::Bind(ref_ptr<dp::GraphicsContext> context) const
   VkCommandBuffer commandBuffer = vulkanContext->GetCurrentMemoryCommandBuffer();
   CHECK(commandBuffer != nullptr, ());
 
-  // Fill texture on the first bind.
-  if (m_creationStagingBuffer != nullptr)
+  // Fill texture on the bind if dedicated staging buffer is present.
   {
-    // Here we use VK_PIPELINE_STAGE_VERTEX_SHADER_BIT, because we also read textures
-    // in vertex shaders.
-    MakeImageLayoutTransition(
-        commandBuffer, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
-        VK_PIPELINE_STAGE_VERTEX_SHADER_BIT | VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT | VK_PIPELINE_STAGE_TRANSFER_BIT,
-        VK_PIPELINE_STAGE_TRANSFER_BIT);
+    std::lock_guard<std::mutex> lock(m_dedicatedStagingBufferMutex);
+    if (m_dedicatedStagingBuffer.m_buffer)
+    {
+      // Here we use VK_PIPELINE_STAGE_VERTEX_SHADER_BIT, because we also read textures
+      // in vertex shaders.
+      MakeImageLayoutTransition(
+          commandBuffer, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+          VK_PIPELINE_STAGE_VERTEX_SHADER_BIT | VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT | VK_PIPELINE_STAGE_TRANSFER_BIT,
+          VK_PIPELINE_STAGE_TRANSFER_BIT);
 
-    auto staging = m_creationStagingBuffer->GetReservationById(m_reservationId);
-    auto bufferCopyRegion = BufferCopyRegion(0, 0, GetWidth(), GetHeight(), staging.m_offset);
-    vkCmdCopyBufferToImage(commandBuffer, staging.m_stagingBuffer, m_textureObject.m_image,
-                           VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &bufferCopyRegion);
+      vkCmdCopyBufferToImage(commandBuffer, m_dedicatedStagingBuffer.m_buffer, m_textureObject.m_image,
+                             VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &m_copyRegion);
 
-    MakeImageLayoutTransition(commandBuffer, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_PIPELINE_STAGE_TRANSFER_BIT,
-                              VK_PIPELINE_STAGE_VERTEX_SHADER_BIT | VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
+      MakeImageLayoutTransition(commandBuffer, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_PIPELINE_STAGE_TRANSFER_BIT,
+                                VK_PIPELINE_STAGE_VERTEX_SHADER_BIT | VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
 
-    m_creationStagingBuffer.reset();
+      // Release dedicated staging buffer if it's not persistent.
+      if (!m_usePersistentStagingBuffer)
+      {
+        m_objectManager->DestroyObject(m_dedicatedStagingBuffer);
+        m_dedicatedStagingBuffer = {};
+      }
+    }
   }
 }
 
