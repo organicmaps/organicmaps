@@ -21,8 +21,8 @@ final class PlacePageScrollView: UIScrollView {
   private enum Constants {
     static let actionBarHeight: CGFloat = 50
     static let additionalPreviewOffset: CGFloat = 80
-    static let fastSwipeDownVelocity: CGFloat = -3.5
-    static let fastSwipeUpVelocity: CGFloat = 2.5
+    static let fastSwipeDownVelocity: CGFloat = -3.0
+    static let fastSwipeUpVelocity: CGFloat = 2.0
   }
   
   @IBOutlet private var scrollView: UIScrollView!
@@ -38,6 +38,7 @@ final class PlacePageScrollView: UIScrollView {
   private var layout: IPlacePageLayout!
   private var scrollSteps: [PlacePageState] = []
   private var previousScrollContentOffset: CGPoint?
+  private var userDefinedStep: PlacePageState?
   private var isNavigationBarVisible = false
 
   var interactor: PlacePageInteractorProtocol?
@@ -294,6 +295,7 @@ final class PlacePageScrollView: UIScrollView {
   private func showLastStop() {
     if let lastStop = scrollSteps.last {
       scrollTo(CGPoint(x: 0, y: lastStop.offset), forced: true)
+      userDefinedStep = lastStop
     }
   }
 
@@ -333,14 +335,25 @@ extension PlacePageViewController: PlacePageViewProtocol {
   func updatePreviewOffset(reset: Bool = true) {
     updateSteps()
     guard !beginDragging else { return }
-    let offset: CGPoint
-    // Keep previous offset during layout update if possible.
-    if !reset,
-       let previousScrollContentOffset,
-       let maxYOffset = scrollSteps.last?.offset {
-      offset = CGPoint(x: 0, y: min(previousScrollContentOffset.y, maxYOffset))
-    } else {
-      offset = CGPoint(x: 0, y: isPreviewPlus ? scrollSteps[2].offset : scrollSteps[1].offset + Constants.additionalPreviewOffset)
+    let estimatedYOffset = isPreviewPlus ? scrollSteps[2].offset : scrollSteps[1].offset + Constants.additionalPreviewOffset
+    var offset = CGPoint(x: 0, y: estimatedYOffset) 
+    if let userDefinedStep {
+      // Respect user defined offset if possible.
+      switch userDefinedStep {
+      case .preview:
+        offset.y = scrollSteps[1].offset
+      case .previewPlus(let yOffset):
+        offset.y = yOffset
+      case .expanded(let yOffset):
+        offset.y = yOffset
+      case .full:
+        offset.y = previousScrollContentOffset?.y ?? scrollSteps.last?.offset ?? 0
+      case .closed:
+        break
+      }
+    } else if let previousScrollContentOffset {
+      // Keep previous offset during layout update if possible.
+      offset.y = max(estimatedYOffset, previousScrollContentOffset.y)
     }
     scrollTo(offset)
   }
@@ -409,14 +422,9 @@ extension PlacePageViewController: UIScrollViewDelegate {
       return
     }
 
-    let targetState = findNextStop(scrollView.contentOffset.y, velocity: velocity.y)
-    if targetState.offset > scrollView.contentSize.height - scrollView.contentInset.top {
-      return
-    }
-
-    updateSteps()
     let nextStep = findNextStop(scrollView.contentOffset.y, velocity: velocity.y)
     targetContentOffset.pointee = CGPoint(x: 0, y: nextStep.offset)
+    userDefinedStep = nextStep
   }
 
   private func onOffsetChanged(_ offset: CGFloat) {

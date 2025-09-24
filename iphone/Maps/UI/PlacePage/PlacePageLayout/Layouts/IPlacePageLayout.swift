@@ -2,7 +2,6 @@ enum PlacePageState {
   case closed(CGFloat)
   case preview(CGFloat)
   case previewPlus(CGFloat)
-  case expanded(CGFloat)
   case full
 
   var offset: CGFloat {
@@ -12,8 +11,6 @@ enum PlacePageState {
     case .preview(let value):
       return value
     case .previewPlus(let value):
-      return value
-    case .expanded(let value):
       return value
     case .full:
       return .zero
