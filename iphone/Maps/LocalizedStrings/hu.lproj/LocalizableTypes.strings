@@ -1,6 +1,6 @@
-"type.addr_interpolation" = "Cím/blokk";
-"type.addr_interpolation.even" = "Cím/blokk";
-"type.addr_interpolation.odd" = "Cím/blokk";
+"type.addr_interpolation" = "Cím/háztömb";
+"type.addr_interpolation.even" = "Cím/háztömb";
+"type.addr_interpolation.odd" = "Cím/háztömb";
 "type.aerialway" = "Drótkötélpályás felvonó";
 "type.aerialway.cable_car" = "Nagykabinos felvonó";
 "type.aerialway.chair_lift" = "Ülőlift";
@@ -300,7 +300,7 @@
 "type.cuisine.heuriger" = "Heuriger";
 "type.cuisine.hotdog" = "Hotdog";
 "type.cuisine.hungarian" = "Magyar";
-"type.cuisine.ice_cream" = "Jégkrém";
+"type.cuisine.ice_cream" = "Fagylalt";
 "type.cuisine.indian" = "Indiai";
 "type.cuisine.indonesian" = "Indonéz";
 "type.cuisine.international" = "Nemzetközi";
@@ -1186,7 +1186,7 @@
 "type.route.ferry" = "Komp";
 "type.route.shuttle_train" = "útvonal-ingajáratú_vonat";
 "type.shop" = "Bolt";
-"type.shop.alcohol" = "Szeszesitalbolt";
+"type.shop.alcohol" = "Szeszesital-bolt";
 "type.shop.bakery" = "Pékség";
 "type.shop.bathroom_furnishing" = "Fürdőszoba-berendezés";
 "type.shop.beauty" = "Szépségszalon";
@@ -1274,7 +1274,7 @@
 "type.shop.tyres" = "Autógumi-szaküzlet";
 "type.shop.variety_store" = "100 forintos bolt";
 "type.shop.video" = "Videófilmbolt vagy -kölcsönző";
-"type.shop.video_games" = "Videojáték-bolt";
+"type.shop.video_games" = "Videojáték-szaküzlet";
 "type.shop.wine" = "Borszaküzlet";
 "type.shop.agrarian" = "Gazdabolt";
 "type.shop.antiques" = "Régiségkereskedés";

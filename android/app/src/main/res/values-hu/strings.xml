@@ -168,13 +168,13 @@
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">A térkép letöltése folyamatban van.</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Tekintse meg a tartózkodási helyszínemet az Organic Maps alkalmazásban! %1$s vagy %2$s. Nincs offline térképe? Töltse le innen: https://omaps.app/get</string>
+    <string name="my_position_share_sms">Tekintse meg a tartózkodási helyemet az Organic Maps alkalmazásban! %1$s vagy %2$s. Nincs offline térképe? Töltse le innen: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Tekintse meg a térképjelzőmet az Organic Maps alkalmazásban!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Tekintse meg a tartózkodási helyszínemet az Organic Maps alkalmazásban!</string>
+    <string name="my_position_share_email_subject">Tekintse meg a tartózkodási helyemet az Organic Maps alkalmazásban!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Üdvözlöm!\n\nJelenleg itt tartózkodom: %1$s. Kattintson a következő hivatkozásra: %2$s, vagy ide: %3$s, hogy megtekintse a tartózkodási helyszínemet a térképen.\n\nKöszönöm!</string>
+    <string name="my_position_share_email">Üdvözlöm!\n\nJelenleg itt tartózkodom: %1$s. Kattintson a következő hivatkozásra: %2$s, vagy ide: %3$s, hogy megtekintse a tartózkodási helyemet a térképen.\n\nKöszönöm!</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Megosztás</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -191,7 +191,7 @@
     <string name="tracks_title">Nyomvonalak</string>
     <!-- Length of track in cell that describes route -->
     <string name="length">Hossz</string>
-    <string name="share_my_location">Saját tartózkodási helyszín megosztása</string>
+    <string name="share_my_location">Saját tartózkodási hely megosztása</string>
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Információk</string>
     <string name="prefs_group_route">Navigáció</string>
@@ -287,7 +287,7 @@
     <!-- Preference text -->
     <string name="pref_use_google_play">Bluetooth, Wi-Fi vagy mobilhálózat segítségével gyorsan meghatározhatja hozzávetőleges tartózkodási helyét</string>
     <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Az összes térkép letöltése az útvonal mentén</string>
+    <string name="routing_download_maps_along">Összes térkép letöltése az útvonal mentén</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Az útvonal létrehozásához le kell töltenie és frissítenie kell az összes térképet az Ön tartózkodási helyétől a célig.</string>
     <!-- Text for routing error dialog -->
@@ -350,7 +350,7 @@
     <string name="dialog_routing_end_not_determined">Az útvonal nem lett létrehozva. Nem sikerült meghatározni a célállomást.</string>
     <string name="dialog_routing_select_closer_end">Válasszon egy, az úthoz közelebb eső célállomást.</string>
     <string name="dialog_routing_change_intermediate">Nem sikerült meghatározni a köztes helyet.</string>
-    <string name="dialog_routing_intermediate_not_determined">Módosítsa a köztes helyet.</string>
+    <string name="dialog_routing_intermediate_not_determined">Pontosítsa a köztes helyet.</string>
     <string name="dialog_routing_system_error">Rendszerhiba</string>
     <string name="dialog_routing_application_error">Nem lehet létrehozni az útvonalat egy alkalmazáshiba miatt.</string>
     <string name="dialog_routing_try_again">Próbálja meg újra</string>
@@ -476,7 +476,7 @@
     <string name="editor_zip_code">Irányítószám</string>
     <string name="error_enter_correct_zip_code">Adjon meg egy érvényes irányítószámot</string>
     <!-- Title for OSM note section in the editor -->
-    <string name="editor_other_info">Megjegyzés az OpenStreetMap önkénteseinek (nem kötelező)</string>
+    <string name="editor_other_info">Megjegyzés az OpenStreetMap közreműködőinek (nem kötelező)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
     <string name="editor_note_hint">Írja le a térképen található hibákat vagy olyan dolgokat, amelyeket nem lehet az Organic Maps segítségével szerkeszteni</string>
     <!-- Information about OSM at the top of the editing page -->
@@ -529,7 +529,7 @@
     <string name="mobile_data_option_not_today">Ma ne használja</string>
     <string name="mobile_data">Mobilinternet</string>
     <!-- NOTE to translators: please synchronize your translation with the English one. -->
-    <string name="mobile_data_description">Mobilinternet szükséges a térképfrissítési értesítésekhez, valamint a helyszínekre és könyvjelzőkre vonatkozó részletes információk megjelenítéséhez.</string>
+    <string name="mobile_data_description">Mobilinternet szükséges a térképfrissítési értesítésekhez, valamint a helyekre és könyvjelzőkre vonatkozó részletes információk megjelenítéséhez.</string>
     <string name="mobile_data_option_never">Soha ne használja</string>
     <string name="mobile_data_option_ask">Mindig kérdezzen rá</string>
     <string name="traffic_update_maps_text">Forgalmi adatok megjelenítéséhez frissíteni kell a térképeket.</string>
@@ -630,7 +630,7 @@
     <string name="unable_to_calc_alert_title">Nem lehet kiszámítani az útvonalat</string>
     <string name="unable_to_calc_alert_subtitle">Nem sikerült útvonalat találni. Ennek oka lehet az útvonaltervezési beállítások vagy a hiányos OpenStreetMap-adatok. Módosítsa az útvonaltervezési beállításokat, és próbálja meg újra.</string>
     <string name="define_to_avoid_btn">Elkerülendő utak meghatározása</string>
-    <string name="change_driving_options_btn">Útvonaltervezési lehetőségek engedélyezve</string>
+    <string name="change_driving_options_btn">Útvonaltervezési beállítások engedélyezve</string>
     <string name="toll_road">Díjköteles utak</string>
     <string name="unpaved_road">Burkolatlan utak</string>
     <string name="ferry_crossing">Kompátkelők</string>
@@ -760,7 +760,7 @@
     <string name="browser_not_available">A webböngésző nem érhető el</string>
     <string name="volume">Hangerő</string>
     <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-    <string name="bookmarks_export">Az összes könyvjelző és nyomvonal exportálása</string>
+    <string name="bookmarks_export">Összes könyvjelző és nyomvonal exportálása</string>
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Beszédszintézis-beállítások</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
@@ -778,7 +778,7 @@
     <string name="open_in_app">Megnyitás másik alkalmazásban</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Önkiszolgáló</string>
-    <string name="select_option">Válasszon ki egy lehetőséget</string>
+    <string name="select_option">Válasszon ki egy beállítást</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
     <string name="outdoor_seating">Kiülős helyek</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
@@ -817,7 +817,7 @@
     <string name="facebook">Facebook</string>
     <string name="closes_in">Bezár %s múlva</string>
     <string name="opens_in">Kinyit %s múlva</string>
-    <string name="current_location_unknown_error_title">A jelenlegi tartózkodási helyszín ismeretlen.</string>
+    <string name="current_location_unknown_error_title">A jelenlegi tartózkodási hely ismeretlen.</string>
     <string name="disk_error">Nem lehet mappát létrehozni és fájlokat áthelyezni az eszköz belső memóriájában vagy az SD-kártyán</string>
     <string name="disk_error_title">Lemezhiba</string>
     <string name="twitter">X (Twitter)</string>
