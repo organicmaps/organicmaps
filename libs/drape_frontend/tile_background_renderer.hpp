@@ -16,8 +16,10 @@
 
 #include "base/buffer_vector.hpp"
 
-#include <map>
-#include <set>
+#include <list>
+#include <optional>
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 namespace df
@@ -44,19 +46,25 @@ public:
   dp::BackgroundMode GetBackgroundMode() const;
 
 private:
-  MapDataProvider::TTileBackgroundReadFn m_tileBackgroundReadFn;
-  MapDataProvider::TCancelTileBackgroundReadingFn m_cancelTileBackgroundReadingFn;
-
-  dp::BackgroundMode m_currentMode = dp::BackgroundMode::Default;
-
   struct TextureInfo
   {
     ref_ptr<dp::TexturePool> m_texturePool;
     dp::TexturePool::TextureId m_textureId{};
   };
+  void RemoveTexture(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, TextureInfo const & info);
+  std::optional<TextureInfo> RestoreRemovedTexture(TileKey const & tileKey);
 
-  std::set<TileKey> m_awaitingTiles;
-  std::map<TileKey, TextureInfo> m_tileTextures;
+  MapDataProvider::TTileBackgroundReadFn m_tileBackgroundReadFn;
+  MapDataProvider::TCancelTileBackgroundReadingFn m_cancelTileBackgroundReadingFn;
+
+  dp::BackgroundMode m_currentMode = dp::BackgroundMode::Default;
+
+  std::unordered_set<TileKey> m_awaitingTiles;
+  std::unordered_map<TileKey, TextureInfo> m_tileTextures;
+
+  using RemoveTexturesList = std::list<std::pair<TileKey, TextureInfo>>;
+  RemoveTexturesList m_removedTextures;
+  std::unordered_map<TileKey, RemoveTexturesList::iterator> m_removedTexturesCache;
 
   CoverageResult m_lastCoverage;
   int m_lastCurrentZoomLevel = 0;
