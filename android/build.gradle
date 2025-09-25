@@ -38,8 +38,8 @@ tasks.register("lintAllModules") {
     description = "Run lint on all modules and produce a merged report"
 
     // Run all submodules' lint tasks
-    dependsOn(subprojects.collect { p ->
-        p.tasks.named("lint")
+    dependsOn(subprojects.collectMany { p ->
+        p.tasks.matching { it.name == "lint" }
     })
 
     doLast {
