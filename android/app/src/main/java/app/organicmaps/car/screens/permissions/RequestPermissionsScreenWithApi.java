@@ -37,7 +37,7 @@ public class RequestPermissionsScreenWithApi extends BaseScreen implements UserA
 
   @NonNull
   @Override
-  public Template onGetTemplate()
+  protected Template onGetTemplateImpl()
   {
     final MessageTemplate.Builder builder =
         new MessageTemplate.Builder(getCarContext().getString(R.string.aa_request_permission_activity_text));
@@ -63,6 +63,7 @@ public class RequestPermissionsScreenWithApi extends BaseScreen implements UserA
   @Override
   public void onResume(@NonNull LifecycleOwner owner)
   {
+    super.onResume(owner);
     // Let's review the permissions once more, as we might enter this function following an ErrorScreen situation
     // where the user manually enabled location permissions.
     if (LocationUtils.checkFineLocationPermission(getCarContext()))

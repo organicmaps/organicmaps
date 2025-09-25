@@ -31,7 +31,7 @@ public class MapScreen extends BaseMapScreen
 
   @NonNull
   @Override
-  public Template onGetTemplate()
+  protected Template onGetTemplateImpl()
   {
     SuggestionsHelpers.updateSuggestions(getCarContext());
 

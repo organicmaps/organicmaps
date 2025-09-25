@@ -102,6 +102,7 @@ class DownloaderScreen extends BaseScreen
   @Override
   public void onResume(@NonNull LifecycleOwner owner)
   {
+    super.onResume(owner);
     if (mSubscriptionSlot == 0)
       mSubscriptionSlot = MapManager.nativeSubscribe(mStorageCallback);
     for (final var item : mMissingMaps.entrySet())
@@ -114,6 +115,7 @@ class DownloaderScreen extends BaseScreen
   @Override
   public void onPause(@NonNull LifecycleOwner owner)
   {
+    super.onPause(owner);
     if (!mIsDownloadFailed)
       cancelMapsDownloading();
     if (mSubscriptionSlot != 0)
@@ -125,7 +127,7 @@ class DownloaderScreen extends BaseScreen
 
   @NonNull
   @Override
-  public Template onGetTemplate()
+  protected Template onGetTemplateImpl()
   {
     final MessageTemplate.Builder builder = new MessageTemplate.Builder(getText());
     builder.setLoading(true);

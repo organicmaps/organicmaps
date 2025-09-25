@@ -41,7 +41,7 @@ public class BookmarksScreen extends BaseMapScreen
 
   @NonNull
   @Override
-  public Template onGetTemplate()
+  protected Template onGetTemplateImpl()
   {
     final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
@@ -52,6 +52,7 @@ public class BookmarksScreen extends BaseMapScreen
   @Override
   public void onStop(@NonNull LifecycleOwner owner)
   {
+    super.onStop(owner);
     if (!mIsOnSortingScreen)
       mBookmarksLoader.cancel();
   }
