@@ -25,6 +25,7 @@ namespace
 jclass g_bookmarkManagerClass;
 jfieldID g_bookmarkManagerInstanceField;
 jmethodID g_onBookmarksChangedMethod;
+jmethodID g_onFileChangedMethod;
 jmethodID g_onBookmarksLoadingStartedMethod;
 jmethodID g_onBookmarksLoadingFinishedMethod;
 jmethodID g_onBookmarksFileLoadedMethod;
@@ -54,6 +55,7 @@ void PrepareClassRefs(JNIEnv * env)
 
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass, g_bookmarkManagerInstanceField);
   g_onBookmarksChangedMethod = jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksChanged", "()V");
+  g_onFileChangedMethod = jni::GetMethodID(env, bookmarkManagerInstance, "onFileChanged", "(Ljava/lang/String;)V");
   g_onBookmarksLoadingStartedMethod =
       jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksLoadingStarted", "()V");
   g_onBookmarksLoadingFinishedMethod =
@@ -121,6 +123,18 @@ void OnBookmarksChanged(JNIEnv * env)
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass, g_bookmarkManagerInstanceField);
   env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksChangedMethod);
   jni::HandleJavaException(env);
+}
+
+void OnFileChanged(JNIEnv * env, std::string filePath)
+{
+  ASSERT(g_bookmarkManagerClass, ());
+  GetPlatform().RunTask(Platform::Thread::Gui, [env, filePath = std::move(filePath)]()
+  {
+    jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass, g_bookmarkManagerInstanceField);
+    jni::TScopedLocalRef jFilePath(env, jni::ToJavaString(env, filePath));
+    env->CallVoidMethod(bookmarkManagerInstance, g_onFileChangedMethod, jFilePath.get());
+    jni::HandleJavaException(env);
+  });
 }
 
 void OnAsyncLoadingStarted(JNIEnv * env)
@@ -287,6 +301,7 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_n
   frm()->GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
 
   frm()->GetBookmarkManager().SetBookmarksChangedCallback(std::bind(&OnBookmarksChanged, env));
+  frm()->GetBookmarkManager().SetFileChangedCallback(std::bind(&OnFileChanged, env, std::placeholders::_1));
 
   frm()->LoadBookmarks();
 }
@@ -308,6 +323,17 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManag
   // `permanently` should be set to false when the Recently Deleted Lists feature be implemented
   return static_cast<jboolean>(
       frm()->GetBookmarkManager().GetEditSession().DeleteBmCategory(categoryId, true /* permanently */));
+}
+
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeDeleteCategoryByFilename(
+    JNIEnv * env, jobject, jstring filePath)
+{
+  auto & bm = frm()->GetBookmarkManager();
+  auto const categoryId = bm.GetCategoryByFileName(ToNativeString(env, filePath));
+  if (categoryId != kml::kInvalidMarkGroupId)
+    return bm.GetEditSession().DeleteBmCategory(categoryId, true /* permanently */);
+  else
+    return false;
 }
 
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeDeleteBookmark(JNIEnv *, jobject,
@@ -367,6 +393,34 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_n
     JNIEnv * env, jclass, jstring path, jboolean isTemporaryFile)
 {
   frm()->AddBookmarksFile(ToNativeString(env, path), isTemporaryFile);
+}
+
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeReloadBookmark(JNIEnv * env,
+                                                                                                    jclass,
+                                                                                                    jstring filePath)
+{
+  frm()->GetBookmarkManager().ReloadBookmark(ToNativeString(env, filePath));
+}
+
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeAddSuffixToCategory(
+    JNIEnv * env, jclass, jstring filePath)
+{
+  std::string const path = jni::ToNativeString(env, filePath);
+  frm()->GetBookmarkManager().AddSuffixToCategoryName(path);
+}
+
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetBookmarksDir(JNIEnv * env,
+                                                                                                        jclass)
+{
+  return jni::ToJavaString(env, GetBookmarksDirectory());
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetLoadedCategoryPaths(JNIEnv * env, jclass)
+{
+  std::vector<std::string> filePaths;
+  auto const & bm = frm()->GetBookmarkManager();
+  return jni::ToJavaStringArray(env, bm.GetLoadedCategoryPaths());
 }
 
 JNIEXPORT jboolean JNICALL
