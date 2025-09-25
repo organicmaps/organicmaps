@@ -61,4 +61,10 @@ class SurfaceRenderer extends Renderer
     mSurfaceCallback.stopPresenting();
     mMapController.onStop(mLifecycleOwner);
   }
+
+  @Override
+  public void setSpeedLimit(int speedLimit, boolean speedLimitExceeded)
+  {
+    mSurfaceCallback.getSpeedLimitView().setSpeedLimit(speedLimit, speedLimitExceeded);
+  }
 }

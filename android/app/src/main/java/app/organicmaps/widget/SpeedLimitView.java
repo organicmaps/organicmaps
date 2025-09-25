@@ -66,11 +66,17 @@ public class SpeedLimitView extends View
   private String mSpeedLimitStr = "0";
   private boolean mAlert = false;
 
+  public SpeedLimitView(Context context)
+  {
+    this(context, null);
+  }
+
   public SpeedLimitView(Context context, @Nullable AttributeSet attrs)
   {
     super(context, attrs);
 
-    try (TypedArray data = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SpeedLimitView, 0, 0))
+    try (TypedArray data = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SpeedLimitView, 0,
+                                                                     R.style.MwmWidget_SpeedLimit))
     {
       mBackgroundColor =
           data.getColor(R.styleable.SpeedLimitView_speedLimitBackgroundColor, DefaultValues.BACKGROUND_COLOR);
@@ -115,6 +121,16 @@ public class SpeedLimitView extends View
     }
 
     invalidate();
+  }
+
+  public int getSpeedLimit()
+  {
+    return mSpeedLimit;
+  }
+
+  public boolean isAlert()
+  {
+    return mAlert;
   }
 
   @Override
