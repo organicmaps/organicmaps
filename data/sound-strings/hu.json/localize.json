@@ -1,5 +1,5 @@
 {
-"make_a_slight_right_turn":"Jobbra tartson.",
+"make_a_slight_right_turn":"Tartson jobbra.",
 "make_a_slight_right_turn_street":"NULL",
 "make_a_slight_right_turn_street_verb":"NULL",
 "make_a_right_turn":"Forduljon jobbra.",
@@ -12,7 +12,7 @@
 "leave_the_roundabout":"Hagyja el a körforgalmat.",
 "leave_the_roundabout_street":"NULL",
 "leave_the_roundabout_street_verb":"NULL",
-"make_a_slight_left_turn":"Balra tartson.",
+"make_a_slight_left_turn":"Tartson balra.",
 "make_a_slight_left_turn_street":"NULL",
 "make_a_slight_left_turn_street_verb":"NULL",
 "make_a_left_turn":"Forduljon balra.",

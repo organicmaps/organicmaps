@@ -1254,7 +1254,7 @@
     <string name="type.tourism.artwork.painting">Sanat Eserleri</string>
     <string name="type.tourism.artwork.sculpture">Heykel</string>
     <string name="type.tourism.artwork.statue">Heykel</string>
-    <string name="type.tourism.attraction">Görülecek Yerler</string>
+    <string name="type.tourism.attraction">Görülecek Yer</string>
     <string name="type.attraction.amusement_ride">Eğlence Sürüşü</string>
     <string name="type.attraction.animal">Hayvan Muhafazası</string>
     <string name="type.attraction.carousel">Atlıkarınca</string>
@@ -1402,4 +1402,16 @@
     <string name="type.route.shuttle_train">route-shuttle_train</string>
     <string name="type.attraction.bumper_car">Çarpışan Oto</string>
     <string name="type.attraction.big_wheel">Dönme Dolap</string>
+    <string name="type.amenity.bicycle_parking.covered">Örtülü Bisiklet Parkı</string>
+    <string name="type.amenity.luggage_locker">Emanet Dolabı</string>
+    <string name="type.post_office.post_partner">Postane İş Ortağı</string>
+    <string name="type.leisure.escape_game">Kaçış Odası</string>
+    <string name="type.railway.station.subway.qingdao">Metro</string>
+    <string name="type.amenity.ranger_station">Korucu İstasyonu</string>
+    <string name="type.barrier.wicket_gate">Kuzu Kapı</string>
+    <string name="type.barrier.yes">Bariyer</string>
+    <string name="type.building.guardhouse">Güvenlik</string>
+    <string name="type.office.security">Güvenlik Bürosu</string>
+    <string name="type.power.portal">Elektrik Kulesi (Geçit)</string>
+    <string name="type.shop.lighting">Aydınlatma Mağazası</string>
 </resources>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- SECTION: Types -->
-    <string name="type.addr_interpolation">Cím/blokk</string>
-    <string name="type.addr_interpolation.even">Cím/blokk</string>
-    <string name="type.addr_interpolation.odd">Cím/blokk</string>
+    <string name="type.addr_interpolation">Cím/háztömb</string>
+    <string name="type.addr_interpolation.even">Cím/háztömb</string>
+    <string name="type.addr_interpolation.odd">Cím/háztömb</string>
     <string name="type.aerialway.station">Felvonóállomás</string>
     <string name="type.aeroway.aerodrome">Repülőtér</string>
     <string name="type.aeroway.aerodrome.international">Nemzetközi repülőtér</string>
@@ -251,7 +251,7 @@
     <string name="type.cuisine.heuriger">Heuriger</string>
     <string name="type.cuisine.hotdog">Hotdog</string>
     <string name="type.cuisine.hungarian">Magyar</string>
-    <string name="type.cuisine.ice_cream">Jégkrém</string>
+    <string name="type.cuisine.ice_cream">Fagylalt</string>
     <string name="type.cuisine.indian">Indiai</string>
     <string name="type.cuisine.indonesian">Indonéz</string>
     <string name="type.cuisine.international">Nemzetközi</string>
@@ -951,7 +951,7 @@
     <string name="type.railway.subway_entrance.yokohama">Metrólejáró</string>
     <string name="type.railway.tram_stop">Villamosmegálló</string>
     <string name="type.shop">Bolt</string>
-    <string name="type.shop.alcohol">Szeszesitalbolt</string>
+    <string name="type.shop.alcohol">Szeszesital-bolt</string>
     <string name="type.shop.bakery">Pékség</string>
     <string name="type.shop.bathroom_furnishing">Fürdőszoba-berendezés</string>
     <string name="type.shop.beauty">Szépségszalon</string>
@@ -1038,7 +1038,7 @@
     <string name="type.shop.tyres">Autógumi-szaküzlet</string>
     <string name="type.shop.variety_store">100 forintos bolt</string>
     <string name="type.shop.video">Videófilmbolt vagy -kölcsönző</string>
-    <string name="type.shop.video_games">Videojáték-bolt</string>
+    <string name="type.shop.video_games">Videojáték-szaküzlet</string>
     <string name="type.shop.wine">Borszaküzlet</string>
     <string name="type.shop.agrarian">Gazdabolt</string>
     <string name="type.shop.antiques">Régiségkereskedés</string>
