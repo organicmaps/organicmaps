@@ -1,5 +1,6 @@
 package app.organicmaps.car.screens;
 
+import android.location.Location;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +37,7 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.LocationUtils;
+import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import java.util.List;
 import java.util.Objects;
@@ -51,7 +53,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @NonNull
   private final NavigationManager mNavigationManager;
   @NonNull
-  private final LocationListener mLocationListener = (unused) -> updateTrip();
+  private final LocationListener mLocationListener = this::updateTrip;
 
   @NonNull
   private Trip mTrip = new Trip.Builder().setLoading(true).build();
@@ -144,7 +146,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
       NavigationService.startForegroundService(getCarContext(),
                                                CarAppService.getCarNotificationExtender(getCarContext()));
-    updateTrip();
+    updateTrip(/* location */ null);
   }
 
   @Override
@@ -165,6 +167,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     mRoutingController.detach();
     mNavigationManager.navigationEnded();
     mNavigationManager.clearNavigationManagerCallback();
+    getSurfaceRenderer().hideSpeedLimit();
   }
 
   @NonNull
@@ -246,12 +249,20 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     return ttsActionBuilder.build();
   }
 
-  private void updateTrip()
+  private void updateTrip(@Nullable Location location)
   {
     final RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
     mTrip = RoutingUtils.createTrip(getCarContext(), info, RoutingController.get().getEndPoint());
     mNavigationManager.updateTrip(mTrip);
+    if (info != null)
+      updateSpeedLimit(info, location);
     invalidate();
+  }
+
+  private void updateSpeedLimit(@NonNull final RoutingInfo info, @Nullable Location location)
+  {
+    final boolean speedLimitExceeded = location != null && info.speedLimitMps < location.getSpeed();
+    getSurfaceRenderer().setSpeedLimit(StringUtils.nativeFormatSpeed(info.speedLimitMps), speedLimitExceeded);
   }
 
   /**

@@ -87,4 +87,10 @@ class SurfaceRendererLegacy extends Renderer
     mMap.onStop();
     mMap.setMapRenderingListener(null);
   }
+
+  @Override
+  public void setSpeedLimit(int speedLimit, boolean speedLimitExceeded)
+  {
+    // Not supported.
+  }
 }

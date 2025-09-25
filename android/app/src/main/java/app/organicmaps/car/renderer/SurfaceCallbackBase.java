@@ -1,6 +1,7 @@
 package app.organicmaps.car.renderer;
 
 import android.graphics.Rect;
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
 import androidx.car.app.SurfaceCallback;
@@ -26,6 +27,7 @@ abstract class SurfaceCallbackBase implements SurfaceCallback
     mCarContext = carContext;
   }
 
+  @CallSuper
   @Override
   public void onVisibleAreaChanged(@NonNull Rect visibleArea)
   {
@@ -38,6 +40,7 @@ abstract class SurfaceCallbackBase implements SurfaceCallback
                                                               mVisibleArea.bottom));
   }
 
+  @CallSuper
   @Override
   public void onStableAreaChanged(@NonNull Rect stableArea)
   {
