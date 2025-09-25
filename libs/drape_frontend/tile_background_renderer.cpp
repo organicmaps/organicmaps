@@ -36,6 +36,9 @@ void TileBackgroundRenderer::OnUpdateViewport(ref_ptr<dp::GraphicsContext> conte
   if (m_currentMode == dp::BackgroundMode::Default)
     return;
 
+  if (context == nullptr)
+    return;
+
   // Cancel awaiting tile background reading requests for deleted tiles
   for (auto const & tileKey : tilesToDelete)
   {
@@ -43,12 +46,10 @@ void TileBackgroundRenderer::OnUpdateViewport(ref_ptr<dp::GraphicsContext> conte
       m_cancelTileBackgroundReadingFn(tileKey, m_currentMode);
 
     // Remove textures for deleted tiles
-    // TODO: Move texture data to LRU cache instead of deleting it
     auto it = m_tileTextures.find(tileKey);
     if (it != m_tileTextures.end())
     {
-      if (context != nullptr)
-        it->second.m_texturePool->ReleaseTexture(context, it->second.m_textureId);
+      RemoveTexture(context, it->first, it->second);
       m_tileTextures.erase(it);
     }
   }
@@ -59,6 +60,15 @@ void TileBackgroundRenderer::OnUpdateViewport(ref_ptr<dp::GraphicsContext> conte
     for (int y = coverage.m_minTileY; y < coverage.m_maxTileY; ++y)
     {
       TileKey const key(x, y, static_cast<uint8_t>(currentZoomLevel));
+
+      // Restore texture from cache if possible
+      auto maybeTextureInfo = RestoreRemovedTexture(key);
+      if (maybeTextureInfo)
+      {
+        m_tileTextures[key] = *maybeTextureInfo;
+        continue;
+      }
+
       if (m_tileTextures.count(key) == 0 && m_awaitingTiles.insert(key).second)
         m_tileBackgroundReadFn(key, m_currentMode);
     }
@@ -76,7 +86,7 @@ void TileBackgroundRenderer::AssignTileBackgroundTexture(ref_ptr<dp::GraphicsCon
   if (mode != m_currentMode || tileKey.m_zoomLevel != m_lastCurrentZoomLevel)
   {
     m_awaitingTiles.erase(tileKey);
-    texturePool->ReleaseTexture(context, textureId);
+    RemoveTexture(context, tileKey, TextureInfo{texturePool, textureId});
     return;
   }
 
@@ -84,7 +94,7 @@ void TileBackgroundRenderer::AssignTileBackgroundTexture(ref_ptr<dp::GraphicsCon
   auto it = m_awaitingTiles.find(tileKey);
   if (it == m_awaitingTiles.end())
   {
-    texturePool->ReleaseTexture(context, textureId);
+    RemoveTexture(context, tileKey, TextureInfo{texturePool, textureId});
     return;
   }
 
@@ -104,7 +114,7 @@ void TileBackgroundRenderer::AssignTileBackgroundTexture(ref_ptr<dp::GraphicsCon
   {
     if (tileIt->first.m_zoomLevel != tileKey.m_zoomLevel)
     {
-      tileIt->second.m_texturePool->ReleaseTexture(context, tileIt->second.m_textureId);
+      RemoveTexture(context, tileIt->first, tileIt->second);
       tileIt = m_tileTextures.erase(tileIt);
     }
     else
@@ -217,6 +227,12 @@ void TileBackgroundRenderer::ClearContextDependentResources(ref_ptr<dp::Graphics
   for (auto const & [tileKey, info] : m_tileTextures)
     info.m_texturePool->ReleaseTexture(context, info.m_textureId);
   m_tileTextures.clear();
+
+  // Release all cached removed textures
+  for (auto const & [tileKey, info] : m_removedTextures)
+    info.m_texturePool->ReleaseTexture(context, info.m_textureId);
+  m_removedTextures.clear();
+  m_removedTexturesCache.clear();
 }
 
 void TileBackgroundRenderer::SetBackgroundMode(ref_ptr<dp::GraphicsContext> context, dp::BackgroundMode mode)
@@ -239,4 +255,38 @@ dp::BackgroundMode TileBackgroundRenderer::GetBackgroundMode() const
 {
   return m_currentMode;
 }
+
+void TileBackgroundRenderer::RemoveTexture(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                                           TextureInfo const & info)
+{
+  CHECK(context != nullptr, ());
+
+  constexpr size_t kMaxRemovedTexturesInCache = 16;
+  if (m_removedTextures.size() == kMaxRemovedTexturesInCache)
+  {
+    // Remove the oldest texture from the cache
+    auto & [oldTileKey, oldInfo] = m_removedTextures.front();
+    oldInfo.m_texturePool->ReleaseTexture(context, oldInfo.m_textureId);
+    m_removedTexturesCache.erase(oldTileKey);
+    m_removedTextures.pop_front();
+  }
+
+  m_removedTextures.emplace_back(tileKey, info);
+  m_removedTexturesCache[tileKey] = --m_removedTextures.end();
+}
+
+std::optional<TileBackgroundRenderer::TextureInfo> TileBackgroundRenderer::RestoreRemovedTexture(
+    TileKey const & tileKey)
+{
+  auto it = m_removedTexturesCache.find(tileKey);
+  if (it == m_removedTexturesCache.end())
+    return std::nullopt;
+
+  auto listIt = it->second;
+  auto info = listIt->second;
+  m_removedTextures.erase(listIt);
+  m_removedTexturesCache.erase(it);
+  return info;
+}
+
 }  // namespace df
