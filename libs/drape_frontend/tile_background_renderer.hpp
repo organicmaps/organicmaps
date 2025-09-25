@@ -62,6 +62,7 @@ private:
   int m_lastCurrentZoomLevel = 0;
 
   dp::RenderState m_state;
+  dp::RenderState m_stateArray;
   gpu::TileBackgroundProgramParams m_programParams{};
 
   drape_ptr<dp::Instancing> m_instancing;
