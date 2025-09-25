@@ -72,6 +72,7 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType)
   case MWMKmlFileTypeText: return KmlFileType::Text;
   case MWMKmlFileTypeBinary: return KmlFileType::Binary;
   case MWMKmlFileTypeGpx: return KmlFileType::Gpx;
+  case MWMKmlFileTypeGeoJson: return KmlFileType::GeoJson;
   }
 }
 

@@ -54,6 +54,23 @@
 				<string>com.google.earth.kmz</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>320-pro.png</string>
+				<string>64-pro.png</string>
+				<string>44x58-pro.png</string>
+				<string>22x29-pro.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>GeoJson</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.geojson</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
@@ -253,6 +270,28 @@
 				<key>public.mime-type</key>
 				<array>
 					<string>application/gpx+xml</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.json</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>GeoJSON Files</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.geojson</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>geojson</string>
+					<string>GeoJson</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/geo+json</string>
 				</array>
 			</dict>
 		</dict>
