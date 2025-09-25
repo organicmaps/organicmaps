@@ -127,4 +127,17 @@ public abstract class Renderer implements DefaultLifecycleObserver
   {
     Map.zoomOut();
   }
+
+  /**
+   * Updates speed limit view.
+   *
+   * @param speedLimit         The speed limit value in formatted units. A value <= 0 will hide the view.
+   * @param speedLimitExceeded True if the current speed exceeds the speed limit, false otherwise.
+   */
+  public abstract void setSpeedLimit(int speedLimit, boolean speedLimitExceeded);
+
+  public void hideSpeedLimit()
+  {
+    setSpeedLimit(0, false);
+  }
 }
