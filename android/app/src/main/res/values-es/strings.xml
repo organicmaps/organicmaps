@@ -206,7 +206,7 @@
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Información</string>
     <string name="prefs_group_route">Navegación</string>
-    <string name="pref_zoom_title">Botones de zum</string>
+    <string name="pref_zoom_title">Botones de zoom</string>
     <string name="pref_zoom_summary">Visualización en la pantalla</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Modo nocturno</string>
@@ -236,7 +236,7 @@
     <string name="pref_tts_playing_test_voice">Compruebe el volumen o la configuración de texto a voz del sistema si ahora no oye la voz.</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
     <string name="pref_tts_unavailable">No disponible</string>
-    <string name="pref_map_auto_zoom">Zum automático</string>
+    <string name="pref_map_auto_zoom">Zoom automático</string>
     <string name="placepage_distance">Distancia</string>
     <string name="search_show_on_map">Ver en el mapa</string>
     <!-- Menu button -->

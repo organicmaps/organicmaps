@@ -215,10 +215,10 @@
     <string name="track_recording_alert_title">¿Guardar en Marcadores y trayectos?</string>
     <string name="track_recording_toast_nothing_to_save">El trayecto está vacío; no hay nada que guardar</string>
     <string name="settings">Configuración</string>
-    <string name="pref_zoom_title">Botones de zum</string>
+    <string name="pref_zoom_title">Botones de zoom</string>
     <string name="bookmarks_import">Importar marcadores y trayectos</string>
     <string name="edit_track">Editar trayecto</string>
-    <string name="pref_map_auto_zoom">Zum automático</string>
+    <string name="pref_map_auto_zoom">Zoom automático</string>
     <string name="dialog_routing_intermediate_not_determined">Ajuste la parada intermedia.</string>
     <string name="stop_track_recording">Detener grabación de trayecto</string>
     <string name="big_font">Aumentar tamaño del texto en el mapa</string>

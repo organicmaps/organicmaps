@@ -199,7 +199,7 @@
 "length" = "Longitud";
 "share_my_location" = "Compartir mi ubicación";
 "prefs_group_route" = "Navegación";
-"pref_zoom_title" = "Botones de zum";
+"pref_zoom_title" = "Botones de zoom";
 
 /* Settings «Map» category: «Appearance» title */
 "pref_appearance_title" = "Aspecto";
@@ -245,7 +245,7 @@
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Otro";
-"pref_map_auto_zoom" = "Zum automático";
+"pref_map_auto_zoom" = "Zoom automático";
 "placepage_distance" = "Distancia";
 "search_show_on_map" = "Ver en el mapa";
 
