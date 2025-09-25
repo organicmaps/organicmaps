@@ -47,7 +47,7 @@ public class RequestPermissionsScreenWithNotification extends BaseScreen impleme
 
   @NonNull
   @Override
-  public Template onGetTemplate()
+  protected Template onGetTemplateImpl()
   {
     final MessageTemplate.Builder builder =
         new MessageTemplate.Builder(getCarContext().getString(R.string.aa_location_permissions_request));
@@ -66,6 +66,7 @@ public class RequestPermissionsScreenWithNotification extends BaseScreen impleme
   @RequiresPermission(value = Manifest.permission.POST_NOTIFICATIONS)
   public void onStart(@NonNull LifecycleOwner owner)
   {
+    super.onStart(owner);
     mIsPermissionCheckEnabled = true;
     mBackgroundExecutor.execute(this::checkPermissions);
     sendPermissionsRequestNotification();
@@ -74,12 +75,14 @@ public class RequestPermissionsScreenWithNotification extends BaseScreen impleme
   @Override
   public void onStop(@NonNull LifecycleOwner owner)
   {
+    super.onStop(owner);
     mIsPermissionCheckEnabled = false;
   }
 
   @Override
   public void onDestroy(@NonNull LifecycleOwner owner)
   {
+    super.onDestroy(owner);
     NotificationManagerCompat.from(getCarContext()).cancel(NOTIFICATION_ID);
   }
 

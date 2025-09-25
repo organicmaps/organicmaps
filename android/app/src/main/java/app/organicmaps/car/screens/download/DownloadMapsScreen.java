@@ -34,7 +34,7 @@ public abstract class DownloadMapsScreen extends BaseScreen
 
   @NonNull
   @Override
-  public final Template onGetTemplate()
+  protected final Template onGetTemplateImpl()
   {
     final MessageTemplate.Builder builder = new MessageTemplate.Builder(getText(getMapsSize(mMissingMaps)));
     final Header.Builder headerBuilder = new Header.Builder();

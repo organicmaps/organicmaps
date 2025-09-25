@@ -11,7 +11,8 @@ import app.organicmaps.sdk.util.log.Logger;
 
 abstract class SurfaceCallbackBase implements SurfaceCallback
 {
-  private static final String TAG = SurfaceCallbackBase.class.getSimpleName();
+  @NonNull
+  private final String TAG;
 
   @NonNull
   protected final CarContext mCarContext;
@@ -21,6 +22,7 @@ abstract class SurfaceCallbackBase implements SurfaceCallback
 
   public SurfaceCallbackBase(@NonNull CarContext carContext)
   {
+    TAG = getClass().getSimpleName();
     mCarContext = carContext;
   }
 

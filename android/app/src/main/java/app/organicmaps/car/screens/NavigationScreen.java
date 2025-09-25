@@ -70,7 +70,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
 
   @NonNull
   @Override
-  public Template onGetTemplate()
+  protected Template onGetTemplateImpl()
   {
     final NavigationTemplate.Builder builder = new NavigationTemplate.Builder();
     builder.setBackgroundColor(Colors.NAVIGATION_TEMPLATE_BACKGROUND);
@@ -132,7 +132,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @Override
   public void onCreate(@NonNull LifecycleOwner owner)
   {
-    Logger.d(TAG);
+    super.onCreate(owner);
     mRoutingController.attach(this);
     ThemeUtils.update(getCarContext());
     mNavigationManager.setNavigationManagerCallback(this);
@@ -148,13 +148,14 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @Override
   public void onResume(@NonNull LifecycleOwner owner)
   {
-    Logger.d(TAG);
+    super.onResume(owner);
     mRoutingController.attach(this);
   }
 
   @Override
   public void onDestroy(@NonNull LifecycleOwner owner)
   {
+    super.onDestroy(owner);
     NavigationService.stopService(getCarContext());
     MwmApplication.from(getCarContext()).getLocationHelper().removeListener(mLocationListener);
 

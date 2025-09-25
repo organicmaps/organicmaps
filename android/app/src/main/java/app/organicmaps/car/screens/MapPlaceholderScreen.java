@@ -22,7 +22,7 @@ public class MapPlaceholderScreen extends BaseScreen
 
   @NonNull
   @Override
-  public Template onGetTemplate()
+  protected Template onGetTemplateImpl()
   {
     final MessageTemplate.Builder builder =
         new MessageTemplate.Builder(getCarContext().getString(R.string.car_used_on_the_phone_screen));
