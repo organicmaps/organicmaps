@@ -32,10 +32,10 @@ jobs:
           build=$(($(tools/unix/version.sh count) + 1))
           code=$(($(tools/unix/version.sh android_code) + 1))
           tag=$version-$build-android
-          echo "name=version::$version" >> $GITHUB_OUTPUT
-          echo "name=build::$build" >> $GITHUB_OUTPUT
-          echo "name=tag::$tag" >> $GITHUB_OUTPUT
-          echo "name=code::$code" >> $GITHUB_OUTPUT
+          echo "version=$version" >> $GITHUB_OUTPUT
+          echo "build=$build" >> $GITHUB_OUTPUT
+          echo "tag=$tag" >> $GITHUB_OUTPUT
+          echo "code=$code" >> $GITHUB_OUTPUT
           echo "version: ${version}-${build}-FDroid+${code}" > ${{ env.FDROID_VERSION }}
           git add ${{ env.FDROID_VERSION }}
           {
