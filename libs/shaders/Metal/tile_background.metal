@@ -3,6 +3,7 @@
 #include "shaders_lib.h"
 using namespace metal;
 
+// Note: value must be synchronized with shaders libs/shaders/program_params.hpp
 #define TILE_BACKGROUND_MAX_COUNT 64
 
 typedef struct
@@ -44,4 +45,12 @@ fragment float4 fsTileBackground(const Fragment_T in [[stage_in]],
                                  sampler u_colorTexSampler [[sampler(0)]])
 {
   return u_colorTex.sample(u_colorTexSampler, in.texCoords.xy);
+}
+
+fragment float4 fsTileBackgroundArray(const Fragment_T in [[stage_in]],
+                                      texture2d_array<float> u_colorTex [[texture(0)]],
+                                      sampler u_colorTexSampler [[sampler(0)]])
+{
+  uint textureIndex = uint(in.texCoords.z);
+  return u_colorTex.sample(u_colorTexSampler, in.texCoords.xy, textureIndex);
 }

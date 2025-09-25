@@ -50,6 +50,7 @@ public:
   std::string GetRendererName() const override;
   std::string GetRendererVersion() const override;
   bool HasPartialTextureUpdates() const override;
+  uint32_t GetMaxTextureArrayLayers() const override;
 
   void DebugSynchronizeWithCPU() override {}
   void PushDebugLabel(std::string const & label) override {}

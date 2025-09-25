@@ -14,6 +14,8 @@
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "shaders/program_params.hpp"
+
 #include "drape/support_manager.hpp"
 #include "drape/texture_manager.hpp"
 
@@ -648,7 +650,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   {
     ref_ptr<SetTileBackgroundDataMessage> msg = message;
 
-    dp::TexturePoolDesc const desc{.m_maxTextureCount = 64,  // TODO: use max texture 2D array size here
+    dp::TexturePoolDesc const desc{.m_maxTextureCount = gpu::kTileBackgroundMaxCount,
                                    .m_textureWidth = msg->GetWidth(),
                                    .m_textureHeight = msg->GetHeight(),
                                    .m_format = msg->GetFormat(),

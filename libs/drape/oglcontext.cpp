@@ -223,4 +223,10 @@ void OGLContext::SetCullingEnabled(bool enabled)
   else
     GLFunctions::glDisable(gl_const::GLCullFace);
 }
+
+uint32_t OGLContext::GetMaxTextureArrayLayers() const
+{
+  // TODO
+  return 1;
+}
 }  // namespace dp

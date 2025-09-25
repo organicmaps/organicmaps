@@ -1509,6 +1509,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
 void FrontendRenderer::RenderTileBackgroundLayer(ScreenBase const & modelView)
 {
   TRACE_SECTION("[drape] RenderTileBackgroundLayer");
+  DEBUG_LABEL(m_context, "Tile Background");
   if (IsValidCurrentZoom())
   {
     m_tileBackgroundRenderer->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(),

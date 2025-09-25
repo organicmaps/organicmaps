@@ -72,6 +72,7 @@ public:
   virtual std::string GetRendererName() const = 0;
   virtual std::string GetRendererVersion() const = 0;
   virtual bool HasPartialTextureUpdates() const { return true; }
+  virtual uint32_t GetMaxTextureArrayLayers() const = 0;
 
   virtual void DebugSynchronizeWithCPU() {}
   virtual void PushDebugLabel(std::string const & label) = 0;
