@@ -29,6 +29,11 @@ struct TexturePoolDesc
   bool m_needMipMaps = false;
 };
 
+struct Texture2dArrayPoolDesc : TexturePoolDesc
+{
+  uint32_t m_layerCount = 1;
+};
+
 class TexturePool
 {
 public:
@@ -45,6 +50,7 @@ public:
                                  uint32_t width, uint32_t height, ref_ptr<void> data) = 0;
 
   virtual ref_ptr<dp::Texture> GetTexture(TextureId id) = 0;
+  virtual bool IsHardwareTexture2dArrayUsed() const { return false; }
 
   inline TexturePoolDesc const & GetDesc() const { return m_desc; }
 

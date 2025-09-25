@@ -15,6 +15,7 @@ TileBackgroundRenderer::TileBackgroundRenderer(
   : m_tileBackgroundReadFn(std::move(tileBackgroundReadFn))
   , m_cancelTileBackgroundReadingFn(std::move(cancelTileBackgroundReadingFn))
   , m_state(CreateRenderState(gpu::Program::TileBackground, DepthLayer::GeometryLayer))
+  , m_stateArray(CreateRenderState(gpu::Program::TileBackgroundArray, DepthLayer::GeometryLayer))
   , m_instancing(std::make_unique<dp::Instancing>())
 {
   CHECK(m_tileBackgroundReadFn != nullptr, ());
@@ -22,6 +23,9 @@ TileBackgroundRenderer::TileBackgroundRenderer(
 
   m_state.SetBlending(dp::Blending(false /* isEnabled */));
   m_state.SetDepthTestEnabled(false);
+
+  m_stateArray.SetBlending(dp::Blending(false /* isEnabled */));
+  m_stateArray.SetDepthTestEnabled(false);
 }
 
 void TileBackgroundRenderer::OnUpdateViewport(ref_ptr<dp::GraphicsContext> context, CoverageResult const & coverage,
@@ -71,6 +75,7 @@ void TileBackgroundRenderer::AssignTileBackgroundTexture(ref_ptr<dp::GraphicsCon
   // Ignore textures for wrong background mode and zoom level
   if (mode != m_currentMode || tileKey.m_zoomLevel != m_lastCurrentZoomLevel)
   {
+    m_awaitingTiles.erase(tileKey);
     texturePool->ReleaseTexture(context, textureId);
     return;
   }
@@ -118,9 +123,6 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
   if (m_currentMode == dp::BackgroundMode::Default)
     return;
 
-  auto program = mng->GetProgram(m_state.GetProgram<gpu::Program>());
-  bool programBound = false;
-
   // Render tiles relative to the screen center.
   frameValues.SetTo(m_programParams);
   auto const pivot = screen.GlobalRect().Center();
@@ -129,7 +131,17 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
 
   // Sort tiles by texture pointer to minimize texture switches.
   static std::vector<std::pair<TileKey, TextureInfo>> sortedTiles;
-  sortedTiles.assign(m_tileTextures.begin(), m_tileTextures.end());
+  sortedTiles.clear();
+  sortedTiles.reserve(m_tileTextures.size());
+  for (auto const & [tileKey, textureInfo] : m_tileTextures)
+  {
+    if (!screen.ClipRect().IsIntersect(tileKey.GetGlobalRect()))
+      continue;
+    sortedTiles.emplace_back(tileKey, textureInfo);
+  }
+  if (sortedTiles.empty())
+    return;
+
   std::sort(sortedTiles.begin(), sortedTiles.end(), [](auto const & lhs, auto const & rhs)
   {
     auto const lhsTex = lhs.second.m_texturePool->GetTexture(lhs.second.m_textureId);
@@ -139,15 +151,14 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
     return lhsTex < rhsTex;
   });
 
+  // Render tiles in batches with the same texture.
   uint32_t instanceIndex = 0;
   ref_ptr<dp::Texture> prevTex = nullptr;
+  ref_ptr<dp::GpuProgram> prevProgram = nullptr;
   for (size_t i = 0; i < sortedTiles.size(); ++i)
   {
     auto const & [tileKey, textureInfo] = sortedTiles[i];
     auto const r = tileKey.GetGlobalRect();
-    if (!screen.ClipRect().IsIntersect(r))
-      continue;
-
     auto const minR = (m2::PointD(r.minX(), r.minY()) - pivot);
     auto const maxR = (m2::PointD(r.maxX(), r.maxY()) - pivot);
     m_programParams.m_tileCoordsMinMax[instanceIndex] = glsl::vec4(
@@ -160,12 +171,16 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
          tex != sortedTiles[i + 1].second.m_texturePool->GetTexture(sortedTiles[i + 1].second.m_textureId));
     if ((instanceIndex + 1) == gpu::kTileBackgroundMaxCount || (i + 1 == sortedTiles.size()) || nextTextureIsDifferent)
     {
-      m_state.SetColorTexture(tex);
-      if (!programBound)
+      auto & state = textureInfo.m_texturePool->IsHardwareTexture2dArrayUsed() ? m_stateArray : m_state;
+
+      state.SetColorTexture(tex);
+
+      auto program = mng->GetProgram(state.GetProgram<gpu::Program>());
+      if (prevProgram != program)
       {
         context->SetCullingEnabled(false);
         program->Bind();
-        programBound = true;
+        prevProgram = program;
       }
       dp::ApplyState(context, program, m_state);
       mng->GetParamsSetter()->Apply(context, program, m_programParams);
@@ -182,9 +197,9 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
     prevTex = tex;
   }
 
-  if (programBound)
+  if (prevProgram != nullptr)
   {
-    program->Unbind();
+    prevProgram->Unbind();
     context->SetCullingEnabled(true);
   }
 }

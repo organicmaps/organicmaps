@@ -204,6 +204,12 @@ void VulkanTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x,
                             VK_PIPELINE_STAGE_VERTEX_SHADER_BIT | VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
 }
 
+void VulkanTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width,
+                               uint32_t height, uint32_t layer, ref_ptr<void> data)
+{
+  // TODO
+}
+
 void VulkanTexture::Bind(ref_ptr<dp::GraphicsContext> context) const
 {
   ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
