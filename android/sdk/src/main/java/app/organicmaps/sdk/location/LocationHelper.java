@@ -57,6 +57,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private MapObject mMyPosition;
   @NonNull
   private BaseLocationProvider mLocationProvider;
+  @Nullable
+  private BaseLocationProvider mOldLocationProvider;
   private long mInterval;
   private boolean mInFirstRun;
   private boolean mActive;
@@ -266,8 +268,21 @@ public class LocationHelper implements BaseLocationProvider.Listener
   public void startNavigationSimulation(JunctionInfo[] points)
   {
     Logger.i(TAG);
+    mOldLocationProvider = mLocationProvider;
     mLocationProvider.stop();
     mLocationProvider = new RouteSimulationProvider(mContext, this, points);
+    mActive = true;
+    mLocationProvider.start(mInterval);
+  }
+
+  @SuppressLint("MissingPermission")
+  public void stopNavigationSimulation()
+  {
+    Logger.i(TAG);
+    mLocationProvider.stop();
+    if (mOldLocationProvider == null)
+      throw new IllegalStateException("Should be called only after startNavigationSimulation()");
+    mLocationProvider = mOldLocationProvider;
     mActive = true;
     mLocationProvider.start(mInterval);
   }
