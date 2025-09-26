@@ -1070,3 +1070,12 @@
 
 /* The track recording delete confirmation alert message. */
 "placepage_delete_track_recording_confirmation_alert_message" = "この録音を削除してもよろしいですか？データは保存されません。";
+
+/* The track recording action bar button title for pause. */
+"pause" = "一時停止";
+
+/* The track recording action bar button title for resume. */
+"resume" = "再開";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "トラック記録を再開";

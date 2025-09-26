@@ -1070,3 +1070,12 @@
 
 /* The track recording delete confirmation alert message. */
 "placepage_delete_track_recording_confirmation_alert_message" = "คุณแน่ใจหรือไม่ว่าต้องการลบบันทึกนี้ ข้อมูลจะไม่ถูกบันทึกไว้";
+
+/* The track recording action bar button title for pause. */
+"pause" = "หยุดชั่วคราว";
+
+/* The track recording action bar button title for resume. */
+"resume" = "ดำเนินการต่อ";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "ดำเนินการบันทึกเส้นทางต่อ";

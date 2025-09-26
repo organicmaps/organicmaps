@@ -1070,3 +1070,12 @@
 
 /* The track recording delete confirmation alert message. */
 "placepage_delete_track_recording_confirmation_alert_message" = "이 녹음을 삭제하시겠습니까? 데이터는 저장되지 않습니다.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "일시 정지";
+
+/* The track recording action bar button title for resume. */
+"resume" = "다시 시작";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "트랙 기록 다시 시작";

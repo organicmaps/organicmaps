@@ -1070,3 +1070,12 @@
 
 /* The track recording delete confirmation alert message. */
 "placepage_delete_track_recording_confirmation_alert_message" = "¿Seguro que deseas eliminar esta grabación? Los datos no se guardarán.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Pausar";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Reanudar";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Reanudar grabación de ruta";

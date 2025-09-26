@@ -580,3 +580,12 @@
 
 /* The track recording delete confirmation alert message. */
 "placepage_delete_track_recording_confirmation_alert_message" = "Ertu viss um að þú viljir eyða þessari upptöku? Gögnin verða ekki vistuð.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Hlé";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Halda áfram";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Halda áfram að taka upp leið";

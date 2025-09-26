@@ -1070,3 +1070,12 @@
 
 /* The track recording delete confirmation alert message. */
 "placepage_delete_track_recording_confirmation_alert_message" = "Is jy seker jy wil hierdie opname verwyder? Die data sal nie gestoor word nie.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Pouseer";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Hervat";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Hervat baanopname";

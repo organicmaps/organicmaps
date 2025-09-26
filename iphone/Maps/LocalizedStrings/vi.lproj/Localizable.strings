@@ -1070,3 +1070,12 @@
 
 /* The track recording delete confirmation alert message. */
 "placepage_delete_track_recording_confirmation_alert_message" = "Bạn có chắc muốn xóa bản ghi này không? Dữ liệu sẽ không được lưu.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Tạm dừng";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Tiếp tục";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Tiếp tục ghi hành trình";

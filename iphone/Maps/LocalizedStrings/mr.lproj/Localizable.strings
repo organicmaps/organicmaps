@@ -1068,3 +1068,12 @@
 
 /* The track recording delete confirmation alert message. */
 "placepage_delete_track_recording_confirmation_alert_message" = "आपण नक्की ही रेकॉर्डिंग हटवू इच्छिता? डेटा जतन केला जाणार नाही.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "थांबा";
+
+/* The track recording action bar button title for resume. */
+"resume" = "पुन्हा सुरू करा";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "ट्रॅक रेकॉर्डिंग पुन्हा सुरू करा";

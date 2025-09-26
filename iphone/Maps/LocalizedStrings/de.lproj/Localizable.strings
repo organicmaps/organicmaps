@@ -1074,3 +1074,12 @@
 
 /* The track recording delete confirmation alert message. */
 "placepage_delete_track_recording_confirmation_alert_message" = "Möchten Sie diese Aufnahme wirklich löschen? Die Daten werden nicht gespeichert.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Pause";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Fortsetzen";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Track-Aufzeichnung fortsetzen";

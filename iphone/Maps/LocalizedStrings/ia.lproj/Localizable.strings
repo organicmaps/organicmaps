@@ -581,3 +581,12 @@
 
 /* The track recording delete confirmation alert message. */
 "placepage_delete_track_recording_confirmation_alert_message" = "Es tu secur que vole deler iste registration? Le datos non essera salveguardate.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Pausar";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Reprender";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Reprender le registration del percurso";

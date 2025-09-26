@@ -1070,3 +1070,12 @@
 
 /* The track recording delete confirmation alert message. */
 "placepage_delete_track_recording_confirmation_alert_message" = "Ви впевнені, що хочете видалити цей запис? Дані не будуть збережені.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Пауза";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Продовжити";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Продовжити запис треку";

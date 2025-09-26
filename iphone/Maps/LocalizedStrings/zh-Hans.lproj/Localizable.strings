@@ -1070,3 +1070,12 @@
 
 /* The track recording delete confirmation alert message. */
 "placepage_delete_track_recording_confirmation_alert_message" = "确定要删除此录音吗？数据将不会保存。";
+
+/* The track recording action bar button title for pause. */
+"pause" = "暂停";
+
+/* The track recording action bar button title for resume. */
+"resume" = "继续";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "继续轨迹记录";

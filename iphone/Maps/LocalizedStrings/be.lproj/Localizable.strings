@@ -1074,3 +1074,12 @@
 
 /* The track recording delete confirmation alert message. */
 "placepage_delete_track_recording_confirmation_alert_message" = "Вы ўпэўнены, што хочаце выдаліць гэты запіс трэку? Даныя не будуць захаваныя.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Прыпыніць";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Працягнуць";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Працягнуць запіс трэка";

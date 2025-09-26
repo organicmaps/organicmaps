@@ -1070,3 +1070,12 @@
 
 /* The track recording delete confirmation alert message. */
 "placepage_delete_track_recording_confirmation_alert_message" = "آیا مطمئنید می‌خواهید این ضبط را حذف کنید؟ داده‌ها ذخیره نخواهند شد.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "مکث";
+
+/* The track recording action bar button title for resume. */
+"resume" = "ادامه";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "ادامه ضبط مسیر";
