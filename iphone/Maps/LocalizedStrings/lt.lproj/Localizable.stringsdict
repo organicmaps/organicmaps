@@ -12,12 +12,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%d žymė</string>
-			<key>few</key>
-			<string>%d žymės</string>
-			<key>other</key>
-			<string>%d žymių</string>
+			<key>zero</key>
+			<string>pridėti žymę</string>
 		</dict>
 	</dict>
 	<key>bookmarks_detect_message</key>
