@@ -435,7 +435,6 @@ extension NavigationDashboardViewController {
 
     case .navigation:
       navigationInfoView.onNavigationInfoUpdated(viewModel.entity)
-      navigationInfoView.updateToastView()
       if let navigationSearchState = viewModel.navigationSearchState {
         navigationInfoView.setSearchState(navigationSearchState, animated: true)
       }

@@ -33,8 +33,6 @@ NS_SWIFT_NAME(NavigationInfoView)
 
 - (void)onNavigationInfoUpdated:(MWMNavigationDashboardEntity *)info;
 
-- (void)updateToastView;
-
 - (void)updateSideButtonsAvailableArea:(CGRect)frame animated:(BOOL)animated;
 
 @end

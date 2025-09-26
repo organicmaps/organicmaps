@@ -3,7 +3,6 @@
 #import "MWMButton.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationManager.h"
-#import "MWMLocationObserver.h"
 #import "MWMMapViewControlsCommon.h"
 #import "MWMSearch.h"
 #import "MapViewController.h"
@@ -53,7 +52,7 @@ BOOL defaultOrientation(CGSize const & size)
 }
 }  // namespace
 
-@interface MWMNavigationInfoView () <MWMLocationObserver>
+@interface MWMNavigationInfoView ()
 
 @property(weak, nonatomic) IBOutlet UIView * streetNameView;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * streetNameTopOffsetConstraint;
@@ -82,9 +81,6 @@ BOOL defaultOrientation(CGSize const & size)
 @property(weak, nonatomic) IBOutlet MWMButton * searchFoodButton;
 @property(weak, nonatomic) IBOutlet MWMButton * searchATMButton;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * turnsTopOffset;
-
-@property(weak, nonatomic) IBOutlet MWMNavigationAddPointToastView * toastView;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * toastViewHideOffset;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchMainButtonBottomConstraint;
 
 @property(nonatomic, readwrite) NavigationSearchState searchState;
@@ -108,50 +104,7 @@ BOOL defaultOrientation(CGSize const & size)
   [self setSearchState:NavigationSearchStateMinimizedSearch animated:YES];
 }
 
-- (void)updateToastView
-{
-  // -S-F-L -> Start
-  // -S-F+L -> Finish
-  // -S+F-L -> Start
-  // -S+F+L -> Start + Use
-  // +S-F-L -> Finish
-  // +S-F+L -> Finish
-  // +S+F-L -> Hide
-  // +S+F+L -> Hide
-
-  BOOL const hasStart = ([MWMRouter startPoint] != nil);
-  BOOL const hasFinish = ([MWMRouter finishPoint] != nil);
-  self.hasLocation = ([MWMLocationManager lastLocation] != nil);
-
-  if (hasStart && hasFinish)
-  {
-    [self setToastViewHidden:YES];
-    return;
-  }
-
-  [self setToastViewHidden:NO];
-
-  auto toastView = self.toastView;
-
-  if (hasStart)
-  {
-    [toastView configWithIsStart:NO withLocationButton:NO];
-    return;
-  }
-
-  if (hasFinish)
-  {
-    [toastView configWithIsStart:YES withLocationButton:self.hasLocation];
-    return;
-  }
-
-  if (self.hasLocation)
-    [toastView configWithIsStart:NO withLocationButton:NO];
-  else
-    [toastView configWithIsStart:YES withLocationButton:NO];
-}
-
-- (void)updateSideButtonsAvailableArea:(CGRect)frame
+- (void)updateSideButtonsAvailableArea:(CGRect)frame animated:(BOOL)animated
 {
   CGFloat const height = frame.size.height;
   if (height == 0)
@@ -161,7 +114,7 @@ BOOL defaultOrientation(CGSize const & size)
 
   self.searchMainButtonBottomConstraint.constant = bottomOffset;
   BOOL isOutOfBounds = height < kSearchButtonsViewHeightPortrait;
-  [UIView animateWithDuration:kDefaultAnimationDuration
+  [UIView animateWithDuration:animated ? 0 : kDefaultAnimationDuration
       animations:^{
         self.searchMainButton.alpha = isOutOfBounds ? 0.0 : 1.0;
         self.bookmarksButton.alpha = isOutOfBounds ? 0.0 : 1.0;
@@ -175,25 +128,6 @@ BOOL defaultOrientation(CGSize const & size)
 - (SearchOnMapManager *)searchManager
 {
   return [MapViewController sharedController].searchManager;
-}
-
-- (IBAction)openSearch
-{
-  BOOL const isStart = self.toastView.isStart;
-
-  [self.searchManager
-      setRoutingTooltip:isStart ? SearchOnMapRoutingTooltipSearchStart : SearchOnMapRoutingTooltipSearchFinish];
-  [self.searchManager startSearchingWithIsRouting:YES];
-}
-
-- (IBAction)addLocationRoutePoint
-{
-  NSAssert(![MWMRouter startPoint], @"Action button is active while start point is available");
-  NSAssert([MWMLocationManager lastLocation], @"Action button is active while my location is not available");
-
-  [MWMRouter buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
-                                                             intermediateIndex:0]
-                 bestRouter:NO];
 }
 
 - (IBAction)ttsButtonAction
@@ -357,15 +291,6 @@ BOOL defaultOrientation(CGSize const & size)
   [self setNeedsLayout];
 }
 
-#pragma mark - MWMLocationObserver
-
-- (void)onLocationUpdate:(CLLocation *)location
-{
-  BOOL const hasLocation = ([MWMLocationManager lastLocation] != nil);
-  if (self.hasLocation != hasLocation)
-    [self updateToastView];
-}
-
 #pragma mark - SolidTouchView
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -509,18 +434,8 @@ BOOL defaultOrientation(CGSize const & size)
   _state = state;
   switch (state)
   {
-  case MWMNavigationInfoViewStateHidden:
-    self.isVisible = NO;
-    [self setToastViewHidden:YES];
-    [MWMLocationManager removeObserver:self];
-    break;
-  case MWMNavigationInfoViewStateNavigation:
-    self.isVisible = YES;
-    if ([MWMRouter type] == MWMRouterTypePedestrian)
-      [MWMLocationManager addObserver:self];
-    else
-      [MWMLocationManager removeObserver:self];
-    break;
+  case MWMNavigationInfoViewStateHidden: self.isVisible = NO; break;
+  case MWMNavigationInfoViewStateNavigation: self.isVisible = YES; break;
   }
 }
 
@@ -562,20 +477,6 @@ BOOL defaultOrientation(CGSize const & size)
       completion:^(BOOL finished) {
         if (!isVisible)
           self.hidden = isVisible;
-      }];
-}
-
-- (void)setToastViewHidden:(BOOL)hidden
-{
-  if (!hidden)
-    self.toastView.hidden = NO;
-  [self setNeedsLayout];
-  self.toastViewHideOffset.priority = (hidden ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow);
-  [UIView animateWithDuration:kDefaultAnimationDuration
-      animations:^{ [self layoutIfNeeded]; }
-      completion:^(BOOL finished) {
-        if (hidden)
-          self.toastView.hidden = YES;
       }];
 }
 

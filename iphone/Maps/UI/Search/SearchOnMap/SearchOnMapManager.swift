@@ -1,11 +1,4 @@
 @objc
-enum SearchOnMapRoutingTooltipSearch: Int {
-  case none
-  case start
-  case finish
-}
-
-@objc
 protocol SearchOnMapManagerObserver: AnyObject {
   func searchManager(didChangeState state: SearchOnMapState)
 }
@@ -40,10 +33,6 @@ final class SearchOnMapManager: NSObject {
 
   func close() {
     interactor?.handle(.closeSearch)
-  }
-
-  func setRoutingTooltip(_ tooltip: SearchOnMapRoutingTooltipSearch) {
-    interactor?.routingTooltipSearch = tooltip
   }
 
   func setPlaceOnMapSelected(_ isSelected: Bool) {
