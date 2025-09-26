@@ -46,7 +46,7 @@ import java.util.Objects;
 
 public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.Callback, RoutingController.Container
 {
-  private static final Router ROUTER = Router.Vehicle;
+  public static final Router ROUTER = Router.Vehicle;
 
   @Nullable
   private MapObject mMapObject;
