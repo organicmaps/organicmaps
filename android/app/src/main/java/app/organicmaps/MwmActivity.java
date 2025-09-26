@@ -482,9 +482,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onConfigurationChanged(newConfig);
 
-    final int newUiMode = newConfig.uiMode & Configuration.UI_MODE_TYPE_MASK;
-    final boolean carModeChanged = (newUiMode | mLastUiMode & Configuration.UI_MODE_TYPE_CAR) != 0;
-    mLastUiMode = newUiMode;
+    final int newType = newConfig.uiMode & Configuration.UI_MODE_TYPE_MASK;
+    final int oldType = mLastUiMode & Configuration.UI_MODE_TYPE_MASK;
+
+    mLastUiMode = newConfig.uiMode;
+
+    final boolean carModeChanged =
+        newType != oldType && (newType == Configuration.UI_MODE_TYPE_CAR || oldType == Configuration.UI_MODE_TYPE_CAR);
 
     if (carModeChanged)
       return;
