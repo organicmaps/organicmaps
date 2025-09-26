@@ -86,7 +86,7 @@ bool VulkanBaseContext::HasPartialTextureUpdates() const
 
 uint32_t VulkanBaseContext::GetMaxTextureArrayLayers() const
 {
-  return 1;  // m_gpuProperties.limits.maxTextureArrayLayers;
+  return m_gpuProperties.limits.maxImageArrayLayers;
 }
 
 void VulkanBaseContext::Init(ApiVersion apiVersion)
