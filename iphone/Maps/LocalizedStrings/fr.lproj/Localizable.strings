@@ -1071,3 +1071,6 @@
 "contribute_to_osm_update_map" = "Mettre à jour la carte pour contribuer";
 "contribute_to_osm_update_map_description" = "Vous devez mettre à jour la carte %@ vers la dernière version avant de pouvoir contribuer aux données OpenStreetMap";
 "placepage_replace_stop" = "Remplacer l'arrêt";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Êtes-vous sûr de vouloir supprimer cet enregistrement ? Les données ne seront pas enregistrées.";

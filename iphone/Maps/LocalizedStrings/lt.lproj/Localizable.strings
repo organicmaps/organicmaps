@@ -1067,3 +1067,6 @@
 "contribute_to_osm_update_map" = "Atnaujinti žemėlapį, kad prisidėtumėte";
 "contribute_to_osm_update_map_description" = "Prieš prisidėdami prie OpenStreetMap duomenų, turite atnaujinti %@ žemėlapį į naujausią versiją";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Ar tikrai norite ištrinti šį įrašą? Duomenys nebus išsaugoti.";

@@ -1067,3 +1067,6 @@
 "contribute_to_osm_update_map" = "Uppdatera kartan för att bidra";
 "contribute_to_osm_update_map_description" = "Du måste uppdatera %@-kartan till den senaste versionen innan du kan bidra till OpenStreetMap-data";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Är du säker på att du vill ta bort den här inspelningen? Data kommer inte att sparas.";

@@ -1067,3 +1067,6 @@
 "contribute_to_osm_update_map" = "Actualizează harta pentru a contribui";
 "contribute_to_osm_update_map_description" = "Trebuie să actualizați harta %@ la cea mai recentă versiune înainte de a putea contribui la datele OpenStreetMap";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Sigur vrei să ștergi această înregistrare? Datele nu vor fi salvate.";
