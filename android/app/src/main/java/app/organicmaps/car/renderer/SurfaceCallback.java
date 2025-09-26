@@ -3,6 +3,7 @@ package app.organicmaps.car.renderer;
 import android.app.Presentation;
 import android.hardware.display.DisplayManager;
 import android.hardware.display.VirtualDisplay;
+import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -33,6 +34,21 @@ class SurfaceCallback extends SurfaceCallbackBase
   {
     super(carContext);
     mMapController = mapController;
+    mMapController.getView().getHolder().addCallback(new SurfaceHolder.Callback() {
+      @Override
+      public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height)
+      {
+        mMapController.updateMyPositionRoutingOffset(0);
+      }
+      @Override
+      public void surfaceCreated(@NonNull SurfaceHolder holder)
+      {
+        mMapController.updateMyPositionRoutingOffset(0);
+      }
+      @Override
+      public void surfaceDestroyed(@NonNull SurfaceHolder holder)
+      {}
+    });
   }
 
   @Override
