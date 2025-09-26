@@ -8,6 +8,7 @@
 
 #include <cstdint>
 #include <mutex>
+#include <vector>
 
 namespace dp
 {
@@ -53,7 +54,7 @@ private:
   mutable VulkanObject m_dedicatedStagingBuffer;
   mutable std::mutex m_dedicatedStagingBufferMutex;
   bool m_usePersistentStagingBuffer = false;
-  VkBufferImageCopy m_copyRegion{};
+  mutable std::vector<VkBufferImageCopy> m_copyRegions;
   uint32_t m_reservationId = 0;
   bool m_isMutable = false;
 };
