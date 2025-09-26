@@ -102,6 +102,10 @@ VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType
   {
     info.usage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
   }
+  else if (resourceType == VulkanMemoryManager::ResourceType::Storage)
+  {
+    info.usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
+  }
   else if (resourceType == VulkanMemoryManager::ResourceType::Staging)
   {
     info.usage = VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
@@ -120,7 +124,9 @@ VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType
       VK_OBJECT_TYPE_BUFFER, result.m_buffer,
       ((resourceType == VulkanMemoryManager::ResourceType::Geometry
             ? "B: Geometry ("
-            : (resourceType == VulkanMemoryManager::ResourceType::Uniform ? "B: Uniform (" : "B: Staging (")) +
+            : (resourceType == VulkanMemoryManager::ResourceType::Uniform
+                   ? "B: Uniform ("
+                   : (resourceType == VulkanMemoryManager::ResourceType::Storage ? "B: Storage (" : "B: Staging ("))) +
        std::to_string(sizeInBytes) + " bytes)")
           .c_str());
 
@@ -371,6 +377,11 @@ void VulkanObjectManager::SetMaxUniformBuffers(uint32_t maxUniformBuffers)
   m_maxUniformBuffers = maxUniformBuffers;
 }
 
+void VulkanObjectManager::SetMaxStorageBuffers(uint32_t maxStorageBuffers)
+{
+  m_maxStorageBuffers = maxStorageBuffers;
+}
+
 void VulkanObjectManager::SetMaxImageSamplers(uint32_t maxImageSamplers)
 {
   m_maxImageSamplers = maxImageSamplers;
@@ -428,9 +439,11 @@ void VulkanObjectManager::Fill(VulkanObject object, void const * data, uint32_t 
 void VulkanObjectManager::CreateDescriptorPool()
 {
   CHECK_GREATER(m_maxUniformBuffers, 0, ());
+  CHECK_GREATER(m_maxStorageBuffers, 0, ());
   CHECK_GREATER(m_maxImageSamplers, 0, ());
   std::vector<VkDescriptorPoolSize> poolSizes = {
       {VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, m_maxUniformBuffers * kMaxDescriptorsSetCount},
+      {VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC, m_maxStorageBuffers * kMaxDescriptorsSetCount},
       {VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, m_maxImageSamplers * kMaxDescriptorsSetCount},
   };
 

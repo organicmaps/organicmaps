@@ -19,6 +19,7 @@ struct ParamDescriptor
   enum class Type : uint8_t
   {
     DynamicUniformBuffer = 0,
+    DynamicStorageBuffer,
     Texture
   };
 

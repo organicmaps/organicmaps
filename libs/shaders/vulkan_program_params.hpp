@@ -9,6 +9,7 @@
 
 #include "base/thread_checker.hpp"
 
+#include <concepts>
 #include <cstdint>
 #include <vector>
 
@@ -21,11 +22,17 @@ class VulkanProgramPool;
 class VulkanProgramParamsSetter : public ProgramParamsSetter
 {
 public:
-  struct UniformBuffer
+  struct BufferData
   {
     dp::vulkan::VulkanObject m_object;
     uint8_t * m_pointer = nullptr;
     uint32_t m_freeOffset = 0;
+  };
+  struct Buffers
+  {
+    std::array<std::vector<BufferData>, dp::vulkan::kMaxInflightFrames> m_buffers;
+    uint32_t m_offsetAlignment = 0;
+    uint32_t m_sizeAlignment = 0;
   };
 
   VulkanProgramParamsSetter(ref_ptr<dp::vulkan::VulkanBaseContext> context, ref_ptr<VulkanProgramPool> programPool);
@@ -66,15 +73,24 @@ private:
   {
     ASSERT_EQUAL(T::GetName(), ProgramParams::GetBoundParamsName(program),
                  ("Mismatched program and parameters", program->GetName()));
-    ApplyBytes(context, reinterpret_cast<void const *>(&params), sizeof(params));
+    constexpr bool useStorage = []()
+    {
+      if constexpr (requires { T::IsStorageBufferBoundType; })
+        return true;
+      else
+        return false;
+    }();
+    ApplyBytes(context, reinterpret_cast<void const *>(&params), sizeof(params), useStorage);
   }
 
-  void ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext> context, void const * data, uint32_t sizeInBytes);
+  void ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext> context, void const * data, uint32_t sizeInBytes,
+                  bool useStorage);
 
   ref_ptr<dp::vulkan::VulkanObjectManager> m_objectManager;
-  std::array<std::vector<UniformBuffer>, dp::vulkan::kMaxInflightFrames> m_uniformBuffers;
-  uint32_t m_offsetAlignment = 0;
-  uint32_t m_sizeAlignment = 0;
+
+  Buffers m_uniformBuffers;
+  Buffers m_storageBuffers;
+
   uint32_t m_flushHandlerId = 0;
   uint32_t m_finishHandlerId = 0;
   uint32_t m_updateInflightFrameId = 0;

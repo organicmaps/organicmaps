@@ -50,6 +50,8 @@ private:
     }                                                                                               \
   }
 
+#define IS_STORAGE_BUFFER_BOUND() static constexpr bool IsStorageBufferBoundType = true;
+
 #define ALIGNMENT alignas(16)
 
 // NOTE: structs may contain dummy elements to fit MSL and GLSL struct alignment rules
@@ -226,6 +228,7 @@ struct ALIGNMENT TileBackgroundProgramParams
   glsl::mat4 m_pivotTransform;
 
   BIND_PROGRAMS(TileBackgroundProgramParams, Program::TileBackground)
+  IS_STORAGE_BUFFER_BOUND()
 };
 
 struct ALIGNMENT ImGuiProgramParams

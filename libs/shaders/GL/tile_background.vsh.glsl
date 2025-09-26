@@ -3,7 +3,7 @@
 layout (location = 0) out vec3 v_texCoords;
 
 // Note: std430 is important here, arrays must be 4-bytes aligned
-layout (binding = 0, std430) buffer UBO
+layout (binding = 0, std430) readonly buffer UBO
 {
   vec4 u_tileCoordsMinMax[TILE_BACKGROUND_MAX_COUNT];
   int u_textureIndex[TILE_BACKGROUND_MAX_COUNT];
