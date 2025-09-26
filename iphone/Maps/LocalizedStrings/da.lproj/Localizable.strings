@@ -1043,15 +1043,6 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Stop optagelse af spor";
 
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Stop uden at gemme";
-
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "Fortsæt optagelse";
-
-/* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Gem i bogmærker og spor?";
-
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Sporet er tomt - der er ikke noget at gemme";
 "edit_track" = "Rediger spor";

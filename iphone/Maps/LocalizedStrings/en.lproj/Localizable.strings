@@ -1083,15 +1083,6 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Stop Track Recording";
 
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Stop Without Saving";
-
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "Continue Recording";
-
-/* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Save into Bookmarks and Tracks?";
-
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Track is empty - nothing to save";
 "edit_track" = "Edit Track";

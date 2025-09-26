@@ -1043,15 +1043,6 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Σταματήστε την εγγραφή διαδρομής";
 
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Σταματήστε χωρίς αποθήκευση";
-
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "Συνέχεια εγγραφής";
-
-/* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Αποθήκευση στα Αγαπημένα και Διαδρομές;";
-
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Η διαδρομή είναι άδεια - δεν υπάρχει τίποτα να αποθηκεύσετε";
 "edit_track" = "Επεξεργασία διαδρομής";

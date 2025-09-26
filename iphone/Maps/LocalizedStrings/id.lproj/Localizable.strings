@@ -1043,15 +1043,6 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Hentikan perekaman jalur";
 
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Berhenti tanpa menyimpan";
-
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "Lanjutkan perekaman";
-
-/* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Menyimpan ke penanda dan jalur?";
-
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Jalur kosong - tidak ada yang bisa disimpan";
 "edit_track" = "Edit Jalur";

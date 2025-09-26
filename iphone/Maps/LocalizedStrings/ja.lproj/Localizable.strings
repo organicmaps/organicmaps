@@ -1043,15 +1043,6 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "トラック記録を停止しますか";
 
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "保存せずに停止";
-
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "録画を続ける";
-
-/* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "ブックマークとトラックに保存しますか？";
-
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "ルートが空です - 保存するものがありません";
 "edit_track" = "ルートを編集";

@@ -1043,15 +1043,6 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Zastaviť nahrávanie trasy";
 
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Zastaviť bez uloženia";
-
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "Pokračovať v nahrávaní";
-
-/* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Uložiť do záložiek a stôp?";
-
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Trasa je prázdna - nie je čo ukladať";
 "edit_track" = "Upraviť trasu";

@@ -1043,15 +1043,6 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Stop Track Recording";
 
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Waqqaf Mingħajr ma' Tissejvja";
-
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "Kompli Rrekordja";
-
-/* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Issejvja fil-Bookmarks u l-Korsiji?";
-
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Il-Korsija hija vojta - xejn x’ tissejvja";
 "edit_track" = "Editja l-Korsija";

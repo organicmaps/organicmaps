@@ -1043,15 +1043,6 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Parar gravação de trajeto";
 
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Parar sem guardar";
-
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "Continuar gravação";
-
-/* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Guardar em Favoritos e Trajetos?";
-
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "O trajeto está vazio - não há nada para guardar";
 "edit_track" = "Editar trajeto";

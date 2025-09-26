@@ -1058,15 +1058,6 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Остановить запись трека";
 
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Остановить без сохранения";
-
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "Продолжить запись";
-
-/* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Сохранить в метки и треки?";
-
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Трек пуст - нечего сохранять";
 "edit_track" = "Редактировать маршрут";
