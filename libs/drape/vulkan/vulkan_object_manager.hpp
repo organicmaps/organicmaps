@@ -90,6 +90,7 @@ public:
   VkSampler GetSampler(SamplerKey const & key);
 
   void SetMaxUniformBuffers(uint32_t maxUniformBuffers);
+  void SetMaxStorageBuffers(uint32_t maxStorageBuffers);
   void SetMaxImageSamplers(uint32_t maxImageSamplers);
 
 private:
@@ -123,6 +124,7 @@ private:
   uint32_t m_currentInflightFrameIndex = 0;
 
   uint32_t m_maxUniformBuffers = 0;
+  uint32_t m_maxStorageBuffers = 0;
   uint32_t m_maxImageSamplers = 0;
 
   std::mutex m_mutex;

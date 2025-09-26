@@ -22,6 +22,7 @@ public:
   drape_ptr<dp::GpuProgram> Get(Program program) override;
 
   uint32_t GetMaxUniformBuffers() const;
+  uint32_t GetMaxStorageBuffers() const;
   uint32_t GetMaxImageSamplers() const;
 
 private:
