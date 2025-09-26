@@ -1043,15 +1043,6 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Peata raja salvestamine";
 
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Lõpeta ilma salvestamata";
-
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "Jätka salvestamist";
-
-/* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Kas salvestame järjehoidjatesse ja radadesse?";
-
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Rada on tühi - ei ole midagi salvestada";
 "edit_track" = "Muuda rada";

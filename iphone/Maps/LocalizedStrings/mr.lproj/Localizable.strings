@@ -1040,15 +1040,6 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "ट्रॅक रेकॉर्डिंग थांबवा";
 
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "जतन न करता थांबवा";
-
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "रेकॉर्डिंग चालू ठेवा";
-
-/* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "मार्ग रेकॉर्डिंग खूणपत्रे आणि ट्रॅकमध्ये साठवायचे?";
-
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "मार्ग रिकामा आहे - साठवण्यासाठी काहीही नाही";
 "edit_track" = "मार्ग संपादित करा";

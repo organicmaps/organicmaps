@@ -1043,15 +1043,6 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "İz Kaydını Durdur";
 
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Kaydetmeden Durdur";
-
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "Kaydı Sürdür";
-
-/* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Yer İmleri ve İzlere kaydedilsin mi?";
-
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "İz boş - kaydedilecek bir şey yok";
 "edit_track" = "İzi Düzenle";

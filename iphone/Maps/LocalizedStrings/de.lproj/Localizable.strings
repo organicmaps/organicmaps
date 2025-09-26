@@ -1049,15 +1049,6 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Aufnahme des Tracks stoppen";
 
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Ohne Speichern beenden";
-
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "Aufnahme fortsetzen";
-
-/* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "In Lesezeichen und Tracks speichern?";
-
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Route ist leer - nichts zu speichern";
 "edit_track" = "Track bearbeiten";

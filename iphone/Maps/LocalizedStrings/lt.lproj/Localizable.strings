@@ -1043,15 +1043,6 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Stabdyti trasos įrašymą";
 
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Stabdyti neįrašant";
-
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "Tęsti įrašymą";
-
-/* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Įrašyti į žymių ir trasų sąrašą?";
-
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Trasa tuščia – nėra ką įrašyti";
 "edit_track" = "Redaguoti trasą";

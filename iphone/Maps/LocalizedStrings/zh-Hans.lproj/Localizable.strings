@@ -1043,15 +1043,6 @@
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "停止轨迹记录";
 
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "不保存停止";
-
-/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "继续录制";
-
-/* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "保存到书签和轨迹？";
-
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "轨迹为空 — 无内容可保存";
 "edit_track" = "编辑轨迹";
