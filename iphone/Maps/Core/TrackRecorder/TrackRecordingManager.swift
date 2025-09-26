@@ -153,6 +153,14 @@ final class TrackRecordingManager: NSObject {
     completion?(.success)
   }
 
+  func discard() {
+    unsubscribeFromTrackRecordingProgressUpdates()
+    trackRecorder.stopTrackRecording()
+    trackRecordingInfo = .empty()
+    activityManager?.stop()
+    notifyObservers()
+  }
+
   // MARK: - Private methods
 
   private func subscribeOnTheAppLifecycleEvents() {

@@ -87,6 +87,7 @@ final class ActionBarViewController: UIViewController {
       }
       buttons.append(.track)
     case .trackRecording:
+      buttons.append(.deleteTrackRecording)
       buttons.append(.saveTrackRecording)
     @unknown default:
       fatalError()
