@@ -3,7 +3,7 @@ protocol PlacePageViewProtocol: AnyObject {
   var view: UIView! { get }
 
   func setLayout(_ layout: IPlacePageLayout)
-  func updatePreviewOffset(reset: Bool)
+  func updatePreviewOffset()
   func showNextStop()
   func layoutIfNeeded()
   func updateWithLayout(_ layout: IPlacePageLayout)
@@ -41,6 +41,7 @@ final class PlacePageScrollView: UIScrollView {
   private var userDefinedStep: PlacePageState?
   private var isNavigationBarVisible = false
   private var isFirstOpening = true
+  private var isVisible: Bool = false
 
   var interactor: PlacePageInteractorProtocol?
   var isPreviewPlus: Bool = false
@@ -67,18 +68,16 @@ final class PlacePageScrollView: UIScrollView {
     previousTraitCollection = traitCollection
   }
 
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    interactor?.viewWillAppear()
-  }
-
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    updatePreviewOffset(reset: false)
+    isVisible = true
+    updatePreviewOffset()
   }
 
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
+    previousScrollContentOffset = scrollView.contentOffset
+    isVisible = false
     interactor?.viewWillDisappear()
   }
 
@@ -336,9 +335,9 @@ extension PlacePageViewController: PlacePageViewProtocol {
     actionBarHeightConstraint.constant = !value ? Constants.actionBarHeight : .zero
   }
 
-  func updatePreviewOffset(reset: Bool = true) {
+  func updatePreviewOffset() {
     updateSteps()
-    guard !beginDragging else { return }
+    guard !beginDragging, isVisible else { return }
     let estimatedYOffset = isPreviewPlus ? scrollSteps[2].offset : scrollSteps[1].offset + Constants.additionalPreviewOffset
     var offset = CGPoint(x: 0, y: estimatedYOffset) 
     if let userDefinedStep {

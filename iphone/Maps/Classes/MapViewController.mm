@@ -128,7 +128,7 @@ NSString * const kSettingsSegue = @"Map2Settings";
 
 #pragma mark - PlacePage
 
-- (void)showOrUpdatePlacePage:(PlacePageData *)data isNewSelection:(BOOL)newSelection
+- (void)showOrUpdatePlacePage:(PlacePageData *)data
 {
   if (self.searchManager.isSearching)
     [self.searchManager setPlaceOnMapSelected:YES];
@@ -136,7 +136,7 @@ NSString * const kSettingsSegue = @"Map2Settings";
   self.controlsManager.trafficButtonHidden = YES;
   if (self.placePageVC != nil)
   {
-    [PlacePageBuilder update:self.placePageVC with:data isNewSelection:newSelection];
+    [PlacePageBuilder update:self.placePageVC with:data];
     return;
   }
 
@@ -295,7 +295,7 @@ NSString * const kSettingsSegue = @"Map2Settings";
   [self.navigationDashboardManager onSelectPlacePage:YES];
   PlacePageData * data = [[PlacePageData alloc] initWithLocalizationProvider:[[OpeinigHoursLocalization alloc] init]];
   [self stopObservingTrackRecordingUpdates];
-  [self showOrUpdatePlacePage:data isNewSelection:YES];
+  [self showOrUpdatePlacePage:data];
 }
 
 - (void)onMapObjectUpdated
@@ -306,7 +306,7 @@ NSString * const kSettingsSegue = @"Map2Settings";
     return;
   }
   PlacePageData * data = [[PlacePageData alloc] initWithLocalizationProvider:[[OpeinigHoursLocalization alloc] init]];
-  [self showOrUpdatePlacePage:data isNewSelection:NO];
+  [self showOrUpdatePlacePage:data];
 }
 
 - (void)checkMaskedPointer:(UITouch *)touch withEvent:(df::TouchEvent &)e
@@ -1069,7 +1069,7 @@ NSString * const kSettingsSegue = @"Map2Settings";
       [[PlacePageData alloc] initWithTrackInfo:self.trackRecordingManager.trackRecordingInfo
                                  elevationInfo:self.trackRecordingManager.trackRecordingElevationProfileData];
   [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateHidden];
-  [self showOrUpdatePlacePage:placePageData isNewSelection:YES];
+  [self showOrUpdatePlacePage:placePageData];
   [self startObservingTrackRecordingUpdatesForPlacePageData:placePageData];
 }
 

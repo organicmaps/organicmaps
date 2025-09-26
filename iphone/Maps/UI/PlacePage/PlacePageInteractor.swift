@@ -1,5 +1,4 @@
 protocol PlacePageInteractorProtocol: AnyObject {
-  func viewWillAppear()
   func viewWillDisappear()
   func updateVisibleAreaInsets(_ insets: UIEdgeInsets)
   func close()
@@ -11,7 +10,6 @@ class PlacePageInteractor: NSObject {
 
   private let bookmarksManager = BookmarksManager.shared()
   private var placePageData: PlacePageData
-  private var viewWillAppearIsCalledForTheFirstTime = false
 
   init(data: PlacePageData) {
     self.placePageData = data
@@ -76,15 +74,6 @@ class PlacePageInteractor: NSObject {
 }
 
 extension PlacePageInteractor: PlacePageInteractorProtocol {
-  func viewWillAppear() {
-    // Skip data reloading on the first appearance, to avoid unnecessary updates.
-    guard viewWillAppearIsCalledForTheFirstTime else {
-      viewWillAppearIsCalledForTheFirstTime = true
-      return
-    }
-    updatePlacePageIfNeeded()
-  }
-
   func viewWillDisappear() {
     unsubscribeFromTrackActivePointUpdates()
   }
