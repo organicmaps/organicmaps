@@ -24,7 +24,6 @@ enum NavigationDashboard {
   struct NavigationInfo: Equatable {
     var state: MWMNavigationInfoViewState
     var availableArea: CGRect
-    var shouldUpdateToastView: Bool
   }
 }
 
@@ -82,7 +81,6 @@ extension NavigationDashboard.NavigationInfo {
   static let hidden = NavigationDashboard.NavigationInfo(
     state: .hidden,
     availableArea: MapViewController.shared()?.navigationInfoArea.areaFrame ?? .screenBounds,
-    shouldUpdateToastView: false
   )
 }
 

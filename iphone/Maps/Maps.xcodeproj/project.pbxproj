@@ -107,7 +107,6 @@
 		34AB666B1FC5AA330078E451 /* TransportTransitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65F51FC5AA320078E451 /* TransportTransitCell.swift */; };
 		34AB666E1FC5AA330078E451 /* TransportTransitStepsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65F61FC5AA320078E451 /* TransportTransitStepsCollectionView.swift */; };
 		34AB66711FC5AA330078E451 /* TransportTransitTrain.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34AB65F71FC5AA320078E451 /* TransportTransitTrain.xib */; };
-		34AB66831FC5AA330078E451 /* NavigationAddPointToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB66001FC5AA320078E451 /* NavigationAddPointToastView.swift */; };
 		34AB66861FC5AA330078E451 /* MWMNavigationInfoView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34AB66011FC5AA320078E451 /* MWMNavigationInfoView.mm */; };
 		34AB66891FC5AA330078E451 /* NavigationControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB66021FC5AA320078E451 /* NavigationControlView.swift */; };
 		34AB668C1FC5AA330078E451 /* NavigationStreetNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB66031FC5AA320078E451 /* NavigationStreetNameView.swift */; };
@@ -944,7 +943,6 @@
 		34AB65F51FC5AA320078E451 /* TransportTransitCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransportTransitCell.swift; sourceTree = "<group>"; };
 		34AB65F61FC5AA320078E451 /* TransportTransitStepsCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransportTransitStepsCollectionView.swift; sourceTree = "<group>"; };
 		34AB65F71FC5AA320078E451 /* TransportTransitTrain.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransportTransitTrain.xib; sourceTree = "<group>"; };
-		34AB66001FC5AA320078E451 /* NavigationAddPointToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationAddPointToastView.swift; sourceTree = "<group>"; };
 		34AB66011FC5AA320078E451 /* MWMNavigationInfoView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationInfoView.mm; sourceTree = "<group>"; };
 		34AB66021FC5AA320078E451 /* NavigationControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControlView.swift; sourceTree = "<group>"; };
 		34AB66031FC5AA320078E451 /* NavigationStreetNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationStreetNameView.swift; sourceTree = "<group>"; };
@@ -3200,7 +3198,6 @@
 				34AB65CF1FC5AA320078E451 /* MWMNavigationInfoView.h */,
 				34AB66011FC5AA320078E451 /* MWMNavigationInfoView.mm */,
 				34AB65D01FC5AA320078E451 /* MWMNavigationInfoView.xib */,
-				34AB66001FC5AA320078E451 /* NavigationAddPointToastView.swift */,
 				34AB66021FC5AA320078E451 /* NavigationControlView.swift */,
 				34AB65CD1FC5AA320078E451 /* NavigationControlView.xib */,
 				34AB66031FC5AA320078E451 /* NavigationStreetNameView.swift */,
@@ -4546,7 +4543,6 @@
 				F6E2FD651E097BA00083EBEC /* MWMMapDownloaderPlaceTableViewCell.m in Sources */,
 				F6E2FF2D1E097BA00083EBEC /* MWMSearchCell.mm in Sources */,
 				3454D7C51E07F045004AF2AD /* UIButton+Orientation.m in Sources */,
-				34AB66831FC5AA330078E451 /* NavigationAddPointToastView.swift in Sources */,
 				F6E2FE4C1E097BA00083EBEC /* MWMPlacePageManager.mm in Sources */,
 				ED18EF8B2DBAA62700B383A0 /* RoutePointsView.swift in Sources */,
 				EDEFB7752E6723E200B88C81 /* PlacePageExpandableDetailsSectionPresenter.swift in Sources */,
