@@ -23,6 +23,7 @@ void DescriptorSetGroup::Update(VkDevice device, std::vector<ParamDescriptor> co
 
   m_ids = ids;
   m_updated = true;
+  bool uniformBufferOccupied = false;
   std::array<VkWriteDescriptorSet, kMaxDescriptorSets> writeDescriptorSets = {};
   for (size_t i = 0; i < writeDescriptorsCount; ++i)
   {
@@ -32,9 +33,19 @@ void DescriptorSetGroup::Update(VkDevice device, std::vector<ParamDescriptor> co
     writeDescriptorSets[i].descriptorCount = 1;
     if (descriptors[i].m_type == ParamDescriptor::Type::DynamicUniformBuffer)
     {
+      CHECK(!uniformBufferOccupied, ("Using uniform and storage buffers at the same time is not supported"));
       writeDescriptorSets[i].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
       writeDescriptorSets[i].dstBinding = 0;
       writeDescriptorSets[i].pBufferInfo = &descriptors[i].m_bufferDescriptor;
+      uniformBufferOccupied = true;
+    }
+    else if (descriptors[i].m_type == ParamDescriptor::Type::DynamicStorageBuffer)
+    {
+      CHECK(!uniformBufferOccupied, ("Using uniform and storage buffers at the same time is not supported"));
+      writeDescriptorSets[i].descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC;
+      writeDescriptorSets[i].dstBinding = 0;
+      writeDescriptorSets[i].pBufferInfo = &descriptors[i].m_bufferDescriptor;
+      uniformBufferOccupied = true;
     }
     else if (descriptors[i].m_type == ParamDescriptor::Type::Texture)
     {

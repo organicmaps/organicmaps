@@ -28,6 +28,7 @@ public:
   {
     Geometry = 0,
     Uniform,
+    Storage,
     Staging,
     Image,
 
