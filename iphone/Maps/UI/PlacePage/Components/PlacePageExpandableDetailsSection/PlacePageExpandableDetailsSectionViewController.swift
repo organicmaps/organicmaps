@@ -61,8 +61,6 @@ final class PlacePageExpandableDetailsSectionViewController: UIViewController {
       stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
       stackView.topAnchor.constraint(equalTo: view.topAnchor),
       stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
-      headerInfoView.heightAnchor.constraint(equalToConstant: Constants.headerHeight),
     ])
   }
 
