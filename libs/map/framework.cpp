@@ -300,8 +300,6 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   GetStyleReader().SetCurrentStyle(mapStyle);
   df::LoadTransitColors();
 
-  m_connectToGpsTrack = GpsTracker::Instance().IsEnabled();
-
   // Init strings bundle.
   // @TODO. There are hardcoded strings below which are defined in strings.txt as well.
   // It's better to use strings from strings.txt instead of hardcoding them here.
@@ -1534,8 +1532,11 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
 
   LoadViewport();
 
-  if (m_connectToGpsTrack)
-    GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2, _3));
+  {
+    auto & tracker = GpsTracker::Instance();
+    if (tracker.IsEnabled())
+      tracker.Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2, _3));
+  }
 
   GetBookmarkManager().SetDrapeEngine(make_ref(m_drapeEngine));
   m_drapeApi.SetDrapeEngine(make_ref(m_drapeEngine));
@@ -1641,30 +1642,10 @@ void Framework::EnableDebugRectRendering(bool enabled)
     m_drapeEngine->EnableDebugRectRendering(enabled);
 }
 
-void Framework::ConnectToGpsTracker()
-{
-  m_connectToGpsTrack = true;
-  if (m_drapeEngine)
-  {
-    m_drapeEngine->ClearGpsTrackPoints();
-    GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2, _3));
-  }
-}
-
-void Framework::DisconnectFromGpsTracker()
-{
-  m_connectToGpsTrack = false;
-  auto & tracker = GpsTracker::Instance();
-  tracker.Disconnect();
-  tracker.SetEnabled(false);
-}
-
 void Framework::StartTrackRecording()
 {
   auto & tracker = GpsTracker::Instance();
-  if (!tracker.IsEnabled())
-    tracker.SetEnabled(true);
-  m_connectToGpsTrack = true;
+  tracker.SetEnabled(true);
   if (m_drapeEngine)
   {
     m_drapeEngine->ClearGpsTrackPoints();
@@ -1686,7 +1667,6 @@ ElevationInfo const & Framework::GetTrackRecordingElevationInfo()
 
 void Framework::StopTrackRecording()
 {
-  m_connectToGpsTrack = false;
   auto & tracker = GpsTracker::Instance();
   tracker.Disconnect();
   tracker.SetEnabled(false);

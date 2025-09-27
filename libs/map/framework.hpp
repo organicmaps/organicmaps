@@ -448,9 +448,6 @@ private:
   df::OnGraphicsContextInitialized m_onGraphicsContextInitialized;
 
 public:
-  void ConnectToGpsTracker();
-  void DisconnectFromGpsTracker();
-
   using TrackRecordingUpdateHandler = platform::SafeCallback<void(TrackStatistics const & trackStatistics)>;
   void StartTrackRecording();
   void SetTrackRecordingUpdateHandler(TrackRecordingUpdateHandler && trackRecordingDidUpdate);
@@ -478,8 +475,6 @@ public:
 private:
   void InitCountryInfoGetter();
   void InitSearchAPI(size_t numThreads);
-
-  bool m_connectToGpsTrack;  // need to connect to tracker when Drape is being constructed
 
   void OnUpdateCurrentCountry(m2::PointD const & pt, int zoomLevel);
 
