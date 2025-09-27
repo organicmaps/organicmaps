@@ -80,7 +80,16 @@ class DownloadMapsViewController: MWMViewController {
     tableView.registerNib(cell: MWMMapDownloaderButtonTableViewCell.self)
     title = dataSource.title
     if mode == .downloaded {
-      let addMapsButton = button(with: UIImage(named: "ic_nav_bar_add"), action: #selector(onAddMaps))
+      let image: UIImage
+      if #available(iOS 13.0, *) {
+        image = UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(weight: .medium))!
+      } else {
+        image = UIImage(resource: .icNavBarAdd)
+      }
+      let addMapsButton = UIBarButtonItem(image: image,
+                                          style: .plain,
+                                          target: self,
+                                          action: #selector(onAddMaps))
       navigationItem.rightBarButtonItem = addMapsButton
     }
     noMapsContainer.isHidden = !dataSource.isEmpty || Storage.shared().downloadInProgress()
@@ -92,7 +101,6 @@ class DownloadMapsViewController: MWMViewController {
     searchController.searchBar.applyTheme()
     navigationItem.searchController = searchController
     navigationItem.hidesSearchBarWhenScrolling = false
-    
     configButtons()
   }
 

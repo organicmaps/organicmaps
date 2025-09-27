@@ -476,7 +476,7 @@ extension GlobalStyleSheet: IStyleSheet {
         s.shadowOffset = CGSize(width: 0, height: 1)
         s.shadowOpacity = 0.3
         s.shadowRadius = 6
-        s.cornerRadius = .modalSheet
+        s.cornerRadius = .iOS26ModalSheet
         s.clip = false
         s.maskedCorners = isiPad ? [] : [.layerMinXMinYCorner, .layerMaxXMinYCorner]
       }

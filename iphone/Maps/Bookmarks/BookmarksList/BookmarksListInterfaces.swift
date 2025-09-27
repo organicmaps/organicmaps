@@ -60,7 +60,6 @@ protocol IBookmarksListView: AnyObject {
   func setTitle(_ title: String)
   func setInfo(_ info: IBookmarksListInfoViewModel)
   func setSections(_ sections: [IBookmarksListSectionViewModel])
-  func setMoreItemTitle(_ itemTitle: String)
   func showMenu(_ items: [IBookmarksListMenuItem], from source: BookmarkToolbarButtonSource)
   func showColorPicker(with pickerType: ColorPickerType, _ completion: ((UIColor) -> Void)?)
   func enableEditing(_ enable: Bool)
