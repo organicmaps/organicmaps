@@ -138,11 +138,15 @@ public:
   static void glActiveTexture(glConst texBlock);
   static uint32_t glGenTexture();
   static void glDeleteTexture(uint32_t id);
-  static void glBindTexture(uint32_t textureID);
+  static void glBindTexture(uint32_t textureID, glConst target = gl_const::GLTexture2D);
   static void glTexImage2D(int width, int height, glConst layout, glConst pixelType, void const * data);
+  static void glTexImage2DArray(int width, int height, int layers, glConst layout, glConst pixelType,
+                                void const * data);
   static void glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType,
                               void const * data);
-  static void glTexParameter(glConst param, glConst value);
+  static void glTexSubImage2DArray(int x, int y, int layer, int width, int height, glConst layout, glConst pixelType,
+                                   void const * data);
+  static void glTexParameter(glConst param, glConst value, glConst target = gl_const::GLTexture2D);
 
   // Draw support
   static void glDrawElements(glConst primitive, uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex = 0);

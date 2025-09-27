@@ -18,8 +18,6 @@ public:
   void PushDebugLabel(std::string const & label) override {}
   void PopDebugLabel() override {}
 
-  uint32_t GetMaxTextureArrayLayers() const override;
-
   void SetClearColor(dp::Color const & color) override;
   void Clear(uint32_t clearBits, uint32_t storeBits) override;
   void Flush() override;

@@ -212,7 +212,10 @@ public:
       m_freeIndices.erase(m_freeIndices.begin());
       return id;
     }
-    return 0;
+    CHECK(m_currentIndex < m_desc.m_maxTextureCount, ());
+    auto const index = m_currentIndex;
+    m_currentIndex++;
+    return index;
   }
 
   void ReleaseTexture(ref_ptr<dp::GraphicsContext> context, TextureId id) override
@@ -244,12 +247,12 @@ public:
 private:
   size_t GetAvailableCountUnsafe() const
   {
-    ASSERT(m_freeIndices.size() <= m_desc.m_maxTextureCount, ());
-    return static_cast<size_t>(m_desc.m_maxTextureCount) - m_freeIndices.size();
+    return m_freeIndices.size() + static_cast<size_t>(m_desc.m_maxTextureCount) - m_currentIndex;
   }
 
   drape_ptr<StaticTexture> m_textureArray;
   std::set<size_t> m_freeIndices;
+  size_t m_currentIndex = 0;
   mutable std::mutex m_mutex;
 };
 }  // namespace
@@ -807,7 +810,7 @@ ref_ptr<TexturePool> TextureManager::GetTexturePool(ref_ptr<dp::GraphicsContext>
   }
 
   drape_ptr<TexturePool> pool;
-  if (desc.m_maxTextureCount > context->GetMaxTextureArrayLayers())
+  if (desc.m_maxTextureCount > dp::SupportManager::Instance().GetMaxTextureArrayLayers())
     pool = make_unique_dp<SimpleTexturePool>(desc, make_ref(m_textureAllocator));
   else
     pool = make_unique_dp<TextureArrayPool>(context, desc, make_ref(m_textureAllocator));

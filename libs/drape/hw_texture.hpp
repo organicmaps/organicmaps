@@ -59,10 +59,12 @@ public:
   Params const & GetParams() const { return m_params; }
 
   uint32_t GetID() const;
+  uint32_t GetTarget() const;
 
 protected:
   Params m_params;
   uint32_t m_textureID = 0;
+  uint32_t m_target = 0;
 };
 
 class HWTextureAllocator
