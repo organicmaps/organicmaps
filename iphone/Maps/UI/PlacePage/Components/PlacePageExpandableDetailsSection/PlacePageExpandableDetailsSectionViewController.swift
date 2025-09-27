@@ -2,7 +2,6 @@ final class PlacePageExpandableDetailsSectionViewController: UIViewController {
 
   private enum Constants {
     static let collapsedTextMaxLines: Int = 3
-    static let headerHeight: CGFloat = 44
     static let expandableLabelInsets = UIEdgeInsets(top: 0, left: 16, bottom: -8, right: -16)
   }
 
@@ -61,8 +60,6 @@ final class PlacePageExpandableDetailsSectionViewController: UIViewController {
       stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
       stackView.topAnchor.constraint(equalTo: view.topAnchor),
       stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
-      headerInfoView.heightAnchor.constraint(equalToConstant: Constants.headerHeight),
     ])
   }
 
