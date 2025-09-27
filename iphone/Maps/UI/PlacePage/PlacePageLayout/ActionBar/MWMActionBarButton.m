@@ -99,7 +99,11 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
   case MWMActionBarButtonTypeCall:
     [self.button setImage:[UIImage imageNamed:@"ic_placepage_phone_number"] forState:UIControlStateNormal];
     break;
-  case MWMActionBarButtonTypeBookmark: [self setupBookmarkButton:isSelected]; break;
+  case MWMActionBarButtonTypeBookmark:
+    BOOL hasRecentlyDeletedBookmark = [MWMBookmarksManager.sharedManager hasRecentlyDeletedBookmark];
+    MWMBookmarksButtonState state = isSelected ? MWMBookmarksButtonStateDelete : (hasRecentlyDeletedBookmark ? MWMBookmarksButtonStateRecover : MWMBookmarksButtonStateSave);
+    [self setBookmarkButtonState:state];
+    break;
   case MWMActionBarButtonTypeTrack:
     [self.button setImage:[[UIImage imageNamed:@"ic_route_manager_trash"]
                               imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
@@ -168,6 +172,10 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
 
 - (void)setBookmarkButtonState:(MWMBookmarksButtonState)state
 {
+  [self.button setImage:[UIImage imageNamed:@"ic_bookmarks_off"] forState:UIControlStateNormal];
+  [self.button setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateSelected];
+  [self.button setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateHighlighted];
+
   switch (state)
   {
   case MWMBookmarksButtonStateSave:
@@ -176,8 +184,6 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
     break;
   case MWMBookmarksButtonStateDelete:
     self.label.text = L(@"delete");
-    if (!self.button.selected)
-      [self.button.imageView startAnimating];
     self.button.selected = true;
     break;
   case MWMBookmarksButtonStateRecover:
@@ -185,28 +191,6 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
     self.button.selected = false;
     break;
   }
-}
-
-- (void)setupBookmarkButton:(BOOL)isSelected
-{
-  MWMButton * btn = self.button;
-  [btn setImage:[UIImage imageNamed:@"ic_bookmarks_off"] forState:UIControlStateNormal];
-  [btn setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateSelected];
-  [btn setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateHighlighted];
-  [btn setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateDisabled];
-
-  [btn setSelected:isSelected];
-
-  NSUInteger const animationImagesCount = 11;
-  NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
-  for (NSUInteger i = 0; i < animationImagesCount; ++i)
-  {
-    UIImage * image = [UIImage imageNamed:[NSString stringWithFormat:@"ic_bookmarks_%@", @(i + 1)]];
-    animationImages[i] = image;
-  }
-  UIImageView * animationIV = btn.imageView;
-  animationIV.animationImages = animationImages;
-  animationIV.animationRepeatCount = 1;
 }
 
 - (BOOL)needsToHighlightRouteToButton
