@@ -17,6 +17,7 @@ import app.organicmaps.car.renderer.RendererFactory;
 import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.screens.MapPlaceholderScreen;
 import app.organicmaps.car.screens.MapScreen;
+import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.PlaceScreen;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreen;
@@ -280,6 +281,17 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
   private void restoreRoute()
   {
     final RoutingController routingController = RoutingController.get();
+
+    if (!routingController.isNavigating() && hasNavigationScreenInStack())
+      mScreenManager.popToRoot();
+
+    if (routingController.isNavigating() && routingController.getLastRouterType() == PlaceScreen.ROUTER
+        && hasNavigationScreenInStack())
+    {
+      mScreenManager.popTo(NavigationScreen.MARKER);
+      return;
+    }
+
     if (routingController.isPlanning() || routingController.isNavigating() || routingController.hasSavedRoute())
     {
       final PlaceScreen placeScreen = new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer)
@@ -288,5 +300,15 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
       mScreenManager.popToRoot();
       mScreenManager.push(placeScreen);
     }
+  }
+
+  private boolean hasNavigationScreenInStack()
+  {
+    for (final Screen screen : mScreenManager.getScreenStack())
+    {
+      if (NavigationScreen.MARKER.equals(screen.getMarker()))
+        return true;
+    }
+    return false;
   }
 }
