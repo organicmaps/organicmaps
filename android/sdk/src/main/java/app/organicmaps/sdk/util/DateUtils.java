@@ -16,6 +16,12 @@ public final class DateUtils
     return DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
   }
 
+  @NonNull
+  public static DateFormat getMediumTimeFormatter()
+  {
+    return DateFormat.getTimeInstance(DateFormat.MEDIUM, Locale.getDefault());
+  }
+
   // Called from JNI.
   @Keep
   @SuppressWarnings("unused")
