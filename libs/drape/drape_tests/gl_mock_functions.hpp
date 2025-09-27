@@ -74,10 +74,12 @@ public:
   MOCK_METHOD1(glActiveTexture, void(glConst));
   MOCK_METHOD0(glGenTexture, uint32_t());
   MOCK_METHOD1(glDeleteTexture, void(uint32_t));
-  MOCK_METHOD1(glBindTexture, void(uint32_t));
+  MOCK_METHOD2(glBindTexture, void(uint32_t, glConst));
   MOCK_METHOD5(glTexImage2D, void(int, int, glConst, glConst, void const *));
+  MOCK_METHOD6(glTexImage2DArray, void(int, int, int, glConst, glConst, void const *));
   MOCK_METHOD7(glTexSubImage2D, void(int, int, int, int, glConst, glConst, void const *));
-  MOCK_METHOD2(glTexParameter, void(glConst, glConst));
+  MOCK_METHOD8(glTexSubImage2DArray, void(int, int, int, int, int, glConst, glConst, void const *));
+  MOCK_METHOD3(glTexParameter, void(glConst, glConst, glConst));
 
   MOCK_METHOD1(glGetInteger, int32_t(glConst));
   MOCK_METHOD1(glGetString, std::string(glConst));

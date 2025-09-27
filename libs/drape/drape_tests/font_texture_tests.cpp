@@ -81,9 +81,9 @@ UNIT_TEST(UploadingGlyphs)
   // Set QT_QPA_PLATFORM=offscreen env var to avoid running GUI on Linux
   DrapeRoutine::Init();
   EXPECTGL(glHasExtension(_)).Times(AnyNumber());
-  EXPECTGL(glBindTexture(_)).Times(AnyNumber());
+  EXPECTGL(glBindTexture(_, _)).Times(AnyNumber());
   EXPECTGL(glDeleteTexture(_)).Times(AnyNumber());
-  EXPECTGL(glTexParameter(_, _)).Times(AnyNumber());
+  EXPECTGL(glTexParameter(_, _, _)).Times(AnyNumber());
   EXPECTGL(glTexImage2D(_, _, _, _, _)).Times(AnyNumber());
   EXPECTGL(glGenTexture()).Times(AnyNumber());
 

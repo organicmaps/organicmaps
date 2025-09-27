@@ -129,12 +129,6 @@ void MetalBaseContext::PopDebugLabel()
   [m_currentCommandEncoder popDebugGroup];
 }
 
-uint32_t MetalBaseContext::GetMaxTextureArrayLayers() const
-{
-  // 2048 by https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
-  return 2048;
-}
-
 void MetalBaseContext::Resize(uint32_t w, uint32_t h)
 {
   if (m_depthTexture && m_depthTexture->GetWidth() == w && m_depthTexture->GetHeight() == h)
