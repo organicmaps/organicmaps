@@ -26,12 +26,6 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
   private final View[] mDifficultyLevels = new View[MAX_DIFFICULTY_LEVEL];
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private NestedScrollView mScrollView;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mTitle;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
   private TextView mAscent;
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -44,36 +38,23 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
   private TextView mMinAltitude;
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private TextView mTime;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
   private ChartController mChartController;
   @Nullable
   private ElevationInfo mElevationInfo;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mDifficultyContainer;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mTimeContainer;
-  private View mTitleContainer;
 
-  public void render(@NonNull Track track)
+  public void render(@NonNull ElevationInfo elevationInfo, @NonNull TrackStatistics stats, long trackId)
   {
     final Context context = mAscent.getContext();
-    TrackStatistics stats = track.getTrackStatistics();
-
-    mElevationInfo = track.getElevationInfo();
-    mChartController.setData(track);
-    UiUtils.hide(mTitleContainer);
-    mTitle.setText(track.getName());
+    mElevationInfo = elevationInfo;
+    mChartController.setData(elevationInfo, stats, trackId);
     setDifficulty(mElevationInfo.getDifficulty());
     mAscent.setText(formatDistance(context, (int) stats.getAscent()));
     mDescent.setText(formatDistance(context, (int) stats.getDescent()));
     mMaxAltitude.setText(formatDistance(context, stats.getMaxElevation()));
     mMinAltitude.setText(formatDistance(context, stats.getMinElevation()));
-    UiUtils.hide(mTimeContainer);
-    mTime.setText(Utils.formatRoutingTime(mAscent.getContext(), (int) stats.getDuration(), R.dimen.text_size_body_2));
   }
 
   @NonNull
@@ -87,15 +68,10 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
     Objects.requireNonNull(view);
     mChartController = new ChartController(view.getContext());
     mChartController.initialize(view);
-    mScrollView = (NestedScrollView) view;
-    mTitle = view.findViewById(R.id.title);
-    mTitleContainer = view.findViewById(R.id.title_container);
     mAscent = view.findViewById(R.id.ascent);
     mDescent = view.findViewById(R.id.descent);
     mMaxAltitude = view.findViewById(R.id.max_altitude);
     mMinAltitude = view.findViewById(R.id.min_altitude);
-    mTimeContainer = view.findViewById(R.id.time_container);
-    mTime = mTimeContainer.findViewById(R.id.time);
     mDifficultyContainer = view.findViewById(R.id.difficulty_container);
     mDifficultyLevels[0] = mDifficultyContainer.findViewById(R.id.difficulty_level_1);
     mDifficultyLevels[1] = mDifficultyContainer.findViewById(R.id.difficulty_level_2);
@@ -109,13 +85,6 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
 
     boolean invalidDifficulty = level > MAX_DIFFICULTY_LEVEL || level == UNKNOWN_DIFFICULTY;
     UiUtils.hideIf(invalidDifficulty, mDifficultyContainer);
-    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mTimeContainer.getLayoutParams();
-    params.removeRule(RelativeLayout.ALIGN_PARENT_END);
-    params.removeRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-    params.removeRule(RelativeLayout.ALIGN_PARENT_START);
-    params.removeRule(RelativeLayout.ALIGN_PARENT_LEFT);
-    params.addRule(invalidDifficulty ? RelativeLayout.ALIGN_PARENT_START : RelativeLayout.ALIGN_PARENT_END);
-    mTimeContainer.setLayoutParams(params);
 
     if (invalidDifficulty)
       return;

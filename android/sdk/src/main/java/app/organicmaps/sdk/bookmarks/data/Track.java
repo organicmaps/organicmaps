@@ -14,9 +14,9 @@ import app.organicmaps.sdk.util.Distance;
 public class Track extends MapObject
 {
   private final long mTrackId;
-  private long mCategoryId;
   private final String mName;
   private final Distance mLength;
+  private long mCategoryId;
   private int mColor;
   @Nullable
   private ElevationInfo mElevationInfo;
