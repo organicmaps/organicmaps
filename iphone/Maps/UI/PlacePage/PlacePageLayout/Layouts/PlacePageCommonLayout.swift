@@ -126,13 +126,6 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       viewControllers.append(buttonsViewController)
     }
 
-    placePageData.onBookmarkStatusUpdate = { [weak self] in
-      guard let self = self else { return }
-      self.actionBarViewController.updateBookmarkButtonState(isSelected: self.placePageData.bookmarkData != nil)
-      self.previewViewController.placePagePreviewData = self.placePageData.previewData
-      self.updateBookmarkRelatedSections()
-    }
-
     LocationManager.add(observer: self)
     if let lastLocation = LocationManager.lastLocation() {
       onLocationUpdate(lastLocation)
@@ -170,37 +163,14 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     guard let preview = previewViewController.view else {
       return steps
     }
+    preview.layoutIfNeeded()
     let previewFrame = scrollView.convert(preview.bounds, from: preview)
     steps.append(.preview(previewFrame.maxY - scrollHeight))
-    if !compact {
-      if placePageData.isPreviewPlus {
-        steps.append(.previewPlus(-scrollHeight * 0.55))
-      }
-      steps.append(.expanded(-scrollHeight * 0.3))
+    if !compact, placePageData.isPreviewPlus {
+      steps.append(.previewPlus(-scrollHeight * 0.55))
     }
-    steps.append(.full(0))
+    steps.append(.full)
     return steps
-  }
-}
-
-// MARK: - PlacePageData async callbacks for loaders
-
-extension PlacePageCommonLayout {
-  func updateBookmarkRelatedSections() {
-    var isBookmark = false
-    if let bookmarkData = placePageData.bookmarkData {
-      editBookmarkInteractor?.data = .bookmark(bookmarkData)
-      isBookmark = true
-    }
-    if let title = placePageData.previewData.title, let headerViewController = headerViewControllers.compactMap({ $0 as? PlacePageHeaderViewController }).first {
-      let secondaryTitle = placePageData.previewData.secondaryTitle
-      headerViewController.setTitle(title, secondaryTitle: secondaryTitle)
-      placePageNavigationViewController.setTitle(title, secondaryTitle: secondaryTitle)
-    }
-    presenter?.layoutIfNeeded()
-    UIView.animate(withDuration: kDefaultAnimationDuration) { [unowned self] in
-      self.editBookmarkViewController.view.isHidden = !isBookmark
-    }
   }
 }
 

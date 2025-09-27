@@ -82,12 +82,6 @@ class PlacePageTrackLayout: IPlacePageLayout {
       editTrackInteractor?.data = .track(trackData)
     }
 
-    placePageData.onBookmarkStatusUpdate = { [weak self] in
-      guard let self = self else { return }
-      self.previewViewController.placePagePreviewData = self.placePageData.previewData
-      self.updateTrackRelatedSections()
-    }
-
     if let elevationMapViewController {
       viewControllers.append(elevationMapViewController)
     }
@@ -99,27 +93,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
     var steps: [PlacePageState] = []
     let scrollHeight = scrollView.height
     steps.append(.closed(-scrollHeight))
-    steps.append(.full(0))
+    steps.append(.full)
     return steps
-  }
-}
-
-private extension PlacePageTrackLayout {
-  func updateTrackRelatedSections() {
-    guard let trackData = placePageData.trackData else {
-      presenter?.close()
-      return
-    }
-    editTrackInteractor?.data = .track(trackData)
-    let previewData = placePageData.previewData
-    if let headerViewController = headerViewControllers.compactMap({ $0 as? PlacePageHeaderViewController }).first {
-      headerViewController.setTitle(previewData.title, secondaryTitle: previewData.secondaryTitle)
-      placePageNavigationViewController.setTitle(previewData.title, secondaryTitle: previewData.secondaryTitle)
-    }
-    if let previewViewController = headerViewControllers.compactMap({ $0 as? PlacePagePreviewViewController }).first {
-      previewViewController.placePagePreviewData = previewData
-      previewViewController.updateViews()
-    }
-    presenter?.layoutIfNeeded()
   }
 }
