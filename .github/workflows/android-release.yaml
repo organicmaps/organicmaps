@@ -136,12 +136,30 @@ jobs:
         shell: bash
         run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
 
-      - name: Compile and upload to Google Play
+      # Compile steps are separated from upload steps to save built artifacts and debug symbols inbetween.
+      - name: Compile for Google Play
         if: ${{ matrix.flavor == 'google' }}
         shell: bash
         working-directory: android
-        run: |
-          ./gradlew bundleGoogleRelease publishGoogleReleaseBundle
+        run: ./gradlew bundleGoogleRelease
+
+      - name: Compile for Huawei AppGallery
+        if: ${{ matrix.flavor == 'huawei' }}
+        shell: bash
+        working-directory: android
+        run: ./gradlew bundleHuaweiRelease
+
+      - name: Compile universal web APK
+        if: ${{ matrix.flavor == 'web' }}
+        shell: bash
+        working-directory: android
+        run: ./gradlew assembleWebRelease
+
+      - name: Upload ${{ matrix.flavor }} debug symbols to GitHub artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-debug-symbols-${{ matrix.flavor }}.zip
+          path: android/app/build/outputs/native-debug-symbols/${{ matrix.flavor }}Release/native-debug-symbols.zip
 
       - name: Upload Google aab to GitHub artifacts
         if: ${{ matrix.flavor == 'google' }}
@@ -150,14 +168,6 @@ jobs:
           name: OrganicMaps-${{ needs.tag.outputs.code }}-google-release.aab
           path: ./android/app/build/outputs/bundle/googleRelease/OrganicMaps-${{ needs.tag.outputs.code }}-google-release.aab
 
-      - name: Compile and upload to Huawei AppGallery
-        if: ${{ matrix.flavor == 'huawei' }}
-        shell: bash
-        working-directory: android
-        run: |
-          ./gradlew bundleHuaweiRelease
-          ./gradlew publishHuaweiAppGalleryHuaweiRelease
-
       - name: Upload Huawei aab to GitHub artifacts
         if: ${{ matrix.flavor == 'huawei' }}
         uses: actions/upload-artifact@v4
@@ -165,12 +175,23 @@ jobs:
           name: OrganicMaps-${{ needs.tag.outputs.code }}-huawei-release.aab
           path: ./android/app/build/outputs/bundle/huaweiRelease/OrganicMaps-${{ needs.tag.outputs.code }}-huawei-release.aab
 
-      - name: Compile universal web APK
-        if: ${{ matrix.flavor == 'web' }}
+      - name: Upload to Google Play
+        if: ${{ matrix.flavor == 'google' }}
         shell: bash
         working-directory: android
-        run: |
-          ./gradlew assembleWebRelease
+        run: ./gradlew publishGoogleReleaseBundle
+
+      - name: Upload to Huawei AppGallery
+        if: ${{ matrix.flavor == 'huawei' }}
+        shell: bash
+        working-directory: android
+        run: ./gradlew publishHuaweiAppGalleryHuaweiRelease
+
+      - name: sha256sum web release apk
+        if: ${{ matrix.flavor == 'web' }}
+        shell: bash
+        working-directory: android/app/build/outputs/apk/web/release
+        run: sha256sum OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk > OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk.sha256sum
 
       - name: Upload web release apk and its sha256sum to GitHub artifacts
         if: ${{ matrix.flavor == 'web' }}
@@ -183,7 +204,6 @@ jobs:
         if: ${{ matrix.flavor == 'web' }}
         shell: bash
         run: |
-          (cd ./android/app/build/outputs/apk/web/release/ && sha256sum OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk > OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk.sha256sum)
           {
             cat ${{ env.RELEASE_NOTES }}
             echo ""
@@ -205,7 +225,6 @@ jobs:
           name: ${{ needs.tag.outputs.tag }}
           tag_name: ${{ needs.tag.outputs.tag }}
           discussion_category_name: 'Announcements'
-          prerelease: true
           files: |
             ./android/app/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk
             ./android/app/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk.sha256sum
