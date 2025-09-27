@@ -2,6 +2,8 @@
 
 #include "indexer/scales.hpp"
 
+#include "platform/platform.hpp"
+
 #include "coding/point_coding.hpp"  // kMwmPointAccuracy
 
 #include "geometry/mercator.hpp"
@@ -19,6 +21,8 @@
 
 namespace df
 {
+double constexpr kMinVisualScale = 1.35;
+
 using VisualScale = std::pair<std::string, double>;
 
 VisualParams & VisualParams::Instance()
@@ -29,9 +33,6 @@ VisualParams & VisualParams::Instance()
 
 void VisualParams::Init(double vs, uint32_t tileSize)
 {
-  CHECK(vs >= 1.0 && vs <= kMaxVisualScale, (vs));
-  CHECK(tileSize >= 32, (tileSize));
-
   VisualParams & vizParams = Instance();
   vizParams.m_tileSize = tileSize;
   vizParams.m_visualScale = vs;
@@ -71,7 +72,7 @@ void VisualParams::SetVisualScale(double vs)
 std::string const & VisualParams::GetResourcePostfix(double visualScale)
 {
   static VisualScale postfixes[] = {
-      /// @todo Not used in mobile because of minimal visual scale (@see visual_scale.hpp)
+      /// @todo Not used in mobile because of minimal visual scale (@see kMinVisualScale)
       {"mdpi", kMdpiScale},
 
       {"hdpi", kHdpiScale},     {"xhdpi", kXhdpiScale},     {"6plus", k6plusScale},
@@ -319,6 +320,23 @@ float CalculateRadius(ScreenBase const & screen, ArrayView<float> const & zoom2r
   ExtractZoomFactors(screen, zoom, index, lerpCoef);
   float const radius = InterpolateByZoomLevels(index, lerpCoef, zoom2radius);
   return radius * static_cast<float>(VisualParams::Instance().GetVisualScale());
+}
+
+double DPI2VS(double densityDPI)
+{
+  ASSERT_GREATER(densityDPI, 0, ());
+
+  // In case of tablets and iPads increased DPI is used to make visual scale bigger.
+  if (GetPlatform().IsTablet())
+    densityDPI *= 1.2;
+
+  return math::Clamp(densityDPI / 160.0, kMinVisualScale, kMaxVisualScale);
+}
+
+double CSF2VS(double contentSF)
+{
+  ASSERT(contentSF >= 1.0, ());
+  return math::Clamp(contentSF, kMinVisualScale, kMaxVisualScale);
 }
 
 }  // namespace df

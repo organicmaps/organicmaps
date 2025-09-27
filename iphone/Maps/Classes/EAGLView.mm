@@ -8,7 +8,6 @@
 
 #include "drape/drape_global.hpp"
 #include "drape/pointers.hpp"
-#include "drape/visual_scale.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include <CoreApi/Framework.h>
@@ -36,24 +35,6 @@ class GraphicsContextFactory;
 @end
 
 @implementation EAGLView
-
-namespace
-{
-// Returns DPI as exact as possible. It works for iPhone, iPad and iWatch.
-double getExactDPI(double contentScaleFactor)
-{
-  float const iPadDPI = 132.f;
-  float const iPhoneDPI = 163.f;
-  float const mDPI = 160.f;
-
-  switch (UI_USER_INTERFACE_IDIOM())
-  {
-  case UIUserInterfaceIdiomPhone: return iPhoneDPI * contentScaleFactor;
-  case UIUserInterfaceIdiomPad: return iPadDPI * contentScaleFactor;
-  default: return mDPI * contentScaleFactor;
-  }
-}
-}  //  namespace
 
 + (dp::ApiVersion)getSupportedApiVersion
 {
@@ -162,7 +143,7 @@ double getExactDPI(double contentScaleFactor)
   p.m_apiVersion = m_apiVersion;
   p.m_surfaceWidth = width;
   p.m_surfaceHeight = height;
-  p.m_visualScale = dp::VisualScale(getExactDPI(self.contentScaleFactor));
+  p.m_visualScale = df::CSF2VS(self.contentScaleFactor);
   p.m_hints.m_isFirstLaunch = [FirstSession isFirstSession];
   p.m_hints.m_isLaunchByDeepLink = DeepLinkHandler.shared.isLaunchedByDeeplink;
 
