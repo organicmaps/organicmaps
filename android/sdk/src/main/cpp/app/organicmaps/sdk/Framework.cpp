@@ -29,7 +29,6 @@
 
 #include "drape/pointers.hpp"
 #include "drape/support_manager.hpp"
-#include "drape/visual_scale.hpp"
 
 #include "coding/files_container.hpp"
 
@@ -239,7 +238,7 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
     m_oglContextFactory = make_unique_dp<dp::ThreadSafeFactory>(oglFactory.release());
   }
 
-  p.m_visualScale = static_cast<float>(dp::VisualScale(densityDpi));
+  p.m_visualScale = df::DPI2VS(densityDpi);
   // Drape doesn't care about Editor vs Api mode differences.
   p.m_isChoosePositionMode = m_isChoosePositionMode != ChoosePositionMode::None;
   p.m_hints.m_isFirstLaunch = firstLaunch;
@@ -265,8 +264,7 @@ bool Framework::IsDrapeEngineCreated() const
 
 void Framework::UpdateDpi(int dpi)
 {
-  ASSERT_GREATER(dpi, 0, ());
-  m_work.UpdateVisualScale(dp::VisualScale(dpi));
+  m_work.UpdateVisualScale(df::DPI2VS(dpi));
 }
 
 void Framework::Resize(JNIEnv * env, jobject jSurface, int w, int h)

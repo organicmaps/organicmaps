@@ -140,4 +140,9 @@ double GetScreenScale(double zoomLevel);
 double GetZoomLevel(double screenScale);
 
 float CalculateRadius(ScreenBase const & screen, ArrayView<float> const & zoom2radius);
+
+/// Used in Android: ConfigurationHelper.getDensityDpi
+double DPI2VS(double densityDPI);
+/// Used in iOS: contentScaleFactor
+double CSF2VS(double contentScaleFactor);
 }  // namespace df
