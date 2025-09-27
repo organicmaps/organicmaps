@@ -9,19 +9,22 @@
     completionHandler = completion
     backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(withName:description,
                                                                         expirationHandler: {
+      LOG(.info, "Background task \(self.description) expired")
                                                                           self.finish(.failed)
                                                                         })
     if backgroundTaskIdentifier != UIBackgroundTaskIdentifier.invalid { fire() }
   }
 
   fileprivate func fire() {
+    LOG(.info, "Run extended background task for \(description)...")
     finish(.failed)
   }
 
   fileprivate func finish(_ result: UIBackgroundFetchResult) {
-    guard backgroundTaskIdentifier != UIBackgroundTaskIdentifier.invalid else { return }
-    UIApplication.shared.endBackgroundTask(UIBackgroundTaskIdentifier(rawValue: backgroundTaskIdentifier.rawValue))
-    backgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
+    if backgroundTaskIdentifier != UIBackgroundTaskIdentifier.invalid {
+      UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
+      backgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
+    }
     completionHandler?(result)
   }
 }
@@ -29,7 +32,10 @@
 @objc(MWMBackgroundEditsUpload)
 final class BackgroundEditsUpload: BackgroundFetchTask {
   override fileprivate func fire() {
-    MWMEditorHelper.uploadEdits(self.finish)
+    // We cannot rely on the `UIApplication.shared.backgroundTimeRemaining` because it is valid only after didEnterBackground is finished.
+    let timeout = TimeInterval(25.0)
+    MWMEditorHelper.uploadEdits(withTimeout: timeout,
+                                completionHandler: self.finish)
   }
 
   override var description: String {
