@@ -1071,3 +1071,6 @@
 "contribute_to_osm_update_map" = "Абнавіць карту, каб унесьці ўклад";
 "contribute_to_osm_update_map_description" = "Перш чым унесці ўклад у даныя OpenStreetMap, неабходна абнавіць карту %@ да апошняй версіі";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Вы ўпэўнены, што хочаце выдаліць гэты запіс трэку? Даныя не будуць захаваныя.";

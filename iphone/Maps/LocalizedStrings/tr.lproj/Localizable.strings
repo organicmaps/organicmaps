@@ -1067,3 +1067,6 @@
 "contribute_to_osm_update_map" = "Katkıda bulunmak için haritayı güncelle";
 "contribute_to_osm_update_map_description" = "%@ haritasını en son sürüme güncellemeniz gerekir; böylece OpenStreetMap verilerine katkıda bulunabilirsiniz";
 "placepage_replace_stop" = "Durağı Değiştir";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Bu kaydı silmek istediğinizden emin misiniz? Veriler kaydedilmeyecek.";

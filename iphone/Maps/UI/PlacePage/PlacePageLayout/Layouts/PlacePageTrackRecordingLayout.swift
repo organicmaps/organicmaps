@@ -74,7 +74,7 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
     var steps: [PlacePageState] = []
     let scrollHeight = scrollView.height
     steps.append(.closed(-scrollHeight))
-    steps.append(.full(0))
+    steps.append(.full)
     return steps
   }
 }

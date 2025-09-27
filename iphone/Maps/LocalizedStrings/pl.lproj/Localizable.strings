@@ -1067,3 +1067,6 @@
 "contribute_to_osm_update_map" = "Zaktualizuj mapę, aby współtworzyć";
 "contribute_to_osm_update_map_description" = "Musisz zaktualizować mapę %@ do najnowszej wersji, zanim będziesz mógł współtworzyć dane OpenStreetMap";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Czy na pewno chcesz usunąć to nagranie? Dane nie zostaną zapisane.";

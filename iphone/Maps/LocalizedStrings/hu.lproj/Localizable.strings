@@ -1067,3 +1067,6 @@
 "contribute_to_osm_update_map" = "Frissítse a térképet a hozzájáruláshoz";
 "contribute_to_osm_update_map_description" = "A hozzájáruláshoz frissítenie kell a %@ térképet a legújabb verzióra az OpenStreetMap adataihoz";
 "placepage_replace_stop" = "Megálló lecserélése";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Biztosan törölni szeretné ezt a felvételt? Az adatok nem lesznek mentve.";

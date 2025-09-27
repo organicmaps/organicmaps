@@ -1067,3 +1067,6 @@
 "contribute_to_osm_update_map" = "Werk die Kaart By om By te Dra";
 "contribute_to_osm_update_map_description" = "Jy moet die %@ kaart na die nuutste weergawe bywerk voordat jy tot die OpenStreetMap-data kan bydra";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Is jy seker jy wil hierdie opname verwyder? Die data sal nie gestoor word nie.";

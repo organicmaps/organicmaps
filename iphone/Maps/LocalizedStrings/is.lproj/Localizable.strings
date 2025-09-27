@@ -577,3 +577,6 @@
 "contribute_to_osm_update_map_description" = "Þú þarft að uppfæra %@ kortið í nýjustu útgáfuna áður en þú getur lagt af mörkum til gagna í OpenStreetMap";
 "contribute_to_osm_add_place" = "Bæta við stað";
 "placepage_replace_stop" = "Skipta út stoppi";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Ertu viss um að þú viljir eyða þessari upptöku? Gögnin verða ekki vistuð.";

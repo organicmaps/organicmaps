@@ -1067,3 +1067,6 @@
 "contribute_to_osm_update_map" = "Perbarui Peta untuk Berkontribusi";
 "contribute_to_osm_update_map_description" = "Anda harus memperbarui peta %@ ke versi terbaru sebelum dapat berkontribusi pada data OpenStreetMap";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Yakin ingin menghapus rekaman ini? Data tidak akan disimpan.";

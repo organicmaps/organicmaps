@@ -1067,3 +1067,6 @@
 "contribute_to_osm_update_map" = "Uuenda kaarti, et panustada";
 "contribute_to_osm_update_map_description" = "Enne OpenStreetMap andmetesse panustamist peate uuendama %@ kaardi uusimale versioonile";
 "placepage_replace_stop" = "Asenda peatus";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Kas olete kindel, et soovite selle salvestuse kustutada? Andmeid ei salvestata.";

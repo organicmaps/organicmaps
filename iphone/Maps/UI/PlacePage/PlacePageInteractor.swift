@@ -1,5 +1,4 @@
 protocol PlacePageInteractorProtocol: AnyObject {
-  func viewWillAppear()
   func viewWillDisappear()
   func updateVisibleAreaInsets(_ insets: UIEdgeInsets)
   func close()
@@ -10,8 +9,8 @@ class PlacePageInteractor: NSObject {
   weak var trackActivePointPresenter: TrackActivePointPresenter?
 
   private let bookmarksManager = BookmarksManager.shared()
+  private let trackRecordingManager = TrackRecordingManager.shared
   private var placePageData: PlacePageData
-  private var viewWillAppearIsCalledForTheFirstTime = false
 
   init(data: PlacePageData) {
     self.placePageData = data
@@ -27,7 +26,6 @@ class PlacePageInteractor: NSObject {
   private func updatePlacePageIfNeeded() {
     func updatePlacePage() {
       FrameworkHelper.updatePlacePageData()
-      placePageData.updateBookmarkStatus()
     }
 
     switch placePageData.objectType {
@@ -77,15 +75,6 @@ class PlacePageInteractor: NSObject {
 }
 
 extension PlacePageInteractor: PlacePageInteractorProtocol {
-  func viewWillAppear() {
-    // Skip data reloading on the first appearance, to avoid unnecessary updates.
-    guard viewWillAppearIsCalledForTheFirstTime else {
-      viewWillAppearIsCalledForTheFirstTime = true
-      return
-    }
-    updatePlacePageIfNeeded()
-  }
-
   func viewWillDisappear() {
     unsubscribeFromTrackActivePointUpdates()
   }
@@ -272,8 +261,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       guard placePageData.trackData != nil else { return }
       showTrackDeletionConfirmationDialog()
     case .saveTrackRecording:
-      // TODO: (KK) pass name typed by user
-      TrackRecordingManager.shared.stopAndSave() { [weak self] result in
+      trackRecordingManager.stopAndSave() { [weak self] result in
         switch result {
         case .success:
           break
@@ -281,6 +269,8 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
           self?.presenter?.close()
         }
       }
+    case .deleteTrackRecording:
+      showTrackRecordingDiscardingConfirmationDialog()
     @unknown default:
       fatalError()
     }
@@ -303,7 +293,9 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
   }
 
   private func showTrackDeletionConfirmationDialog() {
-    let alert = UIAlertController(title: nil, message: L("placepage_delete_track_confirmation_alert_message"), preferredStyle: .actionSheet)
+    let alert = UIAlertController(title: nil,
+                                  message: L("placepage_delete_track_confirmation_alert_message"),
+                                  preferredStyle: .actionSheet)
     let deleteAction = UIAlertAction(title: L("delete"), style: .destructive) { [weak self] _ in
       guard let self = self else { return }
       guard self.placePageData.trackData != nil else {
@@ -315,6 +307,21 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
     let cancelAction = UIAlertAction(title: L("cancel"), style: .cancel)
     alert.addAction(deleteAction)
     alert.addAction(cancelAction)
+    presenter?.showAlert(alert)
+  }
+
+  private func showTrackRecordingDiscardingConfirmationDialog() {
+    let alert = UIAlertController(title: nil,
+                                  message: L("placepage_delete_track_recording_confirmation_alert_message"),
+                                  preferredStyle: .actionSheet)
+    let discardAction = UIAlertAction(title: L("delete"), style: .destructive) { [weak self] _ in
+      guard let self = self else { return }
+      self.trackRecordingManager.discard()
+      self.presenter?.close()
+    }
+    let continueAction = UIAlertAction(title: L("continue_button"), style: .default)
+    alert.addAction(discardAction)
+    alert.addAction(continueAction)
     presenter?.showAlert(alert)
   }
 

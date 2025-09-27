@@ -300,7 +300,13 @@ NSString * const kSettingsSegue = @"Map2Settings";
 
 - (void)onMapObjectUpdated
 {
-  //  [self.controlsManager updatePlacePage];
+  if (!PlacePageData.hasData)
+  {
+    [self onMapObjectDeselected];
+    return;
+  }
+  PlacePageData * data = [[PlacePageData alloc] initWithLocalizationProvider:[[OpeinigHoursLocalization alloc] init]];
+  [self showOrUpdatePlacePage:data];
 }
 
 - (void)checkMaskedPointer:(UITouch *)touch withEvent:(df::TouchEvent &)e

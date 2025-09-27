@@ -1067,3 +1067,6 @@
 "contribute_to_osm_update_map" = "Aktualizovať mapu na prispievanie";
 "contribute_to_osm_update_map_description" = "Musíte aktualizovať mapu %@ na najnovšiu verziu, aby ste mohli prispievať do údajov OpenStreetMap";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Naozaj chcete vymazať toto nahrávanie? Dáta nebudú uložené.";
