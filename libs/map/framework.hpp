@@ -455,9 +455,11 @@ public:
   void StartTrackRecording();
   void SetTrackRecordingUpdateHandler(TrackRecordingUpdateHandler && trackRecordingDidUpdate);
   void StopTrackRecording();
+  void SetTrackRecordingPaused(bool paused);
   void SaveTrackRecordingWithName(std::string const & name);
   bool IsTrackRecordingEmpty() const;
   bool IsTrackRecordingEnabled() const;
+  bool IsTrackRecordingPaused() const;
 
   void SaveRoute();
   /// Returns the elevation profile data of the currently recorded track.

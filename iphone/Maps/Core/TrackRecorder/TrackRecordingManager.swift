@@ -1,7 +1,8 @@
 @objc
 enum TrackRecordingState: Int, Equatable {
-  case inactive
-  case active
+  case disabled
+  case recording
+  case paused
 }
 
 enum TrackRecordingAction {
@@ -76,8 +77,13 @@ final class TrackRecordingManager: NSObject {
     FrameworkHelper.trackRecordingElevationInfo()
   }
 
+  @objc
   var recordingState: TrackRecordingState {
-    trackRecorder.isTrackRecordingEnabled() ? .active : .inactive
+    switch (trackRecorder.isTrackRecordingEnabled(), trackRecorder.isTrackRecordingPaused()) {
+      case (false, _): return .disabled
+      case (true, true): return .paused
+      case (true, false): return .recording
+    }
   }
 
   init(trackRecorder: TrackRecorder.Type,
@@ -97,9 +103,9 @@ final class TrackRecordingManager: NSObject {
     do {
       try checkIsLocationEnabled()
       switch recordingState {
-      case .inactive:
+      case .disabled:
         break
-      case .active:
+      case .recording, .paused:
         subscribeOnTrackRecordingProgressUpdates()
       }
     } catch {
@@ -109,13 +115,13 @@ final class TrackRecordingManager: NSObject {
 
   @objc
   func isActive() -> Bool {
-    recordingState == .active
+    recordingState == .recording || recordingState == .paused
   }
 
   func start(completion: ((StartTrackRecordingResult) -> Void)? = nil) {
     do {
       switch recordingState {
-      case .inactive:
+      case .disabled:
         try checkIsLocationEnabled()
         subscribeOnTrackRecordingProgressUpdates()
         trackRecorder.startTrackRecording()
@@ -126,13 +132,24 @@ final class TrackRecordingManager: NSObject {
           LOG(.warning, "Failed to start activity manager")
           handleError(error)
         }
-      case .active:
+      case .recording, .paused:
         break
       }
       completion?(.success)
     } catch {
       handleError(error)
       completion?(.failure(error))
+    }
+  }
+
+  func setPaused(_ paused: Bool) {
+    switch recordingState {
+    case .disabled:
+      break
+    case .recording:
+      trackRecorder.setTrackRecordingPaused(true)
+    case .paused:
+      trackRecorder.setTrackRecordingPaused(false)
     }
   }
 
@@ -151,6 +168,14 @@ final class TrackRecordingManager: NSObject {
 
     trackRecorder.saveTrackRecording(withName: name)
     completion?(.success)
+  }
+
+  func discard() {
+    unsubscribeFromTrackRecordingProgressUpdates()
+    trackRecorder.stopTrackRecording()
+    trackRecordingInfo = .empty()
+    activityManager?.stop()
+    notifyObservers()
   }
 
   // MARK: - Private methods

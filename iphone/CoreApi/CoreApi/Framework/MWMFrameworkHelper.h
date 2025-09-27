@@ -26,8 +26,10 @@ typedef void (^TrackRecordingUpdatedHandler)(TrackInfo * _Nonnull trackInfo);
 + (void)startTrackRecording;
 + (void)setTrackRecordingUpdateHandler:(TrackRecordingUpdatedHandler _Nullable)trackRecordingDidUpdate;
 + (void)stopTrackRecording;
++ (void)setTrackRecordingPaused:(BOOL)paused;
 + (void)saveTrackRecordingWithName:(nonnull NSString *)name;
 + (BOOL)isTrackRecordingEnabled;
++ (BOOL)isTrackRecordingPaused;
 + (BOOL)isTrackRecordingEmpty;
 /// Returns current track recording elevation info.
 /// If the track recording is not in progress, returns empty ElevationProfileData.

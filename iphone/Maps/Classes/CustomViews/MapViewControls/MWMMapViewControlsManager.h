@@ -9,7 +9,8 @@
 
 typedef NS_ENUM(NSUInteger, TrackRecordingButtonState) {
   TrackRecordingButtonStateHidden,
-  TrackRecordingButtonStateVisible,
+  TrackRecordingButtonStateRecording,
+  TrackRecordingButtonStatePaused,
   TrackRecordingButtonStateClosed,
 };
 

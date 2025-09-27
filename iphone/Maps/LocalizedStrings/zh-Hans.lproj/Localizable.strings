@@ -1067,3 +1067,15 @@
 "contribute_to_osm_update_map" = "更新地图以贡献";
 "contribute_to_osm_update_map_description" = "您需要将 %@ 地图更新到最新版本后才能贡献 OpenStreetMap 数据";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "确定要删除此录音吗？数据将不会保存。";
+
+/* The track recording action bar button title for pause. */
+"pause" = "暂停";
+
+/* The track recording action bar button title for resume. */
+"resume" = "继续";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "继续轨迹记录";

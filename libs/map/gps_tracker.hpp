@@ -11,8 +11,11 @@ class GpsTracker
 public:
   static GpsTracker & Instance();
 
-  bool IsEnabled() const;
+  bool IsEnabled() const { return m_enabled; }
+  bool IsPaused() const { return m_paused; }
+
   void SetEnabled(bool enabled);
+  void SetPaused(bool paused);
   void Clear();
 
   bool IsEmpty() const;
@@ -42,5 +45,6 @@ private:
   GpsTracker();
 
   std::atomic<bool> m_enabled;
+  std::atomic<bool> m_paused;
   GpsTrack m_track;
 };

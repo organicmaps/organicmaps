@@ -1067,3 +1067,15 @@
 "contribute_to_osm_update_map" = "Aggiorna la mappa per contribuire";
 "contribute_to_osm_update_map_description" = "Devi aggiornare la mappa %@ all'ultima versione prima di poter contribuire ai dati di OpenStreetMap";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Sei sicuro di voler eliminare questa registrazione? I dati non verranno salvati.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Pausa";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Riprendi";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Riprendi registrazione percorso";

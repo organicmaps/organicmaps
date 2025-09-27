@@ -1067,3 +1067,15 @@
 "contribute_to_osm_update_map" = "Oppdater kartet for å bidra";
 "contribute_to_osm_update_map_description" = "Du må oppdatere %@-kartet til den nyeste versjonen før du kan bidra til OpenStreetMap-dataene";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Er du sikker på at du vil slette dette opptaket? Data blir ikke lagret.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Pause";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Fortsett";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Fortsett sporopptak";

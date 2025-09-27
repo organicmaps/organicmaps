@@ -35,7 +35,7 @@ final class TrackRecordingManagerTests: XCTestCase {
     mockTrackRecorder.trackRecordingIsEnabled = false
 
     trackRecordingManager.setup()
-    XCTAssertTrue(trackRecordingManager.recordingState == .inactive)
+    XCTAssertTrue(trackRecordingManager.recordingState == .disabled)
   }
 
   func test_GivenInitialSetup_WhenLocationDisabled_ThenShouldHandleErrorAndIncativeState() {
@@ -44,7 +44,7 @@ final class TrackRecordingManagerTests: XCTestCase {
     trackRecordingManager.setup()
 
     XCTAssertTrue(mockLocationService.checkLocationStatusCalled)
-    XCTAssertTrue(trackRecordingManager.recordingState == .inactive)
+    XCTAssertTrue(trackRecordingManager.recordingState == .disabled)
   }
 
   func test_GivenStartRecording_WhenLocationEnabled_ThenSuccess() {
@@ -55,7 +55,7 @@ final class TrackRecordingManagerTests: XCTestCase {
 
     XCTAssertTrue(mockTrackRecorder.startTrackRecordingCalled)
     XCTAssertTrue(mockActivityManager.startCalled)
-    XCTAssertTrue(trackRecordingManager.recordingState == .active)
+    XCTAssertTrue(trackRecordingManager.recordingState == .recording)
   }
 
   func test_GivenStartRecording_WhenLocationDisabled_ThenShouldFail() {
@@ -76,7 +76,7 @@ final class TrackRecordingManagerTests: XCTestCase {
     }
     wait(for: [expectation], timeout: 1.0)
     XCTAssertFalse(self.mockTrackRecorder.startTrackRecordingCalled)
-    XCTAssertTrue(trackRecordingManager.recordingState == .inactive)
+    XCTAssertTrue(trackRecordingManager.recordingState == .disabled)
   }
 
   func test_GivenStopRecording_WhenLocationEnabled_ThenSuccess() {
@@ -94,7 +94,7 @@ final class TrackRecordingManagerTests: XCTestCase {
     XCTAssertTrue(mockTrackRecorder.stopTrackRecordingCalled)
     XCTAssertTrue(mockTrackRecorder.saveTrackRecordingCalled)
     XCTAssertTrue(mockActivityManager.stopCalled)
-    XCTAssertTrue(trackRecordingManager.recordingState == .inactive)
+    XCTAssertTrue(trackRecordingManager.recordingState == .disabled)
   }
 
   func test_GivenStopRecording_WhenTrackIsEmpty_ThenShouldFail() {
@@ -111,7 +111,7 @@ final class TrackRecordingManagerTests: XCTestCase {
     }
     wait(for: [expectation], timeout: 1.0)
     XCTAssertFalse(mockTrackRecorder.saveTrackRecordingCalled)
-    XCTAssertTrue(trackRecordingManager.recordingState == .inactive)
+    XCTAssertTrue(trackRecordingManager.recordingState == .disabled)
   }
 }
 

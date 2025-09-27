@@ -11,6 +11,7 @@ namespace
 {
 
 std::string_view constexpr kEnabledKey = "GpsTrackingEnabled";
+std::string_view constexpr kPausedKey = "GpsTrackingPaused";
 
 inline std::string GetFilePath()
 {
@@ -25,9 +26,22 @@ inline bool GetSettingsIsEnabled()
   return enabled;
 }
 
+inline bool GetSettingsIsPaused()
+{
+  bool paused;
+  if (!settings::Get(kPausedKey, paused))
+    paused = false;
+  return paused;
+}
+
 inline void SetSettingsIsEnabled(bool enabled)
 {
   settings::Set(kEnabledKey, enabled);
+}
+
+inline void SetSettingsIsPaused(bool paused)
+{
+  settings::Set(kPausedKey, paused);
 }
 
 }  // namespace
@@ -38,7 +52,10 @@ GpsTracker & GpsTracker::Instance()
   return instance;
 }
 
-GpsTracker::GpsTracker() : m_enabled(GetSettingsIsEnabled()), m_track(GetFilePath(), std::make_unique<GpsTrackFilter>())
+GpsTracker::GpsTracker()
+  : m_enabled(GetSettingsIsEnabled())
+  , m_paused(GetSettingsIsPaused())
+  , m_track(GetFilePath(), std::make_unique<GpsTrackFilter>())
 {}
 
 void GpsTracker::SetEnabled(bool enabled)
@@ -53,14 +70,18 @@ void GpsTracker::SetEnabled(bool enabled)
     m_track.Clear();
 }
 
+void GpsTracker::SetPaused(bool paused)
+{
+  if (paused == m_paused)
+    return;
+
+  SetSettingsIsPaused(paused);
+  m_paused = paused;
+}
+
 void GpsTracker::Clear()
 {
   m_track.Clear();
-}
-
-bool GpsTracker::IsEnabled() const
-{
-  return m_enabled;
 }
 
 bool GpsTracker::IsEmpty() const
@@ -90,7 +111,7 @@ void GpsTracker::Disconnect()
 
 void GpsTracker::OnLocationUpdated(location::GpsInfo const & info)
 {
-  if (!m_enabled)
+  if (!m_enabled || m_paused)
     return;
   m_track.AddPoint(info);
 }

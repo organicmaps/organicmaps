@@ -1067,3 +1067,15 @@
 "contribute_to_osm_update_map" = "Päivitä kartta osallistuaksesi";
 "contribute_to_osm_update_map_description" = "Sinun täytyy päivittää %@-kartta uusimpaan versioon ennen kuin voit osallistua OpenStreetMapin tietoihin";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Haluatko varmasti poistaa tämän nauhoituksen? Tietoja ei tallenneta.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Tauko";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Jatka";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Jatka reitin tallennusta";

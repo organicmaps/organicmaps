@@ -1067,3 +1067,15 @@
 "contribute_to_osm_update_map" = "עדכן את המפה כדי לתרום";
 "contribute_to_osm_update_map_description" = "עליך לעדכן את המפה של %@ לגרסה האחרונה לפני שתוכל לתרום לנתוני OpenStreetMap";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "האם אתה בטוח שברצונך למחוק את ההקלטה הזו? הנתונים לא יישמרו.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "השהה";
+
+/* The track recording action bar button title for resume. */
+"resume" = "המשך";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "המשך הקלטת המסלול";

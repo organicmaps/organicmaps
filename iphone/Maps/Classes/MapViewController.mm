@@ -300,7 +300,13 @@ NSString * const kSettingsSegue = @"Map2Settings";
 
 - (void)onMapObjectUpdated
 {
-  //  [self.controlsManager updatePlacePage];
+  if (!PlacePageData.hasData)
+  {
+    [self onMapObjectDeselected];
+    return;
+  }
+  PlacePageData * data = [[PlacePageData alloc] initWithLocalizationProvider:[[OpeinigHoursLocalization alloc] init]];
+  [self showOrUpdatePlacePage:data];
 }
 
 - (void)checkMaskedPointer:(UITouch *)touch withEvent:(df::TouchEvent &)e
@@ -1078,15 +1084,15 @@ NSString * const kSettingsSegue = @"Map2Settings";
             return;
           switch (state)
           {
-          case TrackRecordingStateInactive:
-            [self stopObservingTrackRecordingUpdates];
-            [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateClosed];
-            break;
-          case TrackRecordingStateActive:
+          case TrackRecordingStateDisabled: [self stopObservingTrackRecordingUpdates]; break;
+          case TrackRecordingStateRecording:
             if (UIApplication.sharedApplication.applicationState != UIApplicationStateActive)
               return;
             [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateHidden];
             [placePageData updateWithTrackInfo:trackInfo elevationInfo:elevationData()];
+            break;
+          case TrackRecordingStatePaused:
+            [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateHidden];
             break;
           }
         }];
@@ -1095,8 +1101,18 @@ NSString * const kSettingsSegue = @"Map2Settings";
 - (void)stopObservingTrackRecordingUpdates
 {
   [self.trackRecordingManager removeObserver:self];
-  if (self.trackRecordingManager.isActive)
-    [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateVisible];
+  switch (self.trackRecordingManager.recordingState)
+  {
+  case TrackRecordingStateDisabled:
+    [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateClosed];
+    break;
+  case TrackRecordingStateRecording:
+    [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateRecording];
+    break;
+  case TrackRecordingStatePaused:
+    [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStatePaused];
+    break;
+  }
 }
 
 // MARK: - Handle macOS trackpad gestures

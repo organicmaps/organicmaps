@@ -201,7 +201,7 @@ extension GlobalStyleSheet: IStyleSheet {
     case .trackRecordingWidgetButton:
       return .addFrom(Self.bottomTabBarButton) { s in
         s.cornerRadius = .custom(23)
-        s.coloring = .red
+        s.coloring = .gray
       }
     case .blackOpaqueBackground:
       return .add { s in
