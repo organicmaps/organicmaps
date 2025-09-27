@@ -131,6 +131,7 @@ HWTextureApple::~HWTextureApple()
 void HWTextureApple::Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data)
 {
   TBase::Create(context, params, data);
+  ASSERT(params.m_layerCount == 1, ("Not supported for OpenGL on iOS"));
 
   m_allocator = m_params.m_allocator;
   m_directBuffer = m_allocator->CVCreatePixelBuffer(m_params.m_width, m_params.m_height, params.m_format);
