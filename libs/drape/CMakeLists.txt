@@ -107,7 +107,6 @@ set(DRAPE_TESTABLE_SRC
   vertex_array_buffer.hpp
   viewport.cpp
   viewport.hpp
-  visual_scale.hpp
   vulkan/vulkan_base_context.cpp
   vulkan/vulkan_base_context.hpp
   vulkan/vulkan_context_factory.cpp
