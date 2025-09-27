@@ -53,7 +53,7 @@ public class SearchOnMapScreen extends BaseMapScreen implements SearchListener
 
   @NonNull
   @Override
-  public Template onGetTemplate()
+  protected Template onGetTemplateImpl()
   {
     final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
@@ -134,12 +134,14 @@ public class SearchOnMapScreen extends BaseMapScreen implements SearchListener
   @Override
   public void onStart(@NonNull LifecycleOwner owner)
   {
+    super.onStart(owner);
     SearchEngine.INSTANCE.addListener(this);
   }
 
   @Override
   public void onResume(@NonNull LifecycleOwner owner)
   {
+    super.onResume(owner);
     SearchEngine.INSTANCE.cancel();
 
     final MapObject location = MwmApplication.from(getCarContext()).getLocationHelper().getMyPosition();
@@ -154,6 +156,7 @@ public class SearchOnMapScreen extends BaseMapScreen implements SearchListener
   @Override
   public void onStop(@NonNull LifecycleOwner owner)
   {
+    super.onStop(owner);
     SearchEngine.INSTANCE.removeListener(this);
     SearchEngine.INSTANCE.cancel();
   }

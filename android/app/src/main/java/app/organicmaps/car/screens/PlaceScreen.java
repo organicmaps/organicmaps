@@ -68,7 +68,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
 
   @NonNull
   @Override
-  public Template onGetTemplate()
+  protected Template onGetTemplateImpl()
   {
     final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
@@ -80,6 +80,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   @Override
   public void onCreate(@NonNull LifecycleOwner owner)
   {
+    super.onCreate(owner);
     mRoutingController.restore();
     if (mRoutingController.isNavigating() && mRoutingController.getLastRouterType() == ROUTER)
     {
@@ -112,12 +113,14 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   @Override
   public void onResume(@NonNull LifecycleOwner owner)
   {
+    super.onResume(owner);
     mRoutingController.attach(this);
   }
 
   @Override
   public void onDestroy(@NonNull LifecycleOwner owner)
   {
+    super.onDestroy(owner);
     if (mRoutingController.isPlanning())
       mRoutingController.onSaveState();
     if (!mRoutingController.isNavigating())

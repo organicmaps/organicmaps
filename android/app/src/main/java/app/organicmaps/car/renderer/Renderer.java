@@ -16,7 +16,8 @@ import app.organicmaps.sdk.util.log.Logger;
 
 public abstract class Renderer implements DefaultLifecycleObserver
 {
-  private static final String TAG = Renderer.class.getSimpleName();
+  @NonNull
+  private final String TAG;
 
   private SurfaceCallback mSurfaceCallback;
 
@@ -46,6 +47,7 @@ public abstract class Renderer implements DefaultLifecycleObserver
   public Renderer(@NonNull CarContext carContext, @NonNull DisplayManager displayManager,
                   @NonNull LocationHelper locationHelper, @NonNull LifecycleOwner lifecycleOwner)
   {
+    TAG = getClass().getSimpleName();
     Logger.d(TAG, "SurfaceRenderer()");
     mIsRunning = true;
     mCarContext = carContext;

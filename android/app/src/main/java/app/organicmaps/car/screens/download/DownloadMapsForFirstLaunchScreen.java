@@ -23,6 +23,7 @@ class DownloadMapsForFirstLaunchScreen extends DownloadMapsScreen
   @Override
   public void onResume(@NonNull LifecycleOwner owner)
   {
+    super.onResume(owner);
     // Attempting to streamline initial download by including the current country in the list of missing maps for
     // simultaneous retrieval.
     final Location location = MwmApplication.from(getCarContext()).getLocationHelper().getSavedLocation();

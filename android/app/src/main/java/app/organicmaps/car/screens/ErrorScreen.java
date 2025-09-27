@@ -43,7 +43,7 @@ public class ErrorScreen extends BaseScreen implements UserActionRequired
 
   @NonNull
   @Override
-  public Template onGetTemplate()
+  protected Template onGetTemplateImpl()
   {
     final MessageTemplate.Builder builder = new MessageTemplate.Builder(getCarContext().getString(mErrorMessage));
 

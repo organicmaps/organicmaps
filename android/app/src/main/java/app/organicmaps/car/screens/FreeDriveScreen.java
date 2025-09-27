@@ -22,7 +22,7 @@ public class FreeDriveScreen extends BaseMapScreen
 
   @NonNull
   @Override
-  public Template onGetTemplate()
+  protected Template onGetTemplateImpl()
   {
     final NavigationTemplate.Builder builder = new NavigationTemplate.Builder();
     builder.setMapActionStrip(UiHelpers.createMapActionStrip(getCarContext(), getSurfaceRenderer()));
