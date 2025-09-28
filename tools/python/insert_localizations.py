@@ -4,12 +4,12 @@ import sys
 import xml.etree.ElementTree as ET
 
 # Android config
-android_base = "../../android/app/src/main/res"
-android_file = "strings.xml"
+android_base = "./android/sdk/src/main/res"
+android_file = "types_strings.xml"
 
 # iOS config
-ios_base = "../../iphone/Maps/LocalizedStrings"
-ios_file = "Localizable.strings"
+ios_base = "./iphone/Maps/LocalizedStrings"
+ios_file = "LocalizableTypes.strings"
 
 def parse_translations(text: str) -> dict:
     translations = {}
@@ -27,6 +27,16 @@ def android_folder_for_locale(locale: str) -> str:
     """
     if locale == "en":
         return "values"
+
+    if locale == "he":
+        locale = "iw"
+    elif locale == "id":
+        locale = "in"
+    elif locale == "zh-Hans":
+        locale = "zh"
+    elif locale == "zh-Hant":
+        locale = "zh-TW"
+
     if "-" in locale:
         lang, region = locale.split("-", 1)
         if len(region) == 2 and region.isalpha():
@@ -58,6 +68,9 @@ def update_android(key: str, translations: dict):
             if isinstance(node.tag, str) and node.tag == "string" and node.get("name") == key:
                 target = node
                 break
+
+        # Replace ' with \' unless it’s already escaped (i.e. preceded by \)
+        text = re.sub(r"(?<!\\)'", r"\\'", text)
 
         if target is not None:
             target.text = text
