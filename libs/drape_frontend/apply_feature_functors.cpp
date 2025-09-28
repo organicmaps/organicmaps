@@ -688,6 +688,11 @@ void ApplyAreaFeature::ProcessRule(AreaRuleProto const & areaRule, double areaDe
   params.m_tileCenter = m_params.m_tileRect.Center();
   params.m_depth = PriorityToDepth(areaRule.priority(), drule::area, areaDepth);
   params.m_color = ToDrapeColor(areaRule.color());
+  if (m_backgroundMode == dp::BackgroundMode::Satellite)
+  {
+    params.m_color = dp::Color(params.m_color.GetRed(), params.m_color.GetGreen(), params.m_color.GetBlue(),
+                               uint8_t(float(params.m_color.GetAlpha()) * 0.5f));
+  }
   params.m_rank = m_f.GetRank();
   params.m_minPosZ = m_minPosZ;
   params.m_posZ = m_posZ;
