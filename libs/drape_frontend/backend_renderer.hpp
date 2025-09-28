@@ -43,7 +43,8 @@ public:
            ref_ptr<dp::GraphicsContextFactory> factory, ref_ptr<dp::TextureManager> texMng,
            MapDataProvider const & model, TUpdateCurrentCountryFn const & updateCurrentCountryFn,
            ref_ptr<RequestedTiles> requestedTiles, bool allow3dBuildings, bool trafficEnabled, bool isolinesEnabled,
-           bool simplifiedTrafficColors, std::optional<Arrow3dCustomDecl> arrow3dCustomDecl,
+           bool simplifiedTrafficColors, dp::BackgroundMode backgroundMode,
+           std::optional<Arrow3dCustomDecl> arrow3dCustomDecl,
            OnGraphicsContextInitialized const & onGraphicsContextInitialized)
       : BaseRenderer::Params(apiVersion, commutator, factory, texMng, onGraphicsContextInitialized)
       , m_model(model)
@@ -53,6 +54,7 @@ public:
       , m_trafficEnabled(trafficEnabled)
       , m_isolinesEnabled(isolinesEnabled)
       , m_simplifiedTrafficColors(simplifiedTrafficColors)
+      , m_backgroundMode(backgroundMode)
       , m_arrow3dCustomDecl(std::move(arrow3dCustomDecl))
     {}
 
@@ -63,6 +65,7 @@ public:
     bool m_trafficEnabled;
     bool m_isolinesEnabled;
     bool m_simplifiedTrafficColors;
+    dp::BackgroundMode m_backgroundMode;
     std::optional<Arrow3dCustomDecl> m_arrow3dCustomDecl;
   };
 

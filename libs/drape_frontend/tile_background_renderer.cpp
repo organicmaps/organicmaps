@@ -11,9 +11,10 @@ namespace df
 {
 TileBackgroundRenderer::TileBackgroundRenderer(
     MapDataProvider::TTileBackgroundReadFn && tileBackgroundReadFn,
-    MapDataProvider::TCancelTileBackgroundReadingFn && cancelTileBackgroundReadingFn)
+    MapDataProvider::TCancelTileBackgroundReadingFn && cancelTileBackgroundReadingFn, dp::BackgroundMode currentMode)
   : m_tileBackgroundReadFn(std::move(tileBackgroundReadFn))
   , m_cancelTileBackgroundReadingFn(std::move(cancelTileBackgroundReadingFn))
+  , m_currentMode(currentMode)
   , m_state(CreateRenderState(gpu::Program::TileBackground, DepthLayer::GeometryLayer))
   , m_stateArray(CreateRenderState(gpu::Program::TileBackgroundArray, DepthLayer::GeometryLayer))
   , m_instancing(std::make_unique<dp::Instancing>())

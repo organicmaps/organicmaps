@@ -293,7 +293,7 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s)
     isBuilding = false;
 
   ApplyAreaFeature apply(m_applyParams, f, s.m_captionDescriptor, isBuilding, m_isMwmBorder(types),
-                         areaMinHeight /* minPosZ */, areaHeight /* posZ */);
+                         areaMinHeight /* minPosZ */, areaHeight /* posZ */, m_context->GetBackgroundMode());
 
   if (!skipTriangles && (s.m_areaRule || s.m_hatchingRule))
   {

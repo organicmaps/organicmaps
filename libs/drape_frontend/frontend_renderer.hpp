@@ -95,7 +95,8 @@ public:
            ModelViewChangedHandler && modelViewChangedHandler, TapEventInfoHandler && tapEventHandler,
            UserPositionChangedHandler && positionChangedHandler, ref_ptr<RequestedTiles> requestedTiles,
            OverlaysShowStatsCallback && overlaysShowStatsCallback, bool allow3dBuildings, bool trafficEnabled,
-           bool blockTapEvents, std::vector<PostprocessRenderer::Effect> && enabledEffects,
+           bool blockTapEvents, dp::BackgroundMode backgroundMode,
+           std::vector<PostprocessRenderer::Effect> && enabledEffects,
            OnGraphicsContextInitialized const & onGraphicsContextInitialized,
            dp::RenderInjectionHandler && renderInjectionHandler,
            MapDataProvider::TTileBackgroundReadFn && tileBackgroundReadFn,
@@ -111,6 +112,7 @@ public:
       , m_allow3dBuildings(allow3dBuildings)
       , m_trafficEnabled(trafficEnabled)
       , m_blockTapEvents(blockTapEvents)
+      , m_backgroundMode(backgroundMode)
       , m_enabledEffects(std::move(enabledEffects))
       , m_renderInjectionHandler(std::move(renderInjectionHandler))
       , m_tileBackgroundReadFn(std::move(tileBackgroundReadFn))
@@ -127,6 +129,7 @@ public:
     bool m_allow3dBuildings;
     bool m_trafficEnabled;
     bool m_blockTapEvents;
+    dp::BackgroundMode m_backgroundMode;
     std::vector<PostprocessRenderer::Effect> m_enabledEffects;
     dp::RenderInjectionHandler m_renderInjectionHandler;
     MapDataProvider::TTileBackgroundReadFn m_tileBackgroundReadFn;

@@ -77,11 +77,12 @@ class ApplyAreaFeature : public ApplyPointFeature
 
 public:
   ApplyAreaFeature(Params const & params, FeatureType & f, CaptionDescription const & captions, bool isBuilding,
-                   bool isMwmBorder, float minPosZ, float posZ)
+                   bool isMwmBorder, float minPosZ, float posZ, dp::BackgroundMode backgroundMode)
     : TBase(params, f, captions)
     , m_minPosZ(minPosZ)
     , m_isBuilding(isBuilding)
     , m_isMwmBorder(isMwmBorder)
+    , m_backgroundMode(backgroundMode)
   {
     m_posZ = posZ;
   }
@@ -137,6 +138,7 @@ private:
   float const m_minPosZ;
   bool const m_isBuilding;
   bool const m_isMwmBorder;
+  dp::BackgroundMode const m_backgroundMode;
 };
 
 class ApplyLineFeatureGeometry : public BaseApplyFeature

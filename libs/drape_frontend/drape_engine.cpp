@@ -80,14 +80,14 @@ DrapeEngine::DrapeEngine(Params && params)
       std::move(mpParams), m_viewport, std::bind(&DrapeEngine::ModelViewChanged, this, _1),
       std::bind(&DrapeEngine::TapEvent, this, _1), std::bind(&DrapeEngine::UserPositionChanged, this, _1, _2),
       make_ref(m_requestedTiles), std::move(params.m_overlaysShowStatsCallback), params.m_allow3dBuildings,
-      params.m_trafficEnabled, params.m_blockTapEvents, std::move(effects), params.m_onGraphicsContextInitialized,
-      std::move(params.m_renderInjectionHandler), params.m_model.ReadTileBackgroundFn(),
-      params.m_model.CancelTileBackgroundReadingFn());
+      params.m_trafficEnabled, params.m_blockTapEvents, params.m_backgroundMode, std::move(effects),
+      params.m_onGraphicsContextInitialized, std::move(params.m_renderInjectionHandler),
+      params.m_model.ReadTileBackgroundFn(), params.m_model.CancelTileBackgroundReadingFn());
 
   BackendRenderer::Params brParams(params.m_apiVersion, frParams.m_commutator, frParams.m_oglContextFactory,
                                    frParams.m_texMng, params.m_model, params.m_model.UpdateCurrentCountryFn(),
                                    make_ref(m_requestedTiles), params.m_allow3dBuildings, params.m_trafficEnabled,
-                                   params.m_isolinesEnabled, params.m_simplifiedTrafficColors,
+                                   params.m_isolinesEnabled, params.m_simplifiedTrafficColors, params.m_backgroundMode,
                                    std::move(params.m_arrow3dCustomDecl), params.m_onGraphicsContextInitialized);
 
   m_backend = make_unique_dp<BackendRenderer>(std::move(brParams));
@@ -951,7 +951,7 @@ void DrapeEngine::SetTileBackgroundData(df::TileKey const & tileKey, uint32_t wi
 
 void DrapeEngine::SetTileBackgroundMode(dp::BackgroundMode mode)
 {
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread, make_unique_dp<SetTileBackgroundModeMessage>(mode),
-                                  MessagePriority::Normal);
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<SetTileBackgroundModeMessage>(mode), MessagePriority::Normal);
 }
 }  // namespace df

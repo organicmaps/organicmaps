@@ -28,7 +28,8 @@ class TileBackgroundRenderer final
 {
 public:
   TileBackgroundRenderer(MapDataProvider::TTileBackgroundReadFn && tileBackgroundReadFn,
-                         MapDataProvider::TCancelTileBackgroundReadingFn && cancelTileBackgroundReadingFn);
+                         MapDataProvider::TCancelTileBackgroundReadingFn && cancelTileBackgroundReadingFn,
+                         dp::BackgroundMode currentMode);
 
   void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
               int zoomLevel, FrameValues const & frameValues);
