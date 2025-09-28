@@ -6,20 +6,18 @@
 
 #include <string>
 
-#include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 
-using namespace osm;
-
 namespace qt
 {
 char const * kTokenKeySetting = "OsmTokenKey";
 char const * kTokenSecretSetting = "OsmTokenSecret";
 char const * kLoginDialogTitle = "OpenStreetMap Login";
+char const * kOsmLoginSetting = "OsmLogin";
 char const * kOauthTokenSetting = "OsmOauthToken";
 
 OsmAuthDialog::OsmAuthDialog(QWidget * parent)
@@ -35,6 +33,8 @@ OsmAuthDialog::OsmAuthDialog(QWidget * parent)
   loginLineEdit->setObjectName("login");
   if (!isLoginDialog)
     loginLineEdit->setEnabled(false);
+  if (std::string login; settings::Get(kOsmLoginSetting, login))
+    loginLineEdit->setText(login.c_str());
   loginRow->addWidget(loginLineEdit);
   vLayout->addLayout(loginRow);
 
@@ -50,6 +50,7 @@ OsmAuthDialog::OsmAuthDialog(QWidget * parent)
 
   QPushButton * actionButton = new QPushButton(isLoginDialog ? tr("Login") : tr("Logout"));
   actionButton->setObjectName("button");
+  actionButton->setDefault(true);
   connect(actionButton, &QAbstractButton::clicked, this, &OsmAuthDialog::OnAction);
 
   QPushButton * closeButton = new QPushButton(tr("Close"));
@@ -62,6 +63,12 @@ OsmAuthDialog::OsmAuthDialog(QWidget * parent)
 
   setLayout(vLayout);
   setWindowTitle(tr(kLoginDialogTitle));
+}
+
+OsmAuthDialog::~OsmAuthDialog()
+{
+  if (m_authThread.joinable())
+    m_authThread.join();
 }
 
 void SwitchToLogin(QDialog * dlg)
@@ -81,51 +88,64 @@ void SwitchToLogout(QDialog * dlg)
 
 void OsmAuthDialog::OnAction()
 {
-  bool const isLoginDialog = findChild<QPushButton *>("button")->text() == tr("Login");
-  if (isLoginDialog)
+  auto actionButton = findChild<QPushButton *>("button");
+  bool const isLoginDialog = actionButton->text() == tr("Login");
+  if (!isLoginDialog)
   {
-    std::string const login = findChild<QLineEdit *>("login")->text().toStdString();
-    std::string const password = findChild<QLineEdit *>("password")->text().toStdString();
+    settings::Set(kOauthTokenSetting, std::string());
+    SwitchToLogin(this);
+    return;
+  }
 
-    if (login.empty())
-    {
-      setWindowTitle("Please enter Login");
-      return;
-    }
+  std::string const login = findChild<QLineEdit *>("login")->text().toStdString();
+  std::string const password = findChild<QLineEdit *>("password")->text().toStdString();
 
-    if (password.empty())
-    {
-      setWindowTitle("Please enter Password");
-      return;
-    }
+  if (login.empty())
+  {
+    setWindowTitle("Please enter Login");
+    return;
+  }
 
-    OsmOAuth auth = osm::OsmOAuth::ServerAuth();
+  settings::Set(kOsmLoginSetting, login);
+
+  if (password.empty())
+  {
+    setWindowTitle("Please enter Password");
+    return;
+  }
+
+  // Avoid running several logins in parallel.
+  actionButton->setEnabled(false);
+
+  // Clean up previous instance.
+  if (m_authThread.joinable())
+    m_authThread.join();
+  // Main thread is blocked in dialog and hangs the UI when calling synchronous HTTP request without additional thread.
+  m_authThread = std::thread([this, actionButton, login, password]
+  {
+    auto auth = osm::OsmOAuth::ServerAuth();
+    std::function<void()> runOnMainThread;
     try
     {
       if (auth.AuthorizePassword(login, password))
       {
         auto const token = auth.GetAuthToken();
         settings::Set(kOauthTokenSetting, token);
-
-        SwitchToLogout(this);
+        runOnMainThread = [this]() { SwitchToLogout(this); };
       }
       else
-      {
-        setWindowTitle("Auth failed: invalid login or password");
-        return;
-      }
+        runOnMainThread = [this]() { setWindowTitle("Auth failed: invalid login or password"); };
     }
     catch (std::exception const & ex)
     {
-      setWindowTitle((std::string("Auth failed: ") + ex.what()).c_str());
-      return;
+      auto const title = std::string("Auth failed: ") + ex.what();
+      runOnMainThread = [this, title]() { setWindowTitle(title.c_str()); };
     }
-  }
-  else
-  {
-    settings::Set(kOauthTokenSetting, std::string());
-
-    SwitchToLogin(this);
-  }
+    QMetaObject::invokeMethod(this, [actionButton, runOnMainThread = std::move(runOnMainThread)]()
+    {
+      actionButton->setEnabled(true);
+      runOnMainThread();
+    }, Qt::QueuedConnection);
+  });
 }
 }  // namespace qt
