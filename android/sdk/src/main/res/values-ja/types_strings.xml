@@ -1302,4 +1302,7 @@
     <string name="type.amenity.dojo">道場</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">スポーツホール</string>
+    <string name="type.barrier.jersey_barrier">ブロック</string>
+    <string name="type.barrier.debris">がれき</string>
+    <string name="type.barrier.log">丸太のバリケード</string>
 </resources>

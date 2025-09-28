@@ -1306,4 +1306,5 @@
     <string name="type.place.state">Estado</string>
     <string name="type.place.state.USA">Estado</string>
     <string name="type.place.town">Cidade</string>
+    <string name="type.barrier.log">Barreira de toras</string>
 </resources>

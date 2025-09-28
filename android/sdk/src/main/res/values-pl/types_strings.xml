@@ -1408,4 +1408,7 @@
     <string name="type.building.guardhouse">Strażnik</string>
     <string name="type.office.security">Biuro ochrony</string>
     <string name="type.shop.lighting">Sklep z oświetleniem</string>
+    <string name="type.barrier.jersey_barrier">Blok</string>
+    <string name="type.barrier.debris">Gruz</string>
+    <string name="type.barrier.log">Bariera z kłód</string>
 </resources>

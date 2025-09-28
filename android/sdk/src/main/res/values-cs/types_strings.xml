@@ -1411,4 +1411,7 @@
     <string name="type.office.security">Bezpečnostní agentura</string>
     <string name="type.power.portal">Energetická věž (portál)</string>
     <string name="type.shop.lighting">Obchod s osvětlením</string>
+    <string name="type.barrier.jersey_barrier">Blok</string>
+    <string name="type.barrier.debris">Sutiny</string>
+    <string name="type.barrier.log">Bariéra z kulatiny</string>
 </resources>

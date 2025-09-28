@@ -1409,4 +1409,7 @@
     <string name="type.leisure.escape_game">密室逃脱</string>
     <string name="type.railway.station.subway.qingdao">地铁站</string>
     <string name="type.amenity.ranger_station">护林站</string>
+    <string name="type.barrier.log">原木屏障</string>
+    <string name="type.barrier.debris">碎石</string>
+    <string name="type.barrier.jersey_barrier">块体</string>
 </resources>

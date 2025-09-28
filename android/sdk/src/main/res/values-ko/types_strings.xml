@@ -1183,4 +1183,7 @@
     <string name="type.amenity.dojo">도장</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">스포츠 홀</string>
+    <string name="type.barrier.jersey_barrier">블록</string>
+    <string name="type.barrier.debris">잔해</string>
+    <string name="type.barrier.log">통나무 장벽</string>
 </resources>

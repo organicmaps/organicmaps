@@ -1505,3 +1505,6 @@
 "type.office.security" = "Охрана";
 "type.power.portal" = "Опора (Портал)";
 "type.shop.lighting" = "Магазин освещения";
+"type.barrier.jersey_barrier" = "Блок";
+"type.barrier.debris" = "Завал";
+"type.barrier.log" = "Бревенчатый барьер";

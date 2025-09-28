@@ -1406,4 +1406,7 @@
     <string name="type.shop.lighting">Κατάστημα φωτιστικών</string>
     <string name="type.barrier.wicket_gate">Πόρτα πεζών</string>
     <string name="type.power.portal">Πυλώνας ρεύματος (πύλη)</string>
+    <string name="type.barrier.jersey_barrier">Μπλοκ</string>
+    <string name="type.barrier.debris">Συντρίμμια</string>
+    <string name="type.barrier.log">Εμπόδιο κορμών</string>
 </resources>

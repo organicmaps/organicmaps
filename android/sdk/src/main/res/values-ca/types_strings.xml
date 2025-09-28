@@ -1346,4 +1346,7 @@
     <string name="type.railway.station.subway.qingdao">Estació del metro</string>
     <string name="type.amenity.bicycle_parking.covered">Aparcament de bicicletes ensostrat</string>
     <string name="type.leisure.escape_game">Joc d’escapada</string>
+    <string name="type.barrier.jersey_barrier">Bloc</string>
+    <string name="type.barrier.debris">Enderrocs</string>
+    <string name="type.barrier.log">Barrera de troncs</string>
 </resources>

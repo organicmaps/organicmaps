@@ -1504,3 +1504,6 @@
 "type.office.security" = "Εταιρεία φύλαξης";
 "type.power.portal" = "Πυλώνας ρεύματος (πύλη)";
 "type.shop.lighting" = "Κατάστημα φωτιστικών";
+"type.barrier.jersey_barrier" = "Μπλοκ";
+"type.barrier.debris" = "Συντρίμμια";
+"type.barrier.log" = "Εμπόδιο κορμών";

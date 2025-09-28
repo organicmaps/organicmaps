@@ -1414,4 +1414,7 @@
     <string name="type.office.security">Güvenlik Bürosu</string>
     <string name="type.power.portal">Elektrik Kulesi (Geçit)</string>
     <string name="type.shop.lighting">Aydınlatma Mağazası</string>
+    <string name="type.barrier.jersey_barrier">Blok</string>
+    <string name="type.barrier.debris">Enkaz</string>
+    <string name="type.barrier.log">Kütük Bariyeri</string>
 </resources>

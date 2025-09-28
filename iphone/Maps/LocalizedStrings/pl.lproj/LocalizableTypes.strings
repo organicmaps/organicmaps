@@ -1504,3 +1504,6 @@
 "type.office.security" = "Biuro ochrony";
 "type.power.portal" = "Power Tower (Portal)";
 "type.shop.lighting" = "Sklep z oświetleniem";
+"type.barrier.jersey_barrier" = "Blok";
+"type.barrier.debris" = "Gruz";
+"type.barrier.log" = "Bariera z kłód";

@@ -1278,4 +1278,7 @@
     <string name="type.amenity.dojo">دوجو</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">الصالة الرياضية</string>
+    <string name="type.barrier.jersey_barrier">بلوك</string>
+    <string name="type.barrier.debris">حطام</string>
+    <string name="type.barrier.log">حاجز جذع شجرة</string>
 </resources>

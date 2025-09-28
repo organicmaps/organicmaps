@@ -1409,4 +1409,7 @@
     <string name="type.railway.station.subway.qingdao">Metro Station</string>
     <string name="type.amenity.ranger_station">Boswachtershuis</string>
     <string name="type.shop.lighting">Verlichtingswinkel</string>
+    <string name="type.barrier.jersey_barrier">Blok</string>
+    <string name="type.barrier.debris">Puin</string>
+    <string name="type.barrier.log">Boomstambarrière</string>
 </resources>

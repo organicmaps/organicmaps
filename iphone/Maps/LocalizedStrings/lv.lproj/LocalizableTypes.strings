@@ -1504,3 +1504,6 @@
 "type.office.security" = "Security Office";
 "type.power.portal" = "Power Tower (Portal)";
 "type.shop.lighting" = "Lighting Shop";
+"type.barrier.jersey_barrier" = "Bloks";
+"type.barrier.debris" = "Gruveši";
+"type.barrier.log" = "Baļķu barjera";

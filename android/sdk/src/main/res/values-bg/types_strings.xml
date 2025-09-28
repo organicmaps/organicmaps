@@ -785,4 +785,7 @@
     <string name="type.area_highway.steps">Стълби</string>
     <string name="type.junction">Разклонение</string>
     <string name="type.amenity.vending_machine.parking_tickets">Паркометър</string>
+    <string name="type.barrier.jersey_barrier">Блок</string>
+    <string name="type.barrier.debris">Отломки</string>
+    <string name="type.barrier.log">Бариера от дънери</string>
 </resources>
