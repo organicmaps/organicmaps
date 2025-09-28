@@ -3,8 +3,6 @@
 #include "coding/geometry_coding.hpp"
 #include "coding/writer.hpp"
 
-#include "geometry/robust_orientation.hpp"
-
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
