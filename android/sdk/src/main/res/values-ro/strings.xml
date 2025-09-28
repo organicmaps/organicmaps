@@ -25,4 +25,5 @@
     <string name="access_rules_author_only">Modifică online</string>
     <string name="gb">GB</string>
     <string name="mb">MB</string>
+    <string name="maps_storage_removable">Card SD</string>
 </resources>

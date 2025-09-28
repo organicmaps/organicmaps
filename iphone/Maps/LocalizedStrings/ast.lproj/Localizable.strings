@@ -52,7 +52,6 @@
 "bookmarks_export" = "Esportar tolos marcadores y trayeutos";
 "start_track_recording" = "Grabar trayeutu";
 "edit_track" = "Editar trayeutu";
-"track_recording_alert_title" = "¿Quies guardalu en Marcadores y trayeutos?";
 "details" = "Detalles";
 "add_street" = "Amestar una cai";
 "placepage_edit_bookmark_button" = "Editar marcador";
@@ -74,13 +73,11 @@
 "editor_time_advanced" = "Mou avanzáu";
 "km" = "km";
 "downloader_loading_ios" = "Baxando";
-"continue_recording" = "Siguir grabando";
 "stop_track_recording" = "Parar grabación del trayeutu";
 "hide" = "Anubrir";
 "category_pharmacy" = "Farmacia";
 "downloading" = "Baxando…";
 "kilometers_per_hour" = "km/h";
-"stop_without_saving" = "Parar ensin guardar";
 "location_services_disabled_header" = "Los servicios d’ubicación tán desactivaos";
 "downloader_no_space_message" = "Desanicia los datos imprecisos";
 "m" = "m";

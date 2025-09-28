@@ -557,9 +557,6 @@
 "recover_all" = "Recover All";
 "start_track_recording" = "Record Track";
 "stop_track_recording" = "Stop Track Recording";
-"stop_without_saving" = "Stop Without Saving";
-"continue_recording" = "Continue Recording";
-"track_recording_alert_title" = "Save into Bookmarks and Tracks?";
 "track_recording_toast_nothing_to_save" = "Track is empty - nothing to save";
 "edit_track" = "Edit Track";
 "saved" = "Saved";

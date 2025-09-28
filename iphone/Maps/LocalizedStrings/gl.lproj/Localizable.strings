@@ -554,9 +554,6 @@
 "recover_all" = "Recuperar todo";
 "start_track_recording" = "Gravar traxecto";
 "stop_track_recording" = "Deter gravación de traxecto";
-"stop_without_saving" = "Deter sen gardar";
-"continue_recording" = "Continuar gravación";
-"track_recording_alert_title" = "Gardar en Marcadores e traxectos?";
 "track_recording_toast_nothing_to_save" = "O traxecto está baleiro";
 "edit_track" = "Editar traxecto";
 "dialog_routing_disclaimer_precision" = "— O mapa pode ser impreciso e suxerir unha ruta que non sempre pode ser o mellor camiño para chegar ao destino;";
