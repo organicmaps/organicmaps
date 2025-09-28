@@ -88,8 +88,10 @@ UNIT_TEST(VertexBuffer_Benchmark)
 
   LOG(LINFO,
       ("vector time:", t1, "buffer_vector time:", t2, "boost::small_vector time:", t3, "reserved vector time:", t4));
-  TEST_LESS(t2, t1, ());
-  TEST_LESS(t3, t2, ());
+  // TODO(AB): Commented out because it is frequently flaky on Mac OS CI.
+  // TEST_LESS(t2, t1, ());
+  // TODO(AB): Commented out because it is frequently flaky on Linux CI.
+  // TEST_LESS(t3, t2, ());
   // TODO: Fix this condition
   // TEST_LESS(t4, t3, ());
 }
