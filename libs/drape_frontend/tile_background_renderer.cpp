@@ -192,7 +192,7 @@ void TileBackgroundRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_pt
         program->Bind();
         prevProgram = program;
       }
-      dp::ApplyState(context, program, m_state);
+      dp::ApplyState(context, program, state);
       mng->GetParamsSetter()->Apply(context, program, m_programParams);
 
       m_instancing->DrawInstancedTriangleStrip(context, instanceIndex + 1, 4);
