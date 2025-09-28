@@ -60,4 +60,6 @@ bool IsPointStrictlyInsideTriangle(m2::PointD const & pt, m2::PointD const & p1,
 bool IsPointInsideTriangles(m2::PointD const & pt, std::vector<m2::TriangleD> const & v);
 //@}
 
+bool IsIntersectTriangles(m2::PointD const * trg1, m2::PointD const * trg2);
+
 }  // namespace m2
