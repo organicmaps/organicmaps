@@ -1409,4 +1409,7 @@
     <string name="type.leisure.escape_game">Sala de escape</string>
     <string name="type.amenity.luggage_locker">Guardaequipaje</string>
     <string name="type.post_office.post_partner">Proveedor de servicios postales</string>
+    <string name="type.barrier.jersey_barrier">Bloque</string>
+    <string name="type.barrier.debris">Escombros</string>
+    <string name="type.barrier.log">Barrera de troncos</string>
 </resources>

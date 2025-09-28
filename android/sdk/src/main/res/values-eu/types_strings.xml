@@ -1280,4 +1280,7 @@
     <string name="type.leisure.slipway">Arrapala</string>
     <string name="type.leisure.track">Pista</string>
     <string name="type.leisure.track.area">Pista</string>
+    <string name="type.barrier.jersey_barrier">Blokea</string>
+    <string name="type.barrier.debris">Hondakinak</string>
+    <string name="type.barrier.log">Enbor hesia</string>
 </resources>

@@ -1181,4 +1181,7 @@
     <string name="type.amenity.dojo">โดโจ</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">ห้องกีฬา</string>
+    <string name="type.barrier.jersey_barrier">บล็อก</string>
+    <string name="type.barrier.debris">เศษซาก</string>
+    <string name="type.barrier.log">สิ่งกีดขวางท่อนไม้</string>
 </resources>

@@ -1504,3 +1504,6 @@
 "type.office.security" = "保全辦公室";
 "type.power.portal" = "H架電塔";
 "type.shop.lighting" = "Lighting Shop";
+"type.barrier.jersey_barrier" = "塊體";
+"type.barrier.debris" = "碎石";
+"type.barrier.log" = "原木屏障";

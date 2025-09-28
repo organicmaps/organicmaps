@@ -1411,4 +1411,7 @@
     <string name="type.building.guardhouse">Őrség</string>
     <string name="type.power.portal">Villanytorony (Portál)</string>
     <string name="type.shop.lighting">Világítástechnikai szaküzlet</string>
+    <string name="type.barrier.jersey_barrier">Tömb</string>
+    <string name="type.barrier.debris">Törmelék</string>
+    <string name="type.barrier.log">Rönk akadály</string>
 </resources>

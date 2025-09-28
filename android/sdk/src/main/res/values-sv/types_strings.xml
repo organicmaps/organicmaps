@@ -1342,4 +1342,7 @@
     <string name="type.leisure.hackerspace">Hackerspace</string>
     <string name="type.shop.kiosk">Kiosk</string>
     <string name="type.tourism.museum">Museum</string>
+    <string name="type.barrier.jersey_barrier">Block</string>
+    <string name="type.barrier.debris">Bråte</string>
+    <string name="type.barrier.log">Stockhinder</string>
 </resources>

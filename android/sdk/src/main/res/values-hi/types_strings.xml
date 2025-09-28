@@ -667,4 +667,7 @@
     <string name="type.amenity.dojo">डोजो</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">खेल हॉल</string>
+    <string name="type.barrier.jersey_barrier">ब्लॉक</string>
+    <string name="type.barrier.debris">मलबा</string>
+    <string name="type.barrier.log">लट्ठ अवरोध</string>
 </resources>

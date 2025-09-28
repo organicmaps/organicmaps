@@ -1247,4 +1247,7 @@
     <string name="type.aeroway">زیرساخت‌های حریم هوایی</string>
     <string name="type.cuisine.lebanese">لبنانی</string>
     <string name="type.landuse.salt_pond">نمک‌زار</string>
+    <string name="type.barrier.jersey_barrier">بلوک</string>
+    <string name="type.barrier.debris">آوار</string>
+    <string name="type.barrier.log">مانع تنه درخت</string>
 </resources>

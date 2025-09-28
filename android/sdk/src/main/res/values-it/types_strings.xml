@@ -1406,4 +1406,7 @@
     <string name="type.amenity.bicycle_parking.covered">Parcheggio biciclette coperto</string>
     <string name="type.amenity.ranger_station">Stazione forestale</string>
     <string name="type.amenity.luggage_locker">Deposito bagagli</string>
+    <string name="type.barrier.jersey_barrier">Blocco</string>
+    <string name="type.barrier.debris">Detriti</string>
+    <string name="type.barrier.log">Barriera di tronchi</string>
 </resources>

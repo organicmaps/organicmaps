@@ -152,4 +152,7 @@
     <string name="type.shop.car_repair">汽車維修店</string>
     <string name="type.shop.caravan">露營車經銷商</string>
     <string name="type.shop.copyshop">影印店</string>
+    <string name="type.barrier.log">原木屏障</string>
+    <string name="type.barrier.debris">碎石</string>
+    <string name="type.barrier.jersey_barrier">塊體</string>
 </resources>

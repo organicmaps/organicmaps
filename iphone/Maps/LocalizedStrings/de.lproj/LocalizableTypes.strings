@@ -1504,3 +1504,6 @@
 "type.office.security" = "Sicherheitsbüro";
 "type.power.portal" = "Hochspannungsmast (Portal)";
 "type.shop.lighting" = "Beleuchtungsgeschäft";
+"type.barrier.jersey_barrier" = "Block";
+"type.barrier.debris" = "Trümmer";
+"type.barrier.log" = "Stammbarriere";

@@ -1059,4 +1059,7 @@
     <string name="type.amenity.dojo">דוג\'ו</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">אולם ספורט</string>
+    <string name="type.barrier.log">מחסום גזע עץ</string>
+    <string name="type.barrier.debris">הריסות</string>
+    <string name="type.barrier.jersey_barrier">בלוק</string>
 </resources>

@@ -1167,4 +1167,7 @@
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Ruang olahraga</string>
     <string name="type.barrier.guard_rail">Захисна огорожа</string>
+    <string name="type.barrier.log">Rintangan Gelondongan</string>
+    <string name="type.barrier.debris">Puing</string>
+    <string name="type.barrier.jersey_barrier">Blok</string>
 </resources>

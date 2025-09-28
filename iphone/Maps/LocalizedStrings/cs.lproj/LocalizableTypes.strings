@@ -1504,3 +1504,6 @@
 "type.office.security" = "Bezpečnostní agentura";
 "type.power.portal" = "Energetická věž (portál)";
 "type.shop.lighting" = "Obchod s osvětlením";
+"type.barrier.jersey_barrier" = "Blok";
+"type.barrier.debris" = "Sutiny";
+"type.barrier.log" = "Bariéra z kulatiny";

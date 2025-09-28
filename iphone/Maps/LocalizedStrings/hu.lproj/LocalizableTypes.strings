@@ -1500,3 +1500,6 @@
 "type.office.security" = "Biztonsági őr irodája";
 "type.power.portal" = "Villanytorony (Portál)";
 "type.shop.lighting" = "Világítástechnikai szaküzlet";
+"type.barrier.jersey_barrier" = "Tömb";
+"type.barrier.debris" = "Törmelék";
+"type.barrier.log" = "Rönk akadály";

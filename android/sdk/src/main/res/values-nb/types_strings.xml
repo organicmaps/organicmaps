@@ -1192,4 +1192,7 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Idrettshall</string>
+    <string name="type.barrier.jersey_barrier">Blokk</string>
+    <string name="type.barrier.debris">Rusk</string>
+    <string name="type.barrier.log">Tømmerbarriere</string>
 </resources>

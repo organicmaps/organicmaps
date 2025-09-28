@@ -1504,3 +1504,6 @@
 "type.office.security" = "Офіс безпеки";
 "type.power.portal" = "Силова вежа (Портал)";
 "type.shop.lighting" = "Магазин освітлення";
+"type.barrier.jersey_barrier" = "Блок";
+"type.barrier.debris" = "Завали";
+"type.barrier.log" = "Бар'єр із колод";

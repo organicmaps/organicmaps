@@ -1169,4 +1169,7 @@
     <string name="type.aerialway.drag_lift">Telescaun</string>
     <string name="type.aerialway.gondola">Gondolă</string>
     <string name="type.aerialway.chair_lift">Telescaun</string>
+    <string name="type.barrier.jersey_barrier">Bloc</string>
+    <string name="type.barrier.debris">Moloz</string>
+    <string name="type.barrier.log">Barieră de bușteni</string>
 </resources>

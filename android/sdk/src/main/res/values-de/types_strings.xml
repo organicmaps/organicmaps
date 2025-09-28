@@ -1412,4 +1412,7 @@
     <string name="type.office.security">Sicherheitsbüro</string>
     <string name="type.power.portal">Hochspannungsmast (Portal)</string>
     <string name="type.shop.lighting">Beleuchtungsgeschäft</string>
+    <string name="type.barrier.jersey_barrier">Block</string>
+    <string name="type.barrier.debris">Trümmer</string>
+    <string name="type.barrier.log">Stammbarriere</string>
 </resources>

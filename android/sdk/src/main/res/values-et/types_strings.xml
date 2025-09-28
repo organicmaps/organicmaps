@@ -1414,4 +1414,7 @@
     <string name="type.building.guardhouse">Valvuriputka</string>
     <string name="type.barrier.yes">Barjäär</string>
     <string name="type.shop.lighting">Lambipood</string>
+    <string name="type.barrier.jersey_barrier">Plokk</string>
+    <string name="type.barrier.debris">Praht</string>
+    <string name="type.barrier.log">Palkide tõkkepuu</string>
 </resources>

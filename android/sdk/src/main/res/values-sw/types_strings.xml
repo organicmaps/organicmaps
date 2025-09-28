@@ -50,7 +50,6 @@
     <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Ukumbi wa Ufalme wa Mashahidi wa Yehova</string>
     <string name="type.amenity.post_office">Ofisi ya posta</string>
     <string name="type.amenity.prison">Jela</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.recycling.batteries">Betri</string>
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
@@ -122,7 +121,6 @@
     <string name="type.healthcare.psychotherapist">Tiba ya kisaikolojia</string>
     <string name="type.healthcare.sample_collection">Sampuli</string>
     <string name="type.healthcare.speech_therapist">Tiba ya hotuba</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Daraja</string>
@@ -231,7 +229,6 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Mtaro</string>
     <string name="type.area_highway.path">Njia</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Kitu cha kihistoria</string>
     <string name="type.historic.aircraft">Ndege ya kihistoria</string>
@@ -665,4 +662,7 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Ukumbi wa michezo</string>
+    <string name="type.barrier.jersey_barrier">Blocki</string>
+    <string name="type.barrier.debris">Mabaki</string>
+    <string name="type.barrier.log">Kizuizi cha magogo</string>
 </resources>

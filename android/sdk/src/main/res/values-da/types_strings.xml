@@ -1374,4 +1374,7 @@
     <string name="type.power.minor_line">Luftledning</string>
     <string name="type.power.station">Transformatorstation</string>
     <string name="type.man_made.utility_pole">Stolpe</string>
+    <string name="type.barrier.jersey_barrier">Blok</string>
+    <string name="type.barrier.debris">Affald</string>
+    <string name="type.barrier.log">Træbarriere</string>
 </resources>
