@@ -1,10 +1,7 @@
 #include "platform/servers_list.hpp"
 
-#include "platform/http_request.hpp"
-#include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
-#include "base/assert.hpp"
 #include "base/logging.hpp"
 
 #include "cppjansson/cppjansson.hpp"
