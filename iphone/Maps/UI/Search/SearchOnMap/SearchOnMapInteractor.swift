@@ -101,6 +101,7 @@ final class SearchOnMapInteractor: NSObject {
     switch result.itemType {
     case .regular:
       searchManager.save(query)
+      searchManager.showResult(at: result.index)
       return isiPad ? .none : .setSearchScreenHidden(true)
     case .suggestion:
       let suggestionQuery = SearchQuery(result.suggestion,
