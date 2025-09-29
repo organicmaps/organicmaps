@@ -76,12 +76,11 @@
     self.state = MWMNavigationDashboardStateReady;
 }
 
-- (void)onNavigationInfoUpdated
+- (void)onNavigationInfoUpdated:(MWMNavigationDashboardEntity *)entity
 {
   if (self.state == MWMNavigationDashboardStateClosed)
     return;
-  auto entity = self.entity;
-  if (!entity.isValid)
+  if (!entity)
     return;
   [self.navigationDashboardView onNavigationInfoUpdated:entity];
 }
@@ -155,13 +154,6 @@
     BottomTabBarViewController.controller.isHidden = state != MWMNavigationDashboardStateClosed;
 }
 
-- (MWMNavigationDashboardEntity *)entity
-{
-  if (!_entity)
-    _entity = [[MWMNavigationDashboardEntity alloc] init];
-  return _entity;
-}
-
 #pragma mark - State changes
 
 - (void)stateClosed
@@ -211,7 +203,7 @@
 - (void)stateNavigation
 {
   [self.navigationDashboardView stateNavigation];
-  [self onNavigationInfoUpdated];
+  [self onNavigationInfoUpdated:self.entity];
 }
 
 #pragma mark - MWMRoutePreviewDelegate

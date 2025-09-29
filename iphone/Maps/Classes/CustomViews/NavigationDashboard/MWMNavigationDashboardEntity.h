@@ -9,7 +9,6 @@
 @property(copy, nonatomic, readonly) NSString * targetUnits;
 @property(copy, nonatomic, readonly) NSString * turnUnits;
 @property(nonatomic, readonly) double speedLimitMps;
-@property(nonatomic, readonly) BOOL isValid;
 @property(nonatomic, readonly) CGFloat progress;
 @property(nonatomic, readonly) NSUInteger roundExitNumber;
 @property(nonatomic, readonly) NSUInteger timeToTarget;
