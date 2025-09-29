@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <attr name="shape" format="enum">
+    <enum name="circle" value="0" />
+    <enum name="square" value="1" />
+  </attr>
+
+  <!-- Default state colors -->
+  <attr name="backgroundColor" format="color" />
+  <attr name="outlineColor" format="color" />
+  <attr name="edgeColor" format="color" />
+  <attr name="contentColor" format="color" />
+
+  <!-- Alert state colors -->
+  <attr name="backgroundAlertColor" format="color" />
+  <attr name="outlineAlertColor" format="color" />
+  <attr name="edgeAlertColor" format="color" />
+  <attr name="contentAlertColor" format="color" />
+
+  <attr name="edgeWidthRatio" format="fraction" />
+  <attr name="outlineWidthRatio" format="fraction" />
+  <attr name="cornerRadiusRatio" format="fraction" />
+</resources>

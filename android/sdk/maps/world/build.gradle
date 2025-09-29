@@ -2,7 +2,8 @@ plugins {
   id 'com.android.library'
 }
 
+apply from: "${rootProject.rootDir}/config/common-config.gradle"
+
 android {
   namespace 'app.organicmaps.sdk.maps.world'
-  compileSdk = propCompileSdkVersion.toInteger()
 }

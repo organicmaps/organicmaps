@@ -1,0 +1,13 @@
+plugins {
+  id 'com.android.library'
+}
+
+apply from: "${rootProject.rootDir}/config/common-config.gradle"
+
+android {
+  namespace 'app.organicmaps.sdk.widgets.roadsign'
+}
+
+dependencies {
+  implementation 'androidx.annotation:annotation:1.9.1'
+}

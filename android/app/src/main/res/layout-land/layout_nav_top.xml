@@ -111,7 +111,7 @@
       app:lanesEditModeLanesCount="10"
       tools:visibility="visible" />
 
-  <app.organicmaps.widget.SpeedLimitView
+  <app.organicmaps.sdk.widgets.roadsign.SpeedLimitView
     android:id="@+id/nav_speed_limit"
     style="@style/MwmWidget.SpeedLimit"
     android:layout_width="60dp"
