@@ -105,6 +105,8 @@ public:
   /// @returns all localized POI types separated by kFieldsSeparator to display in UI.
   std::string GetLocalizedAllTypes(bool withMainType) const;
 
+  friend std::string DebugPrint(MapObject const & mo);
+
 protected:
   /// @returns "the best" single type to display in UI.
   std::string GetLocalizedType() const;

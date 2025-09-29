@@ -8,13 +8,10 @@
 
 #include "platform/preferred_languages.hpp"
 
-#include "base/control_flow.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <cmath>
 #include <regex>
-#include <sstream>
 
 namespace osm
 {
@@ -824,6 +821,11 @@ bool AreObjectsEqualIgnoringStreet(EditableMapObject const & lhs, EditableMapObj
     return false;
 
   return true;
+}
+
+std::string DebugPrint(EditableMapObject const & emo)
+{
+  return DebugPrint(static_cast<MapObject const &>(emo));
 }
 
 }  // namespace osm

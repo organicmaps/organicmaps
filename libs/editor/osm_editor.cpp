@@ -11,12 +11,10 @@
 #include "indexer/feature_source.hpp"
 #include "indexer/mwm_set.hpp"
 
-#include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/thread_checker.hpp"
 #include "base/timer.hpp"
 
@@ -25,7 +23,7 @@
 #include <sstream>
 
 #include <pugixml.hpp>
-#include <utility>
+
 #include "3party/opening_hours/opening_hours.hpp"
 
 namespace osm
@@ -213,7 +211,7 @@ bool Editor::Save(FeaturesContainer const & features) const
     xml_node const modified = mwmNode.append_child(kModifySection);
     xml_node const created = mwmNode.append_child(kCreateSection);
     xml_node const obsolete = mwmNode.append_child(kObsoleteSection);
-    for (auto & index : mwm.second)
+    for (auto const & index : mwm.second)
     {
       FeatureTypeInfo const & fti = index.second;
       // TODO: Do we really need to serialize deleted features in full details? Looks like mwm ID
@@ -258,7 +256,7 @@ bool Editor::SaveTransaction(std::shared_ptr<FeaturesContainer> const & features
 
 void Editor::ClearAllLocalEdits()
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, (""));
+  CHECK_THREAD_CHECKER(MainThreadChecker, ());
 
   SaveTransaction(make_shared<FeaturesContainer>());
   Invalidate();
@@ -272,28 +270,24 @@ void Editor::OnMapRegistered(platform::LocalCountryFile const &)
 
 FeatureStatus Editor::GetFeatureStatus(MwmId const & mwmId, uint32_t index) const
 {
-  auto const features = m_features.Get();
-  return GetFeatureStatusImpl(*features, mwmId, index);
+  return GetFeatureStatusImpl(*m_features.Get(), mwmId, index);
 }
 
 FeatureStatus Editor::GetFeatureStatus(FeatureID const & fid) const
 {
-  auto const features = m_features.Get();
-  return GetFeatureStatusImpl(*features, fid.m_mwmId, fid.m_index);
+  return GetFeatureStatusImpl(*m_features.Get(), fid.m_mwmId, fid.m_index);
 }
 
 bool Editor::IsFeatureUploaded(MwmId const & mwmId, uint32_t index) const
 {
-  auto const features = m_features.Get();
-  return IsFeatureUploadedImpl(*features, mwmId, index);
+  return IsFeatureUploadedImpl(*m_features.Get(), mwmId, index);
 }
 
 void Editor::DeleteFeature(FeatureID const & fid)
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, (""));
+  CHECK_THREAD_CHECKER(MainThreadChecker, ());
 
-  auto const features = m_features.Get();
-  auto editableFeatures = make_shared<FeaturesContainer>(*features);
+  auto editableFeatures = make_shared<FeaturesContainer>(*m_features.Get());
 
   auto const mwm = editableFeatures->find(fid.m_mwmId);
 
@@ -334,7 +328,7 @@ bool Editor::IsCreatedFeature(FeatureID const & fid)
 ///      either delete it or save and mark as `Modified' depending on upload status
 Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, (""));
+  CHECK_THREAD_CHECKER(MainThreadChecker, ());
 
   FeatureID const & fid = emo.GetID();
   FeatureTypeInfo fti;
@@ -426,7 +420,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
 
 bool Editor::RollBackChanges(FeatureID const & fid)
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, (""));
+  CHECK_THREAD_CHECKER(MainThreadChecker, ());
 
   if (IsFeatureUploaded(fid.m_mwmId, fid.m_index))
     return false;
@@ -579,20 +573,24 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
   if (m_notes->NotUploadedNotesCount())
     m_notes->Upload(OsmOAuth::ServerAuth(oauthToken));
 
-  auto const features = m_features.Get();
+  if (m_isUploadingNow)
+    return;
 
-  if (!HaveMapEditsToUpload(*features))
+  if (!HaveMapEditsToUpload(*m_features.Get()))
   {
     LOG(LDEBUG, ("There are no local edits to upload."));
     return;
   }
 
-  auto upload = [this](string secret, ChangesetTags tags, FinishUploadCallback callback)
+  m_isUploadingNow = true;
+
+  GetPlatform().RunTask(Platform::Thread::Network,
+                        [this, oauthToken, tags = std::move(tags), callback = std::move(callback)]()
   {
     int uploadedFeaturesCount = 0, errorsCount = 0;
-    ChangesetWrapper changeset(secret, std::move(tags));
-    auto const features = m_features.Get();
+    ChangesetWrapper changeset(oauthToken, std::move(tags));
 
+    auto const features = m_features.Get();
     for (auto const & id : *features)
     {
       if (!id.first.IsAlive())
@@ -612,8 +610,20 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
 
         // Don't use new editor for Legacy Objects
         auto const & journalHistory = fti.m_object.GetJournal().GetJournalHistory();
-        bool useNewEditor =
+        bool const useNewEditor =
             journalHistory.empty() || journalHistory.front().journalEntryType != JournalEntryType::LegacyObject;
+
+        auto const GetMapObject = [this](FeatureTypeInfo const & ti)
+        {
+          auto res = GetOriginalMapObject(ti.m_object.GetID());
+          if (!res)
+          {
+            LOG(LERROR, ("A feature:", ti.m_object, "cannot be loaded."));
+            GetPlatform().RunTask(Platform::Thread::Gui,
+                                  [this, id = ti.m_object.GetID()]() { RemoveFeatureIfExists(id); });
+          }
+          return res;
+        };
 
         try
         {
@@ -623,7 +633,7 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
 
             switch (fti.m_status)
             {
-            case FeatureStatus::Untouched: CHECK(false, ("It's impossible.")); continue;
+            case FeatureStatus::Untouched: CHECK(false, (fti.m_object)); continue;
             case FeatureStatus::Obsolete: continue;  // Obsolete features will be deleted by OSMers.
             case FeatureStatus::Created:             // fallthrough
             case FeatureStatus::Modified:
@@ -693,23 +703,20 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
 
               case EditingLifecycle::IN_SYNC:
               {
-                CHECK(false, ("Object already IN_SYNC should not be here"));
+                LOG(LERROR, ("IN_SYNC should not be here:", fti.m_object));
                 continue;
               }
               }
               break;
             }
             case FeatureStatus::Deleted:
-              auto const originalObjectPtr = GetOriginalMapObject(fti.m_object.GetID());
-              if (!originalObjectPtr)
-              {
-                LOG(LERROR, ("A feature with id", fti.m_object.GetID(), "cannot be loaded."));
-                GetPlatform().RunTask(Platform::Thread::Gui,
-                                      [this, fid = fti.m_object.GetID()]() { RemoveFeatureIfExists(fid); });
+            {
+              if (auto moPtr = GetMapObject(fti))
+                changeset.Delete(GetMatchingFeatureFromOSM(changeset, *moPtr));
+              else
                 continue;
-              }
-              changeset.Delete(GetMatchingFeatureFromOSM(changeset, *originalObjectPtr));
-              break;
+            }
+            break;
             }
           }
           else  // Use old editor
@@ -717,7 +724,7 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
             // Todo: Remove old editor after transition period
             switch (fti.m_status)
             {
-            case FeatureStatus::Untouched: CHECK(false, ("It's impossible.")); continue;
+            case FeatureStatus::Untouched: CHECK(false, (fti.m_object)); continue;
             case FeatureStatus::Obsolete: continue;  // Obsolete features will be deleted by OSMers.
             case FeatureStatus::Created:
             {
@@ -780,46 +787,41 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
               if (!fti.m_street.empty())
                 feature.SetTagValue(kAddrStreetTag, fti.m_street);
 
-              auto const originalObjectPtr = GetOriginalMapObject(fti.m_object.GetID());
-              if (!originalObjectPtr)
+              if (auto moPtr = GetMapObject(fti))
               {
-                LOG(LERROR, ("A feature with id", fti.m_object.GetID(), "cannot be loaded."));
-                GetPlatform().RunTask(Platform::Thread::Gui,
-                                      [this, fid = fti.m_object.GetID()]() { RemoveFeatureIfExists(fid); });
-                continue;
-              }
-
-              XMLFeature osmFeature = GetMatchingFeatureFromOSM(changeset, *originalObjectPtr);
-              XMLFeature const osmFeatureCopy = osmFeature;
-              osmFeature.ApplyPatch(feature);
-              // Check to avoid uploading duplicates into OSM.
-              if (osmFeature == osmFeatureCopy)
-              {
-                LOG(LWARNING, ("Local changes are equal to OSM, feature has not been uploaded.", osmFeatureCopy));
-                // Don't delete this local change right now for user to see it in profile.
-                // It will be automatically deleted by migration code on the next maps update.
+                XMLFeature osmFeature = GetMatchingFeatureFromOSM(changeset, *moPtr);
+                XMLFeature const osmFeatureCopy = osmFeature;
+                osmFeature.ApplyPatch(feature);
+                // Check to avoid uploading duplicates into OSM.
+                if (osmFeature == osmFeatureCopy)
+                {
+                  LOG(LWARNING, ("Local changes are equal to OSM, feature has not been uploaded.", osmFeatureCopy));
+                  // Don't delete this local change right now for user to see it in profile.
+                  // It will be automatically deleted by migration code on the next maps update.
+                }
+                else
+                {
+                  LOG(LDEBUG, ("Uploading patched feature", osmFeature));
+                  changeset.AddChangesetTag("info:old_editor", "yes");
+                  changeset.Modify(osmFeature);
+                }
               }
               else
-              {
-                LOG(LDEBUG, ("Uploading patched feature", osmFeature));
-                changeset.AddChangesetTag("info:old_editor", "yes");
-                changeset.Modify(osmFeature);
-              }
+                continue;
             }
             break;
 
             case FeatureStatus::Deleted:
-              auto const originalObjectPtr = GetOriginalMapObject(fti.m_object.GetID());
-              if (!originalObjectPtr)
+            {
+              if (auto moPtr = GetMapObject(fti))
               {
-                LOG(LERROR, ("A feature with id", fti.m_object.GetID(), "cannot be loaded."));
-                GetPlatform().RunTask(Platform::Thread::Gui,
-                                      [this, fid = fti.m_object.GetID()]() { RemoveFeatureIfExists(fid); });
-                continue;
+                changeset.AddChangesetTag("info:old_editor", "yes");
+                changeset.Delete(GetMatchingFeatureFromOSM(changeset, *moPtr));
               }
-              changeset.AddChangesetTag("info:old_editor", "yes");
-              changeset.Delete(GetMatchingFeatureFromOSM(changeset, *originalObjectPtr));
-              break;
+              else
+                continue;
+            }
+            break;
             }
           }
           uploadInfo.m_uploadStatus = kUploaded;
@@ -850,6 +852,7 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
           LOG(LWARNING, (ex.what()));
           changeset.SetErrorDescription(ex.Msg());
         }
+
         // TODO(AlexZ): Use timestamp from the server.
         uploadInfo.m_uploadAttemptTimestamp = time(nullptr);
 
@@ -872,24 +875,14 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
     }
 
     m_isUploadingNow = false;
-  };
-
-  // Do not run more than one uploading task at a time.
-  if (!m_isUploadingNow)
-  {
-    m_isUploadingNow = true;
-    GetPlatform().RunTask(Platform::Thread::Network, [upload = std::move(upload), oauthToken, tags = std::move(tags),
-                                                      callback = std::move(callback)]()
-    { upload(std::move(oauthToken), std::move(tags), std::move(callback)); });
-  }
+  });
 }
 
 void Editor::SaveUploadedInformation(FeatureID const & fid, UploadInfo const & uploadInfo)
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, (""));
+  CHECK_THREAD_CHECKER(MainThreadChecker, ());
 
-  auto const features = m_features.Get();
-  auto editableFeatures = make_shared<FeaturesContainer>(*features);
+  auto editableFeatures = make_shared<FeaturesContainer>(*m_features.Get());
 
   auto id = editableFeatures->find(fid.m_mwmId);
   // Rare case: feature was deleted at the time of changes uploading.
@@ -979,10 +972,9 @@ Editor::FeatureTypeInfo const * Editor::GetFeatureTypeInfo(FeaturesContainer con
 
 bool Editor::RemoveFeatureIfExists(FeatureID const & fid)
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, (""));
+  CHECK_THREAD_CHECKER(MainThreadChecker, ());
 
-  auto const features = m_features.Get();
-  auto editableFeatures = make_shared<FeaturesContainer>(*features);
+  auto editableFeatures = make_shared<FeaturesContainer>(*m_features.Get());
 
   auto matchedMwm = editableFeatures->find(fid.m_mwmId);
   if (matchedMwm == editableFeatures->end())
@@ -1006,10 +998,9 @@ void Editor::Invalidate()
 
 bool Editor::MarkFeatureAsObsolete(FeatureID const & fid)
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, (""));
+  CHECK_THREAD_CHECKER(MainThreadChecker, ());
 
-  auto const features = m_features.Get();
-  auto editableFeatures = make_shared<FeaturesContainer>(*features);
+  auto editableFeatures = make_shared<FeaturesContainer>(*m_features.Get());
 
   auto const featureStatus = GetFeatureStatusImpl(*editableFeatures, fid.m_mwmId, fid.m_index);
   if (featureStatus != FeatureStatus::Untouched && featureStatus != FeatureStatus::Modified)
@@ -1027,7 +1018,7 @@ bool Editor::MarkFeatureAsObsolete(FeatureID const & fid)
 
 bool Editor::RemoveFeature(FeatureID const & fid)
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, (""));
+  CHECK_THREAD_CHECKER(MainThreadChecker, ());
 
   auto const result = RemoveFeatureIfExists(fid);
 
@@ -1071,7 +1062,7 @@ NewFeatureCategories Editor::GetNewFeatureCategories() const
 
 FeatureID Editor::GenerateNewFeatureId(FeaturesContainer const & features, MwmId const & id) const
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, (""));
+  CHECK_THREAD_CHECKER(MainThreadChecker, ());
 
   uint32_t featureIndex = feature::FakeFeatureIds::kEditorCreatedFeaturesStart;
 
@@ -1110,7 +1101,7 @@ bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmId const
 void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid, feature::TypesHolder const & holder,
                         std::string_view defaultName, NoteProblemType type, std::string_view note)
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, (""));
+  CHECK_THREAD_CHECKER(MainThreadChecker, ());
 
   std::ostringstream sstr;
   auto canCreate = true;
@@ -1162,13 +1153,13 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid, featur
 
 void Editor::CreateStandaloneNote(ms::LatLon const & latLon, std::string const & noteText)
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, (""));
+  CHECK_THREAD_CHECKER(MainThreadChecker, ());
   m_notes->CreateNote(latLon, noteText + "\n");
 }
 
 void Editor::MarkFeatureWithStatus(FeaturesContainer & editableFeatures, FeatureID const & fid, FeatureStatus status)
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, (""));
+  CHECK_THREAD_CHECKER(MainThreadChecker, ());
 
   auto & fti = editableFeatures[fid.m_mwmId][fid.m_index];
 

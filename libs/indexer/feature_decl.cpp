@@ -1,8 +1,6 @@
 #include "indexer/feature_decl.hpp"
 
-#include "std/boost_container_hash.hpp"
-
-#include <sstream>
+#include <boost/container_hash/hash.hpp>
 
 namespace feature
 {

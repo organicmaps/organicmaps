@@ -55,8 +55,8 @@ enum class EditingLifecycle
 
 class EditJournal
 {
-  std::list<JournalEntry> m_journal{};
-  std::list<JournalEntry> m_journalHistory{};
+  std::list<JournalEntry> m_journal;
+  std::list<JournalEntry> m_journalHistory;
 
 public:
   std::list<JournalEntry> const & GetJournal() const;

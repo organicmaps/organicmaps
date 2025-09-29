@@ -252,4 +252,9 @@ bool MapObject::IsPublicTransportStop() const
   return ftypes::IsPublicTransportStopChecker::Instance()(m_types);
 }
 
+std::string DebugPrint(MapObject const & mo)
+{
+  return DebugPrint(mo.m_featureID);
+}
+
 }  // namespace osm

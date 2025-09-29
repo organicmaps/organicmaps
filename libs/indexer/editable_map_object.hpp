@@ -154,6 +154,8 @@ public:
   /// Compares editable fields connected with feature ignoring street.
   friend bool AreObjectsEqualIgnoringStreet(EditableMapObject const & lhs, EditableMapObject const & rhs);
 
+  friend std::string DebugPrint(EditableMapObject const & emo);
+
 private:
   LocalizedStreet m_street;
   std::vector<LocalizedStreet> m_nearbyStreets;
