@@ -1067,3 +1067,15 @@
 "contribute_to_osm_update_map" = "Eguneratu mapa laguntzeko";
 "contribute_to_osm_update_map_description" = "OpenStreetMap datuetan lagundu ahal izateko, %@ mapa azken bertsiora eguneratu behar duzu";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Ziur zaude grabazio hau ezabatu nahi duzula? Datuak ez dira gordeko.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Pausatu";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Berrekin";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Jarraitu ibilbidearen grabazioa";

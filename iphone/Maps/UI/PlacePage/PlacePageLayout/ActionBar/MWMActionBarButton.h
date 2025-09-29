@@ -4,6 +4,8 @@ typedef NS_ENUM(NSInteger, MWMActionBarButtonType) {
   MWMActionBarButtonTypeBookmark,
   MWMActionBarButtonTypeTrack,
   MWMActionBarButtonTypeSaveTrackRecording,
+  MWMActionBarButtonTypeDeleteTrackRecording,
+  MWMActionBarButtonTypePauseTrackRecording,
   MWMActionBarButtonTypeCall,
   MWMActionBarButtonTypeDownload,
   MWMActionBarButtonTypeMore,

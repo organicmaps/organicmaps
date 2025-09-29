@@ -1067,3 +1067,15 @@
 "contribute_to_osm_update_map" = "Töhfə vermək üçün xəritəni yenilə";
 "contribute_to_osm_update_map_description" = "OpenStreetMap məlumatlarına töhfə verməzdən əvvəl %@ xəritəsini ən son versiyaya yeniləməlisiniz";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Bu qeydi silmək istədiyinizə əminsinizmi? Məlumatlar yadda saxlanılmayacaq.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Fasilə ver";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Davam et";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Marşrut yazımına davam et";

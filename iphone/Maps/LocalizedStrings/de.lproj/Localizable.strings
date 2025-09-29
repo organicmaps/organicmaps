@@ -1071,3 +1071,15 @@
 "contribute_to_osm_update_map" = "Aktualisiere die Karte, um beizutragen";
 "contribute_to_osm_update_map_description" = "Sie müssen die %@-Karte auf die neueste Version aktualisieren, bevor Sie zu den OpenStreetMap-Daten beitragen können";
 "placepage_replace_stop" = "Stopp ersetzen";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Möchten Sie diese Aufnahme wirklich löschen? Die Daten werden nicht gespeichert.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Pause";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Fortsetzen";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Track-Aufzeichnung fortsetzen";

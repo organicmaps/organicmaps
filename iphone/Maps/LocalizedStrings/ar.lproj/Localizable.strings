@@ -1067,3 +1067,15 @@
 "contribute_to_osm_update_map_description" = "يجب عليك تحديث خريطة %@ إلى أحدث إصدار قبل أن تتمكن من المساهمة في بيانات OpenStreetMap";
 "placepage_replace_stop" = "Replace Stop";
 "show_to_the_right" = "Show to the right";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "هل أنت متأكد أنك تريد حذف هذا التسجيل؟ لن يتم حفظ البيانات.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "إيقاف مؤقت";
+
+/* The track recording action bar button title for resume. */
+"resume" = "استئناف";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "استئناف تسجيل المسار";

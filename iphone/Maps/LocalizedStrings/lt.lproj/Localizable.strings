@@ -1067,3 +1067,15 @@
 "contribute_to_osm_update_map" = "Atnaujinti žemėlapį, kad prisidėtumėte";
 "contribute_to_osm_update_map_description" = "Prieš prisidėdami prie OpenStreetMap duomenų, turite atnaujinti %@ žemėlapį į naujausią versiją";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Ar tikrai norite ištrinti šį įrašą? Duomenys nebus išsaugoti.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Pristabdyti";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Tęsti";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Tęsti maršruto įrašymą";

@@ -122,7 +122,8 @@ std::map<GeoMode, GeoModeSettings> const kGeoSettings{
 
 BOOL keepRunningInBackground()
 {
-  if (GpsTracker::Instance().IsEnabled())
+  auto const & tracker = GpsTracker::Instance();
+  if (tracker.IsEnabled() && !tracker.IsPaused())
     return YES;
 
   auto const isOnRoute = [MWMRouter isOnRoute];

@@ -1689,9 +1689,15 @@ void Framework::StopTrackRecording()
   m_connectToGpsTrack = false;
   auto & tracker = GpsTracker::Instance();
   tracker.Disconnect();
+  tracker.SetPaused(false);
   tracker.SetEnabled(false);
   if (m_drapeEngine)
     m_drapeEngine->ClearGpsTrackPoints();
+}
+
+void Framework::SetTrackRecordingPaused(bool paused)
+{
+  GpsTracker::Instance().SetPaused(paused);
 }
 
 void Framework::SaveTrackRecordingWithName(std::string const & name)
@@ -1711,6 +1717,11 @@ bool Framework::IsTrackRecordingEmpty() const
 bool Framework::IsTrackRecordingEnabled() const
 {
   return GpsTracker::Instance().IsEnabled();
+}
+
+bool Framework::IsTrackRecordingPaused() const
+{
+  return GpsTracker::Instance().IsPaused();
 }
 
 void Framework::SaveRoute()

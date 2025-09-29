@@ -1067,3 +1067,15 @@
 "contribute_to_osm_update_map" = "Aġġorna l-mappa biex tikkontribwixxi";
 "contribute_to_osm_update_map_description" = "Trid taġġorna l-mappa %@ għall-aħħar verżjoni qabel ma tkun tista' tikkontribwixxi għad-data ta' OpenStreetMap";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Żgur li trid tħassar din ir-reġistrazzjoni? Id-dejta mhux se tiġi salvata.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Pawsa";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Erġa ibda";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Erġa ibda r-reġistrazzjoni tat-traċċa";

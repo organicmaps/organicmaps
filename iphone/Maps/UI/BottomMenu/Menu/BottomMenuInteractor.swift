@@ -96,9 +96,9 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
     close()
     let mapViewController = MapViewController.shared()!
     switch trackRecorder.recordingState {
-    case .active:
+    case .recording:
       mapViewController.showTrackRecordingPlacePage()
-    case .inactive:
+    case .disabled:
       trackRecorder.start { result in
         switch result {
         case .success:
@@ -107,6 +107,9 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
           break
         }
       }
+    case .paused:
+      trackRecorder.setPaused(false)
+      mapViewController.showTrackRecordingPlacePage()
     }
   }
 }

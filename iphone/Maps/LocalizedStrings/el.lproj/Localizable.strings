@@ -1067,3 +1067,15 @@
 "contribute_to_osm_update_map" = "Ενημερώστε τον χάρτη για να συνεισφέρετε";
 "contribute_to_osm_update_map_description" = "Πρέπει να ενημερώσετε τον χάρτη %@ στην πιο πρόσφατη έκδοση πριν μπορέσετε να συνεισφέρετε στα δεδομένα του OpenStreetMap";
 "placepage_replace_stop" = "Replace Stop";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτήν την εγγραφή";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Παύση";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Συνέχιση";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Συνέχιση καταγραφής διαδρομής";

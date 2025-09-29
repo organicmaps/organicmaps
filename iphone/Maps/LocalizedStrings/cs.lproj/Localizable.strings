@@ -1067,3 +1067,15 @@
 "contribute_to_osm_update_map" = "Aktualizujte mapu pro příspěvek";
 "contribute_to_osm_update_map_description" = "Musíte aktualizovat mapu %@ na nejnovější verzi, než budete moci přispět do dat OpenStreetMap";
 "placepage_replace_stop" = "Nahradit zastávku";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Opravdu chcete smazat toto nahrávání? Data nebudou uložena.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Pozastavit";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Pokračovat";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Pokračovat v záznamu trasy";

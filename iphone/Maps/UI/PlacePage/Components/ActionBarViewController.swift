@@ -43,16 +43,13 @@ final class ActionBarViewController: UIViewController {
         fatalError()
       }
     } else {
-      configButton1()
-      configButton2()
-      configButton3()
-      configButton4()
+      configDefaultButtons()
     }
 
     setupButtonsState()
   }
 
-  private func configButton1() {
+  private func configDefaultButtons() {
     if let mapNodeAttributes = placePageData.mapNodeAttributes {
       switch mapNodeAttributes.nodeStatus {
       case .onDiskOutOfDate, .onDisk, .undefined:
@@ -66,72 +63,46 @@ final class ActionBarViewController: UIViewController {
 
     var buttons: [ActionBarButtonType] = []
     switch placePageData.objectType {
-    case .POI, .bookmark, .track:
-      if isRoutePlanning && canRouteToAndFrom {
+    case .POI, .bookmark:
+      if canRouteToAndFrom {
         buttons.append(.routeFrom)
       }
-      let hasAnyPhones = !(placePageData.infoData?.phones ?? []).isEmpty
-      if hasAnyPhones, AppInfo.shared().canMakeCalls {
-        buttons.append(.call)
+      if canAddStop {
+        buttons.append(canReplaceStop ? .routeReplaceStop : .routeAddStop)
       }
-      if !isRoutePlanning && canRouteToAndFrom {
+      buttons.append(.bookmark)
+      if canRouteToAndFrom {
+        buttons.append(.routeTo)
+      }
+    case .track:
+      if canRouteToAndFrom {
         buttons.append(.routeFrom)
       }
+      if canAddStop {
+        buttons.append(.routeAddStop)
+      }
+      buttons.append(.bookmark)
+      if canRouteToAndFrom {
+        buttons.append(.routeTo)
+      }
+      buttons.append(.track)
     case .trackRecording:
-      break
+      buttons.append(.deleteTrackRecording)
+      buttons.append(.saveTrackRecording)
+	  buttons.append(.pauseTrackRecording)
     @unknown default:
       fatalError()
     }
 
     guard !buttons.isEmpty else { return }
-    visibleButtons.append(buttons[0])
-    if buttons.count > 1 {
-      additionalButtons.append(contentsOf: buttons.suffix(from: 1))
+    let maxVisibleButtons = 5
+    if buttons.count > maxVisibleButtons {
+      visibleButtons.append(contentsOf: buttons.prefix(maxVisibleButtons - 1))
+      visibleButtons.append(.more)
+      additionalButtons.append(contentsOf: buttons.suffix(from: maxVisibleButtons - 1))
+    } else {
+      visibleButtons.append(contentsOf: buttons)
     }
-  }
-
-  private func configButton2() {
-    var buttons: [ActionBarButtonType] = []
-    switch placePageData.objectType {
-    case .POI, .bookmark:
-      if canAddStop {
-        buttons.append(canReplaceStop ? .routeReplaceStop : .routeAddStop)
-      }
-      buttons.append(.bookmark)
-    case .track:
-      if canAddStop {
-        buttons.append(.routeAddStop)
-      }
-      buttons.append(.track)
-    case .trackRecording:
-      buttons.append(.saveTrackRecording)
-    @unknown default:
-      fatalError()
-    }
-    assert(buttons.count > 0)
-
-    visibleButtons.append(buttons[0])
-    if buttons.count > 1 {
-      additionalButtons.append(contentsOf: buttons.suffix(from: 1))
-    }
-  }
-
-  private func configButton3() {
-    switch placePageData.objectType {
-    case .POI, .bookmark, .track:
-      if canRouteToAndFrom {
-        visibleButtons.append(.routeTo)
-      }
-    case .trackRecording:
-      break
-    @unknown default:
-      fatalError()
-    }
-  }
-
-  private func configButton4() {
-    guard !additionalButtons.isEmpty else { return }
-    additionalButtons.count == 1 ? visibleButtons.append(additionalButtons[0]) : visibleButtons.append(.more)
   }
 
   private func setupButtonsState() {
@@ -158,11 +129,13 @@ final class ActionBarViewController: UIViewController {
     var selected = false
     let enabled = true
     switch buttonType {
-      case .bookmark:
+    case .bookmark:
       selected = placePageData.bookmarkData != nil
-      case .track:
+    case .track:
       selected = placePageData.trackData != nil
-      default:
+    case .pauseTrackRecording:
+      selected = TrackRecordingManager.shared.recordingState == .paused
+    default:
       break
     }
     return (selected, enabled)
@@ -190,7 +163,6 @@ final class ActionBarViewController: UIViewController {
     }
     present(actionSheet, animated: true)
   }
-
 
   // MARK: - Public methods
 

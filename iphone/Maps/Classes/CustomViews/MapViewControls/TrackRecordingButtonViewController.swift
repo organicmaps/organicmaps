@@ -5,7 +5,7 @@ final class TrackRecordingButtonViewController: MWMViewController {
     static let topOffset = CGFloat(6)
     static let trailingOffset = CGFloat(10)
     static let blinkingDuration = 1.0
-    static let color: (lighter: UIColor, darker: UIColor) = (.red, .red.darker(percent: 0.3))
+    static let redColor: (lighter: UIColor, darker: UIColor) = (.red, .red.darker(percent: 0.3))
   }
 
   private let trackRecordingManager: TrackRecordingManager = .shared
@@ -50,9 +50,18 @@ final class TrackRecordingButtonViewController: MWMViewController {
   func setState(_ state: TrackRecordingButtonState, completion: (() -> Void)?) {
     self.state = state
     switch state {
-    case .visible:
-      setHidden(false, completion: nil)
+    case .recording:
+      button.coloring = .red
+      button.setImage(UIImage(resource: .icMenuTrackRecording), for: .normal)
+      startTimer()
+      setHidden(false)
+    case .paused:
+      stopTimer()
+      button.coloring = .black
+      button.setImage(UIImage(resource: .icMenuTrackRecordingResume), for: .normal)
+      setHidden(false)
     case .hidden:
+      stopTimer()
       setHidden(true, completion: completion)
     case .closed:
       close(completion: completion)
@@ -68,7 +77,6 @@ final class TrackRecordingButtonViewController: MWMViewController {
     view.addSubview(button)
 
     button.setStyleAndApply(.trackRecordingWidgetButton)
-    button.tintColor = Constants.color.darker
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setImage(UIImage(resource: .icMenuTrackRecording), for: .normal)
     button.addTarget(self, action: #selector(didTap), for: .touchUpInside)
@@ -106,7 +114,7 @@ final class TrackRecordingButtonViewController: MWMViewController {
     let timer = Timer.scheduledTimer(withTimeInterval: Constants.blinkingDuration, repeats: true) { [weak self] _ in
       guard let self = self else { return }
       UIView.animate(withDuration: Constants.blinkingDuration, animations: {
-        self.button.tintColor = lighter ? Constants.color.lighter : Constants.color.darker
+        self.button.tintColor = lighter ? Constants.redColor.lighter : Constants.redColor.darker
         lighter.toggle()
       })
     }
@@ -119,7 +127,7 @@ final class TrackRecordingButtonViewController: MWMViewController {
     blinkingTimer = nil
   }
 
-  private func setHidden(_ hidden: Bool, completion: (() -> Void)?) {
+  private func setHidden(_ hidden: Bool, completion: (() -> Void)? = nil) {
     UIView.transition(with: self.view,
                       duration: kDefaultAnimationDuration,
                       options: .transitionCrossDissolve,

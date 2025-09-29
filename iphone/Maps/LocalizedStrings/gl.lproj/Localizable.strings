@@ -574,3 +574,15 @@
 "contribute_to_osm_add_place" = "Add Place";
 "contribute_to_osm_update_map" = "Update the Map to Contribute";
 "contribute_to_osm_update_map_description" = "You need to update the %@ map to the latest version before you can contribute to the OpenStreetMap data";
+
+/* The track recording delete confirmation alert message. */
+"placepage_delete_track_recording_confirmation_alert_message" = "Estás seguro de que queres eliminar esta gravación? Os datos non se gardarán.";
+
+/* The track recording action bar button title for pause. */
+"pause" = "Pausar";
+
+/* The track recording action bar button title for resume. */
+"resume" = "Retomar";
+
+/* The title for resume track recording button in the menu. */
+"resume_track_recording" = "Retomar a gravación da ruta";
