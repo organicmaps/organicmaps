@@ -20,7 +20,7 @@
 
 namespace
 {
-UIImage * image(routing::turns::CarDirection t, bool isNextTurn)
+NSString * imageName(routing::turns::CarDirection t, bool isNextTurn)
 {
   if (![MWMLocationManager lastLocation])
     return nil;
@@ -50,10 +50,10 @@ UIImage * image(routing::turns::CarDirection t, bool isNextTurn)
   }
   if (!imageName)
     return nil;
-  return [UIImage imageNamed:isNextTurn ? [imageName stringByAppendingString:@"_then"] : imageName];
+  return isNextTurn ? [imageName stringByAppendingString:@"_then"] : imageName;
 }
 
-UIImage * image(routing::turns::PedestrianDirection t)
+NSString * imageName(routing::turns::PedestrianDirection t)
 {
   if (![MWMLocationManager lastLocation])
     return nil;
@@ -71,7 +71,7 @@ UIImage * image(routing::turns::PedestrianDirection t)
   }
   if (!imageName)
     return nil;
-  return [UIImage imageNamed:imageName];
+  return imageName;
 }
 
 NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoint *> * points)
@@ -105,27 +105,89 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
 }
 }  // namespace
 
+@interface MWMRouterTransitStepInfo ()
+
+- (instancetype)initWithStepInfo:(TransitStepInfo const &)info;
+
+@end
+
 @interface MWMNavigationDashboardEntity ()
 
-@property(copy, nonatomic, readwrite) NSArray<MWMRouterTransitStepInfo *> * transitSteps;
-@property(copy, nonatomic, readwrite) NSString * distanceToTurn;
-@property(copy, nonatomic, readwrite) NSString * streetName;
-@property(copy, nonatomic, readwrite) NSString * targetDistance;
-@property(copy, nonatomic, readwrite) NSString * targetUnits;
-@property(copy, nonatomic, readwrite) NSString * turnUnits;
-@property(nonatomic, readwrite) double speedLimitMps;
-@property(nonatomic, readwrite) BOOL isValid;
-@property(nonatomic, readwrite) CGFloat progress;
-@property(nonatomic, readwrite) NSUInteger roundExitNumber;
-@property(nonatomic, readwrite) NSUInteger timeToTarget;
-@property(nonatomic, readwrite) UIImage * nextTurnImage;
-@property(nonatomic, readwrite) UIImage * turnImage;
 @property(nonatomic, readwrite) BOOL showEta;
 @property(nonatomic, readwrite) BOOL isWalk;
 
 @end
 
 @implementation MWMNavigationDashboardEntity
+
+// MARK: - Initializers
+
+- (instancetype)initWithFollowingInfo:(routing::FollowingInfo const &)info
+                          routePoints:(NSArray<MWMRoutePoint *> *)points
+                                 type:(MWMRouterType)type
+{
+  self = [super init];
+  if (self) {
+    BOOL const showEta = (type != MWMRouterTypeRuler);
+    _timeToTarget = info.m_time;
+    _targetDistance = @(info.m_distToTarget.GetDistanceString().c_str());
+    _targetUnits = @(info.m_distToTarget.GetUnitsString().c_str());
+    _progress = info.m_completionPercent;
+    _distanceToTurn = @(info.m_distToTurn.GetDistanceString().c_str());
+    _turnUnits = @(info.m_distToTurn.GetUnitsString().c_str());
+    _streetName = @(info.m_nextStreetName.c_str());
+    _speedLimitMps = info.m_speedLimitMps;
+    if (auto const location = [MWMLocationManager lastLocation])
+    {
+      if (location.speed > 0)
+        _currentSpeedMps = location.speed;
+    }
+
+    _isWalk = NO;
+    _showEta = showEta;
+
+    if (type == MWMRouterTypeRuler && [points count] > 2)
+      _transitSteps = buildRouteTransitSteps(points);
+    else
+      _transitSteps = [[NSArray alloc] init];
+
+    if (type == MWMRouterTypePedestrian)
+    {
+      _turnImageName = imageName(info.m_pedestrianTurn);
+    }
+    else
+    {
+      using namespace routing::turns;
+      CarDirection const turn = info.m_turn;
+      _turnImageName = imageName(turn, false);
+      _nextTurnImageName = imageName(info.m_nextTurn, true);
+      BOOL const isRound = turn == CarDirection::EnterRoundAbout || turn == CarDirection::StayOnRoundAbout ||
+                           turn == CarDirection::LeaveRoundAbout;
+      if (isRound)
+        _roundExitNumber = info.m_exitNum;
+    }
+  }
+  return self;
+}
+
+- (instancetype)initWithTransitInfo:(TransitRouteInfo const &)info
+{
+  self = [super init];
+  if (self) {
+    _timeToTarget = info.m_totalTimeInSec;
+    _targetDistance = @(info.m_totalPedestrianDistanceStr.c_str());
+    _targetUnits = @(info.m_totalPedestrianUnitsSuffix.c_str());
+    _isWalk = YES;
+    _showEta = YES;
+    NSMutableArray<MWMRouterTransitStepInfo *> * transitSteps = [NSMutableArray new];
+    for (auto const & stepInfo : info.m_steps)
+      [transitSteps addObject:[[MWMRouterTransitStepInfo alloc] initWithStepInfo:stepInfo]];
+    _transitSteps = transitSteps;
+  }
+  return self;
+}
+
+// MARK: - Public methods
 
 - (NSString *)arrival
 {
@@ -185,19 +247,12 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
 
 @end
 
-@interface MWMRouterTransitStepInfo ()
-
-- (instancetype)initWithStepInfo:(TransitStepInfo const &)info;
-
-@end
-
 @interface MWMNavigationDashboardManager ()
 
 @property(copy, nonatomic) NSDictionary * etaAttributes;
 @property(copy, nonatomic) NSDictionary * etaSecondaryAttributes;
-@property(nonatomic) MWMNavigationDashboardEntity * entity;
 
-- (void)onNavigationInfoUpdated;
+- (void)onNavigationInfoUpdated:(MWMNavigationDashboardEntity *)entity;
 
 @end
 
@@ -213,67 +268,14 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     return;
   }
-
-  if (auto entity = self.entity)
-  {
-    BOOL const showEta = (type != MWMRouterTypeRuler);
-
-    entity.isValid = YES;
-    entity.timeToTarget = info.m_time;
-    entity.targetDistance = @(info.m_distToTarget.GetDistanceString().c_str());
-    entity.targetUnits = @(info.m_distToTarget.GetUnitsString().c_str());
-    entity.progress = info.m_completionPercent;
-    entity.distanceToTurn = @(info.m_distToTurn.GetDistanceString().c_str());
-    entity.turnUnits = @(info.m_distToTurn.GetUnitsString().c_str());
-    entity.streetName = @(info.m_nextStreetName.c_str());
-    entity.speedLimitMps = info.m_speedLimitMps;
-
-    entity.isWalk = NO;
-    entity.showEta = showEta;
-
-    if (type == MWMRouterTypeRuler && [points count] > 2)
-      entity.transitSteps = buildRouteTransitSteps(points);
-    else
-      entity.transitSteps = [[NSArray alloc] init];
-
-    if (type == MWMRouterTypePedestrian)
-    {
-      entity.turnImage = image(info.m_pedestrianTurn);
-    }
-    else
-    {
-      using namespace routing::turns;
-      CarDirection const turn = info.m_turn;
-      entity.turnImage = image(turn, false);
-      entity.nextTurnImage = image(info.m_nextTurn, true);
-      BOOL const isRound = turn == CarDirection::EnterRoundAbout || turn == CarDirection::StayOnRoundAbout ||
-                           turn == CarDirection::LeaveRoundAbout;
-      if (isRound)
-        entity.roundExitNumber = info.m_exitNum;
-      else
-        entity.roundExitNumber = 0;
-    }
-  }
-
-  [self onNavigationInfoUpdated];
+  auto const entity = [[MWMNavigationDashboardEntity alloc] initWithFollowingInfo:info routePoints:points type:type];
+  [self onNavigationInfoUpdated: entity];
 }
 
 - (void)updateTransitInfo:(TransitRouteInfo const &)info
 {
-  if (auto entity = self.entity)
-  {
-    entity.timeToTarget = info.m_totalTimeInSec;
-    entity.targetDistance = @(info.m_totalPedestrianDistanceStr.c_str());
-    entity.targetUnits = @(info.m_totalPedestrianUnitsSuffix.c_str());
-    entity.isValid = YES;
-    entity.isWalk = YES;
-    entity.showEta = YES;
-    NSMutableArray<MWMRouterTransitStepInfo *> * transitSteps = [NSMutableArray new];
-    for (auto const & stepInfo : info.m_steps)
-      [transitSteps addObject:[[MWMRouterTransitStepInfo alloc] initWithStepInfo:stepInfo]];
-    entity.transitSteps = transitSteps;
-  }
-  [self onNavigationInfoUpdated];
+  auto const entity = [[MWMNavigationDashboardEntity alloc] initWithTransitInfo:info];
+  [self onNavigationInfoUpdated: entity];
 }
 
 @end

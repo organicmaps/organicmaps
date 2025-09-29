@@ -169,11 +169,7 @@ final class NavigationControlView: SolidTouchView {
       }
     }
 
-    var speedMps = 0.0
-    if let s = LocationManager.lastLocation()?.speed, s > 0 {
-      speedMps = s
-    }
-    let speedMeasure = Measure(asSpeed: speedMps)
+    let speedMeasure = Measure(asSpeed: info.currentSpeedMps)
     var speed = speedMeasure.valueAsString;
     /// @todo Draw speed limit sign similar to the CarPlay implemenation.
     // speedLimitMps >= 0 means known limited speed.
@@ -195,7 +191,7 @@ final class NavigationControlView: SolidTouchView {
       speedLabel.textColor = UIColor.white()
       speedBackground.backgroundColor = UIColor.buttonRed()
     } else {
-      let isSpeedLimitExceeded = info.speedLimitMps > 0 && speedMps > info.speedLimitMps
+      let isSpeedLimitExceeded = info.speedLimitMps > 0 && info.currentSpeedMps > info.speedLimitMps
       speedLabel.textColor = isSpeedLimitExceeded ? UIColor.buttonRed() : UIColor.blackPrimaryText()
       speedBackground.backgroundColor = UIColor.clear
     }

@@ -243,10 +243,10 @@ BOOL defaultOrientation(CGSize const & size)
   {
     [self setStreetNameVisible:NO];
   }
-  if (info.turnImage)
+  if (info.turnImageName)
   {
     [self setTurnsViewVisible:YES];
-    self.nextTurnImageView.image = info.turnImage;
+    self.nextTurnImageView.image = [UIImage imageNamed:info.turnImageName];
 
     if (info.roundExitNumber == 0)
     {
@@ -274,10 +274,10 @@ BOOL defaultOrientation(CGSize const & size)
                                              attributes:turnLegendAttributes]];
 
     self.distanceToNextTurnLabel.attributedText = distance;
-    if (info.nextTurnImage)
+    if (info.nextTurnImageName)
     {
       self.secondTurnView.hidden = NO;
-      self.secondTurnImageView.image = info.nextTurnImage;
+      self.secondTurnImageView.image = [UIImage imageNamed:info.nextTurnImageName];
     }
     else
     {
