@@ -48,6 +48,7 @@ public final class Constants
     public static final String XIAOMI = "XIAOMI";
   }
 
+  /// @note! String values should be equal with map/framework.cpp constants kProductsPopupCloseReasonXXX.
   public static class ProductsPopupCloseReason
   {
     public static final String CLOSE = "close";

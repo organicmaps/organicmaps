@@ -13,7 +13,6 @@
 #include "coding/url.hpp"
 
 #include "base/assert.hpp"
-#include "base/string_utils.hpp"
 
 namespace storage
 {
@@ -165,8 +164,14 @@ MetaConfig MapFilesDownloader::LoadMetaConfig()
   {
     platform::HttpClient request(metaServerUrl);
     request.SetRawHeader("X-OM-DataVersion", std::to_string(m_dataVersion));
+
     request.SetRawHeader("X-OM-AppVersion", pl.Version());
     request.SetRawHeader("Accept-Language", GetAcceptLanguage());
+
+    /// @DebugNote Uncomment to check donates flow.
+    // request.SetRawHeader("X-OM-AppVersion", "2025.09.19-6-ios");  // "2025.09.15-18-FDroid"
+    // request.SetRawHeader("Accept-Language", "de-DE");
+
     request.SetTimeout(10.0);  // timeout in seconds
     request.RunHttpRequest(httpResult);
   }
