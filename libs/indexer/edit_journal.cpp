@@ -1,12 +1,6 @@
 #include "indexer/edit_journal.hpp"
 
-#include "base/control_flow.hpp"
-#include "base/string_utils.hpp"
-
 #include <algorithm>
-#include <cmath>
-#include <regex>
-#include <sstream>
 
 namespace osm
 {
@@ -19,7 +13,6 @@ osm::EditingLifecycle EditJournal::GetEditingLifecycle() const
 {
   if (m_journal.empty())
     return EditingLifecycle::IN_SYNC;
-
   else if (m_journal.front().journalEntryType == JournalEntryType::ObjectCreated)
     return EditingLifecycle::CREATED;
 
