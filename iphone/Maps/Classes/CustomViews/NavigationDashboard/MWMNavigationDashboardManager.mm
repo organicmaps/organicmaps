@@ -75,7 +75,7 @@
     self.state = MWMNavigationDashboardStateReady;
 }
 
-- (void)onNavigationInfoUpdated:(MWMNavigationDashboardEntity *)entity
+- (void)onNavigationInfoUpdated:(RouteInfo *)entity
 {
   if (self.state == MWMNavigationDashboardStateClosed)
     return;

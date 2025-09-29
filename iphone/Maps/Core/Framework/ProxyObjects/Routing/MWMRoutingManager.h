@@ -2,6 +2,8 @@
 #import "MWMRouterResultCode.h"
 #import "MWMRouterType.h"
 #import "MWMSpeedCameraManagerMode.h"
+
+@class RouteInfo;
 @class RouteInfo;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -22,7 +24,6 @@ NS_SWIFT_NAME(RoutingManager)
 @property(nonatomic, readonly) BOOL isOnRoute;
 @property(nonatomic, readonly) BOOL isRoutingActive;
 @property(nonatomic, readonly) BOOL isRouteFinished;
-@property(nonatomic, readonly, nullable) RouteInfo * routeInfo;
 @property(nonatomic, readonly) MWMRouterType type;
 @property(nonatomic) MWMSpeedCameraManagerMode speedCameraMode;
 
@@ -38,6 +39,7 @@ NS_SWIFT_NAME(RoutingManager)
 - (void)startRoute;
 - (void)setOnNewTurnCallback:(MWMVoidBlock)callback;
 - (void)resetOnNewTurnCallback;
+- (RouteInfo * _Nullable)routeInfoForCarPlay:(BOOL)isCarPlay NS_SWIFT_NAME(routeInfo(isCarPlay:));
 
 - (instancetype)init __attribute__((unavailable("call +routingManager instead")));
 - (instancetype)copy __attribute__((unavailable("call +routingManager instead")));

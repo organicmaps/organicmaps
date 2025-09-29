@@ -3,13 +3,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MWMNavigationDashboardEntity;
+@class RouteInfo;
 
 @protocol NavigationDashboardView
 
 @property(weak, nonatomic) id<MWMRoutePreviewDelegate> delegate;
 
-- (void)onNavigationInfoUpdated:(MWMNavigationDashboardEntity *)entity;
+- (void)onNavigationInfoUpdated:(RouteInfo *)entity;
 - (void)setDrivingOptionState:(MWMDrivingOptionsState)state;
 - (void)searchManagerWithDidChangeState:(SearchOnMapState)state;
 - (void)updateNavigationInfoAvailableArea:(CGRect)frame;

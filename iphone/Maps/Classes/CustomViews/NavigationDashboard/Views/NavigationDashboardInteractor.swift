@@ -141,7 +141,7 @@ extension NavigationDashboard.Interactor: NavigationDashboardView {
     process(.setHidden(hidden))
   }
 
-  func onNavigationInfoUpdated(_ entity: MWMNavigationDashboardEntity) {
+  func onNavigationInfoUpdated(_ entity: RouteInfo) {
     process(.updateNavigationInfo(entity))
   }
 
@@ -222,7 +222,7 @@ extension NavigationDashboard.Interactor: NavigationDashboardView {
         }
         let attributes = Self.elevationAttributes
         let elevation = NSMutableAttributedString(string: "")
-        elevation.append(MWMNavigationDashboardEntity.estimateDot())
+        elevation.append(RouteInfo.estimateDot())
         elevation.append(NSAttributedString(string: "▲ \(totalAscent)  ", attributes: attributes))
         elevation.append(NSAttributedString(string: "▼ \(totalDescent)", attributes: attributes))
         let elevationInfo = NavigationDashboard.ElevationInfo(estimates: elevation, image: image)

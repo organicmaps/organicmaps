@@ -3,7 +3,7 @@ enum NavigationDashboard {
     var transportOptions: [MWMRouterType]
     var routePoints: RoutePoints
     var routerType: MWMRouterType
-    var entity: MWMNavigationDashboardEntity
+    var entity: RouteInfo
     var routingOptions: RoutingOptions
     var elevationInfo: ElevationInfo?
     var navigationInfo: NavigationInfo
@@ -33,7 +33,7 @@ extension NavigationDashboard.ViewModel {
       transportOptions: MWMRouterType.allCases,
       routePoints: .empty,
       routerType: MWMRouter.type(),
-      entity: MWMNavigationDashboardEntity(),
+      entity: RouteInfo(),
       routingOptions: RoutingOptions(),
       elevationInfo: nil,
       navigationInfo: .hidden,

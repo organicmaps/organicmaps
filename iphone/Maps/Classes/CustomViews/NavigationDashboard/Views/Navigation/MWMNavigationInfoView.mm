@@ -86,7 +86,7 @@ BOOL defaultOrientation(CGSize const & size)
 @property(nonatomic, readwrite) NavigationSearchState searchState;
 @property(nonatomic) BOOL isVisible;
 
-@property(weak, nonatomic) MWMNavigationDashboardEntity * navigationInfo;
+@property(weak, nonatomic) RouteInfo * navigationInfo;
 
 @property(nonatomic) BOOL hasLocation;
 
@@ -229,7 +229,7 @@ BOOL defaultOrientation(CGSize const & size)
 
 #pragma mark - MWMNavigationDashboardManager
 
-- (void)onNavigationInfoUpdated:(MWMNavigationDashboardEntity *)info
+- (void)onNavigationInfoUpdated:(RouteInfo *)info
 {
   self.navigationInfo = info;
   if (self.state != MWMNavigationInfoViewStateNavigation)
@@ -267,7 +267,7 @@ BOOL defaultOrientation(CGSize const & size)
       NSFontAttributeName: IPAD ? [UIFont bold24] : [UIFont bold16]
     };
 
-    NSMutableAttributedString * distance = [[NSMutableAttributedString alloc] initWithString:info.distanceToTurn
+    NSMutableAttributedString * distance = [[NSMutableAttributedString alloc] initWithString:info.distanceToTurnString
                                                                                   attributes:turnNumberAttributes];
     [distance appendAttributedString:[[NSAttributedString alloc]
                                          initWithString:[NSString stringWithFormat:@" %@", info.turnUnits]

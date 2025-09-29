@@ -9,7 +9,6 @@ protocol CarPlayRouterListener: AnyObject {
   func routeDidFinish(_ trip: CPTrip)
 }
 
-
 @objc(MWMCarPlayRouter)
 final class CarPlayRouter: NSObject {
   private let listenerContainer: ListenerContainer<CarPlayRouterListener>
@@ -166,7 +165,7 @@ final class CarPlayRouter: NSObject {
     }
     let trip = createTrip(startPoint: startPoint,
                           endPoint: endPoint,
-                          routeInfo: manager.routeInfo)
+                          routeInfo: manager.routeInfo(isCarPlay: true))
     previewTrip = trip
     if manager.type != .vehicle {
       CarPlayService.shared.showRecoverRouteAlert(trip: trip, isTypeCorrect: false)
@@ -189,7 +188,7 @@ final class CarPlayRouter: NSObject {
       manager.type == .vehicle,
       let startPoint = manager.startPoint,
       let endPoint = manager.endPoint,
-      let routeInfo = manager.routeInfo {
+      let routeInfo = manager.routeInfo(isCarPlay: true) {
       MWMRouter.hideNavigationMapControls()
       let trip = createTrip(startPoint: startPoint,
                             endPoint: endPoint,
@@ -233,7 +232,7 @@ extension CarPlayRouter {
 
   func updateEstimates() {
     guard let routeSession = routeSession,
-          let routeInfo = RoutingManager.routingManager.routeInfo,
+          let routeInfo = RoutingManager.routingManager.routeInfo(isCarPlay: true),
           let primaryManeuver = routeSession.upcomingManeuvers.first,
           let estimates = createEstimates(routeInfo) else {
       return
@@ -247,13 +246,13 @@ extension CarPlayRouter {
   }
 
   private func createUpcomingManeuvers() -> [CPManeuver] {
-    guard let routeInfo = RoutingManager.routingManager.routeInfo else {
+    guard let routeInfo = RoutingManager.routingManager.routeInfo(isCarPlay: true) else {
       return []
     }
     var maneuvers = [CPManeuver]()
     let primaryManeuver = CPManeuver()
     primaryManeuver.userInfo = CPConstants.Maneuvers.primary
-    var instructionVariant = routeInfo.streetName
+    var instructionVariant = routeInfo.streetName!
     if routeInfo.roundExitNumber != 0 {
       let ordinalExitNumber = NumberFormatter.localizedString(from: NSNumber(value: routeInfo.roundExitNumber),
                                                               number: .ordinal)
@@ -319,7 +318,7 @@ extension CarPlayRouter: RoutingManagerListener {
         })
         return
       }
-      if let info = manager.routeInfo {
+      if let info = manager.routeInfo(isCarPlay: true) {
         previewTrip?.routeChoices.first?.userInfo = info
         if routeSession == nil {
           listenerContainer.forEach({
@@ -352,7 +351,7 @@ extension CarPlayRouter: RoutingManagerListener {
     }
 
     guard manager.isRoutingActive,
-          let routeInfo = manager.routeInfo else { return }
+          let routeInfo = manager.routeInfo(isCarPlay: true) else { return }
     listenerContainer.forEach({
       $0.didUpdateRouteInfo(routeInfo, forTrip: trip)
     })

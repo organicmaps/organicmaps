@@ -36,7 +36,7 @@ final class NavigationControlView: SolidTouchView {
   weak var ownerView: UIView!
   weak var delegate: RouteNavigationControlsDelegate!
 
-  private weak var navigationInfo: MWMNavigationDashboardEntity?
+  private weak var navigationInfo: RouteInfo?
   private var extendedConstraint: NSLayoutConstraint!
   private var notExtendedConstraint: NSLayoutConstraint!
   private let diminishSelector = #selector(diminish)
@@ -135,7 +135,7 @@ final class NavigationControlView: SolidTouchView {
     timePageControl.transform = CGAffineTransform(scaleX: pgScale, y: pgScale)
   }
 
-  func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
+  func onNavigationInfoUpdated(_ info: RouteInfo) {
     navigationInfo = info
     guard isVisible else { return }
     let routingNumberAttributes: [NSAttributedString.Key: Any] =
@@ -156,12 +156,12 @@ final class NavigationControlView: SolidTouchView {
     }
 
     var distanceWithLegend: NSMutableAttributedString?
-    if let targetDistance = info.targetDistance {
+    if let targetDistance = info.targetDistanceString {
       distanceLabel.text = targetDistance
       distanceWithLegend = NSMutableAttributedString(string: targetDistance, attributes: routingNumberAttributes)
     }
 
-    if let targetUnits = info.targetUnits {
+    if let targetUnits = info.targetUnitsString {
       distanceLegendLabel.text = targetUnits
       if let distanceWithLegend = distanceWithLegend {
         distanceWithLegend.append(NSAttributedString(string: targetUnits, attributes: routingLegendAttributes))

@@ -413,7 +413,6 @@
 		CDCA2748223FD24600167D87 /* MWMCarPlaySearchResultObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDCA2747223FD24600167D87 /* MWMCarPlaySearchResultObject.mm */; };
 		CDCA27812243F59800167D87 /* CarPlayRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA27802243F59800167D87 /* CarPlayRouter.swift */; };
 		CDCA27842245090900167D87 /* ListenerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA27832245090900167D87 /* ListenerContainer.swift */; };
-		CDCA278622451F5000167D87 /* RouteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA278522451F5000167D87 /* RouteInfo.swift */; };
 		CDCA278E2248F34C00167D87 /* MWMRoutingManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDCA278B2248F34C00167D87 /* MWMRoutingManager.mm */; };
 		ED0B1C312BC2951F00FB8EDD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */; };
 		ED0B1FEF2CAA9A25006E31A4 /* UIView+Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0B1FEE2CAA9A25006E31A4 /* UIView+Highlight.swift */; };
@@ -533,6 +532,7 @@
 		EDF838C22C00B9D6007E4E67 /* MetadataItemStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B42C00B9C7007E4E67 /* MetadataItemStubs.swift */; };
 		EDF838C32C00B9D6007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B12C00B9C7007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift */; };
 		EDF838C42C00B9D6007E4E67 /* FileManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B32C00B9C7007E4E67 /* FileManagerMock.swift */; };
+		EDF8DB842E8AE8ED00C976DE /* RouteInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDF8DB832E8AE8ED00C976DE /* RouteInfo.mm */; };
 		EDFDFB462B7139490013A44C /* AboutInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDFB452B7139490013A44C /* AboutInfo.swift */; };
 		EDFDFB482B7139670013A44C /* SocialMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDFB472B7139670013A44C /* SocialMedia.swift */; };
 		EDFDFB4A2B722A310013A44C /* SocialMediaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDFB492B722A310013A44C /* SocialMediaCollectionViewCell.swift */; };
@@ -927,7 +927,7 @@
 		34AB65C51FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMNavigationDashboardManager+Entity.mm"; sourceTree = "<group>"; };
 		34AB65C61FC5AA320078E451 /* MWMNavigationDashboardManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationDashboardManager.mm; sourceTree = "<group>"; };
 		34AB65C71FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWMNavigationDashboardManager+Entity.h"; sourceTree = "<group>"; };
-		34AB65C91FC5AA320078E451 /* MWMNavigationDashboardEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardEntity.h; sourceTree = "<group>"; };
+		34AB65C91FC5AA320078E451 /* RouteInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteInfo.h; sourceTree = "<group>"; };
 		34AB65CA1FC5AA320078E451 /* MWMNavigationDashboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardManager.h; sourceTree = "<group>"; };
 		34AB65CD1FC5AA320078E451 /* NavigationControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationControlView.xib; sourceTree = "<group>"; };
 		34AB65CE1FC5AA320078E451 /* NavigationTurnsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTurnsView.swift; sourceTree = "<group>"; };
@@ -1370,7 +1370,6 @@
 		CDCA2747223FD24600167D87 /* MWMCarPlaySearchResultObject.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCarPlaySearchResultObject.mm; sourceTree = "<group>"; };
 		CDCA27802243F59800167D87 /* CarPlayRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayRouter.swift; sourceTree = "<group>"; };
 		CDCA27832245090900167D87 /* ListenerContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenerContainer.swift; sourceTree = "<group>"; };
-		CDCA278522451F5000167D87 /* RouteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteInfo.swift; sourceTree = "<group>"; };
 		CDCA278A2248F34C00167D87 /* MWMRoutingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRoutingManager.h; sourceTree = "<group>"; };
 		CDCA278B2248F34C00167D87 /* MWMRoutingManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRoutingManager.mm; sourceTree = "<group>"; };
 		CDCA278C2248F34C00167D87 /* MWMRouterResultCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouterResultCode.h; sourceTree = "<group>"; };
@@ -1545,6 +1544,8 @@
 		EDF838B22C00B9C7007E4E67 /* iCloudDirectoryMonitorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iCloudDirectoryMonitorTests.swift; sourceTree = "<group>"; };
 		EDF838B32C00B9C7007E4E67 /* FileManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerMock.swift; sourceTree = "<group>"; };
 		EDF838B42C00B9C7007E4E67 /* MetadataItemStubs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataItemStubs.swift; sourceTree = "<group>"; };
+		EDF8DB822E8AE08D00C976DE /* RouteInfo+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RouteInfo+Core.h"; sourceTree = "<group>"; };
+		EDF8DB832E8AE8ED00C976DE /* RouteInfo.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RouteInfo.mm; sourceTree = "<group>"; };
 		EDFDFB452B7139490013A44C /* AboutInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInfo.swift; sourceTree = "<group>"; };
 		EDFDFB472B7139670013A44C /* SocialMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMedia.swift; sourceTree = "<group>"; };
 		EDFDFB492B722A310013A44C /* SocialMediaCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -2484,7 +2485,6 @@
 			isa = PBXGroup;
 			children = (
 				ED5E02502D92E33300A5CC7B /* MWMNavigationDashboardView.h */,
-				34AB65C91FC5AA320078E451 /* MWMNavigationDashboardEntity.h */,
 				34AB65CA1FC5AA320078E451 /* MWMNavigationDashboardManager.h */,
 				34AB65C61FC5AA320078E451 /* MWMNavigationDashboardManager.mm */,
 				34AB65C71FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.h */,
@@ -3109,7 +3109,6 @@
 				CDCA27372237F1BD00167D87 /* BookmarkInfo.swift */,
 				CDCA2742223F8D1E00167D87 /* ListItemInfo.swift */,
 				CDCA2744223FCFD200167D87 /* SearchResultInfo.swift */,
-				CDCA278522451F5000167D87 /* RouteInfo.swift */,
 				CD9AD966228067F500EC174A /* MapInfo.swift */,
 				CD9AD96E2281DF3500EC174A /* CategoryInfo.swift */,
 			);
@@ -3147,6 +3146,9 @@
 		CDCA27892248F34C00167D87 /* Routing */ = {
 			isa = PBXGroup;
 			children = (
+				34AB65C91FC5AA320078E451 /* RouteInfo.h */,
+				EDF8DB822E8AE08D00C976DE /* RouteInfo+Core.h */,
+				EDF8DB832E8AE8ED00C976DE /* RouteInfo.mm */,
 				CDCA278A2248F34C00167D87 /* MWMRoutingManager.h */,
 				CDCA278B2248F34C00167D87 /* MWMRoutingManager.mm */,
 				CDCA278C2248F34C00167D87 /* MWMRouterResultCode.h */,
@@ -4556,6 +4558,7 @@
 				F653CE191C71F62700A453F1 /* MWMAddPlaceNavigationBar.mm in Sources */,
 				340475621E081A4600C92850 /* MWMNetworkPolicy+UI.m in Sources */,
 				F6E2FEE51E097BA00083EBEC /* MWMSearchNoResults.m in Sources */,
+				EDF8DB842E8AE8ED00C976DE /* RouteInfo.mm in Sources */,
 				ED5E02142D8B17B600A5CC7B /* SearchOnMapModalPresentationStepStrategy.swift in Sources */,
 				F6E2FF631E097BA00083EBEC /* MWMTTSLanguageViewController.mm in Sources */,
 				4715273524907F8200E91BBA /* BookmarkColorViewController.swift in Sources */,
@@ -4921,7 +4924,6 @@
 				4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */,
 				EDFDFB462B7139490013A44C /* AboutInfo.swift in Sources */,
 				3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,
-				CDCA278622451F5000167D87 /* RouteInfo.swift in Sources */,
 				3467CEB6202C6FA900D3C670 /* BMCNotificationsCell.swift in Sources */,
 				337F98B221D3BAE600C8AC27 /* SearchCategoriesViewController.swift in Sources */,
 				F6E2FE0A1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,

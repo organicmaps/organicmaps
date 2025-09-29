@@ -190,7 +190,7 @@ final class CarPlayService: NSObject {
     }
 
     if let carplayVC = carplayVC {
-      carplayVC.updateCurrentSpeed(routeInfo.speedMps, speedLimitMps: routeInfo.speedLimitMps)
+      carplayVC.updateCurrentSpeed(routeInfo.currentSpeedMps, speedLimitMps: routeInfo.speedLimitMps)
       carplayVC.showSpeedControl()
     }
   }
@@ -456,7 +456,7 @@ extension CarPlayService: CPMapTemplateDelegate {
     }
 
     if let carplayVC = carplayVC {
-      carplayVC.updateCurrentSpeed(info.speedMps, speedLimitMps: info.speedLimitMps)
+      carplayVC.updateCurrentSpeed(info.currentSpeedMps, speedLimitMps: info.speedLimitMps)
       carplayVC.showSpeedControl()
     }
     updateVisibleViewPortState(.navigation)
@@ -587,7 +587,7 @@ extension CarPlayService: CarPlayRouterListener {
 
   func didUpdateRouteInfo(_ routeInfo: RouteInfo, forTrip trip: CPTrip) {
     if let carplayVC = carplayVC {
-      carplayVC.updateCurrentSpeed(routeInfo.speedMps, speedLimitMps: routeInfo.speedLimitMps)
+      carplayVC.updateCurrentSpeed(routeInfo.currentSpeedMps, speedLimitMps: routeInfo.speedLimitMps)
     }
     guard let router = router,
       let template = rootMapTemplate else {
@@ -706,7 +706,7 @@ extension CarPlayService {
 
   func createEstimates(routeInfo: RouteInfo) -> CPTravelEstimates? {
     let measurement = Measurement(value: routeInfo.targetDistance, unit: routeInfo.targetUnits)
-    return CPTravelEstimates(distanceRemaining: measurement, timeRemaining: routeInfo.timeToTarget)
+    return CPTravelEstimates(distanceRemaining: measurement, timeRemaining: TimeInterval(routeInfo.timeToTarget))
   }
 
   func applyUndefinedEstimates(template: CPMapTemplate, trip: CPTrip) {
