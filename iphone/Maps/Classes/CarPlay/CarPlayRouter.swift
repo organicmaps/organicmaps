@@ -351,8 +351,8 @@ extension CarPlayRouter: RoutingManagerListener {
       return
     }
 
-    guard let routeInfo = manager.routeInfo,
-      manager.isRoutingActive else { return }
+    guard manager.isRoutingActive,
+          let routeInfo = manager.routeInfo else { return }
     listenerContainer.forEach({
       $0.didUpdateRouteInfo(routeInfo, forTrip: trip)
     })
