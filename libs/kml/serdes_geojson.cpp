@@ -97,6 +97,7 @@ bool GeojsonParser::Parse(std::string_view & json_content)
 
       auto const & props_json = feature.properties;
       BookmarkData bookmark;
+      bookmark.m_color = ColorData{.m_predefinedColor = PredefinedColor::Red};
 
       // Parse "name" or "label"
       if (auto const name = props_json.find("name"); name != props_json.end() && name->second.is_string())
