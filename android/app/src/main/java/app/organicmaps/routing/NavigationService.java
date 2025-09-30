@@ -227,9 +227,8 @@ public class NavigationService extends Service implements LocationListener
 
     Logger.i(TAG, "Starting Navigation Foreground service");
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-      ServiceCompat.startForeground(
-          this, NavigationService.NOTIFICATION_ID, getNotificationBuilder(this).build(),
-          ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION | ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK);
+      ServiceCompat.startForeground(this, NavigationService.NOTIFICATION_ID, getNotificationBuilder(this).build(),
+                                    ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
     else
       ServiceCompat.startForeground(this, NavigationService.NOTIFICATION_ID, getNotificationBuilder(this).build(), 0);
 
