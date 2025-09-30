@@ -12,8 +12,7 @@ routing::RoutingOptions::Road makeValue(jint option)
 
 extern "C"
 {
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_routing_RoutingOptions_nativeHasOption(JNIEnv *, jclass,
-                                                                                           jint option)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_RoutingOptions_nativeHasOption(JNIEnv *, jclass, jint option)
 {
   CHECK(g_framework, ("Framework isn't created yet!"));
   routing::RoutingOptions routingOptions = routing::RoutingOptions::LoadCarOptionsFromSettings();
@@ -21,7 +20,7 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_routing_RoutingOptions_nativ
   return static_cast<jboolean>(routingOptions.Has(road));
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_routing_RoutingOptions_nativeAddOption(JNIEnv *, jclass, jint option)
+JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeAddOption(JNIEnv *, jclass, jint option)
 {
   CHECK(g_framework, ("Framework isn't created yet!"));
   routing::RoutingOptions routingOptions = routing::RoutingOptions::LoadCarOptionsFromSettings();
@@ -30,7 +29,7 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_routing_RoutingOptions_nativeAdd
   routing::RoutingOptions::SaveCarOptionsToSettings(routingOptions);
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_routing_RoutingOptions_nativeRemoveOption(JNIEnv *, jclass, jint option)
+JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeRemoveOption(JNIEnv *, jclass, jint option)
 {
   CHECK(g_framework, ("Framework isn't created yet!"));
   routing::RoutingOptions routingOptions = routing::RoutingOptions::LoadCarOptionsFromSettings();

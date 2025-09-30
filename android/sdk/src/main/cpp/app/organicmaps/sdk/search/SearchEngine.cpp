@@ -228,7 +228,7 @@ void OnBookmarksSearchResults(search::BookmarksSearchParams::Results results,
 
 extern "C"
 {
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeInit(JNIEnv * env, jobject thiz)
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeInit(JNIEnv * env, jobject thiz)
 {
   g_javaListener = env->NewGlobalRef(thiz);
   // public void onResultsUpdate(@NonNull SearchResult[] results, long timestamp)
@@ -266,9 +266,11 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeInit(J
   g_endBookmarksResultsId = jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsEnd", "([JJ)V");
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearch(
-    JNIEnv * env, jclass clazz, jbyteArray bytes, jboolean isCategory, jstring lang, jlong timestamp,
-    jboolean hasPosition, jdouble lat, jdouble lon)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearch(JNIEnv * env, jclass clazz,
+                                                                                jbyteArray bytes, jboolean isCategory,
+                                                                                jstring lang, jlong timestamp,
+                                                                                jboolean hasPosition, jdouble lat,
+                                                                                jdouble lon)
 {
   search::EverywhereSearchParams params{jni::ToNativeString(env, bytes),
                                         jni::ToNativeString(env, lang),
@@ -281,7 +283,7 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeRu
   return searchStarted;
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeRunInteractiveSearch(
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeRunInteractiveSearch(
     JNIEnv * env, jclass clazz, jbyteArray bytes, jboolean isCategory, jstring lang, jlong timestamp,
     jboolean isMapAndTable, jboolean hasPosition, jdouble lat, jdouble lon)
 {
@@ -312,9 +314,9 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeRunInt
   }
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchMaps(JNIEnv * env, jclass clazz,
-                                                                                        jbyteArray bytes, jstring lang,
-                                                                                        jlong timestamp)
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchMaps(JNIEnv * env, jclass clazz,
+                                                                                jbyteArray bytes, jstring lang,
+                                                                                jlong timestamp)
 {
   storage::DownloaderSearchParams params{jni::ToNativeString(env, bytes), jni::ToNativeString(env, lang),
                                          bind(&OnMapSearchResults, _1, timestamp)};
@@ -323,8 +325,9 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSea
     g_queryTimestamp = timestamp;
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchInBookmarks(
-    JNIEnv * env, jclass clazz, jbyteArray query, jlong catId, jlong timestamp)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchInBookmarks(JNIEnv * env, jclass clazz,
+                                                                                           jbyteArray query,
+                                                                                           jlong catId, jlong timestamp)
 {
   search::BookmarksSearchParams params{jni::ToNativeString(env, query), static_cast<kml::MarkGroupId>(catId),
                                        bind(&OnBookmarksSearchResults, _1, _2, timestamp)};
@@ -335,31 +338,28 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeRu
   return searchStarted;
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeShowResult(JNIEnv * env, jclass clazz,
-                                                                                     jint index)
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeShowResult(JNIEnv * env, jclass clazz, jint index)
 {
   g_framework->NativeFramework()->ShowSearchResult(g_results[index]);
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelInteractiveSearch(JNIEnv * env,
-                                                                                                  jclass clazz)
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelInteractiveSearch(JNIEnv * env, jclass clazz)
 {
   g_framework->NativeFramework()->GetSearchAPI().CancelSearch(search::Mode::Viewport);
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelEverywhereSearch(JNIEnv * env,
-                                                                                                 jclass clazz)
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelEverywhereSearch(JNIEnv * env, jclass clazz)
 {
   g_framework->NativeFramework()->GetSearchAPI().CancelSearch(search::Mode::Everywhere);
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelAllSearches(JNIEnv * env, jclass clazz)
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelAllSearches(JNIEnv * env, jclass clazz)
 {
   g_framework->NativeFramework()->GetSearchAPI().CancelAllSearches();
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeUpdateViewportWithLastResults(JNIEnv * env,
-                                                                                                        jclass clazz)
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeUpdateViewportWithLastResults(JNIEnv * env,
+                                                                                                jclass clazz)
 {
   g_framework->NativeFramework()->UpdateViewport(g_results);
 }

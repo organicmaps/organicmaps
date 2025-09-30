@@ -66,9 +66,9 @@ void DeleteNativeHttpThread(HttpThread * request)
 
 extern "C"
 {
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_downloader_ChunkTask_nativeOnWrite(JNIEnv * env, jclass clazz,
-                                                                                       jlong httpCallbackID, jlong beg,
-                                                                                       jbyteArray data, jlong size)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_ChunkTask_nativeOnWrite(JNIEnv * env, jclass clazz,
+                                                                               jlong httpCallbackID, jlong beg,
+                                                                               jbyteArray data, jlong size)
 {
   downloader::IHttpThreadCallback * cb = reinterpret_cast<downloader::IHttpThreadCallback *>(httpCallbackID);
   jbyte * buf = env->GetByteArrayElements(data, 0);
@@ -88,10 +88,9 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_downloader_ChunkTask_nativeO
   return ret;
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_ChunkTask_nativeOnFinish(JNIEnv * env, jclass clazz,
-                                                                                    jlong httpCallbackID,
-                                                                                    jlong httpCode, jlong beg,
-                                                                                    jlong end)
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_ChunkTask_nativeOnFinish(JNIEnv * env, jclass clazz,
+                                                                            jlong httpCallbackID, jlong httpCode,
+                                                                            jlong beg, jlong end)
 {
   downloader::IHttpThreadCallback * cb = reinterpret_cast<downloader::IHttpThreadCallback *>(httpCallbackID);
   cb->OnFinish(static_cast<long>(httpCode), beg, end);
