@@ -226,12 +226,20 @@ public class NavigationService extends Service implements LocationListener
     }
 
     Logger.i(TAG, "Starting Navigation Foreground service");
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+
+    try
+    {
       ServiceCompat.startForeground(
           this, NavigationService.NOTIFICATION_ID, getNotificationBuilder(this).build(),
           ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION | ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK);
-    else
-      ServiceCompat.startForeground(this, NavigationService.NOTIFICATION_ID, getNotificationBuilder(this).build(), 0);
+    }
+    catch (SecurityException e)
+    {
+      // It is unknown why, but on Android 14+ devices starting services fails despite permission checks above.
+      Logger.e(TAG, "Failed to start foreground service, stopping the service", e);
+      stopSelf();
+      return START_NOT_STICKY;
+    }
 
     final LocationHelper locationHelper = MwmApplication.from(this).getLocationHelper();
 
