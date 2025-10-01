@@ -11,6 +11,15 @@ namespace kml
 namespace geojson
 {
 
+template <typename T>
+std::optional<std::string> getStringFromJsonMap(std::map<std::string, glz::json_t, T> const & propsJson,
+                                                std::string const & fieldName)
+{
+  if (auto const field = propsJson.find(fieldName); field != propsJson.end() && field->second.is_string())
+    return field->second.get_string();
+  return {};
+}
+
 std::string DebugPrint(GeoJsonGeometry const & g)
 {
   if (std::holds_alternative<GeoJsonGeometryPoint>(g))
@@ -99,27 +108,25 @@ bool GeojsonParser::Parse(std::string_view json_content)
       bookmark.m_color = ColorData{.m_predefinedColor = PredefinedColor::Red};
 
       // Parse "name" or "label"
-      if (auto const name = propsJson.find("name"); name != propsJson.end() && name->second.is_string())
-        kml::SetDefaultStr(bookmark.m_name, name->second.get_string());
-      else if (auto const label = propsJson.find("label"); label != propsJson.end() && label->second.is_string())
-        kml::SetDefaultStr(bookmark.m_name, label->second.get_string());
+      if (auto const name = getStringFromJsonMap(propsJson, "name"))
+        kml::SetDefaultStr(bookmark.m_name, *name);
+      else if (auto const label = getStringFromJsonMap(propsJson, "label"))
+        kml::SetDefaultStr(bookmark.m_name, *label);
 
       // Parse description
-      if (auto const descr = propsJson.find("description"); descr != propsJson.end() && descr->second.is_string())
-        kml::SetDefaultStr(bookmark.m_description, descr->second.get_string());
+      if (auto const descr = getStringFromJsonMap(propsJson, "description"))
+        kml::SetDefaultStr(bookmark.m_description, *descr);
 
       // Parse color
-      if (auto const markerColor = propsJson.find("marker-color");
-          markerColor != propsJson.end() && markerColor->second.is_string())
+      if (auto const markerColor = getStringFromJsonMap(propsJson, "marker-color"))
       {
-        auto colorRGBA = ParseHexOsmGarminColor(markerColor->second.get_string());
+        auto colorRGBA = ParseHexOsmGarminColor(*markerColor);
         if (colorRGBA)
           bookmark.m_color = ColorData{.m_predefinedColor = MapPredefinedColor(*colorRGBA), .m_rgba = *colorRGBA};
       }
 
       // Parse icon
-      // if (props_json->contains("marker-symbol") && (*props_json)["marker-symbol"].is_string()) {
-      //    auto const markerSymbol = (*props_json)["marker-symbol"].get<std::string>()
+      // if (auto const markerSymbol = getStringFromJsonMap(propsJson, "marker-symbol"))
       //    bookmark.m_icon = ???;
       //}
 
@@ -127,11 +134,11 @@ bool GeojsonParser::Parse(std::string_view json_content)
       if (auto const umapOptions = propsJson.find("_umap_options");
           umapOptions != propsJson.end() && umapOptions->second.is_object())
       {
-        glz::json_t::object_t umap_options = umapOptions->second.get_object();
+        glz::json_t::object_t const umap_options = umapOptions->second.get_object();
         // Parse color from properties['_umap_options']['color']
-        if (auto const color = umap_options.find("color"); color != umap_options.end() && color->second.is_object())
+        if (auto const color = getStringFromJsonMap(umap_options, "color"))
         {
-          auto colorRGBA = ParseHexOsmGarminColor(color->second.get_string());
+          auto colorRGBA = ParseHexOsmGarminColor(*color);
           if (colorRGBA)
             bookmark.m_color = ColorData{.m_rgba = *colorRGBA};
         }
