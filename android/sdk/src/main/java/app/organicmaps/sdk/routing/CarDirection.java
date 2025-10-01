@@ -1,8 +1,6 @@
 package app.organicmaps.sdk.routing;
 
-import android.widget.ImageView;
 import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
 import app.organicmaps.sdk.R;
 
 /**
@@ -43,19 +41,18 @@ public enum CarDirection
     mNextTurnRes = nextResId;
   }
 
-  public int getTurnRes()
+  @DrawableRes
+  public int getTurnRes(final int exitNum)
   {
+    if (isRoundAbout(this))
+      return getRoundaboutRes(exitNum);
     return mTurnRes;
   }
 
-  public void setTurnDrawable(@NonNull ImageView imageView)
+  @DrawableRes
+  public int getNextTurnRes()
   {
-    imageView.setImageResource(mTurnRes);
-  }
-
-  public void setNextTurnDrawable(@NonNull ImageView imageView)
-  {
-    imageView.setImageResource(mNextTurnRes);
+    return mNextTurnRes;
   }
 
   public boolean containsNextTurn()
@@ -66,5 +63,26 @@ public enum CarDirection
   public static boolean isRoundAbout(CarDirection turn)
   {
     return turn == ENTER_ROUND_ABOUT || turn == LEAVE_ROUND_ABOUT || turn == STAY_ON_ROUND_ABOUT;
+  }
+
+  @DrawableRes
+  private static int getRoundaboutRes(int exitNum)
+  {
+    return switch (exitNum)
+    {
+      case 1 -> R.drawable.ic_roundabout_exit_1;
+      case 2 -> R.drawable.ic_roundabout_exit_2;
+      case 3 -> R.drawable.ic_roundabout_exit_3;
+      case 4 -> R.drawable.ic_roundabout_exit_4;
+      case 5 -> R.drawable.ic_roundabout_exit_5;
+      case 6 -> R.drawable.ic_roundabout_exit_6;
+      case 7 -> R.drawable.ic_roundabout_exit_7;
+      case 8 -> R.drawable.ic_roundabout_exit_8;
+      case 9 -> R.drawable.ic_roundabout_exit_9;
+      case 10 -> R.drawable.ic_roundabout_exit_10;
+      case 11 -> R.drawable.ic_roundabout_exit_11;
+      case 12 -> R.drawable.ic_roundabout_exit_12;
+      default -> R.drawable.ic_turn_round;
+    };
   }
 }
