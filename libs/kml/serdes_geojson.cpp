@@ -55,7 +55,6 @@ std::string DebugPrint(glz::json_t const & json)
     return buffer;
   else
     return "<JSON_ERROR>";
-  // return glz::write_json(json).value_or("<JSON_ERROR>");
 }
 
 bool GeoJsonFeature::isPoint() const
@@ -73,7 +72,7 @@ bool GeoJsonFeature::isUnknown() const
   return std::holds_alternative<GeoJsonGeometryUnknown>(geometry);
 }
 
-bool GeojsonParser::Parse(std::string_view & json_content)
+bool GeojsonParser::Parse(std::string_view json_content)
 {
   geojson::GeoJsonData geoJsonData;
 
@@ -83,7 +82,7 @@ bool GeojsonParser::Parse(std::string_view & json_content)
   if (ec)
   {
     std::string err = glz::format_error(ec, json_content);
-    LOG(LWARNING, ("Error parsing JSON:", err));
+    LOG(LWARNING, ("Error parsing GeoJson:", err));
     return false;
   }
 
@@ -92,26 +91,26 @@ bool GeojsonParser::Parse(std::string_view & json_content)
   {
     if (auto const * point = std::get_if<GeoJsonGeometryPoint>(&feature.geometry))
     {
-      double longitude = point->coordinates.at(0);
-      double latitude = point->coordinates.at(1);
+      double const longitude = point->coordinates.at(0);
+      double const latitude = point->coordinates.at(1);
 
-      auto const & props_json = feature.properties;
+      auto const & propsJson = feature.properties;
       BookmarkData bookmark;
       bookmark.m_color = ColorData{.m_predefinedColor = PredefinedColor::Red};
 
       // Parse "name" or "label"
-      if (auto const name = props_json.find("name"); name != props_json.end() && name->second.is_string())
+      if (auto const name = propsJson.find("name"); name != propsJson.end() && name->second.is_string())
         kml::SetDefaultStr(bookmark.m_name, name->second.get_string());
-      else if (auto const label = props_json.find("label"); label != props_json.end() && label->second.is_string())
+      else if (auto const label = propsJson.find("label"); label != propsJson.end() && label->second.is_string())
         kml::SetDefaultStr(bookmark.m_name, label->second.get_string());
 
       // Parse description
-      if (auto const descr = props_json.find("description"); descr != props_json.end() && descr->second.is_string())
+      if (auto const descr = propsJson.find("description"); descr != propsJson.end() && descr->second.is_string())
         kml::SetDefaultStr(bookmark.m_description, descr->second.get_string());
 
       // Parse color
-      if (auto const markerColor = props_json.find("marker-color");
-          markerColor != props_json.end() && markerColor->second.is_string())
+      if (auto const markerColor = propsJson.find("marker-color");
+          markerColor != propsJson.end() && markerColor->second.is_string())
       {
         auto colorRGBA = ParseHexOsmGarminColor(markerColor->second.get_string());
         if (colorRGBA)
@@ -125,8 +124,8 @@ bool GeojsonParser::Parse(std::string_view & json_content)
       //}
 
       // UMap custom properties
-      if (auto const umapOptions = props_json.find("_umap_options");
-          umapOptions != props_json.end() && umapOptions->second.is_object())
+      if (auto const umapOptions = propsJson.find("_umap_options");
+          umapOptions != propsJson.end() && umapOptions->second.is_object())
       {
         glz::json_t::object_t umap_options = umapOptions->second.get_object();
         // Parse color from properties['_umap_options']['color']
@@ -167,12 +166,12 @@ bool GeojsonParser::Parse(std::string_view & json_content)
         kml::SetDefaultStr(track.m_name, label->second.get_string());
 
       // Parse color
-      ColorData * lineColor = nullptr;
+      std::unique_ptr<ColorData> lineColor;
       if (auto const stroke = props_json.find("stroke"); stroke != props_json.end() && stroke->second.is_string())
       {
-        auto colorRGBA = ParseHexOsmGarminColor(stroke->second.get_string());
+        auto const colorRGBA = ParseHexOsmGarminColor(stroke->second.get_string());
         if (colorRGBA)
-          lineColor = new ColorData{.m_rgba = *colorRGBA};
+          lineColor = std::make_unique<ColorData>(PredefinedColor::None, *colorRGBA);
       }
 
       // UMap custom properties
@@ -185,21 +184,14 @@ bool GeojsonParser::Parse(std::string_view & json_content)
         {
           auto colorRGBA = ParseHexOsmGarminColor(color->second.get_string());
           if (colorRGBA)
-          {
-            if (lineColor != nullptr)
-              delete lineColor;
-            lineColor = new ColorData{.m_rgba = *colorRGBA};
-          }
+            lineColor = std::make_unique<ColorData>(PredefinedColor::None, *colorRGBA);
         }
 
         // TODO: Store '_umap_options' as a JSON string in some bookmark field.
       }
 
-      if (lineColor != nullptr)
-      {
+      if (lineColor)
         track.m_layers.push_back(TrackLayer{.m_color = *lineColor});
-        delete lineColor;
-      }
 
       // Copy coordinates
       std::vector<geometry::PointWithAltitude> points;
@@ -227,11 +219,12 @@ bool GeojsonParser::Parse(std::string_view & json_content)
 
 void DeserializerGeoJson::Deserialize(std::string_view content)
 {
+  ASSERT(!content.empty(), ());
   geojson::GeojsonParser parser(m_fileData);
   if (!parser.Parse(content))
   {
     // Print corrupted GeoJson file for debug and restore purposes.
-    if (!content.empty() && content[0] == '{')
+    if (content[0] == '{')
       LOG(LWARNING, (content));
     MYTHROW(DeserializeException, ("Could not parse GeoJson."));
   }

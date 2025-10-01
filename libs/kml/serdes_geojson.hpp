@@ -105,7 +105,7 @@ class GeojsonParser
 public:
   explicit GeojsonParser(FileData & data) : m_fileData(data) {}
 
-  bool Parse(std::string_view & json_content);
+  bool Parse(std::string_view json_content);
 
 private:
   FileData & m_fileData;
