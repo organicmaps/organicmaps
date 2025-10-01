@@ -6,6 +6,7 @@
 #import "MWMLocationManager.h"
 #import "MWMLocationObserver.h"
 #import "MWMRoutePoint+CPP.h"
+#import "RouteInfo+Core.h"
 #import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
@@ -82,41 +83,6 @@
 - (BOOL)isRouteFinished
 {
   return self.rm.IsRouteFinished();
-}
-
-- (MWMRouteInfo *)routeInfo
-{
-  if (!self.isRoutingActive)
-    return nil;
-  routing::FollowingInfo info;
-  self.rm.GetRouteFollowingInfo(info);
-  if (!info.IsValid())
-    return nil;
-  CLLocation * lastLocation = [MWMLocationManager lastLocation];
-  double speedMps = 0;
-  if (lastLocation && lastLocation.speed >= 0)
-    speedMps = lastLocation.speed;
-  NSInteger roundExitNumber = 0;
-  if (info.m_turn == routing::turns::CarDirection::EnterRoundAbout ||
-      info.m_turn == routing::turns::CarDirection::StayOnRoundAbout ||
-      info.m_turn == routing::turns::CarDirection::LeaveRoundAbout)
-  {
-    roundExitNumber = info.m_exitNum;
-  }
-
-  MWMRouteInfo * objCInfo =
-      [[MWMRouteInfo alloc] initWithTimeToTarget:info.m_time
-                                  targetDistance:info.m_distToTarget.GetDistance()
-                                targetUnitsIndex:static_cast<UInt8>(info.m_distToTarget.GetUnits())
-                                  distanceToTurn:info.m_distToTurn.GetDistance()
-                                  turnUnitsIndex:static_cast<UInt8>(info.m_distToTurn.GetUnits())
-                                      streetName:@(info.m_nextStreetName.c_str())
-                                   turnImageName:[self turnImageName:info.m_turn isPrimary:YES]
-                               nextTurnImageName:[self turnImageName:info.m_nextTurn isPrimary:NO]
-                                        speedMps:speedMps
-                                   speedLimitMps:info.m_speedLimitMps
-                                 roundExitNumber:roundExitNumber];
-  return objCInfo;
 }
 
 - (MWMRouterType)type
@@ -227,6 +193,21 @@
   self.rm.RoutingSession().SetOnNewTurnCallback(nullptr);
 }
 
+- (RouteInfo *)routeInfoForCarPlay:(BOOL)isCarPlay
+{
+  if (!self.isRoutingActive)
+    return nil;
+  routing::FollowingInfo info;
+  self.rm.GetRouteFollowingInfo(info);
+  if (!info.IsValid())
+    return nil;
+  auto const routeInfo = [[RouteInfo alloc] initWithFollowingInfo:info
+                                                      routePoints:[MWMRouter points]
+                                                             type:self.type
+                                                        isCarPlay:isCarPlay];
+  return routeInfo;
+}
+
 #pragma mark - MWMFrameworkRouteBuilderObserver implementation
 
 - (void)processRouteBuilderEvent:(routing::RouterResultCode)code
@@ -280,36 +261,6 @@
   NSArray<id<MWMRoutingManagerListener>> * objects = self.listeners.allObjects;
   for (id<MWMRoutingManagerListener> object in objects)
     [object didLocationUpdate:turnNotifications];
-}
-
-- (NSString *)turnImageName:(routing::turns::CarDirection)turn isPrimary:(BOOL)isPrimary
-{
-  using namespace routing::turns;
-  NSString * imageName = nil;
-  switch (turn)
-  {
-  case CarDirection::ExitHighwayToRight: imageName = @"ic_cp_exit_highway_to_right"; break;
-  case CarDirection::TurnSlightRight: imageName = @"ic_cp_slight_right"; break;
-  case CarDirection::TurnRight: imageName = @"ic_cp_simple_right"; break;
-  case CarDirection::TurnSharpRight: imageName = @"ic_cp_sharp_right"; break;
-  case CarDirection::ExitHighwayToLeft: imageName = @"ic_cp_exit_highway_to_left"; break;
-  case CarDirection::TurnSlightLeft: imageName = @"ic_cp_slight_left"; break;
-  case CarDirection::TurnLeft: imageName = @"ic_cp_simple_left"; break;
-  case CarDirection::TurnSharpLeft: imageName = @"ic_cp_sharp_left"; break;
-  case CarDirection::UTurnLeft: imageName = @"ic_cp_uturn_left"; break;
-  case CarDirection::UTurnRight: imageName = @"ic_cp_uturn_right"; break;
-  case CarDirection::ReachedYourDestination: imageName = @"ic_cp_finish_point"; break;
-  case CarDirection::LeaveRoundAbout:
-  case CarDirection::EnterRoundAbout: imageName = @"ic_cp_round"; break;
-  case CarDirection::GoStraight: imageName = @"ic_cp_straight"; break;
-  case CarDirection::StartAtEndOfStreet:
-  case CarDirection::StayOnRoundAbout:
-  case CarDirection::Count:
-  case CarDirection::None: imageName = isPrimary ? @"ic_cp_straight" : nil; break;
-  }
-  if (!isPrimary && imageName != nil)
-    imageName = [NSString stringWithFormat:@"%@_then", imageName];
-  return imageName;
 }
 
 @end

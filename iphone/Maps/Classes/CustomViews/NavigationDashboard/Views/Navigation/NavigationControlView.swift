@@ -36,7 +36,7 @@ final class NavigationControlView: SolidTouchView {
   weak var ownerView: UIView!
   weak var delegate: RouteNavigationControlsDelegate!
 
-  private weak var navigationInfo: MWMNavigationDashboardEntity?
+  private weak var navigationInfo: RouteInfo?
   private var extendedConstraint: NSLayoutConstraint!
   private var notExtendedConstraint: NSLayoutConstraint!
   private let diminishSelector = #selector(diminish)
@@ -135,7 +135,7 @@ final class NavigationControlView: SolidTouchView {
     timePageControl.transform = CGAffineTransform(scaleX: pgScale, y: pgScale)
   }
 
-  func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
+  func onNavigationInfoUpdated(_ info: RouteInfo) {
     navigationInfo = info
     guard isVisible else { return }
     let routingNumberAttributes: [NSAttributedString.Key: Any] =
@@ -156,12 +156,12 @@ final class NavigationControlView: SolidTouchView {
     }
 
     var distanceWithLegend: NSMutableAttributedString?
-    if let targetDistance = info.targetDistance {
+    if let targetDistance = info.targetDistanceString {
       distanceLabel.text = targetDistance
       distanceWithLegend = NSMutableAttributedString(string: targetDistance, attributes: routingNumberAttributes)
     }
 
-    if let targetUnits = info.targetUnits {
+    if let targetUnits = info.targetUnitsString {
       distanceLegendLabel.text = targetUnits
       if let distanceWithLegend = distanceWithLegend {
         distanceWithLegend.append(NSAttributedString(string: targetUnits, attributes: routingLegendAttributes))
@@ -169,11 +169,7 @@ final class NavigationControlView: SolidTouchView {
       }
     }
 
-    var speedMps = 0.0
-    if let s = LocationManager.lastLocation()?.speed, s > 0 {
-      speedMps = s
-    }
-    let speedMeasure = Measure(asSpeed: speedMps)
+    let speedMeasure = Measure(asSpeed: info.currentSpeedMps)
     var speed = speedMeasure.valueAsString;
     /// @todo Draw speed limit sign similar to the CarPlay implemenation.
     // speedLimitMps >= 0 means known limited speed.
@@ -195,7 +191,7 @@ final class NavigationControlView: SolidTouchView {
       speedLabel.textColor = UIColor.white()
       speedBackground.backgroundColor = UIColor.buttonRed()
     } else {
-      let isSpeedLimitExceeded = info.speedLimitMps > 0 && speedMps > info.speedLimitMps
+      let isSpeedLimitExceeded = info.speedLimitMps > 0 && info.currentSpeedMps > info.speedLimitMps
       speedLabel.textColor = isSpeedLimitExceeded ? UIColor.buttonRed() : UIColor.blackPrimaryText()
       speedBackground.backgroundColor = UIColor.clear
     }

@@ -127,7 +127,7 @@ extension NavigationDashboard {
     }
 
     private func buildEstimatesString(routerType: MWMRouterType,
-                                      navigationInfo: MWMNavigationDashboardEntity,
+                                      navigationInfo: RouteInfo,
                                       elevationInfo: ElevationInfo?) -> NSAttributedString {
       let result = NSMutableAttributedString()
       if let estimates = navigationInfo.estimate() {

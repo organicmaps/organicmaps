@@ -17,7 +17,6 @@
 @property(copy, nonatomic) NSDictionary * etaAttributes;
 @property(copy, nonatomic) NSDictionary * etaSecondaryAttributes;
 @property(copy, nonatomic) NSString * errorMessage;
-@property(copy, nonatomic) MWMNavigationDashboardEntity * entity;
 @property(nonatomic, readwrite, nullable) MWMRoutePoint * selectedRoutePoint;
 @property(nonatomic, readwrite) BOOL shouldAppendNewPoints;
 
@@ -76,12 +75,11 @@
     self.state = MWMNavigationDashboardStateReady;
 }
 
-- (void)onNavigationInfoUpdated
+- (void)onNavigationInfoUpdated:(RouteInfo *)entity
 {
   if (self.state == MWMNavigationDashboardStateClosed)
     return;
-  auto entity = self.entity;
-  if (!entity.isValid)
+  if (!entity)
     return;
   [self.navigationDashboardView onNavigationInfoUpdated:entity];
 }
@@ -110,13 +108,12 @@
 {
   if (self.state != MWMNavigationDashboardStateNavigation)
     self.state = MWMNavigationDashboardStateReady;
+  auto const navigationDashboardView = self.navigationDashboardView;
   if ([MWMRouter hasActiveDrivingOptions])
-  {
-    [self.navigationDashboardView setDrivingOptionState:MWMDrivingOptionsStateChange];
-  }
+    [navigationDashboardView setDrivingOptionState:MWMDrivingOptionsStateChange];
   else
   {
-    [self.navigationDashboardView
+    [navigationDashboardView
         setDrivingOptionState:hasWarnings ? MWMDrivingOptionsStateDefine : MWMDrivingOptionsStateNone];
   }
 }
@@ -153,13 +150,6 @@
   // Restore bottom buttons only if they were not already hidden by tapping anywhere on an empty map.
   if (!MWMMapViewControlsManager.manager.hidden)
     BottomTabBarViewController.controller.isHidden = state != MWMNavigationDashboardStateClosed;
-}
-
-- (MWMNavigationDashboardEntity *)entity
-{
-  if (!_entity)
-    _entity = [[MWMNavigationDashboardEntity alloc] init];
-  return _entity;
 }
 
 #pragma mark - State changes
@@ -211,7 +201,6 @@
 - (void)stateNavigation
 {
   [self.navigationDashboardView stateNavigation];
-  [self onNavigationInfoUpdated];
 }
 
 #pragma mark - MWMRoutePreviewDelegate

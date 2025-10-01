@@ -41,7 +41,7 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMMapWidgetsHelper.h"
 #import "MWMNavigationController.h"
-#import "MWMNavigationDashboardEntity.h"
+#import "RouteInfo.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMNavigationDashboardView.h"
 #import "MWMNavigationInfoView.h"

@@ -20,7 +20,7 @@ extension NavigationDashboard {
     case saveRouteAsTrackButtonDidTap
 
     case updateRouteBuildingProgress(CGFloat, routerType: MWMRouterType)
-    case updateNavigationInfo(MWMNavigationDashboardEntity)
+    case updateNavigationInfo(RouteInfo)
     case updateElevationInfo(ElevationInfo?)
     case updateVisibleAreaInsets(UIEdgeInsets)
     case updateNavigationInfoAvailableArea(CGRect)

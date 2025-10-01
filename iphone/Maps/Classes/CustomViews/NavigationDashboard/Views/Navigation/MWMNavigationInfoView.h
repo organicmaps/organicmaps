@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationInfoViewState) {
   MWMNavigationInfoViewStateNavigation
 };
 
-@class MWMNavigationDashboardEntity;
+@class RouteInfo;
 
 NS_SWIFT_NAME(NavigationInfoView)
 @interface MWMNavigationInfoView : UIView
@@ -31,7 +31,7 @@ NS_SWIFT_NAME(NavigationInfoView)
 
 - (void)setSearchState:(NavigationSearchState)searchState animated:(BOOL)animated;
 
-- (void)onNavigationInfoUpdated:(MWMNavigationDashboardEntity *)info;
+- (void)onNavigationInfoUpdated:(RouteInfo *)info;
 
 - (void)updateSideButtonsAvailableArea:(CGRect)frame animated:(BOOL)animated;
 
