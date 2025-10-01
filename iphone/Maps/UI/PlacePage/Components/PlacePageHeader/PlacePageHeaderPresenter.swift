@@ -1,11 +1,13 @@
 protocol PlacePageHeaderPresenterProtocol: AnyObject {
   var objectType: PlacePageObjectType { get }
-  
+  var canEditTitle: Bool { get }
+
   func configure()
   func onClosePress()
   func onExpandPress()
   func onShareButtonPress(from sourceView: UIView)
   func onExportTrackButtonPress(_ type: KmlFileType, from sourceView: UIView)
+  func onFinishEditingTitle(_ newTitle: String)
 }
 
 protocol PlacePageHeaderViewControllerDelegate: AnyObject {
@@ -13,6 +15,7 @@ protocol PlacePageHeaderViewControllerDelegate: AnyObject {
   func previewDidPressExpand()
   func previewDidPressShare(from sourceView: UIView)
   func previewDidPressExportTrack(_ type: KmlFileType, from sourceView: UIView)
+  func previewDidFinishEditingTitle(_ newTitle: String)
 }
 
 class PlacePageHeaderPresenter {
@@ -41,16 +44,11 @@ class PlacePageHeaderPresenter {
 }
 
 extension PlacePageHeaderPresenter: PlacePageHeaderPresenterProtocol {
+  var canEditTitle: Bool { objectType == .bookmark || objectType == .track }
+
   func configure() {
     view?.setTitle(placePagePreviewData.title, secondaryTitle: placePagePreviewData.secondaryTitle)
-    switch headerType {
-    case .flexible:
-      view?.isExpandViewHidden = false
-      view?.isShadowViewHidden = true
-    case .fixed:
-      view?.isExpandViewHidden = true
-      view?.isShadowViewHidden = false
-    }
+    view?.setShadowHidden(headerType == .flexible)
   }
 
   func onClosePress() {
@@ -67,5 +65,9 @@ extension PlacePageHeaderPresenter: PlacePageHeaderPresenterProtocol {
 
   func onExportTrackButtonPress(_ type: KmlFileType, from sourceView: UIView) {
     delegate?.previewDidPressExportTrack(type, from: sourceView)
+  }
+
+  func onFinishEditingTitle(_ newTitle: String) {
+    delegate?.previewDidFinishEditingTitle(newTitle)
   }
 }
