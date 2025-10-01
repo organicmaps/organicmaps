@@ -14,6 +14,11 @@ final class PlacePageScrollView: UIScrollView {
   override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
     return point.y > 0
   }
+
+  override func scrollRectToVisible(_ rect: CGRect, animated: Bool) {
+    guard isScrollEnabled else { return }
+    super.scrollRectToVisible(rect, animated: animated)
+  }
 }
 
 @objc final class PlacePageViewController: UIViewController {
@@ -25,7 +30,7 @@ final class PlacePageScrollView: UIScrollView {
     static let fastSwipeUpVelocity: CGFloat = 2.0
   }
   
-  @IBOutlet private var scrollView: UIScrollView!
+  @IBOutlet private var scrollView: PlacePageScrollView!
   @IBOutlet private var stackView: UIStackView!
   @IBOutlet private var actionBarContainerView: UIView!
   @IBOutlet private var actionBarHeightConstraint: NSLayoutConstraint!
@@ -51,12 +56,15 @@ final class PlacePageScrollView: UIScrollView {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    MWMKeyboard.add(self)
+
     setupView()
     setupLayout(layout)
   }
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
+    guard !self.layout.headerViewController.isEditingTitle else { return }
     if #available(iOS 13.0, *) {
       // See https://github.com/organicmaps/organicmaps/issues/6917 for the details.
     } else if previousTraitCollection == nil {
@@ -85,6 +93,8 @@ final class PlacePageScrollView: UIScrollView {
     super.traitCollectionDidChange(previousTraitCollection)
     // Update layout when the device was rotated but skip when the appearance was changed.
     if self.previousTraitCollection != nil, previousTraitCollection?.userInterfaceStyle == traitCollection.userInterfaceStyle, previousTraitCollection?.verticalSizeClass != traitCollection.verticalSizeClass {
+      // Skip updating steps if the title is being edited because the header is pinned to the keyboard.
+      guard !self.layout.headerViewController.isEditingTitle else { return }
       DispatchQueue.main.async {
         self.updateSteps()
         self.showLastStop()
@@ -153,18 +163,13 @@ final class PlacePageScrollView: UIScrollView {
   }
 
   private func setupView() {
-    stackView.insertSubview(backgroundView, at: 0)
-    backgroundView.alignToSuperview()
-
     headerStackView.axis = .vertical
     headerStackView.distribution = .fill
 
     scrollView.decelerationRate = .fast
     scrollView.backgroundColor = .clear
 
-    let topCorners: CACornerMask = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-    stackView.layer.setCornerRadius(.modalSheet, maskedCorners: topCorners)
-    stackView.backgroundColor = .clear
+    stackView.setStyle(.ppBackgroundView)
 
     if isiPad {
       let bottomCorners: CACornerMask = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
@@ -329,6 +334,9 @@ extension PlacePageViewController: PlacePageViewProtocol {
       cleanupLayout()
     }
     self.layout = layout
+    self.layout.headerViewController.onEditingTitle = { [weak self] isEditing in
+      self?.scrollView.isScrollEnabled = !isEditing
+    }
   }
 
   private func hideActionBar(_ value: Bool) {
@@ -380,6 +388,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
       },
       completion: { _ in
         completion()
+        MWMKeyboard.remove(self)
       })
   }
 
@@ -392,6 +401,8 @@ extension PlacePageViewController: PlacePageViewProtocol {
 
 extension PlacePageViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    previousScrollContentOffset = scrollView.contentOffset
+
     if scrollView.contentOffset.y < -scrollView.height + 1 && beginDragging {
       interactor?.close()
     }
@@ -442,4 +453,21 @@ extension PlacePageViewController: UIScrollViewDelegate {
       navigationBar.view.removeFromSuperview()
     }
   }
+
+  private func contentOffsetForTitleEditing() -> CGPoint {
+    let visibleScrollHeight = scrollView.frame.height + actionBarContainerView.frame.height - MWMKeyboard.keyboardHeight()
+    let yOffsetFromKeyboard = layout.headerViewController.view.height
+    return CGPoint(x: scrollView.contentOffset.x, y: yOffsetFromKeyboard - visibleScrollHeight)
+  }
+}
+
+// MARK: - MWMKeyboardObserver
+
+extension PlacePageViewController: MWMKeyboardObserver {
+  func onKeyboardWillAnimate() {
+    guard !isiPad else { return }
+    scrollView.contentOffset = contentOffsetForTitleEditing()
+  }
+
+  func onKeyboardAnimation() {}
 }

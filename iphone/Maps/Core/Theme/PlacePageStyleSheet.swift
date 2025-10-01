@@ -118,8 +118,8 @@ extension PlacePageStyleSheet: IStyleSheet {
         s.backgroundColor = colors.white
         s.shadowColor = UIColor.black
         s.shadowOffset = CGSize(width: 0, height: 1)
-        s.shadowOpacity = 0.4
-        s.shadowRadius = 1
+        s.shadowOpacity = 0.3
+        s.shadowRadius = 6
         s.clip = false
       }
     case .ppBackgroundView:
@@ -131,7 +131,6 @@ extension PlacePageStyleSheet: IStyleSheet {
     case .ppView:
       return .add { s in
         s.backgroundColor = colors.clear
-        s.cornerRadius = .modalSheet
         s.clip = true
       }
     case .ppHeaderCircleIcon:
