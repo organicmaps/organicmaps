@@ -1,11 +1,6 @@
 final class BookmarksListViewController: MWMViewController {
   var presenter: IBookmarksListPresenter!
 
-  private enum Constants {
-    static let headerHeight = CGFloat(60)
-    static let iOS26ToolbarBottomSpacing = CGFloat(16)
-  }
-
   private var sections: [IBookmarksListSectionViewModel]?
   private let cellStrategy = BookmarksListCellStrategy()
 
@@ -13,7 +8,6 @@ final class BookmarksListViewController: MWMViewController {
 
   @IBOutlet private var tableView: UITableView!
   @IBOutlet private var toolBar: UIToolbar!
-  @IBOutlet private weak var toolBarBottomConstraint: NSLayoutConstraint!
   @IBOutlet private var sortToolbarItem: UIBarButtonItem!
   @IBOutlet private var moreToolbarItem: UIBarButtonItem!
   private let searchController = UISearchController(searchResultsController: nil)
@@ -45,11 +39,7 @@ final class BookmarksListViewController: MWMViewController {
     searchController.searchBar.applyTheme()
     navigationItem.searchController = searchController
     navigationItem.hidesSearchBarWhenScrolling = false
-    if #available(iOS 26.0, *), !isiPad {
-      // Additional inset to the bottom toolbar search.
-      toolBarBottomConstraint.constant = Constants.iOS26ToolbarBottomSpacing
-    }
-
+    
     cellStrategy.registerCells(tableView)
     cellStrategy.cellCheckHandler = { [weak self] (viewModel, index, checked) in
       self?.presenter.checkItem(in: viewModel, at: index, checked: checked)
@@ -73,7 +63,6 @@ final class BookmarksListViewController: MWMViewController {
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     updateInfoSize()
-    tableView.contentInset.bottom = toolBar.height
   }
 
   private func updateInfoSize() {
@@ -117,7 +106,7 @@ extension BookmarksListViewController: UITableViewDataSource {
 
 extension BookmarksListViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    Constants.headerHeight
+    60
   }
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

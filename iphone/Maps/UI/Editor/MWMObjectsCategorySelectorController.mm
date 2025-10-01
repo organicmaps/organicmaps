@@ -22,8 +22,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 {}
 
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
-@property(nonatomic) UISearchController * searchViewController;
-
+@property(weak, nonatomic) IBOutlet UISearchBar * searchBar;
 @property(nonatomic) NSString * selectedType;
 @property(nonatomic) BOOL isSearch;
 @property(nonatomic) MWMObjectsCategorySelectorDataSource * dataSource;
@@ -72,14 +71,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 }
 - (void)configSearchBar
 {
-  self.searchViewController = [[UISearchController alloc] initWithSearchResultsController:nil];
-  self.searchViewController.obscuresBackgroundDuringPresentation = NO;
-  self.searchViewController.hidesNavigationBarDuringPresentation = NO;
-  self.searchViewController.searchBar.placeholder = L(@"search");
-  self.searchViewController.searchBar.delegate = self;
-  [self.searchViewController.searchBar applyTheme];
-  self.navigationItem.hidesSearchBarWhenScrolling = NO;
-  self.navigationItem.searchController = self.searchViewController;
+  self.searchBar.placeholder = L(@"search");
 }
 
 - (void)configEmptySearchResultsDisclaimer

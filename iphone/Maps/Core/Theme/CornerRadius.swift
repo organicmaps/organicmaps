@@ -1,6 +1,5 @@
 enum CornerRadius {
   case modalSheet
-  case iOS26ModalSheet // TODO: Remove after iOS26 adoption for the PlacePage and Menu screen
   case buttonDefault
   case buttonDefaultSmall
   case buttonDefaultBig
@@ -13,7 +12,6 @@ extension CornerRadius {
   var value: CGFloat {
     switch self {
     case .modalSheet: return 12
-    case .iOS26ModalSheet: return 38
     case .buttonDefault: return 8
     case .buttonDefaultSmall: return 6
     case .buttonDefaultBig: return 12
