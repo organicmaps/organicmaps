@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "寵物美容";
 "type.shop.photo" = "照片店";
 "type.shop.rental" = "租賃店";
-"type.shop.rental.bicycle" = "自行車租賃店";
+"type.amenity.bicycle_rental.shop" = "自行車租賃店";
 "type.shop.seafood" = "魚販";
 "type.shop.second_hand" = "二手店";
 "type.shop.shoes" = "鞋店";

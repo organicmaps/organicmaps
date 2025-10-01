@@ -1282,7 +1282,7 @@
 "type.shop.pet_grooming" = "Husdjursvård";
 "type.shop.photo" = "Fotoaffär";
 "type.shop.rental" = "Uthyrningsbutik";
-"type.shop.rental.bicycle" = "Cykeluthyrningsbutik";
+"type.amenity.bicycle_rental.shop" = "Cykeluthyrningsbutik";
 "type.shop.seafood" = "Fiskhandlare";
 "type.shop.second_hand" = "Andrahandsaffär";
 "type.shop.shoes" = "Skobutik";

@@ -1023,7 +1023,7 @@
     <string name="type.shop.pet_grooming">Kisállatápolás</string>
     <string name="type.shop.photo">Fotóüzlet</string>
     <string name="type.shop.rental">Kölcsönző</string>
-    <string name="type.shop.rental.bicycle">Kerékpárkölcsönző</string>
+    <string name="type.amenity.bicycle_rental.shop">Kerékpárkölcsönző</string>
     <string name="type.shop.seafood">Halkereskedés</string>
     <string name="type.shop.second_hand">Használtcikk-bolt</string>
     <string name="type.shop.shoes">Cipőbolt</string>

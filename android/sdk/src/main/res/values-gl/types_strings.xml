@@ -1117,7 +1117,7 @@
     <string name="type.shop.pet_grooming">Aseo de mascotas</string>
     <string name="type.shop.photo">Artigos de fotografía</string>
     <string name="type.shop.rental">Tenda de alugueiro</string>
-    <string name="type.shop.rental.bicycle">Tenda de alugueiro de bicicletas</string>
+    <string name="type.amenity.bicycle_rental.shop">Tenda de alugueiro de bicicletas</string>
     <string name="type.shop.seafood">Peixaría</string>
     <string name="type.shop.second_hand">Tenda de segunda man</string>
     <string name="type.shop.shoes">Zapatería</string>

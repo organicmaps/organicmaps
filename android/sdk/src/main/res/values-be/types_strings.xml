@@ -507,7 +507,7 @@
     <string name="type.shop.pastry">Кандытарскія вырабы</string>
     <string name="type.shop.pet_grooming">Грумінг</string>
     <string name="type.shop.rental">Пракат</string>
-    <string name="type.shop.rental.bicycle">Пракат ровараў</string>
+    <string name="type.amenity.bicycle_rental.shop">Пракат ровараў</string>
     <string name="type.shop.second_hand">Крама сэканд-хэнд</string>
     <string name="type.shop.tea">Крама гарбаты</string>
     <string name="type.shop.agrarian">Сельскагаспадарчы магазін</string>

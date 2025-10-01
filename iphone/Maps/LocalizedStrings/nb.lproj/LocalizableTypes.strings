@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "Kjæledyrpleie";
 "type.shop.photo" = "Fotobutikk";
 "type.shop.rental" = "Utleiebutikk";
-"type.shop.rental.bicycle" = "Sykkelutleiebutikk";
+"type.amenity.bicycle_rental.shop" = "Sykkelutleiebutikk";
 "type.shop.seafood" = "Fiskehandler";
 "type.shop.second_hand" = "Bruktbutikk";
 "type.shop.shoes" = "Skobutikk";

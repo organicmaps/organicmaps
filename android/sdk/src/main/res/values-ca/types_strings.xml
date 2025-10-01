@@ -363,7 +363,7 @@
     <string name="type.shop.pastry">Forn de pa</string>
     <string name="type.shop.pet_grooming">Peluca de mascotes</string>
     <string name="type.shop.rental">Botiga de lloguer</string>
-    <string name="type.shop.rental.bicycle">Botiga de lloguer de bicicletes</string>
+    <string name="type.amenity.bicycle_rental.shop">Botiga de lloguer de bicicletes</string>
     <string name="type.shop.agrarian">Botiga agrícola</string>
     <string name="type.shop.appliance">Botiga d’electrodomèstics</string>
     <!-- maybe change to Art Gallery for en-US when supported -->

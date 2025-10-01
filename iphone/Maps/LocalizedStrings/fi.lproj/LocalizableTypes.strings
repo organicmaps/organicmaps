@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "Lemmikkieläinten hoito";
 "type.shop.photo" = "Valokuvakauppa";
 "type.shop.rental" = "Vuokrakauppa";
-"type.shop.rental.bicycle" = "Polkupyörävuokraamo";
+"type.amenity.bicycle_rental.shop" = "Polkupyörävuokraamo";
 "type.shop.seafood" = "Kalakauppias";
 "type.shop.second_hand" = "Käytetyn tavaran liike";
 "type.shop.shoes" = "Kenkäkauppa";

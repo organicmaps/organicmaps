@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "Грумер";
 "type.shop.photo" = "Фотограф";
 "type.shop.rental" = "Центар за изнајмљивање";
-"type.shop.rental.bicycle" = "Изнајмљивање бицикала";
+"type.amenity.bicycle_rental.shop" = "Изнајмљивање бицикала";
 "type.shop.seafood" = "Рибарница";
 "type.shop.second_hand" = "Половна одећа";
 "type.shop.shoes" = "Обућа";

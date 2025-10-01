@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "Грумінг";
 "type.shop.photo" = "Фототовари";
 "type.shop.rental" = "Прокат";
-"type.shop.rental.bicycle" = "Прокат велосипедів";
+"type.amenity.bicycle_rental.shop" = "Прокат велосипедів";
 "type.shop.seafood" = "Рибна лавка";
 "type.shop.second_hand" = "Магазин секонд-хенду";
 "type.shop.shoes" = "Магазин взуття";

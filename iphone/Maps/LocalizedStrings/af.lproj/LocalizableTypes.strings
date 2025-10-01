@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "Troeteldierversorging";
 "type.shop.photo" = "Fotowinkel";
 "type.shop.rental" = "Rental Shop";
-"type.shop.rental.bicycle" = "Bicycle Rental Shop";
+"type.amenity.bicycle_rental.shop" = "Bicycle Rental Shop";
 "type.shop.seafood" = "Vishandelaar";
 "type.shop.second_hand" = "Tweedehandsewinkel";
 "type.shop.shoes" = "Skoenwinkel";

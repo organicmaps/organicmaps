@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "กรูมมิ่งสัตว์เลี้ยง";
 "type.shop.photo" = "ร้านถ่ายภาพ";
 "type.shop.rental" = "ร้านเช่า";
-"type.shop.rental.bicycle" = "ร้านเช่าจักรยาน";
+"type.amenity.bicycle_rental.shop" = "ร้านเช่าจักรยาน";
 "type.shop.seafood" = "ร้านขายปลา";
 "type.shop.second_hand" = "ร้านขายของมือสอง";
 "type.shop.shoes" = "ร้านขายรองเท้า";

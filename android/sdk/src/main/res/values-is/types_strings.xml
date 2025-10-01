@@ -1055,7 +1055,7 @@
     <string name="type.shop.bathroom_furnishing">Baðherbergisinnréttingar</string>
     <string name="type.shop.garden_centre">Garðvöruverslun</string>
     <string name="type.shop.musical_instrument">Hljóðfæraverslun</string>
-    <string name="type.shop.rental.bicycle">Hjólaleiga</string>
+    <string name="type.amenity.bicycle_rental.shop">Hjólaleiga</string>
     <string name="type.waterway.fish_pass">Fiskastigi</string>
     <string name="type.self_service.no">Ekki sjálfsafgreiðsla</string>
     <string name="type.amenity.exhibition_centre">Sýningahöll</string>

@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "Περιποίηση κατοικίδιων ζώων";
 "type.shop.photo" = "Φωτογραφείο";
 "type.shop.rental" = "Κατάστημα ενοικίασης";
-"type.shop.rental.bicycle" = "Κατάστημα ενοικίασης ποδηλάτων";
+"type.amenity.bicycle_rental.shop" = "Κατάστημα ενοικίασης ποδηλάτων";
 "type.shop.seafood" = "Ιχθυοπωλείο";
 "type.shop.second_hand" = "Κατάστημα μεταχειρισμένων";
 "type.shop.shoes" = "Υποδηματοπωλείο";

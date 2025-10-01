@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "Utunzaji wa Kipenzi";
 "type.shop.photo" = "Photo Shop";
 "type.shop.rental" = "Duka la Kukodisha";
-"type.shop.rental.bicycle" = "Duka la Kukodisha Baiskeli";
+"type.amenity.bicycle_rental.shop" = "Duka la Kukodisha Baiskeli";
 "type.shop.seafood" = "Fishmonger";
 "type.shop.second_hand" = "Duka la Mitumba";
 "type.shop.shoes" = "Shoe Shop";

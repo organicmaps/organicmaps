@@ -1140,7 +1140,7 @@
     <string name="type.shop.pet_grooming">Pielęgnacja zwierząt</string>
     <string name="type.shop.photo">Fotograf</string>
     <string name="type.shop.rental">Wypożyczalnia</string>
-    <string name="type.shop.rental.bicycle">Wypożyczalnia rowerów</string>
+    <string name="type.amenity.bicycle_rental.shop">Wypożyczalnia rowerów</string>
     <string name="type.shop.seafood">Sklep rybny</string>
     <string name="type.shop.second_hand">Sklep z rzeczami używanymi</string>
     <string name="type.shop.shoes">Sklep obuwniczy</string>

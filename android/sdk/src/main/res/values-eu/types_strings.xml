@@ -1076,7 +1076,7 @@
     <string name="type.shop.pet_grooming">Animalien apainketa</string>
     <string name="type.shop.photo">Argazkilaritza artikuluak</string>
     <string name="type.shop.rental">Alokairu-denda</string>
-    <string name="type.shop.rental.bicycle">Bizikletak alokatzeko denda</string>
+    <string name="type.amenity.bicycle_rental.shop">Bizikletak alokatzeko denda</string>
     <string name="type.shop.seafood">Arrandegia</string>
     <string name="type.shop.second_hand">Bigarren eskuko denda</string>
     <string name="type.shop.shoes">Zapata-denda</string>

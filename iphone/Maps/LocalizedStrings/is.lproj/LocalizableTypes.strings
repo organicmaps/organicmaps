@@ -237,7 +237,7 @@
 "type.shop.motorcycle" = "Mótorhjólaverslun";
 "type.shop.motorcycle_repair" = "Mótorhjólaviðgerðir";
 "type.shop.musical_instrument" = "Hljóðfæraverslun";
-"type.shop.rental.bicycle" = "Hjólaleiga";
+"type.amenity.bicycle_rental.shop" = "Hjólaleiga";
 "type.shop.interior_decoration" = "Innanhúshönnunarverslun";
 "type.shop.lottery" = "Lottómiðar";
 "type.shop.nutrition_supplements" = "Fæðubótarefni";

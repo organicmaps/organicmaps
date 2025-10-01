@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "Pet Grooming";
 "type.shop.photo" = "छायाचित्रण की दुकान";
 "type.shop.rental" = "Rental Shop";
-"type.shop.rental.bicycle" = "Bicycle Rental Shop";
+"type.amenity.bicycle_rental.shop" = "Bicycle Rental Shop";
 "type.shop.seafood" = "समुद्री भोजन की दुकान";
 "type.shop.second_hand" = "पुराने सामान की दुकान";
 "type.shop.shoes" = "जूते की दुकान";

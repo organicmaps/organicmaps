@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "טיפוח חיות מחמד";
 "type.shop.photo" = "חנות צילום";
 "type.shop.rental" = "חנות להשכרה";
-"type.shop.rental.bicycle" = "חנות להשכרת אופניים";
+"type.amenity.bicycle_rental.shop" = "חנות להשכרת אופניים";
 "type.shop.seafood" = "חנות דגים";
 "type.shop.second_hand" = "היינש די תונח";
 "type.shop.shoes" = "חנות נעליים";

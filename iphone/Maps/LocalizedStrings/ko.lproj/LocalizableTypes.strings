@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "애완동물 미용";
 "type.shop.photo" = "사진 가게";
 "type.shop.rental" = "렌탈샵";
-"type.shop.rental.bicycle" = "자전거 대여점";
+"type.amenity.bicycle_rental.shop" = "자전거 대여점";
 "type.shop.seafood" = "생선가게";
 "type.shop.second_hand" = "중고 판매점";
 "type.shop.shoes" = "신발 가게";

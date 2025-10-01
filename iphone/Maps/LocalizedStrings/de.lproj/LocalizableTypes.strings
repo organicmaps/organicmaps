@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "Tiersalon";
 "type.shop.photo" = "Fotofachgeschäft";
 "type.shop.rental" = "Verleih";
-"type.shop.rental.bicycle" = "Fahrradverleih";
+"type.amenity.bicycle_rental.shop" = "Fahrradverleih";
 "type.shop.seafood" = "Fischhändler";
 "type.shop.second_hand" = "Second-Hand-Laden";
 "type.shop.shoes" = "Schuhgeschäft";

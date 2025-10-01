@@ -1136,7 +1136,7 @@
 "type.shop.pet_grooming" = "Aseo de mascotas";
 "type.shop.photo" = "Artigos de fotografía";
 "type.shop.rental" = "Tenda de alugueiro";
-"type.shop.rental.bicycle" = "Tenda de alugueiro de bicicletas";
+"type.amenity.bicycle_rental.shop" = "Tenda de alugueiro de bicicletas";
 "type.shop.seafood" = "Peixaría";
 "type.shop.ticket" = "Venda de entradas";
 "type.shop.toys" = "Tenda de xoguetes";

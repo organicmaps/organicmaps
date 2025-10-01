@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "Zvierací salón";
 "type.shop.photo" = "Fotografické služby";
 "type.shop.rental" = "Požičovňa";
-"type.shop.rental.bicycle" = "Požičovňa bicyklov";
+"type.amenity.bicycle_rental.shop" = "Požičovňa bicyklov";
 "type.shop.seafood" = "Predajňa rýb";
 "type.shop.second_hand" = "Second hand";
 "type.shop.shoes" = "Obuvníctvo";

@@ -1032,7 +1032,7 @@
     <string name="type.shop.pet_grooming">Περιποίηση κατοικίδιων ζώων</string>
     <string name="type.shop.photo">Φωτογραφείο</string>
     <string name="type.shop.rental">Κατάστημα ενοικίασης</string>
-    <string name="type.shop.rental.bicycle">Κατάστημα ενοικίασης ποδηλάτων</string>
+    <string name="type.amenity.bicycle_rental.shop">Κατάστημα ενοικίασης ποδηλάτων</string>
     <string name="type.shop.seafood">Ιχθυοπωλείο</string>
     <string name="type.shop.second_hand">Κατάστημα μεταχειρισμένων</string>
     <string name="type.shop.shoes">Υποδηματοπωλείο</string>

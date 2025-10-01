@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "Evcil Hayvan Bakıcısı";
 "type.shop.photo" = "Fotoğrafçı";
 "type.shop.rental" = "Kiralık Mağaza";
-"type.shop.rental.bicycle" = "Bisiklet Kiralama Mağazası";
+"type.amenity.bicycle_rental.shop" = "Bisiklet Kiralama Mağazası";
 "type.shop.seafood" = "Deniz Ürünleri Mağazası";
 "type.shop.second_hand" = "İkinci El Mağazası";
 "type.shop.shoes" = "Ayakkabı Mağazası";

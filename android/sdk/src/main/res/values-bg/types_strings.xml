@@ -434,7 +434,7 @@
     <string name="type.shop.pastry">Тестени изделия</string>
     <string name="type.shop.pet_grooming">Грижа за домашни любимци</string>
     <string name="type.shop.rental">Магазин под наем</string>
-    <string name="type.shop.rental.bicycle">Магазин за велосипеди под наем</string>
+    <string name="type.amenity.bicycle_rental.shop">Магазин за велосипеди под наем</string>
     <string name="type.shop.second_hand">Магазин втора употреба</string>
     <string name="type.shop.agrarian">Селскостопански магазин</string>
     <string name="type.shop.antiques">Антики</string>

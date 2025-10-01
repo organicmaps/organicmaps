@@ -1175,7 +1175,7 @@
     <string name="type.shop.pet_grooming">Ilusalong lemmikloomadele</string>
     <string name="type.shop.photo">Fotopood</string>
     <string name="type.shop.rental">Renditeenuse büroo</string>
-    <string name="type.shop.rental.bicycle">Jalgrattalaenutus</string>
+    <string name="type.amenity.bicycle_rental.shop">Jalgrattalaenutus</string>
     <string name="type.shop.seafood">Mereandide pood</string>
     <string name="type.shop.second_hand">Taaskasutuspood</string>
     <string name="type.shop.shoes">Kingapood</string>

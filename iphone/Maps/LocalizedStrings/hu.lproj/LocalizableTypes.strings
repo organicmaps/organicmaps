@@ -1259,7 +1259,7 @@
 "type.shop.pet_grooming" = "Kisállatápolás";
 "type.shop.photo" = "Fotóüzlet";
 "type.shop.rental" = "Kölcsönző";
-"type.shop.rental.bicycle" = "Kerékpárkölcsönző";
+"type.amenity.bicycle_rental.shop" = "Kerékpárkölcsönző";
 "type.shop.seafood" = "Halkereskedés";
 "type.shop.second_hand" = "Használtcikk-bolt";
 "type.shop.shoes" = "Cipőbolt";

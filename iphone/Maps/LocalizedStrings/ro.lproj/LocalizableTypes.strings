@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "Îngrijirea animalelor de companie";
 "type.shop.photo" = "Centru fotografii";
 "type.shop.rental" = "Magazin de închiriere";
-"type.shop.rental.bicycle" = "Magazin de închiriere de biciclete";
+"type.amenity.bicycle_rental.shop" = "Magazin de închiriere de biciclete";
 "type.shop.seafood" = "Pescărie";
 "type.shop.second_hand" = "Magazin second-hand";
 "type.shop.shoes" = "Magazin de încălțăminte";
