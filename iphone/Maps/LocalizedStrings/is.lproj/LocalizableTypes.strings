@@ -1318,3 +1318,6 @@
 "type.office.security" = "Öryggisskrifstofa";
 "type.power.portal" = "Raflínumastur (tenging)";
 "type.shop.lighting" = "Ljósaverslun";
+"type.barrier.jersey_barrier" = "Lokun";
+"type.barrier.debris" = "Mulningur";
+"type.barrier.log" = "Bjálkalokun";
