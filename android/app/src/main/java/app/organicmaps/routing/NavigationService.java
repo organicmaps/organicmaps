@@ -34,12 +34,14 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationListener;
+import app.organicmaps.sdk.routing.CarDirection;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.sound.MediaPlayerWrapper;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.LocationUtils;
+import app.organicmaps.sdk.util.RoundaboutExit;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.Graphics;
 
@@ -303,7 +305,11 @@ public class NavigationService extends Service implements LocationListener
                                                                .setContentTitle(routingInfo.distToTurn.toString(this))
                                                                .setContentText(routingInfo.nextStreet);
 
-    final Drawable drawable = AppCompatResources.getDrawable(this, routingInfo.carDirection.getTurnRes());
+    Drawable drawable;
+    if (CarDirection.isRoundAbout(routingInfo.carDirection))
+      drawable = AppCompatResources.getDrawable(this, RoundaboutExit.getRes(routingInfo.exitNum));
+    else
+      drawable = AppCompatResources.getDrawable(this, routingInfo.carDirection.getTurnRes());
     if (drawable != null)
     {
       final Bitmap bitmap = isColorizedSupported() ? Graphics.drawableToBitmap(drawable)
