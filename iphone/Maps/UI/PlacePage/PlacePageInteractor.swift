@@ -196,9 +196,15 @@ extension PlacePageInteractor: PlacePageEditBookmarkOrTrackViewControllerDelegat
     switch data {
     case .bookmark(let bookmarkData):
       let bookmarkColor = BookmarkColor.bookmarkColor(from: color) ?? bookmarkData.color
-      MWMPlacePageManagerHelper.updateBookmark(placePageData, color: bookmarkColor, category: category)
+      MWMPlacePageManagerHelper.updateBookmark(placePageData,
+                                               title: placePageData.previewData.title,
+                                               color: bookmarkColor,
+                                               category: category)
     case .track:
-      MWMPlacePageManagerHelper.updateTrack(placePageData, color: color, category: category)
+      MWMPlacePageManagerHelper.updateTrack(placePageData,
+                                            title: placePageData.previewData.title,
+                                            color: color,
+                                            category: category)
     }
   }
   
@@ -386,6 +392,29 @@ extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
         self.presenter?.showInfoAlert(title: L("dialog_routing_system_error"),
                                       message: L("bookmarks_error_message_share_general"))
       }
+    }
+  }
+
+  func previewDidFinishEditingTitle(_ newTitle: String) {
+    switch placePageData.objectType {
+    case .bookmark:
+      guard let bookmarkData = placePageData.bookmarkData else {
+        fatalError("bookmarkData can't be nil")
+      }
+      MWMPlacePageManagerHelper.updateBookmark(placePageData,
+                                               title: newTitle,
+                                               color: bookmarkData.color,
+                                               category: bookmarkData.bookmarkGroupId)
+    case .track:
+      guard let trackData = placePageData.trackData else {
+        fatalError("trackData can't be nil")
+      }
+      MWMPlacePageManagerHelper.updateTrack(placePageData,
+                                            title: newTitle,
+                                            color: trackData.color,
+                                            category: trackData.groupId)
+    default:
+      fatalError("Editing title is only supported for bookmarks and tracks")
     }
   }
 }

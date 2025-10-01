@@ -33,9 +33,15 @@
 - (void)openCatalogSingleItem:(PlacePageData *)data atIndex:(NSInteger)index;
 - (void)openCatalogMoreItems:(PlacePageData *)data;
 - (void)addBookmark:(PlacePageData *)data;
-- (void)updateBookmark:(PlacePageData *)data color:(MWMBookmarkColor)color category:(MWMMarkGroupID)category;
+- (void)updateBookmark:(PlacePageData *)data
+                 title:(NSString *)title
+                 color:(MWMBookmarkColor)color
+              category:(MWMMarkGroupID)category;
 - (void)removeBookmark:(PlacePageData *)data;
-- (void)updateTrack:(PlacePageData *)data color:(UIColor *)color category:(MWMMarkGroupID)category;
+- (void)updateTrack:(PlacePageData *)data
+              title:(NSString *)title
+              color:(UIColor *)color
+           category:(MWMMarkGroupID)category;
 - (void)removeTrack:(PlacePageData *)data;
 - (void)editBookmark:(PlacePageData *)data;
 - (void)editTrack:(PlacePageData *)data;
@@ -169,9 +175,12 @@
   [[MWMMapViewControlsManager manager].placePageManager addBookmark:data];
 }
 
-+ (void)updateBookmark:(PlacePageData *)data color:(MWMBookmarkColor)color category:(MWMMarkGroupID)category
++ (void)updateBookmark:(PlacePageData *)data
+                 title:(NSString *)title
+                 color:(MWMBookmarkColor)color
+              category:(MWMMarkGroupID)category
 {
-  [[MWMMapViewControlsManager manager].placePageManager updateBookmark:data color:color category:category];
+  [[MWMMapViewControlsManager manager].placePageManager updateBookmark:data title:title color:color category:category];
 }
 
 + (void)removeBookmark:(PlacePageData *)data
@@ -179,9 +188,12 @@
   [[MWMMapViewControlsManager manager].placePageManager removeBookmark:data];
 }
 
-+ (void)updateTrack:(PlacePageData *)data color:(UIColor *)color category:(MWMMarkGroupID)category
++ (void)updateTrack:(PlacePageData *)data
+              title:(NSString *)title
+              color:(UIColor *)color
+           category:(MWMMarkGroupID)category
 {
-  [[MWMMapViewControlsManager manager].placePageManager updateTrack:data color:color category:category];
+  [[MWMMapViewControlsManager manager].placePageManager updateTrack:data title:title color:color category:category];
 }
 
 + (void)removeTrack:(PlacePageData *)data
