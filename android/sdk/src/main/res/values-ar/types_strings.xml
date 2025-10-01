@@ -1115,7 +1115,7 @@
     <string name="type.shop.pet_grooming">العناية بالحيوانات الأليفة</string>
     <string name="type.shop.photo">محل تصوير</string>
     <string name="type.shop.rental">محل تأجير</string>
-    <string name="type.shop.rental.bicycle">محل تأجير الدراجات</string>
+    <string name="type.amenity.bicycle_rental.shop">محل تأجير الدراجات</string>
     <string name="type.shop.seafood">سمّاك</string>
     <string name="type.shop.second_hand">متجر بضائع مستعملة</string>
     <string name="type.shop.shoes">متجر أحذية</string>

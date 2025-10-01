@@ -1182,7 +1182,7 @@
     <string name="type.shop.pet_grooming">Груминг</string>
     <string name="type.shop.photo">Фототовары</string>
     <string name="type.shop.rental">Прокат</string>
-    <string name="type.shop.rental.bicycle">Прокат велосипедов</string>
+    <string name="type.amenity.bicycle_rental.shop">Прокат велосипедов</string>
     <string name="type.shop.seafood">Рыбный магазин</string>
     <string name="type.shop.second_hand">Секонд-хенд магазин</string>
     <string name="type.shop.shoes">Магазин обуви</string>

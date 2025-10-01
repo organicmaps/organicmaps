@@ -1152,7 +1152,7 @@
     <string name="type.shop.pet_grooming">Tiersalon</string>
     <string name="type.shop.photo">Fotofachgeschäft</string>
     <string name="type.shop.rental">Verleih</string>
-    <string name="type.shop.rental.bicycle">Fahrradverleih</string>
+    <string name="type.amenity.bicycle_rental.shop">Fahrradverleih</string>
     <string name="type.shop.seafood">Fischhändler</string>
     <string name="type.shop.second_hand">Second-Hand-Laden</string>
     <string name="type.shop.shoes">Schuhgeschäft</string>

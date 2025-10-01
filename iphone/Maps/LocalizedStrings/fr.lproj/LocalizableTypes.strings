@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "Salon de toilettage";
 "type.shop.photo" = "Matériel de photographie";
 "type.shop.rental" = "Magasin de location";
-"type.shop.rental.bicycle" = "Magasin de location de vélos";
+"type.amenity.bicycle_rental.shop" = "Magasin de location de vélos";
 "type.shop.seafood" = "Poissonnier";
 "type.shop.second_hand" = "Boutique d'objets d'occasion";
 "type.shop.shoes" = "Magasin de chaussures";

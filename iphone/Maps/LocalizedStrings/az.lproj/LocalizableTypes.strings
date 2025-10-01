@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "Heyvan baxıcısı";
 "type.shop.photo" = "Fotoqraf";
 "type.shop.rental" = "Mağaza İcarəyə verilir";
-"type.shop.rental.bicycle" = "Velosiped İcarəsi Dükanı";
+"type.amenity.bicycle_rental.shop" = "Velosiped İcarəsi Dükanı";
 "type.shop.seafood" = "Dəniz məhsulları mağazası";
 "type.shop.second_hand" = "İkinci Əl Mağazası";
 "type.shop.shoes" = "Ayaqqabı mağazası";

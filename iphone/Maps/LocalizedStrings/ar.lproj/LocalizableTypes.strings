@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "العناية بالحيوانات الأليفة";
 "type.shop.photo" = "محل تصوير";
 "type.shop.rental" = "محل تأجير";
-"type.shop.rental.bicycle" = "محل تأجير الدراجات";
+"type.amenity.bicycle_rental.shop" = "محل تأجير الدراجات";
 "type.shop.seafood" = "سمّاك";
 "type.shop.second_hand" = "متجر بضائع مستعملة";
 "type.shop.shoes" = "متجر أحذية";

@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "ペットグルーミング";
 "type.shop.photo" = "写真屋";
 "type.shop.rental" = "レンタルショップ";
-"type.shop.rental.bicycle" = "レンタサイクルショップ";
+"type.amenity.bicycle_rental.shop" = "レンタサイクルショップ";
 "type.shop.seafood" = "魚屋";
 "type.shop.second_hand" = "古物商";
 "type.shop.shoes" = "靴屋";

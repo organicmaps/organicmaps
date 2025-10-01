@@ -1281,7 +1281,7 @@
 "type.shop.pet_grooming" = "Kæledyrspleje";
 "type.shop.photo" = "Fotobutik";
 "type.shop.rental" = "Udlejningsbutik";
-"type.shop.rental.bicycle" = "Cykeludlejningsbutik";
+"type.amenity.bicycle_rental.shop" = "Cykeludlejningsbutik";
 "type.shop.seafood" = "Fiskehandler";
 "type.shop.second_hand" = "Genbrugsbutik";
 "type.shop.shoes" = "Skobutik";

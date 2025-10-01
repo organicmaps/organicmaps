@@ -1310,7 +1310,7 @@
 "type.shop.pet_grooming" = "Pet Grooming";
 "type.shop.photo" = "Photo Shop";
 "type.shop.rental" = "Rental Shop";
-"type.shop.rental.bicycle" = "Bicycle Rental Shop";
+"type.amenity.bicycle_rental.shop" = "Bicycle Rental Shop";
 "type.shop.seafood" = "Fishmonger";
 "type.shop.second_hand" = "Second Hand Shop";
 "type.shop.shoes" = "Shoe Shop";

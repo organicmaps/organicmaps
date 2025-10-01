@@ -1280,7 +1280,7 @@
 "type.shop.pet_grooming" = "Toelettatura per animali domestici";
 "type.shop.photo" = "Negozio di fotografia";
 "type.shop.rental" = "Negozio di noleggio";
-"type.shop.rental.bicycle" = "Negozio di noleggio biciclette";
+"type.amenity.bicycle_rental.shop" = "Negozio di noleggio biciclette";
 "type.shop.seafood" = "Pescivendolo";
 "type.shop.second_hand" = "Negozio di articoli usati";
 "type.shop.shoes" = "Negozio di scarpe";

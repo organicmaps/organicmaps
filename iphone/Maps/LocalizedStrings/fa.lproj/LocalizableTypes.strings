@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "نظافت حیوانات خانگی";
 "type.shop.photo" = "فروشگاه";
 "type.shop.rental" = "مغازه اجاره ای";
-"type.shop.rental.bicycle" = "مغازه اجاره دوچرخه";
+"type.amenity.bicycle_rental.shop" = "مغازه اجاره دوچرخه";
 "type.shop.seafood" = "فروشگاه";
 "type.shop.second_hand" = "ﻡﻭﺩ ﺖﺳﺩ ﻩﺎﮕﺷﻭﺮﻓ";
 "type.shop.shoes" = "فروشگاه";

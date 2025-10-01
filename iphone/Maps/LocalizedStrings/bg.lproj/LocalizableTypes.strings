@@ -1281,7 +1281,7 @@
 "type.shop.pet_grooming" = "Грижа за домашни любимци";
 "type.shop.photo" = "Photo Shop";
 "type.shop.rental" = "Магазин под наем";
-"type.shop.rental.bicycle" = "Магазин за велосипеди под наем";
+"type.amenity.bicycle_rental.shop" = "Магазин за велосипеди под наем";
 "type.shop.seafood" = "Риба";
 "type.shop.second_hand" = "Магазин втора употреба";
 "type.shop.shoes" = "Магазин за обувки";

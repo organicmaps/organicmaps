@@ -1283,7 +1283,7 @@
 "type.shop.pet_grooming" = "Peluca de mascotes";
 "type.shop.photo" = "Botiga de fotografia";
 "type.shop.rental" = "Botiga de lloguer";
-"type.shop.rental.bicycle" = "Botiga de lloguer de bicicletes";
+"type.amenity.bicycle_rental.shop" = "Botiga de lloguer de bicicletes";
 "type.shop.seafood" = "Peixateria";
 "type.shop.second_hand" = "Botiga de segona mà";
 "type.shop.shoes" = "Botiga de sabates";

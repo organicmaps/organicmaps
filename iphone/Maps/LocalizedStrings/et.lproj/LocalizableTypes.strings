@@ -1282,7 +1282,7 @@
 "type.shop.pet_grooming" = "Ilusalong lemmikloomadele";
 "type.shop.photo" = "Fotopood";
 "type.shop.rental" = "Renditeenuse büroo";
-"type.shop.rental.bicycle" = "Jalgrattalaenutus";
+"type.amenity.bicycle_rental.shop" = "Jalgrattalaenutus";
 "type.shop.seafood" = "Mereandide pood";
 "type.shop.second_hand" = "Taaskasutuspood";
 "type.shop.shoes" = "Kingapood";

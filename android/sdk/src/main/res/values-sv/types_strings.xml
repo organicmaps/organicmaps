@@ -1016,7 +1016,7 @@
     <string name="type.shop.pet_grooming">Husdjursvård</string>
     <string name="type.shop.photo">Fotoaffär</string>
     <string name="type.shop.rental">Uthyrningsbutik</string>
-    <string name="type.shop.rental.bicycle">Cykeluthyrningsbutik</string>
+    <string name="type.amenity.bicycle_rental.shop">Cykeluthyrningsbutik</string>
     <string name="type.shop.seafood">Fiskhandlare</string>
     <string name="type.shop.second_hand">Andrahandsaffär</string>
     <string name="type.shop.shoes">Skobutik</string>

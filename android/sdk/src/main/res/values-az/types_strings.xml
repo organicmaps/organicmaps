@@ -1155,7 +1155,7 @@
     <string name="type.shop.pet_grooming">Heyvan baxıcısı</string>
     <string name="type.shop.photo">Fotoqraf</string>
     <string name="type.shop.rental">Mağaza İcarəyə verilir</string>
-    <string name="type.shop.rental.bicycle">Velosiped İcarəsi Dükanı</string>
+    <string name="type.amenity.bicycle_rental.shop">Velosiped İcarəsi Dükanı</string>
     <string name="type.shop.seafood">Dəniz məhsulları mağazası</string>
     <string name="type.shop.second_hand">İkinci Əl Mağazası</string>
     <string name="type.shop.shoes">Ayaqqabı mağazası</string>

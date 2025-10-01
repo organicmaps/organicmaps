@@ -1167,7 +1167,7 @@
     <string name="type.shop.pet_grooming">Грумер</string>
     <string name="type.shop.photo">Фотограф</string>
     <string name="type.shop.rental">Центар за изнајмљивање</string>
-    <string name="type.shop.rental.bicycle">Изнајмљивање бицикала</string>
+    <string name="type.amenity.bicycle_rental.shop">Изнајмљивање бицикала</string>
     <string name="type.shop.seafood">Рибарница</string>
     <string name="type.shop.second_hand">Половна одећа</string>
     <string name="type.shop.shoes">Обућа</string>
