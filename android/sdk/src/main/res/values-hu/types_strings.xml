@@ -1413,5 +1413,5 @@
     <string name="type.shop.lighting">Világítástechnikai szaküzlet</string>
     <string name="type.barrier.jersey_barrier">Tömb</string>
     <string name="type.barrier.debris">Törmelék</string>
-    <string name="type.barrier.log">Rönk akadály</string>
+    <string name="type.barrier.log">Rönkkorlát</string>
 </resources>

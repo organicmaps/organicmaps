@@ -1307,4 +1307,6 @@
     <string name="type.place.state.USA">Estado</string>
     <string name="type.place.town">Cidade</string>
     <string name="type.barrier.log">Barreira de toras</string>
+    <string name="type.barrier.debris">Destroços</string>
+    <string name="type.barrier.jersey_barrier">Bloco</string>
 </resources>

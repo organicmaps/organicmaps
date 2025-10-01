@@ -26,4 +26,6 @@
     <string name="gb">GB</string>
     <string name="mb">MB</string>
     <string name="maps_storage_removable">Card SD</string>
+    <string name="ft">picioare</string>
+    <string name="routes_update_maps_text">Pentru a afișa rutele, hărțile trebuie să fie actualizate.</string>
 </resources>

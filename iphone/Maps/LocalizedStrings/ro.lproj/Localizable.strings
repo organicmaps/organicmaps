@@ -630,7 +630,7 @@
 "mi" = "mi";
 
 /* A unit of measure */
-"ft" = "ft";
+"ft" = "picioare";
 "miles_per_hour" = "mph";
 "hour" = "h";
 "minute" = "min";
@@ -704,7 +704,6 @@
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Ieșire";
-
 "planning_route_manage_route" = "Gestionare traseu";
 "button_plan" = "Planifică";
 "placepage_remove_stop" = "Scoateți opritorul";
@@ -1059,7 +1058,7 @@
 "bottom" = "Bottom";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Pentru a afișa rutele, hărțile trebuie să fie actualizate.";
 
 /* OpenStreetMap contribution section on the PlacePage. */
 "contribute_to_osm" = "Contribuie la OpenStreetMap";

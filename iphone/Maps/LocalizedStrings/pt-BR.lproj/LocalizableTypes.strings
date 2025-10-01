@@ -1505,3 +1505,5 @@
 "type.power.portal" = "Power Tower (Portal)";
 "type.shop.lighting" = "Lighting Shop";
 "type.barrier.log" = "Barreira de toras";
+"type.barrier.debris" = "Destroços";
+"type.barrier.jersey_barrier" = "Bloco";
