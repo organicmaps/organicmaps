@@ -500,8 +500,7 @@ void Framework::LoadMapsSync()
 // Small copy-paste with LoadMapsSync, but I don't have a better solution.
 void Framework::LoadMapsAsync(std::function<void()> && callback)
 {
-  osm::Editor & editor = osm::Editor::Instance();
-  threads::SimpleThread([this, &editor, callback = std::move(callback)]()
+  threads::SimpleThread([this, callback = std::move(callback)]()
   {
     RegisterAllMaps();
     LOG(LDEBUG, ("Maps initialized"));
@@ -509,14 +508,14 @@ void Framework::LoadMapsAsync(std::function<void()> && callback)
     GetSearchAPI().InitAfterWorldLoaded();
     LOG(LDEBUG, ("Search API initialized, part 2, after World was loaded"));
 
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, &editor, callback = std::move(callback)]()
-    {
-      editor.LoadEdits();
-      m_featuresFetcher.GetDataSource().AddObserver(editor);
-      LOG(LDEBUG, ("Editor initialized"));
+    osm::Editor & editor = osm::Editor::Instance();
+    editor.LoadEdits();
+    m_featuresFetcher.GetDataSource().AddObserver(editor);
+    LOG(LDEBUG, ("Editor initialized"));
 
-      callback();
-    });
+    GetPlatform().RunTask(Platform::Thread::Gui, [callback = std::move(callback)]() { callback(); });
+
+    LOG(LINFO, ("Finished async loading"));
   }).detach();
 }
 
