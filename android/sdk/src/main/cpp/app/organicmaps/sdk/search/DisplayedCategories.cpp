@@ -5,7 +5,7 @@
 
 extern "C"
 {
-JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_search_DisplayedCategories_nativeGetKeys(JNIEnv * env, jclass)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_search_DisplayedCategories_nativeGetKeys(JNIEnv * env, jclass)
 {
   ::Framework * fr = g_framework->NativeFramework();
   ASSERT(fr, ());
@@ -13,9 +13,8 @@ JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_search_DisplayedCategori
   return jni::ToJavaStringArray(env, categories.GetKeys());
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_search_DisplayedCategories_nativeIsLangSupported(JNIEnv * env,
-                                                                                                     jclass,
-                                                                                                     jstring langCode)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_search_DisplayedCategories_nativeIsLangSupported(JNIEnv * env, jclass,
+                                                                                             jstring langCode)
 {
   return search::DisplayedCategories::IsLanguageSupported(jni::ToNativeString(env, langCode));
 }
