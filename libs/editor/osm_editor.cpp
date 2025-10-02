@@ -142,7 +142,6 @@ void Editor::SetDefaultStorage()
 
 void Editor::LoadEdits()
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, ());
   if (!m_delegate)
   {
     LOG(LERROR, ("Can't load any map edits, delegate has not been set."));
@@ -162,6 +161,7 @@ void Editor::LoadEdits()
   // Migrate clients with an old root node.
   if (!rootNode)
     rootNode = doc.child("mapsme");
+
   // TODO: Empty rootNode is an OK case for the current logic and unit tests. Check if there is a better way to do it.
   for (auto const & mwm : rootNode.children(kXmlMwmNode))
   {
@@ -178,11 +178,13 @@ void Editor::LoadEdits()
       continue;
     }
 
-    auto const needMigrateEdits = mapVersion != mwmId.GetInfo()->GetVersion();
-    needRewriteEdits = needRewriteEdits || needMigrateEdits;
+    bool const needMigrateEdits = mapVersion != mwmId.GetInfo()->GetVersion();
+    if (needMigrateEdits)
+      needRewriteEdits = true;
 
     LoadMwmEdits(*loadedFeatures, mwm, mwmId, needMigrateEdits);
   }
+
   // Save edits with new indexes and mwm version to avoid another migration on next startup.
   if (needRewriteEdits)
     SaveTransaction(loadedFeatures);
