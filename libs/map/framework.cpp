@@ -515,8 +515,6 @@ void Framework::LoadMapsAsync(std::function<void()> && callback)
       m_featuresFetcher.GetDataSource().AddObserver(editor);
       LOG(LDEBUG, ("Editor initialized"));
 
-      GetStorage().RestoreDownloadQueue();
-
       callback();
     });
   }).detach();

@@ -260,6 +260,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     ThemeSwitcher.INSTANCE.restart(true);
 
+    Framework.nativeRestoreDownloadQueue();
+
     if (RoutingController.get().isPlanning())
       onPlanningStarted();
     else if (RoutingController.get().isNavigating())
