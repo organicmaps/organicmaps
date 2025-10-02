@@ -7,7 +7,7 @@ final class SearchNoResultsViewController: MWMViewController {
   }
 
   @IBOutlet private weak var container: UIView!
-  @IBOutlet fileprivate weak var containerBottomOffset: NSLayoutConstraint!
+  @IBOutlet private weak var containerCenterYConstraint: NSLayoutConstraint!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -21,9 +21,9 @@ final class SearchNoResultsViewController: MWMViewController {
 }
 
 extension SearchNoResultsViewController: MWMKeyboardObserver {
-
   func onKeyboardAnimation() {
-    containerBottomOffset.constant = MWMKeyboard.keyboardHeight()
-    view.layoutIfNeeded()
+    view.animateConstraints {
+      self.containerCenterYConstraint.constant = -MWMKeyboard.keyboardHeight() / 3
+    }
   }
 }
