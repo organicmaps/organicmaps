@@ -74,11 +74,11 @@
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
-  [self onKeyboardWillAnimate];
-  CGSize keyboardSize = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+  CGSize keyboardSize = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
   self.keyboardHeight = MIN(keyboardSize.height, keyboardSize.width);
   NSNumber * duration = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
   NSNumber * curve = notification.userInfo[UIKeyboardAnimationCurveUserInfoKey];
+  [self onKeyboardWillAnimate];
   [UIView animateWithDuration:duration.doubleValue
                         delay:0
                       options:curve.integerValue
