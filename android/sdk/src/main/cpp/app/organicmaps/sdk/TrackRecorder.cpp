@@ -6,24 +6,6 @@
 
 extern "C"
 {
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_location_TrackRecorder_nativeSetEnabled(JNIEnv * env, jclass clazz,
-                                                                                        jboolean enable)
-{
-  GpsTracker::Instance().SetEnabled(enable);
-  Framework * const f = frm();
-  if (f == nullptr)
-    return;
-  if (enable)
-    f->ConnectToGpsTracker();
-  else
-    f->DisconnectFromGpsTracker();
-}
-
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_location_TrackRecorder_nativeIsEnabled(JNIEnv * env, jclass clazz)
-{
-  return GpsTracker::Instance().IsEnabled();
-}
-
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_location_TrackRecorder_nativeStartTrackRecording(JNIEnv * env,
                                                                                                  jclass clazz)
 {
