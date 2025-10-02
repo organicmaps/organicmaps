@@ -103,8 +103,8 @@ UNIT_TEST(Transit_Vatikan_CorneliaToOttaviano)
 
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  // I don't see any bad routing sections here. Make actual value.
-  integration::TestRouteLength(*routeResult.first, 4316.61);
+  // Use Ottaviano -> Cornelia metro.
+  integration::TestRouteLength(*routeResult.first, 4267.9);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);
