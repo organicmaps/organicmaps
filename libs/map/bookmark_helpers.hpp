@@ -66,6 +66,7 @@ std::string_view constexpr kKmzExtension = ".kmz";
 std::string_view constexpr kKmlExtension = ".kml";
 std::string_view constexpr kKmbExtension = ".kmb";
 std::string_view constexpr kGpxExtension = ".gpx";
+std::string_view constexpr kGeoJsonExtension = ".geojson";
 
 std::string_view constexpr kTrashDirectoryName = ".Trash";
 
@@ -75,7 +76,8 @@ enum class KmlFileType
 {
   Text,
   Binary,
-  Gpx
+  Gpx,
+  GeoJson
 };
 
 inline std::string DebugPrint(KmlFileType fileType)
@@ -85,6 +87,7 @@ inline std::string DebugPrint(KmlFileType fileType)
   case KmlFileType::Text: return "Text";
   case KmlFileType::Binary: return "Binary";
   case KmlFileType::Gpx: return "GPX";
+  case KmlFileType::GeoJson: return "GeoJson";
   }
   UNREACHABLE();
 }
@@ -97,6 +100,7 @@ std::string RemoveInvalidSymbols(std::string const & name);
 std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string_view ext = kKmlExtension);
 std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
 std::string GenerateValidAndUniqueFilePathForGPX(std::string const & fileName);
+std::string GenerateValidAndUniqueFilePathForGeoJson(std::string const & fileName);
 std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName);
 /// @}
 
@@ -110,6 +114,7 @@ std::vector<std::string> GetFilePathsToLoadFromKml(std::string const & filePath)
 std::vector<std::string> GetFilePathsToLoadFromGpx(std::string const & filePath);
 std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath);
 std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath);
+std::vector<std::string> GetFilePathsToLoadFromGeoJson(std::string const & filePath);
 std::string GetLowercaseFileExt(std::string const & filePath);
 
 bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType);
