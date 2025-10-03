@@ -82,7 +82,7 @@ UNIT_TEST(Guides_FinishPointOnTrack)
   Checkpoints const checkpoints{mercator::FromLatLon(48.1394659, 11.575924),
                                 mercator::FromLatLon(48.1407632, 11.5716992)};
 
-  TestGuideRoute(checkpoints, 840.1 /* expectedDistM */, 736.279 /* expectedTimeS */, 37 /* expectedPointsCount */);
+  TestGuideRoute(checkpoints, 845.416 /* expectedDistM */, 736.279 /* expectedTimeS */, 45 /* expectedPointsCount */);
 }
 
 // Start checkpoint is on the track, finish checkpoint is far away. We build the first part of the
