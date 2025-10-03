@@ -11,15 +11,6 @@ namespace kml
 namespace geojson
 {
 
-template <typename T>
-std::optional<std::string> getStringFromJsonMap(std::map<std::string, glz::json_t, T> const & propsJson,
-                                                std::string const & fieldName)
-{
-  if (auto const field = propsJson.find(fieldName); field != propsJson.end() && field->second.is_string())
-    return field->second.get_string();
-  return {};
-}
-
 std::string DebugPrint(GeoJsonGeometry const & g)
 {
   if (std::holds_alternative<GeoJsonGeometryPoint>(g))
@@ -39,7 +30,7 @@ std::string DebugPrint(GeoJsonGeometry const & g)
   }
 }
 
-std::string DebugPrint(std::map<std::string, glz::json_t> const & p)
+std::string DebugPrint(JsonTMap const & p)
 {
   std::ostringstream out;
   bool isFirst = true;
@@ -80,6 +71,14 @@ bool GeojsonParser::Parse(std::string_view json_content)
     return false;
   }
 
+  auto getStringFromJsonMap = [](JsonTMap const & propsJson,
+                                 std::string const & fieldName) -> std::optional<std::string>
+  {
+    if (auto const field = propsJson.find(fieldName); field != propsJson.end() && field->second.is_string())
+      return field->second.get_string();
+    return {};
+  };
+
   // Copy bookmarks from parsed geoJsonData into m_fileData.
   for (auto & feature : geoJsonData.features)
   {
@@ -119,7 +118,7 @@ bool GeojsonParser::Parse(std::string_view json_content)
       if (auto const umapOptions = propsJson.find("_umap_options");
           umapOptions != propsJson.end() && umapOptions->second.is_object())
       {
-        glz::json_t::object_t const umap_options = umapOptions->second.get_object();
+        JsonTMap const umap_options = umapOptions->second.get_object();
         // Parse color from properties['_umap_options']['color']
         if (auto const color = getStringFromJsonMap(umap_options, "color"))
         {
@@ -152,16 +151,16 @@ bool GeojsonParser::Parse(std::string_view json_content)
       TrackData track;
 
       // Parse "name" or "label"
-      if (auto const name = props_json.find("name"); name != props_json.end() && name->second.is_string())
-        kml::SetDefaultStr(track.m_name, name->second.get_string());
-      else if (auto const label = props_json.find("label"); label != props_json.end() && label->second.is_string())
-        kml::SetDefaultStr(track.m_name, label->second.get_string());
+      if (auto const name = getStringFromJsonMap(props_json, "name"))
+        kml::SetDefaultStr(track.m_name, *name);
+      else if (auto const label = getStringFromJsonMap(props_json, "label"))
+        kml::SetDefaultStr(track.m_name, *label);
 
       // Parse color
       std::unique_ptr<ColorData> lineColor;
-      if (auto const stroke = props_json.find("stroke"); stroke != props_json.end() && stroke->second.is_string())
+      if (auto const stroke = getStringFromJsonMap(props_json, "stroke"))
       {
-        auto const colorRGBA = ParseHexOsmGarminColor(stroke->second.get_string());
+        auto const colorRGBA = ParseHexOsmGarminColor(*stroke);
         if (colorRGBA)
           lineColor = std::make_unique<ColorData>(PredefinedColor::None, *colorRGBA);
       }
@@ -170,11 +169,11 @@ bool GeojsonParser::Parse(std::string_view json_content)
       if (auto const umapOptions = props_json.find("_umap_options");
           umapOptions != props_json.end() && umapOptions->second.is_object())
       {
-        glz::json_t::object_t umap_options = umapOptions->second.get_object();
+        JsonTMap umap_options = umapOptions->second.get_object();
         // Parse color from properties['_umap_options']['color']
-        if (auto const color = umap_options.find("color"); color != umap_options.end() && color->second.is_object())
+        if (auto const color = getStringFromJsonMap(umap_options, "color"))
         {
-          auto colorRGBA = ParseHexOsmGarminColor(color->second.get_string());
+          auto colorRGBA = ParseHexOsmGarminColor(*color);
           if (colorRGBA)
             lineColor = std::make_unique<ColorData>(PredefinedColor::None, *colorRGBA);
         }

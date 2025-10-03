@@ -11,6 +11,9 @@ namespace kml
 namespace geojson
 {
 
+// object_t means map<string, json_t>.
+typedef glz::json_t::object_t JsonTMap;
+
 // Data structures
 
 struct GeoJsonGeometryPoint
@@ -51,13 +54,13 @@ std::string DebugPrint(GeoJsonGeometry const & g);
 
 std::string DebugPrint(glz::json_t const & json);
 
-std::string DebugPrint(std::map<std::string, glz::json_t> const & p);
+std::string DebugPrint(JsonTMap const & p);
 
 struct GeoJsonFeature
 {
   std::string type = "Feature";
   GeoJsonGeometry geometry;
-  std::map<std::string, glz::json_t> properties;
+  JsonTMap properties;
 
   friend std::string DebugPrint(GeoJsonFeature const & c)
   {
