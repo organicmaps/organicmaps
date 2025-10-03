@@ -295,7 +295,8 @@ public class NavigationService extends Service implements LocationListener
                                                                .setContentTitle(routingInfo.distToTurn.toString(this))
                                                                .setContentText(routingInfo.nextStreet);
 
-    final Drawable drawable = AppCompatResources.getDrawable(this, routingInfo.carDirection.getTurnRes());
+    final Drawable drawable =
+        AppCompatResources.getDrawable(this, routingInfo.carDirection.getTurnRes(routingInfo.exitNum));
     if (drawable != null)
     {
       final Bitmap bitmap = isColorizedSupported() ? Graphics.drawableToBitmap(drawable)

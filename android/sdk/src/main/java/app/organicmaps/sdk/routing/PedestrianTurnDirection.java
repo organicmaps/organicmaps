@@ -1,8 +1,6 @@
 package app.organicmaps.sdk.routing;
 
-import android.widget.ImageView;
 import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
 import app.organicmaps.sdk.R;
 
 public enum PedestrianTurnDirection
@@ -24,15 +22,16 @@ public enum PedestrianTurnDirection
     mNextTurnRes = nextResId;
   }
 
-  public void setTurnDrawable(@NonNull ImageView imageView)
+  @DrawableRes
+  public int getTurnRes()
   {
-    imageView.setImageResource(mTurnRes);
-    imageView.setRotation(0.0f);
+    return mTurnRes;
   }
 
-  public void setNextTurnDrawable(@NonNull ImageView imageView)
+  @DrawableRes
+  public int getNextTurnDrawable()
   {
-    imageView.setImageResource(mNextTurnRes);
+    return mNextTurnRes;
   }
 
   public boolean containsNextTurn()
