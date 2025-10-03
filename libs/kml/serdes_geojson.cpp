@@ -13,19 +13,13 @@ namespace geojson
 
 std::string DebugPrint(GeoJsonGeometry const & g)
 {
-  if (std::holds_alternative<GeoJsonGeometryPoint>(g))
-  {
-    auto geoPoint = std::get_if<GeoJsonGeometryPoint>(&g);
-    return DebugPrint(*geoPoint);
-  }
-  else if (std::holds_alternative<GeoJsonGeometryLine>(g))
-  {
-    auto geoLine = std::get_if<GeoJsonGeometryLine>(&g);
-    return DebugPrint(*geoLine);
-  }
+  if (auto const * point = std::get_if<GeoJsonGeometryPoint>(&g))
+    return DebugPrint(*point);
+  else if (auto const * line = std::get_if<GeoJsonGeometryLine>(&g))
+    return DebugPrint(*line);
   else
   {
-    auto geoUnknown = std::get_if<GeoJsonGeometryUnknown>(&g);
+    auto const geoUnknown = std::get_if<GeoJsonGeometryUnknown>(&g);
     return "GeoJsonGeometryUnknown [type = " + geoUnknown->type + "]";
   }
 }
@@ -35,7 +29,7 @@ std::string DebugPrint(JsonTMap const & p)
   std::ostringstream out;
   bool isFirst = true;
   out << "{";
-  for (auto const & pair : p)
+  for (auto const & [key, value] : p)
   {
     // Add seperator if needed
     if (isFirst)
@@ -43,30 +37,30 @@ std::string DebugPrint(JsonTMap const & p)
     else
       out << ", ";
 
-    out << '"' << pair.first << "\" = " << DebugPrint(pair.second) << ", ";
+    out << '"' << key << "\" = " << DebugPrint(value) << ", ";
   }
   return out.str();
 }
 
 std::string DebugPrint(glz::json_t const & json)
 {
-  std::string buffer{};
+  std::string buffer;
   if (glz::write_json(json, buffer))
     return buffer;
   else
     return "<JSON_ERROR>";
 }
 
-bool GeojsonParser::Parse(std::string_view json_content)
+bool GeojsonParser::Parse(std::string_view jsonContent)
 {
   geojson::GeoJsonData geoJsonData;
 
-  constexpr glz::opts opts{.comments = true, .error_on_unknown_keys = false, .error_on_missing_keys = false};
-  auto ec = glz::read<opts>(geoJsonData, json_content);
+  glz::opts constexpr opts{.comments = true, .error_on_unknown_keys = false, .error_on_missing_keys = false};
+  auto const ec = glz::read<opts>(geoJsonData, jsonContent);
 
   if (ec)
   {
-    std::string err = glz::format_error(ec, json_content);
+    std::string err = glz::format_error(ec, jsonContent);
     LOG(LWARNING, ("Error parsing GeoJson:", err));
     return false;
   }
@@ -80,7 +74,7 @@ bool GeojsonParser::Parse(std::string_view json_content)
   };
 
   // Copy bookmarks from parsed geoJsonData into m_fileData.
-  for (auto & feature : geoJsonData.features)
+  for (auto const & feature : geoJsonData.features)
   {
     if (auto const * point = std::get_if<GeoJsonGeometryPoint>(&feature.geometry))
     {
@@ -104,7 +98,7 @@ bool GeojsonParser::Parse(std::string_view json_content)
       // Parse color
       if (auto const markerColor = getStringFromJsonMap(propsJson, "marker-color"))
       {
-        auto colorRGBA = ParseHexOsmGarminColor(*markerColor);
+        auto const colorRGBA = ParseHexOsmGarminColor(*markerColor);
         if (colorRGBA)
           bookmark.m_color = ColorData{.m_predefinedColor = MapPredefinedColor(*colorRGBA), .m_rgba = *colorRGBA};
       }
@@ -122,7 +116,7 @@ bool GeojsonParser::Parse(std::string_view json_content)
         // Parse color from properties['_umap_options']['color']
         if (auto const color = getStringFromJsonMap(umap_options, "color"))
         {
-          auto colorRGBA = ParseHexOsmGarminColor(*color);
+          auto const colorRGBA = ParseHexOsmGarminColor(*color);
           if (colorRGBA)
             bookmark.m_color = ColorData{.m_rgba = *colorRGBA};
         }
@@ -140,7 +134,7 @@ bool GeojsonParser::Parse(std::string_view json_content)
   }
 
   // Copy tracks from parsed geoJsonData into m_fileData.
-  for (auto & feature : geoJsonData.features)
+  for (auto const & feature : geoJsonData.features)
   {
     if (auto const * lineGeometry = std::get_if<GeoJsonGeometryLine>(&feature.geometry))
     {
@@ -169,11 +163,11 @@ bool GeojsonParser::Parse(std::string_view json_content)
       if (auto const umapOptions = props_json.find("_umap_options");
           umapOptions != props_json.end() && umapOptions->second.is_object())
       {
-        JsonTMap umap_options = umapOptions->second.get_object();
+        JsonTMap const umap_options = umapOptions->second.get_object();
         // Parse color from properties['_umap_options']['color']
         if (auto const color = getStringFromJsonMap(umap_options, "color"))
         {
-          auto colorRGBA = ParseHexOsmGarminColor(*color);
+          auto const colorRGBA = ParseHexOsmGarminColor(*color);
           if (colorRGBA)
             lineColor = std::make_unique<ColorData>(PredefinedColor::None, *colorRGBA);
         }
@@ -189,7 +183,7 @@ bool GeojsonParser::Parse(std::string_view json_content)
       points.resize(lineCoords.size());
       for (size_t i = 0; i < lineCoords.size(); i++)
       {
-        auto pointCoords = lineCoords[i];
+        auto const & pointCoords = lineCoords[i];
         if (pointCoords.size() >= 3)
           // Third coordinate (if present) means altitude
           points[i] = geometry::PointWithAltitude(mercator::FromLatLon(pointCoords[1], pointCoords[0]), pointCoords[2]);
