@@ -908,7 +908,7 @@ railway|subway|tunnel
 railway|subway|tunnel
 *shop|rental
 railway|subway|tunnel
-*shop|rental|bike
+*amenity|bicycle_rental|shop
 *historic|ship
 *shop|tobacco
 *shop|farm
