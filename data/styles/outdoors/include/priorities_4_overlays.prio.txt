@@ -1756,6 +1756,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # === -7300
 
 # amenity-bicycle_rental                            # caption(optional) z17- (also has icon z17-)
+# amenity-bicycle_rental-shop                       # caption(optional) z17- (also has icon z16-)
 # amenity-car_sharing                               # caption(optional) z18- (also has icon z18-)
 # amenity-taxi                                      # caption(optional) z16- (also has icon z16-)
 # === -7400
@@ -1952,7 +1953,6 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # shop-pet                                          # caption(optional) z16- (also has icon z16-)
 # shop-photo                                        # caption(optional) z16- (also has icon z16-)
 # shop-rental                                       # caption(optional) z16- (also has icon z16-)
-# shop-rental-bike                                  # caption(optional) z16- (also has icon z16-)
 # shop-sewing                                       # caption(optional) z16- (also has icon z16-)
 # shop-tattoo                                       # caption(optional) z16- (also has icon z16-)
 # shop-ticket                                       # caption(optional) z16- (also has icon z16-)

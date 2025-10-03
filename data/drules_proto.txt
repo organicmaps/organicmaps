@@ -3739,6 +3739,80 @@ cont {
   }
 }
 cont {
+  name: "amenity-bicycle_rental-shop"
+  element {
+    scale: 16
+    symbol {
+      name: "shop-rental-bicycle-m"
+      priority: 2600
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "shop-rental-bicycle-m"
+      priority: 2600
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7400
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shop-rental-bicycle-m"
+      priority: 2600
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7400
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-rental-bicycle-m"
+      priority: 2600
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7400
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "shop-rental-bicycle-m"
+      priority: 2600
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7400
+    }
+  }
+}
+cont {
   name: "amenity-bicycle_repair_station"
   element {
     scale: 17
@@ -125364,94 +125438,6 @@ cont {
     scale: 20
     symbol {
       name: "rental-m"
-      priority: 1600
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8400
-    }
-  }
-}
-cont {
-  name: "shop-rental-bike"
-  element {
-    scale: 16
-    symbol {
-      name: "shop-rental-bicycle-m"
-      priority: 1600
-      min_distance: 10
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8400
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "shop-rental-bicycle-m"
-      priority: 1600
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8400
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "shop-rental-bicycle-m"
-      priority: 1600
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8400
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "shop-rental-bicycle-m"
-      priority: 1600
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8400
-    }
-  }
-  element {
-    scale: 20
-    symbol {
-      name: "shop-rental-bicycle-m"
       priority: 1600
       min_distance: 24
     }

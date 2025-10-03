@@ -37,7 +37,9 @@ world  +
         bicycle_parking  +
             covered  -
             {}
-        bicycle_rental  -
+        bicycle_rental  +
+            shop  -
+            {}
         bicycle_repair_station  -
         biergarten  -
         brothel  -
@@ -1354,9 +1356,7 @@ world  +
         pet  -
         pet_grooming  -
         photo  -
-        rental  +
-            bike  -
-            {}
+        rental  -
         seafood  -
         second_hand  -
         sewing  -
