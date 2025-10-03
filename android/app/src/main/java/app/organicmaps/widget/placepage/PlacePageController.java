@@ -32,6 +32,7 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.RoadWarningMarkType;
 import app.organicmaps.sdk.bookmarks.data.Track;
+import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.sdk.util.log.Logger;
@@ -76,7 +77,7 @@ public class PlacePageController
   private int mDistanceToTop;
 
   private ValueAnimator mCustomPeekHeightAnimator;
-  private PlacePageRouteSettingsListener mPlacePageRouteSettingsListener;
+  private PlacePageListener mPlacePageListener;
   private Dialog mAlertDialog;
 
   private final Observer<Integer> mPlacePageDistanceToTopObserver = new Observer<>() {
@@ -162,7 +163,7 @@ public class PlacePageController
   {
     super.onViewCreated(view, savedInstanceState);
     final FragmentActivity activity = requireActivity();
-    mPlacePageRouteSettingsListener = (MwmActivity) activity;
+    mPlacePageListener = (MwmActivity) activity;
 
     final Resources res = activity.getResources();
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
@@ -235,6 +236,13 @@ public class PlacePageController
     PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
     resetPlacePageHeightBounds();
     removePlacePageFragments();
+  }
+
+  private void onTrackRecordingSelected()
+  {
+    if (ChoosePositionMode.get() == ChoosePositionMode.None)
+      Framework.nativeDeactivatePopup();
+    Framework.nativeDeactivateMapSelectionCircle(false);
   }
 
   @Nullable
@@ -420,6 +428,8 @@ public class PlacePageController
     {
     case BOOKMARK_SAVE, BOOKMARK_DELETE -> onBookmarkBtnClicked();
     case TRACK_DELETE -> onTrackRemoveClicked();
+    case TRACK_RECORDING_SAVE -> mPlacePageListener.onTrackRecordingSaved();
+    case TRACK_RECORDING_DELETE -> mPlacePageListener.onTrackRecordingCancelled();
     case BACK -> onBackBtnClicked();
     case ROUTE_FROM -> onRouteFromBtnClicked();
     case ROUTE_TO -> onRouteToBtnClicked();
@@ -556,7 +566,7 @@ public class PlacePageController
   private void onAvoidBtnClicked(@NonNull RoadType roadType)
   {
     if (mMapObject != null)
-      mPlacePageRouteSettingsListener.onPlacePageRequestToggleRouteSettings(roadType);
+      mPlacePageListener.onPlacePageRequestToggleRouteSettings(roadType);
   }
 
   private void removePlacePageFragments()
@@ -613,7 +623,8 @@ public class PlacePageController
       if (showBackButton)
         buttons.add(PlacePageButtons.ButtonType.BACK);
 
-      boolean needToShowRoutingButtons = RoutingController.get().isPlanning() || showRoutingButton;
+      boolean needToShowRoutingButtons =
+          (RoutingController.get().isPlanning() || showRoutingButton) && !mapObject.isTrackRecording();
 
       if (needToShowRoutingButtons)
         buttons.add(PlacePageButtons.ButtonType.ROUTE_FROM);
@@ -622,6 +633,12 @@ public class PlacePageController
       // And move the bookmark button at the end
       if (needToShowRoutingButtons && RoutingController.get().isStopPointAllowed())
         buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
+      else if (mapObject.isTrackRecording())
+      {
+        if (!TrackRecorder.nativeIsTrackRecordingEmpty())
+          buttons.add(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE);
+        buttons.add(PlacePageButtons.ButtonType.TRACK_RECORDING_DELETE);
+      }
       else
       {
         buttons.add(mapObject.isBookmark() ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
@@ -659,10 +676,12 @@ public class PlacePageController
       mPreviousMapObject = mMapObject;
       // Place page will automatically open when the bottom sheet content is loaded so we can compute the peek height
       createPlacePageFragments();
-      updateButtons(mapObject, showBackButton, !mMapObject.isMyPosition());
+      updateButtons(mapObject, showBackButton, !(mMapObject.isMyPosition() || mMapObject.isTrackRecording()));
       mAlertDialog = null;
       if (mViewModel.isAlertDialogShowing)
         showTrackDeleteAlertDialog();
+      if (mMapObject.isTrackRecording())
+        onTrackRecordingSelected();
     }
     else
       close();
@@ -694,8 +713,10 @@ public class PlacePageController
     mViewModel.getPlacePageDistanceToTop().removeObserver(mPlacePageDistanceToTopObserver);
   }
 
-  public interface PlacePageRouteSettingsListener
+  public interface PlacePageListener
   {
     void onPlacePageRequestToggleRouteSettings(@NonNull RoadType roadType);
+    void onTrackRecordingSaved();
+    void onTrackRecordingCancelled();
   }
 }

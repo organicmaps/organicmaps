@@ -1,5 +1,6 @@
 #include "Framework.hpp"
 
+#include "app/organicmaps/sdk/core/jni_helper.hpp"
 #include "map/gps_tracker.hpp"
 
 #include <chrono>
@@ -10,7 +11,7 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_location_TrackRecorder_nativeSet
                                                                                         jboolean enable)
 {
   GpsTracker::Instance().SetEnabled(enable);
-  Framework * const f = frm();
+  Framework * f = frm();
   if (f == nullptr)
     return;
   if (enable)
@@ -28,6 +29,42 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_location_TrackRecorder_nativeSta
                                                                                                  jclass clazz)
 {
   frm()->StartTrackRecording();
+}
+
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_location_TrackRecorder_nativeSetTrackRecordingStatsListener(
+    JNIEnv * env, jclass clazz, jobject updateListener)
+{
+  if (updateListener == nullptr)
+  {
+    frm()->SetTrackRecordingUpdateHandler(nullptr);
+    return;
+  }
+  ASSERT(frm()->IsTrackRecordingEnabled(), ());
+  static jmethodID const cId = jni::GetConstructorID(env, g_trackStatisticsClazz, "(DDDDII)V");
+
+  frm()->SetTrackRecordingUpdateHandler(
+      [listener = jni::make_global_ref(updateListener)](TrackStatistics const & trackStats)
+  {
+    JNIEnv * env = jni::GetEnvSafe();
+    jobject stats =
+        env->NewObject(g_trackStatisticsClazz, cId, trackStats.m_length, trackStats.m_duration, trackStats.m_ascent,
+                       trackStats.m_descent, trackStats.m_minElevation, static_cast<jint>(trackStats.m_maxElevation));
+
+    jmethodID onUpdateFn = jni::GetMethodID(env, *listener, "onTrackRecordingUpdate",
+                                            "(Lapp/organicmaps/sdk/bookmarks/data/TrackStatistics;)V");
+    env->CallVoidMethod(*listener, onUpdateFn, stats);
+    jni::HandleJavaException(env);
+  });
+}
+
+JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_location_TrackRecorder_nativeGetElevationInfo(JNIEnv * env,
+                                                                                                 jclass clazz)
+{
+  ASSERT(frm()->IsTrackRecordingEnabled(), ("Track recording is not started"));
+  auto const & elevationInfo = frm()->GetTrackRecordingElevationInfo();
+  if (elevationInfo.GetSize() == 0)
+    return nullptr;
+  return usermark_helper::CreateElevationInfo(env, elevationInfo);
 }
 
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_location_TrackRecorder_nativeStopTrackRecording(JNIEnv * env,
@@ -54,4 +91,4 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_location_TrackRecorder_nativ
 {
   return frm()->IsTrackRecordingEnabled();
 }
-}
+}  // namespace
