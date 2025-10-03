@@ -937,4 +937,20 @@ void DrapeEngine::SetCustomArrow3d(std::optional<Arrow3dCustomDecl> arrow3dCusto
                                   make_unique_dp<Arrow3dRecacheMessage>(std::move(arrow3dCustomDecl)),
                                   MessagePriority::High);
 }
+
+void DrapeEngine::SetTileBackgroundData(df::TileKey const & tileKey, uint32_t width, uint32_t height,
+                                        dp::TextureFormat format, dp::BackgroundMode mode,
+                                        std::vector<uint8_t> && bytes)
+{
+  m_threadCommutator->PostMessage(
+      ThreadsCommutator::ResourceUploadThread,
+      make_unique_dp<SetTileBackgroundDataMessage>(tileKey, width, height, format, mode, std::move(bytes)),
+      MessagePriority::Normal);
+}
+
+void DrapeEngine::SetTileBackgroundMode(dp::BackgroundMode mode)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<SetTileBackgroundModeMessage>(mode), MessagePriority::Normal);
+}
 }  // namespace df
