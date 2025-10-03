@@ -1697,8 +1697,12 @@ node|z17-[amenity=motorcycle_rental],
 node|z18-[amenity=motorcycle_rental],
 {font-size: 11;}
 
-node|z17-[amenity=bicycle_rental],
-area|z17-[amenity=bicycle_rental]
+node|z16-[amenity=bicycle_rental][bicycle_rental=shop],
+area|z16-[amenity=bicycle_rental][bicycle_rental=shop],
+{icon-image: shop-rental-bicycle-m.svg;}
+
+node|z17-[amenity=bicycle_rental][bicycle_rental!=shop],
+area|z17-[amenity=bicycle_rental][bicycle_rental!=shop],
 {icon-image: bicycle-rental-m.svg;}
 node|z18-[amenity=bicycle_rental],
 area|z18-[amenity=bicycle_rental]
@@ -2315,9 +2319,6 @@ area|z16[shop=stationery]
 node|z16[shop=rental],
 area|z16[shop=rental]
 {icon-image: rental-m.svg;}
-node|z16[shop=rental][rental=bike],
-area|z16[shop=rental][rental=bike],
-{icon-image: shop-rental-bicycle-m.svg;}
 
 node|z17-[shop=cheese],
 area|z17-[shop=cheese]
@@ -2549,9 +2550,6 @@ node|z17-[shop=pawnbroker],
 node|z17-[shop=rental],
 area|z17-[shop=rental]
 {icon-image: rental-m.svg;icon-min-distance: 24;}
-node|z17-[shop=rental][rental=bike],
-area|z17-[shop=rental][rental=bike],
-{icon-image: shop-rental-bicycle-m.svg;icon-min-distance: 24;}
 node|z18-[shop=auction],
 {icon-image: auction-m.svg;}
 node|z18-[shop=collector],

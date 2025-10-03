@@ -1031,7 +1031,7 @@ place|quarter;907;
 railway|subway|violet;[railway=subway][colour=violet];x;name;int_name;908;railway|subway|tunnel
 shop|rental;909;
 railway|subway|grey;[railway=subway][colour=grey];x;name;int_name;910;railway|subway|tunnel
-shop|rental|bike;[shop=rental][rental=bike];;name;int_name;911;
+amenity|bicycle_rental|shop;[amenity=bicycle_rental][bicycle_rental=shop];;;;911;
 historic|ship;912;
 shop|tobacco;913;
 shop|farm;914;
