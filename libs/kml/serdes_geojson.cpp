@@ -66,21 +66,6 @@ std::string DebugPrint(glz::json_t const & json)
     return "<JSON_ERROR>";
 }
 
-bool GeoJsonFeature::isPoint() const
-{
-  return std::holds_alternative<GeoJsonGeometryPoint>(geometry);
-}
-
-bool GeoJsonFeature::isLine() const
-{
-  return std::holds_alternative<GeoJsonGeometryLine>(geometry);
-}
-
-bool GeoJsonFeature::isUnknown() const
-{
-  return std::holds_alternative<GeoJsonGeometryUnknown>(geometry);
-}
-
 bool GeojsonParser::Parse(std::string_view json_content)
 {
   geojson::GeoJsonData geoJsonData;

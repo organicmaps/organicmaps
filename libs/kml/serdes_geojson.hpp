@@ -59,15 +59,6 @@ struct GeoJsonFeature
   GeoJsonGeometry geometry;
   std::map<std::string, glz::json_t> properties;
 
-  // Returns 'true' if geometry type is 'Point'.
-  bool isPoint() const;
-
-  // Returns 'true' if geometry type is 'LineString'.
-  bool isLine() const;
-
-  // Returns 'true' if geometry type is neither 'Point' nor 'LineString'.
-  bool isUnknown() const;
-
   friend std::string DebugPrint(GeoJsonFeature const & c)
   {
     std::ostringstream out;
