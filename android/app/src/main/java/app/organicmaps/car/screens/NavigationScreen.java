@@ -8,6 +8,7 @@ import androidx.car.app.CarContext;
 import androidx.car.app.CarToast;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.ActionStrip;
+import androidx.car.app.model.CarColor;
 import androidx.car.app.model.CarIcon;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.NavigationManager;
@@ -18,6 +19,7 @@ import androidx.car.app.navigation.model.TravelEstimate;
 import androidx.car.app.navigation.model.Trip;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
+import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.car.CarAppService;
@@ -54,6 +56,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   private final NavigationManager mNavigationManager;
   @NonNull
   private final LocationListener mLocationListener = this::updateTrip;
+  @NonNull
+  private final LocationHelper mLocationHelper;
 
   @NonNull
   private Trip mTrip = new Trip.Builder().setLoading(true).build();
@@ -63,11 +67,15 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   // True: navigation is cancelled by the user or host -> don't show toast
   private boolean mNavigationCancelled = false;
 
+  // Used only in debug builds to simulate route following
+  private boolean mRouteSimulationEnabled = false;
+
   private NavigationScreen(@NonNull Builder builder)
   {
     super(builder.mCarContext, builder.mSurfaceRenderer);
-    mNavigationManager = builder.mCarContext.getCarService(NavigationManager.class);
     mRoutingController = RoutingController.get();
+    mNavigationManager = builder.mCarContext.getCarService(NavigationManager.class);
+    mLocationHelper = MwmApplication.from(builder.mCarContext).getLocationHelper();
   }
 
   @NonNull
@@ -90,7 +98,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @Override
   public void onStopNavigation()
   {
-    MwmApplication.from(getCarContext()).getLocationHelper().removeListener(mLocationListener);
+    mLocationHelper.removeListener(mLocationListener);
     mNavigationCancelled = true;
     mRoutingController.cancel();
   }
@@ -117,8 +125,15 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
       return;
     }
 
-    final LocationHelper locationHelper = MwmApplication.from(getCarContext()).getLocationHelper();
-    locationHelper.startNavigationSimulation(points);
+    mLocationHelper.startNavigationSimulation(points);
+    mRouteSimulationEnabled = true;
+  }
+
+  private void onAutodriveDisabled()
+  {
+    Logger.i(TAG);
+    mLocationHelper.stopNavigationSimulation();
+    mRouteSimulationEnabled = false;
   }
 
   @Override
@@ -142,7 +157,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     mNavigationManager.setNavigationManagerCallback(this);
     mNavigationManager.navigationStarted();
 
-    MwmApplication.from(getCarContext()).getLocationHelper().addListener(mLocationListener);
+    mLocationHelper.addListener(mLocationListener);
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
       NavigationService.startForegroundService(getCarContext(),
                                                CarAppService.getCarNotificationExtender(getCarContext()));
@@ -160,7 +175,10 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   public void onDestroy(@NonNull LifecycleOwner owner)
   {
     super.onDestroy(owner);
-    MwmApplication.from(getCarContext()).getLocationHelper().removeListener(mLocationListener);
+    if (mRouteSimulationEnabled)
+      onAutodriveDisabled();
+    NavigationService.stopService(getCarContext());
+    mLocationHelper.removeListener(mLocationListener);
 
     if (mRoutingController.isNavigating())
       mRoutingController.onSaveState();
@@ -182,6 +200,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     });
 
     final ActionStrip.Builder builder = new ActionStrip.Builder();
+    if (BuildConfig.DEBUG)
+      builder.addAction(createSimulateRouteAction());
     builder.addAction(createTtsAction());
     builder.addAction(UiHelpers.createSettingsActionForResult(this, getSurfaceRenderer(), this::onSettingsResult));
     builder.addAction(stopActionBuilder.build());
@@ -247,6 +267,23 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     });
 
     return ttsActionBuilder.build();
+  }
+
+  @NonNull
+  private Action createSimulateRouteAction()
+  {
+    final Action.Builder simulateRouteActionBuilder = new Action.Builder();
+    simulateRouteActionBuilder.setTitle(mRouteSimulationEnabled ? "Stop simulation" : "Simulate Route");
+    simulateRouteActionBuilder.setBackgroundColor(CarColor.RED);
+    simulateRouteActionBuilder.setFlags(Action.FLAG_PRIMARY);
+    simulateRouteActionBuilder.setOnClickListener(() -> {
+      if (mRouteSimulationEnabled)
+        onAutodriveDisabled();
+      else
+        onAutoDriveEnabled();
+      invalidate();
+    });
+    return simulateRouteActionBuilder.build();
   }
 
   private void updateTrip(@Nullable Location location)
