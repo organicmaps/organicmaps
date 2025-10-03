@@ -5,10 +5,8 @@
 #include "geometry/point2d.hpp"
 
 #include <functional>
-#include <iterator>
 #include <list>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 namespace tesselator
