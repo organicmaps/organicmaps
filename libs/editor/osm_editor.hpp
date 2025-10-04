@@ -20,14 +20,12 @@
 #include "base/timer.hpp"
 
 #include <atomic>
-#include <cstdint>
 #include <ctime>
 #include <functional>
 #include <map>
 #include <memory>
 #include <optional>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace editor::testing
@@ -103,6 +101,7 @@ public:
 
   void SetStorageForTesting(std::unique_ptr<editor::StorageBase> storage) { m_storage = std::move(storage); }
 
+  /// @todo Remove and hold m_notes by value.
   void ResetNotes() { m_notes = editor::Notes::MakeNotes(); }
 
   void SetDefaultStorage();
@@ -260,10 +259,10 @@ private:
 
   std::unique_ptr<editor::StorageBase> m_storage;
 
-  std::atomic<bool> m_isUploadingNow;
+  std::atomic<bool> m_isUploadingNow = false;
 
   DECLARE_THREAD_CHECKER(MainThreadChecker);
-};  // class Editor
+};
 
 std::string DebugPrint(Editor::SaveResult saveResult);
 }  // namespace osm

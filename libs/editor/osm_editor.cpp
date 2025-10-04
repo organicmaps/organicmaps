@@ -15,6 +15,7 @@
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 #include "base/thread_checker.hpp"
 #include "base/timer.hpp"
 
@@ -124,7 +125,7 @@ bool IsObsolete(editor::XMLFeature const & xml, FeatureID const & fid)
 }
 }  // namespace
 
-Editor::Editor() : m_configLoader(m_config), m_notes(editor::Notes::MakeNotes()), m_isUploadingNow(false)
+Editor::Editor() : m_configLoader(m_config), m_notes(editor::Notes::MakeNotes())
 {
   SetDefaultStorage();
 }
@@ -572,27 +573,27 @@ bool Editor::HaveMapEditsToUpload(MwmId const & mwmId) const
 
 void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, FinishUploadCallback callback)
 {
-  if (m_notes->NotUploadedNotesCount())
-    m_notes->Upload(OsmOAuth::ServerAuth(oauthToken));
+  m_notes->Upload(OsmOAuth::ServerAuth(oauthToken));
 
   if (m_isUploadingNow)
     return;
 
   if (!HaveMapEditsToUpload(*m_features.Get()))
-  {
-    LOG(LDEBUG, ("There are no local edits to upload."));
     return;
-  }
 
   m_isUploadingNow = true;
 
   GetPlatform().RunTask(Platform::Thread::Network,
                         [this, oauthToken, tags = std::move(tags), callback = std::move(callback)]()
   {
+    SCOPE_GUARD(resetUploadingFlag, [this]() { m_isUploadingNow = false; });
+
     int uploadedFeaturesCount = 0, errorsCount = 0;
     ChangesetWrapper changeset(oauthToken, std::move(tags));
 
     auto const features = m_features.Get();
+    LOG(LINFO, ("Features =", features->size()));
+
     for (auto const & id : *features)
     {
       if (!id.first.IsAlive())
@@ -875,8 +876,6 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
         result = UploadResult::Error;
       callback(result);
     }
-
-    m_isUploadingNow = false;
   });
 }
 
