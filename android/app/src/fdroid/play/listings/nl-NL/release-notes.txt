@@ -1,13 +1,9 @@
-• OSM-data t/m 13 sept
-• Postcode tonen bij adressen
-• Nieuwe rotonde-iconen (Android Auto)
-• Kleine eilanden verwijderd
-• Onjuiste kaartcentrering gefixt
-• Bladwijzerkleuren blijven in GPX
-• Verlichtingswinkels
-• Grenzen nationale parken
-• Archeologie vanaf zoom 12 (outdoor)
-• Campings & caravanplaatsen navigatie
-• Kleur secundaire weg hersteld
+• Snelheidslimiet weergave in Android Auto
+• NIEUW! GeoJSON importeren
+• OSM-data t/m 4 oktober
+• Wikipedia-data t/m 1 oktober
+• Seattle light rail ondersteuning voor openbaar vervoer
+• Fietsverhuurwinkels en meer barrièretypes toegevoegd
+• Nieuwe iconen voor masten, communicatie- en energietorens
 
-…meer: omaps.org/news
+…meer: omaps.org/nl/news

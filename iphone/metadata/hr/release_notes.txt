@@ -1,20 +1,38 @@
-• NOVO: Potpuno redizajnirano planiranje ruta (brže prilagodbe, jasnije točke prolaza).
-• NOVO: Prikaz sadržaja OSM taga "description" za objekte (upišite ?description u pretragu).
-• OpenStreetMap podaci na dan 13. rujna.
-• Ispravljena je nekoliko grešaka CarPlay
-• Uklonjeni manji beznačajni otoci s karte svijeta.
-• Prikaz poštanskih brojeva u adresama.
-• Ispravljeno pogrešno centriranje karte oko trenutne pozicije.
-• Boje oznaka ostaju pri izvozu/uvozu GPX datoteka.
-• Ažurirani prijevodi.
+• NOVO: Spremanje oznake na odabranoj točki staze
+• NOVO: Brisanje staze snimanja bez prethodnog spremanja
+• NOVO! Uvoz GeoJSON-a
+• OpenStreetMap podaci od 4. listopada
+• Wikipedia podaci od 1. listopada
+• Podrška za Seattle light rail za javni prijevoz
+• Prikaz višelinijskih naslova popisa oznaka na stranici mjesta
+• Ažuriranje stila gumba za prijavu u OSM
+• Ispravljanje problema ažuriranja navigacijskih informacija
+• Ispravljanje novih problema planiranja rute
+• Ispravljanje vidljivosti dodavanja/uređivanja mjesta OSM za karte starije od 3 mjeseca
+• Ispravljanje izgleda kontrole segmenta opcija prijevoza za iOS 26
+• Pojednostavljenje animacija odabira oznaka
+• Ispravljanje problema odabira rezultata pretraživanja
+• Ispravljeno oblikovanje, prevlačenje i animacije za stranicu s informacijama o mjestu
+• Ne onemogućuj odabir karte pri spremanju uređenog OSM mjesta
+• Ažurirani prijevodi
 
-Stilovi karte:
-• Trgovine rasvjetom na karti.
-• Dalekovodi od zuma 18.
-• Nazivi elektrana i trafostanica.
-• Kampovi i mjesta za kamp-prikolice u navigaciji.
-• Ispravljena boja sekundarnih cesta u navigaciji.
-• Granice nacionalnih parkova.
-• Arheološka nalazišta od zuma 12 (outdoor stil).
+#### Stilovi karte
 
-Svaka donacija i dobra recenzija motivira volontere. Hvala!
+• Prikaz trgovina za najam bicikala
+• Prikaz povijesnih arheoloških lokaliteta od zooma 12 i drugih povijesnih lokaliteta od zooma 15 u vanjskom stilu
+• Nove ikone za jarbole, komunikacijske i električne tornjeve u vanjskom stilu
+• Povećanje veličine ikone vrha u vanjskom stilu
+• Dodane su nedostajuće varijante ikona POI
+• Dodano više vrsta barijera
+
+### Nedavno objavljene značajke koje ste možda propustili
+
+• Brojevi ruta javnog prijevoza pri odabiru autobusne stanice
+• Pješačke i biciklističke rute
+• Pogledajte nazive oznaka na karti omogućavanjem u postavkama aplikacije
+• Ikona olovke nudi brz način uređivanja oznaka
+• Redizajnirano planiranje rute
+• Prikaz sadržaja OSM oznake `description` (upišite ?description u pretraživanje kako biste otkrili mjesta s opisom)
+
+Svaka donacija i dobar pregled motivira naše volontere da grade bolje karte, hvala!
+

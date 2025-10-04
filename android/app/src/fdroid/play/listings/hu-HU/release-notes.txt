@@ -1,13 +1,9 @@
-• OSM adatok: szept 13.
-• Irányítószám megjelenítése
-• Új körforgalom ikonok (Android Auto)
-• Kis szigetek eltávolítva
-• Térkép középre igazítása javítva
-• Könyvjelző színek maradnak GPX-ben
-• Világítás üzletek
-• Nemzeti park határok
-• Régészeti helyek zoom 12-től
-• Kemping & lakókocsi helyek
-• Másodlagos út színe javítva
+• Sebességkorlátozás megjelenítése az Android Auto-ban
+• ÚJ! GeoJSON importálás
+• OSM adatok: okt. 4.
+• Wikipédia adatok: okt. 1.
+• Seattle könnyűvasút támogatása a tömegközlekedéshez
+• Kerékpár-kölcsönző üzletek és több akadálytípus hozzáadva
+• Új ikonok árbocokhoz, kommunikációs és energiatornokhoz
 
 …több: omaps.org/hu/news

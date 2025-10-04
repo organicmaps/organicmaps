@@ -1,13 +1,11 @@
-• Dữ liệu OSM đến 13/9
-• Hiện mã bưu chính trong địa chỉ
-• Biểu tượng vòng xoay mới (Android Auto)
-• Gỡ đảo nhỏ khỏi bản đồ thế giới
-• Sửa lệch tâm bản đồ
-• Màu dấu trang giữ trong GPX
-• Cửa hàng chiếu sáng
-• Ranh giới công viên quốc gia
-• Di chỉ khảo cổ từ zoom 12
-• Điểm cắm trại & caravan trong dẫn đường
-• Sửa màu đường phụ
+• Hiển thị giới hạn tốc độ trong Android Auto
+• MỚI! Nhập GeoJSON
+• Dữ liệu OSM đến 4/10
+• Dữ liệu Wikipedia đến 1/10
+• Hỗ trợ tàu điện nhẹ Seattle cho giao thông công cộng
+• Đã thêm cửa hàng cho thuê xe đạp và nhiều loại rào cản hơn
+• Biểu tượng mới cho cột buồm, tháp truyền thông và điện, hiển thị di chỉ khảo cổ lịch sử từ zoom 12 và các di tích lịch sử khác từ zoom 15 ở phong cách Ngoài trời
+• Hiển thị nội dung thẻ OSM `description` trên Android
+• Đã sửa một số sự cố
 
 …thêm: omaps.org/news

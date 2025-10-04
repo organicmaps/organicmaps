@@ -1,13 +1,9 @@
-• OSM duomenys 09-13
-• Rodyti pašto kodą adresuose
-• Naujos žiedinės ikonėlės (Android Auto)
-• Pašalintos mažos salos
-• Ištaisyta žemėlapio centravimas
-• Žymelių spalvos GPX išlieka
-• Apšvietimo parduotuvės
-• Nacionalinių parkų ribos
-• Archeologija nuo mastelio 12
-• Stovyklos ir kemperių vietos
-• Antrinio kelio spalva pataisyta
+• Greičio ribojimo rodymas Android Auto
+• NAUJA! GeoJSON importavimas
+• OSM duomenys spalio 4 d.
+• Vikipedijos duomenys spalio 1 d.
+• Seattle lengvojo metro palaikymas viešajam transportui
+• Pridėtos dviračių nuomos parduotuvės ir daugiau barjerų tipų
+• Naujos ikonėlės stiebams, ryšių ir energetikos bokštams
 
-…daugiau: omaps.org/news
+…daugiau: omaps.org/lt/news

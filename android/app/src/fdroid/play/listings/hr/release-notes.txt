@@ -1,13 +1,9 @@
-• OSM podaci 13. rujna
-• Prikaži poštanske brojeve
-• Nove ikone kružnih (Android Auto)
-• Uklonjeni manji otoci
-• Popravljeno centriranje karte
-• Boje oznaka ostaju u GPX
-• Trgovine rasvjetom
-• Granice nacionalnih parkova
-• Arheološka mjesta od zuma 12
-• Kampovi i karavani u navigaciji
-• Boja sekundarnih cesta ispravljena
+• Prikaz ograničenja brzine u Android Auto
+• NOVO! Uvoz GeoJSON
+• OSM podaci 4. listopada
+• Wikipedia podaci 1. listopada
+• Podrška za Seattle laganu željeznicu za javni prijevoz
+• Dodane trgovine za iznajmljivanje bicikala i više vrsta barijera
+• Nove ikone za jarbolе, komunikacijske i energetske tornjeve
 
-…više: omaps.org/id/news
+…više: omaps.org/news

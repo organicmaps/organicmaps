@@ -1,20 +1,38 @@
 • NUEVO: Rediseñamos la planificación de rutas (más clara y rápida al mover paradas).
-• NUEVO: Se muestra el contenido de la etiqueta OSM "description" en los objetos (?description en la búsqueda).
-• Datos de OpenStreetMap al 13 de septiembre.
-• Se corrigieron varios errores de CarPlay
-• Eliminamos islas menores poco relevantes.
-• Se muestran códigos postales en direcciones.
-• Corregido centrado incorrecto del mapa.
-• Los colores de tus marcadores se conservan al exportar/importar GPX.
-• Traducciones actualizadas.
+• NUEVO: Guardar marcador en punto de rastreo seleccionado
+• NUEVO: Eliminar rastreo de grabación sin guardarlo primero
+• ¡NUEVO! Importar GeoJSON
+• Datos de OpenStreetMap al 4 de octubre
+• Datos de Wikipedia al 1 de octubre
+• Soporte de tren ligero de Seattle para transporte público
+• Mostrar títulos de lista de marcadores multilínea en la página de lugar
+• Actualizar estilo de botón de inicio de sesión de OSM
+• Corregir problema de actualización de información de navegación
+• Corregir problemas de nueva planificación de ruta
+• Corregir visibilidad de agregar/editar lugar de OSM para mapas con más de 3 meses de antigüedad
+• Corregir diseño de control de segmento de opciones de transporte para iOS 26
+• Simplificar animaciones de selección de marcadores
+• Corregir problema de selección de resultados de búsqueda
+• Corregidos estilos, deslizamiento y animaciones para página de información de lugar
+• No deshabilitar selección de mapa al guardar lugar editado de OSM
+• Traducciones actualizadas
 
-Estilos de mapa:
-• Tiendas de iluminación en el mapa.
-• Líneas eléctricas desde zoom 18.
-• Nombres de plantas y subestaciones.
-• Campings y zonas de caravanas en navegación.
-• Color de carretera secundaria corregido.
-• Límites de parques nacionales.
-• Sitios arqueológicos desde zoom 12 (estilo outdoor).
+#### Estilos de mapa
 
-Tus donaciones y reseñas motivan al equipo voluntario. ¡Gracias!
+• Mostrar tiendas de alquiler de bicicletas
+• Mostrar sitios arqueológicos históricos desde zoom 12 y otros sitios históricos desde zoom 15 en estilo exterior
+• Nuevos iconos para mástiles, torres de comunicación y torres eléctricas en estilo exterior
+• Aumentar tamaño de icono de pico en estilo exterior
+• Agregadas variantes de iconos de PDI faltantes
+• Agregados más tipos de barreras
+
+### Características lanzadas recientemente que quizás hayas pasado por alto
+
+• Números de ruta de transporte público al seleccionar parada de autobús
+• Rutas de senderismo y ciclismo
+• Ver nombres de marcadores en el mapa habilitándolo en la configuración de la aplicación
+• El icono de lápiz ofrece una forma rápida de editar marcadores
+• Planificación de ruta rediseñada
+• Mostrar contenido de etiqueta OSM `description` (escribe ?description en la búsqueda para descubrir lugares con descripción)
+
+¡Cada donación y buena reseña motiva a nuestros voluntarios a construir mejores mapas, gracias!

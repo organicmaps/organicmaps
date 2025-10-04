@@ -1,13 +1,11 @@
-• OSM andmed 13. sept
-• Näita postiindeksit
-• Uued ringtee ikoonid (Android Auto)
-• Väikesed saared eemaldatud
-• Kaardi tsentreerimine parandatud
-• Järjehoidja värvid GPX-is
-• Valgustuspoed
-• Rahvuspargi piirid
-• Arheoloogilised kohad zoom 12
-• Laagrid ja karavanid navis
-• Teis. tee värv parandatud
+• Kiirusepiirangu kuvamine Android Auto's
+• UUS! GeoJSON-i import
+• OSM andmed 4. oktoober
+• Vikipeedia andmed 1. oktoober
+• Seattle linnaraudtee tugi ühistranspordile
+• Lisatud jalgrattalaenupoed ja rohkem barjääritüüpe
+• Uued ikoonid mastide, side- ja elektritornide jaoks, kuvada ajaloolisi arheoloogilisi kohti alates suurendusest 12 ja teisi ajaloolisi kohti alates suurendusest 15 õuestiilis
+• Kuva OSM `description` sildi sisu Androidis
+• Parandatud mitu krahhimist
 
-…veel: omaps.org/news
+…veel: omaps.org/et/news

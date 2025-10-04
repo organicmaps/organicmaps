@@ -1,20 +1,37 @@
-• NOVÉ: Přepracované plánování tras (rychlejší úpravy, jasnější průjezdní body).
-• NOVÉ: Zobrazení obsahu OSM tagu "description" pro objekty (?description do vyhledávání pro test).
-• Data OpenStreetMap k 13. září.
-• Opraveno několik chyb CarPlay
-• Odstraněny drobné ostrůvky ze světové mapy.
-• Zobrazení PSČ v adresách.
-• Opraveno chybné centrování mapy kolem aktuální pozice.
-• Barvy záložek zůstávají při exportu/importu GPX.
-• Aktualizované překlady.
+• NOVÉ: Uložit záložku na vybraný bod trasy
+• NOVÉ: Smazat nahrávací stopu bez jejího uložení
+• NOVÉ! Import GeoJSON
+• Data OpenStreetMap k 4. říjnu
+• Data Wikipedie k 1. říjnu
+• Podpora lehkého metra v Seattlu pro veřejnou dopravu
+• Zobrazení víceřádkových titulků seznamu záložek na stránce místa
+• Aktualizace stylu tlačítek přihlášení OSM
+• Oprava problému s aktualizací navigačních informací
+• Oprava nových problémů s plánováním tras
+• Oprava viditelnosti přidání/úpravy místa OSM pro mapy starší než 3 měsíce
+• Oprava rozložení segmentového ovládání možností dopravy pro iOS 26
+• Zjednodušení animací výběru záložek
+• Oprava problému s výběrem výsledků vyhledávání
+• Opravený styl, přejetí a animace pro stránku informací o místě
+• Nezrušovat výběr mapy při ukládání upraveného místa OSM
+• Aktualizované překlady
 
-Mapové styly:
-• Obchody s osvětlením na mapě.
-• Vedení vysokého napětí od zoomu 18.
-• Názvy elektráren a trafostanic.
-• Kempy a karavanová stání v navigaci.
-• Opravená barva sekundárních silnic v navigaci.
-• Hranice národních parků.
-• Archeologické lokality od zoomu 12 (outdoor styl).
+Styly mapy:
 
-Každý dar a pozitivní hodnocení motivuje náš tým dobrovolníků. Děkujeme!
+• Zobrazení půjčoven kol
+• Zobrazení historických archeologických lokalit od zoomu 12 a dalších historických lokalit od zoomu 15 v outdoorovém stylu
+• Nové ikony pro stožáry, komunikační a energetické věže v outdoorovém stylu
+• Zvětšení ikony vrcholu v outdoorovém stylu
+• Přidání chybějících variant ikon POI
+• Přidáno více typů bariér
+
+Nedávno vydané funkce, které jste možná přehlédli:
+
+• Čísla linek veřejné dopravy při výběru autobusové zastávky
+• Turistické a cyklistické trasy
+• Zobrazení názvů záložek na mapě aktivací v nastavení aplikace
+• Ikona tužky nabízí rychlý způsob úpravy záložek
+• Přepracované plánování trasy
+• Zobrazení obsahu tagu OSM `description` (zadejte ?description do vyhledávání pro objevení míst s popisem)
+
+Každý dar a dobrá recenze motivuje naše dobrovolníky k tvorbě lepších map, děkujeme!

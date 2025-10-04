@@ -1,13 +1,11 @@
-• OSM-data pr. 13. sep
-• Vis postnumre i adresser
-• Nye rundkørselsikoner (Android Auto)
-• Små øer fjernet
-• Kortcentrering rettet
-• Bogmærkefarver bevares i GPX
-• Belysningsbutikker
-• Nationalparkgrænser
-• Arkæologi fra zoom 12
-• Camping & caravan i navigation
-• Sekundær vejfarve rettet
+• Hastighedsgrænsevisning i Android Auto
+• NYT! Importér GeoJSON
+• OSM-data pr. 4. oktober
+• Wikipedia-data pr. 1. oktober
+• Seattle letbane-support til offentlig transport
+• Tilføjede cykeludlejningsbutikker og flere barriere-typer
+• Nye ikoner for master, kommunikations- og krafttårne, vis historiske arkæologiske steder fra zoom 12 og andre historiske steder fra zoom 15 i Outdoor-stil
+• Vis OSM `description`-tag indhold på Android
+• Rettede flere nedbrud
 
 …mere: omaps.org/news

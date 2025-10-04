@@ -1,20 +1,40 @@
 • NEW! Redesigned route planning
 • NEW! Show OSM "description" tag contents for features on the map (type ?description in the search box to test it)
 • OpenStreetMap data as of September 13
-• कई CarPlay बग्स को ठीक किया गया
-• Removed minor islands from the World map
-• Show Postcode/zip code for addresses
-• Fixed wrong map centering around the current position
-• Bookmark colors are preserved when exporting and importing GPX files
-• Updated translations
+• नया: चयनित ट्रैक पॉइंट पर बुकमार्क सेव करें
+• नया: रिकॉर्डिंग ट्रैक को पहले सेव किए बिना डिलीट करें
+• नया! GeoJSON इम्पोर्ट करें
+• OpenStreetMap डेटा 4 अक्टूबर तक
+• विकिपीडिया डेटा 1 अक्टूबर तक
+• सार्वजनिक परिवहन के लिए सिएटल लाइट रेल समर्थन
+• प्लेस पेज पर मल्टी-लाइन बुकमार्क लिस्ट टाइटल प्रदर्शित करें
+• OSM लॉगिन बटन स्टाइल अपडेट करें
+• नेविगेशन जानकारी अपडेट समस्या को ठीक करें
+• नई रूट प्लानिंग समस्याओं को ठीक करें
+• 3 महीने से पुराने मानचित्रों के लिए OSM जोड़ें/संपादित करें स्थान दृश्यता को ठीक करें
+• iOS 26 के लिए परिवहन विकल्प सेगमेंट कंट्रोल लेआउट को ठीक करें
+• बुकमार्क चयन एनिमेशन को सरल बनाएं
+• खोज परिणाम चयन समस्या को ठीक करें
+• प्लेस इंफो पेज के लिए स्टाइलिंग, स्वाइपिंग और एनिमेशन को ठीक किया गया
+• संपादित OSM स्थान को सेव करते समय मानचित्र चयन को अक्षम न करें
+• अपडेट किए गए अनुवाद
 
-Map Styles:
-• Display lighting shops on the map
-• Show power lines from zoom 18
-• Show reference names for power stations and substations
-• Show campsites and caravan sites in navigation mode
-• Fixed secondary highway color in navigation mode
-• Draw national park borders
-• Draw archaeological sites from zoom 12 in outdoor mode
+#### मानचित्र शैलियाँ
 
-Every donation and good review motivates our volunteers to build better maps, thank you!
+• साइकिल किराये की दुकानें प्रदर्शित करें
+• आउटडोर शैली में ज़ूम 12 से ऐतिहासिक पुरातात्विक स्थल और ज़ूम 15 से अन्य ऐतिहासिक स्थल प्रदर्शित करें
+• आउटडोर शैली में मस्तूल, संचार और बिजली टावरों के लिए नए आइकन
+• आउटडोर शैली में शिखर आइकन का आकार बढ़ाएं
+• गुम POI आइकन संस्करण जोड़े गए
+• अधिक बैरियर प्रकार जोड़े गए
+
+### हाल ही में रिलीज़ की गई सुविधाएँ जो आपने छोड़ी होंगी
+
+• बस स्टॉप चुनते समय सार्वजनिक परिवहन रूट नंबर
+• हाइकिंग और साइकलिंग रूट
+• ऐप सेटिंग में इसे सक्षम करके मानचित्र पर बुकमार्क नाम देखें
+• पेंसिल आइकन बुकमार्क संपादित करने का त्वरित तरीका प्रदान करता है
+• पुनः डिज़ाइन की गई रूट प्लानिंग
+• OSM टैग `description` सामग्री प्रदर्शित करें (विवरण के साथ स्थानों की खोज के लिए खोज में ?description टाइप करें)
+
+हर दान और अच्छी समीक्षा हमारे स्वयंसेवकों को बेहतर मानचित्र बनाने के लिए प्रेरित करती है, धन्यवाद!

@@ -1,13 +1,9 @@
-• Dades OSM al 13 setembre
-• Mostrar codi postal
-• Nous icones de rotonda (Android Auto)
-• Illes menors eliminades
-• Centre de mapa corregit
-• Colors de marcadors a GPX
-• Botigues d'il·luminació
-• Fronteres de parcs nacionals
-• Jaciments arqueològics des del zoom 12
-• Càmpings i caravanes en navegació
-• Color carretera secundària corregit
+• Visualització del límit de velocitat a Android Auto
+• NOU! Importació de GeoJSON
+• Dades OSM del 4 d'octubre
+• Dades de Viquipèdia de l'1 d'octubre
+• Suport per al ferrocarril lleuger de Seattle per al transport públic
+• S'han afegit botigues de lloguer de bicicletes i més tipus de barreres
+• Noves icones per a mástils, torres de comunicació i energia
 
-…més: omaps.org/news
+…més: omaps.org/ca/news

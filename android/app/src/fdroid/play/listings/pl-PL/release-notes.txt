@@ -1,13 +1,9 @@
-• Dane OSM z 13 września
-• Pokazuj kod pocztowy w adresach
-• Nowe ikony rond (Android Auto)
-• Usunięto małe wyspy z mapy świata
-• Poprawiono centrowanie mapy
-• Kolory zakładek zachowane w GPX
-• Sklepy oświetleniowe
-• Granice parków narodowych
-• Stanowiska archeologiczne od zoom 12
-• Kempingi i miejsca karawan w nawigacji
-• Poprawiono kolor dróg drugorzędnych
+• Wyświetlanie ograniczenia prędkości w Android Auto
+• NOWE! Import GeoJSON
+• Dane OSM z 4 października
+• Dane Wikipedii z 1 października
+• Wsparcie kolei miejskiej w Seattle dla transportu publicznego
+• Dodano wypożyczalnie rowerów i więcej typów barier
+• Nowe ikony masztów, wież komunikacyjnych i energetycznych
 
-…więcej: omaps.org/news
+…więcej: omaps.org/pl/news

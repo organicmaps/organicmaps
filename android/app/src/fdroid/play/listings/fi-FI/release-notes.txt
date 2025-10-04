@@ -1,13 +1,9 @@
-• OSM-data 13. syyskuuta
-• Näytä postinumero osoitteissa
-• Uudet liikenneymp. ikonit (Android Auto)
-• Pienet saaret poistettu
-• Kartan keskitys korjattu
-• Kirjanmerkkien värit säilyvät GPX:ssä
-• Valaistusliikkeet
-• Kansallispuistojen rajat
-• Arkeologiset kohteet zoom 12
-• Leiri & karavaani navigoinnissa
-• Toissij. tien väri korjattu
+• Nopeusrajoituksen näyttö Android Autossa
+• UUSI! GeoJSON-tuonti
+• OSM-data 4. lokakuuta
+• Wikipedia-data 1. lokakuuta
+• Seattlen kevytjunaliikenteen tuki julkiselle liikenteelle
+• Lisätty polkupyörien vuokrausliikkeet ja lisää esteruokia
+• Uudet kuvakkeet mastoille, viestintä- ja sähkötorneille
 
 …lisää: omaps.org/news

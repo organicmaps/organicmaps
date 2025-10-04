@@ -1,20 +1,38 @@
-• NOVITÀ: Pianificazione dei percorsi completamente riprogettata (tappe più chiare, modifiche più rapide).
-• NOVITÀ: Visualizza il contenuto del tag OSM "description" sugli oggetti (digita ?description nella ricerca per provarlo).
-• Dati OpenStreetMap aggiornati al 13 settembre.
-• Corretti diversi bug di CarPlay
-• Rimosse piccole isole marginali dalla mappa mondiale.
-• Visualizzazione dei codici postali negli indirizzi.
-• Corretto il centraggio errato attorno alla posizione corrente.
-• I colori dei segnalibri restano dopo export/import GPX.
-• Traduzioni aggiornate.
+• NUOVO: Salva segnalibro sul punto traccia selezionato
+• NUOVO: Elimina traccia di registrazione senza salvarla prima
+• NUOVO! Importa GeoJSON
+• Dati OpenStreetMap al 4 ottobre
+• Dati Wikipedia al 1 ottobre
+• Supporto metropolitana leggera di Seattle per il trasporto pubblico
+• Visualizza titoli elenco segnalibri multilinea nella pagina del luogo
+• Aggiorna lo stile del pulsante di accesso OSM
+• Correggi problema di aggiornamento informazioni di navigazione
+• Correggi nuovi problemi di pianificazione percorso
+• Correggi visibilità aggiungi/modifica luogo OSM per mappe più vecchie di 3 mesi
+• Correggi layout controllo segmenti opzioni trasporto per iOS 26
+• Semplifica animazioni di selezione segnalibri
+• Correggi problema di selezione risultato di ricerca
+• Corretti stile, scorrimento e animazioni per pagina informazioni luogo
+• Non disabilitare la selezione della mappa durante il salvataggio del luogo OSM modificato
+• Traduzioni aggiornate
 
-Stili mappa:
-• Negozi di illuminazione sulla mappa.
-• Linee elettriche dal livello di zoom 18.
-• Nomi di centrali e sottostazioni.
-• Campeggi e aree caravan in modalità navigazione.
-• Corretto il colore delle strade secondarie in navigazione.
-• Tracciati i confini dei parchi nazionali.
-• Siti archeologici dal livello 12 nello stile outdoor.
+#### Stili mappa
 
-Ogni donazione o recensione positiva motiva i volontari. Grazie!
+• Visualizza negozi di noleggio biciclette
+• Visualizza siti archeologici storici dallo zoom 12 e altri siti storici dallo zoom 15 in stile all'aperto
+• Nuove icone per alberi, torri di comunicazione e torri elettriche in stile all'aperto
+• Aumenta dimensione icona picco in stile all'aperto
+• Aggiunte varianti icone POI mancanti
+• Aggiunti più tipi di barriere
+
+### Funzionalità rilasciate di recente che potresti aver perso
+
+• Numeri di percorso trasporto pubblico durante la selezione della fermata dell'autobus
+• Percorsi escursionistici e ciclabili
+• Visualizza i nomi dei segnalibri sulla mappa abilitandolo nelle impostazioni dell'app
+• L'icona della matita offre un modo rapido per modificare i segnalibri
+• Pianificazione percorso riprogettata
+• Visualizza il contenuto del tag OSM `description` (digita ?description nella ricerca per scoprire luoghi con descrizione)
+
+Ogni donazione e buona recensione motiva i nostri volontari a creare mappe migliori, grazie!
+

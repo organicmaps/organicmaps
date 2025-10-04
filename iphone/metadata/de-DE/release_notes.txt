@@ -1,20 +1,38 @@
-• NEU: Komplett überarbeitete Routenplanung – schnelleres Umplanen, klarere Zwischenziele.
-• NEU: Anzeige des Inhalts des OSM-Tags „description“ für Kartenobjekte (?description ins Suchfeld eingeben zum Testen).
-• OpenStreetMap-Datenstand: 13. September.
-• Mehrere CarPlay-Fehler behoben
-• Kleine, unwichtige Inseln von der Weltkarte entfernt.
-• Postleitzahlen in Adressen werden jetzt angezeigt.
-• Falsches Zentrieren der Karte um die aktuelle Position behoben.
-• Farben deiner Lesezeichen bleiben beim Export/Import von GPX erhalten.
-• Aktualisierte Übersetzungen.
+• NEU: Lesezeichen auf ausgewähltem Track-Punkt speichern
+• NEU: Aufzeichnungs-Track löschen ohne vorher zu speichern
+• NEU! GeoJSON importieren
+• OpenStreetMap-Datenstand: 4. Oktober
+• Wikipedia-Datenstand: 1. Oktober
+• Seattle Stadtbahn-Unterstützung für öffentliche Verkehrsmittel
+• Mehrzeilige Lesezeichenlisten-Titel auf Ortsseite anzeigen
+• OSM-Login-Button-Stil aktualisieren
+• Navigationsinformations-Aktualisierungsproblem behoben
+• Neue Routenplanungsprobleme behoben
+• OSM Ort hinzufügen/bearbeiten Sichtbarkeit für Karten älter als 3 Monate behoben
+• Transportoptionen Segmentkontroll-Layout für iOS 26 behoben
+• Lesezeichen-Auswahlanimationen vereinfacht
+• Suchergebnis-Auswahlproblem behoben
+• Styling, Wischgesten und Animationen für Ortsinformationsseite korrigiert
+• Kartenauswahl nicht deaktivieren beim Speichern eines bearbeiteten OSM-Ortes
+• Aktualisierte Übersetzungen
 
-Kartendarstellung:
-• Beleuchtungsgeschäfte erscheinen auf der Karte.
-• Hochspannungsleitungen ab Zoomstufe 18.
-• Referenznamen von Kraftwerken und Umspannwerken sichtbar.
-• Camping- und Stellplätze im Navigationsmodus.
-• Farbe sekundärer Straßen im Navigationsmodus korrigiert.
-• Grenzen von Nationalparks werden gezeichnet.
-• Archäologische Stätten ab Zoom 12 im Outdoor-Stil.
+#### Kartenstile
 
-Deine Spende oder Bewertung motiviert unsere Freiwilligen, bessere Karten zu bauen. Danke!
+• Fahrradverleihgeschäfte anzeigen
+• Historische archäologische Stätten ab Zoom 12 und andere historische Stätten ab Zoom 15 im Outdoor-Stil anzeigen
+• Neue Symbole für Masten, Kommunikations- und Strommaste im Outdoor-Stil
+• Gipfelsymbol-Größe im Outdoor-Stil erhöhen
+• Fehlende POI-Symbol-Varianten hinzugefügt
+• Mehr Barrierentypen hinzugefügt
+
+### Kürzlich veröffentlichte Funktionen, die Sie vielleicht verpasst haben
+
+• Öffentliche Verkehrsmittel-Routennummern beim Auswählen einer Bushaltestelle
+• Wander- und Radrouten
+• Lesezeichennamen auf der Karte sehen durch Aktivieren in den App-Einstellungen
+• Das Stift-Symbol bietet eine schnelle Möglichkeit, Lesezeichen zu bearbeiten
+• Neugestaltete Routenplanung
+• Anzeige des OSM-Tag-Inhalts `description` (Tippen Sie ?description in die Suche ein, um Orte mit Beschreibung zu entdecken)
+
+Jede Spende und gute Bewertung motiviert unsere Freiwilligen, bessere Karten zu erstellen, danke!
+

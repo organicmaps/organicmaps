@@ -1,13 +1,11 @@
-• Data OSM 13 Sept
-• Papar poskod alamat
-• Ikon bulatan baharu (Android Auto)
-• Pulau kecil dibuang
-• Pusat peta dibetulkan
-• Warna penanda kekal dalam GPX
-• Kedai pencahayaan
-• Sempadan taman negara
-• Tapak arkeologi dari zum 12
-• Tapak kem & karavan
-• Warna jalan sekunder dibetul
+• Paparan had laju dalam Android Auto
+• BAHARU! Import GeoJSON
+• Data OSM 4 Oktober
+• Data Wikipedia 1 Oktober
+• Sokongan kereta api ringan Seattle untuk Pengangkutan Awam
+• Menambah kedai sewa basikal dan lebih banyak jenis halangan
+• Ikon baharu untuk tiang, menara komunikasi dan kuasa, paparkan tapak arkeologi bersejarah dari zum 12 dan tapak bersejarah lain dari zum 15 dalam gaya Luar
+• Paparkan kandungan tag OSM `description` pada Android
+• Membetulkan beberapa ranap
 
 …lagi: omaps.org/news

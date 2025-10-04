@@ -1,20 +1,37 @@
-• YENİ: Tamamen yenilenen rota planlama (daha hızlı ve anlaşılır durak yönetimi).
-• YENİ: Haritadaki nesneler için OSM "description" etiketi içeriği (?description aramada deneyin).
-• 13 Eylül tarihli OpenStreetMap verileri.
-• Birkaç CarPlay hatası düzeltildi
-• Küçük önemsiz adalar dünya haritasından kaldırıldı.
-• Adreslerde posta kodu gösterimi.
-• Mevcut konum etrafında hatalı merkezleme düzeltildi.
-• Yer imi (bookmark) renkleri GPX içe/dışa aktarımında korunur.
-• Güncellenmiş çeviriler.
+• YENİ: Seçilen izleme noktasında yer imi kaydet
+• YENİ: Kayıt izini önce kaydetmeden sil
+• YENİ! GeoJSON içe aktar
+• 4 Ekim itibarıyla OpenStreetMap verileri
+• 1 Ekim itibarıyla Vikipedi verileri
+• Toplu taşıma için Seattle hafif raylı ulaşım desteği
+• Yer sayfasında çok satırlı yer imi listesi başlıklarını görüntüle
+• OSM giriş düğmesi stilini güncelle
+• Navigasyon bilgisi güncelleme sorununu düzelt
+• Yeni rota planlama sorunlarını düzelt
+• 3 aydan eski haritalar için OSM yer ekleme/düzenleme görünürlüğünü düzelt
+• iOS 26 için ulaşım seçenekleri segment kontrolü düzenini düzelt
+• Yer imi seçim animasyonlarını basitleştir
+• Arama sonucu seçim sorununu düzelt
+• Yer bilgi sayfası için stil, kaydırma ve animasyonlar düzeltildi
+• Düzenlenmiş OSM yerini kaydederken harita seçimini devre dışı bırakma
+• Güncellenen çeviriler
 
-Harita stilleri:
-• Aydınlatma mağazaları haritada.
-• Elektrik hatları 18. yakınlaştırmadan.
-• Santral ve trafo merkezi adları.
-• Kamp ve karavan alanları navigasyonda.
-• Navigasyonda ikincil yol rengi düzeltildi.
-• Milli park sınırları.
-• Arkeolojik alanlar 12. yakınlaştırmadan (outdoor stili).
+#### Harita Stilleri
 
-Her bağış ve iyi yorum gönüllülerimizi motive eder. Teşekkürler!
+• Bisiklet kiralama mağazalarını görüntüle
+• Açık hava stilinde yakınlaştırma 12'den itibaren tarihi arkeolojik alanları ve yakınlaştırma 15'ten itibaren diğer tarihi alanları görüntüle
+• Açık hava stilinde direkler, iletişim kuleleri ve elektrik kuleleri için yeni simgeler
+• Açık hava stilinde tepe simgesi boyutunu artır
+• Eksik POI simge varyantları eklendi
+• Daha fazla bariyer türü eklendi
+
+### Kaçırmış olabileceğiniz son zamanlarda yayınlanan özellikler
+
+• Otobüs durağı seçerken toplu taşıma rota numaraları
+• Yürüyüş ve bisiklet rotaları
+• Uygulama ayarlarında etkinleştirerek haritada yer imi adlarını gör
+• Kalem simgesi, yer imlerini düzenlemek için hızlı bir yol sunar
+• Yeniden tasarlanan rota planlaması
+• OSM etiketi `description` içeriğini görüntüle (açıklamalı yerleri keşfetmek için aramaya ?description yazın)
+
+Her bağış ve iyi yorum, gönüllülerimizi daha iyi haritalar oluşturmaya motive ediyor, teşekkürler!
