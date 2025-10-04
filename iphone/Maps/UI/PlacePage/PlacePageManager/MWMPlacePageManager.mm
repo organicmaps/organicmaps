@@ -209,12 +209,15 @@ using namespace storage;
   f.UpdatePlacePageInfoForCurrentSelection(buildInfo);
 }
 
-- (void)updateBookmark:(PlacePageData *)data color:(MWMBookmarkColor)color category:(MWMMarkGroupID)category
+- (void)updateBookmark:(PlacePageData *)data
+                 title:(NSString *)title
+                 color:(MWMBookmarkColor)color
+              category:(MWMMarkGroupID)category
 {
   MWMBookmarksManager * bookmarksManager = [MWMBookmarksManager sharedManager];
   [bookmarksManager updateBookmark:data.bookmarkData.bookmarkId
                         setGroupId:category
-                             title:data.previewData.title
+                             title:title
                              color:color
                        description:data.bookmarkData.bookmarkDescription];
   [MWMFrameworkHelper updatePlacePageData];
@@ -227,10 +230,13 @@ using namespace storage;
   [MWMFrameworkHelper updateAfterDeleteBookmark];
 }
 
-- (void)updateTrack:(PlacePageData *)data color:(UIColor *)color category:(MWMMarkGroupID)category
+- (void)updateTrack:(PlacePageData *)data
+              title:(NSString *)title
+              color:(UIColor *)color
+           category:(MWMMarkGroupID)category
 {
   MWMBookmarksManager * bookmarksManager = [MWMBookmarksManager sharedManager];
-  [bookmarksManager updateTrack:data.trackData.trackId setGroupId:category color:color title:data.previewData.title];
+  [bookmarksManager updateTrack:data.trackData.trackId setGroupId:category color:color title:title];
   [MWMFrameworkHelper updatePlacePageData];
 }
 
