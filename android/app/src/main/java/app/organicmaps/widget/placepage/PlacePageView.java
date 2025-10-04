@@ -377,22 +377,6 @@ public class PlacePageView extends Fragment
       refreshMyPosition(loc);
     else
       refreshDistanceToObject(loc);
-    UiUtils.hideIf(mMapObject.isTrack(), mFrame.findViewById(R.id.ll__place_latlon),
-                   mFrame.findViewById(R.id.ll__place_open_in));
-    if (mMapObject.isTrack())
-    {
-      UiUtils.hide(mTvSubtitle);
-      UiUtils.hide(mAvDirection, mTvDistance);
-    }
-    UiUtils.hideIf(mMapObject.isTrackRecording(), mShareButton, mFrame.findViewById(R.id.ll__place_latlon),
-                   mFrame.findViewById(R.id.ll__place_open_in));
-    if (mMapObject.isTrackRecording())
-    {
-      TrackRecording trackRecording = (TrackRecording) mMapObject;
-      trackRecording.getTrackRecordingPPDescription().observe(requireActivity(), s -> {
-        UiUtils.setTextAndHideIfEmpty(mTvSubtitle, trackRecording.getTrackRecordingPPDescription().getValue());
-      });
-    }
   }
 
   private <T extends Fragment> void updateViewFragment(Class<T> controllerClass, String fragmentTag,
@@ -488,6 +472,10 @@ public class PlacePageView extends Fragment
       }
       mTvSubtitle.setText(sb);
     }
+    if (mMapObject.isTrackRecording())
+      UiUtils.setTextAndShow(mTvSubtitle, ((TrackRecording) mMapObject).getTrackRecordingPPDescription().getValue());
+    if (mMapObject.isTrack())
+      UiUtils.hide(mTvSubtitle);
   }
 
   private void refreshPreview()
@@ -508,6 +496,18 @@ public class PlacePageView extends Fragment
     {
       mTvOsmDescription.setText(osmDescription);
       mOsmDescriptionContainer.setVisibility(VISIBLE);
+    }
+    if (mMapObject.isTrack())
+    {
+      UiUtils.hide(mAvDirection, mTvDistance);
+    }
+    else if (mMapObject.isTrackRecording())
+    {
+      TrackRecording trackRecording = (TrackRecording) mMapObject;
+      trackRecording.getTrackRecordingPPDescription().observe(requireActivity(), s -> {
+        UiUtils.setTextAndHideIfEmpty(mTvSubtitle, trackRecording.getTrackRecordingPPDescription().getValue());
+      });
+      UiUtils.hide(mAvDirection, mTvDistance);
     }
   }
 
@@ -733,6 +733,8 @@ public class PlacePageView extends Fragment
           UiUtils.isVisible(mEditPlace) || UiUtils.isVisible(mAddOrganisation) || UiUtils.isVisible(mAddPlace),
           mEditTopSpace);
     }
+    UiUtils.hideIf(mMapObject.isTrackRecording(), mShareButton, mFrame.findViewById(R.id.ll__place_open_in));
+    UiUtils.hideIf(mMapObject.isTrack(), mFrame.findViewById(R.id.ll__place_open_in));
     updateLinksView();
     updateOpeningHoursView();
     updateProductsView();
@@ -758,6 +760,9 @@ public class PlacePageView extends Fragment
 
   private void refreshMyPosition(Location l)
   {
+    if (mMapObject.isTrack() || mMapObject.isTrackRecording())
+      return;
+
     UiUtils.hide(mTvDistance);
     UiUtils.hide(mAvDirection);
 
@@ -804,6 +809,7 @@ public class PlacePageView extends Fragment
       mTvLatlon.setText(mCoordsFormat.getLabel() + ": " + latLon);
     else
       mTvLatlon.setText(latLon);
+    UiUtils.hideIf(mMapObject.isTrackRecording() || mMapObject.isTrack(), mFrame.findViewById(R.id.ll__place_latlon));
   }
 
   private void addOrganisation()
