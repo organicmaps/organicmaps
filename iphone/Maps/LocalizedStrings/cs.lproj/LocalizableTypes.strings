@@ -1508,3 +1508,4 @@
 "type.barrier.debris" = "Sutiny";
 "type.barrier.log" = "Bariéra z kulatiny";
 "type.amenity.boat_rental" = "Půjčovna lodí";
+"type.shop.telecommunication" = "Telekomunikační obchod";

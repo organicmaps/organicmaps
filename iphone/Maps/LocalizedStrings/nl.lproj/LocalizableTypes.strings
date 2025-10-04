@@ -1508,3 +1508,4 @@
 "type.barrier.debris" = "Puin";
 "type.barrier.log" = "Boomstambarrière";
 "type.amenity.boat_rental" = "Bootverhuur";
+"type.shop.telecommunication" = "Telecommunicatiewinkel";

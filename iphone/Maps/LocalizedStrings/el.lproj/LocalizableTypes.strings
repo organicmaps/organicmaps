@@ -1508,3 +1508,4 @@
 "type.barrier.debris" = "Συντρίμμια";
 "type.barrier.log" = "Εμπόδιο κορμών";
 "type.amenity.boat_rental" = "Ενοικίαση σκάφους";
+"type.shop.telecommunication" = "Κατάστημα τηλεπικοινωνιών";

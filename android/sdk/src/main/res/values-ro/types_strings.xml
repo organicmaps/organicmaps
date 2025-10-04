@@ -1173,4 +1173,5 @@
     <string name="type.barrier.debris">Moloz</string>
     <string name="type.barrier.log">Barieră de bușteni</string>
     <string name="type.amenity.boat_rental">Închiriere bărci</string>
+    <string name="type.shop.telecommunication">Magazin de telecomunicații</string>
 </resources>

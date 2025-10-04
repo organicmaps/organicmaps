@@ -1284,4 +1284,5 @@
     <string name="type.barrier.debris">Hondakinak</string>
     <string name="type.barrier.log">Enbor hesia</string>
     <string name="type.amenity.boat_rental">Itsasontz</string>
+    <string name="type.shop.telecommunication">Telekomunikazioen denda</string>
 </resources>

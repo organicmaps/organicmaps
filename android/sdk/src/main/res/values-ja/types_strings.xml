@@ -1306,4 +1306,5 @@
     <string name="type.barrier.debris">がれき</string>
     <string name="type.barrier.log">丸太のバリケード</string>
     <string name="type.amenity.boat_rental">レンタルボート</string>
+    <string name="type.shop.telecommunication">電気通信店</string>
 </resources>

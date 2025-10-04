@@ -1187,4 +1187,5 @@
     <string name="type.barrier.debris">잔해</string>
     <string name="type.barrier.log">통나무 장벽</string>
     <string name="type.amenity.boat_rental">보트 대여</string>
+    <string name="type.shop.telecommunication">통신 상점</string>
 </resources>

@@ -671,4 +671,5 @@
     <string name="type.barrier.debris">मलबा</string>
     <string name="type.barrier.log">लट्ठ अवरोध</string>
     <string name="type.amenity.boat_rental">बोट रेंटल</string>
+    <string name="type.shop.telecommunication">दूरसंचार भंडार</string>
 </resources>

@@ -1508,3 +1508,4 @@
 "type.barrier.debris" = "碎石";
 "type.barrier.log" = "原木屏障";
 "type.amenity.boat_rental" = "船隻租賃";
+"type.shop.telecommunication" = "電信商店";

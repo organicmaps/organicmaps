@@ -1508,3 +1508,4 @@
 "type.barrier.debris" = "حطام";
 "type.barrier.log" = "حاجز جذع شجرة";
 "type.amenity.boat_rental" = "تأجير القوارب";
+"type.shop.telecommunication" = "متجر الاتصالات السلكية واللاسلكية";

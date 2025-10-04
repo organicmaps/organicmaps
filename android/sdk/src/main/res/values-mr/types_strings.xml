@@ -1184,4 +1184,5 @@
     <string name="type.barrier.debris">ढिगारा</string>
     <string name="type.barrier.log">ओंडक्यांचा अडथळा</string>
     <string name="type.amenity.boat_rental">बोट भाड्याने</string>
+    <string name="type.shop.telecommunication">दूरसंचार स्टोअर</string>
 </resources>

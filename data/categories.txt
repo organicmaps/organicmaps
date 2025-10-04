@@ -1481,6 +1481,48 @@ sk:Mobilné telefóny
 sw:Duka la simu
 fa:موبایل فروشی
 
+shop-telecommunication|@shop
+en:Telecommunications store
+ar:متجر الاتصالات السلكية واللاسلكية
+be:Тэлекамунікацыйная крама
+bg:Магазин за телекомуникации
+ca:Botiga de telecomunicacions
+cs:Telekomunikační obchod
+da:Butik for telekommunikation
+de:Geschäft für Telekommunikation
+el:Κατάστημα τηλεπικοινωνιών
+en-GB:Telecommunications shop
+es:Tienda de telecomunicaciones
+et:Telekommunikatsioonipood
+eu:Telekomunikazioen denda
+fa:فروشگاه ارتباطات از راه دور
+fi:Televiestintäliike
+fr:Atelier de télécommunications
+he:חנות טלקומוניקציה
+hi:दूरसंचार भंडार
+hu:Távközlési üzlet
+id:Toko telekomunikasi
+it:Negozio di telecomunicazioni
+ja:電気通信店
+ko:통신 상점
+lv:Telekomunikāciju veikals
+mr:दूरसंचार स्टोअर
+nb:Telekommunikasjonsbutikk
+nl:Telecommunicatiewinkel
+pl:Sklep telekomunikacyjny
+pt:Loja de telecomunicações
+ro:Magazin de telecomunicații
+ru:Магазин телекоммуникаций
+sk:Telekomunikačný obchod
+sv:Butik för telekommunikation
+sw:Duka la Mawasiliano
+th:ร้านค้าโทรคมนาคม
+tr:Telekomünikasyon mağazası
+uk:Телекомунікаційний цех
+vi:Cửa hàng viễn thông
+zh-Hans:电信商店
+zh-Hant:電信商店
+
 shop-florist|@shop
 en:4Florist|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E|4flowers|flower shop|floral shop|floral arrangements|same day flowers|bouquet
 ru:4Цветочный|4цветы|цветов|флорист|букет|цветочный салон

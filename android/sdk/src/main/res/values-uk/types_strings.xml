@@ -1419,4 +1419,5 @@
     <string name="type.barrier.debris">Завали</string>
     <string name="type.barrier.log">Бар\'єр із колод</string>
     <string name="type.amenity.boat_rental">Оренда човна</string>
+    <string name="type.shop.telecommunication">Телекомунікаційний цех</string>
 </resources>
