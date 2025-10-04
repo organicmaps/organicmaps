@@ -1419,4 +1419,5 @@
     <string name="type.barrier.log">Kütük Bariyeri</string>
     <string name="type.amenity.boat_rental">Tekne Kiralama</string>
     <string name="type.shop.telecommunication">Telekomünikasyon mağazası</string>
+    <string name="type.leisure.indoor_play">Oyun Merkezi</string>
 </resources>

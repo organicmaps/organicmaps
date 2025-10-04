@@ -8922,6 +8922,47 @@ sw:Viwanja vya michezo
 fa:زمین بازی
 mr:खेळाचे मैदान
 
+leisure-indoor_play|@category_children
+en:Play Centre
+ar:مركز اللعب
+be:Гульнявы цэнтр
+bg:Център за игра
+ca:Play Center
+cs:Hrací centrum
+da:Legecenter
+de:Spielzentrum
+el:Κέντρο παιχνιδιού
+es:Centro de juegos|Chiquipark|Txikipark
+et:Mängukeskus
+eu:Play Center|Txikipark
+fa:مرکز بازی
+fi:Leikkikeskus
+fr:Centre de jeux
+he:מרכז משחק
+hi:खेल केंद्र
+hu:Játékközpont
+id:Pusat Bermain
+it:Centro giochi
+ja:プレイセンター
+ko:플레이 센터
+lv:Spēļu centrs
+mr:खेळाचे केंद्र
+nb:Lekesenter
+nl:Speelcentrum
+pl:Centrum zabaw
+pt:Centro de jogos
+ro:Centrul de joacă
+ru:Игровой центр
+sk:Hracie centrum
+sv:Lekcenter
+sw:Kituo cha kucheza
+th:ศูนย์เล่น
+tr:Oyun Merkezi
+uk:Ігровий центр
+vi:Trung tâm chơi
+zh-Hans:游乐中心
+zh-Hant:遊樂中心
+
 leisure-sports_centre
 en:4Sports Center|sport|U+26BD|U+26BE|U+1F3BE|U+1F4AA|U+1F3C8|U+1F3C0|U+1F3C9|sports complex|sports forum
 en-GB:4Sports Centre

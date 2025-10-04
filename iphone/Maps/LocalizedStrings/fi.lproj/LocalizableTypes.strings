@@ -1509,3 +1509,4 @@
 "type.barrier.log" = "Tukkieste";
 "type.amenity.boat_rental" = "Veneen vuokraus";
 "type.shop.telecommunication" = "Televiestintäliike";
+"type.leisure.indoor_play" = "Leikkikeskus";

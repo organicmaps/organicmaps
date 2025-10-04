@@ -1509,3 +1509,4 @@
 "type.barrier.log" = "Træbarriere";
 "type.amenity.boat_rental" = "Udlejning af båd";
 "type.shop.telecommunication" = "Butik for telekommunikation";
+"type.leisure.indoor_play" = "Legecenter";

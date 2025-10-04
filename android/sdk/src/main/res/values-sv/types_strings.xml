@@ -1347,4 +1347,5 @@
     <string name="type.barrier.log">Stockhinder</string>
     <string name="type.amenity.boat_rental">Båtuthyrning</string>
     <string name="type.shop.telecommunication">Butik för telekommunikation</string>
+    <string name="type.leisure.indoor_play">Lekcenter</string>
 </resources>

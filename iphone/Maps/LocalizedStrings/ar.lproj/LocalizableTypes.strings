@@ -1509,3 +1509,4 @@
 "type.barrier.log" = "حاجز جذع شجرة";
 "type.amenity.boat_rental" = "تأجير القوارب";
 "type.shop.telecommunication" = "متجر الاتصالات السلكية واللاسلكية";
+"type.leisure.indoor_play" = "مركز اللعب";

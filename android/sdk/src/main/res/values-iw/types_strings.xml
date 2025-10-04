@@ -1064,4 +1064,5 @@
     <string name="type.barrier.jersey_barrier">בלוק</string>
     <string name="type.amenity.boat_rental">השכרת סירות</string>
     <string name="type.shop.telecommunication">חנות טלקומוניקציה</string>
+    <string name="type.leisure.indoor_play">מרכז משחק</string>
 </resources>

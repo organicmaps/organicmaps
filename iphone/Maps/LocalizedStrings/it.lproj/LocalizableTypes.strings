@@ -1509,3 +1509,4 @@
 "type.barrier.log" = "Barriera di tronchi";
 "type.amenity.boat_rental" = "Noleggio barche";
 "type.shop.telecommunication" = "Negozio di telecomunicazioni";
+"type.leisure.indoor_play" = "Centro giochi";

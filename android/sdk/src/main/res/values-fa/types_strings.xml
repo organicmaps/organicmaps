@@ -1252,4 +1252,5 @@
     <string name="type.barrier.log">مانع تنه درخت</string>
     <string name="type.amenity.boat_rental">اجاره قایق</string>
     <string name="type.shop.telecommunication">فروشگاه ارتباطات از راه دور</string>
+    <string name="type.leisure.indoor_play">مرکز بازی</string>
 </resources>

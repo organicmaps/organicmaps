@@ -1509,3 +1509,4 @@
 "type.barrier.log" = "Εμπόδιο κορμών";
 "type.amenity.boat_rental" = "Ενοικίαση σκάφους";
 "type.shop.telecommunication" = "Κατάστημα τηλεπικοινωνιών";
+"type.leisure.indoor_play" = "Κέντρο παιχνιδιού";

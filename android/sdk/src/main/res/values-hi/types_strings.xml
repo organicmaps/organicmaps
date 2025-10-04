@@ -672,4 +672,5 @@
     <string name="type.barrier.log">लट्ठ अवरोध</string>
     <string name="type.amenity.boat_rental">बोट रेंटल</string>
     <string name="type.shop.telecommunication">दूरसंचार भंडार</string>
+    <string name="type.leisure.indoor_play">खेल केंद्र</string>
 </resources>

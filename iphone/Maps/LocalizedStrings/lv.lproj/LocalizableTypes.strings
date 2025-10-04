@@ -1509,3 +1509,4 @@
 "type.barrier.log" = "Baļķu barjera";
 "type.amenity.boat_rental" = "Laivu noma";
 "type.shop.telecommunication" = "Telekomunikāciju veikals";
+"type.leisure.indoor_play" = "Spēļu centrs";

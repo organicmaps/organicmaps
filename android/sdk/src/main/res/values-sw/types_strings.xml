@@ -667,4 +667,5 @@
     <string name="type.barrier.log">Kizuizi cha magogo</string>
     <string name="type.amenity.boat_rental">Kukodisha mashua</string>
     <string name="type.shop.telecommunication">Duka la Mawasiliano</string>
+    <string name="type.leisure.indoor_play">Kituo cha kucheza</string>
 </resources>

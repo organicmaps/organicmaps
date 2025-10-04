@@ -1197,4 +1197,5 @@
     <string name="type.barrier.log">Tømmerbarriere</string>
     <string name="type.amenity.boat_rental">Båtutleie</string>
     <string name="type.shop.telecommunication">Telekommunikasjonsbutikk</string>
+    <string name="type.leisure.indoor_play">Lekesenter</string>
 </resources>

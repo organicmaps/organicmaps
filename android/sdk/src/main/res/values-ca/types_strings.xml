@@ -1351,4 +1351,5 @@
     <string name="type.barrier.log">Barrera de troncs</string>
     <string name="type.amenity.boat_rental">Lloguer de vaixells</string>
     <string name="type.shop.telecommunication">Botiga de telecomunicacions</string>
+    <string name="type.leisure.indoor_play">Play Center</string>
 </resources>

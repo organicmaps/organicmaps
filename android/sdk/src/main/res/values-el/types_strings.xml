@@ -1411,4 +1411,5 @@
     <string name="type.barrier.log">Εμπόδιο κορμών</string>
     <string name="type.amenity.boat_rental">Ενοικίαση σκάφους</string>
     <string name="type.shop.telecommunication">Κατάστημα τηλεπικοινωνιών</string>
+    <string name="type.leisure.indoor_play">Κέντρο παιχνιδιού</string>
 </resources>
