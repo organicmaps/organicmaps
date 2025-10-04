@@ -1265,7 +1265,7 @@ landuse-quarry                                      # icon z15- (also has captio
 landuse-railway                                     # caption z15- (also has area z14-)
 landuse-residential                                 # caption z17-
 leisure-common                                      # caption z17-
-leisure-slipway                                     # caption z17-
+leisure-slipway                                     # icon z16- (also has caption(optional) z17-)
 leisure-track                                       # caption z16- (also has line z15-)
 leisure-track-area                                  # caption z16- (also has area z15-)
 man_made-petroleum_well                             # icon z17- (also has caption(optional) z18-)
