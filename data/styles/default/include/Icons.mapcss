@@ -1521,6 +1521,9 @@ node|z17-[leisure=marina],
 area|z17-[leisure=marina]
 {icon-min-distance: 20;}
 
+node|z16-[amenity=boat_rental],
+{icon-image: boat_rental-m.svg;}
+
 node|z16-[amenity=fountain],
 area|z16-[amenity=fountain]
 {icon-image: fountain-s.svg;icon-min-distance: 20;}

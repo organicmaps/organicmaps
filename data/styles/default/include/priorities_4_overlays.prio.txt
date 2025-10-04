@@ -765,6 +765,7 @@ shop-health_food                                    # icon z16- (also has captio
 
 amenity-bicycle_rental                              # icon z17- (also has caption(optional) z17-)
 amenity-bicycle_rental-shop                         # icon z16- (also has caption(optional) z17-)
+amenity-boat_rental                                 # icon z16- (also has caption(optional) z19-)
 amenity-car_sharing                                 # icon z18- (also has caption(optional) z18-)
 amenity-taxi                                        # icon z16- (also has caption(optional) z16-)
 === 2600
