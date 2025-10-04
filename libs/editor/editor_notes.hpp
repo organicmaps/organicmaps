@@ -1,6 +1,6 @@
 #pragma once
 
-#include "editor/server_api.hpp"
+#include "editor/osm_auth.hpp"
 
 #include "geometry/latlon.hpp"
 
@@ -53,6 +53,8 @@ private:
   std::list<Note> m_notes;
 
   uint32_t m_uploadedNotesCount = 0;
+
+  std::atomic<bool> m_isUploadingNow = false;
 
   DISALLOW_COPY_AND_MOVE(Notes);
 };
