@@ -2051,6 +2051,8 @@ node|z16-[shop=dry_cleaning],
 area|z16-[shop=dry_cleaning],
 node|z16-[shop=mobile_phone],
 area|z16-[shop=mobile_phone],
+node|z16-[shop=telecommunication],
+area|z16-[shop=telecommunication],
 node|z16-[shop=optician],
 area|z16-[shop=optician],
 node|z16-[shop=outdoor],
@@ -2296,7 +2298,8 @@ node|z16[shop=dry_cleaning],
 area|z16[shop=dry_cleaning]
 {icon-image:dry_cleaning-m.svg;}
 node|z16[shop=mobile_phone],
-area|z16[shop=mobile_phone]
+area|z16[shop=mobile_phone],
+node|z16[shop=telecommunication],
 {icon-image: mobile_phone-m.svg;}
 node|z16[shop=optician],
 area|z16[shop=optician]
@@ -2512,7 +2515,8 @@ node|z17-[shop=dry_cleaning],
 area|z17-[shop=dry_cleaning]
 {icon-image:dry_cleaning-m.svg;icon-min-distance: 24;}
 node|z17-[shop=mobile_phone],
-area|z17-[shop=mobile_phone]
+area|z17-[shop=mobile_phone],
+node|z17-[shop=telecommunication],
 {icon-image: mobile_phone-m.svg;icon-min-distance: 24;}
 node|z17-[shop=optician],
 area|z17-[shop=optician]
