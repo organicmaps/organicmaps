@@ -1412,4 +1412,5 @@
     <string name="type.barrier.debris">Gruz</string>
     <string name="type.barrier.log">Bariera z kłód</string>
     <string name="type.amenity.boat_rental">Wynajem łodzi</string>
+    <string name="type.shop.telecommunication">Sklep telekomunikacyjny</string>
 </resources>

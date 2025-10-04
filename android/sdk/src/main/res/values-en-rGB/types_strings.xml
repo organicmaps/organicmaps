@@ -312,4 +312,5 @@
     <string name="type.tourism.information.visitor_centre">Visitor Centre</string>
     <string name="type.tourism.viewpoint">Viewpoint</string>
     <string name="type.railway.station.subway.qingdao">Metro Station</string>
+    <string name="type.shop.telecommunication">Telecommunications shop</string>
 </resources>

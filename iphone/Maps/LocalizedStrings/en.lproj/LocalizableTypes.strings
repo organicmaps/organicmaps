@@ -1525,3 +1525,4 @@
 "type.barrier.debris" = "Debris";
 "type.barrier.log" = "Log Barrier";
 "type.amenity.boat_rental" = "Boat Rental";
+"type.shop.telecommunication" = "Telecommunications store";

@@ -1508,3 +1508,4 @@
 "type.barrier.debris" = "Отломки";
 "type.barrier.log" = "Бариера от дънери";
 "type.amenity.boat_rental" = "Лодка под наем";
+"type.shop.telecommunication" = "Магазин за телекомуникации";

@@ -1508,3 +1508,4 @@
 "type.barrier.debris" = "Praht";
 "type.barrier.log" = "Palkide tõkkepuu";
 "type.amenity.boat_rental" = "Paadi rentimine";
+"type.shop.telecommunication" = "Telekommunikatsioonipood";

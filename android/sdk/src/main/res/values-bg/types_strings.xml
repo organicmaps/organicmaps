@@ -789,4 +789,5 @@
     <string name="type.barrier.debris">Отломки</string>
     <string name="type.barrier.log">Бариера от дънери</string>
     <string name="type.amenity.boat_rental">Лодка под наем</string>
+    <string name="type.shop.telecommunication">Магазин за телекомуникации</string>
 </resources>

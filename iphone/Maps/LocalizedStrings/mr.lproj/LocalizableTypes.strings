@@ -1508,3 +1508,4 @@
 "type.barrier.debris" = "ढिगारा";
 "type.barrier.log" = "ओंडक्यांचा अडथळा";
 "type.amenity.boat_rental" = "बोट भाड्याने";
+"type.shop.telecommunication" = "दूरसंचार स्टोअर";

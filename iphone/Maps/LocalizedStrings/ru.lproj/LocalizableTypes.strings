@@ -1509,3 +1509,4 @@
 "type.barrier.debris" = "Завал";
 "type.barrier.log" = "Бревенчатый барьер";
 "type.amenity.boat_rental" = "Аренда лодок";
+"type.shop.telecommunication" = "Магазин телекоммуникаций";

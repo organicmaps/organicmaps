@@ -1508,3 +1508,4 @@
 "type.barrier.debris" = "がれき";
 "type.barrier.log" = "丸太のバリケード";
 "type.amenity.boat_rental" = "レンタルボート";
+"type.shop.telecommunication" = "電気通信店";

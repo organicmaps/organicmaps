@@ -1508,3 +1508,4 @@
 "type.barrier.debris" = "잔해";
 "type.barrier.log" = "통나무 장벽";
 "type.amenity.boat_rental" = "보트 대여";
+"type.shop.telecommunication" = "통신 상점";

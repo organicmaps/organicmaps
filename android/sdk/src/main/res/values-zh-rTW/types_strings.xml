@@ -156,4 +156,5 @@
     <string name="type.barrier.debris">碎石</string>
     <string name="type.barrier.jersey_barrier">塊體</string>
     <string name="type.amenity.boat_rental">船隻租賃</string>
+    <string name="type.shop.telecommunication">電信商店</string>
 </resources>

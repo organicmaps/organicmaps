@@ -1508,3 +1508,4 @@
 "type.barrier.debris" = "Gruz";
 "type.barrier.log" = "Bariera z kłód";
 "type.amenity.boat_rental" = "Wynajem łodzi";
+"type.shop.telecommunication" = "Sklep telekomunikacyjny";

@@ -1415,4 +1415,5 @@
     <string name="type.barrier.debris">Sutiny</string>
     <string name="type.barrier.log">Bariéra z kulatiny</string>
     <string name="type.amenity.boat_rental">Půjčovna lodí</string>
+    <string name="type.shop.telecommunication">Telekomunikační obchod</string>
 </resources>

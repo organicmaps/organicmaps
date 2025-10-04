@@ -1508,3 +1508,4 @@
 "type.barrier.debris" = "Gruveši";
 "type.barrier.log" = "Baļķu barjera";
 "type.amenity.boat_rental" = "Laivu noma";
+"type.shop.telecommunication" = "Telekomunikāciju veikals";

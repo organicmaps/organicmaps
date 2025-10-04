@@ -1508,3 +1508,4 @@
 "type.barrier.debris" = "Bråte";
 "type.barrier.log" = "Stockhinder";
 "type.amenity.boat_rental" = "Båtuthyrning";
+"type.shop.telecommunication" = "Butik för telekommunikation";

@@ -1413,4 +1413,5 @@
     <string name="type.barrier.debris">碎石</string>
     <string name="type.barrier.jersey_barrier">块体</string>
     <string name="type.amenity.boat_rental">船只租赁</string>
+    <string name="type.shop.telecommunication">电信商店</string>
 </resources>

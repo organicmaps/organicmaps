@@ -1282,4 +1282,5 @@
     <string name="type.barrier.debris">حطام</string>
     <string name="type.barrier.log">حاجز جذع شجرة</string>
     <string name="type.amenity.boat_rental">تأجير القوارب</string>
+    <string name="type.shop.telecommunication">متجر الاتصالات السلكية واللاسلكية</string>
 </resources>

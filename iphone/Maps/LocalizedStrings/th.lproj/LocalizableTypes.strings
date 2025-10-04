@@ -1508,3 +1508,4 @@
 "type.barrier.debris" = "เศษซาก";
 "type.barrier.log" = "สิ่งกีดขวางท่อนไม้";
 "type.amenity.boat_rental" = "ให้เช่าเรือ";
+"type.shop.telecommunication" = "ร้านค้าโทรคมนาคม";

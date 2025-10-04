@@ -1413,4 +1413,5 @@
     <string name="type.barrier.debris">Escombros</string>
     <string name="type.barrier.log">Barrera de troncos</string>
     <string name="type.amenity.boat_rental">Alquiler de barcos</string>
+    <string name="type.shop.telecommunication">Tienda de telecomunicaciones</string>
 </resources>
