@@ -1575,6 +1575,9 @@ node|z16-[barrier=cycle_barrier],
 node|z16-[highway=ford],
 {icon-image: ford-m.svg;}
 
+node|z16-[leisure=slipway],
+{icon-image: slipway-m.svg;}
+
 node|z14-[man_made=communications_tower],
 {icon-image: mast-s.svg;}
 node|z17-[man_made=communications_tower],
