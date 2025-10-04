@@ -42,6 +42,7 @@ world  +
             {}
         bicycle_repair_station  -
         biergarten  -
+        boat_rental  -
         brothel  -
         bureau_de_change  -
         bus_station  -
@@ -688,6 +689,7 @@ world  +
         golf_course  -
         hackerspace  -
         ice_rink  -
+        indoor_play  -
         marina  -
         miniature_golf  -
         nature_reserve  -
@@ -1367,6 +1369,7 @@ world  +
         supermarket  -
         tattoo  -
         tea  -
+        telecommunication  -
         ticket  -
         tobacco  -
         toys  -
