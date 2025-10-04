@@ -12,8 +12,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>other</key>
-			<string>%d markah</string>
+			<key>zero</key>
+			<string>markah</string>
 		</dict>
 	</dict>
 	<key>bookmarks_detect_message</key>
@@ -40,6 +40,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d trek</string>
 			<key>other</key>
 			<string>%d trek</string>
 		</dict>
