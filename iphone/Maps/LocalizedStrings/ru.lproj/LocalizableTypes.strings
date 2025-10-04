@@ -1508,3 +1508,4 @@
 "type.barrier.jersey_barrier" = "Блок";
 "type.barrier.debris" = "Завал";
 "type.barrier.log" = "Бревенчатый барьер";
+"type.amenity.boat_rental" = "Аренда лодок";

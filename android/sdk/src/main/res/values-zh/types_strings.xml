@@ -1412,4 +1412,5 @@
     <string name="type.barrier.log">原木屏障</string>
     <string name="type.barrier.debris">碎石</string>
     <string name="type.barrier.jersey_barrier">块体</string>
+    <string name="type.amenity.boat_rental">船只租赁</string>
 </resources>

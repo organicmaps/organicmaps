@@ -1411,4 +1411,5 @@
     <string name="type.barrier.jersey_barrier">Blok</string>
     <string name="type.barrier.debris">Gruz</string>
     <string name="type.barrier.log">Bariera z kłód</string>
+    <string name="type.amenity.boat_rental">Wynajem łodzi</string>
 </resources>

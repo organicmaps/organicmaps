@@ -1172,4 +1172,5 @@
     <string name="type.barrier.jersey_barrier">Bloc</string>
     <string name="type.barrier.debris">Moloz</string>
     <string name="type.barrier.log">Barieră de bușteni</string>
+    <string name="type.amenity.boat_rental">Închiriere bărci</string>
 </resources>

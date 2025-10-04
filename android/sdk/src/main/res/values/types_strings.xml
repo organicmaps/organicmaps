@@ -1420,4 +1420,5 @@
     <string name="type.barrier.jersey_barrier">Block</string>
     <string name="type.barrier.debris">Debris</string>
     <string name="type.barrier.log">Log Barrier</string>
+    <string name="type.amenity.boat_rental">Boat Rental</string>
 </resources>

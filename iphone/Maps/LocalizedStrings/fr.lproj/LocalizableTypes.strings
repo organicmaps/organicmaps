@@ -1507,3 +1507,4 @@
 "type.barrier.jersey_barrier" = "Bloc";
 "type.barrier.debris" = "Débris";
 "type.barrier.log" = "Barrière de rondins";
+"type.amenity.boat_rental" = "Location de bateaux";

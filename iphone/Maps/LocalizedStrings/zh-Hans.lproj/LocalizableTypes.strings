@@ -1507,3 +1507,4 @@
 "type.barrier.jersey_barrier" = "块体";
 "type.barrier.debris" = "碎石";
 "type.barrier.log" = "原木屏障";
+"type.amenity.boat_rental" = "船只租赁";

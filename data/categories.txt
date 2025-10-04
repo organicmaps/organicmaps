@@ -5038,6 +5038,48 @@ uk:4Велоремонт|велосипед|ремонт|ремонт велос
 zh-Hans:1自行车修理
 zh-Hant:1自行車修理
 
+amenity-boat_rental
+en:Boat Rental
+ar:تأجير القوارب
+be:Арэнда лодкі
+bg:Лодка под наем
+ca:Lloguer de vaixells
+cs:Půjčovna lodí
+da:Udlejning af båd
+de:Boot mieten
+el:Ενοικίαση σκάφους
+es:Alquiler de barcos
+et:Paadi rentimine
+eu:Itsasontz
+fa:اجاره قایق
+fi:Veneen vuokraus
+fr:Location de bateaux
+he:השכרת סירות
+hi:बोट रेंटल
+hu:Hajókölcsönzés
+id:Penyewaan Perahu
+it:Noleggio barche
+ja:レンタルボート
+ko:보트 대여
+lv:Laivu noma
+mr:बोट भाड्याने
+nb:Båtutleie
+nl:Bootverhuur
+pl:Wynajem łodzi
+pt:Aluguer de barcos
+pt-BR:Aluguel de barcos
+ro:Închiriere bărci
+ru:Аренда лодок
+sk:Prenájom lodí
+sv:Båtuthyrning
+sw:Kukodisha mashua
+th:ให้เช่าเรือ
+tr:Tekne Kiralama
+uk:Оренда човна
+vi:Cho thuê thuyền
+zh-Hans:船只租赁
+zh-Hant:船隻租賃
+
 amenity-car_sharing
 en:Car Share|3carsharing|car|sharing|U+1F697|U+1F698|U+1F699|carpool|carsharing services|car sharing|4rideshare
 ru:3Каршеринг|аренда машин|аренда

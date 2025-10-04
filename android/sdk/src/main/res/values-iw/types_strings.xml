@@ -1062,4 +1062,5 @@
     <string name="type.barrier.log">מחסום גזע עץ</string>
     <string name="type.barrier.debris">הריסות</string>
     <string name="type.barrier.jersey_barrier">בלוק</string>
+    <string name="type.amenity.boat_rental">השכרת סירות</string>
 </resources>

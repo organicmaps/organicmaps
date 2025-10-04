@@ -1507,3 +1507,4 @@
 "type.barrier.jersey_barrier" = "Blocki";
 "type.barrier.debris" = "Mabaki";
 "type.barrier.log" = "Kizuizi cha magogo";
+"type.amenity.boat_rental" = "Kukodisha mashua";

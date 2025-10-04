@@ -1507,3 +1507,4 @@
 "type.barrier.jersey_barrier" = "Lohko";
 "type.barrier.debris" = "Romueste";
 "type.barrier.log" = "Tukkieste";
+"type.amenity.boat_rental" = "Veneen vuokraus";

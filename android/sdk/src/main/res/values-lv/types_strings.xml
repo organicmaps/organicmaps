@@ -60,4 +60,5 @@
     <string name="type.barrier.jersey_barrier">Bloks</string>
     <string name="type.barrier.debris">Gruveši</string>
     <string name="type.barrier.log">Baļķu barjera</string>
+    <string name="type.amenity.boat_rental">Laivu noma</string>
 </resources>

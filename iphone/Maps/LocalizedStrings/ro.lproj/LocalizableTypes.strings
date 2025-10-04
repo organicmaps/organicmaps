@@ -1507,3 +1507,4 @@
 "type.barrier.jersey_barrier" = "Bloc";
 "type.barrier.debris" = "Moloz";
 "type.barrier.log" = "Barieră de bușteni";
+"type.amenity.boat_rental" = "Închiriere bărci";

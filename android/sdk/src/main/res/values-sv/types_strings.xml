@@ -1345,4 +1345,5 @@
     <string name="type.barrier.jersey_barrier">Block</string>
     <string name="type.barrier.debris">Bråte</string>
     <string name="type.barrier.log">Stockhinder</string>
+    <string name="type.amenity.boat_rental">Båtuthyrning</string>
 </resources>

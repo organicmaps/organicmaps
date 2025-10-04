@@ -1503,3 +1503,4 @@
 "type.barrier.jersey_barrier" = "Tömb";
 "type.barrier.debris" = "Törmelék";
 "type.barrier.log" = "Rönkkorlát";
+"type.amenity.boat_rental" = "Hajókölcsönzés";

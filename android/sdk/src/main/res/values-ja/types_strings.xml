@@ -1305,4 +1305,5 @@
     <string name="type.barrier.jersey_barrier">ブロック</string>
     <string name="type.barrier.debris">がれき</string>
     <string name="type.barrier.log">丸太のバリケード</string>
+    <string name="type.amenity.boat_rental">レンタルボート</string>
 </resources>

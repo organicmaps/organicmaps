@@ -1366,4 +1366,5 @@
     <string name="type.barrier.jersey_barrier">Bloco</string>
     <string name="type.barrier.debris">Entulho</string>
     <string name="type.barrier.log">Barreira de troncos</string>
+    <string name="type.amenity.boat_rental">Aluguer de barcos</string>
 </resources>
