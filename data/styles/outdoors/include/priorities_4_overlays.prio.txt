@@ -1760,6 +1760,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 
 # amenity-bicycle_rental                            # caption(optional) z17- (also has icon z17-)
 # amenity-bicycle_rental-shop                       # caption(optional) z17- (also has icon z16-)
+# amenity-boat_rental                               # caption(optional) z19- (also has icon z16-)
 # amenity-car_sharing                               # caption(optional) z18- (also has icon z18-)
 # amenity-taxi                                      # caption(optional) z16- (also has icon z16-)
 # === -7400
@@ -1849,6 +1850,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # shop-sports                                       # caption(optional) z16- (also has icon z16-)
 # shop-stationery                                   # caption(optional) z16- (also has icon z16-)
 # shop-tea                                          # caption(optional) z18- (also has icon z18-)
+# shop-telecommunication                            # caption(optional) z16- (also has icon z16-)
 # shop-toys                                         # caption(optional) z16- (also has icon z16-)
 # shop-travel_agency                                # caption(optional) z18- (also has icon z18-)
 # shop-wine                                         # caption(optional) z16- (also has icon z16-)
@@ -1988,6 +1990,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # amenity-shelter-public_transport                  # caption(optional) z14- (also has icon z14-)
 # emergency-lifeguard                               # caption(optional) z18- (also has icon z14-)
 # leisure-fitness_station                           # caption(optional) z17- (also has icon z17-)
+# leisure-indoor_play                               # caption(optional) z17- (also has icon z17-)
 # leisure-playground                                # caption(optional) z17- (also has icon z17-, area z15-)
 # === -8500
 
@@ -2204,6 +2207,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # landuse-industrial-mine                           # caption(optional) z15- (also has icon z15-, area z13-)
 # landuse-landfill                                  # caption(optional) z15- (also has icon z15-, area z13-)
 # landuse-quarry                                    # caption(optional) z15- (also has icon z15-, area z13-)
+# leisure-slipway                                   # caption(optional) z17- (also has icon z16-)
 # man_made-petroleum_well                           # caption(optional) z18- (also has icon z14-)
 # power-generator-wind                              # caption(optional) z16- (also has icon z13-)
 # === -9880

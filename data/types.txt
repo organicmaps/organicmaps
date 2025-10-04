@@ -1630,3 +1630,6 @@ amenity|recycling|container
 *building|guardhouse
 *office|security
 *shop|lighting
+*amenity|boat_rental
+*shop|telecommunication
+*leisure|indoor_play
