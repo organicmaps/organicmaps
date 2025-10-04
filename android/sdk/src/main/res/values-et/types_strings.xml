@@ -1417,4 +1417,7 @@
     <string name="type.barrier.jersey_barrier">Plokk</string>
     <string name="type.barrier.debris">Praht</string>
     <string name="type.barrier.log">Palkide tõkkepuu</string>
+    <string name="type.amenity.boat_rental">Paadi rentimine</string>
+    <string name="type.shop.telecommunication">Telekommunikatsioonipood</string>
+    <string name="type.leisure.indoor_play">Mängukeskus</string>
 </resources>

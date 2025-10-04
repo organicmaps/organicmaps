@@ -1291,6 +1291,8 @@ node|z17-[leisure=sauna]
 node|z17-[leisure=playground],
 area|z17-[leisure=playground],
 {icon-image: playground-m.svg;font-size: 11;icon-min-distance: 10;}
+node|z17-[leisure=indoor_play],
+{icon-image: indoor_play-m.svg;}
 node|z17-[leisure=swimming_pool],
 area|z17-[leisure=swimming_pool]
 {icon-image: swimming-m.svg;icon-min-distance: 10;}
@@ -1496,7 +1498,7 @@ area|z17-[amenity=bank]
 
 node|z15-[landuse=landfill],
 area|z15-[landuse=landfill]
-{icon-image: waste-basket-m.svg;text-offset: 1;font-size: 10;}
+{icon-image: waste-disposal-m.svg;text-offset: 1;font-size: 10;}
 
 node|z15-[landuse=quarry],
 area|z15-[landuse=quarry],
@@ -1520,6 +1522,9 @@ area|z16-[leisure=marina]
 node|z17-[leisure=marina],
 area|z17-[leisure=marina]
 {icon-min-distance: 20;}
+
+node|z16-[amenity=boat_rental],
+{icon-image: boat_rental-m.svg;}
 
 node|z16-[amenity=fountain],
 area|z16-[amenity=fountain]
@@ -1574,6 +1579,9 @@ node|z16-[barrier=cycle_barrier],
 
 node|z16-[highway=ford],
 {icon-image: ford-m.svg;}
+
+node|z16-[leisure=slipway],
+{icon-image: slipway-m.svg;}
 
 node|z14-[man_made=communications_tower],
 {icon-image: mast-s.svg;}
@@ -1842,7 +1850,7 @@ node|z16-[amenity=library]
 
 node|z18-[amenity=waste_disposal],
 area|z18-[amenity=waste_disposal]
-{icon-image: waste-basket-m.svg;font-size: 11;}
+{icon-image: waste-disposal-m.svg;font-size: 11;}
 
 node|z18-[amenity=internet_cafe]
 {icon-image: internet_cafe-m.svg;}
@@ -2045,6 +2053,8 @@ node|z16-[shop=dry_cleaning],
 area|z16-[shop=dry_cleaning],
 node|z16-[shop=mobile_phone],
 area|z16-[shop=mobile_phone],
+node|z16-[shop=telecommunication],
+area|z16-[shop=telecommunication],
 node|z16-[shop=optician],
 area|z16-[shop=optician],
 node|z16-[shop=outdoor],
@@ -2290,7 +2300,8 @@ node|z16[shop=dry_cleaning],
 area|z16[shop=dry_cleaning]
 {icon-image:dry_cleaning-m.svg;}
 node|z16[shop=mobile_phone],
-area|z16[shop=mobile_phone]
+area|z16[shop=mobile_phone],
+node|z16[shop=telecommunication],
 {icon-image: mobile_phone-m.svg;}
 node|z16[shop=optician],
 area|z16[shop=optician]
@@ -2506,7 +2517,8 @@ node|z17-[shop=dry_cleaning],
 area|z17-[shop=dry_cleaning]
 {icon-image:dry_cleaning-m.svg;icon-min-distance: 24;}
 node|z17-[shop=mobile_phone],
-area|z17-[shop=mobile_phone]
+area|z17-[shop=mobile_phone],
+node|z17-[shop=telecommunication],
 {icon-image: mobile_phone-m.svg;icon-min-distance: 24;}
 node|z17-[shop=optician],
 area|z17-[shop=optician]

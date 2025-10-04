@@ -1507,3 +1507,6 @@
 "type.barrier.jersey_barrier" = "بلوك";
 "type.barrier.debris" = "حطام";
 "type.barrier.log" = "حاجز جذع شجرة";
+"type.amenity.boat_rental" = "تأجير القوارب";
+"type.shop.telecommunication" = "متجر الاتصالات السلكية واللاسلكية";
+"type.leisure.indoor_play" = "مركز اللعب";

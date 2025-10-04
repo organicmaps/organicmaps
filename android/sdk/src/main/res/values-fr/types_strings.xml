@@ -1417,4 +1417,7 @@
     <string name="type.barrier.jersey_barrier">Bloc</string>
     <string name="type.barrier.debris">Débris</string>
     <string name="type.barrier.log">Barrière de rondins</string>
+    <string name="type.amenity.boat_rental">Location de bateaux</string>
+    <string name="type.shop.telecommunication">Atelier de télécommunications</string>
+    <string name="type.leisure.indoor_play">Centre de jeux</string>
 </resources>

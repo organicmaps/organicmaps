@@ -1293,4 +1293,7 @@
     <string name="type.barrier.jersey_barrier">Lohko</string>
     <string name="type.barrier.debris">Romueste</string>
     <string name="type.barrier.log">Tukkieste</string>
+    <string name="type.amenity.boat_rental">Veneen vuokraus</string>
+    <string name="type.shop.telecommunication">Televiestintäliike</string>
+    <string name="type.leisure.indoor_play">Leikkikeskus</string>
 </resources>

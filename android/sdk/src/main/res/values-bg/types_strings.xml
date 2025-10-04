@@ -788,4 +788,7 @@
     <string name="type.barrier.jersey_barrier">Блок</string>
     <string name="type.barrier.debris">Отломки</string>
     <string name="type.barrier.log">Бариера от дънери</string>
+    <string name="type.amenity.boat_rental">Лодка под наем</string>
+    <string name="type.shop.telecommunication">Магазин за телекомуникации</string>
+    <string name="type.leisure.indoor_play">Център за игра</string>
 </resources>

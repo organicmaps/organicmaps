@@ -1415,4 +1415,7 @@
     <string name="type.barrier.jersey_barrier">Block</string>
     <string name="type.barrier.debris">Trümmer</string>
     <string name="type.barrier.log">Stammbarriere</string>
+    <string name="type.amenity.boat_rental">Boot mieten</string>
+    <string name="type.shop.telecommunication">Geschäft für Telekommunikation</string>
+    <string name="type.leisure.indoor_play">Spielzentrum</string>
 </resources>

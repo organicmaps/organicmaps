@@ -1409,4 +1409,7 @@
     <string name="type.barrier.jersey_barrier">Blocco</string>
     <string name="type.barrier.debris">Detriti</string>
     <string name="type.barrier.log">Barriera di tronchi</string>
+    <string name="type.amenity.boat_rental">Noleggio barche</string>
+    <string name="type.shop.telecommunication">Negozio di telecomunicazioni</string>
+    <string name="type.leisure.indoor_play">Centro giochi</string>
 </resources>

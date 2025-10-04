@@ -1184,4 +1184,7 @@
     <string name="type.barrier.jersey_barrier">บล็อก</string>
     <string name="type.barrier.debris">เศษซาก</string>
     <string name="type.barrier.log">สิ่งกีดขวางท่อนไม้</string>
+    <string name="type.amenity.boat_rental">ให้เช่าเรือ</string>
+    <string name="type.shop.telecommunication">ร้านค้าโทรคมนาคม</string>
+    <string name="type.leisure.indoor_play">ศูนย์เล่น</string>
 </resources>

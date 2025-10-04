@@ -1481,6 +1481,48 @@ sk:Mobilné telefóny
 sw:Duka la simu
 fa:موبایل فروشی
 
+shop-telecommunication|@shop
+en:Telecommunications store
+ar:متجر الاتصالات السلكية واللاسلكية
+be:Тэлекамунікацыйная крама
+bg:Магазин за телекомуникации
+ca:Botiga de telecomunicacions
+cs:Telekomunikační obchod
+da:Butik for telekommunikation
+de:Geschäft für Telekommunikation
+el:Κατάστημα τηλεπικοινωνιών
+en-GB:Telecommunications shop
+es:Tienda de telecomunicaciones
+et:Telekommunikatsioonipood
+eu:Telekomunikazioen denda
+fa:فروشگاه ارتباطات از راه دور
+fi:Televiestintäliike
+fr:Atelier de télécommunications
+he:חנות טלקומוניקציה
+hi:दूरसंचार भंडार
+hu:Távközlési üzlet
+id:Toko telekomunikasi
+it:Negozio di telecomunicazioni
+ja:電気通信店
+ko:통신 상점
+lv:Telekomunikāciju veikals
+mr:दूरसंचार स्टोअर
+nb:Telekommunikasjonsbutikk
+nl:Telecommunicatiewinkel
+pl:Sklep telekomunikacyjny
+pt:Loja de telecomunicações
+ro:Magazin de telecomunicații
+ru:Магазин телекоммуникаций
+sk:Telekomunikačný obchod
+sv:Butik för telekommunikation
+sw:Duka la Mawasiliano
+th:ร้านค้าโทรคมนาคม
+tr:Telekomünikasyon mağazası
+uk:Телекомунікаційний цех
+vi:Cửa hàng viễn thông
+zh-Hans:电信商店
+zh-Hant:電信商店
+
 shop-florist|@shop
 en:4Florist|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E|4flowers|flower shop|floral shop|floral arrangements|same day flowers|bouquet
 ru:4Цветочный|4цветы|цветов|флорист|букет|цветочный салон
@@ -5037,6 +5079,48 @@ tr:4Bisiklet tamiri|4Bisiklet|Bisiklet tamircisi
 uk:4Велоремонт|велосипед|ремонт|ремонт велосипедів
 zh-Hans:1自行车修理
 zh-Hant:1自行車修理
+
+amenity-boat_rental
+en:Boat Rental
+ar:تأجير القوارب
+be:Арэнда лодкі
+bg:Лодка под наем
+ca:Lloguer de vaixells
+cs:Půjčovna lodí
+da:Udlejning af båd
+de:Boot mieten
+el:Ενοικίαση σκάφους
+es:Alquiler de barcos
+et:Paadi rentimine
+eu:Itsasontz
+fa:اجاره قایق
+fi:Veneen vuokraus
+fr:Location de bateaux
+he:השכרת סירות
+hi:बोट रेंटल
+hu:Hajókölcsönzés
+id:Penyewaan Perahu
+it:Noleggio barche
+ja:レンタルボート
+ko:보트 대여
+lv:Laivu noma
+mr:बोट भाड्याने
+nb:Båtutleie
+nl:Bootverhuur
+pl:Wynajem łodzi
+pt:Aluguer de barcos
+pt-BR:Aluguel de barcos
+ro:Închiriere bărci
+ru:Аренда лодок
+sk:Prenájom lodí
+sv:Båtuthyrning
+sw:Kukodisha mashua
+th:ให้เช่าเรือ
+tr:Tekne Kiralama
+uk:Оренда човна
+vi:Cho thuê thuyền
+zh-Hans:船只租赁
+zh-Hant:船隻租賃
 
 amenity-car_sharing
 en:Car Share|3carsharing|car|sharing|U+1F697|U+1F698|U+1F699|carpool|carsharing services|car sharing|4rideshare
@@ -8837,6 +8921,47 @@ sk:Ihrisko
 sw:Viwanja vya michezo
 fa:زمین بازی
 mr:खेळाचे मैदान
+
+leisure-indoor_play|@category_children
+en:Play Centre
+ar:مركز اللعب
+be:Гульнявы цэнтр
+bg:Център за игра
+ca:Play Center
+cs:Hrací centrum
+da:Legecenter
+de:Spielzentrum
+el:Κέντρο παιχνιδιού
+es:Centro de juegos|Chiquipark|Txikipark
+et:Mängukeskus
+eu:Play Center|Txikipark
+fa:مرکز بازی
+fi:Leikkikeskus
+fr:Centre de jeux
+he:מרכז משחק
+hi:खेल केंद्र
+hu:Játékközpont
+id:Pusat Bermain
+it:Centro giochi
+ja:プレイセンター
+ko:플레이 센터
+lv:Spēļu centrs
+mr:खेळाचे केंद्र
+nb:Lekesenter
+nl:Speelcentrum
+pl:Centrum zabaw
+pt:Centro de jogos
+ro:Centrul de joacă
+ru:Игровой центр
+sk:Hracie centrum
+sv:Lekcenter
+sw:Kituo cha kucheza
+th:ศูนย์เล่น
+tr:Oyun Merkezi
+uk:Ігровий центр
+vi:Trung tâm chơi
+zh-Hans:游乐中心
+zh-Hant:遊樂中心
 
 leisure-sports_centre
 en:4Sports Center|sport|U+26BD|U+26BE|U+1F3BE|U+1F4AA|U+1F3C8|U+1F3C0|U+1F3C9|sports complex|sports forum

@@ -1412,4 +1412,7 @@
     <string name="type.barrier.jersey_barrier">Blok</string>
     <string name="type.barrier.debris">Puin</string>
     <string name="type.barrier.log">Boomstambarrière</string>
+    <string name="type.amenity.boat_rental">Bootverhuur</string>
+    <string name="type.shop.telecommunication">Telecommunicatiewinkel</string>
+    <string name="type.leisure.indoor_play">Speelcentrum</string>
 </resources>

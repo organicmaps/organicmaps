@@ -1309,4 +1309,5 @@
     <string name="type.barrier.log">Barreira de toras</string>
     <string name="type.barrier.debris">Destroços</string>
     <string name="type.barrier.jersey_barrier">Bloco</string>
+    <string name="type.amenity.boat_rental">Aluguel de barcos</string>
 </resources>

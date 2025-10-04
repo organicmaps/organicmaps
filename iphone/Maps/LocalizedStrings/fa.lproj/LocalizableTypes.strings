@@ -1507,3 +1507,6 @@
 "type.barrier.jersey_barrier" = "بلوک";
 "type.barrier.debris" = "آوار";
 "type.barrier.log" = "مانع تنه درخت";
+"type.amenity.boat_rental" = "اجاره قایق";
+"type.shop.telecommunication" = "فروشگاه ارتباطات از راه دور";
+"type.leisure.indoor_play" = "مرکز بازی";

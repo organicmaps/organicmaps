@@ -1507,3 +1507,6 @@
 "type.barrier.jersey_barrier" = "Blok";
 "type.barrier.debris" = "Puing";
 "type.barrier.log" = "Rintangan Gelondongan";
+"type.amenity.boat_rental" = "Penyewaan Perahu";
+"type.shop.telecommunication" = "Toko telekomunikasi";
+"type.leisure.indoor_play" = "Pusat Bermain";

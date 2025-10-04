@@ -1181,4 +1181,7 @@
     <string name="type.barrier.jersey_barrier">Khối</string>
     <string name="type.barrier.debris">Mảnh vỡ</string>
     <string name="type.barrier.log">Rào chắn khúc gỗ</string>
+    <string name="type.amenity.boat_rental">Cho thuê thuyền</string>
+    <string name="type.shop.telecommunication">Cửa hàng viễn thông</string>
+    <string name="type.leisure.indoor_play">Trung tâm chơi</string>
 </resources>
