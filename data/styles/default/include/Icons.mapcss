@@ -1496,7 +1496,7 @@ area|z17-[amenity=bank]
 
 node|z15-[landuse=landfill],
 area|z15-[landuse=landfill]
-{icon-image: waste-basket-m.svg;text-offset: 1;font-size: 10;}
+{icon-image: waste-disposal-m.svg;text-offset: 1;font-size: 10;}
 
 node|z15-[landuse=quarry],
 area|z15-[landuse=quarry],
@@ -1848,7 +1848,7 @@ node|z16-[amenity=library]
 
 node|z18-[amenity=waste_disposal],
 area|z18-[amenity=waste_disposal]
-{icon-image: waste-basket-m.svg;font-size: 11;}
+{icon-image: waste-disposal-m.svg;font-size: 11;}
 
 node|z18-[amenity=internet_cafe]
 {icon-image: internet_cafe-m.svg;}
