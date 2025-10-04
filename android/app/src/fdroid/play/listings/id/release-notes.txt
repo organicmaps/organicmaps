@@ -1,13 +1,9 @@
-• Data OSM 13 Sept
-• Tampilkan kode pos alamat
-• Ikon bundaran baru (Android Auto)
-• Pulau kecil dihapus
-• Perbaikan pemusatan peta
-• Warna penanda tersisa di GPX
-• Toko pencahayaan
-• Batas taman nasional
-• Situs arkeologi dari zoom 12
-• Perkemahan & karavan di navigasi
-• Warna jalan sekunder diperbaiki
+• Tampilan batas kecepatan di Android Auto
+• BARU! Impor GeoJSON
+• Data OSM 4 Oktober
+• Data Wikipedia 1 Oktober
+• Dukungan kereta ringan Seattle untuk Transportasi Umum
+• Menambahkan toko penyewaan sepeda dan lebih banyak jenis penghalang
+• Ikon baru untuk tiang, menara komunikasi dan listrik
 
-…lebih: omaps.org/news
+…lebih: omaps.org/id/news

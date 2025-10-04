@@ -1,13 +1,9 @@
-• OSM dati 13. sept
-• Parādīt pasta indeksu adresēs
-• Jaunas apļveida krust. ikonas (Android Auto)
-• Noņemtas mazās salas
-• Izlabota kartes centrēšana
-• Grāmatzīmju krāsas GPX saglabājas
-• Apgaismojuma veikali
-• Nacionālo parku robežas
-• Arheoloģija no mēroga 12
-• Kempingi un karavāni navigācijā
-• Otr. ceļa krāsa labota
+• Ātruma ierobežojuma attēlošana Android Auto
+• JAUNS! GeoJSON imports
+• OSM dati 4. oktobrī
+• Vikipēdijas dati 1. oktobrī
+• Sietlas vieglā metro atbalsts sabiedriskajam transportam
+• Pievienotas velosipēdu nomas veikali un vairāk barjeru veidi
+• Jaunas ikonas mastiem, sakaru un enerģētikas torņiem
 
 …vairāk: omaps.org/news

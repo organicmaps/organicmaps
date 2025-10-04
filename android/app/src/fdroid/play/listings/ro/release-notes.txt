@@ -1,13 +1,9 @@
-• Date OSM la 13 sept
-• Afișare cod poștal în adrese
-• Icoane noi sens giratoriu (Android Auto)
-• Insule mici eliminate
-• Centrare greșită hartă fixată
-• Culori marcaje păstrate în GPX
-• Magazine iluminat
-• Granițe parcuri naționale
-• Situri arheologice de la zoom 12
-• Camping & rulote în navigație
-• Culoare drum secundar corectată
+• Afișare limită de vitează în Android Auto
+• NOU! Import GeoJSON
+• Date OSM la 4 octombrie
+• Date Wikipedia la 1 octombrie
+• Suport pentru metroul ușor Seattle pentru transportul public
+• Adăugate magazine de închiriere biciclete și mai multe tipuri de bariere
+• Icoane noi pentru catarge, turnuri de comunicații și energie
 
 …mai mult: omaps.org/news

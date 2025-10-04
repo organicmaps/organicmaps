@@ -1,13 +1,11 @@
-• OSM-data 13 sep
-• Visa postnummer i adresser
-• Nya rondellikoner (Android Auto)
-• Små öar borttagna
-• Felaktig kartcentrering fixad
-• Bokmärkesfärger kvar i GPX
-• Belysningsbutiker
-• Nationalparksgränser
-• Arkeologi från zoom 12
-• Camping & husbilsplatser i nav
-• Sekundär väg-färg fixad
+• Hastighetsgräns visning i Android Auto
+• NYTT! Importera GeoJSON
+• OSM-data 4 okt
+• Wikipedia-data 1 okt
+• Seattle spårväg stöd för kollektivtrafik
+• Tillagt cykeluthyrningsbutiker och fler barriärtyper
+• Nya ikoner för master, kommunikations- och krafttorn, visa historiska arkeologiska platser från zoom 12 och andra historiska platser från zoom 15 i utomhusstil
+• Visa OSM `description`-tagg innehåll på Android
+• Fixat flera kraschar
 
-…mer: omaps.org/news
+…mer: omaps.org/sv/news

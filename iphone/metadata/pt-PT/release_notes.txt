@@ -1,20 +1,38 @@
-• NOVO: Planeamento de rotas totalmente redesenhado (mais rápido e claro ao ajustar paragens).
-• NOVO: Mostra o conteúdo da tag OSM "description" nos objetos (teste com ?description na pesquisa).
-• Dados OpenStreetMap de 13 de setembro.
-• Corrigidos vários bugs do CarPlay
-• Pequenas ilhas irrelevantes removidas do mapa mundial.
-• Código postal exibido nas moradas.
-• Corrigido centramento incorreto da posição.
-• Cores dos marcadores preservadas ao exportar/importar GPX.
-• Traduções atualizadas.
+• NOVO: Guardar marcador no ponto de trilho selecionado
+• NOVO: Eliminar trilho de gravação sem o guardar primeiro
+• NOVO! Importar GeoJSON
+• Dados do OpenStreetMap de 4 de outubro
+• Dados da Wikipédia de 1 de outubro
+• Suporte de metro ligeiro de Seattle para transportes públicos
+• Apresentar títulos de lista de marcadores de várias linhas na página do local
+• Atualizar estilo do botão de início de sessão do OSM
+• Corrigir problema de atualização de informações de navegação
+• Corrigir novos problemas de planeamento de rota
+• Corrigir visibilidade de adicionar/editar local do OSM para mapas com mais de 3 meses
+• Corrigir esquema de controlo de segmento de opções de transporte para iOS 26
+• Simplificar animações de seleção de marcadores
+• Corrigir problema de seleção de resultado de pesquisa
+• Corrigido estilo, deslize e animações para página de informações do local
+• Não desativar seleção de mapa ao guardar local editado do OSM
+• Traduções atualizadas
 
-Estilos de mapa:
-• Lojas de iluminação no mapa.
-• Linhas de energia a partir do zoom 18.
-• Nomes de centrais e subestações.
-• Parques de campismo e caravanas na navegação.
-• Cor de estrada secundária corrigida na navegação.
-• Limites de parques nacionais.
-• Sítios arqueológicos desde o zoom 12 (estilo outdoor).
+#### Estilos de mapa
 
-Cada doação e boa avaliação motiva os voluntários. Obrigado!
+• Apresentar lojas de aluguer de bicicletas
+• Apresentar sítios arqueológicos históricos a partir do zoom 12 e outros sítios históricos a partir do zoom 15 no estilo ao ar livre
+• Novos ícones para mastros, torres de comunicação e torres de energia no estilo ao ar livre
+• Aumentar tamanho do ícone de pico no estilo ao ar livre
+• Adicionadas variantes de ícones de PDI em falta
+• Adicionados mais tipos de barreiras
+
+### Funcionalidades lançadas recentemente que pode ter perdido
+
+• Números de rotas de transporte público ao selecionar paragem de autocarro
+• Rotas de caminhada e ciclismo
+• Ver nomes de marcadores no mapa ativando nas definições da aplicação
+• O ícone de lápis oferece uma forma rápida de editar marcadores
+• Planeamento de rota redesenhado
+• Apresentar conteúdo da etiqueta OSM `description` (escreva ?description na pesquisa para descobrir locais com descrição)
+
+Cada donativo e boa avaliação motiva os nossos voluntários a construir melhores mapas, obrigado!
+

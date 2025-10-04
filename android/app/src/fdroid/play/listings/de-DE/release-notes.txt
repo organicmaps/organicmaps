@@ -1,13 +1,9 @@
-• OSM-Daten Stand 13. September
-• Postleitzahlen bei Adressen anzeigen
-• Neue Kreisverkehr-Symbole in Android Auto
-• Kleine Inseln aus Weltkarte entfernt
-• Falsche Karten-Zentrierung beim Standort behoben
-• Lesezeichenfarben bleiben in GPX erhalten
-• Beleuchtungsgeschäfte
-• Nationalpark-Grenzen zeichnen
-• Archäologische Stätten ab Zoom 12 (Outdoor)
-• Camping- & Stellplätze in Navigation
-• Sekundäre Straßenfarbe korrigiert
+• Geschwindigkeitsbegrenzungsanzeige in Android Auto
+• NEU! GeoJSON importieren
+• OSM-Daten Stand 4. Oktober
+• Wikipedia-Daten Stand 1. Oktober
+• Seattle Stadtbahn-Unterstützung für öffentliche Verkehrsmittel
+• Fahrradverleihgeschäfte und weitere Barrierentypen hinzugefügt
+• Neue Symbole für Masten, Kommunikations- und Strommaste, historische archäologische Stätten ab Zoom 12 und andere historische Stätten ab Zoom 15 im Outdoor-Stil anzeigen
 
-…mehr: omaps.org/news
+…mehr: omaps.org/de/news

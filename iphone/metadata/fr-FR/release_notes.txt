@@ -1,20 +1,38 @@
-• NOUVEAU : Planification d’itinéraire entièrement repensée (étapes plus claires, ajustements plus rapides).
-• NOUVEAU : Affichage du contenu du tag OSM « description » pour les objets (tapez ?description dans la recherche pour tester).
-• Données OpenStreetMap au 13 septembre.
-• Correction de plusieurs bugs CarPlay
-• Petites îles secondaires retirées de la carte mondiale.
-• Affichage des codes postaux dans les adresses.
-• Correction du recentrage incorrect autour de la position.
-• Les couleurs de vos signets sont conservées à l’export/import GPX.
-• Traductions mises à jour.
+• NOUVEAU : Enregistrer un signet sur le point de trace sélectionné
+• NOUVEAU : Supprimer la trace d'enregistrement sans l'enregistrer d'abord
+• NOUVEAU ! Importer GeoJSON
+• Données OpenStreetMap au 4 octobre
+• Données Wikipedia au 1er octobre
+• Support du métro léger de Seattle pour les transports en commun
+• Afficher les titres de liste de signets multilignes sur la page de lieu
+• Mise à jour du style du bouton de connexion OSM
+• Correction du problème de mise à jour des informations de navigation
+• Correction des problèmes de nouvelle planification d'itinéraire
+• Correction de la visibilité d'ajout/modification de lieu OSM pour les cartes de plus de 3 mois
+• Correction de la disposition du contrôle de segment des options de transport pour iOS 26
+• Simplification des animations de sélection de signets
+• Correction du problème de sélection des résultats de recherche
+• Correction du style, du balayage et des animations pour la page d'informations de lieu
+• Ne pas désactiver la sélection de carte lors de l'enregistrement d'un lieu OSM modifié
+• Traductions mises à jour
 
-Styles de carte :
-• Magasins d’éclairage visibles sur la carte.
-• Lignes électriques à partir du zoom 18.
-• Noms de centrales et sous-stations affichés.
-• Campings & aires de caravanes en mode navigation.
-• Couleur des routes secondaires corrigée en navigation.
-• Tracé des limites des parcs nationaux.
-• Sites archéologiques dès le zoom 12 (style plein air).
+#### Styles de carte
 
-Chaque don ou avis positif motive nos bénévoles à améliorer les cartes. Merci !
+• Afficher les magasins de location de vélos
+• Afficher les sites archéologiques historiques à partir du zoom 12 et les autres sites historiques à partir du zoom 15 en style plein air
+• Nouvelles icônes pour les pylônes, tours de communication et tours électriques en style plein air
+• Augmenter la taille de l'icône de sommet en style plein air
+• Ajout de variantes d'icônes POI manquantes
+• Ajout de plus de types de barrières
+
+### Fonctionnalités récemment publiées que vous avez peut-être manquées
+
+• Numéros d'itinéraire de transport en commun lors de la sélection d'un arrêt de bus
+• Itinéraires de randonnée et de vélo
+• Voir les noms de signets sur la carte en l'activant dans les paramètres de l'application
+• L'icône crayon offre un moyen rapide de modifier les signets
+• Planification d'itinéraire repensée
+• Affichage du contenu de la balise OSM `description` (tapez ?description dans la recherche pour découvrir les lieux avec description)
+
+Chaque don et bonne critique motive nos bénévoles à créer de meilleures cartes, merci !
+

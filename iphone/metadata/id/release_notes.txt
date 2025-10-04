@@ -1,20 +1,38 @@
-• BARU: Perencanaan rute didesain ulang (lebih jelas & cepat menata titik lewat).
-• BARU: Menampilkan isi tag OSM "description" untuk objek (coba ketik ?description di pencarian).
-• Data OpenStreetMap per 13 September.
-• Memperbaiki beberapa bug CarPlay
-• Pulau kecil tak penting dihapus dari peta dunia.
-• Kode pos kini tampil di alamat.
-• Perbaikan pemusatan peta yang salah.
-• Warna penanda tetap saat ekspor/impor GPX.
-• Terjemahan diperbarui.
+• BARU: Simpan bookmark pada titik trek yang dipilih
+• BARU: Hapus trek perekaman tanpa menyimpannya terlebih dahulu
+• BARU! Impor GeoJSON
+• Data OpenStreetMap per 4 Oktober
+• Data Wikipedia per 1 Oktober
+• Dukungan kereta ringan Seattle untuk transportasi umum
+• Tampilkan judul daftar bookmark multi-baris di halaman tempat
+• Perbarui gaya tombol masuk OSM
+• Perbaiki masalah pembaruan info navigasi
+• Perbaiki masalah perencanaan rute baru
+• Perbaiki visibilitas tambah/edit tempat OSM untuk peta yang lebih tua dari 3 bulan
+• Perbaiki tata letak kontrol segmen opsi transportasi untuk iOS 26
+• Sederhanakan animasi pemilihan bookmark
+• Perbaiki masalah pemilihan hasil pencarian
+• Diperbaiki gaya, geser, dan animasi untuk halaman info tempat
+• Jangan nonaktifkan pemilihan peta saat menyimpan tempat OSM yang diedit
+• Terjemahan diperbarui
 
-Gaya peta:
-• Toko pencahayaan di peta.
-• Saluran listrik dari zoom 18.
-• Nama pembangkit & gardu listrik.
-• Perkemahan & area karavan di mode navigasi.
-• Perbaikan warna jalan sekunder di navigasi.
-• Batas taman nasional.
-• Situs arkeologi mulai zoom 12 (gaya outdoor).
+#### Gaya Peta
 
-Setiap donasi & ulasan baik memotivasi relawan kami. Terima kasih!
+• Tampilkan toko penyewaan sepeda
+• Tampilkan situs arkeologi bersejarah dari zoom 12 dan situs bersejarah lainnya dari zoom 15 dalam gaya luar ruangan
+• Ikon baru untuk tiang, menara komunikasi dan menara listrik dalam gaya luar ruangan
+• Tingkatkan ukuran ikon puncak dalam gaya luar ruangan
+• Ditambahkan varian ikon POI yang hilang
+• Ditambahkan lebih banyak jenis penghalang
+
+### Fitur yang baru dirilis yang mungkin Anda lewatkan
+
+• Nomor rute transportasi umum saat memilih halte bus
+• Rute hiking dan bersepeda
+• Lihat nama bookmark di peta dengan mengaktifkannya di pengaturan aplikasi
+• Ikon pensil menawarkan cara cepat untuk mengedit bookmark
+• Perencanaan rute yang didesain ulang
+• Tampilkan konten tag OSM `description` (ketik ?description di pencarian untuk menemukan tempat dengan deskripsi)
+
+Setiap donasi dan ulasan bagus memotivasi relawan kami untuk membangun peta yang lebih baik, terima kasih!
+

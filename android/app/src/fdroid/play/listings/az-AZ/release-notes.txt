@@ -1,13 +1,9 @@
-• OSM məlumatları: 13 sentyabr
-• Ünvanlarda poçt indeksi
-• Android Auto üçün yeni dairəvi yol ikonları
-• Xırda adalar silindi
-• Xəritə mərkəzləşməsi düzəldildi
-• Əlfəcin rəngləri GPX-də qalır
-• İşıqlandırma mağazaları
-• Milli park sərhədləri
-• Arxeoloji yerlər zoom 12-dən
-• Düşərgə və karvan yerləri
-• İkincil yol rəngi düzəldildi
+• Android Auto-da sürət məhdudiyyətinin göstərilməsi
+• YENİ! GeoJSON-un idxalı
+• 4 oktyabr tarixinə OSM məlumatları
+• 1 oktyabr tarixinə Vikipediya məlumatları
+• İctimai Nəqliyyat üçün Seattle yüngül metro dəstəyi
+• Velosiped kirayə mağazaları və daha çox maneə növləri əlavə edildi
+• Dirək, rabitə və enerji qüllələri üçün yeni ikonalar
 
 …daha çox: omaps.org/news

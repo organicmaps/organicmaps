@@ -1,20 +1,38 @@
-• NOVO: Planejamento de rotas totalmente redesenhado (mais rápido e claro para ajustar paradas).
-• NOVO: Exibe o conteúdo da tag OSM "description" nos objetos (?description na busca para testar).
-• Dados OpenStreetMap de 13 de setembro.
-• Corrigidos vários bugs do CarPlay
-• Pequenas ilhas irrelevantes removidas do mapa mundial.
-• CEP exibido nos endereços.
-• Correção do centramento incorreto da posição.
-• Cores dos favoritos preservadas ao exportar/importar GPX.
-• Traduções atualizadas.
+• NOVO: Salvar marcador no ponto de trilha selecionado
+• NOVO: Excluir trilha de gravação sem salvá-la primeiro
+• NOVO! Importar GeoJSON
+• Dados do OpenStreetMap de 4 de outubro
+• Dados da Wikipédia de 1 de outubro
+• Suporte ao trem leve de Seattle para transporte público
+• Exibir títulos de lista de marcadores de várias linhas na página do local
+• Atualizar estilo do botão de login do OSM
+• Corrigir problema de atualização de informações de navegação
+• Corrigir novos problemas de planejamento de rota
+• Corrigir visibilidade de adicionar/editar local do OSM para mapas com mais de 3 meses
+• Corrigir layout de controle de segmento de opções de transporte para iOS 26
+• Simplificar animações de seleção de marcadores
+• Corrigir problema de seleção de resultado de pesquisa
+• Corrigido estilo, deslize e animações para página de informações do local
+• Não desabilitar seleção de mapa ao salvar local editado do OSM
+• Traduções atualizadas
 
-Estilos de mapa:
-• Lojas de iluminação no mapa.
-• Linhas de energia a partir do zoom 18.
-• Nomes de usinas e subestações.
-• Campings e áreas para trailers na navegação.
-• Cor de estrada secundária corrigida na navegação.
-• Limites de parques nacionais.
-• Sítios arqueológicos desde o zoom 12 (estilo outdoor).
+#### Estilos de mapa
 
-Cada doação e boa avaliação motiva os voluntários. Obrigado!
+• Exibir lojas de aluguel de bicicletas
+• Exibir sítios arqueológicos históricos a partir do zoom 12 e outros sítios históricos a partir do zoom 15 no estilo ao ar livre
+• Novos ícones para mastros, torres de comunicação e torres de energia no estilo ao ar livre
+• Aumentar tamanho do ícone de pico no estilo ao ar livre
+• Adicionadas variantes de ícones de PDI ausentes
+• Adicionados mais tipos de barreiras
+
+### Recursos lançados recentemente que você pode ter perdido
+
+• Números de rotas de transporte público ao selecionar ponto de ônibus
+• Rotas de caminhada e ciclismo
+• Veja nomes de marcadores no mapa ativando nas configurações do aplicativo
+• O ícone de lápis oferece uma maneira rápida de editar marcadores
+• Planejamento de rota redesenhado
+• Exibir conteúdo da tag OSM `description` (digite ?description na pesquisa para descobrir locais com descrição)
+
+Cada doação e boa avaliação motiva nossos voluntários a construir mapas melhores, obrigado!
+

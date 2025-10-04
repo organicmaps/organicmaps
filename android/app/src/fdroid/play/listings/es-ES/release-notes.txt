@@ -1,13 +1,9 @@
-• Datos OSM al 13 de septiembre
-• Mostrar el código postal en direcciones
-• Nuevos iconos de rotonda (Android Auto)
-• Islas menores eliminadas del mapa mundial
-• Centrado incorrecto del mapa corregido
-• Colores de marcadores se conservan en GPX
-• Tiendas de iluminación
-• Dibujar límites de parques nacionales
-• Sitios arqueológicos desde zoom 12 (exterior)
-• Campings y áreas para caravanas en navegación
-• Color de carretera secundaria corregido
+• Visualización del límite de velocidad en Android Auto
+• ¡NUEVO! Importar GeoJSON
+• Datos OSM al 4 de octubre
+• Datos de Wikipedia al 1 de octubre
+• Soporte para el tren ligero de Seattle para transporte público
+• Se agregaron tiendas de alquiler de bicicletas y más tipos de barreras
+• Nuevos iconos para mástiles, torres de comunicación y energía
 
 …más: omaps.org/es/news

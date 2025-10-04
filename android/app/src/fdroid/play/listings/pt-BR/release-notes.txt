@@ -1,13 +1,9 @@
-• Dados OSM de 13 set
-• Mostrar CEP nos endereços
-• Novos ícones de rotatória (Android Auto)
-• Pequenas ilhas removidas
-• Centralização do mapa corrigida
-• Cores de favoritos mantidas no GPX
-• Lojas de iluminação
-• Limites de parques nacionais
-• Sítios arqueológicos desde zoom 12
-• Acamp. e locais de trailer na navegação
-• Cor de via secundária corrigida
+• Exibição de limite de velocidade no Android Auto
+• NOVO! Importar GeoJSON
+• Dados OSM de 4 de outubro
+• Dados da Wikipédia de 1º de outubro
+• Suporte ao metrô leve de Seattle para transporte público
+• Adicionadas lojas de aluguel de bicicletas e mais tipos de barreiras
+• Novos ícones para mastros, torres de comunicação e energia
 
-…mais: omaps.org/pt/news
+…mais: omaps.org/pt-BR/news

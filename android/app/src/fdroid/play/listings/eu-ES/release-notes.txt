@@ -1,13 +1,9 @@
-• OSM datuak: irailak 13
-• Posta kodea erakutsi
-• Biribilgune ikono berriak (Android Auto)
-• Uharte txikiak ezabatuak
-• Maparen zentratzea zuzendua
-• Laster-marken koloreak GPXen
-• Argiztapen dendak
-• Parke nazional mugak
-• Gune arkeologikoak zoom 12tik
-• Kanpin & karabana guneak nabig.
-• Bigarren mailako errep kolorea ok
+• Abiadura mugen bistaratzea Android Auto-n
+• BERRIA! GeoJSON inportatu
+• OSM datuak: urriaren 4
+• Wikipedia datuak: urriaren 1
+• Seattle tren arinak euskarri garraio publikorako
+• Bizikleta alokairu dendak eta hesitze mota gehiago gehitu dira
+• Ikono berriak mastuentzat, komunikazio eta energia dorreetako
 
-…gehiago: omaps.org/news
+…gehiago: omaps.org/eu/news

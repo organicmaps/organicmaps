@@ -1,13 +1,9 @@
-• Data OSM k 13. září
-• Zobraz PSČ u adres
-• Nové ikony kruháků (Android Auto)
-• Odebrány malé ostrovy
-• Opravené centrování mapy
-• Barvy záložek v GPX
-• Obchody s osvětlením
-• Hranice národních parků
-• Archeo lokality od zoomu 12
-• Kempy a karavany v navigaci
-• Opravená barva vedl. silnic
+• Zobrazení rychlostního limitu v Android Auto
+• NOVÉ! Import GeoJSON
+• OSM data k 4. říjnu
+• Data z Wikipedie k 1. říjnu
+• Podpora lehkého metra v Seattlu pro veřejnou dopravu
+• Přidány půjčovny kol a další typy bariér
+• Nové ikony pro stožáry, komunikační a energetické věže
 
 …více: omaps.org/cs/news
