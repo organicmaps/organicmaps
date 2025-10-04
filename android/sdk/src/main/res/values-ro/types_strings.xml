@@ -1174,4 +1174,5 @@
     <string name="type.barrier.log">Barieră de bușteni</string>
     <string name="type.amenity.boat_rental">Închiriere bărci</string>
     <string name="type.shop.telecommunication">Magazin de telecomunicații</string>
+    <string name="type.leisure.indoor_play">Centrul de joacă</string>
 </resources>

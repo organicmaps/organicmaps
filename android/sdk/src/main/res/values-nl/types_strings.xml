@@ -1414,4 +1414,5 @@
     <string name="type.barrier.log">Boomstambarrière</string>
     <string name="type.amenity.boat_rental">Bootverhuur</string>
     <string name="type.shop.telecommunication">Telecommunicatiewinkel</string>
+    <string name="type.leisure.indoor_play">Speelcentrum</string>
 </resources>

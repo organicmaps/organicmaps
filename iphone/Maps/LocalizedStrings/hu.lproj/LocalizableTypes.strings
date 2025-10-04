@@ -1505,3 +1505,4 @@
 "type.barrier.log" = "Rönkkorlát";
 "type.amenity.boat_rental" = "Hajókölcsönzés";
 "type.shop.telecommunication" = "Távközlési üzlet";
+"type.leisure.indoor_play" = "Játékközpont";

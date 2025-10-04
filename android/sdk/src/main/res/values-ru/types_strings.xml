@@ -1420,4 +1420,5 @@
     <string name="type.barrier.log">Бревенчатый барьер</string>
     <string name="type.amenity.boat_rental">Аренда лодок</string>
     <string name="type.shop.telecommunication">Магазин телекоммуникаций</string>
+    <string name="type.leisure.indoor_play">Игровой центр</string>
 </resources>

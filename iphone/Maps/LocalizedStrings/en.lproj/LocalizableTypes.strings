@@ -1526,3 +1526,4 @@
 "type.barrier.log" = "Log Barrier";
 "type.amenity.boat_rental" = "Boat Rental";
 "type.shop.telecommunication" = "Telecommunications store";
+"type.leisure.indoor_play" = "Play Centre";

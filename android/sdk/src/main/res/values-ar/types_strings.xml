@@ -1283,4 +1283,5 @@
     <string name="type.barrier.log">حاجز جذع شجرة</string>
     <string name="type.amenity.boat_rental">تأجير القوارب</string>
     <string name="type.shop.telecommunication">متجر الاتصالات السلكية واللاسلكية</string>
+    <string name="type.leisure.indoor_play">مركز اللعب</string>
 </resources>

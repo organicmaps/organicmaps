@@ -1509,3 +1509,4 @@
 "type.barrier.log" = "原木屏障";
 "type.amenity.boat_rental" = "船隻租賃";
 "type.shop.telecommunication" = "電信商店";
+"type.leisure.indoor_play" = "遊樂中心";

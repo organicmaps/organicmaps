@@ -1509,3 +1509,4 @@
 "type.barrier.log" = "Kütük Bariyeri";
 "type.amenity.boat_rental" = "Tekne Kiralama";
 "type.shop.telecommunication" = "Telekomünikasyon mağazası";
+"type.leisure.indoor_play" = "Oyun Merkezi";

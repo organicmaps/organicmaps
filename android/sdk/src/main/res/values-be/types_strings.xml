@@ -1412,4 +1412,5 @@
     <string name="type.barrier.log">Бярвенны бар\'ер</string>
     <string name="type.amenity.boat_rental">Арэнда лодкі</string>
     <string name="type.shop.telecommunication">Тэлекамунікацыйная крама</string>
+    <string name="type.leisure.indoor_play">Гульнявы цэнтр</string>
 </resources>
