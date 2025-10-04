@@ -1507,3 +1507,4 @@
 "type.barrier.jersey_barrier" = "Plokk";
 "type.barrier.debris" = "Praht";
 "type.barrier.log" = "Palkide tõkkepuu";
+"type.amenity.boat_rental" = "Paadi rentimine";

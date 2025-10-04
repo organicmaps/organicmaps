@@ -1250,4 +1250,5 @@
     <string name="type.barrier.jersey_barrier">بلوک</string>
     <string name="type.barrier.debris">آوار</string>
     <string name="type.barrier.log">مانع تنه درخت</string>
+    <string name="type.amenity.boat_rental">اجاره قایق</string>
 </resources>

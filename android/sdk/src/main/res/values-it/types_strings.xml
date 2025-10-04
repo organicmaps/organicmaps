@@ -1409,4 +1409,5 @@
     <string name="type.barrier.jersey_barrier">Blocco</string>
     <string name="type.barrier.debris">Detriti</string>
     <string name="type.barrier.log">Barriera di tronchi</string>
+    <string name="type.amenity.boat_rental">Noleggio barche</string>
 </resources>

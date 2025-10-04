@@ -1507,3 +1507,4 @@
 "type.barrier.jersey_barrier" = "Blok";
 "type.barrier.debris" = "Enkaz";
 "type.barrier.log" = "Kütük Bariyeri";
+"type.amenity.boat_rental" = "Tekne Kiralama";

@@ -1417,4 +1417,5 @@
     <string name="type.barrier.jersey_barrier">Blok</string>
     <string name="type.barrier.debris">Enkaz</string>
     <string name="type.barrier.log">Kütük Bariyeri</string>
+    <string name="type.amenity.boat_rental">Tekne Kiralama</string>
 </resources>

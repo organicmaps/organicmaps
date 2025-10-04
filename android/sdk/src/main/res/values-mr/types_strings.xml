@@ -1183,4 +1183,5 @@
     <string name="type.barrier.jersey_barrier">ब्लॉक</string>
     <string name="type.barrier.debris">ढिगारा</string>
     <string name="type.barrier.log">ओंडक्यांचा अडथळा</string>
+    <string name="type.amenity.boat_rental">बोट भाड्याने</string>
 </resources>

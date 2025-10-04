@@ -1410,4 +1410,5 @@
     <string name="type.barrier.jersey_barrier">Блок</string>
     <string name="type.barrier.debris">Завалы</string>
     <string name="type.barrier.log">Бярвенны бар\'ер</string>
+    <string name="type.amenity.boat_rental">Арэнда лодкі</string>
 </resources>

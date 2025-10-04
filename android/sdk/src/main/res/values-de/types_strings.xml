@@ -1415,4 +1415,5 @@
     <string name="type.barrier.jersey_barrier">Block</string>
     <string name="type.barrier.debris">Trümmer</string>
     <string name="type.barrier.log">Stammbarriere</string>
+    <string name="type.amenity.boat_rental">Boot mieten</string>
 </resources>

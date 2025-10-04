@@ -1507,3 +1507,4 @@
 "type.barrier.jersey_barrier" = "Block";
 "type.barrier.debris" = "Bråte";
 "type.barrier.log" = "Stockhinder";
+"type.amenity.boat_rental" = "Båtuthyrning";

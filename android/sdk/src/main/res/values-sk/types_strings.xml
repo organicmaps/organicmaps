@@ -1326,4 +1326,5 @@
     <string name="type.barrier.jersey_barrier">Blok</string>
     <string name="type.barrier.debris">Sutina</string>
     <string name="type.barrier.log">Bariéra z guľatiny</string>
+    <string name="type.amenity.boat_rental">Prenájom lodí</string>
 </resources>

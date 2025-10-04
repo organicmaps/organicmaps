@@ -1507,3 +1507,4 @@
 "type.barrier.jersey_barrier" = "ब्लॉक";
 "type.barrier.debris" = "मलबा";
 "type.barrier.log" = "लट्ठ अवरोध";
+"type.amenity.boat_rental" = "बोट रेंटल";

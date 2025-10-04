@@ -1377,4 +1377,5 @@
     <string name="type.barrier.jersey_barrier">Blok</string>
     <string name="type.barrier.debris">Affald</string>
     <string name="type.barrier.log">Træbarriere</string>
+    <string name="type.amenity.boat_rental">Udlejning af båd</string>
 </resources>

@@ -665,4 +665,5 @@
     <string name="type.barrier.jersey_barrier">Blocki</string>
     <string name="type.barrier.debris">Mabaki</string>
     <string name="type.barrier.log">Kizuizi cha magogo</string>
+    <string name="type.amenity.boat_rental">Kukodisha mashua</string>
 </resources>

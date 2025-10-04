@@ -1409,4 +1409,5 @@
     <string name="type.barrier.jersey_barrier">Μπλοκ</string>
     <string name="type.barrier.debris">Συντρίμμια</string>
     <string name="type.barrier.log">Εμπόδιο κορμών</string>
+    <string name="type.amenity.boat_rental">Ενοικίαση σκάφους</string>
 </resources>

@@ -1507,3 +1507,4 @@
 "type.barrier.jersey_barrier" = "Bloks";
 "type.barrier.debris" = "Gruveši";
 "type.barrier.log" = "Baļķu barjera";
+"type.amenity.boat_rental" = "Laivu noma";

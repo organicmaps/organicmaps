@@ -1507,3 +1507,4 @@
 "type.barrier.jersey_barrier" = "Khối";
 "type.barrier.debris" = "Mảnh vỡ";
 "type.barrier.log" = "Rào chắn khúc gỗ";
+"type.amenity.boat_rental" = "Cho thuê thuyền";

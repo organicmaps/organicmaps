@@ -1507,3 +1507,4 @@
 "type.barrier.jersey_barrier" = "Blokea";
 "type.barrier.debris" = "Hondakinak";
 "type.barrier.log" = "Enbor hesia";
+"type.amenity.boat_rental" = "Itsasontz";

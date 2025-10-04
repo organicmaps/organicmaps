@@ -1507,3 +1507,4 @@
 "type.barrier.jersey_barrier" = "ब्लॉक";
 "type.barrier.debris" = "ढिगारा";
 "type.barrier.log" = "ओंडक्यांचा अडथळा";
+"type.amenity.boat_rental" = "बोट भाड्याने";

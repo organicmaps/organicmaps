@@ -1507,3 +1507,4 @@
 "type.barrier.jersey_barrier" = "Blok";
 "type.barrier.debris" = "Sutina";
 "type.barrier.log" = "Bariéra z guľatiny";
+"type.amenity.boat_rental" = "Prenájom lodí";

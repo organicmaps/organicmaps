@@ -1281,4 +1281,5 @@
     <string name="type.barrier.jersey_barrier">بلوك</string>
     <string name="type.barrier.debris">حطام</string>
     <string name="type.barrier.log">حاجز جذع شجرة</string>
+    <string name="type.amenity.boat_rental">تأجير القوارب</string>
 </resources>

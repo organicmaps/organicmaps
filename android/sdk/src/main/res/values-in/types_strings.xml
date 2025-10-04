@@ -1170,4 +1170,5 @@
     <string name="type.barrier.log">Rintangan Gelondongan</string>
     <string name="type.barrier.debris">Puing</string>
     <string name="type.barrier.jersey_barrier">Blok</string>
+    <string name="type.amenity.boat_rental">Penyewaan Perahu</string>
 </resources>

@@ -1414,4 +1414,5 @@
     <string name="type.barrier.jersey_barrier">Tömb</string>
     <string name="type.barrier.debris">Törmelék</string>
     <string name="type.barrier.log">Rönkkorlát</string>
+    <string name="type.amenity.boat_rental">Hajókölcsönzés</string>
 </resources>
