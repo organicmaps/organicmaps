@@ -1,4 +1,5 @@
 #include "editor/editor_notes.hpp"
+#include "editor/server_api.hpp"
 
 #include "platform/platform.hpp"
 
@@ -6,16 +7,14 @@
 
 #include "geometry/mercator.hpp"
 
-#include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
-#include "base/timer.hpp"
-
-#include <chrono>
-#include <future>
 
 #include <pugixml.hpp>
 
+namespace editor
+{
 namespace
 {
 bool LoadFromXml(pugi::xml_document const & xml, std::list<editor::Note> & notes, uint32_t & uploadedNotesCount)
@@ -116,8 +115,7 @@ bool Save(std::string const & fileName, std::list<editor::Note> const & notes, u
 }
 }  // namespace
 
-namespace editor
-{
+/// @todo Remove and hold Notes by value in the Editor.
 std::shared_ptr<Notes> Notes::MakeNotes(std::string const & fileName, bool const fullPath)
 {
   return std::shared_ptr<Notes>(new Notes(fullPath ? fileName : GetPlatform().WritablePathForFile(fileName)));
@@ -155,12 +153,26 @@ void Notes::CreateNote(ms::LatLon const & latLon, std::string const & text)
 
 void Notes::Upload(osm::OsmOAuth const & auth)
 {
-  // Capture self to keep it from destruction until this thread is done.
-  auto const self = shared_from_this();
+  size_t const toUpload = NotUploadedNotesCount();
+  LOG(LINFO, ("Notes =", toUpload));
+  if (toUpload == 0)
+    return;
 
-  auto const doUpload = [self, auth]()
+  if (m_isUploadingNow)
+    return;
+  m_isUploadingNow = true;
+
+  // Capture self to keep it from destruction until this thread is done.
+  /// @todo It looks redundant because of parent static Editor instance.
+  auto self = shared_from_this();
+
+  GetPlatform().RunTask(Platform::Thread::Network, [self = std::move(self), auth]()
   {
+    SCOPE_GUARD(resetUploadingFlag, [&self]() { self->m_isUploadingNow = false; });
+
+    /// @todo By VNG: unlock-lock is made below. Can rewrite better.
     std::unique_lock<std::mutex> ulock(self->m_mu);
+
     // Size of m_notes is decreased only in this method.
     auto & notes = self->m_notes;
     size_t size = notes.size();
@@ -171,8 +183,12 @@ void Notes::Upload(osm::OsmOAuth const & auth)
       try
       {
         ulock.unlock();
+        /// @todo It looks like a race, but we do push_back (and getters) only in other _modifying_ places.
+        /// size can only increase, front is not changed and list doesn't have reallocs.
+        /// As I said before, refactor in a more _natural_ way with producer-consumer on a circular buffer pattern.
         auto const id = api.CreateNote(notes.front().m_point, notes.front().m_note);
         ulock.lock();
+
         LOG(LINFO, ("A note uploaded with id", id));
       }
       catch (osm::ServerApi06::ServerApi06Exception const & e)
@@ -185,14 +201,9 @@ void Notes::Upload(osm::OsmOAuth const & auth)
       notes.pop_front();
       --size;
       ++self->m_uploadedNotesCount;
-      Save(self->m_fileName, self->m_notes, self->m_uploadedNotesCount);
+      Save(self->m_fileName, notes, self->m_uploadedNotesCount);
     }
-  };
-
-  static auto future = std::async(std::launch::async, doUpload);
-  auto const status = future.wait_for(std::chrono::milliseconds(0));
-  if (status == std::future_status::ready)
-    future = std::async(std::launch::async, doUpload);
+  });
 }
 
 std::list<Note> Notes::GetNotes() const
