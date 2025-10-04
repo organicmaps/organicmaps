@@ -1,20 +1,38 @@
-• NOU: Planificació de rutes redissenyada (més clara i àgil).
-• NOU: Es mostra el contingut de l'etiqueta OSM "description" (prova ?description a la cerca).
-• Dades d'OpenStreetMap del 13 de setembre.
-• S'han corregit diversos errors de CarPlay
-• Illes menors eliminades del mapa mundial.
-• Es mostra el codi postal en les adreces.
-• Centrat incorrecte del mapa corregit.
-• Els colors dels marcadors es conserven en exportar/importar GPX.
-• Traduccions actualitzades.
+• NOU: Desar marcador en un punt de seguiment seleccionat
+• NOU: Eliminar la pista de gravació sense desar-la primer
+• NOU! Importar GeoJSON
+• Dades d'OpenStreetMap del 4 d'octubre
+• Dades de Viquipèdia de l'1 d'octubre
+• Suport del metro lleuger de Seattle per al transport públic
+• Mostrar títols de llista de marcadors multilínia a la pàgina de lloc
+• Actualitzar l'estil dels botons d'inici de sessió OSM
+• Corregir problema d'actualització d'informació de navegació
+• Corregir problemes nous de planificació de rutes
+• Corregir visibilitat d'afegir/editar lloc OSM per a mapes de més de 3 mesos
+• Corregir disseny del control de segment d'opcions de transport per a iOS 26
+• Simplificar animacions de selecció de marcadors
+• Corregir problema de selecció de resultats de cerca
+• Corregit l'estil, el lliscament i les animacions de la pàgina d'informació del lloc
+• No desactivar la selecció del mapa en desar un lloc OSM editat
+• Traduccions actualitzades
 
 Estils de mapa:
-• Botigues d’il·luminació al mapa.
-• Línies elèctriques des del zoom 18.
-• Noms de centrals i subestacions.
-• Càmpings i zones de caravanes en mode navegació.
-• Color de carretera secundària corregit.
-• Límits de parcs nacionals.
-• Jaciments arqueològics des del zoom 12 (estil outdoor).
 
-Cada donació o ressenya positiva motiva els voluntaris. Gràcies!
+• Mostrar botigues de lloguer de bicicletes
+• Mostrar jaciments arqueològics històrics des del zoom 12 i altres llocs històrics des del zoom 15 en estil exterior
+• Noves icones per a pals, torres de comunicació i energia en estil exterior
+• Augmentar la mida de la icona del pic en estil exterior
+• Afegir variants d'icones POI que faltaven
+• Afegits més tipus de barreres
+
+Funcions llançades recentment que potser t'has perdut:
+
+• Números de rutes de transport públic en seleccionar una parada d'autobús
+• Rutes de senderisme i ciclisme
+• Veure noms de marcadors al mapa activant-ho a la configuració de l'aplicació
+• La icona de llapis ofereix una manera ràpida d'editar marcadors
+• Planificació de rutes redissenyada
+• Mostrar contingut de l'etiqueta OSM `description` (escriu ?description a la cerca per descobrir llocs amb descripció)
+
+Cada donació i bona ressenya motiva els nostres voluntaris a construir millors mapes, gràcies!
+

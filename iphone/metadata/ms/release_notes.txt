@@ -1,20 +1,38 @@
-• BARU: Perancangan laluan direka semula (lebih pantas & jelas).
-• BARU: Papar kandungan tag OSM "description" pada objek (?description dalam carian).
-• Data OpenStreetMap setakat 13 September.
-• Membaiki beberapa ralat CarPlay
-• Pulau kecil tidak penting dibuang.
-• Poskod kini dipaparkan dalam alamat.
-• Pepusat peta yang salah dibetulkan.
-• Warna penanda kekal semasa eksport/import GPX.
-• Terjemahan dikemas kini.
+• BAHARU: Simpan penanda halaman pada titik jejak yang dipilih
+• BAHARU: Padam jejak rakaman tanpa menyimpannya terlebih dahulu
+• BAHARU! Import GeoJSON
+• Data OpenStreetMap setakat 4 Oktober
+• Data Wikipedia setakat 1 Oktober
+• Sokongan kereta api ringan Seattle untuk pengangkutan awam
+• Paparkan tajuk senarai penanda halaman berbilang baris pada halaman tempat
+• Kemas kini gaya butang log masuk OSM
+• Betulkan masalah kemas kini maklumat navigasi
+• Betulkan masalah perancangan laluan baharu
+• Betulkan keterlihatan tambah/edit tempat OSM untuk peta yang lebih tua daripada 3 bulan
+• Betulkan susun atur kawalan segmen pilihan pengangkutan untuk iOS 26
+• Permudahkan animasi pemilihan penanda halaman
+• Betulkan masalah pemilihan hasil carian
+• Dibetulkan penggayaan, leret dan animasi untuk halaman maklumat tempat
+• Jangan lumpuhkan pemilihan peta semasa menyimpan tempat OSM yang diedit
+• Terjemahan dikemas kini
 
-Gaya peta:
-• Kedai pencahayaan di peta.
-• Talian kuasa dari zoom 18.
-• Nama stesen jana & pencawang.
-• Tapak perkhemahan & karavan dalam mod navigasi.
-• Warna jalan sekunder dibetulkan.
-• Sempadan taman negara dilukis.
-• Tapak arkeologi dari zoom 12 (gaya outdoor).
+#### Gaya Peta
 
-Setiap derma & ulasan baik memotivasikan sukarelawan kami. Terima kasih!
+• Paparkan kedai sewa basikal
+• Paparkan tapak arkeologi bersejarah dari zum 12 dan tapak bersejarah lain dari zum 15 dalam gaya luar
+• Ikon baharu untuk tiang, menara komunikasi dan menara kuasa dalam gaya luar
+• Tingkatkan saiz ikon puncak dalam gaya luar
+• Ditambah varian ikon POI yang hilang
+• Ditambah lebih banyak jenis halangan
+
+### Ciri yang dikeluarkan baru-baru ini yang mungkin anda terlepas
+
+• Nombor laluan pengangkutan awam semasa memilih perhentian bas
+• Laluan mendaki dan berbasikal
+• Lihat nama penanda halaman pada peta dengan mengaktifkannya dalam tetapan apl
+• Ikon pensel menawarkan cara pantas untuk mengedit penanda halaman
+• Perancangan laluan yang direka semula
+• Paparkan kandungan tag OSM `description` (taip ?description dalam carian untuk menemui tempat dengan penerangan)
+
+Setiap derma dan ulasan yang baik memotivasikan sukarelawan kami untuk membina peta yang lebih baik, terima kasih!
+

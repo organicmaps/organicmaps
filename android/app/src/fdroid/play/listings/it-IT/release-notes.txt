@@ -1,13 +1,9 @@
-• Dati OSM al 13 settembre
-• Mostra CAP negli indirizzi
-• Nuove icone rotatorie (Android Auto)
-• Isole minori rimosse
-• Centratura mappa corretta
-• Colori segnalibri restano in GPX
-• Negozi illuminazione
-• Confini parchi nazionali
-• Siti archeologici da zoom 12
-• Campeggi e aree caravan in navigazione
-• Colore strade secondarie corretto
+• Visualizzazione del limite di velocità in Android Auto
+• NUOVO! Importa GeoJSON
+• Dati OSM al 4 ottobre
+• Dati Wikipedia al 1 ottobre
+• Supporto per la metropolitana leggera di Seattle per il trasporto pubblico
+• Aggiunti negozi di noleggio biciclette e altri tipi di barriere
+• Nuove icone per alberi, torri di comunicazione ed energia
 
 …altro: omaps.org/it/news

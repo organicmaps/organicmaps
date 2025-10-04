@@ -1,20 +1,37 @@
-• NEW! Redesigned route planning
-• NEW! Show OSM "description" tag contents for features on the map (type ?description in the search box to test it)
-• OpenStreetMap data as of September 13
-• Fixed several CarPlay bugs
-• Removed minor islands from the World map
-• Show Postcode/zip code for addresses
-• Fixed wrong map centering around the current position
-• Bookmark colors are preserved when exporting and importing GPX files
+• NEW: Save bookmark on selected track point
+• NEW: Delete the recording track without saving it first
+• NEW! Import GeoJSON
+• OpenStreetMap data as of October 4
+• Wikipedia data as of October 1
+• Seattle light rail support for Public Transport
+• Show multi-line bookmark list titles in Place Page
+• Update OSM login buttons style
+• Fix navigation info updating issue
+• Fix new route planning issues
+• Fix OSM add/edit place visibility for maps older than 3 months
+• Fix transport options segment control layout for iOS 26
+• Simplify bookmark selection animations
+• Fix search result selection issue
+• Fixed styling, swipe and animations for Place Information Page
+• Do not deactivate map selection when saving an edited OSM place
 • Updated translations
 
-Map Styles:
-• Display lighting shops on the map
-• Show power lines from zoom 18
-• Show reference names for power stations and substations
-• Show campsites and caravan sites in navigation mode
-• Fixed secondary highway color in navigation mode
-• Draw national park borders
-• Draw archaeological sites from zoom 12 in outdoor mode
+#### Map Styles
+
+• Show bicycle rental shops tagged as amenity=bicycle + rental=shop
+• Show historic archaeological sites from zoom 12 and other historic sites from zoom 15 in Outdoor style
+• New icons for mast, communication, and power towers in Outdoors style
+• Increase peak icon size in Outdoors style
+• Add missing POI icon variants
+• Added more barrier types
+
+### Recently released features you might have missed
+
+• Public transport route numbers when selecting a bus stop
+• Hiking and cycling routes
+• See bookmark names on the map by activating it in the app Settings
+• The pencil icon offers a quick way to edit bookmarks
+• Redesigned route planning
+• Show `description` OSM tag content  (type ?description in the search to discover places with description)
 
 Every donation and good review motivates our volunteers to build better maps, thank you!

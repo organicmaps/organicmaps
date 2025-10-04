@@ -1,13 +1,9 @@
-• Datos OSM ao 13 setembro
-• Mostrar código postal
-• Novas iconas de rotondas (Android Auto)
-• Illas menores eliminadas
-• Centrado do mapa arranxado
-• Cores dos marcadores en GPX
-• Tendas de iluminación
-• Limites de parques nacionais
-• Sitios arqueolóxicos dende zoom 12
-• Campings e caravanas en navegación
-• Cor estrada secundaria arranxada
+• Visualización do límite de velocidade en Android Auto
+• NOVO! Importar GeoJSON
+• Datos OSM ao 4 de outubro
+• Datos de Wikipedia ao 1 de outubro
+• Soporte para o tren lixeiro de Seattle para transporte público
+• Engadíronse tendas de aluguer de bicicletas e máis tipos de barreiras
+• Novas iconas para mastros, torres de comunicación e enerxía
 
-…máis: omaps.org/news
+…máis: omaps.org/gl/news

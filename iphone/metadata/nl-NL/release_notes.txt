@@ -1,20 +1,37 @@
-• NIEUW: Volledig vernieuwde routeplanning (snellere aanpassingen, duidelijkere tussenstops).
-• NIEUW: Inhoud van het OSM-tag "description" zichtbaar (typ ?description in zoeken).
-• OpenStreetMap-data per 13 september.
-• Verschillende CarPlay-bugs opgelost
-• Kleine onbelangrijke eilanden van de wereldkaart verwijderd.
-• Postcodes worden bij adressen getoond.
-• Verkeerd centreren van de kaart rond huidige positie verholpen.
-• Bladwijzerkleuren blijven bij GPX import/export behouden.
-• Vertalingen bijgewerkt.
+• NIEUW: Bladwijzer opslaan op geselecteerd trackpunt
+• NIEUW: Opnamespoor verwijderen zonder eerst op te slaan
+• NIEUW! GeoJSON importeren
+• OpenStreetMap-gegevens per 4 oktober
+• Wikipedia-gegevens per 1 oktober
+• Seattle light rail-ondersteuning voor openbaar vervoer
+• Meerregelige bladwijzerlijsttitels weergeven op plaatspagina
+• OSM-inlogknopstijl bijwerken
+• Probleem met bijwerken van navigatie-informatie oplossen
+• Nieuwe routeplanningsproblemen oplossen
+• Zichtbaarheid van OSM-plaats toevoegen/bewerken oplossen voor kaarten ouder dan 3 maanden
+• Lay-out van segmentbesturing voor vervoersopties oplossen voor iOS 26
+• Bladwijzerselectie-animaties vereenvoudigen
+• Probleem met selectie van zoekresultaat oplossen
+• Styling, vegen en animaties voor plaatsinformatiepagina gerepareerd
+• Kaartselectie niet uitschakelen bij opslaan van bewerkte OSM-plaats
+• Bijgewerkte vertalingen
 
-Kaartstijlen:
-• Verlichtingswinkels op de kaart.
-• Hoogspanningslijnen vanaf zoom 18.
-• Namen van centrales & onderstations.
-• Campings & caravanplaatsen in navigatiemodus.
-• Kleur secundaire weg hersteld (navigatie).
-• Grenzen van nationale parken.
-• Archeologische sites vanaf zoom 12 (outdoorstijl).
+#### Kaartstijlen
 
-Elke donatie of goede review motiveert onze vrijwilligers. Dank je!
+• Fietsverhuurwinkels weergeven
+• Historische archeologische sites weergeven vanaf zoom 12 en andere historische sites vanaf zoom 15 in outdoorstijl
+• Nieuwe pictogrammen voor masten, communicatie- en stroomtorens in outdoorstijl
+• Pictogramgrootte van piek vergroten in outdoorstijl
+• Ontbrekende POI-pictogramvarianten toegevoegd
+• Meer barrièretypes toegevoegd
+
+### Onlangs uitgebrachte functies die je mogelijk hebt gemist
+
+• Openbaar vervoer routenummers bij selecteren van bushalte
+• Wandel- en fietsroutes
+• Zie bladwijzernamen op de kaart door dit in te schakelen in app-instellingen
+• Het potloodpictogram biedt een snelle manier om bladwijzers te bewerken
+• Opnieuw ontworpen routeplanning
+• Inhoud van OSM-tag `description` weergeven (typ ?description in de zoekopdracht om plaatsen met beschrijving te ontdekken)
+
+Elke donatie en goede beoordeling motiveert onze vrijwilligers om betere kaarten te bouwen, bedankt!

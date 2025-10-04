@@ -1,20 +1,38 @@
-• NOWE: Całkowicie przeprojektowane planowanie trasy (szybsze i czytelniejsze punkty pośrednie).
-• NOWE: Wyświetlanie zawartości tagu OSM "description" dla obiektów (wpisz ?description w wyszukiwaniu).
-• Dane OpenStreetMap z 13 września.
-• Naprawiono kilka błędów CarPlay
-• Usunięto małe, nieistotne wyspy z mapy świata.
-• Pokazywanie kodów pocztowych w adresach.
-• Naprawiono błędne centrowanie mapy wokół bieżącej pozycji.
-• Kolory zakładek zachowane przy eksporcie/imporcie GPX.
-• Zaktualizowane tłumaczenia.
+• NOWOŚĆ: Zapisz zakładkę w wybranym punkcie śladu
+• NOWOŚĆ: Usuń nagrany ślad bez wcześniejszego zapisywania
+• NOWOŚĆ! Import GeoJSON
+• Dane OpenStreetMap na dzień 4 października
+• Dane Wikipedia na dzień 1 października
+• Obsługa kolei miejskiej w Seattle dla transportu publicznego
+• Wyświetlaj wielowierszowe tytuły listy zakładek na stronie miejsca
+• Aktualizacja stylu przycisku logowania OSM
+• Naprawiono problem z aktualizacją informacji nawigacyjnych
+• Naprawiono nowe problemy z planowaniem trasy
+• Naprawiono widoczność dodawania/edytowania miejsc OSM dla map starszych niż 3 miesiące
+• Naprawiono układ kontroli segmentów opcji transportu dla iOS 26
+• Uproszczono animacje wyboru zakładek
+• Naprawiono problem z wyborem wyniku wyszukiwania
+• Naprawiono stylizację, przesuwanie i animacje dla strony informacji o miejscu
+• Nie wyłączaj wyboru mapy podczas zapisywania edytowanego miejsca OSM
+• Zaktualizowano tłumaczenia
 
-Style mapy:
-• Sklepy oświetleniowe na mapie.
-• Linie energetyczne od powiększenia 18.
-• Nazwy elektrowni i stacji elektro.
-• Kempingi i miejsca dla kamperów w nawigacji.
-• Poprawiono kolor dróg drugorzędnych w nawigacji.
-• Granice parków narodowych.
-• Stanowiska archeologiczne od zoom 12 (styl outdoor).
+#### Style mapy
 
-Każda darowizna i dobra opinia motywuje wolontariuszy. Dziękujemy!
+• Wyświetlaj wypożyczalnie rowerów
+• Wyświetlaj historyczne stanowiska archeologiczne od powiększenia 12 i inne miejsca historyczne od powiększenia 15 w stylu outdoorowym
+• Nowe ikony dla masztów, wież komunikacyjnych i energetycznych w stylu outdoorowym
+• Zwiększ rozmiar ikony szczytu w stylu outdoorowym
+• Dodano brakujące warianty ikon POI
+• Dodano więcej typów barier
+
+### Niedawno wydane funkcje, które mogłeś przegapić
+
+• Numery tras transportu publicznego przy wyborze przystanku autobusowego
+• Szlaki piesze i rowerowe
+• Zobacz nazwy zakładek na mapie, włączając to w ustawieniach aplikacji
+• Ikona ołówka oferuje szybki sposób edycji zakładek
+• Przeprojektowane planowanie trasy
+• Wyświetlanie zawartości znacznika OSM `description` (wpisz ?description w wyszukiwaniu, aby odkryć miejsca z opisem)
+
+Każda darowizna i dobra recenzja motywuje naszych wolontariuszy do budowania lepszych map, dziękujemy!
+

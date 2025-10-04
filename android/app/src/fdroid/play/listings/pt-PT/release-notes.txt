@@ -1,13 +1,9 @@
-• Dados OSM a 13 set
-• Mostrar código postal em endereços
-• Novos ícones de rotunda (Android Auto)
-• Pequenas ilhas removidas
-• Centralização incorreta corrigida
-• Cores de marcadores mantidas no GPX
-• Lojas de iluminação
-• Limites de parques nacionais
-• Sítios arqueológicos desde zoom 12
-• Parques de campismo e caravanas
-• Cor de estrada secundária corrigida
+• Visualização do limite de velocidade no Android Auto
+• NOVO! Importar GeoJSON
+• Dados OSM a 4 de outubro
+• Dados da Wikipédia a 1 de outubro
+• Suporte ao metro ligeiro de Seattle para transportes públicos
+• Adicionadas lojas de aluguer de bicicletas e mais tipos de barreiras
+• Novos ícones para mastros, torres de comunicação e energia
 
 …mais: omaps.org/news

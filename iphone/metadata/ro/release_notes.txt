@@ -1,20 +1,38 @@
-• NOU: Planificare a traseelor reproiectată complet (mai rapidă și mai clară pentru etape).
-• NOU: Afișarea conținutului tagului OSM "description" pentru obiecte (?description în căutare pentru test).
-• Date OpenStreetMap la 13 septembrie.
-• Corectat mai multe erori CarPlay
-• Insule mici neimportante eliminate de pe harta lumii.
-• Afișare cod poștal în adrese.
-• Centrare greșită a hărții corectată.
-• Culorile marcajelor păstrate la export/import GPX.
-• Traduceri actualizate.
+• NOU: Salvează marcaj pe punctul de traseu selectat
+• NOU: Șterge traseul de înregistrare fără a-l salva mai întâi
+• NOU! Importă GeoJSON
+• Date OpenStreetMap la 4 octombrie
+• Date Wikipedia la 1 octombrie
+• Suport pentru metrou ușor Seattle pentru transportul public
+• Afișează titluri liste marcaje pe mai multe linii pe pagina locației
+• Actualizează stilul butonului de autentificare OSM
+• Remediază problema actualizării informațiilor de navigare
+• Remediază probleme noi de planificare a rutei
+• Remediază vizibilitatea adăugării/editării locației OSM pentru hărți mai vechi de 3 luni
+• Remediază aspectul controlului segmentului opțiunilor de transport pentru iOS 26
+• Simplifică animațiile de selecție a marcajelor
+• Remediază problema selecției rezultatului căutării
+• Remediat stilul, glisarea și animațiile pentru pagina de informații despre locație
+• Nu dezactiva selecția hărții la salvarea locației OSM editate
+• Traduceri actualizate
 
-Stiluri hartă:
-• Magazine de iluminat pe hartă.
-• Linii de înaltă tensiune de la zoom 18.
-• Nume centrale și stații de transformare.
-• Campinguri și locuri pentru rulote în navigație.
-• Culoare drum secundar corectată.
-• Granițe parcuri naționale.
-• Situri arheologice de la zoom 12 (stil outdoor).
+#### Stiluri de hartă
 
-Fiecare donație și recenzie bună motivează voluntarii. Mulțumim!
+• Afișează magazine de închiriere biciclete
+• Afișează situri arheologice istorice de la zoom 12 și alte situri istorice de la zoom 15 în stil outdoor
+• Pictograme noi pentru catarge, turnuri de comunicații și turnuri electrice în stil outdoor
+• Mărește dimensiunea pictogramei de vârf în stil outdoor
+• Adăugate variante de pictograme POI lipsă
+• Adăugate mai multe tipuri de bariere
+
+### Funcții lansate recent pe care le-ai fi putut rata
+
+• Numere de rute de transport public la selectarea stației de autobuz
+• Rute de drumeție și ciclism
+• Vezi numele marcajelor pe hartă activând în setările aplicației
+• Pictograma creion oferă o modalitate rapidă de a edita marcajele
+• Planificare de rută reproiectată
+• Afișează conținutul etichetei OSM `description` (tastează ?description în căutare pentru a descoperi locuri cu descriere)
+
+Fiecare donație și recenzie bună motivează voluntarii noștri să construiască hărți mai bune, mulțumim!
+

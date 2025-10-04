@@ -1,13 +1,11 @@
-• OSM data as of September 13
-• Show Postcode/zip code for addresses
-• New roundabout icons in Android Auto
-• Removed minor islands from the World map
-• Fixed wrong map centering around the current position
-• Bookmark colors are preserved in GPX
-• Lighting shops
-• Draw national park borders
-• Draw archaeological sites from zoom 12 in outdoor mode
-• Show campsites and caravan sites in navigation mode
-• Fixed secondary highway color in navigation mode
+• Speed limit display in Android Auto
+• NEW! Import GeoJSON
+• OSM data as of October 4
+• Wikipedia data as of October 1
+• Seattle light rail support for Public Transport
+• Added bicycle rental shops and more barrier types
+• New icons for mast, communication, and power towers, show historic archaeological sites from zoom 12 and other historic sites from zoom 15 in Outdoor style
+• Show OSM `description` tag content on Android
+• Fixed several crashes
 
 …more at omaps.org/news

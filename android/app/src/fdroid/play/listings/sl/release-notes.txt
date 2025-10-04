@@ -1,13 +1,11 @@
-• OSM podatki 13. sept
-• Prikaži poštno številko v naslovih
-• Nove ikone krožišč (Android Auto)
-• Odstranjeni manjši otoki
-• Popravljeno centriranje zemljevida
-• Barve zaznamkov ostanejo v GPX
-• Trgovine z razsvetljavo
-• Meje narodnih parkov
-• Arheološka mesta od zoom 12
-• Kampi in karavane v navigaciji
-• Popravljena barva sekundarne ceste
+• Prikaz omejitve hitrosti v Android Auto
+• NOVO! Uvoz GeoJSON
+• OSM podatki 4. okt
+• Wikipedia podatki 1. okt
+• Podpora lahkega metroja v Seattlu za javni prevoz
+• Dodane trgovine za izposojo koles in več vrst ovir
+• Nove ikone za drogove, komunikacijske in energetske stolpe, prikaz zgodovinskih arheoloških mest od zooma 12 in drugih zgodovinskih mest od zooma 15 v zunanjem slogu
+• Prikaz vsebine oznake OSM `description` na Androidu
+• Popravljenih več sesutij
 
 …več: omaps.org/news

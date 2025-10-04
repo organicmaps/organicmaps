@@ -1,20 +1,37 @@
-• NYT: Ruteplanlægning helt redesignet (hurtigere og mere overskueligt).
-• NYT: Viser indholdet af OSM-tagget "description" (?description i søgefeltet for at teste).
-• OpenStreetMap-data pr. 13. september.
-• Rettet flere CarPlay-fejl
-• Små ubetydelige øer fjernet fra verdenskort.
-• Postnumre vises i adresser.
-• Forkert kortcentrering rettet.
-• Farver på bogmærker bevares ved GPX eksport/import.
-• Opdaterede oversættelser.
+• NYT: Gem bogmærke på valgt sporingspunkt
+• NYT: Slet optagelsesspor uden at gemme det først
+• NYT! Importér GeoJSON
+• OpenStreetMap-data pr. 4. oktober
+• Wikipedia-data pr. 1. oktober
+• Seattle letbane-understøttelse til offentlig transport
+• Vis flerlinjede bogmærkelistetitler på stedside
+• Opdater OSM login-knapstil
+• Ret problem med opdatering af navigationsinfo
+• Ret nye ruteplanlægningsproblemer
+• Ret OSM tilføj/rediger sted-synlighed for kort ældre end 3 måneder
+• Ret transportmuligheder segmentkontrol-layout til iOS 26
+• Forenkl bogmærkevalgsanimationer
+• Ret problem med valg af søgeresultat
+• Rettet styling, swipe og animationer for stedinformationsside
+• Deaktiver ikke kortvalg ved gemning af redigeret OSM-sted
+• Opdaterede oversættelser
 
-Kortstile:
-• Belysningsbutikker på kortet.
-• Højspændingsledninger fra zoom 18.
-• Navne på kraftværker og transformerstationer.
-• Camping- og caravanpladser i navigationstilstand.
-• Sekundær vejfarve rettet i navigation.
-• Nationalparkgrænser.
-• Arkæologiske steder fra zoom 12 (outdoor-stil).
+#### Kortstile
 
-Hver donation og god anmeldelse motiverer vores frivillige. Tak!
+• Vis cykeludlejningsbutikker
+• Vis historiske arkæologiske steder fra zoom 12 og andre historiske steder fra zoom 15 i udendørsstil
+• Nye ikoner for master, kommunikations- og krafttårne i udendørsstil
+• Forøg toppunktsikonstørrelse i udendørsstil
+• Tilføj manglende POI-ikonvarianter
+• Tilføjet flere barrièretyper
+
+### Nyligt udgivne funktioner, du måske har overset
+
+• Offentlige transportrutenumre ved valg af busstoppested
+• Vandre- og cykelruter
+• Se bogmærkenavne på kortet ved at aktivere det i appindstillinger
+• Blyantikonet tilbyder en hurtig måde at redigere bogmærker på
+• Redesignet ruteplanlægning
+• Vis `description` OSM-tagindhold (skriv ?description i søgningen for at opdage steder med beskrivelse)
+
+Hver donation og god anmeldelse motiverer vores frivillige til at bygge bedre kort, tak!

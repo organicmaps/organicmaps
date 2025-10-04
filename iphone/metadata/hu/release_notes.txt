@@ -1,20 +1,39 @@
 • ÚJ: Teljesen átdolgozott útvonaltervezés – gyorsabb szerkesztés, áttekinthetőbb pontok.
-• ÚJ: OSM "description" tag tartalmának megjelenítése (próbáld ki a ?description keresést).
-• OpenStreetMap adatok szept. 13-i állapot szerint.
-• Több CarPlay hiba kijavítva
-• Apró jelentéktelen szigetek eltávolítva a világtérképről.
-• Irányítószám megjelenítése a címekben.
-• Hibás térkép-középre igazítás javítva.
-• Könyvjelző színek megmaradnak GPX export/import során.
-• Frissített fordítások.
+• ÚJ: Könyvjelző mentése a kiválasztott nyomvonalponton
+• ÚJ: Nyomvonalrögzítés törlése mentés nélkül
+• ÚJ! GeoJSON importálása
+• OpenStreetMap adatok október 4-i állapot szerint
+• Wikipédia adatok október 1-i állapot szerint
+• Seattle könnyű vasút támogatás tömegközlekedéshez
+• Többsoros könyvjelzőlista címek megjelenítése a helyoldalon
+• OSM bejelentkezés gomb stílusának frissítése
+• Navigációs információ frissítési probléma javítása
+• Új útvonaltervezési problémák javítása
+• OSM hely hozzáadás/szerkesztés láthatóságának javítása 3 hónapnál régebbi térképekhez
+• Szállítási lehetőségek szegmenskezelés elrendezésének javítása iOS 26-hoz
+• Könyvjelző kiválasztási animációk egyszerűsítése
+• Keresési eredmény kiválasztási probléma javítása
+• Javított stílus, húzás és animációk a helyinformációs oldalhoz
+• Ne tiltsa le a térképválasztást szerkesztett OSM hely mentésekor
+• Frissített fordítások
 
-Térkép stílusok:
-• Világítástechnikai üzletek a térképen.
-• Távvezetékek 18-as nagyítástól.
-• Erőművek és alállomások nevei.
-• Kempingek és lakókocsi helyek navigáció módban.
-• Másodlagos utak színének javítása.
-• Nemzeti park határok.
-• Régészeti helyszínek 12-es nagyítástól (outdoor stílus).
+#### Térképstílusok
 
-Minden adomány és jó értékelés motiválja önkénteseinket. Köszönjük!
+• Kerékpárkölcsönzők megjelenítése
+• Történelmi régészeti helyszínek megjelenítése 12-es nagyítástól és más történelmi helyszínek 15-ös nagyítástól kültéri stílusban
+• Új ikonok oszlopokhoz, kommunikációs és elektromos tornyokhoz kültéri stílusban
+• Csúcsikon méretének növelése kültéri stílusban
+• Hiányzó POI ikon változatok hozzáadva
+• További akadálytípusok hozzáadva
+
+### Nemrég megjelent funkciók, amiket esetleg elmulasztott
+
+• Tömegközlekedési útvonalszámok buszmegálló kiválasztásakor
+• Túra- és kerékpárútvonalak
+• Könyvjelzőnevek megjelenítése a térképen az alkalmazásbeállításokban való engedélyezéssel
+• A ceruza ikon gyors módot kínál a könyvjelzők szerkesztéséhez
+• Újratervezett útvonaltervezés
+• `description` OSM címke tartalmának megjelenítése (írja be a ?description kifejezést a keresésbe a leírással rendelkező helyek felfedezéséhez)
+
+Minden adomány és jó értékelés motiválja önkénteseinket jobb térképek készítésére, köszönjük!
+
