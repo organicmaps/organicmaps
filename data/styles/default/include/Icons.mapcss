@@ -1291,6 +1291,8 @@ node|z17-[leisure=sauna]
 node|z17-[leisure=playground],
 area|z17-[leisure=playground],
 {icon-image: playground-m.svg;font-size: 11;icon-min-distance: 10;}
+node|z17-[leisure=indoor_play],
+{icon-image: indoor_play-m.svg;}
 node|z17-[leisure=swimming_pool],
 area|z17-[leisure=swimming_pool]
 {icon-image: swimming-m.svg;icon-min-distance: 10;}
