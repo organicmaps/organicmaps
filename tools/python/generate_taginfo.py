@@ -93,7 +93,7 @@ def main() -> None:
     data: dict[str, any] = {
         "data_format": 1,
         "data_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/taginfo.json",
-        "data_updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "data_updated": datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"),
         "project": PROJECT_INFO,
         "tags": tags
     }
