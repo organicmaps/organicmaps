@@ -11,7 +11,10 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_impl.hpp"
 #include "indexer/ftypes_matcher.hpp"
+
+#include "geometry/triangle2d.hpp"
 
 namespace raw_generator_tests
 {
@@ -1226,6 +1229,43 @@ UNIT_CLASS_TEST(TestRawGenerator, Railway_Station)
     ++count;
   });
   TEST_EQUAL(count, 1, ());
+}
+
+UNIT_CLASS_TEST(TestRawGenerator, Tesselator)
+{
+  std::string const mwmName = "Tesselator";
+
+  BuildFB("./data/test_data/osm/tess_1.osm", mwmName);
+  BuildFeatures(mwmName);
+
+  FrozenDataSource dataSource;
+  auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(GetMwmPath(mwmName)));
+  CHECK_EQUAL(res.second, MwmSet::RegResult::Success, ());
+
+  FeaturesLoaderGuard guard(dataSource, res.first);
+
+  size_t const numFeatures = guard.GetNumFeatures();
+  for (int scale : feature::g_arrCountryScales)
+  {
+    for (size_t id = 0; id < numFeatures; ++id)
+    {
+      auto ft = guard.GetFeatureByIndex(id);
+      if (ft->GetGeomType() == feature::GeomType::Area)
+      {
+        auto const & pts = ft->GetTrianglesAsPoints(scale);
+        if (pts.empty())
+          continue;
+
+        size_t const trgSize = pts.size() / 3;
+        LOG(LINFO, ("Triangles count =", trgSize));
+
+        auto const * arr = pts.data();
+        for (size_t i = 0; i < trgSize - 1; ++i)
+          for (size_t j = i + 1; j < trgSize; ++j)
+            TEST(!m2::IsIntersectTriangles(arr + 3 * i, arr + 3 * j), ());
+      }
+    }
+  }
 }
 
 }  // namespace raw_generator_tests

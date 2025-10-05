@@ -88,4 +88,30 @@ PointD ProjectPointToTriangles(PointD const & pt, std::vector<TriangleD> const &
   ParametrizedSegment<PointD> segment(v[minT].m_points[minI], v[minT].m_points[(minI + 1) % 3]);
   return segment.ClosestPointTo(pt);
 }
+
+bool IsIntersectTriangles(m2::PointD const * trg1, m2::PointD const * trg2)
+{
+  double constexpr kEps = 1.0E-6;
+
+  for (int i = 0; i < 3; ++i)
+  {
+    auto const & a1 = trg1[i];
+    auto const & a2 = trg1[(i + 1) % 3];
+
+    for (int j = 0; j < 3; ++j)
+    {
+      auto const & b1 = trg2[j];
+      auto const & b2 = trg2[(j + 1) % 3];
+
+      if (a1.EqualDxDy(b1, kEps) || a1.EqualDxDy(b2, kEps) || a2.EqualDxDy(b1, kEps) || a2.EqualDxDy(b2, kEps))
+        continue;
+
+      if (SegmentsIntersect(a1, a2, b1, b2))
+        return true;
+    }
+  }
+
+  return false;
+}
+
 }  // namespace m2
