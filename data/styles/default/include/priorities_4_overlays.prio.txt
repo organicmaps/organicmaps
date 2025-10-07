@@ -74,6 +74,7 @@ aeroway-aerodrome                                   # icon z14- (also has captio
 place-village                                       # caption z11-
 === 6900
 
+aeroway-terminal                                    # icon z14- (also has caption(optional) z14-)
 amenity-ferry_terminal                              # icon z11- (also has caption(optional) z16-)
 railway-station                                     # icon z12- (also has caption(optional) z12-)
 === 6800
@@ -556,7 +557,6 @@ isoline-step_1000                                   # pathtext z11- (also has li
 isoline-step_500                                    # pathtext z12- (also has line z11-)
 === 3350
 
-aeroway-terminal                                    # caption z15- (also has area z14-)
 highway-motorway_junction                           # caption z15-
 leisure-beach_resort                                # icon z16- (also has caption(optional) z16-, area z10-)
 === 3300

@@ -39,9 +39,6 @@ landuse-cemetery                                    # area z14-
 landuse-cemetery-christian                          # area z14-
 === 120
 
-aeroway-terminal                                    # area z14- (also has caption z15-)
-=== 110
-
 highway-rest_area                                   # area z14- (also has icon z14-, caption(optional) z14-)
 highway-services                                    # area z12- (also has icon z12-, caption(optional) z13-)
 leisure-swimming_pool                               # area z13-
