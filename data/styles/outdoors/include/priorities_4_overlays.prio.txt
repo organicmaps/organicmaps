@@ -556,7 +556,7 @@ isoline-step_1000                                   # pathtext z10- (also has li
 isoline-step_500                                    # pathtext z11- (also has line z10-)
 === 3350
 
-aeroway-terminal                                    # caption z15- (also has area z14-)
+aeroway-terminal                                    # icon z14- (also has caption(optional) z14-)
 highway-motorway_junction                           # caption z15-
 leisure-beach_resort                                # icon z16- (also has caption(optional) z16-, area z10-)
 === 3300

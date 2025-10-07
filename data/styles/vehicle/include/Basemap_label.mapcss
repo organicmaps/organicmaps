@@ -566,14 +566,3 @@ node|z18-[entrance=main],
 {icon-image: entrance-main-s.svg; font-size: 13; text-offset: 1;}
 node|z18-[emergency=emergency_ward_entrance],
 {icon-image: entrance-emergency-s.svg; font-size: 13; text-offset: 1;}
-
-/* 8.3 Airports */
-area|z14-[aeroway=terminal]
-{fill-color: @building0;}
-
-area|z14[aeroway=terminal]
-{fill-opacity: 0.8;}
-area|z15[aeroway=terminal]
-{ text: name; font-size: 9; fill-opacity: 0.8; text-color: @building_label; text-position: center;}
-area|z16-[aeroway=terminal]
-{text: name; font-size: 9; fill-opacity: 1; text-color: @building_label; text-position: center;}

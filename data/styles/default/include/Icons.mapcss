@@ -398,6 +398,13 @@ area|z14-[aeroway=aerodrome]::int_name,
 node|z14-[aeroway=aerodrome]::int_name,
 {font-size: 11;}
 
+node|z14-[aeroway=terminal],
+{text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
+node|z14-[aeroway=terminal],
+{icon-image: airport-s.svg;}
+node|z15-[aeroway=terminal],
+{icon-image: airport-m.svg;}
+
 area|z16-[aeroway=helipad],
 node|z16-[aeroway=helipad]
 {icon-image: helipad-m.svg;text-offset: 1;font-size: 10;text: name;text-color: @poi_label;}

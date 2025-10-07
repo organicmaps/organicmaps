@@ -447,7 +447,6 @@ area|z15[building],
 area|z15[waterway=dam],
 {fill-color: @building0;fill-opacity: 0.65;casing-width: 1;casing-color: @building_border0;}
 
-area|z14-[aeroway=terminal],
 area|z16-[building],
 area|z16-[building:part],
 area|z16-[waterway=dam],
