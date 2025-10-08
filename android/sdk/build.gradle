@@ -6,7 +6,7 @@ android {
   namespace = 'app.organicmaps.sdk'
   compileSdk = propCompileSdkVersion.toInteger()
 
-  ndkVersion = '28.2.13676358'
+  ndkVersion = '29.0.14206865'
 
   buildFeatures {
     buildConfig = true
@@ -109,7 +109,7 @@ dependencies {
   implementation 'androidx.core:core:1.17.0'
   implementation 'androidx.recyclerview:recyclerview:1.4.0'
   implementation 'androidx.fragment:fragment:1.8.9'
-  implementation 'androidx.lifecycle:lifecycle-process:2.9.2'
+  implementation 'androidx.lifecycle:lifecycle-process:2.9.4'
 
   testImplementation 'junit:junit:4.13.2'
 }
