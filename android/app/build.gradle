@@ -47,6 +47,7 @@ if (googleFirebaseServicesEnabled) {
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'ru.cian.huawei-publish-gradle-plugin'
 
+apply from: "${rootProject.rootDir}/groovy/permission-checker.gradle"
 
 import com.github.triplet.gradle.androidpublisher.ReleaseStatus
 
@@ -304,6 +305,42 @@ dependencies {
   testImplementation 'junit:junit:4.13.2'
   testImplementation 'org.mockito:mockito-core:5.19.0'
   testImplementation 'org.mockito:mockito-inline:5.2.0'
+}
+
+afterEvaluate {
+  def allowedPermissions = [
+      // location
+      "name='android.permission.ACCESS_COARSE_LOCATION'",
+      "name='android.permission.ACCESS_FINE_LOCATION'",
+      "name='android.permission.ACCESS_LOCATION_EXTRA_COMMANDS'",
+      // network
+      "name='android.permission.INTERNET'",
+      "name='android.permission.ACCESS_NETWORK_STATE'",
+      // foreground services
+      "name='android.permission.FOREGROUND_SERVICE'",
+      "name='android.permission.FOREGROUND_SERVICE_LOCATION'",
+      "name='android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK'",
+      "name='android.permission.FOREGROUND_SERVICE_DATA_SYNC'",
+      "name='android.permission.FOREGROUND_SERVICE_SPECIAL_USE'",
+      // notifications
+      "name='android.permission.POST_NOTIFICATIONS'",
+      // wake lock
+      "name='android.permission.WAKE_LOCK'",
+      // Android Auto
+      "name='androidx.car.app.NAVIGATION_TEMPLATES'",
+      "name='androidx.car.app.ACCESS_SURFACE'",
+      // storage
+      "name='android.permission.READ_EXTERNAL_STORAGE' maxSdkVersion='22'",
+      // internal permissions
+      // comes from androidx.work:work-runtime
+      "name='android.permission.RECEIVE_BOOT_COMPLETED'",
+      // all apps targeting Android 13 and higher automatically get RECEIVER_NOT_EXPORTED_PERMISSION flag added to their Manifest files
+      // Regex to allow it for the following app packages:
+      // app.organicmaps.(debug|beta|release)
+      // app.organicmaps.web.(debug|beta|release)
+      ~/name='app\.organicmaps(\.web)?\.(debug|beta|release)\.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'/
+  ]
+  registerCheckApkPermissionsTasks(project, allowedPermissions)
 }
 
 android.applicationVariants.all { variant ->

@@ -1,0 +1,78 @@
+import java.util.regex.Pattern
+
+ext.registerCheckApkPermissionsTasks = { Project project, List<String> allowedPermissions ->
+  if (!allowedPermissions) {
+    throw new GradleException("No allowed permissions specified")
+  }
+
+  project.android.applicationVariants.all { variant ->
+    def variantName = variant.name
+    def capitalizedVariantName = variantName.capitalize()
+    def taskName = "check${capitalizedVariantName}ApkPermissions"
+
+    project.tasks.register(taskName) {
+      group = "verification"
+      description = "Checks that the ${variantName} APK only contains allowed permissions"
+
+      dependsOn "assemble${capitalizedVariantName}"
+
+      doLast {
+        def apkFile = variant.outputs*.outputFile?.find { it.exists() }
+        if (!apkFile) {
+          throw new GradleException("Could not locate APK for variant ${variantName}")
+        }
+
+        def androidExt = project.extensions.findByName("android")
+        def buildToolsVersion = androidExt.buildToolsVersion
+        def sdkDir = androidExt.sdkDirectory
+        def aapt = new File(sdkDir, "build-tools/${buildToolsVersion}/aapt2")
+
+        if (!aapt.exists()) {
+          throw new GradleException("aapt2 not found at ${aapt}")
+        }
+
+        // Get permissions from APK
+        def proc = ["${aapt}", "dump", "permissions", apkFile.absolutePath].execute()
+        proc.waitFor()
+        def output = proc.text
+
+        def matcher = (output =~ /uses-permission: (.+)/)
+        def foundPermissions = matcher.collect { it[1] }
+
+        // Check for unexpected permissions
+        def unexpectedPermissions = foundPermissions.findAll { perm ->
+          !allowedPermissions.any { w ->
+            (w instanceof String && perm == w) || (w instanceof Pattern && perm ==~ w)
+          }
+        }
+
+        // Check for missing permissions from whitelist
+        def missingPermissions = allowedPermissions.findAll { w ->
+          !foundPermissions.any { perm ->
+            (w instanceof String && perm == w) || (w instanceof Pattern && perm ==~ w)
+          }
+        }
+
+        if (!unexpectedPermissions.isEmpty() || !missingPermissions.isEmpty()) {
+          println "Checking APK: ${apkFile.name} (variant: ${variantName})"
+          println "Found permissions: ${foundPermissions}"
+          println "Allowed permissions: ${allowedPermissions}"
+          println "Unexpected permissions: ${unexpectedPermissions}"
+          println "Missing permissions: ${missingPermissions}"
+
+          def msg = ""
+          if (!unexpectedPermissions.isEmpty())
+            msg += "APK contains unexpected permissions: ${unexpectedPermissions}\n"
+          if (!missingPermissions.isEmpty())
+            msg += "APK is missing permissions from whitelist: ${missingPermissions}\n"
+          throw new GradleException(msg)
+        }
+      }
+    }
+
+    // Automatically run after assemble<Variant>
+    project.tasks.named("assemble${capitalizedVariantName}") {
+      finalizedBy(taskName)
+    }
+  }
+}
