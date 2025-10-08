@@ -800,6 +800,9 @@ public:
   bool ShouldShowProducts() const;
   static ProductsPopupCloseReason FromString(std::string_view str);
 
+  bool CanShowRateUsRequest() const;
+  void DidShowRateUsRequest() const;
+
 private:
   static uint32_t GetTimeoutForReason(ProductsPopupCloseReason reason);
   static std::string_view ToString(ProductsPopupCloseReason reason);
