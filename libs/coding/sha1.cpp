@@ -61,6 +61,14 @@ SHA1::Hash SHA1::Calculate(std::string const & filePath)
 }
 
 // static
+SHA1::Hash SHA1::Calculate(std::vector<uint8_t> const & bytes)
+{
+  boost::uuids::detail::sha1 sha1;
+  sha1.process_bytes(bytes.data(), bytes.size());
+  return ExtractHash(sha1);
+}
+
+// static
 std::string SHA1::CalculateBase64(std::string const & filePath)
 {
   auto const sha1 = Calculate(filePath);

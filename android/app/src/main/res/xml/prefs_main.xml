@@ -56,6 +56,12 @@
       app:singleLineTitle="false"
       android:summary="@string/maps_storage_summary"
       android:order="8"/>
+    <Preference
+      android:key="@string/pref_cloud_sync"
+      android:title="@string/sync_setting"
+      app:singleLineTitle="false"
+      android:summary="@string/sync_setting_summary"
+      android:order="9"/>
     <SwitchPreferenceCompat
       android:key="@string/pref_enable_logging"
       android:title="@string/enable_logging"

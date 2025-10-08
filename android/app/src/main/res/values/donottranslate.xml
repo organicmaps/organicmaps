@@ -8,6 +8,7 @@
   <!--  Prefs -->
   <string name="pref_munits" translatable="false">MeasurementUnits</string>
   <string name="pref_storage" translatable="false">Storage</string>
+  <string name="pref_cloud_sync" translatable="false">CloudSync</string>
   <string name="pref_show_zoom_buttons" translatable="false">ZoomButtonsEnabled</string>
   <string name="pref_play_services" translatable="false">PlayServicesEnabled</string>
   <string name="pref_enable_logging" translatable="false">EnableLogging</string>

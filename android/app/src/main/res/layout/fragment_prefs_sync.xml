@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:orientation="vertical">
+
+  <LinearLayout
+      android:id="@+id/option_set_interval"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="@dimen/margin_base"
+      android:background="?android:attr/selectableItemBackground"
+      android:clickable="true"
+      android:focusable="true">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set_sync_interval"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="@dimen/text_size_body_1" />
+
+    <TextView
+        android:id="@+id/tv_summary_interval"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        tools:text="1 day"
+        android:textAppearance="?android:attr/textAppearanceListItemSecondary"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="@dimen/text_size_body_3" />
+
+  </LinearLayout>
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/margin_base"
+      android:text="@string/cloud_sync_accounts"
+      android:textColor="?android:attr/colorAccent"
+      android:textSize="@dimen/text_size_body_3" />
+
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginHorizontal="@dimen/margin_half"
+      android:layout_weight="1">
+
+    <TextView
+        android:id="@+id/tv_add_sync_account_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/margin_base"
+        android:text="@string/add_sync_account_hint"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_size_body_3"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_sync_accounts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:itemCount="2"
+        tools:listitem="@layout/item_sync_account" />
+
+  </FrameLayout>
+
+  <Button
+      android:id="@+id/btn_add_sync_account"
+      style="@style/MwmWidget.Button.Primary"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height_block_base"
+      android:text="@string/add_sync_account" />
+
+</LinearLayout>
