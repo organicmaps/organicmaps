@@ -233,6 +233,7 @@ final class NavigationControlView: SolidTouchView {
   @IBAction
   private func stopRoutingButtonAction(_ sender: Any) {
     delegate.stopRoutingButtonDidTap()
+    RateUsManager.shared.requestReview(in: .app)
   }
   
   private func morphExtendButton() {

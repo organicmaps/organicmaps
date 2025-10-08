@@ -3438,11 +3438,11 @@ Framework::ProductsPopupCloseReason Framework::FromString(std::string_view str)
 
 bool Framework::CanShowRateUsRequest() const
 {
-#ifdef DEBUG
+//#ifdef DEBUG
   uint32_t constexpr kMinForegroundDuration = 5;  // 5 seconds
-#else
-  uint32_t constexpr kMinForegroundDuration = 60;  // 1 minute
-#endif
+//#else
+//  uint32_t constexpr kMinForegroundDuration = 60;  // 1 minute
+//#endif
   if (m_usageStats.GetCurrentSessionForegroundTime() < kMinForegroundDuration)
     return false;
 
@@ -3463,11 +3463,11 @@ bool Framework::CanShowRateUsRequest() const
   if (!settings::Get(kAskedForRateUsTime, lastAskedForRateUsTime))
     return true;
 
-#ifdef DEBUG
+//#ifdef DEBUG
   uint32_t constexpr kLastAskedForRateUsTimeout = 10;  // 10 seconds
-#else
-  uint32_t constexpr kLastAskedForRateUsTimeout = 60 * 60 * 24 * 90;  // 90 days
-#endif
+//#else
+//  uint32_t constexpr kLastAskedForRateUsTimeout = 60 * 60 * 24 * 90;  // 90 days
+//#endif
 
   bool const timeoutExpired = lastAskedForRateUsTime + kLastAskedForRateUsTimeout < base::SecondsSinceEpoch();
   if (!timeoutExpired)

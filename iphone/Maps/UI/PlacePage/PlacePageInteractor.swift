@@ -226,6 +226,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
         MWMPlacePageManagerHelper.removeBookmark(placePageData)
       } else {
         MWMPlacePageManagerHelper.addBookmark(placePageData)
+        RateUsManager.shared.requestReview(in: .app)
       }
     case .call:
       // since `.call` is a case in an obj-c enum, it can't have associated data, so there is no easy way to

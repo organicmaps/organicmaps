@@ -151,6 +151,8 @@ final class TrackRecordingManager: NSObject {
 
     trackRecorder.saveTrackRecording(withName: name)
     completion?(.success)
+
+    RateUsManager.shared.requestReview(in: .app)
   }
 
   func discard() {

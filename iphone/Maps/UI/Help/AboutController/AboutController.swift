@@ -59,6 +59,8 @@ final class AboutController: MWMViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     updateCollection()
+
+    RateUsManager.shared.requestReview(in: .app)
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -281,7 +283,7 @@ private extension AboutController {
         case .reportMapDataProblem, .volunteer, .news:
           self?.openUrl(aboutInfo.link)
         case .rateTheApp:
-          RateUsManager.shared.requestReview(from: .about)
+          RateUsManager.shared.requestReview(in: .appStore)
         default:
           break
         }

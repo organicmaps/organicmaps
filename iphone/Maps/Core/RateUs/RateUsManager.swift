@@ -31,7 +31,19 @@ final class RateUsManager {
     guard !CarPlayService.shared.isCarplayActivated,
           FrameworkHelper.canShowRateUsRequest() else { return }
     DispatchQueue.main.asyncAfter(deadline: .now() + Constants.requestDisplayingDelay) {
+      #if DEBUG
       SKStoreReviewController.requestReviewInCurrentScene()
+      #else
+      let alert = UIAlertController(title: "Enjoying Organic Maps?",
+                                    message: "Tap a star to rate in on the App Store.\n ⭐️ ⭐️ ⭐️ ⭐️ ⭐️",
+                                    preferredStyle: .alert)
+      let notNowAction = UIAlertAction(title: "Not Now", style: .default, handler: {
+        _ in
+        alert.dismiss(animated: true)
+      })
+      alert.addAction(notNowAction)
+      UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true)
+      #endif
       FrameworkHelper.didShowRateUsRequest()
     }
   }
