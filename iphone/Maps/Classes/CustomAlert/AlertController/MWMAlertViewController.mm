@@ -310,4 +310,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
       }];
 }
 
+- (BOOL)isAlertDisplayed
+{
+  return self.view.superview != nil;
+}
+
 @end
