@@ -8,7 +8,7 @@ plugins {
 
 def run(cmd) {
     def output = providers.exec {
-       commandLine = cmd
+        commandLine = cmd
     }
     return output.standardOutput.asText.get().trim()
 }
@@ -61,9 +61,9 @@ tasks.register("lintAllModules") {
                 def content = reportFile.getText("UTF-8")
                 // strip XML prolog and root tags
                 content = content
-                    .replaceFirst(/<\?xml.*?\?>/, "")
-                    .replaceAll("<issues.*?>", "")
-                    .replaceAll("</issues>", "")
+                        .replaceFirst(/<\?xml.*?\?>/, "")
+                        .replaceAll("<issues.*?>", "")
+                        .replaceAll("</issues>", "")
                 mergedReport.append(content)
             }
         }
