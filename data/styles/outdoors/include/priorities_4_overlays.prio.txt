@@ -1717,6 +1717,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # amenity-drinking_water                            # caption(optional) z14- (also has icon z12-)
 # === -6500
 
+# aeroway-terminal                                  # caption(optional) z14- (also has icon z14-)
 # leisure-beach_resort                              # caption(optional) z16- (also has icon z16-, area z10-)
 # === -6700
 

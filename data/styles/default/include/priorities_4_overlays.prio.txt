@@ -1304,6 +1304,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # aeroway-aerodrome                                 # caption(optional) z14- (also has icon z14-, area z10-)
 # === -3050
 
+# aeroway-terminal                                  # caption(optional) z14- (also has icon z14-)
 # amenity-ferry_terminal                            # caption(optional) z16- (also has icon z11-)
 # railway-station                                   # caption(optional) z12- (also has icon z12-)
 # === -3200

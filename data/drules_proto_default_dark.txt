@@ -2959,121 +2959,114 @@ cont {
   name: "aeroway-terminal"
   element {
     scale: 14
-    area {
-      color: 859519803
-      border {
-        width: 1.0
-        color: 6381921
+    symbol {
+      name: "airport-s"
+      priority: 6800
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
       }
-      priority: -1850
+      priority: -3200
     }
   }
   element {
     scale: 15
-    area {
-      color: 859519803
-      border {
-        width: 1.0
-        color: 6381921
-      }
-      priority: -1850
+    symbol {
+      name: "airport-m"
+      priority: 6800
     }
     caption {
       primary {
-        height: 9
-        color: 7763574
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
       }
-      priority: 3300
+      priority: -3200
     }
   }
   element {
     scale: 16
-    area {
-      color: 3881787
-      border {
-        width: 1.0
-        color: 6908265
-      }
-      priority: -1850
+    symbol {
+      name: "airport-m"
+      priority: 6800
     }
     caption {
       primary {
-        height: 9
-        color: 7763574
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
       }
-      priority: 3300
+      priority: -3200
     }
   }
   element {
     scale: 17
-    area {
-      color: 3881787
-      border {
-        width: 1.0
-        color: 6908265
-      }
-      priority: -1850
+    symbol {
+      name: "airport-m"
+      priority: 6800
     }
     caption {
       primary {
-        height: 9
-        color: 7763574
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
       }
-      priority: 3300
+      priority: -3200
     }
   }
   element {
     scale: 18
-    area {
-      color: 3881787
-      border {
-        width: 1.0
-        color: 6908265
-      }
-      priority: -1850
+    symbol {
+      name: "airport-m"
+      priority: 6800
     }
     caption {
       primary {
-        height: 9
-        color: 7763574
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
       }
-      priority: 3300
+      priority: -3200
     }
   }
   element {
     scale: 19
-    area {
-      color: 3881787
-      border {
-        width: 1.0
-        color: 6908265
-      }
-      priority: -1850
+    symbol {
+      name: "airport-m"
+      priority: 6800
     }
     caption {
       primary {
-        height: 9
-        color: 7763574
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
       }
-      priority: 3300
+      priority: -3200
     }
   }
   element {
     scale: 20
-    area {
-      color: 3881787
-      border {
-        width: 1.0
-        color: 6908265
-      }
-      priority: -1850
+    symbol {
+      name: "airport-m"
+      priority: 6800
     }
     caption {
       primary {
-        height: 9
-        color: 7763574
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
       }
-      priority: 3300
+      priority: -3200
     }
   }
 }
