@@ -489,6 +489,7 @@
 		ED914AB22D35063A00973C45 /* TextColorStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914AB12D35063A00973C45 /* TextColorStyleSheet.swift */; };
 		ED914AB82D351DF000973C45 /* StyleApplicable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914AB72D351DF000973C45 /* StyleApplicable.swift */; };
 		ED914ABE2D351FF800973C45 /* UILabel+SetFontStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */; };
+		ED9837C12E9653ED00739B1D /* RateUsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9837C02E9653ED00739B1D /* RateUsManager.swift */; };
 		ED9857082C4ED02D00694F6C /* MailComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9857072C4ED02D00694F6C /* MailComposer.swift */; };
 		ED9966802B94FBC20083CE55 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED99667D2B94FBC20083CE55 /* ColorPicker.swift */; };
 		ED9DDF882D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9DDF872D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift */; };
@@ -1501,6 +1502,7 @@
 		ED914AB12D35063A00973C45 /* TextColorStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextColorStyleSheet.swift; sourceTree = "<group>"; };
 		ED914AB72D351DF000973C45 /* StyleApplicable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleApplicable.swift; sourceTree = "<group>"; };
 		ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+SetFontStyle.swift"; sourceTree = "<group>"; };
+		ED9837C02E9653ED00739B1D /* RateUsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateUsManager.swift; sourceTree = "<group>"; };
 		ED9857072C4ED02D00694F6C /* MailComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposer.swift; sourceTree = "<group>"; };
 		ED99667D2B94FBC20083CE55 /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		ED9DDF872D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageTrackRecordingLayout.swift; sourceTree = "<group>"; };
@@ -2072,6 +2074,7 @@
 		340475281E081A4600C92850 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				ED9837BD2E9653C200739B1D /* RateUs */,
 				ED0C54942C6E14CB00253A5F /* TrackRecorder */,
 				ED79A5CA2BDF8D6100952D1F /* iCloud */,
 				994AEBE323AB763C0079B81F /* Theme */,
@@ -3331,6 +3334,14 @@
 				ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */,
 			);
 			path = SearchOnMapTests;
+			sourceTree = "<group>";
+		};
+		ED9837BD2E9653C200739B1D /* RateUs */ = {
+			isa = PBXGroup;
+			children = (
+				ED9837C02E9653ED00739B1D /* RateUsManager.swift */,
+			);
+			path = RateUs;
 			sourceTree = "<group>";
 		};
 		ED9857022C4ECFFC00694F6C /* MailComposer */ = {
@@ -4596,6 +4607,7 @@
 				ED9966802B94FBC20083CE55 /* ColorPicker.swift in Sources */,
 				993DF10423F6BDB100AC231A /* UIView+SetStyle.swift in Sources */,
 				998927302449DE1500260CE2 /* TabBarArea.swift in Sources */,
+				ED9837C12E9653ED00739B1D /* RateUsManager.swift in Sources */,
 				995739042355CAA30019AEE7 /* PageIndicator.swift in Sources */,
 				470F0B7D238842EA006AEC94 /* ExpandableLabel.swift in Sources */,
 				B33D21AF20DAF9F000BAD749 /* Toast.swift in Sources */,

@@ -116,6 +116,8 @@ NSString * const kSettingsSegue = @"Map2Settings";
 @property(nonatomic) NSLayoutConstraint * placePageLeadingConstraint;
 @property(nonatomic) NSLayoutConstraint * placePageTrailingConstraint;
 
+@property(nonatomic, readwrite) BOOL isMapVisible;
+
 @end
 
 @implementation MapViewController
@@ -241,6 +243,18 @@ NSString * const kSettingsSegue = @"Map2Settings";
 - (void)dismissPlacePage
 {
   GetFramework().DeactivateMapSelection();
+}
+
+- (BOOL)isMapFullyVisible
+{
+  BOOL const isMapVisible = self.isMapVisible && self.navigationController.visibleViewController == self;
+  BOOL const isPlacePageClosed = self.placePageVC == nil;
+  BOOL const isNavigationDashboardClosed = self.navigationDashboardManager.state == MWMNavigationDashboardStateClosed;
+  BOOL const isSearchingClosed = !self.searchManager.isSearching;
+  BOOL const isMapDownloadDialogClosed = self.downloadDialog.superview == nil;
+  BOOL const isAlertControllerClosed = !self.alertController.isAlertDisplayed;
+  return isMapVisible && isPlacePageClosed && isNavigationDashboardClosed && isSearchingClosed &&
+         isMapDownloadDialogClosed && isAlertControllerClosed;
 }
 
 - (void)hideRegularPlacePage
@@ -449,6 +463,7 @@ NSString * const kSettingsSegue = @"Map2Settings";
   [self showViralAlertIfNeeded];
   [self checkAuthorization];
   [MWMRouter updateRoute];
+  self.isMapVisible = YES;
 }
 
 - (void)viewDidLoad
@@ -594,6 +609,7 @@ NSString * const kSettingsSegue = @"Map2Settings";
   if (self.navigationDashboardManager.state == MWMNavigationDashboardStateClosed)
     self.controlsManager.menuRestoreState = self.controlsManager.menuState;
   GetFramework().SetRenderingDisabled(false);
+  self.isMapVisible = NO;
 }
 
 - (BOOL)prefersStatusBarHidden

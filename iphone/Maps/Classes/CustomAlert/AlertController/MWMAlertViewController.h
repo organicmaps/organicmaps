@@ -52,6 +52,7 @@
                    rightButtonAction:(nullable MWMVoidBlock)action;
 
 - (void)closeAlert:(nullable MWMVoidBlock)completion;
+- (BOOL)isAlertDisplayed;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));
 + (nonnull instancetype)new __attribute__((unavailable("call -initWithViewController: instead!")));

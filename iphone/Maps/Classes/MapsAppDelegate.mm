@@ -239,6 +239,11 @@ using namespace osm_auth_ios;
   [MWMSearch addCategoriesToSpotlight];
   [MWMKeyboard applicationDidBecomeActive];
   [MWMTextToSpeech applicationDidBecomeActive];
+
+  uint64_t const kRateUsRequestDisplayingDelay = 4;
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kRateUsRequestDisplayingDelay * NSEC_PER_SEC),
+                 dispatch_get_main_queue(), ^{ [[RateUsManager shared] showSKStoreReviewRequest]; });
+
   LOG(LINFO, ("applicationDidBecomeActive - end"));
 }
 
