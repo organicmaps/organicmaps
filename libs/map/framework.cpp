@@ -46,6 +46,7 @@
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/mwm_version.hpp"
+#include "platform/network_policy.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
@@ -118,6 +119,8 @@ std::string_view constexpr kProductsPopupCloseReasonCloseStr = "close";
 std::string_view constexpr kProductsPopupCloseReasonRemindLaterStr = "remind_later";
 std::string_view constexpr kProductsPopupCloseReasonAlreadyDonatedStr = "already_donated";
 std::string_view constexpr kProductsPopupCloseReasonSelectProductStr = "select_product";
+std::string_view constexpr kFirstAskedForRateUsTimeKey = "FirstAskedForRateUsTime";
+std::string_view constexpr kLastAskedForRateUsTimeKey = "LastAskedForRateUsTime";
 
 auto constexpr kLargeFontsScaleFactor = 1.6;
 size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
@@ -3503,4 +3506,47 @@ Framework::ProductsPopupCloseReason Framework::FromString(std::string_view str)
     return ProductsPopupCloseReason::SelectProduct;
   ASSERT(false, ("Incorrect reason string:", str));
   return ProductsPopupCloseReason::Close;
+}
+
+bool Framework::CanShowRateUsRequest() const
+{
+  if (m_routingManager.IsRoutingActive())
+    return false;
+
+  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
+    return false;
+
+  if (!m_usageStats.IsLoyalUser())
+    return false;
+
+  uint8_t constexpr kMinBatteryLevelPercent = 15;
+  if (Platform::GetBatteryLevel() < kMinBatteryLevelPercent)
+    return false;
+
+  uint64_t lastAskedForRateUsTime;
+  if (!settings::Get(kLastAskedForRateUsTimeKey, lastAskedForRateUsTime))
+    return true;
+
+#ifdef DEBUG
+  uint32_t constexpr kLastAskedForRateUsTimeout = 30;
+#else
+  uint32_t constexpr kLastAskedForRateUsTimeout = 60 * 60 * 24 * 90;  // 90 days
+#endif
+
+  bool const timeoutExpired = lastAskedForRateUsTime + kLastAskedForRateUsTimeout < base::SecondsSinceEpoch();
+  if (!timeoutExpired)
+    return false;
+
+  return true;
+}
+
+void Framework::DidShowRateUsRequest() const
+{
+  auto const now = base::SecondsSinceEpoch();
+
+  uint64_t firstAskedForRateUsTime;
+  if (!settings::Get(kFirstAskedForRateUsTimeKey, firstAskedForRateUsTime))
+    settings::Set(kFirstAskedForRateUsTimeKey, now);
+
+  settings::Set(kLastAskedForRateUsTimeKey, now);
 }
