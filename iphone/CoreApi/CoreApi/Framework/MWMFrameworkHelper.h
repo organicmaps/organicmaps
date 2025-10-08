@@ -79,6 +79,9 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (int)currentZoomLevel;
 + (BOOL)needUpdateForRoutes;
 
++ (BOOL)canShowRateUsRequest;
++ (void)didShowRateUsRequest;
+
 @end
 
 NS_ASSUME_NONNULL_END
