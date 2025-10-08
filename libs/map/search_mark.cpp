@@ -73,6 +73,7 @@ enum SearchMarkPoint::SearchMarkType : uint8_t
   BicycleParking,
   BicycleParkingCovered,
   BicycleRental,
+  Airport,
 
   NotFound,  // Service value used in developer tools.
   Count
@@ -146,6 +147,7 @@ std::array<std::string, SearchMarkType::Count> const kSymbols = {
     "search-result-bicycle_parking",          // BicycleParking.
     "search-result-bicycle_parking-covered",  // BicycleParkingCovered.
     "search-result-bicycle_rental",           // BicycleRental.
+    "search-result-airport",                  // Airport.
 
     "search-result-non-found",  // NotFound.
 };
@@ -290,6 +292,10 @@ private:
         {{"amenity", "bicycle_parking"}, SearchMarkType::BicycleParking},
         {{"amenity", "bicycle_parking", "covered"}, SearchMarkType::BicycleParkingCovered},
         {{"amenity", "bicycle_rental"}, SearchMarkType::BicycleRental},
+        {{"aeroway", "aerodrome"}, SearchMarkType::Airport},
+        {{"aeroway", "aerodrome", "international"}, SearchMarkType::Airport},
+        {{"aeroway", "terminal"}, SearchMarkType::Airport},
+
     };
 
     m_searchMarkTypes.reserve(std::size(table));
