@@ -53,6 +53,7 @@
 - (void)disableCarPlayRepresentation;
 
 - (void)dismissPlacePage;
+- (BOOL)isMapFullyVisible;
 
 @property(nonatomic, readonly) MWMMapViewControlsManager * _Nonnull controlsManager;
 @property(nonatomic, readonly) MWMMapDownloadDialog * _Nonnull downloadDialog;

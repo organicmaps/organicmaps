@@ -281,7 +281,7 @@ private extension AboutController {
         case .reportMapDataProblem, .volunteer, .news:
           self?.openUrl(aboutInfo.link)
         case .rateTheApp:
-          UIApplication.shared.rateApp()
+          RateUsManager.shared.showAppStoreReviewRequest()
         default:
           break
         }
