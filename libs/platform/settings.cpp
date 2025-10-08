@@ -399,11 +399,13 @@ uint64_t UsageStats::TimeSinceEpoch()
 
 void UsageStats::EnterForeground()
 {
+  m_isForeground = true;
   m_enterForegroundTime = TimeSinceEpoch();
 }
 
 void UsageStats::EnterBackground()
 {
+  m_isForeground = false;
   uint64_t const currTime = TimeSinceEpoch();
 
   // Safe check if something wrong with device's time.
@@ -443,6 +445,18 @@ bool UsageStats::IsLoyalUser() const
   uint32_t constexpr kMinSessionsCount = 5;
 #endif
   return m_sessionsCount >= kMinSessionsCount && m_totalForegroundTime >= kMinTotalForegroundTimeout;
+}
+
+uint64_t UsageStats::GetCurrentSessionForegroundTime() const
+{
+  if (m_enterForegroundTime == 0 || !m_isForeground)
+    return 0;
+
+  uint64_t const currTime = TimeSinceEpoch();
+  if (currTime < m_enterForegroundTime)
+    return 0;
+
+  return currTime - m_enterForegroundTime;
 }
 
 }  // namespace settings

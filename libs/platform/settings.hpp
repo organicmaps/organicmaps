@@ -81,6 +81,7 @@ class UsageStats
   uint64_t m_enterForegroundTime = 0;
   uint64_t m_totalForegroundTime = 0;
   uint64_t m_sessionsCount = 0;
+  bool m_isForeground = false;
 
   std::string_view m_firstLaunch, m_lastBackground, m_totalForeground, m_sessions;
 
@@ -93,6 +94,7 @@ public:
   void EnterBackground();
 
   bool IsLoyalUser() const;
+  uint64_t GetCurrentSessionForegroundTime() const;
 };
 
 }  // namespace settings
