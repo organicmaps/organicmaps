@@ -56,6 +56,8 @@ set(SRC
   servers_list.hpp
   products.cpp
   products.hpp
+  style_utils.cpp
+  style_utils.hpp
   settings.cpp
   settings.hpp
   socket.hpp

@@ -5,6 +5,9 @@
 #include "base/logging.hpp"
 
 #include <QtCore/QDateTime>
+#include <QtGui/QGuiApplication>
+#include <QtGui/QPalette>
+#include <QtGui/QStyleHints>
 #include <QtGui/QSurfaceFormat>
 
 namespace qt::common
@@ -91,6 +94,26 @@ void SetDefaultSurfaceFormat(QString const & platformName)
   fmt.setOption(QSurfaceFormat::DebugContext);
 #endif
   QSurfaceFormat::setDefaultFormat(fmt);
+}
+
+bool IsSystemInDarkMode()
+{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+  if (auto * hints = QGuiApplication::styleHints(); hints != nullptr)
+  {
+    switch (hints->colorScheme())
+    {
+    case Qt::ColorScheme::Dark: return true;
+    case Qt::ColorScheme::Light: return false;
+    default: break;
+    }
+  }
+#endif
+
+  auto const palette = QGuiApplication::palette();
+  auto const windowColor = palette.color(QPalette::Window);
+  auto const textColor = palette.color(QPalette::WindowText);
+  return windowColor.value() < textColor.value();
 }
 
 }  // namespace qt::common
