@@ -1329,4 +1329,5 @@
     <string name="type.amenity.boat_rental">Prenájom lodí</string>
     <string name="type.shop.telecommunication">Telekomunikačný obchod</string>
     <string name="type.leisure.indoor_play">Hracie centrum</string>
+    <string name="type.tourism.camp_pitch">Miesto na kempovanie</string>
 </resources>

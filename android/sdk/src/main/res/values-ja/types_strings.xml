@@ -1308,4 +1308,5 @@
     <string name="type.amenity.boat_rental">レンタルボート</string>
     <string name="type.shop.telecommunication">電気通信店</string>
     <string name="type.leisure.indoor_play">プレイセンター</string>
+    <string name="type.tourism.camp_pitch">キャンプ場</string>
 </resources>

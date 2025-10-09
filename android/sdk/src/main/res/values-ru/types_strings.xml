@@ -1421,4 +1421,5 @@
     <string name="type.amenity.boat_rental">Аренда лодок</string>
     <string name="type.shop.telecommunication">Магазин телекоммуникаций</string>
     <string name="type.leisure.indoor_play">Игровой центр</string>
+    <string name="type.tourism.camp_pitch">Кемпинг Spot</string>
 </resources>

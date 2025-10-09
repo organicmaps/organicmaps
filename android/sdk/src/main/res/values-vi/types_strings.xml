@@ -1184,4 +1184,5 @@
     <string name="type.amenity.boat_rental">Cho thuê thuyền</string>
     <string name="type.shop.telecommunication">Cửa hàng viễn thông</string>
     <string name="type.leisure.indoor_play">Trung tâm chơi</string>
+    <string name="type.tourism.camp_pitch">Điểm cắm trại</string>
 </resources>

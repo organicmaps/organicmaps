@@ -1510,3 +1510,4 @@
 "type.amenity.boat_rental" = "Paadi rentimine";
 "type.shop.telecommunication" = "Telekommunikatsioonipood";
 "type.leisure.indoor_play" = "Mängukeskus";
+"type.tourism.camp_pitch" = "Telkimispunkt";

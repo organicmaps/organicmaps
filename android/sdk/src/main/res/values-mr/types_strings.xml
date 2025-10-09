@@ -1186,4 +1186,5 @@
     <string name="type.amenity.boat_rental">बोट भाड्याने</string>
     <string name="type.shop.telecommunication">दूरसंचार स्टोअर</string>
     <string name="type.leisure.indoor_play">खेळाचे केंद्र</string>
+    <string name="type.tourism.camp_pitch">कॅम्पिंग स्पॉट</string>
 </resources>

@@ -1510,3 +1510,4 @@
 "type.amenity.boat_rental" = "Boot mieten";
 "type.shop.telecommunication" = "Geschäft für Telekommunikation";
 "type.leisure.indoor_play" = "Spielzentrum";
+"type.tourism.camp_pitch" = "Campingplatz";

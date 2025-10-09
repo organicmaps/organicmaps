@@ -1510,3 +1510,4 @@
 "type.amenity.boat_rental" = "Bootverhuur";
 "type.shop.telecommunication" = "Telecommunicatiewinkel";
 "type.leisure.indoor_play" = "Speelcentrum";
+"type.tourism.camp_pitch" = "Kampeerplek";

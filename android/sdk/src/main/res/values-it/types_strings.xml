@@ -1412,4 +1412,5 @@
     <string name="type.amenity.boat_rental">Noleggio barche</string>
     <string name="type.shop.telecommunication">Negozio di telecomunicazioni</string>
     <string name="type.leisure.indoor_play">Centro giochi</string>
+    <string name="type.tourism.camp_pitch">Campeggio Spot</string>
 </resources>

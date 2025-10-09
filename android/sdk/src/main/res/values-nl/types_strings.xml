@@ -1415,4 +1415,5 @@
     <string name="type.amenity.boat_rental">Bootverhuur</string>
     <string name="type.shop.telecommunication">Telecommunicatiewinkel</string>
     <string name="type.leisure.indoor_play">Speelcentrum</string>
+    <string name="type.tourism.camp_pitch">Kampeerplek</string>
 </resources>
