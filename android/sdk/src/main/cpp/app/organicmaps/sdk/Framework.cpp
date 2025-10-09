@@ -1827,3 +1827,23 @@ JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_Framework_nativeGetBookmarksText
   return std::to_underlying(Framework::GetBookmarksTextPlacement());
 }
 }  // extern "C"
+
+namespace
+{
+JNINativeMethod const frameworkMethods[] = {
+    {"nativeGetRouteFollowingInfo", "()Lapp/organicmaps/sdk/routing/RoutingInfo;",
+     reinterpret_cast<void *>(&Java_app_organicmaps_sdk_Framework_nativeGetRouteFollowingInfo)},
+};
+}
+
+namespace android::framework
+{
+jint registerNativeMethods(JNIEnv * env)
+{
+  jclass clazz = env->FindClass("app/organicmaps/sdk/Framework");
+  if (clazz == nullptr)
+    return JNI_ERR;
+
+  return env->RegisterNatives(clazz, frameworkMethods, std::size(frameworkMethods));
+}
+}  // namespace android::framework
