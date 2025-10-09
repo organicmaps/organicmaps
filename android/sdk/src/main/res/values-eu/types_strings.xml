@@ -1286,4 +1286,5 @@
     <string name="type.amenity.boat_rental">Itsasontz</string>
     <string name="type.shop.telecommunication">Telekomunikazioen denda</string>
     <string name="type.leisure.indoor_play">Play Center</string>
+    <string name="type.tourism.camp_pitch">Kanpin-lekua</string>
 </resources>

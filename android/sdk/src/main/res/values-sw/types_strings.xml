@@ -668,4 +668,5 @@
     <string name="type.amenity.boat_rental">Kukodisha mashua</string>
     <string name="type.shop.telecommunication">Duka la Mawasiliano</string>
     <string name="type.leisure.indoor_play">Kituo cha kucheza</string>
+    <string name="type.tourism.camp_pitch">Mahali pa kuweka kambi</string>
 </resources>

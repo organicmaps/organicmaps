@@ -1198,4 +1198,5 @@
     <string name="type.amenity.boat_rental">Båtutleie</string>
     <string name="type.shop.telecommunication">Telekommunikasjonsbutikk</string>
     <string name="type.leisure.indoor_play">Lekesenter</string>
+    <string name="type.tourism.camp_pitch">Campingplass</string>
 </resources>

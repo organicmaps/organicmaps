@@ -63,4 +63,5 @@
     <string name="type.amenity.boat_rental">Laivu noma</string>
     <string name="type.shop.telecommunication">Telekomunikāciju veikals</string>
     <string name="type.leisure.indoor_play">Spēļu centrs</string>
+    <string name="type.tourism.camp_pitch">Kempings Spot</string>
 </resources>

@@ -1173,4 +1173,5 @@
     <string name="type.amenity.boat_rental">Penyewaan Perahu</string>
     <string name="type.shop.telecommunication">Toko telekomunikasi</string>
     <string name="type.leisure.indoor_play">Pusat Bermain</string>
+    <string name="type.tourism.camp_pitch">Tempat Berkemah</string>
 </resources>

@@ -1415,4 +1415,5 @@
     <string name="type.amenity.boat_rental">船只租赁</string>
     <string name="type.shop.telecommunication">电信商店</string>
     <string name="type.leisure.indoor_play">游乐中心</string>
+    <string name="type.tourism.camp_pitch">露营点</string>
 </resources>
