@@ -2,9 +2,20 @@
 
 #include "geometry/mercator.hpp"
 
+#include "map/framework.hpp"
+#include "platform/location.hpp"
+#include "platform/style_utils.hpp"
+
+#include "indexer/map_style.hpp"
+
 #include "base/logging.hpp"
 
 #include <QtCore/QDateTime>
+#include <QtCore/Qt>
+#include <QtGui/QGuiApplication>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QPalette>
+#include <QtGui/QStyleHints>
 #include <QtGui/QSurfaceFormat>
 
 namespace qt::common
@@ -91,6 +102,38 @@ void SetDefaultSurfaceFormat(QString const & platformName)
   fmt.setOption(QSurfaceFormat::DebugContext);
 #endif
   QSurfaceFormat::setDefaultFormat(fmt);
+}
+
+bool IsSystemInDarkMode()
+{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+  if (auto * hints = QGuiApplication::styleHints(); hints != nullptr)
+  {
+    switch (hints->colorScheme())
+    {
+    case Qt::ColorScheme::Dark: return true;
+    case Qt::ColorScheme::Light: return false;
+    default: break;
+    }
+  }
+#endif
+
+  auto const palette = QGuiApplication::palette();
+  auto const windowColor = palette.color(QPalette::Window);
+  auto const textColor = palette.color(QPalette::WindowText);
+  return windowColor.value() < textColor.value();
+}
+
+void ApplySystemNightMode(Framework & framework)
+{
+  if (style_utils::GetNightModeSetting() != style_utils::NightMode::System)
+    return;
+
+  auto const currentStyle = framework.GetMapStyle();
+  auto const useDark = IsSystemInDarkMode();
+  auto const desiredStyle = useDark ? GetDarkMapStyleVariant(currentStyle) : GetLightMapStyleVariant(currentStyle);
+  if (desiredStyle != currentStyle)
+    framework.SetMapStyle(desiredStyle);
 }
 
 }  // namespace qt::common

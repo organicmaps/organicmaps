@@ -9,6 +9,8 @@
 #include "platform/settings.hpp"
 #include "platform/style_utils.hpp"
 
+#include "qt/qt_common/helpers.hpp"
+
 #include <QLocale>
 #include <QtGui/QIcon>
 #include <QtWidgets/QButtonGroup>
@@ -157,24 +159,43 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     using namespace style_utils;
     QHBoxLayout * layout = new QHBoxLayout();
 
-    QRadioButton * radioButton = new QRadioButton("Off");
-    layout->addWidget(radioButton);
-    nightModeGroup->addButton(radioButton, static_cast<int>(NightMode::Off));
+    auto const addButton = [&](QString const & text, NightMode mode)
+    {
+      QRadioButton * button = new QRadioButton(text);
+      layout->addWidget(button);
+      nightModeGroup->addButton(button, static_cast<int>(mode));
+    };
 
-    radioButton = new QRadioButton("On");
-    layout->addWidget(radioButton);
-    nightModeGroup->addButton(radioButton, static_cast<int>(NightMode::On));
+    addButton("Off", NightMode::Off);
+    addButton("On", NightMode::On);
+    addButton(tr("Follow system"), NightMode::System);
 
     nightModeRadioBox->setLayout(layout);
 
-    int const btn = MapStyleIsDark(framework.GetMapStyle()) ? 1 : 0;
-    nightModeGroup->button(btn)->setChecked(true);
+    NightMode nightModeSetting = GetNightModeSetting();
+    if (nightModeSetting == NightMode::Off && MapStyleIsDark(framework.GetMapStyle()))
+      nightModeSetting = NightMode::On;
+
+    if (QAbstractButton * button = nightModeGroup->button(static_cast<int>(nightModeSetting)))
+      button->setChecked(true);
 
     void (QButtonGroup::*buttonClicked)(int) = &QButtonGroup::idClicked;
     connect(nightModeGroup, buttonClicked, [&framework](int i)
     {
+      using namespace style_utils;
+      if (i < static_cast<int>(NightMode::Off) || i > static_cast<int>(NightMode::System))
+        return;
+
+      auto const mode = static_cast<NightMode>(i);
+      SetNightModeSetting(mode);
+
       auto const currStyle = framework.GetMapStyle();
-      framework.SetMapStyle((i == 0) ? GetLightMapStyleVariant(currStyle) : GetDarkMapStyleVariant(currStyle));
+      switch (mode)
+      {
+      case NightMode::Off: framework.SetMapStyle(GetLightMapStyleVariant(currStyle)); break;
+      case NightMode::On: framework.SetMapStyle(GetDarkMapStyleVariant(currStyle)); break;
+      case NightMode::System: qt::common::ApplySystemNightMode(framework); break;
+      }
     });
   }
 

@@ -10,6 +10,7 @@
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
+#include "platform/style_utils.hpp"
 
 #include "coding/reader.hpp"
 
@@ -18,7 +19,9 @@
 
 #include "build_style/build_style.h"
 
+#include <QObject>
 #include <QtGlobal>
+#include <QtGui/QStyleHints>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMessageBox>
@@ -239,12 +242,26 @@ int main(int argc, char * argv[])
 #endif  // BUILD_DESIGNER
 
     Framework framework(frameworkParams);
+
+    auto const syncNightMode = [&framework]()
+    {
+      if (style_utils::GetNightModeSetting() == style_utils::NightMode::System)
+        qt::common::ApplySystemNightMode(framework);
+    };
+    syncNightMode();
     qt::MainWindow w(framework, std::move(screenshotParams), QApplication::primaryScreen()->geometry()
 #ifdef BUILD_DESIGNER
                                                                  ,
                      mapcssFilePath
 #endif  // BUILD_DESIGNER
     );
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+    if (auto * styleHints = QGuiApplication::styleHints(); styleHints != nullptr)
+    {
+      QObject::connect(styleHints, &QStyleHints::colorSchemeChanged, &w,
+                       [syncNightMode](Qt::ColorScheme) mutable { syncNightMode(); });
+    }
+#endif
     w.show();
     returnCode = QApplication::exec();
   }
