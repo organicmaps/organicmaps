@@ -806,6 +806,9 @@ area|z18-[tourism=apartment]
 node|z16-[tourism=camp_site],
 {icon-image: campsite-m.svg;}
 
+node|z18-[tourism=camp_pitch],
+{icon-image: none; text: none;}
+
 node|z16-[tourism=picnic_site],
 {icon-image: picnic-m.svg;}
 node|z17-[leisure=picnic_table],

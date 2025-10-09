@@ -559,6 +559,7 @@ isoline-step_500                                    # pathtext z11- (also has li
 aeroway-terminal                                    # icon z14- (also has caption(optional) z14-)
 highway-motorway_junction                           # caption z15-
 leisure-beach_resort                                # icon z16- (also has caption(optional) z16-, area z10-)
+tourism-camp_pitch                                  # caption z18-
 === 3300
 
 natural-bare_rock                                   # caption z13- (also has area z12-)
