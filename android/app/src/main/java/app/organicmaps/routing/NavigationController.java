@@ -20,6 +20,7 @@ import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
+import app.organicmaps.sdk.routing.CarDirection;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.util.StringUtils;
@@ -113,9 +114,10 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mNextTurnDistance.setText(Utils.formatDistance(mFrame.getContext(), info.distToTurn));
     mNextTurnImage.setImageResource(info.carDirection.getTurnRes(info.exitNum));
 
-    UiUtils.showIf(info.nextCarDirection.containsNextTurn(), mNextNextTurnFrame);
-    if (info.nextCarDirection.containsNextTurn())
-      mNextNextTurnImage.setImageResource(info.nextCarDirection.getNextTurnRes());
+    final boolean showNextNextTurn = info.hasNextNextTurn();
+    UiUtils.showIf(showNextNextTurn, mNextNextTurnFrame);
+    if (showNextNextTurn)
+      mNextNextTurnImage.setImageResource(info.nextCarDirection.getTurnRes());
 
     mLanesView.setLanes(info.lanes);
 

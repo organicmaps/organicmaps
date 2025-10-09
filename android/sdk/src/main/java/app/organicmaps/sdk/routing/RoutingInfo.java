@@ -1,6 +1,7 @@
 package app.organicmaps.sdk.routing;
 
 import androidx.annotation.Keep;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.sdk.util.Distance;
 
@@ -23,12 +24,15 @@ public final class RoutingInfo
   public final String nextNextStreet;
   public final double completionPercent;
   // For vehicle routing.
+  @NonNull
   public final CarDirection carDirection;
+  @NonNull
   public final CarDirection nextCarDirection;
   public final int exitNum;
   @Nullable
   public final LaneInfo[] lanes;
   // For pedestrian routing.
+  @NonNull
   public final PedestrianTurnDirection pedestrianTurnDirection;
   // Current speed limit in meters per second.
   // If no info about speed limit then speedLimitMps < 0.
@@ -37,8 +41,9 @@ public final class RoutingInfo
   private final boolean shouldPlayWarningSignal;
 
   private RoutingInfo(Distance distToTarget, Distance distToTurn, String currentStreet, String nextStreet,
-                      String nextNextStreet, double completionPercent, int vehicleTurnOrdinal,
-                      int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum, int totalTime,
+                      String nextNextStreet, double completionPercent, @NonNull CarDirection carTurnDirection,
+                      @NonNull CarDirection carNextTurnDirection,
+                      @NonNull PedestrianTurnDirection pedestrianTurnDirection, int exitNum, int totalTime,
                       @Nullable LaneInfo[] lanes, double speedLimitMps, boolean speedLimitExceeded,
                       boolean shouldPlayWarningSignal)
   {
@@ -49,11 +54,11 @@ public final class RoutingInfo
     this.nextNextStreet = nextNextStreet;
     this.totalTimeInSeconds = totalTime;
     this.completionPercent = completionPercent;
-    this.carDirection = CarDirection.values()[vehicleTurnOrdinal];
-    this.nextCarDirection = CarDirection.values()[vehicleNextTurnOrdinal];
+    this.carDirection = carTurnDirection;
+    this.nextCarDirection = carNextTurnDirection;
     this.lanes = lanes;
     this.exitNum = exitNum;
-    this.pedestrianTurnDirection = PedestrianTurnDirection.values()[pedestrianTurnOrdinal];
+    this.pedestrianTurnDirection = pedestrianTurnDirection;
     this.speedLimitMps = speedLimitMps;
     this.speedCamLimitExceeded = speedLimitExceeded;
     this.shouldPlayWarningSignal = shouldPlayWarningSignal;
@@ -67,5 +72,11 @@ public final class RoutingInfo
   public boolean shouldPlayWarningSignal()
   {
     return shouldPlayWarningSignal;
+  }
+
+  public boolean hasNextNextTurn()
+  {
+    return nextNextStreet != null && !nextNextStreet.isEmpty() && nextCarDirection != CarDirection.NoTurn
+ && nextCarDirection != CarDirection.GoStraight;
   }
 }
