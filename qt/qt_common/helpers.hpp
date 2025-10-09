@@ -7,6 +7,8 @@
 #include <QtGui/QKeySequence>
 #include <QtGui/QMouseEvent>
 
+class Framework;
+
 namespace qt::common
 {
 bool IsLeftButton(Qt::MouseButtons buttons);
