@@ -34,8 +34,14 @@ on:
       - track_generator/**
       - xcode/**
 
+# Cancels previous jobs if the same branch or PR was updated again.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 env:
   JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
+  GRADLE_USER_HOME: ${{ github.workspace }}/android/.gradle
 
 jobs:
   lint:
@@ -68,22 +74,57 @@ jobs:
           name: android-lint-report
           path: android/build/reports/lint/lint.xml
 
-  android-check:
-    name: Build Android Debug
+  build-sdk:
+    name: Build Android SDK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install build tools and dependencies
+        shell: bash
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build
+
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Restore Boost submodule from cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            3party/boost
+            .git/modules/3party/boost
+          key: boost-submodule
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Configure repository
+        shell: bash
+        run: ./configure.sh
+
+      - name: Build Android SDK
+        uses: burrunan/gradle-cache-action@v3
+        with:
+          build-root-directory: android
+          arguments: :sdk:assembleDebug
+
+  build-app:
+    name: Build Android
+    needs: [lint, build-sdk]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        flavor: [WebDebug, FdroidDebug]
         include:
           - flavor: WebDebug
             arch: arm64
+          - flavor: GoogleDebug
+            arch: arm64
+          - flavor: HuaweiDebug
+            arch: arm64
           - flavor: FdroidDebug
             arch: arm32
-    # Cancels previous jobs if the same branch or PR was updated again.
-    concurrency:
-      group: ${{ github.workflow }}-${{ matrix.flavor }}-${{ github.event.pull_request.number || github.ref }}
-      cancel-in-progress: true
 
     steps:
       - name: Install build tools and dependencies
@@ -114,21 +155,11 @@ jobs:
         shell: bash
         run: ./configure.sh
 
-      - name: Configure ccache
-        uses: hendrikmuhs/ccache-action@v1.2
-        with:
-          key: ${{ github.workflow }}-${{ matrix.flavor }}
-
       - name: Compile ${{ matrix.flavor }}
-        shell: bash
-        working-directory: android
-        env:
-          CMAKE_C_COMPILER_LAUNCHER: ccache
-          CMAKE_CXX_COMPILER_LAUNCHER: ccache
-        run: |
-          cmake --version
-          ninja --version
-          ./gradlew -P${{ matrix.arch }} assemble${{ matrix.flavor }}
+        uses: burrunan/gradle-cache-action@v3
+        with:
+          build-root-directory: android
+          arguments: assemble${{ matrix.flavor }} -P${{ matrix.arch }}
 
       - name: Upload ${{ matrix.flavor }} apk
         uses: actions/upload-artifact@v4
