@@ -109,8 +109,8 @@ public:
   };
 
   /// For Type::Feature and Type::Building.
-  RankerResult(FeatureType & ft, m2::PointD const & center, std::string displayName, std::string const & fileName);
-  RankerResult(FeatureType & ft, std::string const & fileName);
+  RankerResult(FeatureType & ft, m2::PointD const & center, std::string displayName, std::string const & fileName, storage::CountryInfoGetter const & infoGetter);
+  RankerResult(FeatureType & ft, std::string const & fileName, storage::CountryInfoGetter const & infoGetter);
 
   /// For Type::LatLon.
   RankerResult(double lat, double lon);
@@ -189,5 +189,5 @@ private:
 #endif
 };
 
-void FillDetails(FeatureType & ft, std::string const & name, Result::Details & details);
+void FillDetails(FeatureType & ft, std::string const & name, Result::Details & details, storage::CountryInfoGetter const & infoGetter);
 }  // namespace search

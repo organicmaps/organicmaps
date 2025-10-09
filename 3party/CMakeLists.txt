@@ -50,7 +50,8 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
     add_subdirectory(harfbuzz)
   endif()
 
-  add_library(utf8cpp INTERFACE)
+  add_library(utf8cpp INTERFACE
+          opening_hours/public_holidays_tests/public_holiday_tests.cpp)
   add_library(utf8cpp::utf8cpp ALIAS utf8cpp)
   target_include_directories(utf8cpp INTERFACE "${OMIM_ROOT}/3party/utfcpp/source")
 endif()

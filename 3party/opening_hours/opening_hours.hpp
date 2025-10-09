@@ -707,9 +707,9 @@ public:
   OpeningHours(std::string const & rule);
   OpeningHours(TRuleSequences const & rule);
 
-  bool IsOpen(time_t const dateTime) const;
-  bool IsClosed(time_t const dateTime) const;
-  bool IsUnknown(time_t const dateTime) const;
+  bool IsOpen(time_t const dateTime, std::string countryId ="") const;
+  bool IsClosed(time_t const dateTime, std::string countryId ="") const;
+  bool IsUnknown(time_t const dateTime, std::string countryId ="") const;
 
   struct InfoT
   {
@@ -717,9 +717,10 @@ public:
     /// Calculated only if state != RuleState::Unknown.
     time_t nextTimeOpen;
     time_t nextTimeClosed;
+    std::string holidayName;
   };
 
-  InfoT GetInfo(time_t const dateTime) const;
+  InfoT GetInfo(time_t const dateTime, std::string const & countryId ="") const;
 
   bool IsValid() const;
 

@@ -2,9 +2,15 @@
 
 #include "base/assert.hpp"
 
+#include "storage/country_info_getter.hpp"
+
+#include "indexer/feature_data.hpp"
+
 #include <algorithm>
 #include <chrono>
 #include <sstream>
+
+#include "indexer/feature_algo.hpp"
 
 namespace routing
 {
@@ -45,7 +51,7 @@ std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(RoadPo
   return GetAccess(point, weightToPoint.GetWeight());
 }
 
-std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(uint32_t featureId, double weight) const
+std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(uint32_t featureId, double weight, FeatureType & ft, storage::CountryInfoGetter const & infoGetter) const
 {
   auto const itConditional = m_wayToAccessConditional.find(featureId);
   if (itConditional != m_wayToAccessConditional.cend())
@@ -54,7 +60,7 @@ std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(uint32
     auto const & conditional = itConditional->second;
     for (auto const & access : conditional.GetAccesses())
     {
-      auto const op = GetConfidenceForAccessConditional(time + weight, access.m_openingHours);
+      auto const op = GetConfidenceForAccessConditional(time + weight, access.m_openingHours,ft, infoGetter);
       if (op)
         return {access.m_type, *op};
     }
@@ -63,7 +69,7 @@ std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(uint32
   return GetAccessWithoutConditional(featureId);
 }
 
-std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(RoadPoint const & point, double weight) const
+std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(RoadPoint const & point, double weight, FeatureType & ft, storage::CountryInfoGetter const & infoGetter) const
 {
   auto const itConditional = m_pointToAccessConditional.find(point);
   if (itConditional != m_pointToAccessConditional.cend())
@@ -72,7 +78,7 @@ std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(RoadPo
     auto const & conditional = itConditional->second;
     for (auto const & access : conditional.GetAccesses())
     {
-      auto const op = GetConfidenceForAccessConditional(time + weight, access.m_openingHours);
+      auto const op = GetConfidenceForAccessConditional(time + weight, access.m_openingHours, ft, infoGetter);
       if (op)
         return {access.m_type, *op};
     }
@@ -111,13 +117,16 @@ bool RoadAccess::operator==(RoadAccess const & rhs) const
 
 // static
 std::optional<RoadAccess::Confidence> RoadAccess::GetConfidenceForAccessConditional(
-    time_t momentInTime, osmoh::OpeningHours const & openingHours)
+    time_t momentInTime, osmoh::OpeningHours const & openingHours, FeatureType & ft, storage::CountryInfoGetter const & infoGetter)
 {
   auto const left = momentInTime - kConfidenceIntervalSeconds / 2;
   auto const right = momentInTime + kConfidenceIntervalSeconds / 2;
 
-  auto const leftOpen = openingHours.IsOpen(left);
-  auto const rightOpen = openingHours.IsOpen(right);
+  m2::PointD const pt = feature::GetCenter(ft);
+  std::string const countryId=infoGetter.GetRegionCountryId(pt);
+
+  auto const leftOpen = openingHours.IsOpen(left, countryId);
+  auto const rightOpen = openingHours.IsOpen(right, countryId);
 
   if (!leftOpen && !rightOpen)
     return {};

@@ -1,6 +1,8 @@
 #include "rules_evaluation.hpp"
 #include "rules_evaluation_private.hpp"
 
+#include "platform/public_holidays.hpp"
+
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
@@ -253,19 +255,25 @@ bool IsActive(WeekdayRange const & range, std::tm const & date)
   return range.HasWday(wday);
 }
 
-bool IsActive(Holiday const & holiday, std::tm const & date)
+bool IsActive(Holiday const & holiday, std::tm const & date, std::string const & countryId, std::string & holidayName)
 {
+  if (holiday.IsPlural() && ph::HasHolidays(countryId))
+  {
+    std::tm temp = date;                // mktime modifies the struct, so work on a copy
+    time_t t = std::mktime(&temp);      // convert tm → time_t (local time)
+    return ph::GetHolidayName(countryId, t, holidayName);
+  }
   return false;
 }
 
-bool IsActive(Weekdays const & weekdays, std::tm const & date)
+bool IsActive(Weekdays const & weekdays, std::tm const & date, std::string const & countryId)
 {
   for (auto const & wr : weekdays.GetWeekdayRanges())
     if (IsActive(wr, date))
       return true;
-
+  std::string holidayName;
   for (auto const & hd : weekdays.GetHolidays())
-    if (IsActive(hd, date))
+    if (IsActive(hd, date, countryId, holidayName ))
       return true;
 
   return weekdays.GetWeekdayRanges().empty() &&
@@ -330,43 +338,43 @@ bool IsActiveAny(std::vector<T> const & selectors, std::tm const & date)
 
 bool IsActiveAny(Timespan const & span, std::tm const & time) { return IsActive(span, time); }
 
-bool IsDayActive(RuleSequence const & rule, std::tm const & dt)
+bool IsDayActive(RuleSequence const & rule, std::tm const & dt, std::string const & countryId)
 {
   return IsActiveAny(rule.GetYears(), dt) && IsActiveAny(rule.GetMonths(), dt) &&
-         IsActiveAny(rule.GetWeeks(), dt) && IsActive(rule.GetWeekdays(), dt);
+         IsActiveAny(rule.GetWeeks(), dt) && IsActive(rule.GetWeekdays(), dt, countryId);
 }
 
 template <class TTimeSpans>
-std::pair<bool, bool> MakeActiveResult(RuleSequence const & rule, std::tm const & dt, TTimeSpans const & times)
+std::pair<bool, bool> MakeActiveResult(RuleSequence const & rule, std::tm const & dt, TTimeSpans const & times, std::string const & countryId)
 {
-  if (IsDayActive(rule, dt))
+  if (IsDayActive(rule, dt, countryId))
     return { true, IsActiveAny(times, dt) };
   else
     return {false, false};
 }
 
 /// @return [day active, time active].
-std::pair<bool, bool> IsActiveImpl(RuleSequence const & rule, time_t const timestamp)
+std::pair<bool, bool> IsActiveImpl(RuleSequence const & rule, time_t const timestamp,  std::string const & countryId)
 {
   if (rule.IsTwentyFourHours())
     return {true, true};
 
   auto const dateTimeTM = MakeTimetuple(timestamp);
   if (!HasExtendedHours(rule))
-    return MakeActiveResult(rule, dateTimeTM, rule.GetTimes());
+    return MakeActiveResult(rule, dateTimeTM, rule.GetTimes(), countryId);
 
   TTimespans originalNormalizedSpans;
   Timespan additionalSpan;
   SplitExtendedHours(rule.GetTimes(), originalNormalizedSpans, additionalSpan);
 
-  auto const res1 = MakeActiveResult(rule, dateTimeTM, originalNormalizedSpans);
+  auto const res1 = MakeActiveResult(rule, dateTimeTM, originalNormalizedSpans, countryId);
   if (res1.first && res1.second)
     return res1;
 
   time_t constexpr twentyFourHoursShift = 24 * 60 * 60;
   auto const dateTimeTMShifted = MakeTimetuple(timestamp - twentyFourHoursShift);
 
-  auto const res2 = MakeActiveResult(rule, dateTimeTMShifted, additionalSpan);
+  auto const res2 = MakeActiveResult(rule, dateTimeTMShifted, additionalSpan, countryId);
   return { res1.first || res2.first, res2.second };
 }
 
@@ -384,13 +392,13 @@ bool IsR1IncludesR2(RuleSequence const & r1, RuleSequence const & r2)
   return false;
 }
 
-bool IsActive(RuleSequence const & rule, time_t const timestamp)
+bool IsActive(RuleSequence const & rule, time_t const timestamp, std::string const & countryId)
 {
-  auto const res = IsActiveImpl(rule, timestamp);
+  auto const res = IsActiveImpl(rule, timestamp, countryId);
   return res.first && res.second;
 }
 
-time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, RuleState state)
+time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, RuleState state, std::string const & countryId)
 {
   time_t constexpr kTimeTMax = std::numeric_limits<time_t>::max();
   time_t dateTimeResult = kTimeTMax;
@@ -417,7 +425,7 @@ time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, Rul
         if (dateTimeToCheck < dateTime || dateTimeToCheck > dateTimeResult)
           continue;
 
-        if (GetState(rules, dateTimeToCheck) == state)
+        if (GetState(rules, dateTimeToCheck, countryId) == state)
           dateTimeResult = dateTimeToCheck;
       }
 
@@ -439,7 +447,7 @@ time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, Rul
           if (dateTimeToCheck < dateTime || dateTimeToCheck > dateTimeResult)
             continue;
 
-          if (GetState(rules, dateTimeToCheck) == state)
+          if (GetState(rules, dateTimeToCheck, countryId) == state)
             dateTimeResult = dateTimeToCheck - 60;   // remove 1 minute offset
         }
       }
@@ -459,7 +467,7 @@ time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, Rul
           if (dateTimeToCheck < dateTime || dateTimeToCheck > dateTimeResult)
             continue;
 
-          if (GetState(rules, dateTimeToCheck) == state)
+          if (GetState(rules, dateTimeToCheck, countryId) == state)
             dateTimeResult = dateTimeToCheck;
         }
       }
@@ -472,7 +480,7 @@ time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, Rul
   return kTimeTMax;
 }
 
-RuleState GetState(TRuleSequences const & rules, time_t const timestamp)
+RuleState GetState(TRuleSequences const & rules, time_t const timestamp, std::string const & countryId)
 {
   RuleSequence const * emptyRule = nullptr;
   RuleSequence const * dayMatchedRule = nullptr;
@@ -480,7 +488,7 @@ RuleState GetState(TRuleSequences const & rules, time_t const timestamp)
   for (auto it = rules.rbegin(); it != rules.rend(); ++it)
   {
     auto const & rule = *it;
-    auto const res = IsActiveImpl(rule, timestamp);
+    auto const res = IsActiveImpl(rule, timestamp, countryId);
     if (!res.first)
       continue;
 

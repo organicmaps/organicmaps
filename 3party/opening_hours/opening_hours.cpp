@@ -37,6 +37,8 @@
 #include <type_traits>
 #include <vector>
 
+#include "platform/public_holidays.hpp"
+
 namespace
 {
 template <typename T, typename SeparatorExtractor>
@@ -883,36 +885,41 @@ OpeningHours::OpeningHours(TRuleSequences const & rule):
 {
 }
 
-bool OpeningHours::IsOpen(time_t const dateTime) const
+bool OpeningHours::IsOpen(time_t const dateTime, std::string countryId) const
 {
-  return osmoh::IsOpen(m_rule, dateTime);
+  return osmoh::IsOpen(m_rule, dateTime, countryId);
 }
 
-bool OpeningHours::IsClosed(time_t const dateTime) const
+bool OpeningHours::IsClosed(time_t const dateTime, std::string countryId) const
 {
-  return osmoh::IsClosed(m_rule, dateTime);
+  return osmoh::IsClosed(m_rule, dateTime, countryId);
 }
 
-bool OpeningHours::IsUnknown(time_t const dateTime) const
+bool OpeningHours::IsUnknown(time_t const dateTime, std::string countryId) const
 {
-  return osmoh::IsUnknown(m_rule, dateTime);
+  return osmoh::IsUnknown(m_rule, dateTime, countryId);
 }
 
-OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime) const
+OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::string const & countryId) const
 {
   InfoT info;
-  info.state = GetState(m_rule, dateTime);
+  info.state = GetState(m_rule, dateTime, countryId);
+  std::string holidayName;
+  if (ph::GetHolidayName(countryId, dateTime, holidayName))
+  {
+    info.holidayName = holidayName;
+  }
   if (info.state != RuleState::Unknown)
   {
    if (info.state == RuleState::Open)
       info.nextTimeOpen = dateTime;
     else
-      info.nextTimeOpen = osmoh::GetNextTimeState(m_rule, dateTime, RuleState::Open);
+      info.nextTimeOpen = osmoh::GetNextTimeState(m_rule, dateTime, RuleState::Open, countryId);
 
     if (info.state == RuleState::Closed)
       info.nextTimeClosed = dateTime;
     else
-      info.nextTimeClosed = osmoh::GetNextTimeState(m_rule, dateTime, RuleState::Closed);
+      info.nextTimeClosed = osmoh::GetNextTimeState(m_rule, dateTime, RuleState::Closed, countryId);
   }
 
   return info;
