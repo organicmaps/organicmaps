@@ -1633,3 +1633,4 @@ amenity|recycling|container
 *amenity|boat_rental
 *shop|telecommunication
 *leisure|indoor_play
+*tourism|camp_pitch
