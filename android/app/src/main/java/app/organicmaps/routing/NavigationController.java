@@ -113,11 +113,9 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mNextTurnDistance.setText(Utils.formatDistance(mFrame.getContext(), info.distToTurn));
     mNextTurnImage.setImageResource(info.carDirection.getTurnRes(info.exitNum));
 
+    UiUtils.showIf(info.nextCarDirection.containsNextTurn(), mNextNextTurnFrame);
     if (info.nextCarDirection.containsNextTurn())
-    {
       mNextNextTurnImage.setImageResource(info.nextCarDirection.getNextTurnRes());
-      UiUtils.show(mNextNextTurnFrame);
-    }
 
     mLanesView.setLanes(info.lanes);
 
