@@ -212,7 +212,7 @@ bool FeatureBuilder::PreSerialize()
           (m_params.name.IsEmpty() &&
            (ftypes::IsPostPoiChecker::Instance()(types) || ftypes::IsRailwaySubwayEntranceChecker::Instance()(types) ||
             ftypes::IsEntranceChecker::Instance()(types) || ftypes::IsAerowayGateChecker::Instance()(types) ||
-            ftypes::IsPlatformChecker::Instance()(types))))
+            ftypes::IsPlatformChecker::Instance()(types) || ftypes::IsCampPitchChecker::Instance()(types))))
       {
         m_params.name.AddString(StringUtf8Multilang::kDefaultCode, m_params.ref);
       }
