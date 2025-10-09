@@ -23,6 +23,7 @@ import app.organicmaps.sdk.routing.RoutingRecommendationListener;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.sdk.settings.SpeedCameraMode;
 import app.organicmaps.sdk.util.Constants;
+import dalvik.annotation.optimization.FastNative;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -199,6 +200,7 @@ public class Framework
 
   public static native void nativeDisableFollowing();
 
+  @FastNative
   @Nullable
   public static native RoutingInfo nativeGetRouteFollowingInfo();
 

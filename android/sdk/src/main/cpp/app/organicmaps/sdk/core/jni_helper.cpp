@@ -76,6 +76,8 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM * jvm, void *)
       return JNI_ERR;
     if (icon::registerNativeMethods(env) != JNI_OK)
       return JNI_ERR;
+    if (android::framework::registerNativeMethods(env) != JNI_OK)
+      return JNI_ERR;
   }
 
   return JNI_VERSION_1_6;
