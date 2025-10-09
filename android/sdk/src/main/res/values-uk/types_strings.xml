@@ -1421,4 +1421,5 @@
     <string name="type.amenity.boat_rental">Оренда човна</string>
     <string name="type.shop.telecommunication">Телекомунікаційний цех</string>
     <string name="type.leisure.indoor_play">Ігровий центр</string>
+    <string name="type.tourism.camp_pitch">Місце для кемпінгу</string>
 </resources>

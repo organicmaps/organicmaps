@@ -1420,4 +1420,5 @@
     <string name="type.amenity.boat_rental">Paadi rentimine</string>
     <string name="type.shop.telecommunication">Telekommunikatsioonipood</string>
     <string name="type.leisure.indoor_play">Mängukeskus</string>
+    <string name="type.tourism.camp_pitch">Telkimispunkt</string>
 </resources>

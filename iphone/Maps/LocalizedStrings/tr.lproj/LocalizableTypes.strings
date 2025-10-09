@@ -1510,3 +1510,4 @@
 "type.amenity.boat_rental" = "Tekne Kiralama";
 "type.shop.telecommunication" = "Telekomünikasyon mağazası";
 "type.leisure.indoor_play" = "Oyun Merkezi";
+"type.tourism.camp_pitch" = "Kamp Noktası";

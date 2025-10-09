@@ -1510,3 +1510,4 @@
 "type.amenity.boat_rental" = "船隻租賃";
 "type.shop.telecommunication" = "電信商店";
 "type.leisure.indoor_play" = "遊樂中心";
+"type.tourism.camp_pitch" = "露營地";

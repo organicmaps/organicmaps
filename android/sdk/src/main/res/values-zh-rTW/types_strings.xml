@@ -158,4 +158,5 @@
     <string name="type.amenity.boat_rental">船隻租賃</string>
     <string name="type.shop.telecommunication">電信商店</string>
     <string name="type.leisure.indoor_play">遊樂中心</string>
+    <string name="type.tourism.camp_pitch">露營地</string>
 </resources>

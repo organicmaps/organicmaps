@@ -1417,4 +1417,5 @@
     <string name="type.amenity.boat_rental">Hajókölcsönzés</string>
     <string name="type.shop.telecommunication">Távközlési üzlet</string>
     <string name="type.leisure.indoor_play">Játékközpont</string>
+    <string name="type.tourism.camp_pitch">Kempinghely</string>
 </resources>

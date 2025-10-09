@@ -1510,3 +1510,4 @@
 "type.amenity.boat_rental" = "Udlejning af båd";
 "type.shop.telecommunication" = "Butik for telekommunikation";
 "type.leisure.indoor_play" = "Legecenter";
+"type.tourism.camp_pitch" = "Campingplads";

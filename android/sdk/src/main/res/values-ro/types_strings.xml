@@ -1175,4 +1175,5 @@
     <string name="type.amenity.boat_rental">Închiriere bărci</string>
     <string name="type.shop.telecommunication">Magazin de telecomunicații</string>
     <string name="type.leisure.indoor_play">Centrul de joacă</string>
+    <string name="type.tourism.camp_pitch">Loc de camping</string>
 </resources>

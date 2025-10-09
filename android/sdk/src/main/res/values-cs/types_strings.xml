@@ -1417,4 +1417,5 @@
     <string name="type.amenity.boat_rental">Půjčovna lodí</string>
     <string name="type.shop.telecommunication">Telekomunikační obchod</string>
     <string name="type.leisure.indoor_play">Hrací centrum</string>
+    <string name="type.tourism.camp_pitch">Místo pro kempování</string>
 </resources>

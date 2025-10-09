@@ -1412,4 +1412,5 @@
     <string name="type.amenity.boat_rental">Ενοικίαση σκάφους</string>
     <string name="type.shop.telecommunication">Κατάστημα τηλεπικοινωνιών</string>
     <string name="type.leisure.indoor_play">Κέντρο παιχνιδιού</string>
+    <string name="type.tourism.camp_pitch">Κάμπινγκ</string>
 </resources>

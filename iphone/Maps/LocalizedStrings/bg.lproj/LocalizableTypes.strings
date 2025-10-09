@@ -1510,3 +1510,4 @@
 "type.amenity.boat_rental" = "Лодка под наем";
 "type.shop.telecommunication" = "Магазин за телекомуникации";
 "type.leisure.indoor_play" = "Център за игра";
+"type.tourism.camp_pitch" = "Място за къмпинг";

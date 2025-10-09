@@ -1380,4 +1380,5 @@
     <string name="type.amenity.boat_rental">Udlejning af båd</string>
     <string name="type.shop.telecommunication">Butik for telekommunikation</string>
     <string name="type.leisure.indoor_play">Legecenter</string>
+    <string name="type.tourism.camp_pitch">Campingplads</string>
 </resources>

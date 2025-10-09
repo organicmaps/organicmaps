@@ -1511,3 +1511,4 @@
 "type.amenity.boat_rental" = "Аренда лодок";
 "type.shop.telecommunication" = "Магазин телекоммуникаций";
 "type.leisure.indoor_play" = "Игровой центр";
+"type.tourism.camp_pitch" = "Кемпинг Spot";

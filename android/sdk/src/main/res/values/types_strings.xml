@@ -1423,4 +1423,5 @@
     <string name="type.amenity.boat_rental">Boat Rental</string>
     <string name="type.shop.telecommunication">Telecommunications store</string>
     <string name="type.leisure.indoor_play">Play Centre</string>
+    <string name="type.tourism.camp_pitch">Camping Spot</string>
 </resources>

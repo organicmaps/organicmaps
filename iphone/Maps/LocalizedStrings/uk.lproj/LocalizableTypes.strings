@@ -1510,3 +1510,4 @@
 "type.amenity.boat_rental" = "Оренда човна";
 "type.shop.telecommunication" = "Телекомунікаційний цех";
 "type.leisure.indoor_play" = "Ігровий центр";
+"type.tourism.camp_pitch" = "Місце для кемпінгу";
