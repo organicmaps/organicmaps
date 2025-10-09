@@ -161,11 +161,10 @@ private:
   inline static time_t constexpr kConfidenceIntervalSeconds = 2 * 3600;  // 2 hours
 
   static std::optional<Confidence> GetConfidenceForAccessConditional(time_t momentInTime,
+                                                                   osmoh::OpeningHours const & openingHours);
+  static std::optional<Confidence> GetConfidenceForAccessConditional(time_t momentInTime,
                                                                      osmoh::OpeningHours const & openingHours,
                                                                      FeatureType & ft, storage::CountryInfoGetter const & infoGetter);
-  static std::optional<Confidence> GetConfidenceForAccessConditional(time_t momentInTime,
-                                                                     osmoh::OpeningHours const & openingHours);
-
 
   std::pair<Type, Confidence> GetAccess(uint32_t featureId, double weight) const;
   std::pair<Type, Confidence> GetAccess(uint32_t featureId, double weight, FeatureType & ft, storage::CountryInfoGetter const & infoGetter ) const;

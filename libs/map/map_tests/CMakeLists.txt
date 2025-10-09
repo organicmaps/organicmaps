@@ -16,8 +16,7 @@ set(SRC
   power_manager_tests.cpp
   search_api_tests.cpp
   transliteration_test.cpp
-  working_time_tests.cpp
-  elevation_info_tests.cpp
+        elevation_info_tests.cpp
   track_statistics_tests.cpp
 )
 

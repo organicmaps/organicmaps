@@ -1149,29 +1149,29 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsActive)
     std::tm time{};
     auto const fmt = "%w";
     BOOST_CHECK(GetTimeTuple("4", fmt, time));
-   // BOOST_CHECK(IsActive(range, time));
+    BOOST_CHECK(IsActive(range, time, ""));
 
     BOOST_CHECK(GetTimeTuple("0", fmt, time));
-   // BOOST_CHECK(IsActive(range, time));
+    BOOST_CHECK(IsActive(range, time, ""));
 
     BOOST_CHECK(GetTimeTuple("6", fmt, time));
-   // BOOST_CHECK(IsActive(range, time));
+    BOOST_CHECK(IsActive(range, time, ""));
 
 
     BOOST_CHECK(Parse("Mo-Tu", range));
     BOOST_CHECK(GetTimeTuple("0", fmt, time));
-   // BOOST_CHECK(!IsActive(range, time));
+    BOOST_CHECK(!IsActive(range, time, ""));
 
     BOOST_CHECK(GetTimeTuple("5", fmt, time));
-   // BOOST_CHECK(!IsActive(range, time));
+    BOOST_CHECK(!IsActive(range, time, ""));
 
 
     BOOST_CHECK(Parse("Mo", range));
     BOOST_CHECK(GetTimeTuple("1", fmt, time));
-   // BOOST_CHECK(IsActive(range, time));
+    BOOST_CHECK(IsActive(range, time, ""));
 
     BOOST_CHECK(GetTimeTuple("5", fmt, time));
-   // BOOST_CHECK(!IsActive(range, time));
+    BOOST_CHECK(!IsActive(range, time, ""));
   }
   {
     TMonthdayRanges ranges;
