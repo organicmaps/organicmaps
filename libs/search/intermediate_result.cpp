@@ -147,7 +147,7 @@ std::string DebugPrint(PreRankerResult const & r)
 }
 
 // RankerResult ------------------------------------------------------------------------------------
-RankerResult::RankerResult(FeatureType & ft, m2::PointD const & center, string displayName, string const & fileName)
+RankerResult::RankerResult(FeatureType & ft, m2::PointD const & center, string displayName, string const & fileName, storage::CountryInfoGetter const & infoGetter)
   : m_types(ft)
   , m_str(std::move(displayName))
   , m_id(ft.GetID())
@@ -161,11 +161,11 @@ RankerResult::RankerResult(FeatureType & ft, m2::PointD const & center, string d
 
   m_region.SetParams(fileName, center);
 
-  FillDetails(ft, m_str, m_details);
+  FillDetails(ft, m_str, m_details, infoGetter);
 }
 
-RankerResult::RankerResult(FeatureType & ft, std::string const & fileName)
-  : RankerResult(ft, feature::GetCenter(ft, FeatureType::WORST_GEOMETRY), std::string(ft.GetReadableName()), fileName)
+RankerResult::RankerResult(FeatureType & ft, std::string const & fileName, storage::CountryInfoGetter const & infoGetter)
+  : RankerResult(ft, feature::GetCenter(ft, FeatureType::WORST_GEOMETRY), std::string(ft.GetReadableName()), fileName, infoGetter)
 {}
 
 RankerResult::RankerResult(double lat, double lon)
@@ -241,7 +241,7 @@ bool RankerResult::RegionInfo::GetCountryId(storage::CountryInfoGetter const & i
 }
 
 // Functions ---------------------------------------------------------------------------------------
-void FillDetails(FeatureType & ft, std::string const & name, Result::Details & details)
+void FillDetails(FeatureType & ft, std::string const & name, Result::Details & details, storage::CountryInfoGetter const & infoGetter)
 {
   if (details.m_isInitialized)
     return;
@@ -265,7 +265,9 @@ void FillDetails(FeatureType & ft, std::string const & name, Result::Details & d
     {
       /// @todo We should check closed/open time for specific feature's timezone.
       time_t const now = time(nullptr);
-      auto const info = oh.GetInfo(now);
+      m2::PointD const pt = feature::GetCenter(ft);
+      auto const countryId=infoGetter.GetRegionCountryId(pt);
+      auto const info = oh.GetInfo(now,countryId);
       if (info.state != RuleState::Unknown)
       {
         // In else case value is osm::Unknown, it's set in preview's constructor.

@@ -329,7 +329,7 @@ public:
     if (!ft)
       return {};
 
-    RankerResult res(*ft, center, std::move(name), country);
+    RankerResult res(*ft, center, std::move(name), country, m_infoGetter);
 
     RankingInfo info;
     InitRankingInfo(*ft, center, preResult, info);

@@ -974,7 +974,7 @@ void Processor::EmitResultsFromMwms(std::vector<std::shared_ptr<MwmInfo>> const 
   for (auto const & [_, country, ft] : results)
   {
     m_emitter.AddResultNoChecks(
-        m_ranker.MakeResult(RankerResult(*ft, country), true /* needAddress */, true /* needHighlighting */));
+        m_ranker.MakeResult(RankerResult(*ft, country, m_infoGetter), true /* needAddress */, true /* needHighlighting */));
   }
 
   m_emitter.Emit();

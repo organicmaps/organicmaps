@@ -9,20 +9,19 @@
 namespace ph
 {
 
-//convert time_t to ISO date string (YYYY-MM-DD format)
-std::string TimeTToISODate(time_t const dateTime)
+//convert std::tm to ISO date string (YYYY-MM-DD format)
+std::string TimeTToISODate(time_t const & date)
 {
-    std::tm tm = *std::localtime(&dateTime);
-    std::ostringstream oss;
+  std::tm tm = *std::localtime(&date);
+  std::ostringstream oss;
     oss << std::put_time(&tm, "%Y-%m-%d");
     return oss.str();
 }
 
-
 //check if the country has holidays
-bool HasHolidays(std::string const & countryName)
+bool HasHolidays(std::string const & countryId)
 {
-    std::string const holidayFilePath = base::JoinPath("countries", "public_holidays", countryName + ".json");
+    std::string const holidayFilePath = base::JoinPath("countries", "public_holidays", countryId + ".json");
     
     try
     {
@@ -36,11 +35,11 @@ bool HasHolidays(std::string const & countryName)
 }
 
 //load the holidays for a country
-std::unordered_map<std::string, std::string> LoadCountryHolidays(std::string const & countryName)
+std::unordered_map<std::string, std::string> LoadCountryHolidays(std::string const & countryId)
 {
    std::unordered_map<std::string, std::string> holidays;
 
-   std::string const holidayFilePath = base::JoinPath("countries", "public_holidays", countryName + ".json");
+   std::string const holidayFilePath = base::JoinPath("countries", "public_holidays", countryId + ".json");
    
    try 
    {
@@ -49,7 +48,7 @@ std::unordered_map<std::string, std::string> LoadCountryHolidays(std::string con
     auto ec =glz::read_json(holidays,jsonContent);
     if (ec)
     {
-        LOG(LWARNING,("Failed to parse holiday json for", countryName,":",glz::format_error(ec,jsonContent) ));
+        LOG(LWARNING,("Failed to parse holiday json for", countryId,":",glz::format_error(ec,jsonContent) ));
         return {};
     }
     return holidays;
@@ -57,17 +56,17 @@ std::unordered_map<std::string, std::string> LoadCountryHolidays(std::string con
 
     catch (RootException const & ex) 
     {
-        LOG(LWARNING, ("Can't load holidays for", countryName, ":", holidayFilePath, ex.what()));
+        LOG(LWARNING, ("Can't load holidays for", countryId, ":", holidayFilePath, ex.what()));
         return {};
     }  
 }
 
 //check if the date is a public holiday if not found should return false 
-bool GetHolidayName(std::string const & countryName, time_t const dateTime, std::string & holidayName)
+bool GetHolidayName(std::string const & countryId, time_t const dateTime, std::string & holidayName)
 {
     std::string isoDateString = TimeTToISODate(dateTime);
    
-    auto holidays = LoadCountryHolidays(countryName);
+    auto holidays = LoadCountryHolidays(countryId);
 
     if(holidays.empty())
     {
@@ -83,44 +82,5 @@ bool GetHolidayName(std::string const & countryName, time_t const dateTime, std:
         
         return false;
 }
-
-// Debug function to help verify path construction
-std::string GetHolidayFilePath(std::string const & countryName)
-{
-    return base::JoinPath("countries", "public_holidays", countryName + ".json");
-}
-
-// Debug function to check if a holiday file exists and log the full path
-bool DebugHolidayFileExists(std::string const & countryName)
-{
-    std::string const holidayFilePath = GetHolidayFilePath(countryName);
     
-    try
-    {
-        std::string const fullPath = GetPlatform().ReadPathForFile(holidayFilePath);
-        bool exists = Platform::IsFileExistsByFullPath(fullPath);
-        
-        if (exists)
-        {
-            LOG(LINFO, ("Holiday file found for", countryName, "at:", fullPath));
-        }
-        else
-        {
-            LOG(LWARNING, ("Holiday file not found for", countryName, "at:", fullPath));
-        }
-        
-        return exists;
-    }
-    catch (FileAbsentException const & ex)
-    {
-        LOG(LWARNING, ("FileAbsentException for", countryName, ":", ex.what()));
-        return false;
-    }
-    catch (std::exception const & ex)
-    {
-        LOG(LWARNING, ("Exception checking holiday file for", countryName, ":", ex.what()));
-        return false;
-    }
-}
-
 }//namespace ph

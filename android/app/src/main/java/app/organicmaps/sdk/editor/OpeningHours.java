@@ -41,7 +41,7 @@ public final class OpeningHours
   public static native Timetable nativeAddClosedSpan(Timetable timetable, Timespan closedSpan);
 
   @NonNull
-  public static native Timetable nativeRemoveClosedSpan(Timetable timetable, int spanIndex);
+  public static native Timetable (Timetable timetable, int spanIndex);
 
   @Nullable
   public static native Timetable[] nativeTimetablesFromString(String source);
