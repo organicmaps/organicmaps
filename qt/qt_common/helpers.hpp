@@ -2,6 +2,9 @@
 
 #include "platform/location.hpp"
 
+#include <QtCore/QString>
+#include <QtCore/Qt>
+#include <QtGui/QKeySequence>
 #include <QtGui/QMouseEvent>
 
 namespace qt::common
@@ -30,4 +33,5 @@ location::GpsInfo MakeGpsInfo(m2::PointD const & point);
 void SetDefaultSurfaceFormat(QString const & platformName);
 
 bool IsSystemInDarkMode();
+void ApplySystemNightMode(Framework & framework);
 }  // namespace qt::common

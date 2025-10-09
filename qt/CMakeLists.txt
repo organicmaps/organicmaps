@@ -36,8 +36,6 @@ set(SRC
   mainwindow.hpp
   mwms_borders_selection.cpp
   mwms_borders_selection.hpp
-  night_mode_utils.cpp
-  night_mode_utils.hpp
   osm_auth_dialog.cpp
   osm_auth_dialog.hpp
   place_page_dialog_common.cpp

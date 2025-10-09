@@ -9,7 +9,7 @@
 #include "platform/settings.hpp"
 #include "platform/style_utils.hpp"
 
-#include "qt/night_mode_utils.hpp"
+#include "qt/qt_common/helpers.hpp"
 
 #include <QLocale>
 #include <QtGui/QIcon>
@@ -194,7 +194,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
       {
       case NightMode::Off: framework.SetMapStyle(GetLightMapStyleVariant(currStyle)); break;
       case NightMode::On: framework.SetMapStyle(GetDarkMapStyleVariant(currStyle)); break;
-      case NightMode::System: qt::night_mode::ApplySystemNightMode(framework); break;
+      case NightMode::System: qt::common::ApplySystemNightMode(framework); break;
       }
     });
   }

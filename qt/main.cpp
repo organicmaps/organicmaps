@@ -1,7 +1,6 @@
 #include "qt/html_processor.hpp"
 #include "qt/info_dialog.hpp"
 #include "qt/mainwindow.hpp"
-#include "qt/night_mode_utils.hpp"
 #include "qt/screenshoter.hpp"
 
 #include "qt/qt_common/helpers.hpp"
@@ -247,7 +246,7 @@ int main(int argc, char * argv[])
     auto const syncNightMode = [&framework]()
     {
       if (style_utils::GetNightModeSetting() == style_utils::NightMode::System)
-        qt::night_mode::ApplySystemNightMode(framework);
+        qt::common::ApplySystemNightMode(framework);
     };
     syncNightMode();
     qt::MainWindow w(framework, std::move(screenshotParams), QApplication::primaryScreen()->geometry()
@@ -256,11 +255,13 @@ int main(int argc, char * argv[])
                      mapcssFilePath
 #endif  // BUILD_DESIGNER
     );
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
     if (auto * styleHints = QGuiApplication::styleHints(); styleHints != nullptr)
     {
       QObject::connect(styleHints, &QStyleHints::colorSchemeChanged, &w,
                        [syncNightMode](Qt::ColorScheme) mutable { syncNightMode(); });
     }
+#endif
     w.show();
     returnCode = QApplication::exec();
   }

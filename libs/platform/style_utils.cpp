@@ -6,6 +6,8 @@ namespace style_utils
 {
 namespace
 {
+constexpr char kNightModeSettingKey[] = "NightMode";
+
 bool IsValidNightModeValue(int value)
 {
   return value >= static_cast<int>(NightMode::Off) && value <= static_cast<int>(NightMode::System);
@@ -15,14 +17,14 @@ bool IsValidNightModeValue(int value)
 NightMode GetNightModeSetting()
 {
   int value = static_cast<int>(NightMode::Off);
-  if (settings::Get(settings::kNightMode, value) && IsValidNightModeValue(value))
+  if (settings::Get(kNightModeSettingKey, value) && IsValidNightModeValue(value))
     return static_cast<NightMode>(value);
   return NightMode::Off;
 }
 
 void SetNightModeSetting(NightMode mode)
 {
-  settings::Set(settings::kNightMode, static_cast<int>(mode));
+  settings::Set(kNightModeSettingKey, static_cast<int>(mode));
 }
 
 }  // namespace style_utils
