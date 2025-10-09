@@ -341,6 +341,9 @@ node|z16-[tourism=camp_site],
 area|z16-[tourism=camp_site],
 {font-size: 12; icon-min-distance: 0;}
 
+node|z18-[tourism=camp_pitch],
+{text: name; text-color: @housenumber; font-size: 10; text-offset: 0;}
+
 node|z14-[tourism=picnic_site],
 area|z14-[tourism=picnic_site],
 {icon-image: picnic-m.svg;icon-min-distance: 10;font-size: 11;}
