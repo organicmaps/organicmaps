@@ -181,10 +181,10 @@ UNIT_TEST(GeoJson_Parse_UMapOptions)
   auto const & umapObj = umapOptionsJson.get_object();
   
   // Verify individual properties are preserved
-  TEST(umapObj.find("iconClass") != umapObj.end(), ("iconClass should be preserved"));
-  TEST(umapObj.find("customProperty") != umapObj.end(), ("customProperty should be preserved"));
-  TEST(umapObj.at("iconClass").get_string() == "Drop", ("iconClass value should be preserved"));
-  TEST(umapObj.at("customProperty").get_string() == "should be preserved", ("customProperty value should be preserved"));
+  TEST(umapObj.contains("iconClass"), ("iconClass should be preserved"));
+  TEST(umapObj.contains("customProperty"), ("customProperty should be preserved"));
+  TEST_EQUAL(umapObj.at("iconClass").get_string(), "Drop", ("iconClass value should be preserved"));
+  TEST_EQUAL(umapObj.at("customProperty").get_string(), "should be preserved", ("customProperty value should be preserved"));
 
   // Check track (LineString)
   TEST_EQUAL(dataFromText.m_tracksData.size(), 1, ());
@@ -205,8 +205,11 @@ UNIT_TEST(GeoJson_Parse_UMapOptions)
   auto const & trackUmapObj = trackUmapOptionsJson.get_object();
   
   // Verify track properties are preserved
-  TEST(trackUmapObj.find("dashArray") != trackUmapObj.end(), ("dashArray should be preserved"));
-  TEST(trackUmapObj.at("dashArray").get_string() == "5,10", ("dashArray value should be preserved"));
+  TEST(trackUmapObj.contains("dashArray"), ("dashArray should be preserved"));
+  TEST_EQUAL(trackUmapObj.at("dashArray").get_string(), "5,10", ("dashArray value should be preserved"));
+  TEST_EQUAL(trackUmapObj.at("color").get_string(), "red", ("color value should be preserved"));
+  TEST_EQUAL(trackUmapObj.at("weight").as<int>(), 2, ("weight value should be preserved"));
+  TEST_EQUAL(trackUmapObj.at("opacity").as<double>(), 0.5, ("opacity value should be preserved"));
 }
 
 }  // namespace geojson_tests
