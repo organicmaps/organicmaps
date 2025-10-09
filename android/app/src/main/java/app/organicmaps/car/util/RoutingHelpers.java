@@ -53,23 +53,23 @@ public final class RoutingHelpers
   public static Maneuver createManeuver(@NonNull final CarContext context, @NonNull CarDirection carDirection,
                                         int roundaboutExitNum)
   {
-    int maneuverType = switch (carDirection)
+    final int maneuverType = switch (carDirection)
     {
-      case NO_TURN, GO_STRAIGHT -> Maneuver.TYPE_STRAIGHT;
-      case TURN_RIGHT -> Maneuver.TYPE_TURN_NORMAL_RIGHT;
-      case TURN_SHARP_RIGHT -> Maneuver.TYPE_TURN_SHARP_RIGHT;
-      case TURN_SLIGHT_RIGHT -> Maneuver.TYPE_TURN_SLIGHT_RIGHT;
-      case TURN_LEFT -> Maneuver.TYPE_TURN_NORMAL_LEFT;
-      case TURN_SHARP_LEFT -> Maneuver.TYPE_TURN_SHARP_LEFT;
-      case TURN_SLIGHT_LEFT -> Maneuver.TYPE_TURN_SLIGHT_LEFT;
-      case U_TURN_LEFT -> Maneuver.TYPE_U_TURN_LEFT;
-      case U_TURN_RIGHT -> Maneuver.TYPE_U_TURN_RIGHT;
+      case NoTurn, GoStraight -> Maneuver.TYPE_STRAIGHT;
+      case TurnRight -> Maneuver.TYPE_TURN_NORMAL_RIGHT;
+      case TurnSharpRight -> Maneuver.TYPE_TURN_SHARP_RIGHT;
+      case TurnSlightRight -> Maneuver.TYPE_TURN_SLIGHT_RIGHT;
+      case TurnLeft -> Maneuver.TYPE_TURN_NORMAL_LEFT;
+      case TurnSharpLeft -> Maneuver.TYPE_TURN_SHARP_LEFT;
+      case TurnSlightLeft -> Maneuver.TYPE_TURN_SLIGHT_LEFT;
+      case UTurnLeft -> Maneuver.TYPE_U_TURN_LEFT;
+      case UTurnRight -> Maneuver.TYPE_U_TURN_RIGHT;
       // TODO (AndrewShkrob): add support for CW (clockwise) directions
-      case ENTER_ROUND_ABOUT, STAY_ON_ROUND_ABOUT, LEAVE_ROUND_ABOUT -> Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW;
-      case START_AT_THE_END_OF_STREET -> Maneuver.TYPE_DEPART;
-      case REACHED_YOUR_DESTINATION -> Maneuver.TYPE_DESTINATION;
-      case EXIT_HIGHWAY_TO_LEFT -> Maneuver.TYPE_OFF_RAMP_SLIGHT_LEFT;
-      case EXIT_HIGHWAY_TO_RIGHT -> Maneuver.TYPE_OFF_RAMP_SLIGHT_RIGHT;
+      case EnterRoundAbout, LeaveRoundAbout, StayOnRoundAbout -> Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW;
+      case StartAtEndOfStreet -> Maneuver.TYPE_DEPART;
+      case ReachedYourDestination -> Maneuver.TYPE_DESTINATION;
+      case ExitHighwayToLeft -> Maneuver.TYPE_OFF_RAMP_SLIGHT_LEFT;
+      case ExitHighwayToRight -> Maneuver.TYPE_OFF_RAMP_SLIGHT_RIGHT;
     };
     final Maneuver.Builder builder = new Maneuver.Builder(maneuverType);
     if (maneuverType == Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW)

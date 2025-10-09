@@ -82,14 +82,16 @@
       android:layout_alignEnd="@id/nav_next_turn_frame"
       android:background="?navNextNextTurnFrame"
       android:elevation="@dimen/nav_elevation"
-      android:visibility="gone">
+      android:visibility="gone"
+      tools:visibility="visible">
       <ImageView
         android:id="@id/turn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:padding="@dimen/margin_eighth"
         app:tint="?iconTint"
-        tools:src="@drawable/ic_then_left_sharp"/>
+        tools:src="@drawable/ic_turn_left_sharp"/>
     </FrameLayout>
   </RelativeLayout>
 

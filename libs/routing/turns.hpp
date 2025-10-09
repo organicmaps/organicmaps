@@ -92,6 +92,7 @@ enum class CarDirection
   LeaveRoundAbout,
   StayOnRoundAbout,
 
+  // TODO: This value is never assigned. Consider removing it.
   StartAtEndOfStreet,
   ReachedYourDestination,
 

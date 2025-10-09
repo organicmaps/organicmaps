@@ -3,39 +3,29 @@ package app.organicmaps.sdk.routing;
 import androidx.annotation.DrawableRes;
 import app.organicmaps.sdk.R;
 
+/**
+ * IMPORTANT : Order of enum values MUST BE the same as native PedestrianDirection enum.
+ */
 public enum PedestrianTurnDirection
 {
-  NO_TURN(R.drawable.ic_turn_straight, 0),
-  GO_STRAIGHT(R.drawable.ic_turn_straight, 0),
+  NoTurn(R.drawable.ic_turn_straight),
+  GoStraight(R.drawable.ic_turn_straight),
 
-  TURN_RIGHT(R.drawable.ic_turn_right, R.drawable.ic_then_right),
-  TURN_LEFT(R.drawable.ic_turn_left, R.drawable.ic_then_left),
+  TurnRight(R.drawable.ic_turn_right),
+  TurnLeft(R.drawable.ic_turn_left),
 
-  REACHED_YOUR_DESTINATION(R.drawable.ic_turn_finish, R.drawable.ic_then_finish);
+  ReachedYourDestination(R.drawable.ic_turn_finish);
 
   private final int mTurnRes;
-  private final int mNextTurnRes;
 
-  PedestrianTurnDirection(@DrawableRes int mainResId, @DrawableRes int nextResId)
+  PedestrianTurnDirection(@DrawableRes int mainResId)
   {
     mTurnRes = mainResId;
-    mNextTurnRes = nextResId;
   }
 
   @DrawableRes
   public int getTurnRes()
   {
     return mTurnRes;
-  }
-
-  @DrawableRes
-  public int getNextTurnDrawable()
-  {
-    return mNextTurnRes;
-  }
-
-  public boolean containsNextTurn()
-  {
-    return mNextTurnRes != 0;
   }
 }
