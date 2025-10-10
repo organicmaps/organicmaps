@@ -166,44 +166,45 @@ UNIT_TEST(GeoJson_Parse_UMapOptions)
   TEST_EQUAL(dataFromText.m_bookmarksData.size(), 1, ());
   auto const & bookmark = dataFromText.m_bookmarksData.front();
   TEST_EQUAL(kml::GetDefaultStr(bookmark.m_name), "UMap Test Point", ());
-  
+
   // Check that _umap_options is stored as JSON string
   auto const umapOptionsIt = bookmark.m_properties.find("_umap_options");
   TEST(umapOptionsIt != bookmark.m_properties.end(), ("_umap_options should be stored in properties"));
-  
+
   // Parse the stored JSON to verify it contains the expected data
   std::string const & umapOptionsStr = umapOptionsIt->second;
   glz::json_t umapOptionsJson;
   auto const parseResult = glz::read_json(umapOptionsJson, umapOptionsStr);
   TEST_EQUAL(parseResult, glz::error_code::none, ("Should be able to parse stored _umap_options JSON"));
-  
+
   TEST(umapOptionsJson.is_object(), ("_umap_options should be an object"));
   auto const & umapObj = umapOptionsJson.get_object();
-  
+
   // Verify individual properties are preserved
   TEST(umapObj.contains("iconClass"), ("iconClass should be preserved"));
   TEST(umapObj.contains("customProperty"), ("customProperty should be preserved"));
   TEST_EQUAL(umapObj.at("iconClass").get_string(), "Drop", ("iconClass value should be preserved"));
-  TEST_EQUAL(umapObj.at("customProperty").get_string(), "should be preserved", ("customProperty value should be preserved"));
+  TEST_EQUAL(umapObj.at("customProperty").get_string(), "should be preserved",
+             ("customProperty value should be preserved"));
 
   // Check track (LineString)
   TEST_EQUAL(dataFromText.m_tracksData.size(), 1, ());
   auto const & track = dataFromText.m_tracksData.front();
   TEST_EQUAL(kml::GetDefaultStr(track.m_name), "UMap Test Line", ());
-  
+
   // Check that _umap_options is stored for tracks as well
   auto const trackUmapOptionsIt = track.m_properties.find("_umap_options");
   TEST(trackUmapOptionsIt != track.m_properties.end(), ("_umap_options should be stored in track properties"));
-  
+
   // Parse the stored JSON to verify it contains the expected data
   std::string const & trackUmapOptionsStr = trackUmapOptionsIt->second;
   glz::json_t trackUmapOptionsJson;
   auto const trackParseResult = glz::read_json(trackUmapOptionsJson, trackUmapOptionsStr);
   TEST_EQUAL(trackParseResult, glz::error_code::none, ("Should be able to parse stored track _umap_options JSON"));
-  
+
   TEST(trackUmapOptionsJson.is_object(), ("track _umap_options should be an object"));
   auto const & trackUmapObj = trackUmapOptionsJson.get_object();
-  
+
   // Verify track properties are preserved
   TEST(trackUmapObj.contains("dashArray"), ("dashArray should be preserved"));
   TEST_EQUAL(trackUmapObj.at("dashArray").get_string(), "5,10", ("dashArray value should be preserved"));
