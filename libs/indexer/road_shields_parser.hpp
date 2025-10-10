@@ -59,7 +59,7 @@ struct RoadShield
 // Use specific country road shield styles based on mwm feature belongs to.
 using RoadShieldsSetT = buffer_vector<RoadShield, 2>;
 RoadShieldsSetT GetRoadShields(FeatureType & f);
-RoadShieldsSetT GetRoadShields(std::string const & mwmName, std::string const & roadNumber);
+RoadShieldsSetT GetRoadShields(std::string_view mwmName, std::string const & roadNumber);
 
 // Simple parsing without specific country styles.
 RoadShieldsSetT GetRoadShields(std::string const & rawRoadNumber);

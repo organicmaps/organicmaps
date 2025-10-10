@@ -198,6 +198,11 @@ void NormalizeDigits(UniString & us)
   }
 }
 
+std::size_t Utf8Length(std::string_view const & s)
+{
+  return utf8::unchecked::distance(s.begin(), s.end());
+}
+
 void AsciiToLower(std::string & s)
 {
   std::transform(s.begin(), s.end(), s.begin(), [](char in)

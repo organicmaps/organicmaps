@@ -84,6 +84,7 @@ void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId, LoadedPat
   pathSegment.m_onRoundabout = m_roundAboutChecker(types);
   pathSegment.m_isOneWay = m_onewayChecker(types);
 
+  pathSegment.m_roadNameInfo.m_mwmId = ft->GetID();
   pathSegment.m_roadNameInfo.m_isLink = pathSegment.m_isLink;
   pathSegment.m_roadNameInfo.m_junction_ref = ft->GetMetadata(feature::Metadata::FMD_JUNCTION_REF);
   pathSegment.m_roadNameInfo.m_destination_ref = ft->GetMetadata(feature::Metadata::FMD_DESTINATION_REF);
