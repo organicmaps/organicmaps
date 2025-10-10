@@ -44,6 +44,11 @@
 
 #include <boost/spirit/include/qi.hpp>
 
+#ifdef _MSC_VER
+#include <iomanip>
+#include <sstream>
+#endif
+
 namespace
 {
 template <typename T>
@@ -78,6 +83,19 @@ std::string ParseAndUnparse(std::string const & str)
 
   return sstr.str();
 }
+
+#ifdef _MSC_VER
+extern "C" char * strptime(char const * s, char const * f, std::tm * tm)
+{
+  std::istringstream input(s);
+  input.imbue(std::locale::classic());
+  input >> std::get_time(tm, f);
+  if (input.fail()) {
+    return nullptr;
+  }
+  return (char*)(s + input.tellg());
+}
+#endif
 
 bool GetTimeTuple(std::string const & strTime, std::string const & fmt, std::tm & tm)
 {
