@@ -19,6 +19,8 @@
 		<string>CloudDocuments</string>
 		<string>CloudKit</string>
 	</array>
+	<key>com.apple.developer.navigation-app</key>
+	<true/>
 	<key>com.apple.developer.ubiquity-container-identifiers</key>
 	<array>
 		<string>iCloud.app.organicmaps.debug</string>
