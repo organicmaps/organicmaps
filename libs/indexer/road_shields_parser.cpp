@@ -625,19 +625,19 @@ RoadShieldsSetT GetRoadShields(FeatureType & f)
   if (ref.empty())
     return {};
 
-  // Find out country name.
   std::string mwmName = f.GetID().GetMwmName();
   ASSERT(!mwmName.empty(), (f.GetID()));
-
-  auto const underlinePos = mwmName.find('_');
-  if (underlinePos != std::string::npos)
-    mwmName = mwmName.substr(0, underlinePos);
 
   return GetRoadShields(mwmName, ref);
 }
 
-RoadShieldsSetT GetRoadShields(std::string const & mwmName, std::string const & roadNumber)
+RoadShieldsSetT GetRoadShields(std::string_view mwmName, std::string const & roadNumber)
 {
+  // Find out the country name.
+  auto const underlinePos = mwmName.find('_');
+  if (underlinePos != std::string::npos)
+    mwmName = mwmName.substr(0, underlinePos);
+
   if (mwmName == "US")
     return USRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "UK")

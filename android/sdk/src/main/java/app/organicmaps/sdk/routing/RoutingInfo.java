@@ -2,6 +2,7 @@ package app.organicmaps.sdk.routing;
 
 import androidx.annotation.Keep;
 import androidx.annotation.Nullable;
+import app.organicmaps.sdk.routing.roadshield.RoadShieldInfo;
 import app.organicmaps.sdk.util.Distance;
 
 // Called from JNI.
@@ -19,8 +20,12 @@ public final class RoutingInfo
   public final String currentStreet;
   // The next street name.
   public final String nextStreet;
+  @Nullable
+  public final RoadShieldInfo nextStreetRoadShields;
   // The next next street name.
   public final String nextNextStreet;
+  @Nullable
+  public final RoadShieldInfo nextNextStreetRoadShields;
   public final double completionPercent;
   // For vehicle routing.
   public final CarDirection carDirection;
@@ -37,16 +42,19 @@ public final class RoutingInfo
   private final boolean shouldPlayWarningSignal;
 
   private RoutingInfo(Distance distToTarget, Distance distToTurn, String currentStreet, String nextStreet,
-                      String nextNextStreet, double completionPercent, int vehicleTurnOrdinal,
-                      int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum, int totalTime,
-                      @Nullable LaneInfo[] lanes, double speedLimitMps, boolean speedLimitExceeded,
+                      @Nullable RoadShieldInfo nextStreetRoadShields, String nextNextStreet,
+                      @Nullable RoadShieldInfo nextNextStreetRoadShields, double completionPercent,
+                      int vehicleTurnOrdinal, int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum,
+                      int totalTime, @Nullable LaneInfo[] lanes, double speedLimitMps, boolean speedLimitExceeded,
                       boolean shouldPlayWarningSignal)
   {
     this.distToTarget = distToTarget;
     this.distToTurn = distToTurn;
     this.currentStreet = currentStreet;
     this.nextStreet = nextStreet;
+    this.nextStreetRoadShields = nextStreetRoadShields;
     this.nextNextStreet = nextNextStreet;
+    this.nextNextStreetRoadShields = nextNextStreetRoadShields;
     this.totalTimeInSeconds = totalTime;
     this.completionPercent = completionPercent;
     this.carDirection = CarDirection.values()[vehicleTurnOrdinal];
