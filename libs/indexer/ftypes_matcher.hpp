@@ -408,6 +408,14 @@ public:
   DECLARE_CHECKER_INSTANCE(IsHotelChecker);
 };
 
+class IsCampPitchChecker : public BaseChecker
+{
+  IsCampPitchChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsCampPitchChecker);
+};
+
 // WiFi is a type in classificator.txt,
 // it should be checked for filling metadata in MapObject.
 class IsWifiChecker : public BaseChecker

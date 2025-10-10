@@ -421,6 +421,9 @@ node|z16-[tourism=camp_site],
 node|z16-[tourism=caravan_site],
 {icon-image: caravan_site-m.svg;}
 
+node|z18-[tourism=camp_pitch],
+{icon-image: none; text: none;}
+
 /* ToDo: What is the logic behind different icon-min-distance here (and everywhere else)? */
 node|z14[tourism=theme_park],
 area|z14[tourism=theme_park]

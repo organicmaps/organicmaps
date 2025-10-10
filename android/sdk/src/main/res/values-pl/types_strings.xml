@@ -1414,4 +1414,5 @@
     <string name="type.amenity.boat_rental">Wynajem łodzi</string>
     <string name="type.shop.telecommunication">Sklep telekomunikacyjny</string>
     <string name="type.leisure.indoor_play">Centrum zabaw</string>
+    <string name="type.tourism.camp_pitch">Miejsce kempingowe</string>
 </resources>

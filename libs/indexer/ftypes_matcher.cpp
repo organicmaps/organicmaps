@@ -625,6 +625,12 @@ IsHotelChecker::IsHotelChecker()
     m_types.push_back(c.GetTypeByPath(e));
 }
 
+IsCampPitchChecker::IsCampPitchChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"tourism", "camp_pitch"}));
+}
+
 IsIslandChecker::IsIslandChecker()
 {
   Classificator const & c = classif();
