@@ -71,6 +71,7 @@ public:
 
   struct RoadNameInfo
   {
+    FeatureID m_mwmId;
     // This is for street/road. |m_ref| |m_name|.
     std::string m_name;             // E.g "Johnson Ave.".
     std::string m_destination_ref;  // Number of next road, e.g. "CA 85", Sometimes "CA 85 South". Usually match |m_ref|
