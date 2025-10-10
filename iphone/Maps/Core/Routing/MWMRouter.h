@@ -32,6 +32,7 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *, NSString *);
 
 + (void)setType:(MWMRouterType)type;
 + (MWMRouterType)type;
++ (NSString *)stringFromRouterType:(MWMRouterType)type;
 
 + (void)disableFollowMode;
 
