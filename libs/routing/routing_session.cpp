@@ -328,36 +328,68 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
   return m_state;
 }
 
+void GetRoadShieldsInfo(RouteSegment::RoadNameInfo const & road, FollowingInfo::RoadShieldInfo & info)
+{
+  std::string const & mwmName = road.m_mwmId.GetMwmName();
+  info.m_targetRoadShields = ftypes::GetRoadShields(mwmName, road.HasExitInfo() ? road.m_destination_ref : road.m_ref);
+  info.m_targetRoadShieldsPosition = {0, 0};
+  info.m_junctionShields = ftypes::GetRoadShields(mwmName, road.m_junction_ref);
+  info.m_junctionShieldsPosition = {0, 0};
+}
+
+std::string GetRoadShieldsText(ftypes::RoadShieldsSetT const & roadShields)
+{
+  std::string text;
+  for (std::size_t i = 0; i < roadShields.size(); ++i)
+  {
+    text += "[" + roadShields[i].m_name + "]";
+    if (i < roadShields.size() - 1)
+      text += " ";
+  }
+  return text;
+}
+
 // For next street returns "[ref] name" .
 // For highway exits (or main roads with exit info) returns "[junction:ref]: [target:ref] > target".
 // If no |target| - it will be replaced by |name| of next street.
 // If no |target:ref| - it will be replaced by |ref| of next road.
 // So if link has no info at all, "[ref] name" of next will be returned (as for next street).
-void GetFullRoadName(RouteSegment::RoadNameInfo & road, std::string & name)
+void GetFullRoadName(RouteSegment::RoadNameInfo const & road, FollowingInfo::RoadShieldInfo & roadShields,
+                     std::string & name)
 {
-  if (auto const & sh = ftypes::GetRoadShields(road.m_ref); !sh.empty())
-    road.m_ref = sh[0].m_name;
-  if (auto const & sh = ftypes::GetRoadShields(road.m_destination_ref); !sh.empty())
-    road.m_destination_ref = sh[0].m_name;
+  GetRoadShieldsInfo(road, roadShields);
 
   name.clear();
   if (road.HasExitInfo())
   {
-    if (!road.m_junction_ref.empty())
-      name = "[" + road.m_junction_ref + "]";
+    if (!roadShields.m_junctionShields.empty())
+    {
+      name += GetRoadShieldsText(roadShields.m_junctionShields);
+      roadShields.m_junctionShieldsPosition = {0, strings::Utf8Length(name)};
+    }
 
-    if (!road.m_destination_ref.empty())
-      name += std::string(name.empty() ? "" : ": ") + "[" + road.m_destination_ref + "]";
+    if (!roadShields.m_targetRoadShields.empty())
+    {
+      std::string const & shieldsText = GetRoadShieldsText(roadShields.m_targetRoadShields);
+      if (!name.empty())
+        name += " : ";
+      roadShields.m_targetRoadShieldsPosition.first = strings::Utf8Length(name);
+      name += shieldsText;
+      roadShields.m_targetRoadShieldsPosition.second = strings::Utf8Length(name);
+    }
 
     if (!road.m_destination.empty())
       name += std::string(name.empty() ? "" : " ") + "> " + road.m_destination;
     else if (!road.m_name.empty())
-      name += (road.m_destination_ref.empty() ? std::string(name.empty() ? "" : " ") : ": ") + road.m_name;
+      name += (roadShields.m_targetRoadShields.empty() ? std::string(name.empty() ? "" : " ") : " : ") + road.m_name;
   }
   else
   {
-    if (!road.m_ref.empty())
-      name = "[" + road.m_ref + "]";
+    if (!roadShields.m_targetRoadShields.empty())
+    {
+      name = GetRoadShieldsText(roadShields.m_targetRoadShields);
+      roadShields.m_targetRoadShieldsPosition = {0, strings::Utf8Length(name)};
+    }
     if (!road.m_name.empty())
       name += (name.empty() ? "" : " ") + road.m_name;
   }
@@ -409,13 +441,18 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   info.m_exitNum = turn.m_exitNum;
   info.m_time = static_cast<int>(std::max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
-  RouteSegment::RoadNameInfo currentRoadNameInfo, nextRoadNameInfo, nextNextRoadNameInfo;
+
+  RouteSegment::RoadNameInfo currentRoadNameInfo;
   m_route->GetCurrentStreetName(currentRoadNameInfo);
-  GetFullRoadName(currentRoadNameInfo, info.m_currentStreetName);
+  GetFullRoadName(currentRoadNameInfo, info.m_currentStreetShields, info.m_currentStreetName);
+
+  RouteSegment::RoadNameInfo nextRoadNameInfo;
   m_route->GetNextTurnStreetName(nextRoadNameInfo);
-  GetFullRoadName(nextRoadNameInfo, info.m_nextStreetName);
+  GetFullRoadName(nextRoadNameInfo, info.m_nextStreetShields, info.m_nextStreetName);
+
+  RouteSegment::RoadNameInfo nextNextRoadNameInfo;
   m_route->GetNextNextTurnStreetName(nextNextRoadNameInfo);
-  GetFullRoadName(nextNextRoadNameInfo, info.m_nextNextStreetName);
+  GetFullRoadName(nextNextRoadNameInfo, info.m_nextNextStreetShields, info.m_nextNextStreetName);
 
   info.m_completionPercent = GetCompletionPercent();
 
