@@ -32,7 +32,12 @@ final class BookmarksListPresenter {
       guard let self else { return }
       switch result {
       case .notFound:
-        self.router.goBack()
+        
+        if self.delegate != nil {
+         
+        } else {
+          self.router.goBack()
+        }
       case .success:
         self.bookmarkGroup = self.interactor.getBookmarkGroup()
         self.reload()
