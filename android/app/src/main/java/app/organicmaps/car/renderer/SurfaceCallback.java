@@ -38,7 +38,9 @@ class SurfaceCallback extends SurfaceCallbackBase
 
   private final int mSpeedLimitViewSize;
 
+  @Nullable
   private VirtualDisplay mVirtualDisplay;
+  @Nullable
   private Presentation mPresentation;
 
   public SurfaceCallback(@NonNull CarContext carContext, @NonNull MapController mapController)
@@ -93,8 +95,10 @@ class SurfaceCallback extends SurfaceCallbackBase
   public void onSurfaceDestroyed(@NonNull SurfaceContainer surfaceContainer)
   {
     Logger.d(TAG, "Surface destroyed");
-    mPresentation.dismiss();
-    mVirtualDisplay.release();
+    if (mPresentation != null)
+      mPresentation.dismiss();
+    if (mVirtualDisplay != null)
+      mVirtualDisplay.release();
   }
 
   @NonNull
