@@ -296,4 +296,14 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   return GetFramework().NeedUpdateForRoutes();
 }
 
++ (BOOL)canShowRateUsRequest
+{
+  return GetFramework().CanShowRateUsRequest();
+}
+
++ (void)didShowRateUsRequest
+{
+  GetFramework().DidShowRateUsRequest();
+}
+
 @end
