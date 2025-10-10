@@ -14,6 +14,7 @@
 #import "UIImage+RGBAData.h"
 
 #include <CoreApi/Framework.h>
+#include <CoreApi/StringUtils.h>
 
 #include "platform/distance.hpp"
 #include "platform/local_country_file_utils.hpp"
@@ -191,6 +192,12 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 {
   return routerType(GetFramework().GetRoutingManager().GetRouter());
 }
+
++ (NSString *)stringFromRouterType:(MWMRouterType)type
+{
+  return ToNSString(ToString(coreRouterType(type)).c_str());
+}
+
 + (void)disableFollowMode
 {
   GetFramework().GetRoutingManager().DisableFollowMode();
