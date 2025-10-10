@@ -185,7 +185,6 @@ final class BookmarksListPresenter {
 
   private func viewOnMap() {
     interactor.viewOnMap()
-    router.viewOnMap(bookmarkGroup)
   }
 
   private func sort(_ sortingType: BookmarksListSortingType) {
