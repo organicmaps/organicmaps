@@ -100,7 +100,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   {
     mLocationHelper.removeListener(mLocationListener);
     mNavigationCancelled = true;
-    mRoutingController.cancel();
+    mRoutingController.cancel(false);
   }
 
   /**
@@ -142,10 +142,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     if (!mNavigationCancelled)
       CarToast.makeText(getCarContext(), getCarContext().getString(R.string.trip_finished), CarToast.LENGTH_LONG)
           .show();
-    NavigationService.stopService(getCarContext());
-    ThemeUtils.update(getCarContext());
     finish();
-    getScreenManager().popToRoot();
   }
 
   @Override
@@ -183,6 +180,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     if (mRoutingController.isNavigating())
       mRoutingController.onSaveState();
     mRoutingController.detach();
+    ThemeUtils.update(getCarContext());
     mNavigationManager.navigationEnded();
     mNavigationManager.clearNavigationManagerCallback();
     getSurfaceRenderer().hideSpeedLimit();

@@ -434,7 +434,7 @@ public class RoutingController
     updateProgress();
   }
 
-  private void cancelInternal()
+  private void cancelInternal(boolean deleteSavedRoute)
   {
     Logger.d(TAG, "cancelInternal");
 
@@ -444,17 +444,23 @@ public class RoutingController
     setState(State.NONE);
 
     applyRemovingIntermediatePointsTransaction();
-    Framework.nativeDeleteSavedRoutePoints();
+    if (deleteSavedRoute)
+      Framework.nativeDeleteSavedRoutePoints();
     Framework.nativeCloseRouting();
   }
 
   public boolean cancel()
   {
+    return cancel(true);
+  }
+
+  public boolean cancel(boolean deleteSavedRoute)
+  {
     if (isPlanning())
     {
       Logger.d(TAG, "cancel: planning");
 
-      cancelInternal();
+      cancelInternal(deleteSavedRoute);
       cancelPlanning(true);
       return true;
     }
@@ -463,7 +469,7 @@ public class RoutingController
     {
       Logger.d(TAG, "cancel: navigating");
 
-      cancelInternal();
+      cancelInternal(deleteSavedRoute);
       cancelNavigation(true);
       if (mContainer != null)
       {
