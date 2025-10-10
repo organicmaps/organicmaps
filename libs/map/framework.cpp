@@ -23,7 +23,10 @@
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/engine_context.hpp"
 #include "drape_frontend/gps_track_point.hpp"
+#include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "drape/drape_global.hpp"
 
 #include "descriptions/loader.hpp"
 
@@ -1462,6 +1465,18 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   auto featureReadFn = [this](df::MapDataProvider::TReadCallback<FeatureType> const & fn,
                               vector<FeatureID> const & ids) -> void { m_featuresFetcher.ReadFeatures(fn, ids); };
 
+  auto tileBackgroundReadFn = [](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
+  {
+    // Handle tile background reading for the specified mode.
+    // This is a placeholder implementation; actual logic will depend on application requirements.
+  };
+
+  auto cancelTileBackgroundReadingFn = [](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
+  {
+    // Handle cancellation of tile background reading for the specified tile and mode.
+    // This is a placeholder implementation; actual logic will depend on application requirements.
+  };
+
   auto myPositionModeChangedFn = [this](location::EMyPositionMode mode, bool routingActive)
   {
     GetPlatform().RunTask(Platform::Thread::Gui, [this, mode, routingActive]()
@@ -1504,7 +1519,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   df::DrapeEngine::Params p(
       params.m_apiVersion, contextFactory, dp::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
       df::MapDataProvider(std::move(idReadFn), std::move(featureReadFn), std::move(isCountryLoadedByNameFn),
-                          std::move(updateCurrentCountryFn)),
+                          std::move(updateCurrentCountryFn), std::move(tileBackgroundReadFn),
+                          std::move(cancelTileBackgroundReadingFn)),
       params.m_hints, params.m_visualScale, fontsScaleFactor, std::move(params.m_widgetsInitInfo),
       std::move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, isolinesEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
