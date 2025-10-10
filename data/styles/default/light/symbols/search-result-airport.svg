@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36" height="36" version="1.1" viewBox="0 0 36 36" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <filter id="filter1" x="-.147" y="-.147" width="1.294" height="1.294" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="1.5925"/>
+  </filter>
+  <linearGradient id="linearGradient1" x1="18" x2="18" y1="3" y2="29" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#3fa8f3" offset="0"/>
+   <stop stop-color="#2089d4" offset="1"/>
+  </linearGradient>
+ </defs>
+ <circle cx="18" cy="18" r="13" filter="url(#filter1)" opacity=".35"/>
+ <circle cx="18" cy="16" r="13" fill="url(#linearGradient1)" stroke="#fff" stroke-width="2"/>
+ <path d="m25.312 18.925v-1.4625l-6.1579-3.6562v-4.0219c0-0.60694-0.51572-1.0969-1.1546-1.0969s-1.1546 0.48994-1.1546 1.0969v4.0219l-6.1579 3.6562v1.4625l6.1579-1.8281v4.0219l-1.5394 1.0969v1.0969l2.694-0.73125 2.694 0.73125v-1.0969l-1.5394-1.0969v-4.0219z" fill="#fff"/>
+</svg>

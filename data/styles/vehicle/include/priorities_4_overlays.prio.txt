@@ -512,9 +512,6 @@ amenity-university                                  # icon z15- (also has captio
 amenity-hospital                                    # icon z15- (also has caption(optional) z15-)
 === 1000
 
-aeroway-terminal                                    # caption z15- (also has area z14-)
-=== 950
-
 leisure-beach_resort                                # caption z15- (also has area z10-)
 natural-beach                                       # caption z15- (also has area z10-)
 natural-beach-gravel                                # caption z15- (also has area z10-)
