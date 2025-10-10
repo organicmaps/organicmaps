@@ -159,7 +159,6 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
   public void onDestroy(@NonNull LifecycleOwner owner)
   {
     mDisplayManager.removeListener(DisplayType.Car);
-    CarLocationService.stop(getCarContext());
   }
 
   private void init()

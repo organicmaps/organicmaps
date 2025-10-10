@@ -13,7 +13,6 @@ import androidx.car.app.hardware.info.CarSensors;
 import androidx.car.app.hardware.info.Compass;
 import androidx.core.content.ContextCompat;
 import app.organicmaps.MwmApplication;
-import app.organicmaps.car.CarLocationService;
 import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.util.log.Logger;
 import java.util.List;
@@ -40,7 +39,6 @@ public class CarSensorsManager
   @RequiresPermission(ACCESS_FINE_LOCATION)
   public void onStart()
   {
-    CarLocationService.start(mCarContext);
     final Executor executor = ContextCompat.getMainExecutor(mCarContext);
 
     if (mIsCarCompassUsed)
