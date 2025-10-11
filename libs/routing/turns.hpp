@@ -74,6 +74,7 @@ double constexpr kFeaturesNearTurnMeters = 3.0;
  */
 enum class CarDirection
 {
+  // TODO: Rename None to NoTurn
   None = 0,
   GoStraight,
 
@@ -92,6 +93,7 @@ enum class CarDirection
   LeaveRoundAbout,
   StayOnRoundAbout,
 
+  // TODO: This value is never assigned. Consider removing it.
   StartAtEndOfStreet,
   ReachedYourDestination,
 

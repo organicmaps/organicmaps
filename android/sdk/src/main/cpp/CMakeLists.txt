@@ -25,9 +25,13 @@ set(SRC
   app/organicmaps/sdk/search/DisplayedCategories.cpp
   app/organicmaps/sdk/search/SearchEngine.cpp
   app/organicmaps/sdk/search/SearchRecents.cpp
+  app/organicmaps/sdk/routing/CarDirection.cpp
+  app/organicmaps/sdk/routing/CarDirection.hpp
   app/organicmaps/sdk/routing/JunctionInfo.hpp
   app/organicmaps/sdk/routing/LaneInfo.cpp
   app/organicmaps/sdk/routing/LaneInfo.hpp
+  app/organicmaps/sdk/routing/PedestrianDirection.cpp
+  app/organicmaps/sdk/routing/PedestrianDirection.hpp
   app/organicmaps/sdk/routing/RouteMarkData.hpp
   app/organicmaps/sdk/routing/RouteMarkType.hpp
   app/organicmaps/sdk/routing/RoutePointInfo.hpp

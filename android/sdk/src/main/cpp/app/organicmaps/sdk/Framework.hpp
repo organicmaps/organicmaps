@@ -207,6 +207,11 @@ public:
 
   FeatureID BuildFeatureId(JNIEnv * env, jobject featureId);
 };
+
+namespace framework
+{
+jint registerNativeMethods(JNIEnv * env);
+}  // namespace framework
 }  // namespace android
 
 extern std::unique_ptr<android::Framework> g_framework;
