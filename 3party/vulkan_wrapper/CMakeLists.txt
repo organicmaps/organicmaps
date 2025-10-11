@@ -17,9 +17,12 @@ endif()
 
 target_include_directories(${PROJECT_NAME} PUBLIC .)
 
-if (PLATFORM_LINUX)
-  target_compile_definitions(${PROJECT_NAME} PRIVATE VK_USE_PLATFORM_XLIB_KHR)
-endif()
+target_compile_definitions(${PROJECT_NAME}
+  PRIVATE
+    $<$<BOOL:${PLATFORM_LINUX}>:VK_USE_PLATFORM_XLIB_KHR>
+    $<$<BOOL:${PLATFORM_WIN}>:VK_USE_PLATFORM_WIN32_KHR>
+    $<$<BOOL:${PLATFORM_ANDROID}>:VK_USE_PLATFORM_ANDROID_KHR>
+)
 
 # dlopen
 target_link_libraries(${PROJECT_NAME} $<$<BOOL:CMAKE_DL_LIBS>:${CMAKE_DL_LIBS}>)

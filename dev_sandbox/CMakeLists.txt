@@ -25,14 +25,22 @@ if (${PLATFORM_LINUX})
   )
 endif()
 
+if (PLATFORM_WIN)
+  append(SRC
+    main_windows.cpp
+  )
+endif()
+
 omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
+  drape
   generator  # For borders::LoadBorders
   map
   gflags::gflags
   glfw
   imgui
+  vulkan_wrapper
 )
 
 # Installing Vulkan SDK is optional, however without it Vulkan dynamic libraries
@@ -52,9 +60,12 @@ if (PLATFORM_MAC)
   set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES)
 endif()
 
-if (PLATFORM_LINUX)
-  target_compile_definitions(${PROJECT_NAME} PRIVATE VK_USE_PLATFORM_XLIB_KHR)
-endif()
+target_compile_definitions(${PROJECT_NAME} 
+  PRIVATE
+    $<$<BOOL:${PLATFORM_LINUX}>:VK_USE_PLATFORM_XLIB_KHR>
+    $<$<BOOL:${PLATFORM_WIN}>:VK_USE_PLATFORM_WIN32_KHR>
+    $<$<BOOL:${PLATFORM_ANDROID}>:VK_USE_PLATFORM_ANDROID_KHR>
+)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${OMIM_ROOT}/3party/glfw/include)
 target_include_directories(${PROJECT_NAME} PUBLIC ${OMIM_ROOT}/3party/imgui)
