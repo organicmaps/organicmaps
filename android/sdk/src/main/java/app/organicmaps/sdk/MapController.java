@@ -9,7 +9,7 @@ import app.organicmaps.sdk.util.log.Logger;
 
 public class MapController implements DefaultLifecycleObserver
 {
-  private static final String TAG_PEFRIX = MapController.class.getSimpleName();
+  private static final String TAG_PREFIX = MapController.class.getSimpleName();
   @NonNull
   private final String TAG;
 
@@ -31,7 +31,7 @@ public class MapController implements DefaultLifecycleObserver
     mMap.setLocationHelper(locationHelper);
     mMap.setMapRenderingListener(mapRenderingListener);
     mMap.setCallbackUnsupported(callbackUnsupported);
-    TAG = TAG_PEFRIX + "[" + mMap.getDisplayType() + "]";
+    TAG = TAG_PREFIX + "[" + mMap.getDisplayType() + "]";
   }
 
   public MapView getView()
