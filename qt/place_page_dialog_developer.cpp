@@ -13,6 +13,20 @@
 
 #include <string>
 
+#include <glaze/json/read.hpp>
+
+#include "platform/http_client.hpp"
+
+namespace
+{
+// Returns multiline string visible to user.
+std::string FormatSchedule(std::string const & jsonSchedule)
+{
+  // See libs/platform/platform_tests/glaze_test.cpp and https://stephenberry.github.io/glaze/json/
+  return jsonSchedule;
+}
+}  // namespace
+
 PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page::Info const & info) : QDialog(parent)
 {
   QVBoxLayout * layout = new QVBoxLayout();
@@ -84,6 +98,29 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
   // Route refs
   if (auto routes = info.FormatRouteRefs(); !routes.empty())
     addEntry("Routes", routes);
+
+  if (info.HasOnlineSchedule())
+  {
+    std::ostringstream url;
+    url << "http://localhost:8080/?"
+        << "lat=" << std::setprecision(7) << std::fixed << info.GetLatLon().m_lat << "&lon=" << info.GetLatLon().m_lon
+        << "&name=" << info.GetPrimaryFeatureName()  // Likely translated on mobiles.
+        << "&types=" << strings::JoinStrings(info.GetRawTypes(), ';')
+        << "&local_ref=" << info.GetMetadata(PropID::FMD_LOCAL_REF);
+
+    QLabel * scheduleLabel = addEntry("Schedule", "Loading...");
+    GetPlatform().RunTask(Platform::Thread::Network, [url = std::move(url.str()), scheduleLabel]()
+    {
+      platform::HttpClient client{url};
+      std::string uiString;
+      if (client.RunHttpRequest())
+        uiString = FormatSchedule(client.ServerResponse());
+      else
+        uiString = "Failed to connect to " + client.UrlRequested();
+      auto qs = QString::fromStdString(uiString);
+      scheduleLabel->setText(qs);
+    });
+  }
 
   // Opening hours fragment
   if (auto openingHours = info.GetOpeningHours(); !openingHours.empty())
