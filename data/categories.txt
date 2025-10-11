@@ -1134,7 +1134,7 @@ id:Toko
 it:Negozio
 ja:お買い物|ショップ|商店|雑貨|買い物
 ko:가게|상점
-en:Veikals|Bode|U+1F3EA|U+1F3EC
+lv:Veikals|Bode|U+1F3EA|U+1F3EC
 mr:दुकान|शॉप|स्टोर
 nb:Butikk
 nl:Winkel
@@ -10553,7 +10553,7 @@ ar:ينبوع
 ca:Manantial
 cs:Pramen
 da:Kilde|kildevæld
-eu:Iturburua
+eu:Iturburua|Udaberria
 nl:Bron
 fi:Lähde
 fr:Source
@@ -10572,7 +10572,6 @@ pt-BR:Nascente
 ro:Izvor
 es:Manantial
 et:Allikas
-eu:Udaberria
 sr:Извор|Izvor
 sv:Vattenkälla
 th:ฤดูใบไม้ผลิ
@@ -10615,7 +10614,6 @@ pt-BR:Poço de água
 ro:Puț de apă
 es:Pozo
 et:Kaev
-eu:Ur putzua
 sr:Бунар|Bunar
 sv:Brunn
 th:บ่อน้ำ
@@ -10717,7 +10715,6 @@ mr:पाण्याचा नळ
 # as they are quite big and obvious terrain features on the map anyway.
 @waterbody
 en:Water body|water surface
-be:Вадаём
 ru:Водоём
 ar:مسطح مائي
 be:Вадаём
@@ -10755,7 +10752,7 @@ natural-water|@waterbody
 natural-water-basin|landuse-basin|@waterbody
 en:Basin
 be:Рэзервуар
-ru:Резервуар
+ru:Резервуар|Водный бассейн
 bg:Резервоар
 ar:حوض المياه
 cs:Vodní nádrž
@@ -10782,7 +10779,6 @@ pl:Basen wodny|zbiornik
 pt:Reservatório
 pt-BR:Reservatório
 ro:Bazin de apă
-ru:Водный бассейн
 sk:Vodná nádrž
 sr:Резервоар|Rezervoar
 sv:Vattenbassäng
@@ -10947,7 +10943,6 @@ pt-BR:Rio|Ribeiro|Ribeira|Córrego|Riaxo
 ro:Râu
 es:Río
 et:Jõgi|oja
-eu:Ibai
 sv:Flod
 sr:Река|Reka
 th:แม่น้ำ
@@ -10970,7 +10965,7 @@ bg:канал
 ar:قناة
 cs:Kanál
 da:Kanal
-eu:Ubidea
+eu:Ubidea|Kanala
 nl:Kanaal|waterloop|gracht
 fi:Kanaali
 fr:Canal
@@ -10989,7 +10984,6 @@ pt-BR:Canal
 ro:Canal
 es:Canal
 et:Kanal
-eu:Kanala
 sr:Канал|Kanal
 sv:Kanal
 th:คลอง
@@ -11158,7 +11152,6 @@ zh-Hans:办公室|公司
 zh-Hant:辦公室|1辦事處
 sk:Kancelária|úrad
 el:Γραφείο|εταιρεία
-sk:Kancelária|úrad
 sw:Ofisi|kampuni
 fa:اداره
 mr:कार्यालय|ऑफिस
@@ -16559,7 +16552,6 @@ de:4Videothek|3DVD
 nl:4Videowinkel
 fi:4Videokauppa
 fr:Boutique de vidéos|videostore
-de:4Videoshop
 hi:4वीडियो की दुकान
 hu:4Videotéka
 id:Toko video
