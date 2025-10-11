@@ -183,6 +183,7 @@ void CategoriesHolder::LoadFromStream(std::istream & s)
   Category cat;
   std::vector<uint32_t> types;
   std::vector<std::string> currentGroups;
+  std::set<int8_t> langs;
 
   int lineNumber = 0;
   while (s.good())
@@ -210,6 +211,7 @@ void CategoriesHolder::LoadFromStream(std::istream & s)
       if (!types.empty() || currentGroups.size() == 1)
       {
         state = EParseLanguages;
+        langs.clear();
         AddGroupTranslationsToSynonyms(currentGroups, m_groupTranslations, cat.m_synonyms);
       }
     }
@@ -223,6 +225,7 @@ void CategoriesHolder::LoadFromStream(std::istream & s)
 
       int8_t const langCode = MapLocaleToInteger(*iter);
       CHECK(langCode != kUnsupportedLocaleCode, ("Invalid language code:", *iter, "at line:", lineNumber));
+      ASSERT(langs.insert(langCode).second, ("Duplicating language:", lineNumber));
 
       while (++iter)
       {
