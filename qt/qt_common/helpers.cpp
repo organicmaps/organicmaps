@@ -98,7 +98,7 @@ void SetDefaultSurfaceFormat(QString const & platformName)
 #endif
   }
 
-#ifdef ENABLE_OPENGL_DIAGNOSTICS
+#if defined(ENABLE_OPENGL_DIAGNOSTICS)
   fmt.setOption(QSurfaceFormat::DebugContext);
 #endif
   QSurfaceFormat::setDefaultFormat(fmt);
