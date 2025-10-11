@@ -9,7 +9,6 @@
 #include "geometry/point2d.hpp"
 #include "geometry/region2d.hpp"
 
-#include <cstddef>
 #include <memory>
 #include <string>
 #include <vector>
@@ -30,7 +29,7 @@ public:
   Info GetMwmInfo(m2::PointD const & pt) const;
 
 protected:
-  void LoadRegionsFromDisk(size_t id, std::vector<m2::RegionD> & regions) const;
+  std::vector<m2::RegionD> LoadRegionsFromDisk(size_t id) const;
 
   // storage::CountryInfoGetterBase overrides:
   bool BelongsToRegion(m2::PointD const & pt, size_t id) const override;

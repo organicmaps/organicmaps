@@ -21,6 +21,7 @@
 #include "map/framework.hpp"
 #include "map/user_mark.hpp"
 
+#include "storage/country_info_getter.hpp"
 #include "storage/storage_defines.hpp"
 #include "storage/storage_helpers.hpp"
 

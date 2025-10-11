@@ -716,12 +716,8 @@ void Generator::GetCountryRegions(storage::CountryId const & countryId, m2::Rect
 {
   countryRect = m_infoReader->GetLimitRectForLeaf(countryId);
 
-  size_t id;
-  for (id = 0; id < m_infoReader->GetCountries().size(); ++id)
-    if (m_infoReader->GetCountries().at(id).m_countryId == countryId)
-      break;
-  CHECK_LESS(id, m_infoReader->GetCountries().size(), ());
-
-  m_infoReader->LoadRegionsFromDisk(id, countryRegions);
+  size_t const id = m_infoReader->GetRegionId(countryId);
+  CHECK(id != storage::CountryInfoGetter::kInvalidId, ());
+  countryRegions = m_infoReader->LoadRegionsFromDisk(id);
 }
 }  // namespace topography_generator

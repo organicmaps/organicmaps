@@ -9,9 +9,7 @@
 
 #include "geometry/rect2d.hpp"
 
-#include <cstdint>
 #include <string>
-#include <utility>
 
 namespace storage
 {
