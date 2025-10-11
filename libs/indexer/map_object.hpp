@@ -134,6 +134,7 @@ public:
 
   /// @returns true if object is a public transport stop type.
   bool IsPublicTransportStop() const;
+  bool HasSchedule() const;
 
   void AssignMetadata(feature::Metadata & dest) const { dest = m_metadata; }
 
