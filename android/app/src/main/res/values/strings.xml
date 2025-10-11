@@ -897,4 +897,5 @@
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Share Track</string>
     <string name="delete_track_dialog_title">Delete %s?</string>
+    <string name="track_recording_default_desc">0 m • 0 min</string>
 </resources>
