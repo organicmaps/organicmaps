@@ -45,7 +45,7 @@ DEFINE_string(log_abort_level, base::ToString(base::GetDefaultLogAbortLevel()),
 DEFINE_string(resources_path, "", "Path to resources directory.");
 DEFINE_string(lang, "", "Device language.");
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX) || defined(OMIM_OS_WINDOWS)
 drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GLFWwindow * window, dp::ApiVersion api, m2::PointU size);
 void PrepareDestroyContextFactory(ref_ptr<dp::GraphicsContextFactory> contextFactory);
 void OnCreateDrapeEngine(GLFWwindow * window, dp::ApiVersion api, ref_ptr<dp::GraphicsContextFactory> contextFactory);
@@ -558,6 +558,8 @@ int main(int argc, char * argv[])
         "Metal", "Vulkan", "OpenGL"
 #elif defined(OMIM_OS_LINUX)
         "Vulkan", "OpenGL"
+#elif defined(OMIM_OS_WINDOWS)
+        "Vulkan"
 #endif
     };
     static int currentAPI = 0;
