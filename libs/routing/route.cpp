@@ -166,6 +166,17 @@ void Route::GetCurrentSpeedLimit(SpeedInUnits & speedLimit) const
     speedLimit = m_routeSegments[idx].GetSpeedLimit();
 }
 
+bool Route::IsInTunnel() const
+{
+  if (IsValid())
+  {
+    auto const idx = m_poly.GetCurrentIter().m_ind;
+    if (idx < m_routeSegments.size())
+      return m_routeSegments[idx].IsTunnel();
+  }
+  return false;
+}
+
 void Route::GetCurrentStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const
 {
   GetClosestStreetNameAfterIdx(m_poly.GetCurrentIter().m_ind, roadNameInfo);
