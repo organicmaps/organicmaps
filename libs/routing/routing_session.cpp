@@ -363,6 +363,15 @@ void GetFullRoadName(RouteSegment::RoadNameInfo & road, std::string & name)
   }
 }
 
+void GetRoadShieldsInfo(RouteSegment::RoadNameInfo const & road, FollowingInfo::RoadShieldInfo & info)
+{
+  if (road.HasExitInfo())
+    info.m_targetRoadShields = ftypes::GetRoadShields(road.m_mwmName, road.m_destination_ref);
+  else
+    info.m_targetRoadShields = ftypes::GetRoadShields(road.m_mwmName, road.m_ref);
+  info.m_junctionShields = ftypes::GetRoadShields(road.m_mwmName, road.m_junction_ref);
+}
+
 void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -409,12 +418,19 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   info.m_exitNum = turn.m_exitNum;
   info.m_time = static_cast<int>(std::max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
-  RouteSegment::RoadNameInfo currentRoadNameInfo, nextRoadNameInfo, nextNextRoadNameInfo;
+
+  RouteSegment::RoadNameInfo currentRoadNameInfo;
   m_route->GetCurrentStreetName(currentRoadNameInfo);
   GetFullRoadName(currentRoadNameInfo, info.m_currentStreetName);
+
+  RouteSegment::RoadNameInfo nextRoadNameInfo;
   m_route->GetNextTurnStreetName(nextRoadNameInfo);
+  GetRoadShieldsInfo(nextRoadNameInfo, info.m_nextStreetShields);
   GetFullRoadName(nextRoadNameInfo, info.m_nextStreetName);
+
+  RouteSegment::RoadNameInfo nextNextRoadNameInfo;
   m_route->GetNextNextTurnStreetName(nextNextRoadNameInfo);
+  GetRoadShieldsInfo(nextNextRoadNameInfo, info.m_nextNextStreetShields);
   GetFullRoadName(nextNextRoadNameInfo, info.m_nextNextStreetName);
 
   info.m_completionPercent = GetCompletionPercent();
