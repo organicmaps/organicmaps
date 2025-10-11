@@ -271,8 +271,10 @@ dependencies {
 
   // Google Firebase Services
   if (googleFirebaseServicesEnabled) {
-    // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:34.3.0')
+    // Import the BoM for the Firebase platform.
+    // firebase-crashlytics-ndk requires minSdkVersion 23 since 34.0.0
+    // See https://firebase.google.com/support/release-notes/android#crashlytics-ndk_v20-0-0
+    implementation platform('com.google.firebase:firebase-bom:33.16.0')
     // Add the dependencies for the Crashlytics and Analytics libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-crashlytics'
