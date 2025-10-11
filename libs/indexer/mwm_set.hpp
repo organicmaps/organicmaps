@@ -130,6 +130,7 @@ public:
     explicit MwmId(std::shared_ptr<MwmInfo> const & info) : m_info(info) {}
 
     void Reset() { m_info.reset(); }
+    bool IsNull() const { return m_info == nullptr; }
     bool IsAlive() const { return (m_info && m_info->GetStatus() != MwmInfo::STATUS_DEREGISTERED); }
     bool IsDeregistered(platform::LocalCountryFile const & deregisteredCountryFile) const;
 
@@ -291,6 +292,8 @@ public:
   /// @return true when country is registered and can be used.
   bool IsLoaded(platform::CountryFile const & countryFile) const;
 
+  std::vector<std::string> GetLoadedCountryNames(m2::RectD const & rect) const;
+
   /// @return 0 if country is not loaded.
   int64_t GetMwmVersion(platform::CountryFile const & countryFile) const;
 
@@ -369,6 +372,7 @@ protected:
   /// @precondition This function is always called under mutex m_lock.
   MwmId GetMwmIdByCountryFileImpl(platform::CountryFile const & countryFile) const;
 
+  /// @todo Why vector of MwmInfo's ?!
   std::map<std::string, std::vector<std::shared_ptr<MwmInfo>>> m_info;
 
   mutable std::mutex m_lock;

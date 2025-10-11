@@ -91,18 +91,7 @@ Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge)
 
 bool SegmentCrossesRect(m2::Segment2D const & segment, m2::RectD const & rect)
 {
-  double constexpr kEps = 1e-6;
-  bool isSideIntersected = false;
-  rect.ForEachSide([&segment, &isSideIntersected](m2::PointD const & a, m2::PointD const & b)
-  {
-    if (isSideIntersected)
-      return;
-
-    m2::Segment2D const rectSide(a, b);
-    isSideIntersected = m2::Intersect(segment, rectSide, kEps).m_type != m2::IntersectionResult::Type::Zero;
-  });
-
-  return isSideIntersected;
+  return IsIntersect(segment, rect, 1.0E-6);
 }
 
 bool RectCoversPolyline(IRoadGraph::PointWithAltitudeVec const & junctions, m2::RectD const & rect)

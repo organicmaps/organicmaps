@@ -31,8 +31,8 @@ IntersectionResult Intersect(Line2D const & lhs, Line2D const & rhs, double eps)
   if (fabs(d) < eps)
   {
     if (fabs(n) < eps)
-      return IntersectionResult(IntersectionResult::Type::Infinity);
-    return IntersectionResult(IntersectionResult::Type::Zero);
+      return IntersectionResult::Type::Infinity;
+    return IntersectionResult::Type::Zero;
   }
 
   auto const scale = n / d;

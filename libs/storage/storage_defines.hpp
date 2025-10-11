@@ -4,14 +4,12 @@
 
 #include "base/geo_object_id.hpp"
 
-#include <cstdint>
 #include <functional>
 #include <map>
 #include <memory>
 #include <set>
 #include <string>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 namespace storage

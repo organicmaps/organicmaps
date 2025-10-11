@@ -1,6 +1,7 @@
 #pragma once
 
 #include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
 #include <string>
 
@@ -15,7 +16,7 @@ struct IntersectionResult
     Infinity
   };
 
-  explicit IntersectionResult(Type type) : m_type(type) { ASSERT_NOT_EQUAL(m_type, Type::One, ()); }
+  IntersectionResult(Type type) : m_type(type) { ASSERT_NOT_EQUAL(m_type, Type::One, ()); }
   explicit IntersectionResult(PointD const & point) : m_point(point), m_type(Type::One) {}
 
   PointD m_point;
@@ -42,6 +43,8 @@ bool SegmentsIntersect(PointD const & p1, PointD const & p2, PointD const & p3, 
 /// \breif Intersects two segments and finds an intersection point if any.
 /// \note |eps| applies for collinearity and for PointD errors.
 IntersectionResult Intersect(Segment2D const & seg1, Segment2D const & seg2, double eps);
+
+bool IsIntersect(Segment2D const & segment, RectD const & rect, double eps);
 
 std::string DebugPrint(Segment2D const & s);
 std::string DebugPrint(IntersectionResult::Type type);

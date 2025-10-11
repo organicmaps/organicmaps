@@ -51,7 +51,7 @@ bool SegmentsIntersect(PointD const & a, PointD const & b, PointD const & c, Poi
 IntersectionResult Intersect(Segment2D const & seg1, Segment2D const & seg2, double eps)
 {
   if (!SegmentsIntersect(seg1.m_u, seg1.m_v, seg2.m_u, seg2.m_v))
-    return IntersectionResult(IntersectionResult::Type::Zero);
+    return IntersectionResult::Type::Zero;
 
   Line2D const line1(seg1);
   Line2D const line2(seg2);
@@ -65,7 +65,18 @@ IntersectionResult Intersect(Segment2D const & seg1, Segment2D const & seg2, dou
     return lineIntersection;
   }
 
-  return IntersectionResult(IntersectionResult::Type::Zero);
+  return IntersectionResult::Type::Zero;
+}
+
+bool IsIntersect(Segment2D const & segment, RectD const & rect, double eps)
+{
+  bool isIntersect = false;
+  rect.ForEachSide([&](PointD const & a, PointD const & b)
+  {
+    if (!isIntersect)
+      isIntersect = Intersect(segment, Segment2D(a, b), eps).m_type != IntersectionResult::Type::Zero;
+  });
+  return isIntersect;
 }
 
 std::string DebugPrint(Segment2D const & segment)
