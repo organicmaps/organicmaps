@@ -5,6 +5,7 @@
 
 #include <QtGui/QOpenGLContext>
 
+#include <latch>
 #include <memory>
 
 namespace qt
@@ -28,6 +29,7 @@ public:
   dp::GraphicsContext * GetResourcesUploadContext() override;
   bool IsDrawContextCreated() const override { return m_drawContext != nullptr; }
   bool IsUploadContextCreated() const override { return m_uploadContext != nullptr; }
+  void WaitForInitialization(dp::GraphicsContext * context) override;
 
 private:
   std::unique_ptr<QOffscreenSurface> CreateSurface();
@@ -38,6 +40,9 @@ private:
   std::unique_ptr<QtUploadOGLContext> m_uploadContext;
   std::unique_ptr<QOffscreenSurface> m_uploadSurface;
   bool m_preparedToShutdown = false;
+
+  std::latch m_mainThreadReady = std::latch(1);
+  std::latch m_contextsCreated = std::latch(2);
 };
 }  // namespace common
 }  // namespace qt

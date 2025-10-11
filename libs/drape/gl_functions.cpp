@@ -444,6 +444,15 @@ std::string GLFunctions::glGetString(glConst pname)
 int32_t GLFunctions::glGetMaxLineWidth()
 {
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
+
+// In desktop GL, the only supported value in core profile is 1
+#if defined(GL_CONTEXT_PROFILE_MASK)
+  GLint profile = 0;
+  GLCHECK(::glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &profile));
+  if (profile & GL_CONTEXT_CORE_PROFILE_BIT)
+    return 1;
+#endif
+
   GLint range[2];
   GLCHECK(::glGetIntegerv(GL_ALIASED_LINE_WIDTH_RANGE, range));
   return std::max(range[0], range[1]);
