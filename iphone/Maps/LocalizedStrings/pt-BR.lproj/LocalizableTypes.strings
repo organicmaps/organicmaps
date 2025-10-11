@@ -1379,7 +1379,7 @@
 "type.attraction.amusement_ride" = "Atração de parque de diversão";
 "type.attraction.animal" = "Recinto para animais";
 "type.attraction.bumper_car" = "Bate-bate";
-"type.attraction.big_wheel" = "Roda-gigante";
+"type.attraction.big_wheel" = "Roda gigante";
 "type.attraction.carousel" = "Carrossel";
 "type.attraction.historic" = "Atração histórica";
 "type.attraction.maze" = "Labirinto";
@@ -1498,10 +1498,10 @@
 "type.amenity.ranger_station" = "Ranger Station";
 "type.sport.diving" = "Diving";
 "type.man_made.crane" = "Crane";
-"type.barrier.wicket_gate" = "Wicket Gate";
-"type.barrier.yes" = "Barrier";
-"type.building.guardhouse" = "Guard";
-"type.office.security" = "Security Office";
+"type.barrier.wicket_gate" = "Portão Maldito";
+"type.barrier.yes" = "Barreira";
+"type.building.guardhouse" = "Guarda";
+"type.office.security" = "Escritório de Segurança";
 "type.power.portal" = "Power Tower (Portal)";
 "type.shop.lighting" = "Lighting Shop";
 "type.barrier.log" = "Barreira de toras";

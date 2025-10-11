@@ -1490,7 +1490,7 @@
 "type.highway.ladder" = "Stige";
 "type.landuse.plant_nursery" = "Planteskole";
 "type.leisure.firepit" = "Bålsted";
-"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
+"type.amenity.bicycle_parking.covered" = "Overdækket cykelparkering";
 "type.amenity.luggage_locker" = "Luggage Locker";
 "type.post_office.post_partner" = "Post Partner";
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";

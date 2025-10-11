@@ -75,7 +75,7 @@
 "bookmarks_and_tracks" = "Метки и треки";
 
 /* Default bookmark list name */
-"core_my_places" = "Мои Метки";
+"core_my_places" = "Мои метки";
 
 /* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Адрес";
@@ -211,10 +211,10 @@
 "pref_appearance_dark" = "Темное";
 
 /* Generic «Off» string */
-"off" = "Выключен";
+"off" = "Выключено";
 
 /* Generic «On» string */
-"on" = "Включен";
+"on" = "Включено";
 
 /* Generic «Auto» string */
 "auto" = "Автоматически";
@@ -223,7 +223,7 @@
 "pref_map_3d_title" = "Перспективный вид";
 
 /* Settings «Map» category: «3D buildings» title */
-"pref_map_3d_buildings_title" = "3D здания";
+"pref_map_3d_buildings_title" = "3D-здания";
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D-здания отключаются в режиме энергосбережения";
@@ -241,11 +241,11 @@
 "pref_tts_language_title" = "Язык подсказок";
 
 /* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Протестировать голосовые подсказки (TTS, Text-To-Speech)";
+"pref_tts_test_voice_title" = "Протестировать подсказки (Text-To-Speech)";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Другой";
-"pref_map_auto_zoom" = "Автозум";
+"pref_map_auto_zoom" = "Автомасштабирование";
 "placepage_distance" = "Расстояние";
 "search_show_on_map" = "Посмотреть на карте";
 
@@ -491,7 +491,7 @@
 "editor_done_dialog_1" = "Вы изменили карту мира. Не скрывайте это, расскажите друзьям и редактируйте вместе.";
 "share_with_friends" = "Поделиться с друзьями";
 "editor_report_problem_send_button" = "Отправить";
-"autodownload" = "Автоматическая загрузка";
+"autodownload" = "Автозагрузка карт";
 
 /* Place Page opening hours text */
 "closed_now" = "Сейчас закрыто";
@@ -551,7 +551,7 @@
 "common_check_internet_connection_dialog" = "Проверьте настройки и убедитесь, что устройство подключено к интернету.";
 "downloader_no_space_title" = "Недостаточно места";
 "downloader_no_space_message" = "Удалите ненужные данные";
-"editor_profile_changes" = "Учтённые правки";
+"editor_profile_changes" = "Учтенные правки";
 "editor_focus_map_on_location" = "Перетащите карту, чтобы поместить крестик на место расположения добавляемого объекта или заведения.";
 "editor_add_select_category" = "Выбрать категорию";
 "editor_add_select_category_popular_subtitle" = "Популярные";
@@ -700,11 +700,10 @@
 "traffic_data_unavailable" = "Данные о пробках недоступны";
 "enable_logging" = "Включить запись логов";
 "log_file_size" = "Размер файла логов: %@";
-"transliteration_title" = "Транслитерировать в Латинский алфавит";
+"transliteration_title" = "Транслитерация в латиницу";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Выход";
-
 "planning_route_manage_route" = "Изменить маршрут";
 "button_plan" = "Построить";
 "placepage_remove_stop" = "Удалить остановку";
@@ -722,7 +721,7 @@
 "bookmark_lists" = "Списки";
 
 /* Do not display all bookmark lists on the map */
-"bookmark_lists_hide_all" = "Спрятать все";
+"bookmark_lists_hide_all" = "Скрыть все";
 "bookmark_lists_show_all" = "Показать все";
 "bookmarks_create_new_group" = "Создать новый список";
 
@@ -769,10 +768,10 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Никогда не предупреждать";
 "power_managment_title" = "Режим энергосбережения";
-"power_managment_description" = "Попробовать уменьшить потребление заряда аккумулятора за счёт отключения некоторых функций.";
+"power_managment_description" = "Попробовать уменьшить потребление заряда аккумулятора за счет отключения некоторых функций.";
 "power_managment_setting_never" = "Никогда";
-"power_managment_setting_auto" = "Авто";
-"power_managment_setting_manual_max" = "Максимальное энергосбережение";
+"power_managment_setting_auto" = "При низком заряде";
+"power_managment_setting_manual_max" = "Всегда";
 
 /* Settings/Bookmark Text Placement */
 "bookmarks_text_placement_title" = "Названия меток на карте";
@@ -781,19 +780,18 @@
 "right" = "Справа";
 "show_at_the_bottom" = "Под меткой";
 "bottom" = "Снизу";
-
-"enable_logging_warning_message" = "Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении через кнопку \"Сообщить о проблеме\".";
+"enable_logging_warning_message" = "Эта настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Включайте ее только на время для отправки детальной информации о неполадках, обнаруженных в приложении, через кнопку «Сообщить о проблеме». Логи могут включать данные о местоположении.";
 "driving_options_title" = "Настройки объезда";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Избегать платных дорог";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_unpaved" = "Избегать грунтовые дороги";
+"avoid_unpaved" = "Избегать грунтовых дорог";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_ferry" = "Избегать паромы";
-"avoid_motorways" = "Избегать автомагистрали";
+"avoid_ferry" = "Избегать паромов";
+"avoid_motorways" = "Избегать автомагистралей";
 "unable_to_calc_alert_title" = "Невозможно построить маршрут";
 "unable_to_calc_alert_subtitle" = "Маршрут не найден. Это могло быть спровоцировано вашими настройками прокладки маршрута или неполными данными OpenStreetMap. Пожалуйта, измените ваши настройки прокладки маршрута и попробуйте снова.";
 "define_to_avoid_btn" = "Настроить пути объезда";
@@ -980,7 +978,7 @@
 "button_layer_hiking" = "Пешие маршруты";
 
 /* Cycling routes layer name in the Styles and Layers dialog */
-"button_layer_cycling" = "Веломаршруты";
+"button_layer_cycling" = "Велосипед";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Экспортировать все метки и треки";

@@ -12,10 +12,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%d bogmærke</string>
-			<key>other</key>
-			<string>%d bogmærker</string>
+			<key>zero</key>
+			<string>bogmærke</string>
 		</dict>
 	</dict>
 	<key>bookmarks_detect_message</key>
@@ -28,6 +26,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>Ingen filer fundet.</string>
 			<key>one</key>
 			<string>%d fil blev fundet. Du vil se det efter konvertering.</string>
 			<key>other</key>
@@ -44,6 +44,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d spor</string>
 			<key>other</key>
 			<string>%d spor</string>
 		</dict>

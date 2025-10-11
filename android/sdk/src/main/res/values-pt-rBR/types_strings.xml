@@ -1310,4 +1310,10 @@
     <string name="type.barrier.debris">Destroços</string>
     <string name="type.barrier.jersey_barrier">Bloco</string>
     <string name="type.amenity.boat_rental">Aluguel de barcos</string>
+    <string name="type.tourism.attraction">Atração turística</string>
+    <string name="type.attraction.big_wheel">Roda gigante</string>
+    <string name="type.barrier.wicket_gate">Portão Maldito</string>
+    <string name="type.barrier.yes">Barreira</string>
+    <string name="type.building.guardhouse">Guarda</string>
+    <string name="type.office.security">Escritório de Segurança</string>
 </resources>
