@@ -227,11 +227,8 @@ UNIT_TEST(CountryInfoGetter_RegionRects)
 
   for (size_t i = 0; i < countries.size(); ++i)
   {
-    vector<m2::RegionD> regions;
-    reader->LoadRegionsFromDisk(i, regions);
-
     m2::RectD rect;
-    for (auto const & region : regions)
+    for (auto const & region : reader->LoadRegionsFromDisk(i))
       region.ForEachPoint([&](m2::PointD const & point) { rect.Add(point); });
 
     TEST(AlmostEqualAbs(rect, countries[i].m_rect, kRectCompareEpsilon), (rect, countries[i].m_rect));
@@ -290,11 +287,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
   vector<vector<m2::RegionD>> allRegions;
   allRegions.reserve(countryDefs.size());
   for (size_t i = 0; i < countryDefs.size(); ++i)
-  {
-    vector<m2::RegionD> regions;
-    reader->LoadRegionsFromDisk(i, regions);
-    allRegions.emplace_back(std::move(regions));
-  }
+    allRegions.emplace_back(reader->LoadRegionsFromDisk(i));
 
   size_t totalPoints = 0;
   for (auto const & regs : allRegions)

@@ -125,6 +125,7 @@ public:
   Country * InsertToCountryTree(CountryId const & id, MwmSize /* mapSize */, string const & /* mapSha1 */,
                                 size_t /* depth */, CountryId const & /* parent */) override
   {
+    /// @todo WTF ?! We literally store map X->X.
     CountryInfo info(id);
     m_file2info[id] = std::move(info);
     return nullptr;
