@@ -250,6 +250,13 @@ bool MapObject::IsPublicTransportStop() const
   return ftypes::IsPublicTransportStopChecker::Instance()(m_types);
 }
 
+bool MapObject::HasSchedule() const
+{
+  using namespace ftypes;
+  return IsPublicTransportStopChecker::Instance()(m_types) || IsRailwayStationChecker::Instance()(m_types) ||
+         IsSubwayStationChecker::Instance()(m_types);
+}
+
 std::string DebugPrint(MapObject const & mo)
 {
   return DebugPrint(mo.m_featureID);
