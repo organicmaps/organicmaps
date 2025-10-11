@@ -298,7 +298,7 @@ bool FeatureParams::LooksLikeHouseNumber(std::string const & hn)
   ASSERT(!hn.empty(), ());
   size_t const sz = hn.size();
   return strings::IsASCIIDigit(hn[0]) || (sz == 1 && strings::IsASCIILatin(hn[0])) ||
-         std::count_if(hn.begin(), hn.end(), &strings::IsASCIIDigit) > 0.2 * sz;
+         std::count_if(hn.begin(), hn.end(), &strings::IsASCIIDigit<char>) > 0.2 * sz;
 }
 
 char const * FeatureParams::kHNLogTag = "HNLog";
