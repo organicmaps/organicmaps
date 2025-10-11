@@ -327,9 +327,10 @@ afterEvaluate {
       "name='android.permission.RECEIVE_BOOT_COMPLETED'",
       // all apps targeting Android 13 and higher automatically get RECEIVER_NOT_EXPORTED_PERMISSION flag added to their Manifest files
       // Regex to allow it for the following app packages:
-      // app.organicmaps.(debug|beta|release)
-      // app.organicmaps.web.(debug|beta|release)
-      ~/name='app\.organicmaps(\.web)?\.(debug|beta|release)\.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'/
+      // app.organicmaps
+      // app.organicmaps.(debug|beta)
+      // app.organicmaps.web.(debug|beta)
+      ~/name='app\.organicmaps(\.web)?(\.debug|\.beta)?\.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'/
   ]
   registerCheckApkPermissionsTasks(project, allowedPermissions)
 }
