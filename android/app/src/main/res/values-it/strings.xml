@@ -864,4 +864,6 @@
     <string name="bookmarks_text_placement_description">Se ci sono troppi segnalibri, la loro visualizzazione può rallentare l\'applicazione.</string>
     <string name="share_track">Condividi traccia</string>
     <string name="delete_track_dialog_title">Cancellare %s?</string>
+    <string name="show_to_the_right">Mostra a destra</string>
+    <string name="show_at_the_bottom">Mostra in basso</string>
 </resources>

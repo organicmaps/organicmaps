@@ -23,7 +23,7 @@
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Поиск на карте</string>
     <!-- Location services are disabled by user alert - message -->
-    <string name="location_is_disabled_long_text">Геолокация выключена в настройках устройства. Пожалуйста, включите её для удобного использования программы.</string>
+    <string name="location_is_disabled_long_text">Службы геолокации выключены для устройства или этого приложения. Пожалуйста, включите их в настройках устройства.</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">Точность местоположения ограничена</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
@@ -217,15 +217,15 @@
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Ночной режим</string>
     <!-- Generic «Off» string -->
-    <string name="off">Выключен</string>
+    <string name="off">Выключено</string>
     <!-- Generic «On» string -->
-    <string name="on">Включен</string>
+    <string name="on">Включено</string>
     <!-- Generic «Auto» string -->
     <string name="auto">Автоматически</string>
     <!-- Settings «Map» category: «Perspective view» title -->
     <string name="pref_map_3d_title">Перспективный вид</string>
     <!-- Settings «Map» category: «3D buildings» title -->
-    <string name="pref_map_3d_buildings_title">3D здания</string>
+    <string name="pref_map_3d_buildings_title">3D-здания</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">3D-здания отключаются в режиме энергосбережения</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
@@ -237,12 +237,12 @@
     <!-- Settings «Route» category: «Tts language» title -->
     <string name="pref_tts_language_title">Язык подсказок</string>
     <!-- Settings «Route» category: «Test Voice Directions» title -->
-    <string name="pref_tts_test_voice_title">Протестировать голосовые подсказки (TTS, Text-To-Speech)</string>
+    <string name="pref_tts_test_voice_title">Протестировать подсказки (Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Проверьте громкость или системные настройки преобразования текста в речь, если сейчас ничего не слышно.</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
     <string name="pref_tts_unavailable">Не доступны</string>
-    <string name="pref_map_auto_zoom">Автозум</string>
+    <string name="pref_map_auto_zoom">Автомасштабирование</string>
     <string name="placepage_distance">Расстояние</string>
     <string name="search_show_on_map">Посмотреть на карте</string>
     <!-- Menu button -->
@@ -304,7 +304,7 @@
     <!-- Preference title -->
     <string name="google_play_services">Службы определения местоположения в Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Быстрое определение приблизительного местоположения с помощью Bluetooth, WiFi или мобильной сети</string>
+    <string name="pref_use_google_play">Быстрое определение приблизительного местоположения с помощью Bluetooth, Wi-Fi или мобильной сети</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Загрузите все карты по пути следования</string>
     <!-- Text for routing error dialog -->
@@ -426,7 +426,7 @@
     <string name="editor_report_problem_no_place_title">Места не существует</string>
     <string name="editor_report_problem_under_construction_title">Закрыто на ремонт</string>
     <string name="editor_report_problem_duplicate_place_title">Повторяющееся место</string>
-    <string name="autodownload">Автоматическая загрузка</string>
+    <string name="autodownload">Автозагрузка карт</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Ежедневно</string>
     <string name="twentyfour_seven">Круглосуточно</string>
@@ -476,7 +476,7 @@
     <string name="downloader_no_space_title">Недостаточно места</string>
     <string name="downloader_no_space_message">Удалите ненужные данные</string>
     <string name="editor_login_error_dialog">Произошла ошибка при авторизации.</string>
-    <string name="editor_profile_changes">Учтённые правки</string>
+    <string name="editor_profile_changes">Учтенные правки</string>
     <string name="editor_focus_map_on_location">Перетащите карту, чтобы поместить крестик на место расположения добавляемого объекта или заведения.</string>
     <string name="editor_edit_place_title">Редактирование</string>
     <string name="editor_add_place_title">Добавление</string>
@@ -582,7 +582,7 @@
 \nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.
 \nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
     <string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
-    <string name="transliteration_title">Транслитерировать в Латинский алфавит</string>
+    <string name="transliteration_title">Транслитерация в латиницу</string>
     <string name="learn_more">Узнать больше</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Используйте поиск или коснитесь карты, чтобы добавить начальную точку маршрута</string>
@@ -600,7 +600,7 @@
     <string name="error_enter_correct_name">Пожалуйста, введите название правильно</string>
     <string name="bookmark_lists">Списки</string>
     <!-- Do not display all bookmark lists on the map -->
-    <string name="bookmark_lists_hide_all">Спрятать все</string>
+    <string name="bookmark_lists_hide_all">Скрыть все</string>
     <string name="bookmark_lists_show_all">Показать все</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d метка</item>
@@ -641,7 +641,7 @@
     <string name="terms_of_use">Условия использования</string>
     <string name="button_layer_traffic">Пробки</string>
     <string name="button_layer_hiking">Пешие маршруты</string>
-    <string name="button_layer_cycling">Веломаршруты</string>
+    <string name="button_layer_cycling">Велосипед</string>
     <string name="button_layer_subway">Метро</string>
     <string name="layers_title">Стили и слои карты</string>
     <string name="bookmarks_empty_list_title">Список пустой</string>
@@ -661,23 +661,23 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">Никогда не предупреждать</string>
     <string name="power_managment_title">Режим энергосбережения</string>
-    <string name="power_managment_description">Попробовать уменьшить потребление заряда аккумулятора за счёт отключения некоторых функций.</string>
+    <string name="power_managment_description">Попробовать уменьшить потребление заряда аккумулятора за счет отключения некоторых функций.</string>
     <string name="power_managment_setting_never">Никогда</string>
-    <string name="power_managment_setting_auto">Авто</string>
-    <string name="power_managment_setting_manual_max">Максимальное энергосбережение</string>
+    <string name="power_managment_setting_auto">При низком заряде</string>
+    <string name="power_managment_setting_manual_max">Всегда</string>
     <string name="bookmarks_text_placement_title">Названия меток на карте</string>
     <string name="bookmarks_text_placement_description">Если меток слишком много, отображение их названий на карте может замедлить работу приложения.</string>
     <string name="show_to_the_right">Справа от метки</string>
     <string name="show_at_the_bottom">Под меткой</string>
-    <string name="enable_logging_warning_message">Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении через кнопку \"Сообщить о проблеме\".</string>
+    <string name="enable_logging_warning_message">Эта настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Включайте ее только на время для отправки детальной информации о неполадках, обнаруженных в приложении, через кнопку «Сообщить о проблеме». Логи могут включать данные о местоположении.</string>
     <string name="driving_options_title">Настройки объезда</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Избегать платных дорог</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
-    <string name="avoid_unpaved">Избегать грунтовые дороги</string>
+    <string name="avoid_unpaved">Избегать грунтовых дорог</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
-    <string name="avoid_ferry">Избегать паромы</string>
-    <string name="avoid_motorways">Избегать автомагистрали</string>
+    <string name="avoid_ferry">Избегать паромов</string>
+    <string name="avoid_motorways">Избегать автомагистралей</string>
     <string name="unable_to_calc_alert_title">Невозможно построить маршрут</string>
     <string name="unable_to_calc_alert_subtitle">Маршрут не найден. Это могло быть спровоцировано вашими настройками прокладки маршрута или неполными данными OpenStreetMap. Пожалуйта, измените ваши настройки прокладки маршрута и попробуйте снова.</string>
     <string name="define_to_avoid_btn">Настроить пути объезда</string>

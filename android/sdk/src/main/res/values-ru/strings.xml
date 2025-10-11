@@ -6,7 +6,7 @@
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">Мое местоположение</string>
     <!-- Default bookmark list name -->
-    <string name="core_my_places">Мои Метки</string>
+    <string name="core_my_places">Мои метки</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
     <string name="maps_storage_internal">Внутренний скрытый накопитель</string>
     <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
@@ -16,7 +16,7 @@
     <!-- Generic external storage type in Maps Storage settings -->
     <string name="maps_storage_external">Внешний общий накопитель</string>
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
+    <string name="category_wifi">Wi-Fi</string>
     <string name="postal_code">Почтовый индекс</string>
     <!-- Place Page title for long tap -->
     <string name="core_placepage_unknown_place">Точка на карте</string>
