@@ -128,11 +128,18 @@ UniString MakeUniString(std::string_view utf8s);
 std::string ToUtf8(UniString const & s);
 std::u16string ToUtf16(std::string_view utf8);
 bool IsASCIIString(std::string_view sv);
-bool IsASCIIDigit(UniChar c);
+
+// std::isdigit is locale-dependent and fails for trailing UTF-8 characters.
+template <std::integral T>
+inline constexpr bool IsASCIIDigit(T c)
+{
+  return c >= '0' && c <= '9';
+}
+
 template <class StringT>
 bool IsASCIINumeric(StringT const & str)
 {
-  return !std::empty(str) && std::all_of(std::begin(str), std::end(str), &IsASCIIDigit);
+  return !std::empty(str) && std::all_of(std::begin(str), std::end(str), &IsASCIIDigit<typename StringT::value_type>);
 }
 inline bool IsASCIINumeric(char const * s)
 {

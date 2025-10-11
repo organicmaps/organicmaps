@@ -317,11 +317,6 @@ bool IsASCIIString(std::string_view sv)
   return true;
 }
 
-bool IsASCIIDigit(UniChar c)
-{
-  return c >= '0' && c <= '9';
-}
-
 bool IsASCIILatin(UniChar c)
 {
   return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
