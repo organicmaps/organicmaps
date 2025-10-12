@@ -6,7 +6,7 @@ import app.organicmaps.sdk.R;
 /**
  * IMPORTANT : Order of enum values MUST BE the same as native PedestrianDirection enum.
  */
-public enum PedestrianTurnDirection
+public enum PedestrianDirection
 {
   NoTurn(R.drawable.ic_turn_straight),
   GoStraight(R.drawable.ic_turn_straight),
@@ -18,7 +18,7 @@ public enum PedestrianTurnDirection
 
   private final int mTurnRes;
 
-  PedestrianTurnDirection(@DrawableRes int mainResId)
+  PedestrianDirection(@DrawableRes int mainResId)
   {
     mTurnRes = mainResId;
   }

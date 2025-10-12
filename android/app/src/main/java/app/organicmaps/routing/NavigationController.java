@@ -20,7 +20,6 @@ import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
-import app.organicmaps.sdk.routing.CarDirection;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.util.StringUtils;
@@ -127,7 +126,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   private void updatePedestrian(@NonNull RoutingInfo info)
   {
     mNextTurnDistance.setText(Utils.formatDistance(mFrame.getContext(), info.distToTurn));
-    mNextTurnImage.setImageResource(info.pedestrianTurnDirection.getTurnRes());
+    mNextTurnImage.setImageResource(info.pedestrianDirection.getTurnRes());
   }
 
   public void updateNorth()

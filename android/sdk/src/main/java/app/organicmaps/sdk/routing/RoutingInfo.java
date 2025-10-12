@@ -33,7 +33,7 @@ public final class RoutingInfo
   public final LaneInfo[] lanes;
   // For pedestrian routing.
   @NonNull
-  public final PedestrianTurnDirection pedestrianTurnDirection;
+  public final PedestrianDirection pedestrianDirection;
   // Current speed limit in meters per second.
   // If no info about speed limit then speedLimitMps < 0.
   public final double speedLimitMps;
@@ -42,10 +42,9 @@ public final class RoutingInfo
 
   private RoutingInfo(Distance distToTarget, Distance distToTurn, String currentStreet, String nextStreet,
                       String nextNextStreet, double completionPercent, @NonNull CarDirection carTurnDirection,
-                      @NonNull CarDirection carNextTurnDirection,
-                      @NonNull PedestrianTurnDirection pedestrianTurnDirection, int exitNum, int totalTime,
-                      @Nullable LaneInfo[] lanes, double speedLimitMps, boolean speedLimitExceeded,
-                      boolean shouldPlayWarningSignal)
+                      @NonNull CarDirection carNextTurnDirection, @NonNull PedestrianDirection pedestrianDirection,
+                      int exitNum, int totalTime, @Nullable LaneInfo[] lanes, double speedLimitMps,
+                      boolean speedLimitExceeded, boolean shouldPlayWarningSignal)
   {
     this.distToTarget = distToTarget;
     this.distToTurn = distToTurn;
@@ -58,7 +57,7 @@ public final class RoutingInfo
     this.nextCarDirection = carNextTurnDirection;
     this.lanes = lanes;
     this.exitNum = exitNum;
-    this.pedestrianTurnDirection = pedestrianTurnDirection;
+    this.pedestrianDirection = pedestrianDirection;
     this.speedLimitMps = speedLimitMps;
     this.speedCamLimitExceeded = speedLimitExceeded;
     this.shouldPlayWarningSignal = shouldPlayWarningSignal;
