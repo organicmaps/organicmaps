@@ -11,6 +11,12 @@ import androidx.annotation.Nullable;
 
 public class AudioFocusManager
 {
+  public static final AudioAttributes AUDIO_ATTRIBUTES =
+      new AudioAttributes.Builder()
+          .setUsage(AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE)
+          .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+          .build();
+
   @Nullable
   private AudioManager mAudioManager = null;
   @Nullable
@@ -27,10 +33,7 @@ public class AudioFocusManager
       mOnFocusChange = focusGain -> {};
     else
       mAudioFocusRequest = new AudioFocusRequest.Builder(AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
-                               .setAudioAttributes(new AudioAttributes.Builder()
-                                                       .setUsage(AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE)
-                                                       .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-                                                       .build())
+                               .setAudioAttributes(AUDIO_ATTRIBUTES)
                                .build();
   }
 
