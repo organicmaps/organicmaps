@@ -12,10 +12,6 @@
 
 #include "drape/vulkan/vulkan_context_factory.hpp"
 
-#include "drape/gl_functions.hpp"
-#include "drape/gl_includes.hpp"
-#include "drape/oglcontext.hpp"
-
 #include <array>
 #include <atomic>
 #include <memory>
@@ -92,8 +88,8 @@ void PrepareDestroyContextFactory(ref_ptr<dp::GraphicsContextFactory> contextFac
   auto const api = contextFactory->GetDrawContext()->GetApiVersion();
   if (api == dp::ApiVersion::Vulkan)
   {
-    ref_ptr<WindowsVulkanContextFactory> linuxContextFactory = contextFactory;
-    linuxContextFactory->ResetSurface();
+    ref_ptr<WindowsVulkanContextFactory> windowsContextFactory = contextFactory;
+    windowsContextFactory->ResetSurface();
   }
   else
   {
