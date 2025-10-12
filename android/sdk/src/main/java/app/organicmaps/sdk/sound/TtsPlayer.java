@@ -163,6 +163,7 @@ public enum TtsPlayer
       }
       refreshLanguages();
       mTts.setSpeechRate(SPEECH_RATE);
+      mTts.setAudioAttributes(AudioFocusManager.AUDIO_ATTRIBUTES);
       mTts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
         @Override
         public void onStart(String utteranceId)
