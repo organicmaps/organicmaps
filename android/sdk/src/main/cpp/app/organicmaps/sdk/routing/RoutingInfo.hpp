@@ -13,23 +13,24 @@ jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, Rou
   //                              double completionPercent, int vehicleTurnOrdinal, int
   //                              vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum,
   //                              int totalTime, LaneInfo[] lanes, double speedLimitMps, boolean speedLimitExceeded,
-  //                              boolean shouldPlayWarningSignal)
+  //                              boolean shouldPlayWarningSignal, boolean rightHandDriving)
   static jmethodID const ctorRouteInfoID =
       jni::GetConstructorID(env, klass,
                             "(Lapp/organicmaps/sdk/util/Distance;Lapp/organicmaps/sdk/util/Distance;"
                             "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;DIIIII"
-                            "[Lapp/organicmaps/sdk/routing/LaneInfo;DZZ)V");
+                            "[Lapp/organicmaps/sdk/routing/LaneInfo;DZZZ)V");
 
   jobjectArray jLanes = CreateLanesInfo(env, info.m_lanes);
 
   auto const isSpeedCamLimitExceeded = rm.IsSpeedCamLimitExceeded();
   auto const shouldPlaySignal = rm.GetSpeedCamManager().ShouldPlayBeepSignal();
-  jobject const result = env->NewObject(
-      klass, ctorRouteInfoID, ToJavaDistance(env, info.m_distToTarget), ToJavaDistance(env, info.m_distToTurn),
-      jni::ToJavaString(env, info.m_currentStreetName), jni::ToJavaString(env, info.m_nextStreetName),
-      jni::ToJavaString(env, info.m_nextNextStreetName), info.m_completionPercent, info.m_turn, info.m_nextTurn,
-      info.m_pedestrianTurn, info.m_exitNum, info.m_time, jLanes, info.m_speedLimitMps,
-      static_cast<jboolean>(isSpeedCamLimitExceeded), static_cast<jboolean>(shouldPlaySignal));
+  jobject const result =
+      env->NewObject(klass, ctorRouteInfoID, ToJavaDistance(env, info.m_distToTarget),
+                     ToJavaDistance(env, info.m_distToTurn), jni::ToJavaString(env, info.m_currentStreetName),
+                     jni::ToJavaString(env, info.m_nextStreetName), jni::ToJavaString(env, info.m_nextNextStreetName),
+                     info.m_completionPercent, info.m_turn, info.m_nextTurn, info.m_pedestrianTurn, info.m_exitNum,
+                     info.m_time, jLanes, info.m_speedLimitMps, static_cast<jboolean>(isSpeedCamLimitExceeded),
+                     static_cast<jboolean>(shouldPlaySignal), static_cast<jboolean>(info.m_isRightHandDriving));
   ASSERT(result, (jni::DescribeException()));
   return result;
 }

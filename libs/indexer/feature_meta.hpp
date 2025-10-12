@@ -227,6 +227,8 @@ public:
   bool HasLanguage(int8_t const lang) const;
   bool IsSingleLanguage(int8_t const lang) const;
 
+  bool IsRightHandDriving() const;
+
   void AddPublicHoliday(int8_t month, int8_t offset);
   // No public holidays getters until we know what to do with these.
 

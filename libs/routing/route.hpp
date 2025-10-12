@@ -80,6 +80,8 @@ public:
     std::string m_destination;   // E.g. "Cupertino".
     std::string m_ref;           // Number of street/road e.g. "CA 85".
     bool m_isLink = false;
+    // TODO: should it be here and be loaded for each segment? Can we find a better place?
+    bool m_isRightHandDriving = true;
 
     RoadNameInfo() = default;
     RoadNameInfo(std::string name) : m_name(std::move(name)) {}
