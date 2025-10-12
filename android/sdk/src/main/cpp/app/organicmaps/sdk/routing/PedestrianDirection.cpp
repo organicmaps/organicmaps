@@ -2,7 +2,7 @@
 
 namespace
 {
-std::string ToJavaPedestrianTurnDirectionName(routing::turns::PedestrianDirection pedestrianDirection)
+std::string ToJavaPedestrianDirectionName(routing::turns::PedestrianDirection pedestrianDirection)
 {
   if (pedestrianDirection == routing::turns::PedestrianDirection::None)
     return "NoTurn";
@@ -10,12 +10,12 @@ std::string ToJavaPedestrianTurnDirectionName(routing::turns::PedestrianDirectio
 }
 }  // namespace
 
-jobject ToJavaPedestrianTurnDirection(JNIEnv * env, routing::turns::PedestrianDirection pedestrianDirection)
+jobject ToJavaPedestrianDirection(JNIEnv * env, routing::turns::PedestrianDirection pedestrianDirection)
 {
   static jclass const pedestrianDirectionClass =
-      jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/PedestrianTurnDirection");
+      jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/PedestrianDirection");
   jfieldID fieldID =
-      env->GetStaticFieldID(pedestrianDirectionClass, ToJavaPedestrianTurnDirectionName(pedestrianDirection).c_str(),
-                            "Lapp/organicmaps/sdk/routing/PedestrianTurnDirection;");
+      env->GetStaticFieldID(pedestrianDirectionClass, ToJavaPedestrianDirectionName(pedestrianDirection).c_str(),
+                            "Lapp/organicmaps/sdk/routing/PedestrianDirection;");
   return env->GetStaticObjectField(pedestrianDirectionClass, fieldID);
 }

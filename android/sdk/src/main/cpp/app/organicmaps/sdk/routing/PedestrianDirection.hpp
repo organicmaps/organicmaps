@@ -6,4 +6,4 @@
 
 #include "routing/turns.hpp"
 
-jobject ToJavaPedestrianTurnDirection(JNIEnv * env, routing::turns::PedestrianDirection turn);
+jobject ToJavaPedestrianDirection(JNIEnv * env, routing::turns::PedestrianDirection turn);
