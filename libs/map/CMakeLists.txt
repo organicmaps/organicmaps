@@ -90,6 +90,7 @@ target_link_libraries(${PROJECT_NAME}
   routing
   indexer
   search
+  storage
   descriptions
   transit
   kml

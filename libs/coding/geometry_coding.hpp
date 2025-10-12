@@ -303,8 +303,8 @@ inline void const * LoadInnerTriangles(void const * pBeg, size_t count, Geometry
 void DecodeTriangles(coding::InDeltasT const & deltas, m2::PointU const & basePoint, m2::PointU const & maxPoint,
                      coding::OutPointsT & triangles);
 
-template <class TSource>
-void LoadOuterTriangles(TSource & src, GeometryCodingParams const & params, OutPointsT & triangles)
+template <class TSource, class TTriangles>
+void LoadOuterTriangles(TSource & src, GeometryCodingParams const & params, TTriangles & triangles)
 {
   uint32_t const count = ReadVarUint<uint32_t>(src);
 
