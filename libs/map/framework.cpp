@@ -1451,11 +1451,34 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point, double lat, doubl
 
 void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFactory, DrapeCreationParams && params)
 {
-  auto idReadFn = [this](df::MapDataProvider::TReadCallback<FeatureID const> const & fn, m2::RectD const & r,
-                         int scale) -> void { m_featuresFetcher.ForEachFeatureID(r, fn, scale); };
+  auto idReadFn = [this](df::MapDataProvider::TReadCallback<FeatureID const> const & fn, m2::RectD const & r, int scale)
+  {
+    m_featuresFetcher.ForEachFeatureID(r, fn, scale);
 
-  auto featureReadFn = [this](df::MapDataProvider::TReadCallback<FeatureType> const & fn,
-                              vector<FeatureID> const & ids) -> void { m_featuresFetcher.ReadFeatures(fn, ids); };
+    if (scale <= 7)
+    {
+      auto names = m_featuresFetcher.GetDataSource().GetLoadedCountryNames(r);
+      ASSERT(base::IsSortedAndUnique(names), ());
+      m_infoGetter->ForEachRegionId(names, [&fn](size_t id) { fn(FeatureID({}, id)); });
+    }
+  };
+
+  uint32_t const borderType = classif().GetTypeByPath({"organicapp", "mwm_border"});
+  auto featureReadFn =
+      [this, borderType](df::MapDataProvider::TReadCallback<FeatureType> const & fn, vector<FeatureID> const & ids)
+  {
+    m_featuresFetcher.ReadFeatures(fn, ids);
+
+    for (auto const & id : ids)
+      if (id.m_mwmId.IsNull())
+      {
+        FeatureType ft(id, borderType);
+        m_infoGetter->GetTriangles(id.m_index, ft);
+        fn(ft);
+      }
+      else
+        break;
+  };
 
   auto tileBackgroundReadFn = [](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
   {

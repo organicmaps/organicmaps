@@ -193,6 +193,23 @@ FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buf
   m_header = Header(m_data);  // Parse the header and optional name/layer/addinfo.
 }
 
+FeatureType::FeatureType(FeatureID fid, uint32_t type)
+{
+  m_id = std::move(fid);
+  m_types[0] = type;
+  m_parsed.m_types = m_parsed.m_common = m_parsed.m_header2 = true;
+}
+
+void FeatureType::SetTriangles(std::vector<m2::PointD> const & pts)
+{
+  m_header = static_cast<uint8_t>(HeaderGeomType::Area);
+
+  m_triangles.assign(pts.begin(), pts.end());
+  CalcRect(m_triangles, m_limitRect);
+
+  m_parsed.m_points = m_parsed.m_triangles = true;
+}
+
 std::unique_ptr<FeatureType> FeatureType::CreateFromMapObject(osm::MapObject const & emo)
 {
   auto ft = std::unique_ptr<FeatureType>(new FeatureType());
@@ -481,7 +498,7 @@ void FeatureType::ParseGeometry(int scale)
   {
     ParseHeader2();
 
-    auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
+    auto const headerGeomType = static_cast<HeaderGeomType>(m_header & HEADER_MASK_GEOMTYPE);
     if (headerGeomType == HeaderGeomType::Line)
     {
       size_t const pointsCount = m_points.size();
@@ -581,7 +598,7 @@ void FeatureType::ParseTriangles(int scale)
   {
     ParseHeader2();
 
-    auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
+    auto const headerGeomType = static_cast<HeaderGeomType>(m_header & HEADER_MASK_GEOMTYPE);
     if (headerGeomType == HeaderGeomType::Area)
     {
       if (m_triangles.empty())
