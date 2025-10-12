@@ -51,9 +51,9 @@ public final class RoutingHelpers
 
   @NonNull
   public static Maneuver createManeuver(@NonNull final CarContext context, @NonNull CarDirection carDirection,
-                                        int roundaboutExitNum)
+                                        int roundaboutExitNum, boolean rightHandDriving)
   {
-    int maneuverType = switch (carDirection)
+    final int maneuverType = switch (carDirection)
     {
       case NO_TURN, GO_STRAIGHT -> Maneuver.TYPE_STRAIGHT;
       case TURN_RIGHT -> Maneuver.TYPE_TURN_NORMAL_RIGHT;
@@ -64,15 +64,20 @@ public final class RoutingHelpers
       case TURN_SLIGHT_LEFT -> Maneuver.TYPE_TURN_SLIGHT_LEFT;
       case U_TURN_LEFT -> Maneuver.TYPE_U_TURN_LEFT;
       case U_TURN_RIGHT -> Maneuver.TYPE_U_TURN_RIGHT;
-      // TODO (AndrewShkrob): add support for CW (clockwise) directions
-      case ENTER_ROUND_ABOUT, STAY_ON_ROUND_ABOUT, LEAVE_ROUND_ABOUT -> Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW;
+      case ENTER_ROUND_ABOUT, STAY_ON_ROUND_ABOUT, LEAVE_ROUND_ABOUT ->
+      {
+        if (rightHandDriving)
+          yield Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW;
+        else
+          yield Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CW;
+      }
       case START_AT_THE_END_OF_STREET -> Maneuver.TYPE_DEPART;
       case REACHED_YOUR_DESTINATION -> Maneuver.TYPE_DESTINATION;
       case EXIT_HIGHWAY_TO_LEFT -> Maneuver.TYPE_OFF_RAMP_SLIGHT_LEFT;
       case EXIT_HIGHWAY_TO_RIGHT -> Maneuver.TYPE_OFF_RAMP_SLIGHT_RIGHT;
     };
     final Maneuver.Builder builder = new Maneuver.Builder(maneuverType);
-    if (maneuverType == Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW)
+    if (CarDirection.isRoundAbout(carDirection))
       builder.setRoundaboutExitNumber(roundaboutExitNum > 0 ? roundaboutExitNum : 1);
     builder.setIcon(
         new CarIcon.Builder(IconCompat.createWithResource(context, carDirection.getTurnRes(roundaboutExitNum)))

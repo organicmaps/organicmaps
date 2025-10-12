@@ -66,7 +66,7 @@ public final class RoutingUtils
     final Step.Builder builder = new Step.Builder();
     builder.setCue(info.nextStreet);
     builder.setRoad(info.nextStreet);
-    builder.setManeuver(RoutingHelpers.createManeuver(context, info.carDirection, info.exitNum));
+    builder.setManeuver(RoutingHelpers.createManeuver(context, info.carDirection, info.exitNum, info.rightHandDriving));
     if (info.lanes != null)
     {
       for (final LaneInfo laneInfo : info.lanes)
@@ -90,7 +90,7 @@ public final class RoutingUtils
   {
     final Step.Builder builder = new Step.Builder();
     builder.setCue(info.nextNextStreet);
-    builder.setManeuver(RoutingHelpers.createManeuver(context, info.nextCarDirection, 0));
+    builder.setManeuver(RoutingHelpers.createManeuver(context, info.nextCarDirection, 0, info.rightHandDriving));
 
     return builder.build();
   }

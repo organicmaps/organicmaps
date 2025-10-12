@@ -236,6 +236,13 @@ bool RegionData::IsSingleLanguage(int8_t const lang) const
   return value.front() == lang;
 }
 
+bool RegionData::IsRightHandDriving() const
+{
+  auto const value = Get(RegionData::Type::RD_DRIVING);
+  // May be not set. Let's check for left-hand driving which must always be set
+  return value != "l";
+}
+
 void RegionData::AddPublicHoliday(int8_t month, int8_t offset)
 {
   string value(Get(RegionData::Type::RD_PUBLIC_HOLIDAYS));

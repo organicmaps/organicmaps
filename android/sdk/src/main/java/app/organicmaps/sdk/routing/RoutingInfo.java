@@ -33,6 +33,8 @@ public final class RoutingInfo
   // Current speed limit in meters per second.
   // If no info about speed limit then speedLimitMps < 0.
   public final double speedLimitMps;
+  public final boolean rightHandDriving;
+
   private final boolean speedCamLimitExceeded;
   private final boolean shouldPlayWarningSignal;
 
@@ -40,7 +42,7 @@ public final class RoutingInfo
                       String nextNextStreet, double completionPercent, int vehicleTurnOrdinal,
                       int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum, int totalTime,
                       @Nullable LaneInfo[] lanes, double speedLimitMps, boolean speedLimitExceeded,
-                      boolean shouldPlayWarningSignal)
+                      boolean shouldPlayWarningSignal, boolean rightHandDriving)
   {
     this.distToTarget = distToTarget;
     this.distToTurn = distToTurn;
@@ -57,6 +59,7 @@ public final class RoutingInfo
     this.speedLimitMps = speedLimitMps;
     this.speedCamLimitExceeded = speedLimitExceeded;
     this.shouldPlayWarningSignal = shouldPlayWarningSignal;
+    this.rightHandDriving = rightHandDriving;
   }
 
   public boolean isSpeedCamLimitExceeded()

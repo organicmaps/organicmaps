@@ -63,5 +63,7 @@ public:
   // Current speed limit in meters per second.
   // If no info about speed limit then m_speedLimitMps < 0.
   double m_speedLimitMps = -1.0;
+
+  bool m_isRightHandDriving = true;
 };
 }  // namespace routing

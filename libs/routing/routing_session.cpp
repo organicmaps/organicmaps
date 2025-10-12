@@ -427,6 +427,8 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   // Pedestrian info.
   info.m_pedestrianTurn =
       (distanceToTurnMeters < kShowPedestrianTurnInMeters) ? turn.m_pedestrianTurn : turns::PedestrianDirection::None;
+
+  info.m_isRightHandDriving = currentRoadNameInfo.m_isRightHandDriving;
 }
 
 double RoutingSession::GetCompletionPercent() const
