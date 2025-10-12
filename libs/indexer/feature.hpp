@@ -37,6 +37,9 @@ public:
   using GeometryOffsets = buffer_vector<uint32_t, feature::DataHeader::kMaxScalesCount>;
 
   FeatureType(feature::SharedLoadInfo const * loadInfo, std::vector<uint8_t> && buffer);
+  FeatureType(FeatureID fid, uint32_t type);
+
+  void SetTriangles(std::vector<m2::PointD> const & pts);
 
   static std::unique_ptr<FeatureType> CreateFromMapObject(osm::MapObject const & emo);
 

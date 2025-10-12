@@ -3,6 +3,8 @@
 #include "storage/country_decl.hpp"
 #include "storage/country_tree.hpp"
 
+#include "indexer/feature.hpp"
+
 #include "coding/geometry_coding.hpp"
 #include "coding/read_write_utils.hpp"
 
@@ -10,7 +12,6 @@
 #include "geometry/region2d.hpp"
 
 #include "base/logging.hpp"
-#include "base/string_utils.hpp"
 
 namespace storage
 {
@@ -196,7 +197,7 @@ std::unique_ptr<CountryInfoGetter> CountryInfoReader::CreateCountryInfoGetter(Pl
 std::vector<m2::RegionD> CountryInfoReader::LoadRegionsFromDisk(RegionId id) const
 {
   std::vector<m2::RegionD> result;
-  ReaderSource<ModelReaderPtr> src(m_reader.GetReader(strings::to_string(id)));
+  ReaderSource<ModelReaderPtr> src(m_reader.GetReader(std::to_string(id)));
 
   uint32_t const count = ReadVarUint<uint32_t>(src);
   for (size_t i = 0; i < count; ++i)
@@ -210,8 +211,8 @@ std::vector<m2::RegionD> CountryInfoReader::LoadRegionsFromDisk(RegionId id) con
 
 CountryInfoReader::CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countryR)
   : m_reader(polyR)
-  , m_cache(3 /* logCacheSize */)
-
+  , m_polyCache(3 /* logCacheSize */)
+  , m_trgCache(6 /* logCacheSize */)
 {
   ReaderSource<ModelReaderPtr> src(m_reader.GetReader(PACKED_POLYGONS_INFO_TAG));
   rw::Read(src, m_countries);
@@ -230,24 +231,49 @@ CountryInfoReader::CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countr
 
 void CountryInfoReader::ClearCachesImpl() const
 {
-  std::lock_guard<std::mutex> lock(m_cacheMutex);
+  {
+    std::lock_guard lock(m_polyMutex);
 
-  m_cache.ForEachValue([](std::vector<m2::RegionD> & v) { std::vector<m2::RegionD>().swap(v); });
-  m_cache.Reset();
+    m_polyCache.ForEachValue([](std::vector<m2::RegionD> & v) { std::vector<m2::RegionD>().swap(v); });
+    m_polyCache.Reset();
+  }
+
+  {
+    std::lock_guard lock(m_trgMutex);
+
+    m_trgCache.ForEachValue([](std::vector<m2::PointD> & v) { std::vector<m2::PointD>().swap(v); });
+    m_trgCache.Reset();
+  }
 }
 
 template <class Fn>
 auto CountryInfoReader::WithRegion(RegionId id, Fn && fn) const
 {
-  std::lock_guard<std::mutex> lock(m_cacheMutex);
+  std::lock_guard lock(m_polyMutex);
 
   bool isFound = false;
-  auto & regions = m_cache.Find(static_cast<uint32_t>(id), isFound);
+  auto & regions = m_polyCache.Find(static_cast<uint32_t>(id), isFound);
 
   if (!isFound)
     regions = LoadRegionsFromDisk(id);
 
   return fn(regions);
+}
+
+void CountryInfoReader::GetTriangles(RegionId id, FeatureType & ft) const
+{
+  std::lock_guard lock(m_trgMutex);
+
+  bool isFound = false;
+  auto & trgs = m_trgCache.Find(static_cast<uint32_t>(id), isFound);
+
+  if (!isFound)
+  {
+    ReaderSource<ModelReaderPtr> src(m_reader.GetReader("t" + std::to_string(id)));
+    serial::LoadOuterTriangles(src, serial::GeometryCodingParams(), trgs);
+  }
+
+  ft.SetTriangles(trgs);
 }
 
 bool CountryInfoReader::BelongsToRegion(m2::PointD const & pt, RegionId id) const

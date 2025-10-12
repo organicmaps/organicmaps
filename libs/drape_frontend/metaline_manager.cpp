@@ -6,8 +6,6 @@
 
 #include "base/logging.hpp"
 
-#include <functional>
-
 namespace df
 {
 MetalineManager::MetalineManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model)
@@ -30,8 +28,7 @@ void MetalineManager::Update(std::set<MwmSet::MwmId> const & mwms)
   std::lock_guard<std::mutex> lock(m_mwmsMutex);
   for (auto const & mwm : mwms)
   {
-    ASSERT(mwm.IsAlive(), ());
-    if (mwm.GetInfo()->GetType() != MwmInfo::MwmTypeT::COUNTRY || !m_mwms.insert(mwm).second)
+    if (!mwm.IsAlive() || mwm.GetInfo()->GetType() != MwmInfo::MwmTypeT::COUNTRY || !m_mwms.insert(mwm).second)
       continue;
 
     auto readingTask = std::make_shared<ReadMetalineTask>(m_model, mwm);
