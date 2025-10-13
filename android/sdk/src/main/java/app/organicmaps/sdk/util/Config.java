@@ -479,6 +479,7 @@ public final class Config
       String LANGUAGE = "TtsLanguage";
       String VOLUME = "TtsVolume";
       String STREETS = "TtsStreetNames";
+      String SILENCE_MUSIC = "TtsSilenceMusic";
     }
 
     public interface Defaults
@@ -490,6 +491,7 @@ public final class Config
       float VOLUME = VOLUME_MAX;
 
       boolean STREETS = false; // TTS may mangle some languages, do not announce streets by default
+      boolean SILENCE_MUSIC = false;
     }
 
     public static boolean isEnabled()
@@ -531,6 +533,16 @@ public final class Config
     public static void setAnnounceStreets(boolean enabled)
     {
       setBool(Keys.STREETS, enabled);
+    }
+
+    public static boolean getSilenceMusic()
+    {
+      return getBool(Keys.SILENCE_MUSIC, Defaults.SILENCE_MUSIC);
+    }
+
+    public static void setSilenceMusic(boolean enabled)
+    {
+      setBool(Keys.SILENCE_MUSIC, enabled);
     }
   }
 

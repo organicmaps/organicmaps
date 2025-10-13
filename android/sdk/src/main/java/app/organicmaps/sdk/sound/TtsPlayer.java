@@ -190,7 +190,7 @@ public enum TtsPlayer
           mAudioFocusManager.releaseAudioFocus();
         }
       });
-      mAudioFocusManager = new AudioFocusManager(context);
+      mAudioFocusManager = new AudioFocusManager(context, Config.TTS.getSilenceMusic());
       mParams.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, Config.TTS.getVolume());
       mInitializing = false;
       if (mReloadTriggered && sOnReloadCallback != null)
@@ -285,6 +285,12 @@ public enum TtsPlayer
   {
     mParams.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, volume);
     Config.TTS.setVolume(volume);
+  }
+
+  public void setSilenceMusic(final boolean silenceMusic)
+  {
+    if (mAudioFocusManager != null)
+      mAudioFocusManager.setSilenceMusic(silenceMusic);
   }
 
   private boolean getUsableLanguages(List<LanguageData> outList)

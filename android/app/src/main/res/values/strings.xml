@@ -236,6 +236,8 @@
     <string name="pref_tts_street_names_title">Announce Street Names</string>
     <!-- Settings «Route» category: «Tts announce street names» description -->
     <string name="pref_tts_street_names_description">When enabled, the name of the street or exit to turn onto will be spoken aloud.</string>
+    <!-- Settings «Route» category: «Tts silence music» title -->
+    <string name="pref_tts_silence_music_title">Silence music</string>
     <!-- Settings «Route» category: «Tts language» title -->
     <string name="pref_tts_language_title">Voice Language</string>
     <!-- Settings «Route» category: «Test Voice Directions» title -->

@@ -50,7 +50,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
   private TwoStatePreference mTtsPrefStreetNames;
   @NonNull
   @SuppressWarnings("NotNullFieldNotInitialized")
-  private ListPreference mPrefLanguages;
+  private TwoStatePreference mTtsPrefSilenceMusic;
   @NonNull
   @SuppressWarnings("NotNullFieldNotInitialized")
   private Preference mTtsLangInfo;
@@ -82,6 +82,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       TtsPlayer.setEnabled(false);
       mTtsPrefLanguages.setVisible(false);
       mTtsPrefStreetNames.setVisible(false);
+      mTtsPrefSilenceMusic.setVisible(false);
       mTtsVolume.setVisible(false);
       mTtsLangInfo.setSummary(R.string.prefs_languages_information_off);
       mTtsVoiceTest.setVisible(false);
@@ -91,6 +92,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     mTtsLangInfo.setSummary(R.string.prefs_languages_information);
     mTtsPrefLanguages.setVisible(true);
     mTtsPrefStreetNames.setVisible(true);
+    mTtsPrefSilenceMusic.setVisible(true);
     mTtsVolume.setVisible(true);
     mTtsVoiceTest.setVisible(true);
 
@@ -122,11 +124,19 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     return false;
   };
 
+  @NonNull
   private final Preference.OnPreferenceChangeListener mStreetNameListener = (preference, newValue) ->
   {
-    boolean set = (Boolean) newValue;
-    Config.TTS.setAnnounceStreets(set);
+    Config.TTS.setAnnounceStreets((Boolean) newValue);
+    return true;
+  };
 
+  @NonNull
+  private final Preference.OnPreferenceChangeListener mSilenceMusicListener = (preference, newValue) ->
+  {
+    final boolean value = (Boolean) newValue;
+    Config.TTS.setSilenceMusic(value);
+    TtsPlayer.INSTANCE.setSilenceMusic(value);
     return true;
   };
 
@@ -143,7 +153,8 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
 
     mTtsPrefEnabled = getPreference(getString(R.string.pref_tts_enabled));
     mTtsPrefLanguages = getPreference(getString(R.string.pref_tts_language));
-    mTtsPrefStreetNames = findPreference(getString(R.string.pref_tts_street_names));
+    mTtsPrefStreetNames = getPreference(getString(R.string.pref_tts_street_names));
+    mTtsPrefSilenceMusic = getPreference(getString(R.string.pref_tts_silence_music));
     mTtsLangInfo = getPreference(getString(R.string.pref_tts_info));
 
     Preference mTtsOpenSystemSettings = getPreference(getString(R.string.pref_tts_open_system_settings));
@@ -217,6 +228,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     mTtsPrefEnabled.setOnPreferenceChangeListener(enable ? mEnabledListener : null);
     mTtsPrefLanguages.setOnPreferenceChangeListener(enable ? mLangListener : null);
     mTtsPrefStreetNames.setOnPreferenceChangeListener(enable ? mStreetNameListener : null);
+    mTtsPrefSilenceMusic.setOnPreferenceChangeListener(enable ? mSilenceMusicListener : null);
   }
 
   private void setLanguage(@NonNull LanguageData lang)
@@ -243,6 +255,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       mTtsPrefEnabled.setEnabled(false);
       mTtsPrefEnabled.setSummary(R.string.pref_tts_unavailable);
       mTtsPrefStreetNames.setVisible(false);
+      mTtsPrefSilenceMusic.setVisible(false);
       mTtsPrefLanguages.setVisible(false);
       mTtsPrefLanguages.setSummary(null);
       mTtsVolume.setVisible(false);
@@ -277,6 +290,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     mTtsPrefLanguages.setSummary(available ? mCurrentLanguage.name : null);
     mTtsPrefLanguages.setValue(available ? mCurrentLanguage.internalCode : null);
     mTtsPrefStreetNames.setVisible(enabled && available && TtsPlayer.isEnabled());
+    mTtsPrefSilenceMusic.setVisible(enabled && available && TtsPlayer.isEnabled());
     mTtsVolume.setVisible(enabled && available && TtsPlayer.isEnabled());
     mTtsVoiceTest.setVisible(enabled && available && TtsPlayer.isEnabled());
 
