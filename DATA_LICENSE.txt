@@ -1,22 +1,49 @@
 Organic Maps Binary Data License
 
-The Organic Maps project provides compiled binary data files (including but not limited to `.mwm` map files) under a separate license from the source code.
+The Organic Maps project provides compiled binary data files (Data Files), including but not limited to `.mwm` map files,
+`packed_polygons.bin` and other `.bin` files, under a separate license from the source code.
 
-You may use these files in your applications (open-source or commercial) under the following conditions:
+Organic Maps Data Files contain the processed data from the following sources:
+
+- OpenStreetMap data, licensed under the Open Data Commons Open Database License (ODbL) by the OpenStreetMap Foundation (OSMF)
+  https://www.openstreetmap.org/copyright
+
+- Wikipedia text data, licensed under Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA)
+  https://en.wikipedia.org/wiki/Wikipedia:Copyrights
+
+- Sonny's LiDAR digital terrain models of Europe under Creative Commons Attribution-ShareAlike 4.0 License by Sonny
+  https://sonny.4lima.de
+
+- Shuttle Radar Topography Mission (SRTM) and Advanced Spaceborne Thermal Emission and Reflection Radiometer (ASTER) elevation data
+  https://www.earthdata.nasa.gov/data/instruments/srtm
+
+- Great Britain Code-Point® Open postcodes and Northern Ireland postcodes from FHRS data under Open Government License by UK Ordnance Survey
+  https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+
+- US Census TIGER data by the US Census Bureau
+  https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html
+
+Organic Maps `.mwm` and `packed_polygons.bin` files are Produced Works under the terms of the ODbL license,
+see https://osmfoundation.org/wiki/Licence/Community_Guidelines/Produced_Work_-_Guideline for details.
+
+By redistributing or using Data Files in your applications or services, you agree to the following conditions:
+
+In particular:
 
 1. **Attribution Required**
-   You must clearly and visibly credit the "Organic Maps Project" in your application:
-   - In user-visible areas such as the **About screen** and **Main Menu**.
-   - Include a **clickable link** to https://organicmaps.app
+   You must clearly and visibly credit Organic Maps and OpenStreetMap in your application:
+   - On the map, and in user-visible areas such as the **About screen** and **Main Menu**, show text "Map data © OpenStreetMap and Organic Maps"
+   - Include **clickable links** to https://organicmaps.app and https://openstreetmap.org/copyright for each mention of Organic Maps and OpenStreetMap
 
 2. **No Redistribution Without Attribution**
-   You may not distribute or embed the binary files (e.g., `.mwm` maps) in your software without providing the above attribution.
+   You may not distribute or embed the binary files (e.g., `.mwm` maps or `.bin` files) in your software without providing the above attribution.
 
 3. **No White-Labeling or Branding Removal**
-   Any white-labeling or rebranding use requires **explicit written permission** from the Organic Maps team. Contact: legal@organicmaps.app
+   Any white-labeling or rebranding use requires **explicit written permission** from the Organic Maps team.
+   We are open to collaboration, contact us at legal@organicmaps.app
+
+If you do not agree, do not use or redistribute Data Files.
 
 ---
 
-By using the binary data files, you agree to these terms. If you do not agree, do not use or redistribute the data files.
-
-For questions or licensing inquiries: legal@organicmaps.app
+For questions or custom licensing inquiries please write us at legal@organicmaps.app
