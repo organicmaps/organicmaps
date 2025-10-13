@@ -52,7 +52,7 @@ private:
 
 #define IS_STORAGE_BUFFER_BOUND() static constexpr bool IsStorageBufferBoundType = true;
 
-#define ALIGNMENT alignas(16)
+#define ALIGNMENT                 alignas(16)
 
 // NOTE: structs may contain dummy elements to fit MSL and GLSL struct alignment rules
 // 1. Add new fields in order from the highest byte size to the lowest, it minimizes alignment overhead
