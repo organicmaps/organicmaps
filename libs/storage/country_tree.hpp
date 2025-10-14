@@ -125,6 +125,4 @@ int64_t LoadCountriesFromBuffer(std::string const & buffer, CountryTree & countr
 int64_t LoadCountriesFromFile(std::string const & path, CountryTree & countries, Affiliations & affiliations,
                               CountryNameSynonyms & countryNameSynonyms, MwmTopCityGeoIds & mwmTopCityGeoIds,
                               MwmTopCountryGeoIds & mwmTopCountryGeoIds);
-
-void LoadCountryFile2CountryInfo(std::string const & jsonBuffer, std::map<std::string, CountryInfo> & id2info);
 }  // namespace storage
