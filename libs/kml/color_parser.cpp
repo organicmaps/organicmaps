@@ -170,12 +170,23 @@ std::optional<uint32_t> ParseOSMColor(std::string_view c)
 
       // From top taginfo for "colour" and CSS standart values.
       {"darkgreen", {0, 100, 0}},
+      {"lightgreen", {144, 238, 144}},
       {"beige", {245, 245, 220}},
       {"dimgray", {105, 105, 105}},
       {"lightgrey", {211, 211, 211}},  // British spelling
       {"lightgray", {211, 211, 211}},
+      {"darkgray", {169, 169, 169}},
+      {"darkgrey", {169, 169, 169}},  // British spelling
       {"tan", {210, 180, 140}},
       {"gold", {255, 215, 0}},
+      {"lightblue", {173, 216, 230}},
+      {"darkblue", {0, 0, 139}},
+      {"DeepSkyBlue", {0, 191, 255}},
+      {"mediumturquoise", {72, 209, 204}},
+      {"whitesmoke", {245, 245, 245}},
+      {"violet", {238, 130, 238}},
+      {"aluminum", {179, 179, 179}},
+      {"natural", {222, 184, 135}},
 
       {"red;white", {255, 127, 127}},
       {"red and white", {255, 127, 127}},
