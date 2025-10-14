@@ -8801,7 +8801,7 @@ vi:Tiệm làm tóc
 zh-Hans:2理发师
 zh-Hant:1理髮師|美髮師|髮型設計師
 
-aeroway-aerodrome
+@airport
 en:3Airport|3plane|U+2708
 ar:مطار|طائرة
 bg:4Летище|4самолет
@@ -8840,6 +8840,50 @@ uk:3Аеропорт|літак|аеродром|рейс
 vi:Sân bay
 zh-Hans:机场|飞机
 zh-Hant:1機場|2航空站|3航空公司|2飛機場
+
+aeroway-aerodrome|@airport
+
+aeroway-terminal|@airport
+en:Terminal
+ar:المحطة الطرفية
+be:Вакзал
+bg:Терминал
+ca:Terminal
+cs:Terminál
+da:Terminal
+de:Terminal
+el:Τερματικό
+es:Terminal
+et:Terminal
+eu:Bukaerako
+fa:پایانه
+fi:Terminaali
+fr:Terminal
+he:מָסוֹף
+hi:टर्मिनल
+hu:Terminál
+id:Terminal
+it:Terminale
+ja:ターミナル
+ko:터미널
+lv:Termināls
+mr:टर्मिनल
+nb:Terminal
+nl:Terminal
+pl:Terminal
+pt:Terminal
+pt-BR:terminal
+ro:Terminal
+ru:Терминал
+sk:Terminál
+sv:Terminal
+sw:Terminal
+th:เทอร์มินัล
+tr:terminal
+uk:Термінал
+vi:Phần cuối
+zh-Hans:终端
+zh-Hant:終端
 
 leisure-stadium
 en:4Stadium|4sport|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F4AA|U+1F3C9|olympic stadium|sports stadium|sports complex|arena
