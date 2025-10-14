@@ -517,8 +517,8 @@ public class PlacePageView extends Fragment
     if (mMapObject.isTrack())
     {
       Track track = (Track) mMapObject;
-      Drawable circle =
-          Graphics.drawCircle(track.getColor(), R.dimen.place_page_icon_size, requireContext().getResources());
+      Drawable circle = Graphics.drawCircle(track.getColor(), R.dimen.place_page_icon_background_size,
+                                            requireContext().getResources());
       mColorIcon.setImageDrawable(circle);
       mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId()).getName());
     }
@@ -528,8 +528,8 @@ public class PlacePageView extends Fragment
       Icon icon = bookmark.getIcon();
       if (icon != null)
       {
-        Drawable circle = Graphics.drawCircleAndImage(icon.argb(), R.dimen.place_page_icon_size, icon.getResId(),
-                                                      R.dimen.place_page_icon_mark_size, requireContext());
+        Drawable circle = Graphics.drawCircleAndImage(icon.argb(), R.dimen.place_page_icon_background_size,
+                                                      icon.getResId(), R.dimen.place_page_icon_size, requireContext());
         mColorIcon.setImageDrawable(circle);
         mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(bookmark.getCategoryId()).getName());
       }
@@ -557,7 +557,8 @@ public class PlacePageView extends Fragment
         if (from == to)
           return;
         track.setColor(to);
-        Drawable circle = Graphics.drawCircle(to, R.dimen.place_page_icon_size, requireContext().getResources());
+        Drawable circle =
+            Graphics.drawCircle(to, R.dimen.place_page_icon_background_size, requireContext().getResources());
         mColorIcon.setImageDrawable(circle);
       });
       dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
@@ -573,8 +574,9 @@ public class PlacePageView extends Fragment
         if (from == to)
           return;
         bookmark.setIconColor(to);
-        Drawable circle = Graphics.drawCircleAndImage(to, R.dimen.place_page_icon_size, bookmark.getIcon().getResId(),
-                                                      R.dimen.place_page_icon_mark_size, requireContext());
+        Drawable circle =
+            Graphics.drawCircleAndImage(to, R.dimen.place_page_icon_background_size, bookmark.getIcon().getResId(),
+                                        R.dimen.place_page_icon_size, requireContext());
         mColorIcon.setImageDrawable(circle);
       });
       dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
