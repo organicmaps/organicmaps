@@ -146,7 +146,15 @@ m2::RectD GetWorldRect()
   return mercator::Bounds::FullRect();
 }
 
-int GetTileScaleBase(ScreenBase const & s, uint32_t tileSize)
+namespace
+{
+double GetTileScaleBase(m2::RectD const & r)
+{
+  double const sz = std::max(std::max(r.SizeX(), r.SizeY()), kMwmPointAccuracy);
+  return std::max(1.0, std::log2(mercator::Bounds::kRangeX / sz));
+}
+
+double GetTileScaleBase(ScreenBase const & s, uint32_t tileSize)
 {
   ScreenBase tmpS = s;
   tmpS.Rotate(-tmpS.GetAngle());
@@ -160,39 +168,29 @@ int GetTileScaleBase(ScreenBase const & s, uint32_t tileSize)
   return GetTileScaleBase(glbRect);
 }
 
-int GetTileScaleBase(ScreenBase const & s)
+/// @return Adjusting base tile scale to look the same across devices with different tile size and visual scale values.
+double GetTileScaleIncrement(uint32_t tileSize, double visualScale)
 {
-  return GetTileScaleBase(s, VisualParams::Instance().GetTileSize());
+  return std::log2(tileSize / 256.0 / visualScale);
 }
 
-int GetTileScaleBase(m2::RectD const & r)
+double GetTileScaleIncrement()
 {
-  double const sz = std::max(std::max(r.SizeX(), r.SizeY()), kMwmPointAccuracy);
-  return std::max(1, math::iround(std::log2(mercator::Bounds::kRangeX / sz)));
+  VisualParams const & p = VisualParams::Instance();
+  return GetTileScaleIncrement(p.GetTileSize(), p.GetVisualScale());
 }
 
 double GetTileScaleBase(double drawScale)
 {
   return std::max(1.0, drawScale - GetTileScaleIncrement());
 }
-
-int GetTileScaleIncrement(uint32_t tileSize, double visualScale)
-{
-  return math::iround(std::log2(tileSize / 256.0 / visualScale));
-}
-
-int GetTileScaleIncrement()
-{
-  VisualParams const & p = VisualParams::Instance();
-  return GetTileScaleIncrement(p.GetTileSize(), p.GetVisualScale());
-}
+}  // namespace
 
 m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center, uint32_t tileSize, double visualScale)
 {
   // +1 - we will calculate half length for each side
-  double const factor = 1 << (std::max(1, drawScale - GetTileScaleIncrement(tileSize, visualScale)) + 1);
-
-  double const len = mercator::Bounds::kRangeX / factor;
+  int const pow2 = std::max(1, drawScale - static_cast<int>(GetTileScaleIncrement(tileSize, visualScale))) + 1;
+  double const len = mercator::Bounds::kRangeX / (1 << pow2);
 
   return m2::RectD(mercator::ClampX(center.x - len), mercator::ClampY(center.y - len), mercator::ClampX(center.x + len),
                    mercator::ClampY(center.y + len));
@@ -202,16 +200,6 @@ m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center)
 {
   VisualParams const & p = VisualParams::Instance();
   return GetRectForDrawScale(drawScale, center, p.GetTileSize(), p.GetVisualScale());
-}
-
-m2::RectD GetRectForDrawScale(double drawScale, m2::PointD const & center, uint32_t tileSize, double visualScale)
-{
-  return GetRectForDrawScale(math::iround(drawScale), center, tileSize, visualScale);
-}
-
-m2::RectD GetRectForDrawScale(double drawScale, m2::PointD const & center)
-{
-  return GetRectForDrawScale(math::iround(drawScale), center);
 }
 
 uint32_t CalculateTileSize(uint32_t screenWidth, uint32_t screenHeight)
@@ -252,9 +240,9 @@ double GetDrawTileScale(double baseScale)
   return baseScale + GetTileScaleIncrement();
 }
 
-int GetDrawTileScale(int baseScale, uint32_t tileSize, double visualScale)
+int GetDrawTileScale(double baseScale, uint32_t tileSize, double visualScale)
 {
-  return baseScale + GetTileScaleIncrement(tileSize, visualScale);
+  return math::iround(baseScale + GetTileScaleIncrement(tileSize, visualScale));
 }
 }  // namespace
 
@@ -290,7 +278,7 @@ void ExtractZoomFactors(ScreenBase const & s, double & zoom, int & index, float 
 
 double GetNormalizedZoomLevel(double screenScale, int minZoom)
 {
-  double const kMaxZoom = scales::GetUpperStyleScale() + 1.0;
+  double constexpr kMaxZoom = scales::GetUpperStyleScale() + 1.0;
   return math::Clamp((GetZoomLevel(screenScale) - minZoom) / (kMaxZoom - minZoom), 0.0, 1.0);
 }
 
