@@ -840,4 +840,5 @@
     <string name="change_map_locale">Sprog på kort</string>
     <string name="prefs_group_information">Information</string>
     <string name="saved">Gemt</string>
+    <string name="osm_note_toast">Note vil blive send til OpenStreetMap</string>
 </resources>

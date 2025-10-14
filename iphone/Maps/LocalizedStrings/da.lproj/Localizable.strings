@@ -704,7 +704,6 @@
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Udgang";
-
 "planning_route_manage_route" = "Administrer rute";
 "button_plan" = "Planlæg";
 "placepage_remove_stop" = "Fjern stop";
@@ -1059,7 +1058,7 @@
 "bottom" = "Bottom";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "For at vise ruter, skal kortene være opdateret.";
 
 /* OpenStreetMap contribution section on the PlacePage. */
 "contribute_to_osm" = "Bidrag til OpenStreetMap";

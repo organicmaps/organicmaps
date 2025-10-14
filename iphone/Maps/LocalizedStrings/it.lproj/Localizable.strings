@@ -704,7 +704,6 @@
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Uscita";
-
 "planning_route_manage_route" = "Gestisci percorso";
 "button_plan" = "Pianifica";
 "placepage_remove_stop" = "Rimuovi sosta";
@@ -1047,16 +1046,16 @@
 "track_recording_toast_nothing_to_save" = "La traccia è vuota - non c'è nulla da salvare";
 "edit_track" = "Modifica traccia";
 "saved" = "Salvato";
-"button_layer_hiking" = "Hiking";
-"button_layer_cycling" = "Cycling";
+"button_layer_hiking" = "Escursionismo";
+"button_layer_cycling" = "Ciclismo";
 
 /* Settings/Bookmark Text Placement */
 "bookmarks_text_placement_title" = "Nomi dei segnalibri sulla mappa";
 "bookmarks_text_placement_description" = "Se ci sono troppi segnalibri, la loro visualizzazione può rallentare l'applicazione.";
-"show_to_the_right" = "Show to the right";
-"right" = "Right";
-"show_at_the_bottom" = "Show at the bottom";
-"bottom" = "Bottom";
+"show_to_the_right" = "Mostra a destra";
+"right" = "Destra";
+"show_at_the_bottom" = "Mostra in basso";
+"bottom" = "In basso";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "Aggiornare le mappe per visualizzare i percorsi.";

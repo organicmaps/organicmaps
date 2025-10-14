@@ -1381,4 +1381,5 @@
     <string name="type.shop.telecommunication">Butik for telekommunikation</string>
     <string name="type.leisure.indoor_play">Legecenter</string>
     <string name="type.tourism.camp_pitch">Campingplads</string>
+    <string name="type.amenity.bicycle_parking.covered">Overdækket cykelparkering</string>
 </resources>
