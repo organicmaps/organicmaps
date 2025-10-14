@@ -209,8 +209,8 @@
 
       <ImageView
         android:id="@+id/item_icon"
-        android:layout_width="@dimen/place_page_icon_size"
-        android:layout_height="@dimen/place_page_icon_size"
+        android:layout_width="@dimen/place_page_icon_background_size"
+        android:layout_height="@dimen/place_page_icon_background_size"
         android:layout_gravity="center"
         android:paddingHorizontal="@dimen/margin_half_plus"
         android:background="?clickableBackground"
