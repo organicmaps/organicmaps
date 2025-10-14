@@ -80,7 +80,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Salvar mapas para</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Selecione o local para onde os mapas devem ser baixados</string>
+    <string name="maps_storage_summary">Selecione o local para onde os mapas devem ser baixados.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Mapas</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
@@ -528,6 +528,7 @@
     <string name="bookmark_lists_show_all">Exibir tudo</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d favorito</item>
+        <item quantity="many">%d favoritos</item>
         <item quantity="other">%d favoritos</item>
     </plurals>
     <string name="bookmarks_create_new_group">Criar nova lista</string>
@@ -546,11 +547,13 @@
     <string name="profile">Perfil do OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d arquivo foi encontrado. Você vai ver depois da conversão.</item>
+        <item quantity="many">%d arquivos foram encontrados. Você os verá depois da conversão.</item>
         <item quantity="other">%d arquivos foram encontrados. Você os verá depois da conversão.</item>
     </plurals>
     <string name="restore">Restaurar</string>
     <plurals name="tracks">
         <item quantity="one">%d trilha</item>
+        <item quantity="many">%d trilhas</item>
         <item quantity="other">%d trilhas</item>
     </plurals>
     <string name="privacy_policy">Política de privacidade</string>
@@ -663,7 +666,7 @@
     <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">Mostrar na tela de bloqueio</string>
     <!-- Description in preferences -->
-    <string name="enable_show_on_lock_screen_description">Quando ativado, você não precisará debloquear seu dispositivo toda vez que o aplicativo estiver funcionando</string>
+    <string name="enable_show_on_lock_screen_description">Quando ativado, você não precisará debloquear seu dispositivo toda vez que o aplicativo estiver funcionando.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Idioma do mapa</string>
     <!-- OpenStreetMap text on splash screen -->
@@ -705,7 +708,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Este aplicativo precisa da sua permissão</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">O Organic Maps no Android Auto precisa de uma permissão de localização para funcionar corretamente.</string>
+    <string name="aa_request_permission_activity_text">O Organic Maps no Android Auto precisa de uma permissão de localização para funcionar corretamente</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Conceder permissão</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -743,7 +746,7 @@
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">A trilha está vazia - não há nada para salvar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
-    <string name="error_no_file_manager_app">Não é possível exibir a caixa de diálogo de seleção de pastas porque nenhum aplicativo adequado está instalado no seu dispositivo. Instale um aplicativo gerenciador de arquivos e tente novamente</string>
+    <string name="error_no_file_manager_app">Não é possível exibir a caixa de diálogo de seleção de pastas porque nenhum aplicativo adequado está instalado no seu dispositivo. Instale um aplicativo gerenciador de arquivos e tente novamente.</string>
     <string name="choose_color">Escolher cor</string>
     <string name="edit_track">Editar trajeto</string>
     <string name="uri_open_location_failed">Nenhum aplicativo instalado que possa abrir o local</string>
