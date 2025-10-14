@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/root_view"
-  android:orientation="vertical"
-  android:gravity="center">
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
 
   <ImageView
-      android:id="@+id/iv__logo"
-      android:layout_width="wrap_content"
-      android:layout_height="0dp"
+      android:layout_width="@dimen/splash_screen_logo_size"
+      android:layout_height="@dimen/splash_screen_logo_size"
       android:contentDescription="@null"
-      app:srcCompat="@drawable/splash"
-      android:layout_weight="1000"
-      android:layout_margin="@dimen/margin_double"/>
+      app:srcCompat="@drawable/ic_splash"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent" />
 
   <LinearLayout
+      android:id="@+id/ll__branding_info"
       android:gravity="center"
       android:orientation="vertical"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:paddingBottom="@dimen/margin_double">
+      android:paddingBottom="@dimen/margin_double"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent" >
 
     <TextView
-        android:id="@+id/tv__app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_eighth"
@@ -34,7 +35,6 @@
         android:textAppearance="@style/MwmTextAppearance.Title.Splash" />
 
     <TextView
-        android:id="@+id/tv__splash_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/splash_subtitle"
@@ -42,7 +42,5 @@
         android:layout_marginEnd="@dimen/margin_double"
         android:gravity="center_horizontal"
         android:textAppearance="@style/MwmTextAppearance.Toolbar" />
-
   </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

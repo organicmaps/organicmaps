@@ -5,9 +5,10 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.window.SplashScreenView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Keep;
@@ -16,7 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
-import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import app.organicmaps.downloader.DownloaderActivity;
@@ -58,17 +58,10 @@ public class SplashActivity extends AppCompatActivity
     super.onCreate(savedInstanceState);
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     setContentView(R.layout.activity_splash);
+    adjustBrandingInfoPadding();
 
-    ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.root_view), new OnApplyWindowInsetsListener() {
-      @NonNull
-      @Override
-      public WindowInsetsCompat onApplyWindowInsets(@NonNull View v, @NonNull WindowInsetsCompat insets)
-      {
-        Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-        v.setPadding(0, 0, 0, systemBars.bottom);
-        return insets;
-      }
-    });
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+      getSplashScreen().setOnExitAnimationListener(SplashScreenView::remove);
     mPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
                                                    result -> Config.setLocationRequested());
     mApiRequest = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -198,7 +191,7 @@ public class SplashActivity extends AppCompatActivity
     finish();
   }
 
-  private boolean isManageSpaceActivity(Intent intent)
+  private boolean isManageSpaceActivity(@NonNull Intent intent)
   {
     var component = intent.getComponent();
 
@@ -210,5 +203,15 @@ public class SplashActivity extends AppCompatActivity
     var manageSpaceActivityName = BuildConfig.APPLICATION_ID + ".ManageSpaceActivity";
 
     return manageSpaceActivityName.equals(component.getClassName());
+  }
+
+  private void adjustBrandingInfoPadding()
+  {
+    ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.ll__branding_info), (view, insets) -> {
+      final Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+      view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(),
+                      view.getPaddingBottom() + systemBars.bottom);
+      return insets;
+    });
   }
 }
