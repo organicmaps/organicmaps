@@ -1,7 +1,6 @@
 #include "storage/country_info_getter.hpp"
 
 #include "storage/country_decl.hpp"
-#include "storage/country_tree.hpp"
 
 #include "indexer/feature.hpp"
 
@@ -96,14 +95,7 @@ void CountryInfoGetter::GetRegionInfo(m2::PointD const & pt, CountryInfo & info)
 
 void CountryInfoGetter::GetRegionInfo(CountryId const & countryId, CountryInfo & info) const
 {
-  auto const it = m_idToInfo.find(countryId);
-  if (it == m_idToInfo.end())
-    return;
-
-  info = it->second;
-  if (info.m_name.empty())
-    info.m_name = countryId;
-
+  info.m_name = countryId;
   CountryInfo::FileName2FullName(info.m_name);
 }
 
@@ -177,8 +169,7 @@ std::unique_ptr<CountryInfoReader> CountryInfoReader::CreateCountryInfoReader(Pl
 {
   try
   {
-    CountryInfoReader * result =
-        new CountryInfoReader(platform.GetReader(PACKED_POLYGONS_FILE), platform.GetReader(COUNTRIES_FILE));
+    CountryInfoReader * result = new CountryInfoReader(platform.GetReader(PACKED_POLYGONS_FILE));
     return std::unique_ptr<CountryInfoReader>(result);
   }
   catch (RootException const & e)
@@ -209,7 +200,7 @@ std::vector<m2::RegionD> CountryInfoReader::LoadRegionsFromDisk(RegionId id) con
   return result;
 }
 
-CountryInfoReader::CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countryR)
+CountryInfoReader::CountryInfoReader(ModelReaderPtr polyR)
   : m_reader(polyR)
   , m_polyCache(3 /* logCacheSize */)
   , m_trgCache(6 /* logCacheSize */)
@@ -220,13 +211,6 @@ CountryInfoReader::CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countr
   m_countryIndex.reserve(m_countries.size());
   for (RegionId i = 0; i < m_countries.size(); ++i)
     m_countryIndex[m_countries[i].m_countryId] = i;
-
-  std::string buffer;
-  countryR.ReadAsString(buffer);
-  LoadCountryFile2CountryInfo(buffer, m_idToInfo);
-
-  for (auto const & [k, v] : m_idToInfo)
-    ASSERT_EQUAL(k, v.m_name, ());
 }
 
 void CountryInfoReader::ClearCachesImpl() const
@@ -342,8 +326,6 @@ CountryInfoGetterForTesting::CountryInfoGetterForTesting(std::vector<CountryDef>
 void CountryInfoGetterForTesting::AddCountry(CountryDef const & country)
 {
   m_countries.push_back(country);
-  std::string const & name = country.m_countryId;
-  m_idToInfo[name].m_name = name;
 }
 
 void CountryInfoGetterForTesting::GetMatchedRegions(std::string const & affiliation, RegionIdVec & regions) const

@@ -114,35 +114,6 @@ public:
   OldMwmMapping GetMapping() const override { return m_idsMapping; }
 };
 
-class StoreFile2Info : public StoreInterface
-{
-  OldMwmMapping m_idsMapping;
-  map<string, CountryInfo> & m_file2info;
-
-public:
-  explicit StoreFile2Info(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
-  // StoreInterface overrides:
-  Country * InsertToCountryTree(CountryId const & id, MwmSize /* mapSize */, string const & /* mapSha1 */,
-                                size_t /* depth */, CountryId const & /* parent */) override
-  {
-    /// @todo WTF ?! We literally store map X->X.
-    CountryInfo info(id);
-    m_file2info[id] = std::move(info);
-    return nullptr;
-  }
-
-  void InsertOldMwmMapping(CountryId const & /* newId */, CountryId const & /* oldId */) override {}
-
-  void InsertAffiliation(CountryId const & /* countryId */, string const & /* affilation */) override {}
-
-  void InsertCountryNameSynonym(CountryId const & /* countryId */, string const & /* synonym */) override {}
-
-  OldMwmMapping GetMapping() const override
-  {
-    ASSERT(false, ());
-    return map<CountryId, CountriesSet>();
-  }
-};
 }  // namespace
 
 // CountryTree::Node -------------------------------------------------------------------------------
@@ -473,22 +444,4 @@ int64_t LoadCountriesFromFile(string const & path, CountryTree & countries, Affi
   return version;
 }
 
-void LoadCountryFile2CountryInfo(string const & jsonBuffer, map<string, CountryInfo> & id2info)
-{
-  ASSERT(id2info.empty(), ());
-
-  int64_t version = -1;
-  try
-  {
-    base::Json root(jsonBuffer.c_str());
-    FromJSONObjectOptionalField(root.get(), "v", version);
-
-    StoreFile2Info store(id2info);
-    LoadCountriesImpl(jsonBuffer, store);
-  }
-  catch (base::Json::Exception const & e)
-  {
-    LOG(LERROR, (e.Msg()));
-  }
-}
 }  // namespace storage

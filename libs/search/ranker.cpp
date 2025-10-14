@@ -648,7 +648,7 @@ private:
         m_infoGetter.GetRegionInfo(center, info);
       else
         m_infoGetter.GetRegionInfo(country, info);
-      if (info.IsNotEmpty() && info.m_name == m_ranker.m_params.m_pivotRegion)
+      if (!info.m_name.empty() && info.m_name == m_ranker.m_params.m_pivotRegion)
         return rank * 1.7;
 
       // Fallthrough like "STATE" for cities without info.
