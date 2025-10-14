@@ -128,20 +128,6 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
   TEST_EQUAL(countries5, expected2, ());
 }
 
-UNIT_TEST(CountryInfoGetter_ValidName_Smoke)
-{
-  string buffer;
-  ReaderPtr<Reader>(GetPlatform().GetReader(COUNTRIES_FILE)).ReadAsString(buffer);
-
-  map<string, CountryInfo> id2info;
-  storage::LoadCountryFile2CountryInfo(buffer, id2info);
-
-  Storage storage;
-
-  TEST(!IsEmptyName(id2info, "Belgium_West Flanders"), ());
-  TEST(!IsEmptyName(id2info, "France_Ile-de-France_Paris"), ());
-}
-
 UNIT_TEST(CountryInfoGetter_SomeRects)
 {
   auto const getter = CreateCountryInfoGetter();

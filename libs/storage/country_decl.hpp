@@ -25,15 +25,10 @@ struct CountryDef
 
 struct CountryInfo
 {
-  CountryInfo() = default;
-  CountryInfo(std::string const & id) : m_name(id) {}
-
   // @TODO(bykoianko) Twine will be used intead of this function.
   // So id (fName) will be converted to a local name.
   static void FileName2FullName(std::string & fName);
   static void FullName2GroupAndMap(std::string const & fName, std::string & group, std::string & map);
-
-  bool IsNotEmpty() const { return !m_name.empty(); }
 
   /// Name (in native language) of country or region.
   /// (if empty - equals to file name of country - no additional memory)

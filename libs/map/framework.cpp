@@ -1243,13 +1243,6 @@ void Framework::InitTransliteration()
     Transliteration::Instance().SetMode(Transliteration::Mode::Disabled);
 }
 
-string Framework::GetCountryName(m2::PointD const & pt) const
-{
-  storage::CountryInfo info;
-  m_infoGetter->GetRegionInfo(pt, info);
-  return info.m_name;
-}
-
 int64_t Framework::GetMwmVersion(m2::PointD const & pt) const
 {
   auto name = m_infoGetter->GetRegionCountryId(pt);
