@@ -85,6 +85,8 @@ std::string ParseAndUnparse(std::string const & str)
 }
 
 #ifdef _MSC_VER
+// The copypaste is intentional because a) this is a test code and b) the future of this library is uncertain, it might be removed eventually.
+// See https://github.com/organicmaps/organicmaps/issues/7974
 extern "C" char * strptime(char const * s, char const * f, std::tm * tm)
 {
   std::istringstream input(s);
