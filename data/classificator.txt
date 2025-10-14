@@ -1435,6 +1435,7 @@ world  +
             statue  -
             {}
         attraction  -
+        camp_pitch  -
         camp_site  -
         caravan_site  -
         chalet  -

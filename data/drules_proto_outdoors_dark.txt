@@ -131848,6 +131848,39 @@ cont {
   }
 }
 cont {
+  name: "tourism-camp_pitch"
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 7631988
+      }
+      priority: 3300
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 7631988
+      }
+      priority: 3300
+    }
+  }
+  element {
+    scale: 20
+    caption {
+      primary {
+        height: 10
+        color: 7631988
+      }
+      priority: 3300
+    }
+  }
+}
+cont {
   name: "tourism-camp_site"
   element {
     scale: 13
