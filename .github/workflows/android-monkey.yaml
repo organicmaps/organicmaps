@@ -68,11 +68,11 @@ jobs:
         shell: bash
         run: |
           echo "$PRIVATE_H" | base64 -d > private.h
-          echo "$FIREBASE_TEST_LAB_JSON" | base64 -d > android/app/firebase-test-lab.json
-          echo "$FIREBASE_APP_DISTRIBUTION_JSON" | base64 -d > android/app/firebase-app-distribution.json
-          echo "$GOOGLE_SERVICES_JSON" | base64 -d > android/app/google-services.json
-          echo "$SECURE_PROPERTIES" | base64 -d > android/app/secure.properties
-          echo "$RELEASE_KEYSTORE" | base64 -d > android/app/release.keystore
+          echo "$FIREBASE_TEST_LAB_JSON" | base64 -d > android/app/device/phone/firebase-test-lab.json
+          echo "$FIREBASE_APP_DISTRIBUTION_JSON" | base64 -d > android/app/device/phone/firebase-app-distribution.json
+          echo "$GOOGLE_SERVICES_JSON" | base64 -d > android/app/device/phone/google-services.json
+          echo "$SECURE_PROPERTIES" | base64 -d > android/app/device/phone/secure.properties
+          echo "$RELEASE_KEYSTORE" | base64 -d > android/app/device/phone/release.keystore
         env:
           PRIVATE_H: ${{ secrets.PRIVATE_H }}
           FIREBASE_TEST_LAB_JSON: ${{ secrets.FIREBASE_TEST_LAB_JSON }}
@@ -95,9 +95,9 @@ jobs:
 
       - name: Run monkey
         run: |
-          gcloud auth activate-service-account --key-file android/app/firebase-test-lab.json
+          gcloud auth activate-service-account --key-file android/app/device/phone/firebase-test-lab.json
           gcloud config set project omapsapp
-          gcloud firebase test android run --app ./android/app/build/outputs/apk/google/beta/OrganicMaps-*-google-beta.apk \
+          gcloud firebase test android run --app ./android/app/device/phone/build/outputs/apk/google/beta/OrganicMaps-*-google-beta.apk \
             --device model=husky,version=34 \
             --device model=tangorpro,version=33,orientation=landscape \
             --device model=bluejay,version=32 \

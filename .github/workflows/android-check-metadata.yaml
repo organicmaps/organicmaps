@@ -4,8 +4,8 @@ on:
   pull_request:
     paths:
       - .github/workflows/android-check-metadata.yaml  # Run check on self change
-      - android/app/src/fdroid/**
-      - android/app/src/google/**
+      - android/app/device/phone/src/fdroid/**
+      - android/app/device/phone/src/google/**
       - tools/python/check_store_metadata.py
 
 jobs:
