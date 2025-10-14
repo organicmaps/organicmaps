@@ -21,15 +21,21 @@ auto GetNextDayAtNight(int32_t startTimeZoneUTC)
   auto now = std::chrono::system_clock::now();
 
   std::time_t nowTimeT = std::chrono::system_clock::to_time_t(now);
-  std::tm * date = std::localtime(&nowTimeT);
+  std::tm localDate = *std::localtime(&nowTimeT);
+  std::tm utcDate = *std::gmtime(&nowTimeT);
+  localDate.tm_isdst = -1;
+  utcDate.tm_isdst = -1;
 
-  std::time_t constexpr kSecondsInDay = 24 * 60 * 60;
-  std::time_t nextDay = std::mktime(date) + kSecondsInDay;
-
-  std::tm * nextDayDate = std::localtime(&nextDay);
+  std::time_t localTimeT = std::mktime(&localDate);
+  std::time_t utcTimeT = std::mktime(&utcDate);
 
   long constexpr kSecondsInHour = 3600;
-  int const curUTCOffset = static_cast<int>(nextDayDate->tm_gmtoff / kSecondsInHour);
+  int const curUTCOffset = static_cast<int>((localTimeT - utcTimeT) / kSecondsInHour);
+
+  std::time_t constexpr kSecondsInDay = 24 * 60 * 60;
+  std::time_t nextDay = localTimeT + kSecondsInDay;
+
+  std::tm * nextDayDate = std::localtime(&nextDay);
 
   nextDayDate->tm_sec = 0;
   nextDayDate->tm_min = 0;

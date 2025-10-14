@@ -6,10 +6,28 @@
 #include <ctime>
 #include <boost/test/included/unit_test.hpp>
 
+#ifdef _MSC_VER
+#include <iomanip>
+#include <sstream>
+#endif
+
 namespace
 {
 typedef std::tuple<long, long> LongTimeRange;
 int countTests = 0;
+
+#ifdef _MSC_VER
+extern "C" char * strptime(char const * s, char const * f, std::tm * tm)
+{
+  std::istringstream input(s);
+  input.imbue(std::locale::classic());
+  input >> std::get_time(tm, f);
+  if (input.fail()) {
+    return nullptr;
+  }
+  return (char*)(s + input.tellg());
+}
+#endif
 
 LongTimeRange RangeToLong(std::string const & start, std::string const & end)
 {
