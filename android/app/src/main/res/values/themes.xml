@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <style name="MwmTheme.Splash">
     <item name="android:windowBackground">@color/bg_primary</item>
     <item name="android:textColorPrimary">@color/white_primary</item>
     <item name="android:navigationBarColor">@color/bg_primary</item>
     <item name="android:statusBarColor">@color/bg_primary</item>
+
+    <item name="android:windowSplashScreenBackground" tools:targetApi="31">?android:windowBackground</item>
+    <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="31">@mipmap/ic_launcher_foreground</item>
+    <item name="android:windowSplashScreenIconBackgroundColor" tools:targetApi="31">@null</item>
+    <item name="android:windowSplashScreenBehavior" tools:targetApi="33">icon_preferred</item>
   </style>
 
-  <!-- Theme is overridden in v27 folder to handle cutouts -->
   <style name="MwmTheme.MainActivity">
     <item name="android:colorPrimaryDark">@android:color/black</item>
     <item name="android:windowBackground">@null</item>
     <item name="android:windowTranslucentNavigation">false</item>
+    <!-- Allows to show the app behind the camera notch in landscape and when hiding the status bar -->
+    <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">shortEdges</item>
   </style>
 
   <style name="MwmTheme.DownloadResourcesLegacy">

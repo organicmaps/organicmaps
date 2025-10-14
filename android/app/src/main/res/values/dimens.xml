@@ -31,6 +31,8 @@
   <dimen name="neg_margin_base">-16dp</dimen>
   <dimen name="neg_margin_double">-32dp</dimen>
 
+  <dimen name="splash_screen_logo_size">256dp</dimen>
+
   <!-- base sizes -->
   <dimen name="height_block_base">48dp</dimen>
   <dimen name="height_item_oneline">56dp</dimen>
