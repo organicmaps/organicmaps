@@ -286,7 +286,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
   private void onShowActionSelected(@NonNull BookmarkCategory category)
   {
-    BookmarkManager.INSTANCE.toggleCategoryVisibility(category);
+    category.toggleVisibility();
     getAdapter().notifyDataSetChanged();
   }
 

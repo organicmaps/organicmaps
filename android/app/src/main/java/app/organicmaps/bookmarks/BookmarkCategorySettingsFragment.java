@@ -112,10 +112,10 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
       return;
 
     if (isCategoryNameChanged())
-      BookmarkManager.INSTANCE.setCategoryName(mCategory.getId(), newCategoryName);
+      mCategory.setName(newCategoryName);
 
     if (isCategoryDescChanged())
-      BookmarkManager.INSTANCE.setCategoryDescription(mCategory.getId(), getEditableCategoryDesc());
+      mCategory.setDescription(getEditableCategoryDesc());
 
     requireActivity().finish();
   }

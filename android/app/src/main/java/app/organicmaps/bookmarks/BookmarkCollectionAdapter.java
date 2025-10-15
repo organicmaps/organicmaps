@@ -55,8 +55,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onClick(View v)
     {
-      BookmarkCategory category = mHolder.getEntity();
-      BookmarkManager.INSTANCE.toggleCategoryVisibility(category);
+      mHolder.getEntity().toggleVisibility();
       notifyItemChanged(0);
     }
   }
@@ -229,7 +228,8 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onHideAll()
     {
-      BookmarkManager.INSTANCE.setChildCategoriesVisibility(mBookmarkCategory.getId(), false);
+      // TODO: Missing implementation
+      // BookmarkManager.INSTANCE.setChildCategoriesVisibility(mBookmarkCategory.getId(), false);
       updateAllItems();
       notifyDataSetChanged();
     }
@@ -237,7 +237,8 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onShowAll()
     {
-      BookmarkManager.INSTANCE.setChildCategoriesVisibility(mBookmarkCategory.getId(), true);
+      // TODO: Missing implementation
+      // BookmarkManager.INSTANCE.setChildCategoriesVisibility(mBookmarkCategory.getId(), true);
       updateAllItems();
       notifyDataSetChanged();
     }

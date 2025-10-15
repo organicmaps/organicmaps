@@ -57,7 +57,8 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
   @NonNull
   private final OnBookmarksLoaded mOnBookmarksLoaded;
 
-  private final long mBookmarkCategoryId;
+  @NonNull
+  private final BookmarkCategory mBookmarkCategory;
   private final int mBookmarksListSize;
 
   public BookmarksLoader(@NonNull CarContext carContext, @NonNull BookmarkCategory bookmarkCategory,
@@ -68,7 +69,7 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
 
     mCarContext = carContext;
     mOnBookmarksLoaded = onBookmarksLoaded;
-    mBookmarkCategoryId = bookmarkCategory.getId();
+    mBookmarkCategory = bookmarkCategory;
     mBookmarksListSize =
         Math.min(bookmarkCategory.getBookmarksCount(), Math.min(maxCategoriesSize, MAX_BOOKMARKS_SIZE));
   }
@@ -82,7 +83,7 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
 
       final List<Long> bookmarkIds = new ArrayList<>();
       for (int i = 0; i < mBookmarksListSize; ++i)
-        bookmarkIds.add(BookmarkManager.INSTANCE.getBookmarkIdByPosition(mBookmarkCategoryId, i));
+        bookmarkIds.add(mBookmarkCategory.getBookmarkIdByPosition(i));
       loadBookmarks(bookmarkIds);
     });
   }
@@ -104,22 +105,22 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
    */
   private boolean sortBookmarks()
   {
-    if (!BookmarkManager.INSTANCE.hasLastSortingType(mBookmarkCategoryId))
+    if (!mBookmarkCategory.hasLastSortingType())
       return false;
 
-    final int sortingType = BookmarkManager.INSTANCE.getLastSortingType(mBookmarkCategoryId);
+    final int sortingType = mBookmarkCategory.getLastSortingType();
     if (sortingType < 0)
       return false;
 
     final Location loc = MwmApplication.from(mCarContext).getLocationHelper().getSavedLocation();
     final boolean hasMyPosition = loc != null;
-    if (!hasMyPosition && sortingType == BookmarkManager.SORT_BY_DISTANCE)
+    if (!hasMyPosition && sortingType == BookmarkCategory.SortingType.BY_DISTANCE)
       return false;
 
     final double lat = hasMyPosition ? loc.getLatitude() : 0;
     final double lon = hasMyPosition ? loc.getLongitude() : 0;
 
-    BookmarkManager.INSTANCE.getSortedCategory(mBookmarkCategoryId, sortingType, hasMyPosition, lat, lon, 0);
+    BookmarkManager.INSTANCE.getSortedCategory(mBookmarkCategory.getId(), sortingType, hasMyPosition, lat, lon, 0);
 
     return true;
   }
@@ -130,7 +131,7 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
     for (int i = 0; i < mBookmarksListSize && i < bookmarksIds.size(); ++i)
     {
       final long id = bookmarksIds.get(i);
-      bookmarks[i] = new BookmarkInfo(mBookmarkCategoryId, id);
+      bookmarks[i] = new BookmarkInfo(mBookmarkCategory.getId(), id);
     }
 
     mBookmarkLoaderTask = ThreadPool.getWorker().submit(() -> {

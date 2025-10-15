@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
-import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.util.UiUtils;
 
 public class ChooseBookmarksSortingTypeFragment
@@ -27,10 +27,10 @@ public class ChooseBookmarksSortingTypeFragment
   public interface ChooseSortingTypeListener
   {
     void onResetSorting();
-    void onSort(@BookmarkManager.SortingType int sortingType);
+    void onSort(@BookmarkCategory.SortingType int sortingType);
   }
 
-  public static void chooseSortingType(@NonNull @BookmarkManager.SortingType int[] availableTypes, int currentType,
+  public static void chooseSortingType(@NonNull @BookmarkCategory.SortingType int[] availableTypes, int currentType,
                                        @NonNull Context context, @NonNull FragmentManager manager)
   {
     Bundle args = new Bundle();
@@ -64,10 +64,10 @@ public class ChooseBookmarksSortingTypeFragment
     {
       switch (sortingType)
       {
-      case BookmarkManager.SORT_BY_TYPE: return R.id.sort_by_type;
-      case BookmarkManager.SORT_BY_DISTANCE: return R.id.sort_by_distance;
-      case BookmarkManager.SORT_BY_TIME: return R.id.sort_by_time;
-      case BookmarkManager.SORT_BY_NAME: return R.id.sort_by_name;
+      case BookmarkCategory.SortingType.BY_TYPE: return R.id.sort_by_type;
+      case BookmarkCategory.SortingType.BY_DISTANCE: return R.id.sort_by_distance;
+      case BookmarkCategory.SortingType.BY_TIME: return R.id.sort_by_time;
+      case BookmarkCategory.SortingType.BY_NAME: return R.id.sort_by_name;
       }
     }
     return R.id.sort_by_default;
@@ -84,12 +84,12 @@ public class ChooseBookmarksSortingTypeFragment
 
     UiUtils.hide(view, R.id.sort_by_type, R.id.sort_by_distance, R.id.sort_by_time, R.id.sort_by_name);
 
-    @BookmarkManager.SortingType
+    @BookmarkCategory.SortingType
     int[] availableSortingTypes = args.getIntArray(EXTRA_SORTING_TYPES);
     if (availableSortingTypes == null)
       throw new AssertionError("Available sorting types can't be null.");
 
-    for (@BookmarkManager.SortingType int type : availableSortingTypes)
+    for (@BookmarkCategory.SortingType int type : availableSortingTypes)
       UiUtils.show(view.findViewById(getViewId(type)));
 
     int currentType = args.getInt(EXTRA_CURRENT_SORT_TYPE);
@@ -101,7 +101,7 @@ public class ChooseBookmarksSortingTypeFragment
   }
 
   @Override
-  public void onAttach(Context context)
+  public void onAttach(@NonNull Context context)
   {
     super.onAttach(context);
     onAttachInternal();
@@ -126,7 +126,7 @@ public class ChooseBookmarksSortingTypeFragment
     dismiss();
   }
 
-  private void setSortingType(@BookmarkManager.SortingType int sortingType)
+  private void setSortingType(@BookmarkCategory.SortingType int sortingType)
   {
     if (mListener != null)
       mListener.onSort(sortingType);
@@ -134,17 +134,17 @@ public class ChooseBookmarksSortingTypeFragment
   }
 
   @Override
-  public void onCheckedChanged(RadioGroup group, @IdRes int id)
+  public void onCheckedChanged(@NonNull RadioGroup group, @IdRes int id)
   {
     if (id == R.id.sort_by_default)
       resetSorting();
     else if (id == R.id.sort_by_type)
-      setSortingType(BookmarkManager.SORT_BY_TYPE);
+      setSortingType(BookmarkCategory.SortingType.BY_TYPE);
     else if (id == R.id.sort_by_distance)
-      setSortingType(BookmarkManager.SORT_BY_DISTANCE);
+      setSortingType(BookmarkCategory.SortingType.BY_DISTANCE);
     else if (id == R.id.sort_by_time)
-      setSortingType(BookmarkManager.SORT_BY_TIME);
+      setSortingType(BookmarkCategory.SortingType.BY_TIME);
     else if (id == R.id.sort_by_name)
-      setSortingType(BookmarkManager.SORT_BY_NAME);
+      setSortingType(BookmarkCategory.SortingType.BY_NAME);
   }
 }

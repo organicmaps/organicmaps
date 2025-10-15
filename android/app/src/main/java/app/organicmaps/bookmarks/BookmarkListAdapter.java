@@ -176,13 +176,13 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     @Override
     public long getBookmarkId(@NonNull SectionPosition pos)
     {
-      return BookmarkManager.INSTANCE.getBookmarkIdByPosition(getCategory().getId(), pos.getItemIndex());
+      return getCategory().getBookmarkIdByPosition(pos.getItemIndex());
     }
 
     @Override
     public long getTrackId(@NonNull SectionPosition pos)
     {
-      return BookmarkManager.INSTANCE.getTrackIdByPosition(getCategory().getId(), pos.getItemIndex());
+      return getCategory().getTrackIdByPosition(pos.getItemIndex());
     }
   }
 
