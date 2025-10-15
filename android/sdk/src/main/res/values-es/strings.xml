@@ -29,10 +29,6 @@
     <string name="core_exit">Salida</string>
     <string name="core_entrance">Entrada</string>
     <string name="subway_data_unavailable">El mapa del metro no está disponible</string>
-    <string name="public_access">Acceso público</string>
-    <string name="limited_access">Acceso limitado</string>
-    <string name="not_shared">Privado</string>
-    <string name="access_rules_author_only">Edición en línea</string>
     <string name="mb">MB</string>
     <string name="gb">GB</string>
     <string name="routes_update_maps_text">Para mostrar las rutas, debes actualizar los mapas.</string>

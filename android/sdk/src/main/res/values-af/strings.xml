@@ -32,8 +32,4 @@
     <string name="core_exit">Uitgang</string>
     <string name="core_entrance">Ingang</string>
     <string name="subway_data_unavailable">Moltreinkaart is onbeskikbaar</string>
-    <string name="public_access">Openbare toegang</string>
-    <string name="limited_access">Beperkte toegang</string>
-    <string name="not_shared">Privaat</string>
-    <string name="access_rules_author_only">Aanlyn wysiging</string>
 </resources>

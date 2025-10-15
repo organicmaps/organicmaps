@@ -29,8 +29,4 @@
     <string name="core_exit">Ukončiť</string>
     <string name="core_entrance">Vchod | vjazd</string>
     <string name="subway_data_unavailable">Mapa metra nie je dostupná</string>
-    <string name="public_access">Verejne prístupné</string>
-    <string name="limited_access">Obmedzený prístup</string>
-    <string name="not_shared">Súkromné</string>
-    <string name="access_rules_author_only">Online úprava</string>
 </resources>

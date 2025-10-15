@@ -19,11 +19,7 @@
     <string name="core_exit">Ieșire</string>
     <string name="core_entrance">Intrare</string>
     <string name="subway_data_unavailable">Harta de metrou nu este disponibilă</string>
-    <string name="public_access">Acces public</string>
-    <string name="limited_access">Acces privat</string>
-    <string name="not_shared">Personal</string>
-    <string name="access_rules_author_only">Modifică online</string>
-    <string name="gb">GB</string>
+  <string name="gb">GB</string>
     <string name="mb">MB</string>
     <string name="maps_storage_removable">Card SD</string>
     <string name="ft">picioare</string>

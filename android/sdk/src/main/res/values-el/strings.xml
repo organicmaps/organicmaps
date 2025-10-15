@@ -28,10 +28,6 @@
     <string name="core_exit">Έξοδος</string>
     <string name="core_entrance">Είσοδος</string>
     <string name="subway_data_unavailable">Ο χάρτης μετρό δεν είναι διαθέσιμος</string>
-    <string name="public_access">Δημόσια πρόσβαση</string>
-    <string name="limited_access">Περιορισμένη πρόσβαση</string>
-    <string name="not_shared">Ιδιωτικό</string>
-    <string name="access_rules_author_only">Online επεξεργασία</string>
     <string name="mb">MB</string>
     <string name="mi">μι</string>
     <string name="routes_update_maps_text">Για την προβολή των διαδρομών, οι χάρτες πρέπει να είναι ενημερωμένοι.</string>

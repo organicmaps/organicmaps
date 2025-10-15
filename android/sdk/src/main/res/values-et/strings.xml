@@ -29,10 +29,6 @@
     <string name="core_exit">Välju</string>
     <string name="core_entrance">Sissepääs</string>
     <string name="subway_data_unavailable">Metrookaart ei ole saadaval</string>
-    <string name="public_access">Avalik ligipääs</string>
-    <string name="limited_access">Piiratud ligipääs</string>
-    <string name="not_shared">Privaatne</string>
-    <string name="access_rules_author_only">Võrgupõhine muutmine</string>
     <string name="mb">MB</string>
     <string name="gb">GB</string>
     <string name="routes_update_maps_text">Teekondade kuvamiseks peavad kaardid olema uuendatud.</string>

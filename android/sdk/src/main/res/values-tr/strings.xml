@@ -31,10 +31,6 @@
     <string name="core_exit">Çık</string>
     <string name="core_entrance">Giriş</string>
     <string name="subway_data_unavailable">Metro haritası yok</string>
-    <string name="public_access">Genel erişim</string>
-    <string name="limited_access">Sınırlı erişim</string>
-    <string name="not_shared">Gizli</string>
-    <string name="access_rules_author_only">Çevrimiçi düzenleme</string>
     <string name="gb">GB</string>
     <string name="routes_update_maps_text">Rotaları görüntülemek için haritalar güncellenmelidir.</string>
 </resources>

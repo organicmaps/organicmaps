@@ -29,10 +29,6 @@
     <string name="core_exit">Irten</string>
     <string name="core_entrance">Sarrera</string>
     <string name="subway_data_unavailable">Metroaren mapa ez dago erabilgarri</string>
-    <string name="public_access">Sarbide publikoa</string>
-    <string name="limited_access">Sarbide mugatua</string>
-    <string name="not_shared">Pribatua</string>
-    <string name="access_rules_author_only">Sarean editatzen</string>
     <string name="mb">MB</string>
     <string name="gb">GB</string>
     <string name="routes_update_maps_text">Arrastoak ikusteko mapak eguneratu behar dira.</string>

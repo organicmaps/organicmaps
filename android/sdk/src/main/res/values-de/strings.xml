@@ -29,10 +29,6 @@
     <string name="core_exit">Ausgang</string>
     <string name="core_entrance">Eingang</string>
     <string name="subway_data_unavailable">Die U-Bahnkarte steht nicht zur Verfügung</string>
-    <string name="public_access">Öffentlicher Zugriff</string>
-    <string name="limited_access">Privater Zugriff</string>
-    <string name="not_shared">Privat</string>
-    <string name="access_rules_author_only">Online bearbeiten</string>
     <string name="gb">GB</string>
     <string name="mb">MB</string>
     <string name="routes_update_maps_text">Um Routen anzuzeigen, muss die Karte aktualisiert werden.</string>

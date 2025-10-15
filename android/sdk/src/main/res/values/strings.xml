@@ -33,8 +33,4 @@
     <string name="core_exit">Exit</string>
     <string name="core_entrance">Entrance</string>
     <string name="subway_data_unavailable">Subway map is unavailable</string>
-    <string name="public_access">Public access</string>
-    <string name="limited_access">Limited access</string>
-    <string name="not_shared">Private</string>
-    <string name="access_rules_author_only">Online editing</string>
 </resources>

@@ -2,11 +2,9 @@ package app.organicmaps.sdk.bookmarks.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import androidx.annotation.DrawableRes;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
-import app.organicmaps.sdk.R;
+import java.util.Objects;
 
 // Used by JNI.
 @Keep
@@ -50,7 +48,7 @@ public class BookmarkCategory implements Parcelable
   @Override
   public int hashCode()
   {
-    return (int) (mId ^ (mId >>> 32));
+    return Long.hashCode(mId);
   }
 
   public long getId()
@@ -102,6 +100,7 @@ public class BookmarkCategory implements Parcelable
   }
 
   @Override
+  @NonNull
   public String toString()
   {
     final StringBuilder sb = new StringBuilder("BookmarkCategory{");
@@ -124,7 +123,7 @@ public class BookmarkCategory implements Parcelable
   }
 
   @Override
-  public void writeToParcel(Parcel dest, int flags)
+  public void writeToParcel(@NonNull Parcel dest, int flags)
   {
     dest.writeLong(this.mId);
     dest.writeString(this.mName);
@@ -135,12 +134,12 @@ public class BookmarkCategory implements Parcelable
     dest.writeByte(this.mIsVisible ? (byte) 1 : (byte) 0);
   }
 
-  protected BookmarkCategory(Parcel in)
+  private BookmarkCategory(@NonNull Parcel in)
   {
     this.mId = in.readLong();
-    this.mName = in.readString();
-    this.mAnnotation = in.readString();
-    this.mDescription = in.readString();
+    this.mName = Objects.requireNonNull(in.readString());
+    this.mAnnotation = Objects.requireNonNull(in.readString());
+    this.mDescription = Objects.requireNonNull(in.readString());
     this.mTracksCount = in.readInt();
     this.mBookmarksCount = in.readInt();
     this.mIsVisible = in.readByte() != 0;
@@ -159,33 +158,4 @@ public class BookmarkCategory implements Parcelable
       return new BookmarkCategory[size];
     }
   };
-
-  public enum AccessRules
-  {
-    ACCESS_RULES_LOCAL(R.string.not_shared, R.drawable.ic_lock),
-    ACCESS_RULES_PUBLIC(R.string.public_access, R.drawable.ic_public_inline),
-    ACCESS_RULES_DIRECT_LINK(R.string.limited_access, R.drawable.ic_link_inline),
-    ACCESS_RULES_AUTHOR_ONLY(R.string.access_rules_author_only, R.drawable.ic_lock);
-
-    private final int mResId;
-    private final int mDrawableResId;
-
-    AccessRules(int resId, int drawableResId)
-    {
-      mResId = resId;
-      mDrawableResId = drawableResId;
-    }
-
-    @DrawableRes
-    public int getDrawableResId()
-    {
-      return mDrawableResId;
-    }
-
-    @StringRes
-    public int getNameResId()
-    {
-      return mResId;
-    }
-  }
 }

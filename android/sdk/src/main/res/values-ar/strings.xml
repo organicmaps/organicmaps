@@ -32,8 +32,4 @@
     <string name="core_exit">خروج</string>
     <string name="core_entrance">المدخل</string>
     <string name="subway_data_unavailable">خريطة مترو الانفاق غير متوفرة</string>
-    <string name="public_access">مسموح الوصول لعامة الشعب</string>
-    <string name="limited_access">مسموح الوصول بشكل محدود</string>
-    <string name="not_shared">خاص</string>
-    <string name="access_rules_author_only">التعديل باستخدام الإنترنت</string>
 </resources>

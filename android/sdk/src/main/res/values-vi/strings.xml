@@ -21,8 +21,4 @@
     <string name="core_exit">Lối ra</string>
     <string name="core_entrance">Lối vào</string>
     <string name="subway_data_unavailable">Bản đồ tàu điện ngầm không khả dụng</string>
-    <string name="public_access">Truy cập công khai</string>
-    <string name="limited_access">Truy cập hạn chế</string>
-    <string name="not_shared">Riêng tư</string>
-    <string name="access_rules_author_only">Chỉnh sửa trực tuyến</string>
 </resources>

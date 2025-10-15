@@ -23,8 +23,4 @@
     <string name="core_exit">Keluar</string>
     <string name="core_entrance">Tempat masuk</string>
     <string name="subway_data_unavailable">Peta bawah tanah tidak tersedia</string>
-    <string name="public_access">Akses umum</string>
-    <string name="limited_access">Akses terbatas</string>
-    <string name="not_shared">Pribadi</string>
-    <string name="access_rules_author_only">Pengeditan online</string>
 </resources>

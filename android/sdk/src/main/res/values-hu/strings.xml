@@ -29,10 +29,6 @@
     <string name="core_exit">Kijárat</string>
     <string name="core_entrance">Bejárat</string>
     <string name="subway_data_unavailable">A metrótérkép nem érhető el</string>
-    <string name="public_access">Nyilvános hozzáférés</string>
-    <string name="limited_access">Korlátozott hozzáférés</string>
-    <string name="not_shared">Privát</string>
-    <string name="access_rules_author_only">Szerkesztés online</string>
     <string name="mb">MB</string>
     <string name="gb">GB</string>
     <string name="routes_update_maps_text">Az útvonalak megjelenítéséhez frissíteni kell a térképeket.</string>

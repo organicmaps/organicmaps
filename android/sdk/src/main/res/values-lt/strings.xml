@@ -32,9 +32,5 @@
     <string name="core_exit">Išėjimas</string>
     <string name="core_entrance">Įėjimas</string>
     <string name="subway_data_unavailable">Metro žemėlapis neprieinamas</string>
-    <string name="public_access">Vieša prieiga</string>
-    <string name="limited_access">Ribota prieiga</string>
-    <string name="not_shared">Privatus</string>
-    <string name="access_rules_author_only">Taisymas internete</string>
     <string name="routes_update_maps_text">Prieš parodant kelius, reikia atnaujinti žemėlapius.</string>
 </resources>

@@ -4,8 +4,4 @@
     <string name="core_exit">Toka</string>
     <string name="core_entrance">Kiingilio</string>
     <string name="subway_data_unavailable">Ramani ya njia ya chini haipatikani</string>
-    <string name="public_access">Matumizi ya umma</string>
-    <string name="limited_access">Matumizi yenye ukomo</string>
-    <string name="not_shared">Faragha</string>
-    <string name="access_rules_author_only">Uhariri mtandaoni</string>
 </resources>

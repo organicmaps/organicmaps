@@ -33,8 +33,4 @@
     <string name="core_exit">Выход</string>
     <string name="core_entrance">Вход</string>
     <string name="subway_data_unavailable">Карта метро недоступна</string>
-    <string name="public_access">Публичный доступ</string>
-    <string name="limited_access">Ограниченный доступ</string>
-    <string name="not_shared">Личный</string>
-    <string name="access_rules_author_only">Редактируется онлайн</string>
 </resources>
