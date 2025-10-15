@@ -93,6 +93,10 @@ UNIT_TEST(NormalizeAndSimplifyString_WithOurTambourines)
       "триумф-палас",  // Russian accent
       "  a   b  c d ",
       " a b c d ",  // Multiple spaces
+      "\u25B6\uFE0E",
+      "▶ ",
+      "\u25B6\uFE0F",
+      "▶ ",
   };
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); i += 2)
