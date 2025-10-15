@@ -122,8 +122,7 @@ bool GeojsonParser::Parse(std::string_view jsonContent)
         }
 
         // Store '_umap_options' as a JSON string to preserve all UMap properties
-        std::string umapOptionsStr;
-        if (glz::write_json(umapOptions->second, umapOptionsStr) == glz::error_code::none)
+        if (std::string umapOptionsStr; glz::write_json(umapOptions->second, umapOptionsStr) == glz::error_code::none)
           bookmark.m_properties["_umap_options"] = umapOptionsStr;
       }
 
