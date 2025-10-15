@@ -20,7 +20,6 @@ import app.organicmaps.car.renderer.Renderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
-import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
@@ -33,10 +32,13 @@ class SortingScreen extends BaseMapScreen
   @NonNull
   private final CarIcon mRadioButtonSelectedIcon;
 
-  private final long mBookmarkCategoryId;
-  private final @BookmarkManager.SortingType int mLastSortingType;
+  @NonNull
+  private final BookmarkCategory mBookmarkCategory;
+  @BookmarkCategory.SortingType
+  private final int mLastSortingType;
 
-  private @BookmarkManager.SortingType int mNewSortingType;
+  @BookmarkCategory.SortingType
+  private int mNewSortingType;
 
   public SortingScreen(@NonNull CarContext carContext, @NonNull Renderer surfaceRenderer,
                        @NonNull BookmarkCategory bookmarkCategory)
@@ -47,7 +49,7 @@ class SortingScreen extends BaseMapScreen
     mRadioButtonSelectedIcon =
         new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_radio_button_checked)).build();
 
-    mBookmarkCategoryId = bookmarkCategory.getId();
+    mBookmarkCategory = bookmarkCategory;
     mLastSortingType = mNewSortingType = getLastSortingType();
   }
 
@@ -90,7 +92,7 @@ class SortingScreen extends BaseMapScreen
   }
 
   @NonNull
-  private ItemList createSortingTypesList(@NonNull final @BookmarkManager.SortingType int[] availableSortingTypes,
+  private ItemList createSortingTypesList(@NonNull final @BookmarkCategory.SortingType int[] availableSortingTypes,
                                           final int lastSortingType)
   {
     final ItemList.Builder builder = new ItemList.Builder();
@@ -106,9 +108,9 @@ class SortingScreen extends BaseMapScreen
         rowBuilder.setImage(mRadioButtonIcon);
         rowBuilder.setOnClickListener(() -> {
           if (type == DEFAULT_SORTING_TYPE)
-            BookmarkManager.INSTANCE.resetLastSortingType(mBookmarkCategoryId);
+            mBookmarkCategory.resetLastSortingType();
           else
-            BookmarkManager.INSTANCE.setLastSortingType(mBookmarkCategoryId, type);
+            mBookmarkCategory.setLastSortingType(type);
           mNewSortingType = type;
           invalidate();
         });
@@ -119,40 +121,40 @@ class SortingScreen extends BaseMapScreen
   }
 
   @StringRes
-  private int sortingTypeToStringRes(@BookmarkManager.SortingType int sortingType)
+  private int sortingTypeToStringRes(@BookmarkCategory.SortingType int sortingType)
   {
     return switch (sortingType)
     {
-      case BookmarkManager.SORT_BY_TYPE -> R.string.by_type;
-      case BookmarkManager.SORT_BY_DISTANCE -> R.string.by_distance;
-      case BookmarkManager.SORT_BY_TIME -> R.string.by_date;
-      case BookmarkManager.SORT_BY_NAME -> R.string.by_name;
+      case BookmarkCategory.SortingType.BY_TYPE -> R.string.by_type;
+      case BookmarkCategory.SortingType.BY_DISTANCE -> R.string.by_distance;
+      case BookmarkCategory.SortingType.BY_TIME -> R.string.by_date;
+      case BookmarkCategory.SortingType.BY_NAME -> R.string.by_name;
       default -> R.string.by_default;
     };
   }
 
   @NonNull
-  @BookmarkManager.SortingType
+  @BookmarkCategory.SortingType
   private int[] getAvailableSortingTypes()
   {
     final Location loc = MwmApplication.from(getCarContext()).getLocationHelper().getSavedLocation();
     final boolean hasMyPosition = loc != null;
-    return BookmarkManager.INSTANCE.getAvailableSortingTypes(mBookmarkCategoryId, hasMyPosition);
+    return mBookmarkCategory.getAvailableSortingTypes(hasMyPosition);
   }
 
   private int getLastSortingType()
   {
-    if (BookmarkManager.INSTANCE.hasLastSortingType(mBookmarkCategoryId))
-      return BookmarkManager.INSTANCE.getLastSortingType(mBookmarkCategoryId);
+    if (mBookmarkCategory.hasLastSortingType())
+      return mBookmarkCategory.getLastSortingType();
     return DEFAULT_SORTING_TYPE;
   }
 
   private int getLastAvailableSortingType()
   {
     int currentType = getLastSortingType();
-    @BookmarkManager.SortingType
+    @BookmarkCategory.SortingType
     int[] types = getAvailableSortingTypes();
-    for (@BookmarkManager.SortingType int type : types)
+    for (@BookmarkCategory.SortingType int type : types)
     {
       if (type == currentType)
         return currentType;

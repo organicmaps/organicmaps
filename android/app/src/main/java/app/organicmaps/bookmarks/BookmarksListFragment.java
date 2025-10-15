@@ -407,21 +407,22 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   }
 
   @Override
-  public void onSort(@BookmarkManager.SortingType int sortingType)
+  public void onSort(@BookmarkCategory.SortingType int sortingType)
   {
     mLastSortTimestamp = System.nanoTime();
 
     final Location loc = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
     final boolean hasMyPosition = loc != null;
-    if (!hasMyPosition && sortingType == BookmarkManager.SORT_BY_DISTANCE)
+    if (!hasMyPosition && sortingType == BookmarkCategory.SortingType.BY_DISTANCE)
       return;
 
-    final long catId = mCategoryDataSource.getData().getId();
+    final BookmarkCategory category = mCategoryDataSource.getData();
     final double lat = hasMyPosition ? loc.getLatitude() : 0;
     final double lon = hasMyPosition ? loc.getLongitude() : 0;
 
-    BookmarkManager.INSTANCE.setLastSortingType(catId, sortingType);
-    BookmarkManager.INSTANCE.getSortedCategory(catId, sortingType, hasMyPosition, lat, lon, mLastSortTimestamp);
+    category.setLastSortingType(sortingType);
+    BookmarkManager.INSTANCE.getSortedCategory(category.getId(), sortingType, hasMyPosition, lat, lon,
+                                               mLastSortTimestamp);
 
     updateSortingProgressBar();
   }
@@ -442,8 +443,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   public void onResetSorting()
   {
     mLastSortTimestamp = 0;
-    long catId = mCategoryDataSource.getData().getId();
-    BookmarkManager.INSTANCE.resetLastSortingType(catId);
+    mCategoryDataSource.getData().resetLastSortingType();
 
     BookmarkListAdapter adapter = getBookmarkListAdapter();
     adapter.setSortedResults(null);
@@ -460,8 +460,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     if (mLastSortTimestamp != 0)
       return;
 
-    long catId = mCategoryDataSource.getData().getId();
-    if (!BookmarkManager.INSTANCE.hasLastSortingType(catId))
+    if (!mCategoryDataSource.getData().hasLastSortingType())
       return;
 
     int currentType = getLastAvailableSortingType();
@@ -493,29 +492,28 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   }
 
   @NonNull
-  @BookmarkManager.SortingType
+  @BookmarkCategory.SortingType
   private int[] getAvailableSortingTypes()
   {
-    final long catId = mCategoryDataSource.getData().getId();
     final Location loc = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
     final boolean hasMyPosition = loc != null;
-    return BookmarkManager.INSTANCE.getAvailableSortingTypes(catId, hasMyPosition);
+    return mCategoryDataSource.getData().getAvailableSortingTypes(hasMyPosition);
   }
 
   private int getLastSortingType()
   {
-    final long catId = mCategoryDataSource.getData().getId();
-    if (BookmarkManager.INSTANCE.hasLastSortingType(catId))
-      return BookmarkManager.INSTANCE.getLastSortingType(catId);
+    final BookmarkCategory category = mCategoryDataSource.getData();
+    if (category.hasLastSortingType())
+      return category.getLastSortingType();
     return -1;
   }
 
   private int getLastAvailableSortingType()
   {
     int currentType = getLastSortingType();
-    @BookmarkManager.SortingType
+    @BookmarkCategory.SortingType
     int[] types = getAvailableSortingTypes();
-    for (@BookmarkManager.SortingType int type : types)
+    for (@BookmarkCategory.SortingType int type : types)
     {
       if (type == currentType)
         return currentType;
@@ -759,7 +757,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private ArrayList<MenuBottomSheetItem> getOptionsMenuItems()
   {
-    @BookmarkManager.SortingType
+    @BookmarkCategory.SortingType
     int[] types = getAvailableSortingTypes();
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
     if (!isEmpty())
