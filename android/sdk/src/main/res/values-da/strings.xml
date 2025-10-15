@@ -21,7 +21,7 @@
     <string name="core_exit">Udgang</string>
     <string name="core_entrance">Indgang</string>
     <string name="subway_data_unavailable">Kort over undergrundsbaner er ikke tilgængeligt</string>
-  <string name="mb">MB</string>
+    <string name="mb">MB</string>
     <string name="gb">GB</string>
     <string name="maps_storage_internal">Intern privat lagerplads</string>
     <string name="maps_storage_shared">Intern delt lagerplads</string>
