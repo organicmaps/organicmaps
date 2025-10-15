@@ -125,6 +125,11 @@ UniString NormalizeAndSimplifyString(std::string_view s)
     case 0x2116:  // №
       c = '#';
       break;
+    // Remove emoji variation selectors, as categories.txt stores emoji without them.
+    case 0xfe0e:  // VARIATION SELECTOR-15
+    case 0xfe0f:  // VARIATION SELECTOR-16
+      c = ' ';
+      break;
     }
   }
 
