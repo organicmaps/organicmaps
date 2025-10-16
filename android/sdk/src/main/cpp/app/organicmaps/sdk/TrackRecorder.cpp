@@ -62,7 +62,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_location_TrackRecorder_nativeGetEleva
   auto const & elevationInfo = frm()->GetTrackRecordingElevationInfo();
   if (elevationInfo.GetSize() == 0)
     return nullptr;
-  return usermark_helper::CreateElevationInfo(env, elevationInfo);
+  return ToJavaElevationInfo(env, elevationInfo);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_location_TrackRecorder_nativeStopTrackRecording(JNIEnv * env, jclass clazz)

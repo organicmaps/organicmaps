@@ -81,18 +81,18 @@ public class MapObject implements PlacePageData
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
                    @Nullable String secondaryTitle, String subtitle, String address, double lat, double lon,
                    String apiId, @Nullable RoutePointInfo routePointInfo, @OpeningMode int openingMode,
-                   Popularity popularity, @NonNull String wikiArticle, @NonNull String osmDescription,
-                   int roadWarningType, @Nullable String[] rawTypes)
+                   @NonNull String wikiArticle, @NonNull String osmDescription, int roadWarningType,
+                   @Nullable String[] rawTypes)
   {
     this(featureId, mapObjectType, title, secondaryTitle, subtitle, address, lat, lon, new Metadata(), apiId,
-         routePointInfo, openingMode, popularity, wikiArticle, osmDescription, roadWarningType, rawTypes);
+         routePointInfo, openingMode, wikiArticle, osmDescription, roadWarningType, rawTypes);
   }
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
                    @Nullable String secondaryTitle, String subtitle, String address, double lat, double lon,
-                   Metadata metadata, String apiId, @Nullable RoutePointInfo routePointInfo,
-                   @OpeningMode int openingMode, Popularity popularity, @NonNull String wikiArticle,
-                   @NonNull String osmDescription, int roadWarningType, @Nullable String[] rawTypes)
+                   @Nullable Metadata metadata, String apiId, @Nullable RoutePointInfo routePointInfo,
+                   @OpeningMode int openingMode, @NonNull String wikiArticle, @NonNull String osmDescription,
+                   int roadWarningType, @Nullable String[] rawTypes)
   {
     mMapObjectType = mapObjectType;
     mFeatureId = featureId;
@@ -106,7 +106,6 @@ public class MapObject implements PlacePageData
     mApiId = apiId;
     mRoutePointInfo = routePointInfo;
     mOpeningMode = openingMode;
-    // mPopularity = popularity;
     mWikiArticle = wikiArticle;
     mOsmDescription = osmDescription;
     mRoadWarningMarkType = RoadWarningMarkType.values()[roadWarningType];
@@ -145,8 +144,7 @@ public class MapObject implements PlacePageData
                                           @NonNull String title, @NonNull String subtitle, double lat, double lon)
   {
     return new MapObject(featureId, mapObjectType, title, "", subtitle, "", lat, lon, null, "", null,
-                         OPENING_MODE_PREVIEW, Popularity.defaultInstance(), "", null,
-                         RoadWarningMarkType.UNKNOWN.ordinal(), new String[0]);
+                         OPENING_MODE_PREVIEW, "", "", RoadWarningMarkType.UNKNOWN.ordinal(), new String[0]);
   }
 
   /**

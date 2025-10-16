@@ -7,8 +7,8 @@ public class TrackRecording extends MapObject
   private final MutableLiveData<String> mTrackRecordingPPDescription = new MutableLiveData<>();
   public TrackRecording()
   {
-    super(FeatureId.EMPTY, TRACK_RECORDING, "Track Recording", "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW, null,
-          "", "", RoadWarningMarkType.UNKNOWN.ordinal(), null);
+    super(FeatureId.EMPTY, TRACK_RECORDING, "Track Recording", "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW, "", "",
+          RoadWarningMarkType.UNKNOWN.ordinal(), null);
     mTrackRecordingPPDescription.setValue("");
   }
 
