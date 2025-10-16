@@ -109,53 +109,50 @@ static storage::CountryId const GetRootId(JNIEnv * env, jstring root)
 extern "C"
 {
 // static String nativeGetRoot();
-JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeGetRoot(JNIEnv * env, jclass clazz)
+JNIEXPORT jstring Java_app_organicmaps_sdk_downloader_MapManager_nativeGetRoot(JNIEnv * env, jclass clazz)
 {
   return jni::ToJavaString(env, GetStorage().GetRootId());
 }
 
 // static boolean nativeMoveFile(String oldFile, String newFile);
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeMoveFile(JNIEnv * env, jclass clazz,
-                                                                                         jstring oldFile,
-                                                                                         jstring newFile)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeMoveFile(JNIEnv * env, jclass clazz,
+                                                                                 jstring oldFile, jstring newFile)
 {
   return base::MoveFileX(jni::ToNativeString(env, oldFile), jni::ToNativeString(env, newFile));
 }
 
 // static boolean nativeHasSpaceToDownloadAmount(long bytes);
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeHasSpaceToDownloadAmount(JNIEnv * env,
-                                                                                                         jclass clazz,
-                                                                                                         jlong bytes)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeHasSpaceToDownloadAmount(JNIEnv * env,
+                                                                                                 jclass clazz,
+                                                                                                 jlong bytes)
 {
   return storage::IsEnoughSpaceForDownload(bytes);
 }
 
 // static boolean nativeHasSpaceToDownloadCountry(String root);
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeHasSpaceToDownloadCountry(JNIEnv * env,
-                                                                                                          jclass clazz,
-                                                                                                          jstring root)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeHasSpaceToDownloadCountry(JNIEnv * env,
+                                                                                                  jclass clazz,
+                                                                                                  jstring root)
 {
   return storage::IsEnoughSpaceForDownload(jni::ToNativeString(env, root), GetStorage());
 }
 
 // static boolean nativeHasSpaceToUpdate(String root);
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeHasSpaceToUpdate(JNIEnv * env,
-                                                                                                 jclass clazz,
-                                                                                                 jstring root)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeHasSpaceToUpdate(JNIEnv * env, jclass clazz,
+                                                                                         jstring root)
 {
   return IsEnoughSpaceForUpdate(jni::ToNativeString(env, root), GetStorage());
 }
 
 // static int nativeGetDownloadedCount();
-JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeGetDownloadedCount(JNIEnv * env,
-                                                                                               jclass clazz)
+JNIEXPORT jint Java_app_organicmaps_sdk_downloader_MapManager_nativeGetDownloadedCount(JNIEnv * env, jclass clazz)
 {
   return static_cast<jint>(GetStorage().GetDownloadedFilesCount());
 }
 
 // static @Nullable UpdateInfo nativeGetUpdateInfo(@Nullable String root);
-JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env, jclass clazz,
-                                                                                             jstring root)
+JNIEXPORT jobject Java_app_organicmaps_sdk_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env, jclass clazz,
+                                                                                     jstring root)
 {
   storage::Storage::UpdateInfo info;
   if (!GetStorage().GetUpdateInfo(GetRootId(env, root), info))
@@ -272,11 +269,10 @@ static void PutItemsToList(
 
 // static void nativeListItems(@Nullable String root, double lat, double lon, boolean hasLocation, boolean myMapsMode,
 // List<CountryItem> result);
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeListItems(JNIEnv * env, jclass clazz,
-                                                                                      jstring parent, jdouble lat,
-                                                                                      jdouble lon, jboolean hasLocation,
-                                                                                      jboolean myMapsMode,
-                                                                                      jobject result)
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeListItems(JNIEnv * env, jclass clazz,
+                                                                              jstring parent, jdouble lat, jdouble lon,
+                                                                              jboolean hasLocation, jboolean myMapsMode,
+                                                                              jobject result)
 {
   if (hasLocation && !myMapsMode)
   {
@@ -297,8 +293,7 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeList
 }
 
 // static void nativeUpdateItem(CountryItem item);
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeGetAttributes(JNIEnv * env, jclass,
-                                                                                          jobject item)
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeGetAttributes(JNIEnv * env, jclass, jobject item)
 {
   auto const & ciBuilder = CountryItemBuilder::Instance(env);
   jstring id = static_cast<jstring>(env->GetObjectField(item, ciBuilder.m_Id));
@@ -310,8 +305,7 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeGetA
 }
 
 // static void nativeGetStatus(String root);
-JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeGetStatus(JNIEnv * env, jclass clazz,
-                                                                                      jstring root)
+JNIEXPORT jint Java_app_organicmaps_sdk_downloader_MapManager_nativeGetStatus(JNIEnv * env, jclass clazz, jstring root)
 {
   storage::NodeStatuses ns;
   GetStorage().GetNodeStatuses(jni::ToNativeString(env, root), ns);
@@ -319,8 +313,7 @@ JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeGetS
 }
 
 // static void nativeGetError(String root);
-JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeGetError(JNIEnv * env, jclass clazz,
-                                                                                     jstring root)
+JNIEXPORT jint Java_app_organicmaps_sdk_downloader_MapManager_nativeGetError(JNIEnv * env, jclass clazz, jstring root)
 {
   storage::NodeStatuses ns;
   GetStorage().GetNodeStatuses(jni::ToNativeString(env, root), ns);
@@ -328,23 +321,21 @@ JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeGetE
 }
 
 // static String nativeGetName(String root);
-JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeGetName(JNIEnv * env, jclass clazz,
-                                                                                       jstring root)
+JNIEXPORT jstring Java_app_organicmaps_sdk_downloader_MapManager_nativeGetName(JNIEnv * env, jclass clazz, jstring root)
 {
   return jni::ToJavaString(env, GetStorage().GetNodeLocalName(jni::ToNativeString(env, root)));
 }
 
 // static @Nullable String nativeFindCountry(double lat, double lon);
-JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeFindCountry(JNIEnv * env, jclass clazz,
-                                                                                           jdouble lat, jdouble lon)
+JNIEXPORT jstring Java_app_organicmaps_sdk_downloader_MapManager_nativeFindCountry(JNIEnv * env, jclass clazz,
+                                                                                   jdouble lat, jdouble lon)
 {
   return jni::ToJavaString(
       env, g_framework->NativeFramework()->GetCountryInfoGetter().GetRegionCountryId(mercator::FromLatLon(lat, lon)));
 }
 
 // static boolean nativeIsDownloading();
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeIsDownloading(JNIEnv * env,
-                                                                                              jclass clazz)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeIsDownloading(JNIEnv * env, jclass clazz)
 {
   return static_cast<jboolean>(GetStorage().IsDownloadInProgress());
 }
@@ -394,8 +385,7 @@ static void EndBatchingCallbacks(JNIEnv * env)
 }
 
 // static void nativeDownload(String root);
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeDownload(JNIEnv * env, jclass clazz,
-                                                                                     jstring root)
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeDownload(JNIEnv * env, jclass clazz, jstring root)
 {
   StartBatchingCallbacks();
   GetStorage().DownloadNode(jni::ToNativeString(env, root));
@@ -403,8 +393,7 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeDown
 }
 
 // static boolean nativeRetry(String root);
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeRetry(JNIEnv * env, jclass clazz,
-                                                                                  jstring root)
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeRetry(JNIEnv * env, jclass clazz, jstring root)
 {
   StartBatchingCallbacks();
   GetStorage().RetryDownloadNode(jni::ToNativeString(env, root));
@@ -412,8 +401,7 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeRetr
 }
 
 // static void nativeUpdate(String root);
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeUpdate(JNIEnv * env, jclass clazz,
-                                                                                   jstring root)
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeUpdate(JNIEnv * env, jclass clazz, jstring root)
 {
   StartBatchingCallbacks();
   GetStorage().UpdateNode(GetRootId(env, root));
@@ -421,8 +409,7 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeUpda
 }
 
 // static void nativeCancel(String root);
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeCancel(JNIEnv * env, jclass clazz,
-                                                                                   jstring root)
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeCancel(JNIEnv * env, jclass clazz, jstring root)
 {
   StartBatchingCallbacks();
   GetStorage().CancelDownloadNode(GetRootId(env, root));
@@ -430,8 +417,7 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeCanc
 }
 
 // static void nativeDelete(String root);
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeDelete(JNIEnv * env, jclass clazz,
-                                                                                   jstring root)
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeDelete(JNIEnv * env, jclass clazz, jstring root)
 {
   StartBatchingCallbacks();
   auto const countryId = jni::ToNativeString(env, root);
@@ -462,8 +448,8 @@ static void ProgressChangedCallback(std::shared_ptr<jobject> const & listenerRef
 }
 
 // static int nativeSubscribe(StorageCallback listener);
-JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeSubscribe(JNIEnv * env, jclass clazz,
-                                                                                      jobject listener)
+JNIEXPORT jint Java_app_organicmaps_sdk_downloader_MapManager_nativeSubscribe(JNIEnv * env, jclass clazz,
+                                                                              jobject listener)
 {
   return GetStorage().Subscribe(
       std::bind(&StatusChangedCallback, jni::make_global_ref(listener), std::placeholders::_1),
@@ -472,16 +458,15 @@ JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeSubs
 }
 
 // static void nativeUnsubscribe(int slot);
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeUnsubscribe(JNIEnv * env, jclass clazz,
-                                                                                        jint slot)
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeUnsubscribe(JNIEnv * env, jclass clazz, jint slot)
 {
   GetStorage().Unsubscribe(slot);
 }
 
 // static void nativeSubscribeOnCountryChanged(CurrentCountryChangedListener listener);
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeSubscribeOnCountryChanged(JNIEnv * env,
-                                                                                                      jclass clazz,
-                                                                                                      jobject listener)
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeSubscribeOnCountryChanged(JNIEnv * env,
+                                                                                              jclass clazz,
+                                                                                              jobject listener)
 {
   ASSERT(!g_countryChangedListener, ());
   g_countryChangedListener = env->NewGlobalRef(listener);
@@ -503,8 +488,8 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeSubs
 }
 
 // static void nativeUnsubscribeOnCountryChanged();
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeUnsubscribeOnCountryChanged(JNIEnv * env,
-                                                                                                        jclass clazz)
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeUnsubscribeOnCountryChanged(JNIEnv * env,
+                                                                                                jclass clazz)
 {
   g_framework->NativeFramework()->SetCurrentCountryChangedListener(nullptr);
 
@@ -513,16 +498,16 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeUnsu
 }
 
 // static boolean nativeHasUnsavedEditorChanges(String root);
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeHasUnsavedEditorChanges(JNIEnv * env,
-                                                                                                        jclass clazz,
-                                                                                                        jstring root)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeHasUnsavedEditorChanges(JNIEnv * env,
+                                                                                                jclass clazz,
+                                                                                                jstring root)
 {
   return g_framework->NativeFramework()->HasUnsavedEdits(jni::ToNativeString(env, root));
 }
 
 // static void nativeGetPathTo(String root, List<String> result);
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeGetPathTo(JNIEnv * env, jclass clazz,
-                                                                                      jstring root, jobject result)
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeGetPathTo(JNIEnv * env, jclass clazz, jstring root,
+                                                                              jobject result)
 {
   auto const listAddMethod = jni::ListBuilder::Instance(env).m_add;
 
@@ -533,9 +518,8 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeGetP
 }
 
 // static int nativeGetOverallProgress(String[] countries);
-JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeGetOverallProgress(JNIEnv * env,
-                                                                                               jclass clazz,
-                                                                                               jobjectArray jcountries)
+JNIEXPORT jint Java_app_organicmaps_sdk_downloader_MapManager_nativeGetOverallProgress(JNIEnv * env, jclass clazz,
+                                                                                       jobjectArray jcountries)
 {
   int const size = env->GetArrayLength(jcountries);
   storage::CountriesVec countries;
@@ -557,29 +541,26 @@ JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeGetO
 }
 
 // static boolean nativeIsAutoretryFailed();
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeIsAutoretryFailed(JNIEnv * env,
-                                                                                                  jclass clazz)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeIsAutoretryFailed(JNIEnv * env, jclass clazz)
 {
   return g_framework->IsAutoRetryDownloadFailed();
 }
 
 // static boolean nativeIsDownloadOn3gEnabled();
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeIsDownloadOn3gEnabled(JNIEnv * env,
-                                                                                                      jclass clazz)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeIsDownloadOn3gEnabled(JNIEnv * env,
+                                                                                              jclass clazz)
 {
   return g_framework->IsDownloadOn3gEnabled();
 }
 
 // static void nativeEnableDownloadOn3g();
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeEnableDownloadOn3g(JNIEnv * env,
-                                                                                               jclass clazz)
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeEnableDownloadOn3g(JNIEnv * env, jclass clazz)
 {
   g_framework->EnableDownloadOn3g();
 }
 
 // static @Nullable String nativeGetSelectedCountry();
-JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_downloader_MapManager_nativeGetSelectedCountry(JNIEnv * env,
-                                                                                                  jclass clazz)
+JNIEXPORT jstring Java_app_organicmaps_sdk_downloader_MapManager_nativeGetSelectedCountry(JNIEnv * env, jclass clazz)
 {
   if (!g_framework->NativeFramework()->HasPlacePageInfo())
     return nullptr;

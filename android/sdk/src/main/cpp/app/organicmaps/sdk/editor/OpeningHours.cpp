@@ -163,7 +163,7 @@ TimeTableSet NativeTimetableSet(JNIEnv * env, jobjectArray jTimetables)
 
 extern "C"
 {
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nativeInit(JNIEnv * env, jclass clazz)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_OpeningHours_nativeInit(JNIEnv * env, jclass clazz)
 {
   g_clazzHoursMinutes = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/editor/data/HoursMinutes");
   // Java signature : HoursMinutes(@IntRange(from = 0, to = 24) long hours, @IntRange(from = 0, to = 60) long minutes)
@@ -203,22 +203,23 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nativeInit(J
   ASSERT(g_fidWeekdays, (jni::DescribeException()));
 }
 
-JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetDefaultTimetables(JNIEnv * env,
-                                                                                                       jclass clazz)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetDefaultTimetables(JNIEnv * env,
+                                                                                               jclass clazz)
 {
   TimeTableSet tts;
   return JavaTimetables(env, tts);
 }
 
-JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetComplementTimetable(
-    JNIEnv * env, jclass clazz, jobjectArray timetables)
+JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetComplementTimetable(JNIEnv * env, jclass clazz,
+                                                                                            jobjectArray timetables)
 {
   TimeTableSet const tts = NativeTimetableSet(env, timetables);
   return JavaTimetable(env, tts.GetComplementTimeTable());
 }
 
-JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nativeRemoveWorkingDay(
-    JNIEnv * env, jclass clazz, jobjectArray timetables, jint ttIndex, jint dayIndex)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_OpeningHours_nativeRemoveWorkingDay(JNIEnv * env, jclass clazz,
+                                                                                           jobjectArray timetables,
+                                                                                           jint ttIndex, jint dayIndex)
 {
   TimeTableSet tts = NativeTimetableSet(env, timetables);
   auto tt = tts.Get(ttIndex);
@@ -227,8 +228,9 @@ JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nati
   return JavaTimetables(env, tts);
 }
 
-JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nativeAddWorkingDay(
-    JNIEnv * env, jclass clazz, jobjectArray timetables, jint ttIndex, jint dayIndex)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_OpeningHours_nativeAddWorkingDay(JNIEnv * env, jclass clazz,
+                                                                                        jobjectArray timetables,
+                                                                                        jint ttIndex, jint dayIndex)
 {
   TimeTableSet tts = NativeTimetableSet(env, timetables);
   auto tt = tts.Get(ttIndex);
@@ -237,9 +239,9 @@ JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nati
   return JavaTimetables(env, tts);
 }
 
-JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nativeSetIsFullday(JNIEnv * env, jclass clazz,
-                                                                                          jobject jTimetable,
-                                                                                          jboolean jIsFullday)
+JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeSetIsFullday(JNIEnv * env, jclass clazz,
+                                                                                  jobject jTimetable,
+                                                                                  jboolean jIsFullday)
 {
   TimeTable tt = NativeTimetable(env, jTimetable);
   if (jIsFullday)
@@ -252,37 +254,36 @@ JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nativeSet
   return JavaTimetable(env, tt);
 }
 
-JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nativeSetOpeningTime(JNIEnv * env, jclass clazz,
-                                                                                            jobject jTimetable,
-                                                                                            jobject jOpeningTime)
+JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeSetOpeningTime(JNIEnv * env, jclass clazz,
+                                                                                    jobject jTimetable,
+                                                                                    jobject jOpeningTime)
 {
   TimeTable tt = NativeTimetable(env, jTimetable);
   tt.SetOpeningTime(NativeTimespan(env, jOpeningTime));
   return JavaTimetable(env, tt);
 }
 
-JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nativeAddClosedSpan(JNIEnv * env, jclass clazz,
-                                                                                           jobject jTimetable,
-                                                                                           jobject jClosedSpan)
+JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeAddClosedSpan(JNIEnv * env, jclass clazz,
+                                                                                   jobject jTimetable,
+                                                                                   jobject jClosedSpan)
 {
   TimeTable tt = NativeTimetable(env, jTimetable);
   tt.AddExcludeTime(NativeTimespan(env, jClosedSpan));
   return JavaTimetable(env, tt);
 }
 
-JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nativeRemoveClosedSpan(JNIEnv * env,
-                                                                                              jclass clazz,
-                                                                                              jobject jTimetable,
-                                                                                              jint jClosedSpanIndex)
+JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeRemoveClosedSpan(JNIEnv * env, jclass clazz,
+                                                                                      jobject jTimetable,
+                                                                                      jint jClosedSpanIndex)
 {
   TimeTable tt = NativeTimetable(env, jTimetable);
   tt.RemoveExcludeTime(static_cast<size_t>(jClosedSpanIndex));
   return JavaTimetable(env, tt);
 }
 
-JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nativeTimetablesFromString(JNIEnv * env,
-                                                                                                       jclass clazz,
-                                                                                                       jstring jSource)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_OpeningHours_nativeTimetablesFromString(JNIEnv * env,
+                                                                                               jclass clazz,
+                                                                                               jstring jSource)
 {
   TimeTableSet tts;
   std::string const source = jni::ToNativeString(env, jSource);
@@ -292,9 +293,8 @@ JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nati
   return nullptr;
 }
 
-JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nativeTimetablesToString(JNIEnv * env,
-                                                                                                jclass clazz,
-                                                                                                jobjectArray jTts)
+JNIEXPORT jstring Java_app_organicmaps_sdk_editor_OpeningHours_nativeTimetablesToString(JNIEnv * env, jclass clazz,
+                                                                                        jobjectArray jTts)
 {
   TimeTableSet tts = NativeTimetableSet(env, jTts);
   std::stringstream sstr;
@@ -302,9 +302,8 @@ JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nativeTim
   return jni::ToJavaString(env, sstr.str());
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_OpeningHours_nativeIsTimetableStringValid(JNIEnv * env,
-                                                                                                     jclass clazz,
-                                                                                                     jstring jSource)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_OpeningHours_nativeIsTimetableStringValid(JNIEnv * env, jclass clazz,
+                                                                                             jstring jSource)
 {
   return OpeningHours(jni::ToNativeString(env, jSource)).IsValid();
 }

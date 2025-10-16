@@ -6,8 +6,7 @@
 
 extern "C"
 {
-JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_bookmarks_data_Icon_nativeGetBookmarkIconNames(JNIEnv * env,
-                                                                                                       jclass)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_bookmarks_data_Icon_nativeGetBookmarkIconNames(JNIEnv * env, jclass)
 {
   std::vector<std::string> icons;
   for (uint16_t i = 0; i < static_cast<uint16_t>(kml::BookmarkIcon::Count); ++i)
