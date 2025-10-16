@@ -14,9 +14,6 @@ import app.organicmaps.sdk.search.Popularity;
 import app.organicmaps.sdk.util.Constants;
 
 // TODO consider refactoring to remove hack with MapObject unmarshalling itself and Bookmark at the same time.
-// Used by JNI.
-@Keep
-@SuppressWarnings("unused")
 @SuppressLint("ParcelCreator")
 public class Bookmark extends MapObject
 {
@@ -26,20 +23,23 @@ public class Bookmark extends MapObject
   private final double mMerX;
   private final double mMerY;
 
-  public Bookmark(@NonNull FeatureId featureId, @IntRange(from = 0) long categoryId,
-                  @IntRange(from = 0) long bookmarkId, String title, @Nullable String secondaryTitle,
-                  @Nullable String subtitle, @Nullable String address, @Nullable RoutePointInfo routePointInfo,
-                  @OpeningMode int openingMode, @NonNull Popularity popularity, @NonNull String wikiArticle,
-                  @NonNull String osmDescription, @Nullable String[] rawTypes)
+  // Used by JNI.
+  @Keep
+  @SuppressWarnings("unused")
+  private Bookmark(@NonNull FeatureId featureId, @IntRange(from = 0) long categoryId,
+                   @IntRange(from = 0) long bookmarkId, String title, @Nullable String secondaryTitle,
+                   @Nullable String subtitle, @Nullable String address, @Nullable RoutePointInfo routePointInfo,
+                   @OpeningMode int openingMode, @NonNull String wikiArticle, @NonNull String osmDescription,
+                   @Nullable String[] rawTypes)
   {
     super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "", routePointInfo, openingMode,
-          popularity, wikiArticle, osmDescription, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
+          wikiArticle, osmDescription, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
     mIcon = getIconInternal();
 
-    final ParcelablePointD ll = BookmarkManager.INSTANCE.getBookmarkXY(mBookmarkId);
+    final ParcelablePointD ll = nativeGetXY(mBookmarkId);
     mMerX = ll.x;
     mMerY = ll.y;
 
@@ -77,21 +77,27 @@ public class Bookmark extends MapObject
     initXY();
   }
 
+  public long getBookmarkId()
+  {
+    return mBookmarkId;
+  }
+
   @Override
   public double getScale()
   {
-    return BookmarkManager.INSTANCE.getBookmarkScale(mBookmarkId);
+    return nativeGetScale(mBookmarkId);
   }
 
+  @NonNull
   public DistanceAndAzimut getDistanceAndAzimuth(double cLat, double cLon, double north)
   {
     return Framework.nativeGetDistanceAndAzimuth(mMerX, mMerY, cLat, cLon, north);
   }
 
+  @NonNull
   private Icon getIconInternal()
   {
-    return new Icon(BookmarkManager.INSTANCE.getBookmarkColor(mBookmarkId),
-                    BookmarkManager.INSTANCE.getBookmarkIcon(mBookmarkId));
+    return new Icon(getColor(), nativeGetIcon(mBookmarkId));
   }
 
   @Nullable
@@ -100,32 +106,10 @@ public class Bookmark extends MapObject
     return mIcon;
   }
 
+  @NonNull
   public String getCategoryName()
   {
     return BookmarkManager.INSTANCE.getCategoryById(mCategoryId).getName();
-  }
-
-  public void setCategoryId(@IntRange(from = 0) long catId)
-  {
-    BookmarkManager.INSTANCE.notifyCategoryChanging(this, catId);
-    mCategoryId = catId;
-  }
-
-  public void setIconColor(@ColorInt int color)
-  {
-    Icon icon = new Icon(PredefinedColors.getPredefinedColorIndex(color),
-                         BookmarkManager.INSTANCE.getBookmarkIcon(mBookmarkId));
-    BookmarkManager.INSTANCE.notifyParametersUpdating(this, getName(), icon, getBookmarkDescription());
-    mIcon = icon;
-  }
-
-  public void setParams(@NonNull String title, @Nullable Icon icon, @NonNull String description)
-  {
-    BookmarkManager.INSTANCE.notifyParametersUpdating(this, title, icon, description);
-    if (icon != null)
-      mIcon = icon;
-    setTitle(title);
-    setWikiArticle(description);
   }
 
   public long getCategoryId()
@@ -133,21 +117,54 @@ public class Bookmark extends MapObject
     return mCategoryId;
   }
 
-  public long getBookmarkId()
+  public void setCategoryId(@IntRange(from = 0) long catId)
   {
-    return mBookmarkId;
+    if (mCategoryId == catId)
+      return;
+    nativeChangeCategory(mCategoryId, catId, mBookmarkId);
+    mCategoryId = catId;
+  }
+
+  public void setIconColor(@ColorInt int color)
+  {
+    mIcon = new Icon(PredefinedColors.getPredefinedColorIndex(color), nativeGetIcon(mBookmarkId));
+    nativeSetColor(mBookmarkId, mIcon.getColor());
   }
 
   @NonNull
-  public String getBookmarkDescription()
+  public String getBookmarkFeatureType()
   {
-    return BookmarkManager.INSTANCE.getBookmarkDescription(mBookmarkId);
+    return nativeGetFeatureType(mBookmarkId);
+  }
+
+  @PredefinedColors.Color
+  public int getColor()
+  {
+    return nativeGetColor(mBookmarkId);
+  }
+
+  @NonNull
+  public String getName()
+  {
+    return nativeGetName(mBookmarkId);
+  }
+
+  @NonNull
+  public String getDescription()
+  {
+    return nativeGetDescription(mBookmarkId);
+  }
+
+  @NonNull
+  public String getBookmarkAddress()
+  {
+    return nativeGetAddress(mBookmarkId);
   }
 
   @NonNull
   public String getGe0Url(boolean addName)
   {
-    return BookmarkManager.INSTANCE.encode2Ge0Url(mBookmarkId, addName);
+    return nativeEncode2Ge0Url(mBookmarkId, addName);
   }
 
   @NonNull
@@ -155,4 +172,34 @@ public class Bookmark extends MapObject
   {
     return getGe0Url(addName).replaceFirst(Constants.Url.SHORT_SHARE_PREFIX, Constants.Url.HTTP_SHARE_PREFIX);
   }
+
+  @NonNull
+  public BookmarkInfo getBookmarkInfo()
+  {
+    return new BookmarkInfo(mCategoryId, mBookmarkId);
+  }
+
+  @NonNull
+  static native String nativeGetFeatureType(long bookmarkId);
+  @NonNull
+  static native String nativeGetName(long bookmarkId);
+  @NonNull
+  static native String nativeGetDescription(long bookmarkId);
+  static native double nativeGetScale(long bookmarkId);
+  @NonNull
+  static native String nativeGetAddress(long bookmarkId);
+  @NonNull
+  static native ParcelablePointD nativeGetXY(long bookmarkId);
+
+  @PredefinedColors.Color
+  static native int nativeGetColor(long bookmarkId);
+  static native int nativeSetColor(long bookmarkId, @PredefinedColors.Color int color);
+  static native int nativeGetIcon(long bookmarkId);
+
+  static native void nativeUpdateParams(long bookmarkId, @NonNull String name, @PredefinedColors.Color int color,
+                                        @NonNull String description);
+  static native void nativeChangeCategory(long oldCatId, long newCatId, long bookmarkId);
+
+  @NonNull
+  private static native String nativeEncode2Ge0Url(long bookmarkId, boolean addName);
 }

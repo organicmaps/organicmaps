@@ -1,12 +1,9 @@
 package app.organicmaps.widget.placepage;
 
-import android.content.Context;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
 import app.organicmaps.ChartController;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
@@ -14,8 +11,6 @@ import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.bookmarks.data.TrackStatistics;
 import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.Utils;
-import java.util.Objects;
 
 public class ElevationProfileViewRenderer implements PlacePageStateListener
 {
@@ -24,50 +19,23 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
   private static final int UNKNOWN_DIFFICULTY = 0;
   @NonNull
   private final View[] mDifficultyLevels = new View[MAX_DIFFICULTY_LEVEL];
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mAscent;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mDescent;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mMaxAltitude;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mMinAltitude;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private ChartController mChartController;
-  @Nullable
-  private ElevationInfo mElevationInfo;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mDifficultyContainer;
-
-  public void render(@NonNull ElevationInfo elevationInfo, @NonNull TrackStatistics stats, long trackId)
-  {
-    final Context context = mAscent.getContext();
-    mElevationInfo = elevationInfo;
-    mChartController.setData(elevationInfo, stats, trackId);
-    setDifficulty(mElevationInfo.getDifficulty());
-    mAscent.setText(formatDistance(context, (int) stats.getAscent()));
-    mDescent.setText(formatDistance(context, (int) stats.getDescent()));
-    mMaxAltitude.setText(formatDistance(context, stats.getMaxElevation()));
-    mMinAltitude.setText(formatDistance(context, stats.getMinElevation()));
-  }
 
   @NonNull
-  private static String formatDistance(final Context context, int distance)
-  {
-    return Framework.nativeFormatAltitude(distance);
-  }
+  private final ChartController mChartController;
+  @NonNull
+  private final TextView mAscent;
+  @NonNull
+  private final TextView mDescent;
+  @NonNull
+  private final TextView mMaxAltitude;
+  @NonNull
+  private final TextView mMinAltitude;
+  @NonNull
+  private final View mDifficultyContainer;
 
-  public void initialize(@Nullable View view)
+  public ElevationProfileViewRenderer(@NonNull View view)
   {
-    Objects.requireNonNull(view);
-    mChartController = new ChartController(view.getContext());
-    mChartController.initialize(view);
+    mChartController = new ChartController(view);
     mAscent = view.findViewById(R.id.ascent);
     mDescent = view.findViewById(R.id.descent);
     mMaxAltitude = view.findViewById(R.id.max_altitude);
@@ -76,6 +44,26 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
     mDifficultyLevels[0] = mDifficultyContainer.findViewById(R.id.difficulty_level_1);
     mDifficultyLevels[1] = mDifficultyContainer.findViewById(R.id.difficulty_level_2);
     mDifficultyLevels[2] = mDifficultyContainer.findViewById(R.id.difficulty_level_3);
+  }
+
+  public void render(@Nullable Track track, @NonNull ElevationInfo elevationInfo, @NonNull TrackStatistics stats)
+  {
+    mChartController.setData(track, elevationInfo, stats);
+    setDifficulty(elevationInfo.getDifficulty());
+    mAscent.setText(Framework.nativeFormatAltitude((int) stats.getAscent()));
+    mDescent.setText(Framework.nativeFormatAltitude((int) stats.getDescent()));
+    mMaxAltitude.setText(Framework.nativeFormatAltitude(stats.getMaxElevation()));
+    mMinAltitude.setText(Framework.nativeFormatAltitude(stats.getMinElevation()));
+  }
+
+  public void onChartElevationActivePointChanged()
+  {
+    mChartController.onElevationActivePointChanged();
+  }
+
+  public void onChartCurrentPositionChanged()
+  {
+    mChartController.onCurrentPositionChanged();
   }
 
   private void setDifficulty(int level)
@@ -91,15 +79,5 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
 
     for (int i = 0; i < level; i++)
       mDifficultyLevels[i].setEnabled(true);
-  }
-
-  public void onChartElevationActivePointChanged()
-  {
-    mChartController.onElevationActivePointChanged();
-  }
-
-  public void onChartCurrentPositionChanged()
-  {
-    mChartController.onCurrentPositionChanged();
   }
 }
