@@ -5,27 +5,12 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
+import java.util.Objects;
 
-// Used by JNI.
-@Keep
 /// @todo Review using of this class, because seems like it has no any useful purpose.
 /// Just creating in JNI and assigning ..
 public class FeatureId implements Parcelable
 {
-  public static final Creator<FeatureId> CREATOR = new Creator<>() {
-    @Override
-    public FeatureId createFromParcel(Parcel in)
-    {
-      return new FeatureId(in);
-    }
-
-    @Override
-    public FeatureId[] newArray(int size)
-    {
-      return new FeatureId[size];
-    }
-  };
-
   @NonNull
   public static final FeatureId EMPTY = new FeatureId("", -1L, 0);
 
@@ -47,22 +32,24 @@ public class FeatureId implements Parcelable
     return new FeatureId(parts[1], Long.parseLong(parts[0]), Integer.parseInt(parts[2]));
   }
 
-  public FeatureId(@NonNull String mwmName, long mwmVersion, int featureIndex)
+  // Used by JNI.
+  @Keep
+  private FeatureId(@NonNull String mwmName, long mwmVersion, int featureIndex)
   {
     mMwmName = mwmName;
     mMwmVersion = mwmVersion;
     mFeatureIndex = featureIndex;
   }
 
-  private FeatureId(Parcel in)
+  private FeatureId(@NonNull Parcel in)
   {
-    mMwmName = in.readString();
+    mMwmName = Objects.requireNonNull(in.readString());
     mMwmVersion = in.readLong();
     mFeatureIndex = in.readInt();
   }
 
   @Override
-  public void writeToParcel(Parcel dest, int flags)
+  public void writeToParcel(@NonNull Parcel dest, int flags)
   {
     dest.writeString(mMwmName);
     dest.writeLong(mMwmVersion);
@@ -111,16 +98,30 @@ public class FeatureId implements Parcelable
   @Override
   public int hashCode()
   {
-    int result = mMwmName.hashCode();
-    result = 31 * result + (int) (mMwmVersion ^ (mMwmVersion >>> 32));
-    result = 31 * result + mFeatureIndex;
-    return result;
+    return Objects.hash(mMwmName, mMwmVersion, mFeatureIndex);
   }
 
   @Override
+  @NonNull
   public String toString()
   {
     return "FeatureId{"
   + "mMwmName='" + mMwmName + '\'' + ", mMwmVersion=" + mMwmVersion + ", mFeatureIndex=" + mFeatureIndex + '}';
   }
+
+  public static final Creator<FeatureId> CREATOR = new Creator<>() {
+    @Override
+    @NonNull
+    public FeatureId createFromParcel(@NonNull Parcel in)
+    {
+      return new FeatureId(in);
+    }
+
+    @Override
+    @NonNull
+    public FeatureId[] newArray(int size)
+    {
+      return new FeatureId[size];
+    }
+  };
 }

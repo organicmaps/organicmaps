@@ -1,5 +1,5 @@
 #include "app/organicmaps/sdk/Framework.hpp"
-#include "app/organicmaps/sdk/UserMarkHelper.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/FeatureId.hpp"
 #include "app/organicmaps/sdk/platform/AndroidPlatform.hpp"
 #include "app/organicmaps/sdk/util/Distance.hpp"
 
@@ -113,8 +113,7 @@ jobject ToJavaResult(Result const & result, search::ProductInfo const & productI
 
   bool const popularityHasHigherPriority = PopularityHasHigherPriority(hasPosition, distanceInMeters);
   bool const isFeature = result.GetResultType() == Result::Type::Feature;
-  jni::TScopedLocalRef featureId(
-      env, usermark_helper::CreateFeatureId(env, isFeature ? result.GetFeatureID() : kEmptyFeatureId));
+  jni::TScopedLocalRef featureId(env, CreateFeatureId(env, isFeature ? result.GetFeatureID() : kEmptyFeatureId));
 
   jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, result.GetLocalizedFeatureType()));
   jni::TScopedLocalRef address(env, jni::ToJavaString(env, result.GetAddress()));

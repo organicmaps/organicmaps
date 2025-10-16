@@ -1,6 +1,6 @@
 package app.organicmaps.sdk.bookmarks.data;
 
-import androidx.annotation.IntRange;
+import androidx.annotation.ColorInt;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,60 +8,66 @@ import app.organicmaps.sdk.routing.RoutePointInfo;
 import app.organicmaps.sdk.search.Popularity;
 import app.organicmaps.sdk.util.Distance;
 
-// Called from JNI.
-@Keep
-@SuppressWarnings("unused")
-public class Track extends MapObject
+public final class Track extends MapObject
 {
-  private final long mTrackId;
-  private final String mName;
+  private final long mId;
+  private String mName;
   private final Distance mLength;
   private long mCategoryId;
+  @ColorInt
   private int mColor;
   @Nullable
   private ElevationInfo mElevationInfo;
   @Nullable
   private TrackStatistics mTrackStatistics;
 
-  Track(long trackId, long categoryId, String name, Distance length, int color)
+  // Called from JNI.
+  @Keep
+  @SuppressWarnings("unused")
+  private Track(long id, long categoryId, String name, Distance length, int color)
   {
-    super(FeatureId.EMPTY, TRACK, name, "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW_PLUS, null, "", "",
+    super(FeatureId.EMPTY, TRACK, name, "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW_PLUS, "", "",
           RoadWarningMarkType.UNKNOWN.ordinal(), null);
-    mTrackId = trackId;
+    mId = id;
     mCategoryId = categoryId;
     mName = name;
     mLength = length;
     mColor = color;
   }
 
-  // used by JNI
-  Track(@NonNull FeatureId featureId, @IntRange(from = 0) long categoryId, @IntRange(from = 0) long trackId,
-        String title, @Nullable String secondaryTitle, @Nullable String subtitle, @Nullable String address,
-        @Nullable RoutePointInfo routePointInfo, @OpeningMode int openingMode, @NonNull Popularity popularity,
-        @NonNull String wikiArticle, @NonNull String osmDescription, @Nullable String[] rawTypes, int color,
-        Distance length, double lat, double lon)
+  // Called from JNI.
+  @Keep
+  @SuppressWarnings("unused")
+  private Track(@NonNull FeatureId featureId, long categoryId, long id, String title, @Nullable String secondaryTitle,
+                @Nullable String subtitle, @Nullable String address, @Nullable RoutePointInfo routePointInfo,
+                @OpeningMode int openingMode, @NonNull String wikiArticle, @NonNull String osmDescription,
+                @Nullable String[] rawTypes, @ColorInt int color, Distance length, double lat, double lon)
   {
     super(featureId, TRACK, title, secondaryTitle, subtitle, address, lat, lon, "", routePointInfo, openingMode,
-          popularity, wikiArticle, osmDescription, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
-    mTrackId = trackId;
+          wikiArticle, osmDescription, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
+    mId = id;
     mCategoryId = categoryId;
     mColor = color;
     mName = title;
     mLength = length;
   }
 
-  // Change of the category in the core is done in PlacePageView::onCategoryChanged().
-  public void setCategoryId(@NonNull long categoryId)
+  public long getTrackId()
   {
+    return mId;
+  }
+
+  public void setCategoryId(long categoryId)
+  {
+    if (categoryId == mCategoryId)
+      return;
+
+    final long oldCatId = mCategoryId;
     mCategoryId = categoryId;
+    nativeChangeCategory(oldCatId, mCategoryId, mId);
   }
 
-  public void setColor(@NonNull int color)
-  {
-    mColor = color;
-    BookmarkManager.INSTANCE.changeTrackColor(getTrackId(), color);
-  }
-
+  @NonNull
   public String getName()
   {
     return mName;
@@ -72,14 +78,16 @@ public class Track extends MapObject
     return mLength;
   }
 
+  @ColorInt
   public int getColor()
   {
     return mColor;
   }
 
-  public long getTrackId()
+  public void setColor(@ColorInt int color)
   {
-    return mTrackId;
+    mColor = color;
+    nativeChangeColor(mId, mColor);
   }
 
   public long getCategoryId()
@@ -87,22 +95,65 @@ public class Track extends MapObject
     return mCategoryId;
   }
 
-  public String getTrackDescription()
+  @NonNull
+  public String getDescription()
   {
-    return BookmarkManager.INSTANCE.getTrackDescription(mTrackId);
+    return nativeGetDescription(mId);
   }
 
+  @Nullable
   public ElevationInfo getElevationInfo()
   {
     if (mElevationInfo == null)
-      mElevationInfo = BookmarkManager.nativeGetTrackElevationInfo(mTrackId);
+      mElevationInfo = nativeGetElevationInfo(mId);
     return mElevationInfo;
   }
 
+  @NonNull
   public TrackStatistics getTrackStatistics()
   {
     if (mTrackStatistics == null)
-      mTrackStatistics = BookmarkManager.nativeGetTrackStatistics(mTrackId);
+      mTrackStatistics = nativeGetStatistics(mId);
     return mTrackStatistics;
   }
+
+  @NonNull
+  public ElevationInfo.Point getElevationActivePointCoordinates()
+  {
+    return nativeGetElevationActivePointCoordinates(mId);
+  }
+
+  public double getElevationCurPositionDistance()
+  {
+    return nativeGetElevationCurPositionDistance(mId);
+  }
+
+  public double getElevationActivePointDistance()
+  {
+    return nativeGetElevationActivePointDistance(mId);
+  }
+
+  public void update(@NonNull String name, @ColorInt int color, @NonNull String description)
+  {
+    if (!name.equals(mName) || !(color == mColor) || !description.equals(getDescription()))
+      nativeSetParams(mId, name, color, description);
+    mName = name;
+    mColor = color;
+  }
+
+  @NonNull
+  private static native String nativeGetDescription(long id);
+  @Nullable
+  public static native ElevationInfo nativeGetElevationInfo(long id);
+  @NonNull
+  public static native TrackStatistics nativeGetStatistics(long id);
+  @NonNull
+  private static native ElevationInfo.Point nativeGetElevationActivePointCoordinates(long trackId);
+
+  private static native void nativeSetParams(long id, @NonNull String name, @ColorInt int color, @NonNull String descr);
+  private static native void nativeChangeColor(long id, @ColorInt int color);
+  private static native void nativeChangeCategory(long oldCatId, long newCatId, long trackId);
+
+  private static native double nativeGetElevationCurPositionDistance(long trackId);
+  private static native double nativeGetElevationActivePointDistance(long trackId);
 }
