@@ -53,13 +53,27 @@ set(SRC
   app/organicmaps/sdk/core/jni_helper.cpp
   app/organicmaps/sdk/core/jni_java_methods.cpp
   app/organicmaps/sdk/core/logging.cpp
+  app/organicmaps/sdk/bookmarks/data/Bookmark.cpp
+  app/organicmaps/sdk/bookmarks/data/Bookmark.hpp
   app/organicmaps/sdk/bookmarks/data/BookmarkCategory.cpp
   app/organicmaps/sdk/bookmarks/data/BookmarkCategory.hpp
   app/organicmaps/sdk/bookmarks/data/BookmarkManager.cpp
+  app/organicmaps/sdk/bookmarks/data/ElevationInfo.cpp
+  app/organicmaps/sdk/bookmarks/data/ElevationInfo.hpp
+  app/organicmaps/sdk/bookmarks/data/FeatureId.cpp
+  app/organicmaps/sdk/bookmarks/data/FeatureId.hpp
   app/organicmaps/sdk/bookmarks/data/Icon.cpp
   app/organicmaps/sdk/bookmarks/data/Icon.hpp
+  app/organicmaps/sdk/bookmarks/data/MapObject.cpp
+  app/organicmaps/sdk/bookmarks/data/MapObject.hpp
+  app/organicmaps/sdk/bookmarks/data/Metadata.cpp
+  app/organicmaps/sdk/bookmarks/data/Metadata.hpp
   app/organicmaps/sdk/bookmarks/data/PredefinedColors.cpp
   app/organicmaps/sdk/bookmarks/data/PredefinedColors.hpp
+  app/organicmaps/sdk/bookmarks/data/Track.cpp
+  app/organicmaps/sdk/bookmarks/data/Track.hpp
+  app/organicmaps/sdk/bookmarks/data/TrackStatistics.cpp
+  app/organicmaps/sdk/bookmarks/data/TrackStatistics.hpp
   app/organicmaps/sdk/DownloadResourcesLegacyActivity.cpp
   app/organicmaps/sdk/editor/Editor.cpp
   app/organicmaps/sdk/editor/OpeningHours.cpp
@@ -75,7 +89,6 @@ set(SRC
   app/organicmaps/sdk/subway/SubwayManager.cpp
   app/organicmaps/sdk/TrackRecorder.cpp
   app/organicmaps/sdk/TrafficState.cpp
-  app/organicmaps/sdk/UserMarkHelper.cpp
   app/organicmaps/sdk/opengl/android_gl_utils.cpp
   app/organicmaps/sdk/opengl/androidoglcontext.cpp
   app/organicmaps/sdk/opengl/androidoglcontextfactory.cpp

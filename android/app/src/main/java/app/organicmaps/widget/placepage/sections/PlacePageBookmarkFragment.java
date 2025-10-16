@@ -84,7 +84,7 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnLongCl
 
   private void updateBookmarkDetails()
   {
-    final String notes = currentBookmark.getBookmarkDescription();
+    final String notes = currentBookmark.getDescription();
     if (TextUtils.isEmpty(notes))
     {
       UiUtils.hide(mTvBookmarkNote);

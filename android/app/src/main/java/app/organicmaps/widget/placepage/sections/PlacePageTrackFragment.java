@@ -27,7 +27,6 @@ public class PlacePageTrackFragment extends Fragment
   @Nullable
   private Track mTrack;
   private ElevationProfileViewRenderer mElevationProfileViewRenderer;
-  private View mFrame;
   private View mElevationProfileView;
 
   @Nullable
@@ -43,11 +42,9 @@ public class PlacePageTrackFragment extends Fragment
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mElevationProfileViewRenderer = new ElevationProfileViewRenderer();
 
-    mFrame = view;
-    mElevationProfileView = mFrame.findViewById(R.id.elevation_profile);
-    mElevationProfileViewRenderer.initialize(mElevationProfileView);
+    mElevationProfileView = view.findViewById(R.id.elevation_profile);
+    mElevationProfileViewRenderer = new ElevationProfileViewRenderer(mElevationProfileView);
   }
 
   @Override
@@ -88,7 +85,7 @@ public class PlacePageTrackFragment extends Fragment
     {
       if (mTrack == null || mTrack.getTrackId() != track.getTrackId())
       {
-        mElevationProfileViewRenderer.render(track.getElevationInfo(), track.getTrackStatistics(), track.getTrackId());
+        mElevationProfileViewRenderer.render(track, track.getElevationInfo(), track.getTrackStatistics());
         UiUtils.show(mElevationProfileView);
       }
     }
@@ -103,7 +100,7 @@ public class PlacePageTrackFragment extends Fragment
     if (mTrack == null)
       return;
     mElevationProfileViewRenderer.onChartElevationActivePointChanged();
-    ElevationInfo.Point point = BookmarkManager.INSTANCE.getElevationActivePointCoordinates(mTrack.getTrackId());
+    final ElevationInfo.Point point = mTrack.getElevationActivePointCoordinates();
     mTrack.setLat(point.getLatitude());
     mTrack.setLon(point.getLongitude());
   }

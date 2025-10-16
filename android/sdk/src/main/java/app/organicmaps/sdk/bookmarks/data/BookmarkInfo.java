@@ -3,6 +3,7 @@ package app.organicmaps.sdk.bookmarks.data;
 import androidx.annotation.IntRange;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.util.Distance;
 import app.organicmaps.sdk.util.GeoUtils;
@@ -15,11 +16,11 @@ public class BookmarkInfo
   private final long mCategoryId;
   private final long mBookmarkId;
   @NonNull
-  private final String mTitle;
+  private String mTitle;
   @NonNull
   private final String mFeatureType;
   @NonNull
-  private final Icon mIcon;
+  private Icon mIcon;
   private final double mMerX;
   private final double mMerY;
   private final double mScale;
@@ -32,15 +33,14 @@ public class BookmarkInfo
   {
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
-    mTitle = BookmarkManager.INSTANCE.getBookmarkName(mBookmarkId);
-    mFeatureType = BookmarkManager.INSTANCE.getBookmarkFeatureType(mBookmarkId);
-    mIcon = new Icon(BookmarkManager.INSTANCE.getBookmarkColor(mBookmarkId),
-                     BookmarkManager.INSTANCE.getBookmarkIcon(mBookmarkId));
-    final ParcelablePointD ll = BookmarkManager.INSTANCE.getBookmarkXY(mBookmarkId);
+    mTitle = Bookmark.nativeGetName(mBookmarkId);
+    mFeatureType = Bookmark.nativeGetFeatureType(mBookmarkId);
+    mIcon = new Icon(Bookmark.nativeGetColor(mBookmarkId), Bookmark.nativeGetIcon(mBookmarkId));
+    final ParcelablePointD ll = Bookmark.nativeGetXY(mBookmarkId);
     mMerX = ll.x;
     mMerY = ll.y;
-    mScale = BookmarkManager.INSTANCE.getBookmarkScale(mBookmarkId);
-    mAddress = BookmarkManager.INSTANCE.getBookmarkAddress(mBookmarkId);
+    mScale = Bookmark.nativeGetScale(mBookmarkId);
+    mAddress = Bookmark.nativeGetAddress(mBookmarkId);
     mLatLonPoint = GeoUtils.toLatLon(mMerX, mMerY);
   }
 
@@ -102,5 +102,27 @@ public class BookmarkInfo
   public String getAddress()
   {
     return mAddress;
+  }
+
+  @NonNull
+  public String getDescription()
+  {
+    return Bookmark.nativeGetDescription(mBookmarkId);
+  }
+
+  public void update(@NonNull String name, @Nullable Icon icon, @NonNull String description)
+  {
+    if (icon == null)
+      icon = getIcon();
+
+    if (!name.equals(getName()) || !icon.equals(getIcon()) || !description.equals(getDescription()))
+      Bookmark.nativeUpdateParams(getBookmarkId(), name, icon.getColor(), description);
+    mIcon = icon;
+    mTitle = name;
+  }
+
+  public void changeCategory(@IntRange(from = 0) long newCategoryId)
+  {
+    Bookmark.nativeChangeCategory(mCategoryId, newCategoryId, mBookmarkId);
   }
 }

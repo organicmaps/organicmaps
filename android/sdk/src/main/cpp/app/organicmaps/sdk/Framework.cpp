@@ -1,6 +1,6 @@
 #include "app/organicmaps/sdk/Framework.hpp"
 
-#include "app/organicmaps/sdk/UserMarkHelper.hpp"
+#include "app/organicmaps/sdk/bookmarks/data/MapObject.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
 #include "app/organicmaps/sdk/opengl/androidoglcontextfactory.hpp"
 #include "app/organicmaps/sdk/platform/AndroidPlatform.hpp"
@@ -919,7 +919,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativePlacePageActivationListe
     JNIEnv * env = jni::GetEnv();
     auto const & info = frm()->GetCurrentPlacePageInfo();
     jni::TScopedLocalRef placePageDataRef(env, nullptr);
-    placePageDataRef.reset(usermark_helper::CreateMapObject(env, info));
+    placePageDataRef.reset(CreateMapObject(env, info));
     env->CallVoidMethod(g_placePageActivationListener, activatedId, placePageDataRef.get());
   };
   auto const closePlacePage = [deactivateId]()
@@ -1602,7 +1602,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeDeleteBookmarkFromMap
   buildInfo.m_source = place_page::BuildInfo::Source::Other;
   frm()->UpdatePlacePageInfoForCurrentSelection(buildInfo);
 
-  return usermark_helper::CreateMapObject(env, g_framework->GetPlacePageInfo());
+  return CreateMapObject(env, g_framework->GetPlacePageInfo());
 }
 
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetPoiContactUrl(JNIEnv * env, jclass, jint id)
