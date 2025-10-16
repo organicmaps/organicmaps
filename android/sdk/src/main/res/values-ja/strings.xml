@@ -29,10 +29,6 @@
     <string name="core_exit">出口</string>
     <string name="core_entrance">入口</string>
     <string name="subway_data_unavailable">地下鉄路線図はご利用いただけません</string>
-    <string name="public_access">パブリック・アクセス</string>
-    <string name="limited_access">制限されたアクセス</string>
-    <string name="not_shared">非公開</string>
-    <string name="access_rules_author_only">オンライン編集</string>
     <string name="mb">MB</string>
     <string name="gb">GB</string>
 </resources>

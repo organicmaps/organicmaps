@@ -32,9 +32,5 @@
     <string name="core_exit">Sortie</string>
     <string name="core_entrance">Entrée</string>
     <string name="subway_data_unavailable">Le plan du métro n\'est pas disponible</string>
-    <string name="public_access">Accès public</string>
-    <string name="limited_access">Accès limité</string>
-    <string name="not_shared">Privé</string>
-    <string name="access_rules_author_only">Édition en ligne</string>
     <string name="routes_update_maps_text">Pour afficher les itinéraires, les cartes doivent être mises à jour.</string>
 </resources>

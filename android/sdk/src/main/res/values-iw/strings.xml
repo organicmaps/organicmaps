@@ -27,8 +27,4 @@
     <string name="core_exit">יציאה</string>
     <string name="core_entrance">כניסה</string>
     <string name="subway_data_unavailable">מפת רכבת תחתית לא זמינה</string>
-    <string name="public_access">גישה ציבורית</string>
-    <string name="limited_access">גישה מוגבלת</string>
-    <string name="not_shared">פרטי</string>
-    <string name="access_rules_author_only">עריכה אונליין</string>
 </resources>

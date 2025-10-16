@@ -31,8 +31,4 @@
     <string name="core_exit">Çıx</string>
     <string name="core_entrance">Giriş</string>
     <string name="subway_data_unavailable">Metro xəritəsi mövcud deyil</string>
-    <string name="public_access">Ictimai çıxış</string>
-    <string name="limited_access">Məhdud giriş</string>
-    <string name="not_shared">Gizli</string>
-    <string name="access_rules_author_only">Onlayn redaktə</string>
 </resources>

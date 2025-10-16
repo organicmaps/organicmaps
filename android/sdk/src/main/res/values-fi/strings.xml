@@ -32,8 +32,4 @@
     <string name="core_exit">Poistu</string>
     <string name="core_entrance">Sisäänkäynti</string>
     <string name="subway_data_unavailable">Metrokartta ei ole saatavilla</string>
-    <string name="public_access">Julkinen pääsy</string>
-    <string name="limited_access">Rajoitettu pääsy</string>
-    <string name="not_shared">Yksityinen</string>
-    <string name="access_rules_author_only">Nettimuokkaus</string>
 </resources>

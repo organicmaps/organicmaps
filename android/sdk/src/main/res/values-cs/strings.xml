@@ -21,10 +21,6 @@
     <string name="core_exit">Ukončit</string>
     <string name="core_entrance">Vstup</string>
     <string name="subway_data_unavailable">Mapa metra není dostupná</string>
-    <string name="public_access">Veřejně přístupné</string>
-    <string name="limited_access">Soukromé</string>
-    <string name="not_shared">Osobní účet</string>
-    <string name="access_rules_author_only">Upravujte on-line</string>
     <string name="maps_storage_removable">SD karta</string>
     <string name="gb">GB</string>
     <string name="mb">MB</string>

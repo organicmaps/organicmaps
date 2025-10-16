@@ -27,10 +27,6 @@
     <string name="core_exit">Izeja</string>
     <string name="core_entrance">Ieeja</string>
     <string name="subway_data_unavailable">Metro karte nav pieejama</string>
-    <string name="public_access">Publiska pieeja</string>
-    <string name="limited_access">Ierobežota pieeja</string>
-    <string name="not_shared">Privāts</string>
-    <string name="access_rules_author_only">Tiešsaistes rediģēšana</string>
     <string name="core_placepage_unknown_place">Punkts kartē</string>
     <string name="gb">GB</string>
     <string name="mb">MB</string>

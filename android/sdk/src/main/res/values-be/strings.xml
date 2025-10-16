@@ -32,9 +32,5 @@
     <string name="core_exit">Выхад</string>
     <string name="core_entrance">Уваход</string>
     <string name="subway_data_unavailable">Карта метро недаступная</string>
-    <string name="public_access">Публічны доступ</string>
-    <string name="limited_access">Абмежаваны доступ</string>
-    <string name="not_shared">Прыватны</string>
-    <string name="access_rules_author_only">Рэдагаванне анлайн</string>
     <string name="routes_update_maps_text">Aбнaвіце карты, каб убачыць маршруты</string>
 </resources>

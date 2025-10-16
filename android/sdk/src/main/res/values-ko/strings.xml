@@ -21,8 +21,4 @@
     <string name="core_exit">끝내기</string>
     <string name="core_entrance">입구</string>
     <string name="subway_data_unavailable">지하철 지도가 가용하지 않습니다.</string>
-    <string name="public_access">일반 접근</string>
-    <string name="limited_access">제한 접근</string>
-    <string name="not_shared">개인</string>
-    <string name="access_rules_author_only">온라인 수정</string>
 </resources>

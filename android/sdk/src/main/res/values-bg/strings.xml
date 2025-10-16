@@ -24,10 +24,6 @@
     <string name="core_exit">Изход</string>
     <string name="core_entrance">Вход</string>
     <string name="subway_data_unavailable">Картата на метрото не е налична</string>
-    <string name="public_access">Публичен достъп</string>
-    <string name="limited_access">Ограничен достъп</string>
-    <string name="not_shared">Лично</string>
-    <string name="access_rules_author_only">Онлайн редактиране</string>
     <string name="maps_storage_removable">Карта памет</string>
     <string name="maps_storage_external">Външно споделено хранилище</string>
     <string name="maps_storage_shared">Вътрешно споделено хранилище</string>

@@ -19,8 +19,4 @@
     <string name="core_entrance">Daħla</string>
     <string name="subway_data_unavailable">Il-mappa tas-subway mhix disponibbli</string>
     <string name="postal_code">Kodiċi Postali</string>
-    <string name="limited_access">Aċċess limitat</string>
-    <string name="not_shared">Privat</string>
-    <string name="access_rules_author_only">Editjar onlajn</string>
-    <string name="public_access">Aċċess pubbliku</string>
 </resources>

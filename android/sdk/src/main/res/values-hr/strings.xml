@@ -19,8 +19,4 @@
     <string name="core_exit">Izlaz</string>
     <string name="core_entrance">Ulaz</string>
     <string name="subway_data_unavailable">Karta podzemne željeznice nije dostupna</string>
-    <string name="public_access">Javni pristup</string>
-    <string name="limited_access">Ograničen pristup</string>
-    <string name="not_shared">Privatno</string>
-    <string name="access_rules_author_only">Internetsko uređivanje</string>
 </resources>

@@ -31,8 +31,4 @@
     <string name="core_exit">Avslutt</string>
     <string name="core_entrance">Inngang</string>
     <string name="subway_data_unavailable">T-banekart er utilgjengelig</string>
-    <string name="public_access">Offentlig tilgang</string>
-    <string name="limited_access">Begrenset adgang</string>
-    <string name="not_shared">Privat</string>
-    <string name="access_rules_author_only">Redigering på nett</string>
 </resources>

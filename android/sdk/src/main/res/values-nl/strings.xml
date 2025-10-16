@@ -29,10 +29,6 @@
     <string name="core_exit">Uitgang</string>
     <string name="core_entrance">Ingang</string>
     <string name="subway_data_unavailable">Metrokaart is niet beschikbaar</string>
-    <string name="public_access">Publieke toegang</string>
-    <string name="limited_access">Beperkte toegang</string>
-    <string name="not_shared">Privé</string>
-    <string name="access_rules_author_only">Wordt online bewerkt</string>
     <string name="gb">GB</string>
     <string name="mb">MB</string>
     <string name="routes_update_maps_text">Om routes weer te geven moeten de kaarten bijgewerkt worden.</string>

@@ -21,10 +21,6 @@
     <string name="core_exit">Saída</string>
     <string name="core_entrance">Entrada</string>
     <string name="subway_data_unavailable">O mapa de metropolitano não está disponível</string>
-    <string name="public_access">Acesso público</string>
-    <string name="limited_access">Acesso limitado</string>
-    <string name="not_shared">Privado</string>
-    <string name="access_rules_author_only">Edição online</string>
     <string name="mb">MB</string>
     <string name="gb">GB</string>
     <string name="maps_storage_internal">Armazenamento interno privado</string>
