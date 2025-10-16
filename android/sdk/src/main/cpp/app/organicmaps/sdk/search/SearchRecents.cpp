@@ -8,7 +8,7 @@ using SearchRequest = search::QuerySaver::SearchRequest;
 
 extern "C"
 {
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchRecents_nativeGetList(JNIEnv * env, jclass, jobject result)
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchRecents_nativeGetList(JNIEnv * env, jclass, jobject result)
 {
   auto const & items = g_framework->NativeFramework()->GetSearchAPI().GetLastSearchQueries();
   if (items.empty())
@@ -23,14 +23,14 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchRecents_nativeGetLi
   }
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchRecents_nativeAdd(JNIEnv * env, jclass, jstring locale,
-                                                                               jstring query)
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchRecents_nativeAdd(JNIEnv * env, jclass, jstring locale,
+                                                                       jstring query)
 {
   SearchRequest const sr(jni::ToNativeString(env, locale), jni::ToNativeString(env, query));
   g_framework->NativeFramework()->GetSearchAPI().SaveSearchQuery(sr);
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchRecents_nativeClear(JNIEnv * env, jclass)
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchRecents_nativeClear(JNIEnv * env, jclass)
 {
   g_framework->NativeFramework()->GetSearchAPI().ClearSearchHistory();
 }

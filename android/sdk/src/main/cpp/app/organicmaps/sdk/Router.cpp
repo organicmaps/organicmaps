@@ -6,7 +6,7 @@
 
 extern "C"
 {
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Router_nativeSet(JNIEnv *, jclass, jint routerType)
+JNIEXPORT void Java_app_organicmaps_sdk_Router_nativeSet(JNIEnv *, jclass, jint routerType)
 {
   using Type = routing::RouterType;
   Type type;
@@ -22,18 +22,18 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Router_nativeSet(JNIEnv *, jclas
   frm()->GetRoutingManager().SetRouter(type);
 }
 
-JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_Router_nativeGet(JNIEnv *, jclass)
+JNIEXPORT jint Java_app_organicmaps_sdk_Router_nativeGet(JNIEnv *, jclass)
 {
   return static_cast<jint>(frm()->GetRoutingManager().GetRouter());
 }
 
-JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_Router_nativeGetLastUsed(JNIEnv *, jclass)
+JNIEXPORT jint Java_app_organicmaps_sdk_Router_nativeGetLastUsed(JNIEnv *, jclass)
 {
   return static_cast<jint>(frm()->GetRoutingManager().GetLastUsedRouter());
 }
 
-JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_Router_nativeGetBest(JNIEnv *, jclass, jdouble srcLat, jdouble srcLon,
-                                                                     jdouble dstLat, jdouble dstLon)
+JNIEXPORT jint Java_app_organicmaps_sdk_Router_nativeGetBest(JNIEnv *, jclass, jdouble srcLat, jdouble srcLon,
+                                                             jdouble dstLat, jdouble dstLon)
 {
   return static_cast<jint>(frm()->GetRoutingManager().GetBestRouter(mercator::FromLatLon(srcLat, srcLon),
                                                                     mercator::FromLatLon(dstLat, dstLon)));
