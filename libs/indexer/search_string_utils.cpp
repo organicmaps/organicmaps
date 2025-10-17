@@ -386,6 +386,10 @@ private:
         "g.",
         ///@}
 
+        // Polish
+        "ul",
+        "ulica",
+
         // Portuguese - Português
         "rua",
 

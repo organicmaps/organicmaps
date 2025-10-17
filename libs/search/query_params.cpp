@@ -192,6 +192,11 @@ bool QueryParams::IsNumberTokens(TokenRange const & range) const
   return true;
 }
 
+bool QueryParams::IsRangeWithPrefix(TokenRange const & range) const
+{
+  return m_hasPrefix && range.End() > m_tokens.size();
+}
+
 void QueryParams::RemoveToken(size_t i)
 {
   ASSERT_LESS(i, GetNumTokens(), ());

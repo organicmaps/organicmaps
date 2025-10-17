@@ -102,7 +102,7 @@ private:
 
   void GetBestMatchName(FeatureType & f, std::string & name) const;
   void MatchForSuggestions(strings::UniString const & token, int8_t locale, std::string const & prolog);
-  void ProcessSuggestions(std::vector<RankerResult> const & vec) const;
+  void ProcessSuggestions(std::vector<RankerResult> const & vec);
 
   Params m_params;
   Geocoder::Params m_geocoderParams;
@@ -121,5 +121,6 @@ private:
 
   std::vector<PreRankerResult> m_preRankerResults;
   std::vector<RankerResult> m_tentativeResults;
+  bool m_noSuggests = false;
 };
 }  // namespace search

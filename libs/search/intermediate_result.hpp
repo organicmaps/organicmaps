@@ -127,6 +127,9 @@ public:
     m_info = info;
   }
 
+  void SetHNPrefixMatch() { m_hnPrefixMatch = true; }
+  bool IsHNPrefixMatch() const { return m_hnPrefixMatch; }
+
   FeatureID const & GetID() const { return m_id; }
   std::string const & GetName() const { return m_str; }
   feature::TypesHolder const & GetTypes() const { return m_types; }
@@ -182,6 +185,7 @@ private:
 
   Type m_resultType;
   feature::GeomType m_geomType = feature::GeomType::Undefined;
+  bool m_hnPrefixMatch = false;
 
 #ifdef SEARCH_USE_PROVENANCE
   // The call path in the Geocoder that leads to this result.

@@ -3650,4 +3650,43 @@ UNIT_CLASS_TEST(ProcessorTest, Numeric_POI_Name)
   }
 }
 
+// https://github.com/organicmaps/organicmaps/issues/1151
+UNIT_CLASS_TEST(ProcessorTest, SkipSuggestWithAddress)
+{
+  std::string const lang = "pl";
+  double constexpr eps = 1.0E-3;  // ~111m
+
+  TestStreet street1({{0.99, -eps}, {1.01, -eps}}, "Szubińska", lang);
+  TestBuilding building({1, 0}, {}, "1", street1.GetName(lang), lang);
+  TestStreet street2({{0.99, eps}, {1.01, eps}}, "ulica 16", lang);
+
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street1);
+    builder.Add(building);
+    builder.Add(street2);
+  });
+
+  SearchParams params;
+  params.m_viewport = m2::RectD(-0.5, -0.5, 0.5, 0.5);
+  params.m_suggestsEnabled = true;
+  params.m_inputLocale = lang;
+
+  {
+    params.m_query = "Szubiska 1";
+
+    TestSearchRequest request(m_engine, params);
+    request.Run();
+
+    auto const & results = request.Results();
+    for (auto const & r : results)
+      TEST(!r.IsSuggest(), ());
+
+    Rules const rules = {ExactMatch(wonderlandId, building), ExactMatch(wonderlandId, street2)};
+    TEST(ResultsMatch(results, rules), ());
+  }
+
+  TEST(ResultsMatch("ul. Szubinska 1", {ExactMatch(wonderlandId, building)}), ());
+}
+
 }  // namespace processor_test

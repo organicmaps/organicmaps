@@ -332,22 +332,31 @@ public:
           info.m_nameScore = NameScore::SUBSTRING;
       }
     }
-    else if (m_params.IsCategorialRequest() && Model::IsPoiOrBuilding(info.m_type))
+    else if (Model::IsPoiOrBuilding(info.m_type))
     {
-      // Update info.m_classifType.poi with the _best preferred_ type. Important for categorial request,
-      // when the Feature maybe a restaurant and a toilet simultaneously.
-      uint32_t const bestType = res.GetBestType(&m_params.m_preferredTypes);
-      feature::TypesHolder typesHolder;
-      typesHolder.Assign(bestType);
-      info.m_classifType.poi = GetPoiType(typesHolder);
-
-      // We do not compare result name and request for categorial requests, but we prefer named features
-      // for Eat, Hotel or Shop categories. Toilets, stops, defibrillators, ... are equal w/wo names.
-
-      if (info.m_classifType.poi != PoiType::Eat && info.m_classifType.poi != PoiType::Hotel &&
-          info.m_classifType.poi != PoiType::ShopOrAmenity)
+      if (m_params.IsCategorialRequest())
       {
-        info.m_hasName = false;
+        // Update info.m_classifType.poi with the _best preferred_ type. Important for categorial request,
+        // when the Feature maybe a restaurant and a toilet simultaneously.
+        uint32_t const bestType = res.GetBestType(&m_params.m_preferredTypes);
+        feature::TypesHolder typesHolder;
+        typesHolder.Assign(bestType);
+        info.m_classifType.poi = GetPoiType(typesHolder);
+
+        // We do not compare result name and request for categorial requests, but we prefer named features
+        // for Eat, Hotel or Shop categories. Toilets, stops, defibrillators, ... are equal w/wo names.
+
+        if (info.m_classifType.poi != PoiType::Eat && info.m_classifType.poi != PoiType::Hotel &&
+            info.m_classifType.poi != PoiType::ShopOrAmenity)
+        {
+          info.m_hasName = false;
+        }
+      }
+      else
+      {
+        auto const & range = info.m_tokenRanges[Model::TYPE_BUILDING];
+        if (m_params.IsRangeWithPrefix(range))
+          res.SetHNPrefixMatch();
       }
     }
 
@@ -683,6 +692,7 @@ void Ranker::Init(Params const & params, Geocoder::Params const & geocoderParams
   m_geocoderParams = geocoderParams;
   m_preRankerResults.clear();
   m_tentativeResults.clear();
+  m_noSuggests = false;
 }
 
 void Ranker::Finish(bool cancelled)
@@ -780,11 +790,15 @@ void Ranker::SuggestStrings()
 
 void Ranker::UpdateResults(bool lastUpdate)
 {
+  /// @todo Looks strange to throw cancel exception here, because Search loop is quite simple (return is enough).
+  /// Ranker->PreRanker->Geocoder->Processor.
   if (!lastUpdate)
     BailIfCancelled();
 
+  /// @todo Unroll this function into loop here with Cancelled check.
   MakeRankerResults();
   RemoveDuplicatingLinear(m_tentativeResults);
+
   if (m_tentativeResults.empty())
     return;
 
@@ -971,10 +985,20 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
   }
 }
 
-void Ranker::ProcessSuggestions(vector<RankerResult> const & vec) const
+void Ranker::ProcessSuggestions(vector<RankerResult> const & vec)
 {
-  if (m_params.m_query.m_prefix.empty() || !m_params.m_suggestsEnabled)
+  if (m_noSuggests || m_params.m_query.m_prefix.empty() || !m_params.m_suggestsEnabled)
     return;
+
+  if (!m_params.m_query.m_tokens.empty() && strings::IsASCIINumeric(m_params.m_query.m_prefix))
+  {
+    // Don't show numeric suggests when we have at least one result with HN prefix match.
+    if (std::find_if(vec.begin(), vec.end(), [](RankerResult const & r) { return r.IsHNPrefixMatch(); }) != vec.end())
+    {
+      m_noSuggests = true;
+      return;
+    }
+  }
 
   size_t added = 0;
   for (RankerResult const & r : vec)

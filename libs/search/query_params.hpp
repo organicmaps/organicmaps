@@ -124,6 +124,8 @@ public:
   // Returns true if all tokens in |range| have integral synonyms.
   bool IsNumberTokens(TokenRange const & range) const;
 
+  bool IsRangeWithPrefix(TokenRange const & range) const;
+
   void RemoveToken(size_t i);
 
   Langs & GetLangs() { return m_langs; }
