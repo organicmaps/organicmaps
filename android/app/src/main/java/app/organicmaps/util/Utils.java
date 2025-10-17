@@ -348,11 +348,10 @@ public class Utils
     if (MwmApplication.from(context).getOrganicMaps().arePlatformAndCoreInitialized())
       return;
 
-    FragmentManager manager = fragment.getFragmentManager();
-    if (manager == null)
+    if (!fragment.isAdded())
       return;
 
-    manager.beginTransaction().detach(fragment).commit();
+    fragment.getParentFragmentManager().beginTransaction().detach(fragment).commit();
   }
 
   public static String capitalize(@Nullable String src)
