@@ -198,7 +198,7 @@ void NormalizeDigits(UniString & us)
   }
 }
 
-std::size_t Utf8Length(std::string_view const & s)
+size_t Utf8Length(std::string_view const & s)
 {
   return utf8::unchecked::distance(s.begin(), s.end());
 }

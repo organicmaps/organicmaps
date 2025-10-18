@@ -333,16 +333,16 @@ void GetRoadShieldsInfo(RouteSegment::RoadNameInfo const & road, FollowingInfo::
   std::string const & mwmName = road.m_mwmId.GetMwmName();
   info.m_targetRoadShields = ftypes::GetRoadShields(mwmName, road.HasExitInfo() ? road.m_destination_ref : road.m_ref);
   info.m_targetRoadShieldsPosition = {0, 0};
-  info.m_junctionShields = ftypes::GetRoadShields(mwmName, road.m_junction_ref);
-  info.m_junctionShieldsPosition = {0, 0};
+  info.m_junctionInfo = ftypes::GetRoadShields(mwmName, road.m_junction_ref);
+  info.m_junctionInfoPosition = {0, 0};
 }
 
-std::string GetRoadShieldsText(ftypes::RoadShieldsSetT const & roadShields)
+std::string GetRoadShieldsText(ftypes::RoadShieldsSetT const & roadShields, bool const withBraces = true)
 {
   std::string text;
-  for (std::size_t i = 0; i < roadShields.size(); ++i)
+  for (size_t i = 0; i < roadShields.size(); ++i)
   {
-    text += "[" + roadShields[i].m_name + "]";
+    text += (withBraces ? "[" : "") + roadShields[i].m_name + (withBraces ? "]" : "");
     if (i < roadShields.size() - 1)
       text += " ";
   }
@@ -362,10 +362,10 @@ void GetFullRoadName(RouteSegment::RoadNameInfo const & road, FollowingInfo::Roa
   name.clear();
   if (road.HasExitInfo())
   {
-    if (!roadShields.m_junctionShields.empty())
+    if (!roadShields.m_junctionInfo.empty())
     {
-      name += GetRoadShieldsText(roadShields.m_junctionShields);
-      roadShields.m_junctionShieldsPosition = {0, strings::Utf8Length(name)};
+      name += GetRoadShieldsText(roadShields.m_junctionInfo, /* withBraces */ false);
+      roadShields.m_junctionInfoPosition = {0, strings::Utf8Length(name)};
     }
 
     if (!roadShields.m_targetRoadShields.empty())

@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.sdk.routing.roadshield.RoadShield;
 import app.organicmaps.sdk.routing.roadshield.RoadShieldInfo;
+import java.util.Objects;
 
 public class RoadShieldUtils
 {
@@ -34,13 +35,9 @@ public class RoadShieldUtils
       return street;
 
     final SpannableString text = new SpannableString(street);
-    if (roadShieldInfo.targetRoadShields != null)
-      applyRoadShieldsSpannables(roadShieldSpanCreator, text, roadShieldInfo.targetRoadShields,
+    if (roadShieldInfo.hasTargetRoadShields())
+      applyRoadShieldsSpannables(roadShieldSpanCreator, text, Objects.requireNonNull(roadShieldInfo.targetRoadShields),
                                  roadShieldInfo.targetRoadShieldsIndexStart, roadShieldInfo.targetRoadShieldsIndexEnd,
-                                 textSize, drawOutline);
-    if (roadShieldInfo.junctionShields != null)
-      applyRoadShieldsSpannables(roadShieldSpanCreator, text, roadShieldInfo.junctionShields,
-                                 roadShieldInfo.junctionShieldsIndexStart, roadShieldInfo.junctionShieldsIndexEnd,
                                  textSize, drawOutline);
     return text;
   }
