@@ -102,7 +102,7 @@ void NormalizeDigits(UniString & us);
 /// For implementation @see base/lower_case.cpp
 size_t CountNormLowerSymbols(UniString const & s, UniString const & lowStr);
 
-std::size_t Utf8Length(std::string_view const & s);
+size_t Utf8Length(std::string_view const & s);
 
 void AsciiToLower(std::string & s);
 void AsciiToUpper(std::string & s);
