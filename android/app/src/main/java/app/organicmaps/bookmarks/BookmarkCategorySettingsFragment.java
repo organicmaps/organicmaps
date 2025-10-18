@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.MenuProvider;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
@@ -29,17 +30,37 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
 {
   private static final int TEXT_LENGTH_LIMIT = 60;
 
-  @SuppressWarnings("NullableProblems")
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private BookmarkCategory mCategory;
 
-  @SuppressWarnings("NullableProblems")
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private TextInputEditText mEditDescView;
 
-  @SuppressWarnings("NullableProblems")
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private TextInputEditText mEditCategoryNameView;
+
+  @NonNull
+  private final MenuProvider mMenuProvider = new MenuProvider() {
+    @Override
+    public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater)
+    {
+      menuInflater.inflate(R.menu.menu_done, menu);
+    }
+
+    @Override
+    public boolean onMenuItemSelected(@NonNull MenuItem menuItem)
+    {
+      if (menuItem.getItemId() == R.id.done)
+      {
+        onEditDoneClicked();
+        return true;
+      }
+      return false;
+    }
+  };
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
@@ -52,10 +73,11 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                           @Nullable Bundle savedInstanceState)
   {
-    View root = inflater.inflate(R.layout.fragment_bookmark_category_settings, container, false);
-    setHasOptionsMenu(true);
+    final View root = inflater.inflate(R.layout.fragment_bookmark_category_settings, container, false);
+    requireActivity().addMenuProvider(mMenuProvider, getViewLifecycleOwner());
     initViews(root);
     return root;
   }
@@ -86,23 +108,6 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
     });
     mEditDescView = root.findViewById(R.id.edit_description);
     mEditDescView.setText(mCategory.getDescription());
-  }
-
-  @Override
-  public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater)
-  {
-    inflater.inflate(R.menu.menu_done, menu);
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item)
-  {
-    if (item.getItemId() == R.id.done)
-    {
-      onEditDoneClicked();
-      return true;
-    }
-    return super.onOptionsItemSelected(item);
   }
 
   private void onEditDoneClicked()
@@ -168,7 +173,7 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
     return !TextUtils.equals(mCategory.getDescription(), categoryDesc);
   }
 
-  private void clearAndFocus(TextView textView)
+  private void clearAndFocus(@NonNull TextView textView)
   {
     textView.getEditableText().clear();
     textView.requestFocus();
