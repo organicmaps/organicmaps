@@ -340,8 +340,15 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
     concat = concat + "| " + DebugPrint(ft.GetGeomType());
     addStringFn(concat);
 
-    // Name
-    addStringFn(std::string(ft.GetReadableName()));
+    // Name + Ref
+    std::string name(ft.GetReadableName());
+    if (auto const & ref = ft.GetRef(); !ref.empty())
+    {
+      if (!name.empty())
+        name += " | ";
+      name += ref;
+    }
+    addStringFn(name);
 
     // Address
     auto const info = GetFeatureAddressInfo(m_framework, ft);
