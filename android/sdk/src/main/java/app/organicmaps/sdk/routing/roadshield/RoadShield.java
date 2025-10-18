@@ -1,9 +1,10 @@
 package app.organicmaps.sdk.routing.roadshield;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class RoadShield
+public final class RoadShield
 {
   @NonNull
   public final RoadShieldType type;
@@ -12,6 +13,8 @@ public class RoadShield
   @Nullable
   public final String additionalText;
 
+  // Used by JNI.
+  @Keep
   private RoadShield(@NonNull RoadShieldType type, @NonNull String text, @Nullable String additionalText)
   {
     this.type = type;
