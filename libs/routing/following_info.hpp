@@ -17,10 +17,14 @@ class FollowingInfo
 public:
   struct RoadShieldInfo
   {
+    /// An array of road shields for the target street
     ftypes::RoadShieldsSetT m_targetRoadShields;
-    std::pair<std::uint16_t, std::uint16_t> m_targetRoadShieldsPosition;
-    ftypes::RoadShieldsSetT m_junctionShields;
-    std::pair<std::uint16_t, std::uint16_t> m_junctionShieldsPosition;
+    /// Position of the road shields in the street name string. [Inclusive, Exclusive)
+    std::pair<uint16_t, uint16_t> m_targetRoadShieldsPosition;
+    /// An array of junction info shields for the target street
+    ftypes::RoadShieldsSetT m_junctionInfo;
+    /// Position of the junction info in the street name string. [Inclusive, Exclusive)
+    std::pair<uint16_t, uint16_t> m_junctionInfoPosition;
   };
 
   FollowingInfo()

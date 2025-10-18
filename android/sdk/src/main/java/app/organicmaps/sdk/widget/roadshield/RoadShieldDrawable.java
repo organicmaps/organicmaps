@@ -149,8 +149,8 @@ public class RoadShieldDrawable extends Drawable
     mHeight = (int) (mTextBounds.height() + mTextPaint.getTextSize() * 0.6f);
     mDrawingOffset = mHeight * 0.1f;
     mCornerRadius = mHeight / 5.0f;
-    mWidth += mDrawingOffset;
-    mHeight += mDrawingOffset;
+    mWidth += (int) mDrawingOffset;
+    mHeight += (int) mDrawingOffset;
     setBounds(0, 0, getIntrinsicWidth(), getIntrinsicHeight());
 
     mBorderOutlinePaint.setColor(mTextPaint.getColor());
