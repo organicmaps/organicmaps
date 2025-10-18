@@ -48,31 +48,26 @@ public class ChooseBookmarkCategoryFragment
   }
 
   @Override
-  public void onViewCreated(View view, Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
 
     final Bundle args = getArguments();
-    final int catPosition = args.getInt(CATEGORY_POSITION, 0);
+    final int catPosition = args != null ? args.getInt(CATEGORY_POSITION, 0) : 0;
     List<BookmarkCategory> items = BookmarkManager.INSTANCE.getCategories();
     mAdapter = new ChooseBookmarkCategoryAdapter(requireActivity(), catPosition, items);
     mAdapter.setListener(this);
     mRecycler.setAdapter(mAdapter);
-  }
 
-  @Override
-  public void onAttach(Activity activity)
-  {
     if (mListener == null)
     {
       final Fragment parent = getParentFragment();
+      final Activity activity = requireActivity();
       if (parent instanceof Listener)
         mListener = (Listener) parent;
       else if (activity instanceof Listener)
         mListener = (Listener) activity;
     }
-
-    super.onAttach(activity);
   }
 
   private void createCategory(@NonNull String name)
