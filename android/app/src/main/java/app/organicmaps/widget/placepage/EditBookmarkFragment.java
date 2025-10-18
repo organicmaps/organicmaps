@@ -398,7 +398,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   }
 
   @Override
-  public void onCategoryChanged(BookmarkCategory newCategory)
+  public void onCategoryChanged(@NonNull BookmarkCategory newCategory)
   {
     mBookmarkCategory = newCategory;
     refreshCategory();
