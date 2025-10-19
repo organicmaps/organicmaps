@@ -198,7 +198,7 @@ bool Platform::GetFileSizeByFullPath(std::string const & filePath, uint64_t & si
       CreateFileA(filePath.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
   if (hFile != INVALID_HANDLE_VALUE)
   {
-    SCOPE_GUARD(autoClose, bind(&CloseHandle, hFile));
+    SCOPE_GUARD(autoClose, std::bind_front(&CloseHandle, hFile));
     LARGE_INTEGER fileSize;
     if (0 != GetFileSizeEx(hFile, &fileSize))
     {
@@ -225,7 +225,7 @@ time_t GetFileTime(std::string const & path, FileTimeType fileTimeType)
     return 0;  // TODO(AB): Refactor to return std::optional<time_t>.
   }
 
-  SCOPE_GUARD(autoClose, bind(&CloseHandle, hFile));
+  SCOPE_GUARD(autoClose, std::bind_front(&CloseHandle, hFile));
 
   FILETIME ft;
   FILETIME * ftCreate = nullptr;
