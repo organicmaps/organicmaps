@@ -4,6 +4,7 @@ import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 plugins {
     id 'com.android.application' version '8.13.2' apply false
     id 'com.android.library' version '8.13.2' apply false
+    id 'org.jreleaser' version '1.22.0' apply false
 }
 
 def run(cmd) {
@@ -70,5 +71,18 @@ tasks.register("lintAllModules") {
 
         mergedReport.append("</issues>")
         println "✅ Merged lint report written to: $mergedReport"
+    }
+}
+
+tasks.register('publishSdk') {
+    group = 'publishing'
+    description = 'Publishes the SDK modules'
+
+    def sdkModules = subprojects.findAll { project ->
+        project.projectDir.toPath().startsWith(rootProject.projectDir.toPath().resolve("sdk"))
+    }
+
+    dependsOn sdkModules.collect { sub ->
+        sub.tasks.matching { it.name == "publish" }
     }
 }
