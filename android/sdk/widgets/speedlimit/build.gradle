@@ -3,6 +3,7 @@ plugins {
 }
 
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+apply from: "${rootProject.rootDir}/groovy/publishing.gradle"
 
 android {
   namespace 'app.organicmaps.sdk.widgets.speedlimit'
@@ -12,3 +13,10 @@ android {
 dependencies {
   implementation libs.androidx.annotation
 }
+
+Publish(project, [
+    'artifactId'   : 'widgets-speedlimit',
+    'name'         : 'Organic Maps SDK. SpeedLimit widget',
+    'description'  : 'A library that provides speed limit widget for the app',
+    'inceptionYear': '2026'
+])

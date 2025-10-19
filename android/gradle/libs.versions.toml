@@ -1,4 +1,5 @@
 [versions]
+activation = "1.1.1"
 agp = "9.2.1"
 detekt = "1.23.8"
 ktlint = "1.8.0"
@@ -43,6 +44,13 @@ google-material = "1.13.0"
 
 huawei-plugin = "1.5.0"
 
+# We need exactly those versions for jreleaser
+# noinspection NewerVersionAvailable
+jakarta-xml-bind-api = "2.3.3"
+# noinspection NewerVersionAvailable
+jaxb-impl = "2.3.3"
+jreleaser = "1.23.0"
+
 microg-gms-location = "0.3.14.250932"
 
 mockito-core = "5.23.0"
@@ -53,6 +61,8 @@ okhttp = "5.3.2"
 triplet-play-publisher = "4.0.0"
 
 [libraries]
+activation = { module = "javax.activation:activation", version.ref = "activation" }
+
 android-tools-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-tools-desugaring" }
 
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
@@ -82,6 +92,9 @@ google-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlyti
 # Version managed by firebase-bom
 google-firebase-crashlytics-ndk = { module = "com.google.firebase:firebase-crashlytics-ndk" }
 
+jakarta-xml-bind-api = { module = "jakarta.xml.bind:jakarta.xml.bind-api", version.ref = "jakarta-xml-bind-api" }
+jaxb-impl = { module = "com.sun.xml.bind:jaxb-impl", version.ref = "jaxb-impl" }
+
 google-gms-location = { module = "com.google.android.gms:play-services-location", version.ref = "google-gms-location" }
 google-material = { module = "com.google.android.material:material", version.ref = "google-material" }
 
@@ -103,5 +116,7 @@ google-firebase-appdistribution = { id = "com.google.firebase.appdistribution", 
 google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "google-firebase-crashlytics" }
 
 huawei-plugin = { id = "ru.cian.huawei-publish-gradle-plugin", version.ref = "huawei-plugin" }
+
+jreleaser = { id = "org.jreleaser", version.ref = "jreleaser" }
 
 triplet-play = { id = "com.github.triplet.play", version.ref = "triplet-play-publisher" }

@@ -3,6 +3,7 @@ plugins {
 }
 
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+apply from: "${rootProject.rootDir}/groovy/publishing.gradle"
 
 android {
   namespace = 'app.organicmaps.sdk.location.gms'
@@ -26,3 +27,10 @@ dependencies {
   // F-droid because it's Apache-2.0.
   implementation libs.microg.gms.location
 }
+
+Publish(project, [
+    'artifactId'   : 'location-foss',
+    'name'         : 'Organic Maps SDK. Google Fused Location (FOSS)',
+    'description'  : 'A library that provides FOSS implementation of google gms location services for the app',
+    'inceptionYear': '2026'
+])
