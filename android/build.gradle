@@ -1,5 +1,13 @@
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
+buildscript {
+    dependencies {
+        classpath libs.activation
+        classpath libs.jakarta.xml.bind.api
+        classpath libs.jaxb.impl
+    }
+}
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     alias libs.plugins.android.application apply false
@@ -11,6 +19,8 @@ plugins {
 
     alias libs.plugins.triplet.play apply false
     alias libs.plugins.huawei.plugin apply false
+
+    alias libs.plugins.jreleaser apply false
 }
 
 def run(cmd) {
@@ -89,4 +99,17 @@ tasks.register("detektCheckAll") {
     dependsOn(subprojects.collectMany { p ->
         p.tasks.matching { it.name == "detektCheck" }
     })
+}
+
+tasks.register('publishSdk') {
+    group = 'publishing'
+    description = 'Publishes the SDK modules'
+
+    def sdkModules = subprojects.findAll { project ->
+        project.projectDir.toPath().startsWith(rootProject.projectDir.toPath().resolve("sdk"))
+    }
+
+    dependsOn sdkModules.collect { sub ->
+        sub.tasks.matching { it.name == "publish" }
+    }
 }

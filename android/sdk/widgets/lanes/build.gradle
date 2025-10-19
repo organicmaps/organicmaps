@@ -3,6 +3,7 @@ plugins {
 }
 
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+apply from: "${rootProject.rootDir}/groovy/publishing.gradle"
 
 android {
   namespace 'app.organicmaps.sdk.widgets.lanes'
@@ -15,3 +16,10 @@ dependencies {
   implementation libs.androidx.annotation
   implementation libs.androidx.appcompat
 }
+
+Publish(project, [
+    'artifactId'   : 'widgets-lanes',
+    'name'         : 'Organic Maps SDK. Lanes widget',
+    'description'  : 'A library that provides lanes widget for the app',
+    'inceptionYear': '2026'
+])

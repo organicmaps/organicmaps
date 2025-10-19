@@ -3,6 +3,7 @@ plugins {
 }
 
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+apply from: "${rootProject.rootDir}/groovy/publishing.gradle"
 
 android {
   namespace 'app.organicmaps.sdk.car'
@@ -16,3 +17,10 @@ dependencies {
 
   implementation libs.androidx.car.app
 }
+
+Publish(project, [
+    'artifactId'   : 'car',
+    'name'         : 'Organic Maps SDK for Android Auto and Android Automotive',
+    'description'  : 'A library that provides OM integration for Android Auto and Android Automotive',
+    'inceptionYear': '2026'
+])
