@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Duka la Mawasiliano";
 "type.leisure.indoor_play" = "Kituo cha kucheza";
 "type.tourism.camp_pitch" = "Mahali pa kuweka kambi";
+"type.railway.miniature" = "Reli ndogo";
+"type.amenity.kneipp_water_cure" = "Tiba ya Maji ya Kneipp";
+"type.area_highway.traffic_island" = "Kisiwa cha Trafiki";
+"type.man_made.monitoring_station" = "Kituo cha Ufuatiliaji";
+"type.man_made.monitoring_station.water_level" = "Kituo cha Ufuatiliaji wa Kiwango cha Maji";
+"type.man_made.monitoring_station.weather" = "Kituo cha Ufuatiliaji wa Hali ya Hewa";

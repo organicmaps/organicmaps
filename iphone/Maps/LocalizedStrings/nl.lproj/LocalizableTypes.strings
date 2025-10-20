@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Telecommunicatiewinkel";
 "type.leisure.indoor_play" = "Speelcentrum";
 "type.tourism.camp_pitch" = "Kampeerplek";
+"type.railway.miniature" = "Miniatuurspoorweg";
+"type.amenity.kneipp_water_cure" = "Kneipp Waterkuur";
+"type.area_highway.traffic_island" = "Verkeerseiland";
+"type.man_made.monitoring_station" = "Controlestation";
+"type.man_made.monitoring_station.water_level" = "Meetstation voor waterpeil";
+"type.man_made.monitoring_station.weather" = "Weerstation";

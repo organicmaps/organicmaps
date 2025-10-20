@@ -1422,4 +1422,10 @@
     <string name="type.shop.telecommunication">Магазин телекоммуникаций</string>
     <string name="type.leisure.indoor_play">Игровой центр</string>
     <string name="type.tourism.camp_pitch">Кемпинг Spot</string>
+    <string name="type.railway.miniature">Миниатюрная железная дорога</string>
+    <string name="type.amenity.kneipp_water_cure">Лечение водой по Кнайпу</string>
+    <string name="type.area_highway.traffic_island">Остров движения</string>
+    <string name="type.man_made.monitoring_station">Станция мониторинга</string>
+    <string name="type.man_made.monitoring_station.water_level">Станция мониторинга уровня воды</string>
+    <string name="type.man_made.monitoring_station.weather">Станция мониторинга погоды</string>
 </resources>

@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Telekomunikazioen denda";
 "type.leisure.indoor_play" = "Play Center";
 "type.tourism.camp_pitch" = "Kanpin-lekua";
+"type.railway.miniature" = "Miniaturazko trenbidea";
+"type.amenity.kneipp_water_cure" = "Kneipp Ur Sendapena";
+"type.area_highway.traffic_island" = "Trafiko uhartea";
+"type.man_made.monitoring_station" = "Jarraipen Estazioa";
+"type.man_made.monitoring_station.water_level" = "Ur-maila kontrolatzeko estazioa";
+"type.man_made.monitoring_station.weather" = "Eguraldia Begiratzeko Estazioa";

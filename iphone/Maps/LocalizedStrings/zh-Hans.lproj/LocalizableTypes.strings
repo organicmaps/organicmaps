@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "电信商店";
 "type.leisure.indoor_play" = "游乐中心";
 "type.tourism.camp_pitch" = "露营点";
+"type.railway.miniature" = "微型铁路";
+"type.amenity.kneipp_water_cure" = "克奈普水疗法";
+"type.area_highway.traffic_island" = "交通岛";
+"type.man_made.monitoring_station" = "监测站";
+"type.man_made.monitoring_station.water_level" = "水位监测站";
+"type.man_made.monitoring_station.weather" = "气象监测站";

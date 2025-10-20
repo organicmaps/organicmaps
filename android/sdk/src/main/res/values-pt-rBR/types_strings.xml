@@ -1316,4 +1316,8 @@
     <string name="type.barrier.yes">Barreira</string>
     <string name="type.building.guardhouse">Guarda</string>
     <string name="type.office.security">Escritório de Segurança</string>
+    <string name="type.railway.miniature">Ferrovia em miniatura</string>
+    <string name="type.man_made.monitoring_station">Estação de monitoramento</string>
+    <string name="type.man_made.monitoring_station.water_level">Estação de monitoramento do nível de água</string>
+    <string name="type.man_made.monitoring_station.weather">Estação de monitoramento meteorológico</string>
 </resources>

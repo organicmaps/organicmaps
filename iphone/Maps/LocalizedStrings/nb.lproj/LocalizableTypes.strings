@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Telekommunikasjonsbutikk";
 "type.leisure.indoor_play" = "Lekesenter";
 "type.tourism.camp_pitch" = "Campingplass";
+"type.railway.miniature" = "Miniatyrjernbane";
+"type.amenity.kneipp_water_cure" = "Kneipp vannkur";
+"type.area_highway.traffic_island" = "Trafikkøya";
+"type.man_made.monitoring_station" = "Overvåkningsstasjon";
+"type.man_made.monitoring_station.water_level" = "Overvåkingsstasjon for vannstand";
+"type.man_made.monitoring_station.weather" = "Værovervåkningsstasjon";

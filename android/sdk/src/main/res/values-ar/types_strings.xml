@@ -1285,4 +1285,10 @@
     <string name="type.shop.telecommunication">متجر الاتصالات السلكية واللاسلكية</string>
     <string name="type.leisure.indoor_play">مركز اللعب</string>
     <string name="type.tourism.camp_pitch">بقعة التخييم</string>
+    <string name="type.railway.miniature">سكة حديد مصغرة</string>
+    <string name="type.amenity.kneipp_water_cure">علاج كنيب بالماء</string>
+    <string name="type.area_highway.traffic_island">جزيرة المرور</string>
+    <string name="type.man_made.monitoring_station">محطة المراقبة</string>
+    <string name="type.man_made.monitoring_station.water_level">محطة مراقبة منسوب المياه</string>
+    <string name="type.man_made.monitoring_station.weather">محطة مراقبة الطقس</string>
 </resources>

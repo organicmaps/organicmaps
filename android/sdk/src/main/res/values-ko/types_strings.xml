@@ -1190,4 +1190,10 @@
     <string name="type.shop.telecommunication">통신 상점</string>
     <string name="type.leisure.indoor_play">플레이 센터</string>
     <string name="type.tourism.camp_pitch">캠핑 장소</string>
+    <string name="type.railway.miniature">미니어처 철도</string>
+    <string name="type.amenity.kneipp_water_cure">크나이프 워터 큐어</string>
+    <string name="type.area_highway.traffic_island">교통섬</string>
+    <string name="type.man_made.monitoring_station">모니터링 스테이션</string>
+    <string name="type.man_made.monitoring_station.water_level">수위 모니터링 스테이션</string>
+    <string name="type.man_made.monitoring_station.weather">날씨 모니터링 스테이션</string>
 </resources>

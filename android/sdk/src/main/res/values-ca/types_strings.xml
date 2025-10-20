@@ -1353,4 +1353,10 @@
     <string name="type.shop.telecommunication">Botiga de telecomunicacions</string>
     <string name="type.leisure.indoor_play">Play Center</string>
     <string name="type.tourism.camp_pitch">Lloc d’acampada</string>
+    <string name="type.railway.miniature">Ferrocarril en miniatura</string>
+    <string name="type.amenity.kneipp_water_cure">Cura d\'aigua Kneipp</string>
+    <string name="type.area_highway.traffic_island">Illa de Trànsit</string>
+    <string name="type.man_made.monitoring_station">Estació de monitoratge</string>
+    <string name="type.man_made.monitoring_station.water_level">Estació de control del nivell d\'aigua</string>
+    <string name="type.man_made.monitoring_station.weather">Estació de seguiment meteorològic</string>
 </resources>

@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Telekommunikatsioonipood";
 "type.leisure.indoor_play" = "Mängukeskus";
 "type.tourism.camp_pitch" = "Telkimispunkt";
+"type.railway.miniature" = "Miniatuurne raudtee";
+"type.amenity.kneipp_water_cure" = "Kneippi veekuur";
+"type.area_highway.traffic_island" = "Liiklussaar";
+"type.man_made.monitoring_station" = "Seirejaam";
+"type.man_made.monitoring_station.water_level" = "Veetaseme seirejaam";
+"type.man_made.monitoring_station.weather" = "Ilmaseirejaam";

@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Toko telekomunikasi";
 "type.leisure.indoor_play" = "Pusat Bermain";
 "type.tourism.camp_pitch" = "Tempat Berkemah";
+"type.railway.miniature" = "Miniatur Kereta Api";
+"type.amenity.kneipp_water_cure" = "Penyembuhan Air Kneipp";
+"type.area_highway.traffic_island" = "Pulau Lalu Lintas";
+"type.man_made.monitoring_station" = "Stasiun Pemantauan";
+"type.man_made.monitoring_station.water_level" = "Stasiun Pemantauan Ketinggian Air";
+"type.man_made.monitoring_station.weather" = "Stasiun Pemantauan Cuaca";

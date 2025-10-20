@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Butik for telekommunikation";
 "type.leisure.indoor_play" = "Legecenter";
 "type.tourism.camp_pitch" = "Campingplads";
+"type.railway.miniature" = "Miniature jernbane";
+"type.amenity.kneipp_water_cure" = "Kneipps vandkur";
+"type.area_highway.traffic_island" = "Trafikø";
+"type.man_made.monitoring_station" = "Overvågningsstation";
+"type.man_made.monitoring_station.water_level" = "Station til overvågning af vandstand";
+"type.man_made.monitoring_station.weather" = "Station til overvågning af vejret";

@@ -1414,4 +1414,10 @@
     <string name="type.shop.telecommunication">Тэлекамунікацыйная крама</string>
     <string name="type.leisure.indoor_play">Гульнявы цэнтр</string>
     <string name="type.tourism.camp_pitch">Кемпінгавае месца</string>
+    <string name="type.railway.miniature">Мініяцюрная чыгунка</string>
+    <string name="type.amenity.kneipp_water_cure">Лячэнне вадой Кнайпа</string>
+    <string name="type.area_highway.traffic_island">Востраў руху</string>
+    <string name="type.man_made.monitoring_station">Станцыя назірання</string>
+    <string name="type.man_made.monitoring_station.water_level">Станцыя кантролю ўзроўню вады</string>
+    <string name="type.man_made.monitoring_station.weather">Станцыя назірання за надвор\'ем</string>
 </resources>

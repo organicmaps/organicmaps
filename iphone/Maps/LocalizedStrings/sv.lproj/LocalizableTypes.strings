@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Butik för telekommunikation";
 "type.leisure.indoor_play" = "Lekcenter";
 "type.tourism.camp_pitch" = "Campingplats";
+"type.railway.miniature" = "Miniatyrjärnväg";
+"type.amenity.kneipp_water_cure" = "Kneipps vattenkur";
+"type.area_highway.traffic_island" = "Trafikö";
+"type.man_made.monitoring_station" = "Övervakningsstation";
+"type.man_made.monitoring_station.water_level" = "Övervakningsstation för vattennivå";
+"type.man_made.monitoring_station.weather" = "Väderövervakningsstation";

@@ -1422,4 +1422,10 @@
     <string name="type.shop.telecommunication">Телекомунікаційний цех</string>
     <string name="type.leisure.indoor_play">Ігровий центр</string>
     <string name="type.tourism.camp_pitch">Місце для кемпінгу</string>
+    <string name="type.railway.miniature">Мініатюрна залізниця</string>
+    <string name="type.amenity.kneipp_water_cure">Лікування водою Кнайпа</string>
+    <string name="type.area_highway.traffic_island">Острів трафіку</string>
+    <string name="type.man_made.monitoring_station">Станція моніторингу</string>
+    <string name="type.man_made.monitoring_station.water_level">Станція моніторингу рівня води</string>
+    <string name="type.man_made.monitoring_station.weather">Станція моніторингу погоди</string>
 </resources>

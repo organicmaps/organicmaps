@@ -1507,3 +1507,9 @@
 "type.shop.telecommunication" = "Távközlési üzlet";
 "type.leisure.indoor_play" = "Játékközpont";
 "type.tourism.camp_pitch" = "Kempinghely";
+"type.railway.miniature" = "Miniatűr vasút";
+"type.amenity.kneipp_water_cure" = "Kneipp vízkúra";
+"type.area_highway.traffic_island" = "Forgalmi sziget";
+"type.man_made.monitoring_station" = "Megfigyelő állomás";
+"type.man_made.monitoring_station.water_level" = "Vízszintmérő állomás";
+"type.man_made.monitoring_station.weather" = "Időjárás megfigyelő állomás";

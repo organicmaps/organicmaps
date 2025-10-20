@@ -1416,4 +1416,10 @@
     <string name="type.shop.telecommunication">Telecommunicatiewinkel</string>
     <string name="type.leisure.indoor_play">Speelcentrum</string>
     <string name="type.tourism.camp_pitch">Kampeerplek</string>
+    <string name="type.railway.miniature">Miniatuurspoorweg</string>
+    <string name="type.amenity.kneipp_water_cure">Kneipp Waterkuur</string>
+    <string name="type.area_highway.traffic_island">Verkeerseiland</string>
+    <string name="type.man_made.monitoring_station">Controlestation</string>
+    <string name="type.man_made.monitoring_station.water_level">Meetstation voor waterpeil</string>
+    <string name="type.man_made.monitoring_station.weather">Weerstation</string>
 </resources>

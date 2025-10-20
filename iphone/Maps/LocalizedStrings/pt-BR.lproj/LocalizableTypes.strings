@@ -1508,3 +1508,7 @@
 "type.barrier.debris" = "Destroços";
 "type.barrier.jersey_barrier" = "Bloco";
 "type.amenity.boat_rental" = "Aluguel de barcos";
+"type.railway.miniature" = "Ferrovia em miniatura";
+"type.man_made.monitoring_station" = "Estação de monitoramento";
+"type.man_made.monitoring_station.water_level" = "Estação de monitoramento do nível de água";
+"type.man_made.monitoring_station.weather" = "Estação de monitoramento meteorológico";

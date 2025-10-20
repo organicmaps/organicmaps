@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "दूरसंचार स्टोअर";
 "type.leisure.indoor_play" = "खेळाचे केंद्र";
 "type.tourism.camp_pitch" = "कॅम्पिंग स्पॉट";
+"type.railway.miniature" = "लघु रेल्वे";
+"type.amenity.kneipp_water_cure" = "Kneipp पाणी बरा";
+"type.area_highway.traffic_island" = "वाहतूक बेट";
+"type.man_made.monitoring_station" = "मॉनिटरिंग स्टेशन";
+"type.man_made.monitoring_station.water_level" = "पाणी पातळी मॉनिटरिंग स्टेशन";
+"type.man_made.monitoring_station.weather" = "हवामान निरीक्षण स्टेशन";

@@ -1287,4 +1287,10 @@
     <string name="type.shop.telecommunication">Telekomunikazioen denda</string>
     <string name="type.leisure.indoor_play">Play Center</string>
     <string name="type.tourism.camp_pitch">Kanpin-lekua</string>
+    <string name="type.railway.miniature">Miniaturazko trenbidea</string>
+    <string name="type.amenity.kneipp_water_cure">Kneipp Ur Sendapena</string>
+    <string name="type.area_highway.traffic_island">Trafiko uhartea</string>
+    <string name="type.man_made.monitoring_station">Jarraipen Estazioa</string>
+    <string name="type.man_made.monitoring_station.water_level">Ur-maila kontrolatzeko estazioa</string>
+    <string name="type.man_made.monitoring_station.weather">Eguraldia Begiratzeko Estazioa</string>
 </resources>

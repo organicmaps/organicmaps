@@ -1413,4 +1413,10 @@
     <string name="type.shop.telecommunication">Κατάστημα τηλεπικοινωνιών</string>
     <string name="type.leisure.indoor_play">Κέντρο παιχνιδιού</string>
     <string name="type.tourism.camp_pitch">Κάμπινγκ</string>
+    <string name="type.railway.miniature">Σιδηροδρομικές μινιατούρες</string>
+    <string name="type.amenity.kneipp_water_cure">Θεραπεία με νερό Kneipp</string>
+    <string name="type.area_highway.traffic_island">Νησί κυκλοφορίας</string>
+    <string name="type.man_made.monitoring_station">Σταθμός παρακολούθησης</string>
+    <string name="type.man_made.monitoring_station.water_level">Σταθμός παρακολούθησης στάθμης νερού</string>
+    <string name="type.man_made.monitoring_station.weather">Σταθμός παρακολούθησης καιρού</string>
 </resources>

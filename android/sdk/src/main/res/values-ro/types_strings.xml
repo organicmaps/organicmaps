@@ -1176,4 +1176,10 @@
     <string name="type.shop.telecommunication">Magazin de telecomunicații</string>
     <string name="type.leisure.indoor_play">Centrul de joacă</string>
     <string name="type.tourism.camp_pitch">Loc de camping</string>
+    <string name="type.railway.miniature">Cale ferată în miniatură</string>
+    <string name="type.amenity.kneipp_water_cure">Cura cu apă Kneipp</string>
+    <string name="type.area_highway.traffic_island">Insula de trafic</string>
+    <string name="type.man_made.monitoring_station">Stație de monitorizare</string>
+    <string name="type.man_made.monitoring_station.water_level">Stație de monitorizare a nivelului apei</string>
+    <string name="type.man_made.monitoring_station.weather">Stație de monitorizare meteorologică</string>
 </resources>

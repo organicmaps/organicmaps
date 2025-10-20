@@ -1330,4 +1330,10 @@
     <string name="type.shop.telecommunication">Telekomunikačný obchod</string>
     <string name="type.leisure.indoor_play">Hracie centrum</string>
     <string name="type.tourism.camp_pitch">Miesto na kempovanie</string>
+    <string name="type.railway.miniature">Miniatúrna železnica</string>
+    <string name="type.amenity.kneipp_water_cure">Kneippova vodná kúra</string>
+    <string name="type.area_highway.traffic_island">Dopravný ostrov</string>
+    <string name="type.man_made.monitoring_station">Monitorovacia stanica</string>
+    <string name="type.man_made.monitoring_station.water_level">Stanica na monitorovanie hladiny vody</string>
+    <string name="type.man_made.monitoring_station.weather">Stanica na monitorovanie počasia</string>
 </resources>

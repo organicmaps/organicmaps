@@ -1419,4 +1419,10 @@
     <string name="type.shop.telecommunication">Geschäft für Telekommunikation</string>
     <string name="type.leisure.indoor_play">Spielzentrum</string>
     <string name="type.tourism.camp_pitch">Campingplatz</string>
+    <string name="type.railway.miniature">Miniatur-Eisenbahn</string>
+    <string name="type.amenity.kneipp_water_cure">Kneippsche Wasser-Kur</string>
+    <string name="type.area_highway.traffic_island">Verkehrsinsel</string>
+    <string name="type.man_made.monitoring_station">Überwachungsstation</string>
+    <string name="type.man_made.monitoring_station.water_level">Wasserstandsüberwachungsstation</string>
+    <string name="type.man_made.monitoring_station.weather">Wetterüberwachungsstation</string>
 </resources>
