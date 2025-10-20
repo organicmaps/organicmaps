@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Televiestintäliike";
 "type.leisure.indoor_play" = "Leikkikeskus";
 "type.tourism.camp_pitch" = "Leirintäalue";
+"type.railway.miniature" = "Miniatyyri rautatie";
+"type.amenity.kneipp_water_cure" = "Kneippin vesikuuri";
+"type.area_highway.traffic_island" = "Liikennesaari";
+"type.man_made.monitoring_station" = "Seuranta-asema";
+"type.man_made.monitoring_station.water_level" = "Vedenkorkeuden seuranta-asema";
+"type.man_made.monitoring_station.weather" = "Sään seuranta-asema";

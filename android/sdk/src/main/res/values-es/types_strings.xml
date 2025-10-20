@@ -1416,4 +1416,10 @@
     <string name="type.shop.telecommunication">Tienda de telecomunicaciones</string>
     <string name="type.leisure.indoor_play">Centro de juegos</string>
     <string name="type.tourism.camp_pitch">Parcela de camping</string>
+    <string name="type.railway.miniature">Ferrocarril en miniatura</string>
+    <string name="type.amenity.kneipp_water_cure">Cura de agua Kneipp</string>
+    <string name="type.area_highway.traffic_island">Isla de tráfico</string>
+    <string name="type.man_made.monitoring_station">Estación de control</string>
+    <string name="type.man_made.monitoring_station.water_level">Estación de control del nivel del agua</string>
+    <string name="type.man_made.monitoring_station.weather">Estación de control meteorológico</string>
 </resources>

@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "متجر الاتصالات السلكية واللاسلكية";
 "type.leisure.indoor_play" = "مركز اللعب";
 "type.tourism.camp_pitch" = "بقعة التخييم";
+"type.railway.miniature" = "سكة حديد مصغرة";
+"type.amenity.kneipp_water_cure" = "علاج كنيب بالماء";
+"type.area_highway.traffic_island" = "جزيرة المرور";
+"type.man_made.monitoring_station" = "محطة المراقبة";
+"type.man_made.monitoring_station.water_level" = "محطة مراقبة منسوب المياه";
+"type.man_made.monitoring_station.weather" = "محطة مراقبة الطقس";

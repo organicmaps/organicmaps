@@ -1309,4 +1309,10 @@
     <string name="type.shop.telecommunication">電気通信店</string>
     <string name="type.leisure.indoor_play">プレイセンター</string>
     <string name="type.tourism.camp_pitch">キャンプ場</string>
+    <string name="type.railway.miniature">ミニチュア鉄道</string>
+    <string name="type.amenity.kneipp_water_cure">クナイプウォーターキュア</string>
+    <string name="type.area_highway.traffic_island">トラフィック・アイランド</string>
+    <string name="type.man_made.monitoring_station">モニタリングステーション</string>
+    <string name="type.man_made.monitoring_station.water_level">水位モニタリングステーション</string>
+    <string name="type.man_made.monitoring_station.weather">気象観測ステーション</string>
 </resources>

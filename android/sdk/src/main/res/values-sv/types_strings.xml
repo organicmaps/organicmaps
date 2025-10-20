@@ -1349,4 +1349,10 @@
     <string name="type.shop.telecommunication">Butik för telekommunikation</string>
     <string name="type.leisure.indoor_play">Lekcenter</string>
     <string name="type.tourism.camp_pitch">Campingplats</string>
+    <string name="type.railway.miniature">Miniatyrjärnväg</string>
+    <string name="type.amenity.kneipp_water_cure">Kneipps vattenkur</string>
+    <string name="type.area_highway.traffic_island">Trafikö</string>
+    <string name="type.man_made.monitoring_station">Övervakningsstation</string>
+    <string name="type.man_made.monitoring_station.water_level">Övervakningsstation för vattennivå</string>
+    <string name="type.man_made.monitoring_station.weather">Väderövervakningsstation</string>
 </resources>

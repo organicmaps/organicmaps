@@ -1421,4 +1421,10 @@
     <string name="type.shop.telecommunication">Telekomünikasyon mağazası</string>
     <string name="type.leisure.indoor_play">Oyun Merkezi</string>
     <string name="type.tourism.camp_pitch">Kamp Noktası</string>
+    <string name="type.railway.miniature">Minyatür Demiryolu</string>
+    <string name="type.amenity.kneipp_water_cure">Kneipp Su Kürü</string>
+    <string name="type.area_highway.traffic_island">Trafik Adası</string>
+    <string name="type.man_made.monitoring_station">İzleme İstasyonu</string>
+    <string name="type.man_made.monitoring_station.water_level">Su Seviyesi İzleme İstasyonu</string>
+    <string name="type.man_made.monitoring_station.weather">Hava Durumu İzleme İstasyonu</string>
 </resources>

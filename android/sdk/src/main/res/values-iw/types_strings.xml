@@ -1066,4 +1066,10 @@
     <string name="type.shop.telecommunication">חנות טלקומוניקציה</string>
     <string name="type.leisure.indoor_play">מרכז משחק</string>
     <string name="type.tourism.camp_pitch">נקודת קמפינג</string>
+    <string name="type.railway.miniature">רכבת מיניאטורית</string>
+    <string name="type.amenity.kneipp_water_cure">Kneipp Water Cure</string>
+    <string name="type.area_highway.traffic_island">אי התנועה</string>
+    <string name="type.man_made.monitoring_station">תחנת ניטור</string>
+    <string name="type.man_made.monitoring_station.water_level">תחנת ניטור מפלס מים</string>
+    <string name="type.man_made.monitoring_station.weather">תחנת ניטור מזג האוויר</string>
 </resources>

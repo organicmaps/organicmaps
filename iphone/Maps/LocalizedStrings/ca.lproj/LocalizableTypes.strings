@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Botiga de telecomunicacions";
 "type.leisure.indoor_play" = "Play Center";
 "type.tourism.camp_pitch" = "Lloc d’acampada";
+"type.railway.miniature" = "Ferrocarril en miniatura";
+"type.amenity.kneipp_water_cure" = "Cura d'aigua Kneipp";
+"type.area_highway.traffic_island" = "Illa de Trànsit";
+"type.man_made.monitoring_station" = "Estació de monitoratge";
+"type.man_made.monitoring_station.water_level" = "Estació de control del nivell d'aigua";
+"type.man_made.monitoring_station.weather" = "Estació de seguiment meteorològic";

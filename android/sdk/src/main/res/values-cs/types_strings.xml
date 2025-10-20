@@ -1418,4 +1418,10 @@
     <string name="type.shop.telecommunication">Telekomunikační obchod</string>
     <string name="type.leisure.indoor_play">Hrací centrum</string>
     <string name="type.tourism.camp_pitch">Místo pro kempování</string>
+    <string name="type.railway.miniature">Miniaturní železnice</string>
+    <string name="type.amenity.kneipp_water_cure">Kneippova vodní kúra</string>
+    <string name="type.area_highway.traffic_island">Dopravní ostrůvek</string>
+    <string name="type.man_made.monitoring_station">Monitorovací stanice</string>
+    <string name="type.man_made.monitoring_station.water_level">Stanice pro sledování vodní hladiny</string>
+    <string name="type.man_made.monitoring_station.weather">Stanice pro sledování počasí</string>
 </resources>

@@ -1413,4 +1413,10 @@
     <string name="type.shop.telecommunication">Negozio di telecomunicazioni</string>
     <string name="type.leisure.indoor_play">Centro giochi</string>
     <string name="type.tourism.camp_pitch">Campeggio Spot</string>
+    <string name="type.railway.miniature">Ferrovia in miniatura</string>
+    <string name="type.amenity.kneipp_water_cure">La cura dell\'acqua Kneipp</string>
+    <string name="type.area_highway.traffic_island">Isola del traffico</string>
+    <string name="type.man_made.monitoring_station">Stazione di monitoraggio</string>
+    <string name="type.man_made.monitoring_station.water_level">Stazione di monitoraggio del livello dell\'acqua</string>
+    <string name="type.man_made.monitoring_station.weather">Stazione di monitoraggio meteo</string>
 </resources>

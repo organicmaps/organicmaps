@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Geschäft für Telekommunikation";
 "type.leisure.indoor_play" = "Spielzentrum";
 "type.tourism.camp_pitch" = "Campingplatz";
+"type.railway.miniature" = "Miniatur-Eisenbahn";
+"type.amenity.kneipp_water_cure" = "Kneippsche Wasser-Kur";
+"type.area_highway.traffic_island" = "Verkehrsinsel";
+"type.man_made.monitoring_station" = "Überwachungsstation";
+"type.man_made.monitoring_station.water_level" = "Wasserstandsüberwachungsstation";
+"type.man_made.monitoring_station.weather" = "Wetterüberwachungsstation";

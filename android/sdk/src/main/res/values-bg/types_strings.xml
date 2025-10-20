@@ -792,4 +792,10 @@
     <string name="type.shop.telecommunication">Магазин за телекомуникации</string>
     <string name="type.leisure.indoor_play">Център за игра</string>
     <string name="type.tourism.camp_pitch">Място за къмпинг</string>
+    <string name="type.railway.miniature">Миниатюрна железница</string>
+    <string name="type.amenity.kneipp_water_cure">Лечение с вода на Кнайп</string>
+    <string name="type.area_highway.traffic_island">Остров за движение</string>
+    <string name="type.man_made.monitoring_station">Станция за наблюдение</string>
+    <string name="type.man_made.monitoring_station.water_level">Станция за наблюдение на нивото на водата</string>
+    <string name="type.man_made.monitoring_station.weather">Станция за наблюдение на времето</string>
 </resources>

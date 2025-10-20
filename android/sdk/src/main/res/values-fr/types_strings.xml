@@ -1421,4 +1421,10 @@
     <string name="type.shop.telecommunication">Atelier de télécommunications</string>
     <string name="type.leisure.indoor_play">Centre de jeux</string>
     <string name="type.tourism.camp_pitch">Emplacement de camping</string>
+    <string name="type.railway.miniature">Chemin de fer miniature</string>
+    <string name="type.amenity.kneipp_water_cure">Cure d\'eau Kneipp</string>
+    <string name="type.area_highway.traffic_island">Îlot de circulation</string>
+    <string name="type.man_made.monitoring_station">Station de surveillance</string>
+    <string name="type.man_made.monitoring_station.water_level">Station de surveillance du niveau d\'eau</string>
+    <string name="type.man_made.monitoring_station.weather">Station de surveillance météorologique</string>
 </resources>

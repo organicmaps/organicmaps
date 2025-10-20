@@ -1504,3 +1504,6 @@
 "type.office.security" = "Security Office";
 "type.power.portal" = "Power Tower (Portal)";
 "type.shop.lighting" = "Lighting Shop";
+"type.railway.miniature" = "Miniatiūrinis geležinkelis";
+"type.amenity.kneipp_water_cure" = "Kneipo vandens terapija";
+"type.area_highway.traffic_island" = "Eismo sala";

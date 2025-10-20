@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Магазин за телекомуникации";
 "type.leisure.indoor_play" = "Център за игра";
 "type.tourism.camp_pitch" = "Място за къмпинг";
+"type.railway.miniature" = "Миниатюрна железница";
+"type.amenity.kneipp_water_cure" = "Лечение с вода на Кнайп";
+"type.area_highway.traffic_island" = "Остров за движение";
+"type.man_made.monitoring_station" = "Станция за наблюдение";
+"type.man_made.monitoring_station.water_level" = "Станция за наблюдение на нивото на водата";
+"type.man_made.monitoring_station.weather" = "Станция за наблюдение на времето";

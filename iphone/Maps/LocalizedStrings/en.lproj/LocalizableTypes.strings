@@ -1528,3 +1528,9 @@
 "type.shop.telecommunication" = "Telecommunications store";
 "type.leisure.indoor_play" = "Play Centre";
 "type.tourism.camp_pitch" = "Camping Spot";
+"type.railway.miniature" = "Miniature Railway";
+"type.amenity.kneipp_water_cure" = "Kneipp Water Cure";
+"type.area_highway.traffic_island" = "Traffic Island";
+"type.man_made.monitoring_station" = "Monitoring Station";
+"type.man_made.monitoring_station.water_level" = "Water Level Monitoring Station";
+"type.man_made.monitoring_station.weather" = "Weather Monitoring Station";

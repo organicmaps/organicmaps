@@ -1199,4 +1199,10 @@
     <string name="type.shop.telecommunication">Telekommunikasjonsbutikk</string>
     <string name="type.leisure.indoor_play">Lekesenter</string>
     <string name="type.tourism.camp_pitch">Campingplass</string>
+    <string name="type.railway.miniature">Miniatyrjernbane</string>
+    <string name="type.amenity.kneipp_water_cure">Kneipp vannkur</string>
+    <string name="type.area_highway.traffic_island">Trafikkøya</string>
+    <string name="type.man_made.monitoring_station">Overvåkningsstasjon</string>
+    <string name="type.man_made.monitoring_station.water_level">Overvåkingsstasjon for vannstand</string>
+    <string name="type.man_made.monitoring_station.weather">Værovervåkningsstasjon</string>
 </resources>

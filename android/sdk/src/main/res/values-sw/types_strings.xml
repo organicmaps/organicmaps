@@ -669,4 +669,10 @@
     <string name="type.shop.telecommunication">Duka la Mawasiliano</string>
     <string name="type.leisure.indoor_play">Kituo cha kucheza</string>
     <string name="type.tourism.camp_pitch">Mahali pa kuweka kambi</string>
+    <string name="type.railway.miniature">Reli ndogo</string>
+    <string name="type.amenity.kneipp_water_cure">Tiba ya Maji ya Kneipp</string>
+    <string name="type.area_highway.traffic_island">Kisiwa cha Trafiki</string>
+    <string name="type.man_made.monitoring_station">Kituo cha Ufuatiliaji</string>
+    <string name="type.man_made.monitoring_station.water_level">Kituo cha Ufuatiliaji wa Kiwango cha Maji</string>
+    <string name="type.man_made.monitoring_station.weather">Kituo cha Ufuatiliaji wa Hali ya Hewa</string>
 </resources>
