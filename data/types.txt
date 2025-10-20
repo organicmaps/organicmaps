@@ -487,7 +487,7 @@ mapswithme
 *leisure|park|permissive
 *highway|bridleway|tunnel
 *highway|motorway_link|tunnel
-mapswithme
+*area:highway|traffic_island
 mapswithme
 mapswithme
 *highway|tertiary_link|bridge
@@ -625,9 +625,9 @@ mapswithme
 mapswithme
 mapswithme
 highway|path|expert
-mapswithme
-mapswithme
-mapswithme
+*railway|miniature
+*railway|miniature|bridge
+*railway|miniature|tunnel
 highway|track
 mapswithme
 mapswithme
@@ -838,9 +838,9 @@ mapswithme
 mapswithme
 *landuse|military|danger_area
 *boundary|protected_area
-mapswithme
-mapswithme
-mapswithme
+*man_made|monitoring_station
+*man_made|monitoring_station|water_level
+*man_made|monitoring_station|weather
 mapswithme
 mapswithme
 mapswithme
@@ -1634,3 +1634,4 @@ amenity|recycling|container
 *shop|telecommunication
 *leisure|indoor_play
 *tourism|camp_pitch
+*amenity|kneipp_water_cure

@@ -43478,6 +43478,255 @@ cont {
   }
 }
 cont {
+  name: "railway-miniature"
+  element {
+    scale: 16
+    lines {
+      width: 1.6
+      color: 1720486784
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 120
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.6
+      color: 1720486784
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 120
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.6
+      color: 1720486784
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 120
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.6
+      color: 1720486784
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 120
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.6
+      color: 1720486784
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 120
+    }
+  }
+}
+cont {
+  name: "railway-miniature-bridge"
+  element {
+    scale: 16
+    lines {
+      width: 7.6
+      color: 8421504
+      priority: 100
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.4
+      color: 15066325
+      priority: 110
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 1720486784
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 120
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 9.2
+      color: 8421504
+      priority: 100
+      cap: BUTTCAP
+    }
+    lines {
+      width: 7.8
+      color: 15066325
+      priority: 110
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 1720486784
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 120
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 12.0
+      color: 8421504
+      priority: 100
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.2
+      color: 15066325
+      priority: 110
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 1720486784
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 120
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 12.0
+      color: 8421504
+      priority: 100
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.2
+      color: 15066325
+      priority: 110
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 1720486784
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 120
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 12.0
+      color: 8421504
+      priority: 100
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.2
+      color: 15066325
+      priority: 110
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 1720486784
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 120
+    }
+  }
+}
+cont {
+  name: "railway-miniature-tunnel"
+  element {
+    scale: 16
+    lines {
+      width: 1.6
+      color: 1720486784
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 120
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.6
+      color: 1720486784
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 120
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.6
+      color: 1720486784
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 120
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.6
+      color: 1720486784
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 120
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.6
+      color: 1720486784
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 120
+    }
+  }
+}
+cont {
   name: "railway-monorail"
   element {
     scale: 14

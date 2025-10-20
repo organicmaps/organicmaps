@@ -85,6 +85,7 @@ world  +
         ice_cream  -
         internet_cafe  -
         kindergarten  -
+        kneipp_water_cure  -
         language_school  -
         library  -
         loading_dock  -
@@ -210,6 +211,7 @@ world  +
         steps  -
         tertiary  -
         track  -
+        traffic_island  -
         trunk  -
         unclassified  -
         {}
@@ -731,6 +733,10 @@ world  +
         flare  -
         lighthouse  -
         mast  -
+        monitoring_station  +
+            water_level  -
+            weather  -
+            {}
         petroleum_well  -
         pier  -
         pipeline  -
@@ -940,6 +946,10 @@ world  +
         halt  -
         level_crossing  -
         light_rail  +
+            bridge  -
+            tunnel  -
+            {}
+        miniature  +
             bridge  -
             tunnel  -
             {}
