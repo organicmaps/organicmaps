@@ -365,6 +365,9 @@ area|z16-[amenity=bbq],
 node|z16-[leisure=firepit],
 {icon-image: firepit-m.svg; font-size: 11;}
 
+node|z15-[amenity=kneipp_water_cure],
+{icon-image: public_bath-m.svg; font-size: 11;}
+
 node|z12-[amenity=shelter],
 node|z12-[amenity=shelter][shelter_type=lean_to],
 {icon-image: shelter-s.svg; icon-min-distance: 10; font-size: 11;}
