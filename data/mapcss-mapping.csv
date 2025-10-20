@@ -606,7 +606,7 @@ boundary|protected_area|6;[boundary=protected_area][protect_class=6];;name;int_n
 leisure|park|permissive;[leisure=park][access=permissive];;name;int_name;487;
 highway|bridleway|tunnel;[highway=bridleway][tunnel?];;name;int_name;488;
 highway|motorway_link|tunnel;[highway=motorway_link][tunnel?];;name;int_name;489;
-deprecated|deprecated;490;x
+area:highway|traffic_island;490;
 deprecated|deprecated;491;x
 deprecated|deprecated;492;x
 highway|tertiary_link|bridge;[highway=tertiary_link][bridge?];;name;int_name;493;
