@@ -828,8 +828,8 @@ tourism-zoo-petting                                 # icon z15- (also has captio
 === 2450
 
 amenity-bureau_de_change                            # icon z17- (also has caption(optional) z18-)
+amenity-kneipp_water_cure                           # icon z15- (also has caption(optional) z17-)
 amenity-public_bath                                 # icon z17- (also has caption(optional) z17-)
-amenity-kneipp_water_cure
 amenity-vehicle_inspection                          # icon z16- (also has caption(optional) z16-)
 craft-brewery                                       # icon z17- (also has caption(optional) z18-)
 craft-confectionery                                 # icon z17- (also has caption(optional) z18-)
@@ -1196,9 +1196,9 @@ cemetery-grave                                      # icon z17- (also has captio
 leisure-firepit                                     # icon z16- (also has caption(optional) z16-)
 leisure-outdoor_seating                             # icon z18-
 man_made-mast                                       # icon z13- (also has caption(optional) z14-)
-man_made-monitoring_station
-man_made-monitoring_station-water_level
-man_made-monitoring_station-weather
+man_made-monitoring_station                         # icon z16- (also has caption(optional) z16-)
+man_made-monitoring_station-water_level             # icon z16- (also has caption(optional) z16-)
+man_made-monitoring_station-weather                 # icon z16- (also has caption(optional) z16-)
 man_made-silo                                       # icon z13- (also has caption(optional) z14-)
 man_made-storage_tank                               # icon z13- (also has caption(optional) z14-)
 man_made-water_tower                                # icon z13- (also has caption(optional) z14-)
@@ -1823,6 +1823,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # === -7550
 
 # amenity-bureau_de_change                          # caption(optional) z18- (also has icon z17-)
+# amenity-kneipp_water_cure                         # caption(optional) z17- (also has icon z15-)
 # amenity-public_bath                               # caption(optional) z17- (also has icon z17-)
 # amenity-vehicle_inspection                        # caption(optional) z16- (also has icon z16-)
 # craft-brewery                                     # caption(optional) z18- (also has icon z17-)
@@ -2153,6 +2154,9 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # cemetery-grave                                    # caption(optional) z17- (also has icon z17-)
 # leisure-firepit                                   # caption(optional) z16- (also has icon z16-)
 # man_made-mast                                     # caption(optional) z14- (also has icon z13-)
+# man_made-monitoring_station                       # caption(optional) z16- (also has icon z16-)
+# man_made-monitoring_station-water_level           # caption(optional) z16- (also has icon z16-)
+# man_made-monitoring_station-weather               # caption(optional) z16- (also has icon z16-)
 # man_made-silo                                     # caption(optional) z14- (also has icon z13-)
 # man_made-storage_tank                             # caption(optional) z14- (also has icon z13-)
 # man_made-water_tower                              # caption(optional) z14- (also has icon z13-)
