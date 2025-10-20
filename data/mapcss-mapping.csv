@@ -745,9 +745,9 @@ deprecated|deprecated;624;x
 deprecated|deprecated;625;x
 deprecated:railway|siding|bridge:06.2023;626;x
 deprecated:highway|footway|difficult_alpine_hiking:04.2024;[highway=footway][sac_scale=difficult_alpine_hiking];x;name;int_name;627;highway|path|expert
-deprecated|deprecated;628;x
-deprecated|deprecated;629;x
-deprecated|deprecated;630;x
+railway|miniature;628;
+railway|miniature|bridge;[railway=miniature][bridge?];;name;int_name;629;
+railway|miniature|tunnel;[railway=miniature][tunnel?];;name;int_name;630;
 highway|track|grade5|permissive;[highway=track][tracktype=grade5][access=permissive];x;name;int_name;631;highway|track
 deprecated|deprecated;632;x
 deprecated|deprecated;633;x
