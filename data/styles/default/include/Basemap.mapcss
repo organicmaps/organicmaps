@@ -433,6 +433,7 @@ area|z16-[area:highway=living_street],
 
 area|z16-[public_transport=platform],
 area|z16-[railway=platform],
+area|z16-[area:highway=traffic_island],
 {fill-opacity: 1; fill-color: @platform;}
 
 area|z14-[amenity=place_of_worship],
