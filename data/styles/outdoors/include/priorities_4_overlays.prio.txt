@@ -829,6 +829,7 @@ tourism-zoo-petting                                 # icon z15- (also has captio
 
 amenity-bureau_de_change                            # icon z17- (also has caption(optional) z18-)
 amenity-public_bath                                 # icon z17- (also has caption(optional) z17-)
+amenity-kneipp_water_cure
 amenity-vehicle_inspection                          # icon z16- (also has caption(optional) z16-)
 craft-brewery                                       # icon z17- (also has caption(optional) z18-)
 craft-confectionery                                 # icon z17- (also has caption(optional) z18-)
