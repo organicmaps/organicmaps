@@ -80,9 +80,9 @@ natural-heath                                       # area z12-
 area:highway-footway                                # area z14- (also has caption z15-)
 area:highway-living_street                          # area z14-
 area:highway-pedestrian                             # area z14- (also has caption z15-)
+area:highway-traffic_island                         # area z16-
 public_transport-platform                           # area z16- (also has caption z17-)
 railway-platform                                    # area z16- (also has caption z16-)
-area:highway-traffic_island
 === 110
 
 amenity-parking                                     # area z15- (also has icon z16-, caption(optional) z18-)

@@ -7517,6 +7517,105 @@ cont {
   }
 }
 cont {
+  name: "amenity-kneipp_water_cure"
+  element {
+    scale: 15
+    symbol {
+      name: "public_bath-m"
+      priority: 2400
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "public_bath-m"
+      priority: 2400
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "public_bath-m"
+      priority: 2400
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "public_bath-m"
+      priority: 2400
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "public_bath-m"
+      priority: 2400
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "public_bath-m"
+      priority: 2400
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+}
+cont {
   name: "amenity-language_school"
   element {
     scale: 17
@@ -15751,6 +15850,44 @@ cont {
         color: 6710886
       }
       priority: 3150
+    }
+  }
+}
+cont {
+  name: "area:highway-traffic_island"
+  element {
+    scale: 16
+    area {
+      color: 15524822
+      priority: -1890
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 15524822
+      priority: -1890
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 15524822
+      priority: -1890
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 15524822
+      priority: -1890
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 15524822
+      priority: -1890
     }
   }
 }
@@ -58837,6 +58974,255 @@ cont {
   }
 }
 cont {
+  name: "man_made-monitoring_station"
+  element {
+    scale: 16
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+}
+cont {
+  name: "man_made-monitoring_station-water_level"
+  element {
+    scale: 16
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+}
+cont {
+  name: "man_made-monitoring_station-weather"
+  element {
+    scale: 16
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+}
+cont {
   name: "man_made-petroleum_well"
   element {
     scale: 14
@@ -77881,6 +78267,390 @@ cont {
       width: 2.9
       color: 11710882
       priority: 210
+    }
+  }
+}
+cont {
+  name: "railway-miniature"
+  element {
+    scale: 13
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+    }
+  }
+}
+cont {
+  name: "railway-miniature-bridge"
+  element {
+    scale: 13
+    lines {
+      width: 5.6
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 5.6
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 5.6
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 7.6
+      color: 1300267136
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.4
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 9.2
+      color: 1300267136
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 7.8
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 12.0
+      color: 1300267136
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.2
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 12.0
+      color: 1300267136
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.2
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 12.0
+      color: 1300267136
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.2
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+    }
+  }
+}
+cont {
+  name: "railway-miniature-tunnel"
+  element {
+    scale: 13
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.6
+      color: 1301714310
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
     }
   }
 }
