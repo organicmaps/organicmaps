@@ -1512,3 +1512,9 @@
 "type.shop.telecommunication" = "Магазин телекоммуникаций";
 "type.leisure.indoor_play" = "Игровой центр";
 "type.tourism.camp_pitch" = "Кемпинг Spot";
+"type.railway.miniature" = "Миниатюрная железная дорога";
+"type.amenity.kneipp_water_cure" = "Лечение водой по Кнайпу";
+"type.area_highway.traffic_island" = "Остров движения";
+"type.man_made.monitoring_station" = "Станция мониторинга";
+"type.man_made.monitoring_station.water_level" = "Станция мониторинга уровня воды";
+"type.man_made.monitoring_station.weather" = "Станция мониторинга погоды";

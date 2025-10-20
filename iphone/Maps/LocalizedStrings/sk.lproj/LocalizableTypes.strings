@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Telekomunikačný obchod";
 "type.leisure.indoor_play" = "Hracie centrum";
 "type.tourism.camp_pitch" = "Miesto na kempovanie";
+"type.railway.miniature" = "Miniatúrna železnica";
+"type.amenity.kneipp_water_cure" = "Kneippova vodná kúra";
+"type.area_highway.traffic_island" = "Dopravný ostrov";
+"type.man_made.monitoring_station" = "Monitorovacia stanica";
+"type.man_made.monitoring_station.water_level" = "Stanica na monitorovanie hladiny vody";
+"type.man_made.monitoring_station.weather" = "Stanica na monitorovanie počasia";

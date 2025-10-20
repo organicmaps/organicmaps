@@ -1185,4 +1185,10 @@
     <string name="type.shop.telecommunication">Cửa hàng viễn thông</string>
     <string name="type.leisure.indoor_play">Trung tâm chơi</string>
     <string name="type.tourism.camp_pitch">Điểm cắm trại</string>
+    <string name="type.railway.miniature">Đường sắt thu nhỏ</string>
+    <string name="type.amenity.kneipp_water_cure">Chữa bệnh bằng nước Kneipp</string>
+    <string name="type.area_highway.traffic_island">Đảo Giao Thông</string>
+    <string name="type.man_made.monitoring_station">Trạm quan trắc</string>
+    <string name="type.man_made.monitoring_station.water_level">Trạm quan trắc mực nước</string>
+    <string name="type.man_made.monitoring_station.weather">Trạm quan trắc thời tiết</string>
 </resources>

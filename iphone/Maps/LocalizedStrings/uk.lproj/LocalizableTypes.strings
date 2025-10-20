@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Телекомунікаційний цех";
 "type.leisure.indoor_play" = "Ігровий центр";
 "type.tourism.camp_pitch" = "Місце для кемпінгу";
+"type.railway.miniature" = "Мініатюрна залізниця";
+"type.amenity.kneipp_water_cure" = "Лікування водою Кнайпа";
+"type.area_highway.traffic_island" = "Острів трафіку";
+"type.man_made.monitoring_station" = "Станція моніторингу";
+"type.man_made.monitoring_station.water_level" = "Станція моніторингу рівня води";
+"type.man_made.monitoring_station.weather" = "Станція моніторингу погоди";

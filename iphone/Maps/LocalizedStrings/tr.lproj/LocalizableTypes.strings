@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Telekomünikasyon mağazası";
 "type.leisure.indoor_play" = "Oyun Merkezi";
 "type.tourism.camp_pitch" = "Kamp Noktası";
+"type.railway.miniature" = "Minyatür Demiryolu";
+"type.amenity.kneipp_water_cure" = "Kneipp Su Kürü";
+"type.area_highway.traffic_island" = "Trafik Adası";
+"type.man_made.monitoring_station" = "İzleme İstasyonu";
+"type.man_made.monitoring_station.water_level" = "Su Seviyesi İzleme İstasyonu";
+"type.man_made.monitoring_station.weather" = "Hava Durumu İzleme İstasyonu";

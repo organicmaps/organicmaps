@@ -1416,4 +1416,10 @@
     <string name="type.shop.telecommunication">电信商店</string>
     <string name="type.leisure.indoor_play">游乐中心</string>
     <string name="type.tourism.camp_pitch">露营点</string>
+    <string name="type.railway.miniature">微型铁路</string>
+    <string name="type.amenity.kneipp_water_cure">克奈普水疗法</string>
+    <string name="type.area_highway.traffic_island">交通岛</string>
+    <string name="type.man_made.monitoring_station">监测站</string>
+    <string name="type.man_made.monitoring_station.water_level">水位监测站</string>
+    <string name="type.man_made.monitoring_station.weather">气象监测站</string>
 </resources>

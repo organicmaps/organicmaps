@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Telekomunikāciju veikals";
 "type.leisure.indoor_play" = "Spēļu centrs";
 "type.tourism.camp_pitch" = "Kempings Spot";
+"type.railway.miniature" = "Miniatūras dzelzceļš";
+"type.amenity.kneipp_water_cure" = "Kneipa ūdens kūre";
+"type.area_highway.traffic_island" = "Satiksmes sala";
+"type.man_made.monitoring_station" = "Uzraudzības stacija";
+"type.man_made.monitoring_station.water_level" = "Ūdens līmeņa monitoringa stacija";
+"type.man_made.monitoring_station.weather" = "Laikapstākļu monitoringa stacija";

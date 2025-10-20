@@ -1187,4 +1187,10 @@
     <string name="type.shop.telecommunication">दूरसंचार स्टोअर</string>
     <string name="type.leisure.indoor_play">खेळाचे केंद्र</string>
     <string name="type.tourism.camp_pitch">कॅम्पिंग स्पॉट</string>
+    <string name="type.railway.miniature">लघु रेल्वे</string>
+    <string name="type.amenity.kneipp_water_cure">Kneipp पाणी बरा</string>
+    <string name="type.area_highway.traffic_island">वाहतूक बेट</string>
+    <string name="type.man_made.monitoring_station">मॉनिटरिंग स्टेशन</string>
+    <string name="type.man_made.monitoring_station.water_level">पाणी पातळी मॉनिटरिंग स्टेशन</string>
+    <string name="type.man_made.monitoring_station.weather">हवामान निरीक्षण स्टेशन</string>
 </resources>

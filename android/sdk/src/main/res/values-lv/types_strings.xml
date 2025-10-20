@@ -64,4 +64,10 @@
     <string name="type.shop.telecommunication">Telekomunikāciju veikals</string>
     <string name="type.leisure.indoor_play">Spēļu centrs</string>
     <string name="type.tourism.camp_pitch">Kempings Spot</string>
+    <string name="type.railway.miniature">Miniatūras dzelzceļš</string>
+    <string name="type.amenity.kneipp_water_cure">Kneipa ūdens kūre</string>
+    <string name="type.area_highway.traffic_island">Satiksmes sala</string>
+    <string name="type.man_made.monitoring_station">Uzraudzības stacija</string>
+    <string name="type.man_made.monitoring_station.water_level">Ūdens līmeņa monitoringa stacija</string>
+    <string name="type.man_made.monitoring_station.weather">Laikapstākļu monitoringa stacija</string>
 </resources>

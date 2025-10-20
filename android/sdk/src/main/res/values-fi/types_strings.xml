@@ -1297,4 +1297,10 @@
     <string name="type.shop.telecommunication">Televiestintäliike</string>
     <string name="type.leisure.indoor_play">Leikkikeskus</string>
     <string name="type.tourism.camp_pitch">Leirintäalue</string>
+    <string name="type.railway.miniature">Miniatyyri rautatie</string>
+    <string name="type.amenity.kneipp_water_cure">Kneippin vesikuuri</string>
+    <string name="type.area_highway.traffic_island">Liikennesaari</string>
+    <string name="type.man_made.monitoring_station">Seuranta-asema</string>
+    <string name="type.man_made.monitoring_station.water_level">Vedenkorkeuden seuranta-asema</string>
+    <string name="type.man_made.monitoring_station.weather">Sään seuranta-asema</string>
 </resources>

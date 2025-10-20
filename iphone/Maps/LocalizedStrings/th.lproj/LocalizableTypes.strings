@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "ร้านค้าโทรคมนาคม";
 "type.leisure.indoor_play" = "ศูนย์เล่น";
 "type.tourism.camp_pitch" = "จุดตั้งแคมป์";
+"type.railway.miniature" = "รถไฟจิ๋ว";
+"type.amenity.kneipp_water_cure" = "Kneipp วอเตอร์เคียว";
+"type.area_highway.traffic_island" = "เกาะจราจร";
+"type.man_made.monitoring_station" = "สถานีตรวจติดตาม";
+"type.man_made.monitoring_station.water_level" = "สถานีตรวจวัดระดับน้ำ";
+"type.man_made.monitoring_station.weather" = "สถานีตรวจวัดสภาพอากาศ";

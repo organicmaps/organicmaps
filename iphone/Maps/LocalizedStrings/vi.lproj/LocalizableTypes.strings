@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Cửa hàng viễn thông";
 "type.leisure.indoor_play" = "Trung tâm chơi";
 "type.tourism.camp_pitch" = "Điểm cắm trại";
+"type.railway.miniature" = "Đường sắt thu nhỏ";
+"type.amenity.kneipp_water_cure" = "Chữa bệnh bằng nước Kneipp";
+"type.area_highway.traffic_island" = "Đảo Giao Thông";
+"type.man_made.monitoring_station" = "Trạm quan trắc";
+"type.man_made.monitoring_station.water_level" = "Trạm quan trắc mực nước";
+"type.man_made.monitoring_station.weather" = "Trạm quan trắc thời tiết";

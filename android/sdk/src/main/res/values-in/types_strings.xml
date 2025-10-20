@@ -1174,4 +1174,10 @@
     <string name="type.shop.telecommunication">Toko telekomunikasi</string>
     <string name="type.leisure.indoor_play">Pusat Bermain</string>
     <string name="type.tourism.camp_pitch">Tempat Berkemah</string>
+    <string name="type.railway.miniature">Miniatur Kereta Api</string>
+    <string name="type.amenity.kneipp_water_cure">Penyembuhan Air Kneipp</string>
+    <string name="type.area_highway.traffic_island">Pulau Lalu Lintas</string>
+    <string name="type.man_made.monitoring_station">Stasiun Pemantauan</string>
+    <string name="type.man_made.monitoring_station.water_level">Stasiun Pemantauan Ketinggian Air</string>
+    <string name="type.man_made.monitoring_station.weather">Stasiun Pemantauan Cuaca</string>
 </resources>

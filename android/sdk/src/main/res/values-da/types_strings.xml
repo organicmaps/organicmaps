@@ -1382,4 +1382,10 @@
     <string name="type.leisure.indoor_play">Legecenter</string>
     <string name="type.tourism.camp_pitch">Campingplads</string>
     <string name="type.amenity.bicycle_parking.covered">Overdækket cykelparkering</string>
+    <string name="type.railway.miniature">Miniature jernbane</string>
+    <string name="type.amenity.kneipp_water_cure">Kneipps vandkur</string>
+    <string name="type.area_highway.traffic_island">Trafikø</string>
+    <string name="type.man_made.monitoring_station">Overvågningsstation</string>
+    <string name="type.man_made.monitoring_station.water_level">Station til overvågning af vandstand</string>
+    <string name="type.man_made.monitoring_station.weather">Station til overvågning af vejret</string>
 </resources>

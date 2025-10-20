@@ -1418,4 +1418,10 @@
     <string name="type.shop.telecommunication">Távközlési üzlet</string>
     <string name="type.leisure.indoor_play">Játékközpont</string>
     <string name="type.tourism.camp_pitch">Kempinghely</string>
+    <string name="type.railway.miniature">Miniatűr vasút</string>
+    <string name="type.amenity.kneipp_water_cure">Kneipp vízkúra</string>
+    <string name="type.area_highway.traffic_island">Forgalmi sziget</string>
+    <string name="type.man_made.monitoring_station">Megfigyelő állomás</string>
+    <string name="type.man_made.monitoring_station.water_level">Vízszintmérő állomás</string>
+    <string name="type.man_made.monitoring_station.weather">Időjárás megfigyelő állomás</string>
 </resources>

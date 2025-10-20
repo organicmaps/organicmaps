@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "فروشگاه ارتباطات از راه دور";
 "type.leisure.indoor_play" = "مرکز بازی";
 "type.tourism.camp_pitch" = "محل اردوگاه";
+"type.railway.miniature" = "راه آهن مینیاتوری";
+"type.amenity.kneipp_water_cure" = "درمان با آب Kneipp";
+"type.area_highway.traffic_island" = "جزیره ترافیک";
+"type.man_made.monitoring_station" = "ایستگاه مانیتورینگ";
+"type.man_made.monitoring_station.water_level" = "ایستگاه پایش سطح آب";
+"type.man_made.monitoring_station.weather" = "ایستگاه پایش آب و هوا";

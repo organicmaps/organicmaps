@@ -1415,4 +1415,10 @@
     <string name="type.shop.telecommunication">Sklep telekomunikacyjny</string>
     <string name="type.leisure.indoor_play">Centrum zabaw</string>
     <string name="type.tourism.camp_pitch">Miejsce kempingowe</string>
+    <string name="type.railway.miniature">Kolej miniaturowa</string>
+    <string name="type.amenity.kneipp_water_cure">Kuracja wodna Kneippa</string>
+    <string name="type.area_highway.traffic_island">Wyspa ruchu</string>
+    <string name="type.man_made.monitoring_station">Stacja monitorująca</string>
+    <string name="type.man_made.monitoring_station.water_level">Stacja monitorowania poziomu wody</string>
+    <string name="type.man_made.monitoring_station.weather">Stacja monitorowania pogody</string>
 </resources>

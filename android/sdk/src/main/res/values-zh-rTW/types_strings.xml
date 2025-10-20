@@ -159,4 +159,10 @@
     <string name="type.shop.telecommunication">電信商店</string>
     <string name="type.leisure.indoor_play">遊樂中心</string>
     <string name="type.tourism.camp_pitch">露營地</string>
+    <string name="type.railway.miniature">微型鐵路</string>
+    <string name="type.amenity.kneipp_water_cure">克奈普水療</string>
+    <string name="type.area_highway.traffic_island">交通島</string>
+    <string name="type.man_made.monitoring_station">監測站</string>
+    <string name="type.man_made.monitoring_station.water_level">水位監測站</string>
+    <string name="type.man_made.monitoring_station.weather">氣象監測站</string>
 </resources>

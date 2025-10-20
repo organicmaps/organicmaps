@@ -1511,3 +1511,9 @@
 "type.shop.telecommunication" = "Тэлекамунікацыйная крама";
 "type.leisure.indoor_play" = "Гульнявы цэнтр";
 "type.tourism.camp_pitch" = "Кемпінгавае месца";
+"type.railway.miniature" = "Мініяцюрная чыгунка";
+"type.amenity.kneipp_water_cure" = "Лячэнне вадой Кнайпа";
+"type.area_highway.traffic_island" = "Востраў руху";
+"type.man_made.monitoring_station" = "Станцыя назірання";
+"type.man_made.monitoring_station.water_level" = "Станцыя кантролю ўзроўню вады";
+"type.man_made.monitoring_station.weather" = "Станцыя назірання за надвор'ем";
