@@ -905,7 +905,7 @@ amenity-studio
 en:Studio
 
 amenity-bar|amenity-pub|@category_eat|@category_nightlife
-en:2Bar|2pub|beer|drink|U+1F37A|U+1F37B|U+1F376|tavern|bars and pubs|brew pub|cocktail lounge
+en:2Bar|2pub|beer|drink|tavern|bars and pubs|brew pub|cocktail lounge|U+1F37A|U+1F37B|U+1F376
 ar:بار|حانة|خمارة|بيرة|شراب
 bg:2Бар|кръчма|бира|питие|напитка|таверна|коктейл|пиво|алкохол
 ca:Bar
@@ -947,7 +947,7 @@ zh-Hant:1酒吧|酒館|飲酒|PUB|吧台|飲食|啤酒吧
 
 
 amenity-cafe|@category_eat
-en:3Cafe|3restaurant|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375|coffee|cafeteria
+en:3Cafe|3restaurant|coffee|cafeteria|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375
 ar:مقهى|مطعم|طعام|قهوة|كافتيريا
 bg:3Кафе|3ресторант|кафене
 ca:Cafè|Cafeteria
@@ -989,7 +989,7 @@ zh-Hant:2咖啡廳|咖啡|3cafe|餐廳|飲食
 
 
 amenity-fast_food|@category_eat
-en:4Fast Food|3restaurant|3cafe|takeaway|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|food to go|junk food
+en:4Fast Food|3restaurant|3cafe|takeaway|food to go|junk food|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374
 ar:وجبات سريعة|مطعم|مقهى|وجبة جاهزة|طعام
 bg:Бързо хранене|Фастфууд|кафе|храна|за вкъщи|ресторант|закусвалня
 ca:Menjar ràpid
@@ -1524,7 +1524,7 @@ zh-Hans:电信商店
 zh-Hant:電信商店
 
 shop-florist|@shop
-en:4Florist|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E|4flowers|flower shop|floral shop|floral arrangements|same day flowers|bouquet
+en:4Florist|4flowers|flower shop|floral shop|floral arrangements|same day flowers|bouquet|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E
 ar:متجر زهور|متجر
 be:4Кветкі|кветак
 bg:Цветарски магазин|4цветя|букет
@@ -1766,7 +1766,7 @@ zh-Hans:书店|商店
 zh-Hant:書店|1購物|店鋪|商店|雜貨店|便利商店
 
 shop-shoes|@category_shopping|@shop
-en:Shoe|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F|3shoes|4footwear
+en:Shoe|3shoes|4footwear|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F
 ar:متجر أحذية|متجر
 be:3Абутак|абутку
 bg:3Обувки
@@ -2012,7 +2012,7 @@ zh-Hans:眼镜店|商店
 zh-Hant:眼鏡店|1購物|店鋪|商店|雜貨店|便利商店
 
 shop-gift|@category_shopping|@shop
-en:Gift|U+1F381|souvenir|4souvenirs|3gifts|presents
+en:Gift|souvenir|4souvenirs|3gifts|presents|U+1F381
 ar:متجر هدايا|متجر
 be:4Падарункі
 bg:4Сувенири|4подарък
@@ -2051,7 +2051,7 @@ zh-Hans:礼品店|商店
 zh-Hant:禮品店|1購物|店鋪|商店|雜貨店|便利商店
 
 shop-beauty
-en:4Beauty Shop|barber|beautician|hairdresser|hairdressing|haircut|U+1F484|beauty salon|hair salon|beauty parlor|hair and nail salon|nail salon|coloring
+en:4Beauty Shop|barber|beautician|hairdresser|hairdressing|haircut|beauty salon|hair salon|beauty parlor|hair and nail salon|nail salon|coloring|U+1F484
 ar:صالون تجميل|كوافير|متجر
 be:5Салон прыгажосці
 bg:5Салон за красота|Фризьорски салон|Козметичен салон|Маникюр|Педикюр|подстригване|кола маска
@@ -2375,7 +2375,7 @@ zh-Hans:电脑商店|商店
 zh-Hant:電腦商店|電腦專賣店|購物
 
 shop-confectionery|craft-confectionery|@category_food|@shop
-en:4Sweets|4confectionery|candies|candy|U+1F36C|U+1F36D|sweetshop|tuck
+en:4Sweets|4confectionery|candies|candy|sweetshop|tuck|U+1F36C|U+1F36D
 ar:متجر حلويات|حلويات|حلوى|متجر
 be:4Кандытарская
 bg:Сладки|сладкарница|бонбони|сладкиши
@@ -2575,7 +2575,7 @@ zh-Hans:汇款
 zh-Hant:匯款
 
 shop-clothes|@category_shopping|@shop
-en:3Clothes|U+1F45A|U+1F457|U+1F456|U+1F455|clothing|wear
+en:3Clothes|clothing|wear|U+1F45A|U+1F457|U+1F456|U+1F455
 ar:متجر ملابس|ملابس|متجر
 bg:3Дрехи|магазин за дрехи
 ca:Botiga de roba|Roba
@@ -3624,7 +3624,7 @@ zh-Hans:寺庙|礼拜场所|庙|景点
 zh-Hant:寺廟|禱告|寺|禪寺|旅遊景點
 
 tourism-museum|@category_tourism
-en:2Museum|U+1F3A8|3exhibition|3gallery
+en:2Museum|3exhibition|3gallery|U+1F3A8
 ar:متحف|أماكن جذابة|سياحة|مناظر
 bg:3Музей|3експозиция|3галерия
 cs:2Muzeum|zajímavost
@@ -3867,7 +3867,7 @@ zh-Hans:界碑
 zh-Hant:界碑
 
 historic-castle|@category_tourism
-en:4Castle|4Palace|4Fortress|U+1F3EF|U+1F3F0|U+1F451|U+1F478|Hillfort|Kremlin|Manor house
+en:4Castle|4Palace|4Fortress|Hillfort|Kremlin|Manor house|U+1F3EF|U+1F3F0|U+1F451|U+1F478
 ar:قلعة|سياحة|أماكن جذابة|مناظر|كاسترا|الكنيسة المحصنة|حصون التلال|كرملين|قصر مالك العزبة|قصر|شاتو
 be:Замак|Каструм|Крэпасць|Гарадзішча|Крэмль|Сядзіба|Палац
 bg:3Замък|4Дворец|4крепост|Каструм|Градище|Кремъл|Усадба
@@ -5014,7 +5014,7 @@ zh-Hans:长凳
 zh-Hant:1長板凳|板凳|長椅|長椅子|條凳
 
 amenity-bicycle_rental
-en:4Bicycle Rental|cycle|bike|3rental|U+1F6B2|U+1F6B4|U+1F6B5|bicycle hire|bike rental
+en:4Bicycle Rental|cycle|bike|3rental|bicycle hire|bike rental|U+1F6B2|U+1F6B4|U+1F6B5
 ar:تأجير دراجات
 bg:велосипеди|колелета|под наем
 cs:2Půjčovna kol|4jízdní kolo|3kolo|3pronájem|3nájemné
@@ -5123,7 +5123,7 @@ zh-Hans:船只租赁
 zh-Hant:船隻租賃
 
 amenity-car_sharing
-en:Car Share|3carsharing|car|sharing|U+1F697|U+1F698|U+1F699|carpool|carsharing services|car sharing|4rideshare
+en:Car Share|3carsharing|car|sharing|carpool|carsharing services|car sharing|4rideshare|U+1F697|U+1F698|U+1F699
 ar:مشاركة السيارة|تقاسم السيارة
 bg:Споделяне|автомобил|кола|превоз
 cs:Sdílení aut
@@ -5161,7 +5161,7 @@ zh-Hans:拼车点
 zh-Hant:汽車共用
 
 amenity-car_rental
-en:3Car Rental|car|rental|U+1F697|U+1F698|U+1F699|car hire|rent a car|auto rental|vehicle rent
+en:3Car Rental|car|rental|car hire|rent a car|auto rental|vehicle rent|U+1F697|U+1F698|U+1F699
 ar:تأجير سيارات|سيارة|تأجير|إيجار
 bg:Кола|под наем|рент а кар|автопаркинг
 cs:3Půjčovna aut|auto|pronájem|nájemné
@@ -5368,7 +5368,7 @@ zh-Hans:1剧院
 zh-Hant:1劇場|戲院|劇院
 
 amenity-nightclub|@category_entertainment|@category_nightlife
-en:3Nightclub|night club|4disco|dance|U+1F378|U+1F379|U+1F46F|U+1F483|club|nightspot|night bar
+en:3Nightclub|night club|4disco|dance|club|nightspot|night bar|U+1F378|U+1F379|U+1F46F|U+1F483
 ar:نادي ليلي|رقص
 bg:3Нощен клуб|4Дискотека|нощен бар|танци
 cs:4Noční klub|3disco|3klub
@@ -5854,7 +5854,7 @@ zh-Hans:医院
 zh-Hant:1醫院
 
 amenity-hospital|@category_hospital
-en:Hospital|clinic|3doctor|U+1F691|U+1F3E5|U+1F489|U+1F48A|medical center|health services|4first aid
+en:Hospital|clinic|3doctor|medical center|health services|4first aid|U+1F691|U+1F3E5|U+1F489|U+1F48A
 ar:عيادة|طبيب|دكتور
 bg:клиника|4доктор|медик|медицински център|лекар|помощ|бърза помощ|
 cs:klinika|pohotovost|zdravotnické centrum|3lékař|4doktor
@@ -5886,7 +5886,7 @@ zh-Hans:诊所|医生
 zh-Hant:醫生|診所|醫療|診療
 
 amenity-clinic|@category_hospital
-en:4Clinic|hospital|3doctor|U+1F3E5|U+1F489|diagnostics|health services
+en:4Clinic|hospital|3doctor|diagnostics|health services|U+1F3E5|U+1F489
 ar:عيادة|مستشفى|طبيب|دكتور
 bg:5Поликлиника|клиника|лекар|диагностика|4доктор|амбулаторно лечение|медик
 cs:4Klinika|nemocnice
@@ -6421,7 +6421,7 @@ zh-Hans:狩猎屋
 zh-Hant:1狩獵場|打獵|狩獵|獵人|獵
 
 amenity-kindergarten
-en:5Kindergarten|U+1F476|U+1F37C|U+1F6BC|nursery|4Child Care|childcare
+en:5Kindergarten|nursery|4Child Care|childcare|U+1F476|U+1F37C|U+1F6BC
 ar:حضانة أطفال|روضة أطفال
 be:Дзіцячы садок|сад
 bg:4Детска градина|деца|ясла
@@ -7484,7 +7484,7 @@ zh-Hans:脱衣舞俱乐部
 zh-Hant:脫衣舞俱樂部
 
 amenity-telephone
-en:2Phone|U+260E|U+1F4DE|5Telephone
+en:2Phone|5Telephone|U+260E|U+1F4DE
 ar:هاتف
 bg:3Телефон|мобифон|обаждане
 ca:Telèfon
@@ -8575,7 +8575,7 @@ zh-Hans:水族馆
 zh-Hant:水族館
 
 tourism-hostel|@category_hotel
-en:3Hostel|motel|U+1F3E8|backpack|backpacking
+en:3Hostel|motel|backpack|backpacking|U+1F3E8
 ar:نزُل|فندق|فندق رخيص
 bg:3Хостел|мотел|раница|поход
 cs:3Hostel|ubytovna|motel
@@ -8615,7 +8615,7 @@ zh-Hans:2旅馆|旅店
 zh-Hant:1旅舍|青年旅舍|青年旅館|住宿|飯店|3汽車旅館|3motel
 
 tourism-hotel|@category_hotel
-en:motel|U+1F3E8|U+1F62A|U+1F634|tourist court
+en:motel|tourist court|U+1F3E8|U+1F62A|U+1F634
 ar:فندق|فندق رخيص
 bg:мотел|туризъм|хотел
 cs:ubytovna|motel
@@ -8761,7 +8761,7 @@ zh-Hans:山上住宿|旅馆|旅店
 zh-Hant:1山上住宿|飯店|住宿|旅舍|2高山住宿
 
 shop-hairdresser
-en:3Hairdresser|U+2702|U+1F488|hair salon|hairdressing saloon|barbershop|hair cuttery|haircut|beauty parlor|coloring
+en:3Hairdresser|hair salon|hairdressing saloon|barbershop|hair cuttery|haircut|beauty parlor|coloring|U+2702|U+1F488
 ar:مصفف شعر
 be:4Цырулья|Цырульнік
 bg:подстрижка|фризьор|салон|красота|маникюр|педикюр|стилист
@@ -8886,7 +8886,7 @@ zh-Hans:终端
 zh-Hant:終端
 
 leisure-stadium
-en:4Stadium|4sport|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F4AA|U+1F3C9|olympic stadium|sports stadium|sports complex|arena
+en:4Stadium|4sport|olympic stadium|sports stadium|sports complex|arena|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F4AA|U+1F3C9
 ar:استاد|رياضة
 bg:4Стадион|спорт|мач|арена|шампионат|спортен комплекс
 cs:4Stadion|4sport
@@ -9008,7 +9008,7 @@ zh-Hans:游乐中心
 zh-Hant:遊樂中心
 
 leisure-sports_centre
-en:4Sports Center|sport|U+26BD|U+26BE|U+1F3BE|U+1F4AA|U+1F3C8|U+1F3C0|U+1F3C9|sports complex|sports forum
+en:4Sports Center|sport|sports complex|sports forum|U+26BD|U+26BE|U+1F3BE|U+1F4AA|U+1F3C8|U+1F3C0|U+1F3C9
 ar:رياضة
 bg:4Спортен комплекс|спорт|арена
 cs:4Sportovní centrum|sport
@@ -11160,7 +11160,7 @@ zh-Hans:房车宿营地
 zh-Hant:1營區|營地
 
 office
-en:Office|company|U+1F454|U+1F4BC|U+1F3E2|bureau|administrative office|firm|business|corporation
+en:Office|company|bureau|administrative office|firm|business|corporation|U+1F454|U+1F4BC|U+1F3E2
 ar:مكتب|شركة
 bg:Офис|компания|кантора|фирма|бизнес|бюро|учреждение
 ca:Oficina
@@ -13374,7 +13374,7 @@ zh-Hans:紧急电话
 zh-Hant:緊急電話
 
 leisure-fitness_centre
-en:3Fitness Centre|gym|U+1F4AA|fitness|workout|fitness gym|fitness club|health club|fitness studio|workout studio
+en:3Fitness Centre|gym|fitness|workout|fitness gym|fitness club|health club|fitness studio|workout studio|U+1F4AA
 ar:مركز للياقة البدنية، نادي رياضي
 bg:3Фитнес|клуб|център|тренировка|спорт|зала
 cs:3Fitness|tělocvična
