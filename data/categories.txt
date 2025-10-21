@@ -3358,7 +3358,7 @@ ar:كنيسة|مكان عبادة|معبد
 bg:Храм|молитва|4църква|червка|свещеник|поп|християни
 cs:Chrám|kostel|posvátné místo|bazilika
 da:4Kirke|tempel|kultsted
-de:4Kirche|Dom|3Kathedrale|4Münster|Anbetungsstätte|
+de:4Kirche|Dom|3Kathedrale|4Münster|Anbetungsstätte
 el:Εκκλησία|τόπος λατρείας|ναός|αξιοθέατα
 es:3Iglesia|templo|lugar de culto|basílica|catedral
 et:4Kirik|religioosne koht|tempel|katedraal|basiilika
@@ -3903,7 +3903,7 @@ sw:Ngome|kivutio|utalii|Kanisa lililoimarishwa|Kremlin|Nyumba ya manor|Ikulu
 th:ปราสาท|การท่องเที่ยว|ป้อมโรมัน|โบสถ์เสริมความแข็งแกร่ง|ป้อม|ป้อมเนิน|เครมลิน|คฤหาสน์|วัง|ปราสาท
 tr:Kale|Saray|şato|kule|Tepe Kalesi
 uk:3Замок|4фортеця|мури|Каструм|Фортеця|Городище|Кремль|Садиба|Палац|Шато
-vi:Pháo đài|Lâu đài|Pháo đài La mã|Nhà thờ kiên cố|Trang viên|Cung điện|
+vi:Pháo đài|Lâu đài|Pháo đài La mã|Nhà thờ kiên cố|Trang viên|Cung điện
 zh-Hans:城堡|古罗马兵营|坚固的教堂|要塞|丘堡|克里姆林|庄园大屋|宮殿|法式城堡
 zh-Hant:城堡|堡|古蹟|歷史|古羅馬兵營|堅固的教堂|要塞|丘堡|克里姆林|莊園大屋|宮殿|法式城堡
 
@@ -5243,7 +5243,7 @@ zh-Hans:摩托车租赁
 zh-Hant:摩托車租賃
 
 amenity-cinema|@category_entertainment
-en:3Cinema|Film|U+1F3A6|U+1F3AC|
+en:3Cinema|Film|U+1F3A6|U+1F3AC
 ar:سينما
 bg:3Кино|кинотеатър|филм|прожекция
 cs:3Kino|biograf
@@ -5856,7 +5856,7 @@ zh-Hant:1醫院
 amenity-hospital|@category_hospital
 en:Hospital|clinic|3doctor|medical center|health services|4first aid|U+1F691|U+1F3E5|U+1F489|U+1F48A
 ar:عيادة|طبيب|دكتور
-bg:клиника|4доктор|медик|медицински център|лекар|помощ|бърза помощ|
+bg:клиника|4доктор|медик|медицински център|лекар|помощ|бърза помощ
 cs:klinika|pohotovost|zdravotnické centrum|3lékař|4doktor
 da:sygehus
 de:4Spital|Klinik|3Arzt|Doktor|Medizinische Einrichtung|Medizinisches Zentrum|Gesundheitswesen|3Ambulanz|Gesundheitsdienstleistungen|Erste Hilfe
@@ -6931,7 +6931,7 @@ recycling-clothes|@category_recycling
 en:4Recycling of Clothes|Clothes Recycling|Textile Recycling|Donate Clothes|Clothes Collection Bin
 ar:إعادة تدوير الملابس القديم|ملابس قديمة
 be:5Прыём адзення|Старае адзенне|Здаць непатрэбныя рэчы|Здаць рэчы|5Здаць адзенне
-bg:Стари дрехи|рециклиране|
+bg:Стари дрехи|рециклиране
 cs:Staré oblečení|Recyklujte staré oblečení
 da:Gammelt tøj|Genbrug gammelt tøj
 de:4Altkleider|Alte Kleidung|Sachen spenden
@@ -7224,7 +7224,7 @@ en:4Recycling of Cans|4Cans Recycling|4Aluminium Cans Recycling|3Tin Cans Recycl
 be:5Прыём бляшаных і алюмініевых слоікаў|5Перапрацоўка бляшаных і алюмініевых слоікаў|5Здаць бляшаныя і алюмініевыя банкі|4Збор бляшаных і алюмініевых слоікаў|6Кансервовыя банкі|5Бляшаныя банкі|5Алюмініевыя банкі|Піўныя банкі
 es:Latas de aluminio
 et:Purkide taaskasutus
-lv:Alumīnija skārdeņu pārstrāde|Alumīnija skārdeņu nodošana|skārdeņu pārstrāde|skārdeņu nodošana|
+lv:Alumīnija skārdeņu pārstrāde|Alumīnija skārdeņu nodošana|skārdeņu pārstrāde|skārdeņu nodošana
 mr:कॅन भंगारवाला
 ru:5Приём жестяных и алюминиевых банок|5Переработка жестяных и алюминиевых банок|5Сдать жестяные и алюминиевые банки|4Сбор жестяных и алюминиевых банок|6Консервные банки|5Жестяные банки|5Алюминиевые банки|Пивные банки
 sr:Рециклажа лименки|Reciklaža limenki
@@ -8230,7 +8230,7 @@ zh-Hant:1跑道|賽道|2賽車道|賽車|2賽車場
 highway-path|highway-footway|highway-steps|highway-cycleway
 en:Path
 ar:مسار
-bg:пътека|път|
+bg:пътека|път
 cs:Cesta
 da:Sti|gangsti|trin|trappe
 de:Weg|Fußweg|Pfad
@@ -8722,7 +8722,7 @@ tr:3Motel|pansiyon
 uk:3Мотель|хостел
 vi:Nhà nghỉ
 zh-Hans:1汽车旅馆|旅店
-zh-Hant:1汽車旅館|3motel|飯店|住宿|
+zh-Hant:1汽車旅館|3motel|飯店|住宿
 
 tourism-alpine_hut|@category_hotel
 en:5Mountain Lodge|5backcountry hut|hut|lodge|alpine hut
@@ -11526,7 +11526,7 @@ craft-carpenter
 en:4Carpenter
 ar:نجار
 be:Цясляр
-bg:4Дърводелство|дървар|
+bg:4Дърводелство|дървар
 ca:Fuster
 cs:Truhlář
 da:Tømrer
