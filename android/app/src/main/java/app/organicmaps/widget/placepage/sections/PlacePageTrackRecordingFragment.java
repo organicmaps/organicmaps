@@ -10,11 +10,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.TrackRecording;
 import app.organicmaps.sdk.bookmarks.data.TrackStatistics;
 import app.organicmaps.sdk.location.TrackRecorder;
+import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.placepage.ElevationProfileViewRenderer;
 import app.organicmaps.widget.placepage.PlacePageStateListener;
@@ -62,13 +63,17 @@ public class PlacePageTrackRecordingFragment
   @Override
   public void onTrackRecordingUpdate(TrackStatistics trackStatistics)
   {
+    if (mFrame == null)
+      return;
     if (!TrackRecorder.nativeIsTrackRecordingEnabled())
       return;
-    if (mViewModel.getMapObject().getValue() == null || !mViewModel.getMapObject().getValue().isTrackRecording())
+
+    MapObject mo = mViewModel.getMapObject().getValue();
+    if (mo == null || !mo.isTrackRecording())
       return;
     ((TrackRecording) mViewModel.getMapObject().getValue())
         .setTrackRecordingPPDescription(
-            Framework.nativeFormatAltitude(trackStatistics.getLength()) + " • "
+            StringUtils.nativeFormatDistance(trackStatistics.getLength()).toString(mFrame.getContext()) + " • "
             + Utils.formatRoutingTime(getContext(), (int) trackStatistics.getDuration(), R.dimen.text_size_body_3));
     ElevationInfo elevationInfo = TrackRecorder.nativeGetElevationInfo();
     // This check is needed because the elevationInfo can be null in case there are no elevation data.

@@ -36,8 +36,14 @@
           android:id="@+id/ascent"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:ellipsize="none"
           android:fontFamily="@string/robotoMedium"
-          android:textAppearance="@style/MwmTextAppearance.Body3"
+          android:singleLine="true"
+          android:textColor="?android:textColorSecondary"
+          app:autoSizeMaxTextSize="@dimen/text_size_body_3"
+          app:autoSizeMinTextSize="@dimen/text_size_body_min"
+          app:autoSizeStepGranularity="1sp"
+          app:autoSizeTextType="uniform"
           tools:text="10000 m" />
       </LinearLayout>
       <TextView
@@ -73,8 +79,14 @@
           android:id="@+id/descent"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:ellipsize="none"
           android:fontFamily="@string/robotoMedium"
-          android:textAppearance="@style/MwmTextAppearance.Body3"
+          android:singleLine="true"
+          android:textColor="?android:textColorSecondary"
+          app:autoSizeMaxTextSize="@dimen/text_size_body_3"
+          app:autoSizeMinTextSize="@dimen/text_size_body_min"
+          app:autoSizeStepGranularity="1sp"
+          app:autoSizeTextType="uniform"
           tools:text="10000 m" />
       </LinearLayout>
       <TextView
@@ -111,8 +123,14 @@
           android:id="@+id/max_altitude"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:ellipsize="none"
           android:fontFamily="@string/robotoMedium"
-          android:textAppearance="@style/MwmTextAppearance.Body3"
+          android:singleLine="true"
+          android:textColor="?android:textColorSecondary"
+          app:autoSizeMaxTextSize="@dimen/text_size_body_3"
+          app:autoSizeMinTextSize="@dimen/text_size_body_min"
+          app:autoSizeStepGranularity="1sp"
+          app:autoSizeTextType="uniform"
           tools:text="10000 m" />
       </LinearLayout>
       <TextView
@@ -149,8 +167,14 @@
           android:id="@+id/min_altitude"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:ellipsize="none"
           android:fontFamily="@string/robotoMedium"
-          android:textAppearance="@style/MwmTextAppearance.Body3"
+          android:singleLine="true"
+          android:textColor="?android:textColorSecondary"
+          app:autoSizeMaxTextSize="@dimen/text_size_body_3"
+          app:autoSizeMinTextSize="@dimen/text_size_body_min"
+          app:autoSizeStepGranularity="1sp"
+          app:autoSizeTextType="uniform"
           tools:text="10000 m" />
       </LinearLayout>
       <TextView

@@ -635,9 +635,9 @@ public class PlacePageController
         buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
       else if (mapObject.isTrackRecording())
       {
+        buttons.add(PlacePageButtons.ButtonType.TRACK_RECORDING_DELETE);
         if (!TrackRecorder.nativeIsTrackRecordingEmpty())
           buttons.add(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE);
-        buttons.add(PlacePageButtons.ButtonType.TRACK_RECORDING_DELETE);
       }
       else
       {
