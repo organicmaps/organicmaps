@@ -107,6 +107,7 @@ import app.organicmaps.sdk.settings.UnitLocale;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.sdk.util.PowerManagment;
+import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
 import app.organicmaps.search.FloatingSearchToolbarController;
@@ -2301,7 +2302,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
         && mPlacePageViewModel.getMapObject().getValue().isTrackRecording())
       mPlacePageViewModel.setMapObject(null);
     else
-      mPlacePageViewModel.setMapObject(new TrackRecording());
+    {
+      String title = StringUtils.nativeFormatDistance(0).toString(this) + " • "
+                   + Utils.formatRoutingTime(this, 0, R.dimen.text_size_body_3);
+      mPlacePageViewModel.setMapObject(new TrackRecording(title, getString(R.string.track_recording_title)));
+    }
   }
 
   public void onShareLocationOptionSelected()

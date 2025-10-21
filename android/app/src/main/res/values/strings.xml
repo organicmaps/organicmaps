@@ -880,6 +880,7 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Stop Track Recording</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Track Recording</string>
     <string name="stop_without_saving">Stop Without Saving</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Continue Recording</string>

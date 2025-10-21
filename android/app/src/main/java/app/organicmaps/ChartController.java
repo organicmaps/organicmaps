@@ -39,7 +39,6 @@ public class ChartController implements OnChartValueSelectedListener
   private static final int CHART_ANIMATION_DURATION = 0;
   private static final int CHART_FILL_ALPHA = (int) (0.12 * 255);
   private static final int CHART_AXIS_GRANULARITY = 100;
-  private static final float CUBIC_INTENSITY = 0.2f;
   private static final int CURRENT_POSITION_OUT_OF_TRACK = -1;
   private static final String ELEVATION_PROFILE_POINTS = "ELEVATION_PROFILE_POINTS";
 
@@ -142,8 +141,7 @@ public class ChartController implements OnChartValueSelectedListener
       values.add(new Entry((float) point.getDistance(), point.getAltitude(), point));
 
     LineDataSet set = new LineDataSet(values, ELEVATION_PROFILE_POINTS);
-    set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-    set.setCubicIntensity(CUBIC_INTENSITY);
+    set.setMode(LineDataSet.Mode.LINEAR);
     set.setDrawFilled(true);
     set.setDrawCircles(false);
     int lineThickness = mContext.getResources().getDimensionPixelSize(R.dimen.divider_width);
