@@ -390,7 +390,8 @@ struct TrackLayer
 struct MultiGeometry
 {
   using LineT = std::vector<geometry::PointWithAltitude>;
-  using TimeT = std::vector<double>;
+  using TimeInt = time_t;
+  using TimeT = std::vector<TimeInt>;
 
   std::vector<LineT> m_lines;
   std::vector<TimeT> m_timestamps;
@@ -416,7 +417,7 @@ struct MultiGeometry
   /// This method should be used for tests only.
   void AddLine(std::initializer_list<geometry::PointWithAltitude> lst);
   /// This method should be used for tests only.
-  void AddTimestamps(std::initializer_list<double> lst);
+  void AddTimestamps(std::initializer_list<TimeInt> lst);
 
   bool HasTimestamps() const;
   bool HasTimestampsFor(size_t lineIndex) const;
