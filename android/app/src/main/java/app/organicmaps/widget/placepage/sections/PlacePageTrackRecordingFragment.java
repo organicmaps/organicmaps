@@ -63,17 +63,16 @@ public class PlacePageTrackRecordingFragment
   @Override
   public void onTrackRecordingUpdate(TrackStatistics trackStatistics)
   {
-    if (mFrame == null)
-      return;
     if (!TrackRecorder.nativeIsTrackRecordingEnabled())
       return;
 
     MapObject mo = mViewModel.getMapObject().getValue();
     if (mo == null || !mo.isTrackRecording())
       return;
+
     ((TrackRecording) mViewModel.getMapObject().getValue())
         .setTrackRecordingPPDescription(
-            StringUtils.nativeFormatDistance(trackStatistics.getLength()).toString(mFrame.getContext()) + " • "
+            StringUtils.nativeFormatDistance(trackStatistics.getLength()).toString(getContext()) + " • "
             + Utils.formatRoutingTime(getContext(), (int) trackStatistics.getDuration(), R.dimen.text_size_body_3));
     ElevationInfo elevationInfo = TrackRecorder.nativeGetElevationInfo();
     // This check is needed because the elevationInfo can be null in case there are no elevation data.
