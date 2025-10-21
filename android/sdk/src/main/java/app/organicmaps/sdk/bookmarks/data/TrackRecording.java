@@ -8,7 +8,7 @@ public class TrackRecording extends MapObject
   public TrackRecording()
   {
     super(FeatureId.EMPTY, TRACK_RECORDING, "0 m • 0 min", "", "Track Recording", "", 0, 0, "", null,
-          OPENING_MODE_PREVIEW, null, "", "", RoadWarningMarkType.UNKNOWN.ordinal(), null);
+          OPENING_MODE_PREVIEW, "", "", RoadWarningMarkType.UNKNOWN.ordinal(), null);
     mTrackRecordingPPDescription.setValue("");
   }
 
