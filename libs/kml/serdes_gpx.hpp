@@ -94,7 +94,7 @@ private:
   double m_lat;
   double m_lon;
   geometry::Altitude m_altitude;
-  time_t m_timestamp;
+  MultiGeometry::TimeInt m_timestamp;
 
   MultiGeometry::LineT m_line;
   MultiGeometry::TimeT m_timestamps;

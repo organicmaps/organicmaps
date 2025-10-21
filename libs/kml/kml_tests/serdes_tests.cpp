@@ -179,11 +179,11 @@ kml::FileData GenerateKmlFileDataForTrackWithTimestamps()
 
   // track 2
   trackData.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}});
-  trackData.m_geometry.AddTimestamps({0.0, 1.0, 2.0});
+  trackData.m_geometry.AddTimestamps({0, 1, 2});
 
   // track 3
   trackData.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}});
-  trackData.m_geometry.AddTimestamps({0.0, 1.0});
+  trackData.m_geometry.AddTimestamps({0, 1});
   return data;
 }
 }  // namespace
@@ -835,11 +835,11 @@ UNIT_TEST(Kml_Import_OpenTracks)
 <kml xmlns="http://earth.google.com/kml/2.2">
     <Placemark>
       <Track>
-        <when>2010-05-28T02:00Z</when>
-        <when>2010-05-28T02:01Z</when>
-        <when>2010-05-28T02:02Z</when>
-        <when>2010-05-28T02:03Z</when>
-        <when>2010-05-28T02:04Z</when>
+        <when>2010-05-28T01:02:00Z</when>
+        <when>2010-05-28T01:02:01Z</when>
+        <when>2010-05-28T01:02:02Z</when>
+        <when>2010-05-28T01:02:03Z</when>
+        <when>2010-05-28T01:02:04Z</when>
         <coord/>
         <coord>-122.205712 37.373288 152.000000</coord>
         <coord>Abra-cadabra</coord>
@@ -859,8 +859,8 @@ UNIT_TEST(Kml_Import_OpenTracks)
     TEST_EQUAL(geom.m_lines.size(), geom.m_timestamps.size(), ());
     TEST_EQUAL(geom.m_lines[0].size(), 2, ());
     TEST_EQUAL(geom.m_lines[0].size(), geom.m_timestamps[0].size(), ());
-    TEST_EQUAL(geom.m_timestamps[0][0], base::StringToTimestamp("2010-05-28T02:01Z"), ());
-    TEST_EQUAL(geom.m_timestamps[0][1], base::StringToTimestamp("2010-05-28T02:03Z"), ());
+    TEST_EQUAL(geom.m_timestamps[0][0], base::StringToTimestamp("2010-05-28T01:02:01Z"), ());
+    TEST_EQUAL(geom.m_timestamps[0][1], base::StringToTimestamp("2010-05-28T01:02:03Z"), ());
   }
 
   fData = {};
@@ -887,7 +887,7 @@ UNIT_TEST(Kml_BadTracks)
 <kml xmlns="http://earth.google.com/kml/2.2">
     <Placemark>
       <Track>
-        <when>2010-05-28T02:00Z</when>
+        <when>2010-05-28T01:02:00Z</when>
         <coord>-122.205712 37.373288 152.000000</coord>
       </Track>
       <gx:Track>
