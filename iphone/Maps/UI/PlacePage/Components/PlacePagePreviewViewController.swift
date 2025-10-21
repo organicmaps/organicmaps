@@ -6,12 +6,7 @@ final class PlacePageDirectionView: UIView {
 final class PlacePagePreviewViewController: UIViewController {
   @IBOutlet var stackView: UIStackView!
   @IBOutlet var popularView: UIView!
-  @IBOutlet var subtitleLabel: UILabel! {
-    didSet {
-      subtitleLabel.textColor = UIColor.blackSecondaryText()
-      subtitleLabel.font = UIFont.regular14()
-    }
-  }
+  @IBOutlet var subtitleLabel: UILabel!
   @IBOutlet var subtitleContainerView: UIStackView!
   @IBOutlet var scheduleLabel: UILabel!
   @IBOutlet var reviewsLabel: UILabel!
@@ -81,9 +76,30 @@ final class PlacePagePreviewViewController: UIViewController {
 //      }
 
       if let subtitle = placePagePreviewData.subtitle ?? placePagePreviewData.coordinates {
-        subtitleString.append(NSAttributedString(string: !subtitleString.string.isEmpty ? " • " + subtitle : subtitle,
-                                                 attributes: [.foregroundColor : UIColor.blackSecondaryText(),
-                                                              .font : UIFont.regular14()]))
+
+        let supportedEmojis: Set<Character> = ["🛜", "♿", "♿️"]
+
+        // Add separator if needed
+        if !subtitleString.string.isEmpty {
+            subtitleString.append(NSAttributedString(string: " • ",
+                                                     attributes: [
+                                                         .font: UIFont.regular14(),
+                                                         .foregroundColor: UIColor.blackSecondaryText()
+                                                     ]))
+        }
+        
+        // Convert to custom font
+        for character in subtitle {
+            let fontToUse = supportedEmojis.contains(character) ? UIFont(name: "OrganicMapsEmojiFont", size: 14)! : UIFont.regular14()
+            
+            let attrString = NSAttributedString(string: String(character),
+                                                attributes: [
+                                                    .font: fontToUse,
+                                                    .foregroundColor: UIColor.blackSecondaryText()
+                                                ])
+            subtitleString.append(attrString)
+        }
+        
         subtitleLabel.attributedText = subtitleString
         subtitleContainerView.isHidden = false
       } else {
