@@ -14325,6 +14325,48 @@ man_made-crane
 en:Crane
 ru:Кран
 
+man_made-monitoring_station
+en:Monitoring Station
+ar:محطة المراقبة
+be:Станцыя назірання
+bg:Станция за наблюдение
+ca:Estació de monitoratge
+cs:Monitorovací stanice
+da:Overvågningsstation
+de:Überwachungsstation
+el:Σταθμός παρακολούθησης
+es:Estación de control
+et:Seirejaam
+eu:Jarraipen Estazioa
+fa:ایستگاه مانیتورینگ
+fi:Seuranta-asema
+fr:Station de surveillance
+he:תחנת ניטור
+hi:निगरानी स्टेशन
+hu:Megfigyelő állomás
+id:Stasiun Pemantauan
+it:Stazione di monitoraggio
+ja:モニタリングステーション
+ko:모니터링 스테이션
+lv:Uzraudzības stacija
+mr:मॉनिटरिंग स्टेशन
+nb:Overvåkningsstasjon
+nl:Controlestation
+pl:Stacja monitorująca
+pt:Estação de controlo
+pt-BR:Estação de monitoramento
+ro:Stație de monitorizare
+ru:Станция мониторинга
+sk:Monitorovacia stanica
+sv:Övervakningsstation
+sw:Kituo cha Ufuatiliaji
+th:สถานีตรวจติดตาม
+tr:İzleme İstasyonu
+uk:Станція моніторингу
+vi:Trạm quan trắc
+zh-Hans:监测站
+zh-Hant:監測站
+
 man_made-tower|man_made-flare
 en:Tower
 ar:برج

@@ -1196,6 +1196,9 @@ cemetery-grave                                      # icon z17- (also has captio
 leisure-firepit                                     # icon z16- (also has caption(optional) z16-)
 leisure-outdoor_seating                             # icon z18-
 man_made-mast                                       # icon z13- (also has caption(optional) z14-)
+man_made-monitoring_station
+man_made-monitoring_station-water_level
+man_made-monitoring_station-weather
 man_made-silo                                       # icon z13- (also has caption(optional) z14-)
 man_made-storage_tank                               # icon z13- (also has caption(optional) z14-)
 man_made-water_tower                                # icon z13- (also has caption(optional) z14-)
