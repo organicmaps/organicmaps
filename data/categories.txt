@@ -670,13 +670,13 @@ id:uang
 it:soldi
 ja:atm|お金|マネー|金|引き出し|預金|振り込み
 ko:돈
-lv:nauda|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
+lv:nauda
 mr:पैसे|कॅश|नगद|रोकड|रोख
 nb:2Penger
 nl:geld
 pl:pieniądze
-pt:dinheiro|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
-pt-BR:dinheiro|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
+pt:dinheiro
+pt-BR:dinheiro
 ro:bani
 ru:деньги
 sk:sporiteľna|peniaze
@@ -798,12 +798,12 @@ id:uang
 it:soldi
 ja:バンク|お金|マネー|金|引き出し|預金|振り込み
 ko:돈
-lv:nauda|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
+lv:nauda
 mr:पैसे|कॅश|नगद|रोकड|रोख
 nl:geld
 pl:pieniądze
-pt:dinheiro|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
-pt-BR:dinheiro|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
+pt:dinheiro
+pt-BR:dinheiro
 ro:bani
 ru:деньги
 sk:peniaze
@@ -883,7 +883,7 @@ id:3Pertukaran valuta|pertukaran
 it:3Cambio valute|valuta|soldi
 ja:1為替|マネー|お金|通貨|金|両替
 ko:1환전|돈|환전소
-lv:Valūtas maiņa|U+1F4B1|U+1F4B2|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
+lv:Valūtas maiņa
 nb:4Valutaveksling
 nl:3Wisselkantoor|3geld wisselen|wisselen|geld
 pl:4Kantor|5wymiana|pieniądze
@@ -967,7 +967,7 @@ id:3Kafe|3restoran
 it:3Caffè|3ristorante|pasto|mangiare
 ja:1カフェ|喫茶|食べ物|コーヒー|珈琲|お茶|茶|紅茶|食事|軽食
 ko:1카페|레스토랑|커피
-lv:3Kafejnīca|3restorāns|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B
+lv:3Kafejnīca|3restorāns
 mr:कॉफी|चहा|कॅफे|अमृततुल्य|नाश्ता|स्नॅक|रसवंतीगृह|उसाचा रस
 nb:2Kafé
 nl:3Tearoom|3brasserie|3café|3restaurant
@@ -1009,7 +1009,7 @@ id:Cepat saji|3restoran
 it:4Fast food|takeaway|caffè|ristorante|pasto|mangiare
 ja:1ファストフード|レストラン|テイクアウト|持ち帰り|軽食|食事
 ko:1패스트 푸드|레스토랑|카페|테이크 아웃|푸드|패스트푸드
-lv:Ātrā ēdināšana|ātrais ēdiens|līdzņemšana|3restorāns|3kafejnīca|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|
+lv:Ātrā ēdināšana|ātrais ēdiens|līdzņemšana|3restorāns|3kafejnīca
 mr:फास्टफूड|चायनीज|पार्सल|कॅफे|पिझ्झा|बर्गर
 nb:3Hurtigmat
 nl:4Fast food|3frituur|fritkot|3restaurant|afhaaleten
@@ -1050,7 +1050,7 @@ id:3Restoran|3kafe
 it:3Ristorante|3caffè|mangiare
 ja:1レストラン|食べ物|食事|2ファミレス
 ko:1레스토랑|카페
-lv:3Restorāns|3kafejnīca|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B
+lv:3Restorāns|3kafejnīca
 mr:रेस्टोरंट|हॉटेल|उपहारगृह|भोजनालय|खानावळ
 nb:3Restaurant
 nl:3Restaurant|3café
@@ -1134,7 +1134,7 @@ id:Toko
 it:Negozio
 ja:お買い物|ショップ|商店|雑貨|買い物
 ko:가게|상점
-lv:Veikals|Bode|U+1F3EA|U+1F3EC
+lv:Veikals|Bode
 mr:दुकान|शॉप|स्टोर
 nb:Butikk
 nl:Winkel
@@ -1176,7 +1176,7 @@ id:Toko roti|Roti
 it:3Panetteria|Panettiere|Panificio|Forno
 ja:1パン屋|ベーカリー|パン|軽食|持ち帰り
 ko:1베이커리|빵집
-lv:Maiznīca|Smalkmaizītes|Kūkas|U+1F35E
+lv:Maiznīca|Smalkmaizītes|Kūkas
 mr:बेकरी|पाव
 nb:3Bakeri|bakverk
 nl:3Bakkerij|Bakker|Gebak|Taart|3Taarten
@@ -1544,7 +1544,7 @@ id:Tukang bunga|toko bunga
 it:4Fiorista|fioraio
 ja:フローリスト/花屋|お買い物|ショップ|商店|雑貨
 ko:꽃|꽃집|꽃가게|플로리스트
-lv:Florists|floristika|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E|ziedi|dāvanas
+lv:Florists|floristika|ziedi|dāvanas
 mr:फुलवला|पुष्पविक्रेता
 nb:Blomsterhandler
 nl:Bloemist|bloemenwinkel
@@ -1706,7 +1706,7 @@ id:Toko alkohol|minuman keras
 it:Negozio di liquori|Negozio di alcolici|Negozio di vini|3Enoteca
 ja:酒屋|お買い物|ショップ|商店|雑貨
 ko:리큐어 스토어|주류 샵
-lv:alkohols|alkoholiskie dzērieni|U+1F377
+lv:alkohols|alkoholiskie dzērieni
 mr:दारू|वाईन|विस्की|देशी दारू|ताडी|फेणी
 nb:Vinmonopol|brennevin
 nl:Slijterij|drankhandel
@@ -1746,7 +1746,7 @@ id:Toko buku
 it:4Libreria
 ja:本屋|お買い物|ショップ|商店|雑貨
 ko:책방|서점
-lv:Grāmatnīca|3grāmatas|U+1F4D6|U+1F4DA|U+1F4D9|U+1F4D8|U+1F4D7|U+1F4D5
+lv:Grāmatnīca|3grāmatas
 mr:ग्रंथ विक्रेता|पुस्तक विक्रेता|पुस्तकाचे दुकान
 nb:Bokhandel
 nl:Boeken|Boekenwinkel|boekwinkel|boekhandel
@@ -1786,7 +1786,7 @@ id:Toko sepatu
 it:Negozio di scarpe
 ja:靴屋|お買い物|ショップ|商店|雑貨
 ko:신발 가게|신발가게|구두가게|신발|구두
-lv:kurpes|kurpju veikals|apavi|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F
+lv:kurpes|kurpju veikals|apavi
 mr:बुटाचे दुकान|बूट विक्रेता|शूज विक्रेता|पादत्राणे|चप्पल|पायताण
 nb:Skobutikk
 nl:Schoenenwinkel|schoenwinkel
@@ -1828,7 +1828,7 @@ id:4Elektronik
 it:Negozio di elettronica
 ja:電気店|お買い物|ショップ|商店|雑貨
 ko:전자제품|전자|전자가게|전자 가게
-lv:4Eletronika|Elektrotehnika|U+1F4F1|U+1F4BB|U+23F0|U+1F4F7|U+1F4F9|U+1F3A5|U+1F4FA|U+1F4FB|U+1F4DF|U+1F4DE|U+260E|U+1F4E0|U+1F4BD|U+1F4BE|U+1F4BF|U+1F4C0|U+1F4FC|U+1F50B|U+1F4E1
+lv:4Eletronika|Elektrotehnika
 mr:इलेक्ट्रॉनिक|उपकरणे|गॅजेट|विद्युत उपकरणे
 nb:4Elektronikk forhandler
 nl:4Elektronicazaak
@@ -1869,7 +1869,7 @@ id:Toko perangkat keras|bahan bangunan
 it:Ferramenta|bricolage
 ja:工具店|お買い物|ショップ|商店|雑貨
 ko:철물점
-lv:Saimniecības preces|būvniecība|būvdarbi|U+1F529|U+1F528
+lv:Saimniecības preces|būvniecība|būvdarbi
 mr:हार्डवेर दुकान
 nb:Jernvareforretning|hjemmeforbedring
 nl:Ijzerhandel|Bouwmarkt|ijzer
@@ -1951,7 +1951,7 @@ id:Perhiasan
 it:Gioielleria
 ja:宝石店|お買い物|ショップ|商店|雑貨
 ko:귀금속방|보석방
-lv:3juvelierizstrādājumi|3bižutērija|U+1F48D
+lv:3juvelierizstrādājumi|3bižutērija
 mr:दागिने|शृंगार|माळ|अंगठी|बांगडी
 nb:Gullsmed
 nl:4Juwelier|sieraden
@@ -1992,7 +1992,7 @@ id:Toko kacamata
 it:4Ottico
 ja:眼鏡店|お買い物|ショップ|商店|雑貨
 ko:안경점 의|안경점
-lv:optika|brilles|U+1F453
+lv:optika|brilles
 mr:चष्माविक्रेता
 nb:4Optiker
 nl:4Opticien|brillen
@@ -2031,7 +2031,7 @@ id:Toko hadiah
 it:Negozio di regali
 ja:ギフトショップ|お買い物|ショップ|商店|雑貨
 ko:기념품점|선물가게|선물 가게|기념품|선물
-lv:Dāvanas|suvenīri|U+1F381
+lv:Dāvanas|suvenīri
 mr:भेटवस्तू|गिफ्ट
 nb:Gavebutikk
 nl:Cadeau
@@ -2072,7 +2072,7 @@ id:Salon kecantikan
 it:Estetista|Salone di bellezza
 ja:ビューティーサロン|美粧院|美容品店
 ko:미용실|미용원|미장실|미장원|헤어샵|헤어살롱
-lv:Skaistumkopšanas salons|frizētava|U+1F484
+lv:Skaistumkopšanas salons|frizētava
 mr:शृंगार|मेकअप|सौन्दर्य|ब्युटी
 nb:Skjønnhetssalong
 nl:Schoonheidssalon|kapper|nagelstudio
@@ -2113,7 +2113,7 @@ id:Penjual sayuran
 it:4Fruttivendolo
 ja:八百屋|お買い物|ショップ|商店|雑貨
 ko:청과물 상인의|청과상|청과물|식료품
-lv:5Dārzeņi|4augļi|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353
+lv:5Dārzeņi|4augļi
 mr:भाजीवाला|मंडई|भाजीपाला|ग्रोसरी
 nb:Frukt- og grønnsakshandler
 nl:Groentenwinkel|groenteboer
@@ -2152,7 +2152,7 @@ id:Barang olahraga
 it:Negozio sportivo|negozio articoli sportivi
 ja:スポーツ用品店|お買い物|ショップ|商店|雑貨
 ko:스포츠 가게|스포츠 용품|스포츠
-lv:5Sporta preces|U+1F3BF|U+1F3A3|U+1F3C2|U+1F6B4|U+26BD|U+1F3C0|U+1F3C8|U+26BE|U+1F3BE|U+1F3C9|U+26F3
+lv:5Sporta preces
 mr:क्रीडा|स्पोर्ट्स|क्रीडा सामग्री|क्रीडा साहित्य|स्पोर्ट्स दुकान
 nb:4Sportsutstyr
 nl:4Sportartikelen
@@ -2316,7 +2316,7 @@ id:Minuman
 it:4Bibite|bevande
 ja:ドリンク|飲料
 ko:음료수|마실것|음료
-lv:Dzērienu veikals|dzērieni|U+1F379
+lv:Dzērienu veikals|dzērieni
 mr:पेय|शीतपेय|ड्रिंक्स|रस
 nb:Drinker|drikke
 nl:Drank|slijterij
@@ -2355,7 +2355,7 @@ id:Toko komputer
 it:Negozio di computer|negozio di articoli informatici
 ja:コンピュータショップ
 ko:컴퓨터 판매점|컴퓨터 가게|컴퓨터
-lv:Datorveikals|datori|U+1F4BB
+lv:Datorveikals|datori
 mr:संगणक दुकान|कंप्यूटर दुकान
 nb:Databutikk
 nl:4Computerwinkel
@@ -2396,7 +2396,7 @@ id:Penganan|manisan
 it:Pasticceria|drogheria
 ja:菓子類|菓子屋
 ko:과저점|디저트점|페이스트리|컨펙셔너리|사탕|과자|제과점|베이커리
-lv:Saldumi|saldumu veikals|U+1F36C|U+1F36D
+lv:Saldumi|saldumu veikals
 mr:मिठाईवाले|मिठाईचे दुकान|मिठाई विक्रेता|स्वीट शॉप
 nb:Søtsaker|godtebutikk
 nl:Banketbakker|snoepwinkel|snoep|snoepjes|zoetigheden
@@ -2595,7 +2595,7 @@ id:Toko baju
 it:Negozio di abbigliamento
 ja:1洋服|洋服屋さん|ショッピング|衣類|服
 ko:1옷 가게|옷가게의류점
-lv:Apģērbu veikals|apģērbs|drēbes|U+1F45A|U+1F457|U+1F456|U+1F455
+lv:Apģērbu veikals|apģērbs|drēbes
 mr:कपड्याचे दुकान
 nb:Klesbutikk
 nl:Kledingwinkel|4kleding
@@ -2653,7 +2653,7 @@ id:Toko mobil
 it:Concessionaria|Autosalone
 ja:カーディーラー|車|車販売|ディーラー
 ko:자동차 판매점|자동차 대리점
-lv:4Autosalons|autodīleris|automobiļi|U+1F697|U+1F698|U+1F699
+lv:4Autosalons|autodīleris|automobiļi
 mr:कार विक्रेता|कार डीलर
 nb:Bil butikk
 nl:Autohandelaar
@@ -2695,7 +2695,7 @@ id:3Toko sepeda
 it:Negozio di biciclette|4bicicletta|bici
 ja:自転車屋|レンタサイクル|自転車
 ko:자전거 가게
-lv:4Velosipēdi|divriteņi|veloveikals|4velo|U+1F6B2|U+1F6B4|U+1F6B5
+lv:4Velosipēdi|divriteņi|veloveikals|4velo
 mr:सायकलचे दुकान
 nb:3Sykkel
 nl:4Fietsenwinkel|fiets
@@ -2736,7 +2736,7 @@ hu:Trafik
 it:4Chiosco|Edicola|Giornalaio
 ja:1キオスク|売店
 ko:키오스크
-lv:3Kiosks|U+1F4F0
+lv:3Kiosks
 mr:टपरी|कियोस्क
 nb:Kiosk
 nl:3Kiosk
@@ -2775,7 +2775,7 @@ id:3Halte bus
 it:3Fermata|3autobus|3pullman
 ja:1バス停|停留所|トランスポート|バス|乗合|交通|ばす
 ko:버스 정류장|버스
-lv:5Autobusu pietura|pietura|autobuss|autobusi|U+1F68C|U+1F68F|U+1F68E|U+1F690
+lv:5Autobusu pietura|pietura|autobuss|autobusi
 mr:बस स्टॉप|बस थांबा
 nb:3Busstopp
 nl:3Bushalte|bus|halte
@@ -2814,7 +2814,7 @@ id:3Perhentian trem
 it:3Fermata|3tram
 ja:1トラム|トラム停留所|市電|トランスポート|交通|路面電車
 ko:시가 전차 정류장|시가 전차
-lv:Tramvaja pietura|pietura|tramvajs|tramvaji|U+1F683
+lv:Tramvaja pietura|pietura|tramvajs|tramvaji
 nb:3Trikkestopp
 nl:3Tramhalte
 pl:3Przystanek tramwajowy|tramwaj
@@ -2851,7 +2851,7 @@ id:3Stasiun bus
 it:5Autostazione|4fermata|autobus
 ja:1バスステーション|バス|駅|乗合|トランスポート|バス停|高速バス|乗車|停留所|ばす
 ko:버스 터미널|버스 정류장|버스
-lv:Autoosta|autobusi|autobuss|U+1F68C|U+1F68F|U+1F68D
+lv:Autoosta|autobusi|autobuss
 mr:बस स्थानक
 nb:3Busstasjon
 nl:Busstation|2bus|station
@@ -2891,7 +2891,7 @@ id:Rel kereta api
 it:3Stazione ferroviaria|3treno
 ja:1鉄道駅|鉄道|電車|交通|駅|鉄|電
 ko:1기차역|철도역
-lv:Vilcienu stacija|stacija|vilcieni|U+1F684|U+1F685|U+1F689|U+1F682|U+1F686|U+1F688|U+1F68A|U+1F68B
+lv:Vilcienu stacija|stacija|vilcieni
 mr:रेल्वे स्थानक|रेल्वे स्टेशन
 nb:Togstasjon
 nl:4Station|4spoorwegen|spoor|3trein
@@ -3012,7 +3012,7 @@ id:3Terminal|feri
 it:3Traghetto
 ja:1フェリー
 ko:페리|페리 터미널
-lv:Prāmis|terminālis|U+1F6A2|U+1F6A4|U+2693
+lv:Prāmis|terminālis
 mr:तर|तरी|नाव|बोट|फेरी
 nb:3Ferje|terminal
 nl:3Veerpont|veerboot|veer|pont|overzetboot
@@ -3052,7 +3052,7 @@ id:3Taksi
 it:3Taxi|3tassì
 ja:1タクシー
 ko:1택시|택시로 가다
-lv:Taksometrs|taksi|taxi|U+1F695|U+1F696
+lv:Taksometrs|taksi|taxi
 mr:टॅक्सी
 nb:3Drosje
 nl:3Taxi
@@ -3132,7 +3132,7 @@ id:3Atraksi|pemandangan
 it:3Attrattiva|3turistico
 ja:1アトラクション|観光スポット|観光|名所|観光名所
 ko:1관광 명소|관 광|명소|관광
-lv:Atrakcija|tūrisma objekts|U+1F3A0|U+1F3A1|U+1F3A2|U+1F3AA
+lv:Atrakcija|tūrisma objekts
 mr:प्रेक्षणीय स्थळ|पर्यटनीय स्थळ
 nb:3Attraksjon|severdigheter
 nl:3Attractie|3toerisme
@@ -3172,7 +3172,7 @@ id:3Pariwisata
 it:3Opere d'arte
 ja:1イラスト|1芸術作品
 ko:작품|아트워크
-lv:Mākslas darbs|U+1F3A8
+lv:Mākslas darbs
 mr:कलाकृती
 nb:Kunstverk
 nl:3Kunstwerk
@@ -3252,7 +3252,7 @@ id:3Informasi turis
 it:4Informazione
 ja:1インフォメーション|観光情報|情報|案内
 ko:여행 정보|관광 정보|정보
-lv:Tūrisma informācijas centrs|3TIC|informācija|U+1F481
+lv:Tūrisma informācijas centrs|3TIC|informācija
 mr:पर्यटक माहिती
 nb:3Turistinformasjon
 nl:4Toeristische informatie|3VVV|4informatie
@@ -3332,7 +3332,7 @@ id:4Tempat ibadah
 it:3Tempio
 ja:1礼拝|1寺院|1神社|仏閣|神殿|お寺
 ko:예배 장소|사찰|예배소
-lv:Lūgšanu vieta|lūgšanu nams|templis|U+1F64F
+lv:Lūgšanu vieta|lūgšanu nams|templis
 mr:देवस्थान|तीर्थक्षेत्र
 nb:3Gudshus|3tempel
 nl:3Gebedsplaats|3gebedshuis|3tempel
@@ -3372,7 +3372,7 @@ id:Gereja|tempat ibadah
 it:Chiesa|duomo|4cattedrale|tempio|basilica
 ja:教会|寺院|神社|仏閣|神殿|お寺
 ko:교회|기독교 교회|성당|공회당|사찰
-lv:Baznīca|lūgšanu vieta|lūgšanu nams|templis|katedrāle|bazilika|U+1F64F|U+26EA|U+271D|U+2626
+lv:Baznīca|lūgšanu vieta|lūgšanu nams|templis|katedrāle|bazilika
 mr:चर्च
 nb:4Kirke|gudshus
 nl:Kerk|tempel|kathedraal|gebedsplaats|gebedshuis
@@ -3411,7 +3411,7 @@ id:4Masjid|tempat ibadah
 it:4Moschea|duomo|tempio
 ja:モスク|寺院|神社|仏閣|神殿|お寺
 ko:모스크|사찰
-lv:Mošeja|lūgšanu nams|lūgšanu vieta|templis|U+1F64F|U+262A|U+1F54B|U+1F54C|U+262A
+lv:Mošeja|lūgšanu nams|lūgšanu vieta|templis
 mr:मशीद
 nb:4Moské|gudshus
 nl:4Moskee|tempel|gebedsplaats|gebedshuis
@@ -3450,7 +3450,7 @@ id:Kuil|tempat ibadah
 it:Tempio|duomo
 ja:寺|寺院|神社|仏閣|神殿|お寺
 ko:절|불교 사원|사찰
-lv:3Templis|lūgšanu vieta|lūgšanu nams|U+1F64F|U+26EA|U+2638
+lv:3Templis|lūgšanu vieta|lūgšanu nams
 mr:मंदिर
 nb:Tempel|gudshus
 nl:Tempel|gebedsplaats|gebedshuis
@@ -3489,7 +3489,7 @@ id:Kuil|tempat ibadah
 it:Tempio|duomo
 ja:寺|寺院|神社|仏閣|神殿|お寺
 ko:힌두교 사원|사원|절|사찰
-lv:3Templis|lūgšanu nams|lūgšanu vieta|U+1F64F|U+1F549
+lv:3Templis|lūgšanu nams|lūgšanu vieta
 mr:मंदिर
 nb:Tempel|gudshus
 nl:Tempel|gebedsplaats|gebedshuis
@@ -3528,7 +3528,7 @@ id:Kuil|tempat ibadah
 it:Santuario|tempio
 ja:神社|寺院|神社|仏閣|神殿|お寺
 ko:사당|신토 사당|사찰
-lv:Svētnīca|templis|lūgšanu nams|lūgšanu vieta|U+1F64F|U+26E9
+lv:Svētnīca|templis|lūgšanu nams|lūgšanu vieta
 mr:देवस्थान
 nb:Alter|gudshus
 nl:Heiligdom|tempel|gebedsplaats|gebedshuis
@@ -3566,7 +3566,7 @@ id:4Sinagoge|tempat ibadah
 it:4Sinagoga|tempio
 ja:ユダヤ教会|シナゴーグ|寺院|神社|仏閣|神殿|お寺
 ko:시나고그|유대교 회당
-lv:4Sinagoga|lūgšanu nams|lūgšanu vieta|templis|U+1F64F|U+1F54D|U+2721
+lv:4Sinagoga|lūgšanu nams|lūgšanu vieta|templis
 mr:सिनेगॉग
 nb:4Synagoge|gudshus
 nl:4Synagoge|tempel|gebedsplaats|gebedshuis
@@ -3605,7 +3605,7 @@ id:Kuil|tempat ibadah
 it:Tempio
 ja:寺|寺院|神社|仏閣|神殿|お寺
 ko:절|사찰|도교 사원
-lv:3Templis|lūgšanu vieta|U+1F64F|U+262F
+lv:3Templis|lūgšanu vieta
 mr:मंदिर
 nb:Tempel|gudshus
 nl:Tempel|gebedsplaats|gebedshuis
@@ -3643,7 +3643,7 @@ id:3Museum
 it:2Museo
 ja:1博物館|美術館
 ko:1박물관
-lv:2Muzejs|izstāde|galerija|U+1F3A8
+lv:2Muzejs|izstāde|galerija
 mr:संग्रहालय
 nb:3Museum
 nl:2Museum|attractie
@@ -3888,7 +3888,7 @@ id:4Kastel|Benteng Romawi|Gereja yang dibentengi|Benteng|Benteng bukit|Kremlin|R
 it:4Castello|Castra|Chiesa fortificata|Fortezza di collina|Cremlino|Maniero|Palazzo
 ja:城|お城|砦|城砦|カストラ|要塞化された教会|要塞|ヒルフォート|クレムリ|マナー・ハウス|宮殿
 ko:성|궁전|성채|요새|로마 요새|요새화된 교회|요새|힐포트|크렘린|매너하우스|궁전
-lv:4Pils|cietoksnis|U+1F3EF|U+1F3F0|U+1F451|U+1F478|kremlis|muiža
+lv:4Pils|cietoksnis|kremlis|muiža
 mr:गढी|रोमन किल्ला|तटबंदी असलेले चर्च|किल्ला|हिलफोर्ट|क्रेमलिन|मनोर घर|राजवाडा|किल्ला
 nb:Slott|Borg|Festning|Bygdeborg|Kreml|Herregård|Palass
 nl:4Kasteel|burcht|attractie|Castra|Weerkerk|Vesting|Heuvelfort|Kremlin|Manoir|Paleis
@@ -4087,7 +4087,7 @@ id:3Tugu peringatan
 it:4Memoriale|monumento
 ja:追悼|1記念碑|追悼碑
 ko:기념비|기념관|추모관
-lv:4Memoriāls|piemineklis|U+1F5FC|U+1F5FD|U+1F5FF
+lv:4Memoriāls|piemineklis
 mr:स्मारक
 nb:3Minnesmerke
 nl:Gedenkteken|monument|attractie
@@ -4367,7 +4367,7 @@ id:4Monumen
 it:4Monumento
 ja:1記念碑
 ko:기념비|기념탑
-lv:Piemineklis|statuja|U+1F5FD|U+1F5FF
+lv:Piemineklis|statuja
 mr:स्मारक
 nb:4Monument
 nl:4Monument|attractie
@@ -4527,7 +4527,7 @@ id:Reruntuhan
 it:Rovine
 ja:1古跡|古蹟|廃墟|城址|城跡
 ko:1유적
-lv:Drupas|U+1F5FF
+lv:Drupas
 mr:अवशेष
 nb:3Ruiner
 nl:3Ruïne|attractie
@@ -5033,7 +5033,7 @@ id:Penyewaan Sepeda
 it:Noleggio biciclette|4bicicletta|bici|3noleggio
 ja:レンタサイクル|自転車|自転車レンタル|貸し自転車|貸自転車|1レンタル
 ko:자전거 대여소|자전거 대여
-lv:4Velonoma|velosipēdu noma|divriteņu noma|4noma|U+1F6B2|U+1F6B4|U+1F6B5
+lv:4Velonoma|velosipēdu noma|divriteņu noma|4noma
 mr:भाड्याची सायकल
 nb:Sykkelutleie
 nl:4Fietsverhuur|2huur
@@ -5141,7 +5141,7 @@ id:Berbagi mobil
 it:3Car Sharing
 ja:カーシェアリング
 ko:카 셰어링|카 쉐어링|자동차 공유|차 공유|카셰어링
-lv:Automobiļu koplietošana|auto koplietošana|automašīnu koplietošana|koplietošana|automobilis|U+1F697|U+1F698|U+1F699|
+lv:Automobiļu koplietošana|auto koplietošana|automašīnu koplietošana|koplietošana|automobilis
 mr:कार पूल|कार शेअर
 nb:3Bildeling
 nl:3Carpool|Carpoolen|Auto delen|Autodelen
@@ -5180,7 +5180,7 @@ id:4Rental mobil
 it:3Noleggio di automobili|noleggio
 ja:1カーシェアリング|車|レンタカー|レンタル
 ko:카 렌탈|자동차 렌탈|차 렌탈|차 대여|자동차 대여|자동차 임대
-lv:Automobiļu noma|autonoma|noma|automašīnu noma|automobilis|automašīna|U+1F697|U+1F698|U+1F699
+lv:Automobiļu noma|autonoma|noma|automašīnu noma|automobilis|automašīna
 mr:भाड्याने गाडी
 nb:Bilutleie
 nl:3Autoverhuur|4huurauto|auto delen|auto|huur
@@ -5263,7 +5263,7 @@ id:Bioskop
 it:3Cinema|teatro
 ja:1映画館|シネマ|映画
 ko:시네마|영화관|상영관
-lv:4Kino|kinoteātris|U+1F3A6|U+1F3AC
+lv:4Kino|kinoteātris
 mr:चित्रपट|सिनेमा
 nb:3Kino
 nl:3Bioscoop|filmtheater|cinema
@@ -5347,7 +5347,7 @@ id:3Teater
 it:3Teatro
 ja:1劇場|シアター
 ko:연극|극장
-lv:Teātris|U+1F3AD
+lv:Teātris
 mr:नाट्यगृह|रंगमंच
 nb:3Teater
 nl:3Theater|schouwburg
@@ -5387,7 +5387,7 @@ id:Kelab malam
 it:3Night club
 ja:1ナイトクラブ|クラブ|ダンス
 ko:나이트클럽|클럽|나이트 클럽
-lv:Naktsklubs|diskotēka|dejas|U+1F378|U+1F379|U+1F46F|U+1F483
+lv:Naktsklubs|diskotēka|dejas
 mr:नाईट क्लब
 nb:4Nattklubb
 nl:3Discotheek|3disco|dansen|nachtclub
@@ -5426,7 +5426,7 @@ hu:Bordély
 it:Bordello
 ja:売春宿
 ko:사창가
-lv:Bordelis|U+1F3E9
+lv:Bordelis
 mr:वेश्यालय
 nb:Bordell
 nl:Bordeel
@@ -5510,7 +5510,7 @@ hu:Kaszinó
 it:Casinò
 ja:カジノ
 ko:카지노
-lv:Laimētava|U+1F3B0|U+1F3B2|U+1F3B4
+lv:Laimētava
 mr:जुगारीचा अड्डा|कॅसिनो
 nb:Kasino
 nl:Casino|goktent
@@ -5590,7 +5590,7 @@ id:Arkade
 it:Arcade
 ja:アーケード
 ko:아케이드
-lv:Arkāda|U+1F47E|U+1F579|U+1F3AE
+lv:Arkāda
 mr:आर्केड
 nb:Arcade
 nl:Arcade
@@ -5630,7 +5630,7 @@ id:Kampus
 it:4Collegio
 ja:1大学|カレッジ
 ko:칼리지|대학|대학교
-lv:Koledža|U+1F3EB
+lv:Koledža
 mr:महाविद्यालय|कॉलेज
 nb:Høyskole
 nl:Hogeschool|hoger beroepsonderwijs|hbo
@@ -5671,7 +5671,7 @@ id:Kantor pemadam kebakaran
 it:Squadra antincendio
 ja:1消防署
 ko:소방서
-lv:Ugunsdzēsības stacija|ugunsdzēsēji|U+1F692
+lv:Ugunsdzēsības stacija|ugunsdzēsēji
 mr:अग्निशमन केंद्र|फायर ब्रिगेड
 nb:Brannstasjon
 nl:Brandweer
@@ -5711,7 +5711,7 @@ id:Air mancur
 it:4Fontana|zampillo
 ja:1噴水|泉
 ko:분수
-lv:Strūklaka|U+26F2
+lv:Strūklaka
 mr:कारंजे
 nb:4Fontene
 nl:4Fontein
@@ -5903,7 +5903,7 @@ hu:Rendelőintézet|kórház|szanatórium
 id:4Klinik|rumah sakit
 it:4Clinica|ospedale
 ja:クリニック|病院、診療所
-lv:Klīnika|slimnīca|poliklīnika|U+1F3E5|U+1F489
+lv:Klīnika|slimnīca|poliklīnika
 mr:चिकित्सालय|क्लिनिक|दवाखाना
 nb:4Klinikk|sykehus
 nl:4Kliniek|ziekenhuis|hospitaal
@@ -5941,7 +5941,7 @@ hu:Rendelő|Klinika|orvosi rendelő|kórház
 id:Praktik dokter|Klinik|rumah sakit
 it:Studio medico|Clinica|ambulatorio|ospedale
 ja:医者のオフィス|クリニック
-lv:Ārsts|dakteris|klīnika|poliklīnika|U+1F489|U+1F3E5|U+1F691
+lv:Ārsts|dakteris|klīnika|poliklīnika
 mr:वैद्य|डॉक्टर|चिकित्सक
 nb:Legekontor|Klinikk|legesenter|sykehus
 nl:Huisartsenpost|Kliniek|huisarts|ziekenhuis|dokter
@@ -6442,7 +6442,7 @@ id:Taman kanak-kanak
 it:Scuola materna
 ja:1幼稚園|保育園|託児|託児所
 ko:유치원|보육|탁아소
-lv:Bērnudārzs|U+1F476|U+1F37C|U+1F6BC
+lv:Bērnudārzs
 mr:बालवाडी
 nb:Barnehage
 nl:Kleuterschool
@@ -6482,7 +6482,7 @@ id:Perpustakaan
 it:3Biblioteca
 ja:1図書館
 ko:도서관
-lv:Bibliotēka|U+1F4D6
+lv:Bibliotēka
 mr:ग्रंथालय|पुस्तकालय|लायब्ररी
 nb:3Bibliotek
 nl:3Bibliotheek
@@ -6517,7 +6517,7 @@ fa:پارکینگ
 fr:3parking
 hi:4पार्किंग
 ja:パーキング|コインパーキング
-lv:Autostāvvieta|U+1F697|U+1F17F|U+1F698|U+1F699
+lv:Autostāvvieta
 nl:3Parkeren|parkeerplaats|parking
 pt:3Estacionamento
 pt-BR:3Estacionamento
@@ -6671,7 +6671,7 @@ id:Kotak pos
 it:3Buca delle lettere|Buche delle lettere|5Casella della posta|Casella postale|Cassetta della posta|4Cassetta postale|Cassette delle lettere
 ja:1郵便ポスト|ポスト|郵便局
 ko:우편함|우체통
-lv:Pastkastīte|pasta kaste|U+2709|U+1F4E8|U+1F4E9|U+1F4EA|U+1F4EB|U+1F4EE|U+1F4EC|U+1F4ED
+lv:Pastkastīte|pasta kaste
 mr:टपालपेटी|पोस्ट बॉक्स
 nb:4Postboks
 nl:3Brievenbus|post
@@ -6707,7 +6707,7 @@ fr:3comptoir postal|bureau de poste
 hi:3डाकघर
 id:Kantor pos
 it:Ufficio postale
-lv:3Pasts|U+2709|U+1F3E3|U+1F4E8|U+1F4E9|U+1F3E4|U+1F4EF
+lv:3Pasts
 mr:टपालघर|पोस्ट ऑफिस
 nl:3Postkantoor
 pl:Poczta|listy
@@ -6785,7 +6785,7 @@ id:Sampah
 it:Spazzatura
 ja:ゴミ|ごみ|リサイクル|再利用|ダストボックス
 ko:쓰레기|휴지통
-lv:Atkritumu tvertne|atkritumu konteiners|miskaste|U+1F6AE
+lv:Atkritumu tvertne|atkritumu konteiners|miskaste
 mr:कचरापेटी
 nb:4Søppeldunk|4søppel
 nl:4Afvalcontainer|afval|prullenbak|vuilnis
@@ -6813,7 +6813,7 @@ cs:Recyklační středisko
 da:Genbrugsplads
 de:4Recyclinghof|Recyclingzentrum
 el:Κέντρο ανακύκλωσης
-en-US:4Recycling Center|U+1F6AE|U+267B
+en-US:4Recycling Center
 es:Centro de reciclaje|punto limpio
 et:Taaskasutuskeskus
 eu:Birziklatze zentroa|garbigune
@@ -6826,7 +6826,7 @@ id:TPA
 it:Centro di riciclaggio
 ja:リサクルセンター
 ko:재활용센터|재활용 센터
-lv:Atkritumu pārstrādes centrs|pārstrādes centrs|izgāztuve|U+1F6AE|U+267B
+lv:Atkritumu pārstrādes centrs|pārstrādes centrs|izgāztuve
 mr:भंगारवाला|पुनर्वापर केंद्र|रिसायकल सेंटर
 nb:Resirkuleringssenter|innsamlingsstasjon
 nl:Milieustraat|recycling centrum|milieupark|gemeentewerf
@@ -6867,7 +6867,7 @@ id:Wadah daur ulang
 it:Contenitore per materiali riciclabili
 ja:リサイクルボックス
 ko:재활용 쓰레기통|재활용품통
-lv:Pārstrādes konteiners|otrreizējas pārstrādes konteiners|U+1F6AE|U+267B
+lv:Pārstrādes konteiners|otrreizējas pārstrādes konteiners
 mr:रीसायकलिंग कंटेनर
 nb:Gjenvinningsbeholder
 nl:Recycling container
@@ -7504,7 +7504,7 @@ id:3Telepon
 it:2Telefono
 ja:1公衆電話|電話|緑電話|電話ボックス
 ko:전화
-lv:Tālrunis|telefons|U+260E|U+1F4DE
+lv:Tālrunis|telefons
 mr:फोन
 nb:3Telefon
 nl:2Telefoon|publieke telefoon
@@ -7583,7 +7583,7 @@ fr:wc
 hu:WC
 it:WC
 ja:お手洗い|便所|厠
-lv:2WC|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
+lv:2WC
 nl:WC|toilet
 pl:wc|ubikacja|wychodek
 pt:Casa de banho|WC|Sanitários|lavatório
@@ -7614,7 +7614,7 @@ id:4Universitas
 it:4Università|istituto
 ja:1大学
 ko:대학|대학교
-lv:Universitāte|U+1F393
+lv:Universitāte
 mr:विद्यापीठ
 nb:Universitet
 nl:4Universiteit
@@ -7654,7 +7654,7 @@ id:Benua
 it:Continente|terraferma
 ja:1大陸
 ko:대륙
-lv:Kontinents|U+1F30D|U+1F30E|U+1F30F
+lv:Kontinents
 mr:खंड
 nb:Kontinent
 nl:Continent
@@ -8169,7 +8169,7 @@ id:Ladang
 it:Fattoria|allevamento
 ja:1農場
 ko:농장
-lv:Lauksaimniecība|ferma|U+1F411|U+1F414|U+1F417|U+1F42E|U+1F404|U+1F430|U+1F407|U+1F40F|U+1F410|U+1F413|U+1F424|U+1F437|U+1F43D|U+1F69C
+lv:Lauksaimniecība|ferma
 mr:शेत
 nb:Gård
 nl:Boerderij
@@ -8209,7 +8209,7 @@ id:Lintasan balap
 it:Pista|Circuito
 ja:1レース場|レース
 ko:경주로|경마장
-lv:Sacīkšu trase|U+1F3C1
+lv:Sacīkšu trase
 mr:शर्यतीचा मार्ग
 nb:Løpebane
 nl:Renbaan|racebaan
@@ -8375,7 +8375,7 @@ id:Puncak
 it:Monte|montagna|cima|picco
 ja:1山頂|山|頂|頂上|峰
 ko:산|산악
-lv:Smaile|kalns|virsotne|U+1F5FB|U+1F304
+lv:Smaile|kalns|virsotne
 mr:शिखर
 nb:Topp|fjell
 nl:Top|berg|bergtop|heuvel|heuveltop
@@ -8472,7 +8472,7 @@ id:Hutan
 it:Foresta
 ja:1森林|森|林|人工林|自然林
 ko:숲
-lv:Mežs|U+1F332|U+1F333
+lv:Mežs
 mr:वन
 nb:Skog|Barskog|Løvskog
 nl:Bos|woud
@@ -8513,7 +8513,7 @@ id:Taman
 it:Parco
 ja:1公園
 ko:공원
-lv:Parks|U+1F332|U+1F333|U+1F60C
+lv:Parks
 mr:उद्यान|पार्क
 nb:Park
 nl:Park
@@ -8594,7 +8594,7 @@ id:3Hostel
 it:3Ostello
 ja:1ホステル|宿泊|宿|民宿
 ko:호스텔|게스트하우스|모텔
-lv:Hostelis|motelis|U+1F3E8
+lv:Hostelis|motelis
 mr:छात्रालय|वसतिगृहात|हॉस्टेल
 nb:Vandrerhjem
 nl:3Hostel|jeugdherberg|motel
@@ -8631,7 +8631,7 @@ hi:3होटल
 hu:Szálloda|hotel|motel|szállás
 it:albergo
 ja:ホテル
-lv:motelis|U+1F3E8|U+1F62A|U+1F634|
+lv:motelis
 nl:motel
 pl:Hotel
 pt:motel
@@ -8667,7 +8667,7 @@ id:Wisma tamu
 it:Guest house|albergo|ostello|pensione|affittacamere
 ja:1ゲストハウス|ホステル|民宿
 ko:호스텔|게스트하우스
-lv:Viesu nams|viesu māja|U+1F3E8
+lv:Viesu nams|viesu māja
 mr:अतिथीगृह
 nb:Gjestehus
 nl:Gasthuis|B&B|bed and breakfast|hostel
@@ -8706,7 +8706,7 @@ id:Motel
 it:3Motel|albergo|ostello
 ja:1モーテル
 ko:모텔|호스텔
-lv:Motelis|U+1F3E8
+lv:Motelis
 nb:Motell
 nl:3Motel|hostel
 pl:3Motel|hostel
@@ -8781,7 +8781,7 @@ id:Penata rambut
 it:4Parrucchiera
 ja:1美容師|床屋|髪|パーマ|散髪|理髪
 ko:이발사|미용실|이발소|바버샵
-lv:Frizētava|U+2702|U+1F488|
+lv:Frizētava
 mr:न्हावी|केशभूषाकार|हेअर कट
 nb:Frisør
 nl:3Kapper|kapsalon|haarsalon|kapperszaak
@@ -8821,7 +8821,7 @@ id:Bandar udara
 it:3Aeroporto|4aeroplano
 ja:1空港
 ko:공항|비행기
-lv:3Lidosta|U+2708
+lv:3Lidosta
 mr:विमानतळ
 nb:3Flyplass
 nl:3Vliegveld|3vliegtuig
@@ -8905,7 +8905,7 @@ id:4Stadion
 it:4Stadio|4sport
 ja:1スタジアム|競技場|運動場
 ko:경기장|스타디움
-lv:Stadions|sports|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F4AA|U+1F3C9
+lv:Stadions|sports
 mr:स्टेडियम
 nb:4Stadion
 nl:4Stadion|stadium|4sport|arena
@@ -9027,7 +9027,7 @@ id:Olahraga
 it:Centro sportivo|sport
 ja:1スポーツセンター|スポーツ|体育館|総合体育館
 ko:스포츠 센터|스포츠
-lv:4Sporta centrs|U+26BD|U+26BE|U+1F3BE|U+1F4AA|U+1F3C8|U+1F3C0|U+1F3C9
+lv:4Sporta centrs
 mr:क्रीडा केंद्र
 nb:4Sportssenter
 nl:4Sportcentrum|sport
@@ -9066,7 +9066,7 @@ id:Lapangan golf
 it:Campo da golf
 ja:1ゴルフコース|ゴルフ場|ゴルフクラブ|ゴルフ
 ko:골프장|골프 코스
-lv:Golfa laukums|U+26F3
+lv:Golfa laukums
 mr:गोल्फचे मैदान
 nb:Golfbane
 nl:Golfbaan
@@ -9156,7 +9156,7 @@ id:Lapangan olahraga|lapangan
 it:Campo sportivo|campo|sport
 ja:1運動場|スポーツ|トラック|球場
 ko:운동장
-lv:4Sporta laukums|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F3C9|U+1F3C3
+lv:4Sporta laukums
 mr:क्रीडांगण
 nb:4Idrettsplass|sport
 nl:4Sportveld|veld|sport
@@ -9195,7 +9195,7 @@ id:Kolam renang
 it:4Piscina|sport
 ja:1プール|スイミング|スイミングプール|水泳場|水泳
 ko:수영장
-lv:Peldbaseins|baseins|sports|U+1F3CA
+lv:Peldbaseins|baseins|sports
 mr:जलतरण तलाव
 nb:Svømmebasseng
 nl:4Zwembad|sport
@@ -10282,7 +10282,7 @@ id:Gedung
 it:Edificio
 ja:1建物|ビル
 ko:건물|빌딩
-lv:Ēka|māja|celtne|nams|U+1F3E0|U+1F3E1|U+1F3E2
+lv:Ēka|māja|celtne|nams
 mr:इमारत|बिल्डिंग|वाडा
 nb:Bygning
 nl:Gebouw
@@ -10360,7 +10360,6 @@ fr:Poste de police|Commissariat
 it:6Commissariato|5Questura|4Caserma|4Guardia|5Carabinieri
 ja:1屯所|ポリス|交番|お巡りさん|おまわりさん|通報
 ko:보안대
-lv:U+1F693|U+1F46E|U+1F694|U+1F482|U+1F6A8
 pl:Policja|komisariat|posterunek
 pt:4Polícia|2Guarda Nacional Republicana|2GNR|2PSP|4Seccional
 pt-BR:Polícia
@@ -10527,7 +10526,7 @@ id:Air minum
 it:3Acqua potabile
 ja:1水飲み場|飲料水|飲水
 ko:음수대|식수|분수식 물마시는 곳
-lv:4Dzeramais ūdens|U+1F6B0
+lv:4Dzeramais ūdens
 mr:पिण्याचे पाणी
 nb:4Drikkevann
 nl:4Drinkwater
@@ -11062,7 +11061,7 @@ id:Bengkel mobil
 it:Meccanico|3Riparazione auto|auto|macchina|3automobile|vettura
 ja:1自動車修理|車|自動車|カー|リペア|修理|カーリペア
 ko:자동차 수리|정비|자동차 수리소|차 수리소
-lv:Autoserviss|serviss|remonts|mehāniķis|U+1F527
+lv:Autoserviss|serviss|remonts|mehāniķis
 mr:कार दुरुस्तीचे दुकान|गॅरेज|गराज
 nb:Bilverksted
 nl:3Auto reparatie|auto|wagen|garage
@@ -11101,7 +11100,7 @@ id:5Perkemahan
 it:4Campeggio|campeggi|camping
 ja:1キャンプ場|キャンプ|キャンピング|バーベキュー|テント場
 ko:캠프|캠프장|캠핑을|캠핑|캠핑장|캠핑장소
-lv:4Kempings|teltis|telšu pilsētiņa|U+26FA
+lv:4Kempings|teltis|telšu pilsētiņa
 mr:शिबीर|कॅम्पिंग
 nb:4Campingplass|telt
 nl:4Camping|kamperen|kampeerplek
@@ -11141,7 +11140,7 @@ id:Lokasi perkemahan
 it:Area per campeggiatori
 ja:1キャラバンサイト
 ko:캐러밴|카라반 사용가능 캠핑장
-lv:4Kemperu parks|mobilo māju parks|U+1F69A|U+26FA|U+1F69B
+lv:4Kemperu parks|mobilo māju parks
 nb:4Camping
 nl:4Caravan site|camping|woonwagenkamp
 pl:4Pole namiotowe|5karawaning
@@ -12487,7 +12486,7 @@ id:Pantai
 it:Spiaggia
 ja:ビーチ
 ko:바닷가|해변
-lv:Pludmale|U+1F459
+lv:Pludmale
 mr:समुद्रकिनारा|बीच
 nb:Strand
 nl:Strand
@@ -13394,7 +13393,7 @@ id:Pusat kebugaran|senam
 it:Centro benessere|palestra
 ja:フィットネスセンター、ジム
 ko:피트니스센터|피트니스 센터|헬스장
-lv:Fitnesa centrs|trenažieru zāle|fitnesa klubs|U+1F4AA
+lv:Fitnesa centrs|trenažieru zāle|fitnesa klubs
 mr:व्यायामशाळा|जिम
 nb:Treningssenter
 nl:3Fitnesscentrum|sportschool|gym|fitness|workout
@@ -17522,7 +17521,7 @@ id:Toko elektronik
 it:Negozio di articoli elettrici
 ja:電気店
 ko:전기용품점
-lv:Elektrība|U+1F50B|U+1F50C|U+1F4A1|U+1F526
+lv:Elektrība
 nb:Elektronisk butikk
 nl:Witgoed winkel
 pl:Sklep elektryczny
