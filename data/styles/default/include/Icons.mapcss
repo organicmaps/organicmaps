@@ -1082,6 +1082,7 @@ node|z18-[man_made=chimney],
 area|z18-[man_made=chimney],
 node|z18-[man_made=crane],
 area|z18-[man_made=crane],
+node|z16-[man_made=monitoring_station],
 node|z18-[man_made=silo],
 area|z18-[man_made=silo],
 node|z18-[man_made=storage_tank],
@@ -1603,6 +1604,9 @@ node|z18-[power=tower],
 node|z15-[man_made=flagpole],
 node|z16-[man_made=mast],
 {icon-image: dot-m.svg;}
+
+node|z16-[man_made=monitoring_station],
+{icon-image: mast-m.svg;}
 
 node|z16-[man_made=tower],
 node|z16-[man_made=tower][tower:type=communication],

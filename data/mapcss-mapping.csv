@@ -960,9 +960,9 @@ deprecated|deprecated;837;x
 deprecated|deprecated;838;x
 landuse|military|danger_area;[landuse=military][military=danger_area][wikipedia?],[landuse=military][military=cordon][wikipedia?];;name;int_name;839;
 boundary|protected_area;840;
-deprecated|deprecated;841;x
-deprecated|deprecated;842;x
-deprecated|deprecated;843;x
+man_made|monitoring_station;841;
+man_made|monitoring_station|water_level;[man_made=monitoring_station][monitoring:water_level=yes];;name;int_name;842;
+man_made|monitoring_station|weather;[man_made=monitoring_station][monitoring:weather=yes];;name;int_name;843;
 deprecated|deprecated;844;x
 deprecated|deprecated;845;x
 deprecated|deprecated;846;x
