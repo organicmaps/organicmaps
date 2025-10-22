@@ -105,7 +105,7 @@ public final class BookmarkCategory implements Parcelable
 
   public void toggleVisibility()
   {
-    setVisibility(isVisible());
+    setVisibility(!isVisible());
   }
 
   public int size()
