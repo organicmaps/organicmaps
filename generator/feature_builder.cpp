@@ -210,7 +210,7 @@ bool FeatureBuilder::PreSerialize()
       auto const & types = GetTypes();
       if (ftypes::IsMotorwayJunctionChecker::Instance()(types) ||
           (m_params.name.IsEmpty() &&
-           (ftypes::IsPostPoiChecker::Instance()(types) || ftypes::IsRailwaySubwayEntranceChecker::Instance()(types) ||
+           (ftypes::IsPostPoiChecker::Instance()(types) || ftypes::IsSubwayEntranceChecker::Instance()(types) ||
             ftypes::IsEntranceChecker::Instance()(types) || ftypes::IsAerowayGateChecker::Instance()(types) ||
             ftypes::IsPlatformChecker::Instance()(types) || ftypes::IsCampPitchChecker::Instance()(types))))
       {
