@@ -3399,12 +3399,14 @@ zh-Hant:1野餐|旅遊
 amenity-place_of_worship
 en:Place of Worship|3temple|U+1F64F
 ar:1مكان عبادة|معبد
+be:3Храм
 bg:Храм|молитва|църква|черква|поп|свещеник
+ca:3Temple
 cs:4Posvátné místo|3chrám
 da:3Tempel|3kultsted
 de:3Anbetungsstätte|Tempel|Gotteshaus
 el:Χώρος λατρείας|ναός|αξιοθέατα
-es:4Lugar de culto|templo
+es:3Templo|4Lugar de culto
 et:Religioosne koht|3Tempel
 eu:4Gurtzalekua|3tenplua
 fa:معبد
@@ -11077,7 +11079,6 @@ zh-Hans:水體
 zh-Hant:水體
 
 natural-water|@waterbody
-sl:4Polnilnica|Polnjenje
 
 # Do not add the "water" search term
 natural-water-basin|landuse-basin|@waterbody
@@ -11223,12 +11224,12 @@ es:5Reservorio
 et:Reservuaar
 eu:Urtegia
 fa:مخزن
-fi:Säiliö
+fi:Tekojärvi|Patoallas
 fr:5Réservoir
 he:מאגר
 hu:5Rezervoár
 id:Waduk
-it:Serbatoio
+it:Bacino idrico|Invaso
 ja:貯水池
 ko:저수지
 lv:5Rezervuārs
@@ -11240,7 +11241,7 @@ pt:5Reservatório
 ro:5Rezervor
 ru:5Водохранилище
 sk:Nádrž
-sl:4Reka|Potok
+sl:5Rezervoar|Akumulacijsko jezero
 sv:5Reservoar
 sw:Hifadhi
 th:อ่างเก็บน้ำ
