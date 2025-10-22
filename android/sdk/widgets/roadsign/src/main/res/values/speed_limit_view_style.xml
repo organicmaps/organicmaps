@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="SpeedLimitView" />
+
+  <style name="SpeedLimitView.Vienna">
+    <item name="shape">circle</item>
+
+    <!-- Default state colors -->
+    <item name="backgroundColor">@color/road_sign_white</item>
+    <item name="outlineColor">@color/road_sign_red</item>
+    <item name="contentColor">@color/road_sign_black</item>
+
+    <!-- Alert state colors -->
+    <item name="backgroundAlertColor">@color/road_sign_red</item>
+    <item name="outlineAlertColor">@color/road_sign_red</item>
+    <item name="contentAlertColor">@color/road_sign_white</item>
+
+    <item name="edgeWidthRatio">0%</item>
+    <item name="outlineWidthRatio">10%</item>
+  </style>
+
+  <style name="SpeedLimitView.Japan" parent="SpeedLimitView.Vienna">
+    <item name="contentColor">@android:color/holo_blue_dark</item>
+    <item name="contentAlertColor">@color/road_sign_white</item>
+
+    <item name="outlineWidthRatio">12%</item>
+  </style>
+
+  <style name="SpeedLimitView.Mutcd">
+    <item name="shape">square</item>
+
+    <!-- Default state colors -->
+    <item name="backgroundColor">@color/road_sign_white</item>
+    <item name="outlineColor">@color/road_sign_black</item>
+    <item name="edgeColor">@color/road_sign_white</item>
+    <item name="contentColor">@color/road_sign_black</item>
+
+    <!-- Alert state colors -->
+    <item name="backgroundAlertColor">@color/road_sign_red</item>
+    <item name="outlineAlertColor">@color/road_sign_red</item>
+    <item name="edgeAlertColor">@color/road_sign_red</item>
+    <item name="contentAlertColor">@color/road_sign_white</item>
+
+    <item name="edgeWidthRatio">2%</item>
+    <item name="outlineWidthRatio">5%</item>
+    <item name="cornerRadiusRatio">10%</item>
+  </style>
+
+  <style name="SpeedLimitView.Default" parent="SpeedLimitView.Vienna" />
+</resources>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ABABAB"
+    android:orientation="vertical">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:theme="@style/Theme.SpeedLimitView.Vienna">
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@android:style/TextAppearance.Material.Display4"
+        android:text=""
+        android:layout_weight="1"/>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@android:style/TextAppearance.Material.Display4"
+        android:text="Default"
+        android:layout_weight="1"/>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@android:style/TextAppearance.Material.Display4"
+        android:text="Alert"
+        android:layout_weight="1"/>
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:theme="@style/Theme.SpeedLimitView.Vienna">
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        style="@android:style/TextAppearance.Material.Display4"
+        android:text="Vienna" />
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+      <include layout="@layout/speed_limit_list" />
+    </FrameLayout>
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.SpeedLimitView.Alert">
+      <include layout="@layout/speed_limit_list" />
+    </FrameLayout>
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:theme="@style/Theme.SpeedLimitView.Japan">
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        style="@android:style/TextAppearance.Material.Display4"
+        android:text="Japan" />
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+      <include layout="@layout/speed_limit_list" />
+    </FrameLayout>
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.SpeedLimitView.Alert">
+      <include layout="@layout/speed_limit_list" />
+    </FrameLayout>
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:theme="@style/Theme.SpeedLimitView.Mutcd">
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        style="@android:style/TextAppearance.Material.Display4"
+        android:text="Mutcd" />
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+      <include layout="@layout/speed_limit_list" />
+    </FrameLayout>
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.SpeedLimitView.Alert">
+      <include layout="@layout/speed_limit_list" />
+    </FrameLayout>
+  </LinearLayout>
+</LinearLayout>

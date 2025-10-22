@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <attr name="speedLimitViewStyle" format="reference" />
+
+  <declare-styleable name="SpeedLimitView">
+    <attr name="shape" />
+
+    <!-- Default state colors -->
+    <attr name="backgroundColor" />
+    <attr name="outlineColor" />
+    <attr name="edgeColor" />
+    <attr name="contentColor" />
+
+    <!-- Alert state colors -->
+    <attr name="backgroundAlertColor" />
+    <attr name="outlineAlertColor" />
+    <attr name="edgeAlertColor" />
+    <attr name="contentAlertColor" />
+
+    <attr name="edgeWidthRatio" />
+    <attr name="outlineWidthRatio" />
+    <attr name="cornerRadiusRatio" />
+
+    <!-- These values are used only in edit mode -->
+    <attr name="editModeSpeedLimit" format="integer" />
+    <attr name="editModeAlert" format="boolean" />
+  </declare-styleable>
+</resources>
