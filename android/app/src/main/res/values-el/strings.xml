@@ -579,9 +579,9 @@
     <string name="transliteration_title">Μεταγραφή στο λατινικό αλφάβητο</string>
     <string name="learn_more">Μάθετε περισσότερα</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Χρησιμοποιήστε την αναζήτηση ή πατήστε στο χάρτη για να προσθέσετε ένα σημείο εκκίνησης της διαδρομής</string>
+    <string name="routing_add_start_point">Χρησιμοποιήστε την αναζήτηση, επιλέξτε έναν σελιδοδείκτη ή πατήστε στο χάρτη για να προσθέσετε ένα σημείο εκκίνησης της διαδρομής</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Χρησιμοποιήστε την αναζήτηση ή πατήστε στο χάρτη για να προσθέσετε ένα σημείο προορισμού</string>
+    <string name="routing_add_finish_point">Χρησιμοποιήστε την αναζήτηση, επιλέξτε έναν σελιδοδείκτη ή πατήστε στο χάρτη για να προσθέσετε ένα σημείο προορισμού</string>
     <string name="planning_route_manage_route">Διαχείριση διαδρομής</string>
     <string name="button_plan">Σχεδιασμός</string>
     <string name="placepage_remove_stop">Αφαίρεση στάσης</string>

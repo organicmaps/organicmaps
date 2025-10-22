@@ -100,7 +100,6 @@
     <string name="measurement_units">Afstandseenhede</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Kies tussen myle en kilometers</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Waar om te eet</string>
@@ -144,7 +143,6 @@
     <string name="category_water">Water</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Karavaanfasiliteite</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notas</string>
@@ -336,7 +334,6 @@
     <string name="gray">Grys</string>
     <!-- blue gray color -->
     <string name="blue_gray">Blougrys</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Wanneer u die roete volg, hou asb. die volgende in gedagte:</string>
     <string name="dialog_routing_disclaimer_priority">– Padtoestande, verkeersreëls en padtekens neem kry voorkeur bo die navigasiewenke;</string>
@@ -366,7 +363,6 @@
     <string name="not_now">Nie nou nie</string>
     <string name="dialog_routing_download_and_build_cross_route">Wil u die kaart aflaai en ’n meer optimale roete bereken wat oor meer as een kaart loop?</string>
     <string name="dialog_routing_download_cross_route">Laai bykomende kaarte af om ’n beter roete te bereken wat die grense van hierdie kaart oorskry.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Om te begin met soek en roetebeskrywings te kan maak moet u die kaart aflaai. U het daarna nie meer ’n internetverbinding nodig nie.</string>
     <string name="search_select_map">Kies kaart</string>
@@ -681,7 +677,6 @@
     <string name="moreyear_ago_sorttype">Meer as ’n jaar gelede</string>
     <string name="near_me_sorttype">Naby my</string>
     <string name="others_sorttype">Ander</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Kos</string>
     <string name="tourist_places">Besienswaardighede</string>

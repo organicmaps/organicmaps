@@ -1321,3 +1321,7 @@
 "type.barrier.jersey_barrier" = "Lokun";
 "type.barrier.debris" = "Mulningur";
 "type.barrier.log" = "Bjálkalokun";
+"type.amenity.boat_rental" = "Bátaleiga";
+"type.shop.telecommunication" = "Verslun með fjarskiptabúnað";
+"type.leisure.indoor_play" = "Leikjamiðstöð";
+"type.tourism.camp_pitch" = "Tjaldstæði";

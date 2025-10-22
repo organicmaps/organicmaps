@@ -486,7 +486,7 @@
     <string name="downloader_download_all_button">Niżżel kollox</string>
     <string name="editor_report_problem_desription_2">Jew agħmilha int stess f’ https://www.openstreetmap.org/</string>
     <string name="dialog_routing_download_cross_route">Niżżel mapep addizzjonali biex toħloq rotta aħjar li taqsam il-konfini ta ’din il-mappa.</string>
-        <string name="routing_not_enough_space">Mhux biżżejjed spazju</string>
+    <string name="routing_not_enough_space">Mhux biżżejjed spazju</string>
     <string name="logout">Oħroġ</string>
     <string name="red">Aħmar</string>
     <string name="orange">Oranġjo</string>

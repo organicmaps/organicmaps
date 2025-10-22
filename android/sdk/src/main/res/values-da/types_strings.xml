@@ -1093,7 +1093,7 @@
     <string name="type.tourism.artwork.painting">Kunstværk</string>
     <string name="type.tourism.artwork.sculpture">Kunstværk</string>
     <string name="type.tourism.artwork.statue">Kunstværk</string>
-    <string name="type.tourism.attraction">Attraktioner</string>
+    <string name="type.tourism.attraction">Attraktion</string>
     <string name="type.attraction.amusement_ride">Forlystelse</string>
     <string name="type.attraction.animal">Indhegning til dyr</string>
     <string name="type.attraction.carousel">Karrusel</string>
@@ -1388,4 +1388,13 @@
     <string name="type.man_made.monitoring_station">Overvågningsstation</string>
     <string name="type.man_made.monitoring_station.water_level">Station til overvågning af vandstand</string>
     <string name="type.man_made.monitoring_station.weather">Station til overvågning af vejret</string>
+
+    <string name="type.barrier.yes">Barriere</string>
+    <string name="type.building.guardhouse">Vagt</string>
+    <string name="type.office.security">Sikkerhedskontor</string>
+    <string name="type.shop.lighting">Belysningsbutik</string>
+    <string name="type.amenity.luggage_locker">Bagageboks</string>
+    <string name="type.post_office.post_partner">Postpartner</string>
+    <string name="type.railway.station.subway.qingdao">Metrostation</string>
+
 </resources>

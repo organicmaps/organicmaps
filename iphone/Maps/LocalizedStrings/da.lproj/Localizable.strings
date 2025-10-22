@@ -964,7 +964,7 @@
 "car_continue_in_the_car" = "Til bilens skærm";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Vandring";
+"button_layer_outdoor" = "Friluft";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Eksporter alle bogmærker og spor";
@@ -1046,16 +1046,16 @@
 "track_recording_toast_nothing_to_save" = "Sporet er tomt - der er ikke noget at gemme";
 "edit_track" = "Rediger spor";
 "saved" = "Gemt";
-"button_layer_hiking" = "Hiking";
-"button_layer_cycling" = "Cycling";
+"button_layer_hiking" = "Vandring";
+"button_layer_cycling" = "Cykling";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"right" = "Right";
-"show_at_the_bottom" = "Show at the bottom";
-"bottom" = "Bottom";
+"bookmarks_text_placement_title" = "Bogmærk navne på kortet";
+"bookmarks_text_placement_description" = "Hvis der er for mange bogmærker, kan visning af deres navne på kortet gøre appen langsommere.";
+"show_to_the_right" = "Vis til højre";
+"right" = "Højre";
+"show_at_the_bottom" = "Vis i bunden";
+"bottom" = "Bund";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "For at vise ruter, skal kortene være opdateret.";
@@ -1065,4 +1065,4 @@
 "contribute_to_osm_add_place" = "Tilføj sted";
 "contribute_to_osm_update_map" = "Opdater kortet for at bidrage";
 "contribute_to_osm_update_map_description" = "Du skal opdatere %@-kortet til den nyeste version, før du kan bidrage til OpenStreetMap-dataene";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Erstat stop";

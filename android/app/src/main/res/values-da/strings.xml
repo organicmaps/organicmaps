@@ -547,9 +547,9 @@
     <string name="transliteration_title">Translitterer til det latinske alfabet</string>
     <string name="learn_more">Flere oplysninger</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Brug søgning eller tryk på kortet for at tilføje et startpunkt for en rute</string>
+    <string name="routing_add_start_point">Brug søgning, vælg et bogmærke eller tryk på kortet for at tilføje et startpunkt for en rute</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Brug søgning eller tryk på kortet for at tilføje et destinationspunkt</string>
+    <string name="routing_add_finish_point">Brug søgning, vælge et bogmærke eller tryk på kortet for at tilføje et destinationspunkt</string>
     <string name="planning_route_manage_route">Administrer rute</string>
     <string name="button_plan">Planlæg</string>
     <string name="placepage_remove_stop">Fjern stop</string>
@@ -750,7 +750,7 @@
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Giv tilladelser</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">Vandring</string>
+    <string name="button_layer_outdoor">Friluft</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">Webbrowser er ikke tilgængelig</string>
     <string name="volume">Lydstyrke</string>
@@ -841,4 +841,11 @@
     <string name="prefs_group_information">Information</string>
     <string name="saved">Gemt</string>
     <string name="osm_note_toast">Note vil blive send til OpenStreetMap</string>
+    <string name="osm_note_hint">Du kan også efterlade en note til OpenStreetMap-fællesskabet, så en anden kan tilføje eller rette et sted her.</string>
+    <string name="bookmarks_text_placement_title">Bogmærk navne på kortet</string>
+    <string name="bookmarks_text_placement_description">Hvis der er for mange bogmærker, kan visning af deres navne på kortet gøre appen langsommere.</string>
+    <string name="show_to_the_right">Vis til højre</string>
+    <string name="show_at_the_bottom">Vis i bunden</string>
+    <string name="share_track">Del spor</string>
+    <string name="delete_track_dialog_title">Slet %s?</string>
 </resources>

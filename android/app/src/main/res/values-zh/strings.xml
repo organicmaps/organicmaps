@@ -590,9 +590,9 @@
     <string name="transliteration_title">拉丁字母音译</string>
     <string name="learn_more">了解更多信息</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">请搜索地点或点击地图以添加路线起点</string>
+    <string name="routing_add_start_point">请使用搜索、选择书签或点击地图添加路线起点</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">请搜索地点或点击地图以添加目的地</string>
+    <string name="routing_add_finish_point">请使用搜索、选择书签或点击地图添加目的地</string>
     <string name="planning_route_manage_route">管理路线</string>
     <string name="button_plan">规划</string>
     <string name="placepage_remove_stop">删除站点</string>

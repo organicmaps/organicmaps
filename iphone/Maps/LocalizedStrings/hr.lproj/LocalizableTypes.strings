@@ -183,7 +183,7 @@
 "type.amenity.water_point" = "Water Tank Refill Point";
 "type.amenity.water_point.drinking_water_no" = "Water Tank Refill Point";
 "type.barrier" = "Barrier";
-"type.barrier.block" = "Block";
+"type.barrier.block" = "Blok";
 "type.barrier.bollard" = "Bollard";
 "type.barrier.border_control" = "Border Control";
 "type.barrier.chain" = "Chain";
@@ -1319,3 +1319,5 @@
 "type.power.portal" = "Power Tower (Portal)";
 "type.shop.lighting" = "Lighting Shop";
 "type.amenity.boat_rental" = "Iznajmljivanje čamaca";
+"type.barrier.debris" = "Ruševina";
+"type.barrier.jersey_barrier" = "Blok";

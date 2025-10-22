@@ -98,7 +98,6 @@
     <string name="measurement_units">Đơn vị đo</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Chọn giữa dặm và kilômét</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Ăn ở đâu</string>
@@ -144,7 +143,6 @@
     <string name="category_water">Nước</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Đối với RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Ghi chú</string>
@@ -334,7 +332,6 @@
     <string name="gray">Xám</string>
     <!-- blue gray color -->
     <string name="blue_gray">Xám xanh da trời</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Khi đi theo tuyến đường, hãy lưu ý:</string>
     <string name="dialog_routing_disclaimer_priority">— Điều kiện đường, luật giao thông và biển báo đường bộ luôn được ưu tiên hơn lời khuyên định hướng;</string>
@@ -364,7 +361,6 @@
     <string name="not_now">Lúc khác</string>
     <string name="dialog_routing_download_and_build_cross_route">Bạn có muốn tải về bản đồ và tạo một tuyến đường tối ưu hơn kéo dài trên nhiều hơn một bản đồ?</string>
     <string name="dialog_routing_download_cross_route">Tải về bản đồ để tạo tuyến đường tối ưu hơn mà đi qua cạnh của bản đồ này.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Để bắt đầu tìm kiếm và tạo đường đi, vui lòng tải về bản đồ, và bạn sẽ không cần đến kết nối Internet nữa.</string>
     <string name="search_select_map">Chọn bản đồ</string>
@@ -675,7 +671,6 @@
     <string name="moreyear_ago_sorttype">Hơn một năm trước</string>
     <string name="near_me_sorttype">Ở gần tôi</string>
     <string name="others_sorttype">Khác</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Đồ ăn</string>
     <string name="tourist_places">Danh lam thắng cảnh</string>

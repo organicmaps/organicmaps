@@ -704,7 +704,6 @@
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Uitgang";
-
 "planning_route_manage_route" = "Beheer route";
 "button_plan" = "Plan";
 "placepage_remove_stop" = "Verwijder tussenstop";
@@ -849,7 +848,7 @@
 "moreyear_ago_sorttype" = "Meer dan een jaar geleden";
 "near_me_sorttype" = "Dicht bij mij";
 "others_sorttype" = "Andere";
-"food_places" = "Eten";
+"food_places" = "Voedsel";
 "tourist_places" = "Bezienswaardigheden";
 "museums" = "Musea";
 "parks" = "Parken";
@@ -1066,4 +1065,4 @@
 "contribute_to_osm_add_place" = "Plaats toevoegen";
 "contribute_to_osm_update_map" = "Werk de kaart bij om bij te dragen";
 "contribute_to_osm_update_map_description" = "U moet de %@-kaart bijwerken naar de nieuwste versie voordat u kunt bijdragen aan de gegevens van OpenStreetMap";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Vervang Stop";

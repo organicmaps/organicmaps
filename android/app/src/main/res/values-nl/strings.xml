@@ -704,7 +704,7 @@
     <string name="near_me_sorttype">Dicht bij mij</string>
     <string name="others_sorttype">Andere</string>
     <!-- SECTION: Bookmark types used for sorting -->
-    <string name="food_places">Eten</string>
+    <string name="food_places">Voedsel</string>
     <string name="tourist_places">Bezienswaardigheden</string>
     <string name="museums">Musea</string>
     <string name="parks">Parken</string>

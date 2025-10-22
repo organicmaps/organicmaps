@@ -1348,7 +1348,7 @@
 
 /* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Mergulho autônomo";
-"type.sport.shooting" = "Tiro desportivo";
+"type.sport.shooting" = "Tiro esportivo";
 "type.sport.skateboard" = "Skate";
 "type.sport.skiing" = "Esqui";
 "type.sport.soccer" = "Futebol";
@@ -1419,7 +1419,7 @@
 "type.waterway.canal" = "Canal";
 "type.waterway.canal.tunnel" = "Túnel de canal";
 "type.waterway.fish_pass" = "Escada de peixes";
-"type.waterway.dam" = "Barragem";
+"type.waterway.dam" = "Represa";
 "type.barrier.ditch" = "Vala";
 "type.natural.water.ditch" = "Vala de drenagem";
 "type.waterway.ditch.tunnel" = "Bueiro";
@@ -1494,16 +1494,16 @@
 "type.post_office.post_partner" = "Parceiro dos Correios";
 "type.amenity.luggage_locker" = "Armário para bagagem";
 "type.leisure.escape_game" = "Sala de escape";
-"type.railway.station.subway.qingdao" = "Subway Station";
+"type.railway.station.subway.qingdao" = "Estação de Metro";
 "type.amenity.ranger_station" = "Ranger Station";
-"type.sport.diving" = "Diving";
-"type.man_made.crane" = "Crane";
+"type.sport.diving" = "Mergulho";
+"type.man_made.crane" = "Guindaste";
 "type.barrier.wicket_gate" = "Portão Maldito";
 "type.barrier.yes" = "Barreira";
 "type.building.guardhouse" = "Guarda";
 "type.office.security" = "Escritório de Segurança";
 "type.power.portal" = "Power Tower (Portal)";
-"type.shop.lighting" = "Lighting Shop";
+"type.shop.lighting" = "Loja de iluminação";
 "type.barrier.log" = "Barreira de toras";
 "type.barrier.debris" = "Destroços";
 "type.barrier.jersey_barrier" = "Bloco";
@@ -1512,3 +1512,4 @@
 "type.man_made.monitoring_station" = "Estação de monitoramento";
 "type.man_made.monitoring_station.water_level" = "Estação de monitoramento do nível de água";
 "type.man_made.monitoring_station.weather" = "Estação de monitoramento meteorológico";
+"type.shop.telecommunication" = "Loja de telecomunicações";

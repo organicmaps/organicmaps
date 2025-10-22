@@ -490,7 +490,7 @@
     <string name="app_tip_09">Meginmarkmið okkar er að byggja hraðvirk og auðveld landakort sm þú kannt að meta og sem passa upp á persónuupplýsingar þínar.</string>
     <string name="car_used_on_the_phone_screen">Þú ert núna að nota Organic Maps á símaskjánum</string>
     <string name="aa_request_permission_activity_text">Organic Maps í Android Auto þarf heimildir fyrir staðsetningar til að virka eðlilega</string>
-    <string name="routing_add_finish_point">Notaðu leit eða ýttu á kortið til að bæta við ákvörðunarstað</string>
+    <string name="routing_add_finish_point">Notaðu leit, veldu bókamerki eða ýttu á kortið til að bæta við ákvörðunarstað</string>
     <string name="alert_reauth_message">Skráðu þig inn á OpenStreetMap til að senda sjálfkrafa inn allar breytingar þínar á kortinu. Kannaðu þetta nánar <a href="https://github.com/organicmaps/organicmaps/issues/6144">hér</a>.</string>
     <string name="dialog_routing_disclaimer_title">Þegar ferðast er eftir leið, skaltu hafa eftirfarandi í huga:</string>
     <string name="dialog_routing_disclaimer_beware">Vertu vakandi og settu öryggið ofar öllu á vegum úti!</string>
@@ -531,7 +531,7 @@
     <string name="big_font">Auka stærð á skýringum</string>
     <string name="prefs_languages_information_off_link">Til að sjá nánari upplýsingar, ættirðu að skoða þessar leiðbeiningar.</string>
     <string name="transliteration_title">Umrita yfir í latneskt stafróf</string>
-    <string name="routing_add_start_point">Notaðu leit eða ýttu á kortið til að bæta við upphafspunkti leiðar</string>
+    <string name="routing_add_start_point">Notaðu leit, veldu bókamerki eða ýttu á kortið til að bæta við upphafspunkti leiðar</string>
     <string name="dialog_error_storage_title">Vandamál við aðgang að gagnageymslu</string>
     <string name="setting_emulate_bad_storage">Herma eftir skemmdu geymslurými</string>
     <string name="error_enter_correct_name">Settu inn rétt nafn</string>

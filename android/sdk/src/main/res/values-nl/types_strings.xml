@@ -203,7 +203,7 @@
     <string name="type.barrier.retaining_wall">Keermuur</string>
     <string name="type.barrier.stile">Tourniquet</string>
     <string name="type.barrier.turnstile">Tourniquet</string>
-    <string name="type.barrier.swing_gate">Slagboom</string>
+    <string name="type.barrier.swing_gate">Draaipoort</string>
     <string name="type.barrier.toll_booth">Tolhokje</string>
     <string name="type.barrier.wall">Muur</string>
     <string name="type.boundary">Grens</string>
@@ -1422,4 +1422,9 @@
     <string name="type.man_made.monitoring_station">Controlestation</string>
     <string name="type.man_made.monitoring_station.water_level">Meetstation voor waterpeil</string>
     <string name="type.man_made.monitoring_station.weather">Weerstation</string>
+    <string name="type.barrier.wicket_gate">Wicketpoort</string>
+    <string name="type.barrier.yes">Barrière</string>
+    <string name="type.building.guardhouse">Wacht</string>
+    <string name="type.office.security">Beveiligingsbureau</string>
+    <string name="type.power.portal">Kracht Toren (Portaal)</string>
 </resources>

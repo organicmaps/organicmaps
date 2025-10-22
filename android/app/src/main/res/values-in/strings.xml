@@ -97,7 +97,6 @@
     <string name="measurement_units">Unit Pengukuran</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Pilihlah antara mil dan kilometer</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Tempat makan</string>
@@ -143,7 +142,6 @@
     <string name="category_water">Air</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Untuk RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Catatan</string>
@@ -333,7 +331,6 @@
     <string name="gray">Abu-abu</string>
     <!-- blue gray color -->
     <string name="blue_gray">Biru Keabu-abuan</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Saat mengikuti rute, harap diingat:</string>
     <string name="dialog_routing_disclaimer_priority">— Kondisi jalan, peraturan lalu lintas, dan marka jalan harus selalu didahulukan daripada saran navigasi;</string>
@@ -363,7 +360,6 @@
     <string name="not_now">Jangan Sekarang</string>
     <string name="dialog_routing_download_and_build_cross_route">Apakah Anda ingin mengunduh peta dan membuat rute yang lebih optimal yang meliputi lebih dari satu peta?</string>
     <string name="dialog_routing_download_cross_route">Unduh peta untuk membuat rute yang lebih optimal yang melewati ujung peta ini.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Untuk mulai mencari dan membuat rute, silakan unduh peta, dan Anda tidak akan membutuhkan koneksi internet lagi.</string>
     <string name="search_select_map">Pilih Peta</string>
@@ -677,7 +673,6 @@
     <string name="moreyear_ago_sorttype">Lebih dari setahun yang lalu</string>
     <string name="near_me_sorttype">Dekat dengan saya</string>
     <string name="others_sorttype">Lainnya</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Makanan</string>
     <string name="tourist_places">Tempat Rekreasi</string>
