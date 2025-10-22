@@ -14,6 +14,7 @@ set(SRC
   location_test.cpp
   measurement_tests.cpp
   platform_test.cpp
+  public_holidays_tests.cpp
   meta_config_tests.cpp
   products_tests.cpp
   utm_mgrs_utils_tests.cpp

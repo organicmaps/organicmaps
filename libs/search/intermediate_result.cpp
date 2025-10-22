@@ -13,6 +13,7 @@
 
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
+#include "platform/public_holidays.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -250,7 +251,13 @@ void FillDetails(FeatureType & ft, std::string const & name, Result::Details & d
     {
       /// @todo We should check closed/open time for specific feature's timezone.
       time_t const now = time(nullptr);
+      auto const countryId=ft.GetID().GetMwmName();
+      auto holidays = ph::LoadHolidaysDate(countryId);
+
+      OpeningHours ohWithHolidays(oh.GetRule(), holidays);
+
       auto const info = oh.GetInfo(now);
+
       if (info.state != RuleState::Unknown)
       {
         // In else case value is osm::Unknown, it's set in preview's constructor.
