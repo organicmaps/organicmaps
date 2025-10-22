@@ -208,7 +208,7 @@
 "type.barrier.retaining_wall" = "Keermuur";
 "type.barrier.stile" = "Tourniquet";
 "type.barrier.turnstile" = "Tourniquet";
-"type.barrier.swing_gate" = "Slagboom";
+"type.barrier.swing_gate" = "Draaipoort";
 "type.barrier.toll_booth" = "Tolhokje";
 "type.barrier.wall" = "Muur";
 "type.boundary" = "Grens";
@@ -1498,11 +1498,11 @@
 "type.leisure.escape_game" = "Ontsnapkamer";
 "type.railway.station.subway.qingdao" = "Metro Station";
 "type.amenity.ranger_station" = "Boswachtershuis";
-"type.barrier.wicket_gate" = "Wicket Gate";
-"type.barrier.yes" = "Barrier";
-"type.building.guardhouse" = "Guard";
-"type.office.security" = "Security Office";
-"type.power.portal" = "Power Tower (Portal)";
+"type.barrier.wicket_gate" = "Wicketpoort";
+"type.barrier.yes" = "Barrière";
+"type.building.guardhouse" = "Wacht";
+"type.office.security" = "Beveiligingsbureau";
+"type.power.portal" = "Kracht Toren (Portaal)";
 "type.shop.lighting" = "Verlichtingswinkel";
 "type.barrier.jersey_barrier" = "Blok";
 "type.barrier.debris" = "Puin";

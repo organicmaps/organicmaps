@@ -1323,4 +1323,8 @@
     <string name="type.barrier.jersey_barrier">Lokun</string>
     <string name="type.barrier.debris">Mulningur</string>
     <string name="type.barrier.log">Bjálkalokun</string>
+    <string name="type.amenity.boat_rental">Bátaleiga</string>
+    <string name="type.shop.telecommunication">Verslun með fjarskiptabúnað</string>
+    <string name="type.leisure.indoor_play">Leikjamiðstöð</string>
+    <string name="type.tourism.camp_pitch">Tjaldstæði</string>
 </resources>
