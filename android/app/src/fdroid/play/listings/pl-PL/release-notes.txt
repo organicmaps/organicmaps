@@ -1,9 +1,8 @@
-• Wyświetlanie ograniczenia prędkości w Android Auto
-• NOWE! Import GeoJSON
-• Dane OSM z 4 października
-• Dane Wikipedii z 1 października
-• Wsparcie kolei miejskiej w Seattle dla transportu publicznego
-• Dodano wypożyczalnie rowerów i więcej typów barier
-• Nowe ikony masztów, wież komunikacyjnych i energetycznych
+• Dane OpenStreetMap na dzień 21 października
+• Stacje monitorujące, wyspy ruchu, ośrodki wodne Kneipp, mini koleje, miejsca kempingowe, terminale lotnisk, wewnętrzne strefy zabaw, sklepy telekom, wynajem łodzi i pochylnie
+• Tarcze dróg widoczne w wskazówkach nawigacji
+• Dodano wsparcie dla starszych urządzeń x86
+• Obsługa języka słoweńskiego z głosem
+• Ulepszone wyszukiwanie emoji i ładowarek EV
 
-…więcej: omaps.org/pl/news
+…więcej na omaps.org/pl/news

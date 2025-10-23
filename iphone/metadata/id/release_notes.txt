@@ -1,38 +1,27 @@
-• BARU: Simpan bookmark pada titik trek yang dipilih
-• BARU: Hapus trek perekaman tanpa menyimpannya terlebih dahulu
-• BARU! Impor GeoJSON
-• Data OpenStreetMap per 4 Oktober
-• Data Wikipedia per 1 Oktober
-• Dukungan kereta ringan Seattle untuk transportasi umum
-• Tampilkan judul daftar bookmark multi-baris di halaman tempat
-• Perbarui gaya tombol masuk OSM
-• Perbaiki masalah pembaruan info navigasi
-• Perbaiki masalah perencanaan rute baru
-• Perbaiki visibilitas tambah/edit tempat OSM untuk peta yang lebih tua dari 3 bulan
-• Perbaiki tata letak kontrol segmen opsi transportasi untuk iOS 26
-• Sederhanakan animasi pemilihan bookmark
-• Perbaiki masalah pemilihan hasil pencarian
-• Diperbaiki gaya, geser, dan animasi untuk halaman info tempat
-• Jangan nonaktifkan pemilihan peta saat menyimpan tempat OSM yang diedit
-• Terjemahan diperbarui
+• Pengguna UE sekarang dapat mengatur Organic Maps sebagai aplikasi navigasi default di Pengaturan iOS → Aplikasi → Aplikasi Default → Navigasi
 
-#### Gaya Peta
-
-• Tampilkan toko penyewaan sepeda
-• Tampilkan situs arkeologi bersejarah dari zoom 12 dan situs bersejarah lainnya dari zoom 15 dalam gaya luar ruangan
-• Ikon baru untuk tiang, menara komunikasi dan menara listrik dalam gaya luar ruangan
-• Tingkatkan ukuran ikon puncak dalam gaya luar ruangan
-• Ditambahkan varian ikon POI yang hilang
-• Ditambahkan lebih banyak jenis penghalang
+• Data OpenStreetMap segar per 21 Oktober 2025
+• Objek peta baru: stasiun pemantauan, pulau lalu lintas, fasilitas perawatan air Kneipp, kereta api miniatur, tempat berkemah bergaya outdoor, terminal bandara, area bermain dalam ruangan, toko telekomunikasi, fasilitas penyewaan perahu, dan fasilitas jalur peluncuran perahu
+• Nama pintu masuk kereta bawah tanah sekarang terlihat di peta
+• Panah posisi sekarang menunjukkan arah gerakan Anda saat berjalan dalam mode navigasi pejalan kaki
+• Menambahkan dukungan bahasa Slovenia, termasuk petunjuk suara untuk navigasi
+• Memperbarui ikon pembuangan sampah dan tempat pembuangan akhir
+• Memperbaiki bilah status putih-pada-putih dalam mode navigasi
+• Meningkatkan ukuran tombol Mulai Navigasi
+• Menghapus ruang putih kosong saat merencanakan rute di iPad
+• Warna tambahan sekarang didukung untuk jalur pendakian
+• Meningkatkan informasi yang ditampilkan saat memilih sungai atau segmen jalur air
+• Pencarian stasiun pengisian kendaraan listrik yang lebih baik dengan sinonim yang ditingkatkan dalam semua bahasa
+• Memperbaiki pencarian emoji (ya, Anda dapat mengetik emoji di kotak pencarian!)
+• Memperbaiki petunjuk pencarian yang menampilkan terlalu banyak hasil untuk pencarian alamat yang tepat
+• Mengimpor dan mengekspor GeoJSON dari dan ke https://umap.openstreetmap.fr/ sekarang mempertahankan semua metadata
 
 ### Fitur yang baru dirilis yang mungkin Anda lewatkan
 
-• Nomor rute transportasi umum saat memilih halte bus
-• Rute hiking dan bersepeda
-• Lihat nama bookmark di peta dengan mengaktifkannya di pengaturan aplikasi
-• Ikon pensil menawarkan cara cepat untuk mengedit bookmark
-• Perencanaan rute yang didesain ulang
-• Tampilkan konten tag OSM `description` (ketik ?description di pencarian untuk menemukan tempat dengan deskripsi)
+• Simpan penanda pada titik trek yang dipilih
+• Hapus trek perekaman tanpa menyimpannya terlebih dahulu
+• Impor file GeoJSON
 
-Setiap donasi dan ulasan bagus memotivasi relawan kami untuk membangun peta yang lebih baik, terima kasih!
+Organic Maps dimungkinkan berkat kontributor kami dan dukungan berkelanjutan Anda.
 
+Tim Organic Maps

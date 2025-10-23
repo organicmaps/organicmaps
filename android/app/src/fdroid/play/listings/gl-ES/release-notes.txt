@@ -1,9 +1,8 @@
-• Visualización do límite de velocidade en Android Auto
-• NOVO! Importar GeoJSON
-• Datos OSM ao 4 de outubro
-• Datos de Wikipedia ao 1 de outubro
-• Soporte para o tren lixeiro de Seattle para transporte público
-• Engadíronse tendas de aluguer de bicicletas e máis tipos de barreiras
-• Novas iconas para mastros, torres de comunicación e enerxía
+• Datos de OpenStreetMap a 21 de outubro
+• Estacións de seguimento, illas de tráfico, instalacións Kneipp, mini ferrocarrís, parcelas de camping, terminais de aeroporto, áreas de xogo interiores, tendas de telecomunicacións, aluguer de barcos e ramplas
+• Os escudos de estrada móstranse na navegación
+• Soporte para dispositivos x86 antigos
+• Idioma esloveno con guía de voz
+• Mellorada busca de emojis e puntos de carga EV
 
-…máis: omaps.org/gl/news
+…máis en omaps.org/gl/news

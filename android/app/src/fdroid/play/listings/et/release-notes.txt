@@ -1,11 +1,8 @@
-• Kiirusepiirangu kuvamine Android Auto's
-• UUS! GeoJSON-i import
-• OSM andmed 4. oktoober
-• Vikipeedia andmed 1. oktoober
-• Seattle linnaraudtee tugi ühistranspordile
-• Lisatud jalgrattalaenupoed ja rohkem barjääritüüpe
-• Uued ikoonid mastide, side- ja elektritornide jaoks, kuvada ajaloolisi arheoloogilisi kohti alates suurendusest 12 ja teisi ajaloolisi kohti alates suurendusest 15 õuestiilis
-• Kuva OSM `description` sildi sisu Androidis
-• Parandatud mitu krahhimist
+• OpenStreetMap andmed seisuga 21. oktoober
+• Seirejaamad, liiklussaared, Kneipp ravikohad, miniatuurraudteed, telkimisplatsid, lennujaama terminalid, sise mängualad, telekomipoed, paadilaenutus ja slipid
+• Tee kilbid kuvatakse navigeerimisjuhistes
+• Lisati tugi vanematele x86 seadmetele
+• Sloveeni keele (hääljuhtimisega) tugi
+• Täiustatud emoji ja EV laadimisjaamade otsing
 
 …veel: omaps.org/et/news

@@ -1,9 +1,8 @@
-• Abiadura mugen bistaratzea Android Auto-n
-• BERRIA! GeoJSON inportatu
-• OSM datuak: urriaren 4
-• Wikipedia datuak: urriaren 1
-• Seattle tren arinak euskarri garraio publikorako
-• Bizikleta alokairu dendak eta hesitze mota gehiago gehitu dira
-• Ikono berriak mastuentzat, komunikazio eta energia dorreetako
+• OpenStreetMap datuak urriaren 21ean
+• Monitorizazio estazioak, trafiko uharteak, Kneipp tratamendu guneak, trenbide txikiak, kanpaleku parcelak, aireportu terminalak, barne jolastokiak, telekomunikazio dendak, ontzi alokairua eta arrapala
+• Errepide ikurrak nabigazio jarraibideetan agertzen dira
+• x86 gailu zaharrentzako euskarria
+• Esloveniar hizkuntza eta ahots nabigazioa
+• Emoji eta EV karga estazio bilaketa hobetu
 
 …gehiago: omaps.org/eu/news

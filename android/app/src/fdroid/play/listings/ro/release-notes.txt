@@ -1,9 +1,8 @@
-• Afișare limită de vitează în Android Auto
-• NOU! Import GeoJSON
-• Date OSM la 4 octombrie
-• Date Wikipedia la 1 octombrie
-• Suport pentru metroul ușor Seattle pentru transportul public
-• Adăugate magazine de închiriere biciclete și mai multe tipuri de bariere
-• Icoane noi pentru catarge, turnuri de comunicații și energie
+• Date OpenStreetMap la 21 octombrie
+• Stații de monitorizare, insule de trafic, facilități Kneipp, mini căi ferate, locuri de campare, terminale aeroport, zone de joacă interioare, magazine telecom, închiriere bărci și rampe
+• Scuturi rutiere apar în indicațiile de navigație
+• Suport adăugat pentru dispozitive x86 vechi
+• Limbă slovenă cu ghidare vocală
+• Căutare emoji și stații încărcare EV îmbunătățită
 
-…mai mult: omaps.org/news
+…mai mult la omaps.org/news

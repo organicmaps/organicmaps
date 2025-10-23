@@ -1,9 +1,8 @@
-• Android Auto'da hız sınırı gösterimi
-• YENİ! GeoJSON içe aktarma
-• 4 Ekim OSM verileri
-• 1 Ekim Wikipedia verileri
-• Toplu taşıma için Seattle hafif ray desteği
-• Bisiklet kiralama mağazaları ve daha fazla bariyer türü eklendi
-• Direkler, iletişim ve enerji kuleleri için yeni simgeler
+• 21 Ekim itibarıyla OpenStreetMap verileri
+• İzleme istasyonları, trafik adaları, Kneipp su tedavisi tesisleri, mini demiryolları, kamp alanları, havaalanı terminalleri, kapalı oyun alanları, telekom mağazaları, tekne kiralama ve kızak rampaları
+• Yol kalkanları artık navigasyon yönlerinde gösteriliyor
+• Eski x86 cihaz desteği eklendi
+• Slovence dil ve sesli yönlendirme desteği
+• Geliştirilmiş emoji ve EV şarj istasyonu arama
 
 …daha fazla: omaps.org/tr/news

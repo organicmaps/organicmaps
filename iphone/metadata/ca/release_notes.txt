@@ -1,38 +1,27 @@
-• NOU: Desar marcador en un punt de seguiment seleccionat
-• NOU: Eliminar la pista de gravació sense desar-la primer
-• NOU! Importar GeoJSON
-• Dades d'OpenStreetMap del 4 d'octubre
-• Dades de Viquipèdia de l'1 d'octubre
-• Suport del metro lleuger de Seattle per al transport públic
-• Mostrar títols de llista de marcadors multilínia a la pàgina de lloc
-• Actualitzar l'estil dels botons d'inici de sessió OSM
-• Corregir problema d'actualització d'informació de navegació
-• Corregir problemes nous de planificació de rutes
-• Corregir visibilitat d'afegir/editar lloc OSM per a mapes de més de 3 mesos
-• Corregir disseny del control de segment d'opcions de transport per a iOS 26
-• Simplificar animacions de selecció de marcadors
-• Corregir problema de selecció de resultats de cerca
-• Corregit l'estil, el lliscament i les animacions de la pàgina d'informació del lloc
-• No desactivar la selecció del mapa en desar un lloc OSM editat
-• Traduccions actualitzades
+• Els usuaris de la UE ara poden establir Organic Maps com a aplicació de navegació per defecte a Configuració d'iOS → Apps → Apps per defecte → Navegació
 
-Estils de mapa:
+• Dades d'OpenStreetMap actualitzades fins al 21 d'octubre de 2025
+• Nous objectes del mapa: estacions de monitoratge, illetes de trànsit, instal·lacions de cura d'aigua Kneipp, ferrocarrils en miniatura, zones d'acampada d'estil a l'aire lliure, terminals d'aeroport, àrees de joc interiors, botigues de telecomunicacions, instal·lacions de lloguer de vaixells i instal·lacions de rampes de vaixells
+• Els noms de les entrades de metro ara són visibles al mapa
+• La fletxa de posició ara mostra la teva direcció de moviment quan camines en mode de navegació per a vianants
+• S'ha afegit suport per a l'idioma eslovè, incloses les indicacions de veu per a la navegació
+• S'han actualitzat les icones d'eliminació de residus i abocadors
+• S'ha corregit la barra d'estat blanc sobre blanc en mode de navegació
+• S'ha augmentat la mida del botó Iniciar navegació
+• S'ha eliminat l'espai en blanc buit quan es planifica una ruta a l'iPad
+• Ara s'admeten colors addicionals per a rutes de senderisme
+• S'ha millorat la informació que es mostra quan se selecciona un riu o segment de via fluvial
+• Millor cerca d'estacions de càrrega de vehicles elèctrics amb sinònims millorats en tots els idiomes
+• S'ha corregit la cerca d'emojis (sí, pots escriure emojis al quadre de cerca!)
+• S'han corregit els suggeriments de cerca que mostraven massa resultats per a cerques d'adreces exactes
+• La importació i exportació de GeoJSON des de i cap a https://umap.openstreetmap.fr/ ara conserva totes les metadades
 
-• Mostrar botigues de lloguer de bicicletes
-• Mostrar jaciments arqueològics històrics des del zoom 12 i altres llocs històrics des del zoom 15 en estil exterior
-• Noves icones per a pals, torres de comunicació i energia en estil exterior
-• Augmentar la mida de la icona del pic en estil exterior
-• Afegir variants d'icones POI que faltaven
-• Afegits més tipus de barreres
+### Funcions llançades recentment que potser t'has perdut
 
-Funcions llançades recentment que potser t'has perdut:
+• Desa un marcador en un punt de seguiment seleccionat
+• Suprimeix una pista d'enregistrament sense desar-la primer
+• Importa fitxers GeoJSON
 
-• Números de rutes de transport públic en seleccionar una parada d'autobús
-• Rutes de senderisme i ciclisme
-• Veure noms de marcadors al mapa activant-ho a la configuració de l'aplicació
-• La icona de llapis ofereix una manera ràpida d'editar marcadors
-• Planificació de rutes redissenyada
-• Mostrar contingut de l'etiqueta OSM `description` (escriu ?description a la cerca per descobrir llocs amb descripció)
+Organic Maps és possible gràcies als nostres col·laboradors i al vostre suport continu.
 
-Cada donació i bona ressenya motiva els nostres voluntaris a construir millors mapes, gràcies!
-
+L'equip d'Organic Maps

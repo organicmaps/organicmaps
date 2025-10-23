@@ -1,9 +1,8 @@
-• Prikaz ograničenja brzine u Android Auto
-• NOVO! Uvoz GeoJSON
-• OSM podaci 4. oktobra
-• Wikipedia podaci 1. oktobra
-• Podrška za laki metro u Sijetlu za javni prevoz
-• Dodati prodavnice za iznajmljivanje bicikla i više tipova barijera
-• Nove ikone za jarbolе, komunikacijske i energetske kule
+• OpenStreetMap подаци до 21. октобра
+• Станице за мониторинг, саобраћајна острва, Kneipp водене терапије, мини железнице, камп парцеле, аеродромски терминали, унутрашње зоне за игру, телекомуникационе продавнице, изнајмљивање чамаца и рампе
+• Путни штитови у навигационим смерницама
+• Додата подршка за старије x86 уређаје
+• Словеначки језик и гласовна навигација
+• Побољшана претрага емоџија и EV пуњачa
 
-…više: omaps.org/news
+…више на omaps.org/news

@@ -1,11 +1,8 @@
-• Prikaz omejitve hitrosti v Android Auto
-• NOVO! Uvoz GeoJSON
-• OSM podatki 4. okt
-• Wikipedia podatki 1. okt
-• Podpora lahkega metroja v Seattlu za javni prevoz
-• Dodane trgovine za izposojo koles in več vrst ovir
-• Nove ikone za drogove, komunikacijske in energetske stolpe, prikaz zgodovinskih arheoloških mest od zooma 12 in drugih zgodovinskih mest od zooma 15 v zunanjem slogu
-• Prikaz vsebine oznake OSM `description` na Androidu
-• Popravljenih več sesutij
+• Podatki OpenStreetMap na 21. oktober
+• Nadzorne postaje, prometni otoki, Kneipp vodne terapije, mini železnice, kamp mesta, letališki terminali, notranja igralna območja, telekom trgovine, izposoja čolnov in drče
+• Cestni ščiti v navigacijskih navodilih
+• Dodana podpora starejšim x86 napravam
+• Podpora za slovenski jezik z glasovno navigacijo
+• Izboljšano iskanje čustvenčkov in EV polnilnic
 
 …več: omaps.org/news

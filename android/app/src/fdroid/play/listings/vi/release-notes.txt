@@ -1,11 +1,8 @@
-• Hiển thị giới hạn tốc độ trong Android Auto
-• MỚI! Nhập GeoJSON
-• Dữ liệu OSM đến 4/10
-• Dữ liệu Wikipedia đến 1/10
-• Hỗ trợ tàu điện nhẹ Seattle cho giao thông công cộng
-• Đã thêm cửa hàng cho thuê xe đạp và nhiều loại rào cản hơn
-• Biểu tượng mới cho cột buồm, tháp truyền thông và điện, hiển thị di chỉ khảo cổ lịch sử từ zoom 12 và các di tích lịch sử khác từ zoom 15 ở phong cách Ngoài trời
-• Hiển thị nội dung thẻ OSM `description` trên Android
-• Đã sửa một số sự cố
+• Dữ liệu OpenStreetMap đến 21/10
+• Trạm giám sát, đảo giao thông, cơ sở Kneipp, đường sắt thu nhỏ, chỗ cắm trại, nhà ga sân bay, khu vui chơi trong nhà, cửa hàng viễn thông, thuê thuyền & đường trượt
+• Khiên đường hiển thị trong chỉ dẫn
+• Thêm hỗ trợ thiết bị x86 cũ
+• Ngôn ngữ Slovenia kèm dẫn đường giọng nói
+• Tìm kiếm emoji & trạm sạc EV cải thiện
 
-…thêm: omaps.org/news
+…thêm tại omaps.org/news

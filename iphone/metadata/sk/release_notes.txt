@@ -1,38 +1,27 @@
-• NOVÉ: Uložiť záložku na vybranom bode stopy
-• NOVÉ: Vymazať stopu nahrávania bez predchádzajúceho uloženia
-• NOVÉ! Importovať GeoJSON
-• Údaje OpenStreetMap k 4. októbru
-• Údaje Wikipédie k 1. októbru
-• Podpora ľahkej železnice v Seattli pre verejnú dopravu
-• Zobraziť viacriadkové nadpisy zoznamu záložiek na stránke miesta
-• Aktualizovať štýl tlačidla prihlásenia OSM
-• Opraviť problém s aktualizáciou informácií o navigácii
-• Opraviť nové problémy s plánovaním trasy
-• Opraviť viditeľnosť pridania/úpravy miesta OSM pre mapy staršie ako 3 mesiace
-• Opraviť rozloženie ovládania segmentov dopravných možností pre iOS 26
-• Zjednodušiť animácie výberu záložiek
-• Opraviť problém s výberom výsledku vyhľadávania
-• Opravené štýly, posúvanie a animácie pre stránku s informáciami o mieste
-• Nevypínať výber mapy pri ukladaní upraveného miesta OSM
-• Aktualizované preklady
+• Používatelia z EÚ si teraz môžu nastaviť Organic Maps ako predvolenú navigačnú aplikáciu v Nastavenia iOS → Aplikácie → Predvolené aplikácie → Navigácia
 
-#### Štýly mapy
+• Čerstvé dáta OpenStreetMap k 21. októbru 2025
+• Nové objekty na mape: monitorovacie stanice, dopravné ostrôvky, zariadenia Kneippovej vodnej liečby, miniatúrne železnice, kempingové miesta v outdoorovom štýle, terminály letísk, vnútorné herné oblasti, telekomunikačné predajne, požičovne lodí a sklzové rampy pre lode
+• Názvy vstupov do metra sú teraz viditeľné na mape
+• Šípka polohy teraz ukazuje smer vášho pohybu pri chôdzi v režime navigácie pre chodcov
+• Pridaná podpora slovinského jazyka vrátane hlasových pokynov pre navigáciu
+• Aktualizované ikony likvidácie odpadu a skládok
+• Opravený biely stavový riadok na bielom pozadí v navigačnom režime
+• Zväčšená veľkosť tlačidla Spustiť navigáciu
+• Odstránené prázdne biele miesto pri plánovaní trasy na iPade
+• Ďalšie farby sú teraz podporované pre turistické chodníky
+• Vylepšené informácie zobrazené pri výbere rieky alebo úseku vodnej cesty
+• Lepšie vyhľadávanie nabíjacích staníc pre elektromobily s vylepšenými synonymami vo všetkých jazykoch
+• Opravené vyhľadávanie emoji (áno, môžete písať emoji do vyhľadávacieho poľa!)
+• Opravené návrhy vyhľadávania zobrazujúce príliš veľa výsledkov pre presné vyhľadávanie adries
+• Import a export GeoJSON z a do https://umap.openstreetmap.fr/ teraz zachováva všetky metadáta
 
-• Zobraziť požičovne bicyklov
-• Zobraziť historické archeologické lokality od priblíženia 12 a ďalšie historické lokality od priblíženia 15 v outdoorovom štýle
-• Nové ikony pre stožiare, komunikačné a elektrické veže v outdoorovom štýle
-• Zväčšiť veľkosť ikony vrcholu v outdoorovom štýle
-• Pridané chýbajúce varianty ikon POI
-• Pridané ďalšie typy bariér
+### Nedávno vydané funkcie, ktoré ste možno zmeškali
 
-### Nedávno vydané funkcie, ktoré ste možno prehliadli
+• Uložiť záložku na vybraný bod trasy
+• Zmazať nahrávanú trasu bez jej predchádzajúceho uloženia
+• Importovať GeoJSON súbory
 
-• Čísla liniek verejnej dopravy pri výbere autobusovej zastávky
-• Pešie a cyklistické trasy
-• Zobraziť názvy záložiek na mape ich povolením v nastaveniach aplikácie
-• Ikona ceruzky ponúka rýchly způsob úpravy záložiek
-• Prepracované plánovanie trasy
-• Zobraziť obsah značky OSM `description` (zadajte ?description do vyhľadávania, aby ste objavili miesta s popisom)
+Organic Maps je možný vďaka našim prispievateľom a vašej neustálej podpore.
 
-Každý dar a dobrá recenzia motivuje našich dobrovoľníkov budovať lepšie mapy, ďakujeme!
-
+Tím Organic Maps

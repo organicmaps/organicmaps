@@ -1,37 +1,27 @@
-• NIEUW: Bladwijzer opslaan op geselecteerd trackpunt
-• NIEUW: Opnamespoor verwijderen zonder eerst op te slaan
-• NIEUW! GeoJSON importeren
-• OpenStreetMap-gegevens per 4 oktober
-• Wikipedia-gegevens per 1 oktober
-• Seattle light rail-ondersteuning voor openbaar vervoer
-• Meerregelige bladwijzerlijsttitels weergeven op plaatspagina
-• OSM-inlogknopstijl bijwerken
-• Probleem met bijwerken van navigatie-informatie oplossen
-• Nieuwe routeplanningsproblemen oplossen
-• Zichtbaarheid van OSM-plaats toevoegen/bewerken oplossen voor kaarten ouder dan 3 maanden
-• Lay-out van segmentbesturing voor vervoersopties oplossen voor iOS 26
-• Bladwijzerselectie-animaties vereenvoudigen
-• Probleem met selectie van zoekresultaat oplossen
-• Styling, vegen en animaties voor plaatsinformatiepagina gerepareerd
-• Kaartselectie niet uitschakelen bij opslaan van bewerkte OSM-plaats
-• Bijgewerkte vertalingen
+• EU-gebruikers kunnen Organic Maps nu instellen als standaard navigatie-app in iOS Instellingen → Apps → Standaard-apps → Navigatie
 
-#### Kaartstijlen
+• Verse OpenStreetMap-gegevens van 21 oktober 2025
+• Nieuwe kaartobjecten: monitoringstations, verkeerseilanden, Kneipp-waterkuurfaciliteiten, miniatuurtreinen, kampeerplekken in outdoorstijl, luchthaventerminals, binnenspeelruimten, telecommunicatiewinkels, bootverhuurvoorzieningen en scheepshelling-voorzieningen
+• Namen van metro-ingangen zijn nu zichtbaar op de kaart
+• De positiepijl toont nu je bewegingsrichting tijdens het lopen in voetgangersnavigatiemodus
+• Sloveense taalondersteuning toegevoegd, inclusief spraakaanwijzingen voor navigatie
+• Bijgewerkte pictogrammen voor afvalverwijdering en stortplaatsen
+• Wit-op-wit statusbalk in navigatiemodus gecorrigeerd
+• Grootte van de knop Navigatie starten vergroot
+• Lege witte ruimte verwijderd bij het plannen van een route op iPad
+• Extra kleuren worden nu ondersteund voor wandelroutes
+• Verbeterde informatie weergegeven bij het selecteren van een rivier of waterweggedeelte
+• Betere zoekopdracht naar laadstations voor elektrische voertuigen met verbeterde synoniemen in alle talen
+• Emoji-zoekopdracht gecorrigeerd (ja, je kunt emoji's in het zoekvak typen!)
+• Zoeksuggesties gecorrigeerd die te veel resultaten toonden voor exacte adressenzoekopdrachten
+• Het importeren en exporteren van GeoJSON van en naar https://umap.openstreetmap.fr/ behoudt nu alle metadata
 
-• Fietsverhuurwinkels weergeven
-• Historische archeologische sites weergeven vanaf zoom 12 en andere historische sites vanaf zoom 15 in outdoorstijl
-• Nieuwe pictogrammen voor masten, communicatie- en stroomtorens in outdoorstijl
-• Pictogramgrootte van piek vergroten in outdoorstijl
-• Ontbrekende POI-pictogramvarianten toegevoegd
-• Meer barrièretypes toegevoegd
+### Recent uitgebrachte functies die je mogelijk hebt gemist
 
-### Onlangs uitgebrachte functies die je mogelijk hebt gemist
+• Sla een bladwijzer op bij een geselecteerd trackpunt
+• Verwijder een opnametrack zonder deze eerst op te slaan
+• Importeer GeoJSON-bestanden
 
-• Openbaar vervoer routenummers bij selecteren van bushalte
-• Wandel- en fietsroutes
-• Zie bladwijzernamen op de kaart door dit in te schakelen in app-instellingen
-• Het potloodpictogram biedt een snelle manier om bladwijzers te bewerken
-• Opnieuw ontworpen routeplanning
-• Inhoud van OSM-tag `description` weergeven (typ ?description in de zoekopdracht om plaatsen met beschrijving te ontdekken)
+Organic Maps is mogelijk dankzij onze bijdragers en je voortdurende steun.
 
-Elke donatie en goede beoordeling motiveert onze vrijwilligers om betere kaarten te bouwen, bedankt!
+Het Organic Maps-team

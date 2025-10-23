@@ -1,38 +1,27 @@
-• BAHARU: Simpan penanda halaman pada titik jejak yang dipilih
-• BAHARU: Padam jejak rakaman tanpa menyimpannya terlebih dahulu
-• BAHARU! Import GeoJSON
-• Data OpenStreetMap setakat 4 Oktober
-• Data Wikipedia setakat 1 Oktober
-• Sokongan kereta api ringan Seattle untuk pengangkutan awam
-• Paparkan tajuk senarai penanda halaman berbilang baris pada halaman tempat
-• Kemas kini gaya butang log masuk OSM
-• Betulkan masalah kemas kini maklumat navigasi
-• Betulkan masalah perancangan laluan baharu
-• Betulkan keterlihatan tambah/edit tempat OSM untuk peta yang lebih tua daripada 3 bulan
-• Betulkan susun atur kawalan segmen pilihan pengangkutan untuk iOS 26
-• Permudahkan animasi pemilihan penanda halaman
-• Betulkan masalah pemilihan hasil carian
-• Dibetulkan penggayaan, leret dan animasi untuk halaman maklumat tempat
-• Jangan lumpuhkan pemilihan peta semasa menyimpan tempat OSM yang diedit
-• Terjemahan dikemas kini
+• Pengguna EU kini boleh menetapkan Organic Maps sebagai aplikasi navigasi lalai dalam Tetapan iOS → Apl → Apl Lalai → Navigasi
 
-#### Gaya Peta
+• Data OpenStreetMap segar setakat 21 Oktober 2025
+• Objek peta baharu: stesen pemantauan, pulau lalu lintas, kemudahan rawatan air Kneipp, kereta api miniatur, tapak perkhemahan gaya luar, terminal lapangan terbang, kawasan permainan dalam, kedai telekomunikasi, kemudahan penyewaan bot, dan kemudahan jejak peluncuran bot
+• Nama pintu masuk kereta bawah tanah kini kelihatan pada peta
+• Anak panah kedudukan kini menunjukkan arah pergerakan anda semasa berjalan dalam mod navigasi pejalan kaki
+• Menambah sokongan bahasa Slovenia, termasuk arahan suara untuk navigasi
+• Ikon pelupusan sisa dan tapak pelupusan dikemas kini
+• Membetulkan bar status putih-pada-putih dalam mod navigasi
+• Meningkatkan saiz butang Mulakan Navigasi
+• Menghapuskan ruang putih kosong semasa merancang laluan di iPad
+• Warna tambahan kini disokong untuk denai pendakian
+• Meningkatkan maklumat yang dipaparkan semasa memilih sungai atau segmen laluan air
+• Carian stesen pengecasan kenderaan elektrik yang lebih baik dengan sinonim yang dipertingkatkan dalam semua bahasa
+• Membetulkan carian emoji (ya, anda boleh menaip emoji dalam kotak carian!)
+• Membetulkan petunjuk carian yang menunjukkan terlalu banyak hasil untuk carian alamat tepat
+• Mengimport dan mengeksport GeoJSON dari dan ke https://umap.openstreetmap.fr/ kini mengekalkan semua metadata
 
-• Paparkan kedai sewa basikal
-• Paparkan tapak arkeologi bersejarah dari zum 12 dan tapak bersejarah lain dari zum 15 dalam gaya luar
-• Ikon baharu untuk tiang, menara komunikasi dan menara kuasa dalam gaya luar
-• Tingkatkan saiz ikon puncak dalam gaya luar
-• Ditambah varian ikon POI yang hilang
-• Ditambah lebih banyak jenis halangan
+### Ciri yang baru dikeluarkan yang mungkin anda terlepas pandang
 
-### Ciri yang dikeluarkan baru-baru ini yang mungkin anda terlepas
+• Simpan penanda buku pada titik jejak yang dipilih
+• Padam jejak rakaman tanpa menyimpannya terlebih dahulu
+• Import fail GeoJSON
 
-• Nombor laluan pengangkutan awam semasa memilih perhentian bas
-• Laluan mendaki dan berbasikal
-• Lihat nama penanda halaman pada peta dengan mengaktifkannya dalam tetapan apl
-• Ikon pensel menawarkan cara pantas untuk mengedit penanda halaman
-• Perancangan laluan yang direka semula
-• Paparkan kandungan tag OSM `description` (taip ?description dalam carian untuk menemui tempat dengan penerangan)
+Organic Maps dimungkinkan berkat penyumbang kami dan sokongan berterusan anda.
 
-Setiap derma dan ulasan yang baik memotivasikan sukarelawan kami untuk membina peta yang lebih baik, terima kasih!
-
+Pasukan Organic Maps

@@ -1,38 +1,27 @@
-• UUTTA: Tallenna kirjanmerkki valitussa jälkipisteessä
-• UUTTA: Poista tallennusjälki tallentamatta sitä ensin
-• UUTTA! Tuo GeoJSON
-• OpenStreetMap-tiedot 4. lokakuuta
-• Wikipedia-tiedot 1. lokakuuta
-• Seattlen pikaraitiotie-tuki joukkoliikenteelle
-• Näytä monirivisten kirjanmerkkien luettelon otsikot paikkapohjassa
-• Päivitä OSM-kirjautumispainikkeen tyyli
-• Korjaa navigointitietojen päivitysongelma
-• Korjaa uudet reittisuunnitteluongelmat
-• Korjaa OSM:n paikan lisäys/muokkaus näkyvyys yli 3 kuukautta vanhoille kartoille
-• Korjaa kuljetusvaihtoehtojen segmentin ohjauselementtien asettelu iOS 26:lle
-• Yksinkertaista kirjanmerkkien valinta-animaatioita
-• Korjaa hakutuloksen valintaongelma
-• Korjattu muotoilu, pyyhkäisy ja animaatiot paikkatietosivulle
-• Älä poista kartan valintaa käytöstä tallennettaessa muokattua OSM-paikkaa
-• Päivitetyt käännökset
+• EU-käyttäjät voivat nyt asettaa Organic Mapsin oletusnavigointisovellukseksi iOS-asetuksissa → Sovellukset → Oletussovellukset → Navigointi
 
-#### Karttityylit
+• Tuore OpenStreetMap-data 21. lokakuuta 2025
+• Uudet karttakohteet: valvonta-asemat, liikennesaarekkeet, Kneipp-vesihoitolaitokset, miniatyyri-rautatiet, leirintäpaikat ulkoilmatyylissä, lentokenttäterminaalit, sisäleikkialueet, teleliikenneliikkeet, venevuokraamot ja veneslipit
+• Metroasemien sisäänkäyntien nimet näkyvät nyt kartalla
+• Paikkanuoli näyttää nyt kulkusuuntasi kävellessäsi jalankulkijanavigointitilassa
+• Lisätty slovenian kielen tuki, mukaan lukien ääni-ilmoitukset navigointiin
+• Päivitetyt jätteen käsittelyn ja kaatopaikkojen kuvakkeet
+• Korjattu valkoinen palkki valkoisella navigointitilassa
+• Kasvatettu Aloita navigointi -painikkeen kokoa
+• Poistettu tyhjä valkoinen tila reitin suunnittelussa iPadilla
+• Lisävärejä tuetaan nyt patikoinnin polkuihin
+• Parannetut tiedot, jotka näytetään, kun valitset joen tai vesiväylän osan
+• Parempi sähköautojen latausasemien haku parannetuilla synonyymillä kaikilla kielillä
+• Korjattu emoji-haku (kyllä, voit kirjoittaa emojeja hakukenttään!)
+• Korjattu hakuehdotukset, jotka näyttivät liikaa tuloksia tarkkoja osoitehakuja varten
+• GeoJSON:n tuonti ja vienti osoitteesta ja osoitteeseen https://umap.openstreetmap.fr/ säilyttää nyt kaikki metatiedot
 
-• Näytä polkupyörien vuokrausliikkeet
-• Näytä historialliset arkeologiset kohteet zoomista 12 ja muut historialliset kohteet zoomista 15 ulkotyylissä
-• Uudet ikonit masto-, viestintä- ja voimatorneille ulkotyylissä
-• Kasvata huippukuvakkeen kokoa ulkotyylissä
-• Lisätty puuttuvat POI-ikonin variantit
-• Lisätty lisää estetyyppejä
+### Hiljattain julkaistut ominaisuudet, jotka olet saattanut missata
 
-### Äskettäin julkaistut ominaisuudet, jotka olet ehkä missannut
+• Tallenna kirjanmerkki valitulle reittipisteelle
+• Poista tallennettu reitti tallentamatta sitä ensin
+• Tuo GeoJSON-tiedostoja
 
-• Joukkoliikenteen reitinnumerot bussipysäkkiä valittaessa
-• Vaellus- ja pyöräilyreitit
-• Näe kirjanmerkkien nimet kartalla ottamalla se käyttöön sovelluksen asetuksissa
-• Kynäikoni tarjoaa nopean tavan muokata kirjanmerkkejä
-• Uudistettu reittisuunnittelu
-• Näytä OSM-tagin `description` sisältö (kirjoita ?description hakuun löytääksesi paikat, joissa on kuvaus)
+Organic Maps on mahdollinen kiitos avustajillemme ja jatkuvalle tuellesi.
 
-Jokainen lahjoitus ja hyvä arvostelu motivoi vapaaehtoisiamme rakentamaan parempia karttoja, kiitos!
-
+Organic Maps -tiimi

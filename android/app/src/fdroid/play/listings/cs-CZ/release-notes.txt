@@ -1,9 +1,8 @@
-• Zobrazení rychlostního limitu v Android Auto
-• NOVÉ! Import GeoJSON
-• OSM data k 4. říjnu
-• Data z Wikipedie k 1. říjnu
-• Podpora lehkého metra v Seattlu pro veřejnou dopravu
-• Přidány půjčovny kol a další typy bariér
-• Nové ikony pro stožáry, komunikační a energetické věže
+• Data OpenStreetMap k 21. říjnu
+• Monitorovací stanice, dopravní ostrůvky, Kneipp zařízení, mini železnice, místa pro kemp, letištní terminály, vnitřní herní plochy, telekomunikační obchody, půjčovny lodí a skluzavky
+• Silniční štíty nyní v pokynech navigace
+• Přidána podpora starších x86 zařízení
+• Slovinská lokalizace včetně hlasové navigace
+• Vylepšené hledání emoji a EV nabíjecích stanic
 
-…více: omaps.org/cs/news
+…více na omaps.org/cs/news

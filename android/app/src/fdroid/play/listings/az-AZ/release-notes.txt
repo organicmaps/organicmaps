@@ -1,9 +1,8 @@
-• Android Auto-da sürət məhdudiyyətinin göstərilməsi
-• YENİ! GeoJSON-un idxalı
-• 4 oktyabr tarixinə OSM məlumatları
-• 1 oktyabr tarixinə Vikipediya məlumatları
-• İctimai Nəqliyyat üçün Seattle yüngül metro dəstəyi
-• Velosiped kirayə mağazaları və daha çox maneə növləri əlavə edildi
-• Dirək, rabitə və enerji qüllələri üçün yeni ikonalar
+• 21 oktyabr tarixi ilə OSM məlumatları
+• Müşahidə stansiyaları, yol adacıqları, Kneipp su müalicəsi məntəqələri, mini dəmir yollar, düşərgə yerləri, hava limanı terminalları, qapalı oyun sahələri, telekommunikasiya mağazaları, qayıq icarəsi və sürüşmə rampaları
+• Naviqasiya istiqamətlərində yol nişanları göstərilir
+• Köhnə x86 cihazları üçün dəstək əlavə edildi
+• Sloven dilinə (səsli istiqamətlərlə) dəstək
+• Emoji və EV doldurma məntəqəsi axtarışı yaxşılaşdırıldı
 
-…daha çox: omaps.org/news
+…daha çoxu: omaps.org/news

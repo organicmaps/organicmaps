@@ -1,11 +1,8 @@
-• Speed limit display in Android Auto
-• NEW! Import GeoJSON
-• OSM data as of October 4
-• Wikipedia data as of October 1
-• Seattle light rail support for Public Transport
-• Added bicycle rental shops and more barrier types
-• New icons for mast, communication, and power towers, show historic archaeological sites from zoom 12 and other historic sites from zoom 15 in Outdoor style
-• Show OSM `description` tag content on Android
-• Fixed several crashes
+• OpenStreetMap data as of October 21
+• Monitoring stations, traffic islands, Kneipp water cure facilities, miniature railways, camp pitches, airport terminals, indoor play areas, telecommunication shops, boat rentals and slipways
+• Road shields are now displayed in navigation directions
+• Added support for older x86 devices
+• Slovenian language support, including voice directions for navigation
+• Improved emoji and EV charging station search
 
 …more at omaps.org/news

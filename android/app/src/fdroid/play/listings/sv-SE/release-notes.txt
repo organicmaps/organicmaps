@@ -1,11 +1,8 @@
-• Hastighetsgräns visning i Android Auto
-• NYTT! Importera GeoJSON
-• OSM-data 4 okt
-• Wikipedia-data 1 okt
-• Seattle spårväg stöd för kollektivtrafik
-• Tillagt cykeluthyrningsbutiker och fler barriärtyper
-• Nya ikoner för master, kommunikations- och krafttorn, visa historiska arkeologiska platser från zoom 12 och andra historiska platser från zoom 15 i utomhusstil
-• Visa OSM `description`-tagg innehåll på Android
-• Fixat flera kraschar
+• OpenStreetMap-data per 21 oktober
+• Övervakningsstationer, trafiköar, Kneipp vattenanläggningar, minijärnvägar, campingplatser, flygplatsterminaler, inomhus lekområden, telekombutiker, båtuthyrning och slipar
+• Vägsymboler visas nu i navigationsriktningar
+• Stöd för äldre x86-enheter
+• Slovenska språket med röstnavigering
+• Förbättrad sökning efter emoji och EV-laddare
 
-…mer: omaps.org/sv/news
+…mer på omaps.org/sv/news

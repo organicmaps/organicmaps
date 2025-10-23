@@ -1,9 +1,8 @@
-• Prikaz ograničenja brzine u Android Auto
-• NOVO! Uvoz GeoJSON
-• OSM podaci 4. listopada
-• Wikipedia podaci 1. listopada
-• Podrška za Seattle laganu željeznicu za javni prijevoz
-• Dodane trgovine za iznajmljivanje bicikala i više vrsta barijera
-• Nove ikone za jarbolе, komunikacijske i energetske tornjeve
+• OpenStreetMap podaci na dan 21. listopada
+• Stanice za nadzor, prometni otoci, Kneipp vodeni tretmani, mini željeznice, kamp mjesta, zračne luke terminali, unutarnje zone za igru, telekom trgovine, najam čamaca i rampe
+• Cestovni znakovi sada u uputama navigacije
+• Dodana podrška starijim x86 uređajima
+• Slovenski jezik i glasovna navigacija
+• Poboljšano pretraživanje emojija i EV punjača
 
-…više: omaps.org/news
+…više na omaps.org/news
