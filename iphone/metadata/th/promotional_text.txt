@@ -1,1 +1,1 @@
-Please fix all map issues at OpenStreetMap.org, and let us know about any bugs. Your feedback motivates our small team of enthusiasts to improve the app.
+แผนที่ออฟไลน์สำหรับท่องเที่ยว เดินป่า และปั่นจักรยาน นำทางราบรื่นโดยไม่ต้องมีสัญญาณหรือใช้แบตเตอรี่ ข้อมูล OpenStreetMap ไม่มีโฆษณา เข้าถึงทุกฟีเจอร์เต็มที่

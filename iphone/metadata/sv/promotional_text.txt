@@ -1,1 +1,1 @@
-Åtgärda alla kartproblem på OpenStreetMap.org och meddela oss om eventuella fel. Din återkoppling motiverar vår lilla grupp av entusiaster att förbättra appen.
+Offlinekartor för resor, vandringar och cykling. Smidig navigation utan signal eller batteriförbrukning. OpenStreetMap-data, reklamfri, full tillgång till alla funktioner
