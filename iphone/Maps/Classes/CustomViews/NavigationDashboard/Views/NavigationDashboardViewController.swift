@@ -108,9 +108,9 @@ final class NavigationDashboardViewController: UIViewController {
   override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
     super.viewWillTransition(to: size, with: coordinator)
     routePointsView.viewWillTransition(to: size, with: coordinator)
-    if #available(iOS 14.0, *), ProcessInfo.processInfo.isiOSAppOnMac {
-      updateFrameOfPresentedViewInContainerView()
-    }
+    coordinator.animate(alongsideTransition: { _ in
+      self.updateFrameOfPresentedViewInContainerView()
+    })
   }
 
   func add(to parentViewController: MapViewController) {
@@ -171,11 +171,9 @@ final class NavigationDashboardViewController: UIViewController {
   }
 
   private func setupGestureRecognizers() {
-    iPhoneSpecific {
-      let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-      panGestureRecognizer.delegate = self
-      availableAreaView.addGestureRecognizer(panGestureRecognizer)
-    }
+    let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+    panGestureRecognizer.delegate = self
+    availableAreaView.addGestureRecognizer(panGestureRecognizer)
   }
 
   @objc

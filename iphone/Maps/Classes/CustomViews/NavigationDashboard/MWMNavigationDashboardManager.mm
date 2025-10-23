@@ -70,10 +70,7 @@
 {
   if (self.state == MWMNavigationDashboardStateClosed || self.state == MWMNavigationDashboardStateNavigation)
     return;
-  if (selected && !IPAD)
-    self.state = MWMNavigationDashboardStateHidden;
-  else
-    self.state = MWMNavigationDashboardStateReady;
+  self.state = selected ? MWMNavigationDashboardStateHidden : MWMNavigationDashboardStateReady;
 }
 
 - (void)onNavigationInfoUpdated:(MWMNavigationDashboardEntity *)entity

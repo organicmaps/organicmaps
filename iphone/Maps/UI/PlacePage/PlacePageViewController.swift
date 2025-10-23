@@ -375,8 +375,6 @@ extension PlacePageViewController: PlacePageViewProtocol {
           let frame = self.view.frame.offsetBy(dx: 0, dy: self.view.height - self.stackView.convert(self.stackView.origin, to: self.view).y)
           self.view.frame = frame
         }, iPad: {
-          let frame = self.view.frame
-          self.view.minX = frame.minX - frame.width
           self.view.alpha = 0
         })
       },
