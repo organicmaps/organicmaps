@@ -5,6 +5,6 @@ plugins {
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 
 android {
-  namespace 'app.organicmaps.sdk.maps.world'
+  namespace = 'app.organicmaps.sdk.maps.world'
   compileSdk = propCompileSdkVersion.toInteger()
 }
