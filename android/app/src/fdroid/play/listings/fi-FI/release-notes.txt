@@ -1,9 +1,8 @@
-• Nopeusrajoituksen näyttö Android Autossa
-• UUSI! GeoJSON-tuonti
-• OSM-data 4. lokakuuta
-• Wikipedia-data 1. lokakuuta
-• Seattlen kevytjunaliikenteen tuki julkiselle liikenteelle
-• Lisätty polkupyörien vuokrausliikkeet ja lisää esteruokia
-• Uudet kuvakkeet mastoille, viestintä- ja sähkötorneille
+• OpenStreetMap-data 21. lokakuuta
+• Seuranta-asemat, liikennesaaret, Kneipp-vesihoidot, pienoisrautatiet, leiripaikat, lentoaseman terminaalit, sisäleikkialueet, teleliikkeet, venevuokraus ja laskuluiskat
+• Tiekilvet näkyvät nyt navigoinnissa
+• Tuki vanhemmille x86-laitteille lisätty
+• Sloveenin kieli ja ääniohjeet
+• Parannettu emoji- ja EV-latausaseman haku
 
 …lisää: omaps.org/news

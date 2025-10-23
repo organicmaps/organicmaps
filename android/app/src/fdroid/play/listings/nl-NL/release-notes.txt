@@ -1,9 +1,8 @@
-• Snelheidslimiet weergave in Android Auto
-• NIEUW! GeoJSON importeren
-• OSM-data t/m 4 oktober
-• Wikipedia-data t/m 1 oktober
-• Seattle light rail ondersteuning voor openbaar vervoer
-• Fietsverhuurwinkels en meer barrièretypes toegevoegd
-• Nieuwe iconen voor masten, communicatie- en energietorens
+• OpenStreetMap-data per 21 oktober
+• Meetstations, verkeerseilanden, Kneipp watertherapie, mini spoorbanen, kampeerplaatsen, luchthaven-terminals, indoor speelzones, telecomwinkels, bootverhuur en hellingen
+• Wegschilden worden nu getoond in navigatie
+• Ondersteuning voor oudere x86-apparaten toegevoegd
+• Sloveense taal inclusief stemnavigatie
+• Verbeterde emoji- en EV-laadpuntzoeking
 
-…meer: omaps.org/nl/news
+…meer op omaps.org/nl/news

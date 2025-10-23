@@ -1,37 +1,27 @@
-• YENİ: Seçilen izleme noktasında yer imi kaydet
-• YENİ: Kayıt izini önce kaydetmeden sil
-• YENİ! GeoJSON içe aktar
-• 4 Ekim itibarıyla OpenStreetMap verileri
-• 1 Ekim itibarıyla Vikipedi verileri
-• Toplu taşıma için Seattle hafif raylı ulaşım desteği
-• Yer sayfasında çok satırlı yer imi listesi başlıklarını görüntüle
-• OSM giriş düğmesi stilini güncelle
-• Navigasyon bilgisi güncelleme sorununu düzelt
-• Yeni rota planlama sorunlarını düzelt
-• 3 aydan eski haritalar için OSM yer ekleme/düzenleme görünürlüğünü düzelt
-• iOS 26 için ulaşım seçenekleri segment kontrolü düzenini düzelt
-• Yer imi seçim animasyonlarını basitleştir
-• Arama sonucu seçim sorununu düzelt
-• Yer bilgi sayfası için stil, kaydırma ve animasyonlar düzeltildi
-• Düzenlenmiş OSM yerini kaydederken harita seçimini devre dışı bırakma
-• Güncellenen çeviriler
+• AB kullanıcıları artık Organic Maps'i iOS Ayarlar → Uygulamalar → Varsayılan Uygulamalar → Navigasyon bölümünde varsayılan navigasyon uygulaması olarak ayarlayabilir
 
-#### Harita Stilleri
+• 21 Ekim 2025 tarihli güncel OpenStreetMap verileri
+• Yeni harita nesneleri: izleme istasyonları, trafik adaları, Kneipp su tedavisi tesisleri, minyatür demiryolları, açık hava tarzı kamp alanları, havaalanı terminalleri, kapalı oyun alanları, telekomünikasyon mağazaları, tekne kiralama tesisleri ve kayma rampası tesisleri
+• Metro giriş isimleri artık haritada görünüyor
+• Konum oku artık yaya navigasyon modunda yürürken hareket yönünüzü gösteriyor
+• Navigasyon için sesli talimatlar dahil Slovence dil desteği eklendi
+• Atık imha ve çöp sahası simgeleri güncellendi
+• Navigasyon modunda beyaz üzerine beyaz durum çubuğu düzeltildi
+• Navigasyonu Başlat düğmesinin boyutu artırıldı
+• iPad'de rota planlarken boş beyaz alan kaldırıldı
+• Yürüyüş parkurları için ek renkler artık destekleniyor
+• Nehir veya su yolu segmenti seçerken görüntülenen bilgiler iyileştirildi
+• Tüm dillerde geliştirilmiş eş anlamlılarla daha iyi elektrikli araç şarj istasyonu araması
+• Emoji araması düzeltildi (evet, arama kutusuna emoji yazabilirsiniz!)
+• Tam adres aramaları için çok fazla sonuç gösteren arama ipuçları düzeltildi
+• https://umap.openstreetmap.fr/ adresinden GeoJSON içe ve dışa aktarma artık tüm meta verileri koruyor
 
-• Bisiklet kiralama mağazalarını görüntüle
-• Açık hava stilinde yakınlaştırma 12'den itibaren tarihi arkeolojik alanları ve yakınlaştırma 15'ten itibaren diğer tarihi alanları görüntüle
-• Açık hava stilinde direkler, iletişim kuleleri ve elektrik kuleleri için yeni simgeler
-• Açık hava stilinde tepe simgesi boyutunu artır
-• Eksik POI simge varyantları eklendi
-• Daha fazla bariyer türü eklendi
+### Yakın zamanda yayınlanan ve kaçırmış olabileceğiniz özellikler
 
-### Kaçırmış olabileceğiniz son zamanlarda yayınlanan özellikler
+• Seçili bir rota noktasında yer işareti kaydedin
+• Kayıt rotasını önce kaydetmeden silin
+• GeoJSON dosyalarını içe aktarın
 
-• Otobüs durağı seçerken toplu taşıma rota numaraları
-• Yürüyüş ve bisiklet rotaları
-• Uygulama ayarlarında etkinleştirerek haritada yer imi adlarını gör
-• Kalem simgesi, yer imlerini düzenlemek için hızlı bir yol sunar
-• Yeniden tasarlanan rota planlaması
-• OSM etiketi `description` içeriğini görüntüle (açıklamalı yerleri keşfetmek için aramaya ?description yazın)
+Organic Maps, katkıda bulunanlarımız ve sürekli desteğiniz sayesinde mümkün.
 
-Her bağış ve iyi yorum, gönüllülerimizi daha iyi haritalar oluşturmaya motive ediyor, teşekkürler!
+Organic Maps Ekibi

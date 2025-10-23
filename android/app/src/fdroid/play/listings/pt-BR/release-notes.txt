@@ -1,9 +1,8 @@
-• Exibição de limite de velocidade no Android Auto
-• NOVO! Importar GeoJSON
-• Dados OSM de 4 de outubro
-• Dados da Wikipédia de 1º de outubro
-• Suporte ao metrô leve de Seattle para transporte público
-• Adicionadas lojas de aluguel de bicicletas e mais tipos de barreiras
-• Novos ícones para mastros, torres de comunicação e energia
+• Dados do OpenStreetMap em 21 de outubro
+• Estações de monitoramento, ilhas de tráfego, instalações Kneipp, ferrovias em miniatura, áreas de camping, terminais de aeroporto, áreas de brincadeira internas, lojas de telecom, aluguel de barcos e rampas
+• Escudos de rodovia agora nas direções de navegação
+• Suporte a dispositivos x86 antigos
+• Idioma esloveno com navegação por voz
+• Busca melhor de emojis e pontos de recarga EV
 
-…mais: omaps.org/pt-BR/news
+…mais em omaps.org/pt-BR/news

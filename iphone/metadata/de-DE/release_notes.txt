@@ -1,38 +1,27 @@
-• NEU: Lesezeichen auf ausgewähltem Track-Punkt speichern
-• NEU: Aufzeichnungs-Track löschen ohne vorher zu speichern
-• NEU! GeoJSON importieren
-• OpenStreetMap-Datenstand: 4. Oktober
-• Wikipedia-Datenstand: 1. Oktober
-• Seattle Stadtbahn-Unterstützung für öffentliche Verkehrsmittel
-• Mehrzeilige Lesezeichenlisten-Titel auf Ortsseite anzeigen
-• OSM-Login-Button-Stil aktualisieren
-• Navigationsinformations-Aktualisierungsproblem behoben
-• Neue Routenplanungsprobleme behoben
-• OSM Ort hinzufügen/bearbeiten Sichtbarkeit für Karten älter als 3 Monate behoben
-• Transportoptionen Segmentkontroll-Layout für iOS 26 behoben
-• Lesezeichen-Auswahlanimationen vereinfacht
-• Suchergebnis-Auswahlproblem behoben
-• Styling, Wischgesten und Animationen für Ortsinformationsseite korrigiert
-• Kartenauswahl nicht deaktivieren beim Speichern eines bearbeiteten OSM-Ortes
-• Aktualisierte Übersetzungen
+• EU-Nutzer können Organic Maps jetzt als Standard-Navigations-App in iOS-Einstellungen → Apps → Standard-Apps → Navigation festlegen
 
-#### Kartenstile
+• Aktuelle OpenStreetMap-Daten vom 21. Oktober 2025
+• Neue Kartenobjekte: Überwachungsstationen, Verkehrsinseln, Kneipp-Wasserkuranlagen, Miniatureisenbahnen, Campingplätze im Outdoor-Stil, Flughafenterminals, Indoor-Spielbereiche, Telekommunikationsgeschäfte, Bootsvermietungen und Slipanlagen
+• U-Bahn-Eingangsnamen sind jetzt auf der Karte sichtbar
+• Der Positionspfeil zeigt jetzt Ihre Bewegungsrichtung beim Gehen im Fußgängernavigationsmodus
+• Slowenische Sprachunterstützung hinzugefügt, einschließlich Sprachansagen für die Navigation
+• Aktualisierte Symbole für Abfallentsorgung und Deponien
+• Weiß-auf-weiß-Statusleiste im Navigationsmodus behoben
+• Größe der Schaltfläche Navigation starten erhöht
+• Leerer weißer Bereich beim Planen einer Route auf dem iPad entfernt
+• Zusätzliche Farben werden jetzt für Wanderwege unterstützt
+• Verbesserte Informationen beim Auswählen eines Fluss- oder Wasserwegabschnitts
+• Bessere Suche nach Ladestationen für Elektrofahrzeuge mit verbesserten Synonymen in allen Sprachen
+• Emoji-Suche behoben (ja, Sie können Emojis in das Suchfeld eingeben!)
+• Suchvorschläge behoben, die zu viele Ergebnisse für genaue Adresssuchen anzeigten
+• Import und Export von GeoJSON von und nach https://umap.openstreetmap.fr/ behält jetzt alle Metadaten bei
 
-• Fahrradverleihgeschäfte anzeigen
-• Historische archäologische Stätten ab Zoom 12 und andere historische Stätten ab Zoom 15 im Outdoor-Stil anzeigen
-• Neue Symbole für Masten, Kommunikations- und Strommaste im Outdoor-Stil
-• Gipfelsymbol-Größe im Outdoor-Stil erhöhen
-• Fehlende POI-Symbol-Varianten hinzugefügt
-• Mehr Barrierentypen hinzugefügt
+### Kürzlich veröffentlichte Funktionen, die Sie möglicherweise verpasst haben
 
-### Kürzlich veröffentlichte Funktionen, die Sie vielleicht verpasst haben
+• Lesezeichen an einem ausgewählten Trackpunkt speichern
+• Aufzeichnungstrack löschen, ohne ihn zuerst zu speichern
+• GeoJSON-Dateien importieren
 
-• Öffentliche Verkehrsmittel-Routennummern beim Auswählen einer Bushaltestelle
-• Wander- und Radrouten
-• Lesezeichennamen auf der Karte sehen durch Aktivieren in den App-Einstellungen
-• Das Stift-Symbol bietet eine schnelle Möglichkeit, Lesezeichen zu bearbeiten
-• Neugestaltete Routenplanung
-• Anzeige des OSM-Tag-Inhalts `description` (Tippen Sie ?description in die Suche ein, um Orte mit Beschreibung zu entdecken)
+Organic Maps ist dank unserer Mitwirkenden und Ihrer kontinuierlichen Unterstützung möglich.
 
-Jede Spende und gute Bewertung motiviert unsere Freiwilligen, bessere Karten zu erstellen, danke!
-
+Das Organic Maps-Team

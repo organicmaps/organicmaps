@@ -1,38 +1,27 @@
-• NEW: Save bookmark on selected track point
-• NEW: Delete recording track without saving it first
-• NEW! Import GeoJSON
-• OpenStreetMap data as of October 4
-• Wikipedia data as of October 1
-• Seattle light rail support for public transport
-• Display multi-line bookmark list titles on place page
-• Update OSM login button style
-• Fix navigation info update issue
-• Fix new route planning issues
-• Fix OSM add/edit place visibility for maps older than 3 months
-• Fix transport options segment control layout for iOS 26
-• Simplify bookmark selection animations
-• Fix search result selection issue
-• Fixed styling, swiping and animations for place info page
-• Don't disable map selection on saving edited OSM place
-• Updated translations
+• EU users can now set Organic Maps as the default navigation app in iOS Settings → Apps → Default Apps → Navigation
 
-#### Map Styles
+• Fresh OpenStreetMap data as of October 21, 2025
+• New map objects: monitoring stations, traffic islands, Kneipp water cure facilities, miniature railways, camp pitches in outdoor style, airport terminals, indoor play areas, telecommunication shops, boat rental facilities, and slipway facilities
+• Subway entrance names are now visible on the map
+• The position arrow now shows your direction of movement when walking in Pedestrian navigation mode
+• Added Slovenian language support, including TTS (text-to-speech) voice directions for navigation
+• Updated waste disposal and landfill icons
+• Fixed white-on-white status bar in navigation mode
+• Increased the size of the Start Navigation button
+• Removed empty white space when planning a route on iPad
+• Additional colours are now supported for Hiking trails
+• Improved information displayed when selecting a river or waterway segment
+• Better EV charging station search with improved synonyms in all languages
+• Fixed emoji search (yes, you can type emojis in the search box!)
+• Fixed search hints showing too many results for exact address searches
+• Importing and exporting GeoJSON from and to https://umap.openstreetmap.fr/ now preserves all metadata
 
-• Display bicycle rental shops
-• Display historic archaeological sites from zoom 12 and other historic sites from zoom 15 in outdoor style
-• New icons for mast, communication and power towers in outdoor style
-• Increase peak icon size in outdoor style
-• Added missing POI icon variants
-• Added more barrier types
+### Recently released features you might have missed
 
-### Recently released features you may have missed
+• Save a bookmark on a selected track point
+• Delete a recording track without saving it first
+• Import GeoJSON files
 
-• Public transport route numbers when selecting bus stop
-• Hiking and cycling routes
-• See bookmark names on the map by enabling it in app settings
-• The pencil icon offers a quick way to edit bookmarks
-• Redesigned route planning
-• Display `description` OSM tag content (type ?description in the search to discover places with description)
+Organic Maps is possible thanks to our contributors and your continuous support.
 
-Every donation and good review motivates our volunteers to build better maps, thanks!
-
+The Organic Maps Team

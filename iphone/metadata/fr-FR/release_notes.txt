@@ -1,38 +1,27 @@
-• NOUVEAU : Enregistrer un signet sur le point de trace sélectionné
-• NOUVEAU : Supprimer la trace d'enregistrement sans l'enregistrer d'abord
-• NOUVEAU ! Importer GeoJSON
-• Données OpenStreetMap au 4 octobre
-• Données Wikipedia au 1er octobre
-• Support du métro léger de Seattle pour les transports en commun
-• Afficher les titres de liste de signets multilignes sur la page de lieu
-• Mise à jour du style du bouton de connexion OSM
-• Correction du problème de mise à jour des informations de navigation
-• Correction des problèmes de nouvelle planification d'itinéraire
-• Correction de la visibilité d'ajout/modification de lieu OSM pour les cartes de plus de 3 mois
-• Correction de la disposition du contrôle de segment des options de transport pour iOS 26
-• Simplification des animations de sélection de signets
-• Correction du problème de sélection des résultats de recherche
-• Correction du style, du balayage et des animations pour la page d'informations de lieu
-• Ne pas désactiver la sélection de carte lors de l'enregistrement d'un lieu OSM modifié
-• Traductions mises à jour
+• Les utilisateurs européens peuvent maintenant définir Organic Maps comme application de navigation par défaut dans Réglages iOS → Apps → Apps par défaut → Navigation
 
-#### Styles de carte
-
-• Afficher les magasins de location de vélos
-• Afficher les sites archéologiques historiques à partir du zoom 12 et les autres sites historiques à partir du zoom 15 en style plein air
-• Nouvelles icônes pour les pylônes, tours de communication et tours électriques en style plein air
-• Augmenter la taille de l'icône de sommet en style plein air
-• Ajout de variantes d'icônes POI manquantes
-• Ajout de plus de types de barrières
+• Données OpenStreetMap mises à jour au 21 octobre 2025
+• Nouveaux objets de carte : stations de surveillance, îlots de circulation, installations de cure d'eau Kneipp, chemins de fer miniatures, emplacements de camping de style plein air, terminaux d'aéroport, aires de jeux intérieures, boutiques de télécommunications, installations de location de bateaux et installations de cale de mise à l'eau
+• Les noms des entrées de métro sont maintenant visibles sur la carte
+• La flèche de position montre maintenant votre direction de déplacement lorsque vous marchez en mode de navigation piétonne
+• Ajout de la prise en charge de la langue slovène, y compris les instructions vocales pour la navigation
+• Icônes de dépôt de déchets et de décharge mises à jour
+• Correction de la barre d'état blanc sur blanc en mode navigation
+• Augmentation de la taille du bouton Démarrer la navigation
+• Suppression de l'espace blanc vide lors de la planification d'un itinéraire sur iPad
+• Des couleurs supplémentaires sont maintenant prises en charge pour les sentiers de randonnée
+• Amélioration des informations affichées lors de la sélection d'une rivière ou d'un segment de voie navigable
+• Meilleure recherche de bornes de recharge pour véhicules électriques avec des synonymes améliorés dans toutes les langues
+• Correction de la recherche d'émojis (oui, vous pouvez saisir des émojis dans la zone de recherche !)
+• Correction des suggestions de recherche affichant trop de résultats pour les recherches d'adresses exactes
+• L'importation et l'exportation de GeoJSON depuis et vers https://umap.openstreetmap.fr/ préserve maintenant toutes les métadonnées
 
 ### Fonctionnalités récemment publiées que vous avez peut-être manquées
 
-• Numéros d'itinéraire de transport en commun lors de la sélection d'un arrêt de bus
-• Itinéraires de randonnée et de vélo
-• Voir les noms de signets sur la carte en l'activant dans les paramètres de l'application
-• L'icône crayon offre un moyen rapide de modifier les signets
-• Planification d'itinéraire repensée
-• Affichage du contenu de la balise OSM `description` (tapez ?description dans la recherche pour découvrir les lieux avec description)
+• Enregistrer un signet sur un point de tracé sélectionné
+• Supprimer un tracé d'enregistrement sans l'enregistrer d'abord
+• Importer des fichiers GeoJSON
 
-Chaque don et bonne critique motive nos bénévoles à créer de meilleures cartes, merci !
+Organic Maps est possible grâce à nos contributeurs et à votre soutien continu.
 
+L'équipe Organic Maps
