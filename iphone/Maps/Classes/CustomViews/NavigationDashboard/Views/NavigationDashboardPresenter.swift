@@ -2,7 +2,7 @@ extension NavigationDashboard {
   final class Presenter: NSObject {
     private weak var view: NavigationDashboardViewController?
     private var viewModel: ViewModel = .initial
-    private var latestVisiblePresentationStep: NavigationDashboardModalPresentationStep = .compact
+    private var latestVisiblePresentationStep: NavigationDashboardModalPresentationStep = isiPad ? .regular : .compact
     private var isSearchOpened: Bool = false
     private let placePageManagerHelper: MWMPlacePageManagerHelper.Type
 

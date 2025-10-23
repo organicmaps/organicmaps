@@ -8,6 +8,7 @@ enum NavigationDashboardModalPresentationStep: Int, ModalPresentationStep {
 final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationStepStrategy {
   private enum Constants {
     static let iPadWidth: CGFloat = 350
+    static let iPadLeadingOffset: CGFloat = 20
     static let compactHeightOffset: CGFloat = 300
     static let fullScreenHeightFactorPortrait: CGFloat = 0.1
     static let halfScreenHeightFactorPortrait: CGFloat = 0.55
@@ -67,26 +68,15 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
     let traitCollection = containerViewController.traitCollection
     var frame = CGRect(origin: .zero, size: containerSize)
 
-    if isIPad {
+    func iPadFrame() -> CGRect {
       frame.size.width = Constants.iPadWidth
-      switch step {
-      case .hidden:
-        frame.origin.x = -Constants.iPadWidth
-      default:
-        frame.origin.x = .zero
-      }
-      return frame
-    }
-
-    let isPortraitOrientation = traitCollection.verticalSizeClass == .regular
-    if isPortraitOrientation {
+      frame.origin.x = Constants.iPadLeadingOffset
       switch step {
       case .expanded:
         frame.origin.y = safeAreaInsets.top + Constants.topInset
       case .regular:
-        let maxHeight = safeAreaInsets.top + Constants.topInset
         if regularHeigh != 0 {
-          frame.origin.y = max(containerSize.height - regularHeigh, maxHeight)
+          frame.origin.y = max(containerSize.height - regularHeigh, safeAreaInsets.top + Constants.topInset)
         } else {
           frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
         }
@@ -99,18 +89,45 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
       case .hidden:
         frame.origin.y = containerSize.height
       }
-    } else {
-      frame.size.width = Constants.iPadWidth
-      frame.origin.x = safeAreaInsets.left
-      switch step {
-      case .expanded, .regular:
-        frame.origin.y = Constants.topInset
-      case .compact:
-        frame.origin.y = containerSize.height - (compactHeight != 0 ? compactHeight : Constants.compactHeightOffset)
-      case .hidden:
-        frame.origin.y = containerSize.height
-      }
+      return frame
     }
-    return frame
+
+    func iPhoneFrame() -> CGRect {
+      let isPortraitOrientation = traitCollection.verticalSizeClass == .regular
+      if isPortraitOrientation {
+        switch step {
+        case .expanded:
+          frame.origin.y = safeAreaInsets.top + Constants.topInset
+        case .regular:
+          if regularHeigh != 0 {
+            frame.origin.y = max(containerSize.height - regularHeigh, safeAreaInsets.top + Constants.topInset)
+          } else {
+            frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
+          }
+        case .compact:
+          if compactHeight != 0 {
+            frame.origin.y = containerSize.height - compactHeight
+          } else {
+            frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
+          }
+        case .hidden:
+          frame.origin.y = containerSize.height
+        }
+      } else {
+        frame.size.width = Constants.iPadWidth
+        frame.origin.x = safeAreaInsets.left
+        switch step {
+        case .expanded, .regular:
+          frame.origin.y = Constants.topInset
+        case .compact:
+          frame.origin.y = containerSize.height - (compactHeight != 0 ? compactHeight : Constants.compactHeightOffset)
+        case .hidden:
+          frame.origin.y = containerSize.height
+        }
+      }
+      return frame
+    }
+
+    return isIPad ? iPadFrame() : iPhoneFrame()
   }
 }
