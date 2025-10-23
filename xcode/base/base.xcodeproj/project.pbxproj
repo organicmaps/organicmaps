@@ -812,7 +812,7 @@
 				EXECUTABLE_PREFIX = lib;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/3party/fast_double_parser/include",
+					"$(OMIM_ROOT)/3party/fast_float/include",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -824,7 +824,7 @@
 				EXECUTABLE_PREFIX = lib;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/3party/fast_double_parser/include",
+					"$(OMIM_ROOT)/3party/fast_float/include",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
