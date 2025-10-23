@@ -880,4 +880,5 @@
     <string name="show_at_the_bottom">Показати внизу</string>
     <string name="share_track">Поділитися треком</string>
     <string name="delete_track_dialog_title">Видалити %s?</string>
+    <string name="track_recording_title">Запис треку</string>
 </resources>

@@ -857,4 +857,5 @@
     <string name="instagram">Instagram</string>
     <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="track_recording_title">Reitin tallennus</string>
 </resources>

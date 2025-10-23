@@ -809,4 +809,5 @@
     <string name="bookmarks_text_placement_description">북마크가 너무 많을 경우 지도에 북마크 이름을 표시하면 앱 속도가 느려질 수 있습니다.</string>
     <string name="show_to_the_right">오른쪽에 표시</string>
     <string name="show_at_the_bottom">하단에 표시</string>
+    <string name="track_recording_title">트랙 기록</string>
 </resources>

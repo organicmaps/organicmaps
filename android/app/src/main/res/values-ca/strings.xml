@@ -871,4 +871,5 @@
     <string name="saved">Desat</string>
     <string name="osm_note_toast">La nota s’enviarà a l’OpenStreetMap</string>
     <string name="osm_note_hint">O bé, deixeu una nota a la comunitat de l’OpenStreetMap perquè algú altre pugui afegir o arreglar un lloc.</string>
+    <string name="track_recording_title">Enregistrament de trajecte</string>
 </resources>

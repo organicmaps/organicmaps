@@ -877,4 +877,5 @@
     <string name="show_to_the_right">Pokaż po prawej stronie</string>
     <string name="show_at_the_bottom">Pokaż na środku</string>
     <string name="share_track">Udostępnij trasę</string>
+    <string name="track_recording_title">Nagrywanie trasy</string>
 </resources>

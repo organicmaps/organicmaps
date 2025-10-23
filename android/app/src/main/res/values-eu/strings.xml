@@ -867,4 +867,5 @@
     <string name="show_at_the_bottom">Erakutsi behean</string>
     <string name="share_track">Partekatu arrastoa</string>
     <string name="delete_track_dialog_title">Ezabatu %s?</string>
+    <string name="track_recording_title">Ibilbidearen grabaketa</string>
 </resources>

@@ -884,4 +884,5 @@
     <string name="osm_note_toast">Ваша заметка будет отправлена в OpenStreetMap</string>
     <string name="share_track">Поделиться треком</string>
     <string name="delete_track_dialog_title">Удалить %s?</string>
+    <string name="track_recording_title">Запись трека</string>
 </resources>

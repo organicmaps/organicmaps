@@ -843,4 +843,5 @@
     <string name="show_at_the_bottom">Mostrar na parte inferior</string>
     <string name="share_track">Compartilhar trilha</string>
     <string name="delete_track_dialog_title">Excluir %s?</string>
+    <string name="track_recording_title">Gravação de trilha</string>
 </resources>

@@ -848,4 +848,5 @@
     <string name="show_at_the_bottom">Vis i bunden</string>
     <string name="share_track">Del spor</string>
     <string name="delete_track_dialog_title">Slet %s?</string>
+    <string name="track_recording_title">Optagelse af rute</string>
 </resources>

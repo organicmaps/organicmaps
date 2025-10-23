@@ -873,4 +873,5 @@
     <string name="share_track">Titel van het onderste blad bij delen van het spoor</string>
     <string name="delete_track_dialog_title">Verwijder %s?</string>
     <string name="osm_note_toast">Opmerking wordt verzonden naar OpenStreetMap</string>
+    <string name="track_recording_title">Track-opname</string>
 </resources>

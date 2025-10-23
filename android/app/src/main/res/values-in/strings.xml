@@ -799,4 +799,5 @@
     <string name="uri_open_location_failed">Tidak ada Aplikasi yang diinstal yang dapat membuka lokasi</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Otomatis dalam navigasi</string>
+    <string name="track_recording_title">Perekaman Jalur</string>
 </resources>

@@ -875,4 +875,5 @@
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="share_track">分享軌跡</string>
     <string name="delete_track_dialog_title">刪除 %s？</string>
+    <string name="track_recording_title">軌跡記錄</string>
 </resources>
