@@ -1,38 +1,27 @@
-• MỚI: Lưu dấu trang tại điểm theo dõi đã chọn
-• MỚI: Xóa bản ghi theo dõi mà không cần lưu trước
-• MỚI! Nhập GeoJSON
-• Dữ liệu OpenStreetMap tính đến ngày 4 tháng 10
-• Dữ liệu Wikipedia tính đến ngày 1 tháng 10
-• Hỗ trợ tàu điện nhẹ Seattle cho giao thông công cộng
-• Hiển thị tiêu đề danh sách dấu trang nhiều dòng trên trang địa điểm
-• Cập nhật kiểu nút đăng nhập OSM
-• Khắc phục sự cố cập nhật thông tin điều hướng
-• Khắc phục các sự cố lập kế hoạch tuyến đường mới
-• Khắc phục khả năng hiển thị thêm/chỉnh sửa địa điểm OSM cho bản đồ cũ hơn 3 tháng
-• Khắc phục bố cục điều khiển phân đoạn tùy chọn vận chuyển cho iOS 26
-• Đơn giản hóa hoạt ảnh chọn dấu trang
-• Khắc phục sự cố chọn kết quả tìm kiếm
-• Đã sửa kiểu dáng, vuốt và hoạt ảnh cho trang thông tin địa điểm
-• Không vô hiệu hóa chọn bản đồ khi lưu địa điểm OSM đã chỉnh sửa
-• Bản dịch đã cập nhật
+• Người dùng EU hiện có thể đặt Organic Maps làm ứng dụng điều hướng mặc định trong Cài đặt iOS → Ứng dụng → Ứng dụng mặc định → Điều hướng
 
-#### Kiểu bản đồ
-
-• Hiển thị cửa hàng cho thuê xe đạp
-• Hiển thị các địa điểm khảo cổ lịch sử từ mức thu phóng 12 và các địa điểm lịch sử khác từ mức thu phóng 15 ở kiểu ngoài trời
-• Biểu tượng mới cho cột buồm, tháp truyền thông và tháp điện ở kiểu ngoài trời
-• Tăng kích thước biểu tượng đỉnh núi ở kiểu ngoài trời
-• Đã thêm các biến thể biểu tượng POI còn thiếu
-• Đã thêm nhiều loại rào cản hơn
+• Dữ liệu OpenStreetMap mới nhất tính đến ngày 21 tháng 10 năm 2025
+• Đối tượng bản đồ mới: trạm giám sát, đảo giao thông, cơ sở trị liệu nước Kneipp, đường sắt thu nhỏ, khu cắm trại phong cách ngoài trời, nhà ga sân bay, khu vui chơi trong nhà, cửa hàng viễn thông, cơ sở cho thuê thuyền và cơ sở dốc thuyền
+• Tên lối vào tàu điện ngầm giờ đây hiển thị trên bản đồ
+• Mũi tên vị trí giờ đây hiển thị hướng di chuyển của bạn khi đi bộ ở chế độ điều hướng dành cho người đi bộ
+• Đã thêm hỗ trợ tiếng Slovenia, bao gồm hướng dẫn bằng giọng nói cho điều hướng
+• Cập nhật biểu tượng xử lý chất thải và bãi chôn lấp
+• Đã sửa thanh trạng thái trắng trên nền trắng ở chế độ điều hướng
+• Tăng kích thước nút Bắt đầu điều hướng
+• Đã xóa khoảng trắng trống khi lập kế hoạch tuyến đường trên iPad
+• Giờ đây hỗ trợ thêm màu sắc cho các tuyến đường đi bộ đường dài
+• Cải thiện thông tin hiển thị khi chọn sông hoặc đoạn đường thủy
+• Tìm kiếm trạm sạc xe điện tốt hơn với từ đồng nghĩa được cải thiện trên tất cả các ngôn ngữ
+• Đã sửa tìm kiếm biểu tượng cảm xúc (có, bạn có thể nhập biểu tượng cảm xúc vào ô tìm kiếm!)
+• Đã sửa gợi ý tìm kiếm hiển thị quá nhiều kết quả cho tìm kiếm địa chỉ chính xác
+• Nhập và xuất GeoJSON từ và đến https://umap.openstreetmap.fr/ giờ đây giữ nguyên tất cả siêu dữ liệu
 
 ### Các tính năng mới phát hành mà bạn có thể đã bỏ lỡ
 
-• Số tuyến giao thông công cộng khi chọn trạm xe buýt
-• Tuyến đường đi bộ đường dài và đạp xe
-• Xem tên dấu trang trên bản đồ bằng cách bật trong cài đặt ứng dụng
-• Biểu tượng bút chì cung cấp cách nhanh để chỉnh sửa dấu trang
-• Lập kế hoạch tuyến đường được thiết kế lại
-• Hiển thị nội dung thẻ OSM `description` (nhập ?description vào tìm kiếm để khám phá các địa điểm có mô tả)
+• Lưu dấu trang tại một điểm theo dõi đã chọn
+• Xóa bản ghi theo dõi mà không cần lưu trước
+• Nhập tệp GeoJSON
 
-Mỗi khoản đóng góp và đánh giá tốt đều động viên các tình nguyện viên của chúng tôi xây dựng bản đồ tốt hơn, cảm ơn!
+Organic Maps có thể thực hiện được nhờ các cộng tác viên của chúng tôi và sự hỗ trợ liên tục của bạn.
 
+Đội ngũ Organic Maps

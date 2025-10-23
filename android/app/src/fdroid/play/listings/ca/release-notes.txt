@@ -1,9 +1,8 @@
-• Visualització del límit de velocitat a Android Auto
-• NOU! Importació de GeoJSON
-• Dades OSM del 4 d'octubre
-• Dades de Viquipèdia de l'1 d'octubre
-• Suport per al ferrocarril lleuger de Seattle per al transport públic
-• S'han afegit botigues de lloguer de bicicletes i més tipus de barreres
-• Noves icones per a mástils, torres de comunicació i energia
+• Dades d’OpenStreetMap a 21 d’octubre
+• Estacions de monitoratge, illes de trànsit, instal·lacions Kneipp, ferrocarrils en miniatura, parcel·les de càmping, terminals d’aeroport, zones de joc interiors, botigues de telecomunicacions, lloguer de barques i rampes
+• Els escuts de carretera apareixen en la navegació
+• Suport per a dispositius x86 antics
+• Suport de llengua eslovena amb veu
+• Millora cerca d’emojis i punts de càrrega EV
 
-…més: omaps.org/ca/news
+…més a omaps.org/ca/news

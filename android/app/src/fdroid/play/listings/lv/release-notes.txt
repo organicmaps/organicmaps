@@ -1,9 +1,8 @@
-• Ātruma ierobežojuma attēlošana Android Auto
-• JAUNS! GeoJSON imports
-• OSM dati 4. oktobrī
-• Vikipēdijas dati 1. oktobrī
-• Sietlas vieglā metro atbalsts sabiedriskajam transportam
-• Pievienotas velosipēdu nomas veikali un vairāk barjeru veidi
-• Jaunas ikonas mastiem, sakaru un enerģētikas torņiem
+• OpenStreetMap dati uz 21. oktobri
+• Novērošanas stacijas, satiksmes salas, Kneipp ūdens procedūru vietas, mini dzelzceļi, kempinga lauciņi, lidostas termināļi, iekštelpu rotaļu zonas, telekomunikāciju veikali, laivu noma un slipi
+• Ceļa vairogi tagad redzami navigācijas norādēs
+• Pievienots atbalsts vecākām x86 ierīcēm
+• Slovēņu valodas un balss navigācijas atbalsts
+• Uzlabota emoji un EV uzlādes staciju meklēšana
 
 …vairāk: omaps.org/news

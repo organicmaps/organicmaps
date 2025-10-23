@@ -1,9 +1,8 @@
-• Geschwindigkeitsbegrenzungsanzeige in Android Auto
-• NEU! GeoJSON importieren
-• OSM-Daten Stand 4. Oktober
-• Wikipedia-Daten Stand 1. Oktober
-• Seattle Stadtbahn-Unterstützung für öffentliche Verkehrsmittel
-• Fahrradverleihgeschäfte und weitere Barrierentypen hinzugefügt
-• Neue Symbole für Masten, Kommunikations- und Strommaste, historische archäologische Stätten ab Zoom 12 und andere historische Stätten ab Zoom 15 im Outdoor-Stil anzeigen
+• OpenStreetMap-Daten Stand 21. Oktober
+• Messstationen, Verkehrsinseln, Kneipp-Anlagen, Miniaturbahnen, Campingplätze, Flughafen-Terminals, Indoor-Spielbereiche, Telekommunikationsshops, Bootsverleih und Slipanlagen
+• Straßenschilder erscheinen jetzt in Navigationsanweisungen
+• Unterstützung älterer x86-Geräte hinzugefügt
+• Slowenische Sprache inkl. Sprachnavigation
+• Verbesserte Suche nach Emojis und EV-Ladestationen
 
-…mehr: omaps.org/de/news
+…mehr auf omaps.org/de/news

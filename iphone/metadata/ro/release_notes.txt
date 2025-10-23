@@ -1,38 +1,27 @@
-• NOU: Salvează marcaj pe punctul de traseu selectat
-• NOU: Șterge traseul de înregistrare fără a-l salva mai întâi
-• NOU! Importă GeoJSON
-• Date OpenStreetMap la 4 octombrie
-• Date Wikipedia la 1 octombrie
-• Suport pentru metrou ușor Seattle pentru transportul public
-• Afișează titluri liste marcaje pe mai multe linii pe pagina locației
-• Actualizează stilul butonului de autentificare OSM
-• Remediază problema actualizării informațiilor de navigare
-• Remediază probleme noi de planificare a rutei
-• Remediază vizibilitatea adăugării/editării locației OSM pentru hărți mai vechi de 3 luni
-• Remediază aspectul controlului segmentului opțiunilor de transport pentru iOS 26
-• Simplifică animațiile de selecție a marcajelor
-• Remediază problema selecției rezultatului căutării
-• Remediat stilul, glisarea și animațiile pentru pagina de informații despre locație
-• Nu dezactiva selecția hărții la salvarea locației OSM editate
-• Traduceri actualizate
+• Utilizatorii din UE pot acum seta Organic Maps ca aplicație de navigare implicită în Setări iOS → Aplicații → Aplicații implicite → Navigare
 
-#### Stiluri de hartă
+• Date OpenStreetMap proaspete din 21 octombrie 2025
+• Obiecte noi pe hartă: stații de monitorizare, insule de circulație, facilități de cură cu apă Kneipp, căi ferate miniaturale, locuri de campare în stil outdoor, terminale aeroportuare, zone de joacă interioare, magazine de telecomunicații, facilități de închiriere bărci și facilități de rampă pentru bărci
+• Numele intrărilor de metrou sunt acum vizibile pe hartă
+• Săgeata de poziție arată acum direcția de mișcare când mergi pe jos în modul de navigare pentru pietoni
+• Adăugat suport pentru limba slovenă, inclusiv instrucțiuni vocale pentru navigare
+• Pictograme actualizate pentru eliminarea deșeurilor și depozite de deșeuri
+• Corectat bara de stare alb pe alb în modul de navigare
+• Mărit dimensiunea butonului Pornește navigarea
+• Eliminat spațiul alb gol la planificarea unei rute pe iPad
+• Culori suplimentare sunt acum acceptate pentru traseele de drumeție
+• Informații îmbunătățite afișate la selectarea unui râu sau segment de cale navigabilă
+• Căutare îmbunătățită a stațiilor de încărcare pentru vehicule electrice cu sinonime îmbunătățite în toate limbile
+• Corectat căutarea de emoji (da, poți scrie emoji în caseta de căutare!)
+• Corectate sugestiile de căutare care afișau prea multe rezultate pentru căutări de adrese exacte
+• Importul și exportul GeoJSON de la și către https://umap.openstreetmap.fr/ păstrează acum toate metadatele
 
-• Afișează magazine de închiriere biciclete
-• Afișează situri arheologice istorice de la zoom 12 și alte situri istorice de la zoom 15 în stil outdoor
-• Pictograme noi pentru catarge, turnuri de comunicații și turnuri electrice în stil outdoor
-• Mărește dimensiunea pictogramei de vârf în stil outdoor
-• Adăugate variante de pictograme POI lipsă
-• Adăugate mai multe tipuri de bariere
+### Funcții lansate recent pe care le-ați putea fi ratat
 
-### Funcții lansate recent pe care le-ai fi putut rata
+• Salvați un marcaj la un punct de traseu selectat
+• Ștergeți un traseu de înregistrare fără a-l salva mai întâi
+• Importați fișiere GeoJSON
 
-• Numere de rute de transport public la selectarea stației de autobuz
-• Rute de drumeție și ciclism
-• Vezi numele marcajelor pe hartă activând în setările aplicației
-• Pictograma creion oferă o modalitate rapidă de a edita marcajele
-• Planificare de rută reproiectată
-• Afișează conținutul etichetei OSM `description` (tastează ?description în căutare pentru a descoperi locuri cu descriere)
+Organic Maps este posibil datorită contributorilor noștri și sprijinului dvs. continuu.
 
-Fiecare donație și recenzie bună motivează voluntarii noștri să construiască hărți mai bune, mulțumim!
-
+Echipa Organic Maps

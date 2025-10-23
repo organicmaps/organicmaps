@@ -1,11 +1,8 @@
-• Paparan had laju dalam Android Auto
-• BAHARU! Import GeoJSON
-• Data OSM 4 Oktober
-• Data Wikipedia 1 Oktober
-• Sokongan kereta api ringan Seattle untuk Pengangkutan Awam
-• Menambah kedai sewa basikal dan lebih banyak jenis halangan
-• Ikon baharu untuk tiang, menara komunikasi dan kuasa, paparkan tapak arkeologi bersejarah dari zum 12 dan tapak bersejarah lain dari zum 15 dalam gaya Luar
-• Paparkan kandungan tag OSM `description` pada Android
-• Membetulkan beberapa ranap
+• Data OpenStreetMap setakat 21 Oktober
+• Stesen pemantauan, pulau trafik, fasiliti terapi air Kneipp, rel mini, petak perkhemahan, terminal lapangan terbang, kawasan permainan dalaman, kedai telekom, sewa bot dan slipway
+• Perisai jalan kini dipaparkan dalam arahan navigasi
+• Sokongan untuk peranti x86 lama ditambah
+• Sokongan bahasa Slovenia termasuk suara
+• Carian emoji & stesen pengecas EV dipertingkat
 
-…lagi: omaps.org/news
+…lagi di omaps.org/news

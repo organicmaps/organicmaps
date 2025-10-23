@@ -1,38 +1,27 @@
-• NYTT: Spara bokmärke på vald spårpunkt
-• NYTT: Ta bort inspelningsspår utan att spara det först
-• NYTT! Importera GeoJSON
-• OpenStreetMap-data per 4 oktober
-• Wikipedia-data per 1 oktober
-• Seattle light rail-stöd för kollektivtrafik
-• Visa flerradiga bokmärkeslisttitlar på platssidan
-• Uppdatera OSM-inloggningsknappens stil
-• Åtgärda problem med uppdatering av navigationsinformation
-• Åtgärda nya ruttplanerarproblem
-• Åtgärda synlighet för OSM lägg till/redigera plats för kartor äldre än 3 månader
-• Åtgärda layout för segmentkontroll av transportalternativ för iOS 26
-• Förenkla bokmärkesvalsanimationer
-• Åtgärda problem med val av sökresultat
-• Åtgärdat styling, svepning och animationer för platsinformationssida
-• Inaktivera inte kartval vid sparande av redigerad OSM-plats
-• Uppdaterade översättningar
+• EU-användare kan nu ställa in Organic Maps som standardapp för navigering i iOS Inställningar → Appar → Standardappar → Navigering
 
-#### Kartstilar
+• Färsk OpenStreetMap-data per 21 oktober 2025
+• Nya kartobjekt: övervakningsstationer, trafiköar, Kneipp vattenbehandlingsanläggningar, miniatyrtåg, campingplatser i utomhusstil, flygplatsterminaler, inomhuslekytor, telekommunikationsbutiker, båtuthyrningsanläggningar och båtslipanläggningar
+• Tunnelbaneingångarnas namn är nu synliga på kartan
+• Positionspilen visar nu din rörelseriktning när du går i fotgängarnavigationsläge
+• Lagt till slovenskt språkstöd, inklusive röstinstruktioner för navigering
+• Uppdaterade ikoner för avfallshantering och soptippar
+• Åtgärdat vit-på-vit statusfält i navigeringsläge
+• Ökad storlek på knappen Starta navigering
+• Tog bort tomt vitt utrymme vid planering av en rutt på iPad
+• Ytterligare färger stöds nu för vandringsleder
+• Förbättrad information som visas vid val av flod eller vattenvägsavsnitt
+• Bättre sökning efter laddstationer för elfordon med förbättrade synonymer på alla språk
+• Åtgärdat emoji-sökning (ja, du kan skriva emojier i sökrutan!)
+• Åtgärdade sökförslag som visade för många resultat för exakta adresssökningar
+• Import och export av GeoJSON från och till https://umap.openstreetmap.fr/ bevarar nu all metadata
 
-• Visa cykeluthyrningsbutiker
-• Visa historiska arkeologiska platser från zoom 12 och andra historiska platser från zoom 15 i utomhusstil
-• Nya ikoner för master, kommunikations- och krafttorn i utomhusstil
-• Öka toppikonstorlek i utomhusstil
-• Lade till saknade POI-ikonvarianter
-• Lade till fler barriärtyper
+### Nyligen släppta funktioner du kanske har missat
 
-### Nyligen släppta funktioner som du kanske har missat
+• Spara ett bokmärke på en vald spårpunkt
+• Ta bort ett inspelningsspår utan att spara det först
+• Importera GeoJSON-filer
 
-• Kollektivtrafikens ruttnummer vid val av busshållplats
-• Vandrings- och cykelrutter
-• Se bokmärkesnamn på kartan genom att aktivera det i appinställningarna
-• Pennikonen erbjuder ett snabbt sätt att redigera bokmärken
-• Omdesignad ruttplanering
-• Visa OSM-taggen `description` innehåll (skriv ?description i sökningen för att upptäcka platser med beskrivning)
+Organic Maps är möjligt tack vare våra bidragsgivare och ditt fortsatta stöd.
 
-Varje donation och bra recension motiverar våra volontärer att bygga bättre kartor, tack!
-elt omgjord ruttplanering (snabbare ändringar, tydligare via‑punkter).
+Organic Maps-teamet

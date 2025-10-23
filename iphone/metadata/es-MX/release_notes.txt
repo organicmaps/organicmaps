@@ -1,38 +1,27 @@
-• NUEVO: Rediseñamos la planificación de rutas (más clara y rápida al mover paradas).
-• NUEVO: Guardar marcador en punto de rastreo seleccionado
-• NUEVO: Eliminar rastreo de grabación sin guardarlo primero
-• ¡NUEVO! Importar GeoJSON
-• Datos de OpenStreetMap al 4 de octubre
-• Datos de Wikipedia al 1 de octubre
-• Soporte de tren ligero de Seattle para transporte público
-• Mostrar títulos de lista de marcadores multilínea en la página de lugar
-• Actualizar estilo de botón de inicio de sesión de OSM
-• Corregir problema de actualización de información de navegación
-• Corregir problemas de nueva planificación de ruta
-• Corregir visibilidad de agregar/editar lugar de OSM para mapas con más de 3 meses de antigüedad
-• Corregir diseño de control de segmento de opciones de transporte para iOS 26
-• Simplificar animaciones de selección de marcadores
-• Corregir problema de selección de resultados de búsqueda
-• Corregidos estilos, deslizamiento y animaciones para página de información de lugar
-• No deshabilitar selección de mapa al guardar lugar editado de OSM
-• Traducciones actualizadas
+• Los usuarios de la UE ahora pueden establecer Organic Maps como la app de navegación predeterminada en Configuración de iOS → Apps → Apps predeterminadas → Navegación
 
-#### Estilos de mapa
+• Datos frescos de OpenStreetMap del 21 de octubre de 2025
+• Nuevos objetos del mapa: estaciones de monitoreo, isletas de tráfico, instalaciones de hidroterapia Kneipp, ferrocarriles en miniatura, parcelas de campamento de estilo al aire libre, terminales de aeropuerto, áreas de juego cubiertas, tiendas de telecomunicaciones, instalaciones de alquiler de botes e instalaciones de varadero
+• Los nombres de las entradas del metro ahora son visibles en el mapa
+• La flecha de posición ahora muestra tu dirección de movimiento al caminar en modo de navegación peatonal
+• Se agregó soporte para el idioma esloveno, incluidas las instrucciones de voz para la navegación
+• Íconos actualizados de eliminación de residuos y vertederos
+• Se corrigió la barra de estado blanco sobre blanco en el modo de navegación
+• Se aumentó el tamaño del botón Iniciar navegación
+• Se eliminó el espacio en blanco vacío al planificar una ruta en iPad
+• Ahora se admiten colores adicionales para rutas de senderismo
+• Información mejorada que se muestra al seleccionar un río o segmento de vía fluvial
+• Mejor búsqueda de estaciones de carga de vehículos eléctricos con sinónimos mejorados en todos los idiomas
+• Se corrigió la búsqueda de emojis (¡sí, puedes escribir emojis en el cuadro de búsqueda!)
+• Se corrigieron las sugerencias de búsqueda que mostraban demasiados resultados para búsquedas de direcciones exactas
+• La importación y exportación de GeoJSON desde y hacia https://umap.openstreetmap.fr/ ahora conserva todos los metadatos
 
-• Mostrar tiendas de alquiler de bicicletas
-• Mostrar sitios arqueológicos históricos desde zoom 12 y otros sitios históricos desde zoom 15 en estilo exterior
-• Nuevos iconos para mástiles, torres de comunicación y torres eléctricas en estilo exterior
-• Aumentar tamaño de icono de pico en estilo exterior
-• Agregadas variantes de iconos de PDI faltantes
-• Agregados más tipos de barreras
+### Funciones lanzadas recientemente que podrías haberte perdido
 
-### Características lanzadas recientemente que quizás hayas pasado por alto
+• Guardar un marcador en un punto de ruta seleccionado
+• Eliminar una pista de grabación sin guardarla primero
+• Importar archivos GeoJSON
 
-• Números de ruta de transporte público al seleccionar parada de autobús
-• Rutas de senderismo y ciclismo
-• Ver nombres de marcadores en el mapa habilitándolo en la configuración de la aplicación
-• El icono de lápiz ofrece una forma rápida de editar marcadores
-• Planificación de ruta rediseñada
-• Mostrar contenido de etiqueta OSM `description` (escribe ?description en la búsqueda para descubrir lugares con descripción)
+Organic Maps es posible gracias a nuestros colaboradores y tu apoyo continuo.
 
-¡Cada donación y buena reseña motiva a nuestros voluntarios a construir mejores mapas, gracias!
+El equipo de Organic Maps

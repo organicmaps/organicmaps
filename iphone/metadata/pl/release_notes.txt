@@ -1,38 +1,27 @@
-• NOWOŚĆ: Zapisz zakładkę w wybranym punkcie śladu
-• NOWOŚĆ: Usuń nagrany ślad bez wcześniejszego zapisywania
-• NOWOŚĆ! Import GeoJSON
-• Dane OpenStreetMap na dzień 4 października
-• Dane Wikipedia na dzień 1 października
-• Obsługa kolei miejskiej w Seattle dla transportu publicznego
-• Wyświetlaj wielowierszowe tytuły listy zakładek na stronie miejsca
-• Aktualizacja stylu przycisku logowania OSM
-• Naprawiono problem z aktualizacją informacji nawigacyjnych
-• Naprawiono nowe problemy z planowaniem trasy
-• Naprawiono widoczność dodawania/edytowania miejsc OSM dla map starszych niż 3 miesiące
-• Naprawiono układ kontroli segmentów opcji transportu dla iOS 26
-• Uproszczono animacje wyboru zakładek
-• Naprawiono problem z wyborem wyniku wyszukiwania
-• Naprawiono stylizację, przesuwanie i animacje dla strony informacji o miejscu
-• Nie wyłączaj wyboru mapy podczas zapisywania edytowanego miejsca OSM
-• Zaktualizowano tłumaczenia
+• Użytkownicy z UE mogą teraz ustawić Organic Maps jako domyślną aplikację nawigacyjną w Ustawienia iOS → Aplikacje → Domyślne aplikacje → Nawigacja
 
-#### Style mapy
-
-• Wyświetlaj wypożyczalnie rowerów
-• Wyświetlaj historyczne stanowiska archeologiczne od powiększenia 12 i inne miejsca historyczne od powiększenia 15 w stylu outdoorowym
-• Nowe ikony dla masztów, wież komunikacyjnych i energetycznych w stylu outdoorowym
-• Zwiększ rozmiar ikony szczytu w stylu outdoorowym
-• Dodano brakujące warianty ikon POI
-• Dodano więcej typów barier
+• Świeże dane OpenStreetMap z 21 października 2025
+• Nowe obiekty na mapie: stacje monitoringu, wyspy drogowe, obiekty wodolecznictwa Kneippa, miniaturowe koleje, miejsca kempingowe w stylu outdoorowym, terminale lotniskowe, wewnętrzne place zabaw, sklepy telekomunikacyjne, obiekty wynajmu łodzi i obiekty pochylni dla łodzi
+• Nazwy wejść do metra są teraz widoczne na mapie
+• Strzałka pozycji teraz pokazuje kierunek ruchu podczas chodzenia w trybie nawigacji pieszej
+• Dodano obsługę języka słoweńskiego, w tym wskazówki głosowe dla nawigacji
+• Zaktualizowane ikony utylizacji odpadów i składowisk
+• Naprawiono biały pasek stanu na białym w trybie nawigacji
+• Zwiększono rozmiar przycisku Rozpocznij nawigację
+• Usunięto pustą białą przestrzeń podczas planowania trasy na iPadzie
+• Dodatkowe kolory są teraz obsługiwane dla szlaków turystycznych
+• Ulepszone informacje wyświetlane przy wybieraniu rzeki lub odcinka drogi wodnej
+• Lepsze wyszukiwanie stacji ładowania pojazdów elektrycznych z ulepszonymi synonimami we wszystkich językach
+• Naprawiono wyszukiwanie emoji (tak, możesz wpisywać emoji w polu wyszukiwania!)
+• Naprawiono podpowiedzi wyszukiwania pokazujące zbyt wiele wyników dla dokładnych wyszukiwań adresów
+• Importowanie i eksportowanie GeoJSON z i do https://umap.openstreetmap.fr/ teraz zachowuje wszystkie metadane
 
 ### Niedawno wydane funkcje, które mogłeś przegapić
 
-• Numery tras transportu publicznego przy wyborze przystanku autobusowego
-• Szlaki piesze i rowerowe
-• Zobacz nazwy zakładek na mapie, włączając to w ustawieniach aplikacji
-• Ikona ołówka oferuje szybki sposób edycji zakładek
-• Przeprojektowane planowanie trasy
-• Wyświetlanie zawartości znacznika OSM `description` (wpisz ?description w wyszukiwaniu, aby odkryć miejsca z opisem)
+• Zapisz zakładkę na wybranym punkcie śladu
+• Usuń ścieżkę nagrywania bez wcześniejszego zapisywania
+• Importuj pliki GeoJSON
 
-Każda darowizna i dobra recenzja motywuje naszych wolontariuszy do budowania lepszych map, dziękujemy!
+Organic Maps jest możliwy dzięki naszym współpracownikom i Twojemu ciągłemu wsparciu.
 
+Zespół Organic Maps
