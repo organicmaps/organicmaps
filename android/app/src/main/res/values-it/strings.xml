@@ -866,4 +866,5 @@
     <string name="delete_track_dialog_title">Cancellare %s?</string>
     <string name="show_to_the_right">Mostra a destra</string>
     <string name="show_at_the_bottom">Mostra in basso</string>
+    <string name="track_recording_title">Registrazione traccia</string>
 </resources>

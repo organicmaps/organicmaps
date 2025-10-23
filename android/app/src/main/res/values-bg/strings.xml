@@ -820,4 +820,5 @@
     <string name="instagram">Instagram</string>
     <string name="downloader_loading_ios">Изтегляне</string>
     <string name="saved">Запазено</string>
+    <string name="track_recording_title">Записване на трак</string>
 </resources>

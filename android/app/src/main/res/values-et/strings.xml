@@ -858,4 +858,5 @@
     <string name="share_track">Jaga rada</string>
     <string name="button_layer_hiking">Matkamine</string>
     <string name="button_layer_cycling">Jalgrattasõit</string>
+    <string name="track_recording_title">Rada salvestamine</string>
 </resources>

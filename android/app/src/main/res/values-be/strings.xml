@@ -866,4 +866,5 @@
     <string name="show_at_the_bottom">Паказваць знізу</string>
     <string name="share_track">Падзяліцца маршрутам</string>
     <string name="delete_track_dialog_title">Выдаліць %s?</string>
+    <string name="track_recording_title">Запіс трэку</string>
 </resources>

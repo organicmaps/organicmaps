@@ -836,4 +836,5 @@
     <string name="aa_location_permissions_request">Organic Maps lietotnes darbībai ir nepieciešama piekļuve jūsu atrašanās vietai. Kad tas ir droši, pārbaudiet paziņojumu savā tālrunī.</string>
     <string name="editor_note_hint">Aprakstiet kļūdas kartē vai lietas, ko nevar rediģēt, izmantojot Organic Maps</string>
     <string name="aa_request_permission_activity_text">Organic Maps lietotnei ir nepieciešama atrašanās vietas atļauja sekmīgai Android Auto darbībai</string>
+    <string name="track_recording_title">Maršruta ierakstīšana</string>
 </resources>

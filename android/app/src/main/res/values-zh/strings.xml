@@ -876,4 +876,5 @@
     <string name="show_at_the_bottom">底部显示</string>
     <string name="share_track">分享轨迹</string>
     <string name="delete_track_dialog_title">删除 %s？</string>
+    <string name="track_recording_title">轨迹记录</string>
 </resources>

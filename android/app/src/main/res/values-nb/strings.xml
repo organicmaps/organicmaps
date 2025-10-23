@@ -840,4 +840,5 @@
     <string name="uri_open_location_failed">Ingen app installert som kan åpne stedet</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto i navigasjon</string>
+    <string name="track_recording_title">Opptak av rute</string>
 </resources>

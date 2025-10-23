@@ -837,4 +837,5 @@
     <string name="uri_open_location_failed">לא מותקנת אפליקציה שיכולה לפתוח את המיקום</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">אוטומטי בניווט</string>
+    <string name="track_recording_title">הקלטת מסלול</string>
 </resources>

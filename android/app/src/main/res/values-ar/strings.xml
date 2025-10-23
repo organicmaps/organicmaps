@@ -886,4 +886,5 @@
     <string name="show_at_the_bottom">اعرض في الأسفل</string>
     <string name="share_track">شارك المسار</string>
     <string name="delete_track_dialog_title">احذف %s؟</string>
+    <string name="track_recording_title">تسجيل المسار</string>
 </resources>

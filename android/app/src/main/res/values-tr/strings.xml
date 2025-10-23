@@ -870,4 +870,5 @@
     <string name="show_at_the_bottom">Altta göster</string>
     <string name="delete_track_dialog_title">%s Silinsin Mi?</string>
     <string name="share_track">İz Paylaş</string>
+    <string name="track_recording_title">Rota Kaydı</string>
 </resources>

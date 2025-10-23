@@ -824,4 +824,5 @@
     <string name="pref_tts_street_names_description">चालू केल्यास, वळण घेण्यापूर्वी रस्त्याचे किंवा वळणाचे नाव बोलून सांगितले जाईल.</string>
     <string name="editor_share_to_all_dialog_message_2">OpenStreetMap संपादक बदल तपासतील व काही प्रश्न असल्यास तुमच्याशी संपर्क साधतील.</string>
     <string name="category_rv">कँपिंग वाहन सोयी</string>
+    <string name="track_recording_title">ट्रॅक रेकॉर्डिंग</string>
 </resources>

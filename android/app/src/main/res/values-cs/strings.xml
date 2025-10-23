@@ -864,4 +864,5 @@
     <string name="show_at_the_bottom">Zobrazit dole</string>
     <string name="share_track">Sdílet trasu</string>
     <string name="delete_track_dialog_title">Smazat %s?</string>
+    <string name="track_recording_title">Záznam trasy</string>
 </resources>

@@ -874,4 +874,5 @@
     <string name="show_at_the_bottom">Afficher en bas</string>
     <string name="share_track">Partager la piste</string>
     <string name="delete_track_dialog_title">Supprimer %s ?</string>
+    <string name="track_recording_title">Enregistrement de la trace</string>
 </resources>

@@ -837,4 +837,5 @@
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
     <string name="change_map_locale">Kartspråk</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="track_recording_title">Inspelning av rutt</string>
 </resources>

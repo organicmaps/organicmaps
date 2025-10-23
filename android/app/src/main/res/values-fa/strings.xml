@@ -840,4 +840,5 @@
     <string name="button_layer_cycling">دوچرخه‌سواری</string>
     <string name="bookmarks_text_placement_title">نام‌ها را روی نقشه نشانه‌گذاری کنید</string>
     <string name="osm_note_hint">یا، به عنوان یک راه حل جایگزین، برای انجمن OpenStreetMap یادداشت بگذارید تا شخص دیگری بتواند مکانی را به اینجا اضافه یا اصلاح کند.</string>
+    <string name="track_recording_title">ضبط مسیر</string>
 </resources>

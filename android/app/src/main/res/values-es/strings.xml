@@ -870,4 +870,5 @@
     <string name="show_at_the_bottom">Mostrar en el fondo</string>
     <string name="share_track">Compartir recorrido</string>
     <string name="delete_track_dialog_title">¿Borrar %s?</string>
+    <string name="track_recording_title">Grabación de pista</string>
 </resources>
