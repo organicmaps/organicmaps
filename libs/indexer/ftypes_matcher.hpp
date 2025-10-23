@@ -611,12 +611,12 @@ public:
   DECLARE_CHECKER_INSTANCE(IsAerowayGateChecker);
 };
 
-class IsRailwaySubwayEntranceChecker : public BaseChecker
+class IsSubwayEntranceChecker : public BaseChecker
 {
-  IsRailwaySubwayEntranceChecker();
+  IsSubwayEntranceChecker();
 
 public:
-  DECLARE_CHECKER_INSTANCE(IsRailwaySubwayEntranceChecker);
+  DECLARE_CHECKER_INSTANCE(IsSubwayEntranceChecker);
 };
 
 class IsPlatformChecker : public BaseChecker

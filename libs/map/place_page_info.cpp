@@ -88,11 +88,13 @@ void Info::SetFromFeatureType(FeatureType & ft)
     m_uiTitle = GetLocalizedType();
 
   // Append local_ref tag into main title.
-  if (IsPublicTransportStop())
+  auto const lRef = GetMetadata(feature::Metadata::FMD_LOCAL_REF);
+  if (!lRef.empty())
   {
-    auto const lRef = GetMetadata(feature::Metadata::FMD_LOCAL_REF);
-    if (!lRef.empty())
+    if (IsPublicTransportStop())
       m_uiTitle.append(" (").append(lRef).append(")");
+    else if (ftypes::IsSubwayEntranceChecker::Instance()(ft))
+      m_uiTitle = std::string(lRef) + " (" + m_uiTitle + ")";
   }
 
   m_uiSubtitle = FormatSubtitle(IsFeature() /* withTypes */, !emptyTitle /* withMainType */);

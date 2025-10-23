@@ -838,7 +838,7 @@ IsAerowayGateChecker::IsAerowayGateChecker()
   m_types.push_back(c.GetTypeByPath({"aeroway", "gate"}));
 }
 
-IsRailwaySubwayEntranceChecker::IsRailwaySubwayEntranceChecker()
+IsSubwayEntranceChecker::IsSubwayEntranceChecker()
 {
   Classificator const & c = classif();
   m_types.push_back(c.GetTypeByPath({"railway", "subway_entrance"}));
