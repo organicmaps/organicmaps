@@ -72,14 +72,13 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-  BOOL const isNavigationUnderStatusBar = self.navigationManager.state == MWMNavigationDashboardStateNavigation;
   BOOL const isMenuViewUnderStatusBar = self.menuState == MWMBottomMenuStateActive;
   BOOL const isDirectionViewUnderStatusBar = !self.isDirectionViewHidden;
   BOOL const isAddPlaceUnderStatusBar =
       [self.ownerController.view hasSubviewWithViewClass:[MWMAddPlaceNavigationBar class]];
   BOOL const isNightMode = [UIColor isNightMode];
-  BOOL const isSomethingUnderStatusBar = isNavigationUnderStatusBar || isDirectionViewUnderStatusBar ||
-                                         isMenuViewUnderStatusBar || isAddPlaceUnderStatusBar;
+  BOOL const isSomethingUnderStatusBar =
+      isDirectionViewUnderStatusBar || isMenuViewUnderStatusBar || isAddPlaceUnderStatusBar;
 
   return isSomethingUnderStatusBar || isNightMode ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
