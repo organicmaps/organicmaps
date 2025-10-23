@@ -3,6 +3,7 @@ final class RouteActionsBottomMenuView: UIView {
     static let height: CGFloat = 44
     static let insets = UIEdgeInsets(top: 16, left: 16, bottom: MapsAppDelegate.theApp().window.safeAreaInsets.bottom.isZero ? 8 : 0, right: 16)
     fileprivate static let animationDuration: TimeInterval = kDefaultAnimationDuration / 2
+    static let spacing: CGFloat = 12
   }
 
   private let stackView = UIStackView()
@@ -24,8 +25,8 @@ final class RouteActionsBottomMenuView: UIView {
   private func setupView() {
     setStyle(.background)
     stackView.axis = .horizontal
-    stackView.spacing = 12
-    stackView.distribution = .fillEqually
+    stackView.spacing = Constants.spacing
+    stackView.distribution = .fillProportionally
     stackView.translatesAutoresizingMaskIntoConstraints = false
     setHidden(true, animated: false)
   }
