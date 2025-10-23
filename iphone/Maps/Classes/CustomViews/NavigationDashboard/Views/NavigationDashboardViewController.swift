@@ -45,9 +45,9 @@ final class NavigationDashboardViewController: UIViewController {
   private let settingsBadge = BadgeWithNumber()
   private var routePointsView = RoutePointsView()
   private let bottomActionsMenu = RouteActionsBottomMenuView()
-  private let searchButton = UIButton()
-  private let bookmarksButton = UIButton()
-  private let saveRouteAsTrackButton = UIButton()
+  private var searchButton: UIButton!
+  private var bookmarksButton: UIButton!
+  private var saveRouteAsTrackButton: UIButton!
   private let startRouteButton = StartRouteButton()
   private var navigationInfoView: NavigationInfoView!
   private var navigationControlView: NavigationControlView!
@@ -224,17 +224,19 @@ final class NavigationDashboardViewController: UIViewController {
   }
 
   private func setupBottomMenuActions() {
-    searchButton.setStyle(.flatNormalGrayButtonBig)
-    searchButton.setImage(UIImage(resource: .icMenuSearch), for: .normal)
-    searchButton.addTarget(self, action: #selector(didTapSearchButton), for: .touchUpInside)
+    func createButton(image: UIImage, action: Selector) -> UIButton {
+      let button = UIButton()
+      button.setStyle(.flatNormalGrayButtonBig)
+      button.setImage(image, for: .normal)
+      button.addTarget(self, action: action, for: .touchUpInside)
+      button.translatesAutoresizingMaskIntoConstraints = false
+      button.widthAnchor.constraint(equalTo: button.heightAnchor).isActive = true
+      return button
+    }
 
-    bookmarksButton.setStyle(.flatNormalGrayButtonBig)
-    bookmarksButton.setImage(UIImage(resource: .icMenuBookmarkList), for: .normal)
-    bookmarksButton.addTarget(self, action: #selector(didTapBookmarksButton), for: .touchUpInside)
-
-    saveRouteAsTrackButton.setStyle(.flatNormalGrayButtonBig)
-    saveRouteAsTrackButton.setImage(UIImage(resource: .ic24PxImport), for: .normal)
-    saveRouteAsTrackButton.addTarget(self, action: #selector(didTapSaveRouteAsTrackButton), for: .touchUpInside)
+    searchButton = createButton(image: UIImage(resource: .icMenuSearch), action: #selector(didTapSearchButton))
+    bookmarksButton = createButton(image: UIImage(resource: .icMenuBookmarkList), action: #selector(didTapBookmarksButton))
+    saveRouteAsTrackButton = createButton(image: UIImage(resource: .ic24PxImport), action: #selector(didTapSaveRouteAsTrackButton))
 
     startRouteButton.addTarget(self, action: #selector(didTapStartRouteButton), for: .touchUpInside)
 

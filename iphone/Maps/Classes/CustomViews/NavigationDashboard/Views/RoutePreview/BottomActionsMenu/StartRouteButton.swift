@@ -37,6 +37,10 @@ final class StartRouteButton: UIView {
   private func setupView() {
     button.setTitle(Constants.buttonTitle, for: .normal)
     button.setStyle(.flatNormalButtonBig)
+    button.titleLabel?.numberOfLines = 1
+    button.titleLabel?.minimumScaleFactor = 0.5
+    button.titleLabel?.adjustsFontSizeToFitWidth = true
+    button.titleLabel?.allowsDefaultTighteningForTruncation = true
     button.translatesAutoresizingMaskIntoConstraints = false
 
     activityIndicator.hidesWhenStopped = true
@@ -47,6 +51,7 @@ final class StartRouteButton: UIView {
     addSubview(button)
     addSubview(activityIndicator)
 
+    button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     NSLayoutConstraint.activate([
       button.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
       button.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
