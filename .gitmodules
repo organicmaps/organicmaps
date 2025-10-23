@@ -43,10 +43,6 @@
   path = 3party/googletest
   url = https://github.com/google/googletest.git
   branch = main
-[submodule "3party/fast_double_parser"]
-  path = 3party/fast_double_parser
-  url = https://github.com/lemire/fast_double_parser.git
-  branch = master
 [submodule "3party/pugixml/pugixml"]
   path = 3party/pugixml/pugixml
   url = https://github.com/zeux/pugixml.git
@@ -87,3 +83,7 @@
   path = 3party/glaze
   url = https://github.com/organicmaps/glaze
   branch = organicmaps
+[submodule "3party/fast_float"]
+  path = 3party/fast_float
+  url = https://github.com/fastfloat/fast_float.git
+  branch = main
