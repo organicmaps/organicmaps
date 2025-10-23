@@ -1,38 +1,27 @@
-• NUOVO: Salva segnalibro sul punto traccia selezionato
-• NUOVO: Elimina traccia di registrazione senza salvarla prima
-• NUOVO! Importa GeoJSON
-• Dati OpenStreetMap al 4 ottobre
-• Dati Wikipedia al 1 ottobre
-• Supporto metropolitana leggera di Seattle per il trasporto pubblico
-• Visualizza titoli elenco segnalibri multilinea nella pagina del luogo
-• Aggiorna lo stile del pulsante di accesso OSM
-• Correggi problema di aggiornamento informazioni di navigazione
-• Correggi nuovi problemi di pianificazione percorso
-• Correggi visibilità aggiungi/modifica luogo OSM per mappe più vecchie di 3 mesi
-• Correggi layout controllo segmenti opzioni trasporto per iOS 26
-• Semplifica animazioni di selezione segnalibri
-• Correggi problema di selezione risultato di ricerca
-• Corretti stile, scorrimento e animazioni per pagina informazioni luogo
-• Non disabilitare la selezione della mappa durante il salvataggio del luogo OSM modificato
-• Traduzioni aggiornate
+• Gli utenti UE possono ora impostare Organic Maps come app di navigazione predefinita in Impostazioni iOS → App → App predefinite → Navigazione
 
-#### Stili mappa
-
-• Visualizza negozi di noleggio biciclette
-• Visualizza siti archeologici storici dallo zoom 12 e altri siti storici dallo zoom 15 in stile all'aperto
-• Nuove icone per alberi, torri di comunicazione e torri elettriche in stile all'aperto
-• Aumenta dimensione icona picco in stile all'aperto
-• Aggiunte varianti icone POI mancanti
-• Aggiunti più tipi di barriere
+• Dati OpenStreetMap aggiornati al 21 ottobre 2025
+• Nuovi oggetti mappa: stazioni di monitoraggio, isole spartitraffico, strutture di cura idrica Kneipp, ferrovie in miniatura, piazzole da campeggio in stile outdoor, terminal aeroportuali, aree gioco al coperto, negozi di telecomunicazioni, strutture di noleggio barche e strutture di scivolo per barche
+• I nomi degli ingressi della metropolitana sono ora visibili sulla mappa
+• La freccia di posizione ora mostra la direzione del movimento quando cammini in modalità di navigazione pedonale
+• Aggiunto supporto per la lingua slovena, comprese le indicazioni vocali per la navigazione
+• Aggiornate le icone di smaltimento rifiuti e discariche
+• Corretta la barra di stato bianca su bianco in modalità di navigazione
+• Aumentata la dimensione del pulsante Avvia navigazione
+• Rimosso lo spazio bianco vuoto durante la pianificazione di un percorso su iPad
+• Ora sono supportati colori aggiuntivi per i sentieri escursionistici
+• Migliorate le informazioni visualizzate quando si seleziona un fiume o un segmento di corso d'acqua
+• Migliore ricerca di stazioni di ricarica per veicoli elettrici con sinonimi migliorati in tutte le lingue
+• Corretta la ricerca emoji (sì, puoi digitare emoji nella casella di ricerca!)
+• Corretti i suggerimenti di ricerca che mostravano troppi risultati per le ricerche di indirizzi esatti
+• L'importazione e l'esportazione di GeoJSON da e verso https://umap.openstreetmap.fr/ ora conserva tutti i metadati
 
 ### Funzionalità rilasciate di recente che potresti aver perso
 
-• Numeri di percorso trasporto pubblico durante la selezione della fermata dell'autobus
-• Percorsi escursionistici e ciclabili
-• Visualizza i nomi dei segnalibri sulla mappa abilitandolo nelle impostazioni dell'app
-• L'icona della matita offre un modo rapido per modificare i segnalibri
-• Pianificazione percorso riprogettata
-• Visualizza il contenuto del tag OSM `description` (digita ?description nella ricerca per scoprire luoghi con descrizione)
+• Salva un segnalibro su un punto traccia selezionato
+• Elimina una traccia di registrazione senza salvarla prima
+• Importa file GeoJSON
 
-Ogni donazione e buona recensione motiva i nostri volontari a creare mappe migliori, grazie!
+Organic Maps è possibile grazie ai nostri contributori e al tuo continuo supporto.
 
+Il team di Organic Maps

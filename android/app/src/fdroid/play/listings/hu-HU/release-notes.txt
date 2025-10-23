@@ -1,9 +1,8 @@
-• Sebességkorlátozás megjelenítése az Android Auto-ban
-• ÚJ! GeoJSON importálás
-• OSM adatok: okt. 4.
-• Wikipédia adatok: okt. 1.
-• Seattle könnyűvasút támogatása a tömegközlekedéshez
-• Kerékpár-kölcsönző üzletek és több akadálytípus hozzáadva
-• Új ikonok árbocokhoz, kommunikációs és energiatornokhoz
+• OpenStreetMap adatok október 21-i állapot
+• Megfigyelő állomások, közlekedési szigetek, Kneipp vízkezelő helyek, mini vasutak, kempinghelyek, repülőtéri terminálok, beltéri játszóterek, telekom üzletek, csónakkölcsönzés és sólyák
+• Útvonal navigációban megjelennek az útpajzsok
+• Támogatás régi x86 eszközökhöz
+• Szlovén nyelvi és hangnavigáció támogatás
+• Javított emoji és EV töltőállomás keresés
 
-…több: omaps.org/hu/news
+…továbbiak: omaps.org/hu/news

@@ -1,11 +1,8 @@
-• Hastighedsgrænsevisning i Android Auto
-• NYT! Importér GeoJSON
-• OSM-data pr. 4. oktober
-• Wikipedia-data pr. 1. oktober
-• Seattle letbane-support til offentlig transport
-• Tilføjede cykeludlejningsbutikker og flere barriere-typer
-• Nye ikoner for master, kommunikations- og krafttårne, vis historiske arkæologiske steder fra zoom 12 og andre historiske steder fra zoom 15 i Outdoor-stil
-• Vis OSM `description`-tag indhold på Android
-• Rettede flere nedbrud
+• OpenStreetMap-data pr. 21. oktober
+• Monitoreringsstationer, trafikislands, Kneipp vandterapi, miniaturebaner, teltpladser, lufthavnsterminaler, indendørs legeområder, telebutikker, bådudlejning og slæbesteder
+• Vejskjolde vises nu i navigationsretninger
+• Understøttelse af ældre x86 enheder
+• Slovensk sprog med stemmevejledning
+• Forbedret søgning efter emoji og EV-ladestationer
 
-…mere: omaps.org/news
+…mere på omaps.org/news

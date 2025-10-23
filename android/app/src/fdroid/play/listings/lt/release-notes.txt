@@ -1,9 +1,8 @@
-• Greičio ribojimo rodymas Android Auto
-• NAUJA! GeoJSON importavimas
-• OSM duomenys spalio 4 d.
-• Vikipedijos duomenys spalio 1 d.
-• Seattle lengvojo metro palaikymas viešajam transportui
-• Pridėtos dviračių nuomos parduotuvės ir daugiau barjerų tipų
-• Naujos ikonėlės stiebams, ryšių ir energetikos bokštams
+• OpenStreetMap duomenys 21 spalio
+• Stebėjimo stotys, eismo salelės, Kneipp vandens terapija, mini geležinkeliai, stovyklavietės, oro uosto terminalai, vidaus žaidimų zonos, telekomunikacijų parduotuvės, laivų nuoma ir slipai
+• Kelio skydai rodomi navigacijos kryptims
+• Pridėtas senų x86 įrenginių palaikymas
+• Slovėnų kalba su balso navigacija
+• Patobulinta emoji ir EV įkrovimo paieška
 
 …daugiau: omaps.org/lt/news

@@ -1,9 +1,8 @@
-• Visualizzazione del limite di velocità in Android Auto
-• NUOVO! Importa GeoJSON
-• Dati OSM al 4 ottobre
-• Dati Wikipedia al 1 ottobre
-• Supporto per la metropolitana leggera di Seattle per il trasporto pubblico
-• Aggiunti negozi di noleggio biciclette e altri tipi di barriere
-• Nuove icone per alberi, torri di comunicazione ed energia
+• Dati OpenStreetMap al 21 ottobre
+• Stazioni di monitoraggio, isole di traffico, strutture Kneipp, ferrovie in miniatura, piazzole campeggio, terminal aeroportuali, aree gioco interne, negozi telecomunicazioni, noleggio barche e scivoli
+• Scudi stradali ora nelle indicazioni di navigazione
+• Aggiunto supporto vecchi dispositivi x86
+• Supporto lingua slovena con voce
+• Migliorata ricerca emoji e colonnine EV
 
-…altro: omaps.org/it/news
+…altro su omaps.org/it/news
