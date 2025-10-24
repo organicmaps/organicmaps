@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Strings -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">MB</string>
     <string name="gb">GB</string>
@@ -28,6 +30,7 @@
     <string name="mi">mi</string>
     <!-- A unit of measure -->
     <string name="ft">ft</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
     <string name="routes_update_maps_text">To display routes, maps must be updated.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Exit</string>

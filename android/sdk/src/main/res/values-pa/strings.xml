@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">MB</string>
     <string name="gb">GB</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">ਮੇਰੀ ਸਥਿਤੀ</string>
+    <!-- Default bookmark list name -->
     <string name="core_my_places">ਮੇਰੀਆਂ ਥਾਵਾਂ</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
     <string name="maps_storage_internal">ਅੰਦਰੂਨੀ ਨਿੱਜੀ ਸਟੋਰੇਜ</string>
 </resources>

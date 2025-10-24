@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">Poziția mea</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">Locurile mele</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">Card SD</string>
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
     <string name="category_wifi">Wi-Fi</string>
     <string name="postal_code">Cod poștal</string>
@@ -15,13 +22,12 @@
     <string name="km">km</string>
     <!-- abbreviation for mile(s) -->
     <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">picioare</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Pentru a afișa rutele, hărțile trebuie să fie actualizate.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Ieșire</string>
     <string name="core_entrance">Intrare</string>
     <string name="subway_data_unavailable">Harta de metrou nu este disponibilă</string>
-    <string name="gb">GB</string>
-    <string name="mb">MB</string>
-    <string name="maps_storage_removable">Card SD</string>
-    <string name="ft">picioare</string>
-    <string name="routes_update_maps_text">Pentru a afișa rutele, hărțile trebuie să fie actualizate.</string>
 </resources>

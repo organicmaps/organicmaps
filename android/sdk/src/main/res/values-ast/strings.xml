@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="postal_code">Códigu postal</string>
-    <string name="core_my_position">La mio posición</string>
-    <string name="core_my_places">Los mios llugares</string>
-    <string name="subway_data_unavailable">El mapa del metro nun ta disponible</string>
+
+    <!-- SECTION: Strings -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">MB</string>
-    <string name="km">km</string>
     <string name="gb">GB</string>
-    <string name="m">m</string>
-    <string name="core_placepage_unknown_place">Puntu nel mapa</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">La mio posición</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Los mios llugares</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
     <string name="maps_storage_removable">Tarxeta SD</string>
+    <string name="postal_code">Códigu postal</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Puntu nel mapa</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Salida</string>
     <string name="core_entrance">Entrada</string>
+    <string name="subway_data_unavailable">El mapa del metro nun ta disponible</string>
 </resources>

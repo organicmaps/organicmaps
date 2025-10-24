@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Strings -->
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">Il-Pożizzjoni Kurrenti</string>
     <!-- Default bookmark list name -->
@@ -14,9 +16,11 @@
     <string name="maps_storage_external">Ħażna esterna maqsuma</string>
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
     <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Kodiċi Postali</string>
+    <!-- Place Page title for long tap -->
     <string name="core_placepage_unknown_place">Il-Punt tal-Mappa</string>
+    <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Oħroġ</string>
     <string name="core_entrance">Daħla</string>
     <string name="subway_data_unavailable">Il-mappa tas-subway mhix disponibbli</string>
-    <string name="postal_code">Kodiċi Postali</string>
 </resources>

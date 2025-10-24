@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Strings -->
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Mi posición</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Mis lugares</string>
+    <string name="postal_code">Código postal</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Punto del mapa</string>
+    <!-- A unit of measure -->
+    <string name="ft">pie</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Salida</string>
     <string name="core_entrance">Entrada</string>
     <string name="subway_data_unavailable">El mapa del metro no está disponible</string>
 </resources>

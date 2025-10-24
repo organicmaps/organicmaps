@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
     <string name="back">পিছনে</string>
-    <string name="download_maps">ডাউনলোডকৃত মানচিত্র</string>
-    <string name="delete">মুছো</string>
+    <!-- Button text (should be short) -->
     <string name="cancel">বাতিল</string>
-    <string name="miles">মাইল</string>
-    <string name="later">পরে</string>
-    <string name="search">অনুসন্ধান</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">মুছো</string>
+    <string name="download_maps">ডাউনলোডকৃত মানচিত্র</string>
+    <!-- Settings/Downloader - info for country when download fails -->
     <string name="download_has_failed">ডাউনলোড ব্যর্থ। আবার চেষ্টা করতে টিপ দাও।</string>
-    <string name="search_map">মানচিত্র অনুসন্ধান</string>
-    <string name="kilometres">কিলোমিটার</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">ডাউনলোডরত…</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">কিলোমিটার</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <string name="miles">মাইল</string>
+    <!-- Update maps later button text -->
+    <string name="later">পরে</string>
+    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <string name="search">অনুসন্ধান</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+    <string name="search_map">মানচিত্র অনুসন্ধান</string>
 </resources>

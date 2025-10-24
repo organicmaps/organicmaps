@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Moj položaj</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Moja mesta</string>
+    <string name="postal_code">Poštna številka</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Točka na zemljevidu</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Za prikaz poti je treba posodobiti zemljevide.</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Izhod</string>
+    <string name="core_entrance">Vhod</string>
+    <string name="subway_data_unavailable">Zemljevid podzemne železnice ni na voljo</string>
+</resources>

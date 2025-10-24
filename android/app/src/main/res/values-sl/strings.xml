@@ -1,753 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- SECTION: Strings -->
-    <!-- Button text (should be short) -->
-    <string name="back">Nazaj</string>
-    <!-- Button text (should be short) -->
-    <string name="cancel">Prekliči</string>
-    <!-- Button which deletes downloaded country -->
-    <string name="delete">Izbriši</string>
-    <string name="download_maps">Prenesi zemljevide</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Prenos ni uspel. Dotaknite se za ponovni poskus.</string>
-    <!-- Settings/Downloader - info for country which started downloading -->
-    <string name="downloading">Prenašanje…</string>
-    <!-- Choose measurement on first launch alert - choose metric system button -->
-    <string name="kilometres">Kilometri</string>
-    <!-- Choose measurement on first launch alert - choose imperial system button -->
-    <string name="miles">Milje</string>
-    <!-- Update maps later button text -->
-    <string name="later">Kasneje</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
-    <string name="search">Išči</string>
-    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
-    <string name="search_map">Išči po zemljevidu</string>
-    <!-- Location services are disabled by user alert - message -->
-    <string name="location_is_disabled_long_text">Trenutno imate onemogočene vse lokacijske storitve za to napravo ali aplikacijo. Omogočite jih v nastavitvah.</string>
-    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
-    <string name="limited_accuracy">Omejena natančnost</string>
-    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
-    <string name="precise_location_is_disabled_long_text">Za zagotovitev natančne navigacije v nastavitvah omogočite natančno lokacijo.</string>
-    <!-- View and button titles for accessibility -->
-    <string name="zoom_to_country">Prikaži na zemljevidu</string>
-    <!-- Message to display at the center of the screen when the country download has failed -->
-    <string name="country_status_download_failed">Prenos ni uspel</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Poskusi znova</string>
-    <string name="about_menu_title">O Organic Maps</string>
-    <!-- Text in About screen -->
-    <string name="about_headline">Brezplačno za vse, narejeno z ljubeznijo</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_1">• Brez oglasov, brez sledenja, brez zbiranja podatkov</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_2">• Ne prazni baterije, deluje brez povezave</string>
-    <!-- Text in About screen -->
-    <string name="about_proposition_3">• Hitro, minimalistično, razvito s strani skupnosti</string>
-    <!-- Text in About screen -->
-    <string name="about_developed_by_enthusiasts">Odprtokodna aplikacija, ki so jo ustvarili navdušenci in prostovoljci.</string>
-    <!-- The button that opens system location settings -->
-    <string name="location_settings">Nastavitve lokacije</string>
-    <string name="close">Zapri</string>
-    <string name="unsupported_phone">Aplikacija zahteva strojno pospešen OpenGL. Žal vaša naprava ni podprta.</string>
-    <string name="download">Prenesi</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Za uporabo Organic Maps odklopite kabel USB ali vstavite pomnilniško kartico</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Za uporabo aplikacije najprej sprostite nekaj prostora na kartici SD/pomnilniku USB</string>
-    <string name="download_resources">Preden začnete uporabljati aplikacijo, prenesite na svojo napravo pregledni zemljevid sveta.
-\nUporabil bo %s prostora.</string>
-    <string name="download_resources_continue">Pojdi na zemljevid</string>
-    <string name="downloading_country_can_proceed">Prenašanje %s. Zdaj lahko
-\nnadaljujete na zemljevid.</string>
-    <string name="download_country_ask">Prenesem %s?</string>
-    <string name="update_country_ask">Posodobim %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Premor</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="continue_button">Nadaljuj</string>
-    <!-- Show popup notification on top of the map when country download has failed. -->
-    <string name="download_country_failed">Prenos %s ni uspel</string>
-    <!-- "Add new bookmark list" dialog title -->
-    <string name="add_new_set">Dodaj nov seznam</string>
-    <!-- Add Bookmark list dialog - hint when the list name is empty -->
-    <string name="bookmark_set_name">Ime seznama zaznamkov</string>
-    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
-    <string name="bookmarks">Zaznamki</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
-    <string name="bookmarks_and_tracks">Zaznamki in sledi</string>
-    <!-- Add bookmark dialog - bookmark name -->
-    <string name="name">Ime</string>
-    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
-    <string name="address">Naslov</string>
-    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
-    <string name="list">Seznam</string>
-    <!-- Settings button in system menu -->
-    <string name="settings">Nastavitve</string>
-    <!-- Header of settings activity where user defines storage path -->
-    <string name="maps_storage">Shrani zemljevide v</string>
-    <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Izberite mapo za prenos zemljevidov.</string>
-    <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-    <string name="maps_storage_downloaded">Preneseni zemljevidi</string>
-    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
-    <string name="maps_storage_free_size">%1$s prostega od %2$s</string>
-    <!-- Question dialog for transferring maps from one storage to another -->
-    <string name="move_maps">Premaknem zemljevide?</string>
-    <!-- Error moving map files from one storage to another -->
-    <string name="move_maps_error">Napaka pri premikanju datotek zemljevidov</string>
-    <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">To lahko traja več minut.
-\nProsimo, počakajte…</string>
-    <!-- Measurement units title in settings activity -->
-    <string name="measurement_units">Merske enote</string>
-    <!-- Detailed description of Measurement Units settings button -->
-    <string name="measurement_units_summary">Izberite med miljami in kilometri</string>
-
-    <!-- SECTION: Search categories -->
-    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
-    <string name="category_eat">Kje jesti</string>
-    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
-    <string name="category_food">Živila</string>
-    <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
-    <string name="category_transport">Prevoz</string>
-    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
-    <string name="category_fuel">Bencin</string>
-    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
-    <string name="category_parking">Parkirišče</string>
-    <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
-    <string name="category_shopping">Nakupovanje</string>
-    <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
-    <string name="category_secondhand">Rabljeno</string>
-    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
-    <string name="category_hotel">Hotel</string>
-    <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
-    <string name="category_tourism">Znamenitosti</string>
-    <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
-    <string name="category_entertainment">Zabava</string>
-    <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
-    <string name="category_atm">Bankomat</string>
-    <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
-    <string name="category_nightlife">Nočno življenje</string>
-    <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
-    <string name="category_children">Družinske počitnice</string>
-    <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
-    <string name="category_bank">Banka</string>
-    <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
-    <string name="category_pharmacy">Lekarna</string>
-    <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
-    <string name="category_hospital">Bolnišnica</string>
-    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
-    <string name="category_toilet">Stranišče</string>
-    <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
-    <string name="category_post">Pošta</string>
-    <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
-    <string name="category_police">Policija</string>
-    <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
-    <string name="category_recycling">Recikliranje</string>
-    <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
-    <string name="category_water">Voda</string>
-    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
-    <string name="category_rv">Oprema za avtodome</string>
-
-    <!-- SECTION: Other translations -->
-    <!-- Notes field in Bookmarks view -->
-    <string name="description">Opombe</string>
-    <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Z vami so bili deljeni zaznamki Organic Maps</string>
-    <string name="share_bookmarks_email_body">Živjo!
-\n
-\nV priponki so moji zaznamki; odprite jih v Organic Maps. Če aplikacije nimate nameščene, jo lahko prenesete tukaj: https://omaps.app/get?kmz
-\n
-\nUživajte v potovanju z Organic Maps!</string>
-    <!-- message title of loading file -->
-    <string name="load_kmz_title">Nalaganje zaznamkov</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Zaznamki so bili uspešno naloženi! Najdete jih na zemljevidu ali na zaslonu Upravitelja zaznamkov.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Nalaganje zaznamkov ni uspelo. Datoteka je morda poškodovana ali okvarjena.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Aplikacija ne prepozna vrste datoteke:
-\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Odpiranje datoteke %1$s ni uspelo
-\n
-\n%2$s</string>
-    <!-- resource for context menu -->
-    <string name="edit">Uredi</string>
-    <!-- Warning message when doing search around current position -->
-    <string name="unknown_current_position">Vaša lokacija še ni bila določena</string>
-    <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
-    <string name="cant_change_this_setting">Žal so nastavitve shrambe zemljevidov trenutno onemogočene.</string>
-    <!-- Alert message that downloading is in progress. -->
-    <string name="downloading_is_active">Prenos zemljevida je v teku.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Oglejte si mojo trenutno lokacijo v Organic Maps! %1$s ali %2$s Nimate zemljevidov brez povezave? Prenesite jih tukaj: https://omaps.app/get</string>
-    <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Hej, poglej moj žebljiček v Organic Maps!</string>
-    <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Hej, poglej mojo trenutno lokacijo na zemljevidu Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Živjo,
-\n
-\nZdaj sem tukaj: %1$s. Kliknite to povezavo %2$s ali to %3$s, da vidite kraj na zemljevidu.
-\n
-\nHvala.</string>
-    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
-    <string name="share">Deli</string>
-    <!-- Share by email button text, also used in editor and About. -->
-    <string name="email">E-pošta</string>
-    <!-- Text for message when used successfully copied something -->
-    <string name="copied_to_clipboard">Kopirano v odložišče: %s</string>
-    <!-- Used for bookmark editing -->
-    <string name="done">Končano</string>
-    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
-    <string name="data_version">Podatki OpenStreetMap: %s</string>
-    <!-- Confirmation for OpenStreetMap log out. -->
-    <string name="osm_log_out_confirmation">Ste prepričani, da se želite odjaviti iz svojega računa OpenStreetMap?</string>
-    <!-- Title for tracks category in bookmarks manager -->
-    <string name="tracks_title">Sledi</string>
-    <!-- Length of track in cell that describes route -->
-    <string name="length">Dolžina</string>
-    <string name="share_my_location">Deli mojo lokacijo</string>
-    <!-- Settings general group in settings screen -->
-    <string name="prefs_group_general">Splošne nastavitve</string>
-    <!-- Settings information group in settings screen -->
-    <string name="prefs_group_information">Informacije</string>
-    <string name="prefs_group_route">Navigacija</string>
-    <string name="pref_zoom_title">Gumbi za povečavo</string>
-    <string name="pref_zoom_summary">Prikaži na zemljevidu</string>
-    <!-- Settings «Map» category: «Night style» title -->
-    <string name="pref_map_style_title">Nočni način</string>
-    <!-- Generic «Off» string -->
-    <string name="off">Izklopljeno</string>
-    <!-- Generic «On» string -->
-    <string name="on">Vklopljeno</string>
-    <!-- Generic «Auto» string -->
-    <string name="auto">Samodejno</string>
-    <!-- Settings «Map» category: «Perspective view» title -->
-    <string name="pref_map_3d_title">Perspektivni pogled</string>
-    <!-- Settings «Map» category: «3D buildings» title -->
-    <string name="pref_map_3d_buildings_title">3D zgradbe</string>
-    <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
-    <string name="pref_map_3d_buildings_disabled_summary">3D zgradbe so onemogočene v načinu varčevanja z energijo</string>
-    <!-- Settings «Route» category: «Tts enabled» title -->
-    <string name="pref_tts_enable_title">Glasovna navodila</string>
-    <!-- Settings «Route» category: «Tts announce street names» title -->
-    <string name="pref_tts_street_names_title">Izgovori imena ulic</string>
-    <!-- Settings «Route» category: «Tts announce street names» description -->
-    <string name="pref_tts_street_names_description">Ko je omogočeno, bo ime ulice ali izvoza, na katerega je treba zaviti, izgovorjeno na glas.</string>
-    <!-- Settings «Route» category: «Tts language» title -->
-    <string name="pref_tts_language_title">Jezik glasu</string>
-    <!-- Settings «Route» category: «Test Voice Directions» title -->
-    <string name="pref_tts_test_voice_title">Preizkusi glasovna navodila (TTS, pretvorba besedila v govor)</string>
-    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
-    <string name="pref_tts_playing_test_voice">Preverite glasnost ali sistemske nastavitve pretvorbe besedila v govor, če zdaj ne slišite glasu.</string>
-    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
-    <string name="pref_tts_unavailable">Ni na voljo</string>
-    <string name="pref_map_auto_zoom">Samodejna povečava</string>
-    <string name="placepage_distance">Razdalja</string>
-    <string name="search_show_on_map">Poglej na zemljevidu</string>
-    <!-- Menu button -->
-    <string name="menu">Meni</string>
-    <!-- Text in menu -->
-    <string name="website">Spletna stran</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
-    <string name="news">Novice</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
-    <!-- Settings: Send feedback button and dialog title -->
-    <string name="feedback">Povratne informacije</string>
-    <!-- Text in menu -->
-    <string name="rate_the_app">Oceni aplikacijo</string>
-    <!-- Text in menu -->
-    <string name="help">Pomoč</string>
-    <!-- Button in the main Help dialog -->
-    <string name="faq">Pogosto zastavljena vprašanja</string>
-    <!-- Button in the main menu -->
-    <string name="donate">Doniraj</string>
-    <string name="already_donated">Že donirano</string>
-    <string name="remind_me_later">Opomni me kasneje</string>
-    <string name="support_organic_maps">Podprite Organic Maps</string>
-    <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">Podprite projekt</string>
-    <!-- Button in the main Help dialog -->
-    <string name="copyright">Avtorske pravice</string>
-    <!-- Text in menu + Button in the main Help dialog -->
-    <string name="report_a_bug">Prijavi napako</string>
-    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
-    <string name="compass_calibration_recommended">Izboljšajte smer puščice tako, da telefon premikate v obliki osmice, da umerite kompas.</string>
-    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
-    <string name="compass_calibration_required">Premaknite telefon v obliki osmice, da umerite kompas in popravite smer puščice na zemljevidu.</string>
-    <!-- Toast text when user hides UI with a long tap anywhere on the map -->
-    <string name="long_tap_toast">Ponovno se dolgo dotaknite zemljevida, da vidite vmesnik</string>
-    <!-- Update all button text -->
-    <string name="downloader_update_all_button">Posodobi vse</string>
-    <!-- Cancel all button text -->
-    <string name="downloader_cancel_all">Prekliči vse</string>
-    <!-- Downloaded maps list header -->
-    <string name="downloader_downloaded_subtitle">Preneseno</string>
-    <!-- Country queued for download -->
-    <string name="downloader_queued">V čakalni vrsti</string>
-    <string name="downloader_near_me_subtitle">V bližini</string>
-    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
-    <string name="downloader_status_maps">Zemljevidi</string>
-    <string name="downloader_download_all_button">Prenesi vse</string>
-    <string name="downloader_downloading">Prenašanje:</string>
-    <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
-    <string name="downloader_delete_map_while_routing_dialog">Za brisanje zemljevida ustavite navigacijo.</string>
-    <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Poti je mogoče ustvariti le, če so v celoti znotraj zemljevida ene regije.</string>
-    <!-- Context menu item for downloader. -->
-    <string name="downloader_download_map">Prenesi zemljevid</string>
-    <!-- Item status in downloader. -->
-    <string name="downloader_retry">Poskusi znova</string>
-    <!-- Item in context menu. -->
-    <string name="downloader_delete_map">Izbriši zemljevid</string>
-    <!-- Item in context menu. -->
-    <string name="downloader_update_map">Posodobi zemljevid</string>
-    <!-- Preference title -->
-    <string name="google_play_services">Lokacijske storitve Google Play</string>
-    <!-- Preference text -->
-    <string name="pref_use_google_play">Hitro določite svojo približno lokacijo z uporabo Bluetooth, WiFi ali mobilnega omrežja</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Prenesite vse zemljevide vzdolž vaše poti</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Za ustvarjanje poti moramo prenesti in posodobiti vse zemljevide od vaše lokacije do cilja.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Ni dovolj prostora</string>
-    <!-- location service disabled -->
-    <string name="enable_location_services">Omogočite lokacijske storitve</string>
-    <string name="save">Shrani</string>
-    <string name="create">ustvari</string>
-    <!-- red color -->
-    <string name="red">Rdeča</string>
-    <!-- yellow color -->
-    <string name="yellow">Rumena</string>
-    <!-- blue color -->
-    <string name="blue">Modra</string>
-    <!-- green color -->
-    <string name="green">Zelena</string>
-    <!-- purple color -->
-    <string name="purple">Vijolična</string>
-    <!-- orange color -->
-    <string name="orange">Oranžna</string>
-    <!-- brown color -->
-    <string name="brown">Rjava</string>
-    <!-- pink color -->
-    <string name="pink">Roza</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Temno vijolična</string>
-    <!-- light blue color -->
-    <string name="light_blue">Svetlo modra</string>
-    <!-- cyan color -->
-    <string name="cyan">Cian</string>
-    <!-- teal color -->
-    <string name="teal">Zelenomodra</string>
-    <!-- lime color -->
-    <string name="lime">Limeta</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Temno oranžna</string>
-    <!-- gray color -->
-    <string name="gray">Siva</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Modro siva</string>
-
-    <!-- SECTION: Routing dialogs strings -->
-    <string name="dialog_routing_disclaimer_title">Pri sledenju poti upoštevajte:</string>
-    <string name="dialog_routing_disclaimer_priority">— Stanje na cestah, prometni predpisi in prometni znaki imajo vedno prednost pred navigacijskimi namigi;</string>
-    <string name="dialog_routing_disclaimer_precision">— Zemljevid je lahko netočen in predlagana pot morda ni vedno najbolj optimalen način za dosego cilja;</string>
-    <string name="dialog_routing_disclaimer_recommendations">— Predlagane poti je treba razumeti le kot priporočila;</string>
-    <string name="dialog_routing_disclaimer_borders">— Bodite previdni pri poteh v obmejnih območjih: poti, ki jih ustvari naša aplikacija, lahko včasih prečkajo državne meje na nepooblaščenih mestih.</string>
-    <string name="dialog_routing_disclaimer_beware">Prosimo, bodite pozorni in varni na cestah!</string>
-    <string name="dialog_routing_check_gps">Preverite signal GPS</string>
-    <string name="dialog_routing_error_location_not_found">Poti ni mogoče ustvariti. Trenutnih koordinat GPS ni bilo mogoče določiti.</string>
-    <string name="dialog_routing_location_turn_wifi">Preverite signal GPS. Omogočanje Wi-Fi bo izboljšalo natančnost vaše lokacije.</string>
-    <string name="dialog_routing_location_turn_on">Omogočite lokacijske storitve</string>
-    <string name="dialog_routing_location_unknown_turn_on">Trenutnih koordinat GPS ni mogoče najti. Omogočite lokacijske storitve za izračun poti.</string>
-    <string name="dialog_routing_unable_locate_route">Poti ni mogoče najti</string>
-    <string name="dialog_routing_cant_build_route">Poti ni mogoče ustvariti.</string>
-    <string name="dialog_routing_change_start_or_end">Prilagodite svojo začetno točko ali cilj.</string>
-    <string name="dialog_routing_change_start">Prilagodite začetno točko</string>
-    <string name="dialog_routing_start_not_determined">Pot ni bila ustvarjena. Začetne točke ni mogoče najti.</string>
-    <string name="dialog_routing_select_closer_start">Izberite začetno točko bližje cesti.</string>
-    <string name="dialog_routing_change_end">Prilagodite cilj</string>
-    <string name="dialog_routing_end_not_determined">Pot ni bila ustvarjena. Cilja ni mogoče najti.</string>
-    <string name="dialog_routing_select_closer_end">Izberite ciljno točko, ki se nahaja bližje cesti.</string>
-    <string name="dialog_routing_change_intermediate">Vmesne točke ni mogoče najti.</string>
-    <string name="dialog_routing_intermediate_not_determined">Prilagodite svojo vmesno točko.</string>
-    <string name="dialog_routing_system_error">Sistemska napaka</string>
-    <string name="dialog_routing_application_error">Poti ni mogoče ustvariti zaradi napake v aplikaciji.</string>
-    <string name="dialog_routing_try_again">Poskusite znova</string>
-    <string name="not_now">Ne zdaj</string>
-    <string name="dialog_routing_download_and_build_cross_route">Ali želite prenesti zemljevid in ustvariti bolj optimalno pot, ki se razteza čez več kot en zemljevid?</string>
-    <string name="dialog_routing_download_cross_route">Prenesite dodatne zemljevide, da ustvarite boljšo pot, ki prečka meje tega zemljevida.</string>
-
-    <!-- SECTION: Strings for downloading map from search -->
-    <string name="search_without_internet_advertisement">Za začetek iskanja in ustvarjanja poti prenesite zemljevid. Po tem ne boste več potrebovali internetne povezave.</string>
-    <string name="search_select_map">Izberite zemljevid</string>
-    <!-- «Show» context menu -->
-    <string name="show">Prikaži</string>
-    <!-- «Hide» context menu -->
-    <string name="hide">Skrij</string>
-    <string name="categories">Kategorije</string>
-    <string name="history">Zgodovina</string>
-    <string name="search_not_found">Ups, ni bilo najdenih rezultatov.</string>
-    <!-- The message when user did not find anything in the search. -->
-    <string name="search_not_found_query">Prenesite regijo, kjer iščete, ali poskusite dodati ime bližnjega mesta/vasi.</string>
-    <string name="search_history_title">Zgodovina iskanja</string>
-    <string name="search_history_text">Oglejte si svoja nedavna iskanja.</string>
-    <string name="clear_search">Počisti zgodovino iskanja</string>
-    <!-- Place Page link to Wikipedia article (if map object has it). -->
-    <string name="read_in_wikipedia">Wikipedija</string>
-    <!-- Place Page link to Wikimedia Commons. -->
-    <string name="wikimedia_commons">Wikimedia Commons</string>
-    <string name="p2p_your_location">Vaša lokacija</string>
-    <string name="p2p_start">Začetek</string>
-    <string name="p2p_from_here">Pot od</string>
-    <string name="p2p_to_here">Pot do</string>
-    <string name="p2p_only_from_current">Navigacija je na voljo samo z vaše trenutne lokacije.</string>
-    <string name="p2p_reroute_from_current">Ali želite načrtovati pot z vaše trenutne lokacije?</string>
-    <!-- Edit open hours/set time and minutes dialog -->
-    <string name="next_button">Naprej</string>
-    <!-- Tab title in the Edit Opening Hours time picker -->
-    <string name="editor_time_from">Od</string>
-    <!-- Tab title in the Edit Opening Hours time picker -->
-    <string name="editor_time_to">Do</string>
-    <string name="editor_time_add">Dodaj urnik</string>
-    <string name="editor_time_delete">Izbriši urnik</string>
-    <!-- Text for allday switch. -->
-    <string name="editor_time_allday">Ves dan (24 ur)</string>
-    <string name="editor_time_open">Odprto</string>
-    <string name="editor_time_close">Zaprto</string>
-    <string name="editor_time_add_closed">Dodaj neposlovni čas</string>
-    <string name="editor_time_title">Delovni čas</string>
-    <string name="editor_time_advanced">Napredni način</string>
-    <string name="editor_time_simple">Enostaven način</string>
-    <string name="editor_hours_closed">Neposlovni čas</string>
-    <string name="editor_example_values">Primeri vrednosti</string>
-    <string name="editor_correct_mistake">Popravi napako</string>
-    <string name="editor_add_select_location">Izberite lokacijo</string>
-    <string name="editor_report_problem_desription_1">Podrobno opišite težavo, da jo bo skupnost OpenStreetMap lahko odpravila.</string>
-    <string name="editor_report_problem_desription_2">Ali pa to storite sami na https://www.openstreetmap.org/</string>
-    <string name="editor_report_problem_send_button">Pošlji</string>
-    <string name="editor_report_problem_title">Težava</string>
-    <string name="editor_report_problem_no_place_title">To mesto ne obstaja</string>
-    <string name="editor_report_problem_under_construction_title">Zaprto zaradi vzdrževanja</string>
-    <string name="editor_report_problem_duplicate_place_title">Dvojnik mesta</string>
-    <string name="autodownload">Samodejni prenos zemljevidov</string>
-    <!-- Place Page opening hours text -->
-    <string name="daily">Dnevno</string>
-    <string name="twentyfour_seven">24/7</string>
-    <string name="day_off_today">Danes zaprto</string>
-    <string name="day_off">Zaprto</string>
-    <string name="today">Danes</string>
-    <string name="opens_in">Odpira se čez %s</string>
-    <string name="closes_in">Zapira se čez %s</string>
-    <string name="closed">Zaprto</string>
-    <string name="edit_opening_hours">Uredi delovni čas</string>
-    <string name="no_osm_account">Nimate računa OpenStreetMap?</string>
-    <string name="register_at_openstreetmap">Registrirajte se na OpenStreetMap</string>
-    <string name="login">Prijava</string>
-    <!-- Status message indicating that user did not login to OSM profile yet. -->
-    <string name="not_signed_in">Niste prijavljeni</string>
-    <string name="login_osm">Prijavite se v OpenStreetMap</string>
-    <string name="password">Geslo</string>
-    <string name="forgot_password">Ste pozabili geslo?</string>
-    <string name="logout">Odjava</string>
-    <string name="edit_place">Uredi mesto</string>
-    <string name="add_language">Dodaj jezik</string>
-    <string name="street">Ulica</string>
-    <!-- Editable House Number text field (in address block). -->
-    <string name="house_number">Hišna številka</string>
-    <string name="details">Podrobnosti</string>
-    <string name="social_media">Družbena omrežja</string>
-    <string name="building">Zgradba</string>
-    <!-- Text field to enter non-existing street name, below list of known streets around -->
-    <string name="add_street">Dodaj ulico</string>
-    <!-- Error to display when a new street name is not entered in the New street dialog -->
-    <string name="empty_street_name_error">Vnesite ime ulice</string>
-    <string name="choose_language">Izberite jezik</string>
-    <string name="choose_street">Izberite ulico</string>
-    <string name="cuisine">Kuhinja</string>
-    <string name="select_cuisine">Izberite kuhinjo</string>
-    <!-- login text field -->
-    <string name="email_or_username">E-pošta ali uporabniško ime</string>
-    <string name="editor_add_phone">Dodaj telefon</string>
-    <string name="level">Nadstropje</string>
-    <!-- Building level -->
-    <string name="level_value_generic">Nadstropje: %s</string>
-    <string name="downloader_delete_map_dialog">Vsa vaša urejanja zemljevida bodo izbrisana skupaj z zemljevidom.</string>
-    <string name="downloader_update_maps">Posodobi zemljevide</string>
-    <string name="downloader_mwm_migration_dialog">Za ustvarjanje poti morate posodobiti vse zemljevide in nato ponovno načrtovati pot.</string>
-    <string name="downloader_search_field_hint">Najdi zemljevid</string>
-    <string name="common_check_internet_connection_dialog">Prepričajte se, da je vaša naprava povezana z internetom.</string>
-    <string name="downloader_no_space_title">Ni dovolj prostora</string>
-    <string name="downloader_no_space_message">Izbrišite nepotrebne podatke</string>
-    <string name="editor_login_error_dialog">Napaka pri prijavi.</string>
-    <string name="editor_profile_changes">Preverjene spremembe</string>
-    <string name="editor_focus_map_on_location">Povlecite zemljevid, da postavite križec na lokacijo mesta ali podjetja.</string>
-    <string name="editor_edit_place_title">Urejanje</string>
-    <string name="editor_add_place_title">Dodajanje</string>
-    <string name="editor_edit_place_name_hint">Ime mesta</string>
-    <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
-    <string name="editor_default_language_hint">Kot je napisano v lokalnem jeziku</string>
-    <string name="editor_edit_place_category_title">Kategorija</string>
-    <string name="detailed_problem_description">Podroben opis težave</string>
-    <string name="editor_report_problem_other_title">Druga težava</string>
-    <string name="placepage_add_business_button">Dodaj podjetje</string>
-    <string name="message_invalid_feature_position">Tukaj ni mogoče locirati nobenega objekta</string>
-    <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Podatki OpenStreetMap, ki jih je ustvarila skupnost, od %s. Več o tem, kako urejati in posodabljati zemljevid, preberite na OpenStreetMap.org</string>
-    <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) je projekt skupnosti za izgradnjo brezplačnega in odprtega zemljevida. Je glavni vir podatkov o zemljevidih v Organic Maps in deluje podobno kot Wikipedija. Lahko dodajate ali urejate mesta, ki postanejo na voljo milijonom uporabnikov po vsem svetu.
-\nPridružite se skupnosti in pomagajte ustvariti boljši zemljevid za vse!</string>
-    <string name="login_to_make_edits_visible">Ustvarite račun OpenStreetMap ali se prijavite, da objavite svoja urejanja zemljevida svetu.</string>
-    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
-    <string name="downloader_of">%1$d od %2$d</string>
-    <string name="download_over_mobile_header">Prenesem prek mobilne omrežne povezave?</string>
-    <string name="download_over_mobile_message">To je lahko pri nekaterih paketih ali gostovanju precej drago.</string>
-    <string name="error_enter_correct_house_number">Vnesite veljavno hišno številko</string>
-    <string name="editor_storey_number">Število nadstropij (največ %d)</string>
-    <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
-    <string name="error_enter_correct_storey_number">Število nadstropij ne sme presegati %d</string>
-    <string name="editor_zip_code">Poštna številka</string>
-    <string name="error_enter_correct_zip_code">Vnesite veljavno poštno številko</string>
-    <!-- Title for OSM note section in the editor -->
-    <string name="editor_other_info">Opomba za prostovoljce OpenStreetMap (neobvezno)</string>
-    <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Opišite napake na zemljevidu ali stvari, ki jih ni mogoče urejati z Organic Maps</string>
-    <!-- Information about OSM at the top of the editing page -->
-    <string name="editor_about_osm">Vaša urejanja se naložijo v javno bazo podatkov <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Prosimo, ne dodajajte osebnih ali avtorsko zaščitenih podatkov.</string>
-    <string name="editor_more_about_osm">Več o OpenStreetMap</string>
-    <string name="editor_osm_history">Vaša zgodovina urejanja</string>
-    <string name="editor_osm_notes">Vaše opombe k podatkom zemljevida</string>
-    <string name="editor_operator">Upravljavec</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
-    <string name="operator">Upravljavec: %s</string>
-    <string name="editor_category_unsuitable_title">Ne najdete primerne kategorije?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps omogoča dodajanje samo preprostih točkovnih kategorij, kar pomeni, da ni mest, cest, jezer, obrisov zgradb itd. Takšne kategorije dodajte neposredno na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Preverite naš <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vodnik</a> za podrobna navodila po korakih.</string>
-    <string name="downloader_no_downloaded_maps_title">Niste prenesli nobenega zemljevida</string>
-    <string name="downloader_no_downloaded_maps_message">Prenesite zemljevide za iskanje in navigacijo brez povezave.</string>
-    <string name="current_location_unknown_error_title">Trenutna lokacija ni znana.</string>
-    <!-- abbreviation for kilometers per hour -->
-    <string name="kilometers_per_hour">km/h</string>
-    <string name="miles_per_hour">mph</string>
-    <string name="hour">h</string>
-    <string name="minute">min</string>
-    <string name="day">d</string>
-    <string name="placepage_more_button">Več</string>
-    <string name="placepage_edit_bookmark_button">Uredi zaznamek</string>
-    <string name="placepage_personal_notes_hint">Osebne opombe (besedilo ali html)</string>
-    <string name="editor_comment_hint">Komentar…</string>
-    <string name="editor_reset_edits_message">Zavrnem vse lokalne spremembe?</string>
-    <string name="editor_reset_edits_button">Zavrzi</string>
-    <string name="editor_remove_place_message">Izbrišem dodano mesto?</string>
-    <string name="editor_remove_place_button">Izbriši</string>
-    <string name="editor_place_doesnt_exist">Mesto ne obstaja</string>
-    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
-    <string name="delete_place_empty_comment_error">Navedite razlog za brisanje mesta</string>
-    <!-- Phone number error message -->
-    <string name="error_enter_correct_phone">Vnesite veljavno telefonsko številko</string>
-    <string name="error_enter_correct_web">Vnesite veljaven spletni naslov</string>
-    <string name="error_enter_correct_email">Vnesite veljaven e-poštni naslov</string>
-    <string name="error_enter_correct_facebook_page">Vnesite veljaven spletni naslov, račun ali ime strani na Facebooku</string>
-    <string name="error_enter_correct_instagram_page">Vnesite veljavno uporabniško ime ali spletni naslov na Instagramu</string>
-    <string name="error_enter_correct_twitter_page">Vnesite veljavno uporabniško ime ali spletni naslov na Twitterju</string>
-    <string name="error_enter_correct_vk_page">Vnesite veljavno uporabniško ime ali spletni naslov na VK</string>
-    <string name="error_enter_correct_line_page">Vnesite veljaven ID ali spletni naslov LINE</string>
-    <string name="placepage_add_place_button">Dodaj mesto v OpenStreetMap</string>
-    <string name="osm_note_hint">Ali pa pustite opombo skupnosti OpenStreetMap, da bo nekdo drug lahko dodal ali popravil mesto tukaj.</string>
-    <string name="osm_note_toast">Opomba bo poslana v OpenStreetMap</string>
-    <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
-    <string name="editor_share_to_all_dialog_title">Ali želite to poslati vsem uporabnikom?</string>
-    <!-- Dialog before publishing the modifications to the public map. -->
-    <string name="editor_share_to_all_dialog_message_1">Prepričajte se, da niste vnesli nobenih zasebnih ali osebnih podatkov.</string>
-    <string name="editor_share_to_all_dialog_message_2">Uredniki OpenStreetMap bodo preverili spremembe in vas kontaktirali, če bodo imeli kakršna koli vprašanja.</string>
-    <string name="navigation_stop_button">Ustavi</string>
-    <!-- Shown as toast when starting the recent track recording -->
-    <string name="track_recording">Snemanje sledi</string>
-    <!-- For the first routing -->
-    <string name="accept">Sprejmi</string>
-    <!-- For the first routing -->
-    <string name="decline">Zavrni</string>
-    <string name="mobile_data_dialog">Uporabim mobilni internet za prikaz podrobnih informacij?</string>
-    <string name="mobile_data_option_always">Vedno uporabi</string>
-    <string name="mobile_data_option_today">Samo danes</string>
-    <string name="mobile_data_option_not_today">Danes ne uporabi</string>
-    <string name="mobile_data">Mobilni internet</string>
-    <!-- NOTE to translators: please synchronize your translation with the English one. -->
-    <string name="mobile_data_description">Mobilni internet je potreben za obvestila o posodobitvah zemljevidov in nalaganje urejanj.</string>
-    <string name="mobile_data_option_never">Nikoli ne uporabi</string>
-    <string name="mobile_data_option_ask">Vedno vprašaj</string>
-    <string name="traffic_update_maps_text">Za prikaz podatkov o prometu je treba posodobiti zemljevide.</string>
-    <string name="big_font">Povečaj velikost oznak na zemljevidu</string>
-    <string name="traffic_update_app">Posodobite Organic Maps</string>
-    <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">Podatki o prometu niso na voljo</string>
-    <string name="enable_logging">Omogoči beleženje</string>
-    <!-- Settings: "Send general feedback" button -->
-    <string name="feedback_general">Splošne povratne informacije</string>
-    <string name="prefs_languages_information">Za glasovna navodila uporabljamo sistemski TTS. Številne naprave Android uporabljajo Google TTS, ki ga lahko prenesete ali posodobite iz Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Za nekatere jezike boste morali namestiti sintetizator govora ali dodaten jezikovni paket iz trgovine z aplikacijami (Google Play, Galaxy Store, App Gallery, FDroid).
-\nOdprite nastavitve naprave → Jezik in vnos → Govor → Izhod besedila v govor.
-\nTu lahko upravljate nastavitve za sintezo govora (na primer prenesete jezikovni paket za uporabo brez povezave) in izberete drug mehanizem za pretvorbo besedila v govor.</string>
-    <string name="prefs_languages_information_off_link">Za več informacij preverite ta vodnik.</string>
-    <string name="transliteration_title">Transliteriraj v latinico</string>
-    <string name="learn_more">Več o tem</string>
-    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Uporabite iskanje ali se dotaknite zemljevida, da dodate začetno točko poti</string>
-    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Uporabite iskanje ali se dotaknite zemljevida, da dodate ciljno točko</string>
-    <string name="planning_route_manage_route">Upravljaj pot</string>
-    <string name="button_plan">Načrtuj</string>
-    <string name="placepage_remove_stop">Odstrani postanek</string>
-    <string name="placepage_add_stop">Dodaj postanek</string>
-    <string name="saved">Shranjeno</string>
-    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
-    <string name="alert_reauth_message">Prijavite se v OpenStreetMap, da samodejno naložite vsa svoja urejanja zemljevida. Več o tem <a href="https://github.com/organicmaps/organicmaps/issues/6144">tukaj</a>.</string>
-    <string name="dialog_error_storage_title">Težava z dostopom do shrambe</string>
-    <string name="dialog_error_storage_message">Zunanja shramba ni dostopna. Kartica SD je morda bila odstranjena, poškodovana ali pa je datotečni sistem samo za branje. Preverite svojo kartico SD ali nas kontaktirajte na support\@organicmaps.app</string>
-    <string name="setting_emulate_bad_storage">Emuliraj slabo shrambo</string>
-    <string name="error_enter_correct_name">Vnesite pravilno ime</string>
-    <string name="bookmark_lists">Seznami</string>
-    <!-- Do not display all bookmark lists on the map -->
-    <string name="bookmark_lists_hide_all">Skrij vse</string>
-    <string name="bookmark_lists_show_all">Prikaži vse</string>
-    <plurals name="bookmarks_places">
-        <item quantity="one">%d zaznamek</item>
-        <item quantity="two">%d zaznamka</item>
-        <item quantity="few">%d zaznamki</item>
-        <item quantity="other">%d zaznamkov</item>
-    </plurals>
-    <string name="bookmarks_create_new_group">Ustvari nov seznam</string>
-    <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
-    <string name="bookmarks_import">Uvozi zaznamke in sledi</string>
-    <string name="bookmarks_error_message_share_general">Deljenje ni mogoče zaradi napake v aplikaciji</string>
-    <string name="bookmarks_error_title_share_empty">Napaka pri deljenju</string>
-    <string name="bookmarks_error_message_share_empty">Praznega seznama ni mogoče deliti</string>
-    <string name="bookmarks_error_title_empty_list_name">Ime ne sme biti prazno</string>
-    <string name="bookmarks_error_message_empty_list_name">Vnesite ime seznama</string>
-    <string name="bookmarks_new_list_hint">Nov seznam</string>
-    <string name="bookmarks_error_title_list_name_already_taken">To ime je že zasedeno</string>
-    <string name="bookmarks_error_message_list_name_already_taken">Izberite drugo ime</string>
-    <string name="please_wait">Prosimo, počakajte…</string>
-    <string name="phone_number">Telefonska številka</string>
-    <string name="profile">Profil OpenStreetMap</string>
-    <plurals name="bookmarks_detect_message">
-        <item quantity="one">Najdena je bila %d datoteka. Ogledate si jo lahko po pretvorbi.</item>
-        <item quantity="two">Najdeni sta bili %d datoteki. Ogledate si ju lahko po pretvorbi.</item>
-        <item quantity="few">Najdene so bile %d datoteke. Ogledate si jih lahko po pretvorbi.</item>
-        <item quantity="other">Najdenih je bilo %d datotek. Ogledate si jih lahko po pretvorbi.</item>
-    </plurals>
-    <string name="restore">Obnovi</string>
-    <plurals name="tracks">
-        <item quantity="one">%d sled</item>
-        <item quantity="two">%d sledi</item>
-        <item quantity="few">%d sledi</item>
-        <item quantity="other">%d sledi</item>
-    </plurals>
-    <!-- Settings privacy group in settings screen -->
-    <string name="privacy">Zasebnost</string>
-    <string name="privacy_policy">Politika zasebnosti</string>
-    <string name="terms_of_use">Pogoji uporabe</string>
-    <string name="button_layer_traffic">Promet</string>
-    <string name="button_layer_hiking">Pohodništvo</string>
-    <string name="button_layer_cycling">Kolesarjenje</string>
-    <string name="button_layer_subway">Podzemna železnica</string>
-    <string name="layers_title">Slogi in plasti zemljevida</string>
-    <string name="bookmarks_empty_list_title">Ta seznam je prazen</string>
-    <string name="bookmarks_empty_list_message">Če želite dodati zaznamek, se dotaknite mesta na zemljevidu in nato ikone zvezdice</string>
-    <string name="category_desc_more">…več</string>
-    <string name="export_file">Izvozi KMZ</string>
-    <string name="export_file_gpx">Izvozi GPX</string>
-    <string name="delete_list">Izbriši seznam</string>
-    <string name="speedcams_alert_title">Radarji</string>
-    <string name="place_description_title">Opis mesta</string>
-    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
-    <string name="notification_channel_downloader">Prenosnik zemljevidov</string>
-    <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
-    <string name="pref_tts_speedcams_auto">Opozori ob prekoračitvi hitrosti</string>
-    <!-- Speed camera settings menu option - Always warn (about speedcams) -->
-    <string name="pref_tts_speedcams_always">Vedno opozori</string>
-    <!-- Speed camera settings menu option - Never warn (about speedcams) -->
-    <string name="pref_tts_speedcams_never">Nikoli ne opozori</string>
-    <string name="power_managment_title">Način varčevanja z energijo</string>
-    <string name="power_managment_description">Poskusite zmanjšati porabo energije na račun nekaterih funkcionalnosti.</string>
-    <string name="power_managment_setting_never">Nikoli</string>
-    <string name="power_managment_setting_auto">Ko je baterija skoraj prazna</string>
-    <string name="power_managment_setting_manual_max">Vedno</string>
-    <string name="bookmarks_text_placement_title">Imena zaznamkov na zemljevidu</string>
-    <string name="bookmarks_text_placement_description">Če je zaznamkov preveč, lahko prikaz njihovih imen na zemljevidu upočasni aplikacijo.</string>
-    <string name="show_to_the_right">Prikaži na desni</string>
-    <string name="show_at_the_bottom">Prikaži na dnu</string>
-    <string name="enable_logging_warning_message">To možnost omogočite začasno, da posnamete in nam ročno pošljete podrobne diagnostične dnevnike o vaši težavi z uporabo "Prijavi napako" v pogovornem oknu Pomoč. Dnevniki lahko vključujejo podatke o lokaciji.</string>
-    <string name="driving_options_title">Možnosti načrtovanja poti</string>
-    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
-    <string name="avoid_tolls">Izogibaj se cestninam</string>
-    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
-    <string name="avoid_unpaved">Izogibaj se makadamu</string>
-    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
-    <string name="avoid_ferry">Izogibaj se trajektom</string>
-    <string name="avoid_motorways">Izogibaj se avtocestam</string>
-    <string name="unable_to_calc_alert_title">Poti ni mogoče izračunati</string>
-    <string name="unable_to_calc_alert_subtitle">Poti ni bilo mogoče najti. To je lahko posledica vaših možnosti načrtovanja poti ali nepopolnih podatkov OpenStreetMap. Spremenite možnosti načrtovanja poti in poskusite znova.</string>
-    <string name="define_to_avoid_btn">Določite ceste, ki se jim želite izogniti</string>
-    <string name="change_driving_options_btn">Možnosti načrtovanja poti omogočene</string>
-    <string name="toll_road">Cestninska cesta</string>
-    <string name="unpaved_road">Makadamska cesta</string>
-    <string name="ferry_crossing">Prečkanje s trajektom</string>
-    <!-- A generic "Yes" button in dialogs -->
-    <string name="yes">Da</string>
-    <!-- A generic "No" button in dialogs -->
-    <string name="no">Ne</string>
-    <!-- E.g. "WiFi:Yes" -->
-    <string name="yes_available">Da</string>
-    <!-- E.g. "WiFi:No" -->
-    <string name="no_available">Ne</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
-    <string name="capacity">Kapaciteta: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
-    <string name="network">Omrežje: %s</string>
-    <string name="trip_finished">Prispeli ste!</string>
-    <string name="ok">V redu</string>
-    <!-- max. 10 symbols, both iOS and Android -->
-    <string name="sort">Razvrsti…</string>
-    <!-- Android, title, max 20-22 symbols -->
-    <string name="sort_bookmarks">Razvrsti zaznamke</string>
-    <!-- Android -->
-    <string name="by_default">Privzeto</string>
-    <!-- Android -->
-    <string name="by_type">Po vrsti</string>
-    <!-- Android -->
-    <string name="by_distance">Po razdalji</string>
-    <!-- Android -->
-    <string name="by_date">Po datumu</string>
-    <!-- Android -->
-    <string name="by_name">Po imenu</string>
-    <string name="week_ago_sorttype">Pred enim tednom</string>
-    <string name="month_ago_sorttype">Pred enim mesecem</string>
-    <string name="moremonth_ago_sorttype">Pred več kot mesecem dni</string>
-    <string name="moreyear_ago_sorttype">Pred več kot letom dni</string>
-    <string name="near_me_sorttype">V bližini</string>
-    <string name="others_sorttype">Drugo</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Hrana</string>
@@ -903,4 +155,739 @@
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Deli sled</string>
     <string name="delete_track_dialog_title">Izbrišem %s?</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="search_without_internet_advertisement">Za začetek iskanja in ustvarjanja poti prenesite zemljevid. Po tem ne boste več potrebovali internetne povezave.</string>
+    <string name="search_select_map">Izberite zemljevid</string>
+    <!-- «Show» context menu -->
+    <string name="show">Prikaži</string>
+    <!-- «Hide» context menu -->
+    <string name="hide">Skrij</string>
+    <string name="categories">Kategorije</string>
+    <string name="history">Zgodovina</string>
+    <string name="search_not_found">Ups, ni bilo najdenih rezultatov.</string>
+    <!-- The message when user did not find anything in the search. -->
+    <string name="search_not_found_query">Prenesite regijo, kjer iščete, ali poskusite dodati ime bližnjega mesta/vasi.</string>
+    <string name="search_history_title">Zgodovina iskanja</string>
+    <string name="search_history_text">Oglejte si svoja nedavna iskanja.</string>
+    <string name="clear_search">Počisti zgodovino iskanja</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Wikipedija</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="p2p_your_location">Vaša lokacija</string>
+    <string name="p2p_start">Začetek</string>
+    <string name="p2p_from_here">Pot od</string>
+    <string name="p2p_to_here">Pot do</string>
+    <string name="p2p_only_from_current">Navigacija je na voljo samo z vaše trenutne lokacije.</string>
+    <string name="p2p_reroute_from_current">Ali želite načrtovati pot z vaše trenutne lokacije?</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Naprej</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_from">Od</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_to">Do</string>
+    <string name="editor_time_add">Dodaj urnik</string>
+    <string name="editor_time_delete">Izbriši urnik</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Ves dan (24 ur)</string>
+    <string name="editor_time_open">Odprto</string>
+    <string name="editor_time_close">Zaprto</string>
+    <string name="editor_time_add_closed">Dodaj neposlovni čas</string>
+    <string name="editor_time_title">Delovni čas</string>
+    <string name="editor_time_advanced">Napredni način</string>
+    <string name="editor_time_simple">Enostaven način</string>
+    <string name="editor_hours_closed">Neposlovni čas</string>
+    <string name="editor_example_values">Primeri vrednosti</string>
+    <string name="editor_correct_mistake">Popravi napako</string>
+    <string name="editor_add_select_location">Izberite lokacijo</string>
+    <string name="editor_report_problem_desription_1">Podrobno opišite težavo, da jo bo skupnost OpenStreetMap lahko odpravila.</string>
+    <string name="editor_report_problem_desription_2">Ali pa to storite sami na https://www.openstreetmap.org/</string>
+    <string name="editor_report_problem_send_button">Pošlji</string>
+    <string name="editor_report_problem_title">Težava</string>
+    <string name="editor_report_problem_no_place_title">To mesto ne obstaja</string>
+    <string name="editor_report_problem_under_construction_title">Zaprto zaradi vzdrževanja</string>
+    <string name="editor_report_problem_duplicate_place_title">Dvojnik mesta</string>
+    <string name="autodownload">Samodejni prenos zemljevidov</string>
+    <!-- Place Page opening hours text -->
+    <string name="daily">Dnevno</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Danes zaprto</string>
+    <string name="day_off">Zaprto</string>
+    <string name="today">Danes</string>
+    <string name="opens_in">Odpira se čez %s</string>
+    <string name="closes_in">Zapira se čez %s</string>
+    <string name="closed">Zaprto</string>
+    <string name="edit_opening_hours">Uredi delovni čas</string>
+    <string name="no_osm_account">Nimate računa OpenStreetMap?</string>
+    <string name="register_at_openstreetmap">Registrirajte se na OpenStreetMap</string>
+    <string name="login">Prijava</string>
+    <!-- Status message indicating that user did not login to OSM profile yet. -->
+    <string name="not_signed_in">Niste prijavljeni</string>
+    <string name="login_osm">Prijavite se v OpenStreetMap</string>
+    <string name="password">Geslo</string>
+    <string name="forgot_password">Ste pozabili geslo?</string>
+    <string name="logout">Odjava</string>
+    <string name="edit_place">Uredi mesto</string>
+    <string name="add_language">Dodaj jezik</string>
+    <string name="street">Ulica</string>
+    <!-- Editable House Number text field (in address block). -->
+    <string name="house_number">Hišna številka</string>
+    <string name="details">Podrobnosti</string>
+    <string name="social_media">Družbena omrežja</string>
+    <string name="building">Zgradba</string>
+    <!-- Text field to enter non-existing street name, below list of known streets around -->
+    <string name="add_street">Dodaj ulico</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">Vnesite ime ulice</string>
+    <string name="choose_language">Izberite jezik</string>
+    <string name="choose_street">Izberite ulico</string>
+    <string name="cuisine">Kuhinja</string>
+    <string name="select_cuisine">Izberite kuhinjo</string>
+    <!-- login text field -->
+    <string name="email_or_username">E-pošta ali uporabniško ime</string>
+    <string name="editor_add_phone">Dodaj telefon</string>
+    <string name="level">Nadstropje</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Nadstropje: %s</string>
+    <string name="downloader_delete_map_dialog">Vsa vaša urejanja zemljevida bodo izbrisana skupaj z zemljevidom.</string>
+    <string name="downloader_update_maps">Posodobi zemljevide</string>
+    <string name="downloader_mwm_migration_dialog">Za ustvarjanje poti morate posodobiti vse zemljevide in nato ponovno načrtovati pot.</string>
+    <string name="downloader_search_field_hint">Najdi zemljevid</string>
+    <string name="common_check_internet_connection_dialog">Prepričajte se, da je vaša naprava povezana z internetom.</string>
+    <string name="downloader_no_space_title">Ni dovolj prostora</string>
+    <string name="downloader_no_space_message">Izbrišite nepotrebne podatke</string>
+    <string name="editor_login_error_dialog">Napaka pri prijavi.</string>
+    <string name="editor_profile_changes">Preverjene spremembe</string>
+    <string name="editor_focus_map_on_location">Povlecite zemljevid, da postavite križec na lokacijo mesta ali podjetja.</string>
+    <string name="editor_edit_place_title">Urejanje</string>
+    <string name="editor_add_place_title">Dodajanje</string>
+    <string name="editor_edit_place_name_hint">Ime mesta</string>
+    <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+    <string name="editor_default_language_hint">Kot je napisano v lokalnem jeziku</string>
+    <string name="editor_edit_place_category_title">Kategorija</string>
+    <string name="detailed_problem_description">Podroben opis težave</string>
+    <string name="editor_report_problem_other_title">Druga težava</string>
+    <string name="placepage_add_business_button">Dodaj podjetje</string>
+    <string name="message_invalid_feature_position">Tukaj ni mogoče locirati nobenega objekta</string>
+    <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+    <string name="osm_presentation">Podatki OpenStreetMap, ki jih je ustvarila skupnost, od %s. Več o tem, kako urejati in posodabljati zemljevid, preberite na OpenStreetMap.org</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) je projekt skupnosti za izgradnjo brezplačnega in odprtega zemljevida. Je glavni vir podatkov o zemljevidih v Organic Maps in deluje podobno kot Wikipedija. Lahko dodajate ali urejate mesta, ki postanejo na voljo milijonom uporabnikov po vsem svetu.
+\nPridružite se skupnosti in pomagajte ustvariti boljši zemljevid za vse!</string>
+    <string name="login_to_make_edits_visible">Ustvarite račun OpenStreetMap ali se prijavite, da objavite svoja urejanja zemljevida svetu.</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d od %2$d</string>
+    <string name="download_over_mobile_header">Prenesem prek mobilne omrežne povezave?</string>
+    <string name="download_over_mobile_message">To je lahko pri nekaterih paketih ali gostovanju precej drago.</string>
+    <string name="error_enter_correct_house_number">Vnesite veljavno hišno številko</string>
+    <string name="editor_storey_number">Število nadstropij (največ %d)</string>
+    <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+    <string name="error_enter_correct_storey_number">Število nadstropij ne sme presegati %d</string>
+    <string name="editor_zip_code">Poštna številka</string>
+    <string name="error_enter_correct_zip_code">Vnesite veljavno poštno številko</string>
+    <!-- Title for OSM note section in the editor -->
+    <string name="editor_other_info">Opomba za prostovoljce OpenStreetMap (neobvezno)</string>
+    <!-- Hint of the input field in the OSM note section of the editor -->
+    <string name="editor_note_hint">Opišite napake na zemljevidu ali stvari, ki jih ni mogoče urejati z Organic Maps</string>
+    <!-- Information about OSM at the top of the editing page -->
+    <string name="editor_about_osm">Vaša urejanja se naložijo v javno bazo podatkov <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Prosimo, ne dodajajte osebnih ali avtorsko zaščitenih podatkov.</string>
+    <string name="editor_more_about_osm">Več o OpenStreetMap</string>
+    <string name="editor_osm_history">Vaša zgodovina urejanja</string>
+    <string name="editor_osm_notes">Vaše opombe k podatkom zemljevida</string>
+    <string name="editor_operator">Upravljavec</string>
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="operator">Upravljavec: %s</string>
+    <string name="editor_category_unsuitable_title">Ne najdete primerne kategorije?</string>
+    <string name="editor_category_unsuitable_text">Organic Maps omogoča dodajanje samo preprostih točkovnih kategorij, kar pomeni, da ni mest, cest, jezer, obrisov zgradb itd. Takšne kategorije dodajte neposredno na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Preverite naš <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vodnik</a> za podrobna navodila po korakih.</string>
+    <string name="downloader_no_downloaded_maps_title">Niste prenesli nobenega zemljevida</string>
+    <string name="downloader_no_downloaded_maps_message">Prenesite zemljevide za iskanje in navigacijo brez povezave.</string>
+    <string name="current_location_unknown_error_title">Trenutna lokacija ni znana.</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/h</string>
+    <string name="miles_per_hour">mph</string>
+    <string name="hour">h</string>
+    <string name="minute">min</string>
+    <string name="day">d</string>
+    <string name="placepage_more_button">Več</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="placepage_edit_bookmark_button">Uredi zaznamek</string>
+    <string name="placepage_personal_notes_hint">Osebne opombe (besedilo ali html)</string>
+    <string name="editor_comment_hint">Komentar…</string>
+    <string name="editor_reset_edits_message">Zavrnem vse lokalne spremembe?</string>
+    <string name="editor_reset_edits_button">Zavrzi</string>
+    <string name="editor_remove_place_message">Izbrišem dodano mesto?</string>
+    <string name="editor_remove_place_button">Izbriši</string>
+    <string name="editor_place_doesnt_exist">Mesto ne obstaja</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">Navedite razlog za brisanje mesta</string>
+    <!-- Phone number error message -->
+    <string name="error_enter_correct_phone">Vnesite veljavno telefonsko številko</string>
+    <string name="error_enter_correct_web">Vnesite veljaven spletni naslov</string>
+    <string name="error_enter_correct_email">Vnesite veljaven e-poštni naslov</string>
+    <string name="error_enter_correct_facebook_page">Vnesite veljaven spletni naslov, račun ali ime strani na Facebooku</string>
+    <string name="error_enter_correct_instagram_page">Vnesite veljavno uporabniško ime ali spletni naslov na Instagramu</string>
+    <string name="error_enter_correct_twitter_page">Vnesite veljavno uporabniško ime ali spletni naslov na Twitterju</string>
+    <string name="error_enter_correct_vk_page">Vnesite veljavno uporabniško ime ali spletni naslov na VK</string>
+    <string name="error_enter_correct_line_page">Vnesite veljaven ID ali spletni naslov LINE</string>
+    <string name="placepage_add_place_button">Dodaj mesto v OpenStreetMap</string>
+    <string name="osm_note_hint">Ali pa pustite opombo skupnosti OpenStreetMap, da bo nekdo drug lahko dodal ali popravil mesto tukaj.</string>
+    <string name="osm_note_toast">Opomba bo poslana v OpenStreetMap</string>
+    <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
+    <string name="editor_share_to_all_dialog_title">Ali želite to poslati vsem uporabnikom?</string>
+    <!-- Dialog before publishing the modifications to the public map. -->
+    <string name="editor_share_to_all_dialog_message_1">Prepričajte se, da niste vnesli nobenih zasebnih ali osebnih podatkov.</string>
+    <string name="editor_share_to_all_dialog_message_2">Uredniki OpenStreetMap bodo preverili spremembe in vas kontaktirali, če bodo imeli kakršna koli vprašanja.</string>
+    <string name="navigation_stop_button">Ustavi</string>
+    <!-- Shown as toast when starting the recent track recording -->
+    <string name="track_recording">Snemanje sledi</string>
+    <!-- For the first routing -->
+    <string name="accept">Sprejmi</string>
+    <!-- For the first routing -->
+    <string name="decline">Zavrni</string>
+    <string name="mobile_data_dialog">Uporabim mobilni internet za prikaz podrobnih informacij?</string>
+    <string name="mobile_data_option_always">Vedno uporabi</string>
+    <string name="mobile_data_option_today">Samo danes</string>
+    <string name="mobile_data_option_not_today">Danes ne uporabi</string>
+    <string name="mobile_data">Mobilni internet</string>
+    <!-- NOTE to translators: please synchronize your translation with the English one. -->
+    <string name="mobile_data_description">Mobilni internet je potreben za obvestila o posodobitvah zemljevidov in nalaganje urejanj.</string>
+    <string name="mobile_data_option_never">Nikoli ne uporabi</string>
+    <string name="mobile_data_option_ask">Vedno vprašaj</string>
+    <string name="traffic_update_maps_text">Za prikaz podatkov o prometu je treba posodobiti zemljevide.</string>
+    <string name="big_font">Povečaj velikost oznak na zemljevidu</string>
+    <string name="traffic_update_app">Posodobite Organic Maps</string>
+    <!-- "traffic" as in "road congestion" -->
+    <string name="traffic_data_unavailable">Podatki o prometu niso na voljo</string>
+    <string name="enable_logging">Omogoči beleženje</string>
+    <!-- Settings: "Send general feedback" button -->
+    <string name="feedback_general">Splošne povratne informacije</string>
+    <string name="prefs_languages_information">Za glasovna navodila uporabljamo sistemski TTS. Številne naprave Android uporabljajo Google TTS, ki ga lahko prenesete ali posodobite iz Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information_off">Za nekatere jezike boste morali namestiti sintetizator govora ali dodaten jezikovni paket iz trgovine z aplikacijami (Google Play, Galaxy Store, App Gallery, FDroid).
+\nOdprite nastavitve naprave → Jezik in vnos → Govor → Izhod besedila v govor.
+\nTu lahko upravljate nastavitve za sintezo govora (na primer prenesete jezikovni paket za uporabo brez povezave) in izberete drug mehanizem za pretvorbo besedila v govor.</string>
+    <string name="prefs_languages_information_off_link">Za več informacij preverite ta vodnik.</string>
+    <string name="transliteration_title">Transliteriraj v latinico</string>
+    <string name="learn_more">Več o tem</string>
+    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+    <string name="routing_add_start_point">Uporabite iskanje ali se dotaknite zemljevida, da dodate začetno točko poti</string>
+    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+    <string name="routing_add_finish_point">Uporabite iskanje ali se dotaknite zemljevida, da dodate ciljno točko</string>
+    <string name="planning_route_manage_route">Upravljaj pot</string>
+    <string name="button_plan">Načrtuj</string>
+    <string name="placepage_remove_stop">Odstrani postanek</string>
+    <string name="placepage_add_stop">Dodaj postanek</string>
+    <string name="saved">Shranjeno</string>
+    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+    <string name="alert_reauth_message">Prijavite se v OpenStreetMap, da samodejno naložite vsa svoja urejanja zemljevida. Več o tem <a href="https://github.com/organicmaps/organicmaps/issues/6144">tukaj</a>.</string>
+    <string name="dialog_error_storage_title">Težava z dostopom do shrambe</string>
+    <string name="dialog_error_storage_message">Zunanja shramba ni dostopna. Kartica SD je morda bila odstranjena, poškodovana ali pa je datotečni sistem samo za branje. Preverite svojo kartico SD ali nas kontaktirajte na support\@organicmaps.app</string>
+    <string name="setting_emulate_bad_storage">Emuliraj slabo shrambo</string>
+    <string name="error_enter_correct_name">Vnesite pravilno ime</string>
+    <string name="bookmark_lists">Seznami</string>
+    <!-- Do not display all bookmark lists on the map -->
+    <string name="bookmark_lists_hide_all">Skrij vse</string>
+    <string name="bookmark_lists_show_all">Prikaži vse</string>
+    <string name="bookmarks_create_new_group">Ustvari nov seznam</string>
+    <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+    <string name="bookmarks_import">Uvozi zaznamke in sledi</string>
+    <string name="bookmarks_error_message_share_general">Deljenje ni mogoče zaradi napake v aplikaciji</string>
+    <string name="bookmarks_error_title_share_empty">Napaka pri deljenju</string>
+    <string name="bookmarks_error_message_share_empty">Praznega seznama ni mogoče deliti</string>
+    <string name="bookmarks_error_title_empty_list_name">Ime ne sme biti prazno</string>
+    <string name="bookmarks_error_message_empty_list_name">Vnesite ime seznama</string>
+    <string name="bookmarks_new_list_hint">Nov seznam</string>
+    <string name="bookmarks_error_title_list_name_already_taken">To ime je že zasedeno</string>
+    <string name="bookmarks_error_message_list_name_already_taken">Izberite drugo ime</string>
+    <string name="please_wait">Prosimo, počakajte…</string>
+    <string name="phone_number">Telefonska številka</string>
+    <string name="profile">Profil OpenStreetMap</string>
+    <string name="restore">Obnovi</string>
+    <!-- Settings privacy group in settings screen -->
+    <string name="privacy">Zasebnost</string>
+    <string name="privacy_policy">Politika zasebnosti</string>
+    <string name="terms_of_use">Pogoji uporabe</string>
+    <string name="button_layer_traffic">Promet</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Pohodništvo</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Kolesarjenje</string>
+    <string name="button_layer_subway">Podzemna železnica</string>
+    <string name="layers_title">Slogi in plasti zemljevida</string>
+    <string name="bookmarks_empty_list_title">Ta seznam je prazen</string>
+    <string name="bookmarks_empty_list_message">Če želite dodati zaznamek, se dotaknite mesta na zemljevidu in nato ikone zvezdice</string>
+    <string name="category_desc_more">…več</string>
+    <string name="export_file">Izvozi KMZ</string>
+    <string name="export_file_gpx">Izvozi GPX</string>
+    <string name="delete_list">Izbriši seznam</string>
+    <string name="speedcams_alert_title">Radarji</string>
+    <string name="place_description_title">Opis mesta</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Prenosnik zemljevidov</string>
+    <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+    <string name="pref_tts_speedcams_auto">Opozori ob prekoračitvi hitrosti</string>
+    <!-- Speed camera settings menu option - Always warn (about speedcams) -->
+    <string name="pref_tts_speedcams_always">Vedno opozori</string>
+    <!-- Speed camera settings menu option - Never warn (about speedcams) -->
+    <string name="pref_tts_speedcams_never">Nikoli ne opozori</string>
+    <string name="power_managment_title">Način varčevanja z energijo</string>
+    <string name="power_managment_description">Poskusite zmanjšati porabo energije na račun nekaterih funkcionalnosti.</string>
+    <string name="power_managment_setting_never">Nikoli</string>
+    <string name="power_managment_setting_auto">Ko je baterija skoraj prazna</string>
+    <string name="power_managment_setting_manual_max">Vedno</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Imena zaznamkov na zemljevidu</string>
+    <string name="bookmarks_text_placement_description">Če je zaznamkov preveč, lahko prikaz njihovih imen na zemljevidu upočasni aplikacijo.</string>
+    <string name="show_to_the_right">Prikaži na desni</string>
+    <string name="show_at_the_bottom">Prikaži na dnu</string>
+    <string name="enable_logging_warning_message">To možnost omogočite začasno, da posnamete in nam ročno pošljete podrobne diagnostične dnevnike o vaši težavi z uporabo \"Prijavi napako\" v pogovornem oknu Pomoč. Dnevniki lahko vključujejo podatke o lokaciji.</string>
+    <string name="driving_options_title">Možnosti načrtovanja poti</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Izogibaj se cestninam</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Izogibaj se makadamu</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Izogibaj se trajektom</string>
+    <string name="avoid_motorways">Izogibaj se avtocestam</string>
+    <string name="unable_to_calc_alert_title">Poti ni mogoče izračunati</string>
+    <string name="unable_to_calc_alert_subtitle">Poti ni bilo mogoče najti. To je lahko posledica vaših možnosti načrtovanja poti ali nepopolnih podatkov OpenStreetMap. Spremenite možnosti načrtovanja poti in poskusite znova.</string>
+    <string name="define_to_avoid_btn">Določite ceste, ki se jim želite izogniti</string>
+    <string name="change_driving_options_btn">Možnosti načrtovanja poti omogočene</string>
+    <string name="toll_road">Cestninska cesta</string>
+    <string name="unpaved_road">Makadamska cesta</string>
+    <string name="ferry_crossing">Prečkanje s trajektom</string>
+    <!-- A generic "Yes" button in dialogs -->
+    <string name="yes">Da</string>
+    <!-- A generic "No" button in dialogs -->
+    <string name="no">Ne</string>
+    <!-- E.g. "WiFi:Yes" -->
+    <string name="yes_available">Da</string>
+    <!-- E.g. "WiFi:No" -->
+    <string name="no_available">Ne</string>
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <string name="capacity">Kapaciteta: %s</string>
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="network">Omrežje: %s</string>
+    <string name="trip_finished">Prispeli ste!</string>
+    <string name="ok">V redu</string>
+    <!-- max. 10 symbols, both iOS and Android -->
+    <string name="sort">Razvrsti…</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Razvrsti zaznamke</string>
+    <!-- Android -->
+    <string name="by_default">Privzeto</string>
+    <!-- Android -->
+    <string name="by_type">Po vrsti</string>
+    <!-- Android -->
+    <string name="by_distance">Po razdalji</string>
+    <!-- Android -->
+    <string name="by_date">Po datumu</string>
+    <!-- Android -->
+    <string name="by_name">Po imenu</string>
+    <string name="week_ago_sorttype">Pred enim tednom</string>
+    <string name="month_ago_sorttype">Pred enim mesecem</string>
+    <string name="moremonth_ago_sorttype">Pred več kot mesecem dni</string>
+    <string name="moreyear_ago_sorttype">Pred več kot letom dni</string>
+    <string name="near_me_sorttype">V bližini</string>
+    <string name="others_sorttype">Drugo</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_disclaimer_title">Pri sledenju poti upoštevajte:</string>
+    <string name="dialog_routing_disclaimer_priority">— Stanje na cestah, prometni predpisi in prometni znaki imajo vedno prednost pred navigacijskimi namigi;</string>
+    <string name="dialog_routing_disclaimer_precision">— Zemljevid je lahko netočen in predlagana pot morda ni vedno najbolj optimalen način za dosego cilja;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— Predlagane poti je treba razumeti le kot priporočila;</string>
+    <string name="dialog_routing_disclaimer_borders">— Bodite previdni pri poteh v obmejnih območjih: poti, ki jih ustvari naša aplikacija, lahko včasih prečkajo državne meje na nepooblaščenih mestih.</string>
+    <string name="dialog_routing_disclaimer_beware">Prosimo, bodite pozorni in varni na cestah!</string>
+    <string name="dialog_routing_check_gps">Preverite signal GPS</string>
+    <string name="dialog_routing_error_location_not_found">Poti ni mogoče ustvariti. Trenutnih koordinat GPS ni bilo mogoče določiti.</string>
+    <string name="dialog_routing_location_turn_wifi">Preverite signal GPS. Omogočanje Wi-Fi bo izboljšalo natančnost vaše lokacije.</string>
+    <string name="dialog_routing_location_turn_on">Omogočite lokacijske storitve</string>
+    <string name="dialog_routing_location_unknown_turn_on">Trenutnih koordinat GPS ni mogoče najti. Omogočite lokacijske storitve za izračun poti.</string>
+    <string name="dialog_routing_unable_locate_route">Poti ni mogoče najti</string>
+    <string name="dialog_routing_cant_build_route">Poti ni mogoče ustvariti.</string>
+    <string name="dialog_routing_change_start_or_end">Prilagodite svojo začetno točko ali cilj.</string>
+    <string name="dialog_routing_change_start">Prilagodite začetno točko</string>
+    <string name="dialog_routing_start_not_determined">Pot ni bila ustvarjena. Začetne točke ni mogoče najti.</string>
+    <string name="dialog_routing_select_closer_start">Izberite začetno točko bližje cesti.</string>
+    <string name="dialog_routing_change_end">Prilagodite cilj</string>
+    <string name="dialog_routing_end_not_determined">Pot ni bila ustvarjena. Cilja ni mogoče najti.</string>
+    <string name="dialog_routing_select_closer_end">Izberite ciljno točko, ki se nahaja bližje cesti.</string>
+    <string name="dialog_routing_change_intermediate">Vmesne točke ni mogoče najti.</string>
+    <string name="dialog_routing_intermediate_not_determined">Prilagodite svojo vmesno točko.</string>
+    <string name="dialog_routing_system_error">Sistemska napaka</string>
+    <string name="dialog_routing_application_error">Poti ni mogoče ustvariti zaradi napake v aplikaciji.</string>
+    <string name="dialog_routing_try_again">Poskusite znova</string>
+    <string name="not_now">Ne zdaj</string>
+    <string name="dialog_routing_download_and_build_cross_route">Ali želite prenesti zemljevid in ustvariti bolj optimalno pot, ki se razteza čez več kot en zemljevid?</string>
+    <string name="dialog_routing_download_cross_route">Prenesite dodatne zemljevide, da ustvarite boljšo pot, ki prečka meje tega zemljevida.</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Notes field in Bookmarks view -->
+    <string name="description">Opombe</string>
+    <!-- Email Subject when sharing bookmark list -->
+    <string name="share_bookmarks_email_subject">Z vami so bili deljeni zaznamki Organic Maps</string>
+    <string name="share_bookmarks_email_body">Živjo!
+\n
+\nV priponki so moji zaznamki; odprite jih v Organic Maps. Če aplikacije nimate nameščene, jo lahko prenesete tukaj: https://omaps.app/get?kmz
+\n
+\nUživajte v potovanju z Organic Maps!</string>
+    <!-- message title of loading file -->
+    <string name="load_kmz_title">Nalaganje zaznamkov</string>
+    <!-- Kmz file successful loading -->
+    <string name="load_kmz_successful">Zaznamki so bili uspešno naloženi! Najdete jih na zemljevidu ali na zaslonu Upravitelja zaznamkov.</string>
+    <!-- Kml file loading failed -->
+    <string name="load_kmz_failed">Nalaganje zaznamkov ni uspelo. Datoteka je morda poškodovana ali okvarjena.</string>
+    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
+    <string name="unknown_file_type">Aplikacija ne prepozna vrste datoteke:
+\n%1$s</string>
+    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <string name="failed_to_open_file">Odpiranje datoteke %1$s ni uspelo
+\n
+\n%2$s</string>
+    <!-- resource for context menu -->
+    <string name="edit">Uredi</string>
+    <!-- Warning message when doing search around current position -->
+    <string name="unknown_current_position">Vaša lokacija še ni bila določena</string>
+    <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+    <string name="cant_change_this_setting">Žal so nastavitve shrambe zemljevidov trenutno onemogočene.</string>
+    <!-- Alert message that downloading is in progress. -->
+    <string name="downloading_is_active">Prenos zemljevida je v teku.</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Oglejte si mojo trenutno lokacijo v Organic Maps! %1$s ali %2$s Nimate zemljevidov brez povezave? Prenesite jih tukaj: https://omaps.app/get</string>
+    <!-- Subject for emailed bookmark -->
+    <string name="bookmark_share_email_subject">Hej, poglej moj žebljiček v Organic Maps!</string>
+    <!-- Subject for emailed position -->
+    <string name="my_position_share_email_subject">Hej, poglej mojo trenutno lokacijo na zemljevidu Organic Maps!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email">Živjo,
+\n
+\nZdaj sem tukaj: %1$s. Kliknite to povezavo %2$s ali to %3$s, da vidite kraj na zemljevidu.
+\n
+\nHvala.</string>
+    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+    <string name="share">Deli</string>
+    <!-- Share by email button text, also used in editor and About. -->
+    <string name="email">E-pošta</string>
+    <!-- Text for message when used successfully copied something -->
+    <string name="copied_to_clipboard">Kopirano v odložišče: %s</string>
+    <!-- Used for bookmark editing -->
+    <string name="done">Končano</string>
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">Podatki OpenStreetMap: %s</string>
+    <!-- Confirmation for OpenStreetMap log out. -->
+    <string name="osm_log_out_confirmation">Ste prepričani, da se želite odjaviti iz svojega računa OpenStreetMap?</string>
+    <!-- Title for tracks category in bookmarks manager -->
+    <string name="tracks_title">Sledi</string>
+    <!-- Length of track in cell that describes route -->
+    <string name="length">Dolžina</string>
+    <string name="share_my_location">Deli mojo lokacijo</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">Splošne nastavitve</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">Informacije</string>
+    <string name="prefs_group_route">Navigacija</string>
+    <string name="pref_zoom_title">Gumbi za povečavo</string>
+    <string name="pref_zoom_summary">Prikaži na zemljevidu</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Nočni način</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Izklopljeno</string>
+    <!-- Generic «On» string -->
+    <string name="on">Vklopljeno</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Samodejno</string>
+    <!-- Settings «Map» category: «Perspective view» title -->
+    <string name="pref_map_3d_title">Perspektivni pogled</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D zgradbe</string>
+    <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+    <string name="pref_map_3d_buildings_disabled_summary">3D zgradbe so onemogočene v načinu varčevanja z energijo</string>
+    <!-- Settings «Route» category: «Tts enabled» title -->
+    <string name="pref_tts_enable_title">Glasovna navodila</string>
+    <!-- Settings «Route» category: «Tts announce street names» title -->
+    <string name="pref_tts_street_names_title">Izgovori imena ulic</string>
+    <!-- Settings «Route» category: «Tts announce street names» description -->
+    <string name="pref_tts_street_names_description">Ko je omogočeno, bo ime ulice ali izvoza, na katerega je treba zaviti, izgovorjeno na glas.</string>
+    <!-- Settings «Route» category: «Tts language» title -->
+    <string name="pref_tts_language_title">Jezik glasu</string>
+    <!-- Settings «Route» category: «Test Voice Directions» title -->
+    <string name="pref_tts_test_voice_title">Preizkusi glasovna navodila (TTS, pretvorba besedila v govor)</string>
+    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+    <string name="pref_tts_playing_test_voice">Preverite glasnost ali sistemske nastavitve pretvorbe besedila v govor, če zdaj ne slišite glasu.</string>
+    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <string name="pref_tts_unavailable">Ni na voljo</string>
+    <string name="pref_map_auto_zoom">Samodejna povečava</string>
+    <string name="placepage_distance">Razdalja</string>
+    <string name="search_show_on_map">Prikaži na zemljevidu</string>
+    <!-- Menu button -->
+    <string name="menu">Meni</string>
+    <!-- Text in menu -->
+    <string name="website">Spletna stran</string>
+    <!-- Text in About menu, opens Organic Maps news website -->
+    <string name="news">Novice</string>
+    <!-- Text in menu -->
+    <string name="github">GitHub</string>
+    <!-- Text in menu -->
+    <string name="telegram">Telegram</string>
+    <!-- Text in menu -->
+    <string name="matrix">[Matrix]</string>
+    <!-- Text in menu -->
+    <string name="mastodon">Mastodon</string>
+    <!-- Text in menu -->
+    <string name="facebook">Facebook</string>
+    <!-- Text in menu -->
+    <string name="twitter">X (Twitter)</string>
+    <!-- Text in menu -->
+    <string name="instagram">Instagram</string>
+    <!-- Text in the editor -->
+    <string name="vk">VK</string>
+    <!-- Text in the editor -->
+    <string name="editor_line_social_network">LINE</string>
+    <!-- Text in menu -->
+    <string name="openstreetmap">OpenStreetMap</string>
+    <!-- Settings: Send feedback button and dialog title -->
+    <string name="feedback">Povratne informacije</string>
+    <!-- Text in menu -->
+    <string name="rate_the_app">Oceni aplikacijo</string>
+    <!-- Text in menu -->
+    <string name="help">Pomoč</string>
+    <!-- Button in the main Help dialog -->
+    <string name="faq">Pogosto zastavljena vprašanja</string>
+    <!-- Button in the main menu -->
+    <string name="donate">Doniraj</string>
+    <string name="already_donated">Že donirano</string>
+    <string name="remind_me_later">Opomni me kasneje</string>
+    <string name="support_organic_maps">Podprite Organic Maps</string>
+    <!-- Button in the main Help dialog -->
+    <string name="how_to_support_us">Podprite projekt</string>
+    <!-- Button in the main Help dialog -->
+    <string name="copyright">Avtorske pravice</string>
+    <!-- Text in menu + Button in the main Help dialog -->
+    <string name="report_a_bug">Prijavi napako</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_recommended">Izboljšajte smer puščice tako, da telefon premikate v obliki osmice, da umerite kompas.</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_required">Premaknite telefon v obliki osmice, da umerite kompas in popravite smer puščice na zemljevidu.</string>
+    <!-- Toast text when user hides UI with a long tap anywhere on the map -->
+    <string name="long_tap_toast">Ponovno se dolgo dotaknite zemljevida, da vidite vmesnik</string>
+    <!-- Update all button text -->
+    <string name="downloader_update_all_button">Posodobi vse</string>
+    <!-- Cancel all button text -->
+    <string name="downloader_cancel_all">Prekliči vse</string>
+    <!-- Downloaded maps list header -->
+    <string name="downloader_downloaded_subtitle">Preneseno</string>
+    <!-- Country queued for download -->
+    <string name="downloader_queued">V čakalni vrsti</string>
+    <string name="downloader_near_me_subtitle">V bližini</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Zemljevidi</string>
+    <string name="downloader_download_all_button">Prenesi vse</string>
+    <string name="downloader_downloading">Prenašanje:</string>
+    <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+    <string name="downloader_delete_map_while_routing_dialog">Za brisanje zemljevida ustavite navigacijo.</string>
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Poti je mogoče ustvariti le, če so v celoti znotraj zemljevida ene regije.</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Prenesi zemljevid</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Poskusi znova</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_delete_map">Izbriši zemljevid</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Posodobi zemljevid</string>
+    <!-- Preference title -->
+    <string name="google_play_services">Lokacijske storitve Google Play</string>
+    <!-- Preference text -->
+    <string name="pref_use_google_play">Hitro določite svojo približno lokacijo z uporabo Bluetooth, WiFi ali mobilnega omrežja</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Prenesi vse zemljevide vzdolž poti</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Za ustvarjanje poti je treba prenesti in posodobiti vse zemljevide od vaše lokacije do cilja.</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_not_enough_space">Ni dovolj prostora</string>
+    <!-- location service disabled -->
+    <string name="enable_location_services">Omogočite lokacijske storitve</string>
+    <string name="save">Shrani</string>
+    <string name="create">Ustvari</string>
+    <!-- red color -->
+    <string name="red">Rdeča</string>
+    <!-- yellow color -->
+    <string name="yellow">Rumena</string>
+    <!-- blue color -->
+    <string name="blue">Modra</string>
+    <!-- green color -->
+    <string name="green">Zelena</string>
+    <!-- purple color -->
+    <string name="purple">Vijolična</string>
+    <!-- orange color -->
+    <string name="orange">Oranžna</string>
+    <!-- brown color -->
+    <string name="brown">Rjava</string>
+    <!-- pink color -->
+    <string name="pink">Roza</string>
+    <!-- deep purple color -->
+    <string name="deep_purple">Temno vijolična</string>
+    <!-- light blue color -->
+    <string name="light_blue">Svetlo modra</string>
+    <!-- cyan color -->
+    <string name="cyan">Cian</string>
+    <!-- teal color -->
+    <string name="teal">Zelenomodra</string>
+    <!-- lime color -->
+    <string name="lime">Limeta</string>
+    <!-- deep orange color -->
+    <string name="deep_orange">Temno oranžna</string>
+    <!-- gray color -->
+    <string name="gray">Siva</string>
+    <!-- blue gray color -->
+    <string name="blue_gray">Modro siva</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Kje jesti</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Živila</string>
+    <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+    <string name="category_transport">Prevoz</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Bencin</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parkirišče</string>
+    <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+    <string name="category_shopping">Nakupovanje</string>
+    <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+    <string name="category_secondhand">Rabljeno</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Hotel</string>
+    <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+    <string name="category_tourism">Znamenitosti</string>
+    <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+    <string name="category_entertainment">Zabava</string>
+    <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+    <string name="category_atm">Bankomat</string>
+    <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+    <string name="category_nightlife">Nočno življenje</string>
+    <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+    <string name="category_children">Družinske počitnice</string>
+    <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+    <string name="category_bank">Banka</string>
+    <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+    <string name="category_pharmacy">Lekarna</string>
+    <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+    <string name="category_hospital">Bolnišnica</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Stranišče</string>
+    <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+    <string name="category_post">Pošta</string>
+    <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+    <string name="category_police">Policija</string>
+    <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+    <string name="category_recycling">Recikliranje</string>
+    <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+    <string name="category_water">Voda</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Oprema za avtodome</string>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">Nazaj</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">Prekliči</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Izbriši</string>
+    <string name="download_maps">Prenesi zemljevide</string>
+    <!-- Settings/Downloader - info for country when download fails -->
+    <string name="download_has_failed">Prenos ni uspel. Dotaknite se za ponovni poskus.</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
+    <string name="downloading">Prenašanje…</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">Kilometri</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <string name="miles">Milje</string>
+    <!-- Update maps later button text -->
+    <string name="later">Kasneje</string>
+    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <string name="search">Iskanje</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+    <string name="search_map">Išči po zemljevidu</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Trenutno imate onemogočene vse lokacijske storitve za to napravo ali aplikacijo. Omogočite jih v nastavitvah.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Omejena natančnost</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Za zagotovitev natančne navigacije v nastavitvah omogočite natančno lokacijo.</string>
+    <!-- View and button titles for accessibility -->
+    <string name="zoom_to_country">Pokaži na zemljevidu</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Prenos ni uspel</string>
+    <!-- Button text for the button under the country_status_download_failed message -->
+    <string name="try_again">Poskusi znova</string>
+    <string name="about_menu_title">O Organic Maps</string>
+    <!-- Text in About screen -->
+    <string name="about_headline">Brezplačno za vse, narejeno z ljubeznijo</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_1">• Brez oglasov, brez sledenja, brez zbiranja podatkov</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_2">• Ne prazni baterije, deluje brez povezave</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_3">• Hitro, minimalistično, razvito s strani skupnosti</string>
+    <!-- Text in About screen -->
+    <string name="about_developed_by_enthusiasts">Odprtokodna aplikacija, ki so jo ustvarili navdušenci in prostovoljci.</string>
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">Nastavitve lokacije</string>
+    <string name="close">Zapri</string>
+    <string name="unsupported_phone">Aplikacija zahteva strojno pospešen OpenGL. Žal vaša naprava ni podprta.</string>
+    <string name="download">Prenesi</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable">Za uporabo Organic Maps odklopite kabel USB ali vstavite pomnilniško kartico</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="not_enough_free_space_on_sdcard">Za uporabo aplikacije najprej sprostite nekaj prostora na kartici SD/pomnilniku USB</string>
+    <string name="download_resources">Preden začnete uporabljati aplikacijo, prenesite na svojo napravo pregledni zemljevid sveta.
+\nUporabil bo %s prostora.</string>
+    <string name="download_resources_continue">Pojdi na zemljevid</string>
+    <string name="downloading_country_can_proceed">Prenašanje %s. Zdaj lahko
+\nnadaljujete na zemljevid.</string>
+    <string name="download_country_ask">Prenesem %s?</string>
+    <string name="update_country_ask">Posodobim %s?</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="pause">Premor</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="continue_button">Nadaljuj</string>
+    <!-- Show popup notification on top of the map when country download has failed. -->
+    <string name="download_country_failed">Prenos %s ni uspel</string>
+    <!-- "Add new bookmark list" dialog title -->
+    <string name="add_new_set">Dodaj nov seznam</string>
+    <!-- Add Bookmark list dialog - hint when the list name is empty -->
+    <string name="bookmark_set_name">Ime seznama zaznamkov</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Zaznamki</string>
+    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <string name="bookmarks_and_tracks">Zaznamki in sledi</string>
+    <!-- Add bookmark dialog - bookmark name -->
+    <string name="name">Ime</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">Naslov</string>
+    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+    <string name="list">Seznam</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Nastavitve</string>
+    <!-- Header of settings activity where user defines storage path -->
+    <string name="maps_storage">Shrani zemljevide v</string>
+    <!-- Detailed description of Maps Storage settings button -->
+    <string name="maps_storage_summary">Izberite mapo za prenos zemljevidov.</string>
+    <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+    <string name="maps_storage_downloaded">Preneseni zemljevidi</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%1$s prostega od %2$s</string>
+    <!-- Question dialog for transferring maps from one storage to another -->
+    <string name="move_maps">Premaknem zemljevide?</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">Napaka pri premikanju datotek zemljevidov</string>
+    <!-- Ask user to wait several minutes (some long process in modal dialog). -->
+    <string name="wait_several_minutes">To lahko traja več minut.
+\nProsimo, počakajte…</string>
+    <!-- Measurement units title in settings activity -->
+    <string name="measurement_units">Merske enote</string>
+    <!-- Detailed description of Measurement Units settings button -->
+    <string name="measurement_units_summary">Izberite med miljami in kilometri</string>
 </resources>

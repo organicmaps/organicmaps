@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">МБ</string>
+    <string name="gb">ГБ</string>
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">Моја позиција</string>
     <!-- Default bookmark list name -->
@@ -15,6 +20,8 @@
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
     <string name="category_wifi">WiFi</string>
     <string name="postal_code">Поштански број</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Тачка на мапи</string>
     <!-- abbreviation for meters -->
     <string name="m">м</string>
     <!-- abbreviation for kilometers -->
@@ -27,7 +34,4 @@
     <string name="core_exit">Излаз</string>
     <string name="core_entrance">Улаз</string>
     <string name="subway_data_unavailable">Мапа метроа не постоји</string>
-    <string name="gb">ГБ</string>
-    <string name="mb">МБ</string>
-    <string name="core_placepage_unknown_place">Тачка на мапи</string>
 </resources>

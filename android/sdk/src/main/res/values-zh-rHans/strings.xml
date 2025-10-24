@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Strings -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">MB</string>
     <string name="gb">GB</string>
@@ -28,9 +30,10 @@
     <string name="mi">英里</string>
     <!-- A unit of measure -->
     <string name="ft">英尺</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">要显示路线，必须更新地图。</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">出口</string>
     <string name="core_entrance">入口</string>
     <string name="subway_data_unavailable">地铁地图不可用</string>
-    <string name="routes_update_maps_text">要显示路线，必须更新地图。</string>
 </resources>

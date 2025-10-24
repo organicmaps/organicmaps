@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Strings -->
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Toka</string>
     <string name="core_entrance">Kiingilio</string>

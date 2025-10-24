@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="core_my_position">আমার অবস্থান</string>
+
+    <!-- SECTION: Strings -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">এমবি</string>
     <string name="gb">জিবি</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">আমার অবস্থান</string>
 </resources>
