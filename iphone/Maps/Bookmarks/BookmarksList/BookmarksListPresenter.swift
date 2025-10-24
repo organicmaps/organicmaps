@@ -178,7 +178,6 @@ final class BookmarksListPresenter {
                                            enabled: interactor.canDeleteGroup(),
                                            action: { [weak self] in
                                             self?.interactor.deleteBookmarksGroup()
-                                            self?.delegate?.bookmarksListDidDeleteGroup()
                                            }))
     view.showMenu(moreItems, from: .more)
   }
