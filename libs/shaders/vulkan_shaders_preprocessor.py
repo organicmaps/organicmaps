@@ -18,6 +18,7 @@ SHADERS_LIB_FS_INDEX = 2
 
 UNIFORMS = 'uniforms'
 SAMPLERS = 'samplers'
+IS_STORAGE = 'is_storage'
 
 debug_output = False
 
@@ -98,7 +99,7 @@ def get_shaders_lib_content(shader_file, shaders_library):
     return lib_content
 
 
-def get_shader_line(line, layout_counters):
+def get_shader_line(line, layout_counters, reflection_dict):
     if line.lstrip().startswith('//') or line == '\n' or len(line) == 0:
         return None
 
@@ -121,6 +122,16 @@ def get_shader_line(line, layout_counters):
         else:
             match = re.search(r"binding\s*=\s*(\d+)", output_line)
             if match:
+                if output_line.find("buffer UBO") >= 0:
+                    if IS_STORAGE in reflection_dict and reflection_dict[IS_STORAGE] != True:
+                        print('You cannot mix uniform and storage buffer in one program')
+                        exit(1)
+                    reflection_dict[IS_STORAGE] = True
+                else:
+                    if IS_STORAGE in reflection_dict and reflection_dict[IS_STORAGE] != False:
+                        print('You cannot mix uniform and storage buffer in one program')
+                        exit(1)
+                    reflection_dict[IS_STORAGE] = False
                 binding_index = int(match.group(1))
                 if binding_index != 0:
                     print('Binding index must be 0 in the line: ' + line)
@@ -180,11 +191,11 @@ def generate_spirv_compatible_glsl_shader(output_file, shader_file, shader_dir, 
 
             # Write shaders library.
             for lib_line in lib_content.splitlines():
-                shader_line = get_shader_line(lib_line, layout_counters)
+                shader_line = get_shader_line(lib_line, layout_counters, reflection_dict)
                 if shader_line:
                     output_file.write('%s\n' % shader_line)
 
-        shader_line = get_shader_line(line, layout_counters)
+        shader_line = get_shader_line(line, layout_counters, reflection_dict)
         if shader_line:
             output_file.write('%s\n' % shader_line)
 

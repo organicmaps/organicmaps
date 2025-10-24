@@ -87,6 +87,12 @@ UNIT_TEST(ScreenQuadProgramParams_Test)
                                       std::bind(&TestProgramParams<gpu::ScreenQuadProgramParams>));
 }
 
+UNIT_TEST(TileBackgroundProgramParams_Test)
+{
+  RunTestInOpenGLOffscreenEnvironment("TileBackgroundProgramParams_Test",
+                                      std::bind(&TestProgramParams<gpu::TileBackgroundProgramParams>));
+}
+
 UNIT_TEST(SMAAProgramParams_Test)
 {
   RunTestInOpenGLOffscreenEnvironment("SMAAProgramParams_Test", std::bind(&TestProgramParams<gpu::SMAAProgramParams>));

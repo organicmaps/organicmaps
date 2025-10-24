@@ -17,6 +17,8 @@
 
 namespace gpu
 {
+constexpr uint32_t kTileBackgroundMaxCount = 64;
+
 class ProgramParams
 {
 public:
@@ -48,7 +50,9 @@ private:
     }                                                                                               \
   }
 
-#define ALIGNMENT alignas(16)
+#define IS_STORAGE_BUFFER_BOUND() static constexpr bool IsStorageBufferBoundType = true;
+
+#define ALIGNMENT                 alignas(16)
 
 // NOTE: structs may contain dummy elements to fit MSL and GLSL struct alignment rules
 // 1. Add new fields in order from the highest byte size to the lowest, it minimizes alignment overhead
@@ -215,6 +219,18 @@ struct ALIGNMENT SMAAProgramParams
   BIND_PROGRAMS(SMAAProgramParams, Program::SmaaEdges, Program::SmaaBlendingWeight, Program::SmaaFinal)
 };
 
+struct ALIGNMENT TileBackgroundProgramParams
+{
+  glsl::vec4 m_tileCoordsMinMax[kTileBackgroundMaxCount];
+  int m_textureIndex[kTileBackgroundMaxCount];
+  glsl::mat4 m_modelView;
+  glsl::mat4 m_projection;
+  glsl::mat4 m_pivotTransform;
+
+  BIND_PROGRAMS(TileBackgroundProgramParams, Program::TileBackground)
+  IS_STORAGE_BUFFER_BOUND()
+};
+
 struct ALIGNMENT ImGuiProgramParams
 {
   glsl::mat4 m_projection;
@@ -248,6 +264,8 @@ public:
                      ScreenQuadProgramParams const & params) = 0;
   virtual void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                      SMAAProgramParams const & params) = 0;
+  virtual void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
+                     TileBackgroundProgramParams const & params) = 0;
   virtual void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                      ImGuiProgramParams const & params) = 0;
 };

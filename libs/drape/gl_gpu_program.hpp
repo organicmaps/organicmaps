@@ -21,12 +21,12 @@ public:
   void Unbind() override;
 
   int8_t GetAttributeLocation(std::string const & attributeName) const;
-  int8_t GetUniformLocation(std::string const & uniformName) const;
+  int GetUniformLocation(std::string const & uniformName) const;
   glConst GetUniformType(std::string const & uniformName) const;
 
   struct UniformInfo
   {
-    int8_t m_location = -1;
+    int m_location = -1;
     glConst m_type = gl_const::GLFloatType;
   };
 

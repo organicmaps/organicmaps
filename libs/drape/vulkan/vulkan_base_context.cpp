@@ -730,7 +730,8 @@ void VulkanBaseContext::SetPrimitiveTopology(VkPrimitiveTopology topology)
 
 void VulkanBaseContext::SetBindingInfo(BindingInfoArray const & bindingInfo, uint8_t bindingInfoCount)
 {
-  std::copy(bindingInfo.begin(), bindingInfo.begin() + bindingInfoCount, m_pipelineKey.m_bindingInfo.begin());
+  if (bindingInfoCount != 0)
+    std::copy(bindingInfo.begin(), bindingInfo.begin() + bindingInfoCount, m_pipelineKey.m_bindingInfo.begin());
   m_pipelineKey.m_bindingInfoCount = bindingInfoCount;
 }
 
@@ -746,11 +747,12 @@ void VulkanBaseContext::SetBlendingEnabled(bool blendingEnabled)
 
 void VulkanBaseContext::ApplyParamDescriptor(ParamDescriptor && descriptor)
 {
-  if (descriptor.m_type == ParamDescriptor::Type::DynamicUniformBuffer)
+  if (descriptor.m_type == ParamDescriptor::Type::DynamicUniformBuffer ||
+      descriptor.m_type == ParamDescriptor::Type::DynamicStorageBuffer)
   {
     for (auto & param : m_paramDescriptors)
     {
-      if (param.m_type == ParamDescriptor::Type::DynamicUniformBuffer)
+      if (param.m_type == descriptor.m_type)
       {
         param = std::move(descriptor);
         return;
@@ -786,8 +788,12 @@ VkPipelineLayout VulkanBaseContext::GetCurrentPipelineLayout() const
 uint32_t VulkanBaseContext::GetCurrentDynamicBufferOffset() const
 {
   for (auto const & p : m_paramDescriptors)
+  {
     if (p.m_type == ParamDescriptor::Type::DynamicUniformBuffer)
       return p.m_bufferDynamicOffset;
+    if (p.m_type == ParamDescriptor::Type::DynamicStorageBuffer)
+      return p.m_bufferDynamicOffset;
+  }
   CHECK(false, ("Shaders parameters are not set."));
   return 0;
 }

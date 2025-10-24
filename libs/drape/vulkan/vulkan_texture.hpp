@@ -7,6 +7,7 @@
 #include "drape/vulkan/vulkan_utils.hpp"
 
 #include <cstdint>
+#include <mutex>
 
 namespace dp
 {
@@ -47,7 +48,10 @@ private:
   VulkanObject m_textureObject;
   mutable VkImageLayout m_currentLayout = VK_IMAGE_LAYOUT_UNDEFINED;
   VkImageAspectFlags m_aspectFlags = VK_IMAGE_ASPECT_COLOR_BIT;
-  mutable drape_ptr<VulkanStagingBuffer> m_creationStagingBuffer;
+  mutable VulkanObject m_dedicatedStagingBuffer;
+  mutable std::mutex m_dedicatedStagingBufferMutex;
+  bool m_usePersistentStagingBuffer = false;
+  VkBufferImageCopy m_copyRegion{};
   uint32_t m_reservationId = 0;
   bool m_isMutable = false;
 };

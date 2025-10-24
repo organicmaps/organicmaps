@@ -144,6 +144,8 @@ private:
 
 FrontendRenderer::FrontendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::RenderThread, params)
+  , m_tileBackgroundRenderer(new TileBackgroundRenderer(std::move(params.m_tileBackgroundReadFn),
+                                                        std::move(params.m_cancelTileBackgroundReadingFn)))
   , m_trafficRenderer(new TrafficRenderer())
   , m_transitSchemeRenderer(new TransitSchemeRenderer())
   , m_drapeApiRenderer(new DrapeApiRenderer())
@@ -958,6 +960,29 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
+  case Message::Type::SetTileBackgroundMode:
+  {
+    ref_ptr<SetTileBackgroundModeMessage> msg = message;
+    m_tileBackgroundRenderer->SetBackgroundMode(m_context, msg->GetMode());
+    break;
+  }
+
+  case Message::Type::AssignTileBackgroundTexture:
+  {
+    ref_ptr<AssignTileBackgroundTextureMessage> msg = message;
+    if (m_context->GetApiVersion() == dp::ApiVersion::OpenGLES3)
+    {
+      void * data = msg->GetBytes().data();
+      msg->GetTexturePool()->UpdateTextureData(m_context, msg->GetTextureId(), 0, 0, msg->GetWidth(), msg->GetHeight(),
+                                               make_ref(data));
+    }
+
+    m_tileBackgroundRenderer->AssignTileBackgroundTexture(m_context, msg->GetTileKey(), msg->GetTexturePool(),
+                                                          msg->GetTextureId(), msg->GetMode());
+    msg->MarkProcessed();
+    break;
+  }
+
 #if defined(OMIM_OS_DESKTOP)
   case Message::Type::NotifyGraphicsReady:
   {
@@ -1038,6 +1063,7 @@ void FrontendRenderer::UpdateContextDependentResources()
   }
 
   m_trafficRenderer->ClearContextDependentResources();
+  m_tileBackgroundRenderer->ClearContextDependentResources(m_context);
 
   if (IsValidCurrentZoom())
   {
@@ -1380,6 +1406,8 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     m_context->ApplyFramebuffer("Static frame");
     m_viewport.Apply(m_context);
 
+    RenderTileBackgroundLayer(modelView);
+
     Render2dLayer(modelView);
     RenderUserMarksLayer(modelView, DepthLayer::UserLineLayer);
 
@@ -1474,6 +1502,16 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
   if (m_graphicsStage == GraphicsStage::WaitRendering)
     m_graphicsStage = GraphicsStage::Rendered;
 #endif
+}
+
+void FrontendRenderer::RenderTileBackgroundLayer(ScreenBase const & modelView)
+{
+  TRACE_SECTION("[drape] RenderTileBackgroundLayer");
+  if (IsValidCurrentZoom())
+  {
+    m_tileBackgroundRenderer->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(),
+                                     m_frameValues);
+  }
 }
 
 void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
@@ -2210,6 +2248,7 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
   { return group->GetTileKey().m_zoomLevel != GetCurrentZoom(); });
 
   m_trafficRenderer->OnUpdateViewport(result, GetCurrentZoom(), tilesToDelete);
+  m_tileBackgroundRenderer->OnUpdateViewport(m_context, result, GetCurrentZoom(), tilesToDelete);
 
 #if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
   DrapeMeasurer::Instance().StartScenePreparing();
@@ -2246,6 +2285,7 @@ void FrontendRenderer::OnContextDestroy()
   m_routeRenderer->ClearContextDependentResources();
   m_gpsTrackRenderer->ClearRenderData();
   m_trafficRenderer->ClearContextDependentResources();
+  m_tileBackgroundRenderer->ClearContextDependentResources(m_context);
   m_drapeApiRenderer->Clear();
   m_postprocessRenderer->ClearContextDependentResources();
   m_transitSchemeRenderer->ClearContextDependentResources(nullptr /* overlayTree */);
@@ -2401,6 +2441,7 @@ void FrontendRenderer::ReleaseResources()
   m_routeRenderer.reset();
   m_buildingsFramebuffer.reset();
   m_screenQuadRenderer.reset();
+  m_tileBackgroundRenderer.reset();
   m_trafficRenderer.reset();
   m_transitSchemeRenderer.reset();
   m_postprocessRenderer.reset();

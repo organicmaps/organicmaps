@@ -91,6 +91,10 @@ Framework::FixedPosition::FixedPosition()
 }
 #endif
 
+#ifdef DEBUG
+#define DEBUG_BACKGROUND_TILE 1
+#endif
+
 namespace
 {
 std::string_view constexpr kMapStyleKey = "MapStyleKeyV1";
@@ -1468,10 +1472,54 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   auto featureReadFn = [this](df::MapDataProvider::TReadCallback<FeatureType> const & fn,
                               vector<FeatureID> const & ids) -> void { m_featuresFetcher.ReadFeatures(fn, ids); };
 
-  auto tileBackgroundReadFn = [](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
+  auto tileBackgroundReadFn = [this](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
   {
-    // Handle tile background reading for the specified mode.
-    // This is a placeholder implementation; actual logic will depend on application requirements.
+#if DEBUG_BACKGROUND_TILE
+    constexpr uint32_t kTileSize = 64;
+    constexpr uint32_t kBlockSize = 8;
+    constexpr uint32_t kBytesPerPixel = 4;
+    static std::vector<uint8_t> kPixels;
+    if (kPixels.empty())
+    {
+      kPixels.resize(kTileSize * kTileSize * kBytesPerPixel);
+      for (uint32_t y = 0; y < kTileSize; ++y)
+      {
+        for (uint32_t x = 0; x < kTileSize; ++x)
+        {
+          uint32_t const blockX = x / kBlockSize;
+          uint32_t const blockY = y / kBlockSize;
+          bool const isWhiteBlock = (blockX + blockY) % 2 == 0;
+          uint32_t const pixelIndex = (y * kTileSize + x) * kBytesPerPixel;
+
+          if (isWhiteBlock)
+          {
+            // White block
+            kPixels[pixelIndex] = 255;      // R
+            kPixels[pixelIndex + 1] = 255;  // G
+            kPixels[pixelIndex + 2] = 255;  // B
+            kPixels[pixelIndex + 3] = 255;  // A
+          }
+          else
+          {
+            // Dark gray block
+            kPixels[pixelIndex] = 64;       // R
+            kPixels[pixelIndex + 1] = 64;   // G
+            kPixels[pixelIndex + 2] = 64;   // B
+            kPixels[pixelIndex + 3] = 255;  // A
+          }
+        }
+      }
+    }
+
+    if (m_drapeEngine)
+    {
+      m_drapeEngine->SetTileBackgroundData(tileKey, kTileSize, kTileSize, dp::TextureFormat::RGBA8, mode,
+                                           std::vector<uint8_t>(kPixels));
+    }
+#else
+  // Handle cancellation of tile background reading for the specified tile and mode.
+  // This is a placeholder implementation; actual logic will depend on application requirements.
+#endif
   };
 
   auto cancelTileBackgroundReadingFn = [](df::TileKey const & tileKey, dp::BackgroundMode mode) -> void
@@ -2731,6 +2779,13 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
     m_drapeEngine->EnableDebugRectRendering(false /* shown */);
     return true;
   }
+#if DEBUG_BACKGROUND_TILE
+  if (query == "?satellite")
+  {
+    m_drapeEngine->SetTileBackgroundMode(dp::BackgroundMode::Satellite);
+    return true;
+  }
+#endif
 #if defined(OMIM_METAL_AVAILABLE)
   if (query == "?metal")
   {

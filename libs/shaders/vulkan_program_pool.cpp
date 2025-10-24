@@ -26,6 +26,7 @@ namespace
 {
 int8_t constexpr kInvalidBindingIndex = -1;
 uint32_t constexpr kMaxUniformBuffers = 1;
+uint32_t constexpr kMaxStorageBuffers = 1;
 
 std::string const kShadersDir = "vulkan_shaders";
 std::string const kShadersReflection = "reflection.json";
@@ -62,10 +63,11 @@ struct ReflectionInfo
 {
   int8_t m_vsUniformsIndex = kInvalidBindingIndex;
   int8_t m_fsUniformsIndex = kInvalidBindingIndex;
+  bool m_isStorageBuffer = false;
   std::vector<TextureBindingReflectionInfo> m_textures;
 
   DECLARE_VISITOR(visitor(m_vsUniformsIndex, "vs_uni"), visitor(m_fsUniformsIndex, "fs_uni"),
-                  visitor(m_textures, "tex"))
+                  visitor(m_isStorageBuffer, "is_storage"), visitor(m_textures, "tex"))
 };
 
 struct ReflectionData
@@ -128,7 +130,8 @@ std::vector<VkDescriptorSetLayoutBinding> GetLayoutBindings(ReflectionInfo const
   std::vector<VkDescriptorSetLayoutBinding> result;
 
   VkDescriptorSetLayoutBinding uniformsBinding = {};
-  uniformsBinding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
+  uniformsBinding.descriptorType = reflectionInfo.m_isStorageBuffer ? VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC
+                                                                    : VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
   uniformsBinding.descriptorCount = 1;
 
   if (reflectionInfo.m_vsUniformsIndex != kInvalidBindingIndex &&
@@ -289,6 +292,11 @@ drape_ptr<dp::GpuProgram> VulkanProgramPool::Get(Program program)
 uint32_t VulkanProgramPool::GetMaxUniformBuffers() const
 {
   return kMaxUniformBuffers;
+}
+
+uint32_t VulkanProgramPool::GetMaxStorageBuffers() const
+{
+  return kMaxStorageBuffers;
 }
 
 uint32_t VulkanProgramPool::GetMaxImageSamplers() const

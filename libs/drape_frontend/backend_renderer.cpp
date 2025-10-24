@@ -647,16 +647,35 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::SetTileBackgroundData:
   {
     ref_ptr<SetTileBackgroundDataMessage> msg = message;
-    // TODO: Process tile background data
-    UNUSED_VALUE(msg);
-    break;
-  }
 
-  case Message::Type::SetTileBackgroundMode:
-  {
-    ref_ptr<SetTileBackgroundModeMessage> msg = message;
-    // TODO: Process tile background mode change
-    UNUSED_VALUE(msg);
+    dp::TexturePoolDesc const desc{.m_maxTextureCount = 64,  // TODO: use max texture 2D array size here
+                                   .m_textureWidth = msg->GetWidth(),
+                                   .m_textureHeight = msg->GetHeight(),
+                                   .m_format = msg->GetFormat(),
+                                   .m_needMipMaps = (msg->GetMode() == dp::BackgroundMode::Satellite)};
+
+    auto texturePool = m_texMng->GetTexturePool(m_context, msg->GetMode(), desc);
+    ASSERT(texturePool != nullptr, ());
+
+    auto textureId = texturePool->AcquireTexture(m_context);
+
+    // In OpenGL we need to update texture data in frontend renderer thread because we can't access the same texture
+    // from multiple threads simultaneously in OpenGL.
+    if (m_context->GetApiVersion() != dp::ApiVersion::OpenGLES3)
+    {
+      void * data = msg->GetBytes().data();
+      texturePool->UpdateTextureData(m_context, textureId, 0, 0, msg->GetWidth(), msg->GetHeight(), make_ref(data));
+    }
+
+    m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                              m_context->GetApiVersion() == dp::ApiVersion::OpenGLES3
+                                  ? make_unique_dp<AssignTileBackgroundTextureMessage>(
+                                        m_context, msg->GetTileKey(), texturePool, textureId, msg->GetMode(),
+                                        std::move(msg->GetBytes()), msg->GetWidth(), msg->GetHeight())
+                                  : make_unique_dp<AssignTileBackgroundTextureMessage>(
+                                        m_context, msg->GetTileKey(), texturePool, textureId, msg->GetMode()),
+                              MessagePriority::Normal);
+
     break;
   }
 
