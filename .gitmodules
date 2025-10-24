@@ -87,3 +87,6 @@
   path = 3party/glaze
   url = https://github.com/organicmaps/glaze
   branch = organicmaps
+[submodule "3party/lunasvg"]
+	path = 3party/lunasvg
+	url = https://github.com/sammycage/lunasvg
