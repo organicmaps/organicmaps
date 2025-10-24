@@ -102,7 +102,7 @@ public class Icon implements Parcelable
     }
   };
 
-  static public void loadDefaultIcons(@NonNull Resources resources, @NonNull String packageName)
+  public static void loadDefaultIcons(@NonNull Resources resources, @NonNull String packageName)
   {
     final String[] names = nativeGetBookmarkIconNames();
     int[] icons = new int[names.length];

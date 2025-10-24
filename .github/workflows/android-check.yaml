@@ -78,6 +78,7 @@ jobs:
         include:
           - flavor: WebDebug
             arch: arm64
+            run-tests: true
           - flavor: FdroidDebug
             arch: arm32
     # Cancels previous jobs if the same branch or PR was updated again.
@@ -129,6 +130,23 @@ jobs:
           cmake --version
           ninja --version
           ./gradlew -P${{ matrix.arch }} assemble${{ matrix.flavor }}
+
+      - name: Enable KVM
+        if: matrix.run-tests == true
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Run tests
+        if: matrix.run-tests == true
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          target: google_apis
+          script: |
+            cd android && ./gradlew -P${{ matrix.arch }} connectedCheck
 
       - name: Upload ${{ matrix.flavor }} apk
         uses: actions/upload-artifact@v4
