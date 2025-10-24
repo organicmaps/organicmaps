@@ -2,6 +2,8 @@
 
 #include "base/assert.hpp"
 
+#include "platform/public_holidays.hpp"
+
 #include <algorithm>
 #include <chrono>
 #include <sstream>
@@ -63,6 +65,24 @@ std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(uint32
   return GetAccessWithoutConditional(featureId);
 }
 
+std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(uint32_t featureId, double weight, FeatureType & ft) const
+{
+  auto const itConditional = m_wayToAccessConditional.find(featureId);
+  if (itConditional != m_wayToAccessConditional.cend())
+  {
+    auto const time = m_currentTimeGetter();
+    auto const & conditional = itConditional->second;
+    for (auto const & access : conditional.GetAccesses())
+    {
+      auto const op = GetConfidenceForAccessConditional(time + weight, access.m_openingHours,ft);
+      if (op)
+        return {access.m_type, *op};
+    }
+  }
+
+  return GetAccessWithoutConditional(featureId);
+}
+
 std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(RoadPoint const & point, double weight) const
 {
   auto const itConditional = m_pointToAccessConditional.find(point);
@@ -73,6 +93,25 @@ std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(RoadPo
     for (auto const & access : conditional.GetAccesses())
     {
       auto const op = GetConfidenceForAccessConditional(time + weight, access.m_openingHours);
+      if (op)
+        return {access.m_type, *op};
+    }
+  }
+
+  return GetAccessWithoutConditional(point);
+}
+
+
+std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(RoadPoint const & point, double weight, FeatureType & ft) const
+{
+  auto const itConditional = m_pointToAccessConditional.find(point);
+  if (itConditional != m_pointToAccessConditional.cend())
+  {
+    auto const time = m_currentTimeGetter();
+    auto const & conditional = itConditional->second;
+    for (auto const & access : conditional.GetAccesses())
+    {
+      auto const op = GetConfidenceForAccessConditional(time + weight, access.m_openingHours, ft);
       if (op)
         return {access.m_type, *op};
     }
@@ -118,6 +157,27 @@ std::optional<RoadAccess::Confidence> RoadAccess::GetConfidenceForAccessConditio
 
   auto const leftOpen = openingHours.IsOpen(left);
   auto const rightOpen = openingHours.IsOpen(right);
+
+  if (!leftOpen && !rightOpen)
+    return {};
+
+  return leftOpen && rightOpen ? Confidence::Sure : Confidence::Maybe;
+}
+
+std::optional<RoadAccess::Confidence> RoadAccess::GetConfidenceForAccessConditional(
+    time_t momentInTime, osmoh::OpeningHours const & openingHours, FeatureType & ft)
+{
+  auto const left = momentInTime - kConfidenceIntervalSeconds / 2;
+  auto const right = momentInTime + kConfidenceIntervalSeconds / 2;
+  //Get country ID
+  std::string const countryId=ft.GetID().GetMwmName();
+
+  auto holidays = ph::LoadHolidaysDate(countryId);
+
+  osmoh::OpeningHours ohWithHolidays(openingHours.GetRule(), holidays);
+
+  auto const leftOpen = ohWithHolidays.IsOpen(left);
+  auto const rightOpen = ohWithHolidays.IsOpen(right);
 
   if (!leftOpen && !rightOpen)
     return {};

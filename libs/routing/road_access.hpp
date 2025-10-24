@@ -3,6 +3,8 @@
 #include "routing/road_point.hpp"
 #include "routing/route_weight.hpp"
 
+#include "indexer/feature.hpp"
+
 #include <optional>
 #include <string>
 #include <vector>
@@ -157,10 +159,15 @@ private:
   inline static time_t constexpr kConfidenceIntervalSeconds = 2 * 3600;  // 2 hours
 
   static std::optional<Confidence> GetConfidenceForAccessConditional(time_t momentInTime,
-                                                                     osmoh::OpeningHours const & openingHours);
+                                                                   osmoh::OpeningHours const & openingHours);
+  static std::optional<Confidence> GetConfidenceForAccessConditional(time_t momentInTime,
+                                                                     osmoh::OpeningHours const & openingHours,
+                                                                     FeatureType & ft);
 
   std::pair<Type, Confidence> GetAccess(uint32_t featureId, double weight) const;
+  std::pair<Type, Confidence> GetAccess(uint32_t featureId, double weight, FeatureType & ft) const;
   std::pair<Type, Confidence> GetAccess(RoadPoint const & point, double weight) const;
+  std::pair<Type, Confidence> GetAccess(RoadPoint const & point, double weight, FeatureType & ft) const;
 
   std::function<time_t()> m_currentTimeGetter;
 
