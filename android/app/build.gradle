@@ -326,6 +326,7 @@ afterEvaluate {
       // Regex to allow it for the following app packages:
       // app.organicmaps
       // app.organicmaps.(debug|beta)
+      // app.organicmaps.web
       // app.organicmaps.web.(debug|beta)
       ~/name='app\.organicmaps(\.web)?(\.debug|\.beta)?\.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'/
   ]
