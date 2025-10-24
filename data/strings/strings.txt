@@ -1459,6 +1459,7 @@
 		en = Difficulty
 		af = Moeilikheid
 		ar = درجة الصعوبة
+		ast = Dificultá
 		az = Çətinlik
 		be = Складанасць
 		bg = Трудност
@@ -1565,6 +1566,7 @@
 		en = Time:
 		af = Tyd:
 		ar = المدة:
+		ast = Tiempu:
 		az = Müddət:
 		be = Час:
 		bg = Време:
@@ -1819,6 +1821,7 @@
 		en = Disk error
 		af = Skyffout
 		ar = حدث خطأ في التخزين
+		ast = Error nel discu
 		az = Disk xətası
 		be = Памылка дыска
 		ca = Error de disc
@@ -1865,6 +1868,7 @@
 		en = Connection failure
 		af = Koppelingsfout
 		ar = فشل الاتصال
+		ast = Falló la conexón
 		az = Əlaqə xətası
 		be = Памылка падлучэння
 		bg = Неуспешно свързване
@@ -2162,6 +2166,7 @@
 		en = Map language
 		af = Kaarttaal
 		ar = لغة الخريطة
+		ast = Llingua del mapa
 		az = Xəritə dili
 		be = Мова карты
 		bg = Език на картата
@@ -2212,6 +2217,7 @@
 		en = Map data from OpenStreetMap
 		af = Kaartdata vanad OpenStreetMap
 		ar = بيانات الخريطة من خريطة الشارع المفتوحة
+		ast = Datos cartográficos d’OpenStreetMap
 		az = OpenStreetMap-dan xəritə məlumatları
 		be = Даныя карты з OpenStreetMap
 		bg = Картографски данни от OpenStreetMap
@@ -3577,6 +3583,7 @@
 		en = Web browser is not available
 		af = Webblaaier is nie beskikbaar nie
 		ar = متصفح الويب غير متوفر
+		ast = El restolador web nun ta disponible
 		be = Вэб-браўзер недаступны
 		bg = Уеб браузърът не е наличен
 		ca = El navegador web no està disponible
@@ -3629,6 +3636,7 @@
 		en = Volume
 		af = Volume
 		ar = مستوى الصوت
+		ast = Volume
 		az = Həcm
 		be = Гучнасць
 		bg = Сила на звука
@@ -4275,6 +4283,7 @@
 		en = Select option
 		af = Kies opsie
 		ar = حدد الخيار
+		ast = Esbilla una opción
 		az = Seçim seçin
 		be = Выберыце варыянт
 		bg = Изберете опция
@@ -4591,6 +4600,7 @@
 		en = Stop Without Saving
 		af = Stop sonder om te stoor
 		ar = التوقف بدون حفظ
+		ast = Parar ensin guardar
 		az = Saxlamadan dayandırın
 		be = Спыніць без захавання
 		bg = Спрете без запазване
@@ -4645,6 +4655,7 @@
 		en = Continue Recording
 		af = Voortgaan met Opname
 		ar = متابعة التسجيل
+		ast = Siguir grabando
 		az = Qeyd etməyə davam et
 		be = Працягнуць запіс
 		bg = Продължи записа
@@ -4699,6 +4710,7 @@
 		en = Save into Bookmarks and Tracks?
 		af = Stoor na Boekmerke en paaie?
 		ar = حفظ في الإشارات المرجعية والمسارات؟
+		ast = ¿Quies guardalu en Marcadores y trayeutos?
 		az = Əlfəcinlər və qeydlərə yadda saxla?
 		be = Захаваць у закладкі і маршруты?
 		bg = Запазване в отметки и пътеки?
@@ -4860,6 +4872,7 @@
 		en = Choose Color
 		af = Kies Kleur
 		ar = اختر اللون
+		ast = Escueyi un color
 		az = Rəngi seçin
 		be = Выберыце колер
 		bg = Изберете цвят
@@ -7035,6 +7048,7 @@
 		en = Show
 		af = Toon
 		ar = عرض
+		ast = Amosar
 		az = Göstər
 		be = Паказаць
 		bg = Показване
@@ -7516,6 +7530,7 @@
 		tags = android,android-app,apple,apple-maps
 		en = Wikipedia
 		ar = ويكيبيديا
+		ast = Wikipedia
 		az = Vikipediya
 		be = Вікіпедыя
 		bg = Уикипедия
@@ -7917,6 +7932,7 @@
 		en = Next
 		af = Volgende
 		ar = التالي
+		ast = Siguiente
 		az = Sonrakı
 		be = Далей
 		bg = Напред
@@ -8597,6 +8613,7 @@
 		en = Example Values
 		af = Voorbeeldwaardes
 		ar = أمثلة على القيم
+		ast = Valores d’exemplu
 		az = Nümunə Dəyərləri
 		be = Прыклады значэнняў
 		bg = Примерни стойности
@@ -8961,6 +8978,7 @@
 		en = This place does not exist
 		af = Hierdie plek bestaan nie
 		ar = المكان غير موجود
+		ast = Esti llugar nun esiste
 		az = Məkan mövcud deyil
 		be = Месца не існуе
 		bg = Мястото не съществува
@@ -9063,6 +9081,7 @@
 		en = Duplicate place
 		af = Dupliseer plek
 		ar = مكان مكرر
+		ast = Llugar duplicáu
 		az = Kopyalanmış yer
 		be = Месца паўтараецца
 		bg = Дубликат
@@ -9222,6 +9241,7 @@
 		en = 24/7
 		af = 24/7
 		ar = ٢٤/٧(ليلاً ونهاراً)
+		ast = 24/7
 		az = 7/24
 		be = 24/7
 		bg = 24 часа
@@ -9377,6 +9397,7 @@
 		en = Today
 		af = Vandag
 		ar = اليوم
+		ast = Güei
 		az = Bu gün
 		be = Сёння
 		bg = Днес
@@ -9896,6 +9917,7 @@
 		en = Password
 		af = Wagwoord
 		ar = كلمة المرور
+		ast = Contraseña
 		az = Parol
 		be = Пароль
 		bg = Парола
@@ -10159,6 +10181,7 @@
 		en = Street
 		af = Straat
 		ar = الشارع
+		ast = Cai
 		az = Küçə
 		be = Вуліца
 		bg = Улица
@@ -10481,6 +10504,7 @@
 		en = Please enter a street name
 		af = Voer asb. ’n straatnaam in
 		ar = الرجاء إدخال اسم الشارع
+		ast = Pon el nome de la cai
 		az = Küçə adını daxil edin
 		be = Увядзіце назву вуліцы
 		bg = Въведете име на улица
@@ -10793,6 +10817,7 @@
 		en = Add Phone
 		af = Voeg telefoonnomer toe
 		ar = إضافة رقم هاتف
+		ast = Amestar teléfonu
 		az = Telefon əlavə edin
 		be = Дадаць тэлефон
 		bg = Добави телефон
@@ -10895,6 +10920,7 @@
 		tags = android,android-app
 		en = Level: %@
 		ar = المستوى: %@
+		ast = Nivel: %@
 		be = Узровень: %@
 		ca = Nivell: %@
 		cs = Podlaží: %@
@@ -12705,6 +12731,7 @@
 		en = Your editing history
 		af = Jou redigeergeskiedenis
 		ar = سجل التحرير الخاص بك
+		ast = El to historial d’ediciones
 		az = Redaktə tarixçəniz
 		be = Ваша гісторыя рэдагавання
 		bg = Вашата история на редактиране
@@ -13178,6 +13205,7 @@
 		en = km/h
 		af = km/h
 		ar = كم/ساعة
+		ast = km/h
 		az = km/saat
 		be = км/г
 		bg = км/ч
@@ -13227,6 +13255,7 @@
 		en = mph
 		af = mph
 		ar = ميل/ساعة
+		ast = mph
 		az = mil/saat
 		be = міль/г
 		bg = мили/ч
@@ -13276,6 +13305,7 @@
 		en = h
 		af = h
 		ar = س
+		ast = h
 		az = saat
 		be = г
 		bg = ч
@@ -13326,6 +13356,7 @@
 		en = min
 		af = min
 		ar = د
+		ast = min
 		az = dəq
 		be = хв
 		bg = мин
@@ -13376,6 +13407,7 @@
 		en = d
 		af = d
 		ar = يوم
+		ast = d
 		az = gün
 		be = д
 		bg = д
@@ -14400,6 +14432,7 @@
 		tags = android,android-app
 		en = Note will be sent to OpenStreetMap
 		ar = سيتم إرسال ملاحظتك إلى OpenStreetMap
+		ast = La nota va unviase a OpenStreetMap
 		be = Заўвага будзе адпраўлена на OpenStreetMap
 		ca = La nota s’enviarà a l’OpenStreetMap
 		cs = Poznámka bude odeslána do OpenStreetMap
@@ -14640,6 +14673,7 @@
 		en = Recording the track
 		af = Opname van die spoor
 		ar = تسجيل المسار
+		ast = Grabando’l trayeutu
 		az = Marşrutu qeyd etmək
 		be = Запіс маршруту
 		bg = Записване на пътя
@@ -15321,6 +15355,7 @@
 		en = Please update Organic Maps
 		af = Werk Organic Maps asb. by
 		ar = الرجاء تحديث Organic Maps
+		ast = Anueva Organic Maps
 		az = Organic Maps'i yeniləyin
 		be = Абнавіце Organic Maps
 		bg = Моля, актуализирайте Organic Maps
@@ -15735,6 +15770,7 @@
 		en = Learn more
 		af = Meer inligting
 		ar = معرفة المزيد
+		ast = Deprende más
 		az = Daha ətraflı
 		be = Даведацца больш
 		bg = Научете повече
@@ -16945,6 +16981,7 @@
 		en = New list
 		af = Nuwe lys
 		ar = قائمة جديدة
+		ast = Llista nueva
 		az = Yeni siyahı
 		be = Новы спіс
 		bg = Нов списък
@@ -17053,6 +17090,7 @@
 		en = Please choose another name
 		af = Kies asb. ’n ander naam
 		ar = يرجى اختيار اسم آخر
+		ast = Escueyi otru nome
 		az = Zəhmət olmasa başqa ad seçin
 		be = Выберыце іншую назву
 		bg = Моля, изберете друго име
@@ -17107,6 +17145,7 @@
 		en = Please wait…
 		af = Wag asb.…
 		ar = أرجو الإنتظار…
+		ast = Aguarda…
 		az = Zəhmət olmasa, gözləyin…
 		be = Пачакайце…
 		bg = Моля, изчакайте…
@@ -17161,6 +17200,7 @@
 		en = Phone number
 		af = Telefoonnommer
 		ar = رقم الهاتف
+		ast = Númberu telefónicu
 		az = Telefon nömrəsi
 		be = Нумар тэлефона
 		bg = Телефонен номер
@@ -17323,6 +17363,7 @@
 		en = Privacy
 		af = Privaatheid
 		ar = خصوصية
+		ast = Privacidá
 		az = Məxfilik
 		be = Прыватнасць
 		bg = Поверителност
@@ -17484,6 +17525,7 @@
 		en = Traffic
 		af = Verkeer
 		ar = حركة مرور
+		ast = Tráficu
 		az = Nəqliyyat
 		be = Рух
 		bg = Трафик
@@ -17538,6 +17580,7 @@
 		en = Hiking
 		af = Staptoere
 		ar = تضاريس
+		ast = Senderismu
 		az = Piyada gəzinti
 		be = Пешыя маршруты
 		bg = Пешеходен туризъм
@@ -17581,6 +17624,7 @@
 		en = Cycling
 		af = Fietsroetes
 		ar = ركوب الدراجات
+		ast = Ciclismu
 		az = Velosiped gəzintisi
 		be = Пакатушкі
 		bg = Велосипеден туризъм
@@ -17733,6 +17777,7 @@
 		en = This list is empty
 		af = Hierdie lys is leeg
 		ar = هذه اللائحة فارغة
+		ast = Esta llista ta balera
 		az = Bu siyahı boşdur
 		be = Гэты спіс пусты
 		bg = Този списък е празен
@@ -17839,6 +17884,7 @@
 		en = …more
 		af = …nog
 		ar = …المزيد
+		ast = … más
 		az = …daha çox
 		be = …яшчэ
 		bg = …още
@@ -26693,6 +26739,7 @@
 		en = Not Now
 		af = Nie nou nie
 		ar = ليس الآن
+		ast = Agora non
 		az = İndi yox
 		be = Не зараз
 		bg = Не сега
@@ -26948,6 +26995,7 @@
 		en = Notes
 		af = Notas
 		ar = ملاحظات
+		ast = Notes
 		az = Qeydlər
 		be = Нататкі
 		bg = Бележки
@@ -28332,6 +28380,7 @@
 		en = Information
 		af = Inligting
 		ar = معلومات
+		ast = Información
 		az = Məlumat
 		be = Інфармацыя
 		bg = Информация
@@ -29244,6 +29293,7 @@
 		en = Not Available
 		af = Nie beskikbaar
 		ar = غير متاح
+		ast = Non disponible
 		az = Mövcud deyil
 		be = Недаступны
 		bg = Не е налично
@@ -29458,6 +29508,7 @@
 		en = Menu
 		af = Kieslys
 		ar = القائمة
+		ast = Menú
 		be = Меню
 		bg = Меню
 		ca = Menú
@@ -29613,6 +29664,7 @@
 		tags = android,android-app
 		en = GitHub
 		ar = جيثب
+		ast = GitHub
 		be = GitHub
 		bg = GitHub
 		ca = GitHub
@@ -29654,6 +29706,7 @@
 		tags = android,android-app
 		en = Telegram
 		ar = تيليجرام
+		ast = Telegram
 		be = Telegram
 		bg = Telegram
 		ca = Telegram
@@ -29695,6 +29748,7 @@
 		tags = android,android-app
 		en = [Matrix]
 		ar = [ماتريكس]
+		ast = [Matrix]
 		be = [Matrix]
 		bg = [Matrix]
 		ca = [Matrix]
@@ -29734,6 +29788,7 @@
 		tags = android,android-app
 		en = Mastodon
 		ar = ماستودون
+		ast = Mastodon
 		be = Mastodon
 		bg = Mastodon
 		ca = Mastodon
@@ -29773,6 +29828,7 @@
 		tags = android,android-app,apple,apple-maps
 		en = Facebook
 		ar = فيسبوك
+		ast = Facebook
 		be = Facebook
 		bg = Facebook
 		ca = Facebook
@@ -29814,6 +29870,7 @@
 		tags = android,android-app,apple,apple-maps
 		en = X (Twitter)
 		ar = X (تويتر)
+		ast = X (Twitter)
 		be = X (Twitter)
 		bg = X (Twitter)
 		ca = X (Twitter)
@@ -29855,6 +29912,7 @@
 		tags = android,android-app,apple,apple-maps
 		en = Instagram
 		ar = إنستغرام
+		ast = Instagram
 		be = Instagram
 		bg = Instagram
 		ca = Instagram
@@ -29896,6 +29954,7 @@
 		tags = android,android-app,apple,apple-maps
 		en = VK
 		ar = في كيه
+		ast = VK
 		be = VK
 		bg = VK
 		ca = VK
@@ -29935,6 +29994,7 @@
 		tags = android,android-app
 		en = LINE
 		ar = لاين
+		ast = LINE
 		be = LINE
 		ca = LINE
 		cs = LINE
@@ -29973,6 +30033,7 @@
 		tags = android,android-app
 		en = OpenStreetMap
 		ar = خريطة الشارع المفتوحة
+		ast = OpenStreetMap
 		be = OpenStreetMap
 		bg = OpenStreetMap
 		ca = OpenStreetMap
@@ -30611,6 +30672,7 @@
 		en = Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.
 		af = Verbeter die pylrigting deur die selfoon in ’n agtbeweging te beweeg om die kompas te kalibreer.
 		ar = قم بتحسين اتجاه السهم عن طريق تحريك الهاتف في حركة على شكل ثمانية لمعايرة البوصلة.
+		ast = Ameyora la direición de la flecha moviendo’l teléfonu en forma d’ocho pa calibrar la brúxula.
 		az = Kompası kalibrləmək və ox istiqamətini yaxşılaşdırmaq üçün telefonu səkkiz rəqəmi şəklinə çevirin.
 		be = Палепшыце кірунак стрэлкі, перамяшчаючы тэлефон у выглядзе васьмёркі, каб адкалібраваць компас.
 		bg = Подобрете посоката на стрелката, като движите телефона с движение тип "осмица", за да калибрирате компаса.
@@ -30662,6 +30724,7 @@
 		en = Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.
 		af = Beweeg die selfoon in ’n agtvormige beweging om die kompas te kalibreer en die rigting van die pyl op die kaart vas te maak.
 		ar = حرك الهاتف في حركة على شكل ثمانية لمعايرة البوصلة وإصلاح اتجاه السهم على الخريطة.
+		ast = Mueve’l teléfonu en forma d’ocho para calibrar la brúxula y afitar la direición de la flecha nel mapa.
 		az = Kompası kalibrləmək və xəritədə oxun istiqamətini düzəltmək üçün telefonu səkkiz rəqəmlə hərəkət etdirin.
 		be = Перамяшчайце тэлефон у выглядзе васьмёркі, каб адкалібраваць компас і зафіксаваць кірунак стрэлкі на карце.
 		bg = Преместете телефона с движение тип "осмица", за да калибрирате компаса и да фиксирате посоката на стрелката върху картата.
@@ -31459,6 +31522,7 @@
 		en = Update Map
 		af = Werk kaart by
 		ar = تحديث الخريطة
+		ast = Anovar mapa
 		az = Xəritəni yeniləyin
 		be = Абнавіць карту
 		bg = Обнояване на карта
@@ -31725,6 +31789,7 @@
 		en = Not enough space
 		af = Nie genoeg spasie nie
 		ar = لا يوجد مساحة كافية
+		ast = Nun hai espaciu bastante
 		az = Kifayət qədər yer yoxdur
 		be = Не хапае месца
 		bg = Недостатъчно място
@@ -34079,6 +34144,7 @@
 		en = Hotel
 		af = Hotel
 		ar = فندق
+		ast = Hotel
 		az = Otel
 		be = Гатэль
 		bg = Хотел
@@ -34508,6 +34574,7 @@
 		en = Hospital
 		af = Hospitaal
 		ar = مستشفى
+		ast = Hospital
 		az = Xəstəxana
 		be = Бальніца
 		bg = Болница
@@ -34887,6 +34954,7 @@
 		en = MB
 		af = MB
 		ar = ميغابايت
+		ast = MB
 		az = MB
 		be = МБ
 		bg = МБ
@@ -34932,6 +35000,7 @@
 		en = GB
 		af = GB
 		ar = غيغابايت
+		ast = GB
 		be = ГБ
 		bg = ГБ
 		bn = জিবি
@@ -35173,6 +35242,7 @@
 		en = SD card
 		af = SD-kaart
 		ar = بطاقة الذاكرة
+		ast = Tarxeta SD
 		az = SD kart
 		be = SD-карта
 		bg = Карта памет
@@ -35311,6 +35381,7 @@
 		en = Postal Code
 		af = Poskode
 		ar = الرمز البريدي
+		ast = Códigu postal
 		az = Poçt kodu
 		be = Паштовы індэкс
 		bg = Пощенски код
@@ -35418,6 +35489,7 @@
 		en = m
 		af = m
 		ar = متر
+		ast = m
 		az = m
 		be = м
 		bg = м
@@ -35468,6 +35540,7 @@
 		en = km
 		af = km
 		ar = كم
+		ast = km
 		az = km
 		be = км
 		bg = км
@@ -36379,6 +36452,7 @@
 		en = Search Map
 		af = Soek op die kaart
 		ar = ابحث في الخريطة
+		ast = Guetar nel mapa
 		az = Xəritədə axtar
 		be = Пошук на карце
 		bg = Търсене в карта
@@ -36709,6 +36783,7 @@
 		en = Try Again
 		af = Probeer weer
 		ar = محاولة مرة أخرى
+		ast = Tentar de nueves
 		az = Yenidən cəhd et
 		be = Паспрабаваць зноў
 		bg = Опитайте отново
@@ -36762,6 +36837,7 @@
 		en = About Organic Maps
 		af = Oor Organic Maps
 		ar = حول Organic Maps
+		ast = Tocante a Organic Maps
 		az = Organic Maps Haqqında
 		be = Аб праграме Organic Maps
 		bg = Относно приложението
@@ -37472,6 +37548,7 @@
 		en = Go to Map
 		af = Gaan na kaart
 		ar = الذهاب الى الخريطة
+		ast = Dir al mapa
 		az = Xəritəyə keçin
 		be = Перайсці да карты
 		bg = Към картата
@@ -37578,6 +37655,7 @@
 		en = Download %@?
 		af = Laai %@ af?
 		ar = هل تريد تنزيل %@؟
+		ast = ¿Quies baxar %@?
 		az = %@ endirilir?
 		be = Спампаваць %@?
 		bg = Изтегляне на %@?
@@ -37631,6 +37709,7 @@
 		en = Update %@?
 		af = Werk %@ by?
 		ar = هل تريد تحديث %@ ؟
+		ast = ¿Quies anovar %@?
 		az = %@ yenilənsin?
 		be = Абнавіць %@?
 		bg = Обновяване на %@?
@@ -38072,6 +38151,7 @@
 		en = Name
 		af = Adres
 		ar = الاسم
+		ast = Nome
 		az = Ad
 		be = Назва
 		bg = Име
@@ -38183,6 +38263,7 @@
 		en = List
 		af = Lys
 		ar = قائمة
+		ast = Llista
 		az = Siyahı
 		be = Спіс
 		bg = Списък
@@ -38237,6 +38318,7 @@
 		en = Settings
 		af = Instellings
 		ar = الإعدادات
+		ast = Configuración
 		az = Parametrlər
 		be = Налады
 		bg = Настройки
@@ -38292,6 +38374,7 @@
 		en = Save maps to
 		af = Bewaar kaarte in
 		ar = مكان تخزين الخرائط
+		ast = Guardar mapes en
 		az = Xəritələri yadda saxlayın
 		be = Захоўваць карты ў
 		bg = Запаметяване на карти в
@@ -38346,6 +38429,7 @@
 		en = Select the folder to download maps to.
 		af = Kies die vouer om kaarte na af te laai.
 		ar = اختر المكان الذي ينبغي تنزيل الخرائط إليه.
+		ast = Esbilla la carpeta onde tienen de baxase los mapes.
 		az = Xəritələrin yüklənəcəyi qovluğu seçin
 		be = Выбар папкі для захоўвання спампаваных карт.
 		bg = Изберете мястото, където картите трябва да се изтеглят
@@ -38399,6 +38483,7 @@
 		en = Downloaded maps
 		af = Afgelaaide kaarte
 		ar = الخرائط المنزلة
+		ast = Mapes baxaos
 		az = Xəritələr
 		be = Спампаваныя карты
 		bg = Карти
