@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- SECTION: Strings for downloading map from search -->
+
+    <!-- SECTION: Strings -->
     <string name="postal_code">Postcode</string>
     <string name="subway_data_unavailable">Metro map is unavailable</string>
 </resources>

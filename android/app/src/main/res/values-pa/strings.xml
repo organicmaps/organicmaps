@@ -1,51 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="location_is_disabled_long_text">ਤੁਸੀਂ ਇਸ ਵੇਲੇ ਇਸ ਡੀਵਾਈਸ ਜਾਂ ਐਪਲੀਕੇਸ਼ਨ ਲਈ ਸਾਰੀਆਂ ਲੋਕੇਸ਼ਨ ਸੇਵਾਵਾਂ ਨੂੰ ਅਯੋਗ ਬਣਾਇਆ ਹੋਇਆ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਉਹਨਾਂ ਨੂੰ ਯੋਗ ਬਣਾਓ।</string>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
     <string name="back">ਵਾਪਿਸ</string>
-    <string name="list">ਸੂਚੀ</string>
-    <string name="pause">ਵਿਰਾਮ</string>
-    <string name="about_proposition_3">• ਤੇਜ਼, ਨਿਊਨਤਮ, ਭਾਈਚਾਰੇ ਦੁਆਰਾ ਵਿਕਸਤ ਕੀਤਾ ਗਿਆ</string>
-    <string name="precise_location_is_disabled_long_text">ਸਟੀਕ ਨੈਵੀਗੇਸ਼ਨ ਯਕੀਨੀ ਬਣਾਉਣ ਲਈ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਸਟੀਕ ਲੋਕੇਸ਼ਨ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ।</string>
-    <string name="downloading_country_can_proceed">ਡਾਊਨਲੋਡ ਕਰ ਰਿਹਾ %s। ਤੁਸੀਂ ਹੁਣ\nਨਕਸ਼ੇ \'ਤੇ ਜਾ ਸਕਦੇ ਹੋ।</string>
-    <string name="unsupported_phone">ਐਪ ਨੂੰ ਹਾਰਡਵੇਅਰ ਐਕਸਲਰੇਟਿਡ OpenGL ਦੀ ਲੋੜ ਹੈ। ਬਦਕਿਸਮਤੀ ਨਾਲ, ਤੁਹਾਡੀ ਡਿਵਾਈਸ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ।</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">ਰੱਦ ਕਰੋ</string>
+    <!-- Button which deletes downloaded country -->
     <string name="delete">ਮਿਟਾਓ</string>
     <string name="download_maps">ਨਕਸ਼ੇ ਡਾਊਨਲੋਡ ਕਰੋ</string>
+    <!-- Settings/Downloader - info for country when download fails -->
+    <string name="download_has_failed">ਡਾਊਨਲੋਡ ਅਸਫਲ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਲਈ ਇੱਥੇ ਦੱਬੋ।</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">ਡਾਊਨਲੋਡ ਹੋ ਰਿਹਾ ਹੈ…</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">ਕਿਲੋਮੀਟਰ</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">ਮੀਲ</string>
+    <!-- Update maps later button text -->
     <string name="later">ਬਾਅਦ ਵਿੱਚ</string>
+    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
     <string name="search">ਲੱਭੋ</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">ਨਕਸ਼ਾ ਲੱਭੋ</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">ਤੁਸੀਂ ਇਸ ਵੇਲੇ ਇਸ ਡੀਵਾਈਸ ਜਾਂ ਐਪਲੀਕੇਸ਼ਨ ਲਈ ਸਾਰੀਆਂ ਲੋਕੇਸ਼ਨ ਸੇਵਾਵਾਂ ਨੂੰ ਅਯੋਗ ਬਣਾਇਆ ਹੋਇਆ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਉਹਨਾਂ ਨੂੰ ਯੋਗ ਬਣਾਓ।</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">ਸੀਮਤ ਸ਼ੁੱਧਤਾ</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">ਸਟੀਕ ਨੈਵੀਗੇਸ਼ਨ ਯਕੀਨੀ ਬਣਾਉਣ ਲਈ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਸਟੀਕ ਲੋਕੇਸ਼ਨ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ।</string>
+    <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">ਨਕਸ਼ੇ ਉੱਤੇ ਦਿਖਾਓ</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">ਡਾਊਨਲੋਡ ਅਸਫਲ</string>
+    <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
     <string name="about_menu_title">ਆਰਗੈਨਿਕ ਮੈਪਸ ਬਾਰੇ</string>
+    <!-- Text in About screen -->
     <string name="about_headline">ਸਭ ਲਈ ਮੁਫ਼ਤ, ਪਿਆਰ ਨਾਲ ਬਣਾਇਆ ਗਿਆ</string>
+    <!-- Text in About screen -->
     <string name="about_proposition_1">• ਕੋਈ ਇਸ਼ਤਿਹਾਰ ਨਹੀਂ, ਕੋਈ ਟਰੈਕਿੰਗ ਨਹੀਂ, ਕੋਈ ਡਾਟਾ ਇਕੱਠਾ ਨਹੀਂ</string>
+    <!-- Text in About screen -->
     <string name="about_proposition_2">• ਬੈਟਰੀ ਦੀ ਕੋਈ ਖਪਤ ਨਹੀਂ, ਔਫਲਾਈਨ ਕੰਮ ਕਰਦਾ ਹੈ</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_3">• ਤੇਜ਼, ਨਿਊਨਤਮ, ਭਾਈਚਾਰੇ ਦੁਆਰਾ ਵਿਕਸਤ ਕੀਤਾ ਗਿਆ</string>
+    <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">ਉਤਸ਼ਾਹੀਆਂ ਅਤੇ ਵਲੰਟੀਅਰਾਂ ਦੁਆਰਾ ਬਣਾਈ ਗਈ ਓਪਨ-ਸੋਰਸ ਐਪਲੀਕੇਸ਼ਨ।</string>
+    <!-- The button that opens system location settings -->
     <string name="location_settings">ਲੋਕੇਸ਼ਨ ਸੈਟਿੰਗਾਂ</string>
     <string name="close">ਬੰਦ ਕਰੋ</string>
+    <string name="unsupported_phone">ਐਪ ਨੂੰ ਹਾਰਡਵੇਅਰ ਐਕਸਲਰੇਟਿਡ OpenGL ਦੀ ਲੋੜ ਹੈ। ਬਦਕਿਸਮਤੀ ਨਾਲ, ਤੁਹਾਡੀ ਡਿਵਾਈਸ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ।</string>
     <string name="download">ਡਾਊਨਲੋਡ</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable">ਆਰਗੈਨਿਕ ਮੈਪਸ ਦੀ ਵਰਤੋਂ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ USB ਕੇਬਲ ਡਿਸਕਨੈਕਟ ਕਰੋ ਜਾਂ ਮੈਮਰੀ ਕਾਰਡ ਪਾਓ</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="not_enough_free_space_on_sdcard">ਐਪ ਦੀ ਵਰਤੋਂ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ SD ਕਾਰਡ/USB ਸਟੋਰੇਜ \'ਤੇ ਕੁਝ ਜਗ੍ਹਾ ਖਾਲੀ ਕਰੋ</string>
+    <string name="download_resources">ਐਪ ਦੀ ਵਰਤੋਂ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ, ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਡਿਵਾਈਸ \'ਤੇ ਵਿਸ਼ਵ ਸੰਖੇਪ ਨਕਸ਼ਾ ਡਾਊਨਲੋਡ ਕਰੋ।
+\nਇਹ %s ਸਟੋਰੇਜ ਦੀ ਵਰਤੋਂ ਕਰੇਗਾ।</string>
     <string name="download_resources_continue">ਨਕਸ਼ੇ ਤੇ ਜਾਓ</string>
+    <string name="downloading_country_can_proceed">ਡਾਊਨਲੋਡ ਕਰ ਰਿਹਾ %s। ਤੁਸੀਂ ਹੁਣ
+\nਨਕਸ਼ੇ \'ਤੇ ਜਾ ਸਕਦੇ ਹੋ।</string>
     <string name="download_country_ask">ਡਾਊਨਲੋਡ %s?</string>
     <string name="update_country_ask">ਅੱਪਡੇਟ %s?</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="pause">ਵਿਰਾਮ</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">ਜਾਰੀ ਰੱਖੋ</string>
-    <string name="add_new_set">ਇੱਕ ਨਵੀਂ ਸੂਚੀ ਸ਼ਾਮਲ ਕਰੋ</string>
-    <string name="bookmark_set_name">ਸੂਚੀ ਦਾ ਨਾਮ ਬੁੱਕਮਾਰਕ ਕਰੋ</string>
-    <string name="bookmarks_and_tracks">ਬੁੱਕਮਾਰਕ ਅਤੇ ਟਰੈਕ</string>
-    <string name="name">ਨਾਮ</string>
-    <string name="address">ਪਤਾ</string>
-    <string name="settings">ਸੈਟਿੰਗਾਂ</string>
-    <string name="maps_storage">ਨਕਸ਼ੇ ਇੱਥੇ ਸੇਵ ਕਰੋ</string>
-    <string name="maps_storage_downloaded">ਡਾਊਨਲੋਡ ਕੀਤੇ ਨਕਸ਼ੇ</string>
-    <string name="cancel">ਰੱਦ ਕਰੋ</string>
-    <string name="download_has_failed">ਡਾਊਨਲੋਡ ਅਸਫਲ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਲਈ ਇੱਥੇ ਦੱਬੋ।</string>
-    <string name="disconnect_usb_cable">ਆਰਗੈਨਿਕ ਮੈਪਸ ਦੀ ਵਰਤੋਂ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ USB ਕੇਬਲ ਡਿਸਕਨੈਕਟ ਕਰੋ ਜਾਂ ਮੈਮਰੀ ਕਾਰਡ ਪਾਓ</string>
-    <string name="not_enough_free_space_on_sdcard">ਐਪ ਦੀ ਵਰਤੋਂ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ SD ਕਾਰਡ/USB ਸਟੋਰੇਜ \'ਤੇ ਕੁਝ ਜਗ੍ਹਾ ਖਾਲੀ ਕਰੋ</string>
-    <string name="download_resources">ਐਪ ਦੀ ਵਰਤੋਂ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ, ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਡਿਵਾਈਸ \'ਤੇ ਵਿਸ਼ਵ ਸੰਖੇਪ ਨਕਸ਼ਾ ਡਾਊਨਲੋਡ ਕਰੋ।\nਇਹ %s ਸਟੋਰੇਜ ਦੀ ਵਰਤੋਂ ਕਰੇਗਾ।</string>
+    <!-- Show popup notification on top of the map when country download has failed. -->
     <string name="download_country_failed">%s ਡਾਊਨਲੋਡ ਅਸਫਲ ਰਿਹਾ</string>
+    <!-- "Add new bookmark list" dialog title -->
+    <string name="add_new_set">ਇੱਕ ਨਵੀਂ ਸੂਚੀ ਸ਼ਾਮਲ ਕਰੋ</string>
+    <!-- Add Bookmark list dialog - hint when the list name is empty -->
+    <string name="bookmark_set_name">ਸੂਚੀ ਦਾ ਨਾਮ ਬੁੱਕਮਾਰਕ ਕਰੋ</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">ਬੁੱਕਮਾਰਕ</string>
+    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <string name="bookmarks_and_tracks">ਬੁੱਕਮਾਰਕ ਅਤੇ ਟਰੈਕ</string>
+    <!-- Add bookmark dialog - bookmark name -->
+    <string name="name">ਨਾਮ</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">ਪਤਾ</string>
+    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+    <string name="list">ਸੂਚੀ</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">ਸੈਟਿੰਗਾਂ</string>
+    <!-- Header of settings activity where user defines storage path -->
+    <string name="maps_storage">ਨਕਸ਼ੇ ਇੱਥੇ ਸੇਵ ਕਰੋ</string>
+    <!-- Detailed description of Maps Storage settings button -->
     <string name="maps_storage_summary">ਨਕਸ਼ੇ ਡਾਊਨਲੋਡ ਕਰਨ ਲਈ ਫੋਲਡਰ ਚੁਣੋ।</string>
+    <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+    <string name="maps_storage_downloaded">ਡਾਊਨਲੋਡ ਕੀਤੇ ਨਕਸ਼ੇ</string>
 </resources>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Strings -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">МБ</string>
     <string name="gb">ГБ</string>
@@ -28,9 +30,10 @@
     <string name="mi">ми</string>
     <!-- A unit of measure -->
     <string name="ft">фут</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Для відображення маршрутів карти необхідно оновити.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Вихід</string>
     <string name="core_entrance">Вхід</string>
     <string name="subway_data_unavailable">Мапа метрополітену недоступна</string>
-    <string name="routes_update_maps_text">Для відображення маршрутів карти необхідно оновити.</string>
 </resources>

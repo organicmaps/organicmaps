@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">Mi posición</string>
     <!-- Default bookmark list name -->
@@ -25,11 +30,10 @@
     <string name="mi">mi</string>
     <!-- A unit of measure -->
     <string name="ft">pie</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Para mostrar las rutas, debes actualizar los mapas.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Salida</string>
     <string name="core_entrance">Entrada</string>
     <string name="subway_data_unavailable">El mapa del metro no está disponible</string>
-    <string name="mb">MB</string>
-    <string name="gb">GB</string>
-    <string name="routes_update_maps_text">Para mostrar las rutas, debes actualizar los mapas.</string>
 </resources>

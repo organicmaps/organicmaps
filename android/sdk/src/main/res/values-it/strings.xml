@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">La mia posizione</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">I miei luoghi</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Memoria interna privata</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Memoria interna condivisa</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">Scheda SD</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Memoria esterna condivisa</string>
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
     <string name="category_wifi">WiFi</string>
     <string name="postal_code">Codice postale</string>
@@ -15,16 +28,12 @@
     <string name="km">km</string>
     <!-- abbreviation for mile(s) -->
     <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">ft</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Aggiornare le mappe per visualizzare i percorsi.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Uscita</string>
     <string name="core_entrance">Ingresso</string>
     <string name="subway_data_unavailable">La mappa della metropolitana non è disponibile</string>
-    <string name="ft">ft</string>
-    <string name="maps_storage_external">Memoria esterna condivisa</string>
-    <string name="maps_storage_internal">Memoria interna privata</string>
-    <string name="maps_storage_shared">Memoria interna condivisa</string>
-    <string name="maps_storage_removable">Scheda SD</string>
-    <string name="mb">MB</string>
-    <string name="gb">GB</string>
-    <string name="routes_update_maps_text">Aggiornare le mappe per visualizzare i percorsi.</string>
 </resources>

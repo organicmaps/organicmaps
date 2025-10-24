@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Strings -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">मेगाबाइट</string>
     <string name="gb">गीगाबाइट</string>

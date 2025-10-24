@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Strings -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">MB</string>
+    <string name="gb">GB</string>
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">Konumum</string>
     <!-- Default bookmark list name -->
@@ -27,10 +30,10 @@
     <string name="mi">mil</string>
     <!-- A unit of measure -->
     <string name="ft">fit</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Rotaları görüntülemek için haritalar güncellenmelidir.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Çık</string>
     <string name="core_entrance">Giriş</string>
     <string name="subway_data_unavailable">Metro haritası yok</string>
-    <string name="gb">GB</string>
-    <string name="routes_update_maps_text">Rotaları görüntülemek için haritalar güncellenmelidir.</string>
 </resources>

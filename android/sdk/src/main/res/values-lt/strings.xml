@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Strings -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">MB</string>
     <string name="gb">GB</string>
@@ -28,9 +30,10 @@
     <string name="mi">myl.</string>
     <!-- A unit of measure -->
     <string name="ft">pėd.</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Prieš parodant kelius, reikia atnaujinti žemėlapius.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Išėjimas</string>
     <string name="core_entrance">Įėjimas</string>
     <string name="subway_data_unavailable">Metro žemėlapis neprieinamas</string>
-    <string name="routes_update_maps_text">Prieš parodant kelius, reikia atnaujinti žemėlapius.</string>
 </resources>

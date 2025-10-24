@@ -1,475 +1,7 @@
-"use_cellular_data" = "Da";
-"downloader_download_map" = "Prenesi zemljevid";
-"prefs_group_route" = "Navigacija";
-"pref_map_auto_zoom" = "Samodejna povečava";
-"help" = "Pomoč";
-"donate" = "Doniraj";
-"cancel_download" = "Prekliči prenos";
-"download_maps" = "Prenesi zemljevide";
-"add_new_set" = "Dodaj nov seznam";
-"load_kmz_title" = "Nalaganje zaznamkov";
-"load_kmz_successful" = "Zaznamki so bili uspešno naloženi! Najdete jih na zemljevidu ali na zaslonu Upravitelja zaznamkov.";
-"pref_appearance_dark" = "Temna";
-"news" = "Novice";
-"downloading" = "Prenašanje…";
-"later" = "Kasneje";
-"placepage_distance" = "Razdalja";
-"pref_tts_street_names_description" = "Ko je omogočeno, bo ime ulice ali izvoza, na katerega je treba zaviti, izgovorjeno na glas.";
-"green" = "Zelena";
-"pink" = "Roza";
-"miles" = "Milje";
-"pref_zoom_title" = "Gumbi za povečavo";
-"yellow" = "Rumena";
-"cancel" = "Prekliči";
-"bookmark_sets" = "Seznami zaznamkov";
-"load_kmz_failed" = "Nalaganje zaznamkov ni uspelo. Datoteka je morda poškodovana ali okvarjena.";
-"share_my_location" = "Deli mojo lokacijo";
-"copied_to_clipboard" = "Kopirano v odložišče: %@";
-"pref_appearance_title" = "Videz";
-"red" = "Rdeča";
-"off" = "Izklopljeno";
-"facebook" = "Facebook";
-"pref_calibration_title" = "Umerjanje kompasa";
-"downloader_status_failed" = "Ni uspelo";
-"routing_requires_all_map" = "Za ustvarjanje poti je treba prenesti in posodobiti vse zemljevide od vaše lokacije do cilja.";
-"purple" = "Vijolična";
-"downloader_downloaded_subtitle" = "Preneseno";
-"faq" = "Pogosto zastavljena vprašanja";
-"delete" = "Izbriši";
-"kilometres" = "Kilometri";
-"core_my_position" = "Moj položaj";
-"search" = "Iskanje";
-"zoom_to_country" = "Pokaži na zemljevidu";
-"country_status_download_without_size" = "Prenesi zemljevid";
-"close" = "Zapri";
-"continue_button" = "Nadaljuj";
-"bookmark_set_name" = "Ime seznama zaznamkov";
-"bookmarks_and_tracks" = "Zaznamki in sledi";
-"settings" = "Nastavitve";
-"measurement_units" = "Merske enote";
-"email" = "E-pošta";
-"info" = "Info";
-"done" = "Končano";
-"tracks_title" = "Sledi";
-"pref_appearance_light" = "Svetla";
-"on" = "Vklopljeno";
-"pref_map_3d_buildings_title" = "3D zgradbe";
-"pref_tts_enable_title" = "Glasovna navodila";
-"pref_tts_street_names_title" = "Izgovori imena ulic";
-"pref_tts_other_section_title" = "Drugo";
-"search_show_on_map" = "Prikaži na zemljevidu";
-"website" = "Spletna stran";
-"downloader_available_maps" = "Na voljo";
-"downloader_queued" = "V čakalni vrsti";
-"downloader_near_me_subtitle" = "V bližini";
-"downloader_status_maps" = "Zemljevidi";
-"downloader_download_all_button" = "Prenesi vse";
-"downloader_downloading" = "Prenašanje:";
-"downloader_search_results" = "Najdeno";
-"downloader_status_outdated" = "Posodobi";
-"downloader_retry" = "Poskusi znova";
-"routing_download_maps_along" = "Prenesi vse zemljevide vzdolž poti";
-"bookmark" = "Zaznamek";
-"create" = "Ustvari";
-"orange" = "Oranžna";
-"brown" = "Rjava";
-"light_blue" = "Svetlo modra";
-"cyan" = "Cian";
-"download" = "Prenesi";
-"core_my_places" = "Moja mesta";
-"unknown_current_position" = "Vaša lokacija še ni bila določena";
-"auto" = "Samodejno";
-"address" = "Naslov";
-"blue" = "Modra";
-"length" = "Dolžina";
-"downloader_update_all_button" = "Posodobi vse";
-"long_tap_toast" = "Ponovno se dolgo dotaknite zemljevida, da vidite vmesnik";
-"pref_map_3d_title" = "Perspektivni pogled";
-"downloader_delete_map" = "Izbriši zemljevid";
-"save" = "Shrani";
-"edit" = "Uredi";
-"bookmarks" = "Zaznamki";
-"pref_map_3d_buildings_disabled_summary" = "3D zgradbe so onemogočene v načinu varčevanja z energijo";
-"leave_a_review" = "Pustite mnenje";
-"country_status_download_failed" = "Prenos ni uspel";
-"about_headline" = "Brezplačno za vse, narejeno z ljubeznijo";
-"about_proposition_1" = "• Brez oglasov, brez sledenja, brez zbiranja podatkov";
-"about_proposition_2" = "• Ne prazni baterije, deluje brez povezave";
-"about_proposition_3" = "• Hitro, minimalistično, razvito s strani skupnosti";
-"category_eat" = "Kje jesti";
-"category_food" = "Živila";
-"category_transport" = "Prevoz";
-"category_fuel" = "Bencin";
-"category_parking" = "Parkirišče";
-"category_shopping" = "Nakupovanje";
-"category_secondhand" = "Rabljeno";
-"category_hotel" = "Hotel";
-"category_tourism" = "Znamenitosti";
-"category_entertainment" = "Zabava";
-"category_atm" = "Bankomat";
-"category_nightlife" = "Nočno življenje";
-"category_children" = "Družinske počitnice";
-"category_bank" = "Banka";
-"category_pharmacy" = "Lekarna";
-"category_hospital" = "Bolnišnica";
-"category_toilet" = "Stranišče";
-"category_post" = "Pošta";
-"category_police" = "Policija";
-"category_wifi" = "WiFi";
-"category_recycling" = "Recikliranje";
-"category_water" = "Voda";
-"category_rv" = "Oprema za avtodome";
-"share_bookmarks_email_body" = "Živjo!\n\nV priponki so moji zaznamki; odprite jih v Organic Maps. Če aplikacije nimate nameščene, jo lahko prenesete tukaj: https://omaps.app/get?kmz\n\nUživajte v potovanju z Organic Maps!";
-"bookmark_share_email_subject" = "Hej, poglej moj žebljiček v Organic Maps!";
-"my_position_share_email_subject" = "Hej, poglej mojo trenutno lokacijo na zemljevidu Organic Maps!";
-"version" = "Različica Organic Maps: %@";
-"pref_tts_language_title" = "Jezik glasu";
-"pref_tts_test_voice_title" = "Preizkusi glasovna navodila (TTS, pretvorba besedila v govor)";
-"twitter" = "X (Twitter)";
-"instagram" = "Instagram";
-"vk" = "VK";
-"rate_the_app" = "Oceni aplikacijo";
-"donate_description" = "Donirajte za skupno gradnjo najboljših zemljevidov!";
-"already_donated" = "Že donirano";
-"remind_me_later" = "Opomni me kasneje";
-"support_organic_maps" = "Podprite Organic Maps";
-"copyright" = "Avtorske pravice";
-"report_a_bug" = "Prijavi napako";
-"report_incorrect_map_bug" = "Prijavite ali popravite napačne podatke zemljevida";
-"volunteer" = "Prostovoljec";
-"follow_us" = "Sledite nam in nas kontaktirajte:";
-"email_error_body" = "E-poštni odjemalec ni nastavljen. Prosimo, konfigurirajte ga ali nas kontaktirajte na %@";
-"email_error_title" = "Napaka pri pošiljanju e-pošte";
-"downloader_delete_map_while_routing_dialog" = "Za brisanje zemljevida ustavite navigacijo.";
-"routing_failed_cross_mwm_building" = "Poti je mogoče ustvariti le, če so v celoti znotraj zemljevida ene regije.";
-"deep_purple" = "Temno vijolična";
-"teal" = "Zelenomodra";
-"lime" = "Limeta";
-"deep_orange" = "Temno oranžna";
-"gray" = "Siva";
-"blue_gray" = "Modro siva";
-"dialog_routing_disclaimer_title" = "Pri sledenju poti upoštevajte:";
-"dialog_routing_disclaimer_priority" = "— Stanje na cestah, prometni predpisi in prometni znaki imajo vedno prednost pred navigacijskimi namigi";
-"dialog_routing_disclaimer_precision" = "— Zemljevid je lahko netočen in predlagana pot morda ni vedno najbolj optimalen način za dosego cilja";
-"dialog_routing_disclaimer_recommendations" = "— Predlagane poti je treba razumeti le kot priporočila";
-"dialog_routing_disclaimer_borders" = "— Bodite previdni pri poteh v obmejnih območjih: poti, ki jih ustvari naša aplikacija, lahko včasih prečkajo državne meje na nepooblaščenih mestih.";
-"dialog_routing_disclaimer_beware" = "Prosimo, bodite pozorni in varni na cestah!";
-"dialog_routing_check_gps" = "Preverite signal GPS";
-"dialog_routing_error_location_not_found" = "Poti ni mogoče ustvariti. Trenutnih koordinat GPS ni bilo mogoče določiti.";
-"dialog_routing_location_turn_wifi" = "Preverite signal GPS. Omogočanje Wi-Fi bo izboljšalo natančnost vaše lokacije.";
-"dialog_routing_location_turn_on" = "Omogočite lokacijske storitve";
-"dialog_routing_location_unknown_turn_on" = "Trenutnih koordinat GPS ni mogoče najti. Omogočite lokacijske storitve za izračun poti.";
-"dialog_routing_download_files" = "Prenesite zahtevane datoteke";
-"dialog_routing_download_and_update_all" = "Prenesite ali posodobite vse zemljevide vzdolž predvidene poti za izračun poti.";
-"dialog_routing_unable_locate_route" = "Poti ni mogoče najti";
-"dialog_routing_change_start_or_end" = "Prilagodite svojo začetno točko ali cilj.";
-"dialog_routing_change_start" = "Prilagodite začetno točko";
-"dialog_routing_start_not_determined" = "Pot ni bila ustvarjena. Začetne točke ni mogoče najti.";
-"dialog_routing_select_closer_start" = "Izberite začetno točko bližje cesti.";
-"dialog_routing_change_end" = "Prilagodite cilj";
-"dialog_routing_end_not_determined" = "Pot ni bila ustvarjena. Cilja ni mogoče najti.";
-"dialog_routing_select_closer_end" = "Izberite ciljno točko, ki se nahaja bližje cesti.";
-"dialog_routing_change_intermediate" = "Vmesne točke ni mogoče najti.";
-"dialog_routing_intermediate_not_determined" = "Prilagodite svojo vmesno točko.";
-"dialog_routing_system_error" = "Sistemska napaka";
-"dialog_routing_application_error" = "Poti ni mogoče ustvariti zaradi napake v aplikaciji.";
-"dialog_routing_try_again" = "Poskusite znova";
-"dialog_routing_download_and_build_cross_route" = "Ali želite prenesti zemljevid in ustvariti bolj optimalno pot, ki se razteza čez več kot en zemljevid?";
-"dialog_routing_download_cross_route" = "Prenesite dodatne zemljevide, da ustvarite boljšo pot, ki prečka meje tega zemljevida.";
-"show" = "Prikaži";
-"hide" = "Skrij";
-"routing_planning_error" = "Načrtovanje poti ni uspelo";
-"routing_arrive" = "Prihod ob %@";
-"dialog_routing_download_and_update_maps" = "Prenesite in posodobite vse zemljevide vzdolž predvidene poti za izračun poti.";
-"categories" = "Kategorije";
-"history" = "Zgodovina";
-"search_not_found" = "Ups, ni bilo najdenih rezultatov.";
-"search_not_found_query" = "Prenesite regijo, kjer iščete, ali poskusite dodati ime bližnjega mesta/vasi.";
-"search_history_title" = "Zgodovina iskanja";
-"search_history_text" = "Oglejte si svoja nedavna iskanja.";
-"clear_search" = "Počisti zgodovino iskanja";
-"read_in_wikipedia" = "Wikipedija";
-"wikimedia_commons" = "Wikimedia Commons";
-"p2p_your_location" = "Vaša lokacija";
-"p2p_start" = "Začetek";
-"p2p_from_here" = "Pot od";
-"p2p_to_here" = "Pot do";
-"p2p_only_from_current" = "Navigacija je na voljo samo z vaše trenutne lokacije.";
-"p2p_reroute_from_current" = "Ali želite načrtovati pot z vaše trenutne lokacije?";
-"editor_time_add" = "Dodaj urnik";
-"editor_time_delete" = "Izbriši urnik";
-"editor_time_allday" = "Ves dan (24 ur)";
-"editor_time_open" = "Odprto";
-"editor_time_close" = "Zaprto";
-"editor_time_add_closed" = "Dodaj neposlovni čas";
-"editor_time_title" = "Delovni čas";
-"editor_time_advanced" = "Napredni način";
-"editor_time_simple" = "Enostaven način";
-"editor_hours_closed" = "Neposlovni čas";
-"editor_example_values" = "Primeri vrednosti";
-"editor_add_select_location" = "Izberite lokacijo";
-"editor_done_dialog_1" = "Spremenili ste zemljevid sveta! Ne obdržite ga zase; povejte prijateljem in ga urejajte skupaj.";
-"share_with_friends" = "Deli s prijatelji";
-"editor_report_problem_send_button" = "Pošlji";
-"autodownload" = "Samodejni prenos zemljevidov";
-"closed_now" = "Trenutno zaprto";
-"daily" = "Dnevno";
-"twentyfour_seven" = "24/7";
-"day_off_today" = "Danes zaprto";
-"day_off" = "Zaprto";
-"today" = "Danes";
-"opens_tomorrow_at" = "Odpira se jutri ob %@";
-"opens_dayoftheweek_at" = "Odpira se %1$@ ob %2$@";
-"opens_at" = "Odpira se ob %@";
-"opens_in" = "Odpira se čez %@";
-"closes_at" = "Zapira se ob %@";
-"closes_in" = "Zapira se čez %@";
-"closed" = "Zaprto";
-"add_opening_hours" = "Dodaj delovni čas";
-"no_osm_account" = "Nimate računa OpenStreetMap?";
-"register_at_openstreetmap" = "Registrirajte se na OpenStreetMap";
-"password_8_chars_min" = "Geslo (najmanj 8 znakov)";
-"invalid_username_or_password" = "Neveljavno uporabniško ime ali geslo.";
-"login" = "Prijava";
-"login_osm" = "Prijavite se v OpenStreetMap";
-"forgot_password" = "Ste pozabili geslo?";
-"osm_account" = "Račun OSM";
-"logout" = "Odjava";
-"last_upload" = "Zadnje nalaganje";
-"thank_you" = "Hvala";
-"edit_place" = "Uredi mesto";
-"place_name" = "Ime mesta";
-"add_language" = "Dodaj jezik";
-"house_number" = "Hišna številka";
-"details" = "Podrobnosti";
-"add_street" = "Dodaj ulico";
-"choose_language" = "Izberite jezik";
-"choose_street" = "Izberite ulico";
-"postal_code" = "Poštna številka";
-"cuisine" = "Kuhinja";
-"select_cuisine" = "Izberite kuhinjo";
-"email_or_username" = "E-pošta ali uporabniško ime";
-"phone" = "Telefon";
-"level" = "Nadstropje";
-"please_note" = "Prosimo, upoštevajte";
-"downloader_delete_map_dialog" = "Vsa vaša urejanja zemljevida bodo izbrisana skupaj z zemljevidom.";
-"downloader_update_maps" = "Posodobi zemljevide";
-"downloader_search_field_hint" = "Najdi zemljevid";
-"migration_download_error_dialog" = "Napaka pri prenosu";
-"common_check_internet_connection_dialog" = "Prepričajte se, da je vaša naprava povezana z internetom.";
-"downloader_no_space_title" = "Ni dovolj prostora";
-"downloader_no_space_message" = "Izbrišite nepotrebne podatke";
-"editor_profile_changes" = "Preverjene spremembe";
-"editor_focus_map_on_location" = "Povlecite zemljevid, da postavite križec na lokacijo mesta ali podjetja.";
-"editor_add_select_category" = "Izberite kategorijo";
-"editor_add_select_category_popular_subtitle" = "Priljubljeno";
-"editor_add_select_category_all_subtitle" = "Vse kategorije";
-"editor_edit_place_title" = "Urejanje";
-"editor_add_place_title" = "Dodajanje";
-"editor_edit_place_name_hint" = "Ime mesta";
-"editor_default_language_hint" = "Kot je napisano v lokalnem jeziku";
-"editor_edit_place_category_title" = "Kategorija";
-"whatsnew_editor_message_1" = "Dodajte nova mesta na zemljevid in urejajte obstoječa neposredno iz aplikacije.";
-"dialog_incorrect_feature_position" = "Spremeni lokacijo";
-"message_invalid_feature_position" = "Tukaj ni mogoče locirati nobenega objekta";
-"osm_presentation" = "Podatki OpenStreetMap, ki jih je ustvarila skupnost, od %@. Več o tem, kako urejati in posodabljati zemljevid, preberite na OpenStreetMap.org";
-"login_to_make_edits_visible" = "Ustvarite račun OpenStreetMap ali se prijavite, da objavite svoja urejanja zemljevida svetu.";
-"migration_no_space_message" = "Za prenos potrebujete več prostora. Izbrišite nepotrebne podatke.";
-"editor_sharing_title" = "Izboljšal sem zemljevide Organic Maps";
-"downloader_of" = "%1$d od %2$d";
-"download_over_mobile_header" = "Prenesem prek mobilne omrežne povezave?";
-"download_over_mobile_message" = "To je lahko pri nekaterih paketih ali gostovanju precej drago.";
-"error_enter_correct_house_number" = "Vnesite veljavno hišno številko";
-"editor_storey_number" = "Število nadstropij (največ %d)";
-"error_enter_correct_storey_number" = "Število nadstropij ne sme presegati %d";
-"editor_zip_code" = "Poštna številka";
-"error_enter_correct_zip_code" = "Vnesite veljavno poštno številko";
-"core_placepage_unknown_place" = "Točka na zemljevidu";
-"editor_other_info" = "Opomba za prostovoljce OpenStreetMap (neobvezno)";
-"editor_detailed_description_hint" = "Podroben komentar";
-"editor_detailed_description" = "Vaše predlagane spremembe zemljevida bodo poslane skupnosti OpenStreetMap. Prosimo, opišite vse dodatne podrobnosti, ki jih ni mogoče urejati v Organic Maps.";
-"editor_more_about_osm" = "Več o OpenStreetMap";
-"editor_operator" = "Upravljavec";
-"operator" = "Upravljavec: %@";
-"editor_category_unsuitable_title" = "Ne najdete primerne kategorije?";
-"editor_category_unsuitable_text" = "Organic Maps omogoča dodajanje samo preprostih točkovnih kategorij, kar pomeni, da ni mest, cest, jezer, obrisov zgradb itd. Takšne kategorije dodajte neposredno na <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Preverite naš <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">vodnik</a> za podrobna navodila po korakih.";
-"downloader_no_downloaded_maps_title" = "Niste prenesli nobenega zemljevida";
-"downloader_no_downloaded_maps_message" = "Prenesite zemljevide za iskanje in navigacijo brez povezave.";
-"current_location_unknown_error_title" = "Trenutna lokacija ni znana.";
-"current_location_unknown_error_message" = "Pri določanju vaše lokacije je prišlo do napake. Preverite, ali vaša naprava deluje pravilno, in poskusite znova pozneje.";
-"location_services_disabled_header" = "Lokacijske storitve so onemogočene";
-"location_services_disabled_message" = "Omogočite dostop do geolokacije v nastavitvah naprave";
-"location_services_disabled_1" = "1. Odprite Nastavitve";
-"location_services_disabled_2" = "2. Dotaknite se Lokacija";
-"location_services_disabled_3" = "3. Izberite Med uporabo aplikacije";
-"location_services_disabled_on_device_2" = "2. Izberite Zasebnost";
-"location_services_disabled_on_device_3" = "3. Izberite Lokacijske storitve";
-"location_services_disabled_on_device_4" = "4. Vklopite Lokacijske storitve";
-"location_services_disabled_on_device_additional_message" = "Ali pa nadaljujte z uporabo Organic Maps brez lokacije";
-"m" = "m";
-"km" = "km";
-"kilometers_per_hour" = "km/h";
-"mi" = "mi";
-"ft" = "ft";
-"miles_per_hour" = "mph";
-"hour" = "h";
-"minute" = "min";
-"day" = "d";
-"placepage_more_button" = "Več";
-"book_button" = "Rezerviraj";
-"placepage_call_button" = "Kliči";
-"placepage_edit_bookmark_button" = "Uredi zaznamek";
-"placepage_bookmark_name_hint" = "Ime zaznamka";
-"placepage_personal_notes_hint" = "Osebne opombe (besedilo ali html)";
-"placepage_delete_bookmark_button" = "Izbriši zaznamek";
-"editor_edits_sent_message" = "Vaša opomba bo poslana v OpenStreetMap";
-"editor_comment_hint" = "Komentar…";
-"editor_reset_edits_message" = "Zavrnem vse lokalne spremembe?";
-"editor_reset_edits_button" = "Zavrzi";
-"editor_remove_place_message" = "Izbrišem dodano mesto?";
-"editor_remove_place_button" = "Izbriši";
-"editor_place_doesnt_exist" = "Mesto ne obstaja";
-"text_more_button" = "…več";
-"error_enter_correct_phone" = "Vnesite veljavno telefonsko številko";
-"error_enter_correct_web" = "Vnesite veljaven spletni naslov";
-"error_enter_correct_email" = "Vnesite veljaven e-poštni naslov";
-"refresh" = "Posodobi";
-"placepage_add_place_button" = "Dodaj mesto v OpenStreetMap";
-"editor_share_to_all_dialog_title" = "Ali želite to poslati vsem uporabnikom?";
-"editor_share_to_all_dialog_message_1" = "Prepričajte se, da niste vnesli nobenih zasebnih ali osebnih podatkov.";
-"editor_share_to_all_dialog_message_2" = "Uredniki OpenStreetMap bodo preverili spremembe in vas kontaktirali, če bodo imeli kakršna koli vprašanja.";
-"navigation_stop_button" = "Ustavi";
-"recent_track_background_dialog_title" = "Onemogočim snemanje vaše nedavno prevožene poti?";
-"off_recent_track_background_button" = "Onemogoči";
-"sharing_call_action_look" = "Poglej";
-"recent_track_background_dialog_message" = "Organic Maps uporablja vašo lokacijo v ozadju za snemanje vaše nedavno prevožene poti.";
-"general_settings" = "Splošne nastavitve";
-"accept" = "Sprejmi";
-"decline" = "Zavrni";
-"mobile_data_dialog" = "Uporabim mobilni internet za prikaz podrobnih informacij?";
-"mobile_data_option_always" = "Vedno uporabi";
-"mobile_data_option_today" = "Samo danes";
-"mobile_data_option_not_today" = "Danes ne uporabi";
-"mobile_data" = "Mobilni internet";
-"mobile_data_description" = "Mobilni internet je potreben za obvestila o posodobitvah zemljevidov in nalaganje urejanj.";
-"mobile_data_option_never" = "Nikoli ne uporabi";
-"mobile_data_option_ask" = "Vedno vprašaj";
-"traffic_update_maps_text" = "Za prikaz podatkov o prometu je treba posodobiti zemljevide.";
-"big_font" = "Povečaj velikost oznak na zemljevidu";
-"traffic_update_app_message" = "Za prikaz podatkov o prometu je treba posodobiti aplikacijo.";
-"traffic_data_unavailable" = "Podatki o prometu niso na voljo";
-"enable_logging" = "Omogoči beleženje";
-"log_file_size" = "Velikost datoteke dnevnika: %@";
-"transliteration_title" = "Transliteriraj v latinico";
-"core_exit" = "Izhod";
-"planning_route_manage_route" = "Upravljaj pot";
-"button_plan" = "Načrtuj";
-"placepage_remove_stop" = "Odstrani postanek";
-"planning_route_remove_title" = "Povlecite sem za odstranitev";
-"placepage_add_stop" = "Dodaj postanek";
-"start_from_my_position" = "Začni od";
-"alert_reauth_message_ios" = "Prijavite se v OpenStreetMap, da samodejno naložite vsa svoja urejanja zemljevida. Več o tem";
-"alert_reauth_link_text_ios" = "tukaj";
-"core_entrance" = "Vhod";
-"error_enter_correct_name" = "Vnesite pravilno ime";
-"bookmark_lists" = "Seznami";
-"bookmark_lists_hide_all" = "Skrij vse";
-"bookmark_lists_show_all" = "Prikaži vse";
-"bookmarks_create_new_group" = "Ustvari nov seznam";
-"bookmarks_import" = "Uvozi zaznamke in sledi";
-"downloader_hide_screen" = "Skrij zaslon";
-"downloader_percent" = "%@ (%@ od %@)";
-"downloader_process" = "Prenašanje %@…";
-"downloader_applying" = "Uporaba %@…";
-"bookmarks_error_message_share_general" = "Deljenje ni mogoče zaradi napake v aplikaciji";
-"bookmarks_error_title_share_empty" = "Napaka pri deljenju";
-"bookmarks_error_message_share_empty" = "Praznega seznama ni mogoče deliti";
-"bookmarks_error_message_empty_list_name" = "Vnesite ime seznama";
-"bookmarks_error_title_list_name_already_taken" = "To ime je že zasedeno";
-"bookmarks_error_title_list_name_too_long" = "To ime je predolgo";
-"profile" = "Profil OpenStreetMap";
-"bookmarks_detect_title" = "Zaznane nove datoteke";
-"button_convert" = "Pretvori";
-"bookmarks_convert_error_title" = "Napaka";
-"bookmarks_convert_error_message" = "Nekatere datoteke niso bile pretvorjene.";
-"restore" = "Obnovi";
-"privacy_policy" = "Politika zasebnosti";
-"terms_of_use" = "Pogoji uporabe";
-"button_layer_subway" = "Podzemna železnica";
-"layers_title" = "Slogi in plasti zemljevida";
-"subway_data_unavailable" = "Zemljevid podzemne železnice ni na voljo";
-"title_error_downloading_bookmarks" = "Prišlo je do napake";
-"popular_place" = "Priljubljeno";
-"export_file" = "Izvozi KMZ";
-"export_file_gpx" = "Izvozi GPX";
-"delete_list" = "Izbriši seznam";
-"hide_from_map" = "Skrij z zemljevida";
-"tags_loading_error_subtitle" = "Pri nalaganju oznak je prišlo do napake, poskusite znova";
-"download_button" = "Prenesi";
-"speedcams_alert_title" = "Radarji";
-"place_description_title" = "Opis mesta";
-"pref_tts_speedcams_auto" = "Opozori ob prekoračitvi hitrosti";
-"pref_tts_speedcams_always" = "Vedno opozori";
-"pref_tts_speedcams_never" = "Nikoli ne opozori";
-"power_managment_title" = "Način varčevanja z energijo";
-"power_managment_description" = "Poskusite zmanjšati porabo energije na račun nekaterih funkcionalnosti.";
-"power_managment_setting_never" = "Nikoli";
-"power_managment_setting_auto" = "Ko je baterija skoraj prazna";
-"power_managment_setting_manual_max" = "Vedno";
-"enable_logging_warning_message" = "To možnost omogočite začasno, da posnamete in nam ročno pošljete podrobne diagnostične dnevnike o vaši težavi z uporabo \"Prijavi napako\" v pogovornem oknu Pomoč. Dnevniki lahko vključujejo podatke o lokaciji.";
-"driving_options_title" = "Možnosti načrtovanja poti";
-"avoid_tolls" = "Izogibaj se cestninam";
-"avoid_unpaved" = "Izogibaj se makadamu";
-"avoid_ferry" = "Izogibaj se trajektom";
-"avoid_motorways" = "Izogibaj se avtocestam";
-"unable_to_calc_alert_title" = "Poti ni mogoče izračunati";
-"unable_to_calc_alert_subtitle" = "Poti ni bilo mogoče najti. To je lahko posledica vaših možnosti načrtovanja poti ali nepopolnih podatkov OpenStreetMap. Spremenite možnosti načrtovanja poti in poskusite znova.";
-"define_to_avoid_btn" = "Določite ceste, ki se jim želite izogniti";
-"change_driving_options_btn" = "Možnosti načrtovanja poti omogočene";
-"toll_road" = "Cestninska cesta";
-"unpaved_road" = "Makadamska cesta";
-"ferry_crossing" = "Prečkanje s trajektom";
-"trip_start" = "Gremo";
-"pick_destination" = "Cilj";
-"follow_my_position" = "Ponovno centriraj";
-"search_results" = "Rezultati iskanja";
-"then_turn" = "Nato";
-"redirect_route_alert" = "Ali želite ponovno zgraditi pot?";
-"yes" = "Da";
-"no" = "Ne";
-"yes_available" = "Da";
-"no_available" = "Ne";
-"capacity" = "Kapaciteta: %@";
-"network" = "Omrežje: %@";
-"trip_finished" = "Prispeli ste!";
-"keyboard_availability_alert" = "Tipkovnica med vožnjo ni na voljo";
-"dialog_routing_change_start_carplay" = "Poti z vaše trenutne lokacije ni mogoče zgraditi";
-"dialog_routing_change_end_carplay" = "Poti do vašega cilja ni mogoče najti. Izberite drugo končno točko";
-"dialog_routing_check_gps_carplay" = "Ni signala GPS. Premaknite se na odprto območje";
-"dialog_routing_unable_locate_route_carplay" = "Poti ni mogoče zgraditi. Določite druge točke poti";
-"dialog_routing_download_files_carplay" = "Za ustvarjanje poti prenesite manjkajoče zemljevide na svojo napravo";
-"dialog_routing_system_error_carplay" = "Prišlo je do napake. Znova zaženite aplikacijo";
-"dialog_routing_rebuild_from_current_location_carplay" = "Pot bo ponovno zgrajena z vaše trenutne lokacije";
-"dialog_routing_rebuild_for_vehicle_carplay" = "Pot bo pretvorjena v avtomobilsko";
-"not_all_shown_bookmarks_carplay" = "Niso prikazani vsi zaznamki";
-"switch_to_phone_bookmarks_carplay" = "Preklopite na telefon, da vidite vse zaznamke";
-"ok" = "V redu";
-"speedcams_alert_title_carplay_1" = "Radarji";
-"speedcams_alert_title_carplay_2" = "Opozorila o hitrosti";
-"download_map_carplay" = "Prenesite zemljevide v aplikaciji na vaši mobilni napravi";
-"carplay_roundabout_exit" = "%@ izvoz";
-"sort" = "Razvrsti…";
-"sort_default" = "Razvrsti privzeto";
-"sort_type" = "Razvrsti po vrsti";
-"sort_distance" = "Razvrsti po razdalji";
-"sort_date" = "Razvrsti po datumu";
-"sort_name" = "Razvrsti po imenu";
-"week_ago_sorttype" = "Pred enim tednom";
-"month_ago_sorttype" = "Pred enim mesecem";
-"moremonth_ago_sorttype" = "Pred več kot mesecem dni";
-"moreyear_ago_sorttype" = "Pred več kot letom dni";
-"near_me_sorttype" = "V bližini";
-"others_sorttype" = "Drugo";
+
+
+/********** Bookmark types used for sorting **********/
+
 "food_places" = "Hrana";
 "tourist_places" = "Znamenitosti";
 "museums" = "Muzeji";
@@ -492,662 +24,1075 @@
 "button_layer_isolines" = "Plastnice";
 "isolines_activation_error_dialog" = "Aktiviranje plastnic zahteva prenos podatkov zemljevida za to območje";
 "isolines_location_error_dialog" = "Plastnice na tem območju še niso na voljo";
-"elevation_profile_diff_level" = "Težavnost";
-"elevation_profile_diff_level_easy" = "Lahka";
-"elevation_profile_diff_level_moderate" = "Zmerna";
-"elevation_profile_diff_level_hard" = "Težka";
 "elevation_profile_ascent" = "Vzpon";
 "elevation_profile_descent" = "Spust";
 "elevation_profile_min_elevation" = "Min. višina";
 "elevation_profile_max_elevation" = "Maks. višina";
 "isolines_toast_zooms_1_10" = "Povečajte za raziskovanje plastnic";
-"downloader_updating_ios" = "Posodabljanje";
 "downloader_loading_ios" = "Prenašanje";
-"whats_new_auto_update_title" = "Posodobi prenesene zemljevide";
-"whats_new_auto_update_message" = "Posodabljanje zemljevidov ohranja informacije o objektih ažurne";
-"whats_new_auto_update_button_size" = "Posodobi (%@)";
-"whats_new_auto_update_button_later" = "Ročno posodobi kasneje";
-"placepage_delete_track_button" = "Izbriši sled";
-"placepage_delete_track_confirmation_alert_message" = "Ste prepričani, da želite izbrisati to sled?";
-"placepage_track_name_hint" = "Ime sledi";
-"move" = "Premakni";
-"track_title" = "Sled";
+
+/* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/sl/";
+
+/* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
 "app_tip_00" = "Hvala, ker uporabljate naše zemljevide, ki jih je ustvarila skupnost!";
+
+/* App tip #01 */
 "app_tip_01" = "Z vašimi donacijami in podporo lahko ustvarimo najboljše zemljevide na svetu!";
+
+/* App tip #02 */
 "app_tip_02" = "Vam je všeč naša aplikacija? Prosimo, donirajte za podporo razvoju! Vam še ni všeč? Sporočite nam, zakaj, in popravili bomo!";
+
+/* App tip #03 */
 "app_tip_03" = "Če poznate razvijalca programske opreme, ga lahko prosite, da implementira funkcijo, ki jo potrebujete.";
+
+/* App tip #04 */
 "app_tip_04" = "Dotaknite se kjerkoli na zemljevidu, da izberete karkoli. Dolg dotik se uporablja za skrivanje in prikaz vmesnika.";
+
+/* App tip #05 */
 "app_tip_05" = "Ali ste vedeli, da je mogoče izbrati vašo trenutno lokacijo na zemljevidu?";
+
+/* App tip #06 */
 "app_tip_06" = "Lahko pomagate prevesti našo aplikacijo v vaš jezik.";
+
+/* App tip #07 */
 "app_tip_07" = "Našo aplikacijo razvija nekaj navdušencev in skupnost.";
+
+/* App tip #08 */
 "app_tip_08" = "Podatke zemljevida lahko enostavno popravite in izboljšate.";
+
+/* App tip #09 */
 "app_tip_09" = "Naš glavni cilj je zgraditi hitre, zasebnosti prijazne in enostavne zemljevide, ki jih boste vzljubili.";
+
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Zdaj uporabljate Organic Maps na zaslonu telefona";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
 "car_used_on_the_car_screen" = "Zdaj uporabljate Organic Maps na zaslonu avtomobila";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Nadaljuj na telefonu";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
 "car_continue_in_the_car" = "Na zaslon avtomobila";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Na prostem";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Izvozi vse zaznamke in sledi";
-"change_color" = "Spremeni barvo";
-"map" = "Zemljevid";
 "drive_through" = "Drive-through";
+
+/* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Povezava do menija";
-"bugreport_alert_message" = "Ali želite poslati poročilo o napaki razvijalcem?\nZanašamo se na naše uporabnike, saj Organic Maps ne zbira samodejno nobenih informacij o napakah. Hvala vnaprej za podporo Organic Maps!";
-"enable_icloud_synchronization_title" = "Omogoči sinhronizacijo z iCloud";
-"enable_icloud_synchronization_message" = "Sinhronizacija z iCloud je eksperimentalna funkcija v razvoju. Prepričajte se, da ste naredili varnostno kopijo vseh svojih zaznamkov in sledi.";
-"icloud_disabled_title" = "iCloud je onemogočen";
-"icloud_disabled_message" = "Za uporabo te funkcije omogočite iCloud v nastavitvah naprave.";
-"enable" = "Omogoči";
-"backup" = "Varnostna kopija";
-"icloud_synchronization_error_alert_title" = "Napaka pri sinhronizaciji z iCloud";
-"icloud_synchronization_error_connection_error" = "Napaka: Sinhronizacija ni uspela zaradi napake v povezavi";
-"icloud_synchronization_error_quota_exceeded" = "Napaka: Sinhronizacija ni uspela zaradi presežene kvote iCloud";
-"icloud_synchronization_error_cloud_is_unavailable" = "Napaka: iCloud ni na voljo";
+
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Odpri v drugi aplikaciji";
+
+/* To indicate if the place proposed self service... */
 "self_service" = "Samopostrežba";
+
+/* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "Sedenje na prostem";
-"bookmarks_recently_deleted" = "Nedavno izbrisani seznami";
-"clear" = "Počisti";
-"delete_all" = "Izbriši vse";
-"recover" = "Obnovi";
-"recover_all" = "Obnovi vse";
+
+/* Prompt to start recording a track. */
 "start_track_recording" = "Snemaj sled";
+
+/* Prompt for stopping a track recording. */
 "stop_track_recording" = "Ustavi snemanje sledi";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Sled je prazna - ničesar za shraniti";
 "edit_track" = "Uredi sled";
-"saved" = "Shranjeno";
-"button_layer_hiking" = "Pohodništvo";
-"button_layer_cycling" = "Kolesarjenje";
-"bookmarks_text_placement_title" = "Imena zaznamkov na zemljevidu";
-"bookmarks_text_placement_description" = "Če je zaznamkov preveč, lahko prikaz njihovih imen na zemljevidu upočasni aplikacijo.";
-"show_to_the_right" = "Prikaži na desni";
-"show_at_the_bottom" = "Prikaži na dnu";
-"right" = "Desno";
-"bottom" = "Dno";
-"routes_update_maps_text" = "Za prikaz poti je treba posodobiti zemljevide.";
-"placepage_replace_stop" = "Zamenjaj postanek";
+"elevation_profile_diff_level" = "Težavnost";
+"elevation_profile_diff_level_easy" = "Lahka";
+"elevation_profile_diff_level_moderate" = "Zmerna";
+"elevation_profile_diff_level_hard" = "Težka";
+"downloader_updating_ios" = "Posodabljanje";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Posodobi prenesene zemljevide";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Posodabljanje zemljevidov ohranja informacije o objektih ažurne";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Posodobi (%@)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Ročno posodobi kasneje";
+
+/* Delete track button on track edit screen */
+"placepage_delete_track_button" = "Izbriši sled";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Ste prepričani, da želite izbrisati to sled?";
+
+/* Placeholder for track name input on track edit screen */
+"placepage_track_name_hint" = "Ime sledi";
+
+/* move track or bookmark from the list button text */
+"move" = "Premakni";
+
+/* edit track screen title */
+"track_title" = "Sled";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Spremeni barvo";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "Zemljevid";
+
+/* Message for the bug report alert. */
+"bugreport_alert_message" = "Ali želite poslati poročilo o napaki razvijalcem?\nZanašamo se na naše uporabnike, saj Organic Maps ne zbira samodejno nobenih informacij o napakah. Hvala vnaprej za podporo Organic Maps!";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Omogoči sinhronizacijo z iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Sinhronizacija z iCloud je eksperimentalna funkcija v razvoju. Prepričajte se, da ste naredili varnostno kopijo vseh svojih zaznamkov in sledi.";
+
+/* Title for the "iCloud Is Disabled" alert. */
+"icloud_disabled_title" = "iCloud je onemogočen";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Za uporabo te funkcije omogočite iCloud v nastavitvah naprave.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Omogoči";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Varnostna kopija";
+
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "Napaka pri sinhronizaciji z iCloud";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Napaka: Sinhronizacija ni uspela zaradi napake v povezavi";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Napaka: Sinhronizacija ni uspela zaradi presežene kvote iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Napaka: iCloud ni na voljo";
+
+/* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
+"bookmarks_recently_deleted" = "Nedavno izbrisani seznami";
+
+/* Title for the "Clear" button on the Recently Deleted Lists screen. */
+"clear" = "Počisti";
+
+/* Title for the "Delete All" button on the Recently Deleted Lists screen. */
+"delete_all" = "Izbriši vse";
+
+/* Title for the "Recover" button on the Recently Deleted Lists screen. */
+"recover" = "Obnovi";
+
+/* Title for the "Recover All" button on the Recently Deleted Lists screen. */
+"recover_all" = "Obnovi vse";
+
+/* OpenStreetMap contribution section on the PlacePage. */
 "contribute_to_osm" = "Prispevajte k OpenStreetMap";
 "contribute_to_osm_add_place" = "Dodaj mesto";
 "contribute_to_osm_update_map" = "Posodobite zemljevid za prispevanje";
 "contribute_to_osm_update_map_description" = "Preden lahko prispevate k podatkom OpenStreetMap, morate posodobiti zemljevid %@ na najnovejšo različico";
-// filepath: /Users/alex/Developer/omim/omim/iphone/Maps/LocalizedStrings/sl.lproj/Localizable.strings
-"use_cellular_data" = "Da";
-"downloader_download_map" = "Prenesi zemljevid";
-"prefs_group_route" = "Navigacija";
-"pref_map_auto_zoom" = "Samodejna povečava";
-"help" = "Pomoč";
-"donate" = "Doniraj";
-"cancel_download" = "Prekliči prenos";
-"download_maps" = "Prenesi zemljevide";
-"add_new_set" = "Dodaj nov seznam";
+
+
+/********** Strings for downloading map from search **********/
+
+
+/* «Show» context menu */
+"show" = "Prikaži";
+
+/* «Hide» context menu */
+"hide" = "Skrij";
+"categories" = "Kategorije";
+"history" = "Zgodovina";
+"search_not_found" = "Ups, ni bilo najdenih rezultatov.";
+
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Prenesite regijo, kjer iščete, ali poskusite dodati ime bližnjega mesta/vasi.";
+"search_history_title" = "Zgodovina iskanja";
+"search_history_text" = "Oglejte si svoja nedavna iskanja.";
+"clear_search" = "Počisti zgodovino iskanja";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedija";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
+"p2p_your_location" = "Vaša lokacija";
+"p2p_start" = "Začetek";
+"p2p_from_here" = "Pot od";
+"p2p_to_here" = "Pot do";
+"p2p_only_from_current" = "Navigacija je na voljo samo z vaše trenutne lokacije.";
+"p2p_reroute_from_current" = "Ali želite načrtovati pot z vaše trenutne lokacije?";
+"editor_time_add" = "Dodaj urnik";
+"editor_time_delete" = "Izbriši urnik";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Ves dan (24 ur)";
+"editor_time_open" = "Odprto";
+"editor_time_close" = "Zaprto";
+"editor_time_add_closed" = "Dodaj neposlovni čas";
+"editor_time_title" = "Delovni čas";
+"editor_time_advanced" = "Napredni način";
+"editor_time_simple" = "Enostaven način";
+"editor_hours_closed" = "Neposlovni čas";
+"editor_example_values" = "Primeri vrednosti";
+"editor_add_select_location" = "Izberite lokacijo";
+"editor_report_problem_send_button" = "Pošlji";
+"autodownload" = "Samodejni prenos zemljevidov";
+
+/* Place Page opening hours text */
+"daily" = "Dnevno";
+"twentyfour_seven" = "24/7";
+"day_off_today" = "Danes zaprto";
+"day_off" = "Zaprto";
+"today" = "Danes";
+"opens_in" = "Odpira se čez %@";
+"closes_in" = "Zapira se čez %@";
+"closed" = "Zaprto";
+"no_osm_account" = "Nimate računa OpenStreetMap?";
+"register_at_openstreetmap" = "Registrirajte se na OpenStreetMap";
+"login" = "Prijava";
+"login_osm" = "Prijavite se v OpenStreetMap";
+"forgot_password" = "Ste pozabili geslo?";
+"logout" = "Odjava";
+"edit_place" = "Uredi mesto";
+"add_language" = "Dodaj jezik";
+
+/* Editable House Number text field (in address block). */
+"house_number" = "Hišna številka";
+"details" = "Podrobnosti";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Dodaj ulico";
+"choose_language" = "Izberite jezik";
+"choose_street" = "Izberite ulico";
+"cuisine" = "Kuhinja";
+"select_cuisine" = "Izberite kuhinjo";
+
+/* login text field */
+"email_or_username" = "E-pošta ali uporabniško ime";
+"level" = "Nadstropje";
+"downloader_delete_map_dialog" = "Vsa vaša urejanja zemljevida bodo izbrisana skupaj z zemljevidom.";
+"downloader_update_maps" = "Posodobi zemljevide";
+"downloader_search_field_hint" = "Najdi zemljevid";
+"common_check_internet_connection_dialog" = "Prepričajte se, da je vaša naprava povezana z internetom.";
+"downloader_no_space_title" = "Ni dovolj prostora";
+"downloader_no_space_message" = "Izbrišite nepotrebne podatke";
+"editor_profile_changes" = "Preverjene spremembe";
+"editor_focus_map_on_location" = "Povlecite zemljevid, da postavite križec na lokacijo mesta ali podjetja.";
+"editor_edit_place_title" = "Urejanje";
+"editor_add_place_title" = "Dodajanje";
+"editor_edit_place_name_hint" = "Ime mesta";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Kot je napisano v lokalnem jeziku";
+"editor_edit_place_category_title" = "Kategorija";
+"message_invalid_feature_position" = "Tukaj ni mogoče locirati nobenega objekta";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Podatki OpenStreetMap, ki jih je ustvarila skupnost, od %@. Več o tem, kako urejati in posodabljati zemljevid, preberite na OpenStreetMap.org";
+"login_to_make_edits_visible" = "Ustvarite račun OpenStreetMap ali se prijavite, da objavite svoja urejanja zemljevida svetu.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d od %2$d";
+"download_over_mobile_header" = "Prenesem prek mobilne omrežne povezave?";
+"download_over_mobile_message" = "To je lahko pri nekaterih paketih ali gostovanju precej drago.";
+"error_enter_correct_house_number" = "Vnesite veljavno hišno številko";
+"editor_storey_number" = "Število nadstropij (največ %d)";
+
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Število nadstropij ne sme presegati %d";
+"editor_zip_code" = "Poštna številka";
+"error_enter_correct_zip_code" = "Vnesite veljavno poštno številko";
+
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Opomba za prostovoljce OpenStreetMap (neobvezno)";
+"editor_more_about_osm" = "Več o OpenStreetMap";
+"editor_operator" = "Upravljavec";
+
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Upravljavec: %@";
+"editor_category_unsuitable_title" = "Ne najdete primerne kategorije?";
+"editor_category_unsuitable_text" = "Organic Maps omogoča dodajanje samo preprostih točkovnih kategorij, kar pomeni, da ni mest, cest, jezer, obrisov zgradb itd. Takšne kategorije dodajte neposredno na <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Preverite naš <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">vodnik</a> za podrobna navodila po korakih.";
+"downloader_no_downloaded_maps_title" = "Niste prenesli nobenega zemljevida";
+"downloader_no_downloaded_maps_message" = "Prenesite zemljevide za iskanje in navigacijo brez povezave.";
+"current_location_unknown_error_title" = "Trenutna lokacija ni znana.";
+
+/* abbreviation for kilometers per hour */
+"kilometers_per_hour" = "km/h";
+"miles_per_hour" = "mph";
+"hour" = "h";
+"minute" = "min";
+"day" = "d";
+"placepage_more_button" = "Več";
+
+/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
+"placepage_edit_bookmark_button" = "Uredi zaznamek";
+"placepage_personal_notes_hint" = "Osebne opombe (besedilo ali html)";
+"editor_comment_hint" = "Komentar…";
+"editor_reset_edits_message" = "Zavrnem vse lokalne spremembe?";
+"editor_reset_edits_button" = "Zavrzi";
+"editor_remove_place_message" = "Izbrišem dodano mesto?";
+"editor_remove_place_button" = "Izbriši";
+"editor_place_doesnt_exist" = "Mesto ne obstaja";
+
+/* Phone number error message */
+"error_enter_correct_phone" = "Vnesite veljavno telefonsko številko";
+"error_enter_correct_web" = "Vnesite veljaven spletni naslov";
+"error_enter_correct_email" = "Vnesite veljaven e-poštni naslov";
+"placepage_add_place_button" = "Dodaj mesto v OpenStreetMap";
+
+/* Displayed when saving some edits to the map to warn against publishing personal data */
+"editor_share_to_all_dialog_title" = "Ali želite to poslati vsem uporabnikom?";
+
+/* Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Prepričajte se, da niste vnesli nobenih zasebnih ali osebnih podatkov.";
+"editor_share_to_all_dialog_message_2" = "Uredniki OpenStreetMap bodo preverili spremembe in vas kontaktirali, če bodo imeli kakršna koli vprašanja.";
+"navigation_stop_button" = "Ustavi";
+
+/* For the first routing */
+"accept" = "Sprejmi";
+
+/* For the first routing */
+"decline" = "Zavrni";
+"mobile_data_dialog" = "Uporabim mobilni internet za prikaz podrobnih informacij?";
+"mobile_data_option_always" = "Vedno uporabi";
+"mobile_data_option_today" = "Samo danes";
+"mobile_data_option_not_today" = "Danes ne uporabi";
+"mobile_data" = "Mobilni internet";
+
+/* NOTE to translators: please synchronize your translation with the English one. */
+"mobile_data_description" = "Mobilni internet je potreben za obvestila o posodobitvah zemljevidov in nalaganje urejanj.";
+"mobile_data_option_never" = "Nikoli ne uporabi";
+"mobile_data_option_ask" = "Vedno vprašaj";
+"traffic_update_maps_text" = "Za prikaz podatkov o prometu je treba posodobiti zemljevide.";
+"big_font" = "Povečaj velikost oznak na zemljevidu";
+
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Podatki o prometu niso na voljo";
+"enable_logging" = "Omogoči beleženje";
+"transliteration_title" = "Transliteriraj v latinico";
+"planning_route_manage_route" = "Upravljaj pot";
+"button_plan" = "Načrtuj";
+"placepage_remove_stop" = "Odstrani postanek";
+"placepage_add_stop" = "Dodaj postanek";
+"saved" = "Shranjeno";
+"error_enter_correct_name" = "Vnesite pravilno ime";
+"bookmark_lists" = "Seznami";
+
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "Skrij vse";
+"bookmark_lists_show_all" = "Prikaži vse";
+"bookmarks_create_new_group" = "Ustvari nov seznam";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Uvozi zaznamke in sledi";
+"bookmarks_error_message_share_general" = "Deljenje ni mogoče zaradi napake v aplikaciji";
+"bookmarks_error_title_share_empty" = "Napaka pri deljenju";
+"bookmarks_error_message_share_empty" = "Praznega seznama ni mogoče deliti";
+"bookmarks_error_message_empty_list_name" = "Vnesite ime seznama";
+"bookmarks_error_title_list_name_already_taken" = "To ime je že zasedeno";
+"profile" = "Profil OpenStreetMap";
+"restore" = "Obnovi";
+"privacy_policy" = "Politika zasebnosti";
+"terms_of_use" = "Pogoji uporabe";
+
+/* Hiking routes layer name in the Styles and Layers dialog */
+"button_layer_hiking" = "Pohodništvo";
+
+/* Cycling routes layer name in the Styles and Layers dialog */
+"button_layer_cycling" = "Kolesarjenje";
+"button_layer_subway" = "Podzemna železnica";
+"layers_title" = "Slogi in plasti zemljevida";
+"export_file" = "Izvozi KMZ";
+"export_file_gpx" = "Izvozi GPX";
+"delete_list" = "Izbriši seznam";
+"speedcams_alert_title" = "Radarji";
+"place_description_title" = "Opis mesta";
+
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "Opozori ob prekoračitvi hitrosti";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Vedno opozori";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Nikoli ne opozori";
+"power_managment_title" = "Način varčevanja z energijo";
+"power_managment_description" = "Poskusite zmanjšati porabo energije na račun nekaterih funkcionalnosti.";
+"power_managment_setting_never" = "Nikoli";
+"power_managment_setting_auto" = "Ko je baterija skoraj prazna";
+"power_managment_setting_manual_max" = "Vedno";
+
+/* Settings/Bookmark Text Placement */
+"bookmarks_text_placement_title" = "Imena zaznamkov na zemljevidu";
+"bookmarks_text_placement_description" = "Če je zaznamkov preveč, lahko prikaz njihovih imen na zemljevidu upočasni aplikacijo.";
+"show_to_the_right" = "Prikaži na desni";
+"show_at_the_bottom" = "Prikaži na dnu";
+"enable_logging_warning_message" = "To možnost omogočite začasno, da posnamete in nam ročno pošljete podrobne diagnostične dnevnike o vaši težavi z uporabo \"Prijavi napako\" v pogovornem oknu Pomoč. Dnevniki lahko vključujejo podatke o lokaciji.";
+"driving_options_title" = "Možnosti načrtovanja poti";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "Izogibaj se cestninam";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Izogibaj se makadamu";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Izogibaj se trajektom";
+"avoid_motorways" = "Izogibaj se avtocestam";
+"unable_to_calc_alert_title" = "Poti ni mogoče izračunati";
+"unable_to_calc_alert_subtitle" = "Poti ni bilo mogoče najti. To je lahko posledica vaših možnosti načrtovanja poti ali nepopolnih podatkov OpenStreetMap. Spremenite možnosti načrtovanja poti in poskusite znova.";
+"define_to_avoid_btn" = "Določite ceste, ki se jim želite izogniti";
+"change_driving_options_btn" = "Možnosti načrtovanja poti omogočene";
+"toll_road" = "Cestninska cesta";
+"unpaved_road" = "Makadamska cesta";
+"ferry_crossing" = "Prečkanje s trajektom";
+
+/* A generic "Yes" button in dialogs */
+"yes" = "Da";
+
+/* A generic "No" button in dialogs */
+"no" = "Ne";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Da";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Ne";
+
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Kapaciteta: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Omrežje: %@";
+"trip_finished" = "Prispeli ste!";
+"ok" = "V redu";
+
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Razvrsti…";
+"week_ago_sorttype" = "Pred enim tednom";
+"month_ago_sorttype" = "Pred enim mesecem";
+"moremonth_ago_sorttype" = "Pred več kot mesecem dni";
+"moreyear_ago_sorttype" = "Pred več kot letom dni";
+"near_me_sorttype" = "V bližini";
+"others_sorttype" = "Drugo";
+
+/* Failed planning route message in navigation view */
+"routing_planning_error" = "Načrtovanje poti ni uspelo";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "Prihod ob %@";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Prenesite in posodobite vse zemljevide vzdolž predvidene poti za izračun poti.";
+"editor_done_dialog_1" = "Spremenili ste zemljevid sveta! Ne obdržite ga zase; povejte prijateljem in ga urejajte skupaj.";
+"share_with_friends" = "Deli s prijatelji";
+
+/* Place Page opening hours text */
+"closed_now" = "Trenutno zaprto";
+"opens_tomorrow_at" = "Odpira se jutri ob %@";
+"opens_dayoftheweek_at" = "Odpira se %1$@ ob %2$@";
+"opens_at" = "Odpira se ob %@";
+"closes_at" = "Zapira se ob %@";
+"add_opening_hours" = "Dodaj delovni čas";
+"password_8_chars_min" = "Geslo (najmanj 8 znakov)";
+"invalid_username_or_password" = "Neveljavno uporabniško ime ali geslo.";
+"osm_account" = "Račun OSM";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Zadnje nalaganje";
+"thank_you" = "Hvala";
+"place_name" = "Ime mesta";
+"phone" = "Telefon";
+"please_note" = "Prosimo, upoštevajte";
+"migration_download_error_dialog" = "Napaka pri prenosu";
+"editor_add_select_category" = "Izberite kategorijo";
+"editor_add_select_category_popular_subtitle" = "Priljubljeno";
+"editor_add_select_category_all_subtitle" = "Vse kategorije";
+"whatsnew_editor_message_1" = "Dodajte nova mesta na zemljevid in urejajte obstoječa neposredno iz aplikacije.";
+"dialog_incorrect_feature_position" = "Spremeni lokacijo";
+
+/* Error dialog no space */
+"migration_no_space_message" = "Za prenos potrebujete več prostora. Izbrišite nepotrebne podatke.";
+"editor_sharing_title" = "Izboljšal sem zemljevide Organic Maps";
+"editor_detailed_description_hint" = "Podroben komentar";
+"editor_detailed_description" = "Vaše predlagane spremembe zemljevida bodo poslane skupnosti OpenStreetMap. Prosimo, opišite vse dodatne podrobnosti, ki jih ni mogoče urejati v Organic Maps.";
+"current_location_unknown_error_message" = "Pri določanju vaše lokacije je prišlo do napake. Preverite, ali vaša naprava deluje pravilno, in poskusite znova pozneje.";
+"location_services_disabled_header" = "Lokacijske storitve so onemogočene";
+"location_services_disabled_message" = "Omogočite dostop do geolokacije v nastavitvah naprave";
+"location_services_disabled_1" = "1. Odprite Nastavitve";
+"location_services_disabled_2" = "2. Dotaknite se Lokacija";
+
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
+"location_services_disabled_3" = "3. Izberite Med uporabo aplikacije";
+"location_services_disabled_on_device_2" = "2. Izberite Zasebnost";
+"location_services_disabled_on_device_3" = "3. Izberite Lokacijske storitve";
+"location_services_disabled_on_device_4" = "4. Vklopite Lokacijske storitve";
+"location_services_disabled_on_device_additional_message" = "Ali pa nadaljujte z uporabo Organic Maps brez lokacije";
+"book_button" = "Rezerviraj";
+"placepage_call_button" = "Kliči";
+"placepage_bookmark_name_hint" = "Ime zaznamka";
+"placepage_delete_bookmark_button" = "Izbriši zaznamek";
+"editor_edits_sent_message" = "Vaša opomba bo poslana v OpenStreetMap";
+"text_more_button" = "…več";
+"refresh" = "Posodobi";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Onemogočim snemanje vaše nedavno prevožene poti?";
+"off_recent_track_background_button" = "Onemogoči";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Poglej";
+"recent_track_background_dialog_message" = "Organic Maps uporablja vašo lokacijo v ozadju za snemanje vaše nedavno prevožene poti.";
+"general_settings" = "Splošne nastavitve";
+
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Za prikaz podatkov o prometu je treba posodobiti aplikacijo.";
+"log_file_size" = "Velikost datoteke dnevnika: %@";
+"planning_route_remove_title" = "Povlecite sem za odstranitev";
+"placepage_replace_stop" = "Zamenjaj postanek";
+"start_from_my_position" = "Začni od";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Prijavite se v OpenStreetMap, da samodejno naložite vsa svoja urejanja zemljevida. Več o tem";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "tukaj";
+"downloader_hide_screen" = "Skrij zaslon";
+"downloader_percent" = "%@ (%@ od %@)";
+"downloader_process" = "Prenašanje %@…";
+"downloader_applying" = "Uporaba %@…";
+"bookmarks_error_title_list_name_too_long" = "To ime je predolgo";
+"bookmarks_detect_title" = "Zaznane nove datoteke";
+"button_convert" = "Pretvori";
+"bookmarks_convert_error_title" = "Napaka";
+"bookmarks_convert_error_message" = "Nekatere datoteke niso bile pretvorjene.";
+"title_error_downloading_bookmarks" = "Prišlo je do napake";
+"popular_place" = "Priljubljeno";
+"hide_from_map" = "Skrij z zemljevida";
+"tags_loading_error_subtitle" = "Pri nalaganju oznak je prišlo do napake, poskusite znova";
+"download_button" = "Prenesi";
+"right" = "Desno";
+"bottom" = "Dno";
+"trip_start" = "Gremo";
+"pick_destination" = "Cilj";
+"follow_my_position" = "Ponovno centriraj";
+"search_results" = "Rezultati iskanja";
+"then_turn" = "Nato";
+"redirect_route_alert" = "Ali želite ponovno zgraditi pot?";
+"keyboard_availability_alert" = "Tipkovnica med vožnjo ni na voljo";
+"dialog_routing_change_start_carplay" = "Poti z vaše trenutne lokacije ni mogoče zgraditi";
+"dialog_routing_change_end_carplay" = "Poti do vašega cilja ni mogoče najti. Izberite drugo končno točko";
+"dialog_routing_check_gps_carplay" = "Ni signala GPS. Premaknite se na odprto območje";
+"dialog_routing_unable_locate_route_carplay" = "Poti ni mogoče zgraditi. Določite druge točke poti";
+"dialog_routing_download_files_carplay" = "Za ustvarjanje poti prenesite manjkajoče zemljevide na svojo napravo";
+"dialog_routing_system_error_carplay" = "Prišlo je do napake. Znova zaženite aplikacijo";
+"dialog_routing_rebuild_from_current_location_carplay" = "Pot bo ponovno zgrajena z vaše trenutne lokacije";
+"dialog_routing_rebuild_for_vehicle_carplay" = "Pot bo pretvorjena v avtomobilsko";
+"not_all_shown_bookmarks_carplay" = "Niso prikazani vsi zaznamki";
+"switch_to_phone_bookmarks_carplay" = "Preklopite na telefon, da vidite vse zaznamke";
+"speedcams_alert_title_carplay_1" = "Radarji";
+"speedcams_alert_title_carplay_2" = "Opozorila o hitrosti";
+"download_map_carplay" = "Prenesite zemljevide v aplikaciji na vaši mobilni napravi";
+"carplay_roundabout_exit" = "%@ izvoz";
+
+/* iOS */
+"sort_default" = "Razvrsti privzeto";
+"sort_type" = "Razvrsti po vrsti";
+"sort_distance" = "Razvrsti po razdalji";
+"sort_date" = "Razvrsti po datumu";
+"sort_name" = "Razvrsti po imenu";
+
+
+/********** Routing dialogs strings **********/
+
+"dialog_routing_disclaimer_title" = "Pri sledenju poti upoštevajte:";
+"dialog_routing_disclaimer_priority" = "— Stanje na cestah, prometni predpisi in prometni znaki imajo vedno prednost pred navigacijskimi namigi;";
+"dialog_routing_disclaimer_precision" = "— Zemljevid je lahko netočen in predlagana pot morda ni vedno najbolj optimalen način za dosego cilja;";
+"dialog_routing_disclaimer_recommendations" = "— Predlagane poti je treba razumeti le kot priporočila;";
+"dialog_routing_disclaimer_borders" = "— Bodite previdni pri poteh v obmejnih območjih: poti, ki jih ustvari naša aplikacija, lahko včasih prečkajo državne meje na nepooblaščenih mestih.";
+"dialog_routing_disclaimer_beware" = "Prosimo, bodite pozorni in varni na cestah!";
+"dialog_routing_check_gps" = "Preverite signal GPS";
+"dialog_routing_error_location_not_found" = "Poti ni mogoče ustvariti. Trenutnih koordinat GPS ni bilo mogoče določiti.";
+"dialog_routing_location_turn_wifi" = "Preverite signal GPS. Omogočanje Wi-Fi bo izboljšalo natančnost vaše lokacije.";
+"dialog_routing_location_turn_on" = "Omogočite lokacijske storitve";
+"dialog_routing_location_unknown_turn_on" = "Trenutnih koordinat GPS ni mogoče najti. Omogočite lokacijske storitve za izračun poti.";
+"dialog_routing_unable_locate_route" = "Poti ni mogoče najti";
+"dialog_routing_change_start_or_end" = "Prilagodite svojo začetno točko ali cilj.";
+"dialog_routing_change_start" = "Prilagodite začetno točko";
+"dialog_routing_start_not_determined" = "Pot ni bila ustvarjena. Začetne točke ni mogoče najti.";
+"dialog_routing_select_closer_start" = "Izberite začetno točko bližje cesti.";
+"dialog_routing_change_end" = "Prilagodite cilj";
+"dialog_routing_end_not_determined" = "Pot ni bila ustvarjena. Cilja ni mogoče najti.";
+"dialog_routing_select_closer_end" = "Izberite ciljno točko, ki se nahaja bližje cesti.";
+"dialog_routing_change_intermediate" = "Vmesne točke ni mogoče najti.";
+"dialog_routing_intermediate_not_determined" = "Prilagodite svojo vmesno točko.";
+"dialog_routing_system_error" = "Sistemska napaka";
+"dialog_routing_application_error" = "Poti ni mogoče ustvariti zaradi napake v aplikaciji.";
+"dialog_routing_try_again" = "Poskusite znova";
+"dialog_routing_download_and_build_cross_route" = "Ali želite prenesti zemljevid in ustvariti bolj optimalno pot, ki se razteza čez več kot en zemljevid?";
+"dialog_routing_download_cross_route" = "Prenesite dodatne zemljevide, da ustvarite boljšo pot, ki prečka meje tega zemljevida.";
+"dialog_routing_download_files" = "Prenesite zahtevane datoteke";
+"dialog_routing_download_and_update_all" = "Prenesite ali posodobite vse zemljevide vzdolž predvidene poti za izračun poti.";
+
+
+/********** Other translations **********/
+
+"share_bookmarks_email_body" = "Živjo!\n\nV priponki so moji zaznamki; odprite jih v Organic Maps. Če aplikacije nimate nameščene, jo lahko prenesete tukaj: https://omaps.app/get?kmz\n\nUživajte v potovanju z Organic Maps!";
+
+/* message title of loading file */
 "load_kmz_title" = "Nalaganje zaznamkov";
+
+/* Kmz file successful loading */
 "load_kmz_successful" = "Zaznamki so bili uspešno naloženi! Najdete jih na zemljevidu ali na zaslonu Upravitelja zaznamkov.";
-"pref_appearance_dark" = "Temna";
-"news" = "Novice";
-"downloading" = "Prenašanje…";
-"later" = "Kasneje";
-"placepage_distance" = "Razdalja";
-"pref_tts_street_names_description" = "Ko je omogočeno, bo ime ulice ali izvoza, na katerega je treba zaviti, izgovorjeno na glas.";
-"green" = "Zelena";
-"pink" = "Roza";
-"miles" = "Milje";
-"pref_zoom_title" = "Gumbi za povečavo";
-"yellow" = "Rumena";
-"cancel" = "Prekliči";
-"bookmark_sets" = "Seznami";
+
+/* Kml file loading failed */
 "load_kmz_failed" = "Nalaganje zaznamkov ni uspelo. Datoteka je morda poškodovana ali okvarjena.";
-"share_my_location" = "Deli mojo lokacijo";
-"copied_to_clipboard" = "Kopirano v odložišče: %@";
-"pref_appearance_title" = "Videz";
-"red" = "Rdeča";
-"off" = "Izklopljeno";
-"facebook" = "Facebook";
-"pref_calibration_title" = "Umerjanje kompasa";
-"downloader_status_failed" = "Ni uspelo";
-"routing_requires_all_map" = "Za ustvarjanje poti je treba prenesti in posodobiti vse zemljevide od vaše lokacije do cilja.";
-"purple" = "Vijolična";
-"downloader_downloaded_subtitle" = "Preneseno";
-"faq" = "Pogosto zastavljena vprašanja";
-"delete" = "Izbriši";
-"kilometres" = "Kilometri";
-"core_my_position" = "Moj položaj";
-"search" = "Iskanje";
-"zoom_to_country" = "Pokaži na zemljevidu";
-"country_status_download_without_size" = "Prenesi zemljevid";
-"close" = "Zapri";
-"continue_button" = "Nadaljuj";
-"bookmark_set_name" = "Ime seznama";
-"bookmarks_and_tracks" = "Zaznamki in sledi";
-"settings" = "Nastavitve";
-"measurement_units" = "Merske enote";
+
+/* resource for context menu */
+"edit" = "Uredi";
+
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Vaša lokacija še ni bila določena";
+
+/* Subject for emailed bookmark */
+"bookmark_share_email_subject" = "Hej, poglej moj žebljiček v Organic Maps!";
+
+/* Subject for emailed position */
+"my_position_share_email_subject" = "Hej, poglej mojo trenutno lokacijo na zemljevidu Organic Maps!";
+
+/* Share by email button text, also used in editor and About. */
 "email" = "E-pošta";
-"info" = "Info";
+
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "Kopirano v odložišče: %@";
+
+/* Used for bookmark editing */
 "done" = "Končano";
+
+/* Title for tracks category in bookmarks manager */
 "tracks_title" = "Sledi";
-"pref_appearance_light" = "Svetla";
+
+/* Length of track in cell that describes route */
+"length" = "Dolžina";
+"share_my_location" = "Deli mojo lokacijo";
+"prefs_group_route" = "Navigacija";
+"pref_zoom_title" = "Gumbi za povečavo";
+
+/* Generic «Off» string */
+"off" = "Izklopljeno";
+
+/* Generic «On» string */
 "on" = "Vklopljeno";
+
+/* Generic «Auto» string */
+"auto" = "Samodejno";
+
+/* Settings «Map» category: «Perspective view» title */
+"pref_map_3d_title" = "Perspektivni pogled";
+
+/* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D zgradbe";
+
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D zgradbe so onemogočene v načinu varčevanja z energijo";
+
+/* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Glasovna navodila";
+
+/* Settings «Route» category: «Tts announce street names» title */
 "pref_tts_street_names_title" = "Izgovori imena ulic";
-"pref_tts_other_section_title" = "Drugo";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Ko je omogočeno, bo ime ulice ali izvoza, na katerega je treba zaviti, izgovorjeno na glas.";
+
+/* Settings «Route» category: «Tts language» title */
+"pref_tts_language_title" = "Jezik glasu";
+
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Preizkusi glasovna navodila (TTS, pretvorba besedila v govor)";
+"pref_map_auto_zoom" = "Samodejna povečava";
+"placepage_distance" = "Razdalja";
 "search_show_on_map" = "Prikaži na zemljevidu";
+
+/* Text in menu */
 "website" = "Spletna stran";
-"downloader_available_maps" = "Na voljo";
+
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Novice";
+
+/* Text in menu */
+"facebook" = "Facebook";
+
+/* Text in menu */
+"twitter" = "X (Twitter)";
+
+/* Text in menu */
+"instagram" = "Instagram";
+
+/* Text in the editor */
+"vk" = "VK";
+
+/* Text in menu */
+"rate_the_app" = "Oceni aplikacijo";
+
+/* Text in menu */
+"help" = "Pomoč";
+
+/* Button in the main Help dialog */
+"faq" = "Pogosto zastavljena vprašanja";
+
+/* Button in the main menu */
+"donate" = "Doniraj";
+"already_donated" = "Že donirano";
+"remind_me_later" = "Opomni me kasneje";
+"support_organic_maps" = "Podprite Organic Maps";
+
+/* Button in the main Help dialog */
+"copyright" = "Avtorske pravice";
+
+/* Text in menu + Button in the main Help dialog */
+"report_a_bug" = "Prijavi napako";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Ponovno se dolgo dotaknite zemljevida, da vidite vmesnik";
+
+/* Update all button text */
+"downloader_update_all_button" = "Posodobi vse";
+
+/* Downloaded maps list header */
+"downloader_downloaded_subtitle" = "Preneseno";
+
+/* Country queued for download */
 "downloader_queued" = "V čakalni vrsti";
 "downloader_near_me_subtitle" = "V bližini";
+
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Zemljevidi";
 "downloader_download_all_button" = "Prenesi vse";
 "downloader_downloading" = "Prenašanje:";
-"downloader_search_results" = "Najdeno";
-"downloader_status_outdated" = "Posodobi";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "Za brisanje zemljevida ustavite navigacijo.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "Poti je mogoče ustvariti le, če so v celoti znotraj zemljevida ene regije.";
+
+/* Context menu item for downloader. */
+"downloader_download_map" = "Prenesi zemljevid";
+
+/* Item status in downloader. */
 "downloader_retry" = "Poskusi znova";
+
+/* Item in context menu. */
+"downloader_delete_map" = "Izbriši zemljevid";
+
+/* Text for routing error dialog */
 "routing_download_maps_along" = "Prenesi vse zemljevide vzdolž poti";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Za ustvarjanje poti je treba prenesti in posodobiti vse zemljevide od vaše lokacije do cilja.";
+"save" = "Shrani";
+"create" = "Ustvari";
+
+/* red color */
+"red" = "Rdeča";
+
+/* yellow color */
+"yellow" = "Rumena";
+
+/* blue color */
+"blue" = "Modra";
+
+/* green color */
+"green" = "Zelena";
+
+/* purple color */
+"purple" = "Vijolična";
+
+/* orange color */
+"orange" = "Oranžna";
+
+/* brown color */
+"brown" = "Rjava";
+
+/* pink color */
+"pink" = "Roza";
+
+/* deep purple color */
+"deep_purple" = "Temno vijolična";
+
+/* light blue color */
+"light_blue" = "Svetlo modra";
+
+/* cyan color */
+"cyan" = "Cian";
+
+/* teal color */
+"teal" = "Zelenomodra";
+
+/* lime color */
+"lime" = "Limeta";
+
+/* deep orange color */
+"deep_orange" = "Temno oranžna";
+
+/* gray color */
+"gray" = "Siva";
+
+/* blue gray color */
+"blue_gray" = "Modro siva";
+
+/* place preview title */
+"info" = "Info";
+
+/* Prints version number in About dialog */
+"version" = "Različica Organic Maps: %@";
+
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Videz";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Svetla";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Temna";
+
+/* Title for "Other" section in TTS settings. */
+"pref_tts_other_section_title" = "Drugo";
+
+/* Tex label above the Donate button */
+"donate_description" = "Donirajte za skupno gradnjo najboljših zemljevidov!";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Prijavite ali popravite napačne podatke zemljevida";
+
+/* Button in the About screen */
+"volunteer" = "Prostovoljec";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Sledite nam in nas kontaktirajte:";
+
+/* Alert text */
+"email_error_body" = "E-poštni odjemalec ni nastavljen. Prosimo, konfigurirajte ga ali nas kontaktirajte na %@";
+
+/* Alert title */
+"email_error_title" = "Napaka pri pošiljanju e-pošte";
+
+/* Settings item title */
+"pref_calibration_title" = "Umerjanje kompasa";
+
+/* Downloaded maps category */
+"downloader_available_maps" = "Na voljo";
+"downloader_search_results" = "Najdeno";
+
+/* Status of outdated country in the list */
+"downloader_status_outdated" = "Posodobi";
+
+/* Status of failed country in the list */
+"downloader_status_failed" = "Ni uspelo";
+
+/* bookmark button text */
 "bookmark" = "zaznamek";
-"create" = "Ustvari";
-"orange" = "Oranžna";
-"brown" = "Rjava";
-"light_blue" = "Svetlo modra";
-"cyan" = "Cian";
-"download" = "Prenesi";
-"core_my_places" = "Moja mesta";
-"unknown_current_position" = "Vaša lokacija še ni bila določena";
-"auto" = "Samodejno";
-"address" = "Naslov";
-"blue" = "Modra";
-"length" = "Dolžina";
-"downloader_update_all_button" = "Posodobi vse";
-"long_tap_toast" = "Ponovno se dolgo dotaknite zemljevida, da vidite vmesnik";
-"pref_map_3d_title" = "Perspektivni pogled";
-"downloader_delete_map" = "Izbriši zemljevid";
-"save" = "Shrani";
-"edit" = "Uredi";
-"bookmarks" = "Zaznamki";
-"pref_map_3d_buildings_disabled_summary" = "3D zgradbe so onemogočene v načinu varčevanja z energijo";
-"leave_a_review" = "Pustite mnenje";
-"country_status_download_failed" = "Prenos ni uspel";
-"about_headline" = "Brezplačno za vse, narejeno z ljubeznijo";
-"about_proposition_1" = "• Brez oglasov, brez sledenja, brez zbiranja podatkov";
-"about_proposition_2" = "• Ne prazni baterije, deluje brez povezave";
-"about_proposition_3" = "• Hitro, minimalistično, razvito s strani skupnosti";
+
+
+/********** Search categories **********/
+
+
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Kje jesti";
+
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
 "category_food" = "Živila";
+
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
 "category_transport" = "Prevoz";
+
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
 "category_fuel" = "Bencin";
+
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
 "category_parking" = "Parkirišče";
+
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
 "category_shopping" = "Nakupovanje";
+
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
 "category_secondhand" = "Rabljeno";
+
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
 "category_hotel" = "Hotel";
+
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
 "category_tourism" = "Znamenitosti";
+
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
 "category_entertainment" = "Zabava";
+
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
 "category_atm" = "Bankomat";
+
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
 "category_nightlife" = "Nočno življenje";
+
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
 "category_children" = "Družinske počitnice";
+
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
 "category_bank" = "Banka";
+
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
 "category_pharmacy" = "Lekarna";
+
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
 "category_hospital" = "Bolnišnica";
+
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
 "category_toilet" = "Stranišče";
+
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
 "category_post" = "Pošta";
+
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
 "category_police" = "Policija";
-"category_wifi" = "WiFi";
+
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
 "category_recycling" = "Recikliranje";
+
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
 "category_water" = "Voda";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Oprema za avtodome";
-"share_bookmarks_email_body" = "Živjo!\n\nV priponki so moji zaznamki; odprite jih v Organic Maps. Če aplikacije nimate nameščene, jo lahko prenesete tukaj: https://omaps.app/get?kmz\n\nUživajte v potovanju z Organic Maps!";
-"bookmark_share_email_subject" = "Hej, poglej moj žebljiček v Organic Maps!";
-"my_position_share_email_subject" = "Hej, poglej mojo trenutno lokacijo na zemljevidu Organic Maps!";
-"version" = "Različica Organic Maps: %@";
-"pref_tts_language_title" = "Jezik glasu";
-"pref_tts_test_voice_title" = "Preizkusi glasovna navodila (TTS, pretvorba besedila v govor)";
-"twitter" = "X (Twitter)";
-"instagram" = "Instagram";
-"vk" = "VK";
-"rate_the_app" = "Oceni aplikacijo";
-"donate_description" = "Donirajte za skupno gradnjo najboljših zemljevidov!";
-"already_donated" = "Že donirano";
-"remind_me_later" = "Opomni me kasneje";
-"support_organic_maps" = "Podprite Organic Maps";
-"copyright" = "Avtorske pravice";
-"report_a_bug" = "Prijavi napako";
-"report_incorrect_map_bug" = "Prijavite ali popravite napačne podatke zemljevida";
-"volunteer" = "Prostovoljec";
-"follow_us" = "Sledite nam in nas kontaktirajte:";
-"email_error_body" = "E-poštni odjemalec ni nastavljen. Prosimo, konfigurirajte ga ali nas kontaktirajte na %@";
-"email_error_title" = "Napaka pri pošiljanju e-pošte";
-"downloader_delete_map_while_routing_dialog" = "Za brisanje zemljevida ustavite navigacijo.";
-"routing_failed_cross_mwm_building" = "Poti je mogoče ustvariti le, če so v celoti znotraj zemljevida ene regije.";
-"deep_purple" = "Temno vijolična";
-"teal" = "Zelenomodra";
-"lime" = "Limeta";
-"deep_orange" = "Temno oranžna";
-"gray" = "Siva";
-"blue_gray" = "Modro siva";
-"dialog_routing_disclaimer_title" = "Pri sledenju poti upoštevajte:";
-"dialog_routing_disclaimer_priority" = "— Stanje na cestah, prometni predpisi in prometni znaki imajo vedno prednost pred navigacijskimi namigi";
-"dialog_routing_disclaimer_precision" = "— Zemljevid je lahko netočen in predlagana pot morda ni vedno najbolj optimalen način za dosego cilja";
-"dialog_routing_disclaimer_recommendations" = "— Predlagane poti je treba razumeti le kot priporočila";
-"dialog_routing_disclaimer_borders" = "— Bodite previdni pri poteh v obmejnih območjih: poti, ki jih ustvari naša aplikacija, lahko včasih prečkajo državne meje na nepooblaščenih mestih.";
-"dialog_routing_disclaimer_beware" = "Prosimo, bodite pozorni in varni na cestah!";
-"dialog_routing_check_gps" = "Preverite signal GPS";
-"dialog_routing_error_location_not_found" = "Poti ni mogoče ustvariti. Trenutnih koordinat GPS ni bilo mogoče določiti.";
-"dialog_routing_location_turn_wifi" = "Preverite signal GPS. Omogočanje Wi-Fi bo izboljšalo natančnost vaše lokacije.";
-"dialog_routing_location_turn_on" = "Omogočite lokacijske storitve";
-"dialog_routing_location_unknown_turn_on" = "Trenutnih koordinat GPS ni mogoče najti. Omogočite lokacijske storitve za izračun poti.";
-"dialog_routing_download_files" = "Prenesite zahtevane datoteke";
-"dialog_routing_download_and_update_all" = "Prenesite ali posodobite vse zemljevide vzdolž predvidene poti za izračun poti.";
-"dialog_routing_unable_locate_route" = "Poti ni mogoče najti";
-"dialog_routing_change_start_or_end" = "Prilagodite svojo začetno točko ali cilj.";
-"dialog_routing_change_start" = "Prilagodite začetno točko";
-"dialog_routing_start_not_determined" = "Pot ni bila ustvarjena. Začetne točke ni mogoče najti.";
-"dialog_routing_select_closer_start" = "Izberite začetno točko bližje cesti.";
-"dialog_routing_change_end" = "Prilagodite cilj";
-"dialog_routing_end_not_determined" = "Pot ni bila ustvarjena. Cilja ni mogoče najti.";
-"dialog_routing_select_closer_end" = "Izberite ciljno točko, ki se nahaja bližje cesti.";
-"dialog_routing_change_intermediate" = "Vmesne točke ni mogoče najti.";
-"dialog_routing_intermediate_not_determined" = "Prilagodite svojo vmesno točko.";
-"dialog_routing_system_error" = "Sistemska napaka";
-"dialog_routing_application_error" = "Poti ni mogoče ustvariti zaradi napake v aplikaciji.";
-"dialog_routing_try_again" = "Poskusite znova";
-"dialog_routing_download_and_build_cross_route" = "Ali želite prenesti zemljevid in ustvariti bolj optimalno pot, ki se razteza čez več kot en zemljevid?";
-"dialog_routing_download_cross_route" = "Prenesite dodatne zemljevide, da ustvarite boljšo pot, ki prečka meje tega zemljevida.";
-"show" = "Prikaži";
-"hide" = "Skrij";
-"routing_planning_error" = "Načrtovanje poti ni uspelo";
-"routing_arrive" = "Prihod ob %@";
-"dialog_routing_download_and_update_maps" = "Prenesite in posodobite vse zemljevide vzdolž predvidene poti za izračun poti.";
-"categories" = "Kategorije";
-"history" = "Zgodovina";
-"search_not_found" = "Ups, ni bilo najdenih rezultatov.";
-"search_not_found_query" = "Prenesite regijo, kjer iščete, ali poskusite dodati ime bližnjega mesta/vasi.";
-"search_history_title" = "Zgodovina iskanja";
-"search_history_text" = "Oglejte si svoja nedavna iskanja.";
-"clear_search" = "Počisti zgodovino iskanja";
-"read_in_wikipedia" = "Wikipedija";
-"wikimedia_commons" = "Wikimedia Commons";
-"p2p_your_location" = "Vaša lokacija";
-"p2p_start" = "Začetek";
-"p2p_from_here" = "Pot od";
-"p2p_to_here" = "Pot do";
-"p2p_only_from_current" = "Navigacija je na voljo samo z vaše trenutne lokacije.";
-"p2p_reroute_from_current" = "Ali želite načrtovati pot z vaše trenutne lokacije?";
-"editor_time_add" = "Dodaj urnik";
-"editor_time_delete" = "Izbriši urnik";
-"editor_time_allday" = "Ves dan (24 ur)";
-"editor_time_open" = "Odprto";
-"editor_time_close" = "Zaprto";
-"editor_time_add_closed" = "Dodaj neposlovni čas";
-"editor_time_title" = "Delovni čas";
-"editor_time_advanced" = "Napredni način";
-"editor_time_simple" = "Enostaven način";
-"editor_hours_closed" = "Neposlovni čas";
-"editor_example_values" = "Primeri vrednosti";
-"editor_add_select_location" = "Izberite lokacijo";
-"editor_done_dialog_1" = "Spremenili ste zemljevid sveta! Ne obdržite ga zase; povejte prijateljem in ga urejajte skupaj.";
-"share_with_friends" = "Deli s prijatelji";
-"editor_report_problem_send_button" = "Pošlji";
-"autodownload" = "Samodejni prenos zemljevidov";
-"closed_now" = "Trenutno zaprto";
-"daily" = "Dnevno";
-"twentyfour_seven" = "24/7";
-"day_off_today" = "Danes zaprto";
-"day_off" = "Zaprto";
-"today" = "Danes";
-"opens_tomorrow_at" = "Odpira se jutri ob %@";
-"opens_dayoftheweek_at" = "Odpira se %1$@ ob %2$@";
-"opens_at" = "Odpira se ob %@";
-"opens_in" = "Odpira se čez %@";
-"closes_at" = "Zapira se ob %@";
-"closes_in" = "Zapira se čez %@";
-"closed" = "Zaprto";
-"add_opening_hours" = "Dodaj delovni čas";
-"no_osm_account" = "Nimate računa OpenStreetMap?";
-"register_at_openstreetmap" = "Registrirajte se na OpenStreetMap";
-"password_8_chars_min" = "Geslo (najmanj 8 znakov)";
-"invalid_username_or_password" = "Neveljavno uporabniško ime ali geslo.";
-"login" = "Prijava";
-"login_osm" = "Prijavite se v OpenStreetMap";
-"forgot_password" = "Ste pozabili geslo?";
-"osm_account" = "Račun OSM";
-"logout" = "Odjava";
-"last_upload" = "Zadnje nalaganje";
-"thank_you" = "Hvala";
-"edit_place" = "Uredi mesto";
-"place_name" = "Ime mesta";
-"add_language" = "Dodaj jezik";
-"house_number" = "Hišna številka";
-"details" = "Podrobnosti";
-"add_street" = "Dodaj ulico";
-"choose_language" = "Izberite jezik";
-"choose_street" = "Izberite ulico";
+
+
+/********** Strings **********/
+
+
+/* A text for current gps location point/arrow selected on the map */
+"core_my_position" = "Moj položaj";
+
+/* Default bookmark list name */
+"core_my_places" = "Moja mesta";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
 "postal_code" = "Poštna številka";
-"cuisine" = "Kuhinja";
-"select_cuisine" = "Izberite kuhinjo";
-"email_or_username" = "E-pošta ali uporabniško ime";
-"phone" = "Telefon";
-"level" = "Nadstropje";
-"please_note" = "Prosimo, upoštevajte";
-"downloader_delete_map_dialog" = "Vsa vaša urejanja zemljevida bodo izbrisana skupaj z zemljevidom.";
-"downloader_update_maps" = "Posodobi zemljevide";
-"downloader_search_field_hint" = "Najdi zemljevid";
-"migration_download_error_dialog" = "Napaka pri prenosu";
-"common_check_internet_connection_dialog" = "Prepričajte se, da je vaša naprava povezana z internetom.";
-"downloader_no_space_title" = "Ni dovolj prostora";
-"downloader_no_space_message" = "Izbrišite nepotrebne podatke";
-"editor_profile_changes" = "Preverjene spremembe";
-"editor_focus_map_on_location" = "Povlecite zemljevid, da postavite križec na lokacijo mesta ali podjetja.";
-"editor_add_select_category" = "Izberite kategorijo";
-"editor_add_select_category_popular_subtitle" = "Priljubljeno";
-"editor_add_select_category_all_subtitle" = "Vse kategorije";
-"editor_edit_place_title" = "Urejanje";
-"editor_add_place_title" = "Dodajanje";
-"editor_edit_place_name_hint" = "Ime mesta";
-"editor_default_language_hint" = "Kot je napisano v lokalnem jeziku";
-"editor_edit_place_category_title" = "Kategorija";
-"whatsnew_editor_message_1" = "Dodajte nova mesta na zemljevid in urejajte obstoječa neposredno iz aplikacije.";
-"dialog_incorrect_feature_position" = "Spremeni lokacijo";
-"message_invalid_feature_position" = "Tukaj ni mogoče locirati nobenega objekta";
-"osm_presentation" = "Podatki OpenStreetMap, ki jih je ustvarila skupnost, od %@. Več o tem, kako urejati in posodabljati zemljevid, preberite na OpenStreetMap.org";
-"login_to_make_edits_visible" = "Ustvarite račun OpenStreetMap ali se prijavite, da objavite svoja urejanja zemljevida svetu.";
-"migration_no_space_message" = "Za prenos potrebujete več prostora. Izbrišite nepotrebne podatke.";
-"editor_sharing_title" = "Izboljšal sem zemljevide Organic Maps";
-"downloader_of" = "%1$d od %2$d";
-"download_over_mobile_header" = "Prenesem prek mobilne omrežne povezave?";
-"download_over_mobile_message" = "To je lahko pri nekaterih paketih ali gostovanju precej drago.";
-"error_enter_correct_house_number" = "Vnesite veljavno hišno številko";
-"editor_storey_number" = "Število nadstropij (največ %d)";
-"error_enter_correct_storey_number" = "Število nadstropij ne sme presegati %d";
-"editor_zip_code" = "Poštna številka";
-"error_enter_correct_zip_code" = "Vnesite veljavno poštno številko";
+
+/* Place Page title for long tap */
 "core_placepage_unknown_place" = "Točka na zemljevidu";
-"editor_other_info" = "Opomba za prostovoljce OpenStreetMap (neobvezno)";
-"editor_detailed_description_hint" = "Podroben komentar";
-"editor_detailed_description" = "Vaše predlagane spremembe zemljevida bodo poslane skupnosti OpenStreetMap. Prosimo, opišite vse dodatne podrobnosti, ki jih ni mogoče urejati v Organic Maps.";
-"editor_more_about_osm" = "Več o OpenStreetMap";
-"editor_operator" = "Upravljavec";
-"operator" = "Upravljavec: %@";
-"editor_category_unsuitable_title" = "Ne najdete primerne kategorije?";
-"editor_category_unsuitable_text" = "Organic Maps omogoča dodajanje samo preprostih točkovnih kategorij, kar pomeni, da ni mest, cest, jezer, obrisov zgradb itd. Takšne kategorije dodajte neposredno na <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Preverite naš <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">vodnik</a> za podrobna navodila po korakih.";
-"downloader_no_downloaded_maps_title" = "Niste prenesli nobenega zemljevida";
-"downloader_no_downloaded_maps_message" = "Prenesite zemljevide za iskanje in navigacijo brez povezave.";
-"current_location_unknown_error_title" = "Trenutna lokacija ni znana.";
-"current_location_unknown_error_message" = "Pri določanju vaše lokacije je prišlo do napake. Preverite, ali vaša naprava deluje pravilno, in poskusite znova pozneje.";
-"location_services_disabled_header" = "Lokacijske storitve so onemogočene";
-"location_services_disabled_message" = "Omogočite dostop do geolokacije v nastavitvah naprave";
-"location_services_disabled_1" = "1. Odprite Nastavitve";
-"location_services_disabled_2" = "2. Dotaknite se Lokacija";
-"location_services_disabled_3" = "3. Izberite Med uporabo aplikacije";
-"location_services_disabled_on_device_2" = "2. Izberite Zasebnost";
-"location_services_disabled_on_device_3" = "3. Izberite Lokacijske storitve";
-"location_services_disabled_on_device_4" = "4. Vklopite Lokacijske storitve";
-"location_services_disabled_on_device_additional_message" = "Ali pa nadaljujte z uporabo Organic Maps brez lokacije";
+
+/* abbreviation for meters */
 "m" = "m";
+
+/* abbreviation for kilometers */
 "km" = "km";
-"kilometers_per_hour" = "km/h";
+
+/* abbreviation for mile(s) */
 "mi" = "mi";
+
+/* A unit of measure */
 "ft" = "ft";
-"miles_per_hour" = "mph";
-"hour" = "h";
-"minute" = "min";
-"day" = "d";
-"placepage_more_button" = "Več";
-"book_button" = "Rezerviraj";
-"placepage_call_button" = "Kliči";
-"placepage_edit_bookmark_button" = "Uredi zaznamek";
-"placepage_bookmark_name_hint" = "Ime zaznamka";
-"placepage_personal_notes_hint" = "Osebne opombe (besedilo ali html)";
-"placepage_delete_bookmark_button" = "Izbriši zaznamek";
-"editor_edits_sent_message" = "Vaša opomba bo poslana v OpenStreetMap";
-"editor_comment_hint" = "Komentar…";
-"editor_reset_edits_message" = "Zavrnem vse lokalne spremembe?";
-"editor_reset_edits_button" = "Zavrzi";
-"editor_remove_place_message" = "Izbrišem dodano mesto?";
-"editor_remove_place_button" = "Izbriši";
-"editor_place_doesnt_exist" = "Mesto ne obstaja";
-"text_more_button" = "…več";
-"error_enter_correct_phone" = "Vnesite veljavno telefonsko številko";
-"error_enter_correct_web" = "Vnesite veljaven spletni naslov";
-"error_enter_correct_email" = "Vnesite veljaven e-poštni naslov";
-"refresh" = "Posodobi";
-"placepage_add_place_button" = "Dodaj mesto v OpenStreetMap";
-"editor_share_to_all_dialog_title" = "Ali želite to poslati vsem uporabnikom?";
-"editor_share_to_all_dialog_message_1" = "Prepričajte se, da niste vnesli nobenih zasebnih ali osebnih podatkov.";
-"editor_share_to_all_dialog_message_2" = "Uredniki OpenStreetMap bodo preverili spremembe in vas kontaktirali, če bodo imeli kakršna koli vprašanja.";
-"navigation_stop_button" = "Ustavi";
-"recent_track_background_dialog_title" = "Onemogočim snemanje vaše nedavno prevožene poti?";
-"off_recent_track_background_button" = "Onemogoči";
-"sharing_call_action_look" = "Poglej";
-"recent_track_background_dialog_message" = "Organic Maps uporablja vašo lokacijo v ozadju za snemanje vaše nedavno prevožene poti.";
-"general_settings" = "Splošne nastavitve";
-"accept" = "Sprejmi";
-"decline" = "Zavrni";
-"mobile_data_dialog" = "Uporabim mobilni internet za prikaz podrobnih informacij?";
-"mobile_data_option_always" = "Vedno uporabi";
-"mobile_data_option_today" = "Samo danes";
-"mobile_data_option_not_today" = "Danes ne uporabi";
-"mobile_data" = "Mobilni internet";
-"mobile_data_description" = "Mobilni internet je potreben za obvestila o posodobitvah zemljevidov in nalaganje urejanj.";
-"mobile_data_option_never" = "Nikoli ne uporabi";
-"mobile_data_option_ask" = "Vedno vprašaj";
-"traffic_update_maps_text" = "Za prikaz podatkov o prometu je treba posodobiti zemljevide.";
-"big_font" = "Povečaj velikost oznak na zemljevidu";
-"traffic_update_app_message" = "Za prikaz podatkov o prometu je treba posodobiti aplikacijo.";
-"traffic_data_unavailable" = "Podatki o prometu niso na voljo";
-"enable_logging" = "Omogoči beleženje";
-"log_file_size" = "Velikost datoteke dnevnika: %@";
-"transliteration_title" = "Transliteriraj v latinico";
-"core_exit" = "Izhod";
-"planning_route_manage_route" = "Upravljaj pot";
-"button_plan" = "Načrtuj";
-"placepage_remove_stop" = "Odstrani postanek";
-"planning_route_remove_title" = "Povlecite sem za odstranitev";
-"placepage_add_stop" = "Dodaj postanek";
-"start_from_my_position" = "Začni od";
-"alert_reauth_message_ios" = "Prijavite se v OpenStreetMap, da samodejno naložite vsa svoja urejanja zemljevida. Več o tem";
-"alert_reauth_link_text_ios" = "tukaj";
-"core_entrance" = "Vhod";
-"error_enter_correct_name" = "Vnesite pravilno ime";
-"bookmark_lists" = "Seznami";
-"bookmark_lists_hide_all" = "Skrij vse";
-"bookmark_lists_show_all" = "Prikaži vse";
-"bookmarks_create_new_group" = "Ustvari nov seznam";
-"bookmarks_import" = "Uvozi zaznamke in sledi";
-"downloader_hide_screen" = "Skrij zaslon";
-"downloader_percent" = "%@ (%@ od %@)";
-"downloader_process" = "Prenašanje %@…";
-"downloader_applying" = "Uporaba %@…";
-"bookmarks_error_message_share_general" = "Deljenje ni mogoče zaradi napake v aplikaciji";
-"bookmarks_error_title_share_empty" = "Napaka pri deljenju";
-"bookmarks_error_message_share_empty" = "Praznega seznama ni mogoče deliti";
-"bookmarks_error_message_empty_list_name" = "Vnesite ime seznama";
-"bookmarks_error_title_list_name_already_taken" = "To ime je že zasedeno";
-"bookmarks_error_title_list_name_too_long" = "To ime je predolgo";
-"profile" = "Profil OpenStreetMap";
-"bookmarks_detect_title" = "Zaznane nove datoteke";
-"button_convert" = "Pretvori";
-"bookmarks_convert_error_title" = "Napaka";
-"bookmarks_convert_error_message" = "Nekatere datoteke niso bile pretvorjene.";
-"restore" = "Obnovi";
-"privacy_policy" = "Politika zasebnosti";
-"terms_of_use" = "Pogoji uporabe";
-"button_layer_subway" = "Podzemna železnica";
-"layers_title" = "Slogi in plasti zemljevida";
-"subway_data_unavailable" = "Zemljevid podzemne železnice ni na voljo";
-"title_error_downloading_bookmarks" = "Prišlo je do napake";
-"popular_place" = "Priljubljeno";
-"export_file" = "Izvozi KMZ";
-"export_file_gpx" = "Izvozi GPX";
-"delete_list" = "Izbriši seznam";
-"hide_from_map" = "Skrij z zemljevida";
-"tags_loading_error_subtitle" = "Pri nalaganju oznak je prišlo do napake, poskusite znova";
-"download_button" = "Prenesi";
-"speedcams_alert_title" = "Radarji";
-"place_description_title" = "Opis mesta";
-"pref_tts_speedcams_auto" = "Opozori ob prekoračitvi hitrosti";
-"pref_tts_speedcams_always" = "Vedno opozori";
-"pref_tts_speedcams_never" = "Nikoli ne opozori";
-"power_managment_title" = "Način varčevanja z energijo";
-"power_managment_description" = "Poskusite zmanjšati porabo energije na račun nekaterih funkcionalnosti.";
-"power_managment_setting_never" = "Nikoli";
-"power_managment_setting_auto" = "Ko je baterija skoraj prazna";
-"power_managment_setting_manual_max" = "Vedno";
-"enable_logging_warning_message" = "To možnost omogočite začasno, da posnamete in nam ročno pošljete podrobne diagnostične dnevnike o vaši težavi z uporabo \"Prijavi napako\" v pogovornem oknu Pomoč. Dnevniki lahko vključujejo podatke o lokaciji.";
-"driving_options_title" = "Možnosti načrtovanja poti";
-"avoid_tolls" = "Izogibaj se cestninam";
-"avoid_unpaved" = "Izogibaj se makadamu";
-"avoid_ferry" = "Izogibaj se trajektom";
-"avoid_motorways" = "Izogibaj se avtocestam";
-"unable_to_calc_alert_title" = "Poti ni mogoče izračunati";
-"unable_to_calc_alert_subtitle" = "Poti ni bilo mogoče najti. To je lahko posledica vaših možnosti načrtovanja poti ali nepopolnih podatkov OpenStreetMap. Spremenite možnosti načrtovanja poti in poskusite znova.";
-"define_to_avoid_btn" = "Določite ceste, ki se jim želite izogniti";
-"change_driving_options_btn" = "Možnosti načrtovanja poti omogočene";
-"toll_road" = "Cestninska cesta";
-"unpaved_road" = "Makadamska cesta";
-"ferry_crossing" = "Prečkanje s trajektom";
-"trip_start" = "Gremo";
-"pick_destination" = "Cilj";
-"follow_my_position" = "Ponovno centriraj";
-"search_results" = "Rezultati iskanja";
-"then_turn" = "Nato";
-"redirect_route_alert" = "Ali želite ponovno zgraditi pot?";
-"yes" = "Da";
-"no" = "Ne";
-"yes_available" = "Da";
-"no_available" = "Ne";
-"capacity" = "Kapaciteta: %@";
-"network" = "Omrežje: %@";
-"trip_finished" = "Prispeli ste!";
-"keyboard_availability_alert" = "Tipkovnica med vožnjo ni na voljo";
-"dialog_routing_change_start_carplay" = "Poti z vaše trenutne lokacije ni mogoče zgraditi";
-"dialog_routing_change_end_carplay" = "Poti do vašega cilja ni mogoče najti. Izberite drugo končno točko";
-"dialog_routing_check_gps_carplay" = "Ni signala GPS. Premaknite se na odprto območje";
-"dialog_routing_unable_locate_route_carplay" = "Poti ni mogoče zgraditi. Določite druge točke poti";
-"dialog_routing_download_files_carplay" = "Za ustvarjanje poti prenesite manjkajoče zemljevide na svojo napravo";
-"dialog_routing_system_error_carplay" = "Prišlo je do napake. Znova zaženite aplikacijo";
-"dialog_routing_rebuild_from_current_location_carplay" = "Pot bo ponovno zgrajena z vaše trenutne lokacije";
-"dialog_routing_rebuild_for_vehicle_carplay" = "Pot bo pretvorjena v avtomobilsko";
-"not_all_shown_bookmarks_carplay" = "Niso prikazani vsi zaznamki";
-"switch_to_phone_bookmarks_carplay" = "Preklopite na telefon, da vidite vse zaznamke";
-"ok" = "V redu";
-"speedcams_alert_title_carplay_1" = "Radarji";
-"speedcams_alert_title_carplay_2" = "Opozorila o hitrosti";
-"download_map_carplay" = "Prenesite zemljevide v aplikaciji na vaši mobilni napravi";
-"carplay_roundabout_exit" = "%@ izvoz";
-"sort" = "Razvrsti…";
-"sort_default" = "Razvrsti privzeto";
-"sort_type" = "Razvrsti po vrsti";
-"sort_distance" = "Razvrsti po razdalji";
-"sort_date" = "Razvrsti po datumu";
-"sort_name" = "Razvrsti po imenu";
-"week_ago_sorttype" = "Pred enim tednom";
-"month_ago_sorttype" = "Pred enim mesecem";
-"moremonth_ago_sorttype" = "Pred več kot mesecem dni";
-"moreyear_ago_sorttype" = "Pred več kot letom dni";
-"near_me_sorttype" = "V bližini";
-"others_sorttype" = "Drugo";
-"food_places" = "Hrana";
-"tourist_places" = "Znamenitosti";
-"museums" = "Muzeji";
-"parks" = "Parki";
-"swim_places" = "Plavanje";
-"mountains" = "Gore";
-"animals" = "Živali";
-"hotels" = "Hoteli";
-"buildings" = "Zgradbe";
-"money" = "Denar";
-"shops" = "Trgovine";
-"parkings" = "Parkirišče";
-"fuel_places" = "Bencinske črpalke";
-"medicine" = "Medicina";
-"search_in_the_list" = "Išči na seznamu";
-"religious_places" = "Verski kraji";
-"transit_not_found" = "Navigacija s podzemno železnico v tej regiji še ni na voljo";
-"dialog_pedestrian_route_is_long_header" = "Ni najdene poti s podzemno železnico";
-"dialog_pedestrian_route_is_long_message" = "Izberite začetno ali končno točko bližje postaji podzemne železnice";
-"button_layer_isolines" = "Plastnice";
-"isolines_activation_error_dialog" = "Aktiviranje plastnic zahteva prenos podatkov zemljevida za to območje";
-"isolines_location_error_dialog" = "Plastnice na tem območju še niso na voljo";
-"elevation_profile_diff_level" = "Težavnost";
-"elevation_profile_diff_level_easy" = "Lahka";
-"elevation_profile_diff_level_moderate" = "Zmerna";
-"elevation_profile_diff_level_hard" = "Težka";
-"elevation_profile_ascent" = "Vzpon";
-"elevation_profile_descent" = "Spust";
-"elevation_profile_min_elevation" = "Min. višina";
-"elevation_profile_max_elevation" = "Maks. višina";
-"isolines_toast_zooms_1_10" = "Povečajte za raziskovanje plastnic";
-"downloader_updating_ios" = "Posodabljanje";
-"downloader_loading_ios" = "Prenašanje";
-"whats_new_auto_update_title" = "Posodobi prenesene zemljevide";
-"whats_new_auto_update_message" = "Posodabljanje zemljevidov ohranja informacije o objektih ažurne";
-"whats_new_auto_update_button_size" = "Posodobi (%@)";
-"whats_new_auto_update_button_later" = "Ročno posodobi kasneje";
-"placepage_delete_track_button" = "Izbriši sled";
-"placepage_delete_track_confirmation_alert_message" = "Ste prepričani, da želite izbrisati to sled?";
-"placepage_track_name_hint" = "Ime sledi";
-"move" = "Premakni";
-"track_title" = "Sled";
-"telegram_url" = "https://t.me/OrganicMapsApp";
-"instagram_url" = "https://www.instagram.com/organicmaps.app";
-"translated_om_site_url" = "https://organicmaps.app/sl/";
-"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
-"app_tip_00" = "Hvala, ker uporabljate naše zemljevide, ki jih je ustvarila skupnost!";
-"app_tip_01" = "Z vašimi donacijami in podporo lahko ustvarimo najboljše zemljevide na svetu!";
-"app_tip_02" = "Vam je všeč naša aplikacija? Prosimo, donirajte za podporo razvoju! Vam še ni všeč? Sporočite nam, zakaj, in popravili bomo!";
-"app_tip_03" = "Če poznate razvijalca programske opreme, ga lahko prosite, da implementira funkcijo, ki jo potrebujete.";
-"app_tip_04" = "Dotaknite se kjerkoli na zemljevidu, da izberete karkoli. Dolg dotik se uporablja za skrivanje in prikaz vmesnika.";
-"app_tip_05" = "Ali ste vedeli, da je mogoče izbrati vašo trenutno lokacijo na zemljevidu?";
-"app_tip_06" = "Lahko pomagate prevesti našo aplikacijo v vaš jezik.";
-"app_tip_07" = "Našo aplikacijo razvija nekaj navdušencev in skupnost.";
-"app_tip_08" = "Podatke zemljevida lahko enostavno popravite in izboljšate.";
-"app_tip_09" = "Naš glavni cilj je zgraditi hitre, zasebnosti prijazne in enostavne zemljevide, ki jih boste vzljubili.";
-"car_used_on_the_phone_screen" = "Zdaj uporabljate Organic Maps na zaslonu telefona";
-"car_used_on_the_car_screen" = "Zdaj uporabljate Organic Maps na zaslonu avtomobila";
-"car_continue_on_the_phone" = "Nadaljuj na telefonu";
-"car_continue_in_the_car" = "Na zaslon avtomobila";
-"button_layer_outdoor" = "Na prostem";
-"bookmarks_export" = "Izvozi vse zaznamke in sledi";
-"change_color" = "Spremeni barvo";
-"map" = "Zemljevid";
-"drive_through" = "Drive-through";
-"website_menu" = "Povezava do menija";
-"bugreport_alert_message" = "Ali želite poslati poročilo o napaki razvijalcem?\nZanašamo se na naše uporabnike, saj Organic Maps ne zbira samodejno nobenih informacij o napakah. Hvala vnaprej za podporo Organic Maps!";
-"enable_icloud_synchronization_title" = "Omogoči sinhronizacijo z iCloud";
-"enable_icloud_synchronization_message" = "Sinhronizacija z iCloud je eksperimentalna funkcija v razvoju. Prepričajte se, da ste naredili varnostno kopijo vseh svojih zaznamkov in sledi.";
-"icloud_disabled_title" = "iCloud je onemogočen";
-"icloud_disabled_message" = "Za uporabo te funkcije omogočite iCloud v nastavitvah naprave.";
-"enable" = "Omogoči";
-"backup" = "Varnostna kopija";
-"icloud_synchronization_error_alert_title" = "Napaka pri sinhronizaciji z iCloud";
-"icloud_synchronization_error_connection_error" = "Napaka: Sinhronizacija ni uspela zaradi napake v povezavi";
-"icloud_synchronization_error_quota_exceeded" = "Napaka: Sinhronizacija ni uspela zaradi presežene kvote iCloud";
-"icloud_synchronization_error_cloud_is_unavailable" = "Napaka: iCloud ni na voljo";
-"open_in_app" = "Odpri v drugi aplikaciji";
-"self_service" = "Samopostrežba";
-"outdoor_seating" = "Sedenje na prostem";
-"bookmarks_recently_deleted" = "Nedavno izbrisani seznami";
-"clear" = "Počisti";
-"delete_all" = "Izbriši vse";
-"recover" = "Obnovi";
-"recover_all" = "Obnovi vse";
-"start_track_recording" = "Snemaj sled";
-"stop_track_recording" = "Ustavi snemanje sledi";
-"track_recording_toast_nothing_to_save" = "Sled je prazna - ničesar za shraniti";
-"edit_track" = "Uredi sled";
-"saved" = "Shranjeno";
-"button_layer_hiking" = "Pohodništvo";
-"button_layer_cycling" = "Kolesarjenje";
-"bookmarks_text_placement_title" = "Imena zaznamkov na zemljevidu";
-"bookmarks_text_placement_description" = "Če je zaznamkov preveč, lahko prikaz njihovih imen na zemljevidu upočasni aplikacijo.";
-"show_to_the_right" = "Prikaži na desni";
-"show_at_the_bottom" = "Prikaži na dnu";
-"right" = "Desno";
-"bottom" = "Dno";
+
+/* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "Za prikaz poti je treba posodobiti zemljevide.";
-"placepage_replace_stop" = "Zamenjaj postanek";
-"contribute_to_osm" = "Prispevajte k OpenStreetMap";
-"contribute_to_osm_add_place" = "Dodaj mesto";
-"contribute_to_osm_update_map" = "Posodobite zemljevid za prispevanje";
-"contribute_to_osm_update_map_description" = "Preden lahko prispevate k podatkom OpenStreetMap, morate posodobiti zemljevid %@ na najnovejšo različico";
+
+/* Subway exits for public transport marks on the map */
+"core_exit" = "Izhod";
+"core_entrance" = "Vhod";
+"subway_data_unavailable" = "Zemljevid podzemne železnice ni na voljo";
+
+/* Button text (should be short) */
+"cancel" = "Prekliči";
+
+/* Button which deletes downloaded country */
+"delete" = "Izbriši";
+"download_maps" = "Prenesi zemljevide";
+
+/* Settings/Downloader - info for country which started downloading */
+"downloading" = "Prenašanje…";
+
+/* Choose measurement on first launch alert - choose metric system button */
+"kilometres" = "Kilometri";
+
+/* Choose measurement on first launch alert - choose imperial system button */
+"miles" = "Milje";
+
+/* Update maps later button text */
+"later" = "Kasneje";
+
+/* View and button titles for accessibility, please also edit it in iphone/plist.txt */
+"search" = "Iskanje";
+
+/* View and button titles for accessibility */
+"zoom_to_country" = "Pokaži na zemljevidu";
+
+/* Message to display at the center of the screen when the country download has failed */
+"country_status_download_failed" = "Prenos ni uspel";
+
+/* Text in About screen */
+"about_headline" = "Brezplačno za vse, narejeno z ljubeznijo";
+
+/* Text in About screen */
+"about_proposition_1" = "• Brez oglasov, brez sledenja, brez zbiranja podatkov";
+
+/* Text in About screen */
+"about_proposition_2" = "• Ne prazni baterije, deluje brez povezave";
+
+/* Text in About screen */
+"about_proposition_3" = "• Hitro, minimalistično, razvito s strani skupnosti";
+"close" = "Zapri";
+"download" = "Prenesi";
+
+/* REMOVE THIS STRING AFTER REFACTORING */
+"continue_button" = "Nadaljuj";
+
+/* "Add new bookmark list" dialog title */
+"add_new_set" = "Dodaj nov seznam";
+
+/* Add Bookmark list dialog - hint when the list name is empty */
+"bookmark_set_name" = "Ime seznama zaznamkov";
+
+/* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
+"bookmarks" = "Zaznamki";
+
+/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+"bookmarks_and_tracks" = "Zaznamki in sledi";
+
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
+"address" = "Naslov";
+
+/* Settings button in system menu */
+"settings" = "Nastavitve";
+
+/* Measurement units title in settings activity */
+"measurement_units" = "Merske enote";
+
+/* Button which interrupts country download */
+"cancel_download" = "Prekliči prenos";
+
+/* Leave Review dialog - Review button */
+"leave_a_review" = "Pustite mnenje";
+
+/* Settings/Downloader - 3G download warning dialog confirm button */
+"use_cellular_data" = "Da";
+
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "Prenesi zemljevid";
+
+/* "Bookmark Lists" dialog title */
+"bookmark_sets" = "Seznami";

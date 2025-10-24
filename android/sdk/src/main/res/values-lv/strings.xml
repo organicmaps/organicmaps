@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">Mana atrašanās vieta</string>
     <!-- Default bookmark list name -->
@@ -15,6 +20,8 @@
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
     <string name="category_wifi">WiFi</string>
     <string name="postal_code">Pasta indekss</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Punkts kartē</string>
     <!-- abbreviation for meters -->
     <string name="m">m</string>
     <!-- abbreviation for kilometers -->
@@ -27,7 +34,4 @@
     <string name="core_exit">Izeja</string>
     <string name="core_entrance">Ieeja</string>
     <string name="subway_data_unavailable">Metro karte nav pieejama</string>
-    <string name="core_placepage_unknown_place">Punkts kartē</string>
-    <string name="gb">GB</string>
-    <string name="mb">MB</string>
 </resources>

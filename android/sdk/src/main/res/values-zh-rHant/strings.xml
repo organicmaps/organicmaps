@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">我的位置</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">我的地點</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">無線網路</string>
+    <string name="postal_code">郵遞區號</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">地圖點</string>
+    <!-- abbreviation for meters -->
+    <string name="m">公尺</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">公里</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">英哩</string>
+    <!-- A unit of measure -->
+    <string name="ft">英尺</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">要顯示路線，必須先更新地圖。</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">退出</string>
+    <string name="core_entrance">入口</string>
+    <string name="subway_data_unavailable">捷運圖層不可用</string>
+</resources>
