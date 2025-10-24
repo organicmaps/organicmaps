@@ -646,7 +646,6 @@
 		zh-MO = 停車場
 		zh-TW = 停車場
 	[fuel_places]
-		comment = iOS
 		tags = android,android-app,apple,apple-maps
 		en = Gas Stations
 		af = Vulstasies
@@ -3840,7 +3839,6 @@
 		zh-MO = 未找到語音合成設定，您確定您的裝置支援該設定嗎？
 		zh-TW = 未找到語音合成設定，您確定您的裝置支援該設定嗎？
 	[drive_through]
-		comment = Main screen title "Map" displayed in the navigation back button's menu.
 		tags = android,android-app,apple,apple-maps
 		en = Drive-through
 		af = Deur-ry
@@ -7140,7 +7138,6 @@
 		zh-MO = 隱藏
 		zh-TW = 隱藏
 	[categories]
-		comment = Text for routing::RouterResultCode::FileTooOld dialog.
 		tags = android,android-app,apple,apple-maps
 		en = Categories
 		af = Kategorieë
@@ -7602,7 +7599,6 @@
 		zh-MO = 維基共享資源
 		zh-TW = 維基共享資源
 	[p2p_your_location]
-		comment = Place Page link to Wikimedia Commons.
 		tags = android,android-app,apple,apple-maps
 		en = Your Location
 		af = U ligging
@@ -7655,7 +7651,6 @@
 		zh-MO = 您的位置
 		zh-TW = 您的位置
 	[p2p_start]
-		comment = Place Page link to Wikimedia Commons.
 		tags = android,android-app,apple,apple-maps
 		en = Start
 		af = Begin
@@ -8229,7 +8224,6 @@
 		zh-MO = 全天 (24 小時)
 		zh-TW = 全天 (24 小時)
 	[editor_time_open]
-		comment = Text for allday switch.
 		tags = android,android-app,apple,apple-maps
 		en = Open
 		af = Oop
@@ -8703,7 +8697,6 @@
 		zh-MO = 修正錯誤
 		zh-TW = 修正錯誤
 	[editor_add_select_location]
-		comment = Text for allday switch.
 		tags = android,android-app,apple,apple-maps
 		en = Select Location
 		af = Kies Ligging
@@ -9845,7 +9838,6 @@
 		zh-MO = 未登入
 		zh-TW = 未登入
 	[login_osm]
-		comment = Place Page opening hours text
 		tags = android,android-app,apple,apple-maps
 		en = Login to OpenStreetMap
 		af = Teken aan op OpenStreetMap
@@ -10055,7 +10047,6 @@
 		zh-MO = 登出
 		zh-TW = 登出
 	[edit_place]
-		comment = Information text: "Last upload 11.01.2016"
 		tags = android,android-app,apple,apple-maps
 		en = Edit Place
 		af = Wysig plek
@@ -10846,7 +10837,6 @@
 		zh-MO = 新增電話號碼
 		zh-TW = 新增電話號碼
 	[level]
-		comment = login text field
 		tags = android,android-app,apple,apple-maps
 		en = Floor
 		af = Verdieping
@@ -12031,7 +12021,6 @@
 		zh-MO = OpenStreetMap.org (OSM) 是一個建立免費開放地圖的社群專案。它是Organic Maps中地圖資料的主要來源，其工作方式類似於維基百科。您可以新增或編輯地點，全世界數百萬用戶都可以使用它們。\n加入社群來幫忙大家建造更好的地圖！
 		zh-TW = OpenStreetMap.org (OSM) 是一個建立免費開放地圖的社群專案。它是Organic Maps中地圖資料的主要來源，其工作方式類似於維基百科。您可以新增或編輯地點，全世界數百萬用戶都可以使用它們。\n加入社群來幫忙大家建造更好的地圖！
 	[login_to_make_edits_visible]
-		comment = Text in About and OSM Login screens. First %@ is replaced by a local, human readable date.
 		tags = android,android-app,apple,apple-maps
 		en = Create an OpenStreetMap account or log in to publish your map edits to the world.
 		af = Skep 'n OpenStreetMap-rekening of meld aan om jou kaartwysigings aan die wêreld te publiseer.
@@ -12395,7 +12384,6 @@
 		zh-MO = 最多可編輯 %d 層的建築
 		zh-TW = 最多可編輯 %d 層的建築
 	[editor_zip_code]
-		comment = Error message in Editor when a user tries to set the number of floors for a building higher than %d floors
 		tags = android,android-app,apple,apple-maps
 		en = ZIP Code
 		af = Poskode
@@ -12924,7 +12912,6 @@
 		zh-MO = 操作員: %@
 		zh-TW = 操作員: %@
 	[editor_category_unsuitable_title]
-		comment = To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations...
 		tags = android,android-app,apple,apple-maps
 		en = Can't find a suitable category?
 		af = Kan u nie 'n geskikte kategorie vind nie?
@@ -12978,7 +12965,6 @@
 		zh-MO = 找不到合適的類別？
 		zh-TW = 找不到合適的類別？
 	[editor_category_unsuitable_text]
-		comment = To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations...
 		tags = android,android-app,apple,apple-maps
 		en = Organic Maps allows to add simple point categories only, that means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Check our <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detailed step by step instructions.
 		af = Organiese kaarte laat toe om slegs eenvoudige puntkategorieë by te voeg, dit beteken geen dorpe, paaie, mere, gebouomlynings, ens. Voeg asseblief sulke kategorieë direk by <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Gaan ons <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> na vir gedetailleerde stap-vir-stap-instruksies.
@@ -13286,7 +13272,6 @@
 		zh-MO = 英哩每小時
 		zh-TW = 英哩每小時
 	[hour]
-		comment = A unit of measure
 		tags = android,android-app,apple,apple-maps
 		en = h
 		af = h
@@ -13387,7 +13372,6 @@
 		zh-MO = 分鐘
 		zh-TW = 分鐘
 	[day]
-		comment = A unit of measure
 		tags = android,android-app,apple,apple-maps
 		en = d
 		af = d
@@ -13438,7 +13422,6 @@
 		zh-MO = 天
 		zh-TW = 天
 	[placepage_more_button]
-		comment = A unit of measure
 		tags = android,android-app,apple,apple-maps
 		en = More
 		af = Meer
@@ -13545,7 +13528,6 @@
 		zh-MO = 編輯書籤
 		zh-TW = 編輯書籤
 	[placepage_personal_notes_hint]
-		comment = A unit of measure
 		tags = android,android-app,apple,apple-maps
 		en = Personal notes (text or html)
 		af = Persoonlike notas (teks of html)
@@ -14330,7 +14312,6 @@
 		zh-MO = 請輸入有效的 LINE ID 或網頁地址
 		zh-TW = 請輸入有效的 LINE ID 或網頁地址
 	[placepage_add_place_button]
-		comment = Phone number error message
 		tags = android,android-app,apple,apple-maps
 		en = Add Place to OpenStreetMap
 		af = Voeg plek by OpenStreetMap
@@ -14553,7 +14534,6 @@
 		zh-MO = 確保您沒有輸入任何個人資料。
 		zh-TW = 確保您沒有輸入任何個人資料。
 	[editor_share_to_all_dialog_message_2]
-		comment = Dialog before publishing the modifications to the public map.
 		tags = android,android-app,apple,apple-maps
 		en = OpenStreetMap editors will check the changes and contact you if they have any questions.
 		af = OpenStraatMap-redigeerders sal die verandeirnge nagaan en u kontak indien hulle vrae het.
@@ -15439,7 +15419,6 @@
 		zh-MO = 交通資訊不可用
 		zh-TW = 交通資訊不可用
 	[enable_logging]
-		comment = "traffic" as in "road congestion"
 		tags = android,android-app,apple,apple-maps
 		en = Enable logging
 		af = Staan logboekinskrywing toe
@@ -17640,7 +17619,6 @@
 		zh-MO = 單車
 		zh-TW = 單車
 	[button_layer_subway]
-		comment = Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files
 		tags = android,android-app,apple,apple-maps
 		en = Subway
 		af = Moltrein
@@ -18400,7 +18378,6 @@
 		zh-MO = 永遠不會對測速照相機發出警告
 		zh-TW = 永遠不會對測速照相機發出警告
 	[power_managment_title]
-		comment = Speed camera settings menu option - Never warn (about speedcams)
 		tags = android,android-app,apple,apple-maps
 		en = Power saving mode
 		af = Energiebesparende modus
@@ -19071,7 +19048,6 @@
 		zh-MO = 避開渡輪
 		zh-TW = 避開渡輪
 	[avoid_motorways]
-		comment = Recommended length for CarPlay and Android Auto is around 25-27 characters
 		tags = android,android-app,apple,apple-maps
 		en = Avoid freeways
 		ar = تجنب الطريق السريع
@@ -19833,7 +19809,6 @@
 		zh-MO = 網路： %@
 		zh-TW = 網路： %@
 	[trip_finished]
-		comment = To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations...
 		tags = android,android-app,apple,apple-maps
 		en = You have arrived!
 		af = U het aangekom!
@@ -20322,7 +20297,6 @@
 		zh-MO = 按名字
 		zh-TW = 按名字
 	[week_ago_sorttype]
-		comment = iOS
 		tags = android,android-app,apple,apple-maps
 		en = A week ago
 		af = 'n week gelede
@@ -22320,7 +22294,6 @@
 		zh-Hans = 3. 点击“使用 App 期间”
 		zh-Hant = 3. 點擊“僅在使用該應用程式時允許”
 	[location_services_disabled_on_device_2]
-		comment = iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region)
 		tags = apple,apple-maps
 		en = 2. Select Privacy
 		af = 2. Kies Privaatheid
@@ -23004,7 +22977,6 @@
 		zh-Hans = 来看看
 		zh-Hant = 查看
 	[recent_track_background_dialog_message]
-		comment = For sharing via SMS and so on
 		tags = apple,apple-maps
 		en = Organic Maps uses your location in the background to record your recently travelled route.
 		af = Organic Maps gebruik u ligging in die agtergrond om u onlangs berese roete op te neem.
@@ -23152,7 +23124,6 @@
 		zh-Hans = 诺要显示交通数据，必须更新应用。
 		zh-Hant = 諾要顯示交通資訊，必須更新應用。
 	[log_file_size]
-		comment = "traffic" as in "road congestion"
 		tags = apple,apple-maps
 		en = Log file size: %@
 		af = Loglêergrootte: %@
@@ -25357,7 +25328,6 @@
 		zh-Hans = 按日期排序
 		zh-Hant = 按日期排序
 	[sort_name]
-		comment = iOS
 		tags = apple,apple-maps
 		en = Sort by name
 		af = Sorteer volgens naam
@@ -25410,7 +25380,6 @@
 
 [[Routing dialogs strings]]
 	[dialog_routing_disclaimer_title]
-		comment = blue gray color
 		tags = android,android-app,apple,apple-maps
 		en = When following the route, please keep in mind:
 		af = Wanneer u die roete volg, hou asb. die volgende in gedagte:
@@ -31113,7 +31082,6 @@
 		zh-MO = 地圖
 		zh-TW = 地圖
 	[downloader_download_all_button]
-		comment = In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10"
 		tags = android,android-app,apple,apple-maps
 		en = Download All
 		af = Laai alles af
@@ -31857,7 +31825,6 @@
 		zh-MO = 請啟用定位服務
 		zh-TW = 請啟用定位服務
 	[save]
-		comment = bookmark button text
 		tags = android,android-app,apple,apple-maps
 		en = Save
 		af = Bewaar
@@ -35340,7 +35307,6 @@
 		zh-Hant = 無線網路
 		zh-TW = 無線網路
 	[postal_code]
-		comment = Text field to enter non-existing street name, below list of known streets around
 		tags = android,android-sdk,apple,apple-maps
 		en = Postal Code
 		af = Poskode
@@ -35731,7 +35697,6 @@
 		zh-Hant = 退出
 		zh-TW = 退出
 	[core_entrance]
-		comment = For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part
 		tags = android,android-sdk,apple,apple-maps
 		en = Entrance
 		af = Ingang
