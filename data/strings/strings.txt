@@ -9454,14 +9454,14 @@
 		he = נפתח עוד %@
 		hi = %@ में खुल जाएगा
 		hr = Otvara za %@
-		hu = Kinyit ekkor: %@
+		hu = Kinyit %@ múlva
 		is = Opnar eftir %@
 		it = Apre tra %@
 		ja = あと %@ に営業
 		lt = Atsidaro už %@
 		lv = Atveras pēc %@
 		mr = आणखी %@ मध्ये उघडेल
-		mt = Jiftaħ f ’ %@
+		mt = Jiftaħ f’ %@
 		nb = Åpner om %@
 		nl = Opent over %@
 		pl = Otwarcie za %@
@@ -9502,7 +9502,7 @@
 		he = נסגר עוד %@
 		hi = %@ में बंद हो जाता है
 		hr = Zatvara za %@
-		hu = Bezár ekkor: %@
+		hu = Bezár %@ múlva
 		is = Lokar eftir %@
 		it = Chiude tra %@
 		ja = あと %@ に閉店
@@ -11944,13 +11944,13 @@
 		fa = داده های OpenStreetMap ایجاد شده توسط انجمن از %@. درباره نحوه ویرایش و به روز رسانی نقشه در OpenStreetMap.org بیشتر بیاموزید
 		fi = Yhteisön luomat OpenStreetMap-tiedot %@:sta alkaen. Lisätietoja kartan muokkaamisesta ja päivittämisestä osoitteessa OpenStreetMap.org
 		fr = Données OpenStreetMap créées par la communauté en date du %@. Pour en savoir plus sur la façon de modifier et de mettre à jour la carte, consulte le site OpenStreetMap.org.
-		gl = Datos de OpenStreetMap creados pola comunidade a partir de %@. Más información sobre como editar e actualizar o mapa en OpenStreetMap.org
+		gl = Datos de OpenStreetMap creados pola comunidade a partir de %@. Máis información sobre como editar e actualizar o mapa en OpenStreetMap.org
 		he = נתוני OpenStreetMap שנוצרו על ידי הקהילה החל מ-%@. למידע נוסף על איך לערוך ולעדכן את המפה ב-OpenStreetMap.org
 		hi = समुदाय-निर्मित OpenStreetMap डेटा %@ तक। OpenStreetMap.org पर मानचित्र को संपादित और अपडेट करने के तरीके के बारे में और जानें
 		hu = Közösség által létrehozott OpenStreetMap adatok innen: %@. További információkat a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon találhat
 		id = Data OpenStreetMap yang dibuat oleh komunitas pada tanggal %@. Pelajari lebih lanjut mengenai cara mengedit dan memperbarui peta di OpenStreetMap.org
-		is = OpenStreetMap-gögn gerð af þátttakendum eins og þau voru %@ Fræðstu betur um hvernig hægt sé að breyta og uppfæra landakortið á OpenStreetMap.org
-		it = Dati OpenStreetMap creati dalla comunità al %@. Per saperne di più su come modificare e aggiornare la mappa, visita OpenStreetMap.org
+		is = OpenStreetMap-gögn gerð af þátttakendum eins og þau voru %@. Fræðstu betur um hvernig hægt sé að breyta og uppfæra landakortið á OpenStreetMap.org
+		it = Dati OpenStreetMap creati dalla comunità aggiornati al %@. Per saperne di più su come modificare e aggiornare la mappa, visita OpenStreetMap.org
 		ja = コミュニティが作成した%@時点の OpenStreetMap のデータ。地図の編集や更新の方法については、OpenStreetMap.org を参照してください。
 		ko = 커뮤니티에서 만든 오픈스트리트맵 데이터(%@ 기준). 지도를 편집하고 업데이트하는 방법에 대한 자세한 내용은 OpenStreetMap.org에서 확인하세요.
 		lt = Bendruomenės surinkti „OpenStreetMap“ duomenys %@ dienai. Sužinokite, kaip redaguoti ir atnaujinti žemėlapį, apsilankydami OpenStreetMap.org svetainėje
@@ -11970,7 +11970,7 @@
 		sv = Community-skapade OpenStreetMap-data från och med %@. Läs mer om hur du redigerar och uppdaterar kartan på OpenStreetMap.org
 		sw = Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %@. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org
 		th = ข้อมูล OpenStreetMap ที่สร้างโดยชุมชน ณ %@ เรียนรู้เพิ่มเติมเกี่ยวกับวิธีแก้ไขและอัปเดตแผนที่ได้ที่ OpenStreetMap.org
-		tr = %@ tarihine ait topluluk tarafından oluşturulmuş OpenStreetMap verilerini kullanıyorsunuz. OpenStreetMap.org adresinden haritayı nasıl düzenleyebileceğinizle ilgili bilgi edinebilirsiniz
+		tr = %@ tarihine ait topluluk tarafından oluşturulmuş OpenStreetMap verilerini kullanıyorsunuz. OpenStreetMap.org adresinden haritayı nasıl düzenleyebileceğiniz hakkında bilgi edinebilirsiniz
 		uk = Дані OpenStreetMap, створені спільнотою, станом на %@. Дізнайтеся більше про те, як редагувати та оновлювати мапу на OpenStreetMap.org
 		vi = Dữ liệu OpenStreetMap do cộng đồng tạo ra kể từ %@. Tìm hiểu thêm về cách chỉnh sửa và cập nhật bản đồ tại OpenStreetMap.org
 		zh-Hans = 截至 %@ 的社区创建的 OpenStreetMap 数据。请访问 OpenStreetMap.org 详细了解如何编辑和更新地图
@@ -12876,7 +12876,7 @@
 		af = Operateur: %@
 		ar = المشغل: %@
 		az = Operator: %@
-		be = Aператар: %@
+		be = Аператар: %@
 		bg = Оператор: %@
 		ca = Operador: %@
 		cs = Operátor: %@
@@ -12888,7 +12888,7 @@
 		et = Käitaja: %@
 		eu = Operadorea: %@
 		fa = اپراتور: %@
-		fi = Palveluntarjoaja: %@
+		fi = Operaattori: %@
 		fr = Opérateur : %@
 		gl = Operador: %@
 		he = מַפעִיל: %@
@@ -25507,7 +25507,7 @@
 		ro = — Condițiile de drum, legile și semnele rutiere sunt mai importante decât indicațiile navigatorului;
 		ru = — Дорожная обстановка, ПДД и дорожные знаки приоритетнее подсказок навигатора;
 		sk = — Podmienky na ceste, dopravné predpisy a značenie majú vždy prednosť pred pokynmi z navigácie;
-		sl = — Stanje na cestah, prometni predpisi in prometni znaki imajo vedno prednost pred navigacijskimi namigi
+		sl = — Stanje na cestah, prometni predpisi in prometni znaki imajo vedno prednost pred navigacijskimi namigi;
 		sr = — Услови на путу, саобраћајни прописи и знакови имају приоритет у односу на навигацију;
 		sv = – Vägförhållanden, trafikregler och vägskyltar alltid ska prioriteras över navigeringsråden;
 		th = — สภาพถนน กฎจราจร และสัญลักษณ์บนถนนย่อมมีความสำคัญกว่าคำแนะนำเพื่อบอกทางเสมอ;
@@ -25563,7 +25563,7 @@
 		ro = — Harta poate conține greșeli, iar traseul sugerat pentru a ajunge la destinație nu e întotdeauna cel mai bun;
 		ru = — Карта может быть неточной, а предложенный маршрут не всегда оптимален;
 		sk = — Mapa nemusí byť presná a navrhovaná trasa nemusí byť vždy optimálna na dosiahnutie cieľa;
-		sl = — Zemljevid je lahko netočen in predlagana pot morda ni vedno najbolj optimalen način za dosego cilja
+		sl = — Zemljevid je lahko netočen in predlagana pot morda ni vedno najbolj optimalen način za dosego cilja;
 		sr = — Мапа може бити нетачна и предложена рута не мора увек бити најоптималнији начин да стигнете на одредиште;
 		sv = – Kartan kan vara felaktig och den föreslagna vägen inte alltid är det optimala sättet att ta sig till destinationen på;
 		th = — แผนที่อาจมีความคลาดเคลื่อนและเส้นทางที่แนะนำอาจไม่ใช่เส้นทางที่เหมาะสมที่สุดเสมอไปสำหรับการไปยังที่หมาย;
@@ -25619,7 +25619,7 @@
 		ro = — Traseele sugerate sunt doar niște recomandări;
 		ru = — Предлагаемые маршруты — лишь рекомендации;
 		sk = — Navrhované trasy by sa mali brať len ako odporúčania;
-		sl = — Predlagane poti je treba razumeti le kot priporočila
+		sl = — Predlagane poti je treba razumeti le kot priporočila;
 		sr = — Предложену руту треба да схватите само као предлог;
 		sv = – Föreslagna vägar endast är rekommendationer;
 		th = — เส้นทางที่แนะนำเป็นเพียงคำแนะนำเท่านั้น;
@@ -27087,13 +27087,13 @@
 		az = Salam!\n\nOrganic Maps əlfəcinlərim əlavə olunub. Zəhmət olmasa Organic Maps-da onları açın. Əgər onu quraşdırmamısınızsa, bu linkə daxil olub cihazınıza yükləyə bilərsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ilə səyahətdən həzz alın!
 		be = Вітаю!\n\nУ далучаным файле мае закладкі, яны адкрываюцца праграмай Organic Maps. Калі такая праграма ў вас не ўсталявана, яе можна спампаваць тут: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
 		ca = Hola!\n\nAdjunto els meus marcadors de l’Organic Maps. Obriu-los si teniu l’Organic Maps instal·lat. O, si no teniu l’aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l’Organic Maps!
-		cs = Ahoj!\n \nV příloze najdeš mé záložky; otevři je v aplikaci Organic Maps. Pokud ji nemáš nainstalovanou, můžeš si ji stáhnout zde: https://omaps.app/get?kmz\n \nUžij si cestování s Organic Maps!
-		da = Hej! \n\nVedhæftet er mine bogmærker; åbn dem venligst i Organic Maps. Hvis du ikke har den installeret, kan du downloade den her: https://omaps.app/get?kmz\n\nGod rejse med Organic Maps!
+		cs = Ahoj!\n \nV příloze najdeš mé záložky; otevři je v aplikaci Organic Maps. Pokud ji nemáš nainstalovanou, můžeš si ji stáhnout zde: https://omaps.app/get?kmz \n \nUžij si cestování s Organic Maps!
+		da = Hej!\n \nVedhæftet er mine bogmærker; åbn dem venligst i Organic Maps. Hvis du ikke har den installeret, kan du downloade den her: https://omaps.app/get?kmz\n \nGod rejse med Organic Maps!
 		de = Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps App. Sie können sie mit Organic Maps öffnen. Wenn Sie die App nicht installiert haben, können Sie sie von https://omaps.app/get?kmz für iOS oder Android herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!
 		el = Γειa!\n\nΣου επισυνάπτω τα αγαπημένα μου. Παρακαλώ άνοιξέ τα με το Organic Maps. Αν δεν το έχεις εγκαταστήσει, μπορείς να το κατεβάσεις από εδώ: https://omaps.app/get?kmz\n\nΚαλή διασκέδαση ταξιδεύοντας με το Organic Maps!
 		es = ¡Hola!\n\nAdjunto mis marcadores; ábralos en Organic Maps. Si no lo ha instalado, puede descargarlo aquí: https://omaps.app/get?kmz\n\n¡Disfrute viajando con Organic Maps!
 		es-MX = Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábralos si tiene instalado Organic Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz\n¡Disfrute viajando con Organic Maps!
-		et = Tere!\n\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOS või Android seadmesse, järgides seda linki: https:omaps.appget?kmz\n\nNaudi reisimist Organic Mapsiga!
+		et = Tere!\n\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOSi või Androidi seadmesse, järgides seda linki: https:omaps.appget?kmz \n \nNaudi reisimist Organic Mapsiga!
 		eu = Kaixo!\nNire markagailuak Organic Maps aplikazioan erantsi ditut. Mesedez, ireki itzazu Organic Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://omaps.app/get?kmz\n\nGozatu bidaiatzen Organic Maps-ekin!
 		fa = سلام!\n\nنشانک‌های من ضمیمه شده‌اند؛ لطفا آن‌ها را در Organic Maps باز کنید. اگر برنامه نصب نشده است، می‌توانید آن را از اینجا دانلود کنید: https://omaps.app/get?kmz \n\nاز سفر با Organic Maps لذت ببرید!
 		fi = Hei! \n\nLiitteenä ovat kirjamerkkini; Avaa ne Organic Maps -sovelluksessa. Mikäli sinulla ei ole vielä sovellusta asennettuna, voit ladata sen osoitteesta: https://omaps.app/get?kmz \n\nNauti matkustamisesta Organic Maps:n kanssa!
@@ -27103,7 +27103,7 @@
 		hi = नमस्ते!\n\nमेरे बुकमार्क संलग्न हैं; कृपया उन्हें ऑर्गेनिक मानचित्र में खोलें। यदि आपने इसे इंस्टॉल नहीं किया है तो आप इसे यहां से डाउनलोड कर सकते हैं: https://omaps.app/get?kmz\n\nऑर्गेनिक मैप्स के साथ यात्रा का आनंद लें!
 		hr = Zdravo! \n \nU privitku su moje zabilješke; otvori ih u aplikaciji Organic Maps. Ako nije instalirana, možeš je preuzeti ovdje: https://omaps.app/get?kmz \n \nUživaj u putovanju s Organic Maps!
 		hu = Üdvözlöm!\n\nMellékeltem a könyvjelzőimet; nyissa meg őket az Organic Maps alkalmazásban. Ha még nem telepítette, akkor innen tudja letölteni: https://omaps.app/get?kmz\n\nJó utat kívánok az Organic Maps alkalmazással!
-		is = Halló! \n\nMeðfylgjandi eru bókamerkin mín; endilega opnaðu þau í Organic Maps forritinu. Ef þú ert ekki með það uppsett geturðu sótt það hér: https://omaps.app/get?kmz \n\nNjóttu ferðarinnar með Organic Maps!
+		is = Halló!\n\nMeðfylgjandi eru bókamerkin mín; endilega opnaðu þau í Organic Maps forritinu. Ef þú ert ekki með það uppsett geturðu sótt það hér: https://omaps.app/get?kmz \n\nNjóttu ferðarinnar með Organic Maps!
 		it = Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato Organic Maps. Oppure, se non ce l'hai, scarica l'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con Organic Maps!
 		ja = こんにちは！\n\n添付ファイルOrganic Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://omaps.app/get?kmz\n\n旅行を楽しむときはOrganic Mapsを使用してください!
 		lt = Labas! \n \nČia prisegtas mano žymių sąrašas iš „Organic Maps“ programėlės. Jei jos neturi, gali ją parsisiųsti iš https://omaps.app/get?kmz \n \nSmagių kelionių su „Organic Maps“!
@@ -29426,7 +29426,7 @@
 		uk = Відстань
 		vi = Khoảng cách
 		zh-Hans = 距离
-		zh-Hant = 距离
+		zh-Hant = 距離
 		zh-MO = 距離
 		zh-TW = 距離
 	[search_show_on_map]
@@ -35669,7 +35669,7 @@
 		pt = Para exibir rotas, os mapas devem ser atualizados.
 		pt-BR = Para exibir as rotas, os mapas devem ser atualizados.
 		ro = Pentru a afișa rutele, hărțile trebuie să fie actualizate.
-		ru = Обновите карты, чтобы увидеть маршруты
+		ru = Обновите карты, чтобы увидеть маршруты.
 		sl = Za prikaz poti je treba posodobiti zemljevide.
 		tr = Rotaları görüntülemek için haritalar güncellenmelidir.
 		uk = Для відображення маршрутів карти необхідно оновити.
@@ -37978,7 +37978,7 @@
 		ro = Denumirea listei
 		ru = Название списка меток
 		sk = Meno záložky
-		sl = Ime seznama
+		sl = Ime seznama zaznamkov
 		sr = Назив листе маркера
 		sv = Bokmärkessamlingens namn
 		th = ชื่อของชุดบุ๊กมาร์ก
