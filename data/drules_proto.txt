@@ -13704,6 +13704,73 @@ cont {
   }
 }
 cont {
+  name: "amenity-student_accommodation"
+  element {
+    scale: 17
+    symbol {
+      name: "hostel-m"
+      priority: 2570
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7430
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hostel-m"
+      priority: 2570
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7430
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hostel-m"
+      priority: 2570
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7430
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "hostel-m"
+      priority: 2570
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7430
+    }
+  }
+}
+cont {
   name: "amenity-studio"
   element {
     scale: 16
@@ -22844,6 +22911,64 @@ cont {
         is_optional: true
       }
       priority: -8400
+    }
+  }
+}
+cont {
+  name: "craft-watchmaker"
+  element {
+    scale: 17
+    symbol {
+      name: "watchmaker-m"
+      priority: 500
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "watchmaker-m"
+      priority: 500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "watchmaker-m"
+      priority: 500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "watchmaker-m"
+      priority: 500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
     }
   }
 }
@@ -127586,9 +127711,26 @@ cont {
 cont {
   name: "shop-travel_agency"
   element {
+    scale: 17
+    symbol {
+      name: "travel_agency-m"
+      priority: 2400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "shop-m"
+      name: "travel_agency-m"
       priority: 2400
       min_distance: 10
     }
@@ -127605,7 +127747,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-m"
+      name: "travel_agency-m"
       priority: 2400
       min_distance: 10
     }
@@ -127622,7 +127764,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "shop-m"
+      name: "travel_agency-m"
       priority: 2400
       min_distance: 10
     }
@@ -127975,9 +128117,26 @@ cont {
 cont {
   name: "shop-watches"
   element {
+    scale: 17
+    symbol {
+      name: "watchmaker-m"
+      priority: 500
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "shop-m"
+      name: "watchmaker-m"
       priority: 500
       min_distance: 10
     }
@@ -127994,7 +128153,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-m"
+      name: "watchmaker-m"
       priority: 500
       min_distance: 10
     }
@@ -128011,7 +128170,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "shop-m"
+      name: "watchmaker-m"
       priority: 500
       min_distance: 10
     }
