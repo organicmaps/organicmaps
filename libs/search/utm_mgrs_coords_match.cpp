@@ -186,7 +186,7 @@ std::optional<ms::LatLon> MatchMGRSCoords(std::string const & query)
   if (eastingStr.size() != northingStr.size() || eastingStr.size() > 5 || northingStr.size() > 5)
     return {};
 
-  if (!strings::to_int32(eastingStr, easting))
+  if (!strings::to_int(eastingStr, easting))
     return {};
   if (eastingStr.size() < 5)
   {
@@ -194,7 +194,7 @@ std::optional<ms::LatLon> MatchMGRSCoords(std::string const & query)
     easting *= math::PowUint(10, decShift);
   }
 
-  if (!strings::to_int32(northingStr, northing))
+  if (!strings::to_int(northingStr, northing))
     return {};
   if (northingStr.size() < 5)
   {

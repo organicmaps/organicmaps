@@ -490,7 +490,7 @@ TrafficInfo::ServerDataStatus TrafficInfo::ProcessFailure(platform::HttpClient c
   case 404: /* Not Found */
   {
     int64_t version = 0;
-    VERIFY(strings::to_int64(request.ServerResponse().c_str(), version), ());
+    VERIFY(strings::to_int(request.ServerResponse().c_str(), version), ());
 
     if (version > mwmVersion && version <= m_currentDataVersion)
       m_availability = Availability::ExpiredData;

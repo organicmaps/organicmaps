@@ -102,7 +102,7 @@ bool EatFid(string & s, uint32_t & fid)
     ++i;
 
   auto const prefix = s.substr(0, i);
-  if (strings::to_uint32(prefix, fid))
+  if (strings::to_uint(prefix, fid))
   {
     s = s.substr(prefix.size());
     return true;
@@ -147,7 +147,7 @@ bool EatVersion(string & s, uint32_t & version)
   if (s.size() >= kVersionLength && all_of(s.begin(), s.begin() + kVersionLength, ::isdigit) &&
       (s.size() == kVersionLength || !isdigit(s[kVersionLength + 1])))
   {
-    VERIFY(strings::to_uint32(s.substr(0, kVersionLength), version), ());
+    VERIFY(strings::to_uint(s.substr(0, kVersionLength), version), ());
     s = s.substr(kVersionLength);
     return true;
   }
