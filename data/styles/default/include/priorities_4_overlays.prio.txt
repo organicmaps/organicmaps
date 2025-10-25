@@ -1145,6 +1145,7 @@ craft-locksmith                                     # icon z17- (also has captio
 craft-metal_construction                            # icon z17- (also has caption(optional) z18-)
 craft-painter                                       # icon z17- (also has caption(optional) z18-)
 craft-sawmill                                       # icon z17- (also has caption(optional) z18-)
+craft-watchmaker                                    # icon z17- (also has caption(optional) z18-)
 healthcare-alternative                              # icon z17- (also has caption(optional) z17-)
 healthcare-audiologist                              # icon z17- (also has caption(optional) z17-)
 healthcare-podiatrist                               # icon z17- (also has caption(optional) z17-)
@@ -1175,7 +1176,7 @@ shop-outpost                                        # icon z18- (also has captio
 shop-pet_grooming                                   # icon z18- (also has caption(optional) z18-)
 shop-storage_rental                                 # icon z18- (also has caption(optional) z18-)
 shop-trade                                          # icon z18- (also has caption(optional) z18-)
-shop-watches                                        # icon z18- (also has caption(optional) z18-)
+shop-watches                                        # icon z17- (also has caption(optional) z17-)
 shop-wholesale                                      # icon z18- (also has caption(optional) z18-)
 === 500
 
