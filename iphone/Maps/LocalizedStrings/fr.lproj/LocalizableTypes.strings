@@ -1518,3 +1518,4 @@
 "type.man_made.monitoring_station.water_level" = "Station de surveillance du niveau d'eau";
 "type.man_made.monitoring_station.weather" = "Station de surveillance météorologique";
 "type.amenity.student_accommodation" = "Logement étudiant";
+"type.craft.watchmaker" = "Horloger";

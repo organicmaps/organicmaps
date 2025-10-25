@@ -1519,3 +1519,4 @@
 "type.man_made.monitoring_station.water_level" = "Станция мониторинга уровня воды";
 "type.man_made.monitoring_station.weather" = "Станция мониторинга погоды";
 "type.amenity.student_accommodation" = "Проживание студентов";
+"type.craft.watchmaker" = "Часовщик";

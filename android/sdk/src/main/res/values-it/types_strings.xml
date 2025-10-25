@@ -1420,4 +1420,5 @@
     <string name="type.man_made.monitoring_station.water_level">Stazione di monitoraggio del livello dell\'acqua</string>
     <string name="type.man_made.monitoring_station.weather">Stazione di monitoraggio meteo</string>
     <string name="type.amenity.student_accommodation">Alloggio per studenti</string>
+    <string name="type.craft.watchmaker">Orologiaio</string>
 </resources>

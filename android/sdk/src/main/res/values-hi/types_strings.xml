@@ -681,4 +681,5 @@
     <string name="type.man_made.monitoring_station.water_level">जल स्तर निगरानी स्टेशन</string>
     <string name="type.man_made.monitoring_station.weather">मौसम निगरानी स्टेशन</string>
     <string name="type.amenity.student_accommodation">छात्र आवास</string>
+    <string name="type.craft.watchmaker">घड़ीसाज़</string>
 </resources>

@@ -1518,3 +1518,4 @@
 "type.man_made.monitoring_station.water_level" = "水位モニタリングステーション";
 "type.man_made.monitoring_station.weather" = "気象観測ステーション";
 "type.amenity.student_accommodation" = "学生寮";
+"type.craft.watchmaker" = "ウォッチメーカー";

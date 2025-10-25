@@ -1428,4 +1428,5 @@
     <string name="type.man_made.monitoring_station.water_level">Veetaseme seirejaam</string>
     <string name="type.man_made.monitoring_station.weather">Ilmaseirejaam</string>
     <string name="type.amenity.student_accommodation">Üliõpilaskodu</string>
+    <string name="type.craft.watchmaker">Kellassepp</string>
 </resources>

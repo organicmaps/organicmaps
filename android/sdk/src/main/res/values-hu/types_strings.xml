@@ -1425,4 +1425,5 @@
     <string name="type.man_made.monitoring_station.water_level">Vízszintmérő állomás</string>
     <string name="type.man_made.monitoring_station.weather">Időjárás megfigyelő állomás</string>
     <string name="type.amenity.student_accommodation">Diákszállás</string>
+    <string name="type.craft.watchmaker">Órás</string>
 </resources>

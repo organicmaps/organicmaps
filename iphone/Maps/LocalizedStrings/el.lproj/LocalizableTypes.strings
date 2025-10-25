@@ -1518,3 +1518,4 @@
 "type.man_made.monitoring_station.water_level" = "Σταθμός παρακολούθησης στάθμης νερού";
 "type.man_made.monitoring_station.weather" = "Σταθμός παρακολούθησης καιρού";
 "type.amenity.student_accommodation" = "Φοιτητική Εστία";
+"type.craft.watchmaker" = "Ωρολογοποιός";
