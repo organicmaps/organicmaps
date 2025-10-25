@@ -1325,3 +1325,9 @@
 "type.shop.telecommunication" = "Verslun með fjarskiptabúnað";
 "type.leisure.indoor_play" = "Leikjamiðstöð";
 "type.tourism.camp_pitch" = "Tjaldstæði";
+"type.railway.miniature" = "Líkan af járnbrautarlest";
+"type.amenity.kneipp_water_cure" = "Kneipp-vatnsmeðferð";
+"type.man_made.monitoring_station.water_level" = "Varnshæðarvöktun";
+"type.man_made.monitoring_station.weather" = "Veðurstöð";
+"type.area_highway.traffic_island" = "Umferðareyja";
+"type.man_made.monitoring_station" = "Vöktunarstöð";
