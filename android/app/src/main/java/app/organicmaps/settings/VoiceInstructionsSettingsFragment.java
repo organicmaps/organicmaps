@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -83,12 +85,12 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       mTtsPrefLanguages.setVisible(false);
       mTtsPrefStreetNames.setVisible(false);
       mTtsVolume.setVisible(false);
-      mTtsLangInfo.setSummary(R.string.prefs_languages_information_off);
+      updateGoogleTtsInfoSummary(R.string.prefs_languages_information_off);
       mTtsVoiceTest.setVisible(false);
       return true;
     }
 
-    mTtsLangInfo.setSummary(R.string.prefs_languages_information);
+    updateGoogleTtsInfoSummary(R.string.prefs_languages_information);
     mTtsPrefLanguages.setVisible(true);
     mTtsPrefStreetNames.setVisible(true);
     mTtsVolume.setVisible(true);
@@ -143,7 +145,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
 
     mTtsPrefEnabled = getPreference(getString(R.string.pref_tts_enabled));
     mTtsPrefLanguages = getPreference(getString(R.string.pref_tts_language));
-    mTtsPrefStreetNames = findPreference(getString(R.string.pref_tts_street_names));
+    mTtsPrefStreetNames = getPreference(getString(R.string.pref_tts_street_names));
     mTtsLangInfo = getPreference(getString(R.string.pref_tts_info));
 
     Preference mTtsOpenSystemSettings = getPreference(getString(R.string.pref_tts_open_system_settings));
@@ -247,14 +249,15 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       mTtsPrefLanguages.setSummary(null);
       mTtsVolume.setVisible(false);
       mTtsVoiceTest.setVisible(false);
-      mTtsLangInfo.setSummary(R.string.prefs_languages_information_off);
+      updateGoogleTtsInfoSummary(R.string.prefs_languages_information_off);
 
       enableListeners(true);
       return;
     }
 
     final boolean enabled = TtsPlayer.isEnabled();
-    mTtsLangInfo.setSummary(enabled ? R.string.prefs_languages_information : R.string.prefs_languages_information_off);
+    updateGoogleTtsInfoSummary(enabled ? R.string.prefs_languages_information
+                                       : R.string.prefs_languages_information_off);
 
     final CharSequence[] entries = new CharSequence[languages.size()];
     final CharSequence[] values = new CharSequence[languages.size()];
@@ -318,6 +321,30 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     mTtsVolume.setValue(volumeInt);
     mTtsVolume.setSummary(Integer.toString(volumeInt));
     TtsPlayer.INSTANCE.setVolume(volume);
+  }
+
+  private void updateGoogleTtsInfoSummary(@StringRes int textResId)
+  {
+    final String gpText = "Google Play";
+    final String text = getString(textResId);
+    final int gpTextStart = text.indexOf(gpText);
+    final int gpTextEnd = gpTextStart + gpText.length();
+    final Spannable link = new SpannableString(text);
+    if (gpTextStart != -1)
+    {
+      link.setSpan(new ClickableSpan() {
+        @Override
+        public void onClick(@NonNull View widget)
+        {
+          // Do nothing. We just want to highlight the text.
+        }
+      }, gpTextStart, gpTextEnd, 0);
+    }
+    mTtsLangInfo.setSummary(link);
+    mTtsLangInfo.setOnPreferenceClickListener(preference -> {
+      Utils.openUrl(requireContext(), requireContext().getString(R.string.google_play_tts_link));
+      return false;
+    });
   }
 
   private void initTtsLangInfoLink()

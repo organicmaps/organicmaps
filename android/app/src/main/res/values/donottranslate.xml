@@ -61,4 +61,6 @@
   <string name="placepage_behavior" translatable="false">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
 
   <string name="car_notification_channel_name" translatable="false">Car</string>
+
+  <string name="google_play_tts_link" translatable="false">https://play.google.com/store/apps/details?id=com.google.android.tts</string>
 </resources>
