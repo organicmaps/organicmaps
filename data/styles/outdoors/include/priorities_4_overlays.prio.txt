@@ -781,7 +781,7 @@ tourism-artwork-statue                              # icon z15- (also has captio
 tourism-motel                                       # icon z16- (also has caption(optional) z16-)
 === 2580
 
-amenity-student_accommodation                       # icon z17- (also has caption(optional) z19-)
+amenity-student_accommodation                       # icon z17- (also has caption(optional) z17-)
 tourism-apartment                                   # icon z16- (also has caption(optional) z16-)
 tourism-guest_house                                 # icon z16- (also has caption(optional) z16-)
 tourism-hostel                                      # icon z16- (also has caption(optional) z16-)
@@ -1782,6 +1782,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # tourism-motel                                     # caption(optional) z16- (also has icon z16-)
 # === -7420
 
+# amenity-student_accommodation                     # caption(optional) z17- (also has icon z17-)
 # tourism-apartment                                 # caption(optional) z16- (also has icon z16-)
 # tourism-guest_house                               # caption(optional) z16- (also has icon z16-)
 # tourism-hostel                                    # caption(optional) z16- (also has icon z16-)
@@ -1861,7 +1862,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # shop-tea                                          # caption(optional) z18- (also has icon z18-)
 # shop-telecommunication                            # caption(optional) z16- (also has icon z16-)
 # shop-toys                                         # caption(optional) z16- (also has icon z16-)
-# shop-travel_agency                                # caption(optional) z18- (also has icon z18-)
+# shop-travel_agency                                # caption(optional) z17- (also has icon z17-)
 # shop-wine                                         # caption(optional) z16- (also has icon z16-)
 # === -7600
 
@@ -2108,6 +2109,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # craft-metal_construction                          # caption(optional) z18- (also has icon z17-)
 # craft-painter                                     # caption(optional) z18- (also has icon z17-)
 # craft-sawmill                                     # caption(optional) z18- (also has icon z17-)
+# craft-watchmaker                                  # caption(optional) z18- (also has icon z17-)
 # healthcare-alternative                            # caption(optional) z17- (also has icon z17-)
 # healthcare-audiologist                            # caption(optional) z17- (also has icon z17-)
 # healthcare-podiatrist                             # caption(optional) z17- (also has icon z17-)
@@ -2138,7 +2140,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # shop-pet_grooming                                 # caption(optional) z18- (also has icon z18-)
 # shop-storage_rental                               # caption(optional) z18- (also has icon z18-)
 # shop-trade                                        # caption(optional) z18- (also has icon z18-)
-# shop-watches                                      # caption(optional) z18- (also has icon z18-)
+# shop-watches                                      # caption(optional) z17- (also has icon z17-)
 # shop-wholesale                                    # caption(optional) z18- (also has icon z18-)
 # === -9500
 

@@ -168,6 +168,7 @@ world  +
         shower  -
         social_facility  -
         stripclub  -
+        student_accommodation  -
         studio  -
         taxi  -
         telephone  -
@@ -305,6 +306,7 @@ world  +
         sawmill  -
         shoemaker  -
         tailor  -
+        watchmaker  -
         winery  -
         {}
     cuisine  +
