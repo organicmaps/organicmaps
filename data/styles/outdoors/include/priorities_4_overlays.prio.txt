@@ -781,6 +781,7 @@ tourism-artwork-statue                              # icon z15- (also has captio
 tourism-motel                                       # icon z16- (also has caption(optional) z16-)
 === 2580
 
+amenity-student_accommodation                       # icon z17- (also has caption(optional) z19-)
 tourism-apartment                                   # icon z16- (also has caption(optional) z16-)
 tourism-guest_house                                 # icon z16- (also has caption(optional) z16-)
 tourism-hostel                                      # icon z16- (also has caption(optional) z16-)

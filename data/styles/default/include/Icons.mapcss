@@ -756,6 +756,7 @@ node|z17-[amenity=shelter],
 node|z16-[amenity=shelter][shelter_type=basic_hut],
 node|z16-[amenity=shelter][shelter_type=lean_to],
 node|z16-[tourism=caravan_site],
+node|z17-[amenity=student_accommodation],
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
 
 
@@ -796,6 +797,9 @@ node|z17-[tourism=alpine_hut],
 node|z17-[tourism=wilderness_hut],
 node|z17-[tourism=chalet],
 {icon-image: alpine_hut-m.svg;}
+
+node|z17-[amenity=student_accommodation],
+{icon-image: hostel-m.svg;}
 
 node|z18-[tourism=guest_house],
 area|z18-[tourism=guest_house],
