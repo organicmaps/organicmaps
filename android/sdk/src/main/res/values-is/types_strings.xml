@@ -1327,4 +1327,10 @@
     <string name="type.shop.telecommunication">Verslun með fjarskiptabúnað</string>
     <string name="type.leisure.indoor_play">Leikjamiðstöð</string>
     <string name="type.tourism.camp_pitch">Tjaldstæði</string>
+    <string name="type.railway.miniature">Líkan af járnbrautarlest</string>
+    <string name="type.amenity.kneipp_water_cure">Kneipp-vatnsmeðferð</string>
+    <string name="type.man_made.monitoring_station.water_level">Varnshæðarvöktun</string>
+    <string name="type.man_made.monitoring_station.weather">Veðurstöð</string>
+    <string name="type.area_highway.traffic_island">Umferðareyja</string>
+    <string name="type.man_made.monitoring_station">Vöktunarstöð</string>
 </resources>

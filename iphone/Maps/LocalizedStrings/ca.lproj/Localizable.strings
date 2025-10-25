@@ -704,7 +704,6 @@
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Sortida";
-
 "planning_route_manage_route" = "Gestionar la ruta";
 "button_plan" = "Planifica";
 "placepage_remove_stop" = "Elimina parada";
@@ -1047,7 +1046,7 @@
 "track_recording_toast_nothing_to_save" = "El recorregut està buit; no hi ha res a desar";
 "edit_track" = "Edita el recorregut";
 "saved" = "Desat";
-"button_layer_hiking" = "Hiking";
+"button_layer_hiking" = "Camins";
 "button_layer_cycling" = "Cycling";
 
 /* Settings/Bookmark Text Placement */
