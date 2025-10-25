@@ -1517,3 +1517,4 @@
 "type.man_made.monitoring_station" = "Overvågningsstation";
 "type.man_made.monitoring_station.water_level" = "Station til overvågning af vandstand";
 "type.man_made.monitoring_station.weather" = "Station til overvågning af vejret";
+"type.amenity.student_accommodation" = "Indkvartering af studerende";

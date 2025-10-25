@@ -798,4 +798,5 @@
     <string name="type.man_made.monitoring_station">Станция за наблюдение</string>
     <string name="type.man_made.monitoring_station.water_level">Станция за наблюдение на нивото на водата</string>
     <string name="type.man_made.monitoring_station.weather">Станция за наблюдение на времето</string>
+    <string name="type.amenity.student_accommodation">Настаняване на студенти</string>
 </resources>

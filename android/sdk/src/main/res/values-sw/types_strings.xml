@@ -675,4 +675,5 @@
     <string name="type.man_made.monitoring_station">Kituo cha Ufuatiliaji</string>
     <string name="type.man_made.monitoring_station.water_level">Kituo cha Ufuatiliaji wa Kiwango cha Maji</string>
     <string name="type.man_made.monitoring_station.weather">Kituo cha Ufuatiliaji wa Hali ya Hewa</string>
+    <string name="type.amenity.student_accommodation">Malazi ya Wanafunzi</string>
 </resources>

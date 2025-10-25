@@ -1517,3 +1517,4 @@
 "type.man_made.monitoring_station" = "Jarraipen Estazioa";
 "type.man_made.monitoring_station.water_level" = "Ur-maila kontrolatzeko estazioa";
 "type.man_made.monitoring_station.weather" = "Eguraldia Begiratzeko Estazioa";
+"type.amenity.student_accommodation" = "Ikasleentzako ostatua";

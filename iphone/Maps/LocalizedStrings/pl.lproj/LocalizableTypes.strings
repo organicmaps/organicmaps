@@ -1517,3 +1517,4 @@
 "type.man_made.monitoring_station" = "Stacja monitorująca";
 "type.man_made.monitoring_station.water_level" = "Stacja monitorowania poziomu wody";
 "type.man_made.monitoring_station.weather" = "Stacja monitorowania pogody";
+"type.amenity.student_accommodation" = "Zakwaterowanie dla studentów";

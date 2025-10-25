@@ -1420,4 +1420,5 @@
     <string name="type.man_made.monitoring_station">Станцыя назірання</string>
     <string name="type.man_made.monitoring_station.water_level">Станцыя кантролю ўзроўню вады</string>
     <string name="type.man_made.monitoring_station.weather">Станцыя назірання за надвор\'ем</string>
+    <string name="type.amenity.student_accommodation">Жыллё для студэнтаў</string>
 </resources>

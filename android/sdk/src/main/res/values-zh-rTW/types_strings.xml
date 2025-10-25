@@ -165,4 +165,5 @@
     <string name="type.man_made.monitoring_station">監測站</string>
     <string name="type.man_made.monitoring_station.water_level">水位監測站</string>
     <string name="type.man_made.monitoring_station.weather">氣象監測站</string>
+    <string name="type.amenity.student_accommodation">學生住宿</string>
 </resources>

@@ -1517,3 +1517,4 @@
 "type.man_made.monitoring_station" = "Estación de control";
 "type.man_made.monitoring_station.water_level" = "Estación de control del nivel del agua";
 "type.man_made.monitoring_station.weather" = "Estación de control meteorológico";
+"type.amenity.student_accommodation" = "Residencia de estudiantes";

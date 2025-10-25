@@ -1517,3 +1517,4 @@
 "type.man_made.monitoring_station" = "Kituo cha Ufuatiliaji";
 "type.man_made.monitoring_station.water_level" = "Kituo cha Ufuatiliaji wa Kiwango cha Maji";
 "type.man_made.monitoring_station.weather" = "Kituo cha Ufuatiliaji wa Hali ya Hewa";
+"type.amenity.student_accommodation" = "Malazi ya Wanafunzi";

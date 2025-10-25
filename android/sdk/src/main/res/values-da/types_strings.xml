@@ -1388,7 +1388,6 @@
     <string name="type.man_made.monitoring_station">Overvågningsstation</string>
     <string name="type.man_made.monitoring_station.water_level">Station til overvågning af vandstand</string>
     <string name="type.man_made.monitoring_station.weather">Station til overvågning af vejret</string>
-
     <string name="type.barrier.yes">Barriere</string>
     <string name="type.building.guardhouse">Vagt</string>
     <string name="type.office.security">Sikkerhedskontor</string>
@@ -1396,5 +1395,5 @@
     <string name="type.amenity.luggage_locker">Bagageboks</string>
     <string name="type.post_office.post_partner">Postpartner</string>
     <string name="type.railway.station.subway.qingdao">Metrostation</string>
-
+    <string name="type.amenity.student_accommodation">Indkvartering af studerende</string>
 </resources>

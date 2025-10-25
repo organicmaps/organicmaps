@@ -1359,4 +1359,5 @@
     <string name="type.man_made.monitoring_station">Estació de monitoratge</string>
     <string name="type.man_made.monitoring_station.water_level">Estació de control del nivell d\'aigua</string>
     <string name="type.man_made.monitoring_station.weather">Estació de seguiment meteorològic</string>
+    <string name="type.amenity.student_accommodation">Allotjament d\'estudiants</string>
 </resources>

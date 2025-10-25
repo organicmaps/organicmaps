@@ -1293,4 +1293,5 @@
     <string name="type.man_made.monitoring_station">Jarraipen Estazioa</string>
     <string name="type.man_made.monitoring_station.water_level">Ur-maila kontrolatzeko estazioa</string>
     <string name="type.man_made.monitoring_station.weather">Eguraldia Begiratzeko Estazioa</string>
+    <string name="type.amenity.student_accommodation">Ikasleentzako ostatua</string>
 </resources>

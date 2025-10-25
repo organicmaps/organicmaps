@@ -1425,4 +1425,5 @@
     <string name="type.man_made.monitoring_station">Überwachungsstation</string>
     <string name="type.man_made.monitoring_station.water_level">Wasserstandsüberwachungsstation</string>
     <string name="type.man_made.monitoring_station.weather">Wetterüberwachungsstation</string>
+    <string name="type.amenity.student_accommodation">Studentenunterkünfte</string>
 </resources>

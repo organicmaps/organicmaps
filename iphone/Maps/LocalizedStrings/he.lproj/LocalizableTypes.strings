@@ -1517,3 +1517,4 @@
 "type.man_made.monitoring_station" = "תחנת ניטור";
 "type.man_made.monitoring_station.water_level" = "תחנת ניטור מפלס מים";
 "type.man_made.monitoring_station.weather" = "תחנת ניטור מזג האוויר";
+"type.amenity.student_accommodation" = "מגורים לסטודנטים";

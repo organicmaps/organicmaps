@@ -1513,3 +1513,4 @@
 "type.man_made.monitoring_station" = "Megfigyelő állomás";
 "type.man_made.monitoring_station.water_level" = "Vízszintmérő állomás";
 "type.man_made.monitoring_station.weather" = "Időjárás megfigyelő állomás";
+"type.amenity.student_accommodation" = "Diákszállás";

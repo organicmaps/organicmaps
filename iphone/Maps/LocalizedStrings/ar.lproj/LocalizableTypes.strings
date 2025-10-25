@@ -1517,3 +1517,4 @@
 "type.man_made.monitoring_station" = "محطة المراقبة";
 "type.man_made.monitoring_station.water_level" = "محطة مراقبة منسوب المياه";
 "type.man_made.monitoring_station.weather" = "محطة مراقبة الطقس";
+"type.amenity.student_accommodation" = "سكن الطلاب";
