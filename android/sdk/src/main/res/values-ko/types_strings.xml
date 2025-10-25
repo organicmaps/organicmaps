@@ -1196,4 +1196,5 @@
     <string name="type.man_made.monitoring_station">모니터링 스테이션</string>
     <string name="type.man_made.monitoring_station.water_level">수위 모니터링 스테이션</string>
     <string name="type.man_made.monitoring_station.weather">날씨 모니터링 스테이션</string>
+    <string name="type.amenity.student_accommodation">학생 숙소</string>
 </resources>

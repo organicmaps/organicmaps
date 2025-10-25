@@ -1180,4 +1180,5 @@
     <string name="type.man_made.monitoring_station">Stasiun Pemantauan</string>
     <string name="type.man_made.monitoring_station.water_level">Stasiun Pemantauan Ketinggian Air</string>
     <string name="type.man_made.monitoring_station.weather">Stasiun Pemantauan Cuaca</string>
+    <string name="type.amenity.student_accommodation">Akomodasi Mahasiswa</string>
 </resources>

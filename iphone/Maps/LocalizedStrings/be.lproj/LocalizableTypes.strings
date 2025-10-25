@@ -1517,3 +1517,4 @@
 "type.man_made.monitoring_station" = "Станцыя назірання";
 "type.man_made.monitoring_station.water_level" = "Станцыя кантролю ўзроўню вады";
 "type.man_made.monitoring_station.weather" = "Станцыя назірання за надвор'ем";
+"type.amenity.student_accommodation" = "Жыллё для студэнтаў";

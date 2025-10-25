@@ -1517,3 +1517,4 @@
 "type.man_made.monitoring_station" = "Controlestation";
 "type.man_made.monitoring_station.water_level" = "Meetstation voor waterpeil";
 "type.man_made.monitoring_station.weather" = "Weerstation";
+"type.amenity.student_accommodation" = "Studentenhuisvesting";

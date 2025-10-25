@@ -1422,4 +1422,5 @@
     <string name="type.man_made.monitoring_station">Estación de control</string>
     <string name="type.man_made.monitoring_station.water_level">Estación de control del nivel del agua</string>
     <string name="type.man_made.monitoring_station.weather">Estación de control meteorológico</string>
+    <string name="type.amenity.student_accommodation">Residencia de estudiantes</string>
 </resources>

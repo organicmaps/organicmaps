@@ -1427,4 +1427,5 @@
     <string name="type.man_made.monitoring_station">Station de surveillance</string>
     <string name="type.man_made.monitoring_station.water_level">Station de surveillance du niveau d\'eau</string>
     <string name="type.man_made.monitoring_station.weather">Station de surveillance météorologique</string>
+    <string name="type.amenity.student_accommodation">Logement étudiant</string>
 </resources>

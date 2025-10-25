@@ -1517,3 +1517,4 @@
 "type.man_made.monitoring_station" = "Estació de monitoratge";
 "type.man_made.monitoring_station.water_level" = "Estació de control del nivell d'aigua";
 "type.man_made.monitoring_station.weather" = "Estació de seguiment meteorològic";
+"type.amenity.student_accommodation" = "Allotjament d'estudiants";

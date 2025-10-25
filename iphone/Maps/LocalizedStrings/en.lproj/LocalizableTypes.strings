@@ -1533,3 +1533,4 @@
 "type.man_made.monitoring_station" = "Monitoring Station";
 "type.man_made.monitoring_station.water_level" = "Water Level Monitoring Station";
 "type.man_made.monitoring_station.weather" = "Weather Monitoring Station";
+"type.amenity.student_accommodation" = "Student Accommodation";

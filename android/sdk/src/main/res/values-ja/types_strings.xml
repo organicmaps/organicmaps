@@ -1315,4 +1315,5 @@
     <string name="type.man_made.monitoring_station">モニタリングステーション</string>
     <string name="type.man_made.monitoring_station.water_level">水位モニタリングステーション</string>
     <string name="type.man_made.monitoring_station.weather">気象観測ステーション</string>
+    <string name="type.amenity.student_accommodation">学生寮</string>
 </resources>
