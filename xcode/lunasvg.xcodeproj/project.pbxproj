@@ -1,0 +1,272 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FAEB3A622EA51D4D00757C1D /* svgtextelement.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEB3A5F2EA51D4D00757C1D /* svgtextelement.h */; };
+		FAEB3A632EA51D4D00757C1D /* svgrenderstate.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEB3A5D2EA51D4D00757C1D /* svgrenderstate.h */; };
+		FAEB3A642EA51D4D00757C1D /* svggeometryelement.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEB3A532EA51D4D00757C1D /* svggeometryelement.h */; };
+		FAEB3A652EA51D4D00757C1D /* lunasvg.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEB3A4C2EA51D4D00757C1D /* lunasvg.h */; };
+		FAEB3A662EA51D4D00757C1D /* svgelement.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEB3A512EA51D4D00757C1D /* svgelement.h */; };
+		FAEB3A672EA51D4D00757C1D /* svgpaintelement.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEB3A572EA51D4D00757C1D /* svgpaintelement.h */; };
+		FAEB3A682EA51D4D00757C1D /* svglayoutstate.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEB3A552EA51D4D00757C1D /* svglayoutstate.h */; };
+		FAEB3A692EA51D4D00757C1D /* graphics.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEB3A4E2EA51D4D00757C1D /* graphics.h */; };
+		FAEB3A6A2EA51D4D00757C1D /* svgparserutils.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEB3A5A2EA51D4D00757C1D /* svgparserutils.h */; };
+		FAEB3A6B2EA51D4D00757C1D /* svgproperty.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEB3A5B2EA51D4D00757C1D /* svgproperty.h */; };
+		FAEB3A6C2EA51D4D00757C1D /* svgrenderstate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEB3A5E2EA51D4D00757C1D /* svgrenderstate.cpp */; };
+		FAEB3A6D2EA51D4D00757C1D /* svgelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEB3A522EA51D4D00757C1D /* svgelement.cpp */; };
+		FAEB3A6E2EA51D4D00757C1D /* svgproperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEB3A5C2EA51D4D00757C1D /* svgproperty.cpp */; };
+		FAEB3A6F2EA51D4D00757C1D /* svgparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEB3A592EA51D4D00757C1D /* svgparser.cpp */; };
+		FAEB3A702EA51D4D00757C1D /* svglayoutstate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEB3A562EA51D4D00757C1D /* svglayoutstate.cpp */; };
+		FAEB3A712EA51D4D00757C1D /* graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEB3A4F2EA51D4D00757C1D /* graphics.cpp */; };
+		FAEB3A722EA51D4D00757C1D /* svgpaintelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEB3A582EA51D4D00757C1D /* svgpaintelement.cpp */; };
+		FAEB3A732EA51D4D00757C1D /* svgtextelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEB3A602EA51D4D00757C1D /* svgtextelement.cpp */; };
+		FAEB3A742EA51D4D00757C1D /* svggeometryelement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEB3A542EA51D4D00757C1D /* svggeometryelement.cpp */; };
+		FAEB3A752EA51D4D00757C1D /* lunasvg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEB3A502EA51D4D00757C1D /* lunasvg.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		67E8DB841BBC19810053C5BA /* liblunasvg.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblunasvg.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAEB3A4C2EA51D4D00757C1D /* lunasvg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lunasvg.h; sourceTree = "<group>"; };
+		FAEB3A4E2EA51D4D00757C1D /* graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics.h; sourceTree = "<group>"; };
+		FAEB3A4F2EA51D4D00757C1D /* graphics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = graphics.cpp; sourceTree = "<group>"; };
+		FAEB3A502EA51D4D00757C1D /* lunasvg.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lunasvg.cpp; sourceTree = "<group>"; };
+		FAEB3A512EA51D4D00757C1D /* svgelement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = svgelement.h; sourceTree = "<group>"; };
+		FAEB3A522EA51D4D00757C1D /* svgelement.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = svgelement.cpp; sourceTree = "<group>"; };
+		FAEB3A532EA51D4D00757C1D /* svggeometryelement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = svggeometryelement.h; sourceTree = "<group>"; };
+		FAEB3A542EA51D4D00757C1D /* svggeometryelement.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = svggeometryelement.cpp; sourceTree = "<group>"; };
+		FAEB3A552EA51D4D00757C1D /* svglayoutstate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = svglayoutstate.h; sourceTree = "<group>"; };
+		FAEB3A562EA51D4D00757C1D /* svglayoutstate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = svglayoutstate.cpp; sourceTree = "<group>"; };
+		FAEB3A572EA51D4D00757C1D /* svgpaintelement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = svgpaintelement.h; sourceTree = "<group>"; };
+		FAEB3A582EA51D4D00757C1D /* svgpaintelement.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = svgpaintelement.cpp; sourceTree = "<group>"; };
+		FAEB3A592EA51D4D00757C1D /* svgparser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = svgparser.cpp; sourceTree = "<group>"; };
+		FAEB3A5A2EA51D4D00757C1D /* svgparserutils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = svgparserutils.h; sourceTree = "<group>"; };
+		FAEB3A5B2EA51D4D00757C1D /* svgproperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = svgproperty.h; sourceTree = "<group>"; };
+		FAEB3A5C2EA51D4D00757C1D /* svgproperty.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = svgproperty.cpp; sourceTree = "<group>"; };
+		FAEB3A5D2EA51D4D00757C1D /* svgrenderstate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = svgrenderstate.h; sourceTree = "<group>"; };
+		FAEB3A5E2EA51D4D00757C1D /* svgrenderstate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = svgrenderstate.cpp; sourceTree = "<group>"; };
+		FAEB3A5F2EA51D4D00757C1D /* svgtextelement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = svgtextelement.h; sourceTree = "<group>"; };
+		FAEB3A602EA51D4D00757C1D /* svgtextelement.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = svgtextelement.cpp; sourceTree = "<group>"; };
+		FAEB3A782EA51DBE00757C1D /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "common-debug.xcconfig"; sourceTree = "<group>"; };
+		FAEB3A792EA51DBE00757C1D /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "common-release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		67E8DB811BBC19810053C5BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		67E8DB7B1BBC19810053C5BA = {
+			isa = PBXGroup;
+			children = (
+				FAEB3A782EA51DBE00757C1D /* common-debug.xcconfig */,
+				FAEB3A792EA51DBE00757C1D /* common-release.xcconfig */,
+				FAEB3A4D2EA51D4D00757C1D /* include */,
+				FAEB3A612EA51D4D00757C1D /* source */,
+				67E8DB851BBC19810053C5BA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		67E8DB851BBC19810053C5BA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				67E8DB841BBC19810053C5BA /* liblunasvg.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FAEB3A4D2EA51D4D00757C1D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				FAEB3A4C2EA51D4D00757C1D /* lunasvg.h */,
+			);
+			name = include;
+			path = ../3party/lunasvg/include;
+			sourceTree = SOURCE_ROOT;
+		};
+		FAEB3A612EA51D4D00757C1D /* source */ = {
+			isa = PBXGroup;
+			children = (
+				FAEB3A4E2EA51D4D00757C1D /* graphics.h */,
+				FAEB3A4F2EA51D4D00757C1D /* graphics.cpp */,
+				FAEB3A502EA51D4D00757C1D /* lunasvg.cpp */,
+				FAEB3A512EA51D4D00757C1D /* svgelement.h */,
+				FAEB3A522EA51D4D00757C1D /* svgelement.cpp */,
+				FAEB3A532EA51D4D00757C1D /* svggeometryelement.h */,
+				FAEB3A542EA51D4D00757C1D /* svggeometryelement.cpp */,
+				FAEB3A552EA51D4D00757C1D /* svglayoutstate.h */,
+				FAEB3A562EA51D4D00757C1D /* svglayoutstate.cpp */,
+				FAEB3A572EA51D4D00757C1D /* svgpaintelement.h */,
+				FAEB3A582EA51D4D00757C1D /* svgpaintelement.cpp */,
+				FAEB3A592EA51D4D00757C1D /* svgparser.cpp */,
+				FAEB3A5A2EA51D4D00757C1D /* svgparserutils.h */,
+				FAEB3A5B2EA51D4D00757C1D /* svgproperty.h */,
+				FAEB3A5C2EA51D4D00757C1D /* svgproperty.cpp */,
+				FAEB3A5D2EA51D4D00757C1D /* svgrenderstate.h */,
+				FAEB3A5E2EA51D4D00757C1D /* svgrenderstate.cpp */,
+				FAEB3A5F2EA51D4D00757C1D /* svgtextelement.h */,
+				FAEB3A602EA51D4D00757C1D /* svgtextelement.cpp */,
+			);
+			name = source;
+			path = ../3party/lunasvg/source;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		67E8DB821BBC19810053C5BA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAEB3A622EA51D4D00757C1D /* svgtextelement.h in Headers */,
+				FAEB3A632EA51D4D00757C1D /* svgrenderstate.h in Headers */,
+				FAEB3A642EA51D4D00757C1D /* svggeometryelement.h in Headers */,
+				FAEB3A652EA51D4D00757C1D /* lunasvg.h in Headers */,
+				FAEB3A662EA51D4D00757C1D /* svgelement.h in Headers */,
+				FAEB3A672EA51D4D00757C1D /* svgpaintelement.h in Headers */,
+				FAEB3A682EA51D4D00757C1D /* svglayoutstate.h in Headers */,
+				FAEB3A692EA51D4D00757C1D /* graphics.h in Headers */,
+				FAEB3A6A2EA51D4D00757C1D /* svgparserutils.h in Headers */,
+				FAEB3A6B2EA51D4D00757C1D /* svgproperty.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		67E8DB831BBC19810053C5BA /* lunasvg */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67E8DB881BBC19810053C5BA /* Build configuration list for PBXNativeTarget "lunasvg" */;
+			buildPhases = (
+				67E8DB801BBC19810053C5BA /* Sources */,
+				67E8DB811BBC19810053C5BA /* Frameworks */,
+				67E8DB821BBC19810053C5BA /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = lunasvg;
+			productName = lunasvg;
+			productReference = 67E8DB841BBC19810053C5BA /* liblunasvg.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		67E8DB7C1BBC19810053C5BA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				DefaultBuildSystemTypeForWorkspace = Latest;
+				LastUpgradeCheck = 1510;
+				TargetAttributes = {
+					67E8DB831BBC19810053C5BA = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = 67E8DB7F1BBC19810053C5BA /* Build configuration list for PBXProject "lunasvg" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 67E8DB7B1BBC19810053C5BA;
+			productRefGroup = 67E8DB851BBC19810053C5BA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				67E8DB831BBC19810053C5BA /* lunasvg */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		67E8DB801BBC19810053C5BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAEB3A6C2EA51D4D00757C1D /* svgrenderstate.cpp in Sources */,
+				FAEB3A6D2EA51D4D00757C1D /* svgelement.cpp in Sources */,
+				FAEB3A6E2EA51D4D00757C1D /* svgproperty.cpp in Sources */,
+				FAEB3A6F2EA51D4D00757C1D /* svgparser.cpp in Sources */,
+				FAEB3A702EA51D4D00757C1D /* svglayoutstate.cpp in Sources */,
+				FAEB3A712EA51D4D00757C1D /* graphics.cpp in Sources */,
+				FAEB3A722EA51D4D00757C1D /* svgpaintelement.cpp in Sources */,
+				FAEB3A732EA51D4D00757C1D /* svgtextelement.cpp in Sources */,
+				FAEB3A742EA51D4D00757C1D /* svggeometryelement.cpp in Sources */,
+				FAEB3A752EA51D4D00757C1D /* lunasvg.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		67E8DB861BBC19810053C5BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FAEB3A782EA51DBE00757C1D /* common-debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		67E8DB871BBC19810053C5BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FAEB3A792EA51DBE00757C1D /* common-release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		67E8DB891BBC19810053C5BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		67E8DB8A1BBC19810053C5BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		67E8DB7F1BBC19810053C5BA /* Build configuration list for PBXProject "lunasvg" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67E8DB861BBC19810053C5BA /* Debug */,
+				67E8DB871BBC19810053C5BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67E8DB881BBC19810053C5BA /* Build configuration list for PBXNativeTarget "lunasvg" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67E8DB891BBC19810053C5BA /* Debug */,
+				67E8DB8A1BBC19810053C5BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 67E8DB7C1BBC19810053C5BA /* Project object */;
+}
