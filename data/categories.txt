@@ -18120,6 +18120,47 @@ vi:Xem
 zh-Hans:手表
 zh-Hant:手錶
 
+craft-watchmaker
+en:Watchmaker
+ar:صانع الساعات
+be:Гадзіннікавы майстар
+bg:Часовникар
+ca:Rellotger
+cs:Hodinář
+da:Urmager
+de:Uhrmacher
+el:Ωρολογοποιός
+es:Relojero
+et:Kellassepp
+eu:Erlojugilea
+fa:ساعت ساز
+fi:Kelloseppä
+fr:Horloger
+he:שָׁעָן
+hi:घड़ीसाज़
+hu:Órás
+id:Pembuat jam tangan
+it:Orologiaio
+ja:ウォッチメーカー
+ko:워치메이커
+lv:Pulksteņmeistars
+mr:वॉचमेकर
+nb:Urmaker
+nl:Horlogemaker
+pl:Zegarmistrz
+pt:Relojoeiro
+ro:Ceasornicar
+ru:Часовщик
+sk:Hodinár
+sv:Urmakare
+sw:Mtazamaji
+th:ช่างซ่อมนาฬิกา
+tr:Saatçi
+uk:Годинникар
+vi:Thợ đồng hồ
+zh-Hans:钟表匠
+zh-Hant:鐘錶匠
+
 shop-wholesale|@shop
 en:Wholesale
 ar:متجر مواد بالجملة

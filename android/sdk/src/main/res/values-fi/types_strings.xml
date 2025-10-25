@@ -1304,4 +1304,5 @@
     <string name="type.man_made.monitoring_station.water_level">Vedenkorkeuden seuranta-asema</string>
     <string name="type.man_made.monitoring_station.weather">Sään seuranta-asema</string>
     <string name="type.amenity.student_accommodation">Opiskelijoiden majoitus</string>
+    <string name="type.craft.watchmaker">Kelloseppä</string>
 </resources>

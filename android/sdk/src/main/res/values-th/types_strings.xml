@@ -1195,4 +1195,5 @@
     <string name="type.man_made.monitoring_station.water_level">สถานีตรวจวัดระดับน้ำ</string>
     <string name="type.man_made.monitoring_station.weather">สถานีตรวจวัดสภาพอากาศ</string>
     <string name="type.amenity.student_accommodation">ที่พักนักศึกษา</string>
+    <string name="type.craft.watchmaker">ช่างซ่อมนาฬิกา</string>
 </resources>

@@ -1518,3 +1518,4 @@
 "type.man_made.monitoring_station.water_level" = "पाणी पातळी मॉनिटरिंग स्टेशन";
 "type.man_made.monitoring_station.weather" = "हवामान निरीक्षण स्टेशन";
 "type.amenity.student_accommodation" = "विद्यार्थ्यांची निवास व्यवस्था";
+"type.craft.watchmaker" = "वॉचमेकर";

@@ -1183,4 +1183,5 @@
     <string name="type.man_made.monitoring_station.water_level">Stație de monitorizare a nivelului apei</string>
     <string name="type.man_made.monitoring_station.weather">Stație de monitorizare meteorologică</string>
     <string name="type.amenity.student_accommodation">Cazare pentru studenți</string>
+    <string name="type.craft.watchmaker">Ceasornicar</string>
 </resources>

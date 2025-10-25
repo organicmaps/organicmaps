@@ -1428,4 +1428,5 @@
     <string name="type.office.security">Beveiligingsbureau</string>
     <string name="type.power.portal">Kracht Toren (Portaal)</string>
     <string name="type.amenity.student_accommodation">Studentenhuisvesting</string>
+    <string name="type.craft.watchmaker">Horlogemaker</string>
 </resources>
