@@ -644,7 +644,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       int to = PredefinedColors.getColor(colorPos);
       if (from == to)
         return;
-      BookmarkManager.INSTANCE.changeTrackColor(mTrack.getTrackId(), to);
+      mTrack.setColor(to);
       Drawable circle = Graphics.drawCircle(to, R.dimen.track_circle_size, requireContext().getResources());
       v.setImageDrawable(circle);
     });

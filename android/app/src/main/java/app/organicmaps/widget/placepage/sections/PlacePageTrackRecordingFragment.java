@@ -26,8 +26,6 @@ public class PlacePageTrackRecordingFragment
 {
   private PlacePageViewModel mViewModel;
   private ElevationProfileViewRenderer mElevationProfileViewRenderer;
-  private View mFrame;
-  private View mElevationProfileView;
 
   @Nullable
   @Override
@@ -42,10 +40,8 @@ public class PlacePageTrackRecordingFragment
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mElevationProfileViewRenderer = new ElevationProfileViewRenderer();
-    mFrame = view;
-    mElevationProfileView = mFrame.findViewById(R.id.elevation_profile);
-    mElevationProfileViewRenderer.initialize(mElevationProfileView);
+
+    mElevationProfileViewRenderer = new ElevationProfileViewRenderer(view.findViewById(R.id.elevation_profile));
   }
 
   @Override
@@ -84,6 +80,6 @@ public class PlacePageTrackRecordingFragment
     // When Track Recording has just started
     if (elevationInfo == null)
       return;
-    mElevationProfileViewRenderer.render(elevationInfo, trackStatistics, Utils.INVALID_ID);
+    mElevationProfileViewRenderer.render(/* track */ null, elevationInfo, trackStatistics);
   }
 }

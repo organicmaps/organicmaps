@@ -1,3 +1,5 @@
+#pragma once
+
 #include <jni.h>
 
 #include "kml/type_utils.hpp"

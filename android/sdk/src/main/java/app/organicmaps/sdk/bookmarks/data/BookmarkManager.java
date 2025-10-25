@@ -4,7 +4,6 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
-import androidx.annotation.IntRange;
 import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
@@ -113,7 +112,7 @@ public enum BookmarkManager {
   @Keep
   @SuppressWarnings("unused")
   @MainThread
-  public void onBookmarksLoadingStarted()
+  private void onBookmarksLoadingStarted()
   {
     for (BookmarksLoadingListener listener : mListeners)
       listener.onBookmarksLoadingStarted();
@@ -123,7 +122,7 @@ public enum BookmarkManager {
   @Keep
   @SuppressWarnings("unused")
   @MainThread
-  public void onBookmarksLoadingFinished()
+  private void onBookmarksLoadingFinished()
   {
     updateCache();
     mCurrentDataProvider = new CacheBookmarkCategoriesDataProvider();
@@ -135,7 +134,7 @@ public enum BookmarkManager {
   @Keep
   @SuppressWarnings("unused")
   @MainThread
-  public void onBookmarksSortingCompleted(@NonNull SortedBlock[] sortedBlocks, long timestamp)
+  private void onBookmarksSortingCompleted(@NonNull SortedBlock[] sortedBlocks, long timestamp)
   {
     for (BookmarksSortingListener listener : mSortingListeners)
       listener.onBookmarksSortingCompleted(sortedBlocks, timestamp);
@@ -145,7 +144,7 @@ public enum BookmarkManager {
   @Keep
   @SuppressWarnings("unused")
   @MainThread
-  public void onBookmarksSortingCancelled(long timestamp)
+  private void onBookmarksSortingCancelled(long timestamp)
   {
     for (BookmarksSortingListener listener : mSortingListeners)
       listener.onBookmarksSortingCancelled(timestamp);
@@ -155,7 +154,7 @@ public enum BookmarkManager {
   @Keep
   @SuppressWarnings("unused")
   @MainThread
-  public void onBookmarksFileLoaded(boolean success, @NonNull String fileName, boolean isTemporaryFile)
+  private void onBookmarksFileLoaded(boolean success, @NonNull String fileName, boolean isTemporaryFile)
   {
     // Android could create temporary file with bookmarks in some cases (KML/KMZ file is a blob
     // in the intent, so we have to create a temporary file on the disk). Here we can delete it.
@@ -181,7 +180,7 @@ public enum BookmarkManager {
   @Keep
   @SuppressWarnings("unused")
   @MainThread
-  public void onPreparedFileForSharing(BookmarkSharingResult result)
+  private void onPreparedFileForSharing(BookmarkSharingResult result)
   {
     for (BookmarksSharingListener listener : mSharingListeners)
       listener.onPreparedFileForSharing(result);
@@ -191,7 +190,7 @@ public enum BookmarkManager {
   @Keep
   @SuppressWarnings("unused")
   @MainThread
-  public void onElevationCurrentPositionChanged()
+  private void onElevationCurrentPositionChanged()
   {
     if (mOnElevationCurrentPositionChangedListener != null)
       mOnElevationCurrentPositionChangedListener.onCurrentPositionChanged();
@@ -211,7 +210,7 @@ public enum BookmarkManager {
   @Keep
   @SuppressWarnings("unused")
   @MainThread
-  public void onElevationActivePointChanged()
+  private void onElevationActivePointChanged()
   {
     if (mOnElevationActivePointChangedListener != null)
       mOnElevationActivePointChangedListener.onElevationActivePointChanged();
@@ -223,7 +222,6 @@ public enum BookmarkManager {
     return nativeUpdateBookmarkPlacePage(bmkId);
   }
 
-  @Nullable
   public void updateTrackPlacePage()
   {
     nativeUpdateTrackPlacePage();
@@ -501,173 +499,14 @@ public enum BookmarkManager {
   @NonNull
   native BookmarkCategory[] nativeGetChildrenCategories(long catId);
 
-  @NonNull
-  public String getBookmarkName(@IntRange(from = 0) long bookmarkId)
-  {
-    return nativeGetBookmarkName(bookmarkId);
-  }
-
-  @NonNull
-  public String getBookmarkFeatureType(@IntRange(from = 0) long bookmarkId)
-  {
-    return nativeGetBookmarkFeatureType(bookmarkId);
-  }
-
-  @NonNull
-  public ParcelablePointD getBookmarkXY(@IntRange(from = 0) long bookmarkId)
-  {
-    return nativeGetBookmarkXY(bookmarkId);
-  }
-
-  @PredefinedColors.Color
-  public int getBookmarkColor(@IntRange(from = 0) long bookmarkId)
-  {
-    return nativeGetBookmarkColor(bookmarkId);
-  }
-
-  public int getBookmarkIcon(@IntRange(from = 0) long bookmarkId)
-  {
-    return nativeGetBookmarkIcon(bookmarkId);
-  }
-
-  @NonNull
-  public String getBookmarkDescription(@IntRange(from = 0) long bookmarkId)
-  {
-    return nativeGetBookmarkDescription(bookmarkId);
-  }
-
-  public String getTrackDescription(@IntRange(from = 0) long trackId)
-  {
-    return nativeGetTrackDescription(trackId);
-  }
-
-  public double getBookmarkScale(@IntRange(from = 0) long bookmarkId)
-  {
-    return nativeGetBookmarkScale(bookmarkId);
-  }
-
-  @NonNull
-  public String encode2Ge0Url(@IntRange(from = 0) long bookmarkId, boolean addName)
-  {
-    return nativeEncode2Ge0Url(bookmarkId, addName);
-  }
-
-  public void setBookmarkParams(@IntRange(from = 0) long bookmarkId, @NonNull String name,
-                                @PredefinedColors.Color int color, @NonNull String descr)
-  {
-    nativeSetBookmarkParams(bookmarkId, name, color, descr);
-  }
-
-  public void setTrackParams(@IntRange(from = 0) long trackId, @NonNull String name, int color, @NonNull String descr)
-  {
-    nativeSetTrackParams(trackId, name, color, descr);
-  }
-
-  public void changeTrackColor(@IntRange(from = 0) long trackId, int color)
-  {
-    nativeChangeTrackColor(trackId, color);
-  }
-
-  public void changeBookmarkCategory(@IntRange(from = 0) long oldCatId, @IntRange(from = 0) long newCatId,
-                                     @IntRange(from = 0) long bookmarkId)
-  {
-    nativeChangeBookmarkCategory(oldCatId, newCatId, bookmarkId);
-  }
-
-  public void changeTrackCategory(@IntRange(from = 0) long oldCatId, @IntRange(from = 0) long newCatId,
-                                  @IntRange(from = 0) long trackId)
-  {
-    nativeChangeTrackCategory(oldCatId, newCatId, trackId);
-  }
-
-  @NonNull
-  public String getBookmarkAddress(@IntRange(from = 0) long bookmarkId)
-  {
-    return nativeGetBookmarkAddress(bookmarkId);
-  }
-
-  public void notifyCategoryChanging(@NonNull BookmarkInfo bookmarkInfo, @IntRange(from = 0) long catId)
-  {
-    if (catId == bookmarkInfo.getCategoryId())
-      return;
-
-    changeBookmarkCategory(bookmarkInfo.getCategoryId(), catId, bookmarkInfo.getBookmarkId());
-  }
-
-  public void notifyCategoryChanging(@NonNull Track track, @IntRange(from = 0) long catId)
-  {
-    if (catId == track.getCategoryId())
-      return;
-
-    changeTrackCategory(track.getCategoryId(), catId, track.getTrackId());
-  }
-
-  public void notifyCategoryChanging(@NonNull Bookmark bookmark, @IntRange(from = 0) long catId)
-  {
-    if (catId == bookmark.getCategoryId())
-      return;
-
-    changeBookmarkCategory(bookmark.getCategoryId(), catId, bookmark.getBookmarkId());
-  }
-
-  public void notifyParametersUpdating(@NonNull BookmarkInfo bookmarkInfo, @NonNull String name, @Nullable Icon icon,
-                                       @NonNull String description)
-  {
-    if (icon == null)
-      icon = bookmarkInfo.getIcon();
-
-    if (!name.equals(bookmarkInfo.getName()) || !icon.equals(bookmarkInfo.getIcon())
-        || !description.equals(getBookmarkDescription(bookmarkInfo.getBookmarkId())))
-    {
-      setBookmarkParams(bookmarkInfo.getBookmarkId(), name, icon.getColor(), description);
-    }
-  }
-
-  public void notifyParametersUpdating(@NonNull Bookmark bookmark, @NonNull String name, @Nullable Icon icon,
-                                       @NonNull String description)
-  {
-    if (icon == null)
-      icon = bookmark.getIcon();
-
-    if (!name.equals(bookmark.getName()) || !icon.equals(bookmark.getIcon())
-        || !description.equals(getBookmarkDescription(bookmark.getBookmarkId())))
-    {
-      setBookmarkParams(bookmark.getBookmarkId(), name, icon != null ? icon.getColor() : getLastEditedColor(),
-                        description);
-    }
-  }
-
-  public void notifyParametersUpdating(@NonNull Track track, @NonNull String name, @Nullable int color,
-                                       @NonNull String description)
-  {
-    if (!name.equals(track.getName()) || !(color == track.getColor())
-        || !description.equals(getTrackDescription(track.getTrackId())))
-    {
-      setTrackParams(track.getTrackId(), name, color, description);
-    }
-  }
-
-  public double getElevationCurPositionDistance(long trackId)
-  {
-    return nativeGetElevationCurPositionDistance(trackId);
-  }
-
-  public void setElevationActivePoint(long trackId, double distance, ElevationInfo.Point point)
+  public void setElevationActivePoint(long trackId, double distance, @NonNull ElevationInfo.Point point)
   {
     nativeSetElevationActivePoint(trackId, distance, point.getLatitude(), point.getLongitude());
   }
 
-  public double getElevationActivePointDistance(long trackId)
-  {
-    return nativeGetElevationActivePointDistance(trackId);
-  }
-
-  private static native ElevationInfo.Point nativeGetElevationActivePointCoordinates(long trackId);
-
   @Nullable
   private native Bookmark nativeUpdateBookmarkPlacePage(long bmkId);
 
-  @Nullable
   private native void nativeUpdateTrackPlacePage();
 
   @Nullable
@@ -722,51 +561,6 @@ public enum BookmarkManager {
   private native void nativeGetSortedCategory(long catId, @BookmarkCategory.SortingType int sortingType,
                                               boolean hasMyPosition, double lat, double lon, long timestamp);
 
-  @NonNull
-  private static native String nativeGetBookmarkName(@IntRange(from = 0) long bookmarkId);
-
-  @NonNull
-  private static native String nativeGetBookmarkFeatureType(@IntRange(from = 0) long bookmarkId);
-
-  @NonNull
-  private static native ParcelablePointD nativeGetBookmarkXY(@IntRange(from = 0) long bookmarkId);
-
-  @PredefinedColors.Color
-  private static native int nativeGetBookmarkColor(@IntRange(from = 0) long bookmarkId);
-
-  private static native int nativeGetBookmarkIcon(@IntRange(from = 0) long bookmarkId);
-
-  @NonNull
-  private static native String nativeGetBookmarkDescription(@IntRange(from = 0) long bookmarkId);
-
-  private static native String nativeGetTrackDescription(@IntRange(from = 0) long trackId);
-  private static native double nativeGetBookmarkScale(@IntRange(from = 0) long bookmarkId);
-
-  @NonNull
-  private static native String nativeEncode2Ge0Url(@IntRange(from = 0) long bookmarkId, boolean addName);
-
-  private static native void nativeSetBookmarkParams(@IntRange(from = 0) long bookmarkId, @NonNull String name,
-                                                     @PredefinedColors.Color int color, @NonNull String descr);
-
-  private static native void nativeChangeTrackColor(@IntRange(from = 0) long trackId,
-                                                    @PredefinedColors.Color int color);
-
-  private static native void nativeSetTrackParams(@IntRange(from = 0) long trackId, @NonNull String name,
-                                                  @PredefinedColors.Color int color, @NonNull String descr);
-
-  private static native void nativeChangeBookmarkCategory(@IntRange(from = 0) long oldCatId,
-                                                          @IntRange(from = 0) long newCatId,
-                                                          @IntRange(from = 0) long bookmarkId);
-
-  private static native void nativeChangeTrackCategory(@IntRange(from = 0) long oldCatId,
-                                                       @IntRange(from = 0) long newCatId,
-                                                       @IntRange(from = 0) long trackId);
-
-  @NonNull
-  private static native String nativeGetBookmarkAddress(@IntRange(from = 0) long bookmarkId);
-
-  private static native double nativeGetElevationCurPositionDistance(long trackId);
-
   private static native void nativeSetElevationCurrentPositionChangedListener();
 
   public static native void nativeRemoveElevationCurrentPositionChangedListener();
@@ -774,20 +568,10 @@ public enum BookmarkManager {
   private static native void nativeSetElevationActivePoint(long trackId, double distanceInMeters, double latitude,
                                                            double longitude);
 
-  private static native double nativeGetElevationActivePointDistance(long trackId);
-
-  public ElevationInfo.Point getElevationActivePointCoordinates(long trackId)
-  {
-    return nativeGetElevationActivePointCoordinates(trackId);
-  }
-
   private static native void nativeSetElevationActiveChangedListener();
 
   public static native void nativeRemoveElevationActiveChangedListener();
 
-  public static native ElevationInfo nativeGetTrackElevationInfo(long trackId);
-
-  public static native TrackStatistics nativeGetTrackStatistics(long trackId);
   public interface BookmarksLoadingListener
   {
     default void onBookmarksLoadingStarted() {}
