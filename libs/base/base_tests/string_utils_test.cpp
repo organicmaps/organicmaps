@@ -317,31 +317,31 @@ UNIT_TEST(to_uint32)
   std::string s;
 
   s = "";
-  TEST(!strings::to_uint32(s, i), ());
+  TEST(!strings::to_uint(s, i), ());
 
   s = "0";
-  TEST(strings::to_uint32(s, i), ());
+  TEST(strings::to_uint(s, i), ());
   TEST_EQUAL(0, i, ());
 
   s = "123456789101112";
-  TEST(!strings::to_uint32(s, i), ());
+  TEST(!strings::to_uint(s, i), ());
 
   s = "AF";
-  TEST(strings::to_uint32(s, i, 16), ());
+  TEST(strings::to_uint(s, i, 16), ());
   TEST_EQUAL(175, i, ());
 
   s = "labuda";
-  TEST(!strings::to_uint32(s, i), ());
+  TEST(!strings::to_uint(s, i), ());
 
   s = "-1";
-  TEST(!strings::to_uint32(s, i), ());
+  TEST(!strings::to_uint(s, i), ());
 
   s = "4294967295";
-  TEST(strings::to_uint32(s, i), ());
+  TEST(strings::to_uint(s, i), ());
   TEST_EQUAL(4294967295, i, ());
 
   s = "4294967296";
-  TEST(!strings::to_uint32(s, i), ());
+  TEST(!strings::to_uint(s, i), ());
 }
 
 UNIT_TEST(to_int64)
@@ -350,19 +350,19 @@ UNIT_TEST(to_int64)
   std::string s;
 
   s = "-24567";
-  TEST(strings::to_int64(s, i), ());
+  TEST(strings::to_int(s, i), ());
   TEST_EQUAL(-24567, i, ());
 
   s = "0";
-  TEST(strings::to_int64(s, i), ());
+  TEST(strings::to_int(s, i), ());
   TEST_EQUAL(0, i, ());
 
   s = "12345678911212";
-  TEST(strings::to_int64(s, i), ());
+  TEST(strings::to_int(s, i), ());
   TEST_EQUAL(12345678911212LL, i, ());
 
   s = "labuda";
-  TEST(!strings::to_int64(s, i), ());
+  TEST(!strings::to_int(s, i), ());
 }
 
 UNIT_TEST(to_int32)
@@ -371,39 +371,39 @@ UNIT_TEST(to_int32)
   std::string s;
 
   s = "-24567";
-  TEST(strings::to_int32(s, i), ());
+  TEST(strings::to_int(s, i), ());
   TEST_EQUAL(-24567, i, ());
 
   s = "0";
-  TEST(strings::to_int32(s, i), ());
+  TEST(strings::to_int(s, i), ());
   TEST_EQUAL(0, i, ());
 
   s = "12345678911212";
-  TEST(!strings::to_int32(s, i), ());
+  TEST(!strings::to_int(s, i), ());
 
   s = "labuda";
-  TEST(!strings::to_int32(s, i), ());
+  TEST(!strings::to_int(s, i), ());
 
   s = "-1";
-  TEST(strings::to_int32(s, i), ());
+  TEST(strings::to_int(s, i), ());
   TEST_EQUAL(-1, i, ());
 
   s = "4294967295";
-  TEST(!strings::to_int32(s, i), ());
+  TEST(!strings::to_int(s, i), ());
 
   s = "2147483647";
-  TEST(strings::to_int32(s, i), ());
+  TEST(strings::to_int(s, i), ());
   TEST_EQUAL(2147483647, i, ());
 
   s = "2147483648";
-  TEST(!strings::to_int32(s, i), ());
+  TEST(!strings::to_int(s, i), ());
 
   s = "-2147483648";
-  TEST(strings::to_int32(s, i), ());
+  TEST(strings::to_int(s, i), ());
   TEST_EQUAL(-2147483648, i, ());
 
   s = "-2147483649";
-  TEST(!strings::to_int32(s, i), ());
+  TEST(!strings::to_int(s, i), ());
 }
 
 UNIT_TEST(to_any)

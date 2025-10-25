@@ -8,56 +8,31 @@
 #include <cmath>
 #include <iomanip>
 #include <iterator>
-
-#include <fast_double_parser.h>
-#include <boost/algorithm/string/trim.hpp>
 #include <string>
+
+#include <boost/algorithm/string/trim.hpp>
+
+#include <fast_float/fast_float.h>
 
 namespace strings
 {
 namespace
 {
-template <typename T>
-T RealConverter(char const * start, char ** stop);
-
-template <>
-float RealConverter<float>(char const * start, char ** stop)
+template <std::floating_point T>
+bool ToReal(std::string_view s, T & result)
 {
-  // . or , parsing depends on locale!
-  return std::strtof(start, stop);
-}
-
-template <>
-double RealConverter<double>(char const * start, char ** stop)
-{
-  // . or , parsing depends on locale!
-  return std::strtod(start, stop);
-}
-
-template <typename T>
-bool ToReal(char const * start, T & result)
-{
-  // Try faster implementation first.
-  double d;
-  // TODO(AB): replace with more robust dependency that doesn't use std::is_finite in the implementation.
-  char const * endptr = fast_double_parser::parse_number(start, &d);
-  if (endptr == nullptr)
+  T tmp;
+  char const * beg = s.data();
+  char const * end = beg + s.size();
+  auto const [last, ec] =
+      fast_float::from_chars(beg, end, tmp, fast_float::chars_format::general | fast_float::chars_format::no_infnan);
+  if (ec == std::errc() && last == end)
   {
-    // Fallback to our implementation, it supports numbers like "1."
-    char * stop;
-    result = RealConverter<T>(start, &stop);
-    if (*stop == 0 && start != stop && math::is_finite(result))
-      return true;
-  }
-  else if (*endptr == 0 && math::is_finite(d))
-  {
-    result = static_cast<T>(d);
+    result = tmp;
     return true;
   }
-  // Do not parse strings that contain additional non-number characters.
   return false;
 }
-
 }  // namespace
 
 UniString UniString::kSpace = MakeUniString(" ");
@@ -94,7 +69,7 @@ UniChar LastUniChar(std::string const & s)
   return *iter;
 }
 
-bool to_size_t(char const * start, size_t & i, int base)
+bool to_size_t(std::string_view start, size_t & i, int base)
 {
   uint64_t num = 0;
   if (!to_uint64(start, num, base))
@@ -104,12 +79,12 @@ bool to_size_t(char const * start, size_t & i, int base)
   return true;
 }
 
-bool to_float(char const * start, float & f)
+bool to_float(std::string_view start, float & f)
 {
   return ToReal(start, f);
 }
 
-bool to_double(char const * start, double & d)
+bool to_double(std::string_view start, double & d)
 {
   return ToReal(start, d);
 }
