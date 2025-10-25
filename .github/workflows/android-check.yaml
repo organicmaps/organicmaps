@@ -146,7 +146,7 @@ jobs:
           arch: x86_64
           target: google_apis
           script: |
-            cd android && ./gradlew -P${{ matrix.arch }} connectedCheck
+            cd android && ./gradlew -P${{ matrix.arch }} app:test${{ matrix.flavor }} sdk:testDebug sdk:connectedDebugAndroidTest
 
       - name: Upload ${{ matrix.flavor }} apk
         uses: actions/upload-artifact@v4
