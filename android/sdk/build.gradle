@@ -92,6 +92,7 @@ dependencies {
   implementation 'androidx.fragment:fragment:1.8.9'
   implementation 'androidx.lifecycle:lifecycle-process:2.9.4'
 
+  testImplementation 'androidx.test.ext:junit:1.3.0'
   androidTestImplementation 'androidx.test.ext:junit:1.3.0'
   androidTestImplementation 'androidx.test:runner:1.7.0'
 }
