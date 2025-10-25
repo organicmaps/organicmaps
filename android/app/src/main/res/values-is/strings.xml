@@ -590,4 +590,5 @@
     <string name="show_at_the_bottom">Birta neðst</string>
     <string name="delete_track_dialog_title">Eyða %s?</string>
     <string name="share_track">Deila ferli</string>
+    <string name="track_recording_title">Upptaka ferils</string>
 </resources>

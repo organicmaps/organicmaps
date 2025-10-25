@@ -1,5 +1,3 @@
-/********** 3d touch strings **********/
-
 
 /* Used in home screen quick actions. */
 "search" = "Išči";
@@ -9,10 +7,6 @@
 
 /* Used in home screen quick actions. */
 "route" = "Pot";
-
-
-/********** gps strings **********/
-
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "Zaznavanje lokacije v ozadju je potrebno za polno funkcionalnost aplikacije. Uporablja se za navigacijo in shranjevanje vaše nedavne sledi.";
