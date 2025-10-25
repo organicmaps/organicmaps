@@ -1517,3 +1517,4 @@
 "type.man_made.monitoring_station" = "监测站";
 "type.man_made.monitoring_station.water_level" = "水位监测站";
 "type.man_made.monitoring_station.weather" = "气象监测站";
+"type.amenity.student_accommodation" = "学生宿舍";

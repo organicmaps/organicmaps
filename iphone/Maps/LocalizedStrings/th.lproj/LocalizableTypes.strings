@@ -1517,3 +1517,4 @@
 "type.man_made.monitoring_station" = "สถานีตรวจติดตาม";
 "type.man_made.monitoring_station.water_level" = "สถานีตรวจวัดระดับน้ำ";
 "type.man_made.monitoring_station.weather" = "สถานีตรวจวัดสภาพอากาศ";
+"type.amenity.student_accommodation" = "ที่พักนักศึกษา";

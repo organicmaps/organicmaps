@@ -1517,3 +1517,4 @@
 "type.man_made.monitoring_station" = "Overvåkningsstasjon";
 "type.man_made.monitoring_station.water_level" = "Overvåkingsstasjon for vannstand";
 "type.man_made.monitoring_station.weather" = "Værovervåkningsstasjon";
+"type.amenity.student_accommodation" = "Studentboliger";

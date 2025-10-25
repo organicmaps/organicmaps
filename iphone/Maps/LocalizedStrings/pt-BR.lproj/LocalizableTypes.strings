@@ -1513,3 +1513,4 @@
 "type.man_made.monitoring_station.water_level" = "Estação de monitoramento do nível de água";
 "type.man_made.monitoring_station.weather" = "Estação de monitoramento meteorológico";
 "type.shop.telecommunication" = "Loja de telecomunicações";
+"type.amenity.student_accommodation" = "Acomodação para estudantes";

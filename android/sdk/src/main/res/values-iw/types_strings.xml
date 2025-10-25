@@ -1072,4 +1072,5 @@
     <string name="type.man_made.monitoring_station">תחנת ניטור</string>
     <string name="type.man_made.monitoring_station.water_level">תחנת ניטור מפלס מים</string>
     <string name="type.man_made.monitoring_station.weather">תחנת ניטור מזג האוויר</string>
+    <string name="type.amenity.student_accommodation">מגורים לסטודנטים</string>
 </resources>

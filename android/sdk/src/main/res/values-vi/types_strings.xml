@@ -1191,4 +1191,5 @@
     <string name="type.man_made.monitoring_station">Trạm quan trắc</string>
     <string name="type.man_made.monitoring_station.water_level">Trạm quan trắc mực nước</string>
     <string name="type.man_made.monitoring_station.weather">Trạm quan trắc thời tiết</string>
+    <string name="type.amenity.student_accommodation">Chỗ ở cho sinh viên</string>
 </resources>

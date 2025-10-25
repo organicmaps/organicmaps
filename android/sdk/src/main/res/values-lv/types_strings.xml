@@ -70,4 +70,5 @@
     <string name="type.man_made.monitoring_station">Uzraudzības stacija</string>
     <string name="type.man_made.monitoring_station.water_level">Ūdens līmeņa monitoringa stacija</string>
     <string name="type.man_made.monitoring_station.weather">Laikapstākļu monitoringa stacija</string>
+    <string name="type.amenity.student_accommodation">Studentu izmitināšana</string>
 </resources>

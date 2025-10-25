@@ -1517,3 +1517,4 @@
 "type.man_made.monitoring_station" = "Seuranta-asema";
 "type.man_made.monitoring_station.water_level" = "Vedenkorkeuden seuranta-asema";
 "type.man_made.monitoring_station.weather" = "Sään seuranta-asema";
+"type.amenity.student_accommodation" = "Opiskelijoiden majoitus";
