@@ -270,6 +270,7 @@ dependencies {
   // > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckDuplicatesRunnable
   // We don't use Kotlin, but some dependencies are actively using it.
   // See https://stackoverflow.com/a/75719642
+  implementation 'androidx.activity:activity-ktx:1.11.0'
   implementation 'androidx.core:core:1.17.0'
   implementation(platform('org.jetbrains.kotlin:kotlin-bom:2.2.20'))
   implementation 'androidx.annotation:annotation:1.9.1'
