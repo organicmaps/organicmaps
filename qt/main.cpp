@@ -26,8 +26,6 @@
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMessageBox>
 
-#include <sstream>
-
 #include <gflags/gflags.h>
 
 DEFINE_string(data_path, "", "Path to data directory.");
@@ -142,7 +140,6 @@ int main(int argc, char * argv[])
 
   QApplication app(argc, argv);
   app.setDesktopFileName("app.organicmaps.desktop");
-  platform.SetupMeasurementSystem();
 
 #ifdef BUILD_DESIGNER
   QApplication::setApplicationName("Organic Maps Designer");
@@ -242,6 +239,7 @@ int main(int argc, char * argv[])
 #endif  // BUILD_DESIGNER
 
     Framework framework(frameworkParams);
+    framework.SetupMeasurementSystem();
 
     auto const syncNightMode = [&framework]()
     {
