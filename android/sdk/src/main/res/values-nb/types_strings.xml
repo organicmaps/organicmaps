@@ -1205,4 +1205,6 @@
     <string name="type.man_made.monitoring_station">Overvåkningsstasjon</string>
     <string name="type.man_made.monitoring_station.water_level">Overvåkingsstasjon for vannstand</string>
     <string name="type.man_made.monitoring_station.weather">Værovervåkningsstasjon</string>
+    <string name="type.amenity.student_accommodation">Studentboliger</string>
+    <string name="type.craft.watchmaker">Urmaker</string>
 </resources>

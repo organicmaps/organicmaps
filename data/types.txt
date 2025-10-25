@@ -1635,3 +1635,5 @@ amenity|recycling|container
 *leisure|indoor_play
 *tourism|camp_pitch
 *amenity|kneipp_water_cure
+*amenity|student_accommodation
+*craft|watchmaker

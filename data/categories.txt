@@ -8760,6 +8760,48 @@ vi:Nhà ở trên núi|khách sạn
 zh-Hans:山上住宿|旅馆|旅店
 zh-Hant:1山上住宿|飯店|住宿|旅舍|2高山住宿
 
+amenity-student_accommodation
+en:Student Accommodation
+ar:سكن الطلاب
+be:Жыллё для студэнтаў
+bg:Настаняване на студенти
+ca:Allotjament d'estudiants
+cs:Ubytování studentů
+da:Indkvartering af studerende
+de:Studentenunterkünfte
+el:Φοιτητική Εστία
+es:Residencia de estudiantes
+et:Üliõpilaskodu
+eu:Ikasleentzako ostatua
+fa:خوابگاه دانشجویی
+fi:Opiskelijoiden majoitus
+fr:Logement étudiant
+he:מגורים לסטודנטים
+hi:छात्र आवास
+hu:Diákszállás
+id:Akomodasi Mahasiswa
+it:Alloggio per studenti
+ja:学生寮
+ko:학생 숙소
+lv:Studentu izmitināšana
+mr:विद्यार्थ्यांची निवास व्यवस्था
+nb:Studentboliger
+nl:Studentenhuisvesting
+pl:Zakwaterowanie dla studentów
+pt:Alojamento para estudantes
+pt-BR:Acomodação para estudantes
+ro:Cazare pentru studenți
+ru:Проживание студентов
+sk:Ubytovanie študentov
+sv:Studentboende
+sw:Malazi ya Wanafunzi
+th:ที่พักนักศึกษา
+tr:Öğrenci Konaklama
+uk:Проживання студентів
+vi:Chỗ ở cho sinh viên
+zh-Hans:学生宿舍
+zh-Hant:學生住宿
+
 shop-hairdresser
 en:3Hairdresser|hair salon|hairdressing saloon|barbershop|hair cuttery|haircut|beauty parlor|coloring|U+2702|U+1F488
 ar:مصفف شعر
@@ -18119,6 +18161,47 @@ uk:Годинники
 vi:Xem
 zh-Hans:手表
 zh-Hant:手錶
+
+craft-watchmaker
+en:Watchmaker
+ar:صانع الساعات
+be:Гадзіннікавы майстар
+bg:Часовникар
+ca:Rellotger
+cs:Hodinář
+da:Urmager
+de:Uhrmacher
+el:Ωρολογοποιός
+es:Relojero
+et:Kellassepp
+eu:Erlojugilea
+fa:ساعت ساز
+fi:Kelloseppä
+fr:Horloger
+he:שָׁעָן
+hi:घड़ीसाज़
+hu:Órás
+id:Pembuat jam tangan
+it:Orologiaio
+ja:ウォッチメーカー
+ko:워치메이커
+lv:Pulksteņmeistars
+mr:वॉचमेकर
+nb:Urmaker
+nl:Horlogemaker
+pl:Zegarmistrz
+pt:Relojoeiro
+ro:Ceasornicar
+ru:Часовщик
+sk:Hodinár
+sv:Urmakare
+sw:Mtazamaji
+th:ช่างซ่อมนาฬิกา
+tr:Saatçi
+uk:Годинникар
+vi:Thợ đồng hồ
+zh-Hans:钟表匠
+zh-Hant:鐘錶匠
 
 shop-wholesale|@shop
 en:Wholesale

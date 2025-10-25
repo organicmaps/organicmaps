@@ -756,6 +756,7 @@ node|z17-[amenity=shelter],
 node|z16-[amenity=shelter][shelter_type=basic_hut],
 node|z16-[amenity=shelter][shelter_type=lean_to],
 node|z16-[tourism=caravan_site],
+node|z17-[amenity=student_accommodation],
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
 
 
@@ -796,6 +797,9 @@ node|z17-[tourism=alpine_hut],
 node|z17-[tourism=wilderness_hut],
 node|z17-[tourism=chalet],
 {icon-image: alpine_hut-m.svg;}
+
+node|z17-[amenity=student_accommodation],
+{icon-image: hostel-m.svg;}
 
 node|z18-[tourism=guest_house],
 area|z18-[tourism=guest_house],
@@ -2093,6 +2097,8 @@ node|z17-[shop=money_lender],
 area|z17-[shop=money_lender],
 node|z17-[shop=pawnbroker],
 area|z17-[shop=pawnbroker],
+node|z17-[shop=travel_agency],
+node|z17-[shop=watches],
 node|z18-[shop=auction],
 node|z18-[shop=bookmaker],
 node|z18-[shop=fabric],
@@ -2576,6 +2582,10 @@ node|z17-[shop=pawnbroker],
 node|z17-[shop=rental],
 area|z17-[shop=rental]
 {icon-image: rental-m.svg;icon-min-distance: 24;}
+node|z17-[shop=travel_agency],
+{icon-image: travel_agency-m.svg;}
+node|z17-[shop=watches],
+{icon-image: watchmaker-m.svg;}
 node|z18-[shop=auction],
 {icon-image: auction-m.svg;}
 node|z18-[shop=collector],
@@ -2654,6 +2664,8 @@ area|z17-[craft=metal_construction]
 node|z17-[craft=winery],
 area|z17-[craft=winery],
 {icon-image:winery-m.svg;}
+node|z17-[craft=watchmaker],
+{icon-image:watchmaker-m.svg;}
 
 /* 7. CAR */
 
