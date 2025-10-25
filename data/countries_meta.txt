@@ -93,7 +93,7 @@
  "languages": ["bn"]
 },
 "Belarus": {
- "languages": ["ru"]
+ "languages": ["be", "ru"]
 },
 "Belgium": {
  "languages": ["fr", "de", "nl"]
