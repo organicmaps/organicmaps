@@ -864,7 +864,7 @@ shop-stationery                                     # icon z16- (also has captio
 shop-tea                                            # icon z18- (also has caption(optional) z18-)
 shop-telecommunication                              # icon z16- (also has caption(optional) z16-)
 shop-toys                                           # icon z16- (also has caption(optional) z16-)
-shop-travel_agency                                  # icon z18- (also has caption(optional) z18-)
+shop-travel_agency                                  # icon z17- (also has caption(optional) z17-)
 shop-wine                                           # icon z16- (also has caption(optional) z16-)
 === 2400
 
