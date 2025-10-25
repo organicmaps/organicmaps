@@ -2098,6 +2098,7 @@ area|z17-[shop=money_lender],
 node|z17-[shop=pawnbroker],
 area|z17-[shop=pawnbroker],
 node|z17-[shop=travel_agency],
+node|z17-[shop=watches],
 node|z18-[shop=auction],
 node|z18-[shop=bookmaker],
 node|z18-[shop=fabric],
@@ -2583,6 +2584,8 @@ area|z17-[shop=rental]
 {icon-image: rental-m.svg;icon-min-distance: 24;}
 node|z17-[shop=travel_agency],
 {icon-image: travel_agency-m.svg;}
+node|z17-[shop=watches],
+{icon-image: watchmaker-m.svg;}
 node|z18-[shop=auction],
 {icon-image: auction-m.svg;}
 node|z18-[shop=collector],
@@ -2661,6 +2664,8 @@ area|z17-[craft=metal_construction]
 node|z17-[craft=winery],
 area|z17-[craft=winery],
 {icon-image:winery-m.svg;}
+node|z17-[craft=watchmaker],
+{icon-image:watchmaker-m.svg;}
 
 /* 7. CAR */
 
