@@ -1421,4 +1421,12 @@
     <string name="type.man_made.monitoring_station.weather">Stazione di monitoraggio meteo</string>
     <string name="type.amenity.student_accommodation">Alloggio per studenti</string>
     <string name="type.craft.watchmaker">Orologiaio</string>
+    <string name="type.post_office.post_partner">Fornitore di servizi postali</string>
+    <string name="type.leisure.escape_game">Escape Room</string>
+    <string name="type.barrier.wicket_gate">Cancello pedonale</string>
+    <string name="type.barrier.yes">Barriera</string>
+    <string name="type.building.guardhouse">Guardia</string>
+    <string name="type.office.security">Ufficio di sicurezza</string>
+    <string name="type.power.portal">Torre di potenza (portale)</string>
+    <string name="type.shop.lighting">Negozio di luci</string>
 </resources>
