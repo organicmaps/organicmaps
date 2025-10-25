@@ -2093,6 +2093,7 @@ node|z17-[shop=money_lender],
 area|z17-[shop=money_lender],
 node|z17-[shop=pawnbroker],
 area|z17-[shop=pawnbroker],
+node|z17-[shop=travel_agency],
 node|z18-[shop=auction],
 node|z18-[shop=bookmaker],
 node|z18-[shop=fabric],
@@ -2576,6 +2577,8 @@ node|z17-[shop=pawnbroker],
 node|z17-[shop=rental],
 area|z17-[shop=rental]
 {icon-image: rental-m.svg;icon-min-distance: 24;}
+node|z17-[shop=travel_agency],
+{icon-image: travel_agency-m.svg;}
 node|z18-[shop=auction],
 {icon-image: auction-m.svg;}
 node|z18-[shop=collector],
