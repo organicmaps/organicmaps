@@ -1360,4 +1360,5 @@
     <string name="type.man_made.monitoring_station.water_level">Estació de control del nivell d\'aigua</string>
     <string name="type.man_made.monitoring_station.weather">Estació de seguiment meteorològic</string>
     <string name="type.amenity.student_accommodation">Allotjament d\'estudiants</string>
+    <string name="type.craft.watchmaker">Rellotger</string>
 </resources>

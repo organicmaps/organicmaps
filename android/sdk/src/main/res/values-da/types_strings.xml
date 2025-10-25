@@ -1396,4 +1396,5 @@
     <string name="type.post_office.post_partner">Postpartner</string>
     <string name="type.railway.station.subway.qingdao">Metrostation</string>
     <string name="type.amenity.student_accommodation">Indkvartering af studerende</string>
+    <string name="type.craft.watchmaker">Urmager</string>
 </resources>

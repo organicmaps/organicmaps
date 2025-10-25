@@ -1518,3 +1518,4 @@
 "type.man_made.monitoring_station.water_level" = "Trạm quan trắc mực nước";
 "type.man_made.monitoring_station.weather" = "Trạm quan trắc thời tiết";
 "type.amenity.student_accommodation" = "Chỗ ở cho sinh viên";
+"type.craft.watchmaker" = "Thợ đồng hồ";

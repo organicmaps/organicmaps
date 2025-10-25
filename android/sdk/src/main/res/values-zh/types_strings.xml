@@ -1423,4 +1423,5 @@
     <string name="type.man_made.monitoring_station.water_level">水位监测站</string>
     <string name="type.man_made.monitoring_station.weather">气象监测站</string>
     <string name="type.amenity.student_accommodation">学生宿舍</string>
+    <string name="type.craft.watchmaker">钟表匠</string>
 </resources>

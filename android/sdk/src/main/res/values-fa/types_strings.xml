@@ -1261,4 +1261,5 @@
     <string name="type.man_made.monitoring_station.water_level">ایستگاه پایش سطح آب</string>
     <string name="type.man_made.monitoring_station.weather">ایستگاه پایش آب و هوا</string>
     <string name="type.amenity.student_accommodation">خوابگاه دانشجویی</string>
+    <string name="type.craft.watchmaker">ساعت ساز</string>
 </resources>

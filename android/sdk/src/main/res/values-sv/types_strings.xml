@@ -1356,4 +1356,5 @@
     <string name="type.man_made.monitoring_station.water_level">Övervakningsstation för vattennivå</string>
     <string name="type.man_made.monitoring_station.weather">Väderövervakningsstation</string>
     <string name="type.amenity.student_accommodation">Studentboende</string>
+    <string name="type.craft.watchmaker">Urmakare</string>
 </resources>

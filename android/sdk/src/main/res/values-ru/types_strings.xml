@@ -1429,4 +1429,5 @@
     <string name="type.man_made.monitoring_station.water_level">Станция мониторинга уровня воды</string>
     <string name="type.man_made.monitoring_station.weather">Станция мониторинга погоды</string>
     <string name="type.amenity.student_accommodation">Проживание студентов</string>
+    <string name="type.craft.watchmaker">Часовщик</string>
 </resources>

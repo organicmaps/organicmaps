@@ -1194,4 +1194,5 @@
     <string name="type.man_made.monitoring_station.water_level">पाणी पातळी मॉनिटरिंग स्टेशन</string>
     <string name="type.man_made.monitoring_station.weather">हवामान निरीक्षण स्टेशन</string>
     <string name="type.amenity.student_accommodation">विद्यार्थ्यांची निवास व्यवस्था</string>
+    <string name="type.craft.watchmaker">वॉचमेकर</string>
 </resources>

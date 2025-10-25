@@ -1425,4 +1425,5 @@
     <string name="type.man_made.monitoring_station.water_level">Stanice pro sledování vodní hladiny</string>
     <string name="type.man_made.monitoring_station.weather">Stanice pro sledování počasí</string>
     <string name="type.amenity.student_accommodation">Ubytování studentů</string>
+    <string name="type.craft.watchmaker">Hodinář</string>
 </resources>

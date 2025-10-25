@@ -1292,4 +1292,5 @@
     <string name="type.man_made.monitoring_station.water_level">محطة مراقبة منسوب المياه</string>
     <string name="type.man_made.monitoring_station.weather">محطة مراقبة الطقس</string>
     <string name="type.amenity.student_accommodation">سكن الطلاب</string>
+    <string name="type.craft.watchmaker">صانع الساعات</string>
 </resources>

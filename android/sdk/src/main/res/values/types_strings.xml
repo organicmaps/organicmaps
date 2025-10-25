@@ -1431,4 +1431,5 @@
     <string name="type.man_made.monitoring_station.water_level">Water Level Monitoring Station</string>
     <string name="type.man_made.monitoring_station.weather">Weather Monitoring Station</string>
     <string name="type.amenity.student_accommodation">Student Accommodation</string>
+    <string name="type.craft.watchmaker">Watchmaker</string>
 </resources>

@@ -1420,4 +1420,5 @@
     <string name="type.man_made.monitoring_station.water_level">Σταθμός παρακολούθησης στάθμης νερού</string>
     <string name="type.man_made.monitoring_station.weather">Σταθμός παρακολούθησης καιρού</string>
     <string name="type.amenity.student_accommodation">Φοιτητική Εστία</string>
+    <string name="type.craft.watchmaker">Ωρολογοποιός</string>
 </resources>

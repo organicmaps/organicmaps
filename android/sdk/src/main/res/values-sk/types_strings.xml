@@ -1337,4 +1337,5 @@
     <string name="type.man_made.monitoring_station.water_level">Stanica na monitorovanie hladiny vody</string>
     <string name="type.man_made.monitoring_station.weather">Stanica na monitorovanie počasia</string>
     <string name="type.amenity.student_accommodation">Ubytovanie študentov</string>
+    <string name="type.craft.watchmaker">Hodinár</string>
 </resources>

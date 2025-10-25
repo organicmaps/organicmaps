@@ -1428,4 +1428,5 @@
     <string name="type.man_made.monitoring_station.water_level">Su Seviyesi İzleme İstasyonu</string>
     <string name="type.man_made.monitoring_station.weather">Hava Durumu İzleme İstasyonu</string>
     <string name="type.amenity.student_accommodation">Öğrenci Konaklama</string>
+    <string name="type.craft.watchmaker">Saatçi</string>
 </resources>

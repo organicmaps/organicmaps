@@ -1518,3 +1518,4 @@
 "type.man_made.monitoring_station.water_level" = "Stasiun Pemantauan Ketinggian Air";
 "type.man_made.monitoring_station.weather" = "Stasiun Pemantauan Cuaca";
 "type.amenity.student_accommodation" = "Akomodasi Mahasiswa";
+"type.craft.watchmaker" = "Pembuat jam tangan";
