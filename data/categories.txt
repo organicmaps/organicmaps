@@ -108,6 +108,7 @@ pt-BR:Onde comer|comer|comida|alimentação
 ro:Unde să mănânci|Alimentație|mâncare
 ru:Где поесть|Поесть|Еда|кушать|покушать
 sk:Kde sa najesť|Jedlo
+sl:Kje jesti
 sr:Где јести|Јело|Храна|Gde jesti|Jelo|Hrana
 sv:Matmöjligheter|Mat
 sw:Sehemu ya kula
@@ -152,6 +153,7 @@ pt-BR:Mercados|Alimentação
 ro:4Alimentare|Produse|Alimentație|Mâncare
 ru:4Продукты|Еда
 sk:Potraviny|Jedlo
+sl:Živila
 sr:Намирнице|Храна|Namirnice|Hrana
 sv:Matvaror|Produkter|Mat
 sw:Migahawani
@@ -196,6 +198,7 @@ pt-BR:5Transporte
 ro:5Transport
 ru:5Транспорт
 sk:Doprava
+sl:Prevoz
 sr:5Транспорт|5Transport
 sv:5Transport
 th:การขนส่ง
@@ -239,6 +242,7 @@ pt-BR:Combustível
 ro:4Benzinărie|Benzină|Gaz
 ru:3бензин|3дизель|4топливо|газ|АЗС
 sk:3Čerpacia stanica
+sl:Bencin
 sr:5Гориво|4Бензин|3Дизел|Гас|Бензинска станица|Бензинска пумпа|5Gorivo|4Benzin|3Dizel|Gas|Benzinska stanica|Benzinska pumpa
 sv:3Bensin
 sw:Sheli
@@ -284,6 +288,7 @@ pt-BR:5Estacionamento
 ro:4Parcare
 ru:4Парковка
 sk:4Parkovisko
+sl:Parkirišče
 sr:4Паркинг|4Parking
 sv:4Parkering
 th:ที่จอดรถ
@@ -328,6 +333,7 @@ pt-BR:4Compras
 ro:4Shopping|Cumpărături
 ru:3Шоппинг|4Покупки
 sk:Nakupovanie
+sl:Nakupovanje
 sr:Шопинг|Куповина|Šoping|Kupovina
 sv:4Shopping|Handel
 sw:Manunuzi
@@ -373,6 +379,7 @@ pt-BR:Hotel|Hoteles
 ro:Hotel|Hoteluri
 ru:4Гостиница|отель|отели
 sk:Hotel|Hotely
+sl:Hotel
 sr:Хотел|Хотели|Hotel|Hoteli
 sv:Hotell|Hotellen
 th:โรงแรม
@@ -417,6 +424,7 @@ pt-BR:4Atraçãos|3Turismo
 ro:5Obiective turistice|4Turism
 ru:4Достопримечательности|3Туризм
 sk:Pamätihodnosť
+sl:Znamenitosti
 sr:5Туристичка атракција|5Атракција|5Атракције|6Знаменитости|5Туризам|5Turistička atrakcija|5Atrakcija|5Atrakcije|6Znamenitosti|5Turizam
 sv:4Sevärdheter|4Attraktion|4Turism
 th:สถานที่ท่องเที่ยว
@@ -461,6 +469,7 @@ pt-BR:Entretenimento
 ro:Divertisment
 ru:Развлечения
 sk:Zábava
+sl:Zabava
 sr:Забава|Zabava
 sv:Underhållning
 th:แหล่งบันเทิง
@@ -505,6 +514,7 @@ pt-BR:Vida noturna
 ro:Viața nocturnă|cu prietenii|petrecere
 ru:Ночная жизнь|С друзьями|Вечер с друзьями|потусить
 sk:Nočný život
+sl:Nočno življenje
 sr:Ноћни живот|Noćni život
 sv:Nattliv|Nöjesliv
 sw:Shughuli za usiku
@@ -550,6 +560,7 @@ pt-BR:Feriados em família
 ro:Divertisment cu copiii|Divertisment cu familia|Vacanță cu copiii
 ru:Отдых с детьми
 sk:Rodinná dovolenka
+sl:Družinske počitnice
 sr:Све за децу|Sve za decu
 sv:Familjesemester
 sw:Mapumziko ya familia
@@ -595,6 +606,7 @@ pt-BR:3Caixa eletrônico|caixa automático|banco 24 horas
 ro:3Bancomat|ATM
 ru:3Банкомат
 sk:3Bankomat
+sl:Bankomat
 sr:5Банкомат|5Bankomat
 sv:3Bankomat
 sw:Benki|fedha
@@ -640,6 +652,7 @@ pt-BR:Para trailers
 ro:Pentru rulote|3Rulotă|RV
 ru:Для автодомов|5Автодом|5Трейлер|Дом на колёсах
 sk:Pre RV
+sl:Oprema za avtodome
 sr:За кампер возила|Za kamper vozila
 sv:För husbil
 sw:Kwa RV
@@ -680,6 +693,7 @@ pt-BR:dinheiro
 ro:bani
 ru:деньги
 sk:sporiteľna|peniaze
+sl:denar
 sr:новац|novac
 sv:pengar
 th:เงิน|atm
@@ -724,6 +738,7 @@ pt-BR:3Banco
 ro:3Bancă
 ru:3Банк
 sk:3Banka
+sl:Banka
 sr:4Банка|3Banka
 sv:3Bank
 sw:Benki|fedha
@@ -769,6 +784,7 @@ pt-BR:De segunda mão
 ro:La mâna a doua
 ru:4Секонд-хенд
 sk:Second-hand
+sl:Rabljeno
 sr:6Секонд-хенд|6Sekond-hend
 sv:Begagnad|Begagnat
 sw:Mtumba
@@ -807,6 +823,7 @@ pt-BR:dinheiro
 ro:bani
 ru:деньги
 sk:peniaze
+sl:denar
 sr:новац|novac
 sv:pengar
 th:เงิน
@@ -852,6 +869,7 @@ pt-BR:Reciclagem|Utilização de resíduos|Recicláveis|Coleta de seletiva|Separ
 ro:Reciclarea deșeurilor|4Reciclare|Recepționarea reciclării|Colectarea separată a gunoiului|Sortarea gunoiului|Reutilizare
 ru:Переработка|5Переработка отходов|Утилизация отходов|5Приём вторсырья|5Сдать вторсырьё|4Сбор вторсырья|5Раздельный сбор мусора|Сортировка мусора|Повторное использование|Утиль|Ресайклинг|Рециклинг|Вторичное сырьё
 sk:Recyklácia|Využitie odpadu|Recyklovateľné|Separovaný zber odpadu|Triedenie odpadu|Opätovné použitie
+sl:Recikliranje
 sr:6Рециклажа|6Reciklaža
 sv:Återvinning|Avfallsbehandling|Återvinningsbart avfall|Separat sopinsamling|Sopsortering|Återanvändning
 th:การรีไซเคิล|การใช้ประโยชน์จากขยะ|รีไซเคิลได้|ที่รวบรวมขยะแยกประเภท|การแยกขยะ|รียูส
@@ -892,6 +910,7 @@ pt-BR:3Casa de câmbio|3troca|dinheiro
 ro:3Schimb valutar|schimb
 ru:3Обмен валюты|обмен валют|обменник|4валюта|деньги
 sk:3Zmenáreň|peniaze
+sl:3Menjalnica|denar
 sr:3Мењачница|4Menjačnica
 sv:3Valutaväxling|3växling|pengar
 th:1แลกเปลี่ยนเงินตรา|หลักสูตร|เงิน
@@ -903,6 +922,7 @@ zh-Hant:1匯率|理財|外幣|兌換|貨幣|換錢
 
 amenity-studio
 en:Studio
+sl:4Studio|Atelje
 
 amenity-bar|amenity-pub|@category_eat|@category_nightlife
 en:2Bar|2pub|beer|drink|tavern|bars and pubs|brew pub|cocktail lounge|U+1F37A|U+1F37B|U+1F376
@@ -935,6 +955,7 @@ pt-BR:2Drinqueria|bar|pub|boteco|cerveja|drink|beber|alimentação
 ro:2Bar|2cârciumă|băutură
 ru:2Бар|2паб|пиво|выпить|пивной ресторан|пивбар|крафт|коктейль бар|пивная|коктейли|алкоголь|алкогольные напитки
 sk:2Bar|pohostinstvo|pivo|pitie|tekutiny
+sl:2Bar|pivnica|pivo|piće
 sr:Бар|паб|kафана|пиво|пиће|таверна|Bar|pab|kafana|pivo|piće|taverna
 sv:2Bar|2pub|krog|öl|drink
 sw:Baa|vinywaji
@@ -977,6 +998,7 @@ pt-BR:3Café|3cafeteria|3restaurante|alimentação
 ro:3Cafenea|3restaurant
 ru:3Кафе|3ресторан|кофейня|кофе
 sk:3Kaviareň|reštaurácia|pohostinstvo
+sl:3Kavarna|restavracija
 sr:Кафе|кафић|4ресторан|kafe|kafić|4restoran
 sv:3Café|3restaurang
 sw:Mgahawa|hoteli|chakula
@@ -1019,6 +1041,7 @@ pt-BR:4Lanchonete|fast-food|3alimentação
 ro:Fast food|3restaurant
 ru:3Фастфуд|3ресторан|3кафе|закусочная|быстрое питание|снеки|перекусить|экспресс-питание
 sk:2Rýchle občerstvenie|4fastfood|3kaviareň|reštaurácia
+sl:Hitra hrana|restavracija
 sr:4Брза храна|4ресторан|4brza hrana|4restoran
 sv:4Snabbmat|3restaurang|3café|takeaway
 th:1อาหารจานด่วน|ร้านอาหาร|คาเฟ่|นำกลับ
@@ -1060,6 +1083,7 @@ pt-BR:3Restaurante|3comida|3alimentação
 ro:3Restaurant|3cafenea
 ru:3Ресторан|3кафе
 sk:3Reštaurácia|pohostinstvo|kaviareň
+sl:3Restavracija|gostilna
 sr:4Ресторан|4restoran
 sv:3Restaurang|3café
 sw:Hoteli|restorenti|mgahawa|chakula
@@ -1099,6 +1123,7 @@ pt-BR:3Posto de combustível|3gasolina
 ro:3Benzinărie
 ru:азс|агзс|агнкс|бензоколонка|бензозаправка|4автозаправка|3заправка
 sk:3Benzínová pumpa
+sl:3Bencinska črpalka|3bencin
 sr:4Бензинска пумпа|4Бензинска станица|4Benzinska pumpa|4Benzinska stanica
 sv:3Bensinstation|3bränsle|2gas
 sw:mafuta
@@ -1144,6 +1169,7 @@ pt-BR:2Loja|Compras
 ro:4Magazin
 ru:4Магазин
 sk:Obchod
+sl:4Trgovina
 sr:Продавница|Prodavnica
 sv:Butik|Affär
 sw:Duka
@@ -1186,6 +1212,7 @@ pt-BR:3Padaria|3panificadora
 ro:3Brutărie
 ru:3Булочная|3пекарня|Торт|3Торты|Пирожные
 sk:3Pekáreň
+sl:3Pekarna
 sr:5Пекара|5Pekara
 sv:3Bageri
 sw:Kituo cha kuwoka mikate
@@ -1197,10 +1224,12 @@ zh-Hans:1面包店|商店
 zh-Hant:1麵包店|2蛋糕店|烘焙|麵包|蛋糕|購物
 
 shop|@shop
+sl:4Trgovina
 
 shop-cannabis|@shop
 en:Cannabis
 nl:Coffeeshop
+sl:Kanabis
 tr:4Kenevir|4Esrar
 
 shop-cosmetics|@category_shopping|@shop
@@ -1236,6 +1265,7 @@ pt-BR:4Cosméticos|estética
 ro:4Cosmetică|centru de îngrijire
 ru:4Косметика
 sk:4Kozmetika
+sl:4Kozmetika
 sr:5Козметика|5Kozmetika
 sv:4Kosmetika
 sw:Vipodozi
@@ -1277,6 +1307,7 @@ pt-BR:Loja de conveniência|4mercadinho|compras
 ro:4Magazin mixt|minimarket|magazin
 ru:4Продуктовый|продуктовая лавка|4гастроном|мини-маркет
 sk:Príležitostné potreby
+sl:4Trgovina z živili|4mini market
 sr:4Мини-маркет|Дућан|4Mini-market|Dućan
 sv:Närbutik
 sw:Duka
@@ -1317,6 +1348,7 @@ pt-BR:Iguarias regionais
 ro:Deli
 ru:4Деликатесы
 sk:Delikatesy
+sl:Delikatesa
 sr:Деликатес|Delikates
 sv:Delikatessbutik
 th:อาหารพิเศษ
@@ -1336,6 +1368,7 @@ fr:4Produits fermiers|ferme
 hi:3खेती से उत्पन्न खाद्द की दुकान
 lv:Lauku produkti
 ru:Фермерская еда
+sl:4Kmetija|4kmetijski izdelki
 tr:Çiftlik gıdaları
 
 shop-garden_centre|@shop
@@ -1368,6 +1401,7 @@ pt-BR:Loja de plantas|jardinagem|jardim|compras
 ro:Pepinieră|magazin cu articole de grădinărit
 ru:3Садовые товары
 sk:Škôlka|materská škôlka
+sl:Vrtni center
 sr:5Расадник|Собне биљке|6Баштенски материјал|5Rasadnik|Sobne biljke|6Baštenski materijal
 sv:Plantskola|trädgårdsbutik
 th:สถานรับเลี้ยงเด็ก|เนอร์สเซอรี่
@@ -1386,6 +1420,7 @@ fr:Épicerie
 hi:3किराने की दुकान
 lv:Pārtika
 ru:Бакалея
+sl:4Živila|4bakalija
 tr:Market
 
 shop-health_food|@category_food|@shop
@@ -1397,6 +1432,7 @@ fr:4Diététique
 hi:4स्वस्थ भोजन की दुकान|4हेल्थ फ़ूड स्टोर
 lv:Veselīgs uzturs
 ru:Здоровая еда
+sl:4Zdrava hrana|5bio trgovina
 sr:6Здрава храна|6Zdrava hrana
 tr:Sağlıklı Gıda
 
@@ -1432,6 +1468,7 @@ pt:Aparelhos auditivos
 ro:Aparate auditive
 ru:Слуховые аппараты
 sk:Sluchové pomôcky
+sl:Slušni pripomočki
 sv:Hörselhjälpmedel
 sw:Misaada ya kusikia
 th:เครื่องช่วยฟัง
@@ -1471,6 +1508,7 @@ pt-BR:Loja de celulares|celulares|telefone
 ro:Magazin de telefoane mobile|magazin de electronice
 ru:4Сотовые телефоны|4Мобильные телефоны|5телефоны|5смартфоны|электроника|салон связи
 sk:Mobilné telefóny
+sl:4Mobilni telefoni
 sr:Мобилни телефони|Mobilni telefoni
 sv:4Mobilbutik|elektronikaffär
 sw:Duka la simu
@@ -1514,6 +1552,7 @@ pt:Loja de telecomunicações
 ro:Magazin de telecomunicații
 ru:Магазин телекоммуникаций
 sk:Telekomunikačný obchod
+sl:Telekomunikacijska trgovina
 sv:Butik för telekommunikation
 sw:Duka la Mawasiliano
 th:ร้านค้าโทรคมนาคม
@@ -1554,6 +1593,7 @@ pt-BR:4Florista|Floricultura|flores
 ro:4Florărie
 ru:4Цветочный|4цветы|цветов|флорист|букет|цветочный салон
 sk:4Kvety|kvetinárstvo
+sl:Cvetličarna
 sr:Цвећара|Cvećara
 sv:Blomsteraffär
 th:ร้านดอกไม้
@@ -1594,6 +1634,7 @@ pt-BR:Açougue|açougueiro
 ro:Măcelărie
 ru:Мясо|Мясной|мяса|Мясная лавка
 sk:Mäsiar
+sl:Mesnica
 sr:Месара|Mesara
 sv:Slaktare
 th:ร้านขายเนื้อ
@@ -1634,6 +1675,7 @@ pt-BR:Loja de móveis
 ro:Magazin de mobilă
 ru:4Мебель
 sk:Nábytok
+sl:Pohištvo
 sr:Намештај|Nameštaj
 sv:4Möbelaffär
 th:ร้านเฟอร์นิเจอร์
@@ -1674,6 +1716,7 @@ pt-BR:Loja de cozinha
 ro:Magazin de bucatarie
 ru:Кухонный|Кухни|кухонь
 sk:Kuchynský obchod
+sl:Kuhinjska trgovina
 sr:Кухињска опрема|Kuhinjska oprema
 sv:Köksbutik
 sw:Duka la Jikoni
@@ -1716,6 +1759,7 @@ pt-BR:Loja de bebidas|bebidas alcoólicas
 ro:Băuturi alcoolice
 ru:4алкоголь|3винный|3вино-водочный
 sk:Liehoviny|4alkohol
+sl:Trgovina z alkoholom
 sr:Алкохол|Alkohol
 sv:Spritaffär|4alkohol
 th:ร้านขายเหล้า
@@ -1756,6 +1800,7 @@ pt-BR:4Livraria
 ro:4Librărie
 ru:Книжный|3книги
 sk:Kníhkupectvo
+sl:Knjigarna
 sr:Књижара|Knjižara
 sv:Bokaffär
 th:ร้านหนังสือ
@@ -1796,6 +1841,7 @@ pt-BR:Sapataria|loja de calçados
 ro:Magazin de încălțăminte
 ru:3обувь|обуви|обувной
 sk:3Obuvníctvo
+sl:Čevlji
 sr:Обућа|Obuća
 sv:Skobutik
 th:ร้านขายรองเท้า
@@ -1838,6 +1884,7 @@ pt-BR:Loja de eletrônicos
 ro:4Electronice
 ru:Электротехника|4Электроника
 sk:4Elektronika
+sl:Elektronika
 sr:Електроника|Elektronika
 sv:4Elektronik|elektronikaffär
 th:ร้านขายอุปกรณ์อิเล็กทรอนิกส์
@@ -1879,6 +1926,7 @@ pt-BR:Loja de ferramentas|ferragens
 ro:Magazin de bricolaj|hardware
 ru:3Хозяйственный|Строительный|Стройтовары|Хозтовары
 sk:Železiarstvo|Náradie
+sl:Železnina
 sv:Järnhandel
 th:ร้านขายฮาร์ดแวร์|ร้านขายวัสดุอุปกรณ์
 tr:Hırdavatçı|Nalbur
@@ -1920,6 +1968,7 @@ pt-BR:Bens domésticos
 ro:Bunuri de uz casnic
 ru:4Посуда|4Бытовые товары
 sk:Tovar pre domácnosť
+sl:Gospodinjski izdelki
 sv:Hushållsartiklar
 sw:Bidhaa za nyumbani
 th:สินค้าใช้ในบ้าน
@@ -1961,6 +2010,7 @@ pt-BR:Joalheria
 ro:4Bijutier
 ru:4Ювелирный|бижутерия
 sk:Klenotníctvo
+sl:Zlatarna
 sr:Златара|Zlatara
 sv:Smycken|4juvelerare|guldsmed
 th:ร้านขายเครื่องประดับ
@@ -2002,6 +2052,7 @@ pt-BR:Ótica|4oculista|3óculos
 ro:4Optică
 ru:4Оптика|очки
 sk:4Optika
+sl:Optika
 sr:Оптика|Optika
 sv:4Optiker|glasögonaffär
 th:ร้านแว่น
@@ -2041,6 +2092,7 @@ pt-BR:Loja de presentes
 ro:Magazin de suveniruri
 ru:4cувениры|4подарки|сувенирный
 sk:Darčeky
+sl:Darila
 sr:Поклони|Pokloni
 sv:Presentaffär
 th:ร้านของขวัญ
@@ -2082,6 +2134,7 @@ pt-BR:Salão de beleza
 ro:Salon de înfrumusețare
 ru:5Салон красоты|косметический салон|парикмахерская|стрижка|маникюр|маникюрный салон|красота|студия красоты|центр красоты
 sk:Kozmetický salón
+sl:Salon lepote|5Kozmetični salon|frizerski salon
 sr:Салон лепоте|Salon lepote
 sv:Skönhetssalong
 sw:Uzuri saluni
@@ -2123,6 +2176,7 @@ pt-BR:Quitanda|verdureiro|varejão
 ro:Băcănie|fructe|legume
 ru:3Овощи|овощей|3Фрукты|фруктов
 sk:Zelovoc
+sl:Trgovina z zelenjavo|sadje|4sadjarstvo
 sv:Grönsakshandlare
 th:ร้านขายผัด
 tr:Manav
@@ -2162,6 +2216,7 @@ pt-BR:Artigos esportivos
 ro:Articole sportive
 ru:4Спорттовары|Спортивный|Товары для спорта
 sk:4Športové potreby
+sl:4Športna oprema|4športni artikli
 sr:Спортска опрема|Sportska oprema
 sv:4Sportaffär
 th:สินค้ากีฬา
@@ -2202,6 +2257,7 @@ pt-BR:3Supermercado|mercado
 ro:3Supermarket
 ru:3Супермаркет|3универсам|3гипермаркет|4гастроном
 sk:3Supermarket
+sl:3Supermarket|3Hipermarket
 sr:Супермаркет|Supermarket
 sv:3Stormarknad|dagligvaruhandel
 sw:Supamaketi
@@ -2245,6 +2301,7 @@ pt-BR:Shopping center
 ro:Mall
 ru:4Торговый центр|торговый комплекс|трц|трк|тц|развлекательный центр|молл
 sk:Mall
+sl:Nakupovalni center|mall
 sr:Тржни центар|Шопинг центар|Tržni centar|Šoping centar
 sv:Galleria|köpcentrum
 sw:Ununuzi maduka
@@ -2286,6 +2343,7 @@ pt-BR:Loja de departamentos|compras
 ro:Magazin universal
 ru:4Универмаг|молл|торговый комплекс|универсам
 sk:Obchodný dom
+sl:4Trgovski dom
 sr:Робна кућа|Robna kuća
 sv:Varuhus
 th:ห้างสรรพสินค้า
@@ -2326,6 +2384,7 @@ pt-BR:4Bebidas
 ro:Băuturi
 ru:4Напитки|3соки|соков
 sk:4Nápoje
+sl:4Pijače|pijača
 sr:Пиће|Piće
 sv:Drinkar|drycker
 th:เครื่องดื่ม
@@ -2365,6 +2424,7 @@ pt-BR:Loja de informática
 ro:Magazin de calculatoare
 ru:Компьютерный|4компьютеры
 sk:Obchod s výpočtovou technikou
+sl:4Računalniška trgovina|4računalniki
 sr:Рачунари|Računari
 sv:Datorbutik
 th:ร้านขายคอมพิวเตอร์
@@ -2406,6 +2466,7 @@ pt-BR:4Confeitaria|loja de doces
 ro:Cofetărie|dulciuri
 ru:4Кондитерская|кондитерские изделия|сладости
 sk:Cukrovinky
+sl:4Slaščičarna|sladice|bonboni
 sr:Слаткиши|Slatkiši
 sv:Konditori|godisbutik
 th:ร้านขายขนมหวาน|ร้านขายลูกกวาด
@@ -2445,6 +2506,7 @@ pt-BR:4Lavanderia
 ro:Spălătorie
 ru:4Прачечная|стирка
 sk:4Práčovňa
+sl:4Pralnica|pralnica perila
 sr:Прање веша|Pranje veša
 sv:Tvättstuga|tvättomat
 th:ร้านซักรีด
@@ -2485,6 +2547,7 @@ pt-BR:Loja de brinquedos
 ro:Magazin de jucării
 ru:3игрушки|игрушек|игрушечный
 sk:Hračkárstvo
+sl:Trgovina z igračami|4igrače
 sr:Играчке|Igračke
 sv:Leksaksaffär
 th:ร้านขายของเล่น
@@ -2523,6 +2586,7 @@ pt:Feira|3Mercado
 pt-BR:3Mercado|mercadão|feira-livre
 ru:3Рынок|базар
 sk:3Trhovisko|samoobsluha
+sl:3Tržnica|3trg|bazar
 sr:Пијаца|Pijaca
 sv:3Marknadsplats|marknad
 sw:Soko
@@ -2564,6 +2628,7 @@ pt-BR:Transferência de dinheiro
 ro:Transfer de bani
 ru:Денежные переводы|Деньги
 sk:Prevod peňazí
+sl:Prenos denarja
 sr:Трансфер новца|Transfer novca
 sv:Pengaöverföring
 sw:Uhamisho wa pesa
@@ -2605,6 +2670,7 @@ pt-BR:Loja de roupas
 ro:Magazin de haine
 ru:3Одежда|одежды
 sk:Oblečenie
+sl:Trgovina z oblačili|3oblačila|3obleka
 sr:Бутик|Butik
 sv:Klädbutik|klädaffär|4kläder
 sw:Duka la nguo|nguo
@@ -2626,6 +2692,7 @@ fr:Concessionnaire de caravanes et camping-cars
 hi:4कैंपर डीलर
 lv:5kemperu veikals|5treileru veikals
 ru:Автодом|Продажа автодомов
+sl:4Avtodomi|5prodaja avtodomov|4kampirci
 tr:Karavan galerisi
 uk:Продаж автобудинків
 
@@ -2663,6 +2730,7 @@ pt-BR:Loja de carros|4concessionária|veículos
 ro:Magazin auto
 ru:4Автосалон|Машины
 sk:Predajňa áut
+sl:Prodaja avtomobilov|avtosalon
 sr:Салон аутомобила|Salon automobila
 sv:Bilåterförsäljare
 sw:Yadi|duka la gari|gari
@@ -2705,6 +2773,7 @@ pt-BR:Loja de bicicletas|4bicicletaria|4bicicleta|bike
 ro:3Bicicletă|Magazin biciclete
 ru:4Веломагазин|велосипеды
 sk:3Cyklistický obchod|bicykel
+sl:4Kolesarska trgovina|3kolo|4kolesa
 sr:Бицикли|Bicikli
 sv:4Cykelaffär|cykel
 sw:Duka la baiskeli|baiskeli
@@ -2745,6 +2814,7 @@ pt:4Quiosque
 pt-BR:4Quiosque
 ru:3Киоск
 sk:3Kiosk
+sl:3Kiosk
 sr:Киоск|Kiosk
 sv:3Kiosk
 sw:3Kioski
@@ -2785,6 +2855,7 @@ pt-BR:2Ponto de ônibus
 ro:3Stație de autobuz
 ru:4Остановка|5автобус|4троллейбус
 sk:4Autobusová zastávka|autobus|2bus|4zastávka|stanica
+sl:4Avtobusna postaja|4postajališče|2bus
 sv:Busshållplats|3buss|hållplats
 sw:Kituo cha basi|basi|usafiri
 th:ป้ายรถเมล์|รถเมล์|ขนส่ง
@@ -2823,6 +2894,7 @@ pt-BR:3Parada de bonde|via férrea
 ro:3Stație de tramvai
 ru:4Остановка|4трамвай
 sk:4Električková zastávka|električka|4zastávka|stanica
+sl:4Tramvajsko postajališče|tramvaj
 sv:Spårvagnshållplats|3spårvagn|hållplats
 th:ป้ายรถราง|ขนส่ง
 tr:3Tramvay durağı|Tramvay|durak
@@ -2861,6 +2933,7 @@ pt-BR:2Rodoviária|estação BRT
 ro:3Gara de autobuz
 ru:5Автовокзал|5Автостанция|5автобус|4остановка
 sk:4Autobusové nástupište|4zastávka|bus
+sl:4Avtobusna postaja|4avtobusni terminal
 sr:Аутобуска станица|Autobuska stanica
 sv:2Busstation|buss|station
 sw:Stendi ya basi|basi|stendi|usafiri
@@ -2901,6 +2974,7 @@ pt-BR:Estação de trem|ferrovia
 ro:Feroviar
 ru:3Ж/д станция|Ж/д вокзал|3поезд|3станция
 sk:3Železničná stanica|vlakové nástupište|2vlak
+sl:3Železniška postaja|3vlak|3proga
 sr:Железничка станица|Železnička stanica
 sv:3Tågstation|4järnväg|järnväg|3tåg|4station
 sw:Kituo cha treni|treni|usafiri
@@ -2942,6 +3016,7 @@ pt:Funicular
 ro:Funicular
 ru:Фуникулер
 sk:Lanovka
+sl:Tirna vzpenjača|funicular
 sv:Linbana
 sw:Funicular
 th:รถกระเช้าไฟฟ้า
@@ -2982,6 +3057,7 @@ pt-BR:Estação do metrô|3Mêtro|Entrada de estação do metrô
 ro:3Metrou
 ru:3Метро
 sk:3Metro|podzemná doprava
+sl:3Metro|podzemna železnica
 sr:Метро|Metro
 sv:3Tunnelbana|3tunnelbana|3metro|3tunnelbana
 sw:Reli ya chini
@@ -3022,6 +3098,7 @@ pt-BR:2Estação de barcas|balsa
 ro:3Feribot|terminal
 ru:3Паром
 sk:3Trajekt
+sl:3Trajekt|3trajektni terminal
 sr:Трајект|Trajekt
 sv:3Färja|färjeläge|terminal
 sw:Bandali|kivuko
@@ -3062,6 +3139,7 @@ pt-BR:2Táxi
 ro:3Taxi
 ru:3Такси
 sk:3Taxi
+sl:3Taksi|taksi postajališče
 sr:Такси|Taksi
 sv:3Taxi
 sw:3Teksi|usafiri
@@ -3103,6 +3181,7 @@ pt-BR:3Prefeitura
 ro:3Primărie
 ru:4Администрация|4ратуша
 sk:3Radnica|3pamiatka
+sl:3Občina|3mestna hiša|3rotovž
 sv:3Rådhus
 sw:Ukumbi|utalii
 th:3ศาลากลางจังหวัด|การท่องเที่ยว
@@ -3142,6 +3221,7 @@ pt-BR:3Atração turística
 ro:3Punct de atracție|obiective turistice
 ru:5Достопримечательность
 sk:3Atrakcia|3pamiatka|3zaujímavosť
+sl:3Atrakcija|3znamenitost|turistična zanimivost
 sr:Атракција|Atrakcija
 sv:3Attraktion|3turism|3sevärdheter
 sw:Kivutio|utalii
@@ -3182,6 +3262,7 @@ pt-BR:3Obra de arte|3instalação artística
 ro:3Turism
 ru:4Произведение искусства|3скульптура
 sk:3Umelecké diela
+sl:3Umetniška dela|3skulptura
 sv:3Konstverk|3turism
 sw:Kazi ya kisanaa|utalii
 th:งานศิลปะ|3การท่องเที่ยว
@@ -3222,6 +3303,7 @@ pt-BR:4Mirante|miradouro
 ro:3Punct de vedere
 ru:4Смотровая площадка|Обзорная площадка
 sk:3Vyhliadka
+sl:3Razgledišče|3razglednik
 sr:Видиковац|Vidikovac
 sv:4Utsiktsplats
 sw:Genge|utalii
@@ -3262,6 +3344,7 @@ pt-BR:3Informações turísticas|4informação
 ro:3Informații turistice
 ru:4Туринформация|3информация
 sk:4Infocentrum|4turistické informácie
+sl:4Turistične informacije|4informacije
 sr:Туристичке информације|Turističke informacije
 sv:4Turistinformation|4information
 sw:Taarifa ya utalii|taarifa
@@ -3302,6 +3385,7 @@ pt-BR:4Local de piquenique|churrasqueira
 ro:3Locații picnic
 ru:Место для пикника|3Пикник
 sk:3Piknik
+sl:Mesto za piknik|3piknik
 sr:Место за пикник|Mesto za piknik
 sv:3Picknickplatser
 sw:Sehemu ya madhazi
@@ -3342,6 +3426,7 @@ pt-BR:Local de culto|3templo|igreja
 ro:3Loc de cult|3templu
 ru:Храм
 sk:3Svätyňa|3chrám|3posvätné miesto
+sl:Bogoslužno mesto|3tempelj|cerkev
 sr:Храм|Hram
 sv:4Plats för tillbedjan|gudstjänstplats|helgedom|3tempel
 sw:Sehemu ya kusali
@@ -3382,6 +3467,7 @@ pt-BR:Igreja|local de culto|templo|catedral|basílica
 ro:Biserică|loc de cult|templu
 ru:Храм|костел|4церковь|собор
 sk:Chrám|kostol|svätyňa|posvätné miesto|bazilika
+sl:4Cerkev|bogoslužno mesto|tempelj|4katedrala|bazilika
 sr:Црква|Crkva
 sv:4Kyrka|plats för tillbedjan|tempel
 th:โบสถ์|สถานที่ประกอบพิธีกรรม
@@ -3421,6 +3507,7 @@ pt-BR:4Mesquita|local de culto|templo
 ro:4Moschee|loc de cult|templu
 ru:4Мечеть|храм
 sk:4Mešita|chrám|svätyňa|posvätné miesto
+sl:4Mošeja|bogoslužno mesto|tempelj
 sr:Џамија|Džamija
 sv:4Moské|plats för tillbedjan|tempel
 th:มัสยิด|สถานที่ประกอบพิธีกรรม
@@ -3460,6 +3547,7 @@ pt-BR:Templo budista|local de culto
 ro:Templu|loc de cult
 ru:Храм|ступа
 sk:Chrám|svätyňa|posvätné miesto
+sl:Tempelj|bogoslužno mesto
 sr:Храм|будисти|Hram|budisti
 sv:Tempel|plats för tillbedjan
 th:วัด|สถานที่ประกอบพิธีกรรม
@@ -3499,6 +3587,7 @@ pt-BR:Templo hindu|local de culto
 ro:Templu|loc de cult
 ru:Храм
 sk:Chrám|svätyňa|posvätné miesto
+sl:Tempelj|bogoslužno mesto
 sr:Храм|хиндуисти|Hram|hinduisti
 sv:Tempel|plats för tillbedjan
 th:วัด|สถานที่ประกอบพิธีกรรม
@@ -3538,6 +3627,7 @@ pt-BR:Templo shintoísta|santuário|local de culto
 ro:Sanctuar|templu|loc de cult
 ru:Святилище|храм
 sk:Svätyňa|chrám|svätyňa|posvätné miesto
+sl:Svetišče|bogoslužno mesto|tempelj
 sv:Altare|plats för tillbedjan|tempel
 th:ศาลเจ้า|สถานที่ประกอบพิธีกรรม
 tr:Mabet|ibadet yerleri|tapınak
@@ -3576,6 +3666,7 @@ pt-BR:4Sinagoga|templo|local de culto
 ro:4Sinagogă|templu|loc de cult
 ru:4Синагога|храм
 sk:4Synagóga|chrám|svätyňa|posvätné miesto
+sl:4Sinagoga|bogoslužno mesto|tempelj
 sr:Синагога|Sinagoga
 sv:4Synagoga|plats för tillbedjan|tempel
 th:มัสยิดยิว|สถานที่ประกอบพิธีกรรม
@@ -3615,6 +3706,7 @@ pt-BR:Templo taoísta|local de culto
 ro:Templu|loc de cult
 ru:Храм
 sk:Chrám|svätyňa|posvätné miesto
+sl:Tempelj|bogoslužno mesto
 sv:Tempel|plats för tillbedjan
 th:วัด|สถานที่ประกอบพิธีกรรม
 tr:Tapınak|ibadet yerleri
@@ -3653,6 +3745,7 @@ pt-BR:2Museu
 ro:3Muzeu
 ru:2Музей|3выставка|выставочный зал|экспозиция|3галерея
 sk:2Múzeum
+sl:2Muzej|3razstava|3galerija
 sr:Музеј|Muzej
 sv:2Museum
 sw:Makumbusho|kivutio|utalii
@@ -3693,6 +3786,7 @@ pt-BR:2Cachoeira|2Queda de água|2Cascata|2Salto|2Catarata
 ro:3Cascadă
 ru:2Водопад
 sk:2Vodopád
+sl:2Slap
 sr:Водопад|Vodopad
 sv:2Vattenfall
 sw:Maporomoko ya maji
@@ -3735,6 +3829,7 @@ pt-BR:Sítio arqueológico|atração
 ro:Sit arheologic
 ru:3Археологический памятник|раскопки|археологические раскопки
 sk:Vykopávky
+sl:4Arheološko najdišče|4izkopavališče
 sr:Археолошко налазиште|Arheološko nalazište
 sv:3Arkeologisk plats|fornminne
 sw:Machimbo ya kihistoria|kivutio|utalii
@@ -3776,6 +3871,7 @@ pt:Campo de batalha
 ro:Câmpul de luptă
 ru:Поле боя
 sk:Bojisko
+sl:Bojno polje|bojišče
 sr:Бојно поље|Bojno polje
 sv:Stridsområde
 sw:Uwanja wa vita
@@ -3817,6 +3913,7 @@ pt-BR:Pedra Histórica
 ro:Piatra istorica
 ru:Исторический камень
 sk:Historický kameň
+sl:5Zgodovinski kamen|Kamen
 sv:Historisk sten
 sw:Jiwe la Kihistoria
 th:หินประวัติศาสตร์
@@ -3857,6 +3954,7 @@ pt:Marco fronteiriço
 ro:Piatră de hotar
 ru:Пограничный камень
 sk:Hraničný kameň
+sl:5Mejnik|Mejni kamen
 sv:Gränsmärke
 sw:Jiwe la mpaka
 th:ขอบหิน
@@ -3897,6 +3995,7 @@ pt:4Castelo|4Palácio|4Fortaleza|Castro|Igreja fortificada|Kremlin|Solar|Châtea
 ro:4Castel|Castru|Biserică fortificată|Cetate|Castrul de deal|Kremlin|Conac|Palat
 ru:3Замок|4Дворец|4Крепость|Каструм|Городище|Кремль|Усадьба|Шато
 sk:3Zámok|atrakcia|Hrad|Kastrum|Opevnený kostol|Pevnosť|Hradisko|Kremeľ|Kaštieľ|Palác
+sl:3Grad|dvorec|trdnjava|utrjena cerkev
 sr:Замак|Дворац|Палата|Тврђава|Утврђење|Zamak|Dvorac|Palata|Tvrđava|Utvrđenje
 sv:Slott|Borg|Castrum|Försvarskyrka|Fästning|Fornborg|Kreml|Herrgård|Palats
 sw:Ngome|kivutio|utalii|Kanisa lililoimarishwa|Kremlin|Nyumba ya manor|Ikulu
@@ -3937,6 +4036,7 @@ pt:Portas da cidade|Portão da cidade
 ro:Poarta orașului
 ru:Городские ворота
 sk:Mestská brána
+sl:Mestna vrata
 sr:Градска капија|Gradska kapija
 sv:Stadsport
 sw:Lango la jiji
@@ -3977,6 +4077,7 @@ pt:Muralha
 ro:Zidurile orașului
 ru:Городская стена
 sk:Mestský múr
+sl:4Mestno obzidje|5mestni zid
 sr:Градске зидине|Gradske zidine
 sv:Stadsmur
 sw:Ukuta wa jiji
@@ -4017,6 +4118,7 @@ pt:Forte
 ro:Fort
 ru:Форт
 sk:Fort
+sl:Utrdba|fort
 sr:Тврђава|Tvrđava
 sv:Fort
 sw:Ngome
@@ -4057,6 +4159,7 @@ pt:Forca
 ro:Spânzurătoare
 ru:Виселица
 sk:Šibenica
+sl:Vislice
 sv:Galge
 sw:Kunyongea
 tr:Darağacı
@@ -4096,6 +4199,7 @@ pt:4Memorial|monumento
 ro:3Comemorare
 ru:4Памятник|4мемориал
 sk:4Pomník|pamiatka|atrakcia|zaujímavosť
+sl:4Spomenik|4memorial
 sv:3Minnesmärke|monument
 sw:Makumbusho|kumbukumbu ya kihistoria|kivutio|utalii
 th:ที่ระลึก
@@ -4135,6 +4239,7 @@ pt:Cruz memorial
 ro:Cruce comemorativă
 ru:Памятный крест
 sk:Pamätný kríž
+sl:5Spominski križ|Križ
 sv:Kors till minne
 sw:Msalaba wa kumbukumbu
 th:อนุสรณ์สถานข้าม
@@ -4176,6 +4281,7 @@ pt-BR:Placa comemorativa
 ro:Comemorare
 ru:Памятная доска
 sk:Pomník
+sl:5Spominska plošča|Plošča
 sv:Minnesmärke
 sw:Plaque
 th:ที่ระลึก
@@ -4215,6 +4321,7 @@ pt:Escultura
 ro:Comemorare
 ru:Скульптура
 sk:Pomník
+sl:Spomenik|kip
 sr:Споменик|Spomenik
 sv:Minnesmärke
 sw:Uchongaji
@@ -4256,6 +4363,7 @@ pt:Estátua
 ro:Comemorare
 ru:Статуя
 sk:Pomník
+sl:4Kip|4statua
 sr:Статуа|Споменик|Statua|Spomenik
 sv:Minnesmärke
 sw:Sanamu
@@ -4296,6 +4404,7 @@ pt:Stolperstein
 ro:Blocaj de poticnire
 ru:Камни преткновения
 sk:Kameň úrazu
+sl:5Stolperstein|Kamen spotike
 sv:Snubbelsten
 sw:Kikwazo
 th:อุปสรรค์
@@ -4336,6 +4445,7 @@ pt:Memorial de guerra
 ro:Memorial de război
 ru:Военный мемориал
 sk:Vojnový pamätník
+sl:4Vojaški spomenik|5vojni memorial
 sv:Krigsmonument
 sw:Kumbukumbu ya vita
 th:อนุสรณ์สถานสงคราม
@@ -4376,6 +4486,7 @@ pt:4Monumento
 ro:4Monument
 ru:4Монумент
 sk:Zaujímavosť|pomník|pamiatka
+sl:4Monument|4spomenik
 sv:4Monument
 sw:Makumbusho|kivutio|utalii
 th:3อนุสาวรีย์|การท่องเที่ยว
@@ -4415,6 +4526,7 @@ pt:Pelourinho
 ro:Stâlpul infamiei
 ru:Позорный столб
 sk:Pranier
+sl:Sramotilni steber
 sv:Skampåle
 sw:Pillory
 th:ประจาน
@@ -4455,6 +4567,7 @@ pt-BR:Canhão
 ro:Tun
 ru:Пушка
 sk:Delo
+sl:Top
 sr:Топ|Top
 sv:Kanon
 sw:Kanuni
@@ -4496,6 +4609,7 @@ pt-BR:Âncora Histórica
 ro:Ancoră istorică
 ru:Исторический якорь
 sk:Historická kotva
+sl:5Zgodovinsko sidro|Sidro
 sv:Historiskt ankare
 sw:Nanga ya kihistoria
 th:ผู้ประกาศข่าวประวัติศาสตร์
@@ -4536,6 +4650,7 @@ pt:3Ruínas
 ro:3Ruine
 ru:3Руины|развалины
 sk:Zrúcanina|ruiny
+sl:3Ruševine|3razvaline
 sv:3Ruiner
 sw:Maeneo ya kale|jengo la kale|chakavu
 th:ซากปรักหักพัง|การท่องเที่ยว
@@ -4576,6 +4691,7 @@ pt-BR:Mina Histórica
 ro:Mina istorică
 ru:Историческая шахта
 sk:Historická baňa
+sl:5Zgodovinski rudnik|Rudnik
 sv:Historisk gruva
 sw:Mgodi wa Kihistoria
 th:เหมืองประวัติศาสตร์
@@ -4615,6 +4731,7 @@ pt:2Barco|2Navio
 ro:Navă
 ru:Корабль|судно|лодка
 sk:Pamätihodnosť
+sl:4Ladja|4čoln
 sv:Fartyg
 sw:Meli
 th:สถานที่ท่องเที่ยว
@@ -4655,6 +4772,7 @@ pt-BR:Naufrágio
 ro:Naufragiu
 ru:Кораблекрушение
 sk:Trosky lode
+sl:5Razbitina ladje|Potopljena ladja
 sv:Förlisning
 sw:Ajali ya meli
 th:ซากเรืออัปปาง
@@ -4695,6 +4813,7 @@ pt-BR:Locomotiva Histórica
 ro:Locomotiva istorică
 ru:Исторический локомотив
 sk:Historická lokomotíva
+sl:5Zgodovna lokomotiva
 sv:Historiskt lok
 sw:Locomotive ya kihistoria
 th:หัวรถจักรประวัติศาสตร์
@@ -4735,6 +4854,7 @@ pt-BR:Tanque Histórico
 ro:Tanc istoric
 ru:Исторический танк
 sk:Historický tank
+sl:5Zgodoven tank
 sv:Historisk tank
 sw:Tangi ya kihistoria
 th:รถถังประวัติศาสตร์
@@ -4775,6 +4895,7 @@ pt-BR:Aeronaves Históricas
 ro:Avioane istorice
 ru:Исторический самолет
 sk:Historické lietadlo
+sl:5Zgodovno letalo
 sv:Historiska flygplan
 sw:Ndege ya kihistoria
 th:เครื่องบินประวัติศาสตร์
@@ -4815,6 +4936,7 @@ pt:Túmulo|2Sepultura|memorial
 ro:Mormânt
 ru:4Гробница|3склеп|захоронение|могила|кладбище
 sk:Pamätihodnosť
+sl:4Grobnica|3grob|pokopališče
 sv:Grav
 sw:Kaburi
 th:สถานที่ท่องเที่ยว
@@ -4826,6 +4948,7 @@ zh-Hant:陵墓
 
 man_made-cross
 en:Cross
+sl:4Križ
 
 historic-wayside_cross
 en:Wayside cross
@@ -4857,6 +4980,7 @@ pt:Cruzeiro
 ro:Troiță
 ru:Христианский крест
 sk:Prícestný kríž
+sl:5Križ ob poti|Križ
 sv:Korset vid vägkanten
 sw:Msalaba wa njiani
 th:ทางข้าม
@@ -4897,6 +5021,7 @@ pt:Alminhas
 ro:Altarul de la marginea drumului
 ru:Святыня
 sk:Svätyňa pri ceste
+sl:5Kapelica ob poti|Kapelica|Božje znamenje
 sv:Helgedom vid vägkanten
 sw:Kaburi la njia
 th:ศาลเจ้าข้างทาง
@@ -4925,11 +5050,13 @@ pl:Park dla psów|Wyprowadzanie psów
 pt:Parque canino|Parque para cães
 pt-BR:Parque canino|Parque para cães|Parque para cachorros
 ru:Место для выгула собак|3выгул собак|Площадка для собак|4Собачья площадка
+sl:3Pasji park|Pasje igrišče|Izpust za pse
 sr:Парк за псе|Park za pse
 tr:3Köpek parkı
 
 leisure-dance|@category_entertainment
 en:4Dance|Dancing school
+sl:3Ples|4plesna šola
 
 leisure-garden
 en:3Garden
@@ -4960,6 +5087,7 @@ pt:2Jardim
 pt-BR:2Jardim|lazer
 ru:Сад
 sk:2Záhrada
+sl:2Vrt
 sr:Башта|Bašta
 sv:2Trädgård
 sw:Bustani
@@ -4972,6 +5100,7 @@ zh-Hant:1花園|旅遊景點
 
 leisure-firepit
 en:5Firepit
+sl:5Kurišče|Ognjena jama
 
 amenity-bench
 en:Bench
@@ -5003,6 +5132,7 @@ pt-BR:Assento|Banco de praça
 ro:Banchetă|Bancă|Bancă parc
 ru:Скамейка|лавка
 sk:Lavička
+sl:4Klopi|Klopa|Sedež
 sr:Клупа|Klupa
 sv:Bänk
 sw:Benchi
@@ -5043,6 +5173,7 @@ pt-BR:Aluguel de bicicletas|4bicicleta|3aluguel
 ro:Închiriere de biciclete|Bicicletă
 ru:4Велопрокат|велосипед|прокат|4прокат велосипедов|велосипед аренда|велосипед напрокат
 sk:2Požičovňa bicyklov|bicykle|požičovňa
+sl:2Izposoja koles|4kolesa|izposoja
 sr:Изнајмљивање бицикала|Iznajmljivanje bicikala
 sv:4Cykeluthyrning|cykel|cykel|3uthyrning
 sw:Kodi ya baiskeli|baiskeli|kodi
@@ -5074,6 +5205,7 @@ nl:4Fiets reparatie
 pt:Conserto de bicicleta|4bicicleta
 pt-BR:Oficina de bicicletas|4bicicleta
 ru:4Велоремонт|велосипед|ремонт|ремонт велосипедов
+sl:4Popravilo koles|Servis koles|Stojalo za popravilo koles
 sr:7Станица за поправку бицикала
 tr:4Bisiklet tamiri|4Bisiklet|Bisiklet tamircisi
 uk:4Велоремонт|велосипед|ремонт|ремонт велосипедів
@@ -5113,6 +5245,7 @@ pt-BR:Aluguel de barcos
 ro:Închiriere bărci
 ru:Аренда лодок
 sk:Prenájom lodí
+sl:5Izposoja čolnov|Najem čolnov|Čolni
 sv:Båtuthyrning
 sw:Kukodisha mashua
 th:ให้เช่าเรือ
@@ -5151,6 +5284,7 @@ pt-BR:Compartilhamento de carro
 ro:3Car Sharing
 ru:3Каршеринг|аренда машин|аренда
 sk:Zdieľanie automobilov
+sl:3Carsharing|Skupna raba avtomobila|Najem avtomobila
 sv:Samåkning
 sw:Kushiriki Gari
 th:การใช้รถร่วมกัน
@@ -5190,6 +5324,7 @@ pt-BR:Aluguel de automóveis|carro|aluguel
 ro:Închiriere mașini
 ru:4Прокат авто|3машина|прокат|авто напрокат|4автопрокат|прокат машин|аренда авто|автомобиль аренда|аренда машин
 sk:3Autopožičovňa|požičovňa áut
+sl:3Najem avtomobilov|3rent a car
 sr:Рентакар|Изнајмљивање аутомобила|Rentakar|Iznajmljivanje automobila
 sv:3Biluthyrning|bilpool|bil|uthyrning|delning
 sw:Kodi ya gari|gari|kodi
@@ -5233,6 +5368,7 @@ pt-BR:Aluguel de motocicletas
 ro:Închiriere motociclete
 ru:5Прокат мотоциклов|аренда|скутеров
 sk:Požičovňa motocyklov
+sl:4Izposoja motorjev|Najem skuterjev
 sv:Motorcykeluthyrning
 sw:Kukodisha pikipiki
 th:รถมอเตอรไซค
@@ -5273,6 +5409,7 @@ pt-BR:3Cinema
 ro:3Cinema
 ru:Кинотеатр|3кино
 sk:3Kino
+sl:3Kino|3kinodvorana
 sr:Биоскоп|Bioskop
 sv:3Bio|biograf
 sw:4Sinema|burudani
@@ -5316,6 +5453,7 @@ pt-BR:Pista de boliche
 ro:Popicărie
 ru:4Боулинг
 sk:Bowlingová dráha
+sl:4Bowling|4kegljišče
 sr:Куглање|Kuglanje
 sv:Bowlinghall
 sw:Njia ya Bowling
@@ -5357,6 +5495,7 @@ pt-BR:3Teatro
 ro:3Teatru
 ru:3Театр
 sk:3Divadlo
+sl:3Gledališče
 sr:Позориште|Pozorište
 sv:3Teater
 sw:Thieta|burudani|maonyesho
@@ -5397,6 +5536,7 @@ pt-BR:3Boate|3discoteca|4casa noturna|3dançar
 ro:Club de noapte
 ru:3Ночной клуб|4дискотека|ночной бар|диско|танцы
 sk:4Nočný klub|3disco|3nightclub|night club
+sl:4Nočni klub|diskoteka
 sr:Дискотека|Diskoteka
 sv:3Nattklubb|3disco|dans
 sw:Ukumbi wa starehe|klabu|burudani
@@ -5436,6 +5576,7 @@ pt-BR:Bordel
 ro:Bordel
 ru:Бордель|публичный дом
 sk:Nevestinec|verejný dom
+sl:Javna hiša|bordel
 sr:Бордел|јавна кућа|Bordel|javna kuća
 sv:Bordell
 sw:Danguro
@@ -5447,6 +5588,7 @@ zh-Hant:妓院
 
 amenity-love_hotel|@category_hotel
 en:4Love Hotel|3Sex Hotel|4Adult Hotel
+sl:4Hotel za zaljubljence|4hotel za odrasle
 
 @gambling
 en:Gambling
@@ -5479,6 +5621,7 @@ pt:Jogatina
 ro:Jocuri de noroc
 ru:Азартные игры
 sk:Hazardné hry
+sl:Hazardne igre|4igre na srečo
 sr:Коцка|Kocka
 sv:Spelande
 sw:Kamari
@@ -5490,6 +5633,7 @@ zh-Hans:赌博
 zh-Hant:賭博
 
 amenity-gambling|@gambling
+sl:4Hazardne igre|3igre na srečo
 
 amenity-casino|@category_entertainment|@category_nightlife|@gambling
 en:Casino|U+1F3B0|U+1F3B2|U+1F3B4
@@ -5519,6 +5663,7 @@ pt:Casino
 pt-BR:Cassino
 ru:Казино
 sk:Kasíno
+sl:Kazino
 sr:Казино|Kazino
 sv:Kasino
 sw:Kasino|burudani
@@ -5559,6 +5704,7 @@ pt:Centro de jogos para adultos
 ro:Centru de jocuri pentru adulți
 ru:Игровой центр для взрослых
 sk:Centrum hier pre dospelých
+sl:5Igralni center za odrasle
 sv:Spelcenter för vuxna
 sw:Kituo cha Michezo ya Watu Wazima
 th:ศูนย์เกมสำหรับผู้ใหญ่
@@ -5599,6 +5745,7 @@ pt:Videogames
 ro:Arcadă
 ru:Аркада
 sk:Arcade
+sl:4Arkadna dvorana|4igralnica
 sr:Видео игре|Video igre
 sv:Arkad
 sw:Ukumbi wa michezo
@@ -5640,6 +5787,7 @@ pt-BR:Escola técnica
 ro:4Colegiu
 ru:4Колледж
 sk:Vysoká škola
+sl:4Višja šola|Fakulteta
 sr:Колеџ|Koledž
 sv:Högskola
 sw:Chuo
@@ -5681,6 +5829,7 @@ pt-BR:Posto de bombeiros|corpo de bombeiros
 ro:Unitate de pompieri
 ru:4Пожарная часть|Пожарная станция|Пожарные
 sk:Hasičská stanica|hasiči
+sl:4Gasilski dom|Gasilci|Gasilska postaja
 sr:Ватрогасци|Ватрогасна станица|Vatrogasci|Vatrogasna stanica
 sv:Brandstation
 sw:Kituo cha zimamoto
@@ -5721,6 +5870,7 @@ pt-BR:4Fonte|chafariz
 ro:4Fântână
 ru:3Фонтан
 sk:4Fontána
+sl:3Fontana|Vodnjak
 sr:Фонтана|Fontana
 sv:4Fontän
 th:น้ำพุ
@@ -5761,6 +5911,7 @@ pt-BR:5Cemitério
 ro:Cimitir
 ru:5Кладбище
 sk:Cintorín
+sl:5Pokopališče
 sr:Гробље|Groblje
 sv:Begravningsplats|kyrkogård|gravplats
 sw:Makabulini
@@ -5801,6 +5952,7 @@ pt-BR:5Funerária
 ro:Pompe funebre
 ru:4Ритуальные услуги|5Похоронные услуги|Похоронное бюро
 sk:Pohrebníctvo
+sl:4Pogrebne storitve|Pogrebni zavod|Mrliška vežica
 sr:Погребне услуге|Pogrebne usluge
 sv:Begravningsentreprenörer
 th:สัปเหร่อ
@@ -5843,6 +5995,7 @@ pt-BR:3Hospital
 ro:3Spital
 ru:4Больница
 sk:4Nemocnica
+sl:Bolnišnica
 sr:Болница|Bolnica
 sv:4Sjukhus
 sw:4Hospitali
@@ -5876,6 +6029,7 @@ pt-BR:3Hospital|3clínica|3médico|saúde|serviços de saúde|primeiros socorros
 ro:5ambulanță|medic|4doctor|diagnostică
 ru:4госпиталь|врач|4доктор|медицинский центр|медицинские услуги|медпомощь|медицинская помощь|лечебница|4первая помощь
 sk:klinika|pohotovosť|zdravotnícke zariadenie|3lekár|4doktor
+sl:4Bolnišnica|4klinika|3zdravnik|4prvi pomoč
 sr:Болница|Bolnica
 sv:klinik|3läkare
 sw:zahanati|daktari
@@ -5913,6 +6067,7 @@ pt-BR:4Clínica|centro de saúde|posto de saúde|policlínica|centro médico|pos
 ro:4Clinică|5policlinică|4doctor|medic|diagnostică
 ru:5Поликлиника|клиника|врач|4доктор|медицинское обслуживание|амбулаторное лечение|диагностика
 sk:5Poliklinika|nemocnica|zdravotné stredisko
+sl:5Poliklinika|zdravstveni dom|4klinika
 sr:Поликлиника|Дом здравља|Poliklinika|Dom zdravlja
 sv:4Klinik|sjukhus
 th:คลินิก|โรงพยาบาล
@@ -5951,6 +6106,7 @@ pt-BR:Consultório médico|clínica|saúde
 ro:4Doctor|medic|Cabinet medical|Clinică|spital
 ru:Врач|4доктор|больница|клиника|поликлиника
 sk:Ambulancia|Poliklinika|nemocnica
+sl:4Zdravnik|4ambulanta|ordinacija
 sr:Доктор|Doktor
 sv:Läkarmottagning|klinik|sjukhus
 th:ห้องแพทย์|โรงพยาบาล|คลินิก
@@ -5991,6 +6147,7 @@ pt-BR:4Dentista|cirurgião dentista|centro odontológico
 ro:4Dentist
 ru:4Стоматолог|Дантист|Стоматология
 sk:Zubár
+sl:4Zobozdravnik|4zobna ambulanta
 sr:Стоматолог|Зубар|Stomatolog|Zubar
 sv:Tandläkare
 th:ทันตแพทย์
@@ -6032,6 +6189,7 @@ pt-BR:Laboratório médico
 ro:Laborator medical
 ru:Медицинская лаборатория|анализы
 sk:Lekárske laboratórium
+sl:5Medicinski laboratorij|laboratorij
 sr:Медицинска лабораторија|Medicinska laboratorija
 sv:Medicinskt laboratorium
 sw:Maabara ya Matibabu
@@ -6073,6 +6231,7 @@ pt-BR:Fisioterapeuta
 ro:Fizioterapeut
 ru:Физиотерапевт
 sk:Fyzioterapeut
+sl:Fizioterapevt
 sr:Физиотерапеут|Fizioterapeut
 sv:Fysioterapeut
 sw:Mtaalamu wa Physiotherapist
@@ -6115,6 +6274,7 @@ pt-BR:Medicina alternativa
 ro:Medicină alternativă
 ru:Альтернативная медицина
 sk:Alternatívna medicína
+sl:5Alternativna medicina
 sr:Алтернативна медицина|Alternativna medicina
 sv:Alternativ medicin
 sw:Dawa mbadala
@@ -6157,6 +6317,7 @@ pt-BR:Fonoaudiologia|Fonoaudiólogo
 ro:Audiologie|Audiolog
 ru:Аудиология|Аудиолог
 sk:Audiológia|Audiológ
+sl:Avdiologija|avdiolog
 sr:Аудиологија|Аудиолог|Audiologija|Audiolog
 sv:Audiologi|Audiolog
 sw:Mtaalamu wa kusikia|Audiology
@@ -6196,6 +6357,7 @@ pt-BR:Doação de sangue
 ro:Donarea de sânge
 ru:Донорство крови
 sk:Darovanie krvi
+sl:5Darovanje krvi|Krvodajalstvo
 sr:Добровољно давање крви|Dobrovoljno davanje krvi
 sv:Blodgivning
 sw:Utoaji wa damu
@@ -6238,6 +6400,7 @@ pt-BR:Optometria|Optometrista
 ro:Optometrie|Optometrist
 ru:Оптометрия|Оптометрист
 sk:Optometria|Optometrista
+sl:5Optometrist|Optometrija
 sv:Optometri|Optometrist
 sw:Optometry|Daktari wa macho
 th:ทัศนมาตรศาสตร์|นักทัศนมาตร
@@ -6279,6 +6442,7 @@ pt-BR:Podiatria|Podiatra
 ro:Podiatrie|Podiatru
 ru:Подиатрия|Ортопед
 sk:Podiatria|Podológ
+sl:5Podolog|Podiatrija
 sr:Подолог|Подологија|Podolog|Podologija
 sv:Fotvård|Fotvårdare
 sw:Matibabu ya miguu|Daktari wa miguu
@@ -6321,6 +6485,7 @@ pt-BR:Psicoterapia|Psicoterapeuta
 ro:Psihoterapie|Psihoterapeut
 ru:Психотерапия|Психотерапевт
 sk:Psychoterapia|Psychoterapeut
+sl:5Psihoterapevt|Psihoterapija
 sr:Психотерапија|Психотерапеут|Psihoterapija|Psihoterapeut
 sv:Psykoterapi|Psykoterapeut
 sw:Tiba ya kisaikolojia|Mwanasaikolojia
@@ -6337,6 +6502,7 @@ be:Аналізы
 de:Probenahme
 hi:नमूना संग्रह केंद्र
 ru:Анализы
+sl:5Odvzem vzorcev|Laboratorij|Analize
 uk:Аналізи
 
 healthcare-speech_therapist
@@ -6371,6 +6537,7 @@ pt-BR:Terapia da fala|Terapeuta da fala
 ro:Logopedie|Terapeut de vorbire
 ru:Логопедия|Логопед
 sk:Logopédia|Logopéd
+sl:4Logoped|Logopedija
 sr:Логопедија|Логопед|Logopedija|Logoped
 sv:Logopedics|Logoped
 sw:Tiba ya hotuba|Mtaalamu wa hotuba
@@ -6410,6 +6577,7 @@ pt-BR:Estande de caça
 ro:Stand de vânătoare
 ru:Охотничья вышка
 sk:Lovecké stanovisko|posiedka
+sl:5Lovska preža|Lovski opazovalnik
 sr:Чека|Čeka
 sv:Jakttorn
 sw:Uwanja wa mawindo
@@ -6452,6 +6620,7 @@ pt-BR:Jardim de infância|escola infantil|pré-escola
 ro:Grădiniță
 ru:Детсад|ясли|4детский сад|садик
 sk:Škôlka|materská škola|detská škôlka
+sl:4Vrtec|Jasli|Varstvo otrok
 sr:Вртић|Обданиште|Vrtić|Obdanište
 sv:Förskola|dagis
 sw:Chekechea
@@ -6492,6 +6661,7 @@ pt-BR:3Biblioteca
 ro:3Bibliotecă
 ru:3Библиотека
 sk:3Knižnica
+sl:3Knjižnica
 sr:Библиотека|Biblioteka
 sv:3Bibliotek
 sw:Maktaba
@@ -6522,6 +6692,7 @@ nl:3Parkeren|parkeerplaats|parking
 pt:3Estacionamento
 pt-BR:3Estacionamento
 ru:Автостоянка
+sl:4Parkirišče|3parkiranje
 sr:Паркинг|Parking
 sv:Parkering
 sw:Maegesho
@@ -6565,6 +6736,7 @@ pt-BR:3Farmácia
 ro:3Farmacie
 ru:3Аптека
 sk:3Lekáreň
+sl:Lekarna
 sr:4Апотека|Апотеке|4Apoteka|Apoteke
 sv:3Apotek
 sw:Duka la dawa
@@ -6598,6 +6770,7 @@ nl:Apotheek|drogist
 pl:Apteka
 pt:Parafarmácia
 pt-BR:3Drogaria
+sl:4Lekarna|3drogerija
 sr:4Апотека|Апотеке|4Apoteka|Apoteke
 sv:apotekare
 th:เภสัชกร
@@ -6639,6 +6812,7 @@ pt-BR:3Correios
 ro:3Poştă
 ru:3Почта
 sk:3Pošta
+sl:Pošta
 sr:Пошта|Pošta
 sv:3Post
 sw:3Posta
@@ -6681,6 +6855,7 @@ pt-BR:3Caixa de correio|correios
 ro:Cutie poștală
 ru:3Почтовый ящик
 sk:3Poštová schránka|3schránka
+sl:3Poštni nabiralnik|4nabiralnik
 sr:Поштанско сандуче|Poštansko sanduče
 sv:3Postlåda|brevlåda|post
 sw:Sanduku la posta
@@ -6716,6 +6891,7 @@ pt-BR:3Correios
 ro:Oficiu poștal
 ru:3Почтовое отделение
 sk:3poštový úrad
+sl:3Pošta|5poštna poslovalnica
 sr:Пошта|Pošta
 sv:3Postkontor
 tr:3Postane
@@ -6754,6 +6930,7 @@ pt:Inspeção veicular
 ro:Inspecția vehiculului
 ru:Техосмотр автомобиля
 sk:Kontrola vozidla
+sl:5Tehnični pregled|Pregled vozila
 sr:8Технички преглед возила|8Tehnički pregled vozila
 sv:Fordonsinspektion
 sw:Ukaguzi wa Gari
@@ -6795,6 +6972,7 @@ pt-BR:Depósito de lixo|lixo
 ro:Gunoi
 ru:4Мусорный контейнер|мусорка
 sk:Odpadky|kôš
+sl:4Smetnjak|Odlaganje odpadkov|Smeti
 sr:Контејнер за смеће|Kontejner za smeće
 sv:4Avfallscontainer|Soptunna|skräp|avfall
 th:ขยะ|ถังขยะ
@@ -6836,6 +7014,7 @@ pt-BR:Reciclagem|descarte seletivo
 ro:Centru de reciclare
 ru:5Пункт приёма вторсырья
 sk:Zberné suroviny
+sl:5Zbirni center|5center za reciklažo
 sr:Рециклажни центар|Reciklažni centar
 sv:Återvinningscentral
 th:ศูนย์รีไซเคิล
@@ -6877,6 +7056,7 @@ pt-BR:Recipiente de reciclagem
 ro:Containere pentru reciclare
 ru:Контейнер для вторсырья
 sk:Recyklačný odpad
+sl:4Kontejner za reciklažo
 sr:Рециклажни контејнер|Reciklažni kontejner
 sv:Behållare för återvinningsbart avfall
 th:บรรจุภัณฑ์รีไซเคิล
@@ -6917,6 +7097,7 @@ pt-BR:Baterias
 ro:Baterii
 ru:5Приём батареек|Утилизация батареек|5Переработка батареек|5Сдать батарейки|4Сбор батареек|5Батарейки
 sk:Batérie
+sl:5Reciklaža baterij|5oddaja baterij
 sr:Рециклажа батерија|Reciklaža baterija
 sv:Batterier
 sw:Betri
@@ -6958,6 +7139,7 @@ pt-BR:Roupas velhas|Reciclar roupas velhas
 ro:Haine vechi|Înmânarea lucrurilor inutile
 ru:5Приём одежды|Старая одежда|Сдать ненужные вещи|Сдать вещи|5Сдать одежду
 sk:Staré oblečenie|Recyklácia starých šiat
+sl:5Reciklaža oblačil|5oddaja oblačil|5stara oblačila
 sr:Рециклажа одеће|Reciklaža odeće
 sv:Gamla kläder|Överlämna onödiga saker
 th:เสื้อผ้าเก่า|รีไซเคิลเสื้อผ้าเก่า
@@ -6998,6 +7180,7 @@ pt-BR:Garrafas de vidro
 ro:Deșeuri de sticlă
 ru:5Приём стеклотары|Приём стекла|5Переработка стекла|5Сдать cтеклотару|Сдать бутылки|4Сбор стеклотары|5Стеклотара|Стеклобой|Стеклянные бутылки
 sk:Sklenené fľaše
+sl:5Reciklaža stekla|5steklenice|5oddaja stekla
 sr:Рециклажа стакла|Reciklaža stakla
 sv:Returglas
 th:ขวดแก้ว
@@ -7038,6 +7221,7 @@ pt-BR:Lixo de papel
 ro:Deșeuri de hârtie
 ru:5Приём бумаги|Приём макулатуры|5Переработка бумаги|5Сдать бумагу|Сдать макулатуру|4Сбор бумаги|Сбор макулатуры|5Макулатура
 sk:Papierový odpad
+sl:5Reciklaža papirja|5oddaja papirja
 sr:Рециклажа папира|Reciklaža papira
 sv:Returpapper
 th:ขยะกระดาษ
@@ -7078,6 +7262,7 @@ pt-BR:Lixo plástico
 ro:Deșeuri de plastic
 ru:5Приём пластика|5Переработка пластика|5Сдать пластик|4Сбор пластика|5Пластик
 sk:Plastový odpad
+sl:5Reciklaža plastike|5oddaja plastike
 sr:Рециклажа пластике|Reciklaža plastike
 sv:Plastavfall
 th:ขยะพลาสติก
@@ -7118,6 +7303,7 @@ pt-BR:Garrafas plasticas
 ro:Sticle de plastic
 ru:5Приём пластиковых бутылок|5Переработка пластиковых бутылок|5Сдать пластиковые бутылки|4Сбор пластиковых бутылок|5Пластиковые бутылки
 sk:Plastové fľaše
+sl:5Reciklaža plastenk|5oddaja plastenk
 sr:Рециклажа пластичних флаша|Reciklaža plastičnih flaša
 sv:Samling av plastflaskor
 th:ขวดพลาสติก
@@ -7158,6 +7344,7 @@ pt-BR:Ferro velho
 ro:Resturi de metal
 ru:5Приём металлолома|5Переработка металлолома|Утилизация металлолома|5Сдать металлолом|4Сбор металлолома|5Металлолом
 sk:Kovový šrot
+sl:5Reciklaža kovine|5oddaja kovinske odpadke
 sr:Рециклажа метала|Reciklaža metala
 sv:Metallskrap
 th:โลหะมีคม
@@ -7198,6 +7385,7 @@ pt-BR:Lixo eletrônico
 ro:Deșeuri electrice
 ru:5Приём электроники|5Переработка электроники|Утилизация электроники|5Сдать электронику|4Сбор электроники|Электроотходы
 sk:Elektronický odpad
+sl:5Reciklaža elektronike|5e-odpadki
 sr:Рециклажа електронског отпада|Reciklaža elektronskog otpada
 sv:Elektriskt avfall
 th:ขยะอิเล็กทรอนิกส์
@@ -7215,6 +7403,7 @@ et:Lainepapi taaskasutus
 lv:Kartona pārstrāde|kartona nodošana|kartona atkritumi|makulatūra
 mr:पुठ्ठा भंगारवाला
 ru:5Приём картона|Приём макулатуры|5Переработка картона|5Сдать картон|Сдать макулатуру|4Сбор картона|Сбор макулатуры|5Макулатура
+sl:5Reciklaža kartona|5oddaja kartona
 sr:Рециклажа картона|Reciklaža kartona
 tr:5Karton Geri Dönüşümü
 uk:5Прийом картону|Прийом макулатури|5Переробка картону|5Здати картон|Здати макулатуру|4Збір картону|Збір макулатури|5Макулатура
@@ -7227,6 +7416,7 @@ et:Purkide taaskasutus
 lv:Alumīnija skārdeņu pārstrāde|Alumīnija skārdeņu nodošana|skārdeņu pārstrāde|skārdeņu nodošana
 mr:कॅन भंगारवाला
 ru:5Приём жестяных и алюминиевых банок|5Переработка жестяных и алюминиевых банок|5Сдать жестяные и алюминиевые банки|4Сбор жестяных и алюминиевых банок|6Консервные банки|5Жестяные банки|5Алюминиевые банки|Пивные банки
+sl:5Reciklaža pločevink|5oddaja pločevink
 sr:Рециклажа лименки|Reciklaža limenki
 tr:4Kutu Geri Dönüşümü
 uk:5Прийом жерстяних та алюмінієвих банок|5Переробка жерстяних та алюмінієвих банок|5Здати жерстяні та алюмінієві банки|4Збір жерстяних та алюмінієвих банок|6Консервні банки|5Жерстяні банки|5Алюмінієві банки|Пивні банки
@@ -7238,6 +7428,7 @@ et:Jalanõude taaskasutus
 lv:Apavu pārstrāde|apavu nodošana|apavu konteiners
 mr:शूज भंगारवाला
 ru:5Приём обуви|Старая обувь|5Сдать обувь
+sl:5Reciklaža obutve|5oddaja obutve
 sr:Рециклажа обуће|Reciklaža obuće
 tr:5Ayakkabı Geri Dönüşümü|Ayakkabı Toplama Kutusu
 uk:5Прийом взуття|Старе взуття|5Здати взуття
@@ -7249,6 +7440,7 @@ et:Rohejäätmete taaskasutus
 lv:Bioloģiskie atkritumi|bioloģisko atkritumu nodošana
 mr:हिरव्या कचऱ्याचे पुनर्वापर
 ru:5Приём органических отходов|Приём пищевых отходов|5Сдать органические отходы|4Сбор органических отходов|Сбор пищевых отходов|5Пищевые отходы|6Садовые отходы
+sl:5Reciklaža organskih odpadkov|6bio odpadki
 tr:5Yeşil Atıkların Geri Dönüşümü
 uk:5Прийом органічних відходів|Прийом харчових відходів|5Здати органічні відходи|4Збір органічних відходів|Збір харчових відходів|5Харчові відходи|6Садові відходи
 
@@ -7258,6 +7450,7 @@ be:5Прыём тетрапака|5Здаць тетрапак|4Збор тет�
 et:Tetrapakkide taaskasutus
 lv:Tetrapaku pārstrāde|tetrapaku nodošana
 ru:5Приём тетрапака|5Сдать тетрапак|4Сбор тетрапака|5Тетрапак
+sl:5Reciklaža tetrapakov|5oddaja tetrapakov
 tr:5Karton Kutu Geri Dönüşümü|4Tetrapak|içecek kutusu geri dönüşümü
 uk:5Прийом тетрапака|5Здати тетрапак|4Збір тетрапака|5Тетрапак
 
@@ -7271,6 +7464,7 @@ fr:Station de vidange|4Vidange
 it:4Camper service
 lv:Mobilo māju apkalpošana|kemperu apkalpošana
 ru:4Слив нечистот|слив туалета|слив для туалета|нечистоты|канализация
+sl:4Postaja za izpraznitev|6izpraznitev stranišča
 tr:6Karavan Çöplüğü|Karavanlar için çöplük
 uk:4Злив нечистот|слив туалету|слив для туалету|нечистоти|каналізація
 
@@ -7304,6 +7498,7 @@ pt-BR:3Escola
 ro:3Școală
 ru:3Школа
 sk:3Škola
+sl:3Šola|Osnovna šola
 sr:Школа|Škola
 sv:3Skola
 sw:Shule|skuli
@@ -7346,6 +7541,7 @@ pt-BR:Abrigo
 ro:Adăpost
 ru:4Укрытие|навес|4убежище
 sk:Prístrešok|úkryt
+sl:4Zavetišče|Nastrešek|Uporišče
 sr:Склониште|Sklonište
 sv:Vindskydd
 sw:Malazi
@@ -7389,6 +7585,7 @@ pt:Cabana Básica
 ro:Baracă de Bivuac
 ru:Хижина для ночлега
 sk:Bivaková Chata
+sl:3Bivak|Zavetišče|Koča
 sr:Надстрешница|Nadstrešnica
 sv:Bivack Hydda
 sw:Kibanda cha Bivouac
@@ -7432,6 +7629,7 @@ pt-BR:Abrigo tipo alpendre|alpendre
 ro:Adăpost
 ru:Бивачный навес
 sk:Prístrešok|úkryt
+sl:4Nastrešek|Zavetišče|Uporišče
 sv:Vindskydd
 sw:Malazi
 th:ที่อยู่อาศัย
@@ -7473,6 +7671,7 @@ pt-BR:Clube de striptease
 ro:Stripclub
 ru:Стриптиз-клуб
 sk:Stripclub
+sl:5Strip klub|Striptiz bar
 sr:Стриптиз клуб|Стриптиз клуб
 sv:Stripklubb
 sw:Klabu ya Strip
@@ -7514,6 +7713,7 @@ pt-BR:3Telefone|3orelhão
 ro:3Telefon
 ru:3Телефон|4таксофон
 sk:2Telefón|telefónna búdka|telefónny automat
+sl:3Telefon|Telefonska govorilnica
 sr:Телефон|Telefon
 sv:2Telefon
 sw:Simu
@@ -7558,6 +7758,7 @@ pt-BR:4Banheiro|WC
 ro:3Toaletă
 ru:3Туалет|4уборная
 sk:Záchody
+sl:Stranišče
 sr:Тоалет|Toalet
 sv:3Toalett
 sw:Choo
@@ -7589,6 +7790,7 @@ pl:wc|ubikacja|wychodek
 pt:Casa de banho|WC|Sanitários|lavatório
 pt-BR:toalete|wc|sanitários|lavabo|privada
 sk:3Toalety|wc
+sl:2WC|3stranišče|3toaleta
 sr:тоалет|toalet
 sv:WC|toalett
 tr:WC|tuvalet|umumi tuvalet
@@ -7624,6 +7826,7 @@ pt-BR:4Universidade|faculdade
 ro:4Universitate
 ru:4Университет|вуз|4институт
 sk:3Univerzita
+sl:4Univerza|Fakulteta|Visoka šola
 sr:Универзитет|Univerzitet
 sv:4Universitet
 sw:Chuo
@@ -7664,6 +7867,7 @@ pt-BR:Continente
 ro:Continent
 ru:Континент|материк
 sk:Kontinent|svetadiel
+sl:5Kontinent|Celina
 sr:Континент|Kontinent
 sv:Kontinent
 sw:Bara
@@ -7704,6 +7908,7 @@ pt-BR:País
 ro:Continent
 ru:Страна
 sk:Krajina
+sl:4Država
 sr:Држава|Država
 sv:Land
 sw:Nchi
@@ -7744,6 +7949,7 @@ pt-BR:Cidade
 ro:Municipiu
 ru:Город
 sk:Mesto
+sl:3Mesto
 sr:Град|Grad
 sv:Stad|stad
 sw:Mji
@@ -7783,6 +7989,7 @@ pt-BR:Cidade
 ro:Oraș
 ru:Город
 sk:Mesto
+sl:4Kraj|Mesto
 sr:Град|Grad
 sv:Stad|stad
 sw:Mji mdogo
@@ -7823,6 +8030,7 @@ pt-BR:Capital
 ro:Capitală
 ru:Столица|город
 sk:Hlavné mesto|metropole
+sl:5Glavno mesto|Prestolnica
 sr:Главни град|Glavni grad
 sv:Huvudstad|stad
 sw:Mji mkuu
@@ -7863,6 +8071,7 @@ pt-BR:Município
 ro:Județ
 ru:Округ|графство
 sk:Krajina
+sl:5Okrožje|Grofija
 sr:Округ|Okrug
 sv:Län
 th:เขต
@@ -7902,6 +8111,7 @@ pt-BR:Estado|província
 ro:Stat
 ru:Штат|провинция
 sk:Štát|kraj
+sl:4Dežela|Država|Provinca
 sr:Држава|Država
 sv:Stat|provins
 sw:Jimbo
@@ -7941,6 +8151,7 @@ pt-BR:Região
 ro:Regiune
 ru:Район
 sk:Región|oblasť|zóna|sektor
+sl:4Regija|Območje
 sr:Регион|Region
 sv:Region
 sw:Mkoa
@@ -7981,6 +8192,7 @@ pt-BR:Ilha
 ro:Insulă
 ru:Остров
 sk:Ostrov
+sl:4Otok
 sr:Острво|Ostrvo
 sv:Ö
 sw:Kisiwa
@@ -8021,6 +8233,7 @@ pt-BR:Bairro|subúrbio|distrito
 ro:Suburbie
 ru:Район|микрорайон|квартал
 sk:Predmestie|mestská časť
+sl:4Predmestje|4četrt|5soseska
 sr:Округ|Okrug
 sv:Förort|distrikt
 sw:Kiunga
@@ -8061,6 +8274,7 @@ pt-BR:Lugarejo|aldeia|vila
 ro:Cătun
 ru:Посёлок|деревня
 sk:Dedina
+sl:4Zaselek|Vas
 sr:Село|Selo
 sv:By|by
 sw:Kijiji kidogo
@@ -8101,6 +8315,7 @@ pt-BR:Povoado|aldeia|vila
 ro:Sat
 ru:Деревня|поселок
 sk:Dedina
+sl:4Vas|Zaselek
 sr:Село|Selo
 sv:By|by
 sw:Kijiji
@@ -8140,6 +8355,7 @@ pt-BR:Localidade
 ro:Localitate
 ru:Местность|регион
 sk:Lokalita
+sl:5Območje|Lokalnost
 sr:Локалитет|Lokalitet
 sv:Lokalitet
 sw:Mahali jirani
@@ -8179,6 +8395,7 @@ pt-BR:Fazenda|sítio|chácara
 ro:Fermă
 ru:Ферма
 sk:Farma
+sl:3Kmetija
 sr:Фарма|Farma
 sv:Bondgård|gård
 sw:Shamba
@@ -8219,6 +8436,7 @@ pt-BR:Pista de corrida
 ro:Pistă de curse
 ru:Гоночный трек
 sk:Pretekárska dráha
+sl:5Dirkališče|Steza
 sv:Racerbana
 th:1สนามแข่ง
 tr:Koşu yolu
@@ -8257,6 +8475,7 @@ pt-BR:Caminho|trilha
 ro:Cale
 ru:Дорожка
 sk:Cesta
+sl:3Pot|4pešpot
 sr:Стаза|Staza
 sv:Gångväg|gångstig|stig|väg
 sw:Jia
@@ -8297,6 +8516,7 @@ pt-BR:Rua|Avenida
 ro:Strada
 ru:Улица
 sk:Ulica
+sl:4Ulica|3cesta
 sr:Улица|Ulica
 sv:Gata|väg
 sw:mtaani
@@ -8336,6 +8556,7 @@ pt-BR:2Saída|3junção
 ro:Ieșire
 ru:3Съезд
 sk:Dopravný uzol|3diaľnica
+sl:3Izhod|Priključek
 sr:Излаз|Izlaz
 sv:3Avfart|3korsning
 sw:Njia panda
@@ -8352,6 +8573,7 @@ hi:उत्थापक
 lv:lifts
 mr:उद्वाहक|एलिव्हेटर|लिफ्ट
 ru:Лифт
+sl:3Dvigalo
 sr:Лифт|Lift
 tr:Asansör
 
@@ -8385,6 +8607,7 @@ pt-BR:Pico|montanha
 ro:Munte
 ru:Гора|вершина|пик
 sk:Hora|pohorie
+sl:3Gora|Vrh|Planina
 sr:Планина|Врх|Planina|Vrh
 sv:Bergstopp|berg
 sw:Kilele|mlima
@@ -8398,6 +8621,7 @@ zh-Hant:1山峰|1山脈|山|峰
 # Add at least one lang not to be skipped.
 natural-peak|@mountain
 en:Peak
+sl:Vrh
 
 natural-saddle|mountain_pass
 en:4Saddle|Pass
@@ -8408,6 +8632,7 @@ it:4Sella
 lv:Pāreja|Kalnu pāreja
 mr:खोगीर
 ru:4Седловина|5Перевал
+sl:4Sedlo|5prelaz
 sr:Седло|Sedlo
 tr:Sırt|geçit
 uk:4Сідловина|5Перевал
@@ -8443,6 +8668,7 @@ pt-BR:Estreito
 ro:Strâmtoare
 ru:Пролив
 sk:Prieliv
+sl:4Ožina|Morski preliv
 sv:Sund
 sw:Mlango Bahari
 th:ช่องแคบ
@@ -8482,6 +8708,7 @@ pt-BR:Floresta|mata
 ro:Pădure
 ru:Лес
 sk:Les
+sl:3Gozd
 sr:Шума|Šuma
 sv:Skog
 sw:Msitu
@@ -8523,6 +8750,7 @@ pt-BR:Parque|praça
 ro:Parc
 ru:Парк
 sk:Park
+sl:3Park|Zelena površina
 sr:Парк|Park
 sv:Park
 sw:Mbuga
@@ -8564,6 +8792,7 @@ pt:Aquário
 ro:Acvariu
 ru:Аквариум
 sk:Akvárium
+sl:4Akvarij
 sr:Акваријум|Akvarijum
 sv:Akvarium
 sw:Aquarium
@@ -8604,6 +8833,7 @@ pt-BR:3Hostel|3pousada|2albergue
 ro:3Hostel
 ru:3Хостел|мотель|гостевой дом|мини отель
 sk:3Hostel|ubytovňa|motel
+sl:3Hostel|Prenočišče|Nahrbtnikarji
 sr:Хостел|Hostel
 sv:3Vandrarhem|motell
 sw:Bweni
@@ -8638,6 +8868,7 @@ pt:motel
 pt-BR:motel
 ru:2отель
 sk:ubytovňa|motel
+sl:2Hotel|Motel|Prenočišče
 sr:Мотел|Motel
 sv:motell
 sw:Hoteli
@@ -8677,6 +8908,7 @@ pt-BR:Pousada|casa de hóspedes|hospedagem
 ro:Pensiune
 ru:5Гостевой дом|отель|хостел|база отдыха
 sk:Penzión|hostel|ubytovňa
+sl:4Gostišče|Sobe|Prenočišče
 sv:Gästhus|vandrarhem
 sw:Gesti
 th:3เกสท์เฮ้าส์|โรงแรม์|์โรงแรม
@@ -8715,6 +8947,7 @@ pt-BR:3Motel|3hotel de estrada|3pousada
 ro:Motel
 ru:3Мотель|хостел
 sk:3Motel|penzión|hostel|ubytovňa
+sl:3Motel|Hostel|Prenočišče
 sr:Мотел|Motel
 sv:3Motell|vandrarhem
 th:3โมเทล|หอพัก
@@ -8752,6 +8985,7 @@ pt-BR:Abrigo de montanha|cabana alpina|3pousada|motel|hotel
 ro:Cabană de munte|hotel
 ru:4Горный приют|туристический домик|3хижина|4турприют|4приют|горный отель|горный хостел
 sk:4Horská chata|horský hotel|hotel
+sl:5Planinska koča|Planinski dom|Zavetišče|Koča|Dom
 sv:Bergsboende|hotell|vandrarhem|fjällstuga
 th:2ที่พักบนภูเขาโรงแรม
 tr:3Dağda konaklama|otel
@@ -8791,6 +9025,7 @@ pt-BR:Cabeleireiro|barbeiro
 ro:Coafor
 ru:4Парикмахерская|стрижка|укладка|покраска|салон красоты|стрижка волос|салон парикмахерская|парикмахер|стилист
 sk:4Kaderníctvo|4holičstvo
+sl:4Frizerski salon|Frizura|Striženje|Brivnica
 sr:Фризер|Frizer
 sv:3Frisör
 sw:Saluni
@@ -8831,6 +9066,7 @@ pt-BR:3Aeroporto|aeródromo
 ro:3Aeroport
 ru:3Аэропорт|4самолёт
 sk:3Letisko
+sl:4Letališče|Letalo|Aerodrom
 sr:Аеродром|Aerodrom
 sv:3Flygplats|3flygplan
 sw:Uwanja wa ndege
@@ -8842,6 +9078,7 @@ zh-Hans:机场|飞机
 zh-Hant:1機場|2航空站|3航空公司|2飛機場
 
 aeroway-aerodrome|@airport
+sl:5Stavba|Zgradba|Hiša
 
 aeroway-terminal|@airport
 en:Terminal
@@ -8876,6 +9113,7 @@ pt-BR:terminal
 ro:Terminal
 ru:Терминал
 sk:Terminál
+sl:4Terminal|Letališki terminal
 sv:Terminal
 sw:Terminal
 th:เทอร์มินัล
@@ -8915,6 +9153,7 @@ pt-BR:5Estádio|esporte
 ro:4Stadion
 ru:4Стадион|4спорт|матч|арена|спортивная арена|соревнования|чемпионат|cпорткомплекс
 sk:4Štadión|4šport
+sl:4Stadion|Arena|Šport
 sr:Стадион|Stadion
 sv:4Stadion|4sport
 sw:Kiwanja cha michezo
@@ -8956,6 +9195,7 @@ pt-BR:Parquinho|parque infantil
 ro:Loc de joacă
 ru:4Детская площадка
 sk:Ihrisko
+sl:4Igrišče|Otroško igrišče
 sr:Игралиште|Igralište
 sv:Lekplats
 sw:Viwanja vya michezo
@@ -8998,6 +9238,7 @@ pt:Centro de jogos
 ro:Centrul de joacă
 ru:Игровой центр
 sk:Hracie centrum
+sl:4Igralnica|Otroška igralnica
 sv:Lekcenter
 sw:Kituo cha kucheza
 th:ศูนย์เล่น
@@ -9037,6 +9278,7 @@ pt-BR:Centro esportivo|clube|esporte|complexo esportivo
 ro:4Sport
 ru:Спорткомплекс|спорт|4спортивный комплекс|арена|занятия спортом|5дворец спорта
 sk:4Športové centrum|šport
+sl:5Športni center|Športni kompleks|Dvorana
 sr:Спортски центар|Sportski centar
 sv:4Sportcenter|sport
 sw:Viwanja vya michezo
@@ -9076,6 +9318,7 @@ pt-BR:Campo de golfe
 ro:Teren de golf
 ru:Площадка для гольфа|гольф
 sk:Golf
+sl:4Golfišče|Golf
 sr:Голф терен|Golf teren
 sv:Golfbana
 sw:Uwanja wa gofu|michezo
@@ -9112,6 +9355,7 @@ pt:Minigolfe
 ro:Minigolf
 ru:Минигольф
 sk:Minigolf
+sl:5Minigolf|Mini golf
 sr:Мини-голф|Mini-golf
 sv:Minigolf
 sw:Minigofu
@@ -9132,6 +9376,7 @@ ko:해커스 스페이스
 lv:4Hakertelpa
 mr:हॅकरस्पेस
 ru:Хакерспейс
+sl:5Hackerspace|Hekerski prostor
 th:แฮกเกอร์สเปซ
 vi:Không gian tin tặc
 zh-Hans:创客空间
@@ -9166,6 +9411,7 @@ pt-BR:Campo de esportes|campo|quadra|esporte
 ro:Teren de sport|gazon
 ru:Спортплощадка|спорт|4спортивная площадка
 sk:4Športovisko|šport
+sl:5Športno igrišče|Igrišče
 sr:Спортски терен|Sportski teren
 sv:Idrottsplats|bana|sport
 sw:Uwanja|michezo
@@ -9205,6 +9451,7 @@ pt-BR:4Piscina|esporte
 ro:Piscină
 ru:4Бассейн|спорт|плавание
 sk:4Kúpalisko|3bazén|aquapark|4kúpele
+sl:3Bazen|Kopališče
 sr:Базен|Bazen
 sv:4Simbassäng|sport
 sw:Bwawa la kuogelea
@@ -9218,6 +9465,7 @@ zh-Hant:2游泳池|游泳|玩水
 # Not searchable
 leisure-swimming_pool-private
 en:DoNotMatchThisType_OneLanguageDefinitionIsEnoughHere
+sl:5Zasebni bazen
 
 sport-american_football
 en:American Football
@@ -9251,6 +9499,7 @@ pt-BR:Futebol americano
 ro:Fotbal american
 ru:Aмериканский футбол
 sk:Americký futbal
+sl:5Ameriški nogomet|Football
 sr:Амерички фудбал|Američki fudbal
 sv:Amerikansk fotboll
 sw:Soka ya Marekani
@@ -9293,6 +9542,7 @@ pt-BR:Tiro com arco
 ro:TIR cu arcul
 ru:Стрельба из лука
 sk:Lukostreľba
+sl:4Lokostrelstvo
 sr:Стреличарство|Streličarstvo
 sv:Bågskytte
 sw:Upigaji mishale
@@ -9334,6 +9584,7 @@ pt:Atletismo
 pt-BR:Atletismo
 ro:Atletism
 ru:Лёгкая атлетика
+sl:5Atletika|Tek
 sr:Ателтика|Atletika
 tr:Atletik|Atletizm
 uk:Легка атлетика
@@ -9372,6 +9623,7 @@ pt:Futebol Australiano
 pt-BR:Futebol australiano
 ro:Fotbal australian
 ru:Австралийский футбол
+sl:5Avstralski nogomet
 sr:Аустралијски фудбал|Australijski fudbal
 tr:Avustralya futbolu
 uk:Австралійський футбол
@@ -9411,6 +9663,7 @@ pt-BR:Beisebol
 ro:Baseball
 ru:Бейсбол
 sk:Baseball
+sl:4Baseball
 sr:Бејзбол|Bejzbol
 sv:Baseboll
 sw:Baseball
@@ -9451,6 +9704,7 @@ pt:Basquetebol
 pt-BR:Basquetebol
 ro:Baschet
 ru:Баскетбол
+sl:4Košarka|Basket
 sr:Кошарка|Košarka
 tr:Basketbol
 uk:Баскетбол
@@ -9489,6 +9743,7 @@ pt:Voleibol de praia
 ro:Volei de plajă
 ru:Пляжный волейбол
 sk:Plážový volejbal
+sl:5Odbojka na mivki|Odbojka
 sr:Одбојка на песку|Odbojka na pesku
 sv:Beachvolleyboll
 sw:Mpira wa wavu wa pwani
@@ -9523,6 +9778,7 @@ pl:Kręgle
 pt:Lawn bowls
 pt-BR:Lawn bowls
 ru:Боулз
+sl:4Bocanje
 sv:Bowls
 tr:Kuka Oynu|Kuka oyunu
 uk:Боулз
@@ -9560,6 +9816,7 @@ pt:Xadrez
 ro:Șah
 ru:Шахматы
 sk:Šach
+sl:4Šah
 sr:Шах|Šah
 sv:Schack
 sw:Sataranji
@@ -9597,6 +9854,7 @@ pl:Krykiet
 pt:Críquete
 pt-BR:Críquete
 ru:Крикет
+sl:4Kriket
 sr:Крикет|Kriket
 tr:Kriket
 uk:Крикет
@@ -9635,6 +9893,7 @@ pt-BR:Curling
 ro:Curling
 ru:Кёрлинг
 sk:Curling
+sl:4Curling
 sr:Карлинг|Karling
 sv:Curling
 sw:Kukunja
@@ -9673,6 +9932,7 @@ pt:Desportos Equestres
 pt-BR:Esportes equestres
 ro:Călărie
 ru:Конный спорт|верховая езда
+sl:4Konjeništvo|Jahanje
 sr:Јахање|Jahanje
 sv:Hästhållning
 tr:Binicilik
@@ -9713,6 +9973,7 @@ pt-BR:Golfe
 ro:Golf
 ru:Гольф
 sk:Golf
+sl:3Golf
 sr:Голф|Golf
 sv:Golf
 sw:Gofu
@@ -9755,6 +10016,7 @@ pt-BR:Ginástica
 ro:Gimnastică
 ru:Гимнастика
 sk:Gymnastika
+sl:4Gimnastika
 sr:Гимнастика|Gimnastika
 sv:Gymnastik
 sw:Gymnastics
@@ -9797,6 +10059,7 @@ pt-BR:Handebol
 ro:Handbal
 ru:Гандбол
 sk:Hádzaná
+sl:4Rokomet
 sr:Рукомет|Rukomet
 sv:Handboll
 sw:Mpira wa mikono
@@ -9838,6 +10101,7 @@ pt-BR:Mergulho autônomo
 ro:Scufundări
 ru:Место для дайвинга
 sk:Potápanie
+sl:5Potapljanje|Scuba
 sr:Место за роњење|Mesto za ronjenje
 sv:Dykning
 sw:Upigaji mbizi wa Scuba
@@ -9880,6 +10144,7 @@ pt-BR:Tiroteio|Esportes de tiro
 ro:Filmare
 ru:Стрельба
 sk:Streľba
+sl:4Strelišče|Streljanje
 sr:Стрељаштво|Streljaštvo
 sv:Skytte
 sw:Kupiga risasi
@@ -9920,6 +10185,7 @@ pt:Skate
 ro:Skateboarding|skateboard
 ru:Скейтбординг|скейтборд|скейт
 sk:Skejtbording
+sl:5Skejtanje|Skateboard
 sr:Скејтбординг|Skejtbording
 sv:Skateboarding|skateboard
 sw:Skateboarding|skateboard
@@ -9962,6 +10228,7 @@ pt-BR:Esqui
 ro:Schi
 ru:Катание на лыжах
 sk:Lyžovanie
+sl:4Smučanje
 sr:Скијање|Skijanje
 sv:Skidåkning
 sw:Skii
@@ -10004,6 +10271,7 @@ pt-BR:Futebol
 ro:Fotbal
 ru:Футбол
 sk:Futbal
+sl:3Nogomet|Fuzbal
 sr:Фудбал|Fudbal
 sv:Fotboll
 sw:Soka
@@ -10045,6 +10313,7 @@ pt-BR:Natação esportiva
 ro:Natație
 ru:Плавание
 sk:Plávanie
+sl:3Bazen|Plavanje
 sr:Пливање|Plivanje
 sv:Simning
 sw:Kuogelea
@@ -10087,6 +10356,7 @@ pt-BR:Tênis de mesa
 ro:Tenis de masă
 ru:Настольный теннис
 sk:Stolný tenis
+sl:5Namizni tenis|Pingpong
 sr:Стони тенис|Stoni tenis
 sv:Bordtennis
 sw:Tenisi ya meza
@@ -10129,6 +10399,7 @@ pt-BR:Tênis
 ro:Tenis
 ru:Большой теннис
 sk:Tenis
+sl:4Tenis
 sr:Тенис|Tenis
 sv:Tennis
 sw:Tenisi
@@ -10171,6 +10442,7 @@ pt:Padel
 ro:Padel
 ru:Падель
 sk:Padel
+sl:4Padel
 sr:Падел|Padel
 sv:Padel
 sw:Padel
@@ -10212,6 +10484,7 @@ pt:Voleibol
 ro:Volei
 ru:Волейбол
 sk:Volejbal
+sl:5Odbojka
 sr:Одбојка|Odbojka
 sv:Volleyboll
 sw:Voliboli
@@ -10252,6 +10525,7 @@ pt:Bolão|Boliche
 ro:Popice|Bowling
 ru:Кегельбан|Боулинг
 sk:Kuželky|Bowling
+sl:4Kegljanje|Bowling
 sr:Куглање|Kuglanje
 sv:Kägel|Bowling
 sw:Wkittles|Bowling
@@ -10292,6 +10566,7 @@ pt-BR:Edifício|prédio|construção
 ro:Clădire
 ru:Здание|Строение
 sk:Budova|stavba
+sl:5Stavba|Zgradba|Hiša
 sr:Зграда|Zgrada
 sv:Byggnad
 sw:Jengo
@@ -10336,6 +10611,7 @@ pt-BR:4Polícia
 ro:4Poliție|Poliția
 ru:4Полиция|милиция
 sk:3Polícia
+sl:Policija
 sr:Полиција|Policija
 sv:4Polis
 sw:4Polisi
@@ -10364,6 +10640,7 @@ pl:Policja|komisariat|posterunek
 pt:4Polícia|2Guarda Nacional Republicana|2GNR|2PSP|4Seccional
 pt-BR:Polícia
 sk:3policajná stanica
+sl:4Policija|Policijska postaja
 sr:Полицијска станица|Policijska stanica
 sv:Polisstation
 tr:Polis
@@ -10399,6 +10676,7 @@ pt-BR:4Embaixada
 ro:4Ambasadă
 ru:4Посольство
 sk:4Veľvyslanectvo|4ambasáda
+sl:4Veleposlaništvo|Ambasada
 sr:Амбасада|Ambasada
 sv:4Ambassad
 sw:Ubalozi
@@ -10439,6 +10717,7 @@ pt-BR:Baía
 ro:Golf
 ru:Залив
 sk:Záliv
+sl:4Zaliv
 sr:Залив|Zaliv
 sv:Bukt
 sw:Ghuba
@@ -10494,6 +10773,7 @@ pt-BR:2Água
 ro:3Apă
 ru:3Вода|источник воды
 sk:3Voda
+sl:Voda
 sr:Вода|Voda
 sv:3Vatten
 sw:4Maji
@@ -10536,6 +10816,7 @@ pt-BR:2Água potável|4bebedouro
 ro:Apă de băut|apă potabilă
 ru:3Питьевая вода
 sk:4Pitná voda
+sl:4Pitna voda|Voda|Izvir
 sr:Вода за пиће|Voda za piće
 sv:4Dricksvatten
 sw:4Maji ya kunywa
@@ -10577,6 +10858,7 @@ pt:Nascente de água quente
 ro:Izvor termal
 ru:4Горячий источник|4Геотермальный источник
 sk:Horúci prameň|Termálny prameň
+sl:3Vroči izvir|Termalni izvir|Toplice
 sr:Термални извор|Termalni izvor
 sv:Varm källa
 sw:Majira ya joto
@@ -10619,6 +10901,7 @@ pt-BR:Nascente
 ro:Izvor
 ru:4Родник|ключ|источник
 sk:Prameň
+sl:3Izvir|4Naravni izvir|Studenec|Vrelec
 sr:Извор|Izvor
 sv:Vattenkälla
 sw:Chemchemi
@@ -10661,6 +10944,7 @@ pt-BR:Poço de água
 ro:Puț de apă
 ru:4Колодец|скважина
 sk:Studňa
+sl:4Vodnjak|Studenec
 sr:Бунар|Bunar
 sv:Brunn
 th:บ่อน้ำ
@@ -10700,6 +10984,7 @@ pt-BR:Ponto de água|Água para Caravana
 ro:Punct de alimentare cu apă
 ru:Заправка водой|вода для трейлера|вода для дома на колёсах|вода для автодома
 sk:Voda pre karavan
+sl:Voda za avtodome|Voda za kamperje|Pitna voda|Postaja za vodo
 sr:Вода за кампере|Voda za kampere
 sv:Vattenpost
 sw:Kituo cha Maji
@@ -10741,6 +11026,7 @@ pt-BR:Torneira de água
 ro:Robinet cu apă
 ru:5Водопроводный кран
 sk:Vodovodný kohútik
+sl:5Pipa|Voda
 sr:Јавна чесма|Чесма|Javna česma|Česma
 sv:Vattenkran
 sw:Bomba la Maji
@@ -10782,6 +11068,7 @@ pl:Akwen
 pt:Corpo de água
 pt-BR:Corpo de água
 ru:Водоём
+sl:4Vodno telo|Voda
 th:แหล่งน้ำ
 tr:Su birikintisi|Su kaynağı|Su kütlesi
 uk:Водоймище|водойма
@@ -10790,6 +11077,7 @@ zh-Hans:水體
 zh-Hant:水體
 
 natural-water|@waterbody
+sl:4Polnilnica|Polnjenje
 
 # Do not add the "water" search term
 natural-water-basin|landuse-basin|@waterbody
@@ -10824,6 +11112,7 @@ pt-BR:Reservatório
 ro:Bazin de apă
 ru:Резервуар|Водный бассейн
 sk:Vodná nádrž
+sl:4Bazen|Kotlina|Rezervoar
 sr:Резервоар|Rezervoar
 sv:Vattenbassäng
 sw:Bonde la Maji
@@ -10866,6 +11155,7 @@ pt-BR:Lagoa
 ro:5Heleșteu
 ru:Пруд
 sk:Rybník
+sl:3Ribnik|Bajer|Mlaka
 sr:Језерце|Jezerce
 sv:Damm
 sw:Bwawa
@@ -10908,6 +11198,7 @@ pt-BR:Lago
 ro:Lac
 ru:Озеро
 sk:Jazero
+sl:4Jezero
 sr:Језеро|Jezero
 sv:Sjö
 sw:Ziwa
@@ -10949,6 +11240,7 @@ pt:5Reservatório
 ro:5Rezervor
 ru:5Водохранилище
 sk:Nádrž
+sl:4Reka|Potok
 sv:5Reservoar
 sw:Hifadhi
 th:อ่างเก็บน้ำ
@@ -10990,6 +11282,7 @@ pt-BR:Rio|Ribeiro|Ribeira|Córrego|Riaxo
 ro:Râu
 ru:Река|ручей
 sk:Rieka
+sl:4Reka|Potok
 sr:Река|Reka
 sv:Flod
 sw:Mto
@@ -11031,6 +11324,7 @@ pt-BR:Canal
 ro:Canal
 ru:Канал
 sk:Kanál
+sl:4Kanal|Prekop
 sr:Канал|Kanal
 sv:Kanal
 sw:Mfereji
@@ -11071,6 +11365,7 @@ pt-BR:Oficina de automóveis|mecânica|4mecânico|auto elétro
 ro:Atelier de reparații auto
 ru:СТО|3автомастерская|автосервис|авто|3механик
 sk:3Autoservis|autoopravovňa
+sl:3Avtoservis|Popravilo avtomobilov|Mehanik
 sr:Ауто-сервис|Auto-servis
 sv:3Bilreparatör|bilverkstad|4servicestation|bil
 sw:Fundi wa gari
@@ -11110,6 +11405,7 @@ pt-BR:4Local de acampamento|área de acampamento|4camping
 ro:4Camping
 ru:4Кемпинг|5палаточный лагерь|лагерь|стоянка
 sk:4Camping|kemp|camp|kemping|kempovanie
+sl:4Kamp|Kampiranje|Tabor|Šotorišče
 sr:Камп|Kamp
 sv:4Camping|campingplats|campingområde
 sw:Kambi
@@ -11149,6 +11445,7 @@ pt-BR:4Área de trailers|caravanismo|acampamento
 ro:Teren pentru campare
 ru:4Автокемпинг|4кемпинг для автодомов|4стоянка для автодомов
 sk:Kemp pre karavany|kemp pre obytné prívesy
+sl:4Avtokamp|Postajališče za avtodome|PZA
 sr:Паркинг за кампере|Parking za kampere
 sv:4Husvagnsplats
 th:4ขบวนนักเดินทาง
@@ -11189,6 +11486,7 @@ pt-BR:Escritório|empresa
 ro:Birou
 ru:Офис|компания|контора|фирма|бизнес|бюро|учреждение
 sk:Kancelária|úrad
+sl:3Pisarna|Urad|Podjetje
 sr:Канцеларија|Kancelarija
 sv:Kontor|företag
 sw:Ofisi|kampuni
@@ -11229,6 +11527,7 @@ pt-BR:Escritório de empresa
 ro:Sediu companei
 ru:Организация|компания
 sk:Sídlo spoločnosti
+sl:4Podjetje|Sedež podjetja|Urad
 sr:Канцеларија фирме|Kancelarija firme
 sv:Företagskontor
 th:สำนักงานบริษัท
@@ -11268,6 +11567,7 @@ pt-BR:Gabinete governamental|órgão público
 ro:Birou guvernamental
 ru:Госучреждение|административное учреждение
 sk:Štátny úrad
+sl:5Vladni urad|Državna ustanova
 sr:Владина канцеларија|Vladina kancelarija
 sv:Ämbetsverk|myndighet
 sw:Ofisi ya serikali
@@ -11308,6 +11608,7 @@ pt-BR:Escritório de advogado|4advocacia
 ro:Firmă de avocatură
 ru:3Адвокат|4нотариус|юрист|право|защита прав|юридическая консультация|адвокатские услуги|юридическая помощь|юрпомощь|нотариальная контора
 sk:4Advokátska kancelária
+sl:4Odvetnik|Pravnik|Advokat|Notar
 sr:Адвокат|Advokat
 sv:4Advokatkontor
 th:สำนักงานทนายความ
@@ -11347,6 +11648,7 @@ pt-BR:Operadora de telecomunicações|telefonia|móvel
 ro:Operator de telefonie mobilă
 ru:Телекоммуникационная компания|телеком|связь
 sk:Mobilný operátor
+sl:5Telekom|Telekomunikacije|Telekomunikacijsko podjetje
 sr:Мобилни оператер|Mobilni operater
 sv:Mobiloperatör
 th:ผู้ให้บริการโทรศัพท์มือถือ
@@ -11387,6 +11689,7 @@ pt:Apicultor
 ro:Apicultor
 ru:Пчеловод
 sk:Včelár
+sl:5Čebelar
 sr:Пчелар|Pčelar
 sv:Biodlare
 sw:Mfugaji nyuki
@@ -11428,6 +11731,7 @@ pt:Ferreiro
 ro:Fierar
 ru:Кузница|Кузнец
 sk:Kováč
+sl:4Kovač|Kovačnica
 sr:Ковач|Kovač
 sv:Smedja
 sw:Mhunzi
@@ -11470,6 +11774,7 @@ pt-BR:6Cervejaria
 ro:Berărie
 ru:5Пивоварня|пивзавод|производство пива|пивоваренный завод
 sk:5Pivovar
+sl:5Pivovarna|Pivo
 sr:Крафт пиво|Kraft pivo
 sv:Bryggeri
 sw:Kiwanda cha pombe
@@ -11512,6 +11817,7 @@ pt-BR:Serviço de bufê
 ro:Catering
 ru:Кейтеринг
 sk:Cateringová spoločnosť
+sl:5Catering|Gostinec|Priprava hrane
 sr:Кетеринг|Ketering
 sv:Cateringfirma
 sw:Mpishi
@@ -11554,6 +11860,7 @@ pt:5Carpinteiro
 ro:Tâmplar
 ru:4Столяр|столярная мастерская
 sk:Tesár
+sl:4Mizar|Mizarstvo|Tesnilstvo
 sr:Столар|Stolar
 sv:Snickare
 sw:Seremala
@@ -11594,6 +11901,7 @@ pt:Confeitaria
 ro:Cofetar
 ru:Кондитер
 sk:Cukráreň
+sl:5Slaščičar|Slaščičarna
 sr:Слаткиши|Slatkiši
 sv:Konditor
 sw:Confectioner
@@ -11635,6 +11943,7 @@ pt:4Eletricista
 ro:4Electrician
 ru:4Электрик
 sk:4Elektrikár
+sl:4Električar
 sr:Електричар|Električar
 sv:4Elektriker
 sw:Fundi umeme
@@ -11677,6 +11986,7 @@ pt-BR:Reparo de eletrônicos
 ro:Reparații electronice
 ru:Ремонт электроники
 sk:Oprava elektroniky
+sl:5Servis elektronike|Popravilo elektronike
 sr:Сервис електронике|Servis elektronike
 sv:Reparation av elektronik
 sw:Urekebishaji wa Elektroniki
@@ -11717,6 +12027,7 @@ pt:Jardineiro
 ro:Peisagist
 ru:Садовник
 sk:Záhradníctvo
+sl:4Vrtnar|Vrtnarstvo
 sr:Баштован|Baštovan
 sv:Trädgårdsmästare
 sw:Mtunza bustani
@@ -11758,6 +12069,7 @@ pt:Moinho
 ro:Moara
 ru:Мельница
 sk:Mlyn
+sl:4Mlin|Mletje žita
 sr:Млин|Mlin
 sv:Kvarn
 sw:Kinu
@@ -11799,6 +12111,7 @@ pt:Artesanato
 ro:Tehnici de lucru manual
 ru:Ремесленная мастерская|Декоратор
 sk:Ručné práce
+sl:5Rokodelstvo|Obrt
 sr:Ручни рад|Ručni rad
 sv:Konsthantverk
 sw:Kazi za mikono
@@ -11840,6 +12153,7 @@ pt-BR:Aquecimento, Ventilação e Ar Condicionado
 ro:Încălzire, ventilație și aer condiționat
 ru:Отопление, вентиляция и кондиционирование
 sk:Vzduchotechnika
+sl:4Klimatizacija|Prezračevanje
 sr:Клима|Klima
 sv:Vvs
 sw:Kiyoyozi
@@ -11882,6 +12196,7 @@ pt-BR:Serralheiro|metalúrgico
 ro:5Metalurgist
 ru:5Металлоконструкции|кузнец
 sk:Kovorobotník|kovospracovanie
+sl:5Kovinar|Kovinske konstrukcije
 sv:5Metallarbetare
 sw:Mfanyikazi wa chuma
 th:ช่างเหล็ก
@@ -11923,6 +12238,7 @@ pt-BR:Chaveiro
 ro:Tăierea cheilor
 ru:Изготовление ключей
 sk:Rezanie kľúčov
+sl:5Izdelava ključev|Ključi
 sr:Кључар|Бравар|Ključar|Bravar
 sv:Nyckelklippning
 sw:Kukata Muhimu
@@ -11965,6 +12281,7 @@ pt-BR:Serralheiro
 ro:Lăcătuș
 ru:Слесарь
 sk:Zámočník
+sl:4Ključavničar|Ključavničarstvo
 sr:Бравар|Bravar
 sv:Låssmed
 sw:Fundi wa kufuli
@@ -12006,6 +12323,7 @@ pt:Pintor
 ro:Pictor
 ru:Маляр
 sk:Maliar natierač
+sl:4Slikopleskar|Pleskanje
 sr:Молер|Moler
 sv:Målare
 sw:Mchoraji
@@ -12048,6 +12366,7 @@ pt:4Fotógrafo|estúdio de fotografia
 ro:4Fotograf|studio de fotografie
 ru:4Фотограф|фотоателье|фотостудия
 sk:4Fotograf|fotoateliér
+sl:4Fotograf|Foto studio|Fotografiranje
 sr:Фотограф|Fotograf
 sv:4Fotograf|fotostudio
 sw:Mpiga picha
@@ -12090,6 +12409,7 @@ pt-BR:Encanador
 ro:Instalator
 ru:Сантехник
 sk:Klampiarstvo
+sl:4Vodovodar|Instalater
 sr:Водовод|Vodovod
 sv:Vvs-montör
 sw:Fundi bomba
@@ -12131,6 +12451,7 @@ pt:Serraria
 ro:Fabrica de cherestea
 ru:Лесопилка
 sk:Píla
+sl:5Žaga|Les
 sr:Пилана|Стругара|Pilana|Strugara
 sv:Sågverk
 sw:Sumel
@@ -12173,6 +12494,7 @@ pt-BR:5Sapateiro
 ro:Reparații încălțăminte
 ru:4Ремонт обуви|обувь|4обувная мастерская
 sk:Oprava obuvy
+sl:4Čevljar|Popravilo čevljev
 sr:Обућар|Obućar
 sv:Skomakare
 sw:Mtengeneza viatu
@@ -12214,6 +12536,7 @@ pt-BR:Vinícola
 ro:Vinărie
 ru:4Винодельня|Вино
 sk:Vinárstvo
+sl:5Vinarna|Vinska klet|Vino
 sr:Винарија|Vinarija
 sv:Vineri
 sw:Mvinyo
@@ -12256,6 +12579,7 @@ pt-BR:Alfaiate|costureiro|conserto de roupas
 ro:Croitor
 ru:4Ателье|Портной|4Ремонт одежды|4Швейная мастерская|5Пошив одежды|Кройка|Шитьё
 sk:Krajčírstvo
+sl:4Krojač|Šiviljstvo|Popravilo oblačil
 sr:Кројач|Krojač
 sv:Skräddare
 sw:Mshonaji nguo
@@ -12335,6 +12659,7 @@ pt-BR:Mar
 ro:Mare
 ru:Море
 sk:More
+sl:3Morje
 sr:Море|More
 sv:Hav
 sw:Bahari
@@ -12375,6 +12700,7 @@ pt-BR:Oceano
 ro:Ocean
 ru:Океан
 sk:Oceán
+sl:4Ocean|Morje
 sr:Океан|Okean
 sv:Ocean
 sw:Bahari
@@ -12416,6 +12742,7 @@ pt-BR:WiFi|Wi-Fi
 ro:WiFi|Wi-Fi
 ru:WiFi|Wi-Fi
 sk:WiFi|Wi-Fi
+sl:3WiFi|Brezžični internet
 sr:WiFi|Wi-Fi
 sv:WiFi|Wi-Fi
 sw:WiFi|Wi-Fi
@@ -12456,6 +12783,7 @@ pt-BR:3Internet
 ro:3Internet
 ru:3Интернет|вайфай
 sk:3Internet
+sl:4Plaža|Obala|Kopališče
 sr:3Интернет|3Internet
 sv:3Internet
 sw:4Intaneti
@@ -12495,6 +12823,7 @@ pt:Praia
 pt-BR:Praia
 ro:Plajă
 ru:Пляж
+sl:4Plaža|Kopališče
 sr:Плажа|Plaža
 sv:Strand
 sw:Pwani
@@ -12535,6 +12864,7 @@ pt-BR:Farol
 ro:Far
 ru:Маяк
 sk:Maják
+sl:4Svetilnik
 sr:Светионик|Svetionik
 sv:Fyr
 th:ประภาคาร
@@ -12558,6 +12888,7 @@ lv:Ģeodēziskais punkts
 mr:सर्वेक्षण बिंदू|सर्व्हे पॉइंट
 pl:4Znak geodezyjny
 ru:4Геодезический пункт|Геодезический знак|4тригонометрический пункт|пункт триангуляции|тригопункт|4триангулятор
+sl:5Geodetska točka|Triangulacijska točka
 tr:4veri toplama istasyonu|4nirengi istasyonu|4jeodezik ölçüm noktası|4ölçüm istasyonu
 uk:4Геодезичний пункт
 
@@ -12577,6 +12908,7 @@ nl:Vlaggenpaal
 pl:Maszt flagowy
 ru:Флагшток
 sk:Vlajkový stožiar
+sl:4Drog za zastavo|Zastava
 tr:Bayrak Direği
 uk:Флагшток
 zh-Hans:旗杆
@@ -12597,6 +12929,7 @@ nl:Mast
 pl:Maszt
 ru:Мачта|вышка
 sk:Stožiar
+sl:4Jambor|Steber|Antena
 tr:Direk
 uk:Щогла|вишка
 
@@ -12632,6 +12965,7 @@ pt-BR:Torre de Comunicações
 ro:Turnul de comunicații
 ru:Вышка связи|cотовая вышка|телекоммуникационная башня
 sk:Komunikačná veža
+sl:4organsko|bio|eko|ekološko|zdravo
 sr:Комуникациони торањ|Komunikacioni toranj
 sv:Kommunikationstorn
 sw:Mnara wa Mawasiliano
@@ -12674,6 +13008,7 @@ pt-BR:4Poço de petróleo
 ro:4Puț de petrol
 ru:4Нефтяная скважина|Скважина
 sk:4Ropná studňa
+sl:5Naftna vrtina|Naftna črpalka
 sr:Нафтна бушотина|Нафтна бушотина
 sv:4Oljebrunn
 sw:Kisima cha Mafuta
@@ -12715,6 +13050,7 @@ pt-BR:eco|bio|biológico|ambiental|natural|orgânico
 ro:eco|bio|sănătos|biologic|ambiental|natural|organic
 ru:5здоровая|био|5биологическая|5натуральная|5органическая|эко|5экологическая
 sk:eko|bio|zdravé|biologické|ekologické|prírodné|organické
+sl:4Eko|Organsko|Bio
 sr:органско|organsko
 sv:eko|bio|hälsosamt|biologiskt|miljövänligt|naturligt|organiskt
 sw:eco|bio|afya|kibaolojia|kiikolojia|asili|kikaboni
@@ -12756,6 +13092,7 @@ pt-BR:4Copiadora|4impressões
 ro:Centru copiere|4Imprimare
 ru:4Копировальный центр|4печать|полиграфия|ксерокс|принтер|копир
 sk:4Kopírovacie služby|Tlačiarne
+sl:4Kopirnica|Tiskanje|Kopiranje
 sr:Копирница|Kopirnica
 sv:4Kopieringsbutik|4Tryckare
 th:ร้านถ่ายเอกสาร|เครื่องพิมพ์
@@ -12795,6 +13132,7 @@ pt-BR:Artigos para fotografia|molduras|comércio|compras
 ro:Centru fotografii|cadre
 ru:4Фототовары|4фотоцентр
 sk:4Fotografické služby|Rámovanie
+sl:4Fotograf|Foto studio|Okvirji
 sr:Фото радња|Foto radnja
 sv:4Fotoaffär|ramar
 th:ร้านถ่ายภาพ|กรอบ|ร้าน
@@ -12837,6 +13175,7 @@ pt-BR:Loja de câmeras
 ro:Magazin de aparate foto
 ru:Фотоаппараты
 sk:Obchod s fotoaparátmi
+sl:3Fotoaparat|Kamera|Fotografska oprema
 sr:Продавница фото-апарата|Prodavnica foto-aparata
 sv:Kameraaffär
 sw:Duka la Kamera
@@ -12877,6 +13216,7 @@ pt-BR:Agência de viagem|viagens
 ro:Agenție de voiaj|tururi
 ru:3Турагентство|путешествия|туристическое агентство|турфирма|5путевки|пакетные туры|горящие туры|горящие путевки|туроператор|бронирование туров|туристическая компания|туристическая фирма
 sk:Cestovná kancelária|Zájazdy
+sl:5Turistična agencija|Potovanja|Ture|Izleti
 sr:Туристичка агенција|Turistička agencija
 sv:Resebyrå|rundturer
 th:สำนักงานการท่องเที่ยว|ทัวร์
@@ -12916,6 +13256,7 @@ pt-BR:Equipamentos esportivos|caminhada|escalada|camping|comércio
 ro:Echipament de exterior|trekking|cățărare|campare
 ru:Снаряжение|3Туристический
 sk:4Outdoorové vybavenie|Treking|Lezenie|Kempy
+sl:4Oprema za prosti čas|Pohodništvo|Kampiranje|Plezanje|Športna oprema
 sr:Планинарска опрема|Опрема за планинарење|Камп опрема|Опрема за камповање|Planinarska oprema|Oprema za planinarenje|Kamp oprema|Oprema za kampovanje
 sv:Fritidsutrustning|vandring|klättring|camping
 th:อุปกรณ์กลางแจ้ง|เดินป่า|ปีนเขา|ตั้งแคมป์|ร้าน
@@ -12956,6 +13297,7 @@ pt-BR:Lavagem a seco|lavanderia
 ro:Curățătorie chimică|curățătorie
 ru:4Химчистка
 sk:Čistiareň|čistenie
+sl:4Kemična čistilnica|Čiščenje
 sr:Хемијско чишћење|Hemijsko čišćenje
 sv:Kemtvätt|tvätt
 th:ซักแห้ง|ทำความสะอาด
@@ -12997,6 +13339,7 @@ pt-BR:Loja de pneus|borracharia|borracheiro|comércio
 ro:Magazin anvelope
 ru:3Шины|4Покрышки|шин
 sk:Obchod s pneumatikami
+sl:3Gume|Pnevmatike|Vulkanizer
 sr:Гуме|Ауто гуме|Gume|Auto gume
 sv:Däckaffär
 th:ร้านยาง
@@ -13036,6 +13379,7 @@ pt-BR:5Lava-jato|5Lavagem de veículos
 ro:Spălătorie auto
 ru:4Автомойка|мойка машин
 sk:4Autoumývareň
+sl:4Avtopralnica|Pralnica avtomobilov
 sr:Прање аутомобила|Pranje automobila
 sv:Biltvätt
 th:ล้างรถ
@@ -13075,6 +13419,7 @@ pt-BR:4Veterinário
 ro:Cabinet veterinar
 ru:Ветеринарная клиника|4ветеринар
 sk:4Veterinár
+sl:4Veterinar|Veterinarska klinika
 sr:Ветеринар|Veterinar
 sv:4Veterinär
 th:สัตวแพทย์
@@ -13116,6 +13461,7 @@ pt-BR:Eletroposto|estação de recarga|ponto de recarga
 ro:Stație de încărcare|punct de încărcare|încărcare
 ru:4Зарядная станция|зарядка|электрозарядка|зарядить
 sk:Nabíjacia stanica|nabíjací bod|dobíjanie
+sl:4Polnilnica|Polnjenje
 sr:Станица за пуњење
 sv:Laddstation|laddning
 th:สถานีชาร์จ|จุดชาร์จ
@@ -13126,6 +13472,7 @@ zh-Hans:充电站|充电桩|充电
 zh-Hant:充電站|充電樁|充電
 
 amenity-charging_station|@charging_station
+sl:4Varnostnik|Vratarnica
 
 amenity-charging_station-bicycle|@charging_station
 en:4Bicycle Charging|4Bike Charging
@@ -13159,6 +13506,7 @@ pt:Carregamento de bicicletas
 ro:Încărcarea bicicletelor
 ru:4Велозарядка|Зарядка для велосипедов
 sk:Nabíjanie bicyklov
+sl:4Polnilnica za kolesa|Polnjenje koles
 sv:Laddning av cyklar
 sw:Kuchaji Baiskeli
 th:การชาร์จจักรยาน
@@ -13201,6 +13549,7 @@ pt-BR:Eletroposto|carregador de carro
 ro:încărcare mașină electrică
 ru:4Автозарядка|зарядка для электромобиля|зарядить машину
 sk:nabíjačka na auto
+sl:4Polnilnica za avtomobile|EV polnilnica|Polnjenje avta|Električna polnilnica
 sr:4Пуњач за аутомобиле|punjač za automobile
 sv:laddstolpe|ladda bilen|Circle K|Vattenfall InCharge
 th:สถานีชาร์จรถไฟฟ้า|ที่ชาร์จรถไฟฟ้า|จุดชาร์จ EV
@@ -13241,6 +13590,7 @@ pt-BR:Creche|jardim de infância
 ro:De îngrijire a copilului|Grădiniță|Îngrijire copii
 ru:Детская комната|3ясли
 sk:4Jasle|Starostlivosť o deti
+sl:4Varstvo otrok|Jasli|Vzgoja
 sr:Јасле|Jasle
 sv:Barnomsorg|Förskola
 th:สถานรับเลี้ยงเด็ก|ดูแลเด็ก
@@ -13281,6 +13631,7 @@ pt-BR:Bicicletário|estacionamento de bicicletas
 ro:Parcare biciclete
 ru:4Велопарковка|велостоянка
 sk:Stojan na bicykle
+sl:4Kolesarska postaja|Parkiranje koles
 sr:Паркинг за бицикле|Parking za bicikle
 sv:4Cykelparkering
 th:ที่จอดจักรยาน
@@ -13322,6 +13673,7 @@ pt-BR:Cesto de lixo|lixeira
 ro:Pubelă
 ru:3Урна|4Мусорная корзина
 sk:Odpadkový kôš
+sl:4Smetnjak|Smeti
 sr:Канта за смеће|Kanta za smeće
 sv:Papperskorg|soptunna
 th:ถังขยะ
@@ -13362,6 +13714,7 @@ pt-BR:3Telefone de emergência
 ro:3Telefon de urgență
 ru:3Телефон для экстренных вызовов|4экстренный телефон
 sk:Tiesňového volania
+sl:5Klic v sili|Telefon za nujne primere
 sr:СОС телефон|SOS telefon
 sv:4Nödtelefon
 sw:Simu ya dharura
@@ -13403,6 +13756,7 @@ pt-BR:Academia de ginástica|academia de musculação|centro de fitness|ginásio
 ro:Centru fitness
 ru:Фитнес-клуб|качалка|4тренажерный зал|3фитнес-центр|фитнес|cпортзал|тренажёрка
 sk:3Fitnescentrum|telocvičňa
+sl:3Fitnes|Telovadnica|Trenažerji
 sr:Теретана|фитнес центар|фитнес студио|Teretana|fitnes centar|fitnes studio
 sv:Gym
 th:ฟิตเนสเซ็นเตอร์|ยิม
@@ -13442,6 +13796,7 @@ pt-BR:3Sauna
 ro:3Saună
 ru:3Баня|3Сауна|парная|банька|банный комплекс
 sk:3Sauna
+sl:3Savna|Kopel|Para
 sr:Сауна|Sauna
 sv:4Bastu
 th:ซาวน่า
@@ -13484,6 +13839,7 @@ pt-BR:Borracheiro|borracharia|pneus
 ro:Vulcanizare
 ru:3Шиномонтаж|шиномонтажная мастерская|балансировка
 sk:4Pneuservis
+sl:3Vulkanizer|Popravilo gum|Menjava pnevmatik|Centriranje
 sr:Вулканизер|Vulkanizer
 sv:Däckverkstad
 th:ร้านปะยาง
@@ -13523,6 +13879,7 @@ pt-BR:4Drogaria|farmácia
 ro:Mercerie
 ru:4Бытовая химия
 sk:4Drogéria
+sl:4Drogerija|Kozmetika
 sr:Кућна хемија|Kućna hemija
 sv:Hushållskemikalier
 sw:Duka la Kemikali na Dawa za Nyumbani
@@ -13562,6 +13919,7 @@ pt-BR:3Pet-shop|loja de artigos para animais
 ro:3Pet shop
 ru:Зоотовары|3зоомагазин
 sk:Obchod zo zvieratami
+sl:3Trgovina za male živali|Hrana za živali
 sr:Кућни љубимци|Пет шоп|Kućni ljubimci|Pet šop
 sv:Djuraffär
 th:เพ็ทชอป
@@ -13603,6 +13961,7 @@ pt-BR:Jardim zoológico|3Zoológico
 ro:Grădină zoologică
 ru:2Зоопарк
 sk:3Zoologická záhrada
+sl:3Živalski vrt|Zoo
 sr:3Зоолошки врта|3Zoološki vrt
 sv:Zoo
 sw:Zoo
@@ -13645,6 +14004,7 @@ pt:Recinto para animais
 ro:Incintă pentru animale
 ru:Вольер для животных
 sk:Výbeh pre zvieratá
+sl:5Ograjeno območje za živali|Živalski vrt
 sr:Животињски кавез|Životinjski kavez
 sv:Inhägnad för djur
 sw:Hifadhi ya Wanyama
@@ -13684,6 +14044,7 @@ pt-BR:Escritório de turismo
 ro:Birou de informații turistice
 ru:3Туристический офис|туристическая информация
 sk:3Turistické informačné centrum
+sl:4Turistična pisarna|3TIC|Turistične informacije
 sr:Турист инфо|Туристичке информације|Turist info|Turističke informacije
 sv:3Turistcenter
 th:ศูนย์บริการนักท่องเที่ยว
@@ -13724,6 +14085,7 @@ pt-BR:Centro de visitantes
 ro:Centrul pentru vizitatori
 ru:Центр для посетителей
 sk:Návštevnícke centrum
+sl:4Plavanje|3Bazen
 sr:Центар за посетиоце|Centar za posetioce
 sv:3Besökscentrum
 sw:Kituo cha Wageni
@@ -13765,6 +14127,7 @@ pt-BR:Centro comunitário
 ro:Centru comunitar
 ru:Культурно-досуговый центр|3Дом культуры
 sk:3Dom kultúry
+sl:5Skupnostni center|Kulturni dom
 sr:Дом културе|Центар за културу|Dom kulture|Centar za kulturu
 sv:Stadshus
 th:ศูนย์ชุมชน
@@ -13805,6 +14168,7 @@ pt:Ar comprimido
 ro:Aer comprimat
 ru:Сжатый воздух
 sk:Stlačený vzduch
+sl:5Kompresor|Stisnjen zrak
 sr:Компресор|Kompresor
 sv:Tryckluft
 sw:Air compressed
@@ -13845,6 +14209,7 @@ pt-BR:4Tribunal
 ro:Judecătorie
 ru:Суд
 sk:Súd
+sl:4Sodišče
 sr:Суд|Sud
 sv:Domstol
 th:ศาล
@@ -13885,6 +14250,7 @@ pt-BR:Máquina de venda de cigarros
 ro:Automat de țigări
 ru:Автомат с сигаретами|Сигаретный автомат|4Сигареты
 sk:Automat na cigarety
+sl:5Avtomat za cigarete|Cigarete
 sr:Аутомат за цигарете|Automat za cigarete
 sv:Cigarettmaskin|cigarettautomat
 th:เครื่องขายบุหรี่
@@ -13907,6 +14273,7 @@ it:Distributore automatico di caffè|Caffè
 lv:4Kafijas automāts|kafija
 mr:कॉफी विक्रीयंत्र
 ru:3Кофейный автомат|кофе|кофемат
+sl:3Kava|Avtomat za kavo
 sr:Аутомат за кафу|Automat za kafu
 tr:4Kahve Dispenseri|Kahve Makinesi
 uk:3Кавовий автомат|кава
@@ -13924,6 +14291,7 @@ it:Distributore di profilattici|Preservativi
 lv:4Prezervatīvu automāts|prezervatīvi
 mr:कंडोम विक्रीयंत्र
 ru:Автомат с презервативами|5презервативы|5кондомат
+sl:5Avtomat za kondome|Kondomi
 sr:Аутомат за кондоме|Automat za kondome
 tr:5Prezervatif Dispenseri|Kondom dispenseri
 uk:Автомат з презервативами|5презервативи|5кондомат
@@ -13959,6 +14327,7 @@ pt-BR:Máquina de venda de bebidas
 ro:Automat de băuturi
 ru:Автомат с напитками|Газировка|4Напитки|3Соки
 sk:Nápojový automat
+sl:4Pijača|Avtomat za pijačo
 sr:Аутомат за пиће|Automat za piće
 sv:Läskautomat
 th:เครื่องขายเครื่องดื่มอัตโนมัติ
@@ -13981,6 +14350,7 @@ it:Distributore automatico di alimenti|Macchinetta automatica|Snack
 lv:4Pārtikas automāts|4ēdiena automāts|uzkodas
 mr:अन्न विक्रीयंत्र
 ru:Автомат с едой|5перекус|4снэки
+sl:4Avtomat s hrano|Prigrizki
 sr:Аутомат за храну|Automat za hranu
 tr:Otomat|Yiyecek dispenseri|atıştırmalık
 uk:Автомат з їжею|5перекус|4снекі
@@ -14016,6 +14386,7 @@ pt-BR:Máquina venda de tíquetes de estacionamento
 ro:4Parcomat
 ru:4Паркомат|Оплата парковки
 sk:Automat na výdaj parkovacích lístkov
+sl:4Parkomat|Parkirni avtomat|Plačilo parkirnine
 sr:Паркомат|Parkomat
 sv:4Parkeringsautomat
 th:เครื่องชำระค่าที่จอดรถอัตโนมัติ
@@ -14056,6 +14427,7 @@ pt-BR:Máquinas automáticas de venda de passagens de transporte público
 ro:Automat de vânzare a biletelor pentru transportul public
 ru:Автомат по продаже билетов
 sk:Predajný automat na lístky verejnej dopravy
+sl:Avtomat za vozovnice|Vozovnice|Karte
 sr:Аутомат за карте за јавни превоз|Automat za karte za javni prevoz
 sv:Biljettautomat
 sw:Mashine ya kuuzia tiketi za usafiri wa umma
@@ -14079,6 +14451,7 @@ it:Distributore automatico di giornali|Riviste
 lv:4Avīžu automāts|avīzes|4prese
 mr:वर्तमानपत्र विक्रीयंत्र
 ru:Газетный автомат|газетомат|3газеты|4пресса
+sl:4Časopisi|Avtomat za časopise
 tr:4Gazete dispenseri|Gazetelik
 uk:Газетний автомат|газетомат|3газети|4преса
 
@@ -14096,6 +14469,7 @@ it:Distributore di dolci|Caramelle
 lv:4Saldumu automāts|saldumi
 mr:मिठाई विक्रीयंत्र
 ru:Автомат со сладостями|4сладости|4конфеты
+sl:4Sladkarije|Avtomat za sladkarije
 tr:Tatlı dispenseri|şekerler
 uk:Автомат із солодощами|4солодощі|4цукерки
 
@@ -14109,6 +14483,7 @@ hi:4मलमूत्र थैली वितरक
 lv:Suņu izkārnījumu maisiņu automāts|maisiņi suņu izkārnījumiem|suņu higiēnas maisiņi
 mr:मलमूत्र पिशव्या विक्रीयंत्र
 ru:5Пакеты для экскрементов|Какашки|Пакеты для какашек
+sl:5Vrečke za iztrebke|Pasji iztrebki
 tr:5Dışkı torbası dispenseri
 uk:5Мішки для екскрементів|Какашки|5Пакети для какашок
 
@@ -14123,6 +14498,7 @@ hi:4पार्सल भंड़ार
 lv:4Pakomāts|paku skapis
 mr:पार्सल लॉकर
 ru:3Почтомат|Постамат|5Получение посылок
+sl:4Paketomat|Prevzem paketov
 sr:Пакетомат|Paketomat
 tr:4kilitli dolap|4kitli dolap|kasa
 uk:3Поштомат|5Отримання посилок
@@ -14159,6 +14535,7 @@ pt-BR:Ponto de coleta
 ro:Punct de ridicare
 ru:Пункт выдачи заказов|5Получение посылок|4Выдача заказов
 sk:Miesto odberu
+sl:5Prevzemna točka|Pošta|Paket
 sr:Место сусрета|Mesto susreta
 sv:Mötesplats
 sw:Sehemu ya kuchukua
@@ -14178,6 +14555,7 @@ hi:3ईंधन डिस्पेंसर
 lv:Degvielas sūknis
 mr:इंधन विक्रीयंत्र
 ru:Топливная колонка|бензоколонка|топливораздаточная колонка
+sl:4Počivališče
 sr:Самоуслужно точење горива|Samouslužno točenje goriva
 tr:Yakıt dağıtıcı
 uk:Паливна колонка|бензоколонка|пальнороздавальна колонка
@@ -14212,6 +14590,7 @@ pt-BR:Garagem
 ro:Garaj
 ru:Гараж
 sk:Garáž
+sl:4Garaža
 sr:Гаража|Garaža
 sv:Garage
 th:อาคารจอดรถ
@@ -14251,6 +14630,7 @@ pt-BR:Área de descanso
 ro:Zonă de odihnă
 ru:4Зона отдыха|Место отдыха
 sk:Odpočívadlo
+sl:5Počivališče|Odmor
 sr:Одмориште|Odmorište
 sv:Viloplats
 th:บริเวณพักผ่อน
@@ -14276,6 +14656,7 @@ pl:Miejsce obsługi podróżnych
 pt:Área de serviço
 pt-BR:Área de serviços de estrada
 ru:4Зона обслуживания
+sl:5Servisna cona|Postaja za storitve
 sr:Сервисна станица|Servisna stanica
 tr:4Servis Alanı
 uk:4Зона обслуговування
@@ -14311,6 +14692,7 @@ pt-BR:Chaminé de fábrica
 ro:Coș de fabrică
 ru:Заводская труба
 sk:Komín
+sl:5Dimnik|Tovarniški dimnik
 sr:Фабрички димњак|Fabrički dimnjak
 sv:Fabriksskorsten
 th:ปล่องควันโรงงาน
@@ -14323,6 +14705,7 @@ zh-Hant:工廠煙囪
 man_made-crane
 en:Crane
 ru:Кран
+sl:4Dvigalo|Žerjav
 
 man_made-monitoring_station
 en:Monitoring Station
@@ -14357,6 +14740,7 @@ pt-BR:Estação de monitoramento
 ro:Stație de monitorizare
 ru:Станция мониторинга
 sk:Monitorovacia stanica
+sl:5Nadzorna postaja|Monitoring
 sv:Övervakningsstation
 sw:Kituo cha Ufuatiliaji
 th:สถานีตรวจติดตาม
@@ -14396,6 +14780,7 @@ pt-BR:Torre
 ro:Turn
 ru:Башня
 sk:Veža
+sl:4Stolp
 sr:Торањ|Кула|Toranj|Kula
 sv:Torn
 th:หอคอย
@@ -14434,6 +14819,7 @@ pt-BR:Casa de apostas
 ro:Casă de pariuri
 ru:Букмекерская контора|букмекер
 sk:Stávková kancelária
+sl:4Stavnica
 sr:Кладионица|Kladionica
 sv:Bookmaker|vadhållningsagent
 th:ร้านรับแทงพนัน
@@ -14474,6 +14860,7 @@ pt-BR:Peixaria
 ro:Pescărie
 ru:Рыбный|рыба|5морепродукты|рыбная лавка
 sk:Obchodník s rybami
+sl:4Ribarnica|Ribe|Morski sadeži
 sr:Рибарница|Риба|Ribarnica|Riba
 sv:Fiskhandlare
 th:ร้านขายปลา
@@ -14511,6 +14898,7 @@ pt-BR:Loja de segunda mão
 ro:Magazin second-hand
 ru:4Подержанные товары
 sk:Obchod z druhej ruky
+sl:4Rabljeno blago|Trgovina z rabljenimi oblačili|Bolšji sejem
 sr:Секонд хенд|Sekond hend
 sv:Andrahandsaffär
 sw:Duka la Mitumba
@@ -14551,6 +14939,7 @@ pt-BR:Loja de caridade
 ro:Magazin de caritate
 ru:Благотворительный
 sk:Charitatívny obchod
+sl:4Dobrodelna trgovina
 sr:Добротворна организација|Dobrotvorna organizacija
 sv:Välgörenhetsbutik
 sw:Duka la msaada
@@ -14592,6 +14981,7 @@ pt-BR:Bilheteria
 ro:Casă de bilete
 ru:4Билетная касса|билет|билеты|бронирование билетов|продажа билетов
 sk:Pokladnica
+sl:4Vstopnice|Blagajna|Karte
 sr:Билетарница|Продаја карата|Biletarnica|Prodaja karata
 sv:Biljettkontor
 th:จุดจำหน่ายตั๋ว
@@ -14632,6 +15022,7 @@ pt-BR:Loja de vinhos|bebidas
 ro:Vinărie
 ru:4Винный|вино|вина
 sk:4Vinotéka
+sl:4Vino|Vinoteka|Vinska klet
 sr:Вино|Vino
 sv:Vinhandel
 th:ร้านขายไวน์
@@ -14673,6 +15064,7 @@ pt-BR:Peças de carro|auto peças
 ro:Piese auto
 ru:Автомобильные запчасти|4Автозапчасти|4запчасти
 sk:Autodiely
+sl:3Avtodeli|Rezervni deli
 sr:Ауто-делови|Auto-delovi
 sv:Bildelar
 sw:Vipuri vya magari
@@ -14716,6 +15108,7 @@ pt:Casa de férias
 ro:Cabană de vacanță
 ru:Коттедж для отдыха
 sk:Rekreačná chata
+sl:5Počitniška hiša|Brunarica|Koča
 sr:Викендица|Vikendica
 sv:Semesterstuga
 sw:Nyumba ndogo ya Likizo
@@ -14755,6 +15148,7 @@ pt-BR:Painel de informações
 ro:Panou de informații
 ru:Информационный щит
 sk:Informačné centrum
+sl:5Informacijska tabla|Tabla
 sr:Инфо табла|Info tabla
 sv:Informationstavla
 th:บอร์ดประชาสัมพันธ์
@@ -14793,6 +15187,7 @@ pt-BR:Mapa turístico
 ro:Hartă turistică
 ru:Карта
 sk:Turistická mapa
+sl:4Zemljevid|Turistična karta
 sr:Туристичка мапа|Turistička mapa
 sv:Turistkarta
 th:แผนที่ท่องเที่ยว
@@ -14830,6 +15225,7 @@ pt-BR:Estação de teleférico
 ro:Stație de teleferic
 ru:Канатная дорога
 sk:Lanovka
+sl:5Postaja žičnice|Kabinska žičnica
 sr:Станица жичаре|Stanica žičare
 sv:Linbanestation
 th:สถานีกระเช้าลอยฟ้า
@@ -14868,6 +15264,7 @@ pt-BR:Heliponto|heliporto
 ro:Heliport
 ru:Вертолётная площадка
 sk:Pristávacia plocha pre vrtuľníky
+sl:5Heliport|Helikopterska ploščad
 sr:Хелиодром|Heliodrom
 sv:Helikopterplatta
 th:ที่จอดเฮลิคอปเตอร์
@@ -14906,6 +15303,7 @@ pt-BR:Controle de fronteira
 ro:Control vamal
 ru:4Погранконтроль|КПП
 sk:4Hraničná kontrola
+sl:5Mejna kontrola|Kontrola
 sr:Гранични прелаз|Granični prelaz
 sv:Gränskontroll
 th:ด่านตรวจคนเข้าเมือง
@@ -14946,6 +15344,7 @@ pt-BR:Parque aquático
 ro:Parc acvatic|3aquapark
 ru:3Аквапарк
 sk:Vodný park
+sl:3Vodni park|Akva park|Terme|Toplice
 sr:Аква парк|Водени парк|Akva park|Vodeni park
 sv:Äventyrspark
 th:สวนน้ำ
@@ -14985,6 +15384,7 @@ pt-BR:Torre de água|caixa de água
 ro:Turn de apă
 ru:Водонапорная башня
 sk:Vodojem
+sl:5Vodni stolp
 sr:Водоторањ|Vodotoranj
 sv:Vattentorn
 th:อ่างเก็บน้ำ
@@ -15024,6 +15424,7 @@ pt-BR:Moinho de vento
 ro:Moară de vânt
 ru:Ветряная мельница
 sk:Veterný mlyn
+sl:5Vetrnica|Mlin na veter
 sr:Ветрењача|Vetrenjača
 sv:Väderkvarn
 th:กังหันลม
@@ -15103,6 +15504,7 @@ pt-BR:4Caverna
 ro:Peșteră
 ru:3Пещера
 sk:Jaskyňa
+sl:3Jama|Vhod v jamo
 sr:Пећина|Pećina
 sv:4Grotta
 th:ถ้ำ
@@ -15142,6 +15544,7 @@ pt-BR:4Vulcão
 ro:4Vulcan
 ru:4Вулкан
 sk:4Vulkán
+sl:4Vulkan
 sr:Вулкан|Vulkan
 sv:4Vulkan
 th:ภูเขาไฟ
@@ -15180,6 +15583,7 @@ pt-BR:Corretor imobiliário|agente imobiliário
 ro:Agent imobiliar
 ru:4Агентство недвижимости|3риэлтор
 sk:Realitný agent
+sl:5Nepremičninski agent|Agencija za nepremičnine
 sr:Агент за некретнине|Agent za nekretnine
 sv:Fastighetsmäklare
 th:นายหน้าอสังหาริมทรัพย์
@@ -15217,6 +15621,7 @@ pt-BR:Comporta de eclusa
 ro:Ecluză
 ru:Шлюз
 sk:Stavidlo
+sl:4Zapornica|Vodni kanal
 sr:Капија|Kapija
 sv:Slussport
 th:ประตูระบายน้ำ
@@ -15254,6 +15659,7 @@ pt-BR:Biblioteca livre|troca de livros
 ro:Bibliotecă|Schimb de cărți
 ru:4Книгообмен|4Книжный шкаф|Обмен книг
 sk:Knižnica|možnosť výmeny kníh
+sl:4Izmenjava knjig|Knjižna omara
 sr:Размена књига|Razmena knjiga
 sv:Bokskåp|bokutbyte
 th:ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ
@@ -15293,6 +15699,7 @@ pt-BR:Ginásio de escalada
 ro:Centru cățărare
 ru:4Скалодром
 sk:Lezecké centrum
+sl:4Plezanje|Plezalni center
 sr:Вештачка стена|Слободно пењање|Veštačka stena|Slobodno penjanje
 sv:Klättercentrum
 th:ศูนย์ปีนเขา
@@ -15411,6 +15818,7 @@ pt-BR:Estúdio de ioga
 ro:Studio yoga
 ru:Йога
 sk:Štúdio jogy
+sl:3Joga|Joga studio
 sr:Јога|Joga
 sv:Yogastudio
 th:โยคะสตูดิโอ
@@ -15450,6 +15858,7 @@ pt-BR:5Apartamentos
 ro:5Apartamente
 ru:5Апартаменты|апарт-отель
 sk:5Apartmány
+sl:4Apartmaji|Apartma
 sr:Апартман|Apartman
 sv:Lägenheter
 th:อพาร์ตเมนต์
@@ -15488,6 +15897,7 @@ pt-BR:Resort
 ro:Stațiuni
 ru:Дом отдыха
 sk:Rezort
+sl:4Letovišče|Resort
 sr:Одмаралиште|Ризорт|Odmaralište|Rizort
 sv:Semesterort|resort
 th:รีสอร์ต
@@ -15525,6 +15935,7 @@ pt-BR:5Biergarten|Jardim da cerveja
 ro:5Berărie
 ru:Пивная под открытым небом
 sk:Piváreň
+sl:5Pivski vrt|Letni vrt
 sr:Пивница|Pivnica
 sv:Ölservering
 sw:Bustani ya Bia
@@ -15566,6 +15977,7 @@ pt-BR:4Autoescola|CFC
 ro:Școală de șoferi
 ru:4Автошкола|курсы вождения
 sk:4Autoškola
+sl:4Avtošola|Vožnja
 sr:Ауто-школа|Auto-škola
 sv:Körskola
 sw:Shule ya Uendeshaji Gari
@@ -15606,6 +16018,7 @@ pt:Escola de música
 ro:Scoala de Muzica
 ru:Музыкальная школа
 sk:Hudobná škola
+sl:5Glasbena šola|Glasba
 sr:Музичка школа|Muzička škola
 sv:Musikskola
 sw:Shule ya Muziki
@@ -15646,6 +16059,7 @@ pt:Escola de idiomas
 ro:Școala de limbi străine
 ru:Языковая школа
 sk:Jazyková škola
+sl:5Jezikovna šola|Jeziki
 sr:Школа страних језика|Škola stranih jezika
 sv:Språkskola
 sw:Shule ya Lugha
@@ -15687,6 +16101,7 @@ pt-BR:Sorveteria
 ro:Chioșc cu înghețată
 ru:4Мороженое
 sk:Zmrzlinový stánok
+sl:4Sladoled|Gelato
 sr:Сладолед|Sladoled
 sv:5Glasstånd
 sw:Duka la Aiskrimu
@@ -15727,6 +16142,7 @@ pt-BR:5Cibercafé
 ro:3Internet Cafe
 ru:3Интернет-кафе
 sk:3Internetová kaviareň
+sl:5Internet kavarna|Internet
 sr:Интернет кафе|Internet kafe
 sv:3Internetkafé
 sw:Mkahawa wa Intaneti
@@ -15767,6 +16183,7 @@ pt-BR:Estacionamento de motos
 ro:Parcare de motociclete
 ru:4Мотопарковка
 sk:Parkovisko pre motocykle
+sl:5Parkirišče za motorje|Motoparkir
 sr:Паркинг за мотоцикле|Паркинг за моторе|Parking za motocikle|Parking za motore
 sv:4Motorcykelparkering
 sw:Uegeshaji Pikipiki
@@ -15807,6 +16224,7 @@ pt:Estacionamento para deficientes
 ro:Loc de parcare pentru persoane cu handicap
 ru:Парковочное место для инвалидов
 sk:Parkovacie miesto pre invalidov
+sl:Parkirno mesto za invalide|Invalidsko parkirišče
 sr:Паркинг за особе са инвалидитетом|Паркинг за инвалиде|Parking za osobe sa invaliditetom|Parking za invalide
 sv:Handikappparkeringsplats
 sw:Nafasi ya maegesho iliyozimwa
@@ -15847,6 +16265,7 @@ pt-BR:Casa de repouso
 ro:Centru de îngrijire
 ru:3Дом престарелых
 sk:Ošetrovateľská služba
+sl:4Dom za starejše|Dom upokojencev
 sr:Дом за старе|Dom za stare
 sv:Vårdhem
 sw:Makazi ya Utunzaji
@@ -15887,6 +16306,7 @@ pt-BR:Terminal de pagamento
 ro:Terminal de plăți
 ru:Терминал оплаты
 sk:Platobný terminál
+sl:5Plačilni terminal|Plačilo
 sr:Терминал за плаћање|Terminal za plaćanje
 sv:Betalningsterminal
 sw:Kituo cha Malipo
@@ -15928,6 +16348,7 @@ pt:Banheiro público
 ro:Baie publică
 ru:Общественная баня
 sk:Verejné kúpele
+sl:5Javno kopališče|Kopališče
 sr:Јавно купатило|Javno kupatilo
 sv:Offentligt bad
 sw:Bafu ya Umma
@@ -15968,6 +16389,7 @@ pt-BR:Chuveiro
 ro:Duș
 ru:Душ
 sk:Sprcha
+sl:4Tuš|Prha
 sr:Туш|Tuš
 sv:Dusch
 sw:Bafu
@@ -16009,6 +16431,7 @@ pt:Ponto de Reunião de Emergência
 ro:Punct de adunare de urgență
 ru:Пункт аварийного сбора
 sk:Núdzové zhromaždenie
+sl:5Zbirno mesto v sili|Zbirno mesto
 sr:Место састанка у случају опасности|Mesto sastanka u slučaju opasnosti
 sv:Nöduppsamlingsplats
 sw:Sehemu ya Mkutano wa Dharura
@@ -16050,6 +16473,7 @@ pt-BR:4Desfibrilador
 ro:4Defibrilator
 ru:4Дефибриллятор
 sk:4Defibrilátor
+sl:5Defibrilator|AED
 sr:Дефибрилатор|Defibrilator
 sv:4Defibrillator
 sw:4Difaibrileta
@@ -16091,6 +16515,7 @@ pt-BR:4Hidrante
 ro:4Hidrant
 ru:4Пожарный гидрант|гидрант
 sk:4Požiarny hydrant
+sl:5Požarni hidrant|Gidrant
 sr:Противпожарни хидрант|Хидрант|Protivpožarni hidrant|Hidrant
 sv:4Brandpost
 sw:Bomba la Kuzima Moto
@@ -16132,6 +16557,7 @@ pt-BR: Salva-vidas|Guarda-vidas|Nadador-salvador|Socorrista
 ro: Salvamar de urgență
 ru: Спасатель-экстренщик | Спасатель
 sk: Záchranár v núdzi
+sl:5Reševalec|Reševanje
 sr: Хитан спасиоц | Спасиоц
 sv: Nödlivräddare
 sw: Mwokozi wa Dharura
@@ -16173,6 +16599,7 @@ pt-BR:4Resgate de montanha de emergência
 ro:4Salvare montană de urgență
 ru:4Аварийно-спасательная служба в горах|Горная спасательная служба
 sk:4Horská záchranná služba v núdzi
+sl:5Gorska reševalna služba|GRS
 sr:Хитна планинска спасилачка служба|Планинска спасилачка служба
 sv:4Nöd-bergskärning
 sw:Uokoaji wa Dharura Milimani
@@ -16213,6 +16640,7 @@ pt-BR:Estação de fitness
 ro:Sală de fitness
 ru:4Спортивные снаряды
 sk:3Fitness
+sl:5Fitnes na prostem|Ulični fitnes
 sr:Теретана на отвореном|Teretana na otvorenom
 sv:3Fitnesstation
 sw:Kituo cha Mazoezi
@@ -16254,6 +16682,7 @@ pt-BR:Seguradora|Corretora de seguros
 ro:Birou de asigurări
 ru:5страховая компания|страховой агент
 sk:Poisťovňa
+sl:4Zavarovalnica|Zavarovanje
 sr:Осигурање|Osiguranje
 sv:Försäkringskontor
 sw:Ofisi ya Bima
@@ -16294,6 +16723,7 @@ pt-BR:Escritório de ONG
 ro:Birou ONG
 ru:4Общественная организация|4неправительственная организация|НПО|некоммерческая организация|НКО
 sk:Sídlo mimovládnej organizácie
+sl:3NVO|Nevladna organizacija
 sr:НВО|Невладина организација|Удружење грађана|NVO|Nevladina organizacija|Udruženje građana
 sv:Kontor för icke-statlig organisation
 sw:Ofisi ya NGO
@@ -16333,6 +16763,7 @@ pt-BR:3Sex Shop
 ro:Magazin erotic
 ru:4Секс-шоп|5Интимный
 sk:4Erotický obchod
+sl:4Erotična trgovina|Sex shop
 sr:Секс шоп|Seks šop
 sv:4Erotisk butik
 sw:Duka la Nyenzo za Kimapenzi
@@ -16373,6 +16804,7 @@ pt-BR:4Massagista
 ro:Salon de masaj
 ru:Массажный салон|4массаж|спа|спа-салон|салон красоты|массажный кабинет
 sk:4Masážny salón
+sl:4Masaža|Masažni salon|Spa
 sr:Масажа|Салон за масажу|Masaža|Salon za masažu
 sv:4Massagesalong
 sw:Kituo cha Kuchua
@@ -16413,6 +16845,7 @@ pt-BR:Loja de Motos
 ro:Magazin moto
 ru:4мотоциклы
 sk:Obchod s motocyklami
+sl:4Motorji|Motocikli|Trgovina z motorji
 sr:Мотоцикли|Motocikli
 sv:4Motorcykelaffär
 sw:Duka la Pikipiki
@@ -16455,6 +16888,7 @@ pt-BR:Oficina de motos
 ro:Reparatie motociclete
 ru:Ремонт мотоциклов
 sk:Oprava motocyklov
+sl:5Servis motorjev|Popravilo motorjev
 sr:Сервис за мотоцикле|Servis za motocikle
 sv:Motorcykel reparation
 sw:Ukarabati wa Pikipiki
@@ -16495,6 +16929,7 @@ pt-BR:Banca de jornais|jornaleiro
 ro:Chioșc cu ziare
 ru:Газетный киоск|3газеты
 sk:Novinový stánok
+sl:4Časopisni kiosk|Kiosk
 sr:Киоск|Kiosk
 sv:Tidningsstånd
 sw:Duka la Gazeti
@@ -16534,6 +16969,7 @@ pt-BR:Casa de penhores
 ro:Amanet
 ru:3Ломбард
 sk:Záložňa
+sl:4Zastavljalnica|Lombard
 sr:Залагаоница|Zalagaonica
 sv:Pantbank
 sw:Mtoaji Mikopo kwa Vitu
@@ -16574,6 +17010,7 @@ pt-BR:Papelaria
 ro:Magazin de papetărie
 ru:4Канцтовары|Канцелярский|Канцелярские товары
 sk:Papiernictvo
+sl:5Papirnica|Pisarniški material|Šolske potrebščine
 sr:Канцеларијски прибор|Школски прибор|Kancelarijski pribor|Školski pribor
 sv:Pappershandel
 sw:Duka la Vitabu
@@ -16614,6 +17051,7 @@ pt-BR:Estúdio de tatuagens|4tatuador
 ro:Salon de tatuaje
 ru:Тату-салон|4татуировки
 sk:4Tetovací salón
+sl:4Tatoo studio|Tetovaža
 sr:Тетовирање|Tetoviranje
 sv:4Tatuerare
 sw:Kituo cha Tattoo
@@ -16654,6 +17092,7 @@ pt-BR:1,99|Loja de variedades
 ro:Magazin universal
 ru:Мелочи|полезные мелочи
 sk:Rozličný tovar
+sl:Različno blago|Trgovina z drobnarijami
 sv:Diverseaffär
 sw:Duka la Vitu Mbalimbali
 th:ร้านค้าปลีกอิสระ
@@ -16694,6 +17133,7 @@ pt-BR:4Video locadora|Locadora de vídeo
 ro:Magazin video
 ru:Видео|4Видеопрокат
 sk:Predajňa s videami
+sl:4Videoteka|DVD|Video
 sr:Видео-клуб|Video-klub
 sv:4Video butik
 sw:Duka la Video
@@ -16735,6 +17175,7 @@ pt-BR:Loja de jogos eletrônicos
 ro:Magazin de jocuri video
 ru:4видеоигры|4компьютерные игры
 sk:Predajňa s videohrami
+sl:4Videoigre|Igre|Računalniške igre
 sr:Видео-игре|Видео-игрице|Video-igre|Video-igrice
 sv:4Videospel butik
 sw:Duka la Video za Michezo
@@ -16774,6 +17215,7 @@ pt-BR:4Cabana
 ro:Cabană în pădure
 ru:4Домик для туристов|3туристический приют|3хижина|турприют|4приют
 sk:Chata
+sl:4Bivak|Zavetišče|Koča
 sr:Викендица|Vikendica
 sv:Vildmarksstuga
 sw:Kibanda cha Mwituni
@@ -16805,6 +17247,7 @@ pt:3Galeria|museu
 pt-BR:3Galeria|museu
 ro:3Galerie|muzeu
 ru:3Галерея|музей|картины|картинная галерея
+sl:3Galerija|Umetnostna galerija|Muzej
 sr:Галерија|музеј|Galerija|muzej
 tr:3Galeri|müze
 
@@ -16828,6 +17271,7 @@ pt:Parque de diversões|parque temático
 pt-BR:Parque de diversão|parque temático
 ro:Parc de distracții
 ru:Парк развлечений|Парк аттракционов|Тематический парк
+sl:Tematski park|Zabaviščni park
 sr:Забавни парк|Zabavni park
 tr:Tema parkı|Eğlence parkı
 
@@ -16860,6 +17304,7 @@ pt-BR:Parque nacional
 ro:Parcul național
 ru:Национальный парк|заповедник|заказник
 sk:Národný park
+sl:Nacionalni park|Narodni park
 sr:Национални парк|Nacionalni park
 sv:Nationalpark
 sw:Hifadhi ya taifa
@@ -16899,6 +17344,7 @@ pt-BR:Reserva florestal
 ro:Rezervație naturală
 ru:Заповедник|заказник
 sk:Rezervácia
+sl:Naravni rezervat|Park
 sr:Резерват природе|Rezervat prirode
 sv:Naturreservat
 sw:Hifadhi
@@ -16938,6 +17384,7 @@ pt-BR:Cabo
 ro:Mantie
 ru:Мыс
 sk:Mys
+sl:3Rt|Polotok
 sr:Рт|Rt
 sv:Udde
 sw:Rasi
@@ -16977,6 +17424,7 @@ pt-BR:3Gêiser
 ro:4Gheizer
 ru:3Гейзер
 sk:3Gejzír
+sl:4Gejzir
 sr:Гејзир|Gejzir
 sv:3Gejser
 sw:Chemchem ya maji moto
@@ -17017,6 +17465,7 @@ pt-BR:Geleira
 ro:Ghețar
 ru:Ледник
 sk:Ľadovec
+sl:4Ledenik
 sr:Глечер|Glečer
 sv:Glaciär
 sw:Mto barafu
@@ -17056,6 +17505,7 @@ pt-BR:Vau|passo|Rio raso|Passagem em curso de água baixo
 ro:Superficial
 ru:Брод
 sk:Brod
+sl:4Brod|Prehod
 sr:Газ|Gaz
 sv:Vadställe
 th:ที่ตื้นของทางน้ำ
@@ -17077,6 +17527,7 @@ lv:Jahtu piestātne
 pt:3Marina
 pt-BR:3Marina
 ru:4Причал|5пристань|3Марина
+sl:3Marina|Pristanišče
 sr:Марина|Marina
 tr:İskele|Marina|Rıhtım
 uk:5Пристань|3Марина
@@ -17154,6 +17605,7 @@ pt-BR:Local do evento
 ro:Locul de desfășurare a evenimentelor
 ru:Место проведения мероприятий
 sk:Miesto konania podujatí
+sl:5Prireditveni prostor|Dogodki
 sr:Хала|Дворана|Концертна хала|Спортска хала|Концертна дворана|Hala|Dvorana|Koncertna hala|Sportska hala|Koncertna dvorana
 sv:Evenemangslokal
 sw:Ukumbi wa Matukio
@@ -17180,6 +17632,7 @@ pl:Sklep z czekoladą
 pt:Loja de chocolates
 pt-BR:Loja de chocolates
 ru:Шоколад
+sl:4Čokolada|Čokoladnica
 sr:Чоколада|Čokolada
 tr:Çikolata mağazası
 
@@ -17198,6 +17651,7 @@ pl:Sklep z kawą
 pt:Loja de café
 pt-BR:Loja de café
 ru:Кофе
+sl:4Kava|Trgovina s kavo
 sr:Кафа|Kafa
 tr:Kahve mağazası
 
@@ -17214,6 +17668,7 @@ nl:Stoffenwinkel
 pt:Loja de tecidos
 pt-BR:Loja de aviamentos
 ru:Текстиль|Ткани
+sl:Posojilodajalec
 sr:Текстил|Метража|Tekstil|Metraža
 tr:Kumaş mağazası|Tekstil mağazası
 
@@ -17228,6 +17683,7 @@ pl:ożyczkodawca
 pt:Prestamista
 pt-BR:Prestamista
 ru:Ростовщик
+sl:5Posojilodajalec
 sr:Новчане позајмице|Novčane pozajmice
 tr:Tefeci
 
@@ -17248,6 +17704,7 @@ pl:Sklep muzyczny
 pt:Loja de música
 pt-BR:Loja de música
 ru:Музыка
+sl:4Glasba|Glasbena trgovina|Plošče
 sr:Музика|Muzika
 tr:Plak mağazası
 
@@ -17268,6 +17725,7 @@ pl:Sklep z instrumentami muzycznymi
 pt:Loja de instrumentos musicais
 pt-BR:Loja de instrumentos musicais
 ru:Музыкальные инструменты
+sl:4Glasbila|Glasbeni instrumenti|Trgovina z glasbili
 sr:Музички инструменти|Muzički instrumenti
 tr:Enstrüman Mağazası
 
@@ -17288,6 +17746,7 @@ pl:Sklep z herbatą
 pt:Loja de chás
 pt-BR:Loja de chás
 ru:Чай|чая
+sl:3Čaj|Čajnica|Trgovina s čaji
 sr:Чај|Čaj
 tr:Çay mağazası
 zh-Hans:茶叶商店
@@ -17323,6 +17782,7 @@ pt-BR:Antiguidades
 ro:Antichități
 ru:Антиквариат
 sk:Starožitnosti
+sl:4Starine|Antikvitete|Antikvariat
 sr:Антиквитети|Антикварница|Antikviteti|Antikvarnica
 sv:Antikviteter
 sw:Mambo ya kale
@@ -17364,6 +17824,7 @@ pt-BR:Loja de artes
 ro:Magazin de arte
 ru:Художественный|искусства
 sk:Obchod s umením
+sl:3Umetnine|Umetniška trgovina|Galerija
 sr:Продајна галерија|Prodajna galerija
 sv:Konstaffär
 sw:Duka la Sanaa
@@ -17406,6 +17867,7 @@ pt-BR:Loja infantil
 ro:Magazin pentru copii
 ru:Детский
 sk:Obchod pre deti
+sl:Otroška trgovina|Oprema za dojenčke
 sr:Опрема за бебе|беби-опрема|Oprema za bebe|bebi-oprema
 sv:Barnbutik
 sw:Duka la watoto
@@ -17447,6 +17909,7 @@ pt-BR:Loja de bolsas
 ro:Magazin de genti
 ru:Сумки|сумок
 sk:Obchod s taškami
+sl:3Torbe|Torbice|Potovalke
 sr:Кофери|торбе|путне торбе|Koferi|torbe|putne torbe
 sv:Väskor butik
 sw:Hifadhi ya Mifuko
@@ -17488,6 +17951,7 @@ pt-BR:Loja de queijos
 ro:Magazin de branzeturi
 ru:Сыр|Сыры|сыра
 sk:Predajňa syrov
+sl:3Sir|Sirarna|Trgovina s siri
 sr:Сир|Sir
 sv:Ostaffär
 sw:Duka la Jibini
@@ -17529,6 +17993,7 @@ pt-BR:Lacticínios
 ro:Lactate
 ru:Молоко|Молочный
 sk:Mliečne výrobky
+sl:Mlečni izdelki|Mlekarna
 sr:Млечни производи|Mlečni proizvodi
 sv:Mejeriprodukter
 sw:Bidhaa za Maziwa
@@ -17572,6 +18037,7 @@ pt-BR:Loja de materiais elétricos
 ro:Magazin de electronice
 ru:4Электроника|Электротовары
 sk:Predajňa elektro
+sl:4Elektro material|Elektro trgovina
 sr:Електро-опрема|Електро-материјал|Elektro-oprema|Elektro-materijal
 sv:Elektronik affär
 sw:Duka la Umeme
@@ -17613,6 +18079,7 @@ pt-BR:Loja de pesca
 ro:Magazin de pescuit
 ru:Рыболовный
 sk:Rybársky obchod
+sl:Ribolovna trgovina|Ribiška oprema|4Ribolov
 sr:Риболовачка опрема|Риболов|Ribolovačka oprema|Ribolov
 sv:Fiskeaffär
 sw:Duka la Uvuvi
@@ -17654,6 +18121,7 @@ pt-BR:Decorações de Interiores
 ro:Decoratiuni interioare
 ru:Украшения для интерьера
 sk:Interiérové dekorácie
+sl:Notranja oprema|Dekoracija
 sr:Уређење ентеријера|Uređenje enterijera
 sv:Inredningsdekorationer
 sw:Mapambo ya Ndani
@@ -17696,6 +18164,7 @@ pt:Lâmpadas
 ro:Lămpi
 ru:лампы|световые приборы
 sk:Lampy
+sl:4Svetila|Luči|Svetilke
 sv:Lampor
 sw:Taa
 th:โคมไฟ
@@ -17736,6 +18205,7 @@ pt-BR:Lotérica
 ro:Bilete la loterie
 ru:Лотерея|Лотерейные билеты
 sk:Lístky do lotérie
+sl:4Loterija|Srečke
 sr:Лутрија|Lutrija
 sv:Lotter
 sw:Tikiti za Bahati nasibu
@@ -17777,6 +18247,7 @@ pt-BR:Suprimentos médicos
 ro:Consumabile medicale
 ru:Медикаменты
 sk:Zdravotnícky materiál
+sl:Medicinski pripomočki|Sanitarna trgovina
 sr:Медицинска помагала|Ортопедска помагала|Medicinska pomagala|Ortopedska pomagala
 sv:Medicinska förnödenheter
 sw:Vifaa vya Matibabu
@@ -17819,6 +18290,7 @@ pt-BR:Suplementos nutricionais
 ro:Suplimente nutritive
 ru:Пищевые добавки
 sk:Výživové doplnky
+sl:Prehranska dopolnila|Športna prehrana
 sr:Додаци исхрани|Суплементи|Dodaci ishrani|Suplementi
 sv:Kosttillskott
 sw:Virutubisho vya Lishe
@@ -17861,6 +18333,7 @@ pt-BR:Tintas
 ro:Vopsele
 ru:Краски
 sk:Farby
+sl:4Barve|Trgovina z barvami
 sr:Фарба|Фарбара|Farba|Farbara
 sv:Färger
 sw:Rangi
@@ -17903,6 +18376,7 @@ pt-BR:Perfumaria
 ro:Parfumerie
 ru:Парфюм|Парфюмерия
 sk:Parfuméria
+sl:5Parfumerija
 sr:Парфем|Парфимерија|Parfem|Parfimerija
 sv:Parfymer
 sw:Perfumery
@@ -17945,6 +18419,7 @@ pt-BR:Materiais de costura
 ro:Rechizite de cusut
 ru:4Швейные принадлежности|Кройка|Шитьё
 sk:Šijacie potreby
+sl:3Šiviljski pribor|Pozamenterija
 sr:Пазамантерија|Pozamanterija
 sv:Sytillbehör
 sw:Vifaa vya kushona
@@ -17986,6 +18461,7 @@ pt-BR:Aluguel de Armazenamento
 ro:Închiriere depozitare
 ru:Аренда склада
 sk:Prenájom skladu
+sl:5Izposoja skladišča|Skladiščenje
 sr:Закуп магацина|Zakup magacina
 sv:Uthyrning av förråd
 sw:Kukodisha Hifadhi
@@ -18028,6 +18504,7 @@ pt-BR:Tabaco
 ro:Tutun
 ru:Табак
 sk:Tabak
+sl:4Tobak|Trafika|Cigarete
 sr:Дуван|Duvan
 sv:Tobak
 sw:Tumbaku
@@ -18069,6 +18546,7 @@ pt-BR:Comércio de suprimentos
 ro:Comerțuri Rechizite
 ru:Торговые поставки
 sk:Živnostenské potreby
+sl:Trgovske potrebščine|Material za obrtnike
 sv:Handlar förnödenheter
 sw:Ugavi wa Biashara
 th:อุปกรณ์การค้า
@@ -18110,6 +18588,7 @@ pt-BR:Relógios
 ro:Priveste
 ru:Часы|часов
 sk:Hodinky
+sl:3Ure|Urar|Trgovina z urami
 sr:Сатови|Satovi
 sv:Klockor
 sw:Saa
@@ -18152,6 +18631,7 @@ pt-BR:Loja de atacado
 ro:Magazin cu ridicata
 ru:Опт|Оптовый
 sk:Veľkoobchod
+sl:5Elektrarna
 sr:Велепродаја|Veleprodaja
 sv:Grossistbutik
 sw:Duka la Jumla
@@ -18177,6 +18657,7 @@ nl:Parcours
 pt:Pista para desportos não motorizados
 pt-BR:Pista para esportes não motorizados
 ru:Беговая дорожка
+sl:4Steza|Tekaška steza
 sr:Атлетска стаза|Трим стаза|Atletska staza|Trim staza
 tr:Pist
 uk:Бігова доріжка
@@ -18214,6 +18695,7 @@ pt-BR:Usina elétrica
 ro:Centrală electrică
 ru:Электростанция
 sk:Elektráreň
+sl:5Elektrarna
 sr:Електрана|Elektrana
 sv:Kraftverk
 sw:Kiwanda cha nguvu
@@ -18255,6 +18737,7 @@ pt:Leilão
 ro:Licitație
 ru:Аукцион
 sk:Aukcia
+sl:4Dražba|dražbena hiša
 sr:Аукција|Aukcija
 sv:Auktion
 sw:Mnada
@@ -18298,6 +18781,7 @@ pt-BR:Coletor
 ro:Colector
 ru:Коллекционер
 sk:Zberateľ
+sl:5Športna dvorana
 sr:Колекционар|Kolekcionar
 sv:Samlare
 sw:Mkusanyaji
@@ -18319,6 +18803,7 @@ pl:Kopiec
 pt:Moledro ou mariola
 pt-BR:Moledro ou mariola
 ru:Тур
+sl:4Možic|Kup
 tr:Höyük
 uk:Тур
 
@@ -18354,6 +18839,7 @@ pt:Cadeira de rodas
 ro:Scaun cu rotile
 ru:Инвалидная коляска|5Инвалид
 sk:Invalidný vozík
+sl:5Invalidski voziček|Dostopno za invalide
 sr:Инвалидска колица|Invalidska kolica
 sv:Rullstol
 sw:Kiti cha magurudumu
@@ -18397,6 +18883,7 @@ pt-BR:Unidade de assistência social
 ro:Facilitate socială
 ru:Социальное учреждение
 sk:Sociálne zariadenie
+sl:5Socialna ustanova|Socialni zavod
 sr:Социјални рад|Socijalni rad
 sv:Social anläggning
 sw:Kituo cha Kijamii
@@ -18440,6 +18927,7 @@ pt-BR:Salão de esportes
 ro:Sală de sport
 ru:Спортивный зал
 sk:Športová hala
+sl:5Športna dvorana|Telovadnica
 sr:Спортска хала|Sportska hala
 sv:Idrottshall
 sw:Ukumbi wa michezo
@@ -18482,6 +18970,7 @@ pt:Centro de artes
 ro:Centru de artă
 ru:Центр искусств
 sk:Centrum umenia
+sl:Razstavišče|Razstavni center
 sr:Центар за културу|Centar za kulturu
 sv:Kulturcenter
 sw:Kituo cha sanaa
@@ -18524,6 +19013,7 @@ pt:prisão
 ro:închisoare
 ru:тюрьма
 sk:väzenie
+sl:4Zapor|Kaznilnica
 sr:затвор|zatvor
 sv:fängelse
 sw:jela
@@ -18564,6 +19054,7 @@ pt:Centro de exposições
 ro:Centru de expozitie
 ru:Выставочный центр
 sk:Výstavisko
+sl:5Razstavišče|Razstavni center
 sr:Изложбени центар|Izložbeni centar
 sv:Mässa
 sw:Kituo cha Maonyesho
@@ -18605,6 +19096,7 @@ pt-BR:Loja de móveis de banheiro
 ro:Mobilier pentru baie
 ru:Мебель для ванной
 sk:Vybavenie do kúpeľne
+sl:Kopalniško pohištvo|Oprema za kopalnice
 sr:Опрема за купатило|Oprema za kupatilo
 sv:Badrumsinredning
 sw:Vyombo vya Bafuni
@@ -18646,6 +19138,7 @@ pt-BR:Loja de camas
 ro:Magazin de paturi
 ru:Магазин кроватей
 sk:Predajňa postelí
+sl:4Postelja|Trgovina s posteljami|Vzmetnice
 sr:Продавница кревета|Prodavnica kreveta
 sv:Sängbutik
 sw:Duka la vitanda
@@ -18686,6 +19179,7 @@ pt-BR:Boutique
 ro:Butic
 ru:Бутик
 sk:Butik
+sl:Kotiček s hrano|Restavracije
 sr:Бутик|Butik
 sv:Boutique
 sw:Boutique
@@ -18713,6 +19207,7 @@ pl:Sekcja gastronomiczna
 pt:Praça de alimentação
 pt-BR:Praça de alimentação
 ru:Ресторанный дворик
+sl:5Kotiček s hrano|Restavracije
 tr:Yemek katı
 uk:Ресторанний двір
 zh-Hans:美食广场
@@ -18749,6 +19244,7 @@ pt-BR:Loja de cortinas
 ro:Perdele
 ru:Шторы
 sk:Záclony
+sl:4Zavese|Trgovina z zavesami
 sr:Завесе|Zavese
 sv:Gardiner
 sw:Mapazia
@@ -18790,6 +19286,7 @@ pt-BR:Distribuidora de gás
 ro:Magazin de gaze
 ru:Газовый магазин
 sk:Obchod s plynom
+sl:Nega živali|Pasji frizer
 sr:Плинске боце|Pliske boce
 sv:Gasaffär
 sw:Duka la gesi
@@ -18850,6 +19347,7 @@ pt-BR:Banho e tosa
 ro:Îngrijirea animalelor de companie
 ru:Груминг
 sk:Zvierací salón
+sl:5Nega živali|Pasji frizer
 sr:Салон за негу паса|Шишање паса|Груминг паса|Салон за негу животиња|Шишање животиња|Груминг животиња|Salon za negu pasa|Šišanje pasa|Gruming pasa|Salong za negu životinja|Šišanje životinja|Gruming životinja
 sv:Husdjursvård
 sw:Utunzaji wa Kipenzi
@@ -18891,6 +19389,7 @@ pt-BR:Loja de áudio Hi-Fi
 ro:Audio HiFi
 ru:Hi-Fi аудио
 sk:HiFi audio
+sl:Konferenčni center
 sr:ХајФај аудио|HiFi audio
 sv:HiFi ljud
 sw:Sauti ya HiFi
@@ -18932,6 +19431,7 @@ pt:Centro de conferências
 ro:Centru de conferinte
 ru:Конференц-центр
 sk:Konferenčné centrum
+sl:5Konferenčni center|Konferenca
 sr:Конференцијски центар|Konferencijski centar
 sv:Konferens Center
 sw:Kituo cha Mikutano
@@ -18973,6 +19473,7 @@ pt-BR:Loja de ervas
 ro:Magazin de ierburi
 ru:Магазин трав
 sk:Obchod s bylinkami
+sl:Zeliščna trgovina|4Zelišča
 sr:Травар|Travar
 sv:Örter butik
 sw:Duka la mimea
@@ -19014,6 +19515,7 @@ pt-BR:Loja de eletrodomésticos
 ro:Magazin de electrocasnice
 ru:Магазин бытовой техники
 sk:Obchod so spotrebičmi
+sl:Gospodinjski aparati|Bela tehnika
 sr:Бела техника|Bela tehnika
 sv:Vitvarubutik
 sw:Duka la vifaa
@@ -19055,6 +19557,7 @@ pt-BR:Loja agrícola
 ro:Magazin agricol
 ru:Сельскохозяйственный магазин
 sk:Farmárske potreby
+sl:Kmetijska zadruga|Kmetijska trgovina
 sr:Пољопривреда|Poljoprivreda
 sv:Lantbruksbutik
 sw:Duka la kilimo
@@ -19096,6 +19599,7 @@ pt-BR:Loja de acessórios de moda
 ro:Acesorii de modă
 ru:Модные аксессуары
 sk:Módne doplnky
+sl:Zbirni center za odpadke|Pretovorna postaja za odpadke
 sr:Модни аксесоари|Аксесоари|Modni aksesoari|Aksesoari
 sv:Modeaccessoarer
 sw:Vifaa vya Mtindo
@@ -19125,6 +19629,7 @@ pl:Stacja przeładunku odpadów
 pt-BR:Estação de transferência de resíduos
 ru:Станция перевалки отходов
 sk:Prekládková stanica odpadu
+sl:5Zbirni center za odpadke|Odpadki
 tr:Atık Transfer İstasyonu
 uk:Станція передачі сміття
 zh-Hans:垃圾转运站
@@ -19161,6 +19666,7 @@ pt-BR:Loja de tapetes
 ro:Covoare
 ru:Ковры
 sk:Koberce
+sl:4Preproge|Trgovina s preprogami
 sr:Теписи|Tepisi
 sv:Mattor
 sw:Mazulia
@@ -19181,6 +19687,7 @@ eu:eskulanak
 fr:Artisanat
 pt:4Manualidades|5Armarinho
 ru:Ремесло|Творчество
+sl:Ustvarjalni material|Hobi program
 sr:Рукотворине|Rukotvorine
 
 shop-pasta|@shop
@@ -19215,6 +19722,7 @@ pt-BR:Massas
 ro:Paste
 ru:Паста
 sk:Cestoviny
+sl:4Testenine|Sveže testenine
 sr:Паста|Pasta
 sv:Pasta
 sw:Pasta
@@ -19228,6 +19736,7 @@ zh-Hant:義大利麵
 attraction-amusement_ride|attraction-carousel|attraction-roller_coaster|attraction-maze|attraction-historic|attraction-big_wheel|attraction-bumper_car|@category_children
 en:Attraction
 ru:Аттракцион
+sl:4Varnostnik|Vratarnica
 
 leisure-escape_game
 en:4Escape Room|quest|game
@@ -19262,6 +19771,7 @@ pt-BR:Sala de fuga
 ro:Cameră de evadare
 ru:4Квест-комната
 sk:Úniková miestnosť
+sl:4Soba pobega|Escape room
 sv:Escaperoom
 sw:Chumba cha kutoroka
 th:ห้องเกมปริศนา
@@ -19304,6 +19814,7 @@ pt-BR:Armário de bagagem
 ro:Dulap pentru bagaje
 ru:5Камера хранения|4багаж
 sk:Skrinka na batožinu
+sl:4Prtljaga|Shranjevanje prtljage|Omarica
 sv:Bagageförvaring
 sw:Locker ya mizigo
 th:ตู้เก็บกระเป๋า
@@ -19316,7 +19827,9 @@ zh-Hant:行李寄存櫃
 office-security
 en:4Security Office
 ru:ЧОП|4Охрана
+sl:4Varnost|Varnostna služba
 
 building-guardhouse
 en:4Guard
 ru:4Сторож|4Охрана
+sl:4Varnostnik|Vratarnica
