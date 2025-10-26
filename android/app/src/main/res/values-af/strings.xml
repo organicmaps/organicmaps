@@ -560,7 +560,7 @@
     <string name="enable_logging">Staan logboekinskrywing toe</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Algemene terugvoer</string>
-    <string name="prefs_languages_information">Ons gebruik die TTS-stelsel vir steminstruksies. Talle Android-toestelle gebruik Google TTS; u kan dit aflaai of bywerk deur Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information">Ons gebruik die TTS-stelsel vir steminstruksies. Talle Android-toestelle gebruik Google TTS; u kan dit aflaai of bywerk deur Google Play</string>
     <string name="prefs_languages_information_off">Vir sommige tale sal u ’n spraaksintetiseerder of bykomende taalpakket vanaf die toepwinkel (Google Play, Galaxy Store, App Gallery, FDroid) moet installeer.
 \nOpen u toestel se instellings → Taal en toevoer → Spraak → Teks na spraak afvoer.
 \nHier kan u instellings vir spraaksintetisering bestuur (bv. laai taalpakket vir vanlyn gebruik af) en kies ’n ander teks-na-spraak-enjin.</string>

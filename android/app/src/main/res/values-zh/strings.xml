@@ -582,7 +582,7 @@
     <string name="enable_logging">启用日志记录</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">常规反馈</string>
-    <string name="prefs_languages_information">我们的语音导航使用“文本转语音”系统。许多 Android 设备使用 Google 的文本转语音系统，您可以从 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下载或更新这一功能</string>
+    <string name="prefs_languages_information">我们的语音导航使用“文本转语音”系统。许多 Android 设备使用 Google 的文本转语音系统，您可以从 Google Play 下载或更新这一功能</string>
     <string name="prefs_languages_information_off">对于某些语言，您需要从应用商店（例如 Google Play 商店、Galaxy Store）中安装其他语音合成器或语言包。
 \n打开您的设备的设置 → 语言和输入法 → 语音 → 文字转语音 (TTS) 输出。
 \n您可以在这里管理语音合成的设置（例如，下载语言包供离线使用）和选择其他文字转语音引擎。</string>

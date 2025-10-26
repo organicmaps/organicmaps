@@ -143,7 +143,7 @@
     <string name="track_recording">Kurekodi wimbo</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Maoni Jumla</string>
-    <string name="prefs_languages_information">Tunatumia maagizo ya sautii ya TTS ya mfumo. Vifaa vingi vya Android vinatumia Google TTS, unaweza kuipakua au kuisasisha kwenye Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information">Tunatumia maagizo ya sautii ya TTS ya mfumo. Vifaa vingi vya Android vinatumia Google TTS, unaweza kuipakua au kuisasisha kwenye Google Play</string>
     <string name="prefs_languages_information_off">Kwa baadhi ya lugha, utahitaji kusakinisha programu nyingine ya kusanidi usemi au kifurushi cha ziada cha lugha kutoka kwenye duka la programu-tumizi (Google Play, Galaxy Store, App Gallery, FDroid).
 \nFungua mipangilio ya kifaa chako → Lugha na Ingizo → Usemi → Tokeo la maandishi kuwa usemi.
 \nHapa unaweza kusimamia usanidi wa usemi (kwa mfano, kupakua kifurushi cha lugha ili utumie nje ya mtandao) na uchague injini nyingine ya maandishi-kuwa-usemi.</string>

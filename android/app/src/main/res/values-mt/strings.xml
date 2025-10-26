@@ -540,7 +540,7 @@
     <string name="editor_add_phone">Żid in-Numru tat-Telefown</string>
     <string name="p2p_reroute_from_current">Tixtieq tippjana rotta mill-post attwali tiegħek?</string>
     <string name="detailed_problem_description">Deskrizzjoni dettaljata tal-kwistjoni</string>
-    <string name="prefs_languages_information">Aħna nużaw is-sistema TTS għall-istruzzjonijiet tal-vuċi. Ħafna tagħmir tal-Android jużaw Google TTS, inti tista tniżżel jew taġġornah minn Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information">Aħna nużaw is-sistema TTS għall-istruzzjonijiet tal-vuċi. Ħafna tagħmir tal-Android jużaw Google TTS, inti tista tniżżel jew taġġornah minn Google Play</string>
     <string name="editor_time_allday">Il-Ġurnata Kollha (24 siegħa)</string>
     <string name="editor_report_problem_send_button">Ibgħat</string>
     <string name="add_language">Żid lingwa</string>

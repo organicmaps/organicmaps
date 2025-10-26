@@ -581,7 +581,7 @@
     <string name="enable_logging">啟用日誌記錄</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">一般反應</string>
-    <string name="prefs_languages_information">我們的語音導航使用“文字轉語音”系統。許多 Android 裝置使用 Google 的文字轉語音系統，您可以從 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下載或更新這一功能</string>
+    <string name="prefs_languages_information">我們的語音導航使用“文字轉語音”系統。許多 Android 裝置使用 Google 的文字轉語音系統，您可以從 Google Play 下載或更新這一功能</string>
     <string name="prefs_languages_information_off">對於某些語言，您需要從應用商店（例如 Google Play Store、Galaxy Store）中安裝其他語音合成器或語言套件。
 \n打開您的裝置的設定 → 語言和輸入法 → 語音 → 文字轉語音 (TTS) 輸出。
 \n您可以在這裡管理語音合成的設定（例如，下載語言包供離線使用）和選擇其他文字轉語音引擎。</string>

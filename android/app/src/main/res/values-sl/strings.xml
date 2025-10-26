@@ -605,7 +605,7 @@
     <string name="enable_logging">Omogoči beleženje</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Splošne povratne informacije</string>
-    <string name="prefs_languages_information">Za glasovna navodila uporabljamo sistemski TTS. Številne naprave Android uporabljajo Google TTS, ki ga lahko prenesete ali posodobite iz Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information">Za glasovna navodila uporabljamo sistemski TTS. Številne naprave Android uporabljajo Google TTS, ki ga lahko prenesete ali posodobite iz Google Play</string>
     <string name="prefs_languages_information_off">Za nekatere jezike boste morali namestiti sintetizator govora ali dodaten jezikovni paket iz trgovine z aplikacijami (Google Play, Galaxy Store, App Gallery, FDroid).
 \nOdprite nastavitve naprave → Jezik in vnos → Govor → Izhod besedila v govor.
 \nTu lahko upravljate nastavitve za sintezo govora (na primer prenesete jezikovni paket za uporabo brez povezave) in izberete drug mehanizem za pretvorbo besedila v govor.</string>

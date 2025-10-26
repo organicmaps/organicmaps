@@ -540,7 +540,7 @@
     <string name="enable_logging">Naplózás engedélyezése</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Általános visszajelzés</string>
-    <string name="prefs_languages_information">Az Organic Maps TTS-rendszert használ a hangnavigációhoz. Sok androidos eszköz használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information">Az Organic Maps TTS-rendszert használ a hangnavigációhoz. Sok androidos eszköz használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból</string>
     <string name="prefs_languages_information_off">Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play, Galaxy Store, App Gallery, FDroid). \nNyissa meg az eszköz beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. \nItt kezelheti a beszédszintézis beállításokat (például: nyelvi csomag letöltése a kapcsolat nélküli használathoz) és másik szövegfelolvasót jelölhet ki.</string>
     <string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
     <string name="transliteration_title">Átírás latin betűkre</string>

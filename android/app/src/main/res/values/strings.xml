@@ -601,7 +601,7 @@
     <string name="enable_logging">Enable logging</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">General Feedback</string>
-    <string name="prefs_languages_information">We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information">We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play</string>
     <string name="prefs_languages_information_off">For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Galaxy Store, App Gallery, FDroid).
 \nOpen your device\'s settings → Language and input → Speech → Text to speech output.
 \nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.</string>
