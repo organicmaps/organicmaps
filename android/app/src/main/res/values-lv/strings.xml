@@ -565,7 +565,7 @@
     <string name="enable_logging">Ieslēgt žurnalēšanu</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Vispārīgas atsauksmes</string>
-    <string name="prefs_languages_information">Balss norādēm lietotne izmanto teksta pārveides runā sistēmu (TTS). Daudzas „Android“ ierīces izmanto „Google TTS“, ko varat lejupielādēt un atjaunināt „Google Play“ veikalā (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information">Balss norādēm lietotne izmanto teksta pārveides runā sistēmu (TTS). Daudzas „Android“ ierīces izmanto „Google TTS“, ko varat lejupielādēt un atjaunināt „Google Play“ veikalā</string>
     <string name="prefs_languages_information_off">Dažām valodām nepieciešams instalēt runas sintezatoru vai papildu valodas paku, kas parasti atrodama lietotņu veikalā („Google Play“, „Galaxy Store“, „App Gallery“, „FDroid“).
 \nAtveriet ierīces iestatījumus → Valoda un ievade → Runa → Teksta pārveide runā.
 \nTe varat pārvaldīt runas sintēzes iestatījumus (piemēram, lejupielādēt valodas paku lietošanai nesaistē, kā arī varat nomainīt dzini teksta pārvēršanai runā.</string>

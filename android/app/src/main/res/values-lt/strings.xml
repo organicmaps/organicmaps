@@ -548,7 +548,7 @@
     <string name="enable_logging">Įgalinti derinimo žurnalą</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Bendro pobūdžio atsiliepimas</string>
-    <string name="prefs_languages_information">Balso instrukcijoms naudojame sistemos šnekos sintezatorių. Dauguma „Android“ įrenginių naudoja „Google“ šnekos sintezatorių, kurį galite atsisiųsti ar atnaujinti iš „Google Play“ parduotuvės (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information">Balso instrukcijoms naudojame sistemos šnekos sintezatorių. Dauguma „Android“ įrenginių naudoja „Google“ šnekos sintezatorių, kurį galite atsisiųsti ar atnaujinti iš „Google Play“ parduotuvės</string>
     <string name="prefs_languages_information_off">Kai kurioms kalboms gali tekti įdiegti papildomą šnekos sintezatorių ar kalbos paketą iš programėlių parduotuvės („Google Play“, „Galaxy Store“, „AppGallery“, „FDroid“). \nAtverkite įrenginio nustatymus → Kalbos ir įvestis → Kalba → Teksto į kalbą išvestis. \nČia galite tvarkyti šnekos sintezatoriaus nustatymus (pavyzdžiui, atsisiųsti kalbos paketą naudojimui neprisijungus) ar pasirinkti kitą šnekos sintezės modulį.</string>
     <string name="prefs_languages_information_off_link">Jei norite išsamesnės informacijos, žvilgtelėkite į šią instrukciją.</string>
     <string name="transliteration_title">Transliteruoti užrašus lotyniškais rašmenimis</string>

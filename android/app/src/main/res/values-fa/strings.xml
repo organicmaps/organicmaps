@@ -535,7 +535,7 @@
     <string name="enable_logging">ورود به سیستم را فعال کنید</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">\"تنظیمات: دکمه \"ارسال بازخورد کلی</string>
-    <string name="prefs_languages_information">ما از TTS سیستم برای دستورالعمل‌های صوتی استفاده می کنیم. بسیاری از دستگاه‌های Android از Google TTS استفاده می کنند، شما می توانید آن را از Google Play دانلود کنید (https://play.google.com/store/apps/details؟id=com.google.android.tts)</string>
+    <string name="prefs_languages_information">ما از TTS سیستم برای دستورالعمل‌های صوتی استفاده می کنیم. بسیاری از دستگاه‌های Android از Google TTS استفاده می کنند، شما می توانید آن را از Google Play دانلود کنید</string>
     <string name="prefs_languages_information_off">برای برخی زبان‌ها، باید یک موتور تبدیل متن به گفتار یا بسته زبان اضافی را از فروشگاه برنامه (Google Play، Galaxy Store، App Gallery، FDroid) نصب کنید. \nبه تنظیمات دستگاه خود بروید ← زبان و ورودی ← گفتار ← خروجی تبدیل متن به گفتار. \nدر اینجا می‌توانید تنظیمات مربوط به تبدیل متن به گفتار را مدیریت کنید (به عنوان مثال، بسته زبان را برای استفاده آفلاین دانلود کنید) و یک موتور تبدیل متن به گفتار دیگر را انتخاب کنید.</string>
     <string name="prefs_languages_information_off_link">برای اطلاعات بیشتر لطفا این راهنما را بررسی کنید.</string>
     <string name="transliteration_title">ترجمه به الفبای لاتین</string>

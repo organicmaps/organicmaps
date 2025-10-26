@@ -558,7 +558,7 @@
     <string name="enable_logging">Luba logimine</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Üldine tagasiside</string>
-    <string name="prefs_languages_information">Hääljuhiste jaoks kasutame kõnesünteesi. Paljud Android-seadmed kasutavad Google\'i TTS-i, saad selle alla laadida või värskendada Google Play teenusest (https:play.google.comstoreappsdetails?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information">Hääljuhiste jaoks kasutame kõnesünteesi. Paljud Android-seadmed kasutavad Google\'i TTS-i, saad selle alla laadida või värskendada Google Play teenusest</string>
     <string name="prefs_languages_information_off">Mõne keele puhul pead paigaldama kõnesüntesaatori või täiendava keelepaketi rakenduste poest (Google Play, Galaxy Store, App Gallery, FDroid). \nAva oma nutiseadme seadistused → Keel ja sisend → Kõne → Tekst kõneks väljund. \nSiin saad hallata kõnesünteesi seadistusi (näiteks alla laadida keelepaketti võrguühenduseta kasutamiseks) ja valida mõne muu teksti kõneks muutmise mootori.</string>
     <string name="prefs_languages_information_off_link">Lisainfo saamiseks palun vaata seda juhist.</string>
     <string name="transliteration_title">Transliteratsioon ladina tähestikku</string>

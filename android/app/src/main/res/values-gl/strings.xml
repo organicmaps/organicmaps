@@ -380,7 +380,7 @@
     <string name="mobile_data_description">Necesítase Internet móbil para mostrar información detallada dos lugares, como fotografías, prezos e recensións.</string>
     <string name="traffic_data_unavailable">Os datos de tráfico non están dispoñibles</string>
     <string name="feedback_general">Opinión xeral</string>
-    <string name="prefs_languages_information">Utilizamos o sistema TTS para as instrucións de voz. Moitos dispositivos de Android usan Google TTS. Pode descargar ou actualizalo desde Google Play (https://play.google.com/store/apps/details?ide=com.google.android.tts)</string>
+    <string name="prefs_languages_information">Utilizamos o sistema TTS para as instrucións de voz. Moitos dispositivos de Android usan Google TTS. Pode descargar ou actualizalo desde Google Play</string>
     <string name="prefs_languages_information_off">Para algúns idiomas, debe instalar outro sintetizador de voz ou un paquete de idioma adicional desde a tenda de aplicacións (Google Play, Galaxy Store, App Gallery, FDroid). \nAbra os Axustes do seu dispositivo → Idioma e entrada de texto → Voz → Opcións texto a voz.\nAquí pode administrar a configuración de síntese de voz (por exemplo, descargar un paquete de idioma para poder usalo sen conexión) ou seleccionar outro motor de texto a voz.</string>
     <string name="transliteration_title">Transliteración ao alfabeto latino</string>
     <string name="learn_more">Coñecer máis</string>

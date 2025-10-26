@@ -563,7 +563,7 @@
     <string name="enable_logging">Снимање лог фајлова</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Ваше мишљење</string>
-    <string name="prefs_languages_information">Користимо системски сервис текст-у-говор за гласовне инструкције. Многи Андроид уређаји користе Google Препознавање и синтезу говора, који можете да преузмете или ажурирате путем Google Play продавнице (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information">Користимо системски сервис текст-у-говор за гласовне инструкције. Многи Андроид уређаји користе Google Препознавање и синтезу говора, који можете да преузмете или ажурирате путем Google Play продавнице</string>
     <string name="prefs_languages_information_off">За поједине језике, мораћете да инсталирате синтетизатор говора или језички пакет путем продавнице апликација (Google Play, Galaxy Store, App Gallery, FDroid).
 \nОтворите Подешавања вашег уређаја → Језик и унос → Говор → Излаз Текста у говор.
 \nОвде можете да управљате подешавањима за синтезу говора (на пример, да преузмете језички пакет за употребу без интернета) и да изаберете неку другу машину за Текст-у-говор.</string>

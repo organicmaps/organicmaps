@@ -557,7 +557,7 @@
     <string name="enable_logging">Уключыць вядзенне журнала</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Агульны водгук</string>
-    <string name="prefs_languages_information">Мы выкарыстоўваем сістэмны сінтэзатар маўлення (TTS). На большасці прылад Android выкарыстоўваецца Google TTS, яго можна спампаваць або абнавіць праз Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information">Мы выкарыстоўваем сістэмны сінтэзатар маўлення (TTS). На большасці прылад Android выкарыстоўваецца Google TTS, яго можна спампаваць або абнавіць праз Google Play</string>
     <string name="prefs_languages_information_off">Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення або дадатковы моўны пакет з крамы праграм (Google Play, Galaxy Store, App Gallery, F-Droid). \nЗайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення. \nТут вы можаце задаць налады сінтэзу маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) або выбраць іншы сінтэзатар маўлення.</string>
     <string name="prefs_languages_information_off_link">Больш падрабязная інфармацыя знаходзіцца ў гэтым кіраўніцтве.</string>
     <string name="transliteration_title">Транслітарацыя лацінкай</string>
