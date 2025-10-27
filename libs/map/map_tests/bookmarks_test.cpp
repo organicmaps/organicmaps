@@ -484,8 +484,7 @@ void CheckPlace(Framework const & fm, std::shared_ptr<MwmInfo> const & mwmInfo, 
 UNIT_TEST(Bookmarks_AddressInfo)
 {
   // Maps added in constructor (we need minsk-pass.mwm only)
-  Framework fm(kFrameworkParams);
-  fm.DeregisterAllMaps();
+  Framework fm({} /* params */, false /* loadMaps */);
   auto const regResult = fm.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass"));
   fm.OnSize(800, 600);
 
@@ -599,8 +598,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
 
 UNIT_TEST(Bookmarks_Sorting)
 {
-  Framework fm(kFrameworkParams);
-  fm.DeregisterAllMaps();
+  Framework fm({} /* params */, false /* loadMaps */);
   fm.RegisterMap(platform::LocalCountryFile::MakeForTesting("World"));
 
   BookmarkManager & bmManager = fm.GetBookmarkManager();

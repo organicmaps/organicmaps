@@ -6,8 +6,6 @@
 
 #include "platform/platform.hpp"
 
-#include <utility>
-
 namespace search
 {
 namespace tests_support

@@ -25,7 +25,7 @@ public:
 
   void SetLocale(std::string const & locale) { m_engine.SetLocale(locale); }
 
-  void LoadCitiesBoundaries() { m_engine.LoadCitiesBoundaries(); }
+  void InitAfterWorldLoaded() { m_engine.InitAfterWorldLoaded(); }
 
   std::weak_ptr<ProcessorHandle> Search(SearchParams const & params);
 

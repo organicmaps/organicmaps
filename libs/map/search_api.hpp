@@ -71,11 +71,7 @@ public:
 
   void OnViewportChanged(m2::RectD const & viewport);
 
-  void InitAfterWorldLoaded()
-  {
-    m_engine.CacheWorldLocalities();
-    m_engine.LoadCitiesBoundaries();
-  }
+  void InitAfterWorldLoaded() { m_engine.InitAfterWorldLoaded(); }
 
   // Search everywhere.
   bool SearchEverywhere(search::EverywhereSearchParams params);
@@ -90,7 +86,6 @@ public:
   bool SearchInBookmarks(search::BookmarksSearchParams params);
 
   search::Engine & GetEngine() { return m_engine; }
-  search::Engine const & GetEngine() const { return m_engine; }
 
   // When search in viewport is active or delayed, restarts search in
   // viewport. When |forceSearch| is false, request is skipped when it
