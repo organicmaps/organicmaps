@@ -15,9 +15,7 @@
 #include "base/checked_cast.hpp"
 
 #include <algorithm>
-#include <cmath>
 #include <iterator>
-#include <map>
 #include <string>
 #include <type_traits>
 

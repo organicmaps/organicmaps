@@ -45,7 +45,7 @@ bool CitiesBoundariesTable::Load()
   auto handle = FindWorld(m_dataSource);
   if (!handle.IsAlive())
   {
-    LOG(LWARNING, ("Can't find World map file."));
+    LOG(LERROR, ("Can't find World map file."));
     return false;
   }
 
@@ -61,7 +61,7 @@ bool CitiesBoundariesTable::Load()
 
   if (!cont.IsExist(CITIES_BOUNDARIES_FILE_TAG))
   {
-    LOG(LWARNING, ("No cities boundaries table in the world map."));
+    LOG(LERROR, ("No cities boundaries table in the world map."));
     return false;
   }
 

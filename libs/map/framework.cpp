@@ -1208,7 +1208,7 @@ void Framework::EnterForeground()
 
 void Framework::InitCountryInfoGetter()
 {
-  ASSERT(!m_infoGetter.get(), ("InitCountryInfoGetter() must be called only once."));
+  ASSERT(!m_infoGetter, ());
 
   auto const & platform = GetPlatform();
   m_infoGetter = CountryInfoReader::CreateCountryInfoGetter(platform);
@@ -1219,8 +1219,8 @@ void Framework::InitCountryInfoGetter()
 
 void Framework::InitSearchAPI(size_t numThreads)
 {
-  ASSERT(!m_searchAPI.get(), ("InitSearchAPI() must be called only once."));
-  ASSERT(m_infoGetter.get(), ());
+  ASSERT(!m_searchAPI, ());
+  ASSERT(m_infoGetter, ());
   try
   {
     m_searchAPI = make_unique<SearchAPI>(m_featuresFetcher.GetDataSource(), m_storage, *m_infoGetter, numThreads,
@@ -1287,13 +1287,7 @@ Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
 
 SearchAPI & Framework::GetSearchAPI()
 {
-  ASSERT(m_searchAPI != nullptr, ("Search API is not initialized."));
-  return *m_searchAPI;
-}
-
-SearchAPI const & Framework::GetSearchAPI() const
-{
-  ASSERT(m_searchAPI != nullptr, ("Search API is not initialized."));
+  ASSERT(m_searchAPI, ());
   return *m_searchAPI;
 }
 
@@ -1735,7 +1729,7 @@ void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::Gps
                                                pair<size_t, size_t> const & toRemove,
                                                TrackStatistics const & trackStatistics)
 {
-  ASSERT(m_drapeEngine.get() != nullptr, ());
+  ASSERT(m_drapeEngine, ());
 
   vector<df::GpsTrackPoint> pointsAdd;
   pointsAdd.reserve(toAdd.size());
@@ -1804,7 +1798,7 @@ void Framework::SetupMeasurementSystem()
 
 void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
 {
-  ASSERT(m_drapeEngine != nullptr, ());
+  ASSERT(m_drapeEngine, ());
   m_drapeEngine->SetWidgetLayout(std::move(layout));
 }
 
@@ -1913,14 +1907,14 @@ osm::MapObject Framework::GetMapObjectByID(FeatureID const & fid) const
 
 BookmarkManager & Framework::GetBookmarkManager()
 {
-  ASSERT(m_bmManager != nullptr, ("Bookmark manager is not initialized."));
-  return *m_bmManager.get();
+  ASSERT(m_bmManager, ());
+  return *m_bmManager;
 }
 
 BookmarkManager const & Framework::GetBookmarkManager() const
 {
-  ASSERT(m_bmManager != nullptr, ("Bookmark manager is not initialized."));
-  return *m_bmManager.get();
+  ASSERT(m_bmManager, ());
+  return *m_bmManager;
 }
 
 void Framework::SetPlacePageListeners(PlacePageEvent::OnOpen onOpen, PlacePageEvent::OnClose onClose,
@@ -2478,7 +2472,7 @@ void Framework::SetLargeFontsSize(bool isLargeSize)
 
   double const scaleFactor = isLargeSize ? kLargeFontsScaleFactor : 1.0;
 
-  ASSERT(m_drapeEngine.get() != nullptr, ());
+  ASSERT(m_drapeEngine, ());
   m_drapeEngine->SetFontScaleFactor(scaleFactor);
 
   Invalidate();

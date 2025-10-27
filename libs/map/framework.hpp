@@ -279,7 +279,6 @@ public:
   DataSource const & GetDataSource() const { return m_featuresFetcher.GetDataSource(); }
 
   SearchAPI & GetSearchAPI();
-  SearchAPI const & GetSearchAPI() const;
 
   /// @name Bookmarks, Tracks and other UserMarks
   /// Scans and loads all kml files with bookmarks in WritableDir.

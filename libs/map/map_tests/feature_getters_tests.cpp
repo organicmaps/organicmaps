@@ -18,8 +18,7 @@ UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
 {
   using namespace std;
 
-  Framework frm(FrameworkParams(false /* m_enableDiffs */));
-  frm.DeregisterAllMaps();
+  Framework frm({} /* params */, false /* loadMaps */);
   frm.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass"));
 
   // May vary according to the new minsk-pass data.
