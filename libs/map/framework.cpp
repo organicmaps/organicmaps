@@ -322,14 +322,9 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   m_featuresFetcher.SetOnMapDeregisteredCallback(bind(&Framework::OnMapDeregistered, this, _1));
   LOG(LDEBUG, ("Classificator initialized"));
 
-  m_displayedCategories = make_unique<search::DisplayedCategories>(GetDefaultCategories());
-
   // To avoid possible races - init country info getter in constructor.
   InitCountryInfoGetter();
   LOG(LDEBUG, ("Country info getter initialized"));
-
-  InitSearchAPI(params.m_numSearchAPIThreads);
-  LOG(LDEBUG, ("Search API initialized, part 1"));
 
   m_bmManager = make_unique<BookmarkManager>(BookmarkManager::Callbacks(
       [this]() -> StringsBundle const & { return m_stringsBundle; }, [this]() -> SearchAPI & { return GetSearchAPI(); },
@@ -1287,19 +1282,18 @@ Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
 
 SearchAPI & Framework::GetSearchAPI()
 {
-  ASSERT(m_searchAPI != nullptr, ("Search API is not initialized."));
-  return *m_searchAPI;
-}
-
-SearchAPI const & Framework::GetSearchAPI() const
-{
-  ASSERT(m_searchAPI != nullptr, ("Search API is not initialized."));
+  if (!m_searchAPI)
+  {
+    InitSearchAPI(1 /* numThreads */);
+    LOG(LDEBUG, ("Search API initialized, part 1"));
+  }
   return *m_searchAPI;
 }
 
 search::DisplayedCategories const & Framework::GetDisplayedCategories()
 {
-  ASSERT(m_displayedCategories, ());
+  if (!m_displayedCategories)
+    m_displayedCategories = std::make_unique<search::DisplayedCategories>(GetDefaultCategories());
   return *m_displayedCategories;
 }
 
