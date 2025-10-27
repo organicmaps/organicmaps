@@ -2371,8 +2371,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onTrimMemory(int level)
   {
     super.onTrimMemory(level);
-    Logger.d(TAG, "trim memory, level = " + level);
-    if (level >= TRIM_MEMORY_RUNNING_LOW)
+
+    Logger.d(TAG, "Trim memory, level = " + level);
+    if (level >= TRIM_MEMORY_RUNNING_LOW && level != TRIM_MEMORY_UI_HIDDEN)
       Framework.nativeMemoryWarning();
   }
 
