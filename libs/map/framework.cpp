@@ -1193,12 +1193,7 @@ void Framework::EnterBackground()
 
   m_trafficManager.OnEnterBackground();
 
-  // Do not clear caches for Android. This function is called when main activity is paused,
-  // but at the same time search activity (for example) is enabled.
-  // TODO(AlexZ): Use onStart/onStop on Android to correctly detect app background and remove #ifndef.
-#ifndef OMIM_OS_ANDROID
   ClearAllCaches();
-#endif
 }
 
 void Framework::EnterForeground()
