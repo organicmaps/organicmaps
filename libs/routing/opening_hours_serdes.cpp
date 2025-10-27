@@ -3,7 +3,6 @@
 #include "coding/writer.hpp"
 
 #include "base/assert.hpp"
-#include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <chrono>

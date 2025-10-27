@@ -90,6 +90,12 @@ public:
 
   IRouter & GetRouter() const override { return *m_indexRouter; }
 
+  template <class T>
+  void SetCurrentTimeGetter(T && getter)
+  {
+    m_indexRouter->SetCurrentTimeGetter(std::forward<T>(getter));
+  }
+
 private:
   traffic::TrafficCache m_trafficCache;
   std::unique_ptr<IndexRouter> m_indexRouter;

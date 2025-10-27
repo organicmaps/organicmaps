@@ -4,6 +4,8 @@
 
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
+#include "platform/platform_tests_support/helpers.hpp"
+
 #include "geometry/mercator.hpp"
 
 namespace pedestrian_route_test
@@ -277,11 +279,24 @@ UNIT_TEST(RussiaSaintPetersburgMoyka93ToMarsovoPole)
                                                 mercator::FromLatLon(59.9436, 30.3318), 2755);
 }
 
-UNIT_TEST(RussiaSaintPetersburgMoyka93ToAvrora)
+// Good test to check access:conditional (through bridges)
+UNIT_TEST(Russia_SaintPetersburg_Bridge_Access_Conditional)
 {
-  integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Pedestrian),
-                                                mercator::FromLatLon(59.9241, 30.323), {0., 0.},
-                                                mercator::FromLatLon(59.9554, 30.3378), 4614.66);
+  using namespace platform::tests_support;
+
+  auto const from = mercator::FromLatLon(59.9241, 30.323);
+  auto const to = mercator::FromLatLon(59.9556857, 30.33764);
+
+  auto components = CreateAllMapsComponents(VehicleType::Pedestrian, {});
+  time_t currentTime;
+  components->SetCurrentTimeGetter([&currentTime] { return currentTime; });
+
+  currentTime = GetUnixtimeByDate(2025, Month::Oct, 27, 12, 00);
+  integration::CalculateRouteAndTestRouteLength(*components, from, {0., 0.}, to, 4655.73);
+
+  // no @ (Apr-Nov 01:20-04:50)
+  currentTime = GetUnixtimeByDate(2025, Month::Oct, 27, 03, 00);
+  integration::CalculateRouteAndTestRouteLength(*components, from, {0., 0.}, to, 7051.32);
 }
 
 UNIT_TEST(RussiaSaintPetersburgPetrPaulChurchToDolphins)

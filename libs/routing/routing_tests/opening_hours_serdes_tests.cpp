@@ -1,13 +1,12 @@
 #include "testing/testing.hpp"
 
 #include "routing/opening_hours_serdes.hpp"
-#include "routing/routing_tests/index_graph_tools.hpp"
+
+#include "platform/platform_tests_support/helpers.hpp"
 
 #include "coding/bit_streams.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
-
-#include "base/string_utils.hpp"
 
 #include <ctime>
 #include <memory>
@@ -17,7 +16,7 @@
 namespace opening_hours_serdes_tests
 {
 using namespace routing;
-using namespace routing_test;
+using namespace platform::tests_support;
 
 using Buffer = std::vector<uint8_t>;
 
@@ -315,8 +314,8 @@ UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Off_SerDes_1_AndUsage)
   TestWeekday(rule, Weekday::Monday, Weekday::None);
   TestModifier(rule, osmoh::RuleSequence::Modifier::Closed);
 
-  TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, Weekday::Thursday, 17 /* hh */, 30 /* mm */)), ());
-  TEST(oh.IsClosed(GetUnixtimeByDate(2020, Month::Feb, Weekday::Monday, 17 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Feb, Weekday::Thursday, 17 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsClosed(GetUnixtimeByWeekday(2020, Month::Feb, Weekday::Monday, 17 /* hh */, 30 /* mm */)), ());
 }
 
 UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Off_SerDes_2)
@@ -416,11 +415,11 @@ UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_TimeIsOver00)
   auto oh = Deserialize();
   TEST_EQUAL(oh.GetRule().size(), 1, ());
 
-  TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, Weekday::Monday, 13 /* hh */, 30 /* mm */)), ());
-  TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, Weekday::Monday, 19 /* hh */, 30 /* mm */)), ());
-  TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, Weekday::Monday, 22 /* hh */, 30 /* mm */)), ());
-  TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, Weekday::Tuesday, 02 /* hh */, 30 /* mm */)), ());
-  TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, Weekday::Tuesday, 06 /* hh */, 30 /* mm */)), ());
+  TEST(!oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Feb, Weekday::Monday, 13 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Feb, Weekday::Monday, 19 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Feb, Weekday::Monday, 22 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Feb, Weekday::Tuesday, 02 /* hh */, 30 /* mm */)), ());
+  TEST(!oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Feb, Weekday::Tuesday, 06 /* hh */, 30 /* mm */)), ());
 }
 
 UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_DefaultOpen)
@@ -437,8 +436,8 @@ UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_DefaultOpen)
   auto const & rule = oh.GetRule().back();
   TestWeekday(rule, Weekday::Monday, Weekday::Saturday);
 
-  TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, Weekday::Monday, 13 /* hh */, 30 /* mm */)), ());
-  TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, Weekday::Sunday, 13 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Feb, Weekday::Monday, 13 /* hh */, 30 /* mm */)), ());
+  TEST(!oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Feb, Weekday::Sunday, 13 /* hh */, 30 /* mm */)), ());
 }
 
 UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_SkipRuleOldYear)
@@ -474,12 +473,12 @@ UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_10_plus)
   TestWeekday(rule, Weekday::Friday, Weekday::None);
   TestTime(rule, 10, 0, 0, 0);
 
-  TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::Mar, Weekday::Friday, 9 /* hh */, 30 /* mm */)), ());
-  TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::Mar, Weekday::Friday, 10 /* hh */, 30 /* mm */)), ());
-  TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::Mar, Weekday::Friday, 15 /* hh */, 30 /* mm */)), ());
-  TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::Mar, Weekday::Friday, 20 /* hh */, 30 /* mm */)), ());
-  TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::Mar, Weekday::Friday, 23 /* hh */, 30 /* mm */)), ());
-  TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::Mar, Weekday::Saturday, 00 /* hh */, 30 /* mm */)), ());
+  TEST(!oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Mar, Weekday::Friday, 9 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Mar, Weekday::Friday, 10 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Mar, Weekday::Friday, 15 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Mar, Weekday::Friday, 20 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Mar, Weekday::Friday, 23 /* hh */, 30 /* mm */)), ());
+  TEST(!oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Mar, Weekday::Saturday, 00 /* hh */, 30 /* mm */)), ());
 }
 
 UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_24_7)
@@ -714,8 +713,8 @@ UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Hours_Usage_1)
 
   auto const oh = Deserialize();
 
-  TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, Weekday::Thursday, 17 /* hh */, 30 /* mm */)), ());
-  TEST(oh.IsClosed(GetUnixtimeByDate(2020, Month::Feb, Weekday::Monday, 07 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Feb, Weekday::Thursday, 17 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsClosed(GetUnixtimeByWeekday(2020, Month::Feb, Weekday::Monday, 07 /* hh */, 30 /* mm */)), ());
 }
 
 UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Weekday_Usage_1)
@@ -727,8 +726,8 @@ UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Weekday_Usage_1)
 
   auto const oh = Deserialize();
 
-  TEST(oh.IsClosed(GetUnixtimeByDate(2020, Month::Feb, Weekday::Thursday, 17 /* hh */, 30 /* mm */)), ());
-  TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, Weekday::Wednesday, 17 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsClosed(GetUnixtimeByWeekday(2020, Month::Feb, Weekday::Thursday, 17 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Feb, Weekday::Wednesday, 17 /* hh */, 30 /* mm */)), ());
 }
 
 UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Weekday_Usage_2)
@@ -740,10 +739,10 @@ UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Weekday_Usage_2)
 
   auto const oh = Deserialize();
 
-  TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, Weekday::Monday, 17 /* hh */, 30 /* mm */)), ());
-  TEST(oh.IsClosed(GetUnixtimeByDate(2020, Month::Feb, Weekday::Thursday, 15 /* hh */, 30 /* mm */)), ());
-  TEST(oh.IsOpen(GetUnixtimeByDate(2023, Month::Apr, Weekday::Saturday, 13 /* hh */, 30 /* mm */)), ());
-  TEST(oh.IsClosed(GetUnixtimeByDate(2023, Month::Apr, Weekday::Saturday, 8 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByWeekday(2020, Month::Feb, Weekday::Monday, 17 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsClosed(GetUnixtimeByWeekday(2020, Month::Feb, Weekday::Thursday, 15 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByWeekday(2023, Month::Apr, Weekday::Saturday, 13 /* hh */, 30 /* mm */)), ());
+  TEST(oh.IsClosed(GetUnixtimeByWeekday(2023, Month::Apr, Weekday::Saturday, 8 /* hh */, 30 /* mm */)), ());
 }
 
 UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_Weekday_Usage_3)

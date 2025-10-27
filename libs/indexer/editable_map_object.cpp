@@ -724,18 +724,17 @@ void EditableMapObject::LogDiffInJournal(EditableMapObject const & unedited_emo)
   LOG(LDEBUG, ("Executing LogDiffInJournal"));
 
   // Name
-  for (StringUtf8Multilang::Lang language : StringUtf8Multilang::GetSupportedLanguages())
+  for (auto const & language : StringUtf8Multilang::GetSupportedLanguages())
   {
-    int8_t langCode = StringUtf8Multilang::GetLangIndex(language.m_code);
-    std::string_view new_name;
-    std::string_view old_name;
-    m_name.GetString(langCode, new_name);
-    unedited_emo.GetNameMultilang().GetString(langCode, old_name);
+    int8_t const langCode = StringUtf8Multilang::GetLangIndex(language.m_code);
+    std::string_view new_name, old_name;
+    UNUSED_VALUE(m_name.GetString(langCode, new_name));
+    UNUSED_VALUE(unedited_emo.GetNameMultilang().GetString(langCode, old_name));
 
     if (new_name != old_name)
     {
-      std::string osmLangName = StringUtf8Multilang::GetOSMTagByCode(langCode);
-      m_journal.AddTagChange(std::move(osmLangName), std::string(old_name), std::string(new_name));
+      m_journal.AddTagChange(StringUtf8Multilang::GetOSMTagByCode(langCode), std::string(old_name),
+                             std::string(new_name));
     }
   }
 
