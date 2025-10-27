@@ -5,6 +5,8 @@
 
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
+#include "platform/platform_tests_support/helpers.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include <limits>
@@ -896,6 +898,50 @@ UNIT_TEST(Germany_Avoid_Agricultural)
 {
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(47.6584463, 11.038139), {0., 0.},
                                    FromLatLon(47.6580109, 11.0432625), 1096.11);
+}
+
+// https://github.com/organicmaps/organicmaps/issues/3731
+/* Not valid mapping, should be:
+ * motor_vehicle = no
+ * motor_vehicle:conditional = yes @ (23:00-11:00)
+UNIT_TEST(Turkey_MotorVehicle_Conditional_Yes)
+{
+  using namespace platform::tests_support;
+
+  auto const from = FromLatLon(41.0588601, 28.9133974);
+  auto const to = FromLatLon(41.0641461, 28.9144856);
+
+  auto components = CreateAllMapsComponents(VehicleType::Car, {});
+  time_t currentTime;
+  components->SetCurrentTimeGetter([&currentTime] { return currentTime; });
+
+  currentTime = GetUnixtimeByDate(2025, Month::Oct, 28, 00, 05);
+  CalculateRouteAndTestRouteLength(*components, from, {0., 0.}, to, 607);
+
+  currentTime = GetUnixtimeByDate(2025, Month::Oct, 27, 12, 00);
+  CalculateRouteAndTestRouteLength(*components, from, {0., 0.}, to, 726);
+}
+*/
+
+// https://github.com/organicmaps/organicmaps/issues/5280
+UNIT_TEST(Colombia_MotorVehicle_Conditional_No)
+{
+  using namespace platform::tests_support;
+
+  auto const from = FromLatLon(4.70915, -74.06130);
+  auto const to = FromLatLon(4.70001, -74.07174);
+
+  auto components = CreateAllMapsComponents(VehicleType::Car, {});
+  time_t currentTime;
+  components->SetCurrentTimeGetter([&currentTime] { return currentTime; });
+
+  currentTime = GetUnixtimeByWeekday(2025, Month::Oct, Weekday::Monday, 9, 30);
+  CalculateRouteAndTestRouteLength(*components, from, {0., 0.}, to, 1959.77);
+
+  // Sunday
+  // no @ (Su,PH 07:00-14:00)
+  currentTime = GetUnixtimeByWeekday(2025, Month::Oct, Weekday::Sunday, 9, 30);
+  CalculateRouteAndTestRouteLength(*components, from, {0., 0.}, to, 2803.13);
 }
 
 }  // namespace route_test

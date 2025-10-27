@@ -28,8 +28,8 @@ class IndexGraphLoaderImpl final : public IndexGraphLoader
 public:
   IndexGraphLoaderImpl(VehicleType vehicleType, bool loadAltitudes,
                        shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
-                       shared_ptr<EdgeEstimator> estimator, MwmDataSource & dataSource,
-                       RoutingOptions routingOptions = RoutingOptions())
+                       shared_ptr<EdgeEstimator> estimator, MwmDataSource & dataSource, RoutingOptions routingOptions,
+                       TimeGetterT timeGetter)
     : m_vehicleType(vehicleType)
     , m_loadAltitudes(loadAltitudes)
     , m_dataSource(dataSource)
@@ -39,6 +39,9 @@ public:
   {
     CHECK(m_vehicleModelFactory, ());
     CHECK(m_estimator, ());
+
+    if (timeGetter)
+      m_currentTimeGetter = std::move(timeGetter);
   }
 
   // IndexGraphLoader overrides:
@@ -213,10 +216,10 @@ bool ReadRoadAccessFromMwm(MwmValue const & mwmValue, VehicleType vehicleType, R
 unique_ptr<IndexGraphLoader> IndexGraphLoader::Create(VehicleType vehicleType, bool loadAltitudes,
                                                       shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
                                                       shared_ptr<EdgeEstimator> estimator, MwmDataSource & dataSource,
-                                                      RoutingOptions routingOptions)
+                                                      RoutingOptions routingOptions, TimeGetterT timeGetter)
 {
   return make_unique<IndexGraphLoaderImpl>(vehicleType, loadAltitudes, vehicleModelFactory, estimator, dataSource,
-                                           routingOptions);
+                                           routingOptions, std::move(timeGetter));
 }
 
 void DeserializeIndexGraph(MwmValue const & mwmValue, VehicleType vehicleType, IndexGraph & graph)

@@ -2,6 +2,7 @@ project(platform_tests_support)
 
 set(SRC
   async_gui_thread.hpp
+  helpers.cpp
   helpers.hpp
   scoped_dir.cpp
   scoped_dir.hpp

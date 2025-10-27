@@ -25,7 +25,6 @@
 #include "geometry/point2d.hpp"
 #include "geometry/tree4d.hpp"
 
-#include <functional>
 #include <memory>
 #include <set>
 #include <string>
@@ -89,6 +88,12 @@ public:
   bool GetBestOutgoingEdges(m2::PointD const & checkpoint, WorldGraph & graph, std::vector<Edge> & edges);
 
   VehicleType GetVehicleType() const { return m_vehicleType; }
+
+  template <class T>
+  void SetCurrentTimeGetter(T && getter)
+  {
+    m_currentTimeGetter = std::forward<T>(getter);
+  }
 
 private:
   RouterResultCode CalculateSubrouteJointsMode(IndexGraphStarter & starter, RouterDelegate const & delegate,
@@ -282,5 +287,7 @@ private:
   GuidesConnections m_guides;
 
   CountryParentNameGetterFn m_countryParentNameGetterFn;
+
+  TimeGetterT m_currentTimeGetter;
 };
 }  // namespace routing

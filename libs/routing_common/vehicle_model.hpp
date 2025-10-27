@@ -367,4 +367,6 @@ std::string DebugPrint(SpeedFactor const & speedFactor);
 std::string DebugPrint(InOutCitySpeedKMpH const & speed);
 std::string DebugPrint(InOutCityFactor const & speedFactor);
 std::string DebugPrint(HighwayType type);
+
+using TimeGetterT = std::function<time_t()>;
 }  // namespace routing

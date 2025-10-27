@@ -10,17 +10,10 @@
 #include "routing/index_graph_starter.hpp"
 #include "routing/restrictions_serialization.hpp"
 #include "routing/road_access.hpp"
-#include "routing/road_point.hpp"
 #include "routing/route.hpp"
 #include "routing/segment.hpp"
 #include "routing/single_vehicle_world_graph.hpp"
-#include "routing/speed_camera_ser_des.hpp"
 #include "routing/transit_graph_loader.hpp"
-#include "routing/transit_world_graph.hpp"
-
-#include "traffic/traffic_info.hpp"
-
-#include "transit/transit_types.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
 
@@ -28,13 +21,9 @@
 
 #include "geometry/point2d.hpp"
 
-#include <algorithm>
-#include <cstdint>
-#include <ctime>
 #include <map>
 #include <memory>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 namespace routing_test
@@ -310,10 +299,4 @@ void TestTopologyGraph(TestIndexGraphTopology const & graph, TestIndexGraphTopol
 FakeEnding MakeFakeEnding(uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point, WorldGraph & graph);
 
 std::unique_ptr<IndexGraphStarter> MakeStarter(FakeEnding const & start, FakeEnding const & finish, WorldGraph & graph);
-
-using Month = osmoh::MonthDay::Month;
-using Weekday = osmoh::Weekday;
-
-time_t GetUnixtimeByDate(uint16_t year, Month month, uint8_t monthDay, uint8_t hours, uint8_t minutes);
-time_t GetUnixtimeByDate(uint16_t year, Month month, Weekday weekday, uint8_t hours, uint8_t minutes);
 }  // namespace routing_test

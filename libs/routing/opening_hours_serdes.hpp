@@ -1,15 +1,12 @@
 #pragma once
 
 #include "coding/bit_streams.hpp"
-#include "coding/varint.hpp"
 
 #include "base/checked_cast.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <limits>
-#include <set>
 #include <string>
-#include <utility>
 #include <vector>
 
 #include "3party/opening_hours/opening_hours.hpp"

@@ -1073,9 +1073,9 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
       m_numMwmIds, m_numMwmTree, m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType,
       m_countryRectFn, m_dataSource);
 
-  auto indexGraphLoader =
-      IndexGraphLoader::Create(m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType,
-                               m_loadAltitudes, m_vehicleModelFactory, m_estimator, m_dataSource, routingOptions);
+  auto indexGraphLoader = IndexGraphLoader::Create(
+      m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType, m_loadAltitudes,
+      m_vehicleModelFactory, m_estimator, m_dataSource, routingOptions, m_currentTimeGetter);
 
   if (m_vehicleType != VehicleType::Transit)
   {

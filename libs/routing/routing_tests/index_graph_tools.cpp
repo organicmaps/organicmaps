@@ -5,6 +5,7 @@
 #include "routing/base/routing_result.hpp"
 #include "routing/geometry.hpp"
 #include "routing/routing_helpers.hpp"
+#include "routing/transit_world_graph.hpp"
 
 #include "transit/transit_version.hpp"
 
@@ -12,8 +13,6 @@
 #include "base/math.hpp"
 
 #include <unordered_map>
-
-#include "3party/opening_hours/opening_hours.hpp"
 
 namespace routing_test
 {
@@ -594,51 +593,10 @@ FakeEnding MakeFakeEnding(uint32_t featureId, uint32_t segmentIdx, m2::PointD co
 {
   return MakeFakeEnding({Segment(kTestNumMwmId, featureId, segmentIdx, true /* forward */)}, point, graph);
 }
+
 unique_ptr<IndexGraphStarter> MakeStarter(FakeEnding const & start, FakeEnding const & finish, WorldGraph & graph)
 {
   return make_unique<IndexGraphStarter>(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */, graph);
 }
 
-time_t GetUnixtimeByDate(uint16_t year, Month month, uint8_t monthDay, uint8_t hours, uint8_t minutes)
-{
-  std::tm t{};
-  t.tm_year = year - 1900;
-  t.tm_mon = static_cast<int>(month) - 1;
-  t.tm_mday = monthDay;
-  t.tm_hour = hours;
-  t.tm_min = minutes;
-
-  time_t moment = mktime(&t);
-  return moment;
-}
-
-time_t GetUnixtimeByDate(uint16_t year, Month month, Weekday weekday, uint8_t hours, uint8_t minutes)
-{
-  int monthDay = 1;
-  auto createUnixtime = [&]()
-  {
-    std::tm t{};
-    t.tm_year = year - 1900;
-    t.tm_mon = static_cast<int>(month) - 1;
-    t.tm_mday = monthDay;
-    t.tm_wday = static_cast<int>(weekday) - 1;
-    t.tm_hour = hours;
-    t.tm_min = minutes;
-
-    return mktime(&t);
-  };
-
-  int wday = -1;
-  for (;;)
-  {
-    auto unixtime = createUnixtime();
-    auto timeOut = localtime(&unixtime);
-    wday = timeOut->tm_wday;
-    if (wday == static_cast<int>(weekday) - 1)
-      break;
-    ++monthDay;
-  }
-
-  return createUnixtime();
-}
 }  // namespace routing_test
