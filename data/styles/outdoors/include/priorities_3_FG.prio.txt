@@ -296,8 +296,8 @@ leisure-track                                       # line z15- (also has captio
 railway-abandoned                                   # line z13-
 railway-construction                                # line z13-
 railway-disused                                     # line z13-
-railway-disused-bridge
-railway-disused-tunnel
+railway-disused-bridge                              # line z13- (also has line::bridgeblack z16-, line::bridgewhite z16-)
+railway-disused-tunnel                              # line z13-
 railway-miniature                                   # line z13-
 railway-miniature-bridge                            # line z13- (also has line::bridgeblack z16-, line::bridgewhite z15-)
 railway-miniature-tunnel                            # line z13-
@@ -351,7 +351,7 @@ highway-track-bridge::bridgewhite                   # line::bridgewhite z15- (al
 highway-trunk-bridge::bridgewhite                   # line::bridgewhite z13- (also has line z6-, line::bridgeblack z13-, pathtext z10-, shield::shield z10-)
 highway-trunk_link-bridge::bridgewhite              # line::bridgewhite z14- (also has line z10-, line::bridgeblack z14-, pathtext z10-, shield::shield z10-)
 highway-unclassified-bridge::bridgewhite            # line::bridgewhite z14- (also has line z11-, line::bridgeblack z14-, pathtext z13-)
-railway-disused-bridge::bridgewhite               # line::bridgewhite z16- (also has line z13-, line::bridgeblack z16-)
+railway-disused-bridge::bridgewhite                 # line::bridgewhite z16- (also has line z13-, line::bridgeblack z16-)
 railway-light_rail-bridge::bridgewhite              # line::bridgewhite z13- (also has line z13-, line::bridgeblack z16-, line::dash z16-)
 railway-miniature-bridge::bridgewhite               # line::bridgewhite z15- (also has line z13-, line::bridgeblack z16-)
 railway-preserved-bridge::bridgewhite               # line::bridgewhite z15- (also has line z13-, line::bridgeblack z16-)
@@ -387,7 +387,7 @@ highway-track-bridge::bridgeblack                   # line::bridgeblack z17- (al
 highway-trunk-bridge::bridgeblack                   # line::bridgeblack z13- (also has line z6-, line::bridgewhite z13-, pathtext z10-, shield::shield z10-)
 highway-trunk_link-bridge::bridgeblack              # line::bridgeblack z14- (also has line z10-, line::bridgewhite z14-, pathtext z10-, shield::shield z10-)
 highway-unclassified-bridge::bridgeblack            # line::bridgeblack z14- (also has line z11-, line::bridgewhite z14-, pathtext z13-)
-railway-disused-bridge::bridgeblack               # line::bridgeblack z16- (also has line z13-, line::bridgewhite z16-)
+railway-disused-bridge::bridgeblack                 # line::bridgeblack z16- (also has line z13-, line::bridgewhite z16-)
 railway-light_rail-bridge::bridgeblack              # line::bridgeblack z16- (also has line z13-, line::bridgewhite z13-, line::dash z16-)
 railway-miniature-bridge::bridgeblack               # line::bridgeblack z16- (also has line z13-, line::bridgewhite z15-)
 railway-preserved-bridge::bridgeblack               # line::bridgeblack z16- (also has line z13-, line::bridgewhite z15-)
