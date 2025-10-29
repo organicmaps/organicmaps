@@ -185,14 +185,14 @@ NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
 
 + (NSString *)donateUrl
 {
-  std::string url;
-  return settings::Get(settings::kDonateUrl, url) ? @(url.c_str()) : nil;
+  auto const url = GetFramework().GetDonateUrl();
+  return url ? @((*url).c_str()) : nil;
 }
 
 + (BOOL)isNY
 {
   bool isNY;
-  return settings::Get("NY", isNY) ? isNY : false;
+  return settings::Get(settings::kNY, isNY) ? isNY : false;
 }
 
 + (BOOL)isShowDownloadedRegions
@@ -232,6 +232,21 @@ NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
 {
   [NSUserDefaults.standardUserDefaults setBool:fileLoggingEnabled forKey:kUDFileLoggingEnabledKey];
   [Logger setFileLoggingEnabled:fileLoggingEnabled];
+}
+
++ (BOOL)canShowCrowdfundingPromo
+{
+  return GetFramework().CanShowCrowdfundingPromo();
+}
+
++ (void)didShowDonationPage
+{
+  GetFramework().DidShowDonationPage();
+}
+
++ (void)resetDonations
+{
+  GetFramework().ResetDonations();
 }
 
 @end

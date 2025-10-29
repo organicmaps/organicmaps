@@ -1,4 +1,5 @@
 protocol BottomTabBarInteractorProtocol: AnyObject {
+  func configureTabBar()
   func openSearch()
   func openHelp()
   func openFaq()
@@ -7,27 +8,37 @@ protocol BottomTabBarInteractorProtocol: AnyObject {
 }
 
 class BottomTabBarInteractor {
-  weak var presenter: BottomTabBarPresenterProtocol?
-  private weak var viewController: UIViewController?
+  private weak var viewController: BottomTabBarViewController?
   private weak var mapViewController: MapViewController?
   private weak var controlsManager: MWMMapViewControlsManager?
   private let searchManager: SearchOnMapManager
 
-  init(viewController: UIViewController, mapViewController: MapViewController, controlsManager: MWMMapViewControlsManager) {
+  init(viewController: BottomTabBarViewController, mapViewController: MapViewController, controlsManager: MWMMapViewControlsManager) {
     self.viewController = viewController
     self.mapViewController = mapViewController
     self.controlsManager = controlsManager
     self.searchManager = mapViewController.searchManager
+    self.subscribeOnAppLifecycleNotifications()
+  }
+
+  private func subscribeOnAppLifecycleNotifications() {
+    NotificationCenter.default.addObserver(self, selector: #selector(configureTabBar), name: UIApplication.willEnterForegroundNotification, object: nil)
   }
 }
 
 extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
+  @objc
+  func configureTabBar() {
+    viewController?.updateAboutButtonIcon(isCrowdfunding: Settings.canShowCrowdfundingPromo())
+  }
+
   func openSearch() {
     searchManager.isSearching ? searchManager.close() : searchManager.startSearching(isRouting: false)
   }
   
   func openHelp() {
-    MapViewController.shared()?.navigationController?.pushViewController(AboutController(), animated: true)
+    let aboutViewController = AboutController(onDidAppearCompletionHandler: configureTabBar)
+    MapViewController.shared()?.navigationController?.pushViewController(aboutViewController, animated: true)
   }
   
   func openFaq() {
