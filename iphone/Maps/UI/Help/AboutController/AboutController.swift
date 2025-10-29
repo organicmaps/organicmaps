@@ -26,7 +26,7 @@ final class AboutController: MWMViewController {
   private let logoImageView = UIImageView()
   private let headerTitleLabel = UILabel()
   private let additionalInfoStackView = UIStackView()
-  private let donationView = DonationView()
+  private var donationView: DonationView?
   private let osmView = OSMView()
   private let infoTableView = UITableView(frame: .zero, style: .plain)
   private var infoTableViewHeightAnchor: NSLayoutConstraint?
@@ -126,10 +126,12 @@ private extension AboutController {
     }
 
     func setupDonation() {
-      donationView.donateButtonDidTapHandler = { [weak self] in
-        guard let self else { return }
-        self.openUrl(self.isDonateEnabled() ? Settings.donateUrl() : L("translated_om_site_url") + "support-us/")
-      }
+      guard let donationUrl = Settings.donateUrl() else { return }
+      donationView = DonationView(onTap: { [weak self] in
+        if let self, openUrl(donationUrl, externally: true) {
+          Settings.didShowDonationPage()
+        }
+      })
     }
 
     func setupOSM() {
@@ -200,7 +202,7 @@ private extension AboutController {
     stackView.addArrangedSubview(logoImageView)
     stackView.addArrangedSubview(headerTitleLabel)
     stackView.addArrangedSubviewWithSeparator(additionalInfoStackView)
-    if isDonateEnabled() {
+    if let donationView {
       stackView.addArrangedSubviewWithSeparator(donationView)
     }
     stackView.addArrangedSubviewWithSeparator(osmView)
@@ -215,7 +217,6 @@ private extension AboutController {
     stackView.translatesAutoresizingMaskIntoConstraints = false
     logoImageView.translatesAutoresizingMaskIntoConstraints = false
     additionalInfoStackView.translatesAutoresizingMaskIntoConstraints = false
-    donationView.translatesAutoresizingMaskIntoConstraints = false
     infoTableView.translatesAutoresizingMaskIntoConstraints = false
     socialMediaCollectionView.translatesAutoresizingMaskIntoConstraints = false
     termsOfUseAndPrivacyPolicyView.translatesAutoresizingMaskIntoConstraints = false
@@ -250,7 +251,7 @@ private extension AboutController {
 
       termsOfUseAndPrivacyPolicyView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
     ])
-    donationView.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = isDonateEnabled()
+    donationView?.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = donationView != nil
 
     view.layoutIfNeeded()
     updateCollection()
@@ -263,10 +264,6 @@ private extension AboutController {
     DispatchQueue.main.async {
       self.socialMediaCollectionViewHeighConstraint.constant = self.socialMediaCollectionView.collectionViewLayout.collectionViewContentSize.height
     }
-  }
-
-  func isDonateEnabled() -> Bool {
-    return Settings.donateUrl() != nil
   }
 
   func buildInfoTableViewData() -> [AboutInfoTableViewCellModel] {
