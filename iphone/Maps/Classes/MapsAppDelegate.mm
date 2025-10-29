@@ -212,6 +212,7 @@ using namespace osm_auth_ios;
       [MWMSettings setTrackWarningAlertShown:YES];
     }
   }
+  [MWMSettings didPossiblyReturnFromDonationPage];
   LOG(LINFO, ("applicationWillEnterForeground - end"));
 }
 

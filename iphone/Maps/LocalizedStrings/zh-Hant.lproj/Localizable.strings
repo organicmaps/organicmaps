@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "其他";
 
 /* Tex label above the Donate button */
-"donate_description" = "捐助，以共同打造最好的地圖！";
+"donate_description" = "向數百萬使用者贈送無廣告的免費地圖！";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "回報或修復不正確的地圖數據";

@@ -1,5 +1,14 @@
+@protocol PromoManager <NSObject>
+
++ (BOOL)canShowCrowdfundingPromo;
++ (void)didShowDonationPage;
++ (void)didPossiblyReturnFromDonationPage;
++ (void)resetDonations;
+
+@end
+
 NS_SWIFT_NAME(Settings)
-@interface MWMSettings : NSObject
+@interface MWMSettings : NSObject <PromoManager>
 
 + (BOOL)autoDownloadEnabled;
 + (void)setAutoDownloadEnabled:(BOOL)autoDownloadEnabled;

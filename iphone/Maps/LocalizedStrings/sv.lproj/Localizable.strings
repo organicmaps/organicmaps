@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Övrigt";
 
 /* Tex label above the Donate button */
-"donate_description" = "Donera för att bygga de bästa kartorna tillsammans!";
+"donate_description" = "Ge bort gratis kartor utan annonser till miljontals användare!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Rapportera eller korrigera felaktiga kartdata";

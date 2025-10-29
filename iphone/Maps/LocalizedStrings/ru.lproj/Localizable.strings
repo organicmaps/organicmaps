@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Другой";
 
 /* Tex label above the Donate button */
-"donate_description" = "Поддержать деньгами, чтобы вместе создавать лучшие карты!";
+"donate_description" = "Подарите миллионам пользователей бесплатные карты без рекламы!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Сообщить или исправить неправильные данные на карте";

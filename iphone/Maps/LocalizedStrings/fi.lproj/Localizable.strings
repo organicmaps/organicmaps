@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Muu";
 
 /* Tex label above the Donate button */
-"donate_description" = "Lahjoittakaa, jotta voimme rakentaa parhaita karttoja yhdessä!";
+"donate_description" = "Lahjoita ilmaiset ja mainoksettomat kartat miljoonille käyttäjille!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Ilmoita tai korjaa virheelliset karttatiedot";

@@ -123,6 +123,10 @@ std::string_view constexpr kProductsPopupCloseReasonSelectProductStr = "select_p
 std::string_view constexpr kFirstAskedForRateUsTimeKey = "FirstAskedForRateUsTime";
 std::string_view constexpr kLastAskedForRateUsTimeKey = "LastAskedForRateUsTime";
 
+std::string_view constexpr kDonationPageDisplayingTimeKey = "IsDonationPageShown";
+std::string_view constexpr kProbablyDonatedTimeKey = "ProbablyDonatedTime";
+std::string_view constexpr kMaxProbablyDonatedTimeoutKey = "ProbablyDonatedTimeout";
+
 auto constexpr kLargeFontsScaleFactor = 1.6;
 size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
 
@@ -3585,4 +3589,60 @@ void Framework::DidShowRateUsRequest() const
     settings::Set(kFirstAskedForRateUsTimeKey, now);
 
   settings::Set(kLastAskedForRateUsTimeKey, now);
+}
+
+bool Framework::CanShowCrowdfundingPromo() const
+{
+  std::string url;
+  if (!settings::Get(settings::kDonateUrl, url))
+    return false;
+
+  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
+    return false;
+
+  if (!m_usageStats.IsLoyalUser())
+    return false;
+
+  uint8_t constexpr kMinBatteryLevelPercent = 25;
+  if (Platform::GetBatteryLevel() < kMinBatteryLevelPercent)
+    return false;
+
+  uint64_t lastPromoDisplayingTime = 0;
+  if (settings::Get(kDonationPageDisplayingTimeKey, lastPromoDisplayingTime) && lastPromoDisplayingTime > 0)
+    return false;
+
+  return true;
+}
+
+void Framework::DidShowDonationPage() const
+{
+  settings::Set(kDonationPageDisplayingTimeKey, base::SecondsSinceEpoch());
+}
+
+void Framework::DidPossiblyReturnFromDonationPage() const
+{
+  uint64_t lastPromoDisplayingTime = 0;
+  if (!settings::Get(kDonationPageDisplayingTimeKey, lastPromoDisplayingTime))
+    return;
+
+#ifdef DEBUG
+  uint32_t constexpr kMinProbablyDonatedTimeout = 5;
+#else
+  uint32_t constexpr kMinProbablyDonatedTimeout = 30;
+#endif
+
+  int64_t const probablyDonatedTimeout = base::SecondsSinceEpoch() - lastPromoDisplayingTime;
+  if (probablyDonatedTimeout <= kMinProbablyDonatedTimeout)
+    return;
+
+  uint64_t maxProbablyDonatedTimeout = 0;
+  settings::Get(kMaxProbablyDonatedTimeoutKey, maxProbablyDonatedTimeout);
+  if (probablyDonatedTimeout > maxProbablyDonatedTimeout)
+    settings::Set(kMaxProbablyDonatedTimeoutKey, probablyDonatedTimeout);
+}
+
+void Framework::ResetDonations() {
+  LOG(LDEBUG, ("Crowdfunding data was reset to initial state."));
+  settings::Set(kDonationPageDisplayingTimeKey, 0);
+  settings::Set(kMaxProbablyDonatedTimeoutKey, 0);
 }

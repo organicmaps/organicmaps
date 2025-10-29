@@ -1,5 +1,5 @@
 protocol BottomTabBarPresenterProtocol: AnyObject {
-  func configure()
+  func viewWillAppear()
   func onSearchButtonPressed()
   func onHelpButtonPressed(withBadge: Bool)
   func onBookmarksButtonPressed()
@@ -15,7 +15,8 @@ class BottomTabBarPresenter: NSObject {
 }
 
 extension BottomTabBarPresenter: BottomTabBarPresenterProtocol {
-  func configure() {
+  func viewWillAppear() {
+    interactor.configureTabBar()
   }
 
   func onSearchButtonPressed() {

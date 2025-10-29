@@ -805,6 +805,12 @@ public:
   bool CanShowRateUsRequest() const;
   void DidShowRateUsRequest() const;
 
+  bool CanShowCrowdfundingPromo() const;
+  void DidShowDonationPage() const;
+  void DidPossiblyReturnFromDonationPage() const;
+  // Only for testing purposes.
+  void ResetDonations();
+
 private:
   static uint32_t GetTimeoutForReason(ProductsPopupCloseReason reason);
   static std::string_view ToString(ProductsPopupCloseReason reason);
