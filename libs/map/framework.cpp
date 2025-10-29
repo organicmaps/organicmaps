@@ -123,6 +123,12 @@ std::string_view constexpr kProductsPopupCloseReasonSelectProductStr = "select_p
 std::string_view constexpr kFirstAskedForRateUsTimeKey = "FirstAskedForRateUsTime";
 std::string_view constexpr kLastAskedForRateUsTimeKey = "LastAskedForRateUsTime";
 
+std::string_view constexpr kDonationTapTimeKey = "DonationTapTime";
+std::string_view constexpr kDonationTapCountKey = "DonationTapCount";
+
+auto const kCrowdfundingStartTime = base::YYMMDDToSecondsSinceEpoch(251220);
+auto const kCrowdfundingEndTime = base::YYMMDDToSecondsSinceEpoch(260201);
+
 auto constexpr kLargeFontsScaleFactor = 1.6;
 size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
 
@@ -3585,4 +3591,47 @@ void Framework::DidShowRateUsRequest() const
     settings::Set(kFirstAskedForRateUsTimeKey, now);
 
   settings::Set(kLastAskedForRateUsTimeKey, now);
+}
+
+std::optional<std::string> Framework::GetDontateURL() const
+{
+  std::string url;
+  if (settings::Get(settings::kDonateUrl, url))
+    return url;
+  /// @todo(KK): Remove this crowdfunding hard-start in the next release.
+  if (base::SecondsSinceEpoch() > kCrowdfundingStartTime)
+    return "https://organicmaps.app/donate/";
+  return nullopt;
+}
+
+bool Framework::CanShowCrowdfundingPromo() const
+{
+  if (!GetDontateURL().has_value())
+    return false;
+
+  uint8_t constexpr kMinBatteryLevelPercent = 25;
+  if (Platform::GetBatteryLevel() < kMinBatteryLevelPercent)
+    return false;
+
+  uint64_t lastDonationTapTime = 0;
+  bool const donationWasTapped = settings::Get(kDonationTapTimeKey, lastDonationTapTime) && lastDonationTapTime > 0;
+  bool const crowdfundingHasEnded = base::SecondsSinceEpoch() > kCrowdfundingEndTime;
+  if (donationWasTapped && crowdfundingHasEnded)
+    return false;
+
+  return true;
+}
+
+void Framework::DidShowDonationPage() const
+{
+  settings::Set(kDonationTapTimeKey, base::SecondsSinceEpoch());
+  uint32_t tapCount = 0;
+  UNUSED_VALUE(settings::Get(kDonationTapCountKey, tapCount));
+  settings::Set(kDonationTapCountKey, tapCount + 1);
+}
+
+void Framework::ResetDonations() {
+  LOG(LDEBUG, ("Donations data was reset to initial state."));
+  settings::Set(kDonationTapTimeKey, 0);
+  settings::Set(kDonationTapCountKey, 0);
 }
