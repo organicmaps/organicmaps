@@ -734,7 +734,7 @@ office|diplomatic
 *tourism|guest_house
 *tourism|motel
 boundary|administrative|4
-*place|state|USA
+*place|state|major
 *building|address
 *amenity|parking|no-access
 *barrier|swing_gate

@@ -893,7 +893,7 @@ world  +
         sea  -
         square  -
         state  +
-            USA  -
+            major  -
             {}
         suburb  -
         town  -
