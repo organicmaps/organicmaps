@@ -870,7 +870,7 @@
 "type.place.sea" = "Zee";
 "type.place.square" = "Plein";
 "type.place.state" = "Deelstaat";
-"type.place.state.USA" = "Deelstaat";
+"type.place.state.major" = "Deelstaat";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Buitenwijk";

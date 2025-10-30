@@ -870,7 +870,7 @@
 "type.place.sea" = "เห็น";
 "type.place.square" = "ช่องว่าง";
 "type.place.state" = "รัฐ";
-"type.place.state.USA" = "รัฐ";
+"type.place.state.major" = "รัฐ";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "ชานเมือง";

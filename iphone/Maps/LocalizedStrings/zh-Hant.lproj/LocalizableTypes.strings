@@ -870,7 +870,7 @@
 "type.place.sea" = "海";
 "type.place.square" = "廣場";
 "type.place.state" = "州/省";
-"type.place.state.USA" = "州";
+"type.place.state.major" = "州";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "郊區";

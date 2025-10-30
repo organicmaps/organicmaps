@@ -669,7 +669,7 @@
     <string name="type.place.sea">เห็น</string>
     <string name="type.place.square">ช่องว่าง</string>
     <string name="type.place.state">รัฐ</string>
-    <string name="type.place.state.USA">รัฐ</string>
+    <string name="type.place.state.major">รัฐ</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">ชานเมือง</string>
     <string name="type.place.town">เมือง</string>

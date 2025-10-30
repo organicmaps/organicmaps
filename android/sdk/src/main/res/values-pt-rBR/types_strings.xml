@@ -1304,7 +1304,7 @@
     <string name="type.place.ocean">Oceano</string>
     <string name="type.place.region">Região</string>
     <string name="type.place.state">Estado</string>
-    <string name="type.place.state.USA">Estado</string>
+    <string name="type.place.state.major">Estado</string>
     <string name="type.place.town">Cidade</string>
     <string name="type.barrier.log">Barreira de toras</string>
     <string name="type.barrier.debris">Destroços</string>

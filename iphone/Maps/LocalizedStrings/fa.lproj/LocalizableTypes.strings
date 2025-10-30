@@ -870,7 +870,7 @@
 "type.place.sea" = "دریا";
 "type.place.square" = "میدان";
 "type.place.state" = "ایالت";
-"type.place.state.USA" = "ایالت";
+"type.place.state.major" = "ایالت";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "حومه";

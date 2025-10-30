@@ -870,7 +870,7 @@
 "type.place.sea" = "Deniz";
 "type.place.square" = "Meydan";
 "type.place.state" = "İl";
-"type.place.state.USA" = "Eyalet";
+"type.place.state.major" = "Eyalet";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Mahalle";

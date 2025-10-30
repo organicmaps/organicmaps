@@ -215,7 +215,7 @@
 "type.place.sea" = "Haf";
 "type.place.ocean" = "Úthaf";
 "type.place.state" = "Hérað/Fylki";
-"type.place.state.USA" = "Hérað/Fylki";
+"type.place.state.major" = "Hérað/Fylki";
 "type.place.quarter" = "Hverfi";
 "type.power.pole" = "Raflínustaur";
 "type.railway" = "Járnbraut";

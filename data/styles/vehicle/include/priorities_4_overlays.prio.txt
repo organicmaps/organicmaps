@@ -156,7 +156,7 @@ place-city-capital-9                                # caption z4-
 place-city                                          # caption z4-
 === 3450
 
-place-state-USA                                     # caption z5-10
+place-state-major                                     # caption z5-10
 === 3400
 
 place-state                                         # caption z6-10

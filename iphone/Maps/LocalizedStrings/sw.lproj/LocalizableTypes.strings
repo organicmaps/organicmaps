@@ -870,7 +870,7 @@
 "type.place.sea" = "Bahari";
 "type.place.square" = "Nafasi";
 "type.place.state" = "Jimbo la Shirikisho";
-"type.place.state.USA" = "Jimbo";
+"type.place.state.major" = "Jimbo";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Pambizo";

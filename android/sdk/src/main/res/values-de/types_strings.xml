@@ -758,7 +758,7 @@
     <string name="type.place.sea">Meer</string>
     <string name="type.place.square">Platz</string>
     <string name="type.place.state">Bundesland</string>
-    <string name="type.place.state.USA">Bundesstaat</string>
+    <string name="type.place.state.major">Bundesstaat</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Stadtteil</string>
     <string name="type.place.town">Kleinstadt</string>

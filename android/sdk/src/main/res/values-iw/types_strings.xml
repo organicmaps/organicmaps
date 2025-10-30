@@ -786,7 +786,7 @@
     <string name="type.place.sea">ים</string>
     <string name="type.place.square">כיכר עירונית</string>
     <string name="type.place.state">מדינה פדרלית</string>
-    <string name="type.place.state.USA">מדינה</string>
+    <string name="type.place.state.major">מדינה</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">פרוור</string>
     <string name="type.place.town">עיירה</string>
