@@ -870,7 +870,7 @@
 "type.place.sea" = "More";
 "type.place.square" = "Námestie";
 "type.place.state" = "Štát";
-"type.place.state.USA" = "Štát";
+"type.place.state.major" = "Štát";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Predmestie";

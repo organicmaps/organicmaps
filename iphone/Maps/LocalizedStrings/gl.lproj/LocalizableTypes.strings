@@ -780,7 +780,7 @@
 "type.place.sea" = "Mar";
 "type.place.square" = "Praza";
 "type.place.state" = "Estado";
-"type.place.state.USA" = "Estado";
+"type.place.state.major" = "Estado";
 "type.place.suburb" = "Barrio";
 "type.place.town" = "Poboo";
 "type.place.village" = "Poboo";

@@ -869,7 +869,7 @@
 "type.place.sea" = "Meri";
 "type.place.square" = "Väljak";
 "type.place.state" = "Provints";
-"type.place.state.USA" = "Osariik";
+"type.place.state.major" = "Osariik";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Linnaosa";

@@ -274,29 +274,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
   }
 }
 
-UNIT_CLASS_TEST(TestWithClassificator, OsmType_PlaceState)
-{
-  Tags const tags = {{"alt_name:vi", "California"},
-                     {"is_in", "USA"},
-                     {"is_in:continent", "North America"},
-                     {"is_in:country", "USA"},
-                     {"is_in:country_code", "us"},
-                     {"name", "California"},
-                     {"place", "state"},
-                     {"population", "37253956"},
-                     {"ref", "CA"}};
-
-  auto const params = GetFeatureBuilderParams(tags);
-
-  TEST_EQUAL(params.m_types.size(), 1, (params));
-  TEST(params.IsTypeExist(GetType({"place", "state", "USA"})), ());
-
-  std::string_view s;
-  TEST(params.name.GetString(0, s), ());
-  TEST_EQUAL(s, "California", ());
-  TEST_GREATER(params.rank, 1, ());
-}
-
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_AlabamaRiver)
 {
   Tags const tags1 = {
@@ -2879,10 +2856,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
       {{"place", "city", "capital", "9"}, {{"place", "city"}, {"capital", "9"}}},
       {{"place", "city", "capital", "9"}, {{"place", "city"}, {"capital", "any_value"}, {"admin_level", "9"}}},
       {{"place", "city", "capital"}, {{"place", "city"}, {"capital", "any_value"}}},
-      {{"place", "state", "USA"}, {{"place", "state"}, {"addr:country", "US"}}},
-      {{"place", "state", "USA"}, {{"place", "state"}, {"is_in", "USA"}}},
-      {{"place", "state", "USA"}, {{"place", "state"}, {"is_in:country", "USA"}}},
-      {{"place", "state", "USA"}, {{"place", "state"}, {"is_in:country_code", "us"}}},
+      {{"place", "state", "major"}, {{"place", "state"}, {"is_in", "US"}}},
+      {{"place", "state", "major"}, {{"place", "state"}, {"is_in", "Canada"}}},
       {{"railway", "disused", "bridge"}, {{"railway", "disused"}, {"bridge", "any_value"}}},
       {{"railway", "disused", "tunnel"}, {{"railway", "disused"}, {"tunnel", "any_value"}}},
       {{"railway", "funicular", "bridge"}, {{"railway", "funicular"}, {"bridge", "any_value"}}},

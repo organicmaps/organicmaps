@@ -742,7 +742,7 @@
     <string name="type.place.sea">See</string>
     <string name="type.place.square">Plein</string>
     <string name="type.place.state">Deelstaat</string>
-    <string name="type.place.state.USA">Deelstaat</string>
+    <string name="type.place.state.major">Deelstaat</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Voorstad</string>
     <string name="type.place.town">Dorp</string>

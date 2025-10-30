@@ -717,7 +717,7 @@
     <string name="type.place.sea">Itsasoa</string>
     <string name="type.place.square">Plaza</string>
     <string name="type.place.state">Baldintza</string>
-    <string name="type.place.state.USA">Baldintza</string>
+    <string name="type.place.state.major">Baldintza</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Auzoa</string>
     <string name="type.place.town">Herria</string>

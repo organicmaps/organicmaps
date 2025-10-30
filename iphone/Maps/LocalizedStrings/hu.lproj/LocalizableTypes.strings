@@ -846,7 +846,7 @@
 "type.place.sea" = "Tenger";
 "type.place.square" = "Tér";
 "type.place.state" = "Tartomány";
-"type.place.state.USA" = "Szövetségi állam";
+"type.place.state.major" = "Szövetségi állam";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Városrész";

@@ -727,7 +727,7 @@
 "type.place.sea" = "Sea";
 "type.place.square" = "Square";
 "type.place.state" = "State";
-"type.place.state.USA" = "State";
+"type.place.state.major" = "State";
 "type.place.suburb" = "Suburb";
 "type.place.town" = "Town";
 "type.place.village" = "Village";

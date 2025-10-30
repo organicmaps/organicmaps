@@ -99,7 +99,7 @@ node|z3-[place=country]
 node|z3-[place=country]::int_name
 {text: int_name;text-color: @country_label;}
 
-node|z5[place=state][addr:country=US],
+node|z5[place=state][is_in=US],
 node|z6-10[place=state]
 {text: name;text-color: @state_label;}
 node|z7-10[place=state]::int_name
@@ -134,7 +134,7 @@ node|z9-[place=country]
 node|z9-[place=country]::int_name
 {font-size: 19;}
 
-node|z5[place=state][addr:country=US]
+node|z5[place=state][is_in=US]
 {font-size: 11;}
 node|z6-7[place=state]
 {font-size: 11;}

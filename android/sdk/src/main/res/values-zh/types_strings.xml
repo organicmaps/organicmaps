@@ -767,7 +767,7 @@
     <string name="type.place.sea">海</string>
     <string name="type.place.square">广场</string>
     <string name="type.place.state">州/省</string>
-    <string name="type.place.state.USA">州</string>
+    <string name="type.place.state.major">州</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">市郊</string>
     <string name="type.place.town">镇</string>

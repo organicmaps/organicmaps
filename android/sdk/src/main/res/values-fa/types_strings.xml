@@ -579,7 +579,7 @@
     <string name="type.place.sea">دریا</string>
     <string name="type.place.square">میدان</string>
     <string name="type.place.state">ایالت</string>
-    <string name="type.place.state.USA">ایالت</string>
+    <string name="type.place.state.major">ایالت</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">حومه</string>
     <string name="type.place.town">شهر</string>

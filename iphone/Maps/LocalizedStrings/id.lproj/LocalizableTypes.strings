@@ -870,7 +870,7 @@
 "type.place.sea" = "Laut";
 "type.place.square" = "Lapangan kota";
 "type.place.state" = "Negara bagian";
-"type.place.state.USA" = "Negara bagian";
+"type.place.state.major" = "Negara bagian";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Pinggiran kota";

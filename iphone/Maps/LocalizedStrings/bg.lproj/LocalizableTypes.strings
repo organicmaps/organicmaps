@@ -868,7 +868,7 @@
 "type.place.sea" = "Море";
 "type.place.square" = "Площад";
 "type.place.state" = "Федерален щат";
-"type.place.state.USA" = "Държава";
+"type.place.state.major" = "Държава";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Предградие";

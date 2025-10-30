@@ -756,7 +756,7 @@
     <string name="type.place.sea">بحر</string>
     <string name="type.place.square">ميدان</string>
     <string name="type.place.state">محافظة</string>
-    <string name="type.place.state.USA">ولاية</string>
+    <string name="type.place.state.major">ولاية</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">ضاحية</string>
     <string name="type.place.town">بلدة</string>

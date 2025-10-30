@@ -665,7 +665,7 @@
     <string name="type.place.sea">Biển</string>
     <string name="type.place.square">Quảng trường</string>
     <string name="type.place.state">Hạt</string>
-    <string name="type.place.state.USA">Hạt</string>
+    <string name="type.place.state.major">Hạt</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Đảo</string>
     <string name="type.place.town">Thành phố</string>

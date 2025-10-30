@@ -870,7 +870,7 @@
 "type.place.sea" = "Meri";
 "type.place.square" = "Tori";
 "type.place.state" = "Lääni";
-"type.place.state.USA" = "Lääni";
+"type.place.state.major" = "Lääni";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Esikaupunki";

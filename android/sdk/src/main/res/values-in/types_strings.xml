@@ -658,7 +658,7 @@
     <string name="type.place.sea">Laut</string>
     <string name="type.place.square">Lapangan kota</string>
     <string name="type.place.state">Negara bagian</string>
-    <string name="type.place.state.USA">Negara bagian</string>
+    <string name="type.place.state.major">Negara bagian</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Pinggiran kota</string>
     <string name="type.place.town">Kota</string>

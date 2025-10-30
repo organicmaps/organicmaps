@@ -870,7 +870,7 @@
 "type.place.sea" = "Itsasoa";
 "type.place.square" = "Plaza";
 "type.place.state" = "Baldintza";
-"type.place.state.USA" = "Baldintza";
+"type.place.state.major" = "Baldintza";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Auzoa";

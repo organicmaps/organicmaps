@@ -747,7 +747,7 @@
     <string name="type.place.sea">Mer</string>
     <string name="type.place.square">Place</string>
     <string name="type.place.state">État</string>
-    <string name="type.place.state.USA">État</string>
+    <string name="type.place.state.major">État</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Quartier</string>
     <string name="type.place.town">Ville</string>

@@ -722,7 +722,7 @@
     <string name="type.place.sea">Mar</string>
     <string name="type.place.square">Praza</string>
     <string name="type.place.state">Estado</string>
-    <string name="type.place.state.USA">Estado</string>
+    <string name="type.place.state.major">Estado</string>
     <string name="type.place.suburb">Barrio</string>
     <string name="type.place.town">Poboo</string>
     <string name="type.place.village">Poboo</string>

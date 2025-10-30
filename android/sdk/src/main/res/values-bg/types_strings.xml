@@ -368,7 +368,7 @@
     <string name="type.place.sea">Море</string>
     <string name="type.place.square">Площад</string>
     <string name="type.place.state">Федерален щат</string>
-    <string name="type.place.state.USA">Държава</string>
+    <string name="type.place.state.major">Държава</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Предградие</string>
     <string name="type.place.town">Градче</string>
