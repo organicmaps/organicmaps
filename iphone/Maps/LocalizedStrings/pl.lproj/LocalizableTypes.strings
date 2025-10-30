@@ -870,7 +870,7 @@
 "type.place.sea" = "Morze";
 "type.place.square" = "Plac";
 "type.place.state" = "Stan";
-"type.place.state.USA" = "Stan";
+"type.place.state.major" = "Stan";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Przedmieścia";

@@ -870,7 +870,7 @@
 "type.place.sea" = "Dəniz";
 "type.place.square" = "Kvadrat";
 "type.place.state" = "Dövlət";
-"type.place.state.USA" = "Dövlət";
+"type.place.state.major" = "Dövlət";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Qonşuluq";

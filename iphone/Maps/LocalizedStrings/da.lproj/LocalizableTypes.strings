@@ -868,7 +868,7 @@
 "type.place.sea" = "Hav";
 "type.place.square" = "Torv";
 "type.place.state" = "Stat";
-"type.place.state.USA" = "Stat";
+"type.place.state.major" = "Stat";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Forstad";

@@ -870,7 +870,7 @@
 "type.place.sea" = "Mar";
 "type.place.square" = "Praça";
 "type.place.state" = "Estado";
-"type.place.state.USA" = "Estado";
+"type.place.state.major" = "Estado";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Bairro";

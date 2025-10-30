@@ -809,7 +809,7 @@
     <string name="type.place.sea">Sea</string>
     <string name="type.place.square">Square</string>
     <string name="type.place.state">State</string>
-    <string name="type.place.state.USA">State</string>
+    <string name="type.place.state.major">State</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Suburb</string>
     <string name="type.place.town">Town</string>

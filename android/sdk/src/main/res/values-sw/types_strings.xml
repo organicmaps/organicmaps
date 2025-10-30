@@ -371,7 +371,7 @@
     <string name="type.place.sea">Bahari</string>
     <string name="type.place.square">Nafasi</string>
     <string name="type.place.state">Jimbo la Shirikisho</string>
-    <string name="type.place.state.USA">Jimbo</string>
+    <string name="type.place.state.major">Jimbo</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Pambizo</string>
     <string name="type.place.town">Mji</string>

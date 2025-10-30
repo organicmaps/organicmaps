@@ -763,7 +763,7 @@
     <string name="type.place.sea">Morze</string>
     <string name="type.place.square">Plac</string>
     <string name="type.place.state">Stan</string>
-    <string name="type.place.state.USA">Stan</string>
+    <string name="type.place.state.major">Stan</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Przedmieścia</string>
     <string name="type.place.town">Miasteczko</string>

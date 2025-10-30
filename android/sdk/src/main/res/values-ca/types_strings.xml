@@ -959,7 +959,7 @@
     <string name="type.cuisine.curry">Curri</string>
     <string name="type.cuisine.ethiopian">Etiòpica</string>
     <string name="type.place.suburb">Suburbi</string>
-    <string name="type.place.state.USA">Estat</string>
+    <string name="type.place.state.major">Estat</string>
     <string name="type.power.line">Línia elèctrica</string>
     <string name="type.leisure.sauna">Sauna</string>
     <string name="type.barrier.guard_rail">Tanca de contenció</string>

@@ -763,7 +763,7 @@
     <string name="type.place.sea">Mare</string>
     <string name="type.place.square">Piazza</string>
     <string name="type.place.state">Provincia</string>
-    <string name="type.place.state.USA">Stato</string>
+    <string name="type.place.state.major">Stato</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Quartiere</string>
     <string name="type.place.town">Città</string>

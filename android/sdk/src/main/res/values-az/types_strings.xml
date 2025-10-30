@@ -759,7 +759,7 @@
     <string name="type.place.sea">Dəniz</string>
     <string name="type.place.square">Kvadrat</string>
     <string name="type.place.state">Dövlət</string>
-    <string name="type.place.state.USA">Dövlət</string>
+    <string name="type.place.state.major">Dövlət</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Qonşuluq</string>
     <string name="type.place.town">Şəhər</string>

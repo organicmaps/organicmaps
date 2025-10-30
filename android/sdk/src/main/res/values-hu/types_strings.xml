@@ -665,7 +665,7 @@
     <string name="type.place.sea">Tenger</string>
     <string name="type.place.square">Tér</string>
     <string name="type.place.state">Tartomány</string>
-    <string name="type.place.state.USA">Szövetségi állam</string>
+    <string name="type.place.state.major">Szövetségi állam</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Városrész</string>
     <string name="type.place.town">Kisváros</string>

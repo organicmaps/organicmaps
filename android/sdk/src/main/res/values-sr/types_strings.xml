@@ -775,7 +775,7 @@
     <string name="type.place.sea">Море</string>
     <string name="type.place.square">Трг</string>
     <string name="type.place.state">Држава</string>
-    <string name="type.place.state.USA">Држава</string>
+    <string name="type.place.state.major">Држава</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Кварт</string>
     <string name="type.place.town">Град</string>

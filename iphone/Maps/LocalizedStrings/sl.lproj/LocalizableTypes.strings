@@ -726,7 +726,7 @@
 "type.place.sea" = "Morje";
 "type.place.square" = "Trg";
 "type.place.state" = "Država";
-"type.place.state.USA" = "Zvezna država";
+"type.place.state.major" = "Zvezna država";
 "type.place.suburb" = "Predmestje";
 "type.place.town" = "Mesto";
 "type.place.village" = "Vas";

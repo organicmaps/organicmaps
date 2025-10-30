@@ -664,7 +664,7 @@
     <string name="type.place.sea">Moře</string>
     <string name="type.place.square">Náměstí</string>
     <string name="type.place.state">Země</string>
-    <string name="type.place.state.USA">Země</string>
+    <string name="type.place.state.major">Země</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Předměstí</string>
     <string name="type.place.town">Město</string>

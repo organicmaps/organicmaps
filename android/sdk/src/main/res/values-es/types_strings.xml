@@ -781,7 +781,7 @@
     <string name="type.place.sea">Mar</string>
     <string name="type.place.square">Plaza</string>
     <string name="type.place.state">Estado</string>
-    <string name="type.place.state.USA">Estado</string>
+    <string name="type.place.state.major">Estado</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Barrio</string>
     <string name="type.place.town">Pueblo</string>

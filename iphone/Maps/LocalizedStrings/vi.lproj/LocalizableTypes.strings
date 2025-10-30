@@ -870,7 +870,7 @@
 "type.place.sea" = "Biển";
 "type.place.square" = "Quảng trường";
 "type.place.state" = "Hạt";
-"type.place.state.USA" = "Hạt";
+"type.place.state.major" = "Hạt";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Đảo";

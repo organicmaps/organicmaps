@@ -870,7 +870,7 @@
 "type.place.sea" = "Meer";
 "type.place.square" = "Platz";
 "type.place.state" = "Bundesland";
-"type.place.state.USA" = "Bundesstaat";
+"type.place.state.major" = "Bundesstaat";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Stadtteil";

@@ -652,7 +652,7 @@
     <string name="type.place.sea">Hav</string>
     <string name="type.place.square">Torv</string>
     <string name="type.place.state">Stat</string>
-    <string name="type.place.state.USA">Stat</string>
+    <string name="type.place.state.major">Stat</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Forstad</string>
     <string name="type.place.town">By</string>
