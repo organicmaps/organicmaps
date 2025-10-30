@@ -669,7 +669,7 @@
     <string name="type.place.sea">바다</string>
     <string name="type.place.square">광장</string>
     <string name="type.place.state">주</string>
-    <string name="type.place.state.USA">주</string>
+    <string name="type.place.state.major">주</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">교외</string>
     <string name="type.place.town">타운</string>

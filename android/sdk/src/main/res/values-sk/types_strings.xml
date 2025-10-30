@@ -759,7 +759,7 @@
     <string name="type.place.sea">More</string>
     <string name="type.place.square">Námestie</string>
     <string name="type.place.state">Štát</string>
-    <string name="type.place.state.USA">Štát</string>
+    <string name="type.place.state.major">Štát</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Predmestie</string>
     <string name="type.place.town">Mesto</string>

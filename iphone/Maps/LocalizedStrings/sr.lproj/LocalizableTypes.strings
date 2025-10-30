@@ -870,7 +870,7 @@
 "type.place.sea" = "Море";
 "type.place.square" = "Трг";
 "type.place.state" = "Држава";
-"type.place.state.USA" = "Држава";
+"type.place.state.major" = "Држава";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Кварт";

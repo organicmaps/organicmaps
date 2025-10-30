@@ -868,7 +868,7 @@
 "type.place.sea" = "Mare";
 "type.place.square" = "Piazza";
 "type.place.state" = "Provincia";
-"type.place.state.USA" = "Stato";
+"type.place.state.major" = "Stato";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Quartiere";

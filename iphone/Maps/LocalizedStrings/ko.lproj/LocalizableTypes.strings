@@ -870,7 +870,7 @@
 "type.place.sea" = "바다";
 "type.place.square" = "광장";
 "type.place.state" = "주";
-"type.place.state.USA" = "주";
+"type.place.state.major" = "주";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "교외";

@@ -769,7 +769,7 @@
     <string name="type.place.sea">Deniz</string>
     <string name="type.place.square">Meydan</string>
     <string name="type.place.state">İl</string>
-    <string name="type.place.state.USA">Eyalet</string>
+    <string name="type.place.state.major">Eyalet</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Mahalle</string>
     <string name="type.place.town">İlçe</string>

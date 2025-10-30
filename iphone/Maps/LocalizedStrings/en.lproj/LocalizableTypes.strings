@@ -896,7 +896,7 @@
 "type.place.sea" = "Sea";
 "type.place.square" = "Square";
 "type.place.state" = "State";
-"type.place.state.USA" = "State";
+"type.place.state.major" = "State";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Suburb";

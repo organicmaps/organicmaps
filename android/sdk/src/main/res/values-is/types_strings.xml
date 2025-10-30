@@ -336,7 +336,7 @@
     <string name="type.place.neighbourhood">Hverfi</string>
     <string name="type.place.sea">Haf</string>
     <string name="type.place.square">Torg</string>
-    <string name="type.place.state.USA">Hérað/Fylki</string>
+    <string name="type.place.state.major">Hérað/Fylki</string>
     <string name="type.place.suburb">Úthverfi</string>
     <string name="type.place.town">Bær</string>
     <string name="type.place.village">Þorp</string>

@@ -852,7 +852,7 @@ tourism|museum;733;
 tourism|guest_house;734;
 tourism|motel;735;
 deprecated:boundary|administrative|4|state:01.2022;[boundary=administrative][admin_level=4][border_type=state];x;name;int_name;736;boundary|administrative|4
-place|state|USA;[place=state][addr:country=US],[place=state][is_in=USA],[place=state][is_in:country=USA],[place=state][is_in:country_code=us];;name;int_name;737;
+place|state|major;[place=state][is_in=US],[place=state][is_in=Canada];;name;int_name;737;
 building|address;[addr:housenumber][addr:street];;addr:housenumber;name;738;
 amenity|parking|no-access;[amenity=parking][access=no];;name;int_name;739;
 barrier|swing_gate;740;

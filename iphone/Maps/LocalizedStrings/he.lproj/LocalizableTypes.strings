@@ -870,7 +870,7 @@
 "type.place.sea" = "ים";
 "type.place.square" = "כיכר עירונית";
 "type.place.state" = "מדינה פדרלית";
-"type.place.state.USA" = "מדינה";
+"type.place.state.major" = "מדינה";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "פרוור";
