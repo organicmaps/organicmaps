@@ -1333,4 +1333,6 @@
     <string name="type.man_made.monitoring_station.weather">Veðurstöð</string>
     <string name="type.area_highway.traffic_island">Umferðareyja</string>
     <string name="type.man_made.monitoring_station">Vöktunarstöð</string>
+    <string name="type.amenity.student_accommodation">Stúdentagarðar</string>
+    <string name="type.craft.watchmaker">Úrsmiður</string>
 </resources>

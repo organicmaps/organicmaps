@@ -54,7 +54,7 @@
     <string name="disconnect_usb_cable">Bontsa az USB-kapcsolatot vagy helyezzen be egy memóriakártyát az Organic Maps használatához</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Az alkalmazás használatához először szabadítson fel némi helyet az SD-kártyán/USB-tárolón</string>
-    <string name="download_resources">Mielőtt elkezdené használni az alkalmazást, töltse le az áttekintő világtérképet az eszközre. \nEz %s tárhelyet fog igénybe venni.</string>
+    <string name="download_resources">Mielőtt elkezdené használni az alkalmazást, töltse le az áttekintő világtérképet az eszközére. \nEz %s tárhelyet fog igénybe venni.</string>
     <string name="download_resources_continue">Ugrás a térképre</string>
     <string name="downloading_country_can_proceed">%s letöltése. Most már\ntovábbléphet a térképre.</string>
     <string name="download_country_ask">Letölti a következőt: %s?</string>
@@ -244,17 +244,17 @@
     <string name="donate">Adományozás</string>
     <string name="already_donated">Már adományozott</string>
     <string name="remind_me_later">Emlékeztessen később</string>
-    <string name="support_organic_maps">Organic Maps támogatása</string>
+    <string name="support_organic_maps">Támogatás</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">A projekt támogatása</string>
+    <string name="how_to_support_us">Támogatás</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Szerzői jogok</string>
     <!-- Text in menu + Button in the main Help dialog -->
-    <string name="report_a_bug">Hiba jelentése</string>
+    <string name="report_a_bug">Hibajelentés</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
-    <string name="compass_calibration_recommended">Javítsa a nyíl irányát a telefon nyolcas mozgatásával az iránytű kalibrálásához.</string>
+    <string name="compass_calibration_recommended">Javítsa a nyíl irányát az eszköz nyolcas mozgatásával az iránytű kalibrálásához.</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
-    <string name="compass_calibration_required">Mozgassa a telefont egy nyolcas mozdulattal az iránytű kalibrálásához és a nyíl irányának rögzítéséhez a térképen.</string>
+    <string name="compass_calibration_required">Mozgassa az eszközt egy nyolcas mozdulattal az iránytű kalibrálásához és a nyíl irányának rögzítéséhez a térképen.</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
     <string name="long_tap_toast">Érintse meg újra hosszan a térképet a kezelőfelület megjelenítéséhez</string>
     <!-- Update all button text -->
@@ -285,11 +285,11 @@
     <!-- Preference title -->
     <string name="google_play_services">Google Play helymeghatározási szolgáltatások</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Bluetooth, Wi-Fi vagy mobilhálózat segítségével gyorsan meghatározhatja hozzávetőleges tartózkodási helyét</string>
+    <string name="pref_use_google_play">Bluetooth, Wi-Fi vagy mobil-adatforgalom segítségével gyorsan meghatározhatja hozzávetőleges tartózkodási helyét</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Összes térkép letöltése az útvonal mentén</string>
     <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">Az útvonal létrehozásához le kell töltenie és frissítenie kell az összes térképet az Ön tartózkodási helyétől a célig.</string>
+    <string name="routing_requires_all_map">Az útvonal létrehozásához le kell töltenie és frissítenie kell az összes térképet az Ön tartózkodási helyétől az úti céljáig.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Nincs elegendő tárhely</string>
     <!-- location service disabled -->
@@ -331,7 +331,7 @@
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Az útvonal követése során vegye figyelembe az alábbiakat:</string>
     <string name="dialog_routing_disclaimer_priority">– Az útviszonyok, a közlekedési szabályok és a jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatással szemben;</string>
-    <string name="dialog_routing_disclaimer_precision">– A térkép pontatlan lehet és a javasolt útvonal lehetséges, hogy nem mindig a legoptimálisabb módja a célállomás elérésének;</string>
+    <string name="dialog_routing_disclaimer_precision">– A térkép pontatlan lehet és a javasolt útvonal lehetséges, hogy nem mindig a legoptimálisabb módja az úti cél elérésének;</string>
     <string name="dialog_routing_disclaimer_recommendations">– A javasolt útvonalakat csupán ajánlottként kell tekinteni;</string>
     <string name="dialog_routing_disclaimer_borders">– Legyen óvatos az útvonalakkal a határzónákban: az alkalmazásunk által létrehozott útvonalak néha nem engedélyezett helyeken léphetik át az országhatárokat.</string>
     <string name="dialog_routing_disclaimer_beware">Mindig maradjon éber és vezessen biztonságosan az utakon!</string>
@@ -342,15 +342,15 @@
     <string name="dialog_routing_location_unknown_turn_on">A jelenlegi GPS-koordináták nem találhatók. Engedélyezze a helymeghatározási szolgáltatásokat az útvonal kiszámításához.</string>
     <string name="dialog_routing_unable_locate_route">Nem sikerült meghatározni az útvonalat</string>
     <string name="dialog_routing_cant_build_route">Nem lehet létrehozni az útvonalat.</string>
-    <string name="dialog_routing_change_start_or_end">Pontosítsa a kiindulópontot vagy a célállomást.</string>
+    <string name="dialog_routing_change_start_or_end">Pontosítsa a kiindulópontot vagy az úti célt.</string>
     <string name="dialog_routing_change_start">Pontosítsa a kiindulópontot</string>
     <string name="dialog_routing_start_not_determined">Az útvonal nem lett létrehozva. Nem sikerült meghatározni a kiindulópontot.</string>
     <string name="dialog_routing_select_closer_start">Válasszon egy, az úthoz közelebb eső kiindulópontot.</string>
-    <string name="dialog_routing_change_end">Pontosítsa célállomását</string>
-    <string name="dialog_routing_end_not_determined">Az útvonal nem lett létrehozva. Nem sikerült meghatározni a célállomást.</string>
-    <string name="dialog_routing_select_closer_end">Válasszon egy, az úthoz közelebb eső célállomást.</string>
-    <string name="dialog_routing_change_intermediate">Nem sikerült meghatározni a köztes helyet.</string>
-    <string name="dialog_routing_intermediate_not_determined">Pontosítsa a köztes helyet.</string>
+    <string name="dialog_routing_change_end">Pontosítsa az úti célt</string>
+    <string name="dialog_routing_end_not_determined">Az útvonal nem lett létrehozva. Nem sikerült meghatározni az úti célt.</string>
+    <string name="dialog_routing_select_closer_end">Válasszon egy, az úthoz közelebb eső úti célt.</string>
+    <string name="dialog_routing_change_intermediate">Nem sikerült meghatározni a köztes célpontot.</string>
+    <string name="dialog_routing_intermediate_not_determined">Pontosítsa a köztes célpontot.</string>
     <string name="dialog_routing_system_error">Rendszerhiba</string>
     <string name="dialog_routing_application_error">Nem lehet létrehozni az útvonalat egy alkalmazáshiba miatt.</string>
     <string name="dialog_routing_try_again">Próbálja meg újra</string>
@@ -375,7 +375,7 @@
     <string name="p2p_your_location">Saját tartózkodási hely</string>
     <string name="p2p_start">Indítás</string>
     <string name="p2p_from_here">Kiindulópont</string>
-    <string name="p2p_to_here">Célpont</string>
+    <string name="p2p_to_here">Úti cél</string>
     <string name="p2p_only_from_current">A navigáció csak a jelenlegi tartózkodási helyétől érhető el.</string>
     <string name="p2p_reroute_from_current">Szeretne útvonalat tervezni a jelenlegi tartózkodási helyétől?</string>
     <!-- Edit open hours/set time and minutes dialog -->
@@ -448,7 +448,7 @@
     <string name="downloader_no_space_title">Nincs elegendő tárhely</string>
     <string name="downloader_no_space_message">Törölje a felesleges adatokat</string>
     <string name="editor_login_error_dialog">Bejelentkezési hiba.</string>
-    <string name="editor_profile_changes">Jóváhagyott módosítások</string>
+    <string name="editor_profile_changes">Jóváhagyott módosítás</string>
     <string name="editor_focus_map_on_location">Húzza a térképet, hogy a keresztet a hely vagy üzlet helyére helyezze.</string>
     <string name="editor_edit_place_title">Szerkesztés</string>
     <string name="editor_add_place_title">Hozzáadás</string>
@@ -467,7 +467,7 @@
     <string name="login_to_make_edits_visible">Hozzon létre egy fiókot az OpenStreetMapen, vagy jelentkezzen be, hogy közzétehesse térképszerkesztéseit a világ számára.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d / %2$d</string>
-    <string name="download_over_mobile_header">Biztosan letölti mobilhálózati kapcsolaton keresztül?</string>
+    <string name="download_over_mobile_header">Biztosan letölti mobiladat-forgalom használatával?</string>
     <string name="download_over_mobile_message">Ez egyes díjcsomagok vagy roaming esetén jelentős költségekkel járhat.</string>
     <string name="error_enter_correct_house_number">Adjon meg egy érvényes házszámot</string>
     <string name="editor_storey_number">Emeletek száma (legfeljebb: %d)</string>
@@ -523,13 +523,13 @@
     <string name="accept">Elfogadás</string>
     <!-- For the first routing -->
     <string name="decline">Elutasítás</string>
-    <string name="mobile_data_dialog">Mobilinternet használata a részletes információk megjelenítéséhez?</string>
+    <string name="mobile_data_dialog">Mobiladat-forgalom használata a részletes információk megjelenítéséhez?</string>
     <string name="mobile_data_option_always">Mindig használja</string>
     <string name="mobile_data_option_today">Csak ma</string>
     <string name="mobile_data_option_not_today">Ma ne használja</string>
-    <string name="mobile_data">Mobilinternet</string>
+    <string name="mobile_data">Mobiladat-forgalom</string>
     <!-- NOTE to translators: please synchronize your translation with the English one. -->
-    <string name="mobile_data_description">Mobilinternet szükséges a térképfrissítési értesítésekhez, valamint a helyekre és könyvjelzőkre vonatkozó részletes információk megjelenítéséhez.</string>
+    <string name="mobile_data_description">Internetkapcsolatra van szükség a térképfrissítési értesítésekhez, valamint a helyekre és könyvjelzőkre vonatkozó részletes információk megjelenítéséhez.</string>
     <string name="mobile_data_option_never">Soha ne használja</string>
     <string name="mobile_data_option_ask">Mindig kérdezzen rá</string>
     <string name="traffic_update_maps_text">Forgalmi adatok megjelenítéséhez frissíteni kell a térképeket.</string>
@@ -548,7 +548,7 @@
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Használja a keresést, válasszon ki egy könyvjelzőt vagy koppintson a térképre az útvonal kiindulópontjának hozzáadásához</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Használja a keresést, válasszon ki egy könyvjelzőt vagy koppintson a térképre egy célpont hozzáadásához</string>
+    <string name="routing_add_finish_point">Használja a keresést, válasszon ki egy könyvjelzőt vagy koppintson a térképre egy úti cél hozzáadásához</string>
     <string name="planning_route_manage_route">Útvonal kezelése</string>
     <string name="button_plan">Tervezés</string>
     <string name="placepage_remove_stop">Megálló eltávolítása</string>
@@ -707,7 +707,7 @@
     <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">Megjelenítés a zárolt képernyőn</string>
     <!-- Description in preferences -->
-    <string name="enable_show_on_lock_screen_description">Ha engedélyezve van, nem kell minden alkalommal feloldania a telefont, amíg az alkalmazás fut.</string>
+    <string name="enable_show_on_lock_screen_description">Ha engedélyezve van, nem kell minden alkalommal feloldania az eszközt, amíg az alkalmazás fut.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Térkép nyelve</string>
     <!-- OpenStreetMap text on splash screen -->
@@ -737,17 +737,17 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">A fő célunk az, hogy gyors, az adatvédelemre fókuszáló, könnyen használható térképeket készítsünk, amelyeket szeretni fog.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Ön most az Organic Maps alkalmazást használja a telefon képernyőjén</string>
+    <string name="car_used_on_the_phone_screen">Ön most az Organic Maps alkalmazást használja az eszköz képernyőjén</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
     <string name="car_used_on_the_car_screen">Ön most az Organic Maps alkalmazást használja az autó képernyőjén</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Ön kapcsolódik az Android Auto rendszerhez</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-    <string name="car_continue_on_the_phone">Folytatás telefonon</string>
+    <string name="car_continue_on_the_phone">Folytatás a hordozható eszközön</string>
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Az autó képernyőjére</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Az Organic Maps alkalmazásnak szüksége van a helymeghatározáshoz való hozzáférésre. Ha biztonságos, ellenőrizze az értesítést a telefonján.</string>
+    <string name="aa_location_permissions_request">Az Organic Maps alkalmazásnak szüksége van a helymeghatározáshoz való hozzáférésre. Ha biztonságos, ellenőrizze az értesítést az eszközén.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Ennek az alkalmazásnak szüksége van az Ön engedélyére</string>
     <!-- The text in the activity for location permission request. -->
@@ -782,7 +782,7 @@
     <!-- To indicate if restaurant or other place has outdoor seating -->
     <string name="outdoor_seating">Kiülős helyek</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
-    <string name="power_save_dialog_summary">A legpontosabb navigáció érdekében javasoljuk az energiatakarékos üzemmód kikapcsolását a telefon akkumulátor-beállításaiban.</string>
+    <string name="power_save_dialog_summary">A legpontosabb navigáció érdekében javasoljuk az energiatakarékos üzemmód kikapcsolását az eszköz akkumulátor-beállításaiban.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Nyomvonal rögzítése</string>
     <!-- Prompt for stopping a track recording. -->
