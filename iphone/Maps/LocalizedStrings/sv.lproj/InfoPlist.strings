@@ -13,3 +13,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Definitionen av aktuell plats används i vissa funktioner som t.ex. att spåra rutt eller att spara nyligen tillryggalagda rutter.";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "Rapportera en bugg";

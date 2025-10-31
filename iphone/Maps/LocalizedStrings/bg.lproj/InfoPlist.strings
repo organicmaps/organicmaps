@@ -13,3 +13,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Определянето на местоположението ви е необходимо за навигацията и за запазване на последния изминат маршрут.";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "Докладване на проблем";

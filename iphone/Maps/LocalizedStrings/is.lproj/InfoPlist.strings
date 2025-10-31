@@ -3,3 +3,6 @@
 "route" = "Leið";
 "NSLocationAlwaysUsageDescription" = "Greining staðsetningar í bakgrunni er nauðsynleg til að njóta allra eiginleika forritsins. Það er notað við leiðsögn og vistun á nýförnum leiðum.";
 "NSLocationWhenInUseUsageDescription" = "Greining staðsetningar í bakgrunni er nauðsynleg fyrir leiðsögn og vistun á nýförnum leiðum.";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "Tilkynna um villu";

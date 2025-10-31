@@ -13,3 +13,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Teie asukoha määramine on vajalik navigeerimiseks ja hiljuti reisitud raja salvestamiseks.";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "Teata veast";

@@ -13,3 +13,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Określanie bieżącej lokalizacji używane jest w przypadku opcji podążania trasą i zapisywania ostatnio przebytej trasy.";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "Zgłoś błąd";

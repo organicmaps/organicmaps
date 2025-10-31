@@ -178,6 +178,14 @@
 			<key>UIApplicationShortcutItemType</key>
 			<string>app.organicmaps.3daction.route</string>
 		</dict>
+    <dict>
+      <key>UIApplicationShortcutItemIconFile</key>
+      <string>ic_about_report_bug</string>
+      <key>UIApplicationShortcutItemTitle</key>
+      <string>report_a_bug</string>
+      <key>UIApplicationShortcutItemType</key>
+      <string>app.organicmaps.3daction.report_bug</string>
+    </dict>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

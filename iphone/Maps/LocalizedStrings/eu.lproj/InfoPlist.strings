@@ -13,3 +13,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Uneko kokapenaren definizioa ibilbidea jarraitu eta duela gutxi egindako bidea gordetzeko aukeretan erabiltzen da.";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "Errore baten berri eman";

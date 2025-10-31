@@ -13,3 +13,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Determining your location is necessary for navigation and for saving your recently travelled track.";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "Report a bug";

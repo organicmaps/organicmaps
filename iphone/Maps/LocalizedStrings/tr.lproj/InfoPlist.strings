@@ -13,3 +13,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Mevcut konumunuzun tayini rota takibi ve en son seyahat edilen yolu kaydetme seçeneklerinde kullanılır.";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "Hata bildir";
