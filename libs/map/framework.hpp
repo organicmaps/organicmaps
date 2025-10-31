@@ -653,10 +653,12 @@ public:
   /// Ignores coastlines and prefers buildings over other area features.
   /// @returns invalid FeatureID if no feature was found at the given mercator point.
   FeatureID GetFeatureAtPoint(m2::PointD const & mercator, FeatureMatcher && matcher = nullptr) const;
+
+  /// @param[in] scale Pass GetUpperScale (for countries) or GetUpperWorldScale (for World map).
   template <typename TFn>
-  void ForEachFeatureAtPoint(TFn && fn, m2::PointD const & mercator) const
+  void ForEachFeatureAtPoint(TFn && fn, m2::PointD const & mercator, int scale) const
   {
-    indexer::ForEachFeatureAtPoint(m_featuresFetcher.GetDataSource(), fn, mercator, 0.0);
+    indexer::ForEachFeatureAtPoint(m_featuresFetcher.GetDataSource(), fn, mercator, scale);
   }
 
   osm::MapObject GetMapObjectByID(FeatureID const & fid) const;
