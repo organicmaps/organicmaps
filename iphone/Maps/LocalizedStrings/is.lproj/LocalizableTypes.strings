@@ -1331,3 +1331,5 @@
 "type.man_made.monitoring_station.weather" = "Veðurstöð";
 "type.area_highway.traffic_island" = "Umferðareyja";
 "type.man_made.monitoring_station" = "Vöktunarstöð";
+"type.amenity.student_accommodation" = "Stúdentagarðar";
+"type.craft.watchmaker" = "Úrsmiður";

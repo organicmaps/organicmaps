@@ -283,13 +283,13 @@
 "donate_description" = "Adományozzon, hogy együtt építsük a legjobb térképeket!";
 "already_donated" = "Már adományozott";
 "remind_me_later" = "Emlékeztessen később";
-"support_organic_maps" = "Organic Maps támogatása";
+"support_organic_maps" = "Támogatás";
 
 /* Button in the main Help dialog */
 "copyright" = "Szerzői jogok";
 
 /* Text in menu + Button in the main Help dialog */
-"report_a_bug" = "Hiba jelentése";
+"report_a_bug" = "Hibajelentés";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Hibás térképadatok jelentése vagy javítása";
@@ -356,7 +356,7 @@
 "routing_download_maps_along" = "Összes térkép letöltése az útvonal mentén";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "Az útvonal létrehozásához le kell töltenie és frissítenie kell az összes térképet az Ön tartózkodási helyétől a célig.";
+"routing_requires_all_map" = "Az útvonal létrehozásához le kell töltenie és frissítenie kell az összes térképet az Ön tartózkodási helyétől az úti céljáig.";
 
 /* bookmark button text */
 "bookmark" = "könyvjelző";
@@ -412,7 +412,7 @@
 "blue_gray" = "Kékes szürke";
 "dialog_routing_disclaimer_title" = "Az útvonal követése során vegye figyelembe az alábbiakat:";
 "dialog_routing_disclaimer_priority" = "– Az útviszonyok, a közlekedési szabályok és a jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatással szemben;";
-"dialog_routing_disclaimer_precision" = "– A térkép pontatlan lehet és a javasolt útvonal lehetséges, hogy nem mindig a legoptimálisabb módja a célállomás elérésének;";
+"dialog_routing_disclaimer_precision" = "– A térkép pontatlan lehet és a javasolt útvonal lehetséges, hogy nem mindig a legoptimálisabb módja az úti cél elérésének;";
 "dialog_routing_disclaimer_recommendations" = "– A javasolt útvonalakat csupán ajánlottként kell tekinteni;";
 "dialog_routing_disclaimer_borders" = "– Legyen óvatos az útvonalakkal a határzónákban: az alkalmazásunk által létrehozott útvonalak néha nem engedélyezett helyeken léphetik át az országhatárokat.";
 "dialog_routing_disclaimer_beware" = "Mindig maradjon éber és vezessen biztonságosan az utakon!";
@@ -424,15 +424,15 @@
 "dialog_routing_download_files" = "Töltse le a szükséges fájlokat";
 "dialog_routing_download_and_update_all" = "Az útvonaltervezéshez töltse le és frissítse az összes térkép- és útvonal-információt a tervezett út mentén.";
 "dialog_routing_unable_locate_route" = "Nem sikerült meghatározni az útvonalat";
-"dialog_routing_change_start_or_end" = "Pontosítsa a kiindulópontot vagy a célállomást.";
+"dialog_routing_change_start_or_end" = "Pontosítsa a kiindulópontot vagy az úti célt.";
 "dialog_routing_change_start" = "Pontosítsa a kiindulópontot";
 "dialog_routing_start_not_determined" = "Az útvonal nem lett létrehozva. Nem sikerült meghatározni a kiindulópontot.";
 "dialog_routing_select_closer_start" = "Válasszon egy, az úthoz közelebb eső kiindulópontot.";
-"dialog_routing_change_end" = "Pontosítsa célállomását";
-"dialog_routing_end_not_determined" = "Az útvonal nem lett létrehozva. Nem sikerült meghatározni a célállomást.";
-"dialog_routing_select_closer_end" = "Válasszon egy, az úthoz közelebb eső célállomást.";
-"dialog_routing_change_intermediate" = "Nem sikerült meghatározni a köztes helyet.";
-"dialog_routing_intermediate_not_determined" = "Pontosítsa a köztes helyet.";
+"dialog_routing_change_end" = "Pontosítsa az úti célt";
+"dialog_routing_end_not_determined" = "Az útvonal nem lett létrehozva. Nem sikerült meghatározni az úti célt.";
+"dialog_routing_select_closer_end" = "Válasszon egy, az úthoz közelebb eső úti célt.";
+"dialog_routing_change_intermediate" = "Nem sikerült meghatározni a köztes célpontot.";
+"dialog_routing_intermediate_not_determined" = "Pontosítsa a köztes célpontot.";
 "dialog_routing_system_error" = "Rendszerhiba";
 "dialog_routing_application_error" = "Nem lehet létrehozni az útvonalat egy alkalmazáshiba miatt.";
 "dialog_routing_try_again" = "Próbálja meg újra";
@@ -471,7 +471,7 @@
 "p2p_your_location" = "Saját tartózkodási hely";
 "p2p_start" = "Indítás";
 "p2p_from_here" = "Kiindulópont";
-"p2p_to_here" = "Célpont";
+"p2p_to_here" = "Úti cél";
 "p2p_only_from_current" = "A navigáció csak a jelenlegi tartózkodási helyétől érhető el.";
 "p2p_reroute_from_current" = "Szeretne útvonalat tervezni a jelenlegi tartózkodási helyétől?";
 "editor_time_add" = "Ütemterv hozzáadása";
@@ -551,7 +551,7 @@
 "common_check_internet_connection_dialog" = "Győződjön meg arról, hogy az eszköz csatlakozik az internethez.";
 "downloader_no_space_title" = "Nincs elegendő tárhely";
 "downloader_no_space_message" = "Törölje a felesleges adatokat";
-"editor_profile_changes" = "Jóváhagyott módosítások";
+"editor_profile_changes" = "Jóváhagyott módosítás";
 "editor_focus_map_on_location" = "Húzza a térképet, hogy a keresztet a hely vagy üzlet helyére helyezze.";
 "editor_add_select_category" = "Válasszon kategóriát";
 "editor_add_select_category_popular_subtitle" = "Népszerű";
@@ -577,7 +577,7 @@
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d / %2$d";
-"download_over_mobile_header" = "Biztosan letölti mobilhálózati kapcsolaton keresztül?";
+"download_over_mobile_header" = "Biztosan letölti mobiladat-forgalom használatával?";
 "download_over_mobile_message" = "Ez egyes díjcsomagok vagy roaming esetén jelentős költségekkel járhat.";
 "error_enter_correct_house_number" = "Adjon meg egy érvényes házszámot";
 "editor_storey_number" = "Emeletek száma (legfeljebb: %d)";
@@ -680,14 +680,14 @@
 
 /* For the first routing */
 "decline" = "Elutasítás";
-"mobile_data_dialog" = "Mobilinternet használata a részletes információk megjelenítéséhez?";
+"mobile_data_dialog" = "Mobiladat-forgalom használata a részletes információk megjelenítéséhez?";
 "mobile_data_option_always" = "Mindig használja";
 "mobile_data_option_today" = "Csak ma";
 "mobile_data_option_not_today" = "Ma ne használja";
-"mobile_data" = "Mobilinternet";
+"mobile_data" = "Mobiladat-forgalom";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "Mobilinternet szükséges a térképfrissítési értesítésekhez, valamint a helyekre és könyvjelzőkre vonatkozó részletes információk megjelenítéséhez.";
+"mobile_data_description" = "Internetkapcsolatra van szükség a térképfrissítési értesítésekhez, valamint a helyekre és könyvjelzőkre vonatkozó részletes információk megjelenítéséhez.";
 "mobile_data_option_never" = "Soha ne használja";
 "mobile_data_option_ask" = "Mindig kérdezzen rá";
 "traffic_update_maps_text" = "Forgalmi adatok megjelenítéséhez frissíteni kell a térképeket.";
@@ -704,7 +704,6 @@
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Kijárat";
-
 "planning_route_manage_route" = "Útvonal kezelése";
 "button_plan" = "Tervezés";
 "placepage_remove_stop" = "Megálló eltávolítása";
@@ -953,13 +952,13 @@
 "app_tip_09" = "A fő célunk az, hogy gyors, az adatvédelemre fókuszáló, könnyen használható térképeket készítsünk, amelyeket szeretni fog.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Ön most az Organic Maps alkalmazást használja a telefon képernyőjén";
+"car_used_on_the_phone_screen" = "Ön most az Organic Maps alkalmazást használja az eszköz képernyőjén";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
 "car_used_on_the_car_screen" = "Ön most az Organic Maps alkalmazást használja az autó képernyőjén";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
-"car_continue_on_the_phone" = "Folytatás telefonon";
+"car_continue_on_the_phone" = "Folytatás a hordozható eszközön";
 
 /* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
 "car_continue_in_the_car" = "Az autó képernyőjére";
