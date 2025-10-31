@@ -11,7 +11,6 @@
 #include "geometry/mercator.hpp"
 
 #include <algorithm>
-#include <cstdint>
 #include <vector>
 
 UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
@@ -40,7 +39,7 @@ UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
       TEST(found != types.end(), (strType));
       types.erase(found);
     });
-  }, mercator::FromLatLon(53.8826576, 27.5378385));
+  }, mercator::FromLatLon(53.8826576, 27.5378385), scales::GetUpperScale());
   TEST_EQUAL(0, types.size(), (types));
 
   ftypes::IsBuildingChecker const & isBuilding = ftypes::IsBuildingChecker::Instance();

@@ -1841,9 +1841,12 @@ url_scheme::InAppFeatureHighlightRequest Framework::GetInAppFeatureHighlightRequ
 FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator, FeatureMatcher && matcher /* = nullptr */) const
 {
   FeatureID fullMatch, poi, line, area;
-  auto haveBuilding = false;
-  auto closestDistanceToCenter = numeric_limits<double>::max();
-  auto currentDistance = numeric_limits<double>::max();
+  bool haveBuilding = false;
+  double closestDistanceToCenter = numeric_limits<double>::max();
+
+  auto const & isIsoline = ftypes::IsIsolineChecker::Instance();
+  auto const & isCoastline = ftypes::IsCoastlineChecker::Instance();
+  auto const & isBuilding = ftypes::IsBuildingChecker::Instance();
 
   indexer::ForEachFeatureAtPoint(m_featuresFetcher.GetDataSource(), [&](FeatureType & ft)
   {
@@ -1861,7 +1864,7 @@ FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator, FeatureMatch
     case feature::GeomType::Point: poi = ft.GetID(); break;
     case feature::GeomType::Line:
       // Skip/ignore isolines.
-      if (ftypes::IsIsolineChecker::Instance()(ft))
+      if (isIsoline(ft))
         return;
       line = ft.GetID();
       break;
@@ -1873,11 +1876,11 @@ FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator, FeatureMatch
 
       // Skip/ignore coastlines.
       feature::TypesHolder types(ft);
-      if (ftypes::IsCoastlineChecker::Instance()(types))
+      if (isCoastline(types))
         return;
 
-      haveBuilding = ftypes::IsBuildingChecker::Instance()(types);
-      currentDistance = mercator::DistanceOnEarth(mercator, feature::GetCenter(ft));
+      haveBuilding = isBuilding(types);
+      double const currentDistance = mercator::DistanceOnEarth(mercator, feature::GetCenter(ft));
       // Choose the first matching building or, if no buildings are matched,
       // the first among the closest matching non-buildings.
       if (!haveBuilding && currentDistance >= closestDistanceToCenter)

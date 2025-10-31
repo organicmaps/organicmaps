@@ -325,55 +325,58 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
   auto const addStringFn = [&menu](std::string const & s)
   { return s.empty() ? nullptr : menu.addAction(QString::fromUtf8(s.c_str())); };
 
-  m_framework.ForEachFeatureAtPoint([&](FeatureType & ft)
+  for (int scale : {scales::GetUpperScale(), scales::GetUpperWorldScale()})
   {
-    // ID
-    QAction * pAction = addStringFn(DebugPrint(ft.GetID()));
-    connect(pAction, &QAction::triggered, std::bind(&Framework::ShowFeature, &m_framework, ft.GetID()));
-
-    // Types
-    std::string concat;
-    auto types = feature::TypesHolder(ft);
-    types.SortBySpec();
-    for (auto const & type : types.ToObjectNames())
-      concat = concat + type + " ";
-    concat = concat + "| " + DebugPrint(ft.GetGeomType());
-    addStringFn(concat);
-
-    // Name + Ref
-    std::string name(ft.GetReadableName());
-    if (auto const & ref = ft.GetRef(); !ref.empty())
+    m_framework.ForEachFeatureAtPoint([&](FeatureType & ft)
     {
-      if (!name.empty())
-        name += " | ";
-      name += ref;
-    }
-    addStringFn(name);
+      // ID
+      QAction * pAction = addStringFn(DebugPrint(ft.GetID()));
+      connect(pAction, &QAction::triggered, std::bind(&Framework::ShowFeature, &m_framework, ft.GetID()));
 
-    // Address
-    auto const info = GetFeatureAddressInfo(m_framework, ft);
-    addStringFn(info.FormatAddress());
+      // Types
+      std::string concat;
+      auto types = feature::TypesHolder(ft);
+      types.SortBySpec();
+      for (auto const & type : types.ToObjectNames())
+        concat = concat + type + " ";
+      concat = concat + "| " + DebugPrint(ft.GetGeomType());
+      addStringFn(concat);
 
-    if (ft.GetGeomType() == feature::GeomType::Line)
-    {
-      // Maxspeed
-      auto const & dataSource = m_framework.GetDataSource();
-      auto const handle = dataSource.GetMwmHandleById(ft.GetID().m_mwmId);
-      auto const speeds = routing::LoadMaxspeeds(handle);
-      if (speeds)
+      // Name + Ref
+      std::string name(ft.GetReadableName());
+      if (auto const & ref = ft.GetRef(); !ref.empty())
       {
-        auto const speed = speeds->GetMaxspeed(ft.GetID().m_index);
-        if (speed.IsValid())
-          addStringFn(DebugPrint(speed));
+        if (!name.empty())
+          name += " | ";
+        name += ref;
       }
-    }
+      addStringFn(name);
 
-    int const layer = ft.GetLayer();
-    if (layer != feature::LAYER_EMPTY)
-      addStringFn("Layer = " + std::to_string(layer));
+      // Address
+      auto const info = GetFeatureAddressInfo(m_framework, ft);
+      addStringFn(info.FormatAddress());
 
-    menu.addSeparator();
-  }, m_framework.PtoG(pt));
+      if (ft.GetGeomType() == feature::GeomType::Line)
+      {
+        // Maxspeed
+        auto const & dataSource = m_framework.GetDataSource();
+        auto const handle = dataSource.GetMwmHandleById(ft.GetID().m_mwmId);
+        auto const speeds = routing::LoadMaxspeeds(handle);
+        if (speeds)
+        {
+          auto const speed = speeds->GetMaxspeed(ft.GetID().m_index);
+          if (speed.IsValid())
+            addStringFn(DebugPrint(speed));
+        }
+      }
+
+      int const layer = ft.GetLayer();
+      if (layer != feature::LAYER_EMPTY)
+        addStringFn("Layer = " + std::to_string(layer));
+
+      menu.addSeparator();
+    }, m_framework.PtoG(pt), scale);
+  }
 
   menu.exec(e->pos());
 }
