@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ic_social_media_bluesky.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
