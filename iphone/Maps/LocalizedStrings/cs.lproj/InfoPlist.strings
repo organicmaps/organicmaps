@@ -13,3 +13,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Stanovení současného umístění se používá v možnostech sledování trasy a uložení vaší nedávno uskutečněné cesty.";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "Nahlásit chybu";

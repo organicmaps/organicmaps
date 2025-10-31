@@ -13,3 +13,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "現在位置の定義はルート追跡オプションと最近使用したルートの保存に使用されます。";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "バグを報告";

@@ -13,3 +13,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Id-determinazzjoni tal-post tiegħek hija meħtieġa għan-navigazzjoni u biex tissejvja l-korsija tiegħek li vvjaġġajt dan l-aħħar.";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "Irrapporta problemi bl-app";

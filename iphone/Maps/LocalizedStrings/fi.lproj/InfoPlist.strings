@@ -13,3 +13,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Sijaintitietojasi käytetään reittivalintoihin ja viimeaikaisten matkojesi tallentamiseen.";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "Ilmoita virheestä";

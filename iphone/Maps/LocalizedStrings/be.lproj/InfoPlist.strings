@@ -13,3 +13,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Вызначэнне вашага месцазнаходжання неабходна для навігацыі і для захавання вашага нядаўна пройдзенага шляху.";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "Паведаміць аб памылцы";

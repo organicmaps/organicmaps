@@ -13,3 +13,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "मार्गदर्शन के लिए और अपने हाल ही में किए गए यात्रा को सहेजने के लिए आपका स्थान निर्धारित करना आवश्यक है।";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "एक बग रिपोर्ट करो";

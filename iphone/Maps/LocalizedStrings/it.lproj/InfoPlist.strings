@@ -13,3 +13,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "La definizione della posizione corrente viene utilizzata nelle opzioni di tracciamento del percorso e salvataggio del percorso effettuato di recente.";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "Segnala un bug";

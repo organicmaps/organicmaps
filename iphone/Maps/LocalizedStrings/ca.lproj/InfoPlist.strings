@@ -13,3 +13,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Determinar la vostra ubicació és necessari per a la navegació i per desar el vostre recorregut recentment.";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "Informa d’un error";

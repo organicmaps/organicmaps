@@ -782,11 +782,11 @@ NSString * const kSettingsSegue = @"Map2Settings";
       [self.searchManager startSearchingWithIsRouting:NO];
     else if ([action isEqualToString:@"app.organicmaps.3daction.route"])
       [self.controlsManager onRoutePrepare];
+    else if ([action isEqualToString:@"app.organicmaps.3daction.report_bug"])
+      [MailComposer sendBugReportWithTitle:@"Bug Report / Organic Maps"];
   }
   else
-  {
     dispatch_async(dispatch_get_main_queue(), ^{ [self performAction:action]; });
-  }
 }
 
 #pragma mark - ShowDialog callback

@@ -3,3 +3,6 @@
 "NSLocationWhenInUseUsageDescription" = "Determinar a súa localización é necesario para a navegación e para gardar o traxecto recentemente percorrido.";
 "NSLocationAlwaysUsageDescription" = "É necesario detectar a localización en segundo plano para gozar plenamente da funcionalidade da aplicación. Utilízase para navegar e gardar a ruta recentemente percorrida.";
 "search" = "Buscar";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "Informar dun fallo";

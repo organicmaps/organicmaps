@@ -13,3 +13,6 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Cari yerinizin müəyyən edilməsi marşrutun izlənməsi və son səyahət edilmiş yol seçimlərinin saxlanmasında istifadə olunur.";
+
+/* Used in home screen quick actions. */
+"report_a_bug" = "Problemi bildirin";
