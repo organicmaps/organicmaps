@@ -2,21 +2,23 @@
 
 #include "indexer/data_source.hpp"
 #include "indexer/feature_algo.hpp"
-#include "indexer/scales.hpp"
 
 namespace indexer
 {
 using namespace std;
 
 void ForEachFeatureAtPoint(DataSource const & dataSource, function<void(FeatureType &)> && fn,
-                           m2::PointD const & mercator, double toleranceInMeters)
+                           m2::PointD const & mercator, int scale /* = scales::GetUpperScale() */)
 {
-  double constexpr kSelectRectWidthInMeters = 1.1;
-  double constexpr kMetersToLinearFeature = 3;
-  int constexpr kScale = scales::GetUpperScale();
-  m2::RectD const rect = mercator::RectByCenterXYAndSizeInMeters(mercator, kSelectRectWidthInMeters);
+  ASSERT(scale <= scales::GetUpperScale(), (scale));
+  int const factor = 1 << (scales::GetUpperScale() - scale);
 
-  auto const emitter = [&fn, &rect, &mercator, toleranceInMeters](FeatureType & ft)
+  double const queryRectWidthM = 1.1 * factor;
+  double const distanceToLinearFeatureM = 3 * factor;
+
+  m2::RectD const rect = mercator::RectByCenterXYAndSizeInMeters(mercator, queryRectWidthM);
+
+  auto const emitter = [&](FeatureType & ft)
   {
     switch (ft.GetGeomType())
     {
@@ -25,16 +27,17 @@ void ForEachFeatureAtPoint(DataSource const & dataSource, function<void(FeatureT
         fn(ft);
       break;
     case feature::GeomType::Line:
-      if (feature::GetMinDistanceMeters(ft, mercator) < kMetersToLinearFeature)
+      if (feature::GetMinDistanceMeters(ft, mercator) < distanceToLinearFeatureM)
         fn(ft);
       break;
     case feature::GeomType::Area:
     {
-      auto limitRect = ft.GetLimitRect(kScale);
+      auto limitRect = ft.GetLimitRect(scale);
       // Be a little more tolerant. When used by editor mercator is given
       // with some error, so we must extend limit rect a bit.
+      // kMwmPointAccuracy ~ 1m, we compare a real distance with 0.01m epsilon.
       limitRect.Inflate(kMwmPointAccuracy, kMwmPointAccuracy);
-      if (limitRect.IsPointInside(mercator) && feature::GetMinDistanceMeters(ft, mercator) <= toleranceInMeters)
+      if (limitRect.IsPointInside(mercator) && feature::GetMinDistanceMeters(ft, mercator) <= 0.01)
         fn(ft);
     }
     break;
@@ -42,6 +45,6 @@ void ForEachFeatureAtPoint(DataSource const & dataSource, function<void(FeatureT
     }
   };
 
-  dataSource.ForEachInRect(emitter, rect, kScale);
+  dataSource.ForEachInRect(emitter, rect, scale);
 }
 }  // namespace indexer
