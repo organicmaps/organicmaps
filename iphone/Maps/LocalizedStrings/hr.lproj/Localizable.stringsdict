@@ -12,6 +12,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d zabilješki</string>
 			<key>one</key>
 			<string>%d zabilješka</string>
 			<key>few</key>
@@ -24,6 +26,21 @@
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>Pronađeno je %d datoteka. Možeš ih vidjeti nakon konverzije.</string>
+			<key>one</key>
+			<string>Pronađena je %d datoteka. Možeš je vidjeti nakon konverzije.</string>
+			<key>few</key>
+			<string>Pronađene su %d datoteke. Možeš ih vidjeti nakon konverzije.</string>
+			<key>other</key>
+			<string>Pronađeno je %d datoteka. Možeš ih vidjeti nakon konverzije.</string>
+		</dict>
 	</dict>
 	<key>tracks</key>
 	<dict>
