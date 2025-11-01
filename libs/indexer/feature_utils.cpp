@@ -309,9 +309,14 @@ bool NameParamsIn::IsNativeOrSimilarLang() const
   return IsNativeLang(regionData, deviceLang);
 }
 
-int GetFeatureViewportScale(TypesHolder const & types)
+int GetFeatureViewportScale(FeatureID const & fid, TypesHolder const & types)
 {
-  return GetFeatureEstimator().GetViewportScale(types);
+  int scale = GetFeatureEstimator().GetViewportScale(types);
+
+  if (fid.IsValid() && fid.IsWorld() && scale > scales::GetUpperWorldScale())
+    scale = scales::GetUpperWorldScale();
+
+  return scale;
 }
 
 vector<int8_t> GetSimilar(int8_t lang)
