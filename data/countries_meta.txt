@@ -1,826 +1,1483 @@
 {
 "Abkhazia": {
- "languages": ["ab", "ru"]
+ "languages": ["ab", "ru"],
+ "timezone": "Europe/Moscow"
 },
 "Afghanistan": {
- "languages": ["ps"]
+ "languages": ["ps"],
+ "timezone": "Asia/Kabul"
 },
 "Albania": {
- "languages": ["sq"]
+ "languages": ["sq"],
+ "timezone": "Europe/Tirane"
 },
 "Algeria": {
- "languages": ["ar"]
+ "languages": ["ar"],
+ "timezone": "Africa/Algiers"
 },
 "Andorra": {
- "languages": ["ca"]
+ "languages": ["ca"],
+ "timezone": "Europe/Andorra"
 },
 "Angola": {
- "languages": ["pt"]
+ "languages": ["pt"],
+ "timezone": "Africa/Luanda"
 },
 "Anguilla": {
  "driving": "l",
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "America/Anguilla"
 },
 "Antigua and Barbuda": {
  "driving": "l",
- "languages": ["en"]
-},
-"Barbados": {
- "driving": "l",
- "languages": ["en"]
-},
-"Dominica": {
- "driving": "l",
- "languages": ["en"]
-},
-"Grenada": {
- "driving": "l",
- "languages": ["en"]
-},
-"Montserrat": {
- "languages": ["en"]
-},
-"Saint Barthelemy": {
- "languages": ["fr"]
-},
-"Saint Kitts and Nevis": {
- "driving": "l",
- "languages": ["en"]
-},
-"Saint Lucia": {
- "driving": "l",
- "languages": ["en"]
-},
-"Saint Vincent and the Grenadines": {
- "driving": "l",
- "languages": ["en"]
-},
-"British Virgin Islands": {
- "driving": "l"
-},
-"Turks and Caicos Islands": {
- "driving": "l"
-},
-"Trinidad and Tobago": {
- "driving": "l",
- "languages": ["en"]
-},
-"United States Virgin Islands": {
- "driving": "l",
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "America/Antigua"
 },
 "Argentina": {
- "languages": ["es"]
+ "languages": ["es"],
+ "timezone": "America/Argentina/Buenos_Aires"
 },
 "Armenia": {
- "languages": ["hy"]
-},
-"Austria": {
- "languages": ["de"]
+ "languages": ["hy"],
+ "timezone": "Asia/Yerevan"
 },
 "Australia": {
  "driving": "l",
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Australia/Sydney"
+},
+"Austria": {
+ "languages": ["de"],
+ "timezone": "Europe/Vienna"
 },
 "Azerbaijan": {
- "languages": ["az"]
+ "languages": ["az"],
+ "timezone": "Asia/Baku"
 },
 "Bahrain": {
- "languages": ["ar"]
+ "languages": ["ar"],
+ "timezone": "Asia/Bahrain"
 },
 "Bangladesh": {
  "driving": "l",
- "languages": ["bn"]
+ "languages": ["bn"],
+ "timezone": "Asia/Dhaka"
+},
+"Barbados": {
+ "driving": "l",
+ "languages": ["en"],
+ "timezone": "America/Barbados"
 },
 "Belarus": {
- "languages": ["be", "ru"]
+ "languages": ["be", "ru"],
+ "timezone": "Europe/Minsk"
 },
 "Belgium": {
- "languages": ["fr", "de", "nl"]
+ "languages": ["fr", "de", "nl"],
+ "timezone": "Europe/Brussels"
 },
 "Belgium_Limburg": {
- "languages": ["nl"]
+ "languages": ["nl"],
+ "timezone": "Europe/Brussels"
 },
 "Belize": {
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "America/Belize"
 },
 "Benin": {
- "languages": ["fr"]
+ "languages": ["fr"],
+ "timezone": "Africa/Porto-Novo"
 },
 "Bermuda": {
  "driving": "l",
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Atlantic/Bermuda"
 },
 "Bhutan": {
  "driving": "l",
- "languages": ["dz"]
+ "languages": ["dz"],
+ "timezone": "Asia/Thimphu"
 },
 "Bolivia": {
- "languages": ["es", "ay", "qu", "gn"]
+ "languages": ["es", "ay", "qu", "gn"],
+ "timezone": "America/La_Paz"
 },
 "Bosnia and Herzegovina": {
- "languages": ["sr"]
+ "languages": ["sr"],
+ "timezone": "Europe/Sarajevo"
 },
 "Bosnia and Herzegovina_Entity Federation of Bosnia and Herzegovina": {
- "languages": ["hr", "sr", "bs"]
+ "languages": ["hr", "sr", "bs"],
+ "timezone": "Europe/Sarajevo"
 },
 "Botswana": {
  "driving": "l",
- "languages": ["en", "tn"]
+ "languages": ["en", "tn"],
+ "timezone": "Africa/Gaborone"
 },
 "Brazil": {
- "languages": ["pt"]
+ "languages": ["pt"],
+ "timezone": "America/Sao_Paulo"
+},
+"Brazil_Mato Grosso": {
+ "timezone": "America/Cuiaba"
+},
+"Brazil_Mato Grosso Do Sul": {
+ "timezone": "America/Campo_Grande"
+},
+"Brazil_North Region_East": {
+ "timezone": "America/Belem"
+},
+"Brazil_North Region_West": {
+ "timezone": "America/Manaus"
+},
+"Brazil_Northeast Region_East": {
+ "timezone": "America/Recife"
+},
+"Brazil_Northeast Region_West": {
+ "timezone": "America/Fortaleza"
+},
+"Brazil_Paraiba": {
+ "timezone": "America/Fortaleza"
+},
+"Brazil_Parana_West": {
+ "timezone": "America/Campo_Grande"
+},
+"Brazil_South Region_West": {
+ "timezone": "America/Campo_Grande"
+},
+"British Indian Ocean Territory": {
+ "languages": ["en"],
+ "timezone": "Indian/Chagos"
+},
+"British Virgin Islands": {
+ "driving": "l",
+ "timezone": "America/Tortola"
 },
 "Brunei": {
  "driving": "l",
- "languages": ["ms"]
+ "languages": ["ms"],
+ "timezone": "Asia/Brunei"
 },
 "Bulgaria": {
- "languages": ["bg"]
+ "languages": ["bg"],
+ "timezone": "Europe/Sofia"
 },
 "Burkina Faso": {
- "languages": ["fr"]
+ "languages": ["fr"],
+ "timezone": "Africa/Ouagadougou"
 },
 "Burundi": {
- "languages": ["fr", "rn"]
+ "languages": ["fr", "rn"],
+ "timezone": "Africa/Bujumbura"
 },
 "Cambodia": {
- "languages": ["km"]
+ "languages": ["km"],
+ "timezone": "Asia/Phnom_Penh"
 },
 "Cameroon": {
- "languages": ["fr", "en"]
+ "languages": ["fr", "en"],
+ "timezone": "Africa/Douala"
+},
+"Campo de Hielo Sur": {
+ "languages": ["es"],
+ "timezone": "America/Argentina/Rio_Gallegos"
 },
 "Canada": {
- "languages": ["fr", "en"]
+ "languages": ["fr", "en"],
+ "timezone": "America/Toronto"
+},
+"Canada_Alberta": {
+ "timezone": "America/Edmonton"
+},
+"Canada_Alberta_Edmonton": {
+ "timezone": "America/Edmonton"
+},
+"Canada_Alberta_North": {
+ "timezone": "America/Edmonton"
+},
+"Canada_Alberta_South": {
+ "timezone": "America/Edmonton"
+},
+"Canada_British Columbia": {
+ "timezone": "America/Vancouver"
+},
+"Canada_British Columbia_Central": {
+ "timezone": "America/Vancouver"
+},
+"Canada_British Columbia_Far_North": {
+ "timezone": "America/Vancouver"
+},
+"Canada_British Columbia_Islands": {
+ "timezone": "America/Vancouver"
+},
+"Canada_British Columbia_North": {
+ "timezone": "America/Vancouver"
+},
+"Canada_British Columbia_Northeast": {
+ "timezone": "America/Vancouver"
+},
+"Canada_British Columbia_Southeast": {
+ "timezone": "America/Vancouver"
+},
+"Canada_British Columbia_Vancouver": {
+ "timezone": "America/Vancouver"
+},
+"Canada_Labrador": {
+ "timezone": "America/St_Johns"
+},
+"Canada_Labrador_North": {
+ "timezone": "America/St_Johns"
+},
+"Canada_Labrador_South": {
+ "timezone": "America/St_Johns"
+},
+"Canada_Labrador_West": {
+ "timezone": "America/St_Johns"
+},
+"Canada_Manitoba": {
+ "timezone": "America/Winnipeg"
+},
+"Canada_Manitoba_Northeast": {
+ "timezone": "America/Winnipeg"
+},
+"Canada_Manitoba_Northwest": {
+ "timezone": "America/Winnipeg"
+},
+"Canada_Manitoba_South": {
+ "timezone": "America/Winnipeg"
+},
+"Canada_Manitoba_Winnipeg": {
+ "timezone": "America/Winnipeg"
+},
+"Canada_Newfoundland": {
+ "timezone": "America/St_Johns"
+},
+"Canada_Newfoundland_East": {
+ "timezone": "America/St_Johns"
+},
+"Canada_Newfoundland_North": {
+ "timezone": "America/St_Johns"
+},
+"Canada_Newfoundland_South": {
+ "timezone": "America/St_Johns"
+},
+"Canada_Newfoundland_West": {
+ "timezone": "America/St_Johns"
+},
+"Canada_Northwest Territories": {
+ "timezone": "America/Yellowknife"
+},
+"Canada_Northwest Territories_East": {
+ "timezone": "America/Yellowknife"
+},
+"Canada_Northwest Territories_North": {
+ "timezone": "America/Yellowknife"
+},
+"Canada_Northwest Territories_Yellowknife": {
+ "timezone": "America/Yellowknife"
+},
+"Canada_Nunavut": {
+ "timezone": "America/Iqaluit"
+},
+"Canada_Nunavut_North": {
+ "timezone": "America/Iqaluit"
+},
+"Canada_Nunavut_South": {
+ "timezone": "America/Iqaluit"
 },
 "Canada_Quebec": {
- "languages": ["fr"]
+ "languages": ["fr"],
+ "timezone": "America/Toronto"
+},
+"Canada_Saskatchewan": {
+ "timezone": "America/Regina"
+},
+"Canada_Saskatchewan_North": {
+ "timezone": "America/Regina"
+},
+"Canada_Saskatchewan_Regina": {
+ "timezone": "America/Regina"
+},
+"Canada_Saskatchewan_Saskatoon": {
+ "timezone": "America/Regina"
+},
+"Canada_Yukon": {
+ "timezone": "America/Whitehorse"
+},
+"Canada_Yukon_North": {
+ "timezone": "America/Whitehorse"
+},
+"Canada_Yukon_Whitehorse": {
+ "timezone": "America/Whitehorse"
 },
 "Cape Verde": {
- "languages": ["pt"]
+ "languages": ["pt"],
+ "timezone": "Atlantic/Cape_Verde"
+},
+"Caribisch Nederland": {
+ "languages": ["nl"],
+ "timezone": "America/Kralendijk"
 },
 "Cayman Islands": {
  "driving": "l",
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "America/Cayman"
 },
 "Central African Republic": {
- "languages": ["fr", "sg"]
+ "languages": ["fr", "sg"],
+ "timezone": "Africa/Bangui"
 },
 "Chad": {
- "languages": ["fr", "ar"]
+ "languages": ["fr", "ar"],
+ "timezone": "Africa/Ndjamena"
+},
+"Chile": {
+ "languages": ["es"],
+ "timezone": "America/Santiago"
+},
+"Chile_North": {
+ "languages": ["es"],
+ "timezone": "America/Antofagasta"
+},
+"Chile_South": {
+ "languages": ["es"],
+ "timezone": "America/Punta_Arenas"
+},
+"China": {
+ "languages": ["zh"],
+ "timezone": "Asia/Shanghai"
 },
 "Colombia": {
- "languages": ["es"]
+ "languages": ["es"],
+ "timezone": "America/Bogota"
 },
 "Comoros": {
- "languages": ["fr", "ar"]
+ "languages": ["fr", "ar"],
+ "timezone": "Indian/Comoro"
 },
 "Congo-Brazzaville": {
- "languages": ["fr"]
+ "languages": ["fr"],
+ "timezone": "Africa/Brazzaville"
 },
 "Congo-Kinshasa": {
- "languages": ["fr"]
+ "languages": ["fr"],
+ "timezone": "Africa/Kinshasa"
+},
+"Congo-Kinshasa_Kivu": {
+ "timezone": "Africa/Kinshasa"
+},
+"Congo-Kinshasa_West": {
+ "timezone": "Africa/Kinshasa"
 },
 "Cook Islands": {
  "driving": "l",
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Pacific/Rarotonga"
 },
 "Costa Rica": {
- "languages": ["es"]
+ "languages": ["es"],
+ "timezone": "America/Costa_Rica"
+},
+"Cote dIvoire": {
+ "languages": ["fr"],
+ "timezone": "Africa/Abidjan"
+},
+"Crimea": {
+ "languages": ["ru"],
+ "timezone": "Europe/Simferopol"
 },
 "Croatia": {
- "languages": ["hr"]
+ "languages": ["hr"],
+ "timezone": "Europe/Zagreb"
 },
 "Cuba": {
- "languages": ["es"]
+ "languages": ["es"],
+ "timezone": "America/Havana"
 },
 "Cyprus": {
  "driving": "l",
- "languages": ["el", "tr"]
+ "languages": ["el", "tr"],
+ "timezone": "Asia/Nicosia"
 },
 "Czech": {
- "languages": ["cs"]
-},
-"Cote dIvoire": {
- "languages": ["fr"]
+ "languages": ["cs"],
+ "timezone": "Europe/Prague"
 },
 "Denmark": {
- "languages": ["da"]
+ "languages": ["da"],
+ "timezone": "Europe/Copenhagen"
 },
 "Djibouti": {
- "languages": ["fr", "ar"]
+ "languages": ["fr", "ar"],
+ "timezone": "Africa/Djibouti"
+},
+"Dominica": {
+ "driving": "l",
+ "languages": ["en"],
+ "timezone": "America/Dominica"
 },
 "Dominican Republic": {
- "languages": ["es"]
+ "languages": ["es"],
+ "timezone": "America/Santo_Domingo"
 },
 "East Timor": {
  "driving": "l",
- "languages": ["pt"]
-},
-"Campo de Hielo Sur": {
- "languages": ["es"]
-},
-"Chile": {
- "languages": ["es"]
+ "languages": ["pt"],
+ "timezone": "Asia/Dili"
 },
 "Ecuador": {
- "languages": ["es"]
+ "languages": ["es"],
+ "timezone": "America/Guayaquil"
 },
 "Egypt": {
- "languages": ["ar"]
+ "languages": ["ar"],
+ "timezone": "Africa/Cairo"
 },
 "El Salvador": {
- "languages": ["es"]
+ "languages": ["es"],
+ "timezone": "America/El_Salvador"
+},
+"Equatorial Guinea": {
+ "languages": ["es", "fr"],
+ "timezone": "Africa/Malabo"
 },
 "Eritrea": {
- "languages": ["en", "ar", "ti"]
+ "languages": ["en", "ar", "ti"],
+ "timezone": "Africa/Asmara"
 },
 "Estonia": {
- "languages": ["et"]
+ "languages": ["et"],
+ "timezone": "Europe/Tallinn"
 },
 "Ethiopia": {
- "languages": ["am"]
-},
-"Faroe Islands": {
- "languages": ["da", "fo"]
+ "languages": ["am"],
+ "timezone": "Africa/Addis_Ababa"
 },
 "Falkland Islands": {
- "driving": "l"
+ "driving": "l",
+ "timezone": "Atlantic/Stanley"
+},
+"Faroe Islands": {
+ "languages": ["da", "fo"],
+ "timezone": "Atlantic/Faroe"
+},
+"Federated States of Micronesia": {
+ "languages": ["en"],
+ "timezone": "Pacific/Chuuk"
 },
 "Fiji": {
  "driving": "l",
- "languages": ["en", "fj"]
+ "languages": ["en", "fj"],
+ "timezone": "Pacific/Fiji"
 },
 "Finland": {
- "languages": ["fi", "sv"]
+ "languages": ["fi", "sv"],
+ "timezone": "Europe/Helsinki"
 },
 "France": {
- "languages": ["fr"]
+ "languages": ["fr"],
+ "timezone": "Europe/Paris"
 },
 "French Polynesia": {
- "languages": ["fr"]
-},
-"Wallis and Futuna": {
- "languages": ["fr"]
+ "languages": ["fr"],
+ "timezone": "Pacific/Tahiti"
 },
 "Gabon": {
- "languages": ["fr"]
+ "languages": ["fr"],
+ "timezone": "Africa/Libreville"
 },
 "Georgia": {
- "languages": ["ka"]
+ "languages": ["ka"],
+ "timezone": "Asia/Tbilisi"
 },
 "Germany": {
- "languages": ["de"]
+ "languages": ["de"],
+ "timezone": "Europe/Berlin"
 },
 "Ghana": {
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Africa/Accra"
 },
 "Gibraltar": {
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Europe/Gibraltar"
 },
 "Greece": {
- "languages": ["el"]
+ "languages": ["el"],
+ "timezone": "Europe/Athens"
 },
 "Greenland": {
- "languages": ["kl"]
+ "languages": ["kl"],
+ "timezone": "America/Nuuk"
+},
+"Grenada": {
+ "driving": "l",
+ "languages": ["en"],
+ "timezone": "America/Grenada"
+},
+"Guadeloupe": {
+ "languages": ["fr"],
+ "timezone": "America/Guadeloupe"
 },
 "Guatemala": {
- "languages": ["es"]
+ "languages": ["es"],
+ "timezone": "America/Guatemala"
 },
 "Guernsey": {
  "driving": "l",
- "languages": ["fr", "en"]
+ "languages": ["fr", "en"],
+ "timezone": "Europe/Guernsey"
 },
 "Guinea": {
- "languages": ["fr"]
+ "languages": ["fr"],
+ "timezone": "Africa/Conakry"
 },
 "Guinea-Bissau": {
- "languages": ["pt"]
+ "languages": ["pt"],
+ "timezone": "Africa/Bissau"
 },
 "Guyana": {
  "driving": "l",
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "America/Guyana"
 },
 "Haiti": {
- "languages": ["fr", "ht"]
+ "languages": ["fr", "ht"],
+ "timezone": "America/Port-au-Prince"
 },
 "Honduras": {
- "languages": ["es"]
+ "languages": ["es"],
+ "timezone": "America/Tegucigalpa"
 },
 "Hungary": {
- "languages": ["hu"]
+ "languages": ["hu"],
+ "timezone": "Europe/Budapest"
 },
 "Iceland": {
- "languages": ["is"]
+ "languages": ["is"],
+ "timezone": "Atlantic/Reykjavik"
 },
 "India": {
  "driving": "l",
- "languages": ["hi", "mr", "en", "gu", "ta", "te", "bn", "as", "ml", "pa"]
-},
-"India_Kerala": {
- "driving": "l",
- "languages": ["en", "ml"]
-},
-"India_Rajasthan": {
- "driving": "l",
- "languages": ["hi"]
-},
-"India_Tamil Nadu": {
- "driving": "l",
- "languages": ["ta"]
-},
-"India_Haryana": {
- "driving": "l",
- "languages": ["hi"]
-},
-"India_Maharashtra": {
- "driving": "l",
- "languages": ["mr"]
-},
-"India_Delhi": {
- "driving": "l",
- "languages": ["hi", "ur", "en", "pa"]
-},
-"India_Uttar Pradesh": {
- "driving": "l",
- "languages": ["hi", "ur"]
+ "languages": ["hi", "mr", "en", "gu", "ta", "te", "bn", "as", "ml", "pa"],
+ "timezone": "Asia/Kolkata"
 },
 "India_Chhattisgarh": {
  "driving": "l",
- "languages": ["hi"]
+ "languages": ["hi"],
+ "timezone": "Asia/Kolkata"
+},
+"India_Delhi": {
+ "driving": "l",
+ "languages": ["hi", "ur", "en", "pa"],
+ "timezone": "Asia/Kolkata"
+},
+"India_Haryana": {
+ "driving": "l",
+ "languages": ["hi"],
+ "timezone": "Asia/Kolkata"
+},
+"India_Kerala": {
+ "driving": "l",
+ "languages": ["en", "ml"],
+ "timezone": "Asia/Kolkata"
+},
+"India_Maharashtra": {
+ "driving": "l",
+ "languages": ["mr"],
+ "timezone": "Asia/Kolkata"
 },
 "India_Punjab": {
  "driving": "l",
- "languages": ["pa"]
+ "languages": ["pa"],
+ "timezone": "Asia/Kolkata"
+},
+"India_Rajasthan": {
+ "driving": "l",
+ "languages": ["hi"],
+ "timezone": "Asia/Kolkata"
+},
+"India_Tamil Nadu": {
+ "driving": "l",
+ "languages": ["ta"],
+ "timezone": "Asia/Kolkata"
+},
+"India_Uttar Pradesh": {
+ "driving": "l",
+ "languages": ["hi", "ur"],
+ "timezone": "Asia/Kolkata"
 },
 "Indonesia": {
  "driving": "l",
- "languages": ["id"]
+ "languages": ["id"],
+ "timezone": "Asia/Jakarta"
+},
+"Indonesia_Central": {
+ "timezone": "Asia/Makassar"
+},
+"Indonesia_East": {
+ "timezone": "Asia/Jayapura"
 },
 "Iran": {
- "languages": ["fa"]
+ "languages": ["fa"],
+ "timezone": "Asia/Tehran"
 },
 "Iraq": {
- "languages": ["ar", "ku"]
+ "languages": ["ar", "ku"],
+ "timezone": "Asia/Baghdad"
+},
+"Ireland": {
+ "driving": "l",
+ "languages": ["en", "ga"],
+ "timezone": "Europe/Dublin"
 },
 "Isle of Man": {
  "driving": "l",
- "languages": ["en", "gv"]
-},
-"Jerusalem": {
- "languages": ["he"]
+ "languages": ["en", "gv"],
+ "timezone": "Europe/Isle_of_Man"
 },
 "Israel": {
- "languages": ["he"]
+ "languages": ["he"],
+ "timezone": "Asia/Jerusalem"
 },
 "Italy": {
- "languages": ["it"]
+ "languages": ["it"],
+ "timezone": "Europe/Rome"
 },
 "Jamaica": {
  "driving": "l",
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "America/Jamaica"
 },
 "Japan": {
  "driving": "l",
- "languages": ["ja"]
+ "languages": ["ja"],
+ "timezone": "Asia/Tokyo"
 },
 "Jersey": {
  "driving": "l",
- "languages": ["fr", "en"]
+ "languages": ["fr", "en"],
+ "timezone": "Europe/Jersey"
+},
+"Jerusalem": {
+ "languages": ["he"],
+ "timezone": "Asia/Jerusalem"
 },
 "Jordan": {
- "languages": ["ar"]
+ "languages": ["ar"],
+ "timezone": "Asia/Amman"
 },
 "Kazakhstan": {
- "languages": ["kk"]
+ "languages": ["kk"],
+ "timezone": "Asia/Almaty"
 },
 "Kenya": {
  "driving": "l",
- "languages": ["en", "sw"]
+ "languages": ["en", "sw"],
+ "timezone": "Africa/Nairobi"
 },
 "Kingdom of Lesotho": {
  "driving": "l",
- "languages": ["en", "st"]
+ "languages": ["en", "st"],
+ "timezone": "Africa/Maseru"
 },
 "Kiribati": {
  "driving": "l",
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Pacific/Tarawa"
 },
 "Kuwait": {
- "languages": ["ar"]
+ "languages": ["ar"],
+ "timezone": "Asia/Kuwait"
 },
 "Kyrgyzstan": {
- "languages": ["ru", "ky"]
+ "languages": ["ru", "ky"],
+ "timezone": "Asia/Bishkek"
 },
 "Laos": {
- "languages": ["lo"]
+ "languages": ["lo"],
+ "timezone": "Asia/Vientiane"
 },
 "Latvia": {
- "languages": ["lv"]
+ "languages": ["lv"],
+ "timezone": "Europe/Riga"
 },
 "Lebanon": {
- "languages": ["ar"]
+ "languages": ["ar"],
+ "timezone": "Asia/Beirut"
 },
 "Liberia": {
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Africa/Monrovia"
 },
 "Libya": {
- "languages": ["ar"]
+ "languages": ["ar"],
+ "timezone": "Africa/Tripoli"
 },
 "Liechtenstein": {
- "languages": ["de"]
+ "languages": ["de"],
+ "timezone": "Europe/Vaduz"
 },
 "Lithuania": {
- "languages": ["lt"]
+ "languages": ["lt"],
+ "timezone": "Europe/Vilnius"
 },
 "Luxembourg": {
- "languages": ["fr", "de", "en"]
+ "languages": ["fr", "de", "en"],
+ "timezone": "Europe/Luxembourg"
 },
 "Macedonia": {
- "languages": ["mk"]
+ "languages": ["mk"],
+ "timezone": "Europe/Skopje"
+},
+"Madagascar": {
+ "languages": ["mg", "fr"],
+ "timezone": "Indian/Antananarivo"
 },
 "Malawi": {
  "driving": "l",
- "languages": ["en", "ny"]
+ "languages": ["en", "ny"],
+ "timezone": "Africa/Blantyre"
 },
 "Malaysia": {
  "driving": "l",
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Asia/Kuala_Lumpur"
 },
 "Maldives": {
  "driving": "l",
- "languages": ["dv"]
+ "languages": ["dv"],
+ "timezone": "Indian/Maldives"
 },
 "Mali": {
- "languages": ["fr"]
+ "languages": ["fr"],
+ "timezone": "Africa/Bamako"
 },
 "Malta": {
  "driving": "l",
- "languages": ["en", "mt"]
-},
-"Mauritius": {
- "driving": "l"
+ "languages": ["en", "mt"],
+ "timezone": "Europe/Malta"
 },
 "Marshall Islands": {
- "languages": ["en", "mh"]
+ "languages": ["en", "mh"],
+ "timezone": "Pacific/Majuro"
+},
+"Martinique": {
+ "languages": ["fr"],
+ "timezone": "America/Martinique"
+},
+"Mauritania": {
+ "languages": ["ar"],
+ "timezone": "Africa/Nouakchott"
+},
+"Mauritius": {
+ "driving": "l",
+ "timezone": "Indian/Mauritius"
 },
 "Mexico": {
- "languages": ["es"]
+ "languages": ["es"],
+ "timezone": "America/Mexico_City"
+},
+"Mexico_California": {
+ "timezone": "America/Tijuana"
+},
+"Mexico_Chihuahua": {
+ "timezone": "America/Chihuahua"
+},
+"Mexico_Sonora": {
+ "timezone": "America/Hermosillo"
 },
 "Moldova": {
- "languages": ["ro"]
+ "languages": ["ro"],
+ "timezone": "Europe/Chisinau"
 },
 "Monaco": {
- "languages": ["fr"]
+ "languages": ["fr"],
+ "timezone": "Europe/Monaco"
 },
 "Mongolia": {
- "languages": ["mn"]
+ "languages": ["mn"],
+ "timezone": "Asia/Ulaanbaatar"
+},
+"Montenegro": {
+ "languages": ["sr", "bs", "sq", "hr"],
+ "timezone": "Europe/Podgorica"
+},
+"Montserrat": {
+ "languages": ["en"],
+ "timezone": "America/Montserrat"
 },
 "Morocco": {
- "languages": ["ar"]
+ "languages": ["ar"],
+ "timezone": "Africa/Casablanca"
+},
+"Morocco_Southern": {
+ "timezone": "Africa/El_Aaiun"
+},
+"Morocco_Western Sahara": {
+ "timezone": "Africa/El_Aaiun"
 },
 "Mozambique": {
  "driving": "l",
- "languages": ["pt"]
+ "languages": ["pt"],
+ "timezone": "Africa/Maputo"
 },
 "Myanmar": {
- "languages": ["my"]
+ "languages": ["my"],
+ "timezone": "Asia/Yangon"
+},
+"Nagorno-Karabakh": {
+ "languages": ["hy", "az"],
+ "timezone": "Asia/Baku"
 },
 "Namibia": {
  "driving": "l",
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Africa/Windhoek"
 },
 "Nauru": {
  "driving": "l",
- "languages": ["na"]
+ "languages": ["na"],
+ "timezone": "Pacific/Nauru"
 },
 "Nepal": {
  "driving": "l",
- "languages": ["ne"]
+ "languages": ["ne"],
+ "timezone": "Asia/Kathmandu"
+},
+"Netherlands": {
+ "languages": ["nl"],
+ "timezone": "Europe/Amsterdam"
+},
+"Netherlands_Friesland": {
+ "languages": ["nl"],
+ "timezone": "Europe/Amsterdam"
+},
+"New Zealand North": {
+ "driving": "l",
+ "languages": ["en", "mi"],
+ "timezone": "Pacific/Auckland"
+},
+"New Zealand South": {
+ "driving": "l",
+ "languages": ["en", "mi"],
+ "timezone": "Pacific/Auckland"
 },
 "Nicaragua": {
- "languages": ["es"]
+ "languages": ["es"],
+ "timezone": "America/Managua"
 },
 "Niger": {
- "languages": ["fr"]
+ "languages": ["fr"],
+ "timezone": "Africa/Niamey"
 },
 "Nigeria": {
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Africa/Lagos"
 },
 "Niue": {
  "driving": "l",
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Pacific/Niue"
 },
 "North Korea": {
- "languages": ["ko"]
+ "languages": ["ko"],
+ "timezone": "Asia/Pyongyang"
 },
 "Norway": {
- "languages": ["no"]
+ "languages": ["no"],
+ "timezone": "Europe/Oslo"
+},
+"Norway_Bouvet Island": {
+ "timezone": "Antarctica/Bouvet"
+},
+"Norway_Jan Mayen": {
+ "timezone": "Arctic/Jan_Mayen"
+},
+"Norway_Svalbard": {
+ "timezone": "Arctic/Longyearbyen"
 },
 "Oman": {
- "languages": ["ar"]
+ "languages": ["ar"],
+ "timezone": "Asia/Muscat"
 },
 "Pakistan": {
  "driving": "l",
- "languages": ["ur", "en"]
-},
-"Pitcairn Islands": {
- "driving": "l"
-},
-"Saint Helena Ascension and Tristan da Cunha": {
- "driving": "l"
+ "languages": ["ur", "en"],
+ "timezone": "Asia/Karachi"
 },
 "Palau": {
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Pacific/Palau"
+},
+"Palestine": {
+ "languages": ["ar"],
+ "timezone": "Asia/Gaza"
+},
+"Panama": {
+ "languages": ["es"],
+ "timezone": "America/Panama"
 },
 "Papua New Guinea": {
  "driving": "l",
- "languages": ["en", "ho"]
+ "languages": ["en", "ho"],
+ "timezone": "Pacific/Port_Moresby"
 },
 "Paraguay": {
- "languages": ["es", "gn"]
+ "languages": ["es", "gn"],
+ "timezone": "America/Asuncion"
 },
-"China": {
- "languages": ["zh"]
-},
-"Taiwan": {
- "languages": ["zh"]
-},
-"Panama": {
- "languages": ["es"]
+"People’s Republic of China": {
+ "languages": ["zh"],
+ "timezone": "Asia/Shanghai"
 },
 "Peru": {
- "languages": ["es"]
+ "languages": ["es"],
+ "timezone": "America/Lima"
 },
 "Philippines": {
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Asia/Manila"
+},
+"Pitcairn Islands": {
+ "driving": "l",
+ "timezone": "Pacific/Pitcairn"
 },
 "Poland": {
- "languages": ["pl"]
+ "languages": ["pl"],
+ "timezone": "Europe/Warsaw"
 },
 "Portugal": {
- "languages": ["pt"]
+ "languages": ["pt"],
+ "timezone": "Europe/Lisbon"
+},
+"Portugal_Islands": {
+ "timezone": "Atlantic/Madeira"
 },
 "Qatar": {
- "languages": ["ar"]
+ "languages": ["ar"],
+ "timezone": "Asia/Qatar"
 },
 "Republic of Kosovo": {
- "languages": ["sq", "sr"]
+ "languages": ["sq", "sr"],
+ "timezone": "Europe/Belgrade"
 },
 "Romania": {
- "languages": ["ro"]
-},
-"Crimea": {
- "languages": ["ru"]
+ "languages": ["ro"],
+ "timezone": "Europe/Bucharest"
 },
 "Russia": {
- "languages": ["ru"]
+ "languages": ["ru"],
+ "timezone": "Europe/Moscow"
+},
+"Russia_Bashkortostan": {
+ "languages": ["ru", "ba"],
+ "timezone": "Asia/Yekaterinburg"
+},
+"Russia_Chechen Republic": {
+ "languages": ["ru", "ce"],
+ "timezone": "Europe/Moscow"
+},
+"Russia_Chukotka Autonomous Okrug": {
+ "timezone": "Asia/Anadyr"
+},
+"Russia_Chuvashia": {
+ "languages": ["ru", "cv"],
+ "timezone": "Europe/Moscow"
+},
+"Russia_Kaliningrad Oblast": {
+ "timezone": "Europe/Kaliningrad"
+},
+"Russia_Kamchatka Krai": {
+ "timezone": "Asia/Kamchatka"
+},
+"Russia_Komi Republic": {
+ "languages": ["ru", "kv"],
+ "timezone": "Europe/Moscow"
+},
+"Russia_Krasnoyarsk Krai_North": {
+ "timezone": "Asia/Krasnoyarsk"
+},
+"Russia_Krasnoyarsk Krai_South": {
+ "timezone": "Asia/Krasnoyarsk"
+},
+"Russia_Magadan Oblast": {
+ "timezone": "Asia/Magadan"
 },
 "Russia_Moscow": {
  "languages": ["ru"],
  "timezone": "Europe/Moscow",
  "driving": "r",
- "housenames": false
-},
-"Russia_Bashkortostan": {
- "languages": ["ru", "ba"]
-},
-"Russia_Chechen Republic": {
- "languages": ["ru", "ce"]
-},
-"Russia_Chuvashia": {
- "languages": ["ru", "cv"]
-},
-"Russia_Komi Republic": {
- "languages": ["ru", "kv"]
+ "housenames": "False"
 },
 "Russia_North Ossetia-Alania": {
- "languages": ["ru", "os"]
+ "languages": ["ru", "os"],
+ "timezone": "Europe/Moscow"
+},
+"Russia_Novosibirsk Oblast": {
+ "timezone": "Asia/Novosibirsk"
+},
+"Russia_Omsk Oblast": {
+ "timezone": "Asia/Omsk"
 },
 "Russia_Republic of Dagestan": {
- "languages": ["ru", "az", "av", "ce"]
+ "languages": ["ru", "az", "av", "ce"],
+ "timezone": "Europe/Moscow"
+},
+"Russia_Sakha Republic": {
+ "timezone": "Asia/Yakutsk"
+},
+"Russia_Sakhalin Oblast": {
+ "timezone": "Asia/Sakhalin"
 },
 "Russia_Tatarstan": {
- "languages": ["ru", "tt"]
+ "languages": ["ru", "tt"],
+ "timezone": "Europe/Moscow"
+},
+"Russia_Tomsk Oblast": {
+ "timezone": "Asia/Novosibirsk"
+},
+"Russia_Tyumen Oblast": {
+ "timezone": "Asia/Yekaterinburg"
+},
+"Russia_Vladivostok": {
+ "timezone": "Asia/Vladivostok"
 },
 "Rwanda": {
- "languages": ["fr", "en", "rw"]
+ "languages": ["fr", "en", "rw"],
+ "timezone": "Africa/Kigali"
+},
+"Sahrawi Arab Democratic Republic": {
+ "languages": ["ar", "es"],
+ "timezone": "Africa/El_Aaiun"
+},
+"Saint Barthelemy": {
+ "languages": ["fr"],
+ "timezone": "America/St_Barthelemy"
+},
+"Saint Helena Ascension and Tristan da Cunha": {
+ "driving": "l",
+ "timezone": "Atlantic/St_Helena"
+},
+"Saint Kitts and Nevis": {
+ "driving": "l",
+ "languages": ["en"],
+ "timezone": "America/St_Kitts"
+},
+"Saint Lucia": {
+ "driving": "l",
+ "languages": ["en"],
+ "timezone": "America/St_Lucia"
+},
+"Saint Martin": {
+ "languages": ["fr"],
+ "timezone": "America/Marigot"
+},
+"Saint Vincent and the Grenadines": {
+ "driving": "l",
+ "languages": ["en"],
+ "timezone": "America/St_Vincent"
 },
 "Samoa": {
  "driving": "l",
- "languages": ["en", "sm"]
+ "languages": ["en", "sm"],
+ "timezone": "Pacific/Apia"
 },
 "San Marino": {
- "languages": ["it"]
+ "languages": ["it"],
+ "timezone": "Europe/San_Marino"
+},
+"Sao Tome and Principe": {
+ "languages": ["pt"],
+ "timezone": "Africa/Sao_Tome"
 },
 "Saudi Arabia": {
- "languages": ["ar"]
+ "languages": ["ar"],
+ "timezone": "Asia/Riyadh"
 },
 "Senegal": {
- "languages": ["fr"]
+ "languages": ["fr"],
+ "timezone": "Africa/Dakar"
 },
 "Serbia": {
- "languages": ["sr"]
+ "languages": ["sr"],
+ "timezone": "Europe/Belgrade"
 },
 "Seychelles": {
  "driving": "l",
- "languages": ["fr", "en"]
+ "languages": ["fr", "en"],
+ "timezone": "Indian/Mahe"
 },
 "Sierra Leone": {
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Africa/Freetown"
 },
 "Singapore": {
  "driving": "l",
- "languages": ["en", "ta", "ms"]
+ "languages": ["en", "ta", "ms"],
+ "timezone": "Asia/Singapore"
 },
 "Slovakia": {
- "languages": ["sk"]
+ "languages": ["sk"],
+ "timezone": "Europe/Bratislava"
 },
 "Slovenia": {
- "languages": ["sl"]
+ "languages": ["sl"],
+ "timezone": "Europe/Ljubljana"
 },
 "Solomon Islands": {
  "driving": "l",
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Pacific/Guadalcanal"
 },
 "Somalia": {
- "languages": ["so", "ar"]
+ "languages": ["so", "ar"],
+ "timezone": "Africa/Mogadishu"
 },
 "South Africa": {
  "driving": "l",
- "languages": ["en", "zu", "xh", "af", "ve", "ss", "tn", "ts", "st", "nr"]
+ "languages": ["en", "zu", "xh", "af", "ve", "ss", "tn", "ts", "st", "nr"],
+ "timezone": "Africa/Johannesburg"
 },
 "South Africa_Western Cape": {
- "languages": ["en", "xh", "af"]
+ "languages": ["en", "xh", "af"],
+ "timezone": "Africa/Johannesburg"
 },
 "South Georgia and the South Sandwich Islands": {
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Atlantic/South_Georgia"
+},
+"South Korea": {
+ "languages": ["ko"],
+ "timezone": "Asia/Seoul"
 },
 "South Ossetia": {
- "languages": ["ru", "ka", "os"]
+ "languages": ["ru", "ka", "os"],
+ "timezone": "Europe/Moscow"
 },
 "South Sudan": {
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "Africa/Juba"
 },
 "Spain": {
- "languages": ["es"]
+ "languages": ["es"],
+ "timezone": "Europe/Madrid"
 },
 "Spain_Balearic Islands": {
- "languages": ["es", "ca"]
+ "languages": ["es", "ca"],
+ "timezone": "Europe/Madrid"
+},
+"Spain_Canary Islands": {
+ "timezone": "Atlantic/Canary"
 },
 "Spain_Catalonia": {
- "languages": ["es", "ca"]
+ "languages": ["es", "ca"],
+ "timezone": "Europe/Madrid"
+},
+"Spain_Ceuta": {
+ "timezone": "Africa/Ceuta"
 },
 "Spain_Comunidad Foral de Navarra": {
- "languages": ["es", "eu"]
+ "languages": ["es", "eu"],
+ "timezone": "Europe/Madrid"
+},
+"Spain_Melilla": {
+ "timezone": "Africa/Ceuta"
 },
 "Spain_Valencian Community": {
- "languages": ["es", "ca"]
-},
-"Palestine": {
- "languages": ["ar"]
+ "languages": ["es", "ca"],
+ "timezone": "Europe/Madrid"
 },
 "Sri Lanka": {
  "driving": "l",
- "languages": ["ta", "si"]
+ "languages": ["ta", "si"],
+ "timezone": "Asia/Colombo"
 },
 "Sudan": {
- "languages": ["en", "ar"]
+ "languages": ["en", "ar"],
+ "timezone": "Africa/Khartoum"
 },
 "Suriname": {
  "driving": "l",
- "languages": ["nl"]
+ "languages": ["nl"],
+ "timezone": "America/Paramaribo"
 },
 "Swaziland": {
  "driving": "l",
- "languages": ["en", "ss"]
+ "languages": ["en", "ss"],
+ "timezone": "Africa/Mbabane"
 },
 "Sweden": {
- "languages": ["fi", "yi", "sv"]
+ "languages": ["fi", "yi", "sv"],
+ "timezone": "Europe/Stockholm"
 },
 "Switzerland": {
- "languages": ["fr", "de", "it", "rm"]
+ "languages": ["fr", "de", "it", "rm"],
+ "timezone": "Europe/Zurich"
 },
 "Syria": {
- "languages": ["ar"]
+ "languages": ["ar"],
+ "timezone": "Asia/Damascus"
 },
-"Sao Tome and Principe": {
- "languages": ["pt"]
+"Taiwan": {
+ "languages": ["zh"],
+ "timezone": "Asia/Taipei"
 },
 "Tajikistan": {
- "languages": ["ru", "tg"]
+ "languages": ["ru", "tg"],
+ "timezone": "Asia/Dushanbe"
 },
 "Tanzania": {
  "driving": "l",
- "languages": ["en", "sw"]
+ "languages": ["en", "sw"],
+ "timezone": "Africa/Dar_es_Salaam"
 },
 "Thailand": {
  "driving": "l",
- "languages": ["th"]
+ "languages": ["th"],
+ "timezone": "Asia/Bangkok"
 },
 "The Bahamas": {
  "driving": "l",
- "languages": ["en"]
+ "languages": ["en"],
+ "timezone": "America/Nassau"
 },
 "The Gambia": {
- "languages": ["en"]
-},
-"Netherlands": {
- "languages": ["nl"]
-},
-"Netherlands_Friesland": {
- "languages": ["nl"]
+ "languages": ["en"],
+ "timezone": "Africa/Banjul"
 },
 "Togo": {
- "languages": ["fr"]
-},
-"Tonga": {
- "driving": "l",
- "languages": ["en", "to"]
-},
-"Tunisia": {
- "languages": ["ar"]
-},
-"Turkey": {
- "languages": ["tr"]
-},
-"Turkmenistan": {
- "languages": ["tk"]
-},
-"Tuvalu": {
- "driving": "l",
- "languages": ["en"]
-},
-"Uganda": {
- "driving": "l",
- "languages": ["en", "sw"]
-},
-"Ukraine": {
- "languages": ["uk"]
-},
-"United Arab Emirates": {
- "languages": ["ar"]
-},
-"UK": {
- "driving": "l",
- "languages": ["en"]
-},
-"UK_Wales": {
- "driving": "l",
- "languages": ["en", "cy"]
-},
-"Ireland": {
- "driving": "l",
- "languages": ["en", "ga"]
-},
-"US": {
- "languages": ["en"]
-},
-"US_Guam": {
- "languages": ["en", "ch"]
-},
-"US_Puerto Rico": {
- "languages": ["es", "en"]
-},
-"Uruguay": {
- "languages": ["es"]
-},
-"Uzbekistan": {
- "languages": ["uz", "ru"]
-},
-"Vanuatu": {
- "languages": ["fr", "en", "bi"]
-},
-"Venezuela": {
- "languages": ["es"]
-},
-"Vietnam": {
- "languages": ["vi"]
-},
-"Yemen": {
- "languages": ["ar"]
-},
-"Zambia": {
- "driving": "l",
- "languages": ["en"]
-},
-"Zimbabwe": {
- "driving": "l",
- "languages": ["en", "sn", "nd"]
+ "languages": ["fr"],
+ "timezone": "Africa/Lome"
 },
 "Tokelau": {
  "driving": "l",
- "languages": ["en", "mi"]
+ "languages": ["en", "mi"],
+ "timezone": "Pacific/Fakaofo"
 },
-"New Zealand South": {
+"Tonga": {
  "driving": "l",
- "languages": ["en", "mi"]
+ "languages": ["en", "to"],
+ "timezone": "Pacific/Tongatapu"
 },
-"New Zealand North": {
+"Trinidad and Tobago": {
  "driving": "l",
- "languages": ["en", "mi"]
+ "languages": ["en"],
+ "timezone": "America/Port_of_Spain"
 },
-"South Korea": {
- "languages": ["ko"]
+"Tunisia": {
+ "languages": ["ar"],
+ "timezone": "Africa/Tunis"
+},
+"Turkey": {
+ "languages": ["tr"],
+ "timezone": "Europe/Istanbul"
+},
+"Turkmenistan": {
+ "languages": ["tk"],
+ "timezone": "Asia/Ashgabat"
+},
+"Turks and Caicos Islands": {
+ "driving": "l",
+ "timezone": "America/Grand_Turk"
+},
+"Tuvalu": {
+ "driving": "l",
+ "languages": ["en"],
+ "timezone": "Pacific/Funafuti"
+},
+"UK": {
+ "driving": "l",
+ "languages": ["en"],
+ "timezone": "Europe/London"
+},
+"UK_Wales": {
+ "driving": "l",
+ "languages": ["en", "cy"],
+ "timezone": "Europe/London"
+},
+"US": {
+ "languages": ["en"],
+ "timezone": "America/New_York"
+},
+"US_Alabama": {
+ "timezone": "America/Chicago"
+},
+"US_Alaska": {
+ "timezone": "America/Anchorage"
+},
+"US_Arizona": {
+ "timezone": "America/Phoenix"
+},
+"US_Arkansas": {
+ "timezone": "America/Chicago"
+},
+"US_California": {
+ "timezone": "America/Los_Angeles"
+},
+"US_Colorado": {
+ "timezone": "America/Denver"
+},
+"US_Florida_Gainesville": {
+ "timezone": "America/Chicago"
+},
+"US_Guam": {
+ "languages": ["en", "ch"],
+ "timezone": "Pacific/Guam"
+},
+"US_Hawaii": {
+ "timezone": "Pacific/Honolulu"
+},
+"US_Idaho": {
+ "timezone": "America/Boise"
+},
+"US_Illinois": {
+ "timezone": "America/Chicago"
+},
+"US_Indiana": {
+ "timezone": "America/Indiana/Indianapolis"
+},
+"US_Indiana_Evansville": {
+ "timezone": "America/Chicago"
+},
+"US_Iowa": {
+ "timezone": "America/Chicago"
+},
+"US_Kansas": {
+ "timezone": "America/Chicago"
+},
+"US_Kentucky_West": {
+ "timezone": "America/Chicago"
+},
+"US_Louisiana": {
+ "timezone": "America/Chicago"
+},
+"US_Michigan": {
+ "timezone": "America/Detroit"
+},
+"US_Michigan_North": {
+ "timezone": "America/Chicago"
+},
+"US_Minnesota": {
+ "timezone": "America/Chicago"
+},
+"US_Mississippi": {
+ "timezone": "America/Chicago"
+},
+"US_Missouri": {
+ "timezone": "America/Chicago"
+},
+"US_Montana": {
+ "timezone": "America/Denver"
+},
+"US_Nebraska": {
+ "timezone": "America/Chicago"
+},
+"US_Nevada": {
+ "timezone": "America/Los_Angeles"
+},
+"US_New Mexico": {
+ "timezone": "America/Denver"
+},
+"US_North Dakota": {
+ "timezone": "America/Chicago"
+},
+"US_Oklahoma": {
+ "timezone": "America/Chicago"
+},
+"US_Oregon": {
+ "timezone": "America/Los_Angeles"
+},
+"US_Puerto Rico": {
+ "languages": ["es", "en"],
+ "timezone": "America/Puerto_Rico"
+},
+"US_South Dakota": {
+ "timezone": "America/Chicago"
+},
+"US_Tennessee": {
+ "timezone": "America/Chicago"
+},
+"US_Tennessee_East": {
+ "timezone": "America/New_York"
+},
+"US_Texas": {
+ "timezone": "America/Chicago"
+},
+"US_Texas_West": {
+ "timezone": "America/Denver"
+},
+"US_Utah": {
+ "timezone": "America/Denver"
+},
+"US_Washington": {
+ "timezone": "America/Los_Angeles"
+},
+"US_Wisconsin": {
+ "timezone": "America/Chicago"
+},
+"US_Wyoming": {
+ "timezone": "America/Denver"
+},
+"Uganda": {
+ "driving": "l",
+ "languages": ["en", "sw"],
+ "timezone": "Africa/Kampala"
+},
+"Ukraine": {
+ "languages": ["uk"],
+ "timezone": "Europe/Kiev"
+},
+"United Arab Emirates": {
+ "languages": ["ar"],
+ "timezone": "Asia/Dubai"
+},
+"United States Virgin Islands": {
+ "driving": "l",
+ "languages": ["en"],
+ "timezone": "America/St_Thomas"
+},
+"Uruguay": {
+ "languages": ["es"],
+ "timezone": "America/Montevideo"
+},
+"Uzbekistan": {
+ "languages": ["uz", "ru"],
+ "timezone": "Asia/Tashkent"
+},
+"Vanuatu": {
+ "languages": ["fr", "en", "bi"],
+ "timezone": "Pacific/Efate"
+},
+"Venezuela": {
+ "languages": ["es"],
+ "timezone": "America/Caracas"
+},
+"Vietnam": {
+ "languages": ["vi"],
+ "timezone": "Asia/Ho_Chi_Minh"
+},
+"Wallis and Futuna": {
+ "languages": ["fr"],
+ "timezone": "Pacific/Wallis"
+},
+"Willis Island": {
+ "languages": ["en"],
+ "timezone": "Australia/Brisbane"
+},
+"Yemen": {
+ "languages": ["ar"],
+ "timezone": "Asia/Aden"
+},
+"Zambia": {
+ "driving": "l",
+ "languages": ["en"],
+ "timezone": "Africa/Lusaka"
+},
+"Zimbabwe": {
+ "driving": "l",
+ "languages": ["en", "sn", "nd"],
+ "timezone": "Africa/Harare"
 }
 }
