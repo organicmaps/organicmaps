@@ -17,7 +17,8 @@
 #include "indexer/feature.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/map_object.hpp"
-#include "indexer/map_style_reader.hpp"
+
+#include "styles/map_style_manager.hpp"
 
 #include "platform/platform_tests_support/helpers.hpp"
 
@@ -376,7 +377,7 @@ int main(int argc, char ** argv)
   auto infoGetter = storage::CountryInfoReader::CreateCountryInfoGetter(pl);
   infoGetter->SetAffiliations(storage.GetAffiliations());
 
-  GetStyleReader().SetCurrentStyle(MapStyleMerged);
+  MapStyleManager::Instance().SetStyle(MapStyleManager::GetMergedStyleName());
   classificator::Load();
 
   FrozenDataSource dataSource;

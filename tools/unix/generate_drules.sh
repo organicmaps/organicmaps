@@ -37,9 +37,6 @@ BuildDrawingRules outdoors  dark _outdoors_dark
 BuildDrawingRules vehicle  light _vehicle_light
 BuildDrawingRules vehicle  dark _vehicle_dark
 
-# In designer mode we use drules_proto_design file instead of standard ones
-cp $OMIM_PATH/data/drules_proto_default_light.bin $OMIM_PATH/data/drules_proto_default_design.bin
-
 echo "Exporting transit colors..."
 python3 "$OMIM_PATH/tools/python/transit/transit_colors_export.py" \
   "$DATA_PATH/colors.txt" > /dev/null

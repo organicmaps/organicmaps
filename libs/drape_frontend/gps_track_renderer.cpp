@@ -8,7 +8,7 @@
 
 #include "drape/vertex_array_buffer.hpp"
 
-#include "indexer/map_style_reader.hpp"
+#include "styles/map_style_manager.hpp"
 
 #include <algorithm>
 #include <array>
@@ -138,8 +138,7 @@ dp::Color GpsTrackRenderer::CalculatePointColor(size_t pointIndex, m2::PointD co
 
   double startAlpha = kMinDayAlpha;
   double endAlpha = kMaxDayAlpha;
-  auto const style = GetStyleReader().GetCurrentStyle();
-  if (style == MapStyle::MapStyleDefaultDark)
+  if (MapStyleManager::Instance().GetCurrentTheme() == MapStyleTheme::Dark)
   {
     startAlpha = kMinNightAlpha;
     endAlpha = kMaxNightAlpha;

@@ -8,7 +8,6 @@
 #include "drape/support_manager.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
-#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
 #include "base/logging.hpp"

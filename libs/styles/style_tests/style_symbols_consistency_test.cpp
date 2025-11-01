@@ -1,10 +1,9 @@
 #include "testing/testing.hpp"
 
-#include "map/style_tests/helpers.hpp"
+#include "styles/style_tests/helpers.hpp"
 
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
-#include "indexer/map_style_reader.hpp"
 
 #include "base/logging.hpp"
 
@@ -54,7 +53,7 @@ StringSet GetSymbolsSetFromResourcesFile(std::string_view density)
 {
   StringSet symbols;
   SdfParsingDispatcher dispatcher(symbols);
-  ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader("symbols.sdf", density);
+  ReaderPtr<Reader> reader = MapStyleManager::Instance().GetSymbolsReader("symbols.sdf", density);
   ReaderSource<ReaderPtr<Reader>> source(reader);
   ParseXML(source, dispatcher);
   return symbols;
@@ -67,7 +66,7 @@ UNIT_TEST(Test_SymbolsConsistency)
 
   std::string_view constexpr densities[] = {"mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi", "6plus"};
 
-  styles::RunForEveryMapStyle([&](MapStyle mapStyle)
+  styles::RunForEveryMapStyle([&](auto mapStyle, auto theme)
   {
     StringSet const drawingRuleSymbols = GetSymbolsSetFromDrawingRule();
 
@@ -83,7 +82,7 @@ UNIT_TEST(Test_SymbolsConsistency)
       {
         // We are interested in all set of bugs, therefore we do not stop test here but
         // continue it just keeping in res that test failed.
-        LOG(LINFO, ("Symbols mismatch: style", mapStyle, ", density", density, ", missed", missed));
+        LOG(LINFO, ("Symbols mismatch: style", mapStyle, "theme", theme, ", density", density, ", missed", missed));
         res = false;
       }
     }

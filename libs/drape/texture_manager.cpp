@@ -330,7 +330,8 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   // Initialize colors (reserved ./data/colors.txt lines count).
   std::vector<dp::Color> colors;
   colors.reserve(512);
-  ParseColorsList(params.m_colors, [&colors](dp::Color const & color) { colors.push_back(color); });
+  // TODO: Reload on style change
+  ParseColorsList(MapStyleManager::Instance().GetColorsPath(), [&colors](dp::Color const & color) { colors.push_back(color); });
 
   m_colorTexture =
       make_unique_dp<ColorTexture>(ColorTextureSize(colors.size(), m_maxTextureSize), make_ref(m_textureAllocator));
@@ -363,7 +364,8 @@ void TextureManager::InitStipplePen(Params const & params)
   std::set<PenPatternT> patterns;
   uint32_t rowsCount = 0;
 
-  impl::ParsePatternsList(params.m_patterns, [&](buffer_vector<double, 8> const & pattern)
+  // TODO: Reload on style change
+  impl::ParsePatternsList(MapStyleManager::Instance().GetPatternsPath(), [&](buffer_vector<double, 8> const & pattern)
   {
     PenPatternT toAdd;
     for (double d : pattern)

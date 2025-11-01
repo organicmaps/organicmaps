@@ -50,37 +50,30 @@ struct BlendAdaptor
   }
 };
 
-agg::rgba8 GetLineColor(MapStyle mapStyle)
+agg::rgba8 GetLineColor(MapStyleTheme const theme)
 {
-  switch (mapStyle)
+  switch (theme)
   {
-  case MapStyleCount: LOG(LERROR, ("Wrong map style param."));  // fallthrough
-  case MapStyleDefaultDark:
-  case MapStyleVehicleDark:
-  case MapStyleOutdoorsDark: return agg::rgba8(255, 230, 140, 255);
-  case MapStyleDefaultLight:
-  case MapStyleVehicleLight:
-  case MapStyleOutdoorsLight:
-  case MapStyleMerged: return agg::rgba8(30, 150, 240, 255);
+  case MapStyleTheme::Count:
+    LOG(LERROR, ("Wrong map theme param."));
+    [[fallthrough]];
+    // No need break or return here.
+  case MapStyleTheme::Dark: return {255, 230, 140, 255};
+  case MapStyleTheme::Light: return {30, 150, 240, 255};
   }
   UNREACHABLE();
 }
 
-agg::rgba8 GetCurveColor(MapStyle mapStyle)
+agg::rgba8 GetCurveColor(MapStyleTheme const theme)
 {
-  switch (mapStyle)
+  switch (theme)
   {
-  case MapStyleCount:
-    LOG(LERROR, ("Wrong map style param."));
+  case MapStyleTheme::Count:
+    LOG(LERROR, ("Wrong map theme param."));
     [[fallthrough]];
     // No need break or return here.
-  case MapStyleDefaultDark:
-  case MapStyleVehicleDark:
-  case MapStyleOutdoorsDark: return agg::rgba8(255, 230, 140, 20);
-  case MapStyleDefaultLight:
-  case MapStyleVehicleLight:
-  case MapStyleOutdoorsLight:
-  case MapStyleMerged: return agg::rgba8(30, 150, 240, 20);
+  case MapStyleTheme::Dark: return {255, 230, 140, 20};
+  case MapStyleTheme::Light: return {30, 150, 240, 20};
   }
   UNREACHABLE();
 }
@@ -204,7 +197,7 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl, vector<doub
   return true;
 }
 
-bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> const & geometry, MapStyle mapStyle,
+bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> const & geometry, MapStyleTheme theme,
                            vector<uint8_t> & frameBuffer)
 {
   frameBuffer.clear();
@@ -212,8 +205,8 @@ bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
     return false;
 
   agg::rgba8 const kBackgroundColor = agg::rgba8(255, 255, 255, 0);
-  agg::rgba8 const kLineColor = GetLineColor(mapStyle);
-  agg::rgba8 const kCurveColor = GetCurveColor(mapStyle);
+  agg::rgba8 const kLineColor = GetLineColor(theme);
+  agg::rgba8 const kCurveColor = GetCurveColor(theme);
   double constexpr kLineWidthPxl = 2.0;
 
   using TBlender = BlendAdaptor<agg::rgba8, agg::order_rgba>;
@@ -269,7 +262,7 @@ bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
 }
 
 bool GenerateChart(uint32_t width, uint32_t height, vector<double> const & distanceDataM,
-                   geometry::Altitudes const & altitudeDataM, MapStyle mapStyle, vector<uint8_t> & frameBuffer)
+                   geometry::Altitudes const & altitudeDataM, MapStyleTheme theme, vector<uint8_t> & frameBuffer)
 {
   if (distanceDataM.size() != altitudeDataM.size())
   {
@@ -297,6 +290,6 @@ bool GenerateChart(uint32_t width, uint32_t height, vector<double> const & dista
       geometry[i] = m2::PointD(i * oneSegLenPix, yAxisDataPxl[i]);
   }
 
-  return GenerateChartByPoints(width, height, geometry, mapStyle, frameBuffer);
+  return GenerateChartByPoints(width, height, geometry, theme, frameBuffer);
 }
 }  // namespace maps

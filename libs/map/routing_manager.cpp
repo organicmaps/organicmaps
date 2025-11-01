@@ -19,8 +19,6 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
-#include "indexer/map_style_reader.hpp"
-
 #include "platform/country_file.hpp"
 #include "platform/platform.hpp"
 #include "platform/socket.hpp"
@@ -1271,7 +1269,7 @@ bool RoutingManager::DistanceAltitude::GenerateRouteAltitudeChart(uint32_t width
   if (GetSize() == 0)
     return false;
 
-  return maps::GenerateChart(width, height, m_distances, m_altitudes, GetStyleReader().GetCurrentStyle(),
+  return maps::GenerateChart(width, height, m_distances, m_altitudes, MapStyleManager::Instance().GetCurrentTheme(),
                              imageRGBAData);
 }
 

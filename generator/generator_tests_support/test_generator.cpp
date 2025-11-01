@@ -15,9 +15,9 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/features_offsets_table.hpp"
 #include "indexer/index_builder.hpp"
-#include "indexer/map_style_reader.hpp"
 
 #include "platform/platform.hpp"
+#include "styles/map_style_manager.hpp"
 
 namespace generator
 {
@@ -41,7 +41,7 @@ bool MakeFakeBordersFile(std::string const & intemediatePath, std::string const 
 
 TestRawGenerator::TestRawGenerator()
 {
-  GetStyleReader().SetCurrentStyle(MapStyleMerged);
+  MapStyleManager::Instance().SetStyle(MapStyleManager::GetMergedStyleName());
   classificator::Load();
 
   SetupTmpFolder("./raw_generator");

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "indexer/map_style.hpp"
+#include "styles/map_style_manager.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
@@ -39,9 +39,9 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl, std::vector
 /// \param mapStyle is a current map style.
 /// \param frameBuffer is a vector for a result image. It's resized in this method.
 /// It's filled with RGBA(8888) image date.
-bool GenerateChartByPoints(uint32_t width, uint32_t height, std::vector<m2::PointD> const & geometry, MapStyle mapStyle,
-                           std::vector<uint8_t> & frameBuffer);
+bool GenerateChartByPoints(uint32_t width, uint32_t height, std::vector<m2::PointD> const & geometry,
+                           MapStyleTheme theme, std::vector<uint8_t> & frameBuffer);
 
 bool GenerateChart(uint32_t width, uint32_t height, std::vector<double> const & distanceDataM,
-                   geometry::Altitudes const & altitudeDataM, MapStyle mapStyle, std::vector<uint8_t> & frameBuffer);
+                   geometry::Altitudes const & altitudeDataM, MapStyleTheme theme, std::vector<uint8_t> & frameBuffer);
 }  // namespace maps

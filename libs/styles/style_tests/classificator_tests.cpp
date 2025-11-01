@@ -27,7 +27,7 @@ public:
 
 UNIT_TEST(Classificator_CheckConsistency)
 {
-  styles::RunForEveryMapStyle([](MapStyle)
+  styles::RunForEveryMapStyle([](auto, auto)
   {
     Classificator const & c = classif();
 
@@ -101,9 +101,9 @@ void CheckLineStyles(Classificator const & c, string const & name)
 
 UNIT_TEST(Classificator_DrawingRules)
 {
-  styles::RunForEveryMapStyle([](MapStyle style)
+  styles::RunForEveryMapStyle([](auto style, auto)
   {
-    if (style != MapStyle::MapStyleDefaultLight && style != MapStyle::MapStyleDefaultDark)
+    if (style != MapStyleManager::GetDefaultStyleName())
       return;
 
     Classificator const & c = classif();
@@ -171,7 +171,7 @@ void CheckPriority(vector<base::StringIL> const & arrT, vector<size_t> const & a
   vector<vector<uint32_t>> types;
   vector<vector<string>> typesInfo;
 
-  styles::RunForEveryMapStyle([&](MapStyle)
+  styles::RunForEveryMapStyle([&](auto, auto)
   {
     types.clear();
     typesInfo.clear();
@@ -370,33 +370,36 @@ struct RangeEntry
 
 UNIT_TEST(Classificator_HighwayZoom_AcrossStyles)
 {
-  std::array<std::vector<RangeEntry>, MapStyleCount> scales;
+  std::unordered_map<MapStyleName, std::array<std::vector<RangeEntry>, static_cast<size_t>(MapStyleTheme::Count)>>
+      scales;
 
-  styles::RunForEveryMapStyle([&scales](MapStyle style)
+  styles::RunForEveryMapStyle([&scales](auto style, auto theme)
   {
     auto const & cl = classif();
     uint32_t const type = cl.GetTypeByPath({"highway"});
     ClassifObject const * pObj = cl.GetObject(type);
 
-    pObj->ForEachObjectInTree([&scales, style](ClassifObject const *, uint32_t type)
+    pObj->ForEachObjectInTree([&scales, style, theme](ClassifObject const *, uint32_t type)
     {
       TypesHolder holder(GeomType::Line);
       holder.Add(type);
-      scales[style].push_back({type, GetDrawableScaleRangeForRules(holder, RULE_LINE)});
+      scales[style][static_cast<size_t>(theme)].push_back({type, GetDrawableScaleRangeForRules(holder, RULE_LINE)});
     }, type);
   });
 
-  for (size_t iStyle = 1; iStyle < MapStyleCount; ++iStyle)
+  std::vector<RangeEntry> const & defaultLightRanges =
+      scales[MapStyleManager::GetDefaultStyleName()][static_cast<size_t>(MapStyleTheme::Light)];
+  for (auto const & [style, scalesWithTheme] : scales)
   {
-    if (iStyle == MapStyleMerged)
-      continue;
-
-    // Don't put TEST, only diagnostic logs. In general, Clear and Vehical visibility styles are different
-    // for highways like: footway, path, steps, cycleway, bridleway, track, service.
-    TEST_EQUAL(scales[0].size(), scales[iStyle].size(), (iStyle));
-    for (size_t j = 0; j < scales[0].size(); ++j)
-      if (scales[0][j] != scales[iStyle][j])
-        LOG(LWARNING, (scales[0][j], scales[iStyle][j]));
+    for (auto const & ranges : scalesWithTheme)
+    {
+      // Don't put TEST, only diagnostic logs. In general, Clear and Vehical visibility styles are different
+      // for highways like: footway, path, steps, cycleway, bridleway, track, service.
+      TEST_EQUAL(defaultLightRanges.size(), ranges.size(), (style));
+      for (size_t j = 0; j < defaultLightRanges.size(); ++j)
+        if (defaultLightRanges[j] != ranges[j])
+          LOG(LWARNING, (defaultLightRanges[j], ranges[j]));
+    }
   }
 }
 }  // namespace classificator_tests

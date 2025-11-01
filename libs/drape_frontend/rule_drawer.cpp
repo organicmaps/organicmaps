@@ -12,8 +12,9 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
+
+#include "styles/map_style_manager.hpp"
 
 #include "platform/settings.hpp"
 
@@ -190,7 +191,7 @@ RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountr
   int const kAverageOverlaysCount = 200;
   m_mapShapes[df::OverlayType].reserve(kAverageOverlaysCount);
 
-  if (!GetStyleReader().IsCarNavigationStyle())
+  if (!MapStyleManager::Instance().IsVehicleStyle())
   {
     /// @todo Make naive implementation for now. Fetch draw settings from EngineContext.
     /// Should refactor and generalize these settings (3D, isolines, hiking, cycling, ...)

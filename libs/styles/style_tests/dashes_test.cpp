@@ -9,7 +9,7 @@
 
 UNIT_TEST(Test_Dashes)
 {
-  styles::RunForEveryMapStyle([](MapStyle)
+  styles::RunForEveryMapStyle([](auto, auto)
   {
     drule::GetCurrentRules().ForEachRule([](drule::BaseRule const * rule)
     {

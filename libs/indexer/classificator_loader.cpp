@@ -1,7 +1,6 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/drawing_rules.hpp"
-#include "indexer/map_style_reader.hpp"
 
 #include "platform/platform.hpp"
 
@@ -10,7 +9,8 @@
 
 #include "base/logging.hpp"
 
-#include <iostream>
+#include "styles/map_style_manager.hpp"
+
 #include <memory>
 #include <string>
 
@@ -47,22 +47,22 @@ void Load()
 
   Platform & p = GetPlatform();
 
-  MapStyle const originMapStyle = GetStyleReader().GetCurrentStyle();
+  MapStyleManager & styleManager = MapStyleManager::Instance();
+  MapStyleName const originMapStyle = styleManager.GetCurrentStyleName();
+  MapStyleTheme const originMapTheme = styleManager.GetCurrentTheme();
 
-  for (size_t i = 0; i < MapStyleCount; ++i)
+  for (MapStyleName const mapStyle : styleManager.GetAvailableStyles())
   {
-    auto const mapStyle = static_cast<MapStyle>(i);
-    // Read the merged style only if it was requested.
-    if (mapStyle != MapStyleMerged || originMapStyle == MapStyleMerged)
+    for (auto const & theme : {MapStyleTheme::Light, MapStyleTheme::Dark})
     {
-      GetStyleReader().SetCurrentStyle(mapStyle);
+      styleManager.SetStyle(mapStyle);
+      styleManager.SetTheme(theme);
       ReadCommon(p.GetReader("classificator.txt"), p.GetReader("types.txt"));
-
       drule::LoadRules();
     }
   }
-
-  GetStyleReader().SetCurrentStyle(originMapStyle);
+  styleManager.SetStyle(originMapStyle);
+  styleManager.SetTheme(originMapTheme);
 
   LOG(LDEBUG, ("Reading of classificator finished"));
 }

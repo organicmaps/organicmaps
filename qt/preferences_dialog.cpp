@@ -1,7 +1,6 @@
 #include "qt/preferences_dialog.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
-#include "indexer/map_style.hpp"
 #include "map/framework.hpp"
 
 #include "platform/measurement_utils.hpp"
@@ -173,7 +172,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     nightModeRadioBox->setLayout(layout);
 
     NightMode nightModeSetting = GetNightModeSetting();
-    if (nightModeSetting == NightMode::Off && MapStyleIsDark(framework.GetMapStyle()))
+    if (nightModeSetting == NightMode::Off && framework.GetMapTheme() == MapStyleTheme::Dark)
       nightModeSetting = NightMode::On;
 
     if (QAbstractButton * button = nightModeGroup->button(static_cast<int>(nightModeSetting)))
@@ -192,9 +191,9 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
       auto const currStyle = framework.GetMapStyle();
       switch (mode)
       {
-      case NightMode::Off: framework.SetMapStyle(GetLightMapStyleVariant(currStyle)); break;
-      case NightMode::On: framework.SetMapStyle(GetDarkMapStyleVariant(currStyle)); break;
-      case NightMode::System: qt::common::ApplySystemNightMode(framework); break;
+      case NightMode::Off: framework.SetMapStyle(currStyle, MapStyleTheme::Light); break;
+      case NightMode::On: framework.SetMapStyle(currStyle, MapStyleTheme::Dark); break;
+      case NightMode::System: ApplySystemNightMode(framework); break;
       }
     });
   }

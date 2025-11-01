@@ -10,7 +10,7 @@
 #include "drape/static_texture.hpp"
 #include "drape/texture_manager.hpp"
 
-#include "indexer/map_style_reader.hpp"
+#include "styles/map_style_manager.hpp"
 
 #include "platform/platform.hpp"
 
@@ -123,8 +123,9 @@ bool LoadMesh(std::string const & pathToMesh, bool isDefaultResource, TLoadingCo
   fastObjMesh * meshData = nullptr;
   try
   {
-    ReaderPtr<Reader> reader =
-        isDefaultResource ? GetStyleReader().GetDefaultResourceReader(pathToMesh) : GetPlatform().GetReader(pathToMesh);
+    ReaderPtr<Reader> const reader = isDefaultResource
+                                       ? MapStyleManager::GetDefaultResourceReader(pathToMesh)
+                                       : GetPlatform().GetReader(pathToMesh);
     ReaderSource source(reader);
 
     // Read OBJ file.

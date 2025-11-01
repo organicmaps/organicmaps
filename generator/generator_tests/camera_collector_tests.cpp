@@ -13,8 +13,8 @@
 #include "generator/translator.hpp"
 
 #include "indexer/classificator_loader.hpp"
-#include "indexer/map_style.hpp"
-#include "indexer/map_style_reader.hpp"
+
+#include "styles/map_style_manager.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
@@ -72,7 +72,7 @@ public:
 
   TestCameraCollector()
   {
-    GetStyleReader().SetCurrentStyle(MapStyleMerged);
+    MapStyleManager::Instance().SetStyle(MapStyleManager::GetMergedStyleName());
     classificator::Load();
   }
 

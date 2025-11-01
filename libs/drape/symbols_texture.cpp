@@ -1,8 +1,6 @@
 #include "drape/symbols_texture.hpp"
 
-#include "indexer/map_style_reader.hpp"
-
-#include "platform/platform.hpp"
+#include "styles/map_style_manager.hpp"
 
 #include "coding/parse_xml.hpp"
 #include "coding/reader.hpp"
@@ -128,11 +126,10 @@ void LoadSymbols(std::string const & skinPathName, std::string const & textureNa
   try
   {
     DefinitionLoader loader(definitionInserter, convertToUV);
-
+    MapStyleManager const & styleManager = MapStyleManager::Instance();
     {
-      ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(textureName + ".sdf", skinPathName);
-      ReaderSource<ReaderPtr<Reader>> source(reader);
-      if (!ParseXML(source, loader))
+      ReaderPtr<Reader> const reader = styleManager.GetSymbolsReader(textureName + ".sdf", skinPathName);
+      if (ReaderSource source(reader); !ParseXML(source, loader))
       {
         failureHandler("Error parsing skin");
         return;
@@ -143,8 +140,8 @@ void LoadSymbols(std::string const & skinPathName, std::string const & textureNa
     }
 
     {
-      ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(textureName + ".png", skinPathName);
-      size_t const size = static_cast<size_t>(reader.Size());
+      ReaderPtr<Reader> const reader = styleManager.GetSymbolsReader(textureName + ".png", skinPathName);
+      size_t const size = reader.Size();
       rawData.resize(size);
       reader.Read(0, &rawData[0], size);
     }

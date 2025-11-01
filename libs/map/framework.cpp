@@ -39,7 +39,6 @@
 #include "indexer/feature_source.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/transliteration_loader.hpp"
 
@@ -74,6 +73,8 @@
 
 #include <algorithm>
 
+#include "styles/map_style_manager.hpp"
+
 using namespace location;
 using namespace routing;
 using namespace storage;
@@ -93,7 +94,8 @@ Framework::FixedPosition::FixedPosition()
 
 namespace
 {
-std::string_view constexpr kMapStyleKey = "MapStyleKeyV1";
+std::string_view constexpr kMapStyleKey = "MapStyleKeyV2";
+std::string_view constexpr kMapThemeKey = "MapThemeKey";
 std::string_view constexpr kAllow3dKey = "Allow3d";
 std::string_view constexpr kAllow3dBuildingsKey = "Buildings3d";
 std::string_view constexpr kAllowAutoZoom = "AutoZoom";
@@ -299,11 +301,13 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   osm::Editor & editor = osm::Editor::Instance();
 
   // Restore map style before classificator loading
-  MapStyle mapStyle = kDefaultMapStyle;
-  string mapStyleStr;
-  if (settings::Get(kMapStyleKey, mapStyleStr))
-    mapStyle = MapStyleFromSettings(mapStyleStr);
-  GetStyleReader().SetCurrentStyle(mapStyle);
+  MapStyleManager & styleManager = MapStyleManager::Instance();
+  if (string mapStyleName; settings::Get(kMapStyleKey, mapStyleName))
+    styleManager.SetStyle(mapStyleName);
+  // TODO
+  // if (uint8_t mapTheme; settings::Get(kMapThemeKey, mapTheme))
+  //   styleManager.SetTheme(static_cast<MapStyleTheme>(mapTheme));
+
   df::LoadTransitColors();
 
   m_connectToGpsTrack = GpsTracker::Instance().IsEnabled();
@@ -1770,24 +1774,34 @@ void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::Gps
     m_trackRecordingUpdateHandler(trackStatistics);
 }
 
-void Framework::MarkMapStyle(MapStyle mapStyle)
+void Framework::MarkMapStyle(MapStyleName const mapStyleName, std::optional<MapStyleTheme> const theme)
 {
-  ASSERT_NOT_EQUAL(mapStyle, MapStyle::MapStyleMerged, ());
-
-  // Store current map style before classificator reloading
-  string mapStyleStr = MapStyleToString(mapStyle);
-  if (mapStyleStr.empty())
+  MapStyleManager & styleManager = MapStyleManager::Instance();
+  // TODO: double check SetMapStyle -> MarkMapStyle. Refactor android code to fix
+  if (!styleManager.IsValidStyle(mapStyleName))
   {
-    mapStyle = kDefaultMapStyle;
-    mapStyleStr = MapStyleToString(mapStyle);
+    LOG(LWARNING, ("Invalid map style name:", mapStyleName));
+    return;
   }
-  settings::Set(kMapStyleKey, mapStyleStr);
-  GetStyleReader().SetCurrentStyle(mapStyle);
+  settings::Set(kMapStyleKey, mapStyleName);
+  if (theme)
+  {
+    // TODO
+    // settings::Set(kMapThemeKey, static_cast<uint8_t>(theme.value()));
+    styleManager.SetTheme(theme.value());
+  }
+  styleManager.SetStyle(mapStyleName);
 }
 
-void Framework::SetMapStyle(MapStyle mapStyle)
+void Framework::SetMapStyle(MapStyleName const mapStyleName, std::optional<MapStyleTheme> const theme)
 {
-  MarkMapStyle(mapStyle);
+  MapStyleManager & styleManager = MapStyleManager::Instance();
+  if (!styleManager.IsValidStyle(mapStyleName))
+  {
+    LOG(LWARNING, ("Invalid map style name:", mapStyleName));
+    return;
+  }
+  MarkMapStyle(mapStyleName, theme);
   if (m_drapeEngine != nullptr)
     m_drapeEngine->UpdateMapStyle();
   InvalidateUserMarks();
@@ -1795,9 +1809,14 @@ void Framework::SetMapStyle(MapStyle mapStyle)
   UpdateMinBuildingsTapZoom();
 }
 
-MapStyle Framework::GetMapStyle() const
+MapStyleName Framework::GetMapStyle() const
 {
-  return GetStyleReader().GetCurrentStyle();
+  return MapStyleManager::Instance().GetCurrentStyleName();
+}
+
+MapStyleTheme Framework::GetMapTheme() const
+{
+  return MapStyleManager::Instance().GetCurrentTheme();
 }
 
 void Framework::SetupMeasurementSystem()
@@ -2644,32 +2663,47 @@ void Framework::BlockTapEvents(bool block)
 
 bool Framework::ParseDrapeDebugCommand(string const & query)
 {
-  MapStyle desiredStyle = MapStyleCount;
+  MapStyleName currentStyle = MapStyleManager::Instance().GetCurrentStyleName();
+  MapStyleName desiredStyle = currentStyle;
+  MapStyleTheme currentTheme = MapStyleManager::Instance().GetCurrentTheme();
+  MapStyleTheme desiredTheme = currentTheme;
   if (query == "?dark" || query == "mapstyle:dark")
-    desiredStyle = MapStyleDefaultDark;
+    desiredTheme = MapStyleTheme::Dark;
   else if (query == "?light" || query == "mapstyle:light")
-    desiredStyle = MapStyleDefaultLight;
+    desiredTheme = MapStyleTheme::Light;
   else if (query == "?vlight" || query == "mapstyle:vehicle_light")
-    desiredStyle = MapStyleVehicleLight;
+  {
+    desiredStyle = MapStyleManager::GetDefaultStyleName();
+    desiredTheme = MapStyleTheme::Light;
+  }
   else if (query == "?vdark" || query == "mapstyle:vehicle_dark")
-    desiredStyle = MapStyleVehicleDark;
+  {
+    desiredStyle = MapStyleManager::GetDefaultStyleName();
+    desiredTheme = MapStyleTheme::Dark;
+  }
   else if (query == "?olight" || query == "mapstyle:outdoors_light")
-    desiredStyle = MapStyleOutdoorsLight;
+  {
+    desiredStyle = MapStyleManager::GetOutdoorsStyleName();
+    desiredTheme = MapStyleTheme::Light;
+  }
   else if (query == "?odark" || query == "mapstyle:outdoors_dark")
-    desiredStyle = MapStyleOutdoorsDark;
+  {
+    desiredStyle = MapStyleManager::GetOutdoorsStyleName();
+    desiredTheme = MapStyleTheme::Dark;
+  }
 
-  if (desiredStyle != MapStyleCount)
+  if (desiredStyle != currentStyle || desiredTheme != currentTheme)
   {
 #if defined(OMIM_OS_ANDROID)
     if (m_drapeEngine->GetApiVersion() == dp::ApiVersion::Vulkan)
     {
       // See comment in android/jni/app/organicmaps/Framework.cpp Framework::MarkMapStyle().
-      SetMapStyle(desiredStyle);
+      SetMapStyle(desiredStyle, currentTheme);
     }
     else
-      MarkMapStyle(desiredStyle);
+      MarkMapStyle(desiredStyle, currentTheme);
 #else
-    SetMapStyle(desiredStyle);
+    SetMapStyle(desiredStyle, currentTheme);
 #endif
     return true;
   }

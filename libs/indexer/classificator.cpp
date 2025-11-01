@@ -1,6 +1,7 @@
 #include "indexer/classificator.hpp"
-#include "indexer/map_style_reader.hpp"
 #include "indexer/tree_structure.hpp"
+
+#include "styles/map_style_manager.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -116,22 +117,22 @@ ClassifObject const * ClassifObject::GetObject(size_t i) const
 /////////////////////////////////////////////////////////////////////////////////////////
 namespace
 {
-Classificator & GetClassifImpl(MapStyle mapStyle)
+Classificator & GetClassifImpl(MapStyleName mapStyleName, MapStyleTheme theme)
 {
-  static Classificator c[MapStyleCount];
-  return c[mapStyle];
+  static std::unordered_map<MapStyleName, std::array<Classificator, static_cast<size_t>(MapStyleTheme::Count)>> c;
+  return c[mapStyleName][static_cast<size_t>(theme)];
 }
 }  // namespace
 
 Classificator & classif()
 {
-  return GetClassifImpl(GetStyleReader().GetCurrentStyle());
+  MapStyleManager const & styleManager = MapStyleManager::Instance();
+  return GetClassifImpl(styleManager.GetCurrentStyleName(), styleManager.GetCurrentTheme());
 }
 
 Classificator & GetOutdoorClassif()
 {
-  auto const style = GetStyleReader().GetCurrentStyle();
-  return GetClassifImpl(MapStyleIsDark(style) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight);
+  return GetClassifImpl(MapStyleManager::GetOutdoorsStyleName(), MapStyleManager::Instance().GetCurrentTheme());
 }
 
 namespace ftype

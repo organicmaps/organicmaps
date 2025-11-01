@@ -156,8 +156,7 @@ void DrawWidget::PrepareShutdown()
   {
     routingManager.SaveRoutePoints();
 
-    auto style = m_framework.GetMapStyle();
-    m_framework.MarkMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleDefaultDark : MapStyle::MapStyleDefaultLight);
+    m_framework.MarkMapStyle(MapStyleManager::GetDefaultStyleName(), MapStyleManager::Instance().GetCurrentTheme());
   }
 }
 
@@ -506,9 +505,9 @@ void DrawWidget::OnLocationUpdate(location::GpsInfo const & info)
     m_framework.OnLocationUpdate(info);
 }
 
-void DrawWidget::SetMapStyle(MapStyle mapStyle)
+void DrawWidget::SetMapStyle(MapStyleName mapStyleName, std::optional<MapStyleTheme> theme)
 {
-  m_framework.SetMapStyle(mapStyle);
+  m_framework.SetMapStyle(mapStyleName, theme);
 }
 
 void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
@@ -721,25 +720,22 @@ void DrawWidget::SetRuler(bool enabled)
 // static
 void DrawWidget::RefreshDrawingRules()
 {
-  SetMapStyle(MapStyleDefaultLight);
+  SetMapStyle(MapStyleManager::GetDefaultStyleName(), MapStyleTheme::Light);
 }
 
 void DrawWidget::SetMapStyleToDefault()
 {
-  auto const style = m_framework.GetMapStyle();
-  SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleDefaultDark : MapStyle::MapStyleDefaultLight);
+  SetMapStyle(MapStyleManager::GetDefaultStyleName());
 }
 
 void DrawWidget::SetMapStyleToVehicle()
 {
-  auto const style = m_framework.GetMapStyle();
-  SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleVehicleDark : MapStyle::MapStyleVehicleLight);
+  SetMapStyle(MapStyleManager::GetVehicleStyleName());
 }
 
 void DrawWidget::SetMapStyleToOutdoors()
 {
-  auto const style = m_framework.GetMapStyle();
-  SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleOutdoorsDark : MapStyle::MapStyleOutdoorsLight);
+  SetMapStyle(MapStyleManager::GetOutdoorsStyleName());
 }
 
 m2::PointD DrawWidget::P2G(m2::PointD const & pt) const

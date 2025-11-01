@@ -1,33 +1,29 @@
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/apply_feature_functors.hpp"
 
-#include "platform/platform.hpp"
-
 #include "indexer/drawing_rules.hpp"
-#include "indexer/map_style_reader.hpp"
 
 #include "coding/reader.hpp"
 
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
+#include "styles/map_style_manager.hpp"
+
 #include "cppjansson/cppjansson.hpp"
 
 namespace
 {
-std::string const kTransitColorFileName = "transit_colors.txt";
-
 class TransitColorsHolder
 {
 public:
   dp::Color GetColor(std::string const & name) const
   {
-    auto const style = GetStyleReader().GetCurrentStyle();
-    auto const isDarkStyle = style == MapStyle::MapStyleDefaultDark || style == MapStyle::MapStyleVehicleDark;
-    auto const & colors = isDarkStyle ? m_nightColors : m_clearColors;
+    auto const & colors =
+        MapStyleManager::Instance().GetCurrentTheme() == MapStyleTheme::Light ? m_nightColors : m_clearColors;
     auto const it = colors.find(name);
     if (it == colors.cend())
-      return dp::Color();
+      return {};
     return it->second;
   }
 
@@ -36,7 +32,8 @@ public:
     std::string data;
     try
     {
-      ReaderPtr<Reader>(GetPlatform().GetReader(kTransitColorFileName)).ReadAsString(data);
+      // TODO: Reload on style change
+      MapStyleManager::Instance().GetTransitColorsReader().ReadAsString(data);
     }
     catch (RootException const & ex)
     {
