@@ -47,7 +47,7 @@ class TypesHolder;
 class RegionData;
 
 /// Get viewport scale to show given feature. Used in search.
-int GetFeatureViewportScale(TypesHolder const & types);
+int GetFeatureViewportScale(FeatureID const & fid, TypesHolder const & types);
 
 // Returns following languages given |lang|:
 // - |lang|;

@@ -1337,7 +1337,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   if (m_drapeEngine)
   {
     if (scale < 0)
-      scale = GetFeatureViewportScale(m_currentPlacePageInfo->GetTypes());
+      scale = GetFeatureViewportScale(m_currentPlacePageInfo->GetID(), m_currentPlacePageInfo->GetTypes());
     m2::PointD const center = m_currentPlacePageInfo->GetMercator();
     m_drapeEngine->SetModelViewCenter(center, scale, animation, true /* trackVisibleViewport */);
   }
