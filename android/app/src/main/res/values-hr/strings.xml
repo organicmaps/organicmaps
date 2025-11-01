@@ -368,4 +368,5 @@
     <string name="measurement_units">Mjerne jedinice</string>
     <string name="downloading_country_can_proceed">Preuzimanje %s. Sada možete\nnastaviti na kartu.</string>
     <string name="update_country_ask">Ažurirati %s?</string>
+    <string name="downloader_no_space_message">Izbriši sve nepotrebne podatke</string>
 </resources>
