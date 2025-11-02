@@ -51,7 +51,7 @@ UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
     TEST(id.IsValid(), ());
     frm.GetDataSource().ReadFeature([&](FeatureType & ft)
     {
-      TEST_EQUAL("Родны Кут", ft.GetName(StringUtf8Multilang::kDefaultCode), ());
+      TEST_EQUAL("Родны Кут", ft.GetDefaultName(), ());
       TEST(!isBuilding(ft), ());
     }, id);
   }

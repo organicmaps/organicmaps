@@ -180,6 +180,13 @@ public:
       return false;
   }
 
+  std::string_view GetDefaultString() const
+  {
+    std::string_view res;
+    UNUSED_VALUE(GetString(kDefaultCode, res));
+    return res;
+  }
+
   /// @return Best matching translation by language priority (in the given order) or empty if no match.
   std::string_view GetBestString(buffer_vector<int8_t, 4> const & preferredLangs) const;
   /// @return First string.

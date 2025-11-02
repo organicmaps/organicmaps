@@ -217,7 +217,7 @@ public:
 
     string const & mwmName = f.GetID().GetMwmName();
 
-    string name(f.GetName(StringUtf8Multilang::kDefaultCode));
+    string name(f.GetDefaultName());
     if (name.empty())
     {
       name = f.GetReadableName();

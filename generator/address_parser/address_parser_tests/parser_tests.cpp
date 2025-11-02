@@ -250,7 +250,7 @@ UNIT_CLASS_TEST(TestFixture, Generator_Street_Name)
       TEST(res, ());
 
       auto street = guard.GetFeatureByIndex(res->m_streetId);
-      TEST_EQUAL(street->GetName(StringUtf8Multilang::kDefaultCode), "7th Street", ());
+      TEST_EQUAL(street->GetDefaultName(), "7th Street", ());
     }
   }
 

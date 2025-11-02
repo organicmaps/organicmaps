@@ -41,7 +41,7 @@ public:
   {
     if (f.GetGeomType() == feature::GeomType::Line)
     {
-      string_view const name = f.GetName(StringUtf8Multilang::kDefaultCode);
+      string_view const name = f.GetDefaultName();
       if (!name.empty() && base::IsExist(streetNames, name))
         vect.push_back(f.GetID());
     }
@@ -80,7 +80,7 @@ public:
   {
     if (f.GetGeomType() == feature::GeomType::Line)
     {
-      string_view const name = f.GetName(StringUtf8Multilang::kDefaultCode);
+      string_view const name = f.GetDefaultName();
       if (!name.empty() && ftypes::IsWayChecker::Instance()(f))
       {
         string key;

@@ -91,7 +91,7 @@ void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId, LoadedPat
   pathSegment.m_roadNameInfo.m_destination = ft->GetMetadata(feature::Metadata::FMD_DESTINATION);
   /// @todo Should make some better parsing here (@see further use in GetFullRoadName).
   pathSegment.m_roadNameInfo.m_ref = ft->GetRef();
-  pathSegment.m_roadNameInfo.m_name = ft->GetName(StringUtf8Multilang::kDefaultCode);
+  pathSegment.m_roadNameInfo.m_name = ft->GetDefaultName();
 }
 
 void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT const & outgoingEdges, Edge const & inEdge,

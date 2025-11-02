@@ -270,7 +270,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_HouseName)
 
   TEST(fb.PreSerializeAndRemoveUselessNamesForIntermediate(), ());
   TEST(fb.IsValid(), ());
-  TEST_EQUAL(fb.GetName(StringUtf8Multilang::kDefaultCode), "St. Nicholas Lodge", ());
+  TEST_EQUAL(fb.GetName(), "St. Nicholas Lodge", ());
   TEST(fb.GetParams().house.IsEmpty(), ());
 }
 
