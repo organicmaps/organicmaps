@@ -20,18 +20,21 @@ namespace address_tests
 using namespace search;
 using namespace platform;
 
-void TestAddress(ReverseGeocoder & coder, ms::LatLon const & ll, std::string_view street,
-                 std::string const & houseNumber)
+void TestAddress(ReverseGeocoder & coder, ms::LatLon const & ll, std::string_view localizedStreet,
+                 std::string_view defaultStreet, std::string const & houseNumber)
 {
   ReverseGeocoder::Address addr;
   coder.GetNearbyAddress(mercator::FromLatLon(ll), addr);
 
-  std::string const expectedKey = strings::ToUtf8(GetStreetNameAsKey(street, false /* ignoreStreetSynonyms */));
-  std::string const resultKey =
-      strings::ToUtf8(GetStreetNameAsKey(addr.m_street.m_name, false /* ignoreStreetSynonyms */));
-
-  TEST_EQUAL(resultKey, expectedKey, (addr));
+  TEST_EQUAL(addr.GetStreetName(), defaultStreet, (addr));
+  TEST_EQUAL(addr.m_street.m_name, localizedStreet, (addr));
   TEST_EQUAL(houseNumber, addr.GetHouseNumber(), (addr));
+
+  bool constexpr ignoreSynonyms = false;
+  TEST_EQUAL(GetStreetNameAsKey(addr.m_street.m_name, ignoreSynonyms),
+             GetStreetNameAsKey(localizedStreet, ignoreSynonyms), (addr));
+  TEST_EQUAL(GetStreetNameAsKey(addr.GetStreetName(), ignoreSynonyms),
+             GetStreetNameAsKey(defaultStreet, ignoreSynonyms), (addr));
 }
 
 void TestAddress(ReverseGeocoder & coder, std::shared_ptr<MwmInfo> mwmInfo, ms::LatLon const & ll,
@@ -41,7 +44,7 @@ void TestAddress(ReverseGeocoder & coder, std::shared_ptr<MwmInfo> mwmInfo, ms::
   feature::GetReadableName(
       {streetNames, mwmInfo->GetRegionData(), languages::GetCurrentMapLanguage(), false /* allowTranslit */}, out);
 
-  TestAddress(coder, ll, out.primary, houseNumber);
+  TestAddress(coder, ll, out.primary, streetNames.GetDefaultString(), houseNumber);
 }
 
 UNIT_TEST(ReverseGeocoder_Smoke)

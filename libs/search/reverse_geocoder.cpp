@@ -117,8 +117,8 @@ string ReverseGeocoder::GetFeatureStreetName(FeatureType & ft) const
 {
   Address addr;
   HouseTable table(m_dataSource);
-  GetNearbyAddress(table, FromFeature(ft, 0.0 /* distMeters */), false /* ignoreEdits */, addr);
-  return addr.m_street.m_name;
+  UNUSED_VALUE(GetSavedAddress(table, FromFeature(ft, 0.0 /* distMeters */), false /* ignoreEdits */, addr));
+  return string(addr.m_street.GetDefaultName());
 }
 
 string ReverseGeocoder::GetOriginalFeatureStreetName(FeatureID const & fid) const
@@ -128,8 +128,8 @@ string ReverseGeocoder::GetOriginalFeatureStreetName(FeatureID const & fid) cons
   Building bld;
 
   m_dataSource.ReadFeature([&](FeatureType & ft) { bld = FromFeature(ft, 0.0 /* distMeters */); }, fid);
-  GetNearbyAddress(table, bld, true /* ignoreEdits */, addr);
-  return addr.m_street.m_name;
+  UNUSED_VALUE(GetSavedAddress(table, bld, true /* ignoreEdits */, addr));
+  return string(addr.m_street.GetDefaultName());
 }
 
 bool ReverseGeocoder::GetOriginalStreetByHouse(FeatureType & house, FeatureID & streetId) const
@@ -138,7 +138,7 @@ bool ReverseGeocoder::GetOriginalStreetByHouse(FeatureType & house, FeatureID & 
   HouseTable table(m_dataSource);
 
   // Ignore edits here, because this function is called once with edits check before.
-  if (GetNearbyAddress(table, FromFeature(house, 0.0 /* distMeters */), true /* ignoreEdits */, addr))
+  if (GetSavedAddress(table, FromFeature(house, 0.0 /* distMeters */), true /* ignoreEdits */, addr))
   {
     streetId = addr.m_street.m_id;
     return true;
@@ -165,7 +165,7 @@ void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, double maxDist
   {
     // It's quite enough to analyze nearest kMaxNumTriesToApproxAddress houses for the exact nearby address.
     // When we can't guarantee suitable address for the point with distant houses.
-    if (GetNearbyAddress(table, b, false /* ignoreEdits */, addr) || (++triesCount == kMaxNumTriesToApproxAddress))
+    if (GetSavedAddress(table, b, false /* ignoreEdits */, addr) || (++triesCount == kMaxNumTriesToApproxAddress))
       break;
   }
 }
@@ -177,7 +177,7 @@ bool ReverseGeocoder::GetExactAddress(FeatureType & ft, Address & addr, bool pla
     return false;
 
   HouseTable table(m_dataSource, placeAsStreet);
-  return GetNearbyAddress(table, FromFeatureImpl(ft, hn, 0.0 /* distMeters */), false /* ignoreEdits */, addr);
+  return GetSavedAddress(table, FromFeatureImpl(ft, hn, 0.0 /* distMeters */), false /* ignoreEdits */, addr);
 }
 
 bool ReverseGeocoder::GetExactAddress(FeatureID const & fid, Address & addr) const
@@ -187,7 +187,7 @@ bool ReverseGeocoder::GetExactAddress(FeatureID const & fid, Address & addr) con
   return res;
 }
 
-bool ReverseGeocoder::GetNearbyAddress(HouseTable & table, Building const & bld, bool ignoreEdits, Address & addr) const
+bool ReverseGeocoder::GetSavedAddress(HouseTable & table, Building const & bld, bool ignoreEdits, Address & addr) const
 {
   string street;
   if (!ignoreEdits && osm::Editor::Instance().GetEditedFeatureStreet(bld.m_id, street))

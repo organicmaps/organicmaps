@@ -185,9 +185,9 @@ void EditorDialog::OnSave()
     m_feature.SetHouseNumber(findChild<QLineEdit *>(kHouseNumberObjectName)->text().toStdString());
     QString const editedStreet = findChild<QComboBox *>(kStreetObjectName)->currentText();
     QStringList const names = editedStreet.split(" / ", Qt::SkipEmptyParts);
-    QString const localized = names.size() > 1 ? names.at(1) : QString();
+    QString const localized = names.size() > 1 ? names[1] : QString();
     if (!names.empty())
-      m_feature.SetStreet({names.at(0).toStdString(), localized.toStdString()});
+      m_feature.SetStreet({names[0].toStdString(), localized.toStdString()});
     else
       m_feature.SetStreet({});
 
