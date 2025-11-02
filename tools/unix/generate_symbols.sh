@@ -22,6 +22,8 @@ OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 BUILD_DIR="$OMIM_PATH/build"
 SKIN_GENERATOR="${SKIN_GENERATOR:-$BUILD_DIR/$BINARY_NAME}"
 DATA_PATH="$OMIM_PATH/data"
+STYLES_RAW_PATH="$DATA_PATH/styles-raw"
+STYLES_OUT_PATH="$DATA_PATH/styles"
 
 # cmake rebuilds skin generator binary if necessary.
 cmake -S "$OMIM_PATH" -B "$BUILD_DIR" -G Ninja -DCMAKE_BUILD_TYPE=Release -DSKIP_TESTS:bool=true
@@ -34,34 +36,25 @@ cmake --build "$BUILD_DIR" --target "$BINARY_NAME"
 # Parameter $3 - resource name (mdpi, hdpi, ...)
 # Parameter $4 - symbol size
 # Parameter $5 - style suffix (none, _light, _dark)
-# Parameter $6 - symbols folder (symbols)
-# Parameter $7 - symbols suffix (none, -ad)
 function BuildSkin() {
   styleType=$1
   styleName=$2
   resourceName=$3
   symbolSize=$4
   suffix=$5
-  symbolsFolder=$6
-  symbolsSuffix=${7-}
 
   echo "Building skin for $styleName/$resourceName"
-  # Set environment
-  STYLE_PATH="$DATA_PATH/styles/$styleType/$styleName"
-  PNG_PATH="$STYLE_PATH/symbols$symbolsSuffix/png"
-  rm -rf "$PNG_PATH" || true
-  ln -s "$STYLE_PATH/$resourceName$symbolsSuffix" "$PNG_PATH"
+  INPUT_PATH="$STYLES_RAW_PATH/$styleType/$styleName/symbols"
+  OUTPUT_PATH="$STYLES_OUT_PATH/$styleType/$styleName/symbols/$resourceName"
+#  rm -rf "$OUTPUT_PATH" || true
+
   # Run skin generator
-  "$SKIN_GENERATOR" --symbolWidth $symbolSize --symbolHeight $symbolSize --symbolsDir "$STYLE_PATH/$symbolsFolder" \
-      --skinName "$DATA_PATH/symbols/$resourceName/$suffix/basic" --skinSuffix="$symbolsSuffix"
-  # Reset environment
-  rm -r "$PNG_PATH" || true
+  "$SKIN_GENERATOR" --symbolWidth $symbolSize --symbolHeight $symbolSize \
+      --symbolsDir "$INPUT_PATH" \
+      --skinName "$OUTPUT_PATH/basic"
 }
 
 symbols_name=(6plus mdpi hdpi xhdpi xxhdpi xxxhdpi)
-
-# Cleanup
-rm -rf "$DATA_PATH"/symbols/*/*/symbols.*
 
 # Build styles
 
@@ -80,6 +73,6 @@ BuildSkin default light xxhdpi  54 light symbols
 BuildSkin default light xxxhdpi 64 light symbols
 
 for i in ${symbols_name[*]}; do
-  optipng -zc9 -zm8 -zs0 -f0 "$DATA_PATH"/symbols/"${i}"/light/symbols.png
-  optipng -zc9 -zm8 -zs0 -f0 "$DATA_PATH"/symbols/"${i}"/dark/symbols.png
+  optipng -zc9 -zm8 -zs0 -f0 "$STYLES_OUT_PATH"/default/light/symbols/"${i}"/symbols.png
+  optipng -zc9 -zm8 -zs0 -f0 "$STYLES_OUT_PATH"/default/dark/symbols/"${i}"/symbols.png
 done
