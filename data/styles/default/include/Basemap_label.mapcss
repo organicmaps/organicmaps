@@ -517,6 +517,7 @@ line|z18-[man_made=embankment],
 node|z1-[place=ocean],
 node|z4-[place=sea],
 area|z10-13[landuse=reservoir][bbox_area>=4000000],
+area|z8-9[natural=water][water=lake],
 area|z10-13[natural=water][!tunnel][bbox_area>=4000000],
 area|z14-[landuse=reservoir],
 area|z14-[natural=water][!tunnel],
@@ -550,6 +551,7 @@ node|z4-[place=sea]
 {font-size: 12;}
 
 area|z10-[landuse=reservoir],
+area|z8-9[natural=water][water=lake],
 area|z10-[natural=water][!tunnel],
 {font-size: 9;}
 
