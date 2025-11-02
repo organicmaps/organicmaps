@@ -13,6 +13,8 @@
 
 #include "base/math.hpp"
 
+#include "styles/map_style_manager.hpp"
+
 #include <algorithm>
 #include <cstdint>
 #include <limits>

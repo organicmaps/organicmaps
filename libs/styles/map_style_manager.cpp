@@ -129,8 +129,9 @@ MapStyleManager::MapStyleManager()
 void MapStyleManager::LoadStyles()
 {
   static std::string const stylesPath = base::JoinPath(GetPlatform().ResourcesDir(), kStylesDir);
+  LOG(LWARNING, ("Loading map styles from", stylesPath));
   Platform::FilesList files;
-  Platform::GetFilesRecursively(stylesPath, files);
+  GetPlatform().GetFilesRecursivelyFromResources(kStylesDir, files);
 
   for (auto const & file : files)
     if (file.ends_with(kStyleFileName))
@@ -142,11 +143,14 @@ void MapStyleManager::LoadStyles()
 
 void MapStyleManager::LoadStyle(std::string const & path)
 {
+  LOG(LINFO, ("Loading style config from", path));
   std::string styleDir = base::GetDirectory(path);
   LOG(LINFO, ("Loading style config from", styleDir));
   MapStyleConfig style;
   style.styleDir = styleDir;
-  auto ec = glz::read_file_json(style, path, std::string{});
+  std::string buf;
+  GetPlatform().GetReader(path)->ReadAsString(buf);
+  auto ec = glz::read_json(style, buf);
   base::GetNameFromFullPath(styleDir);
 
   auto const [it, _] = m_styles.insert({{}, std::move(style)});

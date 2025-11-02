@@ -367,11 +367,6 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     dp::TextureManager::Params params;
     params.m_resPostfix = VisualParams::Instance().GetResourcePostfix();
     params.m_visualScale = df::VisualParams::Instance().GetVisualScale();
-#ifdef BUILD_DESIGNER
-    params.m_patterns = "patterns_design.txt";
-#else
-    params.m_patterns = "patterns.txt";
-#endif  // BUILD_DESIGNER
 
     m_texMng->OnVisualScaleChanged(m_context, params);
 
@@ -746,13 +741,6 @@ void BackendRenderer::InitContextDependentResources()
   dp::TextureManager::Params params;
   params.m_resPostfix = VisualParams::Instance().GetResourcePostfix();
   params.m_visualScale = df::VisualParams::Instance().GetVisualScale();
-#ifdef BUILD_DESIGNER
-  params.m_colors = "colors_design.txt";
-  params.m_patterns = "patterns_design.txt";
-#else
-  params.m_colors = "colors.txt";
-  params.m_patterns = "patterns.txt";
-#endif  // BUILD_DESIGNER
   params.m_glyphMngParams.m_uniBlocks = base::JoinPath("fonts", "unicode_blocks.txt");
   params.m_glyphMngParams.m_whitelist = base::JoinPath("fonts", "whitelist.txt");
   params.m_glyphMngParams.m_blacklist = base::JoinPath("fonts", "blacklist.txt");

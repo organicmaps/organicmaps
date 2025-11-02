@@ -262,6 +262,11 @@ void Platform::GetFilesRecursively(std::string const & directory, FilesList & fi
   }
 }
 
+void Platform::GetFilesRecursivelyFromResources(std::string const & directory, FilesList & filesList)
+{
+  GetFilesRecursively(base::JoinPath(ResourcesDir(), directory), filesList);
+}
+
 void Platform::SetWritableDirForTests(std::string const & path)
 {
   m_writableDir = base::AddSlashIfNeeded(path);

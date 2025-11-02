@@ -111,12 +111,9 @@ static NSString * didChangeMapOverlay = @"didChangeMapOverlay";
 
 + (MWMMapOverlayOutdoorState)outdoorState
 {
-  switch (GetFramework().GetMapStyle())
-  {
-  case MapStyleOutdoorsLight:
-  case MapStyleOutdoorsDark: return MWMMapOverlayOutdoorStateEnabled;
-  default: return MWMMapOverlayOutdoorStateDisabled;
-  }
+    if (GetFramework().GetMapStyle() == MapStyleManager::GetOutdoorsStyleName())
+        return MWMMapOverlayOutdoorStateEnabled;
+    return MWMMapOverlayOutdoorStateDisabled;
 }
 
 + (MWMMapOverlayHikingState)hikingState
@@ -188,16 +185,10 @@ static NSString * didChangeMapOverlay = @"didChangeMapOverlay";
 + (void)setOutdoorEnabled:(BOOL)enable
 {
   auto & f = GetFramework();
-  switch (f.GetMapStyle())
-  {
-  case MapStyleDefaultLight:
-  case MapStyleVehicleLight:
-  case MapStyleOutdoorsLight: f.SetMapStyle(enable ? MapStyleOutdoorsLight : MapStyleDefaultLight); break;
-  case MapStyleDefaultDark:
-  case MapStyleVehicleDark:
-  case MapStyleOutdoorsDark: f.SetMapStyle(enable ? MapStyleOutdoorsDark : MapStyleDefaultDark); break;
-  default: break;
-  }
+  if (enable)
+    f.SetMapStyle(MapStyleManager::GetOutdoorsStyleName());
+  else
+    f.SetMapStyle(MapStyleManager::GetDefaultStyleName());
 
   // TODO: - Observing for the selected/deselected state of the Outdoor style should be implemented not by
   // NSNotificationCenter but the same way as for IsoLines with 'GetFramework().GetIsolinesManager().SetStateListener'.

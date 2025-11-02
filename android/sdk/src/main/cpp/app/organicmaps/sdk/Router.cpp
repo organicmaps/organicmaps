@@ -2,8 +2,6 @@
 
 #include "app/organicmaps/sdk/Framework.hpp"
 
-#include "indexer/map_style.hpp"
-
 extern "C"
 {
 JNIEXPORT void Java_app_organicmaps_sdk_Router_nativeSet(JNIEnv *, jclass, jint routerType)

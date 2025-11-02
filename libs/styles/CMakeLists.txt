@@ -17,4 +17,4 @@ target_link_libraries(${PROJECT_NAME}
   glaze::glaze
 )
 
-omim_add_test_subdirectory(style_tests)
+omim_add_test_subdirectory(styles_tests)

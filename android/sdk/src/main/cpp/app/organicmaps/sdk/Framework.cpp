@@ -413,24 +413,29 @@ void Framework::ResumeSurfaceRendering()
   LOG(LINFO, ("Resume surface rendering."));
 }
 
-void Framework::SetMapStyle(MapStyle mapStyle)
+void Framework::SetMapStyle(MapStyleName const mapStyleName, std::optional<MapStyleTheme> const theme)
 {
-  m_work.SetMapStyle(mapStyle);
+  m_work.SetMapStyle(mapStyleName, theme);
 }
 
-void Framework::MarkMapStyle(MapStyle mapStyle)
+void Framework::MarkMapStyle(MapStyleName const mapStyleName, std::optional<MapStyleTheme> const theme)
 {
   // In case of Vulkan rendering we don't recreate geometry and textures data, so
   // we need use SetMapStyle instead of MarkMapStyle in all cases.
   if (m_vulkanContextFactory)
-    m_work.SetMapStyle(mapStyle);
+    m_work.SetMapStyle(mapStyleName, theme);
   else
-    m_work.MarkMapStyle(mapStyle);
+    m_work.MarkMapStyle(mapStyleName, theme);
 }
 
-MapStyle Framework::GetMapStyle() const
+MapStyleName Framework::GetMapStyle() const
 {
   return m_work.GetMapStyle();
+}
+
+MapStyleTheme Framework::GetMapTheme() const
+{
+  return m_work.GetMapTheme();
 }
 
 void Framework::Save3dMode(bool allow3d, bool allow3dBuildings)

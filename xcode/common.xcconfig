@@ -1,5 +1,6 @@
 // Paths
 OMIM_ROOT = $(PROJECT_DIR)/../..
+OMIM_DATA = $(OMIM_ROOT)/data
 QT_PATH[arch=x86_64] = /usr/local/opt/qt@6
 QT_PATH[arch=arm64] = /opt/homebrew/opt/qt@6
 BOOST_ROOT = $(OMIM_ROOT)/3party/boost

@@ -64,8 +64,6 @@ public:
   {
     std::string m_resPostfix;
     double m_visualScale = 1.0;
-    std::string m_colors;
-    std::string m_patterns;
     GlyphManager::Params m_glyphMngParams;
     std::string m_arrowTexturePath;  // maybe empty if no custom texture
     bool m_arrowTextureUseDefaultResourceFolder = false;

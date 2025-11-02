@@ -1,4 +1,4 @@
-project(style_tests)
+project(styles_tests)
 
 set(SRC
   classificator_tests.cpp

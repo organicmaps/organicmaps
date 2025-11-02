@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "styles/style_tests/helpers.hpp"
+#include "styles/styles_tests/helpers.hpp"
 
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
