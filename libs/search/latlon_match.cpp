@@ -14,7 +14,7 @@
 namespace
 {
 std::string const kSpaces = " \t";
-std::string const kCharsToSkip = " \n\t,;:.()";
+std::string const kCharsToSkip = " \n\t,;:.()/";  // Slash is used in the OpenStreetMap.org url.
 std::string const kDecimalMarks = ".,";
 
 bool IsDecimalMark(char c)
