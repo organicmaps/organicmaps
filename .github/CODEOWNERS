@@ -40,12 +40,13 @@
 /generator/generator_tests/osm_type_test.cpp
 # Map Styles.
 /data/styles/ @organicmaps/styles
+/data/styles-raw/ @organicmaps/styles
+/data/symbols-svg/ @organicmaps/styles
 /data/types.txt @organicmaps/styles
 /data/visibility.txt @organicmaps/styles
 /data/mapcss-mapping.csv @organicmaps/styles
 /data/replaced_tags.txt @organicmaps/styles
 /data/classificator.txt @organicmaps/styles
-/data/drules_* @organicmaps/styles
 /docs/STYLES.md
 /tools/kothic/ @organicmaps/styles
 # DevOps.
