@@ -2931,8 +2931,7 @@ void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, DataSource 
     if (emo.GetHouseNumber().empty())
       emo.SetHouseNumber(address.GetHouseNumber());
     if (emo.GetStreet().m_defaultName.empty())
-      // TODO(mgsergio): Localize if localization is required by UI.
-      emo.SetStreet({address.GetStreetName(), ""});
+      emo.SetStreet({std::string(address.GetStreetName()), std::string(address.m_street.m_name)});
   }
 }
 }  // namespace
