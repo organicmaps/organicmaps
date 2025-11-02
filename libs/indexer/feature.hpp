@@ -166,6 +166,7 @@ public:
   void GetReadableName(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out);
 
   std::string_view GetName(int8_t lang);
+  std::string_view GetDefaultName() { return GetName(StringUtf8Multilang::kDefaultCode); }
   //@}
 
   uint8_t GetRank();

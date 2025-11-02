@@ -224,10 +224,8 @@ bool GetBuildingInfo(FeatureType & ft, search::ReverseGeocoder const & coder, st
 bool GetCafeInfo(FeatureType & ft, search::ReverseGeocoder const & coder, string & street, uint32_t & cafeType,
                  string_view & name)
 {
-  if (!ft.HasName())
-    return false;
-
-  if (!ft.GetNames().GetString(StringUtf8Multilang::kDefaultCode, name))
+  name = ft.GetDefaultName();
+  if (name.empty())
     return false;
 
   for (auto const t : feature::TypesHolder(ft))

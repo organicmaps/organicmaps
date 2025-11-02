@@ -80,9 +80,7 @@ feature::TypesHolder const & MapObject::GetTypes() const
 
 string_view MapObject::GetDefaultName() const
 {
-  string_view name;
-  UNUSED_VALUE(m_name.GetString(StringUtf8Multilang::kDefaultCode, name));
-  return name;
+  return m_name.GetDefaultString();
 }
 
 StringUtf8Multilang const & MapObject::GetNameMultilang() const

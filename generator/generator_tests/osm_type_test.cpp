@@ -1022,9 +1022,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Dibrugarh)
 
   TEST_EQUAL(params.m_types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "city"})), (params));
-  std::string_view name;
-  TEST(params.name.GetString(StringUtf8Multilang::kDefaultCode, name), (params));
-  TEST_EQUAL(name, "Dibrugarh", (params));
+  TEST_EQUAL(params.name.GetDefaultString(), "Dibrugarh", (params));
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
@@ -1285,9 +1283,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Translations)
   TEST_EQUAL(params.m_types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "city"})), ());
 
+  TEST_EQUAL(params.name.GetDefaultString(), "Paris", (params));
+
   std::string_view name;
-  TEST(params.name.GetString(StringUtf8Multilang::kDefaultCode, name), (params));
-  TEST_EQUAL(name, "Paris", (params));
   TEST(params.name.GetString(StringUtf8Multilang::kEnglishCode, name), (params));
   TEST_EQUAL(name, "Paris", (params));
   TEST(!params.name.GetString("fr", name), (params));
@@ -1343,9 +1341,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_OldName)
 
     auto const params = GetFeatureBuilderParams(tags);
 
+    TEST_EQUAL(params.name.GetDefaultString(), "Улица Веткина", ());
+
     std::string_view s;
-    params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
-    TEST_EQUAL(s, "Улица Веткина", ());
     params.name.GetString(StringUtf8Multilang::GetLangIndex("old_name"), s);
     TEST_EQUAL(s, "Царская Ветка", ());
   }
@@ -1360,9 +1358,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_OldName)
 
     auto const params = GetFeatureBuilderParams(tags);
 
+    TEST_EQUAL(params.name.GetDefaultString(), "Санкт-Петербург", ());
+
     std::string_view s;
-    params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
-    TEST_EQUAL(s, "Санкт-Петербург", ());
     params.name.GetString(StringUtf8Multilang::GetLangIndex("old_name"), s);
     // We ignore old_name:lang and old_name:lang:dates but support old_name:dates.
     TEST_EQUAL(s, "Петроград;Ленинград", ());
@@ -1377,9 +1375,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_AltName)
 
     auto const params = GetFeatureBuilderParams(tags);
 
+    TEST_EQUAL(params.name.GetDefaultString(), "Московский музей современного искусства", ());
+
     std::string_view s;
-    params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
-    TEST_EQUAL(s, "Московский музей современного искусства", ());
     params.name.GetString(StringUtf8Multilang::GetLangIndex("alt_name"), s);
     TEST_EQUAL(s, "MMOMA", ());
   }
@@ -1389,9 +1387,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_AltName)
 
     auto const params = GetFeatureBuilderParams(tags);
 
+    TEST_EQUAL(params.name.GetDefaultString(), "Московский музей современного искусства", ());
+
     std::string_view s;
-    params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
-    TEST_EQUAL(s, "Московский музей современного искусства", ());
     // We do not support alt_name:lang.
     TEST(!params.name.GetString(StringUtf8Multilang::GetLangIndex("alt_name"), s), ());
   }
@@ -1404,9 +1402,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_NameJaKana)
 
     auto const params = GetFeatureBuilderParams(tags);
 
+    TEST_EQUAL(params.name.GetDefaultString(), "Tokyo", ());
+
     std::string_view s;
-    params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
-    TEST_EQUAL(s, "Tokyo", ());
     params.name.GetString(StringUtf8Multilang::GetLangIndex("ja_kana"), s);
     TEST_EQUAL(s, "トウキョウト", ());
   }
@@ -1415,9 +1413,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_NameJaKana)
 
     auto const params = GetFeatureBuilderParams(tags);
 
+    TEST_EQUAL(params.name.GetDefaultString(), "Tokyo", ());
+
     std::string_view s;
-    params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
-    TEST_EQUAL(s, "Tokyo", ());
     // Save ja-Hira as ja_kana if there is no ja_kana.
     params.name.GetString(StringUtf8Multilang::GetLangIndex("ja_kana"), s);
     TEST_EQUAL(s, "とうきょうと", ());
@@ -1428,9 +1426,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_NameJaKana)
 
     auto const params = GetFeatureBuilderParams(tags);
 
+    TEST_EQUAL(params.name.GetDefaultString(), "Tokyo", ());
+
     std::string_view s;
-    params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
-    TEST_EQUAL(s, "Tokyo", ());
     // Prefer ja_kana over ja-Hira. ja_kana tag goes first.
     params.name.GetString(StringUtf8Multilang::GetLangIndex("ja_kana"), s);
     TEST_EQUAL(s, "トウキョウト", ());
@@ -1441,9 +1439,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_NameJaKana)
 
     auto const params = GetFeatureBuilderParams(tags);
 
+    TEST_EQUAL(params.name.GetDefaultString(), "Tokyo", ());
+
     std::string_view s;
-    params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
-    TEST_EQUAL(s, "Tokyo", ());
     // Prefer ja_kana over ja-Hira. ja-Hira tag goes first.
     params.name.GetString(StringUtf8Multilang::GetLangIndex("ja_kana"), s);
     TEST_EQUAL(s, "トウキョウト", ());

@@ -879,7 +879,7 @@ int HouseDetector::LoadStreets(vector<FeatureID> const & ids)
     if (f->GetGeomType() == feature::GeomType::Line)
     {
       // Use default name as a primary compare key for merging.
-      string_view const name = f->GetName(StringUtf8Multilang::kDefaultCode);
+      string_view const name = f->GetDefaultName();
       if (name.empty())
         continue;
 

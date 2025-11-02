@@ -2834,8 +2834,7 @@ bool LocalizeStreet(DataSource const & dataSource, FeatureID const & fid, osm::L
   if (!ft)
     return false;
 
-  result.m_defaultName = ft->GetName(StringUtf8Multilang::kDefaultCode);
-
+  result.m_defaultName = ft->GetDefaultName();
   result.m_localizedName = ft->GetReadableName();
 
   if (result.m_localizedName == result.m_defaultName)

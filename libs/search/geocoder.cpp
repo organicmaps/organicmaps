@@ -229,7 +229,7 @@ void JoinQueryTokens(QueryParams const & params, TokenRange const & range, UniSt
 /// @todo Can't change on string_view now, because of unordered_map<string> Affiliations.
 [[nodiscard]] bool GetAffiliationName(FeatureType & ft, string & affiliation)
 {
-  string_view name = ft.GetName(StringUtf8Multilang::kDefaultCode);
+  string_view name = ft.GetDefaultName();
   if (name.empty())
   {
     // As a best effort, we try to read an english name if default name is absent.
@@ -728,7 +728,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
     Region region(std::move(l), type);
     region.m_center = ft.GetCenter();
 
-    LOG(LDEBUG, ("Region =", ft.GetName(StringUtf8Multilang::kDefaultCode)));
+    LOG(LDEBUG, ("Region =", ft.GetDefaultName()));
 
     m_infoGetter.GetMatchedRegions(affiliation, region.m_ids);
     m_regions[type][region.m_tokenRange].push_back(std::move(region));
@@ -804,7 +804,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
         city.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
       }
 
-      LOG(LDEBUG, ("City =", ft->GetName(StringUtf8Multilang::kDefaultCode), "ll =", mercator::ToLatLon(center),
+      LOG(LDEBUG, ("City =", ft->GetDefaultName(), "ll =", mercator::ToLatLon(center),
                    "rect =", mercator::ToLatLon(city.m_rect), "rect source:", haveBoundary ? "table" : "population",
                    "sizeX =", mercator::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.RightTop()),
                    "sizeY =", mercator::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.LeftBottom())));
@@ -852,8 +852,7 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
     auto const radius = ftypes::GetRadiusByPopulation(population);
     village.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
 
-    LOG(LDEBUG, ("Village =", ft->GetName(StringUtf8Multilang::kDefaultCode), "ll =", mercator::ToLatLon(center),
-                 "radius =", radius));
+    LOG(LDEBUG, ("Village =", ft->GetDefaultName(), "ll =", mercator::ToLatLon(center), "radius =", radius));
 
     m_cities[village.m_tokenRange].push_back(std::move(village));
   }
@@ -1600,7 +1599,7 @@ uint32_t Geocoder::MatchWorld2Country(FeatureID const & id) const
   m2::PointD pt;
   m_dataSource.ReadFeature([&](FeatureType & ft)
   {
-    name = ft.GetName(StringUtf8Multilang::kDefaultCode);
+    name = ft.GetDefaultName();
     pt = feature::GetCenter(ft);
   }, id);
 
@@ -1608,7 +1607,7 @@ uint32_t Geocoder::MatchWorld2Country(FeatureID const & id) const
   uint32_t resID = kInvalidFeatureId;
   m_context->ForEachFeature({pt, pt}, [&](FeatureType & ft)
   {
-    if (resID == kInvalidFeatureId && ft.GetName(StringUtf8Multilang::kDefaultCode) == name &&
+    if (resID == kInvalidFeatureId && ft.GetDefaultName() == name &&
         // Relaxed points comparison because geometry coding in the World and in a Country is different.
         feature::GetCenter(ft).EqualDxDy(pt, kMwmPointAccuracy * 100))
     {

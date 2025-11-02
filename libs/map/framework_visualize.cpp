@@ -88,7 +88,7 @@ void Framework::VisualizeCityBoundariesInRect(m2::RectD const & rect)
     {
       auto name = ft->GetName(StringUtf8Multilang::kEnglishCode);
       if (name.empty())
-        name = ft->GetName(StringUtf8Multilang::kDefaultCode);
+        name = ft->GetDefaultName();
       id.append(", name:").append(name);
     }
 

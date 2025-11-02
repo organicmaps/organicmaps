@@ -53,8 +53,9 @@ bool GetTransliteratedName(RegionData const & regionData, StrUtf8 const & src, s
       return true;
 
   // If default name is available, interpret it as a name for the first mwm language.
-  if (!mwmLangCodes.empty() && src.GetString(StrUtf8::kDefaultCode, srcName))
-    return translator.Transliterate(srcName, mwmLangCodes[0], out);
+  if (!mwmLangCodes.empty())
+    if (srcName = src.GetDefaultString(); !srcName.empty())
+      return translator.Transliterate(srcName, mwmLangCodes[0], out);
 
   return false;
 }
