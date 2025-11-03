@@ -193,7 +193,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
       {
       case NightMode::Off: framework.SetMapStyle(currStyle, MapStyleTheme::Light); break;
       case NightMode::On: framework.SetMapStyle(currStyle, MapStyleTheme::Dark); break;
-      case NightMode::System: ApplySystemNightMode(framework); break;
+      case NightMode::System: common::ApplySystemNightMode(framework); break;
       }
     });
   }

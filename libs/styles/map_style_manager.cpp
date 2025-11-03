@@ -3,6 +3,8 @@
 #include "base/file_name_utils.hpp"
 #include "platform/platform.hpp"
 
+#include <ranges>
+
 #include <glaze/json.hpp>
 
 namespace
@@ -39,7 +41,7 @@ MapStyleName MapStyleManager::GetCurrentStyleName() const
 
 std::vector<MapStyleName> MapStyleManager::GetAvailableStyles() const
 {
-  return m_styles | std::views::keys | std::ranges::to<std::vector>();
+  return m_styles | std::views::keys | std::ranges::to<std::vector<std::string_view>>();
 }
 
 MapStyleTheme MapStyleManager::GetCurrentTheme() const

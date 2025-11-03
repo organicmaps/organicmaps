@@ -1,7 +1,5 @@
 #include "base/file_name_utils.hpp"
 
-#include <filesystem>
-
 namespace base
 {
 using namespace std;
@@ -74,10 +72,5 @@ string AddSlashIfNeeded(string const & path)
   if (pos != string::npos && pos + sizeof(sep) == path.size())
     return path;
   return path + sep;
-}
-
-std::string GetAbsolutePath(std::string const & path)
-{
-  return std::filesystem::path(path).lexically_normal().string();
 }
 }  // namespace base
