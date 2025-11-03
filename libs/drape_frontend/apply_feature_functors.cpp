@@ -519,11 +519,12 @@ void ApplyPointFeature::ProcessPointRules(SymbolRuleProto const * symbolRule, Ca
 }
 
 ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
-                                   double currentScaleGtoP, bool isBuilding, float minPosZ, float posZ,
-                                   CaptionDescription const & captions)
+                                   double currentScaleGtoP, bool isBuilding, bool isMwmBorder, float minPosZ,
+                                   float posZ, CaptionDescription const & captions)
   : TBase(tileKey, insertShape, f, captions)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
+  , m_isMwmBorder(isMwmBorder)
   , m_currentScaleGtoP(currentScaleGtoP)
 {
   m_posZ = posZ;
@@ -724,6 +725,7 @@ void ApplyAreaFeature::ProcessRule(AreaRuleProto const & areaRule, double areaDe
   bool const isHatching = !hatchKey.empty();
 
   AreaViewParams params;
+  params.m_depthLayer = m_isMwmBorder ? DepthLayer::MwmBorderLayer : DepthLayer::GeometryLayer;
   params.m_tileCenter = m_tileRect.Center();
   params.m_depth = PriorityToDepth(areaRule.priority(), drule::area, areaDepth);
   params.m_color = ToDrapeColor(areaRule.color());

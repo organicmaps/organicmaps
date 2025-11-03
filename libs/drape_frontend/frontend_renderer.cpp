@@ -1394,10 +1394,12 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     else
     {
       Render3dLayer(modelView);
+
       RenderTrafficLayer(modelView);
       if (!hasTransitRouteData)
         RenderRouteLayer(modelView);
     }
+    RenderMwmBorderLayer(modelView);
 
     m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
 
@@ -1617,6 +1619,21 @@ void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
     m_routeRenderer->RenderRoute(m_context, make_ref(m_gpuProgramManager), modelView,
                                  m_trafficRenderer->HasRenderData(), m_frameValues);
   }
+}
+
+void FrontendRenderer::RenderMwmBorderLayer(ScreenBase const & modelView)
+{
+  TRACE_SECTION("[drape] RenderMwmBorderLayer");
+  auto & renderGroups = m_layers[static_cast<size_t>(DepthLayer::MwmBorderLayer)].m_renderGroups;
+  if (renderGroups.empty())
+    return;
+
+  CHECK(m_context != nullptr, ());
+  DEBUG_LABEL(m_context, "Mmw Border Layer");
+  m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
+
+  for (drape_ptr<RenderGroup> & group : renderGroups)
+    RenderSingleGroup(m_context, modelView, make_ref(group));
 }
 
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId)
