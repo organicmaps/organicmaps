@@ -445,6 +445,11 @@ IsPisteChecker::IsPisteChecker() : BaseChecker(1 /* level */)
   m_types.push_back(classif().GetTypeByPath({"piste:type"}));
 }
 
+IsMwmBorderChecker::IsMwmBorderChecker() : BaseChecker(2 /* level */)
+{
+  m_types.push_back(classif().GetTypeByPath({"organicapp", "mwm_border"}));
+}
+
 // Used in IsPoiChecker and in IsAddressObjectChecker.
 OneLevelPOIChecker::OneLevelPOIChecker() : ftypes::BaseChecker(1 /* level */)
 {

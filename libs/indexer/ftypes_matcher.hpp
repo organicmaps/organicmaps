@@ -296,6 +296,14 @@ public:
   DECLARE_CHECKER_INSTANCE(IsPisteChecker);
 };
 
+class IsMwmBorderChecker : public ftypes::BaseChecker
+{
+  IsMwmBorderChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsMwmBorderChecker);
+};
+
 class OneLevelPOIChecker : public ftypes::BaseChecker
 {
 public:

@@ -270,6 +270,8 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TI
     is3dBuilding = isBuilding && !isBuildingOutline && m_context->Is3dBuildingsEnabled();
   }
 
+  bool const isMwmBorder = ftypes::IsMwmBorderChecker::Instance()(types);
+
   m2::PointD featureCenter;
 
   float areaHeight = 0.0f;
@@ -306,7 +308,8 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TI
     isBuilding = false;
 
   ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f, m_currentScaleGtoP, isBuilding,
-                         areaMinHeight /* minPosZ */, areaHeight /* posZ */, s.m_captionDescriptor);
+                         isMwmBorder, areaMinHeight /* minPosZ */, areaHeight /* posZ */, 
+                         s.m_captionDescriptor);
 
   if (!skipTriangles && (s.m_areaRule || s.m_hatchingRule))
   {

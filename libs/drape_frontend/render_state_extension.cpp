@@ -7,11 +7,12 @@ namespace
 using namespace df;
 
 std::array<RenderStateExtension, static_cast<size_t>(DepthLayer::LayersCount)> kStateExtensions = {
-    RenderStateExtension(DepthLayer::GeometryLayer),          RenderStateExtension(DepthLayer::Geometry3dLayer),
-    RenderStateExtension(DepthLayer::UserLineLayer),          RenderStateExtension(DepthLayer::OverlayLayer),
-    RenderStateExtension(DepthLayer::TransitSchemeLayer),     RenderStateExtension(DepthLayer::UserMarkLayer),
-    RenderStateExtension(DepthLayer::RoutingBottomMarkLayer), RenderStateExtension(DepthLayer::RoutingMarkLayer),
-    RenderStateExtension(DepthLayer::SearchMarkLayer),        RenderStateExtension(DepthLayer::GuiLayer)};
+    RenderStateExtension(DepthLayer::GeometryLayer),    RenderStateExtension(DepthLayer::Geometry3dLayer),
+    RenderStateExtension(DepthLayer::UserLineLayer),    RenderStateExtension(DepthLayer::MwmBorderLayer),
+    RenderStateExtension(DepthLayer::OverlayLayer),     RenderStateExtension(DepthLayer::TransitSchemeLayer),
+    RenderStateExtension(DepthLayer::UserMarkLayer),    RenderStateExtension(DepthLayer::RoutingBottomMarkLayer),
+    RenderStateExtension(DepthLayer::RoutingMarkLayer), RenderStateExtension(DepthLayer::SearchMarkLayer),
+    RenderStateExtension(DepthLayer::GuiLayer)};
 
 struct RenderStateExtensionFactory
 {

@@ -35,7 +35,9 @@ void AreaShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
     outlineUv = outlineRegion.GetTexRect().Center();
   }
 
-  if (m_params.m_is3D)
+  if (m_params.m_depthLayer == DepthLayer::MwmBorderLayer)
+    DrawMwmBorderArea(context, batcher, colorUv, region.GetTexture());
+  else if (m_params.m_is3D)
     DrawArea3D(context, batcher, colorUv, outlineUv, region.GetTexture());
   else if (!m_params.m_hatching.empty())
     DrawHatchingArea(context, batcher, colorUv, region.GetTexture(), textures->GetHatchingTexture(m_params.m_hatching));
@@ -81,6 +83,26 @@ void AreaShape::DrawArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batch
     outlineProvider.InitStream(0, gpu::AreaVertex::GetBindingInfo(), make_ref(vertices.data()));
     batcher->InsertLineRaw(context, outlineState, make_ref(&outlineProvider), m_buildingOutline.m_indices);
   }
+}
+
+void AreaShape::DrawMwmBorderArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                                  m2::PointD const & colorUv, ref_ptr<dp::Texture> texture) const
+{
+  glsl::vec2 const uv = glsl::ToVec2(colorUv);
+
+  gpu::VBReservedSizeT<gpu::AreaVertex> vertexes;
+  vertexes.reserve(m_vertexes.size());
+  for (m2::PointD const & vertex : m_vertexes)
+    vertexes.emplace_back(ToShapeVertex3(vertex), uv);
+
+  auto state = CreateRenderState(gpu::Program::TransparentArea, DepthLayer::MwmBorderLayer);
+  state.SetDepthTestEnabled(true);
+  state.SetDepthFunction(dp::TestFunction::Less);
+  state.SetColorTexture(texture);
+
+  dp::AttributeProvider provider(1, static_cast<uint32_t>(vertexes.size()));
+  provider.InitStream(0, gpu::AreaVertex::GetBindingInfo(), make_ref(vertexes.data()));
+  batcher->InsertTriangleList(context, state, make_ref(&provider));
 }
 
 void AreaShape::DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,

@@ -15,6 +15,7 @@ enum class DepthLayer : uint8_t
   GeometryLayer = 0,
   Geometry3dLayer,
   UserLineLayer,
+  MwmBorderLayer,
   OverlayLayer,
   TransitSchemeLayer,
   UserMarkLayer,
@@ -50,6 +51,7 @@ inline std::string DebugPrint(DepthLayer layer)
   case DepthLayer::GeometryLayer: return "GeometryLayer";
   case DepthLayer::Geometry3dLayer: return "Geometry3dLayer";
   case DepthLayer::UserLineLayer: return "UserLineLayer";
+  case DepthLayer::MwmBorderLayer: return "MwmBorderLayer";
   case DepthLayer::OverlayLayer: return "OverlayLayer";
   case DepthLayer::TransitSchemeLayer: return "TransitSchemeLayer";
   case DepthLayer::UserMarkLayer: return "UserMarkLayer";
