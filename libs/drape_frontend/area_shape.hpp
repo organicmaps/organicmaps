@@ -38,6 +38,8 @@ private:
 
   void DrawArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
                 m2::PointD const & outlineUv, ref_ptr<dp::Texture> texture) const;
+  void DrawMwmBorderArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
+                         ref_ptr<dp::Texture> texture) const;
   void DrawArea3D(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
                   m2::PointD const & outlineUv, ref_ptr<dp::Texture> texture) const;
   void DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
