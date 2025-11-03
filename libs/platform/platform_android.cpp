@@ -108,7 +108,8 @@ std::unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::
       ASSERT_EQUAL(file.find("assets/"), std::string::npos, ());
       try
       {
-        return make_unique<ZipFileReader>(m_resourcesDir, "assets/" + file, logPageSize, logPageCount);
+        return make_unique<ZipFileReader>(m_resourcesDir, base::GetAbsolutePath(base::JoinPath("assets", file)),
+                                          logPageSize, logPageCount);
       }
       catch (Reader::OpenException const & e)
       {

@@ -32,6 +32,9 @@ std::string::value_type GetNativeSeparator();
 /// Add the terminating slash to the folder path std::string if it's not already there.
 std::string AddSlashIfNeeded(std::string const & path);
 
+/// Converts relative path to absolute
+std::string GetAbsolutePath(std::string const & path);
+
 namespace impl
 {
 inline std::string JoinPath(std::string const & file)
