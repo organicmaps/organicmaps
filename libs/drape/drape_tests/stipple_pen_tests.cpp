@@ -44,7 +44,7 @@ UNIT_TEST(StippleTest_EqualPatterns)
   std::vector<PatternT> patterns;
 
   using namespace dp::impl;
-  ParsePatternsList("./data/patterns.txt", [&patterns](buffer_vector<double, 8> const & p)
+  ParsePatternsList("./data/styles/default/patterns.txt", [&patterns](buffer_vector<double, 8> const & p)
   {
     if (p.size() == 2)
       patterns.push_back({p[0], p[1]});
