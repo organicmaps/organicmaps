@@ -466,14 +466,14 @@ waterway-dam                                        # line z14- and area z14- (a
 === 30
 
 landuse-military                                    # area z12- (also has icon z16-, caption(optional) z17-)
-landuse-military-danger_area                        # area z10- (also has icon z16-, caption(optional) z17-)
+landuse-military-danger_area                        # area z8- (also has icon z16-, caption(optional) z17-)
 === 25
 
 amenity-prison                                      # area z12- (also has icon z17-, caption(optional) z17-)
-boundary-aboriginal_lands                           # line z10- and area z10-16 (also has caption z10-16)
-boundary-national_park                              # line z10- and area z10-17 (also has icon z10-17, caption(optional) z11-17)
-boundary-protected_area-1                           # line z10- and area z10-17 (also has icon z10-17, caption(optional) z11-17)
-leisure-nature_reserve                              # area z10-17 (also has icon z10-17, caption(optional) z11-17, caption z18-)
+boundary-aboriginal_lands                           # line z8- and area z8-16 (also has caption z8-16)
+boundary-national_park                              # line z8- and area z8-17 (also has icon z10-17, caption z8-9, caption(optional) z11-17)
+boundary-protected_area-1                           # line z8- and area z8-17 (also has icon z10-17, caption z8-9, caption(optional) z11-17)
+leisure-nature_reserve                              # area z8-17 (also has icon z10-17, caption z8-9, caption(optional) z11-17)
 === 20
 
 piste:type-downhill-advanced-area                   # area z13-

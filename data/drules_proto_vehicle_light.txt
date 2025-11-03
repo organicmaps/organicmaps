@@ -41262,7 +41262,7 @@ cont {
   }
 }
 cont {
-  name: "place-state-USA"
+  name: "place-state-major"
   element {
     scale: 5
     caption {
