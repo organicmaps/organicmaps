@@ -434,6 +434,8 @@ For the emulator its recommended to choose the latest supported API Level system
 
 ### Building
 
+This project uses `externalNativeBuild`, so please run `git submodule update --init --recursive` command, to make sure you have all `CMakeLists.txt` files in `3party` folder.
+
 There is a matrix of different build variants:
 
 - _Type_:
