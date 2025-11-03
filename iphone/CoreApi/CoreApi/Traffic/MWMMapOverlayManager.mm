@@ -111,9 +111,9 @@ static NSString * didChangeMapOverlay = @"didChangeMapOverlay";
 
 + (MWMMapOverlayOutdoorState)outdoorState
 {
-    if (GetFramework().GetMapStyle() == MapStyleManager::GetOutdoorsStyleName())
-        return MWMMapOverlayOutdoorStateEnabled;
-    return MWMMapOverlayOutdoorStateDisabled;
+  if (GetFramework().GetMapStyle() == MapStyleManager::GetOutdoorsStyleName())
+    return MWMMapOverlayOutdoorStateEnabled;
+  return MWMMapOverlayOutdoorStateDisabled;
 }
 
 + (MWMMapOverlayHikingState)hikingState

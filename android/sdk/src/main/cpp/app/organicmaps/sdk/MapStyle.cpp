@@ -6,21 +6,21 @@ extern "C"
 {
 JNIEXPORT void Java_app_organicmaps_sdk_MapStyle_nativeSet(JNIEnv *, jclass, jint mapStyle)
 {
-//  auto const val = static_cast<MapStyle>(mapStyle);
-//  if (val != g_framework->GetMapStyle())
-//    g_framework->SetMapStyle(val);
+  //  auto const val = static_cast<MapStyle>(mapStyle);
+  //  if (val != g_framework->GetMapStyle())
+  //    g_framework->SetMapStyle(val);
 }
 
 JNIEXPORT jint Java_app_organicmaps_sdk_MapStyle_nativeGet(JNIEnv *, jclass)
 {
-//  return g_framework->GetMapStyle();
-return 0;
+  //  return g_framework->GetMapStyle();
+  return 0;
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_MapStyle_nativeMark(JNIEnv *, jclass, jint mapStyle)
 {
-//  auto const val = static_cast<MapStyle>(mapStyle);
-//  if (val != g_framework->GetMapStyle())
-//    g_framework->MarkMapStyle(val);
+  //  auto const val = static_cast<MapStyle>(mapStyle);
+  //  if (val != g_framework->GetMapStyle())
+  //    g_framework->MarkMapStyle(val);
 }
 }

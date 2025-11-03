@@ -123,9 +123,8 @@ bool LoadMesh(std::string const & pathToMesh, bool isDefaultResource, TLoadingCo
   fastObjMesh * meshData = nullptr;
   try
   {
-    ReaderPtr<Reader> const reader = isDefaultResource
-                                       ? MapStyleManager::GetDefaultResourceReader(pathToMesh)
-                                       : GetPlatform().GetReader(pathToMesh);
+    ReaderPtr<Reader> const reader =
+        isDefaultResource ? MapStyleManager::GetDefaultResourceReader(pathToMesh) : GetPlatform().GetReader(pathToMesh);
     ReaderSource source(reader);
 
     // Read OBJ file.

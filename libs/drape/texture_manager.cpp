@@ -333,7 +333,8 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   std::vector<dp::Color> colors;
   colors.reserve(512);
   // TODO: Reload on style change
-  ParseColorsList(MapStyleManager::Instance().GetColorsPath(), [&colors](dp::Color const & color) { colors.push_back(color); });
+  ParseColorsList(MapStyleManager::Instance().GetColorsPath(),
+                  [&colors](dp::Color const & color) { colors.push_back(color); });
 
   m_colorTexture =
       make_unique_dp<ColorTexture>(ColorTextureSize(colors.size(), m_maxTextureSize), make_ref(m_textureAllocator));

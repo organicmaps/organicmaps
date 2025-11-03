@@ -50,10 +50,10 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
     switch (theme)
     {
     case MWMThemeDay:
-    case MWMThemeVehicleDay:  return MapStyleTheme::Light;
+    case MWMThemeVehicleDay: return MapStyleTheme::Light;
     case MWMThemeNight:
-    case MWMThemeVehicleNight:  return MapStyleTheme::Dark;
-        case MWMThemeAuto: NSAssert(NO, @"Invalid theme"); return MapStyleTheme::Light;
+    case MWMThemeVehicleNight: return MapStyleTheme::Dark;
+    case MWMThemeAuto: NSAssert(NO, @"Invalid theme"); return MapStyleTheme::Light;
     }
   }(theme);
 
