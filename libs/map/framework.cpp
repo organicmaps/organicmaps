@@ -304,9 +304,8 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   MapStyleManager & styleManager = MapStyleManager::Instance();
   if (string mapStyleName; settings::Get(kMapStyleKey, mapStyleName))
     styleManager.SetStyle(mapStyleName);
-  // TODO
-  // if (uint8_t mapTheme; settings::Get(kMapThemeKey, mapTheme))
-  //   styleManager.SetTheme(static_cast<MapStyleTheme>(mapTheme));
+  if (uint32_t mapTheme; settings::Get(kMapThemeKey, mapTheme))
+    styleManager.SetTheme(static_cast<MapStyleTheme>(mapTheme));
 
   df::LoadTransitColors();
 
@@ -1786,8 +1785,7 @@ void Framework::MarkMapStyle(MapStyleName const mapStyleName, std::optional<MapS
   settings::Set(kMapStyleKey, mapStyleName);
   if (theme)
   {
-    // TODO
-    // settings::Set(kMapThemeKey, static_cast<uint8_t>(theme.value()));
+    settings::Set(kMapThemeKey, static_cast<uint32_t>(theme.value()));
     styleManager.SetTheme(theme.value());
   }
   styleManager.SetStyle(mapStyleName);

@@ -145,14 +145,18 @@ void MapStyleManager::LoadStyle(std::string const & path)
 {
   LOG(LINFO, ("Loading style config from", path));
   std::string styleDir = base::GetDirectory(path);
-  LOG(LINFO, ("Loading style config from", styleDir));
   MapStyleConfig style;
   style.styleDir = styleDir;
   std::string buf;
   GetPlatform().GetReader(path)->ReadAsString(buf);
-  auto ec = glz::read_json(style, buf);
+  if (auto const ec = glz::read_json(style, buf); ec.ec != glz::error_code::none)
+  {
+    LOG(LWARNING, ("Failed to parse style config from", path, "error:", ec.ec));
+    return;
+  }
   base::GetNameFromFullPath(styleDir);
 
+  // This magic is needed to make unordered_map key's (string_view) data stored in unordered_map's value
   auto const [it, _] = m_styles.insert({{}, std::move(style)});
   auto nh = m_styles.extract(it);
   nh.key() = nh.mapped().name;
