@@ -17812,6 +17812,50 @@ cont {
 cont {
   name: "boundary-aboriginal_lands"
   element {
+    scale: 8
+    lines {
+      width: 2.0
+      color: 7556390
+      priority: 20
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+    area {
+      color: 2155040038
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6967599
+        stroke_color: 856032768
+      }
+      priority: 6700
+    }
+  }
+  element {
+    scale: 9
+    lines {
+      width: 2.0
+      color: 7556390
+      priority: 20
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+    area {
+      color: 2155040038
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6967599
+        stroke_color: 856032768
+      }
+      priority: 6700
+    }
+  }
+  element {
     scale: 10
     lines {
       width: 2.0
@@ -18407,6 +18451,50 @@ cont {
 cont {
   name: "boundary-national_park"
   element {
+    scale: 8
+    lines {
+      width: 2.0
+      color: 3096576
+      priority: 20
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+    area {
+      color: 3096576
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 2836760
+        stroke_color: 856032768
+      }
+      priority: 6700
+    }
+  }
+  element {
+    scale: 9
+    lines {
+      width: 2.0
+      color: 3096576
+      priority: 20
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+    area {
+      color: 3096576
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 2836760
+        stroke_color: 856032768
+      }
+      priority: 6700
+    }
+  }
+  element {
     scale: 10
     lines {
       width: 2.0
@@ -18746,6 +18834,50 @@ cont {
 }
 cont {
   name: "boundary-protected_area-1"
+  element {
+    scale: 8
+    lines {
+      width: 2.0
+      color: 3096576
+      priority: 20
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+    area {
+      color: 3096576
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 2836760
+        stroke_color: 856032768
+      }
+      priority: 6700
+    }
+  }
+  element {
+    scale: 9
+    lines {
+      width: 2.0
+      color: 3096576
+      priority: 20
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+    area {
+      color: 3096576
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 2836760
+        stroke_color: 856032768
+      }
+      priority: 6700
+    }
+  }
   element {
     scale: 10
     lines {
@@ -49045,6 +49177,20 @@ cont {
 cont {
   name: "landuse-military-danger_area"
   element {
+    scale: 8
+    area {
+      color: 12000284
+      priority: 25
+    }
+  }
+  element {
+    scale: 9
+    area {
+      color: 12000284
+      priority: 25
+    }
+  }
+  element {
     scale: 10
     area {
       color: 12000284
@@ -52025,6 +52171,36 @@ cont {
 cont {
   name: "leisure-nature_reserve"
   element {
+    scale: 8
+    area {
+      color: 3096576
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 2836760
+        stroke_color: 856032768
+      }
+      priority: 6700
+    }
+  }
+  element {
+    scale: 9
+    area {
+      color: 3096576
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 2836760
+        stroke_color: 856032768
+      }
+      priority: 6700
+    }
+  }
+  element {
     scale: 10
     area {
       color: 3425648640
@@ -52170,39 +52346,6 @@ cont {
         is_optional: true
       }
       priority: -3300
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 9211020
-        offset_y: 1
-      }
-      priority: 6700
-    }
-  }
-  element {
-    scale: 19
-    caption {
-      primary {
-        height: 10
-        color: 9211020
-        offset_y: 1
-      }
-      priority: 6700
-    }
-  }
-  element {
-    scale: 20
-    caption {
-      primary {
-        height: 10
-        color: 9211020
-        offset_y: 1
-      }
-      priority: 6700
     }
   }
 }
@@ -60832,12 +60975,26 @@ cont {
       color: 8738
       priority: -980
     }
+    caption {
+      primary {
+        height: 9
+        color: 19033
+      }
+      priority: 6650
+    }
   }
   element {
     scale: 9
     area {
       color: 8738
       priority: -980
+    }
+    caption {
+      primary {
+        height: 9
+        color: 19033
+      }
+      priority: 6650
     }
   }
   element {
@@ -70211,7 +70368,7 @@ cont {
   }
 }
 cont {
-  name: "place-state-USA"
+  name: "place-state-major"
   element {
     scale: 5
     caption {

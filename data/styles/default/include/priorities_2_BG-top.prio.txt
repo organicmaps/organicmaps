@@ -23,7 +23,7 @@ natural-water                                       # area z1- (also has caption
 natural-water-basin                                 # area z1- (also has caption z10-)
 natural-water-ditch                                 # area z13- (also has caption z17-)
 natural-water-drain                                 # area z13- (also has caption z17-)
-natural-water-lake                                  # area z1- (also has caption z10-)
+natural-water-lake                                  # area z1- (also has caption z8-)
 natural-water-lock                                  # area z1- (also has caption z10-)
 natural-water-moat                                  # area z1- (also has caption z17-)
 natural-water-pond                                  # area z1- (also has caption z10-)
