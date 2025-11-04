@@ -1,5 +1,6 @@
 import CarPlay
 import Contacts
+import AVFoundation
 
 protocol CarPlayRouterListener: AnyObject {
   func didCreateRoute(routeInfo: RouteInfo,
@@ -212,19 +213,51 @@ extension CarPlayRouter {
     }
   }
 
-  func cancelTrip() {
-    routeSession?.cancelTrip()
-    routeSession = nil
-    completeRouteAndRemovePoints()
-    RoutingManager.routingManager.resetOnNewTurnCallback()
+func cancelTrip() {
+  // Stop any ongoing TTS and deactivate audio session
+  if let tts = MWMTextToSpeech.tts() {
+    // Stop speech synthesis immediately
+    tts.speechSynthesizer?.stopSpeaking(at: .immediate)
+    
+    // Deactivate audio session to restore ducked audio (music, podcasts, etc.)
+    do {
+      try AVAudioSession.sharedInstance().setActive(
+        false,
+        options: .notifyOthersOnDeactivation
+      )
+    } catch {
+      print("CarPlay: Failed to deactivate audio session: \(error)")
+    }
   }
+  
+  routeSession?.cancelTrip()
+  routeSession = nil
+  completeRouteAndRemovePoints()
+  RoutingManager.routingManager.resetOnNewTurnCallback()
+}
 
-  func finishTrip() {
-    routeSession?.finishTrip()
-    routeSession = nil
-    completeRouteAndRemovePoints()
-    RoutingManager.routingManager.resetOnNewTurnCallback()
+func finishTrip() {
+  // Stop any ongoing TTS and deactivate audio session
+  if let tts = MWMTextToSpeech.tts() {
+    // Stop speech synthesis immediately
+    tts.speechSynthesizer?.stopSpeaking(at: .immediate)
+    
+    // Deactivate audio session to restore ducked audio
+    do {
+      try AVAudioSession.sharedInstance().setActive(
+        false,
+        options: .notifyOthersOnDeactivation
+      )
+    } catch {
+      print("CarPlay: Failed to deactivate audio session: \(error)")
+    }
   }
+  
+  routeSession?.finishTrip()
+  routeSession = nil
+  completeRouteAndRemovePoints()
+  RoutingManager.routingManager.resetOnNewTurnCallback()
+}
 
   func updateUpcomingManeuvers() {
     let maneuvers = createUpcomingManeuvers()
