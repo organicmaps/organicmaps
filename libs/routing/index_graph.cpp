@@ -199,7 +199,6 @@ void IndexGraph::SetRestrictions(RestrictionVec && restrictions)
   m_restrictionsForward.clear();
   m_restrictionsBackward.clear();
 
-  base::HighResTimer timer;
   for (auto const & restriction : restrictions)
   {
     ASSERT(!restriction.empty(), ());
@@ -210,8 +209,6 @@ void IndexGraph::SetRestrictions(RestrictionVec && restrictions)
 
     m_restrictionsBackward[restriction.front()].emplace_back(next(restriction.begin()), restriction.end());
   }
-
-  LOG(LDEBUG, ("Restrictions are loaded in:", timer.ElapsedMilliseconds(), "ms"));
 }
 
 void IndexGraph::SetUTurnRestrictions(vector<RestrictionUTurn> && noUTurnRestrictions)

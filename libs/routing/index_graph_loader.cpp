@@ -141,12 +141,13 @@ IndexGraphLoaderImpl::GraphPtrT IndexGraphLoaderImpl::CreateIndexGraph(NumMwmId 
       geometry = make_shared<Geometry>(GeometryLoader::Create(handle, std::move(vehicleModel), m_loadAltitudes));
     }
 
+    LOG(LINFO, ("Loading route graph for", value->GetCountryFileName()));
+
     auto graph = make_unique<IndexGraph>(geometry, m_estimator, m_avoidRoutingOptions);
     graph->SetCurrentTimeGetter(m_currentTimeGetter);
     DeserializeIndexGraph(*value, m_vehicleType, *graph);
 
-    LOG(LINFO,
-        (ROUTING_FILE_TAG, "section for", value->GetCountryFileName(), "loaded in", timer.ElapsedSeconds(), "seconds"));
+    LOG(LINFO, ("Graph loaded in", timer.ElapsedSeconds(), "seconds"));
     return graph;
   }
   catch (RootException const & ex)
