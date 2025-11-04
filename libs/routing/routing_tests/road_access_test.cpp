@@ -352,42 +352,35 @@ UNIT_TEST(RoadAccess_WayBlockedConditional)
   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 }
 
-// UNIT_TEST(RoadAccess_PointBlockedConditional)
-//{
-//   uint32_t const numVertices = 4;
-//   TestIndexGraphTopology graph(numVertices);
-//
-//   graph.AddDirectedEdge(0, 1, 1.0);
-//   graph.AddDirectedEdge(1, 2, 1.0);
-//   graph.AddDirectedEdge(2, 3, 1.0);
-//
-//   double expectedWeight = 3.0;
-//   vector<TestEdge> expectedEdges = {{0, 1}, {1, 2}, {2, 3}};
-//   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight,
-//                     expectedEdges);
-//
-//   graph.SetVertexAccessConditional(1, RoadAccess::Type::No, "Jan - Jul");
-//
-//   auto const april = []() {
-//     return GetUnixtimeByDate(2020, Month::Apr, 1, 12 /* hh */, 00 /* mm */);
-//   };
-//
-//   graph.SetCurrentTimeGetter(april);
-//   expectedWeight = 0;
-//   expectedEdges = {};
-//   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, false /* pathFound */, expectedWeight,
-//                     expectedEdges);
-//
-//   auto const november = []() {
-//     return GetUnixtimeByDate(2020, Month::Nov, 1, 12 /* hh */, 00 /* mm */);
-//   };
-//
-//   graph.SetCurrentTimeGetter(november);
-//   expectedWeight = 3.0;
-//   expectedEdges = {{0, 1}, {1, 2}, {2, 3}};
-//   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight,
-//                     expectedEdges);
-// }
+UNIT_TEST(RoadAccess_PointBlockedConditional)
+{
+  uint32_t const numVertices = 4;
+  TestIndexGraphTopology graph(numVertices);
+
+  graph.AddDirectedEdge(0, 1, 1.0);
+  graph.AddDirectedEdge(1, 2, 1.0);
+  graph.AddDirectedEdge(2, 3, 1.0);
+
+  double expectedWeight = 3.0;
+  vector<TestEdge> expectedEdges = {{0, 1}, {1, 2}, {2, 3}};
+  TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
+
+  graph.SetVertexAccessConditional(1, RoadAccess::Type::No, "Jan - Jul");
+
+  auto const april = []() { return GetUnixtimeByDate(2020, Month::Apr, 1, 12 /* hh */, 00 /* mm */); };
+
+  graph.SetCurrentTimeGetter(april);
+  expectedWeight = 0;
+  expectedEdges = {};
+  TestTopologyGraph(graph, 0 /* from */, 3 /* to */, false /* pathFound */, expectedWeight, expectedEdges);
+
+  auto const november = []() { return GetUnixtimeByDate(2020, Month::Nov, 1, 12 /* hh */, 00 /* mm */); };
+
+  graph.SetCurrentTimeGetter(november);
+  expectedWeight = 3.0;
+  expectedEdges = {{0, 1}, {1, 2}, {2, 3}};
+  TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
+}
 
 UNIT_TEST(RoadAccess_WayBlockedAvoidConditional)
 {
@@ -434,56 +427,50 @@ UNIT_TEST(RoadAccess_WayBlockedAvoidConditional)
   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, false /* pathFound */, expectedWeight, expectedEdges);
 }
 
-// UNIT_TEST(RoadAccess_PointBlockedAvoidConditional)
-//{
-//   uint32_t const numVertices = 4;
-//   TestIndexGraphTopology graph(numVertices);
-//
-//   graph.AddDirectedEdge(0, 1, 1.0);
-//   graph.AddDirectedEdge(0, 2, 10.0);
-//   graph.AddDirectedEdge(1, 3, 1.0);
-//   graph.AddDirectedEdge(2, 3, 10.0);
-//
-//   double expectedWeight = 2.0;
-//   vector<TestEdge> expectedEdges = {{0, 1}, {1, 3}};
-//   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight,
-//                     expectedEdges);
-//
-//   graph.SetVertexAccessConditional(1, RoadAccess::Type::No, "Mo-Fr 10:00 - 19:00");
-//
-//   auto const mondayAlmostTenHours = []() {
-//     return GetUnixtimeByDate(2020, Month::Apr, Weekday::Monday, 9 /* hh */, 50 /* mm */);
-//   };
-//
-//   // In this time we probably will able to pass vertex: 1, but we are not sure, so we should avoid
-//   // such edges.
-//   graph.SetCurrentTimeGetter(mondayAlmostTenHours);
-//   expectedWeight = 20.0;
-//   expectedEdges = {{0, 2}, {2, 3}};
-//   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight,
-//                     expectedEdges);
-//
-//   graph.SetEdgeAccess(0, 2, RoadAccess::Type::No);
-//
-//   // But if this is the only path (we blocked 0->2 above), we should pass through vertex: 1 anyway.
-//   graph.SetCurrentTimeGetter(mondayAlmostTenHours);
-//   expectedWeight = 2.0;
-//   expectedEdges = {{0, 1}, {1, 3}};
-//   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight,
-//                     expectedEdges);
-//
-//   auto const mondayTwelveHours = []() {
-//     return GetUnixtimeByDate(2020, Month::Apr, Weekday::Monday, 12 /* hh */, 00 /* mm */);
-//   };
-//
-//   // But if we sure that in this time vertex: 1 will be blocked, we definitely should not pass
-//   // through vertex: 1. In this case no way will be found.
-//   graph.SetCurrentTimeGetter(mondayTwelveHours);
-//   expectedWeight = 0.0;
-//   expectedEdges = {};
-//   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, false /* pathFound */, expectedWeight,
-//                     expectedEdges);
-// }
+UNIT_TEST(RoadAccess_PointBlockedAvoidConditional)
+{
+  uint32_t const numVertices = 4;
+  TestIndexGraphTopology graph(numVertices);
+
+  graph.AddDirectedEdge(0, 1, 1.0);
+  graph.AddDirectedEdge(0, 2, 10.0);
+  graph.AddDirectedEdge(1, 3, 1.0);
+  graph.AddDirectedEdge(2, 3, 10.0);
+
+  double expectedWeight = 2.0;
+  vector<TestEdge> expectedEdges = {{0, 1}, {1, 3}};
+  TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
+
+  graph.SetVertexAccessConditional(1, RoadAccess::Type::No, "Mo-Fr 10:00 - 19:00");
+
+  auto const mondayAlmostTenHours = []()
+  { return GetUnixtimeByWeekday(2020, Month::Apr, Weekday::Monday, 9 /* hh */, 50 /* mm */); };
+
+  // In this time we probably will able to pass vertex: 1, but we are not sure, so we should avoid
+  // such edges.
+  graph.SetCurrentTimeGetter(mondayAlmostTenHours);
+  expectedWeight = 20.0;
+  expectedEdges = {{0, 2}, {2, 3}};
+  TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
+
+  graph.SetEdgeAccess(0, 2, RoadAccess::Type::No);
+
+  // But if this is the only path (we blocked 0->2 above), we should pass through vertex: 1 anyway.
+  graph.SetCurrentTimeGetter(mondayAlmostTenHours);
+  expectedWeight = 2.0;
+  expectedEdges = {{0, 1}, {1, 3}};
+  TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
+
+  auto const mondayTwelveHours = []()
+  { return GetUnixtimeByWeekday(2020, Month::Apr, Weekday::Monday, 12 /* hh */, 00 /* mm */); };
+
+  // But if we sure that in this time vertex: 1 will be blocked, we definitely should not pass
+  // through vertex: 1. In this case no way will be found.
+  graph.SetCurrentTimeGetter(mondayTwelveHours);
+  expectedWeight = 0.0;
+  expectedEdges = {};
+  TestTopologyGraph(graph, 0 /* from */, 3 /* to */, false /* pathFound */, expectedWeight, expectedEdges);
+}
 
 UNIT_TEST(RoadAccess_WayBlockedConditional_Yes_No)
 {
@@ -520,45 +507,40 @@ UNIT_TEST(RoadAccess_WayBlockedConditional_Yes_No)
   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 }
 
-// UNIT_TEST(RoadAccess_PointBlockedConditional_Yes_No)
-//{
-//   uint32_t const numVertices = 4;
-//   TestIndexGraphTopology graph(numVertices);
-//
-//   graph.AddDirectedEdge(0, 1, 1.0);
-//   graph.AddDirectedEdge(1, 2, 1.0);
-//   graph.AddDirectedEdge(2, 3, 1.0);
-//
-//   double expectedWeight = 3.0;
-//   vector<TestEdge> expectedEdges = {{0, 1}, {1, 2}, {2, 3}};
-//   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight,
-//                     expectedEdges);
-//
-//   graph.SetVertexAccessConditional(1, RoadAccess::Type::No, "Mo-Fr");
-//   graph.SetVertexAccessConditional(1, RoadAccess::Type::Yes, "Sa-Su");
-//
-//   auto const tuesday = []() {
-//     return GetUnixtimeByDate(2020, Month::Apr, Weekday::Tuesday, 10 /* hh */, 00 /* mm */);
-//   };
-//
-//   // Way is blocked from Monday to Friday
-//   graph.SetCurrentTimeGetter(tuesday);
-//   expectedWeight = 0;
-//   expectedEdges = {};
-//   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, false /* pathFound */, expectedWeight,
-//                     expectedEdges);
-//
-//   auto const saturday = []() {
-//     return GetUnixtimeByDate(2020, Month::Nov, Weekday::Saturday, 10 /* hh */, 00 /* mm */);
-//   };
-//
-//   // And open from Saturday to Sunday
-//   graph.SetCurrentTimeGetter(saturday);
-//   expectedWeight = 3.0;
-//   expectedEdges = {{0, 1}, {1, 2}, {2, 3}};
-//   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight,
-//                     expectedEdges);
-// }
+UNIT_TEST(RoadAccess_PointBlockedConditional_Yes_No)
+{
+  uint32_t const numVertices = 4;
+  TestIndexGraphTopology graph(numVertices);
+
+  graph.AddDirectedEdge(0, 1, 1.0);
+  graph.AddDirectedEdge(1, 2, 1.0);
+  graph.AddDirectedEdge(2, 3, 1.0);
+
+  double expectedWeight = 3.0;
+  vector<TestEdge> expectedEdges = {{0, 1}, {1, 2}, {2, 3}};
+  TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
+
+  graph.SetVertexAccessConditional(1, RoadAccess::Type::No, "Mo-Fr");
+  graph.SetVertexAccessConditional(1, RoadAccess::Type::Yes, "Sa-Su");
+
+  auto const tuesday = []()
+  { return GetUnixtimeByWeekday(2020, Month::Apr, Weekday::Tuesday, 10 /* hh */, 00 /* mm */); };
+
+  // Way is blocked from Monday to Friday
+  graph.SetCurrentTimeGetter(tuesday);
+  expectedWeight = 0;
+  expectedEdges = {};
+  TestTopologyGraph(graph, 0 /* from */, 3 /* to */, false /* pathFound */, expectedWeight, expectedEdges);
+
+  auto const saturday = []()
+  { return GetUnixtimeByWeekday(2020, Month::Nov, Weekday::Saturday, 10 /* hh */, 00 /* mm */); };
+
+  // And open from Saturday to Sunday
+  graph.SetCurrentTimeGetter(saturday);
+  expectedWeight = 3.0;
+  expectedEdges = {{0, 1}, {1, 2}, {2, 3}};
+  TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
+}
 
 UNIT_TEST(RoadAccess_WayBlockedAvoidPrivateConditional)
 {
