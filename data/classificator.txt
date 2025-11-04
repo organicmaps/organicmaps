@@ -833,6 +833,9 @@ world  +
         only  -
         yes  -
         {}
+    organicapp  +
+        mwm_border  -
+        {}
     piste:type  +
         connection  -
         downhill  +
@@ -893,7 +896,7 @@ world  +
         sea  -
         square  -
         state  +
-            USA  -
+            major  -
             {}
         suburb  -
         town  -
