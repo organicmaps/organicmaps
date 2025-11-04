@@ -712,11 +712,13 @@ TexturePool::TexturePool(TexturePoolDesc const & desc) : m_desc(desc) {}
 ref_ptr<TexturePool> TextureManager::GetTexturePool(ref_ptr<dp::GraphicsContext> context, BackgroundMode mode,
                                                     TexturePoolDesc const & desc)
 {
-  size_t modeIndex = static_cast<size_t>(mode);
-  if (modeIndex >= static_cast<size_t>(BackgroundMode::Count))
+  if (mode >= BackgroundMode::Count)
+  {
+    ASSERT(false, ("Unknown background mode", mode));
     return nullptr;
+  }
 
-  for (auto const & pool : m_pools[modeIndex])
+  for (auto const & pool : m_pools[mode])
   {
     if (pool->GetDesc().m_textureWidth == desc.m_textureWidth &&
         pool->GetDesc().m_textureHeight == desc.m_textureHeight &&
@@ -729,7 +731,7 @@ ref_ptr<TexturePool> TextureManager::GetTexturePool(ref_ptr<dp::GraphicsContext>
 
   auto pool = make_unique_dp<StaticTexturePool>(desc, make_ref(m_textureAllocator));
   ref_ptr<TexturePool> poolRef = make_ref(pool);
-  m_pools[modeIndex].push_back(std::move(pool));
+  m_pools[mode].push_back(std::move(pool));
   return poolRef;
 }
 }  // namespace dp

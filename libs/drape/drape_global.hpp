@@ -60,7 +60,7 @@ enum LineJoin
   RoundJoin = 1,
 };
 
-enum class BackgroundMode
+enum BackgroundMode
 {
   Default = 0,
   Satellite,

@@ -85,6 +85,10 @@ private:
   VkDevice const m_device;
   VkPhysicalDeviceLimits const m_deviceLimits;
   VkPhysicalDeviceMemoryProperties const m_memoryProperties;
+  uint32_t const m_uniformAlignment;
+  uint32_t const m_storageAlignment;
+  uint32_t const m_baseAlignment;
+
   bool m_isInDeallocationSession = false;
   uint32_t m_deallocationSessionMask = 0;
   uint32_t m_totalAllocationCounter = 0;

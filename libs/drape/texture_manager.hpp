@@ -240,7 +240,7 @@ private:
 
   buffer_vector<GlyphGroup, 4> m_glyphGroups;
 
-  std::array<std::vector<drape_ptr<TexturePool>>, static_cast<size_t>(BackgroundMode::Count)> m_pools;
+  std::array<std::vector<drape_ptr<TexturePool>>, BackgroundMode::Count> m_pools;
 
   std::vector<drape_ptr<HWTexture>> m_texturesToCleanup;
 

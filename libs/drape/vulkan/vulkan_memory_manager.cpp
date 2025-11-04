@@ -74,6 +74,12 @@ VulkanMemoryManager::VulkanMemoryManager(VkDevice device, VkPhysicalDeviceLimits
   : m_device(device)
   , m_deviceLimits(deviceLimits)
   , m_memoryProperties(memoryProperties)
+  , m_uniformAlignment(math::LCM(static_cast<uint32_t>(m_deviceLimits.minUniformBufferOffsetAlignment),
+                                 static_cast<uint32_t>(m_deviceLimits.nonCoherentAtomSize)))
+  , m_storageAlignment(math::LCM(static_cast<uint32_t>(m_deviceLimits.minStorageBufferOffsetAlignment),
+                                 static_cast<uint32_t>(m_deviceLimits.nonCoherentAtomSize)))
+  , m_baseAlignment(math::LCM(static_cast<uint32_t>(m_deviceLimits.minMemoryMapAlignment),
+                              static_cast<uint32_t>(m_deviceLimits.nonCoherentAtomSize)))
 {}
 
 VulkanMemoryManager::~VulkanMemoryManager()
@@ -116,24 +122,12 @@ std::optional<uint32_t> VulkanMemoryManager::GetMemoryTypeIndex(uint32_t typeBit
 uint32_t VulkanMemoryManager::GetOffsetAlignment(ResourceType resourceType) const
 {
   if (resourceType == ResourceType::Uniform)
-  {
-    static uint32_t const kUniformAlignment =
-        math::LCM(static_cast<uint32_t>(m_deviceLimits.minUniformBufferOffsetAlignment),
-                  static_cast<uint32_t>(m_deviceLimits.nonCoherentAtomSize));
-    return kUniformAlignment;
-  }
+    return m_uniformAlignment;
 
   if (resourceType == ResourceType::Storage)
-  {
-    static uint32_t const kStorageAlignment =
-        math::LCM(static_cast<uint32_t>(m_deviceLimits.minStorageBufferOffsetAlignment),
-                  static_cast<uint32_t>(m_deviceLimits.nonCoherentAtomSize));
-    return kStorageAlignment;
-  }
+    return m_storageAlignment;
 
-  static uint32_t const kAlignment = math::LCM(static_cast<uint32_t>(m_deviceLimits.minMemoryMapAlignment),
-                                               static_cast<uint32_t>(m_deviceLimits.nonCoherentAtomSize));
-  return kAlignment;
+  return m_baseAlignment;
 }
 
 uint32_t VulkanMemoryManager::GetSizeAlignment(VkMemoryRequirements const & memReqs) const
