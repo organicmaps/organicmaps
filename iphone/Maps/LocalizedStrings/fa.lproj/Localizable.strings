@@ -1,9 +1,10 @@
 
+
+/********** Strings **********/
+
+
 /* Button text (should be short) */
 "cancel" = "لغو";
-
-/* Button which interrupts country download */
-"cancel_download" = "لغو دانلود";
 
 /* Button which deletes downloaded country */
 "delete" = "حذف";
@@ -15,29 +16,17 @@
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "کیلومتر";
 
-/* Leave Review dialog - Review button */
-"leave_a_review" = "نظر خود را بیان کنید";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "مایل";
-
-/* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "مکان من";
 
 /* Update maps later button text */
 "later" = "بعداً";
 
-/* View and button titles for accessibility, please also edit it in iphone/plist.txt */
+/* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "جست‌وجو";
-
-/* Settings/Downloader - 3G download warning dialog confirm button */
-"use_cellular_data" = "بله";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "بر روی نقشه نمایش بده";
-
-/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
-"country_status_download_without_size" = "دانلود نقشه";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "دانلود با شکست مواجه شد";
@@ -65,17 +54,11 @@
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "نام فهرست نشانک";
 
-/* "Bookmark Lists" dialog title */
-"bookmark_sets" = "فهرست‌های نشانک‌ها";
-
 /* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
 "bookmarks" = "نشانک‌ها";
 
-/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+/* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
 "bookmarks_and_tracks" = "نشانک‌ها و مسیرها";
-
-/* Default bookmark list name */
-"core_my_places" = "مکان من";
 
 /* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "نشانی";
@@ -85,6 +68,25 @@
 
 /* Measurement units title in settings activity */
 "measurement_units" = "واحد اندازه‌گیری";
+
+/* Button which interrupts country download */
+"cancel_download" = "لغو دانلود";
+
+/* Leave Review dialog - Review button */
+"leave_a_review" = "نظر خود را بیان کنید";
+
+/* Settings/Downloader - 3G download warning dialog confirm button */
+"use_cellular_data" = "بله";
+
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "دانلود نقشه";
+
+/* "Bookmark Lists" dialog title */
+"bookmark_sets" = "فهرست‌های نشانک‌ها";
+
+
+/********** Search categories **********/
+
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "کجا غذا بخوریم";
@@ -143,9 +145,6 @@
 /* Search category for police; any changes should be duplicated in categories.txt @category_police! */
 "category_police" = "پلیس";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
-"category_wifi" = "وای فای";
-
 /* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
 "category_recycling" = "بازیافت";
 
@@ -154,6 +153,10 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "امکانات ماشین کاروان";
+
+
+/********** Other translations **********/
+
 "share_bookmarks_email_body" = "سلام!\n\nنشانک‌های من ضمیمه شده‌اند؛ لطفا آن‌ها را در Organic Maps باز کنید. اگر برنامه نصب نشده است، می‌توانید آن را از اینجا دانلود کنید: https://omaps.app/get?kmz \n\nاز سفر با Organic Maps لذت ببرید!";
 
 /* message title of loading file */
@@ -183,14 +186,8 @@
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "کپی در کلیپ‌برد: %@";
 
-/* place preview title */
-"info" = "اطلاعات";
-
 /* Used for bookmark editing */
 "done" = "انجام شد";
-
-/* Prints version number in About dialog */
-"version" = "نسخه Organic Maps: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "مسیرها";
@@ -200,15 +197,6 @@
 "share_my_location" = "هم‌رسانی موقعیت مکانی من";
 "prefs_group_route" = "مسیریابی";
 "pref_zoom_title" = "دکمه‌های بزرگنمایی";
-
-/* Settings «Map» category: «Appearance» title */
-"pref_appearance_title" = "ظاهری";
-
-/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
-"pref_appearance_light" = "روشن";
-
-/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
-"pref_appearance_dark" = "تیره";
 
 /* Generic «Off» string */
 "off" = "خاموش";
@@ -242,9 +230,6 @@
 
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "تست مسیرهای صوتی (TTS، تبدیل متن به گفتار)";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "بیشتر";
 "pref_map_auto_zoom" = "بزرگنمایی خودکار";
 "placepage_distance" = "مسافت";
 "search_show_on_map" = "مشاهده بر روی نقشه";
@@ -278,9 +263,6 @@
 
 /* Button in the main menu */
 "donate" = "حمایت مالی";
-
-/* Tex label above the Donate button */
-"donate_description" = "کمک مالی کنید تا بهترین نقشه ها را با هم بسازید!";
 "already_donated" = "قبلاً اهدا شده";
 "remind_me_later" = "بعداً یادآوری کن";
 "support_organic_maps" = "پشتیبانی از Organic Maps";
@@ -288,26 +270,8 @@
 /* Button in the main Help dialog */
 "copyright" = "حق نشر و کپی رایت";
 
-/* Text in menu + Button in the main Help dialog */
+/* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
 "report_a_bug" = "گزارش خطا";
-
-/* Button in the About screen */
-"report_incorrect_map_bug" = "داده های نقشه نادرست را گزارش یا اصلاح کنید";
-
-/* Button in the About screen */
-"volunteer" = "داوطلب شدن";
-
-/* "Social media" section header in the About screen */
-"follow_us" = "دنبال کنید و با ما تماس بگیرید:";
-
-/* Alert text */
-"email_error_body" = "کلاینت ایمیل شما پیکربندی نشده است.لطفا آن را پیکربندی کنید یا از طریق دیگر با ما تماس بگیرید %@";
-
-/* Alert title */
-"email_error_title" = "خطا در ارسال ایمیل";
-
-/* Settings item title */
-"pref_calibration_title" = "تنظیم کردن قطب نما";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
 "long_tap_toast" = "دوباره روی نقشه ضربه طولانی بزنید تا رابط کاربری را ببینید";
@@ -318,9 +282,6 @@
 /* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "دانلود شده";
 
-/* Downloaded maps category */
-"downloader_available_maps" = "موجود";
-
 /* Country queued for download */
 "downloader_queued" = "صف";
 "downloader_near_me_subtitle" = "نزدیک من";
@@ -329,13 +290,6 @@
 "downloader_status_maps" = "نقشه‌ها";
 "downloader_download_all_button" = "دانلود همه";
 "downloader_downloading" = "درحال دانلود:";
-"downloader_search_results" = "یافت شد";
-
-/* Status of outdated country in the list */
-"downloader_status_outdated" = "به‌روزرسانی";
-
-/* Status of failed country in the list */
-"downloader_status_failed" = "ناموفق";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
 "downloader_delete_map_while_routing_dialog" = "برای حذف نقشه، لطفا مسیریابی را متوقف کنید.";
@@ -357,9 +311,6 @@
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "به منظور ایجاد مسیر ما نیاز داریم تا تمامی نقشه‌های شما از مبدا تا مقصد را به‌روزرسانی کنیم.";
-
-/* bookmark button text */
-"bookmark" = "نشانک";
 "save" = "ذخیره";
 "create" = "ایجاد";
 
@@ -410,6 +361,62 @@
 
 /* blue gray color */
 "blue_gray" = "خاکستری کبود";
+
+/* place preview title */
+"info" = "اطلاعات";
+
+/* Prints version number in About dialog */
+"version" = "نسخه Organic Maps: %@";
+
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "ظاهری";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "روشن";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "تیره";
+
+/* Title for "Other" section in TTS settings. */
+"pref_tts_other_section_title" = "بیشتر";
+
+/* Tex label above the Donate button */
+"donate_description" = "کمک مالی کنید تا بهترین نقشه ها را با هم بسازید!";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "داده های نقشه نادرست را گزارش یا اصلاح کنید";
+
+/* Button in the About screen */
+"volunteer" = "داوطلب شدن";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "دنبال کنید و با ما تماس بگیرید:";
+
+/* Alert text */
+"email_error_body" = "کلاینت ایمیل شما پیکربندی نشده است.لطفا آن را پیکربندی کنید یا از طریق دیگر با ما تماس بگیرید %@";
+
+/* Alert title */
+"email_error_title" = "خطا در ارسال ایمیل";
+
+/* Settings item title */
+"pref_calibration_title" = "تنظیم کردن قطب نما";
+
+/* Downloaded maps category */
+"downloader_available_maps" = "موجود";
+"downloader_search_results" = "یافت شد";
+
+/* Status of outdated country in the list */
+"downloader_status_outdated" = "به‌روزرسانی";
+
+/* Status of failed country in the list */
+"downloader_status_failed" = "ناموفق";
+
+/* bookmark button text */
+"bookmark" = "نشانک";
+
+
+/********** Routing dialogs strings **********/
+
 "dialog_routing_disclaimer_title" = "زمانی که مسیری را دنبال می کنید لطفا به یاد داشته باشید:";
 "dialog_routing_disclaimer_priority" = "— شرایط جاده، قوانین راهنمایی و رانندگی و علائم جاده‌ای همیشه نسبت به راهنمایی‌های مسیریابی اولویت دارند؛";
 "dialog_routing_disclaimer_precision" = "—نقشه ممکن است اشتباه باشد و مسیر پیشنهادی همیشه بهترین مسیر برای رسید به مقصد شما نباشد;";
@@ -421,8 +428,6 @@
 "dialog_routing_location_turn_wifi" = "لطفا سیگنال GPS موبایتان راچک کنید.و WiFi موبایلتان را جهت دقت بیشتر در موقعیت‌یابی فعال کنید.";
 "dialog_routing_location_turn_on" = "فعال کردن سرویس موقعیت مکانی (GPS)";
 "dialog_routing_location_unknown_turn_on" = "ناتوان از مشخص کردن موقعیت مکانی شما.لطفا سرویس موقعیت مکانی خود را فعال کنید.";
-"dialog_routing_download_files" = "دانلود فایل‌های مورد نیاز";
-"dialog_routing_download_and_update_all" = "برای محاسبه مسیر، همه نقشه‌های مسیر پیش‌بینی‌شده را دانلود یا به‌روزرسانی کنید.";
 "dialog_routing_unable_locate_route" = "ناتوان در تعیین مسیر";
 "dialog_routing_change_start_or_end" = "لطفا مبدا یا مقصد خود را تنظیم کنید.";
 "dialog_routing_change_start" = "مبدا خود را تنظیم کنید";
@@ -438,21 +443,18 @@
 "dialog_routing_try_again" = "لطفا دوباره تلاش کنید";
 "dialog_routing_download_and_build_cross_route" = "ایا مایل به دانلود نقشه و ایجاد مسیر‌های بهینه بیشتری که نقشه‌های بیشتری را پوشش میدهد هستید؟";
 "dialog_routing_download_cross_route" = "دانلود نقشه‌های اضافی برای ایجاد مسیری بهتر که حاشیه‌های این نقشه را رد می کند.";
+"dialog_routing_download_files" = "دانلود فایل‌های مورد نیاز";
+"dialog_routing_download_and_update_all" = "برای محاسبه مسیر، همه نقشه‌های مسیر پیش‌بینی‌شده را دانلود یا به‌روزرسانی کنید.";
+
+
+/********** Strings for downloading map from search **********/
+
 
 /* «Show» context menu */
 "show" = "نمایش";
 
 /* «Hide» context menu */
 "hide" = "مخفی کردن";
-
-/* Failed planning route message in navigation view */
-"routing_planning_error" = "برنامه ریزی مسیر ناموفق";
-
-/* Arrive routing message in navigation view */
-"routing_arrive" = "ورود به: %@";
-
-/* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "برای محاسبه مسیر، همه نقشه‌های مسیر پیش‌بینی‌شده را دانلود و به‌روزرسانی کنید.";
 "categories" = "دسته‌بندی‌ها";
 "history" = "تاریخچه";
 "search_not_found" = "اوه، نتیجه‌ای یافت نشد.";
@@ -488,13 +490,8 @@
 "editor_hours_closed" = "ساعات غیر کاری";
 "editor_example_values" = "مقادیر پیش فرض";
 "editor_add_select_location" = "مکان را انتخاب کنید";
-"editor_done_dialog_1" = "شما نقشه جهان را تغییر دادید.این افتخار را پیش خود نگه ندارید!به دوستانتان درموردش بگویید و با یکدیگر ویرایش کنید.";
-"share_with_friends" = "هم‌رسانی با دوستان";
 "editor_report_problem_send_button" = "ارسال";
 "autodownload" = "دانلود خودکار";
-
-/* Place Page opening hours text */
-"closed_now" = "اکنون تعطیل است";
 
 /* Place Page opening hours text */
 "daily" = "روزانه";
@@ -502,29 +499,16 @@
 "day_off_today" = "امروز تعطیل است";
 "day_off" = "تعطیل است";
 "today" = "امروز";
-"opens_tomorrow_at" = "فردا در %@ باز می‌شود";
-"opens_dayoftheweek_at" = "باز می‌شود %1$@ در %2$@";
-"opens_at" = "در %@ باز می‌شود";
 "opens_in" = "در %@ باز می‌شود";
-"closes_at" = "در %@ بسته می‌شود";
 "closes_in" = "در %@ بسته می‌شود";
 "closed" = "تعطیل";
-"add_opening_hours" = "اضافه کردن ساعت بازگشایی";
 "no_osm_account" = "آیا حساب OpenStreetMap ندارید؟";
 "register_at_openstreetmap" = "نام‌نویسی در OpenStreetMap";
-"password_8_chars_min" = "رمز عبور (حداقل 8 عدد یا حرف)";
-"invalid_username_or_password" = "نام کاربری یا رمز عبور نامعتبر است.";
 "login" = "ورود";
 "login_osm" = "ورود به OpenStreetMap";
 "forgot_password" = "رمز عبور خود را فراموش کردید؟";
-"osm_account" = "حساب OSM";
 "logout" = "خروج از حساب";
-
-/* Information text: "Last upload 11.01.2016" */
-"last_upload" = "آخرین به‌روزرسانی";
-"thank_you" = "متشکریم";
 "edit_place" = "ویرایش مکان";
-"place_name" = "نام مکان";
 "add_language" = "افزودن یک زبان";
 
 /* Editable House Number text field (in address block). */
@@ -535,27 +519,20 @@
 "add_street" = "اضافه کردن خیابان";
 "choose_language" = "انتخاب یک زبان";
 "choose_street" = "انتخاب یک خیابان";
-"postal_code" = "کد پستی";
 "cuisine" = "غذا‌خوری";
 "select_cuisine" = "انتخاب غذاخوری";
 
 /* login text field */
 "email_or_username" = "ایمیل یا نام کاربری";
-"phone" = "تلفن";
 "level" = "طبقه";
-"please_note" = "لطفا توجه داشته باشد";
 "downloader_delete_map_dialog" = "تمام ویرایش‌های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.";
 "downloader_update_maps" = "به‌روزرسانی نقشه‌ها";
 "downloader_search_field_hint" = "یافتن نقشه";
-"migration_download_error_dialog" = "خطا در دانلود";
 "common_check_internet_connection_dialog" = "لطفا تنظیمات خود را بازبینی کنید و مطمئن شوید که ابزار شما به اینترنت متصل است.";
 "downloader_no_space_title" = "فظای کافی موجود نیست";
 "downloader_no_space_message" = "لطفا داده‌های غیر ضروری را از دستگاه خود حذف کنید";
 "editor_profile_changes" = "تغییرات تایید شد";
 "editor_focus_map_on_location" = "نقشه را بکشید تا صلیب را در محل مکان یا کسب و کار قرار دهید.";
-"editor_add_select_category" = "انتخاب دسته بندی";
-"editor_add_select_category_popular_subtitle" = "پرطرفدار";
-"editor_add_select_category_all_subtitle" = "همه دسته‌بندی‌ها";
 "editor_edit_place_title" = "درحال ویرایش";
 "editor_add_place_title" = "درحال افزودن";
 "editor_edit_place_name_hint" = "نام مکان";
@@ -563,17 +540,11 @@
 /* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
 "editor_default_language_hint" = "همانطور که به زبان محلی نوشته شده است";
 "editor_edit_place_category_title" = "دسته بندی";
-"whatsnew_editor_message_1" = "اضافه کردن مکان به نقشه و ویرایش آن مستقیما از طریق این اپلیکیشن.";
-"dialog_incorrect_feature_position" = "تغییر موقعیت";
 "message_invalid_feature_position" = "نمی توان شی ای در این مکان باشد";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "داده های OpenStreetMap ایجاد شده توسط انجمن از %@. درباره نحوه ویرایش و به روز رسانی نقشه در OpenStreetMap.org بیشتر بیاموزید";
 "login_to_make_edits_visible" = "یک حساب OpenStreetMap ایجاد کنید یا وارد شوید تا ویرایش های نقشه خود را در جهان منتشر کنید.";
-
-/* Error dialog no space */
-"migration_no_space_message" = "برای دانلود، شما نیازمند فضای ذخیره سازی بیشتری هستید.لطفا داده‌های غیر ضروری خود را حذف کنید.";
-"editor_sharing_title" = "من نقشه‌های Organic Maps را بهبود بخشیدم";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d از %2$d";
@@ -587,13 +558,8 @@
 "editor_zip_code" = "کدپستی";
 "error_enter_correct_zip_code" = "یک کد‌ پستی معتبر وارد کنید";
 
-/* Place Page title for long tap */
-"core_placepage_unknown_place" = "نقطه نقشه";
-
 /* Title for OSM note section in the editor */
 "editor_other_info" = "توجه به داوطلبان OpenStreetMap (اختیاری)";
-"editor_detailed_description_hint" = "اظهار نظر بیشتر";
-"editor_detailed_description" = "شما یک سری تغییرات در نقشه را برای انجمن OpenStreetMap ارسال کردید.جزئیات اضافی را که نتوانستید در Organic Maps ویرایش کنید را برایشان بنویسید.";
 "editor_more_about_osm" = "در مورد OpenStreetMap بیشتر بدانید";
 "editor_operator" = "اپراتور";
 
@@ -604,58 +570,29 @@
 "downloader_no_downloaded_maps_title" = "شما هیچ نقشه دانلود شده ای ندارید";
 "downloader_no_downloaded_maps_message" = "برای جست وجو یک مکان و استفاده از قابلیت ناوبری، نقشه‌ها را دانلود کنید.";
 "current_location_unknown_error_title" = "مکان فعلیتان ناشناس است.";
-"current_location_unknown_error_message" = "خطایی در هنگام جست وجوی مکان شمارخ داده است.بررسی کنیید دستگاهتان به درستی کار می کند و دوباره تلاش کنید.";
-"location_services_disabled_header" = "سرویس موقعیت مکانی شما غیرفعال است";
-"location_services_disabled_message" = "دسترسی به موقعیت جغرافیایی را در تنظیمات دستگاه فعال کنید";
-"location_services_disabled_1" = "1. بازکردن تنظیمات";
-"location_services_disabled_2" = "۲. روی «مکان» ضربه بزنید";
-
-/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
-"location_services_disabled_3" = "۳. گزینه «هنگام استفاده از برنامه» را انتخاب کنید";
-"location_services_disabled_on_device_2" = "2. Privacy را انتخاب کنید";
-"location_services_disabled_on_device_3" = "3. Location Services را انتخاب کنید";
-"location_services_disabled_on_device_4" = "4. Location Services را روشن کنید";
-"location_services_disabled_on_device_additional_message" = "یا به استفاده از نقشه های ارگانیک بدون موقعیت مکانی ادامه دهید";
-
-/* abbreviation for meters */
-"m" = "متر";
-
-/* abbreviation for kilometers */
-"km" = "کیلومتر";
 
 /* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "کیلومتربرساعت (km/h)";
-
-/* abbreviation for mile(s) */
-"mi" = "مایل";
-
-/* A unit of measure */
-"ft" = "فوت";
 "miles_per_hour" = "مایل بر ساعت (mph)";
 "hour" = "ساعت";
 "minute" = "دقیقه";
 "day" = "روز";
 "placepage_more_button" = "بیشتر";
-"book_button" = "رزرو";
-"placepage_call_button" = "تماس";
+
+/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
 "placepage_edit_bookmark_button" = "ویرایش نشانک‌ها";
-"placepage_bookmark_name_hint" = "نام نشانک";
 "placepage_personal_notes_hint" = "یادداشت های شخصی (متن یا html)";
-"placepage_delete_bookmark_button" = "حذف نشانه";
-"editor_edits_sent_message" = "یادداشت شما به OpenStreetMap ارسال خواهد شد";
 "editor_comment_hint" = "دیدگاه…";
 "editor_reset_edits_message" = "آیا تغییرات محلی را نادیده می گیرید؟";
 "editor_reset_edits_button" = "نادیده گرفتن";
 "editor_remove_place_message" = "آیا مکان ثبت شده حذف شود؟";
 "editor_remove_place_button" = "حذف";
 "editor_place_doesnt_exist" = "مکان وجود ندارد";
-"text_more_button" = "...بیشتر";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "شماره تلفن معتبری وارد نمایید";
 "error_enter_correct_web" = "ادرس وب معتبری وارد نمایید";
 "error_enter_correct_email" = "ایمیل معتبری وارد نمایید";
-"refresh" = "به‌روزرسانی";
 "placepage_add_place_button" = "مکان را به OpenStreetMap اضافه کنید";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -665,15 +602,6 @@
 "editor_share_to_all_dialog_message_1" = "مطمئن شوید که هیچ اطلاعات شخصی وارد نکرده باشد.";
 "editor_share_to_all_dialog_message_2" = "ویرایشگران OpenStreetMap ﺗﻐﯿﯿﺮﺍﺕ ﺭﺍ ﺑﺮﺭﺳﯽ ﮐﺮﺩﻩ ﻭ ﺩﺭ ﺻﻮﺭﺕ ﺩﺍﺷﺘﻦ ﻫﺮﮔﻮﻧﻪ ﺳﻮﺍﻝ ﺑﺎ ﺷﻤﺎ ﺗﻤﺎﺱ ﺧﻮﺍﻫﻨﺪ ﮔﺮﻓﺖ.";
 "navigation_stop_button" = "توقف";
-
-/* iOS dialog for the case when recent track recording is on and the app comes back from background */
-"recent_track_background_dialog_title" = "ضبط مسیر طی‌شده اخیر، غیرفعال شود؟";
-"off_recent_track_background_button" = "غیرفعال";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "بررسی کنید";
-"recent_track_background_dialog_message" = "Organic Maps از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر‌هایی که اخیرا سفر کرده اید استفاده می کند.";
-"general_settings" = "تنظیمات عمومی";
 
 /* For the first routing */
 "accept" = "موافقم";
@@ -693,31 +621,15 @@
 "traffic_update_maps_text" = "برای نمایش ترافیک، نقشه می بایستی بروزرسانی شود.";
 "big_font" = "افزایش اندازه متن بر روی نقشه";
 
-/* "traffic" as in road congestion */
-"traffic_update_app_message" = "برای نمایش ترافیک باید اپلیکیشن را بروزرسانی کنید.";
-
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "اطلاعات ترافیکی موجود نیست";
 "enable_logging" = "ورود به سیستم را فعال کنید";
-"log_file_size" = "اندازه فایل گزارش: %@";
 "transliteration_title" = "ترجمه به الفبای لاتین";
-
-/* Subway exits for public transport marks on the map */
-"core_exit" = "خروج";
-
 "planning_route_manage_route" = "مدیریت مسیر";
 "button_plan" = "برنامه";
 "placepage_remove_stop" = "توقف را حذف کنید";
-"planning_route_remove_title" = "برای حذف اینجا بکشید";
 "placepage_add_stop" = "اضافه کردن توقف";
-"start_from_my_position" = "شروع از";
-
-/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
-"alert_reauth_message_ios" = "لطفا به OpenStreetMap وارد شوید تا تمامی ویرایش‌های نقشه شما به‌ صورت خودکار به‌روزرسانی شوند. بیشتر بدانید";
-
-/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
-"alert_reauth_link_text_ios" = "اینجا";
-"core_entrance" = "ورودی";
+"saved" = "ذخیره شد";
 "error_enter_correct_name" = "لطفا نام صحیح را وارد کنید";
 "bookmark_lists" = "فهرست‌ها";
 
@@ -728,35 +640,26 @@
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
 "bookmarks_import" = "وارد کردن نشانک‌ها و مسیرها";
-"downloader_hide_screen" = "پنهان کردن صفحه";
-"downloader_percent" = "%@ (%@ از %@)";
-"downloader_process" = "در حال دانلود %@…";
-"downloader_applying" = "اعمال %@…";
 "bookmarks_error_message_share_general" = "با توجه به خطای برنامه، امکان هم‌رسانی وجود ندارد";
 "bookmarks_error_title_share_empty" = "خطای هم‌رسانی";
 "bookmarks_error_message_share_empty" = "یک فهرست خالی را نمی‌توان هم‌رسانی کرد";
 "bookmarks_error_message_empty_list_name" = "لطفا نام فهرست را وارد کنید";
 "bookmarks_error_title_list_name_already_taken" = "این اسم قبلا انتخاب شده است";
-"bookmarks_error_title_list_name_too_long" = "این نام خیلی طولانی است";
 "profile" = "نمایه OpenStreetMap";
-"bookmarks_detect_title" = "فایل‌های جدید پیدا شد";
-"button_convert" = "تبدیل";
-"bookmarks_convert_error_title" = "خطا";
-"bookmarks_convert_error_message" = "بعضی از فایل‌ها تبدیل نشد.";
 "restore" = "بازیابی";
 "privacy_policy" = "سیاست حریم خصوصی";
 "terms_of_use" = "شرایط استفاده";
+
+/* Hiking routes layer name in the Styles and Layers dialog */
+"button_layer_hiking" = "پیاده‌گردی";
+
+/* Cycling routes layer name in the Styles and Layers dialog */
+"button_layer_cycling" = "دوچرخه‌سواری";
 "button_layer_subway" = "مترو";
 "layers_title" = "سبک ها و لایه های نقشه";
-"subway_data_unavailable" = "نقشه مترو موجود نیست";
-"title_error_downloading_bookmarks" = "خطایی رخ داد";
-"popular_place" = "مشهور";
 "export_file" = "صادرات KMZ";
 "export_file_gpx" = "صادرات GPX";
 "delete_list" = "حذف فهرست";
-"hide_from_map" = "پنهان کردن از نقشه";
-"tags_loading_error_subtitle" = "هنگام بارگذاری برچسب خطایی رخ داد، لطفا دوباره امتحان کنید";
-"download_button" = "دانلود";
 "speedcams_alert_title" = "دوربین‌های سرعت";
 "place_description_title" = "توضیحات محل";
 
@@ -773,6 +676,12 @@
 "power_managment_setting_never" = "هرگز";
 "power_managment_setting_auto" = "خودکار";
 "power_managment_setting_manual_max" = "حداکثر ذخیره انرژی";
+
+/* Settings/Bookmark Text Placement */
+"bookmarks_text_placement_title" = "نام‌ها را روی نقشه نشانه‌گذاری کنید";
+"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
+"show_to_the_right" = "Show to the right";
+"show_at_the_bottom" = "Show at the bottom";
 "enable_logging_warning_message" = "این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.";
 "driving_options_title" = "گزینه‌های رانندگی";
 
@@ -792,12 +701,6 @@
 "toll_road" = "جاده دارای عوارض";
 "unpaved_road" = "جاده آسفالت نشده";
 "ferry_crossing" = "گذرگاه جاده‌ای";
-"trip_start" = "برویم";
-"pick_destination" = "مقصد";
-"follow_my_position" = "نشان دادن مجدد در مرکز";
-"search_results" = "نتایج جستجو";
-"then_turn" = "سپس";
-"redirect_route_alert" = "آیا می خواهید مسیر را دوباره ایجاد کنید?";
 
 /* A generic "Yes" button in dialogs */
 "yes" = "بله";
@@ -817,6 +720,120 @@
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "شبکه: %@";
 "trip_finished" = "شما به مقصد رسیدید!";
+"ok" = "موافقت کردن";
+
+/* max. 10 symbols, both iOS and Android */
+"sort" = "مرتب سازی…";
+"week_ago_sorttype" = "یک هفته قبل";
+"month_ago_sorttype" = "یک ماه قبل";
+"moremonth_ago_sorttype" = "بیش از یک ماه قبل";
+"moreyear_ago_sorttype" = "بیش از یک سال قبل";
+"near_me_sorttype" = "نزدیک من";
+"others_sorttype" = "دیگران";
+
+/* Failed planning route message in navigation view */
+"routing_planning_error" = "برنامه ریزی مسیر ناموفق";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "ورود به: %@";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "برای محاسبه مسیر، همه نقشه‌های مسیر پیش‌بینی‌شده را دانلود و به‌روزرسانی کنید.";
+"editor_done_dialog_1" = "شما نقشه جهان را تغییر دادید.این افتخار را پیش خود نگه ندارید!به دوستانتان درموردش بگویید و با یکدیگر ویرایش کنید.";
+"share_with_friends" = "هم‌رسانی با دوستان";
+
+/* Place Page opening hours text */
+"closed_now" = "اکنون تعطیل است";
+"opens_tomorrow_at" = "فردا در %@ باز می‌شود";
+"opens_dayoftheweek_at" = "باز می‌شود %1$@ در %2$@";
+"opens_at" = "در %@ باز می‌شود";
+"closes_at" = "در %@ بسته می‌شود";
+"add_opening_hours" = "اضافه کردن ساعت بازگشایی";
+"password_8_chars_min" = "رمز عبور (حداقل 8 عدد یا حرف)";
+"invalid_username_or_password" = "نام کاربری یا رمز عبور نامعتبر است.";
+"osm_account" = "حساب OSM";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "آخرین به‌روزرسانی";
+"thank_you" = "متشکریم";
+"place_name" = "نام مکان";
+"phone" = "تلفن";
+"please_note" = "لطفا توجه داشته باشد";
+"migration_download_error_dialog" = "خطا در دانلود";
+"editor_add_select_category" = "انتخاب دسته بندی";
+"editor_add_select_category_popular_subtitle" = "پرطرفدار";
+"editor_add_select_category_all_subtitle" = "همه دسته‌بندی‌ها";
+"whatsnew_editor_message_1" = "اضافه کردن مکان به نقشه و ویرایش آن مستقیما از طریق این اپلیکیشن.";
+"dialog_incorrect_feature_position" = "تغییر موقعیت";
+
+/* Error dialog no space */
+"migration_no_space_message" = "برای دانلود، شما نیازمند فضای ذخیره سازی بیشتری هستید.لطفا داده‌های غیر ضروری خود را حذف کنید.";
+"editor_sharing_title" = "من نقشه‌های Organic Maps را بهبود بخشیدم";
+"editor_detailed_description_hint" = "اظهار نظر بیشتر";
+"editor_detailed_description" = "شما یک سری تغییرات در نقشه را برای انجمن OpenStreetMap ارسال کردید.جزئیات اضافی را که نتوانستید در Organic Maps ویرایش کنید را برایشان بنویسید.";
+"current_location_unknown_error_message" = "خطایی در هنگام جست وجوی مکان شمارخ داده است.بررسی کنیید دستگاهتان به درستی کار می کند و دوباره تلاش کنید.";
+"location_services_disabled_header" = "سرویس موقعیت مکانی شما غیرفعال است";
+"location_services_disabled_message" = "دسترسی به موقعیت جغرافیایی را در تنظیمات دستگاه فعال کنید";
+"location_services_disabled_1" = "1. بازکردن تنظیمات";
+"location_services_disabled_2" = "۲. روی «مکان» ضربه بزنید";
+
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
+"location_services_disabled_3" = "۳. گزینه «هنگام استفاده از برنامه» را انتخاب کنید";
+"location_services_disabled_on_device_2" = "2. Privacy را انتخاب کنید";
+"location_services_disabled_on_device_3" = "3. Location Services را انتخاب کنید";
+"location_services_disabled_on_device_4" = "4. Location Services را روشن کنید";
+"location_services_disabled_on_device_additional_message" = "یا به استفاده از نقشه های ارگانیک بدون موقعیت مکانی ادامه دهید";
+"book_button" = "رزرو";
+"placepage_call_button" = "تماس";
+"placepage_bookmark_name_hint" = "نام نشانک";
+"placepage_delete_bookmark_button" = "حذف نشانه";
+"editor_edits_sent_message" = "یادداشت شما به OpenStreetMap ارسال خواهد شد";
+"text_more_button" = "...بیشتر";
+"refresh" = "به‌روزرسانی";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "ضبط مسیر طی‌شده اخیر، غیرفعال شود؟";
+"off_recent_track_background_button" = "غیرفعال";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "بررسی کنید";
+"recent_track_background_dialog_message" = "Organic Maps از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر‌هایی که اخیرا سفر کرده اید استفاده می کند.";
+"general_settings" = "تنظیمات عمومی";
+
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "برای نمایش ترافیک باید اپلیکیشن را بروزرسانی کنید.";
+"log_file_size" = "اندازه فایل گزارش: %@";
+"planning_route_remove_title" = "برای حذف اینجا بکشید";
+"placepage_replace_stop" = "Replace Stop";
+"start_from_my_position" = "شروع از";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "لطفا به OpenStreetMap وارد شوید تا تمامی ویرایش‌های نقشه شما به‌ صورت خودکار به‌روزرسانی شوند. بیشتر بدانید";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "اینجا";
+"downloader_hide_screen" = "پنهان کردن صفحه";
+"downloader_percent" = "%@ (%@ از %@)";
+"downloader_process" = "در حال دانلود %@…";
+"downloader_applying" = "اعمال %@…";
+"bookmarks_error_title_list_name_too_long" = "این نام خیلی طولانی است";
+"bookmarks_detect_title" = "فایل‌های جدید پیدا شد";
+"button_convert" = "تبدیل";
+"bookmarks_convert_error_title" = "خطا";
+"bookmarks_convert_error_message" = "بعضی از فایل‌ها تبدیل نشد.";
+"title_error_downloading_bookmarks" = "خطایی رخ داد";
+"popular_place" = "مشهور";
+"hide_from_map" = "پنهان کردن از نقشه";
+"tags_loading_error_subtitle" = "هنگام بارگذاری برچسب خطایی رخ داد، لطفا دوباره امتحان کنید";
+"download_button" = "دانلود";
+"right" = "Right";
+"bottom" = "Bottom";
+"trip_start" = "برویم";
+"pick_destination" = "مقصد";
+"follow_my_position" = "نشان دادن مجدد در مرکز";
+"search_results" = "نتایج جستجو";
+"then_turn" = "سپس";
+"redirect_route_alert" = "آیا می خواهید مسیر را دوباره ایجاد کنید?";
 "keyboard_availability_alert" = "صفحه کلید در هنگام رانندگی در دسترس نیست";
 "dialog_routing_change_start_carplay" = "امکان ایجاد مسیر از مکان فعلی شما نیست";
 "dialog_routing_change_end_carplay" = "امکان ایجاد مسیر به مقصد شما نیست. لطفاً نقطه دیگری را انتخاب کنید";
@@ -828,14 +845,10 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "مسیر به مسیر خودرویی تغییر خواهد کرد";
 "not_all_shown_bookmarks_carplay" = "همه نشانک ها نشان داده نمی شوند";
 "switch_to_phone_bookmarks_carplay" = "برای دیدن همه نشانکu200cها به تلفن بروید";
-"ok" = "موافقت کردن";
 "speedcams_alert_title_carplay_1" = "دوربین سرعت";
 "speedcams_alert_title_carplay_2" = "هشدارهای سرعت";
 "download_map_carplay" = "لطفا نقشه‌ها را در نرم افزار Organic Maps روی دستگاه خود دانلود کنید";
 "carplay_roundabout_exit" = "خروجی %@";
-
-/* max. 10 symbols, both iOS and Android */
-"sort" = "مرتب سازی…";
 
 /* iOS */
 "sort_default" = "مرتب سازی بر اساس پیش فرض";
@@ -843,12 +856,10 @@
 "sort_distance" = "مرتب سازی بر اساس فاصله";
 "sort_date" = "مرتب سازی بر اساس تاریخ";
 "sort_name" = "به ترتیب نام";
-"week_ago_sorttype" = "یک هفته قبل";
-"month_ago_sorttype" = "یک ماه قبل";
-"moremonth_ago_sorttype" = "بیش از یک ماه قبل";
-"moreyear_ago_sorttype" = "بیش از یک سال قبل";
-"near_me_sorttype" = "نزدیک من";
-"others_sorttype" = "دیگران";
+
+
+/********** Bookmark types used for sorting **********/
+
 "food_places" = "غذا";
 "tourist_places" = "مناظر";
 "museums" = "موزه‌ها";
@@ -871,44 +882,12 @@
 "button_layer_isolines" = "خط تراز";
 "isolines_activation_error_dialog" = "برای فعال سازی و استفاده از لایه توپوگرافی نقشه منطقه را به روزرسانی یا دانلود کنید";
 "isolines_location_error_dialog" = "لایه توپوگرافی هنوز برای این منطقه در دسترس نیست";
-"elevation_profile_diff_level" = "سطح دشواری";
-"elevation_profile_diff_level_easy" = "آسان";
-"elevation_profile_diff_level_moderate" = "متوسط";
-"elevation_profile_diff_level_hard" = "دشوار";
 "elevation_profile_ascent" = "بالا رفتن";
 "elevation_profile_descent" = "پایین آمدن";
 "elevation_profile_min_elevation" = "کم ارتفاع";
 "elevation_profile_max_elevation" = "بیش ارتفاع";
 "isolines_toast_zooms_1_10" = "برای بررسی خطوط تراز زوم کنید";
-"downloader_updating_ios" = "در حال به‌روزرسانی";
 "downloader_loading_ios" = "در حال دانلود";
-
-/* Autoupdate dialog on start */
-"whats_new_auto_update_title" = "نقشه‌های دانلود شده خود را به روز کنید";
-
-/* Autoupdate dialog on start */
-"whats_new_auto_update_message" = "به‌روزرسانی نقشه‌ها اطلاعات مربوط به اشیا را به روز نگه می‌دارد";
-
-/* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "به‌روزرسانی (%@)";
-
-/* Autoupdate dialog on start */
-"whats_new_auto_update_button_later" = "بعدا به صورت دستی به‌روزرسانی کنید";
-
-/* Delete track button on track edit screen */
-"placepage_delete_track_button" = "حذف مسیر";
-
-/* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "آیا مطمئن هستید که می خواهید این آهنگ را حذف کنید؟";
-
-/* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "نام مسیر";
-
-/* move track or bookmark from the list button text */
-"move" = "انتقال";
-
-/* edit track screen title */
-"track_title" = "مسیر";
 
 /* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
@@ -969,16 +948,67 @@
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "صادر کردن همه نشانک‌ها و مسیرها";
+"drive_through" = "رانندگی از طریق";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "لینک منو";
+
+/* Title for the "Open in Another App" button on the PlacePage. */
+"open_in_app" = "در یک برنامه دیگر باز کنید";
+
+/* To indicate if the place proposed self service... */
+"self_service" = "سلف سرویس";
+
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "نشستن در فضای باز";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "ضبط مسیر";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "توقف ضبط مسیر";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "مسیر خالی است - چیزی برای ذخیره کردن وجود ندارد";
+"edit_track" = "ویرایش مسیر";
+"elevation_profile_diff_level" = "سطح دشواری";
+"elevation_profile_diff_level_easy" = "آسان";
+"elevation_profile_diff_level_moderate" = "متوسط";
+"elevation_profile_diff_level_hard" = "دشوار";
+"downloader_updating_ios" = "در حال به‌روزرسانی";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "نقشه‌های دانلود شده خود را به روز کنید";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "به‌روزرسانی نقشه‌ها اطلاعات مربوط به اشیا را به روز نگه می‌دارد";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "به‌روزرسانی (%@)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "بعدا به صورت دستی به‌روزرسانی کنید";
+
+/* Delete track button on track edit screen */
+"placepage_delete_track_button" = "حذف مسیر";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "آیا مطمئن هستید که می خواهید این آهنگ را حذف کنید؟";
+
+/* Placeholder for track name input on track edit screen */
+"placepage_track_name_hint" = "نام مسیر";
+
+/* move track or bookmark from the list button text */
+"move" = "انتقال";
+
+/* edit track screen title */
+"track_title" = "مسیر";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "تغییر رنگ";
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "نقشه";
-"drive_through" = "رانندگی از طریق";
-
-/* Restaurant or other food place's menu URL field in the Editor */
-"website_menu" = "لینک منو";
 
 /* Message for the bug report alert. */
 "bugreport_alert_message" = "آیا می خواهید یک گزارش اشکال برای توسعه دهندگان ارسال کنید؟\nما به کاربران خود تکیه می کنیم زیرا نقشه های ارگانیک هیچ گونه اطلاعات خطا را به طور خودکار جمع آوری نمی کند. پیشاپیش از شما برای حمایت از نقشه های ارگانیک سپاسگزاریم!";
@@ -1013,15 +1043,6 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "خطا: iCloud در دسترس نیست";
 
-/* Title for the "Open in Another App" button on the PlacePage. */
-"open_in_app" = "در یک برنامه دیگر باز کنید";
-
-/* To indicate if the place proposed self service... */
-"self_service" = "سلف سرویس";
-
-/* To indicate if restaurant or other place has outdoor seating */
-"outdoor_seating" = "نشستن در فضای باز";
-
 /* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
 "bookmarks_recently_deleted" = "لیست های اخیرا حذف شده";
 
@@ -1037,33 +1058,45 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "بازیابی همه";
 
-/* Prompt to start recording a track. */
-"start_track_recording" = "ضبط مسیر";
-
-/* Prompt for stopping a track recording. */
-"stop_track_recording" = "توقف ضبط مسیر";
-
-/* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "مسیر خالی است - چیزی برای ذخیره کردن وجود ندارد";
-"edit_track" = "ویرایش مسیر";
-"saved" = "ذخیره شد";
-"button_layer_hiking" = "پیاده‌گردی";
-"button_layer_cycling" = "دوچرخه‌سواری";
-
-/* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "نام‌ها را روی نقشه نشانه‌گذاری کنید";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"right" = "Right";
-"show_at_the_bottom" = "Show at the bottom";
-"bottom" = "Bottom";
-
-/* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "برای نمایش مسیرها، نقشه‌ها باید به‌روزرسانی شوند.";
-
 /* OpenStreetMap contribution section on the PlacePage. */
 "contribute_to_osm" = "مشارکت در OpenStreetMap";
 "contribute_to_osm_add_place" = "افزودن مکان";
 "contribute_to_osm_update_map" = "برای مشارکت نقشه را به‌روزرسانی کنید";
 "contribute_to_osm_update_map_description" = "برای مشارکت در داده‌های OpenStreetMap باید نقشه %@ را به آخرین نسخه به‌روزرسانی کنید";
-"placepage_replace_stop" = "Replace Stop";
+
+
+/********** Uncategorized **********/
+
+
+/* A text for current gps location point/arrow selected on the map */
+"core_my_position" = "مکان من";
+
+/* Default bookmark list name */
+"core_my_places" = "مکان من";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "وای فای";
+"postal_code" = "کد پستی";
+
+/* Place Page title for long tap */
+"core_placepage_unknown_place" = "نقطه نقشه";
+
+/* abbreviation for meters */
+"m" = "متر";
+
+/* abbreviation for kilometers */
+"km" = "کیلومتر";
+
+/* abbreviation for mile(s) */
+"mi" = "مایل";
+
+/* A unit of measure */
+"ft" = "فوت";
+
+/* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
+"routes_update_maps_text" = "برای نمایش مسیرها، نقشه‌ها باید به‌روزرسانی شوند.";
+
+/* Subway exits for public transport marks on the map */
+"core_exit" = "خروج";
+"core_entrance" = "ورودی";
+"subway_data_unavailable" = "نقشه مترو موجود نیست";

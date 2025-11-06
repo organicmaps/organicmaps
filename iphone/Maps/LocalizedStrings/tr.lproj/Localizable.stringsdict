@@ -2,6 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
+<!-- ********** Strings for downloading map from search **********/ -->
+
 	<key>bookmarks_places</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -20,6 +23,7 @@
 			<string>%d yer imi</string>
 		</dict>
 	</dict>
+
 	<key>bookmarks_detect_message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -31,13 +35,14 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>zero</key>
-			<string>%d dosya bulundu. Dönüştürmeden sonra görebilirsiniz.</string>
+			<string>%d dosya bulundu.</string>
 			<key>one</key>
-			<string>%d dosya bulundu. Dönüştürmeden sonra görebilirsiniz.</string>
+			<string>%d dosya bulundu. Dönüştürmeden sonra onu görebilirsiniz.</string>
 			<key>other</key>
-			<string>%d dosya bulundu. Dönüştürmeden sonra görebilirsiniz.</string>
+			<string>%d dosya bulundu. Dönüştürmeden sonra onları görebilirsiniz.</string>
 		</dict>
 	</dict>
+
 	<key>tracks</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -48,9 +53,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%d iz</string>
 			<key>other</key>
-			<string>%d yol?</string>
+			<string>%d iz</string>
 		</dict>
 	</dict>
+
 </dict>
 </plist>

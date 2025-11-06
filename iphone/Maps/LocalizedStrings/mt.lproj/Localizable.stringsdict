@@ -15,8 +15,16 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>bookmark ta' %d</string>
+			<key>two</key>
+			<string>bookmarks ta' %d</string>
+			<key>few</key>
+			<string>bookmarks ta' %d</string>
+			<key>many</key>
+			<string>bookmarks ta' %d</string>
 			<key>other</key>
-			<string>%d bookmarks</string>
+			<string>bookmarks ta' %d</string>
 		</dict>
 	</dict>
 
@@ -30,8 +38,16 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Instab fajl %d. Tista’ tarah wara l-konverżjoni.</string>
+			<key>two</key>
+			<string>Instabu %d fajls. Tista ’tarahom wara l-konverżjoni.</string>
+			<key>few</key>
+			<string>Instabu %d fajls. Tista ’tarahom wara l-konverżjoni.</string>
+			<key>many</key>
+			<string>Instabu %d fajls. Tista ’tarahom wara l-konverżjoni.</string>
 			<key>other</key>
-			<string>%d files were found. You can see them after conversion.</string>
+			<string>Instabu %d fajls. Tista ’tarahom wara l-konverżjoni.</string>
 		</dict>
 	</dict>
 
@@ -45,8 +61,16 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Trekk %d</string>
+			<key>two</key>
+			<string>%d Trekks</string>
+			<key>few</key>
+			<string>%d Trekks</string>
+			<key>many</key>
+			<string>%d Trekks</string>
 			<key>other</key>
-			<string>%d tracks</string>
+			<string>%d Trekks</string>
 		</dict>
 	</dict>
 

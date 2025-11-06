@@ -1,18 +1,34 @@
 
-/* Used in home screen quick actions. */
+
+/********** Strings **********/
+
+
+/* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "Поиск";
 
-/* Used in home screen quick actions. */
+/* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
 "bookmarks_and_tracks" = "Метки и треки";
+
+
+/********** Other translations **********/
+
+
+/* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
+"report_a_bug" = "Сообщить о проблеме";
+
+
+/********** 3d touch strings **********/
+
 
 /* Used in home screen quick actions. */
 "route" = "Маршрут";
+
+
+/********** gps strings **********/
+
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "Определение местоположения в фоне необходимо для полноценного пользования приложением. Оно используется в движении по маршруту и сохранении недавно пройденного пути.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Определение местоположения используется в движении по маршруту и сохранении недавно пройденного пути.";
-
-/* Used in home screen quick actions. */
-"report_a_bug" = "Сообщить о проблеме";

@@ -1,9 +1,10 @@
 
+
+/********** Strings **********/
+
+
 /* Button text (should be short) */
 "cancel" = "Cancel";
-
-/* Button which interrupts country download */
-"cancel_download" = "Cancel Download";
 
 /* Button which deletes downloaded country */
 "delete" = "Delete";
@@ -15,29 +16,17 @@
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Kilometers";
 
-/* Leave Review dialog - Review button */
-"leave_a_review" = "Leave a Review";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Miles";
-
-/* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "My Position";
 
 /* Update maps later button text */
 "later" = "Later";
 
-/* View and button titles for accessibility, please also edit it in iphone/plist.txt */
+/* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "Search";
-
-/* Settings/Downloader - 3G download warning dialog confirm button */
-"use_cellular_data" = "Yes";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Show on the map";
-
-/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
-"country_status_download_without_size" = "Download Map";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Download has failed";
@@ -65,17 +54,11 @@
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Bookmark List Name";
 
-/* "Bookmark Lists" dialog title */
-"bookmark_sets" = "Bookmark Lists";
-
 /* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
 "bookmarks" = "Bookmarks";
 
-/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+/* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
 "bookmarks_and_tracks" = "Bookmarks and Tracks";
-
-/* Default bookmark list name */
-"core_my_places" = "My Places";
 
 /* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Anwani";
@@ -85,6 +68,25 @@
 
 /* Measurement units title in settings activity */
 "measurement_units" = "Measurement units";
+
+/* Button which interrupts country download */
+"cancel_download" = "Cancel Download";
+
+/* Leave Review dialog - Review button */
+"leave_a_review" = "Leave a Review";
+
+/* Settings/Downloader - 3G download warning dialog confirm button */
+"use_cellular_data" = "Yes";
+
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "Download Map";
+
+/* "Bookmark Lists" dialog title */
+"bookmark_sets" = "Bookmark Lists";
+
+
+/********** Search categories **********/
+
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Sehemu ya kula";
@@ -143,9 +145,6 @@
 /* Search category for police; any changes should be duplicated in categories.txt @category_police! */
 "category_police" = "Polisi";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
-"category_wifi" = "WiFi";
-
 /* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
 "category_recycling" = "Recycling";
 
@@ -154,6 +153,10 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Kwa RV";
+
+
+/********** Other translations **********/
+
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
@@ -183,14 +186,8 @@
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Copied to clipboard: %@";
 
-/* place preview title */
-"info" = "Info";
-
 /* Used for bookmark editing */
 "done" = "Done";
-
-/* Prints version number in About dialog */
-"version" = "Toleo la Organic Maps: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Tracks";
@@ -200,15 +197,6 @@
 "share_my_location" = "Share My Location";
 "prefs_group_route" = "Navigation";
 "pref_zoom_title" = "Zoom buttons";
-
-/* Settings «Map» category: «Appearance» title */
-"pref_appearance_title" = "Appearance";
-
-/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
-"pref_appearance_light" = "Light";
-
-/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
-"pref_appearance_dark" = "Dark";
 
 /* Generic «Off» string */
 "off" = "Off";
@@ -242,9 +230,6 @@
 
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "Jaribu maelekezo ya sauti (TTS, maandishi-kwa-hotuba)";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Other";
 "pref_map_auto_zoom" = "Auto zoom";
 "placepage_distance" = "Distance";
 "search_show_on_map" = "View on map";
@@ -278,9 +263,6 @@
 
 /* Button in the main menu */
 "donate" = "Changia";
-
-/* Tex label above the Donate button */
-"donate_description" = "Changia ili kuunda ramani bora pamoja!";
 "already_donated" = "Tayari kutoa";
 "remind_me_later" = "Kumbusha baadaye";
 "support_organic_maps" = "Kuunga mkono Organic Maps";
@@ -288,26 +270,8 @@
 /* Button in the main Help dialog */
 "copyright" = "Copyright";
 
-/* Text in menu + Button in the main Help dialog */
+/* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
 "report_a_bug" = "Report a bug";
-
-/* Button in the About screen */
-"report_incorrect_map_bug" = "Ripoti au urekebishe data isiyo sahihi ya ramani";
-
-/* Button in the About screen */
-"volunteer" = "Kujitolea";
-
-/* "Social media" section header in the About screen */
-"follow_us" = "Fuata na uwasiliane nasi:";
-
-/* Alert text */
-"email_error_body" = "The email client has not been set up. Please configure it or contact us at %@";
-
-/* Alert title */
-"email_error_title" = "Error sending email";
-
-/* Settings item title */
-"pref_calibration_title" = "Compass calibration";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
 "long_tap_toast" = "Gusa kwa muda mrefu kwenye ramani tena ili kuona kiolesura";
@@ -318,9 +282,6 @@
 /* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Downloaded";
 
-/* Downloaded maps category */
-"downloader_available_maps" = "Available";
-
 /* Country queued for download */
 "downloader_queued" = "Queued";
 "downloader_near_me_subtitle" = "Near me";
@@ -329,13 +290,6 @@
 "downloader_status_maps" = "Maps";
 "downloader_download_all_button" = "Download All";
 "downloader_downloading" = "Downloading:";
-"downloader_search_results" = "Found";
-
-/* Status of outdated country in the list */
-"downloader_status_outdated" = "Update";
-
-/* Status of failed country in the list */
-"downloader_status_failed" = "Failed";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
 "downloader_delete_map_while_routing_dialog" = "To delete map, please stop navigation.";
@@ -357,9 +311,6 @@
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "In order to create a route, we need to download and update all the maps from your location to your destination.";
-
-/* bookmark button text */
-"bookmark" = "bookmark";
 "save" = "Save";
 "create" = "create";
 
@@ -410,6 +361,62 @@
 
 /* blue gray color */
 "blue_gray" = "Kijivu Buluu";
+
+/* place preview title */
+"info" = "Info";
+
+/* Prints version number in About dialog */
+"version" = "Toleo la Organic Maps: %@";
+
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Appearance";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Light";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Dark";
+
+/* Title for "Other" section in TTS settings. */
+"pref_tts_other_section_title" = "Other";
+
+/* Tex label above the Donate button */
+"donate_description" = "Changia ili kuunda ramani bora pamoja!";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Ripoti au urekebishe data isiyo sahihi ya ramani";
+
+/* Button in the About screen */
+"volunteer" = "Kujitolea";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Fuata na uwasiliane nasi:";
+
+/* Alert text */
+"email_error_body" = "The email client has not been set up. Please configure it or contact us at %@";
+
+/* Alert title */
+"email_error_title" = "Error sending email";
+
+/* Settings item title */
+"pref_calibration_title" = "Compass calibration";
+
+/* Downloaded maps category */
+"downloader_available_maps" = "Available";
+"downloader_search_results" = "Found";
+
+/* Status of outdated country in the list */
+"downloader_status_outdated" = "Update";
+
+/* Status of failed country in the list */
+"downloader_status_failed" = "Failed";
+
+/* bookmark button text */
+"bookmark" = "bookmark";
+
+
+/********** Routing dialogs strings **********/
+
 "dialog_routing_disclaimer_title" = "When following the route, please keep in mind:";
 "dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over navigation hints;";
 "dialog_routing_disclaimer_precision" = "— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;";
@@ -421,8 +428,6 @@
 "dialog_routing_location_turn_wifi" = "Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.";
 "dialog_routing_location_turn_on" = "Enable location services";
 "dialog_routing_location_unknown_turn_on" = "Unable to locate current GPS coordinates. Enable location services to calculate route.";
-"dialog_routing_download_files" = "Download required files";
-"dialog_routing_download_and_update_all" = "Download or update all maps along the projected path to calculate a route.";
 "dialog_routing_unable_locate_route" = "Unable to locate route";
 "dialog_routing_change_start_or_end" = "Please adjust your starting point or destination.";
 "dialog_routing_change_start" = "Adjust starting point";
@@ -438,21 +443,18 @@
 "dialog_routing_try_again" = "Please try again";
 "dialog_routing_download_and_build_cross_route" = "Would you like to download the map and create a more optimal route spanning more than one map?";
 "dialog_routing_download_cross_route" = "Download additional maps to create a better route that crosses the boundaries of this map.";
+"dialog_routing_download_files" = "Download required files";
+"dialog_routing_download_and_update_all" = "Download or update all maps along the projected path to calculate a route.";
+
+
+/********** Strings for downloading map from search **********/
+
 
 /* «Show» context menu */
 "show" = "Show";
 
 /* «Hide» context menu */
 "hide" = "Hide";
-
-/* Failed planning route message in navigation view */
-"routing_planning_error" = "Route Planning Failed";
-
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Arrival at %@";
-
-/* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
 "categories" = "Categories";
 "history" = "History";
 "search_not_found" = "Oops, no results found.";
@@ -488,13 +490,8 @@
 "editor_hours_closed" = "Non-Business Hours";
 "editor_example_values" = "Example Values";
 "editor_add_select_location" = "Chagua Mahali";
-"editor_done_dialog_1" = "You’ve changed the world map! Don't keep it to yourself; tell your friends and edit it together.";
-"share_with_friends" = "Share with friends";
 "editor_report_problem_send_button" = "Send";
 "autodownload" = "Auto-download maps";
-
-/* Place Page opening hours text */
-"closed_now" = "Closed now";
 
 /* Place Page opening hours text */
 "daily" = "Daily";
@@ -502,29 +499,16 @@
 "day_off_today" = "Closed today";
 "day_off" = "Closed";
 "today" = "Today";
-"opens_tomorrow_at" = "Opens tomorrow at %@";
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
-"opens_at" = "Opens at %@";
 "opens_in" = "Opens in %@";
-"closes_at" = "Closes at %@";
 "closes_in" = "Closes in %@";
 "closed" = "Closed";
-"add_opening_hours" = "Add opening hours";
 "no_osm_account" = "Don't have an OpenStreetMap account?";
 "register_at_openstreetmap" = "Register at OpenStreetMap";
-"password_8_chars_min" = "Password (8 characters minimum)";
-"invalid_username_or_password" = "Invalid username or password.";
 "login" = "Login";
 "login_osm" = "Ingia kwa OpenStreetMap";
 "forgot_password" = "Forgot your password?";
-"osm_account" = "OSM Account";
 "logout" = "Log Out";
-
-/* Information text: "Last upload 11.01.2016" */
-"last_upload" = "Last upload";
-"thank_you" = "Thank You";
 "edit_place" = "Edit Place";
-"place_name" = "Place Name";
 "add_language" = "Add a language";
 
 /* Editable House Number text field (in address block). */
@@ -535,27 +519,20 @@
 "add_street" = "Add a street";
 "choose_language" = "Choose a language";
 "choose_street" = "Choose a street";
-"postal_code" = "Postal Code";
 "cuisine" = "Cuisine";
 "select_cuisine" = "Select cuisine";
 
 /* login text field */
 "email_or_username" = "Email or username";
-"phone" = "Phone";
 "level" = "Ghorofa";
-"please_note" = "Please note";
 "downloader_delete_map_dialog" = "All of your map edits will be deleted with the map.";
 "downloader_update_maps" = "Update Maps";
 "downloader_search_field_hint" = "Find map";
-"migration_download_error_dialog" = "Download error";
 "common_check_internet_connection_dialog" = "Please make sure your device is connected to the Internet.";
 "downloader_no_space_title" = "Not enough space";
 "downloader_no_space_message" = "Please delete any unnecessary data";
 "editor_profile_changes" = "Verified Changes";
 "editor_focus_map_on_location" = "Buruta ramani ili kuweka msalaba katika eneo la mahali au biashara.";
-"editor_add_select_category" = "Select category";
-"editor_add_select_category_popular_subtitle" = "Popular";
-"editor_add_select_category_all_subtitle" = "All Categories";
 "editor_edit_place_title" = "Editing";
 "editor_add_place_title" = "Adding";
 "editor_edit_place_name_hint" = "Name of the place";
@@ -563,17 +540,11 @@
 /* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
 "editor_default_language_hint" = "Kama ilivyoandikwa katika lugha ya kienyeji";
 "editor_edit_place_category_title" = "Category";
-"whatsnew_editor_message_1" = "Add new places to the map, and edit existing ones directly from the app.";
-"dialog_incorrect_feature_position" = "Change location";
 "message_invalid_feature_position" = "No object can be located here";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %@. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org";
 "login_to_make_edits_visible" = "Fungua akaunti ya OpenStreetMap au ingia ili kuchapisha mabadiliko yako ya ramani kwa ulimwengu.";
-
-/* Error dialog no space */
-"migration_no_space_message" = "To download, you need more space. Please delete any unnecessary data.";
-"editor_sharing_title" = "I improved the Organic Maps maps";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d of %2$d";
@@ -587,13 +558,8 @@
 "editor_zip_code" = "ZIP Code";
 "error_enter_correct_zip_code" = "Enter a valid ZIP code";
 
-/* Place Page title for long tap */
-"core_placepage_unknown_place" = "Map Point";
-
 /* Title for OSM note section in the editor */
 "editor_other_info" = "Kumbuka kwa wanaojitolea wa OpenStreetMap (si lazima)";
-"editor_detailed_description_hint" = "Detailed comment";
-"editor_detailed_description" = "Your suggested map changes will be sent to the OpenStreetMap community. Please describe any additional details that cannot be edited in Organic Maps.";
 "editor_more_about_osm" = "More about OpenStreetMap";
 "editor_operator" = "Mwendeshaji";
 
@@ -604,58 +570,29 @@
 "downloader_no_downloaded_maps_title" = "You haven't downloaded any maps";
 "downloader_no_downloaded_maps_message" = "Download maps to search and navigate offline.";
 "current_location_unknown_error_title" = "Current location is unknown.";
-"current_location_unknown_error_message" = "An error occurred while determining your location. Check that your device is working properly and try again later.";
-"location_services_disabled_header" = "Location services are disabled";
-"location_services_disabled_message" = "Enable access to geolocation in the device settings";
-"location_services_disabled_1" = "1. Open Settings";
-"location_services_disabled_2" = "2. Tap Location";
-
-/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
-"location_services_disabled_3" = "3. Select While Using the App";
-"location_services_disabled_on_device_2" = "2. Chagua Faragha";
-"location_services_disabled_on_device_3" = "3. Chagua Huduma za Mahali";
-"location_services_disabled_on_device_4" = "4. Washa Huduma za Mahali";
-"location_services_disabled_on_device_additional_message" = "Au endelea kutumia Organic Maps bila Mahali";
-
-/* abbreviation for meters */
-"m" = "m";
-
-/* abbreviation for kilometers */
-"km" = "km";
 
 /* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/h";
-
-/* abbreviation for mile(s) */
-"mi" = "mi";
-
-/* A unit of measure */
-"ft" = "ft";
 "miles_per_hour" = "mph";
 "hour" = "h";
 "minute" = "min";
 "day" = "d";
 "placepage_more_button" = "More";
-"book_button" = "Book";
-"placepage_call_button" = "Call";
+
+/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
 "placepage_edit_bookmark_button" = "Edit Bookmark";
-"placepage_bookmark_name_hint" = "Bookmark Name";
 "placepage_personal_notes_hint" = "Vidokezo vya kibinafsi (maandishi au HTML)";
-"placepage_delete_bookmark_button" = "Delete Bookmark";
-"editor_edits_sent_message" = "Dokezo lako litatumwa kwa OpenStreetMap";
 "editor_comment_hint" = "Comment…";
 "editor_reset_edits_message" = "Discard all local changes?";
 "editor_reset_edits_button" = "Discard";
 "editor_remove_place_message" = "Delete added place?";
 "editor_remove_place_button" = "Delete";
 "editor_place_doesnt_exist" = "Place does not exist";
-"text_more_button" = "…more";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "Enter a valid phone number";
 "error_enter_correct_web" = "Enter a valid web address";
 "error_enter_correct_email" = "Enter a valid email";
-"refresh" = "Update";
 "placepage_add_place_button" = "Ongeza Mahali kwa OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -665,15 +602,6 @@
 "editor_share_to_all_dialog_message_1" = "Make sure you did not enter any private or personal data.";
 "editor_share_to_all_dialog_message_2" = "Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.";
 "navigation_stop_button" = "Stop";
-
-/* iOS dialog for the case when recent track recording is on and the app comes back from background */
-"recent_track_background_dialog_title" = "Disable recording of your recently travelled route?";
-"off_recent_track_background_button" = "Disable";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "Check out";
-"recent_track_background_dialog_message" = "Organic Maps uses your location in the background to record your recently travelled route.";
-"general_settings" = "General settings";
 
 /* For the first routing */
 "accept" = "Accept";
@@ -693,31 +621,15 @@
 "traffic_update_maps_text" = "To display traffic data, maps must be updated.";
 "big_font" = "Increase size for map labels";
 
-/* "traffic" as in road congestion */
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
-
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Traffic data is not available";
 "enable_logging" = "Enable logging";
-"log_file_size" = "Ukubwa wa faili ya kumbukumbu: %@";
 "transliteration_title" = "Tafsiri kwa lugha ya Kilatini";
-
-/* Subway exits for public transport marks on the map */
-"core_exit" = "Toka";
-
 "planning_route_manage_route" = "Dhibiti njia ya kufuata";
 "button_plan" = "Panga";
 "placepage_remove_stop" = "Ondoa eneo la kusimama";
-"planning_route_remove_title" = "Vuta hapa ili kuondoa";
 "placepage_add_stop" = "Ongeza eneo la kusimama";
-"start_from_my_position" = "Anzia";
-
-/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
-"alert_reauth_message_ios" = "Tafadhali ingia kwenye OpenStreetMap ili kupakia kiotomatiki hariri zako zote za ramani. Pata maelezo zaidi";
-
-/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
-"alert_reauth_link_text_ios" = "hapa";
-"core_entrance" = "Kiingilio";
+"saved" = "Saved";
 "error_enter_correct_name" = "Tafadhali, weka jina sahihi";
 "bookmark_lists" = "Orodha";
 
@@ -728,35 +640,26 @@
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
 "bookmarks_import" = "Ingiza alamisho na nyimbo";
-"downloader_hide_screen" = "Ficha skrini";
-"downloader_percent" = "%@ (%@ kati ya %@)";
-"downloader_process" = "Inapakua %@…";
-"downloader_applying" = "Inatekeleza %@…";
 "bookmarks_error_message_share_general" = "Haiwezekani kushiriki kutokana na hitilafu ya programu";
 "bookmarks_error_title_share_empty" = "Hitilafu ya kushiriki";
 "bookmarks_error_message_share_empty" = "Haiwezekani kushiriki orodha tupu";
 "bookmarks_error_message_empty_list_name" = "Tafadhali ingiza jina la orodha";
 "bookmarks_error_title_list_name_already_taken" = "Jina hili tayari limechukuliwa";
-"bookmarks_error_title_list_name_too_long" = "Jina hili ni muda mrefu sana";
 "profile" = "OpenStreetMap profile";
-"bookmarks_detect_title" = "Faili mpya zimegunduliwa";
-"button_convert" = "Badilisha";
-"bookmarks_convert_error_title" = "Hitilafu";
-"bookmarks_convert_error_message" = "Baadhi ya faili hazibadilishwa.";
 "restore" = "Rejesha";
 "privacy_policy" = "Sera ya faragha";
 "terms_of_use" = "Masharti ya matumizi";
+
+/* Hiking routes layer name in the Styles and Layers dialog */
+"button_layer_hiking" = "Hiking";
+
+/* Cycling routes layer name in the Styles and Layers dialog */
+"button_layer_cycling" = "Cycling";
 "button_layer_subway" = "Njia ya chini";
 "layers_title" = "Mitindo ya Ramani na Tabaka";
-"subway_data_unavailable" = "Ramani ya njia ya chini haipatikani";
-"title_error_downloading_bookmarks" = "Kosa limetokea";
-"popular_place" = "Popular";
 "export_file" = "Hamisha KMZ";
 "export_file_gpx" = "Hamisha GPX";
 "delete_list" = "Futa Orodha";
-"hide_from_map" = "Ficha kwenye ramani";
-"tags_loading_error_subtitle" = "Kosa limetokea wakati wa kupakua vibandiko, tafadhali jaribu tena";
-"download_button" = "Pakua";
 "speedcams_alert_title" = "Kamera za mwendo-kasi";
 "place_description_title" = "Maelezo ya Eneo";
 
@@ -773,6 +676,12 @@
 "power_managment_setting_never" = "Kamwe";
 "power_managment_setting_auto" = "Kiotomatiki";
 "power_managment_setting_manual_max" = "Upeo wa kuhifadhi nishati";
+
+/* Settings/Bookmark Text Placement */
+"bookmarks_text_placement_title" = "Bookmark names on the map";
+"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
+"show_to_the_right" = "Show to the right";
+"show_at_the_bottom" = "Show at the bottom";
 "enable_logging_warning_message" = "Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.";
 "driving_options_title" = "Machaguo ya njia";
 
@@ -792,12 +701,6 @@
 "toll_road" = "Barabara ya kulipia";
 "unpaved_road" = "Barabara ya vumbi";
 "ferry_crossing" = "Kivuko cha feri";
-"trip_start" = "Twende zetu";
-"pick_destination" = "Mahali";
-"follow_my_position" = "Weka kati tena";
-"search_results" = "Matokeo ya utafutaji";
-"then_turn" = "Kisha";
-"redirect_route_alert" = "Je, unataka kuunda upya njia?";
 
 /* A generic "Yes" button in dialogs */
 "yes" = "Ndio";
@@ -817,6 +720,120 @@
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "Mtandao: %@";
 "trip_finished" = "Umefika!";
+"ok" = "Sawa";
+
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Ainisha…";
+"week_ago_sorttype" = "Wiki moja iliyopita";
+"month_ago_sorttype" = "Mwezi mmoja uliopita";
+"moremonth_ago_sorttype" = "Zaidi ya mwezi mmoja uliopita";
+"moreyear_ago_sorttype" = "Zaidi ya mwaka mmoja uliopita";
+"near_me_sorttype" = "Karibu yangu";
+"others_sorttype" = "Nyingine";
+
+/* Failed planning route message in navigation view */
+"routing_planning_error" = "Route Planning Failed";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "Arrival at %@";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
+"editor_done_dialog_1" = "You’ve changed the world map! Don't keep it to yourself; tell your friends and edit it together.";
+"share_with_friends" = "Share with friends";
+
+/* Place Page opening hours text */
+"closed_now" = "Closed now";
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+"opens_at" = "Opens at %@";
+"closes_at" = "Closes at %@";
+"add_opening_hours" = "Add opening hours";
+"password_8_chars_min" = "Password (8 characters minimum)";
+"invalid_username_or_password" = "Invalid username or password.";
+"osm_account" = "OSM Account";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last upload";
+"thank_you" = "Thank You";
+"place_name" = "Place Name";
+"phone" = "Phone";
+"please_note" = "Please note";
+"migration_download_error_dialog" = "Download error";
+"editor_add_select_category" = "Select category";
+"editor_add_select_category_popular_subtitle" = "Popular";
+"editor_add_select_category_all_subtitle" = "All Categories";
+"whatsnew_editor_message_1" = "Add new places to the map, and edit existing ones directly from the app.";
+"dialog_incorrect_feature_position" = "Change location";
+
+/* Error dialog no space */
+"migration_no_space_message" = "To download, you need more space. Please delete any unnecessary data.";
+"editor_sharing_title" = "I improved the Organic Maps maps";
+"editor_detailed_description_hint" = "Detailed comment";
+"editor_detailed_description" = "Your suggested map changes will be sent to the OpenStreetMap community. Please describe any additional details that cannot be edited in Organic Maps.";
+"current_location_unknown_error_message" = "An error occurred while determining your location. Check that your device is working properly and try again later.";
+"location_services_disabled_header" = "Location services are disabled";
+"location_services_disabled_message" = "Enable access to geolocation in the device settings";
+"location_services_disabled_1" = "1. Open Settings";
+"location_services_disabled_2" = "2. Tap Location";
+
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
+"location_services_disabled_3" = "3. Select While Using the App";
+"location_services_disabled_on_device_2" = "2. Chagua Faragha";
+"location_services_disabled_on_device_3" = "3. Chagua Huduma za Mahali";
+"location_services_disabled_on_device_4" = "4. Washa Huduma za Mahali";
+"location_services_disabled_on_device_additional_message" = "Au endelea kutumia Organic Maps bila Mahali";
+"book_button" = "Book";
+"placepage_call_button" = "Call";
+"placepage_bookmark_name_hint" = "Bookmark Name";
+"placepage_delete_bookmark_button" = "Delete Bookmark";
+"editor_edits_sent_message" = "Dokezo lako litatumwa kwa OpenStreetMap";
+"text_more_button" = "…more";
+"refresh" = "Update";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Disable recording of your recently travelled route?";
+"off_recent_track_background_button" = "Disable";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Check out";
+"recent_track_background_dialog_message" = "Organic Maps uses your location in the background to record your recently travelled route.";
+"general_settings" = "General settings";
+
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "To display traffic data, the application must be updated.";
+"log_file_size" = "Ukubwa wa faili ya kumbukumbu: %@";
+"planning_route_remove_title" = "Vuta hapa ili kuondoa";
+"placepage_replace_stop" = "Replace Stop";
+"start_from_my_position" = "Anzia";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Tafadhali ingia kwenye OpenStreetMap ili kupakia kiotomatiki hariri zako zote za ramani. Pata maelezo zaidi";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "hapa";
+"downloader_hide_screen" = "Ficha skrini";
+"downloader_percent" = "%@ (%@ kati ya %@)";
+"downloader_process" = "Inapakua %@…";
+"downloader_applying" = "Inatekeleza %@…";
+"bookmarks_error_title_list_name_too_long" = "Jina hili ni muda mrefu sana";
+"bookmarks_detect_title" = "Faili mpya zimegunduliwa";
+"button_convert" = "Badilisha";
+"bookmarks_convert_error_title" = "Hitilafu";
+"bookmarks_convert_error_message" = "Baadhi ya faili hazibadilishwa.";
+"title_error_downloading_bookmarks" = "Kosa limetokea";
+"popular_place" = "Popular";
+"hide_from_map" = "Ficha kwenye ramani";
+"tags_loading_error_subtitle" = "Kosa limetokea wakati wa kupakua vibandiko, tafadhali jaribu tena";
+"download_button" = "Pakua";
+"right" = "Right";
+"bottom" = "Bottom";
+"trip_start" = "Twende zetu";
+"pick_destination" = "Mahali";
+"follow_my_position" = "Weka kati tena";
+"search_results" = "Matokeo ya utafutaji";
+"then_turn" = "Kisha";
+"redirect_route_alert" = "Je, unataka kuunda upya njia?";
 "keyboard_availability_alert" = "Mbao-bonye haipatikani wakati wa kuendesha gari";
 "dialog_routing_change_start_carplay" = "Haiwezi kuunda njia kutokea kwenye eneo lako la sasa";
 "dialog_routing_change_end_carplay" = "Haiwezi kuunda njia kwenda uendako. Tafadhali chagua sehemu nyingine";
@@ -828,14 +845,10 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Njia itaboreshwa kuwa ya gari";
 "not_all_shown_bookmarks_carplay" = "Sio vialamisho vyote vinavyoonyeshwa";
 "switch_to_phone_bookmarks_carplay" = "Badili utumie simu ili kuona alamisho zote";
-"ok" = "Sawa";
 "speedcams_alert_title_carplay_1" = "Kam za kasi";
 "speedcams_alert_title_carplay_2" = "Onyo la kasi";
 "download_map_carplay" = "Tafadhali pakua ramani katika programu tumizi ya Organic Maps kwenye kifaa chako";
 "carplay_roundabout_exit" = "Kutoka kwa %@";
-
-/* max. 10 symbols, both iOS and Android */
-"sort" = "Ainisha…";
 
 /* iOS */
 "sort_default" = "Ainisha kwa chaguo-msingi";
@@ -843,12 +856,10 @@
 "sort_distance" = "Ainisha kwa umbali";
 "sort_date" = "Ainisha kwa tarehe";
 "sort_name" = "Panga kwa jina";
-"week_ago_sorttype" = "Wiki moja iliyopita";
-"month_ago_sorttype" = "Mwezi mmoja uliopita";
-"moremonth_ago_sorttype" = "Zaidi ya mwezi mmoja uliopita";
-"moreyear_ago_sorttype" = "Zaidi ya mwaka mmoja uliopita";
-"near_me_sorttype" = "Karibu yangu";
-"others_sorttype" = "Nyingine";
+
+
+/********** Bookmark types used for sorting **********/
+
 "food_places" = "Chakula";
 "tourist_places" = "Vivutio";
 "museums" = "Makumbusho";
@@ -871,44 +882,12 @@
 "button_layer_isolines" = "Topografia";
 "isolines_activation_error_dialog" = "Kuamilisha na kutumia tabaka la nchi tafadhali sasisha au pakua ramani ya eneo hilo";
 "isolines_location_error_dialog" = "Tabaka la sura ya nchi bado haipatikani katika eneo hili";
-"elevation_profile_diff_level" = "Usawa mgumu";
-"elevation_profile_diff_level_easy" = "Rahisi";
-"elevation_profile_diff_level_moderate" = "Wastani";
-"elevation_profile_diff_level_hard" = "Ngumu";
 "elevation_profile_ascent" = "Upandaji";
 "elevation_profile_descent" = "Ushukaji";
 "elevation_profile_min_elevation" = "Min. mwinuko";
 "elevation_profile_max_elevation" = "Max. mwinuko";
 "isolines_toast_zooms_1_10" = "Vuta karibu kutalii mistari ya kontua";
-"downloader_updating_ios" = "Inasasisha";
 "downloader_loading_ios" = "Inapakua";
-
-/* Autoupdate dialog on start */
-"whats_new_auto_update_title" = "Sasisha ramani zako ulizopakua";
-
-/* Autoupdate dialog on start */
-"whats_new_auto_update_message" = "Kusasisha ramani kunaweka taarifa kuhusu vipengee ikiwa ya hivi sasa zaidi";
-
-/* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "Sasisha (%@)";
-
-/* Autoupdate dialog on start */
-"whats_new_auto_update_button_later" = "Sasisha mwenyewe baadaye";
-
-/* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
-
-/* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "Je, una uhakika unataka kufuta wimbo huu?";
-
-/* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
-
-/* move track or bookmark from the list button text */
-"move" = "Move";
-
-/* edit track screen title */
-"track_title" = "Track";
 
 /* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
@@ -969,16 +948,67 @@
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Hamisha Alamisho na Nyimbo zote";
+"drive_through" = "Kuendesha-kupitia";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Kiungo cha menyu";
+
+/* Title for the "Open in Another App" button on the PlacePage. */
+"open_in_app" = "Fungua Katika Programu Nyingine";
+
+/* To indicate if the place proposed self service... */
+"self_service" = "Kujihudumia";
+
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Viti vya nje";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Rekodi njia";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Acha kurekodi";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Njia ni tupu - hakuna cha kuhifadhi";
+"edit_track" = "Hariri Njia";
+"elevation_profile_diff_level" = "Usawa mgumu";
+"elevation_profile_diff_level_easy" = "Rahisi";
+"elevation_profile_diff_level_moderate" = "Wastani";
+"elevation_profile_diff_level_hard" = "Ngumu";
+"downloader_updating_ios" = "Inasasisha";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Sasisha ramani zako ulizopakua";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Kusasisha ramani kunaweka taarifa kuhusu vipengee ikiwa ya hivi sasa zaidi";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Sasisha (%@)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Sasisha mwenyewe baadaye";
+
+/* Delete track button on track edit screen */
+"placepage_delete_track_button" = "Delete Track";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Je, una uhakika unataka kufuta wimbo huu?";
+
+/* Placeholder for track name input on track edit screen */
+"placepage_track_name_hint" = "Track Name";
+
+/* move track or bookmark from the list button text */
+"move" = "Move";
+
+/* edit track screen title */
+"track_title" = "Track";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Badilisha rangi";
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Map";
-"drive_through" = "Kuendesha-kupitia";
-
-/* Restaurant or other food place's menu URL field in the Editor */
-"website_menu" = "Kiungo cha menyu";
 
 /* Message for the bug report alert. */
 "bugreport_alert_message" = "Je, ungependa kutuma ripoti ya hitilafu kwa wasanidi programu?\nTunategemea watumiaji wetu kwani Ramani za Kikaboni hazikusanyi maelezo yoyote ya hitilafu kiotomatiki. Asante mapema kwa kusaidia Ramani za Organic!";
@@ -1013,15 +1043,6 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Hitilafu: iCloud haipatikani";
 
-/* Title for the "Open in Another App" button on the PlacePage. */
-"open_in_app" = "Fungua Katika Programu Nyingine";
-
-/* To indicate if the place proposed self service... */
-"self_service" = "Kujihudumia";
-
-/* To indicate if restaurant or other place has outdoor seating */
-"outdoor_seating" = "Viti vya nje";
-
 /* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
 "bookmarks_recently_deleted" = "Orodha Zilizofutwa Hivi Karibuni";
 
@@ -1037,33 +1058,45 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Rejesha yote";
 
-/* Prompt to start recording a track. */
-"start_track_recording" = "Rekodi njia";
-
-/* Prompt for stopping a track recording. */
-"stop_track_recording" = "Acha kurekodi";
-
-/* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "Njia ni tupu - hakuna cha kuhifadhi";
-"edit_track" = "Hariri Njia";
-"saved" = "Saved";
-"button_layer_hiking" = "Hiking";
-"button_layer_cycling" = "Cycling";
-
-/* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"right" = "Right";
-"show_at_the_bottom" = "Show at the bottom";
-"bottom" = "Bottom";
-
-/* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
-
 /* OpenStreetMap contribution section on the PlacePage. */
 "contribute_to_osm" = "Changia kwenye OpenStreetMap";
 "contribute_to_osm_add_place" = "Ongeza mahali";
 "contribute_to_osm_update_map" = "Sasisha ramani ili kuchangia";
 "contribute_to_osm_update_map_description" = "Unahitaji kusasisha ramani ya %@ hadi toleo jipya zaidi kabla ya kuchangia kwenye data ya OpenStreetMap";
-"placepage_replace_stop" = "Replace Stop";
+
+
+/********** Uncategorized **********/
+
+
+/* A text for current gps location point/arrow selected on the map */
+"core_my_position" = "My Position";
+
+/* Default bookmark list name */
+"core_my_places" = "My Places";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
+"postal_code" = "Postal Code";
+
+/* Place Page title for long tap */
+"core_placepage_unknown_place" = "Map Point";
+
+/* abbreviation for meters */
+"m" = "m";
+
+/* abbreviation for kilometers */
+"km" = "km";
+
+/* abbreviation for mile(s) */
+"mi" = "mi";
+
+/* A unit of measure */
+"ft" = "ft";
+
+/* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
+"routes_update_maps_text" = "To display routes, maps must be updated.";
+
+/* Subway exits for public transport marks on the map */
+"core_exit" = "Toka";
+"core_entrance" = "Kiingilio";
+"subway_data_unavailable" = "Ramani ya njia ya chini haipatikani";

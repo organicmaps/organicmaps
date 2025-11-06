@@ -1,18 +1,34 @@
 
-/* Used in home screen quick actions. */
-"search" = "Search";
 
-/* Used in home screen quick actions. */
+/********** Strings **********/
+
+
+/* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
+"search" = "جست‌وجو";
+
+/* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
 "bookmarks_and_tracks" = "نشانک‌ها و مسیرها";
+
+
+/********** Other translations **********/
+
+
+/* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
+"report_a_bug" = "گزارش خطا";
+
+
+/********** 3d touch strings **********/
+
 
 /* Used in home screen quick actions. */
 "route" = "مسیر";
+
+
+/********** gps strings **********/
+
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "تشخیص مکان در پس زمینه برای لذت بردن کامل از عملکرد برنامه ضروری است. برای ناوبری و ذخیره مسیرهای اخیر سفر شده شما استفاده می شود.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "تعیین موقعیت مکانی شما برای ناوبری و ذخیره مسیرهای اخیر سفر شده ضروری است.";
-
-/* Used in home screen quick actions. */
-"report_a_bug" = "گزارش خطا";

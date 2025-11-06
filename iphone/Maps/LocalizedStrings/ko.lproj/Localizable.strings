@@ -1,9 +1,10 @@
 
+
+/********** Strings **********/
+
+
 /* Button text (should be short) */
 "cancel" = "취소하기";
-
-/* Button which interrupts country download */
-"cancel_download" = "다운로드 취소하기";
 
 /* Button which deletes downloaded country */
 "delete" = "삭제하기";
@@ -15,29 +16,17 @@
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "킬로미터";
 
-/* Leave Review dialog - Review button */
-"leave_a_review" = "리뷰 남기기";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "마일";
-
-/* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "나의 위치";
 
 /* Update maps later button text */
 "later" = "나중에";
 
-/* View and button titles for accessibility, please also edit it in iphone/plist.txt */
+/* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "검색하기";
-
-/* Settings/Downloader - 3G download warning dialog confirm button */
-"use_cellular_data" = "네";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "지도에 표시";
-
-/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
-"country_status_download_without_size" = "지도 다운로드";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "다운로드에 실패하였습니다";
@@ -65,17 +54,11 @@
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "집합 이름을 즐겨찾기에 추가";
 
-/* "Bookmark Lists" dialog title */
-"bookmark_sets" = "세트를 즐겨찾기에 추가";
-
 /* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
 "bookmarks" = "북마크";
 
-/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+/* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
 "bookmarks_and_tracks" = "북마크 및 트랙";
-
-/* Default bookmark list name */
-"core_my_places" = "내 장소";
 
 /* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "주소";
@@ -85,6 +68,25 @@
 
 /* Measurement units title in settings activity */
 "measurement_units" = "측정 단위";
+
+/* Button which interrupts country download */
+"cancel_download" = "다운로드 취소하기";
+
+/* Leave Review dialog - Review button */
+"leave_a_review" = "리뷰 남기기";
+
+/* Settings/Downloader - 3G download warning dialog confirm button */
+"use_cellular_data" = "네";
+
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "지도 다운로드";
+
+/* "Bookmark Lists" dialog title */
+"bookmark_sets" = "세트를 즐겨찾기에 추가";
+
+
+/********** Search categories **********/
+
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "어디서 먹을까";
@@ -143,9 +145,6 @@
 /* Search category for police; any changes should be duplicated in categories.txt @category_police! */
 "category_police" = "치안대";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
-"category_wifi" = "WiFi 인터넷";
-
 /* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
 "category_recycling" = "재활용";
 
@@ -154,6 +153,10 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "RV용";
+
+
+/********** Other translations **********/
+
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
@@ -183,14 +186,8 @@
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "클립보드에 복사됨: %@";
 
-/* place preview title */
-"info" = "정보";
-
 /* Used for bookmark editing */
 "done" = "완료";
-
-/* Prints version number in About dialog */
-"version" = "Organic Maps 버전: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "트랙";
@@ -200,15 +197,6 @@
 "share_my_location" = "내 위치 공유";
 "prefs_group_route" = "내비게이션";
 "pref_zoom_title" = "확대/축소 버튼";
-
-/* Settings «Map» category: «Appearance» title */
-"pref_appearance_title" = "모양";
-
-/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
-"pref_appearance_light" = "라이트";
-
-/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
-"pref_appearance_dark" = "다크";
 
 /* Generic «Off» string */
 "off" = "끄기";
@@ -242,9 +230,6 @@
 
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "음성 길 안내 테스트(TTS, 텍스트 음성 변환)";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "다른 언어";
 "pref_map_auto_zoom" = "자동 줌";
 "placepage_distance" = "거리";
 "search_show_on_map" = "지도 보기";
@@ -278,9 +263,6 @@
 
 /* Button in the main menu */
 "donate" = "기부";
-
-/* Tex label above the Donate button */
-"donate_description" = "기부하여 최고의 지도를 함께 만들어 보세요!";
 "already_donated" = "기부완료";
 "remind_me_later" = "나중에 알림";
 "support_organic_maps" = "Organic Maps 지원하기";
@@ -288,26 +270,8 @@
 /* Button in the main Help dialog */
 "copyright" = "저작권";
 
-/* Text in menu + Button in the main Help dialog */
+/* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
 "report_a_bug" = "오류 신고";
-
-/* Button in the About screen */
-"report_incorrect_map_bug" = "잘못된 지도 데이터 신고 또는 수정";
-
-/* Button in the About screen */
-"volunteer" = "자원봉사에 참여하려면";
-
-/* "Social media" section header in the About screen */
-"follow_us" = "팔로우하고 문의하세요:";
-
-/* Alert text */
-"email_error_body" = "이메일 클라이언트가 설정되지 않았습니다. 이를 구성하거나 %@로 연락할 다른 방법을 사용하십시오.";
-
-/* Alert title */
-"email_error_title" = "메일 전송 중 오류";
-
-/* Settings item title */
-"pref_calibration_title" = "나침반 보정";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
 "long_tap_toast" = "지도를 다시 길게 탭하면 인터페이스가 표시됩니다.";
@@ -318,9 +282,6 @@
 /* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "다운로드";
 
-/* Downloaded maps category */
-"downloader_available_maps" = "사용 가능";
-
 /* Country queued for download */
 "downloader_queued" = "대기";
 "downloader_near_me_subtitle" = "내 근처";
@@ -329,13 +290,6 @@
 "downloader_status_maps" = "지도";
 "downloader_download_all_button" = "모두 다운로드";
 "downloader_downloading" = "다운로드 중:";
-"downloader_search_results" = "검색 결과";
-
-/* Status of outdated country in the list */
-"downloader_status_outdated" = "업데이트";
-
-/* Status of failed country in the list */
-"downloader_status_failed" = "실패함";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
 "downloader_delete_map_while_routing_dialog" = "지도를 삭제하시려면 길 찾기를 멈추세요.";
@@ -357,9 +311,6 @@
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "경로를 만드는 것은 사용자의 위치에서의 모든 지도를 다운로드되고 업데이트된 대상으로 필요합니다.";
-
-/* bookmark button text */
-"bookmark" = "북마크";
 "save" = "저장";
 "create" = "만들기기";
 
@@ -410,6 +361,62 @@
 
 /* blue gray color */
 "blue_gray" = "청회색";
+
+/* place preview title */
+"info" = "정보";
+
+/* Prints version number in About dialog */
+"version" = "Organic Maps 버전: %@";
+
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "모양";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "라이트";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "다크";
+
+/* Title for "Other" section in TTS settings. */
+"pref_tts_other_section_title" = "다른 언어";
+
+/* Tex label above the Donate button */
+"donate_description" = "기부하여 최고의 지도를 함께 만들어 보세요!";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "잘못된 지도 데이터 신고 또는 수정";
+
+/* Button in the About screen */
+"volunteer" = "자원봉사에 참여하려면";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "팔로우하고 문의하세요:";
+
+/* Alert text */
+"email_error_body" = "이메일 클라이언트가 설정되지 않았습니다. 이를 구성하거나 %@로 연락할 다른 방법을 사용하십시오.";
+
+/* Alert title */
+"email_error_title" = "메일 전송 중 오류";
+
+/* Settings item title */
+"pref_calibration_title" = "나침반 보정";
+
+/* Downloaded maps category */
+"downloader_available_maps" = "사용 가능";
+"downloader_search_results" = "검색 결과";
+
+/* Status of outdated country in the list */
+"downloader_status_outdated" = "업데이트";
+
+/* Status of failed country in the list */
+"downloader_status_failed" = "실패함";
+
+/* bookmark button text */
+"bookmark" = "북마크";
+
+
+/********** Routing dialogs strings **********/
+
 "dialog_routing_disclaimer_title" = "경로를 따라갈 때는 다음 사항에 주의해 주세요:";
 "dialog_routing_disclaimer_priority" = "— 도로 상황, 교통법, 도로 표지판을 항상 내비게이션 안내보다 먼저 고려하세요;";
 "dialog_routing_disclaimer_precision" = "— 지도는 부정확할 수 있으며, 제안된 경로보다 나은 경로가 존재할 수도 있습니다;";
@@ -421,8 +428,6 @@
 "dialog_routing_location_turn_wifi" = "GPS 신호를 확인해주세요. Wi-Fi를 켜면 위치 정확도가 높아집니다.";
 "dialog_routing_location_turn_on" = "위치 서비스 활성화";
 "dialog_routing_location_unknown_turn_on" = "현재 GPS 좌표를 찾을 수 없습니다. 경로를 계산하려면 위치 서비스를 활성화하세요.";
-"dialog_routing_download_files" = "필수 파일 다운로드";
-"dialog_routing_download_and_update_all" = "경로를 계산하려면 모든 지도와 예상 경로 정보를 다운로드하고 업데이트하세요.";
 "dialog_routing_unable_locate_route" = "경로를 찾을 수 없습니다";
 "dialog_routing_change_start_or_end" = "출발지나 목적지를 조정하세요.";
 "dialog_routing_change_start" = "출발지 조정";
@@ -438,21 +443,18 @@
 "dialog_routing_try_again" = "다시 시도해주세요.";
 "dialog_routing_download_and_build_cross_route" = "지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?";
 "dialog_routing_download_cross_route" = "이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.";
+"dialog_routing_download_files" = "필수 파일 다운로드";
+"dialog_routing_download_and_update_all" = "경로를 계산하려면 모든 지도와 예상 경로 정보를 다운로드하고 업데이트하세요.";
+
+
+/********** Strings for downloading map from search **********/
+
 
 /* «Show» context menu */
 "show" = "표시";
 
 /* «Hide» context menu */
 "hide" = "숨기기";
-
-/* Failed planning route message in navigation view */
-"routing_planning_error" = "경로 계획 실패";
-
-/* Arrive routing message in navigation view */
-"routing_arrive" = "도착: %@";
-
-/* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "경로를 만들려면, 경로를 따라 모든 지도를 다운로드하고 업데이트하십시오.";
 "categories" = "범주";
 "history" = "내역";
 "search_not_found" = "죄송합니다. 아무것도 찾지 못했습니다.";
@@ -488,13 +490,8 @@
 "editor_hours_closed" = "폐점 시간";
 "editor_example_values" = "예제";
 "editor_add_select_location" = "위치 선택";
-"editor_done_dialog_1" = "세계 지도를 변경했습니다. 이를 숨기지 마십시오! 친구에게 말하고, 이를 함께 편집합니다.";
-"share_with_friends" = "친구들과 공유";
 "editor_report_problem_send_button" = "전송";
 "autodownload" = "자동 다운로드";
-
-/* Place Page opening hours text */
-"closed_now" = "지금 닫힘";
 
 /* Place Page opening hours text */
 "daily" = "일별";
@@ -502,29 +499,16 @@
 "day_off_today" = "오늘 영업 종료됨";
 "day_off" = "종료됨";
 "today" = "오늘";
-"opens_tomorrow_at" = "Opens tomorrow at %@";
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
-"opens_at" = "Opens at %@";
 "opens_in" = "Opens in %@";
-"closes_at" = "Closes at %@";
 "closes_in" = "Closes in %@";
 "closed" = "닫음";
-"add_opening_hours" = "영업일 추가";
 "no_osm_account" = "OpenStreetMap에서 계정이 없습니까?";
 "register_at_openstreetmap" = "등록";
-"password_8_chars_min" = "암호(최소 8자)";
-"invalid_username_or_password" = "잘못된 사용자 이름 또는 암호.";
 "login" = "로그인";
 "login_osm" = "OpenStreetMap에 로그인";
 "forgot_password" = "암호를 잊으셨나요?";
-"osm_account" = "OSM 계정";
 "logout" = "로그 아웃";
-
-/* Information text: "Last upload 11.01.2016" */
-"last_upload" = "마지막 업로드";
-"thank_you" = "고맙습니다.";
 "edit_place" = "장소 편집";
-"place_name" = "지명";
 "add_language" = "언어 추가";
 
 /* Editable House Number text field (in address block). */
@@ -535,27 +519,20 @@
 "add_street" = "거리 추가";
 "choose_language" = "언어 선택";
 "choose_street" = "거리 선택";
-"postal_code" = "우편 번호";
 "cuisine" = "요리";
 "select_cuisine" = "요리 선택";
 
 /* login text field */
 "email_or_username" = "이메일 또는 사용자 이름";
-"phone" = "전화";
 "level" = "층";
-"please_note" = "참고 사항";
 "downloader_delete_map_dialog" = "모든 지도의 변경 사항은 지도와 함께 삭제됩니다.";
 "downloader_update_maps" = "지도 업데이트";
 "downloader_search_field_hint" = "지도 찾기";
-"migration_download_error_dialog" = "다운로드 오류";
 "common_check_internet_connection_dialog" = "설정을 확인하고 장치가 인터넷에 연결되어 있는지 확인하십시오.";
 "downloader_no_space_title" = "충분하지 않은 여유 공간";
 "downloader_no_space_message" = "불필요한 데이터를 제거하십시오.";
 "editor_profile_changes" = "변경사항 승인";
 "editor_focus_map_on_location" = "지도를 드래그하여 장소 또는 비즈니스의 위치에 십자가를 배치합니다.";
-"editor_add_select_category" = "범주 선택";
-"editor_add_select_category_popular_subtitle" = "인기있는";
-"editor_add_select_category_all_subtitle" = "모든 카테고리";
 "editor_edit_place_title" = "편집 중";
 "editor_add_place_title" = "첨가 중";
 "editor_edit_place_name_hint" = "장소 이름";
@@ -563,17 +540,11 @@
 /* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
 "editor_default_language_hint" = "현지 언어로 작성되었으므로";
 "editor_edit_place_category_title" = "범주";
-"whatsnew_editor_message_1" = "지도에 새로운 장소를 추가하고 응용 프로그램에서 직접 기존 편집 할 수 있습니다.";
-"dialog_incorrect_feature_position" = "위치 변경";
 "message_invalid_feature_position" = "목적지를 이곳에서 찾을 수 없습니다";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "커뮤니티에서 만든 오픈스트리트맵 데이터(%@ 기준). 지도를 편집하고 업데이트하는 방법에 대한 자세한 내용은 OpenStreetMap.org에서 확인하세요.";
 "login_to_make_edits_visible" = "오픈스트리트맵 계정을 만들거나 로그인하여 지도 편집 내용을 전 세계에 공개하세요.";
-
-/* Error dialog no space */
-"migration_no_space_message" = "다운로드하려면, 더 많은 여유 공간이 필요합니다. 불필요한 데이터를 삭제하십시오.";
-"editor_sharing_title" = "나는 Organic Maps 지도를 향상함";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%2$d중의 %1$d";
@@ -587,13 +558,8 @@
 "editor_zip_code" = "우편번호";
 "error_enter_correct_zip_code" = "올바른 우편번호를 입력하세요";
 
-/* Place Page title for long tap */
-"core_placepage_unknown_place" = "지도 지점";
-
 /* Title for OSM note section in the editor */
 "editor_other_info" = "오픈스트리트맵 자원 봉사자 참고 사항(선택 사항)";
-"editor_detailed_description_hint" = "상세 설명";
-"editor_detailed_description" = "귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. Organic Maps에서 편집할 수 없는 세부정보를 작성해 주세요.";
 "editor_more_about_osm" = "OpenStreetMap 정보";
 "editor_operator" = "연산자";
 
@@ -604,58 +570,29 @@
 "downloader_no_downloaded_maps_title" = "지도를 다운로드하지 않았습니다";
 "downloader_no_downloaded_maps_message" = "오프라인으로 위치를 검색하려면 지도를 다운로드하세요.";
 "current_location_unknown_error_title" = "현재 위치를 알 수 없습니다.";
-"current_location_unknown_error_message" = "위치 검색 중 오류가 발생했습니다. 장치가 올바르게 작동되는지 확인하고 다시 시도하세요.";
-"location_services_disabled_header" = "위치 식별 사용할 수 없음";
-"location_services_disabled_message" = "장치 설정에서 위치 정보에 액세스할 수 있음";
-"location_services_disabled_1" = "1. 설정 열기";
-"location_services_disabled_2" = "2. 위치 누르기";
-
-/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
-"location_services_disabled_3" = "3. 앱 사용 중에 선택";
-"location_services_disabled_on_device_2" = "2. 2. 개인정보 보호 선택";
-"location_services_disabled_on_device_3" = "3. 3. 위치 서비스 선택";
-"location_services_disabled_on_device_4" = "4. 위치 서비스 켜기";
-"location_services_disabled_on_device_additional_message" = "또는 위치 없이 오가닉 맵을 계속 사용하세요.";
-
-/* abbreviation for meters */
-"m" = "m";
-
-/* abbreviation for kilometers */
-"km" = "km";
 
 /* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/h";
-
-/* abbreviation for mile(s) */
-"mi" = "mi";
-
-/* A unit of measure */
-"ft" = "풋";
 "miles_per_hour" = "mph";
 "hour" = "h";
 "minute" = "min";
 "day" = "일";
 "placepage_more_button" = "자세히";
-"book_button" = "예약";
-"placepage_call_button" = "전화";
+
+/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
 "placepage_edit_bookmark_button" = "즐겨찾기 편집";
-"placepage_bookmark_name_hint" = "즐겨찾기 이름";
 "placepage_personal_notes_hint" = "개인 메모 (글자 혹은 html)";
-"placepage_delete_bookmark_button" = "즐겨찾기 삭제";
-"editor_edits_sent_message" = "메모가 오픈스트리트맵으로 전송됩니다";
 "editor_comment_hint" = "설명…";
 "editor_reset_edits_message" = "지역 변경 사항을 재설정하시겠습니까?";
 "editor_reset_edits_button" = "재설정";
 "editor_remove_place_message" = "추가한 장소를 삭제하시겠습니까?";
 "editor_remove_place_button" = "삭제";
 "editor_place_doesnt_exist" = "존재하지 않는 장소입니다.";
-"text_more_button" = "…기타";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "올바른 전화 번호 입력";
 "error_enter_correct_web" = "유효한 웹 주소 입력";
 "error_enter_correct_email" = "유효한 이메일 주소 입력";
-"refresh" = "최신 정보";
 "placepage_add_place_button" = "오픈스트리트맵에 장소 추가";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -665,15 +602,6 @@
 "editor_share_to_all_dialog_message_1" = "개인 정보를 입력하지 않았는지 확인하십시오.";
 "editor_share_to_all_dialog_message_2" = "OpenStreetMap 편집자가 변경 사항을 확인하고 질문이 있는 경우 귀하에게 연락할 것입니다.";
 "navigation_stop_button" = "중지";
-
-/* iOS dialog for the case when recent track recording is on and the app comes back from background */
-"recent_track_background_dialog_title" = "최근 여행한 경로 녹음을 비활성화하시겠습니까?";
-"off_recent_track_background_button" = "비활성화";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "체크아웃";
-"recent_track_background_dialog_message" = "Organic Maps는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.";
-"general_settings" = "일반 설정";
 
 /* For the first routing */
 "accept" = "동의";
@@ -693,31 +621,15 @@
 "traffic_update_maps_text" = "교통 데이터를 표시하려면 지도를 업데이트해야 합니다.";
 "big_font" = "지도에서 글꼴 크기 늘리기";
 
-/* "traffic" as in road congestion */
-"traffic_update_app_message" = "교통 데이터를 표시하려면 응용 프로그램을 업데이트해야 합니다.";
-
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "교통 데이터를 사용할 수 없습니다";
 "enable_logging" = "로깅 사용";
-"log_file_size" = "로그 파일 크기: %@";
 "transliteration_title" = "라틴어로 음역";
-
-/* Subway exits for public transport marks on the map */
-"core_exit" = "끝내기";
-
 "planning_route_manage_route" = "경로 관리";
 "button_plan" = "계획";
 "placepage_remove_stop" = "정류장 제거";
-"planning_route_remove_title" = "여기로 끌어와서 제거";
 "placepage_add_stop" = "스톱 추가";
-"start_from_my_position" = "시작 위치:";
-
-/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
-"alert_reauth_message_ios" = "모든 지도 편집 내용을 자동으로 업로드하려면 오픈스트리트맵에 로그인하세요. 자세히 알아보기";
-
-/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
-"alert_reauth_link_text_ios" = "여기";
-"core_entrance" = "입구";
+"saved" = "Saved";
 "error_enter_correct_name" = "올바른 이름을 입력하세요.";
 "bookmark_lists" = "목록";
 
@@ -728,35 +640,26 @@
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
 "bookmarks_import" = "북마크 및 트랙 가져오기";
-"downloader_hide_screen" = "화면 숨기기";
-"downloader_percent" = "%@(%@ / %@)";
-"downloader_process" = "%@ 다운로드 중…";
-"downloader_applying" = "%@ 적용 중…";
 "bookmarks_error_message_share_general" = "애플리케이션 오류로 인해 공유할 수 없습니다";
 "bookmarks_error_title_share_empty" = "공유 오류";
 "bookmarks_error_message_share_empty" = "빈 목록을 공유 할 수 없습니다";
 "bookmarks_error_message_empty_list_name" = "목록 이름을 입력하십시오.";
 "bookmarks_error_title_list_name_already_taken" = "이 이름은 이미 사용 중입니다.";
-"bookmarks_error_title_list_name_too_long" = "이 이름이 너무 깁니다.";
 "profile" = "OpenStreetMap 프로필";
-"bookmarks_detect_title" = "새 파일이 감지되었습니다.";
-"button_convert" = "변하게 하다";
-"bookmarks_convert_error_title" = "오류";
-"bookmarks_convert_error_message" = "일부 파일은 변환되지 않았습니다.";
 "restore" = "복원";
 "privacy_policy" = "개인정보 보호 방침";
 "terms_of_use" = "사용 약관";
+
+/* Hiking routes layer name in the Styles and Layers dialog */
+"button_layer_hiking" = "하이킹";
+
+/* Cycling routes layer name in the Styles and Layers dialog */
+"button_layer_cycling" = "사이클링";
 "button_layer_subway" = "지하철";
 "layers_title" = "맵 스타일 및 레이어";
-"subway_data_unavailable" = "지하철 지도가 가용하지 않습니다.";
-"title_error_downloading_bookmarks" = "오류가 발생했습니다.";
-"popular_place" = "Popular";
 "export_file" = "KMZ 내보내기";
 "export_file_gpx" = "GPX 내보내기";
 "delete_list" = "리스트 삭제";
-"hide_from_map" = "지도에서 숨기기";
-"tags_loading_error_subtitle" = "태그를 불러오는 중 에러가 발생했습니다. 다시 시도해보세요";
-"download_button" = "다운로드";
 "speedcams_alert_title" = "속도 감시 카메라";
 "place_description_title" = "장소 묘사";
 
@@ -773,6 +676,12 @@
 "power_managment_setting_never" = "안함";
 "power_managment_setting_auto" = "자동";
 "power_managment_setting_manual_max" = "최대 전력 절약";
+
+/* Settings/Bookmark Text Placement */
+"bookmarks_text_placement_title" = "지도에 북마크 이름 표시";
+"bookmarks_text_placement_description" = "북마크가 너무 많을 경우 지도에 북마크 이름을 표시하면 앱 속도가 느려질 수 있습니다.";
+"show_to_the_right" = "오른쪽에 표시";
+"show_at_the_bottom" = "하단에 표시";
 "enable_logging_warning_message" = "이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 Organic Maps 지원 요청에서만 가능합니다.";
 "driving_options_title" = "운전 옵션";
 
@@ -792,12 +701,6 @@
 "toll_road" = "유료 도로";
 "unpaved_road" = "비포장 도로";
 "ferry_crossing" = "여객선 횡단길";
-"trip_start" = "가자";
-"pick_destination" = "목적지";
-"follow_my_position" = "내 위치 조정하기";
-"search_results" = "검색 결과";
-"then_turn" = "그 다음";
-"redirect_route_alert" = "루트를 재구축하길 원하시나요?";
 
 /* A generic "Yes" button in dialogs */
 "yes" = "네";
@@ -817,6 +720,120 @@
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "네트워크: %@";
 "trip_finished" = "도착했습니다!";
+"ok" = "OK";
+
+/* max. 10 symbols, both iOS and Android */
+"sort" = "분류…";
+"week_ago_sorttype" = "일주일 전";
+"month_ago_sorttype" = "한달 전";
+"moremonth_ago_sorttype" = "한달 그 이상 전";
+"moreyear_ago_sorttype" = "1년 그 이상 전";
+"near_me_sorttype" = "나와 가까운 곳";
+"others_sorttype" = "기타";
+
+/* Failed planning route message in navigation view */
+"routing_planning_error" = "경로 계획 실패";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "도착: %@";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "경로를 만들려면, 경로를 따라 모든 지도를 다운로드하고 업데이트하십시오.";
+"editor_done_dialog_1" = "세계 지도를 변경했습니다. 이를 숨기지 마십시오! 친구에게 말하고, 이를 함께 편집합니다.";
+"share_with_friends" = "친구들과 공유";
+
+/* Place Page opening hours text */
+"closed_now" = "지금 닫힘";
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+"opens_at" = "Opens at %@";
+"closes_at" = "Closes at %@";
+"add_opening_hours" = "영업일 추가";
+"password_8_chars_min" = "암호(최소 8자)";
+"invalid_username_or_password" = "잘못된 사용자 이름 또는 암호.";
+"osm_account" = "OSM 계정";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "마지막 업로드";
+"thank_you" = "고맙습니다.";
+"place_name" = "지명";
+"phone" = "전화";
+"please_note" = "참고 사항";
+"migration_download_error_dialog" = "다운로드 오류";
+"editor_add_select_category" = "범주 선택";
+"editor_add_select_category_popular_subtitle" = "인기있는";
+"editor_add_select_category_all_subtitle" = "모든 카테고리";
+"whatsnew_editor_message_1" = "지도에 새로운 장소를 추가하고 응용 프로그램에서 직접 기존 편집 할 수 있습니다.";
+"dialog_incorrect_feature_position" = "위치 변경";
+
+/* Error dialog no space */
+"migration_no_space_message" = "다운로드하려면, 더 많은 여유 공간이 필요합니다. 불필요한 데이터를 삭제하십시오.";
+"editor_sharing_title" = "나는 Organic Maps 지도를 향상함";
+"editor_detailed_description_hint" = "상세 설명";
+"editor_detailed_description" = "귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. Organic Maps에서 편집할 수 없는 세부정보를 작성해 주세요.";
+"current_location_unknown_error_message" = "위치 검색 중 오류가 발생했습니다. 장치가 올바르게 작동되는지 확인하고 다시 시도하세요.";
+"location_services_disabled_header" = "위치 식별 사용할 수 없음";
+"location_services_disabled_message" = "장치 설정에서 위치 정보에 액세스할 수 있음";
+"location_services_disabled_1" = "1. 설정 열기";
+"location_services_disabled_2" = "2. 위치 누르기";
+
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
+"location_services_disabled_3" = "3. 앱 사용 중에 선택";
+"location_services_disabled_on_device_2" = "2. 2. 개인정보 보호 선택";
+"location_services_disabled_on_device_3" = "3. 3. 위치 서비스 선택";
+"location_services_disabled_on_device_4" = "4. 위치 서비스 켜기";
+"location_services_disabled_on_device_additional_message" = "또는 위치 없이 오가닉 맵을 계속 사용하세요.";
+"book_button" = "예약";
+"placepage_call_button" = "전화";
+"placepage_bookmark_name_hint" = "즐겨찾기 이름";
+"placepage_delete_bookmark_button" = "즐겨찾기 삭제";
+"editor_edits_sent_message" = "메모가 오픈스트리트맵으로 전송됩니다";
+"text_more_button" = "…기타";
+"refresh" = "최신 정보";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "최근 여행한 경로 녹음을 비활성화하시겠습니까?";
+"off_recent_track_background_button" = "비활성화";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "체크아웃";
+"recent_track_background_dialog_message" = "Organic Maps는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.";
+"general_settings" = "일반 설정";
+
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "교통 데이터를 표시하려면 응용 프로그램을 업데이트해야 합니다.";
+"log_file_size" = "로그 파일 크기: %@";
+"planning_route_remove_title" = "여기로 끌어와서 제거";
+"placepage_replace_stop" = "Replace Stop";
+"start_from_my_position" = "시작 위치:";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "모든 지도 편집 내용을 자동으로 업로드하려면 오픈스트리트맵에 로그인하세요. 자세히 알아보기";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "여기";
+"downloader_hide_screen" = "화면 숨기기";
+"downloader_percent" = "%@(%@ / %@)";
+"downloader_process" = "%@ 다운로드 중…";
+"downloader_applying" = "%@ 적용 중…";
+"bookmarks_error_title_list_name_too_long" = "이 이름이 너무 깁니다.";
+"bookmarks_detect_title" = "새 파일이 감지되었습니다.";
+"button_convert" = "변하게 하다";
+"bookmarks_convert_error_title" = "오류";
+"bookmarks_convert_error_message" = "일부 파일은 변환되지 않았습니다.";
+"title_error_downloading_bookmarks" = "오류가 발생했습니다.";
+"popular_place" = "Popular";
+"hide_from_map" = "지도에서 숨기기";
+"tags_loading_error_subtitle" = "태그를 불러오는 중 에러가 발생했습니다. 다시 시도해보세요";
+"download_button" = "다운로드";
+"right" = "Right";
+"bottom" = "Bottom";
+"trip_start" = "가자";
+"pick_destination" = "목적지";
+"follow_my_position" = "내 위치 조정하기";
+"search_results" = "검색 결과";
+"then_turn" = "그 다음";
+"redirect_route_alert" = "루트를 재구축하길 원하시나요?";
 "keyboard_availability_alert" = "운전 중에는 키보드를 사용할 수 없습니다";
 "dialog_routing_change_start_carplay" = "현재 위치에서 루트를 만들 수 없습니다";
 "dialog_routing_change_end_carplay" = "목적지 경로를 만들 수 없습니다. 다른 지점을 선택해주세요";
@@ -828,14 +845,10 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "루트가 차량에 맞춰 수정됩니다";
 "not_all_shown_bookmarks_carplay" = "모든 북마크가 표시되는 것은 아닙니다.";
 "switch_to_phone_bookmarks_carplay" = "모든 북마크를 보려면 휴대폰으로 전환하세요.";
-"ok" = "OK";
 "speedcams_alert_title_carplay_1" = "속도단속 카메라";
 "speedcams_alert_title_carplay_2" = "속도단속 카메라";
 "download_map_carplay" = "Organic Maps 앱 안의 지도들을 디바이스에 다운로드하세요";
 "carplay_roundabout_exit" = "%@번 출구";
-
-/* max. 10 symbols, both iOS and Android */
-"sort" = "분류…";
 
 /* iOS */
 "sort_default" = "기본 값으로 분류";
@@ -843,12 +856,10 @@
 "sort_distance" = "거리로 분류";
 "sort_date" = "날짜로 분류";
 "sort_name" = "이름별로 정렬";
-"week_ago_sorttype" = "일주일 전";
-"month_ago_sorttype" = "한달 전";
-"moremonth_ago_sorttype" = "한달 그 이상 전";
-"moreyear_ago_sorttype" = "1년 그 이상 전";
-"near_me_sorttype" = "나와 가까운 곳";
-"others_sorttype" = "기타";
+
+
+/********** Bookmark types used for sorting **********/
+
 "food_places" = "음식";
 "tourist_places" = "명소";
 "museums" = "박물관";
@@ -871,44 +882,12 @@
 "button_layer_isolines" = "지형";
 "isolines_activation_error_dialog" = "지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오";
 "isolines_location_error_dialog" = "이 지역의 지형 레이어는 아직 사용할 수 없습니다";
-"elevation_profile_diff_level" = "난이도";
-"elevation_profile_diff_level_easy" = "쉬움";
-"elevation_profile_diff_level_moderate" = "보통";
-"elevation_profile_diff_level_hard" = "어려움";
 "elevation_profile_ascent" = "올라가기";
 "elevation_profile_descent" = "내려가기";
 "elevation_profile_min_elevation" = "최소 높이";
 "elevation_profile_max_elevation" = "최대 높이";
 "isolines_toast_zooms_1_10" = "등치선 탐색을 위한 확대";
-"downloader_updating_ios" = "업데이트 중";
 "downloader_loading_ios" = "다운로드 중";
-
-/* Autoupdate dialog on start */
-"whats_new_auto_update_title" = "다운로드한 지도를 업데이트해야 합니다";
-
-/* Autoupdate dialog on start */
-"whats_new_auto_update_message" = "지도를 업데이트하면 개체에 대한 정보가 최신 상태로 유지됩니다.";
-
-/* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "업데이트(%@)";
-
-/* Autoupdate dialog on start */
-"whats_new_auto_update_button_later" = "나중에 수동으로 업데이트";
-
-/* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
-
-/* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "이 트랙을 삭제하시겠습니까?";
-
-/* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
-
-/* move track or bookmark from the list button text */
-"move" = "Move";
-
-/* edit track screen title */
-"track_title" = "길";
 
 /* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
@@ -969,16 +948,67 @@
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "모든 북마크 및 트랙 내보내기";
+"drive_through" = "드라이브 스루";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "메뉴 링크";
+
+/* Title for the "Open in Another App" button on the PlacePage. */
+"open_in_app" = "다른 앱에서 열기";
+
+/* To indicate if the place proposed self service... */
+"self_service" = "셀프 서비스";
+
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "야외 좌석";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "트랙 기록";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "트랙 기록 중지";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "경로가 비어 있음 - 저장할 항목이 없음";
+"edit_track" = "경로 편집";
+"elevation_profile_diff_level" = "난이도";
+"elevation_profile_diff_level_easy" = "쉬움";
+"elevation_profile_diff_level_moderate" = "보통";
+"elevation_profile_diff_level_hard" = "어려움";
+"downloader_updating_ios" = "업데이트 중";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "다운로드한 지도를 업데이트해야 합니다";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "지도를 업데이트하면 개체에 대한 정보가 최신 상태로 유지됩니다.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "업데이트(%@)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "나중에 수동으로 업데이트";
+
+/* Delete track button on track edit screen */
+"placepage_delete_track_button" = "Delete Track";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "이 트랙을 삭제하시겠습니까?";
+
+/* Placeholder for track name input on track edit screen */
+"placepage_track_name_hint" = "Track Name";
+
+/* move track or bookmark from the list button text */
+"move" = "Move";
+
+/* edit track screen title */
+"track_title" = "길";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "색상 변경";
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "지도";
-"drive_through" = "드라이브 스루";
-
-/* Restaurant or other food place's menu URL field in the Editor */
-"website_menu" = "메뉴 링크";
 
 /* Message for the bug report alert. */
 "bugreport_alert_message" = "개발자에게 버그 리포트를 보내시겠습니까?\n오가닉 맵은 오류 정보를 자동으로 수집하지 않으므로 사용자의 도움을 받아야 합니다. 오가닉 맵을 이용해 주셔서 미리 감사드립니다!";
@@ -1013,15 +1043,6 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "오류: iCloud를 사용할 수 없습니다.";
 
-/* Title for the "Open in Another App" button on the PlacePage. */
-"open_in_app" = "다른 앱에서 열기";
-
-/* To indicate if the place proposed self service... */
-"self_service" = "셀프 서비스";
-
-/* To indicate if restaurant or other place has outdoor seating */
-"outdoor_seating" = "야외 좌석";
-
 /* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
 "bookmarks_recently_deleted" = "최근 삭제한 목록";
 
@@ -1037,33 +1058,45 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "모두 복구";
 
-/* Prompt to start recording a track. */
-"start_track_recording" = "트랙 기록";
-
-/* Prompt for stopping a track recording. */
-"stop_track_recording" = "트랙 기록 중지";
-
-/* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "경로가 비어 있음 - 저장할 항목이 없음";
-"edit_track" = "경로 편집";
-"saved" = "Saved";
-"button_layer_hiking" = "Hiking";
-"button_layer_cycling" = "Cycling";
-
-/* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "지도에 북마크 이름 표시";
-"bookmarks_text_placement_description" = "북마크가 너무 많을 경우 지도에 북마크 이름을 표시하면 앱 속도가 느려질 수 있습니다.";
-"show_to_the_right" = "오른쪽에 표시";
-"right" = "Right";
-"show_at_the_bottom" = "하단에 표시";
-"bottom" = "Bottom";
-
-/* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
-
 /* OpenStreetMap contribution section on the PlacePage. */
 "contribute_to_osm" = "OpenStreetMap에 기여하기";
 "contribute_to_osm_add_place" = "장소 추가";
 "contribute_to_osm_update_map" = "기여하려면 지도를 업데이트하세요";
 "contribute_to_osm_update_map_description" = "OpenStreetMap 데이터에 기여하기 전에 %@ 지도를 최신 버전으로 업데이트해야 합니다";
-"placepage_replace_stop" = "Replace Stop";
+
+
+/********** Uncategorized **********/
+
+
+/* A text for current gps location point/arrow selected on the map */
+"core_my_position" = "나의 위치";
+
+/* Default bookmark list name */
+"core_my_places" = "내 장소";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi 인터넷";
+"postal_code" = "우편 번호";
+
+/* Place Page title for long tap */
+"core_placepage_unknown_place" = "지도 지점";
+
+/* abbreviation for meters */
+"m" = "m";
+
+/* abbreviation for kilometers */
+"km" = "km";
+
+/* abbreviation for mile(s) */
+"mi" = "mi";
+
+/* A unit of measure */
+"ft" = "풋";
+
+/* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
+"routes_update_maps_text" = "To display routes, maps must be updated.";
+
+/* Subway exits for public transport marks on the map */
+"core_exit" = "끝내기";
+"core_entrance" = "입구";
+"subway_data_unavailable" = "지하철 지도가 가용하지 않습니다.";

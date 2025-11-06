@@ -1,9 +1,10 @@
 
+
+/********** Strings **********/
+
+
 /* Button text (should be short) */
 "cancel" = "रद्द करा";
-
-/* Button which interrupts country download */
-"cancel_download" = "डाउनलोड रद्द करा";
 
 /* Button which deletes downloaded country */
 "delete" = "हटवा";
@@ -15,29 +16,17 @@
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "किलोमीटर";
 
-/* Leave Review dialog - Review button */
-"leave_a_review" = "अभिप्राय द्या";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "मैल";
-
-/* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "माझे स्थान";
 
 /* Update maps later button text */
 "later" = "नंतर";
 
-/* View and button titles for accessibility, please also edit it in iphone/plist.txt */
+/* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "शोधा";
-
-/* Settings/Downloader - 3G download warning dialog confirm button */
-"use_cellular_data" = "होय";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "नकाशावर दाखवा";
-
-/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
-"country_status_download_without_size" = "नकाशा डाउनलोड करा";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "डाउनलोड अयशस्वी";
@@ -65,17 +54,11 @@
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "खूणपत्र यादीचे नाव";
 
-/* "Bookmark Lists" dialog title */
-"bookmark_sets" = "खूणपत्र याद्या";
-
 /* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
 "bookmarks" = "खूणपत्रे";
 
-/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+/* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
 "bookmarks_and_tracks" = "खूणपत्रे आणि ट्रॅक";
-
-/* Default bookmark list name */
-"core_my_places" = "माझी ठिकाणे";
 
 /* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "पत्ता";
@@ -85,6 +68,25 @@
 
 /* Measurement units title in settings activity */
 "measurement_units" = "मापन एकके";
+
+/* Button which interrupts country download */
+"cancel_download" = "डाउनलोड रद्द करा";
+
+/* Leave Review dialog - Review button */
+"leave_a_review" = "अभिप्राय द्या";
+
+/* Settings/Downloader - 3G download warning dialog confirm button */
+"use_cellular_data" = "होय";
+
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "नकाशा डाउनलोड करा";
+
+/* "Bookmark Lists" dialog title */
+"bookmark_sets" = "खूणपत्र याद्या";
+
+
+/********** Search categories **********/
+
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "जेवायचे ठिकाण";
@@ -143,9 +145,6 @@
 /* Search category for police; any changes should be duplicated in categories.txt @category_police! */
 "category_police" = "पोलीस";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
-"category_wifi" = "वायफाय इंटरनेट";
-
 /* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
 "category_recycling" = "भंगारवाला";
 
@@ -154,6 +153,10 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "कँपिंग वाहन सोयी";
+
+
+/********** Other translations **********/
+
 "share_bookmarks_email_body" = "नमस्कार!\n\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz\n\nOrganic Maps सह प्रवासाचा आनंद घ्या!";
 
 /* message title of loading file */
@@ -183,14 +186,8 @@
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "क्लिपबोर्डावर कॉपी केले: %@";
 
-/* place preview title */
-"info" = "माहिती";
-
 /* Used for bookmark editing */
 "done" = "झाले";
-
-/* Prints version number in About dialog */
-"version" = "Organic Maps आवृत्ती: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "ट्रॅक";
@@ -200,15 +197,6 @@
 "share_my_location" = "माझे स्थान सामायिक करा";
 "prefs_group_route" = "मार्गनिर्देशन";
 "pref_zoom_title" = "झूम बटणे";
-
-/* Settings «Map» category: «Appearance» title */
-"pref_appearance_title" = "दर्शनी रूप";
-
-/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
-"pref_appearance_light" = "प्रकाश";
-
-/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
-"pref_appearance_dark" = "अंधार";
 
 /* Generic «Off» string */
 "off" = "बंद";
@@ -242,9 +230,6 @@
 
 /* Settings «Route» category: «Test Voice Directions» title */
 "pref_tts_test_voice_title" = "चाचणी आवाज दिशानिर्देश (TTS, टेक्स्ट-टू-स्पीच)";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "इतर";
 "pref_map_auto_zoom" = "स्वयं झूम";
 "placepage_distance" = "अंतर";
 "search_show_on_map" = "नकाशावर पहा";
@@ -278,9 +263,6 @@
 
 /* Button in the main menu */
 "donate" = "दान करा";
-
-/* Tex label above the Donate button */
-"donate_description" = "एकत्र सर्वोत्तम नकाशे तयार करण्यासाठी देणगी द्या!";
 "already_donated" = "आधीच दान केले";
 "remind_me_later" = "नंतर आठवण करून द्या";
 "support_organic_maps" = "Organic Maps ला समर्थन द्या";
@@ -288,26 +270,8 @@
 /* Button in the main Help dialog */
 "copyright" = "प्रकाशन अधिकार (कॉपीराईट)";
 
-/* Text in menu + Button in the main Help dialog */
+/* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
 "report_a_bug" = "त्रुटी कळवा";
-
-/* Button in the About screen */
-"report_incorrect_map_bug" = "चुकीच्या नकाशा डेटाचा अहवाल द्या किंवा त्याचे निराकरण करा";
-
-/* Button in the About screen */
-"volunteer" = "स्वयंसेवक करण्यासाठी";
-
-/* "Social media" section header in the About screen */
-"follow_us" = "अनुसरण करा आणि आमच्याशी संपर्क साधा:";
-
-/* Alert text */
-"email_error_body" = "ईमेल वाहक सेट केलेले नाही. कृपया ते सेट करा किंवा वेगळ्या पद्धतीने आमच्याशी %@ वर संपर्क करा";
-
-/* Alert title */
-"email_error_title" = "मेल पाठवताना त्रुटी";
-
-/* Settings item title */
-"pref_calibration_title" = "होकायंत्र अंशशोधन";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
 "long_tap_toast" = "इंटरफेस पाहण्यासाठी पुन्हा नकाशावर दीर्घ टॅप करा";
@@ -318,9 +282,6 @@
 /* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "डाउनलोड केले";
 
-/* Downloaded maps category */
-"downloader_available_maps" = "उपलब्ध";
-
 /* Country queued for download */
 "downloader_queued" = "रांगेत";
 "downloader_near_me_subtitle" = "माझ्या जवळ";
@@ -329,13 +290,6 @@
 "downloader_status_maps" = "नकाशे";
 "downloader_download_all_button" = "सर्व डाउनलोड";
 "downloader_downloading" = "डाउनलोड करत आहे:";
-"downloader_search_results" = "आढळले";
-
-/* Status of outdated country in the list */
-"downloader_status_outdated" = "अद्ययावत करा";
-
-/* Status of failed country in the list */
-"downloader_status_failed" = "अयशस्वी";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
 "downloader_delete_map_while_routing_dialog" = "नकाशा पुसून टाकण्यासाठी, मार्गनिर्देशन थांबवा.";
@@ -357,9 +311,6 @@
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "मार्ग तयार करण्यासाठी आम्हाला तुमच्या स्थानापासून तुमच्या गंतव्यस्थानापर्यंताचे सर्व नकाशे डाउनलोड करून अद्ययावत करावे लागतील.";
-
-/* bookmark button text */
-"bookmark" = "खूणपत्र";
 "save" = "साठवा";
 "create" = "तयार करा";
 
@@ -410,6 +361,62 @@
 
 /* blue gray color */
 "blue_gray" = "निळा राखाडी";
+
+/* place preview title */
+"info" = "माहिती";
+
+/* Prints version number in About dialog */
+"version" = "Organic Maps आवृत्ती: %@";
+
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "दर्शनी रूप";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "प्रकाश";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "अंधार";
+
+/* Title for "Other" section in TTS settings. */
+"pref_tts_other_section_title" = "इतर";
+
+/* Tex label above the Donate button */
+"donate_description" = "एकत्र सर्वोत्तम नकाशे तयार करण्यासाठी देणगी द्या!";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "चुकीच्या नकाशा डेटाचा अहवाल द्या किंवा त्याचे निराकरण करा";
+
+/* Button in the About screen */
+"volunteer" = "स्वयंसेवक करण्यासाठी";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "अनुसरण करा आणि आमच्याशी संपर्क साधा:";
+
+/* Alert text */
+"email_error_body" = "ईमेल वाहक सेट केलेले नाही. कृपया ते सेट करा किंवा वेगळ्या पद्धतीने आमच्याशी %@ वर संपर्क करा";
+
+/* Alert title */
+"email_error_title" = "मेल पाठवताना त्रुटी";
+
+/* Settings item title */
+"pref_calibration_title" = "होकायंत्र अंशशोधन";
+
+/* Downloaded maps category */
+"downloader_available_maps" = "उपलब्ध";
+"downloader_search_results" = "आढळले";
+
+/* Status of outdated country in the list */
+"downloader_status_outdated" = "अद्ययावत करा";
+
+/* Status of failed country in the list */
+"downloader_status_failed" = "अयशस्वी";
+
+/* bookmark button text */
+"bookmark" = "खूणपत्र";
+
+
+/********** Routing dialogs strings **********/
+
 "dialog_routing_disclaimer_title" = "प्रवास करताना, कृपात लक्षात ठेवा:";
 "dialog_routing_disclaimer_priority" = "— मार्गनिर्देशक संकेतांपेक्षा रस्त्याची परिस्थिती, वाहतुकीचे नियम व वाहतुकीचे चिन्ह ह्यांना जास्त प्राधान्य द्या;";
 "dialog_routing_disclaimer_precision" = "— नकाशा चुकीचा असू शकतो, आणि सुचवलेला मार्ग हा गंतव्यस्थानापर्यंत पोहोचण्यासाठी नेहमी सर्वोत्तम मार्ग असेलच असे नाही;";
@@ -421,8 +428,6 @@
 "dialog_routing_location_turn_wifi" = "कृपया तुमचा GPS सिग्नल तपासा. WiFi चालू केल्याने तुमच्या स्थानाची अचूकता सुधारेल.";
 "dialog_routing_location_turn_on" = "स्थान सेवा चालू करा";
 "dialog_routing_location_unknown_turn_on" = "वर्तमान GPS सहनिर्देशक शोधण्यात अक्षम. मार्गाची गणना करण्यासाठी स्थान सेवा चालू करा.";
-"dialog_routing_download_files" = "आवश्यक फाईली डाउनलोड करा";
-"dialog_routing_download_and_update_all" = "मार्ग शोधण्यासाठी प्रक्षेपित वाटेभोवतीचे सर्व नकाशे व मार्गनिर्देशक माहिती डाउनलोड करा.";
 "dialog_routing_unable_locate_route" = "मार्ग शोधण्यात अक्षम";
 "dialog_routing_change_start_or_end" = "कृपया तुमचा प्रारंभस्थान किंवा गंतव्यस्थानाचा बिंदू समायोजित करा.";
 "dialog_routing_change_start" = "प्रारंभ बिंदू समायोजित करा";
@@ -438,21 +443,18 @@
 "dialog_routing_try_again" = "कृपया पुर्नरप्रयत्न करा";
 "dialog_routing_download_and_build_cross_route" = "एकापेक्षा जास्त नकाशात पसरलेला अधिक चांगला मार्ग तयार करण्यासाठी, नकाशा डाउनलोड केलेला चालेल का?";
 "dialog_routing_download_cross_route" = "या नकाशाच्या सीमा ओलांडणारा एक चांगला मार्ग तयार करण्यासाठी अधिक नकाशे डाउनलोड करा.";
+"dialog_routing_download_files" = "आवश्यक फाईली डाउनलोड करा";
+"dialog_routing_download_and_update_all" = "मार्ग शोधण्यासाठी प्रक्षेपित वाटेभोवतीचे सर्व नकाशे व मार्गनिर्देशक माहिती डाउनलोड करा.";
+
+
+/********** Strings for downloading map from search **********/
+
 
 /* «Show» context menu */
 "show" = "दाखवा";
 
 /* «Hide» context menu */
 "hide" = "लपवा";
-
-/* Failed planning route message in navigation view */
-"routing_planning_error" = "मार्ग नियोजन अयशस्वी";
-
-/* Arrive routing message in navigation view */
-"routing_arrive" = "%@ वाजता आगमन";
-
-/* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "मार्गाची गणना करण्यासाठी प्रक्षेपित वाटेवरील सर्व नकाशा डाउनलोड आणि अद्ययावत करा.";
 "categories" = "प्रवर्ग";
 "history" = "इतिहास";
 "search_not_found" = "अरेच्चा, काहीच सापडले नाही.";
@@ -465,6 +467,9 @@
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "विकिपीडिया";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
 "p2p_your_location" = "तुमचे स्थान";
 "p2p_start" = "सुरू करा";
 "p2p_from_here" = "पासून मार्ग";
@@ -485,13 +490,8 @@
 "editor_hours_closed" = "गैर-व्यवसाय वेळ";
 "editor_example_values" = "उदाहरण मूल्ये";
 "editor_add_select_location" = "स्थान निवडा";
-"editor_done_dialog_1" = "तुम्ही जगाचा नकाशा बदलला आहे. हे स्वतःपुरते ठेऊ नका! मित्रांना पण सांगा आणि एकत्र संपादित करा.";
-"share_with_friends" = "मित्रांना वाटा";
 "editor_report_problem_send_button" = "पाठवा";
 "autodownload" = "स्वयं डाउनलोड";
-
-/* Place Page opening hours text */
-"closed_now" = "आता बंद";
 
 /* Place Page opening hours text */
 "daily" = "दैनिक";
@@ -499,29 +499,16 @@
 "day_off_today" = "आज बंद";
 "day_off" = "बंद";
 "today" = "आज";
-"opens_tomorrow_at" = "उद्या %@ ला उघडेल";
-"opens_dayoftheweek_at" = "%1$@ ला %2$@ वाजता उघडेल";
-"opens_at" = "%@ ला उघडेल";
 "opens_in" = "आणखी %@ मध्ये उघडेल";
-"closes_at" = "%@ ला बंद होईल";
 "closes_in" = "आणखी %@ मध्ये बंद होईल";
 "closed" = "बंद";
-"add_opening_hours" = "उघडण्याची वेळ जोड";
 "no_osm_account" = "OpenStreetMap खाते नाही?";
 "register_at_openstreetmap" = "OpenStreetMap वर नोंदणी करा";
-"password_8_chars_min" = "पासवर्ड (किमान ८ अक्षरे)";
-"invalid_username_or_password" = "अवैध वापरकर्तानाव किंवा पासवर्ड.";
 "login" = "लॉग इन";
 "login_osm" = "OpenStreetMap मध्ये लॉगिन करा";
 "forgot_password" = "पासवर्ड विसरलात?";
-"osm_account" = "OSM खाते";
 "logout" = "लॉग आऊट";
-
-/* Information text: "Last upload 11.01.2016" */
-"last_upload" = "शेवटचे अपलोड";
-"thank_you" = "आभारी";
 "edit_place" = "ठिकाण संपादित करा";
-"place_name" = "ठिकाणाचे नाव";
 "add_language" = "भाषा जोडा";
 
 /* Editable House Number text field (in address block). */
@@ -532,27 +519,20 @@
 "add_street" = "रस्ता जोडा";
 "choose_language" = "भाषा निवडा";
 "choose_street" = "रस्ता निवडा";
-"postal_code" = "पिनकोड";
 "cuisine" = "पाककृती";
 "select_cuisine" = "पाककृती निवडा";
 
 /* login text field */
 "email_or_username" = "ईमेल किंवा वापरकर्तानाव";
-"phone" = "फोन";
 "level" = "मजला";
-"please_note" = "कृपया नोंद घ्या";
 "downloader_delete_map_dialog" = "तुमचे सर्व नकाशा संपादने नकाशासह पुसले जातील.";
 "downloader_update_maps" = "नकाशे अद्ययावत करा";
 "downloader_search_field_hint" = "नकाशा शोधा";
-"migration_download_error_dialog" = "डाउनलोड त्रुटी";
 "common_check_internet_connection_dialog" = "कृपया तुमचे सेटिंग तपासा आणि तुमचे उपकरण इंटरनेटशी जोडले असल्याची खात्री करा.";
 "downloader_no_space_title" = "पुरेशी जागा नाही";
 "downloader_no_space_message" = "कृपया अनावश्यक डेटा पुसून टाका";
 "editor_profile_changes" = "सत्यापित बदल";
 "editor_focus_map_on_location" = "ठिकाण किंवा व्यवसायाच्या ठिकाणी क्रॉस ठेवण्यासाठी नकाशा ड्रॅग करा.";
-"editor_add_select_category" = "प्रवर्ग निवडा";
-"editor_add_select_category_popular_subtitle" = "लोकप्रिय";
-"editor_add_select_category_all_subtitle" = "सर्व प्रवर्ग";
 "editor_edit_place_title" = "संपादन";
 "editor_add_place_title" = "जोडणे";
 "editor_edit_place_name_hint" = "ठिकाणाचे नाव";
@@ -560,17 +540,11 @@
 /* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
 "editor_default_language_hint" = "स्थानिक भाषेत लिहिल्याप्रमाणे";
 "editor_edit_place_category_title" = "प्रवर्ग";
-"whatsnew_editor_message_1" = "नकाशावर नवीन ठिकाणे जोडा आणि विद्यमान ठिकाणे थेट ऍप मधून संपादित करा.";
-"dialog_incorrect_feature_position" = "स्थान बदला";
 "message_invalid_feature_position" = "इथे कोणतीही वस्तू ठेवू शकत नाही";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "समुदाय-निर्मित OpenStreetMap डेटा %@ नुसार. OpenStreetMap.org वर नकाशा संपादित आणि अपडेट कसा करायचा याबद्दल अधिक जाणून घ्या";
 "login_to_make_edits_visible" = "एक OpenStreetMap खाते तयार करा किंवा तुमची नकाशा संपादने जगासमोर प्रकाशित करण्यासाठी लॉग इन करा.";
-
-/* Error dialog no space */
-"migration_no_space_message" = "डाउनलोड करण्यासाठी तुम्हाला अधिक जागा आवश्यक आहे. कृपया अनावश्यक डेटा पुसून टाका.";
-"editor_sharing_title" = "मी Organic Maps नकाशे सुधारित केले";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%2$d पैकी %1$d";
@@ -584,13 +558,8 @@
 "editor_zip_code" = "पिनकोड";
 "error_enter_correct_zip_code" = "वैध पिनकोड प्रविष्ट करा";
 
-/* Place Page title for long tap */
-"core_placepage_unknown_place" = "नकाशा बिंदू";
-
 /* Title for OSM note section in the editor */
 "editor_other_info" = "OpenStreetMap स्वयंसेवकांसाठी टीप (पर्यायी)";
-"editor_detailed_description_hint" = "तपशीलवार टिप्पणी";
-"editor_detailed_description" = "तुम्ही सुचवलेले नकाशातील बदल OpenStreetMap समुदायाला पाठवले जातील. Organic Maps मध्ये संपादित न करता येणाऱ्या अधिक तपशीलांचे वर्णन करा.";
 "editor_more_about_osm" = "OpenStreetMap बद्दल अधिक";
 "editor_operator" = "ऑपरेटर";
 
@@ -601,58 +570,29 @@
 "downloader_no_downloaded_maps_title" = "तुम्ही कोणतेही नकाशे डाउनलोड केलेले नाहीत";
 "downloader_no_downloaded_maps_message" = "स्थान शोधण्यासाठी नकाशे डाउनलोड करा आणि ऑफलाइन मार्गनिर्देशन वापरा.";
 "current_location_unknown_error_title" = "वर्तमान स्थान अज्ञात आहे.";
-"current_location_unknown_error_message" = "तुमचे स्थान शोधत असताना एक त्रुटी आढळली. तुमचे उपकरण योग्यरितीने काम करत असल्याचे तपासा आणि नंतर पुन्हा प्रयत्न करा.";
-"location_services_disabled_header" = "स्थान सेवा बंद आहे";
-"location_services_disabled_message" = "उपकरणाच्या सेटिंगमध्ये भूस्थानाची उपलब्धता चालू करा";
-"location_services_disabled_1" = "१. सेटिंग उघडा";
-"location_services_disabled_2" = "२. स्थान टॅप करा";
-
-/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
-"location_services_disabled_3" = "३. \"ऍप वापरत असताना\" निवडा";
-"location_services_disabled_on_device_2" = "2. गोपनीयता निवडा";
-"location_services_disabled_on_device_3" = "3. स्थान सेवा निवडा";
-"location_services_disabled_on_device_4" = "4. स्थान सेवा चालू करा";
-"location_services_disabled_on_device_additional_message" = "किंवा स्थानाशिवाय ऑरगॅनिक नकाशे वापरणे सुरू ठेवा";
-
-/* abbreviation for meters */
-"m" = "m";
-
-/* abbreviation for kilometers */
-"km" = "किमी";
 
 /* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/h";
-
-/* abbreviation for mile(s) */
-"mi" = "mi";
-
-/* A unit of measure */
-"ft" = "फूट";
 "miles_per_hour" = "mph";
 "hour" = "तास";
 "minute" = "मिनिट";
 "day" = "दि";
 "placepage_more_button" = "अधिक";
-"book_button" = "पुस्तक";
-"placepage_call_button" = "फोन करा";
+
+/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
 "placepage_edit_bookmark_button" = "खूणपत्र संपादित करा";
-"placepage_bookmark_name_hint" = "खूणपत्राचे नाव";
 "placepage_personal_notes_hint" = "वैयक्तिक चिठ्ठ्या (मजकूर किंवा html)";
-"placepage_delete_bookmark_button" = "खूणपत्र पुसा";
-"editor_edits_sent_message" = "तुमची टीप OpenStreetMap वर पाठवली जाईल";
 "editor_comment_hint" = "टिप्पणी…";
 "editor_reset_edits_message" = "सर्व स्थानिक बदल टाकून द्यायचे?";
 "editor_reset_edits_button" = "टाकून द्या";
 "editor_remove_place_message" = "जोडलेले ठिकाण पुसून टाकायचे?";
 "editor_remove_place_button" = "पुसा";
 "editor_place_doesnt_exist" = "ठिकाण अस्तित्वात नाही";
-"text_more_button" = "…अधिक";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "वैध संपर्क क्रमांक प्रविष्ट करा";
 "error_enter_correct_web" = "वैध वेब पत्ता प्रविष्ट करा";
 "error_enter_correct_email" = "वैध ईमेल प्रविष्ट करा";
-"refresh" = "अद्ययावत करा";
 "placepage_add_place_button" = "OpenStreetMap मध्ये ठिकाण जोडा";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -662,15 +602,6 @@
 "editor_share_to_all_dialog_message_1" = "आपण कोणतीही वैयक्तिक माहिती प्रविष्ट केला नाही याची खात्री करा.";
 "editor_share_to_all_dialog_message_2" = "OpenStreetMap संपादक बदल तपासतील व काही प्रश्न असल्यास तुमच्याशी संपर्क साधतील.";
 "navigation_stop_button" = "थांबा";
-
-/* iOS dialog for the case when recent track recording is on and the app comes back from background */
-"recent_track_background_dialog_title" = "तुम्ही अलीकडे प्रवास केलेल्या मार्गाचे रेकॉर्डिंग बंद करायचे?";
-"off_recent_track_background_button" = "बंद करा";
-
-/* For sharing via SMS and so on */
-"sharing_call_action_look" = "तपासा";
-"recent_track_background_dialog_message" = "तुम्ही अलीकडे प्रवास केलेला मार्ग रेकॉर्ड करण्यासाठी Organic Maps पार्श्वभूमीत तुमचे स्थान वापरते.";
-"general_settings" = "सामान्य सेटिंग";
 
 /* For the first routing */
 "accept" = "स्वीकारा";
@@ -690,31 +621,15 @@
 "traffic_update_maps_text" = "वाहतूक माहिती दाखवण्यासाठी नकाशे अद्ययावत करणे आवश्यक आहे.";
 "big_font" = "नकाशावर अक्षरांचा आकार वाढवा";
 
-/* "traffic" as in road congestion */
-"traffic_update_app_message" = "वाहतूक माहिती दाखवण्यासाठी ऍप अद्ययावत करणे आवश्यक आहे.";
-
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "वाहतूक माहिती उपलब्ध नाही";
 "enable_logging" = "लॉग चालू करा";
-"log_file_size" = "लॉग फाइल आकारमान: %@";
 "transliteration_title" = "रोमन लिपीत लिप्यंतरण";
-
-/* Subway exits for public transport marks on the map */
-"core_exit" = "बाहेर पडा";
-
 "planning_route_manage_route" = "मार्ग व्यवस्थापन";
 "button_plan" = "नियोजन";
 "placepage_remove_stop" = "थांबा काढा";
-"planning_route_remove_title" = "काढण्यासाठी इथे सरकवा";
 "placepage_add_stop" = "स्टॉप जोडा";
-"start_from_my_position" = "पासून प्रारंभ";
-
-/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
-"alert_reauth_message_ios" = "तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा. अधिक जाणून घ्या";
-
-/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
-"alert_reauth_link_text_ios" = "येथे";
-"core_entrance" = "प्रवेशद्वार";
+"saved" = "Saved";
 "error_enter_correct_name" = "कृपया योग्य नाव प्रविष्ट करा";
 "bookmark_lists" = "याद्या";
 
@@ -725,35 +640,26 @@
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
 "bookmarks_import" = "बुकमार्क आणि ट्रॅक आयात करा";
-"downloader_hide_screen" = "पटल (स्क्रीन) लपवा";
-"downloader_percent" = "%@ (%@ पैकी %@)";
-"downloader_process" = "%@ डाउनलोड करत आहे…";
-"downloader_applying" = "%@ लागू करत आहे…";
 "bookmarks_error_message_share_general" = "ऍप त्रुटीमुळे सामायिक करण्यात अक्षम";
 "bookmarks_error_title_share_empty" = "सामायिकरण त्रुटी";
 "bookmarks_error_message_share_empty" = "रिकामी यादी सामायिक करू शकत नाही";
 "bookmarks_error_message_empty_list_name" = "कृपया यादीचे नाव प्रविष्ट करा";
 "bookmarks_error_title_list_name_already_taken" = "हे नाव आधीच वापरात आहे";
-"bookmarks_error_title_list_name_too_long" = "हे नाव अति लांब आहे";
 "profile" = "OpenStreetMap प्रोफाइल";
-"bookmarks_detect_title" = "नवीन फाइल आढळल्या";
-"button_convert" = "रूपांतरित करा";
-"bookmarks_convert_error_title" = "त्रुटी";
-"bookmarks_convert_error_message" = "काही फायली रूपांतरित झाल्या नाहीत.";
 "restore" = "पूर्ववत् करा";
 "privacy_policy" = "गोपनीयता धोरण";
 "terms_of_use" = "वापरण्याच्या अटी";
+
+/* Hiking routes layer name in the Styles and Layers dialog */
+"button_layer_hiking" = "Hiking";
+
+/* Cycling routes layer name in the Styles and Layers dialog */
+"button_layer_cycling" = "Cycling";
 "button_layer_subway" = "मेट्रो/भुयारी मार्ग";
 "layers_title" = "नकाशा शैली आणि स्तर";
-"subway_data_unavailable" = "मेट्रो नकाशा अनुपलब्ध आहे";
-"title_error_downloading_bookmarks" = "त्रुटी आढळली";
-"popular_place" = "लोकप्रिय";
 "export_file" = "KMZ निर्यात करा";
 "export_file_gpx" = "GPX निर्यात करा";
 "delete_list" = "यादी मिटवा";
-"hide_from_map" = "नकाशावरून लपवा";
-"tags_loading_error_subtitle" = "टॅग लोड करताना त्रुटी आढळली, कृपया पुन्हा प्रयत्न करा";
-"download_button" = "डाउनलोड करा";
 "speedcams_alert_title" = "वेग कॅमेरे";
 "place_description_title" = "ठिकाणाचे वर्णन";
 
@@ -770,6 +676,12 @@
 "power_managment_setting_never" = "कधीच नाही";
 "power_managment_setting_auto" = "स्वयंचलित";
 "power_managment_setting_manual_max" = "कमाल वीज बचत";
+
+/* Settings/Bookmark Text Placement */
+"bookmarks_text_placement_title" = "Bookmark names on the map";
+"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
+"show_to_the_right" = "Show to the right";
+"show_at_the_bottom" = "Show at the bottom";
 "enable_logging_warning_message" = "निदान करण्याकरिता हा पर्याय लॉगिंग चालू करतो. ह्याने ऍपच्या समस्यांचे निवारण करणे आम्हाला उपयुक्त ठरू शकते. तुमच्या समस्येबद्दल तपशीलवार नोंदी रेकॉर्ड करण्यासाठी आणि आम्हाला पाठवण्यासाठी हा पर्याय तात्पुरता चालू करा.";
 "driving_options_title" = "मार्गशोधी पर्याय";
 
@@ -789,12 +701,6 @@
 "toll_road" = "टोल मार्ग";
 "unpaved_road" = "कच्चे मार्ग";
 "ferry_crossing" = "जल मार्ग";
-"trip_start" = "चल जाऊया";
-"pick_destination" = "गंतव्यस्थाना";
-"follow_my_position" = "पुनरकेंद्रित करा";
-"search_results" = "शोध परिणाम";
-"then_turn" = "मग";
-"redirect_route_alert" = "तुम्हाला मार्ग पुन्हा तयार करायचा आहे का?";
 
 /* A generic "Yes" button in dialogs */
 "yes" = "होय";
@@ -814,6 +720,120 @@
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "नेटवर्क: %@";
 "trip_finished" = "तुम्ही पोचलात!";
+"ok" = "ठीक आहे";
+
+/* max. 10 symbols, both iOS and Android */
+"sort" = "क्रमाने लावा…";
+"week_ago_sorttype" = "गेल्या आठवड्यात";
+"month_ago_sorttype" = "गेल्या महिन्यात";
+"moremonth_ago_sorttype" = "एक महिन्यापूर्वी";
+"moreyear_ago_sorttype" = "एक वर्षांपूर्वी";
+"near_me_sorttype" = "माझ्या जवळ";
+"others_sorttype" = "इतर";
+
+/* Failed planning route message in navigation view */
+"routing_planning_error" = "मार्ग नियोजन अयशस्वी";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "%@ वाजता आगमन";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "मार्गाची गणना करण्यासाठी प्रक्षेपित वाटेवरील सर्व नकाशा डाउनलोड आणि अद्ययावत करा.";
+"editor_done_dialog_1" = "तुम्ही जगाचा नकाशा बदलला आहे. हे स्वतःपुरते ठेऊ नका! मित्रांना पण सांगा आणि एकत्र संपादित करा.";
+"share_with_friends" = "मित्रांना वाटा";
+
+/* Place Page opening hours text */
+"closed_now" = "आता बंद";
+"opens_tomorrow_at" = "उद्या %@ ला उघडेल";
+"opens_dayoftheweek_at" = "%1$@ ला %2$@ वाजता उघडेल";
+"opens_at" = "%@ ला उघडेल";
+"closes_at" = "%@ ला बंद होईल";
+"add_opening_hours" = "उघडण्याची वेळ जोड";
+"password_8_chars_min" = "पासवर्ड (किमान ८ अक्षरे)";
+"invalid_username_or_password" = "अवैध वापरकर्तानाव किंवा पासवर्ड.";
+"osm_account" = "OSM खाते";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "शेवटचे अपलोड";
+"thank_you" = "आभारी";
+"place_name" = "ठिकाणाचे नाव";
+"phone" = "फोन";
+"please_note" = "कृपया नोंद घ्या";
+"migration_download_error_dialog" = "डाउनलोड त्रुटी";
+"editor_add_select_category" = "प्रवर्ग निवडा";
+"editor_add_select_category_popular_subtitle" = "लोकप्रिय";
+"editor_add_select_category_all_subtitle" = "सर्व प्रवर्ग";
+"whatsnew_editor_message_1" = "नकाशावर नवीन ठिकाणे जोडा आणि विद्यमान ठिकाणे थेट ऍप मधून संपादित करा.";
+"dialog_incorrect_feature_position" = "स्थान बदला";
+
+/* Error dialog no space */
+"migration_no_space_message" = "डाउनलोड करण्यासाठी तुम्हाला अधिक जागा आवश्यक आहे. कृपया अनावश्यक डेटा पुसून टाका.";
+"editor_sharing_title" = "मी Organic Maps नकाशे सुधारित केले";
+"editor_detailed_description_hint" = "तपशीलवार टिप्पणी";
+"editor_detailed_description" = "तुम्ही सुचवलेले नकाशातील बदल OpenStreetMap समुदायाला पाठवले जातील. Organic Maps मध्ये संपादित न करता येणाऱ्या अधिक तपशीलांचे वर्णन करा.";
+"current_location_unknown_error_message" = "तुमचे स्थान शोधत असताना एक त्रुटी आढळली. तुमचे उपकरण योग्यरितीने काम करत असल्याचे तपासा आणि नंतर पुन्हा प्रयत्न करा.";
+"location_services_disabled_header" = "स्थान सेवा बंद आहे";
+"location_services_disabled_message" = "उपकरणाच्या सेटिंगमध्ये भूस्थानाची उपलब्धता चालू करा";
+"location_services_disabled_1" = "१. सेटिंग उघडा";
+"location_services_disabled_2" = "२. स्थान टॅप करा";
+
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
+"location_services_disabled_3" = "३. \"ऍप वापरत असताना\" निवडा";
+"location_services_disabled_on_device_2" = "2. गोपनीयता निवडा";
+"location_services_disabled_on_device_3" = "3. स्थान सेवा निवडा";
+"location_services_disabled_on_device_4" = "4. स्थान सेवा चालू करा";
+"location_services_disabled_on_device_additional_message" = "किंवा स्थानाशिवाय ऑरगॅनिक नकाशे वापरणे सुरू ठेवा";
+"book_button" = "पुस्तक";
+"placepage_call_button" = "फोन करा";
+"placepage_bookmark_name_hint" = "खूणपत्राचे नाव";
+"placepage_delete_bookmark_button" = "खूणपत्र पुसा";
+"editor_edits_sent_message" = "तुमची टीप OpenStreetMap वर पाठवली जाईल";
+"text_more_button" = "…अधिक";
+"refresh" = "अद्ययावत करा";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "तुम्ही अलीकडे प्रवास केलेल्या मार्गाचे रेकॉर्डिंग बंद करायचे?";
+"off_recent_track_background_button" = "बंद करा";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "तपासा";
+"recent_track_background_dialog_message" = "तुम्ही अलीकडे प्रवास केलेला मार्ग रेकॉर्ड करण्यासाठी Organic Maps पार्श्वभूमीत तुमचे स्थान वापरते.";
+"general_settings" = "सामान्य सेटिंग";
+
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "वाहतूक माहिती दाखवण्यासाठी ऍप अद्ययावत करणे आवश्यक आहे.";
+"log_file_size" = "लॉग फाइल आकारमान: %@";
+"planning_route_remove_title" = "काढण्यासाठी इथे सरकवा";
+"placepage_replace_stop" = "Replace Stop";
+"start_from_my_position" = "पासून प्रारंभ";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा. अधिक जाणून घ्या";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "येथे";
+"downloader_hide_screen" = "पटल (स्क्रीन) लपवा";
+"downloader_percent" = "%@ (%@ पैकी %@)";
+"downloader_process" = "%@ डाउनलोड करत आहे…";
+"downloader_applying" = "%@ लागू करत आहे…";
+"bookmarks_error_title_list_name_too_long" = "हे नाव अति लांब आहे";
+"bookmarks_detect_title" = "नवीन फाइल आढळल्या";
+"button_convert" = "रूपांतरित करा";
+"bookmarks_convert_error_title" = "त्रुटी";
+"bookmarks_convert_error_message" = "काही फायली रूपांतरित झाल्या नाहीत.";
+"title_error_downloading_bookmarks" = "त्रुटी आढळली";
+"popular_place" = "लोकप्रिय";
+"hide_from_map" = "नकाशावरून लपवा";
+"tags_loading_error_subtitle" = "टॅग लोड करताना त्रुटी आढळली, कृपया पुन्हा प्रयत्न करा";
+"download_button" = "डाउनलोड करा";
+"right" = "Right";
+"bottom" = "Bottom";
+"trip_start" = "चल जाऊया";
+"pick_destination" = "गंतव्यस्थाना";
+"follow_my_position" = "पुनरकेंद्रित करा";
+"search_results" = "शोध परिणाम";
+"then_turn" = "मग";
+"redirect_route_alert" = "तुम्हाला मार्ग पुन्हा तयार करायचा आहे का?";
 "keyboard_availability_alert" = "गाडी चालवताना कीबोर्ड उपलब्ध नसतो";
 "dialog_routing_change_start_carplay" = "तुमच्या वर्तमान स्थानावरून मार्ग तयार करण्यात अक्षम";
 "dialog_routing_change_end_carplay" = "तुमच्या गंतव्यस्थानापर्यंत मार्ग तयार करण्यात अक्षम. कृपया दुसरे ठिकाण निवडा";
@@ -825,14 +845,10 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "मार्गाचे रुपांतर वाहनासाठी केले जाईल";
 "not_all_shown_bookmarks_carplay" = "सर्व बुकमार्क दर्शविले जात नाहीत";
 "switch_to_phone_bookmarks_carplay" = "सर्व बुकमार्क पाहण्यासाठी फोनवर स्विच करा";
-"ok" = "ठीक आहे";
 "speedcams_alert_title_carplay_1" = "वेगकॅमेरा";
 "speedcams_alert_title_carplay_2" = "गती चेतावणी";
 "download_map_carplay" = "कृपया तुमच्या उपकरणावर Organic Maps ऍप मध्ये नकाशे डाउनलोड करा";
 "carplay_roundabout_exit" = "%@ बाहेर पडा";
-
-/* max. 10 symbols, both iOS and Android */
-"sort" = "क्रमाने लावा…";
 
 /* iOS */
 "sort_default" = "डिफॉल्ट क्रमाने लावा";
@@ -840,12 +856,10 @@
 "sort_distance" = "अंतरानुसार क्रमाने लावा";
 "sort_date" = "दिनांकानुसार क्रमाने लावा";
 "sort_name" = "नावानुसार क्रमवारी लावा";
-"week_ago_sorttype" = "गेल्या आठवड्यात";
-"month_ago_sorttype" = "गेल्या महिन्यात";
-"moremonth_ago_sorttype" = "एक महिन्यापूर्वी";
-"moreyear_ago_sorttype" = "एक वर्षांपूर्वी";
-"near_me_sorttype" = "माझ्या जवळ";
-"others_sorttype" = "इतर";
+
+
+/********** Bookmark types used for sorting **********/
+
 "food_places" = "अन्न";
 "tourist_places" = "पर्यटन स्थळ";
 "museums" = "संग्रहालय";
@@ -868,44 +882,12 @@
 "button_layer_isolines" = "भूप्रदेश";
 "isolines_activation_error_dialog" = "भूस्वरूप स्तर वापरण्यासाठी कृपया नकाशा डाउनलोड किंवा अद्ययावत करा";
 "isolines_location_error_dialog" = "या भागात भूस्वरूप स्तर अद्याप उपलब्ध नाही";
-"elevation_profile_diff_level" = "काठिण्य पातळी";
-"elevation_profile_diff_level_easy" = "सोपे";
-"elevation_profile_diff_level_moderate" = "मध्यम";
-"elevation_profile_diff_level_hard" = "कठिण";
 "elevation_profile_ascent" = "चढण";
 "elevation_profile_descent" = "उतरण";
 "elevation_profile_min_elevation" = "किमान उंची";
 "elevation_profile_max_elevation" = "कमाल उंची";
 "isolines_toast_zooms_1_10" = "समोच्च रेषा पाहायला नकाशा विशाल (झूम) करा";
-"downloader_updating_ios" = "अद्ययावत करत आहे";
 "downloader_loading_ios" = "डाउनलोड करत आहे";
-
-/* Autoupdate dialog on start */
-"whats_new_auto_update_title" = "तुमचे डाउनलोड केलेले नकाशे अद्ययावत करा";
-
-/* Autoupdate dialog on start */
-"whats_new_auto_update_message" = "नकाशे अद्ययावत केल्याने वस्तूंची माहिती अद्यतनित राहते";
-
-/* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "अद्ययावत करा (%@)";
-
-/* Autoupdate dialog on start */
-"whats_new_auto_update_button_later" = "नंतर स्वतः अद्ययावत करा";
-
-/* Delete track button on track edit screen */
-"placepage_delete_track_button" = "ट्रॅक पुसून टाका";
-
-/* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "तुमची खात्री आहे की तुम्ही हा ट्रॅक हटवू इच्छिता?";
-
-/* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "ट्रॅकचे नाव";
-
-/* move track or bookmark from the list button text */
-"move" = "हलवा";
-
-/* edit track screen title */
-"track_title" = "ट्रॅक";
 
 /* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
@@ -966,16 +948,67 @@
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "सर्व बुकमार्क आणि ट्रॅक निर्यात करा";
+"drive_through" = "मार्गे चला";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "मेनू लिंक";
+
+/* Title for the "Open in Another App" button on the PlacePage. */
+"open_in_app" = "दुसऱ्या ॲपमध्ये उघडा";
+
+/* To indicate if the place proposed self service... */
+"self_service" = "स्व: सेवा";
+
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "बाहेरची आसनव्यवस्था";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "ट्रॅक रेकॉर्ड करा";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "ट्रॅक रेकॉर्डिंग थांबवा";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "मार्ग रिकामा आहे - साठवण्यासाठी काहीही नाही";
+"edit_track" = "मार्ग संपादित करा";
+"elevation_profile_diff_level" = "काठिण्य पातळी";
+"elevation_profile_diff_level_easy" = "सोपे";
+"elevation_profile_diff_level_moderate" = "मध्यम";
+"elevation_profile_diff_level_hard" = "कठिण";
+"downloader_updating_ios" = "अद्ययावत करत आहे";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "तुमचे डाउनलोड केलेले नकाशे अद्ययावत करा";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "नकाशे अद्ययावत केल्याने वस्तूंची माहिती अद्यतनित राहते";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "अद्ययावत करा (%@)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "नंतर स्वतः अद्ययावत करा";
+
+/* Delete track button on track edit screen */
+"placepage_delete_track_button" = "ट्रॅक पुसून टाका";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "तुमची खात्री आहे की तुम्ही हा ट्रॅक हटवू इच्छिता?";
+
+/* Placeholder for track name input on track edit screen */
+"placepage_track_name_hint" = "ट्रॅकचे नाव";
+
+/* move track or bookmark from the list button text */
+"move" = "हलवा";
+
+/* edit track screen title */
+"track_title" = "ट्रॅक";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "रंग बदला";
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "नकाशा";
-"drive_through" = "मार्गे चला";
-
-/* Restaurant or other food place's menu URL field in the Editor */
-"website_menu" = "मेनू लिंक";
 
 /* Message for the bug report alert. */
 "bugreport_alert_message" = "तुम्ही विकासकांना बग अहवाल पाठवू इच्छिता?\nआम्ही आमच्या वापरकर्त्यांवर अवलंबून आहोत कारण सेंद्रिय नकाशे कोणतीही त्रुटी माहिती स्वयंचलितपणे संकलित करत नाही. ऑरगॅनिक नकाशेला समर्थन दिल्याबद्दल आगाऊ धन्यवाद!";
@@ -1010,15 +1043,6 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "त्रुटी: iCloud उपलब्ध नाही";
 
-/* Title for the "Open in Another App" button on the PlacePage. */
-"open_in_app" = "दुसऱ्या ॲपमध्ये उघडा";
-
-/* To indicate if the place proposed self service... */
-"self_service" = "स्व: सेवा";
-
-/* To indicate if restaurant or other place has outdoor seating */
-"outdoor_seating" = "बाहेरची आसनव्यवस्था";
-
 /* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
 "bookmarks_recently_deleted" = "अलीकडे हटवलेल्या याद्या";
 
@@ -1034,34 +1058,45 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "सर्व पुनर्प्राप्त करा";
 
-/* Prompt to start recording a track. */
-"start_track_recording" = "ट्रॅक रेकॉर्ड करा";
-
-/* Prompt for stopping a track recording. */
-"stop_track_recording" = "ट्रॅक रेकॉर्डिंग थांबवा";
-
-/* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "मार्ग रिकामा आहे - साठवण्यासाठी काहीही नाही";
-"edit_track" = "मार्ग संपादित करा";
-"wikimedia_commons" = "Wikimedia Commons";
-"saved" = "Saved";
-"button_layer_hiking" = "Hiking";
-"button_layer_cycling" = "Cycling";
-
-/* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"right" = "Right";
-"show_at_the_bottom" = "Show at the bottom";
-"bottom" = "Bottom";
-
-/* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
-
 /* OpenStreetMap contribution section on the PlacePage. */
 "contribute_to_osm" = "OpenStreetMap मध्ये योगदान द्या";
 "contribute_to_osm_add_place" = "ठिकाण जोडा";
 "contribute_to_osm_update_map" = "योगदान देण्यासाठी नकाशा अद्यतनित करा";
 "contribute_to_osm_update_map_description" = "OpenStreetMap डेटामध्ये योगदान देण्यापूर्वी तुम्हाला %@ नकाशा नवीनतम आवृत्तीत अद्यतनित करणे आवश्यक आहे";
-"placepage_replace_stop" = "Replace Stop";
+
+
+/********** Uncategorized **********/
+
+
+/* A text for current gps location point/arrow selected on the map */
+"core_my_position" = "माझे स्थान";
+
+/* Default bookmark list name */
+"core_my_places" = "माझी ठिकाणे";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "वायफाय इंटरनेट";
+"postal_code" = "पिनकोड";
+
+/* Place Page title for long tap */
+"core_placepage_unknown_place" = "नकाशा बिंदू";
+
+/* abbreviation for meters */
+"m" = "m";
+
+/* abbreviation for kilometers */
+"km" = "किमी";
+
+/* abbreviation for mile(s) */
+"mi" = "mi";
+
+/* A unit of measure */
+"ft" = "फूट";
+
+/* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
+"routes_update_maps_text" = "To display routes, maps must be updated.";
+
+/* Subway exits for public transport marks on the map */
+"core_exit" = "बाहेर पडा";
+"core_entrance" = "प्रवेशद्वार";
+"subway_data_unavailable" = "मेट्रो नकाशा अनुपलब्ध आहे";

@@ -1,18 +1,34 @@
 
-/* Used in home screen quick actions. */
+
+/********** Strings **********/
+
+
+/* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "Hledat";
 
-/* Used in home screen quick actions. */
+/* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
 "bookmarks_and_tracks" = "Záložky a stopy";
+
+
+/********** Other translations **********/
+
+
+/* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
+"report_a_bug" = "Nahlásit chybu";
+
+
+/********** 3d touch strings **********/
+
 
 /* Used in home screen quick actions. */
 "route" = "Trasa";
+
+
+/********** gps strings **********/
+
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "Chcete-li si užívat plnou funkčnost aplikace, pak musíte určit aktuální polohu na pozadí. Používá se k sledování trasy a ukládání vaší nedávno uskutečněné cesty.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Stanovení současného umístění se používá v možnostech sledování trasy a uložení vaší nedávno uskutečněné cesty.";
-
-/* Used in home screen quick actions. */
-"report_a_bug" = "Nahlásit chybu";

@@ -2,6 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
+<!-- ********** Strings for downloading map from search **********/ -->
+
 	<key>bookmarks_places</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -12,16 +15,15 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>zero</key>
-			<string>Não há Favoritos</string>
 			<key>one</key>
-			<string>Há %d Favorito</string>
+			<string>%d favorito</string>
 			<key>many</key>
-			<string>Há %d Favoritos</string>
+			<string>%d de favoritos</string>
 			<key>other</key>
-			<string>Há %d Favoritos</string>
+			<string>%d favoritos</string>
 		</dict>
 	</dict>
+
 	<key>bookmarks_detect_message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -33,15 +35,16 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>zero</key>
-			<string>Nehum arquivo foi encontrado.</string>
+			<string>%d ficheiros encontrados.</string>
 			<key>one</key>
-			<string>Um arquivo encontrado. Você Pode vê-lo depois da conversão.</string>
+			<string>%d ficheiro encontrado. Pode vê-lo depois da conversão.</string>
 			<key>many</key>
-			<string>%d arquivos encontrados. Você Pode vê-los depois da conversão.</string>
+			<string>%d de ficheiros encontrados. Pode vê-los depois da conversão.</string>
 			<key>other</key>
-			<string>%d arquivos encontrados. Pode vê-los depois da conversão.</string>
+			<string>%d ficheiros encontrados. Pode vê-los depois da conversão.</string>
 		</dict>
 	</dict>
+
 	<key>tracks</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -52,15 +55,14 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>zero</key>
-			<string>Não há caminho</string>
 			<key>one</key>
-			<string>Há %d Caminho</string>
+			<string>%d trajeto</string>
 			<key>many</key>
-			<string>Há %d Caminhos</string>
+			<string>%d de trajetos</string>
 			<key>other</key>
-			<string>Há %d Caminhos</string>
+			<string>%d trajetos</string>
 		</dict>
 	</dict>
+
 </dict>
 </plist>

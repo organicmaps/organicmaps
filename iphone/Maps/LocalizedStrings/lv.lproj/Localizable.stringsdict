@@ -54,11 +54,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>zero</key>
-			<string>%d ceļu</string>
+			<string>%d pēdojumu</string>
 			<key>one</key>
-			<string>%d ceļš</string>
+			<string>%d pēdojums</string>
 			<key>other</key>
-			<string>%d ceļi</string>
+			<string>%d pēdojumi</string>
 		</dict>
 	</dict>
 
