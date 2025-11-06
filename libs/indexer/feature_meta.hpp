@@ -185,15 +185,17 @@ class RegionData : public MetadataBase
 public:
   enum Type : int8_t
   {
-    RD_LANGUAGES,         // list of written languages
-    RD_DRIVING,           // left- or right-hand driving (letter 'l' or 'r')
-    RD_TIMEZONE,          // timezone in om::tz::TimeZone format, use separate getter
-    RD_ADDRESS_FORMAT,    // address format, re: mapzen
-    RD_PHONE_FORMAT,      // list of strings in "+N NNN NN-NN-NN" format
-    RD_POSTCODE_FORMAT,   // list of strings in "AAA ANN" format
-    RD_PUBLIC_HOLIDAYS,   // fixed PH dates
-    RD_ALLOW_HOUSENAMES,  // 'y' if housenames are commonly used
-    RD_LEAP_WEIGHT_SPEED  // speed factor for leap weight computation
+    RD_LANGUAGES = 0,      // list of written languages
+    RD_DRIVING,            // left- or right-hand driving (letter 'l' or 'r')
+    RD_TIMEZONE,           // timezone in om::tz::TimeZone format, use separate getter
+    RD_ADDRESS_FORMAT,     // address format, re: mapzen
+    RD_PHONE_FORMAT,       // list of strings in "+N NNN NN-NN-NN" format
+    RD_POSTCODE_FORMAT,    // list of strings in "AAA ANN" format
+    RD_PUBLIC_HOLIDAYS,    // fixed PH dates
+    RD_ALLOW_HOUSENAMES,   // 'y' if housenames are commonly used
+    RD_LEAP_WEIGHT_SPEED,  // speed factor for leap weight computation
+
+    RD_COUNT
   };
 
   // Special values for month references in public holiday definitions.
@@ -220,8 +222,10 @@ public:
 
   void Set(Type type, std::string const & s)
   {
-    CHECK_NOT_EQUAL(type, Type::RD_LANGUAGES, ("Please use RegionData::SetLanguages method"));
-    MetadataBase::Set(type, s);
+    ASSERT(type != Type::RD_LANGUAGES, ());
+
+    if (MetadataBase::Get(type).empty())
+      MetadataBase::Set(type, s);
   }
 
   void SetLanguages(std::vector<std::string> const & codes);
@@ -232,9 +236,12 @@ public:
   void AddPublicHoliday(int8_t month, int8_t offset);
   // No public holidays getters until we know what to do with these.
 
+  void MergeFrom(RegionData const & rhs);
+
   void SetLeapWeightSpeed(double speedValue)
   {
-    MetadataBase::Set(Type::RD_LEAP_WEIGHT_SPEED, std::to_string(speedValue));
+    if (MetadataBase::Get(Type::RD_LEAP_WEIGHT_SPEED).empty())
+      MetadataBase::Set(Type::RD_LEAP_WEIGHT_SPEED, std::to_string(speedValue));
   }
 
   std::optional<om::tz::TimeZone> const & GetTimeZone() const { return m_timeZone; }
