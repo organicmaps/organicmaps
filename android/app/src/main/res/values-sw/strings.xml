@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">Usahihi mdogo</string>
@@ -21,6 +22,7 @@
     <string name="address">Anwani</string>
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Hifadhi ramani kwenye</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Sehemu ya kula</string>
@@ -36,18 +38,20 @@
     <string name="category_children">Mapumziko ya familia</string>
     <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
     <string name="category_hospital">Hospitali</string>
+    <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+    <string name="category_post">Posta</string>
+    <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+    <string name="category_police">Polisi</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">Maji</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Kwa RV</string>
+
     <!-- SECTION: Other translations -->
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Aina ya faili haitambuliwi na programu:
-\n%1$s</string>
+    <string name="unknown_file_type">Aina ya faili haitambuliwi na programu:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Imeshindwa kufungua faili %1$s
-\n
-\n%2$s</string>
+    <string name="failed_to_open_file">Imeshindwa kufungua faili %1$s\n\n%2$s</string>
     <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
     <string name="data_version">Data ya OpenStreetMap: %s</string>
     <!-- Confirmation for OpenStreetMap log out. -->
@@ -83,8 +87,6 @@
     <string name="google_play_services">Huduma za Mahali za Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Tambua kwa haraka kadirio la eneo lako kwa kutumia Bluetooth, WiFi au mtandao wa simu</string>
-    <!-- Preference title -->
-    <!-- Preference description -->
     <!-- deep purple color -->
     <string name="deep_purple">Zambarau Iliyoiva</string>
     <!-- light blue color -->
@@ -101,9 +103,11 @@
     <string name="gray">Kijivu</string>
     <!-- blue gray color -->
     <string name="blue_gray">Kijivu Buluu</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_change_intermediate">Imeshindwa kupata eneo la kati.</string>
     <string name="dialog_routing_intermediate_not_determined">Tafadhali badilisha eneo lako la kati.</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Pakua eneo ambalo unatafuta au jaribu kuongeza jina la mji/kijiji kilicho karibu.</string>
@@ -120,8 +124,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %s. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ni mradi wa jumuiya wa kujenga ramani isiyolipishwa na iliyo wazi. Ndiyo chanzo kikuu cha data ya ramani katika Ramani za Kikaboni na inafanya kazi sawa na Wikipedia. Unaweza kuongeza au kubadilisha maeneo na yanapatikana kwa mamilioni ya watumiaji kote Ulimwenguni.
-\nJiunge na jumuiya na usaidie kutengeneza ramani bora kwa kila mtu!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ni mradi wa jumuiya wa kujenga ramani isiyolipishwa na iliyo wazi. Ndiyo chanzo kikuu cha data ya ramani katika Ramani za Kikaboni na inafanya kazi sawa na Wikipedia. Unaweza kuongeza au kubadilisha maeneo na yanapatikana kwa mamilioni ya watumiaji kote Ulimwenguni.\nJiunge na jumuiya na usaidie kutengeneza ramani bora kwa kila mtu!</string>
     <string name="login_to_make_edits_visible">Fungua akaunti ya OpenStreetMap au ingia ili kuchapisha mabadiliko yako ya ramani kwa ulimwengu.</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Kumbuka kwa wanaojitolea wa OpenStreetMap (si lazima)</string>
@@ -144,9 +147,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Maoni Jumla</string>
     <string name="prefs_languages_information">Tunatumia maagizo ya sautii ya TTS ya mfumo. Vifaa vingi vya Android vinatumia Google TTS, unaweza kuipakua au kuisasisha kwenye Google Play</string>
-    <string name="prefs_languages_information_off">Kwa baadhi ya lugha, utahitaji kusakinisha programu nyingine ya kusanidi usemi au kifurushi cha ziada cha lugha kutoka kwenye duka la programu-tumizi (Google Play, Galaxy Store, App Gallery, FDroid).
-\nFungua mipangilio ya kifaa chako → Lugha na Ingizo → Usemi → Tokeo la maandishi kuwa usemi.
-\nHapa unaweza kusimamia usanidi wa usemi (kwa mfano, kupakua kifurushi cha lugha ili utumie nje ya mtandao) na uchague injini nyingine ya maandishi-kuwa-usemi.</string>
+    <string name="prefs_languages_information_off">Kwa baadhi ya lugha, utahitaji kusakinisha programu nyingine ya kusanidi usemi au kifurushi cha ziada cha lugha kutoka kwenye duka la programu-tumizi (Google Play, Galaxy Store, App Gallery, FDroid).\nFungua mipangilio ya kifaa chako → Lugha na Ingizo → Usemi → Tokeo la maandishi kuwa usemi.\nHapa unaweza kusimamia usanidi wa usemi (kwa mfano, kupakua kifurushi cha lugha ili utumie nje ya mtandao) na uchague injini nyingine ya maandishi-kuwa-usemi.</string>
     <string name="prefs_languages_information_off_link">Kwa maelezo zaidi tafadhali tazama mwongozo huu.</string>
     <string name="transliteration_title">Tafsiri kwa lugha ya Kilatini</string>
     <string name="learn_more">Jua mengi zaidi</string>
@@ -271,6 +272,7 @@
     <string name="moreyear_ago_sorttype">Zaidi ya mwaka mmoja uliopita</string>
     <string name="near_me_sorttype">Karibu yangu</string>
     <string name="others_sorttype">Nyingine</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Chakula</string>
     <string name="tourist_places">Vivutio</string>
@@ -381,6 +383,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Acha kurekodi</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Kurekodi njia</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Acha bila kuhifadhi</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Endelea kurekodi</string>
@@ -395,7 +399,4 @@
     <string name="uri_open_location_failed">Hakuna Programu iliyosakinishwa inayoweza kufungua eneo</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Urambazaji otomatiki</string>
-    <string name="category_police">Polisi</string>
-    <string name="category_post" translatable="false">Posta</string>
-    <string name="track_recording_title">Kurekodi njia</string>
 </resources>

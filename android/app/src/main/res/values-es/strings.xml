@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Atrás</string>
@@ -18,7 +19,7 @@
     <string name="miles">Millas</string>
     <!-- Update maps later button text -->
     <string name="later">Luego</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Buscar</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Buscar en el mapa</string>
@@ -54,8 +55,7 @@
     <string name="disconnect_usb_cable">Desconecte el cable USB o inserte una tarjeta de memoria SD para usar Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Libere espacio en la memoria SD o almacenamiento USB para usar la aplicación</string>
-    <string name="download_resources">Antes de comenzar, permita que descarguemos en su dispositivo un mapamundi general.
-\nSe requieren %s de almacenamiento.</string>
+    <string name="download_resources">Antes de comenzar, permita que descarguemos en su dispositivo un mapamundi general.\nSe requieren %s de almacenamiento.</string>
     <string name="download_resources_continue">Ir al mapa</string>
     <string name="downloading_country_can_proceed">Descargando %s. Puede ahora \nproceder al mapa.</string>
     <string name="download_country_ask">¿Descargar %s?</string>
@@ -72,7 +72,7 @@
     <string name="bookmark_set_name">Nombre del grupo de marcadores</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Marcadores</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">Marcadores y trayectos</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Nombre</string>
@@ -100,6 +100,7 @@
     <string name="measurement_units">Unidades de medida</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Elija entre millas y kilómetros</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Dónde comer</string>
@@ -118,7 +119,7 @@
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
     <string name="category_hotel">Hotel</string>
     <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
-    <string name="category_tourism" translatable="false">Turismo</string>
+    <string name="category_tourism">Turismo</string>
     <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
     <string name="category_entertainment">Entretenimiento</string>
     <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
@@ -144,13 +145,14 @@
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">Agua</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
-    <string name="category_rv" translatable="false">Caravanas</string>
+    <string name="category_rv">Caravanas</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notas</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Marcadores de Organic Maps compartidos con usted</string>
-    <string name="share_bookmarks_email_body">¡Hola! \n\nAdjunto mis marcadores de la aplicación Organic Maps. Si no la tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz \n\n¡Disfrute viajando con Organic Maps!</string>
+    <string name="share_bookmarks_email_body">¡Hola!\n\nAdjunto mis marcadores; ábralos en Organic Maps. Si no lo ha instalado, puede descargarlo aquí: https://omaps.app/get?kmz\n\n¡Disfrute viajando con Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Cargando marcadores</string>
     <!-- Kmz file successful loading -->
@@ -158,12 +160,9 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">No se pudieron cargar los marcadores. El archivo podría tener daños o defectos.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">La aplicación no reconoce el tipo de archivo:
-\n%1$s</string>
+    <string name="unknown_file_type">La aplicación no reconoce el tipo de archivo:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">No se ha podido abrir el archivo %1$s
-\n
-\n%2$s</string>
+    <string name="failed_to_open_file">No se ha podido abrir el archivo %1$s\n\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Editar</string>
     <!-- Warning message when doing search around current position -->
@@ -179,11 +178,7 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">¡Mira mi ubicación actual en el mapa en Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hola:
-\n
-\nAhora estoy aquí: %1$s. Haz clic en este enlace %2$s o esta %3$s para verlo en el mapa.
-\n
-\nGracias.</string>
+    <string name="my_position_share_email">Hola:\n\nAhora estoy aquí: %1$s. Haz clic en este enlace %2$s o esta %3$s para verlo en el mapa.\n\nGracias.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Compartir</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -245,6 +240,26 @@
     <string name="website">Sitio web</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Noticias</string>
+    <!-- Text in menu -->
+    <string name="github">GitHub</string>
+    <!-- Text in menu -->
+    <string name="telegram">Telegram</string>
+    <!-- Text in menu -->
+    <string name="matrix">[Matrix]</string>
+    <!-- Text in menu -->
+    <string name="mastodon">Mastodon</string>
+    <!-- Text in menu -->
+    <string name="facebook">Facebook</string>
+    <!-- Text in menu -->
+    <string name="twitter">X (Twitter)</string>
+    <!-- Text in menu -->
+    <string name="instagram">Instagram</string>
+    <!-- Text in the editor -->
+    <string name="vk">VK</string>
+    <!-- Text in the editor -->
+    <string name="editor_line_social_network">LINE</string>
+    <!-- Text in menu -->
+    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Comentarios</string>
     <!-- Text in menu -->
@@ -262,7 +277,7 @@
     <string name="how_to_support_us">Apoye el proyecto</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Derechos de autor</string>
-    <!-- Text in menu + Button in the main Help dialog -->
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">Informar de un fallo</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">Mejore la dirección de la flecha moviendo el teléfono en forma de ocho para calibrar la brújula.</string>
@@ -341,6 +356,7 @@
     <string name="gray">Gris</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gris azulado</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Al seguir la ruta, tenga en cuenta:</string>
     <string name="dialog_routing_disclaimer_priority">— Las condiciones del camino, las reglas de tránsito y los señalamientos siempre tienen prioridad sobre las sugerencias de navegación;</string>
@@ -370,6 +386,7 @@
     <string name="not_now">No ahora</string>
     <string name="dialog_routing_download_and_build_cross_route">¿Desea descargar el mapa y crear una ruta mejor que abarque más de un mapa?</string>
     <string name="dialog_routing_download_cross_route">Descargue mapas adicionales para crear una ruta mejor que cruce los límites de este mapa.</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Para empezar a buscar y crear rutas, descargue el mapa. Después de eso, ya no necesitará una conexión a Internet.</string>
     <string name="search_select_map">Seleccionar mapa</string>
@@ -387,6 +404,8 @@
     <string name="clear_search">Vaciar historial de búsquedas</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Su ubicación</string>
     <string name="p2p_start">Empezar</string>
     <string name="p2p_from_here">Ruta desde</string>
@@ -460,6 +479,8 @@
     <string name="email_or_username">Correo electrónico o usuario</string>
     <string name="editor_add_phone">Añadir teléfono</string>
     <string name="level">Piso</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Nivel: %s</string>
     <string name="downloader_delete_map_dialog">Todas las ediciones hechas al mapa se eliminarán junto con este.</string>
     <string name="downloader_update_maps">Actualizar mapas</string>
     <string name="downloader_mwm_migration_dialog">Para crear una ruta, es necesario actualizar todos los mapas y volver a planificar la ruta.</string>
@@ -519,6 +540,7 @@
     <string name="minute">min</string>
     <string name="day">d</string>
     <string name="placepage_more_button">Más</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Editar marcador</string>
     <string name="placepage_personal_notes_hint">Notas personales (texto o html)</string>
     <string name="editor_comment_hint">Comentario…</string>
@@ -539,6 +561,8 @@
     <string name="error_enter_correct_vk_page">Introduzca una dirección web o un nombre de cuenta de VK válidos</string>
     <string name="error_enter_correct_line_page">Introduzca una dirección web o ID de LINE válidos</string>
     <string name="placepage_add_place_button">Añadir lugar a OpenStreetMap</string>
+    <string name="osm_note_hint">O bien, deje una nota a la comunidad de OpenStreetMap para que otra persona pueda añadir o corregir un lugar.</string>
+    <string name="osm_note_toast">La nota se enviará a OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">¿Quiere enviarlo a todos los usuarios?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -581,10 +605,11 @@
     <string name="button_plan">Planificar</string>
     <string name="placepage_remove_stop">Eliminar parada</string>
     <string name="placepage_add_stop">Añadir parada</string>
+    <string name="saved">Guardado</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Acceda a OpenStreetMap para cargar automáticamente todas sus ediciones al mapa. Más información <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>
     <string name="dialog_error_storage_title">Problema de acceso al almacenamiento</string>
-    <string name="dialog_error_storage_message">El almacenamiento externo no está disponible; puede que se haya quitado o dañado la tarjeta SD, o el sistema de archivos solo permite lectura. Compruébelo o escríbanos a support@organicmaps.app</string>
+    <string name="dialog_error_storage_message">El almacenamiento externo no está disponible; puede que se haya quitado o dañado la tarjeta SD, o el sistema de archivos solo permite lectura. Compruébelo o escríbanos a support\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emular almacenamiento dañado</string>
     <string name="error_enter_correct_name">Introduzca el nombre correcto</string>
     <string name="bookmark_lists">Listas</string>
@@ -592,6 +617,7 @@
     <string name="bookmark_lists_hide_all">Ocultar todo</string>
     <string name="bookmark_lists_show_all">Mostrar todo</string>
     <plurals name="bookmarks_places">
+        <item quantity="zero">%d marcadores</item>
         <item quantity="one">%d marcador</item>
         <item quantity="many">%d de marcadores</item>
         <item quantity="other">%d marcadores</item>
@@ -611,13 +637,15 @@
     <string name="phone_number">Número de teléfono</string>
     <string name="profile">Perfil de OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
+        <item quantity="zero">Se han encontrado %d archivos. Los verá después de la conversión.</item>
         <item quantity="one">Se encontró %d archivo. Lo verá después de la conversión.</item>
-        <item quantity="many">Se encontraron %d de archivos. Los verá después de la conversión.</item>
-        <item quantity="other">Se encontraron %d archivos. Los verá después de la conversión.</item>
+        <item quantity="many">Se han encontrado %d archivos. Los verá después de la conversión.</item>
+        <item quantity="other">Se han encontrado %d archivos. Los verá después de la conversión.</item>
     </plurals>
     <string name="restore">Restaurar</string>
     <plurals name="tracks">
-        <item quantity="one">%d trayecto</item>
+        <item quantity="zero">%d trayectos</item>
+        <item quantity="one">%d trayectos</item>
         <item quantity="many">%d de trayectos</item>
         <item quantity="other">%d trayectos</item>
     </plurals>
@@ -626,7 +654,9 @@
     <string name="privacy_policy">Normativa de privacidad</string>
     <string name="terms_of_use">Condiciones de uso</string>
     <string name="button_layer_traffic">Tráfico</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_hiking">Senderismo</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Ciclismo</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Estilos y capas del mapa</string>
@@ -651,6 +681,11 @@
     <string name="power_managment_setting_never">Nunca</string>
     <string name="power_managment_setting_auto">Cuando queda poca energía</string>
     <string name="power_managment_setting_manual_max">Siempre</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Nombres de marcadores en el mapa</string>
+    <string name="bookmarks_text_placement_description">Si hay demasiados marcadores, mostrar sus nombres en el mapa puede ralentizar la aplicación.</string>
+    <string name="show_to_the_right">Mostrar a la derecha</string>
+    <string name="show_at_the_bottom">Mostrar en el fondo</string>
     <string name="enable_logging_warning_message">Active esta opción temporalmente para grabar y enviar de forma manual registros para diagnosticar defectos enviados mediante la opción «Informar de un fallo» en el diálogo Ayuda. Los registros pueden incluir ubicaciones.</string>
     <string name="driving_options_title">Opciones de enrutamiento</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -701,6 +736,7 @@
     <string name="moreyear_ago_sorttype">Hace más de un año</string>
     <string name="near_me_sorttype">Cerca de mí</string>
     <string name="others_sorttype">Otros</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Comida</string>
     <string name="tourist_places">Sitios de interés</string>
@@ -754,12 +790,18 @@
     <string name="change_map_locale">Idioma del mapa</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Datos cartográficos de OpenStreetMap</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/es/faq/instrucciones-de-voz-tts-en-android/</string>
     <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/es/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/ES:Acerca_de_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">¡Gracias por utilizar nuestros mapas creados por la comunidad!</string>
     <!-- App tip #01 -->
@@ -832,6 +874,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Detener grabación de trayecto</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Grabación de pista</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Parar sin guardar</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Continuar grabación</string>
@@ -846,29 +890,7 @@
     <string name="uri_open_location_failed">No hay ninguna aplicación instalada que pueda abrir la ubicación</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto en navegación</string>
-    <string name="instagram">Instagram</string>
-    <string name="matrix">[Matrix]</string>
-    <string name="openstreetmap">OpenStreetMap</string>
-    <string name="mastodon">Mastodon</string>
-    <string name="telegram">Telegram</string>
-    <string name="github">GitHub</string>
-    <string name="twitter">X (Twitter)</string>
-    <string name="facebook">Facebook</string>
-    <string name="vk">VK</string>
-    <string name="wikimedia_commons">Wikimedia Commons</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
-    <string name="comma_separated_pair">%1$s, %2$s</string>
-    <string name="level_value_generic">Nivel: %s</string>
-    <string name="editor_line_social_network">LINE</string>
-    <string name="saved">Guardado</string>
-    <string name="osm_note_toast">La nota se enviará a OpenStreetMap</string>
-    <string name="osm_note_hint">O bien, deje una nota a la comunidad de OpenStreetMap para que otra persona pueda añadir o corregir un lugar.</string>
-    <string name="bookmarks_text_placement_title">Nombres de marcadores en el mapa</string>
-    <string name="bookmarks_text_placement_description">Si hay demasiados marcadores, mostrar sus nombres en el mapa puede ralentizar la aplicación.</string>
-    <string name="show_to_the_right">Mostrar a la derecha</string>
-    <string name="show_at_the_bottom">Mostrar en el fondo</string>
+    <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Compartir recorrido</string>
     <string name="delete_track_dialog_title">¿Borrar %s?</string>
-    <string name="track_recording_title">Grabación de pista</string>
 </resources>

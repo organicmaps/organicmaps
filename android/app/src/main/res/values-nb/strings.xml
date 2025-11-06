@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Tilbake</string>
@@ -18,7 +19,7 @@
     <string name="miles">Miles</string>
     <!-- Update maps later button text -->
     <string name="later">Senere</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Søk</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Søk kart</string>
@@ -56,8 +57,7 @@
     <string name="not_enough_free_space_on_sdcard">Frigjør plass på SD-kortet/USB-enheten først for å bruke appen</string>
     <string name="download_resources">Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %s med data.</string>
     <string name="download_resources_continue">Gå til kart</string>
-    <string name="downloading_country_can_proceed">Laster ned %s. Du kan nå
-\nfortsette til kartet.</string>
+    <string name="downloading_country_can_proceed">Laster ned %s. Du kan nå\nfortsette til kartet.</string>
     <string name="download_country_ask">Vil du laste ned %s?</string>
     <string name="update_country_ask">Vil du oppdatere %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -72,7 +72,7 @@
     <string name="bookmark_set_name">Bokmerk settnavn</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Bokmerker</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">Bokmerker og ruter</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Navn</string>
@@ -100,6 +100,7 @@
     <string name="measurement_units">Måleenheter</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Velg mellom miles og kilometer</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Spisesteder</string>
@@ -145,16 +146,13 @@
     <string name="category_water">Vann</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Bobilanlegg</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Merknader</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Delte Organic Maps-bokmerker</string>
-    <string name="share_bookmarks_email_body">Hei!
-\n
-\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz
-\n
-\nNyt reisen med Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Laster inn bokmerker</string>
     <!-- Kmz file successful loading -->
@@ -162,12 +160,9 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Opplasting av bokmerker mislyktes. Filen kan være skadet eller defekt.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Filtypen gjenkjennes ikke av appen:
-\n%1$s</string>
+    <string name="unknown_file_type">Filtypen gjenkjennes ikke av appen:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Kunne ikke åpne filen %1$s
-\n
-\n%2$s</string>
+    <string name="failed_to_open_file">Kunne ikke åpne filen %1$s\n\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Rediger</string>
     <!-- Warning message when doing search around current position -->
@@ -183,9 +178,7 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hei, se posisjonen min på Organic Maps-kartet!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hei,Jeg er her nå: %1$s. Klikk på denne koblingen %2$s eller denne %3$s for å se stedet på kartet.
-\n
-\nTakk.</string>
+    <string name="my_position_share_email">Hei,Jeg er her nå: %1$s. Klikk på denne koblingen %2$s eller denne %3$s for å se stedet på kartet.\n\nTakk.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Del</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -264,7 +257,7 @@
     <string name="how_to_support_us">Støtt prosjektet</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Opphavsrett</string>
-    <!-- Text in menu + Button in the main Help dialog -->
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">Rapporter en feil</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">Forbedre pilretningen ved å bevege telefonen i en åttetallsbevegelse for å kalibrere kompasset.</string>
@@ -343,6 +336,7 @@
     <string name="gray">Grå</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gråblå</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Husk følgende når du følger ruten:</string>
     <string name="dialog_routing_disclaimer_priority">– Veiforhold, trafikkregler og skilt skal alltid prioriteres fremfor navigasjonsråd;</string>
@@ -372,6 +366,7 @@
     <string name="not_now">Ikke nå</string>
     <string name="dialog_routing_download_and_build_cross_route">Vil du laste ned kartet og lage en mer optimal rute som går over flere kart?</string>
     <string name="dialog_routing_download_cross_route">Last ned kartet for å opprette en mer optimal rute som går utenfor dette kartet.</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Last vennligst ned kartet for å begynne å søke og opprette ruter - så slipper du i fremtiden å være avhengig av å ha internettforbindelse.</string>
     <string name="search_select_map">Velg kartet</string>
@@ -483,8 +478,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Fellesskapsopprettede OpenStreetMap-data fra %s. Les mer om hvordan du redigerer og oppdaterer kartet på OpenStreetMap.org.</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) er et fellesskapsprosjekt for å bygge et gratis og åpent kart. Det er hovedkilden til kartdata i Organic Maps og fungerer på samme måte som Wikipedia. Du kan legge til eller redigere steder, og de blir tilgjengelige for millioner av brukere over hele verden. 
-\nBli med i fellesskapet og bidra til å lage et bedre kart for alle!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) er et fellesskapsprosjekt for å bygge et gratis og åpent kart. Det er hovedkilden til kartdata i Organic Maps og fungerer på samme måte som Wikipedia. Du kan legge til eller redigere steder, og de blir tilgjengelige for millioner av brukere over hele verden. \nBli med i fellesskapet og bidra til å lage et bedre kart for alle!</string>
     <string name="login_to_make_edits_visible">Opprett en OpenStreetMap-konto eller logg inn for å publisere kartredigeringene dine til hele verden.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d av %2$d</string>
@@ -520,6 +514,7 @@
     <string name="minute">min</string>
     <string name="day">d</string>
     <string name="placepage_more_button">Mer</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Rediger bokmerke</string>
     <string name="placepage_personal_notes_hint">Personlige notater (text or html)</string>
     <string name="editor_comment_hint">Kommentar…</string>
@@ -570,9 +565,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Generell tilbakemelding</string>
     <string name="prefs_languages_information">Vi bruker system TTS for stemmeveiledning. Mange Android-enheter bruker Google TTS, Du kan laste ned eller oppdatere via Google Play</string>
-    <string name="prefs_languages_information_off">For enkelte språk er det nødvendig å installere en annen talesyntese eller en ekstra språkpakke fra appbutikken (Google Play, Galaxy Store, App Gallery, FDroid).
-\nGå til enhetens innstillinger → Språk og input → Tale → Tekst til tale output.
-\nHer kan du administrere innstillingene for talesyntese (for eksempel laste ned språkpakke for offline bruk) og velge en annen tekst-til-tale-motor.</string>
+    <string name="prefs_languages_information_off">For enkelte språk er det nødvendig å installere en annen talesyntese eller en ekstra språkpakke fra appbutikken (Google Play, Galaxy Store, App Gallery, FDroid).\nGå til enhetens innstillinger → Språk og input → Tale → Tekst til tale output.\nHer kan du administrere innstillingene for talesyntese (for eksempel laste ned språkpakke for offline bruk) og velge en annen tekst-til-tale-motor.</string>
     <string name="prefs_languages_information_off_link">Les denne veiledningen for mer informasjon.</string>
     <string name="transliteration_title">Omskrivning til latin</string>
     <string name="learn_more">Finn ut mer</string>
@@ -618,15 +611,17 @@
     </plurals>
     <string name="restore">Restaurere</string>
     <plurals name="tracks">
-        <item quantity="one">%d sti</item>
-        <item quantity="other">%d stier</item>
+        <item quantity="one">%d spor</item>
+        <item quantity="other">%d spor</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Personvern</string>
     <string name="privacy_policy">Personvernpolitikk</string>
     <string name="terms_of_use">Bruksbetingelser</string>
     <string name="button_layer_traffic">Trafikk</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_hiking">Vandring</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Sykling</string>
     <string name="button_layer_subway">T-bane</string>
     <string name="layers_title">Kartstiler og -lag</string>
@@ -701,6 +696,7 @@
     <string name="moreyear_ago_sorttype">Mer enn ett år siden</string>
     <string name="near_me_sorttype">Nær meg</string>
     <string name="others_sorttype">Andre</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Mat</string>
     <string name="tourist_places">Severdigheter</string>
@@ -826,6 +822,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Stopp opptak av rute</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Opptak av rute</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Stopp uten å lagre</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Fortsett opptak</string>
@@ -840,5 +838,4 @@
     <string name="uri_open_location_failed">Ingen app installert som kan åpne stedet</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto i navigasjon</string>
-    <string name="track_recording_title">Opptak av rute</string>
 </resources>

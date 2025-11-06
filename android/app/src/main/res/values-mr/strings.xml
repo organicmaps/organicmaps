@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">मागे</string>
@@ -18,7 +19,7 @@
     <string name="miles">मैल</string>
     <!-- Update maps later button text -->
     <string name="later">नंतर</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">शोधा</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">नकाश्यात शोधा</string>
@@ -36,6 +37,10 @@
     <string name="try_again">पुन्हा प्रयत्न करा</string>
     <string name="about_menu_title">Organic Maps बद्दल</string>
     <!-- Text in About screen -->
+    <string name="about_headline">सर्वांसाठी विनामूल्य, आवडीने तयार केलेले</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_1">• जाहिराती नाही, माहितीचा मागोवा नाही, डेटा संग्रहण नाही</string>
+    <!-- Text in About screen -->
     <string name="about_proposition_2">• बॅटरी संपत नाही, ऑफलाइन कार्य करते</string>
     <!-- Text in About screen -->
     <string name="about_proposition_3">• जलद, मिनिमलिस्ट, समुदायाद्वारे विकसित</string>
@@ -48,11 +53,9 @@
     <string name="disconnect_usb_cable">Organic Maps वापरण्यासाठी कृपया USB केबल काढून टाका किंवा मेमरी कार्ड घाला</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">कृपया ऍप वापरण्यासाठी प्रथम SD कार्ड/USB स्टोरेजवरील काही जागा मोकळी करा</string>
-    <string name="download_resources">ऍपचा वापर सुरू करण्यापूर्वी, आम्हाला तुमच्या उपकरणावर जगाचा सामान्य नकाशा डाउनलोड करण्याची परवानगी द्या.
-\nते %s जागा वापरेल.</string>
+    <string name="download_resources">ऍपचा वापर सुरू करण्यापूर्वी, आम्हाला तुमच्या उपकरणावर जगाचा सामान्य नकाशा डाउनलोड करण्याची परवानगी द्या.\nते %s जागा वापरेल.</string>
     <string name="download_resources_continue">नकाशावर जा</string>
-    <string name="downloading_country_can_proceed">%s डाउनलोड करत आहे.
-\nतुम्ही आता नकाशावर जाऊ शकता.</string>
+    <string name="downloading_country_can_proceed">%s डाउनलोड करत आहे.\nतुम्ही आता नकाशावर जाऊ शकता.</string>
     <string name="download_country_ask">%s डाउनलोड करायचे?</string>
     <string name="update_country_ask">%s अद्ययावत करायचे?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -67,7 +70,7 @@
     <string name="bookmark_set_name">खूणपत्र यादीचे नाव</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">खूणपत्रे</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">खूणपत्रे आणि ट्रॅक</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">नाव</string>
@@ -84,12 +87,12 @@
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">नकाशे हलवायचे?</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">यास काही मिनिटे लागू शकतात.
-\nकृपया प्रतीक्षा करा…</string>
+    <string name="wait_several_minutes">यास काही मिनिटे लागू शकतात.\nकृपया प्रतीक्षा करा…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">मापन एकके</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">मैल की किलोमीटर ह्यामध्ये निवडा</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">जेवायचे ठिकाण</string>
@@ -133,16 +136,15 @@
     <string name="category_recycling">भंगारवाला</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">पाणी</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">कँपिंग वाहन सोयी</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">चिठ्ठया</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Organic Maps द्वारे तुम्हाला खूणपत्रे सामायिक केले</string>
-    <string name="share_bookmarks_email_body">नमस्कार!
-\n
-\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz
-\n
-\nOrganic Maps सह प्रवासाचा आनंद घ्या!</string>
+    <string name="share_bookmarks_email_body">नमस्कार!\n\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz\n\nOrganic Maps सह प्रवासाचा आनंद घ्या!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">खूणपत्रे वाचत आहे</string>
     <!-- Kmz file successful loading -->
@@ -150,12 +152,9 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">खूणपत्रे वाचण्यात अपयश. फाइल दूषित किंवा बिघडलेली असू शकते.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">फाइल प्रकार ॲपद्वारे ओळखला जात नाही:
-\n%1$s</string>
+    <string name="unknown_file_type">फाइल प्रकार ॲपद्वारे ओळखला जात नाही:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">फाइल उघडण्यात अयशस्वी%1$s
-\n
-\n%2$s</string>
+    <string name="failed_to_open_file">फाइल उघडण्यात अयशस्वी%1$s\n\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">संपादन</string>
     <!-- Warning message when doing search around current position -->
@@ -171,11 +170,7 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Organic Maps द्वारे माझे वर्तमान स्थान पाठवत आहे!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">नमस्कार,
-\n
-\nमी आता इथे आहे: %1$s. नकाशावर ठिकाण पाहण्यासाठी या %2$s किंवा या %3$s वर क्लिक करा.
-\n
-\nआभारी.</string>
+    <string name="my_position_share_email">नमस्कार,\n\nमी आता इथे आहे: %1$s. नकाशावर ठिकाण पाहण्यासाठी या %2$s किंवा या %3$s वर क्लिक करा.\n\nआभारी.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">सामायिक</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -216,6 +211,10 @@
     <string name="pref_map_3d_buildings_disabled_summary">3D इमारती वीज बचत मोडमध्ये बंद केल्या आहेत</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">ध्वनी सूचना</string>
+    <!-- Settings «Route» category: «Tts announce street names» title -->
+    <string name="pref_tts_street_names_title">मार्गांची नावे घोषित करा</string>
+    <!-- Settings «Route» category: «Tts announce street names» description -->
+    <string name="pref_tts_street_names_description">चालू केल्यास, वळण घेण्यापूर्वी रस्त्याचे किंवा वळणाचे नाव बोलून सांगितले जाईल.</string>
     <!-- Settings «Route» category: «Tts language» title -->
     <string name="pref_tts_language_title">ध्वनी भाषा</string>
     <!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -239,6 +238,8 @@
     <string name="help">मदत</string>
     <!-- Button in the main Help dialog -->
     <string name="faq">वारंवार विचारलेले प्रश्न</string>
+    <!-- Button in the main menu -->
+    <string name="donate">दान करा</string>
     <string name="already_donated">आधीच दान केले</string>
     <string name="remind_me_later">नंतर आठवण करून द्या</string>
     <string name="support_organic_maps">Organic Maps ला समर्थन द्या</string>
@@ -246,7 +247,7 @@
     <string name="how_to_support_us">प्रकल्पाला पाठठिंबा द्या</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">प्रकाशन अधिकार (कॉपीराईट)</string>
-    <!-- Text in menu + Button in the main Help dialog -->
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">त्रुटी कळवा</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">कंपास कॅलिब्रेट करण्यासाठी फोनला आकृती-आठ मोशनमध्ये हलवून बाणाची दिशा सुधारा.</string>
@@ -325,6 +326,7 @@
     <string name="gray">राखाडी</string>
     <!-- blue gray color -->
     <string name="blue_gray">निळा राखाडी</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">प्रवास करताना, कृपात लक्षात ठेवा:</string>
     <string name="dialog_routing_disclaimer_priority">— मार्गनिर्देशक संकेतांपेक्षा रस्त्याची परिस्थिती, वाहतुकीचे नियम व वाहतुकीचे चिन्ह ह्यांना जास्त प्राधान्य द्या;</string>
@@ -354,6 +356,7 @@
     <string name="not_now">आता नाही</string>
     <string name="dialog_routing_download_and_build_cross_route">एकापेक्षा जास्त नकाशात पसरलेला अधिक चांगला मार्ग तयार करण्यासाठी, नकाशा डाउनलोड केलेला चालेल का?</string>
     <string name="dialog_routing_download_cross_route">या नकाशाच्या सीमा ओलांडणारा एक चांगला मार्ग तयार करण्यासाठी अधिक नकाशे डाउनलोड करा.</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">ठिकाण व मार्ग शोध सुरु करण्यासाठी, कृपया नकाशा डाउनलोड करा. त्यानंतर तुम्हाला इंटरनेटची आवश्यकता भासणार नाही.</string>
     <string name="search_select_map">नकाशा निवडा</string>
@@ -411,6 +414,8 @@
     <string name="day_off_today">आज बंद</string>
     <string name="day_off">बंद</string>
     <string name="today">आज</string>
+    <string name="opens_in">आणखी %s मध्ये उघडेल</string>
+    <string name="closes_in">आणखी %s मध्ये बंद होईल</string>
     <string name="closed">बंद</string>
     <string name="edit_opening_hours">व्यवसायाची वेळ संपादित करा</string>
     <string name="no_osm_account">OpenStreetMap खाते नाही?</string>
@@ -418,6 +423,7 @@
     <string name="login">लॉग इन</string>
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">साइन इन केलेले नाही</string>
+    <string name="login_osm">OpenStreetMap मध्ये लॉगिन करा</string>
     <string name="password">पासवर्ड</string>
     <string name="forgot_password">पासवर्ड विसरलात?</string>
     <string name="logout">लॉग आऊट</string>
@@ -464,8 +470,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">समुदाय-निर्मित OpenStreetMap डेटा %s नुसार. OpenStreetMap.org वर नकाशा संपादित आणि अपडेट कसा करायचा याबद्दल अधिक जाणून घ्या</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) हा एक विनामूल्य आणि खुला नकाशा तयार करण्यासाठी एक समुदाय प्रकल्प आहे. ऑरगॅनिक नकाशे मधील नकाशा डेटाचा हा मुख्य स्त्रोत आहे आणि विकिपीडिया प्रमाणेच कार्य करतो. तुम्ही ठिकाणे जोडू किंवा संपादित करू शकता आणि ती जगभरातील लाखो वापरकर्त्यांसाठी उपलब्ध होतील.
-\nसमुदायामध्ये सामील व्हा आणि प्रत्येकासाठी चांगला नकाशा बनवण्यात मदत करा!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) हा एक विनामूल्य आणि खुला नकाशा तयार करण्यासाठी एक समुदाय प्रकल्प आहे. ऑरगॅनिक नकाशे मधील नकाशा डेटाचा हा मुख्य स्त्रोत आहे आणि विकिपीडिया प्रमाणेच कार्य करतो. तुम्ही ठिकाणे जोडू किंवा संपादित करू शकता आणि ती जगभरातील लाखो वापरकर्त्यांसाठी उपलब्ध होतील.\nसमुदायामध्ये सामील व्हा आणि प्रत्येकासाठी चांगला नकाशा बनवण्यात मदत करा!</string>
     <string name="login_to_make_edits_visible">एक OpenStreetMap खाते तयार करा किंवा तुमची नकाशा संपादने जगासमोर प्रकाशित करण्यासाठी लॉग इन करा.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%2$d पैकी %1$d</string>
@@ -501,6 +506,7 @@
     <string name="minute">मिनिट</string>
     <string name="day">दि</string>
     <string name="placepage_more_button">अधिक</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">खूणपत्र संपादित करा</string>
     <string name="placepage_personal_notes_hint">वैयक्तिक चिठ्ठ्या (मजकूर किंवा html)</string>
     <string name="editor_comment_hint">टिप्पणी…</string>
@@ -523,6 +529,7 @@
     <string name="editor_share_to_all_dialog_title">तुम्ही ते सर्व वापरकर्त्यांना पाठवू इच्छिता?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
     <string name="editor_share_to_all_dialog_message_1">आपण कोणतीही वैयक्तिक माहिती प्रविष्ट केला नाही याची खात्री करा.</string>
+    <string name="editor_share_to_all_dialog_message_2">OpenStreetMap संपादक बदल तपासतील व काही प्रश्न असल्यास तुमच्याशी संपर्क साधतील.</string>
     <string name="navigation_stop_button">थांबा</string>
     <!-- Shown as toast when starting the recent track recording -->
     <string name="track_recording">ट्रॅक रेकॉर्ड करत आहे</string>
@@ -548,9 +555,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">सामान्य अभिप्राय</string>
     <string name="prefs_languages_information">आम्ही ध्वनी निर्देशांसाठी \"सिस्टम TTS\" वापरतो. अनेक Android उपकरणे \"Google TTS\" वापरतात, जे तुम्ही Google Play वरून डाउनलोड किंवा अद्ययावत करू शकता</string>
-    <string name="prefs_languages_information_off">काही भाषांसाठी, तुम्हाला अँप स्टोअर (Google Play, Galaxy Store, App Gallery, FDroid) वरून स्पीच मिश्रक किंवा अतिरिक्त भाषा संच इन्स्टॉल करावे लागतील.
-\nतुमच्या उपकरणाची सेटिंग → भाषा आणि इनपुट → स्पीच → \"टेक्स्ट टू स्पीच आउटपुट\" उघडा.
-\nयेथे तुम्ही स्पीच मिश्रणासाठी सेटिंग व्यवस्थापित करू शकता (उदाहरणार्थ, ऑफलाइन वापरासाठी भाषा संच डाउनलोड करा) आणि दुसरे टेक्स्ट-टू-स्पीच इंजिन निवडा.</string>
+    <string name="prefs_languages_information_off">काही भाषांसाठी, तुम्हाला अँप स्टोअर (Google Play, Galaxy Store, App Gallery, FDroid) वरून स्पीच मिश्रक किंवा अतिरिक्त भाषा संच इन्स्टॉल करावे लागतील.\nतुमच्या उपकरणाची सेटिंग → भाषा आणि इनपुट → स्पीच → \"टेक्स्ट टू स्पीच आउटपुट\" उघडा.\nयेथे तुम्ही स्पीच मिश्रणासाठी सेटिंग व्यवस्थापित करू शकता (उदाहरणार्थ, ऑफलाइन वापरासाठी भाषा संच डाउनलोड करा) आणि दुसरे टेक्स्ट-टू-स्पीच इंजिन निवडा.</string>
     <string name="prefs_languages_information_off_link">अधिक माहितीसाठी कृपया ही मार्गदर्शिका पहा.</string>
     <string name="transliteration_title">रोमन लिपीत लिप्यंतरण</string>
     <string name="learn_more">अधिक जाणून घ्या</string>
@@ -677,6 +682,7 @@
     <string name="moreyear_ago_sorttype">एक वर्षांपूर्वी</string>
     <string name="near_me_sorttype">माझ्या जवळ</string>
     <string name="others_sorttype">इतर</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">अन्न</string>
     <string name="tourist_places">पर्यटन स्थळ</string>
@@ -802,6 +808,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">ट्रॅक रेकॉर्डिंग थांबवा</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">ट्रॅक रेकॉर्डिंग</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">जतन न करता थांबवा</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">रेकॉर्डिंग चालू ठेवा</string>
@@ -816,13 +824,4 @@
     <string name="uri_open_location_failed">स्थान उघडू शकणारे कोणतेही ॲप स्थापित केलेले नाही</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">नेव्हिगेशनमध्ये ऑटो</string>
-    <string name="pref_tts_street_names_title">मार्गांची नावे घोषित करा</string>
-    <string name="about_proposition_1">• जाहिराती नाही, माहितीचा मागोवा नाही, डेटा संग्रहण नाही</string>
-    <string name="donate">दान करा</string>
-    <string name="login_osm">OpenStreetMap मध्ये लॉगिन करा</string>
-    <string name="about_headline">सर्वांसाठी विनामूल्य, आवडीने तयार केलेले</string>
-    <string name="pref_tts_street_names_description">चालू केल्यास, वळण घेण्यापूर्वी रस्त्याचे किंवा वळणाचे नाव बोलून सांगितले जाईल.</string>
-    <string name="editor_share_to_all_dialog_message_2">OpenStreetMap संपादक बदल तपासतील व काही प्रश्न असल्यास तुमच्याशी संपर्क साधतील.</string>
-    <string name="category_rv">कँपिंग वाहन सोयी</string>
-    <string name="track_recording_title">ट्रॅक रेकॉर्डिंग</string>
 </resources>

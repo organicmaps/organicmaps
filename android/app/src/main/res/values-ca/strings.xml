@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Enrere</string>
@@ -18,7 +19,7 @@
     <string name="miles">Milles</string>
     <!-- Update maps later button text -->
     <string name="later">Més tard</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Cerca</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Cerca en el mapa</string>
@@ -56,8 +57,7 @@
     <string name="not_enough_free_space_on_sdcard">Allibereu espai en la targeta SD o emmagatzematge USB per a poder usar l’aplicació</string>
     <string name="download_resources">Abans d’usar l’aplicació, cal que baixeu el mapa del món general al vostre aparell. \nUsarà %s d’emmagatzematge.</string>
     <string name="download_resources_continue">Ves al mapa</string>
-    <string name="downloading_country_can_proceed">S’està baixant %s. Mentrestant, podeu
-\nanar al mapa.</string>
+    <string name="downloading_country_can_proceed">S’està baixant %s. Mentrestant, podeu\nanar al mapa.</string>
     <string name="download_country_ask">Voleu baixar %s?</string>
     <string name="update_country_ask">Voleu actualitzar %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -72,7 +72,7 @@
     <string name="bookmark_set_name">Nom de la llista de marcadors</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Marcadors</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">Marcadors i recorreguts</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Nom</string>
@@ -95,12 +95,12 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">S\'ha produït un error en moure els fitxers de mapes</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Això pot trigar uns minuts.
-\nEspereu…</string>
+    <string name="wait_several_minutes">Això pot trigar uns minuts.\nEspereu…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Unitats de mesura</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Trieu entre milles i quilòmetres</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">On menjar</string>
@@ -119,7 +119,7 @@
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
     <string name="category_hotel">Hotel</string>
     <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
-    <string name="category_tourism" translatable="false">Turisme</string>
+    <string name="category_tourism">Turisme</string>
     <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
     <string name="category_entertainment">Entreteniment</string>
     <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
@@ -145,17 +145,14 @@
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">Aigua</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
-    <string name="category_rv" translatable="false">Caravanes</string>
+    <string name="category_rv">Caravanes</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notes</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">S’han compartit amb vós marcadors de l’Organic Maps</string>
-    <string name="share_bookmarks_email_body">Hola!
-\n
-\nAdjunto els meus marcadors de l\'aplicació Organic Maps. Obriu-los si teniu l\'Organic Maps instal·lat. O, si no teniu l\'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz
-\n
-\nGaudiu viatjant amb l\'Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Hola!\n\nAdjunto els meus marcadors de l’Organic Maps. Obriu-los si teniu l’Organic Maps instal·lat. O, si no teniu l’aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l’Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">S’estan carregant els marcadors</string>
     <!-- Kmz file successful loading -->
@@ -163,12 +160,9 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">No s\'ha pogut carregar els marcadors. El fitxer pot ser malmès o defectuós.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">L\'aplicació no reconeix el tipus de fitxer:
-\n%1$s</string>
+    <string name="unknown_file_type">L\'aplicació no reconeix el tipus de fitxer:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">No s\'ha pogut obrir el fitxer %1$s
-\n
-\n%2$s</string>
+    <string name="failed_to_open_file">No s\'ha pogut obrir el fitxer %1$s\n\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Edita</string>
     <!-- Warning message when doing search around current position -->
@@ -184,11 +178,7 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Ep, mireu la meva ubicació actual en el mapa de l\'Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hola,
-\n
-\nSoc aquí: %1$s. Feu clic en aquest enllaç %2$s o en aquest altre %3$s per a veure el lloc en el mapa.
-\n
-\nGràcies.</string>
+    <string name="my_position_share_email">Hola,\n\nSoc aquí: %1$s. Feu clic en aquest enllaç %2$s o en aquest altre %3$s per a veure el lloc en el mapa.\n\nGràcies.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Comparteix</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -250,6 +240,26 @@
     <string name="website">Lloc web</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Notícies</string>
+    <!-- Text in menu -->
+    <string name="github">GitHub</string>
+    <!-- Text in menu -->
+    <string name="telegram">Telegram</string>
+    <!-- Text in menu -->
+    <string name="matrix">[Matrix]</string>
+    <!-- Text in menu -->
+    <string name="mastodon">Mastodon</string>
+    <!-- Text in menu -->
+    <string name="facebook">Facebook</string>
+    <!-- Text in menu -->
+    <string name="twitter">X (Twitter)</string>
+    <!-- Text in menu -->
+    <string name="instagram">Instagram</string>
+    <!-- Text in the editor -->
+    <string name="vk">VK</string>
+    <!-- Text in the editor -->
+    <string name="editor_line_social_network">LINE</string>
+    <!-- Text in menu -->
+    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Comentaris</string>
     <!-- Text in menu -->
@@ -267,7 +277,7 @@
     <string name="how_to_support_us">Doneu suport al projecte</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Drets d’autor</string>
-    <!-- Text in menu + Button in the main Help dialog -->
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">Informa d’un error</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">Milloreu la direcció de la fletxa movent el telèfon amb un moviment de vuit per a calibrar la brúixola.</string>
@@ -346,6 +356,7 @@
     <string name="gray">Gris</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gris blavós</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Quan seguiu la ruta, tingueu present:</string>
     <string name="dialog_routing_disclaimer_priority">— Les condicions de la carretera, les normes de trànsit i els senyals de circulació sempre tenen prioritat sobre les indicacions de navegació;</string>
@@ -375,6 +386,7 @@
     <string name="not_now">Ara no</string>
     <string name="dialog_routing_download_and_build_cross_route">Voleu baixar el mapa i crar una ruta més òptima que travessi més d\'un mapa?</string>
     <string name="dialog_routing_download_cross_route">Baixeu mapes addicionals per a crear una ruta millor que creua els límits d\'aquest mapa.</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Per a començar a cercar i crear rutes, baixeu el mapa. Després ja no us caldrà connexio a Internet.</string>
     <string name="search_select_map">Seleccioneu un mapa</string>
@@ -392,6 +404,8 @@
     <string name="clear_search">Neteja l’historial de cerques</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Viquipèdia</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">La vostra ubicació</string>
     <string name="p2p_start">Inicia</string>
     <string name="p2p_from_here">De</string>
@@ -441,6 +455,7 @@
     <string name="login">Inicia sessió</string>
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">No heu iniciat sessió</string>
+    <string name="login_osm">Inicia sessió a l’OpenStreetMap</string>
     <string name="password">Contrasenya</string>
     <string name="forgot_password">Heu oblidat la contrasenya?</string>
     <string name="logout">Tanca la sessió</string>
@@ -464,6 +479,8 @@
     <string name="email_or_username">Adreça electrònica o nom d’usuari</string>
     <string name="editor_add_phone">Afegeix un telèfon</string>
     <string name="level">Planta</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Nivell: %s</string>
     <string name="downloader_delete_map_dialog">Totes les vostres edicions del mapa se suprimiran conjuntament amb aquest.</string>
     <string name="downloader_update_maps">Actualitza els mapes</string>
     <string name="downloader_mwm_migration_dialog">Per a crear una ruta, cal que actualitzeu tots els mapes i després torneu a planificar la ruta.</string>
@@ -487,8 +504,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Dades de l’OpenStreetMap creades per la comunitat a partir de %s. Obteniu més informació sobre com editar i actualitzar el mapa a OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) és un projecte comunitari per construir un mapa lliure i obert. És la font principal de dades de mapes a Organic Maps i funciona de manera similar a la Viquipèdia. Pots afegir o editar llocs i estaran disponibles per a milions d\'usuaris de tot el món.
-\nUneix-te a la comunitat i ajuda a crear un mapa millor per a tothom!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) és un projecte comunitari per construir un mapa lliure i obert. És la font principal de dades de mapes a Organic Maps i funciona de manera similar a la Viquipèdia. Pots afegir o editar llocs i estaran disponibles per a milions d\'usuaris de tot el món.\nUneix-te a la comunitat i ajuda a crear un mapa millor per a tothom!</string>
     <string name="login_to_make_edits_visible">Creeu un compte d\'OpenStreetMap o inicieu sessió per publicar les vostres edicions de mapes al món.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d/%2$d</string>
@@ -524,6 +540,7 @@
     <string name="minute">min</string>
     <string name="day">d</string>
     <string name="placepage_more_button">Més</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Edita el marcador</string>
     <string name="placepage_personal_notes_hint">Notes personals (text o html)</string>
     <string name="editor_comment_hint">Comentari…</string>
@@ -544,6 +561,8 @@
     <string name="error_enter_correct_vk_page">Introduïu una adreça web de VK o un nom de compte vàlids</string>
     <string name="error_enter_correct_line_page">Introduïu una adreça web de LINE o un ID LINE vàlids</string>
     <string name="placepage_add_place_button">Afegeix un lloc a OpenStreetMap</string>
+    <string name="osm_note_hint">O bé, deixeu una nota a la comunitat de l’OpenStreetMap perquè algú altre pugui afegir o arreglar un lloc.</string>
+    <string name="osm_note_toast">La nota s’enviarà a l’OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Voleu enviar-ho a tots els usuaris?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -574,9 +593,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Opinió general</string>
     <string name="prefs_languages_information">Usem el sistema de síntesi de veu per a les instruccions de veu. Molts aparells Android use el motor de síntesi de veu de Google, podeu baixar o actualitzar-lo des del Google Play</string>
-    <string name="prefs_languages_information_off">Per a algunes llengües, haureu d\'instal·lar un sintetizador de veu o un paquet de llengua addicional des de la botiga d\'apliacions (Google Play, Galazy Store, FDroid).
-\nObriu la configuració de l\'aparell → Idioma i entrada → Veu → Sortidda de text a veu.
-\nAquí podeu gestionar la configuració de la síntesi de veu (per exemple, baixar un paquet de llengua per a ús sense connexió) i triar un altre motor de síntesi de veu.</string>
+    <string name="prefs_languages_information_off">Per a algunes llengües, haureu d\'instal·lar un sintetizador de veu o un paquet de llengua addicional des de la botiga d\'apliacions (Google Play, Galazy Store, FDroid).\nObriu la configuració de l\'aparell → Idioma i entrada → Veu → Sortidda de text a veu.\nAquí podeu gestionar la configuració de la síntesi de veu (per exemple, baixar un paquet de llengua per a ús sense connexió) i triar un altre motor de síntesi de veu.</string>
     <string name="prefs_languages_information_off_link">Per a més informació, vegeu aquesta guia.</string>
     <string name="transliteration_title">Transliteració a l’alfabet llatí</string>
     <string name="learn_more">Més informació</string>
@@ -588,10 +605,11 @@
     <string name="button_plan">Planifica</string>
     <string name="placepage_remove_stop">Elimina parada</string>
     <string name="placepage_add_stop">Afegeix una parada</string>
+    <string name="saved">Desat</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Inicieu sessió a l’OpenStreetMap per a pujar automàticament totes les edicions al mapa. Llegiu <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a> més informació.</string>
     <string name="dialog_error_storage_title">Hi ha un problema d’accés a l’emmagatzematge</string>
-    <string name="dialog_error_storage_message">L\'emmagatzematge extern no és accessible. La targeta SD pot haver estat eliminada, danyada o sigui només de lectura. Si us plau, reviseu la targeta SD o contacta amb nosaltres a support@organicmaps.app</string>
+    <string name="dialog_error_storage_message">L\'emmagatzematge extern no és accessible. La targeta SD pot haver estat eliminada, danyada o sigui només de lectura. Si us plau, reviseu la targeta SD o contacta amb nosaltres a support\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emula un emmagatzematge malmès</string>
     <string name="error_enter_correct_name">Introduïu un nom correcte</string>
     <string name="bookmark_lists">Llistes</string>
@@ -599,6 +617,7 @@
     <string name="bookmark_lists_hide_all">Amaga-ho tot</string>
     <string name="bookmark_lists_show_all">Mostra-ho tot</string>
     <plurals name="bookmarks_places">
+        <item quantity="zero">%d marcador</item>
         <item quantity="one">%d marcador</item>
         <item quantity="many">%d de marcadors</item>
         <item quantity="other">%d marcadors</item>
@@ -618,12 +637,14 @@
     <string name="phone_number">Número de telèfon</string>
     <string name="profile">Perfil de l’OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="one">S’ha trobat %d fitxer. Podeu veure’l després de la conversió.</item>
-        <item quantity="many">S’han trobat %d de fitxers. Podeu veure’ls després de la conversió.</item>
-        <item quantity="other">S’han trobat %d fitxers. Podeu veure’ls després de la conversió.</item>
+        <item quantity="zero">No s’ha trobat cap fitxer.</item>
+        <item quantity="one">S’ha trobat %d fitxer. Podreu veure’l després de la conversió.</item>
+        <item quantity="many">S’han trobat %d de fitxers. Podreu veure’ls després de la conversió.</item>
+        <item quantity="other">S’han trobat %d fitxers. Podreu veure’ls després de la conversió.</item>
     </plurals>
     <string name="restore">Restaura</string>
     <plurals name="tracks">
+        <item quantity="zero">%d recorreguts</item>
         <item quantity="one">%d recorregut</item>
         <item quantity="many">%d de recorreguts</item>
         <item quantity="other">%d recorreguts</item>
@@ -633,7 +654,9 @@
     <string name="privacy_policy">Política de privadesa</string>
     <string name="terms_of_use">Condicions del servei</string>
     <string name="button_layer_traffic">Trànsit</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_hiking">Camins</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Ciclisme</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Estils i capes del mapa</string>
@@ -708,6 +731,7 @@
     <string name="moreyear_ago_sorttype">Fa més d’un any</string>
     <string name="near_me_sorttype">Prop meu</string>
     <string name="others_sorttype">Altres</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Menjar</string>
     <string name="tourist_places">Llocs d\'interès</string>
@@ -761,10 +785,18 @@
     <string name="change_map_locale">Llengua del mapa</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Dades cartogràfiques de l’OpenStreetMap</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/ca/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Ca:About_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Gràcies per utilitzar els nostres mapes creats per la comunitat!</string>
     <!-- App tip #01 -->
@@ -837,6 +869,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Atura l’enregistrament del recorregut</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Enregistrament de trajecte</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Atura sense desar</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Continuar enregistrant</string>
@@ -851,25 +885,4 @@
     <string name="uri_open_location_failed">No hi ha cap aplicació instal·lada que pugui obrir la ubicació</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto a la navegació</string>
-    <string name="openstreetmap">OpenStreetMap</string>
-    <string name="vk">VK</string>
-    <string name="facebook">Facebook</string>
-    <string name="editor_line_social_network">LINE</string>
-    <string name="mastodon">Mastodon</string>
-    <string name="telegram">Telegram</string>
-    <string name="github">GitHub</string>
-    <string name="level_value_generic">Nivell: %s</string>
-    <string name="instagram">Instagram</string>
-    <string name="login_osm">Inicia sessió a l’OpenStreetMap</string>
-    <string name="twitter">X (Twitter)</string>
-    <string name="wikimedia_commons">Wikimedia Commons</string>
-    <string name="matrix">[Matrix]</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
-    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <string name="comma_separated_pair">%1$s, %2$s</string>
-    <string name="saved">Desat</string>
-    <string name="osm_note_toast">La nota s’enviarà a l’OpenStreetMap</string>
-    <string name="osm_note_hint">O bé, deixeu una nota a la comunitat de l’OpenStreetMap perquè algú altre pugui afegir o arreglar un lloc.</string>
-    <string name="track_recording_title">Enregistrament de trajecte</string>
 </resources>

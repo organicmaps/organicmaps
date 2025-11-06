@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">חזור</string>
@@ -18,7 +19,7 @@
     <string name="miles">מייל</string>
     <!-- Update maps later button text -->
     <string name="later">מאוחר יותר</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">חיפוש</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">חפש במפה</string>
@@ -54,11 +55,9 @@
     <string name="disconnect_usb_cable">אנא נתק כבל USB או הכנס כרטיס זכרון כדי להשתמש ב-Organic Maps.</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">אנא פנה שטח אחסון בכרטיס הזיכרון או בכונן USB כדי להשתמש בישום</string>
-    <string name="download_resources">תחילה, נוריד למכשירך מפה כללית של העולם.
-\nמפה זו דורשת נפח אחסון של %s.</string>
+    <string name="download_resources">תחילה, נוריד למכשירך מפה כללית של העולם.\nמפה זו דורשת נפח אחסון של %s.</string>
     <string name="download_resources_continue">עבור למפה</string>
-    <string name="downloading_country_can_proceed">מוריד %s. תוכל עתה
-\nלהמשיך למפה.</string>
+    <string name="downloading_country_can_proceed">מוריד %s. תוכל עתה\nלהמשיך למפה.</string>
     <string name="download_country_ask">להוריד %s?</string>
     <string name="update_country_ask">לעדכן %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -73,7 +72,7 @@
     <string name="bookmark_set_name">שם רשימת הסימניות</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">סימניות</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">סימניות ומסלולים</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">שם</string>
@@ -96,12 +95,12 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">שגיאה בהעברת הקבצים</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">פעולה זו יכולה להמשך מספר דקות.
-\nהמתן בבקשה…</string>
+    <string name="wait_several_minutes">פעולה זו יכולה להמשך מספר דקות.\nהמתן בבקשה…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">יחידות מדידה</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">בחר בין מיילים לקילומטרים</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">איפה לאכול</string>
@@ -147,16 +146,13 @@
     <string name="category_water">מים</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">עבור קרוואנים</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">הערות</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">סימניות של Organic Maps שותפו איתך</string>
-    <string name="share_bookmarks_email_body">שלום!
-\n
-\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-Organic Maps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://omaps.app/get?kmz
-\n
-\nתהנו לנווט עם Organic Maps!</string>
+    <string name="share_bookmarks_email_body">שלום!\n\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-Organic Maps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://omaps.app/get?kmz\n\nתהנו לנווט עם Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">טוען סימניות</string>
     <!-- Kmz file successful loading -->
@@ -164,12 +160,9 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">טעינת הסימניות נכשלה. יתכן שהקובץ פגום.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">סוג הקובץ אינו מזוהה על ידי האפליקציה:
-\n%1$s</string>
+    <string name="unknown_file_type">סוג הקובץ אינו מזוהה על ידי האפליקציה:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">נכשל בפתיחת הקובץ %1$s
-\n
-\n%2$s</string>
+    <string name="failed_to_open_file">נכשל בפתיחת הקובץ %1$s\n\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">ערוך</string>
     <!-- Warning message when doing search around current position -->
@@ -179,19 +172,13 @@
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">הורדת מפת המדינה מתבצעת כעת.</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">קבלו את המיקום שלי ב-Organic Maps!
-\n%1$s או %2$s
-\nאין לך מפות בלי אינטרנט? להוריד כאן: https://omaps.app/get</string>
+    <string name="my_position_share_sms">קבלו את המיקום שלי ב-Organic Maps!\n%1$s או %2$s\nאין לך מפות בלי אינטרנט? להוריד כאן: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">היי, בדוק את הסיכה שלי במפה של Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">היי, בדקו את המיקום הנוכחי שלי במפה של Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">היי,
-\n
-\nאני כאן: %1$s. הקש על הלינק %2$s או על %3$s כדי לראות את המקום על המפה.
-\n
-\nתודה.</string>
+    <string name="my_position_share_email">היי,\n\nאני כאן: %1$s. הקש על הלינק %2$s או על %3$s כדי לראות את המקום על המפה.\n\nתודה.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">שיתוף</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -270,7 +257,7 @@
     <string name="how_to_support_us">תמכו בפרויקט</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">זכויות יוצרים</string>
-    <!-- Text in menu + Button in the main Help dialog -->
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">דווח על באג</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">שפר את כיוון החץ על ידי הזזת הטלפון בתנועה של שמונה כדי לכייל את המצפן.</string>
@@ -343,6 +330,7 @@
     <string name="gray">אפור</string>
     <!-- blue gray color -->
     <string name="blue_gray">כחול אפרפר</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">בעת נסיעה לאורך המסלול, שים לב לדברים הבאים:</string>
     <string name="dialog_routing_disclaimer_priority">— תנאי הכביש, חוקי התנועה והתמרורים תמיד מקבלים עדיפות על פני הנחיות ניווט;</string>
@@ -372,6 +360,7 @@
     <string name="not_now">לא עכשיו</string>
     <string name="dialog_routing_download_and_build_cross_route">האם ברצונך להוריד את המפה וליצור מסלול מיטבי יותר, הכולל יותר מאשר מפה אחת?</string>
     <string name="dialog_routing_download_cross_route">הורד מפות נוספות כדי ליצור מסלול יותר טוב שחוצה את גבולות המפה הזו.</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">על מנת להתחיל לחפש וליצור מסלולים, הורידו בבקשה את המפה. לאחר מכן לא תזדקקו יותר לחיבור לאינטרנט.</string>
     <string name="search_select_map">בחר מפה</string>
@@ -485,8 +474,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">נתוני OpenStreetMap שנוצרו על ידי הקהילה החל מ-%s. למידע נוסף על איך לערוך ולעדכן את המפה ב-OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">\u200FOpenStreetMap.org (OSM) הוא פרויקט קהילתי לבניית מפה חופשית ופתוחה. זהו המקור העיקרי לנתוני מפות ב-Organic Maps והוא פועל בדומה לוויקיפדיה. ניתן להוסיף או לערוך מקומות והם הופכים לזמינים למיליוני משתמשים בכל רחבי העולם.
-\nהצטרף לקהילה ועזור ליצור מפה טובה יותר לכולם!</string>
+    <string name="login_osm_presentation">\u200FOpenStreetMap.org (OSM) הוא פרויקט קהילתי לבניית מפה חופשית ופתוחה. זהו המקור העיקרי לנתוני מפות ב-Organic Maps והוא פועל בדומה לוויקיפדיה. ניתן להוסיף או לערוך מקומות והם הופכים לזמינים למיליוני משתמשים בכל רחבי העולם.\nהצטרף לקהילה ועזור ליצור מפה טובה יותר לכולם!</string>
     <string name="login_to_make_edits_visible">צור חשבון OpenStreetMap או היכנס כדי לפרסם את עריכות המפה שלך לעולם.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d מתוך %2$d</string>
@@ -522,6 +510,7 @@
     <string name="minute">ד׳</string>
     <string name="day">י</string>
     <string name="placepage_more_button">עוד</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">ערוך סימניה</string>
     <string name="placepage_personal_notes_hint">הערות אישיות (טקסט או HTML)</string>
     <string name="editor_comment_hint">תגובה…</string>
@@ -698,6 +687,7 @@
     <string name="moreyear_ago_sorttype">לפני יותר משנה</string>
     <string name="near_me_sorttype">קרוב אלי</string>
     <string name="others_sorttype">אחרים</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">אוכל</string>
     <string name="tourist_places">תיירות</string>
@@ -823,6 +813,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">הפסק הקלטת מסלול</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">הקלטת מסלול</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">הפסק בלי לשמור</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">המשך להקליט</string>
@@ -837,5 +829,4 @@
     <string name="uri_open_location_failed">לא מותקנת אפליקציה שיכולה לפתוח את המיקום</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">אוטומטי בניווט</string>
-    <string name="track_recording_title">הקלטת מסלול</string>
 </resources>

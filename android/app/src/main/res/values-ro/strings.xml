@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Înapoi</string>
@@ -18,7 +19,7 @@
     <string name="miles">Mile</string>
     <!-- Update maps later button text -->
     <string name="later">Mai târziu</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Caută</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Caută pe hartă</string>
@@ -54,11 +55,9 @@
     <string name="disconnect_usb_cable">Deconectează cablul USB sau introdu un card de memorie pentru a utiliza Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Spațiul de stocare de pe cardul SD/memoria USB este insuficient pentru a putea utiliza aplicația</string>
-    <string name="download_resources">Înainte de a începe, trebuie descărcată harta generală a lumii în dispozitivul tău.
-\nSe vor descărca %s.</string>
+    <string name="download_resources">Înainte de a începe, trebuie descărcată harta generală a lumii în dispozitivul tău.\nSe vor descărca %s.</string>
     <string name="download_resources_continue">Mergi la hartă</string>
-    <string name="downloading_country_can_proceed">Se descarcă %s. Acum poți
-\ntrece la hartă.</string>
+    <string name="downloading_country_can_proceed">Se descarcă %s. Acum poți\ntrece la hartă.</string>
     <string name="download_country_ask">Descarci %s?</string>
     <string name="update_country_ask">Actualizezi %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -73,7 +72,7 @@
     <string name="bookmark_set_name">Denumirea listei</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Locuri preferate</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">Locuri preferate și trasee</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Denumire</string>
@@ -92,12 +91,12 @@
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">Muți hărțile?</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Poate dura câteva minute.
-\nAșteaptă…</string>
+    <string name="wait_several_minutes">Poate dura câteva minute.\nAșteaptă…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Unități de măsură</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Alege între mile și kilometri</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Unde să mănânci</string>
@@ -143,14 +142,13 @@
     <string name="category_water">Apă</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Pentru rulote</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Detalii</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Îți trimit locurile mele preferate din Organic Maps</string>
-    <string name="share_bookmarks_email_body">Bună!
-\n
-\nȚi-am atașat locurile mele preferate din aplicația Organic Maps. Deschide-le dacă ai instalată Organic Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/</string>
+    <string name="share_bookmarks_email_body">Bună!\n\nȚi-am atașat locurile mele preferate din aplicația Organic Maps. Deschide-le dacă ai instalată Organic Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Se încarcă locurile preferate</string>
     <!-- Kmz file successful loading -->
@@ -158,12 +156,9 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Încărcarea locurilor preferate a eșuat. Fișierul poate fi defect.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Tipul de fișier nu este recunoscut de aplicație:
-\n%1$s</string>
+    <string name="unknown_file_type">Tipul de fișier nu este recunoscut de aplicație:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Nu a reușit să deschidă fișierul %1$s
-\n
-\n%2$s</string>
+    <string name="failed_to_open_file">Nu a reușit să deschidă fișierul %1$s\n\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Modifică</string>
     <!-- Warning message when doing search around current position -->
@@ -179,11 +174,7 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Poți vedea poziția mea pe harta Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Bună,
-\n
-\nAcum sunt aici: %1$s. Apasă pe adresa %2$s sau pe %3$s pentru a vedea locul pe hartă.
-\n
-\nMulțumesc.</string>
+    <string name="my_position_share_email">Bună,\n\nAcum sunt aici: %1$s. Apasă pe adresa %2$s sau pe %3$s pentru a vedea locul pe hartă.\n\nMulțumesc.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Trimite</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -260,7 +251,7 @@
     <string name="how_to_support_us">Susține proiectul</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Drepturi de autor</string>
-    <!-- Text in menu + Button in the main Help dialog -->
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">Raportează o eroare</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">Îmbunătățiți direcția săgeții prin mișcarea telefonului într-o mișcare în opt pentru a calibra busola.</string>
@@ -339,6 +330,7 @@
     <string name="gray">Gri</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gri albăstriu</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Când parcurgi traseul, ai în vedere următoarele:</string>
     <string name="dialog_routing_disclaimer_priority">— Condițiile de drum, legile și semnele rutiere sunt mai importante decât indicațiile navigatorului;</string>
@@ -368,6 +360,7 @@
     <string name="not_now">Nu acum</string>
     <string name="dialog_routing_download_and_build_cross_route">Vrei să descarci harta și să creezi un traseu mai bun care include mai multe hărți?</string>
     <string name="dialog_routing_download_cross_route">Descarcă hărți suplimentare pentru a crea un traseu mai bun care să traverseze limitele acestei hărți.</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Pentru a putea începe căutarea și crearea unor trasee, descarcă harta. După aceasta nu vei mai avea nevoie de conexiune la internet.</string>
     <string name="search_select_map">Alege harta</string>
@@ -481,8 +474,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Date OpenStreetMap create de comunitate la data de %s. Aflați mai multe despre cum să editați și să actualizați harta la OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) este un proiect comunitar pentru construirea unei hărți libere și deschise. Este principala sursă de date cartografice în Organic Maps și funcționează similar cu Wikipedia. Puteți adăuga sau edita locuri, iar acestea devin disponibile pentru milioane de utilizatori din întreaga lume.
-\nAlăturați-vă comunității și ajutați la crearea unei hărți mai bune pentru toată lumea!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) este un proiect comunitar pentru construirea unei hărți libere și deschise. Este principala sursă de date cartografice în Organic Maps și funcționează similar cu Wikipedia. Puteți adăuga sau edita locuri, iar acestea devin disponibile pentru milioane de utilizatori din întreaga lume.\nAlăturați-vă comunității și ajutați la crearea unei hărți mai bune pentru toată lumea!</string>
     <string name="login_to_make_edits_visible">Creați un cont OpenStreetMap sau conectați-vă pentru a vă publica edițiile de hartă în întreaga lume.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d din %2$d</string>
@@ -518,6 +510,7 @@
     <string name="minute">min</string>
     <string name="day">z</string>
     <string name="placepage_more_button">Mai mult</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Modifică locul preferat</string>
     <string name="placepage_personal_notes_hint">Însemnări personale (text sau html)</string>
     <string name="editor_comment_hint">Comentariu…</string>
@@ -568,9 +561,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Părere generală</string>
     <string name="prefs_languages_information">Pentru instrucțiuni vocale utilizăm sistemul TTS. Multe dispozitive Android folosesc Google TTS. Poți descărca sau actualiza aplicația din Google Play</string>
-    <string name="prefs_languages_information_off">Pentru unele limbi trebuie să instalezi alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play, Galaxy Store, App Gallery, FDroid).
-\nDeschide setările dispozitivului → Limbă → Transformare text în vorbire → Motor preferat.
-\nAici poți alege motorul de transformare a textului în vorbire și poți descărca o limbă pentru utilizare fără internet.</string>
+    <string name="prefs_languages_information_off">Pentru unele limbi trebuie să instalezi alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play, Galaxy Store, App Gallery, FDroid).\nDeschide setările dispozitivului → Limbă → Transformare text în vorbire → Motor preferat.\nAici poți alege motorul de transformare a textului în vorbire și poți descărca o limbă pentru utilizare fără internet.</string>
     <string name="prefs_languages_information_off_link">Consultă acest ghid pentru informații suplimentare.</string>
     <string name="transliteration_title">Transcrie în alfabet latin</string>
     <string name="learn_more">Mai multe</string>
@@ -697,6 +688,7 @@
     <string name="moreyear_ago_sorttype">Cu mai mult de un an în urmă</string>
     <string name="near_me_sorttype">Lângă mine</string>
     <string name="others_sorttype">Altele</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Mâncare</string>
     <string name="tourist_places">Obiective turistice</string>
@@ -818,6 +810,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Opriți înregistrarea traseului</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Înregistrare traseu</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Oprire fără salvare</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Continuați înregistrarea</string>
@@ -832,5 +826,4 @@
     <string name="uri_open_location_failed">Nu există nicio aplicație instalată care să poată deschide locația</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto în navigație</string>
-    <string name="track_recording_title">Înregistrare traseu</string>
 </resources>

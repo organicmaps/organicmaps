@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">뒤로</string>
@@ -18,7 +19,7 @@
     <string name="miles">마일</string>
     <!-- Update maps later button text -->
     <string name="later">나중에</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">검색하기</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">지도 검색하기</string>
@@ -54,8 +55,7 @@
     <string name="disconnect_usb_cable">Organic Maps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">앱을 사용하려면 먼저 SD 카드/USB 저장소의 여유 공간을 확보하세요</string>
-    <string name="download_resources">시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.
-\n%s 데이터가 필요합니다.</string>
+    <string name="download_resources">시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%s 데이터가 필요합니다.</string>
     <string name="download_resources_continue">지도로 이동</string>
     <string name="downloading_country_can_proceed">%s다운로드. 이제지도를 진행할 수 있습니다.</string>
     <string name="download_country_ask">%s다운로드?</string>
@@ -72,7 +72,7 @@
     <string name="bookmark_set_name">집합 이름을 즐겨찾기에 추가</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">북마크</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">북마크 및 트랙</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">이름</string>
@@ -88,15 +88,17 @@
     <string name="maps_storage_summary">지도가 다운로드될 곳을 선택합니다</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">지도</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%2$s 중 %1$s 여유</string>
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">지도를 이동합니까?</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">이 작업은 수 분 소요될 수 있습니다.
-\n잠시 기다리세요…</string>
+    <string name="wait_several_minutes">이 작업은 수 분 소요될 수 있습니다.\n잠시 기다리세요…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">측정 단위</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">마일과 킬로미터 중에서 선택하십시오</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">어디서 먹을까</string>
@@ -142,6 +144,7 @@
     <string name="category_water">물</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">RV용</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">메모</string>
@@ -154,12 +157,9 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">즐겨찾기 업로드가 실패했습니다. 파일이 훼손되었거나 결함이 있을지도 모릅니다.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">파일 형식이 앱에서 인식되지 않습니다:
-\n%1$s</string>
+    <string name="unknown_file_type">파일 형식이 앱에서 인식되지 않습니다:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">파일을 열지 못했습니다 %1$s
-\n
-\n%2$s</string>
+    <string name="failed_to_open_file">파일을 열지 못했습니다 %1$s\n\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">편집</string>
     <!-- Warning message when doing search around current position -->
@@ -175,11 +175,7 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Organic Maps 지도에서 제 현재 위치를 살펴 보시기 바랍니다</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">안녕하세요.
-\n
-\n지금 다음 위치에 있습니다: %1$s. %2$s 또는 %3$s 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.
-\n
-\n감사합니다.</string>
+    <string name="my_position_share_email">안녕하세요.\n\n지금 다음 위치에 있습니다: %1$s. %2$s 또는 %3$s 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">공유</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -252,7 +248,7 @@
     <string name="how_to_support_us">프로젝트 지원</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">저작권</string>
-    <!-- Text in menu + Button in the main Help dialog -->
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">오류 신고</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">나침반을 보정하기 위해 휴대폰을 8자 모양으로 움직여 화살표 방향을 개선하세요.</string>
@@ -331,6 +327,7 @@
     <string name="gray">회색</string>
     <!-- blue gray color -->
     <string name="blue_gray">청회색</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">경로를 따라갈 때는 다음 사항에 주의해 주세요:</string>
     <string name="dialog_routing_disclaimer_priority">— 도로 상황, 교통법, 도로 표지판을 항상 내비게이션 안내보다 먼저 고려하세요;</string>
@@ -360,6 +357,7 @@
     <string name="not_now">나중에</string>
     <string name="dialog_routing_download_and_build_cross_route">지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?</string>
     <string name="dialog_routing_download_cross_route">이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">경로를 검색하고 만들기시작하려면, 지도를 다운로드하십시오. 그러면, 더 이상 인터넷 연결이 필요하지 않습니다.</string>
     <string name="search_select_map">지도 선택</string>
@@ -466,8 +464,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">커뮤니티에서 만든 오픈스트리트맵 데이터(%s 기준). 지도를 편집하고 업데이트하는 방법에 대한 자세한 내용은 OpenStreetMap.org에서 확인하세요.</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">오픈스트리트맵(OSM)은 무료 오픈스트리트맵을 구축하기 위한 커뮤니티 프로젝트입니다. 오가닉 맵의 지도 데이터의 주요 소스이며 위키백과와 유사하게 작동합니다. 장소를 추가하거나 편집하면 전 세계 수백만 명의 사용자가 사용할 수 있습니다.
-\n커뮤니티에 참여하여 모두를 위한 더 나은 지도를 만드는 데 도움을 주세요!</string>
+    <string name="login_osm_presentation">오픈스트리트맵(OSM)은 무료 오픈스트리트맵을 구축하기 위한 커뮤니티 프로젝트입니다. 오가닉 맵의 지도 데이터의 주요 소스이며 위키백과와 유사하게 작동합니다. 장소를 추가하거나 편집하면 전 세계 수백만 명의 사용자가 사용할 수 있습니다.\n커뮤니티에 참여하여 모두를 위한 더 나은 지도를 만드는 데 도움을 주세요!</string>
     <string name="login_to_make_edits_visible">오픈스트리트맵 계정을 만들거나 로그인하여 지도 편집 내용을 전 세계에 공개하세요.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%2$d중의 %1$d</string>
@@ -503,6 +500,7 @@
     <string name="minute">min</string>
     <string name="day">일</string>
     <string name="placepage_more_button">자세히</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">즐겨찾기 편집</string>
     <string name="placepage_personal_notes_hint">개인 메모 (글자 혹은 html)</string>
     <string name="editor_comment_hint">설명…</string>
@@ -546,9 +544,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">일반 피드백</string>
     <string name="prefs_languages_information">당사는 음성 지침을 위해 시스템 TTS를 사용합니다. 많은 Android 장치에서 Google TTS를 사용합니다. Google Play 에서 Google TTS를 다운로드하거나 업데이트할 수 있습니다.</string>
-    <string name="prefs_languages_information_off">일부 언어의 경우 앱 스토어(Google Play, Galaxy Store, App Gallery, FDroid)에서 다른 음성 합성기 또는 추가 언어 팩을 설치해야 합니다.
-\n장치의 설정 → 언어 및 입력 → 음성 → 텍스트-음성 변환 출력을 엽니다.
-\n여기서 음성 합성에 대한 설정을 관리하고(예: 오프라인 사용을 위한 언어 팩 다운로드) 다른 텍스트-음성 변환 엔진을 선택할 수 있습니다.</string>
+    <string name="prefs_languages_information_off">일부 언어의 경우 앱 스토어(Google Play, Galaxy Store, App Gallery, FDroid)에서 다른 음성 합성기 또는 추가 언어 팩을 설치해야 합니다.\n장치의 설정 → 언어 및 입력 → 음성 → 텍스트-음성 변환 출력을 엽니다.\n여기서 음성 합성에 대한 설정을 관리하고(예: 오프라인 사용을 위한 언어 팩 다운로드) 다른 텍스트-음성 변환 엔진을 선택할 수 있습니다.</string>
     <string name="prefs_languages_information_off_link">자세한 내용을 보려면 이 가이드를 확인하세요.</string>
     <string name="transliteration_title">라틴어로 음역</string>
     <string name="learn_more">자세히 알아보기</string>
@@ -600,7 +596,9 @@
     <string name="privacy_policy">개인정보 보호 방침</string>
     <string name="terms_of_use">사용 약관</string>
     <string name="button_layer_traffic">트래픽</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_hiking">하이킹</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">사이클링</string>
     <string name="button_layer_subway">지하철</string>
     <string name="layers_title">맵 스타일 및 레이어</string>
@@ -625,6 +623,11 @@
     <string name="power_managment_setting_never">안함</string>
     <string name="power_managment_setting_auto">자동</string>
     <string name="power_managment_setting_manual_max">최대 전력 절약</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">지도에 북마크 이름 표시</string>
+    <string name="bookmarks_text_placement_description">북마크가 너무 많을 경우 지도에 북마크 이름을 표시하면 앱 속도가 느려질 수 있습니다.</string>
+    <string name="show_to_the_right">오른쪽에 표시</string>
+    <string name="show_at_the_bottom">하단에 표시</string>
     <string name="enable_logging_warning_message">이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 Organic Maps 지원 요청에서만 가능합니다.</string>
     <string name="driving_options_title">운전 옵션</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -675,6 +678,7 @@
     <string name="moreyear_ago_sorttype">1년 그 이상 전</string>
     <string name="near_me_sorttype">나와 가까운 곳</string>
     <string name="others_sorttype">기타</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">음식</string>
     <string name="tourist_places">명소</string>
@@ -711,6 +715,12 @@
     <string name="enable_keep_screen_on">화면 켜짐 유지</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">활성화하면 지도를 표시할 때 화면이 항상 켜져 있습니다.</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">잠금 화면에 표시</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">활성화하면 기기가 잠겨 있어도 앱은 잠금 화면에서 작동합니다.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">지도 언어</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">OpenStreetMap의 지도 데이터</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
@@ -787,6 +797,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">트랙 기록 중지</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">트랙 기록</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">저장하지 않고 중지</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">녹화 계속하기</string>
@@ -801,13 +813,4 @@
     <string name="uri_open_location_failed">위치를 열 수 있는 앱이 설치되어 있지 않습니다.</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">내비게이션에서 자동</string>
-    <string name="change_map_locale">지도 언어</string>
-    <string name="enable_show_on_lock_screen">잠금 화면에 표시</string>
-    <string name="enable_show_on_lock_screen_description">활성화하면 기기가 잠겨 있어도 앱은 잠금 화면에서 작동합니다.</string>
-    <string name="maps_storage_free_size">%2$s 중 %1$s 여유</string>
-    <string name="bookmarks_text_placement_title">지도에 북마크 이름 표시</string>
-    <string name="bookmarks_text_placement_description">북마크가 너무 많을 경우 지도에 북마크 이름을 표시하면 앱 속도가 느려질 수 있습니다.</string>
-    <string name="show_to_the_right">오른쪽에 표시</string>
-    <string name="show_at_the_bottom">하단에 표시</string>
-    <string name="track_recording_title">트랙 기록</string>
 </resources>

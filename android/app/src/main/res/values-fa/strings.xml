@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">بازگشت</string>
@@ -18,7 +19,7 @@
     <string name="miles">مایل</string>
     <!-- Update maps later button text -->
     <string name="later">بعداً</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">جست‌وجو</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">جست‌وجوی نقشه</string>
@@ -51,11 +52,12 @@
     <string name="unsupported_phone">این برنامه به OpenGL با شتاب سخت‌افزاری نیاز دارد. متاسفانه دستگاه شما پشتیبانی نمی‌شود.</string>
     <string name="download">دانلود</string>
     <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable">لطفا کابل USB را جدا کنید یا کارت حافظه وارد کنید تا بتوانید از Organic Maps استفاده کنید</string>
+    <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">لطفا مقداری از فضای ذخیره‌سازی را آزاد نمایید</string>
     <string name="download_resources">قبل از استفاده از برنامه، اجازه دهید تا ما نقشه جهانی را بر روی موبایل شما دانلود کنیم. \nمقدار %s از حافظه شما اشغال می‌شود.</string>
     <string name="download_resources_continue">برو به نقشه</string>
-    <string name="downloading_country_can_proceed">درحال دانلود %s. شما اکنون می توانید
-\nبه نقشه بروید.</string>
+    <string name="downloading_country_can_proceed">درحال دانلود %s. شما اکنون می توانید\nبه نقشه بروید.</string>
     <string name="download_country_ask">دانلود %s?</string>
     <string name="update_country_ask">به‌روزرسانی %s؟</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -66,9 +68,11 @@
     <string name="download_country_failed">%s دانلود با شکست مواجه شد</string>
     <!-- "Add new bookmark list" dialog title -->
     <string name="add_new_set">افزودن فهرست جدید</string>
+    <!-- Add Bookmark list dialog - hint when the list name is empty -->
+    <string name="bookmark_set_name">نام فهرست نشانک</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">نشانک‌ها</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">نشانک‌ها و مسیرها</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">نام</string>
@@ -84,15 +88,19 @@
     <string name="maps_storage_summary">پوشه‌ای را برای دانلود نقشه‌ها انتخاب کنید.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">نقشه‌ها</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%1$s خالی از %2$s</string>
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">آیا نقشه‌ها جابه‌جا شود؟</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">خطا در جابجایی پرونده‌های نقشه</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">ممکن است چند دقیقه طول بکشد.
-\nلطفا صبر کنید…</string>
+    <string name="wait_several_minutes">ممکن است چند دقیقه طول بکشد.\nلطفا صبر کنید…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">واحد اندازه‌گیری</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">بین مایل و کیلومتر انتخاب کنید</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">کجا غذا بخوریم</string>
@@ -129,7 +137,7 @@
     <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
     <string name="category_toilet">توالت</string>
     <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
-    <string name="category_post" translatable="false">پست</string>
+    <string name="category_post">پست</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">پلیس</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
@@ -138,9 +146,13 @@
     <string name="category_water">آب</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">امکانات ماشین کاروان</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">یادداشت‌ها</string>
+    <!-- Email Subject when sharing bookmark list -->
+    <string name="share_bookmarks_email_subject">نشانک‌های Organic Maps با شما هم‌رسانی شده‌اند</string>
+    <string name="share_bookmarks_email_body">سلام!\n\nنشانک‌های من ضمیمه شده‌اند؛ لطفا آن‌ها را در Organic Maps باز کنید. اگر برنامه نصب نشده است، می‌توانید آن را از اینجا دانلود کنید: https://omaps.app/get?kmz \n\nاز سفر با Organic Maps لذت ببرید!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">در حال بارگیری نشانک‌ها</string>
     <!-- Kmz file successful loading -->
@@ -148,12 +160,9 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">بارگیری نشانک‌ها ناموفق بود. ممکن است پرونده خراب یا ناقص باشد.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">نوع فایل توسط برنامه تشخیص داده نمی شود:
-\n%1$s</string>
+    <string name="unknown_file_type">نوع فایل توسط برنامه تشخیص داده نمی شود:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">فایل باز نشد %1$s
-\n
-\n%2$s</string>
+    <string name="failed_to_open_file">فایل باز نشد %1$s\n\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">ویرایش</string>
     <!-- Warning message when doing search around current position -->
@@ -162,6 +171,14 @@
     <string name="cant_change_this_setting">متأسفیم، تنظیمات ذخیره‌سازی نقشه در حال حاضر غیرفعال است.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">دانلود نقشه در حال انجام است.</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">مکان فعلی من را در Organic Maps بررسی کنید! %1$s یا %2$s نقشه‌های آفلاین ندارید؟ از اینجا دانلود کنید: https://omaps.app/get</string>
+    <!-- Subject for emailed bookmark -->
+    <string name="bookmark_share_email_subject">سلام، مکان من را در Organic Maps بررسی کن!</string>
+    <!-- Subject for emailed position -->
+    <string name="my_position_share_email_subject">سلام، مکان فعلی من را روی نقشه Organic Maps بررسی کن!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email">سلام، \n \nمن الان اینجا هستم: %1$s. این پیوند را کلیک کنید %2$s یا این یکی %3$s تا مکان را روی نقشه ببینید. \n \nسپاسگزارم.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">هم‌رسانی</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -217,10 +234,32 @@
     <string name="pref_map_auto_zoom">بزرگنمایی خودکار</string>
     <string name="placepage_distance">مسافت</string>
     <string name="search_show_on_map">مشاهده بر روی نقشه</string>
+    <!-- Menu button -->
+    <string name="menu">منو</string>
     <!-- Text in menu -->
     <string name="website">وبگاه</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">اخبار</string>
+    <!-- Text in menu -->
+    <string name="github">گیت‌هاب</string>
+    <!-- Text in menu -->
+    <string name="telegram">تلگرام</string>
+    <!-- Text in menu -->
+    <string name="matrix">[ماتریکس]</string>
+    <!-- Text in menu -->
+    <string name="mastodon">ماستودون</string>
+    <!-- Text in menu -->
+    <string name="facebook">فیسبوک</string>
+    <!-- Text in menu -->
+    <string name="twitter">ایکس (توییتر)</string>
+    <!-- Text in menu -->
+    <string name="instagram">اینستاگرام</string>
+    <!-- Text in the editor -->
+    <string name="vk">VK</string>
+    <!-- Text in the editor -->
+    <string name="editor_line_social_network">لاین</string>
+    <!-- Text in menu -->
+    <string name="openstreetmap">اوپن‌استریت‌مپ</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">بازخورد</string>
     <!-- Text in menu -->
@@ -238,7 +277,7 @@
     <string name="how_to_support_us">از پروژه حمایت کنید</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">حق نشر و کپی رایت</string>
-    <!-- Text in menu + Button in the main Help dialog -->
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">گزارش خطا</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">برای کالیبره کردن قطب نما، جهت پیکان را با حرکت دادن تلفن در یک حرکت شکل هشت بهبود دهید.</string>
@@ -317,6 +356,7 @@
     <string name="gray">خاکستری</string>
     <!-- blue gray color -->
     <string name="blue_gray">خاکستری کبود</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">زمانی که مسیری را دنبال می کنید لطفا به یاد داشته باشید:</string>
     <string name="dialog_routing_disclaimer_priority">— شرایط جاده، قوانین راهنمایی و رانندگی و علائم جاده‌ای همیشه نسبت به راهنمایی‌های مسیریابی اولویت دارند؛</string>
@@ -346,6 +386,7 @@
     <string name="not_now">اکنون خیر</string>
     <string name="dialog_routing_download_and_build_cross_route">ایا مایل به دانلود نقشه و ایجاد مسیر‌های بهینه بیشتری که نقشه‌های بیشتری را پوشش میدهد هستید؟</string>
     <string name="dialog_routing_download_cross_route">دانلود نقشه‌های اضافی برای ایجاد مسیری بهتر که حاشیه‌های این نقشه را رد می کند.</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">برای شروع جستجو و مسیر‌یابی لطفا نقشه رادانلود کنید بعد از آن دیگر نیازی به اتصال به اینترنت ندارید و برنامه کاملا آفلاین اجرا می شود.</string>
     <string name="search_select_map">انتخاب نقشه</string>
@@ -363,6 +404,8 @@
     <string name="clear_search">پاک کردن سابقه جستجوها</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">ویکی پدیا</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">ویکی‌انبار</string>
     <string name="p2p_your_location">موقعیت شما</string>
     <string name="p2p_start">شروع</string>
     <string name="p2p_from_here">مسیر از</string>
@@ -403,6 +446,8 @@
     <string name="day_off_today">امروز تعطیل است</string>
     <string name="day_off">تعطیل است</string>
     <string name="today">امروز</string>
+    <string name="opens_in">در %s باز می‌شود</string>
+    <string name="closes_in">در %s بسته می‌شود</string>
     <string name="closed">تعطیل</string>
     <string name="edit_opening_hours">ویرایش ساعت کاری</string>
     <string name="no_osm_account">آیا حساب OpenStreetMap ندارید؟</string>
@@ -432,6 +477,7 @@
     <string name="select_cuisine">انتخاب غذاخوری</string>
     <!-- login text field -->
     <string name="email_or_username">ایمیل یا نام کاربری</string>
+    <string name="editor_add_phone">افزودن تلفن</string>
     <string name="level">طبقه</string>
     <string name="downloader_delete_map_dialog">تمام ویرایش‌های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.</string>
     <string name="downloader_update_maps">به‌روزرسانی نقشه‌ها</string>
@@ -456,8 +502,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">داده های OpenStreetMap ایجاد شده توسط انجمن از %s. درباره نحوه ویرایش و به روز رسانی نقشه در OpenStreetMap.org بیشتر بیاموزید</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) یک پروژه اجتماعی برای ساخت یک نقشه رایگان و باز است. این منبع اصلی داده های نقشه در نقشه های ارگانیک است و مشابه ویکی پدیا کار می کند. میu200cتوانید مکانu200cها را اضافه یا ویرایش کنید تا در دسترس میلیونu200cها کاربر در سراسر جهان قرار گیرند.
-\nبه انجمن بپیوندید و به ایجاد نقشه بهتر برای همه کمک کنید!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) یک پروژه اجتماعی برای ساخت یک نقشه رایگان و باز است. این منبع اصلی داده های نقشه در نقشه های ارگانیک است و مشابه ویکی پدیا کار می کند. میu200cتوانید مکانu200cها را اضافه یا ویرایش کنید تا در دسترس میلیونu200cها کاربر در سراسر جهان قرار گیرند.\nبه انجمن بپیوندید و به ایجاد نقشه بهتر برای همه کمک کنید!</string>
     <string name="login_to_make_edits_visible">یک حساب OpenStreetMap ایجاد کنید یا وارد شوید تا ویرایش های نقشه خود را در جهان منتشر کنید.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d از %2$d</string>
@@ -493,6 +538,7 @@
     <string name="minute">دقیقه</string>
     <string name="day">روز</string>
     <string name="placepage_more_button">بیشتر</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">ویرایش نشانک‌ها</string>
     <string name="placepage_personal_notes_hint">یادداشت های شخصی (متن یا html)</string>
     <string name="editor_comment_hint">دیدگاه…</string>
@@ -501,11 +547,20 @@
     <string name="editor_remove_place_message">آیا مکان ثبت شده حذف شود؟</string>
     <string name="editor_remove_place_button">حذف</string>
     <string name="editor_place_doesnt_exist">مکان وجود ندارد</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">لطفا دلیل حذف مکان را مشخص کنید</string>
     <!-- Phone number error message -->
     <string name="error_enter_correct_phone">شماره تلفن معتبری وارد نمایید</string>
     <string name="error_enter_correct_web">ادرس وب معتبری وارد نمایید</string>
     <string name="error_enter_correct_email">ایمیل معتبری وارد نمایید</string>
+    <string name="error_enter_correct_facebook_page">یک نشانی وب معتبر فیسبوک، حساب کاربری یا نام صفحه وارد کنید</string>
+    <string name="error_enter_correct_instagram_page">یک نام کاربری معتبر اینستاگرام یا نشانی وب وارد کنید</string>
+    <string name="error_enter_correct_twitter_page">یک نام کاربری معتبر توییتر یا نشانی وب وارد کنید</string>
+    <string name="error_enter_correct_vk_page">یک نام کاربری معتبر VK یا نشانی وب وارد کنید</string>
+    <string name="error_enter_correct_line_page">یک شناسه معتبر LINE یا نشانی وب وارد کنید</string>
     <string name="placepage_add_place_button">مکان را به OpenStreetMap اضافه کنید</string>
+    <string name="osm_note_hint">یا، به عنوان یک راه حل جایگزین، برای انجمن OpenStreetMap یادداشت بگذارید تا شخص دیگری بتواند مکانی را به اینجا اضافه یا اصلاح کند.</string>
+    <string name="osm_note_toast">یادداشت به OpenStreetMap ارسال خواهد شد</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">آیا می خواهید آن را برای دیگر کاربران ارسال کنید؟</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -548,10 +603,11 @@
     <string name="button_plan">برنامه</string>
     <string name="placepage_remove_stop">توقف را حذف کنید</string>
     <string name="placepage_add_stop">اضافه کردن توقف</string>
+    <string name="saved">ذخیره شد</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">لطفاً به OpenStreetMap وارد شوید تا به طور خودکار تمام ویرایش های نقشه خود را آپلود کنید. <a href="https://github.com/organicmaps/organicmaps/issues/6144">اینجا</a> بیشتر بیاموزید.</string>
     <string name="dialog_error_storage_title">مشکل دسترسی به ذخیره‌سازی</string>
-    <string name="dialog_error_storage_message">حافظه خارجی قابل دسترسی نیست. ممکن است کارت SD برداشته شده، آسیب دیده باشد، یا سیستم پرونده فقط خواندنی باشد. لطفا کارت SD خود را بررسی کنید یا با ما در support@organicmaps.app تماس بگیرید</string>
+    <string name="dialog_error_storage_message">حافظه خارجی قابل دسترسی نیست. ممکن است کارت SD برداشته شده، آسیب دیده باشد، یا سیستم پرونده فقط خواندنی باشد. لطفا کارت SD خود را بررسی کنید یا با ما در support\@organicmaps.app تماس بگیرید</string>
     <string name="setting_emulate_bad_storage">شبیه سازی ذخیره سازی بد</string>
     <string name="error_enter_correct_name">لطفا نام صحیح را وارد کنید</string>
     <string name="bookmark_lists">فهرست‌ها</string>
@@ -559,8 +615,8 @@
     <string name="bookmark_lists_hide_all">پنهان کردن همه</string>
     <string name="bookmark_lists_show_all">نمایش همه</string>
     <plurals name="bookmarks_places">
-        <item quantity="one">%d نشانک</item>
-        <item quantity="other">%d نشانک‌ها</item>
+        <item quantity="one">%d نشانه</item>
+        <item quantity="other">%d نشانه‌ها</item>
     </plurals>
     <string name="bookmarks_create_new_group">ایجاد فهرست جدید</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
@@ -582,14 +638,18 @@
     </plurals>
     <string name="restore">بازیابی</string>
     <plurals name="tracks">
-        <item quantity="one">%d مسیر</item>
-        <item quantity="other">%d مسیر</item>
+        <item quantity="one">%d رد</item>
+        <item quantity="other">%d رد</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">حریم شخصی</string>
     <string name="privacy_policy">سیاست حریم خصوصی</string>
     <string name="terms_of_use">شرایط استفاده</string>
     <string name="button_layer_traffic">ترافیک</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">پیاده‌گردی</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">دوچرخه‌سواری</string>
     <string name="button_layer_subway">مترو</string>
     <string name="layers_title">سبک ها و لایه های نقشه</string>
     <string name="bookmarks_empty_list_title">این فهرست خالی است</string>
@@ -613,6 +673,8 @@
     <string name="power_managment_setting_never">هرگز</string>
     <string name="power_managment_setting_auto">خودکار</string>
     <string name="power_managment_setting_manual_max">حداکثر ذخیره انرژی</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">نام‌ها را روی نقشه نشانه‌گذاری کنید</string>
     <string name="enable_logging_warning_message">این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.</string>
     <string name="driving_options_title">گزینه‌های رانندگی</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -663,6 +725,7 @@
     <string name="moreyear_ago_sorttype">بیش از یک سال قبل</string>
     <string name="near_me_sorttype">نزدیک من</string>
     <string name="others_sorttype">دیگران</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">غذا</string>
     <string name="tourist_places">مناظر</string>
@@ -696,15 +759,38 @@
     <string name="elevation_profile_time">زمان:</string>
     <string name="isolines_toast_zooms_1_10">برای بررسی خطوط تراز زوم کنید</string>
     <string name="downloader_loading_ios">در حال دانلود</string>
+    <string name="download_map_title">نقشه نمای کلی جهان را دانلود کنید</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">امکان ایجاد پوشه و انتقال پرونده‌ها در حافظه داخلی دستگاه یا کارت SD وجود ندارد</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">خطای دیسک</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">ارتباط با سرور موفقیت آمیز نبود</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">کابل USB را جدا کنید</string>
     <string name="enable_keep_screen_on">صفحه نمایش را روشن بگذارید</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">وقتی فعال باشد، هنگام نمایش نقشه، صفحه همیشه روشن خواهد بود.</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">نمایش روی صفحه قفل</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">وقتی فعال باشد، برنامه حتی زمانی که دستگاه قفل است روی صفحه قفل کار خواهد کرد.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">زبان نقشه</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">OpenStreetMap داده‌های نقشه از</string>
     <!-- Telegram group url for the "?" About page -->
     <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s، %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">از شما برای استفاده از نقشه های ساخته شده توسط جامعه سپاسگزاریم!</string>
     <!-- App tip #01 -->
@@ -777,6 +863,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">توقف ضبط مسیر</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">ضبط مسیر</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">توقف بدون ذخیره</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">ادامه ضبط</string>
@@ -791,54 +879,4 @@
     <string name="uri_open_location_failed">هیچ برنامه‌ای نصب نشده است که بتواند مکان را باز کند</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">مسیریابی خودکار</string>
-    <string name="disconnect_usb_cable_title">کابل USB را جدا کنید</string>
-    <string name="error_enter_correct_line_page">یک شناسه معتبر LINE یا نشانی وب وارد کنید</string>
-    <string name="opens_in">در %s باز می‌شود</string>
-    <string name="share_bookmarks_email_subject">نشانک‌های Organic Maps با شما هم‌رسانی شده‌اند</string>
-    <string name="error_enter_correct_instagram_page">یک نام کاربری معتبر اینستاگرام یا نشانی وب وارد کنید</string>
-    <string name="move_maps_error">خطا در جابجایی پرونده‌های نقشه</string>
-    <string name="my_position_share_email">سلام، \n \nمن الان اینجا هستم: %1$s. این پیوند را کلیک کنید %2$s یا این یکی %3$s تا مکان را روی نقشه ببینید. \n \nسپاسگزارم.</string>
-    <string name="download_map_title">نقشه نمای کلی جهان را دانلود کنید</string>
-    <string name="github">گیت‌هاب</string>
-    <string name="connection_failure">ارتباط با سرور موفقیت آمیز نبود</string>
-    <string name="telegram">تلگرام</string>
-    <string name="mastodon">ماستودون</string>
-    <string name="wikimedia_commons">ویکی‌انبار</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
-    <string name="facebook">فیسبوک</string>
-    <string name="editor_add_phone">افزودن تلفن</string>
-    <string name="twitter">ایکس (توییتر)</string>
-    <string name="error_enter_correct_facebook_page">یک نشانی وب معتبر فیسبوک، حساب کاربری یا نام صفحه وارد کنید</string>
-    <string name="delete_place_empty_comment_error">لطفا دلیل حذف مکان را مشخص کنید</string>
-    <string name="closes_in">در %s بسته می‌شود</string>
-    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
-    <string name="disconnect_usb_cable">لطفا کابل USB را جدا کنید یا کارت حافظه وارد کنید تا بتوانید از Organic Maps استفاده کنید</string>
-    <string name="my_position_share_email_subject">سلام، مکان فعلی من را روی نقشه Organic Maps بررسی کن!</string>
-    <string name="comma_separated_pair">%1$s، %2$s</string>
-    <string name="bookmark_share_email_subject">سلام، مکان من را در Organic Maps بررسی کن!</string>
-    <string name="error_enter_correct_twitter_page">یک نام کاربری معتبر توییتر یا نشانی وب وارد کنید</string>
-    <string name="translated_om_site_url">https://organicmaps.app/</string>
-    <string name="disk_error_title">خطای دیسک</string>
-    <string name="enable_show_on_lock_screen_description">وقتی فعال باشد، برنامه حتی زمانی که دستگاه قفل است روی صفحه قفل کار خواهد کرد.</string>
-    <string name="disk_error">امکان ایجاد پوشه و انتقال پرونده‌ها در حافظه داخلی دستگاه یا کارت SD وجود ندارد</string>
-    <string name="enable_show_on_lock_screen">نمایش روی صفحه قفل</string>
-    <string name="share_bookmarks_email_body">سلام! \n\nنشانک‌های من در پیوست قرار دارند؛ لطفا آنها را در Organic Maps باز کنید. اگر این برنامه را نصب نکرده‌اید، می‌توانید آن را از اینجا دانلود کنید: https://omaps.app/get?kmz \n\nاز سفر با Organic Maps لذت ببرید!</string>
-    <string name="matrix">[ماتریکس]</string>
-    <string name="my_position_share_sms">مکان فعلی من را در Organic Maps بررسی کنید! %1$s یا %2$s نقشه‌های آفلاین ندارید؟ از اینجا دانلود کنید: https://omaps.app/get</string>
-    <string name="menu">منو</string>
-    <string name="instagram">اینستاگرام</string>
-    <string name="vk">VK</string>
-    <string name="editor_line_social_network">لاین</string>
-    <string name="openstreetmap">اوپن‌استریت‌مپ</string>
-    <string name="bookmark_set_name">نام فهرست نشانک</string>
-    <string name="error_enter_correct_vk_page">یک نام کاربری معتبر VK یا نشانی وب وارد کنید</string>
-    <string name="change_map_locale">زبان نقشه</string>
-    <string name="maps_storage_free_size">%1$s خالی از %2$s</string>
-    <string name="osm_note_toast">یادداشت به OpenStreetMap ارسال خواهد شد</string>
-    <string name="saved">ذخیره شد</string>
-    <string name="button_layer_hiking">پیاده‌گردی</string>
-    <string name="button_layer_cycling">دوچرخه‌سواری</string>
-    <string name="bookmarks_text_placement_title">نام‌ها را روی نقشه نشانه‌گذاری کنید</string>
-    <string name="osm_note_hint">یا، به عنوان یک راه حل جایگزین، برای انجمن OpenStreetMap یادداشت بگذارید تا شخص دیگری بتواند مکانی را به اینجا اضافه یا اصلاح کند.</string>
-    <string name="track_recording_title">ضبط مسیر</string>
 </resources>

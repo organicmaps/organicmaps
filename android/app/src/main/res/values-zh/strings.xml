@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">返回</string>
@@ -18,7 +19,7 @@
     <string name="miles">英里</string>
     <!-- Update maps later button text -->
     <string name="later">以后再说</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">搜索</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">搜索地图</string>
@@ -54,11 +55,9 @@
     <string name="disconnect_usb_cable">请拔除 USB 线或插入 SD 卡以使用 Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">请先释放一些 SD 卡 / USB 存储空间以使用本应用</string>
-    <string name="download_resources">在您开始使用此应用程序之前，请下载全球地图到您的设备。
-\n它将使用 %s 的存储空间。</string>
+    <string name="download_resources">在您开始使用此应用程序之前，请下载全球地图到您的设备。\n它将使用 %s 的存储空间。</string>
     <string name="download_resources_continue">前往地图</string>
-    <string name="downloading_country_can_proceed">正在下载%s。您现在可以
-\n继续查看地图。</string>
+    <string name="downloading_country_can_proceed">正在下载%s。您现在可以\n继续查看地图。</string>
     <string name="download_country_ask">下载%s的地图吗？</string>
     <string name="update_country_ask">更新%s的地图吗？</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -73,7 +72,7 @@
     <string name="bookmark_set_name">书签列表名称</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">书签</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">书签和轨迹</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">名字</string>
@@ -96,12 +95,12 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">移动地图文件时出错</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">这可能需要几分钟的时间。
-\n请稍候…</string>
+    <string name="wait_several_minutes">这可能需要几分钟的时间。\n请稍候…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">测量单位</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">选择公里或英里</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">在哪儿吃</string>
@@ -147,16 +146,13 @@
     <string name="category_water">水</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">房车设施</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">注释</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">已与您分享 Organic Maps 书签</string>
-    <string name="share_bookmarks_email_body">您好！
-\n
-\n附件是我的书签，请在 Organic Maps 中打开。如果您没有安装 Organic Maps，可以在这里下载: https://omaps.app/get?kmz
-\n
-\n祝您使用 Organic Maps 旅行愉快！</string>
+    <string name="share_bookmarks_email_body">您好！\n\n附件是我的书签，请在 Organic Maps 中打开。如果您没有安装 Organic Maps，可以在这里下载: https://omaps.app/get?kmz\n\n祝您使用 Organic Maps 旅行愉快！</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">正在加载书签</string>
     <!-- Kmz file successful loading -->
@@ -164,12 +160,9 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">书签载入失败，文件可能已损坏或不完整。</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">应用程序无法识别该文件类型：
-\n%1$s</string>
+    <string name="unknown_file_type">应用程序无法识别该文件类型：\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">无法打开文件 %1$s
-\n
-\n%2$s</string>
+    <string name="failed_to_open_file">无法打开文件 %1$s\n\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">编辑</string>
     <!-- Warning message when doing search around current position -->
@@ -185,11 +178,7 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">嗨，到 Organic Maps 查看我当前的位置！</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">嗨，
-\n
-\n我现在在这：%1$s。点击此链接 %2$s 或此链接 %3$s 来查看在地图上的位置。
-\n
-\n谢谢。</string>
+    <string name="my_position_share_email">嗨，\n\n我现在在这：%1$s。点击此链接 %2$s 或此链接 %3$s 来查看在地图上的位置。\n\n谢谢。</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">分享</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -252,9 +241,25 @@
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">新闻</string>
     <!-- Text in menu -->
+    <string name="github">GitHub</string>
+    <!-- Text in menu -->
+    <string name="telegram">Telegram</string>
+    <!-- Text in menu -->
+    <string name="matrix">[Matrix]</string>
+    <!-- Text in menu -->
+    <string name="mastodon">Mastodon</string>
+    <!-- Text in menu -->
     <string name="facebook">Facebook</string>
     <!-- Text in menu -->
     <string name="twitter">X (推特)</string>
+    <!-- Text in menu -->
+    <string name="instagram">Instagram</string>
+    <!-- Text in the editor -->
+    <string name="vk">VK</string>
+    <!-- Text in the editor -->
+    <string name="editor_line_social_network">LINE</string>
+    <!-- Text in menu -->
+    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">反馈</string>
     <!-- Text in menu -->
@@ -272,7 +277,7 @@
     <string name="how_to_support_us">支持本项目</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">版权</string>
-    <!-- Text in menu + Button in the main Help dialog -->
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">报告问题</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">通过以 8 字形移动手机来改善箭头方向，以校准罗盘。</string>
@@ -351,6 +356,7 @@
     <string name="gray">灰色</string>
     <!-- blue gray color -->
     <string name="blue_gray">蓝灰色</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">按照路线行进时，请谨记：</string>
     <string name="dialog_routing_disclaimer_priority">— 路况、交通法规和路标始终优先于导航建议；</string>
@@ -380,6 +386,7 @@
     <string name="not_now">以后再说</string>
     <string name="dialog_routing_download_and_build_cross_route">您是否要下载地图，以规划跨越边界的更佳路线？</string>
     <string name="dialog_routing_download_cross_route">下载地图，以规划一条跨越边界的更佳路线。</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">要开始搜索和规划路线，请下载地图，然后您就不再需要网络连接了。</string>
     <string name="search_select_map">选择地图</string>
@@ -439,8 +446,8 @@
     <string name="day_off_today">今天不营业</string>
     <string name="day_off">不营业</string>
     <string name="today">今天</string>
-    <string name="opens_in">将于 %s 后开业</string>
-    <string name="closes_in">将于 %s 后歇业</string>
+    <string name="opens_in">将于 %s 后营业</string>
+    <string name="closes_in">将于 %s 后不营业</string>
     <string name="closed">已停止营业</string>
     <string name="edit_opening_hours">编辑营业时间</string>
     <string name="no_osm_account">没有 OpenStreetMap 账号吗？</string>
@@ -495,7 +502,7 @@
     <string name="placepage_add_business_button">将地点添加到</string>
     <string name="message_invalid_feature_position">地点不能放置在这里</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">截至 %s 的社区创建的 OpenStreetMap 数据。请访问 OpenStreetMap.org 以了解有关如何编辑和更新地图的信息</string>
+    <string name="osm_presentation">截至 %s 的社区创建的 OpenStreetMap 数据。请访问 OpenStreetMap.org 详细了解如何编辑和更新地图</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">OpenStreetMap.org（OSM）是一个构建免费开放地图的社区项目。它是 Organic Maps 地图数据的主要来源，其工作原理类似于维基百科。您可以添加或编辑地点，全世界数以百万计的用户都可以使用它们！\n加入社区，共同完善地图数据，造福每个人！</string>
     <string name="login_to_make_edits_visible">创建 OpenStreetMap 账号或登录，向全世界发布您编辑的地图。</string>
@@ -533,6 +540,7 @@
     <string name="minute">分钟</string>
     <string name="day">天</string>
     <string name="placepage_more_button">更多</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">编辑书签</string>
     <string name="placepage_personal_notes_hint">个人备注（文字或 html）</string>
     <string name="editor_comment_hint">备注…</string>
@@ -553,6 +561,8 @@
     <string name="error_enter_correct_vk_page">请输入有效的 VK 用户名或网址</string>
     <string name="error_enter_correct_line_page">请输入有效的 LINE ID 或网址</string>
     <string name="placepage_add_place_button">将地点添加到 OpenStreetMap</string>
+    <string name="osm_note_hint">或者，也可以给 OpenStreetMap 社区留言，以便其他人可以在此添加或修复地点。</string>
+    <string name="osm_note_toast">注释将发送至 OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">您想要发送给所有用户吗？</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -583,9 +593,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">常规反馈</string>
     <string name="prefs_languages_information">我们的语音导航使用“文本转语音”系统。许多 Android 设备使用 Google 的文本转语音系统，您可以从 Google Play 下载或更新这一功能</string>
-    <string name="prefs_languages_information_off">对于某些语言，您需要从应用商店（例如 Google Play 商店、Galaxy Store）中安装其他语音合成器或语言包。
-\n打开您的设备的设置 → 语言和输入法 → 语音 → 文字转语音 (TTS) 输出。
-\n您可以在这里管理语音合成的设置（例如，下载语言包供离线使用）和选择其他文字转语音引擎。</string>
+    <string name="prefs_languages_information_off">对于某些语言，您需要从应用商店（例如 Google Play 商店、Galaxy Store）中安装其他语音合成器或语言包。\n打开您的设备的设置 → 语言和输入法 → 语音 → 文字转语音 (TTS) 输出。\n您可以在这里管理语音合成的设置（例如，下载语言包供离线使用）和选择其他文字转语音引擎。</string>
     <string name="prefs_languages_information_off_link">如需了解更多信息，请查阅此指南。</string>
     <string name="transliteration_title">拉丁字母音译</string>
     <string name="learn_more">了解更多信息</string>
@@ -597,10 +605,11 @@
     <string name="button_plan">规划</string>
     <string name="placepage_remove_stop">删除站点</string>
     <string name="placepage_add_stop">添加经停点</string>
+    <string name="saved">已保存</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">请登录 OpenStreetMap 以自动上传您的所有地图编辑。诺要了解更多信息请点击<a href="https://github.com/organicmaps/organicmaps/issues/6144">这里</a>。</string>
     <string name="dialog_error_storage_title">存储空间访问问题</string>
-    <string name="dialog_error_storage_message">外部存储空间不可用，很可能是因为 SD 卡已移除、损毁，或者文件系统为只读状态。请进行检查，然后通过 support@organicmaps.app 联系我们</string>
+    <string name="dialog_error_storage_message">外部存储空间不可用，很可能是因为 SD 卡已移除、损毁，或者文件系统为只读状态。请进行检查，然后通过 support\@organicmaps.app 联系我们</string>
     <string name="setting_emulate_bad_storage">模拟不良存储空间</string>
     <string name="error_enter_correct_name">请输入正确的名称</string>
     <string name="bookmark_lists">列表</string>
@@ -608,6 +617,7 @@
     <string name="bookmark_lists_hide_all">全部隐藏</string>
     <string name="bookmark_lists_show_all">全部显示</string>
     <plurals name="bookmarks_places">
+        <item quantity="zero">无书签</item>
         <item quantity="other">%d 个书签</item>
     </plurals>
     <string name="bookmarks_create_new_group">创建新的列表</string>
@@ -625,11 +635,13 @@
     <string name="phone_number">电话号码</string>
     <string name="profile">OpenStreetMap 资料</string>
     <plurals name="bookmarks_detect_message">
+        <item quantity="zero">未找到文件。</item>
         <item quantity="one">找到 %d 个文件，转换后您可以看到它。</item>
         <item quantity="other">找到 %d 个文件，转换后您可以看到它们。</item>
     </plurals>
     <string name="restore">恢复</string>
     <plurals name="tracks">
+        <item quantity="zero">无轨迹</item>
         <item quantity="other">%d 个轨迹</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
@@ -637,7 +649,9 @@
     <string name="privacy_policy">隐私政策</string>
     <string name="terms_of_use">使用条款</string>
     <string name="button_layer_traffic">路况</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_hiking">徒步</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">骑行</string>
     <string name="button_layer_subway">地铁</string>
     <string name="layers_title">地图样式和图层</string>
@@ -662,6 +676,11 @@
     <string name="power_managment_setting_never">从不</string>
     <string name="power_managment_setting_auto">当电量低时</string>
     <string name="power_managment_setting_manual_max">最大程度省电</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">地图上的书签名称</string>
+    <string name="bookmarks_text_placement_description">如果书签太多，在地图上显示其名称可能会降低应用的速度。</string>
+    <string name="show_to_the_right">右侧显示</string>
+    <string name="show_at_the_bottom">底部显示</string>
     <string name="enable_logging_warning_message">临时启用此选项，以便使用“报告错误”功能在帮助对话框中记录并手动发送详细诊断日志给我们。日志可能包含位置信息。</string>
     <string name="driving_options_title">绕行设置</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -712,6 +731,7 @@
     <string name="moreyear_ago_sorttype">一年多以前</string>
     <string name="near_me_sorttype">在我附近</string>
     <string name="others_sorttype">其他</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">美食</string>
     <string name="tourist_places">旅游景点</string>
@@ -765,10 +785,18 @@
     <string name="change_map_locale">地图语言</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">地图数据来自 OpenStreetMap</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/zh-Hans/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Zh-hans:关于</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s，%2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">感谢您使用我们社区构建的地图！</string>
     <!-- App tip #01 -->
@@ -841,6 +869,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">停止轨迹记录</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">轨迹记录</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">不保存停止</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">继续录制</string>
@@ -855,26 +885,7 @@
     <string name="uri_open_location_failed">未安装可以打开位置的应用</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">自动导航</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <string name="matrix">[Matrix]</string>
-    <string name="github">GitHub</string>
-    <string name="openstreetmap">OpenStreetMap</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
-    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
-    <string name="mastodon">Mastodon</string>
-    <string name="telegram">Telegram</string>
-    <string name="instagram">Instagram</string>
-    <string name="vk">VK</string>
-    <string name="editor_line_social_network">LINE</string>
-    <string name="comma_separated_pair">%1$s，%2$s</string>
-    <string name="saved">已保存</string>
-    <string name="osm_note_hint">或者，也可以给 OpenStreetMap 社区留言，以便其他人可以在此添加或修复地点。</string>
-    <string name="osm_note_toast">注释将发送至 OpenStreetMap</string>
-    <string name="bookmarks_text_placement_title">地图上的书签名称</string>
-    <string name="bookmarks_text_placement_description">如果书签太多，在地图上显示其名称可能会降低应用的速度。</string>
-    <string name="show_to_the_right">右侧显示</string>
-    <string name="show_at_the_bottom">底部显示</string>
+    <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">分享轨迹</string>
     <string name="delete_track_dialog_title">删除 %s？</string>
-    <string name="track_recording_title">轨迹记录</string>
 </resources>
