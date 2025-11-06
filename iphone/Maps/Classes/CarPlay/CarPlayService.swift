@@ -67,13 +67,14 @@ final class CarPlayService: NSObject {
   }
 
   private var savedInterfaceController: CPInterfaceController?
-  @objc func showOnPhone() {
+
+  func showOnPhone() {
     savedInterfaceController = interfaceController
     switchScreenToPhone()
     showPhoneModeAlert()
   }
 
-  @objc func showOnCarplay() {
+  private func showOnCarplay() {
     if let window, let savedInterfaceController {
       setup(window: window, interfaceController: savedInterfaceController)
     }
@@ -114,6 +115,7 @@ final class CarPlayService: NSObject {
     } else if router?.previewTrip != nil {
       MWMRouter.rebuild(withBestRouter: true)
     }
+    router?.cancelNavigationSession()
     searchService = nil
     router = nil
     sessionConfiguration = nil
