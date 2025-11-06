@@ -204,6 +204,12 @@ final class CarPlayRouter: NSObject {
 // MARK: - Navigation session management
 extension CarPlayRouter {
   func startNavigationSession(forTrip trip: CPTrip, template: CPMapTemplate) {
+    guard routeSession == nil else {
+      let errorMessage = "Route session is already running."
+      LOG(.error, errorMessage)
+      Toast.show(withText: errorMessage, alignment: .top)
+      return
+    }
     routeSession = template.startNavigationSession(for: trip)
     routeSession?.pauseTrip(for: .loading, description: nil)
     updateUpcomingManeuvers()
@@ -212,11 +218,15 @@ extension CarPlayRouter {
     }
   }
 
-  func cancelTrip() {
+  func cancelNavigationSession() {
     routeSession?.cancelTrip()
     routeSession = nil
-    completeRouteAndRemovePoints()
     RoutingManager.routingManager.resetOnNewTurnCallback()
+  }
+
+  func cancelTrip() {
+    cancelNavigationSession()
+    completeRouteAndRemovePoints()
   }
 
   func finishTrip() {
