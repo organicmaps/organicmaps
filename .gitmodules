@@ -87,3 +87,8 @@
   path = 3party/fast_float
   url = https://github.com/fastfloat/fast_float.git
   branch = main
+[submodule "tools/python/twine"]
+  path = tools/python/twine
+  url = https://github.com/organicmaps/twine.git
+  branch = organicmaps
+
