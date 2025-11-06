@@ -1,6 +1,23 @@
 # Translations
 
+## Contribute via Weblate
+
 Translations are managed through [Weblate][weblate]. Please [contribute][contribute] translations via the [Weblate][weblate], and the system and maintainers will handle the rest.
+
+## Contribute translations directly
+
+Adding and updating translations is easy!
+1. Change the translation file you want, e.g. [strings.txt](../data/strings/strings.txt) ([raw text version](https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/strings/strings.txt))
+2. Commit your string changes with the title `[strings] {description of changes}`
+3. (Optional) run the `tools/unix/generate_localizations.sh` script
+4. (Optional) Commit the updated files with the title `[strings] Regenerated`
+5. Send a pull request!
+
+Please make sure to add a [Developers Certificate of Origin](CONTRIBUTING.md#legal-requirements) to your commit descriptions.
+
+## Requirements
+
+To run the `tools/unix/generate_localizations.sh` script, it is necessary to have installed Python 3.10+.
 
 ## Components
 
