@@ -53,13 +53,13 @@ public:
   m2::PointD GetCenter();
 
   template <class T>
-  bool ForEachName(T && fn)
+  bool ForEachName(T && fn, bool emptyLikeDefault = true)
   {
     if (!HasName())
       return false;
 
     ParseCommon();
-    m_params.name.ForEach(std::forward<T>(fn));
+    m_params.name.ForEach(std::forward<T>(fn), emptyLikeDefault);
     return true;
   }
 

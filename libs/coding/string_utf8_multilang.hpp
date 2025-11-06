@@ -122,22 +122,38 @@ public:
   }
 
   // Calls |fn| for each pair of |lang| and |utf8s| stored in this multilang string.
+  /// @param[in]  emptyLikeDefault  Flase, if no need to emit equal with "default" strings.
   template <typename Fn>
-  void ForEach(Fn && fn) const
+  void ForEach(Fn && fn, bool emptyLikeDefault = true) const
   {
     size_t i = 0;
     size_t const sz = m_s.size();
     base::ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(fn));
+
+    buffer_vector<int8_t, 4> defLangs;
     while (i < sz)
     {
       size_t const next = GetNextIndex(i);
       int8_t const code = m_s[i] & kLangCodeMask;
-      if (GetLangByCode(code) != kReservedLang &&
-          wrapper(code, std::string_view(m_s).substr(i + 1, next - i - 1)) == base::ControlFlow::Break)
+      if (GetLangByCode(code) != kReservedLang)
       {
-        break;
+        auto const s = std::string_view(m_s).substr(i + 1, next - i - 1);
+        if (s.empty() && code != kDefaultCode)
+          defLangs.push_back(code);
+        else if (wrapper(code, s) == base::ControlFlow::Break)
+          break;
       }
+
       i = next;
+    }
+
+    if (emptyLikeDefault && !defLangs.empty())
+    {
+      auto const def = GetDefaultString();
+      ASSERT(!def.empty(), ());
+      for (auto const lang : defLangs)
+        if (wrapper(lang, def) == base::ControlFlow::Break)
+          break;
     }
   }
 

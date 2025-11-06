@@ -190,7 +190,7 @@ bool Matcher::Matches(strings::UniString const & query, Sample::Result const & g
     }
 
     return base::ControlFlow::Continue;
-  });
+  }, false /* emptyLikeDefault */);
 
   bool houseNumberMatches = true;
   std::string const & hn = ft.GetHouseNumber();
