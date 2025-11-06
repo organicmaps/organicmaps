@@ -43,7 +43,8 @@ vector<m2::PointD> MakePoly(m2::RectD const & rect)
 StringUtf8Multilang MakeName(string const & name, string const & lang)
 {
   StringUtf8Multilang res;
-  res.AddString(lang, name);
+  if (!name.empty())
+    res.AddString(lang, name);
 
   // Names used for search depend on locale. Fill default name because we need to run tests with
   // different locales. If you do not need default name to be filled use

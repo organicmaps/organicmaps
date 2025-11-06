@@ -274,6 +274,10 @@ bool StringUtf8Multilang::GetString(int8_t lang, std::string_view & utf8s) const
     {
       ++i;
       utf8s = {m_s.c_str() + i, next - i};
+
+      if (utf8s.empty() && lang != kDefaultCode)
+        VERIFY(GetString(kDefaultCode, utf8s) && !utf8s.empty(), ());
+
       return true;
     }
 
@@ -300,7 +304,7 @@ std::string_view StringUtf8Multilang::GetBestString(buffer_vector<int8_t, 4> con
         langIdx = idx;
       }
     }
-  });
+  }, false /* emptyLikeDefault */);
 
   return res;
 }
@@ -336,7 +340,7 @@ int8_t StringUtf8Multilang::FindString(std::string const & utf8s) const
       return base::ControlFlow::Break;
     }
     return base::ControlFlow::Continue;
-  });
+  }, false /* emptyLikeDefault */);
 
   return result;
 }
