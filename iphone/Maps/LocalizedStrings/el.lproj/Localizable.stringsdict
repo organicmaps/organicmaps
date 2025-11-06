@@ -2,10 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
+<!-- ********** Strings for downloading map from search **********/ -->
+
 	<key>bookmarks_places</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@αξία@</string>
+		<string>%#@value@</string>
 		<key>value</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -18,10 +21,11 @@
 			<string>%d σελιδοδείκτες</string>
 		</dict>
 	</dict>
+
 	<key>bookmarks_detect_message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@αξία@</string>
+		<string>%#@value@</string>
 		<key>value</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -34,10 +38,11 @@
 			<string>Βρέθηκαν %d αρχεία. Μπορείτε να τα δείτε μετά τη μετατροπή.</string>
 		</dict>
 	</dict>
+
 	<key>tracks</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@αξία@</string>
+		<string>%#@value@</string>
 		<key>value</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -52,5 +57,6 @@
 			<string>%d ίχνη</string>
 		</dict>
 	</dict>
+
 </dict>
 </plist>

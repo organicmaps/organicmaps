@@ -1,13 +1,24 @@
 
 
-/********** 3d touch strings **********/
+/********** Strings **********/
 
 
-/* Used in home screen quick actions. */
+/* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "Search";
 
-/* Used in home screen quick actions. */
+/* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
 "bookmarks_and_tracks" = "Bookmarks and Tracks";
+
+
+/********** Other translations **********/
+
+
+/* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
+"report_a_bug" = "Report a bug";
+
+
+/********** 3d touch strings **********/
+
 
 /* Used in home screen quick actions. */
 "route" = "Route";
@@ -21,6 +32,3 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Determining your location is necessary for navigation and for saving your recently traveled track.";
-
-/* Used in home screen quick actions. */
-"report_a_bug" = "Report a bug";

@@ -2,6 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
+<!-- ********** Strings for downloading map from search **********/ -->
+
 	<key>bookmarks_places</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -12,16 +15,17 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>zero</key>
-			<string>%d меток</string>
 			<key>one</key>
 			<string>%d метка</string>
 			<key>few</key>
 			<string>%d метки</string>
 			<key>many</key>
 			<string>%d меток</string>
+			<key>other</key>
+			<string>%d меток</string>
 		</dict>
 	</dict>
+
 	<key>bookmarks_detect_message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -33,15 +37,18 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>zero</key>
-			<string>файлов не найдено.</string>
+			<string>Найдено %d файлов.</string>
 			<key>one</key>
 			<string>%d файл был найден. Вы увидите его после конвертации.</string>
 			<key>few</key>
 			<string>%d файла были найдены. Вы увидите их после конвертации.</string>
 			<key>many</key>
 			<string>%d файлов были найдены. Вы увидите их после конвертации.</string>
+			<key>other</key>
+			<string>%d файлов были найдены. Вы увидите их после конвертации.</string>
 		</dict>
 	</dict>
+
 	<key>tracks</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -58,9 +65,10 @@
 			<string>%d трек</string>
 			<key>few</key>
 			<string>%d трека</string>
-			<key>many</key>
+			<key>other</key>
 			<string>%d треков</string>
 		</dict>
 	</dict>
+
 </dict>
 </plist>

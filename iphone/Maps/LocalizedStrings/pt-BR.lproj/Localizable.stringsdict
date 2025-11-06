@@ -2,6 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
+<!-- ********** Strings for downloading map from search **********/ -->
+
 	<key>bookmarks_places</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -12,8 +15,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>zero</key>
-			<string>%d favorito</string>
 			<key>one</key>
 			<string>%d favorito</string>
 			<key>many</key>
@@ -22,6 +23,7 @@
 			<string>%d favoritos</string>
 		</dict>
 	</dict>
+
 	<key>bookmarks_detect_message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -33,15 +35,16 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>zero</key>
-			<string>%d arquivo foi encontrado.</string>
+			<string>%d arquivos foram encontrados.</string>
 			<key>one</key>
-			<string>%d arquivo foi encontrado. Você o verá após a conversão.</string>
+			<string>%d arquivo foi encontrado. Você vai ver depois da conversão.</string>
 			<key>many</key>
-			<string>%d arquivos foram encontrados. Você os verá após a conversão.</string>
+			<string>%d arquivos foram encontrados. Você os verá depois da conversão.</string>
 			<key>other</key>
-			<string>%d arquivos foram encontrados. Você os verá após a conversão.</string>
+			<string>%d arquivos foram encontrados. Você os verá depois da conversão.</string>
 		</dict>
 	</dict>
+
 	<key>tracks</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -52,15 +55,14 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>zero</key>
-			<string>%d trilha</string>
 			<key>one</key>
 			<string>%d trilha</string>
 			<key>many</key>
-			<string>%d de trilhas</string>
+			<string>%d trilhas</string>
 			<key>other</key>
 			<string>%d trilhas</string>
 		</dict>
 	</dict>
+
 </dict>
 </plist>

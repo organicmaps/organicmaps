@@ -2,8 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
+<!-- ********** Strings for downloading map from search **********/ -->
+
 	<key>bookmarks_places</key>
 	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
 		<key>value</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -17,11 +22,31 @@
 			<key>other</key>
 			<string>%d bókamerki</string>
 		</dict>
+	</dict>
+
+	<key>bookmarks_detect_message</key>
+	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d skrá fannst.</string>
+			<key>one</key>
+			<string>%d skrá fannst. Þú getur séð hana eftir umbreytingu.</string>
+			<key>other</key>
+			<string>%d skrár fundust. Þú getur séð þær eftir umbreytingu.</string>
+		</dict>
 	</dict>
+
 	<key>tracks</key>
 	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
 		<key>value</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -35,26 +60,7 @@
 			<key>other</key>
 			<string>%d ferlar</string>
 		</dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@value@</string>
 	</dict>
-	<key>bookmarks_detect_message</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@value@</string>
-		<key>value</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>zero</key>
-			<string>%d skrá fannst. Þú getur séð hana eftir umbreytingu.</string>
-			<key>one</key>
-			<string>%d skrá fannst. Þú getur séð hana eftir umbreytingu.</string>
-			<key>other</key>
-			<string>%d skrár fundust. Þú getur séð þær eftir umbreytingu.</string>
-		</dict>
-	</dict>
+
 </dict>
 </plist>
