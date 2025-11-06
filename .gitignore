@@ -14,10 +14,6 @@ stxxl.errlog
 stxxl.log
 screenlog.0
 
-data/symbols/*/design/
-data/drules_proto_default_design.bin
-data/colors_design.txt
-data/patterns_design.txt
 data/bookmarks
 data/edits.xml
 

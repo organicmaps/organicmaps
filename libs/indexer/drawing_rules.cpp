@@ -1,8 +1,9 @@
 #include "indexer/drawing_rules.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/drules_include.hpp"
-#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
+
+#include "styles/map_style_manager.hpp"
 
 #include "base/logging.hpp"
 
@@ -118,22 +119,22 @@ uint32_t RulesHolder::GetColor(std::string const & name) const
 
 namespace
 {
-RulesHolder & rules(MapStyle mapStyle)
+RulesHolder & rules(MapStyleName mapStyleName, MapStyleTheme theme)
 {
-  static RulesHolder h[MapStyleCount];
-  return h[mapStyle];
+  static std::unordered_map<MapStyleName, std::array<RulesHolder, static_cast<size_t>(MapStyleTheme::Count)>> h;
+  return h[mapStyleName][static_cast<size_t>(theme)];
 }
 }  // namespace
 
 RulesHolder & GetCurrentRules()
 {
-  return rules(GetStyleReader().GetCurrentStyle());
+  MapStyleManager const & styleManager = MapStyleManager::Instance();
+  return rules(styleManager.GetCurrentStyleName(), styleManager.GetCurrentTheme());
 }
 
 RulesHolder & GetOutdoorRules()
 {
-  auto const style = GetStyleReader().GetCurrentStyle();
-  return rules(MapStyleIsDark(style) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight);
+  return rules(MapStyleManager::GetOutdoorsStyleName(), MapStyleManager::Instance().GetCurrentTheme());
 }
 
 namespace
@@ -414,7 +415,7 @@ void RulesHolder::LoadFromBinaryProto(string const & s)
 void LoadRules()
 {
   string buffer;
-  GetStyleReader().GetDrawingRulesReader().ReadAsString(buffer);
+  MapStyleManager::Instance().GetDrawingRulesReader().ReadAsString(buffer);
   GetCurrentRules().LoadFromBinaryProto(buffer);
 }
 

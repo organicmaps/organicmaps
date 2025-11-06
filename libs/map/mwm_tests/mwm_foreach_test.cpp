@@ -6,7 +6,6 @@
 #include "indexer/data_header.hpp"
 #include "indexer/feature_processor.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
 #include "platform/local_country_file_utils.hpp"

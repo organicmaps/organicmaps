@@ -215,6 +215,7 @@ public:
   static void GetFilesByType(std::string const & directory, unsigned typeMask, TFilesWithType & outFiles);
 
   static void GetFilesRecursively(std::string const & directory, FilesList & filesList);
+  virtual void GetFilesRecursivelyFromResources(std::string const & directory, FilesList & filesList);
 
   static bool IsDirectoryEmpty(std::string const & directory);
   // Returns true if |path| refers to a directory. Returns false otherwise or on error.

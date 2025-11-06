@@ -27,6 +27,8 @@ public:
   void SetWritableDir(std::string const & dir);
   void SetSettingsDir(std::string const & dir);
 
+  void GetFilesRecursivelyFromResources(std::string const & directory, FilesList & filesList) override;
+
   bool HasAvailableSpaceForWriting(uint64_t size) const;
 
   class AndroidSecureStorage

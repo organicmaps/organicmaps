@@ -9,7 +9,7 @@
 
 #include "search/result.hpp"
 
-#include "indexer/map_style.hpp"
+#include "styles/map_style_manager.hpp"
 
 #include <QtWidgets/QRubberBand>
 
@@ -57,7 +57,7 @@ public:
 
   Framework & GetFramework() { return m_framework; }
 
-  void SetMapStyle(MapStyle mapStyle);
+  void SetMapStyle(MapStyleName mapStyleName, std::optional<MapStyleTheme> theme = std::nullopt);
 
   void SetRuler(bool enabled);
 

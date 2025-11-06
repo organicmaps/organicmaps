@@ -1,7 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "indexer/map_style.hpp"
-#include "indexer/map_style_reader.hpp"
+#include "styles/map_style_manager.hpp"
 
 #include "drape/drape_tests/testing_graphics_context.hpp"
 #include "drape/static_texture.hpp"
@@ -12,13 +11,18 @@
 UNIT_TEST(CheckTrafficArrowTextures)
 {
   static std::vector<std::string> skinPaths = {"6plus", "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"};
-  static std::vector<MapStyle> styles = {MapStyle::MapStyleDefaultLight, MapStyle::MapStyleDefaultDark,
-                                         MapStyle::MapStyleVehicleLight, MapStyle::MapStyleVehicleDark};
+  static std::vector<std::pair<MapStyleName, MapStyleTheme>> styles = {
+      {MapStyleManager::GetDefaultStyleName(), MapStyleTheme::Light},
+      {MapStyleManager::GetDefaultStyleName(), MapStyleTheme::Dark},
+      {MapStyleManager::GetVehicleStyleName(), MapStyleTheme::Light},
+      {MapStyleManager::GetVehicleStyleName(), MapStyleTheme::Dark}};
 
   TestingGraphicsContext context;
-  for (auto const & style : styles)
+  MapStyleManager & styleManager = MapStyleManager::Instance();
+  for (auto const & [style, theme] : styles)
   {
-    GetStyleReader().SetCurrentStyle(style);
+    styleManager.SetStyle(style);
+    styleManager.SetTheme(theme);
     for (auto const & skinPath : skinPaths)
     {
       dp::StaticTexture texture(make_ref(&context), "traffic-arrow.png", skinPath, dp::TextureFormat::RGBA8, nullptr);

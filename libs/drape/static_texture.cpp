@@ -1,6 +1,6 @@
 #include "drape/static_texture.hpp"
 
-#include "indexer/map_style_reader.hpp"
+#include "styles/map_style_manager.hpp"
 
 #include "platform/platform.hpp"
 
@@ -34,10 +34,11 @@ bool LoadData(std::string const & textureName, std::string const & skinPathName,
   std::vector<unsigned char> rawData;
   try
   {
-    ReaderPtr<Reader> reader = !skinPathName.empty() ? skinPathName == StaticTexture::kDefaultResource
-                                                         ? GetStyleReader().GetDefaultResourceReader(textureName)
-                                                         : GetStyleReader().GetResourceReader(textureName, skinPathName)
-                                                     : GetPlatform().GetReader(textureName);
+    ReaderPtr<Reader> reader = !skinPathName.empty()
+                                 ? skinPathName == StaticTexture::kDefaultResource
+                                     ? MapStyleManager::GetDefaultResourceReader(textureName)
+                                     : MapStyleManager::Instance().GetSymbolsReader(textureName, skinPathName)
+                                 : GetPlatform().GetReader(textureName);
 
     CHECK_LESS(reader.Size(), static_cast<uint64_t>(std::numeric_limits<size_t>::max()), ());
     size_t const size = static_cast<size_t>(reader.Size());

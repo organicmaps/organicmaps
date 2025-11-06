@@ -35,7 +35,6 @@
 #include "indexer/data_source.hpp"
 #include "indexer/data_source_helpers.hpp"
 #include "indexer/map_object.hpp"
-#include "indexer/map_style.hpp"
 
 #include "search/displayed_categories.hpp"
 #include "search/result.hpp"
@@ -59,6 +58,8 @@
 #include "base/strings_bundle.hpp"
 
 #include "std/target_os.hpp"
+
+#include "styles/map_style_manager.hpp"
 
 #include <functional>
 #include <memory>
@@ -464,9 +465,10 @@ public:
   /// callback from the `SetTrackRecordingUpdateHandler`.
   static ElevationInfo const & GetTrackRecordingElevationInfo();
 
-  void SetMapStyle(MapStyle mapStyle);
-  void MarkMapStyle(MapStyle mapStyle);
-  MapStyle GetMapStyle() const;
+  void SetMapStyle(MapStyleName mapStyle, std::optional<MapStyleTheme> theme = std::nullopt);
+  void MarkMapStyle(MapStyleName mapStyle, std::optional<MapStyleTheme> theme = std::nullopt);
+  MapStyleName GetMapStyle() const;
+  MapStyleTheme GetMapTheme() const;
 
   void SetupMeasurementSystem();
 

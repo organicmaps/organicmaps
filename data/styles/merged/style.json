@@ -1,0 +1,14 @@
+{
+  "name": "merged",
+  "light": {
+    "drulesPath": "drules_proto.bin",
+    "symbolsPath": "../default/light/symbols"
+  },
+  "dark": {
+    "drulesPath": "drules_proto.bin",
+    "symbolsPath": "../default/dark/symbols"
+  },
+  "colorsPath": "../default/colors.txt",
+  "transitColorsPath": "../default/transit_colors.txt",
+  "patternsPath": "../default/patterns.txt"
+}

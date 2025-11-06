@@ -38,8 +38,9 @@
 #include "indexer/data_header.hpp"
 #include "indexer/features_offsets_table.hpp"
 #include "indexer/index_builder.hpp"
-#include "indexer/map_style_reader.hpp"
 #include "indexer/rank_table.hpp"
+
+#include "styles/map_style_manager.hpp"
 
 #include "platform/platform.hpp"
 
@@ -244,7 +245,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   genInfo.m_addressesDir = FLAGS_addresses_path;
 
   // Use merged style.
-  GetStyleReader().SetCurrentStyle(MapStyleMerged);
+  MapStyleManager::Instance().SetStyle(MapStyleManager::GetMergedStyleName());
 
   classificator::Load();
 

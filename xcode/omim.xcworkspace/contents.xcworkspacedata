@@ -152,6 +152,9 @@
       location = "container:storage/storage.xcodeproj">
    </FileRef>
    <FileRef
+      location = "container:styles/styles.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:tracking/tracking.xcodeproj">
    </FileRef>
    <FileRef

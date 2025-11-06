@@ -77,7 +77,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${BUNDLE_NAME})
 
 set(BUNDLE_EXECUTABLE ${BUNDLE_NAME})
 
-set(BUNDLE_FOLDER ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/${BUNDLE_NAME}.app)
+set(BUNDLE_FOLDER ${CMAKE_BINARY_DIR}/${BUNDLE_NAME}.app)
 set(RESOURCES_FOLDER ${BUNDLE_FOLDER}/Contents/Resources)
 set(DATA_DIR ${OMIM_ROOT}/data)
 
@@ -95,23 +95,16 @@ endfunction()
 
 copy_resources(
   fonts
-  symbols
+  styles
   countries-strings
   vulkan_shaders
 
   categories.txt
   categories_cuisines.txt
   classificator.txt
-  colors.txt
   countries.txt
-  drules_proto_default_light.bin
-  drules_proto_default_dark.bin
-  drules_proto_vehicle_light.bin
-  drules_proto_vehicle_dark.bin
   editor.config
   packed_polygons.bin
-  patterns.txt
-  transit_colors.txt
   types.txt
   World.mwm
   WorldCoasts.mwm

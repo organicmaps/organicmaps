@@ -93,10 +93,6 @@ set(SRC
   isolines_info.hpp
   map_object.cpp
   map_object.hpp
-  map_style.cpp
-  map_style.hpp
-  map_style_reader.cpp
-  map_style_reader.hpp
   metadata_serdes.cpp
   metadata_serdes.hpp
   mwm_set.cpp
@@ -155,6 +151,7 @@ target_link_libraries(${PROJECT_NAME}
   geometry
   protobuf
   coding
+  styles
 )
 
 omim_add_test_subdirectory(indexer_tests)

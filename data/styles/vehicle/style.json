@@ -1,0 +1,14 @@
+{
+  "name": "vehicle",
+  "light": {
+    "drulesPath": "light/drules.bin",
+    "symbolsPath": "../default/light/symbols"
+  },
+  "dark": {
+    "drulesPath": "dark/drules.bin",
+    "symbolsPath": "../default/dark/symbols"
+  },
+  "colorsPath": "../default/colors.txt",
+  "transitColorsPath": "../default/transit_colors.txt",
+  "patternsPath": "../default/patterns.txt"
+}

@@ -14,7 +14,8 @@
 #include "drape/pointers.hpp"
 
 #include "indexer/feature_decl.hpp"
-#include "indexer/map_style.hpp"
+
+#include "styles/map_style_manager.hpp"
 
 #include "platform/country_defines.hpp"
 #include "platform/location.hpp"
@@ -107,9 +108,10 @@ public:
   void PauseSurfaceRendering();
   void ResumeSurfaceRendering();
 
-  void SetMapStyle(MapStyle mapStyle);
-  void MarkMapStyle(MapStyle mapStyle);
-  MapStyle GetMapStyle() const;
+  void SetMapStyle(MapStyleName mapStyle, std::optional<MapStyleTheme> theme = std::nullopt);
+  void MarkMapStyle(MapStyleName mapStyle, std::optional<MapStyleTheme> theme = std::nullopt);
+  MapStyleName GetMapStyle() const;
+  MapStyleTheme GetMapTheme() const;
 
   void SetupMeasurementSystem();
 

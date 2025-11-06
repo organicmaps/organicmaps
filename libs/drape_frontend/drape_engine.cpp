@@ -8,7 +8,7 @@
 #include "drape/drape_routine.hpp"
 #include "drape/support_manager.hpp"
 
-#include "indexer/map_style_reader.hpp"
+#include "styles/map_style_manager.hpp"
 
 #include "platform/settings.hpp"
 
@@ -280,7 +280,7 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
   };
 
   auto const outlineColor =
-      MapStyleIsDark(GetStyleReader().GetCurrentStyle()) ? dp::Color::Black() : dp::Color::White();
+      MapStyleManager::Instance().GetCurrentTheme() == MapStyleTheme::Dark ? dp::Color::Black() : dp::Color::White();
 
   auto const collectRenderData =
       [&](kml::MarkIdSet const & markIds, kml::TrackIdSet const & lineIds, GroupFilter const & filter)

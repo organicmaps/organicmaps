@@ -13,8 +13,6 @@
 #include "drape/glsl_func.hpp"
 #include "drape/graphics_context.hpp"
 
-#include "indexer/map_style_reader.hpp"
-
 #include "base/logging.hpp"
 
 #include <algorithm>

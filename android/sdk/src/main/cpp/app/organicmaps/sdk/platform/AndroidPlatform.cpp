@@ -8,6 +8,7 @@
 #include "platform/network_policy.hpp"
 #include "platform/settings.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
@@ -168,6 +169,36 @@ void Platform::SetSettingsDir(std::string const & dir)
   m_settingsDir = dir;
   // Logger is not fully initialized here.
   // LOG(LINFO, ("Settings path = ", m_settingsDir));
+}
+
+void Platform::GetFilesRecursivelyFromResources(std::string const & directory, FilesList & filesList)
+{
+  JNIEnv * env = jni::GetEnv();
+  jmethodID const getAssets = jni::GetMethodID(env, m_context, "getAssets", "()Landroid/content/res/AssetManager;");
+  jobject assetManager = env->CallObjectMethod(m_context, getAssets);
+  jmethodID const listMethod =
+      env->GetMethodID(env->GetObjectClass(assetManager), "list", "(Ljava/lang/String;)[Ljava/lang/String;");
+  ASSERT(assetManager, ());
+
+  auto files_object = (jobjectArray)env->CallObjectMethod(assetManager, listMethod, jni::ToJavaString(env, directory));
+  auto length = env->GetArrayLength(files_object);
+  for (int i = 0; i < length; i++)
+  {
+    jstring jstr = (jstring)env->GetObjectArrayElement(files_object, i);
+    char const * filename = env->GetStringUTFChars(jstr, nullptr);
+    if (filename != nullptr)
+    {
+      std::string const fullPath = base::JoinPath(directory, filename);
+      filesList.emplace_back(fullPath);
+      LOG(LWARNING, ("Found file in assets: ", fullPath));
+      if (base::GetFileExtension(fullPath).empty())
+      {
+        LOG(LWARNING, ("looking in dir: ", fullPath));
+        GetFilesRecursivelyFromResources(fullPath, filesList);
+      }
+    }
+    env->DeleteLocalRef(jstr);
+  }
 }
 
 bool Platform::HasAvailableSpaceForWriting(uint64_t size) const

@@ -11,12 +11,21 @@
 #include "base/string_utils.hpp"
 #include "base/thread.hpp"
 
+#include <filesystem>
 #include <memory>
 #include <regex>
 #include <string>
 
 #include <sys/stat.h>
 #include <unistd.h>  // for sysconf
+
+namespace
+{
+std::string GetAbsolutePath(std::string const & path)
+{
+  return std::filesystem::path(path).lexically_normal().string();
+}
+}  // namespace
 
 Platform::Platform()
 {
@@ -108,7 +117,8 @@ std::unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::
       ASSERT_EQUAL(file.find("assets/"), std::string::npos, ());
       try
       {
-        return make_unique<ZipFileReader>(m_resourcesDir, "assets/" + file, logPageSize, logPageCount);
+        return make_unique<ZipFileReader>(m_resourcesDir, GetAbsolutePath(base::JoinPath("assets", file)), logPageSize,
+                                          logPageCount);
       }
       catch (Reader::OpenException const & e)
       {

@@ -10,14 +10,11 @@
 
 #include <gflags/gflags.h>
 
-DEFINE_string(fontFileName, "../../data/01_dejavusans.ttf", "path to TrueType font file");
-DEFINE_string(symbolsFile, "../../data/results.unicode",
-              "file with 2bytes symbols for which the skin should be generated");
-DEFINE_string(symbolsDir, "../../data/styles/symbols", "directory with svg symbol files");
+DEFINE_string(symbolsDir, "../../data/styles-raw/symbols/default/light/symbols", "directory with svg symbol files");
 DEFINE_int32(symbolWidth, 24, "width of the rendered symbol");
 DEFINE_int32(symbolHeight, 24, "height of the rendered symbol");
 DEFINE_string(skinName, "../../data/basic", "prefix for the skin and skinImage file name");
-DEFINE_string(skinSuffix, "mdpi", "suffix for skinName<suffix>.skn and symbols<suffix>.png");
+DEFINE_string(skinSuffix, "", "suffix for skinName<suffix>.skn and symbols<suffix>.png");
 DEFINE_int32(searchIconWidth, 24, "width of the search category icon");
 DEFINE_int32(searchIconHeight, 24, "height of the search category icon");
 DEFINE_int32(maxSize, 4096, "max width/height of output textures");
