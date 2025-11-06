@@ -44,7 +44,7 @@
     <!-- Text in About screen -->
     <string name="about_proposition_3">• Hızlı, minimalist, toplulukça geliştirilmiş</string>
     <!-- Text in About screen -->
-    <string name="about_developed_by_enthusiasts">Teknoloji tutkunları ve gönüllüler tarafından oluşturulan açık kaynaklı bir uygulama.</string>
+    <string name="about_developed_by_enthusiasts">Teknoloji tutkunları ve gönüllülerce oluşturulan açık kaynaklı uygulama.</string>
     <!-- The button that opens system location settings -->
     <string name="location_settings">Konum ayarları</string>
     <string name="close">Kapat</string>
@@ -151,16 +151,15 @@
     <string name="description">Notlar</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Seninle paylaşılan Organic Maps yer imleri</string>
-    <string name="share_bookmarks_email_body">Merhaba! \n \nEktekiler yer imlerim, lütfen bunları Organic Maps\'te açın. Eğer uygulama kurulu değilse, şu bağlantıyla iOS ve Android aygıtınıza kurabilirsiniz: https://omaps.app/get?kmz \n \nOrganic Maps ile gezmenin tadını çıkarın!</string>
+    <string name="share_bookmarks_email_body">Merhaba! \n \nEktekiler yer imlerimdir, lütfen bunları Organic Maps\'te açın. Eğer kurmadıysanız, şu bağlantıyla iOS ve Android aygıtınıza kurabilirsiniz: https://omaps.app/get?kmz \n \nOrganic Maps ile gezmenin tadını çıkarın!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Yer İmleri Yükleniyor</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Yer İmleri başarılı bir şekilde yüklendi! Bunları Haritada ya da Yer İmleri Yöneticisi ekranında bulabilirsiniz.</string>
+    <string name="load_kmz_successful">Yer İmleri başarılıyla yüklendi! Bunları haritada ya da Yer İmleri Yöneticisi ekranında bulabilirsiniz.</string>
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Yer İmlerini yükleme işlemi başarısız oldu. Dosya bozuk ya da hatalı olabilir.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Dosya türü uygulama tarafından tanınmıyor:
-\n%1$s</string>
+    <string name="unknown_file_type">Dosya türü uygulamaca tanınmıyor: \n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
     <string name="failed_to_open_file">Dosya açılamadı %1$s
 \n
@@ -264,9 +263,9 @@
     <!-- Text in menu + Button in the main Help dialog -->
     <string name="report_a_bug">Hata bildir</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
-    <string name="compass_calibration_recommended">Pusulayı kalibre etmek için telefonu sekiz şeklinde hareket ettirerek ok yönünü iyileştirin.</string>
+    <string name="compass_calibration_recommended">Pusulayı kalibre etmek için telefonu sekiz biçiminde oynatarak ok yönünü iyileştirin.</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
-    <string name="compass_calibration_required">Pusulayı kalibre etmek ve haritadaki ok yönünü düzeltmek için telefonu sekiz şeklinde hareket ettirin.</string>
+    <string name="compass_calibration_required">Pusulayı kalibre etmek ve haritadaki ok yönünü düzeltmek için telefonu sekiz biçiminde oynatın.</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
     <string name="long_tap_toast">Arayüzü görmek için haritaya uzun basın</string>
     <!-- Update all button text -->
@@ -370,7 +369,7 @@
     <string name="dialog_routing_download_and_build_cross_route">Haritayı indirerek birden çok haritaya uzanan daha uygun bir rota oluşturmak ister misiniz?</string>
     <string name="dialog_routing_download_cross_route">Bu haritanın bir bölümünden geçen daha uygun rota oluşturmak için harita indir.</string>
     <!-- SECTION: Strings for downloading map from search -->
-    <string name="search_without_internet_advertisement">Aramak ve rota oluşturmaya başlamak için lütfen haritayı indirin. İndirdikten sonra artık internet bağlantısına ihtiyacınız olmayacak.</string>
+    <string name="search_without_internet_advertisement">Aramak ve rota oluşturmaya başlamak için lütfen haritayı indirin. İndirdikten sonra internet bağlantısına gerek kalmayacak.</string>
     <string name="search_select_map">Haritayı Seçin</string>
     <!-- «Show» context menu -->
     <string name="show">Göster</string>
@@ -412,7 +411,7 @@
     <string name="editor_example_values">Örnek Değerler</string>
     <string name="editor_correct_mistake">Hatayı düzelt</string>
     <string name="editor_add_select_location">Konum Seç</string>
-    <string name="editor_report_problem_desription_1">OpenStreetMap topluluğunun hatayı düzeltmesi için lütfen problemi detaylı bir şekilde açıklayın.</string>
+    <string name="editor_report_problem_desription_1">OpenStreetMap topluluğunun hatayı düzeltmesi için lütfen sorunu ayrıntılı açıklayın.</string>
     <string name="editor_report_problem_desription_2">Veya bunu https://www.openstreetmap.org/ adresinden kendiniz yapın</string>
     <string name="editor_report_problem_send_button">Gönder</string>
     <string name="editor_report_problem_title">Sorun</string>
@@ -444,7 +443,7 @@
     <string name="street">Sokak</string>
     <!-- Editable House Number text field (in address block). -->
     <string name="house_number">Bina numarası</string>
-    <string name="details">Detaylar</string>
+    <string name="details">Ayrıntılar</string>
     <string name="social_media">Sosyal Medya</string>
     <string name="building">Bina</string>
     <!-- Text field to enter non-existing street name, below list of known streets around -->
@@ -482,10 +481,9 @@
     <string name="placepage_add_business_button">Kuruluş ekle</string>
     <string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">%s tarihine ait topluluk tarafından oluşturulmuş OpenStreetMap verilerini kullanıyorsunuz. OpenStreetMap.org adresinden haritayı nasıl düzenleyebileceğiniz hakkında bilgi edinebilirsiniz</string>
+    <string name="osm_presentation">%s tarihli toplulukça oluşturulmuş OpenStreetMap verisini kullanıyorsunuz. OpenStreetMap.org adresinden haritayı nasıl düzenleyebileceğinizle ilgili bilgi edinebilirsiniz.</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM), ücretsiz ve açık harita oluşturmayı amaçlayan bir topluluk projesidir. OSM, Organic Maps\'teki harita verilerinin ana kaynağıdır ve Vikipedi\'ye benzer şekilde çalışır. Haritadaki yerleri ekleyebilir veya düzenleyebilirsiniz ve bunlar tüm dünyadaki milyonlarca kullanıcı tarafından kullanılabilir hale gelir.
-\nTopluluğa katılın ve herkes için daha iyi bir harita oluşturmaya yardımcı olun!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM), özgür ve açık harita oluşturmayı amaçlayan topluluk projesidir. OSM, Organic Maps\'teki harita verisinin ana kaynağıdır ve Vikipedi\'ye benzer çalışır. Yerler ekleyebilir ya da düzenleyebilirsiniz ve bunlar tüm dünyadaki milyonlarca kullanıcıca erişilebilir.\nTopluluğa katılın ve herkes için daha iyi harita oluşturmaya yardımcı olun!</string>
     <string name="login_to_make_edits_visible">Harita düzenlemelerinizi herkese ulaştırmak için OpenStreetMap hesabı oluşturun veya oturum açın.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d/%2$d</string>
@@ -502,7 +500,7 @@
     <!-- Hint of the input field in the OSM note section of the editor -->
     <string name="editor_note_hint">Haritadaki hataları veya Organik Haritalar ile düzenlenemeyen şeyleri tanımlayın</string>
     <!-- Information about OSM at the top of the editing page -->
-    <string name="editor_about_osm">Düzenlemeleriniz halka açık <a href="https://wiki.openstreetmap.org/wiki/Tr:About">OpenStreetMap</a> veritabanına yüklenir. Lütfen kişisel veya telif hakkıyla korunan bilgiler eklemeyin.</string>
+    <string name="editor_about_osm">Düzenlemeleriniz halka açık <a href="https://wiki.openstreetmap.org/wiki/Tr:About">OpenStreetMap</a> veri tabanına yüklenir. Lütfen kişisel ya da telif hakkıyla korunan bilgi eklemeyin.</string>
     <string name="editor_more_about_osm">OpenStreetMap ile ilgili ek bilgi</string>
     <string name="editor_osm_history">Düzenleme geçmişiniz</string>
     <string name="editor_osm_notes">Harita veri notlarınız</string>
@@ -576,9 +574,9 @@
     <string name="transliteration_title">Latin alfabesine çevir</string>
     <string name="learn_more">Daha fazla bilgi edinin</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Bir rota başlangıç noktası eklemek için aramayı kullanın veya haritaya dokunun</string>
+    <string name="routing_add_start_point">Rota başlangıç noktası eklemek için aramayı kullanın, yer imi seçin ya da haritaya dokunun</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Bir hedef noktası eklemek için aramayı kullanın veya haritaya dokunun</string>
+    <string name="routing_add_finish_point">Hedef noktası eklemek için aramayı kullanın, yer imi seçin ya da haritaya dokunun</string>
     <string name="planning_route_manage_route">Rotayı yönet</string>
     <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Durağı Kaldır</string>
@@ -595,25 +593,25 @@
     <string name="bookmark_lists_show_all">Tümünü göster</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d yer imi</item>
-        <item quantity="other">%d yer imleri</item>
+        <item quantity="other">%d yer imi</item>
     </plurals>
     <string name="bookmarks_create_new_group">Yeni liste oluştur</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
     <string name="bookmarks_import">Yer İmlerini ve İzleri İçe Aktar</string>
-    <string name="bookmarks_error_message_share_general">Bir uygulama hatasından dolayı paylaşılamıyor</string>
-    <string name="bookmarks_error_title_share_empty">Paylaşma hatası</string>
-    <string name="bookmarks_error_message_share_empty">Boş bir liste paylaşılamaz</string>
-    <string name="bookmarks_error_title_empty_list_name">İsim boş olamaz</string>
+    <string name="bookmarks_error_message_share_general">Uygulama hatası nedeniyle paylaşılamıyor</string>
+    <string name="bookmarks_error_title_share_empty">Paylaşım hatası</string>
+    <string name="bookmarks_error_message_share_empty">Boş liste paylaşılamaz</string>
+    <string name="bookmarks_error_title_empty_list_name">Ad boş olamaz</string>
     <string name="bookmarks_error_message_empty_list_name">Lütfen liste adını girin</string>
     <string name="bookmarks_new_list_hint">Yeni liste</string>
     <string name="bookmarks_error_title_list_name_already_taken">Bu ad zaten alınmış</string>
-    <string name="bookmarks_error_message_list_name_already_taken">Lütfen başka bir isim seçin</string>
+    <string name="bookmarks_error_message_list_name_already_taken">Lütfen başka ad seçin</string>
     <string name="please_wait">Lütfen bekleyin…</string>
     <string name="phone_number">Telefon numarası</string>
     <string name="profile">OpenStreetMap profili</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="one">%d dosya bulundu. Dönüştürmeden sonra onu görebilirsiniz.</item>
-        <item quantity="other">%d dosya bulundu. Dönüştürmeden sonra onları görebilirsiniz.</item>
+        <item quantity="one">%d dosya bulundu. Dönüşümden sonra görebilirsiniz.</item>
+        <item quantity="other">%d dosya bulundu. Dönüşümden sonra görebilirsiniz.</item>
     </plurals>
     <string name="restore">Geri al</string>
     <plurals name="tracks">
@@ -762,13 +760,13 @@
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Tr:About</string>
     <!-- App Tip #00 -->
-    <string name="app_tip_00">Topluluk tarafından oluşturulan haritalarımızı kullandığınız için teşekkür ederiz!</string>
+    <string name="app_tip_00">Toplulukça oluşturulan haritalarımızı kullandığınız için teşekkür ederiz!</string>
     <!-- App tip #01 -->
     <string name="app_tip_01">Bağışlarınız ve desteğinizle dünyanın en iyi haritalar uygulamasını oluşturabiliriz!</string>
     <!-- App tip #02 -->
     <string name="app_tip_02">Uygulamamızı beğendiniz mi? Geliştirmemizi desteklemek için lütfen bağış yapın! Henüz beğenmediniz mi? Lütfen beğenmediğiniz şeyleri bize bildirin, düzelteceğiz!</string>
     <!-- App tip #03 -->
-    <string name="app_tip_03">Bir yazılım mühendisi / geliştirici tanıyorsanız, ondan ihtiyacınız olan bir özelliği uygulamaya eklemesini isteyebilirsiniz.</string>
+    <string name="app_tip_03">Yazılım geliştirici tanıyorsanız, ondan gereksindiğiniz bir özelliği uygulamaya eklemesini isteyebilirsiniz.</string>
     <!-- App tip #04 -->
     <string name="app_tip_04">Herhangi bir şeyi seçmek için haritaya dokunun. Uzun dokunarak arayüz gizlenip gösterilebilir.</string>
     <!-- App tip #05 -->
@@ -776,7 +774,7 @@
     <!-- App tip #06 -->
     <string name="app_tip_06">Uygulamamızın kendi dilinize çevrilmesine yardımcı olabilirsiniz.</string>
     <!-- App tip #07 -->
-    <string name="app_tip_07">Uygulamamız birkaç teknoloji tutkunu ve topluluk tarafından geliştirilmiştir.</string>
+    <string name="app_tip_07">Uygulamamız birkaç teknoloji tutkunu ve toplulukça geliştirilmiştir.</string>
     <!-- App tip #08 -->
     <string name="app_tip_08">Harita verilerini kolayca düzeltebilir ve iyileştirebilirsiniz.</string>
     <!-- App tip #09 -->
@@ -788,13 +786,13 @@
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Android Auto\'ya bağlandınız</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-    <string name="car_continue_on_the_phone">Telefonda devam et</string>
+    <string name="car_continue_on_the_phone">Telefonda sürdür</string>
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Arabada göster</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps konum erişimine ihtiyacı vardır. Güvenli olduğunda, telefonunuzdaki bildirimi kontrol edin.</string>
+    <string name="aa_location_permissions_request">Organic Maps konum erişimine gereksinir. Güvenliyken, telefonunuzdaki bildirime bakın.</string>
     <!-- Notification title for permission request from AA. -->
-    <string name="aa_request_permission_notification">Bu uygulamanın izninize ihtiyacı var</string>
+    <string name="aa_request_permission_notification">Bu uygulama izninize gereksiniyor</string>
     <!-- The text in the activity for location permission request. -->
     <string name="aa_request_permission_activity_text">Android Auto\'daki Organic Maps etkin çalışmak için konum iznine gereksiniyor</string>
     <!-- Grant Permissions button. -->
@@ -809,7 +807,7 @@
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Konuşma sentezleme ile ilgili sistem ayarları</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
-    <string name="pref_tts_no_system_tts">Konuşma Sentezi ayarları bulunamadı, aygıtınızın bunu desteklediğinden emin misiniz?</string>
+    <string name="pref_tts_no_system_tts">Konuşma Sentezi ayarları bulunamadı, aygıtınızın bunu desteklediğine emin misiniz?</string>
     <string name="drive_through">Arabaya servis</string>
     <string name="clear_the_search">Aramayı temizleyin</string>
     <string name="zoom_in">Yakınlaştır</string>

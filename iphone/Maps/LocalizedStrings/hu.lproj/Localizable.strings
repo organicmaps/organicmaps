@@ -424,10 +424,10 @@
 "dialog_routing_download_files" = "Töltse le a szükséges fájlokat";
 "dialog_routing_download_and_update_all" = "Az útvonaltervezéshez töltse le és frissítse az összes térkép- és útvonal-információt a tervezett út mentén.";
 "dialog_routing_unable_locate_route" = "Nem sikerült meghatározni az útvonalat";
-"dialog_routing_change_start_or_end" = "Pontosítsa a kiindulópontot vagy az úti célt.";
-"dialog_routing_change_start" = "Pontosítsa a kiindulópontot";
-"dialog_routing_start_not_determined" = "Az útvonal nem lett létrehozva. Nem sikerült meghatározni a kiindulópontot.";
-"dialog_routing_select_closer_start" = "Válasszon egy, az úthoz közelebb eső kiindulópontot.";
+"dialog_routing_change_start_or_end" = "Pontosítsa a kiindulási pontot vagy az úti célt.";
+"dialog_routing_change_start" = "Pontosítsa a kiindulási pontot";
+"dialog_routing_start_not_determined" = "Az útvonal nem lett létrehozva. Nem sikerült meghatározni a kiindulási pontot.";
+"dialog_routing_select_closer_start" = "Válasszon egy, az úthoz közelebb eső kiindulási pontot.";
 "dialog_routing_change_end" = "Pontosítsa az úti célt";
 "dialog_routing_end_not_determined" = "Az útvonal nem lett létrehozva. Nem sikerült meghatározni az úti célt.";
 "dialog_routing_select_closer_end" = "Válasszon egy, az úthoz közelebb eső úti célt.";
@@ -470,7 +470,7 @@
 "wikimedia_commons" = "Wikimedia Commons";
 "p2p_your_location" = "Saját tartózkodási hely";
 "p2p_start" = "Indítás";
-"p2p_from_here" = "Kiindulópont";
+"p2p_from_here" = "Kiindulási pont";
 "p2p_to_here" = "Úti cél";
 "p2p_only_from_current" = "A navigáció csak a jelenlegi tartózkodási helyétől érhető el.";
 "p2p_reroute_from_current" = "Szeretne útvonalat tervezni a jelenlegi tartózkodási helyétől?";
@@ -866,7 +866,7 @@
 "religious_places" = "Vallási helyek";
 "transit_not_found" = "Metrónavigáció ebben a régióban még nem érhető el";
 "dialog_pedestrian_route_is_long_header" = "Nem található metróútvonal";
-"dialog_pedestrian_route_is_long_message" = "Válasszon egy, a metróállomáshoz közelebb eső kiindulópontot vagy célállomást";
+"dialog_pedestrian_route_is_long_message" = "Válasszon egy, a metróállomáshoz közelebb eső kiindulási pontot vagy úti célt";
 "button_layer_isolines" = "Szintvonalak";
 "isolines_activation_error_dialog" = "A szintvonalak aktiválásához a terület térképadatainak letöltése szükséges";
 "isolines_location_error_dialog" = "A szintvonalak még nem állnak rendelkezésre ezen a területen";

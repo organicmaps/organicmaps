@@ -11,4 +11,12 @@
     <string name="search_map">মানচিত্র অনুসন্ধান</string>
     <string name="kilometres">কিলোমিটার</string>
     <string name="downloading">ডাউনলোডরত…</string>
+    <string name="location_is_disabled_long_text">আপনার বর্তমানে এই ডিভাইস বা অ্যাপ্লিকেশনের জন্য সমস্ত লোকেশন পরিষেবা অক্ষম করা আছে। দয়া করে সেটিংসে সেগুলি সক্ষম করুন।</string>
+    <string name="limited_accuracy">সীমিত নির্ভুলতা</string>
+    <string name="precise_location_is_disabled_long_text">সঠিক নেভিগেশন নিশ্চিত করতে সেটিংসে প্রিসিস লোকেশন সক্ষম করুন।</string>
+    <string name="zoom_to_country">মানচিত্রে দেখান</string>
+    <string name="country_status_download_failed">ডাউনলোড ব্যর্থ হয়েছে।</string>
+    <string name="try_again">আবার চেষ্টা করুন</string>
+    <string name="about_headline">সবার জন্য বিনামূল্যে, ভালোবাসা দিয়ে তৈরি</string>
+    <string name="about_proposition_1">• কোনও বিজ্ঞাপন নেই, কোনও ট্র্যাকিং নেই, কোনও ডেটা সংগ্রহ নেই</string>
 </resources>

@@ -574,9 +574,9 @@
     <string name="transliteration_title">Transliteración al alfabeto latino</string>
     <string name="learn_more">Conocer más</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Busque o toque en el mapa para añadir el origen de la ruta</string>
+    <string name="routing_add_start_point">Utiliza búsqueda, selecciona un marcador, o toca en el mapa para añadir el origen de la ruta</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Busque o toque en el mapa para añadir un destino</string>
+    <string name="routing_add_finish_point">Utiliza búsqueda, selecciona un marcador, o toca en el mapa para añadir un destino</string>
     <string name="planning_route_manage_route">Gestionar ruta</string>
     <string name="button_plan">Planificar</string>
     <string name="placepage_remove_stop">Eliminar parada</string>

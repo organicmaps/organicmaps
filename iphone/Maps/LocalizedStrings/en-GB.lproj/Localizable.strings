@@ -704,7 +704,6 @@
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Exit";
-
 "planning_route_manage_route" = "Manage Route";
 "button_plan" = "Plan";
 "placepage_remove_stop" = "Remove Stop";

@@ -342,10 +342,10 @@
     <string name="dialog_routing_location_unknown_turn_on">A jelenlegi GPS-koordináták nem találhatók. Engedélyezze a helymeghatározási szolgáltatásokat az útvonal kiszámításához.</string>
     <string name="dialog_routing_unable_locate_route">Nem sikerült meghatározni az útvonalat</string>
     <string name="dialog_routing_cant_build_route">Nem lehet létrehozni az útvonalat.</string>
-    <string name="dialog_routing_change_start_or_end">Pontosítsa a kiindulópontot vagy az úti célt.</string>
-    <string name="dialog_routing_change_start">Pontosítsa a kiindulópontot</string>
-    <string name="dialog_routing_start_not_determined">Az útvonal nem lett létrehozva. Nem sikerült meghatározni a kiindulópontot.</string>
-    <string name="dialog_routing_select_closer_start">Válasszon egy, az úthoz közelebb eső kiindulópontot.</string>
+    <string name="dialog_routing_change_start_or_end">Pontosítsa a kiindulási pontot vagy az úti célt.</string>
+    <string name="dialog_routing_change_start">Pontosítsa a kiindulási pontot</string>
+    <string name="dialog_routing_start_not_determined">Az útvonal nem lett létrehozva. Nem sikerült meghatározni a kiindulási pontot.</string>
+    <string name="dialog_routing_select_closer_start">Válasszon egy, az úthoz közelebb eső kiindulási pontot.</string>
     <string name="dialog_routing_change_end">Pontosítsa az úti célt</string>
     <string name="dialog_routing_end_not_determined">Az útvonal nem lett létrehozva. Nem sikerült meghatározni az úti célt.</string>
     <string name="dialog_routing_select_closer_end">Válasszon egy, az úthoz közelebb eső úti célt.</string>
@@ -374,7 +374,7 @@
     <string name="clear_search">A keresési előzmények törlése</string>
     <string name="p2p_your_location">Saját tartózkodási hely</string>
     <string name="p2p_start">Indítás</string>
-    <string name="p2p_from_here">Kiindulópont</string>
+    <string name="p2p_from_here">Kiindulási pont</string>
     <string name="p2p_to_here">Úti cél</string>
     <string name="p2p_only_from_current">A navigáció csak a jelenlegi tartózkodási helyétől érhető el.</string>
     <string name="p2p_reroute_from_current">Szeretne útvonalat tervezni a jelenlegi tartózkodási helyétől?</string>
@@ -546,7 +546,7 @@
     <string name="transliteration_title">Átírás latin betűkre</string>
     <string name="learn_more">Tudjon meg többet</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Használja a keresést, válasszon ki egy könyvjelzőt vagy koppintson a térképre az útvonal kiindulópontjának hozzáadásához</string>
+    <string name="routing_add_start_point">Használja a keresést, válasszon ki egy könyvjelzőt vagy koppintson a térképre az útvonal kiindulási pontjának hozzáadásához</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Használja a keresést, válasszon ki egy könyvjelzőt vagy koppintson a térképre egy úti cél hozzáadásához</string>
     <string name="planning_route_manage_route">Útvonal kezelése</string>
@@ -688,7 +688,7 @@
     <string name="select_list">Lista kiválasztása</string>
     <string name="transit_not_found">Metrónavigáció ebben a régióban még nem érhető el</string>
     <string name="dialog_pedestrian_route_is_long_header">Nem található metróútvonal</string>
-    <string name="dialog_pedestrian_route_is_long_message">Válasszon egy, a metróállomáshoz közelebb eső kiindulópontot vagy célállomást</string>
+    <string name="dialog_pedestrian_route_is_long_message">Válasszon egy, a metróállomáshoz közelebb eső kiindulási pontot vagy úti célt</string>
     <string name="button_layer_isolines">Szintvonalak</string>
     <string name="isolines_activation_error_dialog">A szintvonalak aktiválásához a terület térképadatainak letöltése szükséges</string>
     <string name="isolines_location_error_dialog">A szintvonalak még nem állnak rendelkezésre ezen a területen</string>

@@ -160,7 +160,7 @@
 "load_kmz_title" = "Yer İmleri Yükleniyor";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Yer İmleri başarılı bir şekilde yüklendi! Bunları Haritada ya da Yer İmleri Yöneticisi ekranında bulabilirsiniz.";
+"load_kmz_successful" = "Yer İmleri başarılıyla yüklendi! Bunları haritada ya da Yer İmleri Yöneticisi ekranında bulabilirsiniz.";
 
 /* Kml file loading failed */
 "load_kmz_failed" = "Yer İmlerini yükleme işlemi başarısız oldu. Dosya bozuk ya da hatalı olabilir.";
@@ -529,7 +529,7 @@
 
 /* Editable House Number text field (in address block). */
 "house_number" = "Bina numarası";
-"details" = "Detaylar";
+"details" = "Ayrıntılar";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Sokak ekle";
@@ -607,15 +607,15 @@
 "current_location_unknown_error_message" = "Konumunuz aranırken bir hata oluştu. Aygıtınızın düzgün çalışıp çalışmadığını denetleyin ve daha sonra yeniden deneyin.";
 "location_services_disabled_header" = "Konum hizmetleri devre dışı bırakıldı";
 "location_services_disabled_message" = "Aygıt ayarlarında coğrafi konuma erişim izni verin";
-"location_services_disabled_1" = "1. Ayarları Açın";
-"location_services_disabled_2" = "2. Konuma Dokunun";
+"location_services_disabled_1" = "1. \"Ayarlar\"ı Açın";
+"location_services_disabled_2" = "2. \"Konum\"a Dokunun";
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. \"Uygulamayı Kullanırken\"i Seçin";
-"location_services_disabled_on_device_2" = "2. Gizlilik'i seçin";
-"location_services_disabled_on_device_3" = "3. Konum Servisleri'ni seçin";
-"location_services_disabled_on_device_4" = "4. Konum Servislerini Açın";
-"location_services_disabled_on_device_additional_message" = "Veya Konum olmadan Organic Maps kullanmaya devam edin";
+"location_services_disabled_on_device_2" = "2. \"Gizlilik\"i Seçin";
+"location_services_disabled_on_device_3" = "3. \"Konum Servisleri\"ni Seçin";
+"location_services_disabled_on_device_4" = "4. \"Konum Servisleri\"ni Açın";
+"location_services_disabled_on_device_additional_message" = "Ya da konumsuz Organic Maps kullanın";
 
 /* abbreviation for meters */
 "m" = "m";
@@ -704,7 +704,6 @@
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Çık";
-
 "planning_route_manage_route" = "Rotayı yönet";
 "button_plan" = "Plan";
 "placepage_remove_stop" = "Durağı Kaldır";
@@ -732,9 +731,9 @@
 "downloader_percent" = "%@ (%@ / %@)";
 "downloader_process" = "%@ indiriliyor…";
 "downloader_applying" = "%@ uygulanıyor…";
-"bookmarks_error_message_share_general" = "Bir uygulama hatasından dolayı paylaşılamıyor";
-"bookmarks_error_title_share_empty" = "Paylaşma hatası";
-"bookmarks_error_message_share_empty" = "Boş bir liste paylaşılamaz";
+"bookmarks_error_message_share_general" = "Uygulama hatası nedeniyle paylaşılamıyor";
+"bookmarks_error_title_share_empty" = "Paylaşım hatası";
+"bookmarks_error_message_share_empty" = "Boş liste paylaşılamaz";
 "bookmarks_error_message_empty_list_name" = "Lütfen liste adını girin";
 "bookmarks_error_title_list_name_already_taken" = "Bu ad zaten alınmış";
 "bookmarks_error_title_list_name_too_long" = "Bu ad çok uzun";
@@ -923,7 +922,7 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Tr:About";
 
 /* App Tip #00 */
-"app_tip_00" = "Topluluk tarafından oluşturulan haritalarımızı kullandığınız için teşekkür ederiz!";
+"app_tip_00" = "Toplulukça oluşturulan haritalarımızı kullandığınız için teşekkür ederiz!";
 
 /* App tip #01 */
 "app_tip_01" = "Bağışlarınız ve desteğinizle dünyanın en iyi haritalar uygulamasını oluşturabiliriz!";
@@ -932,7 +931,7 @@
 "app_tip_02" = "Uygulamamızı beğendiniz mi? Geliştirmemizi desteklemek için lütfen bağış yapın! Henüz beğenmediniz mi? Lütfen beğenmediğiniz şeyleri bize bildirin, düzelteceğiz!";
 
 /* App tip #03 */
-"app_tip_03" = "Bir yazılım mühendisi / geliştirici tanıyorsanız, ondan ihtiyacınız olan bir özelliği uygulamaya eklemesini isteyebilirsiniz.";
+"app_tip_03" = "Yazılım geliştirici tanıyorsanız, ondan gereksindiğiniz bir özelliği uygulamaya eklemesini isteyebilirsiniz.";
 
 /* App tip #04 */
 "app_tip_04" = "Herhangi bir şeyi seçmek için haritaya dokunun. Uzun dokunarak arayüz gizlenip gösterilebilir.";
@@ -944,7 +943,7 @@
 "app_tip_06" = "Uygulamamızın kendi dilinize çevrilmesine yardımcı olabilirsiniz.";
 
 /* App tip #07 */
-"app_tip_07" = "Uygulamamız birkaç teknoloji tutkunu ve topluluk tarafından geliştirilmiştir.";
+"app_tip_07" = "Uygulamamız birkaç teknoloji tutkunu ve toplulukça geliştirilmiştir.";
 
 /* App tip #08 */
 "app_tip_08" = "Harita verilerini kolayca düzeltebilir ve iyileştirebilirsiniz.";
@@ -959,7 +958,7 @@
 "car_used_on_the_car_screen" = "Şu anda araç ekranında Organic Maps kullanıyorsunuz";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
-"car_continue_on_the_phone" = "Telefonda devam et";
+"car_continue_on_the_phone" = "Telefonda sürdür";
 
 /* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
 "car_continue_in_the_car" = "Arabada göster";
@@ -971,7 +970,7 @@
 "bookmarks_export" = "Tüm Yer İmlerini ve İzleri Dışa Aktar";
 
 /* Text for the editing the Track's color button. */
-"change_color" = "Renk değiştir";
+"change_color" = "Renk Değiştir";
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Harita";
