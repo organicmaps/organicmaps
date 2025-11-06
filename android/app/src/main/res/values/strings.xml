@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Back</string>
@@ -18,7 +19,7 @@
     <string name="miles">Miles</string>
     <!-- Update maps later button text -->
     <string name="later">Later</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Search</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Search Map</string>
@@ -54,11 +55,9 @@
     <string name="disconnect_usb_cable">Please disconnect USB cable or insert memory card to use Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Please free up some space on the SD card/USB storage first in order to use the app</string>
-    <string name="download_resources">Before you start using the app, please download the world overview map to your device.
-\nIt will use %s of storage.</string>
+    <string name="download_resources">Before you start using the app, please download the world overview map to your device.\nIt will use %s of storage.</string>
     <string name="download_resources_continue">Go to Map</string>
-    <string name="downloading_country_can_proceed">Downloading %s. You can now
-\nproceed to the map.</string>
+    <string name="downloading_country_can_proceed">Downloading %s. You can now\nproceed to the map.</string>
     <string name="download_country_ask">Download %s?</string>
     <string name="update_country_ask">Update %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -73,7 +72,7 @@
     <string name="bookmark_set_name">Bookmark List Name</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Bookmarks</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">Bookmarks and Tracks</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Name</string>
@@ -96,12 +95,12 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Error moving map files</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">This can take several minutes.
-\nPlease wait…</string>
+    <string name="wait_several_minutes">This can take several minutes.\nPlease wait…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Measurement units</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Choose between miles and kilometers</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Where to eat</string>
@@ -147,16 +146,13 @@
     <string name="category_water">Water</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">RV Facilities</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notes</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Organic Maps bookmarks were shared with you</string>
-    <string name="share_bookmarks_email_body">Hello!
-\n
-\nAttached are my bookmarks; please open them in Organic Maps. If you don\'t have it installed you can download it here: https://omaps.app/get?kmz
-\n
-\nEnjoy travelling with Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don\'t have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Loading Bookmarks</string>
     <!-- Kmz file successful loading -->
@@ -164,12 +160,9 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Failed to load bookmarks. The file may be corrupted or defective.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">The file type is not recognized by the app:
-\n%1$s</string>
+    <string name="unknown_file_type">The file type is not recognized by the app:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Failed to open file %1$s
-\n
-\n%2$s</string>
+    <string name="failed_to_open_file">Failed to open file %1$s\n\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Edit</string>
     <!-- Warning message when doing search around current position -->
@@ -185,11 +178,7 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hey, check out my current location on the Organic Maps map!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hi,
-\n
-\nI\'m here now: %1$s. Click this link %2$s or this one %3$s to see the place on the map.
-\n
-\nThanks.</string>
+    <string name="my_position_share_email">Hi,\n\nI\'m here now: %1$s. Click this link %2$s or this one %3$s to see the place on the map.\n\nThanks.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Share</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -288,7 +277,7 @@
     <string name="how_to_support_us">Support the project</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Copyright</string>
-    <!-- Text in menu + Button in the main Help dialog -->
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">Report a bug</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.</string>
@@ -367,6 +356,7 @@
     <string name="gray">Gray</string>
     <!-- blue gray color -->
     <string name="blue_gray">Blue Gray</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">When following the route, please keep in mind:</string>
     <string name="dialog_routing_disclaimer_priority">— Road conditions, traffic laws, and road signs always take priority over navigation hints;</string>
@@ -396,6 +386,7 @@
     <string name="not_now">Not Now</string>
     <string name="dialog_routing_download_and_build_cross_route">Would you like to download the map and create a more optimal route spanning more than one map?</string>
     <string name="dialog_routing_download_cross_route">Download additional maps to create a better route that crosses the boundaries of this map.</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.</string>
     <string name="search_select_map">Select Map</string>
@@ -513,8 +504,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Community-created OpenStreetMap data as of %s. Learn more about how to edit and update the map at OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) is a community project to build a free and open map. It\'s the main source of map data in Organic Maps and works similar to Wikipedia. You can add or edit places and they become available to millions of users all over the World.
-\nJoin the community and help to make a better map for everyone!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) is a community project to build a free and open map. It\'s the main source of map data in Organic Maps and works similar to Wikipedia. You can add or edit places and they become available to millions of users all over the World.\nJoin the community and help to make a better map for everyone!</string>
     <string name="login_to_make_edits_visible">Create an OpenStreetMap account or log in to publish your map edits to the world.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d of %2$d</string>
@@ -550,6 +540,7 @@
     <string name="minute">min</string>
     <string name="day">d</string>
     <string name="placepage_more_button">More</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Edit Bookmark</string>
     <string name="placepage_personal_notes_hint">Personal notes (text or html)</string>
     <string name="editor_comment_hint">Comment…</string>
@@ -602,9 +593,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">General Feedback</string>
     <string name="prefs_languages_information">We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play</string>
-    <string name="prefs_languages_information_off">For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Galaxy Store, App Gallery, FDroid).
-\nOpen your device\'s settings → Language and input → Speech → Text to speech output.
-\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.</string>
+    <string name="prefs_languages_information_off">For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen your device\'s settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.</string>
     <string name="prefs_languages_information_off_link">For more information please check this guide.</string>
     <string name="transliteration_title">Transliterate into Latin alphabet</string>
     <string name="learn_more">Learn more</string>
@@ -659,7 +648,9 @@
     <string name="privacy_policy">Privacy policy</string>
     <string name="terms_of_use">Terms of use</string>
     <string name="button_layer_traffic">Traffic</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_hiking">Hiking</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Cycling</string>
     <string name="button_layer_subway">Subway</string>
     <string name="layers_title">Map Styles and Layers</string>
@@ -684,6 +675,7 @@
     <string name="power_managment_setting_never">Never</string>
     <string name="power_managment_setting_auto">When battery is low</string>
     <string name="power_managment_setting_manual_max">Always</string>
+    <!-- Settings/Bookmark Text Placement -->
     <string name="bookmarks_text_placement_title">Bookmark names on the map</string>
     <string name="bookmarks_text_placement_description">If there are too many bookmarks, displaying their names on the map may slow down the app.</string>
     <string name="show_to_the_right">Show to the right</string>
@@ -738,6 +730,7 @@
     <string name="moreyear_ago_sorttype">More than a year ago</string>
     <string name="near_me_sorttype">Near me</string>
     <string name="others_sorttype">Others</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Food</string>
     <string name="tourist_places">Sights</string>
@@ -876,6 +869,7 @@
     <string name="stop_track_recording">Stop Track Recording</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="track_recording_title">Track Recording</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Stop Without Saving</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Continue Recording</string>

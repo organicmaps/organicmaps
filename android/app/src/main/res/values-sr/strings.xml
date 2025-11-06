@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Назад</string>
@@ -18,12 +19,16 @@
     <string name="miles">Миље</string>
     <!-- Update maps later button text -->
     <string name="later">Касније</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Претрага</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Тражи на мапи</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Тренутно су сви локацијски сервиси на овом уређају или апликацији искључени. Потребно је да их укључите у Подешавањима.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Ограничена тачност</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Да би се осигурала тачна навигација омогућите прецизну локацију у подешавањима.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Прикажи на мапи</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -50,11 +55,9 @@
     <string name="disconnect_usb_cable">Молим вас откачите USB кабл, или убаците меморијску картицу да бисте користили Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Молим вас, прво ослободите нешто простора на SD картици или на USB меморији да бисте користили апликацију</string>
-    <string name="download_resources">Пре него што почнете да користите апликацију, прво преузмите на ваш уређај општу мапу света.
-\nЗа то ће бити потребно %s меморије.</string>
+    <string name="download_resources">Пре него што почнете да користите апликацију, прво преузмите на ваш уређај општу мапу света.\nЗа то ће бити потребно %s меморије.</string>
     <string name="download_resources_continue">Иди на мапу</string>
-    <string name="downloading_country_can_proceed">Преузимање %s. Можете
-\nотићи на мапу.</string>
+    <string name="downloading_country_can_proceed">Преузимање %s. Можете\nотићи на мапу.</string>
     <string name="download_country_ask">Преузети %s?</string>
     <string name="update_country_ask">Ажурирати %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -69,7 +72,7 @@
     <string name="bookmark_set_name">Назив листе маркера</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Маркери</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">Маркери и путање</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Назив</string>
@@ -92,12 +95,12 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Грешка приликом премештања фајлова са мапама</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Ово може да потраје неколико минута.
-\nМолим вас, сачекајте…</string>
+    <string name="wait_several_minutes">Ово може да потраје неколико минута.\nМолим вас, сачекајте…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Јединице мере</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Изаберите између километара и миља</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Где јести</string>
@@ -112,7 +115,7 @@
     <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
     <string name="category_shopping">Куповина</string>
     <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
-    <string name="category_secondhand" translatable="false">Секонд-хенд</string>
+    <string name="category_secondhand">Секонд-хенд</string>
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
     <string name="category_hotel">Хотел</string>
     <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
@@ -143,16 +146,13 @@
     <string name="category_water">Вода</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">За кампер возила</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Напомене</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Organic Maps маркери су подељени са вама</string>
-    <string name="share_bookmarks_email_body">Здраво!
-\n
-\nУ прилогу су моји маркери; молим те да их отвориш у Organic Maps-у. Ако га немаш већ инсталираног, можеш да га преузмеш одавде: https://omaps.app/get?kmz
-\n
-\nУживај у путовању са Organic Maps-ом!</string>
+    <string name="share_bookmarks_email_body">Здраво!\n\nУ прилогу су моји маркери; молим те да их отвориш у Organic Maps-у. Ако га немаш већ инсталираног, можеш да га преузмеш одавде: https://omaps.app/get?kmz\n\nУживај у путовању са Organic Maps-ом!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Учитавање маркера</string>
     <!-- Kmz file successful loading -->
@@ -160,12 +160,9 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Неуспешно учитавање маркера. Могуће је да је фајл оштећен или неисправан.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Апликација не препознаје ову врсту фајла:
-\n%1$s</string>
+    <string name="unknown_file_type">Апликација не препознаје ову врсту фајла:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Отварање фајла %1$s није успело
-\n
-\n%2$s</string>
+    <string name="failed_to_open_file">Отварање фајла %1$s није успело\n\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Измени</string>
     <!-- Warning message when doing search around current position -->
@@ -181,11 +178,7 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Хеј, види моју тренутну локацију на Organic Maps мапи!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Здраво,
-\n
-\nЈа сам овде: %1$s. Кликни на овај %2$s или овај линк %3$s да би видео то место на мапи.
-\n
-\nХвала.</string>
+    <string name="my_position_share_email">Здраво,\n\nЈа сам овде: %1$s. Кликни на овај %2$s или овај линк %3$s да би видео то место на мапи.\n\nХвала.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Подели</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -247,6 +240,26 @@
     <string name="website">Веб-сајт</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Новости</string>
+    <!-- Text in menu -->
+    <string name="github">GitHub</string>
+    <!-- Text in menu -->
+    <string name="telegram">Telegram</string>
+    <!-- Text in menu -->
+    <string name="matrix">[Matrix]</string>
+    <!-- Text in menu -->
+    <string name="mastodon">Mastodon</string>
+    <!-- Text in menu -->
+    <string name="facebook">Facebook</string>
+    <!-- Text in menu -->
+    <string name="twitter">X (Twitter)</string>
+    <!-- Text in menu -->
+    <string name="instagram">Instagram</string>
+    <!-- Text in the editor -->
+    <string name="vk">VK</string>
+    <!-- Text in the editor -->
+    <string name="editor_line_social_network">ЛИНИЈА</string>
+    <!-- Text in menu -->
+    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Повратне информације</string>
     <!-- Text in menu -->
@@ -257,9 +270,14 @@
     <string name="faq">Често постављена питања</string>
     <!-- Button in the main menu -->
     <string name="donate">Донација</string>
+    <string name="already_donated">Већ је донирано</string>
+    <string name="remind_me_later">Подсећати касније</string>
+    <string name="support_organic_maps">Подршка Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Подржи пројекат</string>
-    <!-- Text in menu + Button in the main Help dialog -->
+    <!-- Button in the main Help dialog -->
+    <string name="copyright">Copyright</string>
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">Пријавите проблем</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">Побољшајте смер стрелице тако што ћете померати телефон у путањи осмице као бисте калибрисали компас.</string>
@@ -338,6 +356,7 @@
     <string name="gray">Сива</string>
     <!-- blue gray color -->
     <string name="blue_gray">Плаво сива</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Када пратите руту, обратите пажњу на:</string>
     <string name="dialog_routing_disclaimer_priority">— Услови на путу, саобраћајни прописи и знакови имају приоритет у односу на навигацију;</string>
@@ -367,6 +386,7 @@
     <string name="not_now">Не сада</string>
     <string name="dialog_routing_download_and_build_cross_route">Да ли желите да преузмете мапу и направите оптималнију руту која се простире на више од једне мапе?</string>
     <string name="dialog_routing_download_cross_route">Преузми додатне мапе и направи бољу руту која се престире преко граница ове мапе.</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Да бисте почели да претражујете и правите руте, молим Вас да преузмете мапу. Након тога веза са интернетом Вам више неће бити потребна.</string>
     <string name="search_select_map">Изабери мапу</string>
@@ -411,6 +431,7 @@
     <string name="editor_hours_closed">Нерадно време</string>
     <string name="editor_example_values">Примери</string>
     <string name="editor_correct_mistake">Исправи грешку</string>
+    <string name="editor_add_select_location">Изаберите локацију</string>
     <string name="editor_report_problem_desription_1">Молим Вас да детаљно опишете проблем како би OpenStreetMap заједница могла да га поправи.</string>
     <string name="editor_report_problem_desription_2">Или то учините сами на https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Пошаљи</string>
@@ -444,6 +465,8 @@
     <!-- Editable House Number text field (in address block). -->
     <string name="house_number">Кућни број</string>
     <string name="details">Детаљи</string>
+    <string name="social_media">Друштвени медији</string>
+    <string name="building">Зграда</string>
     <!-- Text field to enter non-existing street name, below list of known streets around -->
     <string name="add_street">Додај улицу</string>
     <!-- Error to display when a new street name is not entered in the New street dialog -->
@@ -467,6 +490,7 @@
     <string name="downloader_no_space_message">Молим Вас да обришете непотребне податке</string>
     <string name="editor_login_error_dialog">Грешка приликом пријаве.</string>
     <string name="editor_profile_changes">Верификоване промене</string>
+    <string name="editor_focus_map_on_location">Превуците мапу да поставите крст на локацију места или посла.</string>
     <string name="editor_edit_place_title">Измена</string>
     <string name="editor_add_place_title">Додавање</string>
     <string name="editor_edit_place_name_hint">Назив места</string>
@@ -480,8 +504,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Подаци са OpenStreetMap-а које је креирала заједница до %s. Научите више о томе како да мењате и ажурирате мапу на OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) је пројекат заједнице који има за циљ прављење бесплатне, слободне и отворене мапе. OSM је главни извор података за мапе у Organic Maps-у и функционише на сличан начин као Википедија. Можете додати или променити места и ваше промене постају видљиве милионима корисника широм света.
-\nПридружите се заједници и помозите да направимо бољу мапу која је доступна свима!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) је пројекат заједнице који има за циљ прављење бесплатне, слободне и отворене мапе. OSM је главни извор података за мапе у Organic Maps-у и функционише на сличан начин као Википедија. Можете додати или променити места и ваше промене постају видљиве милионима корисника широм света.\nПридружите се заједници и помозите да направимо бољу мапу која је доступна свима!</string>
     <string name="login_to_make_edits_visible">Пријавите се на openstreetmap.org да бисте објавили ваше промене остатку света.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d од %2$d</string>
@@ -500,6 +523,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Ваше промене су послате у јавну <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> базу података. Молимо Вас да не додајете личне податке или податке заштићене ауторским правима.</string>
     <string name="editor_more_about_osm">Више о OpenStreetMap-у</string>
+    <string name="editor_osm_history">Ваша историја уређивања</string>
+    <string name="editor_osm_notes">Ваши подаци о мапи</string>
     <string name="editor_operator">Оператор</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Оператор: %s</string>
@@ -515,7 +540,9 @@
     <string name="minute">мин</string>
     <string name="day">д</string>
     <string name="placepage_more_button">Више</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Измени маркер</string>
+    <string name="placepage_personal_notes_hint">Личне белешке (текст или хтмл)</string>
     <string name="editor_comment_hint">Коментар…</string>
     <string name="editor_reset_edits_message">Брисање свих измена које нису послате?</string>
     <string name="editor_reset_edits_button">Обриши</string>
@@ -564,9 +591,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Ваше мишљење</string>
     <string name="prefs_languages_information">Користимо системски сервис текст-у-говор за гласовне инструкције. Многи Андроид уређаји користе Google Препознавање и синтезу говора, који можете да преузмете или ажурирате путем Google Play продавнице</string>
-    <string name="prefs_languages_information_off">За поједине језике, мораћете да инсталирате синтетизатор говора или језички пакет путем продавнице апликација (Google Play, Galaxy Store, App Gallery, FDroid).
-\nОтворите Подешавања вашег уређаја → Језик и унос → Говор → Излаз Текста у говор.
-\nОвде можете да управљате подешавањима за синтезу говора (на пример, да преузмете језички пакет за употребу без интернета) и да изаберете неку другу машину за Текст-у-говор.</string>
+    <string name="prefs_languages_information_off">За поједине језике, мораћете да инсталирате синтетизатор говора или језички пакет путем продавнице апликација (Google Play, Galaxy Store, App Gallery, FDroid).\nОтворите Подешавања вашег уређаја → Језик и унос → Говор → Излаз Текста у говор.\nОвде можете да управљате подешавањима за синтезу говора (на пример, да преузмете језички пакет за употребу без интернета) и да изаберете неку другу машину за Текст-у-говор.</string>
     <string name="prefs_languages_information_off_link">За више информација погледајте ово упутство.</string>
     <string name="transliteration_title">Транслитерација у латиницу</string>
     <string name="learn_more">Сазнај више</string>
@@ -590,7 +615,7 @@
     <string name="bookmark_lists_show_all">Прикажи све</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d маркер</item>
-        <item quantity="few">%d маркера</item>
+        <item quantity="few">%d маркери</item>
         <item quantity="other">%d маркера</item>
     </plurals>
     <string name="bookmarks_create_new_group">Креирај нову листу</string>
@@ -696,6 +721,7 @@
     <string name="moreyear_ago_sorttype">Пре више од годину дана</string>
     <string name="near_me_sorttype">Близу мене</string>
     <string name="others_sorttype">Остали</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Храна</string>
     <string name="tourist_places">Атракције</string>
@@ -722,6 +748,8 @@
     <string name="isolines_location_error_dialog">Изолиније нису доступне за ову област</string>
     <string name="elevation_profile_ascent">Успон</string>
     <string name="elevation_profile_descent">Спуст</string>
+    <string name="elevation_profile_min_elevation">Минимална висина</string>
+    <string name="elevation_profile_max_elevation">Максимална висина</string>
     <string name="elevation_profile_difficulty">Тежина</string>
     <string name="elevation_profile_distance">Удаљ.:</string>
     <string name="elevation_profile_time">Време:</string>
@@ -747,6 +775,18 @@
     <string name="change_map_locale">Језик мапе</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Подаци за мапе су са OpenStreetMap-а</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <!-- Link to OSM wiki for Editor, Profile and About pages -->
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Хвала што користите мапе које је направила заједница!</string>
     <!-- App tip #01 -->
@@ -777,6 +817,12 @@
     <string name="car_continue_on_the_phone">Настави на телефону</string>
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Пребаци на екран аутомобила</string>
+    <!-- Ask user to grant location permissions -->
+    <string name="aa_location_permissions_request">Organic Maps је потребан локацијски приступ. Када је сигурно, проверите обавештење на свом телефону.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">Ова апликација је потребна ваша дозвола</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps у Android Auto-у је потребна дозвола за локацију да ефикасно раде</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Одобри дозволе</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -827,38 +873,4 @@
     <string name="uri_open_location_failed">Нема инсталираних апликација које могу да отворе локацију.</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Аутоматски у навигацији</string>
-    <string name="telegram">Telegram</string>
-    <string name="matrix">[Matrix]</string>
-    <string name="mastodon">Mastodon</string>
-    <string name="facebook">Facebook</string>
-    <string name="twitter">X (Twitter)</string>
-    <string name="editor_line_social_network">ЛИНИЈА</string>
-    <string name="instagram">Instagram</string>
-    <string name="elevation_profile_max_elevation">Максимална висина</string>
-    <string name="elevation_profile_min_elevation">Минимална висина</string>
-    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
-    <string name="aa_location_permissions_request">Organic Maps је потребан локацијски приступ. Када је сигурно, проверите обавештење на свом телефону.</string>
-    <string name="aa_request_permission_notification">Ова апликација је потребна ваша дозвола</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <string name="copyright">Copyright</string>
-    <string name="vk">VK</string>
-    <string name="editor_add_select_location">Изаберите локацију</string>
-    <string name="limited_accuracy">Ограничена тачност</string>
-    <string name="github">GitHub</string>
-    <string name="openstreetmap">OpenStreetMap</string>
-    <string name="editor_focus_map_on_location">Превуците мапу да поставите крст на локацију места или посла.</string>
-    <string name="precise_location_is_disabled_long_text">Да би се осигурала тачна навигација омогућите прецизну локацију у подешавањима.</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
-    <string name="translated_om_site_url">https://organicmaps.app/</string>
-    <string name="already_donated">Већ је донирано</string>
-    <string name="remind_me_later">Подсећати касније</string>
-    <string name="support_organic_maps">Подршка Organic Maps</string>
-    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
-    <string name="editor_osm_history">Ваша историја уређивања</string>
-    <string name="editor_osm_notes">Ваши подаци о мапи</string>
-    <string name="aa_request_permission_activity_text">Organic Maps у Android Auto-у је потребна дозвола за локацију да ефикасно раде</string>
-    <string name="placepage_personal_notes_hint">Личне белешке (текст или хтмл)</string>
-    <string name="comma_separated_pair">%1$s, %2$s</string>
-    <string name="social_media">Друштвени медији</string>
-    <string name="building">Зграда</string>
 </resources>

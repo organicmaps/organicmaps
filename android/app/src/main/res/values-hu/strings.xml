@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Vissza</string>
@@ -18,7 +19,7 @@
     <string name="miles">Mérföld</string>
     <!-- Update maps later button text -->
     <string name="later">Később</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Keresés</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Keresés a térképen</string>
@@ -71,7 +72,7 @@
     <string name="bookmark_set_name">Könyvjelzőlista neve</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Könyvjelzők</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">Könyvjelzők és nyomvonalak</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Név</string>
@@ -99,6 +100,7 @@
     <string name="measurement_units">Mértékegységek</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Válasszon kilométer és mérföld között</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Hol lehet enni valamit</string>
@@ -144,11 +146,13 @@
     <string name="category_water">Víz</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Lakókocsis létesítmények</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Jegyzetek</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Egy Organic Maps könyvjelzőt osztottak meg Önnel</string>
+    <string name="share_bookmarks_email_body">Üdvözlöm!\n\nMellékeltem a könyvjelzőimet; nyissa meg őket az Organic Maps alkalmazásban. Ha még nem telepítette, akkor innen tudja letölteni: https://omaps.app/get?kmz\n\nJó utat kívánok az Organic Maps alkalmazással!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Könyvjelzők betöltése</string>
     <!-- Kmz file successful loading -->
@@ -192,6 +196,8 @@
     <!-- Length of track in cell that describes route -->
     <string name="length">Hossz</string>
     <string name="share_my_location">Saját tartózkodási hely megosztása</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">Általános beállítások</string>
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Információk</string>
     <string name="prefs_group_route">Navigáció</string>
@@ -228,10 +234,32 @@
     <string name="pref_map_auto_zoom">Automatikus nagyítás</string>
     <string name="placepage_distance">Távolság</string>
     <string name="search_show_on_map">Megtekintés a térképen</string>
+    <!-- Menu button -->
+    <string name="menu">Menü</string>
     <!-- Text in menu -->
     <string name="website">Honlap</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Hírek</string>
+    <!-- Text in menu -->
+    <string name="github">GitHub</string>
+    <!-- Text in menu -->
+    <string name="telegram">Telegram</string>
+    <!-- Text in menu -->
+    <string name="matrix">[Matrix]</string>
+    <!-- Text in menu -->
+    <string name="mastodon">Mastodon</string>
+    <!-- Text in menu -->
+    <string name="facebook">Facebook</string>
+    <!-- Text in menu -->
+    <string name="twitter">X (Twitter)</string>
+    <!-- Text in menu -->
+    <string name="instagram">Instagram</string>
+    <!-- Text in the editor -->
+    <string name="vk">VKontakte</string>
+    <!-- Text in the editor -->
+    <string name="editor_line_social_network">LINE</string>
+    <!-- Text in menu -->
+    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Visszajelzés</string>
     <!-- Text in menu -->
@@ -249,7 +277,7 @@
     <string name="how_to_support_us">Támogatás</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Szerzői jogok</string>
-    <!-- Text in menu + Button in the main Help dialog -->
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">Hibajelentés</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">Javítsa a nyíl irányát az eszköz nyolcas mozgatásával az iránytű kalibrálásához.</string>
@@ -328,6 +356,7 @@
     <string name="gray">Szürke</string>
     <!-- blue gray color -->
     <string name="blue_gray">Kékes szürke</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Az útvonal követése során vegye figyelembe az alábbiakat:</string>
     <string name="dialog_routing_disclaimer_priority">– Az útviszonyok, a közlekedési szabályok és a jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatással szemben;</string>
@@ -357,6 +386,7 @@
     <string name="not_now">Most nem</string>
     <string name="dialog_routing_download_and_build_cross_route">Szeretné letölteni a térképet, és egynél több térképen átívelő, optimálisabb útvonalat létrehozni?</string>
     <string name="dialog_routing_download_cross_route">Töltsön le további térképeket, hogy egy jobb útvonalat hozzon létre, amely keresztezi ennek a térképnek a határait.</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Az útvonalak kereséséhez és létrehozásához, töltse le a térképet és többé nem lesz szüksége internetkapcsolatra.</string>
     <string name="search_select_map">Térkép kiválasztása</string>
@@ -372,6 +402,10 @@
     <string name="search_history_title">Keresési előzmények</string>
     <string name="search_history_text">Legutóbbi keresések megtekintése.</string>
     <string name="clear_search">A keresési előzmények törlése</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Wikipédia</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Saját tartózkodási hely</string>
     <string name="p2p_start">Indítás</string>
     <string name="p2p_from_here">Kiindulópont</string>
@@ -412,6 +446,8 @@
     <string name="day_off_today">Ma zárva</string>
     <string name="day_off">Zárva</string>
     <string name="today">Ma</string>
+    <string name="opens_in">Kinyit %s múlva</string>
+    <string name="closes_in">Bezár %s múlva</string>
     <string name="closed">Zárva</string>
     <string name="edit_opening_hours">Nyitvatartás szerkesztése</string>
     <string name="no_osm_account">Nem rendelkezik még felhasználói fiókkal az OpenStreetMapen?</string>
@@ -433,13 +469,18 @@
     <string name="building">Épület</string>
     <!-- Text field to enter non-existing street name, below list of known streets around -->
     <string name="add_street">Utca hozzáadása</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">Adjon meg egy utcanevet</string>
     <string name="choose_language">Válasszon nyelvet</string>
     <string name="choose_street">Válasszon utcát</string>
     <string name="cuisine">Konyha</string>
     <string name="select_cuisine">Konyha kiválasztása</string>
     <!-- login text field -->
     <string name="email_or_username">E-mail-cím vagy felhasználónév</string>
+    <string name="editor_add_phone">Telefonszám hozzáadása</string>
     <string name="level">Szint</string>
+    <!-- Building level -->
+    <string name="level_value_generic">%s. szint</string>
     <string name="downloader_delete_map_dialog">Az összes térképszerkesztés törlődik a térképpel együtt.</string>
     <string name="downloader_update_maps">Térképek frissítése</string>
     <string name="downloader_mwm_migration_dialog">Az útvonal létrehozásához frissítenie kell az összes térképet, majd újra meg kell terveznie az útvonalat.</string>
@@ -461,7 +502,7 @@
     <string name="placepage_add_business_button">Vállalkozás hozzáadása</string>
     <string name="message_invalid_feature_position">Itt nem található objektum</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">A közösségi OpenStreetMap adatok frissítésének időpontja: %s. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon</string>
+    <string name="osm_presentation">Közösség által létrehozott OpenStreetMap adatok innen: %s. További információkat a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon találhat</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">Az OpenStreetMap.org (OSM) egy közösségi projekt, amelynek célja egy ingyenes és nyílt térkép létrehozása. Ez az Organic Maps alkalmazás térképadatainak fő forrása, és a Wikipédiához hasonlóan működik. Helyeket adhat hozzá vagy szerkeszthet, és azok világszerte felhasználók milliói számára válnak elérhetővé. \nCsatlakozzon a közösséghez, és segítsen egy jobb térképet készíteni mindenki számára!</string>
     <string name="login_to_make_edits_visible">Hozzon létre egy fiókot az OpenStreetMapen, vagy jelentkezzen be, hogy közzétehesse térképszerkesztéseit a világ számára.</string>
@@ -491,6 +532,7 @@
     <string name="editor_category_unsuitable_text">Az Organic Maps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb., az ilyen kategóriákat közvetlenül az <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> oldalon adhatja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg az <a href="https://organicmaps.app/faq/editing/advanced-map-editing">útmutatónkat</a>.</string>
     <string name="downloader_no_downloaded_maps_title">Még nem töltött le térképet</string>
     <string name="downloader_no_downloaded_maps_message">Térképek letöltése az offline kereséshez és navigáláshoz.</string>
+    <string name="current_location_unknown_error_title">A jelenlegi tartózkodási hely ismeretlen.</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/ó</string>
     <string name="miles_per_hour">mf/ó</string>
@@ -498,6 +540,7 @@
     <string name="minute">p</string>
     <string name="day">nap</string>
     <string name="placepage_more_button">Tovább</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Könyvjelző szerkesztése</string>
     <string name="placepage_personal_notes_hint">Személyes jegyzetek (szöveg vagy html)</string>
     <string name="editor_comment_hint">Megjegyzés…</string>
@@ -506,11 +549,20 @@
     <string name="editor_remove_place_message">Töröl egy hozzáadott helyet?</string>
     <string name="editor_remove_place_button">Törlés</string>
     <string name="editor_place_doesnt_exist">A hely nem létezik</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">Adja meg a hely törlésének okát</string>
     <!-- Phone number error message -->
     <string name="error_enter_correct_phone">Adjon megy egy érvényes telefonszámot</string>
     <string name="error_enter_correct_web">Adjon meg egy érvényes weboldalcímet</string>
     <string name="error_enter_correct_email">Adjon meg egy érvényes e-mail-címet</string>
+    <string name="error_enter_correct_facebook_page">Adjon meg egy érvényes Facebook-webcímet, fiók- vagy oldalnevet</string>
+    <string name="error_enter_correct_instagram_page">Adjon meg egy érvényes Instagram felhasználónevet vagy webcímet</string>
+    <string name="error_enter_correct_twitter_page">Adjon meg egy érvényes X (Twitter) felhasználónevet vagy webcímet</string>
+    <string name="error_enter_correct_vk_page">Adjon meg egy érvényes VK felhasználónevet vagy webcímet</string>
+    <string name="error_enter_correct_line_page">Adjon meg egy érvényes LINE ID-t vagy webcímet</string>
     <string name="placepage_add_place_button">Hely hozzáadása az OpenStreetMap adatbázishoz</string>
+    <string name="osm_note_hint">Vagy írjon egy jegyzetet az OpenStreetMap közösségnek, hogy valaki más hozzáadhassa vagy kijavíthassa ezt a helyet.</string>
+    <string name="osm_note_toast">A jegyzet fel lesz töltve az OpenStreetMapre</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Szeretné elküldeni az összes felhasználónak?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -553,10 +605,11 @@
     <string name="button_plan">Tervezés</string>
     <string name="placepage_remove_stop">Megálló eltávolítása</string>
     <string name="placepage_add_stop">Köztes célpont hozzáadása</string>
+    <string name="saved">Mentve</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Jelentkezzen be az OpenStreetMap rendszerébe, hogy automatikusan feltölthesse az összes térképszerkesztését. További információ <a href="https://github.com/organicmaps/organicmaps/issues/6144">itt</a>.</string>
     <string name="dialog_error_storage_title">Tárhelyhozzáférési probléma</string>
-    <string name="dialog_error_storage_message">Külső tárhely nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support@organicmaps.app címen</string>
+    <string name="dialog_error_storage_message">Külső tárhely nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support\@organicmaps.app címen</string>
     <string name="setting_emulate_bad_storage">Sérült tároló emulálása</string>
     <string name="error_enter_correct_name">Adjon meg egy érvényes nevet</string>
     <string name="bookmark_lists">Listák</string>
@@ -564,6 +617,7 @@
     <string name="bookmark_lists_hide_all">Összes elrejtése</string>
     <string name="bookmark_lists_show_all">Összes megjelenítése</string>
     <plurals name="bookmarks_places">
+        <item quantity="zero">%d könyvjelző</item>
         <item quantity="one">%d könyvjelző</item>
         <item quantity="other">%d könyvjelző</item>
     </plurals>
@@ -582,11 +636,13 @@
     <string name="phone_number">Telefonszám</string>
     <string name="profile">OpenStreetMap profil</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="one">%d fájl található. Látni fogja a konvertálás után.</item>
-        <item quantity="other">%d fájl található. Látni fogja őket a konvertálás után.</item>
+        <item quantity="zero">%d fájl található.</item>
+        <item quantity="one">%d fájl található. Látni fogja azt a konvertálás után.</item>
+        <item quantity="other">%d fájl található. Látni fogja azokat a konvertálás után.</item>
     </plurals>
     <string name="restore">Visszaállítás</string>
     <plurals name="tracks">
+        <item quantity="zero">%d nyomvonal</item>
         <item quantity="one">%d nyomvonal</item>
         <item quantity="other">%d nyomvonal</item>
     </plurals>
@@ -595,6 +651,10 @@
     <string name="privacy_policy">Adatvédelmi irányelvek</string>
     <string name="terms_of_use">Felhasználási feltételek</string>
     <string name="button_layer_traffic">Forgalom</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Túrázás</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Kerékpározás</string>
     <string name="button_layer_subway">Metró</string>
     <string name="layers_title">Térképstílusok és rétegek</string>
     <string name="bookmarks_empty_list_title">Ez a lista üres</string>
@@ -618,6 +678,11 @@
     <string name="power_managment_setting_never">Soha</string>
     <string name="power_managment_setting_auto">Amikor az akkumulátor lemerül</string>
     <string name="power_managment_setting_manual_max">Mindig</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Nevek könyvjelzőzése a térképen</string>
+    <string name="bookmarks_text_placement_description">Ha túl sok könyvjelző van, azok neveinek megjelenítése a térképen lelassíthatja az alkalmazást.</string>
+    <string name="show_to_the_right">Megjelenítés jobb oldalon</string>
+    <string name="show_at_the_bottom">Megjelenítés alul</string>
     <string name="enable_logging_warning_message">Ha ideiglenesen engedélyezi ezt a beállítást, akkor a „Súgó” párbeszédpanel „Hibajelentés” menüpontjának használatával rögzítheti és kézzel küldheti el nekünk a problémával kapcsolatos részletes diagnosztikai naplókat. A naplók tartalmazhatnak helyadatokat.</string>
     <string name="driving_options_title">Útvonaltervezési beállítások</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -668,6 +733,7 @@
     <string name="moreyear_ago_sorttype">Több mint egy éve</string>
     <string name="near_me_sorttype">A közelben</string>
     <string name="others_sorttype">Egyebek</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Étel</string>
     <string name="tourist_places">Látnivalók</string>
@@ -701,6 +767,15 @@
     <string name="elevation_profile_time">Idő:</string>
     <string name="isolines_toast_zooms_1_10">Nagyítás az izovonalak felfedezéséhez</string>
     <string name="downloader_loading_ios">Letöltés</string>
+    <string name="download_map_title">Áttekintő világtérkép letöltése</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">Nem lehet mappát létrehozni és fájlokat áthelyezni az eszköz belső memóriájában vagy az SD-kártyán</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">Lemezhiba</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">Kapcsolódási hiba</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">USB-kábel leválasztása</string>
     <string name="enable_keep_screen_on">Képernyő bekapcsolva tartása</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Ha engedélyezve van, a képernyő mindig be lesz kapcsolva a térkép megjelenítésekor.</string>
@@ -712,10 +787,18 @@
     <string name="change_map_locale">Térkép nyelve</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Térképadatok az OpenStreetMap adatbázisából</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/hu/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Hu:Névjegy</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Köszönjük, hogy használja a közösség által készített térképeinket!</string>
     <!-- App tip #01 -->
@@ -788,6 +871,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Nyomvonal rögzítésének megállítása</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Nyomvonal rögzítése</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Megállítás mentés nélkül</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Rögzítés folytatása</string>
@@ -802,52 +887,7 @@
     <string name="uri_open_location_failed">Nincs telepített alkalmazás, amely meg tudja nyitni a helyet</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automatikus navigáció</string>
-    <string name="telegram">Telegram</string>
-    <string name="instagram">Instagram</string>
-    <string name="wikimedia_commons">Wikimedia Commons</string>
-    <string name="editor_line_social_network">LINE</string>
-    <string name="empty_street_name_error">Adjon meg egy utcanevet</string>
-    <string name="vk">VKontakte</string>
-    <string name="read_in_wikipedia">Wikipédia</string>
-    <string name="prefs_group_general">Általános beállítások</string>
-    <string name="openstreetmap">OpenStreetMap</string>
-    <string name="matrix">[Matrix]</string>
-    <string name="menu">Menü</string>
-    <string name="github">GitHub</string>
-    <string name="facebook">Facebook</string>
-    <string name="closes_in">Bezár %s múlva</string>
-    <string name="opens_in">Kinyit %s múlva</string>
-    <string name="current_location_unknown_error_title">A jelenlegi tartózkodási hely ismeretlen.</string>
-    <string name="disk_error">Nem lehet mappát létrehozni és fájlokat áthelyezni az eszköz belső memóriájában vagy az SD-kártyán</string>
-    <string name="disk_error_title">Lemezhiba</string>
-    <string name="twitter">X (Twitter)</string>
-    <string name="level_value_generic">%s. szint</string>
-    <string name="delete_place_empty_comment_error">Adja meg a hely törlésének okát</string>
-    <string name="error_enter_correct_line_page">Adjon meg egy érvényes LINE ID-t vagy webcímet</string>
-    <string name="connection_failure">Kapcsolódási hiba</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <string name="comma_separated_pair">%1$s, %2$s</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
-    <string name="error_enter_correct_vk_page">Adjon meg egy érvényes VK felhasználónevet vagy webcímet</string>
-    <string name="editor_add_phone">Telefonszám hozzáadása</string>
-    <string name="download_map_title">Áttekintő világtérkép letöltése</string>
-    <string name="mastodon">Mastodon</string>
-    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
-    <string name="share_bookmarks_email_body">Üdvözlöm!\n\nMellékeltem a könyvjelzőimet; nyissa meg őket az Organic Maps alkalmazásban. Ha még nem telepítette, akkor innen tudja letölteni: https://omaps.app/get?kmz\n\nJó utat kívánok az Organic Maps alkalmazással!</string>
-    <string name="disconnect_usb_cable_title">USB-kábel leválasztása</string>
-    <string name="error_enter_correct_facebook_page">Adjon meg egy érvényes Facebook-webcímet, fiók- vagy oldalnevet</string>
-    <string name="error_enter_correct_twitter_page">Adjon meg egy érvényes X (Twitter) felhasználónevet vagy webcímet</string>
-    <string name="error_enter_correct_instagram_page">Adjon meg egy érvényes Instagram felhasználónevet vagy webcímet</string>
-    <string name="saved">Mentve</string>
-    <string name="osm_note_hint">Vagy írjon egy jegyzetet az OpenStreetMap közösségnek, hogy valaki más hozzáadhassa vagy kijavíthassa ezt a helyet.</string>
-    <string name="osm_note_toast">A jegyzet fel lesz töltve az OpenStreetMapre</string>
-    <string name="button_layer_hiking">Túrázás</string>
-    <string name="button_layer_cycling">Kerékpározás</string>
-    <string name="bookmarks_text_placement_title">Nevek könyvjelzőzése a térképen</string>
-    <string name="bookmarks_text_placement_description">Ha túl sok könyvjelző van, azok neveinek megjelenítése a térképen lelassíthatja az alkalmazást.</string>
-    <string name="show_to_the_right">Megjelenítés jobb oldalon</string>
-    <string name="show_at_the_bottom">Megjelenítés alul</string>
+    <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Nyomvonal megosztása</string>
     <string name="delete_track_dialog_title">Törli a következőt: %s?</string>
-    <string name="track_recording_title">Nyomvonal rögzítése</string>
 </resources>

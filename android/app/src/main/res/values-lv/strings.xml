@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Atpakaļ</string>
@@ -18,7 +19,7 @@
     <string name="miles">Jūdzes</string>
     <!-- Update maps later button text -->
     <string name="later">Vēlāk</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Meklēt</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Meklēt kartē</string>
@@ -54,11 +55,9 @@
     <string name="disconnect_usb_cable">Lai lietotu „Organic Maps“, atvienojiet USB kabeli vai ievietojiet atmiņas karti.</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Lietotnes izmantošanai atbrīvojiet vietu ierīces krātuvē</string>
-    <string name="download_resources">Pirms sākt izmantot lietotni lejupielādējiet pasaules pārskata karti.
-\nTā ierīces krātuvē aizņems %s vietas.</string>
+    <string name="download_resources">Pirms sākt izmantot lietotni lejupielādējiet pasaules pārskata karti.\nTā ierīces krātuvē aizņems %s vietas.</string>
     <string name="download_resources_continue">Iet uz karti</string>
-    <string name="downloading_country_can_proceed">Lejupielādē „%s“. Tagad varat
-\niet uz karti.</string>
+    <string name="downloading_country_can_proceed">Lejupielādē „%s“. Tagad varat\niet uz karti.</string>
     <string name="download_country_ask">Vai lejupielādēt „%s“?</string>
     <string name="update_country_ask">Vai atjaunināt „%s“?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -73,7 +72,7 @@
     <string name="bookmark_set_name">Grāmatzīmju saraksta nosaukums</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Grāmatzīmes</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">Grāmatzīmes un pēdojumi</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Nosaukums</string>
@@ -96,12 +95,12 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Kļūda, pārvietojot kartes datnes</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Tas var aizņemt vairākas minūtes.
-\nUzgaidiet…</string>
+    <string name="wait_several_minutes">Tas var aizņemt vairākas minūtes.\nUzgaidiet…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Mērvienības</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Izvēlieties starp jūdzēm un kilometriem</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Kur paēst</string>
@@ -146,17 +145,14 @@
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">Ūdens</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
-    <string name="category_rv" translatable="false">Treileru laukumi</string>
+    <string name="category_rv">Treileru laukumi</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Piezīmes</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Ar jums kopīgoja „Oranic Maps“ grāmatzīmes</string>
-    <string name="share_bookmarks_email_body">Sveiki!
-\n
-\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz
-\n
-\nBaudiet ceļošanu ar „Oranic Maps“!</string>
+    <string name="share_bookmarks_email_body">Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Oranic Maps“!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Ielādē grāmatzīmes</string>
     <!-- Kmz file successful loading -->
@@ -164,12 +160,9 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Grāmatzīmes ielādēt neizdevās. Iespējams, datne ir bojāta.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Lietotne neatpazīst datnes tipu:
-\n%1$s</string>
+    <string name="unknown_file_type">Lietotne neatpazīst datnes tipu:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Neizdevās atvērt datni %1$s
-\n
-\n%2$s</string>
+    <string name="failed_to_open_file">Neizdevās atvērt datni %1$s\n\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Labot</string>
     <!-- Warning message when doing search around current position -->
@@ -247,6 +240,8 @@
     <string name="website">Tīmekļa vietne</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Jaunumi</string>
+    <!-- Text in menu -->
+    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Atsauksmes</string>
     <!-- Text in menu -->
@@ -257,13 +252,14 @@
     <string name="faq">Biežāk uzdotie jautājumi</string>
     <!-- Button in the main menu -->
     <string name="donate">Ziedot</string>
+    <string name="already_donated">Jau esmu ziedojis/usi</string>
     <string name="remind_me_later">Atgādināt vēlāk</string>
     <string name="support_organic_maps">Atbalstīt Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Atbalstiet projektu</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Autortiesības</string>
-    <!-- Text in menu + Button in the main Help dialog -->
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">Ziņot par kļūdu</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">Uzlabojiet bultiņas virzienu, pārvietojot tālruni astoņniekā, kas kalibrēs kompasu.</string>
@@ -342,6 +338,7 @@
     <string name="gray">Pelēka</string>
     <!-- blue gray color -->
     <string name="blue_gray">Zilpelēka</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Sekojot maršrutam, ievērojiet:</string>
     <string name="dialog_routing_disclaimer_priority">— Apstākļiem uz ceļa, ceļu satiksmes noteikumiem un ceļazīmēm vienmēr ir priekšroka pār navigācijas ieteikumiem;</string>
@@ -371,6 +368,7 @@
     <string name="not_now">Ne tagad</string>
     <string name="dialog_routing_download_and_build_cross_route">Vai vēlaties lejupielādēt karti un izveidot piemērotāku maršrutu, kas ietver vairāk par vienu karti?</string>
     <string name="dialog_routing_download_cross_route">Lejupielādējiet papildu kartes, lai izveidotu labāku maršrutu, kas šķērso šīs kartes robežu.</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Lejupielādējiet karti, lai sāktu meklēt un veidot maršrutus. Pēc tam tīkla pieslēgumu vairs nevajadzēs.</string>
     <string name="search_select_map">Atlasīt karti</string>
@@ -388,6 +386,8 @@
     <string name="clear_search">Notīrīt vēsturi</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Vikipēdija</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Vikikrātuve</string>
     <string name="p2p_your_location">Jūsu atrašanās vieta</string>
     <string name="p2p_start">Sākt</string>
     <string name="p2p_from_here">Doties iz</string>
@@ -498,6 +498,12 @@
     <string name="error_enter_correct_storey_number">Stāvu skaits nedrīkst pārsniegt %d</string>
     <string name="editor_zip_code">Pasta indekss</string>
     <string name="error_enter_correct_zip_code">Ierakstiet pasta indeksu</string>
+    <!-- Title for OSM note section in the editor -->
+    <string name="editor_other_info">Piezīme OpenStreetMap brīvprātigajiem (nav obligāts)</string>
+    <!-- Hint of the input field in the OSM note section of the editor -->
+    <string name="editor_note_hint">Aprakstiet kļūdas kartē vai lietas, ko nevar rediģēt, izmantojot Organic Maps</string>
+    <!-- Information about OSM at the top of the editing page -->
+    <string name="editor_about_osm">Jūsu labojumi tiek augšupielādēti sabiedriskajā <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> datubāzē. Lūdzu, nepievienojiet personisku vai ar autortiesībām aizsargātu informāciju.</string>
     <string name="editor_more_about_osm">Vairāk par „OpenStreetMap“</string>
     <string name="editor_osm_history">Tava kartes izmaiņu vēsture</string>
     <string name="editor_osm_notes">Tavas kartes datu piezīmes</string>
@@ -516,6 +522,7 @@
     <string name="minute">min.</string>
     <string name="day">d</string>
     <string name="placepage_more_button">Vairāk</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Rediģēt grāmatzīmi</string>
     <string name="placepage_personal_notes_hint">Personīgi pieraksti (teksts vai HTML)</string>
     <string name="editor_comment_hint">Komentārs…</string>
@@ -566,9 +573,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Vispārīgas atsauksmes</string>
     <string name="prefs_languages_information">Balss norādēm lietotne izmanto teksta pārveides runā sistēmu (TTS). Daudzas „Android“ ierīces izmanto „Google TTS“, ko varat lejupielādēt un atjaunināt „Google Play“ veikalā</string>
-    <string name="prefs_languages_information_off">Dažām valodām nepieciešams instalēt runas sintezatoru vai papildu valodas paku, kas parasti atrodama lietotņu veikalā („Google Play“, „Galaxy Store“, „App Gallery“, „FDroid“).
-\nAtveriet ierīces iestatījumus → Valoda un ievade → Runa → Teksta pārveide runā.
-\nTe varat pārvaldīt runas sintēzes iestatījumus (piemēram, lejupielādēt valodas paku lietošanai nesaistē, kā arī varat nomainīt dzini teksta pārvēršanai runā.</string>
+    <string name="prefs_languages_information_off">Dažām valodām nepieciešams instalēt runas sintezatoru vai papildu valodas paku, kas parasti atrodama lietotņu veikalā („Google Play“, „Galaxy Store“, „App Gallery“, „FDroid“).\nAtveriet ierīces iestatījumus → Valoda un ievade → Runa → Teksta pārveide runā.\nTe varat pārvaldīt runas sintēzes iestatījumus (piemēram, lejupielādēt valodas paku lietošanai nesaistē, kā arī varat nomainīt dzini teksta pārvēršanai runā.</string>
     <string name="prefs_languages_information_off_link">Vairāk informācijas atradīsiet šajā pamācībā</string>
     <string name="transliteration_title">Transliterācija uz latīņu alfabētu</string>
     <string name="learn_more">Uzzināt vairāk</string>
@@ -583,7 +588,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Ierakstieties „OpenStreetMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk <a href="https://github.com/organicmaps/organicmaps/issues/6144">te</a>.</string>
     <string name="dialog_error_storage_title">Krātuves pieejas problēma</string>
-    <string name="dialog_error_storage_message">Ārējā krātuve nav pieejama. Iespējams, ir izņemta vai bojāta SD karte, vai arī datņu sistēma ir tikai lasāma. Pārbaudiet savu SD karti vai sazinieties ar mums, rakstot uz support@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Ārējā krātuve nav pieejama. Iespējams, ir izņemta vai bojāta SD karte, vai arī datņu sistēma ir tikai lasāma. Pārbaudiet savu SD karti vai sazinieties ar mums, rakstot uz support\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Simulēt bojātu krātuvi</string>
     <string name="error_enter_correct_name">Ierakstiet pareizu nosaukumu</string>
     <string name="bookmark_lists">Saraksti</string>
@@ -625,7 +630,9 @@
     <string name="privacy_policy">Privātuma politika</string>
     <string name="terms_of_use">Lietošanas noteikumi</string>
     <string name="button_layer_traffic">Satiksme</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_hiking">Pārgājieni</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Riteņbraukšana</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Kartes stili un slāņi</string>
@@ -700,6 +707,7 @@
     <string name="moreyear_ago_sorttype">Vairāk nekā pirms gada</string>
     <string name="near_me_sorttype">Man tuvumā</string>
     <string name="others_sorttype">Cits</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Ēdiens</string>
     <string name="tourist_places">Apskates objekti</string>
@@ -749,8 +757,20 @@
     <string name="enable_show_on_lock_screen">Rādīt bloķēšanas ekrānā</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">Ja ieslēgts, lietotne darbosies pat tad, ja ierīce būs nobloķēta.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Kartes valoda</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Kartes datu avots ir „OpenStreetMap“</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <!-- Link to OSM wiki for Editor, Profile and About pages -->
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Paldies, ka izmantojat mūsu kopienas veidotās kartes!</string>
     <!-- App tip #01 -->
@@ -779,6 +799,12 @@
     <string name="car_continue_on_the_phone">Turpināt tālrunī</string>
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Uz auto ekrānu</string>
+    <!-- Ask user to grant location permissions -->
+    <string name="aa_location_permissions_request">Organic Maps lietotnes darbībai ir nepieciešama piekļuve jūsu atrašanās vietai. Kad tas ir droši, pārbaudiet paziņojumu savā tālrunī.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">Šai lietotnei ir nepieciešama jūsu atļauja</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps lietotnei ir nepieciešama atrašanās vietas atļauja sekmīgai Android Auto darbībai</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Atļaut piekļuvi</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -810,31 +836,25 @@
     <string name="outdoor_seating">Ārtelpu sēdvietas</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Lai navigācija būtu pēc iespējas precīzāka, iesakām tālruņa baterijas iesatatījumos izslēgt energotaupības režīmu.</string>
+    <!-- Prompt to start recording a track. -->
+    <string name="start_track_recording">Ierakstīt pēdojumu</string>
+    <!-- Prompt for stopping a track recording. -->
+    <string name="stop_track_recording">Apstādināt ierakstīšanu</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Maršruta ierakstīšana</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="stop_without_saving">Pārtraukt ierakstīšanu</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="continue_recording">Turpināt ierakstīt</string>
+    <!-- Title for the alert when saving a track recording. -->
+    <string name="track_recording_alert_title">Saglabāt pēdojumu grāmatzīmju sadaļā?</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">Pēdojums ir tukšs – nav ko saglabāt</string>
+    <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+    <string name="error_no_file_manager_app">Nevar parādīt mapes atlases dialoglodziņu, jo jūsu ierīcē nav instalēta piemērota lietotne. Lūdzu, uzstādiet failu pārvaldnieka lietotni un mēģiniet vēlreiz.</string>
     <string name="choose_color">Izvēlieties krāsu</string>
     <string name="edit_track">Labot pēdojumu</string>
-    <string name="openstreetmap">OpenStreetMap</string>
-    <string name="change_map_locale">Kartes valoda</string>
-    <string name="already_donated">Jau esmu ziedojis/usi</string>
-    <string name="wikimedia_commons">Vikikrātuve</string>
-    <string name="nav_auto">Automātisks navigācijas laikā</string>
-    <string name="start_track_recording">Ierakstīt pēdojumu</string>
-    <string name="stop_track_recording">Apstādināt ierakstīšanu</string>
-    <string name="stop_without_saving">Pārtraukt ierakstīšanu</string>
-    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
-    <string name="comma_separated_pair">%1$s, %2$s</string>
-    <string name="translated_om_site_url">https://organicmaps.app/</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <string name="continue_recording">Turpināt ierakstīt</string>
-    <string name="track_recording_alert_title">Saglabāt pēdojumu grāmatzīmju sadaļā?</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
-    <string name="editor_other_info">Piezīme OpenStreetMap brīvprātigajiem (nav obligāts)</string>
-    <string name="track_recording_toast_nothing_to_save">Pēdojums ir tukšs – nav ko saglabāt</string>
-    <string name="error_no_file_manager_app">Nevar parādīt mapes atlases dialoglodziņu, jo jūsu ierīcē nav instalēta piemērota lietotne. Lūdzu, uzstādiet failu pārvaldnieka lietotni un mēģiniet vēlreiz.</string>
     <string name="uri_open_location_failed">Nav uzstādīta neviena lietotne, kas varētu atvērt atrašanās vietu</string>
-    <string name="aa_request_permission_notification">Šai lietotnei ir nepieciešama jūsu atļauja</string>
-    <string name="editor_about_osm">Jūsu labojumi tiek augšupielādēti sabiedriskajā <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> datubāzē. Lūdzu, nepievienojiet personisku vai ar autortiesībām aizsargātu informāciju.</string>
-    <string name="aa_location_permissions_request">Organic Maps lietotnes darbībai ir nepieciešama piekļuve jūsu atrašanās vietai. Kad tas ir droši, pārbaudiet paziņojumu savā tālrunī.</string>
-    <string name="editor_note_hint">Aprakstiet kļūdas kartē vai lietas, ko nevar rediģēt, izmantojot Organic Maps</string>
-    <string name="aa_request_permission_activity_text">Organic Maps lietotnei ir nepieciešama atrašanās vietas atļauja sekmīgai Android Auto darbībai</string>
-    <string name="track_recording_title">Maršruta ierakstīšana</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">Automātisks navigācijas laikā</string>
 </resources>

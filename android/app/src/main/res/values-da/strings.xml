@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Tilbage</string>
@@ -18,7 +19,7 @@
     <string name="miles">Mil</string>
     <!-- Update maps later button text -->
     <string name="later">Senere</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Søg</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Søg på kort</string>
@@ -71,7 +72,7 @@
     <string name="bookmark_set_name">Indstil navn for bogmærkeliste</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Bogmærker</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">Bogmærker og spor</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Navn</string>
@@ -87,15 +88,19 @@
     <string name="maps_storage_summary">Vælg den mappe, der skal downloades kort til.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Downloadede kort</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%1$s fri af %2$s</string>
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">Flyt kort?</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">Fejl ved flytning af kortfiler</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Dette kan tage flere minutter.
-\nVent venligst…</string>
+    <string name="wait_several_minutes">Dette kan tage flere minutter.\nVent venligst…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Måleenheder</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Vælg mellem mil eller kilometer</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Spisesteder</string>
@@ -140,12 +145,14 @@
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">Vand</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
-    <string name="category_rv" translatable="false">Til RV</string>
+    <string name="category_rv">Til RV</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Noter</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Organic Maps bogmærker er blevet delt med dig</string>
+    <string name="share_bookmarks_email_body">Hej!\n\nVedhæftet er mine bogmærker; åbn dem venligst i Organic Maps. Hvis du ikke har den installeret, kan du downloade den her: https://omaps.app/get?kmz\n \nGod rejse med Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Indlæser bogmærker</string>
     <!-- Kmz file successful loading -->
@@ -153,12 +160,9 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Bogmærkerne kunne ikke indlæses. Filen kan være skadet eller defekt.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Filtypen genkendes ikke af appen:
-\n%1$s</string>
+    <string name="unknown_file_type">Filtypen genkendes ikke af appen:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Kunne ikke åbne filen %1$s
-\n
-\n%2$s</string>
+    <string name="failed_to_open_file">Kunne ikke åbne filen %1$s\n\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Rediger</string>
     <!-- Warning message when doing search around current position -->
@@ -192,6 +196,10 @@
     <!-- Length of track in cell that describes route -->
     <string name="length">Længde</string>
     <string name="share_my_location">Del min placering</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">Generelle indstillinger</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">Information</string>
     <string name="prefs_group_route">Navigation</string>
     <string name="pref_zoom_title">Zoom-knapper</string>
     <string name="pref_zoom_summary">Vis på skærmen</string>
@@ -226,10 +234,32 @@
     <string name="pref_map_auto_zoom">Auto-zoom</string>
     <string name="placepage_distance">Afstand</string>
     <string name="search_show_on_map">Vis på kort</string>
+    <!-- Menu button -->
+    <string name="menu">Menu</string>
     <!-- Text in menu -->
     <string name="website">Hjemmeside</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Nyheder</string>
+    <!-- Text in menu -->
+    <string name="github">GitHub</string>
+    <!-- Text in menu -->
+    <string name="telegram">Telegram</string>
+    <!-- Text in menu -->
+    <string name="matrix">[Matrix]</string>
+    <!-- Text in menu -->
+    <string name="mastodon">Mastodon</string>
+    <!-- Text in menu -->
+    <string name="facebook">Facebook</string>
+    <!-- Text in menu -->
+    <string name="twitter">X (Twitter)</string>
+    <!-- Text in menu -->
+    <string name="instagram">Instagram</string>
+    <!-- Text in the editor -->
+    <string name="vk">VK</string>
+    <!-- Text in the editor -->
+    <string name="editor_line_social_network">LINE</string>
+    <!-- Text in menu -->
+    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Feedback</string>
     <!-- Text in menu -->
@@ -247,7 +277,7 @@
     <string name="how_to_support_us">Støt projektet</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Copyright</string>
-    <!-- Text in menu + Button in the main Help dialog -->
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">Rapportér fejl</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">Forbedre pilens retning ved at bevæge telefonen i en ottetalsbevægelse for at kalibrere kompasset.</string>
@@ -326,6 +356,7 @@
     <string name="gray">Grå</string>
     <!-- blue gray color -->
     <string name="blue_gray">Blågrå</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Når du følger ruten, skal du være opmærksom på følgende:</string>
     <string name="dialog_routing_disclaimer_priority">— Vejforhold, færdselsregler og skiltning skal altid prioriteres højere end navigationsanvisninger;</string>
@@ -355,6 +386,7 @@
     <string name="not_now">Ikke nu</string>
     <string name="dialog_routing_download_and_build_cross_route">Ønsker du at downloade kortet og planlægge en mere optimal rute, der strækker sig over mere end ét kort?</string>
     <string name="dialog_routing_download_cross_route">Download yderligere kort for at planlægge en mere optimal rute, der strækker sig ud over dette korts grænser.</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">For at komme i gang med at søge og oprette ruter skal du downloade kortet. Derefter har du ikke længere brug for en internetforbindelse.</string>
     <string name="search_select_map">Vælg kort</string>
@@ -370,6 +402,10 @@
     <string name="search_history_title">Søgehistorik</string>
     <string name="search_history_text">Se dine seneste søgninger.</string>
     <string name="clear_search">Ryd søgehistorik</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Din placering</string>
     <string name="p2p_start">Start</string>
     <string name="p2p_from_here">Rute fra</string>
@@ -410,6 +446,8 @@
     <string name="day_off_today">Lukket i dag</string>
     <string name="day_off">Lukket</string>
     <string name="today">I dag</string>
+    <string name="opens_in">Åbner om %s</string>
+    <string name="closes_in">Lukker om %s</string>
     <string name="closed">Lukket</string>
     <string name="edit_opening_hours">Rediger åbningstid</string>
     <string name="no_osm_account">Har du ikke OpenStreetMap-konto?</string>
@@ -439,7 +477,10 @@
     <string name="select_cuisine">Vælg køkken</string>
     <!-- login text field -->
     <string name="email_or_username">E-mail eller brugernavn</string>
+    <string name="editor_add_phone">Tilføj telefon</string>
     <string name="level">Etage</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Etage: %s</string>
     <string name="downloader_delete_map_dialog">Alle dine kortændringer vil blive slettet sammen med kortet.</string>
     <string name="downloader_update_maps">Opdatér kort</string>
     <string name="downloader_mwm_migration_dialog">For at oprette en rute skal du opdatere alle kort og så planlægge ruten igen.</string>
@@ -463,8 +504,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Fællesskabsskabte OpenStreetMap-data fra %s. Få mere at vide om, hvordan du redigerer og opdaterer kortet på OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) er et fællesskabsprojekt til opbygning af et gratis og åbent kort. Det er hovedkilden til kortdata i Organic Maps og fungerer på samme måde som Wikipedia. Du kan tilføje eller redigere steder, og de bliver tilgængelige for millioner af brugere over hele verden.
-\nSlut dig til fællesskabet og vær med til at skabe et bedre kort for alle!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) er et fællesskabsprojekt til opbygning af et gratis og åbent kort. Det er hovedkilden til kortdata i Organic Maps og fungerer på samme måde som Wikipedia. Du kan tilføje eller redigere steder, og de bliver tilgængelige for millioner af brugere over hele verden.\nSlut dig til fællesskabet og vær med til at skabe et bedre kort for alle!</string>
     <string name="login_to_make_edits_visible">Opret en OpenStreetMap-konto eller log ind for at offentliggøre dine kortredigeringer til hele verden.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d af %2$d</string>
@@ -500,6 +540,7 @@
     <string name="minute">min</string>
     <string name="day">d</string>
     <string name="placepage_more_button">Mere</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Rediger bogmærke</string>
     <string name="placepage_personal_notes_hint">Personlige notater (tekst eller html)</string>
     <string name="editor_comment_hint">Kommentar…</string>
@@ -508,16 +549,26 @@
     <string name="editor_remove_place_message">Slet tilføjet sted?</string>
     <string name="editor_remove_place_button">Slet</string>
     <string name="editor_place_doesnt_exist">Stedet eksisterer ikke</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">Angiv begrundelsen for at slette stedet</string>
     <!-- Phone number error message -->
     <string name="error_enter_correct_phone">Indtast et gyldigt telefonnummer</string>
     <string name="error_enter_correct_web">Indtast en gyldig webadresse</string>
     <string name="error_enter_correct_email">Indtast en gyldig e-mailadresse</string>
+    <string name="error_enter_correct_facebook_page">Indtast en gyldig Facebook-webadresse, -konto eller -sidenavn</string>
+    <string name="error_enter_correct_instagram_page">Indtast et gyldigt Instagram-brugernavn eller en webadresse</string>
+    <string name="error_enter_correct_twitter_page">Indtast et gyldigt Twitter-brugernavn eller en webadresse</string>
+    <string name="error_enter_correct_vk_page">Indtast et gyldigt VK-brugernavn eller en webadresse</string>
+    <string name="error_enter_correct_line_page">Indtast et gyldigt LINE ID eller en webadresse</string>
     <string name="placepage_add_place_button">Tilføj sted til OpenStreetMap</string>
+    <string name="osm_note_hint">Du kan også efterlade en note til OpenStreetMap-fællesskabet, så en anden kan tilføje eller rette et sted her.</string>
+    <string name="osm_note_toast">Note vil blive send til OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Ønsker du at sende det til alle brugere?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
     <string name="editor_share_to_all_dialog_message_1">Sørg for at du ikke indtastede personlige oplysninger.</string>
     <string name="editor_share_to_all_dialog_message_2">OpenStreetMap-redaktører vil tjekke ændringerne og kontakte dig, hvis de har spørgsmål.</string>
+    <string name="navigation_stop_button">Stop</string>
     <!-- Shown as toast when starting the recent track recording -->
     <string name="track_recording">Optager sporet</string>
     <!-- For the first routing -->
@@ -554,10 +605,11 @@
     <string name="button_plan">Planlæg</string>
     <string name="placepage_remove_stop">Fjern stop</string>
     <string name="placepage_add_stop">Tilføj stop</string>
+    <string name="saved">Gemt</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Log ind på OpenStreetMap for automatisk at uploade alle dine kortredigeringer. Få mere at vide <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.</string>
     <string name="dialog_error_storage_title">Problem med lageradgang</string>
-    <string name="dialog_error_storage_message">Eksternt lager er ikke tilgængeligt. SD-kortet kan være blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller dit SD-kort eller kontakt os på support@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Eksternt lager er ikke tilgængeligt. SD-kortet kan være blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller dit SD-kort eller kontakt os på support\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emulér beskadiget lager</string>
     <string name="error_enter_correct_name">Angiv et korrekt navn</string>
     <string name="bookmark_lists">Lister</string>
@@ -583,7 +635,7 @@
     <string name="phone_number">Telefonnummer</string>
     <string name="profile">OpenStreetMap profil</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="one">%d fil blev fundet. Du vil se den efter konvertering.</item>
+        <item quantity="one">%d fil blev fundet. Du vil se det efter konvertering.</item>
         <item quantity="other">%d filer blev fundet. Du vil se dem efter konvertering.</item>
     </plurals>
     <string name="restore">Gendan</string>
@@ -596,7 +648,9 @@
     <string name="privacy_policy">Privatlivspolitik</string>
     <string name="terms_of_use">Vilkår for bruger</string>
     <string name="button_layer_traffic">Trafik</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_hiking">Vandring</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Cykling</string>
     <string name="button_layer_subway">Undergrundsbane</string>
     <string name="layers_title">Kortstile og -lag</string>
@@ -621,6 +675,11 @@
     <string name="power_managment_setting_never">Aldrig</string>
     <string name="power_managment_setting_auto">Når batteriniveauet er lavt</string>
     <string name="power_managment_setting_manual_max">Altid</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Bogmærk navne på kortet</string>
+    <string name="bookmarks_text_placement_description">Hvis der er for mange bogmærker, kan visning af deres navne på kortet gøre appen langsommere.</string>
+    <string name="show_to_the_right">Vis til højre</string>
+    <string name="show_at_the_bottom">Vis i bunden</string>
     <string name="enable_logging_warning_message">Aktivér denne mulighed midlertidigt for at registrere og manuelt sende detaljerede diagnostiske logfiler om dit problem til os ved hjælp af \"Rapportér en fejl\" i Hjælp-dialogen. Logfiler kan indeholde placeringsoplysninger.</string>
     <string name="driving_options_title">Indstillinger for ruteberegning</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -671,6 +730,7 @@
     <string name="moreyear_ago_sorttype">Mere end et år siden</string>
     <string name="near_me_sorttype">I nærheden</string>
     <string name="others_sorttype">Andre</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Mad</string>
     <string name="tourist_places">Seværdigheder</string>
@@ -704,13 +764,38 @@
     <string name="elevation_profile_time">Tid:</string>
     <string name="isolines_toast_zooms_1_10">Zoom ind for at udforske isolinjer</string>
     <string name="downloader_loading_ios">Downloader</string>
+    <string name="download_map_title">Download oversigtskortet over verden</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">Kan ikke oprette mapper og flytte filer på enhedens interne hukommelse eller sd-kort</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">Diskfejl</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">Forbindelsesfejl</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">Frakobl USB-kabel</string>
     <string name="enable_keep_screen_on">Hold skærmen tændt</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Når den er aktiveret, vil skærmen altid være tændt, når kortet vises.</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">Vis på låseskærmen</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">Når den er aktiveret, fungerer appen på låseskærmen, selv når enheden er låst.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Sprog på kort</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Kortdata fra OpenStreetMap</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Da:Om_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Tak, fordi du bruger vores fællesskabsskabte kort!</string>
     <!-- App tip #01 -->
@@ -783,6 +868,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Stop optagelse af spor</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Optagelse af rute</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Stop uden at gemme</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Fortsæt optagelse</string>
@@ -797,56 +884,7 @@
     <string name="uri_open_location_failed">Ingen app installeret, der kan åbne stedet</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto ved navigation</string>
-    <string name="disconnect_usb_cable_title">Frakobl USB-kabel</string>
-    <string name="editor_add_phone">Tilføj telefon</string>
-    <string name="download_map_title">Download oversigtskortet over verden</string>
-    <string name="opens_in">Åbner om %s</string>
-    <string name="maps_storage_free_size">%1$s fri af %2$s</string>
-    <string name="enable_show_on_lock_screen">Vis på låseskærmen</string>
-    <string name="facebook">Facebook</string>
-    <string name="error_enter_correct_facebook_page">Indtast en gyldig Facebook-webadresse, -konto eller -sidenavn</string>
-    <string name="connection_failure">Forbindelsesfejl</string>
-    <string name="twitter">X (Twitter)</string>
-    <string name="error_enter_correct_twitter_page">Indtast et gyldigt Twitter-brugernavn eller en webadresse</string>
-    <string name="share_bookmarks_email_body">Hej! \n \nVedhæftet er mine bogmærker; åbn dem venligst i Organic Maps. Hvis du ikke har den installeret, kan du downloade den her: https://omaps.app/get?kmz\n \nGod rejse med Organic Maps!</string>
-    <string name="delete_place_empty_comment_error">Angiv begrundelsen for at slette stedet</string>
-    <string name="disk_error_title">Diskfejl</string>
-    <string name="error_enter_correct_instagram_page">Indtast et gyldigt Instagram-brugernavn eller en webadresse</string>
-    <string name="translated_om_site_url">https://organicmaps.app/</string>
-    <string name="navigation_stop_button">Stop</string>
-    <string name="error_enter_correct_vk_page">Indtast et gyldigt VK-brugernavn eller en webadresse</string>
-    <string name="error_enter_correct_line_page">Indtast et gyldigt LINE ID eller en webadresse</string>
-    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
-    <string name="level_value_generic">Etage: %s</string>
-    <string name="closes_in">Lukker om %s</string>
-    <string name="enable_show_on_lock_screen_description">Når den er aktiveret, fungerer appen på låseskærmen, selv når enheden er låst.</string>
-    <string name="matrix">[Matrix]</string>
-    <string name="comma_separated_pair">%1$s, %2$s</string>
-    <string name="mastodon">Mastodon</string>
-    <string name="move_maps_error">Fejl ved flytning af kortfiler</string>
-    <string name="disk_error">Kan ikke oprette mapper og flytte filer på enhedens interne hukommelse eller sd-kort</string>
-    <string name="wikimedia_commons">Wikimedia Commons</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <string name="editor_line_social_network">LINE</string>
-    <string name="github">GitHub</string>
-    <string name="prefs_group_general">Generelle indstillinger</string>
-    <string name="vk">VK</string>
-    <string name="read_in_wikipedia">Wikipedia</string>
-    <string name="menu">Menu</string>
-    <string name="telegram">Telegram</string>
-    <string name="instagram">Instagram</string>
-    <string name="openstreetmap">OpenStreetMap</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
-    <string name="change_map_locale">Sprog på kort</string>
-    <string name="prefs_group_information">Information</string>
-    <string name="saved">Gemt</string>
-    <string name="osm_note_toast">Note vil blive send til OpenStreetMap</string>
-    <string name="osm_note_hint">Du kan også efterlade en note til OpenStreetMap-fællesskabet, så en anden kan tilføje eller rette et sted her.</string>
-    <string name="bookmarks_text_placement_title">Bogmærk navne på kortet</string>
-    <string name="bookmarks_text_placement_description">Hvis der er for mange bogmærker, kan visning af deres navne på kortet gøre appen langsommere.</string>
-    <string name="show_to_the_right">Vis til højre</string>
-    <string name="show_at_the_bottom">Vis i bunden</string>
+    <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Del spor</string>
     <string name="delete_track_dialog_title">Slet %s?</string>
-    <string name="track_recording_title">Optagelse af rute</string>
 </resources>

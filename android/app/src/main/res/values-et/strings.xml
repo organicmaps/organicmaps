@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Tagasi</string>
@@ -18,7 +19,7 @@
     <string name="miles">Miilid</string>
     <!-- Update maps later button text -->
     <string name="later">Hiljem</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Otsi</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Otsi kaardilt</string>
@@ -36,9 +37,15 @@
     <string name="try_again">Proovi uuesti</string>
     <string name="about_menu_title">Organic Mapsi teave</string>
     <!-- Text in About screen -->
+    <string name="about_headline">Tasuta ja vaba kõigi jaoks, tehtud armastusega</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_1">• Pole reklaame, jälitamist ega andmekogumist</string>
+    <!-- Text in About screen -->
     <string name="about_proposition_2">• Ei tühjenda akut, töötab võrguühenduseta</string>
     <!-- Text in About screen -->
     <string name="about_proposition_3">• Kiire, minimalistlik, kogukonna poolt väljatöötatud</string>
+    <!-- Text in About screen -->
+    <string name="about_developed_by_enthusiasts">Huviliste ja vabatahtlike poolt loodud avatud lähtekoodil põhinev rakendus.</string>
     <!-- The button that opens system location settings -->
     <string name="location_settings">Asukoha seadistused</string>
     <string name="close">Sulge</string>
@@ -65,7 +72,7 @@
     <string name="bookmark_set_name">Järjehoidjate loendi nimi</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Järjehoidjad</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">Järjehoidjad ja rajad</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Nimi</string>
@@ -88,12 +95,12 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Kaardipaanide teisaldamine ei õnnestunud</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">See võib võtta mitu minutit.
-\nPalun oota…</string>
+    <string name="wait_several_minutes">See võib võtta mitu minutit.\nPalun oota…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Mõõtühikud</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Vali miilide ja kilomeetrite vahel</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Söögikohad</string>
@@ -139,12 +146,13 @@
     <string name="category_water">Vesi</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Haagiselamud</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Märkmed</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Organic Maps järjehoidjaid jagati Sinuga</string>
-    <string name="share_bookmarks_email_body">Tere! \n\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOSi või Androidi seadmesse, järgides seda linki: https:omaps.appget?kmz \n \nNaudi reisimist Organic Mapsiga!</string>
+    <string name="share_bookmarks_email_body">Tere!\n\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOSi või Androidi seadmesse, järgides seda linki: https:omaps.appget?kmz\n\nNaudi reisimist Organic Mapsiga!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Järjehoidjate laadimine</string>
     <!-- Kmz file successful loading -->
@@ -152,8 +160,7 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Järjehoidjate laadimine ei õnnestunud. Fail võib olla vigane.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Rakendus ei tunnista failitüüpi:
-\n%1$s</string>
+    <string name="unknown_file_type">Rakendus ei tunnista failitüüpi:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
     <string name="failed_to_open_file">Faili avamine ei õnnestunud %1$s \n \n%2$s</string>
     <!-- resource for context menu -->
@@ -171,11 +178,7 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hei, vaata minu praegust asukohta Organic Mapsi kaardil!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Tere,
-\n
-\nOlen praegu siin: %1$s. Ava see link %2$s või see %3$s, et näha seda kohta kaardil.
-\n
-\nAitäh.</string>
+    <string name="my_position_share_email">Tere,\n\nOlen praegu siin: %1$s. Ava see link %2$s või see %3$s, et näha seda kohta kaardil.\n\nAitäh.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Jaga</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -231,10 +234,32 @@
     <string name="pref_map_auto_zoom">Automaatne suum</string>
     <string name="placepage_distance">Kaugus</string>
     <string name="search_show_on_map">Vaata kaardil</string>
+    <!-- Menu button -->
+    <string name="menu">Menüü</string>
     <!-- Text in menu -->
     <string name="website">Veebisait</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Uudised</string>
+    <!-- Text in menu -->
+    <string name="github">GitHub</string>
+    <!-- Text in menu -->
+    <string name="telegram">Telegram</string>
+    <!-- Text in menu -->
+    <string name="matrix">[Matrix]</string>
+    <!-- Text in menu -->
+    <string name="mastodon">Mastodon</string>
+    <!-- Text in menu -->
+    <string name="facebook">Facebook</string>
+    <!-- Text in menu -->
+    <string name="twitter">X (Twitter)</string>
+    <!-- Text in menu -->
+    <string name="instagram">Instagram</string>
+    <!-- Text in the editor -->
+    <string name="vk">VK</string>
+    <!-- Text in the editor -->
+    <string name="editor_line_social_network">LINE</string>
+    <!-- Text in menu -->
+    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Tagasiside</string>
     <!-- Text in menu -->
@@ -252,7 +277,7 @@
     <string name="how_to_support_us">Toeta meie projekti</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Autoriõigused</string>
-    <!-- Text in menu + Button in the main Help dialog -->
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">Teata veast</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">Kompassi kalibreerimiseks paranda noole suunda liigutades telefoni kaheksa-kujulise liigutusega.</string>
@@ -331,6 +356,7 @@
     <string name="gray">Hall</string>
     <!-- blue gray color -->
     <string name="blue_gray">Sinakashall</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Teekonda järgides palun pea meeles:</string>
     <string name="dialog_routing_disclaimer_priority">- Teeolud, liikluseeskirjad ja liiklusmärgid omavad alati prioriteeti tee juhatamise ees;</string>
@@ -360,6 +386,7 @@
     <string name="not_now">Mitte praegu</string>
     <string name="dialog_routing_download_and_build_cross_route">Kas sooviksid kaardi alla laadida ja luua optimaalse rohkem kui ühte kaarti hõlmava teekonna?</string>
     <string name="dialog_routing_download_cross_route">Laadi alla täiendavad kaardid, et luua parem, selle kaardi piire ületav teekond.</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Marsruutide otsimise ja loomise alustamiseks laadi kaart alla. Pärast seda ei ole Interneti-ühendus enam vajalik.</string>
     <string name="search_select_map">Vali kaart</string>
@@ -377,6 +404,8 @@
     <string name="clear_search">Kustuta otsinguajalugu</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Vikipeedia</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Sinu asukoht</string>
     <string name="p2p_start">Alusta</string>
     <string name="p2p_from_here">Teekond lähtekohast</string>
@@ -417,8 +446,8 @@
     <string name="day_off_today">Täna suletud</string>
     <string name="day_off">Suletud</string>
     <string name="today">Täna</string>
-    <string name="opens_in">Avatakse %s möödumisel</string>
-    <string name="closes_in">Suletakse %s möödumisel</string>
+    <string name="opens_in">Avatakse %s jooksul</string>
+    <string name="closes_in">Suletakse %s jooksul</string>
     <string name="closed">Suletud</string>
     <string name="edit_opening_hours">Muuda tööaega</string>
     <string name="no_osm_account">Sul puudub OpenStreetMapi konto?</string>
@@ -450,6 +479,8 @@
     <string name="email_or_username">E-post või kasutajanimi</string>
     <string name="editor_add_phone">Lisa telefon</string>
     <string name="level">Korrus</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Korrus: %s</string>
     <string name="downloader_delete_map_dialog">Kõik sinu kaardimuudatused kustutatakse koos kaardiga.</string>
     <string name="downloader_update_maps">Uuenda kaarte</string>
     <string name="downloader_mwm_migration_dialog">Teekonna loomiseks uuenda kõiki kaarte ja seejärel proovi teekond uuesti luua.</string>
@@ -509,6 +540,7 @@
     <string name="minute">min</string>
     <string name="day">p</string>
     <string name="placepage_more_button">Veel</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Muuda järjehoidjat</string>
     <string name="placepage_personal_notes_hint">Isiklikud märkmed (tekst või html)</string>
     <string name="editor_comment_hint">Kommenteeri…</string>
@@ -529,6 +561,8 @@
     <string name="error_enter_correct_vk_page">Sisesta kehtiv VK veebiaadress või konto nimi</string>
     <string name="error_enter_correct_line_page">Sisesta kehtiv LINE\'i veebiaadress või LINE ID</string>
     <string name="placepage_add_place_button">Lisa koht OpenStreetMappi</string>
+    <string name="osm_note_hint">Või alternatiivina lisa märkus OpenStreetMapi kogukonna liikmetele, mis võimaldaks teistel kaardistajatel selle koha lisada või tema andmeid parandada.</string>
+    <string name="osm_note_toast">Märkus lisatakse OpenStreetMapi andmebaasi</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Kas soovid saata selle kõigile kasutajatele?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -571,10 +605,11 @@
     <string name="button_plan">Kavanda</string>
     <string name="placepage_remove_stop">Eemalda peatus</string>
     <string name="placepage_add_stop">Lisa peatus</string>
+    <string name="saved">Salvestatud</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Oma kaastöö automaatseks üleslaadimiseks palun logi OpenStreetMappi sisse. Lisateave <a href="https://github.com/organicmaps/organicmaps/issues/6144">leidub siin</a>.</string>
     <string name="dialog_error_storage_title">Andmeruumi ligipääsu probleem</string>
-    <string name="dialog_error_storage_message">Väline andmeruum pole juurdepääsetav. SD-kaart võib olla eemaldatud, kahjustatud või failisüsteem on kirjutuskaitstud. Palun kontrolli oma SD-kaarti või võta meiega ühendust aadressil support@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Väline andmeruum pole juurdepääsetav. SD-kaart võib olla eemaldatud, kahjustatud või failisüsteem on kirjutuskaitstud. Palun kontrolli oma SD-kaarti või võta meiega ühendust aadressil support\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Imiteeri vigast andmeruumi</string>
     <string name="error_enter_correct_name">Palun sisesta korrektne nimi</string>
     <string name="bookmark_lists">Loendid</string>
@@ -582,6 +617,7 @@
     <string name="bookmark_lists_hide_all">Peida kõik</string>
     <string name="bookmark_lists_show_all">Näita kõiki</string>
     <plurals name="bookmarks_places">
+        <item quantity="zero">%d järjehoidjat</item>
         <item quantity="one">%d järjehoidja</item>
         <item quantity="other">%d järjehoidjat</item>
     </plurals>
@@ -600,11 +636,13 @@
     <string name="phone_number">Telefoni number</string>
     <string name="profile">OpenStreetMapi profiil</string>
     <plurals name="bookmarks_detect_message">
+        <item quantity="zero">Leidsime %d faili.</item>
         <item quantity="one">Leidsime %d faili. Näed seda peale teisendamist.</item>
         <item quantity="other">Leidsime %d faili. Näed neid peale teisendamist.</item>
     </plurals>
     <string name="restore">Taasta</string>
     <plurals name="tracks">
+        <item quantity="zero">%d rada</item>
         <item quantity="one">%d rada</item>
         <item quantity="other">%d rada</item>
     </plurals>
@@ -613,6 +651,10 @@
     <string name="privacy_policy">Andmekaitsepõhimõtted</string>
     <string name="terms_of_use">Kasutustingimused</string>
     <string name="button_layer_traffic">Liiklus</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Matkamine</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Jalgrattasõit</string>
     <string name="button_layer_subway">Metroo</string>
     <string name="layers_title">Kaardi stiilid ja kihid</string>
     <string name="bookmarks_empty_list_title">See loend on tühi</string>
@@ -636,6 +678,11 @@
     <string name="power_managment_setting_never">Mitte kunagi</string>
     <string name="power_managment_setting_auto">Madala akutäituvuse korral</string>
     <string name="power_managment_setting_manual_max">Alati</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Kaardil leiduvate järjehoidjate nimed</string>
+    <string name="bookmarks_text_placement_description">Kui kaardil on palu järjehoidjaid, siis nende nimede kuvamine aeglustab kaardi joonistamist.</string>
+    <string name="show_to_the_right">Näita paremale</string>
+    <string name="show_at_the_bottom">Näita alla</string>
     <string name="enable_logging_warning_message">Kasuta seda võimalust üksikasjaliku logi ajutiseks salvestamiseks ja meile käsitsi saatmiseks Abiteabe „Teata veast“ vaatest. Andmed võivad sisaldada sinu asukoha teavet.</string>
     <string name="driving_options_title">Tee juhatamise valikud</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -686,6 +733,7 @@
     <string name="moreyear_ago_sorttype">Üle aasta tagasi</string>
     <string name="near_me_sorttype">Minu lähedal</string>
     <string name="others_sorttype">Muud</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Toit</string>
     <string name="tourist_places">Vaatamisväärsused</string>
@@ -739,6 +787,18 @@
     <string name="change_map_locale">Kaardi keel</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">OpenStreetMapi kaardiandmed</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <!-- Link to OSM wiki for Editor, Profile and About pages -->
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Aitäh, et kasutad meie kogukonna koostatud kaarte!</string>
     <!-- App tip #01 -->
@@ -811,6 +871,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Peata raja salvestamine</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Rada salvestamine</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Lõpeta ilma salvestamata</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Jätka salvestamist</string>
@@ -825,38 +887,7 @@
     <string name="uri_open_location_failed">Ei ole paigaldatud rakendust, mis oskaks asukohta avada</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automaatne tee juhatamine</string>
-    <string name="about_headline">Tasuta ja vaba kõigi jaoks, tehtud armastusega</string>
-    <string name="about_proposition_1">• Pole reklaame, jälitamist ega andmekogumist</string>
-    <string name="openstreetmap">OpenStreetMap</string>
-    <string name="matrix">[Matrix]</string>
-    <string name="wikimedia_commons">Wikimedia Commons</string>
-    <string name="editor_line_social_network">LINE</string>
-    <string name="instagram">Instagram</string>
-    <string name="twitter">X (Twitter)</string>
-    <string name="github">GitHub</string>
-    <string name="level_value_generic">Korrus: %s</string>
-    <string name="menu">Menüü</string>
-    <string name="telegram">Telegram</string>
-    <string name="mastodon">Mastodon</string>
-    <string name="vk">VK</string>
-    <string name="facebook">Facebook</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
-    <string name="translated_om_site_url">https://organicmaps.app/</string>
-    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
-    <string name="comma_separated_pair">%1$s, %2$s</string>
-    <string name="about_developed_by_enthusiasts">Huviliste ja vabatahtlike poolt loodud avatud lähtekoodil põhinev rakendus.</string>
-    <string name="saved">Salvestatud</string>
-    <string name="osm_note_hint">Või alternatiivina lisa märkus OpenStreetMapi kogukonna liikmetele, mis võimaldaks teistel kaardistajatel selle koha lisada või tema andmeid parandada.</string>
-    <string name="osm_note_toast">Märkus lisatakse OpenStreetMapi andmebaasi</string>
-    <string name="bookmarks_text_placement_title">Kaardil leiduvate järjehoidjate nimed</string>
-    <string name="bookmarks_text_placement_description">Kui kaardil on palu järjehoidjaid, siis nende nimede kuvamine aeglustab kaardi joonistamist.</string>
-    <string name="show_to_the_right">Näita paremale</string>
-    <string name="show_at_the_bottom">Näita alla</string>
-    <string name="delete_track_dialog_title">Kas kustutame %s?</string>
+    <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Jaga rada</string>
-    <string name="button_layer_hiking">Matkamine</string>
-    <string name="button_layer_cycling">Jalgrattasõit</string>
-    <string name="track_recording_title">Rada salvestamine</string>
+    <string name="delete_track_dialog_title">Kas kustutame %s?</string>
 </resources>

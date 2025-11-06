@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Geri</string>
@@ -18,7 +19,7 @@
     <string name="miles">Mil</string>
     <!-- Update maps later button text -->
     <string name="later">Sonra</string>
-    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Ara</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Haritada Ara</string>
@@ -56,8 +57,7 @@
     <string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmek için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
     <string name="download_resources">Uygulamayı kullanmadan önce lütfen aygıtınıza dünya genel görünüm haritasını indirin. \nBu, %s alan kullanacaktır.</string>
     <string name="download_resources_continue">Haritaya Git</string>
-    <string name="downloading_country_can_proceed">%s indiriliyor. Şimdi haritaya
-\ngidebilirsiniz.</string>
+    <string name="downloading_country_can_proceed">%s indiriliyor. Şimdi haritaya\ngidebilirsiniz.</string>
     <string name="download_country_ask">%s indir?</string>
     <string name="update_country_ask">%s güncelle?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -72,7 +72,7 @@
     <string name="bookmark_set_name">Yer İmi Listesi Adı</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Yer İmleri</string>
-    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
     <string name="bookmarks_and_tracks">Yer İmleri ve İzler</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Adı</string>
@@ -95,12 +95,12 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Harita dosyalarını taşıma hatası</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Bu işlem birkaç dakika sürebilir.
-\nLütfen bekleyin…</string>
+    <string name="wait_several_minutes">Bu işlem birkaç dakika sürebilir.\nLütfen bekleyin…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Ölçü birimleri</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Mil veya kilometre seçimini yap</string>
+
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Nerede yenir</string>
@@ -146,6 +146,7 @@
     <string name="category_water">Su</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Karavan tesisleri</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notlar</string>
@@ -159,12 +160,9 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Yer İmlerini yükleme işlemi başarısız oldu. Dosya bozuk ya da hatalı olabilir.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Dosya türü uygulama tarafından tanınmıyor:
-\n%1$s</string>
+    <string name="unknown_file_type">Dosya türü uygulama tarafından tanınmıyor:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Dosya açılamadı %1$s
-\n
-\n%2$s</string>
+    <string name="failed_to_open_file">Dosya açılamadı %1$s\n\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Düzenle</string>
     <!-- Warning message when doing search around current position -->
@@ -180,11 +178,7 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hey, Organic Maps’te geçerli konumumu incele!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Merhaba,
-\n
-\nŞu anda bulunduğum yer: %1$s. Yeri haritada görmek için %2$s veya %3$s bağlantısına tıkla.
-\n
-\nTeşekkürler.</string>
+    <string name="my_position_share_email">Merhaba,\n\nŞu anda bulunduğum yer: %1$s. Yeri haritada görmek için %2$s veya %3$s bağlantısına tıkla.\n\nTeşekkürler.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Paylaş</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -240,10 +234,32 @@
     <string name="pref_map_auto_zoom">Kendiliğinden yaklaştır</string>
     <string name="placepage_distance">Mesafe</string>
     <string name="search_show_on_map">Haritada görüntüle</string>
+    <!-- Menu button -->
+    <string name="menu">Menü</string>
     <!-- Text in menu -->
     <string name="website">Web Sitesi</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Haberler</string>
+    <!-- Text in menu -->
+    <string name="github">GitHub</string>
+    <!-- Text in menu -->
+    <string name="telegram">Telegram</string>
+    <!-- Text in menu -->
+    <string name="matrix">[Matrix]</string>
+    <!-- Text in menu -->
+    <string name="mastodon">Mastodon</string>
+    <!-- Text in menu -->
+    <string name="facebook">Facebook</string>
+    <!-- Text in menu -->
+    <string name="twitter">X (Twitter)</string>
+    <!-- Text in menu -->
+    <string name="instagram">Instagram</string>
+    <!-- Text in the editor -->
+    <string name="vk">VK</string>
+    <!-- Text in the editor -->
+    <string name="editor_line_social_network">LINE</string>
+    <!-- Text in menu -->
+    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Geri Bildirim</string>
     <!-- Text in menu -->
@@ -261,7 +277,7 @@
     <string name="how_to_support_us">Bu projeyi destekleyin</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Telif hakkı</string>
-    <!-- Text in menu + Button in the main Help dialog -->
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">Hata bildir</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">Pusulayı kalibre etmek için telefonu sekiz şeklinde hareket ettirerek ok yönünü iyileştirin.</string>
@@ -340,6 +356,7 @@
     <string name="gray">Gri</string>
     <!-- blue gray color -->
     <string name="blue_gray">Mavi Gri</string>
+
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Rotanızı izlerken şunları lütfen unutmayın:</string>
     <string name="dialog_routing_disclaimer_priority">— Yol koşulları, trafik kuralları ve trafik işaretleri her zaman navigasyon önerilerinden önceliklidir;</string>
@@ -369,6 +386,7 @@
     <string name="not_now">Şimdi Değil</string>
     <string name="dialog_routing_download_and_build_cross_route">Haritayı indirerek birden çok haritaya uzanan daha uygun bir rota oluşturmak ister misiniz?</string>
     <string name="dialog_routing_download_cross_route">Bu haritanın bir bölümünden geçen daha uygun rota oluşturmak için harita indir.</string>
+
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Aramak ve rota oluşturmaya başlamak için lütfen haritayı indirin. İndirdikten sonra artık internet bağlantısına ihtiyacınız olmayacak.</string>
     <string name="search_select_map">Haritayı Seçin</string>
@@ -386,6 +404,8 @@
     <string name="clear_search">Arama Geçmişini Temizle</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Vikipedi</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Konumunuz</string>
     <string name="p2p_start">Başla</string>
     <string name="p2p_from_here">Başlangıç</string>
@@ -484,8 +504,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">%s tarihine ait topluluk tarafından oluşturulmuş OpenStreetMap verilerini kullanıyorsunuz. OpenStreetMap.org adresinden haritayı nasıl düzenleyebileceğiniz hakkında bilgi edinebilirsiniz</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM), ücretsiz ve açık harita oluşturmayı amaçlayan bir topluluk projesidir. OSM, Organic Maps\'teki harita verilerinin ana kaynağıdır ve Vikipedi\'ye benzer şekilde çalışır. Haritadaki yerleri ekleyebilir veya düzenleyebilirsiniz ve bunlar tüm dünyadaki milyonlarca kullanıcı tarafından kullanılabilir hale gelir.
-\nTopluluğa katılın ve herkes için daha iyi bir harita oluşturmaya yardımcı olun!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM), ücretsiz ve açık harita oluşturmayı amaçlayan bir topluluk projesidir. OSM, Organic Maps\'teki harita verilerinin ana kaynağıdır ve Vikipedi\'ye benzer şekilde çalışır. Haritadaki yerleri ekleyebilir veya düzenleyebilirsiniz ve bunlar tüm dünyadaki milyonlarca kullanıcı tarafından kullanılabilir hale gelir.\nTopluluğa katılın ve herkes için daha iyi bir harita oluşturmaya yardımcı olun!</string>
     <string name="login_to_make_edits_visible">Harita düzenlemelerinizi herkese ulaştırmak için OpenStreetMap hesabı oluşturun veya oturum açın.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d/%2$d</string>
@@ -521,6 +540,7 @@
     <string name="minute">dk</string>
     <string name="day">g</string>
     <string name="placepage_more_button">Diğer</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Yer İmini Düzenle</string>
     <string name="placepage_personal_notes_hint">Kişisel notlar (metin veya html)</string>
     <string name="editor_comment_hint">Yorum…</string>
@@ -541,6 +561,8 @@
     <string name="error_enter_correct_vk_page">Geçerli bir VK web adresi veya hesap adı girin</string>
     <string name="error_enter_correct_line_page">Geçerli bir LINE web adresi veya LINE ID\'si girin</string>
     <string name="placepage_add_place_button">OpenStreetMap\'e Yer Ekle</string>
+    <string name="osm_note_hint">Ya da OpenStreetMap topluluğuna not bırakabilirsiniz, böylece biri burayı düzeltebilir ya da yenisini ekleyebilir.</string>
+    <string name="osm_note_toast">Not OpenStreetMap\'e gönderilecek</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Bunu tüm kullanıcılara göndermek ister misiniz?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -583,10 +605,11 @@
     <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Durağı Kaldır</string>
     <string name="placepage_add_stop">Ara nokta ekle</string>
+    <string name="saved">Kaydedildi</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Tüm harita düzenlemelerinizi kendiliğinden yüklemek için lütfen OpenStreetMap\'e giriş yapın. Daha çok bilgi <a href="https://github.com/organicmaps/organicmaps/issues/6144">buradadır</a>.</string>
     <string name="dialog_error_storage_title">Depolama alanı erişim sorunu</string>
-    <string name="dialog_error_storage_message">Dış depolamaya erişilemiyor. Büyük olasılıkla SD Kart çıkarılmış, hasarlı ya da dosya sistemi salt okunur. Lütfen denetleyin veya support@organicmaps.app adresinden bizimle iletişime geçin</string>
+    <string name="dialog_error_storage_message">Dış depolamaya erişilemiyor. Büyük olasılıkla SD Kart çıkarılmış, hasarlı ya da dosya sistemi salt okunur. Lütfen denetleyin veya support\@organicmaps.app adresinden bizimle iletişime geçin</string>
     <string name="setting_emulate_bad_storage">Bozuk depolama alanını taklit et</string>
     <string name="error_enter_correct_name">Lütfen doğru ad girin</string>
     <string name="bookmark_lists">Listeler</string>
@@ -594,8 +617,9 @@
     <string name="bookmark_lists_hide_all">Tümünü gizle</string>
     <string name="bookmark_lists_show_all">Tümünü göster</string>
     <plurals name="bookmarks_places">
+        <item quantity="zero">%d yer imi</item>
         <item quantity="one">%d yer imi</item>
-        <item quantity="other">%d yer imleri</item>
+        <item quantity="other">%d yer imi</item>
     </plurals>
     <string name="bookmarks_create_new_group">Yeni liste oluştur</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
@@ -612,6 +636,7 @@
     <string name="phone_number">Telefon numarası</string>
     <string name="profile">OpenStreetMap profili</string>
     <plurals name="bookmarks_detect_message">
+        <item quantity="zero">%d dosya bulundu.</item>
         <item quantity="one">%d dosya bulundu. Dönüştürmeden sonra onu görebilirsiniz.</item>
         <item quantity="other">%d dosya bulundu. Dönüştürmeden sonra onları görebilirsiniz.</item>
     </plurals>
@@ -625,9 +650,11 @@
     <string name="privacy_policy">Gizlilik politikası</string>
     <string name="terms_of_use">Kullanım koşulları</string>
     <string name="button_layer_traffic">Trafik</string>
-    <string name="button_layer_subway">Metro</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_hiking">Yürüyüş</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Bisiklet</string>
+    <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Harita Stilleri ve Katmanlar</string>
     <string name="bookmarks_empty_list_title">Bu liste boş</string>
     <string name="bookmarks_empty_list_message">Yer imi eklemek için önce haritadaki bir yere sonrasında ise yıldız simgesine dokunun</string>
@@ -650,6 +677,11 @@
     <string name="power_managment_setting_never">Asla</string>
     <string name="power_managment_setting_auto">Pil düşükken</string>
     <string name="power_managment_setting_manual_max">Her zaman</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Haritadaki yer imi adları</string>
+    <string name="bookmarks_text_placement_description">Eğer çok yer imi varsa, adlarını haritada göstermek uygulamayı yavaşlatabilir.</string>
+    <string name="show_to_the_right">Sağa doğru göster</string>
+    <string name="show_at_the_bottom">Altta göster</string>
     <string name="enable_logging_warning_message">Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.</string>
     <string name="driving_options_title">Yönlendirme seçenekleri</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -700,6 +732,7 @@
     <string name="moreyear_ago_sorttype">Bir yıldan daha önce</string>
     <string name="near_me_sorttype">Bana yakınlarda</string>
     <string name="others_sorttype">Diğerleri</string>
+
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Yiyecek</string>
     <string name="tourist_places">Görülecek yerler</string>
@@ -757,10 +790,14 @@
     <string name="telegram_url">https://t.me/OrganicMapsTR</string>
     <!-- Instagram account url for the "?" About page -->
     <string name="instagram_url">https://www.instagram.com/organicmapstr</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/tr/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Tr:About</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Topluluk tarafından oluşturulan haritalarımızı kullandığınız için teşekkür ederiz!</string>
     <!-- App tip #01 -->
@@ -833,6 +870,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">İz Kaydını Durdur</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Rota Kaydı</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Kaydetmeden Durdur</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Kaydı Sürdür</string>
@@ -847,28 +886,7 @@
     <string name="uri_open_location_failed">Konumu açabilecek kurulu uygulama yok</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Navigasyonda kendiliğinden</string>
-    <string name="twitter">X (Twitter)</string>
-    <string name="openstreetmap">OpenStreetMap</string>
-    <string name="facebook">Facebook</string>
-    <string name="instagram">Instagram</string>
-    <string name="wikimedia_commons">Wikimedia Commons</string>
-    <string name="editor_line_social_network">LINE</string>
-    <string name="menu">Menü</string>
-    <string name="telegram">Telegram</string>
-    <string name="github">GitHub</string>
-    <string name="mastodon">Mastodon</string>
-    <string name="comma_separated_pair">%1$s, %2$s</string>
-    <string name="matrix">[Matrix]</string>
-    <string name="vk">VK</string>
-    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
-    <string name="saved">Kaydedildi</string>
-    <string name="osm_note_hint">Ya da OpenStreetMap topluluğuna not bırakabilirsiniz, böylece biri burayı düzeltebilir ya da yenisini ekleyebilir.</string>
-    <string name="osm_note_toast">Not OpenStreetMap\'e gönderilecek</string>
-    <string name="bookmarks_text_placement_title">Haritadaki yer imi adları</string>
-    <string name="bookmarks_text_placement_description">Eğer çok yer imi varsa, adlarını haritada göstermek uygulamayı yavaşlatabilir.</string>
-    <string name="show_to_the_right">Sağa doğru göster</string>
-    <string name="show_at_the_bottom">Altta göster</string>
-    <string name="delete_track_dialog_title">%s Silinsin Mi?</string>
+    <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">İz Paylaş</string>
-    <string name="track_recording_title">Rota Kaydı</string>
+    <string name="delete_track_dialog_title">%s Silinsin Mi?</string>
 </resources>
