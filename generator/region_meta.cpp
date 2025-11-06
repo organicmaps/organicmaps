@@ -9,10 +9,10 @@
 
 #include <vector>
 
+namespace feature
+{
 namespace
 {
-DECLARE_EXCEPTION(TimeZoneError, RootException);
-
 int8_t ParseHolidayReference(std::string const & ref)
 {
   if (ref == "easter")
@@ -30,146 +30,172 @@ om::tz::TimeZone GetTimeZone(std::string const & tzName)
 {
   return om::tz::GetTimeZoneDb().timezones.at(tzName);
 }
-}  // namespace
 
-namespace feature
-{
-bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
+void ReadEntryImpl(std::string_view keyName, json_t const * jsonData, RegionData & data);
+
+void ReadRegionDataImpl(std::string const & regionID, RegionData & data)
 {
   /// @todo How LEAP_SPEEDS_FILE was generated before? It's always absent now.
   if (Platform::IsFileExistsByFullPath(LEAP_SPEEDS_FILE))
   {
-    try
-    {
-      auto crossMwmDataReader = GetPlatform().GetReader(LEAP_SPEEDS_FILE);
-      std::string crossMwmDataBuffer;
-      crossMwmDataReader->ReadAsString(crossMwmDataBuffer);
-      base::Json crossMwmData(crossMwmDataBuffer.data());
+    auto crossMwmDataReader = GetPlatform().GetReader(LEAP_SPEEDS_FILE);
+    std::string crossMwmDataBuffer;
+    crossMwmDataReader->ReadAsString(crossMwmDataBuffer);
+    base::Json crossMwmData(crossMwmDataBuffer.data());
 
-      json_t const * crossMwmJsonData = nullptr;
-      FromJSONObjectOptionalField(crossMwmData.get(), countryName, crossMwmJsonData);
-      if (crossMwmJsonData)
-      {
-        double leapSpeed = FromJSONObject<double>(crossMwmJsonData, "leapspeed");
-        if (leapSpeed > 0.0)
-          data.SetLeapWeightSpeed(leapSpeed);
-      }
-    }
-    catch (FileAbsentException const & e)
+    json_t const * crossMwmJsonData = nullptr;
+    FromJSONObjectOptionalField(crossMwmData.get(), regionID, crossMwmJsonData);
+    if (crossMwmJsonData)
     {
-      LOG(LERROR, ("Error missing file", LEAP_SPEEDS_FILE, ":", e.Msg()));
-      return false;
-    }
-    catch (Reader::Exception const & e)
-    {
-      LOG(LERROR, ("Error reading", LEAP_SPEEDS_FILE, ":", e.Msg()));
-      return false;
-    }
-    catch (base::Json::Exception const & e)
-    {
-      LOG(LERROR, ("Error parsing JSON in", LEAP_SPEEDS_FILE, ":", e.Msg()));
-      return false;
+      double leapSpeed = FromJSONObject<double>(crossMwmJsonData, "leapspeed");
+      if (leapSpeed > 0.0)
+        data.SetLeapWeightSpeed(leapSpeed);
     }
   }
 
-  try
-  {
-    auto reader = GetPlatform().GetReader(COUNTRIES_META_FILE);
-    std::string buffer;
-    reader->ReadAsString(buffer);
-    base::Json root(buffer.data());
+  auto reader = GetPlatform().GetReader(COUNTRIES_META_FILE);
+  std::string buffer;
+  reader->ReadAsString(buffer);
+  base::Json root(buffer.data());
 
-    json_t const * jsonData = nullptr;
-    FromJSONObjectOptionalField(root.get(), countryName, jsonData);
-    if (!jsonData)
-      return false;
+  json_t const * jsonData = nullptr;
+  FromJSONObjectOptionalField(root.get(), regionID, jsonData);
+  if (!jsonData)
+    return;
 
-    std::vector<std::string> languages;
-    FromJSONObjectOptionalField(jsonData, "languages", languages);
-    if (!languages.empty())
-      data.SetLanguages(languages);
-
-    std::string driving;
-    FromJSONObjectOptionalField(jsonData, "driving", driving);
-    if (driving == "l" || driving == "r")
-      data.Set(RegionData::Type::RD_DRIVING, driving);
-
-    std::string timezone;
-    FromJSONObjectOptionalField(jsonData, "timezone", timezone);
-    LOG(LDEBUG, ("Timezone:", timezone));
-    if (timezone.empty())
-      MYTHROW(TimeZoneError, ("No timezone info in countries_meta for", countryName));
-
-    auto const & tzSerializationResult = om::tz::Serialize(GetTimeZone(timezone));
-    if (!tzSerializationResult)
-      MYTHROW(TimeZoneError, ("Failed to serialize timezone:", tzSerializationResult.error()));
-    data.Set(RegionData::Type::RD_TIMEZONE, tzSerializationResult.value());
-
-    bool allow_housenames;
-    FromJSONObjectOptionalField(jsonData, "housenames", allow_housenames);
-    if (allow_housenames)
-      data.Set(RegionData::Type::RD_ALLOW_HOUSENAMES, "y");
-
-    // Public holidays: an array of arrays of [string/number, number].
-    // See https://github.com/opening-hours/opening_hours.js/blob/master/docs/holidays.md
-    std::vector<json_t *> holidays;
-    FromJSONObjectOptionalField(jsonData, "holidays", holidays);
-    for (json_t * holiday : holidays)
-    {
-      if (!json_is_array(holiday) || json_array_size(holiday) != 2)
-        MYTHROW(base::Json::Exception, ("Holiday must be an array of two elements in", countryName));
-      json_t * reference = json_array_get(holiday, 0);
-      int8_t refId = 0;
-      if (json_is_integer(reference))
-      {
-        refId = json_integer_value(reference);
-      }
-      else if (json_is_string(reference))
-      {
-        refId = ParseHolidayReference(std::string(json_string_value(reference)));
-      }
-      else
-      {
-        MYTHROW(base::Json::Exception,
-                ("Holiday month reference should be either a std::string or a number in", countryName));
-      }
-
-      if (refId <= 0)
-        MYTHROW(base::Json::Exception, ("Incorrect month reference in", countryName));
-      if (!json_is_integer(json_array_get(holiday, 1)))
-        MYTHROW(base::Json::Exception, ("Holiday day offset should be a number in", countryName));
-      data.AddPublicHoliday(refId, json_integer_value(json_array_get(holiday, 1)));
-    }
-
-    // TODO(@zverik): Implement formats reading when decided on data types.
-
-    return true;
-  }
-  catch (Reader::Exception const & e)
-  {
-    LOG(LERROR, ("Error reading", COUNTRIES_META_FILE, ":", e.Msg()));
-  }
-  catch (base::Json::Exception const & e)
-  {
-    LOG(LERROR, ("Error parsing JSON in", COUNTRIES_META_FILE, ":", e.Msg()));
-  }
-  return false;
+  ReadEntryImpl(regionID, jsonData, data);
 }
 
-bool ReadRegionData(std::string const & countryName, RegionData & data)
+void ReadEntryImpl(std::string_view keyName, json_t const * jsonData, RegionData & data)
 {
-  // When there is a match for a complete countryName, simply relay the call.
-  if (ReadRegionDataImpl(countryName, data))
-    return true;
+  std::vector<std::string> languages;
+  FromJSONObjectOptionalField(jsonData, "languages", languages);
+  if (!languages.empty())
+    data.SetLanguages(languages);
 
-  // If not, cut parts of a country name from the tail. E.g. "Russia_Moscow" -> "Russia".
-  auto p = countryName.find_last_of('_');
-  while (p != std::string::npos)
+  std::string driving;
+  FromJSONObjectOptionalField(jsonData, "driving", driving);
+  if (driving == "l" || driving == "r")
+    data.Set(RegionData::Type::RD_DRIVING, driving);
+  else
+    CHECK(driving.empty(), (driving));
+
+  std::string timezone;
+  FromJSONObjectOptionalField(jsonData, "timezone", timezone);
+  if (!timezone.empty())
   {
-    if (ReadRegionDataImpl(countryName.substr(0, p), data))
-      return true;
-    p = p > 0 ? countryName.find_last_of('_', p - 1) : std::string::npos;
+    auto const & res = om::tz::Serialize(GetTimeZone(timezone));
+    CHECK(res, (timezone));
+    data.Set(RegionData::Type::RD_TIMEZONE, res.value());
   }
-  return false;
+
+  bool allow_housenames;
+  FromJSONObjectOptionalField(jsonData, "housenames", allow_housenames);
+  if (allow_housenames)
+    data.Set(RegionData::Type::RD_ALLOW_HOUSENAMES, "y");
+
+  // Public holidays: an array of arrays of [string/number, number].
+  // See https://github.com/opening-hours/opening_hours.js/blob/master/docs/holidays.md
+  std::vector<json_t *> holidays;
+  FromJSONObjectOptionalField(jsonData, "holidays", holidays);
+  for (json_t * holiday : holidays)
+  {
+    if (!json_is_array(holiday) || json_array_size(holiday) != 2)
+      MYTHROW(base::Json::Exception, ("Holiday must be an array of two elements in", keyName));
+    json_t * reference = json_array_get(holiday, 0);
+    int8_t refId = 0;
+    if (json_is_integer(reference))
+    {
+      refId = json_integer_value(reference);
+    }
+    else if (json_is_string(reference))
+    {
+      refId = ParseHolidayReference(std::string(json_string_value(reference)));
+    }
+    else
+    {
+      MYTHROW(base::Json::Exception,
+              ("Holiday month reference should be either a std::string or a number in", keyName));
+    }
+
+    if (refId <= 0)
+      MYTHROW(base::Json::Exception, ("Incorrect month reference in", keyName));
+    if (!json_is_integer(json_array_get(holiday, 1)))
+      MYTHROW(base::Json::Exception, ("Holiday day offset should be a number in", keyName));
+    data.AddPublicHoliday(refId, json_integer_value(json_array_get(holiday, 1)));
+  }
 }
+
+template <class TString>
+bool ParentRegionID(TString & s)
+{
+  auto n = s.find_last_of('_');
+  if (n == std::string::npos)
+    return false;
+  s = s.substr(0, n);
+  return true;
+}
+}  // namespace
+
+void ReadRegionData(std::string regionID, RegionData & data)
+{
+  do
+  {
+    ReadRegionDataImpl(regionID, data);
+    if (!ParentRegionID(regionID))
+      return;
+  }
+  while (true);
+}
+
+RegionData const * AllRegionsData::Get(std::string_view regionID) const
+{
+  do
+  {
+    auto it = m_cont.find(regionID);
+    if (it != m_cont.end())
+      return &it->second;
+
+    if (!ParentRegionID(regionID))
+      return nullptr;
+  }
+  while (true);
+}
+
+void AllRegionsData::Finish()
+{
+  for (auto & [country, data] : m_cont)
+  {
+    std::string_view key = country;
+    while (true)
+    {
+      if (!ParentRegionID(key))
+        break;
+
+      auto it = m_cont.find(key);
+      if (it != m_cont.end())
+        data.MergeFrom(it->second);
+    }
+  }
+}
+
+void ReadAllRegions(AllRegionsData & allData)
+{
+  auto reader = GetPlatform().GetReader(COUNTRIES_META_FILE);
+  std::string buffer;
+  reader->ReadAsString(buffer);
+  base::Json root(buffer.data());
+
+  char const * key;
+  json_t * value;
+  json_object_foreach(root.get(), key, value)
+  {
+    RegionData data;
+    ReadEntryImpl(key, value, data);
+    CHECK(allData.m_cont.emplace(key, std::move(data)).second, (key));
+  }
+
+  allData.Finish();
+}
+
 }  // namespace feature

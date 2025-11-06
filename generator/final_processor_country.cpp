@@ -103,8 +103,8 @@ void CountryFinalProcessor::ProcessRoundabouts()
     MiniRoundaboutTransformer transformer(roundabouts.GetData(), *m_affiliations);
 
     RegionData data;
-    if (ReadRegionData(name, data))
-      transformer.SetLeftHandTraffic(data.Get(RegionData::Type::RD_DRIVING) == "l");
+    ReadRegionData(name, data);
+    transformer.SetLeftHandTraffic(data.Get(RegionData::Type::RD_DRIVING) == "l");
 
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
     ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)

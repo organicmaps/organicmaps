@@ -38,6 +38,7 @@ set(SRC
   osm_type_test.cpp
   place_processor_tests.cpp
   raw_generator_test.cpp
+  region_data_tests.cpp
   relation_tags_tests.cpp
   restriction_collector_test.cpp
   restriction_test.cpp
