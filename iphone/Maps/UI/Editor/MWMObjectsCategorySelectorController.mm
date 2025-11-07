@@ -22,7 +22,8 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 {}
 
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
-@property(weak, nonatomic) IBOutlet UISearchBar * searchBar;
+@property(nonatomic) UISearchController * searchViewController;
+
 @property(nonatomic) NSString * selectedType;
 @property(nonatomic) BOOL isSearch;
 @property(nonatomic) MWMObjectsCategorySelectorDataSource * dataSource;
@@ -71,7 +72,20 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 }
 - (void)configSearchBar
 {
-  self.searchBar.placeholder = L(@"search");
+  self.searchViewController = [[UISearchController alloc] initWithSearchResultsController:nil];
+  self.searchViewController.obscuresBackgroundDuringPresentation = NO;
+  self.searchViewController.hidesNavigationBarDuringPresentation = NO;
+  self.searchViewController.searchBar.placeholder = L(@"search");
+  self.searchViewController.searchBar.delegate = self;
+  [self.searchViewController.searchBar applyTheme];
+  self.navigationItem.hidesSearchBarWhenScrolling = YES;
+  self.navigationItem.searchController = self.searchViewController;
+  if (@available(iOS 26.0, *)) {
+    // The search bar will appear at the bottom of the iPhone screen and cannot be hidden.
+    self.navigationItem.hidesSearchBarWhenScrolling = YES;
+  } else {
+    self.navigationItem.hidesSearchBarWhenScrolling = NO;
+  }
 }
 
 - (void)configEmptySearchResultsDisclaimer
@@ -286,8 +300,6 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 }
 - (void)searchBar:(UISearchBar *)searchBar setActiveState:(BOOL)isActiveState
 {
-  [searchBar setShowsCancelButton:isActiveState animated:YES];
-  [self.navigationController setNavigationBarHidden:isActiveState animated:YES];
   if (!isActiveState)
     [self.dataSource search:@""];
 }

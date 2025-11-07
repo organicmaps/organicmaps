@@ -1,6 +1,10 @@
 final class BookmarksListViewController: MWMViewController {
   var presenter: IBookmarksListPresenter!
 
+  private enum Constants {
+    static let headerHeight = CGFloat(60)
+  }
+
   private var sections: [IBookmarksListSectionViewModel]?
   private let cellStrategy = BookmarksListCellStrategy()
 
@@ -11,7 +15,7 @@ final class BookmarksListViewController: MWMViewController {
   @IBOutlet private var sortToolbarItem: UIBarButtonItem!
   @IBOutlet private var moreToolbarItem: UIBarButtonItem!
   private let searchController = UISearchController(searchResultsController: nil)
-  
+
   private lazy var infoViewController: BookmarksListInfoViewController = {
     let infoViewController = BookmarksListInfoViewController()
     infoViewController.delegate = self
@@ -20,7 +24,7 @@ final class BookmarksListViewController: MWMViewController {
     infoViewController.didMove(toParent: self)
     return infoViewController
   }()
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -30,7 +34,7 @@ final class BookmarksListViewController: MWMViewController {
     sortToolbarItem.setTitleTextAttributes(toolbarItemAttributes, for: .normal)
     moreToolbarItem.setTitleTextAttributes(toolbarItemAttributes, for: .normal)
     sortToolbarItem.title = L("sort")
-    
+
     extendedLayoutIncludesOpaqueBars = true
     searchController.searchBar.placeholder = L("search_in_the_list")
     searchController.obscuresBackgroundDuringPresentation = false
@@ -39,7 +43,7 @@ final class BookmarksListViewController: MWMViewController {
     searchController.searchBar.applyTheme()
     navigationItem.searchController = searchController
     navigationItem.hidesSearchBarWhenScrolling = false
-    
+
     cellStrategy.registerCells(tableView)
     cellStrategy.cellCheckHandler = { [weak self] (viewModel, index, checked) in
       self?.presenter.checkItem(in: viewModel, at: index, checked: checked)
@@ -50,7 +54,7 @@ final class BookmarksListViewController: MWMViewController {
     presenter.viewDidLoad()
     MWMKeyboard.add(self);
   }
-  
+
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     presenter.viewDidAppear()
@@ -63,6 +67,7 @@ final class BookmarksListViewController: MWMViewController {
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     updateInfoSize()
+    tableView.contentInset.bottom = toolBar.height
   }
 
   private func updateInfoSize() {
@@ -106,7 +111,7 @@ extension BookmarksListViewController: UITableViewDataSource {
 
 extension BookmarksListViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    60
+    Constants.headerHeight
   }
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -136,7 +141,7 @@ extension BookmarksListViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
     isEditing = false
   }
-  
+
   func tableView(_ tableView: UITableView,
                  leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     let moveAction = UIContextualAction(style: .normal, title: L("move")) { [weak self] (_, _, completion) in
@@ -170,11 +175,13 @@ extension BookmarksListViewController: UITableViewDelegate {
 
 extension BookmarksListViewController: UISearchBarDelegate {
   func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    toolBar.isHidden = true
     searchBar.setShowsCancelButton(true, animated: true)
     presenter.activateSearch()
   }
 
   func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    toolBar.isHidden = false
     searchBar.setShowsCancelButton(false, animated: true)
     presenter.deactivateSearch()
   }
