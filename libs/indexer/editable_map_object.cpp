@@ -21,11 +21,8 @@ string_view constexpr kTagCuisine = "cuisine";
 
 namespace
 {
-bool ExtractName(StringUtf8Multilang const & names, int8_t const langCode, vector<osm::LocalizedName> & result)
+bool ExtractName(FeatureNames const & names, int8_t langCode, vector<osm::LocalizedName> & result)
 {
-  if (StringUtf8Multilang::kUnsupportedLanguageCode == langCode)
-    return false;
-
   // Exclude languages that are already present.
   auto const it = base::FindIf(
       result, [langCode](osm::LocalizedName const & localizedName) { return localizedName.m_code == langCode; });
@@ -33,10 +30,7 @@ bool ExtractName(StringUtf8Multilang const & names, int8_t const langCode, vecto
   if (result.end() != it)
     return false;
 
-  string_view name;
-  names.GetString(langCode, name);
-  result.emplace_back(langCode, name);
-
+  result.emplace_back(langCode, names.Get(langCode));
   return true;
 }
 }  // namespace
@@ -100,8 +94,8 @@ NamesDataSource EditableMapObject::GetNamesDataSource()
 }
 
 // static
-NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const & source,
-                                                      vector<int8_t> const & mwmLanguages, int8_t const userLangCode)
+NamesDataSource EditableMapObject::GetNamesDataSource(FeatureNames const & source, vector<int8_t> const & mwmLanguages,
+                                                      int8_t const userLangCode)
 {
   NamesDataSource result;
   auto & names = result.names;
@@ -173,15 +167,9 @@ void EditableMapObject::SetEditableProperties(osm::EditableProperties const & pr
   m_editableProperties = props;
 }
 
-void EditableMapObject::SetName(StringUtf8Multilang const & name)
-{
-  m_name = name;
-}
-
 void EditableMapObject::SetName(string_view name, int8_t langCode)
 {
-  strings::Trim(name);
-  m_name.AddString(langCode, name);
+  m_name.Add(langCode, name);
 }
 
 // static
@@ -372,19 +360,6 @@ void EditableMapObject::SetCuisines(std::vector<std::string> const & cuisines)
 void EditableMapObject::SetPointType()
 {
   m_geomType = feature::GeomType::Point;
-}
-
-void EditableMapObject::RemoveBlankNames()
-{
-  StringUtf8Multilang editedName;
-
-  m_name.ForEach([&editedName](int8_t langCode, string_view name)
-  {
-    if (!name.empty())
-      editedName.AddString(langCode, name);
-  });
-
-  m_name = editedName;
 }
 
 // static
@@ -653,10 +628,10 @@ void EditableMapObject::ApplyJournalEntry(JournalEntry const & entry)
     }
 
     // Names
-    int8_t langCode = StringUtf8Multilang::GetCodeByOSMTag(tagModData.key);
+    int8_t const langCode = StringUtf8Multilang::GetCodeByOSMTag(tagModData.key);
     if (langCode != StringUtf8Multilang::kUnsupportedLanguageCode)
     {
-      m_name.AddString(langCode, tagModData.new_value);
+      m_name.Add(langCode, tagModData.new_value);
       break;
     }
 
@@ -727,10 +702,8 @@ void EditableMapObject::LogDiffInJournal(EditableMapObject const & unedited_emo)
   for (auto const & language : StringUtf8Multilang::GetSupportedLanguages())
   {
     int8_t const langCode = StringUtf8Multilang::GetLangIndex(language.m_code);
-    std::string_view new_name, old_name;
-    UNUSED_VALUE(m_name.GetString(langCode, new_name));
-    UNUSED_VALUE(unedited_emo.GetNameMultilang().GetString(langCode, old_name));
-
+    auto new_name = m_name.Get(langCode);
+    auto old_name = unedited_emo.m_name.Get(langCode);
     if (new_name != old_name)
     {
       m_journal.AddTagChange(StringUtf8Multilang::GetOSMTagByCode(langCode), std::string(old_name),
@@ -819,6 +792,8 @@ bool AreObjectsEqualIgnoringStreet(EditableMapObject const & lhs, EditableMapObj
   if (!lhs.m_metadata.Equals(rhs.m_metadata))
     return false;
 
+  /// @todo String may be different only because of the langs order inside a buffer.
+  /// Does it matter or not here?
   if (lhs.GetNameMultilang() != rhs.GetNameMultilang())
     return false;
 

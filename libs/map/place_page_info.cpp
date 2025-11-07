@@ -43,8 +43,9 @@ void Info::SetFromFeatureType(FeatureType & ft)
   auto const mwmInfo = GetID().m_mwmId.GetInfo();
   if (mwmInfo)
   {
-    feature::GetPreferredNames(
-        {m_name, mwmInfo->GetRegionData(), languages::GetCurrentMapLanguage(), true /* allowTranslit */}, out);
+    feature::NameParamsIn in(m_name.ToBuffer(), mwmInfo->GetRegionData(), languages::GetCurrentMapLanguage(),
+                             true /* allowTranslit */);
+    feature::GetPreferredNames(in, out);
   }
 
   bool emptyTitle = false;
