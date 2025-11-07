@@ -14,25 +14,60 @@
 
 namespace osm
 {
-class EditableMapObject;
+
+// Wrapper over StringUtf8Multilang for additional constrains:
+// - Don't store empty names as-is, remove them instead
+// - Check supported languages
+// - Remove trailing whitespaces
+class FeatureNames
+{
+  StringUtf8Multilang m_str;
+
+public:
+  /// @name Actually, from/to FeatureTyoe.
+  /// @{
+  void FromBuffer(StringUtf8Multilang const & str) { m_str = str; }
+  StringUtf8Multilang const & ToBuffer() const { return m_str; }
+  /// @}
+
+  void Add(int8_t langCode, std::string_view name);
+  void Add(std::string_view lang, std::string_view name);
+
+  std::string_view Get(int8_t langCode) const;
+  bool Has(int8_t langCode) const { return !Get(langCode).empty(); }
+
+  template <class FnT>
+  void ForEach(FnT && fn) const
+  {
+    m_str.ForEach(fn);
+  }
+
+  /// @todo String may be different only because of the langs order inside a buffer.
+  /// @{
+  friend bool operator==(FeatureNames const & l, FeatureNames const & r) { return l.m_str == r.m_str; }
+  friend bool operator!=(FeatureNames const & l, FeatureNames const & r) { return l.m_str != r.m_str; }
+  /// @}
+
+  friend std::string DebugPrint(FeatureNames const & names) { return DebugPrint(names.m_str); }
+};
 
 class MapObject
 {
 public:
   void SetFromFeatureType(FeatureType & ft);
 
-  FeatureID const & GetID() const;
+  FeatureID const & GetID() const { return m_featureID; }
 
   ms::LatLon GetLatLon() const;
-  m2::PointD const & GetMercator() const;
-  std::vector<m2::PointD> const & GetTriangesAsPoints() const;
-  std::vector<m2::PointD> const & GetPoints() const;
+  m2::PointD const & GetMercator() const { return m_mercator; }
+  std::vector<m2::PointD> const & GetTriangesAsPoints() const { return m_triangles; }
+  std::vector<m2::PointD> const & GetPoints() const { return m_points; }
 
-  feature::TypesHolder const & GetTypes() const;
+  feature::TypesHolder const & GetTypes() const { return m_types; }
   std::string_view GetDefaultName() const;
-  StringUtf8Multilang const & GetNameMultilang() const;
+  FeatureNames const & GetNameMultilang() const { return m_name; }
 
-  std::string const & GetHouseNumber() const;
+  std::string const & GetHouseNumber() const { return m_houseNumber; }
   std::string_view GetPostcode() const;
 
   /// @name Metadata fields.
@@ -120,7 +155,7 @@ protected:
   std::vector<m2::PointD> m_points;
   std::vector<m2::PointD> m_triangles;
 
-  StringUtf8Multilang m_name;
+  FeatureNames m_name;
   std::string m_houseNumber;
   std::vector<std::string> m_roadShields;
   feature::TypesHolder m_types;

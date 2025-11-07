@@ -65,10 +65,10 @@ FeatureInfoDialog::FeatureInfoDialog(QWidget * parent, osm::MapObject const & ma
       codes.push_back(localeCode);
     }
 
-    for (auto const & code : codes)
+    for (int8_t code : codes)
     {
-      string_view name;
-      if (!mapObject.GetNameMultilang().GetString(code, name))
+      string_view name = mapObject.GetNameMultilang().Get(code);
+      if (name.empty())
         continue;
 
       auto const lang = StringUtf8Multilang::GetLangByCode(code);

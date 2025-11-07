@@ -15,10 +15,40 @@ namespace osm
 {
 using namespace std;
 
+// FeatureNames -------------------------------------------------------------------------------
+
+void FeatureNames::Add(int8_t langCode, std::string_view name)
+{
+  ASSERT(langCode != StringUtf8Multilang::kUnsupportedLanguageCode, ());
+
+  strings::Trim(name);
+
+  if (name.empty())
+    m_str.RemoveString(langCode);
+  else
+    m_str.AddString(langCode, name);
+}
+
+void FeatureNames::Add(std::string_view lang, std::string_view name)
+{
+  Add(StringUtf8Multilang::GetLangIndex(lang), name);
+}
+
+std::string_view FeatureNames::Get(int8_t langCode) const
+{
+  ASSERT(langCode != StringUtf8Multilang::kUnsupportedLanguageCode, ());
+
+  std::string_view res;
+  m_str.GetString(langCode, res);
+  return res;
+}
+
+// MapObject -------------------------------------------------------------------------------
+
 void MapObject::SetFromFeatureType(FeatureType & ft)
 {
   m_mercator = feature::GetCenter(ft);
-  m_name = ft.GetNames();
+  m_name.FromBuffer(ft.GetNames());
 
   Classificator const & cl = classif();
   m_types = feature::TypesHolder(ft);
@@ -53,44 +83,14 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
 #endif
 }
 
-FeatureID const & MapObject::GetID() const
-{
-  return m_featureID;
-}
 ms::LatLon MapObject::GetLatLon() const
 {
   return mercator::ToLatLon(m_mercator);
 }
-m2::PointD const & MapObject::GetMercator() const
-{
-  return m_mercator;
-}
-vector<m2::PointD> const & MapObject::GetTriangesAsPoints() const
-{
-  return m_triangles;
-}
-vector<m2::PointD> const & MapObject::GetPoints() const
-{
-  return m_points;
-}
-feature::TypesHolder const & MapObject::GetTypes() const
-{
-  return m_types;
-}
 
 string_view MapObject::GetDefaultName() const
 {
-  return m_name.GetDefaultString();
-}
-
-StringUtf8Multilang const & MapObject::GetNameMultilang() const
-{
-  return m_name;
-}
-
-string const & MapObject::GetHouseNumber() const
-{
-  return m_houseNumber;
+  return m_name.Get(StringUtf8Multilang::kDefaultCode);
 }
 
 std::string_view MapObject::GetPostcode() const

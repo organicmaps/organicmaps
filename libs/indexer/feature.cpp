@@ -243,7 +243,7 @@ std::unique_ptr<FeatureType> FeatureType::CreateFromMapObject(osm::MapObject con
 
   ft->m_parsed.m_points = ft->m_parsed.m_triangles = true;
 
-  ft->m_params.name = emo.GetNameMultilang();
+  ft->m_params.name = emo.GetNameMultilang().ToBuffer();
   string const & house = emo.GetHouseNumber();
   if (house.empty())
     ft->m_params.house.Clear();

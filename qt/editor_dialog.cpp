@@ -160,21 +160,17 @@ void EditorDialog::OnSave()
   // Store names.
   if (m_feature.IsNameEditable())
   {
-    StringUtf8Multilang names;
+    osm::FeatureNames names;
     for (int8_t langCode = StringUtf8Multilang::kDefaultCode; langCode < StringUtf8Multilang::kMaxSupportedLanguages;
          ++langCode)
     {
       std::string_view const lang = StringUtf8Multilang::GetLangByCode(langCode);
-      QLineEdit * le = findChild<QLineEdit *>(QString::fromUtf8(lang.data(), lang.size()));
-      if (!le)
-        continue;
-
-      std::string const name = le->text().toStdString();
-      if (!name.empty())
-        names.AddString(langCode, name);
+      QLineEdit const * le = findChild<QLineEdit const *>(QString::fromUtf8(lang.data(), lang.size()));
+      if (le)
+        names.Add(langCode, le->text().toStdString());
     }
 
-    m_feature.SetName(names);
+    m_feature.SetName(std::move(names));
   }
 
   using PropID = osm::MapObject::MetadataID;

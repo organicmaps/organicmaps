@@ -11,7 +11,7 @@
 
 @implementation MWMEditorAdditionalNamesTableViewController
 {
-  StringUtf8Multilang m_name;
+  osm::FeatureNames m_name;
   std::vector<StringUtf8Multilang::Lang> m_languages;
   std::vector<NSInteger> m_additionalSkipLanguageCodes;
 }
@@ -19,7 +19,7 @@
 #pragma mark - UITableViewDataSource
 
 - (void)configWithDelegate:(id<MWMEditorAdditionalNamesProtocol>)delegate
-                           name:(StringUtf8Multilang const &)name
+                           name:(osm::FeatureNames const &)name
     additionalSkipLanguageCodes:(std::vector<NSInteger>)additionalSkipLanguageCodes
 {
   self.delegate = delegate;
@@ -44,7 +44,7 @@
   for (auto const & language : supportedLanguages)
   {
     auto const langIndex = getIndex(language.m_code);
-    if (langIndex != kDefaultCode && m_name.HasString(langIndex))
+    if (langIndex != kDefaultCode && m_name.Has(langIndex))
       continue;
     auto it = std::find(m_additionalSkipLanguageCodes.begin(), m_additionalSkipLanguageCodes.end(), langIndex);
     if (it == m_additionalSkipLanguageCodes.end())
