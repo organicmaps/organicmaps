@@ -55,10 +55,10 @@ jobs:
             cc: gcc-13
             cxx: g++-13
 
-          - os: macos-15
+          - os: macos-26
             cc: clang
             cxx: clang++
-            developer-dir: /Applications/Xcode_16.4.app/Contents/Developer
+            developer-dir: /Applications/Xcode_26.0.1.app/Contents/Developer
         exclude:
           - environment: { unity: OFF }
             cmake-build-type: Release
