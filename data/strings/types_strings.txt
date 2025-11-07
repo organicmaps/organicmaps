@@ -1056,6 +1056,36 @@ vi = Chỗ Đậu Xe Đạp
 zh-Hans = 自行车停车处
 zh-Hant = 腳踏車停放區
 
+[type.amenity.bicycle_parking.covered]
+en = Covered Bicycle Parking
+ast = Aparcaderu pa bicicletes atecháu
+be = Крытая велапаркоўка
+ca = Aparcament de bicicletes ensostrat
+cs = Kryté parkování kol
+da = Overdækket cykelparkering
+de = Überdachter Fahrradparkplatz
+el = Σκεπαστή στάθμευση ποδηλάτων
+es = Aparcamiento de bicicletas cubierto
+es-MX = Estacionamiento de bicicletas techado
+et = Kaetud rattaparkla
+fr = Parking à vélos couvert
+gl = Aparcamento de bicicletas teitado
+hr = Natkriveno parkiralište za bicikle
+hu = Fedett kerékpártároló
+is = Hjólastæði undir þaki
+it = Parcheggio biciclette coperto
+nl = Overdekte Fietsen Stalling
+pl = Zadaszony parking rowerowy
+pt-BR = Estacionamento de bicicletas coberto
+ru = Крытая велопарковка
+sl = Pokrito parkirišče za kolesa
+sr = Pokriveni parking za bicikle
+tr = Örtülü Bisiklet Parkı
+uk = Критий велосипедний паркінг
+zh-Hans = 有棚自行车停放处
+zh-Hant = 有遮蔭的單車停車場
+
+
 [type.amenity.bicycle_rental]
 en = Bicycle Rental
 af = Fietsverhuring
@@ -1238,6 +1268,32 @@ uk = Бордель
 vi = Giải trí
 zh-Hans = 妓院
 zh-Hant = 妓院
+
+[type.amenity.love_hotel]
+en = Love Hotel
+ast = Hotel pa pareyes
+be = Любоўны гатэль
+ca = Meublé
+cs = Hodinový hotel
+da = Elskovshotel
+de = Liebeshotel
+el = Ξενοδοχείο αγάπης
+es = Hotel para parejas
+et = Armuhotell
+fr = Hôtel d'amour
+gl = Hotel para parellas
+hr = Hotel ljubavi
+hu = Szeretőszálló
+is = Elskendahótel
+nl = Ontmoetingshotel
+pl = Hotel miłości
+pt-BR = Hotel
+ru = Любовный отель
+sl = Ljubezenski hotel
+tr = Çift Oteli
+uk = Готель кохання
+zh-Hans = 情侣酒店
+zh-Hant = 愛情旅館
 
 [type.amenity.bureau_de_change]
 en = Currency Exchange
@@ -1982,6 +2038,24 @@ uk = Кінотеатр
 vi = Rạp chiếu phim
 zh-Hans = 电影院
 zh-Hant = 電影院
+
+[type.amenity.studio]
+en = Studio
+ast = Estudiu
+be = Студыя гуказапісу, тэлестудыя
+ca = Estudi
+da = Studie
+el = Στούντιο
+es = Estudio
+et = Stuudio
+gl = Estudio
+hu = Stúdió
+is = Stúdíó
+pt = Estúdio
+ru = Студия
+tr = Atölye
+uk = Студія
+zh-Hans = 演播厅
 
 [type.leisure.bowling_alley]
 en = Bowling Alley
@@ -3411,6 +3485,29 @@ uk = Завантажувальна платформа
 vi = Bến tàu
 zh-Hans = 装卸码头
 zh-Hant = 裝卸碼頭
+
+[type.amenity.luggage_locker]
+en = Luggage Locker
+be = Камера захоўвання
+cs = Úschovná skříňka
+da = Bagageboks
+de = Gepäckaufbewahrung
+el = Ντουλάπι αποσκευών
+es = Guardaequipaje
+et = Pagasihoid
+fr = Casier à bagages
+hu = Csomagmegőrző
+is = Læstur farangursskápur
+it = Deposito bagagli
+nl = Baggage Kluis
+pl = Przechowalnia bagażu
+pt-BR = Armário para bagagem
+ru = Камера хранения
+sl = Odpravljalnica prtljage
+tr = Emanet Dolabı
+uk = Камера схову
+zh-Hans = 行李寄存处
+zh-Hant = 行李保管箱
 
 [type.amenity.marketplace]
 en = Marketplace
@@ -4974,6 +5071,28 @@ vi = Bưu cục
 zh-Hans = 邮局
 zh-Hant = 郵局
 
+[type.post_office.post_partner]
+en = Post Partner
+be = Паштовы партнёр
+cs = Poštovní partner
+da = Postpartner
+el = Ταχυδρομικός συνεργάτης
+es = Proveedor de servicios postales
+et = Postiteenused partneri juures
+fr = Relais postal
+hu = Postapartnerpont
+is = Póstsamstarfsaðili
+it = Fornitore di servizi postali
+nl = Post Agentschap
+pl = Partner pocztowy
+pt-BR = Parceiro dos Correios
+ru = Почтовый посредник
+sl = Pogodbena pošta
+tr = Postane İş Ortağı
+uk = Поштовий партнер
+zh-Hans = 邮政合作点
+zh-Hant = 郵件代辦所
+
 [type.amenity.prison]
 en = Prison
 af = Gevangenis
@@ -5100,124 +5219,6 @@ uk = Книгообмін
 vi = Kệ sách
 zh-Hans = 公共书架
 zh-Hant = 書架
-
-[type.amenity.bicycle_parking.covered]
-en = Covered Bicycle Parking
-ast = Aparcaderu pa bicicletes atecháu
-be = Крытая велапаркоўка
-ca = Aparcament de bicicletes ensostrat
-cs = Kryté parkování kol
-da = Overdækket cykelparkering
-de = Überdachter Fahrradparkplatz
-el = Σκεπαστή στάθμευση ποδηλάτων
-es = Aparcamiento de bicicletas cubierto
-es-MX = Estacionamiento de bicicletas techado
-et = Kaetud rattaparkla
-fr = Parking à vélos couvert
-gl = Aparcamento de bicicletas teitado
-hr = Natkriveno parkiralište za bicikle
-hu = Fedett kerékpártároló
-is = Hjólastæði undir þaki
-it = Parcheggio biciclette coperto
-nl = Overdekte Fietsen Stalling
-pl = Zadaszony parking rowerowy
-pt-BR = Estacionamento de bicicletas coberto
-ru = Крытая велопарковка
-sl = Pokrito parkirišče za kolesa
-sr = Pokriveni parking za bicikle
-tr = Örtülü Bisiklet Parkı
-uk = Критий велосипедний паркінг
-zh-Hans = 有棚自行车停放处
-zh-Hant = 有遮蔭的單車停車場
-
-[type.amenity.love_hotel]
-en = Love Hotel
-ast = Hotel pa pareyes
-be = Любоўны гатэль
-ca = Meublé
-cs = Hodinový hotel
-da = Elskovshotel
-de = Liebeshotel
-el = Ξενοδοχείο αγάπης
-es = Hotel para parejas
-et = Armuhotell
-fr = Hôtel d'amour
-gl = Hotel para parellas
-hr = Hotel ljubavi
-hu = Szeretőszálló
-is = Elskendahótel
-nl = Ontmoetingshotel
-pl = Hotel miłości
-pt-BR = Hotel
-ru = Любовный отель
-sl = Ljubezenski hotel
-tr = Çift Oteli
-uk = Готель кохання
-zh-Hans = 情侣酒店
-zh-Hant = 愛情旅館
-
-[type.amenity.studio]
-en = Studio
-ast = Estudiu
-be = Студыя гуказапісу, тэлестудыя
-ca = Estudi
-da = Studie
-el = Στούντιο
-es = Estudio
-et = Stuudio
-gl = Estudio
-hu = Stúdió
-is = Stúdíó
-pt = Estúdio
-ru = Студия
-tr = Atölye
-uk = Студія
-zh-Hans = 演播厅
-
-[type.amenity.luggage_locker]
-en = Luggage Locker
-be = Камера захоўвання
-cs = Úschovná skříňka
-da = Bagageboks
-de = Gepäckaufbewahrung
-el = Ντουλάπι αποσκευών
-es = Guardaequipaje
-et = Pagasihoid
-fr = Casier à bagages
-hu = Csomagmegőrző
-is = Læstur farangursskápur
-it = Deposito bagagli
-nl = Baggage Kluis
-pl = Przechowalnia bagażu
-pt-BR = Armário para bagagem
-ru = Камера хранения
-sl = Odpravljalnica prtljage
-tr = Emanet Dolabı
-uk = Камера схову
-zh-Hans = 行李寄存处
-zh-Hant = 行李保管箱
-
-[type.post_office.post_partner]
-en = Post Partner
-be = Паштовы партнёр
-cs = Poštovní partner
-da = Postpartner
-el = Ταχυδρομικός συνεργάτης
-es = Proveedor de servicios postales
-et = Postiteenused partneri juures
-fr = Relais postal
-hu = Postapartnerpont
-is = Póstsamstarfsaðili
-it = Fornitore di servizi postali
-nl = Post Agentschap
-pl = Partner pocztowy
-pt-BR = Parceiro dos Correios
-ru = Почтовый посредник
-sl = Pogodbena pošta
-tr = Postane İş Ortağı
-uk = Поштовий партнер
-zh-Hans = 邮政合作点
-zh-Hant = 郵件代辦所
 
 [[Types: Recycling]]
 
@@ -7739,6 +7740,31 @@ tr = Çit
 uk = Огорожа
 zh-Hans = 篱笆
 zh-Hant = 籬笆
+
+[type.barrier.guard_rail]
+en = Guard Rail
+be = Агароджа
+ca = Tanca de contenció
+cs = Ochranné zábradlí
+da = Autoværn
+de = Schutzgeländer
+el = Προστατευτικό κιγκλίδωμα
+es = Barrera de contención
+et = Madal maanteepiire
+fr = Garde-corps
+gl = Barreira de contención
+hu = Szalagkorlát
+id = Захисна огорожа
+is = Handrið
+it = Barriera stradale
+nl = Vangrail
+pl = Barierka ochronna
+ru = Дорожное ограждение (отбойник)
+sl = Varnostna ograja
+tr = Korkuluk
+uk = Захисна огорожа
+zh-Hans = 交通护栏
+zh-Hant = 交通護欄
 
 [type.barrier.gate]
 en = Gate
@@ -14286,31 +14312,6 @@ vi = Ngôn ngữ trị liệu
 zh-Hans = 语言治疗师
 zh-Hant = 言語治療
 
-[type.barrier.guard_rail]
-en = Guard Rail
-be = Агароджа
-ca = Tanca de contenció
-cs = Ochranné zábradlí
-da = Autoværn
-de = Schutzgeländer
-el = Προστατευτικό κιγκλίδωμα
-es = Barrera de contención
-et = Madal maanteepiire
-fr = Garde-corps
-gl = Barreira de contención
-hu = Szalagkorlát
-id = Захисна огорожа
-is = Handrið
-it = Barriera stradale
-nl = Vangrail
-pl = Barierka ochronna
-ru = Дорожное ограждение (отбойник)
-sl = Varnostna ograja
-tr = Korkuluk
-uk = Захисна огорожа
-zh-Hans = 交通护栏
-zh-Hant = 交通護欄
-
 [[Types: Roads]]
 
 [type.highway]
@@ -16257,6 +16258,32 @@ ref = type.highway.road.bridge
 [type.highway.steps.tunnel]
 ref = type.highway.road.tunnel
 
+[type.highway.ladder]
+en = Ladder
+ast = Escalera de mano
+be = Лесвіца
+ca = Escala de mà
+cs = Žebřík
+da = Stige
+de = Leiter
+el = Σκάλα
+es = Escalera
+et = Redel
+fa = نردبان
+fr = Échelle
+gl = Escaleira
+hu = Létra
+is = Stigi
+it = Scala
+pl = Drabina
+pt-BR = Escada
+ru = Лестница-лаз
+sl = Lestev
+tr = Basamak
+uk = Драбина
+zh-Hans = 梯子
+zh-Hant = 梯子
+
 [type.highway.tertiary]
 en = Tertiary Road
 af = Tersiêre pad
@@ -16705,32 +16732,6 @@ hu = út-világvárosok szint
 ru = Шоссе местного значения
 zh-Hans = 高速公路—城镇级
 zh-Hant = 公路 - 世界城鎮等級
-
-[type.highway.ladder]
-en = Ladder
-ast = Escalera de mano
-be = Лесвіца
-ca = Escala de mà
-cs = Žebřík
-da = Stige
-de = Leiter
-el = Σκάλα
-es = Escalera
-et = Redel
-fa = نردبان
-fr = Échelle
-gl = Escaleira
-hu = Létra
-is = Stigi
-it = Scala
-pl = Drabina
-pt-BR = Escada
-ru = Лестница-лаз
-sl = Lestev
-tr = Basamak
-uk = Драбина
-zh-Hans = 梯子
-zh-Hant = 梯子
 
 [[Types: Historic]]
 
@@ -19045,6 +19046,50 @@ sv = Begravningsplats
 th = สุสาน
 vi = Bãi tha ma
 
+[type.landuse.religious]
+en = Churchyard
+af = Kerkhof
+ar = فناء الكنيسة
+az = Kilsə rayonu
+be = Цвінтар
+bg = Църковен двор
+ca = Cementiri
+cs = Nádvoří kostela
+da = Kirkegård
+de = Kirchhof
+el = Αυλόγυρος εκκλησίας
+es = Camposanto
+et = Kirikuaed
+eu = Hilerria
+fa = حیاط کلیسا
+fi = Kirkon piha
+fr = Cour d'église
+gl = Camposanto
+he = חצר כנסיה
+hu = Templomkert
+id = Halaman gereja
+is = Kirkjugarður
+it = Sagrato della chiesa
+ja = キリスト教教会付属地
+ko = 교회 마당
+nb = Kirkegård
+nl = Kerkhof
+pl = Teren kościelny
+pt = Adro de igreja
+ro = Curtea Bisericii
+ru = Церковный двор
+sk = Cintorín
+sl = Cerkveno zemljišče
+sr = Двориште цркве
+sv = Kyrkogård
+sw = Sehemu ya kanisa
+th = บริเวณโบสถ์
+tr = Kilise Bölgesi
+uk = Церковний двір
+vi = Nhà thờ
+zh-Hans = 教堂庭院
+zh-Hant = 教堂庭院
+
 [type.landuse.churchyard]
 en = Churchyard
 af = Kerkhof
@@ -20199,6 +20244,32 @@ uk = Виноградник
 zh-Hans = 葡萄园
 zh-Hant = 葡萄園
 
+[type.landuse.plant_nursery]
+en = Plant Nursery
+ast = Viveru
+be = Гадавальнік раслін
+ca = Viver
+cs = Rostlinná školka
+da = Planteskole
+de = Gärtnerei
+el = Φυτώριο
+es = Vivero
+et = Puukool
+fr = Pépinière
+gl = Viveiro de plantas
+hu = Faiskola
+is = Græðlingaræktun
+it = Vivaio
+nl = Plantenkwekerij
+pl = Szkółka roślin
+pt = Viveiro de plantas
+ru = Садовый питомник
+sl = Drevesnica
+tr = Fidanlık
+uk = Розсадник
+zh-Hans = 苗圃
+zh-Hant = 苗圃
+
 [type.leisure]
 en = Leisure
 af = Ontspanning
@@ -20313,6 +20384,28 @@ uk = Місце для вигулу собак
 vi = Nơi cho chó đi dạo
 zh-Hans = 遛狗区
 zh-Hant = 遛狗區
+
+[type.leisure.escape_game]
+en = Escape Room
+be = Квэст-пакой
+ca = Joc d’escapada
+cs = Úniková hra
+el = Δωμάτιο απόδρασης
+es = Sala de escape
+et = Põgenemistuba
+fr = Jeu d’évasion
+hu = Szabadulószoba
+is = Flóttarými
+nl = Ontsnapkamer
+pl = Pokój zagadek
+pt = Sala de fuga
+pt-BR = Sala de escape
+ru = Игра Escape Room
+sl = Soba pobega
+tr = Kaçış Odası
+uk = Кімната втечі
+zh-Hans = 密室逃脱
+zh-Hant = 密室脫逃
 
 [type.leisure.fitness_centre]
 en = Fitness Centre
@@ -20766,6 +20859,32 @@ uk = Сидіння на відкритому повітрі
 vi = Chỗ ngồi ngoài trời
 zh-Hans = 室外座椅
 zh-Hant = 戶外座位
+
+[type.leisure.firepit]
+en = Firepit
+be = Кастрышча
+ca = Braser
+cs = Ohniště
+da = Bålsted
+de = Feuerstelle
+el = Εστία φωτιάς
+es = Fogón
+et = Tulease
+fr = Cheminée
+gl = Fogar (para cacharela)
+hu = Tűzrakóhely
+is = Eldgryfja
+it = Focolare
+nl = Vuurplaats
+pl = Ognisko
+pt = Lugar para Fogueira
+pt-BR = Pira
+ru = Кострище
+sl = Kurišče
+tr = Ateş Çukuru
+uk = Вогняна яма
+zh-Hans = 火坑
+zh-Hant = 火坑
 
 [type.leisure.park]
 en = Park
@@ -28852,6 +28971,34 @@ el = Μετρό
 pt = Estação de metro
 tr = Metro
 
+[type.railway.station.subway.qingdao]
+comment = TODO: add ref to "type.railway.station.subway"
+en = Subway Station
+ast = Estación del metro
+be = Станцыя Метро
+ca = Estació del metro
+cs = Stanice metra
+da = Metrostation
+de = U-Bahn-Station
+el = Σταθμός Μετρό
+en-GB = Metro Station
+es = Estación de metro
+et = Metroojaam
+fr = Station de métro
+gl = Estación de metro
+hu = Metróállomás
+is = Neðanjarðarlestarstöð
+it = Stazione della metropolitana
+nl = Metro Station
+pl = Stacja metra
+pt-BR = Estação de Metro
+ru = Станция метро
+sl = Postaja podzemne železnice
+tr = Metro
+uk = Станція метро
+zh-Hans = 地铁站
+zh-Hant = 捷運站
+
 [type.railway.station.subway.rennes]
 ref = type.railway.station.subway
 da = Metro
@@ -33262,6 +33409,51 @@ pt = Loja de aluguel de bicicletas
 ro = Magazin de închiriere de biciclete
 ru = Прокат велосипедов
 sk = Požičovňa bicyklov
+sr = Изнајмљивање бицикала
+sv = Cykeluthyrningsbutik
+sw = Duka la Kukodisha Baiskeli
+th = ร้านเช่าจักรยาน
+tr = Bisiklet Kiralama Mağazası
+uk = Прокат велосипедів
+vi = Cửa hàng cho thuê xe đạp
+zh-Hans = 自行车租赁店
+zh-Hant = 自行車租賃店
+
+[type.amenity.bicycle_rental.shop]
+en = Bicycle Rental Shop
+ar = محل تأجير الدراجات
+az = Velosiped İcarəsi Dükanı
+be = Пракат ровараў
+bg = Магазин за велосипеди под наем
+ca = Botiga de lloguer de bicicletes
+cs = Půjčovna kol
+da = Cykeludlejningsbutik
+de = Fahrradverleih
+el = Κατάστημα ενοικίασης ποδηλάτων
+es = Tienda de alquiler de bicicletas
+et = Jalgrattalaenutus
+eu = Bizikletak alokatzeko denda
+fa = مغازه اجاره دوچرخه
+fi = Polkupyörävuokraamo
+fr = Magasin de location de vélos
+gl = Tenda de alugueiro de bicicletas
+he = חנות להשכרת אופניים
+hu = Kerékpárkölcsönző
+id = Toko Penyewaan Sepeda
+is = Hjólaleiga
+it = Negozio di noleggio biciclette
+ja = レンタサイクルショップ
+ko = 자전거 대여점
+lt = Dviračių nuomos parduotuvė
+mr = सायकल भाड्याचे दुकान
+nb = Sykkelutleiebutikk
+nl = Fietsverhuurwinkel
+pl = Wypożyczalnia rowerów
+pt = Loja de aluguel de bicicletas
+ro = Magazin de închiriere de biciclete
+ru = Прокат велосипедов
+sk = Požičovňa bicyklov
+sl = Izposojevalnica koles
 sr = Изнајмљивање бицикала
 sv = Cykeluthyrningsbutik
 sw = Duka la Kukodisha Baiskeli
@@ -37904,6 +38096,27 @@ vi = Trung tâm du khách
 zh-Hans = 游客中心
 zh-Hant = 遊客中心
 
+[type.amenity.ranger_station]
+en = Ranger Station
+be = Станцыя рэйнджараў
+cs = Správci parku
+de = Rangerstation
+el = Σταθμός δασοφύλακα
+es = Estación de guardabosques
+et = Pargivahi maja
+fr = Poste de garde forestier
+hu = Vadőrség
+is = Landvarðastöð
+it = Stazione forestale
+nl = Boswachtershuis
+pl = Stacja Straży Leśnej
+ru = Пост лесников
+sl = Nadzornikova postaja
+tr = Korucu İstasyonu
+uk = Лісництво
+zh-Hans = 护林站
+zh-Hant = 森林巡警站
+
 [type.tourism.motel]
 en = Motel
 ar = موتيل
@@ -40315,217 +40528,6 @@ uk = Спортивний зал
 vi = Nhà thi đấu thể thao
 zh-Hans = 体育馆
 zh-Hant = 體育館
-
-[type.landuse.religious]
-en = Churchyard
-af = Kerkhof
-ar = فناء الكنيسة
-az = Kilsə rayonu
-be = Цвінтар
-bg = Църковен двор
-ca = Cementiri
-cs = Nádvoří kostela
-da = Kirkegård
-de = Kirchhof
-el = Αυλόγυρος εκκλησίας
-es = Camposanto
-et = Kirikuaed
-eu = Hilerria
-fa = حیاط کلیسا
-fi = Kirkon piha
-fr = Cour d'église
-gl = Camposanto
-he = חצר כנסיה
-hu = Templomkert
-id = Halaman gereja
-is = Kirkjugarður
-it = Sagrato della chiesa
-ja = キリスト教教会付属地
-ko = 교회 마당
-nb = Kirkegård
-nl = Kerkhof
-pl = Teren kościelny
-pt = Adro de igreja
-ro = Curtea Bisericii
-ru = Церковный двор
-sk = Cintorín
-sl = Cerkveno zemljišče
-sr = Двориште цркве
-sv = Kyrkogård
-sw = Sehemu ya kanisa
-th = บริเวณโบสถ์
-tr = Kilise Bölgesi
-uk = Церковний двір
-vi = Nhà thờ
-zh-Hans = 教堂庭院
-zh-Hant = 教堂庭院
-
-[type.landuse.plant_nursery]
-en = Plant Nursery
-ast = Viveru
-be = Гадавальнік раслін
-ca = Viver
-cs = Rostlinná školka
-da = Planteskole
-de = Gärtnerei
-el = Φυτώριο
-es = Vivero
-et = Puukool
-fr = Pépinière
-gl = Viveiro de plantas
-hu = Faiskola
-is = Græðlingaræktun
-it = Vivaio
-nl = Plantenkwekerij
-pl = Szkółka roślin
-pt = Viveiro de plantas
-ru = Садовый питомник
-sl = Drevesnica
-tr = Fidanlık
-uk = Розсадник
-zh-Hans = 苗圃
-zh-Hant = 苗圃
-
-[type.leisure.escape_game]
-en = Escape Room
-be = Квэст-пакой
-ca = Joc d’escapada
-cs = Úniková hra
-el = Δωμάτιο απόδρασης
-es = Sala de escape
-et = Põgenemistuba
-fr = Jeu d’évasion
-hu = Szabadulószoba
-is = Flóttarými
-nl = Ontsnapkamer
-pl = Pokój zagadek
-pt = Sala de fuga
-pt-BR = Sala de escape
-ru = Игра Escape Room
-sl = Soba pobega
-tr = Kaçış Odası
-uk = Кімната втечі
-zh-Hans = 密室逃脱
-zh-Hant = 密室脫逃
-
-[type.leisure.firepit]
-en = Firepit
-be = Кастрышча
-ca = Braser
-cs = Ohniště
-da = Bålsted
-de = Feuerstelle
-el = Εστία φωτιάς
-es = Fogón
-et = Tulease
-fr = Cheminée
-gl = Fogar (para cacharela)
-hu = Tűzrakóhely
-is = Eldgryfja
-it = Focolare
-nl = Vuurplaats
-pl = Ognisko
-pt = Lugar para Fogueira
-pt-BR = Pira
-ru = Кострище
-sl = Kurišče
-tr = Ateş Çukuru
-uk = Вогняна яма
-zh-Hans = 火坑
-zh-Hant = 火坑
-
-[type.railway.station.subway.qingdao]
-en = Subway Station
-ast = Estación del metro
-be = Станцыя Метро
-ca = Estació del metro
-cs = Stanice metra
-da = Metrostation
-de = U-Bahn-Station
-el = Σταθμός Μετρό
-en-GB = Metro Station
-es = Estación de metro
-et = Metroojaam
-fr = Station de métro
-gl = Estación de metro
-hu = Metróállomás
-is = Neðanjarðarlestarstöð
-it = Stazione della metropolitana
-nl = Metro Station
-pl = Stacja metra
-pt-BR = Estação de Metro
-ru = Станция метро
-sl = Postaja podzemne železnice
-tr = Metro
-uk = Станція метро
-zh-Hans = 地铁站
-zh-Hant = 捷運站
-
-[type.amenity.bicycle_rental.shop]
-en = Bicycle Rental Shop
-ar = محل تأجير الدراجات
-az = Velosiped İcarəsi Dükanı
-be = Пракат ровараў
-bg = Магазин за велосипеди под наем
-ca = Botiga de lloguer de bicicletes
-cs = Půjčovna kol
-da = Cykeludlejningsbutik
-de = Fahrradverleih
-el = Κατάστημα ενοικίασης ποδηλάτων
-es = Tienda de alquiler de bicicletas
-et = Jalgrattalaenutus
-eu = Bizikletak alokatzeko denda
-fa = مغازه اجاره دوچرخه
-fi = Polkupyörävuokraamo
-fr = Magasin de location de vélos
-gl = Tenda de alugueiro de bicicletas
-he = חנות להשכרת אופניים
-hu = Kerékpárkölcsönző
-id = Toko Penyewaan Sepeda
-is = Hjólaleiga
-it = Negozio di noleggio biciclette
-ja = レンタサイクルショップ
-ko = 자전거 대여점
-lt = Dviračių nuomos parduotuvė
-mr = सायकल भाड्याचे दुकान
-nb = Sykkelutleiebutikk
-nl = Fietsverhuurwinkel
-pl = Wypożyczalnia rowerów
-pt = Loja de aluguel de bicicletas
-ro = Magazin de închiriere de biciclete
-ru = Прокат велосипедов
-sk = Požičovňa bicyklov
-sl = Izposojevalnica koles
-sr = Изнајмљивање бицикала
-sv = Cykeluthyrningsbutik
-sw = Duka la Kukodisha Baiskeli
-th = ร้านเช่าจักรยาน
-tr = Bisiklet Kiralama Mağazası
-uk = Прокат велосипедів
-vi = Cửa hàng cho thuê xe đạp
-zh-Hans = 自行车租赁店
-zh-Hant = 自行車租賃店
-
-[type.amenity.ranger_station]
-en = Ranger Station
-be = Станцыя рэйнджараў
-cs = Správci parku
-de = Rangerstation
-el = Σταθμός δασοφύλακα
-es = Estación de guardabosques
-et = Pargivahi maja
-fr = Poste de garde forestier
-hu = Vadőrség
-is = Landvarðastöð
-it = Stazione forestale
-nl = Boswachtershuis
-pl = Stacja Straży Leśnej
-ru = Пост лесников
-sl = Nadzornikova postaja
-tr = Korucu İstasyonu
-uk = Лісництво
-zh-Hans = 护林站
-zh-Hant = 森林巡警站
 
 [type.sport.diving]
 en = Diving
