@@ -1637,3 +1637,4 @@ amenity|recycling|container
 *amenity|kneipp_water_cure
 *amenity|student_accommodation
 *craft|watchmaker
+*organicapp|mwm_border
