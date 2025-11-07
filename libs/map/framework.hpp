@@ -775,6 +775,8 @@ public:
 private:
   settings::UsageStats m_usageStats;
 
+  bool m_showDownloadedRegions = true;
+
 public:
   power_management::PowerManager & GetPowerManager() { return m_powerManager; }
 
