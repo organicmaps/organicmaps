@@ -16,7 +16,7 @@
 # - BG-top: water (linear and areal)
 # - BG-by-size: landcover areas sorted by their size
 
-organicapp-mwm_border
+organicapp-mwm_border                               # area z1-7
 === 30
 
 landuse-basin                                       # area z12-

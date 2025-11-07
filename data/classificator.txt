@@ -833,6 +833,9 @@ world  +
         only  -
         yes  -
         {}
+    organicapp  +
+        mwm_border  -
+        {}
     piste:type  +
         connection  -
         downhill  +

@@ -67640,6 +67640,58 @@ cont {
   }
 }
 cont {
+  name: "organicapp-mwm_border"
+  element {
+    scale: 1
+    area {
+      color: 2155711462
+      priority: -970
+    }
+  }
+  element {
+    scale: 2
+    area {
+      color: 2155711462
+      priority: -970
+    }
+  }
+  element {
+    scale: 3
+    area {
+      color: 2155711462
+      priority: -970
+    }
+  }
+  element {
+    scale: 4
+    area {
+      color: 2155711462
+      priority: -970
+    }
+  }
+  element {
+    scale: 5
+    area {
+      color: 2155711462
+      priority: -970
+    }
+  }
+  element {
+    scale: 6
+    area {
+      color: 2155711462
+      priority: -970
+    }
+  }
+  element {
+    scale: 7
+    area {
+      color: 2155711462
+      priority: -970
+    }
+  }
+}
+cont {
   name: "piste:type-connection"
   element {
     scale: 15
