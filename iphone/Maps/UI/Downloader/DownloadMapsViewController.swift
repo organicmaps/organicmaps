@@ -101,7 +101,6 @@ class DownloadMapsViewController: MWMViewController {
     searchController.searchBar.applyTheme()
     navigationItem.searchController = searchController
     navigationItem.hidesSearchBarWhenScrolling = false
-    
     configButtons()
   }
 

@@ -4,7 +4,7 @@ enum GlobalStyleSheet: String, CaseIterable {
   case tableViewCell = "MWMTableViewCell"
   case defaultTableViewCell
   case tableViewHeaderFooterView = "TableViewHeaderFooterView"
-  case defaultSearchBar
+  case searchOnMapSearchBar
   case searchBar = "SearchBar"
   case navigationBar = "NavigationBar"
   case navigationBarItem = "NavigationBarItem"
@@ -98,13 +98,17 @@ extension GlobalStyleSheet: IStyleSheet {
         s.font = fonts.medium14
         s.fontColor = colors.blackSecondaryText
       }
-    case .defaultSearchBar:
+    case .searchOnMapSearchBar:
       return .add { s in
-        s.backgroundColor = colors.pressBackground
-        s.barTintColor = colors.clear
-        s.fontColor = colors.blackPrimaryText
-        s.fontColorDetailed = UIColor.white
-        s.tintColor = colors.blackSecondaryText
+        if #available(iOS 26.0, *) {
+          s.backgroundColor = .lightGray.withAlphaComponent(alpha20)
+        } else {
+          s.backgroundColor = colors.pressBackground
+          s.barTintColor = colors.clear
+          s.fontColor = colors.blackPrimaryText
+          s.fontColorDetailed = UIColor.white
+          s.tintColor = colors.blackSecondaryText
+        }
       }
     case .searchBar:
       return .add { s in
@@ -476,7 +480,11 @@ extension GlobalStyleSheet: IStyleSheet {
         s.shadowOffset = CGSize(width: 0, height: 1)
         s.shadowOpacity = 0.3
         s.shadowRadius = 6
-        s.cornerRadius = .modalSheet
+        if #available(iOS 26.0, *) {
+          s.cornerRadius = .iOS26ModalSheet
+        } else {
+          s.cornerRadius = .modalSheet
+        }
         s.clip = false
         s.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
       }
