@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Osoite/lohko</string>
     <string name="type.addr_interpolation.even">Osoite/lohko</string>
@@ -45,6 +46,7 @@
     <string name="type.amenity.charging_station.motorcar">Auton latausasema</string>
     <string name="type.amenity.childcare">Päivähoito</string>
     <string name="type.amenity.cinema">Elokuvateatteri</string>
+    <string name="type.amenity.studio">Studio</string>
     <string name="type.leisure.bowling_alley">Keilarata</string>
     <string name="type.amenity.clinic">Klinikka</string>
     <string name="type.amenity.college">Korkeakoulu</string>
@@ -126,6 +128,7 @@
     <string name="type.amenity.prison">Vankila</string>
     <string name="type.amenity.pub">Pubi</string>
     <string name="type.amenity.public_bookcase">Kirjahylly</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Kierrätyskeskus</string>
     <string name="type.amenity.recycling">Kierrätysjäteastia</string>
@@ -362,6 +365,7 @@
     <string name="type.healthcare.psychotherapist">Psykoterapia</string>
     <string name="type.healthcare.sample_collection">Näytteenotto</string>
     <string name="type.healthcare.speech_therapist">Logopedia</string>
+
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Valtatie</string>
     <string name="type.highway.bridleway">Ratsastustie</string>
@@ -526,6 +530,7 @@
     <string name="type.area_highway.track">Katu</string>
     <string name="type.area_highway.trunk">Päätie</string>
     <string name="type.area_highway.unclassified">Katu</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historiallinen esine</string>
     <string name="type.historic.aircraft">Historiallinen lentokone</string>
@@ -583,6 +588,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Kristillinen hautausmaa</string>
     <string name="type.landuse.religious">Kirkon piha</string>
+    <string name="type.landuse.churchyard">Kirkon piha</string>
     <string name="type.landuse.commercial">Kaupallinen alue</string>
     <string name="type.landuse.construction">Rakennustyömaa</string>
     <string name="type.landuse.education">Koulutuslaitos</string>
@@ -1106,6 +1112,7 @@
     <string name="type.shop.pet_grooming">Lemmikkieläinten hoito</string>
     <string name="type.shop.photo">Valokuvakauppa</string>
     <string name="type.shop.rental">Vuokrakauppa</string>
+    <string name="type.shop.rental.bicycle">Polkupyörävuokraamo</string>
     <string name="type.amenity.bicycle_rental.shop">Polkupyörävuokraamo</string>
     <string name="type.shop.seafood">Kalakauppias</string>
     <string name="type.shop.second_hand">Käytetyn tavaran liike</string>
@@ -1289,7 +1296,6 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Urheiluhalli</string>
-    <string name="type.amenity.studio">Studio</string>
     <string name="type.barrier.jersey_barrier">Lohko</string>
     <string name="type.barrier.debris">Romueste</string>
     <string name="type.barrier.log">Tukkieste</string>

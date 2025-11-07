@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">アドレス/ブロック</string>
     <string name="type.addr_interpolation.even">アドレス/ブロック</string>
@@ -128,6 +129,7 @@
     <string name="type.amenity.prison">刑務所</string>
     <string name="type.amenity.pub">バー</string>
     <string name="type.amenity.public_bookcase">街角文庫</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">リサイクルセンター</string>
     <string name="type.amenity.recycling">リサイクルボックス</string>
@@ -343,6 +345,7 @@
     <string name="type.healthcare.psychotherapist">心理療法</string>
     <string name="type.healthcare.sample_collection">サンプリング</string>
     <string name="type.healthcare.speech_therapist">ロゴペディックス</string>
+
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">道路</string>
     <string name="type.highway.bridleway">馬道</string>
@@ -507,6 +510,7 @@
     <string name="type.area_highway.track">ストリート</string>
     <string name="type.area_highway.trunk">ストリート</string>
     <string name="type.area_highway.unclassified">ストリート</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">史跡</string>
     <string name="type.historic.aircraft">歴史的な航空機</string>
@@ -566,6 +570,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">キリスト教墓地</string>
     <string name="type.landuse.religious">キリスト教教会付属地</string>
+    <string name="type.landuse.churchyard">キリスト教教会付属地</string>
     <string name="type.landuse.commercial">商業用地</string>
     <string name="type.landuse.construction">建設工事中</string>
     <string name="type.landuse.farmland">農地</string>
@@ -1133,6 +1138,7 @@
     <string name="type.shop.pet_grooming">ペットグルーミング</string>
     <string name="type.shop.photo">写真屋</string>
     <string name="type.shop.rental">レンタルショップ</string>
+    <string name="type.shop.rental.bicycle">レンタサイクルショップ</string>
     <string name="type.amenity.bicycle_rental.shop">レンタサイクルショップ</string>
     <string name="type.shop.seafood">魚屋</string>
     <string name="type.shop.second_hand">古物商</string>

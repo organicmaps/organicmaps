@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "주소/블록";
 "type.addr_interpolation.even" = "주소/블록";
 "type.addr_interpolation.odd" = "주소/블록";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "바비큐 그릴";
 "type.amenity.bench" = "벤치";
 "type.amenity.bicycle_parking" = "자전거 주차장";
+"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
 "type.amenity.bicycle_rental" = "자전거 대여";
 "type.amenity.bicycle_repair_station" = "자전거 수리소";
 "type.amenity.biergarten" = "비어가르텐";
 "type.amenity.brothel" = "사창가";
+"type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "환전";
 "type.amenity.bus_station" = "버스 터미널";
 "type.amenity.cafe" = "카페";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "자동차 충전소";
 "type.amenity.childcare" = "보육";
 "type.amenity.cinema" = "영화관";
+"type.amenity.studio" = "Studio";
 "type.leisure.bowling_alley" = "볼링장";
 "type.amenity.clinic" = "클리닉";
 "type.amenity.college" = "칼리지";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "유치원";
 "type.amenity.library" = "도서관";
 "type.amenity.loading_dock" = "하역장";
+"type.amenity.luggage_locker" = "Luggage Locker";
 "type.amenity.marketplace" = "시장";
 "type.amenity.motorcycle_parking" = "오토바이 주차";
 "type.amenity.nightclub" = "나이트 클럽";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "경찰";
 "type.amenity.post_box" = "우편함";
 "type.amenity.post_office" = "우체국";
+"type.post_office.post_partner" = "Post Partner";
 "type.amenity.prison" = "감옥";
 "type.amenity.pub" = "술집";
 "type.amenity.public_bookcase" = "도서 교환";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "재활용센터";
 "type.amenity.recycling" = "재활용 쓰레기통";
 "type.amenity.recycling.container" = "재활용 쓰레기통";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "폐수";
 "type.barrier.entrance" = "입구";
 "type.barrier.fence" = "Fence";
+"type.barrier.guard_rail" = "Guard Rail";
 "type.barrier.gate" = "게이트";
 "type.barrier.hedge" = "Hedge";
 "type.barrier.kissing_gate" = "게이트";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "심리치료";
 "type.healthcare.sample_collection" = "견본 추출";
 "type.healthcare.speech_therapist" = "대화 요법";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "터널";
+"type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "거리";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "거리";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "역사적 물건";
 "type.historic.aircraft" = "\"역사적인 항공기\"";
 "type.historic.anchor" = "역사적인 앵커";
@@ -644,18 +667,44 @@
 "type.historic.wayside_cross" = "길가의 십자가";
 "type.historic.wayside_shrine" = "길가의 신사";
 "type.historic.wreck" = "난파선";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "인터넷";
 "type.internet_access.wlan" = "인터넷";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "묘소";
 "type.landuse.religious" = "교회 마당";
+"type.landuse.churchyard" = "교회 마당";
 "type.landuse.commercial" = "Commercial Area";
 "type.landuse.construction" = "Construction Area";
 "type.landuse.education" = "Educational Facility";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "Salt Pond";
 "type.landuse.village_green" = "Land";
 "type.landuse.vineyard" = "Vineyard";
+"type.landuse.plant_nursery" = "Plant Nursery";
 "type.leisure" = "Leisure";
 "type.leisure.common" = "Public Land";
 "type.leisure.dog_park" = "애완견 지역";
+"type.leisure.escape_game" = "Escape Room";
 "type.leisure.fitness_centre" = "피트니스센터";
 "type.leisure.fitness_station" = "피트니스 스테이션";
 "type.leisure.dance" = "\"댄스홀\"";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "천연보호구역";
 "type.leisure.outdoor_seating" = "야외 좌석";
+"type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "공원";
 "type.leisure.park.no.access" = "공원";
 "type.leisure.park.permissive" = "공원";
@@ -773,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "우물";
 "type.man_made.windmill" = "풍차";
 "type.man_made.works" = "Industrial Works";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Military";
 "type.military.bunker" = "벙커";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "지하철";
 "type.railway.station.subway.philadelphia" = "지하철";
 "type.railway.station.subway.pyongyang" = "지하철";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Subway Station";
 "type.railway.station.subway.rennes" = "지하철";
 "type.railway.station.subway.rio" = "지하철";
 "type.railway.station.subway.roma" = "지하철";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "애완동물 미용";
 "type.shop.photo" = "사진 가게";
 "type.shop.rental" = "렌탈샵";
+"type.shop.rental.bicycle" = "자전거 대여점";
 "type.amenity.bicycle_rental.shop" = "자전거 대여점";
 "type.shop.seafood" = "생선가게";
 "type.shop.second_hand" = "중고 판매점";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "관광안내도";
 "type.tourism.information.office" = "관광정보센터";
 "type.tourism.information.visitor_centre" = "방문자 센터";
+"type.amenity.ranger_station" = "Ranger Station";
 "type.tourism.motel" = "모텔";
 "type.tourism.museum" = "박물관";
 "type.tourism.picnic_site" = "피크닉 장소";
@@ -1447,17 +1509,17 @@
 "type.aerialway.t.bar" = "T-bar Lift";
 "type.piste_type.downhill" = "Downhill Ski Run";
 "type.piste_type.downhill.area" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
-"type.piste_type.downhill.easy" = "Downhill Ski Run";
-"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
-"type.piste_type.downhill.expert" = "Downhill Ski Run";
-"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
-"type.piste_type.downhill.freeride" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
-"type.piste_type.downhill.novice" = "Downhill Ski Run";
-"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.advanced.area" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.easy.area" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.expert.area" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.freeride" = "Freeride Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.intermediate.area" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.novice" = "Novice Downhill Ski Run";
+"type.piste_type.downhill.novice.area" = "Novice Downhill Ski Run";
 "type.piste_type.nordic" = "Nordic Ski Trail";
 "type.piste_type.sled" = "Sledding Piste";
 "type.piste_type.sled.area" = "Sledding Piste";
@@ -1484,18 +1546,6 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "스포츠 홀";
-"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
-"type.amenity.love_hotel" = "Love Hotel";
-"type.amenity.studio" = "Studio";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.post_office.post_partner" = "Post Partner";
-"type.barrier.guard_rail" = "Guard Rail";
-"type.highway.ladder" = "Ladder";
-"type.landuse.plant_nursery" = "Plant Nursery";
-"type.leisure.escape_game" = "Escape Room";
-"type.leisure.firepit" = "Firepit";
-"type.railway.station.subway.qingdao" = "Subway Station";
-"type.amenity.ranger_station" = "Ranger Station";
 "type.sport.diving" = "Diving";
 "type.man_made.crane" = "Crane";
 "type.barrier.wicket_gate" = "Wicket Gate";

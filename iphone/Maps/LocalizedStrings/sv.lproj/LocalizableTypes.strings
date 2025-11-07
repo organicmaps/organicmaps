@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "Adress / kvarter";
 "type.addr_interpolation.even" = "Adress / kvarter";
 "type.addr_interpolation.odd" = "Adress / kvarter";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "Grill för barbecue";
 "type.amenity.bench" = "Bänk";
 "type.amenity.bicycle_parking" = "Cykelparkering";
+"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
 "type.amenity.bicycle_rental" = "Cykeluthyrning";
 "type.amenity.bicycle_repair_station" = "Cykelreparationsstation";
 "type.amenity.biergarten" = "Ölservering";
 "type.amenity.brothel" = "Bordell";
+"type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "Valutaväxling";
 "type.amenity.bus_station" = "Busstation";
 "type.amenity.cafe" = "Café";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Laddningsstation för bilar";
 "type.amenity.childcare" = "Barnomsorg";
 "type.amenity.cinema" = "Bio";
+"type.amenity.studio" = "Studio";
 "type.leisure.bowling_alley" = "Bowlinghall";
 "type.amenity.clinic" = "Klinik";
 "type.amenity.college" = "Högskola";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "Förskola";
 "type.amenity.library" = "Bibliotek";
 "type.amenity.loading_dock" = "Lastkaj";
+"type.amenity.luggage_locker" = "Luggage Locker";
 "type.amenity.marketplace" = "Marknadsplats";
 "type.amenity.motorcycle_parking" = "Motorcykelparkering";
 "type.amenity.nightclub" = "Nattklubb";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "Polis";
 "type.amenity.post_box" = "Postlåda";
 "type.amenity.post_office" = "Postkontor";
+"type.post_office.post_partner" = "Post Partner";
 "type.amenity.prison" = "Fängelse";
 "type.amenity.pub" = "Krog";
 "type.amenity.public_bookcase" = "Bokskåp";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Återvinningscentral";
 "type.amenity.recycling" = "Behållare för återvinningsbart avfall";
 "type.amenity.recycling.container" = "Behållare för återvinningsbart avfall";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "Avloppsvatten";
 "type.barrier.entrance" = "Ingång";
 "type.barrier.fence" = "Staket";
+"type.barrier.guard_rail" = "Guard Rail";
 "type.barrier.gate" = "Grind";
 "type.barrier.hedge" = "Häck";
 "type.barrier.kissing_gate" = "Grind";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "Psykoterapi";
 "type.healthcare.sample_collection" = "Provtagning";
 "type.healthcare.speech_therapist" = "Logoped";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Väg";
 "type.highway.bridleway" = "Ridväg";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Tunnel";
+"type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "Gata";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "Gata";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "Historiskt objekt";
 "type.historic.aircraft" = "Historiska flygplan";
 "type.historic.anchor" = "Historiskt ankare";
@@ -644,18 +667,44 @@
 "type.historic.wayside_cross" = "Korset vid vägkanten";
 "type.historic.wayside_shrine" = "Helgedom vid vägkanten";
 "type.historic.wreck" = "Förlisning";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Trådlöst nätverk";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Begravningsplats";
 "type.landuse.religious" = "Kyrkogård";
+"type.landuse.churchyard" = "Kyrkogård";
 "type.landuse.commercial" = "Handelsområde";
 "type.landuse.construction" = "Byggarbetsplats";
 "type.landuse.education" = "Educational Facility";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "Saltsjö";
 "type.landuse.village_green" = "Grönområde";
 "type.landuse.vineyard" = "Vingård";
+"type.landuse.plant_nursery" = "Plant Nursery";
 "type.leisure" = "Fritid";
 "type.leisure.common" = "Allmän plats";
 "type.leisure.dog_park" = "Hundparken";
+"type.leisure.escape_game" = "Escape Room";
 "type.leisure.fitness_centre" = "Gym";
 "type.leisure.fitness_station" = "Fitnesstation";
 "type.leisure.dance" = "Danshall";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "Småbåtshamn";
 "type.leisure.nature_reserve" = "Naturreservat";
 "type.leisure.outdoor_seating" = "Sittplatser utomhus";
+"type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Parken";
 "type.leisure.park.no.access" = "Parken";
 "type.leisure.park.permissive" = "Parken";
@@ -773,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "Brunn";
 "type.man_made.windmill" = "Väderkvarn";
 "type.man_made.works" = "Fabrik";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Militärt";
 "type.military.bunker" = "Bunker";
@@ -926,6 +983,7 @@
 "type.railway.light_rail.tunnel" = "Light Rail Tunnel";
 "type.railway.monorail" = "Monorail";
 "type.railway.monorail.bridge" = "Monorail Bridge";
+"type.railway.monorail.tunnel" = "Monorail Tunnel";
 "type.railway.narrow_gauge" = "Smalspårig järnväg";
 "type.railway.narrow_gauge.bridge" = "Smalspårig järnvägsbro";
 "type.railway.narrow_gauge.tunnel" = "Smalspårig järnvägstunnel";
@@ -1051,6 +1109,9 @@
 "type.railway.station.subway.paris" = "Tunnelbanestation";
 "type.railway.station.subway.philadelphia" = "Tunnelbanestation";
 "type.railway.station.subway.pyongyang" = "Tunnelbanestation";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Subway Station";
 "type.railway.station.subway.rennes" = "Tunnelbanestation";
 "type.railway.station.subway.rio" = "Tunnelbanestation";
 "type.railway.station.subway.roma" = "Tunnelbanestation";
@@ -1282,6 +1343,7 @@
 "type.shop.pet_grooming" = "Husdjursvård";
 "type.shop.photo" = "Fotoaffär";
 "type.shop.rental" = "Uthyrningsbutik";
+"type.shop.rental.bicycle" = "Cykeluthyrningsbutik";
 "type.amenity.bicycle_rental.shop" = "Cykeluthyrningsbutik";
 "type.shop.seafood" = "Fiskhandlare";
 "type.shop.second_hand" = "Andrahandsaffär";
@@ -1400,6 +1462,7 @@
 "type.tourism.information.map" = "Turistkarta";
 "type.tourism.information.office" = "Turistcenter";
 "type.tourism.information.visitor_centre" = "Besökscentrum";
+"type.amenity.ranger_station" = "Ranger Station";
 "type.tourism.motel" = "Motell";
 "type.tourism.museum" = "Museum";
 "type.tourism.picnic_site" = "Picknickplatser";
@@ -1410,6 +1473,7 @@
 /* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Vildmarksstuga";
 "type.tourism.zoo" = "Djurpark";
+"type.tourism.zoo.petting" = "Petting Zoo";
 "type.traffic_calming" = "Farthinder";
 "type.traffic_calming.bump" = "Fartgupp";
 "type.traffic_calming.hump" = "Fartbula";
@@ -1482,20 +1546,6 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Idrottshall";
-"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
-"type.amenity.love_hotel" = "Love Hotel";
-"type.amenity.studio" = "Studio";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.post_office.post_partner" = "Post Partner";
-"type.barrier.guard_rail" = "Guard Rail";
-"type.highway.ladder" = "Ladder";
-"type.landuse.plant_nursery" = "Plant Nursery";
-"type.leisure.escape_game" = "Escape Room";
-"type.leisure.firepit" = "Firepit";
-"type.railway.monorail.tunnel" = "Monorail Tunnel";
-"type.railway.station.subway.qingdao" = "Subway Station";
-"type.amenity.ranger_station" = "Ranger Station";
-"type.tourism.zoo.petting" = "Petting Zoo";
 "type.sport.diving" = "Diving";
 "type.man_made.crane" = "Crane";
 "type.barrier.wicket_gate" = "Wicket Gate";

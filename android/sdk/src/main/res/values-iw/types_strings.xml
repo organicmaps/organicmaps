@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">כתובת/שכונה</string>
     <string name="type.addr_interpolation.even">כתובת/שכונה</string>
@@ -127,6 +128,7 @@
     <string name="type.amenity.prison">בית כלא</string>
     <string name="type.amenity.pub">פאב</string>
     <string name="type.amenity.public_bookcase">כוננית ספרים ציבורית</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">מרכז מיחזור</string>
     <string name="type.amenity.recycling">מיכל מיחזור</string>
@@ -369,6 +371,7 @@
     <string name="type.healthcare.psychotherapist">פסיכותרפיה</string>
     <string name="type.healthcare.sample_collection">מרכז איסוף דגימות</string>
     <string name="type.healthcare.speech_therapist">ריפוי בדיבור</string>
+
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">כביש</string>
     <string name="type.highway.bridleway">שביל סוסים</string>
@@ -534,6 +537,7 @@
     <string name="type.area_highway.track">מסלול</string>
     <string name="type.area_highway.trunk">כביש בין עירוני</string>
     <string name="type.area_highway.unclassified">כביש לא מסומן/מזערי</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">חפץ היסטורי</string>
     <string name="type.historic.aircraft">מטוס היסטורי</string>
@@ -579,18 +583,6 @@
     <string name="type.historic.wayside_cross">צלב בצד הדרך</string>
     <string name="type.historic.wayside_shrine">מקדש בצד הדרך</string>
     <string name="type.historic.wreck">ספינה טרופה</string>
-    <string name="type.hwtag.bidir_bicycle">מסלול אופניים דו סיטרי</string>
-    <string name="type.hwtag.onedir_bicycle">מסלול אופניים חד סיטרי</string>
-    <string name="type.hwtag.lit">מואר</string>
-    <string name="type.hwtag.nobicycle">אין כניסה לאופניים</string>
-    <string name="type.hwtag.nocar">אין כניסה לכלי רכב</string>
-    <string name="type.hwtag.nofoot">אין כניסה להולכי רגל</string>
-    <string name="type.hwtag.oneway">חד סיטרי</string>
-    <string name="type.hwtag.private">פרטי</string>
-    <string name="type.hwtag.toll">אגרה</string>
-    <string name="type.hwtag.yesbicycle">הכניסה לאופניים מותרת</string>
-    <string name="type.hwtag.yescar">הכניסה לכלי רכב מותרת</string>
-    <string name="type.hwtag.yesfoot">הכניסה להולכי רגל מותרת</string>
     <string name="type.internet_access">אינטרנט</string>
     <string name="type.internet_access.wlan">אינטרנט אלחוטי</string>
     <string name="type.junction">צומת</string>
@@ -605,6 +597,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">בית קברות נוצרי</string>
     <string name="type.landuse.religious">חצר כנסיה</string>
+    <string name="type.landuse.churchyard">חצר כנסיה</string>
     <string name="type.landuse.commercial">אזור מסחרי</string>
     <string name="type.landuse.construction">אתר בניה</string>
     <string name="type.landuse.education">קריית חינוך</string>
@@ -910,6 +903,7 @@
     <string name="type.shop.pet_grooming">טיפוח חיות מחמד</string>
     <string name="type.shop.photo">חנות צילום</string>
     <string name="type.shop.rental">חנות להשכרה</string>
+    <string name="type.shop.rental.bicycle">חנות להשכרת אופניים</string>
     <string name="type.amenity.bicycle_rental.shop">חנות להשכרת אופניים</string>
     <string name="type.shop.seafood">חנות דגים</string>
     <string name="type.shop.second_hand">היינש די תונח</string>
@@ -1059,9 +1053,9 @@
     <string name="type.amenity.dojo">דוג\'ו</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">אולם ספורט</string>
-    <string name="type.barrier.log">מחסום גזע עץ</string>
-    <string name="type.barrier.debris">הריסות</string>
     <string name="type.barrier.jersey_barrier">בלוק</string>
+    <string name="type.barrier.debris">הריסות</string>
+    <string name="type.barrier.log">מחסום גזע עץ</string>
     <string name="type.amenity.boat_rental">השכרת סירות</string>
     <string name="type.shop.telecommunication">חנות טלקומוניקציה</string>
     <string name="type.leisure.indoor_play">מרכז משחק</string>

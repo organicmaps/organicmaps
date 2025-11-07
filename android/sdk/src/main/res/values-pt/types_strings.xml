@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Morada/Bloco</string>
     <string name="type.addr_interpolation.even">Morada/Bloco</string>
@@ -48,6 +49,7 @@
     <string name="type.amenity.charging_station.motorcar">Posto de carregamento de veículo elétrico</string>
     <string name="type.amenity.childcare">Creche</string>
     <string name="type.amenity.cinema">Cinema</string>
+    <string name="type.amenity.studio">Estúdio</string>
     <string name="type.leisure.bowling_alley">Pista de bowling</string>
     <string name="type.amenity.clinic">Clínica ou centro de saúde</string>
     <string name="type.amenity.college">Escola técnica</string>
@@ -129,6 +131,7 @@
     <string name="type.amenity.prison">Prisão</string>
     <string name="type.amenity.pub">Pub ou taberna</string>
     <string name="type.amenity.public_bookcase">Biblioteca livre</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Centro de reciclagem</string>
     <string name="type.amenity.recycling">Contentor de reciclagem</string>
@@ -355,6 +358,7 @@
     <string name="type.healthcare.psychotherapist">Psicoterapia</string>
     <string name="type.healthcare.sample_collection">Amostragem</string>
     <string name="type.healthcare.speech_therapist">Terapia da fala</string>
+
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Rodovia</string>
     <string name="type.highway.bridleway">Caminho para cavaleiros</string>
@@ -519,6 +523,7 @@
     <string name="type.area_highway.track">Pista para desportos não motorizados</string>
     <string name="type.area_highway.trunk">Via rápida</string>
     <string name="type.area_highway.unclassified">Estrada sem classificação</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Objeto histórico</string>
     <string name="type.historic.aircraft">Aeronaves Históricas</string>
@@ -578,6 +583,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Cemitério cristão</string>
     <string name="type.landuse.religious">Adro de igreja</string>
+    <string name="type.landuse.churchyard">Adro de igreja</string>
     <string name="type.landuse.commercial">Área comercial</string>
     <string name="type.landuse.construction">Construção</string>
     <string name="type.landuse.farmland">Campo agrícola</string>
@@ -606,9 +612,11 @@
     <string name="type.landuse.salt_pond">Salinas</string>
     <string name="type.landuse.village_green">Espaço verde de um vilarejo</string>
     <string name="type.landuse.vineyard">Vinha</string>
+    <string name="type.landuse.plant_nursery">Viveiro de plantas</string>
     <string name="type.leisure">Lazer</string>
     <string name="type.leisure.common">Terreno baldio</string>
     <string name="type.leisure.dog_park">Parque para cães</string>
+    <string name="type.leisure.escape_game">Sala de fuga</string>
     <string name="type.leisure.fitness_centre">Academia de fitness</string>
     <string name="type.leisure.fitness_station">Dispositivo público de exercícios</string>
     <string name="type.leisure.dance">Salão de dança</string>
@@ -616,10 +624,12 @@
     <string name="type.leisure.garden.residential">Jardim residencial</string>
     <string name="type.leisure.golf_course">Campo de golfe</string>
     <string name="type.leisure.miniature_golf">Minigolfe</string>
+    <string name="type.leisure.hackerspace">Hackerspace</string>
     <string name="type.leisure.ice_rink">Rinque de patinagem</string>
     <string name="type.leisure.marina">Marina</string>
     <string name="type.leisure.nature_reserve">Reserva natural</string>
     <string name="type.leisure.outdoor_seating">Assentos ao ar livre</string>
+    <string name="type.leisure.firepit">Lugar para Fogueira</string>
     <string name="type.leisure.park">Parque</string>
     <string name="type.leisure.park.no.access">Parque privativo</string>
     <string name="type.leisure.park.permissive">Parque</string>
@@ -639,15 +649,21 @@
     <string name="type.leisure.track">Trilha</string>
     <string name="type.leisure.track.area">Área de trilha</string>
     <string name="type.leisure.water_park">Parque aquático</string>
+    <string name="type.leisure.beach_resort">Resort à beira mar</string>
     <string name="type.man_made">Construção humana</string>
     <string name="type.man_made.breakwater">Quebra-mar</string>
     <string name="type.man_made.cairn">Monumento de pedras</string>
     <string name="type.man_made.chimney">Chaminé de fábrica</string>
     <string name="type.man_made.cutline">Linha de corte</string>
+    <string name="type.man_made.survey_point">Ponto de Levantamento</string>
+    <string name="type.man_made.flagpole">Mastro de bandeira</string>
     <string name="type.man_made.lighthouse">Farol</string>
+    <string name="type.man_made.mast">Mastro</string>
     <string name="type.man_made.pier">Píer</string>
     <string name="type.man_made.pipeline">Gasoduto</string>
     <string name="type.man_made.pipeline.overground">Gasoduto aéreo</string>
+    <string name="type.man_made.silo">Silo</string>
+    <string name="type.man_made.storage_tank">Tanque de armazenamento</string>
     <string name="type.man_made.surveillance">Câmara de vigilância</string>
     <string name="type.man_made.tower">Torre</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
@@ -668,6 +684,7 @@
     <string name="type.man_made.works">Fábrica</string>
     <string name="type.military">Militar</string>
     <string name="type.military.bunker">Búnquer</string>
+    <string name="type.mountain_pass">Passo de montanha</string>
     <string name="type.natural">Natureza</string>
     <!-- A rocky land cover. -->
     <string name="type.natural.bare_rock">Zona rochosa</string>
@@ -779,6 +796,15 @@
     <string name="type.power.substation">Subestação elétrica</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Torre de eletricidade</string>
+    <!-- A single pole supporting minor power lines. -->
+    <string name="type.power.pole">Poste de energia</string>
+    <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
+    <string name="type.man_made.utility_pole">Poste público</string>
+    <string name="type.psurface">psurface</string>
+    <string name="type.psurface.paved_bad">superfície pavimentada ruim</string>
+    <string name="type.psurface.paved_good">superfície pavimentada boa</string>
+    <string name="type.psurface.unpaved_bad">Superfície não pavimentada ruim</string>
+    <string name="type.psurface.unpaved_good">Superfície não pavimentada boa</string>
     <string name="type.public_transport">Transporte público</string>
     <string name="type.public_transport.platform">Plataforma de transporte público</string>
     <string name="type.railway">Ferrovia</string>
@@ -1150,6 +1176,7 @@
     <string name="type.shop.pet_grooming">Salão de banhos e tosquia</string>
     <string name="type.shop.photo">Loja de fotografia</string>
     <string name="type.shop.rental">Locadora</string>
+    <string name="type.shop.rental.bicycle">Loja de aluguel de bicicletas</string>
     <string name="type.amenity.bicycle_rental.shop">Loja de aluguel de bicicletas</string>
     <string name="type.shop.seafood">Peixaria</string>
     <string name="type.shop.second_hand">Loja de segunda mão</string>
@@ -1342,27 +1369,6 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Pavilhão desportivo</string>
-    <string name="type.amenity.studio">Estúdio</string>
-    <string name="type.landuse.plant_nursery">Viveiro de plantas</string>
-    <string name="type.leisure.escape_game">Sala de fuga</string>
-    <string name="type.leisure.hackerspace">Hackerspace</string>
-    <string name="type.leisure.firepit">Lugar para Fogueira</string>
-    <string name="type.leisure.beach_resort">Resort à beira mar</string>
-    <string name="type.man_made.survey_point">Ponto de Levantamento</string>
-    <string name="type.man_made.flagpole">Mastro de bandeira</string>
-    <string name="type.man_made.mast">Mastro</string>
-    <string name="type.man_made.silo">Silo</string>
-    <string name="type.man_made.storage_tank">Tanque de armazenamento</string>
-    <string name="type.mapswithme">maps.me</string>
-    <string name="type.mapswithme.grid">maps.me-grade</string>
-    <string name="type.mountain_pass">Passo de montanha</string>
-    <string name="type.power.pole">Poste de energia</string>
-    <string name="type.man_made.utility_pole">Poste público</string>
-    <string name="type.psurface">psurface</string>
-    <string name="type.psurface.paved_bad">superfície pavimentada ruim</string>
-    <string name="type.psurface.paved_good">superfície pavimentada boa</string>
-    <string name="type.psurface.unpaved_bad">Superfície não pavimentada ruim</string>
-    <string name="type.psurface.unpaved_good">Superfície não pavimentada boa</string>
     <string name="type.barrier.jersey_barrier">Bloco</string>
     <string name="type.barrier.debris">Entulho</string>
     <string name="type.barrier.log">Barreira de troncos</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adresa/blok</string>
     <string name="type.addr_interpolation.even">Adresa/blok</string>
@@ -123,6 +124,7 @@
     <string name="type.amenity.prison">Väznica</string>
     <string name="type.amenity.pub">Pohostinstvo</string>
     <string name="type.amenity.public_bookcase">Knižná búdka</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Zberné suroviny</string>
     <string name="type.amenity.recycling">Recyklačný kontajner</string>
@@ -361,6 +363,7 @@
     <string name="type.healthcare.psychotherapist">Psychoterapia</string>
     <string name="type.healthcare.sample_collection">Odber vzoriek</string>
     <string name="type.healthcare.speech_therapist">Logopédia</string>
+
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Cesta</string>
     <string name="type.highway.bridleway">Cesta pre jazdca na zvierati</string>
@@ -526,6 +529,7 @@
     <string name="type.area_highway.track">Poľná cesta</string>
     <string name="type.area_highway.trunk">Cesta</string>
     <string name="type.area_highway.unclassified">Cesta bez administratívneho zaradenia</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historický objekt</string>
     <string name="type.historic.aircraft">Historické lietadlo</string>
@@ -582,6 +586,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Kresťanský cintorín</string>
     <string name="type.landuse.religious">Cintorín</string>
+    <string name="type.landuse.churchyard">Cintorín</string>
     <string name="type.landuse.commercial">Komerčná oblasť</string>
     <string name="type.landuse.construction">Stavenisko</string>
     <string name="type.landuse.education">Vzdelávacia inštitúcia</string>
@@ -1138,6 +1143,7 @@
     <string name="type.shop.pet_grooming">Zvierací salón</string>
     <string name="type.shop.photo">Fotografické služby</string>
     <string name="type.shop.rental">Požičovňa</string>
+    <string name="type.shop.rental.bicycle">Požičovňa bicyklov</string>
     <string name="type.amenity.bicycle_rental.shop">Požičovňa bicyklov</string>
     <string name="type.shop.seafood">Predajňa rýb</string>
     <string name="type.shop.second_hand">Second hand</string>

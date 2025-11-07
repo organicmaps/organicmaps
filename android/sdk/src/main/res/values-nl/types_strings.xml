@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adres/blok</string>
     <string name="type.addr_interpolation.even">Adres/blok</string>
@@ -28,10 +29,12 @@
     <string name="type.amenity.bbq">Barbecue</string>
     <string name="type.amenity.bench">Zitbank</string>
     <string name="type.amenity.bicycle_parking">Fietsenstalling</string>
+    <string name="type.amenity.bicycle_parking.covered">Overdekte Fietsen Stalling</string>
     <string name="type.amenity.bicycle_rental">Fietsverhuur</string>
     <string name="type.amenity.bicycle_repair_station">Fiets reparatie station</string>
     <string name="type.amenity.biergarten">Biertuin</string>
     <string name="type.amenity.brothel">Bordeel</string>
+    <string name="type.amenity.love_hotel">Ontmoetingshotel</string>
     <string name="type.amenity.bureau_de_change">Wisselkantoor</string>
     <string name="type.amenity.bus_station">Busstation</string>
     <string name="type.amenity.cafe">Café</string>
@@ -48,6 +51,7 @@
     <string name="type.amenity.charging_station.motorcar">Oplaadstation voor auto\'s</string>
     <string name="type.amenity.childcare">Crèche</string>
     <string name="type.amenity.cinema">Bioscoop</string>
+    <string name="type.amenity.studio">Studio</string>
     <string name="type.leisure.bowling_alley">Bowlingbaan</string>
     <string name="type.amenity.clinic">Kliniek</string>
     <string name="type.amenity.college">Hogeschool</string>
@@ -68,6 +72,7 @@
     <string name="type.amenity.fast_food">Fast food</string>
     <string name="type.amenity.ferry_terminal">Veerpont</string>
     <string name="type.amenity.fire_station">Brandweer</string>
+    <string name="type.amenity.food_court">Food court</string>
     <string name="type.amenity.fountain">Fontein</string>
     <string name="type.amenity.fuel">Tankstation</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -81,6 +86,7 @@
     <string name="type.amenity.kindergarten">Kleuterschool</string>
     <string name="type.amenity.library">Bibliotheek</string>
     <string name="type.amenity.loading_dock">Laad-dock</string>
+    <string name="type.amenity.luggage_locker">Baggage Kluis</string>
     <string name="type.amenity.marketplace">Markt</string>
     <string name="type.amenity.motorcycle_parking">Parking Motorfietsen</string>
     <string name="type.amenity.nightclub">Nachtclub</string>
@@ -125,9 +131,11 @@
     <string name="type.amenity.police">Politie</string>
     <string name="type.amenity.post_box">Brievenbus</string>
     <string name="type.amenity.post_office">Postkantoor</string>
+    <string name="type.post_office.post_partner">Post Agentschap</string>
     <string name="type.amenity.prison">Gevangenis</string>
     <string name="type.amenity.pub">Kroeg</string>
     <string name="type.amenity.public_bookcase">Boekenkast</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Milieustraat</string>
     <string name="type.amenity.recycling">Recycling container</string>
@@ -154,6 +162,8 @@
     <string name="type.amenity.shelter.public_transport">Beschutting</string>
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
     <string name="type.amenity.shelter.basic_hut">Bivakhut</string>
+    <!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
+    <string name="type.amenity.shelter.lean_to">Shelter</string>
     <string name="type.amenity.public_bath">Publiek bad</string>
     <string name="type.amenity.shower">Douche</string>
     <string name="type.amenity.stripclub">Stripclub</string>
@@ -196,6 +206,7 @@
     <string name="type.natural.water.wastewater">Afvalwater</string>
     <string name="type.barrier.entrance">Ingang</string>
     <string name="type.barrier.fence">Hek</string>
+    <string name="type.barrier.guard_rail">Vangrail</string>
     <string name="type.barrier.gate">Poort</string>
     <string name="type.barrier.hedge">Heg</string>
     <string name="type.barrier.kissing_gate">Voetgangershek</string>
@@ -270,6 +281,7 @@
     <string name="type.cuisine.beef_bowl">Gyudon</string>
     <string name="type.cuisine.brazilian">Braziliaans</string>
     <string name="type.cuisine.breakfast">Ontbijt</string>
+    <string name="type.cuisine.bubble_tea">Bubbelthee</string>
     <string name="type.cuisine.burger">Hamburgers</string>
     <string name="type.cuisine.buschenschank">Buschenschank</string>
     <string name="type.cuisine.cake">Taart</string>
@@ -287,6 +299,7 @@
     <string name="type.cuisine.filipino">Filipijns</string>
     <string name="type.cuisine.fine_dining">Gastronomisch</string>
     <string name="type.cuisine.fish">Vis</string>
+    <string name="type.cuisine.fish_and_chips">Fish and Chips</string>
     <string name="type.cuisine.french">Frans</string>
     <string name="type.cuisine.friture">Frituur</string>
     <string name="type.cuisine.georgian">Georgisch</string>
@@ -355,6 +368,7 @@
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Hoofdingang</string>
     <string name="type.entrance.exit">Ga naar</string>
+    <string name="type.fee.yes">€</string>
     <string name="type.fee.no">Gratis</string>
     <string name="type.healthcare.laboratory">Medisch laboratorium</string>
     <string name="type.healthcare.physiotherapist">Fysiotherapeut</string>
@@ -366,6 +380,7 @@
     <string name="type.healthcare.psychotherapist">Psychotherapie</string>
     <string name="type.healthcare.sample_collection">Bemonstering</string>
     <string name="type.healthcare.speech_therapist">Logopedie</string>
+
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Straat</string>
     <string name="type.highway.bridleway">Ruiterpad</string>
@@ -481,6 +496,7 @@
     <string name="type.highway.steps.bridge">Brug</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.steps.tunnel">Tunnel</string>
+    <string name="type.highway.ladder">Ladder</string>
     <string name="type.highway.tertiary">Tertiaire weg</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary.bridge">Brug</string>
@@ -531,6 +547,9 @@
     <string name="type.area_highway.track">Straat</string>
     <string name="type.area_highway.trunk">Straat</string>
     <string name="type.area_highway.unclassified">Straat</string>
+    <string name="type.highway.world_level">highway-world_level</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historisch object</string>
     <string name="type.historic.aircraft">Historische vliegtuigen</string>
@@ -584,11 +603,13 @@
     <string name="type.landuse">Landgebruik</string>
     <string name="type.landuse.allotments">Volkstuinen</string>
     <string name="type.landuse.basin">Waterbassin</string>
+    <string name="type.landuse.brownfield">Braakliggend terrein</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Begraafplaats</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Christelijke begraafplaats</string>
     <string name="type.landuse.religious">Kerkhof</string>
+    <string name="type.landuse.churchyard">Kerkhof</string>
     <string name="type.landuse.commercial">Commercieel gebied</string>
     <string name="type.landuse.construction">Bouwplaats</string>
     <string name="type.landuse.education">Educatieve voorzieningen</string>
@@ -602,6 +623,7 @@
     <string name="type.landuse.forest.mixed">Gemengd bos</string>
     <string name="type.landuse.garages">Garages</string>
     <string name="type.landuse.grass">Gazon</string>
+    <string name="type.landuse.greenfield">Greenfield</string>
     <string name="type.landuse.greenhouse_horticulture">Kassen</string>
     <string name="type.landuse.industrial">Industrieterrein</string>
     <string name="type.landuse.landfill">Stortplaats</string>
@@ -611,14 +633,17 @@
     <string name="type.landuse.quarry">Steengroeve</string>
     <string name="type.landuse.railway">Spoorwegfaciliteiten</string>
     <string name="type.landuse.recreation_ground">Recreatiezone</string>
+    <string name="type.landuse.reservoir">Reservoir</string>
     <string name="type.landuse.residential">Woonwijk</string>
     <string name="type.landuse.retail">Detailhandel</string>
     <string name="type.landuse.salt_pond">Zoutpoel</string>
     <string name="type.landuse.village_green">Dorpspark</string>
     <string name="type.landuse.vineyard">Wijngaard</string>
+    <string name="type.landuse.plant_nursery">Plantenkwekerij</string>
     <string name="type.leisure">Ontspanning</string>
     <string name="type.leisure.common">Openbare grond</string>
     <string name="type.leisure.dog_park">Hondenuitlaatplek</string>
+    <string name="type.leisure.escape_game">Ontsnapkamer</string>
     <string name="type.leisure.fitness_centre">Fitnesscentrum</string>
     <string name="type.leisure.fitness_station">Fitness-Station</string>
     <string name="type.leisure.dance">Danszaal</string>
@@ -626,10 +651,12 @@
     <string name="type.leisure.garden.residential">Tuin</string>
     <string name="type.leisure.golf_course">Golfbaan</string>
     <string name="type.leisure.miniature_golf">Minigolf</string>
+    <string name="type.leisure.hackerspace">Hackerspace</string>
     <string name="type.leisure.ice_rink">Schaatsbaan</string>
     <string name="type.leisure.marina">Jachthaven</string>
     <string name="type.leisure.nature_reserve">Natuurreservaat</string>
     <string name="type.leisure.outdoor_seating">Zitplaatsen buiten</string>
+    <string name="type.leisure.firepit">Vuurplaats</string>
     <string name="type.leisure.park">Park</string>
     <string name="type.leisure.park.no.access">Park</string>
     <string name="type.leisure.park.permissive">Park</string>
@@ -778,6 +805,7 @@
     <string name="type.place.town">Stad</string>
     <string name="type.place.village">Dorp</string>
     <string name="type.power">Electriciteit</string>
+    <string name="type.power.generator">Generator</string>
     <string name="type.power.generator.solar">Zonne-generator</string>
     <string name="type.power.generator.wind">Wind generator</string>
     <string name="type.power.generator.gas">Gasturbine elektriciteitscentrale</string>
@@ -795,6 +823,10 @@
     <string name="type.power.substation">Transformatorstation</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Elektriciteitsmast</string>
+    <!-- A single pole supporting minor power lines. -->
+    <string name="type.power.pole">Stroommast</string>
+    <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
+    <string name="type.man_made.utility_pole">Paal</string>
     <string name="type.psurface">Wegdek</string>
     <string name="type.psurface.paved_bad">Verhard</string>
     <string name="type.psurface.paved_good">Verhard</string>
@@ -942,6 +974,8 @@
     <string name="type.railway.station.subway.paris">Metrostation</string>
     <string name="type.railway.station.subway.philadelphia">Metrostation</string>
     <string name="type.railway.station.subway.pyongyang">Metrostation</string>
+    <!-- TODO: add ref to "type.railway.station.subway" -->
+    <string name="type.railway.station.subway.qingdao">Metro Station</string>
     <string name="type.railway.station.subway.rennes">Metrostation</string>
     <string name="type.railway.station.subway.rio">Metrostation</string>
     <string name="type.railway.station.subway.roma">Metrostation</string>
@@ -1098,6 +1132,7 @@
     <string name="type.railway.tram_stop">Tramhalte</string>
     <string name="type.route">Route</string>
     <string name="type.route.ferry">Veerboot</string>
+    <string name="type.route.shuttle_train">route-shuttle_train</string>
     <string name="type.shop">Winkel</string>
     <string name="type.shop.alcohol">Slijterij</string>
     <string name="type.shop.bakery">Bakkerij</string>
@@ -1172,6 +1207,7 @@
     <string name="type.shop.pet_grooming">Huisdierverzorging</string>
     <string name="type.shop.photo">Fotowinkel</string>
     <string name="type.shop.rental">Verhuur winkel</string>
+    <string name="type.shop.rental.bicycle">Fietsverhuurwinkel</string>
     <string name="type.amenity.bicycle_rental.shop">Fietsverhuurwinkel</string>
     <string name="type.shop.seafood">Visboer</string>
     <string name="type.shop.second_hand">Tweedehandswinkel</string>
@@ -1265,6 +1301,7 @@
     <string name="type.attraction.amusement_ride">Prettocht</string>
     <string name="type.attraction.animal">Dierenverblijf</string>
     <string name="type.attraction.bumper_car">Botsauto\'s</string>
+    <string name="type.attraction.big_wheel">Reuzenrad</string>
     <string name="type.attraction.carousel">Reuzenrad</string>
     <string name="type.attraction.historic">Historische attractie</string>
     <string name="type.attraction.maze">Doolhof</string>
@@ -1285,6 +1322,8 @@
     <string name="type.tourism.information.map">Toeristische kaart</string>
     <string name="type.tourism.information.office">Toeristische informatie</string>
     <string name="type.tourism.information.visitor_centre">Bezoekerscentrum</string>
+    <string name="type.amenity.ranger_station">Boswachtershuis</string>
+    <string name="type.tourism.motel">Motel</string>
     <string name="type.tourism.museum">Museum</string>
     <string name="type.tourism.picnic_site">Picnicplaats</string>
     <string name="type.leisure.resort">Complex</string>
@@ -1362,52 +1401,13 @@
     <string name="type.amenity.dojo">Sportschool</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Sporthal</string>
-    <string name="type.cuisine.bubble_tea">Bubbelthee</string>
-    <string name="type.fee.yes">€</string>
-    <string name="type.power.pole">Stroommast</string>
-    <string name="type.man_made.utility_pole">Paal</string>
-    <string name="type.cuisine.fish_and_chips">Fish and Chips</string>
-    <string name="type.hwtag">hwtag</string>
-    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
-    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
-    <string name="type.hwtag.lit">hwtag-lit</string>
-    <string name="type.hwtag.nocar">hwtag-nocar</string>
-    <string name="type.hwtag.nofoot">hwtag-nofoot</string>
-    <string name="type.hwtag.oneway">hwtag-oneway</string>
-    <string name="type.hwtag.private">hwtag-private</string>
-    <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
-    <string name="type.landuse.reservoir">Reservoir</string>
-    <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
-    <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
-    <string name="type.hwtag.toll">hwtag-toll</string>
-    <string name="type.hwtag.yescar">hwtag-yescar</string>
-    <string name="type.mapswithme">mapswithme</string>
-    <string name="type.tourism.motel">Motel</string>
-    <string name="type.route.shuttle_train">route-shuttle_train</string>
-    <string name="type.mapswithme.grid">mapswithme-grid</string>
-    <string name="type.attraction.big_wheel">Reuzenrad</string>
-    <string name="type.amenity.shelter.lean_to">Shelter</string>
-    <string name="type.landuse.brownfield">Braakliggend terrein</string>
-    <string name="type.landuse.greenfield">Greenfield</string>
-    <string name="type.power.generator">Generator</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
-    <string name="type.leisure.hackerspace">Hackerspace</string>
-    <string name="type.amenity.food_court">Food court</string>
     <string name="type.sport.diving">Duiken</string>
     <string name="type.man_made.crane">Kraan</string>
-    <string name="type.amenity.studio">Studio</string>
-    <string name="type.barrier.guard_rail">Vangrail</string>
-    <string name="type.landuse.plant_nursery">Plantenkwekerij</string>
-    <string name="type.leisure.firepit">Vuurplaats</string>
-    <string name="type.highway.ladder">Ladder</string>
-    <string name="type.amenity.love_hotel">Ontmoetingshotel</string>
-    <string name="type.amenity.bicycle_parking.covered">Overdekte Fietsen Stalling</string>
-    <string name="type.amenity.luggage_locker">Baggage Kluis</string>
-    <string name="type.post_office.post_partner">Post Agentschap</string>
-    <string name="type.leisure.escape_game">Ontsnapkamer</string>
-    <string name="type.railway.station.subway.qingdao">Metro Station</string>
-    <string name="type.amenity.ranger_station">Boswachtershuis</string>
+    <string name="type.barrier.wicket_gate">Wicketpoort</string>
+    <string name="type.barrier.yes">Barrière</string>
+    <string name="type.building.guardhouse">Wacht</string>
+    <string name="type.office.security">Beveiligingsbureau</string>
+    <string name="type.power.portal">Kracht Toren (Portaal)</string>
     <string name="type.shop.lighting">Verlichtingswinkel</string>
     <string name="type.barrier.jersey_barrier">Blok</string>
     <string name="type.barrier.debris">Puin</string>
@@ -1422,11 +1422,6 @@
     <string name="type.man_made.monitoring_station">Controlestation</string>
     <string name="type.man_made.monitoring_station.water_level">Meetstation voor waterpeil</string>
     <string name="type.man_made.monitoring_station.weather">Weerstation</string>
-    <string name="type.barrier.wicket_gate">Wicketpoort</string>
-    <string name="type.barrier.yes">Barrière</string>
-    <string name="type.building.guardhouse">Wacht</string>
-    <string name="type.office.security">Beveiligingsbureau</string>
-    <string name="type.power.portal">Kracht Toren (Portaal)</string>
     <string name="type.amenity.student_accommodation">Studentenhuisvesting</string>
     <string name="type.craft.watchmaker">Horlogemaker</string>
 </resources>

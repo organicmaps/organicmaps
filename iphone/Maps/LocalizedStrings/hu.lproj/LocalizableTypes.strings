@@ -1,10 +1,16 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "Cím/háztömb";
 "type.addr_interpolation.even" = "Cím/háztömb";
 "type.addr_interpolation.odd" = "Cím/háztömb";
 "type.aerialway" = "Drótkötélpályás felvonó";
 "type.aerialway.cable_car" = "Nagykabinos felvonó";
 "type.aerialway.chair_lift" = "Ülőlift";
+"type.aerialway.drag_lift" = "Húzólift";
 "type.aerialway.gondola" = "Gondolakabinos felvonó";
+"type.aerialway.mixed_lift" = "Vegyes sífelvonó";
 "type.aerialway.station" = "Felvonóállomás";
 "type.aeroway" = "Légi közlekedési infrastruktúra";
 "type.aeroway.aerodrome" = "Repülőtér";
@@ -23,10 +29,12 @@
 "type.amenity.bbq" = "Grillezőhely";
 "type.amenity.bench" = "Pad";
 "type.amenity.bicycle_parking" = "Kerékpártároló";
+"type.amenity.bicycle_parking.covered" = "Fedett kerékpártároló";
 "type.amenity.bicycle_rental" = "Kerékpárkölcsönző";
 "type.amenity.bicycle_repair_station" = "Kerékpárjavító állomás";
 "type.amenity.biergarten" = "Sörkert";
 "type.amenity.brothel" = "Bordélyház";
+"type.amenity.love_hotel" = "Szeretőszálló";
 "type.amenity.bureau_de_change" = "Pénzváltó";
 "type.amenity.bus_station" = "Buszállomás";
 "type.amenity.cafe" = "Kávézó";
@@ -43,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Elektromos töltőállomás";
 "type.amenity.childcare" = "Bölcsőde";
 "type.amenity.cinema" = "Mozi";
+"type.amenity.studio" = "Stúdió";
 "type.leisure.bowling_alley" = "Tekepálya";
 "type.amenity.clinic" = "Rendelőintézet";
 "type.amenity.college" = "Főiskola";
@@ -79,6 +88,7 @@
 "type.amenity.kindergarten" = "Óvoda";
 "type.amenity.library" = "Könyvtár";
 "type.amenity.loading_dock" = "Rakodórámpa";
+"type.amenity.luggage_locker" = "Csomagmegőrző";
 "type.amenity.marketplace" = "Piac";
 "type.amenity.motorcycle_parking" = "Motorkerékpár-parkoló";
 "type.amenity.nightclub" = "Éjszakai mulató, night club, diszkó";
@@ -123,9 +133,14 @@
 "type.amenity.police" = "Rendőrség";
 "type.amenity.post_box" = "Postaláda";
 "type.amenity.post_office" = "Posta";
+"type.post_office.post_partner" = "Postapartnerpont";
 "type.amenity.prison" = "Börtön";
 "type.amenity.pub" = "Kocsma";
 "type.amenity.public_bookcase" = "Nyilvános könyvespolc";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Hulladékudvar";
 "type.amenity.recycling" = "Szelektív hulladékgyűjtés";
 "type.amenity.recycling.container" = "Szelektív hulladékgyűjtő konténer";
@@ -199,6 +214,7 @@
 "type.natural.water.wastewater" = "Szennyvíz";
 "type.barrier.entrance" = "Bejárat";
 "type.barrier.fence" = "Kerítés";
+"type.barrier.guard_rail" = "Szalagkorlát";
 "type.barrier.gate" = "Kapu";
 "type.barrier.hedge" = "Sövény";
 "type.barrier.kissing_gate" = "Lengőkapu";
@@ -214,6 +230,12 @@
 
 /* Borders between countries. */
 "type.boundary.administrative.2" = "Országhatár";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Tartományhatár";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regionális határ";
 "type.boundary.national_park" = "Nemzeti park";
 "type.boundary.aboriginal_lands" = "Bennszülött földek";
 "type.boundary.protected_area" = "Védett terület";
@@ -375,6 +397,10 @@
 "type.healthcare.psychotherapist" = "Pszichoterápia";
 "type.healthcare.sample_collection" = "Mintavételgyűjtő központ";
 "type.healthcare.speech_therapist" = "Logopédia";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Közút";
 "type.highway.bridleway" = "Lovaglóút";
 
@@ -526,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Alagút";
+"type.highway.ladder" = "Létra";
 "type.highway.tertiary" = "Bekötőút";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -588,6 +615,12 @@
 "type.area_highway.track" = "Mzg. vagy erdészeti út";
 "type.area_highway.trunk" = "Autóút";
 "type.area_highway.unclassified" = "Egyéb közút";
+"type.highway.world_level" = "út-világszint";
+"type.highway.world_towns_level" = "út-világvárosok szint";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "Történelmi objektum";
 "type.historic.aircraft" = "Történelmi repülőgép";
 "type.historic.anchor" = "Történelmi horgony";
@@ -634,9 +667,45 @@
 "type.historic.wayside_cross" = "Útmenti kereszt";
 "type.historic.wayside_shrine" = "Útmenti kegyhely";
 "type.historic.wreck" = "Hajóroncs";
-"type.hwtag.oneway" = "egyirányú";
-"type.hwtag.private" = "magán";
-"type.hwtag.toll" = "útdíjjas";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internetcsatlakozás";
 "type.internet_access.wlan" = "Internetcsatlakozás";
 "type.junction" = "Kereszteződés";
@@ -653,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Keresztény temető";
 "type.landuse.religious" = "Templomkert";
+"type.landuse.churchyard" = "Templomkert";
 "type.landuse.commercial" = "Üzleti terület";
 "type.landuse.construction" = "Építési terület";
 "type.landuse.education" = "Oktatási létesítmény";
@@ -682,9 +752,11 @@
 "type.landuse.salt_pond" = "Sólepárló medence";
 "type.landuse.village_green" = "Faluközponti zöldterület (UK)";
 "type.landuse.vineyard" = "Szőlő";
+"type.landuse.plant_nursery" = "Faiskola";
 "type.leisure" = "Szabadidő";
 "type.leisure.common" = "Szabadidős tevékenységre használható közös föld (UK)";
 "type.leisure.dog_park" = "Kutyafuttató";
+"type.leisure.escape_game" = "Szabadulószoba";
 "type.leisure.fitness_centre" = "Edzőterem";
 "type.leisure.fitness_station" = "Fitneszpark";
 "type.leisure.dance" = "Táncterem";
@@ -694,8 +766,10 @@
 "type.leisure.miniature_golf" = "Minigolf";
 "type.leisure.hackerspace" = "Hackerspace";
 "type.leisure.ice_rink" = "Jégpálya";
+"type.leisure.marina" = "Kishajókikötő";
 "type.leisure.nature_reserve" = "Természetvédelmi terület";
 "type.leisure.outdoor_seating" = "Kiülős helyek";
+"type.leisure.firepit" = "Tűzrakóhely";
 "type.leisure.park" = "Park";
 "type.leisure.park.no.access" = "Magántulajdonban lévő park";
 "type.leisure.park.permissive" = "Park";
@@ -718,6 +792,7 @@
 "type.leisure.beach_resort" = "Fürdőhely, vízparti strand";
 "type.man_made" = "Építmény";
 "type.man_made.breakwater" = "Hullámtörő";
+"type.man_made.cairn" = "Kőhalom (mesterséges)";
 "type.man_made.chimney" = "Kémény";
 "type.man_made.cutline" = "Nyiladék";
 "type.man_made.survey_point" = "Földmérési alappont";
@@ -751,6 +826,12 @@
 "type.man_made.water_well.drinking_water_no" = "Kút (nem ivóvíz)";
 "type.man_made.windmill" = "Szélmalom";
 "type.man_made.works" = "Gyár, üzem";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Katonai";
 "type.military.bunker" = "Bunker";
 "type.mountain_pass" = "Hágó";
@@ -1028,6 +1109,9 @@
 "type.railway.station.subway.paris" = "Metróállomás";
 "type.railway.station.subway.philadelphia" = "Metróállomás";
 "type.railway.station.subway.pyongyang" = "Metróállomás";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Metróállomás";
 "type.railway.station.subway.rennes" = "Metróállomás";
 "type.railway.station.subway.rio" = "Metróállomás";
 "type.railway.station.subway.roma" = "Metróállomás";
@@ -1259,6 +1343,7 @@
 "type.shop.pet_grooming" = "Kisállatápolás";
 "type.shop.photo" = "Fotóüzlet";
 "type.shop.rental" = "Kölcsönző";
+"type.shop.rental.bicycle" = "Kerékpárkölcsönző";
 "type.amenity.bicycle_rental.shop" = "Kerékpárkölcsönző";
 "type.shop.seafood" = "Halkereskedés";
 "type.shop.second_hand" = "Használtcikk-bolt";
@@ -1377,6 +1462,7 @@
 "type.tourism.information.map" = "Turisztikai térkép";
 "type.tourism.information.office" = "Tourinform iroda";
 "type.tourism.information.visitor_centre" = "Látogatóközpont";
+"type.amenity.ranger_station" = "Vadőrség";
 "type.tourism.motel" = "Motel";
 "type.tourism.museum" = "Múzeum";
 "type.tourism.picnic_site" = "Piknikezőhely";
@@ -1460,40 +1546,8 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Sportcsarnok";
-"type.aerialway.drag_lift" = "Húzólift";
-"type.aerialway.mixed_lift" = "Vegyes sífelvonó";
-"type.boundary.administrative.3" = "Tartományhatár";
-"type.boundary.administrative.4" = "Regionális határ";
-"type.leisure.marina" = "Kishajókikötő";
-"type.man_made.cairn" = "Kőhalom (mesterséges)";
-"type.highway.world_level" = "út-világszint";
-"type.highway.world_towns_level" = "út-világvárosok szint";
-"type.hwtag" = "útcímke";
-"type.hwtag.bidir_bicycle" = "útcímke-kétirányú_kerékpárút";
-"type.hwtag.lit" = "útcímke-megvilágítás";
-"type.hwtag.onedir_bicycle" = "útcímke-egyirányú_kerékpárút";
-"type.hwtag.nofoot" = "útcímke-gyalogosan_nem_használható";
-"type.hwtag.yesbicycle" = "útcímke-kerékpárral_használható";
-"type.hwtag.yescar" = "útcímke-személyautóval_használható";
-"type.mapswithme" = "mapswithme";
-"type.hwtag.nobicycle" = "útcímke-kerékpárral_nem_használható";
-"type.mapswithme.grid" = "mapswithme-rács";
-"type.hwtag.nocar" = "útcímke-személyautóval_nem_használható";
-"type.hwtag.yesfoot" = "útcímke-gyalogosan_használható";
-"type.landuse.plant_nursery" = "Faiskola";
-"type.leisure.firepit" = "Tűzrakóhely";
-"type.barrier.guard_rail" = "Szalagkorlát";
-"type.amenity.love_hotel" = "Szeretőszálló";
-"type.amenity.studio" = "Stúdió";
-"type.highway.ladder" = "Létra";
 "type.sport.diving" = "Búvárkodás";
 "type.man_made.crane" = "Daru";
-"type.railway.station.subway.qingdao" = "Metróállomás";
-"type.amenity.bicycle_parking.covered" = "Fedett kerékpártároló";
-"type.amenity.ranger_station" = "Vadőrség";
-"type.post_office.post_partner" = "Postapartnerpont";
-"type.amenity.luggage_locker" = "Csomagmegőrző";
-"type.leisure.escape_game" = "Szabadulószoba";
 "type.barrier.wicket_gate" = "Személybejáró";
 "type.barrier.yes" = "Akadály";
 "type.building.guardhouse" = "Őrség";

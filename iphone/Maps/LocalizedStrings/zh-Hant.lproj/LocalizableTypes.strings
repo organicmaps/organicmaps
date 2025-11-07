@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "地址/區塊";
 "type.addr_interpolation.even" = "地址/區塊";
 "type.addr_interpolation.odd" = "地址/區塊";
@@ -12,11 +16,11 @@
 "type.aeroway.aerodrome" = "機場";
 "type.aeroway.aerodrome.international" = "機場";
 "type.aeroway.apron" = "機場停機坪";
-"type.aeroway.gate" = "登機門";
+"type.aeroway.gate" = "登機口";
 "type.aeroway.helipad" = "直升機場";
 "type.aeroway.runway" = "機場跑道";
 "type.aeroway.taxiway" = "滑行道";
-"type.aeroway.terminal" = "航廈";
+"type.aeroway.terminal" = "航站楼";
 "type.amenity" = "設施";
 "type.amenity.arts_centre" = "藝術中心";
 "type.amenity.atm" = "自動櫃員機";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "烤肉架";
 "type.amenity.bench" = "長板凳";
 "type.amenity.bicycle_parking" = "腳踏車停放區";
+"type.amenity.bicycle_parking.covered" = "有遮蔭的單車停車場";
 "type.amenity.bicycle_rental" = "自行車出租";
 "type.amenity.bicycle_repair_station" = "自行車維修站";
 "type.amenity.biergarten" = "啤酒花園";
 "type.amenity.brothel" = "妓院";
+"type.amenity.love_hotel" = "愛情旅館";
 "type.amenity.bureau_de_change" = "匯率";
 "type.amenity.bus_station" = "公車站";
 "type.amenity.cafe" = "咖啡廳";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "汽車充電站";
 "type.amenity.childcare" = "保育";
 "type.amenity.cinema" = "電影院";
+"type.amenity.studio" = "Studio";
 "type.leisure.bowling_alley" = "保齡球館";
 "type.amenity.clinic" = "診所";
 "type.amenity.college" = "學院";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "幼兒園";
 "type.amenity.library" = "圖書館";
 "type.amenity.loading_dock" = "裝卸碼頭";
+"type.amenity.luggage_locker" = "行李保管箱";
 "type.amenity.marketplace" = "市場";
 "type.amenity.motorcycle_parking" = "機車停車格";
 "type.amenity.nightclub" = "夜店";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "警察局";
 "type.amenity.post_box" = "郵筒";
 "type.amenity.post_office" = "郵局";
+"type.post_office.post_partner" = "郵件代辦所";
 "type.amenity.prison" = "監獄";
 "type.amenity.pub" = "酒館";
 "type.amenity.public_bookcase" = "書架";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "回收中心";
 "type.amenity.recycling" = "回收箱";
 "type.amenity.recycling.container" = "回收箱";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "廢水";
 "type.barrier.entrance" = "入口";
 "type.barrier.fence" = "籬笆";
+"type.barrier.guard_rail" = "交通護欄";
 "type.barrier.gate" = "門";
 "type.barrier.hedge" = "灌木籬笆";
 "type.barrier.kissing_gate" = "門";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "心理治療";
 "type.healthcare.sample_collection" = "採樣";
 "type.healthcare.speech_therapist" = "言語治療";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "道路";
 "type.highway.bridleway" = "馬道";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "隧道";
+"type.highway.ladder" = "梯子";
 "type.highway.tertiary" = "三级道路";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "道路";
 "type.highway.world_level" = "公路 - 世界等級";
 "type.highway.world_towns_level" = "公路 - 世界城鎮等級";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "歷史地點";
 "type.historic.aircraft" = "歷史悠久的飛機";
 "type.historic.anchor" = "歷史錨";
@@ -644,19 +667,45 @@
 "type.historic.wayside_cross" = "路旁十字架";
 "type.historic.wayside_shrine" = "路旁神龕";
 "type.historic.wreck" = "沉船";
-"type.hwtag" = "交通屬性標籤";
-"type.hwtag.bidir_bicycle" = "雙向自行車道標籤";
-"type.hwtag.onedir_bicycle" = "單向自行車道標籤";
-"type.hwtag.lit" = "照明設施標籤";
-"type.hwtag.nobicycle" = "禁止自行車標籤";
-"type.hwtag.nocar" = "禁止汽車標籤";
-"type.hwtag.nofoot" = "禁止行人標籤";
-"type.hwtag.oneway" = "單行道標籤";
-"type.hwtag.private" = "私人道路標籤";
-"type.hwtag.toll" = "收費公路標籤";
-"type.hwtag.yesbicycle" = "允許自行車標籤";
-"type.hwtag.yescar" = "允許汽車標籤";
-"type.hwtag.yesfoot" = "允許行人標籤";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "互聯網";
 "type.internet_access.wlan" = "無線網路";
 "type.junction" = "交叉口";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "基督教墓地";
 "type.landuse.religious" = "教堂庭院";
+"type.landuse.churchyard" = "教堂庭院";
 "type.landuse.commercial" = "商業區";
 "type.landuse.construction" = "建設區域";
 "type.landuse.education" = "教育設施";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "鹽田";
 "type.landuse.village_green" = "村莊綠地";
 "type.landuse.vineyard" = "葡萄園";
+"type.landuse.plant_nursery" = "苗圃";
 "type.leisure" = "休閒設施";
 "type.leisure.common" = "公共用地";
 "type.leisure.dog_park" = "遛狗區";
+"type.leisure.escape_game" = "密室脫逃";
 "type.leisure.fitness_centre" = "健身中心";
 "type.leisure.fitness_station" = "健身房";
 "type.leisure.dance" = "舞廳";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "遊艇碼頭";
 "type.leisure.nature_reserve" = "自然保護區";
 "type.leisure.outdoor_seating" = "戶外座位";
+"type.leisure.firepit" = "火坑";
 "type.leisure.park" = "公園";
 "type.leisure.park.no.access" = "公園";
 "type.leisure.park.permissive" = "公園";
@@ -773,8 +826,12 @@
 "type.man_made.water_well.drinking_water_no" = "水井";
 "type.man_made.windmill" = "風車";
 "type.man_made.works" = "工業設施";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
-"type.mapswithme.grid" = "mapswithme-網格";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "軍事";
 "type.military.bunker" = "地堡";
 "type.mountain_pass" = "Mountain Pass";
@@ -920,13 +977,13 @@
 "type.railway.funicular.bridge" = "纜車橋";
 "type.railway.funicular.tunnel" = "纜車隧道";
 "type.railway.halt" = "小站";
-"type.railway.level_crossing" = "鐵路平交道";
+"type.railway.level_crossing" = "鐵路道口";
 "type.railway.light_rail" = "輕軌";
 "type.railway.light_rail.bridge" = "輕軌橋樑";
 "type.railway.light_rail.tunnel" = "輕軌隧道";
 "type.railway.monorail" = "單軌軌道";
-"type.railway.monorail.bridge" = "單軌橋";
-"type.railway.monorail.tunnel" = "單軌隧道";
+"type.railway.monorail.bridge" = "單軌軌道";
+"type.railway.monorail.tunnel" = "單軌軌道";
 "type.railway.narrow_gauge" = "窄軌鐵路";
 "type.railway.narrow_gauge.bridge" = "窄軌鐵路橋樑";
 "type.railway.narrow_gauge.tunnel" = "窄軌鐵路隧道";
@@ -956,15 +1013,15 @@
 "type.railway.rail.utility.bridge" = "鐵路橋";
 "type.railway.rail.spur.bridge" = "鐵路橋";
 "type.railway.rail.service.bridge" = "鐵路橋";
-"type.railway.rail.tunnel" = "鐵路隧道";
-"type.railway.rail.highspeed.tunnel" = "鐵路隧道";
-"type.railway.rail.tourism.tunnel" = "鐵路隧道";
-"type.railway.rail.main.tunnel" = "鐵路隧道";
-"type.railway.rail.branch.tunnel" = "鐵路隧道";
-"type.railway.rail.utility.tunnel" = "鐵路隧道";
-"type.railway.rail.spur.tunnel" = "鐵路隧道";
-"type.railway.rail.service.tunnel" = "鐵路隧道";
-"type.railway.station" = "鐵路車站";
+"type.railway.rail.tunnel" = "鐵路軌道";
+"type.railway.rail.highspeed.tunnel" = "鐵路軌道";
+"type.railway.rail.tourism.tunnel" = "鐵路軌道";
+"type.railway.rail.main.tunnel" = "鐵路軌道";
+"type.railway.rail.branch.tunnel" = "鐵路軌道";
+"type.railway.rail.utility.tunnel" = "鐵路軌道";
+"type.railway.rail.spur.tunnel" = "鐵路軌道";
+"type.railway.rail.service.tunnel" = "鐵路軌道";
+"type.railway.station" = "火車站";
 "type.railway.station.funicular" = "纜車";
 "type.railway.station.light_rail" = "輕軌車站";
 "type.railway.station.light_rail.berlin" = "市內快車車站";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "捷運站";
 "type.railway.station.subway.philadelphia" = "捷運站";
 "type.railway.station.subway.pyongyang" = "捷運站";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "捷運站";
 "type.railway.station.subway.rennes" = "捷運站";
 "type.railway.station.subway.rio" = "捷運站";
 "type.railway.station.subway.roma" = "捷運站";
@@ -1088,122 +1148,122 @@
 "type.railway.subway" = "捷運線";
 "type.railway.subway.bridge" = "捷運橋樑";
 "type.railway.subway.tunnel" = "捷運隧道";
-"type.railway.subway_entrance" = "捷運入口";
-"type.railway.subway_entrance.adana" = "捷運入口";
-"type.railway.subway_entrance.algiers" = "捷運入口";
-"type.railway.subway_entrance.almaty" = "捷運入口";
-"type.railway.subway_entrance.amsterdam" = "捷運入口";
-"type.railway.subway_entrance.ankara" = "捷運入口";
-"type.railway.subway_entrance.athens" = "捷運入口";
-"type.railway.subway_entrance.baku" = "捷運入口";
-"type.railway.subway_entrance.bangkok" = "捷運入口";
-"type.railway.subway_entrance.barcelona" = "捷運入口";
-"type.railway.subway_entrance.beijing" = "捷運入口";
-"type.railway.subway_entrance.bengalore" = "捷運入口";
-"type.railway.subway_entrance.berlin" = "捷運入口";
-"type.railway.subway_entrance.bilbao" = "捷運入口";
-"type.railway.subway_entrance.brasilia" = "捷運入口";
-"type.railway.subway_entrance.brescia" = "捷運入口";
+"type.railway.subway_entrance" = "地鐵入口";
+"type.railway.subway_entrance.adana" = "地鐵入口";
+"type.railway.subway_entrance.algiers" = "地鐵入口";
+"type.railway.subway_entrance.almaty" = "地鐵入口";
+"type.railway.subway_entrance.amsterdam" = "地鐵入口";
+"type.railway.subway_entrance.ankara" = "地鐵入口";
+"type.railway.subway_entrance.athens" = "地鐵入口";
+"type.railway.subway_entrance.baku" = "地鐵入口";
+"type.railway.subway_entrance.bangkok" = "地鐵入口";
+"type.railway.subway_entrance.barcelona" = "地鐵入口";
+"type.railway.subway_entrance.beijing" = "地鐵入口";
+"type.railway.subway_entrance.bengalore" = "地鐵入口";
+"type.railway.subway_entrance.berlin" = "地鐵入口";
+"type.railway.subway_entrance.bilbao" = "地鐵入口";
+"type.railway.subway_entrance.brasilia" = "地鐵入口";
+"type.railway.subway_entrance.brescia" = "地鐵入口";
 "type.railway.subway_entrance.brussels" = "地鐵入口";
 "type.railway.subway_entrance.bucharest" = "地鐵入口";
 "type.railway.subway_entrance.budapest" = "地鐵入口";
-"type.railway.subway_entrance.buenos_aires" = "捷運入口";
-"type.railway.subway_entrance.bursa" = "捷運入口";
-"type.railway.subway_entrance.cairo" = "捷運入口";
-"type.railway.subway_entrance.caracas" = "捷運入口";
-"type.railway.subway_entrance.catania" = "捷運入口";
-"type.railway.subway_entrance.changchun" = "捷運入口";
-"type.railway.subway_entrance.chengdu" = "捷運入口";
-"type.railway.subway_entrance.chicago" = "捷運入口";
-"type.railway.subway_entrance.chongqing" = "捷運入口";
-"type.railway.subway_entrance.dalian" = "捷運入口";
-"type.railway.subway_entrance.delhi" = "捷運入口";
-"type.railway.subway_entrance.dnepro" = "捷運入口";
-"type.railway.subway_entrance.dubai" = "捷運入口";
-"type.railway.subway_entrance.ekb" = "捷運入口";
-"type.railway.subway_entrance.fukuoka" = "捷運入口";
-"type.railway.subway_entrance.glasgow" = "捷運入口";
-"type.railway.subway_entrance.guangzhou" = "捷運入口";
-"type.railway.subway_entrance.hamburg" = "捷運入口";
-"type.railway.subway_entrance.helsinki" = "捷運入口";
-"type.railway.subway_entrance.hiroshima" = "捷運入口";
-"type.railway.subway_entrance.hongkong" = "捷運入口";
-"type.railway.subway_entrance.isfahan" = "捷運入口";
-"type.railway.subway_entrance.istanbul" = "捷運入口";
-"type.railway.subway_entrance.izmir" = "捷運入口";
-"type.railway.subway_entrance.kazan" = "捷運入口";
-"type.railway.subway_entrance.kharkiv" = "捷運入口";
-"type.railway.subway_entrance.kiev" = "捷運入口";
-"type.railway.subway_entrance.kobe" = "捷運入口";
-"type.railway.subway_entrance.kolkata" = "捷運入口";
-"type.railway.subway_entrance.kunming" = "捷運入口";
-"type.railway.subway_entrance.kyoto" = "捷運入口";
-"type.railway.subway_entrance.la" = "捷運入口";
-"type.railway.subway_entrance.lausanne" = "捷運入口";
-"type.railway.subway_entrance.lille" = "捷運入口";
-"type.railway.subway_entrance.lima" = "捷運入口";
-"type.railway.subway_entrance.lisboa" = "捷運入口";
-"type.railway.subway_entrance.london" = "捷運入口";
-"type.railway.subway_entrance.lyon" = "捷運入口";
-"type.railway.subway_entrance.madrid" = "捷運入口";
-"type.railway.subway_entrance.malaga" = "捷運入口";
-"type.railway.subway_entrance.manila" = "捷運入口";
-"type.railway.subway_entrance.maracaibo" = "捷運入口";
-"type.railway.subway_entrance.mashhad" = "捷運入口";
-"type.railway.subway_entrance.mecca" = "捷運入口";
-"type.railway.subway_entrance.medellin" = "捷運入口";
-"type.railway.subway_entrance.mexico" = "捷運入口";
-"type.railway.subway_entrance.milan" = "捷運入口";
-"type.railway.subway_entrance.minsk" = "捷運入口";
-"type.railway.subway_entrance.montreal" = "捷運入口";
-"type.railway.subway_entrance.moscow" = "捷運入口";
-"type.railway.subway_entrance.munchen" = "捷運入口";
-"type.railway.subway_entrance.nagoya" = "捷運入口";
-"type.railway.subway_entrance.newyork" = "捷運入口";
-"type.railway.subway_entrance.nnov" = "捷運入口";
-"type.railway.subway_entrance.novosibirsk" = "捷運入口";
-"type.railway.subway_entrance.osaka" = "捷運入口";
-"type.railway.subway_entrance.oslo" = "捷運入口";
-"type.railway.subway_entrance.palma" = "捷運入口";
-"type.railway.subway_entrance.panama" = "捷運入口";
-"type.railway.subway_entrance.paris" = "捷運入口";
-"type.railway.subway_entrance.philadelphia" = "捷運入口";
-"type.railway.subway_entrance.pyongyang" = "捷運入口";
-"type.railway.subway_entrance.rennes" = "捷運入口";
-"type.railway.subway_entrance.rio" = "捷運入口";
-"type.railway.subway_entrance.roma" = "捷運入口";
-"type.railway.subway_entrance.rotterdam" = "捷運入口";
-"type.railway.subway_entrance.samara" = "捷運入口";
-"type.railway.subway_entrance.santiago" = "捷運入口";
-"type.railway.subway_entrance.santo_domingo" = "捷運入口";
-"type.railway.subway_entrance.saopaulo" = "捷運入口";
-"type.railway.subway_entrance.sapporo" = "捷運入口";
-"type.railway.subway_entrance.sendai" = "捷運入口";
-"type.railway.subway_entrance.sf" = "捷運入口";
-"type.railway.subway_entrance.shanghai" = "捷運入口";
-"type.railway.subway_entrance.shenzhen" = "捷運入口";
-"type.railway.subway_entrance.shiraz" = "捷運入口";
-"type.railway.subway_entrance.singapore" = "捷運入口";
-"type.railway.subway_entrance.sofia" = "捷運入口";
-"type.railway.subway_entrance.spb" = "捷運入口";
-"type.railway.subway_entrance.stockholm" = "捷運入口";
-"type.railway.subway_entrance.tabriz" = "捷運入口";
-"type.railway.subway_entrance.taipei" = "捷運入口";
-"type.railway.subway_entrance.taoyuan" = "捷運入口";
-"type.railway.subway_entrance.tashkent" = "捷運入口";
-"type.railway.subway_entrance.tbilisi" = "捷運入口";
-"type.railway.subway_entrance.tehran" = "捷運入口";
-"type.railway.subway_entrance.tianjin" = "捷運入口";
-"type.railway.subway_entrance.tokyo" = "捷運入口";
-"type.railway.subway_entrance.valencia" = "捷運入口";
-"type.railway.subway_entrance.vienna" = "捷運入口";
-"type.railway.subway_entrance.warszawa" = "捷運入口";
-"type.railway.subway_entrance.washington" = "捷運入口";
-"type.railway.subway_entrance.wuhan" = "捷運入口";
-"type.railway.subway_entrance.yerevan" = "捷運入口";
-"type.railway.subway_entrance.yokohama" = "捷運入口";
+"type.railway.subway_entrance.buenos_aires" = "地鐵入口";
+"type.railway.subway_entrance.bursa" = "地鐵入口";
+"type.railway.subway_entrance.cairo" = "地鐵入口";
+"type.railway.subway_entrance.caracas" = "地鐵入口";
+"type.railway.subway_entrance.catania" = "地鐵入口";
+"type.railway.subway_entrance.changchun" = "地鐵入口";
+"type.railway.subway_entrance.chengdu" = "地鐵入口";
+"type.railway.subway_entrance.chicago" = "地鐵入口";
+"type.railway.subway_entrance.chongqing" = "地鐵入口";
+"type.railway.subway_entrance.dalian" = "地鐵入口";
+"type.railway.subway_entrance.delhi" = "地鐵入口";
+"type.railway.subway_entrance.dnepro" = "地鐵入口";
+"type.railway.subway_entrance.dubai" = "地鐵入口";
+"type.railway.subway_entrance.ekb" = "地鐵入口";
+"type.railway.subway_entrance.fukuoka" = "地鐵入口";
+"type.railway.subway_entrance.glasgow" = "地鐵入口";
+"type.railway.subway_entrance.guangzhou" = "地鐵入口";
+"type.railway.subway_entrance.hamburg" = "地鐵入口";
+"type.railway.subway_entrance.helsinki" = "地鐵入口";
+"type.railway.subway_entrance.hiroshima" = "地鐵入口";
+"type.railway.subway_entrance.hongkong" = "地鐵入口";
+"type.railway.subway_entrance.isfahan" = "地鐵入口";
+"type.railway.subway_entrance.istanbul" = "地鐵入口";
+"type.railway.subway_entrance.izmir" = "地鐵入口";
+"type.railway.subway_entrance.kazan" = "地鐵入口";
+"type.railway.subway_entrance.kharkiv" = "地鐵入口";
+"type.railway.subway_entrance.kiev" = "地鐵入口";
+"type.railway.subway_entrance.kobe" = "地鐵入口";
+"type.railway.subway_entrance.kolkata" = "地鐵入口";
+"type.railway.subway_entrance.kunming" = "地鐵入口";
+"type.railway.subway_entrance.kyoto" = "地鐵入口";
+"type.railway.subway_entrance.la" = "地鐵入口";
+"type.railway.subway_entrance.lausanne" = "地鐵入口";
+"type.railway.subway_entrance.lille" = "地鐵入口";
+"type.railway.subway_entrance.lima" = "地鐵入口";
+"type.railway.subway_entrance.lisboa" = "地鐵入口";
+"type.railway.subway_entrance.london" = "地鐵入口";
+"type.railway.subway_entrance.lyon" = "地鐵入口";
+"type.railway.subway_entrance.madrid" = "地鐵入口";
+"type.railway.subway_entrance.malaga" = "地鐵入口";
+"type.railway.subway_entrance.manila" = "地鐵入口";
+"type.railway.subway_entrance.maracaibo" = "地鐵入口";
+"type.railway.subway_entrance.mashhad" = "地鐵入口";
+"type.railway.subway_entrance.mecca" = "地鐵入口";
+"type.railway.subway_entrance.medellin" = "地鐵入口";
+"type.railway.subway_entrance.mexico" = "地鐵入口";
+"type.railway.subway_entrance.milan" = "地鐵入口";
+"type.railway.subway_entrance.minsk" = "地鐵入口";
+"type.railway.subway_entrance.montreal" = "地鐵入口";
+"type.railway.subway_entrance.moscow" = "地鐵入口";
+"type.railway.subway_entrance.munchen" = "地鐵入口";
+"type.railway.subway_entrance.nagoya" = "地鐵入口";
+"type.railway.subway_entrance.newyork" = "地鐵入口";
+"type.railway.subway_entrance.nnov" = "地鐵入口";
+"type.railway.subway_entrance.novosibirsk" = "地鐵入口";
+"type.railway.subway_entrance.osaka" = "地鐵入口";
+"type.railway.subway_entrance.oslo" = "地鐵入口";
+"type.railway.subway_entrance.palma" = "地鐵入口";
+"type.railway.subway_entrance.panama" = "地鐵入口";
+"type.railway.subway_entrance.paris" = "地鐵入口";
+"type.railway.subway_entrance.philadelphia" = "地鐵入口";
+"type.railway.subway_entrance.pyongyang" = "地鐵入口";
+"type.railway.subway_entrance.rennes" = "地鐵入口";
+"type.railway.subway_entrance.rio" = "地鐵入口";
+"type.railway.subway_entrance.roma" = "地鐵入口";
+"type.railway.subway_entrance.rotterdam" = "地鐵入口";
+"type.railway.subway_entrance.samara" = "地鐵入口";
+"type.railway.subway_entrance.santiago" = "地鐵入口";
+"type.railway.subway_entrance.santo_domingo" = "地鐵入口";
+"type.railway.subway_entrance.saopaulo" = "地鐵入口";
+"type.railway.subway_entrance.sapporo" = "地鐵入口";
+"type.railway.subway_entrance.sendai" = "地鐵入口";
+"type.railway.subway_entrance.sf" = "地鐵入口";
+"type.railway.subway_entrance.shanghai" = "地鐵入口";
+"type.railway.subway_entrance.shenzhen" = "地鐵入口";
+"type.railway.subway_entrance.shiraz" = "地鐵入口";
+"type.railway.subway_entrance.singapore" = "地鐵入口";
+"type.railway.subway_entrance.sofia" = "地鐵入口";
+"type.railway.subway_entrance.spb" = "地鐵入口";
+"type.railway.subway_entrance.stockholm" = "地鐵入口";
+"type.railway.subway_entrance.tabriz" = "地鐵入口";
+"type.railway.subway_entrance.taipei" = "地鐵入口";
+"type.railway.subway_entrance.taoyuan" = "地鐵入口";
+"type.railway.subway_entrance.tashkent" = "地鐵入口";
+"type.railway.subway_entrance.tbilisi" = "地鐵入口";
+"type.railway.subway_entrance.tehran" = "地鐵入口";
+"type.railway.subway_entrance.tianjin" = "地鐵入口";
+"type.railway.subway_entrance.tokyo" = "地鐵入口";
+"type.railway.subway_entrance.valencia" = "地鐵入口";
+"type.railway.subway_entrance.vienna" = "地鐵入口";
+"type.railway.subway_entrance.warszawa" = "地鐵入口";
+"type.railway.subway_entrance.washington" = "地鐵入口";
+"type.railway.subway_entrance.wuhan" = "地鐵入口";
+"type.railway.subway_entrance.yerevan" = "地鐵入口";
+"type.railway.subway_entrance.yokohama" = "地鐵入口";
 "type.railway.tram" = "電車軌道";
-"type.railway.tram.bridge" = "電車橋梁";
+"type.railway.tram.bridge" = "電車軌道";
 "type.railway.tram.tunnel" = "電車軌道";
 "type.railway.tram_stop" = "電車站";
 "type.route" = "路線";
@@ -1214,17 +1274,17 @@
 "type.shop.bakery" = "麵包店";
 "type.shop.bathroom_furnishing" = "衛浴擺設";
 "type.shop.beauty" = "美容院";
-"type.shop.beverages" = "飲品店";
-"type.shop.bicycle" = "單車車店";
+"type.shop.beverages" = "飲料";
+"type.shop.bicycle" = "自行車店";
 "type.shop.bookmaker" = "博彩公司";
 "type.shop.books" = "書店";
 "type.shop.butcher" = "肉商";
 "type.shop.cannabis" = "大麻商店";
 "type.shop.car" = "車店";
-"type.shop.car_parts" = "汽車配件商店";
-"type.shop.car_repair" = "汽車維修店";
+"type.shop.car_parts" = "汽車零件";
+"type.shop.car_repair" = "汽車維修";
 "type.shop.car_repair.tyres" = "輪胎修補";
-"type.shop.caravan" = "露營車經銷商";
+"type.shop.caravan" = "房车經銷商";
 "type.shop.carpet" = "地毯";
 "type.shop.chemist" = "藥妝店";
 "type.shop.chocolate" = "巧克力店";
@@ -1233,7 +1293,7 @@
 "type.shop.computer" = "電腦店";
 "type.shop.confectionery" = "糕餅店";
 "type.shop.convenience" = "便利店";
-"type.shop.copyshop" = "影印店";
+"type.shop.copyshop" = "復印店";
 "type.shop.cosmetics" = "化妆品";
 "type.shop.curtain" = "窗簾";
 "type.shop.deli" = "熟食店";
@@ -1253,7 +1313,7 @@
 "type.shop.gift" = "禮品店";
 "type.shop.greengrocer" = "蔬果零售店";
 "type.shop.grocery" = "雜貨店";
-"type.shop.hairdresser" = "理髮店";
+"type.shop.hairdresser" = "理髮師";
 "type.shop.hardware" = "五金店";
 "type.shop.health_food" = "保健食品店";
 "type.shop.hearing_aids" = "助聽器商店";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "寵物美容";
 "type.shop.photo" = "照片店";
 "type.shop.rental" = "租賃店";
+"type.shop.rental.bicycle" = "自行車租賃店";
 "type.amenity.bicycle_rental.shop" = "自行車租賃店";
 "type.shop.seafood" = "魚販";
 "type.shop.second_hand" = "二手店";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "旅遊地圖";
 "type.tourism.information.office" = "旅遊辦事處";
 "type.tourism.information.visitor_centre" = "遊客中心";
+"type.amenity.ranger_station" = "森林巡警站";
 "type.tourism.motel" = "汽車旅館";
 "type.tourism.museum" = "博物館";
 "type.tourism.picnic_site" = "野餐";
@@ -1447,17 +1509,17 @@
 "type.aerialway.t.bar" = "T 型拖牽";
 "type.piste_type.downhill" = "下坡滑雪道";
 "type.piste_type.downhill.area" = "下坡快速滑雪";
-"type.piste_type.downhill.advanced" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
-"type.piste_type.downhill.easy" = "Downhill Ski Run";
-"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
-"type.piste_type.downhill.expert" = "Downhill Ski Run";
-"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
-"type.piste_type.downhill.freeride" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
-"type.piste_type.downhill.novice" = "Downhill Ski Run";
-"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "下坡滑雪道";
+"type.piste_type.downhill.advanced.area" = "下坡滑雪道";
+"type.piste_type.downhill.easy" = "下坡滑雪道";
+"type.piste_type.downhill.easy.area" = "下坡滑雪道";
+"type.piste_type.downhill.expert" = "下坡滑雪道";
+"type.piste_type.downhill.expert.area" = "下坡滑雪道";
+"type.piste_type.downhill.freeride" = "下坡滑雪道";
+"type.piste_type.downhill.intermediate" = "下坡滑雪道";
+"type.piste_type.downhill.intermediate.area" = "下坡滑雪道";
+"type.piste_type.downhill.novice" = "下坡滑雪道";
+"type.piste_type.downhill.novice.area" = "下坡滑雪道";
 "type.piste_type.nordic" = "北歐滑雪道";
 "type.piste_type.sled" = "雪橇滑道";
 "type.piste_type.sled.area" = "雪橇滑道區";
@@ -1484,18 +1546,6 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "體育館";
-"type.amenity.bicycle_parking.covered" = "有遮蔭的單車停車場";
-"type.amenity.love_hotel" = "愛情旅館";
-"type.amenity.studio" = "Studio";
-"type.amenity.luggage_locker" = "行李保管箱";
-"type.post_office.post_partner" = "郵件代辦所";
-"type.barrier.guard_rail" = "交通護欄";
-"type.highway.ladder" = "梯子";
-"type.landuse.plant_nursery" = "苗圃";
-"type.leisure.escape_game" = "密室脫逃";
-"type.leisure.firepit" = "火坑";
-"type.railway.station.subway.qingdao" = "捷運站";
-"type.amenity.ranger_station" = "森林巡警站";
 "type.sport.diving" = "潛水";
 "type.man_made.crane" = "起重機";
 "type.barrier.wicket_gate" = "大門人行入口";

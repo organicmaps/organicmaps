@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SECTION: Types -->
+    <string name="type.addr_interpolation">Dirección/Bloque</string>
     <string name="type.addr_interpolation.even">Dirección/Bloque</string>
     <string name="type.addr_interpolation.odd">Dirección/Bloque</string>
     <string name="type.aerialway">Transporte aéreo</string>
@@ -26,10 +29,12 @@
     <string name="type.amenity.bbq">Grellada</string>
     <string name="type.amenity.bench">Asinto</string>
     <string name="type.amenity.bicycle_parking">Aparcamento de bicicletas</string>
+    <string name="type.amenity.bicycle_parking.covered">Aparcamento de bicicletas teitado</string>
     <string name="type.amenity.bicycle_rental">Alugueiro de bicicletas</string>
     <string name="type.amenity.bicycle_repair_station">Estación de reparación de bicicletas</string>
     <string name="type.amenity.biergarten">Biergarten</string>
     <string name="type.amenity.brothel">Bordel</string>
+    <string name="type.amenity.love_hotel">Hotel para parellas</string>
     <string name="type.amenity.bureau_de_change">Casa de cambio</string>
     <string name="type.amenity.bus_station">Estación de autobuses</string>
     <string name="type.amenity.cafe">Cafetaría</string>
@@ -46,19 +51,12 @@
     <string name="type.amenity.charging_station.motorcar">Estación de carga de automóbiles</string>
     <string name="type.amenity.childcare">Gardería</string>
     <string name="type.amenity.cinema">Cinema</string>
-    <string name="type.addr_interpolation">Dirección/Bloque</string>
+    <string name="type.amenity.studio">Estudio</string>
     <string name="type.leisure.bowling_alley">Boleira</string>
     <string name="type.amenity.clinic">Clínica</string>
     <string name="type.amenity.college">Colexio</string>
     <string name="type.amenity.community_centre">Centro comunitario</string>
     <string name="type.amenity.compressed_air">Aire comprimido</string>
-    <string name="type.amenity.toilets">WC</string>
-    <string name="type.amenity.waste_basket">Papeleira</string>
-    <string name="type.craft.tailor">Xastre</string>
-    <string name="type.cuisine.african">Africana</string>
-    <string name="type.cuisine.american">Estadounidense</string>
-    <string name="type.cuisine.burger">Hamburguesas</string>
-    <string name="type.cuisine.buschenschank">Buschenschank (especialidade austríaca)</string>
     <string name="type.amenity.conference_centre">Centro de conferencias</string>
     <string name="type.amenity.courthouse">Xulgado</string>
     <string name="type.amenity.dentist">Dentista</string>
@@ -77,11 +75,9 @@
     <string name="type.amenity.food_court">Zona de comidas</string>
     <string name="type.amenity.fountain">Fonte</string>
     <string name="type.amenity.fuel">Gasolineira</string>
-    <string name="type.public_transport.platform">Plataforma</string>
-    <string name="type.railway">Vía férrea</string>
-    <string name="type.railway.rail.spur">Espolón ferroviario</string>
-    <string name="type.railway.subway_entrance.cairo">Entrada ao metro</string>
+    <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard">Cemiterio</string>
+    <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard.christian">Cemiterio cristián</string>
     <string name="type.amenity.hospital">Hospital</string>
     <string name="type.amenity.hunting_stand">Posto de caza</string>
@@ -137,6 +133,8 @@
     <string name="type.amenity.prison">Prisión</string>
     <string name="type.amenity.pub">Pub</string>
     <string name="type.amenity.public_bookcase">Intercambio de libros</string>
+
+    <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Centro de reciclaxe</string>
     <string name="type.amenity.recycling">Contedora de reciclaxe</string>
     <string name="type.amenity.recycling.container">Contedora de reciclaxe</string>
@@ -156,9 +154,13 @@
     <string name="type.amenity.restaurant">Restaurante</string>
     <string name="type.amenity.sanitary_dump_station">Estación de baleirado para caravanas</string>
     <string name="type.amenity.school">Escola</string>
+    <!-- Weather shelter (including sun shelters and natural rock shelters). -->
     <string name="type.amenity.shelter">Refuxio</string>
+    <!-- A weather shelter by the public transport stop. -->
     <string name="type.amenity.shelter.public_transport">Refuxio</string>
+    <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
     <string name="type.amenity.shelter.basic_hut">Cabana de vivac</string>
+    <!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
     <string name="type.amenity.shelter.lean_to">Alpende</string>
     <string name="type.amenity.public_bath">Baños públicos</string>
     <string name="type.amenity.shower">Ducha</string>
@@ -166,6 +168,7 @@
     <string name="type.amenity.taxi">Sitio de taxis</string>
     <string name="type.amenity.telephone">Teléfono</string>
     <string name="type.amenity.theatre">Teatro</string>
+    <string name="type.amenity.toilets">WC</string>
     <string name="type.toilets.yes">WC</string>
     <string name="type.amenity.townhall">Concello</string>
     <string name="type.amenity.university">Universidade</string>
@@ -184,6 +187,7 @@
     <string name="type.amenity.vehicle_inspection">Inspección de vehículos</string>
     <string name="type.amenity.vending_machine.fuel">Maquina expendedora de combustible</string>
     <string name="type.amenity.veterinary">Clínica veterinaria</string>
+    <string name="type.amenity.waste_basket">Papeleira</string>
     <string name="type.amenity.waste_disposal">Contedor de lixo</string>
     <string name="type.amenity.waste_transfer_station">Estación de transferencia de residuos</string>
     <string name="type.amenity.water_point">Fonte de auga para caravanas</string>
@@ -200,6 +204,7 @@
     <string name="type.natural.water.wastewater">Augas residuais</string>
     <string name="type.barrier.entrance">Entrada</string>
     <string name="type.barrier.fence">Vala</string>
+    <string name="type.barrier.guard_rail">Barreira de contención</string>
     <string name="type.barrier.gate">Enreixado</string>
     <string name="type.barrier.hedge">Sebe</string>
     <string name="type.barrier.kissing_gate">Porta peonil</string>
@@ -212,8 +217,11 @@
     <string name="type.barrier.wall">Muro</string>
     <string name="type.boundary">Fronteira</string>
     <string name="type.boundary.administrative">Fronteira administrativa</string>
+    <!-- Borders between countries. -->
     <string name="type.boundary.administrative.2">Fronteira de país</string>
+    <!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
     <string name="type.boundary.administrative.3">Fronteira de rexión</string>
+    <!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
     <string name="type.boundary.administrative.4">Fronteira de rexión</string>
     <string name="type.boundary.national_park">Parque nacional</string>
     <string name="type.boundary.aboriginal_lands">Terras indíxenas</string>
@@ -225,6 +233,7 @@
     <string name="type.boundary.protected_area.5">Área protexida</string>
     <string name="type.boundary.protected_area.6">Área protexida</string>
     <string name="type.building">Edificio</string>
+    <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Dirección</string>
     <string name="type.building.has_parts">Edificio</string>
     <string name="type.building_part">Edificio</string>
@@ -244,6 +253,7 @@
     <string name="type.craft.gardener">Paisaxista</string>
     <string name="type.craft.grinding_mill">Muíño de moenda</string>
     <string name="type.craft.handicraft">Artesanía</string>
+    <!-- Heating, Ventilation, and Air Conditioning -->
     <string name="type.craft.hvac">Calefacción, ventilación e aire acondicionado</string>
     <string name="type.craft.key_cutter">Copista de chaves</string>
     <string name="type.craft.locksmith">Cerralleiro</string>
@@ -255,6 +265,9 @@
     <string name="type.craft.sawmill">Serrería</string>
     <string name="type.craft.shoemaker">Zapatero</string>
     <string name="type.craft.winery">Adega</string>
+    <string name="type.craft.tailor">Xastre</string>
+    <string name="type.cuisine.african">Africana</string>
+    <string name="type.cuisine.american">Estadounidense</string>
     <string name="type.cuisine.arab">Árabe</string>
     <string name="type.cuisine.argentinian">Arxentina</string>
     <string name="type.cuisine.asian">Asiática</string>
@@ -267,6 +280,8 @@
     <string name="type.cuisine.brazilian">Brasileira</string>
     <string name="type.cuisine.breakfast">Almorzos</string>
     <string name="type.cuisine.bubble_tea">Té de burbullas</string>
+    <string name="type.cuisine.burger">Hamburguesas</string>
+    <string name="type.cuisine.buschenschank">Buschenschank (especialidade austríaca)</string>
     <string name="type.cuisine.cake">Tortas</string>
     <string name="type.cuisine.caribbean">Caribeña</string>
     <string name="type.cuisine.chicken">Pito</string>
@@ -342,9 +357,13 @@
     <string name="type.emergency.defibrillator">Desfibrilador</string>
     <string name="type.emergency.fire_hydrant">Boca de incendio</string>
     <string name="type.emergency.phone">Teléfono de emerxencias</string>
+    <!-- A place where a lifeguard is on duty. -->
     <string name="type.emergency.lifeguard">Socorrista</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
     <string name="type.emergency.mountain_rescue">Estación de rescate en montaña</string>
+    <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Entrada</string>
+    <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Entrada principal</string>
     <string name="type.entrance.exit">Saída</string>
     <string name="type.fee.yes">$</string>
@@ -359,105 +378,157 @@
     <string name="type.healthcare.psychotherapist">Psicoterapeuta</string>
     <string name="type.healthcare.sample_collection">Mostraxe</string>
     <string name="type.healthcare.speech_therapist">Logopedia</string>
+
+    <!-- SECTION: Types: Roads -->
     <string name="type.highway">Estrada</string>
     <string name="type.highway.bridleway">Camiño de cabalos</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Ponte</string>
     <string name="type.highway.bridleway.permissive">Camiño de cabalos</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.bridleway.tunnel">Túnel</string>
     <string name="type.highway.busway">Estrada exclusiva para autobuses</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.busway.bridge">Ponte</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.busway.tunnel">Túnel</string>
     <string name="type.highway.bus_stop">Parada de autobús</string>
     <string name="type.highway.construction">Vía en construción</string>
     <string name="type.highway.cycleway">Ciclovía</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.cycleway.bridge">Ponte</string>
     <string name="type.highway.cycleway.permissive">Ciclovía</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.cycleway.tunnel">Túnel</string>
     <string name="type.highway.elevator">Ascensor</string>
     <string name="type.highway.footway">Senda</string>
     <string name="type.highway.footway.sidewalk">Beirarrúa</string>
     <string name="type.highway.footway.crossing">Paso de peóns</string>
     <string name="type.highway.footway.area">Zona peonil</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.footway.bridge">Ponte peonil</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.footway.tunnel">Túnel peonil</string>
     <string name="type.highway.ford">Vao</string>
     <string name="type.highway.living_street">Rúa de prioridade peonil</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.living_street.bridge">Ponte</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.living_street.tunnel">Túnel</string>
     <string name="type.highway.motorway">Autoestrada</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.motorway.bridge">Puente de autoestrada</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.motorway.tunnel">Túnel de autoestrada</string>
     <string name="type.highway.motorway_junction">Saída</string>
     <string name="type.highway.motorway_link">Ligazón de autoestrada</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.motorway_link.bridge">Ponte</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.motorway_link.tunnel">Túnel</string>
     <string name="type.highway.path">Carreiro</string>
+    <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
     <string name="type.highway.path.difficult">Carreiro difícil ou pouco visible</string>
+    <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
     <string name="type.highway.path.expert">Carreiro moi difícil ou indistinguible</string>
     <string name="type.highway.path.bicycle">Camiño para bicicletas</string>
     <string name="type.highway.footway.bicycle">Camiño para bicicletas</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.path.bridge">Ponte</string>
     <string name="type.highway.path.horse">Carreiro de ferradura</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.path.tunnel">Túnel</string>
     <string name="type.highway.pedestrian">Rúa peonil</string>
     <string name="type.highway.pedestrian.area">Zona peonil</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Ponte peonil</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Túnel peonil</string>
     <string name="type.highway.primary">Estrada principal</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Ponte</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.primary.tunnel">Túnel de estrada principal</string>
     <string name="type.highway.primary_link">Ligazón de estrada principal</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary_link.bridge">Ponte</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.primary_link.tunnel">Túnel</string>
     <string name="type.highway.raceway">Circuito</string>
     <string name="type.highway.residential">Rúa urbana</string>
     <string name="type.highway.residential.area">Rúa urbana</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.residential.bridge">Ponte</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.residential.tunnel">Túnel</string>
     <string name="type.highway.rest_area">Área de descanso</string>
     <string name="type.highway.road">Estrada</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.road.bridge">Ponte</string>
+    <!-- A bridge structure outline. -->
     <string name="type.man_made.bridge">Ponte</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.road.tunnel">Túnel</string>
     <string name="type.highway.secondary">Estrada secundaria</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.secondary.bridge">Ponte</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.secondary.tunnel">Túnel</string>
     <string name="type.highway.secondary_link">Ligazón de estrada secundaria</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.secondary_link.bridge">Ponte</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.secondary_link.tunnel">Túnel</string>
     <string name="type.highway.service">Vía de servizo</string>
     <string name="type.highway.service.area">Vía de servizo</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.service.bridge">Ponte</string>
     <string name="type.highway.service.driveway">Entrada vehicular</string>
     <string name="type.highway.service.parking_aisle">Corredor de estacionamento</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.service.tunnel">Túnel de vía de servizo</string>
     <string name="type.highway.services">Área de servizo</string>
     <string name="type.highway.speed_camera">Radar de velocidade</string>
     <string name="type.highway.steps">Escaleiras</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Ponte</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.steps.tunnel">Túnel</string>
+    <string name="type.highway.ladder">Escaleira</string>
     <string name="type.highway.tertiary">Estrada terciaria</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary.bridge">Ponte</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.tertiary.tunnel">Túnel</string>
     <string name="type.highway.tertiary_link">Enlace de estrada terciaria</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary_link.bridge">Ponte</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.tertiary_link.tunnel">Túnel</string>
     <string name="type.highway.track">Pista</string>
     <string name="type.highway.track.area">Pista</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.track.bridge">Ponte</string>
     <string name="type.highway.track.grade1">Pista</string>
     <string name="type.highway.track.no.access">Pista</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.track.tunnel">Túnel</string>
     <string name="type.highway.traffic_signals">Semáforos</string>
     <string name="type.highway.trunk">Vía troncal</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.trunk.bridge">Ponte</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.trunk.tunnel">Túnel</string>
     <string name="type.highway.trunk_link">Enlace de vía troncal</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.trunk_link.bridge">Ponte</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.trunk_link.tunnel">Túnel</string>
     <string name="type.highway.unclassified">Estrada sen clasificar</string>
     <string name="type.highway.unclassified.area">Estrada sen clasificar</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.unclassified.bridge">Ponte</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Túnel de estrada sen clasificar</string>
     <string name="type.area_highway.cycleway">Ciclovía</string>
     <string name="type.area_highway.footway">Senda</string>
@@ -476,6 +547,8 @@
     <string name="type.area_highway.unclassified">Estrada sen clasificar</string>
     <string name="type.highway.world_level">highway-world_level</string>
     <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+
+    <!-- SECTION: Types: Historic -->
     <string name="type.historic">Obxecto histórico</string>
     <string name="type.historic.aircraft">Avión histórico</string>
     <string name="type.historic.anchor">Ancora histórica</string>
@@ -514,23 +587,12 @@
     <string name="type.historic.ship">Barco</string>
     <string name="type.historic.tank">Tanque histórico</string>
     <string name="type.historic.tomb">Tumba</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
     <string name="type.man_made.cross">Cruz</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Cruz de termo</string>
     <string name="type.historic.wayside_shrine">Peto de ánimas</string>
     <string name="type.historic.wreck">Naufraxio</string>
-    <string name="type.hwtag">hwtag</string>
-    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
-    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
-    <string name="type.hwtag.lit">hwtag-lit</string>
-    <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
-    <string name="type.hwtag.nocar">hwtag-nocar</string>
-    <string name="type.hwtag.nofoot">hwtag-nofoot</string>
-    <string name="type.hwtag.oneway">hwtag-oneway</string>
-    <string name="type.hwtag.private">hwtag-private</string>
-    <string name="type.hwtag.toll">hwtag-toll</string>
-    <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
-    <string name="type.hwtag.yescar">hwtag-yescar</string>
-    <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
     <string name="type.internet_access">Internet</string>
     <string name="type.internet_access.wlan">Internet</string>
     <string name="type.junction">Cruce</string>
@@ -540,7 +602,9 @@
     <string name="type.landuse.allotments">Horto urbano</string>
     <string name="type.landuse.basin">Cuenca</string>
     <string name="type.landuse.brownfield">Solar abandonado</string>
+    <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Cemiterio</string>
+    <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Cemiterio cristián</string>
     <string name="type.landuse.religious">Camposanto</string>
     <string name="type.landuse.commercial">Zona comercial</string>
@@ -572,6 +636,7 @@
     <string name="type.landuse.salt_pond">Salina</string>
     <string name="type.landuse.village_green">Espazo verde</string>
     <string name="type.landuse.vineyard">Viñedo</string>
+    <string name="type.landuse.plant_nursery">Viveiro de plantas</string>
     <string name="type.leisure">Lecer</string>
     <string name="type.leisure.common">Zona pública</string>
     <string name="type.leisure.dog_park">Parque para cans</string>
@@ -587,6 +652,7 @@
     <string name="type.leisure.marina">Mariña</string>
     <string name="type.leisure.nature_reserve">Reserva natural</string>
     <string name="type.leisure.outdoor_seating">Asentos ao aire libre</string>
+    <string name="type.leisure.firepit">Fogar (para cacharela)</string>
     <string name="type.leisure.park">Parque</string>
     <string name="type.leisure.park.no.access">Parque</string>
     <string name="type.leisure.park.permissive">Parque</string>
@@ -623,9 +689,13 @@
     <string name="type.man_made.storage_tank">Cisterna</string>
     <string name="type.man_made.surveillance">Cámara de vixilancia</string>
     <string name="type.man_made.tower">Torre</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
     <string name="type.man_made.communications_tower">Torre de comunicacións</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Torre de comunicacións</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
     <string name="type.man_made.petroleum_well">Pozo de petróleo ou gas</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
     <string name="type.man_made.flare">Facho de gas</string>
     <string name="type.man_made.wastewater_plant">Planta de tratamento de augas residuais</string>
     <string name="type.man_made.water_tap">Toma de auga</string>
@@ -635,14 +705,15 @@
     <string name="type.man_made.water_well.drinking_water_no">Pozo</string>
     <string name="type.man_made.windmill">Muíño</string>
     <string name="type.man_made.works">Fábrica</string>
-    <string name="type.mapswithme">mapswithme</string>
-    <string name="type.mapswithme.grid">mapswithme-grid</string>
     <string name="type.military">Militar</string>
     <string name="type.military.bunker">Búnker</string>
     <string name="type.mountain_pass">Porto de montaña</string>
     <string name="type.natural">Natureza</string>
+    <!-- A rocky land cover. -->
     <string name="type.natural.bare_rock">Roca ispe</string>
+    <!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
     <string name="type.natural.shingle">Seixos</string>
+    <!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
     <string name="type.natural.scree">Pedregal</string>
     <string name="type.natural.bay">Baía</string>
     <string name="type.natural.beach">Praia</string>
@@ -715,7 +786,9 @@
     <string name="type.place.islet">Illote</string>
     <string name="type.place.isolated_dwelling">Vivenda illada</string>
     <string name="type.place.locality">Localidade</string>
+    <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->
     <string name="type.place.quarter">Barrio</string>
+    <!-- Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) -->
     <string name="type.place.neighbourhood">Veciñanza</string>
     <string name="type.place.ocean">Océano</string>
     <string name="type.place.region">Rexión</string>
@@ -723,6 +796,7 @@
     <string name="type.place.square">Praza</string>
     <string name="type.place.state">Estado</string>
     <string name="type.place.state.major">Estado</string>
+    <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Barrio</string>
     <string name="type.place.town">Poboo</string>
     <string name="type.place.village">Poboo</string>
@@ -743,8 +817,11 @@
     <string name="type.power.plant.wind">Planta eólica</string>
     <string name="type.power.station">Estación eléctrica</string>
     <string name="type.power.substation">Subestación eléctrica</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Torre eléctrica</string>
+    <!-- A single pole supporting minor power lines. -->
     <string name="type.power.pole">Poste eléctrico</string>
+    <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
     <string name="type.man_made.utility_pole">Poste</string>
     <string name="type.psurface">psurface</string>
     <string name="type.psurface.paved_bad">psurface-paved_bad</string>
@@ -752,6 +829,8 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Transporte público</string>
+    <string name="type.public_transport.platform">Plataforma</string>
+    <string name="type.railway">Vía férrea</string>
     <string name="type.railway.abandoned">Vía férrea abandonada</string>
     <string name="type.railway.abandoned.bridge">Ponte ferroviaria abandonada</string>
     <string name="type.railway.abandoned.tunnel">Túnel ferroviario abandonado</string>
@@ -780,8 +859,12 @@
     <string name="type.railway.rail.highspeed">Ferrocarril de alta velocidade</string>
     <string name="type.railway.rail.tourism">Ferrocarril turístico</string>
     <string name="type.railway.rail.main">Ferrocarril</string>
+    <!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
     <string name="type.railway.rail.branch">Ramal ferroviario</string>
+    <!-- Non-passenger utility tracks: industrial, military, test. -->
     <string name="type.railway.rail.utility">Ferrocarril utilitario</string>
+    <string name="type.railway.rail.spur">Espolón ferroviario</string>
+    <!-- Short service tracks: siding, yard, crossover. -->
     <string name="type.railway.rail.service">Vía férrea de manobras</string>
     <string name="type.railway.rail.bridge">Ponte ferroviaria</string>
     <string name="type.railway.rail.highspeed.bridge">Ponte ferroviaria</string>
@@ -887,6 +970,8 @@
     <string name="type.railway.station.subway.paris">Estación de metro</string>
     <string name="type.railway.station.subway.philadelphia">Estación de metro</string>
     <string name="type.railway.station.subway.pyongyang">Estación de metro</string>
+    <!-- TODO: add ref to "type.railway.station.subway" -->
+    <string name="type.railway.station.subway.qingdao">Estación de metro</string>
     <string name="type.railway.station.subway.rennes">Estación de metro</string>
     <string name="type.railway.station.subway.rio">Estación de metro</string>
     <string name="type.railway.station.subway.roma">Estación de metro</string>
@@ -944,6 +1029,7 @@
     <string name="type.railway.subway_entrance.budapest">Entrada ao metro</string>
     <string name="type.railway.subway_entrance.buenos_aires">Entrada ao metro</string>
     <string name="type.railway.subway_entrance.bursa">Entrada ao metro</string>
+    <string name="type.railway.subway_entrance.cairo">Entrada ao metro</string>
     <string name="type.railway.subway_entrance.caracas">Entrada ao metro</string>
     <string name="type.railway.subway_entrance.catania">Entrada ao metro</string>
     <string name="type.railway.subway_entrance.changchun">Entrada ao metro</string>
@@ -975,9 +1061,9 @@
     <string name="type.railway.subway_entrance.la">Entrada ao metro</string>
     <string name="type.railway.subway_entrance.lausanne">Entrada ao metro</string>
     <string name="type.railway.subway_entrance.lille">Entrada ao metro</string>
-    <string name="type.railway.subway_entrance.london">Entrada ao metro</string>
     <string name="type.railway.subway_entrance.lima">Entrada ao metro</string>
     <string name="type.railway.subway_entrance.lisboa">Entrada ao metro</string>
+    <string name="type.railway.subway_entrance.london">Entrada ao metro</string>
     <string name="type.railway.subway_entrance.lyon">Entrada ao metro</string>
     <string name="type.railway.subway_entrance.madrid">Entrada ao metro</string>
     <string name="type.railway.subway_entrance.malaga">Entrada ao metro</string>
@@ -1129,14 +1215,15 @@
     <string name="type.shop.ticket">Venda de entradas</string>
     <string name="type.shop.toys">Tenda de xoguetes</string>
     <string name="type.shop.travel_agency">Axencia de viaxes</string>
-    <string name="type.shop.variety_store">Tenda de variedades</string>
     <string name="type.shop.tyres">Tenda de pneumáticos</string>
+    <string name="type.shop.variety_store">Tenda de variedades</string>
     <string name="type.shop.video">Tenda de vídeo</string>
     <string name="type.shop.video_games">Tenda de videoxogos</string>
     <string name="type.shop.wine">Tenda de viños</string>
     <string name="type.shop.agrarian">Tenda agrícola</string>
     <string name="type.shop.antiques">Antigüidades</string>
     <string name="type.shop.appliance">Tenda de electrodomésticos</string>
+    <!-- maybe change to Art Gallery for en-US when supported -->
     <string name="type.shop.art">Tenda de arte</string>
     <string name="type.shop.baby_goods">Tenda de nenos</string>
     <string name="type.shop.bag">Tenda de bolsos</string>
@@ -1177,6 +1264,7 @@
     <string name="type.sport.gymnastics">Ximnasia</string>
     <string name="type.sport.handball">Balonmán</string>
     <string name="type.sport.multi">Varios deportes</string>
+    <!-- Used to tag a scuba diving site. -->
     <string name="type.sport.scuba_diving">Submarinismo</string>
     <string name="type.sport.shooting">Tiro deportivo</string>
     <string name="type.sport.skateboard">Monopatinaje</string>
@@ -1184,8 +1272,8 @@
     <string name="type.sport.soccer">Fútbol</string>
     <string name="type.sport.swimming">Natación</string>
     <string name="type.sport.table_tennis">Tenis de mesa</string>
-    <string name="type.sport.volleyball">Voleibol</string>
     <string name="type.sport.tennis">Cancha de tenis</string>
+    <string name="type.sport.volleyball">Voleibol</string>
     <string name="type.sport.10pin">Birlos</string>
     <string name="type.sport.9pin">Birlos</string>
     <string name="type.sport.padel">Pádel</string>
@@ -1196,6 +1284,7 @@
     <string name="type.sport.pelota">Pelota vasca</string>
     <string name="type.tourism">Turismo</string>
     <string name="type.tourism.aquarium">Acuario</string>
+    <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Albergue de montaña</string>
     <string name="type.tourism.apartment">Apartamento de vacacións</string>
     <string name="type.tourism.artwork">Obra de arte</string>
@@ -1216,6 +1305,7 @@
     <string name="type.tourism.attraction.specified">Atracción turística</string>
     <string name="type.tourism.camp_site">Paraxe de campamento</string>
     <string name="type.tourism.caravan_site">Zona de caravanas</string>
+    <!-- A rentable countryside vacation house. -->
     <string name="type.tourism.chalet">Casa de vacacións</string>
     <string name="type.tourism.gallery">Galería</string>
     <string name="type.tourism.guest_house">Casa de hóspedes</string>
@@ -1233,6 +1323,7 @@
     <string name="type.leisure.resort">Resort</string>
     <string name="type.tourism.theme_park">Parque temático</string>
     <string name="type.tourism.viewpoint">Miradoiro</string>
+    <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
     <string name="type.tourism.wilderness_hut">Cabana</string>
     <string name="type.tourism.zoo">Zoológico</string>
     <string name="type.tourism.zoo.petting">Zoológico interactivo</string>
@@ -1296,18 +1387,14 @@
     <string name="type.self_service.only">Só autoservizo</string>
     <string name="type.self_service.partially">Autoservizo parcial</string>
     <string name="type.self_service.no">Sen autoservizo</string>
+    <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Servizo social</string>
+    <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Entrada a urxencias</string>
+    <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
     <string name="type.amenity.dojo">Dojo</string>
+    <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Pavillón deportivo</string>
-    <string name="type.amenity.love_hotel">Hotel para parellas</string>
-    <string name="type.amenity.studio">Estudio</string>
-    <string name="type.barrier.guard_rail">Barreira de contención</string>
-    <string name="type.highway.ladder">Escaleira</string>
-    <string name="type.landuse.plant_nursery">Viveiro de plantas</string>
-    <string name="type.leisure.firepit">Fogar (para cacharela)</string>
     <string name="type.sport.diving">Mergullo</string>
     <string name="type.man_made.crane">Guindastre</string>
-    <string name="type.railway.station.subway.qingdao">Estación de metro</string>
-    <string name="type.amenity.bicycle_parking.covered">Aparcamento de bicicletas teitado</string>
 </resources>

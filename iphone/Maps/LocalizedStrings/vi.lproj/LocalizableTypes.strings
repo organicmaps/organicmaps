@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "Địa chỉ/Khối";
 "type.addr_interpolation.even" = "Địa chỉ/Khối";
 "type.addr_interpolation.odd" = "Địa chỉ/Khối";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "Nướng thịt nướng";
 "type.amenity.bench" = "Xe đạp";
 "type.amenity.bicycle_parking" = "Chỗ Đậu Xe Đạp";
+"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
 "type.amenity.bicycle_rental" = "Cho thuê xe đạp";
 "type.amenity.bicycle_repair_station" = "trạm sửa xe đạp";
 "type.amenity.biergarten" = "Vườn bia";
 "type.amenity.brothel" = "Giải trí";
+"type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "Tỉ giá hiện tại";
 "type.amenity.bus_station" = "Trạm xe buýt";
 "type.amenity.cafe" = "Cà phê";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Trạm sạc xe máy";
 "type.amenity.childcare" = "Nhà trẻ";
 "type.amenity.cinema" = "Rạp chiếu phim";
+"type.amenity.studio" = "Studio";
 "type.leisure.bowling_alley" = "Sân chơi bowling";
 "type.amenity.clinic" = "Phòng khám";
 "type.amenity.college" = "Trường đại học";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "Mẫu giáo";
 "type.amenity.library" = "Thư viện";
 "type.amenity.loading_dock" = "Bến tàu";
+"type.amenity.luggage_locker" = "Luggage Locker";
 "type.amenity.marketplace" = "Thương trường";
 "type.amenity.motorcycle_parking" = "Bãi đỗ xe máy";
 "type.amenity.nightclub" = "Câu lạc bộ đêm";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "Cảnh sát";
 "type.amenity.post_box" = "Hòm thư";
 "type.amenity.post_office" = "Bưu cục";
+"type.post_office.post_partner" = "Post Partner";
 "type.amenity.prison" = "Nhà tù";
 "type.amenity.pub" = "Quán rượu";
 "type.amenity.public_bookcase" = "Kệ sách";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Trung tâm tái sinh";
 "type.amenity.recycling" = "Thùng rác";
 "type.amenity.recycling.container" = "Thùng rác";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "Nước thải";
 "type.barrier.entrance" = "Lối vào";
 "type.barrier.fence" = "Fence";
+"type.barrier.guard_rail" = "Guard Rail";
 "type.barrier.gate" = "Cổng";
 "type.barrier.hedge" = "Hedge";
 "type.barrier.kissing_gate" = "Cổng";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "Tâm lý trị liệu";
 "type.healthcare.sample_collection" = "lấy mẫu";
 "type.healthcare.speech_therapist" = "Ngôn ngữ trị liệu";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Đường hầm";
+"type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "Phố";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "Phố";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "Đối tượng lịch sử";
 "type.historic.aircraft" = "Máy bay lịch sử";
 "type.historic.anchor" = "Mỏ Neo lịch sử";
@@ -644,18 +667,44 @@
 "type.historic.wayside_cross" = "Đường chéo";
 "type.historic.wayside_shrine" = "Đền thờ";
 "type.historic.wreck" = "Sự chìm tàu";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Internet";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Bãi tha ma";
 "type.landuse.religious" = "Nhà thờ";
+"type.landuse.churchyard" = "Nhà thờ";
 "type.landuse.commercial" = "Commercial Area";
 "type.landuse.construction" = "Construction Area";
 "type.landuse.education" = "Educational Facility";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "Salt Pond";
 "type.landuse.village_green" = "Land";
 "type.landuse.vineyard" = "Vineyard";
+"type.landuse.plant_nursery" = "Plant Nursery";
 "type.leisure" = "Leisure";
 "type.leisure.common" = "Public Land";
 "type.leisure.dog_park" = "Nơi cho chó đi dạo";
+"type.leisure.escape_game" = "Escape Room";
 "type.leisure.fitness_centre" = "Phòng Tập";
 "type.leisure.fitness_station" = "Trạm tập thể hình";
 "type.leisure.dance" = "Vũ trường";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Giữ chỗ";
 "type.leisure.outdoor_seating" = "Chỗ ngồi ngoài trời";
+"type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Công viên";
 "type.leisure.park.no.access" = "Công viên";
 "type.leisure.park.permissive" = "Công viên";
@@ -773,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "Giếng Nước";
 "type.man_made.windmill" = "Cối xay gió";
 "type.man_made.works" = "Industrial Works";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Military";
 "type.military.bunker" = "Boongke";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "Ngầm";
 "type.railway.station.subway.philadelphia" = "Ngầm";
 "type.railway.station.subway.pyongyang" = "Ngầm";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Subway Station";
 "type.railway.station.subway.rennes" = "Ngầm";
 "type.railway.station.subway.rio" = "Ngầm";
 "type.railway.station.subway.roma" = "Ngầm";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "Chải lông thú cưng";
 "type.shop.photo" = "Hiệu Ảnh";
 "type.shop.rental" = "Cửa hàng cho thuê";
+"type.shop.rental.bicycle" = "Cửa hàng cho thuê xe đạp";
 "type.amenity.bicycle_rental.shop" = "Cửa hàng cho thuê xe đạp";
 "type.shop.seafood" = "Người bán cá";
 "type.shop.second_hand" = "Cửa hàng bán đồ đã qua sử dụng";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "Bản Đồ Du Lịch";
 "type.tourism.information.office" = "Văn Phòng Du Lịch";
 "type.tourism.information.visitor_centre" = "Trung tâm du khách";
+"type.amenity.ranger_station" = "Ranger Station";
 "type.tourism.motel" = "Nhà nghỉ";
 "type.tourism.museum" = "Bảo tàng";
 "type.tourism.picnic_site" = "Điểm cắm trại";
@@ -1447,17 +1509,17 @@
 "type.aerialway.t.bar" = "T-bar Lift";
 "type.piste_type.downhill" = "Downhill Ski Run";
 "type.piste_type.downhill.area" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
-"type.piste_type.downhill.easy" = "Downhill Ski Run";
-"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
-"type.piste_type.downhill.expert" = "Downhill Ski Run";
-"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
-"type.piste_type.downhill.freeride" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
-"type.piste_type.downhill.novice" = "Downhill Ski Run";
-"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.advanced.area" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.easy.area" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.expert.area" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.freeride" = "Freeride Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.intermediate.area" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.novice" = "Novice Downhill Ski Run";
+"type.piste_type.downhill.novice.area" = "Novice Downhill Ski Run";
 "type.piste_type.nordic" = "Nordic Ski Trail";
 "type.piste_type.sled" = "Sledding Piste";
 "type.piste_type.sled.area" = "Sledding Piste";
@@ -1484,18 +1546,6 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Nhà thi đấu thể thao";
-"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
-"type.amenity.love_hotel" = "Love Hotel";
-"type.amenity.studio" = "Studio";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.post_office.post_partner" = "Post Partner";
-"type.barrier.guard_rail" = "Guard Rail";
-"type.highway.ladder" = "Ladder";
-"type.landuse.plant_nursery" = "Plant Nursery";
-"type.leisure.escape_game" = "Escape Room";
-"type.leisure.firepit" = "Firepit";
-"type.railway.station.subway.qingdao" = "Subway Station";
-"type.amenity.ranger_station" = "Ranger Station";
 "type.sport.diving" = "Diving";
 "type.man_made.crane" = "Crane";
 "type.barrier.wicket_gate" = "Wicket Gate";

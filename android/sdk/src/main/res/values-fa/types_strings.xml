@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">آدرس/بلاک</string>
     <string name="type.addr_interpolation.even">آدرس/بلاک</string>
     <string name="type.addr_interpolation.odd">آدرس/بلاک</string>
+    <string name="type.aerialway">تراموا هوایی</string>
+    <string name="type.aerialway.cable_car">تله‌کابین</string>
+    <string name="type.aerialway.chair_lift">تله کابین</string>
+    <string name="type.aerialway.gondola">قایق پارویی</string>
+    <string name="type.aerialway.station">ایستگاه تله کابین</string>
+    <string name="type.aeroway">زیرساخت‌های حریم هوایی</string>
     <string name="type.aeroway.aerodrome">فرودگاه</string>
     <string name="type.aeroway.aerodrome.international">فرودگاه بین المللی</string>
+    <string name="type.aeroway.apron">پیش بند</string>
+    <string name="type.aeroway.gate">دروازه</string>
     <string name="type.aeroway.helipad">پد فرود بالگرد</string>
+    <string name="type.aeroway.runway">باند فرودگاه</string>
+    <string name="type.aeroway.taxiway">مسیر تاکسی</string>
+    <string name="type.aeroway.terminal">پایانه</string>
     <string name="type.amenity">زیر ساخت</string>
     <string name="type.amenity.arts_centre">مرکز هنری</string>
     <string name="type.amenity.atm">خودپرداز</string>
@@ -113,6 +125,7 @@
     <string name="type.amenity.post_office">دفتر پست</string>
     <string name="type.amenity.prison">زندا   ن</string>
     <string name="type.amenity.pub">میکده</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">مرکز بازیافت</string>
     <string name="type.amenity.recycling">ظرف بازیافت</string>
@@ -168,6 +181,10 @@
     <string name="type.barrier.turnstile">گردان</string>
     <string name="type.barrier.swing_gate">اسانسور</string>
     <string name="type.barrier.toll_booth">گیشه عوارضی</string>
+    <string name="type.barrier.wall">دیوار</string>
+    <string name="type.boundary">مرز</string>
+    <!-- Borders between countries. -->
+    <string name="type.boundary.administrative.2">مرز ملی</string>
     <string name="type.boundary.national_park">پارک ملی</string>
     <string name="type.boundary.aboriginal_lands">سرزمین های بومی</string>
     <string name="type.boundary.protected_area">منطقه حفاظت شده</string>
@@ -184,6 +201,7 @@
     <string name="type.building_part">ساختمان</string>
     <string name="type.building.garage">گاراژ</string>
     <string name="type.building.train_station">ساختمان ایستگاه</string>
+    <string name="type.building.warehouse">انبار</string>
     <string name="type.cemetery.grave">ﺮﺒﻗ</string>
     <string name="type.craft">صنعت‌گری</string>
     <string name="type.craft.beekeeper">زنبوردار</string>
@@ -210,6 +228,68 @@
     <string name="type.craft.shoemaker">کفاش</string>
     <string name="type.craft.winery">شراب‌خانه</string>
     <string name="type.craft.tailor">خیاطی</string>
+    <string name="type.cuisine.african">آفریقایی</string>
+    <string name="type.cuisine.american">آمریکایی</string>
+    <string name="type.cuisine.arab">عربی</string>
+    <string name="type.cuisine.argentinian">آرژانتینی</string>
+    <string name="type.cuisine.asian">آسیایی</string>
+    <string name="type.cuisine.austrian">اتریشی</string>
+    <string name="type.cuisine.bagel">نان شیرینی حلقوی</string>
+    <string name="type.cuisine.balkan">بالکان</string>
+    <string name="type.cuisine.barbecue">بریانی</string>
+    <string name="type.cuisine.bavarian">باواریایی</string>
+    <string name="type.cuisine.beef_bowl">کاسه گوشت گاو</string>
+    <string name="type.cuisine.brazilian">برزیلی</string>
+    <string name="type.cuisine.breakfast">صبحانه</string>
+    <string name="type.cuisine.bubble_tea">بابل تی</string>
+    <string name="type.cuisine.burger">برگر</string>
+    <string name="type.cuisine.cake">کیک</string>
+    <string name="type.cuisine.caribbean">کارائیب</string>
+    <string name="type.cuisine.chicken">مرغ</string>
+    <string name="type.cuisine.chinese">چینی</string>
+    <string name="type.cuisine.coffee_shop">قهوه</string>
+    <string name="type.cuisine.crepe">کرپ</string>
+    <string name="type.cuisine.croatian">کرواسیایی</string>
+    <string name="type.cuisine.curry">کاری</string>
+    <string name="type.cuisine.deli">اغذیه فروشی</string>
+    <string name="type.cuisine.diner">کسی که شام میخورد</string>
+    <string name="type.cuisine.donut">دونات</string>
+    <string name="type.cuisine.ethiopian">اتیوپیایی</string>
+    <string name="type.cuisine.filipino">فیلیپینی</string>
+    <string name="type.cuisine.fine_dining">رستوران مجلل</string>
+    <string name="type.cuisine.fish">ماهی</string>
+    <string name="type.cuisine.fish_and_chips">ماهی و چیپس</string>
+    <string name="type.cuisine.french">فرانسوی</string>
+    <string name="type.cuisine.georgian">گرجی</string>
+    <string name="type.cuisine.german">آلمانی</string>
+    <string name="type.cuisine.greek">یونانی</string>
+    <string name="type.cuisine.grill">گریل</string>
+    <string name="type.cuisine.hotdog">هات‌داگ</string>
+    <string name="type.cuisine.hungarian">مجارستانی</string>
+    <string name="type.cuisine.ice_cream">بستنی</string>
+    <string name="type.cuisine.indian">هندی</string>
+    <string name="type.cuisine.indonesian">اندونزیایی</string>
+    <string name="type.cuisine.international">بین‌المللی</string>
+    <string name="type.cuisine.irish">ایرلندی</string>
+    <string name="type.cuisine.italian">ایتالیایی</string>
+    <string name="type.cuisine.japanese">ژاپنی</string>
+    <string name="type.cuisine.kebab">کباب</string>
+    <string name="type.cuisine.korean">کره‌ای</string>
+    <string name="type.cuisine.lebanese">لبنانی</string>
+    <string name="type.cuisine.sausage">سوسیس</string>
+    <string name="type.cuisine.seafood">غذای دریایی</string>
+    <string name="type.cuisine.soba">سوبا­­</string>
+    <string name="type.cuisine.spanish">اسپانیایی</string>
+    <string name="type.cuisine.steak_house">خانه استیک</string>
+    <string name="type.cuisine.sushi">سوشی</string>
+    <string name="type.cuisine.tapas">تاپاس</string>
+    <string name="type.cuisine.tea">چای</string>
+    <string name="type.cuisine.thai">تایلندی</string>
+    <string name="type.cuisine.turkish">ترکی</string>
+    <string name="type.cuisine.vegan">گیاهخوار</string>
+    <string name="type.cuisine.vegetarian">گیاه خوار</string>
+    <string name="type.cuisine.vietnamese">ویتنامی</string>
+    <string name="type.emergency">اورژانسی</string>
     <string name="type.emergency.assembly_point">محل تجمع اضطراری</string>
     <string name="type.emergency.defibrillator">دستگاه شوک</string>
     <string name="type.emergency.fire_hydrant">شیر آتش‌نشانی</string>
@@ -223,6 +303,7 @@
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">ﯽﻠﺻﺍ ﯼﺩﻭﺭﻭ</string>
     <string name="type.entrance.exit">خارج شوید</string>
+    <string name="type.fee.yes">دلار</string>
     <string name="type.fee.no">رایگان</string>
     <string name="type.healthcare.laboratory">ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ</string>
     <string name="type.healthcare.physiotherapist">فیزیوتراپیست</string>
@@ -234,9 +315,13 @@
     <string name="type.healthcare.psychotherapist">روان درمانی</string>
     <string name="type.healthcare.sample_collection">نمونه برداری</string>
     <string name="type.healthcare.speech_therapist">گفتار درمانی</string>
+
     <!-- SECTION: Types: Roads -->
+    <string name="type.highway">بزرگراه</string>
+    <string name="type.highway.bridleway">مسیر سوارکاری</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">پل</string>
+    <string name="type.highway.bridleway.permissive">مسیر سوارکاری</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.bridleway.tunnel">تونل</string>
     <string name="type.highway.busway">ﺱﻮﺑﻮﺗﺍ ﯽﺻﺎﺼﺘﺧﺍ ﻩﺩﺎﺟ</string>
@@ -248,8 +333,10 @@
     <string name="type.highway.construction">جاده در دست ساخت است</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.cycleway.bridge">پل</string>
+    <string name="type.highway.cycleway.permissive">مسیر دوچرخه</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.cycleway.tunnel">تونل</string>
+    <string name="type.highway.elevator">آسانسور</string>
     <string name="type.highway.footway">مسیر</string>
     <string name="type.highway.footway.sidewalk">پیاده رو</string>
     <string name="type.highway.footway.crossing">محل عبور عابر پیاده</string>
@@ -310,6 +397,7 @@
     <string name="type.highway.residential.bridge">پل</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.residential.tunnel">تونل</string>
+    <string name="type.highway.rest_area">استراحتگاه</string>
     <string name="type.highway.road">جاده</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.road.bridge">پل</string>
@@ -335,12 +423,14 @@
     <string name="type.highway.service.parking_aisle">جاده</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.service.tunnel">تونل</string>
+    <string name="type.highway.services">محل استراحت</string>
     <string name="type.highway.speed_camera">دوربین سرعت سنج</string>
     <string name="type.highway.steps">مسیر</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">پل</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.steps.tunnel">تونل</string>
+    <string name="type.highway.ladder">نردبان</string>
     <string name="type.highway.tertiary">جاده</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary.bridge">پل</string>
@@ -376,6 +466,7 @@
     <string name="type.highway.unclassified.bridge">پل</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">تونل</string>
+    <string name="type.area_highway.cycleway">مسیر دوچرخه</string>
     <string name="type.area_highway.footway">مسیر</string>
     <string name="type.area_highway.living_street">جاده</string>
     <string name="type.area_highway.motorway">جاده</string>
@@ -390,6 +481,8 @@
     <string name="type.area_highway.track">جاده</string>
     <string name="type.area_highway.trunk">جاده</string>
     <string name="type.area_highway.unclassified">جاده</string>
+    <string name="type.highway.world_level">بزرگراه جهانی</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">شیء تاریخی</string>
     <string name="type.historic.aircraft">هواپیمای تاریخی</string>
@@ -437,12 +530,21 @@
     <string name="type.historic.wreck">غرق کشتی</string>
     <string name="type.internet_access">وای فای</string>
     <string name="type.internet_access.wlan">وای فای</string>
+    <string name="type.junction">تقاطع</string>
+    <string name="type.junction.circular">دوربرگردان</string>
+    <string name="type.junction.roundabout">دوربرگردان</string>
+    <string name="type.landuse.allotments">قسمت ها</string>
     <string name="type.landuse.basin">حوضه آب</string>
+    <string name="type.landuse.brownfield">توسعه یافته</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">قبرستان</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">قبرستان</string>
     <string name="type.landuse.religious">حیاط کلیسا</string>
+    <string name="type.landuse.churchyard">حیاط کلیسا</string>
+    <string name="type.landuse.commercial">منطقه تجاری</string>
+    <string name="type.landuse.construction">منطقه ساخت و ساز</string>
+    <string name="type.landuse.education">امکانات آموزشی</string>
     <string name="type.landuse.farmland">زمین کشاورزی</string>
     <string name="type.landuse.flowerbed">باغچه</string>
     <string name="type.landuse.forest">جنگل</string>
@@ -453,6 +555,7 @@
     <string name="type.landuse.landfill">دفن گاه زباله</string>
     <string name="type.landuse.railway">محدوده راه آهن</string>
     <string name="type.landuse.reservoir">اب</string>
+    <string name="type.landuse.salt_pond">نمک‌زار</string>
     <string name="type.leisure.dog_park">محدوده مخصوص سگ</string>
     <string name="type.leisure.fitness_centre">باشگاه بدنسازی</string>
     <string name="type.leisure.fitness_station">پارک سلامت</string>
@@ -477,7 +580,19 @@
     <string name="type.leisure.swimming_pool">استخرشنا</string>
     <string name="type.leisure.swimming_pool.private">استخرشنا</string>
     <string name="type.leisure.water_park">گردشگری</string>
+    <string name="type.man_made.breakwater">موج شکن</string>
+    <string name="type.man_made.cairn">سنگ چین</string>
+    <string name="type.man_made.chimney">دودکش</string>
+    <string name="type.man_made.cutline">خط برش</string>
+    <string name="type.man_made.survey_point">نقطه نقشه برداری</string>
+    <string name="type.man_made.flagpole">میله پرچم</string>
     <string name="type.man_made.lighthouse">گردشگری</string>
+    <string name="type.man_made.mast">دکل</string>
+    <string name="type.man_made.pier">اسکله</string>
+    <string name="type.man_made.pipeline">خط لوله</string>
+    <string name="type.man_made.pipeline.overground">خط لوله روی زمین</string>
+    <string name="type.man_made.silo">انبار</string>
+    <string name="type.man_made.storage_tank">مخزن</string>
     <string name="type.man_made.surveillance">دوربین نظارتی</string>
     <string name="type.man_made.tower">برج</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
@@ -488,13 +603,17 @@
     <string name="type.man_made.petroleum_well">چاه نفت یا گاز</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
     <string name="type.man_made.flare">مشعل گاز</string>
+    <string name="type.man_made.wastewater_plant">تصفیه‌خانه فاضلاب</string>
     <string name="type.man_made.water_tap">شیراب</string>
     <string name="type.man_made.water_tap.drinking_water_no">شیراب</string>
     <string name="type.man_made.water_tower">منبع اب</string>
     <string name="type.man_made.water_well">چاه اب</string>
     <string name="type.man_made.water_well.drinking_water_no">چاه اب</string>
     <string name="type.man_made.windmill">توربین بادی</string>
+    <string name="type.man_made.works">تأسیسات صنعتی</string>
+    <string name="type.military">ارتش</string>
     <string name="type.military.bunker">پناهگاه</string>
+    <string name="type.mountain_pass">گردنه کوهستانی</string>
     <string name="type.natural">طبیعت</string>
     <!-- A rocky land cover. -->
     <string name="type.natural.bare_rock">سنگ برهنه</string>
@@ -541,6 +660,7 @@
     <string name="type.natural.wetland">ناحیه تالابی</string>
     <string name="type.natural.wetland.bog">خلاش</string>
     <string name="type.natural.wetland.marsh">مرداب</string>
+    <string name="type.noexit">بن‌بست</string>
     <string name="type.office">اداره</string>
     <string name="type.office.company">دفتر شرکت</string>
     <string name="type.office.estate_agent">بنگاه معاملات ملکی</string>
@@ -549,6 +669,8 @@
     <string name="type.office.lawyer">دفتر وکالت</string>
     <string name="type.office.ngo">دفتر سازمان خیریه</string>
     <string name="type.office.telecommunication">اپراتور تلفن همراه</string>
+    <string name="type.organic.only">طبیعی</string>
+    <string name="type.organic.yes">طبیعی</string>
     <string name="type.place.city">شهر</string>
     <string name="type.place.city.capital">پایتخت</string>
     <string name="type.place.city.capital.10">شهر</string>
@@ -584,22 +706,53 @@
     <string name="type.place.suburb">حومه</string>
     <string name="type.place.town">شهر</string>
     <string name="type.place.village">روستا</string>
+    <string name="type.power">برق</string>
+    <string name="type.power.generator">ژنراتور برق</string>
     <string name="type.power.generator.solar">ژنراتور خورشیدی</string>
     <string name="type.power.generator.wind">مولد باد</string>
     <string name="type.power.generator.gas">نیروگاه توربین گاز</string>
     <string name="type.power.generator.hydro">نیروگاه برق آبی</string>
+    <string name="type.power.line">خط برق</string>
+    <string name="type.power.line.underground">خط برق زیرزمینی</string>
+    <string name="type.power.minor_line">خط برق فرعی</string>
     <string name="type.power.plant">نیروگاه</string>
     <string name="type.power.plant.coal">نیروگاه زغال سنگ</string>
     <string name="type.power.plant.gas">نیروگاه توربین گاز</string>
     <string name="type.power.plant.hydro">نیروگاه برق آبی</string>
     <string name="type.power.plant.solar">نیروگاه خورشیدی</string>
     <string name="type.power.plant.wind">نیروگاه بادی</string>
+    <string name="type.power.station">نیروگاه برق</string>
+    <string name="type.power.substation">پست برق</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">برج قدرت</string>
+    <!-- A single pole supporting minor power lines. -->
+    <string name="type.power.pole">تیر برق</string>
+    <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
+    <string name="type.man_made.utility_pole">تیر چراغ برق</string>
+    <string name="type.public_transport">حمل و نقل عمومی</string>
+    <string name="type.public_transport.platform">سکو</string>
+    <string name="type.railway">راه‌آهن</string>
+    <string name="type.railway.abandoned">راه اهن متروکه</string>
+    <string name="type.railway.abandoned.bridge">پل راه اهن متروکه</string>
+    <string name="type.railway.abandoned.tunnel">تونل متروک راه‌آهن</string>
+    <string name="type.railway.construction">راه‌آهن در دست ساخت</string>
+    <string name="type.railway.crossing">گذرگاه راه‌آهن</string>
+    <string name="type.railway.disused">راه‌آهن رها شده</string>
     <string name="type.railway.funicular">فونیکولور</string>
+    <string name="type.railway.funicular.bridge">پل کابلی</string>
+    <string name="type.railway.funicular.tunnel">تونل کابلی</string>
     <string name="type.railway.halt">ایستگاه قطار</string>
     <string name="type.railway.level_crossing">تقاطع راه آهن</string>
+    <string name="type.railway.light_rail">ریل سبک</string>
+    <string name="type.railway.light_rail.bridge">\"پل  ریل سبک\"</string>
+    <string name="type.railway.light_rail.tunnel">تونل ریل سبک</string>
     <string name="type.railway.monorail">مونوریل</string>
+    <string name="type.railway.monorail.bridge">پل مونوریل</string>
+    <string name="type.railway.monorail.tunnel">تونل مونوریل</string>
+    <string name="type.railway.platform">سکوی راه آهن</string>
+    <string name="type.railway.preserved">ریل حفاظت‌شده</string>
+    <string name="type.railway.preserved.bridge">پل ریل حفاظت‌شده</string>
+    <string name="type.railway.preserved.tunnel">\"تونل  ریل حفاظت‌شده\"</string>
     <string name="type.railway.rail">راه آهن</string>
     <string name="type.railway.rail.highspeed">راه آهن پرسرعت</string>
     <string name="type.railway.rail.tourism">راه آهن توریستی</string>
@@ -748,6 +901,9 @@
     <string name="type.railway.station.subway.wuhan">حمل و نقل</string>
     <string name="type.railway.station.subway.yerevan">حمل و نقل</string>
     <string name="type.railway.station.subway.yokohama">حمل و نقل</string>
+    <string name="type.railway.subway">خط مترو</string>
+    <string name="type.railway.subway.bridge">پل خط مترو</string>
+    <string name="type.railway.subway.tunnel">تونل خط مترو</string>
     <string name="type.railway.subway_entrance">ورودی مترو</string>
     <string name="type.railway.subway_entrance.adana">ورودی مترو</string>
     <string name="type.railway.subway_entrance.algiers">ورودی مترو</string>
@@ -862,6 +1018,9 @@
     <string name="type.railway.subway_entrance.wuhan">ورودی مترو</string>
     <string name="type.railway.subway_entrance.yerevan">ورودی مترو</string>
     <string name="type.railway.subway_entrance.yokohama">ورودی مترو</string>
+    <string name="type.railway.tram">خط تراموا</string>
+    <string name="type.railway.tram.bridge">پل خط تراموا</string>
+    <string name="type.railway.tram.tunnel">تونل خط تراموا</string>
     <string name="type.railway.tram_stop">ایستگاه قطار</string>
     <string name="type.shop">فروشگاه</string>
     <string name="type.shop.alcohol">فروشگاه</string>
@@ -936,6 +1095,7 @@
     <string name="type.shop.pet_grooming">نظافت حیوانات خانگی</string>
     <string name="type.shop.photo">فروشگاه</string>
     <string name="type.shop.rental">مغازه اجاره ای</string>
+    <string name="type.shop.rental.bicycle">مغازه اجاره دوچرخه</string>
     <string name="type.amenity.bicycle_rental.shop">مغازه اجاره دوچرخه</string>
     <string name="type.shop.seafood">فروشگاه</string>
     <string name="type.shop.second_hand">ﻡﻭﺩ ﺖﺳﺩ ﻩﺎﮕﺷﻭﺮﻓ</string>
@@ -1069,9 +1229,11 @@
     <string name="type.waterway.stream.intermittent">رودخانه</string>
     <string name="type.waterway.stream.tunnel">رودخانه</string>
     <string name="type.waterway.waterfall">گردشگری</string>
+    <string name="type.wheelchair">صندلی چرخدار</string>
     <string name="type.wheelchair.limited">دسترسی محدود با صندلی چرخ دار</string>
     <string name="type.wheelchair.no">بدون دسترسی با صندلی چرخ دار</string>
     <string name="type.wheelchair.yes">دسترسی کامل با صندلی چرخ دار</string>
+    <string name="type.aerialway.magic_carpet">قالیچه جادویی</string>
     <string name="type.piste_type.snow_park">پارک برفی</string>
     <string name="type.piste_type.hike">مسیر پیاده روی برفی</string>
     <string name="type.piste_type.connection">اتصال پیست</string>
@@ -1091,162 +1253,6 @@
     <string name="type.amenity.dojo">دوجو</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">سالن ورزشی</string>
-    <string name="type.aerialway">تراموا هوایی</string>
-    <string name="type.aerialway.cable_car">تله‌کابین</string>
-    <string name="type.railway.abandoned.bridge">پل راه اهن متروکه</string>
-    <string name="type.cuisine.african">آفریقایی</string>
-    <string name="type.cuisine.american">آمریکایی</string>
-    <string name="type.cuisine.arab">عربی</string>
-    <string name="type.cuisine.argentinian">آرژانتینی</string>
-    <string name="type.cuisine.asian">آسیایی</string>
-    <string name="type.cuisine.austrian">اتریشی</string>
-    <string name="type.railway.abandoned">راه اهن متروکه</string>
-    <string name="type.aerialway.chair_lift">تله کابین</string>
-    <string name="type.aerialway.gondola">قایق پارویی</string>
-    <string name="type.aeroway.apron">پیش بند</string>
-    <string name="type.aeroway.gate">دروازه</string>
-    <string name="type.aeroway.runway">باند فرودگاه</string>
-    <string name="type.aeroway.terminal">پایانه</string>
-    <string name="type.aeroway.taxiway">مسیر تاکسی</string>
-    <string name="type.boundary">مرز</string>
-    <string name="type.barrier.wall">دیوار</string>
-    <string name="type.boundary.administrative.2">مرز ملی</string>
-    <string name="type.building.warehouse">انبار</string>
-    <string name="type.highway">بزرگراه</string>
-    <string name="type.cuisine.sausage">سوسیس</string>
-    <string name="type.cuisine.seafood">غذای دریایی</string>
-    <string name="type.cuisine.soba">سوبا­­</string>
-    <string name="type.cuisine.spanish">اسپانیایی</string>
-    <string name="type.cuisine.sushi">سوشی</string>
-    <string name="type.cuisine.tapas">تاپاس</string>
-    <string name="type.cuisine.tea">چای</string>
-    <string name="type.cuisine.thai">تایلندی</string>
-    <string name="type.cuisine.vegan">گیاهخوار</string>
-    <string name="type.cuisine.vegetarian">گیاه خوار</string>
-    <string name="type.cuisine.vietnamese">ویتنامی</string>
-    <string name="type.emergency">اورژانسی</string>
-    <string name="type.fee.yes">دلار</string>
-    <string name="type.cuisine.steak_house">خانه استیک</string>
-    <string name="type.cuisine.turkish">ترکی</string>
-    <string name="type.man_made.breakwater">موج شکن</string>
-    <string name="type.man_made.cairn">سنگ چین</string>
-    <string name="type.man_made.chimney">دودکش</string>
-    <string name="type.man_made.cutline">خط برش</string>
-    <string name="type.cuisine.french">فرانسوی</string>
-    <string name="type.junction">تقاطع</string>
-    <string name="type.junction.circular">دوربرگردان</string>
-    <string name="type.junction.roundabout">دوربرگردان</string>
-    <string name="type.landuse.allotments">قسمت ها</string>
-    <string name="type.landuse.brownfield">توسعه یافته</string>
-    <string name="type.landuse.commercial">منطقه تجاری</string>
-    <string name="type.landuse.construction">منطقه ساخت و ساز</string>
-    <string name="type.cuisine.balkan">بالکان</string>
-    <string name="type.cuisine.bagel">نان شیرینی حلقوی</string>
-    <string name="type.cuisine.barbecue">بریانی</string>
-    <string name="type.highway.bridleway">مسیر سوارکاری</string>
-    <string name="type.highway.bridleway.permissive">مسیر سوارکاری</string>
-    <string name="type.highway.elevator">آسانسور</string>
-    <string name="type.highway.rest_area">استراحتگاه</string>
-    <string name="type.man_made.flagpole">میله پرچم</string>
-    <string name="type.man_made.survey_point">نقطه نقشه برداری</string>
-    <string name="type.landuse.education">امکانات آموزشی</string>
-    <string name="type.cuisine.hotdog">هات‌داگ</string>
-    <string name="type.cuisine.georgian">گرجی</string>
-    <string name="type.cuisine.german">آلمانی</string>
-    <string name="type.cuisine.greek">یونانی</string>
-    <string name="type.cuisine.grill">گریل</string>
-    <string name="type.highway.services">محل استراحت</string>
-    <string name="type.man_made.mast">دکل</string>
-    <string name="type.man_made.pipeline">خط لوله</string>
-    <string name="type.man_made.pier">اسکله</string>
-    <string name="type.cuisine.bavarian">باواریایی</string>
-    <string name="type.cuisine.beef_bowl">کاسه گوشت گاو</string>
-    <string name="type.cuisine.brazilian">برزیلی</string>
-    <string name="type.cuisine.breakfast">صبحانه</string>
-    <string name="type.cuisine.bubble_tea">بابل تی</string>
-    <string name="type.cuisine.burger">برگر</string>
-    <string name="type.noexit">بن‌بست</string>
-    <string name="type.railway.abandoned.tunnel">تونل متروک راه‌آهن</string>
-    <string name="type.organic.only">طبیعی</string>
-    <string name="type.organic.yes">طبیعی</string>
-    <string name="type.power">برق</string>
-    <string name="type.power.generator">ژنراتور برق</string>
-    <string name="type.power.line">خط برق</string>
-    <string name="type.railway">راه‌آهن</string>
-    <string name="type.railway.construction">راه‌آهن در دست ساخت</string>
-    <string name="type.railway.crossing">گذرگاه راه‌آهن</string>
-    <string name="type.cuisine.ice_cream">بستنی</string>
-    <string name="type.cuisine.hungarian">مجارستانی</string>
-    <string name="type.cuisine.indian">هندی</string>
-    <string name="type.cuisine.indonesian">اندونزیایی</string>
-    <string name="type.cuisine.international">بین‌المللی</string>
-    <string name="type.cuisine.irish">ایرلندی</string>
-    <string name="type.cuisine.italian">ایتالیایی</string>
-    <string name="type.highway.cycleway.permissive">مسیر دوچرخه</string>
-    <string name="type.area_highway.cycleway">مسیر دوچرخه</string>
-    <string name="type.highway.ladder">نردبان</string>
-    <string name="type.highway.world_level">بزرگراه جهانی</string>
-    <string name="type.hwtag.toll">عوارضی</string>
-    <string name="type.hwtag.oneway">یک طرفه</string>
-    <string name="type.man_made.wastewater_plant">تصفیه‌خانه فاضلاب</string>
-    <string name="type.man_made.pipeline.overground">خط لوله روی زمین</string>
-    <string name="type.man_made.silo">انبار</string>
-    <string name="type.man_made.storage_tank">مخزن</string>
-    <string name="type.cuisine.cake">کیک</string>
-    <string name="type.cuisine.caribbean">کارائیب</string>
-    <string name="type.cuisine.chicken">مرغ</string>
-    <string name="type.cuisine.chinese">چینی</string>
-    <string name="type.cuisine.coffee_shop">قهوه</string>
-    <string name="type.cuisine.crepe">کرپ</string>
-    <string name="type.cuisine.croatian">کرواسیایی</string>
-    <string name="type.cuisine.curry">کاری</string>
-    <string name="type.cuisine.deli">اغذیه فروشی</string>
-    <string name="type.cuisine.diner">کسی که شام میخورد</string>
-    <string name="type.cuisine.donut">دونات</string>
-    <string name="type.cuisine.ethiopian">اتیوپیایی</string>
-    <string name="type.cuisine.filipino">فیلیپینی</string>
-    <string name="type.cuisine.fine_dining">رستوران مجلل</string>
-    <string name="type.cuisine.fish">ماهی</string>
-    <string name="type.military">ارتش</string>
-    <string name="type.mountain_pass">گردنه کوهستانی</string>
-    <string name="type.power.minor_line">خط برق فرعی</string>
-    <string name="type.power.pole">تیر برق</string>
-    <string name="type.man_made.utility_pole">تیر چراغ برق</string>
-    <string name="type.man_made.works">تأسیسات صنعتی</string>
-    <string name="type.mapswithme">mapswithme</string>
-    <string name="type.power.line.underground">خط برق زیرزمینی</string>
-    <string name="type.power.station">نیروگاه برق</string>
-    <string name="type.power.substation">پست برق</string>
-    <string name="type.aerialway.magic_carpet">قالیچه جادویی</string>
-    <string name="type.aerialway.station">ایستگاه تله کابین</string>
-    <string name="type.wheelchair">صندلی چرخدار</string>
-    <string name="type.cuisine.japanese">ژاپنی</string>
-    <string name="type.cuisine.kebab">کباب</string>
-    <string name="type.cuisine.korean">کره‌ای</string>
-    <string name="type.cuisine.fish_and_chips">ماهی و چیپس</string>
-    <string name="type.railway.disused">راه‌آهن رها شده</string>
-    <string name="type.railway.funicular.bridge">پل کابلی</string>
-    <string name="type.railway.funicular.tunnel">تونل کابلی</string>
-    <string name="type.railway.monorail.bridge">پل مونوریل</string>
-    <string name="type.public_transport">حمل و نقل عمومی</string>
-    <string name="type.railway.light_rail.tunnel">تونل ریل سبک</string>
-    <string name="type.railway.preserved.bridge">پل ریل حفاظت‌شده</string>
-    <string name="type.railway.platform">سکوی راه آهن</string>
-    <string name="type.railway.preserved">ریل حفاظت‌شده</string>
-    <string name="type.railway.tram.bridge">پل خط تراموا</string>
-    <string name="type.railway.tram">خط تراموا</string>
-    <string name="type.railway.tram.tunnel">تونل خط تراموا</string>
-    <string name="type.public_transport.platform">سکو</string>
-    <string name="type.railway.subway">خط مترو</string>
-    <string name="type.railway.subway.bridge">پل خط مترو</string>
-    <string name="type.railway.preserved.tunnel">"تونل  ریل حفاظت‌شده"</string>
-    <string name="type.railway.light_rail">ریل سبک</string>
-    <string name="type.railway.monorail.tunnel">تونل مونوریل</string>
-    <string name="type.railway.light_rail.bridge">"پل  ریل سبک"</string>
-    <string name="type.railway.subway.tunnel">تونل خط مترو</string>
-    <string name="type.aeroway">زیرساخت‌های حریم هوایی</string>
-    <string name="type.cuisine.lebanese">لبنانی</string>
-    <string name="type.landuse.salt_pond">نمک‌زار</string>
     <string name="type.barrier.jersey_barrier">بلوک</string>
     <string name="type.barrier.debris">آوار</string>
     <string name="type.barrier.log">مانع تنه درخت</string>

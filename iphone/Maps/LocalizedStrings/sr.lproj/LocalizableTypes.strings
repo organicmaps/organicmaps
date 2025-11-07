@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "Адреса/Блок";
 "type.addr_interpolation.even" = "Адреса/Блок";
 "type.addr_interpolation.odd" = "Адреса/Блок";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "Грил";
 "type.amenity.bench" = "Клупа";
 "type.amenity.bicycle_parking" = "Паркинг за бицикле";
+"type.amenity.bicycle_parking.covered" = "Pokriveni parking za bicikle";
 "type.amenity.bicycle_rental" = "Рентирање бицикли";
 "type.amenity.bicycle_repair_station" = "Станица за поправку бицикала";
 "type.amenity.biergarten" = "Пивска башта";
 "type.amenity.brothel" = "Јавна кућа";
+"type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "Мењачница";
 "type.amenity.bus_station" = "Аутобуска станица";
 "type.amenity.cafe" = "Кафе";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Станица за пуњење аутомобила";
 "type.amenity.childcare" = "Вртић";
 "type.amenity.cinema" = "Биоскоп";
+"type.amenity.studio" = "Studio";
 "type.leisure.bowling_alley" = "Куглана";
 "type.amenity.clinic" = "Дом здравља / Поликлиника";
 "type.amenity.college" = "Факултет";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "Вртић";
 "type.amenity.library" = "Библиотека";
 "type.amenity.loading_dock" = "Утоварна станица";
+"type.amenity.luggage_locker" = "Luggage Locker";
 "type.amenity.marketplace" = "Пијаца";
 "type.amenity.motorcycle_parking" = "Паркинг за мотоцикле";
 "type.amenity.nightclub" = "Ноћни клуб";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "Полиција";
 "type.amenity.post_box" = "Поштанско сандуче";
 "type.amenity.post_office" = "Пошта";
+"type.post_office.post_partner" = "Post Partner";
 "type.amenity.prison" = "Затвор";
 "type.amenity.pub" = "Паб";
 "type.amenity.public_bookcase" = "Размена књига";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Центар за рециклажу";
 "type.amenity.recycling" = "Контејнер за рециклажу";
 "type.amenity.recycling.container" = "Контејнер за рециклажу";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "Отпадна вода";
 "type.barrier.entrance" = "Пролаз";
 "type.barrier.fence" = "Ограда";
+"type.barrier.guard_rail" = "Guard Rail";
 "type.barrier.gate" = "Капија";
 "type.barrier.hedge" = "Жива ограда";
 "type.barrier.kissing_gate" = "Сточна капија";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "Психотерапеут";
 "type.healthcare.sample_collection" = "Прикупљање анализа";
 "type.healthcare.speech_therapist" = "Логопед";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Ауто-пут";
 "type.highway.bridleway" = "Коњска стаза";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Тунел";
+"type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "Пут треће класе";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "Некласификовани пут";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "Историјски објекат";
 "type.historic.aircraft" = "Историјски авион";
 "type.historic.anchor" = "Историјско сидро";
@@ -644,18 +667,44 @@
 "type.historic.wayside_cross" = "Крст поред пута";
 "type.historic.wayside_shrine" = "Светилиште поред пута";
 "type.historic.wreck" = "Историјски бродолом";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Интернет";
 "type.internet_access.wlan" = "Интернет";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Хришћанско гробље";
 "type.landuse.religious" = "Двориште цркве";
+"type.landuse.churchyard" = "Двориште цркве";
 "type.landuse.commercial" = "Кмерцијална област";
 "type.landuse.construction" = "Градилиште";
 "type.landuse.education" = "Образовна установа";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "Слано језеро";
 "type.landuse.village_green" = "Зеленило";
 "type.landuse.vineyard" = "Виноград";
+"type.landuse.plant_nursery" = "Plant Nursery";
 "type.leisure" = "Слободно време";
 "type.leisure.common" = "Јавно земљиште";
 "type.leisure.dog_park" = "Парк за псе";
+"type.leisure.escape_game" = "Escape Room";
 "type.leisure.fitness_centre" = "Фитнес центар";
 "type.leisure.fitness_station" = "Фитнес станица";
 "type.leisure.dance" = "Плесна дворана";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "Марина";
 "type.leisure.nature_reserve" = "Природни резерват";
 "type.leisure.outdoor_seating" = "Седење на отвореном";
+"type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Парк";
 "type.leisure.park.no.access" = "Парк";
 "type.leisure.park.permissive" = "Парк";
@@ -773,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "Бунар";
 "type.man_made.windmill" = "Ветрењача";
 "type.man_made.works" = "Фабрика";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Војска";
 "type.military.bunker" = "Бункер";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "Метро станица";
 "type.railway.station.subway.philadelphia" = "Метро станица";
 "type.railway.station.subway.pyongyang" = "Метро станица";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Subway Station";
 "type.railway.station.subway.rennes" = "Метро станица";
 "type.railway.station.subway.rio" = "Метро станица";
 "type.railway.station.subway.roma" = "Метро станица";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "Грумер";
 "type.shop.photo" = "Фотограф";
 "type.shop.rental" = "Центар за изнајмљивање";
+"type.shop.rental.bicycle" = "Изнајмљивање бицикала";
 "type.amenity.bicycle_rental.shop" = "Изнајмљивање бицикала";
 "type.shop.seafood" = "Рибарница";
 "type.shop.second_hand" = "Половна одећа";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "Туристичка мапа";
 "type.tourism.information.office" = "Туристички биро";
 "type.tourism.information.visitor_centre" = "Центар за посетиоце";
+"type.amenity.ranger_station" = "Ranger Station";
 "type.tourism.motel" = "Мотел";
 "type.tourism.museum" = "Музеј";
 "type.tourism.picnic_site" = "Пикник";
@@ -1484,18 +1546,6 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Спортска хала";
-"type.amenity.bicycle_parking.covered" = "Pokriveni parking za bicikle";
-"type.amenity.love_hotel" = "Love Hotel";
-"type.amenity.studio" = "Studio";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.post_office.post_partner" = "Post Partner";
-"type.barrier.guard_rail" = "Guard Rail";
-"type.highway.ladder" = "Ladder";
-"type.landuse.plant_nursery" = "Plant Nursery";
-"type.leisure.escape_game" = "Escape Room";
-"type.leisure.firepit" = "Firepit";
-"type.railway.station.subway.qingdao" = "Subway Station";
-"type.amenity.ranger_station" = "Ranger Station";
 "type.sport.diving" = "Diving";
 "type.man_made.crane" = "Crane";
 "type.barrier.wicket_gate" = "Wicket Gate";
@@ -1504,3 +1554,18 @@
 "type.office.security" = "Security Office";
 "type.power.portal" = "Power Tower (Portal)";
 "type.shop.lighting" = "Lighting Shop";
+"type.barrier.jersey_barrier" = "Block";
+"type.barrier.debris" = "Debris";
+"type.barrier.log" = "Log Barrier";
+"type.amenity.boat_rental" = "Boat Rental";
+"type.shop.telecommunication" = "Telecommunications store";
+"type.leisure.indoor_play" = "Play Centre";
+"type.tourism.camp_pitch" = "Camping Spot";
+"type.railway.miniature" = "Miniature Railway";
+"type.amenity.kneipp_water_cure" = "Kneipp Water Cure";
+"type.area_highway.traffic_island" = "Traffic Island";
+"type.man_made.monitoring_station" = "Monitoring Station";
+"type.man_made.monitoring_station.water_level" = "Water Level Monitoring Station";
+"type.man_made.monitoring_station.weather" = "Weather Monitoring Station";
+"type.amenity.student_accommodation" = "Student Accommodation";
+"type.craft.watchmaker" = "Watchmaker";

@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "Adres/blok";
 "type.addr_interpolation.even" = "Adres/blok";
 "type.addr_interpolation.odd" = "Adres/blok";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "Barbecue";
 "type.amenity.bench" = "Zitbank";
 "type.amenity.bicycle_parking" = "Fietsenstalling";
+"type.amenity.bicycle_parking.covered" = "Overdekte Fietsen Stalling";
 "type.amenity.bicycle_rental" = "Fietsverhuur";
 "type.amenity.bicycle_repair_station" = "Fiets reparatie station";
 "type.amenity.biergarten" = "Biertuin";
 "type.amenity.brothel" = "Bordeel";
+"type.amenity.love_hotel" = "Ontmoetingshotel";
 "type.amenity.bureau_de_change" = "Wisselkantoor";
 "type.amenity.bus_station" = "Busstation";
 "type.amenity.cafe" = "Café";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Oplaadstation voor auto's";
 "type.amenity.childcare" = "Crèche";
 "type.amenity.cinema" = "Bioscoop";
+"type.amenity.studio" = "Studio";
 "type.leisure.bowling_alley" = "Bowlingbaan";
 "type.amenity.clinic" = "Kliniek";
 "type.amenity.college" = "Hogeschool";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "Kleuterschool";
 "type.amenity.library" = "Bibliotheek";
 "type.amenity.loading_dock" = "Laad-dock";
+"type.amenity.luggage_locker" = "Baggage Kluis";
 "type.amenity.marketplace" = "Markt";
 "type.amenity.motorcycle_parking" = "Parking Motorfietsen";
 "type.amenity.nightclub" = "Nachtclub";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "Politie";
 "type.amenity.post_box" = "Brievenbus";
 "type.amenity.post_office" = "Postkantoor";
+"type.post_office.post_partner" = "Post Agentschap";
 "type.amenity.prison" = "Gevangenis";
 "type.amenity.pub" = "Kroeg";
 "type.amenity.public_bookcase" = "Boekenkast";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Milieustraat";
 "type.amenity.recycling" = "Recycling container";
 "type.amenity.recycling.container" = "Recycling container";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "Afvalwater";
 "type.barrier.entrance" = "Ingang";
 "type.barrier.fence" = "Hek";
+"type.barrier.guard_rail" = "Vangrail";
 "type.barrier.gate" = "Poort";
 "type.barrier.hedge" = "Heg";
 "type.barrier.kissing_gate" = "Voetgangershek";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "Psychotherapie";
 "type.healthcare.sample_collection" = "Bemonstering";
 "type.healthcare.speech_therapist" = "Logopedie";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Straat";
 "type.highway.bridleway" = "Ruiterpad";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Tunnel";
+"type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "Tertiaire weg";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "Straat";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "Historisch object";
 "type.historic.aircraft" = "Historische vliegtuigen";
 "type.historic.anchor" = "Historisch anker";
@@ -644,18 +667,44 @@
 "type.historic.wayside_cross" = "Wegkruis";
 "type.historic.wayside_shrine" = "Kruisbeeld";
 "type.historic.wreck" = "Schipbreuk";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Draadloos internet";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Christelijke begraafplaats";
 "type.landuse.religious" = "Kerkhof";
+"type.landuse.churchyard" = "Kerkhof";
 "type.landuse.commercial" = "Commercieel gebied";
 "type.landuse.construction" = "Bouwplaats";
 "type.landuse.education" = "Educatieve voorzieningen";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "Zoutpoel";
 "type.landuse.village_green" = "Dorpspark";
 "type.landuse.vineyard" = "Wijngaard";
+"type.landuse.plant_nursery" = "Plantenkwekerij";
 "type.leisure" = "Ontspanning";
 "type.leisure.common" = "Openbare grond";
 "type.leisure.dog_park" = "Hondenuitlaatplek";
+"type.leisure.escape_game" = "Ontsnapkamer";
 "type.leisure.fitness_centre" = "Fitnesscentrum";
 "type.leisure.fitness_station" = "Fitness-Station";
 "type.leisure.dance" = "Danszaal";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "Jachthaven";
 "type.leisure.nature_reserve" = "Natuurreservaat";
 "type.leisure.outdoor_seating" = "Zitplaatsen buiten";
+"type.leisure.firepit" = "Vuurplaats";
 "type.leisure.park" = "Park";
 "type.leisure.park.no.access" = "Park";
 "type.leisure.park.permissive" = "Park";
@@ -773,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "Waterput";
 "type.man_made.windmill" = "Windmolen";
 "type.man_made.works" = "Fabriek";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Militair";
 "type.military.bunker" = "Bunker";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "Metrostation";
 "type.railway.station.subway.philadelphia" = "Metrostation";
 "type.railway.station.subway.pyongyang" = "Metrostation";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Metro Station";
 "type.railway.station.subway.rennes" = "Metrostation";
 "type.railway.station.subway.rio" = "Metrostation";
 "type.railway.station.subway.roma" = "Metrostation";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "Huisdierverzorging";
 "type.shop.photo" = "Fotowinkel";
 "type.shop.rental" = "Verhuur winkel";
+"type.shop.rental.bicycle" = "Fietsverhuurwinkel";
 "type.amenity.bicycle_rental.shop" = "Fietsverhuurwinkel";
 "type.shop.seafood" = "Visboer";
 "type.shop.second_hand" = "Tweedehandswinkel";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "Toeristische kaart";
 "type.tourism.information.office" = "Toeristische informatie";
 "type.tourism.information.visitor_centre" = "Bezoekerscentrum";
+"type.amenity.ranger_station" = "Boswachtershuis";
 "type.tourism.motel" = "Motel";
 "type.tourism.museum" = "Museum";
 "type.tourism.picnic_site" = "Picnicplaats";
@@ -1486,18 +1548,6 @@
 "type.leisure.sports_hall" = "Sporthal";
 "type.sport.diving" = "Duiken";
 "type.man_made.crane" = "Kraan";
-"type.amenity.love_hotel" = "Ontmoetingshotel";
-"type.barrier.guard_rail" = "Vangrail";
-"type.highway.ladder" = "Ladder";
-"type.landuse.plant_nursery" = "Plantenkwekerij";
-"type.leisure.firepit" = "Vuurplaats";
-"type.amenity.studio" = "Studio";
-"type.amenity.bicycle_parking.covered" = "Overdekte Fietsen Stalling";
-"type.amenity.luggage_locker" = "Baggage Kluis";
-"type.post_office.post_partner" = "Post Agentschap";
-"type.leisure.escape_game" = "Ontsnapkamer";
-"type.railway.station.subway.qingdao" = "Metro Station";
-"type.amenity.ranger_station" = "Boswachtershuis";
 "type.barrier.wicket_gate" = "Wicketpoort";
 "type.barrier.yes" = "Barrière";
 "type.building.guardhouse" = "Wacht";

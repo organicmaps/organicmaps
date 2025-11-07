@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Anwani/Zuia</string>
     <string name="type.addr_interpolation.even">Anwani/Zuia</string>
@@ -50,6 +51,7 @@
     <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Ukumbi wa Ufalme wa Mashahidi wa Yehova</string>
     <string name="type.amenity.post_office">Ofisi ya posta</string>
     <string name="type.amenity.prison">Jela</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.recycling.batteries">Betri</string>
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
@@ -121,6 +123,7 @@
     <string name="type.healthcare.psychotherapist">Tiba ya kisaikolojia</string>
     <string name="type.healthcare.sample_collection">Sampuli</string>
     <string name="type.healthcare.speech_therapist">Tiba ya hotuba</string>
+
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Daraja</string>
@@ -229,6 +232,7 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Mtaro</string>
     <string name="type.area_highway.path">Njia</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Kitu cha kihistoria</string>
     <string name="type.historic.aircraft">Ndege ya kihistoria</string>
@@ -276,6 +280,7 @@
     <string name="type.historic.wreck">Ajali ya meli</string>
     <string name="type.landuse.basin">Bonde la Maji</string>
     <string name="type.landuse.religious">Sehemu ya kanisa</string>
+    <string name="type.landuse.churchyard">Sehemu ya kanisa</string>
     <string name="type.landuse.farmland">Shamba</string>
     <string name="type.landuse.flowerbed">Kitanda cha maua</string>
     <string name="type.landuse.grass">Bustani</string>
@@ -553,6 +558,7 @@
     <string name="type.shop.pastry">Keki</string>
     <string name="type.shop.pet_grooming">Utunzaji wa Kipenzi</string>
     <string name="type.shop.rental">Duka la Kukodisha</string>
+    <string name="type.shop.rental.bicycle">Duka la Kukodisha Baiskeli</string>
     <string name="type.amenity.bicycle_rental.shop">Duka la Kukodisha Baiskeli</string>
     <string name="type.shop.second_hand">Duka la Mitumba</string>
     <string name="type.shop.video">Duka la Video</string>

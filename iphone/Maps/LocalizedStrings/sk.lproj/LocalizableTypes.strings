@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "Adresa/blok";
 "type.addr_interpolation.even" = "Adresa/blok";
 "type.addr_interpolation.odd" = "Adresa/blok";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "Gril na grilovanie";
 "type.amenity.bench" = "Lavička";
 "type.amenity.bicycle_parking" = "Stojan na bicykle";
+"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
 "type.amenity.bicycle_rental" = "Požičovňa bicyklov";
 "type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
 "type.amenity.biergarten" = "Piváreň";
 "type.amenity.brothel" = "Nevestinec";
+"type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "Zmenáreň";
 "type.amenity.bus_station" = "Autobusové nástupište";
 "type.amenity.cafe" = "Kaviareň";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Nabíjacia stanica pre motorové vozidlá";
 "type.amenity.childcare" = "Jasle";
 "type.amenity.cinema" = "Kino";
+"type.amenity.studio" = "Studio";
 "type.leisure.bowling_alley" = "Bowlingová dráha";
 "type.amenity.clinic" = "Poliklinika";
 "type.amenity.college" = "Vysoká škola";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "Škôlka";
 "type.amenity.library" = "Knižnica";
 "type.amenity.loading_dock" = "Nakladacia rampa";
+"type.amenity.luggage_locker" = "Luggage Locker";
 "type.amenity.marketplace" = "Trhovisko";
 "type.amenity.motorcycle_parking" = "Parkovisko pre motocykle";
 "type.amenity.nightclub" = "Nočný klub";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "Polícia";
 "type.amenity.post_box" = "Poštová schránka";
 "type.amenity.post_office" = "Pošta";
+"type.post_office.post_partner" = "Post Partner";
 "type.amenity.prison" = "Väznica";
 "type.amenity.pub" = "Pohostinstvo";
 "type.amenity.public_bookcase" = "Knižná búdka";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Zberné suroviny";
 "type.amenity.recycling" = "Recyklačný kontajner";
 "type.amenity.recycling.container" = "Recyklačný kontajner";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "Odpadová voda";
 "type.barrier.entrance" = "Vstup";
 "type.barrier.fence" = "Plot";
+"type.barrier.guard_rail" = "Guard Rail";
 "type.barrier.gate" = "Brána";
 "type.barrier.hedge" = "Živý plot";
 "type.barrier.kissing_gate" = "Brána";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "Psychoterapia";
 "type.healthcare.sample_collection" = "Odber vzoriek";
 "type.healthcare.speech_therapist" = "Logopédia";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Cesta";
 "type.highway.bridleway" = "Cesta pre jazdca na zvierati";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Tunel";
+"type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "Cesta III. triedy";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "Cesta bez administratívneho zaradenia";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "Historický objekt";
 "type.historic.aircraft" = "Historické lietadlo";
 "type.historic.anchor" = "Historická kotva";
@@ -644,18 +667,44 @@
 "type.historic.wayside_cross" = "Kríž pri ceste";
 "type.historic.wayside_shrine" = "Svätyňa pri ceste";
 "type.historic.wreck" = "Trosky lode";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Internet";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Kresťanský cintorín";
 "type.landuse.religious" = "Cintorín";
+"type.landuse.churchyard" = "Cintorín";
 "type.landuse.commercial" = "Komerčná oblasť";
 "type.landuse.construction" = "Stavenisko";
 "type.landuse.education" = "Vzdelávacia inštitúcia";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "Salina";
 "type.landuse.village_green" = "Zeleň";
 "type.landuse.vineyard" = "Vinohrad";
+"type.landuse.plant_nursery" = "Plant Nursery";
 "type.leisure" = "Voľný čas";
 "type.leisure.common" = "Public Land";
 "type.leisure.dog_park" = "Výbeh pre psy";
+"type.leisure.escape_game" = "Escape Room";
 "type.leisure.fitness_centre" = "Fitnescentrum";
 "type.leisure.fitness_station" = "Fitness";
 "type.leisure.dance" = "Tančiareň";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "Marína";
 "type.leisure.nature_reserve" = "Prírodná rezervácia";
 "type.leisure.outdoor_seating" = "Posedenie vonku";
+"type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Park";
 "type.leisure.park.no.access" = "Park";
 "type.leisure.park.permissive" = "Park";
@@ -773,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "Studňa";
 "type.man_made.windmill" = "Veterný mlyn";
 "type.man_made.works" = "Továreň";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Military";
 "type.military.bunker" = "Bunker";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "Metro";
 "type.railway.station.subway.philadelphia" = "Metro";
 "type.railway.station.subway.pyongyang" = "Metro";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Subway Station";
 "type.railway.station.subway.rennes" = "Metro";
 "type.railway.station.subway.rio" = "Metro";
 "type.railway.station.subway.roma" = "Metro";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "Zvierací salón";
 "type.shop.photo" = "Fotografické služby";
 "type.shop.rental" = "Požičovňa";
+"type.shop.rental.bicycle" = "Požičovňa bicyklov";
 "type.amenity.bicycle_rental.shop" = "Požičovňa bicyklov";
 "type.shop.seafood" = "Predajňa rýb";
 "type.shop.second_hand" = "Second hand";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "Turistická mapa";
 "type.tourism.information.office" = "Turistické informačné centrum";
 "type.tourism.information.visitor_centre" = "Návštevnícke centrum";
+"type.amenity.ranger_station" = "Ranger Station";
 "type.tourism.motel" = "Motel";
 "type.tourism.museum" = "Múzeum";
 "type.tourism.picnic_site" = "Piknik";
@@ -1484,18 +1546,6 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Športová hala";
-"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
-"type.amenity.love_hotel" = "Love Hotel";
-"type.amenity.studio" = "Studio";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.post_office.post_partner" = "Post Partner";
-"type.barrier.guard_rail" = "Guard Rail";
-"type.highway.ladder" = "Ladder";
-"type.landuse.plant_nursery" = "Plant Nursery";
-"type.leisure.escape_game" = "Escape Room";
-"type.leisure.firepit" = "Firepit";
-"type.railway.station.subway.qingdao" = "Subway Station";
-"type.amenity.ranger_station" = "Ranger Station";
 "type.sport.diving" = "Diving";
 "type.man_made.crane" = "Crane";
 "type.barrier.wicket_gate" = "Wicket Gate";

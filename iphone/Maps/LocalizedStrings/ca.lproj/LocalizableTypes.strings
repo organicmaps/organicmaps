@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "Adreça/illa";
 "type.addr_interpolation.even" = "Adreça/illa";
 "type.addr_interpolation.odd" = "Adreça/illa";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "Barbacoa";
 "type.amenity.bench" = "Seient";
 "type.amenity.bicycle_parking" = "Aparcament de bicicletes";
+"type.amenity.bicycle_parking.covered" = "Aparcament de bicicletes ensostrat";
 "type.amenity.bicycle_rental" = "Lloguer de bicicletes";
 "type.amenity.bicycle_repair_station" = "Estació de reparació de bicicletes";
 "type.amenity.biergarten" = "Biergarten";
 "type.amenity.brothel" = "Bordell";
+"type.amenity.love_hotel" = "Meublé";
 "type.amenity.bureau_de_change" = "Casa de canvi";
 "type.amenity.bus_station" = "Estació d’autobusos";
 "type.amenity.cafe" = "Cafè";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Estació de recàrrega de cotxes";
 "type.amenity.childcare" = "Guarderia";
 "type.amenity.cinema" = "Cinema";
+"type.amenity.studio" = "Estudi";
 "type.leisure.bowling_alley" = "Bolera";
 "type.amenity.clinic" = "Clínica";
 "type.amenity.college" = "Estudis postobligatoris";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "Escola bressol";
 "type.amenity.library" = "Biblioteca";
 "type.amenity.loading_dock" = "Moll de càrrega";
+"type.amenity.luggage_locker" = "Luggage Locker";
 "type.amenity.marketplace" = "Mercat";
 "type.amenity.motorcycle_parking" = "Aparcament de motocicletes";
 "type.amenity.nightclub" = "Club nocturn";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "Policia";
 "type.amenity.post_box" = "Bústia";
 "type.amenity.post_office" = "Oficina de correus";
+"type.post_office.post_partner" = "Post Partner";
 "type.amenity.prison" = "Presó";
 "type.amenity.pub" = "Taverna";
 "type.amenity.public_bookcase" = "Intercanvi de llibres";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Centre de reciclatge";
 "type.amenity.recycling" = "Contenidor de reciclatge";
 "type.amenity.recycling.container" = "Contenidor de reciclatge";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "Aigües residuals";
 "type.barrier.entrance" = "Entrada";
 "type.barrier.fence" = "Tanca";
+"type.barrier.guard_rail" = "Tanca de contenció";
 "type.barrier.gate" = "Reixat";
 "type.barrier.hedge" = "Tanca vegetal";
 "type.barrier.kissing_gate" = "Reixat";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "Psicoterapeuta";
 "type.healthcare.sample_collection" = "Centre de recollida de mostres";
 "type.healthcare.speech_therapist" = "Logopèdia";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Carretera";
 "type.highway.bridleway" = "Camí de brida";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Túnel";
+"type.highway.ladder" = "Escala de mà";
 "type.highway.tertiary" = "Carretera terciària";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "Àrea de carretera sense classificar";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "Objecte històric";
 "type.historic.aircraft" = "Avions històrics";
 "type.historic.anchor" = "Àncora històrica";
@@ -644,18 +667,44 @@
 "type.historic.wayside_cross" = "Creu de vora del camí";
 "type.historic.wayside_shrine" = "Santuari de vora del camí";
 "type.historic.wreck" = "Naufragi";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Internet";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Cementiri cristià";
 "type.landuse.religious" = "Cementiri";
+"type.landuse.churchyard" = "Churchyard";
 "type.landuse.commercial" = "Zona comercial";
 "type.landuse.construction" = "Zona de construcció";
 "type.landuse.education" = "Instal·lació educativa";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "Estany salat";
 "type.landuse.village_green" = "Terreny";
 "type.landuse.vineyard" = "Vinyar";
+"type.landuse.plant_nursery" = "Viver";
 "type.leisure" = "Oci";
 "type.leisure.common" = "Terreny públic";
 "type.leisure.dog_park" = "Parc caní";
+"type.leisure.escape_game" = "Joc d’escapada";
 "type.leisure.fitness_centre" = "Gimnàs";
 "type.leisure.fitness_station" = "Estació de fitness";
 "type.leisure.dance" = "Sala de ball";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "Port esportiu";
 "type.leisure.nature_reserve" = "Reserva natural";
 "type.leisure.outdoor_seating" = "Seients a l’aire lliure";
+"type.leisure.firepit" = "Braser";
 "type.leisure.park" = "Parc";
 "type.leisure.park.no.access" = "Parc privat";
 "type.leisure.park.permissive" = "Parc";
@@ -773,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "Pou d’aigua";
 "type.man_made.windmill" = "Molí de vent";
 "type.man_made.works" = "Fàbrica";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Militar";
 "type.military.bunker" = "Búnquer";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "Estació del metro";
 "type.railway.station.subway.philadelphia" = "Estació del metro";
 "type.railway.station.subway.pyongyang" = "Estació del metro";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Estació del metro";
 "type.railway.station.subway.rennes" = "Estació del metro";
 "type.railway.station.subway.rio" = "Estació del metro";
 "type.railway.station.subway.roma" = "Estació del metro";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "Peluca de mascotes";
 "type.shop.photo" = "Botiga de fotografia";
 "type.shop.rental" = "Botiga de lloguer";
+"type.shop.rental.bicycle" = "Botiga de lloguer de bicicletes";
 "type.amenity.bicycle_rental.shop" = "Botiga de lloguer de bicicletes";
 "type.shop.seafood" = "Peixateria";
 "type.shop.second_hand" = "Botiga de segona mà";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "Mapa turístic";
 "type.tourism.information.office" = "Oficina de turisme";
 "type.tourism.information.visitor_centre" = "Centre de visitants";
+"type.amenity.ranger_station" = "Ranger Station";
 "type.tourism.motel" = "Motel";
 "type.tourism.museum" = "Museu";
 "type.tourism.picnic_site" = "Lloc de pícnic";
@@ -1484,20 +1546,8 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Pavelló esportiu";
-"type.barrier.guard_rail" = "Tanca de contenció";
-"type.amenity.studio" = "Estudi";
-"type.amenity.love_hotel" = "Meublé";
-"type.highway.ladder" = "Escala de mà";
-"type.landuse.plant_nursery" = "Viver";
 "type.sport.diving" = "Salts";
 "type.man_made.crane" = "Grua";
-"type.leisure.firepit" = "Braser";
-"type.railway.station.subway.qingdao" = "Estació del metro";
-"type.amenity.bicycle_parking.covered" = "Aparcament de bicicletes ensostrat";
-"type.leisure.escape_game" = "Joc d’escapada";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.post_office.post_partner" = "Post Partner";
-"type.amenity.ranger_station" = "Ranger Station";
 "type.barrier.wicket_gate" = "Wicket Gate";
 "type.barrier.yes" = "Barrier";
 "type.building.guardhouse" = "Guard";

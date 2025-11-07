@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adres/Blok</string>
     <string name="type.addr_interpolation.even">Adres/Blok</string>
@@ -28,10 +29,12 @@
     <string name="type.amenity.bbq">Grill</string>
     <string name="type.amenity.bench">Ławka</string>
     <string name="type.amenity.bicycle_parking">Parking dla rowerów</string>
+    <string name="type.amenity.bicycle_parking.covered">Zadaszony parking rowerowy</string>
     <string name="type.amenity.bicycle_rental">Wynajem rowerów</string>
     <string name="type.amenity.bicycle_repair_station">Stacja naprawy rowerów</string>
     <string name="type.amenity.biergarten">Ogródek piwny</string>
     <string name="type.amenity.brothel">Burdel</string>
+    <string name="type.amenity.love_hotel">Hotel miłości</string>
     <string name="type.amenity.bureau_de_change">Kantor</string>
     <string name="type.amenity.bus_station">Dworzec autobusowy</string>
     <string name="type.amenity.cafe">Kawiarnia</string>
@@ -48,6 +51,7 @@
     <string name="type.amenity.charging_station.motorcar">Stacja ładowania samochodów</string>
     <string name="type.amenity.childcare">Opieka nad dziećmi</string>
     <string name="type.amenity.cinema">Kino</string>
+    <string name="type.amenity.studio">Studio</string>
     <string name="type.leisure.bowling_alley">Kręgielnia</string>
     <string name="type.amenity.clinic">Klinika</string>
     <string name="type.amenity.college">Szkoła wyższa</string>
@@ -82,6 +86,7 @@
     <string name="type.amenity.kindergarten">Przedszkole</string>
     <string name="type.amenity.library">Biblioteka</string>
     <string name="type.amenity.loading_dock">Dok przeładunkowy</string>
+    <string name="type.amenity.luggage_locker">Przechowalnia bagażu</string>
     <string name="type.amenity.marketplace">Targ</string>
     <string name="type.amenity.motorcycle_parking">Parking motocyklowy</string>
     <string name="type.amenity.nightclub">Klub nocny</string>
@@ -126,9 +131,11 @@
     <string name="type.amenity.police">Policja</string>
     <string name="type.amenity.post_box">Skrzynka pocztowa</string>
     <string name="type.amenity.post_office">Urząd pocztowy</string>
+    <string name="type.post_office.post_partner">Partner pocztowy</string>
     <string name="type.amenity.prison">Więzienie</string>
     <string name="type.amenity.pub">Pub</string>
     <string name="type.amenity.public_bookcase">Wymiana książek</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Centrum przetwórstwa odpadów</string>
     <string name="type.amenity.recycling">Pojemnik do recyklingu</string>
@@ -155,6 +162,8 @@
     <string name="type.amenity.shelter.public_transport">Wiata</string>
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
     <string name="type.amenity.shelter.basic_hut">Chata Biwakowa</string>
+    <!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
+    <string name="type.amenity.shelter.lean_to">Schron turystyczny</string>
     <string name="type.amenity.public_bath">Łaźnia publiczna</string>
     <string name="type.amenity.shower">Prysznic</string>
     <string name="type.amenity.stripclub">Klub ze striptizem</string>
@@ -178,6 +187,7 @@
     <string name="type.amenity.vending_machine.excrement_bags">Automat z torebkami na odchody</string>
     <string name="type.amenity.parcel_locker">Paczkomat</string>
     <string name="type.amenity.vehicle_inspection">Stacja kontroli pojazdów</string>
+    <string name="type.amenity.vending_machine.fuel">Pompa paliwowa</string>
     <string name="type.amenity.veterinary">Weterynarz</string>
     <string name="type.amenity.waste_basket">Kosz na śmieci</string>
     <string name="type.amenity.waste_disposal">Wysypisko śmieci</string>
@@ -196,6 +206,7 @@
     <string name="type.natural.water.wastewater">Ścieki</string>
     <string name="type.barrier.entrance">Wejście</string>
     <string name="type.barrier.fence">Płot</string>
+    <string name="type.barrier.guard_rail">Barierka ochronna</string>
     <string name="type.barrier.gate">Brama</string>
     <string name="type.barrier.hedge">Żywopłot</string>
     <string name="type.barrier.kissing_gate">Brama</string>
@@ -270,6 +281,7 @@
     <string name="type.cuisine.beef_bowl">Gyūdon</string>
     <string name="type.cuisine.brazilian">Kuchnia brazylijska</string>
     <string name="type.cuisine.breakfast">Śniadaniarnia</string>
+    <string name="type.cuisine.bubble_tea">Herbata bąbelkowa</string>
     <string name="type.cuisine.burger">Burgery</string>
     <string name="type.cuisine.buschenschank">Winiarnia</string>
     <string name="type.cuisine.cake">Ciasta</string>
@@ -356,6 +368,7 @@
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Główne wejście</string>
     <string name="type.entrance.exit">Wyjście</string>
+    <string name="type.fee.yes">$</string>
     <string name="type.fee.no">Bezpłatne</string>
     <string name="type.healthcare.laboratory">Laboratorium medyczne</string>
     <string name="type.healthcare.physiotherapist">Fizjoterapeuta</string>
@@ -367,6 +380,7 @@
     <string name="type.healthcare.psychotherapist">Psychoterapia</string>
     <string name="type.healthcare.sample_collection">Punkt pobrań laboratoryjnych</string>
     <string name="type.healthcare.speech_therapist">Logopeda</string>
+
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Droga</string>
     <string name="type.highway.bridleway">Droga dla koni</string>
@@ -482,6 +496,7 @@
     <string name="type.highway.steps.bridge">Most</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.steps.tunnel">Tunel</string>
+    <string name="type.highway.ladder">Drabina</string>
     <string name="type.highway.tertiary">Ulica</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary.bridge">Most</string>
@@ -532,6 +547,9 @@
     <string name="type.area_highway.track">Droga na pola lub do lasu</string>
     <string name="type.area_highway.trunk">Ulica</string>
     <string name="type.area_highway.unclassified">Ulica</string>
+    <string name="type.highway.world_level">highway-world_level</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Obiekt historyczny</string>
     <string name="type.historic.aircraft">Historyczny samolot</string>
@@ -577,6 +595,8 @@
     <string name="type.historic.wayside_cross">Krzyż przydrożny</string>
     <string name="type.historic.wayside_shrine">Kapliczka przydrożna</string>
     <string name="type.historic.wreck">Wrak statku</string>
+    <string name="type.internet_access">Internet</string>
+    <string name="type.internet_access.wlan">Internet</string>
     <string name="type.junction">Skrzyżowanie</string>
     <string name="type.junction.circular">Rondo</string>
     <string name="type.junction.roundabout">Rondo</string>
@@ -589,6 +609,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Cmentarz chrześcijański</string>
     <string name="type.landuse.religious">Teren kościelny</string>
+    <string name="type.landuse.churchyard">Teren kościelny</string>
     <string name="type.landuse.commercial">Teren handlu i usług</string>
     <string name="type.landuse.construction">Teren budowy</string>
     <string name="type.landuse.education">Placówki oświatowe</string>
@@ -603,6 +624,7 @@
     <string name="type.landuse.garages">Garaże</string>
     <string name="type.landuse.grass">Trawnik</string>
     <string name="type.landuse.greenfield">Obszar pod zabudowę</string>
+    <string name="type.landuse.greenhouse_horticulture">Szklarnia</string>
     <string name="type.landuse.industrial">Obszar przemysłowy</string>
     <string name="type.landuse.landfill">Składowisko odpadów</string>
     <string name="type.landuse.meadow">Łąka</string>
@@ -617,8 +639,11 @@
     <string name="type.landuse.salt_pond">Słone jezioro</string>
     <string name="type.landuse.village_green">Nawsie</string>
     <string name="type.landuse.vineyard">Winnica</string>
+    <string name="type.landuse.plant_nursery">Szkółka roślin</string>
     <string name="type.leisure">Wypoczynek</string>
+    <string name="type.leisure.common">Teren publiczny</string>
     <string name="type.leisure.dog_park">Wybieg dla psów</string>
+    <string name="type.leisure.escape_game">Pokój zagadek</string>
     <string name="type.leisure.fitness_centre">Centrum fitness</string>
     <string name="type.leisure.fitness_station">Stacja fitness</string>
     <string name="type.leisure.dance">Sala taneczna</string>
@@ -626,9 +651,12 @@
     <string name="type.leisure.garden.residential">Ogród przydomowy</string>
     <string name="type.leisure.golf_course">Kurs golfowy</string>
     <string name="type.leisure.miniature_golf">Minigolf</string>
+    <string name="type.leisure.hackerspace">Hackerspace</string>
     <string name="type.leisure.ice_rink">Lodowisko</string>
+    <string name="type.leisure.marina">Przystań</string>
     <string name="type.leisure.nature_reserve">Rezerwat przyrody</string>
     <string name="type.leisure.outdoor_seating">Siedzenia zewnętrzne</string>
+    <string name="type.leisure.firepit">Ognisko</string>
     <string name="type.leisure.park">Park</string>
     <string name="type.leisure.park.no.access">Park</string>
     <string name="type.leisure.park.permissive">Park</string>
@@ -645,7 +673,11 @@
     <string name="type.leisure.stadium">Stadion</string>
     <string name="type.leisure.swimming_pool">Basen</string>
     <string name="type.leisure.swimming_pool.private">Basen</string>
+    <string name="type.leisure.track">Ścieżka</string>
+    <string name="type.leisure.track.area">Ścieżka</string>
     <string name="type.leisure.water_park">Park wodny</string>
+    <string name="type.leisure.beach_resort">Kurort przy plaży</string>
+    <string name="type.man_made">Stworzone przez człowieka</string>
     <string name="type.man_made.breakwater">Falochron</string>
     <string name="type.man_made.cairn">Kopiec</string>
     <string name="type.man_made.chimney">Komin fabryki</string>
@@ -658,6 +690,7 @@
     <string name="type.man_made.pipeline">Rurociąg</string>
     <string name="type.man_made.pipeline.overground">Rurociąg nad ziemią</string>
     <string name="type.man_made.silo">Silos</string>
+    <string name="type.man_made.storage_tank">Zbiornik</string>
     <string name="type.man_made.surveillance">Kamera monitoringu</string>
     <string name="type.man_made.tower">Wieża</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
@@ -678,6 +711,7 @@
     <string name="type.man_made.works">Fabryka</string>
     <string name="type.military">Wojskowe</string>
     <string name="type.military.bunker">Bunkier</string>
+    <string name="type.mountain_pass">Przełęcz górska</string>
     <string name="type.natural">Natura</string>
     <!-- A rocky land cover. -->
     <string name="type.natural.bare_rock">Odkryte skały</string>
@@ -733,6 +767,8 @@
     <string name="type.office.lawyer">Prawnik</string>
     <string name="type.office.ngo">Biuro organizacji pozarządowej</string>
     <string name="type.office.telecommunication">Biuro operatora telefonii komórkowej</string>
+    <string name="type.organic.only">Organiczny</string>
+    <string name="type.organic.yes">Organiczny</string>
     <string name="type.place.city">Miasto</string>
     <string name="type.place.city.capital">Stolica</string>
     <string name="type.place.city.capital.10">Miasto</string>
@@ -768,6 +804,8 @@
     <string name="type.place.suburb">Przedmieścia</string>
     <string name="type.place.town">Miasteczko</string>
     <string name="type.place.village">Wieś</string>
+    <string name="type.power">Moc</string>
+    <string name="type.power.generator">Generator prądu</string>
     <string name="type.power.generator.solar">Generator słoneczny</string>
     <string name="type.power.generator.wind">Generator wiatru</string>
     <string name="type.power.generator.gas">Elektrownia z turbiną gazową</string>
@@ -785,15 +823,32 @@
     <string name="type.power.substation">Podstacja</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Słup elektryczny</string>
+    <!-- A single pole supporting minor power lines. -->
+    <string name="type.power.pole">Słup elektryczny</string>
+    <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
+    <string name="type.man_made.utility_pole">Słup użytkowy</string>
+    <string name="type.psurface">psurface</string>
+    <string name="type.psurface.paved_bad">psurface-paved_bad</string>
+    <string name="type.psurface.paved_good">psurface-paved_good</string>
+    <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
+    <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Transport publiczny</string>
     <string name="type.public_transport.platform">Przystanek transportu publicznego</string>
     <string name="type.railway">Kolej</string>
+    <string name="type.railway.abandoned">Opuszczona kolej</string>
+    <string name="type.railway.abandoned.bridge">Opuszczony most kolejowy</string>
+    <string name="type.railway.abandoned.tunnel">Opuszczony tunel kolejowy</string>
     <string name="type.railway.construction">Tory kolejowe w budowie</string>
     <string name="type.railway.crossing">Przejście przez tory</string>
     <string name="type.railway.disused">Nieużywane tory kolejowe</string>
     <string name="type.railway.funicular">Kolej linowo-terenowa</string>
+    <string name="type.railway.funicular.bridge">Most kolejki linowej</string>
+    <string name="type.railway.funicular.tunnel">Tunel kolejki linowej</string>
     <string name="type.railway.halt">Przystanek kolejowy</string>
     <string name="type.railway.level_crossing">Przejazd kolejowy</string>
+    <string name="type.railway.light_rail">Kolej lekka</string>
+    <string name="type.railway.light_rail.bridge">Most kolei lekkiej</string>
+    <string name="type.railway.light_rail.tunnel">Tunel kolei lekkiej</string>
     <string name="type.railway.monorail">Tory kolei jednoszynowej</string>
     <string name="type.railway.monorail.bridge">Most kolei jednoszynowej</string>
     <string name="type.railway.monorail.tunnel">Tunel kolei jednoszynowej</string>
@@ -801,6 +856,9 @@
     <string name="type.railway.narrow_gauge.bridge">Most kolei wąskotorowej</string>
     <string name="type.railway.narrow_gauge.tunnel">Tunel kolei wąskotorowej</string>
     <string name="type.railway.platform">Peron kolejowy</string>
+    <string name="type.railway.preserved">Zachowane tory kolejowe</string>
+    <string name="type.railway.preserved.bridge">Zachowany most kolejowy</string>
+    <string name="type.railway.preserved.tunnel">Zachowany tunel kolejowy</string>
     <string name="type.railway.rail">Tory kolejowe</string>
     <string name="type.railway.rail.highspeed">Kolej dużych prędkości</string>
     <string name="type.railway.rail.tourism">Kolej turystyczna</string>
@@ -916,6 +974,8 @@
     <string name="type.railway.station.subway.paris">Metro</string>
     <string name="type.railway.station.subway.philadelphia">Metro</string>
     <string name="type.railway.station.subway.pyongyang">Metro</string>
+    <!-- TODO: add ref to "type.railway.station.subway" -->
+    <string name="type.railway.station.subway.qingdao">Stacja metra</string>
     <string name="type.railway.station.subway.rennes">Metro</string>
     <string name="type.railway.station.subway.rio">Metro</string>
     <string name="type.railway.station.subway.roma">Metro</string>
@@ -949,6 +1009,9 @@
     <string name="type.railway.station.subway.wuhan">Metro</string>
     <string name="type.railway.station.subway.yerevan">Metro</string>
     <string name="type.railway.station.subway.yokohama">Metro</string>
+    <string name="type.railway.subway">Linia metra</string>
+    <string name="type.railway.subway.bridge">Most linii metra</string>
+    <string name="type.railway.subway.tunnel">Tunel linii metra</string>
     <string name="type.railway.subway_entrance">Wejście do metra</string>
     <string name="type.railway.subway_entrance.adana">Wejście do metra</string>
     <string name="type.railway.subway_entrance.algiers">Wejście do metra</string>
@@ -1064,8 +1127,12 @@
     <string name="type.railway.subway_entrance.yerevan">Wejście do metra</string>
     <string name="type.railway.subway_entrance.yokohama">Wejście do metra</string>
     <string name="type.railway.tram">Tory tramwajowe</string>
+    <string name="type.railway.tram.bridge">Most linii tramwajowej</string>
+    <string name="type.railway.tram.tunnel">Tunel linii tramwajowej</string>
     <string name="type.railway.tram_stop">Przystanek tramwajowy</string>
+    <string name="type.route">Trasa</string>
     <string name="type.route.ferry">Przeprawa promowa</string>
+    <string name="type.route.shuttle_train">route-shuttle_train</string>
     <string name="type.shop">Sklep</string>
     <string name="type.shop.alcohol">Sklep monopolowy</string>
     <string name="type.shop.bakery">Piekarnia</string>
@@ -1140,6 +1207,7 @@
     <string name="type.shop.pet_grooming">Pielęgnacja zwierząt</string>
     <string name="type.shop.photo">Fotograf</string>
     <string name="type.shop.rental">Wypożyczalnia</string>
+    <string name="type.shop.rental.bicycle">Wypożyczalnia rowerów</string>
     <string name="type.amenity.bicycle_rental.shop">Wypożyczalnia rowerów</string>
     <string name="type.shop.seafood">Sklep rybny</string>
     <string name="type.shop.second_hand">Sklep z rzeczami używanymi</string>
@@ -1232,6 +1300,8 @@
     <string name="type.tourism.attraction">Atrakcja turystyczna</string>
     <string name="type.attraction.amusement_ride">Przejażdżka rozrywkowa</string>
     <string name="type.attraction.animal">Atrakcje zwierzęce</string>
+    <string name="type.attraction.bumper_car">Autodrom</string>
+    <string name="type.attraction.big_wheel">Diabelski młyn</string>
     <string name="type.attraction.carousel">Karuzela</string>
     <string name="type.attraction.historic">Atrakcja historyczna</string>
     <string name="type.attraction.maze">Labirynt</string>
@@ -1252,6 +1322,7 @@
     <string name="type.tourism.information.map">Mapa turystyczna</string>
     <string name="type.tourism.information.office">Biuro informacji turystycznej</string>
     <string name="type.tourism.information.visitor_centre">Centrum dla zwiedzających</string>
+    <string name="type.amenity.ranger_station">Stacja Straży Leśnej</string>
     <string name="type.tourism.motel">Motel</string>
     <string name="type.tourism.museum">Muzeum</string>
     <string name="type.tourism.picnic_site">Pole piknikowe</string>
@@ -1265,6 +1336,7 @@
     <string name="type.traffic_calming">Uspokojenie ruchu drogowego</string>
     <string name="type.traffic_calming.bump">Krótki próg zwalniający</string>
     <string name="type.traffic_calming.hump">Długi próg zwalniający</string>
+    <string name="type.waterway">Droga wodna</string>
     <string name="type.waterway.canal">Kanał</string>
     <string name="type.waterway.canal.tunnel">Kanał</string>
     <string name="type.waterway.fish_pass">Przepławka</string>
@@ -1273,6 +1345,8 @@
     <string name="type.natural.water.ditch">Rów melioracyjny</string>
     <string name="type.waterway.ditch.tunnel">Przepust</string>
     <string name="type.waterway.dock">Dok</string>
+    <string name="type.waterway.drain">Kanał</string>
+    <string name="type.natural.water.drain">Kanał</string>
     <string name="type.waterway.drain.tunnel">Przepust</string>
     <string name="type.waterway.lock_gate">Wrota śluzy</string>
     <string name="type.waterway.river">Rzeka</string>
@@ -1282,9 +1356,28 @@
     <string name="type.waterway.stream.intermittent">Strumień okresowy</string>
     <string name="type.waterway.stream.tunnel">Strumień</string>
     <string name="type.waterway.waterfall">Wodospad</string>
+    <string name="type.waterway.weir">Jaz</string>
+    <string name="type.wheelchair">Wózek inwalidzki</string>
     <string name="type.wheelchair.limited">Częściowo wyposażono dla osób niepełnosprawnych</string>
     <string name="type.wheelchair.no">Nie wyposażono dla osób niepełnosprawnych</string>
     <string name="type.wheelchair.yes">Wyposażono dla osób niepełnosprawnych</string>
+    <string name="type.aerialway.j.bar">Wyciąg orczykowy</string>
+    <string name="type.piste_type.downhill">Narciarska trasa zjazdowa</string>
+    <string name="type.piste_type.downhill.area">Narciarska trasa zjazdowa</string>
+    <string name="type.piste_type.downhill.advanced">Zaawansowana narciarska trasa zjazdowa</string>
+    <string name="type.piste_type.downhill.advanced.area">Zaawansowana narciarska trasa zjazdowa</string>
+    <string name="type.piste_type.downhill.easy">Łatwa narciarska trasa zjazdowa</string>
+    <string name="type.piste_type.downhill.easy.area">Łatwa narciarska trasa zjazdowa</string>
+    <string name="type.piste_type.downhill.expert">Narciarska trasa zjazdowa dla ekspertów</string>
+    <string name="type.piste_type.downhill.expert.area">Narciarska trasa zjazdowa dla ekspertów</string>
+    <string name="type.piste_type.downhill.freeride">Narciarska trasa zjazdowa freeride</string>
+    <string name="type.piste_type.downhill.intermediate">Średniozaawansowana narciarska trasa zjazdowa</string>
+    <string name="type.piste_type.downhill.intermediate.area">Średniozaawansowana narciarska trasa zjazdowa</string>
+    <string name="type.piste_type.downhill.novice">Narciarska trasa zjazdowa dla nowicjuszy</string>
+    <string name="type.piste_type.downhill.novice.area">Narciarska trasa zjazdowa dla nowicjuszy</string>
+    <string name="type.piste_type.nordic">Trasa narciarstwa biegowego</string>
+    <string name="type.piste_type.sled">Stok saneczkowy</string>
+    <string name="type.piste_type.sled.area">Stok saneczkowy</string>
     <string name="type.piste_type.snow_park">Snow Park</string>
     <string name="type.piste_type.hike">Śnieżny szlak turystyczny</string>
     <string name="type.piste_type.connection">Piste Connection</string>
@@ -1304,106 +1397,8 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Hala sportowa</string>
-    <string name="type.leisure.track.area">Ścieżka</string>
-    <string name="type.landuse.greenhouse_horticulture">Szklarnia</string>
-    <string name="type.fee.yes">$</string>
-    <string name="type.leisure.track">Ścieżka</string>
-    <string name="type.hwtag">hwtag</string>
-    <string name="type.internet_access">Internet</string>
-    <string name="type.internet_access.wlan">Internet</string>
-    <string name="type.leisure.marina">Przystań</string>
-    <string name="type.mapswithme">mapswithme</string>
-    <string name="type.cuisine.bubble_tea">Herbata bąbelkowa</string>
-    <string name="type.power.pole">Słup elektryczny</string>
-    <string name="type.man_made.utility_pole">Słup użytkowy</string>
-    <string name="type.amenity.vending_machine.fuel">Pompa paliwowa</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
-    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
-    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
-    <string name="type.hwtag.lit">hwtag-lit</string>
-    <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
-    <string name="type.hwtag.nocar">hwtag-nocar</string>
-    <string name="type.hwtag.nofoot">hwtag-nofoot</string>
-    <string name="type.hwtag.oneway">hwtag-oneway</string>
-    <string name="type.hwtag.private">hwtag-private</string>
-    <string name="type.hwtag.toll">hwtag-toll</string>
-    <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
-    <string name="type.hwtag.yescar">hwtag-yescar</string>
-    <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
-    <string name="type.leisure.common">Teren publiczny</string>
-    <string name="type.amenity.shelter.lean_to">Schron turystyczny</string>
-    <string name="type.leisure.beach_resort">Kurort przy plaży</string>
-    <string name="type.man_made">Stworzone przez człowieka</string>
-    <string name="type.man_made.storage_tank">Zbiornik</string>
-    <string name="type.mountain_pass">Przełęcz górska</string>
-    <string name="type.organic.only">Organiczny</string>
-    <string name="type.organic.yes">Organiczny</string>
-    <string name="type.power.generator">Generator prądu</string>
-    <string name="type.railway.abandoned">Opuszczona kolej</string>
-    <string name="type.railway.abandoned.bridge">Opuszczony most kolejowy</string>
-    <string name="type.railway.abandoned.tunnel">Opuszczony tunel kolejowy</string>
-    <string name="type.railway.funicular.bridge">Most kolejki linowej</string>
-    <string name="type.railway.funicular.tunnel">Tunel kolejki linowej</string>
-    <string name="type.railway.light_rail">Kolej lekka</string>
-    <string name="type.railway.light_rail.bridge">Most kolei lekkiej</string>
-    <string name="type.railway.light_rail.tunnel">Tunel kolei lekkiej</string>
-    <string name="type.railway.preserved.bridge">Zachowany most kolejowy</string>
-    <string name="type.railway.preserved">Zachowane tory kolejowe</string>
-    <string name="type.railway.preserved.tunnel">Zachowany tunel kolejowy</string>
-    <string name="type.railway.subway">Linia metra</string>
-    <string name="type.railway.subway.bridge">Most linii metra</string>
-    <string name="type.railway.subway.tunnel">Tunel linii metra</string>
-    <string name="type.railway.tram.tunnel">Tunel linii tramwajowej</string>
-    <string name="type.railway.tram.bridge">Most linii tramwajowej</string>
-    <string name="type.route">Trasa</string>
-    <string name="type.attraction.bumper_car">Autodrom</string>
-    <string name="type.attraction.big_wheel">Diabelski młyn</string>
-    <string name="type.waterway">Droga wodna</string>
-    <string name="type.waterway.drain">Kanał</string>
-    <string name="type.natural.water.drain">Kanał</string>
-    <string name="type.waterway.weir">Jaz</string>
-    <string name="type.wheelchair">Wózek inwalidzki</string>
-    <string name="type.leisure.hackerspace">Hackerspace</string>
-    <string name="type.mapswithme.grid">mapswithme-grid</string>
-    <string name="type.power">Moc</string>
-    <string name="type.psurface">psurface</string>
-    <string name="type.psurface.paved_bad">psurface-paved_bad</string>
-    <string name="type.psurface.paved_good">psurface-paved_good</string>
-    <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
-    <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
-    <string name="type.route.shuttle_train">route-shuttle_train</string>
-    <string name="type.piste_type.sled.area">Stok saneczkowy</string>
-    <string name="type.piste_type.sled">Stok saneczkowy</string>
-    <string name="type.barrier.guard_rail">Barierka ochronna</string>
-    <string name="type.highway.ladder">Drabina</string>
-    <string name="type.aerialway.j.bar">Wyciąg orczykowy</string>
-    <string name="type.amenity.love_hotel">Hotel miłości</string>
-    <string name="type.amenity.studio">Studio</string>
-    <string name="type.landuse.plant_nursery">Szkółka roślin</string>
-    <string name="type.leisure.firepit">Ognisko</string>
-    <string name="type.railway.station.subway.qingdao">Stacja metra</string>
     <string name="type.sport.diving">Nurkowanie</string>
-    <string name="type.piste_type.downhill">Narciarska trasa zjazdowa</string>
-    <string name="type.piste_type.downhill.area">Narciarska trasa zjazdowa</string>
-    <string name="type.piste_type.downhill.advanced">Zaawansowana narciarska trasa zjazdowa</string>
-    <string name="type.piste_type.downhill.advanced.area">Zaawansowana narciarska trasa zjazdowa</string>
-    <string name="type.piste_type.downhill.easy">Łatwa narciarska trasa zjazdowa</string>
-    <string name="type.piste_type.downhill.easy.area">Łatwa narciarska trasa zjazdowa</string>
-    <string name="type.piste_type.downhill.expert">Narciarska trasa zjazdowa dla ekspertów</string>
-    <string name="type.piste_type.downhill.expert.area">Narciarska trasa zjazdowa dla ekspertów</string>
-    <string name="type.piste_type.downhill.freeride">Narciarska trasa zjazdowa freeride</string>
-    <string name="type.piste_type.downhill.intermediate">Średniozaawansowana narciarska trasa zjazdowa</string>
-    <string name="type.piste_type.downhill.intermediate.area">Średniozaawansowana narciarska trasa zjazdowa</string>
-    <string name="type.piste_type.downhill.novice">Narciarska trasa zjazdowa dla nowicjuszy</string>
-    <string name="type.piste_type.downhill.novice.area">Narciarska trasa zjazdowa dla nowicjuszy</string>
     <string name="type.man_made.crane">Dźwig</string>
-    <string name="type.amenity.bicycle_parking.covered">Zadaszony parking rowerowy</string>
-    <string name="type.amenity.luggage_locker">Przechowalnia bagażu</string>
-    <string name="type.post_office.post_partner">Partner pocztowy</string>
-    <string name="type.leisure.escape_game">Pokój zagadek</string>
-    <string name="type.amenity.ranger_station">Stacja Straży Leśnej</string>
-    <string name="type.piste_type.nordic">Trasa narciarstwa biegowego</string>
     <string name="type.barrier.yes">Bariera</string>
     <string name="type.building.guardhouse">Strażnik</string>
     <string name="type.office.security">Biuro ochrony</string>

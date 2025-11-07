@@ -44,7 +44,6 @@
 "type.amenity.car_wash" = "Car Wash";
 "type.amenity.casino" = "Casino";
 "type.amenity.gambling" = "Gambling";
-"type.amenity.studio" = "Studio";
 "type.leisure.adult_gaming_centre" = "Adult Gaming Centre";
 "type.leisure.amusement_arcade" = "Arcade";
 "type.amenity.charging_station" = "Charging Station";
@@ -52,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Car Charging Station";
 "type.amenity.childcare" = "Nursery";
 "type.amenity.cinema" = "Cinema";
+"type.amenity.studio" = "Studio";
 "type.leisure.bowling_alley" = "Bowling Alley";
 "type.amenity.clinic" = "Clinic";
 "type.amenity.college" = "College";
@@ -546,13 +546,13 @@
 "type.highway.services" = "Service Area";
 "type.highway.speed_camera" = "Speed Camera";
 "type.highway.steps" = "Stairs";
-"type.highway.ladder" = "Ladder";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Bridge";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Tunnel";
+"type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "Tertiary Road";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -667,18 +667,44 @@
 "type.historic.wayside_cross" = "Wayside Cross";
 "type.historic.wayside_shrine" = "Wayside Shrine";
 "type.historic.wreck" = "Shipwreck";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Internet";
@@ -696,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Christian Cemetery";
 "type.landuse.religious" = "Churchyard";
+"type.landuse.churchyard" = "Churchyard";
 "type.landuse.commercial" = "Commercial Area";
 "type.landuse.construction" = "Construction Area";
 "type.landuse.education" = "Educational Facility";
@@ -799,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "Water Well";
 "type.man_made.windmill" = "Windmill";
 "type.man_made.works" = "Industrial Works";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Military";
 "type.military.bunker" = "Bunker";
@@ -1078,6 +1109,8 @@
 "type.railway.station.subway.paris" = "Subway Station";
 "type.railway.station.subway.philadelphia" = "Subway Station";
 "type.railway.station.subway.pyongyang" = "Subway Station";
+
+/* TODO: add ref to "type.railway.station.subway" */
 "type.railway.station.subway.qingdao" = "Subway Station";
 "type.railway.station.subway.rennes" = "Subway Station";
 "type.railway.station.subway.rio" = "Subway Station";
@@ -1310,6 +1343,7 @@
 "type.shop.pet_grooming" = "Pet Grooming";
 "type.shop.photo" = "Photo Shop";
 "type.shop.rental" = "Rental Shop";
+"type.shop.rental.bicycle" = "Bicycle Rental Shop";
 "type.amenity.bicycle_rental.shop" = "Bicycle Rental Shop";
 "type.shop.seafood" = "Fishmonger";
 "type.shop.second_hand" = "Second Hand Shop";
