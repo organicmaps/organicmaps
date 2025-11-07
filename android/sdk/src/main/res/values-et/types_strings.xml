@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Aadress/plokk</string>
     <string name="type.addr_interpolation.even">Aadress/plokk</string>
@@ -28,10 +29,12 @@
     <string name="type.amenity.bbq">Väligrill</string>
     <string name="type.amenity.bench">Pink</string>
     <string name="type.amenity.bicycle_parking">Jalgrattaparkla</string>
+    <string name="type.amenity.bicycle_parking.covered">Kaetud rattaparkla</string>
     <string name="type.amenity.bicycle_rental">Jalgrattarent</string>
     <string name="type.amenity.bicycle_repair_station">Jalgrattaparandusjaam</string>
     <string name="type.amenity.biergarten">Saksa-tüüpi väliõhu õllebaar</string>
     <string name="type.amenity.brothel">Bordell</string>
+    <string name="type.amenity.love_hotel">Armuhotell</string>
     <string name="type.amenity.bureau_de_change">Valuutavahetus</string>
     <string name="type.amenity.bus_station">Bussijaam</string>
     <string name="type.amenity.cafe">Kohvik</string>
@@ -48,6 +51,7 @@
     <string name="type.amenity.charging_station.motorcar">Autode laadimisjaam</string>
     <string name="type.amenity.childcare">Lastehoid</string>
     <string name="type.amenity.cinema">Kino</string>
+    <string name="type.amenity.studio">Stuudio</string>
     <string name="type.leisure.bowling_alley">Bowlingusaal</string>
     <string name="type.amenity.clinic">Kliinik</string>
     <string name="type.amenity.college">Kolledž</string>
@@ -82,6 +86,7 @@
     <string name="type.amenity.kindergarten">Lasteaed</string>
     <string name="type.amenity.library">Raamatukogu</string>
     <string name="type.amenity.loading_dock">Laoestakaad</string>
+    <string name="type.amenity.luggage_locker">Pagasihoid</string>
     <string name="type.amenity.marketplace">Turg</string>
     <string name="type.amenity.motorcycle_parking">Mootorrataste parkla</string>
     <string name="type.amenity.nightclub">Ööklubi</string>
@@ -126,9 +131,11 @@
     <string name="type.amenity.police">Politsei</string>
     <string name="type.amenity.post_box">Postkast</string>
     <string name="type.amenity.post_office">Postkontor</string>
+    <string name="type.post_office.post_partner">Postiteenused partneri juures</string>
     <string name="type.amenity.prison">Vangla</string>
     <string name="type.amenity.pub">Pubi</string>
     <string name="type.amenity.public_bookcase">Avalik raamaturiiul</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Jäätmejaam</string>
     <string name="type.amenity.recycling">Taaskasutuskonteiner</string>
@@ -155,6 +162,8 @@
     <string name="type.amenity.shelter.public_transport">Varjualune</string>
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
     <string name="type.amenity.shelter.basic_hut">Onn</string>
+    <!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
+    <string name="type.amenity.shelter.lean_to">Poolvarikatus</string>
     <string name="type.amenity.public_bath">Avalik looduslik spaa</string>
     <string name="type.amenity.shower">Dušš</string>
     <string name="type.amenity.stripclub">Stripiklubi</string>
@@ -197,6 +206,7 @@
     <string name="type.natural.water.wastewater">Reovesi</string>
     <string name="type.barrier.entrance">Sissepääs</string>
     <string name="type.barrier.fence">Tara</string>
+    <string name="type.barrier.guard_rail">Madal maanteepiire</string>
     <string name="type.barrier.gate">Värav</string>
     <string name="type.barrier.hedge">Hekk</string>
     <string name="type.barrier.kissing_gate">Karjaaia lüüsiga jalgvärav</string>
@@ -358,6 +368,7 @@
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Peasissepääs</string>
     <string name="type.entrance.exit">Väljupääs</string>
+    <string name="type.fee.yes">$ / €</string>
     <string name="type.fee.no">Tasuta</string>
     <string name="type.healthcare.laboratory">Meditsiinilabor</string>
     <string name="type.healthcare.physiotherapist">Füsioterapeut</string>
@@ -369,6 +380,7 @@
     <string name="type.healthcare.psychotherapist">Psühhoteraapia</string>
     <string name="type.healthcare.sample_collection">Proovide kogumispunkt</string>
     <string name="type.healthcare.speech_therapist">Logopeed</string>
+
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Tee</string>
     <string name="type.highway.bridleway">Ratsutamisrada</string>
@@ -484,6 +496,7 @@
     <string name="type.highway.steps.bridge">Sild</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.steps.tunnel">Tunnel</string>
+    <string name="type.highway.ladder">Redel</string>
     <string name="type.highway.tertiary">Kohalik maantee</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary.bridge">Kohaliku maantee sild</string>
@@ -524,7 +537,7 @@
     <string name="type.area_highway.living_street">Õueala tee</string>
     <string name="type.area_highway.motorway">Kiirtee</string>
     <string name="type.area_highway.path">Rada</string>
-    <string name="type.area_highway.pedestrian">Jalakäijate tänav</string>
+    <string name="type.area_highway.pedestrian">Jalakäigutee</string>
     <string name="type.area_highway.primary">Põhimaantee</string>
     <string name="type.area_highway.residential">Elamupiikonna tänav</string>
     <string name="type.area_highway.secondary">Tugimaantee</string>
@@ -534,6 +547,9 @@
     <string name="type.area_highway.track">Rada</string>
     <string name="type.area_highway.trunk">E-tähistusega põhimaantee</string>
     <string name="type.area_highway.unclassified">Vähetähtis tee</string>
+    <string name="type.highway.world_level">highway-world_level</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Ajalooline objekt</string>
     <string name="type.historic.aircraft">Ajalooline lennuk</string>
@@ -593,6 +609,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Kristlik surnuaed</string>
     <string name="type.landuse.religious">Kirikuaed</string>
+    <string name="type.landuse.churchyard">Kirikuõu</string>
     <string name="type.landuse.commercial">Ärimaa</string>
     <string name="type.landuse.construction">Ehitusala</string>
     <string name="type.landuse.education">Haridusasutuse maaala</string>
@@ -622,9 +639,11 @@
     <string name="type.landuse.salt_pond">Soolatiik</string>
     <string name="type.landuse.village_green">Külaplats</string>
     <string name="type.landuse.vineyard">Viinamarjaistandus</string>
+    <string name="type.landuse.plant_nursery">Puukool</string>
     <string name="type.leisure">Jõudeaja tegevused</string>
     <string name="type.leisure.common">Ühismaakasutusala</string>
     <string name="type.leisure.dog_park">Koertepark</string>
+    <string name="type.leisure.escape_game">Põgenemistuba</string>
     <string name="type.leisure.fitness_centre">Jõusaal</string>
     <string name="type.leisure.fitness_station">Jõulinnak</string>
     <string name="type.leisure.dance">Tantsusaal</string>
@@ -632,10 +651,12 @@
     <string name="type.leisure.garden.residential">Elamu aed</string>
     <string name="type.leisure.golf_course">Golfirada</string>
     <string name="type.leisure.miniature_golf">Minigolfirada</string>
+    <string name="type.leisure.hackerspace">Häkkerite ühisruum</string>
     <string name="type.leisure.ice_rink">Uisustaadion</string>
     <string name="type.leisure.marina">Väikesadam</string>
     <string name="type.leisure.nature_reserve">Looduskaitseala</string>
     <string name="type.leisure.outdoor_seating">Istekohad õues</string>
+    <string name="type.leisure.firepit">Tulease</string>
     <string name="type.leisure.park">Park</string>
     <string name="type.leisure.park.no.access">Erapark</string>
     <string name="type.leisure.park.permissive">Park</string>
@@ -802,7 +823,15 @@
     <string name="type.power.substation">Alajaam</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Kõrgepingemast</string>
+    <!-- A single pole supporting minor power lines. -->
+    <string name="type.power.pole">Elektripost</string>
+    <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
+    <string name="type.man_made.utility_pole">Valgustus- või sidepost</string>
     <string name="type.psurface">Pind</string>
+    <string name="type.psurface.paved_bad">psurface-paved_bad</string>
+    <string name="type.psurface.paved_good">psurface-paved_good</string>
+    <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
+    <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Ühistransport</string>
     <string name="type.public_transport.platform">Ooteplatvorm</string>
     <string name="type.railway">Raudtee</string>
@@ -945,6 +974,8 @@
     <string name="type.railway.station.subway.paris">Metroojaam</string>
     <string name="type.railway.station.subway.philadelphia">Metroojaam</string>
     <string name="type.railway.station.subway.pyongyang">Metroojaam</string>
+    <!-- TODO: add ref to "type.railway.station.subway" -->
+    <string name="type.railway.station.subway.qingdao">Metroojaam</string>
     <string name="type.railway.station.subway.rennes">Metroojaam</string>
     <string name="type.railway.station.subway.rio">Metroojaam</string>
     <string name="type.railway.station.subway.roma">Metroojaam</string>
@@ -1101,6 +1132,7 @@
     <string name="type.railway.tram_stop">Trammipeatus</string>
     <string name="type.route">Marsruut</string>
     <string name="type.route.ferry">Praamiliin</string>
+    <string name="type.route.shuttle_train">route-shuttle_train</string>
     <string name="type.shop">Pood</string>
     <string name="type.shop.alcohol">Alkoholipood</string>
     <string name="type.shop.bakery">Pagar</string>
@@ -1175,6 +1207,7 @@
     <string name="type.shop.pet_grooming">Ilusalong lemmikloomadele</string>
     <string name="type.shop.photo">Fotopood</string>
     <string name="type.shop.rental">Renditeenuse büroo</string>
+    <string name="type.shop.rental.bicycle">Jalgrattalaenutus</string>
     <string name="type.amenity.bicycle_rental.shop">Jalgrattalaenutus</string>
     <string name="type.shop.seafood">Mereandide pood</string>
     <string name="type.shop.second_hand">Taaskasutuspood</string>
@@ -1267,6 +1300,8 @@
     <string name="type.tourism.attraction">Turismiatraktsioon</string>
     <string name="type.attraction.amusement_ride">Lõbusõidu atraktsioon</string>
     <string name="type.attraction.animal">Loomade aedik</string>
+    <string name="type.attraction.bumper_car">Autodroom</string>
+    <string name="type.attraction.big_wheel">Vaateratas</string>
     <string name="type.attraction.carousel">Karussell</string>
     <string name="type.attraction.historic">Ajalooline vaatamisväärsus</string>
     <string name="type.attraction.maze">Labürint</string>
@@ -1287,6 +1322,7 @@
     <string name="type.tourism.information.map">Infotahvel kaardiga</string>
     <string name="type.tourism.information.office">Turismiinfo kontor</string>
     <string name="type.tourism.information.visitor_centre">Külastuskeskus</string>
+    <string name="type.amenity.ranger_station">Pargivahi maja</string>
     <string name="type.tourism.motel">Motell</string>
     <string name="type.tourism.museum">Muuseum</string>
     <string name="type.tourism.picnic_site">Piknikukoht</string>
@@ -1365,54 +1401,13 @@
     <string name="type.amenity.dojo">Dōjō / Võitluskunstide kool</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Spordisaal</string>
-    <string name="type.power.pole">Elektripost</string>
-    <string name="type.amenity.shelter.lean_to">Poolvarikatus</string>
-    <string name="type.attraction.big_wheel">Vaateratas</string>
-    <string name="type.man_made.utility_pole">Valgustus- või sidepost</string>
-    <string name="type.attraction.bumper_car">Autodroom</string>
-    <string name="type.fee.yes">$ / €</string>
-    <string name="type.leisure.hackerspace">Häkkerite ühisruum</string>
-    <string name="type.route.shuttle_train">route-shuttle_train</string>
-    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.hwtag">hwtag</string>
-    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
-    <string name="type.mapswithme">mapswithme</string>
-    <string name="type.mapswithme.grid">mapswithme-grid</string>
-    <string name="type.psurface.paved_bad">psurface-paved_bad</string>
-    <string name="type.psurface.paved_good">psurface-paved_good</string>
-    <string name="type.hwtag.nocar">hwtag-nocar</string>
-    <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
-    <string name="type.hwtag.nofoot">hwtag-nofoot</string>
-    <string name="type.hwtag.lit">hwtag-lit</string>
-    <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
-    <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
-    <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
-    <string name="type.hwtag.oneway">hwtag-oneway</string>
-    <string name="type.hwtag.private">hwtag-private</string>
-    <string name="type.hwtag.toll">hwtag-toll</string>
-    <string name="type.hwtag.yescar">hwtag-yescar</string>
-    <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
-    <string name="type.landuse.plant_nursery">Puukool</string>
-    <string name="type.amenity.love_hotel">Armuhotell</string>
-    <string name="type.barrier.guard_rail">Madal maanteepiire</string>
-    <string name="type.leisure.firepit">Tulease</string>
-    <string name="type.amenity.studio">Stuudio</string>
-    <string name="type.highway.ladder">Redel</string>
     <string name="type.sport.diving">Sukeldumine</string>
     <string name="type.man_made.crane">Kraana</string>
-    <string name="type.railway.station.subway.qingdao">Metroojaam</string>
-    <string name="type.amenity.bicycle_parking.covered">Kaetud rattaparkla</string>
-    <string name="type.post_office.post_partner">Postiteenused partneri juures</string>
-    <string name="type.amenity.ranger_station">Pargivahi maja</string>
-    <string name="type.amenity.luggage_locker">Pagasihoid</string>
-    <string name="type.leisure.escape_game">Põgenemistuba</string>
     <string name="type.barrier.wicket_gate">Jalgvärav</string>
+    <string name="type.barrier.yes">Barjäär</string>
+    <string name="type.building.guardhouse">Valvuriputka</string>
     <string name="type.office.security">Turvateenuste firma kontor</string>
     <string name="type.power.portal">Õhuliini värava-tüüpi mast</string>
-    <string name="type.building.guardhouse">Valvuriputka</string>
-    <string name="type.barrier.yes">Barjäär</string>
     <string name="type.shop.lighting">Lambipood</string>
     <string name="type.barrier.jersey_barrier">Plokk</string>
     <string name="type.barrier.debris">Praht</string>

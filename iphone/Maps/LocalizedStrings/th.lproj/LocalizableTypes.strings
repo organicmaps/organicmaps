@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "ที่อยู่/บล็อค";
 "type.addr_interpolation.even" = "ที่อยู่/บล็อค";
 "type.addr_interpolation.odd" = "ที่อยู่/บล็อค";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "เตาย่างบาร์บีคิว";
 "type.amenity.bench" = "ม้านั่ง";
 "type.amenity.bicycle_parking" = "ที่จอดจักรยาน";
+"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
 "type.amenity.bicycle_rental" = "จักรยานให้เช่า";
 "type.amenity.bicycle_repair_station" = "สถานีซ่อมจักรยาน";
 "type.amenity.biergarten" = "ลานเบียร์";
 "type.amenity.brothel" = "ซ่อง";
+"type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "แลกเปลี่ยนเงินตรา";
 "type.amenity.bus_station" = "สถานีขนส่ง";
 "type.amenity.cafe" = "คาเฟ่";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "สถานีชาร์จรถยนต์";
 "type.amenity.childcare" = "สถานรับเลี้ยงเด็ก";
 "type.amenity.cinema" = "โรงภาพยนตร์";
+"type.amenity.studio" = "Studio";
 "type.leisure.bowling_alley" = "ลานโบว์ลิ่ง";
 "type.amenity.clinic" = "คลินิก";
 "type.amenity.college" = "วิทยาลัย";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "โรงเรียนอนุบาล";
 "type.amenity.library" = "ห้องสมุด";
 "type.amenity.loading_dock" = "แทนวางสนคา";
+"type.amenity.luggage_locker" = "Luggage Locker";
 "type.amenity.marketplace" = "ตลาดสินค้า";
 "type.amenity.motorcycle_parking" = "ที่จอดรถมอเตอร์ไซค์";
 "type.amenity.nightclub" = "ไนต์คลับ";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "ตำรวจ";
 "type.amenity.post_box" = "ตู้จดหมาย";
 "type.amenity.post_office" = "ที่ทำการไปรษณีย์";
+"type.post_office.post_partner" = "Post Partner";
 "type.amenity.prison" = "คุก";
 "type.amenity.pub" = "ผับ";
 "type.amenity.public_bookcase" = "ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "ศูนย์รีไซเคิล";
 "type.amenity.recycling" = "บรรจุภัณฑ์รีไซเคิล";
 "type.amenity.recycling.container" = "บรรจุภัณฑ์รีไซเคิล";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "น้ำเสีย";
 "type.barrier.entrance" = "ทางเข้า";
 "type.barrier.fence" = "Fence";
+"type.barrier.guard_rail" = "Guard Rail";
 "type.barrier.gate" = "ประตู";
 "type.barrier.hedge" = "Hedge";
 "type.barrier.kissing_gate" = "ประตู";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "จิตบำบัด";
 "type.healthcare.sample_collection" = "การสุ่มตัวอย่าง";
 "type.healthcare.speech_therapist" = "การบำบัดด้วยการพูด";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "อุโมงค์";
+"type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "ถนน";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "ถนน";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "วัตถุประวัติศาสตร์";
 "type.historic.aircraft" = "เครื่องบินประวัติศาสตร์";
 "type.historic.anchor" = "ผู้ประกาศข่าวประวัติศาสตร์";
@@ -644,18 +667,44 @@
 "type.historic.wayside_cross" = "ทางข้าม";
 "type.historic.wayside_shrine" = "ศาลเจ้าข้างทาง";
 "type.historic.wreck" = "ซากเรืออัปปาง";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "อินเทอร์เน็ต";
 "type.internet_access.wlan" = "อินเทอร์เน็ต";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "สุสาน";
 "type.landuse.religious" = "บริเวณโบสถ์";
+"type.landuse.churchyard" = "บริเวณโบสถ์";
 "type.landuse.commercial" = "Commercial Area";
 "type.landuse.construction" = "Construction Area";
 "type.landuse.education" = "Educational Facility";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "Salt Pond";
 "type.landuse.village_green" = "Land";
 "type.landuse.vineyard" = "Vineyard";
+"type.landuse.plant_nursery" = "Plant Nursery";
 "type.leisure" = "Leisure";
 "type.leisure.common" = "Public Land";
 "type.leisure.dog_park" = "สถานที่พาสุนัขเดินเล่น";
+"type.leisure.escape_game" = "Escape Room";
 "type.leisure.fitness_centre" = "ฟิตเนสเซ็นเตอร์";
 "type.leisure.fitness_station" = "ศูนย์ฟิตเนส";
 "type.leisure.dance" = "แดนซ์ฮอลล์";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "เขตอนุรักษ์ธรรมชาติ";
 "type.leisure.outdoor_seating" = "ที่นั่งกลางแจ้ง";
+"type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "สวนสาธารณะ";
 "type.leisure.park.no.access" = "สวนสาธารณะ";
 "type.leisure.park.permissive" = "สวนสาธารณะ";
@@ -773,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "บ่อน้ำ";
 "type.man_made.windmill" = "กังหันลม";
 "type.man_made.works" = "Industrial Works";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Military";
 "type.military.bunker" = "บังเกอร์";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "รถไฟ";
 "type.railway.station.subway.philadelphia" = "รถไฟ";
 "type.railway.station.subway.pyongyang" = "รถไฟ";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Subway Station";
 "type.railway.station.subway.rennes" = "รถไฟ";
 "type.railway.station.subway.rio" = "รถไฟ";
 "type.railway.station.subway.roma" = "รถไฟ";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "กรูมมิ่งสัตว์เลี้ยง";
 "type.shop.photo" = "ร้านถ่ายภาพ";
 "type.shop.rental" = "ร้านเช่า";
+"type.shop.rental.bicycle" = "ร้านเช่าจักรยาน";
 "type.amenity.bicycle_rental.shop" = "ร้านเช่าจักรยาน";
 "type.shop.seafood" = "ร้านขายปลา";
 "type.shop.second_hand" = "ร้านขายของมือสอง";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "แผนที่ท่องเที่ยว";
 "type.tourism.information.office" = "ศูนย์บริการนักท่องเที่ยว";
 "type.tourism.information.visitor_centre" = "ศูนย์นักท่องเที่ยว";
+"type.amenity.ranger_station" = "Ranger Station";
 "type.tourism.motel" = "โมเทล";
 "type.tourism.museum" = "พิพิธภัณฑ์";
 "type.tourism.picnic_site" = "เว็บไซต์ปิกนิก";
@@ -1447,17 +1509,17 @@
 "type.aerialway.t.bar" = "T-bar Lift";
 "type.piste_type.downhill" = "Downhill Ski Run";
 "type.piste_type.downhill.area" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
-"type.piste_type.downhill.easy" = "Downhill Ski Run";
-"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
-"type.piste_type.downhill.expert" = "Downhill Ski Run";
-"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
-"type.piste_type.downhill.freeride" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
-"type.piste_type.downhill.novice" = "Downhill Ski Run";
-"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.advanced.area" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.easy.area" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.expert.area" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.freeride" = "Freeride Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.intermediate.area" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.novice" = "Novice Downhill Ski Run";
+"type.piste_type.downhill.novice.area" = "Novice Downhill Ski Run";
 "type.piste_type.nordic" = "Nordic Ski Trail";
 "type.piste_type.sled" = "Sledding Piste";
 "type.piste_type.sled.area" = "Sledding Piste";
@@ -1484,18 +1546,6 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "ห้องกีฬา";
-"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
-"type.amenity.love_hotel" = "Love Hotel";
-"type.amenity.studio" = "Studio";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.post_office.post_partner" = "Post Partner";
-"type.barrier.guard_rail" = "Guard Rail";
-"type.highway.ladder" = "Ladder";
-"type.landuse.plant_nursery" = "Plant Nursery";
-"type.leisure.escape_game" = "Escape Room";
-"type.leisure.firepit" = "Firepit";
-"type.railway.station.subway.qingdao" = "Subway Station";
-"type.amenity.ranger_station" = "Ranger Station";
 "type.sport.diving" = "Diving";
 "type.man_made.crane" = "Crane";
 "type.barrier.wicket_gate" = "Wicket Gate";

@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "Naslov/Blok";
 "type.addr_interpolation.even" = "Naslov/Blok";
 "type.addr_interpolation.odd" = "Naslov/Blok";
@@ -40,7 +44,6 @@
 "type.amenity.car_wash" = "Avtopralnica";
 "type.amenity.casino" = "Igralnica";
 "type.amenity.gambling" = "Igre na srečo";
-"type.amenity.studio" = "Studio";
 "type.leisure.adult_gaming_centre" = "Igralni salon za odrasle";
 "type.leisure.amusement_arcade" = "Igralni salon";
 "type.amenity.charging_station" = "Polnilna postaja";
@@ -48,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Polnilna postaja za avtomobile";
 "type.amenity.childcare" = "Vrtec";
 "type.amenity.cinema" = "Kino";
+"type.amenity.studio" = "Studio";
 "type.leisure.bowling_alley" = "Kegljišče";
 "type.amenity.clinic" = "Klinika";
 "type.amenity.college" = "Višja šola";
@@ -71,7 +75,11 @@
 "type.amenity.food_court" = "Gostinska ponudba";
 "type.amenity.fountain" = "Vodnjak";
 "type.amenity.fuel" = "Bencinska črpalka";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard" = "Pokopališče";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard.christian" = "Krščansko pokopališče";
 "type.amenity.hospital" = "Bolnišnica";
 "type.amenity.hunting_stand" = "Lovska preža";
@@ -129,6 +137,10 @@
 "type.amenity.prison" = "Zapor";
 "type.amenity.pub" = "Pivnica";
 "type.amenity.public_bookcase" = "Izmenjava knjig";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Zbirni center";
 "type.amenity.recycling" = "Zabojnik za recikliranje";
 "type.amenity.recycling.container" = "Zabojnik za recikliranje";
@@ -148,9 +160,17 @@
 "type.amenity.restaurant" = "Restavracija";
 "type.amenity.sanitary_dump_station" = "Postaja za praznjenje rezervoarjev";
 "type.amenity.school" = "Šola";
+
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Zavetišče";
+
+/* A weather shelter by the public transport stop. */
 "type.amenity.shelter.public_transport" = "Zavetišče";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
 "type.amenity.shelter.basic_hut" = "Bivak";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
 "type.amenity.shelter.lean_to" = "Zavetje";
 "type.amenity.public_bath" = "Javno kopališče";
 "type.amenity.shower" = "Tuš";
@@ -207,8 +227,14 @@
 "type.barrier.wall" = "Zid";
 "type.boundary" = "Meja";
 "type.boundary.administrative" = "Upravna meja";
+
+/* Borders between countries. */
 "type.boundary.administrative.2" = "Državna meja";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
 "type.boundary.administrative.3" = "Regijska meja";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
 "type.boundary.administrative.4" = "Regijska meja";
 "type.boundary.national_park" = "Narodni park";
 "type.boundary.aboriginal_lands" = "Domorodna ozemlja";
@@ -220,6 +246,8 @@
 "type.boundary.protected_area.5" = "Zavarovano območje";
 "type.boundary.protected_area.6" = "Zavarovano območje";
 "type.building" = "Stavba";
+
+/* Duplicates [address] in strings.txt */
 "type.building.address" = "Naslov";
 "type.building.has_parts" = "Stavba";
 "type.building_part" = "Stavba";
@@ -239,6 +267,8 @@
 "type.craft.gardener" = "Vrtnar";
 "type.craft.grinding_mill" = "Mlin";
 "type.craft.handicraft" = "Domača obrt";
+
+/* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "HVAC";
 "type.craft.key_cutter" = "Izdelava ključev";
 "type.craft.locksmith" = "Kjučavničar";
@@ -342,9 +372,17 @@
 "type.emergency.defibrillator" = "Defibrilator";
 "type.emergency.fire_hydrant" = "Hidrant";
 "type.emergency.phone" = "Telefon za klic v sili";
+
+/* A place where a lifeguard is on duty. */
 "type.emergency.lifeguard" = "Reševalec iz vode";
+
+/* A mountain rescue base for search and rescue activities. */
 "type.emergency.mountain_rescue" = "Postaja gorske reševalne službe";
+
+/* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Vhod";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Glavni vhod";
 "type.entrance.exit" = "Izhod";
 "type.fee.yes" = "$";
@@ -359,106 +397,208 @@
 "type.healthcare.psychotherapist" = "Psihoterapevt";
 "type.healthcare.sample_collection" = "Center za odvzem vzorcev";
 "type.healthcare.speech_therapist" = "Logoped";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Cesta";
 "type.highway.bridleway" = "Jahalna pot";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "Most";
 "type.highway.bridleway.permissive" = "Jahalna pot";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Predor";
 "type.highway.busway" = "Namenska avtobusna cesta";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.busway.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.busway.tunnel" = "Predor";
 "type.highway.bus_stop" = "Avtobusno postajališče";
 "type.highway.construction" = "Cesta v gradnji";
 "type.highway.cycleway" = "Kolesarska pot";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "Most";
 "type.highway.cycleway.permissive" = "Kolesarska pot";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "Predor";
 "type.highway.elevator" = "Dvigalo";
 "type.highway.footway" = "Pešpot";
 "type.highway.footway.sidewalk" = "Pločnik";
 "type.highway.footway.crossing" = "Prehod za pešce";
 "type.highway.footway.area" = "Območje za pešce";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Most za pešce";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Predor za pešce";
 "type.highway.ford" = "Prehod čez vodo";
 "type.highway.living_street" = "Bivalna ulica";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.living_street.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "Predor";
 "type.highway.motorway" = "Avtocesta";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway.bridge" = "Avtocestni most";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway.tunnel" = "Avtocestni predor";
 "type.highway.motorway_junction" = "Izhod s ceste";
-"type.highway.motorway_link" = "Avtocestna rampa";
+"type.highway.motorway_link" = "Avtocesta";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway_link.tunnel" = "Predor";
 "type.highway.path" = "Pot";
+
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
 "type.highway.path.difficult" = "Težka ali nejasna pot";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
 "type.highway.path.expert" = "Strokovna ali nerazpoznavna pot";
-"type.highway.path.bicycle" = "Kolesarska in pešpot";
-"type.highway.footway.bicycle" = "Kolesarska in pešpot";
+"type.highway.path.bicycle" = "Pot";
+"type.highway.footway.bicycle" = "Pot";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Most";
-"type.highway.path.horse" = "Jahalna pot";
+"type.highway.path.horse" = "Pot";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Predor";
 "type.highway.pedestrian" = "Ulica za pešce";
 "type.highway.pedestrian.area" = "Območje za pešce";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Most za pešce";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Predor za pešce";
 "type.highway.primary" = "Glavna cesta";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Predor";
 "type.highway.primary_link" = "Rampa glavne ceste";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary_link.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary_link.tunnel" = "Predor";
 "type.highway.raceway" = "Dirkališče";
 "type.highway.residential" = "Stanovanjska ulica";
 "type.highway.residential.area" = "Stanovanjska ulica";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.residential.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.residential.tunnel" = "Predor";
 "type.highway.rest_area" = "Počivališče";
 "type.highway.road" = "Cesta";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.road.bridge" = "Most";
+
+/* A bridge structure outline. */
 "type.man_made.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "Predor";
 "type.highway.secondary" = "Regionalna cesta";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary.tunnel" = "Predor";
-"type.highway.secondary_link" = "Rampa regionalne ceste";
+"type.highway.secondary_link" = "Regionalna cesta";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary_link.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary_link.tunnel" = "Predor";
 "type.highway.service" = "Servisna cesta";
 "type.highway.service.area" = "Servisna cesta";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Most";
 "type.highway.service.driveway" = "Dovoz";
 "type.highway.service.parking_aisle" = "Parkirni pas";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Predor";
 "type.highway.services" = "Servisno območje";
 "type.highway.speed_camera" = "Radar";
 "type.highway.steps" = "Stopnice";
-"type.highway.ladder" = "Lestev";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Predor";
+"type.highway.ladder" = "Lestev";
 "type.highway.tertiary" = "Lokalna cesta";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary.tunnel" = "Predor";
 "type.highway.tertiary_link" = "Rampa lokalne ceste";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary_link.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary_link.tunnel" = "Predor";
 "type.highway.track" = "Kolovoz";
 "type.highway.track.area" = "Kolovoz";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.track.bridge" = "Most";
 "type.highway.track.grade1" = "Kolovoz";
 "type.highway.track.no.access" = "Kolovoz";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Predor";
 "type.highway.traffic_signals" = "Semafor";
 "type.highway.trunk" = "Hitra cesta";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "Predor";
 "type.highway.trunk_link" = "Rampa hitre ceste";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk_link.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk_link.tunnel" = "Predor";
 "type.highway.unclassified" = "Manjša cesta";
 "type.highway.unclassified.area" = "Manjša cesta";
+
+/* These translations are used for all type.highway.*.bridge. */
 "type.highway.unclassified.bridge" = "Most";
+
+/* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Predor";
 "type.area_highway.cycleway" = "Kolesarska pot";
 "type.area_highway.footway" = "Pešpot";
@@ -477,6 +617,10 @@
 "type.area_highway.unclassified" = "Manjša cesta";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "Zgodovinski objekt";
 "type.historic.aircraft" = "Zgodovinsko letalo";
 "type.historic.anchor" = "Zgodovinsko sidro";
@@ -515,22 +659,52 @@
 "type.historic.ship" = "Ladja";
 "type.historic.tank" = "Zgodovinski tank";
 "type.historic.tomb" = "Grob";
+
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
 "type.man_made.cross" = "Križ";
+
+/* Usually a Christian historical cross placed along a road. */
 "type.historic.wayside_cross" = "Križ ob poti";
 "type.historic.wayside_shrine" = "Svetišče ob poti";
 "type.historic.wreck" = "Razbitina ladje";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Internet";
@@ -541,9 +715,14 @@
 "type.landuse.allotments" = "Vrtički";
 "type.landuse.basin" = "Bazen";
 "type.landuse.brownfield" = "Degradirano območje";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery" = "Pokopališče";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Krščansko pokopališče";
 "type.landuse.religious" = "Cerkveno zemljišče";
+"type.landuse.churchyard" = "Churchyard";
 "type.landuse.commercial" = "Poslovno območje";
 "type.landuse.construction" = "Gradbišče";
 "type.landuse.education" = "Izobraževalna ustanova";
@@ -594,7 +773,7 @@
 "type.leisure.park" = "Park";
 "type.leisure.park.no.access" = "Zasebni park";
 "type.leisure.park.permissive" = "Park";
-"type.leisure.park.private" = "Zasebni park";
+"type.leisure.park.private" = "Private Park";
 "type.leisure.picnic_table" = "Miza za piknik";
 "type.leisure.pitch" = "Športno igrišče";
 "type.leisure.playground" = "Igrišče";
@@ -627,9 +806,17 @@
 "type.man_made.storage_tank" = "Rezervoar";
 "type.man_made.surveillance" = "Nadzorna kamera";
 "type.man_made.tower" = "Stolp";
+
+/* A huge telecommunications tower. Often a local monument or a landmark. */
 "type.man_made.communications_tower" = "Komunikacijski stolp";
+
+/* A regular telecommunications tower / mast. */
 "type.man_made.tower.communication" = "Komunikacijski stolp";
+
+/* A deep hole drilled into the earth to extract oil or gas. */
 "type.man_made.petroleum_well" = "Naftna ali plinska vrtina";
+
+/* A tower/mast constructed to burn off excess gas. */
 "type.man_made.flare" = "Plinska bakla";
 "type.man_made.wastewater_plant" = "Čistilna naprava";
 "type.man_made.water_tap" = "Pipa za vodo";
@@ -639,14 +826,24 @@
 "type.man_made.water_well.drinking_water_no" = "Vodnjak";
 "type.man_made.windmill" = "Mlin na veter";
 "type.man_made.works" = "Industrijski obrat";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Vojaški objekt";
 "type.military.bunker" = "Bunker";
 "type.mountain_pass" = "Gorski prelaz";
 "type.natural" = "Narava";
+
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Gola skala";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
 "type.natural.shingle" = "Prodišče";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
 "type.natural.scree" = "Melšče";
 "type.natural.bay" = "Zaliv";
 "type.natural.beach" = "Plaža";
@@ -719,7 +916,11 @@
 "type.place.islet" = "Otoček";
 "type.place.isolated_dwelling" = "Samotna kmetija";
 "type.place.locality" = "Kraj";
+
+/* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
 "type.place.quarter" = "Četrt";
+
+/* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
 "type.place.neighbourhood" = "Soseska";
 "type.place.ocean" = "Ocean";
 "type.place.region" = "Regija";
@@ -727,6 +928,8 @@
 "type.place.square" = "Trg";
 "type.place.state" = "Država";
 "type.place.state.major" = "Zvezna država";
+
+/* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Predmestje";
 "type.place.town" = "Mesto";
 "type.place.village" = "Vas";
@@ -747,8 +950,14 @@
 "type.power.plant.wind" = "Vetrna elektrarna";
 "type.power.station" = "Elektrarna";
 "type.power.substation" = "Razdelilna postaja";
+
+/* A tower or pylon carrying high voltage electricity cables. */
 "type.power.tower" = "Daljnovodni stolp";
+
+/* A single pole supporting minor power lines. */
 "type.power.pole" = "Električni drog";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
 "type.man_made.utility_pole" = "Komunalni drog";
 "type.psurface" = "psurface";
 "type.psurface.paved_bad" = "psurface-paved_bad";
@@ -786,9 +995,15 @@
 "type.railway.rail.highspeed" = "Hitra železnica";
 "type.railway.rail.tourism" = "Turistična železnica";
 "type.railway.rail.main" = "Železnica";
+
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
 "type.railway.rail.branch" = "Železniški odcep";
+
+/* Non-passenger utility tracks: industrial, military, test. */
 "type.railway.rail.utility" = "Industrijska železnica";
 "type.railway.rail.spur" = "Železniški tir";
+
+/* Short service tracks: siding, yard, crossover. */
 "type.railway.rail.service" = "Servisni železniški tir";
 "type.railway.rail.bridge" = "Železniški most";
 "type.railway.rail.highspeed.bridge" = "Železniški most";
@@ -808,7 +1023,7 @@
 "type.railway.rail.service.tunnel" = "Železniški predor";
 "type.railway.station" = "Železniška postaja";
 "type.railway.station.funicular" = "Vzpenjača";
-"type.railway.station.light_rail" = "Postaja lahke železnice";
+"type.railway.station.light_rail" = "Železniška postaja";
 "type.railway.station.light_rail.berlin" = "Postaja S-Bahn";
 "type.railway.station.light_rail.london" = "Postaja DLR";
 "type.railway.station.light_rail.porto" = "Metro Porto";
@@ -894,6 +1109,8 @@
 "type.railway.station.subway.paris" = "Postaja podzemne železnice";
 "type.railway.station.subway.philadelphia" = "Postaja podzemne železnice";
 "type.railway.station.subway.pyongyang" = "Postaja podzemne železnice";
+
+/* TODO: add ref to "type.railway.station.subway" */
 "type.railway.station.subway.qingdao" = "Postaja podzemne železnice";
 "type.railway.station.subway.rennes" = "Postaja podzemne železnice";
 "type.railway.station.subway.rio" = "Postaja podzemne železnice";
@@ -1126,6 +1343,7 @@
 "type.shop.pet_grooming" = "Nega malih živali";
 "type.shop.photo" = "Foto studio";
 "type.shop.rental" = "Izposojevalnica";
+"type.shop.rental.bicycle" = "Bicycle Rental Shop";
 "type.amenity.bicycle_rental.shop" = "Izposojevalnica koles";
 "type.shop.seafood" = "Ribarnica";
 "type.shop.second_hand" = "Trgovina z rabljenimi izdelki";
@@ -1146,6 +1364,8 @@
 "type.shop.agrarian" = "Kmetijska trgovina";
 "type.shop.antiques" = "Starinarnica";
 "type.shop.appliance" = "Trgovina z aparati";
+
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Umetniška trgovina";
 "type.shop.baby_goods" = "Trgovina z otroško opremo";
 "type.shop.bag" = "Trgovina s torbicami";
@@ -1186,6 +1406,8 @@
 "type.sport.gymnastics" = "Gimnastika";
 "type.sport.handball" = "Rokomet";
 "type.sport.multi" = "Različni športi";
+
+/* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Potapljaško mesto";
 "type.sport.shooting" = "Strelstvo";
 "type.sport.skateboard" = "Skejtanje";
@@ -1205,6 +1427,8 @@
 "type.sport.pelota" = "Baskovska pelota";
 "type.tourism" = "Turizem";
 "type.tourism.aquarium" = "Akvarij";
+
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Planinska koča";
 "type.tourism.apartment" = "Počitniški apartma";
 "type.tourism.artwork" = "Umetniško delo";
@@ -1225,6 +1449,8 @@
 "type.tourism.attraction.specified" = "Znamenitost";
 "type.tourism.camp_site" = "Kamp";
 "type.tourism.caravan_site" = "Parkirišče za avtodome";
+
+/* A rentable countryside vacation house. */
 "type.tourism.chalet" = "Počitniška hišica";
 "type.tourism.gallery" = "Umetnostna galerija";
 "type.tourism.guest_house" = "Penzion";
@@ -1243,6 +1469,8 @@
 "type.leisure.resort" = "Letovišče";
 "type.tourism.theme_park" = "Tematski park";
 "type.tourism.viewpoint" = "Razgledna točka";
+
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Koča v divjini";
 "type.tourism.zoo" = "Živalski vrt";
 "type.tourism.zoo.petting" = "Živalski vrt z božanjem";
@@ -1306,9 +1534,17 @@
 "type.self_service.only" = "Samo samopostrežba";
 "type.self_service.partially" = "Delna samopostrežba";
 "type.self_service.no" = "Ni samopostrežbe";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
 "type.amenity.social_facility" = "Socialna ustanova";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Vhod v urgentni oddelek";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
 "type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Športna dvorana";
 "type.sport.diving" = "Potapljanje";
 "type.man_made.crane" = "Žerjav";
@@ -1318,3 +1554,18 @@
 "type.office.security" = "Varnostna pisarna";
 "type.power.portal" = "Daljnovodni stolp (portal)";
 "type.shop.lighting" = "Trgovina s svetili";
+"type.barrier.jersey_barrier" = "Block";
+"type.barrier.debris" = "Debris";
+"type.barrier.log" = "Log Barrier";
+"type.amenity.boat_rental" = "Boat Rental";
+"type.shop.telecommunication" = "Telecommunications store";
+"type.leisure.indoor_play" = "Play Centre";
+"type.tourism.camp_pitch" = "Camping Spot";
+"type.railway.miniature" = "Miniature Railway";
+"type.amenity.kneipp_water_cure" = "Kneipp Water Cure";
+"type.area_highway.traffic_island" = "Traffic Island";
+"type.man_made.monitoring_station" = "Monitoring Station";
+"type.man_made.monitoring_station.water_level" = "Water Level Monitoring Station";
+"type.man_made.monitoring_station.weather" = "Weather Monitoring Station";
+"type.amenity.student_accommodation" = "Student Accommodation";
+"type.craft.watchmaker" = "Watchmaker";

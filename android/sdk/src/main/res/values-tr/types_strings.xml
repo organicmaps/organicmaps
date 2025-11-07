@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adres/Blok</string>
     <string name="type.addr_interpolation.even">Adres/Blok</string>
@@ -28,10 +29,12 @@
     <string name="type.amenity.bbq">Barbekü Izgarası</string>
     <string name="type.amenity.bench">Bank</string>
     <string name="type.amenity.bicycle_parking">Bisiklet Park Yeri</string>
+    <string name="type.amenity.bicycle_parking.covered">Örtülü Bisiklet Parkı</string>
     <string name="type.amenity.bicycle_rental">Bisiklet Kiralama</string>
     <string name="type.amenity.bicycle_repair_station">Bisiklet Tamir İstasyonu</string>
     <string name="type.amenity.biergarten">Bira Bahçesi</string>
     <string name="type.amenity.brothel">Genelev</string>
+    <string name="type.amenity.love_hotel">Çift Oteli</string>
     <string name="type.amenity.bureau_de_change">Döviz Bürosu</string>
     <string name="type.amenity.bus_station">Otogar</string>
     <string name="type.amenity.cafe">Kafe</string>
@@ -48,6 +51,7 @@
     <string name="type.amenity.charging_station.motorcar">Araç Şarj İstasyonu</string>
     <string name="type.amenity.childcare">Kreş</string>
     <string name="type.amenity.cinema">Sinema</string>
+    <string name="type.amenity.studio">Atölye</string>
     <string name="type.leisure.bowling_alley">Bovling Pisti</string>
     <string name="type.amenity.clinic">Klinik</string>
     <string name="type.amenity.college">Kolej</string>
@@ -82,6 +86,7 @@
     <string name="type.amenity.kindergarten">Anaokulu</string>
     <string name="type.amenity.library">Kütüphane</string>
     <string name="type.amenity.loading_dock">Yükleme Alanı</string>
+    <string name="type.amenity.luggage_locker">Emanet Dolabı</string>
     <string name="type.amenity.marketplace">Pazaryeri</string>
     <string name="type.amenity.motorcycle_parking">Motosiklet Parkı</string>
     <string name="type.amenity.nightclub">Gece Kulübü</string>
@@ -126,9 +131,11 @@
     <string name="type.amenity.police">Polis</string>
     <string name="type.amenity.post_box">Posta Kutusu</string>
     <string name="type.amenity.post_office">Postane</string>
+    <string name="type.post_office.post_partner">Postane İş Ortağı</string>
     <string name="type.amenity.prison">Hapishane</string>
     <string name="type.amenity.pub">Meyhane</string>
     <string name="type.amenity.public_bookcase">Kitap Değişimi</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Geri Dönüşüm Merkezi</string>
     <string name="type.amenity.recycling">Geri Dönüşüm Kutusu</string>
@@ -155,6 +162,8 @@
     <string name="type.amenity.shelter.public_transport">Barınak</string>
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
     <string name="type.amenity.shelter.basic_hut">Bivouac Kulübe</string>
+    <!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
+    <string name="type.amenity.shelter.lean_to">Sundurma Barınak</string>
     <string name="type.amenity.public_bath">Hamam</string>
     <string name="type.amenity.shower">Duş</string>
     <string name="type.amenity.stripclub">Striptiz Kulübü</string>
@@ -167,9 +176,14 @@
     <string name="type.amenity.university">Üniversite</string>
     <string name="type.amenity.vending_machine">Otomat</string>
     <string name="type.amenity.vending_machine.cigarettes">Sigara Dağıtıcı</string>
+    <string name="type.amenity.vending_machine.coffee">Kahve Dağıtıcı</string>
+    <string name="type.amenity.vending_machine.condoms">Prezervatif Dağıtıcı</string>
     <string name="type.amenity.vending_machine.drinks">İçecek Dağıtıcı</string>
+    <string name="type.amenity.vending_machine.food">Yiyecek Dağıtıcı</string>
+    <string name="type.amenity.vending_machine.newspapers">Gazete Dağıtıcı</string>
     <string name="type.amenity.vending_machine.parking_tickets">Otopark Fişi</string>
     <string name="type.amenity.vending_machine.public_transport_tickets">Bilet Dağıtıcı</string>
+    <string name="type.amenity.vending_machine.sweets">Şekerleme Dağıtıcı</string>
     <string name="type.amenity.vending_machine.excrement_bags">Dışkı Torbası Dağıtıcı</string>
     <string name="type.amenity.parcel_locker">Kilitlenir Paket Dolabı</string>
     <string name="type.amenity.vehicle_inspection">Araç Muayenesi</string>
@@ -192,6 +206,7 @@
     <string name="type.natural.water.wastewater">Atık Su</string>
     <string name="type.barrier.entrance">Giriş</string>
     <string name="type.barrier.fence">Çit</string>
+    <string name="type.barrier.guard_rail">Korkuluk</string>
     <string name="type.barrier.gate">Geçit</string>
     <string name="type.barrier.hedge">Çalı Çit</string>
     <string name="type.barrier.kissing_gate">İnsan Geçidi</string>
@@ -266,6 +281,7 @@
     <string name="type.cuisine.beef_bowl">Biftek Tabağı</string>
     <string name="type.cuisine.brazilian">Brezilya Mutfağı</string>
     <string name="type.cuisine.breakfast">Kahvaltı</string>
+    <string name="type.cuisine.bubble_tea">İnci Çayı</string>
     <string name="type.cuisine.burger">Burger</string>
     <string name="type.cuisine.buschenschank">Buschenschank</string>
     <string name="type.cuisine.cake">Pasta</string>
@@ -352,6 +368,7 @@
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Ana Giriş</string>
     <string name="type.entrance.exit">Çıkış</string>
+    <string name="type.fee.yes">₺</string>
     <string name="type.fee.no">Ücretsiz</string>
     <string name="type.healthcare.laboratory">Tıbbi Laboratuvar</string>
     <string name="type.healthcare.physiotherapist">Fizyoterapist</string>
@@ -363,6 +380,7 @@
     <string name="type.healthcare.psychotherapist">Psikoterapi</string>
     <string name="type.healthcare.sample_collection">Örnek Toplama Merkezi</string>
     <string name="type.healthcare.speech_therapist">Logopedi</string>
+
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Otoyol</string>
     <string name="type.highway.bridleway">Atlı Yolu</string>
@@ -478,6 +496,7 @@
     <string name="type.highway.steps.bridge">Köprü</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.steps.tunnel">Tünel</string>
+    <string name="type.highway.ladder">Basamak</string>
     <string name="type.highway.tertiary">Üçüncül Yol</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary.bridge">Köprü</string>
@@ -528,6 +547,9 @@
     <string name="type.area_highway.track">Pist</string>
     <string name="type.area_highway.trunk">Devlet Yolu</string>
     <string name="type.area_highway.unclassified">Tali Yol</string>
+    <string name="type.highway.world_level">highway-world_level</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Tarihi Nesne</string>
     <string name="type.historic.aircraft">Tarihi Uçak</string>
@@ -587,8 +609,10 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Hristiyan Mezarlığı</string>
     <string name="type.landuse.religious">Kilise Bölgesi</string>
+    <string name="type.landuse.churchyard">Kilise Bölgesi</string>
     <string name="type.landuse.commercial">Ticari Alan</string>
     <string name="type.landuse.construction">Yapı</string>
+    <string name="type.landuse.education">Eğitim Tesisi</string>
     <string name="type.landuse.farmland">Tarım Arazileri</string>
     <string name="type.landuse.farmyard">Çiftlik Bölgesi</string>
     <string name="type.landuse.field">Alan</string>
@@ -615,9 +639,11 @@
     <string name="type.landuse.salt_pond">Tuzla</string>
     <string name="type.landuse.village_green">Arazi</string>
     <string name="type.landuse.vineyard">Üzüm Bağı</string>
+    <string name="type.landuse.plant_nursery">Fidanlık</string>
     <string name="type.leisure">Dinlenecek Yer</string>
     <string name="type.leisure.common">Kamu Alanı</string>
     <string name="type.leisure.dog_park">Köpek Alanı</string>
+    <string name="type.leisure.escape_game">Kaçış Odası</string>
     <string name="type.leisure.fitness_centre">Fitness Merkezi</string>
     <string name="type.leisure.fitness_station">Açık Hava Spor Alanı</string>
     <string name="type.leisure.dance">Dans Salonu</string>
@@ -625,10 +651,12 @@
     <string name="type.leisure.garden.residential">Konut Bahçesi</string>
     <string name="type.leisure.golf_course">Golf Sahası</string>
     <string name="type.leisure.miniature_golf">Minigolf</string>
+    <string name="type.leisure.hackerspace">Hackerspace</string>
     <string name="type.leisure.ice_rink">Buz Pateni Pisti</string>
     <string name="type.leisure.marina">Liman</string>
     <string name="type.leisure.nature_reserve">Doğal Koruma Alanı</string>
     <string name="type.leisure.outdoor_seating">Dış Mekan Oturağı</string>
+    <string name="type.leisure.firepit">Ateş Çukuru</string>
     <string name="type.leisure.park">Park</string>
     <string name="type.leisure.park.no.access">Özel Park</string>
     <string name="type.leisure.park.permissive">Park</string>
@@ -654,6 +682,7 @@
     <string name="type.man_made.cairn">Höyük</string>
     <string name="type.man_made.chimney">Fabrika Bacası</string>
     <string name="type.man_made.cutline">Kesme Çizgisi</string>
+    <string name="type.man_made.survey_point">Nirengi Noktası</string>
     <string name="type.man_made.flagpole">Bayrak Direği</string>
     <string name="type.man_made.lighthouse">Deniz Feneri</string>
     <string name="type.man_made.mast">Direk</string>
@@ -700,6 +729,7 @@
     <string name="type.natural.earth_bank">Toprak Kayması</string>
     <string name="type.man_made.embankment">Bent</string>
     <string name="type.natural.coastline">Kıyı Şeridi</string>
+    <string name="type.natural.desert">Çöl</string>
     <string name="type.natural.geyser">Gayzer</string>
     <string name="type.natural.glacier">Buzul</string>
     <string name="type.natural.grassland">Otlak</string>
@@ -793,6 +823,15 @@
     <string name="type.power.substation">Trafo</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Elektrik Kulesi</string>
+    <!-- A single pole supporting minor power lines. -->
+    <string name="type.power.pole">Elektrik Direği</string>
+    <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
+    <string name="type.man_made.utility_pole">Hizmet Direği</string>
+    <string name="type.psurface">psurface</string>
+    <string name="type.psurface.paved_bad">psurface-paved_bad</string>
+    <string name="type.psurface.paved_good">psurface-paved_good</string>
+    <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
+    <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Toplu Taşıma</string>
     <string name="type.public_transport.platform">Platform</string>
     <string name="type.railway">Demiryolu</string>
@@ -935,6 +974,8 @@
     <string name="type.railway.station.subway.paris">Metro</string>
     <string name="type.railway.station.subway.philadelphia">Metro</string>
     <string name="type.railway.station.subway.pyongyang">Metro</string>
+    <!-- TODO: add ref to "type.railway.station.subway" -->
+    <string name="type.railway.station.subway.qingdao">Metro</string>
     <string name="type.railway.station.subway.rennes">Metro</string>
     <string name="type.railway.station.subway.rio">Metro</string>
     <string name="type.railway.station.subway.roma">Metro</string>
@@ -1091,6 +1132,7 @@
     <string name="type.railway.tram_stop">Tramvay Durağı</string>
     <string name="type.route">Rota</string>
     <string name="type.route.ferry">Feribot</string>
+    <string name="type.route.shuttle_train">route-shuttle_train</string>
     <string name="type.shop">Mağaza</string>
     <string name="type.shop.alcohol">İçki dükkanı</string>
     <string name="type.shop.bakery">Fırın</string>
@@ -1165,6 +1207,7 @@
     <string name="type.shop.pet_grooming">Evcil Hayvan Bakıcısı</string>
     <string name="type.shop.photo">Fotoğrafçı</string>
     <string name="type.shop.rental">Kiralık Mağaza</string>
+    <string name="type.shop.rental.bicycle">Bisiklet Kiralama Mağazası</string>
     <string name="type.amenity.bicycle_rental.shop">Bisiklet Kiralama Mağazası</string>
     <string name="type.shop.seafood">Deniz Ürünleri Mağazası</string>
     <string name="type.shop.second_hand">İkinci El Mağazası</string>
@@ -1257,6 +1300,8 @@
     <string name="type.tourism.attraction">Görülecek Yer</string>
     <string name="type.attraction.amusement_ride">Eğlence Sürüşü</string>
     <string name="type.attraction.animal">Hayvan Muhafazası</string>
+    <string name="type.attraction.bumper_car">Çarpışan Oto</string>
+    <string name="type.attraction.big_wheel">Dönme Dolap</string>
     <string name="type.attraction.carousel">Atlıkarınca</string>
     <string name="type.attraction.historic">Tarihi cazibe merkezi</string>
     <string name="type.attraction.maze">Labirent</string>
@@ -1277,6 +1322,7 @@
     <string name="type.tourism.information.map">Turist Haritası</string>
     <string name="type.tourism.information.office">Turizm Ofisi</string>
     <string name="type.tourism.information.visitor_centre">Ziyaretçi Merkezi</string>
+    <string name="type.amenity.ranger_station">Korucu İstasyonu</string>
     <string name="type.tourism.motel">Motel</string>
     <string name="type.tourism.museum">Müze</string>
     <string name="type.tourism.picnic_site">Piknik Alanı</string>
@@ -1355,59 +1401,8 @@
     <string name="type.amenity.dojo">Dövüş okulu</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Spor salonu</string>
-    <string name="type.landuse.education">Eğitim Tesisi</string>
-    <string name="type.natural.desert">Çöl</string>
-    <string name="type.amenity.shelter.lean_to">Sundurma Barınak</string>
-    <string name="type.amenity.vending_machine.coffee">Kahve Dağıtıcı</string>
-    <string name="type.amenity.vending_machine.condoms">Prezervatif Dağıtıcı</string>
-    <string name="type.amenity.vending_machine.food">Yiyecek Dağıtıcı</string>
-    <string name="type.amenity.vending_machine.newspapers">Gazete Dağıtıcı</string>
-    <string name="type.amenity.vending_machine.sweets">Şekerleme Dağıtıcı</string>
-    <string name="type.cuisine.bubble_tea">İnci Çayı</string>
-    <string name="type.fee.yes">₺</string>
-    <string name="type.power.pole">Elektrik Direği</string>
-    <string name="type.man_made.utility_pole">Hizmet Direği</string>
     <string name="type.sport.diving">Dalış</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.amenity.love_hotel">Çift Oteli</string>
-    <string name="type.amenity.studio">Atölye</string>
-    <string name="type.barrier.guard_rail">Korkuluk</string>
-    <string name="type.highway.ladder">Basamak</string>
-    <string name="type.landuse.plant_nursery">Fidanlık</string>
-    <string name="type.leisure.firepit">Ateş Çukuru</string>
     <string name="type.man_made.crane">Vinç</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
-    <string name="type.hwtag">hwtag</string>
-    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
-    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
-    <string name="type.hwtag.lit">hwtag-lit</string>
-    <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
-    <string name="type.hwtag.nocar">hwtag-nocar</string>
-    <string name="type.hwtag.nofoot">hwtag-nofoot</string>
-    <string name="type.hwtag.oneway">hwtag-oneway</string>
-    <string name="type.hwtag.private">hwtag-private</string>
-    <string name="type.hwtag.toll">hwtag-toll</string>
-    <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
-    <string name="type.hwtag.yescar">hwtag-yescar</string>
-    <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
-    <string name="type.leisure.hackerspace">Hackerspace</string>
-    <string name="type.man_made.survey_point">Nirengi Noktası</string>
-    <string name="type.mapswithme">mapswithme</string>
-    <string name="type.mapswithme.grid">mapswithme-grid</string>
-    <string name="type.psurface">psurface</string>
-    <string name="type.psurface.paved_bad">psurface-paved_bad</string>
-    <string name="type.psurface.paved_good">psurface-paved_good</string>
-    <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
-    <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
-    <string name="type.route.shuttle_train">route-shuttle_train</string>
-    <string name="type.attraction.bumper_car">Çarpışan Oto</string>
-    <string name="type.attraction.big_wheel">Dönme Dolap</string>
-    <string name="type.amenity.bicycle_parking.covered">Örtülü Bisiklet Parkı</string>
-    <string name="type.amenity.luggage_locker">Emanet Dolabı</string>
-    <string name="type.post_office.post_partner">Postane İş Ortağı</string>
-    <string name="type.leisure.escape_game">Kaçış Odası</string>
-    <string name="type.railway.station.subway.qingdao">Metro</string>
-    <string name="type.amenity.ranger_station">Korucu İstasyonu</string>
     <string name="type.barrier.wicket_gate">Kuzu Kapı</string>
     <string name="type.barrier.yes">Bariyer</string>
     <string name="type.building.guardhouse">Güvenlik</string>

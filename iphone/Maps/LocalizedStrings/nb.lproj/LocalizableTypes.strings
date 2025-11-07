@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "Adresse/blokk";
 "type.addr_interpolation.even" = "Adresse/blokk";
 "type.addr_interpolation.odd" = "Adresse/blokk";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "Barbecue-grill";
 "type.amenity.bench" = "Benk";
 "type.amenity.bicycle_parking" = "Sykkelparkering";
+"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
 "type.amenity.bicycle_rental" = "Sykkelutleie";
 "type.amenity.bicycle_repair_station" = "Sykkelreparasjonsstasjon";
 "type.amenity.biergarten" = "Uteservering";
 "type.amenity.brothel" = "Bordell";
+"type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "Valutaveksling";
 "type.amenity.bus_station" = "Busstasjon";
 "type.amenity.cafe" = "Kafé";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Ladestasjon for biler";
 "type.amenity.childcare" = "Daghjem";
 "type.amenity.cinema" = "Kino";
+"type.amenity.studio" = "Studio";
 "type.leisure.bowling_alley" = "Bowlinghall";
 "type.amenity.clinic" = "Klinikk";
 "type.amenity.college" = "Høyskole";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "Barnehage";
 "type.amenity.library" = "Bibliotek";
 "type.amenity.loading_dock" = "Lasterampe";
+"type.amenity.luggage_locker" = "Luggage Locker";
 "type.amenity.marketplace" = "Torg";
 "type.amenity.motorcycle_parking" = "Motorsykkelparkering";
 "type.amenity.nightclub" = "Nattklubb";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "Politi";
 "type.amenity.post_box" = "Postboks";
 "type.amenity.post_office" = "Postkontor";
+"type.post_office.post_partner" = "Post Partner";
 "type.amenity.prison" = "Fengsel";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Bokhylle";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Resirkuleringssenter";
 "type.amenity.recycling" = "Gjenvinningsbeholder";
 "type.amenity.recycling.container" = "Gjenvinningsbeholder";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "Avløpsvann";
 "type.barrier.entrance" = "Inngangspassasje";
 "type.barrier.fence" = "Gjerde";
+"type.barrier.guard_rail" = "Guard Rail";
 "type.barrier.gate" = "Port";
 "type.barrier.hedge" = "Hedge";
 "type.barrier.kissing_gate" = "Port";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "Psykoterapi";
 "type.healthcare.sample_collection" = "Prøvetaking";
 "type.healthcare.speech_therapist" = "Snakketerapi";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Ridevei";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Tunnel";
+"type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "Tertiærvei";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "Småvei";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "Historisk gjenstand";
 "type.historic.aircraft" = "Historisk fly";
 "type.historic.anchor" = "Historisk anker";
@@ -644,18 +667,44 @@
 "type.historic.wayside_cross" = "Veikantkors";
 "type.historic.wayside_shrine" = "Helligdom ved veikanten";
 "type.historic.wreck" = "Skipsvrak";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Internet";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Gravplass";
 "type.landuse.religious" = "Kirkegård";
+"type.landuse.churchyard" = "Kirkegård";
 "type.landuse.commercial" = "Commercial Area";
 "type.landuse.construction" = "Construction Area";
 "type.landuse.education" = "Educational Facility";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "Salt Pond";
 "type.landuse.village_green" = "Land";
 "type.landuse.vineyard" = "Vineyard";
+"type.landuse.plant_nursery" = "Plant Nursery";
 "type.leisure" = "Leisure";
 "type.leisure.common" = "Public Land";
 "type.leisure.dog_park" = "Hundeområde";
+"type.leisure.escape_game" = "Escape Room";
 "type.leisure.fitness_centre" = "Treningssenter";
 "type.leisure.fitness_station" = "Treningsstasjon";
 "type.leisure.dance" = "Dansesal";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Naturreservat";
 "type.leisure.outdoor_seating" = "Uteservering";
+"type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Park";
 "type.leisure.park.no.access" = "Park";
 "type.leisure.park.permissive" = "Park";
@@ -773,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "Brønn";
 "type.man_made.windmill" = "Vindmølle";
 "type.man_made.works" = "Industrial Works";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Military";
 "type.military.bunker" = "Bunker";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "T-bane";
 "type.railway.station.subway.philadelphia" = "T-bane";
 "type.railway.station.subway.pyongyang" = "T-bane";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Subway Station";
 "type.railway.station.subway.rennes" = "T-bane";
 "type.railway.station.subway.rio" = "T-bane";
 "type.railway.station.subway.roma" = "T-bane";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "Kjæledyrpleie";
 "type.shop.photo" = "Fotobutikk";
 "type.shop.rental" = "Utleiebutikk";
+"type.shop.rental.bicycle" = "Sykkelutleiebutikk";
 "type.amenity.bicycle_rental.shop" = "Sykkelutleiebutikk";
 "type.shop.seafood" = "Fiskehandler";
 "type.shop.second_hand" = "Bruktbutikk";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "Turistkart";
 "type.tourism.information.office" = "Turistkontor";
 "type.tourism.information.visitor_centre" = "Besøkssenter";
+"type.amenity.ranger_station" = "Ranger Station";
 "type.tourism.motel" = "Motell";
 "type.tourism.museum" = "Museum";
 "type.tourism.picnic_site" = "Rasteplasser";
@@ -1447,17 +1509,17 @@
 "type.aerialway.t.bar" = "T-bar Lift";
 "type.piste_type.downhill" = "Downhill Ski Run";
 "type.piste_type.downhill.area" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
-"type.piste_type.downhill.easy" = "Downhill Ski Run";
-"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
-"type.piste_type.downhill.expert" = "Downhill Ski Run";
-"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
-"type.piste_type.downhill.freeride" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
-"type.piste_type.downhill.novice" = "Downhill Ski Run";
-"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.advanced.area" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.easy.area" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.expert.area" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.freeride" = "Freeride Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.intermediate.area" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.novice" = "Novice Downhill Ski Run";
+"type.piste_type.downhill.novice.area" = "Novice Downhill Ski Run";
 "type.piste_type.nordic" = "Nordic Ski Trail";
 "type.piste_type.sled" = "Sledding Piste";
 "type.piste_type.sled.area" = "Sledding Piste";
@@ -1484,18 +1546,6 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Idrettshall";
-"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
-"type.amenity.love_hotel" = "Love Hotel";
-"type.amenity.studio" = "Studio";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.post_office.post_partner" = "Post Partner";
-"type.barrier.guard_rail" = "Guard Rail";
-"type.highway.ladder" = "Ladder";
-"type.landuse.plant_nursery" = "Plant Nursery";
-"type.leisure.escape_game" = "Escape Room";
-"type.leisure.firepit" = "Firepit";
-"type.railway.station.subway.qingdao" = "Subway Station";
-"type.amenity.ranger_station" = "Ranger Station";
 "type.sport.diving" = "Diving";
 "type.man_made.crane" = "Crane";
 "type.barrier.wicket_gate" = "Wicket Gate";

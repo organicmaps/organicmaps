@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "地址/区块";
 "type.addr_interpolation.even" = "偶地址/区块";
 "type.addr_interpolation.odd" = "奇‌地址/区块";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "烧烤架";
 "type.amenity.bench" = "长凳";
 "type.amenity.bicycle_parking" = "自行车停车处";
+"type.amenity.bicycle_parking.covered" = "有棚自行车停放处";
 "type.amenity.bicycle_rental" = "自行车出租点";
 "type.amenity.bicycle_repair_station" = "自行车维修站";
 "type.amenity.biergarten" = "啤酒花园";
 "type.amenity.brothel" = "妓院";
+"type.amenity.love_hotel" = "情侣酒店";
 "type.amenity.bureau_de_change" = "货币兑换";
 "type.amenity.bus_station" = "公交车站";
 "type.amenity.cafe" = "咖啡馆่";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "汽车充电站";
 "type.amenity.childcare" = "托儿所";
 "type.amenity.cinema" = "电影院";
+"type.amenity.studio" = "演播厅";
 "type.leisure.bowling_alley" = "保龄球馆";
 "type.amenity.clinic" = "诊所";
 "type.amenity.college" = "学院";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "幼儿园";
 "type.amenity.library" = "图书馆";
 "type.amenity.loading_dock" = "装卸码头";
+"type.amenity.luggage_locker" = "行李寄存处";
 "type.amenity.marketplace" = "市场";
 "type.amenity.motorcycle_parking" = "摩托车停车场";
 "type.amenity.nightclub" = "夜总会";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "警察局";
 "type.amenity.post_box" = "邮箱";
 "type.amenity.post_office" = "邮局";
+"type.post_office.post_partner" = "邮政合作点";
 "type.amenity.prison" = "监狱";
 "type.amenity.pub" = "酒馆";
 "type.amenity.public_bookcase" = "公共书架";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "资源回收设施";
 "type.amenity.recycling" = "回收容器";
 "type.amenity.recycling.container" = "回收容器";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "废水";
 "type.barrier.entrance" = "入口";
 "type.barrier.fence" = "篱笆";
+"type.barrier.guard_rail" = "交通护栏";
 "type.barrier.gate" = "门";
 "type.barrier.hedge" = "灌木篱笆";
 "type.barrier.kissing_gate" = "门";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "心理治疗师";
 "type.healthcare.sample_collection" = "样本采集设施";
 "type.healthcare.speech_therapist" = "语言治疗师";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "道路";
 "type.highway.bridleway" = "马道";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "隧道";
+"type.highway.ladder" = "梯子";
 "type.highway.tertiary" = "三级道路";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "道路";
 "type.highway.world_level" = "高速公路—世界级";
 "type.highway.world_towns_level" = "高速公路—城镇级";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "历史地点";
 "type.historic.aircraft" = "历史悠久的飞机";
 "type.historic.anchor" = "历史锚";
@@ -644,19 +667,45 @@
 "type.historic.wayside_cross" = "路旁十字架";
 "type.historic.wayside_shrine" = "路旁神龛";
 "type.historic.wreck" = "沉船";
-"type.hwtag" = "交通属性标签";
-"type.hwtag.bidir_bicycle" = "双向自行车道标签";
-"type.hwtag.onedir_bicycle" = "单向自行车道标签";
-"type.hwtag.lit" = "照明设施标签";
-"type.hwtag.nobicycle" = "禁止自行车标签";
-"type.hwtag.nocar" = "禁止汽车标签";
-"type.hwtag.nofoot" = "禁止行人标签";
-"type.hwtag.oneway" = "单行道标签";
-"type.hwtag.private" = "私有道路标签";
-"type.hwtag.toll" = "收费道路标签";
-"type.hwtag.yesbicycle" = "允许自行车标签";
-"type.hwtag.yescar" = "允许汽车标签";
-"type.hwtag.yesfoot" = "允许行人标签";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "互联网";
 "type.internet_access.wlan" = "无线网络";
 "type.junction" = "交叉口";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "基督教墓地";
 "type.landuse.religious" = "教堂庭院";
+"type.landuse.churchyard" = "教堂庭院";
 "type.landuse.commercial" = "商业区";
 "type.landuse.construction" = "建设区域";
 "type.landuse.education" = "教育设施";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "盐田";
 "type.landuse.village_green" = "村庄绿地";
 "type.landuse.vineyard" = "葡萄园";
+"type.landuse.plant_nursery" = "苗圃";
 "type.leisure" = "休闲要素";
 "type.leisure.common" = "公共用地";
 "type.leisure.dog_park" = "遛狗区";
+"type.leisure.escape_game" = "密室逃脱";
 "type.leisure.fitness_centre" = "健身中心";
 "type.leisure.fitness_station" = "健身驿站";
 "type.leisure.dance" = "舞厅";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "游艇码头";
 "type.leisure.nature_reserve" = "自然保护区";
 "type.leisure.outdoor_seating" = "室外座椅";
+"type.leisure.firepit" = "火坑";
 "type.leisure.park" = "公园";
 "type.leisure.park.no.access" = "公园";
 "type.leisure.park.permissive" = "公园";
@@ -773,8 +826,12 @@
 "type.man_made.water_well.drinking_water_no" = "水井";
 "type.man_made.windmill" = "风车";
 "type.man_made.works" = "工厂";
-"type.mapswithme" = "MapsWithMe";
-"type.mapswithme.grid" = "MapsWithMe—网格";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "军事";
 "type.military.bunker" = "地堡";
 "type.mountain_pass" = "山口";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "地铁站";
 "type.railway.station.subway.philadelphia" = "地铁站";
 "type.railway.station.subway.pyongyang" = "地铁站";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "地铁站";
 "type.railway.station.subway.rennes" = "地铁站";
 "type.railway.station.subway.rio" = "地铁站";
 "type.railway.station.subway.roma" = "地铁站";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "宠物美容";
 "type.shop.photo" = "照片店";
 "type.shop.rental" = "租赁店";
+"type.shop.rental.bicycle" = "自行车租赁店";
 "type.amenity.bicycle_rental.shop" = "自行车租赁店";
 "type.shop.seafood" = "鱼商";
 "type.shop.second_hand" = "二手店";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "旅游地图";
 "type.tourism.information.office" = "旅游咨询中心";
 "type.tourism.information.visitor_centre" = "游客中心";
+"type.amenity.ranger_station" = "护林站";
 "type.tourism.motel" = "汽车旅馆";
 "type.tourism.museum" = "博物馆";
 "type.tourism.picnic_site" = "野餐地点";
@@ -1485,19 +1547,7 @@
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "体育馆";
 "type.sport.diving" = "潜水";
-"type.amenity.studio" = "演播厅";
-"type.barrier.guard_rail" = "交通护栏";
-"type.amenity.love_hotel" = "情侣酒店";
 "type.man_made.crane" = "起重机";
-"type.highway.ladder" = "梯子";
-"type.landuse.plant_nursery" = "苗圃";
-"type.leisure.firepit" = "火坑";
-"type.amenity.bicycle_parking.covered" = "有棚自行车停放处";
-"type.amenity.luggage_locker" = "行李寄存处";
-"type.post_office.post_partner" = "邮政合作点";
-"type.leisure.escape_game" = "密室逃脱";
-"type.railway.station.subway.qingdao" = "地铁站";
-"type.amenity.ranger_station" = "护林站";
 "type.barrier.wicket_gate" = "Wicket Gate";
 "type.barrier.yes" = "Barrier";
 "type.building.guardhouse" = "Guard";

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.amenity.arts_centre">Arts Centre</string>
     <string name="type.amenity.conference_centre">Conference Centre</string>
@@ -7,6 +8,7 @@
     <string name="type.amenity.fuel">Petrol Station</string>
     <string name="type.amenity.loading_dock">Loading Bay</string>
     <string name="type.amenity.post_box">Postbox</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Recycling Centre</string>
     <string name="type.amenity.taxi">Taxi Rank</string>
@@ -14,13 +16,19 @@
     <string name="type.cuisine.donut">Doughnut</string>
     <string name="type.cuisine.savory_pancakes">Savoury Pancakes</string>
     <string name="type.healthcare.blood_donation">Blood Donation Centre</string>
+
     <!-- SECTION: Types: Roads -->
     <string name="type.highway.elevator">Lift</string>
     <string name="type.highway.footway.sidewalk">Pavement</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.residential.tunnel">Tunnel</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.leisure.common">Common Land</string>
     <string name="type.leisure.sports_centre">Sports Centre</string>
     <string name="type.office.government">Governmental Office</string>
+    <string name="type.power.plant.gas">Gas Turbine Power Plant</string>
+    <string name="type.railway.rail.branch.bridge">Railway Bridge</string>
     <string name="type.railway.station.subway">Metro Station</string>
     <string name="type.railway.station.subway.adana">Metro Station</string>
     <string name="type.railway.station.subway.algiers">Metro Station</string>
@@ -76,7 +84,7 @@
     <string name="type.railway.station.subway.lille">Metro Station</string>
     <string name="type.railway.station.subway.lima">Metro Station</string>
     <string name="type.railway.station.subway.lisboa">Metro Station</string>
-    <string name="type.railway.station.subway.london">Underground Station</string>
+    <string name="type.railway.station.subway.london">Metro Station</string>
     <string name="type.railway.station.subway.lyon">Metro Station</string>
     <string name="type.railway.station.subway.madrid">Metro Station</string>
     <string name="type.railway.station.subway.malaga">Metro Station</string>
@@ -102,6 +110,8 @@
     <string name="type.railway.station.subway.paris">Metro Station</string>
     <string name="type.railway.station.subway.philadelphia">Metro Station</string>
     <string name="type.railway.station.subway.pyongyang">Metro Station</string>
+    <!-- TODO: add ref to "type.railway.station.subway" -->
+    <string name="type.railway.station.subway.qingdao">Metro Station</string>
     <string name="type.railway.station.subway.rennes">Metro Station</string>
     <string name="type.railway.station.subway.rio">Metro Station</string>
     <string name="type.railway.station.subway.roma">Metro Station</string>
@@ -193,7 +203,7 @@
     <string name="type.railway.subway_entrance.lille">Metro Entrance</string>
     <string name="type.railway.subway_entrance.lima">Metro Entrance</string>
     <string name="type.railway.subway_entrance.lisboa">Metro Entrance</string>
-    <string name="type.railway.subway_entrance.london">Metro Station Entrance</string>
+    <string name="type.railway.subway_entrance.london">Metro Entrance</string>
     <string name="type.railway.subway_entrance.lyon">Metro Entrance</string>
     <string name="type.railway.subway_entrance.madrid">Metro Entrance</string>
     <string name="type.railway.subway_entrance.malaga">Metro Entrance</string>
@@ -284,33 +294,5 @@
     <string name="type.sport.soccer">Football</string>
     <string name="type.tourism.camp_site">Campsite</string>
     <string name="type.tourism.caravan_site">Caravan Park</string>
-    <string name="type.power.pole">Power Pole</string>
-    <string name="type.man_made.utility_pole">Utility Pole</string>
-    <string name="type.addr_interpolation">Address/Block</string>
-    <string name="type.addr_interpolation.even">Address/Block</string>
-    <string name="type.addr_interpolation.odd">Address/Block</string>
-    <string name="type.amenity.love_hotel">Love Hotel</string>
-    <string name="type.amenity.studio">Studio</string>
-    <string name="type.barrier.guard_rail">Guard Rail</string>
-    <string name="type.highway.ladder">Ladder</string>
-    <string name="type.landuse.plant_nursery">Plant Nursery</string>
-    <string name="type.leisure.firepit">Firepit</string>
-    <string name="type.sport.diving">Diving</string>
-    <string name="type.man_made.crane">Crane</string>
-    <string name="type.amenity.ice_cream">Ice Cream</string>
-    <string name="type.amenity.parking.lane.private">Private Lane Parking</string>
-    <string name="type.craft.photographer">Photographer</string>
-    <string name="type.cuisine.noodles">Noodles</string>
-    <string name="type.healthcare.laboratory">Medical Laboratory</string>
-    <string name="type.highway.residential.tunnel">Tunnel</string>
-    <string name="type.man_made.silo">Silo</string>
-    <string name="type.power.plant.gas">Gas Turbine Power Plant</string>
-    <string name="type.railway.narrow_gauge.bridge">Narrow Gauge Rail Bridge</string>
-    <string name="type.railway.rail.branch.bridge">Railway Bridge</string>
-    <string name="type.shop.chemist">Chemist</string>
-    <string name="type.sport.padel">Padel</string>
-    <string name="type.tourism.information.visitor_centre">Visitor Centre</string>
-    <string name="type.tourism.viewpoint">Viewpoint</string>
-    <string name="type.railway.station.subway.qingdao">Metro Station</string>
     <string name="type.shop.telecommunication">Telecommunications shop</string>
 </resources>

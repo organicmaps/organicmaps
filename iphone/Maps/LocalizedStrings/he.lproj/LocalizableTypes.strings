@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "כתובת/שכונה";
 "type.addr_interpolation.even" = "כתובת/שכונה";
 "type.addr_interpolation.odd" = "כתובת/שכונה";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "מנגל";
 "type.amenity.bench" = "ספסל";
 "type.amenity.bicycle_parking" = "חניית אופניים";
+"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
 "type.amenity.bicycle_rental" = "השכרת אופניים";
 "type.amenity.bicycle_repair_station" = "תחנת תיקון אופניים";
 "type.amenity.biergarten" = "ביר גרדן";
 "type.amenity.brothel" = "בית בושת";
+"type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "המרת מטבע חוץ";
 "type.amenity.bus_station" = "תחנת אוטובוס";
 "type.amenity.cafe" = "בית קפה";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "תחנת טעינה למכוניות";
 "type.amenity.childcare" = "גנון";
 "type.amenity.cinema" = "קולנוע";
+"type.amenity.studio" = "Studio";
 "type.leisure.bowling_alley" = "אולם כדורת";
 "type.amenity.clinic" = "מרפאה";
 "type.amenity.college" = "מכללה";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "גן ילדים";
 "type.amenity.library" = "ספריה";
 "type.amenity.loading_dock" = "מתחם העמסה";
+"type.amenity.luggage_locker" = "Luggage Locker";
 "type.amenity.marketplace" = "זירת מסחר";
 "type.amenity.motorcycle_parking" = "חניית אופנועים";
 "type.amenity.nightclub" = "מועדון לילה";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "משטרה";
 "type.amenity.post_box" = "תיבת דואר";
 "type.amenity.post_office" = "סניף דואר";
+"type.post_office.post_partner" = "Post Partner";
 "type.amenity.prison" = "בית כלא";
 "type.amenity.pub" = "פאב";
 "type.amenity.public_bookcase" = "כוננית ספרים ציבורית";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "מרכז מיחזור";
 "type.amenity.recycling" = "מיכל מיחזור";
 "type.amenity.recycling.container" = "מיכל מיחזור";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "שפכים";
 "type.barrier.entrance" = "כניסה";
 "type.barrier.fence" = "גדר";
+"type.barrier.guard_rail" = "Guard Rail";
 "type.barrier.gate" = "שער";
 "type.barrier.hedge" = "גדר חיה";
 "type.barrier.kissing_gate" = "שער מנע בקר";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "פסיכותרפיה";
 "type.healthcare.sample_collection" = "מרכז איסוף דגימות";
 "type.healthcare.speech_therapist" = "ריפוי בדיבור";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "כביש";
 "type.highway.bridleway" = "שביל סוסים";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "מִנהָרָה";
+"type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "כביש שלישוני";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "כביש לא מסומן/מזערי";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "חפץ היסטורי";
 "type.historic.aircraft" = "מטוס היסטורי";
 "type.historic.anchor" = "עוגן היסטורי";
@@ -644,19 +667,45 @@
 "type.historic.wayside_cross" = "צלב בצד הדרך";
 "type.historic.wayside_shrine" = "מקדש בצד הדרך";
 "type.historic.wreck" = "ספינה טרופה";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
-"type.hwtag.bidir_bicycle" = "מסלול אופניים דו סיטרי";
-"type.hwtag.onedir_bicycle" = "מסלול אופניים חד סיטרי";
-"type.hwtag.lit" = "מואר";
-"type.hwtag.nobicycle" = "אין כניסה לאופניים";
-"type.hwtag.nocar" = "אין כניסה לכלי רכב";
-"type.hwtag.nofoot" = "אין כניסה להולכי רגל";
-"type.hwtag.oneway" = "חד סיטרי";
-"type.hwtag.private" = "פרטי";
-"type.hwtag.toll" = "אגרה";
-"type.hwtag.yesbicycle" = "הכניסה לאופניים מותרת";
-"type.hwtag.yescar" = "הכניסה לכלי רכב מותרת";
-"type.hwtag.yesfoot" = "הכניסה להולכי רגל מותרת";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "אינטרנט";
 "type.internet_access.wlan" = "אינטרנט אלחוטי";
 "type.junction" = "צומת";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "בית קברות נוצרי";
 "type.landuse.religious" = "חצר כנסיה";
+"type.landuse.churchyard" = "חצר כנסיה";
 "type.landuse.commercial" = "אזור מסחרי";
 "type.landuse.construction" = "אתר בניה";
 "type.landuse.education" = "קריית חינוך";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "בריכת מלח";
 "type.landuse.village_green" = "כפר ירוק";
 "type.landuse.vineyard" = "כרם";
+"type.landuse.plant_nursery" = "Plant Nursery";
 "type.leisure" = "פנאי";
 "type.leisure.common" = "קרקע ציבורית";
 "type.leisure.dog_park" = "פארק כלבים";
+"type.leisure.escape_game" = "Escape Room";
 "type.leisure.fitness_centre" = "מכון כושר";
 "type.leisure.fitness_station" = "תחנת כושר";
 "type.leisure.dance" = "היכל ריקודים";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "מרינה";
 "type.leisure.nature_reserve" = "שמורת טבע";
 "type.leisure.outdoor_seating" = "ישיבה בחוץ";
+"type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "פארק";
 "type.leisure.park.no.access" = "פארק סגור לכניסה";
 "type.leisure.park.permissive" = "פארק";
@@ -773,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "באר מים";
 "type.man_made.windmill" = "טחנת רוח";
 "type.man_made.works" = "עבודות תעשיה";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "צבאי";
 "type.military.bunker" = "בונקר צבאי";
@@ -966,11 +1023,11 @@
 "type.railway.rail.service.tunnel" = "מנהרת הרכבת";
 "type.railway.station" = "Train Station";
 "type.railway.station.funicular" = "פוניקולר";
-"type.railway.station.light_rail" = "Train Station";
-"type.railway.station.light_rail.berlin" = "Train Station";
-"type.railway.station.light_rail.london" = "Train Station";
-"type.railway.station.light_rail.porto" = "Train Station";
-"type.railway.station.monorail" = "Train Station";
+"type.railway.station.light_rail" = "Light Rail Station";
+"type.railway.station.light_rail.berlin" = "S-Bahn Station";
+"type.railway.station.light_rail.london" = "DLR Station";
+"type.railway.station.light_rail.porto" = "Porto Metro";
+"type.railway.station.monorail" = "Monorail Station";
 "type.railway.station.subway" = "Subway Station";
 "type.railway.station.subway.adana" = "Subway Station";
 "type.railway.station.subway.algiers" = "Subway Station";
@@ -1026,7 +1083,7 @@
 "type.railway.station.subway.lille" = "Subway Station";
 "type.railway.station.subway.lima" = "Subway Station";
 "type.railway.station.subway.lisboa" = "Subway Station";
-"type.railway.station.subway.london" = "Subway Station";
+"type.railway.station.subway.london" = "Underground Station";
 "type.railway.station.subway.lyon" = "Subway Station";
 "type.railway.station.subway.madrid" = "Subway Station";
 "type.railway.station.subway.malaga" = "Subway Station";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "Subway Station";
 "type.railway.station.subway.philadelphia" = "Subway Station";
 "type.railway.station.subway.pyongyang" = "Subway Station";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Subway Station";
 "type.railway.station.subway.rennes" = "Subway Station";
 "type.railway.station.subway.rio" = "Subway Station";
 "type.railway.station.subway.roma" = "Subway Station";
@@ -1143,7 +1203,7 @@
 "type.railway.subway_entrance.lille" = "Subway Entrance";
 "type.railway.subway_entrance.lima" = "Subway Entrance";
 "type.railway.subway_entrance.lisboa" = "Subway Entrance";
-"type.railway.subway_entrance.london" = "Subway Entrance";
+"type.railway.subway_entrance.london" = "Metro Station Entrance";
 "type.railway.subway_entrance.lyon" = "Subway Entrance";
 "type.railway.subway_entrance.madrid" = "Subway Entrance";
 "type.railway.subway_entrance.malaga" = "Subway Entrance";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "טיפוח חיות מחמד";
 "type.shop.photo" = "חנות צילום";
 "type.shop.rental" = "חנות להשכרה";
+"type.shop.rental.bicycle" = "חנות להשכרת אופניים";
 "type.amenity.bicycle_rental.shop" = "חנות להשכרת אופניים";
 "type.shop.seafood" = "חנות דגים";
 "type.shop.second_hand" = "היינש די תונח";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "מפת תיירות";
 "type.tourism.information.office" = "משרד תיירות";
 "type.tourism.information.visitor_centre" = "מרכז מבקרים";
+"type.amenity.ranger_station" = "Ranger Station";
 "type.tourism.motel" = "מלון דרכים/מלונית";
 "type.tourism.museum" = "מוזיאון";
 "type.tourism.picnic_site" = "פיקניק";
@@ -1447,17 +1509,17 @@
 "type.aerialway.t.bar" = "T-bar Lift";
 "type.piste_type.downhill" = "Downhill Ski Run";
 "type.piste_type.downhill.area" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
-"type.piste_type.downhill.easy" = "Downhill Ski Run";
-"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
-"type.piste_type.downhill.expert" = "Downhill Ski Run";
-"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
-"type.piste_type.downhill.freeride" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
-"type.piste_type.downhill.novice" = "Downhill Ski Run";
-"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.advanced.area" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.easy.area" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.expert.area" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.freeride" = "Freeride Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.intermediate.area" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.novice" = "Novice Downhill Ski Run";
+"type.piste_type.downhill.novice.area" = "Novice Downhill Ski Run";
 "type.piste_type.nordic" = "Nordic Ski Trail";
 "type.piste_type.sled" = "מסלול מזחלות";
 "type.piste_type.sled.area" = "מסלול מזחלות";
@@ -1484,18 +1546,6 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "אולם ספורט";
-"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
-"type.amenity.love_hotel" = "Love Hotel";
-"type.amenity.studio" = "Studio";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.post_office.post_partner" = "Post Partner";
-"type.barrier.guard_rail" = "Guard Rail";
-"type.highway.ladder" = "Ladder";
-"type.landuse.plant_nursery" = "Plant Nursery";
-"type.leisure.escape_game" = "Escape Room";
-"type.leisure.firepit" = "Firepit";
-"type.railway.station.subway.qingdao" = "Subway Station";
-"type.amenity.ranger_station" = "Ranger Station";
 "type.sport.diving" = "Diving";
 "type.man_made.crane" = "Crane";
 "type.barrier.wicket_gate" = "Wicket Gate";

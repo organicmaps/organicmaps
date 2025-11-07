@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Ünvan/Blok</string>
     <string name="type.addr_interpolation.even">Ünvan/Blok</string>
@@ -129,6 +130,7 @@
     <string name="type.amenity.prison">Həbsxana</string>
     <string name="type.amenity.pub">Pub</string>
     <string name="type.amenity.public_bookcase">Kitab mübadiləsi</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Təkrar Emal Mərkəzi</string>
     <string name="type.amenity.recycling">Təkrar emal konteyneri</string>
@@ -357,6 +359,7 @@
     <string name="type.healthcare.psychotherapist">Psixoterapiya</string>
     <string name="type.healthcare.sample_collection">Nümunə götürmə</string>
     <string name="type.healthcare.speech_therapist">Loqopediya</string>
+
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Avtomobil yolu</string>
     <string name="type.highway.bridleway">Atlı yolu</string>
@@ -522,6 +525,7 @@
     <string name="type.area_highway.track">Uçuş zolağı</string>
     <string name="type.area_highway.trunk">Dövlət şossesi</string>
     <string name="type.area_highway.unclassified">Yan yol</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Tarix</string>
     <string name="type.historic.aircraft">Tarixi Təyyarə</string>
@@ -581,6 +585,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Xristian qəbiristanlığı</string>
     <string name="type.landuse.religious">Kilsə rayonu</string>
+    <string name="type.landuse.churchyard">Kilsə rayonu</string>
     <string name="type.landuse.commercial">Kommersiya</string>
     <string name="type.landuse.construction">Struktur</string>
     <string name="type.landuse.farmland">Kənd Təsərrüfatı Torpaqları</string>
@@ -1155,6 +1160,7 @@
     <string name="type.shop.pet_grooming">Heyvan baxıcısı</string>
     <string name="type.shop.photo">Fotoqraf</string>
     <string name="type.shop.rental">Mağaza İcarəyə verilir</string>
+    <string name="type.shop.rental.bicycle">Velosiped İcarəsi Dükanı</string>
     <string name="type.amenity.bicycle_rental.shop">Velosiped İcarəsi Dükanı</string>
     <string name="type.shop.seafood">Dəniz məhsulları mağazası</string>
     <string name="type.shop.second_hand">İkinci Əl Mağazası</string>

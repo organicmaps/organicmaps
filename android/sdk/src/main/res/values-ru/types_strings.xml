@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Адрес/Блок</string>
     <string name="type.addr_interpolation.even">Адрес/Блок</string>
@@ -28,10 +29,12 @@
     <string name="type.amenity.bbq">Барбекю-гриль</string>
     <string name="type.amenity.bench">Скамейка</string>
     <string name="type.amenity.bicycle_parking">Велопарковка</string>
+    <string name="type.amenity.bicycle_parking.covered">Крытая велопарковка</string>
     <string name="type.amenity.bicycle_rental">Велопрокат</string>
     <string name="type.amenity.bicycle_repair_station">Станция ремонта велосипедов</string>
     <string name="type.amenity.biergarten">Пивная под открытым небом</string>
     <string name="type.amenity.brothel">Бордель</string>
+    <string name="type.amenity.love_hotel">Любовный отель</string>
     <string name="type.amenity.bureau_de_change">Обмен валюты</string>
     <string name="type.amenity.bus_station">Автовокзал</string>
     <string name="type.amenity.cafe">Кафе</string>
@@ -48,6 +51,7 @@
     <string name="type.amenity.charging_station.motorcar">Зарядная станция для автомобилей</string>
     <string name="type.amenity.childcare">Детская комната</string>
     <string name="type.amenity.cinema">Кинотеатр</string>
+    <string name="type.amenity.studio">Студия</string>
     <string name="type.leisure.bowling_alley">Боулинг</string>
     <string name="type.amenity.clinic">Поликлиника</string>
     <string name="type.amenity.college">Колледж</string>
@@ -82,6 +86,7 @@
     <string name="type.amenity.kindergarten">Детсад</string>
     <string name="type.amenity.library">Библиотека</string>
     <string name="type.amenity.loading_dock">Погрузочный док</string>
+    <string name="type.amenity.luggage_locker">Камера хранения</string>
     <string name="type.amenity.marketplace">Рынок</string>
     <string name="type.amenity.motorcycle_parking">Мотопарковка</string>
     <string name="type.amenity.nightclub">Ночной клуб</string>
@@ -126,9 +131,11 @@
     <string name="type.amenity.police">Полиция</string>
     <string name="type.amenity.post_box">Почтовый ящик</string>
     <string name="type.amenity.post_office">Почта</string>
+    <string name="type.post_office.post_partner">Почтовый посредник</string>
     <string name="type.amenity.prison">Тюрьма</string>
     <string name="type.amenity.pub">Паб</string>
     <string name="type.amenity.public_bookcase">Книгообмен</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Приём вторсырья</string>
     <string name="type.amenity.recycling">Контейнер для вторсырья</string>
@@ -199,6 +206,7 @@
     <string name="type.natural.water.wastewater">Сточные воды</string>
     <string name="type.barrier.entrance">Проход</string>
     <string name="type.barrier.fence">Забор</string>
+    <string name="type.barrier.guard_rail">Дорожное ограждение (отбойник)</string>
     <string name="type.barrier.gate">Ворота</string>
     <string name="type.barrier.hedge">Живая изгородь</string>
     <string name="type.barrier.kissing_gate">Ворота</string>
@@ -360,6 +368,7 @@
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Главный вход</string>
     <string name="type.entrance.exit">Выход</string>
+    <string name="type.fee.yes">$</string>
     <string name="type.fee.no">Бесплатно</string>
     <string name="type.healthcare.laboratory">Медицинская лаборатория</string>
     <string name="type.healthcare.physiotherapist">Физиотерапевт</string>
@@ -371,6 +380,7 @@
     <string name="type.healthcare.psychotherapist">Психотерапия</string>
     <string name="type.healthcare.sample_collection">Сбор анализов</string>
     <string name="type.healthcare.speech_therapist">Логопедия</string>
+
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Дорога</string>
     <string name="type.highway.bridleway">Конная дорожка</string>
@@ -486,6 +496,7 @@
     <string name="type.highway.steps.bridge">Мост</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.steps.tunnel">Тоннель</string>
+    <string name="type.highway.ladder">Лестница-лаз</string>
     <string name="type.highway.tertiary">Дорога</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary.bridge">Мост</string>
@@ -536,6 +547,9 @@
     <string name="type.area_highway.track">Грунтовка</string>
     <string name="type.area_highway.trunk">Трасса</string>
     <string name="type.area_highway.unclassified">Небольшая дорога</string>
+    <string name="type.highway.world_level">Шоссе мирового значения</string>
+    <string name="type.highway.world_towns_level">Шоссе местного значения</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Исторический объект</string>
     <string name="type.historic.aircraft">Исторический самолет</string>
@@ -595,6 +609,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Христианское кладбище</string>
     <string name="type.landuse.religious">Церковный двор</string>
+    <string name="type.landuse.churchyard">Церковный двор</string>
     <string name="type.landuse.commercial">Коммерческая застройка</string>
     <string name="type.landuse.construction">Стройка</string>
     <string name="type.landuse.education">Образовательные учреждения</string>
@@ -624,9 +639,11 @@
     <string name="type.landuse.salt_pond">Соляной пруд</string>
     <string name="type.landuse.village_green">Парк</string>
     <string name="type.landuse.vineyard">Виноградник</string>
+    <string name="type.landuse.plant_nursery">Садовый питомник</string>
     <string name="type.leisure">Место для отдыха</string>
     <string name="type.leisure.common">Общественная земля</string>
     <string name="type.leisure.dog_park">Место для выгула собак</string>
+    <string name="type.leisure.escape_game">Игра Escape Room</string>
     <string name="type.leisure.fitness_centre">Фитнес-клуб</string>
     <string name="type.leisure.fitness_station">Спортивные снаряды</string>
     <string name="type.leisure.dance">Танцпол</string>
@@ -639,6 +656,7 @@
     <string name="type.leisure.marina">Причал</string>
     <string name="type.leisure.nature_reserve">Заповедник</string>
     <string name="type.leisure.outdoor_seating">Сидения на открытом воздухе</string>
+    <string name="type.leisure.firepit">Кострище</string>
     <string name="type.leisure.park">Парк</string>
     <string name="type.leisure.park.no.access">Парк</string>
     <string name="type.leisure.park.permissive">Парк</string>
@@ -805,6 +823,10 @@
     <string name="type.power.substation">Подстанция</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Опора ЛЭП</string>
+    <!-- A single pole supporting minor power lines. -->
+    <string name="type.power.pole">Столб ЛЭП</string>
+    <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
+    <string name="type.man_made.utility_pole">Столб</string>
     <string name="type.psurface">Поверхность</string>
     <string name="type.psurface.paved_bad">Плохая асфальтированная</string>
     <string name="type.psurface.paved_good">Хорошая асфальтированная</string>
@@ -952,6 +974,8 @@
     <string name="type.railway.station.subway.paris">Метро</string>
     <string name="type.railway.station.subway.philadelphia">Метро</string>
     <string name="type.railway.station.subway.pyongyang">Метро</string>
+    <!-- TODO: add ref to "type.railway.station.subway" -->
+    <string name="type.railway.station.subway.qingdao">Станция метро</string>
     <string name="type.railway.station.subway.rennes">Метро</string>
     <string name="type.railway.station.subway.rio">Метро</string>
     <string name="type.railway.station.subway.roma">Метро</string>
@@ -1108,6 +1132,7 @@
     <string name="type.railway.tram_stop">Остановка трамвая</string>
     <string name="type.route">Маршрут</string>
     <string name="type.route.ferry">Паромная переправа</string>
+    <string name="type.route.shuttle_train">Челночный поезд</string>
     <string name="type.shop">Магазин</string>
     <string name="type.shop.alcohol">Магазин алкоголя</string>
     <string name="type.shop.bakery">Булочная</string>
@@ -1182,6 +1207,7 @@
     <string name="type.shop.pet_grooming">Груминг</string>
     <string name="type.shop.photo">Фототовары</string>
     <string name="type.shop.rental">Прокат</string>
+    <string name="type.shop.rental.bicycle">Прокат велосипедов</string>
     <string name="type.amenity.bicycle_rental.shop">Прокат велосипедов</string>
     <string name="type.shop.seafood">Рыбный магазин</string>
     <string name="type.shop.second_hand">Секонд-хенд магазин</string>
@@ -1296,6 +1322,7 @@
     <string name="type.tourism.information.map">Карта</string>
     <string name="type.tourism.information.office">Туристический офис</string>
     <string name="type.tourism.information.visitor_centre">Центр для посетителей</string>
+    <string name="type.amenity.ranger_station">Пост лесников</string>
     <string name="type.tourism.motel">Мотель</string>
     <string name="type.tourism.museum">Музей</string>
     <string name="type.tourism.picnic_site">Место для пикника</string>
@@ -1374,41 +1401,8 @@
     <string name="type.amenity.dojo">Додзё</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Спортивный зал</string>
-    <string name="type.man_made.utility_pole">Столб</string>
-    <string name="type.power.pole">Столб ЛЭП</string>
-    <string name="type.highway.world_level">Шоссе мирового значения</string>
-    <string name="type.highway.world_towns_level">Шоссе местного значения</string>
-    <string name="type.hwtag.bidir_bicycle">Велосипедная двухсторонняя</string>
-    <string name="type.hwtag.onedir_bicycle">Велосипедная односторонняя</string>
-    <string name="type.hwtag.lit">Освещённая</string>
-    <string name="type.hwtag.nobicycle">Без мотоциклов</string>
-    <string name="type.hwtag.oneway">Одностороннее движение</string>
-    <string name="type.hwtag.toll">Платная</string>
-    <string name="type.hwtag.private">Частная</string>
-    <string name="type.fee.yes">$</string>
-    <string name="type.man_made.crane">Кран</string>
-    <string name="type.highway.ladder">Лестница-лаз</string>
-    <string name="type.railway.station.subway.qingdao">Станция метро</string>
-    <string name="type.amenity.bicycle_parking.covered">Крытая велопарковка</string>
-    <string name="type.amenity.love_hotel">Любовный отель</string>
-    <string name="type.amenity.studio">Студия</string>
-    <string name="type.barrier.guard_rail">Дорожное ограждение (отбойник)</string>
-    <string name="type.landuse.plant_nursery">Садовый питомник</string>
-    <string name="type.leisure.firepit">Кострище</string>
     <string name="type.sport.diving">Высотные прыжки в воду</string>
-    <string name="type.post_office.post_partner">Почтовый посредник</string>
-    <string name="type.hwtag">Дорожный знак</string>
-    <string name="type.hwtag.nocar">Не для машин</string>
-    <string name="type.hwtag.nofoot">Не пешая</string>
-    <string name="type.hwtag.yesbicycle">Велосипедам можно</string>
-    <string name="type.hwtag.yescar">Машинам можно</string>
-    <string name="type.hwtag.yesfoot">Пешком можно</string>
-    <string name="type.mapswithme">MapsWithMe</string>
-    <string name="type.mapswithme.grid">mapswithme-сетка</string>
-    <string name="type.route.shuttle_train">Челночный поезд</string>
-    <string name="type.amenity.ranger_station">Пост лесников</string>
-    <string name="type.amenity.luggage_locker">Камера хранения</string>
-    <string name="type.leisure.escape_game">Игра Escape Room</string>
+    <string name="type.man_made.crane">Кран</string>
     <string name="type.barrier.wicket_gate">Калитка</string>
     <string name="type.barrier.yes">Барьер</string>
     <string name="type.building.guardhouse">Сторож</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Адреса/блок</string>
     <string name="type.addr_interpolation.even">Адреса/блок</string>
@@ -28,10 +29,12 @@
     <string name="type.amenity.bbq">Барбекю-гриль</string>
     <string name="type.amenity.bench">Лавка</string>
     <string name="type.amenity.bicycle_parking">Велопарковка</string>
+    <string name="type.amenity.bicycle_parking.covered">Критий велосипедний паркінг</string>
     <string name="type.amenity.bicycle_rental">Велопрокат</string>
     <string name="type.amenity.bicycle_repair_station">Станція ремонту велосипедів</string>
     <string name="type.amenity.biergarten">Пивна під відкритим небом</string>
     <string name="type.amenity.brothel">Бордель</string>
+    <string name="type.amenity.love_hotel">Готель кохання</string>
     <string name="type.amenity.bureau_de_change">Обмін валют</string>
     <string name="type.amenity.bus_station">Автовокзал</string>
     <string name="type.amenity.cafe">Кафе</string>
@@ -48,6 +51,7 @@
     <string name="type.amenity.charging_station.motorcar">Автомобільна зарядна станція</string>
     <string name="type.amenity.childcare">Дитяча кімната</string>
     <string name="type.amenity.cinema">Кінотеатр</string>
+    <string name="type.amenity.studio">Студія</string>
     <string name="type.leisure.bowling_alley">Боулінг</string>
     <string name="type.amenity.clinic">Поліклініка</string>
     <string name="type.amenity.college">Коледж</string>
@@ -82,6 +86,7 @@
     <string name="type.amenity.kindergarten">Дитячий садок</string>
     <string name="type.amenity.library">Бібліотека</string>
     <string name="type.amenity.loading_dock">Завантажувальна платформа</string>
+    <string name="type.amenity.luggage_locker">Камера схову</string>
     <string name="type.amenity.marketplace">Ринкова площа</string>
     <string name="type.amenity.motorcycle_parking">Парковка для мотоциклів</string>
     <string name="type.amenity.nightclub">Нічний клуб</string>
@@ -126,9 +131,11 @@
     <string name="type.amenity.police">Поліція</string>
     <string name="type.amenity.post_box">Поштова скринька</string>
     <string name="type.amenity.post_office">Пошта</string>
+    <string name="type.post_office.post_partner">Поштовий партнер</string>
     <string name="type.amenity.prison">В\'язниця</string>
     <string name="type.amenity.pub">Паб</string>
     <string name="type.amenity.public_bookcase">Книгообмін</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Прийом вторсировини</string>
     <string name="type.amenity.recycling">Контейнер для вторсировини</string>
@@ -199,9 +206,12 @@
     <string name="type.natural.water.wastewater">Стічні води</string>
     <string name="type.barrier.entrance">Прохід</string>
     <string name="type.barrier.fence">Огорожа</string>
+    <string name="type.barrier.guard_rail">Захисна огорожа</string>
     <string name="type.barrier.gate">Ворота</string>
+    <string name="type.barrier.hedge">Жива огорожа</string>
     <string name="type.barrier.kissing_gate">Ворота</string>
     <string name="type.barrier.lift_gate">Шлагбаум</string>
+    <string name="type.barrier.retaining_wall">Підпірна стіна</string>
     <string name="type.barrier.stile">Перелаз</string>
     <string name="type.barrier.turnstile">Турнікет</string>
     <string name="type.barrier.swing_gate">Шлагбаум</string>
@@ -344,6 +354,7 @@
     <string name="type.cuisine.vegan">Веганська кухня</string>
     <string name="type.cuisine.vegetarian">Вегетаріанська кухня</string>
     <string name="type.cuisine.vietnamese">В\'єтнамська кухня</string>
+    <string name="type.emergency">Швидка</string>
     <string name="type.emergency.assembly_point">Аварійний збірний пункт</string>
     <string name="type.emergency.defibrillator">Дефібрилятор</string>
     <string name="type.emergency.fire_hydrant">Пожежний гідрант</string>
@@ -357,6 +368,7 @@
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Головний вхід</string>
     <string name="type.entrance.exit">Виходьте.</string>
+    <string name="type.fee.yes">$</string>
     <string name="type.fee.no">Безкоштовно</string>
     <string name="type.healthcare.laboratory">Медична лабораторія</string>
     <string name="type.healthcare.physiotherapist">Фізіотерапевт</string>
@@ -368,6 +380,7 @@
     <string name="type.healthcare.psychotherapist">Психотерапія</string>
     <string name="type.healthcare.sample_collection">Збір аналізів</string>
     <string name="type.healthcare.speech_therapist">Логопедія</string>
+
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Дорога</string>
     <string name="type.highway.bridleway">Кінна доріжка</string>
@@ -483,6 +496,7 @@
     <string name="type.highway.steps.bridge">Міст</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.steps.tunnel">Тунель</string>
+    <string name="type.highway.ladder">Драбина</string>
     <string name="type.highway.tertiary">Дорога</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary.bridge">Міст</string>
@@ -533,6 +547,9 @@
     <string name="type.area_highway.track">Ґрунтівка</string>
     <string name="type.area_highway.trunk">Траса</string>
     <string name="type.area_highway.unclassified">Невелика дорога</string>
+    <string name="type.highway.world_level">highway-world_level</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Історичний об\'єкт</string>
     <string name="type.historic.aircraft">Історичний літак</string>
@@ -592,6 +609,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Християнський цвинтар</string>
     <string name="type.landuse.religious">Церковний двір</string>
+    <string name="type.landuse.churchyard">Церковний двір</string>
     <string name="type.landuse.commercial">Комерційні ділянки</string>
     <string name="type.landuse.construction">Будівництво</string>
     <string name="type.landuse.education">Освітній заклади</string>
@@ -621,9 +639,11 @@
     <string name="type.landuse.salt_pond">Соляний став</string>
     <string name="type.landuse.village_green">Парк</string>
     <string name="type.landuse.vineyard">Виноградник</string>
+    <string name="type.landuse.plant_nursery">Розсадник</string>
     <string name="type.leisure">Місце відпочинку</string>
     <string name="type.leisure.common">Громадська земля</string>
     <string name="type.leisure.dog_park">Місце для вигулу собак</string>
+    <string name="type.leisure.escape_game">Кімната втечі</string>
     <string name="type.leisure.fitness_centre">Фітнес-зал</string>
     <string name="type.leisure.fitness_station">Спортивні знаряддя</string>
     <string name="type.leisure.dance">Танцювальний зал</string>
@@ -631,10 +651,12 @@
     <string name="type.leisure.garden.residential">Частный сад</string>
     <string name="type.leisure.golf_course">Майданчик для гольфу</string>
     <string name="type.leisure.miniature_golf">Мінігольф</string>
+    <string name="type.leisure.hackerspace">Хакерський простір</string>
     <string name="type.leisure.ice_rink">Каток</string>
     <string name="type.leisure.marina">Пристань</string>
     <string name="type.leisure.nature_reserve">Заповідник</string>
     <string name="type.leisure.outdoor_seating">Сидіння на відкритому повітрі</string>
+    <string name="type.leisure.firepit">Вогняна яма</string>
     <string name="type.leisure.park">Парк</string>
     <string name="type.leisure.park.no.access">Парк</string>
     <string name="type.leisure.park.permissive">Парк</string>
@@ -666,6 +688,7 @@
     <string name="type.man_made.mast">Щогла/вишка</string>
     <string name="type.man_made.pier">Пірс</string>
     <string name="type.man_made.pipeline">Трубопровід</string>
+    <string name="type.man_made.pipeline.overground">Наземний трубопровід</string>
     <string name="type.man_made.silo">Силос</string>
     <string name="type.man_made.storage_tank">Резервуар</string>
     <string name="type.man_made.surveillance">Камера спостереження</string>
@@ -686,6 +709,7 @@
     <string name="type.man_made.water_well.drinking_water_no">Криниця</string>
     <string name="type.man_made.windmill">Вітряний млин</string>
     <string name="type.man_made.works">Промислове виробництво</string>
+    <string name="type.military">Військові об\'єкти</string>
     <string name="type.military.bunker">Бункер</string>
     <string name="type.mountain_pass">Перевал</string>
     <string name="type.natural">Природа</string>
@@ -799,7 +823,17 @@
     <string name="type.power.substation">Підстанція</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Стовп ЛЕП</string>
+    <!-- A single pole supporting minor power lines. -->
+    <string name="type.power.pole">Стовп ЛЕП</string>
+    <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
+    <string name="type.man_made.utility_pole">Стовп передачі</string>
+    <string name="type.psurface">psurface</string>
+    <string name="type.psurface.paved_bad">psurface-paved_bad</string>
+    <string name="type.psurface.paved_good">psurface-paved_good</string>
+    <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
+    <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Громадський транспорт</string>
+    <string name="type.public_transport.platform">Платформа</string>
     <string name="type.railway">Залізниця</string>
     <string name="type.railway.abandoned">Закинута залізниця</string>
     <string name="type.railway.abandoned.bridge">Закинутий залізничний міст</string>
@@ -940,6 +974,8 @@
     <string name="type.railway.station.subway.paris">Метро</string>
     <string name="type.railway.station.subway.philadelphia">Метро</string>
     <string name="type.railway.station.subway.pyongyang">Метро</string>
+    <!-- TODO: add ref to "type.railway.station.subway" -->
+    <string name="type.railway.station.subway.qingdao">Станція метро</string>
     <string name="type.railway.station.subway.rennes">Метро</string>
     <string name="type.railway.station.subway.rio">Метро</string>
     <string name="type.railway.station.subway.roma">Метро</string>
@@ -1096,6 +1132,7 @@
     <string name="type.railway.tram_stop">Зупинка</string>
     <string name="type.route">Маршрут</string>
     <string name="type.route.ferry">Паромна переправа</string>
+    <string name="type.route.shuttle_train">route-shuttle_train</string>
     <string name="type.shop">Крамниця</string>
     <string name="type.shop.alcohol">Винний магазин</string>
     <string name="type.shop.bakery">Пекарня</string>
@@ -1170,6 +1207,7 @@
     <string name="type.shop.pet_grooming">Грумінг</string>
     <string name="type.shop.photo">Фототовари</string>
     <string name="type.shop.rental">Прокат</string>
+    <string name="type.shop.rental.bicycle">Прокат велосипедів</string>
     <string name="type.amenity.bicycle_rental.shop">Прокат велосипедів</string>
     <string name="type.shop.seafood">Рибна лавка</string>
     <string name="type.shop.second_hand">Магазин секонд-хенду</string>
@@ -1262,6 +1300,8 @@
     <string name="type.tourism.attraction">Пам’ятка</string>
     <string name="type.attraction.amusement_ride">Атракціон</string>
     <string name="type.attraction.animal">Вольєр для тварин</string>
+    <string name="type.attraction.bumper_car">Доджем</string>
+    <string name="type.attraction.big_wheel">Колесо огляду</string>
     <string name="type.attraction.carousel">Карусель</string>
     <string name="type.attraction.historic">Історична пам\'ятка</string>
     <string name="type.attraction.maze">Лабіринт</string>
@@ -1282,6 +1322,7 @@
     <string name="type.tourism.information.map">Мапа</string>
     <string name="type.tourism.information.office">Туристичний офіс</string>
     <string name="type.tourism.information.visitor_centre">Центр для відвідувачів</string>
+    <string name="type.amenity.ranger_station">Лісництво</string>
     <string name="type.tourism.motel">Мотель</string>
     <string name="type.tourism.museum">Музей</string>
     <string name="type.tourism.picnic_site">Пікнік</string>
@@ -1360,55 +1401,8 @@
     <string name="type.amenity.dojo">Додзьо</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Спортивний зал</string>
-    <string name="type.emergency">Швидка</string>
-    <string name="type.hwtag.nocar">hwtag-nocar</string>
-    <string name="type.barrier.retaining_wall">Підпірна стіна</string>
-    <string name="type.fee.yes">$</string>
-    <string name="type.hwtag.lit">hwtag-lit</string>
-    <string name="type.barrier.hedge">Жива огорожа</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
-    <string name="type.hwtag">hwtag</string>
-    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
-    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
-    <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.hwtag.nofoot">hwtag-nofoot</string>
-    <string name="type.hwtag.oneway">hwtag-oneway</string>
-    <string name="type.hwtag.private">hwtag-private</string>
-    <string name="type.hwtag.toll">hwtag-toll</string>
-    <string name="type.hwtag.yescar">hwtag-yescar</string>
-    <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
-    <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
-    <string name="type.leisure.hackerspace">Хакерський простір</string>
-    <string name="type.man_made.pipeline.overground">Наземний трубопровід</string>
-    <string name="type.military">Військові об\'єкти</string>
-    <string name="type.power.pole">Стовп ЛЕП</string>
-    <string name="type.man_made.utility_pole">Стовп передачі</string>
-    <string name="type.public_transport.platform">Платформа</string>
-    <string name="type.attraction.bumper_car">Доджем</string>
-    <string name="type.attraction.big_wheel">Колесо огляду</string>
-    <string name="type.mapswithme">mapswithme</string>
-    <string name="type.mapswithme.grid">mapswithme-grid</string>
-    <string name="type.psurface">psurface</string>
-    <string name="type.psurface.paved_bad">psurface-paved_bad</string>
-    <string name="type.psurface.paved_good">psurface-paved_good</string>
-    <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
-    <string name="type.route.shuttle_train">route-shuttle_train</string>
-    <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
-    <string name="type.amenity.love_hotel">Готель кохання</string>
-    <string name="type.highway.ladder">Драбина</string>
-    <string name="type.landuse.plant_nursery">Розсадник</string>
-    <string name="type.leisure.firepit">Вогняна яма</string>
-    <string name="type.amenity.studio">Студія</string>
-    <string name="type.barrier.guard_rail">Захисна огорожа</string>
     <string name="type.sport.diving">Дайвінг</string>
     <string name="type.man_made.crane">Кран</string>
-    <string name="type.railway.station.subway.qingdao">Станція метро</string>
-    <string name="type.amenity.bicycle_parking.covered">Критий велосипедний паркінг</string>
-    <string name="type.post_office.post_partner">Поштовий партнер</string>
-    <string name="type.amenity.ranger_station">Лісництво</string>
-    <string name="type.amenity.luggage_locker">Камера схову</string>
-    <string name="type.leisure.escape_game">Кімната втечі</string>
     <string name="type.barrier.wicket_gate">Ворота-хвіртка</string>
     <string name="type.barrier.yes">Бар\'єр</string>
     <string name="type.building.guardhouse">Охоронець</string>

@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "Διεύθυνση/Τετράγωνο";
 "type.addr_interpolation.even" = "Διεύθυνση/Τετράγωνο";
 "type.addr_interpolation.odd" = "Διεύθυνση/Τετράγωνο";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "Ψησταριά μπάρμπεκιου";
 "type.amenity.bench" = "Παγκάκι";
 "type.amenity.bicycle_parking" = "Χώρος στάθμευσης ποδηλάτων";
+"type.amenity.bicycle_parking.covered" = "Σκεπαστή στάθμευση ποδηλάτων";
 "type.amenity.bicycle_rental" = "Ενοικιάσεις ποδηλάτων";
 "type.amenity.bicycle_repair_station" = "Σταθμός επισκευής ποδηλάτων";
 "type.amenity.biergarten" = "Μπυραρία";
 "type.amenity.brothel" = "Πορνείο";
+"type.amenity.love_hotel" = "Ξενοδοχείο αγάπης";
 "type.amenity.bureau_de_change" = "Συνάλλαγμα";
 "type.amenity.bus_station" = "Σταθμός λεωφορείων";
 "type.amenity.cafe" = "Καφετέρια";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Σταθμός φόρτισης αυτοκινήτων";
 "type.amenity.childcare" = "Βρεφικός σταθμός";
 "type.amenity.cinema" = "Κινηματογράφος";
+"type.amenity.studio" = "Στούντιο";
 "type.leisure.bowling_alley" = "Αίθουσα σφαιρίσεως";
 "type.amenity.clinic" = "Κλινική";
 "type.amenity.college" = "Κολέγιο";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "Νηπιαγωγείο";
 "type.amenity.library" = "Βιβλιοθήκη";
 "type.amenity.loading_dock" = "Αποβάθρα φόρτωσης";
+"type.amenity.luggage_locker" = "Ντουλάπι αποσκευών";
 "type.amenity.marketplace" = "Αγορά";
 "type.amenity.motorcycle_parking" = "Χώρος στάθμευσης μοτοσικλετών";
 "type.amenity.nightclub" = "Νυχτερινό κέντρο διασκέδασης";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "Αστυνομία";
 "type.amenity.post_box" = "Ταχυδρομική θυρίδα";
 "type.amenity.post_office" = "Ταχυδρομείο";
+"type.post_office.post_partner" = "Ταχυδρομικός συνεργάτης";
 "type.amenity.prison" = "Φυλακή";
 "type.amenity.pub" = "Παμπ";
 "type.amenity.public_bookcase" = "Ανταλλαγή βιβλίων";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Κέντρο ανακύκλωσης";
 "type.amenity.recycling" = "Κάδος ανακύκλωσης";
 "type.amenity.recycling.container" = "Κάδος ανακύκλωσης";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "Λύματα";
 "type.barrier.entrance" = "Είσοδος";
 "type.barrier.fence" = "Φράχτης";
+"type.barrier.guard_rail" = "Προστατευτικό κιγκλίδωμα";
 "type.barrier.gate" = "Πύλη";
 "type.barrier.hedge" = "Αντιστάθμιση";
 "type.barrier.kissing_gate" = "Πύλη";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "Ψυχοθεραπεία";
 "type.healthcare.sample_collection" = "Δειγματοληψία";
 "type.healthcare.speech_therapist" = "Λογοθεραπεία";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Δρόμος";
 "type.highway.bridleway" = "Μονοπάτι με χαλινάρι";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Σήραγγα";
+"type.highway.ladder" = "Σκάλα";
 "type.highway.tertiary" = "Τριτεύων δρόμος";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "Τοπικός δρόμος";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "Ιστορικό αντικείμενο";
 "type.historic.aircraft" = "Ιστορικό αεροσκάφος";
 "type.historic.anchor" = "Ιστορική Άγκυρα";
@@ -644,18 +667,44 @@
 "type.historic.wayside_cross" = "Σταυρός στην άκρη του δρόμου";
 "type.historic.wayside_shrine" = "Εικονοστάσιο στην άκρη του δρόμου";
 "type.historic.wreck" = "Ναυάγιο";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Ίντερνετ";
 "type.internet_access.wlan" = "Ίντερνετ";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Χριστιανικό νεκροταφείο";
 "type.landuse.religious" = "Αυλόγυρος εκκλησίας";
+"type.landuse.churchyard" = "Αυλόγυρος εκκλησίας";
 "type.landuse.commercial" = "Εμπορική περιοχή";
 "type.landuse.construction" = "Εργοτάξιο";
 "type.landuse.education" = "Εκπαιδευτική υποδομή";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "Αλυκή";
 "type.landuse.village_green" = "Έκταση";
 "type.landuse.vineyard" = "Αμπελώνας";
+"type.landuse.plant_nursery" = "Φυτώριο";
 "type.leisure" = "Αναψυχή";
 "type.leisure.common" = "Δημόσια γη";
 "type.leisure.dog_park" = "Περιοχή για βόλτα σκύλων";
+"type.leisure.escape_game" = "Δωμάτιο απόδρασης";
 "type.leisure.fitness_centre" = "Κέντρο γυμναστικής";
 "type.leisure.fitness_station" = "Γυμναστήριο";
 "type.leisure.dance" = "Αίθουσα χορού";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "Μαρίνα";
 "type.leisure.nature_reserve" = "Προστατευόμενος βιότοπος";
 "type.leisure.outdoor_seating" = "Καθίσματα εξωτερικού χώρου";
+"type.leisure.firepit" = "Εστία φωτιάς";
 "type.leisure.park" = "Πάρκο";
 "type.leisure.park.no.access" = "Ιδιωτικό πάρκο";
 "type.leisure.park.permissive" = "Πάρκο";
@@ -773,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "Πηγάδι νερού";
 "type.man_made.windmill" = "Ανεμόμυλος";
 "type.man_made.works" = "Εργοστάσιο βιομηχανίας";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Στρατιωτικό";
 "type.military.bunker" = "Στρατιωτική αποθήκη";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "Μετρό";
 "type.railway.station.subway.philadelphia" = "Μετρό";
 "type.railway.station.subway.pyongyang" = "Μετρό";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Σταθμός Μετρό";
 "type.railway.station.subway.rennes" = "Μετρό";
 "type.railway.station.subway.rio" = "Μετρό";
 "type.railway.station.subway.roma" = "Μετρό";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "Περιποίηση κατοικίδιων ζώων";
 "type.shop.photo" = "Φωτογραφείο";
 "type.shop.rental" = "Κατάστημα ενοικίασης";
+"type.shop.rental.bicycle" = "Κατάστημα ενοικίασης ποδηλάτων";
 "type.amenity.bicycle_rental.shop" = "Κατάστημα ενοικίασης ποδηλάτων";
 "type.shop.seafood" = "Ιχθυοπωλείο";
 "type.shop.second_hand" = "Κατάστημα μεταχειρισμένων";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "Τουριστικός χάρτης";
 "type.tourism.information.office" = "Ενημέρωση τουριστών";
 "type.tourism.information.visitor_centre" = "Κέντρο Επισκεπτών";
+"type.amenity.ranger_station" = "Σταθμός δασοφύλακα";
 "type.tourism.motel" = "Μοτέλ";
 "type.tourism.museum" = "Μουσείο";
 "type.tourism.picnic_site" = "Χώρος πικνίκ";
@@ -1485,19 +1547,7 @@
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Αθλητική αίθουσα";
 "type.sport.diving" = "Κατάδυση";
-"type.amenity.love_hotel" = "Ξενοδοχείο αγάπης";
-"type.amenity.studio" = "Στούντιο";
-"type.barrier.guard_rail" = "Προστατευτικό κιγκλίδωμα";
-"type.highway.ladder" = "Σκάλα";
 "type.man_made.crane" = "Γερανός";
-"type.landuse.plant_nursery" = "Φυτώριο";
-"type.leisure.firepit" = "Εστία φωτιάς";
-"type.railway.station.subway.qingdao" = "Σταθμός Μετρό";
-"type.amenity.bicycle_parking.covered" = "Σκεπαστή στάθμευση ποδηλάτων";
-"type.post_office.post_partner" = "Ταχυδρομικός συνεργάτης";
-"type.amenity.ranger_station" = "Σταθμός δασοφύλακα";
-"type.amenity.luggage_locker" = "Ντουλάπι αποσκευών";
-"type.leisure.escape_game" = "Δωμάτιο απόδρασης";
 "type.barrier.wicket_gate" = "Πόρτα πεζών";
 "type.barrier.yes" = "Εμπόδιο";
 "type.building.guardhouse" = "Φυλάκιο";

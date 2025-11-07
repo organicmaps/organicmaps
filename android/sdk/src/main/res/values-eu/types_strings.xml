@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Helbidea/Blokea</string>
     <string name="type.addr_interpolation.even">Helbidea/Blokea</string>
@@ -29,6 +30,8 @@
     <string name="type.amenity.bench">Bankua</string>
     <string name="type.amenity.bicycle_parking">Bizikleta aparkalekua</string>
     <string name="type.amenity.bicycle_rental">Bizikleta alokairua</string>
+    <string name="type.amenity.bicycle_repair_station">Bizikleta konponketa gunea</string>
+    <string name="type.amenity.biergarten">Biergartena</string>
     <string name="type.amenity.brothel">Bordela</string>
     <string name="type.amenity.bureau_de_change">Moneta-trukea</string>
     <string name="type.amenity.bus_station">Autobus geltokia</string>
@@ -127,6 +130,7 @@
     <string name="type.amenity.prison">Espetxea</string>
     <string name="type.amenity.pub">Taberna</string>
     <string name="type.amenity.public_bookcase">Liburu trukea</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Birziklapen zentroa</string>
     <string name="type.amenity.recycling">Birziklatzeko edukiontzia</string>
@@ -145,6 +149,7 @@
     <string name="type.recycling.green_waste">Organikoa</string>
     <string name="type.recycling.cartons">Edateko kartoiak</string>
     <string name="type.amenity.restaurant">Jatetxea</string>
+    <string name="type.amenity.sanitary_dump_station">Ur-beltzen hustuketa gunea</string>
     <string name="type.amenity.school">Eskola</string>
     <!-- Weather shelter (including sun shelters and natural rock shelters). -->
     <string name="type.amenity.shelter">Aterpea</string>
@@ -152,6 +157,8 @@
     <string name="type.amenity.shelter.public_transport">Aterpea</string>
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
     <string name="type.amenity.shelter.basic_hut">Bivouac Borda</string>
+    <!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
+    <string name="type.amenity.shelter.lean_to">Babesleku irekia</string>
     <string name="type.amenity.public_bath">Bainu Publikoa</string>
     <string name="type.amenity.shower">Dutxa</string>
     <string name="type.amenity.stripclub">Striptease kluba</string>
@@ -175,9 +182,11 @@
     <string name="type.amenity.vending_machine.excrement_bags">Kaka poltsak saltzeko makina</string>
     <string name="type.amenity.parcel_locker">Paketeen aldagela</string>
     <string name="type.amenity.vehicle_inspection">Ibilgailuen Ikuskapena</string>
+    <string name="type.amenity.vending_machine.fuel">Erregai-ponpa</string>
     <string name="type.amenity.veterinary">Albaitaritzako klinika</string>
     <string name="type.amenity.waste_basket">Paper-ontzia</string>
     <string name="type.amenity.waste_disposal">Zaborrontzia</string>
+    <string name="type.amenity.waste_transfer_station">Hondakinen transferentzia-gunea</string>
     <string name="type.amenity.water_point">Ur iturria</string>
     <string name="type.amenity.water_point.drinking_water_no">Ur iturria</string>
     <string name="type.barrier">Hesia</string>
@@ -339,6 +348,7 @@
     <string name="type.cuisine.vegan">Sukaldaritza beganoa</string>
     <string name="type.cuisine.vegetarian">Sukaldaritza begetarianoa</string>
     <string name="type.cuisine.vietnamese">Vietnamgo sukaldaritza</string>
+    <string name="type.emergency">Larrialdiak</string>
     <string name="type.emergency.assembly_point">Larrialdietako Batzar Puntua</string>
     <string name="type.emergency.defibrillator">Desfibriladorea</string>
     <string name="type.emergency.fire_hydrant">Suteen hidrantea</string>
@@ -352,6 +362,7 @@
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Sarrera Nagusia</string>
     <string name="type.entrance.exit">Irten</string>
+    <string name="type.fee.yes">€</string>
     <string name="type.fee.no">Doan</string>
     <string name="type.healthcare.laboratory">Medikuntza laborategia</string>
     <string name="type.healthcare.physiotherapist">Fisioterapeuta</string>
@@ -363,9 +374,13 @@
     <string name="type.healthcare.psychotherapist">Psikoterapia</string>
     <string name="type.healthcare.sample_collection">Laginketa</string>
     <string name="type.healthcare.speech_therapist">Logopedia</string>
+
     <!-- SECTION: Types: Roads -->
+    <string name="type.highway">Errepidea</string>
+    <string name="type.highway.bridleway">Zaldi-bidea</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Zubia</string>
+    <string name="type.highway.bridleway.permissive">Zaldi-bidea</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.bridleway.tunnel">Tunela</string>
     <string name="type.highway.busway">Autobusentzat errepidea</string>
@@ -468,6 +483,7 @@
     <string name="type.highway.service.parking_aisle">Kalea</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.service.tunnel">Tunel</string>
+    <string name="type.highway.services">Zerbitzugunea</string>
     <string name="type.highway.speed_camera">Abiadura kamera</string>
     <string name="type.highway.steps">Bidea</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -524,6 +540,9 @@
     <string name="type.area_highway.track">Kalea</string>
     <string name="type.area_highway.trunk">Kalea</string>
     <string name="type.area_highway.unclassified">Kalea</string>
+    <string name="type.highway.world_level">Mundu mailako errepidea</string>
+    <string name="type.highway.world_towns_level">Herri mailako errepidea</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Objektu historikoa</string>
     <string name="type.historic.aircraft">Hegazkin historikoa</string>
@@ -569,24 +588,52 @@
     <string name="type.historic.wayside_cross">Bideko gurutze</string>
     <string name="type.historic.wayside_shrine">Bide bazterreko baseliza</string>
     <string name="type.historic.wreck">Naufragioa</string>
+    <string name="type.internet_access">Internet sarrera</string>
+    <string name="type.internet_access.wlan">Wi-Fia</string>
+    <string name="type.junction">Bidegurutzea</string>
     <string name="type.junction.circular">Biribilgunea</string>
     <string name="type.junction.roundabout">Biribilgunea</string>
+    <string name="type.landuse">Lurzoruaren erabilera</string>
+    <string name="type.landuse.allotments">Baratze komunitatea</string>
     <string name="type.landuse.basin">Arroa</string>
+    <string name="type.landuse.brownfield">Industrialde ohia</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Hilerria</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Hilerria</string>
     <string name="type.landuse.religious">Hilerria</string>
+    <string name="type.landuse.churchyard">Hilerria</string>
+    <string name="type.landuse.commercial">Komertzial-gunea</string>
+    <string name="type.landuse.construction">Eraikitze-gunea</string>
+    <string name="type.landuse.education">Hezkuntza-azpiegitura</string>
     <string name="type.landuse.farmland">Nekazaritza-lurra</string>
+    <string name="type.landuse.farmyard">Eskorta</string>
+    <string name="type.landuse.field">Soroa</string>
     <string name="type.landuse.flowerbed">Lore-ohea</string>
     <string name="type.landuse.forest">Basoa</string>
     <string name="type.landuse.forest.coniferous">Basoa</string>
     <string name="type.landuse.forest.deciduous">Basoa</string>
     <string name="type.landuse.forest.mixed">Basoa</string>
+    <string name="type.landuse.garages">Garajeak</string>
     <string name="type.landuse.grass">Belarra</string>
+    <string name="type.landuse.greenfield">Eraikitzeko eremua</string>
+    <string name="type.landuse.greenhouse_horticulture">Negutegia</string>
+    <string name="type.landuse.industrial">Industria-gunea</string>
     <string name="type.landuse.landfill">Iraulketa</string>
+    <string name="type.landuse.meadow">Belardia</string>
+    <string name="type.landuse.military">Militar-gunea</string>
+    <string name="type.landuse.orchard">Baratzea</string>
+    <string name="type.landuse.quarry">Harrobia</string>
     <string name="type.landuse.railway">Trenbide instalazioak</string>
+    <string name="type.landuse.recreation_ground">Zelaia</string>
     <string name="type.landuse.reservoir">Arroa</string>
+    <string name="type.landuse.residential">Bizitegi-eremua</string>
+    <string name="type.landuse.retail">Merkataritza-gunea</string>
+    <string name="type.landuse.salt_pond">Gatzaga</string>
+    <string name="type.landuse.village_green">Hiri-belardia</string>
+    <string name="type.landuse.vineyard">Mahastia</string>
+    <string name="type.leisure">Aisia</string>
+    <string name="type.leisure.common">Lurzoru publikoa</string>
     <string name="type.leisure.dog_park">Txakur parkea</string>
     <string name="type.leisure.fitness_centre">Fitness zentroa</string>
     <string name="type.leisure.fitness_station">Gimnasioa</string>
@@ -595,6 +642,9 @@
     <string name="type.leisure.garden.residential">Lorategi</string>
     <string name="type.leisure.golf_course">Golf kurtsoa</string>
     <string name="type.leisure.miniature_golf">Minigolfa</string>
+    <string name="type.leisure.hackerspace">Hacker-gunea</string>
+    <string name="type.leisure.ice_rink">Izotz-pista</string>
+    <string name="type.leisure.marina">Kirol-portua</string>
     <string name="type.leisure.nature_reserve">Erreserbatutako lurraldea</string>
     <string name="type.leisure.outdoor_seating">Kanpoko eserlekuak</string>
     <string name="type.leisure.park">Parkea</string>
@@ -604,16 +654,21 @@
     <string name="type.leisure.picnic_table">Piknik mahaia</string>
     <string name="type.leisure.pitch">Kiroldegia</string>
     <string name="type.leisure.playground">Jolastokia</string>
+    <string name="type.leisure.recreation_ground">Parkea</string>
     <string name="type.leisure.sauna">Sauna</string>
+    <string name="type.leisure.slipway">Arrapala</string>
     <string name="type.leisure.sports_centre">Kiroldegia</string>
     <string name="type.sport.climbing">Eskalada zentroa</string>
     <string name="type.sport.yoga">Yoga zentroa</string>
     <string name="type.leisure.stadium">Estadioa</string>
     <string name="type.leisure.swimming_pool">Igerilekua</string>
     <string name="type.leisure.swimming_pool.private">Igerilekua</string>
+    <string name="type.leisure.track">Pista</string>
+    <string name="type.leisure.track.area">Pista</string>
     <string name="type.leisure.water_park">Ur-parkea</string>
     <string name="type.man_made.chimney">Fabrikako tximinia</string>
     <string name="type.man_made.lighthouse">Itsasargia</string>
+    <string name="type.man_made.silo">Siloa</string>
     <string name="type.man_made.surveillance">Zaintza Kamera</string>
     <string name="type.man_made.tower">Dorrea</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
@@ -740,6 +795,7 @@
     <string name="type.railway.halt">Tren geltokian</string>
     <string name="type.railway.level_crossing">Trenbide-pasagunea</string>
     <string name="type.railway.monorail">Tren monoraila</string>
+    <string name="type.railway.narrow_gauge.bridge">Zabalera estuko trenbide-zubia</string>
     <string name="type.railway.rail">Trenbidea</string>
     <string name="type.railway.rail.highspeed">Abiadura handiko trena</string>
     <string name="type.railway.rail.tourism">Tren turistikoa</string>
@@ -1076,6 +1132,7 @@
     <string name="type.shop.pet_grooming">Animalien apainketa</string>
     <string name="type.shop.photo">Argazkilaritza artikuluak</string>
     <string name="type.shop.rental">Alokairu-denda</string>
+    <string name="type.shop.rental.bicycle">Bizikletak alokatzeko denda</string>
     <string name="type.amenity.bicycle_rental.shop">Bizikletak alokatzeko denda</string>
     <string name="type.shop.seafood">Arrandegia</string>
     <string name="type.shop.second_hand">Bigarren eskuko denda</string>
@@ -1230,56 +1287,6 @@
     <string name="type.amenity.dojo">Dojoa</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Kiroldegia</string>
-    <string name="type.emergency">Larrialdiak</string>
-    <string name="type.amenity.biergarten">Biergartena</string>
-    <string name="type.amenity.sanitary_dump_station">Ur-beltzen hustuketa gunea</string>
-    <string name="type.amenity.shelter.lean_to">Babesleku irekia</string>
-    <string name="type.amenity.vending_machine.fuel">Erregai-ponpa</string>
-    <string name="type.amenity.waste_transfer_station">Hondakinen transferentzia-gunea</string>
-    <string name="type.fee.yes">€</string>
-    <string name="type.highway">Errepidea</string>
-    <string name="type.highway.bridleway">Zaldi-bidea</string>
-    <string name="type.highway.bridleway.permissive">Zaldi-bidea</string>
-    <string name="type.amenity.bicycle_repair_station">Bizikleta konponketa gunea</string>
-    <string name="type.highway.services">Zerbitzugunea</string>
-    <string name="type.highway.world_level">Mundu mailako errepidea</string>
-    <string name="type.internet_access.wlan">Wi-Fia</string>
-    <string name="type.junction">Bidegurutzea</string>
-    <string name="type.landuse.allotments">Baratze komunitatea</string>
-    <string name="type.landuse.brownfield">Industrialde ohia</string>
-    <string name="type.landuse.education">Hezkuntza-azpiegitura</string>
-    <string name="type.landuse.farmyard">Eskorta</string>
-    <string name="type.landuse.field">Soroa</string>
-    <string name="type.landuse.greenfield">Eraikitzeko eremua</string>
-    <string name="type.landuse.greenhouse_horticulture">Negutegia</string>
-    <string name="type.landuse.industrial">Industria-gunea</string>
-    <string name="type.landuse.meadow">Belardia</string>
-    <string name="type.landuse.orchard">Baratzea</string>
-    <string name="type.landuse.quarry">Harrobia</string>
-    <string name="type.landuse.recreation_ground">Zelaia</string>
-    <string name="type.landuse.residential">Bizitegi-eremua</string>
-    <string name="type.landuse.retail">Merkataritza-gunea</string>
-    <string name="type.landuse.salt_pond">Gatzaga</string>
-    <string name="type.landuse.village_green">Hiri-belardia</string>
-    <string name="type.landuse.vineyard">Mahastia</string>
-    <string name="type.leisure">Aisia</string>
-    <string name="type.leisure.common">Lurzoru publikoa</string>
-    <string name="type.leisure.hackerspace">Hacker-gunea</string>
-    <string name="type.leisure.ice_rink">Izotz-pista</string>
-    <string name="type.leisure.marina">Kirol-portua</string>
-    <string name="type.man_made.silo">Siloa</string>
-    <string name="type.landuse.construction">Eraikitze-gunea</string>
-    <string name="type.internet_access">Internet sarrera</string>
-    <string name="type.landuse.garages">Garajeak</string>
-    <string name="type.railway.narrow_gauge.bridge">Zabalera estuko trenbide-zubia</string>
-    <string name="type.landuse">Lurzoruaren erabilera</string>
-    <string name="type.highway.world_towns_level">Herri mailako errepidea</string>
-    <string name="type.landuse.commercial">Komertzial-gunea</string>
-    <string name="type.landuse.military">Militar-gunea</string>
-    <string name="type.leisure.recreation_ground">Parkea</string>
-    <string name="type.leisure.slipway">Arrapala</string>
-    <string name="type.leisure.track">Pista</string>
-    <string name="type.leisure.track.area">Pista</string>
     <string name="type.barrier.jersey_barrier">Blokea</string>
     <string name="type.barrier.debris">Hondakinak</string>
     <string name="type.barrier.log">Enbor hesia</string>

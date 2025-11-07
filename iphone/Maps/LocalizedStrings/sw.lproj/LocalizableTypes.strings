@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "Anwani/Zuia";
 "type.addr_interpolation.even" = "Anwani/Zuia";
 "type.addr_interpolation.odd" = "Anwani/Zuia";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "Grill ya barbeque";
 "type.amenity.bench" = "Bench";
 "type.amenity.bicycle_parking" = "Bicycle Parking";
+"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
 "type.amenity.bicycle_rental" = "Bicycle Rental";
 "type.amenity.bicycle_repair_station" = "Cykelreparationsstation";
 "type.amenity.biergarten" = "Biergarten";
 "type.amenity.brothel" = "Brothel";
+"type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "Currency Exchange";
 "type.amenity.bus_station" = "Bus Station";
 "type.amenity.cafe" = "Cafe";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Kituo cha Kuchaji Magari";
 "type.amenity.childcare" = "Nursery";
 "type.amenity.cinema" = "Cinema";
+"type.amenity.studio" = "Studio";
 "type.leisure.bowling_alley" = "Njia ya Bowling";
 "type.amenity.clinic" = "Clinic";
 "type.amenity.college" = "College";
@@ -73,7 +80,7 @@
 "type.amenity.grave_yard" = "Graveyard";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.amenity.grave_yard.christian" = "Graveyard";
+"type.amenity.grave_yard.christian" = "Christian Graveyard";
 "type.amenity.hospital" = "Hospital";
 "type.amenity.hunting_stand" = "Hunting Stand";
 "type.amenity.ice_cream" = "Ice Cream";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "Kindergarten";
 "type.amenity.library" = "Library";
 "type.amenity.loading_dock" = "Inapakia kituo";
+"type.amenity.luggage_locker" = "Luggage Locker";
 "type.amenity.marketplace" = "Marketplace";
 "type.amenity.motorcycle_parking" = "Motorcycle Parking";
 "type.amenity.nightclub" = "Nightclub";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "Police";
 "type.amenity.post_box" = "Mailbox";
 "type.amenity.post_office" = "Ofisi ya posta";
+"type.post_office.post_partner" = "Post Partner";
 "type.amenity.prison" = "Jela";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Book Exchange";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Recycling Center";
 "type.amenity.recycling" = "Recycling Container";
 "type.amenity.recycling.container" = "Recycling Container";
@@ -201,9 +214,10 @@
 "type.natural.water.wastewater" = "Maji machafu";
 "type.barrier.entrance" = "Entrance";
 "type.barrier.fence" = "Fence";
+"type.barrier.guard_rail" = "Guard Rail";
 "type.barrier.gate" = "Gate";
 "type.barrier.hedge" = "Hedge";
-"type.barrier.kissing_gate" = "Gate";
+"type.barrier.kissing_gate" = "Kissing Gate";
 "type.barrier.lift_gate" = "Lift Gate";
 "type.barrier.retaining_wall" = "Retaining Wall";
 "type.barrier.stile" = "Stile";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "Tiba ya kisaikolojia";
 "type.healthcare.sample_collection" = "Sampuli";
 "type.healthcare.speech_therapist" = "Tiba ya hotuba";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -413,7 +431,7 @@
 "type.highway.footway" = "Foot Path";
 "type.highway.footway.sidewalk" = "Njia ya kando";
 "type.highway.footway.crossing" = "Kivuko cha Watembea kwa miguu";
-"type.highway.footway.area" = "Foot Path";
+"type.highway.footway.area" = "Pedestrian Area";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Daraja";
@@ -436,7 +454,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway.tunnel" = "Mtaro";
 "type.highway.motorway_junction" = "Road Exit";
-"type.highway.motorway_link" = "Motorway";
+"type.highway.motorway_link" = "Motorway Ramp";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "Daraja";
@@ -460,7 +478,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Mtaro";
 "type.highway.pedestrian" = "Pedestrian Street";
-"type.highway.pedestrian.area" = "Pedestrian Street";
+"type.highway.pedestrian.area" = "Pedestrian Area";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Daraja";
@@ -474,7 +492,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Mtaro";
-"type.highway.primary_link" = "Primary Road";
+"type.highway.primary_link" = "Primary Road Ramp";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary_link.bridge" = "Daraja";
@@ -508,7 +526,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary.tunnel" = "Mtaro";
-"type.highway.secondary_link" = "Secondary Road";
+"type.highway.secondary_link" = "Secondary Road Ramp";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary_link.bridge" = "Daraja";
@@ -520,8 +538,8 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Daraja";
-"type.highway.service.driveway" = "Service Road";
-"type.highway.service.parking_aisle" = "Service Road";
+"type.highway.service.driveway" = "Driveway";
+"type.highway.service.parking_aisle" = "Parking Aisle";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Mtaro";
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Mtaro";
+"type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "Tertiary Road";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -541,7 +560,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary.tunnel" = "Mtaro";
-"type.highway.tertiary_link" = "Tertiary Road";
+"type.highway.tertiary_link" = "Tertiary Road Ramp";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary_link.bridge" = "Daraja";
@@ -566,7 +585,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "Mtaro";
-"type.highway.trunk_link" = "Trunk Road";
+"type.highway.trunk_link" = "Trunk Road Ramp";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk_link.bridge" = "Daraja";
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "Minor Road";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "Kitu cha kihistoria";
 "type.historic.aircraft" = "Ndege ya kihistoria";
 "type.historic.anchor" = "Nanga ya kihistoria";
@@ -644,18 +667,44 @@
 "type.historic.wayside_cross" = "Msalaba wa njiani";
 "type.historic.wayside_shrine" = "Kaburi la njia";
 "type.historic.wreck" = "Ajali ya meli";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Internet";
@@ -668,11 +717,12 @@
 "type.landuse.brownfield" = "Brownfield";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.landuse.cemetery" = "Graveyard";
+"type.landuse.cemetery" = "Cemetery";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.landuse.cemetery.christian" = "Graveyard";
+"type.landuse.cemetery.christian" = "Christian Cemetery";
 "type.landuse.religious" = "Sehemu ya kanisa";
+"type.landuse.churchyard" = "Sehemu ya kanisa";
 "type.landuse.commercial" = "Commercial Area";
 "type.landuse.construction" = "Construction Area";
 "type.landuse.education" = "Educational Facility";
@@ -702,14 +752,16 @@
 "type.landuse.salt_pond" = "Salt Pond";
 "type.landuse.village_green" = "Land";
 "type.landuse.vineyard" = "Vineyard";
+"type.landuse.plant_nursery" = "Plant Nursery";
 "type.leisure" = "Leisure";
 "type.leisure.common" = "Public Land";
 "type.leisure.dog_park" = "Eneo la mbwa";
+"type.leisure.escape_game" = "Escape Room";
 "type.leisure.fitness_centre" = "Fitness Centre";
 "type.leisure.fitness_station" = "Fitness Station";
 "type.leisure.dance" = "Ukumbi wa Ngoma";
 "type.leisure.garden" = "Garden";
-"type.leisure.garden.residential" = "Garden";
+"type.leisure.garden.residential" = "Residential Garden";
 "type.leisure.golf_course" = "Golf Course";
 "type.leisure.miniature_golf" = "Minigofu";
 "type.leisure.hackerspace" = "Hackerspace";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Hifadhi";
 "type.leisure.outdoor_seating" = "Viti vya nje";
+"type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Hifadhi";
 "type.leisure.park.no.access" = "Hifadhi";
 "type.leisure.park.permissive" = "Hifadhi";
@@ -773,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "Water Well";
 "type.man_made.windmill" = "Windmill";
 "type.man_made.works" = "Industrial Works";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Military";
 "type.military.bunker" = "Bunker";
@@ -966,11 +1023,11 @@
 "type.railway.rail.service.tunnel" = "Njia ya reli";
 "type.railway.station" = "Train Station";
 "type.railway.station.funicular" = "Funicular";
-"type.railway.station.light_rail" = "Train Station";
-"type.railway.station.light_rail.berlin" = "Train Station";
-"type.railway.station.light_rail.london" = "Train Station";
-"type.railway.station.light_rail.porto" = "Train Station";
-"type.railway.station.monorail" = "Train Station";
+"type.railway.station.light_rail" = "Light Rail Station";
+"type.railway.station.light_rail.berlin" = "S-Bahn Station";
+"type.railway.station.light_rail.london" = "DLR Station";
+"type.railway.station.light_rail.porto" = "Porto Metro";
+"type.railway.station.monorail" = "Monorail Station";
 "type.railway.station.subway" = "Subway Station";
 "type.railway.station.subway.adana" = "Subway Station";
 "type.railway.station.subway.algiers" = "Subway Station";
@@ -1026,7 +1083,7 @@
 "type.railway.station.subway.lille" = "Subway Station";
 "type.railway.station.subway.lima" = "Subway Station";
 "type.railway.station.subway.lisboa" = "Subway Station";
-"type.railway.station.subway.london" = "Subway Station";
+"type.railway.station.subway.london" = "Underground Station";
 "type.railway.station.subway.lyon" = "Subway Station";
 "type.railway.station.subway.madrid" = "Subway Station";
 "type.railway.station.subway.malaga" = "Subway Station";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "Subway Station";
 "type.railway.station.subway.philadelphia" = "Subway Station";
 "type.railway.station.subway.pyongyang" = "Subway Station";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Subway Station";
 "type.railway.station.subway.rennes" = "Subway Station";
 "type.railway.station.subway.rio" = "Subway Station";
 "type.railway.station.subway.roma" = "Subway Station";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "Utunzaji wa Kipenzi";
 "type.shop.photo" = "Photo Shop";
 "type.shop.rental" = "Duka la Kukodisha";
+"type.shop.rental.bicycle" = "Duka la Kukodisha Baiskeli";
 "type.amenity.bicycle_rental.shop" = "Duka la Kukodisha Baiskeli";
 "type.shop.seafood" = "Fishmonger";
 "type.shop.second_hand" = "Duka la Mitumba";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "Ramani ya Watalii";
 "type.tourism.information.office" = "Ofisi ya watalii";
 "type.tourism.information.visitor_centre" = "Kituo cha Wageni";
+"type.amenity.ranger_station" = "Ranger Station";
 "type.tourism.motel" = "Motel";
 "type.tourism.museum" = "Museum";
 "type.tourism.picnic_site" = "Picnic Site";
@@ -1447,17 +1509,17 @@
 "type.aerialway.t.bar" = "T-bar Lift";
 "type.piste_type.downhill" = "Downhill Ski Run";
 "type.piste_type.downhill.area" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
-"type.piste_type.downhill.easy" = "Downhill Ski Run";
-"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
-"type.piste_type.downhill.expert" = "Downhill Ski Run";
-"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
-"type.piste_type.downhill.freeride" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
-"type.piste_type.downhill.novice" = "Downhill Ski Run";
-"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.advanced.area" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.easy.area" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.expert.area" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.freeride" = "Freeride Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.intermediate.area" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.novice" = "Novice Downhill Ski Run";
+"type.piste_type.downhill.novice.area" = "Novice Downhill Ski Run";
 "type.piste_type.nordic" = "Nordic Ski Trail";
 "type.piste_type.sled" = "Sledding Piste";
 "type.piste_type.sled.area" = "Sledding Piste";
@@ -1484,18 +1546,6 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Ukumbi wa michezo";
-"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
-"type.amenity.love_hotel" = "Love Hotel";
-"type.amenity.studio" = "Studio";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.post_office.post_partner" = "Post Partner";
-"type.barrier.guard_rail" = "Guard Rail";
-"type.highway.ladder" = "Ladder";
-"type.landuse.plant_nursery" = "Plant Nursery";
-"type.leisure.escape_game" = "Escape Room";
-"type.leisure.firepit" = "Firepit";
-"type.railway.station.subway.qingdao" = "Subway Station";
-"type.amenity.ranger_station" = "Ranger Station";
 "type.sport.diving" = "Diving";
 "type.man_made.crane" = "Crane";
 "type.barrier.wicket_gate" = "Wicket Gate";

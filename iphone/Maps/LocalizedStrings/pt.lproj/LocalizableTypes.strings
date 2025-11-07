@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "Morada/Bloco";
 "type.addr_interpolation.even" = "Morada/Bloco";
 "type.addr_interpolation.odd" = "Morada/Bloco";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "Churrasqueira";
 "type.amenity.bench" = "Assento";
 "type.amenity.bicycle_parking" = "Estacionamento de bicicletas";
+"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
 "type.amenity.bicycle_rental" = "Aluguer de bicicletas";
 "type.amenity.bicycle_repair_station" = "Estação de conserto de bicicletas";
 "type.amenity.biergarten" = "Biergarten";
 "type.amenity.brothel" = "Bordel";
+"type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "Casa de câmbio";
 "type.amenity.bus_station" = "Estação de autocarros";
 "type.amenity.cafe" = "Café";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Posto de carregamento de veículo elétrico";
 "type.amenity.childcare" = "Creche";
 "type.amenity.cinema" = "Cinema";
+"type.amenity.studio" = "Estúdio";
 "type.leisure.bowling_alley" = "Pista de bowling";
 "type.amenity.clinic" = "Clínica ou centro de saúde";
 "type.amenity.college" = "Escola técnica";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "Infantário";
 "type.amenity.library" = "Biblioteca";
 "type.amenity.loading_dock" = "Doca de carregamento";
+"type.amenity.luggage_locker" = "Luggage Locker";
 "type.amenity.marketplace" = "Feira";
 "type.amenity.motorcycle_parking" = "Estacionamento de motorizadas";
 "type.amenity.nightclub" = "Discoteca";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "Polícia";
 "type.amenity.post_box" = "Caixa de correio";
 "type.amenity.post_office" = "Posto de correios";
+"type.post_office.post_partner" = "Post Partner";
 "type.amenity.prison" = "Prisão";
 "type.amenity.pub" = "Pub ou taberna";
 "type.amenity.public_bookcase" = "Biblioteca livre";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Centro de reciclagem";
 "type.amenity.recycling" = "Contentor de reciclagem";
 "type.amenity.recycling.container" = "Contentor de reciclagem";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "Águas residuais";
 "type.barrier.entrance" = "Entrada";
 "type.barrier.fence" = "Vedação";
+"type.barrier.guard_rail" = "Guard Rail";
 "type.barrier.gate" = "Portão";
 "type.barrier.hedge" = "Sebe";
 "type.barrier.kissing_gate" = "Quebra-corpo";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "Psicoterapia";
 "type.healthcare.sample_collection" = "Amostragem";
 "type.healthcare.speech_therapist" = "Terapia da fala";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Rodovia";
 "type.highway.bridleway" = "Caminho para cavaleiros";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Túnel";
+"type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "Estrada terciária";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "Estrada sem classificação";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "Objeto histórico";
 "type.historic.aircraft" = "Aeronaves Históricas";
 "type.historic.anchor" = "Âncora Histórica";
@@ -644,18 +667,44 @@
 "type.historic.wayside_cross" = "Cruzeiro";
 "type.historic.wayside_shrine" = "Alminhas";
 "type.historic.wreck" = "Naufrágio";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Internet";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Cemitério cristão";
 "type.landuse.religious" = "Adro de igreja";
+"type.landuse.churchyard" = "Adro de igreja";
 "type.landuse.commercial" = "Área comercial";
 "type.landuse.construction" = "Construção";
 "type.landuse.education" = "Educational Facility";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "Salinas";
 "type.landuse.village_green" = "Espaço verde de um vilarejo";
 "type.landuse.vineyard" = "Vinha";
+"type.landuse.plant_nursery" = "Viveiro de plantas";
 "type.leisure" = "Lazer";
 "type.leisure.common" = "Terreno baldio";
 "type.leisure.dog_park" = "Parque para cães";
+"type.leisure.escape_game" = "Sala de fuga";
 "type.leisure.fitness_centre" = "Academia de fitness";
 "type.leisure.fitness_station" = "Dispositivo público de exercícios";
 "type.leisure.dance" = "Salão de dança";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Reserva natural";
 "type.leisure.outdoor_seating" = "Assentos ao ar livre";
+"type.leisure.firepit" = "Lugar para Fogueira";
 "type.leisure.park" = "Parque";
 "type.leisure.park.no.access" = "Parque privativo";
 "type.leisure.park.permissive" = "Parque";
@@ -773,8 +826,12 @@
 "type.man_made.water_well.drinking_water_no" = "Poço de água não potável";
 "type.man_made.windmill" = "Moinho de vento";
 "type.man_made.works" = "Fábrica";
-"type.mapswithme" = "maps.me";
-"type.mapswithme.grid" = "maps.me-grade";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Militar";
 "type.military.bunker" = "Búnquer";
 "type.mountain_pass" = "Passo de montanha";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "Estação de metro";
 "type.railway.station.subway.philadelphia" = "Estação de metro";
 "type.railway.station.subway.pyongyang" = "Estação de metro";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Subway Station";
 "type.railway.station.subway.rennes" = "Estação de metro";
 "type.railway.station.subway.rio" = "Estação de metro";
 "type.railway.station.subway.roma" = "Estação de metro";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "Salão de banhos e tosquia";
 "type.shop.photo" = "Loja de fotografia";
 "type.shop.rental" = "Locadora";
+"type.shop.rental.bicycle" = "Loja de aluguel de bicicletas";
 "type.amenity.bicycle_rental.shop" = "Loja de aluguel de bicicletas";
 "type.shop.seafood" = "Peixaria";
 "type.shop.second_hand" = "Loja de segunda mão";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "Mapa turístico";
 "type.tourism.information.office" = "Posto de turismo";
 "type.tourism.information.visitor_centre" = "Centro de visitantes";
+"type.amenity.ranger_station" = "Ranger Station";
 "type.tourism.motel" = "Motel";
 "type.tourism.museum" = "Museu";
 "type.tourism.picnic_site" = "Local de piqueniques";
@@ -1484,18 +1546,6 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Pavilhão desportivo";
-"type.amenity.studio" = "Estúdio";
-"type.landuse.plant_nursery" = "Viveiro de plantas";
-"type.leisure.escape_game" = "Sala de fuga";
-"type.leisure.firepit" = "Lugar para Fogueira";
-"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
-"type.amenity.love_hotel" = "Love Hotel";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.post_office.post_partner" = "Post Partner";
-"type.barrier.guard_rail" = "Guard Rail";
-"type.highway.ladder" = "Ladder";
-"type.railway.station.subway.qingdao" = "Subway Station";
-"type.amenity.ranger_station" = "Ranger Station";
 "type.sport.diving" = "Diving";
 "type.man_made.crane" = "Crane";
 "type.barrier.wicket_gate" = "Wicket Gate";

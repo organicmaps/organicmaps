@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Types -->
+    <string name="type.addr_interpolation">Adresa/Blok</string>
+    <string name="type.addr_interpolation.even">Adresa/Blok</string>
+    <string name="type.addr_interpolation.odd">Adresa/Blok</string>
+    <string name="type.aerialway">Zračni put</string>
+    <string name="type.aerialway.cable_car">Žičara</string>
+    <string name="type.aerialway.chair_lift">Žičara sa sjedalima</string>
+    <string name="type.aerialway.drag_lift">Vučno dizalo</string>
+    <string name="type.aerialway.station">Stanica žičare</string>
+    <string name="type.aeroway">Infrastruktura zračnog prostora</string>
+    <string name="type.aeroway.aerodrome">Zračna luka</string>
+    <string name="type.aeroway.aerodrome.international">Internacionala zračna luka</string>
+    <string name="type.aeroway.apron">Pregača</string>
+    <string name="type.aeroway.gate">Vrata</string>
+    <string name="type.aeroway.helipad">Helipodrom</string>
+    <string name="type.aeroway.runway">Pista</string>
+    <string name="type.aeroway.taxiway">Rulna staza</string>
+    <string name="type.amenity">Ugodnost</string>
+    <string name="type.amenity.arts_centre">Umjetnički centar</string>
+    <string name="type.amenity.bank">Banka</string>
+    <string name="type.amenity.bbq">Roštilj</string>
+    <string name="type.amenity.bench">Klupa</string>
+    <string name="type.amenity.bicycle_parking">Parkiranje za bicikle</string>
+    <string name="type.amenity.bicycle_parking.covered">Natkriveno parkiralište za bicikle</string>
+    <string name="type.amenity.bicycle_rental">Najam bicikala</string>
+    <string name="type.amenity.bicycle_repair_station">Stanica za popravak bicikala</string>
+    <string name="type.amenity.biergarten">Pivski vrt</string>
+    <string name="type.amenity.brothel">Bordel</string>
+    <string name="type.amenity.love_hotel">Hotel ljubavi</string>
+    <string name="type.amenity.bureau_de_change">Mjenjačnica</string>
+    <string name="type.amenity.bus_station">Autobusna stanica</string>
+    <string name="type.amenity.cafe">Kafić</string>
+
+    <!-- SECTION: Types: Recycling -->
+    <string name="type.barrier.block">Blok</string>
+
+    <!-- SECTION: Types: Historic -->
+    <string name="type.barrier.jersey_barrier">Blok</string>
+    <string name="type.barrier.debris">Ruševina</string>
+    <string name="type.amenity.boat_rental">Iznajmljivanje čamaca</string>
+</resources>

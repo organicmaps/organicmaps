@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "Adresă/Bloc";
 "type.addr_interpolation.even" = "Adresă/Bloc";
 "type.addr_interpolation.odd" = "Adresă/Bloc";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "Grătar";
 "type.amenity.bench" = "Banchetă";
 "type.amenity.bicycle_parking" = "Parcare biciclete";
+"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
 "type.amenity.bicycle_rental" = "Închiriere de biciclete";
 "type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
 "type.amenity.biergarten" = "Berărie";
 "type.amenity.brothel" = "Bordel";
+"type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "Schimb valutar";
 "type.amenity.bus_station" = "Gara de autobuz";
 "type.amenity.cafe" = "Cafenea";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Stație de încărcare autoturisme";
 "type.amenity.childcare" = "De îngrijire a copilului";
 "type.amenity.cinema" = "Cinema";
+"type.amenity.studio" = "Studio";
 "type.leisure.bowling_alley" = "Popicărie";
 "type.amenity.clinic" = "Clinică";
 "type.amenity.college" = "Colegiu";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "Grădiniță";
 "type.amenity.library" = "Bibliotecă";
 "type.amenity.loading_dock" = "Încărcare doc";
+"type.amenity.luggage_locker" = "Luggage Locker";
 "type.amenity.marketplace" = "Magazin";
 "type.amenity.motorcycle_parking" = "Parcare de motociclete";
 "type.amenity.nightclub" = "Club de noapte";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "Poliție";
 "type.amenity.post_box" = "Cutie poștală";
 "type.amenity.post_office" = "Oficiu poștal";
+"type.post_office.post_partner" = "Post Partner";
 "type.amenity.prison" = "Închisoare";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Bibliotecă";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Centru de reciclare";
 "type.amenity.recycling" = "Containere pentru reciclare";
 "type.amenity.recycling.container" = "Containere pentru reciclare";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "Ape uzate";
 "type.barrier.entrance" = "Intrare";
 "type.barrier.fence" = "Fence";
+"type.barrier.guard_rail" = "Guard Rail";
 "type.barrier.gate" = "Poartă";
 "type.barrier.hedge" = "Hedge";
 "type.barrier.kissing_gate" = "Poartă";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "Psihoterapie";
 "type.healthcare.sample_collection" = "Eșantionare";
 "type.healthcare.speech_therapist" = "Logopedie";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Tunel";
+"type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "Stradă";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "Stradă";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "Obiect istoric";
 "type.historic.aircraft" = "Avioane istorice";
 "type.historic.anchor" = "Ancoră istorică";
@@ -644,18 +667,44 @@
 "type.historic.wayside_cross" = "Troiță";
 "type.historic.wayside_shrine" = "Altarul de la marginea drumului";
 "type.historic.wreck" = "Naufragiu";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Internet";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Cimitir";
 "type.landuse.religious" = "Curtea Bisericii";
+"type.landuse.churchyard" = "Curtea Bisericii";
 "type.landuse.commercial" = "Commercial Area";
 "type.landuse.construction" = "Construction Area";
 "type.landuse.education" = "Educational Facility";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "Salt Pond";
 "type.landuse.village_green" = "Land";
 "type.landuse.vineyard" = "Vineyard";
+"type.landuse.plant_nursery" = "Plant Nursery";
 "type.leisure" = "Leisure";
 "type.leisure.common" = "Public Land";
 "type.leisure.dog_park" = "Loc de plimbare a câinilor";
+"type.leisure.escape_game" = "Escape Room";
 "type.leisure.fitness_centre" = "Centru fitness";
 "type.leisure.fitness_station" = "Sală de fitness";
 "type.leisure.dance" = "Sala de dans";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Rezervație naturală";
 "type.leisure.outdoor_seating" = "Scaune în aer liber";
+"type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Parc";
 "type.leisure.park.no.access" = "Parc";
 "type.leisure.park.permissive" = "Parc";
@@ -773,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "Puț de apă";
 "type.man_made.windmill" = "Moară de vânt";
 "type.man_made.works" = "Industrial Works";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Military";
 "type.military.bunker" = "Buncăr";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "Metrou";
 "type.railway.station.subway.philadelphia" = "Metrou";
 "type.railway.station.subway.pyongyang" = "Metrou";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Subway Station";
 "type.railway.station.subway.rennes" = "Metrou";
 "type.railway.station.subway.rio" = "Metrou";
 "type.railway.station.subway.roma" = "Metrou";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "Îngrijirea animalelor de companie";
 "type.shop.photo" = "Centru fotografii";
 "type.shop.rental" = "Magazin de închiriere";
+"type.shop.rental.bicycle" = "Magazin de închiriere de biciclete";
 "type.amenity.bicycle_rental.shop" = "Magazin de închiriere de biciclete";
 "type.shop.seafood" = "Pescărie";
 "type.shop.second_hand" = "Magazin second-hand";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "Hartă turistică";
 "type.tourism.information.office" = "Birou de informații turistice";
 "type.tourism.information.visitor_centre" = "Centrul pentru vizitatori";
+"type.amenity.ranger_station" = "Ranger Station";
 "type.tourism.motel" = "Motel";
 "type.tourism.museum" = "Muzeu";
 "type.tourism.picnic_site" = "Locații picnic";
@@ -1447,17 +1509,17 @@
 "type.aerialway.t.bar" = "T-bar Lift";
 "type.piste_type.downhill" = "Downhill Ski Run";
 "type.piste_type.downhill.area" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
-"type.piste_type.downhill.easy" = "Downhill Ski Run";
-"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
-"type.piste_type.downhill.expert" = "Downhill Ski Run";
-"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
-"type.piste_type.downhill.freeride" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
-"type.piste_type.downhill.novice" = "Downhill Ski Run";
-"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.advanced.area" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.easy.area" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.expert.area" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.freeride" = "Freeride Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.intermediate.area" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.novice" = "Novice Downhill Ski Run";
+"type.piste_type.downhill.novice.area" = "Novice Downhill Ski Run";
 "type.piste_type.nordic" = "Nordic Ski Trail";
 "type.piste_type.sled" = "Sledding Piste";
 "type.piste_type.sled.area" = "Sledding Piste";
@@ -1484,18 +1546,6 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Sală de sport";
-"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
-"type.amenity.love_hotel" = "Love Hotel";
-"type.amenity.studio" = "Studio";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.post_office.post_partner" = "Post Partner";
-"type.barrier.guard_rail" = "Guard Rail";
-"type.highway.ladder" = "Ladder";
-"type.landuse.plant_nursery" = "Plant Nursery";
-"type.leisure.escape_game" = "Escape Room";
-"type.leisure.firepit" = "Firepit";
-"type.railway.station.subway.qingdao" = "Subway Station";
-"type.amenity.ranger_station" = "Ranger Station";
 "type.sport.diving" = "Diving";
 "type.man_made.crane" = "Crane";
 "type.barrier.wicket_gate" = "Wicket Gate";

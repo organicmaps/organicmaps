@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "アドレス/ブロック";
 "type.addr_interpolation.even" = "アドレス/ブロック";
 "type.addr_interpolation.odd" = "アドレス/ブロック";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "バーベキューグリル";
 "type.amenity.bench" = "ベンチ";
 "type.amenity.bicycle_parking" = "駐輪場";
+"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
 "type.amenity.bicycle_rental" = "レンタサイクル";
 "type.amenity.bicycle_repair_station" = "自転車修理ステーション";
 "type.amenity.biergarten" = "ビアガーデン";
 "type.amenity.brothel" = "売春宿";
+"type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "外貨両替所";
 "type.amenity.bus_station" = "バスステーション";
 "type.amenity.cafe" = "カフェ";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "自動車充電ステーション";
 "type.amenity.childcare" = "託児所";
 "type.amenity.cinema" = "映画館";
+"type.amenity.studio" = "Studio";
 "type.leisure.bowling_alley" = "ボーリング場";
 "type.amenity.clinic" = "クリニック";
 "type.amenity.college" = "カレッジ";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "幼稚園";
 "type.amenity.library" = "図書館";
 "type.amenity.loading_dock" = "発送センター";
+"type.amenity.luggage_locker" = "Luggage Locker";
 "type.amenity.marketplace" = "市場";
 "type.amenity.motorcycle_parking" = "バイク駐輪場";
 "type.amenity.nightclub" = "ナイトクラブ";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "警察";
 "type.amenity.post_box" = "郵便ポスト";
 "type.amenity.post_office" = "郵便局";
+"type.post_office.post_partner" = "Post Partner";
 "type.amenity.prison" = "刑務所";
 "type.amenity.pub" = "バー";
 "type.amenity.public_bookcase" = "街角文庫";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "リサイクルセンター";
 "type.amenity.recycling" = "リサイクルボックス";
 "type.amenity.recycling.container" = "リサイクルボックス";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "廃水";
 "type.barrier.entrance" = "エントランス";
 "type.barrier.fence" = "フェンス";
+"type.barrier.guard_rail" = "Guard Rail";
 "type.barrier.gate" = "ゲート";
 "type.barrier.hedge" = "生垣";
 "type.barrier.kissing_gate" = "ゲート";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "心理療法";
 "type.healthcare.sample_collection" = "サンプリング";
 "type.healthcare.speech_therapist" = "ロゴペディックス";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "道路";
 "type.highway.bridleway" = "馬道";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "トンネル";
+"type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "ストリート";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "史跡";
 "type.historic.aircraft" = "歴史的な航空機";
 "type.historic.anchor" = "歴史的なアンカー";
@@ -644,18 +667,44 @@
 "type.historic.wayside_cross" = "歴史的な十字架";
 "type.historic.wayside_shrine" = "歴史的な祠";
 "type.historic.wreck" = "難破船";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "インターネット";
 "type.internet_access.wlan" = "インターネット";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "キリスト教墓地";
 "type.landuse.religious" = "キリスト教教会付属地";
+"type.landuse.churchyard" = "キリスト教教会付属地";
 "type.landuse.commercial" = "商業用地";
 "type.landuse.construction" = "建設工事中";
 "type.landuse.education" = "Educational Facility";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "塩田";
 "type.landuse.village_green" = "村の中心";
 "type.landuse.vineyard" = "ブドウ園";
+"type.landuse.plant_nursery" = "Plant Nursery";
 "type.leisure" = "レジャー";
 "type.leisure.common" = "レジャー(共有地)";
 "type.leisure.dog_park" = "ドッグエリア";
+"type.leisure.escape_game" = "Escape Room";
 "type.leisure.fitness_centre" = "フィットネスセンター、ジム";
 "type.leisure.fitness_station" = "フィットネスステーション";
 "type.leisure.dance" = "ダンスホール";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "マリーナ";
 "type.leisure.nature_reserve" = "自然保護区";
 "type.leisure.outdoor_seating" = "屋外席";
+"type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "公園";
 "type.leisure.park.no.access" = "公園";
 "type.leisure.park.permissive" = "公園";
@@ -773,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "井戸";
 "type.man_made.windmill" = "風車";
 "type.man_made.works" = "工場";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "軍事";
 "type.military.bunker" = "掩蔽壕";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "地下鉄";
 "type.railway.station.subway.philadelphia" = "地下鉄";
 "type.railway.station.subway.pyongyang" = "地下鉄";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Subway Station";
 "type.railway.station.subway.rennes" = "地下鉄";
 "type.railway.station.subway.rio" = "地下鉄";
 "type.railway.station.subway.roma" = "地下鉄";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "ペットグルーミング";
 "type.shop.photo" = "写真屋";
 "type.shop.rental" = "レンタルショップ";
+"type.shop.rental.bicycle" = "レンタサイクルショップ";
 "type.amenity.bicycle_rental.shop" = "レンタサイクルショップ";
 "type.shop.seafood" = "魚屋";
 "type.shop.second_hand" = "古物商";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "観光マップ";
 "type.tourism.information.office" = "観光案内所";
 "type.tourism.information.visitor_centre" = "ビジターセンター";
+"type.amenity.ranger_station" = "Ranger Station";
 "type.tourism.motel" = "モーテル";
 "type.tourism.museum" = "博物館";
 "type.tourism.picnic_site" = "ピクニック場";
@@ -1447,17 +1509,17 @@
 "type.aerialway.t.bar" = "T-bar Lift";
 "type.piste_type.downhill" = "Downhill Ski Run";
 "type.piste_type.downhill.area" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
-"type.piste_type.downhill.easy" = "Downhill Ski Run";
-"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
-"type.piste_type.downhill.expert" = "Downhill Ski Run";
-"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
-"type.piste_type.downhill.freeride" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
-"type.piste_type.downhill.novice" = "Downhill Ski Run";
-"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.advanced.area" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.easy.area" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.expert.area" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.freeride" = "Freeride Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.intermediate.area" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.novice" = "Novice Downhill Ski Run";
+"type.piste_type.downhill.novice.area" = "Novice Downhill Ski Run";
 "type.piste_type.nordic" = "Nordic Ski Trail";
 "type.piste_type.sled" = "Sledding Piste";
 "type.piste_type.sled.area" = "Sledding Piste";
@@ -1484,18 +1546,6 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "スポーツホール";
-"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
-"type.amenity.love_hotel" = "Love Hotel";
-"type.amenity.studio" = "Studio";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.post_office.post_partner" = "Post Partner";
-"type.barrier.guard_rail" = "Guard Rail";
-"type.highway.ladder" = "Ladder";
-"type.landuse.plant_nursery" = "Plant Nursery";
-"type.leisure.escape_game" = "Escape Room";
-"type.leisure.firepit" = "Firepit";
-"type.railway.station.subway.qingdao" = "Subway Station";
-"type.amenity.ranger_station" = "Ranger Station";
 "type.sport.diving" = "Diving";
 "type.man_made.crane" = "Crane";
 "type.barrier.wicket_gate" = "Wicket Gate";

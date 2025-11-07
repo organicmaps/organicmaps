@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">주소/블록</string>
     <string name="type.addr_interpolation.even">주소/블록</string>
@@ -115,6 +116,7 @@
     <string name="type.amenity.prison">감옥</string>
     <string name="type.amenity.pub">술집</string>
     <string name="type.amenity.public_bookcase">도서 교환</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">재활용센터</string>
     <string name="type.amenity.recycling">재활용 쓰레기통</string>
@@ -321,6 +323,7 @@
     <string name="type.healthcare.psychotherapist">심리치료</string>
     <string name="type.healthcare.sample_collection">견본 추출</string>
     <string name="type.healthcare.speech_therapist">대화 요법</string>
+
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">다리</string>
@@ -477,6 +480,7 @@
     <string name="type.area_highway.track">거리</string>
     <string name="type.area_highway.trunk">거리</string>
     <string name="type.area_highway.unclassified">거리</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">역사적 물건</string>
     <string name="type.historic.aircraft">\"역사적인 항공기\"</string>
@@ -530,6 +534,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">묘소</string>
     <string name="type.landuse.religious">교회 마당</string>
+    <string name="type.landuse.churchyard">교회 마당</string>
     <string name="type.landuse.farmland">농지</string>
     <string name="type.landuse.flowerbed">\"화단\"</string>
     <string name="type.landuse.forest">숲</string>
@@ -1026,6 +1031,7 @@
     <string name="type.shop.pet_grooming">애완동물 미용</string>
     <string name="type.shop.photo">사진 가게</string>
     <string name="type.shop.rental">렌탈샵</string>
+    <string name="type.shop.rental.bicycle">자전거 대여점</string>
     <string name="type.amenity.bicycle_rental.shop">자전거 대여점</string>
     <string name="type.shop.seafood">생선가게</string>
     <string name="type.shop.second_hand">중고 판매점</string>

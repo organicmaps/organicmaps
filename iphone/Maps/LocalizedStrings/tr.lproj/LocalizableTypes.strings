@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "Adres/Blok";
 "type.addr_interpolation.even" = "Adres/Blok";
 "type.addr_interpolation.odd" = "Adres/Blok";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "Barbekü Izgarası";
 "type.amenity.bench" = "Bank";
 "type.amenity.bicycle_parking" = "Bisiklet Park Yeri";
+"type.amenity.bicycle_parking.covered" = "Örtülü Bisiklet Parkı";
 "type.amenity.bicycle_rental" = "Bisiklet Kiralama";
 "type.amenity.bicycle_repair_station" = "Bisiklet Tamir İstasyonu";
 "type.amenity.biergarten" = "Bira Bahçesi";
 "type.amenity.brothel" = "Genelev";
+"type.amenity.love_hotel" = "Çift Oteli";
 "type.amenity.bureau_de_change" = "Döviz Bürosu";
 "type.amenity.bus_station" = "Otogar";
 "type.amenity.cafe" = "Kafe";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Araç Şarj İstasyonu";
 "type.amenity.childcare" = "Kreş";
 "type.amenity.cinema" = "Sinema";
+"type.amenity.studio" = "Atölye";
 "type.leisure.bowling_alley" = "Bovling Pisti";
 "type.amenity.clinic" = "Klinik";
 "type.amenity.college" = "Kolej";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "Anaokulu";
 "type.amenity.library" = "Kütüphane";
 "type.amenity.loading_dock" = "Yükleme Alanı";
+"type.amenity.luggage_locker" = "Emanet Dolabı";
 "type.amenity.marketplace" = "Pazaryeri";
 "type.amenity.motorcycle_parking" = "Motosiklet Parkı";
 "type.amenity.nightclub" = "Gece Kulübü";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "Polis";
 "type.amenity.post_box" = "Posta Kutusu";
 "type.amenity.post_office" = "Postane";
+"type.post_office.post_partner" = "Postane İş Ortağı";
 "type.amenity.prison" = "Hapishane";
 "type.amenity.pub" = "Meyhane";
 "type.amenity.public_bookcase" = "Kitap Değişimi";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Geri Dönüşüm Merkezi";
 "type.amenity.recycling" = "Geri Dönüşüm Kutusu";
 "type.amenity.recycling.container" = "Geri Dönüşüm Kutusu";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "Atık Su";
 "type.barrier.entrance" = "Giriş";
 "type.barrier.fence" = "Çit";
+"type.barrier.guard_rail" = "Korkuluk";
 "type.barrier.gate" = "Geçit";
 "type.barrier.hedge" = "Çalı Çit";
 "type.barrier.kissing_gate" = "İnsan Geçidi";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "Psikoterapi";
 "type.healthcare.sample_collection" = "Örnek Toplama Merkezi";
 "type.healthcare.speech_therapist" = "Logopedi";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Otoyol";
 "type.highway.bridleway" = "Atlı Yolu";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Tünel";
+"type.highway.ladder" = "Basamak";
 "type.highway.tertiary" = "Üçüncül Yol";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "Tali Yol";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "Tarihi Nesne";
 "type.historic.aircraft" = "Tarihi Uçak";
 "type.historic.anchor" = "Tarihi Çapa";
@@ -644,18 +667,44 @@
 "type.historic.wayside_cross" = "Hıristiyan Haçı";
 "type.historic.wayside_shrine" = "Tapınak";
 "type.historic.wreck" = "Gemi Enkazı";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "İnternet";
 "type.internet_access.wlan" = "İnternet";
@@ -673,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Hristiyan Mezarlığı";
 "type.landuse.religious" = "Kilise Bölgesi";
+"type.landuse.churchyard" = "Kilise Bölgesi";
 "type.landuse.commercial" = "Ticari Alan";
 "type.landuse.construction" = "Yapı";
 "type.landuse.education" = "Eğitim Tesisi";
@@ -702,9 +752,11 @@
 "type.landuse.salt_pond" = "Tuzla";
 "type.landuse.village_green" = "Arazi";
 "type.landuse.vineyard" = "Üzüm Bağı";
+"type.landuse.plant_nursery" = "Fidanlık";
 "type.leisure" = "Dinlenecek Yer";
 "type.leisure.common" = "Kamu Alanı";
 "type.leisure.dog_park" = "Köpek Alanı";
+"type.leisure.escape_game" = "Kaçış Odası";
 "type.leisure.fitness_centre" = "Fitness Merkezi";
 "type.leisure.fitness_station" = "Açık Hava Spor Alanı";
 "type.leisure.dance" = "Dans Salonu";
@@ -717,6 +769,7 @@
 "type.leisure.marina" = "Liman";
 "type.leisure.nature_reserve" = "Doğal Koruma Alanı";
 "type.leisure.outdoor_seating" = "Dış Mekan Oturağı";
+"type.leisure.firepit" = "Ateş Çukuru";
 "type.leisure.park" = "Park";
 "type.leisure.park.no.access" = "Özel Park";
 "type.leisure.park.permissive" = "Park";
@@ -773,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "Su Kuyusu";
 "type.man_made.windmill" = "Yel Değirmeni";
 "type.man_made.works" = "Sanayi İşleri";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Askeri";
 "type.military.bunker" = "Sığınak";
@@ -1052,6 +1109,9 @@
 "type.railway.station.subway.paris" = "Metro";
 "type.railway.station.subway.philadelphia" = "Metro";
 "type.railway.station.subway.pyongyang" = "Metro";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Metro";
 "type.railway.station.subway.rennes" = "Metro";
 "type.railway.station.subway.rio" = "Metro";
 "type.railway.station.subway.roma" = "Metro";
@@ -1283,6 +1343,7 @@
 "type.shop.pet_grooming" = "Evcil Hayvan Bakıcısı";
 "type.shop.photo" = "Fotoğrafçı";
 "type.shop.rental" = "Kiralık Mağaza";
+"type.shop.rental.bicycle" = "Bisiklet Kiralama Mağazası";
 "type.amenity.bicycle_rental.shop" = "Bisiklet Kiralama Mağazası";
 "type.shop.seafood" = "Deniz Ürünleri Mağazası";
 "type.shop.second_hand" = "İkinci El Mağazası";
@@ -1401,6 +1462,7 @@
 "type.tourism.information.map" = "Turist Haritası";
 "type.tourism.information.office" = "Turizm Ofisi";
 "type.tourism.information.visitor_centre" = "Ziyaretçi Merkezi";
+"type.amenity.ranger_station" = "Korucu İstasyonu";
 "type.tourism.motel" = "Motel";
 "type.tourism.museum" = "Müze";
 "type.tourism.picnic_site" = "Piknik Alanı";
@@ -1485,19 +1547,7 @@
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Spor salonu";
 "type.sport.diving" = "Dalış";
-"type.highway.ladder" = "Basamak";
-"type.landuse.plant_nursery" = "Fidanlık";
-"type.amenity.love_hotel" = "Çift Oteli";
-"type.amenity.studio" = "Atölye";
-"type.barrier.guard_rail" = "Korkuluk";
-"type.leisure.firepit" = "Ateş Çukuru";
 "type.man_made.crane" = "Vinç";
-"type.amenity.bicycle_parking.covered" = "Örtülü Bisiklet Parkı";
-"type.amenity.luggage_locker" = "Emanet Dolabı";
-"type.post_office.post_partner" = "Postane İş Ortağı";
-"type.leisure.escape_game" = "Kaçış Odası";
-"type.railway.station.subway.qingdao" = "Metro";
-"type.amenity.ranger_station" = "Korucu İstasyonu";
 "type.barrier.wicket_gate" = "Kuzu Kapı";
 "type.barrier.yes" = "Bariyer";
 "type.building.guardhouse" = "Güvenlik";

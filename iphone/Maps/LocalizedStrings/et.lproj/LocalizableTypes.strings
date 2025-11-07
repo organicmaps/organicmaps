@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "Aadress/plokk";
 "type.addr_interpolation.even" = "Aadress/plokk";
 "type.addr_interpolation.odd" = "Aadress/plokk";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "Väligrill";
 "type.amenity.bench" = "Pink";
 "type.amenity.bicycle_parking" = "Jalgrattaparkla";
+"type.amenity.bicycle_parking.covered" = "Kaetud rattaparkla";
 "type.amenity.bicycle_rental" = "Jalgrattarent";
 "type.amenity.bicycle_repair_station" = "Jalgrattaparandusjaam";
 "type.amenity.biergarten" = "Saksa-tüüpi väliõhu õllebaar";
 "type.amenity.brothel" = "Bordell";
+"type.amenity.love_hotel" = "Armuhotell";
 "type.amenity.bureau_de_change" = "Valuutavahetus";
 "type.amenity.bus_station" = "Bussijaam";
 "type.amenity.cafe" = "Kohvik";
@@ -45,6 +51,7 @@
 "type.amenity.charging_station.motorcar" = "Autode laadimisjaam";
 "type.amenity.childcare" = "Lastehoid";
 "type.amenity.cinema" = "Kino";
+"type.amenity.studio" = "Stuudio";
 "type.leisure.bowling_alley" = "Bowlingusaal";
 "type.amenity.clinic" = "Kliinik";
 "type.amenity.college" = "Kolledž";
@@ -81,6 +88,7 @@
 "type.amenity.kindergarten" = "Lasteaed";
 "type.amenity.library" = "Raamatukogu";
 "type.amenity.loading_dock" = "Laoestakaad";
+"type.amenity.luggage_locker" = "Pagasihoid";
 "type.amenity.marketplace" = "Turg";
 "type.amenity.motorcycle_parking" = "Mootorrataste parkla";
 "type.amenity.nightclub" = "Ööklubi";
@@ -125,9 +133,14 @@
 "type.amenity.police" = "Politsei";
 "type.amenity.post_box" = "Postkast";
 "type.amenity.post_office" = "Postkontor";
+"type.post_office.post_partner" = "Postiteenused partneri juures";
 "type.amenity.prison" = "Vangla";
 "type.amenity.pub" = "Pubi";
 "type.amenity.public_bookcase" = "Avalik raamaturiiul";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Jäätmejaam";
 "type.amenity.recycling" = "Taaskasutuskonteiner";
 "type.amenity.recycling.container" = "Taaskasutuskonteiner";
@@ -201,6 +214,7 @@
 "type.natural.water.wastewater" = "Reovesi";
 "type.barrier.entrance" = "Sissepääs";
 "type.barrier.fence" = "Tara";
+"type.barrier.guard_rail" = "Madal maanteepiire";
 "type.barrier.gate" = "Värav";
 "type.barrier.hedge" = "Hekk";
 "type.barrier.kissing_gate" = "Karjaaia lüüsiga jalgvärav";
@@ -383,6 +397,10 @@
 "type.healthcare.psychotherapist" = "Psühhoteraapia";
 "type.healthcare.sample_collection" = "Proovide kogumispunkt";
 "type.healthcare.speech_therapist" = "Logopeed";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Tee";
 "type.highway.bridleway" = "Ratsutamisrada";
 
@@ -534,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Tunnel";
+"type.highway.ladder" = "Redel";
 "type.highway.tertiary" = "Kohalik maantee";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -586,7 +605,7 @@
 "type.area_highway.living_street" = "Õueala tee";
 "type.area_highway.motorway" = "Kiirtee";
 "type.area_highway.path" = "Rada";
-"type.area_highway.pedestrian" = "Jalakäijate tänav";
+"type.area_highway.pedestrian" = "Jalakäigutee";
 "type.area_highway.primary" = "Põhimaantee";
 "type.area_highway.residential" = "Elamupiikonna tänav";
 "type.area_highway.secondary" = "Tugimaantee";
@@ -598,6 +617,10 @@
 "type.area_highway.unclassified" = "Vähetähtis tee";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "Ajalooline objekt";
 "type.historic.aircraft" = "Ajalooline lennuk";
 "type.historic.anchor" = "Ajalooline ankur";
@@ -644,17 +667,44 @@
 "type.historic.wayside_cross" = "Teeäärne rist";
 "type.historic.wayside_shrine" = "Teeäärne altar";
 "type.historic.wreck" = "Laevavrakk";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Wifi";
@@ -672,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Kristlik surnuaed";
 "type.landuse.religious" = "Kirikuaed";
+"type.landuse.churchyard" = "Kirikuõu";
 "type.landuse.commercial" = "Ärimaa";
 "type.landuse.construction" = "Ehitusala";
 "type.landuse.education" = "Haridusasutuse maaala";
@@ -701,9 +752,11 @@
 "type.landuse.salt_pond" = "Soolatiik";
 "type.landuse.village_green" = "Külaplats";
 "type.landuse.vineyard" = "Viinamarjaistandus";
+"type.landuse.plant_nursery" = "Puukool";
 "type.leisure" = "Jõudeaja tegevused";
 "type.leisure.common" = "Ühismaakasutusala";
 "type.leisure.dog_park" = "Koertepark";
+"type.leisure.escape_game" = "Põgenemistuba";
 "type.leisure.fitness_centre" = "Jõusaal";
 "type.leisure.fitness_station" = "Jõulinnak";
 "type.leisure.dance" = "Tantsusaal";
@@ -716,6 +769,7 @@
 "type.leisure.marina" = "Väikesadam";
 "type.leisure.nature_reserve" = "Looduskaitseala";
 "type.leisure.outdoor_seating" = "Istekohad õues";
+"type.leisure.firepit" = "Tulease";
 "type.leisure.park" = "Park";
 "type.leisure.park.no.access" = "Erapark";
 "type.leisure.park.permissive" = "Park";
@@ -772,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "Pole joogivesi";
 "type.man_made.windmill" = "Tuuleveski";
 "type.man_made.works" = "Tehas";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Militaarobjekt";
 "type.military.bunker" = "Punker";
@@ -1051,6 +1109,9 @@
 "type.railway.station.subway.paris" = "Metroojaam";
 "type.railway.station.subway.philadelphia" = "Metroojaam";
 "type.railway.station.subway.pyongyang" = "Metroojaam";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Metroojaam";
 "type.railway.station.subway.rennes" = "Metroojaam";
 "type.railway.station.subway.rio" = "Metroojaam";
 "type.railway.station.subway.roma" = "Metroojaam";
@@ -1282,6 +1343,7 @@
 "type.shop.pet_grooming" = "Ilusalong lemmikloomadele";
 "type.shop.photo" = "Fotopood";
 "type.shop.rental" = "Renditeenuse büroo";
+"type.shop.rental.bicycle" = "Jalgrattalaenutus";
 "type.amenity.bicycle_rental.shop" = "Jalgrattalaenutus";
 "type.shop.seafood" = "Mereandide pood";
 "type.shop.second_hand" = "Taaskasutuspood";
@@ -1400,6 +1462,7 @@
 "type.tourism.information.map" = "Infotahvel kaardiga";
 "type.tourism.information.office" = "Turismiinfo kontor";
 "type.tourism.information.visitor_centre" = "Külastuskeskus";
+"type.amenity.ranger_station" = "Pargivahi maja";
 "type.tourism.motel" = "Motell";
 "type.tourism.museum" = "Muuseum";
 "type.tourism.picnic_site" = "Piknikukoht";
@@ -1483,21 +1546,8 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Spordisaal";
-"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
-"type.landuse.plant_nursery" = "Puukool";
-"type.amenity.studio" = "Stuudio";
-"type.amenity.love_hotel" = "Armuhotell";
-"type.leisure.firepit" = "Tulease";
-"type.barrier.guard_rail" = "Madal maanteepiire";
-"type.highway.ladder" = "Redel";
 "type.sport.diving" = "Sukeldumine";
 "type.man_made.crane" = "Kraana";
-"type.railway.station.subway.qingdao" = "Metroojaam";
-"type.amenity.bicycle_parking.covered" = "Kaetud rattaparkla";
-"type.post_office.post_partner" = "Postiteenused partneri juures";
-"type.amenity.ranger_station" = "Pargivahi maja";
-"type.amenity.luggage_locker" = "Pagasihoid";
-"type.leisure.escape_game" = "Põgenemistuba";
 "type.barrier.wicket_gate" = "Jalgvärav";
 "type.barrier.yes" = "Barjäär";
 "type.building.guardhouse" = "Valvuriputka";

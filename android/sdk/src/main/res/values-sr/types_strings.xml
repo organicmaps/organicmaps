@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Адреса/Блок</string>
     <string name="type.addr_interpolation.even">Адреса/Блок</string>
@@ -28,6 +29,7 @@
     <string name="type.amenity.bbq">Грил</string>
     <string name="type.amenity.bench">Клупа</string>
     <string name="type.amenity.bicycle_parking">Паркинг за бицикле</string>
+    <string name="type.amenity.bicycle_parking.covered">Pokriveni parking za bicikle</string>
     <string name="type.amenity.bicycle_rental">Рентирање бицикли</string>
     <string name="type.amenity.bicycle_repair_station">Станица за поправку бицикала</string>
     <string name="type.amenity.biergarten">Пивска башта</string>
@@ -36,6 +38,7 @@
     <string name="type.amenity.bus_station">Аутобуска станица</string>
     <string name="type.amenity.cafe">Кафе</string>
     <string name="type.amenity.car_rental">Рентакар</string>
+    <string name="type.amenity.motorcycle_rental">Изнајмљивање мотоцикала</string>
     <string name="type.amenity.car_sharing">Дељење аутомобила</string>
     <string name="type.amenity.car_wash">Ауто-перионица</string>
     <string name="type.amenity.casino">Казино</string>
@@ -128,6 +131,7 @@
     <string name="type.amenity.prison">Затвор</string>
     <string name="type.amenity.pub">Паб</string>
     <string name="type.amenity.public_bookcase">Размена књига</string>
+
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Центар за рециклажу</string>
     <string name="type.amenity.recycling">Контејнер за рециклажу</string>
@@ -359,6 +363,7 @@
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Главни улаз</string>
     <string name="type.entrance.exit">Излаз</string>
+    <string name="type.fee.yes">$</string>
     <string name="type.fee.no">Бесплатно</string>
     <string name="type.healthcare.laboratory">Медицинска лабораторија</string>
     <string name="type.healthcare.physiotherapist">Физиотерапеут</string>
@@ -370,6 +375,7 @@
     <string name="type.healthcare.psychotherapist">Психотерапеут</string>
     <string name="type.healthcare.sample_collection">Прикупљање анализа</string>
     <string name="type.healthcare.speech_therapist">Логопед</string>
+
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Ауто-пут</string>
     <string name="type.highway.bridleway">Коњска стаза</string>
@@ -535,6 +541,9 @@
     <string name="type.area_highway.track">Макадам</string>
     <string name="type.area_highway.trunk">Улица</string>
     <string name="type.area_highway.unclassified">Некласификовани пут</string>
+    <string name="type.highway.world_level">highway-world_level</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Историјски објекат</string>
     <string name="type.historic.aircraft">Историјски авион</string>
@@ -594,6 +603,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Хришћанско гробље</string>
     <string name="type.landuse.religious">Двориште цркве</string>
+    <string name="type.landuse.churchyard">Двориште цркве</string>
     <string name="type.landuse.commercial">Кмерцијална област</string>
     <string name="type.landuse.construction">Градилиште</string>
     <string name="type.landuse.education">Образовна установа</string>
@@ -633,6 +643,7 @@
     <string name="type.leisure.garden.residential">Врт у дворишту</string>
     <string name="type.leisure.golf_course">Терен за голф</string>
     <string name="type.leisure.miniature_golf">Мини-голф</string>
+    <string name="type.leisure.hackerspace">Хакерски простор</string>
     <string name="type.leisure.ice_rink">Клизалиште</string>
     <string name="type.leisure.marina">Марина</string>
     <string name="type.leisure.nature_reserve">Природни резерват</string>
@@ -644,6 +655,7 @@
     <string name="type.leisure.picnic_table">Сто за пикник</string>
     <string name="type.leisure.pitch">Спортски терен</string>
     <string name="type.leisure.playground">Игралиште</string>
+    <string name="type.leisure.recreation_ground">Рекреациони простор</string>
     <string name="type.leisure.sauna">Сауна</string>
     <string name="type.leisure.slipway">Навоз</string>
     <string name="type.leisure.sports_centre">Спортски центар</string>
@@ -658,6 +670,7 @@
     <string name="type.leisure.beach_resort">Ресорт на плажи</string>
     <string name="type.man_made">Грађевинске структуре</string>
     <string name="type.man_made.breakwater">Лукобран</string>
+    <string name="type.man_made.cairn">Громила</string>
     <string name="type.man_made.chimney">Димњак</string>
     <string name="type.man_made.cutline">Шумски пут</string>
     <string name="type.man_made.survey_point">Геодетска тачка</string>
@@ -770,6 +783,8 @@
     <string name="type.place.locality">Локалитет</string>
     <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->
     <string name="type.place.quarter">Насеље</string>
+    <!-- Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) -->
+    <string name="type.place.neighbourhood">Насеље</string>
     <string name="type.place.ocean">Океан</string>
     <string name="type.place.region">Регион</string>
     <string name="type.place.sea">Море</string>
@@ -788,6 +803,7 @@
     <string name="type.power.generator.hydro">Хидроелектрана</string>
     <string name="type.power.line">Далеководна мрежа</string>
     <string name="type.power.line.underground">Подземни далековод</string>
+    <string name="type.power.minor_line">Мања далеководна линија</string>
     <string name="type.power.plant">Електрана</string>
     <string name="type.power.plant.coal">Термоелектрана</string>
     <string name="type.power.plant.gas">Гасно-турбинска електрана</string>
@@ -798,6 +814,10 @@
     <string name="type.power.substation">Подстаница</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Далековод</string>
+    <!-- A single pole supporting minor power lines. -->
+    <string name="type.power.pole">Далековод</string>
+    <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
+    <string name="type.man_made.utility_pole">Услужни стуб</string>
     <string name="type.psurface">Површина</string>
     <string name="type.psurface.paved_bad">Лош асфалт</string>
     <string name="type.psurface.paved_good">Добар асфалт</string>
@@ -813,16 +833,23 @@
     <string name="type.railway.crossing">Пружни прелаз</string>
     <string name="type.railway.disused">Напуштена пруга</string>
     <string name="type.railway.funicular">Успињача</string>
+    <string name="type.railway.funicular.bridge">Мост успињаче</string>
+    <string name="type.railway.funicular.tunnel">Тунел успињаче</string>
     <string name="type.railway.halt">Железничка станица</string>
     <string name="type.railway.level_crossing">Пружни прелаз</string>
     <string name="type.railway.light_rail">Железнички семафор</string>
     <string name="type.railway.light_rail.bridge">Лака железница</string>
+    <string name="type.railway.light_rail.tunnel">Тунел лаке железнице</string>
     <string name="type.railway.monorail">Једношинска пруга</string>
     <string name="type.railway.monorail.bridge">Једношински мост</string>
     <string name="type.railway.monorail.tunnel">Једношински тунел</string>
     <string name="type.railway.narrow_gauge">Пруга уског колосека</string>
+    <string name="type.railway.narrow_gauge.bridge">Железнички мост уског колосека</string>
+    <string name="type.railway.narrow_gauge.tunnel">Тунел уског колосека</string>
     <string name="type.railway.platform">Железнички перон</string>
     <string name="type.railway.preserved">Туристичка пруга</string>
+    <string name="type.railway.preserved.bridge">Очувани железнички мост</string>
+    <string name="type.railway.preserved.tunnel">Очуван железнички тунел</string>
     <string name="type.railway.rail">Пруга</string>
     <string name="type.railway.rail.highspeed">Пруга велике брзине</string>
     <string name="type.railway.rail.tourism">Туристичка железница</string>
@@ -1094,6 +1121,7 @@
     <string name="type.railway.tram_stop">Трамвајска станица</string>
     <string name="type.route">Рута</string>
     <string name="type.route.ferry">Трајект</string>
+    <string name="type.route.shuttle_train">route-shuttle_train</string>
     <string name="type.shop">Продавница</string>
     <string name="type.shop.alcohol">Продавница пића</string>
     <string name="type.shop.bakery">Пекара</string>
@@ -1141,6 +1169,7 @@
     <string name="type.shop.hairdresser">Фризер</string>
     <string name="type.shop.hardware">Гвожђара</string>
     <string name="type.shop.health_food">Здрава храна</string>
+    <string name="type.shop.hearing_aids">Продавница слушног апарата</string>
     <string name="type.shop.herbalist">Продавница биља</string>
     <string name="type.shop.hifi">HiFi аудио</string>
     <string name="type.shop.houseware">Кућне потрепштине</string>
@@ -1167,6 +1196,7 @@
     <string name="type.shop.pet_grooming">Грумер</string>
     <string name="type.shop.photo">Фотограф</string>
     <string name="type.shop.rental">Центар за изнајмљивање</string>
+    <string name="type.shop.rental.bicycle">Изнајмљивање бицикала</string>
     <string name="type.amenity.bicycle_rental.shop">Изнајмљивање бицикала</string>
     <string name="type.shop.seafood">Рибарница</string>
     <string name="type.shop.second_hand">Половна одећа</string>
@@ -1259,6 +1289,8 @@
     <string name="type.tourism.attraction">Туристичка атракција</string>
     <string name="type.attraction.amusement_ride">Забавни парк</string>
     <string name="type.attraction.animal">Животињски кавез</string>
+    <string name="type.attraction.bumper_car">Аутићи</string>
+    <string name="type.attraction.big_wheel">Панорамски точак</string>
     <string name="type.attraction.carousel">Аутићи на струју</string>
     <string name="type.attraction.historic">Историјска атракција</string>
     <string name="type.attraction.maze">Лавиринт</string>
@@ -1357,42 +1389,4 @@
     <string name="type.amenity.dojo">Дојо</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Спортска хала</string>
-    <string name="type.hwtag.private">hwtag-private</string>
-    <string name="type.hwtag.toll">hwtag-toll</string>
-    <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
-    <string name="type.mapswithme">mapswithme</string>
-    <string name="type.place.neighbourhood">Насеље</string>
-    <string name="type.amenity.motorcycle_rental">Изнајмљивање мотоцикала</string>
-    <string name="type.hwtag">hwtag</string>
-    <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
-    <string name="type.hwtag.lit">hwtag-lit</string>
-    <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
-    <string name="type.hwtag.oneway">hwtag-oneway</string>
-    <string name="type.power.pole">Далековод</string>
-    <string name="type.man_made.cairn">Громила</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
-    <string name="type.mapswithme.grid">mapswithme-grid</string>
-    <string name="type.leisure.recreation_ground">Рекреациони простор</string>
-    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
-    <string name="type.hwtag.nofoot">hwtag-nofoot</string>
-    <string name="type.hwtag.yescar">hwtag-yescar</string>
-    <string name="type.hwtag.nocar">hwtag-nocar</string>
-    <string name="type.power.minor_line">Мања далеководна линија</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
-    <string name="type.leisure.hackerspace">Хакерски простор</string>
-    <string name="type.attraction.bumper_car">Аутићи</string>
-    <string name="type.attraction.big_wheel">Панорамски точак</string>
-    <string name="type.railway.funicular.bridge">Мост успињаче</string>
-    <string name="type.route.shuttle_train">route-shuttle_train</string>
-    <string name="type.railway.light_rail.tunnel">Тунел лаке железнице</string>
-    <string name="type.fee.yes">$</string>
-    <string name="type.railway.preserved.tunnel">Очуван железнички тунел</string>
-    <string name="type.man_made.utility_pole">Услужни стуб</string>
-    <string name="type.railway.narrow_gauge.bridge">Железнички мост уског колосека</string>
-    <string name="type.railway.preserved.bridge">Очувани железнички мост</string>
-    <string name="type.shop.hearing_aids">Продавница слушног апарата</string>
-    <string name="type.railway.funicular.tunnel">Тунел успињаче</string>
-    <string name="type.railway.narrow_gauge.tunnel">Тунел уског колосека</string>
-    <string name="type.amenity.bicycle_parking.covered">Pokriveni parking za bicikle</string>
 </resources>

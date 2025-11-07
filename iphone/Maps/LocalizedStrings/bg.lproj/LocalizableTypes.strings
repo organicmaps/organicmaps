@@ -1,3 +1,7 @@
+
+
+/********** Types **********/
+
 "type.addr_interpolation" = "Адрес/Блок";
 "type.addr_interpolation.even" = "Адрес/Блок";
 "type.addr_interpolation.odd" = "Адрес/Блок";
@@ -25,10 +29,12 @@
 "type.amenity.bbq" = "Грил барбекю";
 "type.amenity.bench" = "Пейка";
 "type.amenity.bicycle_parking" = "Паркинг за колела";
+"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
 "type.amenity.bicycle_rental" = "Колела под наем";
 "type.amenity.bicycle_repair_station" = "Сервиз на колела";
 "type.amenity.biergarten" = "Бирария";
 "type.amenity.brothel" = "Бардак";
+"type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "Валутен обмен";
 "type.amenity.bus_station" = "Автобусна гара";
 "type.amenity.cafe" = "Кафене";
@@ -45,8 +51,10 @@
 "type.amenity.charging_station.motorcar" = "Станция за зареждане на автомобили";
 "type.amenity.childcare" = "Ясла";
 "type.amenity.cinema" = "Кино";
+"type.amenity.studio" = "Studio";
 "type.leisure.bowling_alley" = "Боулинг писта";
 "type.amenity.clinic" = "Клиника";
+"type.amenity.college" = "College";
 "type.amenity.community_centre" = "Обществено средище";
 "type.amenity.compressed_air" = "Сгъстен въздух";
 "type.amenity.conference_centre" = "Конферентен център";
@@ -80,6 +88,7 @@
 "type.amenity.kindergarten" = "Детска градина";
 "type.amenity.library" = "Библиотека";
 "type.amenity.loading_dock" = "Товарен док";
+"type.amenity.luggage_locker" = "Luggage Locker";
 "type.amenity.marketplace" = "Пазар";
 "type.amenity.motorcycle_parking" = "Паркинг за мотори";
 "type.amenity.nightclub" = "Nightclub";
@@ -124,9 +133,14 @@
 "type.amenity.police" = "Полиция";
 "type.amenity.post_box" = "Пощенска кутия";
 "type.amenity.post_office" = "Поща";
+"type.post_office.post_partner" = "Post Partner";
 "type.amenity.prison" = "Затвор";
 "type.amenity.pub" = "Кръчма";
 "type.amenity.public_bookcase" = "Книжен обмен";
+
+
+/********** Types: Recycling **********/
+
 "type.amenity.recycling.centre" = "Преработвателно средище";
 "type.amenity.recycling" = "Кофи за преработваем отпадък";
 "type.amenity.recycling.container" = "Кофи за преработваем отпадък";
@@ -178,6 +192,7 @@
 "type.amenity.vending_machine.parking_tickets" = "Паркометър";
 "type.amenity.vending_machine.public_transport_tickets" = "Машина за билети";
 "type.amenity.vending_machine.sweets" = "Разпределител на сладки";
+"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 "type.amenity.parcel_locker" = "Заключващо се шкафче";
 "type.amenity.vehicle_inspection" = "Проверка на автомобила";
 "type.amenity.vending_machine.fuel" = "Горивна помпа";
@@ -199,6 +214,7 @@
 "type.natural.water.wastewater" = "Отпадъчни води";
 "type.barrier.entrance" = "Вход";
 "type.barrier.fence" = "Ограда";
+"type.barrier.guard_rail" = "Guard Rail";
 "type.barrier.gate" = "Врата";
 "type.barrier.hedge" = "Плет";
 "type.barrier.kissing_gate" = "Преграда за добитък";
@@ -381,6 +397,10 @@
 "type.healthcare.psychotherapist" = "Психотерапия";
 "type.healthcare.sample_collection" = "Вземане на проби";
 "type.healthcare.speech_therapist" = "Логопедия";
+
+
+/********** Types: Roads **********/
+
 "type.highway" = "Магистрала";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -434,7 +454,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway.tunnel" = "Тунел";
 "type.highway.motorway_junction" = "Разклонение";
-"type.highway.motorway_link" = "Motorway";
+"type.highway.motorway_link" = "Магистрала";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "Мост";
@@ -458,7 +478,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Тунел";
 "type.highway.pedestrian" = "Пешеходна улица";
-"type.highway.pedestrian.area" = "Pedestrian Street";
+"type.highway.pedestrian.area" = "Пешеходна улица";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Мост";
@@ -472,7 +492,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Тунел";
-"type.highway.primary_link" = "Primary Road";
+"type.highway.primary_link" = "Главен път";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary_link.bridge" = "Мост";
@@ -506,7 +526,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary.tunnel" = "Тунел";
-"type.highway.secondary_link" = "Secondary Road";
+"type.highway.secondary_link" = "Второстепенен пър";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary_link.bridge" = "Мост";
@@ -519,7 +539,7 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Мост";
 "type.highway.service.driveway" = "Отбивка";
-"type.highway.service.parking_aisle" = "Service Road";
+"type.highway.service.parking_aisle" = "Обслужващ път";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Тунел";
@@ -532,6 +552,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Тунел";
+"type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "Третостепенен път";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -539,7 +560,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary.tunnel" = "Тунел";
-"type.highway.tertiary_link" = "Tertiary Road";
+"type.highway.tertiary_link" = "Третостепенен път";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary_link.bridge" = "Мост";
@@ -552,7 +573,7 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.track.bridge" = "Мост";
 "type.highway.track.grade1" = "Пътека";
-"type.highway.track.no.access" = "Track";
+"type.highway.track.no.access" = "Пътека";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Тунел";
@@ -591,11 +612,15 @@
 "type.area_highway.service" = "Обслужващ път";
 "type.area_highway.tertiary" = "Третостепенен път";
 "type.area_highway.steps" = "Стълби";
-"type.area_highway.track" = "Track";
+"type.area_highway.track" = "Пътека";
 "type.area_highway.trunk" = "Автомагистрала";
 "type.area_highway.unclassified" = "Малък път";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
 "type.historic" = "Исторически обект";
 "type.historic.aircraft" = "Исторически самолет";
 "type.historic.anchor" = "Историческа котва";
@@ -642,18 +667,44 @@
 "type.historic.wayside_cross" = "Крайпътен кръст";
 "type.historic.wayside_shrine" = "Крайпътно светилище";
 "type.historic.wreck" = "корабокрушение";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Internet";
@@ -671,6 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Християнско гробище";
 "type.landuse.religious" = "Църковен двор";
+"type.landuse.churchyard" = "Churchyard";
 "type.landuse.commercial" = "Commercial Area";
 "type.landuse.construction" = "Construction Area";
 "type.landuse.education" = "Educational Facility";
@@ -700,14 +752,16 @@
 "type.landuse.salt_pond" = "Salt Pond";
 "type.landuse.village_green" = "Land";
 "type.landuse.vineyard" = "Vineyard";
+"type.landuse.plant_nursery" = "Plant Nursery";
 "type.leisure" = "Leisure";
 "type.leisure.common" = "Public Land";
 "type.leisure.dog_park" = "Dog Park";
+"type.leisure.escape_game" = "Escape Room";
 "type.leisure.fitness_centre" = "Fitness Centre";
 "type.leisure.fitness_station" = "Fitness Station";
 "type.leisure.dance" = "Зала за танци";
 "type.leisure.garden" = "Garden";
-"type.leisure.garden.residential" = "Garden";
+"type.leisure.garden.residential" = "Residential Garden";
 "type.leisure.golf_course" = "Golf Course";
 "type.leisure.miniature_golf" = "Миниголф";
 "type.leisure.hackerspace" = "Hackerspace";
@@ -715,10 +769,11 @@
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Nature Reserve";
 "type.leisure.outdoor_seating" = "Места за сядане на открито";
+"type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Park";
-"type.leisure.park.no.access" = "Park";
+"type.leisure.park.no.access" = "Private Park";
 "type.leisure.park.permissive" = "Park";
-"type.leisure.park.private" = "Park";
+"type.leisure.park.private" = "Private Park";
 "type.leisure.picnic_table" = "Маса за пикник";
 "type.leisure.pitch" = "Sport Pitch";
 "type.leisure.playground" = "Playground";
@@ -771,7 +826,11 @@
 "type.man_made.water_well.drinking_water_no" = "Water Well";
 "type.man_made.windmill" = "Windmill";
 "type.man_made.works" = "Industrial Works";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Military";
 "type.military.bunker" = "Bunker";
@@ -964,11 +1023,11 @@
 "type.railway.rail.service.tunnel" = "Железопътен тунел";
 "type.railway.station" = "Train Station";
 "type.railway.station.funicular" = "Фуникуляр";
-"type.railway.station.light_rail" = "Train Station";
-"type.railway.station.light_rail.berlin" = "Train Station";
-"type.railway.station.light_rail.london" = "Train Station";
-"type.railway.station.light_rail.porto" = "Train Station";
-"type.railway.station.monorail" = "Train Station";
+"type.railway.station.light_rail" = "Light Rail Station";
+"type.railway.station.light_rail.berlin" = "S-Bahn Station";
+"type.railway.station.light_rail.london" = "DLR Station";
+"type.railway.station.light_rail.porto" = "Porto Metro";
+"type.railway.station.monorail" = "Monorail Station";
 "type.railway.station.subway" = "Subway Station";
 "type.railway.station.subway.adana" = "Subway Station";
 "type.railway.station.subway.algiers" = "Subway Station";
@@ -1024,7 +1083,7 @@
 "type.railway.station.subway.lille" = "Subway Station";
 "type.railway.station.subway.lima" = "Subway Station";
 "type.railway.station.subway.lisboa" = "Subway Station";
-"type.railway.station.subway.london" = "Subway Station";
+"type.railway.station.subway.london" = "Underground Station";
 "type.railway.station.subway.lyon" = "Subway Station";
 "type.railway.station.subway.madrid" = "Subway Station";
 "type.railway.station.subway.malaga" = "Subway Station";
@@ -1050,6 +1109,9 @@
 "type.railway.station.subway.paris" = "Subway Station";
 "type.railway.station.subway.philadelphia" = "Subway Station";
 "type.railway.station.subway.pyongyang" = "Subway Station";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Subway Station";
 "type.railway.station.subway.rennes" = "Subway Station";
 "type.railway.station.subway.rio" = "Subway Station";
 "type.railway.station.subway.roma" = "Subway Station";
@@ -1281,6 +1343,7 @@
 "type.shop.pet_grooming" = "Грижа за домашни любимци";
 "type.shop.photo" = "Photo Shop";
 "type.shop.rental" = "Магазин под наем";
+"type.shop.rental.bicycle" = "Магазин за велосипеди под наем";
 "type.amenity.bicycle_rental.shop" = "Магазин за велосипеди под наем";
 "type.shop.seafood" = "Риба";
 "type.shop.second_hand" = "Магазин втора употреба";
@@ -1399,6 +1462,7 @@
 "type.tourism.information.map" = "Карта";
 "type.tourism.information.office" = "Туристически офис";
 "type.tourism.information.visitor_centre" = "Център за посетители";
+"type.amenity.ranger_station" = "Ranger Station";
 "type.tourism.motel" = "Motel";
 "type.tourism.museum" = "Museum";
 "type.tourism.picnic_site" = "Picnic Site";
@@ -1445,17 +1509,17 @@
 "type.aerialway.t.bar" = "T-bar Lift";
 "type.piste_type.downhill" = "Downhill Ski Run";
 "type.piste_type.downhill.area" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
-"type.piste_type.downhill.easy" = "Downhill Ski Run";
-"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
-"type.piste_type.downhill.expert" = "Downhill Ski Run";
-"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
-"type.piste_type.downhill.freeride" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
-"type.piste_type.downhill.novice" = "Downhill Ski Run";
-"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.advanced.area" = "Advanced Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.easy.area" = "Easy Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.expert.area" = "Expert Downhill Ski Run";
+"type.piste_type.downhill.freeride" = "Freeride Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.intermediate.area" = "Intermediate Downhill Ski Run";
+"type.piste_type.downhill.novice" = "Novice Downhill Ski Run";
+"type.piste_type.downhill.novice.area" = "Novice Downhill Ski Run";
 "type.piste_type.nordic" = "Nordic Ski Trail";
 "type.piste_type.sled" = "Sledding Piste";
 "type.piste_type.sled.area" = "Sledding Piste";
@@ -1482,20 +1546,6 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Спортна зала";
-"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
-"type.amenity.love_hotel" = "Love Hotel";
-"type.amenity.studio" = "Studio";
-"type.amenity.college" = "College";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.post_office.post_partner" = "Post Partner";
-"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
-"type.barrier.guard_rail" = "Guard Rail";
-"type.highway.ladder" = "Ladder";
-"type.landuse.plant_nursery" = "Plant Nursery";
-"type.leisure.escape_game" = "Escape Room";
-"type.leisure.firepit" = "Firepit";
-"type.railway.station.subway.qingdao" = "Subway Station";
-"type.amenity.ranger_station" = "Ranger Station";
 "type.sport.diving" = "Diving";
 "type.man_made.crane" = "Crane";
 "type.barrier.wicket_gate" = "Wicket Gate";
