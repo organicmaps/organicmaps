@@ -252,13 +252,13 @@ UNIT_TEST(EditableMapObject_CanUseAsDefaultName)
        ("Check possibility to use user`s language code"));
 
   // Trying to use language codes in reverse priority.
-  StringUtf8Multilang names;
-  names.AddString(GetLangCode("fr"), "second mwm language");
+  osm::FeatureNames names;
+  names.Add("fr", "second mwm language");
   emo.SetName(names);
 
   TEST(EditableMapObject::CanUseAsDefaultName(GetLangCode("fr"), nativeMwmLanguages), ("It is possible to fix typo"));
 
-  names.AddString(GetLangCode("de"), "first mwm language");
+  names.Add("de", "first mwm language");
   emo.SetName(names);
 
   TEST(EditableMapObject::CanUseAsDefaultName(GetLangCode("de"), nativeMwmLanguages), ("It is possible to fix typo"));
@@ -268,17 +268,17 @@ UNIT_TEST(EditableMapObject_CanUseAsDefaultName)
 UNIT_TEST(EditableMapObject_GetNamesDataSource)
 {
   EditableMapObject emo;
-  StringUtf8Multilang names;
+  osm::FeatureNames names;
 
-  names.AddString(GetLangCode("default"), "Default name");
-  names.AddString(GetLangCode("en"), "Eng name");
-  names.AddString(GetLangCode("int_name"), "Int name");
-  names.AddString(GetLangCode("de"), "De name");
-  names.AddString(GetLangCode("ru"), "Ru name");
-  names.AddString(GetLangCode("sv"), "Sv name");
-  names.AddString(GetLangCode("be"), "By name");
-  names.AddString(GetLangCode("ko"), "Ko name");
-  names.AddString(GetLangCode("it"), "It name");
+  names.Add("default", "Default name");
+  names.Add("en", "Eng name");
+  names.Add("int_name", "Int name");
+  names.Add("de", "De name");
+  names.Add("ru", "Ru name");
+  names.Add("sv", "Sv name");
+  names.Add("be", "By name");
+  names.Add("ko", "Ko name");
+  names.Add("it", "It name");
   emo.SetName(names);
 
   vector<int8_t> nativeMwmLanguages = {GetLangCode("de"), GetLangCode("fr")};
@@ -374,65 +374,6 @@ UNIT_TEST(EditableMapObject_SetInternet)
   setInternetAndCheck(bunkerEmo, feature::Internet::Wlan, true);
 }
 
-UNIT_TEST(EditableMapObject_RemoveBlankNames)
-{
-  auto const getCountOfNames = [](StringUtf8Multilang const & names)
-  {
-    size_t counter = 0;
-    names.ForEach([&counter](int8_t, string_view) { ++counter; });
-    return counter;
-  };
-
-  StringUtf8Multilang name;
-
-  name.AddString(GetLangCode("default"), "Default name");
-  name.AddString(GetLangCode("ru"), "Ru name");
-  name.AddString(GetLangCode("en"), "En name");
-  name.AddString(GetLangCode("de"), "De name");
-
-  EditableMapObject emo;
-  emo.SetName(name);
-  emo.RemoveBlankNames();
-
-  TEST_EQUAL(getCountOfNames(emo.GetNameMultilang()), 4, ());
-
-  name.Clear();
-
-  name.AddString(GetLangCode("default"), "");
-  name.AddString(GetLangCode("ru"), "Ru name");
-  name.AddString(GetLangCode("en"), "En name");
-  name.AddString(GetLangCode("de"), "");
-
-  emo.SetName(name);
-  emo.RemoveBlankNames();
-
-  TEST_EQUAL(getCountOfNames(emo.GetNameMultilang()), 2, ());
-
-  name.Clear();
-
-  name.AddString(GetLangCode("default"), "Default name");
-  name.AddString(GetLangCode("ru"), "");
-  name.AddString(GetLangCode("en"), "");
-  name.AddString(GetLangCode("de"), "");
-
-  emo.SetName(name);
-  emo.RemoveBlankNames();
-
-  TEST_EQUAL(getCountOfNames(emo.GetNameMultilang()), 1, ());
-
-  name.Clear();
-
-  name.AddString(GetLangCode("default"), "");
-  name.AddString(GetLangCode("ru"), "");
-  name.AddString(GetLangCode("en"), "");
-  name.AddString(GetLangCode("de"), "De name");
-
-  emo.SetName(name);
-  emo.RemoveBlankNames();
-
-  TEST_EQUAL(getCountOfNames(emo.GetNameMultilang()), 1, ());
-}
-
 UNIT_TEST(EditableMapObject_FromFeatureType)
 {
   classificator::Load();
@@ -442,9 +383,9 @@ UNIT_TEST(EditableMapObject_FromFeatureType)
 
   emo.SetHouseNumber("1");
 
-  StringUtf8Multilang names;
-  names.AddString(GetLangCode("default"), "Default name");
-  names.AddString(GetLangCode("ru"), "Ru name");
+  osm::FeatureNames names;
+  names.Add("default", "Default name");
+  names.Add("ru", "Ru name");
   emo.SetName(names);
 
   emo.SetMetadata(feature::Metadata::FMD_WEBSITE, "https://some.thing.org");

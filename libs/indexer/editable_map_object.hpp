@@ -7,8 +7,6 @@
 #include "indexer/feature_utils.hpp"
 #include "indexer/map_object.hpp"
 
-#include "coding/string_utf8_multilang.hpp"
-
 #include <functional>
 #include <string>
 #include <vector>
@@ -91,7 +89,7 @@ public:
 
   void SetEditableProperties(osm::EditableProperties const & props);
   //  void SetFeatureID(FeatureID const & fid);
-  void SetName(StringUtf8Multilang const & name);
+  void SetName(FeatureNames names) { m_name = std::move(names); }
   void SetName(std::string_view name, int8_t langCode);
   void SetMercator(m2::PointD const & center);
   void SetType(uint32_t featureType);
@@ -122,8 +120,6 @@ public:
 
   /// Special mark that it's a point feature, not area or line.
   void SetPointType();
-  /// Remove blank names
-  void RemoveBlankNames();
 
   static bool ValidateBuildingLevels(std::string const & buildingLevels);
   static bool ValidateHouseNumber(std::string const & houseNumber);
@@ -148,8 +144,8 @@ public:
   static bool CanUseAsDefaultName(int8_t const langCode, std::vector<int8_t> const & nativeMwmLanguages);
 
   /// See comment for NamesDataSource class.
-  static NamesDataSource GetNamesDataSource(StringUtf8Multilang const & source,
-                                            std::vector<int8_t> const & nativeMwmLanguages, int8_t const userLanguage);
+  static NamesDataSource GetNamesDataSource(FeatureNames const & source, std::vector<int8_t> const & nativeMwmLanguages,
+                                            int8_t const userLanguage);
 
   /// Compares editable fields connected with feature ignoring street.
   friend bool AreObjectsEqualIgnoringStreet(EditableMapObject const & lhs, EditableMapObject const & rhs);

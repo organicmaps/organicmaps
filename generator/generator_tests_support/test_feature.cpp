@@ -307,9 +307,7 @@ std::pair<TestPOI, FeatureID> TestPOI::AddWithEditor(osm::Editor & editor, MwmSe
   osm::EditableMapObject emo;
   editor.CreatePoint(classif().GetTypeByPath({"shop", "bakery"}), pt, mwmId, emo);
 
-  StringUtf8Multilang names;
-  names.AddString(StringUtf8Multilang::GetLangIndex("en"), enName);
-  emo.SetName(names);
+  emo.SetName(enName, StringUtf8Multilang::GetLangIndex("en"));
   emo.SetTestId(poi.GetId());
 
   editor.SaveEditedFeature(emo);
