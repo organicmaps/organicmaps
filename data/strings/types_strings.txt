@@ -26709,7 +26709,7 @@ vi = Hạt
 zh-Hans = 州/省
 zh-Hant = 州/省
 
-[type.place.state.USA]
+[type.place.state.major]
 en = State
 af = Deelstaat
 ar = ولاية
