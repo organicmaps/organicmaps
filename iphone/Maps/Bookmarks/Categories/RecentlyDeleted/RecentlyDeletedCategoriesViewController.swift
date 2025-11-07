@@ -10,11 +10,16 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
     static let searchInTheList = L("search_in_the_list")
   }
 
+  private enum Constants {
+    static let fixedSpaceWidth: CGFloat = 8
+  }
+
   private let tableView = UITableView(frame: .zero, style: .plain)
+  private let toolBar = UIToolbar()
 
   private lazy var clearButton = UIBarButtonItem(title: LocalizedStrings.clear, style: .done, target: self, action: #selector(clearButtonDidTap))
-  private lazy var recoverButton = UIBarButtonItem(title: LocalizedStrings.recover, style: .done, target: self, action: #selector(recoverButtonDidTap))
-  private lazy var deleteButton = UIBarButtonItem(title: LocalizedStrings.delete, style: .done, target: self, action: #selector(deleteButtonDidTap))
+  private lazy var recoverButton = UIBarButtonItem(title: LocalizedStrings.recover, style: .plain, target: self, action: #selector(recoverButtonDidTap))
+  private lazy var deleteButton = UIBarButtonItem(title: LocalizedStrings.delete, style: .plain, target: self, action: #selector(deleteButtonDidTap))
   private let searchController = UISearchController(searchResultsController: nil)
   private let viewModel: RecentlyDeletedCategoriesViewModel
 
@@ -49,11 +54,6 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
     setupView()
   }
 
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-    navigationController?.setToolbarHidden(true, animated: true)
-  }
-
   private func setupView() {
     extendedLayoutIncludesOpaqueBars = true
     setupNavigationBar()
@@ -69,9 +69,20 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
   }
 
   private func setupToolBar() {
+    let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+    fixedSpace.width = Constants.fixedSpaceWidth
     let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    toolbarItems = [flexibleSpace, recoverButton, flexibleSpace, deleteButton, flexibleSpace]
-    navigationController?.isToolbarHidden = false
+    let toolbarItemAttributes = [NSAttributedString.Key.font: UIFont.medium16(),
+                                 NSAttributedString.Key.foregroundColor: UIColor.linkBlue()]
+    recoverButton.setTitleTextAttributes(toolbarItemAttributes, for: .normal)
+    deleteButton.setTitleTextAttributes(toolbarItemAttributes, for: .normal)
+    toolBar.items = [
+      fixedSpace,
+      recoverButton,
+      flexibleSpace,
+      deleteButton,
+      fixedSpace
+    ]
   }
 
   private func setupSearchBar() {
@@ -81,7 +92,7 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
     searchController.searchBar.delegate = self
     searchController.searchBar.applyTheme()
     navigationItem.searchController = searchController
-    navigationItem.hidesSearchBarWhenScrolling = true
+    navigationItem.hidesSearchBarWhenScrolling = false
   }
 
   private func setupTableView() {
@@ -89,35 +100,43 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
     tableView.allowsMultipleSelectionDuringEditing = true
     tableView.register(cell: RecentlyDeletedTableViewCell.self)
     tableView.setEditing(true, animated: false)
-    tableView.translatesAutoresizingMaskIntoConstraints = false
     tableView.dataSource = self
     tableView.delegate = self
   }
 
   private func layout() {
     view.addSubview(tableView)
+    view.addSubview(toolBar)
+
+    tableView.translatesAutoresizingMaskIntoConstraints = false
+    toolBar.translatesAutoresizingMaskIntoConstraints = false
+
     NSLayoutConstraint.activate([
       tableView.topAnchor.constraint(equalTo: view.topAnchor),
       tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+      tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+      toolBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+      toolBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      toolBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
     ])
   }
 
   private func updateState(_ state: RecentlyDeletedCategoriesViewModel.State) {
     switch state {
     case .searching:
-      navigationController?.setToolbarHidden(true, animated: false)
+      toolBar.isHidden = true
       searchController.searchBar.isUserInteractionEnabled = true
     case .nothingSelected:
-      navigationController?.setToolbarHidden(false, animated: false)
+      toolBar.isHidden = false
       recoverButton.title = LocalizedStrings.recoverAll
       deleteButton.title = LocalizedStrings.deleteAll
       searchController.searchBar.isUserInteractionEnabled = true
       navigationItem.rightBarButtonItem = nil
       tableView.indexPathsForSelectedRows?.forEach { tableView.deselectRow(at: $0, animated: true)}
     case .someSelected:
-      navigationController?.setToolbarHidden(false, animated: false)
+      toolBar.isHidden = false
       recoverButton.title = LocalizedStrings.recover
       deleteButton.title = LocalizedStrings.delete
       searchController.searchBar.isUserInteractionEnabled = false
@@ -165,6 +184,7 @@ extension RecentlyDeletedCategoriesViewController: UITableViewDelegate {
       return
     }
     viewModel.selectCategory(at: indexPath)
+    searchController.searchBar.resignFirstResponder()
   }
 
   func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -192,11 +212,13 @@ extension RecentlyDeletedCategoriesViewController: UITableViewDelegate {
 // MARK: - UISearchBarDelegate
 extension RecentlyDeletedCategoriesViewController: UISearchBarDelegate {
   func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    toolBar.isHidden = true
     searchBar.setShowsCancelButton(true, animated: true)
     viewModel.startSearching()
   }
 
   func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    toolBar.isHidden = false
     searchBar.setShowsCancelButton(false, animated: true)
   }
 

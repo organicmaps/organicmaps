@@ -65,6 +65,7 @@ final class SearchOnMapHeaderView: UIView {
     searchBar.setStyle(.defaultSearchBar)
     searchBar.placeholder = L("search")
     searchBar.showsCancelButton = false
+    searchBar.searchBarStyle = .minimal
     if #available(iOS 13.0, *) {
       searchBar.searchTextField.clearButtonMode = .always
       searchBar.returnKeyType = .search
@@ -82,10 +83,14 @@ final class SearchOnMapHeaderView: UIView {
   private func layoutView() {
     addSubview(grabberView)
     addSubview(grabberTapHandlerView)
-    addSubview(searchBar)
     addSubview(cancelContainer)
+    addSubview(searchBar)
+
     cancelContainer.addSubview(cancelButton)
-    separator = addSeparator(.bottom)
+    if #available(iOS 26.0, *) {}
+    else {
+      separator = addSeparator(.bottom)
+    }
 
     grabberView.translatesAutoresizingMaskIntoConstraints = false
     grabberTapHandlerView.translatesAutoresizingMaskIntoConstraints = false
@@ -105,7 +110,8 @@ final class SearchOnMapHeaderView: UIView {
       grabberTapHandlerView.trailingAnchor.constraint(equalTo: trailingAnchor),
       grabberTapHandlerView.bottomAnchor.constraint(equalTo: searchBar.topAnchor),
 
-      searchBar.topAnchor.constraint(equalTo: grabberView.bottomAnchor, constant: Constants.searchBarInsets.top),
+      searchBar.topAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.topAnchor, constant: Constants.searchBarInsets.top),
+      searchBar.topAnchor.constraint(equalTo: grabberView.bottomAnchor, constant: Constants.searchBarInsets.top).withPriority(.defaultLow),
       searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.searchBarInsets.left),
       searchBar.trailingAnchor.constraint(equalTo: cancelContainer.leadingAnchor),
       searchBar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.searchBarInsets.bottom),
