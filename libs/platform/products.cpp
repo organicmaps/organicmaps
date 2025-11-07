@@ -1,7 +1,6 @@
 #include "platform/products.hpp"
 #include "platform/platform.hpp"
 
-#include "base/assert.hpp"
 #include "base/logging.hpp"
 
 #include "defines.hpp"
@@ -23,14 +22,6 @@ static bool IsProductsConfigValid(ProductsConfig const & config)
 {
   return config.HasProducts() && std::ranges::all_of(config.products, [](auto const & product)
   { return !product.link.empty() && !product.title.empty(); });
-}
-
-static std::string DebugPrint(ProductsConfig const & config)
-{
-  std::string buffer;
-  auto const error = glz::write_json(config, buffer);
-  CHECK(!error, ("Struct should always be serializable"));
-  return buffer;
 }
 
 std::optional<ProductsConfig> ProductsConfig::LoadFromFile(std::string const & jsonFilePath)
