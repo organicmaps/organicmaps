@@ -72,3 +72,16 @@ tasks.register("lintAllModules") {
         println "✅ Merged lint report written to: $mergedReport"
     }
 }
+
+tasks.register('publishSDK') {
+    group = 'publishing'
+    description = 'Publishes the SDK modules'
+
+    def sdkModules = subprojects.findAll { project ->
+        project.projectDir.toPath().startsWith(rootProject.projectDir.toPath().resolve("sdk"))
+    }
+
+    dependsOn sdkModules.collect { sub ->
+        sub.tasks.matching { it.name == "publish" }
+    }
+}
