@@ -23,6 +23,13 @@ extension UISearchBar {
 
 class UISearchBarRenderer: UIViewRenderer {
   class func render(_ control: UISearchBar, style: Style) {
+    if #available(iOS 26.0, *) {
+      // The search bar customizations breaks the new `LiquidGlass` style that was introduced in iOS 26.0. The native iOS style will be used.
+      if let backgroundColor = style.backgroundColor {
+        control.searchTextField.backgroundColor = backgroundColor
+      }
+      return
+    }
     super.render(control, style: style)
     if #available(iOS 13, *) {
       let searchTextField = control.searchTextField
