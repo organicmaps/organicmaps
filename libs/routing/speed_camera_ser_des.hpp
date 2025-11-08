@@ -1,12 +1,9 @@
 #pragma once
 
 #include "routing/route.hpp"
-#include "routing/routing_session.hpp"
-#include "routing/segment.hpp"
 #include "routing/speed_camera.hpp"
 
 #include "coding/file_writer.hpp"
-#include "coding/files_container.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
@@ -16,11 +13,8 @@
 
 #include "base/assert.hpp"
 
-#include <cstdint>
 #include <limits>
 #include <map>
-#include <string>
-#include <utility>
 #include <vector>
 
 namespace routing
@@ -84,8 +78,8 @@ public:
   template <typename T>
   void Deserialize(T & sink)
   {
-    ReadPrimitiveFromSource(sink, m_version);
-    ReadPrimitiveFromSource(sink, m_amount);
+    m_version = ReadPrimitiveFromSource<uint32_t>(sink);
+    m_amount = ReadPrimitiveFromSource<uint32_t>(sink);
   }
 
   bool IsValid() const { return m_version <= kLatestVersion; }
@@ -105,18 +99,16 @@ template <typename Reader>
 std::pair<SegmentCoord, RouteSegment::SpeedCamera> DeserializeSpeedCamera(ReaderSource<Reader> & src,
                                                                           uint32_t & prevFeatureId)
 {
-  auto featureId = ReadVarUint<uint32_t>(src);
+  uint32_t featureId = ReadVarUint<uint32_t>(src);
   featureId += prevFeatureId;  // delta coding
   prevFeatureId = featureId;
 
-  auto const segmentId = ReadVarUint<uint32_t>(src);
+  uint32_t const segmentId = ReadVarUint<uint32_t>(src);
 
-  uint32_t coefInt = 0;
-  ReadPrimitiveFromSource(src, coefInt);
+  uint32_t const coefInt = ReadPrimitiveFromSource<uint32_t>(src);
   double const coef = Uint32ToDouble(coefInt, 0.0 /* min */, 1.0 /* max */, 32 /* bits */);
 
-  uint8_t speed = 0;
-  ReadPrimitiveFromSource(src, speed);
+  uint8_t speed = ReadPrimitiveFromSource<uint8_t>(src);
   CHECK_LESS(speed, kMaxCameraSpeedKmpH, ());
   if (speed == 0)
     speed = routing::SpeedCameraOnRoute::kNoSpeedInfo;
