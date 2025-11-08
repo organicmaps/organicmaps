@@ -19,5 +19,5 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
-    tools:text="@string/editor_line_social_network"/>
+    tools:text="@string/line"/>
 </LinearLayout>

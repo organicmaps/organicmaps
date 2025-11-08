@@ -91,7 +91,7 @@ extension BottomMenuPresenter {
       return menuCells.count
     }
   }
-  
+
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     switch sections[indexPath.section] {
     case .layers:
@@ -161,7 +161,7 @@ extension BottomMenuPresenter {
           MWMAlertViewController.activeAlert().presentDefaultAlert(
             withTitle: L("contribute_to_osm_update_map"),
             message: String(format: L("contribute_to_osm_update_map_description"), countryName),
-            rightButtonTitle: L("download_button"),
+            rightButtonTitle: L("download"),
             leftButtonTitle: L("cancel")
           ) { [weak self] in
             self?.interactor.startDownloadingMapForCountry(countryId)

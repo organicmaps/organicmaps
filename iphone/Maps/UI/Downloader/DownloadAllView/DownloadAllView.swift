@@ -85,7 +85,7 @@ class DownloadAllView: UIView {
       iconImageView.image = UIImage(named: "ic_download_all")
       readyTitle = L("downloader_download_all_button")
       downloadingTitle = L("downloader_loading_ios")
-      readyButtonTitle = L("download_button")
+      readyButtonTitle = L("download")
     case .update:
       iconImageView.image = UIImage(named: "ic_update_all")
       readyTitle = L("downloader_update_maps")
