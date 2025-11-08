@@ -65,6 +65,8 @@ android {
         abiFilters.add('x86')
       }
       println('Building for ' + abiFilters + ' archs.')
+
+      debugSymbolLevel = 'FULL'
     }
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

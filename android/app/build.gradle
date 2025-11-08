@@ -90,7 +90,7 @@ android {
 
     base.archivesName = appName.replaceAll('\\s', '') + '-' + defaultConfig.versionCode
 
-    ndk.debugSymbolLevel = 'full'
+    ndk.debugSymbolLevel = 'FULL'
   }
 
   flavorDimensions += 'default'
