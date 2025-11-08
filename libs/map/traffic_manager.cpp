@@ -1,12 +1,7 @@
 #include "map/traffic_manager.hpp"
 
-#include "routing/routing_helpers.hpp"
-
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
-
-#include "indexer/ftypes_matcher.hpp"
-#include "indexer/scales.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -93,7 +88,7 @@ void TrafficManager::SetEnabled(bool enabled)
     std::lock_guard<std::mutex> lock(m_mutex);
     if (enabled == IsEnabled())
       return;
-    Clear();
+    ClearImpl();
     ChangeState(enabled ? TrafficState::Enabled : TrafficState::Disabled);
   }
 
@@ -106,6 +101,12 @@ void TrafficManager::SetEnabled(bool enabled)
 }
 
 void TrafficManager::Clear()
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  ClearImpl();
+}
+
+void TrafficManager::ClearImpl()
 {
   m_currentCacheSizeBytes = 0;
   m_mwmCache.clear();

@@ -109,8 +109,10 @@ public:
   void EnableTransitSchemeMode(bool enable);
   void BlockTransitSchemeMode(bool isBlocked);
   void UpdateViewport(ScreenBase const & screen);
+
   void OnMwmDeregistered(platform::LocalCountryFile const & countryFile);
   void Invalidate();
+  void Clear();
 
 private:
   void OnTaskCompleted(threads::IRoutine * task);

@@ -567,6 +567,7 @@ bool Framework::Search(search::EverywhereSearchParams const & params)
 void Framework::AddLocalMaps()
 {
   m_work.RegisterAllMaps();
+  m_work.GetSearchAPI().InitAfterWorldLoaded();
 }
 
 void Framework::RemoveLocalMaps()

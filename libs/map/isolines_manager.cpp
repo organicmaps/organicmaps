@@ -3,8 +3,6 @@
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "platform/mwm_traits.hpp"
-
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
@@ -170,6 +168,11 @@ void IsolinesManager::OnMwmDeregistered(platform::LocalCountryFile const & count
       break;
     }
   }
+}
+
+void IsolinesManager::Clear()
+{
+  m_mwmCache.clear();
 }
 
 std::string DebugPrint(IsolinesManager::IsolinesState state)

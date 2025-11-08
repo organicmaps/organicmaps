@@ -77,7 +77,9 @@ public:
 
   void OnDestroySurface();
   void OnRecoverSurface();
+
   void OnMwmDeregistered(platform::LocalCountryFile const & countryFile);
+  void Clear();
 
   void OnEnterForeground();
   void OnEnterBackground();
@@ -122,7 +124,7 @@ private:
   void RequestTrafficData();
   void RequestTrafficData(MwmSet::MwmId const & mwmId, bool force);
 
-  void Clear();
+  void ClearImpl();
   void ClearCache(MwmSet::MwmId const & mwmId);
   void ShrinkCacheToAllowableSize();
 

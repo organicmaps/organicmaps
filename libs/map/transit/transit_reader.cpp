@@ -419,6 +419,13 @@ void TransitReadManager::Invalidate()
     UpdateViewport(m_currentModelView.first);
 }
 
+void TransitReadManager::Clear()
+{
+  m_cacheSize = 0;
+  m_mwmCache.clear();
+  m_drapeEngine.SafeCall(&df::DrapeEngine::ClearAllTransitSchemeCache);
+}
+
 void TransitReadManager::ShrinkCacheToAllowableSize()
 {
   using namespace std::chrono;
