@@ -708,7 +708,7 @@ void Geocoder::CacheWorldLocalities()
     UNUSED_VALUE(m_localitiesCaches.m_citiesTownsOrVillages.Get(*context));
   }
   else
-    LOG(LERROR, ("Can't find World map file."));
+    LOG(LWARNING, ("Can't find World map file."));  // ERROR crashes Fdroid without the downloaded World map.
 }
 
 void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
