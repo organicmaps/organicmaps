@@ -16,7 +16,6 @@
 #include <vector>
 
 extern jclass g_mapObjectClazz;
-extern jclass g_featureIdClazz;
 extern jclass g_bookmarkClazz;
 extern jclass g_trackClazz;
 extern jclass g_httpClientClazz;

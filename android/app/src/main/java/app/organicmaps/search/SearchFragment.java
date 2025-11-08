@@ -28,7 +28,6 @@ import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.downloader.CountrySuggestFragment;
 import app.organicmaps.sdk.Framework;
-import app.organicmaps.sdk.bookmarks.data.FeatureId;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.location.LocationListener;
@@ -413,8 +412,7 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
       final String subtitle = (result.description != null) ? result.description.localizedFeatureType : "";
       final String title = TextUtils.isEmpty(result.name) ? subtitle : result.name;
 
-      final MapObject point =
-          MapObject.createMapObject(FeatureId.EMPTY, MapObject.SEARCH, title, subtitle, result.lat, result.lon);
+      final MapObject point = MapObject.createMapObject(MapObject.SEARCH, title, subtitle, result.lat, result.lon);
       RoutingController.get().onPoiSelected(point);
     }
     else
