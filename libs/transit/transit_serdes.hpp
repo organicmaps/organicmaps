@@ -15,15 +15,13 @@
 #include "base/assert.hpp"
 #include "base/newtype.hpp"
 
-#include <cmath>
-#include <limits>
+#include "3party/opening_hours/opening_hours.hpp"
+
 #include <map>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
 #include <vector>
-
-#include "3party/opening_hours/opening_hours.hpp"
 
 namespace routing
 {
@@ -35,38 +33,47 @@ double constexpr kMinDoubleAtTransitSection = kInvalidWeight;
 double constexpr kMaxDoubleAtTransitSection = 10000000.0;
 uint8_t constexpr kDoubleBits = 32;
 
-template <typename Sink>
+namespace serdes
+{
+template <typename T>
+concept DefaultIntegral = std::is_same_v<T, bool> || std::is_same_v<T, uint8_t> || std::is_same_v<T, uint16_t>;
+
+template <typename T>
+concept UnsignedInt = std::is_same_v<T, uint32_t> || std::is_same_v<T, uint64_t>;
+
+template <typename T>
+concept SignedInt = std::is_same_v<T, int32_t> || std::is_same_v<T, int64_t>;
+
+template <typename T>
+concept Real = std::is_same_v<T, double> || std::is_same_v<T, float>;
+}  // namespace serdes
+
+template <class Sink>
 class Serializer
 {
 public:
   explicit Serializer(Sink & sink) : m_sink(sink) {}
 
-  template <typename T>
-  std::enable_if_t<(std::is_integral<T>::value || std::is_enum<T>::value) && !std::is_same<T, uint32_t>::value &&
-                   !std::is_same<T, uint64_t>::value && !std::is_same<T, int32_t>::value &&
-                   !std::is_same<T, int64_t>::value>
-  operator()(T const & t, char const * /* name */ = nullptr)
+  template <serdes::DefaultIntegral T>
+  void operator()(T t, char const * /* name */ = nullptr) const
   {
     WriteToSink(m_sink, t);
   }
 
-  template <typename T>
-  std::enable_if_t<std::is_same<T, uint32_t>::value || std::is_same<T, uint64_t>::value> operator()(
-      T t, char const * /* name */ = nullptr) const
+  template <serdes::UnsignedInt T>
+  void operator()(T t, char const * /* name */ = nullptr) const
   {
     WriteVarUint(m_sink, t);
   }
 
-  template <typename T>
-  std::enable_if_t<std::is_same<T, int32_t>::value || std::is_same<T, int64_t>::value> operator()(
-      T t, char const * name = nullptr) const
+  template <serdes::SignedInt T>
+  void operator()(T t, char const * name = nullptr) const
   {
     WriteVarInt(m_sink, t);
   }
 
-  template <typename T>
-  std::enable_if_t<std::is_same<T, double>::value || std::is_same<T, float>::value> operator()(
-      T d, char const * name = nullptr)
+  template <serdes::Real T>
+  void operator()(T d, char const * name = nullptr)
   {
     CHECK_GREATER_OR_EQUAL(d, kMinDoubleAtTransitSection, ());
     CHECK_LESS_OR_EQUAL(d, kMaxDoubleAtTransitSection, ());
@@ -192,38 +199,32 @@ private:
   Stop::WrappedStopId m_lastWrappedStopId = {};
 };
 
-template <typename Source>
+template <class Source>
 class Deserializer
 {
 public:
   explicit Deserializer(Source & source) : m_source(source) {}
 
-  template <typename T>
-  std::enable_if_t<(std::is_integral<T>::value || std::is_enum<T>::value) && !std::is_same<T, uint32_t>::value &&
-                   !std::is_same<T, uint64_t>::value && !std::is_same<T, int32_t>::value &&
-                   !std::is_same<T, int64_t>::value>
-  operator()(T & t, char const * name = nullptr)
+  template <serdes::DefaultIntegral T>
+  void operator()(T & t, char const * name = nullptr)
   {
-    ReadPrimitiveFromSource(m_source, t);
+    t = ReadPrimitiveFromSource<T>(m_source);
   }
 
-  template <typename T>
-  std::enable_if_t<std::is_same<T, uint32_t>::value || std::is_same<T, uint64_t>::value> operator()(
-      T & t, char const * name = nullptr)
+  template <serdes::UnsignedInt T>
+  void operator()(T & t, char const * name = nullptr)
   {
     t = ReadVarUint<T>(m_source);
   }
 
-  template <typename T>
-  std::enable_if_t<std::is_same<T, int32_t>::value || std::is_same<T, int64_t>::value> operator()(
-      T & t, char const * name = nullptr)
+  template <serdes::SignedInt T>
+  void operator()(T & t, char const * name = nullptr)
   {
     t = ReadVarInt<T>(m_source);
   }
 
-  template <typename T>
-  std::enable_if_t<std::is_same<T, double>::value || std::is_same<T, float>::value> operator()(
-      T & d, char const * name = nullptr)
+  template <serdes::Real T>
+  void operator()(T & d, char const * name = nullptr)
   {
     uint32_t ui;
     (*this)(ui, name);
@@ -391,15 +392,14 @@ private:
   Stop::WrappedStopId m_lastWrappedStopId = {};
 };
 
-template <typename Sink>
+template <class Sink>
 class FixedSizeSerializer
 {
 public:
   explicit FixedSizeSerializer(Sink & sink) : m_sink(sink) {}
 
-  template <typename T>
-  std::enable_if_t<std::is_integral<T>::value || std::is_enum<T>::value, void> operator()(
-      T const & t, char const * /* name */ = nullptr)
+  template <std::integral T>
+  void operator()(T t, char const * /* name */ = nullptr)
   {
     WriteToSink(m_sink, t);
   }
@@ -415,17 +415,16 @@ private:
   Sink & m_sink;
 };
 
-template <typename Source>
+template <class Source>
 class FixedSizeDeserializer
 {
 public:
   explicit FixedSizeDeserializer(Source & source) : m_source(source) {}
 
-  template <typename T>
-  std::enable_if_t<std::is_integral<T>::value || std::is_enum<T>::value, void> operator()(T & t,
-                                                                                          char const * name = nullptr)
+  template <std::integral T>
+  void operator()(T & t, char const * name = nullptr)
   {
-    ReadPrimitiveFromSource(m_source, t);
+    t = ReadPrimitiveFromSource<T>(m_source);
   }
 
   void operator()(TransitHeader & header) { header.Visit(*this); }
