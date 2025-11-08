@@ -341,6 +341,23 @@ android.applicationVariants.all { variant ->
   variant.resValue 'string', 'app_id', variant.applicationId
 }
 
+android.applicationVariants.all { variant ->
+  def variantCap = variant.name.capitalize()
+  def installTaskName = "install${variantCap}"
+  def runTaskName = "run${variantCap}"
+
+  tasks.register(runTaskName, Exec) {
+    group = "run"
+    description = "Installs and runs the ${variant.name} build on a device."
+    dependsOn installTaskName
+
+    commandLine android.getAdbExe(), 'shell', 'am', 'start',
+        '-n', "$variant.applicationId/app.organicmaps.DownloadResourcesActivity",
+        '-a', 'android.intent.action.MAIN',
+        '-c', 'android.intent.category.LAUNCHER'
+  }
+}
+
 tasks.register("prepareGoogleReleaseListing") {
   group = "publishing"
 
@@ -385,8 +402,8 @@ huaweiPublish {
       deployType = 'draft' // confirm manually
       def releaseDescriptions = []
       def localeOverride = [
-          'am' : 'am-ET',
-          'gu': 'gu_IN',
+          'am'   : 'am-ET',
+          'gu'   : 'gu_IN',
           'iw-IL': 'he_IL',
           'kn-IN': 'kn_IN',
           'ml-IN': 'ml_IN',
