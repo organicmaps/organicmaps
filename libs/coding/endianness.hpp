@@ -2,7 +2,6 @@
 
 #include "base/base.hpp"
 
-#include <cstddef>
 #include <type_traits>
 
 // #define ENDIAN_IS_BIG

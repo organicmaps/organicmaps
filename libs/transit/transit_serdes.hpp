@@ -15,15 +15,13 @@
 #include "base/assert.hpp"
 #include "base/newtype.hpp"
 
-#include <cmath>
-#include <limits>
+#include "3party/opening_hours/opening_hours.hpp"
+
 #include <map>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
 #include <vector>
-
-#include "3party/opening_hours/opening_hours.hpp"
 
 namespace routing
 {
@@ -41,11 +39,10 @@ class Serializer
 public:
   explicit Serializer(Sink & sink) : m_sink(sink) {}
 
+  /// @todo Pefer fixed-size serialization type for bool.
   template <typename T>
-  std::enable_if_t<(std::is_integral<T>::value || std::is_enum<T>::value) && !std::is_same<T, uint32_t>::value &&
-                   !std::is_same<T, uint64_t>::value && !std::is_same<T, int32_t>::value &&
-                   !std::is_same<T, int64_t>::value>
-  operator()(T const & t, char const * /* name */ = nullptr)
+    requires(std::is_same<T, bool>::value || std::is_same<T, uint8_t>::value || std::is_same<T, uint16_t>::value)
+  void operator()(T t, char const * /* name */ = nullptr) const
   {
     WriteToSink(m_sink, t);
   }
@@ -198,13 +195,12 @@ class Deserializer
 public:
   explicit Deserializer(Source & source) : m_source(source) {}
 
+  /// @todo Pefer fixed-size serialization type for bool.
   template <typename T>
-  std::enable_if_t<(std::is_integral<T>::value || std::is_enum<T>::value) && !std::is_same<T, uint32_t>::value &&
-                   !std::is_same<T, uint64_t>::value && !std::is_same<T, int32_t>::value &&
-                   !std::is_same<T, int64_t>::value>
-  operator()(T & t, char const * name = nullptr)
+    requires(std::is_same<T, bool>::value || std::is_same<T, uint8_t>::value || std::is_same<T, uint16_t>::value)
+  void operator()(T & t, char const * name = nullptr)
   {
-    ReadPrimitiveFromSource(m_source, t);
+    t = ReadPrimitiveFromSource<T>(m_source);
   }
 
   template <typename T>
@@ -398,8 +394,8 @@ public:
   explicit FixedSizeSerializer(Sink & sink) : m_sink(sink) {}
 
   template <typename T>
-  std::enable_if_t<std::is_integral<T>::value || std::is_enum<T>::value, void> operator()(
-      T const & t, char const * /* name */ = nullptr)
+    requires std::is_integral<T>::value
+  void operator()(T t, char const * /* name */ = nullptr)
   {
     WriteToSink(m_sink, t);
   }
@@ -422,10 +418,10 @@ public:
   explicit FixedSizeDeserializer(Source & source) : m_source(source) {}
 
   template <typename T>
-  std::enable_if_t<std::is_integral<T>::value || std::is_enum<T>::value, void> operator()(T & t,
-                                                                                          char const * name = nullptr)
+    requires std::is_integral<T>::value
+  void operator()(T & t, char const * name = nullptr)
   {
-    ReadPrimitiveFromSource(m_source, t);
+    t = ReadPrimitiveFromSource<T>(m_source);
   }
 
   void operator()(TransitHeader & header) { header.Visit(*this); }
