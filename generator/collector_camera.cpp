@@ -1,7 +1,7 @@
 #include "generator/collector_camera.hpp"
 
 #include "generator/feature_builder.hpp"
-#include "generator/intermediate_data.hpp"
+#include "generator/intermediate_data.hpp"  // needed for GetWay
 #include "generator/maxspeeds_parser.hpp"
 #include "generator/osm_element.hpp"
 
@@ -12,12 +12,10 @@
 #include "indexer/ftypes_matcher.hpp"
 
 #include "platform/measurement_utils.hpp"
-#include "platform/platform.hpp"
 
 #include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
 #include "coding/write_to_sink.hpp"
-#include "coding/writer.hpp"
 
 #include "geometry/latlon.hpp"
 
@@ -65,12 +63,12 @@ CameraCollector::CameraInfo CameraCollector::CameraInfo::Read(ReaderSource<FileR
   /// Should be equal with CamerasInfoCollector::ParseIntermediateInfo.
 
   CameraInfo camera;
-  auto const latInt = ReadPrimitiveFromSource<uint32_t>(src);
-  auto const lonInt = ReadPrimitiveFromSource<uint32_t>(src);
+  uint32_t const latInt = ReadPrimitiveFromSource<uint32_t>(src);
+  uint32_t const lonInt = ReadPrimitiveFromSource<uint32_t>(src);
   camera.m_lat = Uint32ToDouble(latInt, ms::LatLon::kMinLat, ms::LatLon::kMaxLat, kPointCoordBits);
   camera.m_lon = Uint32ToDouble(lonInt, ms::LatLon::kMinLon, ms::LatLon::kMaxLon, kPointCoordBits);
-  ReadPrimitiveFromSource(src, camera.m_speedKmPH);
-  auto relatedWaysNumber = ReadPrimitiveFromSource<uint32_t>(src);
+  camera.m_speedKmPH = ReadPrimitiveFromSource<uint32_t>(src);
+  uint32_t relatedWaysNumber = ReadPrimitiveFromSource<uint32_t>(src);
   camera.m_ways.reserve(relatedWaysNumber);
   while (relatedWaysNumber--)
     camera.m_ways.push_back(ReadPrimitiveFromSource<uint64_t>(src));
