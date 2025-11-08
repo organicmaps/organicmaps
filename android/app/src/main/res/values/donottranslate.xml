@@ -63,4 +63,17 @@
   <string name="car_notification_channel_name" translatable="false">Car</string>
 
   <string name="google_play_tts_link" translatable="false">https://play.google.com/store/apps/details?id=com.google.android.tts</string>
+
+  <!-- Social networks -->
+  <string name="facebook" translatable="false">Facebook</string>
+  <string name="github" translatable="false">GitHub</string>
+  <string name="instagram" translatable="false">Instagram</string>
+  <string name="line" translatable="false">LINE</string>
+  <string name="mastodon" translatable="false">Mastodon</string>
+  <string name="matrix" translatable="false">Matrix</string>
+  <string name="openstreetmap" translatable="false">OpenStreetMap</string>
+  <string name="telegram" translatable="false">Telegram</string>
+  <string name="twitter" translatable="false">X (Twitter)</string>
+  <string name="vk" translatable="false">VK</string>
+
 </resources>

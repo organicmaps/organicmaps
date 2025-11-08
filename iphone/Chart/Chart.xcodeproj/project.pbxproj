@@ -72,6 +72,7 @@
 		ED46DE1D2D09B8A6007CACD6 /* ChartPresentationLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartPresentationLine.swift; sourceTree = "<group>"; };
 		FA4C8E53263B1FA80048FA99 /* common-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../../xcode/common-release.xcconfig"; sourceTree = "<group>"; };
 		FA4C8E54263B1FA80048FA99 /* common-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../../xcode/common-debug.xcconfig"; sourceTree = "<group>"; };
+		FA741DBC2EBFEC14007CA25E /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +233,7 @@
 				vi,
 				sk,
 				uk,
+				sl,
 			);
 			mainGroup = 47375D8C2420D4DB00FFCC49;
 			productRefGroup = 47375D972420D4DB00FFCC49 /* Products */;
@@ -311,6 +313,7 @@
 				47D48BF12430333900FEFB1F /* vi */,
 				47D48BF22430334B00FEFB1F /* sk */,
 				47D48BF32430335F00FEFB1F /* uk */,
+				FA741DBC2EBFEC14007CA25E /* sl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

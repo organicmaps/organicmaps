@@ -457,9 +457,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
                   R.string.twitter, InputType.TYPE_TEXT_VARIATION_URI);
     View vkContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_VK, R.id.block_vk, R.drawable.ic_vk_white,
                                     R.string.vk, InputType.TYPE_TEXT_VARIATION_URI);
-    View lineContactBlock =
-        initBlock(view, Metadata.MetadataType.FMD_CONTACT_LINE, R.id.block_line, R.drawable.ic_line_white,
-                  R.string.editor_line_social_network, InputType.TYPE_TEXT_VARIATION_URI);
+    View lineContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_LINE, R.id.block_line,
+                                      R.drawable.ic_line_white, R.string.line, InputType.TYPE_TEXT_VARIATION_URI);
     View operatorBlock = initBlock(view, Metadata.MetadataType.FMD_OPERATOR, R.id.block_operator,
                                    R.drawable.ic_operator, R.string.editor_operator, 0);
 
