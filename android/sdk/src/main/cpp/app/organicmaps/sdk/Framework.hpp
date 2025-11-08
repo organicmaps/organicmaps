@@ -29,7 +29,6 @@
 #include <mutex>
 
 class DataSource;
-struct FeatureID;
 
 namespace search
 {
@@ -204,8 +203,6 @@ public:
   // PowerManager::Subscriber overrides:
   void OnPowerFacilityChanged(power_management::Facility const facility, bool enabled) override;
   void OnPowerSchemeChanged(power_management::Scheme const actualScheme) override;
-
-  FeatureID BuildFeatureId(JNIEnv * env, jobject featureId);
 };
 
 namespace framework

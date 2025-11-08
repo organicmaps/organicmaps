@@ -17,7 +17,6 @@ import app.organicmaps.sdk.api.ParsedSearchRequest;
 import app.organicmaps.sdk.api.RequestType;
 import app.organicmaps.sdk.api.RoutePoint;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
-import app.organicmaps.sdk.bookmarks.data.FeatureId;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.search.SearchEngine;
@@ -92,8 +91,8 @@ public class Factory
         final RoutePoint from = data.mPoints[0];
         final RoutePoint to = data.mPoints[1];
         RoutingController.get().prepare(
-            MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT, from.mName, "", from.mLat, from.mLon),
-            MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT, to.mName, "", to.mLat, to.mLon));
+            MapObject.createMapObject(MapObject.API_POINT, from.mName, "", from.mLat, from.mLon),
+            MapObject.createMapObject(MapObject.API_POINT, to.mName, "", to.mLat, to.mLon));
         return true;
       case RequestType.SEARCH:
       {

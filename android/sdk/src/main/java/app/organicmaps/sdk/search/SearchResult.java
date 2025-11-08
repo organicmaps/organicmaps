@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-import app.organicmaps.sdk.bookmarks.data.FeatureId;
 import app.organicmaps.sdk.util.Distance;
 
 /**
@@ -36,7 +35,6 @@ public class SearchResult
   @SuppressWarnings("unused")
   public static class Description
   {
-    public final FeatureId featureId;
     public final String localizedFeatureType;
     public final String region;
     public final Distance distance;
@@ -48,10 +46,9 @@ public class SearchResult
     public final int minutesUntilClosed;
     public final boolean hasPopularityHigherPriority;
 
-    public Description(FeatureId featureId, String featureType, String region, Distance distance, String description,
-                       int openNow, int minutesUntilOpen, int minutesUntilClosed, boolean hasPopularityHigherPriority)
+    public Description(String featureType, String region, Distance distance, String description, int openNow,
+                       int minutesUntilOpen, int minutesUntilClosed, boolean hasPopularityHigherPriority)
     {
-      this.featureId = featureId;
       this.localizedFeatureType = featureType;
       this.region = region;
       this.distance = distance;

@@ -18,7 +18,6 @@ import androidx.core.location.GnssStatusCompat;
 import androidx.core.location.LocationManagerCompat;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Map;
-import app.organicmaps.sdk.bookmarks.data.FeatureId;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RoutingController;
@@ -127,8 +126,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return null;
 
     if (mMyPosition == null)
-      mMyPosition = MapObject.createMapObject(FeatureId.EMPTY, MapObject.MY_POSITION, "", "",
-                                              mSavedLocation.getLatitude(), mSavedLocation.getLongitude());
+      mMyPosition = MapObject.createMapObject(MapObject.MY_POSITION, "", "", mSavedLocation.getLatitude(),
+                                              mSavedLocation.getLongitude());
 
     return mMyPosition;
   }

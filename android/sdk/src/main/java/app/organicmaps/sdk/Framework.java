@@ -9,7 +9,6 @@ import app.organicmaps.sdk.api.ParsedRoutingData;
 import app.organicmaps.sdk.api.ParsedSearchRequest;
 import app.organicmaps.sdk.api.RequestType;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
-import app.organicmaps.sdk.bookmarks.data.FeatureId;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.products.ProductsConfig;
 import app.organicmaps.sdk.routing.JunctionInfo;
@@ -330,9 +329,6 @@ public class Framework
   public static native void nativeLoadRoutePoints();
   public static native void nativeSaveRoutePoints();
   public static native void nativeDeleteSavedRoutePoints();
-
-  public static native void nativeShowFeature(@NonNull FeatureId featureId);
-
   public static native void nativeMakeCrash();
 
   public static native void nativeSetPowerManagerFacility(int facilityType, boolean state);

@@ -1,7 +1,6 @@
 #include "MapObject.hpp"
 
 #include "app/organicmaps/sdk/bookmarks/data/Bookmark.hpp"
-#include "app/organicmaps/sdk/bookmarks/data/FeatureId.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/Metadata.hpp"
 #include "app/organicmaps/sdk/bookmarks/data/Track.hpp"
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
@@ -32,7 +31,6 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObje
   // clang-format off
   static jmethodID const ctorId = jni::GetConstructorID(env, g_mapObjectClazz,
     "("
-    "Lapp/organicmaps/sdk/bookmarks/data/FeatureId;"  // featureId
     "I"                                               // mapObjectType
     "Ljava/lang/String;"                              // title
     "Ljava/lang/String;"                              // secondaryTitle
@@ -52,7 +50,6 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObje
 
   // clang-format off
   jobject mapObject = env->NewObject(g_mapObjectClazz, ctorId,
-    CreateFeatureId(env, info.GetID()),
     mapObjectType,
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetTitle()),
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSecondaryTitle()),

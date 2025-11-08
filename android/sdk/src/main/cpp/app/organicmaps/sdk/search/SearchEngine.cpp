@@ -1,5 +1,4 @@
 #include "app/organicmaps/sdk/Framework.hpp"
-#include "app/organicmaps/sdk/bookmarks/data/FeatureId.hpp"
 #include "app/organicmaps/sdk/platform/AndroidPlatform.hpp"
 #include "app/organicmaps/sdk/util/Distance.hpp"
 
@@ -31,8 +30,6 @@ using search::Results;
 
 namespace
 {
-FeatureID const kEmptyFeatureId;
-
 // This cache is needed only for showing a specific result on the map after click on the list item.
 // Don't use it with another intentions!
 Results g_results;
@@ -113,7 +110,6 @@ jobject ToJavaResult(Result const & result, search::ProductInfo const & productI
 
   bool const popularityHasHigherPriority = PopularityHasHigherPriority(hasPosition, distanceInMeters);
   bool const isFeature = result.GetResultType() == Result::Type::Feature;
-  jni::TScopedLocalRef featureId(env, CreateFeatureId(env, isFeature ? result.GetFeatureID() : kEmptyFeatureId));
 
   jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, result.GetLocalizedFeatureType()));
   jni::TScopedLocalRef address(env, jni::ToJavaString(env, result.GetAddress()));
@@ -121,10 +117,9 @@ jobject ToJavaResult(Result const & result, search::ProductInfo const & productI
   jni::TScopedLocalRef description(env, jni::ToJavaString(env, result.GetFeatureDescription()));
 
   jni::TScopedLocalRef desc(
-      env,
-      env->NewObject(g_descriptionClass, g_descriptionConstructor, featureId.get(), featureType.get(), address.get(),
-                     dist.get(), description.get(), static_cast<jint>(result.IsOpenNow()), result.GetMinutesUntilOpen(),
-                     result.GetMinutesUntilClosed(), static_cast<jboolean>(popularityHasHigherPriority)));
+      env, env->NewObject(g_descriptionClass, g_descriptionConstructor, featureType.get(), address.get(), dist.get(),
+                          description.get(), static_cast<jint>(result.IsOpenNow()), result.GetMinutesUntilOpen(),
+                          result.GetMinutesUntilClosed(), static_cast<jboolean>(popularityHasHigherPriority)));
 
   jni::TScopedLocalRef name(env, jni::ToJavaString(env, result.GetString()));
   jni::TScopedLocalRef popularity(env, env->NewObject(g_popularityClass, g_popularityConstructor,
@@ -243,14 +238,13 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeInit(JNIEnv * 
   g_suggestConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Ljava/lang/String;DD[I[I)V");
   g_descriptionClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/search/SearchResult$Description");
   /*
-      Description(FeatureId featureId, String featureType, String region, Distance distance,
+      Description(String featureType, String region, Distance distance,
                   String description, int openNow, int minutesUntilOpen, int minutesUntilClosed,
                   boolean hasPopularityHigherPriority)
   */
   g_descriptionConstructor =
       jni::GetConstructorID(env, g_descriptionClass,
-                            "(Lapp/organicmaps/sdk/bookmarks/data/FeatureId;"
-                            "Ljava/lang/String;Ljava/lang/String;Lapp/organicmaps/sdk/util/Distance;"
+                            "(Ljava/lang/String;Ljava/lang/String;Lapp/organicmaps/sdk/util/Distance;"
                             "Ljava/lang/String;IIIZ)V");
 
   g_popularityClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/search/Popularity");

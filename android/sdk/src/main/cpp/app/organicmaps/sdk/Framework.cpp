@@ -11,7 +11,6 @@
 #include "app/organicmaps/sdk/routing/RoutingInfo.hpp"
 #include "app/organicmaps/sdk/routing/TransitRouteInfo.hpp"
 #include "app/organicmaps/sdk/util/Distance.hpp"
-#include "app/organicmaps/sdk/util/FeatureIdBuilder.hpp"
 #include "app/organicmaps/sdk/util/NetworkPolicy.hpp"
 #include "app/organicmaps/sdk/vulkan/android_vulkan_context_factory.hpp"
 
@@ -763,13 +762,6 @@ void Framework::OnPowerSchemeChanged(power_management::Scheme const actualScheme
 {
   // Dummy
   // TODO: provide information for UI Properties.
-}
-
-FeatureID Framework::BuildFeatureId(JNIEnv * env, jobject featureId)
-{
-  static FeatureIdBuilder const builder(env);
-
-  return builder.Build(env, featureId);
 }
 }  // namespace android
 
@@ -1696,14 +1688,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSaveRoutePoints(JNIEnv *
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDeleteSavedRoutePoints(JNIEnv *, jclass)
 {
   frm()->GetRoutingManager().DeleteSavedRoutePoints();
-}
-
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeShowFeature(JNIEnv * env, jclass, jobject featureId)
-{
-  auto const f = g_framework->BuildFeatureId(env, featureId);
-
-  if (f.IsValid())
-    frm()->ShowFeature(f);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeMakeCrash(JNIEnv * env, jclass type)

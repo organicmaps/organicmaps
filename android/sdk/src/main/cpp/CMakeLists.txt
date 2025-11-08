@@ -18,7 +18,6 @@ set(SRC
   app/organicmaps/sdk/platform/GuiThread.hpp
   app/organicmaps/sdk/platform/AndroidPlatform.hpp
   app/organicmaps/sdk/util/Distance.hpp
-  app/organicmaps/sdk/util/FeatureIdBuilder.hpp
   app/organicmaps/sdk/vulkan/android_vulkan_context_factory.hpp
 
   # JNI sources
@@ -60,8 +59,6 @@ set(SRC
   app/organicmaps/sdk/bookmarks/data/BookmarkManager.cpp
   app/organicmaps/sdk/bookmarks/data/ElevationInfo.cpp
   app/organicmaps/sdk/bookmarks/data/ElevationInfo.hpp
-  app/organicmaps/sdk/bookmarks/data/FeatureId.cpp
-  app/organicmaps/sdk/bookmarks/data/FeatureId.hpp
   app/organicmaps/sdk/bookmarks/data/Icon.cpp
   app/organicmaps/sdk/bookmarks/data/Icon.hpp
   app/organicmaps/sdk/bookmarks/data/MapObject.cpp

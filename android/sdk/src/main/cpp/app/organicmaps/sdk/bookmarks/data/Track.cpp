@@ -12,7 +12,6 @@ jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLoc
   // clang-format off
   static jmethodID const ctorId = jni::GetConstructorID(env, g_trackClazz,
     "("
-    "Lapp/organicmaps/sdk/bookmarks/data/FeatureId;"  // featureId
     "J"                                               // categoryId
     "J"                                               // trackId
     "Ljava/lang/String;"                              // title
@@ -37,7 +36,6 @@ jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLoc
   ms::LatLon const ll = info.GetLatLon();
   // clang-format off
   jobject mapObject = env->NewObject(g_trackClazz, ctorId,
-    CreateFeatureId(env, info.GetID()),
     static_cast<jlong>(track->GetGroupId()),
     static_cast<jlong>(trackId),
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetTitle()),
