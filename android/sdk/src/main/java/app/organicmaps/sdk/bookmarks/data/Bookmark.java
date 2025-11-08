@@ -26,14 +26,13 @@ public class Bookmark extends MapObject
   // Used by JNI.
   @Keep
   @SuppressWarnings("unused")
-  private Bookmark(@NonNull FeatureId featureId, @IntRange(from = 0) long categoryId,
-                   @IntRange(from = 0) long bookmarkId, String title, @Nullable String secondaryTitle,
-                   @Nullable String subtitle, @Nullable String address, @Nullable RoutePointInfo routePointInfo,
-                   @OpeningMode int openingMode, @NonNull String wikiArticle, @NonNull String osmDescription,
-                   @Nullable String[] rawTypes)
+  private Bookmark(@IntRange(from = 0) long categoryId, @IntRange(from = 0) long bookmarkId, String title,
+                   @Nullable String secondaryTitle, @Nullable String subtitle, @Nullable String address,
+                   @Nullable RoutePointInfo routePointInfo, @OpeningMode int openingMode, @NonNull String wikiArticle,
+                   @NonNull String osmDescription, @Nullable String[] rawTypes)
   {
-    super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "", routePointInfo, openingMode,
-          wikiArticle, osmDescription, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
+    super(BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "", routePointInfo, openingMode, wikiArticle,
+          osmDescription, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;

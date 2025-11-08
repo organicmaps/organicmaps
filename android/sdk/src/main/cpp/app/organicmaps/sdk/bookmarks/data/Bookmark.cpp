@@ -9,7 +9,6 @@ jobject CreateBookmark(JNIEnv * env, place_page::Info const & info, jni::TScoped
   // clang-format off
   static jmethodID const ctorId = jni::GetConstructorID(env, g_bookmarkClazz,
     "("
-    "Lapp/organicmaps/sdk/bookmarks/data/FeatureId;"  // featureId
     "J"                                               // categoryId
     "J"                                               // bookmarkId
     "Ljava/lang/String;"                              // title
@@ -27,7 +26,6 @@ jobject CreateBookmark(JNIEnv * env, place_page::Info const & info, jni::TScoped
 
   // clang-format off
   jobject mapObject = env->NewObject(g_bookmarkClazz, ctorId,
-    CreateFeatureId(env, info.GetID()),
     static_cast<jlong>(info.GetBookmarkCategoryId()),
     static_cast<jlong>(info.GetBookmarkId()),
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetTitle()),

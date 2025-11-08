@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
-import app.organicmaps.sdk.bookmarks.data.FeatureId;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.concurrency.UiThread;
@@ -415,7 +414,7 @@ public class RoutingController
   @NonNull
   private MapObject toMapObject(@NonNull RouteMarkData point)
   {
-    return MapObject.createMapObject(FeatureId.EMPTY, point.mIsMyPosition ? MapObject.MY_POSITION : MapObject.POI,
+    return MapObject.createMapObject(point.mIsMyPosition ? MapObject.MY_POSITION : MapObject.POI,
                                      point.mTitle == null ? "" : point.mTitle,
                                      point.mSubtitle == null ? "" : point.mSubtitle, point.mLat, point.mLon);
   }

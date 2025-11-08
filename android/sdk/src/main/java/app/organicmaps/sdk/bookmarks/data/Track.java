@@ -5,7 +5,6 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.sdk.routing.RoutePointInfo;
-import app.organicmaps.sdk.search.Popularity;
 import app.organicmaps.sdk.util.Distance;
 
 public final class Track extends MapObject
@@ -26,7 +25,7 @@ public final class Track extends MapObject
   @SuppressWarnings("unused")
   private Track(long id, long categoryId, String name, Distance length, int color)
   {
-    super(FeatureId.EMPTY, TRACK, name, "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW_PLUS, "", "",
+    super(TRACK, name, "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW_PLUS, "", "",
           RoadWarningMarkType.UNKNOWN.ordinal(), null);
     mId = id;
     mCategoryId = categoryId;
@@ -38,13 +37,13 @@ public final class Track extends MapObject
   // Called from JNI.
   @Keep
   @SuppressWarnings("unused")
-  private Track(@NonNull FeatureId featureId, long categoryId, long id, String title, @Nullable String secondaryTitle,
-                @Nullable String subtitle, @Nullable String address, @Nullable RoutePointInfo routePointInfo,
-                @OpeningMode int openingMode, @NonNull String wikiArticle, @NonNull String osmDescription,
-                @Nullable String[] rawTypes, @ColorInt int color, Distance length, double lat, double lon)
+  private Track(long categoryId, long id, String title, @Nullable String secondaryTitle, @Nullable String subtitle,
+                @Nullable String address, @Nullable RoutePointInfo routePointInfo, @OpeningMode int openingMode,
+                @NonNull String wikiArticle, @NonNull String osmDescription, @Nullable String[] rawTypes,
+                @ColorInt int color, Distance length, double lat, double lon)
   {
-    super(featureId, TRACK, title, secondaryTitle, subtitle, address, lat, lon, "", routePointInfo, openingMode,
-          wikiArticle, osmDescription, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
+    super(TRACK, title, secondaryTitle, subtitle, address, lat, lon, "", routePointInfo, openingMode, wikiArticle,
+          osmDescription, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
     mId = id;
     mCategoryId = categoryId;
     mColor = color;
