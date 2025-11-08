@@ -422,7 +422,7 @@ private:
     auto const sizePos = sink.Pos();
     auto openingHoursSerializer = GetOpeningHoursSerDesForRouting();
 
-    size_t successWritten = 0;
+    uint64_t successWritten = 0;
     WriteToSink(sink, successWritten);
 
     {
@@ -458,7 +458,7 @@ private:
     positionsAccessConditional.clear();
 
     auto openingHoursDeserializer = GetOpeningHoursSerDesForRouting();
-    auto const size = ReadPrimitiveFromSource<size_t>(src);
+    auto const size = ReadPrimitiveFromSource<uint64_t>(src);
 
     positionsAccessConditional.reserve(size);
     uint32_t prevFeatureId = 0;
