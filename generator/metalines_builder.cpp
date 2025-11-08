@@ -204,7 +204,7 @@ void MetalinesBuilder::Save()
   ReaderSource<FileReader> src(reader);
   while (src.Size() > 0)
   {
-    auto const key = ReadVarUint<uint64_t>(src);
+    uint64_t const key = ReadVarUint<uint64_t>(src);
     keyToLineString.emplace(key, std::make_shared<LineString>(LineString::Deserialize(src)));
   }
 

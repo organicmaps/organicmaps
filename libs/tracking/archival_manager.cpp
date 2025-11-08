@@ -152,8 +152,7 @@ std::chrono::seconds ArchivalManager::ReadTimestamp(std::string const & filePath
   {
     FileReader reader(filePath);
     ReaderSource<FileReader> src(reader);
-    uint64_t ts = 0;
-    ReadPrimitiveFromSource(src, ts);
+    uint64_t const ts = ReadPrimitiveFromSource<uint64_t>(src);
     return std::chrono::seconds(ts);
   }
   catch (std::exception const & e)
