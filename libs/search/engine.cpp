@@ -138,6 +138,8 @@ void Engine::InitAfterWorldLoaded()
 {
   PostMessage(Message::TYPE_BROADCAST, [](Processor & processor)
   {
+    // Noteworthy that localities are made like a lazy cache, but city boundaries Load should be called manually.
+    /// @todo Make lazy cache for both, including m_citiesBoundaries?
     processor.CacheWorldLocalities();
     processor.LoadCitiesBoundaries();
   });

@@ -42,4 +42,9 @@ void Loader::OnMwmDeregistered(platform::LocalCountryFile const & countryFile)
   }
 }
 
+void Loader::Clear()
+{
+  m_deserializers.clear();
+}
+
 }  // namespace descriptions

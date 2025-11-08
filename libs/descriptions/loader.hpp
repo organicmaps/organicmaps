@@ -21,7 +21,9 @@ public:
   explicit Loader(DataSource const & dataSource) : m_dataSource(dataSource) {}
 
   std::string GetWikiDescription(FeatureID const & featureId, std::vector<int8_t> const & langPriority);
+
   void OnMwmDeregistered(platform::LocalCountryFile const & countryFile);
+  void Clear();
 
 private:
   DataSource const & m_dataSource;

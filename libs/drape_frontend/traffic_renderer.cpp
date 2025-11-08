@@ -4,20 +4,16 @@
 
 #include "shaders/programs.hpp"
 
-#include "drape/glsl_func.hpp"
 #include "drape/support_manager.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
-#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
-#include "base/logging.hpp"
 #include "base/math.hpp"
 
 #include <algorithm>
 #include <array>
 #include <cmath>
-#include <utility>
 
 namespace df
 {
@@ -90,9 +86,8 @@ void TrafficRenderer::AddRenderData(ref_ptr<dp::GraphicsContext> context, ref_pt
 {
   // Remove obsolete render data.
   TileKey const tileKey(renderData.m_tileKey);
-  m_renderData.erase(std::remove_if(m_renderData.begin(), m_renderData.end(), [&tileKey](TrafficRenderData const & rd)
-  { return tileKey == rd.m_tileKey && rd.m_tileKey.m_generation < tileKey.m_generation; }),
-                     m_renderData.end());
+  base::EraseIf(m_renderData, [&tileKey](TrafficRenderData const & rd)
+  { return tileKey == rd.m_tileKey && rd.m_tileKey.m_generation < tileKey.m_generation; });
 
   // Add new render data.
   m_renderData.emplace_back(std::move(renderData));
@@ -108,23 +103,19 @@ void TrafficRenderer::AddRenderData(ref_ptr<dp::GraphicsContext> context, ref_pt
 void TrafficRenderer::OnUpdateViewport(CoverageResult const & coverage, int currentZoomLevel,
                                        buffer_vector<TileKey, 8> const & tilesToDelete)
 {
-  m_renderData.erase(std::remove_if(m_renderData.begin(), m_renderData.end(),
-                                    [&coverage, &currentZoomLevel, &tilesToDelete](TrafficRenderData const & rd)
+  base::EraseIf(m_renderData, [&coverage, &currentZoomLevel, &tilesToDelete](TrafficRenderData const & rd)
   {
     return rd.m_tileKey.m_zoomLevel == currentZoomLevel &&
            (rd.m_tileKey.m_x < coverage.m_minTileX || rd.m_tileKey.m_x >= coverage.m_maxTileX ||
             rd.m_tileKey.m_y < coverage.m_minTileY || rd.m_tileKey.m_y >= coverage.m_maxTileY ||
             base::IsExist(tilesToDelete, rd.m_tileKey));
-  }),
-                     m_renderData.end());
+  });
 }
 
 void TrafficRenderer::OnGeometryReady(int currentZoomLevel)
 {
-  m_renderData.erase(
-      std::remove_if(m_renderData.begin(), m_renderData.end(), [&currentZoomLevel](TrafficRenderData const & rd)
-  { return rd.m_tileKey.m_zoomLevel != currentZoomLevel; }),
-      m_renderData.end());
+  base::EraseIf(m_renderData, [&currentZoomLevel](TrafficRenderData const & rd)
+  { return rd.m_tileKey.m_zoomLevel != currentZoomLevel; });
 }
 
 void TrafficRenderer::RenderTraffic(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
@@ -239,9 +230,7 @@ void TrafficRenderer::ClearContextDependentResources()
 
 void TrafficRenderer::Clear(MwmSet::MwmId const & mwmId)
 {
-  auto removePredicate = [&mwmId](TrafficRenderData const & data) { return data.m_mwmId == mwmId; };
-
-  m_renderData.erase(std::remove_if(m_renderData.begin(), m_renderData.end(), removePredicate), m_renderData.end());
+  base::EraseIf(m_renderData, [&mwmId](TrafficRenderData const & data) { return data.m_mwmId == mwmId; });
 }
 
 // static
