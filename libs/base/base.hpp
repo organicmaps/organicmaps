@@ -1,6 +1,7 @@
 #pragma once
 
-#include <cstdint>
+#include <cstddef>  // size_t
+#include <cstdint>  // uintXX_t
 
 #if defined(DEBUG) || defined(_DEBUG) || defined(NRELEASE)
 #define MY_DEBUG_DEFINED 1
