@@ -46,7 +46,8 @@ public:
     LineString ls;
     ls.m_start = ReadVarUint<uint64_t>(r);
     ls.m_end = ReadVarUint<uint64_t>(r);
-    ReadPrimitiveFromSource(r, ls.m_oneway);
+    /// @todo Oh, choose fixed-size serialization type rather than bool.
+    ls.m_oneway = ReadPrimitiveFromSource<bool>(r);
     rw::ReadVectorOfPOD(r, ls.m_ways);
     return ls;
   }
