@@ -63,7 +63,7 @@ function(omim_add_library library)
 
   # Enable warnings for all our libraries.
   target_compile_options(${library} PRIVATE ${OMIM_WARNING_FLAGS})
-  target_include_directories(${library} SYSTEM PRIVATE ${3PARTY_INCLUDE_DIRS})
+  target_link_libraries(${library} PRIVATE Boost::headers)
   if (USE_PPROF AND PLATFORM_MAC)
     find_path(PPROF_INCLUDE_DIR NAMES gperftools/profiler.h)
     target_include_directories(${library} SYSTEM PUBLIC ${PPROF_INCLUDE_DIR})

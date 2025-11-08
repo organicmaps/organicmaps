@@ -10,6 +10,10 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   # for jansson
   set(CMAKE_POLICY_DEFAULT_CMP0063 NEW)
 
+  add_library(Boost_headers INTERFACE)
+  add_library(Boost::headers ALIAS Boost_headers)
+  target_include_directories(Boost_headers SYSTEM INTERFACE "${OMIM_ROOT}/3party/boost")
+
   # Configure expat library.
   set(EXPAT_BUILD_TOOLS OFF)
   set(EXPAT_BUILD_EXAMPLES OFF)
