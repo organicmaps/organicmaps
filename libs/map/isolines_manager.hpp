@@ -11,11 +11,9 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
-#include <cstdint>
 #include <functional>
 #include <map>
 #include <optional>
-#include <set>
 #include <string>
 
 class IsolinesManager final
@@ -50,6 +48,7 @@ public:
   isolines::Quality GetDataQuality(MwmSet::MwmId const & id) const;
 
   void OnMwmDeregistered(platform::LocalCountryFile const & countryFile);
+  void Clear();
 
 private:
   enum class Availability

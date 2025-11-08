@@ -9,7 +9,6 @@
 #include "drape/pointers.hpp"
 
 #include "geometry/screenbase.hpp"
-#include "geometry/spline.hpp"
 
 #include <vector>
 

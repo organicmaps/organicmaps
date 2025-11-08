@@ -78,7 +78,7 @@ void TransitSchemeRenderer::ClearRenderData(TRemovePredicate const & predicate, 
         data.m_bucket->RemoveOverlayHandles(tree);
   }
 
-  renderData.erase(std::remove_if(renderData.begin(), renderData.end(), predicate), renderData.end());
+  base::EraseIf(renderData, predicate);
 }
 
 void TransitSchemeRenderer::AddRenderData(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,

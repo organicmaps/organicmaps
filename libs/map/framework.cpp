@@ -427,6 +427,8 @@ void Framework::OnCountryFileDownloaded(storage::CountryId const &, storage::Loc
   m_isolinesManager.Invalidate();
 
   InvalidateRect(rect);
+
+  /// @todo A bit controversial, why clear when adding a new map :)
   GetSearchAPI().ClearCaches();
 }
 
@@ -449,6 +451,7 @@ bool Framework::OnCountryFileDelete(storage::CountryId const & countryId, storag
     m_featuresFetcher.DeregisterMap(platform::CountryFile(countryId));
     deferredDelete = true;
   }
+
   InvalidateRect(rect);
 
   GetSearchAPI().ClearCaches();
@@ -540,6 +543,13 @@ void Framework::RegisterAllMaps()
 
 void Framework::DeregisterAllMaps()
 {
+  m_transitManager.Clear();
+  m_isolinesManager.Clear();
+  m_trafficManager.Clear();
+  m_descriptionsLoader->Clear();
+
+  GetSearchAPI().ClearCaches();
+
   m_featuresFetcher.Clear();
   m_storage.Clear();
 }
