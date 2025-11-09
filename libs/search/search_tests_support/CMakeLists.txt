@@ -16,7 +16,8 @@ set(
 omim_add_library(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
-  generator_tests_support
-  editor_tests_support
-  pugixml  # osm_editor.hpp -> editor_config.hpp
+  PUBLIC
+    generator_tests_support
+    editor_tests_support
+    pugixml  # osm_editor.hpp -> editor_config.hpp
 )

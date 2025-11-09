@@ -178,19 +178,21 @@ if (PLATFORM_LINUX OR PLATFORM_WIN)
 endif()
 
 target_link_libraries(${PROJECT_NAME}
-  geometry  # mercator::YToLat
-  coding
-  glaze::glaze
-  $<$<BOOL:${PLATFORM_DESKTOP}>:Qt6::Core>
-  $<$<BOOL:${PLATFORM_LINUX}>:Qt6::Network>
-  $<$<BOOL:${PLATFORM_WIN}>:Qt6::Network>
-  $<$<BOOL:${PLATFORM_WIN}>:shlwapi>  # PathIsDirectoryEmptyA
-  $<$<BOOL:${PLATFORM_MAC}>:
-    -framework\ Foundation
-    -framework\ SystemConfiguration
-    -framework\ CFNetwork
-    -framework\ Security  # SecPKCS12Import
-    >
+  PUBLIC
+    geometry  # mercator::YToLat
+    coding
+    cppjansson
+    glaze::glaze
+    $<$<BOOL:${PLATFORM_DESKTOP}>:Qt6::Core>
+    $<$<BOOL:${PLATFORM_LINUX}>:Qt6::Network>
+    $<$<BOOL:${PLATFORM_WIN}>:Qt6::Network>
+    $<$<BOOL:${PLATFORM_WIN}>:shlwapi>  # PathIsDirectoryEmptyA
+    $<$<BOOL:${PLATFORM_MAC}>:
+      -framework\ Foundation
+      -framework\ SystemConfiguration
+      -framework\ CFNetwork
+      -framework\ Security  # SecPKCS12Import
+      >
 )
 
 omim_add_test_subdirectory(platform_tests_support)

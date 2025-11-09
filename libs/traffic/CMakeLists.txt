@@ -12,8 +12,9 @@ set(SRC
 omim_add_library(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
-  routing_common
-  indexer
+  PUBLIC
+    routing_common
+    indexer
 )
 
 omim_add_test_subdirectory(traffic_tests)
