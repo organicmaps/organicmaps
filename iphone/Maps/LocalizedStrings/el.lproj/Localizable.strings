@@ -41,7 +41,7 @@
 "about_proposition_2" = "• Δεν εξαντλεί τη μπαταρία, λειτουργεί εκτός σύνδεσης";
 
 /* Text in About screen */
-"about_proposition_3" = "- Γρήγορο, μινιμαλιστικό, αναπτυγμένο από την κοινότητα";
+"about_proposition_3" = "• Γρήγορο, μινιμαλιστικό, αναπτυγμένο από την κοινότητα";
 "close" = "Κλείσιμο";
 "download" = "Λήψη";
 
@@ -119,7 +119,7 @@
 "category_entertainment" = "Ψυχαγωγία";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
-"category_atm" = "ATM";
+"category_atm" = "ΑΤΜ";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
 "category_nightlife" = "Νυχτερινή ζωή";
@@ -181,7 +181,7 @@
 "my_position_share_email_subject" = "Γεια, δες την τρέχουσα τοποθεσία μου στο χάρτη του Organic Maps!";
 
 /* Share by email button text, also used in editor and About. */
-"email" = "Email";
+"email" = "Ηλεκτρονικό ταχυδρομείο";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Αντιγράφηκε στο Πρόχειρο: %@";
@@ -239,18 +239,6 @@
 
 /* Text in About menu, opens Organic Maps news website */
 "news" = "Νέα";
-
-/* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
 
 /* Text in menu */
 "rate_the_app" = "Βαθμολογήστε την εφαρμογή";
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Εύρεση χάρτη";
 "common_check_internet_connection_dialog" = "Βεβαιωθείτε ότι η συσκευή σας είναι συνδεδεμένη στο Internet.";
 "downloader_no_space_title" = "Δεν υπάρχει αρκετός χώρος";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Διαγράψτε μη απαραίτητα δεδομένα";
 "editor_profile_changes" = "Επαληθευμένες αλλαγές";
 "editor_focus_map_on_location" = "Σύρετε το χάρτη για να τοποθετήσετε το σταυρό στη θέση του τόπου ή της επιχείρησης.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Περισσότερα σχετικά με το OpenStreetMap";
 "editor_operator" = "Χειριστής";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Χειριστής: %@";
 "editor_category_unsuitable_title" = "Δεν μπορείτε να βρείτε την κατάλληλη κατηγορία;";
 "editor_category_unsuitable_text" = "Οι Οργανικοί Χάρτες επιτρέπουν την προσθήκη απλών κατηγοριών σημείων μόνο, δηλαδή όχι πόλεων, δρόμων, λιμνών, περιγραμμάτων κτιρίων κ.λπ. Παρακαλούμε προσθέστε τέτοιες κατηγορίες απευθείας στο <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Ελέγξτε τον <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">οδηγό μας</a> για λεπτομερείς οδηγίες βήμα προς βήμα.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Απενεργ.";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Χωρητικότητα: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Δίκτυο: %@";
 "trip_finished" = "Μόλις φτάσατε!";
 "ok" = "Οκ";
@@ -804,7 +794,7 @@
 "traffic_update_app_message" = "Για να εμφανιστούν πληροφορίες για την κίνηση, πρέπει να γίνει ενημέρωση της εφαρμογής.";
 "log_file_size" = "Μέγεθος αρχείου καταγραφής: %@";
 "planning_route_remove_title" = "Σύρετε εδώ για αφαίρεση";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Αντικατάσταση Stop";
 "start_from_my_position" = "Έναρξη από";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -825,8 +815,11 @@
 "popular_place" = "Δημοφιλή";
 "hide_from_map" = "Απόκρυψη από τον χάρτη";
 "tags_loading_error_subtitle" = "Ένα σφάλμα συνέβη κατά το φόρτωμα των ετικετών, παρακαλώ ξαναπροσπαθήστε";
-"download_button" = "Κατέβασμα";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Δεξιά";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Κάτω μέρος";
 "trip_start" = "Φύγαμε";
 "pick_destination" = "Προορισμός";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Άνοιγμα σε άλλη εφαρμογή";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Αυτοεξυπηρέτηση";
 
 /* To indicate if restaurant or other place has outdoor seating */

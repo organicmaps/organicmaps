@@ -241,18 +241,6 @@
 "news" = "समाचार";
 
 /* Text in menu */
-"facebook" = "फेसबुक";
-
-/* Text in menu */
-"twitter" = "ट्विटर";
-
-/* Text in menu */
-"instagram" = "इंस्टाग्राम";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "एप्लिकेशन की श्रेणी बताओ";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "मानचित्र ढूंढें";
 "common_check_internet_connection_dialog" = "Please make sure your device is connected to the Internet.";
 "downloader_no_space_title" = "Not enough space";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Please delete any unnecessary data";
 "editor_profile_changes" = "Verified Changes";
 "editor_focus_map_on_location" = "स्थान या व्यवसाय के स्थान पर क्रॉस लगाने के लिए मानचित्र को खींचें।";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "OpenStreetMap के बारे में अधिक जानकारी";
 "editor_operator" = "ऑपरेटर";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "ऑपरेटर: %@";
 "editor_category_unsuitable_title" = "कोई उपयुक्त श्रेणी नहीं मिल रही?";
 "editor_category_unsuitable_text" = "ऑर्गेनिक मैप्स केवल सरल बिंदु श्रेणियां जोड़ने की अनुमति देता है, जिसका अर्थ है कि शहर, सड़कें, झीलें, भवन की रूपरेखा आदि नहीं। कृपया ऐसी श्रेणियां सीधे <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> पर जोड़ें।. विस्तृत चरण-दर-चरण निर्देशों के लिए हमारी <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">मार्गदर्शिका</a> देखें।";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "नहीं";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "क्षमता: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "नेटवर्क: %@";
 "trip_finished" = "You have arrived!";
 "ok" = "ठीक है";
@@ -825,8 +815,11 @@
 "popular_place" = "Popular";
 "hide_from_map" = "Hide from map";
 "tags_loading_error_subtitle" = "An error occurred while loading tags, please try again";
-"download_button" = "Download";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Right";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Bottom";
 "trip_start" = "Let's go";
 "pick_destination" = "Destination";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "किसी अन्य ऐप में खोलें";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "स्वयं सेवा";
 
 /* To indicate if restaurant or other place has outdoor seating */

@@ -135,7 +135,7 @@
     <string name="editor_osm_history">Historia yako ya uhariri</string>
     <string name="editor_osm_notes">Vidokezo vya data ya ramani yako</string>
     <string name="editor_operator">Mwendeshaji</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Mwendeshaji: %s</string>
     <string name="editor_category_unsuitable_title">Je, huwezi kupata aina inayofaa?</string>
     <string name="editor_category_unsuitable_text">Ramani za Kikaboni huruhusu kuongeza kategoria rahisi pekee, hiyo inamaanisha hakuna miji, barabara, maziwa, muhtasari wa majengo, n.k. Tafadhali ongeza kategoria kama hizo moja kwa moja kwenye <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Angalia <a href="https://organicmaps.app/faq/editing/advanced-map-editing">mwongozo wetu</a> kwa maagizo ya kina ya hatua kwa hatua.</string>
@@ -246,9 +246,9 @@
     <string name="yes_available">Ndio</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Hapana</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Uwezo: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Mtandao: %s</string>
     <string name="trip_finished">Umefika!</string>
     <string name="ok">Sawa</string>
@@ -371,7 +371,7 @@
     <string name="view_menu">Tazama Menyu</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Fungua Katika Programu Nyingine</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Kujihudumia</string>
     <string name="select_option">Chagua chaguo</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->

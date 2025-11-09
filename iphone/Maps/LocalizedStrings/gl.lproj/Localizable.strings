@@ -241,18 +241,6 @@
 "news" = "Noticias";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "Valore a aplicación";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Buscar o mapa";
 "common_check_internet_connection_dialog" = "Revise a configuración e asegúrese de que o seu dispositivo estea conectado a Internet.";
 "downloader_no_space_title" = "Non hai suficiente espazo";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Elimine os datos innecesarios";
 "editor_profile_changes" = "Cambios verificados";
 "editor_focus_map_on_location" = "Arrastre o mapa para colocar a cruz na localización do lugar ou negocio.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Más acerca de OpenStreetMap";
 "editor_operator" = "Operador";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operador: %@";
 "editor_category_unsuitable_title" = "Non acha unha categoría adecuada?";
 "editor_category_unsuitable_text" = "Organic Maps permite engadir unicamente categorías de puntos sinxelos, é dicir, non cidades, estradas, lagos, contornos de edificios, etc. Por favor, anada ditas categorías directamente <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulte nosa <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guía</a> para obter instrucións detalladas paso a paso.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Non";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Capacidade: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Rede: %@";
 "trip_finished" = "Chegou!";
 "ok" = "Aceptar";
@@ -825,8 +815,11 @@
 "popular_place" = "Popular";
 "hide_from_map" = "Ocultar do mapa";
 "tags_loading_error_subtitle" = "Produciuse un erro ao cargar as etiquetas";
-"download_button" = "Descargar";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Right";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Bottom";
 "trip_start" = "Imos";
 "pick_destination" = "Destino";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Abrir noutra aplicación";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Autoservizo";
 
 /* To indicate if restaurant or other place has outdoor seating */

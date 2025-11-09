@@ -241,18 +241,6 @@
 "news" = "Novosti";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "Ocijeni aplikaciju";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Find map";
 "common_check_internet_connection_dialog" = "Please make sure your device is connected to the Internet.";
 "downloader_no_space_title" = "Nema dovoljno memorije";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Izbriši sve nepotrebne podatke";
 "editor_profile_changes" = "Verified Changes";
 "editor_focus_map_on_location" = "Drag the map to place the cross at the location of the place or business.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "More about OpenStreetMap";
 "editor_operator" = "Operator";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operator: %@";
 "editor_category_unsuitable_title" = "Can't find a suitable category?";
 "editor_category_unsuitable_text" = "Organic Maps allows to add simple point categories only, that means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Check our <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> for detailed step by step instructions.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Ne";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Broj mjesta: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Mreža: %@";
 "trip_finished" = "Stigli ste!";
 "ok" = "U redu";
@@ -825,8 +815,11 @@
 "popular_place" = "Popular";
 "hide_from_map" = "Hide from map";
 "tags_loading_error_subtitle" = "An error occurred while loading tags, please try again";
-"download_button" = "Download";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Right";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Bottom";
 "trip_start" = "Let's go";
 "pick_destination" = "Destination";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Open in Another App";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Samoposluga";
 
 /* To indicate if restaurant or other place has outdoor seating */

@@ -182,7 +182,7 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Zdieľať</string>
     <!-- Share by email button text, also used in editor and About. -->
-    <string name="email">Email</string>
+    <string name="email">E-mail</string>
     <!-- Text for message when used successfully copied something -->
     <string name="copied_to_clipboard">Skopírované do schránky: %s</string>
     <!-- Used for bookmark editing -->
@@ -234,6 +234,8 @@
     <string name="pref_map_auto_zoom">Automatický zoom</string>
     <string name="placepage_distance">Vzdialenosť</string>
     <string name="search_show_on_map">Zobraziť na mape</string>
+    <!-- Menu button -->
+    <string name="menu">Ponuka</string>
     <!-- Text in menu -->
     <string name="website">Webové stránky</string>
     <!-- Text in About menu, opens Organic Maps news website -->
@@ -455,12 +457,15 @@
     <string name="email_or_username">Email alebo používateľské meno</string>
     <string name="editor_add_phone">Pridať telefónne číslo</string>
     <string name="level">Podlaha</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Úroveň: %s</string>
     <string name="downloader_delete_map_dialog">Všetky zmeny týkajúce sa mapy budú vymazané spolu s mapou.</string>
     <string name="downloader_update_maps">Aktualizovať mapy</string>
     <string name="downloader_mwm_migration_dialog">Ak chcete vytvoriť cestu, musíte najskôr aktualizovať všetky mapy a potom odznova naplánovať trasu.</string>
     <string name="downloader_search_field_hint">Nájsť mapu</string>
     <string name="common_check_internet_connection_dialog">Prosím, skontrolujte svoje nastavenia a uistite sa, že váš počítač je pripojený k internetu.</string>
     <string name="downloader_no_space_title">Nemáte dostatok miesta</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Prosím, odstráňte prebytočné dáta</string>
     <string name="editor_login_error_dialog">Pri prihlasovaní sa vyskytla chyba.</string>
     <string name="editor_profile_changes">Overené zmeny</string>
@@ -500,7 +505,7 @@
     <string name="editor_osm_history">Vaša história úprav</string>
     <string name="editor_osm_notes">Vaše poznámky k mapovým údajom</string>
     <string name="editor_operator">Prevádzkovateľ</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Prevádzkovateľ: %s</string>
     <string name="editor_category_unsuitable_title">Nemôžete nájsť vhodnú kategóriu?</string>
     <string name="editor_category_unsuitable_text">Organické mapy umožňujú pridávať len jednoduché kategórie bodov, teda žiadne mestá, cesty, jazerá, obrysy budov atď. Takéto kategórie pridávajte priamo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Pozrite si náš <a href="https://organicmaps.app/faq/editing/advanced-map-editing">príručku</a>, kde nájdete podrobné pokyny krok za krokom.</string>
@@ -535,11 +540,14 @@
     <string name="error_enter_correct_vk_page">Zadajte platné používateľské meno alebo adresu pre VK</string>
     <string name="error_enter_correct_line_page">Zadajte platné LINE ID alebo webovú adresu</string>
     <string name="placepage_add_place_button">Pridať miesto do OpenStreetMap</string>
+    <string name="osm_note_hint">Prípadne zanechajte poznámku komunite OpenStreetMap, aby sem mohol pridať alebo opraviť miesto niekto iný.</string>
+    <string name="osm_note_toast">Poznámka bude odoslaná do OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Odoslať všetkým používateľom?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
     <string name="editor_share_to_all_dialog_message_1">Nezadávajte žiadne osobné udaje.</string>
     <string name="editor_share_to_all_dialog_message_2">Redaktori OpenStreetMap skontrolujú zmeny a budú vás kontaktovať, ak budú mať nejaké otázky.</string>
+    <string name="navigation_stop_button">Zastavte</string>
     <!-- Shown as toast when starting the recent track recording -->
     <string name="track_recording">Zaznamenávanie trasy</string>
     <!-- For the first routing -->
@@ -576,6 +584,7 @@
     <string name="button_plan">Naplánovať</string>
     <string name="placepage_remove_stop">Odstrániť zastávku</string>
     <string name="placepage_add_stop">Pridať zastávku</string>
+    <string name="saved">Uložené</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Prihláste sa do OpenStreetMap, aby ste mohli automaticky nahrať všetky svoje úpravy mapy. Viac informácií sa dozviete <a href="https://github.com/organicmaps/organicmaps/issues/6144">tade</a>.</string>
     <string name="dialog_error_storage_title">Problém s prístupom k úložisku</string>
@@ -619,6 +628,10 @@
     <string name="privacy_policy">Zásady ochrany osobných údajov</string>
     <string name="terms_of_use">Podmienky používania</string>
     <string name="button_layer_traffic">Dopravné informácie</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Turistika</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Cyklistika</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Štýly a vrstvy mapy</string>
     <string name="bookmarks_empty_list_title">Tento zoznam je prázdny</string>
@@ -642,6 +655,11 @@
     <string name="power_managment_setting_never">Nikdy</string>
     <string name="power_managment_setting_auto">Automaticky</string>
     <string name="power_managment_setting_manual_max">Maximálna úspora batérie</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Názvy záložiek na mape</string>
+    <string name="bookmarks_text_placement_description">Ak je záložiek príliš veľa, zobrazovanie ich názvov na mape môže aplikáciu spomaliť.</string>
+    <string name="show_to_the_right">Zobraziť vpravo</string>
+    <string name="show_at_the_bottom">Zobraziť v dolnej časti</string>
     <string name="enable_logging_warning_message">Týmto zapnete záznamenávanie diagnostických informácií, ktoré môžete poslať našej technickej podpore v prípade problémov s aplikáciou. Záznam môže obsahovať údaje o vašej polohe.</string>
     <string name="driving_options_title">Možnosti trasy</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -666,9 +684,9 @@
     <string name="yes_available">Áno</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Nie</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Kapacita: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Sieť: %s</string>
     <string name="trip_finished">Prišli ste do cieľa!</string>
     <string name="ok">Ok</string>
@@ -729,6 +747,8 @@
     <string name="download_map_title">Stiahnuť mapu sveta</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">Nepodarilo sa vytvoriť priečinok a presunúť súbory do internej pamäte alebo na SD kartu</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">Chyba disku</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="connection_failure">Chyba spojenia</string>
     <!-- Used in DownloadResources startup screen -->
@@ -804,7 +824,7 @@
     <string name="view_menu">Zobraziť menu</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Otvoriť v inej aplikácii</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Samoobslužné služby</string>
     <string name="select_option">Vyberte možnosť</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -832,4 +852,8 @@
     <string name="uri_open_location_failed">Nie je nainštalovaná žiadna aplikácia, ktorá by mohla otvoriť umiestnenie</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automaticky v navigácii</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Zdieľať trať</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Vymazať %s?</string>
 </resources>

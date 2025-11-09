@@ -240,26 +240,6 @@
     <string name="website">Вебсайт</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Новини</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Відгук</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Знайти мапу</string>
     <string name="common_check_internet_connection_dialog">Будь ласка, перевірте свої налаштування і переконайтеся, що ваш пристрій підлючено до Інтернету.</string>
     <string name="downloader_no_space_title">Недостатньо місця</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Видаліть непотрібні дані</string>
     <string name="editor_login_error_dialog">Виникла помилка при авторизації.</string>
     <string name="editor_profile_changes">Виправлення, що ураховані</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Ваша історія редагувань</string>
     <string name="editor_osm_notes">Ваші нотатки на мапі</string>
     <string name="editor_operator">Оператор</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Оператор: %s</string>
     <string name="editor_category_unsuitable_title">Не можете знайти відповідну категорію?</string>
     <string name="editor_category_unsuitable_text">Organic Maps дозволяють додавати до мапи лише прості типи об\'єктів, тобто без міст, доріг, озер та контурів будівель. Будь ласка, додайте такі категорії на сайті <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>. Ми також рекомендуємо ознайомитися із <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">детальними інструкціями та іншими додатками для редагування карти</a>.</string>
@@ -711,9 +692,9 @@
     <string name="yes_available">Так</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Ні</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Місткість: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Мережа: %s</string>
     <string name="trip_finished">Ви прибули!</string>
     <string name="ok">Ок</string>
@@ -863,7 +844,7 @@
     <string name="view_menu">Переглянути меню</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Відкрити в іншому застосунку</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Самообслуговування</string>
     <string name="select_option">Виберіть варіант</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -893,5 +874,6 @@
     <string name="nav_auto">Авто в навігації</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Поділитися треком</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Видалити %s?</string>
 </resources>

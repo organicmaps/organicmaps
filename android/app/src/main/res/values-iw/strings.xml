@@ -10,7 +10,7 @@
     <string name="delete">מחק</string>
     <string name="download_maps">הורד מפות</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">.הורדת הקובץ נכשלה. לחץ לניסיון נוסף</string>
+    <string name="download_has_failed">הורדת הקובץ נכשלה. לחץ לניסיון נוסף.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">מוריד…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -457,6 +457,7 @@
     <string name="downloader_search_field_hint">חפש מפה</string>
     <string name="common_check_internet_connection_dialog">נא לוודא כי המכשיר מחובר לאינטרנט.</string>
     <string name="downloader_no_space_title">אין מספיק מקום</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">נא לפנות שטח אחסון</string>
     <string name="editor_login_error_dialog">שגיאת התחברות.</string>
     <string name="editor_profile_changes">שינויים מאומתים</string>
@@ -496,7 +497,7 @@
     <string name="editor_osm_history">היסטוריית העריכה שלך</string>
     <string name="editor_osm_notes">הערות נתוני המפה שלך</string>
     <string name="editor_operator">מַפעִיל</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">מַפעִיל: %s</string>
     <string name="editor_category_unsuitable_title">לא מוצאים קטגוריה מתאימה?</string>
     <string name="editor_category_unsuitable_text">באמצעות Organic Maps ניתן להוסיף קטגוריות נקודה פשוטות בלבד, כלומר לא ניתן להוסיף עיירות, כבישים, אגמים, מבנים וכו\'. אנא הוסיפו קטגוריות כאלה ישירות ל-<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. עיינו <a href="https://organicmaps.app/faq/editing/advanced-map-editing">במדריך</a> שלנו לקבלת הוראות מפורטות.</string>
@@ -661,9 +662,9 @@
     <string name="yes_available">כן</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">לא</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">קיבולת: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">רשת: %s</string>
     <string name="trip_finished">הגעת!</string>
     <string name="ok">אוקיי</string>
@@ -801,7 +802,7 @@
     <string name="view_menu">תפריט תצוגה</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">פתח באפליקציה אחרת</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">שירות עצמי</string>
     <string name="select_option">בחר אפשרות</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->

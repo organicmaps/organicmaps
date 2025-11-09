@@ -29,6 +29,8 @@
     <string name="mi">mi</string>
     <!-- A unit of measure -->
     <string name="ft">fot</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">For å vise ruter må kartene være oppdaterte.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Avslutt</string>
     <string name="core_entrance">Inngang</string>

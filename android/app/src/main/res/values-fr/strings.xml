@@ -113,7 +113,7 @@
     <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
     <string name="category_parking">Stationnement</string>
     <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
-    <string name="category_shopping">Shopping</string>
+    <string name="category_shopping">Achats</string>
     <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
     <string name="category_secondhand">D\'occasion</string>
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
@@ -182,7 +182,7 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Partager</string>
     <!-- Share by email button text, also used in editor and About. -->
-    <string name="email">Email</string>
+    <string name="email">Courriel</string>
     <!-- Text for message when used successfully copied something -->
     <string name="copied_to_clipboard">Copié dans le presse-papiers : %s</string>
     <!-- Used for bookmark editing -->
@@ -240,28 +240,8 @@
     <string name="website">Site internet</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Nouvelles</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
-    <string name="feedback">Feedback</string>
+    <string name="feedback">Retour d\'information</string>
     <!-- Text in menu -->
     <string name="rate_the_app">Évaluer l\'appli</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Trouver la carte</string>
     <string name="common_check_internet_connection_dialog">Veuillez vérifier vos paramètres et vous assurer que votre appareil est bien connecté à Internet.</string>
     <string name="downloader_no_space_title">Espace insuffisant</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Veuillez supprimer les données inutiles</string>
     <string name="editor_login_error_dialog">Erreur de connexion.</string>
     <string name="editor_profile_changes">Modifications vérifiées</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Votre historique d\'édition</string>
     <string name="editor_osm_notes">Vos notes sur les données cartographiques</string>
     <string name="editor_operator">Opérateur</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Opérateur : %s</string>
     <string name="editor_category_unsuitable_title">Tu ne trouves pas de catégorie appropriée ?</string>
     <string name="editor_category_unsuitable_text">Organic Maps ne permet d\'ajouter que des catégories de points simples, c\'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d\'ajouter ces catégories directement sur <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte notre <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> pour obtenir des instructions détaillées étape par étape.</string>
@@ -568,7 +549,7 @@
     <!-- Dialog before publishing the modifications to the public map. -->
     <string name="editor_share_to_all_dialog_message_1">Assurez-vous de n’avoir pas saisi de données personnelles.</string>
     <string name="editor_share_to_all_dialog_message_2">Les contributeurs d\'OpenStreetMap vérifieront vos modifications et vous contacteront s\'ils ont des questions.</string>
-    <string name="navigation_stop_button">Stop</string>
+    <string name="navigation_stop_button">Arrêter</string>
     <!-- Shown as toast when starting the recent track recording -->
     <string name="track_recording">Enregistreur de traces</string>
     <!-- For the first routing -->
@@ -708,9 +689,9 @@
     <string name="yes_available">Oui</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Non</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Capacité : %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Réseau : %s</string>
     <string name="trip_finished">Vous êtes arrivé !</string>
     <string name="ok">Ok</string>
@@ -860,7 +841,7 @@
     <string name="view_menu">Voir le menu</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Ouvrir dans une autre application</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Libre-service</string>
     <string name="select_option">Sélectionner une option</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -890,5 +871,6 @@
     <string name="nav_auto">Auto dans la navigation</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Partager la piste</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Supprimer %s ?</string>
 </resources>

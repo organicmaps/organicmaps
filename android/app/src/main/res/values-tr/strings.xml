@@ -240,26 +240,6 @@
     <string name="website">Web Sitesi</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Haberler</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Geri Bildirim</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Harita bul</string>
     <string name="common_check_internet_connection_dialog">Lütfen aygıtınızın internete bağlandığından emin olun.</string>
     <string name="downloader_no_space_title">Yeterli alan yok</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Lütfen gereksiz verileri silin</string>
     <string name="editor_login_error_dialog">Giriş hatası.</string>
     <string name="editor_profile_changes">Doğrulanan Düzenleme</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Düzenleme geçmişiniz</string>
     <string name="editor_osm_notes">Harita veri notlarınız</string>
     <string name="editor_operator">İşletici</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">İşletici: %s</string>
     <string name="editor_category_unsuitable_title">Uygun kategori bulamıyor musunuz?</string>
     <string name="editor_category_unsuitable_text">Organic Maps yalnızca basit nokta kategorilerini eklemeyi sağlar. Yani kasaba, yol, göl, bina vb. çizgi/alan verisi ekleme desteği yoktur. Lütfen bu tür kategorileri doğrudan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> üzerinden ekleyin. Adım adım ayrıntılı yönergeler için <a href="https://organicmaps.app/faq/editing/advanced-map-editing">yönergemize</a> göz atabilirsiniz.</string>
@@ -706,9 +687,9 @@
     <string name="yes_available">Var</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Yok</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Kapasite: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Ağ: %s</string>
     <string name="trip_finished">Vardınız!</string>
     <string name="ok">Tamam</string>
@@ -858,7 +839,7 @@
     <string name="view_menu">Menüyü Görüntüle</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Başka Uygulamada Aç</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Self servis</string>
     <string name="select_option">Seçeneği seçin</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -888,5 +869,6 @@
     <string name="nav_auto">Navigasyonda kendiliğinden</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">İz Paylaş</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">%s Silinsin Mi?</string>
 </resources>

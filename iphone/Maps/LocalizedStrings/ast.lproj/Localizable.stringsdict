@@ -16,9 +16,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%d bookmark</string>
+			<string>%d marcador</string>
 			<key>other</key>
-			<string>%d bookmarks</string>
+			<string>%d marcadores</string>
 		</dict>
 	</dict>
 
@@ -33,9 +33,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%d file was found. You can see it after conversion.</string>
+			<string>Atopóse %d ficheru. Pues velu dempués de la conversión.</string>
 			<key>other</key>
-			<string>%d files were found. You can see them after conversion.</string>
+			<string>Atopáronse %d ficheros. Pues velos dempués de la conversión.</string>
 		</dict>
 	</dict>
 

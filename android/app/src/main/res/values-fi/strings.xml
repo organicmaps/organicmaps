@@ -240,26 +240,6 @@
     <string name="website">Kotisivut</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Uutiset</string>
-    <!-- Text in menu -->
-    <string name="github">Github</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Palaute</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Etsi kartta</string>
     <string name="common_check_internet_connection_dialog">Varmista, että laitteesi on yhteydessä Internetiin.</string>
     <string name="downloader_no_space_title">Ei tarpeeksi tilaa</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Poista tarpeeton data</string>
     <string name="editor_login_error_dialog">Kirjautumisvirhe.</string>
     <string name="editor_profile_changes">Vahvistetut karttamuutokset</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Muokkaushistoriasi</string>
     <string name="editor_osm_notes">Karttatietosi muistiinpanot</string>
     <string name="editor_operator">Operaattori</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operaattori: %s</string>
     <string name="editor_category_unsuitable_title">Etkö löydä sopivaa luokkaa?</string>
     <string name="editor_category_unsuitable_text">Organic Maps mahdollistaa vain yksinkertaisten pisteluokkien lisäämisen, eli ei kaupunkeja, teitä, järviä, rakennusten ääriviivoja jne. Lisää tällaiset luokat suoraan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Tarkista <a href="https://organicmaps.app/faq/editing/advanced-map-editing">oppaastamme</a> yksityiskohtaiset ohjeet vaihe vaiheelta.</string>
@@ -561,6 +542,8 @@
     <string name="error_enter_correct_vk_page">Syötä kelvollinen VK-käyttäjätunnus tai verkko-osoite</string>
     <string name="error_enter_correct_line_page">Syötä kelvollinen LINE ID tai verkko-osoite</string>
     <string name="placepage_add_place_button">Lisää paikka OpenStreetMapiin</string>
+    <string name="osm_note_hint">Vaihtoehtoisesti voit jättää ilmoituksen OpenStreetMap-yhteisölle, jotta joku muu voi lisätä tai korjata paikan tänne.</string>
+    <string name="osm_note_toast">Huomautus lähetetään OpenStreetMapille.</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Haluatko lähettää sen kaikille käyttäjille?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -603,6 +586,7 @@
     <string name="button_plan">Suunnittele</string>
     <string name="placepage_remove_stop">Poista pysähdys</string>
     <string name="placepage_add_stop">Lisää pysähdys</string>
+    <string name="saved">Tallennettu</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Kirjaudu sisään OpenStreetMapiin, jotta voit ladata kaikki karttamuutoksesi automaattisesti. Lisätietoja <a href="https://github.com/organicmaps/organicmaps/issues/6144">täältä</a>.</string>
     <string name="dialog_error_storage_title">Ongelma tallennustilan käyttämisessä</string>
@@ -672,6 +656,11 @@
     <string name="power_managment_setting_never">Ei koskaan</string>
     <string name="power_managment_setting_auto">Automaattinen</string>
     <string name="power_managment_setting_manual_max">Täysi virransäästö</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Kirjanmerkin nimet kartalla</string>
+    <string name="bookmarks_text_placement_description">Jos kirjanmerkkejä on liikaa, niiden nimien näyttäminen kartalla voi hidastaa sovelluksen toimintaa.</string>
+    <string name="show_to_the_right">Näytä oikealle</string>
+    <string name="show_at_the_bottom">Näytä alareunassa</string>
     <string name="enable_logging_warning_message">Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos Organic Maps:n tuki pyytää.</string>
     <string name="driving_options_title">Reititysvalinnat</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -696,9 +685,9 @@
     <string name="yes_available">Kyllä</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Ei</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Kapasiteetti: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Verkko: %s</string>
     <string name="trip_finished">Olet perillä!</string>
     <string name="ok">Ok</string>
@@ -848,7 +837,7 @@
     <string name="view_menu">Näytä valikko</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Avaa toisessa sovelluksessa</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Itsepalvelu</string>
     <string name="select_option">Valitse vaihtoehto</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -876,4 +865,8 @@
     <string name="uri_open_location_failed">Ei asennettua sovellusta, joka voi avata sijainnin</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automaattinen navigointi</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Jaa rata</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Poista %s?</string>
 </resources>

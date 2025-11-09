@@ -206,9 +206,9 @@
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Modalità notte</string>
     <!-- Generic «Off» string -->
-    <string name="off">Off</string>
+    <string name="off">Spento</string>
     <!-- Generic «On» string -->
-    <string name="on">On</string>
+    <string name="on">Su</string>
     <!-- Generic «Auto» string -->
     <string name="auto">Automatico</string>
     <!-- Settings «Map» category: «Perspective view» title -->
@@ -240,26 +240,6 @@
     <string name="website">Sito web</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Notizie</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Feedback</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Trova mappa</string>
     <string name="common_check_internet_connection_dialog">Verifica che il tuo dispositivo sia connesso a internet.</string>
     <string name="downloader_no_space_title">Spazio insufficiente</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Elimina i dati non necessari</string>
     <string name="editor_login_error_dialog">Errore durante l\'accesso.</string>
     <string name="editor_profile_changes">Modifiche approvate</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">La tua cronologia delle modifiche</string>
     <string name="editor_osm_notes">Le tue note sulla mappa</string>
     <string name="editor_operator">Gestore</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Gestore: %s</string>
     <string name="editor_category_unsuitable_title">Non riesci a trovare una categoria adatta?</string>
     <string name="editor_category_unsuitable_text">Organic Maps consente di aggiungere solo punti semplici, escludendo p.es. città, strade, laghi, planimetria edifici ecc. È possibile aggiungere tali categorie direttamente su <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulta la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guida</a> per istruzioni dettagliate.</string>
@@ -649,7 +630,7 @@
         <item quantity="other">%d tracce</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
-    <string name="privacy">Privacy</string>
+    <string name="privacy">La privacy</string>
     <string name="privacy_policy">Politica sulla privacy</string>
     <string name="terms_of_use">Termini di utilizzo</string>
     <string name="button_layer_traffic">Traffico</string>
@@ -709,9 +690,9 @@
     <string name="yes_available">Sì</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">No</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Capacità: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Rete: %s</string>
     <string name="trip_finished">Sei arrivato!</string>
     <string name="ok">Ok</string>
@@ -861,7 +842,7 @@
     <string name="view_menu">Visualizza menu</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Apri in un\'altra app</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Self-service</string>
     <string name="select_option">Seleziona l\'opzione</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -891,5 +872,6 @@
     <string name="nav_auto">Automatica durante la navigazione</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Condividi traccia</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Cancellare %s?</string>
 </resources>

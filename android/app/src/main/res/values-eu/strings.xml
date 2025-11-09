@@ -240,26 +240,6 @@
     <string name="website">Webgunea</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Albisteak</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">Jabber (XMPP)</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">MARRA</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Iruzkinak</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Bilatu mapa</string>
     <string name="common_check_internet_connection_dialog">Mesedez, egiaztatu ezarpenak eta ziurtatu zure gailua Internetera konektatuta dagoela.</string>
     <string name="downloader_no_space_title">Leku nahikorik ez</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Ezabatu beharrezkoak ez diren datuak</string>
     <string name="editor_login_error_dialog">Saioa hasteko errorea.</string>
     <string name="editor_profile_changes">Egiaztatutako aldaketak</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Zure edizio-historia</string>
     <string name="editor_osm_notes">Zure mapa-datuen oharrak</string>
     <string name="editor_operator">Operadorea</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operadorea: %s</string>
     <string name="editor_category_unsuitable_title">Ezin duzu kategoria egokirik aurkitu?</string>
     <string name="editor_category_unsuitable_text">Organic Maps-ek puntu kategoria soilak gehitzeko aukera ematen du, hau da, ez da herririk, errepiderik, lakurik, eraikinen eskemarik, etab. Gehitu kategoria horiek zuzenean <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Begiratu gure <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gida</a> urratsez urrats argibide zehatzak lortzeko.</string>
@@ -704,9 +685,9 @@
     <string name="yes_available">Bai</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Ez</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Edukiera: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Sarea: %s</string>
     <string name="trip_finished">Iritsi zara!</string>
     <string name="ok">Ados</string>
@@ -856,7 +837,7 @@
     <string name="view_menu">Ikusi menua</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Ireki beste aplikazio batean</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Autozerbitzu</string>
     <string name="select_option">Hautatu aukera</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -886,5 +867,6 @@
     <string name="nav_auto">Nabigazioan automatikoa</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Partekatu arrastoa</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Ezabatu %s?</string>
 </resources>

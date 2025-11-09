@@ -241,18 +241,6 @@
 "news" = "Novinky";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "Ohodnotit aplikaci";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Najít mapu";
 "common_check_internet_connection_dialog" = "Zkontrolujte prosím své nastavení a ujistěte se, že je vaše zařízení připojeno k internetu.";
 "downloader_no_space_title" = "Nedostatek místa";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Odstraňte prosím nepotřebná data";
 "editor_profile_changes" = "Oveřené změny";
 "editor_focus_map_on_location" = "Přetažením mapy umístěte křížek na místo, kde se nachází místo nebo podnik.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Další informace o projektu OpenStreetMap";
 "editor_operator" = "Provozovatel";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operátor: %@";
 "editor_category_unsuitable_title" = "Nemůžete najít vhodnou kategorii?";
 "editor_category_unsuitable_text" = "Organické mapy umožňují přidávat pouze jednoduché kategorie bodů, tedy žádná města, silnice, jezera, obrysy budov atd. Takové kategorie prosím přidávejte přímo na <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Podrobné pokyny krok za krokem najdete v našem <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">průvodci</a>.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Ne";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Kapacita: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Síť: %@";
 "trip_finished" = "Přijeli jste!";
 "ok" = "Ok";
@@ -825,8 +815,11 @@
 "popular_place" = "Populární";
 "hide_from_map" = "Neukazovat na mapě";
 "tags_loading_error_subtitle" = "Během nahrávání tagů se stala chyba, zkuste to prosím ještě jednou";
-"download_button" = "Stáhnout";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Vpravo";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Dole";
 "trip_start" = "Pojďme";
 "pick_destination" = "Destinace";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Otevřít v jiné aplikaci";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Samoobsluha";
 
 /* To indicate if restaurant or other place has outdoor seating */

@@ -9,8 +9,14 @@
     <string name="core_my_position">Poziția mea</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">Locurile mele</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Depozit intern privat</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Stocare partajată internă</string>
     <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
     <string name="maps_storage_removable">Card SD</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Stocare partajată externă</string>
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
     <string name="category_wifi">Wi-Fi</string>
     <string name="postal_code">Cod poștal</string>

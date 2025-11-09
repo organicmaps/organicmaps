@@ -455,12 +455,15 @@
     <string name="email_or_username">E-postadresse eller brukernavn</string>
     <string name="editor_add_phone">Legg til telefon</string>
     <string name="level">Gulv</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Nivå: %s</string>
     <string name="downloader_delete_map_dialog">Alle endringer i kartet vil slettes sammen med kartet.</string>
     <string name="downloader_update_maps">Oppdater kart</string>
     <string name="downloader_mwm_migration_dialog">For å opprette en reiserute må du oppdatere alle kartene og deretter planlegge reiseruten på nytt.</string>
     <string name="downloader_search_field_hint">Finn kartet</string>
     <string name="common_check_internet_connection_dialog">Kontroller innstillingene dine og sørg for at enheten din er koblet til Internett.</string>
     <string name="downloader_no_space_title">Ikke nok plass</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Fjern unødvendig data</string>
     <string name="editor_login_error_dialog">Innloggingsfeil.</string>
     <string name="editor_profile_changes">Bekreftede endringer</string>
@@ -500,7 +503,7 @@
     <string name="editor_osm_history">Din redigeringshistorikk</string>
     <string name="editor_osm_notes">Notater om kartdataene dine</string>
     <string name="editor_operator">Operatør</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operatør: %s</string>
     <string name="editor_category_unsuitable_title">Finner du ikke en passende kategori?</string>
     <string name="editor_category_unsuitable_text">Organic Maps tillater kun å legge til enkle punktkategorier, det vil si ingen byer, veier, innsjøer, bygningsomriss osv. Vennligst legg til slike kategorier direkte til <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Sjekk vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detaljerte trinnvise instruksjoner.</string>
@@ -535,6 +538,8 @@
     <string name="error_enter_correct_vk_page">Skriv inn en gyldig VB-adresse eller -kontonavn</string>
     <string name="error_enter_correct_line_page">Skriv inn en gyldig LINE-adresse eller -ID.</string>
     <string name="placepage_add_place_button">Legg til sted i OpenStreetMap</string>
+    <string name="osm_note_hint">Alternativt kan du legge igjen et notat til OpenStreetMap-fellesskapet, slik at noen andre kan legge til eller fikse et sted her.</string>
+    <string name="osm_note_toast">Notat vil bli sendt til OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Vil du sende det til alle brukere?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -577,6 +582,7 @@
     <string name="button_plan">Planlegge</string>
     <string name="placepage_remove_stop">Fjern stopp</string>
     <string name="placepage_add_stop">Angi stopp</string>
+    <string name="saved">Reddet</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Logg inn på OpenStreetMap for automatisk å laste opp alle kartredigeringene dine. Finn ut mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.</string>
     <string name="dialog_error_storage_title">Problemer med tilgang til lagring</string>
@@ -646,6 +652,11 @@
     <string name="power_managment_setting_never">Aldri</string>
     <string name="power_managment_setting_auto">Automatisk</string>
     <string name="power_managment_setting_manual_max">Maksimum strømsparing</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Bokmerke navn på kartet</string>
+    <string name="bookmarks_text_placement_description">Hvis det er for mange bokmerker, kan det gjøre appen tregere å vise navnene på dem på kartet.</string>
+    <string name="show_to_the_right">Vis til høyre</string>
+    <string name="show_at_the_bottom">Vis nederst</string>
     <string name="enable_logging_warning_message">Alternativet slår på logging for diagnostiske formål. Det kan være nyttig for våre supportpersonale som feilsøker problemer med appen. Aktiver dette alternativet bare på forespørsel fra Organic Maps-brukerstøtte.</string>
     <string name="driving_options_title">Kjørealternativer</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -670,9 +681,9 @@
     <string name="yes_available">Ja</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Nei</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Kapasitet: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Nettverk: %s</string>
     <string name="trip_finished">Du har ankommet!</string>
     <string name="ok">Ok</string>
@@ -810,7 +821,7 @@
     <string name="view_menu">Vis meny</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Åpne i en annen app</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Selvbetjening</string>
     <string name="select_option">Velg alternativ</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -838,4 +849,8 @@
     <string name="uri_open_location_failed">Ingen app installert som kan åpne stedet</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto i navigasjon</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Del spor</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Slett %s?</string>
 </resources>

@@ -241,18 +241,6 @@
 "news" = "新闻";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (推特)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "为我们评分";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "搜索地图";
 "common_check_internet_connection_dialog" = "请检查您的设置并确保您的设备已连接至网络。";
 "downloader_no_space_title" = "没有足够的空间";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "请删除不必要的数据";
 "editor_profile_changes" = "已验证的更改";
 "editor_focus_map_on_location" = "拖动地图，将十字架放在地点或企业的位置。";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "关于 OpenStreetMap 的更多信息";
 "editor_operator" = "操作员";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "操作员: %@";
 "editor_category_unsuitable_title" = "找不到合适的类别？";
 "editor_category_unsuitable_text" = "Organic Maps 只允许添加简单的点类别，即无法添加城镇、道路、湖泊、建筑轮廓等类别。请直接向 <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> 添加此类类别。请查看我们的<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">指南</a>，了解详细的步骤说明。";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "否";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "容量：%@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "网络：%@";
 "trip_finished" = "您已到达目的地！";
 "ok" = "好的";
@@ -804,7 +794,7 @@
 "traffic_update_app_message" = "诺要显示交通数据，必须更新应用。";
 "log_file_size" = "日志文件大小：%@";
 "planning_route_remove_title" = "拖拽到此处以移除";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "更换停机坪";
 "start_from_my_position" = "起点";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -825,8 +815,11 @@
 "popular_place" = "受欢迎的";
 "hide_from_map" = "从地图上隐藏";
 "tags_loading_error_subtitle" = "加载标签时出错，请重试";
-"download_button" = "下载";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "右侧";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "底部";
 "trip_start" = "出发";
 "pick_destination" = "目的地";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "在另一个应用中打开";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "自助服务";
 
 /* To indicate if restaurant or other place has outdoor seating */

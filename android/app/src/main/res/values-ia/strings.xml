@@ -11,6 +11,10 @@
         <item quantity="one">%d marcapagina</item>
         <item quantity="other">%d marcapaginas</item>
     </plurals>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">%d file esseva trovate. Tu pote vider lo post conversion.</item>
+        <item quantity="other">%d files esseva trovate. Tu pote vider los post conversion.</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d tracia</item>
         <item quantity="other">%d tracias</item>

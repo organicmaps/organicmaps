@@ -15,10 +15,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%d bookmark</string>
 			<key>other</key>
-			<string>%d bookmarks</string>
+			<string>%d বুকমার্ক</string>
 		</dict>
 	</dict>
 
@@ -33,9 +31,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%d file was found. You can see it after conversion.</string>
+			<string>%d ফাইল পাওয়া গেছে। আপনি এটি রূপান্তরের পরে দেখতে পাবেন।</string>
 			<key>other</key>
-			<string>%d files were found. You can see them after conversion.</string>
+			<string>%d ফাইল পাওয়া গেছে। আপনি সেগুলি রূপান্তরের পরে দেখতে পাবেন।</string>
 		</dict>
 	</dict>
 
@@ -50,9 +48,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%d track</string>
+			<string>%d ট্র্যাক</string>
 			<key>other</key>
-			<string>%d tracks</string>
+			<string>%d ট্র্যাকগুলি</string>
 		</dict>
 	</dict>
 

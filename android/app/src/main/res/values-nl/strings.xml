@@ -50,7 +50,7 @@
     <string name="location_settings">Locatie-instellingen</string>
     <string name="close">Sluit</string>
     <string name="unsupported_phone">Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.</string>
-    <string name="download">Download</string>
+    <string name="download">Downloaden</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disconnect_usb_cable">Verwijder de USB-kabel of plaats een geheugenkaart om Organic Maps te gebruiken</string>
     <!-- Used in DownloadResources startup screen -->
@@ -240,26 +240,6 @@
     <string name="website">Website</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Nieuws</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">Matrix</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Feedback</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Vind een kaart</string>
     <string name="common_check_internet_connection_dialog">Controleer je instellingen en zorg ervoor dat het apparaat verbonden is met het internet.</string>
     <string name="downloader_no_space_title">Niet genoeg ruimte</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Verwijder overbodige gegevens</string>
     <string name="editor_login_error_dialog">Inlogfout.</string>
     <string name="editor_profile_changes">Gecontroleerde wijzigingen</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Uw bewerkingsgeschiedenis</string>
     <string name="editor_osm_notes">Opmerkingen over uw kaartgegevens</string>
     <string name="editor_operator">Exploitant</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Exploitant: %s</string>
     <string name="editor_category_unsuitable_title">Kun je geen geschikte categorie vinden?</string>
     <string name="editor_category_unsuitable_text">Met Organic Maps kun je alleen eenvoudige puntcategorieën toevoegen, dus geen steden, wegen, meren, contouren van gebouwen, enzovoort. Voeg zulke categorieën direct toe aan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Bekijk onze <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> voor gedetailleerde stap voor stap instructies.</string>
@@ -707,9 +688,9 @@
     <string name="yes_available">Ja</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Nee</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Capaciteit: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Netwerk: %s</string>
     <string name="trip_finished">U bent aangekomen!</string>
     <string name="ok">Oké</string>
@@ -850,7 +831,7 @@
     <string name="pref_tts_no_system_tts">Instellingen voor spraaksynthese zijn niet gevonden, weet je zeker dat je apparaat dit ondersteunt?</string>
     <string name="drive_through">Drive-though</string>
     <string name="clear_the_search">Wis de zoekopdracht</string>
-    <string name="zoom_in">Zoom in</string>
+    <string name="zoom_in">Inzoomen</string>
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Zoom uit</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
@@ -859,7 +840,7 @@
     <string name="view_menu">Bekijk menu</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Openen in een andere applicatie</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Zelfbediening</string>
     <string name="select_option">Selecteer optie</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -889,5 +870,6 @@
     <string name="nav_auto">Auto in navigatie</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Titel van het onderste blad bij delen van het spoor</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Verwijder %s?</string>
 </resources>

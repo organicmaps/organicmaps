@@ -445,6 +445,7 @@
     <string name="downloader_search_field_hint">Tìm bản đồ</string>
     <string name="common_check_internet_connection_dialog">Xin kiểm tra các thiết lập và đảm bảo thiết bị của bạn có kết nối Internet.</string>
     <string name="downloader_no_space_title">Không đủ dung lượng</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Xin xóa dữ liệu không cần thiết</string>
     <string name="editor_login_error_dialog">Lỗi đăng nhập.</string>
     <string name="editor_profile_changes">Các thay đổi đã được xác thực</string>
@@ -484,7 +485,7 @@
     <string name="editor_osm_history">Lịch sử chỉnh sửa của bạn</string>
     <string name="editor_osm_notes">Ghi chú dữ liệu bản đồ của bạn</string>
     <string name="editor_operator">Toán tử</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Toán tử: %s</string>
     <string name="editor_category_unsuitable_title">Không thể tìm thấy một danh mục phù hợp?</string>
     <string name="editor_category_unsuitable_text">Bản đồ không phải trả tiền chỉ cho phép thêm các danh mục điểm đơn giản, nghĩa là không có thị trấn, đường, hồ, đường viền tòa nhà, v.v. Vui lòng thêm các danh mục đó trực tiếp vào <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Hãy xem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">hướng dẫn</a> của chúng tôi để biết hướng dẫn chi tiết từng bước.</string>
@@ -641,9 +642,9 @@
     <string name="yes_available">Có</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Không</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Công suất: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Mạng: %s</string>
     <string name="trip_finished">Bạn đã tới nơi!</string>
     <string name="ok">Ok</string>
@@ -766,7 +767,7 @@
     <string name="view_menu">Xem thực đơn</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Mở trong ứng dụng khác</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Tự phục vụ</string>
     <string name="select_option">Chọn tùy chọn</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->

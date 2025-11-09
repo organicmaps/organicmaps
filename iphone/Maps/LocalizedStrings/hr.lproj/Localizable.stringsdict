@@ -57,10 +57,14 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d tragova</string>
 			<key>one</key>
-			<string>%d track</string>
+			<string>%d trag</string>
+			<key>few</key>
+			<string>%d traga</string>
 			<key>other</key>
-			<string>%d tracks</string>
+			<string>%d tragova</string>
 		</dict>
 	</dict>
 

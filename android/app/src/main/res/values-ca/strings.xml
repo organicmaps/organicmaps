@@ -240,26 +240,6 @@
     <string name="website">Lloc web</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Notícies</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Comentaris</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Troba el mapa</string>
     <string name="common_check_internet_connection_dialog">Reviseu els paràmetres i assegureu-vos que l’aparell està connectat a Internet.</string>
     <string name="downloader_no_space_title">No hi ha prou espai</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Suprimiu les dades no necessàries</string>
     <string name="editor_login_error_dialog">Error en iniciar sessió.</string>
     <string name="editor_profile_changes">Canvis verificats</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">El vostre historial d’edicions</string>
     <string name="editor_osm_notes">Notes de les vostres dades del mapa</string>
     <string name="editor_operator">Operador</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operador: %s</string>
     <string name="editor_category_unsuitable_title">No trobeu una categoria adequada?</string>
     <string name="editor_category_unsuitable_text">Organic Maps només permet afegir categories de punts simples, això vol dir que no hi ha ciutats, carreteres, llacs, contorns d\'edificis, etc. Si us plau, afegiu aquestes categories directament a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulteu la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> per obtenir instruccions detallades pas a pas.</string>
@@ -705,9 +686,9 @@
     <string name="yes_available">Sí</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">No</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Capacitat: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Xarxa: %s</string>
     <string name="trip_finished">Heu arribat!</string>
     <string name="ok">D’acord</string>
@@ -857,7 +838,7 @@
     <string name="view_menu">Visualitza el menú</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Obre en una altra aplicació</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Autoservei</string>
     <string name="select_option">Seleccioneu l\'opció</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->

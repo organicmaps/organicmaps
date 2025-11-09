@@ -240,26 +240,6 @@
     <string name="website">Veebisait</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Uudised</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Tagasiside</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Leia kaart</string>
     <string name="common_check_internet_connection_dialog">Palun kontrolli oma nutiseadme internetiühendust.</string>
     <string name="downloader_no_space_title">Ei ole piisavalt andmeruumi</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Palun kustuta ebavajalikud andmed</string>
     <string name="editor_login_error_dialog">Sisselogimise viga.</string>
     <string name="editor_profile_changes">Kinnitatud muudatused</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Sinu muudatuste ajalugu</string>
     <string name="editor_osm_notes">Sinu kaardiandmete märkmed</string>
     <string name="editor_operator">Käitaja</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Käitaja: %s</string>
     <string name="editor_category_unsuitable_title">Ei leia sobivat kategooriat?</string>
     <string name="editor_category_unsuitable_text">Organic Maps võimaldab lisada ainult lihtsaid huvipunkte, see tähendab, et ei mingeid linnu, teid, järvi, hoonete piirjooni jne. Palun lisa sellised kategooriad otse <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> saidis. Vaata meie <a href="https://organicmaps.app/faq/editing/advanced-map-editing">juhendit</a> üksikasjalike samm-sammuliste juhiste saamiseks.</string>
@@ -707,9 +688,9 @@
     <string name="yes_available">olemas</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">puudub</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Kohti: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Võrgustik: %s</string>
     <string name="trip_finished">Oled kohal!</string>
     <string name="ok">Sobib</string>
@@ -859,7 +840,7 @@
     <string name="view_menu">Vaata menüüd</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Ava teises rakenduses</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Iseteenindus</string>
     <string name="select_option">Vali eelistus</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -889,5 +870,6 @@
     <string name="nav_auto">Automaatne tee juhatamine</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Jaga rada</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Kas kustutame %s?</string>
 </resources>

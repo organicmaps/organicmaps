@@ -43,7 +43,7 @@
     <!-- Text in About screen -->
     <string name="about_proposition_2">• Δεν εξαντλεί τη μπαταρία, λειτουργεί εκτός σύνδεσης</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_3">- Γρήγορο, μινιμαλιστικό, αναπτυγμένο από την κοινότητα</string>
+    <string name="about_proposition_3">• Γρήγορο, μινιμαλιστικό, αναπτυγμένο από την κοινότητα</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Εφαρμογή ανοιχτού κώδικα που δημιουργήθηκε από θιασώτες και εθελοντές.</string>
     <!-- The button that opens system location settings -->
@@ -123,7 +123,7 @@
     <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
     <string name="category_entertainment">Ψυχαγωγία</string>
     <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
-    <string name="category_atm">ATM</string>
+    <string name="category_atm">ΑΤΜ</string>
     <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
     <string name="category_nightlife">Νυχτερινή ζωή</string>
     <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
@@ -182,7 +182,7 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Κοινοποίηση</string>
     <!-- Share by email button text, also used in editor and About. -->
-    <string name="email">Email</string>
+    <string name="email">Ηλεκτρονικό ταχυδρομείο</string>
     <!-- Text for message when used successfully copied something -->
     <string name="copied_to_clipboard">Αντιγράφηκε στο Πρόχειρο: %s</string>
     <!-- Used for bookmark editing -->
@@ -240,26 +240,6 @@
     <string name="website">Ιστότοπος</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Νέα</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">Μήτρα</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Σχόλια</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Εύρεση χάρτη</string>
     <string name="common_check_internet_connection_dialog">Βεβαιωθείτε ότι η συσκευή σας είναι συνδεδεμένη στο Internet.</string>
     <string name="downloader_no_space_title">Δεν υπάρχει αρκετός χώρος</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Διαγράψτε μη απαραίτητα δεδομένα</string>
     <string name="editor_login_error_dialog">Σφάλμα σύνδεσης.</string>
     <string name="editor_profile_changes">Επαληθευμένες αλλαγές</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Το ιστορικό επεξεργασίας σας</string>
     <string name="editor_osm_notes">Σημειώσεις δεδομένων του χάρτη σας</string>
     <string name="editor_operator">Χειριστής</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Χειριστής: %s</string>
     <string name="editor_category_unsuitable_title">Δεν μπορείτε να βρείτε την κατάλληλη κατηγορία;</string>
     <string name="editor_category_unsuitable_text">Οι Οργανικοί Χάρτες επιτρέπουν την προσθήκη απλών κατηγοριών σημείων μόνο, δηλαδή όχι πόλεων, δρόμων, λιμνών, περιγραμμάτων κτιρίων κ.λπ. Παρακαλούμε προσθέστε τέτοιες κατηγορίες απευθείας στο <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Ελέγξτε τον <a href="https://organicmaps.app/faq/editing/advanced-map-editing">οδηγό μας</a> για λεπτομερείς οδηγίες βήμα προς βήμα.</string>
@@ -705,9 +686,9 @@
     <string name="yes_available">Ενεργ.</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Απενεργ.</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Χωρητικότητα: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Δίκτυο: %s</string>
     <string name="trip_finished">Μόλις φτάσατε!</string>
     <string name="ok">Οκ</string>
@@ -857,7 +838,7 @@
     <string name="view_menu">Προβολή μενού</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Άνοιγμα σε άλλη εφαρμογή</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Αυτοεξυπηρέτηση</string>
     <string name="select_option">Επιλέξτε επιλογή</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -887,5 +868,6 @@
     <string name="nav_auto">Αυτόματη πλοήγηση</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Κοινοποίηση ίχνους</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Διαγραφή %s;</string>
 </resources>

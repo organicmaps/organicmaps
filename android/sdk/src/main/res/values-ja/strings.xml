@@ -30,6 +30,8 @@
     <string name="mi">mi</string>
     <!-- A unit of measure -->
     <string name="ft">ft</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">ルートを表示するには、地図を更新する必要がある。</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">出口</string>
     <string name="core_entrance">入口</string>

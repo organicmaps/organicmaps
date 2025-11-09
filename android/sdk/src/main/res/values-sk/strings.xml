@@ -27,6 +27,8 @@
     <string name="mi">mi</string>
     <!-- A unit of measure -->
     <string name="ft">stopa</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Na zobrazenie trás je potrebné aktualizovať mapy.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Ukončiť</string>
     <string name="core_entrance">Vchod | vjazd</string>

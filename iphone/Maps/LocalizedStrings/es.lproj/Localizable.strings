@@ -241,18 +241,6 @@
 "news" = "Noticias";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "Valore la aplicación";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Buscar en el mapa";
 "common_check_internet_connection_dialog" = "Revise la configuración y asegúrese de que su dispositivo esté conectado a Internet.";
 "downloader_no_space_title" = "No hay suficiente espacio";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Elimine los datos innecesarios";
 "editor_profile_changes" = "Cambios verificados";
 "editor_focus_map_on_location" = "Arrastre el mapa para colocar la cruz en la ubicación del lugar o negocio.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Más acerca de OpenStreetMap";
 "editor_operator" = "Operador";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operador: %@";
 "editor_category_unsuitable_title" = "¿No halla una categoría adecuada?";
 "editor_category_unsuitable_text" = "Organic Maps permite añadir únicamente categorías de puntos sencillos, es decir, no ciudades, carreteras, lagos, contornos de edificios, etc. Añada dichas categorías directamente a <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulte nuestra <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guía</a> para obtener instrucciones detalladas paso a paso.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "No";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Capacidad: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Red: %@";
 "trip_finished" = "¡Ha llegado!";
 "ok" = "Aceptar";
@@ -804,7 +794,7 @@
 "traffic_update_app_message" = "Para mostrar los datos de tráfico, debe actualizar la aplicación.";
 "log_file_size" = "Tamaño del archivo de registro: %@";
 "planning_route_remove_title" = "Arrastre aquí para eliminar";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Sustituir Stop";
 "start_from_my_position" = "Empezar desde";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -825,8 +815,11 @@
 "popular_place" = "Popular";
 "hide_from_map" = "Ocultar del mapa";
 "tags_loading_error_subtitle" = "Se produjo un error al cargar las etiquetas; inténtelo de nuevo";
-"download_button" = "Descargar";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Derecha";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Inferior";
 "trip_start" = "Vamos";
 "pick_destination" = "Destino";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Abrir en otra aplicación";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Autoservicio";
 
 /* To indicate if restaurant or other place has outdoor seating */

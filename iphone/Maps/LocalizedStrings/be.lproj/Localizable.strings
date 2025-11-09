@@ -241,18 +241,6 @@
 "news" = "Навіны";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "Ацаніць праграму";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Пошук карты";
 "common_check_internet_connection_dialog" = "Праверце налады і ўпэўніцеся, што прылада падключана да інтэрнэту.";
 "downloader_no_space_title" = "Не хапае месца";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Выдаліце непатрэбныя даныя";
 "editor_profile_changes" = "Правераныя змены";
 "editor_focus_map_on_location" = "Перацягвайце карту, каб паставіць крыжык на месцы або кампаніі.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Падрабязней пра OpenStreetMap";
 "editor_operator" = "Аператар";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Аператар: %@";
 "editor_category_unsuitable_title" = "Няма прыдатнай катэгорыі?";
 "editor_category_unsuitable_text" = "Organic Maps дазваляе дадаваць на карту толькі простыя тыпы аб'ектаў, гэта значыць без гарадоў, дарог, азёр і будынкаў. Калі ласка, дадавайце такія катэгорыі на сайце <a href=\"https://www.openstreetmap.org/\">OpenStreetMap.org </a>. Мы таксама рэкамендуем азнаёміцца з <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing/\">падрабязнымі інструкцыямі і іншымі праграмамі для рэдагавання карты</a>.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Няма";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Ёмістасць: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Сетка: %@";
 "trip_finished" = "Вы прыбылі!";
 "ok" = "Ок";
@@ -825,8 +815,11 @@
 "popular_place" = "Папулярнае";
 "hide_from_map" = "Схаваць з карты";
 "tags_loading_error_subtitle" = "Адбылася памылка падчас загрузкі метак, калі ласка паспрабуйце зноў";
-"download_button" = "Спампаваць";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Справа";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Знізу";
 "trip_start" = "Паехалі";
 "pick_destination" = "Пункт прызначэння";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Адкрыць у іншай праграме";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Самаабслугоўванне";
 
 /* To indicate if restaurant or other place has outdoor seating */

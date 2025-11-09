@@ -4,17 +4,17 @@
 
 
 /* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
-"search" = "Buscar";
+"search" = "Buscar en";
 
 /* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
-"bookmarks_and_tracks" = "Marcadores y trayectos";
+"bookmarks_and_tracks" = "Marcadores y pistas";
 
 
 /********** Other translations **********/
 
 
 /* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
-"report_a_bug" = "Informar de un fallo";
+"report_a_bug" = "Informar de un error";
 
 
 /********** 3d touch strings **********/
@@ -28,7 +28,7 @@
 
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Es necesario definir la ubicación actual en el entorno para disfrutar al máximo de la funcionalidad de la aplicación. Se emplea en las opciones de seguir la ruta y guardar el camino recorrido reciente.";
+"NSLocationAlwaysUsageDescription" = "Detectar la ubicación en segundo plano es necesario para disfrutar plenamente de la funcionalidad de la aplicación. Se utiliza para la navegación y para guardar la ruta recorrida recientemente.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "La definición de la ubicación actual se utiliza en las opciones de seguir la ruta y guardar el camino recorrido reciente.";
+"NSLocationWhenInUseUsageDescription" = "Determinar su ubicación es necesario para la navegación y para guardar la ruta recorrida recientemente.";

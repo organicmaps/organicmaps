@@ -20,7 +20,7 @@
 "miles" = "الأميال";
 
 /* Update maps later button text */
-"later" = "ًلاحقا";
+"later" = "لاحقاً";
 
 /* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "البحث";
@@ -239,18 +239,6 @@
 
 /* Text in About menu, opens Organic Maps news website */
 "news" = "أخبار";
-
-/* Text in menu */
-"facebook" = "فيسبوك";
-
-/* Text in menu */
-"twitter" = "X (تويتر)";
-
-/* Text in menu */
-"instagram" = "إنستغرام";
-
-/* Text in the editor */
-"vk" = "في كيه";
 
 /* Text in menu */
 "rate_the_app" = "قيّم التطبيق";
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "ابحث عن خريطة";
 "common_check_internet_connection_dialog" = "يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.";
 "downloader_no_space_title" = "لا تتوفر مساحة كافية";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "من فضلك، قم بإزالة البيانات غير الضرورية";
 "editor_profile_changes" = "التعديلات التي تم التحقق منها";
 "editor_focus_map_on_location" = "اسحب الخريطة لوضع الصليب في موقع المكان أو النشاط التجاري.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "المزيد عن خريطة الشارع المفتوحة";
 "editor_operator" = "المشغل";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "المشغل: %@";
 "editor_category_unsuitable_title" = "لا يمكن العثور على فئة مناسبة؟";
 "editor_category_unsuitable_text" = "تسمح الخرائط العضوية بإضافة فئات نقاط بسيطة فقط، وهذا يعني عدم وجود بلدات وطرق وبحيرات ومخططات للمباني وما إلى ذلك. يرجى إضافة هذه الفئات مباشرة إلى <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. راجع موقعنا <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">دليل</a> للحصول على تعليمات مفصلة خطوة بخطوة.";
@@ -680,7 +670,7 @@
 /* Settings/Bookmark Text Placement */
 "bookmarks_text_placement_title" = "أسماء الإشارات المرجعية على الخريطة";
 "bookmarks_text_placement_description" = "إذا كان هناك عدد كبير جدًا من الإشارات المرجعية، فقد يؤدي عرض أسمائها على الخريطة إلى إبطاء التطبيق.";
-"show_to_the_right" = "Show to the right";
+"show_to_the_right" = "عرض إلى اليمين";
 "show_at_the_bottom" = "اعرض في الأسفل";
 "enable_logging_warning_message" = "هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.";
 "driving_options_title" = "خيارات رسم المسار";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "لا";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "السعة: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "الشبكة: %@";
 "trip_finished" = "لقد وصلت!";
 "ok" = "موافق";
@@ -744,8 +734,8 @@
 
 /* Place Page opening hours text */
 "closed_now" = "مغلق الآن";
-"opens_tomorrow_at" = "Opens tomorrow at %@";
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+"opens_tomorrow_at" = "يُفتتح غداً في %@";
+"opens_dayoftheweek_at" = "فتح %1$$@ في %2$$@";
 "opens_at" = "يفتح في %@";
 "closes_at" = "يغلق في %@";
 "add_opening_hours" = "أضف ساعات العمل";
@@ -804,7 +794,7 @@
 "traffic_update_app_message" = "لعرض البيانات المرورية، يجب تحديث التطبيق.";
 "log_file_size" = "حجم ملف السجل: %@";
 "planning_route_remove_title" = "اسحب هنا للإزالة";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "استبدال التوقف";
 "start_from_my_position" = "بدء من";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -825,9 +815,12 @@
 "popular_place" = "رائج";
 "hide_from_map" = "إخفاء من الخريطة";
 "tags_loading_error_subtitle" = "حدث خطأ أثناء تحميل العلامات ، يرجى المحاولة مرة أخرى";
-"download_button" = "تنزيل";
-"right" = "Right";
-"bottom" = "Bottom";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
+"right" = "صحيح";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
+"bottom" = "القاع";
 "trip_start" = "هيا بنا";
 "pick_destination" = "جهة الوصول";
 "follow_my_position" = "العودة إلى الوسط";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "فتح في تطبيق آخر";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "الخدمة الذاتية";
 
 /* To indicate if restaurant or other place has outdoor seating */
@@ -1094,7 +1087,7 @@
 "ft" = "قدم";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "لعرض المسارات، يجب تحديث الخرائط.";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "خروج";

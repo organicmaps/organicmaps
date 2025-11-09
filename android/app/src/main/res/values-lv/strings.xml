@@ -26,7 +26,7 @@
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Šobrīd ierīcē visi atrašanās vietas pakalpojumi vai to nodrošinošās programmas ir izslēgtas. Ieslēdziet tās iestatījumos.</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
-    <string name="limited_accuracy">Piekļuve precīzai atrašanās vietai ir ierobežota.</string>
+    <string name="limited_accuracy">Ierobežota precizitāte</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="precise_location_is_disabled_long_text">Lai nodrošinātu pareizu navigāciju, ieslēdziet iestatījumos \"Precīzo\" atrašanās vietas noteikšanu.</string>
     <!-- View and button titles for accessibility -->
@@ -199,7 +199,7 @@
     <!-- Settings general group in settings screen -->
     <string name="prefs_group_general">Vispārējie iestatījumi</string>
     <!-- Settings information group in settings screen -->
-    <string name="prefs_group_information">Informācija par lietotni</string>
+    <string name="prefs_group_information">Informācija</string>
     <string name="prefs_group_route">Navigācija</string>
     <string name="pref_zoom_title">Tālummaiņas pogas</string>
     <string name="pref_zoom_summary">Rādīt kartē</string>
@@ -240,8 +240,6 @@
     <string name="website">Tīmekļa vietne</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Jaunumi</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Atsauksmes</string>
     <!-- Text in menu -->
@@ -469,6 +467,7 @@
     <string name="downloader_search_field_hint">Atrast karti</string>
     <string name="common_check_internet_connection_dialog">Pārliecinieties, ka ierīce ir savienota ar internetu.</string>
     <string name="downloader_no_space_title">Trūkst vietas</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Dzēsiet liekos datus</string>
     <string name="editor_login_error_dialog">Ierakstīšanās kļūda.</string>
     <string name="editor_profile_changes">Apstiprinātas izmaiņas</string>
@@ -508,7 +507,7 @@
     <string name="editor_osm_history">Tava kartes izmaiņu vēsture</string>
     <string name="editor_osm_notes">Tavas kartes datu piezīmes</string>
     <string name="editor_operator">Saimniekotājs</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operators: %s</string>
     <string name="editor_category_unsuitable_title">Vai neatrodat atbilstošu kategoriju?</string>
     <string name="editor_category_unsuitable_text">„Organic Maps“ ļauj pievienot tikai vienkāršu punktu kategorijas, proti, nevarat pievienot pilsētas, ceļus, ezerus, ēku aprises u.tml. Šādas kategorijas lūdzam pievienot tiešā veidā <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lai uzzinātu, kā to izdarīt, sekojiet norādēm <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rokasgrāmatā</a>.</string>
@@ -543,6 +542,8 @@
     <string name="error_enter_correct_vk_page">Ierakstiet VK vietnes adresi vai konta nosaukumu</string>
     <string name="error_enter_correct_line_page">Ierakstiet LINE vietnes adresi vai LINE ID</string>
     <string name="placepage_add_place_button">Pievienot vietu „OpenStreetMap“</string>
+    <string name="osm_note_hint">Vai arī atstājiet piezīmi OpenStreetMap kopienai, lai kāds cits varētu pievienot vai labot vietu šeit.</string>
+    <string name="osm_note_toast">Piezīme tiks nosūtīta uz OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Vai vēlaties to nosūtīt visiem lietotājiem?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -585,6 +586,7 @@
     <string name="button_plan">Plānot</string>
     <string name="placepage_remove_stop">Noņemt starppunktu</string>
     <string name="placepage_add_stop">Pievienot starppunktu</string>
+    <string name="saved">Saglabāts</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Ierakstieties „OpenStreetMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk <a href="https://github.com/organicmaps/organicmaps/issues/6144">te</a>.</string>
     <string name="dialog_error_storage_title">Krātuves pieejas problēma</string>
@@ -657,6 +659,11 @@
     <string name="power_managment_setting_never">Nekad</string>
     <string name="power_managment_setting_auto">Kad ir zems uzlādes līmenis</string>
     <string name="power_managment_setting_manual_max">Vienmēr</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Grāmatzīmju nosaukumi kartē</string>
+    <string name="bookmarks_text_placement_description">Ja ir pārāk daudz grāmatzīmju, to nosaukumu attēlošana kartē var palēnināt programmas darbību.</string>
+    <string name="show_to_the_right">Rādīt pa labi</string>
+    <string name="show_at_the_bottom">Rādīt apakšā</string>
     <string name="enable_logging_warning_message">Uz laiku ieslēdziet šo opciju, lai reģistrētu un manuāli nosūtītu sīkākus žurnālus problēmu diagnostikai, izmantojot „Ziņot par kļūdu“ funkciju palīdzības lodziņā. Žurnāli var saturēt informāciju par atrašanās vietu.</string>
     <string name="driving_options_title">Maršruta opcijas</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -681,9 +688,9 @@
     <string name="yes_available">Pieejams</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Nav pieejams</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Ietilpība: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Tīkls: %s</string>
     <string name="trip_finished">Ieradāties galamērķī!</string>
     <string name="ok">Labi</string>
@@ -779,6 +786,8 @@
     <string name="app_tip_02">Vai jums patīk mūsu lietotne? Lūdzam ziedot tās attīstībai! Varbūt tā nepatīk? Tādā gadījumā lūdzam mums pastāstīt, kas tajā nepatīk, lai varam „Organic Maps“ uzlabot!</string>
     <!-- App tip #03 -->
     <string name="app_tip_03">Ja pazīstat kādu programmatūras izstrādātāju, varat viņam vai viņai palūgt ieviest funkciju, kas jums pietrūkst.</string>
+    <!-- App tip #04 -->
+    <string name="app_tip_04">Pieskarieties jebkurai vietai kartē, lai atlasītu jebkuru objektu. Garš pieskāriens tiek izmantots, lai paslēptu un parādītu saskarni.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Vai zinājāt, ka ir iespējams atlasīt jūsu pašreizējo atrašanās vietu kartē?</string>
     <!-- App tip #06 -->
@@ -829,7 +838,7 @@
     <string name="view_menu">Apskatīt ēdienkarti</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Atvērt citā lietotnē</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Pašapkalpošanās</string>
     <string name="select_option">Atlasīt opciju</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -857,4 +866,8 @@
     <string name="uri_open_location_failed">Nav uzstādīta neviena lietotne, kas varētu atvērt atrašanās vietu</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automātisks navigācijas laikā</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Koplietošanas trase</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Dzēst %s?</string>
 </resources>

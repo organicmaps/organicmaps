@@ -92,6 +92,8 @@
     <string name="maps_storage_free_size">%1$s av %2$s ledigt</string>
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">Flytta kartor?</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">Fel vid flyttning av kartfiler</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
     <string name="wait_several_minutes">Detta kan ta flera minuter.\nVänligen vänta…</string>
     <!-- Measurement units title in settings activity -->
@@ -238,26 +240,6 @@
     <string name="website">Webbplats</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Nyheter</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">RAD</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Återkoppling</string>
     <!-- Text in menu -->
@@ -485,6 +467,7 @@
     <string name="downloader_search_field_hint">Hitta kartan</string>
     <string name="common_check_internet_connection_dialog">Kontrollera dina inställningar och se till att din enhet är ansluten till internet.</string>
     <string name="downloader_no_space_title">Otillräckligt minne</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Ta bort onödig data</string>
     <string name="editor_login_error_dialog">Inloggningsfel.</string>
     <string name="editor_profile_changes">Verifierade ändringar</string>
@@ -524,7 +507,7 @@
     <string name="editor_osm_history">Din redigeringshistorik</string>
     <string name="editor_osm_notes">Anteckningar om dina kartdata</string>
     <string name="editor_operator">Operatör</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operatör: %s</string>
     <string name="editor_category_unsuitable_title">Hittar du ingen lämplig kategori?</string>
     <string name="editor_category_unsuitable_text">Organic Maps tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrollera vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> för detaljerade steg-för-steg-instruktioner.</string>
@@ -553,7 +536,14 @@
     <string name="error_enter_correct_phone">Ange korrekt telefonnummer</string>
     <string name="error_enter_correct_web">Ange en giltig webbadress</string>
     <string name="error_enter_correct_email">Ange en giltig e-postadress</string>
+    <string name="error_enter_correct_facebook_page">Ange en giltig Facebook-webbadress, ett giltigt konto eller ett giltigt sidnamn</string>
+    <string name="error_enter_correct_instagram_page">Ange ett giltigt Instagram-användarnamn eller en giltig webbadress</string>
+    <string name="error_enter_correct_twitter_page">Ange ett giltigt Twitter-användarnamn eller en giltig webbadress</string>
+    <string name="error_enter_correct_vk_page">Ange ett giltigt VK-användarnamn eller en giltig webbadress</string>
+    <string name="error_enter_correct_line_page">Ange ett giltigt LINE-ID eller en giltig webbadress</string>
     <string name="placepage_add_place_button">Lägg till plats i OpenStreetMap</string>
+    <string name="osm_note_hint">Eller, alternativt, lämna en anteckning till OpenStreetMap community så att någon annan kan lägga till eller fixa en plats här.</string>
+    <string name="osm_note_toast">Notering kommer att skickas till OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Vill du skicka det till alla användare?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -596,6 +586,7 @@
     <string name="button_plan">Planera</string>
     <string name="placepage_remove_stop">Ta bort stoppet</string>
     <string name="placepage_add_stop">Lägg till stopp</string>
+    <string name="saved">Sparade</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Logga in på OpenStreetMap för att automatiskt ladda upp alla dina kartredigeringar. Läs mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">här</a>.</string>
     <string name="dialog_error_storage_title">Lagringsåtkomstproblem</string>
@@ -665,6 +656,11 @@
     <string name="power_managment_setting_never">Aldrig</string>
     <string name="power_managment_setting_auto">Vid lågt batteri</string>
     <string name="power_managment_setting_manual_max">Alltid</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Bokmärk namn på kartan</string>
+    <string name="bookmarks_text_placement_description">Om det finns för många bokmärken kan det göra appen långsammare att visa namnen på dem på kartan.</string>
+    <string name="show_to_the_right">Visa till höger</string>
+    <string name="show_at_the_bottom">Visa längst ner</string>
     <string name="enable_logging_warning_message">Aktivera denna funktion för att logga detaljer för diagnostiska ändamål. Detta hjälper utvecklarna att identifiera problem med appen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.</string>
     <string name="driving_options_title">Ruttinställningar</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -689,9 +685,9 @@
     <string name="yes_available">Ja</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Nej</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Kapacitet: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Nätverk: %s</string>
     <string name="trip_finished">Du är framme!</string>
     <string name="ok">Ok</string>
@@ -751,6 +747,8 @@
     <string name="downloader_loading_ios">Nedladdning</string>
     <string name="download_map_title">Ladda ner översiktskartan för hela världen</string>
     <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">Det går inte att skapa mappar och flytta filer på den interna enhetens minne eller sdcard</string>
+    <!-- Used in DownloadResources startup screen -->
     <string name="disk_error_title">Diskfel</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="connection_failure">Anslutningen bröts</string>
@@ -761,6 +759,8 @@
     <string name="enable_keep_screen_on_description">Vid aktivering kommer skärmen alltid att vara på när kartan visas.</string>
     <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">Visa på låsskärmen</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">När den är aktiverad fungerar appen på låsskärmen även när enheten är låst.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Kartspråk</string>
     <!-- OpenStreetMap text on splash screen -->
@@ -837,7 +837,7 @@
     <string name="view_menu">Visa meny</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Öppna i en annan app</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Självbetjäning</string>
     <string name="select_option">Välj alternativ</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -865,4 +865,8 @@
     <string name="uri_open_location_failed">Ingen app installerad som kan öppna platsen</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto i navigering</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Dela spår</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Radera %s?</string>
 </resources>

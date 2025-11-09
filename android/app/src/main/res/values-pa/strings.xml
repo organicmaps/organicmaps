@@ -88,4 +88,18 @@
     <string name="maps_storage_summary">ਨਕਸ਼ੇ ਡਾਊਨਲੋਡ ਕਰਨ ਲਈ ਫੋਲਡਰ ਚੁਣੋ।</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">ਡਾਊਨਲੋਡ ਕੀਤੇ ਨਕਸ਼ੇ</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <plurals name="bookmarks_places">
+        <item quantity="one">%d ਬੁੱਕਮਾਰਕ</item>
+        <item quantity="other">%d ਬੁੱਕਮਾਰਕ</item>
+    </plurals>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">%d ਫਾਈਲ ਮਿਲੀ। ਤੁਸੀਂ ਇਸਨੂੰ ਬਦਲਣ ਤੋਂ ਬਾਅਦ ਦੇਖ ਸਕਦੇ ਹੋ।</item>
+        <item quantity="other">%d ਫਾਈਲਾਂ ਮਿਲੀਆਂ। ਤੁਸੀਂ ਉਨ੍ਹਾਂ ਨੂੰ ਬਦਲਣ ਤੋਂ ਬਾਅਦ ਦੇਖ ਸਕਦੇ ਹੋ।</item>
+    </plurals>
+    <plurals name="tracks">
+        <item quantity="one">%d ਟਰੈਕ</item>
+        <item quantity="other">%d ਟਰੈਕ</item>
+    </plurals>
 </resources>

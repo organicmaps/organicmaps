@@ -30,6 +30,8 @@
     <string name="mi">ميل</string>
     <!-- A unit of measure -->
     <string name="ft">قدم</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">لعرض المسارات، يجب تحديث الخرائط.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">خروج</string>
     <string name="core_entrance">المدخل</string>

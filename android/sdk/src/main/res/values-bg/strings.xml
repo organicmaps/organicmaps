@@ -9,6 +9,8 @@
     <string name="core_my_position">Мое местоположение</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">Мои места</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Вътрешно частно хранилище</string>
     <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
     <string name="maps_storage_shared">Вътрешно споделено хранилище</string>
     <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
@@ -28,6 +30,8 @@
     <string name="mi">ми</string>
     <!-- A unit of measure -->
     <string name="ft">фут</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">За да се показват маршрути, картите трябва да бъдат актуализирани.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Изход</string>
     <string name="core_entrance">Вход</string>

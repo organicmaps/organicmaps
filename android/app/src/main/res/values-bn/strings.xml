@@ -23,4 +23,17 @@
     <string name="search">অনুসন্ধান</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">মানচিত্র অনুসন্ধান</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <plurals name="bookmarks_places">
+        <item quantity="other">%d বুকমার্ক</item>
+    </plurals>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">%d ফাইল পাওয়া গেছে। আপনি এটি রূপান্তরের পরে দেখতে পাবেন।</item>
+        <item quantity="other">%d ফাইল পাওয়া গেছে। আপনি সেগুলি রূপান্তরের পরে দেখতে পাবেন।</item>
+    </plurals>
+    <plurals name="tracks">
+        <item quantity="one">%d ট্র্যাক</item>
+        <item quantity="other">%d ট্র্যাকগুলি</item>
+    </plurals>
 </resources>

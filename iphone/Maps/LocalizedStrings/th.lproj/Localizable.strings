@@ -241,18 +241,6 @@
 "news" = "ข่าว";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "ให้คะแนนแอป";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "ค้นหาแผนที่";
 "common_check_internet_connection_dialog" = "กรุณาตรวจสอบการตั้งค่าของคุณแล้วทำให้แน่ใจว่าอุปกรณ์ของคุณได้รับการเชื่อมต่ออินเทอร์เน็ต";
 "downloader_no_space_title" = "มีพื้นที่ไม่เพียงพอ";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "กรุณาลบข้อมูลที่ไม่จำเป็น";
 "editor_profile_changes" = "การเปลี่ยนแปลงที่อนุมัติแล้ว";
 "editor_focus_map_on_location" = "ลากแผนที่เพื่อวางกากบาทที่ตำแหน่งของสถานที่หรือธุรกิจ";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "ข้อมูลเพิ่มเติมเกี่ยวกับ OpenStreetMap";
 "editor_operator" = "ตัวดำเนินการ";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "ตัวดำเนินการ: %@";
 "editor_category_unsuitable_title" = "ไม่พบหมวดหมู่ที่เหมาะสมใช่ไหม?";
 "editor_category_unsuitable_text" = "แผนที่ทั่วไปอนุญาตให้เพิ่มหมวดหมู่จุดธรรมดาเท่านั้น ซึ่งหมายความว่าไม่มีเมือง ถนน ทะเลสาบ โครงร่างอาคาร ฯลฯ โปรดเพิ่มหมวดหมู่ดังกล่าวลงใน <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. ดู<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">คำแนะนำ</a> ของเราเพื่อดูคำแนะนำโดยละเอียดทีละขั้นตอน";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "ไม่ใช่";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "ความจุ: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "เครือข่าย: %@";
 "trip_finished" = "คุณมาถึงแล้ว!";
 "ok" = "โอเค";
@@ -825,8 +815,11 @@
 "popular_place" = "Popular";
 "hide_from_map" = "ซ่อนจากแผนที่";
 "tags_loading_error_subtitle" = "เกิดข้อผิดพลาดขณะโหลดแท็ก โปรดลองใหม่อีกครั้ง";
-"download_button" = "ดาวน์โหลด";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Right";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Bottom";
 "trip_start" = "ไปกันเลย";
 "pick_destination" = "จุดหมาย";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "เปิดในแอปอื่น";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "บริการตนเอง";
 
 /* To indicate if restaurant or other place has outdoor seating */

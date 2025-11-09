@@ -241,18 +241,6 @@
 "news" = "اخبار";
 
 /* Text in menu */
-"facebook" = "فیسبوک";
-
-/* Text in menu */
-"twitter" = "ایکس (توییتر)";
-
-/* Text in menu */
-"instagram" = "اینستاگرام";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "به برنامه امتیاز دهید";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "یافتن نقشه";
 "common_check_internet_connection_dialog" = "لطفا تنظیمات خود را بازبینی کنید و مطمئن شوید که ابزار شما به اینترنت متصل است.";
 "downloader_no_space_title" = "فظای کافی موجود نیست";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "لطفا داده‌های غیر ضروری را از دستگاه خود حذف کنید";
 "editor_profile_changes" = "تغییرات تایید شد";
 "editor_focus_map_on_location" = "نقشه را بکشید تا صلیب را در محل مکان یا کسب و کار قرار دهید.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "در مورد OpenStreetMap بیشتر بدانید";
 "editor_operator" = "اپراتور";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "اپراتور: %@";
 "editor_category_unsuitable_title" = "آیا نمی توانید یک دسته بندی مناسب پیدا کنید؟";
 "editor_category_unsuitable_text" = "Organic Maps اجازه میu200cدهد فقط دستهu200cهای نقطهu200cای ساده را اضافه کند، یعنی هیچ شهر، جاده، دریاچه، طرح کلی ساختمان و غیره وجود ندارد. لطفاً این دستهu200cها را مستقیماً به <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> اضافه کنید. برای دستورالعملu200cهای گام به گام، <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">راهنمای</a> ما را بررسی کنید.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "خیر";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "ظرفیت: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "شبکه: %@";
 "trip_finished" = "شما به مقصد رسیدید!";
 "ok" = "موافقت کردن";
@@ -788,7 +778,7 @@
 "placepage_bookmark_name_hint" = "نام نشانک";
 "placepage_delete_bookmark_button" = "حذف نشانه";
 "editor_edits_sent_message" = "یادداشت شما به OpenStreetMap ارسال خواهد شد";
-"text_more_button" = "...بیشتر";
+"text_more_button" = "…بیشتر";
 "refresh" = "به‌روزرسانی";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
@@ -825,8 +815,11 @@
 "popular_place" = "مشهور";
 "hide_from_map" = "پنهان کردن از نقشه";
 "tags_loading_error_subtitle" = "هنگام بارگذاری برچسب خطایی رخ داد، لطفا دوباره امتحان کنید";
-"download_button" = "دانلود";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Right";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Bottom";
 "trip_start" = "برویم";
 "pick_destination" = "مقصد";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "در یک برنامه دیگر باز کنید";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "سلف سرویس";
 
 /* To indicate if restaurant or other place has outdoor seating */

@@ -240,26 +240,6 @@
     <string name="website">Honlap</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Hírek</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VKontakte</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Visszajelzés</string>
     <!-- Text in menu -->
@@ -349,7 +329,7 @@
     <!-- teal color -->
     <string name="teal">Zöldeskék</string>
     <!-- lime color -->
-    <string name="lime">Lime</string>
+    <string name="lime">Mész</string>
     <!-- deep orange color -->
     <string name="deep_orange">Mély narancssárga</string>
     <!-- gray color -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Térkép keresése</string>
     <string name="common_check_internet_connection_dialog">Győződjön meg arról, hogy az eszköz csatlakozik az internethez.</string>
     <string name="downloader_no_space_title">Nincs elegendő tárhely</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Törölje a felesleges adatokat</string>
     <string name="editor_login_error_dialog">Bejelentkezési hiba.</string>
     <string name="editor_profile_changes">Jóváhagyott módosítás</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Saját szerkesztési előzmények</string>
     <string name="editor_osm_notes">Saját térképadat-jegyzetek</string>
     <string name="editor_operator">Üzemeltető</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Üzemeltető: %s</string>
     <string name="editor_category_unsuitable_title">Nem találja a megfelelő kategóriát?</string>
     <string name="editor_category_unsuitable_text">Az Organic Maps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb., az ilyen kategóriákat közvetlenül az <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> oldalon adhatja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg az <a href="https://organicmaps.app/faq/editing/advanced-map-editing">útmutatónkat</a>.</string>
@@ -707,9 +688,9 @@
     <string name="yes_available">Igen</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Nem</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Kapacitás: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Hálózat: %s</string>
     <string name="trip_finished">Megérkezett!</string>
     <string name="ok">OK</string>
@@ -859,7 +840,7 @@
     <string name="view_menu">Menü megtekintése</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Megnyitás másik alkalmazásban</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Önkiszolgáló</string>
     <string name="select_option">Válasszon ki egy beállítást</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -889,5 +870,6 @@
     <string name="nav_auto">Automatikus navigáció</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Nyomvonal megosztása</string>
-    <string name="delete_track_dialog_title">Törli a következőt: %s?</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Törli %s?</string>
 </resources>
