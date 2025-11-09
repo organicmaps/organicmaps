@@ -28,7 +28,7 @@
 
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Detecting location in the background is necessary to fully enjoy the functionality of the app. It is used for navigation and saving your recently traveled track.";
+"NSLocationAlwaysUsageDescription" = "Lai pilnībā izmantotu lietotnes funkcionalitāti, ir nepieciešams noteikt atrašanās vietu fonā. Tā tiek izmantota navigācijai un nesen veikto ceļojumu saglabāšanai.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "Determining your location is necessary for navigation and for saving your recently traveled track.";
+"NSLocationWhenInUseUsageDescription" = "Atrašanās vietas noteikšana ir nepieciešama navigācijai un nesen veiktā maršruta saglabāšanai.";

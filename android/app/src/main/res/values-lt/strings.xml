@@ -240,26 +240,6 @@
     <string name="website">Svetainė</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Naujienos</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Atsiliepimas</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Rasti žemėlapį</string>
     <string name="common_check_internet_connection_dialog">Įsitikinkite, kad jūsų įrenginys yra prijungtas prie interneto.</string>
     <string name="downloader_no_space_title">Nepakanka laisvos vietos</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Pašalinkite nereikalingus duomenis</string>
     <string name="editor_login_error_dialog">Prisijungimo klaida.</string>
     <string name="editor_profile_changes">Patvirtinti pakeitimai</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Jūsų taisymų istorija</string>
     <string name="editor_osm_notes">Jūsų žemėlapio duomenų pastabos</string>
     <string name="editor_operator">Operatorius</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operatorius: %s</string>
     <string name="editor_category_unsuitable_title">Nerandate tinkamos kategorijos?</string>
     <string name="editor_category_unsuitable_text">„Organic Maps“ leidžia pridėti tik paprastų kategorijas taškus – jokių miestų, kelių, ežerų, pastatų kontūrų ir pan. šia programėle pridėti negalima. Šių kategorijų objektus pridėkite naudodamiesi <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> svetaine. Žvilgtelėkite į mūsų <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vadovą</a>, kuriame rasite išsamias pažingsnines instrukcijas.</string>
@@ -707,9 +688,9 @@
     <string name="yes_available">Taip</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Ne</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Talpa: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Tinklas: %s</string>
     <string name="trip_finished">Jūs pasiekėte kelionės tikslą!</string>
     <string name="ok">Gerai</string>
@@ -859,7 +840,7 @@
     <string name="view_menu">Peržiūrėti meniu</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Atverti kitoje programėlėje</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Savitarna</string>
     <string name="select_option">Pasirinkite</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -870,6 +851,8 @@
     <string name="start_track_recording">Įrašyti trasą</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Stabdyti trasos įrašymą</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Trasos įrašymas</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Stabdyti neįrašant</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
@@ -887,5 +870,6 @@
     <string name="nav_auto">Automatinė naviguojant</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Dalintis trasa</string>
-    <string name="delete_track_dialog_title">Šalinti „%s“?</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Šalinti %s?</string>
 </resources>

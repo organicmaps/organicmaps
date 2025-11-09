@@ -30,6 +30,8 @@
     <string name="mi">mile</string>
     <!-- A unit of measure -->
     <string name="ft">fot</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">För att visa rutter måste kartorna uppdateras.</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Avsluta</string>
     <string name="core_entrance">Ingång</string>

@@ -182,7 +182,7 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Поделиться</string>
     <!-- Share by email button text, also used in editor and About. -->
-    <string name="email">Email</string>
+    <string name="email">Электронная почта</string>
     <!-- Text for message when used successfully copied something -->
     <string name="copied_to_clipboard">Скопировано в буфер обмена: %s</string>
     <!-- Used for bookmark editing -->
@@ -240,26 +240,6 @@
     <string name="website">Вебсайт</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Новости</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Связаться с нами</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Найти карту</string>
     <string name="common_check_internet_connection_dialog">Проверьте настройки и убедитесь, что устройство подключено к интернету.</string>
     <string name="downloader_no_space_title">Недостаточно места</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Удалите ненужные данные</string>
     <string name="editor_login_error_dialog">Произошла ошибка при авторизации.</string>
     <string name="editor_profile_changes">Учтённые правки</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Ваша история редактирования</string>
     <string name="editor_osm_notes">Ваши заметки о данных карты</string>
     <string name="editor_operator">Оператор</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Оператор: %s</string>
     <string name="editor_category_unsuitable_title">Нет подходящей категории?</string>
     <string name="editor_category_unsuitable_text">Organic Maps позволяет добавлять на карту только простые типы объектов, то есть никаких городов, дорог, озер, контуров зданий. Пожалуйста, добавляйте такие категории на сайте <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Также рекомендуем ознакомиться с нашими <a href="https://organicmaps.app/faq/editing/advanced-map-editing">подробными пошаговыми инструкциями и другими приложениями для редактирования карты</a>.</string>
@@ -711,9 +692,9 @@
     <string name="yes_available">Есть</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Нет</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Вместимость: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Сеть: %s</string>
     <string name="trip_finished">Вы прибыли!</string>
     <string name="ok">Ок</string>
@@ -863,7 +844,7 @@
     <string name="view_menu">Посмотреть меню</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Открыть в другом приложении</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Самообслуживание</string>
     <string name="select_option">Выберите вариант</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -893,5 +874,6 @@
     <string name="nav_auto">Авто в навигации</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Поделиться треком</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Удалить %s?</string>
 </resources>

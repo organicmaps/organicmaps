@@ -46,6 +46,8 @@
     <string name="about_proposition_3">• Vinnig, minimalisties, ontwikkel deur die gemeenskap</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Oopbrontoepassing geskep deur entoesiaste en vrywilligers.</string>
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">Liggingsinstellings</string>
     <string name="close">Sluit</string>
     <string name="unsupported_phone">’n Apparatuurversnelde OpenGL is nodig vir die toep. U toestel word ongelukkig nie gesteun nie.</string>
     <string name="download">Laai af</string>
@@ -447,6 +449,7 @@
     <string name="downloader_search_field_hint">Vind kaart</string>
     <string name="common_check_internet_connection_dialog">Maak asb. seker u toestel het ’n internetverbinding.</string>
     <string name="downloader_no_space_title">Nie genoeg spasie nie</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Skrap asb. enige onnodige data</string>
     <string name="editor_login_error_dialog">Aantekenfout.</string>
     <string name="editor_profile_changes">Bevestigde veranderinge</string>
@@ -486,7 +489,7 @@
     <string name="editor_osm_history">Jou redigeergeskiedenis</string>
     <string name="editor_osm_notes">Jou kaartdata notas</string>
     <string name="editor_operator">Operateur</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operateur: %s</string>
     <string name="editor_category_unsuitable_title">Kan u nie \'n geskikte kategorie vind nie?</string>
     <string name="editor_category_unsuitable_text">Organiese kaarte laat toe om slegs eenvoudige puntkategorieë by te voeg, dit beteken geen dorpe, paaie, mere, gebouomlynings, ens. Voeg asseblief sulke kategorieë direk by <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Gaan ons <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> na vir gedetailleerde stap-vir-stap-instruksies.</string>
@@ -649,9 +652,9 @@
     <string name="yes_available">Ja</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Nee</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Kapasiteit: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Netwerk: %s</string>
     <string name="trip_finished">U het aangekom!</string>
     <string name="ok">Goed</string>
@@ -756,7 +759,7 @@
     <string name="view_menu">Bekyk spyskaart</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Maak oop in \'n ander toepassing</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Selfdiens</string>
     <string name="select_option">Kies opsie</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->

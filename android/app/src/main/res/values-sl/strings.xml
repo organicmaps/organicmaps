@@ -240,26 +240,6 @@
     <string name="website">Spletna stran</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Novice</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Povratne informacije</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Najdi zemljevid</string>
     <string name="common_check_internet_connection_dialog">Prepričajte se, da je vaša naprava povezana z internetom.</string>
     <string name="downloader_no_space_title">Ni dovolj prostora</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Izbrišite nepotrebne podatke</string>
     <string name="editor_login_error_dialog">Napaka pri prijavi.</string>
     <string name="editor_profile_changes">Preverjene spremembe</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Vaša zgodovina urejanja</string>
     <string name="editor_osm_notes">Vaše opombe k podatkom zemljevida</string>
     <string name="editor_operator">Upravljavec</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Upravljavec: %s</string>
     <string name="editor_category_unsuitable_title">Ne najdete primerne kategorije?</string>
     <string name="editor_category_unsuitable_text">Organic Maps omogoča dodajanje samo preprostih točkovnih kategorij, kar pomeni, da ni mest, cest, jezer, obrisov zgradb itd. Takšne kategorije dodajte neposredno na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Preverite naš <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vodnik</a> za podrobna navodila po korakih.</string>
@@ -710,9 +691,9 @@
     <string name="yes_available">Da</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Ne</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Kapaciteta: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Omrežje: %s</string>
     <string name="trip_finished">Prispeli ste!</string>
     <string name="ok">V redu</string>
@@ -851,7 +832,7 @@
     <string name="pref_tts_open_system_settings">Sistemske nastavitve sinteze govora</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Nastavitve sinteze govora niso bile najdene, ste prepričani, da vaša naprava to podpira?</string>
-    <string name="drive_through">Drive-through</string>
+    <string name="drive_through">Vožnja skozi</string>
     <string name="clear_the_search">Počisti iskanje</string>
     <string name="zoom_in">Povečaj</string>
     <!-- Accessibility text for the zoom-out button on the map -->
@@ -862,7 +843,7 @@
     <string name="view_menu">Ogled menija</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Odpri v drugi aplikaciji</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Samopostrežba</string>
     <string name="select_option">Izberite možnost</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -873,6 +854,8 @@
     <string name="start_track_recording">Snemaj sled</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Ustavi snemanje sledi</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Snemanje sledi</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Ustavi brez shranjevanja</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
@@ -890,5 +873,6 @@
     <string name="nav_auto">Samodejno v navigaciji</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Deli sled</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Izbrišem %s?</string>
 </resources>

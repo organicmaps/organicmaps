@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
+"share_bookmarks_email_body" = "안녕하세요!\n\n북마크가 첨부되어 있으니 오가닉 맵에서 열어주세요. 아직 설치하지 않았다면 여기에서 다운로드하세요: https://omaps.app/get?kmz\n\n오가닉 맵으로 여행을 즐겨보세요!";
 
 /* message title of loading file */
 "load_kmz_title" = "즐겨찾기 로드";
@@ -239,18 +239,6 @@
 
 /* Text in About menu, opens Organic Maps news website */
 "news" = "소식";
-
-/* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
 
 /* Text in menu */
 "rate_the_app" = "앱 평가";
@@ -499,8 +487,8 @@
 "day_off_today" = "오늘 영업 종료됨";
 "day_off" = "종료됨";
 "today" = "오늘";
-"opens_in" = "Opens in %@";
-"closes_in" = "Closes in %@";
+"opens_in" = "%@에서 열립니다";
+"closes_in" = "%@로 마감";
 "closed" = "닫음";
 "no_osm_account" = "OpenStreetMap에서 계정이 없습니까?";
 "register_at_openstreetmap" = "등록";
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "지도 찾기";
 "common_check_internet_connection_dialog" = "설정을 확인하고 장치가 인터넷에 연결되어 있는지 확인하십시오.";
 "downloader_no_space_title" = "충분하지 않은 여유 공간";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "불필요한 데이터를 제거하십시오.";
 "editor_profile_changes" = "변경사항 승인";
 "editor_focus_map_on_location" = "지도를 드래그하여 장소 또는 비즈니스의 위치에 십자가를 배치합니다.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "OpenStreetMap 정보";
 "editor_operator" = "연산자";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "연산자: %@";
 "editor_category_unsuitable_title" = "적합한 카테고리를 찾을 수 없나요?";
 "editor_category_unsuitable_text" = "오가닉 지도에서는 단순한 포인트 카테고리만 추가할 수 있으므로 도시, 도로, 호수, 건물 윤곽선 등은 추가할 수 없습니다. 이러한 카테고리는 <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> 에 직접 추가하세요. 자세한 단계별 지침은 <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">가이드</a>를 참조하세요.";
@@ -575,7 +565,7 @@
 "kilometers_per_hour" = "km/h";
 "miles_per_hour" = "mph";
 "hour" = "h";
-"minute" = "min";
+"minute" = "분";
 "day" = "일";
 "placepage_more_button" = "자세히";
 
@@ -629,7 +619,7 @@
 "button_plan" = "계획";
 "placepage_remove_stop" = "정류장 제거";
 "placepage_add_stop" = "스톱 추가";
-"saved" = "Saved";
+"saved" = "저장됨";
 "error_enter_correct_name" = "올바른 이름을 입력하세요.";
 "bookmark_lists" = "목록";
 
@@ -714,13 +704,13 @@
 /* E.g. "WiFi:No" */
 "no_available" = "아니오";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "수용 인원: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "네트워크: %@";
 "trip_finished" = "도착했습니다!";
-"ok" = "OK";
+"ok" = "확인";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "분류…";
@@ -744,10 +734,10 @@
 
 /* Place Page opening hours text */
 "closed_now" = "지금 닫힘";
-"opens_tomorrow_at" = "Opens tomorrow at %@";
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
-"opens_at" = "Opens at %@";
-"closes_at" = "Closes at %@";
+"opens_tomorrow_at" = "내일 %@에 오픈";
+"opens_dayoftheweek_at" = "2$@에서 %1$@을(를) 엽니다.";
+"opens_at" = "에서 열림 %@";
+"closes_at" = "에서 닫힘";
 "add_opening_hours" = "영업일 추가";
 "password_8_chars_min" = "암호(최소 8자)";
 "invalid_username_or_password" = "잘못된 사용자 이름 또는 암호.";
@@ -804,7 +794,7 @@
 "traffic_update_app_message" = "교통 데이터를 표시하려면 응용 프로그램을 업데이트해야 합니다.";
 "log_file_size" = "로그 파일 크기: %@";
 "planning_route_remove_title" = "여기로 끌어와서 제거";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "교체 중지";
 "start_from_my_position" = "시작 위치:";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -822,12 +812,15 @@
 "bookmarks_convert_error_title" = "오류";
 "bookmarks_convert_error_message" = "일부 파일은 변환되지 않았습니다.";
 "title_error_downloading_bookmarks" = "오류가 발생했습니다.";
-"popular_place" = "Popular";
+"popular_place" = "인기";
 "hide_from_map" = "지도에서 숨기기";
 "tags_loading_error_subtitle" = "태그를 불러오는 중 에러가 발생했습니다. 다시 시도해보세요";
-"download_button" = "다운로드";
-"right" = "Right";
-"bottom" = "Bottom";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
+"right" = "오른쪽";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
+"bottom" = "하단";
 "trip_start" = "가자";
 "pick_destination" = "목적지";
 "follow_my_position" = "내 위치 조정하기";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "다른 앱에서 열기";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "셀프 서비스";
 
 /* To indicate if restaurant or other place has outdoor seating */
@@ -990,16 +983,16 @@
 "whats_new_auto_update_button_later" = "나중에 수동으로 업데이트";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "트랙 삭제";
 
 /* The track deletion confirmaion alert message. */
 "placepage_delete_track_confirmation_alert_message" = "이 트랙을 삭제하시겠습니까?";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "트랙 이름";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "이동";
 
 /* edit track screen title */
 "track_title" = "길";
@@ -1094,7 +1087,7 @@
 "ft" = "풋";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "경로를 표시하려면 지도를 업데이트해야 합니다.";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "끝내기";

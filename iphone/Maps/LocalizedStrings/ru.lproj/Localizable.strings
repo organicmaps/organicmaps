@@ -181,7 +181,7 @@
 "my_position_share_email_subject" = "Проверь моё текущее местоположение на карте Organic Maps!";
 
 /* Share by email button text, also used in editor and About. */
-"email" = "Email";
+"email" = "Электронная почта";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Скопировано в буфер обмена: %@";
@@ -239,18 +239,6 @@
 
 /* Text in About menu, opens Organic Maps news website */
 "news" = "Новости";
-
-/* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
 
 /* Text in menu */
 "rate_the_app" = "Оценить приложение";
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Найти карту";
 "common_check_internet_connection_dialog" = "Проверьте настройки и убедитесь, что устройство подключено к интернету.";
 "downloader_no_space_title" = "Недостаточно места";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Удалите ненужные данные";
 "editor_profile_changes" = "Учтённые правки";
 "editor_focus_map_on_location" = "Перетащите карту, чтобы поместить крестик на место расположения добавляемого объекта или заведения.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Подробнее об OpenStreetMap";
 "editor_operator" = "Оператор";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Оператор: %@";
 "editor_category_unsuitable_title" = "Нет подходящей категории?";
 "editor_category_unsuitable_text" = "Organic Maps позволяет добавлять на карту только простые типы объектов, то есть никаких городов, дорог, озер, контуров зданий. Пожалуйста, добавляйте такие категории на сайте <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Также рекомендуем ознакомиться с нашими <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">подробными пошаговыми инструкциями и другими приложениями для редактирования карты</a>.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Нет";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Вместимость: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Сеть: %@";
 "trip_finished" = "Вы прибыли!";
 "ok" = "Ок";
@@ -804,7 +794,7 @@
 "traffic_update_app_message" = "Для отображения пробок необходимо обновить приложение.";
 "log_file_size" = "Размер файла логов: %@";
 "planning_route_remove_title" = "Перетяните сюда, чтобы удалить";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Заменить остановку";
 "start_from_my_position" = "Начать от";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -825,8 +815,11 @@
 "popular_place" = "Популярно";
 "hide_from_map" = "Скрыть с карты";
 "tags_loading_error_subtitle" = "Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте ещё раз";
-"download_button" = "Скачать";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Справа";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Снизу";
 "trip_start" = "Поехали";
 "pick_destination" = "Цель";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Открыть в другом приложении";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Самообслуживание";
 
 /* To indicate if restaurant or other place has outdoor seating */

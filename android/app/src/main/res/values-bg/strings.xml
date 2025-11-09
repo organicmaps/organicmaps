@@ -152,6 +152,7 @@
     <string name="description">Бележки</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Споделени са с вас отметки за Organic Maps</string>
+    <string name="share_bookmarks_email_body">Здравейте!\n\nПриложени са моите отметки; моля, отворете ги в Organic Maps. Ако нямате инсталирана програма, можете да я изтеглите оттук: https://omaps.app/get?kmz\n\nНаслаждавайте се на пътуванията с Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Зареждане на отметки</string>
     <!-- Kmz file successful loading -->
@@ -239,24 +240,6 @@
     <string name="website">Уебсайт</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Новини</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Обратна връзка</string>
     <!-- Text in menu -->
@@ -441,6 +424,8 @@
     <string name="day_off_today">Затворено днес</string>
     <string name="day_off">Затворено</string>
     <string name="today">Днес</string>
+    <string name="opens_in">Отваря се в %s</string>
+    <string name="closes_in">Приключва в %s</string>
     <string name="closed">Затворено</string>
     <string name="edit_opening_hours">Редакция на работното време</string>
     <string name="no_osm_account">Нямате акаунт в OpenStreetMap?</string>
@@ -472,12 +457,15 @@
     <string name="email_or_username">Имейл или потребителско име</string>
     <string name="editor_add_phone">Добави телефон</string>
     <string name="level">Етаж</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Ниво: %s</string>
     <string name="downloader_delete_map_dialog">Всички ваши редакции на картата ще бъдат изтрити заедно с нея.</string>
     <string name="downloader_update_maps">Обновяване на карти</string>
     <string name="downloader_mwm_migration_dialog">За да създадете маршрут, трябва да актуализирате всички карти и след това да планирате маршрута отново.</string>
     <string name="downloader_search_field_hint">Намиране на карта</string>
     <string name="common_check_internet_connection_dialog">Моля, проверете настройките си и се уверете, че устройството ви е свързано с интернет.</string>
     <string name="downloader_no_space_title">Няма достатъчно място</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Моля, изтрийте всички ненужни данни.</string>
     <string name="editor_login_error_dialog">Грешка при вход.</string>
     <string name="editor_profile_changes">Потвърдени промени</string>
@@ -517,7 +505,7 @@
     <string name="editor_osm_history">Вашата история на редактиране</string>
     <string name="editor_osm_notes">Бележки за данните на вашата карта</string>
     <string name="editor_operator">Оператор</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Оператор: %s</string>
     <string name="editor_category_unsuitable_title">Не можете да намерите подходяща категория?</string>
     <string name="editor_category_unsuitable_text">Organic Maps позволява да се добавят само прости категории точки, т.е. без градове, пътища, езера, очертания на сгради и т.н. Моля, добавяйте такива категории директно в <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Вижте нашето <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ръководство</a> за подробни инструкции стъпка по стъпка.</string>
@@ -546,7 +534,14 @@
     <string name="error_enter_correct_phone">Въведете валиден телефонен номер</string>
     <string name="error_enter_correct_web">Въведете валиден уеб адрес</string>
     <string name="error_enter_correct_email">Въведете валиден имейл</string>
+    <string name="error_enter_correct_facebook_page">Въведете валиден уеб адрес, акаунт или име на страница във Facebook</string>
+    <string name="error_enter_correct_instagram_page">Въведете валидно потребителско име за Instagram или уеб адрес</string>
+    <string name="error_enter_correct_twitter_page">Въведете валидно потребителско име в Twitter или уеб адрес</string>
+    <string name="error_enter_correct_vk_page">Въведете валидно потребителско име на VK или уеб адрес</string>
+    <string name="error_enter_correct_line_page">Въведете валиден LINE ID или уеб адрес</string>
     <string name="placepage_add_place_button">Добавяне на място в OpenStreetMap</string>
+    <string name="osm_note_hint">Или пък оставете бележка на общността на OpenStreetMap, за да може някой друг да добави или поправи мястото тук.</string>
+    <string name="osm_note_toast">Бележката ще бъде изпратена на OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Искате ли да го изпратите на всички потребители?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -601,7 +596,7 @@
     <string name="bookmark_lists_hide_all">Скриване на всичко</string>
     <string name="bookmark_lists_show_all">Показване на всичко</string>
     <plurals name="bookmarks_places">
-        <item quantity="other">%d bookmarks</item>
+        <item quantity="other">%d отметки</item>
     </plurals>
     <string name="bookmarks_create_new_group">Създаване на нов списък</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
@@ -658,6 +653,11 @@
     <string name="power_managment_setting_never">Никога</string>
     <string name="power_managment_setting_auto">Автоматично</string>
     <string name="power_managment_setting_manual_max">Максимално пестене на енергия</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Имената на отметките в картата</string>
+    <string name="bookmarks_text_placement_description">Ако има твърде много отметки, показването на имената им на картата може да забави работата на приложението.</string>
+    <string name="show_to_the_right">Показване вдясно</string>
+    <string name="show_at_the_bottom">Показване в долната част</string>
     <string name="enable_logging_warning_message">Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.</string>
     <string name="driving_options_title">Опции за маршрутизация</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -673,6 +673,7 @@
     <string name="change_driving_options_btn">Разрешени опции за маршрутизиране</string>
     <string name="toll_road">Път с винетка</string>
     <string name="unpaved_road">Път без настилка</string>
+    <string name="ferry_crossing">Преминаване с ферибот</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Да</string>
     <!-- A generic "No" button in dialogs -->
@@ -681,9 +682,9 @@
     <string name="yes_available">Да</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Не</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Капацитет: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Мрежа: %s</string>
     <string name="trip_finished">Пристигнахте!</string>
     <string name="ok">Ок</string>
@@ -743,12 +744,20 @@
     <string name="downloader_loading_ios">Изтегляне</string>
     <string name="download_map_title">Изтегляне на осноената картата на света</string>
     <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">Невъзможност за създаване на папка и преместване на файлове в паметта на вътрешното устройство или sdcard</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">Дискова грешка</string>
+    <!-- Used in DownloadResources startup screen -->
     <string name="connection_failure">Неуспешно свързване</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disconnect_usb_cable_title">Изключване на USB кабел</string>
     <string name="enable_keep_screen_on">Запазете екрана включен</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Когато е разрешено, екранът винаги ще бъде включен при показване на картата.</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">Показване на заключения екран</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">Когато е разрешено, приложението ще работи на заключения екран, дори когато устройството е заключено.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Език на картата</string>
     <!-- OpenStreetMap text on splash screen -->
@@ -823,7 +832,7 @@
     <string name="view_menu">Преглед на менюто</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Отваряне в друго приложение</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Самообслужване</string>
     <string name="select_option">Изберете опция</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -851,4 +860,8 @@
     <string name="uri_open_location_failed">Не е инсталирано приложение, което може да отвори местоположението</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Автоматично в навигацията</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Споделяне на пистата</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Изтриване на %s?</string>
 </resources>

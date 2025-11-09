@@ -241,18 +241,6 @@
 "news" = "Naujienos";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "Įvertinti šią programėlę";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Rasti žemėlapį";
 "common_check_internet_connection_dialog" = "Įsitikinkite, kad jūsų įrenginys yra prijungtas prie interneto.";
 "downloader_no_space_title" = "Nepakanka laisvos vietos";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Pašalinkite nereikalingus duomenis";
 "editor_profile_changes" = "Patvirtinti pakeitimai";
 "editor_focus_map_on_location" = "Vilkite žemėlapį, kad kryžiukas atsidurtų ties vieta, kurioje yra pridedama vieta ar įmonė.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Plačiau apie „OpenStreetMap“";
 "editor_operator" = "Operatorius";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operatorius: %@";
 "editor_category_unsuitable_title" = "Nerandate tinkamos kategorijos?";
 "editor_category_unsuitable_text" = "„Organic Maps“ leidžia pridėti tik paprastų kategorijas taškus – jokių miestų, kelių, ežerų, pastatų kontūrų ir pan. šia programėle pridėti negalima. Šių kategorijų objektus pridėkite naudodamiesi <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> svetaine. Žvilgtelėkite į mūsų <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">vadovą</a>, kuriame rasite išsamias pažingsnines instrukcijas.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Ne";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Talpa: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Tinklas: %@";
 "trip_finished" = "Jūs pasiekėte kelionės tikslą!";
 "ok" = "Gerai";
@@ -804,7 +794,7 @@
 "traffic_update_app_message" = "Jeigu norite matyti eismo duomenis, reikia atnaujinti programėlę.";
 "log_file_size" = "Žurnalo failo dydis: %@";
 "planning_route_remove_title" = "Vilkite čia, kad pašalintumėte";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Pakeisti Stop";
 "start_from_my_position" = "Pradėti iš";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -825,8 +815,11 @@
 "popular_place" = "Populiarūs";
 "hide_from_map" = "Nerodyti žemėlapyje";
 "tags_loading_error_subtitle" = "Įvyko klaida įkeliant gaires, bandykite iš naujo";
-"download_button" = "Atsiųsti";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Dešinėje";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Apačioje";
 "trip_start" = "Pirmyn";
 "pick_destination" = "Tikslas";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Atverti kitoje programėlėje";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Savitarna";
 
 /* To indicate if restaurant or other place has outdoor seating */

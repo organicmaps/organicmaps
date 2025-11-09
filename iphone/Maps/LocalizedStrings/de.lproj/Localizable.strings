@@ -104,7 +104,7 @@
 "category_parking" = "Parkplatz";
 
 /* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
-"category_shopping" = "Shopping";
+"category_shopping" = "Einkaufen";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
 "category_secondhand" = "Second-hand";
@@ -181,7 +181,7 @@
 "my_position_share_email_subject" = "Hey, sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an!";
 
 /* Share by email button text, also used in editor and About. */
-"email" = "Email";
+"email" = "E-Mail";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "In die Zwischenablage kopiert: %@";
@@ -241,18 +241,6 @@
 "news" = "Neuigkeiten";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "Bewerten Sie die App";
 
 /* Text in menu */
@@ -268,7 +256,7 @@
 "support_organic_maps" = "Organic Maps unterstützen";
 
 /* Button in the main Help dialog */
-"copyright" = "Copyright";
+"copyright" = "Urheberrecht";
 
 /* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
 "report_a_bug" = "App-Fehler melden";
@@ -363,7 +351,7 @@
 "blue_gray" = "Graublau";
 
 /* place preview title */
-"info" = "Info";
+"info" = "Infos";
 
 /* Prints version number in About dialog */
 "version" = "Organic Maps Version: %@";
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Karte finden";
 "common_check_internet_connection_dialog" = "Bitte überprüfen Sie Ihre Einstellungen und stellen Sie sicher, dass Ihr Gerät mit dem Internet verbunden ist.";
 "downloader_no_space_title" = "Nicht genug Speicherplatz";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Bitte entfernen Sie unnötige Daten";
 "editor_profile_changes" = "Bestätigte Änderungen der Karte";
 "editor_focus_map_on_location" = "Verschiebe die Karte, um das Kreuz an der Stelle zu platzieren, an der sich der Ort oder das Geschäft befindet.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Mehr Informationen über OpenStreetMap";
 "editor_operator" = "Betreiber";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Betreiber: %@";
 "editor_category_unsuitable_title" = "Keine passende Kategorie gefunden?";
 "editor_category_unsuitable_text" = "Mit Organic Maps kann man nur einfache Punktkategorien hinzufügen, daher keine Städte, Straßen, Seen, Gebäudeumrisse, etc. Bitte füge solche Kategorien direkt bei <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> hinzu. In unserem <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">Leitfaden</a> findest du eine detaillierte Schritt-für-Schritt-Anleitung.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nein";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Kapazität: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Netzwerk: %@";
 "trip_finished" = "Sie sind angekommen!";
 "ok" = "Ok";
@@ -825,8 +815,11 @@
 "popular_place" = "Beliebt";
 "hide_from_map" = "Auf der Karte ausblenden";
 "tags_loading_error_subtitle" = "Während dem Laden der Tags ist ein Fehler aufgetreten, bitte versuchen Sie es erneut";
-"download_button" = "Herunterladen";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Rechts";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Unten";
 "trip_start" = "Losfahren";
 "pick_destination" = "Ziel";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "In einer anderen App öffnen";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Selbstbedienung";
 
 /* To indicate if restaurant or other place has outdoor seating */
@@ -1002,7 +995,7 @@
 "move" = "Verschieben";
 
 /* edit track screen title */
-"track_title" = "Track";
+"track_title" = "Spur";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Farbe ändern";

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="core_entrance">Entrada</string>
-    <string name="subway_data_unavailable">El mapa del metro no está disponible</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Almacenamiento privado interno</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Para mostrar las rutas, los mapas deben estar actualizados.</string>
 </resources>

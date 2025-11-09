@@ -160,22 +160,6 @@
     <string name="website">Web stranica</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Novosti</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Povratne informacije</string>
     <!-- Text in menu -->
@@ -353,6 +337,7 @@
     <!-- Building level -->
     <string name="level_value_generic">Kat: %s</string>
     <string name="downloader_no_space_title">Nema dovoljno memorije</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Izbriši sve nepotrebne podatke</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Uredi zabilješku</string>
@@ -386,6 +371,12 @@
         <item quantity="other">Pronađeno je %d datoteka. Možeš ih vidjeti nakon konverzije.</item>
     </plurals>
     <string name="restore">Obnovi</string>
+    <plurals name="tracks">
+        <item quantity="zero">%d tragova</item>
+        <item quantity="one">%d trag</item>
+        <item quantity="few">%d traga</item>
+        <item quantity="other">%d tragova</item>
+    </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Privatnost</string>
     <string name="privacy_policy">Politika privatnosti</string>
@@ -443,9 +434,9 @@
     <string name="yes_available">Da</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Ne</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Broj mjesta: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Mreža: %s</string>
     <string name="trip_finished">Stigli ste!</string>
     <string name="ok">U redu</string>
@@ -559,7 +550,7 @@
     <string name="website_menu">Poveznica za jelovnik</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Prikaži jelovnik</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Samoposluga</string>
     <string name="select_option">Odaberi opciju</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -569,5 +560,6 @@
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Nastavi snimanje</string>
     <string name="choose_color">Odaberi boju</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Izbrisati %s?</string>
 </resources>

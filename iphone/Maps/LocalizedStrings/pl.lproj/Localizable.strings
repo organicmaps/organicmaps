@@ -181,7 +181,7 @@
 "my_position_share_email_subject" = "Zobacz moją aktualną lokalizację na mapie przy użyciu Organic Maps";
 
 /* Share by email button text, also used in editor and About. */
-"email" = "Email";
+"email" = "E-mail";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Skopiowano do schowka: %@";
@@ -239,18 +239,6 @@
 
 /* Text in About menu, opens Organic Maps news website */
 "news" = "Wiadomości";
-
-/* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
 
 /* Text in menu */
 "rate_the_app" = "Oceń aplikację";
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Znajdź mapę";
 "common_check_internet_connection_dialog" = "Sprawdź swoje ustawienia i upewnij się, że urządzenie ma połączenie z Internetem.";
 "downloader_no_space_title" = "Brak wolnego miejsca";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Usuń niepotrzebne dane";
 "editor_profile_changes" = "Zmiany zweryfikowane";
 "editor_focus_map_on_location" = "Proszę przeciągnąć mapę, aby umieścić krzyżyk w miejscu lokalizacji miejsca lub firmy.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Więcej o OpenStreetMap";
 "editor_operator" = "Operator";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operator: %@";
 "editor_category_unsuitable_title" = "Nie możesz znaleźć odpowiedniej kategorii?";
 "editor_category_unsuitable_text" = "Organic Maps pozwala na dodawanie tylko prostych kategorii punktów, co oznacza brak miast, dróg, jezior, obrysów budynków itp. Dodaj takie kategorie bezpośrednio do <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Sprawdź nasz <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">przewodnik</a>, aby uzyskać szczegółowe instrukcje krok po kroku.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nie";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Pojemność: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Sieć: %@";
 "trip_finished" = "Jesteś na miejscu!";
 "ok" = "Ok";
@@ -825,8 +815,11 @@
 "popular_place" = "Popularne";
 "hide_from_map" = "Ukryj mapy";
 "tags_loading_error_subtitle" = "Wystąpił błąd podczas pobierania tagów, spróbuj ponownie";
-"download_button" = "Pobierz";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Prawo";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Przycisk";
 "trip_start" = "Jedźmy";
 "pick_destination" = "Meta";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Otwórz w innej aplikacji";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Samoobsługa";
 
 /* To indicate if restaurant or other place has outdoor seating */

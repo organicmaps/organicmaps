@@ -240,26 +240,6 @@
     <string name="website">Hjemmeside</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Nyheder</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Feedback</string>
     <!-- Text in menu -->
@@ -276,7 +256,7 @@
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Støt projektet</string>
     <!-- Button in the main Help dialog -->
-    <string name="copyright">Copyright</string>
+    <string name="copyright">Ophavsret</string>
     <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
     <string name="report_a_bug">Rapportér fejl</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
@@ -339,7 +319,7 @@
     <!-- brown color -->
     <string name="brown">Brun</string>
     <!-- pink color -->
-    <string name="pink">Pink</string>
+    <string name="pink">Lyserød</string>
     <!-- deep purple color -->
     <string name="deep_purple">Mørkelilla</string>
     <!-- light blue color -->
@@ -349,7 +329,7 @@
     <!-- teal color -->
     <string name="teal">Blågrøn</string>
     <!-- lime color -->
-    <string name="lime">Lime</string>
+    <string name="lime">Kalk</string>
     <!-- deep orange color -->
     <string name="deep_orange">Dyb orange</string>
     <!-- gray color -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Find kort</string>
     <string name="common_check_internet_connection_dialog">Tjek dine indstillinger og sørg for, din enhed er forbundet til internettet.</string>
     <string name="downloader_no_space_title">Ikke nok plads</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Slet unødvendig data</string>
     <string name="editor_login_error_dialog">Login-fejl.</string>
     <string name="editor_profile_changes">Bekræftede ændringer</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Din redigeringshistorik</string>
     <string name="editor_osm_notes">Dine noter til kortdata</string>
     <string name="editor_operator">Operatør</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operatør: %s</string>
     <string name="editor_category_unsuitable_title">Kan du ikke finde en passende kategori?</string>
     <string name="editor_category_unsuitable_text">Organic Maps giver kun mulighed for at tilføje simple punktkategorier, dvs. ingen byer, veje, søer, bygningsomrids osv. Tilføj sådanne kategorier direkte til <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Se vores <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detaljerede trin for trin-instruktioner.</string>
@@ -704,9 +685,9 @@
     <string name="yes_available">Ja</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Nej</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Kapacitet: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Netværk: %s</string>
     <string name="trip_finished">Du er ankommet!</string>
     <string name="ok">Ok</string>
@@ -845,7 +826,7 @@
     <string name="pref_tts_open_system_settings">Indstillinger for talesyntese-system</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Indstillingerne for talesyntese blev ikke fundet, er du sikker på, at din enhed understøtter det?</string>
-    <string name="drive_through">Drive-through</string>
+    <string name="drive_through">Gennemkørsel</string>
     <string name="clear_the_search">Ryd søgningen</string>
     <string name="zoom_in">Zoom ind</string>
     <!-- Accessibility text for the zoom-out button on the map -->
@@ -856,7 +837,7 @@
     <string name="view_menu">Vis menu</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Åbn i en anden app</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Selvbetjening</string>
     <string name="select_option">Vælg mulighed</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -886,5 +867,6 @@
     <string name="nav_auto">Auto ved navigation</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Del spor</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Slet %s?</string>
 </resources>

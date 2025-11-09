@@ -240,26 +240,6 @@
     <string name="website">Vefsvæði</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Fréttir</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Umsagnir</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Finna kort</string>
     <string name="common_check_internet_connection_dialog">Gakktu úr skugga um að tækið sé tengt við internetið.</string>
     <string name="downloader_no_space_title">Ekki nægilegt pláss</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Eyddu öllum ónauðsynlegum gögnum</string>
     <string name="editor_login_error_dialog">Villa við innskráningu.</string>
     <string name="editor_profile_changes">Staðfestar breytingar</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Breytingaferillinn þinn</string>
     <string name="editor_osm_notes">Minnispunktar þínir við gögn korts</string>
     <string name="editor_operator">Rekstraraðili</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Rekstraraðili: %s</string>
     <string name="editor_category_unsuitable_title">Finnurðu ekki hentugan flokk?</string>
     <string name="editor_category_unsuitable_text">Organic Maps leyfir aðeins að bæta við flokkum eins-punkts staða, sem þýðir engin sveitarfélagamörk, vegir, vötn, útlínur bygginga o.s.frv. Bættu slíkum atriðum beint inn í <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Skoðaðu <a href="https://organicmaps.app/faq/editing/advanced-map-editing">leiðbeiningarnar</a> okkar til að sjá hvernig það er gert, skref-fyrir-skref.</string>
@@ -707,9 +688,9 @@
     <string name="yes_available">Já</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Nei</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Rými: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Netkerfi: %s</string>
     <string name="trip_finished">Þú hefur náð á áfangastað!</string>
     <string name="ok">Í lagi</string>
@@ -859,7 +840,7 @@
     <string name="view_menu">Skoða valmynd</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Opna í öðru forriti</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Sjálfsafgreiðsla</string>
     <string name="select_option">Veldu valkost</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -889,5 +870,6 @@
     <string name="nav_auto">Sjálfvirkt við leiðsögn</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Deila ferli</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Eyða %s?</string>
 </resources>

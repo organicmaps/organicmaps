@@ -241,18 +241,6 @@
 "news" = "Fréttir";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "Gefðu forritinu einkunn";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Finna kort";
 "common_check_internet_connection_dialog" = "Gakktu úr skugga um að tækið sé tengt við internetið.";
 "downloader_no_space_title" = "Ekki nægilegt pláss";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Eyddu öllum ónauðsynlegum gögnum";
 "editor_profile_changes" = "Staðfestar breytingar";
 "editor_focus_map_on_location" = "Dragðu kortið þannig að krossinn lendi á staðnum eða fyrirtækinu.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Meira um OpenStreetMap";
 "editor_operator" = "Rekstraraðili";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Rekstraraðili: %@";
 "editor_category_unsuitable_title" = "Finnurðu ekki hentugan flokk?";
 "editor_category_unsuitable_text" = "Organic Maps leyfir aðeins að bæta við flokkum eins-punkts staða, sem þýðir engin sveitarfélagamörk, vegir, vötn, útlínur bygginga o.s.frv. Bættu slíkum atriðum beint inn í <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Skoðaðu <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">leiðbeiningarnar</a> okkar til að sjá hvernig það er gert, skref-fyrir-skref.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nei";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Rými: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Netkerfi: %@";
 "trip_finished" = "Þú hefur náð á áfangastað!";
 "ok" = "Í lagi";
@@ -825,8 +815,11 @@
 "popular_place" = "Vinsælt";
 "hide_from_map" = "Fela á korti";
 "tags_loading_error_subtitle" = "Villa kom upp við að hlaða inn merkjum, reyndu aftur";
-"download_button" = "Sækja";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Hægri";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Neðst";
 "trip_start" = "Hefjumst handa";
 "pick_destination" = "Ákvörðunarstaður";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Opna í öðru forriti";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Sjálfsafgreiðsla";
 
 /* To indicate if restaurant or other place has outdoor seating */

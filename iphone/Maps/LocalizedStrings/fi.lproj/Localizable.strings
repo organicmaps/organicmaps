@@ -241,18 +241,6 @@
 "news" = "Uutiset";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "Arvioi sovellus";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Etsi kartta";
 "common_check_internet_connection_dialog" = "Varmista, että laitteesi on yhteydessä Internetiin.";
 "downloader_no_space_title" = "Ei tarpeeksi tilaa";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Poista tarpeeton data";
 "editor_profile_changes" = "Vahvistetut karttamuutokset";
 "editor_focus_map_on_location" = "Aseta risti paikan tai yrityksen sijaintiin vetämällä karttaa.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Lisätietoja OpenStreetMap:sta";
 "editor_operator" = "Operaattori";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operaattori: %@";
 "editor_category_unsuitable_title" = "Etkö löydä sopivaa luokkaa?";
 "editor_category_unsuitable_text" = "Organic Maps mahdollistaa vain yksinkertaisten pisteluokkien lisäämisen, eli ei kaupunkeja, teitä, järviä, rakennusten ääriviivoja jne. Lisää tällaiset luokat suoraan <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Tarkista <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">oppaastamme</a> yksityiskohtaiset ohjeet vaihe vaiheelta.";
@@ -629,7 +619,7 @@
 "button_plan" = "Suunnittele";
 "placepage_remove_stop" = "Poista pysähdys";
 "placepage_add_stop" = "Lisää pysähdys";
-"saved" = "Saved";
+"saved" = "Tallennettu";
 "error_enter_correct_name" = "Anna oikea nimi";
 "bookmark_lists" = "Luettelot";
 
@@ -678,10 +668,10 @@
 "power_managment_setting_manual_max" = "Täysi virransäästö";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"bookmarks_text_placement_title" = "Kirjanmerkin nimet kartalla";
+"bookmarks_text_placement_description" = "Jos kirjanmerkkejä on liikaa, niiden nimien näyttäminen kartalla voi hidastaa sovelluksen toimintaa.";
+"show_to_the_right" = "Näytä oikealle";
+"show_at_the_bottom" = "Näytä alareunassa";
 "enable_logging_warning_message" = "Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos Organic Maps:n tuki pyytää.";
 "driving_options_title" = "Reititysvalinnat";
 
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Ei";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Kapasiteetti: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Verkko: %@";
 "trip_finished" = "Olet perillä!";
 "ok" = "Ok";
@@ -804,7 +794,7 @@
 "traffic_update_app_message" = "Liikennetietojen näyttämiseksi sovellus on päivitettävä.";
 "log_file_size" = "Lokitiedoston koko: %@";
 "planning_route_remove_title" = "Vedä tähän poistaaksesi";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Vaihda Stop";
 "start_from_my_position" = "Aloita kohdasta";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -825,9 +815,12 @@
 "popular_place" = "Suosittu";
 "hide_from_map" = "Piilota kartalta";
 "tags_loading_error_subtitle" = "Tunnisteiden lataamisen aikana tapahtui virhe, yritä uudelleen";
-"download_button" = "Lataa";
-"right" = "Right";
-"bottom" = "Bottom";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
+"right" = "Oikea";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
+"bottom" = "Pohja";
 "trip_start" = "Mennään";
 "pick_destination" = "Määränpää";
 "follow_my_position" = "Kohdista";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Avaa toisessa sovelluksessa";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Itsepalvelu";
 
 /* To indicate if restaurant or other place has outdoor seating */
@@ -1094,7 +1087,7 @@
 "ft" = "ft";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Reittien näyttämiseksi kartat on päivitettävä.";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Poistu";

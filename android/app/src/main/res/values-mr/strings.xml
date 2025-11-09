@@ -226,6 +226,8 @@
     <string name="pref_map_auto_zoom">स्वयं झूम</string>
     <string name="placepage_distance">अंतर</string>
     <string name="search_show_on_map">नकाशावर पहा</string>
+    <!-- Menu button -->
+    <string name="menu">मेनू</string>
     <!-- Text in menu -->
     <string name="website">संकेतस्थळ</string>
     <!-- Text in About menu, opens Organic Maps news website -->
@@ -453,6 +455,7 @@
     <string name="downloader_search_field_hint">नकाशा शोधा</string>
     <string name="common_check_internet_connection_dialog">कृपया तुमचे सेटिंग तपासा आणि तुमचे उपकरण इंटरनेटशी जोडले असल्याची खात्री करा.</string>
     <string name="downloader_no_space_title">पुरेशी जागा नाही</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">कृपया अनावश्यक डेटा पुसून टाका</string>
     <string name="editor_login_error_dialog">लॉग इन त्रुटी.</string>
     <string name="editor_profile_changes">सत्यापित बदल</string>
@@ -492,7 +495,7 @@
     <string name="editor_osm_history">तुमचा संपादन इतिहास</string>
     <string name="editor_osm_notes">तुमचा नकाशा डेटा नोट्स</string>
     <string name="editor_operator">ऑपरेटर</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">ऑपरेटर: %s</string>
     <string name="editor_category_unsuitable_title">योग्य श्रेणी शोधू शकत नाही?</string>
     <string name="editor_category_unsuitable_text">ऑरगॅनिक नकाशे फक्त साध्या बिंदू श्रेणी जोडण्याची परवानगी देतात, म्हणजे शहरे, रस्ते, तलाव, इमारत बाह्यरेखा इ. कृपया अशा श्रेणी थेट <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> वर जोडा. तपशीलवार चरण-दर-चरण सूचनांसाठी आमचे <a href="https://organicmaps.app/faq/editing/advanced-map-editing">मार्गदर्शक</a> पहा.</string>
@@ -656,9 +659,9 @@
     <string name="yes_available">होय</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">नाही</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">क्षमता: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">नेटवर्क: %s</string>
     <string name="trip_finished">तुम्ही पोचलात!</string>
     <string name="ok">ठीक आहे</string>
@@ -796,7 +799,7 @@
     <string name="view_menu">मेनू पहा</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">दुसऱ्या ॲपमध्ये उघडा</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">स्व: सेवा</string>
     <string name="select_option">पर्याय निवडा</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->

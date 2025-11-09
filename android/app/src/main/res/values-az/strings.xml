@@ -461,6 +461,7 @@
     <string name="downloader_search_field_hint">Xəritəni tapın</string>
     <string name="common_check_internet_connection_dialog">Zəhmət olmasa cihazınızın internetə qoşulduğundan əmin olun.</string>
     <string name="downloader_no_space_title">Kifayət qədər yer yoxdur</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Zəhmət olmasa lazımsız məlumatları silin</string>
     <string name="editor_login_error_dialog">Giriş xətası</string>
     <string name="editor_profile_changes">Təsdiqlənmiş Dəyişikliklər</string>
@@ -500,7 +501,7 @@
     <string name="editor_osm_history">Redaktə tarixçəniz</string>
     <string name="editor_osm_notes">Xəritə məlumatı qeydləriniz</string>
     <string name="editor_operator">Operator</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operator: %s</string>
     <string name="editor_category_unsuitable_title">Uyğun kateqoriya tapa bilmirsiniz?</string>
     <string name="editor_category_unsuitable_text">Üzvi Xəritələr yalnız sadə nöqtə kateqoriyaları əlavə etməyə imkan verir, bu o deməkdir ki, şəhərlər, yollar, göllər, bina konturları və s. yoxdur. Lütfən, belə kateqoriyaları birbaşa <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> saytına əlavə edin. Ətraflı addım-addım təlimatlar üçün <a href="https://organicmaps.app/faq/editing/advanced-map-editing">bələdçimizi</a> yoxlayın.</string>
@@ -670,7 +671,7 @@
     <string name="yes_available">Var</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Yox</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Şəbəkə: %s</string>
     <string name="trip_finished">Sən gəldin!</string>
     <string name="ok">Yaxşı</string>
@@ -790,7 +791,7 @@
     <string name="view_menu">Menyuya baxın</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Başqa Tətbiqdə Açın</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Özünəxidmət</string>
     <string name="select_option">Seçim seçin</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->

@@ -240,26 +240,6 @@
     <string name="website">وبگاه</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">اخبار</string>
-    <!-- Text in menu -->
-    <string name="github">گیت‌هاب</string>
-    <!-- Text in menu -->
-    <string name="telegram">تلگرام</string>
-    <!-- Text in menu -->
-    <string name="matrix">[ماتریکس]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">ماستودون</string>
-    <!-- Text in menu -->
-    <string name="facebook">فیسبوک</string>
-    <!-- Text in menu -->
-    <string name="twitter">ایکس (توییتر)</string>
-    <!-- Text in menu -->
-    <string name="instagram">اینستاگرام</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">لاین</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">اوپن‌استریت‌مپ</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">بازخورد</string>
     <!-- Text in menu -->
@@ -485,6 +465,7 @@
     <string name="downloader_search_field_hint">یافتن نقشه</string>
     <string name="common_check_internet_connection_dialog">لطفا تنظیمات خود را بازبینی کنید و مطمئن شوید که ابزار شما به اینترنت متصل است.</string>
     <string name="downloader_no_space_title">فظای کافی موجود نیست</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">لطفا داده‌های غیر ضروری را از دستگاه خود حذف کنید</string>
     <string name="editor_login_error_dialog">خطای ورود.</string>
     <string name="editor_profile_changes">تغییرات تایید شد</string>
@@ -524,7 +505,7 @@
     <string name="editor_osm_history">سابقه ویرایش شما</string>
     <string name="editor_osm_notes">یادداشت های داده های نقشه شما</string>
     <string name="editor_operator">اپراتور</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">اپراتور: %s</string>
     <string name="editor_category_unsuitable_title">آیا نمی توانید یک دسته بندی مناسب پیدا کنید؟</string>
     <string name="editor_category_unsuitable_text">Organic Maps اجازه میu200cدهد فقط دستهu200cهای نقطهu200cای ساده را اضافه کند، یعنی هیچ شهر، جاده، دریاچه، طرح کلی ساختمان و غیره وجود ندارد. لطفاً این دستهu200cها را مستقیماً به <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> اضافه کنید. برای دستورالعملu200cهای گام به گام، <a href="https://organicmaps.app/faq/editing/advanced-map-editing">راهنمای</a> ما را بررسی کنید.</string>
@@ -654,7 +635,7 @@
     <string name="layers_title">سبک ها و لایه های نقشه</string>
     <string name="bookmarks_empty_list_title">این فهرست خالی است</string>
     <string name="bookmarks_empty_list_message">برای افزودن یک نشانک، روی یک مکان روی نقشه ضربه بزنید و سپس روی نماد ستاره ضربه بزنید</string>
-    <string name="category_desc_more">...بیشتر</string>
+    <string name="category_desc_more">…بیشتر</string>
     <string name="export_file">صادرات KMZ</string>
     <string name="export_file_gpx">صادرات GPX</string>
     <string name="delete_list">حذف فهرست</string>
@@ -699,9 +680,9 @@
     <string name="yes_available">بلی</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">خیر</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">ظرفیت: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">شبکه: %s</string>
     <string name="trip_finished">شما به مقصد رسیدید!</string>
     <string name="ok">موافقت کردن</string>
@@ -851,7 +832,7 @@
     <string name="view_menu">مشاهده منو</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">در یک برنامه دیگر باز کنید</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">سلف سرویس</string>
     <string name="select_option">گزینه را انتخاب کنید</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->

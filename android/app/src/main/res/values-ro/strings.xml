@@ -88,8 +88,12 @@
     <string name="maps_storage_summary">Alege locul în care vrei să fie descărcate hărțile.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Hărți</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%1$s liber de %2$s</string>
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">Muți hărțile?</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">Eroare la mutarea fișierelor de hartă</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
     <string name="wait_several_minutes">Poate dura câteva minute.\nAșteaptă…</string>
     <!-- Measurement units title in settings activity -->
@@ -109,7 +113,7 @@
     <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
     <string name="category_parking">Parcare</string>
     <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
-    <string name="category_shopping">Shopping</string>
+    <string name="category_shopping">Cumpărături</string>
     <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
     <string name="category_secondhand">La mâna a doua</string>
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
@@ -230,6 +234,8 @@
     <string name="pref_map_auto_zoom">Zoom automat</string>
     <string name="placepage_distance">Distanță</string>
     <string name="search_show_on_map">Vezi pe hartă</string>
+    <!-- Menu button -->
+    <string name="menu">Meniu</string>
     <!-- Text in menu -->
     <string name="website">Site web</string>
     <!-- Text in About menu, opens Organic Maps news website -->
@@ -437,7 +443,6 @@
     <!-- Editable House Number text field (in address block). -->
     <string name="house_number">Număr</string>
     <string name="details">Detalii</string>
-    <string name="social_media">Social Media</string>
     <string name="building">Clădire</string>
     <!-- Text field to enter non-existing street name, below list of known streets around -->
     <string name="add_street">Adaugă o stradă</string>
@@ -451,12 +456,15 @@
     <string name="email_or_username">E-mail sau nume de utilizator</string>
     <string name="editor_add_phone">Adaugă un număr</string>
     <string name="level">Etaj</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Nivel: %s</string>
     <string name="downloader_delete_map_dialog">Toate modificările aduse hărții vor fi șterse împreună cu harta.</string>
     <string name="downloader_update_maps">Actualizează hărțile</string>
     <string name="downloader_mwm_migration_dialog">Pentru a crea un traseu, trebuie să actualizezi toate hărțile, iar apoi să planifici traseul încă o dată.</string>
     <string name="downloader_search_field_hint">Caută harta</string>
     <string name="common_check_internet_connection_dialog">Verifică dacă dispozitivul tău este conectat la internet.</string>
     <string name="downloader_no_space_title">Spațiu insuficient</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Șterge datele care nu sunt necesare</string>
     <string name="editor_login_error_dialog">Eroare de conectare.</string>
     <string name="editor_profile_changes">Modificări confirmate</string>
@@ -496,7 +504,7 @@
     <string name="editor_osm_history">Istoricul dvs. de editare</string>
     <string name="editor_osm_notes">Note privind datele hărții dvs.</string>
     <string name="editor_operator">Operator</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operator: %s</string>
     <string name="editor_category_unsuitable_title">Nu găsiți o categorie potrivită?</string>
     <string name="editor_category_unsuitable_text">Organic Maps permite adăugarea doar a unor categorii de puncte simple, ceea ce înseamnă că nu există orașe, drumuri, lacuri, contururi de clădiri, etc. Vă rugăm să adăugați astfel de categorii direct la <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultați <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ghidul nostru</a> pentru instrucțiuni detaliate pas cu pas.</string>
@@ -531,6 +539,8 @@
     <string name="error_enter_correct_vk_page">Introdu o adresă web sau un nume de cont VK valabil</string>
     <string name="error_enter_correct_line_page">Introdu o adresă web LINE valabilă sau un ID LINE</string>
     <string name="placepage_add_place_button">Adaugă un loc pe OpenStreetMap</string>
+    <string name="osm_note_hint">Sau, alternativ, lăsați o notă comunității OpenStreetMap, astfel încât altcineva să poată adăuga sau repara un loc aici.</string>
+    <string name="osm_note_toast">Nota va fi trimisă la OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Vrei să-l trimiți tuturor utilizatorilor?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -573,6 +583,7 @@
     <string name="button_plan">Planifică</string>
     <string name="placepage_remove_stop">Scoateți opritorul</string>
     <string name="placepage_add_stop">Adaugă oprire</string>
+    <string name="saved">Salvat</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe <a href="https://github.com/organicmaps/organicmaps/issues/6144">aici</a>.</string>
     <string name="dialog_error_storage_title">Problemă de acces la spațiul de stocare</string>
@@ -615,6 +626,10 @@
     <string name="privacy_policy">Confidențialitate</string>
     <string name="terms_of_use">Termeni de utilizare</string>
     <string name="button_layer_traffic">Trafic</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Drumeții</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Ciclism</string>
     <string name="button_layer_subway">Metrou</string>
     <string name="layers_title">Stiluri și straturi de hartă</string>
     <string name="bookmarks_empty_list_title">Lista este goală</string>
@@ -638,6 +653,11 @@
     <string name="power_managment_setting_never">Niciodată</string>
     <string name="power_managment_setting_auto">Automat</string>
     <string name="power_managment_setting_manual_max">Economisire maximă a energiei</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Nume de marcaje pe hartă</string>
+    <string name="bookmarks_text_placement_description">Dacă există prea multe marcaje, afișarea numelor acestora pe hartă poate încetini aplicația.</string>
+    <string name="show_to_the_right">Arată la dreapta</string>
+    <string name="show_at_the_bottom">Afișare în partea de jos</string>
     <string name="enable_logging_warning_message">Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.</string>
     <string name="driving_options_title">Opțiuni de ocolire</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -662,9 +682,9 @@
     <string name="yes_available">Da</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Nu</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Capacitate: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Rețea: %s</string>
     <string name="trip_finished">Ai ajuns!</string>
     <string name="ok">Bine</string>
@@ -723,6 +743,10 @@
     <string name="isolines_toast_zooms_1_10">Mărește harta pentru a vedea izoliniile</string>
     <string name="downloader_loading_ios">Se descarcă</string>
     <string name="download_map_title">Descarcă harta lumii</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">Imposibilitatea de a crea foldere și de a muta fișiere pe memoria internă a dispozitivului sau pe cardul sd</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">Eroare de disc</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="connection_failure">Eroare de conectare</string>
     <!-- Used in DownloadResources startup screen -->
@@ -798,7 +822,7 @@
     <string name="view_menu">Vezi meniul</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Deschidere în altă aplicație</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Autoservire</string>
     <string name="select_option">Selectați opțiunea</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -826,4 +850,6 @@
     <string name="uri_open_location_failed">Nu există nicio aplicație instalată care să poată deschide locația</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto în navigație</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Ștergeți %s?</string>
 </resources>

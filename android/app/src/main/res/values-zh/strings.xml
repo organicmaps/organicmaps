@@ -240,26 +240,6 @@
     <string name="website">网站</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">新闻</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (推特)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">反馈</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">搜索地图</string>
     <string name="common_check_internet_connection_dialog">请检查您的设置并确保您的设备已连接至网络。</string>
     <string name="downloader_no_space_title">没有足够的空间</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">请删除不必要的数据</string>
     <string name="editor_login_error_dialog">无法登录。</string>
     <string name="editor_profile_changes">已验证的更改</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">您的编辑历史</string>
     <string name="editor_osm_notes">您的地图数据说明</string>
     <string name="editor_operator">操作员</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">操作员: %s</string>
     <string name="editor_category_unsuitable_title">找不到合适的类别？</string>
     <string name="editor_category_unsuitable_text">Organic Maps 只允许添加简单的点类别，即无法添加城镇、道路、湖泊、建筑轮廓等类别。请直接向 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。</string>
@@ -705,9 +686,9 @@
     <string name="yes_available">是</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">否</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">容量：%s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">网络：%s</string>
     <string name="trip_finished">您已到达目的地！</string>
     <string name="ok">好的</string>
@@ -857,7 +838,7 @@
     <string name="view_menu">查看菜单</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">在另一个应用中打开</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">自助服务</string>
     <string name="select_option">选择选项</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -887,5 +868,6 @@
     <string name="nav_auto">自动导航</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">分享轨迹</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">删除 %s？</string>
 </resources>

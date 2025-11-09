@@ -241,18 +241,6 @@
 "news" = "Hírek";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VKontakte";
-
-/* Text in menu */
 "rate_the_app" = "Értékelje az alkalmazást";
 
 /* Text in menu */
@@ -351,7 +339,7 @@
 "teal" = "Zöldeskék";
 
 /* lime color */
-"lime" = "Lime";
+"lime" = "Mész";
 
 /* deep orange color */
 "deep_orange" = "Mély narancssárga";
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Térkép keresése";
 "common_check_internet_connection_dialog" = "Győződjön meg arról, hogy az eszköz csatlakozik az internethez.";
 "downloader_no_space_title" = "Nincs elegendő tárhely";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Törölje a felesleges adatokat";
 "editor_profile_changes" = "Jóváhagyott módosítás";
 "editor_focus_map_on_location" = "Húzza a térképet, hogy a keresztet a hely vagy üzlet helyére helyezze.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "További részletek az OpenStreetMap adatbázisról";
 "editor_operator" = "Üzemeltető";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Üzemeltető: %@";
 "editor_category_unsuitable_title" = "Nem találja a megfelelő kategóriát?";
 "editor_category_unsuitable_text" = "Az Organic Maps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb., az ilyen kategóriákat közvetlenül az <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> oldalon adhatja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg az <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">útmutatónkat</a>.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nem";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Kapacitás: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Hálózat: %@";
 "trip_finished" = "Megérkezett!";
 "ok" = "OK";
@@ -825,8 +815,11 @@
 "popular_place" = "Népszerű";
 "hide_from_map" = "Elrejtés a térképről";
 "tags_loading_error_subtitle" = "Hiba történt a címkék betöltése közben, próbálja meg újra";
-"download_button" = "Letöltés";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Jobb";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Alul";
 "trip_start" = "Gyerünk";
 "pick_destination" = "Célállomás";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Megnyitás másik alkalmazásban";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Önkiszolgáló";
 
 /* To indicate if restaurant or other place has outdoor seating */

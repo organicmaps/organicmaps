@@ -88,8 +88,12 @@
     <string name="maps_storage_summary">Pilih tempat untuk menyimpan unduhan peta</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Peta</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%1$s bebas dari %2$s</string>
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">Pindahkan peta?</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">Kesalahan memindahkan file peta</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
     <string name="wait_several_minutes">Ini akan memakan waktu beberapa menit.\nMohon tunggu…</string>
     <!-- Measurement units title in settings activity -->
@@ -148,6 +152,7 @@
     <string name="description">Catatan</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Bagikan penanda Organic Maps</string>
+    <string name="share_bookmarks_email_body">Halo!\n\nTerlampir adalah bookmark saya; silakan buka di Organic Maps. Jika Anda belum memasangnya, Anda dapat mengunduhnya di sini: https://omaps.app/get?kmz\n\nNikmati perjalanan Anda dengan Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Memuat Penanda</string>
     <!-- Kmz file successful loading -->
@@ -159,7 +164,7 @@
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
     <string name="failed_to_open_file">Gagal membuka file %1$s\n\n%2$s</string>
     <!-- resource for context menu -->
-    <string name="edit">Edit</string>
+    <string name="edit">Sunting</string>
     <!-- Warning message when doing search around current position -->
     <string name="unknown_current_position">Lokasi Anda belum ditentukan</string>
     <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
@@ -191,6 +196,10 @@
     <!-- Length of track in cell that describes route -->
     <string name="length">Panjang</string>
     <string name="share_my_location">Bagikan Lokasi Saya</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">Pengaturan umum</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">Informasi</string>
     <string name="prefs_group_route">Navigasi</string>
     <string name="pref_zoom_title">Tombol perbesaran</string>
     <string name="pref_zoom_summary">Tampilkan pada layar</string>
@@ -411,6 +420,8 @@
     <string name="day_off_today">Tutup hari ini</string>
     <string name="day_off">Tutup</string>
     <string name="today">Hari ini</string>
+    <string name="opens_in">Dibuka dalam %s</string>
+    <string name="closes_in">Ditutup dalam %s</string>
     <string name="closed">Tutup</string>
     <string name="edit_opening_hours">Sunting jam kerja</string>
     <string name="no_osm_account">Tidak ada akun di OpenStreetMap?</string>
@@ -432,19 +443,25 @@
     <string name="building">Bangunan</string>
     <!-- Text field to enter non-existing street name, below list of known streets around -->
     <string name="add_street">Tambahkan jalan</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">Silakan masukkan nama jalan</string>
     <string name="choose_language">Pilih bahasa</string>
     <string name="choose_street">Pilih jalan</string>
     <string name="cuisine">Masakan</string>
     <string name="select_cuisine">Pilih Masakan</string>
     <!-- login text field -->
     <string name="email_or_username">Surel atau nama pengguna</string>
+    <string name="editor_add_phone">Tambahkan Telepon</string>
     <string name="level">Tingkat</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Tingkat: %s</string>
     <string name="downloader_delete_map_dialog">Semua perubahan peta akan dihapus bersama dengan peta.</string>
     <string name="downloader_update_maps">Perbarui peta</string>
     <string name="downloader_mwm_migration_dialog">Untuk membuat rute, Anda perlu memperbarui semua peta dan kemudian merencanakan rute tersebut lagi.</string>
     <string name="downloader_search_field_hint">Temukan peta</string>
     <string name="common_check_internet_connection_dialog">Harap memeriksa pengaturan Anda dan pastikan perangkat Anda terhubung dengan internet.</string>
     <string name="downloader_no_space_title">Tidak cukup ruang</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Harap menghapus data yang tidak diperlukan</string>
     <string name="editor_login_error_dialog">Kesalahan masuk.</string>
     <string name="editor_profile_changes">Perubahan Terverifikasi</string>
@@ -484,7 +501,7 @@
     <string name="editor_osm_history">Riwayat pengeditan Anda</string>
     <string name="editor_osm_notes">Catatan data peta Anda</string>
     <string name="editor_operator">Operator</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operator: %s</string>
     <string name="editor_category_unsuitable_title">Tidak dapat menemukan kategori yang sesuai?</string>
     <string name="editor_category_unsuitable_text">Organic Maps hanya memungkinkan untuk menambahkan kategori titik sederhana, yang berarti tidak ada kota, jalan, danau, garis besar bangunan, dll. Silahkan tambahkan kategori tersebut secara langsung ke <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lihat <a href="https://organicmaps.app/faq/editing/advanced-map-editing">panduan</a> kami untuk petunjuk langkah demi langkah yang terperinci.</string>
@@ -499,7 +516,7 @@
     <string name="day">hr</string>
     <string name="placepage_more_button">Lainnya</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="placepage_edit_bookmark_button">Edit Bookmark</string>
+    <string name="placepage_edit_bookmark_button">Edit Penanda</string>
     <string name="placepage_personal_notes_hint">Catatan pribadi (teks atau html)</string>
     <string name="editor_comment_hint">Komentar…</string>
     <string name="editor_reset_edits_message">Atur ulang perubahan lokal?</string>
@@ -507,11 +524,20 @@
     <string name="editor_remove_place_message">Hapus tempat yang ditambahkan?</string>
     <string name="editor_remove_place_button">Hapus</string>
     <string name="editor_place_doesnt_exist">Tempat tidak ada</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">Mohon sebutkan alasan penghapusan tempat tersebut</string>
     <!-- Phone number error message -->
     <string name="error_enter_correct_phone">Masukkan nomor telepon yang benar</string>
     <string name="error_enter_correct_web">Masukkan alamat web valid</string>
     <string name="error_enter_correct_email">Masukkan surel valid</string>
+    <string name="error_enter_correct_facebook_page">Masukkan alamat web, akun, atau nama halaman Facebook yang valid</string>
+    <string name="error_enter_correct_instagram_page">Masukkan nama pengguna atau alamat web Instagram yang valid</string>
+    <string name="error_enter_correct_twitter_page">Masukkan nama pengguna Twitter atau alamat web yang valid</string>
+    <string name="error_enter_correct_vk_page">Masukkan nama pengguna atau alamat web VK yang valid</string>
+    <string name="error_enter_correct_line_page">Masukkan ID LINE atau alamat web yang valid</string>
     <string name="placepage_add_place_button">Menambahkan tempat ke OpenStreetMap</string>
+    <string name="osm_note_hint">Atau, sebagai alternatif, tinggalkan sebuah catatan kepada komunitas OpenStreetMap sehingga orang lain dapat menambahkan atau memperbaiki tempat di sini.</string>
+    <string name="osm_note_toast">Catatan akan dikirim ke OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Apakah Anda ingin mengirimkannya ke semua pengguna?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -554,6 +580,7 @@
     <string name="button_plan">Rencana</string>
     <string name="placepage_remove_stop">Hapus pemberhentian</string>
     <string name="placepage_add_stop">Tambah perhentian</string>
+    <string name="saved">Tersimpan</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Silahkan login ke OpenStreetMap untuk mengupload semua hasil edit peta Anda secara otomatis. Pelajari lebih lanjut <a href="https://github.com/organicmaps/organicmaps/issues/6144">di sini</a>.</string>
     <string name="dialog_error_storage_title">Masalah akses penyimpanan</string>
@@ -594,6 +621,8 @@
     <string name="privacy_policy">Kebijakan privasi</string>
     <string name="terms_of_use">Ketentuan penggunaan</string>
     <string name="button_layer_traffic">Lalu lintas</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Bersepeda</string>
     <string name="button_layer_subway">Kereta bawah tanah</string>
     <string name="layers_title">Gaya dan Lapisan Peta</string>
     <string name="bookmarks_empty_list_title">Daftar ini kosong</string>
@@ -617,6 +646,11 @@
     <string name="power_managment_setting_never">Jangan pernah</string>
     <string name="power_managment_setting_auto">Otomatis</string>
     <string name="power_managment_setting_manual_max">Hemat daya maksimum</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Menandai nama di peta</string>
+    <string name="bookmarks_text_placement_description">Jika ada terlalu banyak penanda, menampilkan nama mereka di peta dapat memperlambat aplikasi.</string>
+    <string name="show_to_the_right">Tunjukkan ke kanan</string>
+    <string name="show_at_the_bottom">Tampilkan di bagian bawah</string>
     <string name="enable_logging_warning_message">Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan Organic Maps.</string>
     <string name="driving_options_title">Pilihan berkendara</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -641,9 +675,9 @@
     <string name="yes_available">Ya</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Tidak</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Kapasitas: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Jaringan: %s</string>
     <string name="trip_finished">Anda telah tiba!</string>
     <string name="ok">Oke</string>
@@ -701,9 +735,24 @@
     <string name="elevation_profile_time">Waktu:</string>
     <string name="isolines_toast_zooms_1_10">Perbesar untuk menjelajahi garis kontur</string>
     <string name="downloader_loading_ios">Mengunduh</string>
+    <string name="download_map_title">Unduh peta ikhtisar dunia</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">Tidak dapat membuat folder dan memindahkan file di memori perangkat internal atau sdcard</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">Kesalahan disk</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">Kegagalan koneksi</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">Lepaskan kabel USB</string>
     <string name="enable_keep_screen_on">Biarkan layar tetap menyala</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Apabila diaktifkan, layar akan selalu menyala ketika menampilkan peta.</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">Menampilkan di layar kunci</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">Ketika diaktifkan, aplikasi akan bekerja pada layar kunci bahkan ketika perangkat terkunci.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Bahasa peta</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Data peta dari OpenStreetMap</string>
     <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
@@ -768,7 +817,7 @@
     <string name="view_menu">Lihat Menu</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Buka di Aplikasi Lain</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Layanan mandiri</string>
     <string name="select_option">Pilih opsi</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -796,4 +845,8 @@
     <string name="uri_open_location_failed">Tidak ada Aplikasi yang diinstal yang dapat membuka lokasi</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Otomatis dalam navigasi</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Bagikan Lintasan</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Hapus %s?</string>
 </resources>

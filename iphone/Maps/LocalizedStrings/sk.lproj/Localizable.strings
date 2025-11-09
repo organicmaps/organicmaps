@@ -181,7 +181,7 @@
 "my_position_share_email_subject" = "Pozrite si moju aktuálnu polohu na mape Organic Maps";
 
 /* Share by email button text, also used in editor and About. */
-"email" = "Email";
+"email" = "E-mail";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Skopírované do schránky: %@";
@@ -239,18 +239,6 @@
 
 /* Text in About menu, opens Organic Maps news website */
 "news" = "Správy";
-
-/* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
 
 /* Text in menu */
 "rate_the_app" = "Ohodnotiť aplikáciu";
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Nájsť mapu";
 "common_check_internet_connection_dialog" = "Prosím, skontrolujte svoje nastavenia a uistite sa, že váš počítač je pripojený k internetu.";
 "downloader_no_space_title" = "Nemáte dostatok miesta";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Prosím, odstráňte prebytočné dáta";
 "editor_profile_changes" = "Overené zmeny";
 "editor_focus_map_on_location" = "Potiahnutím mapy umiestnite krížik na miesto, kde sa nachádza miesto alebo podnik.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Viac o OpenStreetMap";
 "editor_operator" = "Prevádzkovateľ";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Prevádzkovateľ: %@";
 "editor_category_unsuitable_title" = "Nemôžete nájsť vhodnú kategóriu?";
 "editor_category_unsuitable_text" = "Organické mapy umožňujú pridávať len jednoduché kategórie bodov, teda žiadne mestá, cesty, jazerá, obrysy budov atď. Takéto kategórie pridávajte priamo na <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Pozrite si náš <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">príručku</a>, kde nájdete podrobné pokyny krok za krokom.";
@@ -601,7 +591,7 @@
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Nezadávajte žiadne osobné udaje.";
 "editor_share_to_all_dialog_message_2" = "Redaktori OpenStreetMap skontrolujú zmeny a budú vás kontaktovať, ak budú mať nejaké otázky.";
-"navigation_stop_button" = "Stop";
+"navigation_stop_button" = "Zastavte";
 
 /* For the first routing */
 "accept" = "Prijať";
@@ -629,7 +619,7 @@
 "button_plan" = "Naplánovať";
 "placepage_remove_stop" = "Odstrániť zastávku";
 "placepage_add_stop" = "Pridať zastávku";
-"saved" = "Saved";
+"saved" = "Uložené";
 "error_enter_correct_name" = "Prosím, zadajte správne meno";
 "bookmark_lists" = "Zoznamy";
 
@@ -651,10 +641,10 @@
 "terms_of_use" = "Podmienky používania";
 
 /* Hiking routes layer name in the Styles and Layers dialog */
-"button_layer_hiking" = "Hiking";
+"button_layer_hiking" = "Turistika";
 
 /* Cycling routes layer name in the Styles and Layers dialog */
-"button_layer_cycling" = "Cycling";
+"button_layer_cycling" = "Cyklistika";
 "button_layer_subway" = "Metro";
 "layers_title" = "Štýly a vrstvy mapy";
 "export_file" = "Exportovať KMZ";
@@ -678,10 +668,10 @@
 "power_managment_setting_manual_max" = "Maximálna úspora batérie";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"bookmarks_text_placement_title" = "Názvy záložiek na mape";
+"bookmarks_text_placement_description" = "Ak je záložiek príliš veľa, zobrazovanie ich názvov na mape môže aplikáciu spomaliť.";
+"show_to_the_right" = "Zobraziť vpravo";
+"show_at_the_bottom" = "Zobraziť v dolnej časti";
 "enable_logging_warning_message" = "Týmto zapnete záznamenávanie diagnostických informácií, ktoré môžete poslať našej technickej podpore v prípade problémov s aplikáciou. Záznam môže obsahovať údaje o vašej polohe.";
 "driving_options_title" = "Možnosti trasy";
 
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nie";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Kapacita: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Sieť: %@";
 "trip_finished" = "Prišli ste do cieľa!";
 "ok" = "Ok";
@@ -804,7 +794,7 @@
 "traffic_update_app_message" = "Ak chcete zobraziť dopravné informácie, musíte si aktualizovať aplikáciu.";
 "log_file_size" = "Veľkosť súboru protokolu: %@";
 "planning_route_remove_title" = "Presunutím sem odstránite";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Nahradiť zastávku";
 "start_from_my_position" = "Začať od";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -825,9 +815,12 @@
 "popular_place" = "Obľúbené";
 "hide_from_map" = "Nezobrazovať na mape";
 "tags_loading_error_subtitle" = "Počas načítavania značiek sa vyskytla chyba, skúste to znova";
-"download_button" = "Stiahnuť";
-"right" = "Right";
-"bottom" = "Bottom";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
+"right" = "Vpravo";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
+"bottom" = "Spodná časť";
 "trip_start" = "Poďme";
 "pick_destination" = "Cieľ";
 "follow_my_position" = "Vycentrovať";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Otvoriť v inej aplikácii";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Samoobslužné služby";
 
 /* To indicate if restaurant or other place has outdoor seating */
@@ -1094,7 +1087,7 @@
 "ft" = "stopa";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Na zobrazenie trás je potrebné aktualizovať mapy.";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Ukončiť";

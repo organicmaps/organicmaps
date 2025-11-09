@@ -241,18 +241,6 @@
 "news" = "חדשות";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "דרגו את האפליקציה";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "חפש מפה";
 "common_check_internet_connection_dialog" = "נא לוודא כי המכשיר מחובר לאינטרנט.";
 "downloader_no_space_title" = "אין מספיק מקום";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "נא לפנות שטח אחסון";
 "editor_profile_changes" = "שינויים מאומתים";
 "editor_focus_map_on_location" = "גרור את המפה כדי למקם את הצלב במיקום של המקום או העסק.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "עוד על OpenStreetMap";
 "editor_operator" = "מַפעִיל";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "מַפעִיל: %@";
 "editor_category_unsuitable_title" = "לא מוצאים קטגוריה מתאימה?";
 "editor_category_unsuitable_text" = "באמצעות Organic Maps ניתן להוסיף קטגוריות נקודה פשוטות בלבד, כלומר לא ניתן להוסיף עיירות, כבישים, אגמים, מבנים וכו'. אנא הוסיפו קטגוריות כאלה ישירות ל-<a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. עיינו <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">במדריך</a> שלנו לקבלת הוראות מפורטות.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "לא";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "קיבולת: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "רשת: %@";
 "trip_finished" = "הגעת!";
 "ok" = "אוקיי";
@@ -825,8 +815,11 @@
 "popular_place" = "פופולארי";
 "hide_from_map" = "הסתר מהמפה";
 "tags_loading_error_subtitle" = "אירעה שגיאה בטעינת התגיות, נא לנסות שנית";
-"download_button" = "הורדה";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Right";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Bottom";
 "trip_start" = "נצא לדרך";
 "pick_destination" = "יעד";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "פתח באפליקציה אחרת";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "שירות עצמי";
 
 /* To indicate if restaurant or other place has outdoor seating */

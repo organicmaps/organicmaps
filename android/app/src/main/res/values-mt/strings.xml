@@ -8,7 +8,7 @@
     <string name="cancel">Ikkanċella</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Ħassar</string>
-    <string name="download_maps">Niżżel il-mapep</string>
+    <string name="download_maps">Niżżel il-mappa</string>
     <!-- Settings/Downloader - info for country when download fails -->
     <string name="download_has_failed">It-tniżżil falla. Għaffas biex terġa tipprova.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
@@ -234,26 +234,10 @@
     <string name="pref_map_auto_zoom">Iżżumja awtomatikament</string>
     <string name="placepage_distance">Distanza</string>
     <string name="search_show_on_map">Uri fuq il-mappa</string>
-    <!-- Menu button -->
-    <string name="menu">Menu</string>
     <!-- Text in menu -->
     <string name="website">Websajt</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Aħbarijiet</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Feedback</string>
     <!-- Text in menu -->
@@ -478,6 +462,7 @@
     <string name="downloader_search_field_hint">Sib mappa</string>
     <string name="common_check_internet_connection_dialog">Żgura li t-tagħmir tiegħek huwa mqabbad mal-Internet.</string>
     <string name="downloader_no_space_title">Mhux biżżejjed spazju</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Ħassar kwalunkwe dejta mhux neċessarja</string>
     <string name="editor_login_error_dialog">Żball tal-illoggjar.</string>
     <string name="editor_profile_changes">Bidliet Ivverifikati</string>
@@ -517,7 +502,7 @@
     <string name="editor_osm_history">Il-kronoloġija tal-editjar tiegħek</string>
     <string name="editor_osm_notes">In-noti tad-dejta tal-mappa tiegħek</string>
     <string name="editor_operator">Operatur</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operatur: %s</string>
     <string name="editor_category_unsuitable_title">Ma tistax isib kategorija adattata?</string>
     <string name="editor_category_unsuitable_text">Organic Maps jippermetti li jiżdiedu kategoriji punti sempliċi biss, li jfisser l-ebda bliet, toroq, lagi, linji ġenerali tal-bini, eċċ. Jekk jogħġbok żid dawn il-kategoriji direttament mal-<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Iċċekkja l-<a href="https://organicmaps.app/faq/editing/advanced-map-editing">gwida</a> tagħna għal struzzjonijiet dettaljati.</string>
@@ -685,9 +670,9 @@
     <string name="yes_available">Iva</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Le</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Kapaċita: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Netwerk: %s</string>
     <string name="trip_finished">Wasalt!</string>
     <!-- max. 10 symbols, both iOS and Android -->

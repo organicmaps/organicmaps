@@ -241,18 +241,6 @@
 "news" = "Nyheder";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "Bedøm appen";
 
 /* Text in menu */
@@ -268,7 +256,7 @@
 "support_organic_maps" = "Støt Organic Maps";
 
 /* Button in the main Help dialog */
-"copyright" = "Copyright";
+"copyright" = "Ophavsret";
 
 /* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
 "report_a_bug" = "Rapportér fejl";
@@ -336,7 +324,7 @@
 "brown" = "Brun";
 
 /* pink color */
-"pink" = "Pink";
+"pink" = "Lyserød";
 
 /* deep purple color */
 "deep_purple" = "Mørkelilla";
@@ -351,7 +339,7 @@
 "teal" = "Blågrøn";
 
 /* lime color */
-"lime" = "Lime";
+"lime" = "Kalk";
 
 /* deep orange color */
 "deep_orange" = "Dyb orange";
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Find kort";
 "common_check_internet_connection_dialog" = "Tjek dine indstillinger og sørg for, din enhed er forbundet til internettet.";
 "downloader_no_space_title" = "Ikke nok plads";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Slet unødvendig data";
 "editor_profile_changes" = "Bekræftede ændringer";
 "editor_focus_map_on_location" = "Træk i kortet for at placere korset på stedet eller virksomheden.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Mere om OpenStreetMap";
 "editor_operator" = "Operatør";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operatør: %@";
 "editor_category_unsuitable_title" = "Kan du ikke finde en passende kategori?";
 "editor_category_unsuitable_text" = "Organic Maps giver kun mulighed for at tilføje simple punktkategorier, dvs. ingen byer, veje, søer, bygningsomrids osv. Tilføj sådanne kategorier direkte til <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Se vores <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> for detaljerede trin for trin-instruktioner.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nej";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Kapacitet: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Netværk: %@";
 "trip_finished" = "Du er ankommet!";
 "ok" = "Ok";
@@ -783,7 +773,7 @@
 "location_services_disabled_on_device_3" = "3. Vælg Placeringstjenester";
 "location_services_disabled_on_device_4" = "4. Slå placeringstjenester til";
 "location_services_disabled_on_device_additional_message" = "Eller fortsæt med at bruge Organic Maps uden placering";
-"book_button" = "Book";
+"book_button" = "Bog";
 "placepage_call_button" = "Ring";
 "placepage_bookmark_name_hint" = "Bogmærke";
 "placepage_delete_bookmark_button" = "Slet bogmærke";
@@ -825,8 +815,11 @@
 "popular_place" = "Populær";
 "hide_from_map" = "Skjul på kort";
 "tags_loading_error_subtitle" = "Der skete en fejl under hentning af tags, prøv igen";
-"download_button" = "Download";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Højre";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Bund";
 "trip_start" = "Lad os komme i gang";
 "pick_destination" = "Destination";
@@ -948,7 +941,7 @@
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Eksporter alle bogmærker og spor";
-"drive_through" = "Drive-through";
+"drive_through" = "Gennemkørsel";
 
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Link til menu";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Åbn i en anden app";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Selvbetjening";
 
 /* To indicate if restaurant or other place has outdoor seating */

@@ -241,18 +241,6 @@
 "news" = "Xəbərlər";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "Proqramı qiymətləndirin";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Xəritəni tapın";
 "common_check_internet_connection_dialog" = "Zəhmət olmasa cihazınızın internetə qoşulduğundan əmin olun.";
 "downloader_no_space_title" = "Kifayət qədər yer yoxdur";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Zəhmət olmasa lazımsız məlumatları silin";
 "editor_profile_changes" = "Təsdiqlənmiş Dəyişikliklər";
 "editor_focus_map_on_location" = "Xaç işarəsini yer və ya biznesin yerinə qoymaq üçün xəritəni dartın.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "OpenStreetMap haqqında əlavə məlumat";
 "editor_operator" = "Operator";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operator: %@";
 "editor_category_unsuitable_title" = "Uyğun kateqoriya tapa bilmirsiniz?";
 "editor_category_unsuitable_text" = "Üzvi Xəritələr yalnız sadə nöqtə kateqoriyaları əlavə etməyə imkan verir, bu o deməkdir ki, şəhərlər, yollar, göllər, bina konturları və s. yoxdur. Lütfən, belə kateqoriyaları birbaşa <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> saytına əlavə edin. Ətraflı addım-addım təlimatlar üçün <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">bələdçimizi</a> yoxlayın.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Yox";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Capacity: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Şəbəkə: %@";
 "trip_finished" = "Sən gəldin!";
 "ok" = "Yaxşı";
@@ -825,8 +815,11 @@
 "popular_place" = "Məşhur";
 "hide_from_map" = "Xəritədən gizlədin";
 "tags_loading_error_subtitle" = "Etiketləri yükləyərkən xəta baş verdi, zəhmət olmasa yenidən cəhd edin";
-"download_button" = "Yüklə";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Right";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Bottom";
 "trip_start" = "Gedək";
 "pick_destination" = "Hədəf";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Başqa Tətbiqdə Açın";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Özünəxidmət";
 
 /* To indicate if restaurant or other place has outdoor seating */

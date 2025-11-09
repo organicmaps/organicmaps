@@ -43,7 +43,7 @@
 /* Text in About screen */
 "about_proposition_3" = "• Snel, minimalistisch, ontwikkeld door de gemeenschap";
 "close" = "Sluit";
-"download" = "Download";
+"download" = "Downloaden";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_button" = "Ga verder";
@@ -239,18 +239,6 @@
 
 /* Text in About menu, opens Organic Maps news website */
 "news" = "Nieuws";
-
-/* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
 
 /* Text in menu */
 "rate_the_app" = "Beoordeel de app";
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Vind een kaart";
 "common_check_internet_connection_dialog" = "Controleer je instellingen en zorg ervoor dat het apparaat verbonden is met het internet.";
 "downloader_no_space_title" = "Niet genoeg ruimte";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Verwijder overbodige gegevens";
 "editor_profile_changes" = "Gecontroleerde wijzigingen";
 "editor_focus_map_on_location" = "Sleep de kaart om het kruis op de locatie van de plaats of het bedrijf te plaatsen.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Meer over OpenStreetMap";
 "editor_operator" = "Exploitant";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Exploitant: %@";
 "editor_category_unsuitable_title" = "Kun je geen geschikte categorie vinden?";
 "editor_category_unsuitable_text" = "Met Organic Maps kun je alleen eenvoudige puntcategorieën toevoegen, dus geen steden, wegen, meren, contouren van gebouwen, enzovoort. Voeg zulke categorieën direct toe aan <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Bekijk onze <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">gids</a> voor gedetailleerde stap voor stap instructies.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nee";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Capaciteit: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Netwerk: %@";
 "trip_finished" = "U bent aangekomen!";
 "ok" = "Oké";
@@ -825,8 +815,11 @@
 "popular_place" = "Populair";
 "hide_from_map" = "Verberg van de kaart";
 "tags_loading_error_subtitle" = "Er is een fout opgetreden tijdens het laden van tags, probeer het opnieuw";
-"download_button" = "Download";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Rechts";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Bodem";
 "trip_start" = "Laten we gaan";
 "pick_destination" = "Bestemming";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Openen in een andere applicatie";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Zelfbediening";
 
 /* To indicate if restaurant or other place has outdoor seating */

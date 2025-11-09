@@ -33,9 +33,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%d file was found. You can see it after conversion.</string>
+			<string>%d file esseva trovate. Tu pote vider lo post conversion.</string>
 			<key>other</key>
-			<string>%d files were found. You can see them after conversion.</string>
+			<string>%d files esseva trovate. Tu pote vider los post conversion.</string>
 		</dict>
 	</dict>
 

@@ -3,7 +3,7 @@
 
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
-    <string name="cancel">Encaboxar</string>
+    <string name="cancel">Cancelar</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Desaniciar</string>
     <string name="download_maps">Baxar mapes</string>
@@ -110,26 +110,6 @@
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Noticies</string>
     <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
-    <!-- Text in menu -->
     <string name="help">Ayuda</string>
     <!-- Button in the main Help dialog -->
     <string name="faq">Entrugues frecuentes</string>
@@ -209,6 +189,7 @@
     <string name="level_value_generic">Nivel: %s</string>
     <string name="downloader_update_maps">Anovar mapes</string>
     <string name="downloader_no_space_title">Nun hai espaciu bastante</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Desanicia los datos imprecisos</string>
     <string name="editor_add_place_title">Amestando</string>
     <string name="editor_edit_place_name_hint">Nome del llugar</string>
@@ -252,6 +233,10 @@
     <string name="placepage_add_stop">Amestar parada</string>
     <string name="saved">Guardáu</string>
     <string name="bookmark_lists">Llistes</string>
+    <plurals name="bookmarks_places">
+        <item quantity="one">%d marcador</item>
+        <item quantity="other">%d marcadores</item>
+    </plurals>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
     <string name="bookmarks_import">Importar marcadores y trayeutos</string>
     <string name="bookmarks_new_list_hint">Llista nueva</string>
@@ -259,6 +244,10 @@
     <string name="please_wait">Aguarda…</string>
     <string name="phone_number">Númberu telefónicu</string>
     <string name="profile">Perfil d’OpenStreetMap</string>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">Atopóse %d ficheru. Pues velu dempués de la conversión.</item>
+        <item quantity="other">Atopáronse %d ficheros. Pues velos dempués de la conversión.</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d trayeutu</item>
         <item quantity="other">%d trayeutos</item>
@@ -294,9 +283,9 @@
     <string name="yes_available">Sí</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Non</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Capacidá: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Rede: %s</string>
     <string name="trip_finished">Aportesti.</string>
     <!-- max. 10 symbols, both iOS and Android -->
@@ -352,7 +341,7 @@
     <string name="drive_through">Serviciu dende’l coche</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Abrir n’otra aplicación</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Autoserviciu</string>
     <string name="select_option">Esbilla una opción</string>
     <!-- Prompt to start recording a track. -->

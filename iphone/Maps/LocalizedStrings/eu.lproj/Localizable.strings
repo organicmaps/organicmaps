@@ -241,18 +241,6 @@
 "news" = "Albisteak";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "Baloratu aplikazioa";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Bilatu mapa";
 "common_check_internet_connection_dialog" = "Mesedez, egiaztatu ezarpenak eta ziurtatu zure gailua Internetera konektatuta dagoela.";
 "downloader_no_space_title" = "Leku nahikorik ez";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Ezabatu beharrezkoak ez diren datuak";
 "editor_profile_changes" = "Egiaztatutako aldaketak";
 "editor_focus_map_on_location" = "Arrastatu mapa gurutzea tokiaren edo negozioaren kokalekuan kokatzeko.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "OpenStreetMap-i buruzko informazio gehiago";
 "editor_operator" = "Operadorea";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operadorea: %@";
 "editor_category_unsuitable_title" = "Ezin duzu kategoria egokirik aurkitu?";
 "editor_category_unsuitable_text" = "Organic Maps-ek puntu kategoria soilak gehitzeko aukera ematen du, hau da, ez da herririk, errepiderik, lakurik, eraikinen eskemarik, etab. Gehitu kategoria horiek zuzenean <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Begiratu gure <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">gida</a> urratsez urrats argibide zehatzak lortzeko.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Ez";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Edukiera: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Sarea: %@";
 "trip_finished" = "Iritsi zara!";
 "ok" = "Ados";
@@ -825,8 +815,11 @@
 "popular_place" = "Ospetsua";
 "hide_from_map" = "Ezkutatu mapan";
 "tags_loading_error_subtitle" = "Errore bat gertatu da etiketak kargatzean. Saiatu berriro";
-"download_button" = "Deskargatu";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Right";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Bottom";
 "trip_start" = "Goazen";
 "pick_destination" = "Helmuga";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Ireki beste aplikazio batean";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Autozerbitzu";
 
 /* To indicate if restaurant or other place has outdoor seating */

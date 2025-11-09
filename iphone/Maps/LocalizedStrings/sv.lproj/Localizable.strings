@@ -241,18 +241,6 @@
 "news" = "Nyheter";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "Betygsätt appen";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Hitta kartan";
 "common_check_internet_connection_dialog" = "Kontrollera dina inställningar och se till att din enhet är ansluten till internet.";
 "downloader_no_space_title" = "Otillräckligt minne";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Ta bort onödig data";
 "editor_profile_changes" = "Verifierade ändringar";
 "editor_focus_map_on_location" = "Dra kartan för att placera korset på platsen för platsen eller företaget.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Mer om OpenStreetMap";
 "editor_operator" = "Operatör";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operatör: %@";
 "editor_category_unsuitable_title" = "Hittar du ingen lämplig kategori?";
 "editor_category_unsuitable_text" = "Organic Maps tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Kontrollera vår <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> för detaljerade steg-för-steg-instruktioner.";
@@ -629,7 +619,7 @@
 "button_plan" = "Planera";
 "placepage_remove_stop" = "Ta bort stoppet";
 "placepage_add_stop" = "Lägg till stopp";
-"saved" = "Saved";
+"saved" = "Sparade";
 "error_enter_correct_name" = "Ange ett korrekt namn";
 "bookmark_lists" = "Listor";
 
@@ -678,10 +668,10 @@
 "power_managment_setting_manual_max" = "Alltid";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"bookmarks_text_placement_title" = "Bokmärk namn på kartan";
+"bookmarks_text_placement_description" = "Om det finns för många bokmärken kan det göra appen långsammare att visa namnen på dem på kartan.";
+"show_to_the_right" = "Visa till höger";
+"show_at_the_bottom" = "Visa längst ner";
 "enable_logging_warning_message" = "Aktivera denna funktion för att logga detaljer för diagnostiska ändamål. Detta hjälper utvecklarna att identifiera problem med appen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.";
 "driving_options_title" = "Ruttinställningar";
 
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nej";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Kapacitet: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Nätverk: %@";
 "trip_finished" = "Du är framme!";
 "ok" = "Ok";
@@ -744,10 +734,10 @@
 
 /* Place Page opening hours text */
 "closed_now" = "Stängt just nu";
-"opens_tomorrow_at" = "Opens tomorrow at %@";
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
-"opens_at" = "Opens at %@";
-"closes_at" = "Closes at %@";
+"opens_tomorrow_at" = "Öppnar i morgon på %@";
+"opens_dayoftheweek_at" = "Öppnar %1$@ vid %2$@";
+"opens_at" = "Öppnas vid %@";
+"closes_at" = "Stänger vid %@";
 "add_opening_hours" = "Lägg till öppettider";
 "password_8_chars_min" = "Lösenord (minst 8 tecken)";
 "invalid_username_or_password" = "Fel användarnamn eller lösenord.";
@@ -804,7 +794,7 @@
 "traffic_update_app_message" = "Applikationen måste uppdateras för att trafikdata ska kunna visas.";
 "log_file_size" = "Loggfilens storlek: %@";
 "planning_route_remove_title" = "Dra hit för att ta bort";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Byt ut stopp";
 "start_from_my_position" = "Starta från";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -822,12 +812,15 @@
 "bookmarks_convert_error_title" = "Fel";
 "bookmarks_convert_error_message" = "Vissa filer konverterades inte.";
 "title_error_downloading_bookmarks" = "Ett fel har uppstått";
-"popular_place" = "Popular";
+"popular_place" = "Populär";
 "hide_from_map" = "Dölj från karta";
 "tags_loading_error_subtitle" = "Ett fel uppstod när taggarna laddades, försök igen";
-"download_button" = "Nedladdning";
-"right" = "Right";
-"bottom" = "Bottom";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
+"right" = "Rätt";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
+"bottom" = "Botten";
 "trip_start" = "Nu åker vi";
 "pick_destination" = "Destination";
 "follow_my_position" = "Placera i mitten";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Öppna i en annan app";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Självbetjäning";
 
 /* To indicate if restaurant or other place has outdoor seating */
@@ -990,16 +983,16 @@
 "whats_new_auto_update_button_later" = "Uppdatera senare manuellt";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Radera spår";
 
 /* The track deletion confirmaion alert message. */
 "placepage_delete_track_confirmation_alert_message" = "Är du säker på att du vill radera det här spåret?";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Spårets namn";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "Flytta";
 
 /* edit track screen title */
 "track_title" = "Rutt";
@@ -1094,7 +1087,7 @@
 "ft" = "fot";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "För att visa rutter måste kartorna uppdateras.";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Avsluta";

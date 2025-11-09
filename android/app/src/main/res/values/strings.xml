@@ -240,26 +240,6 @@
     <string name="website">Website</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">News</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Feedback</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Find map</string>
     <string name="common_check_internet_connection_dialog">Please make sure your device is connected to the Internet.</string>
     <string name="downloader_no_space_title">Not enough space</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Please delete any unnecessary data</string>
     <string name="editor_login_error_dialog">Login error.</string>
     <string name="editor_profile_changes">Verified Changes</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Your editing history</string>
     <string name="editor_osm_notes">Your map data notes</string>
     <string name="editor_operator">Operator</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operator: %s</string>
     <string name="editor_category_unsuitable_title">Can\'t find a suitable category?</string>
     <string name="editor_category_unsuitable_text">Organic Maps allows to add simple point categories only, that means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Check our <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detailed step by step instructions.</string>
@@ -704,9 +685,9 @@
     <string name="yes_available">Yes</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">No</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Capacity: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Network: %s</string>
     <string name="trip_finished">You have arrived!</string>
     <string name="ok">OK</string>
@@ -856,7 +837,7 @@
     <string name="view_menu">View Menu</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Open in Another App</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Self-service</string>
     <string name="select_option">Select option</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -886,5 +867,6 @@
     <string name="nav_auto">Auto in navigation</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Share Track</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Delete %s?</string>
 </resources>

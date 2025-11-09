@@ -16,7 +16,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>%d bookmarks</string>
+			<string>%d отметки</string>
 		</dict>
 	</dict>
 

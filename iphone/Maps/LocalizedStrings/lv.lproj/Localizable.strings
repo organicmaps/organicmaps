@@ -241,18 +241,6 @@
 "news" = "Jaunumi";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "Novērtējiet lietotni";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Atrast karti";
 "common_check_internet_connection_dialog" = "Pārliecinieties, ka ierīce ir savienota ar internetu.";
 "downloader_no_space_title" = "Trūkst vietas";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Dzēsiet liekos datus";
 "editor_profile_changes" = "Apstiprinātas izmaiņas";
 "editor_focus_map_on_location" = "Velciet karti, lai novietotu krustiņu objekta vai iestādes atrašanās vietā.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Vairāk par „OpenStreetMap“";
 "editor_operator" = "Saimniekotājs";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operators: %@";
 "editor_category_unsuitable_title" = "Vai neatrodat atbilstošu kategoriju?";
 "editor_category_unsuitable_text" = "„Organic Maps“ ļauj pievienot tikai vienkāršu punktu kategorijas, proti, nevarat pievienot pilsētas, ceļus, ezerus, ēku aprises u.tml. Šādas kategorijas lūdzam pievienot tiešā veidā <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Lai uzzinātu, kā to izdarīt, sekojiet norādēm <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">rokasgrāmatā</a>.";
@@ -629,7 +619,7 @@
 "button_plan" = "Plānot";
 "placepage_remove_stop" = "Noņemt starppunktu";
 "placepage_add_stop" = "Pievienot starppunktu";
-"saved" = "Saved";
+"saved" = "Saglabāts";
 "error_enter_correct_name" = "Ierakstiet pareizu nosaukumu";
 "bookmark_lists" = "Saraksti";
 
@@ -678,10 +668,10 @@
 "power_managment_setting_manual_max" = "Vienmēr";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"bookmarks_text_placement_title" = "Grāmatzīmju nosaukumi kartē";
+"bookmarks_text_placement_description" = "Ja ir pārāk daudz grāmatzīmju, to nosaukumu attēlošana kartē var palēnināt programmas darbību.";
+"show_to_the_right" = "Rādīt pa labi";
+"show_at_the_bottom" = "Rādīt apakšā";
 "enable_logging_warning_message" = "Uz laiku ieslēdziet šo opciju, lai reģistrētu un manuāli nosūtītu sīkākus žurnālus problēmu diagnostikai, izmantojot „Ziņot par kļūdu“ funkciju palīdzības lodziņā. Žurnāli var saturēt informāciju par atrašanās vietu.";
 "driving_options_title" = "Maršruta opcijas";
 
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nav pieejams";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Ietilpība: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Tīkls: %@";
 "trip_finished" = "Ieradāties galamērķī!";
 "ok" = "Labi";
@@ -804,7 +794,7 @@
 "traffic_update_app_message" = "Lai parādītu satiksmes datus, lietotne ir jāatjaunina.";
 "log_file_size" = "Žurnāla datnes lielums: %@";
 "planning_route_remove_title" = "Velciet te, lai noņemtu";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Aizstāt Stop";
 "start_from_my_position" = "Sākt no";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -825,9 +815,12 @@
 "popular_place" = "Populāras";
 "hide_from_map" = "Slēpt kartē";
 "tags_loading_error_subtitle" = "Kļūda, ielādējot birkas. Mēģiniet vēlreiz.";
-"download_button" = "Lejupielādēt";
-"right" = "Right";
-"bottom" = "Bottom";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
+"right" = "Tiesības";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
+"bottom" = "Apakšējā daļa";
 "trip_start" = "Uz priekšu";
 "pick_destination" = "Galamērķis";
 "follow_my_position" = "Centrēt";
@@ -914,7 +907,7 @@
 "app_tip_03" = "Ja pazīstat kādu programmatūras izstrādātāju, varat viņam vai viņai palūgt ieviest funkciju, kas jums pietrūkst.";
 
 /* App tip #04 */
-"app_tip_04" = "Tap anywhere on the map to select anything. A long tap is used to hide and show the interface.";
+"app_tip_04" = "Pieskarieties jebkurai vietai kartē, lai atlasītu jebkuru objektu. Garš pieskāriens tiek izmantots, lai paslēptu un parādītu saskarni.";
 
 /* App tip #05 */
 "app_tip_05" = "Vai zinājāt, ka ir iespējams atlasīt jūsu pašreizējo atrašanās vietu kartē?";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Atvērt citā lietotnē";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Pašapkalpošanās";
 
 /* To indicate if restaurant or other place has outdoor seating */
@@ -1094,7 +1087,7 @@
 "ft" = "ft";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Lai parādītu maršrutus, ir jāatjaunina kartes.";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Izeja";

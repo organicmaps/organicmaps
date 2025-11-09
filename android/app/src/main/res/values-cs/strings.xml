@@ -240,26 +240,6 @@
     <string name="website">Webové stránky</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Novinky</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">LINE</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Zpětná vazba</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Najít mapu</string>
     <string name="common_check_internet_connection_dialog">Zkontrolujte prosím své nastavení a ujistěte se, že je vaše zařízení připojeno k internetu.</string>
     <string name="downloader_no_space_title">Nedostatek místa</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Odstraňte prosím nepotřebná data</string>
     <string name="editor_login_error_dialog">Chyba při přihlašování.</string>
     <string name="editor_profile_changes">Oveřené změny</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Vaše historie úprav</string>
     <string name="editor_osm_notes">Vaše poznámky k mapovým datům</string>
     <string name="editor_operator">Provozovatel</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operátor: %s</string>
     <string name="editor_category_unsuitable_title">Nemůžete najít vhodnou kategorii?</string>
     <string name="editor_category_unsuitable_text">Organické mapy umožňují přidávat pouze jednoduché kategorie bodů, tedy žádná města, silnice, jezera, obrysy budov atd. Takové kategorie prosím přidávejte přímo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Podrobné pokyny krok za krokem najdete v našem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">průvodci</a>.</string>
@@ -710,9 +691,9 @@
     <string name="yes_available">Ano</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Ne</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Kapacita: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Síť: %s</string>
     <string name="trip_finished">Přijeli jste!</string>
     <string name="ok">Ok</string>
@@ -862,7 +843,7 @@
     <string name="view_menu">Zobrazit menu</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Otevřít v jiné aplikaci</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Samoobsluha</string>
     <string name="select_option">Vyberte možnost</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -892,5 +873,6 @@
     <string name="nav_auto">Automaticky v navigaci</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Sdílet trasu</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Smazat %s?</string>
 </resources>

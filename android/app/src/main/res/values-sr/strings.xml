@@ -14,7 +14,7 @@
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Преузимање…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
-    <string name="kilometres">Колиметри</string>
+    <string name="kilometres">Километри</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Миље</string>
     <!-- Update maps later button text -->
@@ -240,26 +240,6 @@
     <string name="website">Веб-сајт</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Новости</string>
-    <!-- Text in menu -->
-    <string name="github">GitHub</string>
-    <!-- Text in menu -->
-    <string name="telegram">Telegram</string>
-    <!-- Text in menu -->
-    <string name="matrix">[Matrix]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">Mastodon</string>
-    <!-- Text in menu -->
-    <string name="facebook">Facebook</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (Twitter)</string>
-    <!-- Text in menu -->
-    <string name="instagram">Instagram</string>
-    <!-- Text in the editor -->
-    <string name="vk">VK</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">ЛИНИЈА</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">OpenStreetMap</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Повратне информације</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">Пронађи мапу</string>
     <string name="common_check_internet_connection_dialog">Молим Вас да проверите да ли је Ваш уређај повезан на интернет.</string>
     <string name="downloader_no_space_title">Нема довољно простора</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Молим Вас да обришете непотребне податке</string>
     <string name="editor_login_error_dialog">Грешка приликом пријаве.</string>
     <string name="editor_profile_changes">Верификоване промене</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">Ваша историја уређивања</string>
     <string name="editor_osm_notes">Ваши подаци о мапи</string>
     <string name="editor_operator">Оператор</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Оператор: %s</string>
     <string name="editor_category_unsuitable_title">Не можете да пронађете одговарајућу категорију?</string>
     <string name="editor_category_unsuitable_text">Organic Maps омогућава додавање једноставних категорија за тачке на мапи, што искључује градове, путеве, језера, тлоцрте зграда, итд. Молимо Вас да такве категорије додате директно на <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Прочитајте наше <a href="https://organicmaps.app/faq/editing/advanced-map-editing">упутство</a> за детаљне инструкције, корак-по-корак.</string>
@@ -695,9 +676,9 @@
     <string name="yes_available">Да</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">Не</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">Број места: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Мрежа: %s</string>
     <string name="trip_finished">Стигли сте!</string>
     <string name="ok">ОК</string>
@@ -847,7 +828,7 @@
     <string name="view_menu">Прикажи мени</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Отвори у другој апликацији</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Самопослуживање</string>
     <string name="select_option">Изаберите опцију</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->

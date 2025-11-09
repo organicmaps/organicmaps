@@ -445,6 +445,7 @@
     <string name="downloader_search_field_hint">ค้นหาแผนที่</string>
     <string name="common_check_internet_connection_dialog">กรุณาตรวจสอบการตั้งค่าของคุณแล้วทำให้แน่ใจว่าอุปกรณ์ของคุณได้รับการเชื่อมต่ออินเทอร์เน็ต</string>
     <string name="downloader_no_space_title">มีพื้นที่ไม่เพียงพอ</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">กรุณาลบข้อมูลที่ไม่จำเป็น</string>
     <string name="editor_login_error_dialog">ข้อผิดพลาดในการล็อกอิน</string>
     <string name="editor_profile_changes">การเปลี่ยนแปลงที่อนุมัติแล้ว</string>
@@ -484,7 +485,7 @@
     <string name="editor_osm_history">ประวัติการแก้ไขของคุณ</string>
     <string name="editor_osm_notes">บันทึกข้อมูลแผนที่ของคุณ</string>
     <string name="editor_operator">ตัวดำเนินการ</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">ตัวดำเนินการ: %s</string>
     <string name="editor_category_unsuitable_title">ไม่พบหมวดหมู่ที่เหมาะสมใช่ไหม?</string>
     <string name="editor_category_unsuitable_text">แผนที่ทั่วไปอนุญาตให้เพิ่มหมวดหมู่จุดธรรมดาเท่านั้น ซึ่งหมายความว่าไม่มีเมือง ถนน ทะเลสาบ โครงร่างอาคาร ฯลฯ โปรดเพิ่มหมวดหมู่ดังกล่าวลงใน <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. ดู<a href="https://organicmaps.app/faq/editing/advanced-map-editing">คำแนะนำ</a> ของเราเพื่อดูคำแนะนำโดยละเอียดทีละขั้นตอน</string>
@@ -642,9 +643,9 @@
     <string name="yes_available">ใช่</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">ไม่ใช่</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">ความจุ: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">เครือข่าย: %s</string>
     <string name="trip_finished">คุณมาถึงแล้ว!</string>
     <string name="ok">โอเค</string>
@@ -767,7 +768,7 @@
     <string name="view_menu">ดูเมนู</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">เปิดในแอปอื่น</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">บริการตนเอง</string>
     <string name="select_option">เลือกตัวเลือก</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->

@@ -8,7 +8,7 @@
 
 /* Button which deletes downloaded country */
 "delete" = "Ħassar";
-"download_maps" = "Niżżel il-mapep";
+"download_maps" = "Niżżel il-mappa";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Tniżżil…";
@@ -239,18 +239,6 @@
 
 /* Text in About menu, opens Organic Maps news website */
 "news" = "Aħbarijiet";
-
-/* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
 
 /* Text in menu */
 "rate_the_app" = "Għati rata lill-app";
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Sib mappa";
 "common_check_internet_connection_dialog" = "Żgura li t-tagħmir tiegħek huwa mqabbad mal-Internet.";
 "downloader_no_space_title" = "Mhux biżżejjed spazju";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Ħassar kwalunkwe dejta mhux neċessarja";
 "editor_profile_changes" = "Bidliet Ivverifikati";
 "editor_focus_map_on_location" = "Mexxi l-mappa biex tqiegħed is-salib fil-post tal-post jew tan-negozju.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Aktar dwar OpenStreetMap";
 "editor_operator" = "Operatur";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operatur: %@";
 "editor_category_unsuitable_title" = "Ma tistax isib kategorija adattata?";
 "editor_category_unsuitable_text" = "Organic Maps jippermetti li jiżdiedu kategoriji punti sempliċi biss, li jfisser l-ebda bliet, toroq, lagi, linji ġenerali tal-bini, eċċ. Jekk jogħġbok żid dawn il-kategoriji direttament mal-<a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Iċċekkja l-<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">gwida</a> tagħna għal struzzjonijiet dettaljati.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Le";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Kapaċita: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Netwerk: %@";
 "trip_finished" = "Wasalt!";
 "ok" = "OK";
@@ -825,8 +815,11 @@
 "popular_place" = "Popular";
 "hide_from_map" = "Hide from map";
 "tags_loading_error_subtitle" = "An error occurred while loading tags, please try again";
-"download_button" = "Download";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Right";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Bottom";
 "trip_start" = "Let's go";
 "pick_destination" = "Destination";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Iftaħ f’ Applikazzjoni Oħra";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Self-service";
 
 /* To indicate if restaurant or other place has outdoor seating */

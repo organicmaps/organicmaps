@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
+"share_bookmarks_email_body" = "Halo!\n\nTerlampir adalah bookmark saya; silakan buka di Organic Maps. Jika Anda belum memasangnya, Anda dapat mengunduhnya di sini: https://omaps.app/get?kmz\n\nNikmati perjalanan Anda dengan Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Memuat Penanda";
@@ -169,7 +169,7 @@
 "load_kmz_failed" = "Gagal mengunggah penanda lokasi. Berkas mungkin rusak.";
 
 /* resource for context menu */
-"edit" = "Edit";
+"edit" = "Sunting";
 
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Lokasi Anda belum ditentukan";
@@ -239,18 +239,6 @@
 
 /* Text in About menu, opens Organic Maps news website */
 "news" = "Berita";
-
-/* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
 
 /* Text in menu */
 "rate_the_app" = "Beri nilai aplikasi";
@@ -412,7 +400,7 @@
 "downloader_status_failed" = "Gagal";
 
 /* bookmark button text */
-"bookmark" = "bookmark";
+"bookmark" = "penanda";
 
 
 /********** Routing dialogs strings **********/
@@ -499,8 +487,8 @@
 "day_off_today" = "Tutup hari ini";
 "day_off" = "Tutup";
 "today" = "Hari ini";
-"opens_in" = "Opens in %@";
-"closes_in" = "Closes in %@";
+"opens_in" = "Dibuka dalam %@";
+"closes_in" = "Ditutup dalam %@";
 "closed" = "Tutup";
 "no_osm_account" = "Tidak ada akun di OpenStreetMap?";
 "register_at_openstreetmap" = "Mendaftar";
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Temukan peta";
 "common_check_internet_connection_dialog" = "Harap memeriksa pengaturan Anda dan pastikan perangkat Anda terhubung dengan internet.";
 "downloader_no_space_title" = "Tidak cukup ruang";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Harap menghapus data yang tidak diperlukan";
 "editor_profile_changes" = "Perubahan Terverifikasi";
 "editor_focus_map_on_location" = "Seret peta untuk menempatkan tanda silang di lokasi tempat atau bisnis.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Selengkapnya tentang OpenStreetMap";
 "editor_operator" = "Operator";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operator: %@";
 "editor_category_unsuitable_title" = "Tidak dapat menemukan kategori yang sesuai?";
 "editor_category_unsuitable_text" = "Organic Maps hanya memungkinkan untuk menambahkan kategori titik sederhana, yang berarti tidak ada kota, jalan, danau, garis besar bangunan, dll. Silahkan tambahkan kategori tersebut secara langsung ke <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Lihat <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">panduan</a> kami untuk petunjuk langkah demi langkah yang terperinci.";
@@ -580,7 +570,7 @@
 "placepage_more_button" = "Lainnya";
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Edit Bookmark";
+"placepage_edit_bookmark_button" = "Edit Penanda";
 "placepage_personal_notes_hint" = "Catatan pribadi (teks atau html)";
 "editor_comment_hint" = "Komentar…";
 "editor_reset_edits_message" = "Atur ulang perubahan lokal?";
@@ -629,7 +619,7 @@
 "button_plan" = "Rencana";
 "placepage_remove_stop" = "Hapus pemberhentian";
 "placepage_add_stop" = "Tambah perhentian";
-"saved" = "Saved";
+"saved" = "Tersimpan";
 "error_enter_correct_name" = "Harap masukkan nama yang benar";
 "bookmark_lists" = "Daftar";
 
@@ -654,7 +644,7 @@
 "button_layer_hiking" = "Hiking";
 
 /* Cycling routes layer name in the Styles and Layers dialog */
-"button_layer_cycling" = "Cycling";
+"button_layer_cycling" = "Bersepeda";
 "button_layer_subway" = "Kereta bawah tanah";
 "layers_title" = "Gaya dan Lapisan Peta";
 "export_file" = "Ekspor KMZ";
@@ -678,10 +668,10 @@
 "power_managment_setting_manual_max" = "Hemat daya maksimum";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"bookmarks_text_placement_title" = "Menandai nama di peta";
+"bookmarks_text_placement_description" = "Jika ada terlalu banyak penanda, menampilkan nama mereka di peta dapat memperlambat aplikasi.";
+"show_to_the_right" = "Tunjukkan ke kanan";
+"show_at_the_bottom" = "Tampilkan di bagian bawah";
 "enable_logging_warning_message" = "Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan Organic Maps.";
 "driving_options_title" = "Pilihan berkendara";
 
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Tidak";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Kapasitas: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Jaringan: %@";
 "trip_finished" = "Anda telah tiba!";
 "ok" = "Oke";
@@ -744,10 +734,10 @@
 
 /* Place Page opening hours text */
 "closed_now" = "Sekarang Tutup";
-"opens_tomorrow_at" = "Opens tomorrow at %@";
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
-"opens_at" = "Opens at %@";
-"closes_at" = "Closes at %@";
+"opens_tomorrow_at" = "Dibuka besok pada pukul %@";
+"opens_dayoftheweek_at" = "Membuka %1$@ di %2$@";
+"opens_at" = "Dibuka di %@";
+"closes_at" = "Ditutup pada %@";
 "add_opening_hours" = "Tambah jam kerja";
 "password_8_chars_min" = "Kata Sandi (minimal 8 karakter)";
 "invalid_username_or_password" = "Nama pengguna dan Kata sandi tidak valid.";
@@ -804,7 +794,7 @@
 "traffic_update_app_message" = "Untuk menampilkan data lalu lintas, aplikasi ini harus diperbarui.";
 "log_file_size" = "Ukuran file log: %@";
 "planning_route_remove_title" = "Seret ke sini untuk menghapus";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Ganti Berhenti";
 "start_from_my_position" = "Mulai dari";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -822,12 +812,15 @@
 "bookmarks_convert_error_title" = "Kesalahan";
 "bookmarks_convert_error_message" = "Beberapa file tidak dikonversi.";
 "title_error_downloading_bookmarks" = "Terjadi kesalahan";
-"popular_place" = "Popular";
+"popular_place" = "Populer";
 "hide_from_map" = "Sembunyikan dari peta";
 "tags_loading_error_subtitle" = "Kesalahan terjadi saat memuat tag, silakan coba lagi";
-"download_button" = "Unduh";
-"right" = "Right";
-"bottom" = "Bottom";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
+"right" = "Kasus";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
+"bottom" = "Bawah";
 "trip_start" = "Ayo";
 "pick_destination" = "Tujuan";
 "follow_my_position" = "Pusatkan ulang";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Buka di Aplikasi Lain";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Layanan mandiri";
 
 /* To indicate if restaurant or other place has outdoor seating */
@@ -990,16 +983,16 @@
 "whats_new_auto_update_button_later" = "Perbarui secara manual nanti";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Menghapus Trek";
 
 /* The track deletion confirmaion alert message. */
 "placepage_delete_track_confirmation_alert_message" = "Apakah Anda yakin ingin menghapus trek ini?";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Nama Lagu";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "Pindah";
 
 /* edit track screen title */
 "track_title" = "Trek";
@@ -1094,7 +1087,7 @@
 "ft" = "kaki";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Untuk menampilkan rute, peta harus diperbarui.";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Keluar";

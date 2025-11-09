@@ -241,18 +241,6 @@
 "news" = "Новини";
 
 /* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
-
-/* Text in menu */
 "rate_the_app" = "Оцінити застосунок";
 
 /* Text in menu */
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Знайти мапу";
 "common_check_internet_connection_dialog" = "Будь ласка, перевірте свої налаштування і переконайтеся, що ваш пристрій підлючено до Інтернету.";
 "downloader_no_space_title" = "Недостатньо місця";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Видаліть непотрібні дані";
 "editor_profile_changes" = "Виправлення, що ураховані";
 "editor_focus_map_on_location" = "Перетягніть карту, щоб розмістити хрестик на розташуванні об'єкту або бізнесу.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Більше про OpenStreetMap";
 "editor_operator" = "Оператор";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Оператор: %@";
 "editor_category_unsuitable_title" = "Не можете знайти відповідну категорію?";
 "editor_category_unsuitable_text" = "Organic Maps дозволяють додавати до мапи лише прості типи об'єктів, тобто без міст, доріг, озер та контурів будівель. Будь ласка, додайте такі категорії на сайті <a href=\"https://www.openstreetmap.org/\">OpenStreetMap.org</a>. Ми також рекомендуємо ознайомитися із <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing/\">детальними інструкціями та іншими додатками для редагування карти</a>.";
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Ні";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Місткість: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Мережа: %@";
 "trip_finished" = "Ви прибули!";
 "ok" = "Ок";
@@ -825,8 +815,11 @@
 "popular_place" = "Популярні";
 "hide_from_map" = "Приховати з карти";
 "tags_loading_error_subtitle" = "Під час завантаження тегів сталася помилка, будь ласка, спробуйте ще раз";
-"download_button" = "Завантажити";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Праворуч";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
 "bottom" = "Вниз";
 "trip_start" = "Поїхали";
 "pick_destination" = "Ціль";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Відкрити в іншому застосунку";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Самообслуговування";
 
 /* To indicate if restaurant or other place has outdoor seating */

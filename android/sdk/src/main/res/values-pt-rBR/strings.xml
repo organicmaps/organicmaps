@@ -15,5 +15,7 @@
     <string name="km">km</string>
     <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
     <string name="routes_update_maps_text">Para exibir as rotas, os mapas devem ser atualizados.</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Sair</string>
     <string name="subway_data_unavailable">Mapa de metrô está indisponível</string>
 </resources>

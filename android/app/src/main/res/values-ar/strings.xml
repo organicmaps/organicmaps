@@ -18,7 +18,7 @@
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">الأميال</string>
     <!-- Update maps later button text -->
-    <string name="later">ًلاحقا</string>
+    <string name="later">لاحقاً</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">البحث</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
@@ -240,26 +240,6 @@
     <string name="website">الموقع الإلكتروني</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">أخبار</string>
-    <!-- Text in menu -->
-    <string name="github">جيثب</string>
-    <!-- Text in menu -->
-    <string name="telegram">تيليجرام</string>
-    <!-- Text in menu -->
-    <string name="matrix">[ماتريكس]</string>
-    <!-- Text in menu -->
-    <string name="mastodon">ماستودون</string>
-    <!-- Text in menu -->
-    <string name="facebook">فيسبوك</string>
-    <!-- Text in menu -->
-    <string name="twitter">X (تويتر)</string>
-    <!-- Text in menu -->
-    <string name="instagram">إنستغرام</string>
-    <!-- Text in the editor -->
-    <string name="vk">في كيه</string>
-    <!-- Text in the editor -->
-    <string name="editor_line_social_network">لاين</string>
-    <!-- Text in menu -->
-    <string name="openstreetmap">خريطة الشارع المفتوحة</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">إرسال التعليقات</string>
     <!-- Text in menu -->
@@ -487,6 +467,7 @@
     <string name="downloader_search_field_hint">ابحث عن خريطة</string>
     <string name="common_check_internet_connection_dialog">يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.</string>
     <string name="downloader_no_space_title">لا تتوفر مساحة كافية</string>
+    <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">من فضلك، قم بإزالة البيانات غير الضرورية</string>
     <string name="editor_login_error_dialog">خطأ في تسجيل الدخول.</string>
     <string name="editor_profile_changes">التعديلات التي تم التحقق منها</string>
@@ -526,7 +507,7 @@
     <string name="editor_osm_history">سجل التحرير الخاص بك</string>
     <string name="editor_osm_notes">ملاحظات بيانات الخريطة الخاصة بك</string>
     <string name="editor_operator">المشغل</string>
-    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">المشغل: %s</string>
     <string name="editor_category_unsuitable_title">لا يمكن العثور على فئة مناسبة؟</string>
     <string name="editor_category_unsuitable_text">تسمح الخرائط العضوية بإضافة فئات نقاط بسيطة فقط، وهذا يعني عدم وجود بلدات وطرق وبحيرات ومخططات للمباني وما إلى ذلك. يرجى إضافة هذه الفئات مباشرة إلى <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. راجع موقعنا <a href="https://organicmaps.app/faq/editing/advanced-map-editing">دليل</a> للحصول على تعليمات مفصلة خطوة بخطوة.</string>
@@ -690,6 +671,7 @@
     <!-- Settings/Bookmark Text Placement -->
     <string name="bookmarks_text_placement_title">أسماء الإشارات المرجعية على الخريطة</string>
     <string name="bookmarks_text_placement_description">إذا كان هناك عدد كبير جدًا من الإشارات المرجعية، فقد يؤدي عرض أسمائها على الخريطة إلى إبطاء التطبيق.</string>
+    <string name="show_to_the_right">عرض إلى اليمين</string>
     <string name="show_at_the_bottom">اعرض في الأسفل</string>
     <string name="enable_logging_warning_message">هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.</string>
     <string name="driving_options_title">خيارات رسم المسار</string>
@@ -715,9 +697,9 @@
     <string name="yes_available">نعم</string>
     <!-- E.g. "WiFi:No" -->
     <string name="no_available">لا</string>
-    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
     <string name="capacity">السعة: %s</string>
-    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">الشبكة: %s</string>
     <string name="trip_finished">لقد وصلت!</string>
     <string name="ok">موافق</string>
@@ -867,7 +849,7 @@
     <string name="view_menu">عرض القائمة</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">فتح في تطبيق آخر</string>
-    <!-- To indicate if the place proposed self service... -->
+    <!-- To indicate if the place proposed self service… -->
     <string name="self_service">الخدمة الذاتية</string>
     <string name="select_option">حدد الخيار</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
@@ -897,5 +879,6 @@
     <string name="nav_auto">تلقائي في التنقل</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">شارك المسار</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">احذف %s؟</string>
 </resources>

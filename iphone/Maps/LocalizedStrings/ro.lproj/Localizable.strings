@@ -104,7 +104,7 @@
 "category_parking" = "Parcare";
 
 /* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
-"category_shopping" = "Shopping";
+"category_shopping" = "Cumpărături";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
 "category_secondhand" = "La mâna a doua";
@@ -239,18 +239,6 @@
 
 /* Text in About menu, opens Organic Maps news website */
 "news" = "Știri";
-
-/* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "X (Twitter)";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in the editor */
-"vk" = "VK";
 
 /* Text in menu */
 "rate_the_app" = "Evaluează aplicația";
@@ -530,6 +518,8 @@
 "downloader_search_field_hint" = "Caută harta";
 "common_check_internet_connection_dialog" = "Verifică dacă dispozitivul tău este conectat la internet.";
 "downloader_no_space_title" = "Spațiu insuficient";
+
+/* Message shown when there is not enough space to download maps */
 "downloader_no_space_message" = "Șterge datele care nu sunt necesare";
 "editor_profile_changes" = "Modificări confirmate";
 "editor_focus_map_on_location" = "Trageți harta pentru a plasa crucea acolo unde vreți să adăugați un loc sau o afacere.";
@@ -563,7 +553,7 @@
 "editor_more_about_osm" = "Mai multe despre OpenStreetMap";
 "editor_operator" = "Operator";
 
-/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operator: %@";
 "editor_category_unsuitable_title" = "Nu găsiți o categorie potrivită?";
 "editor_category_unsuitable_text" = "Organic Maps permite adăugarea doar a unor categorii de puncte simple, ceea ce înseamnă că nu există orașe, drumuri, lacuri, contururi de clădiri, etc. Vă rugăm să adăugați astfel de categorii direct la <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consultați <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ghidul nostru</a> pentru instrucțiuni detaliate pas cu pas.";
@@ -629,7 +619,7 @@
 "button_plan" = "Planifică";
 "placepage_remove_stop" = "Scoateți opritorul";
 "placepage_add_stop" = "Adaugă oprire";
-"saved" = "Saved";
+"saved" = "Salvat";
 "error_enter_correct_name" = "Introdu un nume corect";
 "bookmark_lists" = "Liste";
 
@@ -651,10 +641,10 @@
 "terms_of_use" = "Termeni de utilizare";
 
 /* Hiking routes layer name in the Styles and Layers dialog */
-"button_layer_hiking" = "Hiking";
+"button_layer_hiking" = "Drumeții";
 
 /* Cycling routes layer name in the Styles and Layers dialog */
-"button_layer_cycling" = "Cycling";
+"button_layer_cycling" = "Ciclism";
 "button_layer_subway" = "Metrou";
 "layers_title" = "Stiluri și straturi de hartă";
 "export_file" = "Export KMZ";
@@ -678,10 +668,10 @@
 "power_managment_setting_manual_max" = "Economisire maximă a energiei";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"bookmarks_text_placement_title" = "Nume de marcaje pe hartă";
+"bookmarks_text_placement_description" = "Dacă există prea multe marcaje, afișarea numelor acestora pe hartă poate încetini aplicația.";
+"show_to_the_right" = "Arată la dreapta";
+"show_at_the_bottom" = "Afișare în partea de jos";
 "enable_logging_warning_message" = "Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.";
 "driving_options_title" = "Opțiuni de ocolire";
 
@@ -714,10 +704,10 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nu";
 
-/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
 "capacity" = "Capacitate: %@";
 
-/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
 "network" = "Rețea: %@";
 "trip_finished" = "Ai ajuns!";
 "ok" = "Bine";
@@ -804,7 +794,7 @@
 "traffic_update_app_message" = "Pentru a afișa datele privind traficul, aplicația trebuie actualizată.";
 "log_file_size" = "Dimensiunea fișierului jurnal: %@";
 "planning_route_remove_title" = "Trage aici pentru a elimina";
-"placepage_replace_stop" = "Replace Stop";
+"placepage_replace_stop" = "Înlocuiți oprirea";
 "start_from_my_position" = "Pornește de la";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -825,9 +815,12 @@
 "popular_place" = "Populare";
 "hide_from_map" = "Ascunde de pe hartă";
 "tags_loading_error_subtitle" = "A apărut o eroare la încărcarea etichetelor, încearcă din nou";
-"download_button" = "Descarcă";
-"right" = "Right";
-"bottom" = "Bottom";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
+"right" = "Corect";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
+"bottom" = "Fund";
 "trip_start" = "Să mergem";
 "pick_destination" = "Destinație";
 "follow_my_position" = "Centrează";
@@ -956,7 +949,7 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Deschidere în altă aplicație";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place proposed self service… */
 "self_service" = "Autoservire";
 
 /* To indicate if restaurant or other place has outdoor seating */
