@@ -90,21 +90,13 @@ public enum TtsPlayer
     return null;
   }
 
-  private boolean setLanguageInternal(LanguageData lang)
+  private boolean setLanguageInternal(@NonNull LanguageData lang)
   {
-    try
-    {
-      mTts.setLanguage(lang.locale);
-      nativeSetTurnNotificationsLocale(lang.internalCode);
-      Config.TTS.setLanguage(lang.internalCode);
+    mTts.setLanguage(lang.locale);
+    nativeSetTurnNotificationsLocale(lang.internalCode);
+    Config.TTS.setLanguage(lang.internalCode);
 
-      return true;
-    }
-    catch (IllegalArgumentException e)
-    {
-      lockDown();
-      return false;
-    }
+    return true;
   }
 
   public boolean setLanguage(LanguageData lang)
@@ -190,7 +182,7 @@ public enum TtsPlayer
           mAudioFocusManager.releaseAudioFocus();
         }
       });
-      mAudioFocusManager = new AudioFocusManager(context);
+      mAudioFocusManager = AudioFocusManager.create(context, this::onAudioFocusLost);
       mParams.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, Config.TTS.getVolume());
       mInitializing = false;
       if (mReloadTriggered && sOnReloadCallback != null)
@@ -223,25 +215,27 @@ public enum TtsPlayer
 
   private static boolean isReady()
   {
-    return (INSTANCE.mTts != null && !INSTANCE.mUnavailable && !INSTANCE.mInitializing);
+    return INSTANCE.mTts != null && !INSTANCE.mUnavailable && !INSTANCE.mInitializing;
   }
 
-  public void speak(String textToSpeak)
+  public void speak(@NonNull String textToSpeak)
   {
     if (Config.TTS.isEnabled())
-      try
+    {
+      final boolean isMusicActive = mAudioFocusManager.isMusicActive();
+      if (mAudioFocusManager.requestAudioFocus())
       {
-        boolean isMusicActive = mAudioFocusManager.requestAudioFocus();
         if (isMusicActive)
+        {
           delayHandler.postDelayed(
               () -> mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, mParams, textToSpeak), TTS_SPEAK_DELAY_MILLIS);
+        }
         else
           mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, mParams, textToSpeak);
       }
-      catch (IllegalArgumentException e)
-      {
-        lockDown();
-      }
+      else
+        stop();
+    }
   }
 
   public void playTurnNotifications(@NonNull String[] turnNotifications)
@@ -253,16 +247,11 @@ public enum TtsPlayer
 
   public void stop()
   {
-    if (isReady())
-      try
-      {
-        mAudioFocusManager.releaseAudioFocus();
-        mTts.stop();
-      }
-      catch (IllegalArgumentException e)
-      {
-        lockDown();
-      }
+    if (!isReady())
+      return;
+
+    mAudioFocusManager.releaseAudioFocus();
+    mTts.stop();
   }
 
   public static boolean isEnabled()
@@ -358,6 +347,12 @@ public enum TtsPlayer
       sSupportedLanguages = nativeGetSupportedLanguages();
     }
     return sSupportedLanguages;
+  }
+
+  private void onAudioFocusLost()
+  {
+    if (isReady())
+      mTts.stop();
   }
 
   private native static void nativeEnableTurnNotifications(boolean enable);
