@@ -6,4 +6,4 @@ set(SRC
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-target_link_libraries(${PROJECT_NAME} mwm_diff)
+target_link_libraries(${PROJECT_NAME} PRIVATE mwm_diff)

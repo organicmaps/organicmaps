@@ -68,15 +68,16 @@ omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${RES_SOURCES} ${SRC})
 set_target_properties(${PROJECT_NAME} PROPERTIES AUTOMOC ON)
 
 target_link_libraries(${PROJECT_NAME}
-  generator  # For borders::LoadBorders
-  qt_common
-  map
-  gflags::gflags
-  location_service
+  PRIVATE
+    generator  # For borders::LoadBorders
+    qt_common
+    map
+    gflags::gflags
+    location_service
 )
 
 if (BUILD_DESIGNER)
-  target_link_libraries(${PROJECT_NAME} generator)
+  target_link_libraries(${PROJECT_NAME} PRIVATE generator)
   set(BUNDLE_NAME "OMaps.Designer")
   set(BUNDLE_DISPLAY_NAME "Organic Maps Designer")
   set(BUNDLE_ICON designer.icns)

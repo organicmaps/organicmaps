@@ -50,8 +50,9 @@ set(SRC
 omim_add_test(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
-  platform_tests_support
-  generator_tests_support
-  routing
-  storage
+  PRIVATE
+    platform_tests_support
+    generator_tests_support
+    routing
+    storage
 )

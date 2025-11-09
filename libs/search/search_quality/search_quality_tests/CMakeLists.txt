@@ -8,6 +8,4 @@ set(SRC
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-target_link_libraries(${PROJECT_NAME}
-  search_quality
-)
+target_link_libraries(${PROJECT_NAME} PRIVATE search_quality)

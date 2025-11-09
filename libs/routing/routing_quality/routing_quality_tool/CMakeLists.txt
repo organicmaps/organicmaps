@@ -15,8 +15,9 @@ set(SRC
 omim_add_executable(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
-  routing_quality
-  routing_api
-  kml
-  gflags::gflags
+  PRIVATE
+    routing_quality
+    routing_api
+    kml
+    gflags::gflags
 )

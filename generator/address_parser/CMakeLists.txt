@@ -16,8 +16,9 @@ target_link_libraries(${PROJECT_NAME}
 
 omim_add_executable(address_parser_tool parser_tool.cpp)
 target_link_libraries(address_parser_tool
-  ${PROJECT_NAME}
-  gflags::gflags
+  PRIVATE
+    ${PROJECT_NAME}
+    gflags::gflags
 )
 
 omim_add_test_subdirectory(address_parser_tests)
