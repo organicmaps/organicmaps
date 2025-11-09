@@ -501,6 +501,22 @@ public:
   DECLARE_CHECKER_INSTANCE(IsCapitalChecker);
 };
 
+class IsParkingChecker : public BaseChecker
+{
+  IsParkingChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsParkingChecker);
+};
+
+class IsBicycleParkingChecker : public BaseChecker
+{
+  IsBicycleParkingChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsBicycleParkingChecker);
+};
+
 class IsPublicTransportStopChecker : public BaseChecker
 {
   IsPublicTransportStopChecker();

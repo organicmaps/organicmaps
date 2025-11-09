@@ -731,6 +731,18 @@ IsCapitalChecker::IsCapitalChecker() : BaseChecker(3 /* level */)
   m_types.push_back(classif().GetTypeByPath({"place", "city", "capital"}));
 }
 
+IsParkingChecker::IsParkingChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"amenity", "parking"}));
+}
+
+IsBicycleParkingChecker::IsBicycleParkingChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"amenity", "bicycle_parking"}));
+}
+
 IsPublicTransportStopChecker::IsPublicTransportStopChecker()
 {
   Classificator const & c = classif();
