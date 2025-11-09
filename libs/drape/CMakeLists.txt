@@ -192,7 +192,7 @@ set(DRAPE_LINK_LIBRARIES
   $<$<BOOL:${PLATFORM_WIN}>:OpenGL::GL>
 )
 
-target_link_libraries(${PROJECT_NAME} ${DRAPE_LINK_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PUBLIC ${DRAPE_LINK_LIBRARIES})
 
 omim_add_test_subdirectory(drape_tests)
 

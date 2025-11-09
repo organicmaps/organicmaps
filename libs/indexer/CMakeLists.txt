@@ -151,10 +151,11 @@ file(COPY ${OTHER_FILES} DESTINATION ${CMAKE_BINARY_DIR})
 omim_add_library(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
-  platform
-  geometry
-  protobuf
-  coding
+  PUBLIC
+    platform
+    geometry
+    protobuf
+    coding
 )
 
 omim_add_test_subdirectory(indexer_tests)

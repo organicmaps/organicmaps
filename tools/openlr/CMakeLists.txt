@@ -38,10 +38,11 @@ set(SRC
 omim_add_library(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
-  routing
-  indexer
-  geometry
-  pugixml
+  PUBLIC
+    routing
+    indexer
+    geometry
+    pugixml
 )
 
 omim_add_tool_subdirectory(openlr_match_quality)

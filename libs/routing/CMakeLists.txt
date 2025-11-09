@@ -195,12 +195,13 @@ set(SRC
 omim_add_library(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
-  base
-  routing_common
-  platform
-  traffic
-  transit
-  opening_hours
+  PUBLIC
+    base
+    routing_common
+    platform
+    traffic
+    transit
+    opening_hours
 )
 
 if (PLATFORM_DESKTOP)

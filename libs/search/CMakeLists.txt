@@ -173,10 +173,11 @@ set(SRC
 omim_add_library(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
-  editor
-  storage
-  ge0
-  openlocationcode
+  PUBLIC
+    editor
+    storage
+    ge0
+    openlocationcode
 )
 
 if(PLATFORM_DESKTOP)
