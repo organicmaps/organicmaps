@@ -49,6 +49,8 @@ set(SRC
   placement_settings.hpp
   preferred_languages.cpp
   preferred_languages.hpp
+  public_holidays.cpp
+  public_holidays.hpp
   remote_file.cpp
   remote_file.hpp
   secure_storage.hpp
