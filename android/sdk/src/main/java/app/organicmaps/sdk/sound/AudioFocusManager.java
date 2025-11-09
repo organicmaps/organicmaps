@@ -1,67 +1,65 @@
 package app.organicmaps.sdk.sound;
 
-import static android.media.AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK;
-
 import android.content.Context;
 import android.media.AudioAttributes;
-import android.media.AudioFocusRequest;
 import android.media.AudioManager;
-import android.os.Build;
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 
-public class AudioFocusManager
+abstract class AudioFocusManager
 {
+  public interface OnAudioFocusLost
+  {
+    void onAudioFocusLost();
+  }
+
   public static final AudioAttributes AUDIO_ATTRIBUTES =
       new AudioAttributes.Builder()
           .setUsage(AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE)
           .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
           .build();
 
-  @Nullable
-  private AudioManager mAudioManager = null;
-  @Nullable
-  private AudioManager.OnAudioFocusChangeListener mOnFocusChange = null;
-  @Nullable
-  private AudioFocusRequest mAudioFocusRequest = null;
+  @NonNull
+  protected final AudioManager mAudioManager;
+  @NonNull
+  private final OnAudioFocusLost mOnAudioFocusLost;
+  protected boolean mPlaybackAllowed = false;
 
-  public AudioFocusManager(@Nullable Context context)
+  protected AudioFocusManager(@NonNull Context context, @NonNull OnAudioFocusLost onAudioFocusLost)
   {
-    if (context != null)
-      mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+    mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+    mOnAudioFocusLost = onAudioFocusLost;
+  }
 
-    if (Build.VERSION.SDK_INT < 26)
-      mOnFocusChange = focusGain -> {};
+  @NonNull
+  public static AudioFocusManager create(@NonNull Context context, @NonNull OnAudioFocusLost onAudioFocusLost)
+  {
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+      return new AudioFocusManagerImpl(context, onAudioFocusLost);
     else
-      mAudioFocusRequest = new AudioFocusRequest.Builder(AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
-                               .setAudioAttributes(AUDIO_ATTRIBUTES)
-                               .build();
+      return new AudioFocusManagerImplLegacy(context, onAudioFocusLost);
   }
 
-  public boolean requestAudioFocus()
-  {
-    boolean isMusicActive = false;
+  public abstract boolean requestAudioFocus();
 
-    if (mAudioManager != null)
+  public abstract void releaseAudioFocus();
+
+  public boolean isMusicActive()
+  {
+    return mAudioManager.isMusicActive();
+  }
+
+  protected void onAudioFocusChange(int focusChange)
+  {
+    if (focusChange == AudioManager.AUDIOFOCUS_GAIN || focusChange == AudioManager.AUDIOFOCUS_GAIN_TRANSIENT
+        || focusChange == AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
     {
-      isMusicActive = mAudioManager.isMusicActive();
-      if (Build.VERSION.SDK_INT < 26)
-        mAudioManager.requestAudioFocus(mOnFocusChange, AudioManager.STREAM_VOICE_CALL,
-                                        AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
-      else
-        mAudioManager.requestAudioFocus(mAudioFocusRequest);
+      mPlaybackAllowed = true;
     }
-
-    return isMusicActive;
-  }
-
-  public void releaseAudioFocus()
-  {
-    if (mAudioManager != null)
+    else if (focusChange == AudioManager.AUDIOFOCUS_LOSS || focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT
+             || focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK)
     {
-      if (Build.VERSION.SDK_INT < 26)
-        mAudioManager.abandonAudioFocus(mOnFocusChange);
-      else
-        mAudioManager.abandonAudioFocusRequest(mAudioFocusRequest);
+      mPlaybackAllowed = false;
+      mOnAudioFocusLost.onAudioFocusLost();
     }
   }
 }
