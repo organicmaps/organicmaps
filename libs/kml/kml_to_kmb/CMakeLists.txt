@@ -5,4 +5,4 @@ set(SRC kml_to_kmb.cpp)
 
 omim_add_executable(${PROJECT_NAME} ${SRC})
 
-target_link_libraries(${PROJECT_NAME} kml)
+target_link_libraries(${PROJECT_NAME} PRIVATE kml)

@@ -15,7 +15,8 @@ set(SRC
 omim_add_test(${PROJECT_NAME} ${SRC} REQUIRE_QT REQUIRE_SERVER)
 
 target_link_libraries(${PROJECT_NAME}
-  platform_tests_support
-  storage
-  map
+  PRIVATE
+    platform_tests_support
+    storage
+    map
 )

@@ -34,13 +34,14 @@ endif()
 omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
-  drape
-  generator  # For borders::LoadBorders
-  map
-  gflags::gflags
-  glfw
-  imgui
-  vulkan_wrapper
+  PRIVATE
+    drape
+    generator  # For borders::LoadBorders
+    map
+    gflags::gflags
+    glfw
+    imgui
+    vulkan_wrapper
 )
 
 # Installing Vulkan SDK is optional, however without it Vulkan dynamic libraries
@@ -48,7 +49,7 @@ target_link_libraries(${PROJECT_NAME}
 find_package(Vulkan QUIET)
 if (Vulkan_FOUND)
   message(STATUS "Vulkan found")
-  target_link_libraries(${PROJECT_NAME} Vulkan::Vulkan)
+  target_link_libraries(${PROJECT_NAME} PRIVATE Vulkan::Vulkan)
 endif()
 
 if(PLATFORM_MAC)

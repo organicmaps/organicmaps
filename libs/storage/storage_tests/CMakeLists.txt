@@ -20,8 +20,9 @@ set(SRC
 omim_add_test(${PROJECT_NAME} ${SRC} REQUIRE_QT REQUIRE_SERVER)
 
 target_link_libraries(${PROJECT_NAME}
-  platform_tests_support
-  generator_tests_support
-  storage
-  cppjansson
+  PRIVATE
+    platform_tests_support
+    generator_tests_support
+    storage
+    cppjansson
 )

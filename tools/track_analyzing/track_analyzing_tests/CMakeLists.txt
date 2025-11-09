@@ -13,7 +13,8 @@ set(SRC
 omim_add_test(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
-  map
-  tracking
-  track_analyzing
+  PRIVATE
+    map
+    tracking
+    track_analyzing
 )

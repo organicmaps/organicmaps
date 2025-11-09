@@ -45,7 +45,8 @@ else()
 endif()
 
 target_link_libraries(${PROJECT_NAME}
-  qt_tstfrm
-  gmock
-  ${DRAPE_LINK_LIBRARIES}
+  PRIVATE
+    qt_tstfrm
+    gmock
+    ${DRAPE_LINK_LIBRARIES}
 )

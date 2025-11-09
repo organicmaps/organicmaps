@@ -7,9 +7,10 @@ set(SRC
 omim_add_executable(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
-  generator
-  routing_common
-  platform
-  indexer
-  gflags::gflags
+  PRIVATE
+    generator
+    routing_common
+    platform
+    indexer
+    gflags::gflags
 )

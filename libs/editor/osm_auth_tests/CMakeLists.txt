@@ -7,4 +7,4 @@ set(SRC
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-target_link_libraries(${PROJECT_NAME} editor)
+target_link_libraries(${PROJECT_NAME} PRIVATE editor)
