@@ -1195,6 +1195,10 @@
  "languages": ["es", "ca"],
  "timezone": "Europe/Madrid"
 },
+"Spain_Basque Country": {
+ "languages": ["eu", "es"],
+ "timezone": "Europe/Madrid"
+},
 "Spain_Canary Islands": {
  "timezone": "Atlantic/Canary"
 },
