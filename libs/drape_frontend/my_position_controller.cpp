@@ -833,11 +833,8 @@ void MyPositionController::EnablePerspectiveInRouting(bool enablePerspective)
 
 void MyPositionController::EnableAutoZoomInRouting(bool enableAutoZoom)
 {
-  if (m_isInRouting)
-  {
-    m_enableAutoZoomInRouting = enableAutoZoom;
-    ResetBlockAutoZoomTimer();
-  }
+  m_enableAutoZoomInRouting = enableAutoZoom;
+  ResetBlockAutoZoomTimer();
 }
 
 void MyPositionController::ActivateRouting(int zoomLevel, bool enableAutoZoom, bool isArrowGlued)
