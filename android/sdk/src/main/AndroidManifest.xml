@@ -27,4 +27,17 @@
   <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+  <!-- TODO: With the current SDK (36) it is not possible to set a custom
+             attribution tag and system spams log errors that attribution
+             for empty tag is not found -->
+  <attribution
+      android:tag="@string/attribution_empty_tag"
+      android:label="@string/attribution_empty_tag_desc"
+      android:minSdkVersion="30" />
+
+  <attribution
+      android:tag="media_playback"
+      android:label="@string/attribution_playback"
+      android:minSdkVersion="30" />
 </manifest>
