@@ -202,20 +202,16 @@ using namespace osm_auth_ios;
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
   LOG(LINFO, ("applicationWillEnterForeground - begin"));
-  if (!GpsTracker::Instance().IsEnabled())
-    return;
-
-  MWMViewController * topVc =
-      static_cast<MWMViewController *>(self.mapViewController.navigationController.topViewController);
-  if (![topVc isKindOfClass:[MWMViewController class]])
-    return;
-
-  if ([MWMSettings isTrackWarningAlertShown])
-    return;
-
-  [topVc.alertController presentTrackWarningAlertWithCancelBlock:^{ GpsTracker::Instance().SetEnabled(false); }];
-
-  [MWMSettings setTrackWarningAlertShown:YES];
+  if (GpsTracker::Instance().IsEnabled())
+  {
+    MWMViewController * topVc =
+    static_cast<MWMViewController *>(self.mapViewController.navigationController.topViewController);
+    if ([topVc isKindOfClass:[MWMViewController class]] && ![MWMSettings isTrackWarningAlertShown])
+    {
+      [topVc.alertController presentTrackWarningAlertWithCancelBlock:^{ GpsTracker::Instance().SetEnabled(false); }];
+      [MWMSettings setTrackWarningAlertShown:YES];
+    }
+  }
   LOG(LINFO, ("applicationWillEnterForeground - end"));
 }
 
