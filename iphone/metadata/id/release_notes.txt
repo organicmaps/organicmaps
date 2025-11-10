@@ -1,27 +1,33 @@
-• Pengguna UE sekarang dapat mengatur Organic Maps sebagai aplikasi navigasi default di Pengaturan iOS → Aplikasi → Aplikasi Default → Navigasi
+- BARU! Sorot wilayah yang diunduh di peta Dunia
+- BARU! Lihat dan cari cagar alam, taman nasional, kawasan lindung, tanah Adat, area berbahaya, dan danau di peta Dunia mulai dari tingkat zoom 8
+- BARU! Akses bersyarat untuk perutean, mis., untuk jalan yang ditutup pada waktu-waktu tertentu
+- Data OpenStreetMap yang diperbarui pada 9 November 2025
+- Mengaktifkan bahasa Estonia, Galisia, Ibrani, dan Lituania untuk arahan suara TTS
+- Memperbaiki masalah dengan nama jalan default dan yang dilokalkan saat mengedit alamat
+- Memperbaiki masalah dengan zoom saat mengetuk hasil pencarian dari peta Dunia
+- Menambahkan tautan media sosial TikTok, Threads, dan BlueSky ke layar "Tentang"
+- Menambahkan "Laporkan bug" ke tindakan cepat ikon aplikasi di layar beranda
+- Setelah menghapus daftar bookmark atau trek (melalui tombol "lainnya"), aplikasi sekarang kembali dengan benar ke layar sebelumnya
+- Memperbaiki berbagai kerusakan aplikasi dan CarPlay
 
-• Data OpenStreetMap segar per 21 Oktober 2025
-• Objek peta baru: stasiun pemantauan, pulau lalu lintas, fasilitas perawatan air Kneipp, kereta api miniatur, tempat berkemah bergaya outdoor, terminal bandara, area bermain dalam ruangan, toko telekomunikasi, fasilitas penyewaan perahu, dan fasilitas jalur peluncuran perahu
-• Nama pintu masuk kereta bawah tanah sekarang terlihat di peta
-• Panah posisi sekarang menunjukkan arah gerakan Anda saat berjalan dalam mode navigasi pejalan kaki
-• Menambahkan dukungan bahasa Slovenia, termasuk petunjuk suara untuk navigasi
-• Memperbarui ikon pembuangan sampah dan tempat pembuangan akhir
-• Memperbaiki bilah status putih-pada-putih dalam mode navigasi
-• Meningkatkan ukuran tombol Mulai Navigasi
-• Menghapus ruang putih kosong saat merencanakan rute di iPad
-• Warna tambahan sekarang didukung untuk jalur pendakian
-• Meningkatkan informasi yang ditampilkan saat memilih sungai atau segmen jalur air
-• Pencarian stasiun pengisian kendaraan listrik yang lebih baik dengan sinonim yang ditingkatkan dalam semua bahasa
-• Memperbaiki pencarian emoji (ya, Anda dapat mengetik emoji di kotak pencarian!)
-• Memperbaiki petunjuk pencarian yang menampilkan terlalu banyak hasil untuk pencarian alamat yang tepat
-• Mengimpor dan mengekspor GeoJSON dari dan ke https://umap.openstreetmap.fr/ sekarang mempertahankan semua metadata
+### Peta & Gaya
 
-### Fitur yang baru dirilis yang mungkin Anda lewatkan
+- Menukar rendering rel kereta api 'terbengkalai' dan 'tidak digunakan'
+- Menambahkan pembuat jam dan akomodasi mahasiswa ke peta
+- Menambahkan ikon biro perjalanan
+- Mengubah warna ikon toilet menjadi abu-abu
+- Memperbarui ikon audiolog, podiatris, optometris, dan alat bantu dengar
+- Memperbaiki ikon persewaan sepeda dalam mode gelap
+- Menampilkan nama negara bagian AS/Kanada lebih awal di peta Dunia (dari tingkat zoom 5)
 
-• Simpan penanda pada titik trek yang dipilih
-• Hapus trek perekaman tanpa menyimpannya terlebih dahulu
-• Impor file GeoJSON
+### Terjemahan
 
-Organic Maps dimungkinkan berkat kontributor kami dan dukungan berkelanjutan Anda.
+- Menambahkan sinonim pencarian Slovenia dan mengaktifkan pencarian kategori untuk bahasa Slovenia
+- Memperbaiki salah ketik, terjemahan yang salah, dan sinonim pencarian; menambahkan terjemahan yang hilang untuk banyak bahasa
+- Menambahkan terjemahan khusus untuk bahasa Spanyol Meksiko (es-MX) dan Portugis Brasil (pt-BR), yang berbeda dari bahasa Spanyol standar (es) dan Portugis (pt)
+- Memperbaiki arahan suara TTS Ceko
 
+Periksa catatan rilis terperinci di situs web kami: https://organicmaps.app
+
+Terima kasih telah menggunakan Organic Maps dan mendukung proyek ini!
 Tim Organic Maps

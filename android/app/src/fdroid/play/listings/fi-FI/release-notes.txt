@@ -1,8 +1,9 @@
-• OpenStreetMap-data 21. lokakuuta
-• Seuranta-asemat, liikennesaaret, Kneipp-vesihoidot, pienoisrautatiet, leiripaikat, lentoaseman terminaalit, sisäleikkialueet, teleliikkeet, venevuokraus ja laskuluiskat
-• Tiekilvet näkyvät nyt navigoinnissa
-• Tuki vanhemmille x86-laitteille lisätty
-• Sloveenin kieli ja ääniohjeet
-• Parannettu emoji- ja EV-latausaseman haku
+• Korosta ladattuja alueita, luonnonsuojelualueita, kansallispuistoja, suojelualueita, aboriginaalien maita, vaara-alueita ja järviä maailmankartalla
+• Reititys tukee teiden sulkemisaikoja
+• Tuoreet OSM-kartat 9. marraskuuta
+• Korjattu kaatumisia ja reititystä, mukaan lukien Android Auto
+• Lisätty kelloseppiä, opiskelija-asuntoja, matkatoimistoja
+• Lisätty tuki sloveenin kielelle haussa
+• Ääniohjeet viroksi, galiciaksi, hepreaksi ja liettuaksi
 
-…lisää: omaps.org/news
+…lisää osoitteessa omaps.org/news

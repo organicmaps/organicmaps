@@ -1,27 +1,33 @@
-• Les utilisateurs européens peuvent maintenant définir Organic Maps comme application de navigation par défaut dans Réglages iOS → Apps → Apps par défaut → Navigation
+- NOUVEAU ! Mettez en surbrillance les régions téléchargées sur la carte du monde
+- NOUVEAU ! Affichez et recherchez des réserves naturelles, des parcs nationaux, des zones protégées, des terres aborigènes, des zones de danger et des lacs sur la carte du monde à partir du niveau de zoom 8
+- NOUVEAU ! Accès conditionnel pour le routage, par exemple pour les routes fermées à certaines heures
+- Données OpenStreetMap mises à jour au 9 novembre 2025
+- Activation des langues estonienne, galicienne, hébraïque et lituanienne pour les instructions vocales TTS
+- Correction d'un problème avec les noms de rue par défaut et localisés lors de la modification des adresses
+- Correction d'un problème de zoom en appuyant sur les résultats de recherche de la carte du monde
+- Ajout des liens vers les médias sociaux TikTok, Threads et BlueSky sur l'écran "À propos"
+- Ajout de "Signaler un bogue" aux actions rapides de l'icône de l'application sur l'écran d'accueil
+- Après la suppression d'une liste de signets ou de traces (via le bouton "plus"), l'application revient maintenant correctement à l'écran précédent
+- Correction de divers plantages de l'application et de CarPlay
 
-• Données OpenStreetMap mises à jour au 21 octobre 2025
-• Nouveaux objets de carte : stations de surveillance, îlots de circulation, installations de cure d'eau Kneipp, chemins de fer miniatures, emplacements de camping de style plein air, terminaux d'aéroport, aires de jeux intérieures, boutiques de télécommunications, installations de location de bateaux et installations de cale de mise à l'eau
-• Les noms des entrées de métro sont maintenant visibles sur la carte
-• La flèche de position montre maintenant votre direction de déplacement lorsque vous marchez en mode de navigation piétonne
-• Ajout de la prise en charge de la langue slovène, y compris les instructions vocales pour la navigation
-• Icônes de dépôt de déchets et de décharge mises à jour
-• Correction de la barre d'état blanc sur blanc en mode navigation
-• Augmentation de la taille du bouton Démarrer la navigation
-• Suppression de l'espace blanc vide lors de la planification d'un itinéraire sur iPad
-• Des couleurs supplémentaires sont maintenant prises en charge pour les sentiers de randonnée
-• Amélioration des informations affichées lors de la sélection d'une rivière ou d'un segment de voie navigable
-• Meilleure recherche de bornes de recharge pour véhicules électriques avec des synonymes améliorés dans toutes les langues
-• Correction de la recherche d'émojis (oui, vous pouvez saisir des émojis dans la zone de recherche !)
-• Correction des suggestions de recherche affichant trop de résultats pour les recherches d'adresses exactes
-• L'importation et l'exportation de GeoJSON depuis et vers https://umap.openstreetmap.fr/ préserve maintenant toutes les métadonnées
+### Carte et styles
 
-### Fonctionnalités récemment publiées que vous avez peut-être manquées
+- Interversion du rendu des voies ferrées "abandonnées" et "désaffectées"
+- Ajout des horlogers et des logements étudiants à la carte
+- Ajout d'icônes d'agences de voyage
+- Changement de la couleur de l'icône des toilettes en gris
+- Mise à jour des icônes d'audiologiste, de podiatre, d'optométriste et d'appareils auditifs
+- Correction de l'icône de location de vélos en mode sombre
+- Affichage des noms d'États américains/canadiens plus tôt sur la carte du monde (à partir du niveau de zoom 5)
 
-• Enregistrer un signet sur un point de tracé sélectionné
-• Supprimer un tracé d'enregistrement sans l'enregistrer d'abord
-• Importer des fichiers GeoJSON
+### Traductions
 
-Organic Maps est possible grâce à nos contributeurs et à votre soutien continu.
+- Ajout de synonymes de recherche en slovène et activation de la recherche par catégorie pour le slovène
+- Correction de fautes de frappe, de traductions incorrectes et de synonymes de recherche ; ajout de traductions manquantes pour de nombreuses langues
+- Ajout de traductions spécifiques pour l'espagnol mexicain (es-MX) et le portugais brésilien (pt-BR), distinctes de l'espagnol standard (es) et du portugais (pt)
+- Correction des instructions vocales TTS en tchèque
 
-L'équipe Organic Maps
+Consultez les notes de version détaillées sur notre site Web : https://organicmaps.app
+
+Merci d'utiliser Organic Maps et de soutenir le projet !
+L'équipe d'Organic Maps

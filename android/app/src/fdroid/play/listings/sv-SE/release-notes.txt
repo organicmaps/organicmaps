@@ -1,8 +1,9 @@
-• OpenStreetMap-data per 21 oktober
-• Övervakningsstationer, trafiköar, Kneipp vattenanläggningar, minijärnvägar, campingplatser, flygplatsterminaler, inomhus lekområden, telekombutiker, båtuthyrning och slipar
-• Vägsymboler visas nu i navigationsriktningar
-• Stöd för äldre x86-enheter
-• Slovenska språket med röstnavigering
-• Förbättrad sökning efter emoji och EV-laddare
+• Markera nedladdade regioner, naturreservat, nationalparker, skyddade områden, aboriginers land, farliga områden, sjöar på världskartan
+• Ruttplanering stöder vägavstängningstider
+• Färska OSM-kartor från den 9 november
+• Krascher och ruttplanering har åtgärdats, inklusive Android Auto
+• Urmakare, studentboenden och resebyråer har lagts till
+• Stöd för slovenska i sökningen har lagts till
+• Röstinstruktioner på estniska, galiciska, hebreiska och litauiska
 
 …mer på omaps.org/sv/news

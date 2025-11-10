@@ -1,27 +1,33 @@
-• Người dùng EU hiện có thể đặt Organic Maps làm ứng dụng điều hướng mặc định trong Cài đặt iOS → Ứng dụng → Ứng dụng mặc định → Điều hướng
+- MỚI! Đánh dấu các vùng đã tải xuống trên bản đồ Thế giới
+- MỚI! Xem và tìm kiếm các khu bảo tồn thiên nhiên, công viên quốc gia, khu bảo tồn, vùng đất của thổ dân, khu vực nguy hiểm và hồ trên bản đồ Thế giới bắt đầu từ mức thu phóng 8
+- MỚI! Truy cập có điều kiện để định tuyến, ví dụ: đối với những con đường bị đóng vào những thời điểm nhất định
+- Dữ liệu OpenStreetMap được cập nhật kể từ ngày 9 tháng 11 năm 2025
+- Đã bật tiếng Estonia, Galicia, Do Thái và Litva cho chỉ đường bằng giọng nói TTS
+- Đã khắc phục sự cố với tên đường mặc định và được bản địa hóa khi chỉnh sửa địa chỉ
+- Đã khắc phục sự cố với tính năng thu phóng khi nhấn vào kết quả tìm kiếm từ bản đồ Thế giới
+- Đã thêm các liên kết mạng xã hội TikTok, Threads và BlueSky vào màn hình "Giới thiệu"
+- Đã thêm "Báo cáo lỗi" vào các hành động nhanh của biểu tượng ứng dụng trên màn hình chính
+- Sau khi xóa danh sách dấu trang hoặc bản nhạc (thông qua nút "thêm"), ứng dụng hiện đã quay lại màn hình trước đó một cách chính xác
+- Đã sửa các sự cố khác nhau của ứng dụng và CarPlay
 
-• Dữ liệu OpenStreetMap mới nhất tính đến ngày 21 tháng 10 năm 2025
-• Đối tượng bản đồ mới: trạm giám sát, đảo giao thông, cơ sở trị liệu nước Kneipp, đường sắt thu nhỏ, khu cắm trại phong cách ngoài trời, nhà ga sân bay, khu vui chơi trong nhà, cửa hàng viễn thông, cơ sở cho thuê thuyền và cơ sở dốc thuyền
-• Tên lối vào tàu điện ngầm giờ đây hiển thị trên bản đồ
-• Mũi tên vị trí giờ đây hiển thị hướng di chuyển của bạn khi đi bộ ở chế độ điều hướng dành cho người đi bộ
-• Đã thêm hỗ trợ tiếng Slovenia, bao gồm hướng dẫn bằng giọng nói cho điều hướng
-• Cập nhật biểu tượng xử lý chất thải và bãi chôn lấp
-• Đã sửa thanh trạng thái trắng trên nền trắng ở chế độ điều hướng
-• Tăng kích thước nút Bắt đầu điều hướng
-• Đã xóa khoảng trắng trống khi lập kế hoạch tuyến đường trên iPad
-• Giờ đây hỗ trợ thêm màu sắc cho các tuyến đường đi bộ đường dài
-• Cải thiện thông tin hiển thị khi chọn sông hoặc đoạn đường thủy
-• Tìm kiếm trạm sạc xe điện tốt hơn với từ đồng nghĩa được cải thiện trên tất cả các ngôn ngữ
-• Đã sửa tìm kiếm biểu tượng cảm xúc (có, bạn có thể nhập biểu tượng cảm xúc vào ô tìm kiếm!)
-• Đã sửa gợi ý tìm kiếm hiển thị quá nhiều kết quả cho tìm kiếm địa chỉ chính xác
-• Nhập và xuất GeoJSON từ và đến https://umap.openstreetmap.fr/ giờ đây giữ nguyên tất cả siêu dữ liệu
+### Bản đồ & Kiểu
 
-### Các tính năng mới phát hành mà bạn có thể đã bỏ lỡ
+- Đã hoán đổi kết xuất của đường sắt 'bị bỏ hoang' và 'không sử dụng'
+- Đã thêm thợ sửa đồng hồ và nhà ở sinh viên vào bản đồ
+- Đã thêm biểu tượng đại lý du lịch
+- Đã đổi màu biểu tượng nhà vệ sinh thành màu xám
+- Đã cập nhật biểu tượng của chuyên gia thính học, chuyên gia chân, bác sĩ đo thị lực và máy trợ thính
+- Đã sửa biểu tượng cho thuê xe đạp ở chế độ tối
+- Hiển thị tên tiểu bang của Hoa Kỳ/Canada sớm hơn trên bản đồ Thế giới (từ mức thu phóng 5)
 
-• Lưu dấu trang tại một điểm theo dõi đã chọn
-• Xóa bản ghi theo dõi mà không cần lưu trước
-• Nhập tệp GeoJSON
+### Bản dịch
 
-Organic Maps có thể thực hiện được nhờ các cộng tác viên của chúng tôi và sự hỗ trợ liên tục của bạn.
+- Đã thêm các từ đồng nghĩa tìm kiếm tiếng Slovenia và bật tính năng tìm kiếm danh mục cho tiếng Slovenia
+- Đã sửa lỗi chính tả, bản dịch không chính xác và từ đồng nghĩa tìm kiếm; đã thêm các bản dịch còn thiếu cho nhiều ngôn ngữ
+- Đã thêm các bản dịch cụ thể cho tiếng Tây Ban Nha Mexico (es-MX) và tiếng Bồ Đào Nha Brazil (pt-BR), khác với tiếng Tây Ban Nha tiêu chuẩn (es) và tiếng Bồ Đào Nha (pt)
+- Đã sửa chỉ đường bằng giọng nói TTS tiếng Séc
 
-Đội ngũ Organic Maps
+Kiểm tra ghi chú phát hành chi tiết trên trang web của chúng tôi: https://organicmaps.app
+
+Cảm ơn bạn đã sử dụng Organic Maps và hỗ trợ dự án!
+Nhóm Organic Maps

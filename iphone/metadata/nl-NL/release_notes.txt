@@ -1,27 +1,33 @@
-• EU-gebruikers kunnen Organic Maps nu instellen als standaard navigatie-app in iOS Instellingen → Apps → Standaard-apps → Navigatie
+- NIEUW! Gemarkeerde gedownloade regio's op de wereldkaart
+- NIEUW! Bekijk en zoek naar natuurreservaten, nationale parken, beschermde gebieden, Aboriginal-landen, gevarenzones en meren op de wereldkaart vanaf zoomniveau 8
+- NIEUW! Voorwaardelijke toegang voor routering, bijv. voor wegen die op bepaalde tijden zijn afgesloten
+- Bijgewerkte OpenStreetMap-gegevens per 9 november 2025
+- Ests, Galicisch, Hebreeuws en Litouws ingeschakeld voor TTS-spraakinstructies
+- Een probleem opgelost met standaard en gelokaliseerde straatnamen bij het bewerken van adressen
+- Een probleem opgelost met zoomen bij het tikken op zoekresultaten van de wereldkaart
+- Sociale-medialinks voor TikTok, Threads en BlueSky toegevoegd aan het "Over"-scherm
+- "Een bug rapporteren" toegevoegd aan de snelle acties van het app-pictogram op het startscherm
+- Na het verwijderen van een bladwijzer- of tracklijst (via de "meer"-knop), keert de app nu correct terug naar het vorige scherm
+- Diverse app- en CarPlay-crashes opgelost
 
-• Verse OpenStreetMap-gegevens van 21 oktober 2025
-• Nieuwe kaartobjecten: monitoringstations, verkeerseilanden, Kneipp-waterkuurfaciliteiten, miniatuurtreinen, kampeerplekken in outdoorstijl, luchthaventerminals, binnenspeelruimten, telecommunicatiewinkels, bootverhuurvoorzieningen en scheepshelling-voorzieningen
-• Namen van metro-ingangen zijn nu zichtbaar op de kaart
-• De positiepijl toont nu je bewegingsrichting tijdens het lopen in voetgangersnavigatiemodus
-• Sloveense taalondersteuning toegevoegd, inclusief spraakaanwijzingen voor navigatie
-• Bijgewerkte pictogrammen voor afvalverwijdering en stortplaatsen
-• Wit-op-wit statusbalk in navigatiemodus gecorrigeerd
-• Grootte van de knop Navigatie starten vergroot
-• Lege witte ruimte verwijderd bij het plannen van een route op iPad
-• Extra kleuren worden nu ondersteund voor wandelroutes
-• Verbeterde informatie weergegeven bij het selecteren van een rivier of waterweggedeelte
-• Betere zoekopdracht naar laadstations voor elektrische voertuigen met verbeterde synoniemen in alle talen
-• Emoji-zoekopdracht gecorrigeerd (ja, je kunt emoji's in het zoekvak typen!)
-• Zoeksuggesties gecorrigeerd die te veel resultaten toonden voor exacte adressenzoekopdrachten
-• Het importeren en exporteren van GeoJSON van en naar https://umap.openstreetmap.fr/ behoudt nu alle metadata
+### Kaart & Stijlen
 
-### Recent uitgebrachte functies die je mogelijk hebt gemist
+- De weergave van 'verlaten' en 'ongebruikte' spoorwegen omgewisseld
+- Uurwerkmakers en studentenaccommodaties toegevoegd aan de kaart
+- Pictogrammen voor reisbureaus toegevoegd
+- De kleur van het toiletpictogram gewijzigd in grijs
+- Pictogrammen voor audioloog, podoloog, optometrist en hoortoestellen bijgewerkt
+- Het pictogram voor fietsverhuur in de donkere modus gecorrigeerd
+- Namen van staten in de VS/Canada eerder weergeven op de wereldkaart (vanaf zoomniveau 5)
 
-• Sla een bladwijzer op bij een geselecteerd trackpunt
-• Verwijder een opnametrack zonder deze eerst op te slaan
-• Importeer GeoJSON-bestanden
+### Vertalingen
 
-Organic Maps is mogelijk dankzij onze bijdragers en je voortdurende steun.
+- Sloveense zoek-synoniemen toegevoegd en categorie-zoeken voor Sloveens ingeschakeld
+- Typfouten, onjuiste vertalingen en zoek-synoniemen gecorrigeerd; ontbrekende vertalingen voor veel talen toegevoegd
+- Specifieke vertalingen toegevoegd voor Mexicaans-Spaans (es-MX) en Braziliaans-Portugees (pt-BR), onderscheiden van standaard Spaans (es) en Portugees (pt)
+- Tsjechische TTS-spraakinstructies gecorrigeerd
 
+Bekijk de gedetailleerde release-opmerkingen op onze website: https://organicmaps.app
+
+Bedankt voor het gebruik van Organic Maps en het ondersteunen van het project!
 Het Organic Maps-team

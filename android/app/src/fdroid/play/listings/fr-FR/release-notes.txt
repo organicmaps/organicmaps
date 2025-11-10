@@ -1,8 +1,8 @@
-• Données OpenStreetMap au 21 octobre
-• Stations de surveillance, îlots de circulation, installations Kneipp, mini chemins de fer, emplacements de camping, terminaux d’aéroport, aires de jeux intérieures, boutiques télécom, location de bateaux et mises à l’eau
-• Les panneaux routiers s’affichent dans la navigation
-• Support ajouté pour anciens appareils x86
-• Langue slovène avec guidage vocal
-• Recherche d’emojis et bornes de recharge EV améliorée
+• Mettez en surbrillance les régions téléchargées, les réserves naturelles, les parcs nationaux, les zones protégées, les terres aborigènes, les zones de danger, les lacs sur la carte du monde
+• Le routage prend en charge les heures de fermeture des routes
+• Cartes OSM récentes au 9 novembre
+• Correction des plantages et du routage
+• Ajout d'horlogers, de logements étudiants, d'agences de voyages
+• Instructions vocales en estonien, galicien, hébreu et lituanien
 
 …plus sur omaps.org/fr/news

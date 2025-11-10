@@ -1,8 +1,8 @@
-• Dane OpenStreetMap na dzień 21 października
-• Stacje monitorujące, wyspy ruchu, ośrodki wodne Kneipp, mini koleje, miejsca kempingowe, terminale lotnisk, wewnętrzne strefy zabaw, sklepy telekom, wynajem łodzi i pochylnie
-• Tarcze dróg widoczne w wskazówkach nawigacji
-• Dodano wsparcie dla starszych urządzeń x86
-• Obsługa języka słoweńskiego z głosem
-• Ulepszone wyszukiwanie emoji i ładowarek EV
+• Podświetl na mapie świata pobrane regiony, rezerwaty przyrody, parki narodowe, obszary chronione, ziemie Aborygenów, obszary niebezpieczne, jeziora
+• Wyznaczanie tras obsługuje czasy zamknięcia dróg
+• Świeże mapy OSM z 9 listopada
+• Naprawiono awarie i wyznaczanie tras, w tym Android Auto
+• Dodano zegarmistrzów, kwatery studenckie, biura podróży
+• Wskazówki głosowe w języku estońskim, galicyjskim, hebrajskim i litewskim
 
 …więcej na omaps.org/pl/news

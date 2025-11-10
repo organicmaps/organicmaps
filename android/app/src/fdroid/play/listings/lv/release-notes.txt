@@ -1,8 +1,8 @@
-• OpenStreetMap dati uz 21. oktobri
-• Novērošanas stacijas, satiksmes salas, Kneipp ūdens procedūru vietas, mini dzelzceļi, kempinga lauciņi, lidostas termināļi, iekštelpu rotaļu zonas, telekomunikāciju veikali, laivu noma un slipi
-• Ceļa vairogi tagad redzami navigācijas norādēs
-• Pievienots atbalsts vecākām x86 ierīcēm
-• Slovēņu valodas un balss navigācijas atbalsts
-• Uzlabota emoji un EV uzlādes staciju meklēšana
+• Pasaules kartē izceliet lejupielādētos reģionus, dabas rezervātus, nacionālos parkus, aizsargājamās teritorijas, aborigēnu zemes, bīstamās zonas, ezerus
+• Maršrutēšana atbalsta ceļu slēgšanas laikus
+• Svaigas OSM kartes no 9. novembra
+• Izlabotas avārijas un maršrutēšana, tostarp Android Auto
+• Pievienoti pulksteņmeistari, studentu kopmītnes, ceļojumu aģentūras
+• Balss norādes igauņu, galisiešu, ivritā un lietuviešu valodā
 
-…vairāk: omaps.org/news
+…vairāk vietnē omaps.org/news
