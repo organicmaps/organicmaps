@@ -15,6 +15,7 @@ function ParseStringResource() {
   format=$3
   tags=$4
   filename=${5:-}
+  args=${@:5}
   include=translated
 
   if [ -z "${filename}" ]; then
@@ -39,7 +40,7 @@ function ParseStringResource() {
     -f $format \
     $tags \
     $filename \
-    -a -c -d en
+    -a -c -d en $args
 
 }
 
@@ -58,3 +59,5 @@ ParseStringResource "types_strings.txt" android/sdk/src/main/res android "" "typ
 
 # Parse iPhone types strings
 ParseStringResource "types_strings.txt" iphone/Maps/LocalizedStrings apple "" "LocalizableTypes.strings"
+
+ParseStringResource "sound.txt" data/sound-strings jquery "" "" "--fallback-to-default"

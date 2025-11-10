@@ -19,7 +19,13 @@ function GenerateStringResource() {
 
   if [[ $format == apple* ]]
   then
-    # Apple strings file should fallback to English (or other language) in case of missing translation.
+    # Apple strings file should fallback to English in case of missing translation.
+    include=all
+  fi
+
+  if [[ $format == jquery* ]]
+  then
+    # sound-strings and countries-strings files should fallback to English in case of missing translation.
     include=all
   fi
 
@@ -62,3 +68,6 @@ GenerateStringResource "types_strings.txt" android/sdk/src/main/res android "" t
 
 # Generate iPhone types strings
 GenerateStringResource "types_strings.txt" iphone/Maps/LocalizedStrings apple "" LocalizableTypes.strings
+
+# Generate sound strings
+GenerateStringResource "sound.txt" data/sound-strings jquery ""
