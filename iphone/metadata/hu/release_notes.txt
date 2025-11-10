@@ -1,27 +1,33 @@
-• Az EU-s felhasználók most már beállíthatják az Organic Maps-t alapértelmezett navigációs alkalmazásként az iOS Beállítások → Alkalmazások → Alapértelmezett alkalmazások → Navigáció menüben
+- ÚJ! A letöltött régiók kiemelése a világtérképen
+- ÚJ! Természetvédelmi területek, nemzeti parkok, védett területek, őslakos területek, veszélyes területek és tavak megtekintése és keresése a világtérképen a 8-as zoom szinttől
+- ÚJ! Feltételes hozzáférés az útvonaltervezéshez, pl. bizonyos időpontokban lezárt utak esetén
+- Frissített OpenStreetMap adatok 2025. november 9-től
+- Engedélyezve az észt, galíciai, héber és litván nyelvek a TTS hangutasításokhoz
+- Javítva a címek szerkesztésekor az alapértelmezett és a lokalizált utcanevekkel kapcsolatos probléma
+- Javítva a zoomolási probléma a világtérképről származó keresési eredményekre koppintva
+- TikTok, Threads és BlueSky közösségi média linkek hozzáadva a "Névjegy" képernyőhöz
+- "Hiba bejelentése" hozzáadva az alkalmazás ikonjának gyorsműveleteihez a kezdőképernyőn
+- A könyvjelzők vagy nyomvonalak listájának törlése után (a "továbbiak" gombon keresztül) az alkalmazás most már helyesen visszatér az előző képernyőre
+- Különböző alkalmazás- és CarPlay-összeomlások javítva
 
-• Friss OpenStreetMap adatok 2025. október 21-től
-• Új térkép objektumok: megfigyelő állomások, forgalmi szigetek, Kneipp vízkúra létesítmények, miniatűr vasutak, szabadtéri stílusú kemping helyek, repülőtéri terminálok, beltéri játszóterek, távközlési üzletek, csónakkölcsönző létesítmények és csónakfeljáró létesítmények
-• A metró bejárati nevek mostantól láthatóak a térképen
-• A pozíció nyíl most mutatja a mozgás irányát gyaloglás közben gyalogos navigációs módban
-• Szlovén nyelvi támogatás hozzáadva, beleértve a navigációs hangutasításokat
-• Frissített hulladékkezelési és lerakó ikonok
-• Javítva a fehér-fehér állapotsor navigációs módban
-• Megnövelt Navigáció indítása gomb méret
-• Eltávolított üres fehér terület útvonal tervezésekor iPaden
-• További színek mostantól támogatottak túraútvonalakhoz
-• Javított információ megjelenítése folyó vagy vízút szakasz kiválasztásakor
-• Jobb elektromos járműtöltő-állomás keresés javított szinonimákkal minden nyelven
-• Javított emoji keresés (igen, beírhat emoji-kat a keresőmezőbe!)
-• Javított keresési javaslatok, amelyek túl sok eredményt mutattak pontos cím keresésekhez
-• GeoJSON importálása és exportálása a https://umap.openstreetmap.fr/ címről és címre mostantól megőrzi az összes metaadatot
+### Térkép és stílusok
 
-### Nemrég megjelent funkciók, amelyeket talán lemaradt
+- Felcserélve az "elhagyatott" és a "használaton kívüli" vasutak renderelése
+- Órások és diák szálláshelyek hozzáadva a térképhez
+- Utazási iroda ikonok hozzáadva
+- A WC ikon színe szürkére változtatva
+- Frissítve az audiológus, podiáter, optometrista és hallókészülék ikonok
+- Javítva a kerékpárkölcsönző ikon sötét módban
+- Az USA/Kanada államnevek korábbi megjelenítése a világtérképen (az 5-ös zoom szinttől)
 
-• Mentsen könyvjelzőt egy kiválasztott nyomvonalpontra
-• Töröljön egy rögzítési nyomvonalat anélkül, hogy először elmentené
-• Importáljon GeoJSON fájlokat
+### Fordítások
 
-Az Organic Maps közreműködőinknek és folyamatos támogatásának köszönhetően lehetséges.
+- Szlovén keresési szinonimák hozzáadva és a kategória keresés engedélyezve a szlovén nyelvhez
+- Gépelési hibák, helytelen fordítások és keresési szinonimák javítva; hiányzó fordítások hozzáadva számos nyelvhez
+- Külön fordítások hozzáadva a mexikói spanyolhoz (es-MX) és a brazil portugálhoz (pt-BR), amelyek eltérnek a standard spanyoltól (es) és portugáltól (pt)
+- Javítva a cseh TTS hangutasítások
 
+Részletes kiadási jegyzetek a weboldalunkon: https://organicmaps.app
+
+Köszönjük, hogy az Organic Maps-et használja és támogatja a projektet!
 Az Organic Maps csapata

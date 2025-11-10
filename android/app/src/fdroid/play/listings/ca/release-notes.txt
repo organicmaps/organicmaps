@@ -1,8 +1,7 @@
-• Dades d’OpenStreetMap a 21 d’octubre
-• Estacions de monitoratge, illes de trànsit, instal·lacions Kneipp, ferrocarrils en miniatura, parcel·les de càmping, terminals d’aeroport, zones de joc interiors, botigues de telecomunicacions, lloguer de barques i rampes
-• Els escuts de carretera apareixen en la navegació
-• Suport per a dispositius x86 antics
-• Suport de llengua eslovena amb veu
-• Millora cerca d’emojis i punts de càrrega EV
-
+• Destaqueu al mapa del món les regions descarregades, les reserves naturals, els parcs nacionals, les àrees protegides, les terres aborígens, les zones de perill i els llacs
+• L'encaminament admet els horaris de tancament de carreteres
+• Mapes OSM actualitzats a 9 de novembre
+• S'han corregit errors i l'encaminament, inclòs Android Auto
+• S'han afegit rellotgers, allotjaments per a estudiants i agències de viatges
+• Indicacions de veu en estonià, gallec, hebreu i lituà
 …més a omaps.org/ca/news

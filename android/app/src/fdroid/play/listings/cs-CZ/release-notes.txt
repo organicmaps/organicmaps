@@ -1,8 +1,9 @@
-• Data OpenStreetMap k 21. říjnu
-• Monitorovací stanice, dopravní ostrůvky, Kneipp zařízení, mini železnice, místa pro kemp, letištní terminály, vnitřní herní plochy, telekomunikační obchody, půjčovny lodí a skluzavky
-• Silniční štíty nyní v pokynech navigace
-• Přidána podpora starších x86 zařízení
-• Slovinská lokalizace včetně hlasové navigace
-• Vylepšené hledání emoji a EV nabíjecích stanic
+• Zvýrazněte na mapě světa stažené regiony, přírodní rezervace, národní parky, chráněné oblasti, domorodé země, nebezpečné oblasti, jezera
+• Trasa podporuje časy uzavření silnic
+• Čerstvé mapy OSM k 9. listopadu
+• Opraveny pády a směrování, včetně Android Auto
+• Přidáni hodináři, studentské ubytovny, cestovní kanceláře
+• Přidána podpora slovinštiny ve vyhledávání
+• Hlasové pokyny v estonštině, galicijštině, hebrejštině a litevštině
 
 …více na omaps.org/cs/news

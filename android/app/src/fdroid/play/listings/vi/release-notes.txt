@@ -1,8 +1,8 @@
-• Dữ liệu OpenStreetMap đến 21/10
-• Trạm giám sát, đảo giao thông, cơ sở Kneipp, đường sắt thu nhỏ, chỗ cắm trại, nhà ga sân bay, khu vui chơi trong nhà, cửa hàng viễn thông, thuê thuyền & đường trượt
-• Khiên đường hiển thị trong chỉ dẫn
-• Thêm hỗ trợ thiết bị x86 cũ
-• Ngôn ngữ Slovenia kèm dẫn đường giọng nói
-• Tìm kiếm emoji & trạm sạc EV cải thiện
+• Đánh dấu các vùng đã tải xuống, khu bảo tồn thiên nhiên, công viên quốc gia, khu bảo tồn, vùng đất của thổ dân, khu vực nguy hiểm, hồ trên bản đồ Thế giới
+• Định tuyến hỗ trợ thời gian đóng đường
+• Bản đồ OSM mới nhất tính đến ngày 9 tháng 11
+• Đã sửa lỗi treo và định tuyến, bao gồm cả Android Auto
+• Đã thêm thợ sửa đồng hồ, nhà ở sinh viên, đại lý du lịch
+• Hướng dẫn bằng giọng nói bằng tiếng Estonia, Galicia, Do Thái và Litva
 
 …thêm tại omaps.org/news
