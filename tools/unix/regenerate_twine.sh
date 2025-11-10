@@ -15,7 +15,7 @@ function ParseStringResource() {
   format=$3
   tags=$4
   filename=${5:-}
-  args=${@:5}
+  args=${@:6}
   include=translated
 
   if [ -z "${filename}" ]; then
