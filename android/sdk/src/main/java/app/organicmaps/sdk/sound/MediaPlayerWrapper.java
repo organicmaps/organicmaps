@@ -1,25 +1,90 @@
 package app.organicmaps.sdk.sound;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RawRes;
+import app.organicmaps.sdk.util.log.Logger;
+import java.io.IOException;
 
 public class MediaPlayerWrapper
 {
-  private static final int UNDEFINED_SOUND_STREAM = -1;
+  private static final String TAG = MediaPlayerWrapper.class.getSimpleName();
+  @RawRes
+  private static final int UNDEFINED_SOUND_STREAM = 0;
 
-  @Nullable
-  private MediaPlayer mPlayer;
-  private int mStreamResId = UNDEFINED_SOUND_STREAM;
   @NonNull
-  final private Context mContext;
+  private final Context mContext;
+  @NonNull
+  private final MediaPlayer mPlayer;
+
+  private boolean mIsInitialized = false;
+  @RawRes
+  private int mStreamResId = UNDEFINED_SOUND_STREAM;
 
   public MediaPlayerWrapper(@NonNull Context context)
   {
-    mContext = context;
+    if (android.os.Build.VERSION.SDK_INT >= 30)
+      mContext = context.createAttributionContext("media_playback");
+    else
+      mContext = context;
+    mPlayer = new MediaPlayer();
+    mPlayer.setAudioAttributes(AudioFocusManager.AUDIO_ATTRIBUTES);
+    mPlayer.setOnPreparedListener(this::onPrepared);
+  }
+
+  public void release()
+  {
+    stop();
+    mPlayer.release();
+    mStreamResId = UNDEFINED_SOUND_STREAM;
+  }
+
+  public void playback(@RawRes int streamResId)
+  {
+    if (isInitialized() && isCurrentSoundStream(streamResId))
+    {
+      mPlayer.start();
+      return;
+    }
+
+    initialize(streamResId);
+  }
+
+  public void stop()
+  {
+    mPlayer.stop();
+  }
+
+  private void initialize(@RawRes int streamResId)
+  {
+    mIsInitialized = false;
+    mPlayer.reset();
+    try (final AssetFileDescriptor afd = mContext.getResources().openRawResourceFd(streamResId))
+    {
+      if (afd == null)
+        return;
+      mPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+      mPlayer.prepareAsync();
+      mStreamResId = streamResId;
+    }
+    catch (IllegalStateException e)
+    {
+      Logger.w(TAG, "MediaPlayer illegal state while initializing", e);
+    }
+    catch (IllegalArgumentException e)
+    {
+      Logger.w(TAG, "AssetFileDescriptor is not a valid FileDescriptor", e);
+    }
+    catch (IOException e)
+    {
+      Logger.w(TAG, "AssetFileDescriptor cannot be read", e);
+    }
+    finally
+    {
+      mIsInitialized = false;
+    }
   }
 
   private boolean isCurrentSoundStream(@RawRes int streamResId)
@@ -27,112 +92,14 @@ public class MediaPlayerWrapper
     return mStreamResId == streamResId;
   }
 
-  private void onInitializationCompleted(@NonNull InitializationResult initializationResult)
+  private boolean isInitialized()
   {
-    release();
-    mStreamResId = initializationResult.getStreamResId();
-    mPlayer = initializationResult.getPlayer();
-    if (mPlayer == null)
-      return;
+    return mIsInitialized;
+  }
 
+  private void onPrepared(@NonNull MediaPlayer unused)
+  {
+    mIsInitialized = true;
     mPlayer.start();
-  }
-
-  public void release()
-  {
-    if (mPlayer == null)
-      return;
-
-    stop();
-    mPlayer.release();
-    mPlayer = null;
-    mStreamResId = UNDEFINED_SOUND_STREAM;
-  }
-
-  @NonNull
-  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3632
-  private static AsyncTask<Integer, Void, InitializationResult> makeInitTask(@NonNull MediaPlayerWrapper wrapper)
-  {
-    return new InitPlayerTask(wrapper);
-  }
-
-  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3632
-  public void playback(@RawRes int streamResId)
-  {
-    if (isCurrentSoundStream(streamResId) && mPlayer == null)
-      return;
-
-    if (isCurrentSoundStream(streamResId) && mPlayer != null)
-    {
-      mPlayer.start();
-      return;
-    }
-
-    mStreamResId = streamResId;
-    AsyncTask<Integer, Void, InitializationResult> task = makeInitTask(this);
-    task.execute(streamResId);
-  }
-
-  public void stop()
-  {
-    if (mPlayer == null)
-      return;
-
-    mPlayer.stop();
-  }
-
-  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3632
-  private static class InitPlayerTask extends AsyncTask<Integer, Void, InitializationResult>
-  {
-    @NonNull
-    private final MediaPlayerWrapper mWrapper;
-
-    InitPlayerTask(@NonNull MediaPlayerWrapper wrapper)
-    {
-      mWrapper = wrapper;
-    }
-
-    @Override
-    protected InitializationResult doInBackground(Integer... params)
-    {
-      if (params.length == 0)
-        throw new IllegalArgumentException("Params not found");
-      int resId = params[0];
-      MediaPlayer player = MediaPlayer.create(mWrapper.mContext, resId);
-      return new InitializationResult(player, resId);
-    }
-
-    @Override
-    protected void onPostExecute(InitializationResult initializationResult)
-    {
-      super.onPostExecute(initializationResult);
-      mWrapper.onInitializationCompleted(initializationResult);
-    }
-  }
-
-  private static class InitializationResult
-  {
-    @Nullable
-    private final MediaPlayer mPlayer;
-    @RawRes
-    private final int mStreamResId;
-
-    private InitializationResult(@Nullable MediaPlayer player, @RawRes int streamResId)
-    {
-      mPlayer = player;
-      mStreamResId = streamResId;
-    }
-
-    @RawRes
-    private int getStreamResId()
-    {
-      return mStreamResId;
-    }
-
-    @Nullable
-    private MediaPlayer getPlayer()
-    {
-      return mPlayer;
-    }
   }
 }

@@ -3,4 +3,8 @@
   <string name="pref_file_name" translatable="false">OrganicMapsPrefs</string>
   <string name="pref_enable_logging" translatable="false">EnableLogging</string>
   <string name="pref_emulate_bad_external_storage" translatable="false">EmulateBadExternalStorage</string>
+
+  <string name="attribution_empty_tag" translatable="false"><!-- intentionally empty --></string>
+  <string name="attribution_empty_tag_desc" translatable="false">An empty tag to silence system warnings</string>
+  <string name="attribution_playback" translatable="false">MediaPlayerWrapper reads raw audio file from resources</string>
 </resources>
