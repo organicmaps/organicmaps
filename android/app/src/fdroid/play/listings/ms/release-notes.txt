@@ -1,8 +1,8 @@
-• Data OpenStreetMap setakat 21 Oktober
-• Stesen pemantauan, pulau trafik, fasiliti terapi air Kneipp, rel mini, petak perkhemahan, terminal lapangan terbang, kawasan permainan dalaman, kedai telekom, sewa bot dan slipway
-• Perisai jalan kini dipaparkan dalam arahan navigasi
-• Sokongan untuk peranti x86 lama ditambah
-• Sokongan bahasa Slovenia termasuk suara
-• Carian emoji & stesen pengecas EV dipertingkat
+• Serlahkan kawasan yang dimuat turun, rizab alam semula jadi, taman negara, kawasan perlindungan, tanah Orang Asli, kawasan bahaya, tasik pada peta Dunia
+• Penghalaan menyokong masa penutupan jalan
+• Peta OSM baharu pada 9 November
+• Ranap dan penghalaan yang dibetulkan, termasuk Android Auto
+• Menambah pembuat jam tangan, penginapan pelajar, agensi pelancongan
+• Arah suara dalam bahasa Estonia, Galicia, Ibrani dan Lithuania
 
 …lagi di omaps.org/news

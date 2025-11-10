@@ -1,27 +1,33 @@
-• EU-brugere kan nu indstille Organic Maps som standard navigationsapp i iOS-indstillinger → Apps → Standardapps → Navigation
+- NYT! Fremhæv downloadede regioner på verdenskortet
+- NYT! Se og søg efter naturreservater, nationalparker, beskyttede områder, oprindelige lande, fareområder og søer på verdenskortet fra zoomniveau 8
+- NYT! Ruteplanlægning tager højde for vejlukningstider
+- Opdaterede OpenStreetMap-data pr. 9. november 2025
+- Aktiveret estisk, galicisk, hebraisk og litauisk sprog til TTS-stemmevejledning
+- Rettet et problem med standard og lokaliserede gadenavne ved redigering af adresser
+- Rettet et problem med zoom, når man trykker på søgeresultater fra verdenskortet
+- Tilføjet links til sociale medier TikTok, Threads og BlueSky på "Om"-skærmen
+- Tilføjet "Rapportér en fejl" til app-ikonets hurtige handlinger på startskærmen
+- Efter sletning af en bogmærke- eller sporliste (via "mere"-knappen), vender appen nu korrekt tilbage til den forrige skærm
+- Rettet forskellige app- og CarPlay-nedbrud
 
-• Friske OpenStreetMap-data pr. 21. oktober 2025
-• Nye kortobjekter: overvågningsstationer, trafiköer, Kneipp vandkur-faciliteter, miniaturer jernbaner, campingpladser i udendørs stil, lufthavnsterminaler, indendørs legeområder, telebutikker, bådudlejningsfaciliteter og slipway-faciliteter
-• Metroindgangsnavne er nu synlige på kortet
-• Positionspilen viser nu din bevægelsesretning, når du går i fodgængernavigationstilstand
-• Tilføjet slovensk sprogstøtte, inklusive stemmevejledning til navigation
-• Opdaterede ikoner for affaldsbortskaffelse og lossepladser
-• Rettet hvid-på-hvid statuslinje i navigationstilstand
-• Øget størrelse på knappen Start navigation
-• Fjernet tomt hvidt mellemrum ved planlægning af en rute på iPad
-• Yderligere farver understøttes nu til vandreruter
-• Forbedret information vist ved valg af en flod eller vandvejssegment
-• Bedre søgning efter EV-ladestationer med forbedrede synonymer på alle sprog
-• Rettet emoji-søgning (ja, du kan skrive emojis i søgefeltet!)
-• Rettet søgeforslag, der viste for mange resultater for præcise adressesøgninger
-• Import og eksport af GeoJSON fra og til https://umap.openstreetmap.fr/ bevarer nu alle metadata
+### Kort & Styles
 
-### Nyligt udgivne funktioner, du muligvis har savnet
+- Byttet om på gengivelsen af 'forladte' og 'nedlagte' jernbaner
+- Tilføjet urmagere og studieboliger til kortet
+- Tilføjet ikoner for rejsebureauer
+- Ændret farven på toiletikonet til grå
+- Opdaterede ikoner for audiolog, fodterapeut, optometrist og høreapparater
+- Rettet ikonet for cykeludlejning i mørk tilstand
+- Vis navne på stater i USA/Canada tidligere på verdenskortet (fra zoomniveau 5)
 
-• Gem et bogmærke på et valgt rutepunkt
-• Slet en optagelsesspor uden at gemme den først
-• Importer GeoJSON-filer
+### Oversættelser
 
-Organic Maps er muligt takket være vores bidragydere og din fortsatte støtte.
+- Tilføjet slovenske søgesynonymer og aktiveret kategorisøgning for slovensk
+- Rettet tastefejl, forkerte oversættelser og søgesynonymer; tilføjet manglende oversættelser for mange sprog
+- Tilføjet specifikke oversættelser for mexicansk spansk (es-MX) og brasiliansk portugisisk (pt-BR), adskilt fra standard spansk (es) og portugisisk (pt)
+- Rettet tjekkisk TTS-stemmevejledning
 
+Se detaljerede udgivelsesnoter på vores hjemmeside: https://organicmaps.app
+
+Tak fordi du bruger Organic Maps og støtter projektet!
 Organic Maps-teamet

@@ -1,8 +1,8 @@
-• Dados OpenStreetMap a 21 de outubro
-• Estações de monitorização, ilhas de tráfego, instalações Kneipp, ferrovias miniatura, locais de campismo, terminais aeroportuários, áreas de jogo interiores, lojas telecom, aluguer de barcos e rampas
-• Escudos de estrada agora nas direções de navegação
-• Suporte para dispositivos x86 antigos
-• Língua eslovena com orientação por voz
-• Pesquisa melhor de emojis e carregadores EV
+• Destaque no mapa do mundo as regiões descarregadas, as reservas naturais, os parques nacionais, as áreas protegidas, as terras aborígenes, as zonas de perigo e os lagos
+• O encaminhamento suporta os horários de fecho de estradas
+• Mapas OSM atualizados a 9 de novembro
+• Corrigidos erros e encaminhamento, incluindo o Android Auto
+• Adicionados relojoeiros, alojamentos para estudantes e agências de viagens
+• Indicações de voz em estónio, galego, hebraico e lituano
 
 …mais em omaps.org/pt/news

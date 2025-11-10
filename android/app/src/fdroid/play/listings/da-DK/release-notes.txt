@@ -1,8 +1,9 @@
-• OpenStreetMap-data pr. 21. oktober
-• Monitoreringsstationer, trafikislands, Kneipp vandterapi, miniaturebaner, teltpladser, lufthavnsterminaler, indendørs legeområder, telebutikker, bådudlejning og slæbesteder
-• Vejskjolde vises nu i navigationsretninger
-• Understøttelse af ældre x86 enheder
-• Slovensk sprog med stemmevejledning
-• Forbedret søgning efter emoji og EV-ladestationer
+• Fremhæv downloadede regioner, naturreservater, nationalparker, beskyttede områder, oprindelige lande, fareområder, søer på verdenskortet
+• Rutevejledning understøtter vejspærringstider
+• Friske OSM-kort pr. 9. november
+• Rettede nedbrud og rutevejledning, inklusive Android Auto
+• Tilføjet urmagere, studieboliger, rejsebureauer
+• Tilføjet understøttelse af slovensk sprog i søgning
+• Stemmeanvisninger på estisk, galicisk, hebraisk og litauisk
 
 …mere på omaps.org/news

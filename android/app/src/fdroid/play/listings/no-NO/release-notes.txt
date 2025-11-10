@@ -1,8 +1,9 @@
-• OpenStreetMap-data per 21. oktober
-• Overvåkingsstasjoner, trafikkøyer, Kneipp vannbehandling, minijernbaner, campingplasser, flyplassterminaler, innendørs lekeområder, telekom-butikker, båtutleie og slipp
-• Vegskjold vises nå i navigasjonsretninger
-• Støtte for eldre x86-enheter lagt til
-• Slovensk språk med stemmeveiledning
-• Forbedret søk for emoji og EV-ladestasjoner
+• Uthev nedlastede regioner, naturreservater, nasjonalparker, verneområder, aboriginske landområder, fareområder, innsjøer på verdenskartet
+• Ruting støtter veistengingstider
+• Ferske OSM-kart per 9. november
+• Fikset krasj og ruting, inkludert Android Auto
+• Lagt til urmakere, studentboliger, reisebyråer
+• Lagt til støtte for slovensk språk i søk
+• Stemmeanvisninger på estisk, galisisk, hebraisk og litauisk
 
 …mer på omaps.org/news

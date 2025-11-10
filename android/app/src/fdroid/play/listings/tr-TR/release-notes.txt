@@ -1,8 +1,8 @@
-• 21 Ekim itibarıyla OpenStreetMap verileri
-• İzleme istasyonları, trafik adaları, Kneipp su tedavisi tesisleri, mini demiryolları, kamp alanları, havaalanı terminalleri, kapalı oyun alanları, telekom mağazaları, tekne kiralama ve kızak rampaları
-• Yol kalkanları artık navigasyon yönlerinde gösteriliyor
-• Eski x86 cihaz desteği eklendi
-• Slovence dil ve sesli yönlendirme desteği
-• Geliştirilmiş emoji ve EV şarj istasyonu arama
+• İndirilen bölgeleri, doğa rezervlerini, milli parkları, korunan alanları, Aborjin topraklarını, tehlikeli alanları, gölleri Dünya haritasında vurgulayın
+• Rota oluşturma, yol kapanış saatlerini destekler
+• 9 Kasım itibarıyla güncel OSM haritaları
+• Android Auto dahil olmak üzere çökmeler ve rota oluşturma düzeltildi
+• Saatçiler, öğrenci konaklama yerleri, seyahat acenteleri eklendi
+• Estonca, Galiçyaca, İbranice ve Litvanca sesli yol tarifleri
 
-…daha fazla: omaps.org/tr/news
+…daha fazlası omaps.org/tr/news adresinde

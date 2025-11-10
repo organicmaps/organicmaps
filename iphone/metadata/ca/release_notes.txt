@@ -1,27 +1,33 @@
-• Els usuaris de la UE ara poden establir Organic Maps com a aplicació de navegació per defecte a Configuració d'iOS → Apps → Apps per defecte → Navegació
+- NOU! Ressenyeu les regions descarregades al mapa del món
+- NOU! Vegeu i cerqueu reserves naturals, parcs nacionals, àrees protegides, terres aborígens, zones de perill i llacs al mapa del món a partir del nivell de zoom 8
+- NOU! L'encaminament té en compte els horaris de tancament de les carreteres
+- Dades d'OpenStreetMap actualitzades a 9 de novembre de 2025
+- S'han activat les llengües estoniana, gallega, hebrea i lituana per a les indicacions de veu TTS
+- S'ha corregit un problema amb els noms de carrer per defecte i localitzats en editar adreces
+- S'ha corregit un problema amb el zoom en tocar els resultats de la cerca des del mapa del món
+- S'han afegit enllaços a les xarxes socials TikTok, Threads i BlueSky a la pantalla "Quant a"
+- S'ha afegit "Informa d'un error" a les accions ràpides de la icona de l'aplicació a la pantalla d'inici
+- Després d'eliminar una llista de marcadors o rutes (mitjançant el botó "més"), l'aplicació ara torna correctament a la pantalla anterior
+- S'han corregit diversos bloquejos de l'aplicació i de CarPlay
 
-• Dades d'OpenStreetMap actualitzades fins al 21 d'octubre de 2025
-• Nous objectes del mapa: estacions de monitoratge, illetes de trànsit, instal·lacions de cura d'aigua Kneipp, ferrocarrils en miniatura, zones d'acampada d'estil a l'aire lliure, terminals d'aeroport, àrees de joc interiors, botigues de telecomunicacions, instal·lacions de lloguer de vaixells i instal·lacions de rampes de vaixells
-• Els noms de les entrades de metro ara són visibles al mapa
-• La fletxa de posició ara mostra la teva direcció de moviment quan camines en mode de navegació per a vianants
-• S'ha afegit suport per a l'idioma eslovè, incloses les indicacions de veu per a la navegació
-• S'han actualitzat les icones d'eliminació de residus i abocadors
-• S'ha corregit la barra d'estat blanc sobre blanc en mode de navegació
-• S'ha augmentat la mida del botó Iniciar navegació
-• S'ha eliminat l'espai en blanc buit quan es planifica una ruta a l'iPad
-• Ara s'admeten colors addicionals per a rutes de senderisme
-• S'ha millorat la informació que es mostra quan se selecciona un riu o segment de via fluvial
-• Millor cerca d'estacions de càrrega de vehicles elèctrics amb sinònims millorats en tots els idiomes
-• S'ha corregit la cerca d'emojis (sí, pots escriure emojis al quadre de cerca!)
-• S'han corregit els suggeriments de cerca que mostraven massa resultats per a cerques d'adreces exactes
-• La importació i exportació de GeoJSON des de i cap a https://umap.openstreetmap.fr/ ara conserva totes les metadades
+### Mapa i estils
 
-### Funcions llançades recentment que potser t'has perdut
+- S'ha intercanviat la representació de les vies de ferrocarril "abandonades" i "en desús"
+- S'han afegit rellotgers i allotjaments per a estudiants al mapa
+- S'han afegit icones d'agències de viatges
+- S'ha canviat el color de la icona del lavabo a gris
+- S'han actualitzat les icones d'audiòleg, podòleg, optometrista i audiòfons
+- S'ha corregit la icona de lloguer de bicicletes en mode fosc
+- Mostra els noms dels estats dels EUA/Canadà abans al mapa del món (a partir del nivell de zoom 5)
 
-• Desa un marcador en un punt de seguiment seleccionat
-• Suprimeix una pista d'enregistrament sense desar-la primer
-• Importa fitxers GeoJSON
+### Traduccions
 
-Organic Maps és possible gràcies als nostres col·laboradors i al vostre suport continu.
+- S'han afegit sinònims de cerca en eslovè i s'ha activat la cerca per categories en eslovè
+- S'han corregit errades, traduccions incorrectes i sinònims de cerca; s'han afegit traduccions que faltaven per a moltes llengües
+- S'han afegit traduccions específiques per a l'espanyol de Mèxic (es-MX) i el portuguès del Brasil (pt-BR), diferents de l'espanyol (es) i el portuguès (pt) estàndard
+- S'han corregit les indicacions de veu TTS en txec
 
+Consulteu les notes detallades de la versió al nostre lloc web: https://organicmaps.app/ca/news/
+
+Gràcies per utilitzar Organic Maps i donar suport al projecte!
 L'equip d'Organic Maps

@@ -1,8 +1,8 @@
-• Podatki OpenStreetMap na 21. oktober
-• Nadzorne postaje, prometni otoki, Kneipp vodne terapije, mini železnice, kamp mesta, letališki terminali, notranja igralna območja, telekom trgovine, izposoja čolnov in drče
-• Cestni ščiti v navigacijskih navodilih
-• Dodana podpora starejšim x86 napravam
-• Podpora za slovenski jezik z glasovno navigacijo
-• Izboljšano iskanje čustvenčkov in EV polnilnic
+• Na zemljevidu sveta označite prenesene regije, naravne rezervate, nacionalne parke, zavarovana območja, ozemlja staroselcev, nevarna območja, jezera
+• Načrtovanje poti podpira čas zapore cest
+• Sveži zemljevidi OSM z dne 9. novembra
+• Odpravljene zrušitve in usmerjanje, vključno z Android Auto
+• Dodani urarji, študentske nastanitve, potovalne agencije
+• Dodana podpora za slovenski jezik pri iskanju
 
-…več: omaps.org/news
+…več na omaps.org/news

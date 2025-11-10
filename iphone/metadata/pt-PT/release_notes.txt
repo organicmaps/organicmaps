@@ -1,27 +1,33 @@
-• Os utilizadores da UE podem agora definir o Organic Maps como a aplicação de navegação predefinida em Definições do iOS → Aplicações → Aplicações predefinidas → Navegação
+- NOVO! Destaque as regiões descarregadas no mapa do Mundo
+- NOVO! Veja e pesquise reservas naturais, parques nacionais, áreas protegidas, terras aborígenes, áreas de perigo e lagos no mapa do Mundo a partir do nível de zoom 8
+- NOVO! Acesso condicional para o encaminhamento, por exemplo, para estradas que estão fechadas em determinados horários
+- Dados do OpenStreetMap atualizados a 9 de novembro de 2025
+- Ativadas as línguas estoniana, galega, hebraica e lituana para as direções de voz do TTS
+- Corrigido um problema com os nomes de ruas predefinidos e localizados ao editar endereços
+- Corrigido um problema com o zoom ao tocar nos resultados da pesquisa do mapa do Mundo
+- Adicionadas as ligações das redes sociais TikTok, Threads e BlueSky ao ecrã "Sobre"
+- Adicionado "Comunicar um erro" às ações rápidas do ícone da aplicação no ecrã inicial
+- Após eliminar uma lista de marcadores ou trilhos (através do botão "mais"), a aplicação agora regressa corretamente ao ecrã anterior
+- Corrigidas várias falhas da aplicação e do CarPlay
 
-• Dados atualizados do OpenStreetMap de 21 de outubro de 2025
-• Novos objetos do mapa: estações de monitorização, ilhas de tráfego, instalações de cura de água Kneipp, caminhos-de-ferro em miniatura, locais de campismo em estilo ao ar livre, terminais de aeroporto, áreas de recreação infantil cobertas, lojas de telecomunicações, instalações de aluguer de barcos e instalações de rampa para barcos
-• Os nomes das entradas de metro estão agora visíveis no mapa
-• A seta de posição mostra agora a direção do movimento ao caminhar no modo de navegação para peões
-• Adicionado suporte para o idioma esloveno, incluindo instruções de voz para navegação
-• Ícones de eliminação de resíduos e aterros atualizados
-• Corrigida a barra de estado branca em branco no modo de navegação
-• Aumentado o tamanho do botão Iniciar navegação
-• Removido espaço em branco vazio ao planear uma rota no iPad
-• Cores adicionais são agora compatíveis com trilhos de caminhada
-• Informações melhoradas exibidas ao selecionar um rio ou segmento de hidrovia
-• Melhor pesquisa de estações de carregamento de veículos elétricos com sinónimos melhorados em todos os idiomas
-• Corrigida a pesquisa de emojis (sim, pode escrever emojis na caixa de pesquisa!)
-• Corrigidas as sugestões de pesquisa que mostravam demasiados resultados para pesquisas de endereço exatas
-• A importação e exportação de GeoJSON de e para https://umap.openstreetmap.fr/ preserva agora todos os metadados
+### Mapa e Estilos
 
-### Recursos lançados recentemente que pode ter perdido
+- Trocada a renderização das ferrovias "abandonadas" e "desusadas"
+- Adicionados relojoeiros e alojamentos de estudantes ao mapa
+- Adicionados ícones de agências de viagens
+- Alterada a cor do ícone da casa de banho para cinzento
+- Atualizados os ícones de audiologista, podologista, optometrista e aparelhos auditivos
+- Corrigido o ícone de aluguer de bicicletas no modo escuro
+- Apresentar os nomes dos estados dos EUA/Canadá mais cedo no mapa do Mundo (a partir do nível de zoom 5)
 
-• Guardar um marcador num ponto de trilho selecionado
-• Eliminar um trilho de gravação sem o guardar primeiro
-• Importar ficheiros GeoJSON
+### Traduções
 
-O Organic Maps é possível graças aos nossos colaboradores e ao seu apoio contínuo.
+- Adicionados sinónimos de pesquisa em esloveno e ativada a pesquisa por categorias para o esloveno
+- Corrigidos erros de digitação, traduções incorretas e sinónimos de pesquisa; adicionadas traduções em falta para muitas línguas
+- Adicionadas traduções específicas para o espanhol mexicano (es-MX) e o português do Brasil (pt-BR), distintas do espanhol padrão (es) e do português (pt)
+- Corrigidas as direções de voz do TTS em checo
 
-A equipa do Organic Maps
+Consulte as notas de lançamento detalhadas no nosso website: https://organicmaps.app
+
+Obrigado por usar o Organic Maps e por apoiar o projeto!
+A Equipa do Organic Maps

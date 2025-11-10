@@ -1,27 +1,33 @@
-• AB kullanıcıları artık Organic Maps'i iOS Ayarlar → Uygulamalar → Varsayılan Uygulamalar → Navigasyon bölümünde varsayılan navigasyon uygulaması olarak ayarlayabilir
+- YENİ! Dünya haritasında indirilen bölgeleri vurgulayın
+- YENİ! Yakınlaştırma seviyesi 8'den başlayarak Dünya haritasında doğa koruma alanlarını, milli parkları, korunan alanları, Aborjin topraklarını, tehlike alanlarını ve gölleri görün ve arayın
+- YENİ! Belirli zamanlarda kapalı olan yollar gibi rotalama için koşullu erişim
+- 9 Kasım 2025 itibarıyla güncellenmiş OpenStreetMap verileri
+- TTS sesli yönlendirmeler için Estonca, Galiçyaca, İbranice ve Litvanyaca dilleri etkinleştirildi
+- Adresleri düzenlerken varsayılan ve yerelleştirilmiş sokak adlarıyla ilgili bir sorun düzeltildi
+- Dünya haritasından arama sonuçlarına dokunulduğunda yakınlaştırma ile ilgili bir sorun düzeltildi
+- "Hakkında" ekranına TikTok, Threads ve BlueSky sosyal medya bağlantıları eklendi
+- Ana ekrandaki uygulama simgesinin hızlı eylemlerine "Hata bildir" eklendi
+- Bir yer imi veya iz listesini sildikten sonra ( "daha fazla" düğmesi aracılığıyla), uygulama artık doğru şekilde önceki ekrana dönüyor
+- Çeşitli uygulama ve CarPlay çökmeleri düzeltildi
 
-• 21 Ekim 2025 tarihli güncel OpenStreetMap verileri
-• Yeni harita nesneleri: izleme istasyonları, trafik adaları, Kneipp su tedavisi tesisleri, minyatür demiryolları, açık hava tarzı kamp alanları, havaalanı terminalleri, kapalı oyun alanları, telekomünikasyon mağazaları, tekne kiralama tesisleri ve kayma rampası tesisleri
-• Metro giriş isimleri artık haritada görünüyor
-• Konum oku artık yaya navigasyon modunda yürürken hareket yönünüzü gösteriyor
-• Navigasyon için sesli talimatlar dahil Slovence dil desteği eklendi
-• Atık imha ve çöp sahası simgeleri güncellendi
-• Navigasyon modunda beyaz üzerine beyaz durum çubuğu düzeltildi
-• Navigasyonu Başlat düğmesinin boyutu artırıldı
-• iPad'de rota planlarken boş beyaz alan kaldırıldı
-• Yürüyüş parkurları için ek renkler artık destekleniyor
-• Nehir veya su yolu segmenti seçerken görüntülenen bilgiler iyileştirildi
-• Tüm dillerde geliştirilmiş eş anlamlılarla daha iyi elektrikli araç şarj istasyonu araması
-• Emoji araması düzeltildi (evet, arama kutusuna emoji yazabilirsiniz!)
-• Tam adres aramaları için çok fazla sonuç gösteren arama ipuçları düzeltildi
-• https://umap.openstreetmap.fr/ adresinden GeoJSON içe ve dışa aktarma artık tüm meta verileri koruyor
+### Harita ve Stiller
 
-### Yakın zamanda yayınlanan ve kaçırmış olabileceğiniz özellikler
+- 'Terk edilmiş' ve 'kullanılmayan' demiryollarının oluşturulması değiştirildi
+- Haritaya saatçiler ve öğrenci konaklama yerleri eklendi
+- Seyahat acentesi simgeleri eklendi
+- Tuvalet simgesi rengi gri olarak değiştirildi
+- Odyolog, podiatrist, optometrist ve işitme cihazı simgeleri güncellendi
+- Karanlık modda bisiklet kiralama simgesi düzeltildi
+- ABD/Kanada eyalet adlarını Dünya haritasında daha erken görüntüleyin (yakınlaştırma seviyesi 5'ten itibaren)
 
-• Seçili bir rota noktasında yer işareti kaydedin
-• Kayıt rotasını önce kaydetmeden silin
-• GeoJSON dosyalarını içe aktarın
+### Çeviriler
 
-Organic Maps, katkıda bulunanlarımız ve sürekli desteğiniz sayesinde mümkün.
+- Slovence arama eşanlamlıları eklendi ve Slovence için kategori araması etkinleştirildi
+- Yazım hataları, yanlış çeviriler ve arama eşanlamlıları düzeltildi; birçok dil için eksik çeviriler eklendi
+- Standart İspanyolca (es) ve Portekizce'den (pt) farklı olarak Meksika İspanyolcası (es-MX) ve Brezilya Portekizcesi (pt-BR) için özel çeviriler eklendi
+- Çekçe TTS sesli yönlendirmeleri düzeltildi
 
+Ayrıntılı sürüm notlarını web sitemizde kontrol edin: https://organicmaps.app
+
+Organic Maps'i kullandığınız ve projeyi desteklediğiniz için teşekkürler!
 Organic Maps Ekibi

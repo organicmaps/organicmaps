@@ -1,27 +1,33 @@
-• Utilizatorii din UE pot acum seta Organic Maps ca aplicație de navigare implicită în Setări iOS → Aplicații → Aplicații implicite → Navigare
+- NOU! Evidențiați regiunile descărcate pe harta lumii
+- NOU! Vedeți și căutați rezervații naturale, parcuri naționale, zone protejate, terenuri aborigene, zone de pericol și lacuri pe harta lumii începând cu nivelul de zoom 8
+- NOU! Acces condiționat pentru rutare, de exemplu, pentru drumurile care sunt închise la anumite ore
+- Date OpenStreetMap actualizate la 9 noiembrie 2025
+- Activat limbile estonă, galiciană, ebraică și lituaniană pentru indicațiile vocale TTS
+- S-a remediat o problemă cu numele de străzi implicite și localizate la editarea adreselor
+- S-a remediat o problemă cu zoom-ul la atingerea rezultatelor căutării de pe harta lumii
+- S-au adăugat link-uri de social media TikTok, Threads și BlueSky la ecranul "Despre"
+- S-a adăugat "Raportați o eroare" la acțiunile rapide ale pictogramei aplicației pe ecranul de pornire
+- După ștergerea unei liste de marcaje sau trasee (prin butonul "mai mult"), aplicația se întoarce acum corect la ecranul anterior
+- S-au remediat diverse blocări ale aplicației și ale CarPlay
 
-• Date OpenStreetMap proaspete din 21 octombrie 2025
-• Obiecte noi pe hartă: stații de monitorizare, insule de circulație, facilități de cură cu apă Kneipp, căi ferate miniaturale, locuri de campare în stil outdoor, terminale aeroportuare, zone de joacă interioare, magazine de telecomunicații, facilități de închiriere bărci și facilități de rampă pentru bărci
-• Numele intrărilor de metrou sunt acum vizibile pe hartă
-• Săgeata de poziție arată acum direcția de mișcare când mergi pe jos în modul de navigare pentru pietoni
-• Adăugat suport pentru limba slovenă, inclusiv instrucțiuni vocale pentru navigare
-• Pictograme actualizate pentru eliminarea deșeurilor și depozite de deșeuri
-• Corectat bara de stare alb pe alb în modul de navigare
-• Mărit dimensiunea butonului Pornește navigarea
-• Eliminat spațiul alb gol la planificarea unei rute pe iPad
-• Culori suplimentare sunt acum acceptate pentru traseele de drumeție
-• Informații îmbunătățite afișate la selectarea unui râu sau segment de cale navigabilă
-• Căutare îmbunătățită a stațiilor de încărcare pentru vehicule electrice cu sinonime îmbunătățite în toate limbile
-• Corectat căutarea de emoji (da, poți scrie emoji în caseta de căutare!)
-• Corectate sugestiile de căutare care afișau prea multe rezultate pentru căutări de adrese exacte
-• Importul și exportul GeoJSON de la și către https://umap.openstreetmap.fr/ păstrează acum toate metadatele
+### Hartă și stiluri
 
-### Funcții lansate recent pe care le-ați putea fi ratat
+- S-a schimbat redarea căilor ferate "abandonate" și "nefolosite"
+- S-au adăugat ceasornicari și cazare pentru studenți pe hartă
+- S-au adăugat pictograme pentru agențiile de turism
+- S-a schimbat culoarea pictogramei de toaletă în gri
+- S-au actualizat pictogramele pentru audiolog, podiatru, optometrist și aparate auditive
+- S-a remediat pictograma de închiriere de biciclete în modul întunecat
+- Afișarea numelor statelor din SUA/Canada mai devreme pe harta lumii (de la nivelul de zoom 5)
 
-• Salvați un marcaj la un punct de traseu selectat
-• Ștergeți un traseu de înregistrare fără a-l salva mai întâi
-• Importați fișiere GeoJSON
+### Traduceri
 
-Organic Maps este posibil datorită contributorilor noștri și sprijinului dvs. continuu.
+- S-au adăugat sinonime de căutare în slovenă și s-a activat căutarea pe categorii pentru limba slovenă
+- S-au corectat greșeli de tipar, traduceri incorecte și sinonime de căutare; s-au adăugat traduceri lipsă pentru multe limbi
+- S-au adăugat traduceri specifice pentru spaniola mexicană (es-MX) și portugheza braziliană (pt-BR), distincte de spaniola standard (es) și portugheza (pt)
+- S-au corectat indicațiile vocale TTS în cehă
 
+Consultați notele detaliate ale versiunii pe site-ul nostru: https://organicmaps.app
+
+Vă mulțumim că folosiți Organic Maps și că susțineți proiectul!
 Echipa Organic Maps
