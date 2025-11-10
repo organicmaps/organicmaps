@@ -15,6 +15,7 @@ function GenerateStringResource() {
   format=$3
   tags=$4
   filename=${5:-}
+  args=${@:6}
   include=translated
 
   if [[ $format == apple* ]]
@@ -50,24 +51,24 @@ function GenerateStringResource() {
     $OMIM_PATH/$output_prefix \
     -f $format --include $include \
     $filename $tags \
-    -r 
+    $args
 }
 
 # Generate Android strings
-GenerateStringResource "strings.txt" android/app/src/main/res android android-app
-GenerateStringResource "strings.txt" android/sdk/src/main/res android android-sdk
+GenerateStringResource "strings.txt" android/app/src/main/res android android-app "" --create-folders
+GenerateStringResource "strings.txt" android/sdk/src/main/res android android-sdk "" --create-folders
 
 # Generate iPhone strings
-GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple apple-maps
-GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple-plural apple-maps
-GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple apple-infoplist "InfoPlist.strings"
-GenerateStringResource "strings.txt" iphone/Chart/Chart apple apple-chart
+GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple apple-maps "" --create-folders
+GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple-plural apple-maps "" --create-folders
+GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple apple-infoplist "InfoPlist.strings" --create-folders
+GenerateStringResource "strings.txt" iphone/Chart/Chart apple apple-chart "" --create-folders
 
 # Generate Android types strings
-GenerateStringResource "types_strings.txt" android/sdk/src/main/res android "" types_strings.xml
+GenerateStringResource "types_strings.txt" android/sdk/src/main/res android "" types_strings.xml --create-folders
 
 # Generate iPhone types strings
-GenerateStringResource "types_strings.txt" iphone/Maps/LocalizedStrings apple "" LocalizableTypes.strings
+GenerateStringResource "types_strings.txt" iphone/Maps/LocalizedStrings apple "" LocalizableTypes.strings --create-folders
 
 # Generate sound strings
 GenerateStringResource "sound.txt" data/sound-strings jquery ""
