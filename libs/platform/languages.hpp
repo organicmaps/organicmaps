@@ -27,12 +27,13 @@ namespace routing::turns::sound
  * - All other variants default to `zh-Hans` (Simplified Chinese).
  *
  */
-std::array<std::pair<std::string_view, std::string_view>, 41> constexpr kLanguageList = {{
+std::array<std::pair<std::string_view, std::string_view>, 45> constexpr kLanguageList = {{
     {"en", "English"},
     {"id", "Bahasa Indonesia"},
     {"ca", "Català"},
     {"da", "Dansk"},
     {"de", "Deutsch"},
+    {"et", "Eesti"},
 #ifdef OMIM_OS_ANDROID
     {"es-ES:es", "Español"},
     {"es-MX:es-MX", "Español (México)"},
@@ -41,10 +42,12 @@ std::array<std::pair<std::string_view, std::string_view>, 41> constexpr kLanguag
 #endif
     {"eu", "Euskara"},
     {"fr", "Français"},
+    {"gl", "Galego"},
     {"hr", "Hrvatski"},
     {"it", "Italiano"},
     {"sw", "Kiswahili"},
     {"hu", "Magyar"},
+    {"lt", "Lietuvių"},
     {"nl", "Nederlands"},
     {"nb", "Norsk Bokmål"},
     {"pl", "Polski"},
@@ -68,6 +71,7 @@ std::array<std::pair<std::string_view, std::string_view>, 41> constexpr kLanguag
     {"ru", "Русский"},
     {"sr", "Српски"},
     {"uk", "Українська"},
+    {"he", "עברית"},
     {"ar", "العربية"},
     {"fa", "فارسی"},
     {"mr", "मराठी"},
