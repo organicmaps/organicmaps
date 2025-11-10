@@ -55,20 +55,20 @@ function GenerateStringResource() {
 }
 
 # Generate Android strings
-GenerateStringResource "strings.txt" android/app/src/main/res android android-app "" --create-folders
-GenerateStringResource "strings.txt" android/sdk/src/main/res android android-sdk "" --create-folders
+GenerateStringResource "strings.txt" android/app/src/main/res android android-app ""
+GenerateStringResource "strings.txt" android/sdk/src/main/res android android-sdk ""
 
 # Generate iPhone strings
-GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple apple-maps "" --create-folders
-GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple-plural apple-maps "" --create-folders
-GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple apple-infoplist "InfoPlist.strings" --create-folders
-GenerateStringResource "strings.txt" iphone/Chart/Chart apple apple-chart "" --create-folders
+GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple apple-maps ""
+GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple-plural apple-maps ""
+GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple apple-infoplist "InfoPlist.strings"
+GenerateStringResource "strings.txt" iphone/Chart/Chart apple apple-chart ""
 
 # Generate Android types strings
-GenerateStringResource "types_strings.txt" android/sdk/src/main/res android "" types_strings.xml --create-folders
+GenerateStringResource "types_strings.txt" android/sdk/src/main/res android "" types_strings.xml
 
 # Generate iPhone types strings
-GenerateStringResource "types_strings.txt" iphone/Maps/LocalizedStrings apple "" LocalizableTypes.strings --create-folders
+GenerateStringResource "types_strings.txt" iphone/Maps/LocalizedStrings apple "" LocalizableTypes.strings
 
 # Generate sound strings
 GenerateStringResource "sound.txt" data/sound-strings jquery ""
