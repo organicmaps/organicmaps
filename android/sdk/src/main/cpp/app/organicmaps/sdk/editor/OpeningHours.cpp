@@ -39,6 +39,11 @@ jfieldID g_fidWorkingTimespan;
 jfieldID g_fidClosedTimespans;
 jfieldID g_fidIsFullday;
 jfieldID g_fidWeekdays;
+// ID-s for OpeningHoursInfo class
+jclass g_clazzOpeningHoursInfo;
+jclass g_clazzOpeningHoursInfoState;
+jmethodID g_ctorOpeningHoursInfo;
+jmethodID g_valueOfState;
 
 jobject JavaHoursMinutes(JNIEnv * env, jlong hours, jlong minutes)
 {
@@ -84,7 +89,6 @@ jobject JavaTimetable(JNIEnv * env, TimeTable const & tt)
                  [](Weekday weekday) { return static_cast<int>(weekday); });
   jintArray jWeekdays = env->NewIntArray(static_cast<jsize>(weekdays.size()));
   env->SetIntArrayRegion(jWeekdays, 0, static_cast<jsize>(weekdaysVector.size()), &weekdaysVector[0]);
-
   return JavaTimetable(
       env, JavaTimespan(env, tt.GetOpeningTime()),
       jni::ToJavaArray(env, g_clazzTimespan, tt.GetExcludeTime(),
@@ -201,6 +205,16 @@ JNIEXPORT void Java_app_organicmaps_sdk_editor_OpeningHours_nativeInit(JNIEnv * 
   ASSERT(g_fidIsFullday, (jni::DescribeException()));
   g_fidWeekdays = env->GetFieldID(g_clazzTimetable, "weekdays", "[I");
   ASSERT(g_fidWeekdays, (jni::DescribeException()));
+
+  g_clazzOpeningHoursInfo = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/editor/data/OpeningHoursInfo");
+  g_clazzOpeningHoursInfoState = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/editor/data/OpeningHoursInfo$State");
+  // Java signature: OpeningHoursInfo(State state, long nextTimeOpen, long nextTimeClosed, boolean isHoliday)
+  g_ctorOpeningHoursInfo = env->GetMethodID(g_clazzOpeningHoursInfo, "<init>",
+                                            "(Lapp/organicmaps/sdk/editor/data/OpeningHoursInfo$State;JJZ)V");
+  ASSERT(g_ctorOpeningHoursInfo, (jni::DescribeException()));
+  g_valueOfState = env->GetStaticMethodID(g_clazzOpeningHoursInfoState, "valueOf",
+                                            "(Ljava/lang/String;)Lapp/organicmaps/sdk/editor/data/OpeningHoursInfo$State;");
+  ASSERT(g_valueOfState, (jni::DescribeException()));
 }
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetDefaultTimetables(JNIEnv * env,
@@ -306,5 +320,68 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_OpeningHours_nativeIsTimetabl
                                                                                              jstring jSource)
 {
   return OpeningHours(jni::ToNativeString(env, jSource)).IsValid();
+}
+
+JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetInfo(JNIEnv * env, jclass clazz,
+                                                                             jstring jOpeningHoursStr,
+                                                                             jlongArray jHolidays,
+                                                                             jlong jCurrentTime)
+{
+  if (jOpeningHoursStr == nullptr)
+    return nullptr;
+
+  std::string const openingHoursStr = jni::ToNativeString(env, jOpeningHoursStr);
+  if (openingHoursStr.empty())
+    return nullptr;
+
+  // Convert holidays array to THolidayDates
+  osmoh::THolidayDates holidays;
+  if (jHolidays != nullptr)
+  {
+    jsize const holidaysSize = env->GetArrayLength(jHolidays);
+    if (holidaysSize > 0)
+    {
+      std::vector<jlong> holidaysVec(holidaysSize);
+      env->GetLongArrayRegion(jHolidays, 0, holidaysSize, holidaysVec.data());
+      holidays.insert(holidaysVec.begin(), holidaysVec.end());
+    }
+  }
+
+  // Create OpeningHours with holidays
+  osmoh::OpeningHours oh(openingHoursStr, holidays);
+  if (!oh.IsValid())
+    return nullptr;
+
+  time_t const currentTime = static_cast<time_t>(jCurrentTime);
+
+  osmoh::OpeningHours::InfoT const info = oh.GetInfo(currentTime);
+
+  jstring stateName;
+  switch (info.state)
+  {
+  case osmoh::RuleState::Open:
+    stateName = env->NewStringUTF("OPEN");
+    break;
+  case osmoh::RuleState::Closed:
+    stateName = env->NewStringUTF("CLOSED");
+    break;
+  case osmoh::RuleState::Unknown:
+  default:
+    stateName = env->NewStringUTF("UNKNOWN");
+    break;
+  }
+
+  jobject const jState = env->CallStaticObjectMethod(g_clazzOpeningHoursInfoState, g_valueOfState, stateName);
+  env->DeleteLocalRef(stateName);
+  if (jState == nullptr)
+    return nullptr;
+
+  jobject const jInfo = env->NewObject(g_clazzOpeningHoursInfo, g_ctorOpeningHoursInfo, jState,
+                                        static_cast<jlong>(info.nextTimeOpen),
+                                        static_cast<jlong>(info.nextTimeClosed),
+                                        static_cast<jboolean>(info.isHoliday ? JNI_TRUE : JNI_FALSE));
+  env->DeleteLocalRef(jState);
+
+  return jInfo;
 }
 }  // extern "C"

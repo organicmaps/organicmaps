@@ -28,7 +28,10 @@
 #include <iostream>
 #include <string>
 #include <type_traits>
+#include <unordered_set>
 #include <vector>
+
+#include <boost/container_hash/hash.hpp>
 
 // Implemented in accordance with the specification
 // https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification
@@ -700,12 +703,38 @@ enum class RuleState
   Unknown
 };
 
+struct DateHash
+{
+  std::size_t operator()(time_t const & t) const
+  {
+    std::tm tm = *std::localtime(&t);
+    std::size_t seed = 0;
+    boost::hash_combine(seed, tm.tm_year);
+    boost::hash_combine(seed, tm.tm_mon);
+    boost::hash_combine(seed, tm.tm_mday);
+    return seed;
+  }
+};
+
+struct DateEqual
+{
+  bool operator()(time_t const & t1, time_t const & t2) const
+  {
+    std::tm tm1 = *std::localtime(&t1);
+    std::tm tm2 = *std::localtime(&t2);
+    return std::tie(tm1.tm_year, tm1.tm_mon, tm1.tm_mday) == std::tie(tm2.tm_year, tm2.tm_mon, tm2.tm_mday);
+  }
+};
+using THolidayDates = std::unordered_set<time_t, DateHash, DateEqual>;
+
 class OpeningHours
 {
 public:
   OpeningHours() = default;
   OpeningHours(std::string const & rule);
   OpeningHours(TRuleSequences const & rule);
+  OpeningHours(std::string const & rule, THolidayDates const & holidays);
+  OpeningHours(TRuleSequences const & rule, THolidayDates const & holidays);
 
   bool IsOpen(time_t const dateTime) const;
   bool IsClosed(time_t const dateTime) const;
@@ -717,8 +746,8 @@ public:
     /// Calculated only if state != RuleState::Unknown.
     time_t nextTimeOpen;
     time_t nextTimeClosed;
+    bool isHoliday;
   };
-
   InfoT GetInfo(time_t const dateTime) const;
 
   bool IsValid() const;
@@ -738,8 +767,9 @@ public:
 private:
   TRuleSequences m_rule;
   bool m_valid = false;
+  THolidayDates m_holidays;
 };
 
 std::ostream & operator<<(std::ostream & ost, OpeningHours const & oh);
 std::string ToString(osmoh::OpeningHours const & openingHours);
-} // namespace osmoh
+}  // namespace osmoh
