@@ -1,27 +1,33 @@
-• EU-käyttäjät voivat nyt asettaa Organic Mapsin oletusnavigointisovellukseksi iOS-asetuksissa → Sovellukset → Oletussovellukset → Navigointi
+- UUTTA! Korosta ladatut alueet maailmankartalla
+- UUTTA! Näe ja etsi luonnonsuojelualueita, kansallispuistoja, suojelualueita, aboriginaalien maita, vaara-alueita ja järviä maailmankartalta zoomaustasolta 8 alkaen
+- UUTTA! Ehdollinen pääsy reititykseen, esim. teille, jotka ovat suljettuina tiettyinä aikoina
+- Päivitetyt OpenStreetMap-tiedot 9. marraskuuta 2025
+- Viron, galician, heprean ja liettuan kielet otettu käyttöön TTS-ääniohjeissa
+- Korjattu oletus- ja lokalisoitujen kadunnimien ongelma osoitteita muokattaessa
+- Korjattu zoomausongelma, kun napautetaan hakutuloksia maailmankartalta
+- Lisätty TikTok-, Threads- ja BlueSky-sosiaalisen median linkit "Tietoja"-näyttöön
+- Lisätty "Ilmoita virheestä" sovelluskuvakkeen pikatoimintoihin aloitusnäytössä
+- Kirjanmerkkien tai jälkien luettelon poistamisen jälkeen (lisää-painikkeen kautta) sovellus palaa nyt oikein edelliseen näyttöön
+- Korjattu useita sovelluksen ja CarPlayn kaatumisia
 
-• Tuore OpenStreetMap-data 21. lokakuuta 2025
-• Uudet karttakohteet: valvonta-asemat, liikennesaarekkeet, Kneipp-vesihoitolaitokset, miniatyyri-rautatiet, leirintäpaikat ulkoilmatyylissä, lentokenttäterminaalit, sisäleikkialueet, teleliikenneliikkeet, venevuokraamot ja veneslipit
-• Metroasemien sisäänkäyntien nimet näkyvät nyt kartalla
-• Paikkanuoli näyttää nyt kulkusuuntasi kävellessäsi jalankulkijanavigointitilassa
-• Lisätty slovenian kielen tuki, mukaan lukien ääni-ilmoitukset navigointiin
-• Päivitetyt jätteen käsittelyn ja kaatopaikkojen kuvakkeet
-• Korjattu valkoinen palkki valkoisella navigointitilassa
-• Kasvatettu Aloita navigointi -painikkeen kokoa
-• Poistettu tyhjä valkoinen tila reitin suunnittelussa iPadilla
-• Lisävärejä tuetaan nyt patikoinnin polkuihin
-• Parannetut tiedot, jotka näytetään, kun valitset joen tai vesiväylän osan
-• Parempi sähköautojen latausasemien haku parannetuilla synonyymillä kaikilla kielillä
-• Korjattu emoji-haku (kyllä, voit kirjoittaa emojeja hakukenttään!)
-• Korjattu hakuehdotukset, jotka näyttivät liikaa tuloksia tarkkoja osoitehakuja varten
-• GeoJSON:n tuonti ja vienti osoitteesta ja osoitteeseen https://umap.openstreetmap.fr/ säilyttää nyt kaikki metatiedot
+### Kartta ja tyylit
 
-### Hiljattain julkaistut ominaisuudet, jotka olet saattanut missata
+- Vaihdettu "hylättyjen" ja "käytöstä poistettujen" rautateiden renderöinti
+- Lisätty kellosepät ja opiskelija-asunnot kartalle
+- Lisätty matkatoimistojen kuvakkeet
+- Vessan kuvakkeen väri vaihdettu harmaaksi
+- Päivitetty audiologin, jalkaterapeutin, optometristin ja kuulolaitteiden kuvakkeet
+- Korjattu polkupyöränvuokrauskuvake pimeässä tilassa
+- Yhdysvaltojen/Kanadan osavaltioiden nimet näytetään aiemmin maailmankartalla (zoomaustasolta 5)
 
-• Tallenna kirjanmerkki valitulle reittipisteelle
-• Poista tallennettu reitti tallentamatta sitä ensin
-• Tuo GeoJSON-tiedostoja
+### Käännökset
 
-Organic Maps on mahdollinen kiitos avustajillemme ja jatkuvalle tuellesi.
+- Lisätty sloveniankielisiä hakusynonyymejä ja otettu käyttöön luokkahaku slovenian kielelle
+- Korjattu kirjoitusvirheitä, virheellisiä käännöksiä ja hakusynonyymejä; lisätty puuttuvia käännöksiä monille kielille
+- Lisätty erityisiä käännöksiä Meksikon espanjalle (es-MX) ja Brasilian portugalille (pt-BR), jotka eroavat tavallisesta espanjasta (es) ja portugalista (pt)
+- Korjattu tšekin TTS-ääniohjeet
 
+Tarkista yksityiskohtaiset julkaisutiedot verkkosivustoltamme: https://organicmaps.app
+
+Kiitos, että käytät Organic Mapsia ja tuet projektia!
 Organic Maps -tiimi

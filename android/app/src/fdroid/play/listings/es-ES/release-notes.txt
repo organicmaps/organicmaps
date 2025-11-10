@@ -1,8 +1,8 @@
-• Datos de OpenStreetMap a 21 de octubre
-• Estaciones de monitoreo, islas de tráfico, instalaciones Kneipp, ferrocarriles en miniatura, parcelas de campamento, terminales de aeropuerto, áreas de juego interiores, tiendas de telecomunicaciones, alquiler de barcos y rampas
-• Los escudos de carretera aparecen en la navegación
-• Soporte para dispositivos x86 antiguos
-• Idioma esloveno con voz para navegación
-• Mejor búsqueda de emojis y cargadores EV
+• Resalte en el mapa mundial las regiones descargadas, las reservas naturales, los parques nacionales, las áreas protegidas, las tierras aborígenes, las zonas de peligro y los lagos
+• El enrutamiento admite horarios de cierre de carreteras
+• Mapas OSM al 9 de noviembre
+• Se corrigieron fallos y enrutamiento, incluido Android Auto
+• Se agregaron relojeros, alojamientos para estudiantes y agencias de viajes
+• Direcciones de voz en estonio, gallego, hebreo y lituano
 
 …más en omaps.org/es/news

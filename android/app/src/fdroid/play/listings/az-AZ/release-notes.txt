@@ -1,8 +1,7 @@
-• 21 oktyabr tarixi ilə OSM məlumatları
-• Müşahidə stansiyaları, yol adacıqları, Kneipp su müalicəsi məntəqələri, mini dəmir yollar, düşərgə yerləri, hava limanı terminalları, qapalı oyun sahələri, telekommunikasiya mağazaları, qayıq icarəsi və sürüşmə rampaları
-• Naviqasiya istiqamətlərində yol nişanları göstərilir
-• Köhnə x86 cihazları üçün dəstək əlavə edildi
-• Sloven dilinə (səsli istiqamətlərlə) dəstək
-• Emoji və EV doldurma məntəqəsi axtarışı yaxşılaşdırıldı
+• Yüklənmiş bölgələri, təbiət qoruqlarını, milli parkları, qorunan əraziləri, aborigen torpaqlarını, təhlükəli əraziləri, Dünya xəritəsindəki gölləri vurğulayın
+• Marşrutlaşdırma yol bağlanma vaxtlarını dəstəkləyir
+• 9 Noyabr tarixinə olan yeni OSM xəritələri
+• Android Auto da daxil olmaqla qəzalar və marşrutlaşdırma düzəldildi
+• Saat ustaları, tələbə yataqxanaları, səyahət agentlikləri əlavə edildi
 
-…daha çoxu: omaps.org/news
+…daha ətraflı omaps.org/news saytında

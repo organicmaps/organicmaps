@@ -1,8 +1,9 @@
-• Údaje OpenStreetMap k 21. októbru
-• Monitorovacie stanice, dopravné ostrovčeky, Kneipp vodoliečba, mini železnice, miesta kempu, letiskové terminály, vnútorné ihriská, telekom obchody, prenájom lodí a sklzy
-• Cestné štíty v pokynoch navigácie
-• Pridaná podpora starších x86 zariadení
-• Slovinský jazyk s hlasovou navigáciou
-• Vylepšené hľadanie emoji a EV nabíjačiek
+• Zvýraznite na mape sveta stiahnuté regióny, prírodné rezervácie, národné parky, chránené územia, územia pôvodných obyvateľov, nebezpečné oblasti, jazerá
+• Smerovanie podporuje časy uzávierky ciest
+• Čerstvé mapy OSM z 9. novembra
+• Opravené pády a smerovanie vrátane Android Auto
+• Pridaní hodinári, študentské ubytovne, cestovné kancelárie
+• Pridaná podpora slovinského jazyka vo vyhľadávaní
+• Hlasové pokyny v estónčine, galícijčine, hebrejčine a litovčine
 
 …viac na omaps.org/news

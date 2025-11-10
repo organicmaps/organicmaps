@@ -1,8 +1,8 @@
-• OpenStreetMap-data per 21 oktober
-• Meetstations, verkeerseilanden, Kneipp watertherapie, mini spoorbanen, kampeerplaatsen, luchthaven-terminals, indoor speelzones, telecomwinkels, bootverhuur en hellingen
-• Wegschilden worden nu getoond in navigatie
-• Ondersteuning voor oudere x86-apparaten toegevoegd
-• Sloveense taal inclusief stemnavigatie
-• Verbeterde emoji- en EV-laadpuntzoeking
+• Markeer gedownloade regio's, natuurreservaten, nationale parken, beschermde gebieden, Aboriginal-landen, gevarenzones en meren op de wereldkaart
+• Routering ondersteunt tijden voor wegafsluitingen
+• Nieuwe OSM-kaarten per 9 november
+• Crashes en routering opgelost, inclusief Android Auto
+• Uurwerkmakers, studentenhuisvesting en reisbureaus toegevoegd
+• Gesproken aanwijzingen in het Ests, Galicisch, Hebreeuws en Litouws
 
 …meer op omaps.org/nl/news

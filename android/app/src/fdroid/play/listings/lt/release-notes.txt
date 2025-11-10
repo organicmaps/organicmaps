@@ -1,8 +1,8 @@
-• OpenStreetMap duomenys 21 spalio
-• Stebėjimo stotys, eismo salelės, Kneipp vandens terapija, mini geležinkeliai, stovyklavietės, oro uosto terminalai, vidaus žaidimų zonos, telekomunikacijų parduotuvės, laivų nuoma ir slipai
-• Kelio skydai rodomi navigacijos kryptims
-• Pridėtas senų x86 įrenginių palaikymas
-• Slovėnų kalba su balso navigacija
-• Patobulinta emoji ir EV įkrovimo paieška
+• Pasaulio žemėlapyje paryškinkite atsiųstus regionus, gamtos rezervatus, nacionalinius parkus, saugomas teritorijas, aborigenų žemes, pavojingas zonas, ežerus
+• Maršrutas palaiko kelių uždarymo laikus
+• Nauji OSM žemėlapiai, galiojantys nuo lapkričio 9 d.
+• Ištaisytos strigtys ir maršruto parinkimas, įskaitant „Android Auto“
+• Pridėta laikrodininkų, studentų būstų, kelionių agentūrų
+• Balso nurodymai estų, galisų, hebrajų ir lietuvių kalbomis
 
-…daugiau: omaps.org/lt/news
+…daugiau omaps.org/lt/news

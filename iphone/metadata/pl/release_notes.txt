@@ -1,27 +1,33 @@
-• Użytkownicy z UE mogą teraz ustawić Organic Maps jako domyślną aplikację nawigacyjną w Ustawienia iOS → Aplikacje → Domyślne aplikacje → Nawigacja
+- NOWOŚĆ! Podświetlanie pobranych regionów na mapie świata
+- NOWOŚĆ! Wyświetlanie i wyszukiwanie rezerwatów przyrody, parków narodowych, obszarów chronionych, ziem Aborygenów, obszarów niebezpiecznych i jezior na mapie świata od 8. poziomu powiększenia
+- NOWOŚĆ! Warunkowy dostęp do wyznaczania tras, np. dla dróg, które są zamknięte w określonych godzinach
+- Zaktualizowane dane OpenStreetMap z dnia 9 listopada 2025 r.
+- Włączono języki estoński, galicyjski, hebrajski i litewski dla wskazówek głosowych TTS
+- Naprawiono problem z domyślnymi i zlokalizowanymi nazwami ulic podczas edycji adresów
+- Naprawiono problem z powiększaniem po dotknięciu wyników wyszukiwania z mapy świata
+- Dodano linki do mediów społecznościowych TikTok, Threads i BlueSky na ekranie "O aplikacji"
+- Dodano "Zgłoś błąd" do szybkich akcji ikony aplikacji na ekranie głównym
+- Po usunięciu listy zakładek lub tras (za pomocą przycisku "więcej"), aplikacja teraz poprawnie wraca do poprzedniego ekranu
+- Naprawiono różne awarie aplikacji i CarPlay
 
-• Świeże dane OpenStreetMap z 21 października 2025
-• Nowe obiekty na mapie: stacje monitoringu, wyspy drogowe, obiekty wodolecznictwa Kneippa, miniaturowe koleje, miejsca kempingowe w stylu outdoorowym, terminale lotniskowe, wewnętrzne place zabaw, sklepy telekomunikacyjne, obiekty wynajmu łodzi i obiekty pochylni dla łodzi
-• Nazwy wejść do metra są teraz widoczne na mapie
-• Strzałka pozycji teraz pokazuje kierunek ruchu podczas chodzenia w trybie nawigacji pieszej
-• Dodano obsługę języka słoweńskiego, w tym wskazówki głosowe dla nawigacji
-• Zaktualizowane ikony utylizacji odpadów i składowisk
-• Naprawiono biały pasek stanu na białym w trybie nawigacji
-• Zwiększono rozmiar przycisku Rozpocznij nawigację
-• Usunięto pustą białą przestrzeń podczas planowania trasy na iPadzie
-• Dodatkowe kolory są teraz obsługiwane dla szlaków turystycznych
-• Ulepszone informacje wyświetlane przy wybieraniu rzeki lub odcinka drogi wodnej
-• Lepsze wyszukiwanie stacji ładowania pojazdów elektrycznych z ulepszonymi synonimami we wszystkich językach
-• Naprawiono wyszukiwanie emoji (tak, możesz wpisywać emoji w polu wyszukiwania!)
-• Naprawiono podpowiedzi wyszukiwania pokazujące zbyt wiele wyników dla dokładnych wyszukiwań adresów
-• Importowanie i eksportowanie GeoJSON z i do https://umap.openstreetmap.fr/ teraz zachowuje wszystkie metadane
+### Mapa i style
 
-### Niedawno wydane funkcje, które mogłeś przegapić
+- Zamieniono renderowanie "opuszczonych" i "nieużywanych" linii kolejowych
+- Dodano zegarmistrzów i kwatery studenckie do mapy
+- Dodano ikony biur podróży
+- Zmieniono kolor ikony toalety na szary
+- Zaktualizowano ikony audiologa, podologa, optometrysty i aparatów słuchowych
+- Naprawiono ikonę wypożyczalni rowerów w trybie ciemnym
+- Wyświetlanie nazw stanów USA/Kanady wcześniej na mapie świata (od 5. poziomu powiększenia)
 
-• Zapisz zakładkę na wybranym punkcie śladu
-• Usuń ścieżkę nagrywania bez wcześniejszego zapisywania
-• Importuj pliki GeoJSON
+### Tłumaczenia
 
-Organic Maps jest możliwy dzięki naszym współpracownikom i Twojemu ciągłemu wsparciu.
+- Dodano słoweńskie synonimy wyszukiwania i włączono wyszukiwanie kategorii dla języka słoweńskiego
+- Poprawiono literówki, nieprawidłowe tłumaczenia i synonimy wyszukiwania; dodano brakujące tłumaczenia dla wielu języków
+- Dodano specyficzne tłumaczenia для meksykańskiego hiszpańskiego (es-MX) i brazylijskiego portugalskiego (pt-BR), odrębne od standardowego hiszpańskiego (es) i portugalskiego (pt)
+- Poprawiono czeskie wskazówki głosowe TTS
 
+Sprawdź szczegółowe informacje o wydaniu na naszej stronie internetowej: https://organicmaps.app
+
+Dziękujemy za korzystanie z Organic Maps i wspieranie projektu!
 Zespół Organic Maps

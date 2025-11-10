@@ -1,8 +1,8 @@
-• Dati OpenStreetMap al 21 ottobre
-• Stazioni di monitoraggio, isole di traffico, strutture Kneipp, ferrovie in miniatura, piazzole campeggio, terminal aeroportuali, aree gioco interne, negozi telecomunicazioni, noleggio barche e scivoli
-• Scudi stradali ora nelle indicazioni di navigazione
-• Aggiunto supporto vecchi dispositivi x86
-• Supporto lingua slovena con voce
-• Migliorata ricerca emoji e colonnine EV
+• Evidenzia sulla mappa del mondo le regioni scaricate, le riserve naturali, i parchi nazionali, le aree protette, le terre aborigene, le aree di pericolo, i laghi
+• Il routing supporta gli orari di chiusura delle strade
+• Mappe OSM aggiornate al 9 novembre
+• Risolti crash e problemi di routing, incluso Android Auto
+• Aggiunti orologiai, alloggi per studenti, agenzie di viaggio
+• Indicazioni vocali in estone, galiziano, ebraico e lituano
 
 …altro su omaps.org/it/news

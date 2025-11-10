@@ -1,8 +1,7 @@
-• OpenStreetMap datuak urriaren 21ean
-• Monitorizazio estazioak, trafiko uharteak, Kneipp tratamendu guneak, trenbide txikiak, kanpaleku parcelak, aireportu terminalak, barne jolastokiak, telekomunikazio dendak, ontzi alokairua eta arrapala
-• Errepide ikurrak nabigazio jarraibideetan agertzen dira
-• x86 gailu zaharrentzako euskarria
-• Esloveniar hizkuntza eta ahots nabigazioa
-• Emoji eta EV karga estazio bilaketa hobetu
+• Nabarmendu deskargatutako eskualdeak, erreserba naturalak, parke nazionalak, babestutako eremuak, aborigenen lurrak, arrisku-eremuak eta aintzirak Munduko mapan
+• Bideratzeak errepideak ixteko ordutegiak onartzen ditu
+• OSM mapa freskoak azaroaren 9tik aurrera
+• Matxurak eta bideratzea konpondu dira, Android Auto barne
+• Erlojugileak, ikasleentzako ostatuak eta bidaia-agentziak gehitu dira
 
-…gehiago: omaps.org/eu/news
+…gehiago omaps.org/eu/news helbidean

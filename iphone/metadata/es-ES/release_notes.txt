@@ -1,27 +1,33 @@
-• Los usuarios de la UE ahora pueden establecer Organic Maps como la aplicación de navegación predeterminada en Configuración de iOS → Apps → Apps predeterminadas → Navegación
+- ¡NUEVO! Resalta las regiones descargadas en el mapa del mundo
+- ¡NUEVO! Ve y busca reservas naturales, parques nacionales, áreas protegidas, tierras aborígenes, zonas de peligro y lagos en el mapa del mundo a partir del nivel de zoom 8
+- ¡NUEVO! Acceso condicional para rutas, por ejemplo, para carreteras que están cerradas a ciertas horas
+- Datos de OpenStreetMap actualizados a 9 de noviembre de 2025
+- Habilitados los idiomas estonio, gallego, hebreo y lituano para las indicaciones de voz de TTS
+- Se ha corregido un problema con los nombres de las calles predeterminados y localizados al editar las direcciones
+- Se ha corregido un problema con el zoom al tocar los resultados de la búsqueda en el mapa del mundo
+- Se han añadido los enlaces de las redes sociales TikTok, Threads y BlueSky a la pantalla "Acerca de"
+- Se ha añadido "Informar de un error" a las acciones rápidas del icono de la aplicación en la pantalla de inicio
+- Después de eliminar una lista de marcadores o rutas (a través del botón "más"), la aplicación ahora vuelve correctamente a la pantalla anterior
+- Se han corregido varios fallos de la aplicación y de CarPlay
 
-• Datos frescos de OpenStreetMap del 21 de octubre de 2025
-• Nuevos objetos del mapa: estaciones de monitoreo, isletas de tráfico, instalaciones de hidroterapia Kneipp, ferrocarriles en miniatura, parcelas de camping de estilo al aire libre, terminales de aeropuerto, áreas de juego cubiertas, tiendas de telecomunicaciones, instalaciones de alquiler de botes e instalaciones de varadero
-• Los nombres de las entradas del metro ahora son visibles en el mapa
-• La flecha de posición ahora muestra tu dirección de movimiento al caminar en modo de navegación peatonal
-• Se agregó soporte para el idioma esloveno, incluidas las instrucciones de voz para la navegación
-• Iconos actualizados de eliminación de residuos y vertederos
-• Se corrigió la barra de estado blanco sobre blanco en el modo de navegación
-• Se aumentó el tamaño del botón Iniciar navegación
-• Se eliminó el espacio en blanco vacío al planificar una ruta en iPad
-• Ahora se admiten colores adicionales para rutas de senderismo
-• Información mejorada que se muestra al seleccionar un río o segmento de vía fluvial
-• Mejor búsqueda de estaciones de carga de vehículos eléctricos con sinónimos mejorados en todos los idiomas
-• Se corrigió la búsqueda de emojis (¡sí, puedes escribir emojis en el cuadro de búsqueda!)
-• Se corrigieron las sugerencias de búsqueda que mostraban demasiados resultados para búsquedas de direcciones exactas
-• La importación y exportación de GeoJSON desde y hacia https://umap.openstreetmap.fr/ ahora conserva todos los metadatos
+### Mapa y estilos
 
-### Funciones lanzadas recientemente que podrías haberte perdido
+- Se ha intercambiado la representación de las vías férreas "abandonadas" y "en desuso"
+- Se han añadido relojeros y alojamientos para estudiantes al mapa
+- Se han añadido iconos de agencias de viajes
+- Se ha cambiado el color del icono del aseo a gris
+- Se han actualizado los iconos de audiólogo, podólogo, optometrista y audífonos
+- Se ha corregido el icono de alquiler de bicicletas en modo oscuro
+- Los nombres de los estados de EE. UU./Canadá se muestran antes en el mapa del mundo (desde el nivel de zoom 5)
 
-• Guardar un marcador en un punto de ruta seleccionado
-• Eliminar una pista de grabación sin guardarla primero
-• Importar archivos GeoJSON
+### Traducciones
 
-Organic Maps es posible gracias a nuestros colaboradores y tu apoyo continuo.
+- Se han añadido sinónimos de búsqueda en esloveno y se ha habilitado la búsqueda por categorías para el esloveno
+- Se han corregido erratas, traducciones incorrectas y sinónimos de búsqueda; se han añadido las traducciones que faltaban para muchos idiomas
+- Se han añadido traducciones específicas para el español de México (es-MX) y el portugués de Brasil (pt-BR), distintas del español estándar (es) y el portugués (pt)
+- Se han corregido las indicaciones de voz de TTS en checo
 
+Consulta las notas de la versión detalladas en nuestro sitio web: https://organicmaps.app
+
+¡Gracias por usar Organic Maps y apoyar el proyecto!
 El equipo de Organic Maps

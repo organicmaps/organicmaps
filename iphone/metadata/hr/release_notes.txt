@@ -1,27 +1,33 @@
-• Korisnici iz EU-a sada mogu postaviti Organic Maps kao zadanu navigacijsku aplikaciju u iOS Postavke → Aplikacije → Zadane aplikacije → Navigacija
+- NOVO! Istaknite preuzete regije na karti svijeta
+- NOVO! Pregledajte i pretražujte prirodne rezervate, nacionalne parkove, zaštićena područja, aboridžinske zemlje, opasna područja i jezera na karti svijeta počevši od razine zumiranja 8
+- NOVO! Uvjetni pristup za usmjeravanje, npr. za ceste koje su zatvorene u određeno vrijeme
+- Ažurirani podaci OpenStreetMapa od 9. studenog 2025.
+- Omogućeni estonski, galicijski, hebrejski i litavski jezici za TTS glasovne upute
+- Ispravljen problem sa zadanim i lokaliziranim nazivima ulica prilikom uređivanja adresa
+- Ispravljen problem sa zumiranjem prilikom dodirivanja rezultata pretraživanja s karte svijeta
+- Dodane poveznice na društvene mreže TikTok, Threads i BlueSky na zaslon "O programu"
+- Dodano "Prijavi grešku" u brze radnje ikone aplikacije na početnom zaslonu
+- Nakon brisanja popisa knjižnih oznaka ili tragova (putem gumba "više"), aplikacija se sada ispravno vraća na prethodni zaslon
+- Ispravljeni različiti padovi aplikacije i CarPlay-a
 
-• Svježi OpenStreetMap podaci od 21. listopada 2025.
-• Novi objekti na karti: nadzorne postaje, prometni otoci, objekti Kneipp vodene terapije, minijaturne željeznice, kampirališta u outdoor stilu, terminali zračnih luka, zatvorene igrališne površine, telekomunikacijske trgovine, objekti za najam brodova i objekti za spuštanje brodova
-• Nazivi ulaza u metro sada su vidljivi na karti
-• Strelica položaja sada pokazuje smjer vašeg kretanja prilikom hodanja u pješačkom navigacijskom načinu
-• Dodana podrška za slovenski jezik, uključujući glasovne upute za navigaciju
-• Ažurirane ikone za odlaganje otpada i odlagališta
-• Popravljena bijela traka statusa na bijelom u navigacijskom načinu
-• Povećana veličina gumba Pokreni navigaciju
-• Uklonjen prazan bijeli prostor pri planiranju rute na iPadu
-• Dodatne boje sada su podržane za pješačke staze
-• Poboljšane informacije prikazane pri odabiru rijeke ili segmenta vodenog puta
-• Bolje pretraživanje stanica za punjenje električnih vozila s poboljšanim sinonimima na svim jezicima
-• Popravljena pretraga emotikona (da, možete upisati emotikone u okvir za pretraživanje!)
-• Popravljeni prijedlozi pretraživanja koji su prikazivali previše rezultata za točne pretrage adresa
-• Uvoz i izvoz GeoJSON iz i u https://umap.openstreetmap.fr/ sada čuva sve metapodatke
+### Karta i stilovi
 
-### Nedavno objavljene značajke koje ste možda propustili
+- Zamijenjen prikaz 'napuštenih' i 'neiskorištenih' željeznica
+- Dodani urari i studentski smještaji na kartu
+- Dodane ikone turističkih agencija
+- Promijenjena boja ikone WC-a u sivu
+- Ažurirane ikone audiologa, pedikera, optometrista i slušnih pomagala
+- Ispravljena ikona za najam bicikala u tamnom načinu rada
+- Prikaz naziva država SAD-a/Kanade ranije na karti svijeta (od razine zumiranja 5)
 
-• Spremi knjižnu oznaku na odabranoj točki staze
-• Izbriši stazu snimanja bez prethodnog spremanja
-• Uvezi GeoJSON datoteke
+### Prijevodi
 
-Organic Maps je moguć zahvaljujući našim suradnicima i vašoj kontinuiranoj podršci.
+- Dodani slovenski sinonimi za pretraživanje i omogućeno pretraživanje kategorija za slovenski jezik
+- Ispravljene slovne pogreške, netočni prijevodi i sinonimi za pretraživanje; dodani nedostajući prijevodi za mnoge jezike
+- Dodani specifični prijevodi za meksički španjolski (es-MX) i brazilski portugalski (pt-BR), različiti od standardnog španjolskog (es) i portugalskog (pt)
+- Ispravljene češke TTS glasovne upute
 
-Organic Maps tim
+Provjerite detaljne bilješke o izdanju na našoj web stranici: https://organicmaps.app
+
+Hvala što koristite Organic Maps i podržavate projekt!
+Tim Organic Maps

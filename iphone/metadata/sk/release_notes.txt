@@ -1,27 +1,33 @@
-• Používatelia z EÚ si teraz môžu nastaviť Organic Maps ako predvolenú navigačnú aplikáciu v Nastavenia iOS → Aplikácie → Predvolené aplikácie → Navigácia
+- NOVINKA! Zvýraznenie stiahnutých regiónov na mape sveta
+- NOVINKA! Zobrazovanie a vyhľadávanie prírodných rezervácií, národných parkov, chránených oblastí, domorodých území, nebezpečných oblastí a jazier na mape sveta od úrovne priblíženia 8
+- NOVINKA! Podmienený prístup pre trasovanie, napr. pre cesty, ktoré sú v určitých časoch uzavreté
+- Aktualizované údaje OpenStreetMap k 9. novembru 2025
+- Povolené estónčina, galícijčina, hebrejčina a litovčina pre hlasové pokyny TTS
+- Opravený problém s predvolenými a lokalizovanými názvami ulíc pri úprave adries
+- Opravený problém s priblížením pri ťuknutí na výsledky vyhľadávania z mapy sveta
+- Pridané odkazy na sociálne siete TikTok, Threads a BlueSky na obrazovku "O aplikácii"
+- Pridané "Nahlásiť chybu" do rýchlych akcií ikony aplikácie na domovskej obrazovke
+- Po odstránení zoznamu záložiek alebo trás (prostredníctvom tlačidla "viac") sa aplikácia teraz správne vráti na predchádzajúcu obrazovku
+- Opravené rôzne pády aplikácie a CarPlay
 
-• Čerstvé dáta OpenStreetMap k 21. októbru 2025
-• Nové objekty na mape: monitorovacie stanice, dopravné ostrôvky, zariadenia Kneippovej vodnej liečby, miniatúrne železnice, kempingové miesta v outdoorovom štýle, terminály letísk, vnútorné herné oblasti, telekomunikačné predajne, požičovne lodí a sklzové rampy pre lode
-• Názvy vstupov do metra sú teraz viditeľné na mape
-• Šípka polohy teraz ukazuje smer vášho pohybu pri chôdzi v režime navigácie pre chodcov
-• Pridaná podpora slovinského jazyka vrátane hlasových pokynov pre navigáciu
-• Aktualizované ikony likvidácie odpadu a skládok
-• Opravený biely stavový riadok na bielom pozadí v navigačnom režime
-• Zväčšená veľkosť tlačidla Spustiť navigáciu
-• Odstránené prázdne biele miesto pri plánovaní trasy na iPade
-• Ďalšie farby sú teraz podporované pre turistické chodníky
-• Vylepšené informácie zobrazené pri výbere rieky alebo úseku vodnej cesty
-• Lepšie vyhľadávanie nabíjacích staníc pre elektromobily s vylepšenými synonymami vo všetkých jazykoch
-• Opravené vyhľadávanie emoji (áno, môžete písať emoji do vyhľadávacieho poľa!)
-• Opravené návrhy vyhľadávania zobrazujúce príliš veľa výsledkov pre presné vyhľadávanie adries
-• Import a export GeoJSON z a do https://umap.openstreetmap.fr/ teraz zachováva všetky metadáta
+### Mapa a štýly
 
-### Nedávno vydané funkcie, ktoré ste možno zmeškali
+- Vymenené vykresľovanie "opustených" a "nepoužívaných" železníc
+- Pridaní hodinári a študentské ubytovne na mapu
+- Pridané ikony cestovných kancelárií
+- Zmenená farba ikony toalety na sivú
+- Aktualizované ikony audiológa, podológa, optometristu a načúvacích prístrojov
+- Opravená ikona požičovne bicyklov v tmavom režime
+- Zobrazenie názvov štátov USA/Kanady skôr na mape sveta (od úrovne priblíženia 5)
 
-• Uložiť záložku na vybraný bod trasy
-• Zmazať nahrávanú trasu bez jej predchádzajúceho uloženia
-• Importovať GeoJSON súbory
+### Preklady
 
-Organic Maps je možný vďaka našim prispievateľom a vašej neustálej podpore.
+- Pridané slovinské synonymá pre vyhľadávanie a povolené vyhľadávanie kategórií pre slovinčinu
+- Opravené preklepy, nesprávne preklady a synonymá pre vyhľadávanie; pridané chýbajúce preklady pre mnohé jazyky
+- Pridané špecifické preklady pre mexickú španielčinu (es-MX) a brazílsku portugalčinu (pt-BR), odlišné od štandardnej španielčiny (es) a portugalčiny (pt)
+- Opravené české hlasové pokyny TTS
 
+Podrobné poznámky k vydaniu nájdete na našej webovej stránke: https://organicmaps.app
+
+Ďakujeme, že používate Organic Maps a podporujete projekt!
 Tím Organic Maps

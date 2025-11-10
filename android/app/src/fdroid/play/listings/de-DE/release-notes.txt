@@ -1,8 +1,8 @@
-• OpenStreetMap-Daten Stand 21. Oktober
-• Messstationen, Verkehrsinseln, Kneipp-Anlagen, Miniaturbahnen, Campingplätze, Flughafen-Terminals, Indoor-Spielbereiche, Telekommunikationsshops, Bootsverleih und Slipanlagen
-• Straßenschilder erscheinen jetzt in Navigationsanweisungen
-• Unterstützung älterer x86-Geräte hinzugefügt
-• Slowenische Sprache inkl. Sprachnavigation
-• Verbesserte Suche nach Emojis und EV-Ladestationen
+• Heruntergeladene Regionen, Naturschutzgebiete, Nationalparks, Schutzgebiete, Ländereien der Aborigines, Gefahrengebiete und Seen auf der Weltkarte hervorheben
+• Routing unterstützt Straßensperrzeiten
+• Frische OSM-Karten vom 9. November
+• Abstürze und Routing behoben, einschließlich Android Auto
+• Uhrmacher, Studentenunterkünfte, Reisebüros hinzugefügt
+• Sprachanweisungen in Estnisch, Galizisch, Hebräisch und Litauisch
 
 …mehr auf omaps.org/de/news
