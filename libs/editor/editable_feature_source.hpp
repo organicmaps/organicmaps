@@ -1,19 +1,18 @@
 #pragma once
 
-#include "indexer/feature.hpp"
 #include "indexer/feature_source.hpp"
-#include "indexer/mwm_set.hpp"
 
-#include "geometry/rect2d.hpp"
-
-#include <cstdint>
-#include <functional>
-#include <memory>
+namespace osm
+{
+class Editor;
+}  // namespace osm
 
 class EditableFeatureSource final : public FeatureSource
 {
+  osm::Editor const & m_editor;
+
 public:
-  explicit EditableFeatureSource(MwmSet::MwmHandle const & handle) : FeatureSource(handle) {}
+  explicit EditableFeatureSource(MwmSet::MwmHandle const & handle);
 
   // FeatureSource overrides:
   FeatureStatus GetFeatureStatus(uint32_t index) const override;
