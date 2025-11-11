@@ -1192,7 +1192,7 @@
  "timezone": "Europe/Madrid"
 },
 "Spain_Balearic Islands": {
- "languages": ["es", "ca"],
+ "languages": ["ca", "es"],
  "timezone": "Europe/Madrid"
 },
 "Spain_Basque Country": {
@@ -1203,7 +1203,7 @@
  "timezone": "Atlantic/Canary"
 },
 "Spain_Catalonia": {
- "languages": ["es", "ca"],
+ "languages": ["ca", "es"],
  "timezone": "Europe/Madrid"
 },
 "Spain_Ceuta": {
@@ -1217,7 +1217,7 @@
  "timezone": "Africa/Ceuta"
 },
 "Spain_Valencian Community": {
- "languages": ["es", "ca"],
+ "languages": ["ca", "es"],
  "timezone": "Europe/Madrid"
 },
 "Sri Lanka": {
