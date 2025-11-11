@@ -89,10 +89,9 @@ class EditedFeaturesHolder
 public:
   explicit EditedFeaturesHolder(MwmSet::MwmId const & id) : m_id(id)
   {
-    auto & editor = Editor::Instance();
-    m_deleted = editor.GetFeaturesByStatus(id, FeatureStatus::Deleted);
-    m_modified = editor.GetFeaturesByStatus(id, FeatureStatus::Modified);
-    m_created = editor.GetFeaturesByStatus(id, FeatureStatus::Created);
+    m_deleted = m_editor.GetFeaturesByStatus(id, FeatureStatus::Deleted);
+    m_modified = m_editor.GetFeaturesByStatus(id, FeatureStatus::Modified);
+    m_created = m_editor.GetFeaturesByStatus(id, FeatureStatus::Created);
   }
 
   bool ModifiedOrDeleted(uint32_t featureIndex) const
@@ -112,11 +111,10 @@ private:
   template <typename Fn>
   void ForEach(vector<uint32_t> const & features, Fn & fn)
   {
-    auto & editor = Editor::Instance();
     for (auto const index : features)
     {
       // Ignore feature load errors related to mwm removal and feature parse errors from editor.
-      if (auto emo = editor.GetEditedFeature(FeatureID(m_id, index)))
+      if (auto emo = m_editor.GetEditedFeature(FeatureID(m_id, index)))
         fn(*emo, index);
     }
   }
@@ -125,6 +123,8 @@ private:
   vector<uint32_t> m_deleted;
   vector<uint32_t> m_modified;
   vector<uint32_t> m_created;
+
+  Editor const & m_editor = Editor::Instance();
 };
 
 Retrieval::ExtendedFeatures SortFeaturesAndBuildResult(vector<uint64_t> && features,
