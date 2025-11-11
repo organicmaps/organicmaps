@@ -1,1 +1,1 @@
-Please fix all map issues at OpenStreetMap.org, and let us know about any bugs. Your feedback motivates our small team of enthusiasts to improve the app.
+Mapas offline para viajes, excursiones y rutas en bici. Navegación fluida sin señal ni gasto de batería. Datos OpenStreetMap, 100% gratis, sin anuncios.
