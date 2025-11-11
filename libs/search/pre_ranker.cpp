@@ -98,6 +98,7 @@ void PreRanker::FillMissingFieldsInPreResults()
   unique_ptr<LazyCentersTable> centers;
   bool pivotFeaturesInitialized = false;
 
+  auto const & editor = osm::Editor::Instance();
   ForEachMwmOrder(m_results, [&](PreRankerResult & r)
   {
     FeatureID const & id = r.GetId();
@@ -131,27 +132,23 @@ void PreRanker::FillMissingFieldsInPreResults()
       r.SetDistanceToPivot(mercator::DistanceOnEarth(m_params.m_accuratePivotCenter, center));
       r.SetCenter(center);
     }
+    else if (editor.GetFeatureStatus(id.m_mwmId, id.m_index) == FeatureStatus::Created)
+    {
+      auto const emo = editor.GetEditedFeature(id);
+      CHECK(emo, ());
+      center = emo->GetMercator();
+      r.SetDistanceToPivot(mercator::DistanceOnEarth(m_params.m_accuratePivotCenter, center));
+      r.SetCenter(center);
+    }
     else
     {
-      auto const & editor = osm::Editor::Instance();
-      if (editor.GetFeatureStatus(id.m_mwmId, id.m_index) == FeatureStatus::Created)
+      // Possible when search while MWM is reloading or updating (!IsAlive).
+      if (!pivotFeaturesInitialized)
       {
-        auto const emo = editor.GetEditedFeature(id);
-        CHECK(emo, ());
-        center = emo->GetMercator();
-        r.SetDistanceToPivot(mercator::DistanceOnEarth(m_params.m_accuratePivotCenter, center));
-        r.SetCenter(center);
+        m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
+        pivotFeaturesInitialized = true;
       }
-      else
-      {
-        // Possible when search while MWM is reloading or updating (!IsAlive).
-        if (!pivotFeaturesInitialized)
-        {
-          m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
-          pivotFeaturesInitialized = true;
-        }
-        r.SetDistanceToPivot(m_pivotFeatures.GetDistanceToFeatureMeters(id));
-      }
+      r.SetDistanceToPivot(m_pivotFeatures.GetDistanceToFeatureMeters(id));
     }
   });
 }
