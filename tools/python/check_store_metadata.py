@@ -246,7 +246,7 @@ def check_ios():
             overlay_path = os.path.join(overlay_dir, name)
             english_path = os.path.join(english_dir, name)
             target_path = os.path.join(locale_dir, name)
-            if os.path.exists(overlay_path):
+            if os.path.exists(overlay_path) and os.path.getmtime(overlay_path) > os.path.getmtime(target_path):
                 shutil.copy(overlay_path, target_path)
             elif os.path.exists(english_path) and not os.path.exists(target_path):
                 shutil.copy(english_path, target_path)
