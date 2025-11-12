@@ -125,12 +125,13 @@ extension PlacePageStyleSheet: IStyleSheet {
     case .ppBackgroundView:
       return .addFrom(GlobalStyleSheet.modalSheetBackground) { s in
         s.backgroundColor = colors.pressBackground
-        s.maskedCorners = isiPad ? CACornerMask.all : [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        s.clip = false
+        s.maskedCorners = .all
       }
     case .ppView:
       return .add { s in
-        s.backgroundColor = colors.clear
+        s.backgroundColor = .clear
+        s.maskedCorners = .all
+        s.cornerRadius = .modalSheet
         s.clip = true
       }
     case .ppHeaderCircleIcon:
