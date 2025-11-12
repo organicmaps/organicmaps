@@ -22,7 +22,7 @@
     let presenter = PlacePagePresenter(view: viewController,
                                        headerView: layout.headerViewController,
                                        mapViewController: MapViewController.shared()!)
-    viewController.setLayout(layout)
+    viewController.layout = layout
     viewController.interactor = interactor
     interactor.presenter = presenter
     layout.presenter = presenter
@@ -53,6 +53,5 @@
     interactor.presenter = presenter
     layout.presenter = presenter
     viewController.updateWithLayout(layout)
-    viewController.updatePreviewOffset()
   }
 }
