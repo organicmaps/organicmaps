@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJ0-97-CDh" customClass="PlacePageScrollView" customModule="Organic_Maps" customModuleProvider="target">
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJ0-97-CDh" customClass="PlacePageScrollView" customModule="Organic_Maps" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="597"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="bsv-S8-EiF">
@@ -38,9 +38,6 @@
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="VD0-9k-Kda"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="fDP-bR-gGe"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPView"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="delegate" destination="bX8-ZQ-XDA" id="ASo-bI-N1l"/>
                                 </connections>
@@ -1089,19 +1086,19 @@
                                         <rect key="frame" x="0.0" y="0.0" width="293" height="60"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="tDA-E0-cFj">
-                                                <rect key="frame" x="16" y="16" width="277" height="38"/>
+                                                <rect key="frame" x="16" y="18" width="277" height="34"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="FPZ-be-cyu" userLabel="Title Container">
-                                                        <rect key="frame" x="0.0" y="0.0" width="277" height="36"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="277" height="32"/>
                                                         <subviews>
-                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" text="Title" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ct0-4B-Xfk">
-                                                                <rect key="frame" x="0.0" y="0.0" width="255" height="36"/>
+                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" text="Title" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ct0-4B-Xfk">
+                                                                <rect key="frame" x="0.0" y="0.0" width="255" height="32"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <color key="textColor" systemColor="labelColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                             </textView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qLF-Ps-upn" userLabel="Clear Button" customClass="CircleImageButton" customModule="Organic_Maps" customModuleProvider="target">
+                                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qLF-Ps-upn" userLabel="Clear Button" customClass="CircleImageButton" customModule="Organic_Maps" customModuleProvider="target">
                                                                 <rect key="frame" x="259" y="5" width="16" height="16"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="16" id="GbK-CI-YVO"/>
@@ -1121,7 +1118,7 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iT-AD-Eyf">
-                                                        <rect key="frame" x="0.0" y="38" width="277" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="34" width="277" height="0.0"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1131,8 +1128,8 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="tDA-E0-cFj" firstAttribute="top" secondItem="Gdy-g5-gbM" secondAttribute="top" constant="16" id="O3l-MB-Z1R"/>
-                                            <constraint firstAttribute="bottom" secondItem="tDA-E0-cFj" secondAttribute="bottom" constant="6" id="X9o-Cb-aOD"/>
+                                            <constraint firstItem="tDA-E0-cFj" firstAttribute="top" secondItem="Gdy-g5-gbM" secondAttribute="top" constant="18" id="O3l-MB-Z1R"/>
+                                            <constraint firstAttribute="bottom" secondItem="tDA-E0-cFj" secondAttribute="bottom" constant="8" id="X9o-Cb-aOD"/>
                                             <constraint firstAttribute="trailing" secondItem="tDA-E0-cFj" secondAttribute="trailing" id="u8l-Jl-e3m"/>
                                             <constraint firstItem="tDA-E0-cFj" firstAttribute="leading" secondItem="Gdy-g5-gbM" secondAttribute="leading" constant="16" id="vm7-Hr-ryU"/>
                                         </constraints>
@@ -1188,7 +1185,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zrr-8j-bGC" userLabel="Cancel Buton">
-                                        <rect key="frame" x="293" y="17" width="70" height="30"/>
+                                        <rect key="frame" x="293" y="19" width="70" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="tintColor" name="AccentColor"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
