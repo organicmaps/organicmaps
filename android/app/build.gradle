@@ -308,7 +308,6 @@ def allowedPermissions = [
     "name='android.permission.FOREGROUND_SERVICE_LOCATION'",
     "name='android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK'",
     "name='android.permission.FOREGROUND_SERVICE_DATA_SYNC'",
-    "name='android.permission.FOREGROUND_SERVICE_SPECIAL_USE'",
     // notifications
     "name='android.permission.POST_NOTIFICATIONS'",
     // wake lock
@@ -319,9 +318,9 @@ def allowedPermissions = [
     // storage
     "name='android.permission.READ_EXTERNAL_STORAGE' maxSdkVersion='22'",
     // internal permissions
-    // comes from androidx.work:work-runtime
+    // comes from androidx.work:work-runtime:2.10.5
     "name='android.permission.RECEIVE_BOOT_COMPLETED'",
-    // all apps targeting Android 13 and higher automatically get RECEIVER_NOT_EXPORTED_PERMISSION flag added to their Manifest files
+    // comes from androidx.core:core:1.17.0
     // Regex to allow it for the following app packages:
     // app.organicmaps
     // app.organicmaps.(debug|beta)
