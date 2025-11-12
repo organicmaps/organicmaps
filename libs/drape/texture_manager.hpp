@@ -29,11 +29,6 @@ struct TexturePoolDesc
   bool m_needMipMaps = false;
 };
 
-struct Texture2dArrayPoolDesc : TexturePoolDesc
-{
-  uint32_t m_layerCount = 1;
-};
-
 class TexturePool
 {
 public:

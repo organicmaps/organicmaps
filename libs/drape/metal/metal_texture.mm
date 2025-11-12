@@ -95,9 +95,7 @@ void MetalTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & p
 void MetalTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width,
                               uint32_t height, ref_ptr<void> data)
 {
-  UNUSED_VALUE(context);
-  CHECK(m_isMutable, ("Upload data is avaivable only for mutable textures."));
-  UploadDataImpl(x, y, width, height, 0, data);
+  UploadData(context, x, y, width, height, 0, data);
 }
 
 void MetalTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width,
