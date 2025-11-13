@@ -487,6 +487,7 @@
 		ED8270F02C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */; };
 		ED83880F2D54DEB3002A0536 /* UIImage+FilledWithColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED83880E2D54DEA4002A0536 /* UIImage+FilledWithColor.swift */; };
 		ED8A91E02D759B50009E063B /* LocalizableTypes.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED8A91DE2D759B50009E063B /* LocalizableTypes.strings */; };
+		ED8D79F72EC60FA200B64429 /* UIView+SetHiddenWithAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8D79F62EC60FA200B64429 /* UIView+SetHiddenWithAnimation.swift */; };
 		ED914AB22D35063A00973C45 /* TextColorStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914AB12D35063A00973C45 /* TextColorStyleSheet.swift */; };
 		ED914AB82D351DF000973C45 /* StyleApplicable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914AB72D351DF000973C45 /* StyleApplicable.swift */; };
 		ED914ABE2D351FF800973C45 /* UILabel+SetFontStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */; };
@@ -1503,6 +1504,7 @@
 		ED8A920B2D759BA9009E063B /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A920C2D759BA9009E063B /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A920D2D759BAA009E063B /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
+		ED8D79F62EC60FA200B64429 /* UIView+SetHiddenWithAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+SetHiddenWithAnimation.swift"; sourceTree = "<group>"; };
 		ED914AB12D35063A00973C45 /* TextColorStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextColorStyleSheet.swift; sourceTree = "<group>"; };
 		ED914AB72D351DF000973C45 /* StyleApplicable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleApplicable.swift; sourceTree = "<group>"; };
 		ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+SetFontStyle.swift"; sourceTree = "<group>"; };
@@ -2314,6 +2316,7 @@
 				3404164A1E7BF42D00E2B6D6 /* UIView+Coordinates.swift */,
 				34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */,
 				340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */,
+				ED8D79F62EC60FA200B64429 /* UIView+SetHiddenWithAnimation.swift */,
 				349D1CE21E3F836900A878FD /* UIViewController+Hierarchy.swift */,
 				34F7422F1E0834F400AC1FD6 /* UIViewController+Navigation.h */,
 				34F742301E0834F400AC1FD6 /* UIViewController+Navigation.m */,
@@ -4943,6 +4946,7 @@
 				47E3C72F2111F472008B3B27 /* CoverVerticalModalTransitioning.swift in Sources */,
 				EDC91B9A2DC23B5B008BF257 /* NavigationDashboardModalPresentationStepStrategy.swift in Sources */,
 				34E776101F14B165003040B3 /* VisibleArea.swift in Sources */,
+				ED8D79F72EC60FA200B64429 /* UIView+SetHiddenWithAnimation.swift in Sources */,
 				995F1613244F0AA50060631D /* BottomMenuLayersCell.swift in Sources */,
 				ED0C54992C6E6AF000253A5F /* TrackRecordingManager.swift in Sources */,
 				993DF10723F6BDB100AC231A /* UIColor+image.swift in Sources */,
