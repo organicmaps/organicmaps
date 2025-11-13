@@ -11,7 +11,12 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 
+#include <format>
 #include <string>
+
+// TODO: remove
+#include "coding/url.hpp"
+#include "pt_private/quad_tree_encoder.h"
 
 #include <glaze/json/read.hpp>
 
@@ -101,22 +106,27 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
 
   if (info.HasOnlineSchedule())
   {
-    std::ostringstream url;
-    url << "http://localhost:8080/?"
-        << "lat=" << std::setprecision(7) << std::fixed << info.GetLatLon().m_lat << "&lon=" << info.GetLatLon().m_lon
-        << "&name=" << info.GetPrimaryFeatureName()  // Likely translated on mobiles.
-        << "&types=" << strings::JoinStrings(info.GetRawTypes(), ';')
-        << "&local_ref=" << info.GetMetadata(PropID::FMD_LOCAL_REF);
+    auto const [lat, lon] = info.GetLatLon();
+
+    // auto const id = info.GetMetadata(PropID::FMD_SCHEDULE_ID);
+    auto const id = QuadTreeEncoder::LatLonToBase62(lat, lon);
+    // TODO: Params after ? are for debugging purposes. Remove.
+    auto url = std::format("http://osm.me:8080/v1/schedule/{}?lat={:.6f}&lon={:.6f}&name={}&types={}", id, lat, lon,
+                           url::UrlEncode(info.GetPrimaryFeatureName()),  // Likely translated on mobiles.
+                           url::UrlEncode(strings::JoinStrings(info.GetRawTypes(), ';')));
+    if (auto const localRef = info.GetMetadata(PropID::FMD_LOCAL_REF); !localRef.empty())
+      url += "&local_ref=" + url::UrlEncode(localRef);
 
     QLabel * scheduleLabel = addEntry("Schedule", "Loading...");
-    GetPlatform().RunTask(Platform::Thread::Network, [url = std::move(url.str()), scheduleLabel]()
+    GetPlatform().RunTask(Platform::Thread::Network, [url = std::move(url), scheduleLabel]()
     {
       platform::HttpClient client{url};
       std::string uiString;
       if (client.RunHttpRequest())
         uiString = FormatSchedule(client.ServerResponse());
       else
-        uiString = "Failed to connect to " + client.UrlRequested();
+        uiString = "Failed to connect to " + url::UrlDecode(client.UrlRequested());
+
       auto qs = QString::fromStdString(uiString);
       scheduleLabel->setText(qs);
     });
