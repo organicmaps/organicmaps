@@ -663,7 +663,7 @@ void EditorTest::HaveMapEditsOrNotesToUploadTest()
 
   ScopedFile sf("test_notes.xml", ScopedFile::Mode::DoNotCreate);
 
-  editor.m_notes = Notes::MakeNotes(sf.GetFullPath(), true);
+  editor.SetNotesForTesting(sf.GetFullPath());
 
   ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft)
   {
@@ -853,13 +853,14 @@ void EditorTest::CreateNoteTest()
       [&editor](FeatureID const & fId, ms::LatLon const & pos, osm::Editor::NoteProblemType const noteType)
   {
     ScopedFile sf("test_notes.xml", ScopedFile::Mode::DoNotCreate);
-    editor.m_notes = Notes::MakeNotes(sf.GetFullPath(), true);
+    editor.SetNotesForTesting(sf.GetFullPath());
+
     feature::TypesHolder holder;
     holder.Assign(classif().GetTypeByPath({"amenity", "restaurant"}));
     std::string defaultName = "Test name";
     editor.CreateNote(pos, fId, holder, defaultName, noteType, "with comment");
 
-    auto const notes = editor.m_notes->GetNotes();
+    auto const notes = editor.m_notes->GetNotesForTests();
     TEST_EQUAL(notes.size(), 1, ());
     auto const & note = notes.front();
     TEST(note.m_point.EqualDxDy(pos, 1e-10), ());
@@ -870,13 +871,13 @@ void EditorTest::CreateNoteTest()
   };
 
   // Should match a piece of text in the editor note.
-  constexpr char const * kPlaceDoesNotExistMessage = "The place has gone or never existed";
+  static std::string_view constexpr kPlaceDoesNotExistMessage = "The place has gone or never existed";
 
   ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [&editor, &createAndCheckNote](FeatureType & ft)
   {
     createAndCheckNote(ft.GetID(), {1.0, 1.0}, osm::Editor::NoteProblemType::PlaceDoesNotExist);
 
-    auto notes = editor.m_notes->GetNotes();
+    auto const & notes = editor.m_notes->GetNotesForTests();
     TEST_NOT_EQUAL(notes.front().m_note.find(kPlaceDoesNotExistMessage), std::string::npos, ());
     TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), FeatureStatus::Obsolete, ());
   });
@@ -886,7 +887,7 @@ void EditorTest::CreateNoteTest()
     createAndCheckNote(ft.GetID(), {2.0, 2.0}, osm::Editor::NoteProblemType::General);
 
     TEST_NOT_EQUAL(editor.GetFeatureStatus(ft.GetID()), FeatureStatus::Obsolete, ());
-    auto notes = editor.m_notes->GetNotes();
+    auto const & notes = editor.m_notes->GetNotesForTests();
     TEST_EQUAL(notes.front().m_note.find(kPlaceDoesNotExistMessage), std::string::npos, ());
   });
 }
