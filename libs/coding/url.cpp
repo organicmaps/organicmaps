@@ -1,41 +1,42 @@
 #include "coding/url.hpp"
+#include <string_view>
 #include "coding/hex.hpp"
 
 #include "base/assert.hpp"
-#include "base/string_utils.hpp"
 
 namespace url
 {
-using namespace std;
-
-Url::Url(std::string const & url)
+Url::Url(std::string_view url)
 {
   if (!Parse(url))
     ASSERT(m_scheme.empty() && m_host.empty() && m_path.empty() && !IsValid(), ());
 }
 
-Url Url::FromString(std::string const & url)
+Url Url::FromString(std::string_view url)
 {
-  bool const hasProtocol = url.starts_with("http://") || url.starts_with("https://");
-  return Url(hasProtocol ? url : "https://" + url);
+  if (url.starts_with("http://") || url.starts_with("https://"))
+    return Url(url);
+  return Url("https://" + std::string(url));
 }
 
-bool Url::Parse(std::string const & url)
+bool Url::Parse(std::string_view url)
 {
+  static constexpr size_t kNotFound = std::string_view::npos;
+
   // Get url scheme.
   size_t start = url.find(':');
-  if (start == string::npos || start == 0)
+  if (start == kNotFound || start == 0)
     return false;
   m_scheme = url.substr(0, start);
 
   // Skip slashes.
   start = url.find_first_not_of('/', start + 1);
-  if (start == std::string::npos)
+  if (start == kNotFound)
     return true;
 
   // Get host.
   size_t end = url.find_first_of("/?#", start);
-  if (end == string::npos)
+  if (end == kNotFound)
   {
     m_host = url.substr(start);
     return true;
@@ -48,11 +49,11 @@ bool Url::Parse(std::string const & url)
   {
     // Skip slashes.
     start = url.find_first_not_of('/', end);
-    if (start == std::string::npos)
+    if (start == kNotFound)
       return true;
 
     end = url.find_first_of("?#", start);
-    if (end == string::npos)
+    if (end == kNotFound)
     {
       m_path = url.substr(start);
       return true;
@@ -65,7 +66,7 @@ bool Url::Parse(std::string const & url)
   for (start = end + 1; start < url.size();)
   {
     end = url.find_first_of("&#", start);
-    if (end == string::npos)
+    if (end == kNotFound)
       end = url.size();
 
     // Skip empty keys.
@@ -73,9 +74,8 @@ bool Url::Parse(std::string const & url)
     {
       size_t const eq = url.find('=', start);
 
-      string key;
-      string value;
-      if (eq != string::npos && eq < end)
+      std::string key, value;
+      if (eq != kNotFound && eq < end)
       {
         key = UrlDecode(url.substr(start, eq - start));
         value = UrlDecode(url.substr(eq + 1, end - eq - 1));
@@ -94,7 +94,7 @@ bool Url::Parse(std::string const & url)
   return true;
 }
 
-string Join(string const & lhs, string const & rhs)
+std::string Join(std::string const & lhs, std::string const & rhs)
 {
   if (lhs.empty())
     return rhs;
@@ -110,15 +110,14 @@ string Join(string const & lhs, string const & rhs)
   return lhs + rhs;
 }
 
-string UrlEncode(string const & rawUrl)
+std::string UrlEncode(std::string_view component)
 {
-  size_t const count = rawUrl.size();
-  string result;
+  size_t const count = component.size();
+  std::string result;
   result.reserve(count);
 
-  for (size_t i = 0; i < count; ++i)
+  for (auto const c : component)
   {
-    char const c = rawUrl[i];
     if (c < '-' || c == '/' || (c > '9' && c < 'A') || (c > 'Z' && c < '_') || c == '`' || (c > 'z' && c < '~') ||
         c > '~')
     {
@@ -126,16 +125,16 @@ string UrlEncode(string const & rawUrl)
       result += NumToHex(c);
     }
     else
-      result += rawUrl[i];
+      result += c;
   }
 
   return result;
 }
 
-string UrlDecode(string_view encodedUrl)
+std::string UrlDecode(std::string_view encodedUrl)
 {
   size_t const count = encodedUrl.size();
-  string result;
+  std::string result;
   result.reserve(count);
 
   for (size_t i = 0; i < count; ++i)
