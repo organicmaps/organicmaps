@@ -15,8 +15,8 @@ namespace url
 class Url
 {
 public:
-  explicit Url(std::string const & url);
-  static Url FromString(std::string const & url);
+  explicit Url(std::string_view url);
+  static Url FromString(std::string_view url);
 
   bool IsValid() const { return !m_scheme.empty(); }
 
@@ -43,7 +43,7 @@ public:
   }
 
 private:
-  bool Parse(std::string const & url);
+  bool Parse(std::string_view url);
 
   std::string m_scheme, m_host, m_path;
   std::vector<Param> m_params;
@@ -58,7 +58,7 @@ std::string Join(std::string const & lhs, std::string const & rhs, Args &&... ar
   return Join(Join(lhs, rhs), std::forward<Args>(args)...);
 }
 
-std::string UrlEncode(std::string const & rawUrl);
-std::string UrlDecode(std::string_view encodedUrl);
+std::string UrlEncode(std::string_view component);
+std::string UrlDecode(std::string_view encodedComponent);
 
 }  // namespace url
