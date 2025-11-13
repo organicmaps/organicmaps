@@ -89,10 +89,10 @@ public class TrackRecordingService extends Service implements LocationListener
       return mExitPendingIntent;
 
     final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
-    final Intent exitIntent = new Intent(context, MwmActivity.class);
+    final Intent exitIntent = new Intent(context, TrackRecordingService.class);
     exitIntent.setAction(STOP_TRACK_RECORDING);
     mExitPendingIntent =
-        PendingIntent.getActivity(context, 1, exitIntent, PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+        PendingIntent.getService(context, 1, exitIntent, PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
     return mExitPendingIntent;
   }
 
@@ -128,12 +128,21 @@ public class TrackRecordingService extends Service implements LocationListener
   @Override
   public void onDestroy()
   {
+    Logger.d(TAG);
     mNotificationBuilder = null;
     mWarningBuilder = null;
     if (TrackRecorder.nativeIsTrackRecordingEnabled())
       TrackRecorder.nativeStopTrackRecording();
     MwmApplication.from(this).getLocationHelper().removeListener(this);
     // The notification is cancelled automatically by the system.
+  }
+
+  @Override
+  public void onTaskRemoved(@NonNull Intent rootIntent)
+  {
+    Logger.d(TAG, "Task removed, stopping service");
+    stopSelf();
+    super.onTaskRemoved(rootIntent);
   }
 
   @Override
@@ -158,6 +167,15 @@ public class TrackRecordingService extends Service implements LocationListener
     if (!TrackRecorder.nativeIsTrackRecordingEnabled())
     {
       Logger.i(TAG, "Service can't be started because Track Recorder is turned off in settings");
+      stopSelf();
+      return START_NOT_STICKY;
+    }
+
+    final String action = intent.getAction();
+    if (action != null && STOP_TRACK_RECORDING.equals(action))
+    {
+      Logger.d(TAG, "Stop action received");
+      TrackRecorder.nativeStopTrackRecording();
       stopSelf();
       return START_NOT_STICKY;
     }
