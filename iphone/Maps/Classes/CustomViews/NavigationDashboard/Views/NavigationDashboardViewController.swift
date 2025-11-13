@@ -311,6 +311,7 @@ final class NavigationDashboardViewController: UIViewController {
     routeStatusStackView.setContentHuggingPriority(.defaultHigh, for: .vertical)
     closeButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     settingsButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+    transportOptionsView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
 
     NSLayoutConstraint.activate([
       grabberView.centerXAnchor.constraint(equalTo: availableAreaView.centerXAnchor),
