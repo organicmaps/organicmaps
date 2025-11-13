@@ -115,15 +115,9 @@ bool Save(std::string const & fileName, std::list<editor::Note> const & notes, u
 }
 }  // namespace
 
-/// @todo Remove and hold Notes by value in the Editor.
-std::shared_ptr<Notes> Notes::MakeNotes(std::string const & fileName, bool const fullPath)
+Notes::Notes(std::string const & filePath) : m_filePath(filePath)
 {
-  return std::shared_ptr<Notes>(new Notes(fullPath ? fileName : GetPlatform().WritablePathForFile(fileName)));
-}
-
-Notes::Notes(std::string const & fileName) : m_fileName(fileName)
-{
-  Load(m_fileName, m_notes, m_uploadedNotesCount);
+  Load(m_filePath, m_notes, m_uploadedNotesCount);
 }
 
 void Notes::CreateNote(ms::LatLon const & latLon, std::string const & text)
@@ -148,7 +142,7 @@ void Notes::CreateNote(ms::LatLon const & latLon, std::string const & text)
     return;
 
   m_notes.emplace_back(latLon, text);
-  Save(m_fileName, m_notes, m_uploadedNotesCount);
+  Save(m_filePath, m_notes, m_uploadedNotesCount);
 }
 
 void Notes::Upload(osm::OsmOAuth const & auth)
@@ -162,19 +156,15 @@ void Notes::Upload(osm::OsmOAuth const & auth)
     return;
   m_isUploadingNow = true;
 
-  // Capture self to keep it from destruction until this thread is done.
-  /// @todo It looks redundant because of parent static Editor instance.
-  auto self = shared_from_this();
-
-  GetPlatform().RunTask(Platform::Thread::Network, [self = std::move(self), auth]()
+  GetPlatform().RunTask(Platform::Thread::Network, [this, auth]()
   {
-    SCOPE_GUARD(resetUploadingFlag, [&self]() { self->m_isUploadingNow = false; });
+    SCOPE_GUARD(resetUploadingFlag, [this]() { m_isUploadingNow = false; });
 
     /// @todo By VNG: unlock-lock is made below. Can rewrite better.
-    std::unique_lock<std::mutex> ulock(self->m_mu);
+    std::unique_lock<std::mutex> ulock(m_mu);
 
     // Size of m_notes is decreased only in this method.
-    auto & notes = self->m_notes;
+    auto & notes = m_notes;
     size_t size = notes.size();
     osm::ServerApi06 api(auth);
 
@@ -200,16 +190,10 @@ void Notes::Upload(osm::OsmOAuth const & auth)
 
       notes.pop_front();
       --size;
-      ++self->m_uploadedNotesCount;
-      Save(self->m_fileName, notes, self->m_uploadedNotesCount);
+      ++m_uploadedNotesCount;
+      Save(m_filePath, notes, m_uploadedNotesCount);
     }
   });
-}
-
-std::list<Note> Notes::GetNotes() const
-{
-  std::lock_guard<std::mutex> g(m_mu);
-  return m_notes;
 }
 
 size_t Notes::NotUploadedNotesCount() const

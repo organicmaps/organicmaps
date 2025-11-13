@@ -100,9 +100,10 @@ public:
   void SetDelegate(std::unique_ptr<Delegate> delegate) { m_delegate = std::move(delegate); }
 
   void SetStorageForTesting(std::unique_ptr<editor::StorageBase> storage) { m_storage = std::move(storage); }
+  void SetNotesForTesting(std::string const & filePath);
 
-  /// @todo Remove and hold m_notes by value.
-  void ResetNotes() { m_notes = editor::Notes::MakeNotes(); }
+  /// ReRead from file. Used in unit tests only.
+  void ResetNotes();
 
   void SetDefaultStorage();
 
@@ -255,7 +256,7 @@ private:
   editor::ConfigLoader m_configLoader;
 
   /// Notes to be sent to osm.
-  std::shared_ptr<editor::Notes> m_notes;
+  std::unique_ptr<editor::Notes> m_notes;
 
   std::unique_ptr<editor::StorageBase> m_storage;
 
