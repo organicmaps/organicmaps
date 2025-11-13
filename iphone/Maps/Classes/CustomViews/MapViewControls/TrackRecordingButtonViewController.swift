@@ -51,9 +51,9 @@ final class TrackRecordingButtonViewController: MWMViewController {
     self.state = state
     switch state {
     case .visible:
-      setHidden(false, completion: nil)
+      button.setHidden(false, completion: nil)
     case .hidden:
-      setHidden(true, completion: completion)
+      button.setHidden(true, completion: completion)
     case .closed:
       close(completion: completion)
     @unknown default:
@@ -119,20 +119,9 @@ final class TrackRecordingButtonViewController: MWMViewController {
     blinkingTimer = nil
   }
 
-  private func setHidden(_ hidden: Bool, completion: (() -> Void)?) {
-    UIView.transition(with: self.view,
-                      duration: kDefaultAnimationDuration,
-                      options: .transitionCrossDissolve,
-                      animations: {
-      self.button.isHidden = hidden
-    }) { _ in
-      completion?()
-    }
-  }
-
   private func close(completion: (() -> Void)?) {
     stopTimer()
-    setHidden(true) { [weak self] in
+    button.setHidden(true) { [weak self] in
       guard let self else { return }
       self.removeFromParent()
       self.view.removeFromSuperview()
