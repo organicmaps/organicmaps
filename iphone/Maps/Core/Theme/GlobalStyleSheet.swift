@@ -64,6 +64,8 @@ enum GlobalStyleSheet: String, CaseIterable {
   case grabber
   case modalSheetBackground
   case modalSheetContent
+  case sideMenuBackground
+  case sideMenuContent
   case toastBackground
   case toastLabel
 }
@@ -468,7 +470,7 @@ extension GlobalStyleSheet: IStyleSheet {
         s.coloring = MWMButtonColoring.blue
       }
     case .grabber:
-      return .addFrom(Self.background) { s in
+      return .addFrom(Self.divider) { s in
         s.cornerRadius = .grabber
       }
     case .modalSheetBackground:
@@ -478,11 +480,7 @@ extension GlobalStyleSheet: IStyleSheet {
         s.shadowOffset = CGSize(width: 0, height: 1)
         s.shadowOpacity = 0.3
         s.shadowRadius = 6
-        if #available(iOS 26.0, *) {
-          s.cornerRadius = .iOS26ModalSheet
-        } else {
-          s.cornerRadius = .modalSheet
-        }
+        s.cornerRadius = .modalSheet
         s.clip = false
         s.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
       }
@@ -491,9 +489,17 @@ extension GlobalStyleSheet: IStyleSheet {
         s.backgroundColor = colors.clear
         s.clip = true
       }
+    case .sideMenuBackground:
+      return .addFrom(Self.modalSheetBackground) { s in
+        s.maskedCorners = []
+      }
+    case .sideMenuContent:
+      return .addFrom(Self.modalSheetContent) { s in
+        s.maskedCorners = []
+      }
     case .toastBackground:
       return .add { s in
-        s.cornerRadius = .modalSheet
+        s.cornerRadius = .buttonDefaultBig
         s.clip = true
       }
     case .toastLabel:
