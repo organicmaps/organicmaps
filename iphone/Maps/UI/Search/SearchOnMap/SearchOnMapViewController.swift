@@ -98,8 +98,13 @@ final class SearchOnMapViewController: UIViewController {
 
   // MARK: - Private methods
   private func setupViews() {
-    availableAreaView.setStyleAndApply(.modalSheetBackground)
-    contentView.setStyleAndApply(.modalSheetContent)
+    if isiPad {
+      availableAreaView.setStyleAndApply(.sideMenuBackground)
+      contentView.setStyleAndApply(.sideMenuContent)
+    } else {
+      availableAreaView.setStyleAndApply(.modalSheetBackground)
+      contentView.setStyleAndApply(.modalSheetContent)
+    }
 
     setupGestureRecognizers()
     setupDimView()

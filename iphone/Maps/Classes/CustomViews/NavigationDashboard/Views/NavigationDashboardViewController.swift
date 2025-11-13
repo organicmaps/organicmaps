@@ -186,12 +186,7 @@ final class NavigationDashboardViewController: UIViewController {
   }
 
   private func setupGrabberView() {
-    // TODO: remove when the grabber will be the same on all the modal screens
-    grabberView.layer.setCornerRadius(.grabber)
-    grabberView.backgroundColor = .blackDividers()
-    iPadSpecific { [weak self] in
-      self?.grabberView.isHidden = true
-    }
+    grabberView.setStyle(.grabber)
   }
 
   private func setupCloseButton() {
@@ -318,17 +313,10 @@ final class NavigationDashboardViewController: UIViewController {
     closeButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     settingsButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
-    let grabberTopConstraint: NSLayoutConstraint
-    if isiPad {
-      grabberTopConstraint = grabberView.topAnchor.constraint(equalTo: availableAreaView.safeAreaLayoutGuide.topAnchor)
-    } else {
-      grabberTopConstraint = grabberView.topAnchor.constraint(equalTo: availableAreaView.topAnchor, constant: Constants.grabberTopInset)
-    }
-
     NSLayoutConstraint.activate([
       grabberView.centerXAnchor.constraint(equalTo: availableAreaView.centerXAnchor),
       grabberView.widthAnchor.constraint(equalToConstant: Constants.grabberWidth),
-      grabberTopConstraint,
+      grabberView.topAnchor.constraint(equalTo: availableAreaView.topAnchor, constant: Constants.grabberTopInset),
       grabberView.heightAnchor.constraint(equalToConstant: Constants.grabberHeight),
 
       closeButton.trailingAnchor.constraint(equalTo: availableAreaView.safeAreaLayoutGuide.trailingAnchor, constant: Constants.closeButtonInsets.right),
