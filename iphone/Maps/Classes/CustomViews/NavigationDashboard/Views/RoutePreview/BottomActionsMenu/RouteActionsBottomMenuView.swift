@@ -46,15 +46,6 @@ final class RouteActionsBottomMenuView: UIView {
     stackView.addArrangedSubview(view)
   }
 
-  func setHidden(_ hidden: Bool, animated: Bool = true) {
-    UIView.transition(with: self,
-                      duration: animated ? Constants.animationDuration : 0,
-                      options: .transitionCrossDissolve,
-                      animations: { [weak self] in
-      self?.alpha = hidden ? 0 : 1
-    })
-  }
-
   func setShadowVisible(_ visible: Bool) {
     guard !isHidden else { return }
     UIView.animate(withDuration: Constants.animationDuration) {

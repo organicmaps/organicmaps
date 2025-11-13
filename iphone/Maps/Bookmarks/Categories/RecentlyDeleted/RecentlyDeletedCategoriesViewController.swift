@@ -212,13 +212,13 @@ extension RecentlyDeletedCategoriesViewController: UITableViewDelegate {
 // MARK: - UISearchBarDelegate
 extension RecentlyDeletedCategoriesViewController: UISearchBarDelegate {
   func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-    toolBar.isHidden = true
+    toolBar.setHidden(true)
     searchBar.setShowsCancelButton(true, animated: true)
     viewModel.startSearching()
   }
 
   func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-    toolBar.isHidden = false
+    toolBar.setHidden(false)
     searchBar.setShowsCancelButton(false, animated: true)
   }
 
