@@ -175,13 +175,13 @@ extension BookmarksListViewController: UITableViewDelegate {
 
 extension BookmarksListViewController: UISearchBarDelegate {
   func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-    toolBar.isHidden = true
+    toolBar.setHidden(true)
     searchBar.setShowsCancelButton(true, animated: true)
     presenter.activateSearch()
   }
 
   func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-    toolBar.isHidden = false
+    toolBar.setHidden(false)
     searchBar.setShowsCancelButton(false, animated: true)
     presenter.deactivateSearch()
   }
