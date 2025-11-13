@@ -128,6 +128,7 @@ public class DownloaderNotifier
 
       mProgressNotificationBuilder =
           new NotificationCompat.Builder(mContext, CHANNEL_ID)
+              .addAction(0, mContext.getString(R.string.cancel), DownloaderService.buildCancelPendingIntent())
               .setAutoCancel(true)
               .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
               .setSmallIcon(R.drawable.ic_splash)
