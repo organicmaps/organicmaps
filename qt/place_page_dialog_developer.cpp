@@ -15,88 +15,99 @@
 #include <string>
 
 // TODO: remove
+#include <glaze/json/read.hpp>
+#include <sstream>
 #include "coding/url.hpp"
 #include "pt_private/quad_tree_encoder.h"
 
-#include <glaze/json/read.hpp>
-
 #include "platform/http_client.hpp"
 
-namespace
+struct Stop
 {
-struct Stop {
-  std::string id;
-  std::string stop_name;
+  std::string_view id;
+  std::string_view stop_name;
   std::vector<double> lat_lon;  // [latitude, longitude]
 };
 
-struct Route {
-  std::string routeId;
-  std::string shortName;
-  std::string longName;
-  std::string routeType;
-  std::string typeRaw;
-  std::string agency;
+struct Route
+{
+  std::string_view routeId;
+  std::string_view shortName;
+  std::string_view longName;
+  std::string_view routeType;
+  std::string_view typeRaw;
+  std::string_view agency;
 };
 
-struct Calendar {
-  std::string serviceId;
-  std::string week;
+struct Calendar
+{
+  std::string_view serviceId;
+  std::string_view week;
   int periodStart;
   int periodEnd;
-  std::vector<int> datesIncluded;  // Optional
+  std::optional<std::vector<int>> datesIncluded;
   std::vector<int> datesExcluded;
 };
 
-struct StopOnRoutePosition {
+struct StopOnRoutePosition
+{
   int sequence;
-  std::string nextStopId;      // Optional
-  std::string nextStopName;    // Optional
-  std::string prevStopId;      // Optional
-  std::string prevStopName;    // Optional
-  std::string firstStopId;
-  std::string firstStopName;
-  std::string lastStopId;
-  std::string lastStopName;
+  std::optional<std::string_view> nextStopId;
+  std::optional<std::string_view> nextStopName;
+  std::optional<std::string_view> prevStopId;
+  std::optional<std::string_view> prevStopName;
+  std::string_view firstStopId;
+  std::string_view firstStopName;
+  std::string_view lastStopId;
+  std::string_view lastStopName;
 };
 
-struct RouteStopTime {
+struct RouteStopTime
+{
   StopOnRoutePosition stopOnRoutePosition;
-  std::string timezone;
-  std::string route;
-  std::vector<std::string> tripIds;
+  std::string_view timezone;
+  std::string_view route;
+  std::vector<std::string_view> tripIds;
   std::vector<int> arrivalTimes;    // Time in seconds
   std::vector<int> departureTimes;  // Time in seconds
 };
 
-struct Section {
+struct Section
+{
   Calendar calendar;
   std::vector<RouteStopTime> routeStopTimes;
 };
 
-struct Schedule {
+struct Schedule
+{
   Stop stop;
-  std::map<std::string, Route> routes;
+  std::map<std::string_view, Route> routes;
   std::vector<Section> sections;
 };
 
+namespace
+{
 constexpr std::string_view daysOfWeek[] = {"Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"};
 
 // Returns multiline string visible to user.
 std::string FormatSchedule(std::string const & jsonSchedule)
 {
-  std::vector<Schedule> schedules;
+  std::ostringstream s;
 
-  std::stringstream s;
+  auto const schedules = glz::read_json<std::vector<Schedule>>(jsonSchedule);
+  if (!schedules)
+  {
+    s << "Failed to parse schedule: " << schedules.error();
+    return s.str();
+  }
 
-  auto error = glz::read_json(schedules, jsonSchedule);
-  for(const Schedule& schedule : schedules)
+  for (Schedule const & schedule : *schedules)
   {
     s << schedule.stop.stop_name << " (" << schedule.stop.id << ")" << '\n';
 
-    const auto& now = std::chrono::system_clock::now();
+    auto const now = std::chrono::system_clock::now();
     std::time_t now_time_t = std::chrono::system_clock::to_time_t(now);
-    const std::tm* local_time = std::localtime(&now_time_t);
+    std::tm const * local_time = std::localtime(&now_time_t);
 
     int year = local_time->tm_year + 1900;
     int month = local_time->tm_mon + 1;
@@ -106,39 +117,30 @@ std::string FormatSchedule(std::string const & jsonSchedule)
 
     int i_date = year * 10000 + month * 100 + day;
 
-    //Find todays section
-    for (const auto& section: schedule.sections) {
-      if (section.calendar.periodStart > i_date || section.calendar.periodEnd < i_date)
+    // Find today's section
+    for (auto const & section : schedule.sections)
+    {
+      Calendar const & cal = section.calendar;
+      if (cal.periodStart > i_date || cal.periodEnd < i_date)
         continue;
 
-      if (section.calendar.datesExcluded.size() > 0)
+      if (!cal.datesExcluded.empty())
       {
-        auto excl = section.calendar.datesExcluded;
-        if (std::find(excl.begin(), excl.end(), i_date) != excl.end())
-        {
+        auto const & excluded = cal.datesExcluded;
+        if (std::find(excluded.begin(), excluded.end(), i_date) != excluded.end())
           continue;
-        }
       }
 
-      const auto incl = section.calendar.datesIncluded;
-      if (section.calendar.week.find(dow) >= 0 || std::find(incl.begin(), incl.end(), i_date) != incl.end() )
+      if (cal.week.find(dow) != std::string::npos ||
+          (cal.datesIncluded && std::ranges::find(*cal.datesIncluded, i_date) != cal.datesIncluded->end()))
       {
-        s << section.calendar.week << " (" << section.calendar.periodStart << " " << section.calendar.periodEnd << ")" << '\n';
-        std::vector<std::string> routes;
-        for (const auto& rs: section.routeStopTimes)
-        {
-          auto r = schedule.routes.find(rs.route);
-          if (r != schedule.routes.end())
-          {
-            routes.push_back(r->second.shortName);
-          }
-        }
-        s << strings::JoinStrings(routes, ";") << '\n';
+        s << cal.week << " (" << cal.periodStart << " " << cal.periodEnd << ")" << '\n';
+        for (auto const & rs : section.routeStopTimes)
+          if (auto const r = schedule.routes.find(rs.route); r != schedule.routes.end())
+            s << r->second.shortName << ';';
       }
     }
   }
-
-  // See libs/platform/platform_tests/glaze_test.cpp and https://stephenberry.github.io/glaze/json/
   return s.str();
 }
 }  // namespace
@@ -222,7 +224,7 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
     // auto const id = info.GetMetadata(PropID::FMD_SCHEDULE_ID);
     auto const id = QuadTreeEncoder::LatLonToBase62(lat, lon);
     // TODO: Params after ? are for debugging purposes. Remove.
-    auto url = std::format("http://localhost:4567/v1/schedule/{}?lat={:.8f}&lon={:.8f}&name={}&types={}", id, lat, lon,
+    auto url = std::format("http://osm.me:4567/v1/schedule/{}?lat={:.8f}&lon={:.8f}&name={}&types={}", id, lat, lon,
                            url::UrlEncode(info.GetPrimaryFeatureName()),  // Likely translated on mobiles.
                            url::UrlEncode(strings::JoinStrings(info.GetRawTypes(), ';')));
     if (auto const localRef = info.GetMetadata(PropID::FMD_LOCAL_REF); !localRef.empty())
