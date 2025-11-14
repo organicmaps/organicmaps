@@ -30,7 +30,8 @@ typedef NS_ENUM(NSUInteger, MWMKmlFileType) {
   MWMKmlFileTypeText,
   MWMKmlFileTypeBinary,
   MWMKmlFileTypeGpx,
-  MWMKmlFileTypeGeoJson
+  MWMKmlFileTypeGeoJson,
+  MWMKmlFileTypeJson
 } NS_SWIFT_NAME(KmlFileType);
 
 typedef uint64_t MWMMarkID;

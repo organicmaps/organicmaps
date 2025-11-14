@@ -11,6 +11,7 @@ extension FileType {
   static let kmz = FileType(fileExtension: "kmz", typeIdentifier: "com.google.earth.kmz")
   static let gpx = FileType(fileExtension: "gpx", typeIdentifier: "com.topografix.gpx")
   static let geojson = FileType(fileExtension: "geojson", typeIdentifier: "public.geojson")
+  static let json = FileType(fileExtension: "json", typeIdentifier: "public.json")
 }
 
 // MARK: - FileType + UTType

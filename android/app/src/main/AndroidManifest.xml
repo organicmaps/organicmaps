@@ -193,6 +193,7 @@
         <data android:host="*"/>
         <data android:mimeType="application/geo+json"/>
         <data android:mimeType="application/vnd.geo+json"/>
+        <data android:mimeType="application/json"/>
       </intent-filter>
 
       <intent-filter>
@@ -201,6 +202,7 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <data android:mimeType="application/geo+json"/>
         <data android:mimeType="application/vnd.geo+json"/>
+        <data android:mimeType="application/json"/>
       </intent-filter>
 
       <intent-filter>
@@ -287,6 +289,14 @@
         <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.geojson" />
         <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.geojson" />
         <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.geojson" />
+        <data android:pathPattern="/.*\\.json" />
+        <data android:pathPattern="/.*\\..*\\.json" />
+        <data android:pathPattern="/.*\\..*\\..*\\.json" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.json" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.json" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.json" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.json" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.json" />
       </intent-filter>
 
       <!-- Duplicates the intent-filter above except it doesn't have mimeType, see

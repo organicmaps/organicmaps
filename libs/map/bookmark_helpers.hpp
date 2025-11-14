@@ -67,6 +67,7 @@ std::string_view constexpr kKmlExtension = ".kml";
 std::string_view constexpr kKmbExtension = ".kmb";
 std::string_view constexpr kGpxExtension = ".gpx";
 std::string_view constexpr kGeoJsonExtension = ".geojson";
+std::string_view constexpr kJsonExtension = ".json";
 
 std::string_view constexpr kTrashDirectoryName = ".Trash";
 
@@ -77,7 +78,8 @@ enum class KmlFileType
   Text,
   Binary,
   Gpx,
-  GeoJson
+  GeoJson,
+  Json
 };
 
 inline std::string DebugPrint(KmlFileType fileType)
@@ -88,6 +90,7 @@ inline std::string DebugPrint(KmlFileType fileType)
   case KmlFileType::Binary: return "Binary";
   case KmlFileType::Gpx: return "GPX";
   case KmlFileType::GeoJson: return "GeoJson";
+  case KmlFileType::Json: return "Json";
   }
   UNREACHABLE();
 }
