@@ -24,11 +24,122 @@
 
 namespace
 {
+struct Stop {
+  std::string id;
+  std::string stop_name;
+  std::vector<double> lat_lon;  // [latitude, longitude]
+};
+
+struct Route {
+  std::string routeId;
+  std::string shortName;
+  std::string longName;
+  std::string routeType;
+  std::string typeRaw;
+  std::string agency;
+};
+
+struct Calendar {
+  std::string serviceId;
+  std::string week;
+  int periodStart;
+  int periodEnd;
+  std::vector<int> datesIncluded;  // Optional
+  std::vector<int> datesExcluded;
+};
+
+struct StopOnRoutePosition {
+  int sequence;
+  std::string nextStopId;      // Optional
+  std::string nextStopName;    // Optional
+  std::string prevStopId;      // Optional
+  std::string prevStopName;    // Optional
+  std::string firstStopId;
+  std::string firstStopName;
+  std::string lastStopId;
+  std::string lastStopName;
+};
+
+struct RouteStopTime {
+  StopOnRoutePosition stopOnRoutePosition;
+  std::string timezone;
+  std::string route;
+  std::vector<std::string> tripIds;
+  std::vector<int> arrivalTimes;    // Time in seconds
+  std::vector<int> departureTimes;  // Time in seconds
+};
+
+struct Section {
+  Calendar calendar;
+  std::vector<RouteStopTime> routeStopTimes;
+};
+
+struct Schedule {
+  Stop stop;
+  std::map<std::string, Route> routes;
+  std::vector<Section> sections;
+};
+
+constexpr std::string_view daysOfWeek[] = {"Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"};
+
 // Returns multiline string visible to user.
 std::string FormatSchedule(std::string const & jsonSchedule)
 {
+  std::vector<Schedule> schedules;
+
+  std::stringstream s;
+
+  auto error = glz::read_json(schedules, jsonSchedule);
+  for(const Schedule& schedule : schedules)
+  {
+    s << schedule.stop.stop_name << " (" << schedule.stop.id << ")" << '\n';
+
+    const auto& now = std::chrono::system_clock::now();
+    std::time_t now_time_t = std::chrono::system_clock::to_time_t(now);
+    const std::tm* local_time = std::localtime(&now_time_t);
+
+    int year = local_time->tm_year + 1900;
+    int month = local_time->tm_mon + 1;
+    int day = local_time->tm_mday;
+
+    std::string_view dow = daysOfWeek[local_time->tm_wday];
+
+    int i_date = year * 10000 + month * 100 + day;
+
+    //Find todays section
+    for (const auto& section: schedule.sections) {
+      if (section.calendar.periodStart > i_date || section.calendar.periodEnd < i_date)
+        continue;
+
+      if (section.calendar.datesExcluded.size() > 0)
+      {
+        auto excl = section.calendar.datesExcluded;
+        if (std::find(excl.begin(), excl.end(), i_date) != excl.end())
+        {
+          continue;
+        }
+      }
+
+      const auto incl = section.calendar.datesIncluded;
+      if (section.calendar.week.find(dow) >= 0 || std::find(incl.begin(), incl.end(), i_date) != incl.end() )
+      {
+        s << section.calendar.week << " (" << section.calendar.periodStart << " " << section.calendar.periodEnd << ")" << '\n';
+        std::vector<std::string> routes;
+        for (const auto& rs: section.routeStopTimes)
+        {
+          auto r = schedule.routes.find(rs.route);
+          if (r != schedule.routes.end())
+          {
+            routes.push_back(r->second.shortName);
+          }
+        }
+        s << strings::JoinStrings(routes, ";") << '\n';
+      }
+    }
+  }
+
   // See libs/platform/platform_tests/glaze_test.cpp and https://stephenberry.github.io/glaze/json/
-  return jsonSchedule;
+  return s.str();
 }
 }  // namespace
 
@@ -111,7 +222,7 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
     // auto const id = info.GetMetadata(PropID::FMD_SCHEDULE_ID);
     auto const id = QuadTreeEncoder::LatLonToBase62(lat, lon);
     // TODO: Params after ? are for debugging purposes. Remove.
-    auto url = std::format("http://osm.me:8080/v1/schedule/{}?lat={:.6f}&lon={:.6f}&name={}&types={}", id, lat, lon,
+    auto url = std::format("http://localhost:4567/v1/schedule/{}?lat={:.8f}&lon={:.8f}&name={}&types={}", id, lat, lon,
                            url::UrlEncode(info.GetPrimaryFeatureName()),  // Likely translated on mobiles.
                            url::UrlEncode(strings::JoinStrings(info.GetRawTypes(), ';')));
     if (auto const localRef = info.GetMetadata(PropID::FMD_LOCAL_REF); !localRef.empty())
