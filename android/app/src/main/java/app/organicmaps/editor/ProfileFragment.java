@@ -98,14 +98,15 @@ public class ProfileFragment extends BaseMwmToolbarFragment
   {
     if (OsmOAuth.isAuthorized())
     {
+      if (mEditsSent.getText().length() == 0)
+      {
+        UiUtils.show(mProfileInfoLoading);
+        UiUtils.hide(mUserInfoBlock);
+      }
+      final FragmentManager fm = getParentFragmentManager();
       // Update the number of uploaded changesets from OSM.
       ThreadPool.getWorker().execute(() -> {
-        if (mEditsSent.getText().equals(""))
-        {
-          UiUtils.show(mProfileInfoLoading);
-          UiUtils.hide(mUserInfoBlock);
-        }
-        final int profileEditCount = OsmOAuth.getOsmChangesetsCount(mDialogPresenter, getParentFragmentManager());
+        final int profileEditCount = OsmOAuth.getOsmChangesetsCount(mDialogPresenter, fm);
         final String profileUsername = OsmOAuth.getUsername();
         final Bitmap profilePicture = OsmOAuth.getProfilePicture();
 
