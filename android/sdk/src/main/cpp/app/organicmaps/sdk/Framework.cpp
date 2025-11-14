@@ -1136,18 +1136,17 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetDataFileExt(JNIEnv
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetMovableFilesExts(JNIEnv * env, jclass)
 {
-  vector<string> exts = {DATA_FILE_EXTENSION, FONT_FILE_EXTENSION};
+  std::vector<std::string> exts = {DATA_FILE_EXTENSION, FONT_FILE_EXTENSION};
   platform::CountryIndexes::GetIndexesExts(exts);
   return jni::ToJavaStringArray(env, exts);
 }
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetBookmarksFilesExts(JNIEnv * env, jclass)
 {
-  static std::array<std::string, 5> const kBookmarkExtensions = {std::string{kKmzExtension}, std::string{kKmlExtension},
-                                                                 std::string{kKmbExtension}, std::string{kGpxExtension},
-                                                                 std::string{kGeoJsonExtension}};
-
-  return jni::ToJavaStringArray(env, kBookmarkExtensions);
+  static auto constexpr kExtensions =
+      std::to_array({kKmzExtension, kKmlExtension, kKmbExtension, kGpxExtension, kGeoJsonExtension, kJsonExtension});
+  return jni::ToJavaArray(env, GetStringClass(env), kExtensions,
+                          [](JNIEnv * env, std::string_view ext) { return jni::ToJavaString(env, ext); });
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeChangeWritableDir(JNIEnv * env, jclass, jstring jNewPath)

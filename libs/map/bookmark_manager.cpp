@@ -1,4 +1,5 @@
 #include "map/bookmark_manager.hpp"
+#include "map/bookmark_helpers.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/search_api.hpp"
 #include "map/track_mark.hpp"
@@ -2091,6 +2092,8 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
         kmlData = LoadKmlFile(fileToLoad, KmlFileType::Gpx);
       else if (ext == kGeoJsonExtension)
         kmlData = LoadKmlFile(fileToLoad, KmlFileType::GeoJson);
+      else if (ext == kJsonExtension)  // The same as GeoJSON.
+        kmlData = LoadKmlFile(fileToLoad, KmlFileType::Json);
       else
         ASSERT(false, ("Unsupported bookmarks extension", ext));
 

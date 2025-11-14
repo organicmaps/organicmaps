@@ -455,7 +455,7 @@ std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePat
   {
     return GetFilePathsToLoadFromKmz(filePath);
   }
-  else if (fileExt == kGeoJsonExtension)
+  else if (fileExt == kGeoJsonExtension || fileExt == kJsonExtension)
   {
     return GetFilePathsToLoadFromGeoJson(filePath);
   }
@@ -547,7 +547,7 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fi
       kml::DeserializerGpx des(*data);
       des.Deserialize(reader);
     }
-    else if (fileType == KmlFileType::GeoJson)
+    else if (fileType == KmlFileType::GeoJson || fileType == KmlFileType::Json)
     {
       kml::DeserializerGeoJson des(*data);
       std::string content;
@@ -586,7 +586,7 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fi
   return data;
 }
 
-bool SaveGpxData(kml::FileData & kmlData, Writer & writer)
+static bool SaveGpxData(kml::FileData & kmlData, Writer & writer)
 {
   try
   {
@@ -606,7 +606,7 @@ bool SaveGpxData(kml::FileData & kmlData, Writer & writer)
   return true;
 }
 
-bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)
+static bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)
 {
   FileWriter writer(file);
   switch (fileType)
@@ -614,6 +614,8 @@ bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType 
   case KmlFileType::Text:  // fallthrough
   case KmlFileType::Binary: return SaveKmlData(kmlData, writer, fileType);
   case KmlFileType::Gpx: return SaveGpxData(kmlData, writer);
+  case KmlFileType::GeoJson:  // TODO: implement. fallthrough
+  case KmlFileType::Json:     // TODO: implement. fallthrough
   default:
   {
     LOG(LWARNING, ("Unexpected KmlFileType", fileType));
@@ -678,7 +680,7 @@ void ResetIds(kml::FileData & kmlData)
     compilationData.m_id = kml::kInvalidMarkGroupId;
 }
 
-bool TruncType(std::string & type)
+static bool TruncType(std::string & type)
 {
   auto const pos = type.rfind('-');
   if (pos == std::string::npos)

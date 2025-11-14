@@ -71,6 +71,23 @@
 				<string>public.geojson</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>320-pro.png</string>
+				<string>64-pro.png</string>
+				<string>44x58-pro.png</string>
+				<string>22x29-pro.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Json</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.json</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
@@ -99,7 +116,7 @@
 				<string>geo</string>
 				<string>om</string>
 				<string>mapswithmepro</string>
-                <string>geo-navigation</string>
+				<string>geo-navigation</string>
 			</array>
 		</dict>
 	</array>
@@ -178,14 +195,14 @@
 			<key>UIApplicationShortcutItemType</key>
 			<string>app.organicmaps.3daction.route</string>
 		</dict>
-    <dict>
-      <key>UIApplicationShortcutItemIconFile</key>
-      <string>ic_about_report_bug</string>
-      <key>UIApplicationShortcutItemTitle</key>
-      <string>report_a_bug</string>
-      <key>UIApplicationShortcutItemType</key>
-      <string>app.organicmaps.3daction.report_bug</string>
-    </dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>ic_about_report_bug</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>report_a_bug</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>app.organicmaps.3daction.report_bug</string>
+		</dict>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
