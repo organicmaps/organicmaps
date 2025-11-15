@@ -6,12 +6,7 @@ final class PlacePageDirectionView: UIView {
 final class PlacePagePreviewViewController: UIViewController {
   @IBOutlet var stackView: UIStackView!
   @IBOutlet var popularView: UIView!
-  @IBOutlet var subtitleLabel: UILabel! {
-    didSet {
-      subtitleLabel.textColor = UIColor.blackSecondaryText()
-      subtitleLabel.font = UIFont.regular14()
-    }
-  }
+  @IBOutlet var subtitleLabel: UILabel!
   @IBOutlet var subtitleContainerView: UIStackView!
   @IBOutlet var scheduleLabel: UILabel!
   @IBOutlet var reviewsLabel: UILabel!
@@ -79,11 +74,18 @@ final class PlacePagePreviewViewController: UIViewController {
 //                                                 attributes: [.foregroundColor : UIColor.linkBlue(),
 //                                                              .font : UIFont.regular14()]))
 //      }
+      
+      // Define emoji font with fallback
+      let emojiFont = UIFont(name: "OrganicMapsEmojiFont", size: 14)!
+      let fallbackFont = UIFont.regular14()
+      let cascadeDescriptor = emojiFont.fontDescriptor.addingAttributes([UIFontDescriptor.AttributeName.cascadeList: [fallbackFont.fontDescriptor]])
+      let emojiFontWithFallback = UIFont(descriptor: cascadeDescriptor, size: 14)
 
       if let subtitle = placePagePreviewData.subtitle ?? placePagePreviewData.coordinates {
         subtitleString.append(NSAttributedString(string: !subtitleString.string.isEmpty ? " • " + subtitle : subtitle,
                                                  attributes: [.foregroundColor : UIColor.blackSecondaryText(),
-                                                              .font : UIFont.regular14()]))
+                                                              .font : emojiFontWithFallback]))
+        
         subtitleLabel.attributedText = subtitleString
         subtitleContainerView.isHidden = false
       } else {
