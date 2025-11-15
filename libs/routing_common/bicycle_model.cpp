@@ -1,7 +1,6 @@
 #include "routing_common/bicycle_model.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/feature.hpp"
 
 namespace bicycle_model
 {
@@ -188,7 +187,8 @@ BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits)
   : BicycleModel(limits, bicycle_model::kDefaultSpeeds)
 {}
 
-BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayBasedSpeeds const & speeds)
+BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayBasedSpeeds const & speeds,
+                           bool bidirLivingSt /* = false */)
   : VehicleModel(classif(), limits, bicycle_model::kBicycleSurface, {speeds, bicycle_model::kDefaultFactors})
 {
   using namespace bicycle_model;
@@ -213,6 +213,9 @@ BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayB
   SpeedKMpH constexpr kMaxBicycleSpeedKMpH(100.0);
   CHECK_LESS(m_maxModelSpeed, kMaxBicycleSpeedKMpH, ());
   m_maxModelSpeed = kMaxBicycleSpeedKMpH;
+
+  if (bidirLivingSt)
+    m_livingStType = cl.GetTypeForIndex(static_cast<uint32_t>(HighwayType::HighwayLivingStreet));
 }
 
 bool BicycleModel::IsBicycleBidir(feature::TypesHolder const & types) const
@@ -236,6 +239,9 @@ bool BicycleModel::IsOneWay(FeatureTypes const & types) const
     return true;
 
   if (IsBicycleBidir(types))
+    return false;
+
+  if (m_livingStType != 0 && types.Has(m_livingStType))
     return false;
 
   return VehicleModel::IsOneWay(types);
@@ -271,7 +277,7 @@ BicycleModelFactory::BicycleModelFactory(CountryParentNameGetterFn const & count
   m_models[""] = make_shared<BicycleModel>(kDefaultOptions);
 
   m_models["Australia"] = make_shared<BicycleModel>(AllAllowed(), NormalPedestrianAndFootwaySpeed());
-  m_models["Austria"] = make_shared<BicycleModel>(NoTrunk(), DismountPathSpeed());
+  m_models["Austria"] = make_shared<BicycleModel>(NoTrunk(), DismountPathSpeed(), true /* bidirLivingSt */);
   // Belarus law demands to use footways for bicycles where possible.
   m_models["Belarus"] = make_shared<BicycleModel>(kDefaultOptions, PreferFootwaysToRoads());
   m_models["Belgium"] = make_shared<BicycleModel>(NoTrunk(), NormalPedestrianSpeed());

@@ -448,4 +448,12 @@ UNIT_TEST(UK_Canterbury_AvoidDismount)
                                    mercator::FromLatLon(51.2818863, 1.05725286), 976);
 }
 
+// https://github.com/organicmaps/organicmaps/issues/6355
+UNIT_TEST(Austria_BidirLivingStreet)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
+                                   mercator::FromLatLon(48.2053411, 16.3524902), {0.0, 0.0},
+                                   mercator::FromLatLon(48.2064399, 16.3528722), 304.53);
+}
+
 }  // namespace bicycle_route_test
