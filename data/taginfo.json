@@ -1,7 +1,7 @@
 {
     "data_format": 1,
     "data_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/taginfo.json",
-    "data_updated": "20251004T104905Z",
+    "data_updated": "20251115T095528Z",
     "project": {
         "name": "Organic Maps",
         "description": "Free Android & iOS offline maps app for travelers, tourists, hikers, and cyclists",
@@ -47,6 +47,12 @@
             "key": "aeroway",
             "value": "helipad",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/helipad-m.svg"
+        },
+        {
+            "description": "aeroway=terminal",
+            "key": "aeroway",
+            "value": "terminal",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/airport-m.svg"
         },
         {
             "description": "amenity=*",
@@ -146,6 +152,12 @@
             "key": "amenity",
             "value": "biergarten",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pub-m.svg"
+        },
+        {
+            "description": "amenity=boat_rental",
+            "key": "amenity",
+            "value": "boat_rental",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/boat_rental-m.svg"
         },
         {
             "description": "amenity=brothel",
@@ -373,6 +385,12 @@
             "key": "amenity",
             "value": "kindergarten",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/kindergarten-m.svg"
+        },
+        {
+            "description": "amenity=kneipp_water_cure",
+            "key": "amenity",
+            "value": "kneipp_water_cure",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/public_bath-m.svg"
         },
         {
             "description": "amenity=language_school",
@@ -929,6 +947,12 @@
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/stripclub-m.svg"
         },
         {
+            "description": "amenity=student_accommodation",
+            "key": "amenity",
+            "value": "student_accommodation",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hostel-m.svg"
+        },
+        {
             "description": "amenity=studio",
             "key": "amenity",
             "value": "studio",
@@ -1056,7 +1080,7 @@
             "description": "amenity=waste_disposal",
             "key": "amenity",
             "value": "waste_disposal",
-            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/waste-basket-m.svg"
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/waste-disposal-m.svg"
         },
         {
             "description": "amenity=waste_transfer_station",
@@ -1256,6 +1280,16 @@
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/nparkf-outline-m.svg"
         },
         {
+            "description": "boundary=protected_area + protect_class=1",
+            "key": "boundary",
+            "value": "protected_area"
+        },
+        {
+            "description": "boundary=protected_area + protect_class=1",
+            "key": "protect_class",
+            "value": "1"
+        },
+        {
             "description": "building=guardhouse",
             "key": "building",
             "value": "guardhouse",
@@ -1391,6 +1425,12 @@
             "key": "craft",
             "value": "tailor",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/clothes-m.svg"
+        },
+        {
+            "description": "craft=watchmaker",
+            "key": "craft",
+            "value": "watchmaker",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/watchmaker-m.svg"
         },
         {
             "description": "craft=winery",
@@ -1757,7 +1797,7 @@
             "description": "landuse=landfill",
             "key": "landuse",
             "value": "landfill",
-            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/waste-basket-m.svg"
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/waste-disposal-m.svg"
         },
         {
             "description": "landuse=plant_nursery",
@@ -1770,6 +1810,10 @@
             "key": "landuse",
             "value": "quarry",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mine-m.svg"
+        },
+        {
+            "description": "leisure=*",
+            "key": "leisure"
         },
         {
             "description": "leisure=adult_gaming_centre",
@@ -1850,6 +1894,12 @@
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pitch-m.svg"
         },
         {
+            "description": "leisure=indoor_play",
+            "key": "leisure",
+            "value": "indoor_play",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/indoor_play-m.svg"
+        },
+        {
             "description": "leisure=marina",
             "key": "leisure",
             "value": "marina",
@@ -1902,6 +1952,12 @@
             "key": "leisure",
             "value": "sauna",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/public_bath-m.svg"
+        },
+        {
+            "description": "leisure=slipway",
+            "key": "leisure",
+            "value": "slipway",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/slipway-m.svg"
         },
         {
             "description": "leisure=sports_centre",
@@ -1996,6 +2052,12 @@
             "key": "man_made",
             "value": "mast",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg"
+        },
+        {
+            "description": "man_made=monitoring_station",
+            "key": "man_made",
+            "value": "monitoring_station",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mast-m.svg"
         },
         {
             "description": "man_made=petroleum_well",
@@ -2808,6 +2870,12 @@
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/craft-m.svg"
         },
         {
+            "description": "shop=telecommunication",
+            "key": "shop",
+            "value": "telecommunication",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mobile_phone-m.svg"
+        },
+        {
             "description": "shop=ticket",
             "key": "shop",
             "value": "ticket",
@@ -2824,6 +2892,12 @@
             "key": "shop",
             "value": "toys",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/toys-m.svg"
+        },
+        {
+            "description": "shop=travel_agency",
+            "key": "shop",
+            "value": "travel_agency",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/travel_agency-m.svg"
         },
         {
             "description": "shop=tyres",
@@ -2848,6 +2922,12 @@
             "key": "shop",
             "value": "video_games",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/video-games-m.svg"
+        },
+        {
+            "description": "shop=watches",
+            "key": "shop",
+            "value": "watches",
+            "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/watchmaker-m.svg"
         },
         {
             "description": "shop=wholesale",
@@ -3103,6 +3183,11 @@
             "key": "tourism",
             "value": "attraction",
             "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/tourism-m.svg"
+        },
+        {
+            "description": "tourism=camp_pitch",
+            "key": "tourism",
+            "value": "camp_pitch"
         },
         {
             "description": "tourism=camp_site",
