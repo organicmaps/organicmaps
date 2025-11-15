@@ -10,7 +10,8 @@ class BicycleModel : public VehicleModel
 public:
   BicycleModel();
   explicit BicycleModel(VehicleModel::LimitsInitList const & limits);
-  BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayBasedSpeeds const & speeds);
+  BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayBasedSpeeds const & speeds,
+               bool bidirLivingSt = false);
 
   /// VehicleModelInterface overrides:
   SpeedKMpH GetSpeed(FeatureTypes const & types, SpeedParams const & speedParams) const override;
@@ -28,6 +29,8 @@ private:
 
   uint32_t m_bidirBicycleType = 0;
   uint32_t m_onedirBicycleType = 0;
+
+  uint32_t m_livingStType = 0;
 };
 
 class BicycleModelFactory : public VehicleModelFactory
