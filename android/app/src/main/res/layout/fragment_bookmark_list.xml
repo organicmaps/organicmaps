@@ -14,6 +14,8 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:clipToPadding="false"
+      android:scrollbars="vertical"
+      android:scrollbarSize="@dimen/scrollbar_size"
       tools:listitem="@layout/item_bookmark" />
     <include
       layout="@layout/show_on_map_fab"
