@@ -67,7 +67,7 @@
       android:paddingStart="0dp"
       android:paddingEnd="10dp"
       android:scrollbars="vertical"
-      android:scrollbarSize="6dp"
+      android:scrollbarSize="@dimen/scrollbar_size"
       android:scrollbarStyle="outsideOverlay"
       android:scrollbarThumbVertical="?android:attr/textColorSecondary"
       android:fadeScrollbars="false"

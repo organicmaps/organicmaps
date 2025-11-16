@@ -62,6 +62,7 @@
   <dimen name="width_dialog_base">300dp</dimen>
 
   <dimen name="start_button_width">96dp</dimen>
+  <dimen name="scrollbar_size">6dp</dimen>
 
   <!-- direction fragment -->
   <dimen name="margin_direction_small">8dp</dimen>
