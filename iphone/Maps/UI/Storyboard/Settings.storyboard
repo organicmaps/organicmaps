@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -178,69 +178,52 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill"
-                                        selectionStyle="default" accessoryType="disclosureIndicator"
-                                        hidesAccessoryWhenEditing="NO" indentationLevel="1"
-                                        indentationWidth="0.0"
-                                        reuseIdentifier="SettingsTableViewLinkCell"
-                                        textLabel="wQh-64-GxF" detailTextLabel="GJd-fC-bGC"
-                                        style="IBUITableViewCellStyleValue1" id="Plu-Oj-igD"
-                                        userLabel="Bookmarks Text Placement"
-                                        customClass="SettingsTableViewLinkCell"
-                                        customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="366" width="414" height="44" />
-                                        <autoresizingMask key="autoresizingMask" />
-                                        <tableViewCellContentView key="contentView" opaque="NO"
-                                            clipsSubviews="YES" multipleTouchEnabled="YES"
-                                            contentMode="center" tableViewCell="Plu-Oj-igD"
-                                            id="CC8-ZP-HYG">
-                                            <rect key="frame" x="0.0" y="0.0" width="383.5"
-                                                height="44" />
-                                            <autoresizingMask key="autoresizingMask" />
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" textLabel="wQh-64-GxF" detailTextLabel="GJd-fC-bGC" style="IBUITableViewCellStyleValue1" id="Plu-Oj-igD" userLabel="Bookmarks Text Placement" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="366" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Plu-Oj-igD" id="CC8-ZP-HYG">
+                                            <rect key="frame" x="0.0" y="0.0" width="383.5" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES"
-                                                    contentMode="left"
-                                                    insetsLayoutMarginsFromSafeArea="NO"
-                                                    text="Bookmarks text placement"
-                                                    textAlignment="natural"
-                                                    lineBreakMode="tailTruncation"
-                                                    baselineAdjustment="alignBaselines"
-                                                    adjustsFontSizeToFit="NO" id="wQh-64-GxF"
-                                                    userLabel="Bookmarks Text Placement">
-                                                    <rect key="frame" x="20" y="15" width="150.5"
-                                                        height="14.5" />
-                                                    <autoresizingMask key="autoresizingMask" />
-                                                    <color key="backgroundColor" white="0.0"
-                                                        alpha="0.0" colorSpace="custom"
-                                                        customColorSpace="genericGamma22GrayColorSpace" />
-                                                    <fontDescription key="fontDescription"
-                                                        type="system" pointSize="0.0" />
-                                                    <nil key="textColor" />
-                                                    <nil key="highlightedColor" />
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Bookmarks text placement" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wQh-64-GxF" userLabel="Bookmarks Text Placement">
+                                                    <rect key="frame" x="20" y="15" width="150.5" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES"
-                                                    contentMode="left"
-                                                    insetsLayoutMarginsFromSafeArea="NO"
-                                                    text="Detail" textAlignment="right"
-                                                    lineBreakMode="tailTruncation"
-                                                    baselineAdjustment="alignBaselines"
-                                                    adjustsFontSizeToFit="NO" id="GJd-fC-bGC">
-                                                    <rect key="frame" x="342.5" y="15" width="33"
-                                                        height="14.5" />
-                                                    <autoresizingMask key="autoresizingMask" />
-                                                    <color key="backgroundColor" white="0.0"
-                                                        alpha="0.0" colorSpace="custom"
-                                                        customColorSpace="genericGamma22GrayColorSpace" />
-                                                    <fontDescription key="fontDescription"
-                                                        type="system" pointSize="0.0" />
-                                                    <nil key="textColor" />
-                                                    <nil key="highlightedColor" />
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GJd-fC-bGC">
+                                                    <rect key="frame" x="342.5" y="15" width="33" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" textLabel="aj3-R5-JxM" style="IBUITableViewCellStyleDefault" id="OH5-ry-e43" userLabel="Show Downloaded Regions" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="410" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OH5-ry-e43" id="kc1-pw-Wkj">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Show Downloaded Regions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aj3-R5-JxM" userLabel="Show Downloaded Regions">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" textLabel="YsF-IJ-DDS" style="IBUITableViewCellStyleDefault" id="pri-6G-9Zb" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="366" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="454" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pri-6G-9Zb" id="Zp6-d6-V6o">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -258,7 +241,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" textLabel="Teb-hc-7QH" style="IBUITableViewCellStyleDefault" id="f8Z-Jk-JIR" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="410" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="498" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f8Z-Jk-JIR" id="1QF-6L-hJp">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -276,7 +259,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" textLabel="VO1-Vg-frW" style="IBUITableViewCellStyleDefault" id="P5e-67-f4k" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="454" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="542" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P5e-67-f4k" id="RlB-hW-A2l">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -294,7 +277,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" textLabel="PpF-Oo-iCA" detailTextLabel="wIT-zF-Ogz" style="IBUITableViewCellStyleValue1" id="QNt-XC-xma" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="498" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="586" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QNt-XC-xma" id="fBV-aJ-Mo8">
                                             <rect key="frame" x="0.0" y="0.0" width="383.5" height="44"/>
@@ -320,7 +303,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" textLabel="QEX-D4-ejR" detailTextLabel="Iy7-de-pvk" style="IBUITableViewCellStyleSubtitle" id="E6M-av-wQu" userLabel="iCloud synchronization" customClass="SettingsTableViewiCloudSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="542" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="630" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E6M-av-wQu" id="PbS-4v-dzK">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -345,7 +328,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewDetailedSwitchCell" textLabel="IuW-8X-Xdf" detailTextLabel="dON-be-sur" style="IBUITableViewCellStyleSubtitle" id="uxV-uf-u44" userLabel="EnadbleLogging" customClass="SettingsTableViewDetailedSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="586" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="674" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uxV-uf-u44" id="uwY-wf-q0J">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -374,14 +357,14 @@
                             <tableViewSection headerTitle="НАВИГАЦИЯ" id="E4E-hs-9xW">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" textLabel="E7d-pi-YM1" style="IBUITableViewCellStyleDefault" id="X5R-fv-yd7" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="678" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="766" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X5R-fv-yd7" id="s7y-Nu-Y01">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Perspective View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="E7d-pi-YM1">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Perspective View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="E7d-pi-YM1">
+                                                    <rect key="frame" x="8" y="0.0" width="398" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
@@ -392,14 +375,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" textLabel="T7T-10-R9B" style="IBUITableViewCellStyleDefault" id="veW-Fm-2Hl" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="722" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="810" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="veW-Fm-2Hl" id="AP7-jd-F4b">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Auto Zoom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="T7T-10-R9B">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Auto Zoom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="T7T-10-R9B">
+                                                    <rect key="frame" x="8" y="0.0" width="398" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
@@ -410,22 +393,22 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" textLabel="DvL-U3-thq" detailTextLabel="aVn-3D-tVQ" style="IBUITableViewCellStyleValue1" id="nED-2n-gN6" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="766" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="854" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nED-2n-gN6" id="2oQ-0g-poj">
-                                            <rect key="frame" x="0.0" y="0.0" width="383.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="395.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Voice Instructions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DvL-U3-thq">
-                                                    <rect key="frame" x="20" y="15" width="101.5" height="14.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Voice Instructions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DvL-U3-thq">
+                                                    <rect key="frame" x="8" y="15" width="101.5" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aVn-3D-tVQ">
-                                                    <rect key="frame" x="342.5" y="15" width="33" height="14.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aVn-3D-tVQ">
+                                                    <rect key="frame" x="354.5" y="15" width="33" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
@@ -436,22 +419,22 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" textLabel="nJu-c9-12J" detailTextLabel="2ux-Rf-ECf" style="IBUITableViewCellStyleValue1" id="KrE-Sc-fI1" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="810" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="898" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KrE-Sc-fI1" id="AKJ-VB-Pzr">
-                                            <rect key="frame" x="0.0" y="0.0" width="383.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="395.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Driving Options" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nJu-c9-12J">
-                                                    <rect key="frame" x="20" y="15" width="88" height="14.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Driving Options" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nJu-c9-12J">
+                                                    <rect key="frame" x="8" y="15" width="88" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2ux-Rf-ECf">
-                                                    <rect key="frame" x="342.5" y="15" width="33" height="14.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2ux-Rf-ECf">
+                                                    <rect key="frame" x="354.5" y="15" width="33" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
@@ -486,6 +469,7 @@
                         <outlet property="perspectiveViewCell" destination="X5R-fv-yd7" id="hCe-Sv-pxD"/>
                         <outlet property="powerManagementCell" destination="MN2-YK-AUo" id="mzP-S3-YAE"/>
                         <outlet property="profileCell" destination="yh8-cr-14c" id="nzT-Um-BHL"/>
+                        <outlet property="showDownloadedRegions" destination="OH5-ry-e43" id="otX-PI-VkQ"/>
                         <outlet property="transliterationCell" destination="f8Z-Jk-JIR" id="4X8-tt-Wf3"/>
                         <outlet property="unitsCell" destination="Igk-BI-aHN" id="wc7-AI-ZlZ"/>
                         <outlet property="voiceInstructionsCell" destination="nED-2n-gN6" id="AOZ-0Q-2TH"/>
