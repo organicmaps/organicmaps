@@ -1,1 +1,1 @@
-Please fix all map issues at OpenStreetMap.org, and let us know about any bugs. Your feedback motivates our small team of enthusiasts to improve the app.
+Izvanmrežne karte za putovanja, planinarenje i bicikl. Glatka navigacija bez signala i pražnjenja baterije. Podaci OpenStreetMapa, bez oglasa, puni pristup svemu.
