@@ -20,6 +20,8 @@ set(SRC
   cancellable.cpp
   cancellable.hpp
   checked_cast.hpp
+  checked_ptr.cpp
+  checked_ptr.hpp
   clustering_map.hpp
   collection_cast.hpp
   control_flow.hpp
