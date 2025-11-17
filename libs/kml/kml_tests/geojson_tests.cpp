@@ -213,4 +213,64 @@ UNIT_TEST(GeoJson_Parse_UMapOptions)
   TEST_EQUAL(trackUmapObj.at("opacity").as<double>(), 0.5, ("opacity value should be preserved"));
 }
 
+UNIT_TEST(GeoJson_Parse_FromGoogle)
+{
+  std::string_view constexpr input = R"({
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          -0.1195192,
+          51.5031864
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2025-11-17T09:06:04Z",
+        "google_maps_url": "http://maps.google.com/?cid=4796882358840715922",
+        "location": {
+          "address": "Riverside Building, County Hall, Westminster Bridge Rd, London SE1 7PB, United Kingdom",
+          "country_code": "GB",
+          "name": "London Eye"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          0,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2025-11-17T09:08:03Z",
+        "google_maps_url": "http://maps.google.com/?q=41.993752,5.326894",
+        "Comment": "No location information is available for this saved place"
+      },
+      "type": "Feature"
+    }
+  ]
+})";
+
+  kml::FileData const dataFromText = LoadGeojsonFromString(input);
+
+  // Check bookmark (Point)
+  TEST_EQUAL(dataFromText.m_bookmarksData.size(), 2, ());
+
+  // Check bookmark with coodinates and Google link
+  auto const & londonEyeBookmark = dataFromText.m_bookmarksData.at(0);
+  TEST_EQUAL(kml::GetDefaultStr(londonEyeBookmark.m_name), "London Eye", ());
+  TEST_EQUAL(kml::GetDefaultStr(londonEyeBookmark.m_description), "http://maps.google.com/?cid=4796882358840715922",
+             ());
+
+  // Check bookmark Google link
+  auto const & bookmark = dataFromText.m_bookmarksData.at(1);
+  auto target = mercator::FromLatLon(41.993752, 5.326894);
+  TEST(bookmark.m_point.EqualDxDy(target, 0.000001), ());
+  TEST_EQUAL(kml::GetDefaultStr(bookmark.m_description), "http://maps.google.com/?q=41.993752,5.326894", ());
+}
+
 }  // namespace geojson_tests
