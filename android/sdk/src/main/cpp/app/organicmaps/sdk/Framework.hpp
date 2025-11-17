@@ -21,12 +21,10 @@
 
 #include "geometry/avg_vector.hpp"
 
+#include "base/checked_ptr.hpp"
 #include "base/timer.hpp"
 
-#include <cstdint>
 #include <map>
-#include <memory>
-#include <mutex>
 
 class DataSource;
 
@@ -211,5 +209,5 @@ jint registerNativeMethods(JNIEnv * env);
 }  // namespace framework
 }  // namespace android
 
-extern std::unique_ptr<android::Framework> g_framework;
+extern CheckedPtr<android::Framework> g_framework;
 ::Framework * frm();

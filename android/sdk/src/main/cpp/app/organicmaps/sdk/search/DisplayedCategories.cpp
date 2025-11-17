@@ -7,9 +7,7 @@ extern "C"
 {
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_search_DisplayedCategories_nativeGetKeys(JNIEnv * env, jclass)
 {
-  ::Framework * fr = g_framework->NativeFramework();
-  ASSERT(fr, ());
-  search::DisplayedCategories const & categories = fr->GetDisplayedCategories();
+  search::DisplayedCategories const & categories = frm()->GetDisplayedCategories();
   return jni::ToJavaStringArray(env, categories.GetKeys());
 }
 

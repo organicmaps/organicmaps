@@ -74,7 +74,7 @@
 using namespace std;
 using namespace std::placeholders;
 
-unique_ptr<android::Framework> g_framework;
+CheckedPtr<android::Framework> g_framework;
 
 namespace platform
 {
@@ -89,7 +89,7 @@ using platform::CountryFile;
 using platform::LocalCountryFile;
 using platform::ToNativeNetworkPolicy;
 
-static_assert(sizeof(int) >= 4, "Size of jint in less than 4 bytes.");
+static_assert(sizeof(int) >= 4, "Size of jint is less than 4 bytes.");
 
 ::Framework * frm()
 {
@@ -1367,7 +1367,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeShowCountry(JNIEnv * env
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingListener(JNIEnv * env, jclass, jobject listener)
 {
-  CHECK(g_framework, ("Framework isn't created yet!"));
   frm()->GetRoutingManager().SetRouteBuildingListener(
       [rf = jni::make_global_ref(listener)](routing::RouterResultCode e, storage::CountriesSet const & countries)
   { CallRoutingListener(rf, static_cast<int>(e), countries); });
@@ -1375,7 +1374,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingListener(JNIEn
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRouteProgressListener(JNIEnv * env, jclass, jobject listener)
 {
-  CHECK(g_framework, ("Framework isn't created yet!"));
   frm()->GetRoutingManager().SetRouteProgressListener(
       bind(&CallRouteProgressListener, jni::make_global_ref(listener), _1));
 }
@@ -1383,14 +1381,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRouteProgressListener
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingRecommendationListener(JNIEnv * env, jclass,
                                                                                          jobject listener)
 {
-  CHECK(g_framework, ("Framework isn't created yet!"));
   frm()->GetRoutingManager().SetRouteRecommendationListener(
       bind(&CallRouteRecommendationListener, jni::make_global_ref(listener), _1));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingLoadPointsListener(JNIEnv *, jclass, jobject listener)
 {
-  CHECK(g_framework, ("Framework isn't created yet!"));
   if (listener != nullptr)
     g_loadRouteHandler = bind(&CallSetRoutingLoadPointsListener, jni::make_global_ref(listener), _1);
   else
@@ -1615,8 +1611,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsDownloadedMapAtScr
 
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetActiveObjectFormattedCuisine(JNIEnv * env, jclass)
 {
-  ::Framework * frm = g_framework->NativeFramework();
-  if (!frm->HasPlacePageInfo())
+  if (!frm()->HasPlacePageInfo())
     return {};
 
   return jni::ToJavaString(env, g_framework->GetPlacePageInfo().FormatCuisines());
@@ -1624,8 +1619,7 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetActiveObjectFormat
 
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetActiveObjectFormattedRouteRefs(JNIEnv * env, jclass)
 {
-  ::Framework * frm = g_framework->NativeFramework();
-  if (!frm->HasPlacePageInfo())
+  if (!frm()->HasPlacePageInfo())
     return {};
 
   return jni::ToJavaString(env, g_framework->GetPlacePageInfo().FormatRouteRefs());
