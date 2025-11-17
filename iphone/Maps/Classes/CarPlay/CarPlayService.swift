@@ -34,6 +34,7 @@ final class CarPlayService: NSObject {
   private var searchText = ""
 
   @objc func setup(window: CPWindow, interfaceController: CPInterfaceController) {
+    LOG(.info, "Settting up service...")
     isCarplayActivated = true
     self.window = window
     self.interfaceController = interfaceController
@@ -69,15 +70,19 @@ final class CarPlayService: NSObject {
   private var savedInterfaceController: CPInterfaceController?
 
   func showOnPhone() {
+    LOG(.info, "Show on the Phone screen")
     savedInterfaceController = interfaceController
     switchScreenToPhone()
     showPhoneModeAlert()
   }
 
   private func showOnCarplay() {
-    if let window, let savedInterfaceController {
-      setup(window: window, interfaceController: savedInterfaceController)
+    LOG(.info, "Show on the Car screen")
+    guard let window, let savedInterfaceController else {
+      LOG(.warning, "Failed to show on carplay: the `window` is \(String(describing: window)), the `savedInterfaceController` is \(String(describing: savedInterfaceController))")
+      return
     }
+    setup(window: window, interfaceController: savedInterfaceController)
   }
 
   private func showPhoneModeAlert() {
@@ -223,6 +228,7 @@ final class CarPlayService: NSObject {
   }
 
   func cancelCurrentTrip() {
+    LOG(.info, "Cancel current trip")
     router?.cancelTrip()
     if let carplayVC = carplayVC {
       carplayVC.hideSpeedControl()

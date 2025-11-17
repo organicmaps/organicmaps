@@ -197,12 +197,15 @@ class GraphicsContextFactory;
 
 - (void)updateVisualScaleTo:(CGFloat)visualScale
 {
+  LOG(LINFO, ("The visual scale is being updated to:", visualScale));
   GetFramework().UpdateVisualScale(visualScale);
 }
 
 - (void)updateVisualScaleToMain
 {
-  GetFramework().UpdateVisualScale(UIScreen.mainScreen.scale);
+  CGFloat const visualScale = UIScreen.mainScreen.scale;
+  LOG(LINFO, ("The visual scale is being updated to the main scale:", visualScale));
+  GetFramework().UpdateVisualScale(visualScale);
 }
 
 @end
