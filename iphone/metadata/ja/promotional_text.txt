@@ -1,1 +1,1 @@
-Please fix all map issues at OpenStreetMap.org, and let us know about any bugs. Your feedback motivates our small team of enthusiasts to improve the app.
+旅行・ハイキング・自転車用オフライン地図。電波やバッテリー消費なしでスムーズにナビ。OpenStreetMapデータ、広告なし、すべての機能を完全に利用可能。

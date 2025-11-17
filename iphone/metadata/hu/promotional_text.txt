@@ -1,1 +1,1 @@
-A térképi problémákat az OpenStreetMap.org-on javítsa, és szóljon nekünk a programhibákról.
+Offline térképek utazáshoz, túrákhoz és kerékpározáshoz. Zökkenőmentes navigáció jel vagy akkumulátor-felhasználás nélkül. OpenStreetMap-adatok, 100% ingyen, reklámmentes

@@ -1,1 +1,1 @@
-Please fix all map issues at OpenStreetMap.org, and let us know about any bugs. Your feedback motivates our small team of enthusiasts to improve the app.
+여행, 하이킹, 라이딩용 오프라인 지도. 신호나 배터리 소모 없이 원활한 내비. OpenStreetMap 데이터, 광고 없음, 모든 기능을 완전히 이용 가능.

@@ -1,1 +1,1 @@
-Lütfen tüm harita hatalarını OpenStreetMap.org'da düzeltin. Herhangi bir uygulama hatasını bize bildirin, küçük ekibimiz sizden haber almaktan mutluluk duyacaktır.
+Seyahat, yürüyüş ve bisiklet için çevrimdışı haritalar. Sinyal veya pil tüketimi olmadan sorunsuz navigasyon. OpenStreetMap verileri, reklamsız, 100% ücretsiz.

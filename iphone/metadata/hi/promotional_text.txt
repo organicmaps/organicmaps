@@ -1,1 +1,1 @@
-Please fix all map issues at OpenStreetMap.org, and let us know about any bugs. Your feedback motivates our small team of enthusiasts to improve the app.
+ऑफ़लाइन मानचित्र यात्रा, पैदल यात्रा और साइकिलिंग के लिए। सिग्नल या बैटरी ड्रा बिना स्मूद नेविगेशन। OpenStreetMap डेटा, विज्ञापन-मुक्त, सभी सुविधाओं की पूर्ण पहुँच।
