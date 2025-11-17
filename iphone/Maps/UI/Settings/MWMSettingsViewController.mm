@@ -23,6 +23,7 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * mobileInternetCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * powerManagementCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * bookmarksTextPlacementCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * showDownloadedRegions;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * fontScaleCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * transliterationCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * compassCalibrationCell;
@@ -157,6 +158,10 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   case Placement::Count: UNREACHABLE();
   }
   [self.bookmarksTextPlacementCell configWithTitle:L(@"bookmarks_text_placement_title") info:textPlacementValue];
+
+  [self.showDownloadedRegions configWithDelegate:self
+                                           title:L(@"show_downloaded_regions")
+                                            isOn:[MWMSettings showDownloadedRegions]];
 
   [self.fontScaleCell configWithDelegate:self title:L(@"big_font") isOn:[MWMSettings largeFontSize]];
 
@@ -364,6 +369,10 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   {
     [MWMSettings setFileLoggingEnabled:value];
     [self updateLogFileSize];
+  }
+  else if (cell == self.showDownloadedRegions)
+  {
+    [MWMSettings setShowDownloadedRegionsEnabled:value];
   }
 }
 
