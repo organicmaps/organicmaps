@@ -1093,3 +1093,6 @@
 "core_exit" = "Oħroġ";
 "core_entrance" = "Daħla";
 "subway_data_unavailable" = "Il-mappa tas-subway mhix disponibbli";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "Ippreżenta b’mod ċar ir-reġjuni misluta fuq il-mappa";

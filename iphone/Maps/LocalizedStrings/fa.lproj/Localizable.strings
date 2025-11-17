@@ -1093,3 +1093,6 @@
 "core_exit" = "خروج";
 "core_entrance" = "ورودی";
 "subway_data_unavailable" = "نقشه مترو موجود نیست";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "برجسته کردن نواحی دانلودشده روی نقشه";

@@ -1093,3 +1093,6 @@
 "core_exit" = "Útgangur";
 "core_entrance" = "Inngangur";
 "subway_data_unavailable" = "Kort fyrir neðanjarðarlest er ekki tiltækt";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "Ljóma niðurhalað svæði á kortinu";

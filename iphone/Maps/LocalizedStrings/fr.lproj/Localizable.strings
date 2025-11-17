@@ -1093,3 +1093,6 @@
 "core_exit" = "Sortie";
 "core_entrance" = "Entrée";
 "subway_data_unavailable" = "Le plan du métro n'est pas disponible";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "Mettre en évidence les régions téléchargées sur la carte";

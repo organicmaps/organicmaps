@@ -1093,3 +1093,6 @@
 "core_exit" = "Izeja";
 "core_entrance" = "Ieeja";
 "subway_data_unavailable" = "Metro karte nav pieejama";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "Iezīmēt lejupielādētos reģionus kartē";

@@ -1093,3 +1093,6 @@
 "core_exit" = "Uitgang";
 "core_entrance" = "Ingang";
 "subway_data_unavailable" = "Metrokaart is niet beschikbaar";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "Gemarkeerde gedownloade regio’s op de kaart";
