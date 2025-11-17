@@ -1093,3 +1093,6 @@
 "core_exit" = "Keluar";
 "core_entrance" = "Tempat masuk";
 "subway_data_unavailable" = "Peta bawah tanah tidak tersedia";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "Sorot wilayah yang diunduh pada peta";

@@ -1093,3 +1093,6 @@
 "core_exit" = "Exit";
 "core_entrance" = "Entrance";
 "subway_data_unavailable" = "Subway map is unavailable";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "मानचित्र पर डाउनलोड किए गए क्षेत्रों को हाइलाइट करें";

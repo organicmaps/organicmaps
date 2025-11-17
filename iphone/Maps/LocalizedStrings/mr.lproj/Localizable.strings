@@ -1093,3 +1093,6 @@
 "core_exit" = "बाहेर पडा";
 "core_entrance" = "प्रवेशद्वार";
 "subway_data_unavailable" = "मेट्रो नकाशा अनुपलब्ध आहे";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "नकाशावर डाउनलोड केलेले प्रदेश हायलाइट करा";

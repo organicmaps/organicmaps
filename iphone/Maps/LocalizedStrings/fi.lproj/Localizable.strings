@@ -1093,3 +1093,6 @@
 "core_exit" = "Poistu";
 "core_entrance" = "Sisäänkäynti";
 "subway_data_unavailable" = "Metrokartta ei ole saatavilla";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "Korosta ladattuja alueita kartalla";

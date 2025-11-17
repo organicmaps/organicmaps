@@ -1093,3 +1093,6 @@
 "core_exit" = "Izhod";
 "core_entrance" = "Vhod";
 "subway_data_unavailable" = "Zemljevid podzemne železnice ni na voljo";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "Označi prenesene regije na zemljevidu";

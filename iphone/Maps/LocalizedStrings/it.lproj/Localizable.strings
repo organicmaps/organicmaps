@@ -1093,3 +1093,6 @@
 "core_exit" = "Uscita";
 "core_entrance" = "Ingresso";
 "subway_data_unavailable" = "La mappa della metropolitana non è disponibile";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "Evidenzia le regioni scaricate sulla mappa";

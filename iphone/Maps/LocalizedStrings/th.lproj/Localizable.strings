@@ -1093,3 +1093,6 @@
 "core_exit" = "ออก";
 "core_entrance" = "ทางเข้า";
 "subway_data_unavailable" = "แผนที่รถไฟใต้ดินไม่พร้อมใช้งาน";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "ไฮไลท์ภูมิภาคที่ดาวน์โหลดบนแผนที่";

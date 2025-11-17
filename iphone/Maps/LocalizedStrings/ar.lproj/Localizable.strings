@@ -1093,3 +1093,6 @@
 "core_exit" = "خروج";
 "core_entrance" = "المدخل";
 "subway_data_unavailable" = "خريطة مترو الانفاق غير متوفرة";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "تمييز المناطق المُنزَّلة على الخريطة";

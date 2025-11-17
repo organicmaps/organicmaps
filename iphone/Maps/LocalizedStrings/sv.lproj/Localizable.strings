@@ -1093,3 +1093,6 @@
 "core_exit" = "Avsluta";
 "core_entrance" = "Ingång";
 "subway_data_unavailable" = "Tunnelbanekartan är otillgänglig";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "Markera nedladdade regioner på kartan";

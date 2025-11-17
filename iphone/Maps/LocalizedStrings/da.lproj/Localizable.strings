@@ -1093,3 +1093,6 @@
 "core_exit" = "Udgang";
 "core_entrance" = "Indgang";
 "subway_data_unavailable" = "Kort over undergrundsbaner er ikke tilgængeligt";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "Fremhæv downloadede områder på kortet";
