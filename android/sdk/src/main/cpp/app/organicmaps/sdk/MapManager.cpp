@@ -58,8 +58,12 @@ bool g_isBatched;
 
 storage::Storage & GetStorage()
 {
-  ASSERT(g_framework != nullptr, ());
   return g_framework->GetStorage();
+}
+
+storage::Storage & GetThreadedStorage()
+{
+  return g_framework.thread_check()->GetStorage();
 }
 
 struct CountryItemBuilder
@@ -451,7 +455,7 @@ static void ProgressChangedCallback(std::shared_ptr<jobject> const & listenerRef
 JNIEXPORT jint Java_app_organicmaps_sdk_downloader_MapManager_nativeSubscribe(JNIEnv * env, jclass clazz,
                                                                               jobject listener)
 {
-  return GetStorage().Subscribe(
+  return GetThreadedStorage().Subscribe(
       std::bind(&StatusChangedCallback, jni::make_global_ref(listener), std::placeholders::_1),
       std::bind(&ProgressChangedCallback, jni::make_global_ref(listener), std::placeholders::_1,
                 std::placeholders::_2));
@@ -460,7 +464,7 @@ JNIEXPORT jint Java_app_organicmaps_sdk_downloader_MapManager_nativeSubscribe(JN
 // static void nativeUnsubscribe(int slot);
 JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeUnsubscribe(JNIEnv * env, jclass clazz, jint slot)
 {
-  GetStorage().Unsubscribe(slot);
+  GetThreadedStorage().Unsubscribe(slot);
 }
 
 // static void nativeSubscribeOnCountryChanged(CurrentCountryChangedListener listener);

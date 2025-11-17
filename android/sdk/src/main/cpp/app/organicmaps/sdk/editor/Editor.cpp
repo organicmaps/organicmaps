@@ -55,7 +55,8 @@ jobject ToJavaStreet(JNIEnv * env, osm::LocalizedStreet const & street)
 
 osm::NewFeatureCategories & GetFeatureCategories()
 {
-  static osm::NewFeatureCategories categories = g_framework->NativeFramework()->GetEditorCategories();
+  /// @todo Non-const static object -> making AddLanguage (see usages), is definitely not a good pattern.
+  static osm::NewFeatureCategories categories = frm()->GetEditorCategories();
   return categories;
 }
 }  // namespace
@@ -147,7 +148,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeSetHasWifi(JNIEnv *,
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeSaveEditedFeature(JNIEnv *, jclass)
 {
-  switch (g_framework->NativeFramework()->SaveEditedMapObject(g_editableMapObject))
+  switch (frm()->SaveEditedMapObject(g_editableMapObject))
   {
   case osm::Editor::SaveResult::NothingWasChanged:
   case osm::Editor::SaveResult::SavedSuccessfully: return true;
@@ -159,8 +160,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeSaveEditedFeatur
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeShouldShowEditPlace(JNIEnv *, jclass)
 {
-  ::Framework * frm = g_framework->NativeFramework();
-  if (!frm->HasPlacePageInfo())
+  if (!frm()->HasPlacePageInfo())
     return static_cast<jboolean>(false);
 
   return g_framework->GetPlacePageInfo().ShouldShowEditPlace();
@@ -168,8 +168,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeShouldShowEditPl
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeShouldShowAddBusiness(JNIEnv *, jclass)
 {
-  ::Framework * frm = g_framework->NativeFramework();
-  if (!frm->HasPlacePageInfo())
+  if (!frm()->HasPlacePageInfo())
     return static_cast<jboolean>(false);
 
   return g_framework->GetPlacePageInfo().ShouldShowAddBusiness();
@@ -177,8 +176,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeShouldShowAddBus
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeShouldShowAddPlace(JNIEnv *, jclass)
 {
-  ::Framework * frm = g_framework->NativeFramework();
-  if (!frm->HasPlacePageInfo())
+  if (!frm()->HasPlacePageInfo())
     return static_cast<jboolean>(false);
 
   return g_framework->GetPlacePageInfo().ShouldShowAddPlace();
@@ -186,8 +184,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeShouldShowAddPla
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeCanEditPlace(JNIEnv *, jclass)
 {
-  ::Framework * frm = g_framework->NativeFramework();
-  if (!frm->HasPlacePageInfo())
+  if (!frm()->HasPlacePageInfo())
     return static_cast<jboolean>(false);
 
   return g_framework->GetPlacePageInfo().CanEditPlace();
@@ -324,8 +321,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeClearLocalEdits(JNIE
 
 JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeStartEdit(JNIEnv *, jclass)
 {
-  ::Framework * frm = g_framework->NativeFramework();
-  if (!frm->HasPlacePageInfo())
+  ::Framework * fr = frm();
+  if (!fr->HasPlacePageInfo())
   {
     ASSERT(g_editableMapObject.GetEditingLifecycle() == osm::EditingLifecycle::CREATED,
            ("PlacePageInfo should only be empty for new features."));
@@ -333,22 +330,21 @@ JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeStartEdit(JNIEnv *, 
   }
 
   place_page::Info const & info = g_framework->GetPlacePageInfo();
-  CHECK(frm->GetEditableMapObject(info.GetID(), g_editableMapObject), ("Invalid feature in the place page."));
+  CHECK(fr->GetEditableMapObject(info.GetID(), g_editableMapObject), ("Invalid feature in the place page."));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeCreateMapObject(JNIEnv * env, jclass, jstring featureType)
 {
-  ::Framework * frm = g_framework->NativeFramework();
+  ::Framework * fr = frm();
   auto const type = classif().GetTypeByReadableObjectName(jni::ToNativeString(env, featureType));
-  CHECK(frm->CreateMapObject(frm->GetViewportCenter(), type, g_editableMapObject),
+  CHECK(fr->CreateMapObject(fr->GetViewportCenter(), type, g_editableMapObject),
         ("Couldn't create mapobject, wrong coordinates of missing mwm"));
 }
 
 // static void nativeCreateNote(String text);
 JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeCreateNote(JNIEnv * env, jclass clazz, jstring text)
 {
-  g_framework->NativeFramework()->CreateNote(g_editableMapObject, osm::Editor::NoteProblemType::General,
-                                             jni::ToNativeString(env, text));
+  frm()->CreateNote(g_editableMapObject, osm::Editor::NoteProblemType::General, jni::ToNativeString(env, text));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeCreateStandaloneNote(JNIEnv * env, jclass clazz,
@@ -361,13 +357,13 @@ JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeCreateStandaloneNote
 JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativePlaceDoesNotExist(JNIEnv * env, jclass clazz,
                                                                               jstring comment)
 {
-  g_framework->NativeFramework()->CreateNote(g_editableMapObject, osm::Editor::NoteProblemType::PlaceDoesNotExist,
-                                             jni::ToNativeString(env, comment));
+  frm()->CreateNote(g_editableMapObject, osm::Editor::NoteProblemType::PlaceDoesNotExist,
+                    jni::ToNativeString(env, comment));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeRollbackMapObject(JNIEnv * env, jclass clazz)
 {
-  g_framework->NativeFramework()->RollBackChanges(g_editableMapObject.GetID());
+  frm()->RollBackChanges(g_editableMapObject.GetID());
 }
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeGetAllCreatableFeatureTypes(JNIEnv * env,
