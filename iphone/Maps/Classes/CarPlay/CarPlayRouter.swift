@@ -242,6 +242,7 @@ extension CarPlayRouter {
 
   func updateUpcomingManeuvers() {
     let maneuvers = createUpcomingManeuvers()
+    LOG(.info, "Upcoming maneuvers: \(maneuvers)")
     routeSession?.upcomingManeuvers = maneuvers
   }
 
@@ -261,35 +262,45 @@ extension CarPlayRouter {
   }
 
   private func createUpcomingManeuvers() -> [CPManeuver] {
+    LOG(.info, "Start creating upcoming maneuvers...")
     guard let routeInfo = RoutingManager.routingManager.routeInfo else {
+      LOG(.info, "The route is empty - skipping upcoming maneuvers creation")
       return []
     }
     var maneuvers = [CPManeuver]()
     let primaryManeuver = CPManeuver()
     primaryManeuver.userInfo = CPConstants.Maneuvers.primary
+    LOG(.info, "primaryManeuver.userInfo: \(String(describing: primaryManeuver.userInfo))")
     var instructionVariant = routeInfo.streetName
+    LOG(.info, "instructionVariant: \(instructionVariant)")
     if routeInfo.roundExitNumber != 0 {
       let ordinalExitNumber = NumberFormatter.localizedString(from: NSNumber(value: routeInfo.roundExitNumber),
                                                               number: .ordinal)
       let exitNumber = String(format: L("carplay_roundabout_exit"),
                               arguments: [ordinalExitNumber])
       instructionVariant = instructionVariant.isEmpty ? exitNumber : (exitNumber + ", " + instructionVariant)
+      LOG(.info, "updated instructionVariant: \(instructionVariant)")
     }
     primaryManeuver.instructionVariants = [instructionVariant]
     if let imageName = routeInfo.turnImageName,
       let symbol = UIImage(named: imageName) {
+      LOG(.info, "Primary maneuver imageName: \(imageName), image: \(symbol) ")
       primaryManeuver.symbolImage = symbol
     }
     if let estimates = createEstimates(routeInfo) {
+      LOG(.info, "Primary maneuver estimates: \(String(describing: estimates))")
       primaryManeuver.initialTravelEstimates = estimates
     }
+    LOG(.info, "Appending primary maneuver")
     maneuvers.append(primaryManeuver)
     if let imageName = routeInfo.nextTurnImageName,
       let symbol = UIImage(named: imageName) {
       let secondaryManeuver = CPManeuver()
       secondaryManeuver.userInfo = CPConstants.Maneuvers.secondary
       secondaryManeuver.instructionVariants = [L("then_turn")]
+      LOG(.info, "Secondary maneuver imageName: \(imageName), image: \(symbol)")
       secondaryManeuver.symbolImage = symbol
+      LOG(.info, "Appending secondary maneuver")
       maneuvers.append(secondaryManeuver)
     }
     return maneuvers
