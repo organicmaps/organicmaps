@@ -97,14 +97,14 @@
 /* 5.ROADS */
 /* 5.1 All roads */
 
-@trunk0: #4C2A19;
-@trunk1: #4C2A17;
-@primary0:  #5E351D;
-@primary1: #5E351D;
-@primary2: #5E351D;
-@secondary0: #573E33;
-@residential: #363434;
-@unclassified: #333131;
+@trunk0: #7A4A2F;
+@trunk1: #7A4A2D;
+@primary0:  #8A5A3D;
+@primary1: #8A5A3D;
+@primary2: #8A5A3D;
+@secondary0: #7A6A57;
+@residential: #5A5755;
+@unclassified: #4F4D4B;
 @pedestrian: #4D4744;
 @footway: #2B2827;
 @cycleway: #6E3D47;
@@ -116,8 +116,8 @@
 /* 5.2 Bridges */
 
 @bridge_background: #121212;
-@bridge_casing: #0D0D0D;
-@casing_road:  #0D0D0D;
+@bridge_casing: #252525;
+@casing_road:  #252525;
 
 /* 5.3 Tunnels */
 
