@@ -1,6 +1,7 @@
 #include "kml/serdes_geojson.hpp"
 #include "kml/color_parser.hpp"
 
+#include "ge0/geo_url_parser.hpp"
 #include "geometry/mercator.hpp"
 
 #include <map>
@@ -78,22 +79,54 @@ bool GeojsonParser::Parse(std::string_view jsonContent)
   {
     if (auto const * point = std::get_if<GeoJsonGeometryPoint>(&feature.geometry))
     {
-      double const longitude = point->coordinates.at(0);
-      double const latitude = point->coordinates.at(1);
+      double longitude = point->coordinates.at(0);
+      double latitude = point->coordinates.at(1);
 
       auto const & propsJson = feature.properties;
       BookmarkData bookmark;
       bookmark.m_color = ColorData{.m_predefinedColor = PredefinedColor::Red};
 
       // Parse "name" or "label"
-      if (auto const name = getStringFromJsonMap(propsJson, "name"))
+      if (auto const gmapLocation = propsJson.find("location");
+          gmapLocation != propsJson.end() && gmapLocation->second.is_object())
+      {
+        JsonTMap const gmapLocation_object = gmapLocation->second.get_object();
+        /* Parse "location" structure from Google Maps GeoJson:
+
+          "location": {
+            "address": "Riverside Building, County Hall, Westminster Bridge Rd, London SE1 7PB, United Kingdom",
+            "country_code": "GB",
+            "name": "London Eye"
+          }
+        */
+        auto const name = getStringFromJsonMap(gmapLocation_object, "name");
+        if (name)
+          kml::SetDefaultStr(bookmark.m_name, *name);
+      }
+      else if (auto const name = getStringFromJsonMap(propsJson, "name"))
         kml::SetDefaultStr(bookmark.m_name, *name);
       else if (auto const label = getStringFromJsonMap(propsJson, "label"))
         kml::SetDefaultStr(bookmark.m_name, *label);
 
+      // Parse Google Maps URL if present:
+      auto const google_maps_url = getStringFromJsonMap(propsJson, "google_maps_url");
+      if (google_maps_url)
+      {
+        geo::UnifiedParser parser;
+        geo::GeoURLInfo info;
+
+        if (parser.Parse(*google_maps_url, info))
+        {
+          latitude = info.m_lat;
+          longitude = info.m_lon;
+        }
+      }
+
       // Parse description
       if (auto const descr = getStringFromJsonMap(propsJson, "description"))
         kml::SetDefaultStr(bookmark.m_description, *descr);
+      else if (google_maps_url)
+        kml::SetDefaultStr(bookmark.m_description, *google_maps_url);
 
       // Parse color
       if (auto const markerColor = getStringFromJsonMap(propsJson, "marker-color"))
