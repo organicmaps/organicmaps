@@ -155,11 +155,12 @@ jobs:
         working-directory: android
         run: ./gradlew assembleWebRelease
 
-      - name: Upload ${{ matrix.flavor }} debug symbols to GitHub artifacts
+      - name: Upload web debug symbols to GitHub artifacts # Google and Huawei include debug symbols inside the aab.
+        if: ${{ matrix.flavor == 'web' }}
         uses: actions/upload-artifact@v4
         with:
-          name: native-debug-symbols-${{ matrix.flavor }}.zip
-          path: android/app/build/outputs/native-debug-symbols/${{ matrix.flavor }}Release/native-debug-symbols.zip
+          name: native-debug-symbols-web.zip
+          path: android/app/build/outputs/native-debug-symbols/webRelease/native-debug-symbols.zip
 
       - name: Upload Google aab to GitHub artifacts
         if: ${{ matrix.flavor == 'google' }}
