@@ -596,6 +596,7 @@ fa = ﺐﻫ
 fi = tielle
 fr = sur
 gl = en
+he = אל
 hi = पर
 hr = na
 hu = a
