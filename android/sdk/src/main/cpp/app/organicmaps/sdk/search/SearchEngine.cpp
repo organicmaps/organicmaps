@@ -109,7 +109,6 @@ jobject ToJavaResult(Result const & result, search::ProductInfo const & productI
   }
 
   bool const popularityHasHigherPriority = PopularityHasHigherPriority(hasPosition, distanceInMeters);
-  bool const isFeature = result.GetResultType() == Result::Type::Feature;
 
   jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, result.GetLocalizedFeatureType()));
   jni::TScopedLocalRef address(env, jni::ToJavaString(env, result.GetAddress()));

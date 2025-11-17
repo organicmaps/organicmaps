@@ -17,7 +17,6 @@ static void IsolinesStateChanged(IsolinesManager::IsolinesState state, std::shar
 JNIEXPORT void Java_app_organicmaps_sdk_maplayer_isolines_IsolinesManager_nativeAddListener(JNIEnv * env, jclass clazz,
                                                                                             jobject listener)
 {
-  CHECK(g_framework, ("Framework isn't created yet!"));
   g_framework->SetIsolinesListener(
       std::bind(&IsolinesStateChanged, std::placeholders::_1, jni::make_global_ref(listener)));
 }
@@ -25,14 +24,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_maplayer_isolines_IsolinesManager_native
 JNIEXPORT void Java_app_organicmaps_sdk_maplayer_isolines_IsolinesManager_nativeRemoveListener(JNIEnv * env,
                                                                                                jclass clazz)
 {
-  CHECK(g_framework, ("Framework isn't created yet!"));
   g_framework->SetIsolinesListener(nullptr);
 }
 
 JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_sdk_maplayer_isolines_IsolinesManager_nativeShouldShowNotification(JNIEnv * env, jclass clazz)
 {
-  CHECK(g_framework, ("Framework isn't created yet!"));
   auto const & manager = g_framework->NativeFramework()->GetIsolinesManager();
   auto const visible = manager.IsVisible();
   auto const enabled = manager.GetState() == IsolinesManager::IsolinesState::Enabled;
