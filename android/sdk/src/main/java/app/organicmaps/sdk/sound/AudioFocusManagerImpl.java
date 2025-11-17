@@ -7,13 +7,10 @@ import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import app.organicmaps.sdk.util.log.Logger;
 
 @RequiresApi(26)
 final class AudioFocusManagerImpl extends AudioFocusManager
 {
-  private static final String TAG = AudioFocusManagerImpl.class.getSimpleName();
-
   @NonNull
   private final AudioFocusRequest mAudioFocusRequest;
 
@@ -27,19 +24,15 @@ final class AudioFocusManagerImpl extends AudioFocusManager
   }
 
   @Override
-  public boolean requestAudioFocus()
+  protected boolean requestAudioFocusImpl()
   {
     final int requestResult = mAudioManager.requestAudioFocus(mAudioFocusRequest);
-    mPlaybackAllowed = requestResult == AudioManager.AUDIOFOCUS_REQUEST_GRANTED;
-    if (!mPlaybackAllowed)
-      Logger.w(TAG, "Audio focus request failed");
-    return mPlaybackAllowed;
+    return requestResult == AudioManager.AUDIOFOCUS_REQUEST_GRANTED;
   }
 
   @Override
-  public void releaseAudioFocus()
+  protected void releaseAudioFocusImpl()
   {
     mAudioManager.abandonAudioFocusRequest(mAudioFocusRequest);
-    mPlaybackAllowed = false;
   }
 }
