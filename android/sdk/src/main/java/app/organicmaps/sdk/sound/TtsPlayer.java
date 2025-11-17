@@ -18,6 +18,7 @@ import app.organicmaps.sdk.util.log.Logger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * {@code TtsPlayer} class manages available TTS voice languages.
@@ -41,6 +42,7 @@ public enum TtsPlayer
   private static final Locale DEFAULT_LOCALE = Locale.US;
   private static final float SPEECH_RATE = 1.0f;
   private static final int TTS_SPEAK_DELAY_MILLIS = 50;
+  private static final String TTS_SILENT_UTTERANCE_ID = "SILENT_DELAY";
 
   @Nullable
   private static List<Pair<String, String>> sSupportedLanguages = null;
@@ -49,13 +51,54 @@ public enum TtsPlayer
 
   private ContentObserver mTtsEngineObserver;
   private TextToSpeech mTts;
+  private final AtomicInteger mTtsQueueSize = new AtomicInteger(0);
+  private final UtteranceProgressListener mUtteranceProgressListener = new UtteranceProgressListener() {
+    @Override
+    public void onStart(@NonNull String utteranceId)
+    {
+      Logger.d(TAG, "TTS Utterance started: " + utteranceId);
+    }
+
+    @Override
+    public void onDone(@NonNull String utteranceId)
+    {
+      handleStop(utteranceId);
+    }
+
+    @Override
+    @SuppressWarnings("deprecated") // abstract method must be implemented
+    public void onError(@NonNull String utteranceId)
+    {
+      handleError(utteranceId, -1);
+    }
+
+    @Override
+    public void onError(@NonNull String utteranceId, int errorCode)
+    {
+      handleError(utteranceId, errorCode);
+    }
+
+    private void handleError(@NonNull String utteranceId, int errorCode)
+    {
+      Logger.e(TAG, "TTS Utterance error: " + utteranceId + ", code: " + errorCode);
+      handleStop(utteranceId);
+    }
+
+    private void handleStop(@NonNull String utteranceId)
+    {
+      Logger.d(TAG, "TTS Utterance stopped: " + utteranceId);
+      if (mTtsQueueSize.decrementAndGet() <= 0)
+        mAudioFocusManager.releaseAudioFocus();
+      if (mTtsQueueSize.get() < 0)
+        mTtsQueueSize.set(0);
+    }
+  };
+
   private boolean mInitializing;
   private boolean mReloadTriggered = false;
   private AudioFocusManager mAudioFocusManager;
 
   private final Bundle mParams = new Bundle();
-
-  private final Handler delayHandler = new Handler(Looper.getMainLooper());
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -156,33 +199,8 @@ public enum TtsPlayer
       refreshLanguages();
       mTts.setSpeechRate(SPEECH_RATE);
       mTts.setAudioAttributes(AudioFocusManager.AUDIO_ATTRIBUTES);
-      mTts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
-        @Override
-        public void onStart(String utteranceId)
-        {
-          mAudioFocusManager.requestAudioFocus();
-        }
-
-        @Override
-        public void onDone(String utteranceId)
-        {
-          mAudioFocusManager.releaseAudioFocus();
-        }
-
-        @Override
-        @SuppressWarnings("deprecated") // abstract method must be implemented
-        public void onError(String utteranceId)
-        {
-          mAudioFocusManager.releaseAudioFocus();
-        }
-
-        @Override
-        public void onError(String utteranceId, int errorCode)
-        {
-          mAudioFocusManager.releaseAudioFocus();
-        }
-      });
-      mAudioFocusManager = AudioFocusManager.create(context, this::onAudioFocusLost);
+      mTts.setOnUtteranceProgressListener(mUtteranceProgressListener);
+      mAudioFocusManager = AudioFocusManager.create(context, this::stop);
       mParams.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, Config.TTS.getVolume());
       mInitializing = false;
       if (mReloadTriggered && sOnReloadCallback != null)
@@ -220,29 +238,69 @@ public enum TtsPlayer
 
   public void speak(@NonNull String textToSpeak)
   {
-    if (Config.TTS.isEnabled())
-    {
-      final boolean isMusicActive = mAudioFocusManager.isMusicActive();
-      if (mAudioFocusManager.requestAudioFocus())
-      {
-        if (isMusicActive)
-        {
-          delayHandler.postDelayed(
-              () -> mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, mParams, textToSpeak), TTS_SPEAK_DELAY_MILLIS);
-        }
-        else
-          mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, mParams, textToSpeak);
-      }
-      else
-        stop();
-    }
+    if (!isReady())
+      return;
+
+    if (!speakFirstString(textToSpeak))
+      stop();
   }
 
   public void playTurnNotifications(@NonNull String[] turnNotifications)
   {
-    if (isReady())
-      for (String textToSpeak : turnNotifications)
-        speak(textToSpeak);
+    if (!isReady())
+      return;
+
+    for (int i = 0; i < turnNotifications.length; i++)
+    {
+      final String text = turnNotifications[i];
+      final boolean result = i == 0 ? speakFirstString(text) : addToQueue(text);
+      if (!result)
+      {
+        stop();
+        return;
+      }
+    }
+  }
+
+  private boolean speakFirstString(@NonNull String text)
+  {
+    if (!Config.TTS.isEnabled())
+      return false;
+    if (!mAudioFocusManager.requestAudioFocus())
+      return false;
+
+    mTtsQueueSize.set(0);
+
+    final boolean isMusicActive = mAudioFocusManager.isMusicActive();
+    boolean result = true;
+    if (isMusicActive)
+      result = mTts.playSilentUtterance(TTS_SPEAK_DELAY_MILLIS, TextToSpeech.QUEUE_FLUSH, TTS_SILENT_UTTERANCE_ID)
+            == TextToSpeech.SUCCESS;
+    if (result)
+      mTtsQueueSize.incrementAndGet();
+    else
+    {
+      Logger.d(TAG, "Failed to play silent utterance for music active delay");
+      return false;
+    }
+
+    result = mTts.speak(text, isMusicActive ? TextToSpeech.QUEUE_ADD : TextToSpeech.QUEUE_FLUSH, mParams, text)
+          == TextToSpeech.SUCCESS;
+    if (result)
+      mTtsQueueSize.incrementAndGet();
+    else
+      Logger.d(TAG, "Failed to speak text: " + text);
+    return result;
+  }
+
+  private boolean addToQueue(@NonNull String text)
+  {
+    final boolean result = mTts.speak(text, TextToSpeech.QUEUE_ADD, mParams, text) == TextToSpeech.SUCCESS;
+    if (result)
+      mTtsQueueSize.incrementAndGet();
+    else
+      Logger.d(TAG, "Failed to add text to TTS queue: " + text);
+    return result;
   }
 
   public void stop()
@@ -252,6 +310,7 @@ public enum TtsPlayer
 
     mAudioFocusManager.releaseAudioFocus();
     mTts.stop();
+    mTtsQueueSize.set(0);
   }
 
   public static boolean isEnabled()
@@ -347,12 +406,6 @@ public enum TtsPlayer
       sSupportedLanguages = nativeGetSupportedLanguages();
     }
     return sSupportedLanguages;
-  }
-
-  private void onAudioFocusLost()
-  {
-    if (isReady())
-      mTts.stop();
   }
 
   private native static void nativeEnableTurnNotifications(boolean enable);
