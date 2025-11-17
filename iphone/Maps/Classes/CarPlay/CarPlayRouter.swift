@@ -210,6 +210,7 @@ extension CarPlayRouter {
       Toast.show(withText: errorMessage, alignment: .top)
       return
     }
+    LOG(.info, "Starting a new navigation session")
     routeSession = template.startNavigationSession(for: trip)
     routeSession?.pauseTrip(for: .loading, description: nil)
     updateUpcomingManeuvers()
@@ -219,17 +220,20 @@ extension CarPlayRouter {
   }
 
   func cancelNavigationSession() {
+    LOG(.info, "Сancelling navigation session")
     routeSession?.cancelTrip()
     routeSession = nil
     RoutingManager.routingManager.resetOnNewTurnCallback()
   }
 
   func cancelTrip() {
+    LOG(.info, "Сancelling trip")
     cancelNavigationSession()
     completeRouteAndRemovePoints()
   }
 
   func finishTrip() {
+    LOG(.info, "Finishing trip")
     routeSession?.finishTrip()
     routeSession = nil
     completeRouteAndRemovePoints()
