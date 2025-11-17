@@ -38669,6 +38669,63 @@ vi = Bạn
 zh-Hans = 您
 zh-Hant = 您
 
+[show_downloaded_regions]
+comment = Settings/Highlight downloaded regions on the map
+tags = apple-maps
+en = Highlight downloaded regions on the map
+af = Beklemtoon afgelaaide streke op die kaart
+ar = تمييز المناطق المُنزَّلة على الخريطة
+ast = Rescamplar les rexones baxaes nel mapa
+az = Xəritədə yüklənmiş bölgələri vurğula
+be = Падсвечваць загружаныя рэгіёны на мапе
+bg = Подсветляне на изтеглените региони върху картата
+bn = মানচিত্রে ডাউনলোড করা অঞ্চলগুলো হাইলাইট করুন
+ca = Ressalta les regions baixades al mapa
+cs = Zvýraznit stažené oblasti na mapě
+da = Fremhæv downloadede områder på kortet
+de = Heruntergeladene Regionen auf der Karte hervorheben
+el = Επισημάνετε τις ληφθείσες περιοχές στον χάρτη
+es = Resaltar las regiones descargadas en el mapa
+et = Tõsta allalaaditud piirkonnad kaardil esile
+eu = Nabarmendu deskargatutako eskualdeak mapan
+fa = برجسته کردن نواحی دانلودشده روی نقشه
+fi = Korosta ladattuja alueita kartalla
+fr = Mettre en évidence les régions téléchargées sur la carte
+gl = Resaltar as rexións descargadas no mapa
+he = הדגשת האזורים שהורדו במפה
+hi = मानचित्र पर डाउनलोड किए गए क्षेत्रों को हाइलाइट करें
+hr = Istakni preuzete regije na karti
+hu = Emelje ki a letöltött területeket a térképen
+ia = Evidentiar le regiones discargate sur le carta
+id = Sorot wilayah yang diunduh pada peta
+is = Ljóma niðurhalað svæði á kortinu
+it = Evidenzia le regioni scaricate sulla mappa
+ja = 地図上でダウンロード済みの地域を強調表示する
+ko = 지도에서 다운로드한 지역을 강조 표시
+lt = Paryškinti atsisiųstus regionus žemėlapyje
+lv = Iezīmēt lejupielādētos reģionus kartē
+mr = नकाशावर डाउनलोड केलेले प्रदेश हायलाइट करा
+mt = Ippreżenta b’mod ċar ir-reġjuni misluta fuq il-mappa
+nb = Fremhev nedlastede områder på kartet
+nl = Gemarkeerde gedownloade regio’s op de kaart
+pa = ਨਕਸ਼ੇ ਉੱਤੇ ਡਾਊਨਲੋਡ ਕੀਤੇ ਖੇਤਰਾਂ ਨੂੰ ਹਾਈਲਾਈਟ ਕਰੋ
+pl = Podświetl pobrane regiony na mapie
+pt = Destacar as regiões transferidas no mapa
+pt-BR = Destacar as regiões baixadas no mapa
+ro = Evidențiază regiunile descărcate pe hartă
+ru = Подсвечивать загруженные регионы на карте
+sk = Zvýrazniť stiahnuté oblasti na mape
+sl = Označi prenesene regije na zemljevidu
+sr = Истакни преузете регионе на карти
+sv = Markera nedladdade regioner på kartan
+sw = Angazia maeneo yaliyopakuliwa kwenye ramani
+th = ไฮไลท์ภูมิภาคที่ดาวน์โหลดบนแผนที่
+tr = Haritada indirilen bölgeleri vurgula
+uk = Підсвічувати завантажені регіони на карті
+vi = Tô sáng các vùng đã tải xuống trên bản đồ
+zh-Hans = 在地图上突出显示已下载的区域
+zh-Hant = 在地圖上突出顯示已下載的區域
+
 [[3d touch strings]]
 
 [route]

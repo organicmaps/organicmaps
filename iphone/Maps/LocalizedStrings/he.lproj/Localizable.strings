@@ -1093,3 +1093,6 @@
 "core_exit" = "יציאה";
 "core_entrance" = "כניסה";
 "subway_data_unavailable" = "מפת רכבת תחתית לא זמינה";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "הדגשת האזורים שהורדו במפה";

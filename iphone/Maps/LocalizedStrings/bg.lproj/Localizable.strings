@@ -1093,3 +1093,6 @@
 "core_exit" = "Изход";
 "core_entrance" = "Вход";
 "subway_data_unavailable" = "Картата на метрото не е налична";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "Подсветляне на изтеглените региони върху картата";

@@ -1093,3 +1093,6 @@
 "core_exit" = "Avslutt";
 "core_entrance" = "Inngang";
 "subway_data_unavailable" = "T-banekart er utilgjengelig";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "Fremhev nedlastede områder på kartet";

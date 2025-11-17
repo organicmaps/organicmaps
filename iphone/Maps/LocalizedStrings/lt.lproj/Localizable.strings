@@ -1093,3 +1093,6 @@
 "core_exit" = "Išėjimas";
 "core_entrance" = "Įėjimas";
 "subway_data_unavailable" = "Metro žemėlapis neprieinamas";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "Paryškinti atsisiųstus regionus žemėlapyje";

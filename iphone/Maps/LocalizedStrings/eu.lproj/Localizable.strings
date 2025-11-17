@@ -1093,3 +1093,6 @@
 "core_exit" = "Irten";
 "core_entrance" = "Sarrera";
 "subway_data_unavailable" = "Metroaren mapa ez dago erabilgarri";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "Nabarmendu deskargatutako eskualdeak mapan";
