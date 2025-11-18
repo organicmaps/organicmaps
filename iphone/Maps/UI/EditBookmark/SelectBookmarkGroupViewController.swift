@@ -17,6 +17,12 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
   private let groupName: String
   private let groupId: MWMMarkGroupID
   private let bookmarkGroups = BookmarksManager.shared().sortedUserCategories()
+  private var filteredGroups: [BookmarkGroup] = []
+  private var isSearching = false
+  private var currentGroups: [BookmarkGroup] {
+    isSearching ? filteredGroups : bookmarkGroups
+  }
+  private let searchController = UISearchController(searchResultsController: nil)
 
   init(groupName: String, groupId: MWMMarkGroupID) {
     self.groupName = groupName
@@ -31,8 +37,20 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    setupView()
+  }
+
+  private func setupView() {
     title = L("bookmark_sets");
     navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonDidTap))
+
+    searchController.searchBar.placeholder = L("search")
+    searchController.obscuresBackgroundDuringPresentation = false
+    searchController.hidesNavigationBarDuringPresentation = false
+    searchController.searchBar.delegate = self
+    searchController.searchBar.applyTheme()
+    navigationItem.searchController = searchController
+    navigationItem.hidesSearchBarWhenScrolling = false
   }
 
   @objc private func cancelButtonDidTap() {
@@ -48,7 +66,7 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
     case .addGroup:
       return 1
     case .groups:
-      return bookmarkGroups.count
+      return currentGroups.count
     default:
       fatalError()
     }
@@ -61,7 +79,7 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
       cell.textLabel?.text = L("add_new_set")
       cell.accessoryType = .disclosureIndicator
     case .groups:
-      let bookmarkGroup = bookmarkGroups[indexPath.row]
+      let bookmarkGroup = currentGroups[indexPath.row]
       cell.textLabel?.text = bookmarkGroup.title
       cell.textLabel?.numberOfLines = 3
       cell.accessoryType = bookmarkGroup.categoryId == groupId ? .checkmark : .none
@@ -77,7 +95,7 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
     case .addGroup:
       createNewGroup()
     case .groups:
-      let selectedGroup = bookmarkGroups[indexPath.row]
+      let selectedGroup = currentGroups[indexPath.row]
       delegate?.bookmarkGroupViewController(self, didSelect: selectedGroup.title, groupId: selectedGroup.categoryId)
     default:
       fatalError()
@@ -92,5 +110,39 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
       self.delegate?.bookmarkGroupViewController(self, didSelect: name, groupId: newGroupId)
       return true
     }
+  }
+
+  private func applyFilter(for text: String) {
+    let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+    isSearching = !trimmed.isEmpty
+    if isSearching {
+      let needle = trimmed.lowercased()
+      filteredGroups = bookmarkGroups.filter { $0.title.lowercased().contains(needle) }
+    } else {
+      filteredGroups.removeAll(keepingCapacity: false)
+    }
+    tableView.reloadSections(IndexSet(integer: Sections.groups.rawValue), with: .automatic)
+  }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension SelectBookmarkGroupViewController: UISearchBarDelegate {
+  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    searchBar.setShowsCancelButton(true, animated: true)
+  }
+
+  func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    searchBar.setShowsCancelButton(false, animated: true)
+  }
+
+  func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    searchBar.text = nil
+    searchBar.resignFirstResponder()
+    applyFilter(for: "")
+  }
+
+  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    applyFilter(for: searchText)
   }
 }
