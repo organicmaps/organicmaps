@@ -193,7 +193,12 @@ using namespace storage;
   auto & f = GetFramework();
   auto & bmManager = f.GetBookmarkManager();
   auto & info = f.GetCurrentPlacePageInfo();
-  auto const categoryId = f.LastEditedBMCategory();
+  kml::MarkGroupId categoryId = f.LastEditedBMCategory();
+  if (info.IsTrack() && categoryId != data.trackData.groupId)
+  {
+    categoryId = data.trackData.groupId;
+    bmManager.SetLastEditedBmCategory(categoryId);
+  }
   kml::BookmarkData bmData;
   bmData.m_name = info.FormatNewBookmarkName();
   bmData.m_color.m_predefinedColor = f.LastEditedBMColor();
