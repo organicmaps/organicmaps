@@ -176,6 +176,13 @@ android {
       signingConfig = signingConfigs.debug
       resValue 'string', 'app_name', 'Debug Organic Maps'
 
+      packagingOptions {
+        doNotStrip "*/arm64-v8a/*.so"
+        doNotStrip "*/armeabi-v7a/*.so"
+        doNotStrip "*/x86/*.so"
+        doNotStrip "*/x86_64/*.so"
+      }
+
       if (googleFirebaseServicesEnabled) {
         firebaseCrashlytics {
           nativeSymbolUploadEnabled true
