@@ -102,8 +102,26 @@
         <category android:name="android.intent.category.BROWSABLE"/>
 
         <data android:scheme="geo"/>
+        <data android:scheme="geo.offline" />
         <data android:scheme="ge0"/>
         <data android:scheme="om"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.NAVIGATE" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+
+        <data android:scheme="geo" />
+        <data android:scheme="geo.offline" />
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+
+        <data android:scheme="geo.action" />
+        <data android:scheme="geo.action.offline" />
       </intent-filter>
 
       <intent-filter>
@@ -525,6 +543,7 @@
         <action android:name="androidx.car.app.action.NAVIGATE" />
         <category android:name="android.intent.category.DEFAULT"/>
         <data android:scheme="geo" />
+        <data android:scheme="geo.offline" />
       </intent-filter>
     </service>
 
