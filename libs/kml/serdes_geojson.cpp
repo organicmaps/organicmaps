@@ -86,6 +86,8 @@ bool GeojsonParser::Parse(std::string_view jsonContent)
       BookmarkData bookmark;
       bookmark.m_color = ColorData{.m_predefinedColor = PredefinedColor::Red};
 
+      std::string bookmark_name = {};
+
       // Parse "name" or "label"
       if (auto const gmapLocation = propsJson.find("location");
           gmapLocation != propsJson.end() && gmapLocation->second.is_object())
@@ -101,12 +103,12 @@ bool GeojsonParser::Parse(std::string_view jsonContent)
         */
         auto const name = getStringFromJsonMap(gmapLocation_object, "name");
         if (name)
-          kml::SetDefaultStr(bookmark.m_name, *name);
+          bookmark_name = *name;
       }
       else if (auto const name = getStringFromJsonMap(propsJson, "name"))
-        kml::SetDefaultStr(bookmark.m_name, *name);
+        bookmark_name = *name;
       else if (auto const label = getStringFromJsonMap(propsJson, "label"))
-        kml::SetDefaultStr(bookmark.m_name, *label);
+        bookmark_name = *label;
 
       // Parse Google Maps URL if present:
       auto const google_maps_url = getStringFromJsonMap(propsJson, "google_maps_url");
@@ -126,7 +128,13 @@ bool GeojsonParser::Parse(std::string_view jsonContent)
       if (auto const descr = getStringFromJsonMap(propsJson, "description"))
         kml::SetDefaultStr(bookmark.m_description, *descr);
       else if (google_maps_url)
-        kml::SetDefaultStr(bookmark.m_description, *google_maps_url);
+      {
+        if (bookmark_name.empty())
+          kml::SetDefaultStr(bookmark.m_description, *google_maps_url);
+        else
+          kml::SetDefaultStr(bookmark.m_description,
+                             "<a href=\"" + (*google_maps_url) + "\">" + bookmark_name + "</a>");
+      }
 
       // Parse color
       if (auto const markerColor = getStringFromJsonMap(propsJson, "marker-color"))
@@ -159,6 +167,8 @@ bool GeojsonParser::Parse(std::string_view jsonContent)
           bookmark.m_properties["_umap_options"] = umapOptionsStr;
       }
 
+      if (!bookmark_name.empty())
+        kml::SetDefaultStr(bookmark.m_name, bookmark_name);
       bookmark.m_point = mercator::FromLatLon(latitude, longitude);
       m_fileData.m_bookmarksData.push_back(bookmark);
     }
