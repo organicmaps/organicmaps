@@ -5,8 +5,10 @@ import static app.organicmaps.api.Const.EXTRA_PICK_POINT;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.IntentCompat;
+
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.editor.OsmLoginActivity;
@@ -77,7 +79,8 @@ public class Factory
 
       switch (Framework.nativeParseAndSetApiUrl(uri.toString()))
       {
-      case RequestType.INCORRECT: return false;
+      case RequestType.INCORRECT:
+        return false;
 
       case RequestType.MAP:
         SearchEngine.INSTANCE.cancelInteractiveSearch();
@@ -141,6 +144,18 @@ public class Factory
       }
 
       return false;
+    }
+  }
+
+  public static class GoggleAssistanceIntentProcessor extends GoogleAssistantIntentHandler implements IntentProcessor
+  {
+
+    @Override
+    public boolean process(@NonNull Intent intent, @NonNull MwmActivity activity)
+    {
+      return handleIntent(intent, (query, searchOnMap) -> {
+        SearchActivity.start(activity, query, null, searchOnMap);
+      });
     }
   }
 }
