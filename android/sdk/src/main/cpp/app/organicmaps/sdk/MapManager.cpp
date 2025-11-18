@@ -50,10 +50,8 @@ struct TBatchedData
   {}
 };
 
-jobject g_countryChangedListener = nullptr;
-
 DECLARE_THREAD_CHECKER(g_batchingThreadChecker);
-std::unordered_map<jobject, std::vector<TBatchedData>> g_batchedCallbackData;
+std::unordered_map<jobject, std::pair<std::weak_ptr<jobject>, std::vector<TBatchedData>>> g_batchedCallbackData;
 bool g_isBatched;
 
 storage::Storage & GetStorage()
@@ -358,30 +356,34 @@ static void EndBatchingCallbacks(JNIEnv * env)
   CHECK_THREAD_CHECKER(g_batchingThreadChecker, ("EndBatchingCallbacks"));
 
   auto const & listBuilder = jni::ListBuilder::Instance(env);
+  static jclass batchDataClass =
+      jni::GetGlobalClassRef(env, "app/organicmaps/sdk/downloader/MapManager$StorageCallbackData");
+  static jmethodID batchDataCtor = jni::GetConstructorID(env, batchDataClass, "(Ljava/lang/String;IIZ)V");
 
-  for (auto & key : g_batchedCallbackData)
+  for (auto const & [_, key] : g_batchedCallbackData)
   {
+    auto ptr = key.first.lock();
+    if (!ptr)
+      continue;
+
     // Allocate resulting ArrayList
-    jni::TScopedLocalRef const list(env, listBuilder.CreateArray(env, key.second.size()));
+    using SLR = jni::TScopedLocalRef;
+    SLR const list(env, listBuilder.CreateArray(env, key.second.size()));
 
     for (TBatchedData const & dataItem : key.second)
     {
       // Create StorageCallbackData instance…
-      static jclass batchDataClass =
-          jni::GetGlobalClassRef(env, "app/organicmaps/sdk/downloader/MapManager$StorageCallbackData");
-      static jmethodID batchDataCtor = jni::GetConstructorID(env, batchDataClass, "(Ljava/lang/String;IIZ)V");
-
-      jni::TScopedLocalRef const id(env, jni::ToJavaString(env, dataItem.m_countryId));
-      jni::TScopedLocalRef const item(
-          env, env->NewObject(batchDataClass, batchDataCtor, id.get(), static_cast<jint>(dataItem.m_newStatus),
-                              static_cast<jint>(dataItem.m_errorCode), dataItem.m_isLeaf));
+      SLR const id(env, jni::ToJavaString(env, dataItem.m_countryId));
+      SLR const item(env,
+                     env->NewObject(batchDataClass, batchDataCtor, id.get(), static_cast<jint>(dataItem.m_newStatus),
+                                    static_cast<jint>(dataItem.m_errorCode), dataItem.m_isLeaf));
       // …and put it into the resulting list
       env->CallBooleanMethod(list.get(), listBuilder.m_add, item.get());
     }
 
     // Invoke Java callback
-    jmethodID const method = jni::GetMethodID(env, key.first, "onStatusChanged", "(Ljava/util/List;)V");
-    env->CallVoidMethod(key.first, method, list.get());
+    jmethodID const method = jni::GetMethodID(env, *ptr, "onStatusChanged", "(Ljava/util/List;)V");
+    env->CallVoidMethod(*ptr, method, list.get());
   }
 
   g_batchedCallbackData.clear();
@@ -434,8 +436,9 @@ static void StatusChangedCallback(std::shared_ptr<jobject> const & listenerRef, 
   storage::NodeStatuses ns;
   GetStorage().GetNodeStatuses(countryId, ns);
 
-  TBatchedData const data(countryId, ns.m_status, ns.m_error, !ns.m_groupNode);
-  g_batchedCallbackData[*listenerRef].push_back(std::move(data));
+  auto & e = g_batchedCallbackData[*listenerRef];
+  e.first = listenerRef;
+  e.second.emplace_back(countryId, ns.m_status, ns.m_error, !ns.m_groupNode);
 
   if (!g_isBatched)
     EndBatchingCallbacks(jni::GetEnv());
@@ -447,8 +450,8 @@ static void ProgressChangedCallback(std::shared_ptr<jobject> const & listenerRef
   JNIEnv * env = jni::GetEnv();
 
   jmethodID const methodID = jni::GetMethodID(env, *listenerRef, "onProgress", "(Ljava/lang/String;JJ)V");
-  env->CallVoidMethod(*listenerRef, methodID, jni::ToJavaString(env, countryId), progress.m_bytesDownloaded,
-                      progress.m_bytesTotal);
+  env->CallVoidMethod(*listenerRef, methodID, jni::TScopedLocalRef(env, jni::ToJavaString(env, countryId)).get(),
+                      progress.m_bytesDownloaded, progress.m_bytesTotal);
 }
 
 // static int nativeSubscribe(StorageCallback listener);
@@ -472,20 +475,16 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeSubscribeOnC
                                                                                               jclass clazz,
                                                                                               jobject listener)
 {
-  ASSERT(!g_countryChangedListener, ());
-  g_countryChangedListener = env->NewGlobalRef(listener);
-
-  auto const callback = [](storage::CountryId const & countryId)
+  auto const callback = [listener = make_global_ref(listener)](storage::CountryId const & countryId)
   {
     JNIEnv * env = jni::GetEnv();
-    jmethodID methodID =
-        jni::GetMethodID(env, g_countryChangedListener, "onCurrentCountryChanged", "(Ljava/lang/String;)V");
-    env->CallVoidMethod(g_countryChangedListener, methodID,
-                        jni::TScopedLocalRef(env, jni::ToJavaString(env, countryId)).get());
+    jmethodID methodID = jni::GetMethodID(env, *listener, "onCurrentCountryChanged", "(Ljava/lang/String;)V");
+    env->CallVoidMethod(*listener, methodID, jni::TScopedLocalRef(env, jni::ToJavaString(env, countryId)).get());
   };
 
-  storage::CountryId const & prev = g_framework->NativeFramework()->GetLastReportedCountry();
-  g_framework->NativeFramework()->SetCurrentCountryChangedListener(callback);
+  ::Framework * fr = frm();
+  storage::CountryId const & prev = fr->GetLastReportedCountry();
+  fr->SetCurrentCountryChangedListener(callback);
 
   // Report previous value
   callback(prev);
@@ -495,10 +494,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeSubscribeOnC
 JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeUnsubscribeOnCountryChanged(JNIEnv * env,
                                                                                                 jclass clazz)
 {
-  g_framework->NativeFramework()->SetCurrentCountryChangedListener(nullptr);
-
-  env->DeleteGlobalRef(g_countryChangedListener);
-  g_countryChangedListener = nullptr;
+  frm()->SetCurrentCountryChangedListener(nullptr);
 }
 
 // static boolean nativeHasUnsavedEditorChanges(String root);
@@ -506,7 +502,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeHasUnsav
                                                                                                 jclass clazz,
                                                                                                 jstring root)
 {
-  return g_framework->NativeFramework()->HasUnsavedEdits(jni::ToNativeString(env, root));
+  return frm()->HasUnsavedEdits(jni::ToNativeString(env, root));
 }
 
 // static void nativeGetPathTo(String root, List<String> result);
@@ -566,7 +562,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeEnableDownlo
 // static @Nullable String nativeGetSelectedCountry();
 JNIEXPORT jstring Java_app_organicmaps_sdk_downloader_MapManager_nativeGetSelectedCountry(JNIEnv * env, jclass clazz)
 {
-  if (!g_framework->NativeFramework()->HasPlacePageInfo())
+  if (!frm()->HasPlacePageInfo())
     return nullptr;
 
   storage::CountryId const & res = g_framework->GetPlacePageInfo().GetCountryId();
