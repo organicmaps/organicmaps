@@ -278,8 +278,8 @@ UNIT_TEST(GeoJson_Parse_FromGoogle)
   // Check bookmark with coodinates and Google link
   auto const & londonEyeBookmark = dataFromText.m_bookmarksData.at(0);
   TEST_EQUAL(kml::GetDefaultStr(londonEyeBookmark.m_name), "London Eye", ());
-  TEST_EQUAL(kml::GetDefaultStr(londonEyeBookmark.m_description), "http://maps.google.com/?cid=4796882358840715922",
-             ());
+  TEST_EQUAL(kml::GetDefaultStr(londonEyeBookmark.m_description),
+             "<a href=\"http://maps.google.com/?cid=4796882358840715922\">London Eye</a>", ());
 
   // Check bookmark Google link
   auto const & bookmark = dataFromText.m_bookmarksData.at(1);
