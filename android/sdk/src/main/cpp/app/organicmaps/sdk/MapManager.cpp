@@ -475,19 +475,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeSubscribeOnC
                                                                                               jclass clazz,
                                                                                               jobject listener)
 {
-  auto const callback = [listener = make_global_ref(listener)](storage::CountryId const & countryId)
+  frm()->SetCurrentCountryChangedListener([listener = make_global_ref(listener)](storage::CountryId const & countryId)
   {
     JNIEnv * env = jni::GetEnv();
     jmethodID methodID = jni::GetMethodID(env, *listener, "onCurrentCountryChanged", "(Ljava/lang/String;)V");
     env->CallVoidMethod(*listener, methodID, jni::TScopedLocalRef(env, jni::ToJavaString(env, countryId)).get());
-  };
-
-  ::Framework * fr = frm();
-  storage::CountryId const & prev = fr->GetLastReportedCountry();
-  fr->SetCurrentCountryChangedListener(callback);
-
-  // Report previous value
-  callback(prev);
+  });
 }
 
 // static void nativeUnsubscribeOnCountryChanged();

@@ -476,8 +476,7 @@ void MainWindow::CreateCountryStatusControls()
     m_downloadingStatusLabel->setVisible(false);
 
     m_lastCountry = countryId;
-    // Called by Framework in World zoom level.
-    if (countryId.empty())
+    if (!storage::IsCountryIdValid(countryId))
       return;
 
     auto const & storage = GetFramework().GetStorage();
