@@ -28,6 +28,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 @property(nonatomic) BOOL isSearch;
 @property(nonatomic) MWMObjectsCategorySelectorDataSource * dataSource;
 @property(nonatomic, strong) UIStackView * searchResultsIsEmptyDisclaimer;
+@property(nonatomic, strong) NSLayoutConstraint * searchResultsIsEmptyDisclaimerCenterConstraint;
 
 @end
 
@@ -154,9 +155,11 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   [stackView addArrangedSubview:titleLabel];
   [stackView addArrangedSubview:subtitleTextView];
 
+  self.searchResultsIsEmptyDisclaimerCenterConstraint =
+      [stackView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor];
   [NSLayoutConstraint activateConstraints:@[
     [stackView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
-    [stackView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor],
+    self.searchResultsIsEmptyDisclaimerCenterConstraint,
     [stackView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:20],
     [stackView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-20]
   ]];
@@ -186,9 +189,16 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 
 - (void)onKeyboardAnimation
 {
-  UIEdgeInsets const contentInsets = {.bottom = [MWMKeyboard keyboardHeight]};
+  CGFloat const keyboardHeight = [MWMKeyboard keyboardHeight];
+  UIEdgeInsets const contentInsets = {.bottom = keyboardHeight};
   self.tableView.contentInset = contentInsets;
   self.tableView.scrollIndicatorInsets = contentInsets;
+  CGFloat const searchResultsIsEmptyBottomSpacing = self.view.height - self.searchResultsIsEmptyDisclaimer.maxY;
+  LOG(LINFO, (keyboardHeight));
+  [self.view animateConstraintsWithAnimations:^{
+    CGFloat const offset = keyboardHeight > searchResultsIsEmptyBottomSpacing ? -keyboardHeight / 2 : 0;
+    self.searchResultsIsEmptyDisclaimerCenterConstraint.constant = offset;
+  }];
 }
 
 #pragma mark - Create object
