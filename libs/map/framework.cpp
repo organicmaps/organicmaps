@@ -1170,7 +1170,7 @@ void Framework::ClearAllCaches()
 
 void Framework::OnUpdateCurrentCountry(m2::PointD const & pt, int zoomLevel)
 {
-  storage::CountryId newCountryId;
+  storage::CountryId newCountryId = kInvalidCountryId;
   if (zoomLevel > scales::GetUpperWorldScale())
     newCountryId = m_infoGetter->GetRegionCountryId(pt);
 
@@ -1179,9 +1179,11 @@ void Framework::OnUpdateCurrentCountry(m2::PointD const & pt, int zoomLevel)
 
   m_lastReportedCountry = newCountryId;
 
+  /// @todo Looks logical to add if (m_currentCountryChanged) before RunTask,
+  /// but possible races with read/write of m_currentCountryChanged.
   GetPlatform().RunTask(Platform::Thread::Gui, [this, newCountryId]()
   {
-    if (m_currentCountryChanged != nullptr)
+    if (m_currentCountryChanged)
       m_currentCountryChanged(newCountryId);
   });
 }
@@ -1260,7 +1262,7 @@ void Framework::InitTransliteration()
 int64_t Framework::GetMwmVersion(m2::PointD const & pt) const
 {
   auto name = m_infoGetter->GetRegionCountryId(pt);
-  return (name != storage::kInvalidCountryId) ? m_featuresFetcher.GetMwmVersion(std::move(name)) : 0;
+  return IsCountryIdValid(name) ? m_featuresFetcher.GetMwmVersion(std::move(name)) : 0;
 }
 
 bool Framework::NeedUpdateForRoutes() const
