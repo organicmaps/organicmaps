@@ -5,22 +5,17 @@
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
-#include "coding/reader.hpp"
-
 #include "base/logging.hpp"
-#include "base/macros.hpp"
 #include "base/math.hpp"
 
 #include "std/target_os.hpp"
 
 #include <chrono>
 #include <functional>
-#include <mutex>
 #include <optional>
 #include <sstream>
 #include <string>
 #include <string_view>
-#include <vector>
 
 #include <gflags/gflags.h>
 
@@ -373,16 +368,12 @@ int main(int argc, char * argv[])
   {
     if (lastLatLon)
     {
-      framework.OnLocationUpdate(
-          location::GpsInfo{.m_source = location::EUser,
-                            .m_timestamp = static_cast<double>(std::chrono::duration_cast<std::chrono::milliseconds>(
-                                                                   std::chrono::system_clock::now().time_since_epoch())
-                                                                   .count()) /
-                                           1000,
-                            .m_latitude = lastLatLon->m_lat,
-                            .m_longitude = lastLatLon->m_lon,
-                            .m_horizontalAccuracy = 10,
-                            .m_bearing = bearingEnabled ? bearing : -1.0f});
+      framework.OnLocationUpdate(location::GpsInfo{.m_source = location::EUser,
+                                                   .m_timestamp = base::Timer::LocalTime(),
+                                                   .m_latitude = lastLatLon->m_lat,
+                                                   .m_longitude = lastLatLon->m_lon,
+                                                   .m_horizontalAccuracy = 10,
+                                                   .m_bearing = bearingEnabled ? bearing : -1.0f});
       if (bearingEnabled)
         framework.OnCompassUpdate(location::CompassInfo{.m_bearing = math::DegToRad(bearing)});
     }
@@ -398,9 +389,9 @@ int main(int argc, char * argv[])
     downloadButtonLabel.clear();
     retryButtonLabel.clear();
     downloadStatusLabel.clear();
+
     lastCountry = countryId;
-    // Called by Framework in World zoom level.
-    if (countryId.empty())
+    if (!storage::IsCountryIdValid(countryId))
       return;
 
     auto const & storage = framework.GetStorage();

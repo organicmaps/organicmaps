@@ -98,7 +98,7 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
     }
     auto const & mercator = result.GetFeatureCenter();
     storage::CountryId const & countryId = m_infoGetter.GetRegionCountryId(mercator);
-    if (countryId == storage::kInvalidCountryId)
+    if (!storage::IsCountryIdValid(countryId))
       continue;
 
     storage::DownloaderSearchResult downloaderResult(countryId, result.GetString() /* m_matchedName */);

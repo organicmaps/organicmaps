@@ -4,17 +4,9 @@
 
 #include <sstream>
 
-using namespace std;
-using namespace string_literals;
-
 namespace storage
 {
-storage::CountryId const kInvalidCountryId;
-
-bool IsCountryIdValid(CountryId const & countryId)
-{
-  return countryId != kInvalidCountryId;
-}
+using namespace std;
 
 string DebugPrint(Status status)
 {
