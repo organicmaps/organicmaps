@@ -1,6 +1,6 @@
 protocol PlacePageInteractorProtocol: AnyObject {
   func viewWillDisappear()
-  func updateVisibleAreaInsets(_ insets: UIEdgeInsets)
+  func updateVisibleAreaInsets(_ insets: UIEdgeInsets, updatingViewport: Bool)
   func close()
 }
 
@@ -79,8 +79,8 @@ extension PlacePageInteractor: PlacePageInteractorProtocol {
     unsubscribeFromTrackActivePointUpdates()
   }
 
-  func updateVisibleAreaInsets(_ insets: UIEdgeInsets) {
-    presenter?.updateVisibleAreaInsets(insets)
+  func updateVisibleAreaInsets(_ insets: UIEdgeInsets, updatingViewport: Bool) {
+    presenter?.updateVisibleAreaInsets(insets, updatingViewport: updatingViewport)
   }
 
   func close() {

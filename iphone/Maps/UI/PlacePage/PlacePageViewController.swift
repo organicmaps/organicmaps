@@ -314,11 +314,11 @@ final class PlacePageScrollView: UIScrollView {
     }
   }
 
-  private func updateTopBound(_ bound: CGFloat) {
+  private func updateTopBound(_ bound: CGFloat, updatingViewport: Bool = true) {
     alternativeSizeClass(iPhone: {
       let isCompact = traitCollection.verticalSizeClass == .compact
       let insets = UIEdgeInsets(top: 0, left: 0, bottom: isCompact ? 0 : bound, right: 0)
-      self.interactor?.updateVisibleAreaInsets(insets)
+      self.interactor?.updateVisibleAreaInsets(insets, updatingViewport: updatingViewport)
     }, iPad: {})
   }
 
@@ -421,6 +421,8 @@ extension PlacePageViewController: UIScrollViewDelegate {
     if scrollView.contentOffset.y < -scrollView.height + 1 && beginDragging {
       interactor?.close()
     }
+    let bound = view.height + scrollView.contentOffset.y
+    updateTopBound(bound, updatingViewport: false) // Skip updating viewport on every drag.
     onOffsetChanged(scrollView.contentOffset.y)
     updateBackgroundViewFrame()
   }
