@@ -64,7 +64,7 @@ final class SearchOnMapInteractor: NSObject {
       return .updatePresentationStep(step)
 
     case .updateVisibleAreaInsets(let insets):
-      MapViewController.shared()!.updateVisibleAreaInsets(for: self, insets: insets)
+      MapViewController.shared()!.updateVisibleAreaInsets(for: self, insets: insets, updatingViewport: true)
       return .none
     case .closeSearch:
       return closeSearch()
