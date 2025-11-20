@@ -889,12 +889,24 @@ NSString * const kSettingsSegue = @"Map2Settings";
   return _downloadDialog;
 }
 
-- (void)updateVisibleAreaInsetsFor:(NSObject *)object insets:(UIEdgeInsets)insets
+- (void)updateVisibleAreaInsetsFor:(NSObject * _Nonnull)object
+                            insets:(UIEdgeInsets)insets
+                  updatingViewport:(BOOL)updateViewport
 {
   if (object == nil)
     return;
   [self.availableAreaInsetsMap setObject:[NSValue valueWithUIEdgeInsets:insets] forKey:object];
-  [self updateVisibleAreaBounds];
+
+  UIEdgeInsets availableAreaInsets = [self availableAreaInsets];
+
+  if (updateViewport)
+  {
+    self.visibleAreaBottom.constant = availableAreaInsets.bottom;
+    self.visibleAreaLeading.constant = availableAreaInsets.left;
+    self.visibleAreaTrailing.constant = availableAreaInsets.right;
+  }
+  self.sideButtonsAreaBottom.constant = availableAreaInsets.bottom;
+  self.sideButtonsAreaCompactBottom.constant = availableAreaInsets.bottom;
 }
 
 - (UIEdgeInsets)availableAreaInsets
@@ -924,17 +936,6 @@ NSString * const kSettingsSegue = @"Map2Settings";
     return UIEdgeInsetsZero;
 
   return UIEdgeInsetsMake(top, left, bottom, right);
-}
-
-- (void)updateVisibleAreaBounds
-{
-  UIEdgeInsets availableAreaInsets = [self availableAreaInsets];
-
-  self.visibleAreaBottom.constant = availableAreaInsets.bottom;
-  self.visibleAreaLeading.constant = availableAreaInsets.left;
-  self.visibleAreaTrailing.constant = availableAreaInsets.right;
-  self.sideButtonsAreaBottom.constant = availableAreaInsets.bottom;
-  self.sideButtonsAreaCompactBottom.constant = availableAreaInsets.bottom;
 }
 
 + (void)setViewport:(double)lat lon:(double)lon zoomLevel:(int)zoomLevel

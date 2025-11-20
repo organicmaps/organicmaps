@@ -119,7 +119,7 @@ final class NavigationControlView: SolidTouchView {
   private func updateVisibleViewportArea(onClose: Bool = false) {
     let bottom = frame.height / 2
     let insets = UIEdgeInsets(top: 0, left: 0, bottom: onClose ? 0 : bottom, right: 0)
-    MapViewController.shared()?.updateVisibleAreaInsets(for: self, insets: insets)
+    MapViewController.shared()?.updateVisibleAreaInsets(for: self, insets: insets, updatingViewport: true)
   }
 
   private func updateLegendSize() {

@@ -44,7 +44,8 @@
 /// - Parameters:
 ///   - object: The source object for which the visible area is being set.
 ///   - insets: The insets defining the portion of the map that is not covered or obstructed by the source object's view.
-- (void)updateVisibleAreaInsetsFor:(NSObject * _Nonnull)object insets:(UIEdgeInsets)insets;
+///   - updatingViewport: Should the core be notified to uptade a viewport.
+- (void)updateVisibleAreaInsetsFor:(NSObject * _Nonnull)object insets:(UIEdgeInsets)insets updatingViewport:(BOOL)updateViewport;
 
 + (void)setViewport:(double)lat lon:(double)lon zoomLevel:(int)zoomlevel;
 
