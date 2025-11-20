@@ -5,4 +5,5 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?cardBackground"
-  android:scrollbars="vertical"/>
+  android:scrollbars="vertical"
+  android:scrollbarSize="@dimen/scrollbar_size"/>
