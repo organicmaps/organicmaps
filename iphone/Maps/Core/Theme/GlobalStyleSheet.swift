@@ -290,6 +290,8 @@ extension GlobalStyleSheet: IStyleSheet {
         s.cornerRadius = .buttonDefault
         s.clip = true
         s.fontColor = colors.whitePrimaryText
+        s.coloring = .whiteText
+        s.tintColor = colors.whitePrimaryText
         s.backgroundColor = colors.linkBlue
         s.fontColorHighlighted = colors.whitePrimaryTextHighlighted
         s.fontColorDisabled = colors.whitePrimaryTextHighlighted
