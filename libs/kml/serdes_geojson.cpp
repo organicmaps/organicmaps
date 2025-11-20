@@ -79,8 +79,8 @@ bool GeojsonParser::Parse(std::string_view jsonContent)
   {
     if (auto const * point = std::get_if<GeoJsonGeometryPoint>(&feature.geometry))
     {
-      double longitude = point->coordinates.at(0);
-      double latitude = point->coordinates.at(1);
+      double longitude = point->coordinates[0];
+      double latitude = point->coordinates[1];
 
       auto const & propsJson = feature.properties;
       BookmarkData bookmark;
@@ -111,9 +111,14 @@ bool GeojsonParser::Parse(std::string_view jsonContent)
         bookmark_name = *label;
 
       // Parse Google Maps URL if present:
-      auto const google_maps_url = getStringFromJsonMap(propsJson, "google_maps_url");
+      auto google_maps_url = getStringFromJsonMap(propsJson, "google_maps_url");
       if (google_maps_url)
       {
+        if (google_maps_url->starts_with("http:"))
+        {
+          // Replace http:// with https:// in URLs
+          google_maps_url->replace(0, 5, "https:");
+        }
         geo::UnifiedParser parser;
         geo::GeoURLInfo info;
 
