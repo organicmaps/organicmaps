@@ -946,7 +946,7 @@
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="download_maps"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButton:MWMWhite:regular17"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButtonBig"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="downloadMaps" destination="3el-Zi-2E4" eventType="touchUpInside" id="gb5-gj-vlt"/>
