@@ -276,21 +276,21 @@ UNIT_TEST(GeoJson_Parse_FromGoogle)
   TEST_EQUAL(dataFromText.m_bookmarksData.size(), 3, ());
 
   // Check bookmark with coodinates and Google link
-  auto const & londonEyeBookmark = dataFromText.m_bookmarksData.at(0);
+  auto const & londonEyeBookmark = dataFromText.m_bookmarksData[0];
   TEST_EQUAL(kml::GetDefaultStr(londonEyeBookmark.m_name), "London Eye", ());
   TEST_EQUAL(kml::GetDefaultStr(londonEyeBookmark.m_description),
-             "<a href=\"http://maps.google.com/?cid=4796882358840715922\">London Eye</a>", ());
+             "<a href=\"https://maps.google.com/?cid=4796882358840715922\">London Eye</a>", ());
 
   // Check bookmark Google link
-  auto const & bookmark = dataFromText.m_bookmarksData.at(1);
+  auto const & bookmark = dataFromText.m_bookmarksData[1];
   TEST(bookmark.m_point.EqualDxDy(mercator::FromLatLon(41.993752, 5.326894), 0.000001), ());
-  TEST_EQUAL(kml::GetDefaultStr(bookmark.m_description), "http://maps.google.com/?q=41.993752,5.326894", ());
+  TEST_EQUAL(kml::GetDefaultStr(bookmark.m_description), "https://maps.google.com/?q=41.993752,5.326894", ());
 
   // Check bookmark Google link
-  auto const & vaticanBookmark = dataFromText.m_bookmarksData.at(2);
+  auto const & vaticanBookmark = dataFromText.m_bookmarksData[2];
   TEST(vaticanBookmark.m_point.EqualDxDy(mercator::FromLatLon(0, 0), 0.000001), ());
   TEST_EQUAL(kml::GetDefaultStr(vaticanBookmark.m_description),
-             "http://maps.google.com/?q=00120+Vatican+City&ftid=0x1325890a57d42d3d:0x94f9ab23a7eb0", ());
+             "https://maps.google.com/?q=00120+Vatican+City&ftid=0x1325890a57d42d3d:0x94f9ab23a7eb0", ());
 }
 
 }  // namespace geojson_tests
