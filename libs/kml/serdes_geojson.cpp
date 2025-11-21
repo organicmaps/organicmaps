@@ -115,10 +115,7 @@ bool GeojsonParser::Parse(std::string_view jsonContent)
       if (google_maps_url)
       {
         if (google_maps_url->starts_with("http:"))
-        {
-          // Replace http:// with https:// in URLs
-          google_maps_url->replace(0, 5, "https:");
-        }
+          google_maps_url->insert(4, 1, 's');  // Replace http:// with https://
         geo::UnifiedParser parser;
         geo::GeoURLInfo info;
 
