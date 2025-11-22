@@ -63,6 +63,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     initUseMobileDataPrefsCallbacks();
     initPowerManagementPrefsCallbacks();
     initBookmarksTextPlacementPrefsCallbacks();
+    initShowDownloadedRegionsPrefsCallbacks();
     initPlayServicesPrefsCallbacks();
     initSearchPrivacyPrefsCallbacks();
     initScreenSleepEnabledPrefsCallbacks();
@@ -485,13 +486,24 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   {
     final ListPreference bookmarksTextPlacementPref = getPreference(getString(R.string.pref_bookmarks_text_placement));
 
-    @PowerManagment.SchemeType
     final int currentPlacement = Framework.nativeGetBookmarksTextPlacement();
     bookmarksTextPlacementPref.setValue(String.valueOf(currentPlacement));
 
     bookmarksTextPlacementPref.setOnPreferenceChangeListener((preference, newValue) -> {
       final int placement = Integer.parseInt((String) newValue);
       Framework.nativeSetBookmarksTextPlacement(placement);
+      return true;
+    });
+  }
+
+  private void initShowDownloadedRegionsPrefsCallbacks()
+  {
+    final Preference pref = getPreference(getString(R.string.pref_show_downloaded_regions));
+
+    final boolean areDownloadedRegionsShownOnTheWorldMap = Framework.nativeGetShowDownloadedRegions();
+    ((TwoStatePreference) pref).setChecked(areDownloadedRegionsShownOnTheWorldMap);
+    pref.setOnPreferenceChangeListener((preference, newValue) -> {
+      Framework.nativeSetShowDownloadedRegions((boolean) newValue);
       return true;
     });
   }

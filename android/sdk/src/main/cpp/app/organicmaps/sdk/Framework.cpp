@@ -1797,6 +1797,16 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetBookmarksTextPlacemen
 {
   return std::to_underlying(Framework::GetBookmarksTextPlacement());
 }
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetShowDownloadedRegions(JNIEnv *, jclass, jboolean show)
+{
+  frm()->SetShowDownloadedRegionsEnabled(static_cast<bool>(show));
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeGetShowDownloadedRegions(JNIEnv *, jclass)
+{
+  return static_cast<jboolean>(frm()->ShowDownloadedRegions());
+}
 }  // extern "C"
 
 namespace
