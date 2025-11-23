@@ -506,7 +506,7 @@ public:
   size_t GetDownloadedFilesCount() const;
 
   /// Guarantees that change and progress are called in the main thread context.
-  /// @return unique identifier that should be used with Unsubscribe function
+  /// @return unique identifier (>0) that should be used with Unsubscribe function
   int Subscribe(ChangeCountryFunction change, ProgressFunction progress);
   void Unsubscribe(int slotId);
 
