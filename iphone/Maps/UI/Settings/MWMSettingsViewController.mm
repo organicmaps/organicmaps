@@ -20,10 +20,10 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * zoomButtonsCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * is3dCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * autoDownloadCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * showDownloadedRegions;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * mobileInternetCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * powerManagementCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * bookmarksTextPlacementCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * showDownloadedRegions;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * fontScaleCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * transliterationCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * compassCalibrationCell;
@@ -126,6 +126,10 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
 
   [self.autoDownloadCell configWithDelegate:self title:L(@"autodownload") isOn:[MWMSettings autoDownloadEnabled]];
 
+  [self.showDownloadedRegions configWithDelegate:self
+                                           title:L(@"show_downloaded_regions")
+                                            isOn:[MWMSettings isShowDownloadedRegions]];
+
   NSString * mobileInternet = nil;
   switch ([MWMNetworkPolicy sharedPolicy].permission)
   {
@@ -158,10 +162,6 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   case Placement::Count: UNREACHABLE();
   }
   [self.bookmarksTextPlacementCell configWithTitle:L(@"bookmarks_text_placement_title") info:textPlacementValue];
-
-  [self.showDownloadedRegions configWithDelegate:self
-                                           title:L(@"show_downloaded_regions")
-                                            isOn:[MWMSettings isShowDownloadedRegions]];
 
   [self.fontScaleCell configWithDelegate:self title:L(@"big_font") isOn:[MWMSettings largeFontSize]];
 
