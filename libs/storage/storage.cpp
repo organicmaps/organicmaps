@@ -625,14 +625,9 @@ void Storage::Unsubscribe(int slotId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  for (auto i = m_observers.begin(); i != m_observers.end(); ++i)
-  {
-    if (i->m_slotId == slotId)
-    {
-      m_observers.erase(i);
-      return;
-    }
-  }
+  auto it = base::FindIf(m_observers, [slotId](auto const & o) { return o.m_slotId == slotId; });
+  if (it != m_observers.end())
+    m_observers.erase(it);
 }
 
 void Storage::ReportProgress(CountryId const & countryId, Progress const & p)

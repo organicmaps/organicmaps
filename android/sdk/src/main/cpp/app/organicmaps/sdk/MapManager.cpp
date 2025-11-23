@@ -458,6 +458,11 @@ static void ProgressChangedCallback(std::shared_ptr<jobject> const & listenerRef
 JNIEXPORT jint Java_app_organicmaps_sdk_downloader_MapManager_nativeSubscribe(JNIEnv * env, jclass clazz,
                                                                               jobject listener)
 {
+  // When calling from DownloadService.onCreate
+  // https://github.com/organicmaps/organicmaps/issues/11741
+  if (!g_framework)
+    return 0;
+
   return GetThreadedStorage().Subscribe(
       std::bind(&StatusChangedCallback, jni::make_global_ref(listener), std::placeholders::_1),
       std::bind(&ProgressChangedCallback, jni::make_global_ref(listener), std::placeholders::_1,
@@ -467,6 +472,9 @@ JNIEXPORT jint Java_app_organicmaps_sdk_downloader_MapManager_nativeSubscribe(JN
 // static void nativeUnsubscribe(int slot);
 JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeUnsubscribe(JNIEnv * env, jclass clazz, jint slot)
 {
+  if (!g_framework)
+    return;
+
   GetThreadedStorage().Unsubscribe(slot);
 }
 
