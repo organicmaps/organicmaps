@@ -1,6 +1,6 @@
 package app.organicmaps.downloader;
 
-import android.app.Activity;
+import android.content.Context;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,16 +30,16 @@ public class MapManagerHelper
     };
   }
 
-  public static void showError(final Activity activity, final MapManager.StorageCallbackData errorData,
+  public static void showError(final Context context, final MapManager.StorageCallbackData errorData,
                                @Nullable final Consumer<Boolean> dialogClickListener)
   {
     if (!MapManager.nativeIsAutoretryFailed())
       return;
 
-    showErrorDialog(activity, errorData, dialogClickListener);
+    showErrorDialog(context, errorData, dialogClickListener);
   }
 
-  public static void showErrorDialog(final Activity activity, final MapManager.StorageCallbackData errorData,
+  public static void showErrorDialog(final Context context, final MapManager.StorageCallbackData errorData,
                                      @Nullable final Consumer<Boolean> dialogClickListener)
   {
     if (sCurrentErrorDialog != null)
@@ -49,7 +49,7 @@ public class MapManagerHelper
         return;
     }
 
-    final AlertDialog dlg = new MaterialAlertDialogBuilder(activity, R.style.MwmTheme_AlertDialog)
+    final AlertDialog dlg = new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)
                                 .setTitle(R.string.country_status_download_failed)
                                 .setMessage(getErrorCodeStrRes(errorData.errorCode))
                                 .setNegativeButton(R.string.cancel,
@@ -62,7 +62,7 @@ public class MapManagerHelper
                                                    (dialog, which) -> {
                                                      ExpandRetryConfirmationListener listener =
                                                          new ExpandRetryConfirmationListener(dialogClickListener);
-                                                     warn3gAndRetry(activity, errorData.countryId, listener);
+                                                     warn3gAndRetry(context, errorData.countryId, listener);
                                                    })
                                 .create();
     dlg.setCanceledOnTouchOutside(false);
@@ -70,9 +70,9 @@ public class MapManagerHelper
     sCurrentErrorDialog = new WeakReference<>(dlg);
   }
 
-  private static void notifyNoSpaceInternal(Activity activity)
+  private static void notifyNoSpaceInternal(Context context)
   {
-    new MaterialAlertDialogBuilder(activity, R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.downloader_no_space_title)
         .setMessage(R.string.downloader_no_space_message)
         .setPositiveButton(android.R.string.ok, null)
@@ -82,40 +82,40 @@ public class MapManagerHelper
   /**
    * @return true if there is no space to update the given {@code root}, so the alert dialog will be shown.
    */
-  private static boolean notifyNoSpaceToUpdate(Activity activity, String root)
+  private static boolean notifyNoSpaceToUpdate(Context context, String root)
   {
     if (MapManager.nativeHasSpaceToUpdate(root))
       return false;
 
-    notifyNoSpaceInternal(activity);
+    notifyNoSpaceInternal(context);
     return true;
   }
 
   /**
    * @return true if there is no space to download the given {@code root}, so the alert dialog will be shown.
    */
-  private static boolean notifyNoSpace(Activity activity, String root)
+  private static boolean notifyNoSpace(Context context, String root)
   {
     if (MapManager.nativeHasSpaceToDownloadCountry(root))
       return false;
 
-    notifyNoSpaceInternal(activity);
+    notifyNoSpaceInternal(context);
     return true;
   }
 
   /**
    * @return true if there is no space to download {@code size} bytes, so the alert dialog will be shown.
    */
-  private static boolean notifyNoSpace(Activity activity, long size)
+  private static boolean notifyNoSpace(Context context, long size)
   {
     if (MapManager.nativeHasSpaceToDownloadAmount(size))
       return false;
 
-    notifyNoSpaceInternal(activity);
+    notifyNoSpaceInternal(context);
     return true;
   }
 
-  private static boolean warnOn3gInternal(Activity activity, @NonNull final Runnable onAcceptListener)
+  private static boolean warnOn3gInternal(Context context, @NonNull final Runnable onAcceptListener)
   {
     if (MapManager.nativeIsDownloadOn3gEnabled() || !ConnectionState.INSTANCE.isMobileConnected())
     {
@@ -123,7 +123,7 @@ public class MapManagerHelper
       return false;
     }
 
-    new MaterialAlertDialogBuilder(activity, R.style.MwmTheme_AlertDialog)
+    new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.download_over_mobile_header)
         .setMessage(R.string.download_over_mobile_message)
         .setNegativeButton(R.string.cancel, null)
@@ -137,75 +137,74 @@ public class MapManagerHelper
     return true;
   }
 
-  public static boolean warnOn3gUpdate(Activity activity, @Nullable String countryId,
+  public static boolean warnOn3gUpdate(Context context, @Nullable String countryId,
                                        @NonNull final Runnable onAcceptListener)
   {
     // noinspection SimplifiableIfStatement
-    if (TextUtils.isEmpty(countryId) || !notifyNoSpaceToUpdate(activity, countryId))
-      return warnOn3gInternal(activity, onAcceptListener);
+    if (TextUtils.isEmpty(countryId) || !notifyNoSpaceToUpdate(context, countryId))
+      return warnOn3gInternal(context, onAcceptListener);
 
     return true;
   }
 
-  public static boolean warnOn3g(Activity activity, @Nullable String countryId,
-                                 @NonNull final Runnable onAcceptListener)
+  public static boolean warnOn3g(Context context, @Nullable String countryId, @NonNull final Runnable onAcceptListener)
   {
     // noinspection SimplifiableIfStatement
-    if (TextUtils.isEmpty(countryId) || !notifyNoSpace(activity, countryId))
-      return warnOn3gInternal(activity, onAcceptListener);
+    if (TextUtils.isEmpty(countryId) || !notifyNoSpace(context, countryId))
+      return warnOn3gInternal(context, onAcceptListener);
 
     return true;
   }
 
-  public static boolean warnOn3g(Activity activity, long size, @NonNull Runnable onAcceptListener)
+  public static boolean warnOn3g(Context context, long size, @NonNull Runnable onAcceptListener)
   {
-    return !notifyNoSpace(activity, size) && warnOn3gInternal(activity, onAcceptListener);
+    return !notifyNoSpace(context, size) && warnOn3gInternal(context, onAcceptListener);
   }
 
-  public static boolean warn3gAndDownload(Activity activity, final String countryId,
+  public static boolean warn3gAndDownload(Context context, final String countryId,
                                           @Nullable final Runnable onAcceptListener)
   {
-    return warnOn3g(activity, countryId, () -> {
+    return warnOn3g(context, countryId, () -> {
       if (onAcceptListener != null)
         onAcceptListener.run();
-      startDownload(countryId);
+      startDownload(context, countryId);
     });
   }
 
-  public static boolean warn3gAndRetry(Activity activity, final String countryId,
+  public static boolean warn3gAndRetry(Context context, final String countryId,
                                        @Nullable final Runnable onAcceptListener)
   {
-    return warnOn3g(activity, countryId, () -> {
+    return warnOn3g(context, countryId, () -> {
       if (onAcceptListener != null)
         onAcceptListener.run();
-      retryDownload(countryId);
+      retryDownload(context, countryId);
     });
   }
 
   /**
    * Enqueues failed items under given {@code root} node in downloader.
    */
-  public static void retryDownload(@NonNull String countryId)
+  public static void retryDownload(Context context, @NonNull String countryId)
   {
-    DownloaderService.startForegroundService();
+    DownloaderService.startForegroundService(context);
     MapManager.retryDownload(countryId);
   }
 
   /**
    * Enqueues given {@code root} node with its children in downloader.
    */
-  public static void startUpdate(@NonNull String root)
+  public static void startUpdate(Context context, @NonNull String root)
   {
-    DownloaderService.startForegroundService();
+    DownloaderService.startForegroundService(context);
     MapManager.startUpdate(root);
   }
 
   /**
    * Enqueues the given list of nodes and its children in downloader.
    */
-  public static void startDownload(String... countries)
+  public static void startDownload(Context context, String... countries)
   {
-    DownloaderService.startForegroundService();
+    DownloaderService.startForegroundService(context);
     for (var countryId : countries)
     {
       MapManager.startDownload(countryId);
@@ -215,9 +214,9 @@ public class MapManagerHelper
   /**
    * Enqueues given {@code root} node and its children in downloader.
    */
-  public static void startDownload(@NonNull String countryId)
+  public static void startDownload(Context context, @NonNull String countryId)
   {
-    DownloaderService.startForegroundService();
+    DownloaderService.startForegroundService(context);
     MapManager.startDownload(countryId);
   }
 }

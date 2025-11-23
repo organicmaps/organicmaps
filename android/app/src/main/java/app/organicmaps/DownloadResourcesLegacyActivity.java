@@ -372,7 +372,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         mProgress.setProgressCompat(0, true);
 
         mCountryDownloadListenerSlot = MapManager.nativeSubscribe(mCountryDownloadListener);
-        MapManagerHelper.startDownload(mCurrentCountry);
+        MapManagerHelper.startDownload(this, mCurrentCountry);
         setAction(PROCEED_TO_MAP);
       }
       else

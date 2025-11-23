@@ -5,6 +5,7 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ServiceInfo;
 import android.os.Build;
@@ -12,7 +13,6 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.util.log.Logger;
@@ -36,9 +36,8 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     mSubscriptionSlot = MapManager.nativeSubscribe(this);
   }
 
-  static PendingIntent buildCancelPendingIntent()
+  static PendingIntent buildCancelPendingIntent(Context context)
   {
-    var context = MwmApplication.sInstance;
     final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
     Intent cancelIntent = new Intent(context, DownloaderService.class);
     cancelIntent.setAction(ACTION_CANCEL_DOWNLOAD);
@@ -129,10 +128,9 @@ public class DownloaderService extends Service implements MapManager.StorageCall
   /**
    * Start the foreground service to keep the user informed about the status of region downloads.
    */
-  public static void startForegroundService()
+  public static void startForegroundService(Context context)
   {
     Logger.i(TAG);
-    var context = MwmApplication.sInstance;
     ContextCompat.startForegroundService(context, new Intent(context, DownloaderService.class));
   }
 
