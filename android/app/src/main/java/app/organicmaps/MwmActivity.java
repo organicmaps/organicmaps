@@ -221,7 +221,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ActivityResultLauncher<Intent> mPowerSaveSettings;
-  @NonNull
   private boolean mPowerSaveDisclaimerShown = false;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
@@ -941,7 +940,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initOnmapDownloader()
   {
-    mOnmapDownloader = new OnmapDownloader(this);
+    mOnmapDownloader = new OnmapDownloader(this, this.findViewById(R.id.onmap_downloader));
     if (mIsTabletLayout)
       mPanelAnimator.registerListener(mOnmapDownloader);
   }

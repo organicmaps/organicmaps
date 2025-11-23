@@ -1,5 +1,6 @@
 package app.organicmaps.downloader;
 
+import android.content.Context;
 import android.location.Location;
 import android.text.TextUtils;
 import android.view.View;
@@ -26,7 +27,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 {
   private static boolean sAutodownloadLocked;
 
-  private final MwmActivity mActivity;
+  private final Context mContext;
   private final View mFrame;
   private final TextView mParent;
   private final TextView mTitle;
@@ -52,7 +53,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           continue;
 
         if (item.newStatus == CountryItem.STATUS_FAILED)
-          MapManagerHelper.showError(mActivity, item, null);
+          MapManagerHelper.showError(mContext, item, null);
 
         if (mCurrentCountry.id.equals(item.countryId))
         {
@@ -138,31 +139,31 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         {
           mProgress.setPending(false);
           mProgress.setProgress(Math.round(mCurrentCountry.progress));
-          sizeText = mActivity.getString(R.string.downloader_downloading) + " "
+          sizeText = mContext.getString(R.string.downloader_downloading) + " "
                    + StringUtils.formatPercent(mCurrentCountry.progress / 100, true);
         }
         else
         {
           if (enqueued)
           {
-            sizeText = mActivity.getString(R.string.downloader_queued);
+            sizeText = mContext.getString(R.string.downloader_queued);
             mProgress.setPending(true);
           }
           else
           {
-            sizeText = StringUtils.getFileSizeString(mActivity.getApplicationContext(), mCurrentCountry.totalSize);
+            sizeText = StringUtils.getFileSizeString(mContext, mCurrentCountry.totalSize);
 
             if (shouldAutoDownload && Config.isAutodownloadEnabled() && !sAutodownloadLocked && !failed
                 && ConnectionState.INSTANCE.isWifiConnected())
             {
-              Location loc = MwmApplication.from(mActivity).getLocationHelper().getSavedLocation();
+              Location loc = MwmApplication.from(mContext).getLocationHelper().getSavedLocation();
               if (loc != null)
               {
                 String country = MapManager.nativeFindCountry(loc.getLatitude(), loc.getLongitude());
                 if (TextUtils.equals(mCurrentCountry.id, country)
                     && MapManager.nativeHasSpaceToDownloadCountry(country))
                 {
-                  MapManagerHelper.startDownload(mCurrentCountry.id);
+                  MapManagerHelper.startDownload(mContext, mCurrentCountry.id);
                 }
               }
             }
@@ -178,10 +179,10 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     UiUtils.showIf(showFrame, mFrame);
   }
 
-  public OnmapDownloader(MwmActivity activity)
+  public OnmapDownloader(MwmActivity activity, View onMapDownloader)
   {
-    mActivity = activity;
-    mFrame = activity.findViewById(R.id.onmap_downloader);
+    mContext = activity;
+    mFrame = onMapDownloader;
     mParent = mFrame.findViewById(R.id.downloader_parent);
     mTitle = mFrame.findViewById(R.id.downloader_title);
     mSize = mFrame.findViewById(R.id.downloader_size);
@@ -198,19 +199,19 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       setAutodownloadLocked(true);
     });
     mButton.setOnClickListener(
-        v -> MapManagerHelper.warnOn3g(mActivity, mCurrentCountry == null ? null : mCurrentCountry.id, () -> {
+        v -> MapManagerHelper.warnOn3g(mContext, mCurrentCountry == null ? null : mCurrentCountry.id, () -> {
           if (mCurrentCountry == null)
             return;
 
           boolean retry = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
           if (retry)
           {
-            MapManagerHelper.retryDownload(mCurrentCountry.id);
+            MapManagerHelper.retryDownload(mContext, mCurrentCountry.id);
           }
           else
           {
-            MapManagerHelper.startDownload(mCurrentCountry.id);
-            mActivity.requestPostNotificationsPermission();
+            MapManagerHelper.startDownload(mContext, mCurrentCountry.id);
+            activity.requestPostNotificationsPermission();
           }
         }));
 
