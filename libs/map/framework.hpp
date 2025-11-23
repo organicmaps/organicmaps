@@ -716,8 +716,8 @@ public:
   static settings::Placement GetBookmarksTextPlacement();
   void SetBookmarksTextPlacement(settings::Placement setting);
 
-  bool ShowDownloadedRegions();
-  void SetShowDownloadedRegionsEnabled(bool isEnabled);
+  bool IsShowDownloadedRegions();
+  void SetShowDownloadedRegions(bool isEnabled);
 
   TrafficManager & GetTrafficManager();
 

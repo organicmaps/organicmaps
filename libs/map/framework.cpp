@@ -2616,7 +2616,7 @@ void Framework::SetBookmarksTextPlacement(settings::Placement setting)
   UpdateBookmarksTextPlacement();
 }
 
-bool Framework::ShowDownloadedRegions()
+bool Framework::IsShowDownloadedRegions()
 {
   bool showDownloadedRegions;
   if (!settings::Get(kShowDownloadedRegions, showDownloadedRegions))
@@ -2624,7 +2624,7 @@ bool Framework::ShowDownloadedRegions()
   return showDownloadedRegions;
 }
 
-void Framework::SetShowDownloadedRegionsEnabled(bool isEnabled)
+void Framework::SetShowDownloadedRegions(bool isEnabled)
 {
   m_showDownloadedRegions = isEnabled;
   settings::Set(kShowDownloadedRegions, isEnabled);
@@ -2815,12 +2815,12 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
   }
   if (query == "?show-downloaded")
   {
-    SetShowDownloadedRegionsEnabled(true);
+    SetShowDownloadedRegions(true);
     return true;
   }
   if (query == "?no-show-downloaded")
   {
-    SetShowDownloadedRegionsEnabled(false);
+    SetShowDownloadedRegions(false);
     return true;
   }
 

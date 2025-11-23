@@ -338,7 +338,7 @@ public class Framework
   public static native int nativeGetBookmarksTextPlacement();
   public static native void nativeSetBookmarksTextPlacement(int enumIndex);
 
-  public static native boolean nativeGetShowDownloadedRegions();
+  public static native boolean nativeIsShowDownloadedRegions();
   public static native void nativeSetShowDownloadedRegions(boolean show);
 
   public static native void nativeSetViewportCenter(double lat, double lon, int zoom);
