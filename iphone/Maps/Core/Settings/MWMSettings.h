@@ -37,8 +37,8 @@ NS_SWIFT_NAME(Settings)
 + (NSString *)donateUrl;
 + (BOOL)isNY;
 
-+ (BOOL)showDownloadedRegions;
-+ (void)setShowDownloadedRegionsEnabled:(BOOL)isEnabled;
++ (BOOL)isShowDownloadedRegions;
++ (void)setShowDownloadedRegions:(BOOL)isEnabled;
 
 + (BOOL)iCLoudSynchronizationEnabled;
 + (void)setICLoudSynchronizationEnabled:(BOOL)iCLoudSyncEnabled;

@@ -500,8 +500,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   {
     final Preference pref = getPreference(getString(R.string.pref_show_downloaded_regions));
 
-    final boolean areDownloadedRegionsShownOnTheWorldMap = Framework.nativeGetShowDownloadedRegions();
-    ((TwoStatePreference) pref).setChecked(areDownloadedRegionsShownOnTheWorldMap);
+    ((TwoStatePreference) pref).setChecked(Framework.nativeIsShowDownloadedRegions());
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
       Framework.nativeSetShowDownloadedRegions((boolean) newValue);
       return true;

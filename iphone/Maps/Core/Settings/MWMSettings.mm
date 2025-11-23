@@ -195,14 +195,14 @@ NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
   return settings::Get("NY", isNY) ? isNY : false;
 }
 
-+ (BOOL)showDownloadedRegions
++ (BOOL)isShowDownloadedRegions
 {
-  return GetFramework().ShowDownloadedRegions();
+  return GetFramework().IsShowDownloadedRegions();
 }
 
-+ (void)setShowDownloadedRegionsEnabled:(BOOL)isEnabled
++ (void)setShowDownloadedRegions:(BOOL)isEnabled
 {
-  GetFramework().SetShowDownloadedRegionsEnabled(isEnabled);
+  GetFramework().SetShowDownloadedRegions(isEnabled);
 }
 
 + (BOOL)iCLoudSynchronizationEnabled

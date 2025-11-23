@@ -161,7 +161,7 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
 
   [self.showDownloadedRegions configWithDelegate:self
                                            title:L(@"show_downloaded_regions")
-                                            isOn:[MWMSettings showDownloadedRegions]];
+                                            isOn:[MWMSettings isShowDownloadedRegions]];
 
   [self.fontScaleCell configWithDelegate:self title:L(@"big_font") isOn:[MWMSettings largeFontSize]];
 
@@ -372,7 +372,7 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   }
   else if (cell == self.showDownloadedRegions)
   {
-    [MWMSettings setShowDownloadedRegionsEnabled:value];
+    [MWMSettings setShowDownloadedRegions:value];
   }
 }
 

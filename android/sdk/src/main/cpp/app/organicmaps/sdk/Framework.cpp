@@ -1800,12 +1800,12 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetBookmarksTextPlacemen
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetShowDownloadedRegions(JNIEnv *, jclass, jboolean show)
 {
-  frm()->SetShowDownloadedRegionsEnabled(static_cast<bool>(show));
+  frm()->SetShowDownloadedRegions(static_cast<bool>(show));
 }
 
-JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeGetShowDownloadedRegions(JNIEnv *, jclass)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsShowDownloadedRegions(JNIEnv *, jclass)
 {
-  return static_cast<jboolean>(frm()->ShowDownloadedRegions());
+  return static_cast<jboolean>(frm()->IsShowDownloadedRegions());
 }
 }  // extern "C"
 
