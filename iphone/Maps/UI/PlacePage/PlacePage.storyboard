@@ -216,7 +216,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="DpF-gz-Yio">
                                         <rect key="frame" x="4" y="162" width="367" height="50"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="ул. Тверская 5/34" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i56-oA-HiT">
+                                            <label opaque="NO" contentMode="left" verticalHuggingPriority="251" text="ул. Тверская 5/34" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i56-oA-HiT">
                                                 <rect key="frame" x="12" y="0.0" width="343" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -224,6 +224,9 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackPrimaryText"/>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="EEO-Qs-nxH" appends="YES" id="J9T-1q-WaS"/>
+                                                </connections>
                                             </label>
                                             <view hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="y54-Rh-kGm" customClass="PlacePageDirectionView" customModule="Organic_Maps" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="69.5" height="50"/>
@@ -307,6 +310,11 @@
                         <action selector="onDirectionPressed:" destination="76G-o4-sUY" id="Ebd-8k-DhB"/>
                     </connections>
                 </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="EEO-Qs-nxH">
+                    <connections>
+                        <action selector="onLongPressAdress:" destination="76G-o4-sUY" id="STF-gW-Fdo"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="929" y="-958"/>
         </scene>
