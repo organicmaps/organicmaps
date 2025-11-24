@@ -60,11 +60,9 @@ public final class IntentUtils
   {
     private CarSearchHandler(@NonNull CarContext mCarContext, @NonNull Renderer mSurfaceRenderer)
     {
-      private CarSearchHandler(@NonNull CarContext mCarContext, @NonNull Renderer mSurfaceRenderer)
-      {
-        this.mCarContext = mCarContext;
-        this.mSurfaceRenderer = mSurfaceRenderer;
-      }
+      this.mCarContext = mCarContext;
+      this.mSurfaceRenderer = mSurfaceRenderer;
+    }
 
     @Override
     public void handleSearch(@NonNull String query, boolean searchOnMap)
