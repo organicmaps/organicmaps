@@ -255,7 +255,6 @@ public abstract class GoogleAssistantIntentHandler
       DestinationData dst = parseDestination(uri);
       SearchEngine.INSTANCE.cancelInteractiveSearch();
 
-
       if (dst.hasLatLon() && !(dst.lat == 0.0 && dst.lon == 0.0))
       {
         Framework.nativeStopLocationFollow();
