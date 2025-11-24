@@ -73,6 +73,7 @@ public final class IntentUtils
       screenManager.popToRoot();
       screenManager.push(builder.build());
     }
+  }
 
   @NonNull
   public static PendingIntent createSearchIntent(@NonNull CarContext context, @NonNull String query)
