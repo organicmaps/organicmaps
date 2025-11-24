@@ -63,6 +63,9 @@ final class PlacePageHeaderViewController: UIViewController {
     titleTextView.textContainer.lineFragmentPadding = .zero
     titleTextView.delegate = self
 
+    let longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressTitleTextView(_:)))
+    titleTextView.addGestureRecognizer(longTapGesture)
+
     clearTitleTextButton.setImage(UIImage(resource: .icClear), style: GlobalStyleSheet.gray)
     clearTitleTextButton.isHidden = true
     clearTitleTextButton.addTarget(self, action: #selector(didTapClearTitleButton), for: .touchUpInside)
@@ -91,6 +94,11 @@ final class PlacePageHeaderViewController: UIViewController {
 
   @objc private func didTapCancelButton() {
     resetTitleEditing()
+  }
+
+  @objc private func didLongPressTitleTextView(_ sender: UILongPressGestureRecognizer) {
+    guard sender.state == .began else { return }
+    presenter?.onCopy(titleTextView.text)
   }
 
   @IBAction private func onCloseButtonPressed(_ sender: Any) {

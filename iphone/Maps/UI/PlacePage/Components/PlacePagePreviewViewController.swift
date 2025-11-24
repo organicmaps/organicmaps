@@ -34,7 +34,9 @@ final class PlacePagePreviewViewController: UIViewController {
       }
     }
   }
-  
+
+  weak var delegate: PlacePageHeaderViewControllerDelegate?
+
   private var distance: String? = nil
   private var speedAndAltitude: String? = nil
   private var heading: CGFloat? = nil
@@ -129,6 +131,11 @@ final class PlacePagePreviewViewController: UIViewController {
   func updateSpeedAndAltitude(_ speedAndAltitude: String) {
     self.speedAndAltitude = speedAndAltitude
     subtitleLabel?.text = speedAndAltitude
+  }
+
+  @IBAction func onLongPressAdress(_ sender: UILongPressGestureRecognizer) {
+    guard let address = addressLabel.text, sender.state == .began else { return }
+    delegate?.previewDidCopy(address)
   }
 
   @IBAction func onDirectionPressed(_ sender: Any) {

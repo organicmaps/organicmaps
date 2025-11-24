@@ -7,6 +7,7 @@ protocol PlacePageHeaderPresenterProtocol: AnyObject {
   func onExpandPress()
   func onShareButtonPress(from sourceView: UIView)
   func onExportTrackButtonPress(_ type: KmlFileType, from sourceView: UIView)
+  func onCopy(_ content: String)
   func onFinishEditingTitle(_ newTitle: String)
 }
 
@@ -15,6 +16,7 @@ protocol PlacePageHeaderViewControllerDelegate: AnyObject {
   func previewDidPressExpand()
   func previewDidPressShare(from sourceView: UIView)
   func previewDidPressExportTrack(_ type: KmlFileType, from sourceView: UIView)
+  func previewDidCopy(_ content: String)
   func previewDidFinishEditingTitle(_ newTitle: String)
 }
 
@@ -65,6 +67,10 @@ extension PlacePageHeaderPresenter: PlacePageHeaderPresenterProtocol {
 
   func onExportTrackButtonPress(_ type: KmlFileType, from sourceView: UIView) {
     delegate?.previewDidPressExportTrack(type, from: sourceView)
+  }
+
+  func onCopy(_ content: String) {
+    delegate?.previewDidCopy(content)
   }
 
   func onFinishEditingTitle(_ newTitle: String) {
