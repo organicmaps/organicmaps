@@ -66,12 +66,12 @@ public final class IntentUtils
         this.mSurfaceRenderer = mSurfaceRenderer;
       }
 
-      @Override
-      public void handleSearch(@NonNull String query, boolean searchOnMap)
-      {
-        final ScreenManager screenManager = mCarContext.getCarService(ScreenManager.class);
-        final SearchScreen.Builder builder = new SearchScreen.Builder(mCarContext, mSurfaceRenderer);
-        builder.setQuery(query);
+    @Override
+    public void handleSearch(@NonNull String query, boolean searchOnMap)
+    {
+      final ScreenManager screenManager = mCarContext.getCarService(ScreenManager.class);
+      final SearchScreen.Builder builder = new SearchScreen.Builder(mCarContext, mSurfaceRenderer);
+      builder.setQuery(query);
 
         screenManager.popToRoot();
         screenManager.push(builder.build());
