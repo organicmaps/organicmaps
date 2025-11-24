@@ -101,7 +101,7 @@
   static UIFont *font = nil;
   if (font == nil)
   {
-    UIFont *emojiFont = [UIFont fontWithName:@"OrganicMapsEmojiFont" size:14];
+    UIFont *emojiFont = [UIFont fontWithName:@"OrganicMapsEmoji" size:14];
     UIFont *fallbackFont = [UIFont systemFontOfSize:14 weight:UIFontWeightRegular];
     UIFontDescriptor *cascadeDescriptor = [emojiFont.fontDescriptor
       fontDescriptorByAddingAttributes:@{ UIFontDescriptorCascadeListAttribute: @[ fallbackFont.fontDescriptor ]}];
@@ -114,7 +114,7 @@
   static UIFont *font = nil;
   if (font == nil)
   {
-    UIFont *emojiFont = [UIFont fontWithName:@"OrganicMapsEmojiFont" size:13];
+    UIFont *emojiFont = [UIFont fontWithName:@"OrganicMapsEmoji" size:13];
     UIFont *fallbackFont = [UIFont systemFontOfSize:13 weight:UIFontWeightMedium];
     UIFontDescriptor *cascadeDescriptor = [emojiFont.fontDescriptor
       fontDescriptorByAddingAttributes:@{ UIFontDescriptorCascadeListAttribute: @[ fallbackFont.fontDescriptor ]}];
