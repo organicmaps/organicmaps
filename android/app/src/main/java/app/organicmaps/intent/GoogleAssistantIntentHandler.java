@@ -191,7 +191,8 @@ public abstract class GoogleAssistantIntentHandler
       }
 
       dst.query = uri.getQueryParameter("q");
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       Logger.e(TAG, "Failed to parse destination", e);
     }
