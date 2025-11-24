@@ -4,17 +4,20 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
+
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
 import androidx.car.app.Screen;
 import androidx.car.app.ScreenManager;
 import androidx.car.app.notification.CarPendingIntent;
+
 import app.organicmaps.MwmApplication;
 import app.organicmaps.api.Const;
 import app.organicmaps.car.CarAppService;
 import app.organicmaps.car.renderer.Renderer;
 import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.search.SearchScreen;
+import app.organicmaps.intent.GoogleAssistantIntentHandler;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.api.ParsedSearchRequest;
@@ -30,15 +33,48 @@ public final class IntentUtils
 
   private static final int SEARCH_IN_VIEWPORT_ZOOM = 16;
 
+  private static final CarGoogleAssistantIntentProcessor ASSISTANT_PROCESSOR = new CarGoogleAssistantIntentProcessor();
+
   public static void processIntent(@NonNull CarContext carContext, @NonNull Renderer surfaceRenderer,
                                    @NonNull Intent intent)
   {
+    if (ASSISTANT_PROCESSOR.processIntent(carContext, surfaceRenderer, intent))
+      return;
+
     final String action = intent.getAction();
     if (CarContext.ACTION_NAVIGATE.equals(action))
       IntentUtils.processNavigationIntent(carContext, surfaceRenderer, intent);
     else if (Intent.ACTION_VIEW.equals(action))
       processViewIntent(carContext, intent);
   }
+
+  private static final class CarGoogleAssistantIntentProcessor extends GoogleAssistantIntentHandler
+  {
+    boolean processIntent(@NonNull CarContext carContext, @NonNull Renderer surfaceRenderer, @NonNull Intent intent)
+    {
+      return handleIntent(intent, new CarSearchHandler(carContext, surfaceRenderer));
+    }
+  }
+
+  private record CarSearchHandler(CarContext mCarContext, Renderer mSurfaceRenderer) implements GoogleAssistantIntentHandler.SearchHandler
+    {
+      private CarSearchHandler(@NonNull CarContext mCarContext, @NonNull Renderer mSurfaceRenderer)
+      {
+        this.mCarContext = mCarContext;
+        this.mSurfaceRenderer = mSurfaceRenderer;
+      }
+
+      @Override
+      public void handleSearch(@NonNull String query, boolean searchOnMap)
+      {
+        final ScreenManager screenManager = mCarContext.getCarService(ScreenManager.class);
+        final SearchScreen.Builder builder = new SearchScreen.Builder(mCarContext, mSurfaceRenderer);
+        builder.setQuery(query);
+
+        screenManager.popToRoot();
+        screenManager.push(builder.build());
+      }
+    }
 
   @NonNull
   public static PendingIntent createSearchIntent(@NonNull CarContext context, @NonNull String query)
@@ -65,7 +101,8 @@ public final class IntentUtils
     final ScreenManager screenManager = carContext.getCarService(ScreenManager.class);
     switch (Framework.nativeParseAndSetApiUrl(uri.toString()))
     {
-    case RequestType.INCORRECT: return;
+    case RequestType.INCORRECT:
+      return;
     case RequestType.MAP:
       screenManager.popToRoot();
       Map.executeMapApiRequest();
@@ -91,10 +128,20 @@ public final class IntentUtils
       screenManager.popToRoot();
       screenManager.push(builder.build());
       return;
-    case RequestType.ROUTE: Logger.e(TAG, "Route API is not supported by Android Auto: " + uri); return;
-    case RequestType.CROSSHAIR: Logger.e(TAG, "Crosshair API is not supported by Android Auto: " + uri); return;
-    case RequestType.MENU: Logger.e(TAG, "Menu API is not supported by Android Auto: " + uri); return;
-    case RequestType.SETTINGS: Logger.e(TAG, "Settings API is not supported by Android Auto: " + uri);
+    case RequestType.ROUTE:
+      Logger.e(TAG, "Route API is not supported by Android Auto: " + uri);
+      return;
+    case RequestType.CROSSHAIR:
+      Logger.e(TAG, "Crosshair API is not supported by Android Auto: " + uri);
+      return;
+    case RequestType.MENU:
+      Logger.e(TAG, "Menu API is not supported by Android Auto: " + uri);
+      return;
+    case RequestType.SETTINGS:
+      Logger.e(TAG, "Settings API is not supported by Android Auto: " + uri);
+      return;
+    case RequestType.OAUTH2:
+      Logger.e(TAG, "OAuth2 API is not supported by Android Auto: " + uri);
     }
   }
 

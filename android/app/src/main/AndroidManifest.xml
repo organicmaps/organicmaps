@@ -114,6 +114,15 @@
         <data android:scheme="geo" />
         <data android:scheme="geo.offline" />
       </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.NAVIGATE" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.VOICE" />
+
+        <data android:scheme="geo" />
+        <data android:scheme="geo.offline" />
+      </intent-filter>
 
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
@@ -544,6 +553,12 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <data android:scheme="geo" />
         <data android:scheme="geo.offline" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:scheme="geo.action" />
+        <data android:scheme="geo.action.offline" />
       </intent-filter>
     </service>
 

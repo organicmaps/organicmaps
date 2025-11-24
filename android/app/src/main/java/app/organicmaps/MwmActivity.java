@@ -321,7 +321,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     final IntentProcessor[] mIntentProcessors = {
-        new Factory.AssistantIntentProcessor(),
+        new Factory.GoggleAssistanceIntentProcessor(),
         new Factory.UrlProcessor(),
         new Factory.KmzKmlProcessor(),
     };
