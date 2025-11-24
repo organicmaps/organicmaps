@@ -9,7 +9,6 @@ import androidx.car.app.CarContext;
 import androidx.car.app.Screen;
 import androidx.car.app.ScreenManager;
 import androidx.car.app.notification.CarPendingIntent;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.api.Const;
 import app.organicmaps.car.CarAppService;
