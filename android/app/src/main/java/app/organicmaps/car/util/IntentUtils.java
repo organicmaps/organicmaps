@@ -70,9 +70,8 @@ public final class IntentUtils
       final SearchScreen.Builder builder = new SearchScreen.Builder(mCarContext, mSurfaceRenderer);
       builder.setQuery(query);
 
-        screenManager.popToRoot();
-        screenManager.push(builder.build());
-      }
+      screenManager.popToRoot();
+      screenManager.push(builder.build());
     }
 
   @NonNull
