@@ -213,4 +213,84 @@ UNIT_TEST(GeoJson_Parse_UMapOptions)
   TEST_EQUAL(trackUmapObj.at("opacity").as<double>(), 0.5, ("opacity value should be preserved"));
 }
 
+UNIT_TEST(GeoJson_Parse_FromGoogle)
+{
+  std::string_view constexpr input = R"({
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          -0.1195192,
+          51.5031864
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2025-11-17T09:06:04Z",
+        "google_maps_url": "http://maps.google.com/?cid=4796882358840715922",
+        "location": {
+          "address": "Riverside Building, County Hall, Westminster Bridge Rd, London SE1 7PB, United Kingdom",
+          "country_code": "GB",
+          "name": "London Eye"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          0,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2025-11-17T09:08:03Z",
+        "google_maps_url": "http://maps.google.com/?q=41.993752,5.326894",
+        "Comment": "No location information is available for this saved place"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          0,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2025-11-17T09:06:35Z",
+        "google_maps_url": "http://maps.google.com/?q=00120+Vatican+City&ftid=0x1325890a57d42d3d:0x94f9ab23a7eb0",
+        "Comment": "No location information is available for this saved place"
+      },
+      "type": "Feature"
+    }
+  ]
+})";
+
+  kml::FileData const dataFromText = LoadGeojsonFromString(input);
+
+  // Check bookmark (Point)
+  TEST_EQUAL(dataFromText.m_bookmarksData.size(), 3, ());
+
+  // Check bookmark with coodinates and Google link
+  auto const & londonEyeBookmark = dataFromText.m_bookmarksData[0];
+  TEST_EQUAL(kml::GetDefaultStr(londonEyeBookmark.m_name), "London Eye", ());
+  TEST_EQUAL(kml::GetDefaultStr(londonEyeBookmark.m_description),
+             "<a href=\"https://maps.google.com/?cid=4796882358840715922\">London Eye</a>", ());
+
+  // Check bookmark Google link
+  auto const & bookmark = dataFromText.m_bookmarksData[1];
+  TEST(bookmark.m_point.EqualDxDy(mercator::FromLatLon(41.993752, 5.326894), 0.000001), ());
+  TEST_EQUAL(kml::GetDefaultStr(bookmark.m_description), "https://maps.google.com/?q=41.993752,5.326894", ());
+
+  // Check bookmark Google link
+  auto const & vaticanBookmark = dataFromText.m_bookmarksData[2];
+  TEST(vaticanBookmark.m_point.EqualDxDy(mercator::FromLatLon(0, 0), 0.000001), ());
+  TEST_EQUAL(kml::GetDefaultStr(vaticanBookmark.m_description),
+             "https://maps.google.com/?q=00120+Vatican+City&ftid=0x1325890a57d42d3d:0x94f9ab23a7eb0", ());
+}
+
 }  // namespace geojson_tests
