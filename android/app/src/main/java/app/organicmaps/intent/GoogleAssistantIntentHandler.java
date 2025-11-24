@@ -215,7 +215,8 @@ public abstract class GoogleAssistantIntentHandler
         case "r" -> Router.Transit;
         default -> Router.Vehicle;
       };
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       return Router.Vehicle;
     }
