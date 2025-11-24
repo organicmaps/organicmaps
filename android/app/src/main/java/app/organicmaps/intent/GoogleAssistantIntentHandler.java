@@ -264,7 +264,8 @@ public abstract class GoogleAssistantIntentHandler
 
       handler.handleSearch(query, true);
       return true;
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       return false;
     }
