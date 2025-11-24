@@ -238,7 +238,8 @@ public abstract class GoogleAssistantIntentHandler
         RoutingOptions.addOption(RoadType.Ferry);
       if (avoid.indexOf('h') >= 0)
         RoutingOptions.addOption(RoadType.Motorway);
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       Logger.e(TAG, "Failed to apply avoid options", e);
     }
