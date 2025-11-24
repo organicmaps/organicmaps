@@ -25,7 +25,6 @@ import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.search.SearchActivity;
-
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
