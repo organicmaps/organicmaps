@@ -183,7 +183,8 @@ public abstract class GoogleAssistantIntentHandler
           {
             dst.lat = Double.parseDouble(parts[0]);
             dst.lon = Double.parseDouble(parts[1]);
-          } catch (NumberFormatException ignore)
+          }
+          catch (NumberFormatException ignore)
           {
             dst.lat = 0.0;
             dst.lon = 0.0;
