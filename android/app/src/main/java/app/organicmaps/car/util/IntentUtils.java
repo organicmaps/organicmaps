@@ -55,7 +55,10 @@ public final class IntentUtils
     }
   }
 
-  private record CarSearchHandler(CarContext mCarContext, Renderer mSurfaceRenderer) implements GoogleAssistantIntentHandler.SearchHandler
+  private record CarSearchHandler(CarContext mCarContext, Renderer mSurfaceRenderer)
+      implements GoogleAssistantIntentHandler.SearchHandler
+  {
+    private CarSearchHandler(@NonNull CarContext mCarContext, @NonNull Renderer mSurfaceRenderer)
     {
       private CarSearchHandler(@NonNull CarContext mCarContext, @NonNull Renderer mSurfaceRenderer)
       {
