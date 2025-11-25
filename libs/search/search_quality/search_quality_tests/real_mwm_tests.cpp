@@ -326,7 +326,9 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hamburg_Park)
 
   Range const range(results, 0, 3);
   EqualClassifType(range, GetClassifTypes({
-                              {"tourism", "theme_park"}, {"amenity", "fast_food"}, {"shop", "gift"},
+                              {"tourism", "theme_park"},
+                              {"amenity", "fast_food"},
+                              {"shop", "gift"},
                               /// @todo Add _near street_ penalty
                               // {"amenity", "pharmacy"}, // "Heide-Apotheke" near the "Parkstraße" street
                           }));

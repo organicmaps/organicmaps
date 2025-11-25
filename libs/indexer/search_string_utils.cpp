@@ -22,10 +22,16 @@ using namespace strings;
 namespace
 {
 std::vector<UniString> const kAllowedMisprints = {
-    MakeUniString("ckq"), MakeUniString("eyjiu"), MakeUniString("gh"), MakeUniString("pf"), MakeUniString("vw"),
+    MakeUniString("ckq"),
+    MakeUniString("eyjiu"),
+    MakeUniString("gh"),
+    MakeUniString("pf"),
+    MakeUniString("vw"),
 
     // Russian
-    MakeUniString("ао"), MakeUniString("еиэ"), MakeUniString("шщ"),
+    MakeUniString("ао"),
+    MakeUniString("еиэ"),
+    MakeUniString("шщ"),
 
     // Spanish
     MakeUniString("jh"),  // "Jose" <-> "Hose"

@@ -276,9 +276,9 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingA
     m_session->SetRouter(std::move(router), nullptr);
 
     // Go along the route.
-    m_session->SetRoutingCallbacks([&alongTimedSignal](Route const &, RouterResultCode) { alongTimedSignal.Signal(); },
-                                   nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */,
-                                   nullptr /* removeRouteCallback */);
+    m_session->SetRoutingCallbacks([&alongTimedSignal](Route const &, RouterResultCode) {
+      alongTimedSignal.Signal();
+    }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
     m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()),
                           RouterDelegate::RouterDelegate::kNoTimeout);
   });
@@ -308,9 +308,9 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingA
       }
 
       // Rebuild route and go in opposite direction. So initiate a route rebuilding flag.
-      m_session->SetRoutingCallbacks([&oppositeTimedSignal](Route const &, RouterResultCode)
-      { oppositeTimedSignal.Signal(); }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */,
-                                     nullptr /* removeRouteCallback */);
+      m_session->SetRoutingCallbacks([&oppositeTimedSignal](Route const &, RouterResultCode) {
+        oppositeTimedSignal.Signal();
+      }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
       {
         m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
       }
@@ -354,9 +354,9 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingT
     unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, RouterResultCode::NoError, counter);
     m_session->SetRouter(std::move(router), nullptr);
 
-    m_session->SetRoutingCallbacks([&alongTimedSignal](Route const &, RouterResultCode) { alongTimedSignal.Signal(); },
-                                   nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */,
-                                   nullptr /* removeRouteCallback */);
+    m_session->SetRoutingCallbacks([&alongTimedSignal](Route const &, RouterResultCode) {
+      alongTimedSignal.Signal();
+    }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
     m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
   });
   TEST(alongTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
@@ -401,9 +401,9 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
     m_session->SetRouter(std::move(router), nullptr);
 
     // Go along the route.
-    m_session->SetRoutingCallbacks([&alongTimedSignal](Route const &, RouterResultCode) { alongTimedSignal.Signal(); },
-                                   nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */,
-                                   nullptr /* removeRouteCallback */);
+    m_session->SetRoutingCallbacks([&alongTimedSignal](Route const &, RouterResultCode) {
+      alongTimedSignal.Signal();
+    }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
     m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
   });
   TEST(alongTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
@@ -430,9 +430,9 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
     TEST_EQUAL(counter, 1, ());
 
     // Rebuild route and go in opposite direction. So initiate a route rebuilding flag.
-    m_session->SetRoutingCallbacks([&oppositeTimedSignal](Route const &, RouterResultCode)
-    { oppositeTimedSignal.Signal(); }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */,
-                                   nullptr /* removeRouteCallback */);
+    m_session->SetRoutingCallbacks([&oppositeTimedSignal](Route const &, RouterResultCode) {
+      oppositeTimedSignal.Signal();
+    }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
     m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
   });
   TEST(oppositeTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
@@ -490,9 +490,9 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRoutePercentTest
     // Get completion percent of unexisted route.
     TEST_EQUAL(m_session->GetCompletionPercent(), 0, (m_session->GetCompletionPercent()));
     // Go along the route.
-    m_session->SetRoutingCallbacks([&alongTimedSignal](Route const &, RouterResultCode) { alongTimedSignal.Signal(); },
-                                   nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */,
-                                   nullptr /* removeRouteCallback */);
+    m_session->SetRoutingCallbacks([&alongTimedSignal](Route const &, RouterResultCode) {
+      alongTimedSignal.Signal();
+    }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
     m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
   });
   TEST(alongTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
@@ -554,9 +554,9 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingError)
     TimedSignal buildTimedSignal;
     GetPlatform().RunTask(Platform::Thread::Gui, [this, &kRoute, &buildTimedSignal]()
     {
-      m_session->SetRoutingCallbacks([&buildTimedSignal](Route const &, RouterResultCode)
-      { buildTimedSignal.Signal(); }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */,
-                                     nullptr /* removeRouteCallback */);
+      m_session->SetRoutingCallbacks([&buildTimedSignal](Route const &, RouterResultCode) {
+        buildTimedSignal.Signal();
+      }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
 
       m_session->BuildRoute(Checkpoints(kRoute.front(), kRoute.back()), RouterDelegate::kNoTimeout);
     });

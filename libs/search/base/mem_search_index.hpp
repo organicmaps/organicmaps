@@ -58,8 +58,7 @@ public:
       return numDocs;
     }
 
-    return WithIds([&](std::vector<Id> & ids)
-    {
+    return WithIds([&](std::vector<Id> & ids) {
       m_trie.ForEachInSubtree(key, [&](Token const & /* token */, Id const & id) { ids.push_back(id); });
     }).size();
   }
