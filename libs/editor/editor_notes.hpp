@@ -7,7 +7,6 @@
 #include "base/macros.hpp"
 
 #include <list>
-#include <memory>
 #include <mutex>
 #include <string>
 
@@ -25,11 +24,12 @@ inline bool operator==(Note const & lhs, Note const & rhs)
   return lhs.m_point == rhs.m_point && lhs.m_note == rhs.m_note;
 }
 
-class Notes : public std::enable_shared_from_this<Notes>
+class Notes
 {
 public:
-  static float constexpr kTolerance = 1e-7;
-  static std::shared_ptr<Notes> MakeNotes(std::string const & fileName = "notes.xml", bool const fullPath = false);
+  explicit Notes(std::string const & filePath);
+
+  static float constexpr kTolerance = 1.0E-7;
 
   void CreateNote(ms::LatLon const & latLon, std::string const & text);
 
@@ -37,15 +37,13 @@ public:
   /// Called on main thread from system event.
   void Upload(osm::OsmOAuth const & auth);
 
-  std::list<Note> GetNotes() const;
+  std::list<Note> const & GetNotesForTests() const { return m_notes; }
 
   size_t NotUploadedNotesCount() const;
   size_t UploadedNotesCount() const;
 
 private:
-  explicit Notes(std::string const & fileName);
-
-  std::string const m_fileName;
+  std::string const m_filePath;
   mutable std::mutex m_mu;
 
   // m_notes keeps the notes that have not been uploaded yet.

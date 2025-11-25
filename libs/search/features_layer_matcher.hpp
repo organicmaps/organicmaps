@@ -12,6 +12,8 @@
 #include "search/stats_cache.hpp"
 #include "search/street_vicinity_loader.hpp"
 
+#include "editor/osm_editor.hpp"
+
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -469,5 +471,7 @@ private:
 
   StreetVicinityLoader m_loader;
   base::Cancellable const & m_cancellable;
+
+  osm::Editor const & m_editor = osm::Editor::Instance();
 };
 }  // namespace search

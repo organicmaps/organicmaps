@@ -13,6 +13,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
+    android:scrollbarSize="@dimen/scrollbar_size"
     android:fadeScrollbars="false"
     tools:listitem="@layout/item_feature_category"/>
 </LinearLayout>

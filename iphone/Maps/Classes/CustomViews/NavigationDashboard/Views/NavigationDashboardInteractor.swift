@@ -118,7 +118,7 @@ extension NavigationDashboard {
         return .show(points: router.points(), routerType: router.type())
 
       case .updateVisibleAreaInsets(let insets):
-        mapViewController.updateVisibleAreaInsets(for: self, insets: insets)
+        mapViewController.updateVisibleAreaInsets(for: self, insets: insets, updatingViewport: true)
         return .none
 
       case .setHidden(let hidden):

@@ -19,6 +19,11 @@ namespace storage
 class CountryInfoGetter;
 }  // namespace storage
 
+namespace osm
+{
+class Editor;
+}  // namespace osm
+
 namespace search
 {
 class MwmContext;
@@ -28,6 +33,7 @@ class RegionInfoGetter;
 class ReverseGeocoder
 {
   DataSource const & m_dataSource;
+  osm::Editor const & m_editor;
 
   struct Object
   {

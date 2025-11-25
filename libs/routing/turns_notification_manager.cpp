@@ -147,11 +147,6 @@ void NotificationManager::GenerateTurnNotifications(std::vector<TurnItemDist> co
     return;
   turnNotifications.emplace_back(std::move(secondNotification));
 
-  // Log turn notifications TTS
-  if (!turnNotifications.empty())
-    for (auto const & notification : turnNotifications)
-      LOG(LINFO, ("TTS:", notification));
-
   // Turn notification with word "Then" (about the second turn) will be pronounced.
   // When this second turn become the first one the first notification about the turn
   // shall be skipped.
@@ -199,7 +194,7 @@ std::string NotificationManager::GenerateFirstTurnSound(TurnItem const & turn, d
               m_settings.RoundByPresetSoundedDistancesUnits(distToPronounceUnits);
           m_nextTurnNotificationProgress = PronouncedNotification::First;
 
-          LOG(LINFO,
+          LOG(LDEBUG,
               ("TTS meters to pronounce", distanceToPronounceNotificationM, "meters to turn", distanceToTurnMeters,
                "meters to start pronounce", startPronounceDistMeters, "speed m/s", m_speedMetersPerSecond));
           return GenerateTurnText(roundedDistToPronounceUnits, turn.m_exitNum, false /* useThenInsteadOfDistance */,
@@ -223,8 +218,8 @@ std::string NotificationManager::GenerateFirstTurnSound(TurnItem const & turn, d
     m_nextTurnNotificationProgress = PronouncedNotification::Second;
     FastForwardFirstTurnNotification();
 
-    LOG(LINFO, ("TTS meters to pronounce", distanceToPronounceNotificationM, "meters to turn", distanceToTurnMeters,
-                "speed m/s", m_speedMetersPerSecond));
+    LOG(LDEBUG, ("TTS meters to pronounce", distanceToPronounceNotificationM, "meters to turn", distanceToTurnMeters,
+                 "speed m/s", m_speedMetersPerSecond));
     return GenerateTurnText(0 /* distMeters */, turn.m_exitNum, false /* useThenInsteadOfDistance */, turn,
                             nextStreetInfo);
   }

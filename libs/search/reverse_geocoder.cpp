@@ -55,7 +55,10 @@ std::string const & GetHouseNumber(FeatureType & ft)
 
 }  // namespace
 
-ReverseGeocoder::ReverseGeocoder(DataSource const & dataSource) : m_dataSource(dataSource) {}
+ReverseGeocoder::ReverseGeocoder(DataSource const & dataSource)
+  : m_dataSource(dataSource)
+  , m_editor(osm::Editor::Instance())
+{}
 
 template <class ObjT, class FilterT>
 vector<ObjT> GetNearbyObjects(search::MwmContext & context, m2::PointD const & center, double radiusM,
@@ -190,7 +193,7 @@ bool ReverseGeocoder::GetExactAddress(FeatureID const & fid, Address & addr) con
 bool ReverseGeocoder::GetSavedAddress(HouseTable & table, Building const & bld, bool ignoreEdits, Address & addr) const
 {
   string street;
-  if (!ignoreEdits && osm::Editor::Instance().GetEditedFeatureStreet(bld.m_id, street))
+  if (!ignoreEdits && m_editor.GetEditedFeatureStreet(bld.m_id, street))
   {
     addr.m_building = bld;
     addr.m_street.m_name = street;

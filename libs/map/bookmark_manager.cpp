@@ -498,6 +498,8 @@ void BookmarkManager::MoveTrack(kml::TrackId trackID, kml::MarkGroupId curGroupI
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   DetachTrack(trackID, curGroupID);
   AttachTrack(trackID, newGroupID);
+
+  SetLastEditedBmCategory(newGroupID);
 }
 
 void BookmarkManager::AttachTrack(kml::TrackId trackId, kml::MarkGroupId groupId)

@@ -3,8 +3,6 @@
 #include "search/house_to_street_table.hpp"
 #include "search/reverse_geocoder.hpp"
 
-#include "editor/osm_editor.hpp"
-
 #include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
@@ -108,7 +106,7 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(FeatureID const & id, Featu
 {
   // Check if this feature is modified - the logic will be different.
   string streetName;
-  bool const edited = osm::Editor::Instance().GetEditedFeatureStreet(id, streetName);
+  bool const edited = m_editor.GetEditedFeatureStreet(id, streetName);
 
   // Check the cached result value.
   auto entry = m_matchingStreetsCache.Get(id.m_index);

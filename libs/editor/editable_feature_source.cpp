@@ -2,16 +2,19 @@
 
 #include "editor/osm_editor.hpp"
 
+EditableFeatureSource::EditableFeatureSource(MwmSet::MwmHandle const & handle)
+  : FeatureSource(handle)
+  , m_editor(osm::Editor::Instance())
+{}
+
 FeatureStatus EditableFeatureSource::GetFeatureStatus(uint32_t index) const
 {
-  osm::Editor & editor = osm::Editor::Instance();
-  return editor.GetFeatureStatus(m_handle.GetId(), index);
+  return m_editor.GetFeatureStatus(m_handle.GetId(), index);
 }
 
 std::unique_ptr<FeatureType> EditableFeatureSource::GetModifiedFeature(uint32_t index) const
 {
-  osm::Editor & editor = osm::Editor::Instance();
-  auto const emo = editor.GetEditedFeature(FeatureID(m_handle.GetId(), index));
+  auto const emo = m_editor.GetEditedFeature(FeatureID(m_handle.GetId(), index));
   if (emo)
     return FeatureType::CreateFromMapObject(*emo);
   return {};
@@ -20,6 +23,5 @@ std::unique_ptr<FeatureType> EditableFeatureSource::GetModifiedFeature(uint32_t 
 void EditableFeatureSource::ForEachAdditionalFeature(m2::RectD const & rect, int scale,
                                                      std::function<void(uint32_t)> const & fn) const
 {
-  osm::Editor & editor = osm::Editor::Instance();
-  editor.ForEachCreatedFeature(m_handle.GetId(), fn, rect, scale);
+  m_editor.ForEachCreatedFeature(m_handle.GetId(), fn, rect, scale);
 }

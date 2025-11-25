@@ -125,9 +125,20 @@ bool IsObsolete(editor::XMLFeature const & xml, FeatureID const & fid)
 }
 }  // namespace
 
-Editor::Editor() : m_configLoader(m_config), m_notes(editor::Notes::MakeNotes())
+Editor::Editor() : m_configLoader(m_config)
 {
+  ResetNotes();
   SetDefaultStorage();
+}
+
+void Editor::SetNotesForTesting(std::string const & filePath)
+{
+  m_notes = std::make_unique<editor::Notes>(filePath);
+}
+
+void Editor::ResetNotes()
+{
+  m_notes = std::make_unique<editor::Notes>(GetPlatform().WritablePathForFile("notes.xml"));
 }
 
 Editor & Editor::Instance()
