@@ -1,33 +1,20 @@
-- BARU! Sorot wilayah yang diunduh di peta Dunia
-- BARU! Lihat dan cari cagar alam, taman nasional, kawasan lindung, tanah Adat, area berbahaya, dan danau di peta Dunia mulai dari tingkat zoom 8
-- BARU! Akses bersyarat untuk perutean, mis., untuk jalan yang ditutup pada waktu-waktu tertentu
-- Data OpenStreetMap yang diperbarui pada 9 November 2025
-- Mengaktifkan bahasa Estonia, Galisia, Ibrani, dan Lituania untuk arahan suara TTS
-- Memperbaiki masalah dengan nama jalan default dan yang dilokalkan saat mengedit alamat
-- Memperbaiki masalah dengan zoom saat mengetuk hasil pencarian dari peta Dunia
-- Menambahkan tautan media sosial TikTok, Threads, dan BlueSky ke layar "Tentang"
-- Menambahkan "Laporkan bug" ke tindakan cepat ikon aplikasi di layar beranda
-- Setelah menghapus daftar bookmark atau trek (melalui tombol "lainnya"), aplikasi sekarang kembali dengan benar ke layar sebelumnya
-- Memperbaiki berbagai kerusakan aplikasi dan CarPlay
+- Artikel Wikipedia untuk tempat dalam bahasa Turki, Jepang, dan Tionghoa; ketik ?wiki untuk melihat semua artikel di peta
+- Pengaturan untuk menyorot secara visual wilayah yang diunduh di peta
+- Data OpenStreetMap per 23 November 2025
 
-### Peta & Gaya
+- Edit nama penanda atau trek langsung di Halaman Informasi Tempat
+- Ketuk lama nama atau alamat tempat/penanda yang dipilih untuk menyalinnya
+- Menambahkan pencarian untuk daftar tertentu saat mengubahnya dari Halaman Informasi Tempat
+- Gunakan emoji khusus di Halaman Informasi Tempat
+- Memperbaiki animasi untuk tombol samping dan warna tombol "Unduh Peta" dalam tema gelap
+- Dukungan iOS 26 & macOS 26 "Liquid Glass"
+- Saat memindahkan trek ke daftar, daftar tersebut menjadi default untuk penanda/trek baru
+- Peningkatan impor GeoJSON, termasuk `Saved Places.json` dari Google Takeout
+- Terjemahan diperbarui di berbagai bahasa, termasuk perbaikan bahasa Ibrani
 
-- Menukar rendering rel kereta api 'terbengkalai' dan 'tidak digunakan'
-- Menambahkan pembuat jam dan akomodasi mahasiswa ke peta
-- Menambahkan ikon biro perjalanan
-- Mengubah warna ikon toilet menjadi abu-abu
-- Memperbarui ikon audiolog, podiatris, optometris, dan alat bantu dengar
-- Memperbaiki ikon persewaan sepeda dalam mode gelap
-- Menampilkan nama negara bagian AS/Kanada lebih awal di peta Dunia (dari tingkat zoom 5)
+## Navigasi & Rute
 
-### Terjemahan
-
-- Menambahkan sinonim pencarian Slovenia dan mengaktifkan pencarian kategori untuk bahasa Slovenia
-- Memperbaiki salah ketik, terjemahan yang salah, dan sinonim pencarian; menambahkan terjemahan yang hilang untuk banyak bahasa
-- Menambahkan terjemahan khusus untuk bahasa Spanyol Meksiko (es-MX) dan Portugis Brasil (pt-BR), yang berbeda dari bahasa Spanyol standar (es) dan Portugis (pt)
-- Memperbaiki arahan suara TTS Ceko
-
-Periksa catatan rilis terperinci di situs web kami: https://organicmaps.app
-
-Terima kasih telah menggunakan Organic Maps dan mendukung proyek ini!
-Tim Organic Maps
+- Tata letak peta diperbaiki selama navigasi di iPad agar rute tetap terlihat jelas
+- Rute sepeda sekarang melewati jalan pemukiman satu arah di Austria
+- Petunjuk bundaran yang disederhanakan
+- Jalan lebih terang dengan kontras lebih baik dalam mode kendaraan gelap

@@ -1,8 +1,9 @@
-• Destaque no mapa-múndi as regiões baixadas, reservas naturais, parques nacionais, áreas protegidas, terras aborígenes, áreas de perigo e lagos
-• O roteamento suporta horários de fechamento de estradas
-• Mapas OSM atualizados em 9 de novembro
-• Falhas e roteamento corrigidos, incluindo o Android Auto
-• Adicionados relojoeiros, acomodações estudantis e agências de viagens
-• Direções de voz em estoniano, galego, hebraico e lituano
-
+• Artigos da Wikipédia em turco, japonês e chinês, digite ?wiki para vê-los no mapa
+• Nova configuração para destacar visualmente regiões baixadas no mapa
+• Importe favoritos e locais salvos do Google Takeout via GeoJSON
+• Dados do OSM de 23 de novembro
+• Reprodução de áudio melhorada e interrupções de som
+• Corrigidos travamentos no Editor e ao baixar mapas
+• Estradas mais brilhantes no modo veículo escuro
+• Roteamento de bicicleta melhorado na Áustria
 …mais em omaps.org/pt-BR/news

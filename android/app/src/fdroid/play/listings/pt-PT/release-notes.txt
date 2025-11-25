@@ -1,8 +1,9 @@
-• Destaque no mapa do mundo as regiões descarregadas, as reservas naturais, os parques nacionais, as áreas protegidas, as terras aborígenes, as zonas de perigo e os lagos
-• O encaminhamento suporta os horários de fecho de estradas
-• Mapas OSM atualizados a 9 de novembro
-• Corrigidos erros e encaminhamento, incluindo o Android Auto
-• Adicionados relojoeiros, alojamentos para estudantes e agências de viagens
-• Indicações de voz em estónio, galego, hebraico e lituano
-
+• Artigos da Wikipédia em turco, japonês e chinês, escreva ?wiki para os ver no mapa
+• Nova definição para destacar visualmente as regiões descarregadas no mapa
+• Importar marcadores e locais guardados do Google Takeout via GeoJSON
+• Dados OSM de 23 de novembro
+• Reprodução de áudio melhorada e interrupções de som
+• Corrigidas falhas no Editor e ao descarregar mapas
+• Estradas mais brilhantes no modo veículo escuro
+• Encaminhamento de bicicleta melhorado na Áustria
 …mais em omaps.org/pt/news

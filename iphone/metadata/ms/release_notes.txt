@@ -1,33 +1,20 @@
-- BARU! Serlahkan kawasan yang dimuat turun pada peta Dunia
-- BARU! Lihat dan cari rizab alam semula jadi, taman negara, kawasan perlindungan, tanah Orang Asli, kawasan bahaya dan tasik pada peta Dunia bermula dari tahap zum 8
-- BARU! Akses bersyarat untuk penghalaan, cth., untuk jalan yang ditutup pada masa-masa tertentu
-- Data OpenStreetMap yang dikemas kini pada 9 November 2025
-- Bahasa Estonia, Galicia, Ibrani dan Lithuania diaktifkan untuk arahan suara TTS
-- Memperbaiki isu dengan nama jalan lalai dan setempat semasa menyunting alamat
-- Memperbaiki isu dengan zum apabila mengetik pada hasil carian dari peta Dunia
-- Menambah pautan media sosial TikTok, Threads dan BlueSky ke skrin "Perihal"
-- Menambah "Laporkan pepijat" pada tindakan pantas ikon aplikasi di skrin utama
-- Selepas memadam senarai penanda halaman atau trek (melalui butang "lagi"), aplikasi kini kembali ke skrin sebelumnya dengan betul
-- Memperbaiki pelbagai ranap aplikasi dan CarPlay
+- Artikel Wikipedia untuk tempat dalam bahasa Turki, Jepun, dan Cina; taip ?wiki untuk melihat semua artikel di peta
+- Tetapan untuk menyerlahkan secara visual kawasan yang dimuat turun di peta
+- Data OpenStreetMap setakat 23 November 2025
 
-### Peta & Gaya
+- Edit nama penanda buku atau trek terus di Halaman Maklumat Tempat
+- Ketik lama pada nama atau alamat tempat/penanda buku yang dipilih untuk menyalinnya
+- Menambah carian untuk senarai tertentu apabila menukarnya dari Halaman Maklumat Tempat
+- Gunakan emoji tersuai di Halaman Maklumat Tempat
+- Animasi diperbaiki untuk butang sisi dan warna butang "Muat Turun Peta" dalam tema gelap
+- Sokongan iOS 26 & macOS 26 "Liquid Glass"
+- Apabila memindahkan trek ke senarai, senarai itu menjadi lalai untuk penanda buku/trek baharu
+- Import GeoJSON yang dipertingkatkan, termasuk `Saved Places.json` dari Google Takeout
+- Terjemahan dikemas kini merentasi pelbagai bahasa, termasuk pembetulan Ibrani
 
-- Menukar rendering landasan kereta api 'terbengkalai' dan 'tidak digunakan'
-- Menambah pembuat jam tangan dan penginapan pelajar pada peta
-- Menambah ikon agensi pelancongan
-- Menukar warna ikon tandas kepada kelabu
-- Mengemas kini ikon pakar audiologi, pakar podiatri, pakar optometri dan alat bantuan pendengaran
-- Memperbaiki ikon sewaan basikal dalam mod gelap
-- Memaparkan nama negeri AS/Kanada lebih awal pada peta Dunia (dari tahap zum 5)
+## Navigasi & Laluan
 
-### Terjemahan
-
-- Menambah sinonim carian Slovenia dan mengaktifkan carian kategori untuk bahasa Slovenia
-- Memperbaiki kesilapan menaip, terjemahan yang salah dan sinonim carian; menambah terjemahan yang hilang untuk banyak bahasa
-- Menambah terjemahan khusus untuk bahasa Sepanyol Mexico (es-MX) dan Portugis Brazil (pt-BR), berbeza daripada bahasa Sepanyol standard (es) dan Portugis (pt)
-- Memperbaiki arahan suara TTS Czech
-
-Semak nota keluaran terperinci di laman web kami: https://organicmaps.app
-
-Terima kasih kerana menggunakan Peta Organik dan menyokong projek ini!
-Pasukan Peta Organik
+- Susun atur peta diperbaiki semasa navigasi di iPad supaya laluan kekal jelas kelihatan
+- Laluan basikal kini melangkau jalan kediaman sehala di Austria
+- Arahan bulatan dipermudahkan
+- Jalan lebih terang dengan kontras yang lebih baik dalam mod kenderaan gelap

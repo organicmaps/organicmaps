@@ -1,8 +1,8 @@
-• Heruntergeladene Regionen, Naturschutzgebiete, Nationalparks, Schutzgebiete, Ländereien der Aborigines, Gefahrengebiete und Seen auf der Weltkarte hervorheben
-• Routing unterstützt Straßensperrzeiten
-• Frische OSM-Karten vom 9. November
-• Abstürze und Routing behoben, einschließlich Android Auto
-• Uhrmacher, Studentenunterkünfte, Reisebüros hinzugefügt
-• Sprachanweisungen in Estnisch, Galizisch, Hebräisch und Litauisch
-
+• Wikipedia-Artikel auf Türkisch, Japanisch und Chinesisch, tippe ?wiki um sie auf der Karte zu sehen
+• Neue Einstellung zur visuellen Hervorhebung heruntergeladener Regionen auf der Karte
+• Import von Google Takeout-Lesezeichen und gespeicherten Orten über GeoJSON
+• OSM-Daten vom 23. November
+• Verbesserte Audiowiedergabe und Tonunterbrechungen
+• Hellere Straßen im dunklen Fahrzeugmodus
+• Verbessertes Fahrrad-Routing in Österreich
 …mehr auf omaps.org/de/news

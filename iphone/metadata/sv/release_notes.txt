@@ -1,33 +1,20 @@
-- NYHET! Markera nedladdade regioner på världskartan
-- NYHET! Se och sök efter naturreservat, nationalparker, skyddade områden, aboriginska landområden, farliga områden och sjöar på världskartan från zoomnivå 8
-- NYHET! Villkorlig åtkomst för ruttplanering, t.ex. för vägar som är avstängda vid vissa tider
-- Uppdaterade OpenStreetMap-data från den 9 november 2025
-- Aktiverat estniska, galiciska, hebreiska och litauiska språk för TTS-röstinstruktioner
-- Åtgärdat ett problem med standard- och lokaliserade gatunamn vid redigering av adresser
-- Åtgärdat ett problem med zoomning när man trycker på sökresultat från världskartan
-- Lade till länkar till sociala medier TikTok, Threads och BlueSky på "Om"-skärmen
-- Lade till "Rapportera ett fel" i appikonens snabbåtgärder på hemskärmen
-- Efter att ha tagit bort en bokmärkes- eller spårlista (via "mer"-knappen) återgår appen nu korrekt till föregående skärm
-- Åtgärdade olika app- och CarPlay-krascher
+- Wikipedia-artiklar för platser på turkiska, japanska och kinesiska; skriv ?wiki för att se alla artiklar på kartan
+- Inställning för att visuellt markera nedladdade regioner på kartan
+- OpenStreetMap-data från 23 november 2025
 
-### Karta och stilar
+- Redigera ett bokmärkes- eller ruttnamn direkt på platsinformationssidan
+- Tryck länge på namnet eller adressen för en vald plats/bokmärke för att kopiera
+- Lade till sökning efter en specifik lista vid byte från platsinformationssidan
+- Använd anpassade emojis på platsinformationssidan
+- Fixade animationer för sidoknappar och färgen på "Ladda ner kartor"-knappen i mörkt tema
+- iOS 26 & macOS 26 "Liquid Glass"-stöd
+- När du flyttar en rutt till en lista blir den listan standard för nya bokmärken/rutter
+- Förbättrad GeoJSON-import, inklusive `Saved Places.json` från Google Takeout
+- Uppdaterade översättningar på flera språk, inklusive en hebreisk korrigering
 
-- Bytt rendering av "övergivna" och "nedlagda" järnvägar
-- Lade till urmakare och studentboenden på kartan
-- Lade till ikoner för resebyråer
-- Ändrade färgen på toalettikonen till grå
-- Uppdaterade ikoner för audionom, fotvårdsspecialist, optiker och hörapparater
-- Åtgärdade ikonen för cykeluthyrning i mörkt läge
-- Visa namn på delstater i USA/Kanada tidigare på världskartan (från zoomnivå 5)
+## Navigering och vägvisning
 
-### Översättningar
-
-- Lade till slovenska söksynonymer och aktiverade kategorisökning för slovenska
-- Rättade stavfel, felaktiga översättningar och söksynonymer; lade till saknade översättningar för många språk
-- Lade till specifika översättningar för mexikansk spanska (es-MX) och brasiliansk portugisiska (pt-BR), som skiljer sig från standardspanska (es) och portugisiska (pt)
-- Rättade tjeckiska TTS-röstinstruktioner
-
-Se detaljerade versionsanteckningar på vår webbplats: https://organicmaps.app
-
-Tack för att du använder Organic Maps och stöder projektet!
-Organic Maps-teamet
+- Kartlayout fixad under navigering på iPad så att rutten förblir tydligt synlig
+- Cykelrutter hoppar nu över enkelriktade bostadsgator i Österrike
+- Förenklade rondellvägvisningar
+- Vägar är ljusare med bättre kontrast i mörkt fordonsläge

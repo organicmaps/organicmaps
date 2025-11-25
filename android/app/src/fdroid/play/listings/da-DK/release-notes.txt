@@ -1,9 +1,9 @@
-• Fremhæv downloadede regioner, naturreservater, nationalparker, beskyttede områder, oprindelige lande, fareområder, søer på verdenskortet
-• Rutevejledning understøtter vejspærringstider
-• Friske OSM-kort pr. 9. november
-• Rettede nedbrud og rutevejledning, inklusive Android Auto
-• Tilføjet urmagere, studieboliger, rejsebureauer
-• Tilføjet understøttelse af slovensk sprog i søgning
-• Stemmeanvisninger på estisk, galicisk, hebraisk og litauisk
-
+• Wikipedia-artikler på tyrkisk, japansk og kinesisk, skriv ?wiki for at se dem på kortet
+• Ny indstilling til visuelt at fremhæve downloadede områder på kortet
+• Importér Google Takeouts bogmærker og gemte steder via GeoJSON
+• OSM-data pr. 23. november
+• Forbedret lydafspilning og lydafbrydelser
+• Rettede nedbrud i editoren og ved download af kort
+• Lysere veje i mørk køretøjstilstand
+• Forbedret cykelrute i Østrig
 …mere på omaps.org/news

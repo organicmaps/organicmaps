@@ -1,8 +1,9 @@
-• Podświetl na mapie świata pobrane regiony, rezerwaty przyrody, parki narodowe, obszary chronione, ziemie Aborygenów, obszary niebezpieczne, jeziora
-• Wyznaczanie tras obsługuje czasy zamknięcia dróg
-• Świeże mapy OSM z 9 listopada
-• Naprawiono awarie i wyznaczanie tras, w tym Android Auto
-• Dodano zegarmistrzów, kwatery studenckie, biura podróży
-• Wskazówki głosowe w języku estońskim, galicyjskim, hebrajskim i litewskim
-
+• Artykuły Wikipedii po turecku, japońsku i chińsku, wpisz ?wiki, aby zobaczyć je na mapie
+• Nowe ustawienie do wizualnego podświetlania pobranych regionów na mapie
+• Importuj zakładki i zapisane miejsca z Google Takeout przez GeoJSON
+• Dane OSM na dzień 23 listopada
+• Ulepszone odtwarzanie dźwięku i przerwy w dźwięku
+• Naprawiono awarie w edytorze i podczas pobierania map
+• Jaśniejsze drogi w ciemnym trybie pojazdu
+• Ulepszone trasowanie rowerowe w Austrii
 …więcej na omaps.org/pl/news

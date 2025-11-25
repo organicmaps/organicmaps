@@ -1,33 +1,20 @@
-- NOU! Ressenyeu les regions descarregades al mapa del món
-- NOU! Vegeu i cerqueu reserves naturals, parcs nacionals, àrees protegides, terres aborígens, zones de perill i llacs al mapa del món a partir del nivell de zoom 8
-- NOU! L'encaminament té en compte els horaris de tancament de les carreteres
-- Dades d'OpenStreetMap actualitzades a 9 de novembre de 2025
-- S'han activat les llengües estoniana, gallega, hebrea i lituana per a les indicacions de veu TTS
-- S'ha corregit un problema amb els noms de carrer per defecte i localitzats en editar adreces
-- S'ha corregit un problema amb el zoom en tocar els resultats de la cerca des del mapa del món
-- S'han afegit enllaços a les xarxes socials TikTok, Threads i BlueSky a la pantalla "Quant a"
-- S'ha afegit "Informa d'un error" a les accions ràpides de la icona de l'aplicació a la pantalla d'inici
-- Després d'eliminar una llista de marcadors o rutes (mitjançant el botó "més"), l'aplicació ara torna correctament a la pantalla anterior
-- S'han corregit diversos bloquejos de l'aplicació i de CarPlay
+- Articles de Viquipèdia per a llocs en turc, japonès i xinès; escriu ?wiki per veure tots els articles al mapa
+- Configuració per ressaltar visualment les regions descarregades al mapa
+- Dades d'OpenStreetMap del 23 de novembre de 2025
 
-### Mapa i estils
+- Edita el nom d'un marcador o ruta directament a la pàgina d'informació del lloc
+- Mantén premut el nom o l'adreça d'un lloc/marcador per copiar-lo
+- Cerca afegida per a una llista específica quan es canvia des de la pàgina d'informació del lloc
+- Utilitza emojis personalitzats a la pàgina d'informació del lloc
+- Animacions corregides per als botons laterals i el color del botó "Descarrega mapes" en tema fosc
+- Suport per a iOS 26 i macOS 26 "Liquid Glass"
+- Quan mous una ruta a una llista, aquesta llista es converteix en la predeterminada per a nous marcadors/rutes
+- Importació GeoJSON millorada, incloent-hi `Saved Places.json` de Google Takeout
+- Traduccions actualitzades en diversos idiomes, incloent-hi una correcció en hebreu
 
-- S'ha intercanviat la representació de les vies de ferrocarril "abandonades" i "en desús"
-- S'han afegit rellotgers i allotjaments per a estudiants al mapa
-- S'han afegit icones d'agències de viatges
-- S'ha canviat el color de la icona del lavabo a gris
-- S'han actualitzat les icones d'audiòleg, podòleg, optometrista i audiòfons
-- S'ha corregit la icona de lloguer de bicicletes en mode fosc
-- Mostra els noms dels estats dels EUA/Canadà abans al mapa del món (a partir del nivell de zoom 5)
+## Navegació i rutes
 
-### Traduccions
-
-- S'han afegit sinònims de cerca en eslovè i s'ha activat la cerca per categories en eslovè
-- S'han corregit errades, traduccions incorrectes i sinònims de cerca; s'han afegit traduccions que faltaven per a moltes llengües
-- S'han afegit traduccions específiques per a l'espanyol de Mèxic (es-MX) i el portuguès del Brasil (pt-BR), diferents de l'espanyol (es) i el portuguès (pt) estàndard
-- S'han corregit les indicacions de veu TTS en txec
-
-Consulteu les notes detallades de la versió al nostre lloc web: https://organicmaps.app/ca/news/
-
-Gràcies per utilitzar Organic Maps i donar suport al projecte!
-L'equip d'Organic Maps
+- Disposició del mapa corregida durant la navegació a l'iPad perquè la ruta sigui clarament visible
+- El càlcul de rutes per a bicicletes ara evita els carrers residencials d'un sol sentit a Àustria
+- Instruccions de rotondes simplificades
+- Carreteres més brillants amb millor contrast en mode vehicle nocturn

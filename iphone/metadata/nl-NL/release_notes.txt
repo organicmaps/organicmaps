@@ -1,33 +1,20 @@
-- NIEUW! Gemarkeerde gedownloade regio's op de wereldkaart
-- NIEUW! Bekijk en zoek naar natuurreservaten, nationale parken, beschermde gebieden, Aboriginal-landen, gevarenzones en meren op de wereldkaart vanaf zoomniveau 8
-- NIEUW! Voorwaardelijke toegang voor routering, bijv. voor wegen die op bepaalde tijden zijn afgesloten
-- Bijgewerkte OpenStreetMap-gegevens per 9 november 2025
-- Ests, Galicisch, Hebreeuws en Litouws ingeschakeld voor TTS-spraakinstructies
-- Een probleem opgelost met standaard en gelokaliseerde straatnamen bij het bewerken van adressen
-- Een probleem opgelost met zoomen bij het tikken op zoekresultaten van de wereldkaart
-- Sociale-medialinks voor TikTok, Threads en BlueSky toegevoegd aan het "Over"-scherm
-- "Een bug rapporteren" toegevoegd aan de snelle acties van het app-pictogram op het startscherm
-- Na het verwijderen van een bladwijzer- of tracklijst (via de "meer"-knop), keert de app nu correct terug naar het vorige scherm
-- Diverse app- en CarPlay-crashes opgelost
+- Wikipedia-artikelen voor plaatsen in het Turks, Japans en Chinees; typ ?wiki om alle artikelen op de kaart te zien
+- Instelling om gedownloade regio's visueel te markeren op de kaart
+- OpenStreetMap-gegevens van 23 november 2025
 
-### Kaart & Stijlen
+- Bewerk een bladwijzer- of routenaam rechtstreeks op de pagina met plaatsinformatie
+- Houd de naam of het adres van een geselecteerde plaats/bladwijzer lang ingedrukt om te kopiëren
+- Zoeken naar een specifieke lijst toegevoegd bij het wijzigen ervan vanaf de pagina met plaatsinformatie
+- Gebruik aangepaste emoji's op de pagina met plaatsinformatie
+- Animaties voor zijknoppen en de kleur van de "Kaarten downloaden"-knop in het donkere thema gecorrigeerd
+- iOS 26 & macOS 26 "Liquid Glass"-ondersteuning
+- Wanneer je een route naar een lijst verplaatst, wordt die lijst de standaard voor nieuwe bladwijzers/routes
+- Verbeterde GeoJSON-import, inclusief `Saved Places.json` van Google Takeout
+- Bijgewerkte vertalingen in meerdere talen, inclusief een Hebreeuwse correctie
 
-- De weergave van 'verlaten' en 'ongebruikte' spoorwegen omgewisseld
-- Uurwerkmakers en studentenaccommodaties toegevoegd aan de kaart
-- Pictogrammen voor reisbureaus toegevoegd
-- De kleur van het toiletpictogram gewijzigd in grijs
-- Pictogrammen voor audioloog, podoloog, optometrist en hoortoestellen bijgewerkt
-- Het pictogram voor fietsverhuur in de donkere modus gecorrigeerd
-- Namen van staten in de VS/Canada eerder weergeven op de wereldkaart (vanaf zoomniveau 5)
+## Navigatie en routeplanning
 
-### Vertalingen
-
-- Sloveense zoek-synoniemen toegevoegd en categorie-zoeken voor Sloveens ingeschakeld
-- Typfouten, onjuiste vertalingen en zoek-synoniemen gecorrigeerd; ontbrekende vertalingen voor veel talen toegevoegd
-- Specifieke vertalingen toegevoegd voor Mexicaans-Spaans (es-MX) en Braziliaans-Portugees (pt-BR), onderscheiden van standaard Spaans (es) en Portugees (pt)
-- Tsjechische TTS-spraakinstructies gecorrigeerd
-
-Bekijk de gedetailleerde release-opmerkingen op onze website: https://organicmaps.app
-
-Bedankt voor het gebruik van Organic Maps en het ondersteunen van het project!
-Het Organic Maps-team
+- Kaartindeling gecorrigeerd tijdens navigatie op iPad zodat de route duidelijk zichtbaar blijft
+- Fietsroutes slaan nu eenrichtingsstraten in woonwijken in Oostenrijk over
+- Vereenvoudigde rotonde-instructies
+- Wegen zijn helderder met beter contrast in de donkere voertuigmodus

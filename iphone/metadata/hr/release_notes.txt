@@ -1,33 +1,20 @@
-- NOVO! Istaknite preuzete regije na karti svijeta
-- NOVO! Pregledajte i pretražujte prirodne rezervate, nacionalne parkove, zaštićena područja, aboridžinske zemlje, opasna područja i jezera na karti svijeta počevši od razine zumiranja 8
-- NOVO! Uvjetni pristup za usmjeravanje, npr. za ceste koje su zatvorene u određeno vrijeme
-- Ažurirani podaci OpenStreetMapa od 9. studenog 2025.
-- Omogućeni estonski, galicijski, hebrejski i litavski jezici za TTS glasovne upute
-- Ispravljen problem sa zadanim i lokaliziranim nazivima ulica prilikom uređivanja adresa
-- Ispravljen problem sa zumiranjem prilikom dodirivanja rezultata pretraživanja s karte svijeta
-- Dodane poveznice na društvene mreže TikTok, Threads i BlueSky na zaslon "O programu"
-- Dodano "Prijavi grešku" u brze radnje ikone aplikacije na početnom zaslonu
-- Nakon brisanja popisa knjižnih oznaka ili tragova (putem gumba "više"), aplikacija se sada ispravno vraća na prethodni zaslon
-- Ispravljeni različiti padovi aplikacije i CarPlay-a
+- Članci s Wikipedije za mjesta na turskom, japanskom i kineskom; upišite ?wiki da vidite sve članke na karti
+- Postavka za vizualno isticanje preuzetih regija na karti
+- OpenStreetMap podaci od 23. studenog 2025.
 
-### Karta i stilovi
+- Uredite naziv oznake ili staze izravno na stranici s informacijama o mjestu
+- Dugim dodirom na naziv ili adresu odabranog mjesta/oznake kopirajte ga
+- Dodano pretraživanje određene liste pri promjeni sa stranice s informacijama o mjestu
+- Koristite prilagođene emotikone na stranici s informacijama o mjestu
+- Popravljene animacije za bočne gumbe i boja gumba "Preuzmi karte" u tamnoj temi
+- Podrška za iOS 26 i macOS 26 "Liquid Glass"
+- Kada premjestite stazu na popis, taj popis postaje zadani za nove oznake/staze
+- Poboljšani GeoJSON uvoz, uključujući `Saved Places.json` iz Google Takeouta
+- Ažurirani prijevodi na više jezika, uključujući ispravak na hebrejskom
 
-- Zamijenjen prikaz 'napuštenih' i 'neiskorištenih' željeznica
-- Dodani urari i studentski smještaji na kartu
-- Dodane ikone turističkih agencija
-- Promijenjena boja ikone WC-a u sivu
-- Ažurirane ikone audiologa, pedikera, optometrista i slušnih pomagala
-- Ispravljena ikona za najam bicikala u tamnom načinu rada
-- Prikaz naziva država SAD-a/Kanade ranije na karti svijeta (od razine zumiranja 5)
+## Navigacija i usmjeravanje
 
-### Prijevodi
-
-- Dodani slovenski sinonimi za pretraživanje i omogućeno pretraživanje kategorija za slovenski jezik
-- Ispravljene slovne pogreške, netočni prijevodi i sinonimi za pretraživanje; dodani nedostajući prijevodi za mnoge jezike
-- Dodani specifični prijevodi za meksički španjolski (es-MX) i brazilski portugalski (pt-BR), različiti od standardnog španjolskog (es) i portugalskog (pt)
-- Ispravljene češke TTS glasovne upute
-
-Provjerite detaljne bilješke o izdanju na našoj web stranici: https://organicmaps.app
-
-Hvala što koristite Organic Maps i podržavate projekt!
-Tim Organic Maps
+- Popravljen raspored karte tijekom navigacije na iPadu tako da ruta ostane jasno vidljiva
+- Biciklistička navigacija sada preskače jednosmjerne stambene ulice u Austriji
+- Pojednostavljene upute za kružne tokove
+- Ceste su svjetlije s boljim kontrastom u tamnom vozačkom načinu
