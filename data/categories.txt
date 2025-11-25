@@ -13440,7 +13440,7 @@ cs:Nabíjecí stanice|nabíjení
 da:Ladestation|ladestander|opladning
 de:4Ladestation|auf laden
 el:Σταθμός φόρτισης|φόρτιση
-es:Estación de carga|punto de carga
+es:Estación de carga|punto de carga|cargador
 et:4Laadimisjaam|Laadimispunkt|laadimine
 eu:Kargatzeko puntua
 fa:ایستگاه شارژ|شارژر
