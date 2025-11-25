@@ -55,14 +55,14 @@ double DifferenceInDeg(double a1, double a2)
 
 void EdgeSortUniqueByStartAndEndPoints(Graph::EdgeListT & edges)
 {
-  base::SortUnique(edges,
-                   [](Edge const & e1, Edge const & e2)
+  base::SortUnique(edges, [](Edge const & e1, Edge const & e2)
   {
     if (e1.GetStartPoint() != e2.GetStartPoint())
       return e1.GetStartPoint() < e2.GetStartPoint();
     return e1.GetEndPoint() < e2.GetEndPoint();
-  }, [](Edge const & e1, Edge const & e2)
-  { return e1.GetStartPoint() == e2.GetStartPoint() && e1.GetEndPoint() == e2.GetEndPoint(); });
+  }, [](Edge const & e1, Edge const & e2) {
+    return e1.GetStartPoint() == e2.GetStartPoint() && e1.GetEndPoint() == e2.GetEndPoint();
+  });
 }
 }  // namespace scpg
 

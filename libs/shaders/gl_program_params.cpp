@@ -38,15 +38,12 @@ struct UniformsGuard
 template <typename ParamType>
 class GLTypeWrapper;
 
-#define BIND_GL_TYPE(DataType, GLType) \
-  template <>                          \
-  class GLTypeWrapper<DataType>        \
-  {                                    \
-  public:                              \
-    static glConst Value()             \
-    {                                  \
-      return GLType;                   \
-    }                                  \
+#define BIND_GL_TYPE(DataType, GLType)        \
+  template <>                                 \
+  class GLTypeWrapper<DataType>               \
+  {                                           \
+  public:                                     \
+    static glConst Value() { return GLType; } \
   };
 
 BIND_GL_TYPE(float, gl_const::GLFloatType)

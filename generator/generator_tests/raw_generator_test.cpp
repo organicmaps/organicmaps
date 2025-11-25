@@ -570,19 +570,24 @@ UNIT_TEST(Place_CityRelations)
       // 2 Relations + 1 Node
       "./data/test_data/osm/tver_city.osm",
       // 1 Relation + 1 Node with _different_ names.
-      "./data/test_data/osm/reykjavik_city.osm", "./data/test_data/osm/berlin_city.osm",
+      "./data/test_data/osm/reykjavik_city.osm",
+      "./data/test_data/osm/berlin_city.osm",
       // Relation boundary is place=suburb, but border_type=city
-      "./data/test_data/osm/riviera_beach_city.osm", "./data/test_data/osm/hotchkiss_town.osm",
-      "./data/test_data/osm/voronezh_city.osm", "./data/test_data/osm/minsk_city.osm",
+      "./data/test_data/osm/riviera_beach_city.osm",
+      "./data/test_data/osm/hotchkiss_town.osm",
+      "./data/test_data/osm/voronezh_city.osm",
+      "./data/test_data/osm/minsk_city.osm",
 
       // 1 boundary-only Relation + 1 Node
       "./data/test_data/osm/kadikoy_town.osm",
       // 2 Relations + 1 Node
       "./data/test_data/osm/stolbtcy_town.osm",
       // 1 Way + 1 Relation + 1 Node
-      "./data/test_data/osm/dmitrov_town.osm", "./data/test_data/osm/lesnoy_town.osm",
+      "./data/test_data/osm/dmitrov_town.osm",
+      "./data/test_data/osm/lesnoy_town.osm",
 
-      "./data/test_data/osm/pushkino_city.osm", "./data/test_data/osm/korday_town.osm",
+      "./data/test_data/osm/pushkino_city.osm",
+      "./data/test_data/osm/korday_town.osm",
       "./data/test_data/osm/bad_neustadt_town.osm",
 
       /// @todo We don't store villages in World now, but for the future!

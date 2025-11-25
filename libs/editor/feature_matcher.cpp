@@ -285,9 +285,8 @@ double ScoreTriangulatedGeometriesByPoints(std::vector<m2::PointD> const & lhs, 
   // |a, b| < eps, |b, c| < eps.
   // This could lead to unexpected results in set_itersection (with greedy implementation),
   // but we assume such situation is very unlikely.
-  auto const matched = set_intersection(begin(lhs), end(lhs), begin(rhs), end(rhs), CounterIterator(),
-                                        [](m2::PointD const & p1, m2::PointD const & p2)
-  {
+  auto const matched = set_intersection(begin(lhs), end(lhs), begin(rhs), end(rhs),
+                                        CounterIterator(), [](m2::PointD const & p1, m2::PointD const & p2) {
     return p1 < p2 && !p1.EqualDxDy(p2, mercator::kPointEqualityEps);
   }).GetCount();
 
