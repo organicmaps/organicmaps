@@ -34,11 +34,11 @@ jobs:
         run: |
           sudo apt purge -y clang-format-18  # Remove default old version of clang-format
           wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-          echo 'deb http://apt.llvm.org/noble/ llvm-toolchain-noble-20 main' | sudo tee /etc/apt/sources.list.d/llvm-toolchain-noble-20.list
+          echo 'deb http://apt.llvm.org/noble/ llvm-toolchain-noble-21 main' | sudo tee /etc/apt/sources.list.d/llvm-toolchain-noble-21.list
           sudo apt-get update
-          sudo apt-get install -y clang-format-20
-          sudo update-alternatives --force --install /usr/bin/clang-format clang-format /usr/bin/clang-format-20 10
-          sudo update-alternatives --force --install /usr/bin/git-clang-format git-clang-format /usr/bin/git-clang-format-20 10
+          sudo apt-get install -y clang-format-21
+          sudo update-alternatives --force --install /usr/bin/clang-format clang-format /usr/bin/clang-format-21 10
+          sudo update-alternatives --force --install /usr/bin/git-clang-format git-clang-format /usr/bin/git-clang-format-21 10
           clang-format --version
 
       - name: Checkout sources

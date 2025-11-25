@@ -30,7 +30,8 @@ BraceWrapping:
   SplitEmptyNamespace: false
   SplitEmptyRecord: false
 BinPackArguments: true
-BinPackParameters: true
+BinPackLongBracedList: true
+BinPackParameters: BinPack
 BreakAfterJavaFieldAnnotations: true
 BreakBeforeBraces: Custom
 BreakConstructorInitializers: BeforeComma
