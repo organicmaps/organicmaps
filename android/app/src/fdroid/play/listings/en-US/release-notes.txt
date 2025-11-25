@@ -1,9 +1,9 @@
-• Highlight downloaded regions, nature reserves, national parks, protected areas, Aboriginal lands, danger areas, lakes on the World map
-• Routing supports road closure times
-• Fresh OSM maps as of November 9
-• Fixed crashes and routing, including Android Auto
-• Added watchmakers, student accommodations, travel agencies
-• Added support for Slovenian language in search
-• Voice directions in Estonian, Galician, Hebrew, and Lithuanian
-
+• Wikipedia articles in Turkish, Japanese, and Chinese, type `?wiki` to see them on the map
+• New setting to visually highlight downloaded regions on the map
+• Import Google Takeout's bookmarks and saved places via GeoJSON
+• OSM data as of November 23
+• Improved audio playback and sound interruptions
+• Fixed crashes in the Editor and when downloading maps
+• Brighter roads in dark vehicle mode
+• Improved bicycle routing in Austria
 …more at omaps.org/news

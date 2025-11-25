@@ -1,8 +1,9 @@
-• İndirilen bölgeleri, doğa rezervlerini, milli parkları, korunan alanları, Aborjin topraklarını, tehlikeli alanları, gölleri Dünya haritasında vurgulayın
-• Rota oluşturma, yol kapanış saatlerini destekler
-• 9 Kasım itibarıyla güncel OSM haritaları
-• Android Auto dahil olmak üzere çökmeler ve rota oluşturma düzeltildi
-• Saatçiler, öğrenci konaklama yerleri, seyahat acenteleri eklendi
-• Estonca, Galiçyaca, İbranice ve Litvanca sesli yol tarifleri
-
-…daha fazlası omaps.org/tr/news adresinde
+• Türkçe, Japonca ve Çince Vikipedi makaleleri, haritada görmek için ?wiki yazın
+• İndirilen bölgeleri haritada görsel olarak vurgulamak için yeni ayar
+• Google Takeout yer imlerini ve kayıtlı yerleri GeoJSON ile içe aktarın
+• 23 Kasım itibarıyla OSM verileri
+• Geliştirilmiş ses çalma ve ses kesintileri
+• Düzenleyici ve harita indirmede çökmeler düzeltildi
+• Karanlık araç modunda daha parlak yollar
+• Avusturya'da geliştirilmiş bisiklet yönlendirmesi
+…daha fazlası omaps.org/tr/news

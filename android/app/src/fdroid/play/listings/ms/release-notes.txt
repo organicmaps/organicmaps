@@ -1,8 +1,8 @@
-• Serlahkan kawasan yang dimuat turun, rizab alam semula jadi, taman negara, kawasan perlindungan, tanah Orang Asli, kawasan bahaya, tasik pada peta Dunia
-• Penghalaan menyokong masa penutupan jalan
-• Peta OSM baharu pada 9 November
-• Ranap dan penghalaan yang dibetulkan, termasuk Android Auto
-• Menambah pembuat jam tangan, penginapan pelajar, agensi pelancongan
-• Arah suara dalam bahasa Estonia, Galicia, Ibrani dan Lithuania
-
+• Artikel Wikipedia dalam bahasa Turki, Jepun dan Cina, taip ?wiki untuk melihatnya di peta
+• Tetapan baharu untuk menyerlahkan kawasan yang dimuat turun di peta
+• Import penanda buku dan tempat tersimpan Google Takeout melalui GeoJSON
+• Data OSM setakat 23 November
+• Main balik audio dan gangguan bunyi yang dipertingkatkan
+• Ranap dalam Editor dan semasa memuat turun peta diperbaiki
+• Jalan lebih terang dalam mod kenderaan gelap
 …lagi di omaps.org/news

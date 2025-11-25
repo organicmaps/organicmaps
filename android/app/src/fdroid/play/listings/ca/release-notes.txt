@@ -1,7 +1,9 @@
-• Destaqueu al mapa del món les regions descarregades, les reserves naturals, els parcs nacionals, les àrees protegides, les terres aborígens, les zones de perill i els llacs
-• L'encaminament admet els horaris de tancament de carreteres
-• Mapes OSM actualitzats a 9 de novembre
-• S'han corregit errors i l'encaminament, inclòs Android Auto
-• S'han afegit rellotgers, allotjaments per a estudiants i agències de viatges
-• Indicacions de veu en estonià, gallec, hebreu i lituà
-…més a omaps.org/ca/news
+• Articles de Viquipèdia en turc, japonès i xinès, escriviu ?wiki per veure'ls al mapa
+• Nova opció per ressaltar visualment les regions descarregades al mapa
+• Importa les adreces d'interès i llocs desats de Google Takeout via GeoJSON
+• Dades d'OSM del 23 de novembre
+• Millora de la reproducció d'àudio i les interrupcions de so
+• Corregits errors a l'editor i en descarregar mapes
+• Carreteres més brillants en mode vehicle fosc
+• Millora de les rutes en bicicleta a Àustria
+…més a omaps.org/news

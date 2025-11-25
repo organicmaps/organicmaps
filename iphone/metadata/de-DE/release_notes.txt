@@ -1,33 +1,20 @@
-- NEU! Heruntergeladene Regionen auf der Weltkarte hervorheben
-- NEU! Sehen und suchen Sie nach Naturschutzgebieten, Nationalparks, Schutzgebieten, Gebieten der Aborigines, Gefahrengebieten und Seen auf der Weltkarte ab Zoomstufe 8
-- NEU! Bedingter Zugriff für die Routenplanung, z. B. für Straßen, die zu bestimmten Zeiten gesperrt sind
-- Aktualisierte OpenStreetMap-Daten vom 9. November 2025
-- Estnische, galicische, hebräische und litauische Sprachen für TTS-Sprachanweisungen aktiviert
-- Ein Problem mit Standard- und lokalisierten Straßennamen bei der Bearbeitung von Adressen wurde behoben
-- Ein Problem mit dem Zoom beim Tippen auf Suchergebnisse von der Weltkarte wurde behoben
-- Social-Media-Links für TikTok, Threads und BlueSky zum „Über“-Bildschirm hinzugefügt
-- „Fehler melden“ zu den Schnellaktionen des App-Symbols auf dem Startbildschirm hinzugefügt
-- Nach dem Löschen einer Lesezeichen- oder Trackliste (über die Schaltfläche „Mehr“) kehrt die App nun korrekt zum vorherigen Bildschirm zurück
-- Verschiedene App- und CarPlay-Abstürze behoben
+- Wikipedia-Artikel für Orte auf Türkisch, Japanisch und Chinesisch; tippe ?wiki, um alle Artikel auf der Karte anzuzeigen
+- Einstellung zur visuellen Hervorhebung heruntergeladener Regionen auf der Karte
+- OpenStreetMap-Daten vom 23. November 2025
 
-### Karte & Stile
+- Bearbeite einen Lesezeichen- oder Routennamen direkt auf der Ortsinformationsseite
+- Langer Druck auf den Namen oder die Adresse eines ausgewählten Ortes/Lesezeichens zum Kopieren
+- Suche nach einer bestimmten Liste beim Wechseln von der Ortsinformationsseite hinzugefügt
+- Verwende benutzerdefinierte Emojis auf der Ortsinformationsseite
+- Animationen für Seitentasten und die Farbe der "Karten herunterladen"-Schaltfläche im dunklen Design korrigiert
+- iOS 26 & macOS 26 "Liquid Glass"-Unterstützung
+- Beim Verschieben einer Route in eine Liste wird diese zur Standardliste für neue Lesezeichen/Routen
+- Verbesserter GeoJSON-Import, einschließlich `Saved Places.json` von Google Takeout
+- Aktualisierte Übersetzungen in mehreren Sprachen, einschließlich einer Hebräisch-Korrektur
 
-- Die Darstellung von „aufgegebenen“ und „stillgelegten“ Eisenbahnen wurde getauscht
-- Uhrmacher und Studentenunterkünfte zur Karte hinzugefügt
-- Reisebüro-Symbole hinzugefügt
-- Die Farbe des Toilettensymbols wurde in Grau geändert
-- Symbole für Audiologen, Podologen, Optometristen und Hörgeräte aktualisiert
-- Das Symbol für den Fahrradverleih im Dunkelmodus wurde korrigiert
-- US/Kanada-Bundesstaatennamen werden auf der Weltkarte früher angezeigt (ab Zoomstufe 5)
+## Navigation & Routenplanung
 
-### Übersetzungen
-
-- Slowenische Such-Synonyme hinzugefügt und Kategoriensuche für Slowenisch aktiviert
-- Tippfehler, falsche Übersetzungen und Such-Synonyme korrigiert; fehlende Übersetzungen für viele Sprachen hinzugefügt
-- Spezifische Übersetzungen für mexikanisches Spanisch (es-MX) and brasilianisches Portugiesisch (pt-BR) hinzugefügt, die sich vom Standard-Spanisch (es) und Portugiesisch (pt) unterscheiden
-- Tschechische TTS-Sprachanweisungen korrigiert
-
-Detaillierte Versionshinweise finden Sie auf unserer Website: https://organicmaps.app
-
-Vielen Dank, dass Sie Organic Maps verwenden und das Projekt unterstützen!
-Das Organic Maps Team
+- Kartenlayout während der Navigation auf dem iPad korrigiert, damit die Route gut sichtbar bleibt
+- Fahrrad-Routing überspringt jetzt Einbahnstraßen in Wohngebieten in Österreich
+- Vereinfachte Kreisverkehrsanweisungen
+- Straßen sind heller mit besserem Kontrast im dunklen Fahrzeugmodus

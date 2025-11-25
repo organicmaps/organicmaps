@@ -1,9 +1,9 @@
-• Istaknite preuzete regije, prirodne rezervate, nacionalne parkove, zaštićena područja, aboridžinske zemlje, opasna područja, jezera na karti svijeta
-• Rutiranje podržava vrijeme zatvaranja cesta
-• Svježe OSM karte od 9. studenog
-• Popravljeni rušenja i rutiranje, uključujući Android Auto
-• Dodani urari, studentski smještaji, putničke agencije
-• Dodana podrška za slovenski jezik u pretraživanju
-• Glasovne upute na estonskom, galicijskom, hebrejskom i litavskom
-
+• Wikipedia članci na turskom, japanskom i kineskom, upišite ?wiki da ih vidite na karti
+• Nova postavka za vizualno isticanje preuzetih regija na karti
+• Uvoz Google Takeout oznaka i spremljenih mjesta putem GeoJSON-a
+• OSM podaci od 23. studenog
+• Poboljšana reprodukcija zvuka i prekidi zvuka
+• Popravljeni padovi u uređivaču i pri preuzimanju karata
+• Svjetlije ceste u tamnom načinu vozila
+• Poboljšano biciklističko usmjeravanje u Austriji
 …više na omaps.org/news

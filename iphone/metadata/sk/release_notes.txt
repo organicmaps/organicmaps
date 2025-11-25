@@ -1,33 +1,20 @@
-- NOVINKA! Zvýraznenie stiahnutých regiónov na mape sveta
-- NOVINKA! Zobrazovanie a vyhľadávanie prírodných rezervácií, národných parkov, chránených oblastí, domorodých území, nebezpečných oblastí a jazier na mape sveta od úrovne priblíženia 8
-- NOVINKA! Podmienený prístup pre trasovanie, napr. pre cesty, ktoré sú v určitých časoch uzavreté
-- Aktualizované údaje OpenStreetMap k 9. novembru 2025
-- Povolené estónčina, galícijčina, hebrejčina a litovčina pre hlasové pokyny TTS
-- Opravený problém s predvolenými a lokalizovanými názvami ulíc pri úprave adries
-- Opravený problém s priblížením pri ťuknutí na výsledky vyhľadávania z mapy sveta
-- Pridané odkazy na sociálne siete TikTok, Threads a BlueSky na obrazovku "O aplikácii"
-- Pridané "Nahlásiť chybu" do rýchlych akcií ikony aplikácie na domovskej obrazovke
-- Po odstránení zoznamu záložiek alebo trás (prostredníctvom tlačidla "viac") sa aplikácia teraz správne vráti na predchádzajúcu obrazovku
-- Opravené rôzne pády aplikácie a CarPlay
+- Články z Wikipédie pre miesta v turečtine, japončine a čínštine; napíšte ?wiki pre zobrazenie všetkých článkov na mape
+- Nastavenie na vizuálne zvýraznenie stiahnutých oblastí na mape
+- Údaje OpenStreetMap z 23. novembra 2025
 
-### Mapa a štýly
+- Upravte názov záložky alebo trasy priamo na stránke s informáciami o mieste
+- Dlhým stlačením názvu alebo adresy vybraného miesta/záložky ju skopírujete
+- Pridané vyhľadávanie konkrétneho zoznamu pri jeho zmene zo stránky s informáciami o mieste
+- Používajte vlastné emotikony na stránke s informáciami o mieste
+- Opravené animácie bočných tlačidiel a farba tlačidla "Stiahnuť mapy" v tmavom režime
+- Podpora iOS 26 a macOS 26 "Liquid Glass"
+- Pri presunutí trasy do zoznamu sa tento zoznam stane predvoleným pre nové záložky/trasy
+- Vylepšený import GeoJSON vrátane `Saved Places.json` z Google Takeout
+- Aktualizované preklady vo viacerých jazykoch vrátane opravy hebrejčiny
 
-- Vymenené vykresľovanie "opustených" a "nepoužívaných" železníc
-- Pridaní hodinári a študentské ubytovne na mapu
-- Pridané ikony cestovných kancelárií
-- Zmenená farba ikony toalety na sivú
-- Aktualizované ikony audiológa, podológa, optometristu a načúvacích prístrojov
-- Opravená ikona požičovne bicyklov v tmavom režime
-- Zobrazenie názvov štátov USA/Kanady skôr na mape sveta (od úrovne priblíženia 5)
+## Navigácia a plánovanie trás
 
-### Preklady
-
-- Pridané slovinské synonymá pre vyhľadávanie a povolené vyhľadávanie kategórií pre slovinčinu
-- Opravené preklepy, nesprávne preklady a synonymá pre vyhľadávanie; pridané chýbajúce preklady pre mnohé jazyky
-- Pridané špecifické preklady pre mexickú španielčinu (es-MX) a brazílsku portugalčinu (pt-BR), odlišné od štandardnej španielčiny (es) a portugalčiny (pt)
-- Opravené české hlasové pokyny TTS
-
-Podrobné poznámky k vydaniu nájdete na našej webovej stránke: https://organicmaps.app
-
-Ďakujeme, že používate Organic Maps a podporujete projekt!
-Tím Organic Maps
+- Opravené rozloženie mapy počas navigácie na iPade, aby bola trasa jasne viditeľná
+- Cyklistické smerovanie teraz vynecháva jednosmerné obytné ulice v Rakúsku
+- Zjednodušené pokyny pre kruhové objazdy
+- Cesty sú jasnejšie s lepším kontrastom v tmavom režime vozidla

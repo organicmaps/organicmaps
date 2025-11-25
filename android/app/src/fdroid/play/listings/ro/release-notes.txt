@@ -1,8 +1,8 @@
-• Evidențiați pe harta lumii regiunile descărcate, rezervațiile naturale, parcurile naționale, zonele protejate, terenurile aborigene, zonele de pericol, lacurile
-• Rutarea acceptă orele de închidere a drumurilor
-• Hărți OSM proaspete din 9 noiembrie
-• S-au remediat blocările și rutarea, inclusiv Android Auto
-• S-au adăugat ceasornicari, cazare pentru studenți, agenții de turism
-• Direcții vocale în estonă, galiciană, ebraică și lituaniană
-
-…mai multe la omaps.org/news
+• Articole Wikipedia în turcă, japoneză și chineză, tastați ?wiki pentru a le vedea pe hartă
+• Setare nouă pentru evidențierea vizuală a regiunilor descărcate pe hartă
+• Importați marcajele și locurile salvate din Google Takeout prin GeoJSON
+• Date OSM din 23 noiembrie
+• Redare audio îmbunătățită și întreruperi de sunet
+• Remediate blocările în Editor și la descărcarea hărților
+• Drumuri mai luminoase în modul vehicul întunecat
+…mai multe pe omaps.org/news

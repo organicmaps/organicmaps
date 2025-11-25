@@ -1,33 +1,20 @@
-- NEW! Highlight downloaded regions on the World map
-- NEW! See and search for nature reserves, national parks, protected areas, Aboriginal lands, danger areas, and lakes on the World map starting from zoom level 8
-- NEW! Routing takes into account road closure times
-- Updated OpenStreetMap data as of November 9, 2025
-- Enabled Estonian, Galician, Hebrew, and Lithuanian languages for TTS voice directions
-- Fixed an issue with default and localized street names when editing addresses
-- Fixed an issue with zoom when tapping on search results from the World map
-- Added TikTok, Threads, and BlueSky social media links to the "About" screen
-- Added "Report a bug" to the app icon's quick actions on the home screen
-- After deleting a bookmarks or tracks list (via the "more" button), the app now correctly returns to the previous screen
-- Fixed various app and CarPlay crashes
+- Wikipedia articles for places in Turkish, Japanese, and Chinese; type ?wiki to see all articles on the map
+- Setting to visually highlight downloaded regions on the map
+- OpenStreetMap data as of from November 23, 2025
 
-### Map & Styles
+- Edit a bookmark or track name directly on the Place Information Page
+- Long-tap the name or address of a selected place/bookmark to copy it
+- Added search for a specific list when changing it from the Place Information Page
+- Use custom emojis on the Place Information Page
+- Fixed animations for side buttons and the dark-theme "Download Maps" button colour
+- iOS 26 & macOS 26 "Liquid Glass" support
+- When moving a track to a list, that list becomes the default for new bookmarks/tracks
+- Improved GeoJSON import, including `Saved Places.json` from Google Takeout
+- Updated translations across multiple languages, including a Hebrew fix
 
-- Swapped the rendering of 'abandoned' and 'disused' railways
-- Added watchmakers and student accommodations to the map
-- Added travel agency icons
-- Changed the toilet icon color to gray
-- Updated audiologist, podiatrist, optometrist, and hearing aids icons
-- Fixed the bicycle rental icon in dark mode
-- Display US/Canada state names earlier on the World map (from zoom level 5)
+## Navigation & Routing
 
-### Translations
-
-- Added Slovenian search synonyms and enabled category search for Slovenian
-- Fixed typos, incorrect translations, and search synonyms; added missing translations for many languages
-- Added specific translations for Mexican Spanish (es-MX) and Brazilian Portuguese (pt-BR), distinct from standard Spanish (es) and Portuguese (pt)
-- Corrected Czech TTS voice directions
-
-Check detailed release notes on our website: https://organicmaps.app
-
-Thanks for using Organic Maps and supporting the project!
-The Organic Maps Team
+- Map layout fixed during navigation on iPad so the route stays clearly visible
+- Bicycle routing now skips one-way living streets in Austria
+- Simplified roundabout directions
+- Roads are brighter with better contrast in dark vehicle mode

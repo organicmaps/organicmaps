@@ -1,33 +1,20 @@
-- UUTTA! Korosta ladatut alueet maailmankartalla
-- UUTTA! Näe ja etsi luonnonsuojelualueita, kansallispuistoja, suojelualueita, aboriginaalien maita, vaara-alueita ja järviä maailmankartalta zoomaustasolta 8 alkaen
-- UUTTA! Ehdollinen pääsy reititykseen, esim. teille, jotka ovat suljettuina tiettyinä aikoina
-- Päivitetyt OpenStreetMap-tiedot 9. marraskuuta 2025
-- Viron, galician, heprean ja liettuan kielet otettu käyttöön TTS-ääniohjeissa
-- Korjattu oletus- ja lokalisoitujen kadunnimien ongelma osoitteita muokattaessa
-- Korjattu zoomausongelma, kun napautetaan hakutuloksia maailmankartalta
-- Lisätty TikTok-, Threads- ja BlueSky-sosiaalisen median linkit "Tietoja"-näyttöön
-- Lisätty "Ilmoita virheestä" sovelluskuvakkeen pikatoimintoihin aloitusnäytössä
-- Kirjanmerkkien tai jälkien luettelon poistamisen jälkeen (lisää-painikkeen kautta) sovellus palaa nyt oikein edelliseen näyttöön
-- Korjattu useita sovelluksen ja CarPlayn kaatumisia
+- Wikipedia-artikkelit paikoille turkiksi, japaniksi ja kiinaksi; kirjoita ?wiki nähdäksesi kaikki artikkelit kartalla
+- Asetus ladattujen alueiden visuaaliseen korostamiseen kartalla
+- OpenStreetMap-tiedot 23. marraskuuta 2025
 
-### Kartta ja tyylit
+- Muokkaa kirjanmerkin tai reitin nimeä suoraan paikan tietosivulla
+- Paina pitkään valitun paikan/kirjanmerkin nimeä tai osoitetta kopioidaksesi sen
+- Lisätty haku tietylle listalle, kun sitä vaihdetaan paikan tietosivulta
+- Käytä mukautettuja emojeja paikan tietosivulla
+- Korjattu sivupainikkeiden animaatiot ja "Lataa karttoja" -painikkeen väri tummassa teemassa
+- iOS 26 & macOS 26 "Liquid Glass" -tuki
+- Kun siirrät reitin listaan, siitä tulee oletusarvo uusille kirjanmerkeille/reiteille
+- Parannettu GeoJSON-tuonti, mukaan lukien `Saved Places.json` Google Takeoutista
+- Päivitetyt käännökset useilla kielillä, mukaan lukien heprean korjaus
 
-- Vaihdettu "hylättyjen" ja "käytöstä poistettujen" rautateiden renderöinti
-- Lisätty kellosepät ja opiskelija-asunnot kartalle
-- Lisätty matkatoimistojen kuvakkeet
-- Vessan kuvakkeen väri vaihdettu harmaaksi
-- Päivitetty audiologin, jalkaterapeutin, optometristin ja kuulolaitteiden kuvakkeet
-- Korjattu polkupyöränvuokrauskuvake pimeässä tilassa
-- Yhdysvaltojen/Kanadan osavaltioiden nimet näytetään aiemmin maailmankartalla (zoomaustasolta 5)
+## Navigointi ja reititys
 
-### Käännökset
-
-- Lisätty sloveniankielisiä hakusynonyymejä ja otettu käyttöön luokkahaku slovenian kielelle
-- Korjattu kirjoitusvirheitä, virheellisiä käännöksiä ja hakusynonyymejä; lisätty puuttuvia käännöksiä monille kielille
-- Lisätty erityisiä käännöksiä Meksikon espanjalle (es-MX) ja Brasilian portugalille (pt-BR), jotka eroavat tavallisesta espanjasta (es) ja portugalista (pt)
-- Korjattu tšekin TTS-ääniohjeet
-
-Tarkista yksityiskohtaiset julkaisutiedot verkkosivustoltamme: https://organicmaps.app
-
-Kiitos, että käytät Organic Mapsia ja tuet projektia!
-Organic Maps -tiimi
+- Kartan asettelu korjattu navigoinnin aikana iPadilla, jotta reitti pysyy selvästi näkyvissä
+- Pyöräreititys ohittaa nyt yksisuuntaiset asuntokadut Itävallassa
+- Yksinkertaistetut liikenneympyrän ohjeet
+- Tiet ovat kirkkaammat ja paremmin erottuvat pimeässä ajotilassa

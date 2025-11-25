@@ -1,33 +1,20 @@
-- ÚJ! A letöltött régiók kiemelése a világtérképen
-- ÚJ! Természetvédelmi területek, nemzeti parkok, védett területek, őslakos területek, veszélyes területek és tavak megtekintése és keresése a világtérképen a 8-as zoom szinttől
-- ÚJ! Feltételes hozzáférés az útvonaltervezéshez, pl. bizonyos időpontokban lezárt utak esetén
-- Frissített OpenStreetMap adatok 2025. november 9-től
-- Engedélyezve az észt, galíciai, héber és litván nyelvek a TTS hangutasításokhoz
-- Javítva a címek szerkesztésekor az alapértelmezett és a lokalizált utcanevekkel kapcsolatos probléma
-- Javítva a zoomolási probléma a világtérképről származó keresési eredményekre koppintva
-- TikTok, Threads és BlueSky közösségi média linkek hozzáadva a "Névjegy" képernyőhöz
-- "Hiba bejelentése" hozzáadva az alkalmazás ikonjának gyorsműveleteihez a kezdőképernyőn
-- A könyvjelzők vagy nyomvonalak listájának törlése után (a "továbbiak" gombon keresztül) az alkalmazás most már helyesen visszatér az előző képernyőre
-- Különböző alkalmazás- és CarPlay-összeomlások javítva
+- Wikipédia-cikkek helyekhez törökül, japánul és kínaiul; írja be a ?wiki parancsot az összes cikk megtekintéséhez a térképen
+- Beállítás a letöltött régiók vizuális kiemelésére a térképen
+- OpenStreetMap adatok 2025. november 23-tól
 
-### Térkép és stílusok
+- Szerkessze a könyvjelző vagy útvonal nevét közvetlenül a Helyadatok oldalon
+- Hosszú érintéssel másolja a kiválasztott hely/könyvjelző nevét vagy címét
+- Keresés hozzáadva egy adott listához a Helyadatok oldalról történő váltáskor
+- Használjon egyéni emojikat a Helyadatok oldalon
+- Javított animációk az oldalsó gombokhoz és a "Térképek letöltése" gomb színéhez sötét témában
+- iOS 26 és macOS 26 "Liquid Glass" támogatás
+- Amikor egy útvonalat listára helyez, az lesz az alapértelmezett lista az új könyvjelzőkhöz/útvonalakhoz
+- Javított GeoJSON importálás, beleértve a `Saved Places.json` fájlt a Google Takeoutból
+- Frissített fordítások több nyelven, beleértve egy héber javítást
 
-- Felcserélve az "elhagyatott" és a "használaton kívüli" vasutak renderelése
-- Órások és diák szálláshelyek hozzáadva a térképhez
-- Utazási iroda ikonok hozzáadva
-- A WC ikon színe szürkére változtatva
-- Frissítve az audiológus, podiáter, optometrista és hallókészülék ikonok
-- Javítva a kerékpárkölcsönző ikon sötét módban
-- Az USA/Kanada államnevek korábbi megjelenítése a világtérképen (az 5-ös zoom szinttől)
+## Navigáció és útvonaltervezés
 
-### Fordítások
-
-- Szlovén keresési szinonimák hozzáadva és a kategória keresés engedélyezve a szlovén nyelvhez
-- Gépelési hibák, helytelen fordítások és keresési szinonimák javítva; hiányzó fordítások hozzáadva számos nyelvhez
-- Külön fordítások hozzáadva a mexikói spanyolhoz (es-MX) és a brazil portugálhoz (pt-BR), amelyek eltérnek a standard spanyoltól (es) és portugáltól (pt)
-- Javítva a cseh TTS hangutasítások
-
-Részletes kiadási jegyzetek a weboldalunkon: https://organicmaps.app
-
-Köszönjük, hogy az Organic Maps-et használja és támogatja a projektet!
-Az Organic Maps csapata
+- A térkép elrendezése javítva iPaden a navigáció során, hogy az útvonal jól látható maradjon
+- A kerékpáros útvonaltervezés mostantól kihagyja az egyirányú lakóutcákat Ausztriában
+- Egyszerűsített körforgalmi utasítások
+- Az utak világosabbak jobb kontraszttal sötét járműmódban

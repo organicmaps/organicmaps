@@ -1,33 +1,20 @@
-- MỚI! Đánh dấu các vùng đã tải xuống trên bản đồ Thế giới
-- MỚI! Xem và tìm kiếm các khu bảo tồn thiên nhiên, công viên quốc gia, khu bảo tồn, vùng đất của thổ dân, khu vực nguy hiểm và hồ trên bản đồ Thế giới bắt đầu từ mức thu phóng 8
-- MỚI! Truy cập có điều kiện để định tuyến, ví dụ: đối với những con đường bị đóng vào những thời điểm nhất định
-- Dữ liệu OpenStreetMap được cập nhật kể từ ngày 9 tháng 11 năm 2025
-- Đã bật tiếng Estonia, Galicia, Do Thái và Litva cho chỉ đường bằng giọng nói TTS
-- Đã khắc phục sự cố với tên đường mặc định và được bản địa hóa khi chỉnh sửa địa chỉ
-- Đã khắc phục sự cố với tính năng thu phóng khi nhấn vào kết quả tìm kiếm từ bản đồ Thế giới
-- Đã thêm các liên kết mạng xã hội TikTok, Threads và BlueSky vào màn hình "Giới thiệu"
-- Đã thêm "Báo cáo lỗi" vào các hành động nhanh của biểu tượng ứng dụng trên màn hình chính
-- Sau khi xóa danh sách dấu trang hoặc bản nhạc (thông qua nút "thêm"), ứng dụng hiện đã quay lại màn hình trước đó một cách chính xác
-- Đã sửa các sự cố khác nhau của ứng dụng và CarPlay
+- Bài viết Wikipedia cho các địa điểm bằng tiếng Thổ Nhĩ Kỳ, Nhật Bản và Trung Quốc; gõ ?wiki để xem tất cả bài viết trên bản đồ
+- Cài đặt để làm nổi bật trực quan các khu vực đã tải xuống trên bản đồ
+- Dữ liệu OpenStreetMap tính đến ngày 23 tháng 11 năm 2025
 
-### Bản đồ & Kiểu
+- Chỉnh sửa tên dấu trang hoặc lộ trình trực tiếp trên Trang Thông tin Địa điểm
+- Nhấn giữ tên hoặc địa chỉ của địa điểm/dấu trang đã chọn để sao chép
+- Thêm tìm kiếm danh sách cụ thể khi thay đổi từ Trang Thông tin Địa điểm
+- Sử dụng emoji tùy chỉnh trên Trang Thông tin Địa điểm
+- Sửa hoạt ảnh cho các nút bên và màu nút "Tải bản đồ" trong chủ đề tối
+- Hỗ trợ iOS 26 & macOS 26 "Liquid Glass"
+- Khi di chuyển lộ trình vào danh sách, danh sách đó trở thành mặc định cho dấu trang/lộ trình mới
+- Cải thiện nhập GeoJSON, bao gồm `Saved Places.json` từ Google Takeout
+- Cập nhật bản dịch trên nhiều ngôn ngữ, bao gồm sửa lỗi tiếng Do Thái
 
-- Đã hoán đổi kết xuất của đường sắt 'bị bỏ hoang' và 'không sử dụng'
-- Đã thêm thợ sửa đồng hồ và nhà ở sinh viên vào bản đồ
-- Đã thêm biểu tượng đại lý du lịch
-- Đã đổi màu biểu tượng nhà vệ sinh thành màu xám
-- Đã cập nhật biểu tượng của chuyên gia thính học, chuyên gia chân, bác sĩ đo thị lực và máy trợ thính
-- Đã sửa biểu tượng cho thuê xe đạp ở chế độ tối
-- Hiển thị tên tiểu bang của Hoa Kỳ/Canada sớm hơn trên bản đồ Thế giới (từ mức thu phóng 5)
+## Điều hướng & Lộ trình
 
-### Bản dịch
-
-- Đã thêm các từ đồng nghĩa tìm kiếm tiếng Slovenia và bật tính năng tìm kiếm danh mục cho tiếng Slovenia
-- Đã sửa lỗi chính tả, bản dịch không chính xác và từ đồng nghĩa tìm kiếm; đã thêm các bản dịch còn thiếu cho nhiều ngôn ngữ
-- Đã thêm các bản dịch cụ thể cho tiếng Tây Ban Nha Mexico (es-MX) và tiếng Bồ Đào Nha Brazil (pt-BR), khác với tiếng Tây Ban Nha tiêu chuẩn (es) và tiếng Bồ Đào Nha (pt)
-- Đã sửa chỉ đường bằng giọng nói TTS tiếng Séc
-
-Kiểm tra ghi chú phát hành chi tiết trên trang web của chúng tôi: https://organicmaps.app
-
-Cảm ơn bạn đã sử dụng Organic Maps và hỗ trợ dự án!
-Nhóm Organic Maps
+- Sửa bố cục bản đồ trong khi điều hướng trên iPad để lộ trình hiển thị rõ ràng
+- Định tuyến xe đạp giờ bỏ qua các đường dân cư một chiều ở Áo
+- Hướng dẫn vòng xuyến đơn giản hóa
+- Đường sáng hơn với độ tương phản tốt hơn trong chế độ phương tiện tối

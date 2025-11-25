@@ -1,8 +1,9 @@
-• Evidenzia sulla mappa del mondo le regioni scaricate, le riserve naturali, i parchi nazionali, le aree protette, le terre aborigene, le aree di pericolo, i laghi
-• Il routing supporta gli orari di chiusura delle strade
-• Mappe OSM aggiornate al 9 novembre
-• Risolti crash e problemi di routing, incluso Android Auto
-• Aggiunti orologiai, alloggi per studenti, agenzie di viaggio
-• Indicazioni vocali in estone, galiziano, ebraico e lituano
-
+• Articoli Wikipedia in turco, giapponese e cinese, digita ?wiki per vederli sulla mappa
+• Nuova impostazione per evidenziare le regioni scaricate sulla mappa
+• Importa segnalibri e luoghi salvati di Google Takeout tramite GeoJSON
+• Dati OSM al 23 novembre
+• Riproduzione audio migliorata e interruzioni del suono
+• Corretti crash nell'editor e durante il download delle mappe
+• Strade più luminose in modalità veicolo scura
+• Migliorato il routing ciclabile in Austria
 …altro su omaps.org/it/news

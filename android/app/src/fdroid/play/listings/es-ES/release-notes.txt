@@ -1,8 +1,8 @@
-• Resalte en el mapa mundial las regiones descargadas, las reservas naturales, los parques nacionales, las áreas protegidas, las tierras aborígenes, las zonas de peligro y los lagos
-• El enrutamiento admite horarios de cierre de carreteras
-• Mapas OSM al 9 de noviembre
-• Se corrigieron fallos y enrutamiento, incluido Android Auto
-• Se agregaron relojeros, alojamientos para estudiantes y agencias de viajes
-• Direcciones de voz en estonio, gallego, hebreo y lituano
-
+• Artículos de Wikipedia en turco, japonés y chino, escribe ?wiki para verlos en el mapa
+• Nueva opción para resaltar visualmente las regiones descargadas en el mapa
+• Importa marcadores y lugares guardados de Google Takeout vía GeoJSON
+• Datos de OSM del 23 de noviembre
+• Mejora en la reproducción de audio e interrupciones de sonido
+• Corregidos fallos en el editor y al descargar mapas
+• Carreteras más brillantes en modo vehículo oscuro
 …más en omaps.org/es/news

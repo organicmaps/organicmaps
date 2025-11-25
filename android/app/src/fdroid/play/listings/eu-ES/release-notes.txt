@@ -1,7 +1,9 @@
-• Nabarmendu deskargatutako eskualdeak, erreserba naturalak, parke nazionalak, babestutako eremuak, aborigenen lurrak, arrisku-eremuak eta aintzirak Munduko mapan
-• Bideratzeak errepideak ixteko ordutegiak onartzen ditu
-• OSM mapa freskoak azaroaren 9tik aurrera
-• Matxurak eta bideratzea konpondu dira, Android Auto barne
-• Erlojugileak, ikasleentzako ostatuak eta bidaia-agentziak gehitu dira
-
-…gehiago omaps.org/eu/news helbidean
+• Wikipediako artikuluak turkieraz, japonieraz eta txineraz, idatzi ?wiki mapan ikusteko
+• Ezarpen berria deskargatutako eskualdeak mapan bisualki nabarmentzeko
+• Inportatu Google Takeout-eko laster-markak eta gordetako lekuak GeoJSON bidez
+• OSM datuak azaroaren 23ra arte
+• Audio erreprodukzioa eta soinu etendura hobetuak
+• Editore eta mapa deskargetan hutsegiteak konponduta
+• Errepide distiratsuagoak ibilgailu modu ilunean
+• Austriako bizikleta bideratze hobetua
+…gehiago omaps.org/eu/news-en

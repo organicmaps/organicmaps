@@ -1,9 +1,9 @@
-• Sorot wilayah yang diunduh, cagar alam, taman nasional, kawasan lindung, tanah Aborigin, area berbahaya, danau di peta Dunia
-• Perutean mendukung waktu penutupan jalan
-• Peta OSM baru per 9 November
-• Memperbaiki kerusakan dan perutean, termasuk Android Auto
-• Menambahkan pembuat jam, akomodasi mahasiswa, agen perjalanan
-• Menambahkan dukungan untuk bahasa Slovenia dalam pencarian
-• Arah suara dalam bahasa Estonia, Galisia, Ibrani, dan Lituania
-
-…lebih lanjut di omaps.org/id/news
+• Artikel Wikipedia dalam bahasa Turki, Jepang, dan Cina, ketik ?wiki untuk melihatnya di peta
+• Pengaturan baru untuk menyorot wilayah yang diunduh di peta
+• Impor bookmark dan tempat tersimpan Google Takeout melalui GeoJSON
+• Data OSM per 23 November
+• Pemutaran audio dan interupsi suara yang ditingkatkan
+• Perbaikan crash di Editor dan saat mengunduh peta
+• Jalan lebih terang dalam mode kendaraan gelap
+• Peningkatan rute sepeda di Austria
+…selengkapnya di omaps.org/id/news
