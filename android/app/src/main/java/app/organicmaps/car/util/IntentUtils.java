@@ -55,8 +55,7 @@ public final class IntentUtils
   }
 
   private record CarSearchHandler(CarContext mCarContext, Renderer mSurfaceRenderer)
-      implements GoogleAssistantIntentHandler.SearchHandler
-  {
+      implements GoogleAssistantIntentHandler.SearchHandler {
     private CarSearchHandler(@NonNull CarContext mCarContext, @NonNull Renderer mSurfaceRenderer)
     {
       this.mCarContext = mCarContext;
@@ -100,8 +99,7 @@ public final class IntentUtils
     final ScreenManager screenManager = carContext.getCarService(ScreenManager.class);
     switch (Framework.nativeParseAndSetApiUrl(uri.toString()))
     {
-    case RequestType.INCORRECT:
-      return;
+    case RequestType.INCORRECT: return;
     case RequestType.MAP:
       screenManager.popToRoot();
       Map.executeMapApiRequest();
@@ -127,20 +125,11 @@ public final class IntentUtils
       screenManager.popToRoot();
       screenManager.push(builder.build());
       return;
-    case RequestType.ROUTE:
-      Logger.e(TAG, "Route API is not supported by Android Auto: " + uri);
-      return;
-    case RequestType.CROSSHAIR:
-      Logger.e(TAG, "Crosshair API is not supported by Android Auto: " + uri);
-      return;
-    case RequestType.MENU:
-      Logger.e(TAG, "Menu API is not supported by Android Auto: " + uri);
-      return;
-    case RequestType.SETTINGS:
-      Logger.e(TAG, "Settings API is not supported by Android Auto: " + uri);
-      return;
-    case RequestType.OAUTH2:
-      Logger.e(TAG, "OAuth2 API is not supported by Android Auto: " + uri);
+    case RequestType.ROUTE: Logger.e(TAG, "Route API is not supported by Android Auto: " + uri); return;
+    case RequestType.CROSSHAIR: Logger.e(TAG, "Crosshair API is not supported by Android Auto: " + uri); return;
+    case RequestType.MENU: Logger.e(TAG, "Menu API is not supported by Android Auto: " + uri); return;
+    case RequestType.SETTINGS: Logger.e(TAG, "Settings API is not supported by Android Auto: " + uri); return;
+    case RequestType.OAUTH2: Logger.e(TAG, "OAuth2 API is not supported by Android Auto: " + uri);
     }
   }
 
