@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "Metro haritası yok";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Haritada indirilen bölgeleri vurgula";
+"show_downloaded_regions" = "Mor indirilen bölgeler";

@@ -35,4 +35,6 @@
     <string name="core_exit">Keluar</string>
     <string name="core_entrance">Tempat masuk</string>
     <string name="subway_data_unavailable">Peta bawah tanah tidak tersedia</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Wilayah unduhan berwarna ungu</string>
 </resources>

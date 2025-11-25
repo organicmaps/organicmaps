@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "Karta podzemne željeznice nije dostupna";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Istakni preuzete regije na karti";
+"show_downloaded_regions" = "Ljubičaste preuzete regije";

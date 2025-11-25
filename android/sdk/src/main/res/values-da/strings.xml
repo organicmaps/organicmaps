@@ -36,4 +36,6 @@
     <string name="core_exit">Udgang</string>
     <string name="core_entrance">Indgang</string>
     <string name="subway_data_unavailable">Kort over undergrundsbaner er ikke tilgængeligt</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Lilla downloadede regioner</string>
 </resources>

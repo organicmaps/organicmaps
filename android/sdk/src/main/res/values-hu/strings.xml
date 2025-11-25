@@ -36,4 +36,6 @@
     <string name="core_exit">Kijárat</string>
     <string name="core_entrance">Bejárat</string>
     <string name="subway_data_unavailable">A metrótérkép nem érhető el</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Lila letöltött régiók</string>
 </resources>

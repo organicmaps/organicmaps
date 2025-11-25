@@ -36,4 +36,6 @@
     <string name="core_exit">Έξοδος</string>
     <string name="core_entrance">Είσοδος</string>
     <string name="subway_data_unavailable">Ο χάρτης μετρό δεν είναι διαθέσιμος</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Μωβ ληφθείσες περιοχές</string>
 </resources>

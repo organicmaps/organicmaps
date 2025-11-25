@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "خريطة مترو الانفاق غير متوفرة";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "تمييز المناطق المُنزَّلة على الخريطة";
+"show_downloaded_regions" = "المناطق المُنزّلة باللون الأرجواني";

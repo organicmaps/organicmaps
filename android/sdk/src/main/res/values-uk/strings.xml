@@ -36,4 +36,6 @@
     <string name="core_exit">Вихід</string>
     <string name="core_entrance">Вхід</string>
     <string name="subway_data_unavailable">Мапа метрополітену недоступна</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Фіолетові завантажені регіони</string>
 </resources>

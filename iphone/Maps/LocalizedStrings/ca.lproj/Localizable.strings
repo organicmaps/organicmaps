@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "El mapa del metro no està disponible";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Ressalta les regions baixades al mapa";
+"show_downloaded_regions" = "Regions descarregades liles";

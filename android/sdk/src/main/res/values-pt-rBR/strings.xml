@@ -18,4 +18,6 @@
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Sair</string>
     <string name="subway_data_unavailable">Mapa de metrô está indisponível</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Regiões descarregadas roxas</string>
 </resources>

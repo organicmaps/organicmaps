@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "O mapa de metropolitano não está disponível";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Destacar as regiões transferidas no mapa";
+"show_downloaded_regions" = "Regiões descarregadas a roxo";

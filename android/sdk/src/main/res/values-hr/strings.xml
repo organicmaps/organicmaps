@@ -36,4 +36,6 @@
     <string name="core_exit">Izlaz</string>
     <string name="core_entrance">Ulaz</string>
     <string name="subway_data_unavailable">Karta podzemne željeznice nije dostupna</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Ljubičaste preuzete regije</string>
 </resources>

@@ -36,4 +36,6 @@
     <string name="core_exit">Välju</string>
     <string name="core_entrance">Sissepääs</string>
     <string name="subway_data_unavailable">Metrookaart ei ole saadaval</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Lillad allalaaditud piirkonnad</string>
 </resources>

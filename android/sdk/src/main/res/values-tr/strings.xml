@@ -36,4 +36,6 @@
     <string name="core_exit">Çık</string>
     <string name="core_entrance">Giriş</string>
     <string name="subway_data_unavailable">Metro haritası yok</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Mor indirilen bölgeler</string>
 </resources>

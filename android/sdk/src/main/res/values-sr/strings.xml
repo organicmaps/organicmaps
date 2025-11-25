@@ -34,4 +34,6 @@
     <string name="core_exit">Излаз</string>
     <string name="core_entrance">Улаз</string>
     <string name="subway_data_unavailable">Мапа метроа не постоји</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Љубичасти преузети региони</string>
 </resources>

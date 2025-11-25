@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "Карта метро недоступна";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Подсвечивать загруженные регионы на карте";
+"show_downloaded_regions" = "Фиолетовые загруженные регионы";

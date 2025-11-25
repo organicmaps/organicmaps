@@ -36,4 +36,6 @@
     <string name="core_exit">Wyjście</string>
     <string name="core_entrance">Wejście</string>
     <string name="subway_data_unavailable">Mapa metra jest niedostępna</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Fioletowe pobrane regiony</string>
 </resources>

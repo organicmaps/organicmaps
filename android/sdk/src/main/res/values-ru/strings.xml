@@ -36,4 +36,6 @@
     <string name="core_exit">Выход</string>
     <string name="core_entrance">Вход</string>
     <string name="subway_data_unavailable">Карта метро недоступна</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Фиолетовые загруженные регионы</string>
 </resources>

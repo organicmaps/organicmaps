@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "地铁地图不可用";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "在地图上突出显示已下载的区域";
+"show_downloaded_regions" = "紫色已下载区域";

@@ -36,4 +36,6 @@
     <string name="core_exit">Ieșire</string>
     <string name="core_entrance">Intrare</string>
     <string name="subway_data_unavailable">Harta de metrou nu este disponibilă</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Regiuni descărcate violete</string>
 </resources>

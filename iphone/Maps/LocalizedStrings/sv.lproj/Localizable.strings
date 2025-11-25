@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "Tunnelbanekartan är otillgänglig";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Markera nedladdade regioner på kartan";
+"show_downloaded_regions" = "Lila nedladdade regioner";

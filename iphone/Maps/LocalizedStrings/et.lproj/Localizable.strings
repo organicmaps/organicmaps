@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "Metrookaart ei ole saadaval";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Tõsta allalaaditud piirkonnad kaardil esile";
+"show_downloaded_regions" = "Lillad allalaaditud piirkonnad";

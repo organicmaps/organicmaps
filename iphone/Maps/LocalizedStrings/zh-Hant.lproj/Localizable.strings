@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "捷運圖層不可用";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "在地圖上突出顯示已下載的區域";
+"show_downloaded_regions" = "紫色已下載區域";

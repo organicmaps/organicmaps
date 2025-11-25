@@ -36,4 +36,6 @@
     <string name="core_exit">Poistu</string>
     <string name="core_entrance">Sisäänkäynti</string>
     <string name="subway_data_unavailable">Metrokartta ei ole saatavilla</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Violetit ladatut alueet</string>
 </resources>

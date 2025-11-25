@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "Mapa metra nie je dostupná";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Zvýrazniť stiahnuté oblasti na mape";
+"show_downloaded_regions" = "Fialové stiahnuté regióny";

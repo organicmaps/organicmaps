@@ -34,4 +34,6 @@
     <string name="core_exit">Uitgang</string>
     <string name="core_entrance">Ingang</string>
     <string name="subway_data_unavailable">Moltreinkaart is onbeskikbaar</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Pers afgelaaide streke</string>
 </resources>

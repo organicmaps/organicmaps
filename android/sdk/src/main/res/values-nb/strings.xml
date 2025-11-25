@@ -35,4 +35,6 @@
     <string name="core_exit">Avslutt</string>
     <string name="core_entrance">Inngang</string>
     <string name="subway_data_unavailable">T-banekart er utilgjengelig</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Lilla nedlastede regioner</string>
 </resources>

@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "Moltreinkaart is onbeskikbaar";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Beklemtoon afgelaaide streke op die kaart";
+"show_downloaded_regions" = "Pers afgelaaide streke";

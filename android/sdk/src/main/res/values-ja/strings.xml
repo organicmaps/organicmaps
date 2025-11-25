@@ -36,4 +36,6 @@
     <string name="core_exit">出口</string>
     <string name="core_entrance">入口</string>
     <string name="subway_data_unavailable">地下鉄路線図はご利用いただけません</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">紫色のダウンロード済み地域</string>
 </resources>

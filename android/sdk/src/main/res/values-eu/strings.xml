@@ -36,4 +36,6 @@
     <string name="core_exit">Irten</string>
     <string name="core_entrance">Sarrera</string>
     <string name="subway_data_unavailable">Metroaren mapa ez dago erabilgarri</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Deskargatutako eskualde moreak</string>
 </resources>

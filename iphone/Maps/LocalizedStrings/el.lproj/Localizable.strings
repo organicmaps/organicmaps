@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "Ο χάρτης μετρό δεν είναι διαθέσιμος";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Επισημάνετε τις ληφθείσες περιοχές στον χάρτη";
+"show_downloaded_regions" = "Μωβ ληφθείσες περιοχές";
