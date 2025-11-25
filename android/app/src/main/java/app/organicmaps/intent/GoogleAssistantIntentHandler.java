@@ -1,12 +1,9 @@
 package app.organicmaps.intent;
 
-
 import android.content.Intent;
 import android.net.Uri;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
@@ -54,8 +51,7 @@ public abstract class GoogleAssistantIntentHandler
       }
 
       final String name = dst.query != null ? dst.query : "";
-      final MapObject dest = MapObject.createMapObject(
-          MapObject.API_POINT, name, "", dst.lat, dst.lon);
+      final MapObject dest = MapObject.createMapObject(MapObject.API_POINT, name, "", dst.lat, dst.lon);
 
       switch (intentParam)
       {
@@ -70,18 +66,15 @@ public abstract class GoogleAssistantIntentHandler
         }
         break;
 
-      case "directions":
-        RoutingController.get().prepare(null, dest);
-        break;
+      case "directions": RoutingController.get().prepare(null, dest); break;
 
       case "navigation":
-      default:
-        startNavigationToDestination(dest);
-        break;
+      default: startNavigationToDestination(dest); break;
       }
 
       return true;
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       return false;
     }
@@ -96,7 +89,8 @@ public abstract class GoogleAssistantIntentHandler
     {
       SearchEngine.INSTANCE.cancelInteractiveSearch();
       RoutingController.get().prepare(null, dest);
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       Logger.e(TAG, "Failed to start navigation", e);
     }
@@ -120,7 +114,8 @@ public abstract class GoogleAssistantIntentHandler
           {
             dst.lat = Double.parseDouble(parts[0]);
             dst.lon = Double.parseDouble(parts[1]);
-          } catch (NumberFormatException ignore)
+          }
+          catch (NumberFormatException ignore)
           {
             dst.lat = 0.0;
             dst.lon = 0.0;
@@ -129,7 +124,8 @@ public abstract class GoogleAssistantIntentHandler
       }
 
       dst.query = uri.getQueryParameter("q");
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       Logger.e(TAG, "Failed to parse destination", e);
     }
@@ -152,7 +148,8 @@ public abstract class GoogleAssistantIntentHandler
         case "r" -> Router.Transit;
         default -> Router.Vehicle;
       };
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       return Router.Vehicle;
     }
@@ -175,7 +172,8 @@ public abstract class GoogleAssistantIntentHandler
         RoutingOptions.addOption(RoadType.Ferry);
       if (avoid.indexOf('h') >= 0)
         RoutingOptions.addOption(RoadType.Motorway);
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       Logger.e(TAG, "Failed to apply avoid options", e);
     }
@@ -201,7 +199,8 @@ public abstract class GoogleAssistantIntentHandler
 
       handler.handleSearch(query, true);
       return true;
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       return false;
     }
@@ -233,7 +232,8 @@ public abstract class GoogleAssistantIntentHandler
         }
       }
       return null;
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       Logger.e(TAG, "Failed to parse action parameter", e);
       return null;
@@ -250,9 +250,7 @@ public abstract class GoogleAssistantIntentHandler
 
       switch (act)
       {
-      case "exit_navigation":
-        RoutingController.get().cancel();
-        return true;
+      case "exit_navigation": RoutingController.get().cancel(); return true;
 
       case "resume_navigation":
         if (RoutingController.get().isBuilt() && !RoutingController.get().isNavigating())
@@ -271,13 +269,9 @@ public abstract class GoogleAssistantIntentHandler
         }
         return true;
 
-      case "mute":
-        TtsPlayer.setEnabled(false);
-        return true;
+      case "mute": TtsPlayer.setEnabled(false); return true;
 
-      case "unmute":
-        TtsPlayer.setEnabled(true);
-        return true;
+      case "unmute": TtsPlayer.setEnabled(true); return true;
 
       case "avoid_tolls":
         RoutingOptions.addOption(RoadType.Toll);
@@ -310,27 +304,20 @@ public abstract class GoogleAssistantIntentHandler
         return true;
 
       case "show_traffic":
-      case "hide_traffic":
-        Logger.d(TAG, "Traffic actions not supported");
-        return false;
+      case "hide_traffic": Logger.d(TAG, "Traffic actions not supported"); return false;
 
-      case "follow_mode":
-        Framework.nativeFollowRoute();
-        return true;
+      case "follow_mode": Framework.nativeFollowRoute(); return true;
 
       case "report_crash":
       case "report_hazard":
       case "report_police":
       case "report_road_closure":
-      case "report_traffic":
-        Logger.d(TAG, "Report actions not supported");
-        return false;
+      case "report_traffic": Logger.d(TAG, "Report actions not supported"); return false;
 
-      default:
-        Logger.d(TAG, "Unknown action: " + act);
-        return false;
+      default: Logger.d(TAG, "Unknown action: " + act); return false;
       }
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       Logger.e(TAG, "Failed to handle custom action", e);
       return false;
@@ -349,7 +336,8 @@ public abstract class GoogleAssistantIntentHandler
       {
         controller.rebuildLastRoute();
       }
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       Logger.e(TAG, "Failed to rebuild route", e);
     }
@@ -389,7 +377,8 @@ public abstract class GoogleAssistantIntentHandler
       }
 
       return false;
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       Logger.e(TAG, "Failed to process assistant intent", e);
       return false;
