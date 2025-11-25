@@ -11,11 +11,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIFont *)regular24;
 + (UIFont *)regular32;
 + (UIFont *)regular52;
+
 + (UIFont *)medium10;
 + (UIFont *)medium14;
 + (UIFont *)medium16;
 + (UIFont *)medium17;
+
 + (UIFont *)light12;
+
 + (UIFont *)bold12;
 + (UIFont *)bold14;
 + (UIFont *)bold16;
@@ -23,8 +26,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIFont *)bold24;
 + (UIFont *)bold28;
 + (UIFont *)bold36;
+
 + (UIFont *)semibold16;
 + (UIFont *)semibold17;
+
++ (UIFont *)emojiRegular14;
+
++ (UIFont *)emojiMedium13;
 
 @end
 NS_ASSUME_NONNULL_END
