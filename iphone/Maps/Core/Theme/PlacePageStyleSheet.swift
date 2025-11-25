@@ -130,7 +130,7 @@ extension PlacePageStyleSheet: IStyleSheet {
     case .ppView:
       return .add { s in
         s.backgroundColor = .clear
-        s.maskedCorners = .all
+        s.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         s.cornerRadius = .modalSheet
         s.clip = true
       }
