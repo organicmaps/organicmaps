@@ -36,4 +36,6 @@
     <string name="core_exit">Avsluta</string>
     <string name="core_entrance">Ingång</string>
     <string name="subway_data_unavailable">Tunnelbanekartan är otillgänglig</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Lila nedladdade regioner</string>
 </resources>

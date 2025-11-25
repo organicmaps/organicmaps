@@ -33,4 +33,6 @@
     <string name="core_exit">Ukončiť</string>
     <string name="core_entrance">Vchod | vjazd</string>
     <string name="subway_data_unavailable">Mapa metra nie je dostupná</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Fialové stiahnuté regióny</string>
 </resources>

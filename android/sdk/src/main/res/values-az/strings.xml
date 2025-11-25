@@ -33,4 +33,6 @@
     <string name="core_exit">Çıx</string>
     <string name="core_entrance">Giriş</string>
     <string name="subway_data_unavailable">Metro xəritəsi mövcud deyil</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Bənövşəyi yüklənmiş regionlar</string>
 </resources>

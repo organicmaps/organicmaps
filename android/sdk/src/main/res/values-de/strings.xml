@@ -36,4 +36,6 @@
     <string name="core_exit">Ausgang</string>
     <string name="core_entrance">Eingang</string>
     <string name="subway_data_unavailable">Die U-Bahnkarte steht nicht zur Verfügung</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Lila heruntergeladene Regionen</string>
 </resources>

@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "نقشه مترو موجود نیست";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "برجسته کردن نواحی دانلودشده روی نقشه";
+"show_downloaded_regions" = "مناطق دانلود شده بنفش";

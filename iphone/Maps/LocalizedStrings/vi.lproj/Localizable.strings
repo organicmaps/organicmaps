@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "Bản đồ tàu điện ngầm không khả dụng";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Tô sáng các vùng đã tải xuống trên bản đồ";
+"show_downloaded_regions" = "Vùng đã tải về màu tím";

@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "Мапа метрополітену недоступна";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Підсвічувати завантажені регіони на карті";
+"show_downloaded_regions" = "Фіолетові завантажені регіони";

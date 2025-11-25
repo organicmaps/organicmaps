@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "Картата на метрото не е налична";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Подсветляне на изтеглените региони върху картата";
+"show_downloaded_regions" = "Лилави изтеглени региони";

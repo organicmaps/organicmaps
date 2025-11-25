@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "地下鉄路線図はご利用いただけません";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "地図上でダウンロード済みの地域を強調表示する";
+"show_downloaded_regions" = "紫色のダウンロード済み地域";

@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "지하철 지도가 가용하지 않습니다.";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "지도에서 다운로드한 지역을 강조 표시";
+"show_downloaded_regions" = "보라색 다운로드 지역";

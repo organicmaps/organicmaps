@@ -25,4 +25,6 @@
     <string name="m">मी</string>
     <!-- abbreviation for kilometers -->
     <string name="km">किमी</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">बैंगनी डाउनलोड किए गए क्षेत्र</string>
 </resources>

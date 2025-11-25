@@ -34,4 +34,6 @@
     <string name="core_exit">Saída</string>
     <string name="core_entrance">Entrada</string>
     <string name="subway_data_unavailable">O mapa do metro non está dispoñible</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Rexións descargadas en violeta</string>
 </resources>

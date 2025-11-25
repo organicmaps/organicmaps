@@ -25,4 +25,6 @@
     <string name="core_exit">ออก</string>
     <string name="core_entrance">ทางเข้า</string>
     <string name="subway_data_unavailable">แผนที่รถไฟใต้ดินไม่พร้อมใช้งาน</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">พื้นที่ดาวน์โหลดสีม่วง</string>
 </resources>

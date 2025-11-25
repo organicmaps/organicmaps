@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "Le plan du métro n'est pas disponible";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Mettre en évidence les régions téléchargées sur la carte";
+"show_downloaded_regions" = "Régions téléchargées en violet";

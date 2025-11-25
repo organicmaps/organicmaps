@@ -36,4 +36,6 @@
     <string name="core_exit">Exit</string>
     <string name="core_entrance">Entrance</string>
     <string name="subway_data_unavailable">Subway map is unavailable</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Purple downloaded regions</string>
 </resources>

@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "Peta bawah tanah tidak tersedia";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Sorot wilayah yang diunduh pada peta";
+"show_downloaded_regions" = "Wilayah unduhan berwarna ungu";

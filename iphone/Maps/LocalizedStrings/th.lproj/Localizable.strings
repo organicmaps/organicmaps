@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "แผนที่รถไฟใต้ดินไม่พร้อมใช้งาน";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "ไฮไลท์ภูมิภาคที่ดาวน์โหลดบนแผนที่";
+"show_downloaded_regions" = "พื้นที่ดาวน์โหลดสีม่วง";

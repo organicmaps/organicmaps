@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "A metrótérkép nem érhető el";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Emelje ki a letöltött területeket a térképen";
+"show_downloaded_regions" = "Lila letöltött régiók";

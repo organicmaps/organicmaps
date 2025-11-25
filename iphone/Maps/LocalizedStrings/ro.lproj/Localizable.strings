@@ -1095,4 +1095,4 @@
 "subway_data_unavailable" = "Harta de metrou nu este disponibilă";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Evidențiază regiunile descărcate pe hartă";
+"show_downloaded_regions" = "Regiuni descărcate violete";
