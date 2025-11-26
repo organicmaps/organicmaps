@@ -1,7 +1,7 @@
 <div align="center">
   <img src="qt/res/logo.png" height="100"/>
 </div>
-<h1 align="center"">Organic Maps</h1>
+<h1 align="center">Organic Maps</h1>
 
 **Organic Maps** is a privacy-first offline maps & GPS app for hiking, cycling, biking, and driving. Absolutely free. No ads. No tracking. Developed with love by the open-source community. Powered by [OpenStreetMap](https://www.openstreetmap.org) data.
 
