@@ -130,6 +130,7 @@ final class PlacePageScrollView: UIScrollView {
 
   private func updateSteps() {
     layoutIfNeeded()
+    updateBackgroundViewFrame()
     scrollSteps = layout.calculateSteps(inScrollView: scrollView,
                                         compact: traitCollection.verticalSizeClass == .compact)
   }
