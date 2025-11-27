@@ -7,7 +7,7 @@
 #import "PlacePageOSMContributionData+Core.h"
 #import "PlacePagePreviewData+Core.h"
 #import "PlacePageTrackData+Core.h"
-#import "StringUtils.h"
+#import "StringUtils+Core.h"
 
 #include <CoreApi/CoreApi.h>
 #include "platform/network_policy.hpp"
