@@ -14,7 +14,7 @@
 #import "UIImage+RGBAData.h"
 
 #include <CoreApi/Framework.h>
-#include <CoreApi/StringUtils.h>
+#include <CoreApi/StringUtils+Core.h>
 
 #include "platform/distance.hpp"
 #include "platform/local_country_file_utils.hpp"

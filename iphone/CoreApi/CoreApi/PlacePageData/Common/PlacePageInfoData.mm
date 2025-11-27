@@ -3,7 +3,7 @@
 #import "OpeningHours.h"
 #import "PlacePagePhone.h"
 
-#import <CoreApi/StringUtils.h>
+#import <CoreApi/StringUtils+Core.h>
 
 #include "platform/localization.hpp"
 

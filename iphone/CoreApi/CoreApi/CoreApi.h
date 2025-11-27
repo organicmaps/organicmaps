@@ -32,6 +32,7 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import "CoreApi/DistanceFormatter.h"
 #import "CoreApi/DurationFormatter.h"
 #import "CoreApi/TrackInfo.h"
+#import "CoreApi/StringUtils.h"
 
 #pragma mark - Place Page
 
