@@ -23,7 +23,7 @@
 #import "SwiftBridge.h"
 
 #import <CoreApi/Framework.h>
-#import <CoreApi/StringUtils.h>
+#import <CoreApi/StringUtils+Core.h>
 
 #include "indexer/validate_and_format_contacts.hpp"
 #include "platform/localization.hpp"
