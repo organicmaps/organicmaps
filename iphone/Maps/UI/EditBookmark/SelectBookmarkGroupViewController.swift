@@ -16,17 +16,30 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
   weak var delegate: SelectBookmarkGroupViewControllerDelegate?
   private let groupName: String
   private let groupId: MWMMarkGroupID
-  private let bookmarkGroups = BookmarksManager.shared().sortedUserCategories()
-  private var filteredGroups: [BookmarkGroup] = []
+  private let bookmarkGroups: [NormalizedBookmarkGroup]
+  private var filteredGroups: [NormalizedBookmarkGroup] = []
   private var isSearching = false
-  private var currentGroups: [BookmarkGroup] {
+  private var currentGroups: [NormalizedBookmarkGroup] {
     isSearching ? filteredGroups : bookmarkGroups
   }
   private let searchController = UISearchController(searchResultsController: nil)
 
+  private struct NormalizedBookmarkGroup {
+    let categoryId: MWMMarkGroupID
+    let title: String
+    let normalizedTitle: String
+
+    init(group: BookmarkGroup) {
+      self.categoryId = group.categoryId
+      self.title = group.title
+      self.normalizedTitle = group.title.normalizedAndSimplified
+    }
+  }
+
   init(groupName: String, groupId: MWMMarkGroupID) {
     self.groupName = groupName
     self.groupId = groupId
+    self.bookmarkGroups = BookmarksManager.shared().sortedUserCategories().map(NormalizedBookmarkGroup.init)
     super.init(style: .grouped)
   }
 
@@ -116,11 +129,10 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
   }
 
   private func applyFilter(for text: String) {
-    let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
-    isSearching = !trimmed.isEmpty
+    let normalizedText = text.normalizedAndSimplified
+    isSearching = !normalizedText.isEmpty
     if isSearching {
-      let needle = trimmed.lowercased()
-      filteredGroups = bookmarkGroups.filter { $0.title.lowercased().contains(needle) }
+      filteredGroups = bookmarkGroups.filter { $0.normalizedTitle.contains(normalizedText) }
     } else {
       filteredGroups.removeAll(keepingCapacity: false)
     }
@@ -148,4 +160,8 @@ extension SelectBookmarkGroupViewController: UISearchBarDelegate {
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     applyFilter(for: searchText)
   }
+}
+
+private extension String {
+  var normalizedAndSimplified: String { (self as NSString).normalizedAndSimplified() }
 }
