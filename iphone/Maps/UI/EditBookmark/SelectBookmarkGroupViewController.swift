@@ -54,6 +54,7 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
   }
 
   @objc private func cancelButtonDidTap() {
+    searchController.isActive = false
     dismiss(animated: true, completion: nil)
   }
 
@@ -95,6 +96,7 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
     case .addGroup:
       createNewGroup()
     case .groups:
+      searchController.isActive = false
       let selectedGroup = currentGroups[indexPath.row]
       delegate?.bookmarkGroupViewController(self, didSelect: selectedGroup.title, groupId: selectedGroup.categoryId)
     default:
@@ -106,6 +108,7 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
     alertController.presentCreateBookmarkCategoryAlert(withMaxCharacterNum: 60, minCharacterNum: 0) {
       [unowned self] name -> Bool in
       guard BookmarksManager.shared().checkCategoryName(name) else { return false }
+      searchController.isActive = false
       let newGroupId = BookmarksManager.shared().createCategory(withName: name)
       self.delegate?.bookmarkGroupViewController(self, didSelect: name, groupId: newGroupId)
       return true
