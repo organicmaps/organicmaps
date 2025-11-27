@@ -3565,11 +3565,7 @@ bool Framework::CanShowRateUsRequest() const
   if (!settings::Get(kLastAskedForRateUsTimeKey, lastAskedForRateUsTime))
     return true;
 
-#ifdef DEBUG
-  uint32_t constexpr kLastAskedForRateUsTimeout = 30;
-#else
   uint32_t constexpr kLastAskedForRateUsTimeout = 60 * 60 * 24 * 90;  // 90 days
-#endif
 
   bool const timeoutExpired = lastAskedForRateUsTime + kLastAskedForRateUsTimeout < base::SecondsSinceEpoch();
   if (!timeoutExpired)
