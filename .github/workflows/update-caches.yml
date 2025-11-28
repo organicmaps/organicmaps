@@ -11,6 +11,8 @@ jobs:
   update-caches:
     name: Update Caches
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
