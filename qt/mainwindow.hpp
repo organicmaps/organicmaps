@@ -18,7 +18,10 @@
 class Framework;
 class QDockWidget;
 class QLabel;
+class QLineEdit;
 class QPushButton;
+class QToolBar;
+class QToolButton;
 
 namespace search
 {
@@ -35,9 +38,12 @@ class MainWindow
   : public QMainWindow
   , location::LocationObserver
 {
+  QToolBar * m_devToolBar = nullptr;
+  QToolButton * m_mainMenuButton = nullptr;
+
   DrawWidget * m_pDrawWidget = nullptr;
-  // TODO(mgsergio): Make indexing more informative.
-  std::array<QDockWidget *, 1> m_Docks;
+  QDockWidget * m_devSearchDockWidget = nullptr;
+  QDockWidget * m_userSearchDockWidget = nullptr;
 
   QPushButton * m_downloadButton = nullptr;
   QPushButton * m_retryButton = nullptr;
@@ -50,8 +56,10 @@ class MainWindow
 
   QAction * m_pMyPositionAction = nullptr;
   QAction * m_pCreateFeatureAction = nullptr;
-  QAction * m_pSearchAction = nullptr;
   QAction * m_rulerAction = nullptr;
+  QAction * m_devSearchAction = nullptr;
+  QAction * m_userSearchCloseAction = nullptr;
+  QLineEdit * m_userSearchQueryEdit;
 
   enum LayerType : uint8_t
   {
@@ -96,9 +104,12 @@ protected:
 
   void CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name, QKeySequence const & hotkey,
                        char const * slot);
-  void CreateNavigationBar();
-  void CreateSearchBarAndPanel();
+  void CreateMainToolBar();
+  void CreateDevToolBar();
+  void CreateUserSearchPanel();
+  void CreateDevSearchPanel();
   void CreateCountryStatusControls();
+  void BindHotkeys();
 
   void SetLayerEnabled(LayerType type, bool enable);
 
@@ -109,6 +120,8 @@ protected Q_SLOTS:
   void ShowUpdateDialog();
 #endif  // NO_DOWNLOADER
 
+  void OnFocusChange(QWidget * old, QWidget * now);
+  void OnSearchDockWidgetVisibilityChange(bool visible);
   void OnPreferences();
   void OnAbout();
   void OnMyPosition();
@@ -136,6 +149,8 @@ protected Q_SLOTS:
   void OnRoutingSettings();
 
   void OnBookmarksAction();
+
+  void OnDeveloperModeChanged(bool enable);
 
 #ifdef BUILD_DESIGNER
   void OnBuildStyle();
