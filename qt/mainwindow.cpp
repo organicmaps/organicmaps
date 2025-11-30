@@ -1,6 +1,7 @@
 #include "qt/mainwindow.hpp"
 #include "qt/about.hpp"
 #include "qt/bookmark_dialog.hpp"
+#include "qt/dev_search_panel.hpp"
 #include "qt/draw_widget.hpp"
 #include "qt/mwms_borders_selection.hpp"
 #include "qt/osm_auth_dialog.hpp"
@@ -10,7 +11,6 @@
 #include "qt/qt_common/scale_slider.hpp"
 #include "qt/routing_settings_dialog.hpp"
 #include "qt/screenshoter.hpp"
-#include "qt/search_panel.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
@@ -843,7 +843,7 @@ void MainWindow::CreateDevSearchPanel()
   m_devSearchDockWidget = new QDockWidget(tr("Search"));
   addDockWidget(Qt::RightDockWidgetArea, m_devSearchDockWidget);
   m_devSearchDockWidget->hide();
-  m_devSearchDockWidget->setWidget(new SearchPanel(m_pDrawWidget, m_devSearchDockWidget));
+  m_devSearchDockWidget->setWidget(new DevSearchPanel(m_pDrawWidget, m_devSearchDockWidget));
 }
 
 void MainWindow::closeEvent(QCloseEvent * e)
