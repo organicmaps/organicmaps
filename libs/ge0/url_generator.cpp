@@ -130,12 +130,20 @@ std::string GenerateShortShowMapUrl(double lat, double lon, double zoom, std::st
 
 std::string GenerateGeoUri(double lat, double lon, double zoom, std::string const & name)
 {
+  // Default behavior: include name for backward compatibility
+  return GenerateGeoUri(lat, lon, zoom, name, true);
+}
+
+std::string GenerateGeoUri(double lat, double lon, double zoom, std::string const & name, bool includeName)
+{
   std::ostringstream oss;
   oss << "geo:" << std::fixed << std::setprecision(7) << lat << ',' << lon << "?z=" << std::setprecision(1) << zoom;
   // For Google Maps compatibility, otherwise it doesn't select the point on the map, only shows the area.
   oss << "&q=" << std::setprecision(7) << lat << ',' << lon;
 
-  if (!name.empty())
+  // Include name only if requested - some apps like Google Earth search for the text
+  // instead of using coordinates when a label is present
+  if (includeName && !name.empty())
     oss << '(' << url::UrlEncode(name) << ')';
 
   return oss.str();

@@ -5,7 +5,11 @@ import static android.view.View.VISIBLE;
 import static app.organicmaps.sdk.util.Utils.getLocalizedFeatureType;
 import static app.organicmaps.sdk.util.Utils.getTagValueLocalized;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
@@ -852,9 +856,7 @@ public class PlacePageView extends Fragment
     }
     else if (id == R.id.ll__place_open_in)
     {
-      final String uri = Framework.nativeGetGeoUri(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getScale(),
-                                                   mMapObject.getName());
-      Utils.openUri(requireContext(), Uri.parse(uri), R.string.uri_open_location_failed);
+      showGeoAppChooser();
     }
     else if (id == R.id.direction_frame)
       showBigDirection();
@@ -873,6 +875,80 @@ public class PlacePageView extends Fragment
         requireContext().getClassLoader(), DirectionFragment.class.getName());
     fragment.setMapObject(mMapObject);
     fragment.show(fragmentManager, null);
+  }
+
+  /**
+   * Shows a custom chooser dialog for opening location in another app.
+   * Generates app-specific geo URIs based on the selected app for maximum compatibility.
+   */
+  private void showGeoAppChooser()
+  {
+    // Create a sample geo URI to query available apps
+    final String sampleGeoUri =
+        Framework.nativeGetGeoUri(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getScale(), "");
+
+    final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(sampleGeoUri));
+    final PackageManager pm = requireContext().getPackageManager();
+    final List<ResolveInfo> resolveInfos = pm.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+
+    if (resolveInfos.isEmpty())
+    {
+      // No apps available to handle geo URIs
+      Utils.showSnackbar(requireContext(), mFrame, R.string.uri_open_location_failed);
+      return;
+    }
+
+    if (resolveInfos.size() == 1)
+    {
+      // Only one app available, open directly with optimized URI
+      final ResolveInfo resolveInfo = resolveInfos.get(0);
+      final String packageName = resolveInfo.activityInfo.packageName;
+      openWithSpecificApp(packageName);
+      return;
+    }
+
+    // Multiple apps available, show custom chooser
+    final List<String> appNames = new ArrayList<>();
+    final List<String> packageNames = new ArrayList<>();
+
+    for (ResolveInfo resolveInfo : resolveInfos)
+    {
+      appNames.add(resolveInfo.loadLabel(pm).toString());
+      packageNames.add(resolveInfo.activityInfo.packageName);
+    }
+
+    final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+    builder.setTitle(R.string.share);
+    builder.setItems(appNames.toArray(new String[0]), (dialog, which) -> {
+      final String selectedPackageName = packageNames.get(which);
+      openWithSpecificApp(selectedPackageName);
+    });
+    builder.setNegativeButton(android.R.string.cancel, null);
+    builder.show();
+  }
+
+  /**
+   * Opens the location with a specific app using an optimized geo URI.
+   *
+   * @param packageName The package name of the target app
+   */
+  private void openWithSpecificApp(@NonNull String packageName)
+  {
+    // Generate app-specific geo URI using the new JNI method
+    final String geoUri = Framework.nativeGetGeoUriForApp(mMapObject.getLat(), mMapObject.getLon(),
+                                                          mMapObject.getScale(), mMapObject.getName(), packageName);
+
+    final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(geoUri));
+    intent.setPackage(packageName);
+
+    if (intent.resolveActivity(requireContext().getPackageManager()) != null)
+    {
+      startActivity(intent);
+    }
+    else
+    {
+      Utils.showSnackbar(requireContext(), mFrame, R.string.uri_open_location_failed);
+    }
   }
 
   @Override

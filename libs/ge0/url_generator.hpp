@@ -36,6 +36,10 @@ std::string GenerateShortShowMapUrl(double lat, double lon, double zoomLevel, st
 // geo:54.683486138,25.289361259&z=14(Forto%20dvaras)
 std::string GenerateGeoUri(double lat, double lon, double zoom, std::string const & name);
 
+// Generates a geo: uri with optional name inclusion control.
+// includeName: if true, appends name in parentheses; if false, omits name for better compatibility
+std::string GenerateGeoUri(double lat, double lon, double zoom, std::string const & name, bool includeName);
+
 // Exposed for testing.
 char Base64Char(int x);
 int LatToInt(double lat, int maxValue);
