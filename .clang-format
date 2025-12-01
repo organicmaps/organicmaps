@@ -1,4 +1,4 @@
-# Configuration file for clang-format, based on docs/CPP_STYLE.md.
+# Configuration file for clang-format
 BasedOnStyle: Google
 
 AccessModifierOffset: -2
