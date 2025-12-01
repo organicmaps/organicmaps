@@ -486,17 +486,17 @@ FreetypeError constexpr g_FT_Errors[] =
   int GlyphManager::GetFontIndex(strings::UniChar unicodePoint)
   {
     auto iter = m_impl->m_blocks.cend();
-    if (m_impl->m_lastUsedBlock != m_impl->m_blocks.end() && m_impl->m_lastUsedBlock->HasSymbol(unicodePoint))
+    if (m_impl->m_lastUsedBlock != m_impl->m_blocks.cend() && m_impl->m_lastUsedBlock->HasSymbol(unicodePoint))
     {
       iter = m_impl->m_lastUsedBlock;
     }
-    else if (iter == m_impl->m_blocks.end() || !iter->HasSymbol(unicodePoint))
+    else if (iter == m_impl->m_blocks.cend() || !iter->HasSymbol(unicodePoint))
     {
-      iter = std::lower_bound(m_impl->m_blocks.begin(), m_impl->m_blocks.end(), unicodePoint,
+      iter = std::lower_bound(m_impl->m_blocks.cbegin(), m_impl->m_blocks.cend(), unicodePoint,
                               [](UnicodeBlock const & block, strings::UniChar const & v) { return block.m_end < v; });
     }
 
-    if (iter == m_impl->m_blocks.end() || !iter->HasSymbol(unicodePoint))
+    if (iter == m_impl->m_blocks.cend() || !iter->HasSymbol(unicodePoint))
       return kInvalidFont;
 
     m_impl->m_lastUsedBlock = iter;
