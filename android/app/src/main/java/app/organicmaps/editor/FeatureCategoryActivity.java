@@ -20,6 +20,9 @@ public class FeatureCategoryActivity
   @Override
   public void onFeatureCategorySelected(FeatureCategory category)
   {
+    // Track the selected POI type as recent
+    RecentPoiTypes.add(category.getType(), this);
+    
     Editor.createMapObject(category);
     final Intent intent = new Intent(this, EditorActivity.class);
     intent.putExtra(EXTRA_FEATURE_CATEGORY, category);
