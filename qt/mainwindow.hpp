@@ -32,6 +32,7 @@ namespace qt
 {
 class DrawWidget;
 class PopupMenuHolder;
+class UserSearchPanel;
 struct ScreenshotParams;
 
 class MainWindow
@@ -44,6 +45,7 @@ class MainWindow
   DrawWidget * m_pDrawWidget = nullptr;
   QDockWidget * m_devSearchDockWidget = nullptr;
   QDockWidget * m_userSearchDockWidget = nullptr;
+  UserSearchPanel * m_userSearchPanel = nullptr;
 
   QPushButton * m_downloadButton = nullptr;
   QPushButton * m_retryButton = nullptr;
@@ -122,6 +124,7 @@ protected Q_SLOTS:
 
   void OnFocusChange(QWidget * old, QWidget * now);
   void OnSearchDockWidgetVisibilityChange(bool visible);
+  void OnSearchDockWidgetWidthChange(int width);
   void OnPreferences();
   void OnAbout();
   void OnMyPosition();

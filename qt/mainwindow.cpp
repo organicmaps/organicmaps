@@ -11,6 +11,7 @@
 #include "qt/qt_common/scale_slider.hpp"
 #include "qt/routing_settings_dialog.hpp"
 #include "qt/screenshoter.hpp"
+#include "qt/user_search_panel/user_search_panel.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
@@ -204,6 +205,7 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
 
   bool developerMode = false;
   OnDeveloperModeChanged(settings::Get(settings::kDeveloperMode, developerMode) && developerMode);
+  OnSearchDockWidgetWidthChange(UserSearchPanel::kDefaultWidth);
 
   RoutingSettings::LoadSession(m_pDrawWidget->GetFramework());
 }
@@ -248,6 +250,7 @@ void MainWindow::CreateMainToolBar()
   m_userSearchQueryEdit->addAction(QIcon(":/navig64/search.png"), QLineEdit::LeadingPosition);
   m_userSearchCloseAction = m_userSearchQueryEdit->addAction(QIcon(":/ui/x.png"), QLineEdit::TrailingPosition);
   m_userSearchQueryEdit->setPlaceholderText(tr("Search"));
+  m_userSearchCloseAction->setVisible(false);
   mainToolBar->addWidget(m_userSearchQueryEdit);
   m_userSearchCloseAction->setVisible(false);
 
@@ -657,6 +660,13 @@ void MainWindow::OnSearchDockWidgetVisibilityChange(bool visible)
   m_userSearchCloseAction->setVisible(visible);
 }
 
+void MainWindow::OnSearchDockWidgetWidthChange(int width)
+{
+  // TODO (@zagto): handle RTL layout
+  int const offset = m_userSearchQueryEdit->x();
+  m_userSearchQueryEdit->setFixedWidth(width - offset * 2);
+}
+
 void MainWindow::OnPreferences()
 {
   Framework & framework = m_pDrawWidget->GetFramework();
@@ -827,15 +837,19 @@ void MainWindow::CreateUserSearchPanel()
 {
   m_userSearchDockWidget = new QDockWidget(tr("Search"));
 
-  // TODO (@zagto): add new search widget
-  auto userSearchPanel = new QWidget;
+  m_userSearchPanel = new UserSearchPanel(GetFramework());
   addDockWidget(Qt::LeftDockWidgetArea, m_userSearchDockWidget);
-  m_userSearchDockWidget->hide();
-  m_userSearchDockWidget->setWidget(userSearchPanel);
-  m_userSearchDockWidget->setFeatures(QDockWidget::NoDockWidgetFeatures);
+  m_userSearchDockWidget->setWidget(m_userSearchPanel);
   m_userSearchDockWidget->setTitleBarWidget(new QWidget(m_userSearchDockWidget));
+  m_userSearchDockWidget->setFeatures(QDockWidget::NoDockWidgetFeatures);
+  m_userSearchDockWidget->hide();
 
+  connect(m_userSearchQueryEdit, &QLineEdit::textChanged, m_userSearchPanel, &UserSearchPanel::OnSearchQueryChanged);
   connect(m_userSearchCloseAction, &QAction::triggered, m_userSearchDockWidget, &QDockWidget::hide);
+  connect(m_userSearchPanel, &UserSearchPanel::WidthChanged, this, &MainWindow::OnSearchDockWidgetWidthChange);
+  connect(m_userSearchPanel, &UserSearchPanel::SuggestionAccepted, m_userSearchQueryEdit, &QLineEdit::setText);
+
+  // TODO (@zagto): tab focus order should be m_userSearchQueryEdit -> first search result
 }
 
 void MainWindow::CreateDevSearchPanel()
@@ -934,6 +948,7 @@ void MainWindow::OnBookmarksAction()
 void MainWindow::OnDeveloperModeChanged(bool enable)
 {
   m_devToolBar->setVisible(enable);
+  m_userSearchPanel->OnDeveloperModeChanged(enable);
 }
 
 }  // namespace qt
