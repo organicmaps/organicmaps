@@ -44,12 +44,6 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 
-#ifdef OMIM_OS_WINDOWS
-#include "std/windows.hpp"
-#define IDM_ABOUT_DIALOG       1001
-#define IDM_PREFERENCES_DIALOG 1002
-#endif
-
 #ifndef NO_DOWNLOADER
 #include "qt/info_dialog.hpp"
 #include "qt/update_dialog.hpp"
@@ -146,7 +140,6 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   setWindowTitle(caption);
   setWindowIcon(QIcon(":/ui/logo.png"));
 
-#ifndef OMIM_OS_WINDOWS
   QMenu * helpMenu = new QMenu(tr("Help"), this);
   menuBar()->addMenu(helpMenu);
   helpMenu->addAction(tr("OpenStreetMap Login"), QKeySequence(Qt::CTRL | Qt::Key_O), this, SLOT(OnLoginMenuItem()));
@@ -154,28 +147,6 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   helpMenu->addAction(tr("Preferences"), QKeySequence(Qt::CTRL | Qt::Key_P), this, SLOT(OnPreferences()));
   helpMenu->addAction(tr("About"), QKeySequence(Qt::Key_F1), this, SLOT(OnAbout()));
   helpMenu->addAction(tr("Exit"), QKeySequence(Qt::CTRL | Qt::Key_Q), this, SLOT(close()));
-#else
-  {
-    // create items in the system menu
-    HMENU menu = ::GetSystemMenu((HWND)winId(), FALSE);
-    MENUITEMINFOA item;
-    item.cbSize = sizeof(MENUITEMINFOA);
-    item.fMask = MIIM_FTYPE | MIIM_ID | MIIM_STRING;
-    item.fType = MFT_STRING;
-    item.wID = IDM_PREFERENCES_DIALOG;
-    QByteArray const prefsStr = tr("Preferences...").toLocal8Bit();
-    item.dwTypeData = const_cast<char *>(prefsStr.data());
-    item.cch = prefsStr.size();
-    ::InsertMenuItemA(menu, ::GetMenuItemCount(menu) - 1, TRUE, &item);
-    item.wID = IDM_ABOUT_DIALOG;
-    QByteArray const aboutStr = tr("About...").toLocal8Bit();
-    item.dwTypeData = const_cast<char *>(aboutStr.data());
-    item.cch = aboutStr.size();
-    ::InsertMenuItemA(menu, ::GetMenuItemCount(menu) - 1, TRUE, &item);
-    item.fType = MFT_SEPARATOR;
-    ::InsertMenuItemA(menu, ::GetMenuItemCount(menu) - 1, TRUE, &item);
-  }
-#endif
 
   // Always show on full screen.
   showMaximized();
@@ -216,28 +187,6 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
 
   RoutingSettings::LoadSession(m_pDrawWidget->GetFramework());
 }
-
-#if defined(OMIM_OS_WINDOWS)
-bool MainWindow::nativeEvent(QByteArray const & eventType, void * message, qintptr * result)
-{
-  MSG * msg = static_cast<MSG *>(message);
-  if (msg->message == WM_SYSCOMMAND)
-  {
-    switch (msg->wParam)
-    {
-    case IDM_PREFERENCES_DIALOG:
-      OnPreferences();
-      *result = 0;
-      return true;
-    case IDM_ABOUT_DIALOG:
-      OnAbout();
-      *result = 0;
-      return true;
-    }
-  }
-  return QMainWindow::nativeEvent(eventType, message, result);
-}
-#endif
 
 void MainWindow::LocationStateModeChanged(location::EMyPositionMode mode)
 {
