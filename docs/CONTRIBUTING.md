@@ -61,9 +61,7 @@ While we strive to help onboard new developers we don't have enough time to guid
 - [Pull Request Guide](PR_GUIDE.md).
 - [How to write a commit message](COMMIT_MESSAGES.md).
 - [Directories structure](STRUCTURE.md)
-- [C++ Style Guide](CPP_STYLE.md).
-- [Java Style Guide](JAVA_STYLE.md).
-- [Objective-C Style Guide](OBJC_STYLE.md).
+- [Code Style Guide](CODE_STYLE_GUIDE.md).
 
 ...and more in the [docs folder](./) of the repository.
 
