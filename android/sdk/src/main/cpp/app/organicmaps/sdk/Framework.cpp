@@ -963,22 +963,6 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetGeoUri(JNIEnv * en
   return jni::ToJavaString(env, url);
 }
 
-JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetGeoUriForApp(JNIEnv * env, jclass, jdouble lat,
-                                                                           jdouble lon, jdouble zoomLevel, jstring name,
-                                                                           jstring appPackageName)
-{
-  ::Framework * fr = frm();
-  double const scale = (zoomLevel > 0 ? zoomLevel : fr->GetDrawScale());
-  string const packageName = jni::ToNativeString(env, appPackageName);
-
-  // Determine if we should include the name based on the target app
-  // Google Earth doesn't handle names well - it searches for the text instead of using coordinates
-  bool includeName = (packageName.find("com.google.earth") == string::npos);
-
-  string const url = ge0::GenerateGeoUri(lat, lon, scale, jni::ToNativeString(env, name), includeName);
-  return jni::ToJavaString(env, url);
-}
-
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetDistanceAndAzimuth(JNIEnv * env, jclass, jdouble merX,
                                                                                  jdouble merY, jdouble cLat,
                                                                                  jdouble cLon, jdouble north)

@@ -359,35 +359,4 @@ UNIT_TEST(GenerateGeoUri_SmokeTest)
   TEST_EQUAL(info.m_label, "Falafel M. Sahyoun", ());
 }
 
-UNIT_TEST(GenerateGeoUri_WithoutName)
-{
-  // Test with includeName = false for apps like Google Earth that don't handle labels well
-  string res = GenerateGeoUri(40.7580, -73.9855, 15.0, "Times Square", false);
-  TEST_EQUAL("geo:40.7580000,-73.9855000?z=15.0&q=40.7580000,-73.9855000", res, ());
-
-  geo::GeoURLInfo info;
-  geo::GeoParser parser;
-  TEST(parser.Parse(res, info), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 40.7580, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, -73.9855, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 15.0, kEps, ());
-  // Label should be empty when includeName is false
-  TEST(info.m_label.empty(), ());
-}
-
-UNIT_TEST(GenerateGeoUri_WithNameExplicit)
-{
-  // Test with includeName = true (explicit)
-  string res = GenerateGeoUri(40.7580, -73.9855, 15.0, "Times Square", true);
-  TEST_EQUAL("geo:40.7580000,-73.9855000?z=15.0&q=40.7580000,-73.9855000(Times%20Square)", res, ());
-
-  geo::GeoURLInfo info;
-  geo::GeoParser parser;
-  TEST(parser.Parse(res, info), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 40.7580, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, -73.9855, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 15.0, kEps, ());
-  TEST_EQUAL(info.m_label, "Times Square", ());
-}
-
 }  // namespace ge0
