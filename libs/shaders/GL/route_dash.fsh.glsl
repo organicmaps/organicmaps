@@ -41,7 +41,7 @@ void main()
   coefs.y = 1.0 - coefs.y;
   vec4 mainColor = mix(u_color, u_fakeColor, coefs.x);
   mainColor = mix(mainColor, u_fakeColor, coefs.y);
-  vec4 color = mainColor + v_color;
+  vec4 color = vec4(mix(mainColor.rgb, v_color.rgb, v_color.a), mainColor.a);
   color.a *= (1.0 - smoothstep(kAntialiasingThreshold, 1.0, abs(v_length.y))) *
               alphaFromPattern(v_length.x, u_pattern.x, u_pattern.y);
   color = vec4(mix(color.rgb, u_maskColor.rgb, u_maskColor.a), color.a);

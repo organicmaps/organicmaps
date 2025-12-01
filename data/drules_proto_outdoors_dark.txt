@@ -137442,6 +137442,14 @@ colors {
     color: 1301433013
   }
   value {
+    name: "RouteSlopeMaskBicycle"
+    color: 15704832
+  }
+  value {
+    name: "RouteSlopeMaskPedestrian"
+    color: 14622752
+  }
+  value {
     name: "RouteTrafficG0"
     color: 6164237
   }
