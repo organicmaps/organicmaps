@@ -498,6 +498,7 @@
     <string name="hour">ชม.</string>
     <string name="minute">น.</string>
     <string name="day">วัน</string>
+    <string name="second">วิ</string>
     <string name="placepage_more_button">เพิ่มเติม</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">แก้ไข Bookmark</string>

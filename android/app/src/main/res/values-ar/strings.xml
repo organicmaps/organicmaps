@@ -520,6 +520,7 @@
     <string name="hour">س</string>
     <string name="minute">د</string>
     <string name="day">يوم</string>
+    <string name="second">ث</string>
     <string name="placepage_more_button">المزيد</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">تحرير العلامة المرجعية</string>
