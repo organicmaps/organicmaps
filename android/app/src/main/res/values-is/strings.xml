@@ -520,6 +520,7 @@
     <string name="hour">klst</string>
     <string name="minute">mín</string>
     <string name="day">d</string>
+    <string name="second">sek</string>
     <string name="placepage_more_button">Meira</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Breyta bókamerki</string>

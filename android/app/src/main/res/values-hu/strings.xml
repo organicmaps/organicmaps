@@ -520,6 +520,7 @@
     <string name="hour">ó</string>
     <string name="minute">p</string>
     <string name="day">nap</string>
+    <string name="second">mp</string>
     <string name="placepage_more_button">Tovább</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Könyvjelző szerkesztése</string>

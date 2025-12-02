@@ -510,6 +510,7 @@
     <string name="hour">ש׳</string>
     <string name="minute">ד׳</string>
     <string name="day">י</string>
+    <string name="second">ש׳׳</string>
     <string name="placepage_more_button">עוד</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">ערוך סימניה</string>

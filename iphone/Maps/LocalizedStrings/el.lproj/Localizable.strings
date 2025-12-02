@@ -567,6 +567,7 @@
 "hour" = "Ωρα";
 "minute" = "λπτ";
 "day" = "Μέρα";
+"second" = "δ";
 "placepage_more_button" = "Περισσότερα";
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
