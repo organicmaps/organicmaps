@@ -505,6 +505,18 @@ string FormatElevation(string_view elevation)
   return {};
 }
 
+string FormatCapacity(std::string_view capacity, TypesHolder const & types)
+{
+  if (!capacity.empty())
+  {
+    if (ftypes::IsParkingChecker::Instance()(types))
+      return std::string{capacity} + " " + std::string{feature::kCarSymbol};
+    else if (ftypes::IsBicycleParkingChecker::Instance()(types))
+      return std::string{capacity} + " " + std::string{feature::kBicycleSymbol};
+  }
+  return {};
+}
+
 constexpr char const * kWlan = "wlan";
 constexpr char const * kWired = "wired";
 constexpr char const * kTerminal = "terminal";

@@ -76,17 +76,11 @@ final class PlacePagePreviewViewController: UIViewController {
 //                                                 attributes: [.foregroundColor : UIColor.linkBlue(),
 //                                                              .font : UIFont.regular14()]))
 //      }
-      
-      // Define emoji font with fallback
-      let emojiFont = UIFont(name: "OrganicMapsEmojiFont", size: 14)!
-      let fallbackFont = UIFont.regular14()
-      let cascadeDescriptor = emojiFont.fontDescriptor.addingAttributes([UIFontDescriptor.AttributeName.cascadeList: [fallbackFont.fontDescriptor]])
-      let emojiFontWithFallback = UIFont(descriptor: cascadeDescriptor, size: 14)
 
       if let subtitle = placePagePreviewData.subtitle ?? placePagePreviewData.coordinates {
         subtitleString.append(NSAttributedString(string: !subtitleString.string.isEmpty ? " • " + subtitle : subtitle,
                                                  attributes: [.foregroundColor : UIColor.blackSecondaryText(),
-                                                              .font : emojiFontWithFallback]))
+                                                              .font : UIFont.emojiRegular14()]))
         
         subtitleLabel.attributedText = subtitleString
         subtitleContainerView.isHidden = false
