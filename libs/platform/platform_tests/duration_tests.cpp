@@ -55,27 +55,31 @@ Locale GetLocale(std::string const & language)
 auto const m = Duration::GetUnitsString(Duration::Units::Minutes);
 auto const h = Duration::GetUnitsString(Duration::Units::Hours);
 auto const d = Duration::GetUnitsString(Duration::Units::Days);
+auto const s = Duration::GetUnitsString(Duration::Units::Seconds);
 
 UNIT_TEST(Duration_AllUnits)
 {
   TestData const testData[] = {
       {GetLocale("en"),
-       {{0, 0, 0, 0, "0" + m},
-        {0, 0, 0, 30, "0" + m},
-        {0, 0, 0, 59, "0" + m},
-        {0, 0, 1, 0, "1" + m},
-        {0, 0, 1, 59, "1" + m},
-        {0, 0, 60, 0, "1" + h},
-        {0, 0, 123, 0, "2" + h + kNonBreakingSpace + "3" + m},
-        {0, 3, 0, 0, "3" + h},
-        {0, 24, 0, 0, "1" + d},
-        {4, 0, 0, 0, "4" + d},
-        {1, 2, 3, 0, "1" + d + kNonBreakingSpace + "2" + h + kNonBreakingSpace + "3" + m},
-        {1, 0, 15, 0, "1" + d + kNonBreakingSpace + "15" + m},
-        {0, 15, 1, 0, "15" + h + kNonBreakingSpace + "1" + m},
-        {1, 15, 0, 0, "1" + d + kNonBreakingSpace + "15" + h},
-        {15, 0, 10, 0, "15" + d + kNonBreakingSpace + "10" + m},
-        {15, 15, 15, 0, "15" + d + kNonBreakingSpace + "15" + h + kNonBreakingSpace + "15" + m}}},
+       {
+           {0, 0, 0, 0, "0" + s},
+           {0, 0, 0, 30, "30" + s},
+           {0, 0, 0, 59, "59" + s},
+           {0, 0, 1, 0, "1" + m},
+           {0, 0, 1, 59, "1" + m + kNonBreakingSpace + "59" + s},
+           {0, 0, 60, 0, "1" + h},
+           {0, 0, 123, 0, "2" + h + kNonBreakingSpace + "3" + m},
+           {0, 1, 2, 3, "1" + h + kNonBreakingSpace + "2" + m + kNonBreakingSpace + "3" + s},
+           {0, 3, 0, 0, "3" + h},
+           {0, 24, 0, 0, "1" + d},
+           {4, 0, 0, 0, "4" + d},
+           {1, 2, 3, 4, "1" + d + kNonBreakingSpace + "2" + h + kNonBreakingSpace + "3" + m},
+           {1, 0, 15, 0, "1" + d + kNonBreakingSpace + "15" + m},
+           {0, 15, 1, 0, "15" + h + kNonBreakingSpace + "1" + m},
+           {1, 15, 0, 0, "1" + d + kNonBreakingSpace + "15" + h},
+           {15, 0, 10, 0, "15" + d + kNonBreakingSpace + "10" + m},
+           {15, 15, 15, 0, "15" + d + kNonBreakingSpace + "15" + h + kNonBreakingSpace + "15" + m},
+       }},
   };
 
   for (auto const & data : testData)
@@ -84,7 +88,8 @@ UNIT_TEST(Duration_AllUnits)
     {
       auto const duration = Duration(dataDuration.Seconds());
       auto durationStr = duration.GetLocalizedString(
-          {Duration::Units::Days, Duration::Units::Hours, Duration::Units::Minutes}, data.m_locale);
+          {Duration::Units::Days, Duration::Units::Hours, Duration::Units::Minutes, Duration::Units::Seconds},
+          data.m_locale);
       TEST_EQUAL(durationStr, dataDuration.result, ());
     }
   }
@@ -107,10 +112,10 @@ UNIT_TEST(Duration_Localization)
   {
     for (auto const & duration : data.m_duration)
     {
-      auto const durationStr =
-          Duration(duration.Seconds())
-              .GetLocalizedString({Duration::Units::Days, Duration::Units::Hours, Duration::Units::Minutes},
-                                  data.m_locale);
+      auto const durationStr = Duration(duration.Seconds())
+                                   .GetLocalizedString({Duration::Units::Days, Duration::Units::Hours,
+                                                        Duration::Units::Minutes, Duration::Units::Seconds},
+                                                       data.m_locale);
       TEST_EQUAL(durationStr, duration.result, ());
     }
   }

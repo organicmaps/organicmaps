@@ -18,6 +18,7 @@ unsigned long SecondsToUnits(seconds duration, Duration::Units unit)
   case Duration::Units::Days: return duration_cast<days>(duration).count();
   case Duration::Units::Hours: return duration_cast<hours>(duration).count();
   case Duration::Units::Minutes: return duration_cast<minutes>(duration).count();
+  case Duration::Units::Seconds: return duration_cast<seconds>(duration).count();
   default: UNREACHABLE();
   }
 }
@@ -29,6 +30,7 @@ seconds UnitsToSeconds(long value, Duration::Units unit)
   case Duration::Units::Days: return days(value);
   case Duration::Units::Hours: return hours(value);
   case Duration::Units::Minutes: return minutes(value);
+  case Duration::Units::Seconds: return seconds(value);
   default: UNREACHABLE();
   }
 }
@@ -75,7 +77,7 @@ std::string Duration::GetPlatformLocalizedString() const
   };
   static InitSeparators seps;
 
-  return GetString({Units::Days, Units::Hours, Units::Minutes}, seps.m_unitSep, seps.m_groupingSep);
+  return GetString({Units::Days, Units::Hours, Units::Minutes, Units::Seconds}, seps.m_unitSep, seps.m_groupingSep);
 }
 
 std::string Duration::GetString(std::initializer_list<Units> units, std::string_view unitSeparator,
@@ -85,13 +87,19 @@ std::string Duration::GetString(std::initializer_list<Units> units, std::string_
   ASSERT(IsUnitsOrderValid(units), ());
 
   if (SecondsToUnits(m_seconds, Units::Minutes) == 0)
-    return std::to_string(0U).append(unitSeparator).append(GetUnitsString(Units::Minutes));
+  {
+    unsigned long const secs = SecondsToUnits(m_seconds, Units::Seconds);
+    return std::to_string(secs).append(unitSeparator).append(GetUnitsString(Units::Seconds));
+  }
 
   std::string formattedTime;
-  seconds remainingSeconds = m_seconds;
+  seconds remainingSeconds = seconds(m_seconds);
 
+  bool const skipSeconds = SecondsToUnits(m_seconds, Units::Days) >= 1;
   for (auto const unit : units)
   {
+    if (unit == Units::Seconds && skipSeconds)
+      continue;
     unsigned long const unitsCount = SecondsToUnits(remainingSeconds, unit);
     if (unitsCount > 0)
     {
@@ -111,6 +119,7 @@ std::string Duration::GetUnitsString(Units unit)
   case Units::Minutes: return platform::GetLocalizedString("minute");
   case Units::Hours: return platform::GetLocalizedString("hour");
   case Units::Days: return platform::GetLocalizedString("day");
+  case Units::Seconds: return platform::GetLocalizedString("second");
   default: UNREACHABLE();
   }
 }
@@ -122,6 +131,7 @@ std::string DebugPrint(Duration::Units units)
   case Duration::Units::Days: return "d";
   case Duration::Units::Hours: return "h";
   case Duration::Units::Minutes: return "m";
+  case Duration::Units::Seconds: return "s";
   default: UNREACHABLE();
   }
 }
