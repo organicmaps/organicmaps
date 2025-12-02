@@ -520,6 +520,7 @@
     <string name="hour">Ωρα</string>
     <string name="minute">λπτ</string>
     <string name="day">Μέρα</string>
+    <string name="second">δ</string>
     <string name="placepage_more_button">Περισσότερα</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Επεξεργασία αγαπημένου</string>

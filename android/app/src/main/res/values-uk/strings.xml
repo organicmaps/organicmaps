@@ -520,6 +520,7 @@
     <string name="hour">год</string>
     <string name="minute">хв</string>
     <string name="day">д</string>
+    <string name="second">с</string>
     <string name="placepage_more_button">Ще</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Редагувати мiтку</string>

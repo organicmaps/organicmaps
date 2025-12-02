@@ -567,6 +567,7 @@
 "hour" = "klst";
 "minute" = "mín";
 "day" = "d";
+"second" = "sek";
 "placepage_more_button" = "Meira";
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */

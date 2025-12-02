@@ -567,6 +567,7 @@
 "hour" = "sa";
 "minute" = "dk";
 "day" = "g";
+"second" = "sn";
 "placepage_more_button" = "Diğer";
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
