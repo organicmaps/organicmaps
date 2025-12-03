@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/apply_feature_params.hpp"
 #include "drape_frontend/custom_features_context.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/relations_draw_info.hpp"
@@ -11,7 +12,6 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/road_shields_parser.hpp"
 
-#include "geometry/rect2d.hpp"
 #include "geometry/spline.hpp"
 
 #include <array>
@@ -23,7 +23,6 @@ class FeatureType;
 namespace df
 {
 class EngineContext;
-class Stylist;
 
 /*
  * RuleDrawer() is invoked for each feature in the tile.
@@ -38,7 +37,6 @@ class RuleDrawer
 public:
   using TCheckCancelledCallback = std::function<bool()>;
   using TIsCountryLoadedByNameFn = std::function<bool(std::string_view)>;
-  using TInsertShapeFn = std::function<void(drape_ptr<MapShape> && shape)>;
 
   RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountryLoadedByNameFn const & isLoadedFn,
              ref_ptr<EngineContext> engineContext, int8_t deviceLang);
@@ -51,9 +49,9 @@ public:
 #endif
 
 private:
-  void ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape);
-  void ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape);
-  void ProcessPointStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape);
+  void ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s);
+  void ProcessLineStyle(FeatureType & f, Stylist const & s);
+  void ProcessPointStyle(FeatureType & f, Stylist const & s);
 
   bool CheckCoastlines(FeatureType & f);
 
@@ -66,12 +64,7 @@ private:
 
   ref_ptr<EngineContext> m_context;
   CustomFeaturesContextPtr m_customFeaturesContext;
-  int8_t m_deviceLang;
   std::unordered_set<m2::Spline const *> m_usedMetalines;
-
-  m2::RectD m_globalRect;
-  double m_currentScaleGtoP;
-  double m_trafficScalePtoG;
 
   TrafficSegmentsGeometry m_trafficGeometry;
 
@@ -79,10 +72,13 @@ private:
 
   GeneratedRoadShields m_generatedRoadShields;
 
-  uint8_t m_zoomLevel = 0;
-  bool m_wasCancelled = false;
-
   RelationsDrawSettings m_relsSettings;
+
+  df::ApplyFeatureParams m_applyParams;
+
+  uint8_t m_zoomLevel;
+  int8_t m_deviceLang;
+  bool m_wasCancelled = false;
 
   ftypes::IsBuildingHasPartsChecker const & m_isBuildingHasParts = ftypes::IsBuildingHasPartsChecker::Instance();
   ftypes::IsBuildingPartChecker const & m_isBuildingPart = ftypes::IsBuildingPartChecker::Instance();

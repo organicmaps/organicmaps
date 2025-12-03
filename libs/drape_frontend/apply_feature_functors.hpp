@@ -3,7 +3,6 @@
 #include "drape_frontend/relations_draw_info.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/stylist.hpp"
-#include "drape_frontend/tile_key.hpp"
 
 #include "drape/drape_diagnostics.hpp"
 #include "drape/pointers.hpp"
@@ -15,7 +14,6 @@
 #include "geometry/point2d.hpp"
 #include "geometry/spline.hpp"
 
-#include <functional>
 #include <vector>
 
 class CaptionDefProto;
@@ -29,29 +27,26 @@ namespace df
 {
 
 struct TextViewParams;
-class MapShape;
 struct BuildingOutline;
 
-using TInsertShapeFn = std::function<void(drape_ptr<MapShape> && shape)>;
-
+struct ApplyFeatureParams;
 class BaseApplyFeature
 {
 public:
-  BaseApplyFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
-                   CaptionDescription const & captions);
-
-  virtual ~BaseApplyFeature() = default;
+  using Params = ApplyFeatureParams;
+  BaseApplyFeature(Params const & params, FeatureType & f, CaptionDescription const & captions)
+    : m_params(params)
+    , m_f(f)
+    , m_captions(captions)
+  {}
 
 protected:
   void FillCommonParams(CommonOverlayViewParams & p) const;
   double PriorityToDepth(int priority, drule::TypeT ruleType, double areaDepth) const;
 
-  TInsertShapeFn m_insertShape;
+  Params const & m_params;
   FeatureType & m_f;
   CaptionDescription const & m_captions;
-
-  TileKey const m_tileKey;
-  m2::RectD const m_tileRect;
 };
 
 class ApplyPointFeature : public BaseApplyFeature
@@ -59,8 +54,9 @@ class ApplyPointFeature : public BaseApplyFeature
   using TBase = BaseApplyFeature;
 
 public:
-  ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
-                    CaptionDescription const & captions);
+  ApplyPointFeature(Params const & params, FeatureType & f, CaptionDescription const & captions)
+    : TBase(params, f, captions)
+  {}
 
   void ProcessPointRules(SymbolRuleProto const * symbolRule, CaptionRuleProto const * captionRule,
                          CaptionRuleProto const * houseNumberRule, m2::PointD const & centerPoint,
@@ -80,9 +76,15 @@ class ApplyAreaFeature : public ApplyPointFeature
   using TBase = ApplyPointFeature;
 
 public:
-  ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
-                   double currentScaleGtoP, bool isBuilding, bool isMwmBorder, float minPosZ, float posZ,
-                   CaptionDescription const & captions);
+  ApplyAreaFeature(Params const & params, FeatureType & f, CaptionDescription const & captions, bool isBuilding,
+                   bool isMwmBorder, float minPosZ, float posZ)
+    : TBase(params, f, captions)
+    , m_minPosZ(minPosZ)
+    , m_isBuilding(isBuilding)
+    , m_isMwmBorder(isMwmBorder)
+  {
+    m_posZ = posZ;
+  }
 
   void operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
   bool HasGeometry() const { return !m_triangles.empty(); }
@@ -135,7 +137,6 @@ private:
   float const m_minPosZ;
   bool const m_isBuilding;
   bool const m_isMwmBorder;
-  double const m_currentScaleGtoP;
 };
 
 class ApplyLineFeatureGeometry : public BaseApplyFeature
@@ -143,16 +144,13 @@ class ApplyLineFeatureGeometry : public BaseApplyFeature
   using TBase = BaseApplyFeature;
 
 public:
-  ApplyLineFeatureGeometry(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
-                           double currentScaleGtoP, RelationsDrawSettings const & relsSettings);
+  ApplyLineFeatureGeometry(Params const & params, FeatureType & f, RelationsDrawSettings const & relsSettings);
 
   void operator()(m2::PointD const & point);
   bool HasGeometry() const { return m_spline->IsValid(); }
-  void ProcessLineRules(Stylist::LineRulesT const & lineRules);
+  void ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline);
 
   std::vector<m2::SharedSpline> MoveClippedSplines() const { return std::move(m_clippedSplines); }
-
-  static uint8_t constexpr kRelationRoutesScale = 12;
 
 private:
   void ProcessRule(LineRuleProto const & lineRule);
@@ -160,10 +158,7 @@ private:
   RelationsDrawInfo m_relsInfo;
   m2::SharedSpline m_spline;
   std::vector<m2::SharedSpline> m_clippedSplines;
-  double const m_currentScaleGtoP;
-  double const m_minSegmentSqrLength;
   m2::PointD m_lastAddedPoint;
-  bool const m_simplify;
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
   int m_readCount = 0;
@@ -176,9 +171,13 @@ class ApplyLineFeatureAdditional : public BaseApplyFeature
   using TBase = BaseApplyFeature;
 
 public:
-  ApplyLineFeatureAdditional(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
-                             double currentScaleGtoP, CaptionDescription const & captions,
-                             std::vector<m2::SharedSpline> && clippedSplines);
+  ApplyLineFeatureAdditional(Params const & params, FeatureType & f, CaptionDescription const & captions,
+                             std::vector<m2::SharedSpline> && clippedSplines)
+    : TBase(params, f, captions)
+    , m_clippedSplines(std::move(clippedSplines))
+  {
+    ASSERT(!m_clippedSplines.empty(), ());
+  }
 
   void ProcessAdditionalLineRules(PathTextRuleProto const * pathtextRule, ShieldRuleProto const * shieldRule,
                                   ref_ptr<dp::TextureManager> texMng, ftypes::RoadShieldsSetT const & roadShields,
@@ -193,7 +192,6 @@ private:
                           uint32_t minDistanceInPixels, std::vector<m2::RectD> & shields);
 
   std::vector<m2::SharedSpline> m_clippedSplines;
-  double const m_currentScaleGtoP;
   float m_captionDepth = 0.0f, m_shieldDepth = 0.0f;
   CaptionDefProto const * m_captionRule = nullptr;
   ShieldRuleProto const * m_shieldRule = nullptr;

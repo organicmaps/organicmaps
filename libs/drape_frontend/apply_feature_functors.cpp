@@ -1,4 +1,5 @@
 #include "drape_frontend/apply_feature_functors.hpp"
+#include "drape_frontend/apply_feature_params.hpp"
 
 #include "drape_frontend/area_shape.hpp"
 #include "drape_frontend/color_constants.hpp"
@@ -9,12 +10,8 @@
 #include "drape_frontend/poi_symbol_shape.hpp"
 #include "drape_frontend/text_layout.hpp"
 #include "drape_frontend/text_shape.hpp"
-#include "drape_frontend/visual_params.hpp"
-
-#include "editor/osm_editor.hpp"
 
 #include "indexer/drules_include.hpp"
-#include "indexer/feature_source.hpp"
 #include "indexer/road_shields_parser.hpp"
 
 #include "geometry/clipping.hpp"
@@ -26,7 +23,6 @@
 #include "drape/texture_manager.hpp"
 
 #include "base/logging.hpp"
-#include "base/small_map.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -39,9 +35,11 @@ dp::Color ToDrapeColor(uint32_t src)
   return dp::Color(src, static_cast<uint8_t>(255 - (src >> 24)));
 }
 
+using ftypes::RoadShieldType;
+
 namespace
 {
-double const kMinVisibleFontSize = 8.0;
+double constexpr kMinVisibleFontSize = 8.0;
 
 df::ColorConstant const kPoiDeletedMaskColor = "PoiDeletedMask";
 df::ColorConstant const kRoadShieldBlackTextColor = "RoadShieldBlackText";
@@ -52,8 +50,8 @@ df::ColorConstant const kRoadShieldBlueBackgroundColor = "RoadShieldBlueBackgrou
 df::ColorConstant const kRoadShieldRedBackgroundColor = "RoadShieldRedBackground";
 df::ColorConstant const kRoadShieldOrangeBackgroundColor = "RoadShieldOrangeBackground";
 
-uint32_t const kPathTextBaseTextIndex = 128;
-uint32_t const kShieldBaseTextIndex = 0;
+uint32_t constexpr kPathTextBaseTextIndex = 128;
+uint32_t constexpr kShieldBaseTextIndex = 0;
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
 class LinesStat
@@ -111,11 +109,10 @@ private:
 };
 #endif
 
-void ExtractLineParams(LineRuleProto const & lineRule, LineViewParams & params)
+void ExtractLineParams(LineRuleProto const & lineRule, double visScale, LineViewParams & params)
 {
-  double const scale = df::VisualParams::Instance().GetVisualScale();
   params.m_color = ToDrapeColor(lineRule.color());
-  params.m_width = static_cast<float>(std::max(lineRule.width() * scale, 1.0));
+  params.m_width = static_cast<float>(std::max(lineRule.width() * visScale, 1.0));
 
   if (lineRule.has_dashdot())
   {
@@ -124,7 +121,7 @@ void ExtractLineParams(LineRuleProto const & lineRule, LineViewParams & params)
     int const count = dd.dd_size();
     params.m_pattern.reserve(count);
     for (int i = 0; i < count; ++i)
-      params.m_pattern.push_back(dp::PatternFloat2Pixel(dd.dd(i) * scale));
+      params.m_pattern.push_back(dp::PatternFloat2Pixel(dd.dd(i) * visScale));
   }
 
   switch (lineRule.cap())
@@ -144,21 +141,19 @@ void ExtractLineParams(LineRuleProto const & lineRule, LineViewParams & params)
   }
 }
 
-void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, dp::FontDecl & params)
+void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, double visScale, dp::FontDecl & params)
 {
-  double const vs = df::VisualParams::Instance().GetVisualScale();
   params.m_color = ToDrapeColor(capRule->color());
-  params.m_size = static_cast<float>(std::max(kMinVisibleFontSize, capRule->height() * vs));
+  params.m_size = static_cast<float>(std::max(kMinVisibleFontSize, capRule->height() * visScale));
 
   if (capRule->stroke_color() != 0)
     params.m_outlineColor = ToDrapeColor(capRule->stroke_color());
 }
 
-void ShieldRuleProtoToFontDecl(ShieldRuleProto const * shieldRule, dp::FontDecl & params)
+void ShieldRuleProtoToFontDecl(ShieldRuleProto const * shieldRule, double visScale, dp::FontDecl & params)
 {
-  double const vs = df::VisualParams::Instance().GetVisualScale();
   params.m_color = ToDrapeColor(shieldRule->text_color());
-  params.m_size = static_cast<float>(std::max(kMinVisibleFontSize, shieldRule->height() * vs));
+  params.m_size = static_cast<float>(std::max(kMinVisibleFontSize, shieldRule->height() * visScale));
   if (shieldRule->text_stroke_color() != 0)
     params.m_outlineColor = ToDrapeColor(shieldRule->text_stroke_color());
 }
@@ -182,10 +177,9 @@ dp::Anchor GetAnchor(int offsetX, int offsetY)
   return dp::Center;
 }
 
-m2::PointF GetOffset(int offsetX, int offsetY)
+m2::PointF GetOffset(int offsetX, int offsetY, double visScale)
 {
-  double const vs = VisualParams::Instance().GetVisualScale();
-  return {static_cast<float>(offsetX * vs), static_cast<float>(offsetY * vs)};
+  return {static_cast<float>(offsetX * visScale), static_cast<float>(offsetY * visScale)};
 }
 
 bool IsSymbolRoadShield(ftypes::RoadShield const & shield)
@@ -212,57 +206,57 @@ std::string GetRoadShieldSymbolName(ftypes::RoadShield const & shield, double fo
 
 bool IsColoredRoadShield(ftypes::RoadShield const & shield)
 {
-  return shield.m_type == ftypes::RoadShieldType::Default || shield.m_type == ftypes::RoadShieldType::UK_Highway ||
-         shield.m_type == ftypes::RoadShieldType::Generic_White ||
-         shield.m_type == ftypes::RoadShieldType::Generic_Blue ||
-         shield.m_type == ftypes::RoadShieldType::Generic_Green ||
-         shield.m_type == ftypes::RoadShieldType::Generic_Red ||
-         shield.m_type == ftypes::RoadShieldType::Generic_Orange;
+  switch (shield.m_type)
+  {
+  case RoadShieldType::Default:
+  case RoadShieldType::UK_Highway:
+  case RoadShieldType::Generic_White:
+  case RoadShieldType::Generic_Blue:
+  case RoadShieldType::Generic_Green:
+  case RoadShieldType::Generic_Red:
+  case RoadShieldType::Generic_Orange: return true;
+  default: return false;
+  }
 }
 
 void UpdateRoadShieldTextFont(dp::FontDecl & font, ftypes::RoadShield const & shield)
 {
-  font.m_outlineColor = dp::Color::Transparent();
-
-  using ftypes::RoadShieldType;
-
-  static base::SmallMapBase<RoadShieldType, df::ColorConstant> kColors = {
-      {RoadShieldType::Generic_Green, kRoadShieldWhiteTextColor},
-      {RoadShieldType::Generic_Blue, kRoadShieldWhiteTextColor},
-      {RoadShieldType::UK_Highway, kRoadShieldUKYellowTextColor},
-      {RoadShieldType::US_Interstate, kRoadShieldWhiteTextColor},
-      {RoadShieldType::US_Highway, kRoadShieldBlackTextColor},
-      {RoadShieldType::Generic_Red, kRoadShieldWhiteTextColor},
-      {RoadShieldType::Generic_Orange, kRoadShieldBlackTextColor}};
-
-  if (auto const * cl = kColors.Find(shield.m_type); cl)
-    font.m_color = df::GetColorConstant(*cl);
+  switch (shield.m_type)
+  {
+  case RoadShieldType::Generic_Green:
+  case RoadShieldType::Generic_Blue:
+  case RoadShieldType::US_Interstate:
+  case RoadShieldType::Generic_Red: font.m_color = df::GetColorConstant(kRoadShieldWhiteTextColor); break;
+  case RoadShieldType::UK_Highway: font.m_color = df::GetColorConstant(kRoadShieldUKYellowTextColor); break;
+  case RoadShieldType::US_Highway:
+  case RoadShieldType::Generic_Orange: font.m_color = df::GetColorConstant(kRoadShieldBlackTextColor); break;
+  default: font.m_outlineColor = dp::Color::Transparent(); break;
+  }
 }
 
 dp::Color GetRoadShieldColor(dp::Color const & baseColor, ftypes::RoadShield const & shield)
 {
-  using ftypes::RoadShieldType;
-
-  static base::SmallMapBase<ftypes::RoadShieldType, df::ColorConstant> kColors = {
-      {RoadShieldType::Generic_Green, kRoadShieldGreenBackgroundColor},
-      {RoadShieldType::Generic_Blue, kRoadShieldBlueBackgroundColor},
-      {RoadShieldType::UK_Highway, kRoadShieldGreenBackgroundColor},
-      {RoadShieldType::Generic_Red, kRoadShieldRedBackgroundColor},
-      {RoadShieldType::Generic_Orange, kRoadShieldOrangeBackgroundColor}};
-
-  if (auto const * cl = kColors.Find(shield.m_type); cl)
-    return df::GetColorConstant(*cl);
-
-  return baseColor;
+  switch (shield.m_type)
+  {
+  case RoadShieldType::Generic_Green:
+  case RoadShieldType::UK_Highway: return GetColorConstant(kRoadShieldGreenBackgroundColor);
+  case RoadShieldType::Generic_Blue: return GetColorConstant(kRoadShieldBlueBackgroundColor);
+  case RoadShieldType::Generic_Red: return GetColorConstant(kRoadShieldRedBackgroundColor);
+  case RoadShieldType::Generic_Orange: return GetColorConstant(kRoadShieldOrangeBackgroundColor);
+  default: return baseColor;
+  }
 }
 
 float GetRoadShieldOutlineWidth(float baseWidth, ftypes::RoadShield const & shield)
 {
-  if (shield.m_type == ftypes::RoadShieldType::UK_Highway || shield.m_type == ftypes::RoadShieldType::Generic_Blue ||
-      shield.m_type == ftypes::RoadShieldType::Generic_Green || shield.m_type == ftypes::RoadShieldType::Generic_Red)
-    return 0.0f;
-
-  return baseWidth;
+  switch (shield.m_type)
+  {
+  case RoadShieldType::UK_Highway:
+  case RoadShieldType::Generic_Blue:
+  case RoadShieldType::Generic_Green:
+  case RoadShieldType::Generic_Red: return 0;
+  default: return baseWidth;
+  }
 }
 
 dp::Anchor GetShieldAnchor(uint8_t shieldIndex, uint8_t shieldCount)
@@ -294,7 +288,7 @@ dp::Anchor GetShieldAnchor(uint8_t shieldIndex, uint8_t shieldCount)
 
 m2::PointF GetShieldOffset(dp::Anchor anchor, double paddingWidth, double paddingHeight)
 {
-  m2::PointF offset(0.0f, 0.0f);
+  m2::PointF offset(0, 0);
   if (anchor & dp::Left)
     offset.x = static_cast<float>(paddingWidth);
   else if (anchor & dp::Right)
@@ -326,21 +320,10 @@ void CalculateRoadShieldPositions(std::vector<double> const & offsets, m2::Share
 }
 }  // namespace
 
-BaseApplyFeature::BaseApplyFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
-                                   CaptionDescription const & captions)
-  : m_insertShape(insertShape)
-  , m_f(f)
-  , m_captions(captions)
-  , m_tileKey(tileKey)
-  , m_tileRect(tileKey.GetGlobalRect())
-{
-  ASSERT(m_insertShape != nullptr, ());
-}
-
 void BaseApplyFeature::FillCommonParams(CommonOverlayViewParams & p) const
 {
   p.m_rank = m_f.GetRank();
-  p.m_tileCenter = m_tileRect.Center();
+  p.m_tileCenter = m_params.m_tileRect.Center();
   p.m_featureId = m_f.GetID();
 }
 
@@ -352,21 +335,22 @@ void ApplyPointFeature::ExtractCaptionParams(CaptionDefProto const * primaryProt
   params.m_depthTestEnabled = false;
   params.m_posZ = m_posZ;
 
+  double const visScale = m_params.m_vparams.GetVisualScale();
   auto & titleDecl = params.m_titleDecl;
 
   dp::FontDecl decl;
-  CaptionDefProtoToFontDecl(primaryProto, decl);
+  CaptionDefProtoToFontDecl(primaryProto, visScale, decl);
   titleDecl.m_primaryTextFont = decl;
   titleDecl.m_anchor = GetAnchor(primaryProto->offset_x(), primaryProto->offset_y());
   // TODO(pastk) : remove offsets processing as de-facto "text-offset: *" is used to define anchors only.
-  titleDecl.m_primaryOffset = GetOffset(primaryProto->offset_x(), primaryProto->offset_y());
+  titleDecl.m_primaryOffset = GetOffset(primaryProto->offset_x(), primaryProto->offset_y(), visScale);
   titleDecl.m_primaryOptional = primaryProto->is_optional();
 
   if (!titleDecl.m_secondaryText.empty())
   {
     ASSERT(secondaryProto != nullptr, ());
     dp::FontDecl auxDecl;
-    CaptionDefProtoToFontDecl(secondaryProto, auxDecl);
+    CaptionDefProtoToFontDecl(secondaryProto, visScale, auxDecl);
     titleDecl.m_secondaryTextFont = auxDecl;
     // Secondary captions are optional always.
     titleDecl.m_secondaryOptional = true;
@@ -414,22 +398,12 @@ double BaseApplyFeature::PriorityToDepth(int priority, drule::TypeT ruleType, do
   return depth;
 }
 
-ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
-                                     CaptionDescription const & captions)
-  : TBase(tileKey, insertShape, f, captions)
-{}
-
 void ApplyPointFeature::ProcessPointRules(SymbolRuleProto const * symbolRule, CaptionRuleProto const * captionRule,
                                           CaptionRuleProto const * houseNumberRule, m2::PointD const & centerPoint,
                                           ref_ptr<dp::TextureManager> texMng)
 {
-  // TODO: This is only one place of cross-dependency with Editor.
-  auto const & editor = osm::Editor::Instance();
-  auto const featureStatus = editor.GetFeatureStatus(m_f.GetID());
-  bool const createdByEditor = featureStatus == FeatureStatus::Created;
-  bool const obsoleteInEditor = featureStatus == FeatureStatus::Obsolete;
-
-  m2::PointF symbolSize(0.0f, 0.0f);
+  auto const [createdByEditor, obsoleteInEditor] = m_params.GetEditStatus(m_f.GetID());
+  m2::PointF symbolSize(0, 0);
 
   if (symbolRule)
   {
@@ -442,8 +416,8 @@ void ApplyPointFeature::ProcessPointRules(SymbolRuleProto const * symbolRule, Ca
     ASSERT_GREATER_OR_EQUAL(symbolRule->min_distance(), 0, ());
 
     // Where 0.1 comes from: https://github.com/organicmaps/organicmaps/pull/649
-    auto const & vp = df::VisualParams::Instance();
-    params.m_extendingSize = static_cast<uint32_t>(vp.GetVisualScale() * symbolRule->min_distance() * 0.1);
+    params.m_extendingSize =
+        static_cast<uint32_t>(m_params.m_vparams.GetVisualScale() * symbolRule->min_distance() * 0.1);
 
     params.m_posZ = m_posZ;
     params.m_hasArea = HasArea();
@@ -456,7 +430,7 @@ void ApplyPointFeature::ProcessPointRules(SymbolRuleProto const * symbolRule, Ca
     symbolSize = region.GetPixelSize();
 
     if (region.IsValid())
-      m_insertShape(make_unique_dp<PoiSymbolShape>(centerPoint, params, m_tileKey, 0 /* textIndex */));
+      m_params.m_insertShape(make_unique_dp<PoiSymbolShape>(centerPoint, params, m_params.m_tileKey, 0));
     else
       LOG(LERROR, ("Style error. Symbol name must be valid for feature", m_f.GetID()));
   }
@@ -483,10 +457,8 @@ void ApplyPointFeature::ProcessPointRules(SymbolRuleProto const * symbolRule, Ca
       params.m_titleDecl.m_anchor = GetAnchor(0, 1);
 
     params.m_startOverlayRank = symbolRule ? dp::OverlayRank1 : dp::OverlayRank0;
-    auto shape =
-        make_unique_dp<TextShape>(centerPoint, params, m_tileKey, symbolSize, m2::PointF(0.0f, 0.0f) /* symbolOffset */,
-                                  dp::Center /* symbolAnchor */, 0 /* textIndex */);
-    m_insertShape(std::move(shape));
+    m_params.m_insertShape(make_unique_dp<TextShape>(centerPoint, params, m_params.m_tileKey, symbolSize,
+                                                     m2::PointF(0, 0), dp::Center, 0));
   }
 
   if (houseNumberRule)
@@ -512,22 +484,9 @@ void ApplyPointFeature::ProcessPointRules(SymbolRuleProto const * symbolRule, Ca
         params.m_startOverlayRank = dp::OverlayRank1;
       }
     }
-    m_insertShape(make_unique_dp<TextShape>(centerPoint, params, m_tileKey, symbolSize,
-                                            m2::PointF(0.0f, 0.0f) /* symbolOffset */, dp::Center /* symbolAnchor */,
-                                            0 /* textIndex */));
+    m_params.m_insertShape(make_unique_dp<TextShape>(centerPoint, params, m_params.m_tileKey, symbolSize,
+                                                     m2::PointF(0, 0), dp::Center, 0));
   }
-}
-
-ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
-                                   double currentScaleGtoP, bool isBuilding, bool isMwmBorder, float minPosZ,
-                                   float posZ, CaptionDescription const & captions)
-  : TBase(tileKey, insertShape, f, captions)
-  , m_minPosZ(minPosZ)
-  , m_isBuilding(isBuilding)
-  , m_isMwmBorder(isMwmBorder)
-  , m_currentScaleGtoP(currentScaleGtoP)
-{
-  m_posZ = posZ;
 }
 
 void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
@@ -565,9 +524,9 @@ void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, 
   };
 
   if (crossProduct < 0)
-    m2::ClipTriangleByRect(m_tileRect, p1, p2, p3, clipFunctor);
+    m2::ClipTriangleByRect(m_params.m_tileRect, p1, p2, p3, clipFunctor);
   else
-    m2::ClipTriangleByRect(m_tileRect, p1, p3, p2, clipFunctor);
+    m2::ClipTriangleByRect(m_params.m_tileRect, p1, p3, p2, clipFunctor);
 }
 
 void ApplyAreaFeature::ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
@@ -726,14 +685,14 @@ void ApplyAreaFeature::ProcessRule(AreaRuleProto const & areaRule, double areaDe
 
   AreaViewParams params;
   params.m_depthLayer = m_isMwmBorder ? DepthLayer::MwmBorderLayer : DepthLayer::GeometryLayer;
-  params.m_tileCenter = m_tileRect.Center();
+  params.m_tileCenter = m_params.m_tileRect.Center();
   params.m_depth = PriorityToDepth(areaRule.priority(), drule::area, areaDepth);
   params.m_color = ToDrapeColor(areaRule.color());
   params.m_rank = m_f.GetRank();
   params.m_minPosZ = m_minPosZ;
   params.m_posZ = m_posZ;
   params.m_hatching = hatchKey;
-  params.m_baseGtoPScale = m_currentScaleGtoP;
+  params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
 
   BuildingOutline outline;
   if (m_isBuilding && !isHatching)
@@ -752,23 +711,18 @@ void ApplyAreaFeature::ProcessRule(AreaRuleProto const & areaRule, double areaDe
   }
 
   // see ProcessAreaRules: isHatching first, - !isHatching last.
-  m_insertShape(
+  m_params.m_insertShape(
       make_unique_dp<AreaShape>(!isHatching ? std::move(m_triangles) : m_triangles, std::move(outline), params));
 }
 
-ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                                                   FeatureType & f, double currentScaleGtoP,
+ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(Params const & params, FeatureType & f,
                                                    RelationsDrawSettings const & relsSettings)
-  : TBase(tileKey, insertShape, f, CaptionDescription())
+  : TBase(params, f, {})
   , m_relsInfo(relsSettings)
-  , m_currentScaleGtoP(currentScaleGtoP)
-  // TODO(pastk) : calculate just once in the RuleDrawer.
-  , m_minSegmentSqrLength(math::Pow2(4.0 * df::VisualParams::Instance().GetVisualScale() / currentScaleGtoP))
-  , m_simplify(tileKey.m_zoomLevel >= 10 && tileKey.m_zoomLevel <= 12)
 {
   m_spline.Reset(new m2::Spline(f.GetPointsCount()));
 
-  if (tileKey.m_zoomLevel >= kRelationRoutesScale)
+  if (m_params.IsRelationRoutes())
     m_relsInfo.Init(f);
 }
 
@@ -783,8 +737,9 @@ void ApplyLineFeatureGeometry::operator()(m2::PointD const & point)
     m_spline->AddPoint(point);
     m_lastAddedPoint = point;
   }
-  else if (m_simplify && ((m_spline->GetSize() > 1 && point.SquaredLength(m_lastAddedPoint) < m_minSegmentSqrLength) ||
-                          m_spline->IsProlonging(point)))
+  else if (m_params.IsSimplifyLines() &&
+           ((m_spline->GetSize() > 1 && point.SquaredLength(m_lastAddedPoint) < m_params.m_minSegmentSqrLength) ||
+            m_spline->IsProlonging(point)))
   {
     m_spline->ReplacePoint(point);
   }
@@ -795,16 +750,16 @@ void ApplyLineFeatureGeometry::operator()(m2::PointD const & point)
   }
 }
 
-void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & lineRules)
+void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline)
 {
   ASSERT(!lineRules.empty(), ());
   ASSERT(HasGeometry(), ());
 
-  if (!ftypes::IsIsolineChecker::Instance()(m_f))
+  if (!isIsoline)
   {
     // A line crossing the tile several times will be split in several parts.
     // TODO(pastk) : use feature's pre-calculated limitRect when possible.
-    m_clippedSplines = m2::ClipSplineByRect(m_tileRect, m_spline);
+    m_clippedSplines = m2::ClipSplineByRect(m_params.m_tileRect, m_spline);
   }
   else
   {
@@ -812,8 +767,8 @@ void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & line
     ASSERT_EQUAL(lineRules.size(), 1, ());
     m2::GuidePointsForSmooth guidePointsForSmooth;
     std::vector<std::vector<m2::PointD>> clippedPaths;
-    auto extTileRect = m_tileRect;
-    extTileRect.Inflate(m_tileRect.SizeX() * 0.3, m_tileRect.SizeY() * 0.3);
+    auto extTileRect = m_params.m_tileRect;
+    extTileRect.Scale(1.6);  // same as Inflate(0.3*szX, 0.3*szY)
     m2::ClipPathByRectBeforeSmooth(extTileRect, m_spline->GetPath(), guidePointsForSmooth, clippedPaths);
 
     if (clippedPaths.empty())
@@ -824,7 +779,7 @@ void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & line
     ASSERT(m_clippedSplines.empty(), ());
     std::function<void(m2::SharedSpline &&)> inserter = base::MakeBackInsertFunctor(m_clippedSplines);
     for (auto & path : clippedPaths)
-      m2::ClipPathByRect(m_tileRect, std::move(path), inserter);
+      m2::ClipPathByRect(m_params.m_tileRect, std::move(path), inserter);
   }
 
   if (m_clippedSplines.empty())
@@ -840,36 +795,36 @@ void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & line
 
 void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
 {
-  double const visScale = df::VisualParams::Instance().GetVisualScale();
+  double const visScale = m_params.m_vparams.GetVisualScale();
   double const depth = PriorityToDepth(lineRule.priority(), drule::line, 0);
 
   if (lineRule.has_pathsym())
   {
     PathSymProto const & symRule = lineRule.pathsym();
     PathSymbolViewParams params;
-    params.m_tileCenter = m_tileRect.Center();
+    params.m_tileCenter = m_params.m_tileRect.Center();
     params.m_depth = depth;
     params.m_rank = m_f.GetRank();
     params.m_symbolName = symRule.name();
     params.m_offset = static_cast<float>(symRule.offset() * visScale);
     params.m_step = static_cast<float>(symRule.step() * visScale);
-    params.m_baseGtoPScale = m_currentScaleGtoP;
+    params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
 
     for (auto const & spline : m_clippedSplines)
-      m_insertShape(make_unique_dp<PathSymbolShape>(spline, params));
+      m_params.m_insertShape(make_unique_dp<PathSymbolShape>(spline, params));
   }
   else
   {
     LineViewParams params;
-    params.m_tileCenter = m_tileRect.Center();
-    ExtractLineParams(lineRule, params);
+    params.m_tileCenter = m_params.m_tileRect.Center();
+    ExtractLineParams(lineRule, visScale, params);
     params.m_depth = depth;
     params.m_rank = m_f.GetRank();
-    params.m_baseGtoPScale = m_currentScaleGtoP;
-    params.m_zoomLevel = m_tileKey.m_zoomLevel;
+    params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
+    params.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
 
     for (auto const & spline : m_clippedSplines)
-      m_insertShape(make_unique_dp<LineShape>(spline, params));
+      m_params.m_insertShape(make_unique_dp<LineShape>(spline, params));
 
     // Place multiple color lines with offset.
     params.m_width = 3 * visScale;  // std::max(4.0f, params.m_width / 2);
@@ -880,20 +835,10 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
       params.m_color = color;
 
       for (auto const & spline : m_clippedSplines)
-        m_insertShape(make_unique_dp<LineShape>(spline.Equidistant(pxOffset / m_currentScaleGtoP), params));
+        m_params.m_insertShape(
+            make_unique_dp<LineShape>(spline.Equidistant(pxOffset / m_params.m_currentScaleGtoP), params));
     });
   }
-}
-
-ApplyLineFeatureAdditional::ApplyLineFeatureAdditional(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                                                       FeatureType & f, double currentScaleGtoP,
-                                                       CaptionDescription const & captions,
-                                                       std::vector<m2::SharedSpline> && clippedSplines)
-  : TBase(tileKey, insertShape, f, captions)
-  , m_clippedSplines(std::move(clippedSplines))
-  , m_currentScaleGtoP(currentScaleGtoP)
-{
-  ASSERT(!m_clippedSplines.empty(), ());
 }
 
 void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureManager> texMng,
@@ -905,8 +850,8 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   ASSERT(m_shieldRule, ());
 
   std::string const & roadNumber = shield.m_name;
-  double const mainScale = df::VisualParams::Instance().GetVisualScale();
-  double const fontScale = df::VisualParams::Instance().GetFontScale();
+  double const mainScale = m_params.m_vparams.GetVisualScale();
+  double const fontScale = m_params.m_vparams.GetFontScale();
   auto const anchor = GetShieldAnchor(shieldIndex, shieldCount);
   m2::PointF const shieldOffset = GetShieldOffset(anchor, 2.0, 2.0);
   double const paddingWidth = 5.0 * mainScale;
@@ -914,7 +859,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   m2::PointF const shieldTextOffset = GetShieldOffset(anchor, paddingWidth, paddingHeight);
 
   dp::FontDecl font;
-  ShieldRuleProtoToFontDecl(m_shieldRule, font);
+  ShieldRuleProtoToFontDecl(m_shieldRule, mainScale, font);
   UpdateRoadShieldTextFont(font, shield);
 
   FillCommonParams(textParams);
@@ -1000,7 +945,7 @@ bool ApplyLineFeatureAdditional::CheckShieldsNearby(m2::PointD const & shieldPos
   // Here we calculate extended rect to skip the same shields nearby.
   m2::PointD const skippingArea(2 * minDistanceInPixels, 2 * minDistanceInPixels);
   m2::PointD const extendedPixelSize = shieldPixelSize + skippingArea;
-  m2::PointD const shieldMercatorHalfSize = extendedPixelSize / m_currentScaleGtoP * 0.5;
+  m2::PointD const shieldMercatorHalfSize = extendedPixelSize / m_params.m_currentScaleGtoP * 0.5;
   m2::RectD shieldRect(shieldPos - shieldMercatorHalfSize, shieldPos + shieldMercatorHalfSize);
   for (auto const & r : shields)
     if (r.IsIntersect(shieldRect))
@@ -1016,8 +961,7 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(PathTextRuleProto co
                                                             GeneratedRoadShields & generatedRoadShields)
 {
   ASSERT(pathtextRule || shieldRule, ());
-
-  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+  double const visScale = m_params.m_vparams.GetVisualScale();
 
   std::vector<m2::PointD> shieldPositions;
   ASSERT((shieldRule && !roadShields.empty()) || !(shieldRule && !roadShields.empty()),
@@ -1037,7 +981,7 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(PathTextRuleProto co
     m_captionDepth = PriorityToDepth(pathtextRule->priority(), drule::pathtext, 0);
 
     dp::FontDecl fontDecl;
-    CaptionDefProtoToFontDecl(m_captionRule, fontDecl);
+    CaptionDefProtoToFontDecl(m_captionRule, visScale, fontDecl);
     PathTextViewParams params;
     FillCommonParams(params);
     params.m_depthLayer = DepthLayer::OverlayLayer;
@@ -1046,13 +990,13 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(PathTextRuleProto co
     params.m_mainText = m_captions.GetMainText();
     params.m_auxText = m_captions.GetAuxText();
     params.m_textFont = fontDecl;
-    params.m_baseGtoPScale = m_currentScaleGtoP;
+    params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
 
     uint32_t textIndex = kPathTextBaseTextIndex;
     for (auto const & spline : m_clippedSplines)
     {
       PathTextViewParams p = params;
-      auto shape = make_unique_dp<PathTextShape>(spline, p, m_tileKey, textIndex);
+      auto shape = make_unique_dp<PathTextShape>(spline, p, m_params.m_tileKey, textIndex);
 
       if (!shape->CalculateLayout(texMng))
         continue;
@@ -1062,8 +1006,8 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(PathTextRuleProto co
       if (m_shieldRule)
         CalculateRoadShieldPositions(shape->GetOffsets(), spline, shieldPositions);
 
-      m_insertShape(std::move(shape));
-      textIndex++;
+      m_params.m_insertShape(std::move(shape));
+      ++textIndex;
 
       /// @todo It is not correct to draw overlay text for GetMetaline(f),
       /// because metalines were merged by street names, which is not always equal to overlay text (PT).
@@ -1072,16 +1016,16 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(PathTextRuleProto co
       {
         PathTextViewParams p = params;
         p.m_depth += 10;
-        p.m_mainText = m_relsInfo.m_text;
+        p.m_mainText = m_params.m_relsInfo.m_text;
         p.m_auxText.clear();
-        p.m_textFont.m_color = m_relsInfo.GetTextColor();
+        p.m_textFont.m_color = m_params.m_relsInfo.GetTextColor();
 
-        double const offset = p.m_textFont.m_size / m_currentScaleGtoP;
-        auto shape = make_unique_dp<PathTextShape>(spline.Equidistant(offset), p, m_tileKey, textIndex);
+        double const offset = p.m_textFont.m_size / m_params.m_currentScaleGtoP;
+        auto shape = make_unique_dp<PathTextShape>(spline.Equidistant(offset), p, m_params.m_tileKey, textIndex);
         if (shape->CalculateLayout(texMng))
         {
-          m_insertShape(std::move(shape));
-          textIndex++;
+          m_params.m_insertShape(std::move(shape));
+          ++textIndex;
         }
       }
       */
@@ -1092,9 +1036,9 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(PathTextRuleProto co
     // Position shields without captions.
     for (auto const & spline : m_clippedSplines)
     {
-      double const pixelLength = 300.0 * vs;
+      double const pixelLength = 300.0 * visScale;
       std::vector<double> offsets;
-      PathTextLayout::CalculatePositions(spline->GetLength(), m_currentScaleGtoP, pixelLength, offsets);
+      PathTextLayout::CalculatePositions(spline->GetLength(), m_params.m_currentScaleGtoP, pixelLength, offsets);
       if (!offsets.empty())
         CalculateRoadShieldPositions(offsets, spline, shieldPositions);
     }
@@ -1102,6 +1046,7 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(PathTextRuleProto co
 
   if (shieldPositions.empty())
     return;
+  ASSERT(m_shieldRule, ());  // goes together with shieldPositions
 
   // Set default shield's icon min distance.
   int minDistance = m_shieldRule->min_distance();
@@ -1109,7 +1054,7 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(PathTextRuleProto co
   if (minDistance <= 0)
     minDistance = 50;
 
-  uint32_t const scaledMinDistance = static_cast<uint32_t>(vs * minDistance);
+  uint32_t const scaledMinDistance = static_cast<uint32_t>(visScale * minDistance);
 
   uint8_t shieldIndex = 0;
   uint32_t textIndex = kShieldBaseTextIndex;
@@ -1129,16 +1074,16 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(PathTextRuleProto co
       if (!CheckShieldsNearby(shieldPos, shieldPixelSize, scaledMinDistance, generatedShieldRects))
         continue;
 
-      m_insertShape(make_unique_dp<TextShape>(shieldPos, textParams, m_tileKey, m2::PointF(0.0f, 0.0f) /* symbolSize */,
-                                              m2::PointF(0.0f, 0.0f) /* symbolOffset */, dp::Center /* symbolAnchor */,
-                                              textIndex));
+      m_params.m_insertShape(make_unique_dp<TextShape>(shieldPos, textParams, m_params.m_tileKey, m2::PointF(0, 0),
+                                                       m2::PointF(0, 0), dp::Center, textIndex));
       if (IsColoredRoadShield(shield))
-        m_insertShape(make_unique_dp<ColoredSymbolShape>(shieldPos, symbolParams, m_tileKey, textIndex));
+        m_params.m_insertShape(
+            make_unique_dp<ColoredSymbolShape>(shieldPos, symbolParams, m_params.m_tileKey, textIndex));
       else if (IsSymbolRoadShield(shield))
-        m_insertShape(make_unique_dp<PoiSymbolShape>(shieldPos, poiParams, m_tileKey, textIndex));
-      textIndex++;
+        m_params.m_insertShape(make_unique_dp<PoiSymbolShape>(shieldPos, poiParams, m_params.m_tileKey, textIndex));
+      ++textIndex;
     }
-    shieldIndex++;
+    ++shieldIndex;
   }
 }
 }  // namespace df
