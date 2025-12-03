@@ -29,8 +29,8 @@ namespace strings
 class LevenshteinDFA
 {
 public:
-  static size_t const kStartingState;
-  static size_t const kRejectingState;
+  static size_t constexpr kStartingState = 0;
+  static size_t constexpr kRejectingState = 1;
 
   struct Position
   {

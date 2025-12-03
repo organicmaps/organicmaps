@@ -20,7 +20,6 @@ class TransitionTable
 public:
   TransitionTable(UniString const & s, std::vector<UniString> const & prefixMisprints, size_t prefixSize)
     : m_s(s)
-    , m_size(s.size())
     , m_prefixMisprints(prefixMisprints)
     , m_prefixSize(prefixSize)
   {}
@@ -37,17 +36,18 @@ private:
   void GetMoves(LevenshteinDFA::Position const & p, UniChar c, LevenshteinDFA::State & t)
   {
     auto & ps = t.m_positions;
+    size_t const size = m_s.size();
 
     if (p.IsTransposed())
     {
-      if (p.m_offset + 2 <= m_size && m_s[p.m_offset] == c)
+      if (p.m_offset + 2 <= size && m_s[p.m_offset] == c)
         ps.emplace_back(p.m_offset + 2, p.m_errorsLeft, false /* transposed */);
       return;
     }
 
     ASSERT(p.IsStandard(), ());
 
-    if (p.m_offset < m_size && m_s[p.m_offset] == c)
+    if (p.m_offset < size && m_s[p.m_offset] == c)
     {
       ps.emplace_back(p.m_offset + 1, p.m_errorsLeft, false /* transposed */);
       return;
@@ -66,7 +66,7 @@ private:
       return;
     }
 
-    if (p.m_offset == m_size)
+    if (p.m_offset == size)
       return;
 
     ps.emplace_back(p.m_offset + 1, p.m_errorsLeft - 1, false /* transposed */);
@@ -75,7 +75,7 @@ private:
     if (FindRelevant(p, c, i))
     {
       ASSERT_GREATER(i, 0, (i));
-      ASSERT_LESS_OR_EQUAL(p.m_offset + i + 1, m_size, ());
+      ASSERT_LESS_OR_EQUAL(p.m_offset + i + 1, size, ());
       ps.emplace_back(p.m_offset + i + 1, p.m_errorsLeft - i, false /* transposed */);
 
       if (i == 1)
@@ -85,7 +85,7 @@ private:
 
   bool FindRelevant(LevenshteinDFA::Position const & p, UniChar c, size_t & i) const
   {
-    size_t const limit = std::min(m_size - p.m_offset, p.m_errorsLeft + 1);
+    size_t const limit = std::min(m_s.size() - p.m_offset, p.m_errorsLeft + 1);
 
     for (i = 0; i < limit; ++i)
       if (m_s[p.m_offset + i] == c)
@@ -104,16 +104,10 @@ private:
   }
 
   UniString const & m_s;
-  size_t const m_size;
-  std::vector<UniString> const m_prefixMisprints;
+  std::vector<UniString> const & m_prefixMisprints;
   size_t const m_prefixSize;
 };
 }  // namespace
-
-// LevenshteinDFA ----------------------------------------------------------------------------------
-// static
-size_t const LevenshteinDFA::kStartingState = 0;
-size_t const LevenshteinDFA::kRejectingState = 1;
 
 // LevenshteinDFA::Position ------------------------------------------------------------------------
 LevenshteinDFA::Position::Position(size_t offset, size_t errorsLeft, bool transposed)
@@ -186,7 +180,6 @@ void LevenshteinDFA::State::Normalize()
 }
 
 // LevenshteinDFA ----------------------------------------------------------------------------------
-// static
 LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixSize, std::vector<UniString> const & prefixMisprints,
                                size_t maxErrors)
   : m_size(s.size())
