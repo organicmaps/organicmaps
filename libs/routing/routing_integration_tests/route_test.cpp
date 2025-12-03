@@ -944,4 +944,13 @@ UNIT_TEST(Colombia_MotorVehicle_Conditional_No)
   CalculateRouteAndTestRouteLength(*components, from, {0., 0.}, to, 2803.13);
 }
 
+UNIT_TEST(Belarus_Kopyl_Minsk)
+{
+  // Use P23 ASAP.
+  // OSRM makes a shorter but strange route here:
+  // https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=53.131897%2C27.018889%3B53.57253%2C27.47209
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(53.131897, 27.018889), {0., 0.},
+                                   FromLatLon(53.57253, 27.47209), 82109);
+}
+
 }  // namespace route_test
