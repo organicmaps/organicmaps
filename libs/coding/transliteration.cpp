@@ -137,7 +137,7 @@ bool Transliteration::Transliterate(std::string_view sv, int8_t langCode, std::s
     return false;
 
   auto const * transliteratorsIds = StringUtf8Multilang::GetTransliteratorsIdsByCode(langCode);
-  if (transliteratorsIds == nullptr || transliteratorsIds->empty())
+  if (transliteratorsIds == nullptr || transliteratorsIds->size() == 0)
     return false;
 
   icu::UnicodeString ustr(sv.data(), static_cast<int32_t>(sv.size()));

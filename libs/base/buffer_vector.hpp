@@ -29,18 +29,18 @@ private:
   size_t m_size;
   std::vector<T> m_dynamic;
 
-  bool IsDynamic() const { return m_size == USE_DYNAMIC; }
+  constexpr bool IsDynamic() const { return m_size == USE_DYNAMIC; }
 
-  void MoveStatic(buffer_vector & rhs) noexcept
+  constexpr void MoveStatic(buffer_vector & rhs) noexcept
   {
-    static_assert(std::is_nothrow_move_assignable<T>::value);
+    static_assert(std::is_nothrow_move_assignable_v<T>);
 
     std::move(rhs.m_static, rhs.m_static + rhs.m_size, m_static);
   }
 
-  void SetStaticSize(size_t newSize)
+  constexpr void SetStaticSize(size_t newSize)
   {
-    if constexpr (std::is_destructible<T>::value)
+    if constexpr (std::is_destructible_v<T>)
     {
       // Call destructors for old elements.
       for (size_t i = newSize; i < m_size; ++i)
@@ -59,23 +59,23 @@ public:
   typedef T const * const_iterator;
   typedef T * iterator;
 
-  buffer_vector() : m_size(0) {}
-  explicit buffer_vector(size_t n) : m_size(0) { resize(n); }
+  constexpr buffer_vector() : m_size(0) {}
+  constexpr explicit buffer_vector(size_t n) : m_size(0) { resize(n); }
 
-  buffer_vector(std::initializer_list<T> init) : m_size(0)
+  constexpr buffer_vector(std::initializer_list<T> init) : m_size(0)
   {
     assign(std::make_move_iterator(init.begin()), std::make_move_iterator(init.end()));
   }
 
   template <typename TIt>
-  buffer_vector(TIt beg, TIt end) : m_size(0)
+  constexpr buffer_vector(TIt beg, TIt end) : m_size(0)
   {
     assign(beg, end);
   }
 
-  buffer_vector(buffer_vector const &) = default;
+  constexpr buffer_vector(buffer_vector const &) = default;
 
-  buffer_vector(buffer_vector && rhs) noexcept : m_size(rhs.m_size), m_dynamic(std::move(rhs.m_dynamic))
+  constexpr buffer_vector(buffer_vector && rhs) noexcept : m_size(rhs.m_size), m_dynamic(std::move(rhs.m_dynamic))
   {
     if (!IsDynamic())
       MoveStatic(rhs);
@@ -83,9 +83,9 @@ public:
     rhs.m_size = 0;
   }
 
-  buffer_vector & operator=(buffer_vector const & rhs) = default;
+  constexpr buffer_vector & operator=(buffer_vector const & rhs) = default;
 
-  buffer_vector & operator=(buffer_vector && rhs) noexcept
+  constexpr buffer_vector & operator=(buffer_vector && rhs) noexcept
   {
     if (this != &rhs)
     {
@@ -101,13 +101,13 @@ public:
   }
 
   template <size_t M>
-  void append(buffer_vector<value_type, M> const & v)
+  constexpr void append(buffer_vector<value_type, M> const & v)
   {
     append(v.begin(), v.end());
   }
 
   template <typename TIt>
-  void append(TIt beg, TIt end)
+  constexpr void append(TIt beg, TIt end)
   {
     if (!IsDynamic())
     {
@@ -125,7 +125,7 @@ public:
     m_dynamic.insert(m_dynamic.end(), beg, end);
   }
 
-  void append(size_t count, T const & c)
+  constexpr void append(size_t count, T const & c)
   {
     if (!IsDynamic())
     {
@@ -144,7 +144,7 @@ public:
   }
 
   template <typename TIt>
-  void assign(TIt beg, TIt end)
+  constexpr void assign(TIt beg, TIt end)
   {
     if (IsDynamic())
     {
@@ -156,13 +156,13 @@ public:
     append(beg, end);
   }
 
-  void reserve(size_t n)
+  constexpr void reserve(size_t n)
   {
     if (IsDynamic() || n > N)
       m_dynamic.reserve(n);
   }
 
-  void resize(size_t n)
+  constexpr void resize(size_t n)
   {
     if (IsDynamic())
     {
@@ -182,7 +182,7 @@ public:
     }
   }
 
-  void resize(size_t n, T c)
+  constexpr void resize(size_t n, T c)
   {
     if (IsDynamic())
     {
@@ -206,7 +206,7 @@ public:
     }
   }
 
-  void clear()
+  constexpr void clear()
   {
     if (IsDynamic())
     {
@@ -223,15 +223,14 @@ public:
   /// The best way to fix this is to reset m_size from USE_DYNAMIC to 0 when vector becomes empty.
   /// But now I will just add some assertions to test memory overrun.
   //@{
-  T const * data() const
+  constexpr T const * data() const
   {
     if (IsDynamic())
       return m_dynamic.data();
-
     return &m_static[0];
   }
 
-  T * data()
+  constexpr T * data()
   {
     if (IsDynamic())
       return m_dynamic.data();
@@ -240,54 +239,54 @@ public:
   }
   //@}
 
-  T const * begin() const { return data(); }
-  T const * cbegin() const { return data(); }
-  T * begin() { return data(); }
-  T const * end() const { return data() + size(); }
-  T const * cend() const { return data() + size(); }
-  T * end() { return data() + size(); }
+  constexpr T const * begin() const { return data(); }
+  constexpr T const * cbegin() const { return data(); }
+  constexpr T * begin() { return data(); }
+  constexpr T const * end() const { return data() + size(); }
+  constexpr T const * cend() const { return data() + size(); }
+  constexpr T * end() { return data() + size(); }
   //@}
 
-  bool empty() const { return (IsDynamic() ? m_dynamic.empty() : m_size == 0); }
-  size_t size() const { return (IsDynamic() ? m_dynamic.size() : m_size); }
+  constexpr bool empty() const { return (IsDynamic() ? m_dynamic.empty() : m_size == 0); }
+  constexpr size_t size() const { return (IsDynamic() ? m_dynamic.size() : m_size); }
 
-  T const & front() const
+  constexpr T const & front() const
   {
     ASSERT(!empty(), ());
     return *begin();
   }
 
-  T & front()
+  constexpr T & front()
   {
     ASSERT(!empty(), ());
     return *begin();
   }
 
-  T const & back() const
+  constexpr T const & back() const
   {
     ASSERT(!empty(), ());
     return *(end() - 1);
   }
 
-  T & back()
+  constexpr T & back()
   {
     ASSERT(!empty(), ());
     return *(end() - 1);
   }
 
-  T const & operator[](size_t i) const
+  constexpr T const & operator[](size_t i) const
   {
     ASSERT_LESS(i, size(), ());
     return *(begin() + i);
   }
 
-  T & operator[](size_t i)
+  constexpr T & operator[](size_t i)
   {
     ASSERT_LESS(i, size(), ());
     return *(begin() + i);
   }
 
-  void swap(buffer_vector & rhs)
+  constexpr void swap(buffer_vector & rhs) noexcept
   {
     m_dynamic.swap(rhs.m_dynamic);
     Swap(m_size, rhs.m_size);
@@ -296,7 +295,7 @@ public:
   }
 
   /// By value to be consistent with m_vec.push_back(m_vec[0]).
-  void push_back(T t)
+  constexpr void push_back(T t)
   {
     if (!IsDynamic())
     {
@@ -313,7 +312,7 @@ public:
     m_dynamic.push_back(std::move(t));
   }
 
-  void pop_back()
+  constexpr void pop_back()
   {
     if (IsDynamic())
     {
@@ -326,7 +325,7 @@ public:
   }
 
   template <class... Args>
-  void emplace_back(Args &&... args)
+  constexpr void emplace_back(Args &&... args)
   {
     if (IsDynamic())
     {
@@ -347,7 +346,7 @@ public:
   }
 
   template <typename TIt>
-  void insert(const_iterator where, TIt beg, TIt end)
+  constexpr void insert(const_iterator where, TIt beg, TIt end)
   {
     size_t const pos = base::asserted_cast<size_t>(where - data());
     ASSERT_LESS_OR_EQUAL(pos, size(), ());
@@ -378,10 +377,10 @@ public:
     }
   }
 
-  void insert(const_iterator where, value_type const & value) { insert(where, &value, &value + 1); }
+  constexpr void insert(const_iterator where, value_type const & value) { insert(where, &value, &value + 1); }
 
   template <class Fn>
-  void erase_if(Fn && fn)
+  constexpr void erase_if(Fn && fn)
   {
     iterator b = begin();
     iterator e = end();
@@ -390,7 +389,7 @@ public:
       resize(std::distance(b, i));
   }
 
-  void erase(iterator first, iterator last)
+  constexpr void erase(iterator first, iterator last)
   {
     if (first == last)
       return;

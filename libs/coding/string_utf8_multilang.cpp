@@ -8,9 +8,9 @@ namespace
 // Order is important. Any reordering breaks backward compatibility.
 // Languages with code |StringUtf8Multilang::kReservedLang| may be used for another language after
 // several data releases.
-// Note that it's not feasible to increase languages number here due to current encoding (6 bit to
+// Note that it's not feasible to increase the number of languages here due to current encoding (6 bit to
 // store language code).
-std::array<StringUtf8Multilang::Lang, StringUtf8Multilang::kMaxSupportedLanguages> const kLanguages = {
+std::array<StringUtf8Multilang::Lang, StringUtf8Multilang::kMaxSupportedLanguages> constexpr kLanguages = {
     {{"default", "Name in local language", {"Any-Latin"}},
      {"en", "English", {}},
      {"ja", "日本語", {}},
@@ -79,46 +79,50 @@ std::array<StringUtf8Multilang::Lang, StringUtf8Multilang::kMaxSupportedLanguage
 static_assert(kLanguages.size() == StringUtf8Multilang::kMaxSupportedLanguages,
               "With current encoding we are limited to 64 languages max. And we need kLanguages.size()"
               " to be exactly 64 for backward compatibility.");
+static_assert(kLanguages[StringUtf8Multilang::kDefaultCode].m_code == std::string_view{"default"});
+static_assert(kLanguages[StringUtf8Multilang::kInternationalCode].m_code == std::string_view{"int_name"});
+static_assert(kLanguages[StringUtf8Multilang::kAltNameCode].m_code == std::string_view{"alt_name"});
+static_assert(kLanguages[StringUtf8Multilang::kOldNameCode].m_code == std::string_view{"old_name"});
+static_assert(kLanguages[StringUtf8Multilang::kEnglishCode].m_code == std::string_view{"en"});
 
 constexpr bool IsSupportedLangCode(int8_t langCode)
 {
   return langCode >= 0 && langCode < static_cast<int8_t>(kLanguages.size()) &&
          kLanguages[langCode].m_code != StringUtf8Multilang::kReservedLang;
 }
-}  // namespace
 
-bool StringUtf8Multilang::IsServiceLang(std::string_view lang)
+constexpr bool IsServiceLang(std::string_view const lang)
 {
-  return lang == kLanguages[kDefaultCode].m_code || lang == kLanguages[kInternationalCode].m_code ||
-         lang == kLanguages[kAltNameCode].m_code || lang == kLanguages[kOldNameCode].m_code;
+  return lang == kLanguages[StringUtf8Multilang::kDefaultCode].m_code ||
+         lang == kLanguages[StringUtf8Multilang::kInternationalCode].m_code ||
+         lang == kLanguages[StringUtf8Multilang::kAltNameCode].m_code ||
+         lang == kLanguages[StringUtf8Multilang::kOldNameCode].m_code;
 }
-// static
-static StringUtf8Multilang::Languages const allLanguages = []()
+
+StringUtf8Multilang::Languages constexpr allLanguages = [] consteval
 {
   StringUtf8Multilang::Languages langs;
-  std::copy_if(kLanguages.cbegin(), kLanguages.cend(), std::back_inserter(langs),
-               [](StringUtf8Multilang::Lang const & lang)
+  std::ranges::copy_if(kLanguages, std::back_inserter(langs), [](StringUtf8Multilang::Lang const & lang)
   { return lang.m_code != StringUtf8Multilang::kReservedLang; });
   return langs;
 }();
 
-static StringUtf8Multilang::Languages const languagesWithoutService = []()
+StringUtf8Multilang::Languages constexpr languagesWithoutService = [] consteval
 {
   StringUtf8Multilang::Languages langs;
-  std::copy_if(allLanguages.cbegin(), allLanguages.cend(), std::back_inserter(langs),
-               [](StringUtf8Multilang::Lang const & lang) { return !StringUtf8Multilang::IsServiceLang(lang.m_code); });
+  std::ranges::copy_if(allLanguages, std::back_inserter(langs),
+                       [](StringUtf8Multilang::Lang const & lang) { return !IsServiceLang(lang.m_code); });
   return langs;
 }();
+}  // namespace
+
+bool StringUtf8Multilang::IsServiceLang(std::string_view const lang)
+{
+  return ::IsServiceLang(lang);
+}
 
 StringUtf8Multilang::Languages const & StringUtf8Multilang::GetSupportedLanguages(bool includeServiceLangs)
 {
-  // Asserts for generic class constants.
-  ASSERT_EQUAL(kLanguages[kDefaultCode].m_code, std::string_view{"default"}, ());
-  ASSERT_EQUAL(kLanguages[kInternationalCode].m_code, std::string_view{"int_name"}, ());
-  ASSERT_EQUAL(kLanguages[kAltNameCode].m_code, std::string_view{"alt_name"}, ());
-  ASSERT_EQUAL(kLanguages[kOldNameCode].m_code, std::string_view{"old_name"}, ());
-  ASSERT_EQUAL(kLanguages[kEnglishCode].m_code, std::string_view{"en"}, ());
-
   return includeServiceLangs ? allLanguages : languagesWithoutService;
 }
 
@@ -155,7 +159,7 @@ std::string_view StringUtf8Multilang::GetLangNameByCode(int8_t langCode)
 }
 
 // static
-std::vector<std::string_view> const * StringUtf8Multilang::GetTransliteratorsIdsByCode(int8_t langCode)
+StringUtf8Multilang::Lang::TransliteratorsList const * StringUtf8Multilang::GetTransliteratorsIdsByCode(int8_t langCode)
 {
   if (!IsSupportedLangCode(langCode))
     return nullptr;
@@ -165,7 +169,7 @@ std::vector<std::string_view> const * StringUtf8Multilang::GetTransliteratorsIds
 
 std::string StringUtf8Multilang::GetOSMTagByCode(uint8_t const langCode)
 {
-  std::string_view lang = StringUtf8Multilang::GetLangByCode(langCode);
+  std::string_view const lang = GetLangByCode(static_cast<int8_t>(langCode));
   if (lang == "int_name" || lang == "alt_name" || lang == "old_name")
     return std::string{lang};
   else if (lang == "default")
