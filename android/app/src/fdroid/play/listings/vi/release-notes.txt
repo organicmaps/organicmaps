@@ -1,8 +1,9 @@
-• Đánh dấu các vùng đã tải xuống, khu bảo tồn thiên nhiên, công viên quốc gia, khu bảo tồn, vùng đất của thổ dân, khu vực nguy hiểm, hồ trên bản đồ Thế giới
-• Định tuyến hỗ trợ thời gian đóng đường
-• Bản đồ OSM mới nhất tính đến ngày 9 tháng 11
-• Đã sửa lỗi treo và định tuyến, bao gồm cả Android Auto
-• Đã thêm thợ sửa đồng hồ, nhà ở sinh viên, đại lý du lịch
-• Hướng dẫn bằng giọng nói bằng tiếng Estonia, Galicia, Do Thái và Litva
-
+• Bài viết Wikipedia bằng tiếng Thổ Nhĩ Kỳ, Nhật Bản và Trung Quốc, gõ ?wiki để xem trên bản đồ
+• Cài đặt mới để làm nổi bật các khu vực đã tải xuống trên bản đồ
+• Nhập dấu trang và địa điểm đã lưu của Google Takeout qua GeoJSON
+• Dữ liệu OSM đến ngày 23 tháng 11
+• Cải thiện phát âm thanh và ngắt âm thanh
+• Sửa lỗi sập trong Trình chỉnh sửa và khi tải bản đồ
+• Đường sáng hơn trong chế độ xe tối
+• Cải thiện định tuyến xe đạp ở Áo
 …thêm tại omaps.org/news

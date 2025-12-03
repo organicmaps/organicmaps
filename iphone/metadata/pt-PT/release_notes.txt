@@ -1,33 +1,20 @@
-- NOVO! Destaque as regiões descarregadas no mapa do Mundo
-- NOVO! Veja e pesquise reservas naturais, parques nacionais, áreas protegidas, terras aborígenes, áreas de perigo e lagos no mapa do Mundo a partir do nível de zoom 8
-- NOVO! Acesso condicional para o encaminhamento, por exemplo, para estradas que estão fechadas em determinados horários
-- Dados do OpenStreetMap atualizados a 9 de novembro de 2025
-- Ativadas as línguas estoniana, galega, hebraica e lituana para as direções de voz do TTS
-- Corrigido um problema com os nomes de ruas predefinidos e localizados ao editar endereços
-- Corrigido um problema com o zoom ao tocar nos resultados da pesquisa do mapa do Mundo
-- Adicionadas as ligações das redes sociais TikTok, Threads e BlueSky ao ecrã "Sobre"
-- Adicionado "Comunicar um erro" às ações rápidas do ícone da aplicação no ecrã inicial
-- Após eliminar uma lista de marcadores ou trilhos (através do botão "mais"), a aplicação agora regressa corretamente ao ecrã anterior
-- Corrigidas várias falhas da aplicação e do CarPlay
+- Artigos da Wikipédia para lugares em turco, japonês e chinês; escreva ?wiki para ver todos os artigos no mapa
+- Definição para destacar visualmente as regiões transferidas no mapa
+- Dados do OpenStreetMap de 23 de novembro de 2025
 
-### Mapa e Estilos
+- Edite o nome de um marcador ou trajeto diretamente na página de informações do local
+- Toque longo no nome ou morada de um local/marcador selecionado para o copiar
+- Adicionada pesquisa por uma lista específica ao alterá-la a partir da página de informações do local
+- Utilize emojis personalizados na página de informações do local
+- Animações corrigidas para os botões laterais e a cor do botão "Transferir mapas" no tema escuro
+- Suporte para iOS 26 e macOS 26 "Liquid Glass"
+- Ao mover um trajeto para uma lista, essa lista torna-se a predefinida para novos marcadores/trajetos
+- Importação GeoJSON melhorada, incluindo `Saved Places.json` do Google Takeout
+- Traduções atualizadas em vários idiomas, incluindo uma correção em hebraico
 
-- Trocada a renderização das ferrovias "abandonadas" e "desusadas"
-- Adicionados relojoeiros e alojamentos de estudantes ao mapa
-- Adicionados ícones de agências de viagens
-- Alterada a cor do ícone da casa de banho para cinzento
-- Atualizados os ícones de audiologista, podologista, optometrista e aparelhos auditivos
-- Corrigido o ícone de aluguer de bicicletas no modo escuro
-- Apresentar os nomes dos estados dos EUA/Canadá mais cedo no mapa do Mundo (a partir do nível de zoom 5)
+## Navegação e percursos
 
-### Traduções
-
-- Adicionados sinónimos de pesquisa em esloveno e ativada a pesquisa por categorias para o esloveno
-- Corrigidos erros de digitação, traduções incorretas e sinónimos de pesquisa; adicionadas traduções em falta para muitas línguas
-- Adicionadas traduções específicas para o espanhol mexicano (es-MX) e o português do Brasil (pt-BR), distintas do espanhol padrão (es) e do português (pt)
-- Corrigidas as direções de voz do TTS em checo
-
-Consulte as notas de lançamento detalhadas no nosso website: https://organicmaps.app
-
-Obrigado por usar o Organic Maps e por apoiar o projeto!
-A Equipa do Organic Maps
+- Disposição do mapa corrigida durante a navegação no iPad para que o percurso permaneça claramente visível
+- O encaminhamento de bicicletas agora ignora ruas residenciais de sentido único na Áustria
+- Instruções de rotunda simplificadas
+- Estradas mais brilhantes com melhor contraste no modo veículo escuro

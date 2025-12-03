@@ -1,8 +1,8 @@
-• Pasaulio žemėlapyje paryškinkite atsiųstus regionus, gamtos rezervatus, nacionalinius parkus, saugomas teritorijas, aborigenų žemes, pavojingas zonas, ežerus
-• Maršrutas palaiko kelių uždarymo laikus
-• Nauji OSM žemėlapiai, galiojantys nuo lapkričio 9 d.
-• Ištaisytos strigtys ir maršruto parinkimas, įskaitant „Android Auto“
-• Pridėta laikrodininkų, studentų būstų, kelionių agentūrų
-• Balso nurodymai estų, galisų, hebrajų ir lietuvių kalbomis
-
+• Vikipedijos straipsniai turkų, japonų ir kinų kalbomis, įveskite ?wiki, kad matytumėte žemėlapyje
+• Naujas nustatymas vizualiai paryškinti atsisiųstus regionus žemėlapyje
+• Importuokite Google Takeout žymes ir išsaugotas vietas per GeoJSON
+• OSM duomenys iki lapkričio 23 d.
+• Patobulintas garso atkūrimas ir garso pertraukimai
+• Ištaisyti strigimai redaktoriuje ir atsisiunčiant žemėlapius
+• Ryškesni keliai tamsiame transporto priemonės režime
 …daugiau omaps.org/lt/news

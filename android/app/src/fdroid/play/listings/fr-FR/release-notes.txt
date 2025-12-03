@@ -1,8 +1,8 @@
-• Mettez en surbrillance les régions téléchargées, les réserves naturelles, les parcs nationaux, les zones protégées, les terres aborigènes, les zones de danger, les lacs sur la carte du monde
-• Le routage prend en charge les heures de fermeture des routes
-• Cartes OSM récentes au 9 novembre
-• Correction des plantages et du routage
-• Ajout d'horlogers, de logements étudiants, d'agences de voyages
-• Instructions vocales en estonien, galicien, hébreu et lituanien
-
+• Articles Wikipédia en turc, japonais et chinois, tapez ?wiki pour les voir sur la carte
+• Nouveau paramètre pour mettre en évidence les régions téléchargées sur la carte
+• Importer les favoris et lieux enregistrés de Google Takeout via GeoJSON
+• Données OSM au 23 novembre
+• Amélioration de la lecture audio et des interruptions sonores
+• Correction des plantages dans l'éditeur et lors du téléchargement des cartes
+• Routes plus lumineuses en mode véhicule sombre
 …plus sur omaps.org/fr/news

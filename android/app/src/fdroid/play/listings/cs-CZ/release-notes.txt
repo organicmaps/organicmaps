@@ -1,9 +1,9 @@
-• Zvýrazněte na mapě světa stažené regiony, přírodní rezervace, národní parky, chráněné oblasti, domorodé země, nebezpečné oblasti, jezera
-• Trasa podporuje časy uzavření silnic
-• Čerstvé mapy OSM k 9. listopadu
-• Opraveny pády a směrování, včetně Android Auto
-• Přidáni hodináři, studentské ubytovny, cestovní kanceláře
-• Přidána podpora slovinštiny ve vyhledávání
-• Hlasové pokyny v estonštině, galicijštině, hebrejštině a litevštině
-
+• Články z Wikipedie v turečtině, japonštině a čínštině, zadejte ?wiki pro zobrazení na mapě
+• Nové nastavení pro vizuální zvýraznění stažených oblastí na mapě
+• Import záložek a uložených míst z Google Takeout přes GeoJSON
+• OSM data k 23. listopadu
+• Vylepšené přehrávání zvuku a zvukové přerušení
+• Opraveny pády v editoru a při stahování map
+• Jasnější silnice v tmavém režimu vozidla
+• Vylepšené cyklistické směrování v Rakousku
 …více na omaps.org/cs/news

@@ -1,33 +1,20 @@
-- NOVITÀ! Evidenzia le regioni scaricate sulla mappa del mondo
-- NOVITÀ! Visualizza e cerca riserve naturali, parchi nazionali, aree protette, terre aborigene, aree di pericolo e laghi sulla mappa del mondo a partire dal livello di zoom 8
-- NOVITÀ! Accesso condizionato per il routing, ad esempio per le strade chiuse in determinati orari
-- Dati OpenStreetMap aggiornati al 9 novembre 2025
-- Abilitate le lingue estone, galiziana, ebraica e lituana per le indicazioni vocali TTS
-- Risolto un problema con i nomi delle strade predefiniti e localizzati durante la modifica degli indirizzi
-- Risolto un problema con lo zoom quando si toccano i risultati della ricerca dalla mappa del mondo
-- Aggiunti i link ai social media TikTok, Threads e BlueSky alla schermata "Informazioni"
-- Aggiunto "Segnala un bug" alle azioni rapide dell'icona dell'app nella schermata iniziale
-- Dopo aver eliminato un elenco di segnalibri o tracce (tramite il pulsante "altro"), l'app ora torna correttamente alla schermata precedente
-- Risolti vari arresti anomali dell'app e di CarPlay
+- Articoli di Wikipedia per luoghi in turco, giapponese e cinese; digita ?wiki per vedere tutti gli articoli sulla mappa
+- Impostazione per evidenziare visivamente le regioni scaricate sulla mappa
+- Dati OpenStreetMap del 23 novembre 2025
 
-### Mappa e stili
+- Modifica il nome di un segnalibro o di un percorso direttamente nella pagina delle informazioni sul luogo
+- Tocca a lungo il nome o l'indirizzo di un luogo/segnalibro selezionato per copiarlo
+- Aggiunta ricerca per un elenco specifico quando lo si cambia dalla pagina delle informazioni sul luogo
+- Usa emoji personalizzate nella pagina delle informazioni sul luogo
+- Corrette le animazioni per i pulsanti laterali e il colore del pulsante "Scarica mappe" nel tema scuro
+- Supporto iOS 26 e macOS 26 "Liquid Glass"
+- Quando sposti un percorso in un elenco, quell'elenco diventa quello predefinito per nuovi segnalibri/percorsi
+- Importazione GeoJSON migliorata, incluso `Saved Places.json` da Google Takeout
+- Traduzioni aggiornate in più lingue, inclusa una correzione per l'ebraico
 
-- Scambiato il rendering delle ferrovie "abbandonate" e "dismesse"
-- Aggiunti orologiai e alloggi per studenti alla mappa
-- Aggiunte le icone delle agenzie di viaggio
-- Cambiato il colore dell'icona del bagno in grigio
-- Aggiornate le icone di audiologo, podologo, optometrista e apparecchi acustici
-- Corretta l'icona del noleggio biciclette in modalità oscura
-- Visualizza i nomi degli stati USA/Canada prima sulla mappa del mondo (dal livello di zoom 5)
+## Navigazione e percorsi
 
-### Traduzioni
-
-- Aggiunti sinonimi di ricerca in sloveno e abilitata la ricerca per categorie per lo sloveno
-- Corretti errori di battitura, traduzioni errate e sinonimi di ricerca; aggiunte traduzioni mancanti per molte lingue
-- Aggiunte traduzioni specifiche per lo spagnolo messicano (es-MX) e il portoghese brasiliano (pt-BR), distinte dallo spagnolo standard (es) e dal portoghese (pt)
-- Corrette le indicazioni vocali TTS in ceco
-
-Controlla le note di rilascio dettagliate sul nostro sito web: https://organicmaps.app
-
-Grazie per aver utilizzato Organic Maps e per aver sostenuto il progetto!
-Il team di Organic Maps
+- Layout della mappa corretto durante la navigazione su iPad in modo che il percorso rimanga chiaramente visibile
+- Il routing per biciclette ora salta le strade residenziali a senso unico in Austria
+- Indicazioni per le rotatorie semplificate
+- Le strade sono più luminose con un migliore contrasto nella modalità veicolo scura
