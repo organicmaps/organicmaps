@@ -14,11 +14,6 @@ namespace df
 TileInfo::TileInfo(drape_ptr<EngineContext> && engineContext) : m_context(std::move(engineContext)), m_isCanceled(false)
 {}
 
-m2::RectD TileInfo::GetGlobalRect() const
-{
-  return GetTileKey().GetGlobalRect();
-}
-
 void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
 {
   if (!DoNeedReadIndex())
@@ -39,7 +34,7 @@ void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
       lastMwm = id.m_mwmId;
     }
     m_featureInfo.push_back(id);
-  }, GetGlobalRect(), GetZoomLevel());
+  }, GetTileKey().GetGlobalRect(), GetZoomLevel());
 }
 
 void TileInfo::ReadFeatures(MapDataProvider const & model)
