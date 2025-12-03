@@ -33,6 +33,14 @@ final class CarPlayService: NSObject {
     interfaceController?.rootTemplate as? CPMapTemplate
   }
 
+  @objc var carplayLayoutMargins: UIEdgeInsets {
+    guard isCarplayActivated, let view = carplayVC?.view else {
+      return .zero
+    }
+    view.layoutIfNeeded()
+    return view.layoutMargins
+  }
+
   var preparedToPreviewTrips: [CPTrip] = []
   var isUserPanMap: Bool = false
   private var searchText = ""
