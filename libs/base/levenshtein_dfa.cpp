@@ -1,6 +1,7 @@
 #include "base/levenshtein_dfa.hpp"
 
 #include "base/assert.hpp"
+#include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -13,10 +14,6 @@ namespace strings
 {
 namespace
 {
-size_t AbsDiff(size_t a, size_t b)
-{
-  return a > b ? a - b : b - a;
-}
 
 class TransitionTable
 {
@@ -133,13 +130,13 @@ bool LevenshteinDFA::Position::SubsumedBy(Position const & rhs) const
   auto const errorsAvail = rhs.m_errorsLeft - m_errorsLeft;
 
   if (IsStandard() && rhs.IsStandard())
-    return AbsDiff(m_offset, rhs.m_offset) <= errorsAvail;
+    return math::AbsDiff(m_offset, rhs.m_offset) <= errorsAvail;
 
   if (IsStandard() && rhs.IsTransposed())
     return m_offset == rhs.m_offset && m_errorsLeft == 0;
 
   if (IsTransposed() && rhs.IsStandard())
-    return AbsDiff(m_offset + 1, rhs.m_offset) <= errorsAvail;
+    return math::AbsDiff(m_offset + 1, rhs.m_offset) <= errorsAvail;
 
   ASSERT(IsTransposed(), ());
   ASSERT(rhs.IsTransposed(), ());

@@ -33,6 +33,12 @@ T Abs(T x)
   return (x < 0 ? -x : x);
 }
 
+template <typename T>
+T AbsDiff(T a, T b)
+{
+  return a > b ? a - b : b - a;
+}
+
 template <typename Number, typename EnableIf = typename std::enable_if_t<
                                std::is_integral_v<Number> || std::is_floating_point_v<Number>, void>>
 int constexpr Sign(Number const number) noexcept
