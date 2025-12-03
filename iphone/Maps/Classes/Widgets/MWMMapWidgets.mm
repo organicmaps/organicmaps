@@ -30,6 +30,14 @@
       gui::Position(m2::PointF(self.visualScale * 10, self.visualScale * 45), dp::LeftTop);
 }
 
+- (CGRect)carPlayLayout
+{
+  CGRect const bounds = [MapViewController sharedController].mapView.bounds;
+  UIEdgeInsets const insets = [MWMCarPlayService shared].carplayLayoutMargins;
+  CGRect const frame = UIEdgeInsetsInsetRect(bounds, insets);
+  return (CGRectIsNull(frame) || CGRectIsEmpty(frame)) ? bounds : frame;
+}
+
 - (void)resize:(CGSize)size
 {
   if (m_skin != nullptr)
@@ -37,8 +45,7 @@
   dispatch_async(dispatch_get_main_queue(), ^{
     if ([MWMCarPlayService shared].isCarplayActivated)
     {
-      CGRect bounds = [MapViewController sharedController].mapView.bounds;
-      [self updateLayout:bounds];
+      [self updateLayout:[self carPlayLayout]];
       return;
     }
     [self updateLayoutForAvailableArea];
@@ -47,11 +54,15 @@
 
 - (void)updateAvailableArea:(CGRect)frame
 {
+  if ([MWMCarPlayService shared].isCarplayActivated)
+  {
+    [self updateLayout:[self carPlayLayout]];
+    return;
+  }
+
   if (CGRectEqualToRect(self.availableArea, frame))
     return;
   self.availableArea = frame;
-  if ([MWMCarPlayService shared].isCarplayActivated)
-    return;
   [self updateLayout:frame];
 }
 
