@@ -435,39 +435,84 @@ extension CarPlayService: CPMapTemplateDelegate {
   }
 
   func mapTemplate(_ mapTemplate: CPMapTemplate, startedTrip trip: CPTrip, using routeChoice: CPRouteChoice) {
+    LOG(.info, "startedTrip called. trip: \(String(describing: trip)), routeChoice: \(String(describing: routeChoice))")
+    // Log routeChoice.userInfo type and brief content
+    if let info = routeChoice.userInfo {
+      LOG(.info, "routeChoice.userInfo is present. Type: \(type(of: info))")
+    } else {
+      LOG(.warning, "routeChoice.userInfo is nil")
+    }
+
+    LOG(.info, "Attempt to parse routeChoice.userInfo as RouteInfo")
     guard let info = routeChoice.userInfo as? RouteInfo else {
-      if let info = routeChoice.userInfo as? [String: Any],
-        let code = info[CPConstants.Trip.errorCode] as? RouterResultCode,
-        let countries = info[CPConstants.Trip.missedCountries] as? [String] {
-        showErrorAlert(code: code, countries: countries)
+      LOG(.warning, "routeChoice.userInfo is not RouteInfo; trying dictionary fallback")
+      if let dict = routeChoice.userInfo as? [String: Any] {
+        let code = dict[CPConstants.Trip.errorCode] as Any?
+        let countries = dict[CPConstants.Trip.missedCountries] as Any?
+        LOG(.warning, "Parsed dict. errorCode: \(String(describing: code)), countries: \(String(describing: countries))")
+        if let code = code as? RouterResultCode, let countries = countries as? [String] {
+          LOG(.warning, "Will show error alert. code: \(code), countries.count: \(countries.count)")
+          showErrorAlert(code: code, countries: countries)
+        } else {
+          LOG(.warning, "Dictionary userInfo does not contain expected keys/types")
+        }
+      } else {
+        LOG(.warning, "routeChoice.userInfo is neither RouteInfo nor [String:Any]")
       }
+      LOG(.info, "Exiting startedTrip early due to missing RouteInfo")
       return
     }
+
+    LOG(.info, "RouteInfo parsed successfully. timeToTarget: \(info.timeToTarget), distance: \(info.targetDistance), units: \(info.targetUnits), speedMps: \(info.speedMps), speedLimitMps: \(String(describing: info.speedLimitMps))")
+
+    LOG(.info, "Update mapTemplate state to previewAccepted and hide trip previews")
     mapTemplate.userInfo = MapInfo(type: CPConstants.TemplateType.previewAccepted)
     mapTemplate.hideTripPreviews()
 
+    LOG(.info, "Acquire router, interfaceController, rootMapTemplate")
     guard let router = router,
-      let interfaceController = interfaceController,
-      let rootMapTemplate = rootMapTemplate else {
-        return
+          let interfaceController = interfaceController,
+          let rootMapTemplate = rootMapTemplate else {
+      LOG(.error, "One of router/interfaceController/rootMapTemplate is nil. router: \(String(describing: router)), interfaceController: \(String(describing: interfaceController)), rootMapTemplate: \(String(describing: rootMapTemplate))")
+      return
     }
 
+    LOG(.info, "Configure navigation UI on root map template")
     MapTemplateBuilder.configureNavigationUI(mapTemplate: rootMapTemplate)
 
-    if interfaceController.templates.count > 1 {
+    let templatesCount = interfaceController.templates.count
+    LOG(.info, "InterfaceController templates count: \(templatesCount)")
+    if templatesCount > 1 {
+      LOG(.info, "Pop to root template (animated: false)")
       interfaceController.popToRootTemplate(animated: false)
     }
+
+    LOG(.info, "Start navigation session for trip on rootMapTemplate")
     router.startNavigationSession(forTrip: trip, template: rootMapTemplate)
+
+    LOG(.info, "Start route")
     router.startRoute()
+
+    LOG(.info, "Create travel estimates from RouteInfo and update template")
     if let estimates = createEstimates(routeInfo: info) {
+      LOG(.info, "Estimates created. distanceRemaining: \(estimates.distanceRemaining), timeRemaining: \(estimates.timeRemaining)")
       rootMapTemplate.updateEstimates(estimates, for: trip)
+    } else {
+      LOG(.warning, "Failed to create estimates from RouteInfo")
     }
 
     if let carplayVC = carplayVC {
+      LOG(.info, "Update speed UI and show speed control")
       carplayVC.updateCurrentSpeed(info.speedMps, speedLimitMps: info.speedLimitMps)
       carplayVC.showSpeedControl()
+    } else {
+      LOG(.warning, "carplayVC is nil, cannot update speed UI")
     }
+
+    LOG(.info, "Update viewport state to .navigation")
     updateVisibleViewPortState(.navigation)
+
+    LOG(.info, "startedTrip finished")
   }
 
   func mapTemplate(_ mapTemplate: CPMapTemplate, displayStyleFor maneuver: CPManeuver) -> CPManeuverDisplayStyle {
@@ -808,3 +853,4 @@ extension CarPlayService {
     presentAlert(alert, animated: true)
   }
 }
+
