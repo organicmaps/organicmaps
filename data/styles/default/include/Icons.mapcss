@@ -1115,6 +1115,8 @@ node|z18-[man_made=petroleum_well],
 node|z18-[man_made=flare],
 node|z19-[emergency=fire_hydrant],
 node|z19-[man_made=cairn],
+node|z16-[xmas:feature=market],
+node|z16-[xmas:feature=tree],
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
 
 /* TODO: all specific tourism/office/craft feature definitions atm rely on this to increase font size on z18- */
@@ -1499,6 +1501,11 @@ area|z15-[amenity=place_of_worship][religion=christian][denomination=jehovahs_wi
 {icon-image: place-of-worship-m.svg;}
 
 /* 5.5 Others */
+
+node|z15-[xmas:feature=market],
+{icon-image: christmas_market-m.svg; font-size: 11;}
+node|z15-[xmas:feature=tree],
+{icon-image: christmas_tree-m.svg; font-size: 11;}
 
 node|z16-[amenity=nightclub],
 area|z16-[amenity=nightclub]
