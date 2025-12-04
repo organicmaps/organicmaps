@@ -16,7 +16,7 @@
 
 #include "base/buffer_vector.hpp"
 
-#include <list>
+#include <deque>
 #include <optional>
 #include <unordered_map>
 #include <unordered_set>
@@ -63,9 +63,8 @@ private:
   std::unordered_set<TileKey> m_awaitingTiles;
   std::unordered_map<TileKey, TextureInfo> m_tileTextures;
 
-  using RemoveTexturesList = std::list<std::pair<TileKey, TextureInfo>>;
+  using RemoveTexturesList = std::deque<std::pair<TileKey, TextureInfo>>;
   RemoveTexturesList m_removedTextures;
-  std::unordered_map<TileKey, RemoveTexturesList::iterator> m_removedTexturesCache;
 
   CoverageResult m_lastCoverage;
   int m_lastCurrentZoomLevel = 0;

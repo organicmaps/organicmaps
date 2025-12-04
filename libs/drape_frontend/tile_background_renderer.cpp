@@ -233,7 +233,6 @@ void TileBackgroundRenderer::ClearContextDependentResources(ref_ptr<dp::Graphics
   for (auto const & [tileKey, info] : m_removedTextures)
     info.m_texturePool->ReleaseTexture(context, info.m_textureId);
   m_removedTextures.clear();
-  m_removedTexturesCache.clear();
 }
 
 void TileBackgroundRenderer::SetBackgroundMode(ref_ptr<dp::GraphicsContext> context, dp::BackgroundMode mode)
@@ -268,26 +267,25 @@ void TileBackgroundRenderer::RemoveTexture(ref_ptr<dp::GraphicsContext> context,
     // Remove the oldest texture from the cache
     auto & [oldTileKey, oldInfo] = m_removedTextures.front();
     oldInfo.m_texturePool->ReleaseTexture(context, oldInfo.m_textureId);
-    m_removedTexturesCache.erase(oldTileKey);
     m_removedTextures.pop_front();
   }
 
   m_removedTextures.emplace_back(tileKey, info);
-  m_removedTexturesCache[tileKey] = --m_removedTextures.end();
 }
 
 std::optional<TileBackgroundRenderer::TextureInfo> TileBackgroundRenderer::RestoreRemovedTexture(
     TileKey const & tileKey)
 {
-  auto it = m_removedTexturesCache.find(tileKey);
-  if (it == m_removedTexturesCache.end())
-    return std::nullopt;
-
-  auto listIt = it->second;
-  auto info = listIt->second;
-  m_removedTextures.erase(listIt);
-  m_removedTexturesCache.erase(it);
-  return info;
+  for (auto it = m_removedTextures.begin(); it != m_removedTextures.end(); ++it)
+  {
+    if (it->first == tileKey)
+    {
+      auto info = it->second;
+      m_removedTextures.erase(it);
+      return info;
+    }
+  }
+  return std::nullopt;
 }
 
 }  // namespace df
