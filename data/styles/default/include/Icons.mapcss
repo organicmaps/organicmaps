@@ -83,7 +83,7 @@ node|z13-[natural=peak][!name],
 node|z12-17[boundary=national_park],
 node|z12-17[boundary=protected_area],
 node|z12-17[leisure=nature_reserve],
-{text: name;text-offset: 1;text-color: @park_label;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;text-halo-radius:0.5;}
+{text: name; text-offset: 1; text-color: @park_label; text-halo-opacity: 0.8; text-halo-color: @label_halo_light; text-halo-radius: 0.5;}
 
 /* Because we have a generic style [leisure] before */
 node|z18-[leisure=nature_reserve],
@@ -92,11 +92,13 @@ area|z18-[leisure=nature_reserve],
 
 area|z8-9[boundary=national_park],
 area|z8-9[boundary=protected_area][protect_class=1],
-area|z8-9[leisure=nature_reserve],
-{text: name; font-size: 10; text-color: @park_label; text-halo-opacity: 0.8; text-halo-color: @label_halo_light; text-halo-radius:0.5;}
+area|z9[leisure=nature_reserve],
+{text: name; font-size: 10; text-color: @park_label;}
 
 area|z8-16[boundary=aboriginal_lands],
-{text: name; font-size: 10; text-color: @indigenous_label; text-halo-opacity: 0.8; text-halo-color: @label_halo_light; text-halo-radius:0.5;}
+{text: name; font-size: 10; text-color: @indigenous_label;}
+area|z10-16[boundary=aboriginal_lands],
+{text-halo-opacity: 0.8; text-halo-color: @label_halo_light; text-halo-radius: 0.5;}
 
 node|z14[natural=cave_entrance],
 {icon-image: cave-s.svg;}
