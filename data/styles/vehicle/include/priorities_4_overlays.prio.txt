@@ -507,6 +507,8 @@ amenity-theatre                                     # icon z15- (also has captio
 === 1100
 
 amenity-university                                  # icon z15- (also has caption(optional) z15-)
+xmas:feature-market
+xmas:feature-tree
 === 1050
 
 amenity-hospital                                    # icon z15- (also has caption(optional) z15-)
