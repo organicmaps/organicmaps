@@ -2,6 +2,8 @@
 
 #include "generator/generator_tests_support/routing_helpers.hpp"
 
+#include "traffic/traffic_cache.hpp"
+
 #include "routing/routing_tests/index_graph_tools.hpp"
 #include "routing/routing_tests/world_graph_builder.hpp"
 

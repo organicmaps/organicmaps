@@ -46,7 +46,7 @@ public:
     LineString ls;
     ls.m_start = ReadVarUint<uint64_t>(r);
     ls.m_end = ReadVarUint<uint64_t>(r);
-    ReadPrimitiveFromSource(r, ls.m_oneway);
+    ls.m_oneway = ReadPrimitiveFromSource<bool>(r);
     rw::ReadVectorOfPOD(r, ls.m_ways);
     return ls;
   }
