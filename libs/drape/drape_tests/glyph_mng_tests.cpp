@@ -253,9 +253,10 @@ public:
       // QFont font("Noto Naskh Arabic");
       QFont font("Roboto");
       font.setPixelSize(m_fontPixelSize);
-      // font.setWeight(QFont::Weight::Normal);
+      font.setWeight(QFont::Weight::Normal);
       painter.setFont(font);
-      painter.drawText(pen, QString::fromUtf8(m_utf8.c_str(), m_utf8.size()));
+      painter.setPen(Qt::black);
+      painter.drawText(pen, "Qt renderer: " + QString::fromUtf8(m_utf8.c_str(), m_utf8.size()));
     }
   }
 
@@ -272,6 +273,9 @@ UNIT_TEST(GlyphLoadingTest)
   using namespace std::placeholders;
 
   constexpr int fontSize = 27;
+
+  renderer.SetString("🚻💳♿🛜🚰🚱", fontSize, "en");
+  RunTestLoop("Emoji", std::bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
 
   renderer.SetString("Muḩāfaz̧at", fontSize, "en");
   RunTestLoop("Latin Extended", std::bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
