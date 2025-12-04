@@ -5,15 +5,17 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <ImageView
-      android:layout_width="@dimen/splash_screen_logo_size"
-      android:layout_height="@dimen/splash_screen_logo_size"
-      android:contentDescription="@null"
-      app:srcCompat="@drawable/ic_splash"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent" />
+    <ImageView
+        android:layout_width="@dimen/splash_screen_logo_size"
+        android:layout_height="@dimen/splash_screen_logo_size"
+        android:layout_marginTop="3.2dp"
+        android:layout_marginEnd="0dp"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_splash" />
 
   <LinearLayout
       android:id="@+id/ll__branding_info"
