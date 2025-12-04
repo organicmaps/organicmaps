@@ -322,6 +322,10 @@ tourism-theme_park                                  # icon z14- (also has captio
 tourism-zoo                                         # icon z13- (also has caption(optional) z13-)
 === 5200
 
+xmas:feature-market
+xmas:feature-tree
+=== 5150
+
 amenity-hospital                                    # icon z14- (also has caption(optional) z15-, area z14-)
 amenity-university                                  # icon z14- (also has caption(optional) z14-, area z14-)
 leisure-stadium                                     # icon z13- (also has caption(optional) z13-, area z15-)
