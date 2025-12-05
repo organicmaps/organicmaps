@@ -52,8 +52,16 @@ std::string DebugPrint(glz::json_t const & json)
     return "<JSON_ERROR>";
 }
 
-bool GeojsonParser::Parse(std::string_view jsonContent)
+}  // namespace geojson
+
+bool DeserializerGeoJson::Parse(std::string_view jsonContent)
 {
+  // Make some classes from 'geojson' namespace visible here.
+  using geojson::GeoJsonGeometryLine;
+  using geojson::GeoJsonGeometryPoint;
+  using geojson::GeoJsonGeometryUnknown;
+  using geojson::JsonTMap;
+
   geojson::GeoJsonData geoJsonData;
 
   glz::opts constexpr opts{.comments = true, .error_on_unknown_keys = false, .error_on_missing_keys = false};
@@ -249,19 +257,141 @@ bool GeojsonParser::Parse(std::string_view jsonContent)
   return true;
 }
 
-}  // namespace geojson
-
 void DeserializerGeoJson::Deserialize(std::string_view content)
 {
   ASSERT(!content.empty(), ());
-  geojson::GeojsonParser parser(m_fileData);
-  if (!parser.Parse(content))
+
+  if (!this->Parse(content))
   {
     // Print corrupted GeoJson file for debug and restore purposes.
     if (content[0] == '{')
       LOG(LWARNING, (content));
     MYTHROW(DeserializeException, ("Could not parse GeoJson."));
   }
+}
+
+std::vector<std::vector<double>> convertPoints2GeoJsonCoords(std::vector<geometry::PointWithAltitude> points)
+{
+  std::vector<std::vector<double>> pairs;
+  pairs.resize(points.size());
+  for (size_t i = 0; i < points.size(); i++)
+  {
+    auto const & p = points[i];
+    auto const latLon = mercator::ToLatLon(p);
+    pairs[i] = std::vector<double>{latLon.m_lon, latLon.m_lat};
+  }
+  return pairs;
+}
+
+void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
+{
+  // Make some classes from 'geojson' namespace visible here.
+  using geojson::GeoJsonFeature;
+  using geojson::GeoJsonGeometryLine;
+  using geojson::GeoJsonGeometryPoint;
+  using geojson::GeoJsonGeometryUnknown;
+  using geojson::JsonTMap;
+
+  // Convert FileData to GeoJsonData and then let Glaze generate Json from it.
+  std::vector<GeoJsonFeature> geoJsonFeatures;
+
+  // Convert Bookmarks
+  for (BookmarkData const & bookmark : fileData.m_bookmarksData)
+  {
+    auto const p = mercator::ToLatLon(bookmark.m_point);
+    GeoJsonGeometryPoint point{.coordinates = {p.m_lon, p.m_lat}};
+    JsonTMap bookmarkProperties{{"name", kml::GetDefaultStr(bookmark.m_name)},
+                                {"marker-color", toCssColor(bookmark.m_color)}};
+    if (!bookmark.m_description.empty())
+      bookmarkProperties["description"] = kml::GetDefaultStr(bookmark.m_description);
+
+    // Add '_umap_options' if needed.
+    if (auto const umapOptionsPair = bookmark.m_properties.find("_umap_options");
+        umapOptionsPair != bookmark.m_properties.end())
+    {
+      JsonTMap umap_options_obj;
+      if (auto error = glz::read_json(umap_options_obj, umapOptionsPair->second))
+      {
+        // Some error happened!
+        std::string err = glz::format_error(error, umapOptionsPair->second);
+        LOG(LWARNING, ("Error parsing '_umap_options' from KML properties:", err));
+      }
+      else
+      {
+        // Update known UMap properties.
+        umap_options_obj["color"] = toCssColor(bookmark.m_color);
+        bookmarkProperties["_umap_options"] = umap_options_obj;
+      }
+    }
+
+    GeoJsonFeature pointFeature{.geometry = point, .properties = bookmarkProperties};
+    geoJsonFeatures.push_back(std::move(pointFeature));
+  }
+
+  // Convert Tracks
+  for (size_t i = 0; i < fileData.m_tracksData.size(); i++)
+  {
+    TrackData const & track = fileData.m_tracksData[i];
+    auto linesCount = track.m_geometry.m_lines.size();
+    if (linesCount == 0)
+      continue;
+    else if (linesCount > 1)
+    {
+      // TODO: converty multiple lines into GeoJson multiline
+    }
+    auto points = track.m_geometry.m_lines[0];
+    auto layer = track.m_layers[i];
+
+    JsonTMap trackProps{{"name", kml::GetDefaultStr(track.m_name)}, {"stroke", toCssColor(layer.m_color)}};
+    if (!track.m_description.empty())
+      trackProps["description"] = kml::GetDefaultStr(track.m_description);
+
+    // Add '_umap_options' if needed.
+    if (auto const umapOptionsPair = track.m_properties.find("_umap_options");
+        umapOptionsPair != track.m_properties.end())
+    {
+      JsonTMap umap_options_obj;
+      if (auto error = glz::read_json(umap_options_obj, umapOptionsPair->second))
+      {
+        // Some error happened!
+        std::string err = glz::format_error(error, umapOptionsPair->second);
+        LOG(LWARNING, ("Error parsing '_umap_options' from KML properties:", err));
+      }
+      else
+      {
+        // Update known UMap properties.
+        umap_options_obj["color"] = toCssColor(layer.m_color);
+        trackProps["_umap_options"] = umap_options_obj;
+      }
+    }
+
+    GeoJsonGeometryLine trackGeometry{.coordinates = convertPoints2GeoJsonCoords(points)};
+    GeoJsonFeature trackFeature{.geometry = trackGeometry, .properties = trackProps};
+    geoJsonFeatures.push_back(std::move(trackFeature));
+  }
+
+  geojson::GeoJsonData geoJsonData{.features = geoJsonFeatures, .properties = std::nullopt};
+
+  // Export to GeoJson string.
+  glz::error_ctx error;
+  std::string buffer;
+  if (minimize_output)
+    error = glz::write<glz::opts{.prettify = false}>(geoJsonData, buffer);
+  else
+  {
+    glz::opts constexpr opts{.prettify = true, .indentation_width = 2};
+    error = glz::write<opts>(geoJsonData, buffer);
+  }
+
+  if (error)
+  {
+    std::string err = glz::format_error(error, buffer);
+    LOG(LWARNING, ("Error exporting to GeoJson:", err));
+    MYTHROW(WriteGeoJsonException, ("Could not write to GeoJson: " + err));
+  }
+
+  // Write GeoJson.
+  this->m_writer << buffer;
 }
 
 }  // namespace kml

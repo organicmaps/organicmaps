@@ -1,5 +1,6 @@
 #pragma once
 
+#include "coding/writer.hpp"
 #include "kml/types.hpp"
 
 #include <glaze/json.hpp>
@@ -75,38 +76,12 @@ struct GeoJsonData
 {
   std::string type = "FeatureCollection";
   std::vector<GeoJsonFeature> features;
-  std::map<std::string, std::string> properties;
-};
-
-// Writer and reader
-class GeoJsonWriter
-{
-public:
-  /*DECLARE_EXCEPTION(WriteGeojsonException, RootException);
-
-  explicit GeojsonWriter(Writer & writer)
-    : m_writer(writer)
-  {}
-
-  void Write(FileData const & fileData);
-
-private:
-  Writer & m_writer;*/
-};
-
-class GeojsonParser
-{
-public:
-  explicit GeojsonParser(FileData & data) : m_fileData(data) {}
-
-  bool Parse(std::string_view json_content);
-
-private:
-  FileData & m_fileData;
+  std::optional<std::map<std::string, std::string>> properties;
 };
 
 }  // namespace geojson
 
+// Reader and Writer.
 class DeserializerGeoJson
 {
 public:
@@ -117,7 +92,21 @@ public:
   void Deserialize(std::string_view content);
 
 private:
+  bool Parse(std::string_view jsonContent);
   FileData & m_fileData;
+};
+
+class GeoJsonWriter
+{
+public:
+  DECLARE_EXCEPTION(WriteGeoJsonException, RootException);
+
+  explicit GeoJsonWriter(Writer & writer) : m_writer(writer) {}
+
+  void Write(FileData const & fileData, bool minimize_output);
+
+private:
+  Writer & m_writer;
 };
 
 }  // namespace kml
