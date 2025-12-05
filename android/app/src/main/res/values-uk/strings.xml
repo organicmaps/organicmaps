@@ -500,7 +500,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Примітка для волонтерів OpenStreetMap (необов\'язково)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Опишіть помилки на карті або те, що не можна редагувати за допомогою Organic Maps</string>
+    <string name="editor_note_hint">Опишіть помилки на мапі або те, що не можна редагувати за допомогою Organic Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Ваші правки завантажуються до публічної бази даних <a href="https://wiki.openstreetmap.org/wiki/Uk:Про_проект">OpenStreetMap</a>. Будь ласка, не додавайте особисту або захищену авторським правом інформацію.</string>
     <string name="editor_more_about_osm">Більше про OpenStreetMap</string>
