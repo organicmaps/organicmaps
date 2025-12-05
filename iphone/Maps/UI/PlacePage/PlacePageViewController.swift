@@ -39,6 +39,7 @@ final class PlacePageScrollView: UIScrollView {
   private var beginDragging = false
   private var previousTraitCollection: UITraitCollection?
   private var scrollSteps: [PlacePageState] = []
+  private var currentScrollContentOffset: CGPoint?
   private var previousScrollContentOffset: CGPoint?
   private var userDefinedStep: PlacePageState?
   private var isNavigationBarVisible = false
@@ -83,7 +84,7 @@ final class PlacePageScrollView: UIScrollView {
 
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    previousScrollContentOffset = scrollView.contentOffset
+    currentScrollContentOffset = scrollView.contentOffset
     isVisible = false
     interactor?.viewWillDisappear()
   }
@@ -92,13 +93,15 @@ final class PlacePageScrollView: UIScrollView {
     super.traitCollectionDidChange(previousTraitCollection)
     // Update layout when the device was rotated but skip when the appearance was changed.
     if self.previousTraitCollection != nil, previousTraitCollection?.userInterfaceStyle == traitCollection.userInterfaceStyle, previousTraitCollection?.verticalSizeClass != traitCollection.verticalSizeClass {
-      // Skip updating steps if the title is being edited because the header is pinned to the keyboard.
-      guard !self.layout.headerViewController.isEditingTitle else { return }
       DispatchQueue.main.async {
         self.updateSteps()
-        self.showLastStop()
-        self.scrollView.contentInset = self.alternativeSizeClass(iPhone: UIEdgeInsets(top: self.scrollView.height, left: 0, bottom: 0, right: 0),
-                                                                 iPad: UIEdgeInsets.zero)
+        if self.layout.headerViewController.isEditingTitle {
+          self.updateContentOffsetForTitleEditing()
+        } else {
+          self.showLastStop()
+          self.scrollView.contentInset = self.alternativeSizeClass(iPhone: UIEdgeInsets(top: self.scrollView.height, left: 0, bottom: 0, right: 0),
+                                                                   iPad: UIEdgeInsets.zero)
+        }
       }
     }
   }
@@ -194,8 +197,11 @@ final class PlacePageScrollView: UIScrollView {
     fillHeader(with: layout.headerViewControllers, showSeparator: showSeparator)
     fillBody(with: layout.bodyViewControllers, showSeparator: showSeparator)
 
-    layout.headerViewController.onEditingTitle = { [weak self] isEditing in
+    layout.headerViewController.didStartEditingTitle = { [weak self] isEditing in
       self?.scrollView.isScrollEnabled = !isEditing
+    }
+    layout.headerViewController.didChangeEditedTitle = { [weak self] in
+      self?.updateContentOffsetForTitleEditing()
     }
 
     scrollView.isScrollEnabled = true
@@ -340,7 +346,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
   }
 
   func updateWithLayout(_ layout: IPlacePageLayout) {
-    previousScrollContentOffset = scrollView.contentOffset
+    currentScrollContentOffset = scrollView.contentOffset
     cleanupLayout()
     self.layout = layout
     setupLayout(layout)
@@ -364,13 +370,13 @@ extension PlacePageViewController: PlacePageViewProtocol {
       case .previewPlus(let yOffset):
         offset.y = yOffset
       case .full:
-        offset.y = previousScrollContentOffset?.y ?? scrollSteps.last?.offset ?? 0
+        offset.y = currentScrollContentOffset?.y ?? scrollSteps.last?.offset ?? 0
       case .closed:
         break
       }
-    } else if let previousScrollContentOffset {
+    } else if let currentScrollContentOffset {
       // Keep previous offset during layout update if possible.
-      offset.y = max(estimatedYOffset, previousScrollContentOffset.y)
+      offset.y = max(estimatedYOffset, currentScrollContentOffset.y)
     }
     scrollTo(offset)
   }
@@ -410,9 +416,9 @@ extension PlacePageViewController: PlacePageViewProtocol {
 
 extension PlacePageViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    previousScrollContentOffset = scrollView.contentOffset
+    currentScrollContentOffset = scrollView.contentOffset
 
-    if scrollView.contentOffset.y < -scrollView.height + 1 && beginDragging {
+    if scrollView.contentOffset.y < -scrollView.height + 1 && beginDragging && !layout.headerViewController.isEditingTitle {
       interactor?.close()
     }
     let bound = view.height + scrollView.contentOffset.y
@@ -466,20 +472,33 @@ extension PlacePageViewController: UIScrollViewDelegate {
     }
   }
 
-  private func contentOffsetForTitleEditing() -> CGPoint {
-    let visibleScrollHeight = scrollView.frame.height + actionBarContainerView.frame.height - MWMKeyboard.keyboardHeight()
-    let yOffsetFromKeyboard = layout.headerViewController.view.height
-    return CGPoint(x: scrollView.contentOffset.x, y: yOffsetFromKeyboard - visibleScrollHeight)
+  private func updateContentOffsetForTitleEditing() {
+    guard !isiPad else { return }
+    let keyboardHeight = MWMKeyboard.keyboardHeight()
+    var yOffset: CGFloat?
+    if keyboardHeight > 0 {
+      let yOffsetFromKeyboard = layout.headerViewController.view.height
+      let visibleScrollHeight = scrollView.frame.height + actionBarContainerView.frame.height - keyboardHeight
+      yOffset = yOffsetFromKeyboard - visibleScrollHeight
+      if previousScrollContentOffset == nil {
+        previousScrollContentOffset = scrollView.contentOffset
+      }
+    } else if let previousScrollContentOffset {
+      yOffset = previousScrollContentOffset.y
+      self.previousScrollContentOffset = nil
+    }
+    guard let yOffset else { return }
+    scrollTo(CGPoint(x: 0, y: yOffset), forced: true)
   }
 }
 
 // MARK: - MWMKeyboardObserver
 
 extension PlacePageViewController: MWMKeyboardObserver {
-  func onKeyboardWillAnimate() {
-    guard !isiPad, isVisible else { return }
-    scrollView.contentOffset = contentOffsetForTitleEditing()
-  }
+  func onKeyboardWillAnimate() {}
 
-  func onKeyboardAnimation() {}
+  func onKeyboardAnimation() {
+    guard isVisible else { return }
+    updateContentOffsetForTitleEditing()
+  }
 }

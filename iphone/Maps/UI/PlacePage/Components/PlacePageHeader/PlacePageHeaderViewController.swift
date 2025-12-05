@@ -1,6 +1,7 @@
 protocol PlacePageHeaderViewProtocol: AnyObject {
   var presenter: PlacePageHeaderPresenterProtocol? { get set }
-  var onEditingTitle: ((Bool) -> Void)? { get set }
+  var didStartEditingTitle: ((Bool) -> Void)? { get set }
+  var didChangeEditedTitle: (() -> Void)? { get set }
 
   func setShadowHidden(_ hidden: Bool)
   func setTitle(_ title: String?, secondaryTitle: String?)
@@ -29,10 +30,11 @@ final class PlacePageHeaderViewController: UIViewController {
   var presenter: PlacePageHeaderPresenterProtocol?
   var isEditingTitle: Bool = false {
     didSet {
-      onEditingTitle?(isEditingTitle)
+      didStartEditingTitle?(isEditingTitle)
     }
   }
-  var onEditingTitle: ((Bool) -> Void)?
+  var didStartEditingTitle: ((Bool) -> Void)?
+  var didChangeEditedTitle: (() -> Void)?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -212,6 +214,7 @@ extension PlacePageHeaderViewController: UITextViewDelegate {
 
   func textViewDidChange(_ textView: UITextView) {
     clearTitleTextButton.isHidden = textView.text.isEmpty
+    didChangeEditedTitle?()
   }
 
   func textViewDidEndEditing(_ textView: UITextView) {
