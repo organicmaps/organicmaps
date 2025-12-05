@@ -2,10 +2,13 @@
 
 #include "geometry/mercator.hpp"
 
+#include "coding/string_utf8_multilang.hpp"
 #include "kml/serdes_geojson.hpp"
 
 namespace geojson_tests
 {
+kml::FileData GenerateKmlFileData();
+kml::FileData GenerateKmlFileDataWithTrack();
 
 static kml::FileData LoadGeojsonFromString(std::string_view content)
 {
@@ -15,6 +18,19 @@ static kml::FileData LoadGeojsonFromString(std::string_view content)
         kml::DeserializerGeoJson des(dataFromText);
         des.Deserialize(content);
         return dataFromText;
+      },
+      ());
+}
+
+static std::string SaveToGeoJsonString(kml::FileData & fileData, bool minimize = false)
+{
+  TEST_NO_THROW(
+      {
+        std::string buffer{};
+        MemWriter bufferWriter(buffer);
+        kml::GeoJsonWriter exporter(bufferWriter);
+        exporter.Write(fileData, minimize);
+        return buffer;
       },
       ());
 }
@@ -291,6 +307,277 @@ UNIT_TEST(GeoJson_Parse_FromGoogle)
   TEST(vaticanBookmark.m_point.EqualDxDy(mercator::FromLatLon(0, 0), 0.000001), ());
   TEST_EQUAL(kml::GetDefaultStr(vaticanBookmark.m_description),
              "https://maps.google.com/?q=00120+Vatican+City&ftid=0x1325890a57d42d3d:0x94f9ab23a7eb0", ());
+}
+
+UNIT_TEST(GeoJson_Writer_Simple)
+{
+  std::string_view constexpr expected_geojson = R"({
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16,
+          45
+        ]
+      },
+      "properties": {
+        "description": "Test bookmark description",
+        "marker-color": "RoyalBlue",
+        "name": "Marcador de prueba"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            45.25,
+            46
+          ],
+          [
+            45.5,
+            47
+          ],
+          [
+            45.75,
+            48
+          ]
+        ]
+      },
+      "properties": {
+        "description": "Test track description",
+        "name": "Test track",
+        "stroke": "#ff0000"
+      }
+    }
+  ]
+})";
+
+  kml::FileData testData = GenerateKmlFileDataWithTrack();
+  auto jsonString = SaveToGeoJsonString(testData);
+
+  TEST_EQUAL(jsonString, expected_geojson, ());
+}
+
+UNIT_TEST(GeoJson_Writer_Simple_Minimized)
+{
+  // clang-format off
+  std::string_view constexpr expected_geojson = R"({"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[47,45]},"properties":{"description":"Test bookmark description","marker-color":"RoyalBlue","name":"Marcador de prueba"}}]})";
+  // clang-format on
+
+  kml::FileData testData = GenerateKmlFileData();
+  auto jsonString = SaveToGeoJsonString(testData, true);
+
+  TEST_EQUAL(jsonString, expected_geojson, ());
+}
+
+UNIT_TEST(GeoJson_Writer_UMap)
+{
+  std::string_view constexpr expected_geojson = R"({
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16,
+          45
+        ]
+      },
+      "properties": {
+        "_umap_options": {
+          "color": "RoyalBlue",
+          "customProperty": "should be preserved",
+          "iconClass": "Drop",
+          "opacity": 0.8,
+          "weight": 4
+        },
+        "description": "Test bookmark description",
+        "marker-color": "RoyalBlue",
+        "name": "Marcador de prueba"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            45.25,
+            46
+          ],
+          [
+            45.5,
+            47
+          ],
+          [
+            45.75,
+            48
+          ]
+        ]
+      },
+      "properties": {
+        "_umap_options": {
+          "color": "#ff0000",
+          "dashArray": "5,10",
+          "opacity": 0.5,
+          "weight": 2
+        },
+        "description": "Test track description",
+        "name": "Test track",
+        "stroke": "#ff0000"
+      }
+    }
+  ]
+})";
+
+  // NOTE: Glaze will sort keys alphabetically when exported to GeoJson
+  auto const bookmark_umap_properties_str = R"(
+  {
+    "iconClass": "Drop",
+    "color": "red",
+    "weight": 4,
+    "opacity": 0.8,
+    "customProperty": "should be preserved"
+  })";
+
+  auto const track_umap_properties_str = R"(
+  {
+    "color": "red",
+    "weight": 2,
+    "opacity": 0.5,
+    "dashArray": "5,10"
+  })";
+
+  kml::FileData testData = GenerateKmlFileDataWithTrack();
+
+  // Add '_umap_options' to test data.
+  testData.m_bookmarksData[0].m_properties["_umap_options"] = bookmark_umap_properties_str;
+  testData.m_tracksData[0].m_properties["_umap_options"] = track_umap_properties_str;
+
+  auto jsonString = SaveToGeoJsonString(testData);
+
+  TEST_EQUAL(jsonString, expected_geojson, ());
+}
+
+UNIT_TEST(GeoJson_Writer_UMap_Invalid_Json)
+{
+  std::string_view constexpr expected_geojson = R"({
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          47,
+          45
+        ]
+      },
+      "properties": {
+        "description": "Test bookmark description",
+        "marker-color": "RoyalBlue",
+        "name": "Marcador de prueba"
+      }
+    }
+  ]
+})";
+
+  // Invalid JSON property will lead to warning. But no errors.
+  auto const bookmark_umap_properties_str = R"({some $ invalid ^ json})";
+
+  kml::FileData testData = GenerateKmlFileData();
+
+  // Add '_umap_options' to test data.
+  testData.m_bookmarksData[0].m_properties["_umap_options"] = bookmark_umap_properties_str;
+
+  // Expecting some warning here.
+  auto jsonString = SaveToGeoJsonString(testData);
+
+  TEST_EQUAL(jsonString, expected_geojson, ());
+}
+
+kml::FileData GenerateKmlFileData()
+{
+  auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
+  auto const kEnLang = StringUtf8Multilang::kEnglishCode;
+  auto const kEsLang = static_cast<int8_t>(21);
+
+  kml::FileData result;
+  result.m_deviceId = "AAAA";
+  result.m_serverId = "AAAA-BBBB-CCCC-DDDD";
+
+  kml::BookmarkData bookmarkData;
+  bookmarkData.m_name[kDefaultLang] = "Marcador de prueba";
+  bookmarkData.m_name[kEnLang] = "Test bookmark";
+  bookmarkData.m_description[kDefaultLang] = "Test bookmark description";
+  bookmarkData.m_description[kEsLang] = "Descripción del marcador de prueba";
+  bookmarkData.m_featureTypes = {718, 715};
+  bookmarkData.m_customName[kDefaultLang] = "Mi lugar favorito";
+  bookmarkData.m_customName[kEnLang] = "My favorite place";
+  bookmarkData.m_color = {kml::PredefinedColor::Blue, 0};
+  bookmarkData.m_icon = kml::BookmarkIcon::None;
+  bookmarkData.m_timestamp = kml::TimestampClock::from_time_t(800);
+  bookmarkData.m_point = mercator::FromLatLon(45.0, 47.0);
+  bookmarkData.m_visible = false;
+  bookmarkData.m_minZoom = 10;
+  bookmarkData.m_properties = {{"bm_property1", "value1"}, {"bm_property2", "value2"}, {"score", "5"}};
+  result.m_bookmarksData.emplace_back(std::move(bookmarkData));
+
+  return result;
+}
+
+kml::FileData GenerateKmlFileDataWithTrack()
+{
+  auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
+  auto const kEnLang = StringUtf8Multilang::kEnglishCode;
+  auto const kEsLang = static_cast<int8_t>(21);
+
+  kml::FileData result;
+  result.m_deviceId = "AAAA";
+  result.m_serverId = "AAAA-BBBB-CCCC-DDDD";
+
+  kml::BookmarkData bookmarkData;
+  bookmarkData.m_name[kDefaultLang] = "Marcador de prueba";
+  bookmarkData.m_name[kEnLang] = "Test bookmark";
+  bookmarkData.m_description[kDefaultLang] = "Test bookmark description";
+  bookmarkData.m_description[kEsLang] = "Descripción del marcador de prueba";
+  bookmarkData.m_featureTypes = {718, 715};
+  bookmarkData.m_customName[kDefaultLang] = "Mi lugar favorito";
+  bookmarkData.m_customName[kEnLang] = "My favorite place";
+  bookmarkData.m_color = {kml::PredefinedColor::Blue, 0};
+  bookmarkData.m_icon = kml::BookmarkIcon::None;
+  bookmarkData.m_timestamp = kml::TimestampClock::from_time_t(800);
+  bookmarkData.m_point = mercator::FromLatLon(45.0, 16.0);
+  bookmarkData.m_boundTracks = {0};
+  bookmarkData.m_visible = false;
+  bookmarkData.m_minZoom = 10;
+  bookmarkData.m_properties = {{"bm_property1", "value1"}, {"bm_property2", "value2"}, {"score", "5"}};
+  result.m_bookmarksData.emplace_back(std::move(bookmarkData));
+
+  kml::TrackData trackData;
+  trackData.m_localId = 0;
+  trackData.m_name[kDefaultLang] = "Test track";
+  trackData.m_name[kEsLang] = "Pista de prueba.";
+  trackData.m_description[kDefaultLang] = "Test track description";
+  trackData.m_description[kEsLang] = "Descripción de prueba de la pista.";
+  trackData.m_layers = {{6.0, {kml::PredefinedColor::None, 0xff0000ff}},
+                        {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
+  trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
+
+  trackData.m_geometry.AddLine({{mercator::FromLatLon(46, 45.25), 1},
+                                {mercator::FromLatLon(47, 45.5), 2},
+                                {mercator::FromLatLon(48, 45.75), 3}});
+
+  trackData.m_properties = {{"tr_property1", "value1"}, {"tr_property2", "value2"}};
+  result.m_tracksData.emplace_back(std::move(trackData));
+
+  return result;
 }
 
 }  // namespace geojson_tests
