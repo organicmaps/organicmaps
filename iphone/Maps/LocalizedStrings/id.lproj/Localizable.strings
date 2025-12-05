@@ -567,6 +567,7 @@
 "hour" = "j";
 "minute" = "mnt";
 "day" = "hr";
+"second" = "dtk";
 "placepage_more_button" = "Lainnya";
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */

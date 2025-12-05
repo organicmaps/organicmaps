@@ -372,6 +372,7 @@
     <string name="hour">घंटे</string>
     <string name="minute">मिनट</string>
     <string name="day">दिन</string>
+    <string name="second">सेकंड</string>
     <string name="editor_remove_place_button">मिटाना</string>
     <string name="editor_place_doesnt_exist">जगह मौजूद नहीं है</string>
     <string name="placepage_add_place_button">OpenStreetMap में स्थान जोड़ें</string>

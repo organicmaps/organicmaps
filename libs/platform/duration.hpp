@@ -17,6 +17,7 @@ public:
     Days = 0,
     Hours = 1,
     Minutes = 2,
+    Seconds = 3,
   };
 
   explicit Duration(unsigned long seconds);

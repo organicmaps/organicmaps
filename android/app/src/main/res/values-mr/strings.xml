@@ -508,6 +508,7 @@
     <string name="hour">तास</string>
     <string name="minute">मिनिट</string>
     <string name="day">दि</string>
+    <string name="second">सेकंद</string>
     <string name="placepage_more_button">अधिक</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">खूणपत्र संपादित करा</string>

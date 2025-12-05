@@ -520,6 +520,7 @@
     <string name="hour">小时</string>
     <string name="minute">分钟</string>
     <string name="day">天</string>
+    <string name="second">秒</string>
     <string name="placepage_more_button">更多</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">编辑书签</string>

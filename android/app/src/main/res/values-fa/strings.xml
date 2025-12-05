@@ -518,6 +518,7 @@
     <string name="hour">ساعت</string>
     <string name="minute">دقیقه</string>
     <string name="day">روز</string>
+    <string name="second">ثانیه</string>
     <string name="placepage_more_button">بیشتر</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">ویرایش نشانک‌ها</string>

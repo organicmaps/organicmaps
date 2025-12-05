@@ -514,6 +514,7 @@
     <string name="hour">saat</string>
     <string name="minute">dəq</string>
     <string name="day">gün</string>
+    <string name="second">san</string>
     <string name="placepage_more_button">Digər</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Əlfəcini redaktə edin</string>

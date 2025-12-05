@@ -516,6 +516,7 @@
     <string name="hour">h</string>
     <string name="minute">분</string>
     <string name="day">일</string>
+    <string name="second">초</string>
     <string name="placepage_more_button">자세히</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">즐겨찾기 편집</string>

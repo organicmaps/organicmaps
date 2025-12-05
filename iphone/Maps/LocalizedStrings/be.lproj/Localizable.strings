@@ -567,6 +567,7 @@
 "hour" = "г";
 "minute" = "хв";
 "day" = "д";
+"second" = "с";
 "placepage_more_button" = "Яшчэ";
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
