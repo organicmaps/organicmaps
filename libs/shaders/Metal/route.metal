@@ -111,7 +111,7 @@ fragment float4 fsRouteDash(const RouteFragment_T in [[stage_in]],
   float4 mainColor = mix(uniforms.u_color, uniforms.u_fakeColor, coefs.x);
   mainColor = mix(mainColor, uniforms.u_fakeColor, coefs.y);
   
-  float4 color = mainColor + in.color;
+  float4 color = float4(mix(mainColor.rgb, in.color.rgb, in.color.a), mainColor.a);
   float a = 1.0 - smoothstep(kAntialiasingThreshold, 1.0, abs(in.lengthParams.y));
   color.a *= (a * AlphaFromPattern(in.lengthParams.x, uniforms.u_pattern));
   color = float4(mix(color.rgb, uniforms.u_maskColor.rgb, uniforms.u_maskColor.a), color.a);

@@ -537,6 +537,16 @@ drape_ptr<df::SubrouteData> RouteShape::CacheRoute(ref_ptr<dp::GraphicsContext> 
       segmentsColors.emplace_back(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), alpha);
     }
   }
+  else if (!subroute->m_difficulties.empty())
+  {
+    segmentsColors.reserve(endIndex - startIndex);
+    for (size_t i = startIndex; i < endIndex; ++i)
+    {
+      auto color = (subroute->m_routeType == RouteType::Pedestrian) ? df::GetColorConstant("RouteSlopeMaskPedestrian")
+                                                                    : df::GetColorConstant("RouteSlopeMaskBicycle");
+      segmentsColors.emplace_back(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), subroute->m_difficulties[i]);
+    }
+  }
 
   auto subrouteData = make_unique_dp<df::SubrouteData>();
   subrouteData->m_subrouteId = subrouteId;
