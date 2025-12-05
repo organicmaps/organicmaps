@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageView
         android:layout_width="@dimen/splash_screen_logo_size"
@@ -17,32 +16,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_splash" />
 
-  <LinearLayout
-      android:id="@+id/ll__branding_info"
-      android:gravity="center"
-      android:orientation="vertical"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:paddingBottom="@dimen/margin_double"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent" >
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/ll__branding_info"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_eighth"
-        android:text="@string/app_name"
-        android:gravity="center_horizontal"
-        android:textAppearance="@style/MwmTextAppearance.Title.Splash" />
+        android:paddingBottom="@dimen/margin_double"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/splash_subtitle"
-        android:layout_marginStart="@dimen/margin_double"
-        android:layout_marginEnd="@dimen/margin_double"
-        android:gravity="center_horizontal"
-        android:textAppearance="@style/MwmTextAppearance.Toolbar" />
-  </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_eighth"
+            android:text="@string/app_name"
+            android:gravity="center_horizontal"
+            android:textAppearance="@style/MwmTextAppearance.Title.Splash" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/splash_subtitle"
+            android:layout_marginStart="@dimen/margin_double"
+            android:layout_marginEnd="@dimen/margin_double"
+            android:gravity="center_horizontal"
+            android:textAppearance="@style/MwmTextAppearance.Toolbar" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
