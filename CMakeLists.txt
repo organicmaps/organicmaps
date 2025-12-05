@@ -150,7 +150,7 @@ if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
     list(APPEND qt_components Gui Xml Svg OpenGL OpenGLWidgets)
   endif()
   # PATHS are hard-coded hints where to look for qt6 in addition to other places.
-  find_package(Qt6 COMPONENTS REQUIRED ${qt_components} PATHS $ENV{QT_PATH} /opt/homebrew/opt/qt@6 /usr/local/opt/qt@6 /usr/lib/x86_64-linux-gnu/qt6)
+  find_package(Qt6 COMPONENTS REQUIRED ${qt_components} OPTIONAL_COMPONENTS Positioning PATHS $ENV{QT_PATH} /opt/homebrew/opt/qt@6 /usr/local/opt/qt@6 /usr/lib/x86_64-linux-gnu/qt6)
 
   set(MINIMUM_REQUIRED_QT_VERSION 6.4.0)
   if (Qt6Widgets_VERSION VERSION_LESS ${MINIMUM_REQUIRED_QT_VERSION})
