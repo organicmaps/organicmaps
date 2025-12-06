@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Sään seuranta-asema";
 "type.amenity.student_accommodation" = "Opiskelijoiden majoitus";
 "type.craft.watchmaker" = "Kelloseppä";
+"type.xmas_feature.market" = "Joulumarkkinat";
+"type.xmas_feature.tree" = "Joulukuusi";

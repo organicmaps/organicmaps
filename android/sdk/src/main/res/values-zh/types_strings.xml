@@ -1418,4 +1418,6 @@
     <string name="type.man_made.monitoring_station.weather">气象监测站</string>
     <string name="type.amenity.student_accommodation">学生宿舍</string>
     <string name="type.craft.watchmaker">钟表匠</string>
+    <string name="type.xmas_feature.market">圣诞市场</string>
+    <string name="type.xmas_feature.tree">圣诞树</string>
 </resources>

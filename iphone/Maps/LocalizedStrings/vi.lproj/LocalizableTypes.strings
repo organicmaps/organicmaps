@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Trạm quan trắc thời tiết";
 "type.amenity.student_accommodation" = "Chỗ ở cho sinh viên";
 "type.craft.watchmaker" = "Thợ đồng hồ";
+"type.xmas_feature.market" = "Chợ Giáng sinh";
+"type.xmas_feature.tree" = "Cây Giáng sinh";

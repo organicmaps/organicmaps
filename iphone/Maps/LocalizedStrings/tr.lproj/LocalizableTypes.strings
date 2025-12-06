@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Hava Durumu İzleme İstasyonu";
 "type.amenity.student_accommodation" = "Öğrenci Konaklama";
 "type.craft.watchmaker" = "Saatçi";
+"type.xmas_feature.market" = "Noel Pazarı";
+"type.xmas_feature.tree" = "Noel Ağacı";

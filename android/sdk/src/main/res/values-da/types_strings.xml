@@ -1412,4 +1412,6 @@
     <string name="type.man_made.monitoring_station.weather">Station til overvågning af vejret</string>
     <string name="type.amenity.student_accommodation">Indkvartering af studerende</string>
     <string name="type.craft.watchmaker">Urmager</string>
+    <string name="type.xmas_feature.market">Julemarked</string>
+    <string name="type.xmas_feature.tree">Juletræ</string>
 </resources>
