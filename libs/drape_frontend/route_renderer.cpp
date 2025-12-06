@@ -32,18 +32,18 @@ std::string const kRouteFakeOutlineColor = "RouteFakeOutline";
 
 namespace
 {
-std::array<float, 20> const kPreviewPointRadiusInPixel = {
+std::array<float, 20> constexpr kPreviewPointRadiusInPixel = {
     // 1   2     3     4     5     6     7     8     9     10
     0.8f, 0.8f, 2.0f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f,
     // 11   12    13    14    15    16    17    18    19     20
     2.5f, 2.5f, 2.5f, 2.5f, 3.0f, 4.0f, 4.5f, 4.5f, 5.0f, 5.5f};
 
-int const kArrowAppearingZoomLevel = 14;
-int const kInvalidGroup = -1;
+int constexpr kArrowAppearingZoomLevel = 14;
+int constexpr kInvalidGroup = -1;
 
-uint32_t const kPreviewPointsCount = 512;
+uint32_t constexpr kPreviewPointsCount = 512;
 
-double const kInvalidDistance = -1.0;
+double constexpr kInvalidDistance = -1.0;
 
 void InterpolateByZoom(SubrouteConstPtr const & subroute, ScreenBase const & screen, float & halfWidth, double & zoom)
 {
@@ -51,11 +51,16 @@ void InterpolateByZoom(SubrouteConstPtr const & subroute, ScreenBase const & scr
   float lerpCoef = 0.0f;
   ExtractZoomFactors(screen, zoom, index, lerpCoef);
 
-  std::array<float, 20> const * halfWidthInPixel = &kRouteHalfWidthInPixelOthers;
-  if (subroute->m_routeType == RouteType::Car || subroute->m_routeType == RouteType::Taxi)
-    halfWidthInPixel = &kRouteHalfWidthInPixelCar;
-  else if (subroute->m_routeType == RouteType::Transit)
-    halfWidthInPixel = &kRouteHalfWidthInPixelTransit;
+  std::array<float, 20> const * halfWidthInPixel;
+  switch (subroute->m_routeType)
+  {
+  case RouteType::Car:
+  case RouteType::Taxi: halfWidthInPixel = &kRouteHalfWidthInPixelCar; break;
+  case RouteType::Bicycle: halfWidthInPixel = &kRouteHalfWidthInPixelBicycle; break;
+  case RouteType::Transit: halfWidthInPixel = &kRouteHalfWidthInPixelTransit; break;
+  case RouteType::Pedestrian:
+  case RouteType::Ruler: halfWidthInPixel = &kRouteHalfWidthInPixelOthers; break;
+  }
 
   halfWidth = InterpolateByZoomLevels(index, lerpCoef, *halfWidthInPixel);
   halfWidth *= static_cast<float>(df::VisualParams::Instance().GetVisualScale());
