@@ -56,6 +56,7 @@ import app.organicmaps.sdk.bookmarks.data.TrackRecording;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.editor.Editor;
+import app.organicmaps.sdk.location.LocationCompatExtractor;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.SensorListener;
 import app.organicmaps.sdk.routing.RoutingController;
@@ -772,8 +773,10 @@ public class PlacePageView extends Fragment
       return;
 
     final StringBuilder builder = new StringBuilder();
-    if (l.hasAltitude())
-      builder.append("▲").append(Framework.nativeFormatAltitude(l.getAltitude()));
+    final LocationCompatExtractor.AltitudeAndAccuracy altitudeAndAccuracy =
+        LocationCompatExtractor.getAltitudeFromLocation(l);
+    if (altitudeAndAccuracy != null)
+      builder.append("▲").append(Framework.nativeFormatAltitude(altitudeAndAccuracy.altitude()));
     if (l.hasSpeed())
       builder.append("   ").append(Framework.nativeFormatSpeed(l.getSpeed()));
 
