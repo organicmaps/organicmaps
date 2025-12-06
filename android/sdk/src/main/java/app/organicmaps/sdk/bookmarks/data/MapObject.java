@@ -64,6 +64,10 @@ public class MapObject implements PlacePageData
   private final RoutePointInfo mRoutePointInfo;
   @OpeningMode
   private final int mOpeningMode;
+  @Nullable
+  private long[] mPublicHolidays;
+  @Nullable
+  private java.util.Map<Long, String> mPublicHolidayNames;
   @NonNull
   private String mWikiArticle;
   @NonNull
@@ -280,6 +284,32 @@ public class MapObject implements PlacePageData
   public void addMetadata(int type, String value)
   {
     mMetadata.addMetadata(type, value);
+  }
+
+  // Called from JNI.
+  @Keep
+  @SuppressWarnings("unused")
+  public void setPublicHolidays(@Nullable long[] holidays)
+  {
+    mPublicHolidays = holidays;
+  }
+
+  @Nullable
+  public long[] getPublicHolidays()
+  {
+    return mPublicHolidays;
+  }
+
+  @Keep
+  public void setPublicHolidayNames(@Nullable java.util.Map<Long, String> holidayNames)
+  {
+    mPublicHolidayNames = holidayNames;
+  }
+
+  @Nullable
+  public java.util.Map<Long, String> getPublicHolidayNames()
+  {
+    return mPublicHolidayNames;
   }
 
   public boolean hasPhoneNumber()

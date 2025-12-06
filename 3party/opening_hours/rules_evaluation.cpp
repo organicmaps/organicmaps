@@ -257,19 +257,34 @@ bool IsActive(WeekdayRange const & range, std::tm const & date)
   return range.HasWday(wday);
 }
 
-bool IsActive(Holiday const & holiday, std::tm const & date)
+bool IsActive(Holiday const & holiday, std::tm const & date, THolidayDates const & holidays)
 {
+  if (holiday.IsPlural())
+  {
+    std::tm dateMidnight = date;
+    dateMidnight.tm_hour = 0;
+    dateMidnight.tm_min = 0;
+    dateMidnight.tm_sec = 0;
+    dateMidnight.tm_isdst = -1;
+    
+    time_t dateTime = std::mktime(&dateMidnight);
+    if (dateTime == -1)
+      return false;
+    
+    if (holidays.contains(dateTime))
+      return true;
+  }
   return false;
 }
 
-bool IsActive(Weekdays const & weekdays, std::tm const & date)
+bool IsActive(Weekdays const & weekdays, std::tm const & date, THolidayDates const & holidays)
 {
   for (auto const & wr : weekdays.GetWeekdayRanges())
     if (IsActive(wr, date))
       return true;
 
   for (auto const & hd : weekdays.GetHolidays())
-    if (IsActive(hd, date))
+    if (IsActive(hd, date, holidays))
       return true;
 
   return weekdays.GetWeekdayRanges().empty() &&
@@ -334,43 +349,43 @@ bool IsActiveAny(std::vector<T> const & selectors, std::tm const & date)
 
 bool IsActiveAny(Timespan const & span, std::tm const & time) { return IsActive(span, time); }
 
-bool IsDayActive(RuleSequence const & rule, std::tm const & dt)
+bool IsDayActive(RuleSequence const & rule, std::tm const & dt, THolidayDates const &  holidays = {})
 {
   return IsActiveAny(rule.GetYears(), dt) && IsActiveAny(rule.GetMonths(), dt) &&
-         IsActiveAny(rule.GetWeeks(), dt) && IsActive(rule.GetWeekdays(), dt);
+         IsActiveAny(rule.GetWeeks(), dt) && IsActive(rule.GetWeekdays(), dt, holidays);
 }
 
 template <class TTimeSpans>
-std::pair<bool, bool> MakeActiveResult(RuleSequence const & rule, std::tm const & dt, TTimeSpans const & times)
+std::pair<bool, bool> MakeActiveResult(RuleSequence const & rule, std::tm const & dt, TTimeSpans const & times, THolidayDates const & holidays = {})
 {
-  if (IsDayActive(rule, dt))
+  if (IsDayActive(rule, dt, holidays))
     return { true, IsActiveAny(times, dt) };
   else
     return {false, false};
 }
 
 /// @return [day active, time active].
-std::pair<bool, bool> IsActiveImpl(RuleSequence const & rule, time_t const timestamp)
+std::pair<bool, bool> IsActiveImpl(RuleSequence const & rule, time_t const timestamp, THolidayDates const & holidays)
 {
   if (rule.IsTwentyFourHours())
     return {true, true};
 
   auto const dateTimeTM = MakeTimetuple(timestamp);
   if (!HasExtendedHours(rule))
-    return MakeActiveResult(rule, dateTimeTM, rule.GetTimes());
+    return MakeActiveResult(rule, dateTimeTM, rule.GetTimes(), holidays);
 
   TTimespans originalNormalizedSpans;
   Timespan additionalSpan;
   SplitExtendedHours(rule.GetTimes(), originalNormalizedSpans, additionalSpan);
 
-  auto const res1 = MakeActiveResult(rule, dateTimeTM, originalNormalizedSpans);
+  auto const res1 = MakeActiveResult(rule, dateTimeTM, originalNormalizedSpans, holidays);
   if (res1.first && res1.second)
     return res1;
 
   time_t constexpr twentyFourHoursShift = 24 * 60 * 60;
   auto const dateTimeTMShifted = MakeTimetuple(timestamp - twentyFourHoursShift);
 
-  auto const res2 = MakeActiveResult(rule, dateTimeTMShifted, additionalSpan);
+  auto const res2 = MakeActiveResult(rule, dateTimeTMShifted, additionalSpan, holidays);
   return { res1.first || res2.first, res2.second };
 }
 
@@ -388,13 +403,13 @@ bool IsR1IncludesR2(RuleSequence const & r1, RuleSequence const & r2)
   return false;
 }
 
-bool IsActive(RuleSequence const & rule, time_t const timestamp)
+bool IsActive(RuleSequence const & rule, time_t const timestamp, THolidayDates const & holidays)
 {
-  auto const res = IsActiveImpl(rule, timestamp);
+  auto const res = IsActiveImpl(rule, timestamp, holidays);
   return res.first && res.second;
 }
 
-time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, RuleState state)
+time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, RuleState state, THolidayDates const & holidays)
 {
   time_t constexpr kTimeTMax = std::numeric_limits<time_t>::max();
   time_t dateTimeResult = kTimeTMax;
@@ -421,7 +436,7 @@ time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, Rul
         if (dateTimeToCheck < dateTime || dateTimeToCheck > dateTimeResult)
           continue;
 
-        if (GetState(rules, dateTimeToCheck) == state)
+        if (GetState(rules, dateTimeToCheck, holidays) == state)
           dateTimeResult = dateTimeToCheck;
       }
 
@@ -476,7 +491,7 @@ time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, Rul
   return kTimeTMax;
 }
 
-RuleState GetState(TRuleSequences const & rules, time_t const timestamp)
+RuleState GetState(TRuleSequences const & rules, time_t const timestamp, THolidayDates const & holidays)
 {
   RuleSequence const * emptyRule = nullptr;
   RuleSequence const * dayMatchedRule = nullptr;
@@ -484,7 +499,7 @@ RuleState GetState(TRuleSequences const & rules, time_t const timestamp)
   for (auto it = rules.rbegin(); it != rules.rend(); ++it)
   {
     auto const & rule = *it;
-    auto const res = IsActiveImpl(rule, timestamp);
+    auto const res = IsActiveImpl(rule, timestamp, holidays);
     if (!res.first)
       continue;
 

@@ -883,36 +883,51 @@ OpeningHours::OpeningHours(TRuleSequences const & rule):
 {
 }
 
+OpeningHours::OpeningHours(std::string const & rule, THolidayDates const & holidays)
+  : m_valid(Parse(rule, m_rule))
+  , m_holidays(holidays)
+{}
+
+OpeningHours::OpeningHours(TRuleSequences const & rule, THolidayDates const & holidays)
+  : m_rule(rule)
+  , m_valid(true)
+  , m_holidays(holidays)
+{}
+
 bool OpeningHours::IsOpen(time_t const dateTime) const
 {
-  return osmoh::IsOpen(m_rule, dateTime);
+  return osmoh::IsOpen(m_rule, dateTime, m_holidays);
 }
 
 bool OpeningHours::IsClosed(time_t const dateTime) const
 {
-  return osmoh::IsClosed(m_rule, dateTime);
+  return osmoh::IsClosed(m_rule, dateTime, m_holidays);
 }
 
 bool OpeningHours::IsUnknown(time_t const dateTime) const
 {
-  return osmoh::IsUnknown(m_rule, dateTime);
+  return osmoh::IsUnknown(m_rule, dateTime, m_holidays);
 }
 
 OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime) const
 {
   InfoT info;
-  info.state = GetState(m_rule, dateTime);
+  info.state = GetState(m_rule, dateTime, m_holidays);
+
+  if (m_holidays.contains(dateTime))
+    info.isHoliday = true;
+
   if (info.state != RuleState::Unknown)
   {
-   if (info.state == RuleState::Open)
+    if (info.state == RuleState::Open)
       info.nextTimeOpen = dateTime;
     else
-      info.nextTimeOpen = osmoh::GetNextTimeState(m_rule, dateTime, RuleState::Open);
+      info.nextTimeOpen = osmoh::GetNextTimeState(m_rule, dateTime, RuleState::Open, m_holidays);
 
     if (info.state == RuleState::Closed)
       info.nextTimeClosed = dateTime;
     else
-      info.nextTimeClosed = osmoh::GetNextTimeState(m_rule, dateTime, RuleState::Closed);
+      info.nextTimeClosed = osmoh::GetNextTimeState(m_rule, dateTime, RuleState::Closed, m_holidays);
   }
 
   return info;

@@ -7,37 +7,37 @@
 namespace osmoh
 {
 
-RuleState GetState(TRuleSequences const & rules, time_t const dateTime);
+RuleState GetState(TRuleSequences const & rules, time_t const dateTime, THolidayDates const & holidays = {});
 
-time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, RuleState state);
+time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, RuleState state, THolidayDates const & holidays = {});
 
-inline bool IsOpen(TRuleSequences const & rules, time_t const dateTime)
+inline bool IsOpen(TRuleSequences const & rules, time_t const dateTime, THolidayDates const & holidays = {})
 {
-  return GetState(rules, dateTime) == RuleState::Open;
+  return GetState(rules, dateTime, holidays) == RuleState::Open;
 }
 
-inline time_t GetNextTimeOpen(TRuleSequences const & rules, time_t const dateTime)
+inline time_t GetNextTimeOpen(TRuleSequences const & rules, time_t const dateTime, THolidayDates const & holidays = {})
 {
-  if (GetState(rules, dateTime) == RuleState::Open)
+  if (GetState(rules, dateTime, holidays) == RuleState::Open)
     return dateTime;
-  return GetNextTimeState(rules, dateTime, RuleState::Open);
+  return GetNextTimeState(rules, dateTime, RuleState::Open, holidays);
 }
 
-inline bool IsClosed(TRuleSequences const & rules, time_t const dateTime)
+inline bool IsClosed(TRuleSequences const & rules, time_t const dateTime, THolidayDates const & holidays = {})
 {
-  return GetState(rules, dateTime) == RuleState::Closed;
+  return GetState(rules, dateTime, holidays) == RuleState::Closed;
 }
 
-inline time_t GetNextTimeClosed(TRuleSequences const & rules, time_t const dateTime)
+inline time_t GetNextTimeClosed(TRuleSequences const & rules, time_t const dateTime, THolidayDates const & holidays = {})
 {
-  if (GetState(rules, dateTime) == RuleState::Closed)
+  if (GetState(rules, dateTime, holidays) == RuleState::Closed)
     return dateTime;
-  return GetNextTimeState(rules, dateTime, RuleState::Closed);
+  return GetNextTimeState(rules, dateTime, RuleState::Closed, holidays);
 }
 
-inline bool IsUnknown(TRuleSequences const & rules, time_t const dateTime)
+inline bool IsUnknown(TRuleSequences const & rules, time_t const dateTime, THolidayDates const & holidays = {})
 {
-  return GetState(rules, dateTime) == RuleState::Unknown;
+  return GetState(rules, dateTime, holidays) == RuleState::Unknown;
 }
 
 } // namespace osmoh

@@ -169,6 +169,15 @@ std::unique_ptr<MwmInfo> DataSource::CreateInfo(platform::LocalCountryFile const
   {
     ReaderSource<FilesContainerR::TReader> src(value.m_cont.GetReader(REGION_INFO_FILE_TAG));
     info->m_data.Deserialize(src);
+    
+    // Verify holidays were deserialized
+    feature::RegionData::THolidayTimestampSet holidays;
+    info->m_data.GetPublicHolidayTimestamps(holidays);
+    LOG(LINFO, ("DataSource: Deserialized RegionData for", info->GetCountryName(), "- holidays count:", holidays.size()));
+  }
+  else
+  {
+    LOG(LWARNING, ("DataSource: REGION_INFO_FILE_TAG not found in MWM for", info->GetCountryName()));
   }
 
   return info;

@@ -69,6 +69,58 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObje
 
   if (parseMeta)
     InjectMetadata(env, g_mapObjectClazz, mapObject, info);
+
+  // Public holidays
+  auto const & holidays = info.GetPublicHolidays();
+  if (!holidays.empty())
+  {
+    jclass mapObjectClass = env->GetObjectClass(mapObject);
+    jmethodID setHolidaysId = env->GetMethodID(mapObjectClass, "setPublicHolidays", "([J)V");
+    env->DeleteLocalRef(mapObjectClass);
+
+    if (setHolidaysId)
+    {
+      jlongArray jHolidays = env->NewLongArray(static_cast<jsize>(holidays.size()));
+      std::vector<jlong> holidaysVec(holidays.begin(), holidays.end());
+      env->SetLongArrayRegion(jHolidays, 0, holidaysVec.size(), holidaysVec.data());
+      env->CallVoidMethod(mapObject, setHolidaysId, jHolidays);
+      env->DeleteLocalRef(jHolidays);
+    }
+  }
+
+  // Public holiday names
+  auto const & holidayNames = info.GetPublicHolidayNames();
+  if (!holidayNames.empty())
+  {
+    jclass mapObjectClass = env->GetObjectClass(mapObject);
+    jmethodID setNamesId = env->GetMethodID(mapObjectClass, "setPublicHolidayNames", "(Ljava/util/Map;)V");
+    jclass hashMapClass = env->FindClass("java/util/HashMap");
+    jmethodID hashMapCtor = env->GetMethodID(hashMapClass, "<init>", "(I)V");
+    jmethodID hashMapPut = env->GetMethodID(hashMapClass, "put",
+                                            "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
+    jobject jMap = env->NewObject(hashMapClass, hashMapCtor, static_cast<jint>(holidayNames.size()));
+
+    jclass longClass = env->FindClass("java/lang/Long");
+    jmethodID longValueOf = env->GetStaticMethodID(longClass, "valueOf", "(J)Ljava/lang/Long;");
+
+    for (auto const & [timestamp, name] : holidayNames)
+    {
+      jobject jKey = env->CallStaticObjectMethod(longClass, longValueOf, static_cast<jlong>(timestamp));
+      jstring jVal = jni::ToJavaString(env, name);
+      env->CallObjectMethod(jMap, hashMapPut, jKey, jVal);
+      env->DeleteLocalRef(jKey);
+      env->DeleteLocalRef(jVal);
+    }
+
+    env->CallVoidMethod(mapObject, setNamesId, jMap);
+
+    env->DeleteLocalRef(hashMapClass);
+    env->DeleteLocalRef(longClass);
+    env->DeleteLocalRef(jMap);
+    env->DeleteLocalRef(mapObjectClass);
+
+  }
+
   return mapObject;
 }
 

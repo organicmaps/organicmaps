@@ -8,10 +8,10 @@ namespace osmoh
 {
 bool IsActive(Timespan span, std::tm const & date);
 bool IsActive(WeekdayRange const & range, std::tm const & date);
-bool IsActive(Holiday const & holiday, std::tm const & date);
-bool IsActive(Weekdays const & weekdays, std::tm const & date);
+bool IsActive(Holiday const & holiday, std::tm const & date, THolidayDates const & holidays);
+bool IsActive(Weekdays const & weekdays, std::tm const & date, THolidayDates const & holidays = {});
 bool IsActive(MonthdayRange const & range, std::tm const & date);
 bool IsActive(YearRange const & range, std::tm const & date);
 bool IsActive(WeekRange const & range, std::tm const & date);
-bool IsActive(RuleSequence const & rule, time_t const timestamp);
+bool IsActive(RuleSequence const & rule, time_t const timestamp, THolidayDates const & holidays = {});
 } // namespace osmoh

@@ -4,8 +4,10 @@
 
 #include "base/stl_helpers.hpp"
 
+#include <ctime>
 #include <map>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 namespace feature
@@ -191,6 +193,7 @@ public:
     RD_PHONE_FORMAT,      // list of strings in "+N NNN NN-NN-NN" format
     RD_POSTCODE_FORMAT,   // list of strings in "AAA ANN" format
     RD_PUBLIC_HOLIDAYS,   // fixed PH dates
+    RD_PUBLIC_HOLIDAY_NAMES,
     RD_ALLOW_HOUSENAMES,  // 'y' if housenames are commonly used
     RD_LEAP_WEIGHT_SPEED  // speed factor for leap weight computation
   };
@@ -229,6 +232,15 @@ public:
 
   void AddPublicHoliday(int8_t month, int8_t offset);
   // No public holidays getters until we know what to do with these.
+
+  using THolidayTimestampSet = std::unordered_set<time_t>;
+  using THolidayNamesMap = std::unordered_map<time_t, std::string>;
+
+  void SetPublicHolidayTimestamps(THolidayTimestampSet holidays);
+  void GetPublicHolidayTimestamps(THolidayTimestampSet & holidays) const;
+
+  void SetPublicHolidayNames(THolidayNamesMap const & names);
+  void GetPublicHolidayNames(THolidayNamesMap & names) const;
 
   void SetLeapWeightSpeed(double speedValue)
   {
