@@ -321,15 +321,18 @@ void RouteRenderer::UpdatePreview(ScreenBase const & screen)
   for (auto const & previewSegment : m_previewSegments)
   {
     auto const & info = previewSegment.second;
-    m2::PolylineD polyline = {info.m_startPoint, info.m_finishPoint};
-    double const segmentLen = polyline.GetLength();
+    double const segmentLen = info.m_startPoint.Length(info.m_finishPoint);
+    if (segmentLen < 1e-5)
+      continue;
+
     auto circlesCount = static_cast<size_t>(segmentLen / (diameterMercator + gapMercator));
     if (circlesCount == 0)
       circlesCount = 1;
     double const distDelta = segmentLen / circlesCount;
+    m2::PointD const dir = (info.m_finishPoint - info.m_startPoint) * (1.0 / segmentLen);
     for (double d = distDelta * 0.5; d < segmentLen; d += distDelta)
     {
-      m2::PointD const pt = polyline.GetPointByDistance(d);
+      m2::PointD const pt = info.m_startPoint + dir * d;
       m2::RectD const circleRect(pt.x - radiusMercator, pt.y - radiusMercator, pt.x + radiusMercator,
                                  pt.y + radiusMercator);
       if (!screen.ClipRect().IsIntersect(circleRect))
@@ -641,10 +644,10 @@ void RouteRenderer::AddSubrouteData(ref_ptr<dp::GraphicsContext> context, drape_
     info.m_length = subrouteData->m_subroute->m_polyline.GetLength();
     info.m_subrouteData.push_back(std::move(subrouteData));
     BuildBuckets(context, info.m_subrouteData.back()->m_renderProperty, mng);
-    m_subroutes.push_back(std::move(info));
-
-    std::sort(m_subroutes.begin(), m_subroutes.end(), [](SubrouteInfo const & info1, SubrouteInfo const & info2)
+    auto const it = std::upper_bound(m_subroutes.begin(), m_subroutes.end(), info,
+                                     [](SubrouteInfo const & info1, SubrouteInfo const & info2)
     { return info1.m_subroute->m_baseDistance > info2.m_subroute->m_baseDistance; });
+    m_subroutes.insert(it, std::move(info));
   }
 }
 
