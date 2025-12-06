@@ -1340,4 +1340,6 @@
     <string name="type.railway.miniature">Miniatür dəmir yolu</string>
     <string name="type.amenity.kneipp_water_cure">Kneipp suyu müalicəsi</string>
     <string name="type.area_highway.traffic_island">Trafik adası</string>
+    <string name="type.xmas_feature.market">Milad bazarı</string>
+    <string name="type.xmas_feature.tree">Milad ağacı</string>
 </resources>

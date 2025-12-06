@@ -1299,4 +1299,6 @@
     <string name="type.man_made.monitoring_station.weather">محطة مراقبة الطقس</string>
     <string name="type.amenity.student_accommodation">سكن الطلاب</string>
     <string name="type.craft.watchmaker">صانع الساعات</string>
+    <string name="type.xmas_feature.market">سوق الكريسماس</string>
+    <string name="type.xmas_feature.tree">شجرة الكريسماس</string>
 </resources>

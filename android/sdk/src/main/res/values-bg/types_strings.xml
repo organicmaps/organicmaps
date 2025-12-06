@@ -821,4 +821,6 @@
     <string name="type.man_made.monitoring_station.weather">Станция за наблюдение на времето</string>
     <string name="type.amenity.student_accommodation">Настаняване на студенти</string>
     <string name="type.craft.watchmaker">Часовникар</string>
+    <string name="type.xmas_feature.market">Коледен пазар</string>
+    <string name="type.xmas_feature.tree">Коледна елха</string>
 </resources>

@@ -1302,4 +1302,6 @@
     <string name="type.man_made.monitoring_station.weather">Eguraldia Begiratzeko Estazioa</string>
     <string name="type.amenity.student_accommodation">Ikasleentzako ostatua</string>
     <string name="type.craft.watchmaker">Erlojugilea</string>
+    <string name="type.xmas_feature.market">Gabonetako Merkatua</string>
+    <string name="type.xmas_feature.tree">Gabonetako zuhaitza</string>
 </resources>

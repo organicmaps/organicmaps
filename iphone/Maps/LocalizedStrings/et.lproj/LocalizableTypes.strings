@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Ilmaseirejaam";
 "type.amenity.student_accommodation" = "Üliõpilaskodu";
 "type.craft.watchmaker" = "Kellassepp";
+"type.xmas_feature.market" = "Jõuluturg";
+"type.xmas_feature.tree" = "Jõulupuu";

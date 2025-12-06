@@ -683,4 +683,6 @@
     <string name="type.man_made.monitoring_station.weather">Kituo cha Ufuatiliaji wa Hali ya Hewa</string>
     <string name="type.amenity.student_accommodation">Malazi ya Wanafunzi</string>
     <string name="type.craft.watchmaker">Mtazamaji</string>
+    <string name="type.xmas_feature.market">Soko la Krismasi</string>
+    <string name="type.xmas_feature.tree">Mti wa Krismasi</string>
 </resources>

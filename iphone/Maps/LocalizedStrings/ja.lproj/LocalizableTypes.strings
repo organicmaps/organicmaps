@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "気象観測ステーション";
 "type.amenity.student_accommodation" = "学生寮";
 "type.craft.watchmaker" = "ウォッチメーカー";
+"type.xmas_feature.market" = "クリスマス・マーケット";
+"type.xmas_feature.tree" = "クリスマスツリー";

@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Stasiun Pemantauan Cuaca";
 "type.amenity.student_accommodation" = "Akomodasi Mahasiswa";
 "type.craft.watchmaker" = "Pembuat jam tangan";
+"type.xmas_feature.market" = "Pasar Natal";
+"type.xmas_feature.tree" = "Pohon Natal";

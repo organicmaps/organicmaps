@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "氣象監測站";
 "type.amenity.student_accommodation" = "學生住宿";
 "type.craft.watchmaker" = "鐘錶匠";
+"type.xmas_feature.market" = "聖誕市場";
+"type.xmas_feature.tree" = "聖誕樹";

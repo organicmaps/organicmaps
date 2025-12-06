@@ -1188,4 +1188,6 @@
     <string name="type.man_made.monitoring_station.weather">Stasiun Pemantauan Cuaca</string>
     <string name="type.amenity.student_accommodation">Akomodasi Mahasiswa</string>
     <string name="type.craft.watchmaker">Pembuat jam tangan</string>
+    <string name="type.xmas_feature.market">Pasar Natal</string>
+    <string name="type.xmas_feature.tree">Pohon Natal</string>
 </resources>
