@@ -137,13 +137,16 @@ public class TrackRecordingService extends Service implements LocationListener
     // The notification is cancelled automatically by the system.
   }
 
-  @Override
-  public void onTaskRemoved(@NonNull Intent rootIntent)
-  {
-    Logger.d(TAG, "Task removed, stopping service");
-    stopSelf();
-    super.onTaskRemoved(rootIntent);
-  }
+  // Uncommenting this code leads stopping track recording after closing the app,
+  // and more importantly, not resuming it when the app is reopened.
+  // See https://github.com/organicmaps/organicmaps/issues/11840
+  // @Override
+  // public void onTaskRemoved(@NonNull Intent rootIntent)
+  // {
+  //   Logger.d(TAG, "Task removed, stopping service");
+  //   stopSelf();
+  //   super.onTaskRemoved(rootIntent);
+  // }
 
   @Override
   public int onStartCommand(@NonNull Intent intent, int flags, int startId)
