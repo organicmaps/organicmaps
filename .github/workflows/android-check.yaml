@@ -131,6 +131,15 @@ jobs:
           ninja --version
           ./gradlew -P${{ matrix.arch }} assemble${{ matrix.flavor }}
 
+      - name: Free disk space for emulator
+        if: matrix.run-tests == true
+        uses: AdityaGarg8/remove-unwanted-software@v5
+        with:
+          remove-dotnet: true
+          remove-haskell: true
+          remove-codeql: true
+          remove-docker-images: true
+
       - name: Enable KVM
         if: matrix.run-tests == true
         run: |
