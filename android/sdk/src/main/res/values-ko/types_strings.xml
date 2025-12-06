@@ -1204,4 +1204,6 @@
     <string name="type.man_made.monitoring_station.weather">날씨 모니터링 스테이션</string>
     <string name="type.amenity.student_accommodation">학생 숙소</string>
     <string name="type.craft.watchmaker">워치메이커</string>
+    <string name="type.xmas_feature.market">크리스마스 마켓</string>
+    <string name="type.xmas_feature.tree">크리스마스 트리</string>
 </resources>

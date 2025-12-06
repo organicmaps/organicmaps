@@ -1190,4 +1190,6 @@
     <string name="type.man_made.monitoring_station.weather">Stație de monitorizare meteorologică</string>
     <string name="type.amenity.student_accommodation">Cazare pentru studenți</string>
     <string name="type.craft.watchmaker">Ceasornicar</string>
+    <string name="type.xmas_feature.market">Piața de Crăciun</string>
+    <string name="type.xmas_feature.tree">Pomul de Crăciun</string>
 </resources>

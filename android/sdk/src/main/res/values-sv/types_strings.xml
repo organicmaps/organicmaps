@@ -1365,4 +1365,6 @@
     <string name="type.man_made.monitoring_station.weather">Väderövervakningsstation</string>
     <string name="type.amenity.student_accommodation">Studentboende</string>
     <string name="type.craft.watchmaker">Urmakare</string>
+    <string name="type.xmas_feature.market">Julmarknad</string>
+    <string name="type.xmas_feature.tree">Julgran</string>
 </resources>

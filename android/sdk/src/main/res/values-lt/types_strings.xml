@@ -155,4 +155,6 @@
     <string name="type.railway.miniature">Miniatiūrinis geležinkelis</string>
     <string name="type.amenity.kneipp_water_cure">Kneipo vandens terapija</string>
     <string name="type.area_highway.traffic_island">Eismo sala</string>
+    <string name="type.xmas_feature.market">Kalėdų mugė</string>
+    <string name="type.xmas_feature.tree">Kalėdų eglutė</string>
 </resources>

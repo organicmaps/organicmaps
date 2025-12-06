@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Estación de control meteorológico";
 "type.amenity.student_accommodation" = "Residencia de estudiantes";
 "type.craft.watchmaker" = "Relojero";
+"type.xmas_feature.market" = "Mercado navideño";
+"type.xmas_feature.tree" = "Árbol de Navidad";

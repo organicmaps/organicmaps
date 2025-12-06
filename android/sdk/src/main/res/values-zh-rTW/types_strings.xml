@@ -1417,4 +1417,6 @@
     <string name="type.man_made.monitoring_station.weather">氣象監測站</string>
     <string name="type.amenity.student_accommodation">學生住宿</string>
     <string name="type.craft.watchmaker">鐘錶匠</string>
+    <string name="type.xmas_feature.market">聖誕市場</string>
+    <string name="type.xmas_feature.tree">聖誕樹</string>
 </resources>

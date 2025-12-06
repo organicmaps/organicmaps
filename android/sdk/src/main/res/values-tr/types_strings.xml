@@ -1424,4 +1424,6 @@
     <string name="type.man_made.monitoring_station.weather">Hava Durumu İzleme İstasyonu</string>
     <string name="type.amenity.student_accommodation">Öğrenci Konaklama</string>
     <string name="type.craft.watchmaker">Saatçi</string>
+    <string name="type.xmas_feature.market">Noel Pazarı</string>
+    <string name="type.xmas_feature.tree">Noel Ağacı</string>
 </resources>

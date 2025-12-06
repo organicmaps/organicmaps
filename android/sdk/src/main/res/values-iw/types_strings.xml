@@ -1068,4 +1068,6 @@
     <string name="type.man_made.monitoring_station.weather">תחנת ניטור מזג האוויר</string>
     <string name="type.amenity.student_accommodation">מגורים לסטודנטים</string>
     <string name="type.craft.watchmaker">שָׁעָן</string>
+    <string name="type.xmas_feature.market">שוק חג המולד</string>
+    <string name="type.xmas_feature.tree">עץ חג המולד</string>
 </resources>

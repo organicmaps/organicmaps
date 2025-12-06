@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "날씨 모니터링 스테이션";
 "type.amenity.student_accommodation" = "학생 숙소";
 "type.craft.watchmaker" = "워치메이커";
+"type.xmas_feature.market" = "크리스마스 마켓";
+"type.xmas_feature.tree" = "크리스마스 트리";

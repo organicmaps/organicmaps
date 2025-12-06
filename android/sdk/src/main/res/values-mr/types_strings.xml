@@ -1200,4 +1200,6 @@
     <string name="type.man_made.monitoring_station.weather">हवामान निरीक्षण स्टेशन</string>
     <string name="type.amenity.student_accommodation">विद्यार्थ्यांची निवास व्यवस्था</string>
     <string name="type.craft.watchmaker">वॉचमेकर</string>
+    <string name="type.xmas_feature.market">ख्रिसमस मार्केट</string>
+    <string name="type.xmas_feature.tree">ख्रिसमस ट्री</string>
 </resources>

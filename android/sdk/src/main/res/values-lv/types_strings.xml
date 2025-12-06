@@ -79,4 +79,6 @@
     <string name="type.man_made.monitoring_station.weather">Laikapstākļu monitoringa stacija</string>
     <string name="type.amenity.student_accommodation">Studentu izmitināšana</string>
     <string name="type.craft.watchmaker">Pulksteņmeistars</string>
+    <string name="type.xmas_feature.market">Ziemassvētku tirdziņš</string>
+    <string name="type.xmas_feature.tree">Ziemassvētku eglīte</string>
 </resources>

@@ -1414,4 +1414,6 @@
     <string name="type.man_made.monitoring_station.weather">Estació de seguiment meteorològic</string>
     <string name="type.amenity.student_accommodation">Allotjament d\'estudiants</string>
     <string name="type.craft.watchmaker">Rellotger</string>
+    <string name="type.xmas_feature.market">Mercat de Nadal</string>
+    <string name="type.xmas_feature.tree">Arbre de Nadal</string>
 </resources>

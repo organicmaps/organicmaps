@@ -83855,6 +83855,186 @@ cont {
     }
   }
 }
+cont {
+  name: "xmas:feature-market"
+  element {
+    scale: 15
+    symbol {
+      name: "christmas_tree-m"
+      priority: 1050
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "christmas_tree-m"
+      priority: 1050
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8950
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "christmas_tree-m"
+      priority: 1050
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8950
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "christmas_tree-m"
+      priority: 1050
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8950
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "christmas_tree-m"
+      priority: 1050
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8950
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "christmas_tree-m"
+      priority: 1050
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8950
+    }
+  }
+}
+cont {
+  name: "xmas:feature-tree"
+  element {
+    scale: 15
+    symbol {
+      name: "christmas_tree-m"
+      priority: 1050
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "christmas_tree-m"
+      priority: 1050
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8950
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "christmas_tree-m"
+      priority: 1050
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8950
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "christmas_tree-m"
+      priority: 1050
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8950
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "christmas_tree-m"
+      priority: 1050
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8950
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "christmas_tree-m"
+      priority: 1050
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8950
+    }
+  }
+}
 colors {
   value {
     name: "Arrow3D"

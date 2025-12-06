@@ -19875,3 +19875,85 @@ building-guardhouse
 en:4Guard
 ru:4Сторож|4Охрана
 sl:4Varnostnik|Vratarnica
+
+xmas:feature-market
+en:4Christmas Market
+ar:سوق الكريسماس
+be:Калядны кірмаш
+bg:Коледен пазар
+ca:Mercat de Nadal
+cs:Vánoční trh
+da:Julemarked
+de:Weihnachtsmarkt
+el:Χριστουγεννιάτικη αγορά
+es:Mercado navideño
+et:Jõuluturg
+eu:Gabonetako Merkatua
+fa:بازار کریسمس
+fi:Joulumarkkinat
+fr:Marché de Noël
+he:שוק חג המולד
+hi:क्रिसमस का बाजार
+hu:Karácsonyi piac
+id:Pasar Natal
+it:Mercatino di Natale
+ja:クリスマス・マーケット
+ko:크리스마스 마켓
+lv:Ziemassvētku tirdziņš
+mr:ख्रिसमस मार्केट
+nb:Julemarked
+nl:Kerstmarkt
+pl:Jarmark bożonarodzeniowy
+pt:Mercado de Natal
+ro:Piața de Crăciun
+ru:4Рождественский рынок
+sk:Vianočný trh
+sv:Julmarknad
+sw:Soko la Krismasi
+th:ตลาดคริสต์มาส
+tr:Noel Pazarı
+uk:Різдвяний ярмарок
+vi:Chợ Giáng sinh
+zh-Hans:圣诞市场
+zh-Hant:聖誕市場
+
+xmas:feature-tree
+en:4Christmas Tree
+ar:شجرة الكريسماس
+be:Калядная ёлка
+bg:Коледна елха
+ca:Arbre de Nadal
+cs:Vánoční stromek
+da:Juletræ
+de:Weihnachtsbaum
+el:Χριστουγεννιάτικο δέντρο
+es:Árbol de Navidad
+et:Jõulupuu
+eu:Gabonetako zuhaitza
+fa:درخت کریسمس
+fi:Joulukuusi
+fr:Arbre de Noël
+he:עץ חג המולד
+hi:क्रिसमस ट्री
+hu:Karácsonyfa
+id:Pohon Natal
+it:Albero di Natale
+ja:クリスマスツリー
+ko:크리스마스 트리
+lv:Ziemassvētku eglīte
+mr:ख्रिसमस ट्री
+nb:Juletre
+nl:Kerstboom
+pl:Choinka
+pt:Árvore de Natal
+ro:Pomul de Crăciun
+ru:4Рождественское дерево
+sk:Vianočný stromček
+sv:Julgran
+sw:Mti wa Krismasi
+th:ต้นคริสต์มาส
+tr:Noel Ağacı
+uk:Різдвяна ялинка
+vi:Cây Giáng sinh
+zh-Hans:圣诞树
+zh-Hant:聖誕樹

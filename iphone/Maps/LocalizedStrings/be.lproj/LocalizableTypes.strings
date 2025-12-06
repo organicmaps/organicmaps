@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Станцыя назірання за надвор'ем";
 "type.amenity.student_accommodation" = "Жыллё для студэнтаў";
 "type.craft.watchmaker" = "Гадзіннікавы майстар";
+"type.xmas_feature.market" = "Калядны кірмаш";
+"type.xmas_feature.tree" = "Калядная ёлка";

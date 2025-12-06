@@ -193,7 +193,7 @@ area|z10-17[boundary=protected_area][protect_class=1],
 
 line|z8-[boundary=national_park],
 line|z8-[boundary=protected_area][protect_class=1],
-{width: 2; color: @green6;}
+{width: 1; color: @green6;}
 
 area|z8-16[boundary=aboriginal_lands],
 {fill-opacity: 0.5; fill-color: @indigenous_lands;}
@@ -201,7 +201,7 @@ area|z10-16[boundary=aboriginal_lands],
 {fill-opacity: 0.1;}
 
 line|z8-[boundary=aboriginal_lands],
-{width: 2; color: @indigenous_lands;}
+{width: 1; color: @indigenous_lands;}
 
 /* ToDo: Assume that military areas already have fences? */
 

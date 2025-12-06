@@ -1419,4 +1419,6 @@
     <string name="type.man_made.monitoring_station.weather">Σταθμός παρακολούθησης καιρού</string>
     <string name="type.amenity.student_accommodation">Φοιτητική Εστία</string>
     <string name="type.craft.watchmaker">Ωρολογοποιός</string>
+    <string name="type.xmas_feature.market">Χριστουγεννιάτικη αγορά</string>
+    <string name="type.xmas_feature.tree">Χριστουγεννιάτικο δέντρο</string>
 </resources>

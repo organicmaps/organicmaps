@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Stacja monitorowania pogody";
 "type.amenity.student_accommodation" = "Zakwaterowanie dla studentów";
 "type.craft.watchmaker" = "Zegarmistrz";
+"type.xmas_feature.market" = "Jarmark bożonarodzeniowy";
+"type.xmas_feature.tree" = "Choinka";

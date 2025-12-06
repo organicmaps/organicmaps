@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Eguraldia Begiratzeko Estazioa";
 "type.amenity.student_accommodation" = "Ikasleentzako ostatua";
 "type.craft.watchmaker" = "Erlojugilea";
+"type.xmas_feature.market" = "Gabonetako Merkatua";
+"type.xmas_feature.tree" = "Gabonetako zuhaitza";

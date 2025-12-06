@@ -264,6 +264,8 @@ area|z17-[historic=archaeological_site],
 node|z17-[amenity=arts_centre],
 area|z17-[amenity=arts_centre],
 node|z18-[tourism=artwork],
+node|z16-[xmas:feature=market],
+node|z16-[xmas:feature=tree],
 {text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
 
 node|z12-14[historic=fort],
@@ -328,17 +330,17 @@ area|z13-14[historic=city_gate]
 {icon-image: remains-m.svg;}
 node|z15[historic=city_gate],
 area|z15[historic=city_gate],
-{icon-image: remains-m.svg;icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+{icon-image: remains-m.svg;icon-min-distance: 24;}
 node|z16-[historic=city_gate],
 area|z16-[historic=city_gate],
-{icon-image: remains-m.svg;icon-min-distance: 12;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+{icon-image: remains-m.svg;icon-min-distance: 12;}
 
 node|z15[tourism=museum],
 area|z15[tourism=museum]
-{icon-image: museum-m.svg;icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+{icon-image: museum-m.svg;icon-min-distance: 24;}
 node|z16-[tourism=museum],
 area|z16-[tourism=museum],
-{icon-image: museum-m.svg;text-offset: 1;icon-min-distance: 12;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+{icon-image: museum-m.svg;text-offset: 1;icon-min-distance: 12;}
 
 node|z15[tourism=gallery]
 {icon-image: gallery-m.svg;icon-min-distance: 8;} /* <-- <-- не показывается, непонятно почему, позже разобраться */
@@ -350,19 +352,23 @@ area|z17-[amenity=arts_centre]
 
 node|z15-[amenity=theatre],
 area|z15-[amenity=theatre],
-{icon-image: theatre-m.svg;icon-min-distance: 10;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+{icon-image: theatre-m.svg; icon-min-distance: 10;}
+
+node|z15-[xmas:feature=market],
+node|z15-[xmas:feature=tree],
+{icon-image: christmas_tree-m.svg;}
 
 node|z15[tourism=zoo],
 area|z15[tourism=zoo]
-{icon-image: zoo-m.svg;icon-min-distance: 8;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+{icon-image: zoo-m.svg; icon-min-distance: 8;}
 node|z16-[tourism=zoo],
 area|z16-[tourism=zoo]
-{icon-image: zoo-m.svg;text-offset: 1;icon-min-distance: 8;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+{icon-image: zoo-m.svg;text-offset: 1;icon-min-distance: 8;}
 
 node|z14[tourism=viewpoint]
 {icon-image: viewpoint-m.svg;icon-min-distance: 8;}
 node|z15-[tourism=viewpoint]
-{icon-image: viewpoint-m.svg;icon-min-distance: 8;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
+{icon-image: viewpoint-m.svg;icon-min-distance: 8;}
 
 node|z16[historic=boundary_stone],
 area|z16[historic=boundary_stone],

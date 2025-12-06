@@ -473,7 +473,7 @@ amenity-prison                                      # area z12- (also has icon z
 boundary-aboriginal_lands                           # line z8- and area z8-16 (also has caption z8-16)
 boundary-national_park                              # line z8- and area z8-17 (also has icon z10-17, caption z8-9, caption(optional) z11-17)
 boundary-protected_area-1                           # line z8- and area z8-17 (also has icon z10-17, caption z8-9, caption(optional) z11-17)
-leisure-nature_reserve                              # area z8-17 (also has icon z10-17, caption z8-9, caption(optional) z11-17)
+leisure-nature_reserve                              # area z8-17 (also has icon z10-17, caption z9, caption(optional) z11-17)
 === 20
 
 piste:type-downhill-advanced-area                   # area z13-

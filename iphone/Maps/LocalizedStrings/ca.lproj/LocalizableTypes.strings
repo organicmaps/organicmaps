@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Estació de seguiment meteorològic";
 "type.amenity.student_accommodation" = "Allotjament d'estudiants";
 "type.craft.watchmaker" = "Rellotger";
+"type.xmas_feature.market" = "Mercat de Nadal";
+"type.xmas_feature.tree" = "Arbre de Nadal";

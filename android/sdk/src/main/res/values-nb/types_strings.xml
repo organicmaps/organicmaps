@@ -1213,4 +1213,6 @@
     <string name="type.man_made.monitoring_station.weather">Værovervåkningsstasjon</string>
     <string name="type.amenity.student_accommodation">Studentboliger</string>
     <string name="type.craft.watchmaker">Urmaker</string>
+    <string name="type.xmas_feature.market">Julemarked</string>
+    <string name="type.xmas_feature.tree">Juletre</string>
 </resources>

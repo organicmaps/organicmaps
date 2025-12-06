@@ -1424,4 +1424,6 @@
     <string name="type.man_made.monitoring_station.weather">Станция мониторинга погоды</string>
     <string name="type.amenity.student_accommodation">Проживание студентов</string>
     <string name="type.craft.watchmaker">Часовщик</string>
+    <string name="type.xmas_feature.market">Рождественский рынок</string>
+    <string name="type.xmas_feature.tree">Рождественское дерево</string>
 </resources>

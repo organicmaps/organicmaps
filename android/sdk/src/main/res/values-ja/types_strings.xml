@@ -1323,4 +1323,6 @@
     <string name="type.man_made.monitoring_station.weather">気象観測ステーション</string>
     <string name="type.amenity.student_accommodation">学生寮</string>
     <string name="type.craft.watchmaker">ウォッチメーカー</string>
+    <string name="type.xmas_feature.market">クリスマス・マーケット</string>
+    <string name="type.xmas_feature.tree">クリスマスツリー</string>
 </resources>

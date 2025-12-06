@@ -1424,4 +1424,6 @@
     <string name="type.man_made.monitoring_station.weather">Wetterüberwachungsstation</string>
     <string name="type.amenity.student_accommodation">Studentenunterkünfte</string>
     <string name="type.craft.watchmaker">Uhrmacher</string>
+    <string name="type.xmas_feature.market">Weihnachtsmarkt</string>
+    <string name="type.xmas_feature.tree">Weihnachtsbaum</string>
 </resources>

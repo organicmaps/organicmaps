@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Stanica na monitorovanie počasia";
 "type.amenity.student_accommodation" = "Ubytovanie študentov";
 "type.craft.watchmaker" = "Hodinár";
+"type.xmas_feature.market" = "Vianočný trh";
+"type.xmas_feature.tree" = "Vianočný stromček";

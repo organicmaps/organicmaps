@@ -18451,7 +18451,7 @@ cont {
   element {
     scale: 8
     lines {
-      width: 2.0
+      width: 1.0
       color: 7556390
       priority: 20
       join: BEVELJOIN
@@ -18465,7 +18465,6 @@ cont {
       primary {
         height: 10
         color: 6967599
-        stroke_color: 856032768
       }
       priority: 6700
     }
@@ -18473,7 +18472,7 @@ cont {
   element {
     scale: 9
     lines {
-      width: 2.0
+      width: 1.0
       color: 7556390
       priority: 20
       join: BEVELJOIN
@@ -18487,7 +18486,6 @@ cont {
       primary {
         height: 10
         color: 6967599
-        stroke_color: 856032768
       }
       priority: 6700
     }
@@ -18495,7 +18493,7 @@ cont {
   element {
     scale: 10
     lines {
-      width: 2.0
+      width: 1.0
       color: 7556390
       priority: 20
       join: BEVELJOIN
@@ -18517,7 +18515,7 @@ cont {
   element {
     scale: 11
     lines {
-      width: 2.0
+      width: 1.0
       color: 7556390
       priority: 20
       join: BEVELJOIN
@@ -18539,7 +18537,7 @@ cont {
   element {
     scale: 12
     lines {
-      width: 2.0
+      width: 1.0
       color: 7556390
       priority: 20
       join: BEVELJOIN
@@ -18561,7 +18559,7 @@ cont {
   element {
     scale: 13
     lines {
-      width: 2.0
+      width: 1.0
       color: 7556390
       priority: 20
       cap: BUTTCAP
@@ -18582,7 +18580,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 2.0
+      width: 1.0
       color: 7556390
       priority: 20
       cap: BUTTCAP
@@ -18603,7 +18601,7 @@ cont {
   element {
     scale: 15
     lines {
-      width: 2.0
+      width: 1.0
       color: 7556390
       priority: 20
       cap: BUTTCAP
@@ -18624,7 +18622,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.0
+      width: 1.0
       color: 7556390
       priority: 20
     }
@@ -18644,7 +18642,7 @@ cont {
   element {
     scale: 17
     lines {
-      width: 2.0
+      width: 1.0
       color: 7556390
       priority: 20
     }
@@ -18652,7 +18650,7 @@ cont {
   element {
     scale: 18
     lines {
-      width: 2.0
+      width: 1.0
       color: 7556390
       priority: 20
     }
@@ -18660,7 +18658,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
+      width: 1.0
       color: 7556390
       priority: 20
     }
@@ -18668,7 +18666,7 @@ cont {
   element {
     scale: 20
     lines {
-      width: 2.0
+      width: 1.0
       color: 7556390
       priority: 20
     }
@@ -19090,7 +19088,7 @@ cont {
   element {
     scale: 8
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
       join: BEVELJOIN
@@ -19104,7 +19102,6 @@ cont {
       primary {
         height: 10
         color: 2836760
-        stroke_color: 856032768
       }
       priority: 6700
     }
@@ -19112,7 +19109,7 @@ cont {
   element {
     scale: 9
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
       join: BEVELJOIN
@@ -19126,7 +19123,6 @@ cont {
       primary {
         height: 10
         color: 2836760
-        stroke_color: 856032768
       }
       priority: 6700
     }
@@ -19134,7 +19130,7 @@ cont {
   element {
     scale: 10
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
       join: BEVELJOIN
@@ -19152,7 +19148,7 @@ cont {
   element {
     scale: 11
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
       join: BEVELJOIN
@@ -19181,7 +19177,7 @@ cont {
   element {
     scale: 12
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
       join: BEVELJOIN
@@ -19210,7 +19206,7 @@ cont {
   element {
     scale: 13
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
       cap: BUTTCAP
@@ -19238,7 +19234,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
       cap: BUTTCAP
@@ -19266,7 +19262,7 @@ cont {
   element {
     scale: 15
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
       cap: BUTTCAP
@@ -19293,7 +19289,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
     }
@@ -19319,7 +19315,7 @@ cont {
   element {
     scale: 17
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
     }
@@ -19345,7 +19341,7 @@ cont {
   element {
     scale: 18
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
     }
@@ -19353,7 +19349,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
     }
@@ -19361,7 +19357,7 @@ cont {
   element {
     scale: 20
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
     }
@@ -19505,7 +19501,7 @@ cont {
   element {
     scale: 8
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
       join: BEVELJOIN
@@ -19519,7 +19515,6 @@ cont {
       primary {
         height: 10
         color: 2836760
-        stroke_color: 856032768
       }
       priority: 6700
     }
@@ -19527,7 +19522,7 @@ cont {
   element {
     scale: 9
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
       join: BEVELJOIN
@@ -19541,7 +19536,6 @@ cont {
       primary {
         height: 10
         color: 2836760
-        stroke_color: 856032768
       }
       priority: 6700
     }
@@ -19549,7 +19543,7 @@ cont {
   element {
     scale: 10
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
       join: BEVELJOIN
@@ -19567,7 +19561,7 @@ cont {
   element {
     scale: 11
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
       join: BEVELJOIN
@@ -19596,7 +19590,7 @@ cont {
   element {
     scale: 12
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
       join: BEVELJOIN
@@ -19625,7 +19619,7 @@ cont {
   element {
     scale: 13
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
       cap: BUTTCAP
@@ -19653,7 +19647,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
       cap: BUTTCAP
@@ -19681,7 +19675,7 @@ cont {
   element {
     scale: 15
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
       cap: BUTTCAP
@@ -19708,7 +19702,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
     }
@@ -19734,7 +19728,7 @@ cont {
   element {
     scale: 17
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
     }
@@ -19760,7 +19754,7 @@ cont {
   element {
     scale: 18
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
     }
@@ -19768,7 +19762,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
     }
@@ -19776,7 +19770,7 @@ cont {
   element {
     scale: 20
     lines {
-      width: 2.0
+      width: 1.0
       color: 3096576
       priority: 20
     }
@@ -55363,14 +55357,6 @@ cont {
       color: 3096576
       priority: 20
     }
-    caption {
-      primary {
-        height: 10
-        color: 2836760
-        stroke_color: 856032768
-      }
-      priority: 6700
-    }
   }
   element {
     scale: 9
@@ -55382,7 +55368,6 @@ cont {
       primary {
         height: 10
         color: 2836760
-        stroke_color: 856032768
       }
       priority: 6700
     }
@@ -137190,6 +137175,186 @@ cont {
         color: 9211020
       }
       priority: 2900
+    }
+  }
+}
+cont {
+  name: "xmas:feature-market"
+  element {
+    scale: 15
+    symbol {
+      name: "christmas_tree-m"
+      priority: 5150
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "christmas_tree-m"
+      priority: 5150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4850
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "christmas_tree-m"
+      priority: 5150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4850
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "christmas_tree-m"
+      priority: 5150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4850
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "christmas_tree-m"
+      priority: 5150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4850
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "christmas_tree-m"
+      priority: 5150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4850
+    }
+  }
+}
+cont {
+  name: "xmas:feature-tree"
+  element {
+    scale: 15
+    symbol {
+      name: "christmas_tree-m"
+      priority: 5150
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "christmas_tree-m"
+      priority: 5150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4850
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "christmas_tree-m"
+      priority: 5150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4850
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "christmas_tree-m"
+      priority: 5150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4850
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "christmas_tree-m"
+      priority: 5150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4850
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "christmas_tree-m"
+      priority: 5150
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4850
     }
   }
 }

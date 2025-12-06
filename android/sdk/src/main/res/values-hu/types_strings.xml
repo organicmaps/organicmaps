@@ -1424,4 +1424,6 @@
     <string name="type.man_made.monitoring_station.weather">Időjárás megfigyelő állomás</string>
     <string name="type.amenity.student_accommodation">Diákszállás</string>
     <string name="type.craft.watchmaker">Órás</string>
+    <string name="type.xmas_feature.market">Karácsonyi piac</string>
+    <string name="type.xmas_feature.tree">Karácsonyfa</string>
 </resources>

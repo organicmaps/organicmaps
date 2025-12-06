@@ -1418,4 +1418,6 @@
     <string name="type.man_made.monitoring_station.weather">Stacja monitorowania pogody</string>
     <string name="type.amenity.student_accommodation">Zakwaterowanie dla studentów</string>
     <string name="type.craft.watchmaker">Zegarmistrz</string>
+    <string name="type.xmas_feature.market">Jarmark bożonarodzeniowy</string>
+    <string name="type.xmas_feature.tree">Choinka</string>
 </resources>

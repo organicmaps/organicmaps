@@ -1424,4 +1424,6 @@
     <string name="type.man_made.monitoring_station.weather">Станція моніторингу погоди</string>
     <string name="type.amenity.student_accommodation">Проживання студентів</string>
     <string name="type.craft.watchmaker">Годинникар</string>
+    <string name="type.xmas_feature.market">Різдвяний ярмарок</string>
+    <string name="type.xmas_feature.tree">Різдвяна ялинка</string>
 </resources>

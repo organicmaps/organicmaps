@@ -1268,4 +1268,6 @@
     <string name="type.man_made.monitoring_station.weather">ایستگاه پایش آب و هوا</string>
     <string name="type.amenity.student_accommodation">خوابگاه دانشجویی</string>
     <string name="type.craft.watchmaker">ساعت ساز</string>
+    <string name="type.xmas_feature.market">بازار کریسمس</string>
+    <string name="type.xmas_feature.tree">درخت کریسمس</string>
 </resources>

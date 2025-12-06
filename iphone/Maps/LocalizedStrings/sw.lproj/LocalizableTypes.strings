@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Kituo cha Ufuatiliaji wa Hali ya Hewa";
 "type.amenity.student_accommodation" = "Malazi ya Wanafunzi";
 "type.craft.watchmaker" = "Mtazamaji";
+"type.xmas_feature.market" = "Soko la Krismasi";
+"type.xmas_feature.tree" = "Mti wa Krismasi";

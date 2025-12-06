@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Станция мониторинга погоды";
 "type.amenity.student_accommodation" = "Проживание студентов";
 "type.craft.watchmaker" = "Часовщик";
+"type.xmas_feature.market" = "Рождественский рынок";
+"type.xmas_feature.tree" = "Рождественское дерево";

@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Станция за наблюдение на времето";
 "type.amenity.student_accommodation" = "Настаняване на студенти";
 "type.craft.watchmaker" = "Часовникар";
+"type.xmas_feature.market" = "Коледен пазар";
+"type.xmas_feature.tree" = "Коледна елха";

@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Veðurstöð";
 "type.amenity.student_accommodation" = "Stúdentagarðar";
 "type.craft.watchmaker" = "Úrsmiður";
+"type.xmas_feature.market" = "Christmas Market";
+"type.xmas_feature.tree" = "Christmas Tree";

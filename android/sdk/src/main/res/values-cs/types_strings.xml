@@ -1424,4 +1424,6 @@
     <string name="type.man_made.monitoring_station.weather">Stanice pro sledování počasí</string>
     <string name="type.amenity.student_accommodation">Ubytování studentů</string>
     <string name="type.craft.watchmaker">Hodinář</string>
+    <string name="type.xmas_feature.market">Vánoční trh</string>
+    <string name="type.xmas_feature.tree">Vánoční stromek</string>
 </resources>

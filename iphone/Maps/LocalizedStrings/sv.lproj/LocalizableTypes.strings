@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Väderövervakningsstation";
 "type.amenity.student_accommodation" = "Studentboende";
 "type.craft.watchmaker" = "Urmakare";
+"type.xmas_feature.market" = "Julmarknad";
+"type.xmas_feature.tree" = "Julgran";

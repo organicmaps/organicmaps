@@ -1325,4 +1325,6 @@
     <string name="type.railway.miniature">Miniatuur Spoorweg</string>
     <string name="type.amenity.kneipp_water_cure">Kneipp Water Cure</string>
     <string name="type.area_highway.traffic_island">Verkeerseiland</string>
+    <string name="type.xmas_feature.market">Kersmark</string>
+    <string name="type.xmas_feature.tree">Kersboom</string>
 </resources>
