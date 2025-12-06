@@ -1,6 +1,7 @@
 #include "qt/mainwindow.hpp"
 #include "qt/about.hpp"
 #include "qt/bookmark_dialog.hpp"
+#include "qt/dev_search_panel.hpp"
 #include "qt/draw_widget.hpp"
 #include "qt/mwms_borders_selection.hpp"
 #include "qt/osm_auth_dialog.hpp"
@@ -10,7 +11,7 @@
 #include "qt/qt_common/scale_slider.hpp"
 #include "qt/routing_settings_dialog.hpp"
 #include "qt/screenshoter.hpp"
-#include "qt/search_panel.hpp"
+#include "qt/user_search_panel/user_search_panel.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
@@ -43,12 +44,6 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
-
-#ifdef OMIM_OS_WINDOWS
-#include "std/windows.hpp"
-#define IDM_ABOUT_DIALOG       1001
-#define IDM_PREFERENCES_DIALOG 1002
-#endif
 
 #ifndef NO_DOWNLOADER
 #include "qt/info_dialog.hpp"
@@ -108,6 +103,10 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
 {
   setGeometry(screenGeometry);
 
+  // Context Menus of QMainWindow allow showing/hiding toolbars. By hiding the main toolbar, the
+  // user could lock themselves out of the UI.
+  setContextMenuPolicy(Qt::NoContextMenu);
+
   if (m_screenshotMode)
   {
     screenshotParams->m_statusChangedFn = [this](std::string const & state, bool finished)
@@ -132,9 +131,16 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
 
   connect(m_pDrawWidget, SIGNAL(BeforeEngineCreation()), this, SLOT(OnBeforeEngineCreation()));
 
+  BindHotkeys();
   CreateCountryStatusControls();
-  CreateNavigationBar();
-  CreateSearchBarAndPanel();
+  CreateMainToolBar();
+  CreateDevToolBar();
+  CreateUserSearchPanel();
+  CreateDevSearchPanel();
+
+  connect(qApp, &QApplication::focusChanged, this, &MainWindow::OnFocusChange);
+  connect(m_userSearchDockWidget, &QDockWidget::visibilityChanged, this,
+          &MainWindow::OnSearchDockWidgetVisibilityChange);
 
   QString caption = QCoreApplication::applicationName();
 
@@ -144,38 +150,21 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
 #endif
 
   setWindowTitle(caption);
+  // TODO (@zagto): set on QApplication?
   setWindowIcon(QIcon(":/ui/logo.png"));
 
-#ifndef OMIM_OS_WINDOWS
-  QMenu * helpMenu = new QMenu(tr("Help"), this);
-  menuBar()->addMenu(helpMenu);
-  helpMenu->addAction(tr("OpenStreetMap Login"), QKeySequence(Qt::CTRL | Qt::Key_O), this, SLOT(OnLoginMenuItem()));
-  helpMenu->addAction(tr("Upload Edits"), QKeySequence(Qt::CTRL | Qt::Key_U), this, SLOT(OnUploadEditsMenuItem()));
-  helpMenu->addAction(tr("Preferences"), QKeySequence(Qt::CTRL | Qt::Key_P), this, SLOT(OnPreferences()));
-  helpMenu->addAction(tr("About"), QKeySequence(Qt::Key_F1), this, SLOT(OnAbout()));
-  helpMenu->addAction(tr("Exit"), QKeySequence(Qt::CTRL | Qt::Key_Q), this, SLOT(close()));
-#else
-  {
-    // create items in the system menu
-    HMENU menu = ::GetSystemMenu((HWND)winId(), FALSE);
-    MENUITEMINFOA item;
-    item.cbSize = sizeof(MENUITEMINFOA);
-    item.fMask = MIIM_FTYPE | MIIM_ID | MIIM_STRING;
-    item.fType = MFT_STRING;
-    item.wID = IDM_PREFERENCES_DIALOG;
-    QByteArray const prefsStr = tr("Preferences...").toLocal8Bit();
-    item.dwTypeData = const_cast<char *>(prefsStr.data());
-    item.cch = prefsStr.size();
-    ::InsertMenuItemA(menu, ::GetMenuItemCount(menu) - 1, TRUE, &item);
-    item.wID = IDM_ABOUT_DIALOG;
-    QByteArray const aboutStr = tr("About...").toLocal8Bit();
-    item.dwTypeData = const_cast<char *>(aboutStr.data());
-    item.cch = aboutStr.size();
-    ::InsertMenuItemA(menu, ::GetMenuItemCount(menu) - 1, TRUE, &item);
-    item.fType = MFT_SEPARATOR;
-    ::InsertMenuItemA(menu, ::GetMenuItemCount(menu) - 1, TRUE, &item);
-  }
-#endif
+  // TODO (@zagto): use the system menu bar on macOS
+  QMenu * mainMenu = new QMenu(this);
+#ifndef NO_DOWNLOADER
+  // TODO (@zagto): consistent style regarding hotkey and icons
+  mainMenu->addAction(QIcon::fromTheme("download"), tr("Download Maps"), this, SLOT(ShowUpdateDialog()));
+#endif  // NO_DOWNLOADER
+  mainMenu->addAction(tr("OpenStreetMap Login"), QKeySequence(Qt::CTRL | Qt::Key_O), this, SLOT(OnLoginMenuItem()));
+  mainMenu->addAction(tr("Upload Edits"), QKeySequence(Qt::CTRL | Qt::Key_U), this, SLOT(OnUploadEditsMenuItem()));
+  mainMenu->addAction(tr("Preferences"), QKeySequence(Qt::CTRL | Qt::Key_P), this, SLOT(OnPreferences()));
+  mainMenu->addAction(tr("About"), QKeySequence(Qt::Key_F1), this, SLOT(OnAbout()));
+  mainMenu->addAction(tr("Exit"), QKeySequence(Qt::CTRL | Qt::Key_Q), this, SLOT(close()));
+  m_mainMenuButton->setMenu(mainMenu);
 
   // Always show on full screen.
   showMaximized();
@@ -214,30 +203,12 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
 
   m_pDrawWidget->UpdateAfterSettingsChanged();
 
+  bool developerMode = false;
+  OnDeveloperModeChanged(settings::Get(settings::kDeveloperMode, developerMode) && developerMode);
+  OnSearchDockWidgetWidthChange(UserSearchPanel::kDefaultWidth);
+
   RoutingSettings::LoadSession(m_pDrawWidget->GetFramework());
 }
-
-#if defined(OMIM_OS_WINDOWS)
-bool MainWindow::nativeEvent(QByteArray const & eventType, void * message, qintptr * result)
-{
-  MSG * msg = static_cast<MSG *>(message);
-  if (msg->message == WM_SYSCOMMAND)
-  {
-    switch (msg->wParam)
-    {
-    case IDM_PREFERENCES_DIALOG:
-      OnPreferences();
-      *result = 0;
-      return true;
-    case IDM_ABOUT_DIALOG:
-      OnAbout();
-      *result = 0;
-      return true;
-    }
-  }
-  return QMainWindow::nativeEvent(eventType, message, result);
-}
-#endif
 
 void MainWindow::LocationStateModeChanged(location::EMyPositionMode mode)
 {
@@ -253,196 +224,218 @@ void MainWindow::LocationStateModeChanged(location::EMyPositionMode mode)
   m_pMyPositionAction->setToolTip(tr("My Position"));
 }
 
-void MainWindow::CreateNavigationBar()
+void MainWindow::BindHotkeys()
 {
-  QToolBar * pToolBar = new QToolBar(tr("Navigation Bar"), this);
-  pToolBar->setOrientation(Qt::Vertical);
-  pToolBar->setIconSize(QSize(32, 32));
+  // Add navigation hot keys.
+  m_pDrawWidget->BindHotkeys(*this);
+
+  qt::common::Hotkey const hotkeys[] = {{Qt::Key_A, SLOT(ShowAll())},
+                                        // Use CMD+n (New Item hotkey) to activate Create Feature mode.
+                                        {Qt::Key_Escape, SLOT(ChoosePositionModeDisable())}};
+  for (auto const & hotkey : hotkeys)
   {
-    m_pDrawWidget->BindHotkeys(*this);
-
-    // Add navigation hot keys.
-    qt::common::Hotkey const hotkeys[] = {{Qt::Key_A, SLOT(ShowAll())},
-                                          // Use CMD+n (New Item hotkey) to activate Create Feature mode.
-                                          {Qt::Key_Escape, SLOT(ChoosePositionModeDisable())}};
-
-    for (auto const & hotkey : hotkeys)
-    {
-      QAction * pAct = new QAction(this);
-      pAct->setShortcut(QKeySequence(hotkey.m_key));
-      connect(pAct, SIGNAL(triggered()), m_pDrawWidget, hotkey.m_slot);
-      addAction(pAct);
-    }
+    QAction * pAct = new QAction(this);
+    pAct->setShortcut(QKeySequence(hotkey.m_key));
+    connect(pAct, SIGNAL(triggered()), m_pDrawWidget, hotkey.m_slot);
+    addAction(pAct);
   }
+}
 
-  {
-    m_layers = new PopupMenuHolder(this);
+void MainWindow::CreateMainToolBar()
+{
+  auto mainToolBar = new QToolBar;
+  mainToolBar->setMovable(false);
 
-    /// @todo Uncomment when we will integrate a traffic provider.
-    // m_layers->addAction(QIcon(":/navig64/traffic.png"), tr("Traffic"),
-    //                     std::bind(&MainWindow::OnLayerEnabled, this, TRAFFIC), true);
-    // m_layers->setChecked(TRAFFIC, Framework::LoadTrafficEnabled());
+  m_userSearchQueryEdit = new QLineEdit;
+  m_userSearchQueryEdit->addAction(QIcon(":/navig64/search.png"), QLineEdit::LeadingPosition);
+  m_userSearchCloseAction = m_userSearchQueryEdit->addAction(QIcon(":/ui/x.png"), QLineEdit::TrailingPosition);
+  m_userSearchQueryEdit->setPlaceholderText(tr("Search"));
+  m_userSearchCloseAction->setVisible(false);
+  mainToolBar->addWidget(m_userSearchQueryEdit);
+  m_userSearchCloseAction->setVisible(false);
 
-    m_layers->addAction(QIcon(":/navig64/subway.png"), tr("Public transport"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, TRANSIT), true);
-    m_layers->setChecked(TRANSIT, Framework::LoadTransitSchemeEnabled());
+  qt::common::ScaleSlider::Embed(Qt::Horizontal, *mainToolBar, *m_pDrawWidget);
 
-    m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Isolines"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, ISOLINES), true);
-    m_layers->setChecked(ISOLINES, Framework::LoadIsolinesEnabled());
-    // TODO(AB): Are icons drawable? Fix and make different icons for different layers.
-    m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Outdoors"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, OUTDOORS), true);
-    m_layers->setChecked(OUTDOORS, Framework::LoadOutdoorsEnabled());
+  // add my position button with "checked" behavior
+  m_pMyPositionAction =
+      mainToolBar->addAction(QIcon(":/navig64/location.png"), tr("My Position"), this, &MainWindow::OnMyPosition);
+  m_pMyPositionAction->setCheckable(true);
 
-    m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Hiking"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, HIKING), true);
-    m_layers->setChecked(HIKING, Framework::IsHikingEnabled());
+  QWidget * spacer = new QWidget();
+  spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  mainToolBar->addWidget(spacer);
 
-    m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Cycling"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, CYCLING), true);
-    m_layers->setChecked(CYCLING, Framework::IsCyclingEnabled());
+  auto bookmarksButton = new QToolButton(mainToolBar);
+  bookmarksButton->setIcon(QIcon(":/navig64/bookmark.png"));
+  bookmarksButton->setText(tr("Bookmarks"));
+  bookmarksButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+  connect(bookmarksButton, &QToolButton::clicked, this, &MainWindow::OnBookmarksAction);
+  mainToolBar->addWidget(bookmarksButton);
 
-    pToolBar->addWidget(m_layers->create());
-    m_layers->setMainIcon(QIcon(":/navig64/layers.png"));
+  m_layers = new PopupMenuHolder(this);
 
-    pToolBar->addSeparator();
+  /// @todo Uncomment when we will integrate a traffic provider.
+  // m_layers->addAction(QIcon(":/navig64/traffic.png"), tr("Traffic"),
+  //                     std::bind(&MainWindow::OnLayerEnabled, this, TRAFFIC), true);
+  // m_layers->setChecked(TRAFFIC, Framework::LoadTrafficEnabled());
 
-    pToolBar->addAction(QIcon(":/navig64/bookmark.png"),
-                        tr("Show bookmarks and tracks; use ALT + RMB to add a bookmark"), this,
-                        SLOT(OnBookmarksAction()));
-    pToolBar->addSeparator();
+  m_layers->addAction(QIcon(":/navig64/subway.png"), tr("Public transport"),
+                      std::bind(&MainWindow::OnLayerEnabled, this, TRANSIT), true);
+  m_layers->setChecked(TRANSIT, Framework::LoadTransitSchemeEnabled());
+
+  m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Isolines"),
+                      std::bind(&MainWindow::OnLayerEnabled, this, ISOLINES), true);
+  m_layers->setChecked(ISOLINES, Framework::LoadIsolinesEnabled());
+  // TODO(AB): Are icons drawable? Fix and make different icons for different layers.
+  m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Outdoors"),
+                      std::bind(&MainWindow::OnLayerEnabled, this, OUTDOORS), true);
+  m_layers->setChecked(OUTDOORS, Framework::LoadOutdoorsEnabled());
+
+  m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Hiking"),
+                      std::bind(&MainWindow::OnLayerEnabled, this, HIKING), true);
+  m_layers->setChecked(HIKING, Framework::IsHikingEnabled());
+
+  m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Cycling"),
+                      std::bind(&MainWindow::OnLayerEnabled, this, CYCLING), true);
+  m_layers->setChecked(CYCLING, Framework::IsCyclingEnabled());
+
+  auto layersButton = m_layers->create();
+  m_layers->setMainIcon(QIcon(":/navig64/layers.png"));
+  layersButton->setText(tr("Layers"));
+  layersButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+  mainToolBar->addWidget(layersButton);
+
+  m_mainMenuButton = new QToolButton;
+  m_mainMenuButton->setIcon(QIcon(":/navig64/hamburger.png"));
+  m_mainMenuButton->setStyleSheet("QToolButton::menu-indicator { image: none; }");
+  connect(m_mainMenuButton, &QToolButton::clicked, m_mainMenuButton, &QToolButton::showMenu);
+  mainToolBar->addWidget(m_mainMenuButton);
+
+  addToolBar(mainToolBar);
+  if (m_screenshotMode)
+    mainToolBar->setVisible(false);
+}
+
+void MainWindow::CreateDevToolBar()
+{
+  m_devToolBar = new QToolBar(this);
+  m_devToolBar->setIconSize(QSize(32, 32));
 
 #ifndef BUILD_DESIGNER
-    m_routing = new PopupMenuHolder(this);
+  m_routing = new PopupMenuHolder(this);
 
-    // The order should be the same as in "enum class RouteMarkType".
-    m_routing->addAction(QIcon(":/navig64/point-start.png"), tr("Start point"),
-                         std::bind(&MainWindow::OnRoutePointSelected, this, RouteMarkType::Start), false);
-    m_routing->addAction(QIcon(":/navig64/point-intermediate.png"), tr("Intermediate point"),
-                         std::bind(&MainWindow::OnRoutePointSelected, this, RouteMarkType::Intermediate), false);
-    m_routing->addAction(QIcon(":/navig64/point-finish.png"), tr("Finish point"),
-                         std::bind(&MainWindow::OnRoutePointSelected, this, RouteMarkType::Finish), false);
+  // The order should be the same as in "enum class RouteMarkType".
+  m_routing->addAction(QIcon(":/navig64/point-start.png"), tr("Start point"),
+                       std::bind(&MainWindow::OnRoutePointSelected, this, RouteMarkType::Start), false);
+  m_routing->addAction(QIcon(":/navig64/point-intermediate.png"), tr("Intermediate point"),
+                       std::bind(&MainWindow::OnRoutePointSelected, this, RouteMarkType::Intermediate), false);
+  m_routing->addAction(QIcon(":/navig64/point-finish.png"), tr("Finish point"),
+                       std::bind(&MainWindow::OnRoutePointSelected, this, RouteMarkType::Finish), false);
 
-    QToolButton * toolBtn = m_routing->create();
-    toolBtn->setToolTip(tr("Select mode and use SHIFT + LMB to set point"));
-    pToolBar->addWidget(toolBtn);
-    m_routing->setCurrent(m_pDrawWidget->GetRoutePointAddMode());
+  QToolButton * toolBtn = m_routing->create();
+  toolBtn->setToolTip(tr("Select mode and use SHIFT + LMB to set point"));
+  m_devToolBar->addWidget(toolBtn);
+  m_routing->setCurrent(m_pDrawWidget->GetRoutePointAddMode());
 
-    QAction * act =
-        pToolBar->addAction(QIcon(":/navig64/routing.png"), tr("Follow route"), this, SLOT(OnFollowRoute()));
-    act->setToolTip(tr("Build route and use ALT + LMB to emulate current position"));
-    pToolBar->addAction(QIcon(":/navig64/clear-route.png"), tr("Clear route"), this, SLOT(OnClearRoute()));
-    pToolBar->addAction(QIcon(":/navig64/settings-routing.png"), tr("Routing settings"), this,
-                        SLOT(OnRoutingSettings()));
+  QAction * act =
+      m_devToolBar->addAction(QIcon(":/navig64/routing.png"), tr("Follow route"), this, SLOT(OnFollowRoute()));
+  act->setToolTip(tr("Build route and use ALT + LMB to emulate current position"));
+  m_devToolBar->addAction(QIcon(":/navig64/clear-route.png"), tr("Clear route"), this, SLOT(OnClearRoute()));
+  m_devToolBar->addAction(QIcon(":/navig64/settings-routing.png"), tr("Routing settings"), this,
+                          SLOT(OnRoutingSettings()));
 
-    pToolBar->addSeparator();
+  m_devToolBar->addSeparator();
 
-    m_pCreateFeatureAction =
-        pToolBar->addAction(QIcon(":/navig64/select.png"), tr("Create Feature"), this, SLOT(OnCreateFeatureClicked()));
-    m_pCreateFeatureAction->setCheckable(true);
-    m_pCreateFeatureAction->setToolTip(tr("Push to select position, next push to create Feature"));
-    m_pCreateFeatureAction->setShortcut(QKeySequence::New);
+  m_pCreateFeatureAction = m_devToolBar->addAction(QIcon(":/navig64/select.png"), tr("Create Feature"), this,
+                                                   SLOT(OnCreateFeatureClicked()));
+  m_pCreateFeatureAction->setCheckable(true);
+  m_pCreateFeatureAction->setToolTip(tr("Push to select position, next push to create Feature"));
+  m_pCreateFeatureAction->setShortcut(QKeySequence::New);
 
-    pToolBar->addSeparator();
+  m_devToolBar->addSeparator();
 
-    m_selection = new PopupMenuHolder(this);
+  m_selection = new PopupMenuHolder(this);
 
-    // The order should be the same as in "enum class SelectionMode".
-    m_selection->addAction(QIcon(":/navig64/selectmode.png"), tr("Roads selection mode"),
-                           std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::Features), true);
-    m_selection->addAction(QIcon(":/navig64/city_boundaries.png"), tr("City boundaries selection mode"),
-                           std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CityBoundaries), true);
-    m_selection->addAction(QIcon(":/navig64/city_roads.png"), tr("City roads selection mode"),
-                           std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CityRoads), true);
-    m_selection->addAction(QIcon(":/navig64/test.png"), tr("Cross MWM segments selection mode"),
-                           std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CrossMwmSegments), true);
-    m_selection->addAction(QIcon(":/navig64/borders_selection.png"), tr("MWMs borders selection mode"), this,
-                           SLOT(OnSwitchMwmsBordersSelectionMode()), true);
+  // The order should be the same as in "enum class SelectionMode".
+  m_selection->addAction(QIcon(":/navig64/selectmode.png"), tr("Roads selection mode"),
+                         std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::Features), true);
+  m_selection->addAction(QIcon(":/navig64/city_boundaries.png"), tr("City boundaries selection mode"),
+                         std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CityBoundaries), true);
+  m_selection->addAction(QIcon(":/navig64/city_roads.png"), tr("City roads selection mode"),
+                         std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CityRoads), true);
+  m_selection->addAction(QIcon(":/navig64/test.png"), tr("Cross MWM segments selection mode"),
+                         std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CrossMwmSegments), true);
+  m_selection->addAction(QIcon(":/navig64/borders_selection.png"), tr("MWMs borders selection mode"), this,
+                         SLOT(OnSwitchMwmsBordersSelectionMode()), true);
 
-    toolBtn = m_selection->create();
-    toolBtn->setToolTip(tr("Select mode and use RMB to define selection box"));
-    pToolBar->addWidget(toolBtn);
+  toolBtn = m_selection->create();
+  toolBtn->setToolTip(tr("Select mode and use RMB to define selection box"));
+  m_devToolBar->addWidget(toolBtn);
 
-    pToolBar->addAction(QIcon(":/navig64/clear.png"), tr("Clear selection"), this, SLOT(OnClearSelection()));
+  m_devToolBar->addAction(QIcon(":/navig64/clear.png"), tr("Clear selection"), this, SLOT(OnClearSelection()));
 
-    pToolBar->addSeparator();
+  m_devToolBar->addSeparator();
 
 #endif  // NOT BUILD_DESIGNER
 
-    // Add search button with "checked" behavior.
-    m_pSearchAction =
-        pToolBar->addAction(QIcon(":/navig64/search.png"), tr("Offline Search"), this, SLOT(OnSearchButtonClicked()));
-    m_pSearchAction->setCheckable(true);
-    m_pSearchAction->setShortcut(QKeySequence::Find);
+  // Add search button with "checked" behavior.
+  m_devSearchAction =
+      m_devToolBar->addAction(QIcon(":/navig64/search.png"), tr("Search"), this, SLOT(OnSearchButtonClicked()));
+  m_devSearchAction->setCheckable(true);
+  m_devSearchAction->setShortcut(QKeySequence::Find);
+  // TODO (@zagto): show new search panel from this shortcut
 
-    m_rulerAction = pToolBar->addAction(QIcon(":/navig64/ruler.png"), tr("Ruler"), this, SLOT(OnRulerEnabled()));
-    m_rulerAction->setToolTip(tr("Check this button and use ALT + LMB to set points"));
-    m_rulerAction->setCheckable(true);
-    m_rulerAction->setChecked(false);
+  m_rulerAction = m_devToolBar->addAction(QIcon(":/navig64/ruler.png"), tr("Ruler"), this, SLOT(OnRulerEnabled()));
+  m_rulerAction->setToolTip(tr("Check this button and use ALT + LMB to set points"));
+  m_rulerAction->setCheckable(true);
+  m_rulerAction->setChecked(false);
 
-    pToolBar->addSeparator();
-
-    // add my position button with "checked" behavior
-
-    m_pMyPositionAction =
-        pToolBar->addAction(QIcon(":/navig64/location.png"), tr("My Position"), this, SLOT(OnMyPosition()));
-    m_pMyPositionAction->setCheckable(true);
+  m_devToolBar->addSeparator();
 
 #ifdef BUILD_DESIGNER
-    // Add "Build style" button
-    if (!m_mapcssFilePath.isEmpty())
-    {
-      m_pBuildStyleAction =
-          pToolBar->addAction(QIcon(":/navig64/run.png"), tr("Build style"), this, SLOT(OnBuildStyle()));
-      m_pBuildStyleAction->setCheckable(false);
-      m_pBuildStyleAction->setToolTip(tr("Build style"));
+  // Add "Build style" button
+  if (!m_mapcssFilePath.isEmpty())
+  {
+    m_pBuildStyleAction =
+        m_devToolBar->addAction(QIcon(":/navig64/run.png"), tr("Build style"), this, SLOT(OnBuildStyle()));
+    m_pBuildStyleAction->setCheckable(false);
+    m_pBuildStyleAction->setToolTip(tr("Build style"));
 
-      m_pRecalculateGeomIndex = pToolBar->addAction(QIcon(":/navig64/geom.png"), tr("Recalculate geometry index"), this,
-                                                    SLOT(OnRecalculateGeomIndex()));
-      m_pRecalculateGeomIndex->setCheckable(false);
-      m_pRecalculateGeomIndex->setToolTip(tr("Recalculate geometry index"));
-    }
-
-    // Add "Debug style" button
-    m_pDrawDebugRectAction =
-        pToolBar->addAction(QIcon(":/navig64/bug.png"), tr("Debug style"), this, SLOT(OnDebugStyle()));
-    m_pDrawDebugRectAction->setCheckable(true);
-    m_pDrawDebugRectAction->setChecked(false);
-    m_pDrawDebugRectAction->setToolTip(tr("Debug style"));
-    m_pDrawWidget->GetFramework().EnableDebugRectRendering(false);
-
-    // Add "Get statistics" button
-    m_pGetStatisticsAction =
-        pToolBar->addAction(QIcon(":/navig64/chart.png"), tr("Get statistics"), this, SLOT(OnGetStatistics()));
-    m_pGetStatisticsAction->setCheckable(false);
-    m_pGetStatisticsAction->setToolTip(tr("Get statistics"));
-
-    // Add "Run tests" button
-    m_pRunTestsAction = pToolBar->addAction(QIcon(":/navig64/test.png"), tr("Run tests"), this, SLOT(OnRunTests()));
-    m_pRunTestsAction->setCheckable(false);
-    m_pRunTestsAction->setToolTip(tr("Run tests"));
-
-    // Add "Build phone package" button
-    m_pBuildPhonePackAction = pToolBar->addAction(QIcon(":/navig64/phonepack.png"), tr("Build phone package"), this,
-                                                  SLOT(OnBuildPhonePackage()));
-    m_pBuildPhonePackAction->setCheckable(false);
-    m_pBuildPhonePackAction->setToolTip(tr("Build phone package"));
-#endif  // BUILD_DESIGNER
+    m_pRecalculateGeomIndex = m_devToolBar->addAction(QIcon(":/navig64/geom.png"), tr("Recalculate geometry index"),
+                                                      this, SLOT(OnRecalculateGeomIndex()));
+    m_pRecalculateGeomIndex->setCheckable(false);
+    m_pRecalculateGeomIndex->setToolTip(tr("Recalculate geometry index"));
   }
 
-  pToolBar->addSeparator();
-  qt::common::ScaleSlider::Embed(Qt::Vertical, *pToolBar, *m_pDrawWidget);
+  // Add "Debug style" button
+  m_pDrawDebugRectAction =
+      m_devToolBar->addAction(QIcon(":/navig64/bug.png"), tr("Debug style"), this, SLOT(OnDebugStyle()));
+  m_pDrawDebugRectAction->setCheckable(true);
+  m_pDrawDebugRectAction->setChecked(false);
+  m_pDrawDebugRectAction->setToolTip(tr("Debug style"));
+  m_pDrawWidget->GetFramework().EnableDebugRectRendering(false);
 
-#ifndef NO_DOWNLOADER
-  pToolBar->addSeparator();
-  pToolBar->addAction(QIcon(":/navig64/download.png"), tr("Download Maps"), this, SLOT(ShowUpdateDialog()));
-#endif  // NO_DOWNLOADER
+  // Add "Get statistics" button
+  m_pGetStatisticsAction =
+      m_devToolBar->addAction(QIcon(":/navig64/chart.png"), tr("Get statistics"), this, SLOT(OnGetStatistics()));
+  m_pGetStatisticsAction->setCheckable(false);
+  m_pGetStatisticsAction->setToolTip(tr("Get statistics"));
 
+  // Add "Run tests" button
+  m_pRunTestsAction = m_devToolBar->addAction(QIcon(":/navig64/test.png"), tr("Run tests"), this, SLOT(OnRunTests()));
+  m_pRunTestsAction->setCheckable(false);
+  m_pRunTestsAction->setToolTip(tr("Run tests"));
+
+  // Add "Build phone package" button
+  m_pBuildPhonePackAction = m_devToolBar->addAction(QIcon(":/navig64/phonepack.png"), tr("Build phone package"), this,
+                                                    SLOT(OnBuildPhonePackage()));
+  m_pBuildPhonePackAction->setCheckable(false);
+  m_pBuildPhonePackAction->setToolTip(tr("Build phone package"));
+#endif  // BUILD_DESIGNER
+
+  addToolBar(Qt::RightToolBarArea, m_devToolBar);
   if (m_screenshotMode)
-    pToolBar->setVisible(false);
-
-  addToolBar(Qt::RightToolBarArea, pToolBar);
+    m_devToolBar->setVisible(false);
 }
 
 Framework & MainWindow::GetFramework() const
@@ -617,10 +610,10 @@ void MainWindow::OnClearSelection()
 
 void MainWindow::OnSearchButtonClicked()
 {
-  if (m_pSearchAction->isChecked())
-    m_Docks[0]->show();
+  if (m_devSearchAction->isChecked())
+    m_devSearchDockWidget->show();
   else
-    m_Docks[0]->hide();
+    m_devSearchDockWidget->hide();
 }
 
 void MainWindow::OnLoginMenuItem()
@@ -650,10 +643,35 @@ void MainWindow::OnBeforeEngineCreation()
   { LocationStateModeChanged(mode); });
 }
 
+void MainWindow::OnFocusChange(QWidget * previous, QWidget * current)
+{
+  if (current == m_userSearchQueryEdit)
+    m_userSearchDockWidget->show();
+}
+
+void MainWindow::OnSearchDockWidgetVisibilityChange(bool visible)
+{
+  if (!visible)
+  {
+    if (m_userSearchQueryEdit->hasFocus())
+      m_pDrawWidget->setFocus();
+    m_userSearchQueryEdit->setText("");
+  }
+  m_userSearchCloseAction->setVisible(visible);
+}
+
+void MainWindow::OnSearchDockWidgetWidthChange(int width)
+{
+  // TODO (@zagto): handle RTL layout
+  int const offset = m_userSearchQueryEdit->x();
+  m_userSearchQueryEdit->setFixedWidth(width - offset * 2);
+}
+
 void MainWindow::OnPreferences()
 {
   Framework & framework = m_pDrawWidget->GetFramework();
   PreferencesDialog dlg(this, framework);
+  connect(&dlg, &PreferencesDialog::DeveloperModeChanged, this, &MainWindow::OnDeveloperModeChanged);
   dlg.exec();
 
   framework.EnterForeground();
@@ -815,32 +833,31 @@ void MainWindow::ShowUpdateDialog()
 
 #endif  // NO_DOWNLOADER
 
-void MainWindow::CreateSearchBarAndPanel()
+void MainWindow::CreateUserSearchPanel()
 {
-  CreatePanelImpl(0, Qt::RightDockWidgetArea, tr("Search"), QKeySequence(), nullptr);
+  m_userSearchDockWidget = new QDockWidget(tr("Search"));
 
-  m_Docks[0]->setWidget(new SearchPanel(m_pDrawWidget, m_Docks[0]));
+  m_userSearchPanel = new UserSearchPanel(GetFramework());
+  addDockWidget(Qt::LeftDockWidgetArea, m_userSearchDockWidget);
+  m_userSearchDockWidget->setWidget(m_userSearchPanel);
+  m_userSearchDockWidget->setTitleBarWidget(new QWidget(m_userSearchDockWidget));
+  m_userSearchDockWidget->setFeatures(QDockWidget::NoDockWidgetFeatures);
+  m_userSearchDockWidget->hide();
+
+  connect(m_userSearchQueryEdit, &QLineEdit::textChanged, m_userSearchPanel, &UserSearchPanel::OnSearchQueryChanged);
+  connect(m_userSearchCloseAction, &QAction::triggered, m_userSearchDockWidget, &QDockWidget::hide);
+  connect(m_userSearchPanel, &UserSearchPanel::WidthChanged, this, &MainWindow::OnSearchDockWidgetWidthChange);
+  connect(m_userSearchPanel, &UserSearchPanel::SuggestionAccepted, m_userSearchQueryEdit, &QLineEdit::setText);
+
+  // TODO (@zagto): tab focus order should be m_userSearchQueryEdit -> first search result
 }
 
-void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name, QKeySequence const & hotkey,
-                                 char const * slot)
+void MainWindow::CreateDevSearchPanel()
 {
-  ASSERT_LESS(i, m_Docks.size(), ());
-  m_Docks[i] = new QDockWidget(name, this);
-
-  addDockWidget(area, m_Docks[i]);
-
-  // hide by default
-  m_Docks[i]->hide();
-
-  // register a hotkey to show panel
-  if (slot && !hotkey.isEmpty())
-  {
-    QAction * pAct = new QAction(this);
-    pAct->setShortcut(hotkey);
-    connect(pAct, SIGNAL(triggered()), this, slot);
-    addAction(pAct);
-  }
+  m_devSearchDockWidget = new QDockWidget(tr("Search"));
+  addDockWidget(Qt::RightDockWidgetArea, m_devSearchDockWidget);
+  m_devSearchDockWidget->hide();
+  m_devSearchDockWidget->setWidget(new DevSearchPanel(m_pDrawWidget, m_devSearchDockWidget));
 }
 
 void MainWindow::closeEvent(QCloseEvent * e)
@@ -926,6 +943,12 @@ void MainWindow::OnBookmarksAction()
   BookmarkDialog dlg(this, m_pDrawWidget->GetFramework());
   dlg.ShowModal();
   m_pDrawWidget->update();
+}
+
+void MainWindow::OnDeveloperModeChanged(bool enable)
+{
+  m_devToolBar->setVisible(enable);
+  m_userSearchPanel->OnDeveloperModeChanged(enable);
 }
 
 }  // namespace qt

@@ -8,6 +8,7 @@
 #include "base/math.hpp"
 
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QToolButton>
 
 #include <cmath>
 #include <memory>
@@ -43,13 +44,14 @@ ScaleSlider::ScaleSlider(Qt::Orientation orient, QWidget * parent) : QSlider(ori
 // static
 void ScaleSlider::Embed(Qt::Orientation orient, QToolBar & toolBar, MapWidget & mapWidget)
 {
-  toolBar.addAction(QIcon(":/common/plus.png"), tr("Scale +"), &mapWidget, SLOT(ScalePlus()));
-  {
+  toolBar.addAction(QIcon(":/common/minus.png"), tr("Scale -"), &mapWidget, &MapWidget::ScaleMinus);
+  {  // TODO: slider minimum is not actual minimum
     auto slider = std::make_unique<ScaleSlider>(orient, &toolBar);
     mapWidget.BindSlider(*slider);
+    slider->setMaximumWidth(250);
     toolBar.addWidget(slider.release());
   }
-  toolBar.addAction(QIcon(":/common/minus.png"), tr("Scale -"), &mapWidget, SLOT(ScaleMinus()));
+  toolBar.addAction(QIcon(":/common/plus.png"), tr("Scale +"), &mapWidget, &MapWidget::ScalePlus);
 }
 
 double ScaleSlider::GetScaleFactor() const
