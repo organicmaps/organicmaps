@@ -1569,3 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "मौसम निगरानी स्टेशन";
 "type.amenity.student_accommodation" = "छात्र आवास";
 "type.craft.watchmaker" = "घड़ीसाज़";
+"type.xmas_feature.market" = "क्रिसमस का बाजार";
+"type.xmas_feature.tree" = "क्रिसमस ट्री";

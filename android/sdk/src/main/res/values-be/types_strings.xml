@@ -1420,4 +1420,6 @@
     <string name="type.man_made.monitoring_station.weather">Станцыя назірання за надвор\'ем</string>
     <string name="type.amenity.student_accommodation">Жыллё для студэнтаў</string>
     <string name="type.craft.watchmaker">Гадзіннікавы майстар</string>
+    <string name="type.xmas_feature.market">Калядны кірмаш</string>
+    <string name="type.xmas_feature.tree">Калядная ёлка</string>
 </resources>
