@@ -131,10 +131,10 @@ class TextureState
 {
 public:
   static void ApplyTextures(ref_ptr<GraphicsContext> context, RenderState const & state, ref_ptr<GpuProgram> program);
-  static uint8_t GetLastUsedSlots();
+  static std::vector<glConst> const & GetLastUsedTextureTypes();
 
 private:
-  static uint8_t m_usedSlots;
+  static std::vector<glConst> m_usedTextureTypes;
 };
 
 void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, RenderState const & state);

@@ -131,6 +131,7 @@ HWTextureApple::~HWTextureApple()
 void HWTextureApple::Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data)
 {
   TBase::Create(context, params, data);
+  ASSERT(params.m_layerCount == 1, ("Not supported for OpenGL on iOS"));
 
   m_allocator = m_params.m_allocator;
   m_directBuffer = m_allocator->CVCreatePixelBuffer(m_params.m_width, m_params.m_height, params.m_format);
@@ -177,6 +178,13 @@ void HWTextureApple::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x
     copy_pixels(srcView, subDstView);
   }
   Unlock();
+}
+
+void HWTextureApple::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width,
+                                uint32_t height, uint32_t layer, ref_ptr<void> data)
+{
+  CHECK(layer == 0, ("Not supported for OpenGL on iOS"));
+  UploadData(context, x, y, width, height, 0, data);
 }
 
 void HWTextureApple::Bind(ref_ptr<dp::GraphicsContext> context) const

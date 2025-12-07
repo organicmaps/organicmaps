@@ -133,7 +133,7 @@ extension PlacePageEditBookmarkAndTrackSectionInteractor: SelectBookmarkGroupVie
   func bookmarkGroupViewController(_ viewController: SelectBookmarkGroupViewController,
                                    didSelect groupTitle: String,
                                    groupId: MWMMarkGroupID) {
-    viewController.navigationController?.dismiss(animated: true)
+    viewController.dismiss(animated: true)
     update(category: groupId)
   }
 }

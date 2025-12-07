@@ -1,6 +1,5 @@
 #pragma once
 
-#include "drape_frontend/custom_features_context.hpp"
 #include "drape_frontend/engine_context.hpp"
 #include "drape_frontend/tile_key.hpp"
 
@@ -18,7 +17,6 @@ class FeatureType;
 namespace df
 {
 class MapDataProvider;
-class Stylist;
 
 class TileInfo
 {
@@ -31,7 +29,6 @@ public:
   void Cancel();
   bool IsCancelled() const;
 
-  m2::RectD GetGlobalRect() const;
   TileKey const & GetTileKey() const { return m_context->GetTileKey(); }
   bool operator<(TileInfo const & other) const { return GetTileKey() < other.GetTileKey(); }
 

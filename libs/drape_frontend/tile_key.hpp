@@ -53,3 +53,12 @@ struct TileKeyStrictComparator
 
 std::string DebugPrint(TileKey const & key);
 }  // namespace df
+
+namespace std
+{
+template <>
+struct hash<df::TileKey>
+{
+  size_t operator()(df::TileKey const & key) const { return key.GetHashValue(df::BatcherBucket::Default); }
+};
+}  // namespace std

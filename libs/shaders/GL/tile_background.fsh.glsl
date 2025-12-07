@@ -1,4 +1,3 @@
-
 layout (binding = 1) uniform sampler2D u_colorTex;
 
 layout (location = 0) in vec3 v_texCoords;

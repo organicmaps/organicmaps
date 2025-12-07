@@ -1,9 +1,11 @@
-#pragma once
 #import <Foundation/Foundation.h>
 
-#include <string_view>
+NS_ASSUME_NONNULL_BEGIN
 
-inline NSString * ToNSString(std::string_view sv)
-{
-  return [[NSString alloc] initWithBytes:sv.data() length:sv.size() encoding:NSUTF8StringEncoding];
-}
+@interface NSString (StringUtils)
+
+- (NSString *)normalizedAndSimplified;
+
+@end
+
+NS_ASSUME_NONNULL_END

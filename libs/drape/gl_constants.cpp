@@ -117,6 +117,7 @@ constexpr glConst GLStencilBit = GL_STENCIL_BUFFER_BIT;
 constexpr glConst GLMaxFragmentTextures = GL_MAX_TEXTURE_IMAGE_UNITS;
 constexpr glConst GLMaxVertexTextures = GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS;
 constexpr glConst GLMaxTextureSize = GL_MAX_TEXTURE_SIZE;
+constexpr glConst GLMaxArrayTextureLayers = GL_MAX_ARRAY_TEXTURE_LAYERS;
 
 constexpr glConst GLArrayBuffer = GL_ARRAY_BUFFER;
 constexpr glConst GLElementArrayBuffer = GL_ELEMENT_ARRAY_BUFFER;
@@ -164,6 +165,7 @@ constexpr glConst GL8BitOnChannel = GL_UNSIGNED_BYTE;
 constexpr glConst GL4BitOnChannel = GL_UNSIGNED_SHORT_4_4_4_4;
 
 constexpr glConst GLTexture2D = GL_TEXTURE_2D;
+constexpr glConst GLTexture2DArray = GL_TEXTURE_2D_ARRAY;
 
 constexpr glConst GLTexture0 = GL_TEXTURE0;
 
@@ -199,6 +201,7 @@ constexpr glConst GLIntVec4 = GL_INT_VEC4;
 constexpr glConst GLFloatMat4 = GL_FLOAT_MAT4;
 
 constexpr glConst GLSampler2D = GL_SAMPLER_2D;
+constexpr glConst GLSampler2DArray = GL_SAMPLER_2D_ARRAY;
 
 constexpr glConst GLAddBlend = GL_FUNC_ADD;
 constexpr glConst GLSubstractBlend = GL_FUNC_SUBTRACT;

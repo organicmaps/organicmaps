@@ -30,6 +30,7 @@ public:
 
   float GetMaxLineWidth() const { return m_maxLineWidth; }
   uint32_t GetMaxTextureSize() const { return m_maxTextureSize; }
+  uint32_t GetMaxTextureArrayLayers() const { return m_maxTextureArrayLayers; }
 
   // These functions can be used without manager initialization.
   static void ForbidVulkan();
@@ -52,6 +53,7 @@ private:
 
   float m_maxLineWidth = 1;
   uint32_t m_maxTextureSize = 1024;
+  uint32_t m_maxTextureArrayLayers = 1;
 
   bool m_isInitialized = false;
   std::mutex m_mutex;

@@ -10,7 +10,7 @@
 #import "SwiftBridge.h"
 
 #import <CoreApi/Framework.h>
-#import <CoreApi/StringUtils.h>
+#import <CoreApi/StringUtils+Core.h>
 
 #include "platform/downloader_defines.hpp"
 

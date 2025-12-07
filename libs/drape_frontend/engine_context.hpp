@@ -25,13 +25,15 @@ class EngineContext
 public:
   EngineContext(TileKey tileKey, ref_ptr<ThreadsCommutator> commutator, ref_ptr<dp::TextureManager> texMng,
                 ref_ptr<MetalineManager> metalineMng, CustomFeaturesContextWeakPtr customFeaturesContext,
-                bool is3dBuildingsEnabled, bool isTrafficEnabled, bool isolinesEnabled, int8_t mapLangIndex);
+                bool is3dBuildingsEnabled, bool isTrafficEnabled, bool isolinesEnabled, int8_t mapLangIndex,
+                dp::BackgroundMode backgroundMode);
 
   TileKey const & GetTileKey() const { return m_tileKey; }
   bool Is3dBuildingsEnabled() const { return m_3dBuildingsEnabled; }
   bool IsTrafficEnabled() const { return m_trafficEnabled; }
   bool IsolinesEnabled() const { return m_isolinesEnabled; }
   int8_t GetMapLangIndex() const { return m_mapLangIndex; }
+  dp::BackgroundMode GetBackgroundMode() const { return m_backgroundMode; }
   CustomFeaturesContextWeakPtr GetCustomFeaturesContext() const { return m_customFeaturesContext; }
   ref_ptr<dp::TextureManager> GetTextureManager() const;
   ref_ptr<MetalineManager> GetMetalineManager() const;
@@ -54,5 +56,6 @@ private:
   bool m_trafficEnabled;
   bool m_isolinesEnabled;
   int8_t m_mapLangIndex;
+  dp::BackgroundMode m_backgroundMode;
 };
 }  // namespace df

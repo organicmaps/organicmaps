@@ -150,6 +150,11 @@ uint32_t HWTexture::GetID() const
   return m_textureID;
 }
 
+uint32_t HWTexture::GetTarget() const
+{
+  return m_target;
+}
+
 OpenGLHWTexture::~OpenGLHWTexture()
 {
   if (m_textureID != 0)
@@ -163,10 +168,11 @@ void OpenGLHWTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const 
 {
   Base::Create(context, params, data);
 
+  m_target = params.m_layerCount > 1 ? gl_const::GLTexture2DArray : gl_const::GLTexture2D;
+
   CHECK(context && m_textureID == 0 && m_pixelBufferID == 0, ());
 
-  // OpenGL ES 2.0 does not support PBO.
-  if (params.m_usePixelBuffer && context->GetApiVersion() == dp::ApiVersion::OpenGLES3)
+  if (params.m_usePixelBuffer && params.m_layerCount == 1)
   {
     m_pixelBufferElementSize = GetBytesPerPixel(m_params.m_format);
     if (m_pixelBufferElementSize > 0)
@@ -182,11 +188,19 @@ void OpenGLHWTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const 
   UnpackFormat(context, m_params.m_format, m_unpackedLayout, m_unpackedPixelType);
 
   auto const f = DecodeTextureFilter(m_params.m_filter);
-  GLFunctions::glTexImage2D(m_params.m_width, m_params.m_height, m_unpackedLayout, m_unpackedPixelType, data.get());
-  GLFunctions::glTexParameter(gl_const::GLMinFilter, f);
-  GLFunctions::glTexParameter(gl_const::GLMagFilter, f);
-  GLFunctions::glTexParameter(gl_const::GLWrapS, DecodeTextureWrapping(m_params.m_wrapSMode));
-  GLFunctions::glTexParameter(gl_const::GLWrapT, DecodeTextureWrapping(m_params.m_wrapTMode));
+  if (m_params.m_layerCount > 1)
+  {
+    GLFunctions::glTexImage2DArray(m_params.m_width, m_params.m_height, m_params.m_layerCount, m_unpackedLayout,
+                                   m_unpackedPixelType, data.get());
+  }
+  else
+  {
+    GLFunctions::glTexImage2D(m_params.m_width, m_params.m_height, m_unpackedLayout, m_unpackedPixelType, data.get());
+  }
+  GLFunctions::glTexParameter(gl_const::GLMinFilter, f, m_target);
+  GLFunctions::glTexParameter(gl_const::GLMagFilter, f, m_target);
+  GLFunctions::glTexParameter(gl_const::GLWrapS, DecodeTextureWrapping(m_params.m_wrapSMode), m_target);
+  GLFunctions::glTexParameter(gl_const::GLWrapT, DecodeTextureWrapping(m_params.m_wrapTMode), m_target);
 
   if (m_pixelBufferSize > 0)
   {
@@ -196,7 +210,7 @@ void OpenGLHWTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const 
     GLFunctions::glBindBuffer(0, gl_const::GLPixelBufferWrite);
   }
 
-  GLFunctions::glBindTexture(0);
+  GLFunctions::glBindTexture(0, m_target);
   GLFunctions::glFlush();
 }
 
@@ -209,18 +223,42 @@ void OpenGLHWTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t 
   if (m_pixelBufferID != 0 && m_pixelBufferSize >= mappingSize)
   {
     ASSERT_GREATER(mappingSize, 0, ());
+    ASSERT(m_params.m_layerCount == 1, ());
     GLFunctions::glBindBuffer(m_pixelBufferID, gl_const::GLPixelBufferWrite);
     GLFunctions::glBufferSubData(gl_const::GLPixelBufferWrite, mappingSize, data.get(), 0);
+
     GLFunctions::glTexSubImage2D(x, y, width, height, m_unpackedLayout, m_unpackedPixelType, nullptr);
     GLFunctions::glBindBuffer(0, gl_const::GLPixelBufferWrite);
   }
   else
   {
     Bind(context);
-    GLFunctions::glTexSubImage2D(x, y, width, height, m_unpackedLayout, m_unpackedPixelType, data.get());
-    GLFunctions::glBindTexture(0);
+    if (m_params.m_layerCount > 1)
+    {
+      uint8_t * pixelData = static_cast<uint8_t *>(data.get());
+      for (int layer = 0; layer < int(m_params.m_layerCount); ++layer)
+      {
+        GLFunctions::glTexSubImage2DArray(x, y, layer, width, height, m_unpackedLayout, m_unpackedPixelType,
+                                          pixelData + layer * mappingSize);
+      }
+    }
+    else
+    {
+      GLFunctions::glTexSubImage2D(x, y, width, height, m_unpackedLayout, m_unpackedPixelType, data.get());
+    }
+    GLFunctions::glBindTexture(0, m_target);
     GLFunctions::glFlush();
   }
+}
+
+void OpenGLHWTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width,
+                                 uint32_t height, uint32_t layer, ref_ptr<void> data)
+{
+  ASSERT(Validate(), ());
+  Bind(context);
+  GLFunctions::glTexSubImage2DArray(x, y, layer, width, height, m_unpackedLayout, m_unpackedPixelType, data.get());
+  GLFunctions::glBindTexture(0, m_target);
+  GLFunctions::glFlush();
 }
 
 void OpenGLHWTexture::Bind(ref_ptr<dp::GraphicsContext> context) const
@@ -228,7 +266,7 @@ void OpenGLHWTexture::Bind(ref_ptr<dp::GraphicsContext> context) const
   UNUSED_VALUE(context);
   ASSERT(Validate(), ());
   if (m_textureID != 0)
-    GLFunctions::glBindTexture(GetID());
+    GLFunctions::glBindTexture(GetID(), m_target);
 }
 
 void OpenGLHWTexture::SetFilter(TextureFilter filter)
@@ -238,8 +276,8 @@ void OpenGLHWTexture::SetFilter(TextureFilter filter)
   {
     m_params.m_filter = filter;
     auto const f = DecodeTextureFilter(m_params.m_filter);
-    GLFunctions::glTexParameter(gl_const::GLMinFilter, f);
-    GLFunctions::glTexParameter(gl_const::GLMagFilter, f);
+    GLFunctions::glTexParameter(gl_const::GLMinFilter, f, m_target);
+    GLFunctions::glTexParameter(gl_const::GLMagFilter, f, m_target);
   }
 }
 

@@ -77,7 +77,7 @@ bool TileKey::EqualStrict(TileKey const & other) const
          m_generation == other.m_generation && m_userMarksGeneration == other.m_userMarksGeneration;
 }
 
-m2::RectD TileKey::GetGlobalRect(bool clipByDataMaxZoom) const
+m2::RectD TileKey::GetGlobalRect(bool clipByDataMaxZoom /* = true */) const
 {
   int const zoomLevel = clipByDataMaxZoom ? ClipTileZoomByMaxDataZoom(m_zoomLevel) : m_zoomLevel;
   ASSERT_GREATER(zoomLevel, 0, ());

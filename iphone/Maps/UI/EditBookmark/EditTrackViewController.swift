@@ -214,7 +214,7 @@ extension EditTrackViewController: SelectBookmarkGroupViewControllerDelegate {
   func bookmarkGroupViewController(_ viewController: SelectBookmarkGroupViewController,
                                    didSelect groupTitle: String,
                                    groupId: MWMMarkGroupID) {
-    viewController.navigationController?.dismiss(animated: true)
+    viewController.dismiss(animated: true)
     trackGroupTitle = groupTitle
     trackGroupId = groupId
     tableView.reloadRows(at: [IndexPath(row: InfoSectionRows.bookmarkGroup.rawValue, section: Sections.info.rawValue)],

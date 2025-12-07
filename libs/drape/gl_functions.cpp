@@ -211,6 +211,38 @@ TglGetStringiFn glGetStringiFn = nullptr;
 
 std::mutex s_mutex;
 bool s_inited = false;
+
+glConst TextureInternalFormatByLayout(glConst layout, glConst pixelType)
+{
+  // In OpenGL ES3:
+  // - we can't create unsized GL_RED texture, so we use GL_R8;
+  // - we can't create unsized GL_RG texture, so we use GL_RG8;
+  // - we can't create unsized GL_DEPTH_COMPONENT texture, so we use GL_DEPTH_COMPONENT16
+  //   or GL_DEPTH_COMPONENT24 or GL_DEPTH_COMPONENT32F;
+  // - we can't create unsized GL_DEPTH_STENCIL texture, so we use GL_DEPTH24_STENCIL8.
+  glConst internalFormat = layout;
+  if (layout == gl_const::GLRed)
+  {
+    internalFormat = GL_R8;
+  }
+  else if (layout == gl_const::GLRedGreen)
+  {
+    internalFormat = GL_RG8;
+  }
+  else if (layout == gl_const::GLDepthComponent)
+  {
+    internalFormat = GL_DEPTH_COMPONENT16;
+    if (pixelType == gl_const::GLUnsignedIntType)
+      internalFormat = GL_DEPTH_COMPONENT24;
+    else if (pixelType == gl_const::GLFloatType)
+      internalFormat = GL_DEPTH_COMPONENT32F;
+  }
+  else if (layout == gl_const::GLDepthStencil)
+  {
+    internalFormat = GL_DEPTH24_STENCIL8;
+  }
+  return internalFormat;
+}
 }  // namespace
 
 #ifdef OMIM_OS_WINDOWS
@@ -951,47 +983,25 @@ void GLFunctions::glDeleteTexture(uint32_t id)
   GLCHECK(::glDeleteTextures(1, &id));
 }
 
-void GLFunctions::glBindTexture(uint32_t textureID)
+void GLFunctions::glBindTexture(uint32_t textureID, glConst target)
 {
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
-  GLCHECK(::glBindTexture(GL_TEXTURE_2D, textureID));
+  GLCHECK(::glBindTexture(target, textureID));
 }
 
 void GLFunctions::glTexImage2D(int width, int height, glConst layout, glConst pixelType, void const * data)
 {
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
-  // In OpenGL ES3:
-  // - we can't create unsized GL_RED texture, so we use GL_R8;
-  // - we can't create unsized GL_RG texture, so we use GL_RG8;
-  // - we can't create unsized GL_DEPTH_COMPONENT texture, so we use GL_DEPTH_COMPONENT16
-  //   or GL_DEPTH_COMPONENT24 or GL_DEPTH_COMPONENT32F;
-  // - we can't create unsized GL_DEPTH_STENCIL texture, so we use GL_DEPTH24_STENCIL8.
-  glConst internalFormat = layout;
-  if (CurrentApiVersion == dp::ApiVersion::OpenGLES3)
-  {
-    if (layout == gl_const::GLRed)
-    {
-      internalFormat = GL_R8;
-    }
-    else if (layout == gl_const::GLRedGreen)
-    {
-      internalFormat = GL_RG8;
-    }
-    else if (layout == gl_const::GLDepthComponent)
-    {
-      internalFormat = GL_DEPTH_COMPONENT16;
-      if (pixelType == gl_const::GLUnsignedIntType)
-        internalFormat = GL_DEPTH_COMPONENT24;
-      else if (pixelType == gl_const::GLFloatType)
-        internalFormat = GL_DEPTH_COMPONENT32F;
-    }
-    else if (layout == gl_const::GLDepthStencil)
-    {
-      internalFormat = GL_DEPTH24_STENCIL8;
-    }
-  }
-
+  int const internalFormat = TextureInternalFormatByLayout(layout, pixelType);
   GLCHECK(::glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, layout, pixelType, data));
+}
+
+void GLFunctions::glTexImage2DArray(int width, int height, int layers, glConst layout, glConst pixelType,
+                                    void const * data)
+{
+  ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
+  int const internalFormat = TextureInternalFormatByLayout(layout, pixelType);
+  GLCHECK(::glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, internalFormat, width, height, layers, 0, layout, pixelType, data));
 }
 
 void GLFunctions::glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType,
@@ -1001,10 +1011,17 @@ void GLFunctions::glTexSubImage2D(int x, int y, int width, int height, glConst l
   GLCHECK(::glTexSubImage2D(GL_TEXTURE_2D, 0, x, y, width, height, layout, pixelType, data));
 }
 
-void GLFunctions::glTexParameter(glConst param, glConst value)
+void GLFunctions::glTexSubImage2DArray(int x, int y, int layer, int width, int height, glConst layout,
+                                       glConst pixelType, void const * data)
 {
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
-  GLCHECK(::glTexParameteri(GL_TEXTURE_2D, param, value));
+  GLCHECK(::glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, x, y, layer, width, height, 1, layout, pixelType, data));
+}
+
+void GLFunctions::glTexParameter(glConst param, glConst value, glConst target)
+{
+  ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
+  GLCHECK(::glTexParameteri(target, param, value));
 }
 
 void GLFunctions::glDrawElements(glConst primitive, uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex)

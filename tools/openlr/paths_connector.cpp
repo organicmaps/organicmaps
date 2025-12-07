@@ -2,18 +2,15 @@
 
 #include "openlr/helpers.hpp"
 
-#include "base/checked_cast.hpp"
-#include "base/stl_iterator.hpp"
-
 #include <algorithm>
 #include <map>
 #include <queue>
 #include <tuple>
 
-using namespace std;
-
 namespace openlr
 {
+using namespace std;
+
 namespace
 {
 bool ValidatePath(Graph::EdgeVector const & path, double const distanceToNextPoint, double const pathLengthTolerance)
@@ -23,7 +20,7 @@ bool ValidatePath(Graph::EdgeVector const & path, double const distanceToNextPoi
     pathLen += EdgeLength(e);
 
   double pathDiffPercent =
-      AbsDifference(static_cast<double>(distanceToNextPoint), pathLen) / static_cast<double>(distanceToNextPoint);
+      math::AbsDiff(static_cast<double>(distanceToNextPoint), pathLen) / static_cast<double>(distanceToNextPoint);
 
   LOG(LDEBUG, ("Validating path:", LogAs2GisPath(path)));
 

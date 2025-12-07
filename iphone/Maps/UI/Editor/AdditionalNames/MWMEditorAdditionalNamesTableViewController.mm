@@ -1,7 +1,7 @@
 #import "MWMEditorAdditionalNamesTableViewController.h"
 #import "MWMTableViewCell.h"
 
-#import <CoreApi/StringUtils.h>
+#import <CoreApi/StringUtils+Core.h>
 
 @interface MWMEditorAdditionalNamesTableViewController ()
 

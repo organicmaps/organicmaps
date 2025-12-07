@@ -145,7 +145,8 @@ private:
 FrontendRenderer::FrontendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::RenderThread, params)
   , m_tileBackgroundRenderer(new TileBackgroundRenderer(std::move(params.m_tileBackgroundReadFn),
-                                                        std::move(params.m_cancelTileBackgroundReadingFn)))
+                                                        std::move(params.m_cancelTileBackgroundReadingFn),
+                                                        params.m_backgroundMode))
   , m_trafficRenderer(new TrafficRenderer())
   , m_transitSchemeRenderer(new TransitSchemeRenderer())
   , m_drapeApiRenderer(new DrapeApiRenderer())
@@ -963,7 +964,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::SetTileBackgroundMode:
   {
     ref_ptr<SetTileBackgroundModeMessage> msg = message;
+    auto const prevMode = m_tileBackgroundRenderer->GetBackgroundMode();
     m_tileBackgroundRenderer->SetBackgroundMode(m_context, msg->GetMode());
+    if (prevMode != m_tileBackgroundRenderer->GetBackgroundMode())
+      InvalidateRect(m_userEventStream.GetCurrentScreen().ClipRect());
     break;
   }
 
@@ -1509,6 +1513,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
 void FrontendRenderer::RenderTileBackgroundLayer(ScreenBase const & modelView)
 {
   TRACE_SECTION("[drape] RenderTileBackgroundLayer");
+  DEBUG_LABEL(m_context, "Tile Background");
   if (IsValidCurrentZoom())
   {
     m_tileBackgroundRenderer->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(),

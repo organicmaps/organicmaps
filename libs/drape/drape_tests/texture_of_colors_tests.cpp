@@ -36,13 +36,13 @@ void InitOpenGLTextures(int const w, int const h)
   InSequence seq;
   EXPECTGL(glHasExtension(_)).WillRepeatedly(Return(true));
   EXPECTGL(glGenTexture()).WillOnce(Return(1));
-  EXPECTGL(glBindTexture(1)).WillOnce(Return());
+  EXPECTGL(glBindTexture(1, gl_const::GLTexture2D)).WillOnce(Return());
   EXPECTGL(glTexImage2D(w, h, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, NULL));
-  EXPECTGL(glTexParameter(gl_const::GLMinFilter, gl_const::GLLinear));
-  EXPECTGL(glTexParameter(gl_const::GLMagFilter, gl_const::GLLinear));
-  EXPECTGL(glTexParameter(gl_const::GLWrapS, gl_const::GLClampToEdge));
-  EXPECTGL(glTexParameter(gl_const::GLWrapT, gl_const::GLClampToEdge));
-  EXPECTGL(glBindTexture(0)).WillOnce(Return());
+  EXPECTGL(glTexParameter(gl_const::GLMinFilter, gl_const::GLLinear, gl_const::GLTexture2D));
+  EXPECTGL(glTexParameter(gl_const::GLMagFilter, gl_const::GLLinear, gl_const::GLTexture2D));
+  EXPECTGL(glTexParameter(gl_const::GLWrapS, gl_const::GLClampToEdge, gl_const::GLTexture2D));
+  EXPECTGL(glTexParameter(gl_const::GLWrapT, gl_const::GLClampToEdge, gl_const::GLTexture2D));
+  EXPECTGL(glBindTexture(0, gl_const::GLTexture2D)).WillOnce(Return());
 }
 
 class DummyColorPallete : public ColorPalette

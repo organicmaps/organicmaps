@@ -1,3 +1,4 @@
+// Note: value must be synchronized with shaders libs/shaders/program_params.hpp
 #define TILE_BACKGROUND_MAX_COUNT 64
 
 layout (location = 0) out vec3 v_texCoords;

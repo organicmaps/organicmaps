@@ -223,4 +223,5 @@ void OGLContext::SetCullingEnabled(bool enabled)
   else
     GLFunctions::glDisable(gl_const::GLCullFace);
 }
+
 }  // namespace dp

@@ -67,7 +67,7 @@ public:
 
   VulkanObject CreateBuffer(VulkanMemoryManager::ResourceType resourceType, uint32_t sizeInBytes, uint64_t batcherHash);
   VulkanObject CreateImage(VkImageUsageFlags usageFlags, VkFormat format, VkImageTiling tiling,
-                           VkImageAspectFlags aspectFlags, uint32_t width, uint32_t height);
+                           VkImageAspectFlags aspectFlags, uint32_t width, uint32_t height, uint32_t layerCount);
   DescriptorSetGroup CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program);
 
   // Use unsafe function ONLY if an object exists on one thread, otherwise
@@ -75,7 +75,7 @@ public:
   uint8_t * MapUnsafe(VulkanObject object);
   void FlushUnsafe(VulkanObject object, uint32_t offset = 0, uint32_t size = 0);
   void UnmapUnsafe(VulkanObject object);
-  void Fill(VulkanObject object, void const * data, uint32_t sizeInBytes);
+  void Fill(VulkanObject object, void const * data, uint32_t sizeInBytes, uint32_t offset = 0);
 
   void DestroyObject(VulkanObject object);
   void DestroyDescriptorSetGroup(DescriptorSetGroup group);

@@ -18,10 +18,10 @@
     <!-- Generic external storage type in Maps Storage settings -->
     <string name="maps_storage_external">Зовнiшне спільне сховище</string>
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
+    <string name="category_wifi">Wi-Fi</string>
     <string name="postal_code">Поштовий індекс</string>
     <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Точка на карті</string>
+    <string name="core_placepage_unknown_place">Точка на мапі</string>
     <!-- abbreviation for meters -->
     <string name="m">м</string>
     <!-- abbreviation for kilometers -->

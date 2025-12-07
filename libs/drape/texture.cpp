@@ -30,6 +30,13 @@ void Texture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint3
   m_hwTexture->UploadData(context, x, y, width, height, data);
 }
 
+void Texture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width, uint32_t height,
+                         uint32_t layer, ref_ptr<void> data)
+{
+  ASSERT(m_hwTexture != nullptr, ());
+  m_hwTexture->UploadData(context, x, y, width, height, layer, data);
+}
+
 TextureFormat Texture::GetFormat() const
 {
   ASSERT(m_hwTexture != nullptr, ());

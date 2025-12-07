@@ -225,14 +225,20 @@ void GLFunctions::glDeleteTexture(uint32_t id)
   MOCK_CALL(glDeleteTexture(id));
 }
 
-void GLFunctions::glBindTexture(uint32_t textureID)
+void GLFunctions::glBindTexture(uint32_t textureID, glConst target)
 {
-  MOCK_CALL(glBindTexture(textureID));
+  MOCK_CALL(glBindTexture(textureID, target));
 }
 
 void GLFunctions::glTexImage2D(int width, int height, glConst layout, glConst pixelType, void const * data)
 {
   MOCK_CALL(glTexImage2D(width, height, layout, pixelType, data));
+}
+
+void GLFunctions::glTexImage2DArray(int width, int height, int layers, glConst layout, glConst pixelType,
+                                    void const * data)
+{
+  MOCK_CALL(glTexImage2DArray(width, height, layers, layout, pixelType, data));
 }
 
 void GLFunctions::glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType,
@@ -241,9 +247,15 @@ void GLFunctions::glTexSubImage2D(int x, int y, int width, int height, glConst l
   MOCK_CALL(glTexSubImage2D(x, y, width, height, layout, pixelType, data));
 }
 
-void GLFunctions::glTexParameter(glConst param, glConst value)
+void GLFunctions::glTexSubImage2DArray(int x, int y, int layer, int width, int height, glConst layout,
+                                       glConst pixelType, void const * data)
 {
-  MOCK_CALL(glTexParameter(param, value));
+  MOCK_CALL(glTexSubImage2DArray(x, y, layer, width, height, layout, pixelType, data));
+}
+
+void GLFunctions::glTexParameter(glConst param, glConst value, glConst target)
+{
+  MOCK_CALL(glTexParameter(param, value, target));
 }
 
 int32_t GLFunctions::glGetInteger(glConst pname)

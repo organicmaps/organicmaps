@@ -37,12 +37,15 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
   {
     m_maxLineWidth = static_cast<float>(std::max(1, GLFunctions::glGetMaxLineWidth()));
     m_maxTextureSize = static_cast<uint32_t>(GLFunctions::glGetInteger(gl_const::GLMaxTextureSize));
+    m_maxTextureArrayLayers = static_cast<uint32_t>(GLFunctions::glGetInteger(gl_const::GLMaxArrayTextureLayers));
   }
   else if (apiVersion == dp::ApiVersion::Metal)
   {
     // Metal does not support thick lines.
     m_maxLineWidth = 1.0f;
     m_maxTextureSize = 4096;
+    // 2048 by https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
+    m_maxTextureArrayLayers = 2048;
   }
   else if (apiVersion == dp::ApiVersion::Vulkan)
   {
@@ -50,8 +53,10 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
     auto const & props = vulkanContext->GetGpuProperties();
     m_maxLineWidth = std::max(props.limits.lineWidthRange[0], props.limits.lineWidthRange[1]);
     m_maxTextureSize = vulkanContext->GetGpuProperties().limits.maxImageDimension2D;
+    m_maxTextureArrayLayers = vulkanContext->GetGpuProperties().limits.maxImageArrayLayers;
   }
-  LOG(LINFO, ("Max line width =", m_maxLineWidth, "| Max texture size =", m_maxTextureSize));
+  LOG(LINFO, ("Max line width =", m_maxLineWidth, "| Max texture size =", m_maxTextureSize,
+              "| Max texture array layers =", m_maxTextureArrayLayers));
 
   // Set up default antialiasing value.
   // Turn off AA for a while by energy-saving issues.

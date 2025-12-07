@@ -813,8 +813,8 @@
 "bookmarks_convert_error_message" = "Деякі файли не конвертувалися.";
 "title_error_downloading_bookmarks" = "Виникла помилка";
 "popular_place" = "Популярні";
-"hide_from_map" = "Приховати з карти";
-"tags_loading_error_subtitle" = "Під час завантаження тегів сталася помилка, будь ласка, спробуйте ще раз";
+"hide_from_map" = "Приховати на мапі";
+"tags_loading_error_subtitle" = "Під час завантаження теґів сталася помилка, будь ласка, спробуйте ще раз";
 
 /* Position of the name label on the map relative to the bookmark pin (on the right) */
 "right" = "Праворуч";
@@ -1068,11 +1068,11 @@
 "core_my_places" = "Мої Мітки";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
-"category_wifi" = "WiFi";
+"category_wifi" = "Wi-Fi";
 "postal_code" = "Поштовий індекс";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "Точка на карті";
+"core_placepage_unknown_place" = "Точка на мапі";
 
 /* abbreviation for meters */
 "m" = "м";

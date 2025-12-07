@@ -12,7 +12,6 @@
 
 #include "geometry/point2d.hpp"
 
-#include <cstdint>
 #include <limits>
 #include <string>
 
@@ -25,7 +24,7 @@ uint32_t constexpr kStartUserMarkOverlayIndex = 1000;
 struct CommonViewParams
 {
   DepthLayer m_depthLayer = DepthLayer::GeometryLayer;
-  float m_depth = 0.0f;
+  float m_depth = 0;
   bool m_depthTestEnabled = true;
   int m_minVisibleScale = 0;
   uint8_t m_rank = 0;
@@ -53,25 +52,25 @@ struct PoiSymbolViewParams : CommonOverlayViewParams
 {
   std::string m_symbolName;
   uint32_t m_extendingSize = 0;
-  float m_posZ = 0.0f;
+  float m_posZ = 0;
   bool m_hasArea = false;
   bool m_prioritized = false;
   std::string m_maskColor;
   dp::Anchor m_anchor = dp::Center;
-  m2::PointF m_offset = m2::PointF(0.0f, 0.0f);
+  m2::PointF m_offset{0, 0};
 
   // If greater then actual width of the symbol then symbol splitted at horz center and
   // extended horizontally using texture coordinates taken at split line.
   // If less or equal, then ignored.
-  float m_pixelWidth = 0.0f;
+  float m_pixelWidth = 0;
 };
 
 struct AreaViewParams : CommonViewParams
 {
   dp::Color m_color;
   dp::Color m_outlineColor = dp::Color::Transparent();
-  float m_minPosZ = 0.0f;
-  float m_posZ = 0.0f;
+  float m_minPosZ = 0;
+  float m_posZ = 0;
   bool m_is3D = false;
   std::string_view m_hatching;
   double m_baseGtoPScale = 1.0;
@@ -80,7 +79,7 @@ struct AreaViewParams : CommonViewParams
 struct LineViewParams : CommonViewParams
 {
   dp::Color m_color;
-  float m_width = 0.0f;
+  float m_width = 0;
   /// @todo Consider set defaults like RoundCap, RoundJoin?
   dp::LineCap m_cap;
   dp::LineJoin m_join;
@@ -95,9 +94,9 @@ struct TextViewParams : CommonOverlayViewParams
   bool m_hasArea = false;
   bool m_createdByEditor = false;
   uint32_t m_extendingSize = 0;
-  float m_posZ = 0.0f;
+  float m_posZ = 0;
   bool m_limitedText = false;
-  m2::PointF m_limits = m2::PointF(0.0f, 0.0f);
+  m2::PointF m_limits{0, 0};
 };
 
 struct PathTextViewParams : CommonOverlayViewParams
@@ -111,8 +110,8 @@ struct PathTextViewParams : CommonOverlayViewParams
 struct PathSymbolViewParams : CommonViewParams
 {
   std::string m_symbolName;
-  float m_offset = 0.0f;
-  float m_step = 0.0f;
+  float m_offset = 0;
+  float m_step = 0;
   double m_baseGtoPScale = 1.0;
 };
 
@@ -129,9 +128,9 @@ struct ColoredSymbolViewParams : CommonOverlayViewParams
   dp::Anchor m_anchor = dp::Center;
   dp::Color m_color;
   dp::Color m_outlineColor;
-  float m_radiusInPixels = 0.0f;
-  m2::PointF m_sizeInPixels = m2::PointF(0.0f, 0.0f);
-  float m_outlineWidth = 0.0f;
-  m2::PointF m_offset = m2::PointF(0.0f, 0.0f);
+  float m_radiusInPixels = 0;
+  m2::PointF m_sizeInPixels{0, 0};
+  float m_outlineWidth = 0;
+  m2::PointF m_offset{0, 0};
 };
 }  // namespace df

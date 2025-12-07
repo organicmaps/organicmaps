@@ -24,6 +24,7 @@ extern glConst const GLStencilBit;
 extern glConst const GLMaxFragmentTextures;
 extern glConst const GLMaxVertexTextures;
 extern glConst const GLMaxTextureSize;
+extern glConst const GLMaxArrayTextureLayers;
 
 /// Buffer targets
 extern glConst const GLArrayBuffer;
@@ -81,6 +82,7 @@ extern glConst const GL4BitOnChannel;
 
 /// Texture targets
 extern glConst const GLTexture2D;
+extern glConst const GLTexture2DArray;
 
 /// Texture uniform blocks
 extern glConst const GLTexture0;
@@ -121,6 +123,7 @@ extern glConst const GLIntVec4;
 extern glConst const GLFloatMat4;
 
 extern glConst const GLSampler2D;
+extern glConst const GLSampler2DArray;
 
 /// Blend Functions
 extern glConst const GLAddBlend;

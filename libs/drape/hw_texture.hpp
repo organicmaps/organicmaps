@@ -20,6 +20,7 @@ public:
   {
     uint32_t m_width = 0;
     uint32_t m_height = 0;
+    uint32_t m_layerCount = 1;
     TextureFilter m_filter = TextureFilter::Linear;
     TextureWrapping m_wrapSMode = TextureWrapping::ClampToEdge;
     TextureWrapping m_wrapTMode = TextureWrapping::ClampToEdge;
@@ -39,6 +40,8 @@ public:
   virtual void Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data) = 0;
   virtual void UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width, uint32_t height,
                           ref_ptr<void> data) = 0;
+  virtual void UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width, uint32_t height,
+                          uint32_t layer, ref_ptr<void> data) = 0;
 
   virtual void Bind(ref_ptr<dp::GraphicsContext> context) const = 0;
 
@@ -56,10 +59,12 @@ public:
   Params const & GetParams() const { return m_params; }
 
   uint32_t GetID() const;
+  uint32_t GetTarget() const;
 
 protected:
   Params m_params;
   uint32_t m_textureID = 0;
+  uint32_t m_target = 0;
 };
 
 class HWTextureAllocator
@@ -80,6 +85,8 @@ public:
   void Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data) override;
   void UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width, uint32_t height,
                   ref_ptr<void> data) override;
+  void UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width, uint32_t height,
+                  uint32_t layer, ref_ptr<void> data) override;
   void Bind(ref_ptr<dp::GraphicsContext> context) const override;
   void SetFilter(TextureFilter filter) override;
   bool Validate() const override;

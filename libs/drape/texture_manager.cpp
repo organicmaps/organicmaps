@@ -96,10 +96,10 @@ drape_ptr<Texture> CreateArrowTexture(ref_ptr<dp::GraphicsContext> context,
                                        dp::TextureFormat::RGBA8, textureAllocator, true /* allowOptional */);
 }
 
-class StaticTexturePool : public TexturePool
+class SimpleTexturePool : public TexturePool
 {
 public:
-  StaticTexturePool(TexturePoolDesc const & desc, ref_ptr<HWTextureAllocator> allocator)
+  SimpleTexturePool(TexturePoolDesc const & desc, ref_ptr<HWTextureAllocator> allocator)
     : TexturePool(desc)
     , m_allocator(allocator)
   {
@@ -171,8 +171,88 @@ private:
   }
 
   ref_ptr<HWTextureAllocator> m_allocator;
-  std::vector<drape_ptr<dp::StaticTexture>> m_textures;
+  std::vector<drape_ptr<StaticTexture>> m_textures;
   std::set<size_t> m_freeIndices;
+  mutable std::mutex m_mutex;
+};
+
+class TextureArrayPool : public TexturePool
+{
+public:
+  TextureArrayPool(ref_ptr<dp::GraphicsContext> context, TexturePoolDesc const & desc,
+                   ref_ptr<HWTextureAllocator> allocator)
+    : TexturePool(desc)
+  {
+    m_textureArray = make_unique_dp<StaticTexture>();
+
+    dp::Texture::Params const params{.m_width = m_desc.m_textureWidth,
+                                     .m_height = m_desc.m_textureHeight,
+                                     .m_layerCount = m_desc.m_maxTextureCount,
+                                     .m_format = m_desc.m_format,
+                                     .m_isMutable = true,
+                                     .m_usePersistentStagingBuffer = true,
+                                     .m_allocator = allocator};
+    m_textureArray->Create(context, params);
+  }
+
+  size_t GetAvailableCount() const override
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    return GetAvailableCountUnsafe();
+  }
+
+  TexturePool::TextureId AcquireTexture(ref_ptr<dp::GraphicsContext> context) override
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    CHECK(context != nullptr, ());
+    CHECK(GetAvailableCountUnsafe() > 0, ());
+    if (!m_freeIndices.empty())
+    {
+      auto const id = *m_freeIndices.begin();
+      m_freeIndices.erase(m_freeIndices.begin());
+      return id;
+    }
+    CHECK(m_currentIndex < m_desc.m_maxTextureCount, ());
+    auto const index = m_currentIndex;
+    m_currentIndex++;
+    return index;
+  }
+
+  void ReleaseTexture(ref_ptr<dp::GraphicsContext> context, TextureId id) override
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_freeIndices.insert(id);
+  }
+
+  void UpdateTextureData(ref_ptr<dp::GraphicsContext> context, TextureId id, uint32_t x, uint32_t y, uint32_t width,
+                         uint32_t height, ref_ptr<void> data) override
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    CHECK(context != nullptr, ());
+    CHECK(id < m_desc.m_maxTextureCount, ());
+    CHECK(data != nullptr, ());
+
+    m_textureArray->UploadData(context, x, y, width, height, id, data);
+  }
+
+  ref_ptr<dp::Texture> GetTexture(TextureId id) override
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    UNUSED_VALUE(id);
+    return make_ref(m_textureArray);
+  }
+
+  bool IsHardwareTexture2dArrayUsed() const override { return true; }
+
+private:
+  size_t GetAvailableCountUnsafe() const
+  {
+    return m_freeIndices.size() + static_cast<size_t>(m_desc.m_maxTextureCount) - m_currentIndex;
+  }
+
+  drape_ptr<StaticTexture> m_textureArray;
+  std::set<size_t> m_freeIndices;
+  size_t m_currentIndex = 0;
   mutable std::mutex m_mutex;
 };
 }  // namespace
@@ -729,7 +809,11 @@ ref_ptr<TexturePool> TextureManager::GetTexturePool(ref_ptr<dp::GraphicsContext>
     }
   }
 
-  auto pool = make_unique_dp<StaticTexturePool>(desc, make_ref(m_textureAllocator));
+  drape_ptr<TexturePool> pool;
+  if (desc.m_maxTextureCount > dp::SupportManager::Instance().GetMaxTextureArrayLayers())
+    pool = make_unique_dp<SimpleTexturePool>(desc, make_ref(m_textureAllocator));
+  else
+    pool = make_unique_dp<TextureArrayPool>(context, desc, make_ref(m_textureAllocator));
   ref_ptr<TexturePool> poolRef = make_ref(pool);
   m_pools[mode].push_back(std::move(pool));
   return poolRef;

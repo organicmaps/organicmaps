@@ -391,7 +391,7 @@ extension BookmarksListPresenter: SelectBookmarkGroupViewControllerDelegate {
                                      didSelect groupTitle: String,
                                      groupId: MWMMarkGroupID) {
 
-      defer { viewController.navigationController?.dismiss(animated: true) }
+      defer { viewController.dismiss(animated: true) }
 
       guard groupId != bookmarkGroup.categoryId else { return }
       

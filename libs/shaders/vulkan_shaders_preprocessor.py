@@ -108,7 +108,7 @@ def get_shader_line(line, layout_counters, reflection_dict):
     if output_line.find('layout (binding') >= 0:
         if output_line.find('sampler') >= 0:
             match = re.search(r"binding\s*=\s*(\d+)", output_line)
-            sampler_match = re.search(r"sampler2D\s+(\w+)", output_line)
+            sampler_match = re.search(r"sampler2D(?:Array)?\s+(\w+)", output_line)
             if match and sampler_match:
                 binding_index = int(match.group(1))
                 sampler_name = sampler_match.group(1)

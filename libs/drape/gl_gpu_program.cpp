@@ -37,11 +37,11 @@ GLGpuProgram::~GLGpuProgram()
 void GLGpuProgram::Bind()
 {
   // Deactivate all unused textures.
-  uint8_t const usedSlots = TextureState::GetLastUsedSlots();
-  for (uint8_t i = m_textureSlotsCount; i < usedSlots; i++)
+  auto const & textureTypes = TextureState::GetLastUsedTextureTypes();
+  for (uint8_t i = m_textureSlotsCount; i < static_cast<uint8_t>(textureTypes.size()); ++i)
   {
     GLFunctions::glActiveTexture(gl_const::GLTexture0 + i);
-    GLFunctions::glBindTexture(0);
+    GLFunctions::glBindTexture(0, textureTypes[i]);
   }
 
   GLFunctions::glUseProgram(m_programID);
@@ -82,10 +82,10 @@ GLGpuProgram::UniformsInfo const & GLGpuProgram::GetUniformsInfo() const
 
 void GLGpuProgram::LoadUniformLocations()
 {
-  static std::set<glConst> const kSupportedTypes = {gl_const::GLFloatType, gl_const::GLFloatVec2, gl_const::GLFloatVec3,
-                                                    gl_const::GLFloatVec4, gl_const::GLIntType,   gl_const::GLIntVec2,
-                                                    gl_const::GLIntVec3,   gl_const::GLIntVec4,   gl_const::GLFloatMat4,
-                                                    gl_const::GLSampler2D};
+  static std::set<glConst> const kSupportedTypes = {
+      gl_const::GLFloatType, gl_const::GLFloatVec2, gl_const::GLFloatVec3,     gl_const::GLFloatVec4,
+      gl_const::GLIntType,   gl_const::GLIntVec2,   gl_const::GLIntVec3,       gl_const::GLIntVec4,
+      gl_const::GLFloatMat4, gl_const::GLSampler2D, gl_const::GLSampler2DArray};
 
   auto const uniformsCount = GLFunctions::glGetProgramiv(m_programID, gl_const::GLActiveUniforms);
   for (int i = 0; i < uniformsCount; ++i)
@@ -108,7 +108,7 @@ uint32_t GLGpuProgram::CalculateNumericUniformsCount() const
 {
   uint32_t counter = 0;
   for (auto const & u : m_uniforms)
-    if (u.second.m_type != gl_const::GLSampler2D)
+    if (u.second.m_type != gl_const::GLSampler2D && u.second.m_type != gl_const::GLSampler2DArray)
       counter++;
   return counter;
 }
