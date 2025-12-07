@@ -249,7 +249,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   bmManager.GetEditSession().ClearGroup(groupId1);
   TEST_EQUAL(bmManager.GetUserMarkIds(groupId1).size(), 0, ());
 
-  bmManager.GetEditSession().DeleteBmCategory(groupId1, true);
+  bmManager.GetEditSession().DeleteBmCategory(groupId1);
   TEST_EQUAL(bmManager.HasBmCategory(groupId1), false, ());
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 0, ());
 
@@ -264,7 +264,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   CheckBookmarks(bmManager, groupId2);
   TEST_EQUAL(bmManager.IsVisible(groupId2), true, ());
 
-  bmManager.GetEditSession().DeleteBmCategory(groupId2, true);
+  bmManager.GetEditSession().DeleteBmCategory(groupId2);
   TEST_EQUAL(bmManager.HasBmCategory(groupId2), false, ());
 
   BookmarkManager::KMLDataCollection kmlDataCollection3;
@@ -1073,7 +1073,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
   auto const fileNameTmp = fileName + ".backup";
   TEST(base::CopyFileX(fileName, fileNameTmp), ());
 
-  bmManager.GetEditSession().DeleteBmCategory(catId, true);
+  bmManager.GetEditSession().DeleteBmCategory(catId);
 
   auto const fileNameOnDisk = "file1";
   BookmarkManager::KMLDataCollection kmlDataCollection2;
@@ -1591,7 +1591,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
 
   auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
 
-  bmManager.GetEditSession().DeleteBmCategory(groupId, false /* permanently */);
+  bmManager.GetEditSession().DeleteBmCategory(groupId);
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 0, ());
 
   auto const deletedCategories = bmManager.GetRecentlyDeletedCategories();
@@ -1609,6 +1609,68 @@ UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
 
   TEST(!Platform::IsFileExistsByFullPath(filePath), ());
   TEST(!Platform::IsFileExistsByFullPath(deletedFilePath), ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_CategoryFilesUpdatedSingleCallback)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  auto const dir = GetBookmarksDirectory();
+  bool const delDirOnExit = Platform::MkDir(dir) == Platform::ERR_OK;
+  SCOPE_GUARD(dirDeleter, [&]()
+  {
+    if (delDirOnExit)
+      (void)Platform::RmDir(dir);
+  });
+
+  auto const updatedCategoryId =
+      bmManager.CreateBookmarkCategory("CategoryFilesUpdatedSingleCallback_update", false /* autoSave */);
+  auto const deletedCategoryId = bmManager.CreateBookmarkCategory("CategoryFilesUpdatedSingleCallback_delete");
+  auto const updatedCategoryFile = bmManager.GetCategoryFileName(updatedCategoryId);
+  {
+    FileWriter writer(updatedCategoryFile);
+  }
+
+  size_t callbackCount = 0;
+  Platform::FilesList files;
+  Platform::FilesList created;
+  Platform::FilesList updated;
+  Platform::FilesList deleted;
+  bmManager.SetCategoryFilesUpdatedCallback([&](BookmarkManager::CategoryFilesUpdate const & update)
+  {
+    ++callbackCount;
+    files = update.files;
+    created = update.created;
+    updated = update.updated;
+    deleted = update.deleted;
+  });
+
+  {
+    auto editSession = bmManager.GetEditSession();
+    editSession.SetCategoryName(updatedCategoryId, "CategoryFilesUpdatedSingleCallback_updated");
+    TEST(editSession.DeleteBmCategory(deletedCategoryId), ());
+    UNUSED_VALUE(bmManager.CreateBookmarkCategory("CategoryFilesUpdatedSingleCallback_created", false /* autoSave */));
+  }
+
+  SCOPE_GUARD(fileDeleter, [&]()
+  {
+    for (auto const & file : bmManager.GetCategoryFilesList())
+      if (Platform::IsFileExistsByFullPath(file))
+        TEST(base::DeleteFileX(file), ());
+  });
+
+  TEST_EQUAL(callbackCount, 1, ());
+  TEST_EQUAL(created.size(), 1, ());
+  TEST_EQUAL(updated.size(), 1, ());
+  TEST_EQUAL(deleted.size(), 1, ());
+  TEST_EQUAL(files.size(), 1, ());
+  TEST(std::find(files.begin(), files.end(), created.front()) == files.end(), ());
+  TEST(std::find(files.begin(), files.end(), updatedCategoryFile) != files.end(), ());
+  TEST_EQUAL(updated.front(), updatedCategoryFile, ());
+  TEST(std::find(files.begin(), files.end(), deleted.front()) == files.end(), ());
+  TEST(!Platform::IsFileExistsByFullPath(created.front()), ());
+  TEST(Platform::IsFileExistsByFullPath(updated.front()), ());
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)

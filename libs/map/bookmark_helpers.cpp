@@ -357,6 +357,15 @@ std::string GenerateUniqueFileName(std::string const & path, std::string name, s
   return res;
 }
 
+std::string GenerateValidFilePath(std::string const & fileName, FileType const fileType)
+{
+  std::string filePath = RemoveInvalidSymbols(fileName);
+  if (filePath.empty())
+    filePath = kDefaultBookmarksFileName;
+
+  return base::JoinPath(GetBookmarksDirectory(), std::move(filePath.append(GetFileTypeExtension(fileType))));
+}
+
 std::string GenerateValidAndUniqueFilePath(std::string const & fileName, FileType const fileType)
 {
   std::string filePath = RemoveInvalidSymbols(fileName);
@@ -626,11 +635,19 @@ static bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, FileT
   }
 }
 
-bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, FileType fileType)
+bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, FileType fileType, time_t modificationTime)
 {
   LOG(LINFO, ("Save kml file of type", fileType, "to", file));
-  return base::WriteToTempAndRenameToFile(
-      file, [&kmlData, fileType](std::string const & fileName) { return SaveKmlFile(kmlData, fileName, fileType); });
+  return base::WriteToTempAndRenameToFile(file, [&kmlData, fileType, modificationTime](std::string const & fileName)
+  {
+    if (!SaveKmlFile(kmlData, fileName, fileType))
+      return false;
+    ASSERT_GREATER_OR_EQUAL(modificationTime, 0, ());
+    if (modificationTime == 0)
+      return true;
+    LOG(LINFO, ("With modification time", modificationTime));
+    return Platform::SetFileModificationTime(fileName, modificationTime);
+  });
 }
 
 bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file)

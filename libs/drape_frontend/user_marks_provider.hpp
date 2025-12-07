@@ -125,6 +125,7 @@ class UserMarksProvider
 {
 public:
   virtual ~UserMarksProvider() = default;
+  virtual kml::GroupIdSet const & GetCreatedGroupIds() const = 0;
   virtual kml::GroupIdSet const & GetUpdatedGroupIds() const = 0;
   virtual kml::GroupIdSet const & GetRemovedGroupIds() const = 0;
   virtual kml::GroupIdSet GetAllGroupIds() const = 0;

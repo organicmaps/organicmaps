@@ -109,6 +109,7 @@ std::string GetTrashDirectory();
 std::string RemoveInvalidSymbols(std::string const & name);
 std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string_view ext = kKmlExtension);
 std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName);
+std::string GenerateValidFilePath(std::string const & fileName, FileType const fileType);
 std::string GenerateValidAndUniqueFilePath(std::string const & fileName, FileType const fileType);
 /// @}
 
@@ -121,7 +122,7 @@ std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePat
 std::string GetLowercaseFileExt(std::string const & filePath);
 std::optional<FileType> GetFileType(std::string const & filePath);
 
-bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, FileType fileType);
+bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, FileType fileType, time_t modificationTime = 0);
 bool SaveKmlData(kml::FileData & kmlData, Writer & writer, FileType fileType);
 bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file);
 /// @}

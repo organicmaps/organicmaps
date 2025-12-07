@@ -49,7 +49,6 @@ public:
   using KMLDataCollectionPtr = std::shared_ptr<KMLDataCollection>;
 
   using BookmarksChangedCallback = std::function<void()>;
-  using CategoriesChangedCallback = std::function<void()>;
   using ElevationActivePointChangedCallback = std::function<void()>;
   using ElevationMyPositionChangedCallback = std::function<void()>;
 
@@ -99,6 +98,25 @@ public:
     AttachedBookmarksCallback m_attachedBookmarksCallback;
     DetachedBookmarksCallback m_detachedBookmarksCallback;
   };
+
+  struct CategoryFilesUpdate
+  {
+    Platform::FilesList files;
+    Platform::FilesList created;
+    Platform::FilesList updated;
+    Platform::FilesList deleted;
+
+    CategoryFilesUpdate(Platform::FilesList const & files, Platform::FilesList const & created,
+                        Platform::FilesList const & updated, Platform::FilesList const & deleted)
+      : files(std::move(files))
+      , created(std::move(created))
+      , updated(std::move(updated))
+      , deleted(std::move(deleted))
+    {}
+  };
+
+  using CategoryFilesDidFinishGatheringCallback = std::function<void(Platform::FilesList const &)>;
+  using CategoryFilesUpdatedCallback = std::function<void(CategoryFilesUpdate const &)>;
 
   class EditSession
   {
@@ -163,10 +181,7 @@ public:
     /// @todo(KK) Update to the dp::Color color when custom colors for tracks will be implemented on android.
     void SetCategoryTracksColor(kml::MarkGroupId groupId, kml::PredefinedColor color);
 
-    /// Removes the category from the list of categories and deletes the related file.
-    /// @param permanently If true, the file will be removed from the disk. If false, the file will be marked as deleted
-    /// and moved into a trash.
-    bool DeleteBmCategory(kml::MarkGroupId groupId, bool permanently);
+    bool DeleteBmCategory(kml::MarkGroupId groupId);
     void NotifyChanges();
 
   private:
@@ -180,7 +195,8 @@ public:
   void InitRegionAddressGetter(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter);
 
   void SetBookmarksChangedCallback(BookmarksChangedCallback && callback);
-  void SetCategoriesChangedCallback(CategoriesChangedCallback && callback);
+  void SetCategoryFilesDidFinishGatheringCallback(CategoryFilesDidFinishGatheringCallback && callback);
+  void SetCategoryFilesUpdatedCallback(CategoryFilesUpdatedCallback && callback);
   void SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks);
   bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
 
@@ -272,6 +288,7 @@ public:
 
   BookmarkCategory * CreateBookmarkCompilation(kml::CategoryData && data);
 
+  Platform::FilesList GetCategoryFilesList() const;
   std::string GetCategoryName(kml::MarkGroupId categoryId) const;
   std::string GetCategoryFileName(kml::MarkGroupId categoryId) const;
   kml::MarkGroupId GetCategoryByFileName(std::string const & fileName) const;
@@ -305,10 +322,6 @@ public:
   void LoadBookmarks();
   void LoadBookmark(std::string const & filePath, bool isTemporaryFile);
   void ReloadBookmark(std::string const & filePath);
-
-  /// Uses the same file name from which was loaded, or
-  /// creates unique file name on first save and uses it every time.
-  void SaveBookmarks(kml::GroupIdCollection const & groupIdCollection);
 
   StaticMarkPoint & SelectionMark() { return *m_selectionMark; }
   StaticMarkPoint const & SelectionMark() const { return *m_selectionMark; }
@@ -463,6 +476,7 @@ private:
     void OnUpdateLine(kml::TrackId lineId);
 
     void OnAddGroup(kml::MarkGroupId groupId);
+    void OnUpdateGroup(kml::MarkGroupId groupId);
     void OnDeleteGroup(kml::MarkGroupId groupId);
 
     void OnAttachBookmark(kml::MarkId markId, kml::MarkGroupId catId);
@@ -481,6 +495,7 @@ private:
 
     // UserMarksProvider
     kml::GroupIdSet GetAllGroupIds() const override;
+    kml::GroupIdSet const & GetCreatedGroupIds() const override { return m_createdGroups; }
     kml::GroupIdSet const & GetUpdatedGroupIds() const override { return m_updatedGroups; }
     kml::GroupIdSet const & GetRemovedGroupIds() const override { return m_removedGroups; }
     kml::MarkIdSet const & GetCreatedMarkIds() const override { return m_createdMarks; }
@@ -498,7 +513,6 @@ private:
     df::UserLineMark const * GetUserLineMark(kml::TrackId lineId) const override;
 
   private:
-    void OnUpdateGroup(kml::MarkGroupId groupId);
     void OnBecomeVisibleGroup(kml::MarkGroupId groupId);
     void OnBecomeInvisibleGroup(kml::MarkGroupId groupId);
 
@@ -519,9 +533,9 @@ private:
     kml::TrackIdSet m_updatedLines;
 
     kml::GroupIdSet m_createdGroups;
+    kml::GroupIdSet m_updatedGroups;
     kml::GroupIdSet m_removedGroups;
 
-    kml::GroupIdSet m_updatedGroups;
     kml::GroupIdSet m_becameVisibleGroups;
     kml::GroupIdSet m_becameInvisibleGroups;
 
@@ -599,7 +613,7 @@ private:
   void SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags);
   void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
   void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key, std::string const & value);
-  bool DeleteBmCategory(kml::MarkGroupId groupId, bool permanently);
+  bool DeleteBmCategory(kml::MarkGroupId groupId);
 
   void MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
   void UpdateBookmark(kml::MarkId bmId, kml::BookmarkData const & bm);
@@ -620,7 +634,7 @@ private:
 
   void OnEditSessionOpened();
   void OnEditSessionClosed();
-  void NotifyChanges(bool saveChangesOnDisk);
+  void NotifyChanges();
 
   void SaveState() const;
   void LoadState();
@@ -632,7 +646,7 @@ private:
 
   std::string GenerateSavedRouteName(std::string const & from, std::string const & to);
   void NotifyAboutStartAsyncLoading();
-  void NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection);
+  void NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection, bool autoSave);
   void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
   void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
   void ReloadBookmarkRoutine(std::string const & filePath);
@@ -641,11 +655,41 @@ private:
   KMLDataCollectionPtr LoadBookmarks(std::string const & dir, std::string_view ext, FileType fileType,
                                      BookmarksChecker const & checker);
 
+  enum class CategoryFileChangeType
+  {
+    Created,
+    Updated,
+    Deleted
+  };
+
+  struct PendingCategoryFileChange
+  {
+    PendingCategoryFileChange(kml::MarkGroupId groupId, std::string file, std::unique_ptr<kml::FileData> data,
+                              CategoryFileChangeType type)
+      : m_groupId(groupId)
+      , m_file(std::move(file))
+      , m_data(std::move(data))
+      , m_type(type)
+    {}
+
+    kml::MarkGroupId m_groupId = kml::kInvalidMarkGroupId;
+    std::string m_file;
+    std::unique_ptr<kml::FileData> m_data;
+    CategoryFileChangeType m_type;
+  };
+  using PendingCategoryFileChanges = std::vector<PendingCategoryFileChange>;
+
   void GetDirtyGroups(kml::GroupIdSet & dirtyGroups) const;
   void UpdateBmGroupIdList();
 
   void NotifyBookmarksChanged();
-  void NotifyCategoriesChanged();
+  void DeleteCategories(kml::GroupIdCollection const & groupIdCollection);
+
+  void NotifyCategoryFilesDidFinishGathering();
+  void NotifyCategoryFilesChanged(CategoryFilesUpdate update);
+  void ProcessBookmarkCategoryFileChanges(MarksChangesTracker const & changesTracker);
+  void CollectCategoryFileChanges(kml::GroupIdCollection const & groupIdCollection, CategoryFileChangeType changeType,
+                                  PendingCategoryFileChanges & categoryFileChanges);
 
   void SendBookmarksChanges(MarksChangesTracker const & changesTracker);
   void GetBookmarksInfo(kml::MarkIdSet const & marks, std::vector<BookmarkInfo> & bookmarks) const;
@@ -742,7 +786,8 @@ private:
   std::mutex m_regionAddressMutex;
 
   BookmarksChangedCallback m_bookmarksChangedCallback;
-  CategoriesChangedCallback m_categoriesChangedCallback;
+  CategoryFilesDidFinishGatheringCallback m_categoryFilesDidFinishGatheringCallback;
+  CategoryFilesUpdatedCallback m_categoryFilesUpdatedCallback;
   ElevationActivePointChangedCallback m_elevationActivePointChanged;
   ElevationMyPositionChangedCallback m_elevationMyPositionChanged;
   m2::PointD m_lastElevationMyPosition = m2::PointD::Zero();
@@ -755,6 +800,7 @@ private:
   size_t m_openedEditSessionsCount = 0;
   bool m_loadBookmarksCalled = false;
   bool m_loadBookmarksFinished = false;
+  bool m_categoryFilesDidFinishGathering = false;
   bool m_firstDrapeNotification = false;
   bool m_notificationsEnabled = true;
 
