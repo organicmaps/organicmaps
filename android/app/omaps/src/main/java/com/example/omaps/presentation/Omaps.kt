@@ -8,24 +8,17 @@ package com.example.omaps.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.TimeText
-import androidx.wear.tooling.preview.devices.WearDevices
-import com.example.omaps.presentation.navigation.NavigationScreen
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import com.example.omaps.presentation.navigation.SensorScreen
+import com.example.omaps.presentation.search.SearchScreen
 import com.example.omaps.presentation.theme.OrganicMapsTheme
 
 class Omaps : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
-
         super.onCreate(savedInstanceState)
 
         setTheme(android.R.style.Theme_DeviceDefault)
@@ -38,21 +31,14 @@ class Omaps : ComponentActivity() {
 
 @Composable
 fun WearApp() {
+    var isNavigating by remember { mutableStateOf(false) }
     OrganicMapsTheme {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.background),
-            contentAlignment = Alignment.Center
-        ) {
-            TimeText()
-            NavigationScreen()
+        if (isNavigating) {
+            SensorScreen(
+                onCancelClick = { isNavigating = false }
+            )
+        } else {
+            SearchScreen(onSearchClick = { isNavigating = true })
         }
     }
-}
-
-@Preview(device = WearDevices.SMALL_ROUND, showSystemUi = true)
-@Composable
-fun DefaultPreview() {
-    WearApp()
 }
