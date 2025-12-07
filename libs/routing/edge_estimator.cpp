@@ -346,6 +346,10 @@ public:
 // CarEstimator ------------------------------------------------------------------------------------
 class CarEstimator final : public EdgeEstimator
 {
+#ifdef DEBUG
+  mutable double m_lastETASpeed = -1;
+#endif
+
 public:
   CarEstimator(DataSource * dataSourcePtr, std::shared_ptr<NumMwmIds> numMwmIds, shared_ptr<TrafficStash> trafficStash,
                double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH)
@@ -379,7 +383,18 @@ private:
 
 double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const
 {
-  double result = road.GetDistance(segment.GetSegmentIdx()) / GetSpeedMpS(purpose, segment, road);
+  double const speed = GetSpeedMpS(purpose, segment, road);
+
+  // Debug log ETA calculated speed.
+#ifdef DEBUG
+  if (purpose == Purpose::ETA && fabs(speed - m_lastETASpeed) > 0.25)  // diff >= 1km/h
+  {
+    LOG(LDEBUG, ("[ETA] speed =", speed * 3.6, "starting from:", road.GetPoint(segment.GetPointId(true /* front */))));
+    m_lastETASpeed = speed;
+  }
+#endif
+
+  double result = road.GetDistance(segment.GetSegmentIdx()) / speed;
 
   if (m_trafficStash)
   {
