@@ -267,6 +267,7 @@ public:
 
   BookmarkCategory * CreateBookmarkCompilation(kml::CategoryData && data);
 
+  Platform::FilesList GetCategoryFilesList() const;
   std::string GetCategoryName(kml::MarkGroupId categoryId) const;
   std::string GetCategoryFileName(kml::MarkGroupId categoryId) const;
   kml::MarkGroupId GetCategoryByFileName(std::string const & fileName) const;

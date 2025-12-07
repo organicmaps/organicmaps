@@ -2048,7 +2048,23 @@ void BookmarkManager::LoadBookmarks()
   LoadState();
 }
 
-void BookmarkManager::LoadBookmark(std::string const & filePath, bool isTemporaryFile)
+Platform::FilesList BookmarkManager::GetCategoryFilesList() const
+{
+  auto const dir = GetBookmarksDirectory();
+
+  Platform::FilesList files;
+  Platform::GetFilesByExt(dir, kKmlExtension, files);
+
+  Platform::FilesList paths;
+  paths.reserve(files.size());
+
+  for (auto const & file : files)
+    paths.emplace_back(base::JoinPath(dir, file));
+
+  return paths;
+}
+
+void BookmarkManager::LoadCategory(std::string const & filePath, bool isTemporaryFile)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   // Defer bookmark loading in case of another asynchronous process.
