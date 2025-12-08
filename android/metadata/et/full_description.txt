@@ -1,0 +1,37 @@
+Organic Maps on kiire ja detailne võrguühenduseta kaartide ja GPS-navigatsiooni rakendus reisideks, matkamiseks, trekkerdamiseks ja rattaseiklusteks. Plaani, impordi ja salvestage marsruute ning naudi sujuvat navigeerimist ilma akut tühjendamata või internetti kasutamata. Avasta uusi kohti ja liigu turvaliselt oma väliseikluste ja maailmareiside ajal. Rakendus pakub piiramatu arvu kaardiallade allalaadimist ja kahenädalasi uuendusi. OpenStreetMapi põhine, vabatahtlike loodud, privaatsust austav, 100% võrguühenduseta ja 100% tasuta.
+
+<b>VÕRGUÜHENDUSETA:</b> Rakendus töötab täielikult offline’is — sh otsing ja navigeerimine. Kaarti saab uurida ja teekondi navigeerida ilma internetiühenduseta, säästes mobiilset andmesidet ja rändlustasusid. Ja kuna taustandmeedastust ei toimu, kestab aku oluliselt kauem.
+
+<b>KIIRE:</b> Suumimine, otsing ja marsruutide arvutamine toimivad märgatavalt kiiresti.
+
+<b>DETAILNE JA UUENDATUD:</b> Kaardid on väga detailirohked ning neid värskendatakse kaks korda kuus, et kajastada tegelikke olusid. Erinevalt paljudest tuntud konkurentidest sisaldavad need hoonete nimesid, pinke, matkaradu ja muud kasulikku infot.
+
+<b>OPENSTREETMAPI PÕHINE:</b> OpenStreetMap on vikistiilis maailmakaart, mida loovad ja hooldavad miljonid vabatahtlikud — kohalikud inimesed, kes tunnevad oma piirkondi kõige paremini. See kogukonnatöö loob ülidetailseid kaarte, mis on tihti kommertskaartidest täpsemad vähem kaardistatud piirkondades. Organic Maps uuendab oma andmeid iga kahe nädala järel, et sinu kaardid oleksid värsked ja usaldusväärsed. Kui märkad midagi puudu olevat, saad seda OpenStreetMapi lisada ja seeläbi kõigi kaarte paremaks muuta.
+
+<b>PRIVAATSUS ENNE KÕIKE:</b> Me ei kogu mingeid andmeid ega identifikaatoreid. See tähendab, et puudub andmelekkimise oht ning rakenduses ei ole reklaame ega häirivaid teavitusi — ainult puhas ja privaatne kaardikogemus.
+
+<b>OLULISED FUNKTSIOONID</b>
+
+<b>AVASTA KOHTI:</b> Otsi aadressi, nime või kategooria järgi, avasta miljoneid huvipunkte (POI) ning vaata üksikasjalikku infot, nagu lahtiolekuajad, Wikipedia artiklid, ligipääsetavus ratastooliga ja muud kasulikku.
+
+<b>GPS-NAVIGEERIMINE:</b> Naudi hääljuhendusega samm-sammult navigeerimist. Loo kõnni-, matka-, rattasõidu- või autosõidumarsruute — sh linnade ja riikide vahel ning mitme vahepunktiga. Leia parimad teekonnad metroos ja igapäevastel sõitudel. Android Auto on toetatud.
+
+<b>MATKA- JA RATTAEELISTEGA TEED ÜLE MAAILMA:</b> Lülita sisse spetsiaalsed kaardikihid, et avastada üleilmseid matka- ja rattamarsruute, mis põhinevad OpenStreetMapi andmetel. Vaheta kihtide vahel, et näha värvilisi jalgratta- ja MTB-radasid ning ametlikke matkaradu.
+
+<b>ÜHISTRANSPORT:</b> Vaata peatustes ühistranspordi liinide numbreid. Reaalajas sõiduplaanid ja marsruudid on arendamisel.
+
+<b>KAARDISTIILID:</b> Vali endale sobivad kaardikihid — Outdoors, Contour Lines, Hiking, Cycling või Metro/Subway.
+
+<b>TEEKONDADE SALVESTAMINE:</b> Salvesta, impordi, ekspordi ja jaga oma marsruute ja lemmikkohti. Toetatud on KML, KMZ, GPX ja GeoJSON.
+
+<b>WIKIPEDIA ARTIKLID:</b> Uuri kaardil avastatud kohtade Wikipedia artikleid. Tippige otsingusse “?wiki”, et leida kõik Wikipedia infoga kohad.
+
+<b>KAARDITOIMETAJA:</b> Aita OpenStreetMapi täiendada, lisades puuduvaid kohti või muutes olemasolevat infot otse Organic Mapsist.
+
+Proovi rakendust — see on 100% tasuta, reklaamivaba, kiire ja täielikult võrguühenduseta. Koge usaldusväärset GPS-navigatsiooni matkal, rattaretkel, trekil või reisil ükskõik kus maailmas! Naudi kiiret, usaldusväärset ja privaatset kaardikogemust ning jaga seda ka teistega!
+
+Organic Maps on indie-stiilis, kogukonnapõhine avatud lähtekoodiga projekt, kus sajad panustajad aitavad arendada uusi funktsioone, parandada vigu, tõlkida ja viia projekti edasi.
+
+Liitu kogukonnaga Telegramis: @OrganicMapsApp
+
+Sinu aus tagasiside ja arvustused poes innustavad meid! Küsimuste korral külasta palun organicmaps.app jaotist FAQ.

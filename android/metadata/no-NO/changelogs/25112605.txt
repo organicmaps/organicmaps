@@ -1,0 +1,9 @@
+• Wikipedia-artikler på tyrkisk, japansk og kinesisk, skriv ?wiki for å se dem på kartet
+• Ny innstilling for å visuelt fremheve nedlastede områder på kartet
+• Importer Google Takeout-bokmerker og lagrede steder via GeoJSON
+• OSM-data per 23. november
+• Forbedret lydavspilling og lydavbrudd
+• Fikset krasj i redigeringsprogrammet og ved nedlasting av kart
+• Lysere veier i mørk kjøretøymodus
+• Forbedret sykkelruting i Østerrike
+…mer på omaps.org/news

@@ -201,7 +201,8 @@
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">信息</string>
     <string name="prefs_group_route">导航</string>
-    <string name="pref_zoom_title">缩放按钮</string>
+    <!-- Setting name which enables or disables zoom buttons on the map screen. -->
+    <string name="pref_zoom_title">地图上的“+”和“-”按钮</string>
     <string name="pref_zoom_summary">在屏幕上显示</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">夜间模式</string>

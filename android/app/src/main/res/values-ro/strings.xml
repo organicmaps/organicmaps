@@ -201,7 +201,8 @@
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Informații</string>
     <string name="prefs_group_route">Navigare</string>
-    <string name="pref_zoom_title">Butoane zoom</string>
+    <!-- Setting name which enables or disables zoom buttons on the map screen. -->
+    <string name="pref_zoom_title">Butoanele „+” și „-” pe hartă</string>
     <string name="pref_zoom_summary">Arată pe hartă</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Mod nocturn</string>

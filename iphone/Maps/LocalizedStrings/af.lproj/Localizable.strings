@@ -196,7 +196,9 @@
 "length" = "Lengte";
 "share_my_location" = "Deel my ligging";
 "prefs_group_route" = "Navigasie";
-"pref_zoom_title" = "Zoemknoppe";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "Knoppies + en - op die kaart";
 
 /* Generic «Off» string */
 "off" = "Off";

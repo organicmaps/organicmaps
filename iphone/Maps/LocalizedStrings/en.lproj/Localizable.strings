@@ -196,7 +196,9 @@
 "length" = "Length";
 "share_my_location" = "Share My Location";
 "prefs_group_route" = "Navigation";
-"pref_zoom_title" = "Zoom buttons";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "“+” and “-” buttons on the map";
 
 /* Generic «Off» string */
 "off" = "Off";

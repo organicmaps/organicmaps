@@ -1,0 +1,9 @@
+• Articles de Viquipèdia en turc, japonès i xinès, escriviu ?wiki per veure'ls al mapa
+• Nova opció per ressaltar visualment les regions descarregades al mapa
+• Importa les adreces d'interès i llocs desats de Google Takeout via GeoJSON
+• Dades d'OSM del 23 de novembre
+• Millora de la reproducció d'àudio i les interrupcions de so
+• Corregits errors a l'editor i en descarregar mapes
+• Carreteres més brillants en mode vehicle fosc
+• Millora de les rutes en bicicleta a Àustria
+…més a omaps.org/news

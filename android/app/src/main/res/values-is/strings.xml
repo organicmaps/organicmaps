@@ -201,7 +201,8 @@
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Upplýsingar</string>
     <string name="prefs_group_route">Leiðsögn</string>
-    <string name="pref_zoom_title">Aðdráttarhnappar</string>
+    <!-- Setting name which enables or disables zoom buttons on the map screen. -->
+    <string name="pref_zoom_title">Hnapparnir „+“ og „-“ á kortinu</string>
     <string name="pref_zoom_summary">Birta á kortinu</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Næturhamur</string>

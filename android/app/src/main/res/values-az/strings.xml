@@ -201,7 +201,8 @@
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Məlumat</string>
     <string name="prefs_group_route">Naviqasiya</string>
-    <string name="pref_zoom_title">Böyütmə düymələri</string>
+    <!-- Setting name which enables or disables zoom buttons on the map screen. -->
+    <string name="pref_zoom_title">+ və - düymələri xəritədə</string>
     <string name="pref_zoom_summary">Xəritədə göstər</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Gecə rejimi</string>

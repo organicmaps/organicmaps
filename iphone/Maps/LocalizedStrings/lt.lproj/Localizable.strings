@@ -196,7 +196,9 @@
 "length" = "Ilgis";
 "share_my_location" = "Bendrinti mano vietą";
 "prefs_group_route" = "Navigacija";
-"pref_zoom_title" = "Mastelio mygtukai";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "Mygtukai „+“ ir „-“ žemėlapyje";
 
 /* Generic «Off» string */
 "off" = "Išjungti";

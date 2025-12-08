@@ -196,7 +196,9 @@
 "length" = "Lengd";
 "share_my_location" = "Deila staðsetningu minni";
 "prefs_group_route" = "Leiðsögn";
-"pref_zoom_title" = "Aðdráttarhnappar";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "Hnapparnir „+“ og „-“ á kortinu";
 
 /* Generic «Off» string */
 "off" = "Slökkt";

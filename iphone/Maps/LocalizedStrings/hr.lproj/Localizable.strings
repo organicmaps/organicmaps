@@ -196,7 +196,9 @@
 "length" = "Dužina";
 "share_my_location" = "Dijeli moju lokaciju";
 "prefs_group_route" = "Navigacija";
-"pref_zoom_title" = "Gumbovi za zumiranje";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "Gumbi „+“ i „-“ na karti";
 
 /* Generic «Off» string */
 "off" = "Isključeno";

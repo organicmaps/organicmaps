@@ -196,7 +196,9 @@
 "length" = "Довжина";
 "share_my_location" = "Поділитися моїм місцезнаходженням";
 "prefs_group_route" = "Навігація";
-"pref_zoom_title" = "Кнопки трансфокації";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "Кнопки «+» і «-» на мапі";
 
 /* Generic «Off» string */
 "off" = "Вимкнуто";

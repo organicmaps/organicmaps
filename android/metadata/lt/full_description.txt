@@ -1,0 +1,36 @@
+Organic Maps – tai greita ir išsami neprisijungusių žemėlapių ir GPS navigacijos programėlė kelionėms, žygiams, žygiams pėsčiomis ir dviračių nuotykiams. Planuokite, importuokite ir įrašykite maršrutus bei mėgaukitės sklandžia navigacija neeikvojant baterijos ar interneto. Atraskite vietas ir keliaukite saugiai po visą pasaulį. Programėlė siūlo neribotą žemėlapių atsisiuntimą ir atnaujinimus kas dvi savaites. Sukurta pagal OpenStreetMap, savanorių kuriama, privatumą užtikrinanti, 100% neprisijungusi ir visiškai nemokama.
+
+<b>NEPRISIJUNGUS:</b> Programėlė veikia 100% neprisijungus — įskaitant paiešką ir navigaciją. Naršykite žemėlapį ir keliaukite be interneto, taupydami mobiliuosius duomenis ir roamingo mokesčius.
+
+<b>GREITA:</b> Priartinimas, paieška ir maršrutų skaičiavimas yra itin greiti.
+
+<b>DETALI IR ATNAUJINTA:</b> Žemėlapiai labai detalūs ir atnaujinami du kartus per mėnesį. Juose yra pastatų pavadinimai, suoliukai, žygių takai ir kita svarbi informacija.
+
+<b>OPENSTREETMAP:</b> OpenStreetMap yra pasaulinis žemėlapis, kurį kuria milijonai savanorių. Tai suteikia labai detalius ir dažnai tikslesnius žemėlapius nei komerciniai. Organic Maps atnaujinimus gauna kas dvi savaites. Pastebėjote trūkumų? Galite juos pridėti į OSM.
+
+<b>PRIORITETAS PRIVATUMUI:</b> Mes nerenkame jokių duomenų ar identifikatorių. Jokių reklamų, jokių sekimų — tik švari ir privati žemėlapio patirtis.
+
+<b>SVARBIAUSIOS FUNKCIJOS</b>
+
+<b>VIETŲ PAIEŠKA:</b> Ieškokite pagal adresą, pavadinimą ar kategoriją; raskite milijonus objektų ir matykite detalią informaciją (darbo laikai, Vikipedija, pritaikymas neįgaliesiems ir kt.).
+
+<b>GPS NAVIGACIJA:</b> Balso nurodymai pasukimais. Kurkite maršrutus pėsčiomis, žygiams, dviračiams, automobiliams, tarp miestų ir šalių, su keliais taškais. Palaikomas Android Auto.
+
+<b>ŽYGIŲ IR DVIRAČIŲ TAKAI:</b> Įjunkite specialius sluoksnius ir raskite populiarius takus iš viso pasaulio.
+
+<b>VIEŠASIS TRANSPORTAS:</b> Matykite viešojo transporto maršrutų numerius stotelėse. Gyvi tvarkaraščiai – kuriami.
+
+<b>ŽEMĖLAPIŲ STILIAI:</b> Pasirinkite sluoksnius pagal veiklą: Lauko, Kontūrų, Žygiai, Dviračiai arba Metro.
+
+<b>MARŠRUTŲ ĮRAŠYMAS:</b> Įrašykite, importuokite ir bendrinkite maršrutus (KML, KMZ, GPX, GeoJSON).
+
+<b>VIKIPEDIJA:</b> Skaitykite Vikipedijos straipsnius tiesiai žemėlapyje.
+
+<b>ŽEMĖLAPIO REDAKTORIUS:</b> Prisidėkite prie OpenStreetMap žemėlapio tobulinimo.
+
+<b>TAMSUS REŽIMAS:</b> Patogiam naudojimui naktį.
+
+Išbandykite programėlę — ji 100% nemokama, be reklamų, greita ir veikianti neprisijungus. Patirkite patikimą GPS navigaciją bet kur pasaulyje!
+
+Prisijunkite prie bendruomenės Telegram: @OrganicMapsApp
+Sužinokite, kaip prisidėti: https://organicmaps.app/contribute/

@@ -1,0 +1,40 @@
+Organic Maps — səyahət, yürüş, trekking və velosiped macəraları üçün sürətli, ətraflı oflayn xəritə və GPS naviqasiya tətbiqidir. Marşrutlar planlaşdırın, idxal edin və qeyd edin, batareyanı tükətmədən və internet bağlantısı olmadan hamar naviqasiyadan zövq alın. Dünyanın hər yerində yerləri kəşf edin və açıq havada təhlükəsiz şəkildə naviqasiya edin. Tətbiq limitsiz xəritə yükləmələri və iki həftədə bir yeniləmələr təklif edir. OpenStreetMap əsaslı, könüllülər tərəfindən hazırlanmış, məxfilik yönümlü, 100% oflayn və tamamilə pulsuzdur.
+
+<b>OFLAYN:</b> Tətbiq 100% oflayn işləyir — axtarış və naviqasiya daxil olmaqla. Xəritəni internet olmadan araşdıra və naviqasiya edə bilərsiniz, bu da mobil internet və rouminq xərclərinə qənaət edir. Arxa planda məlumat ötürülmədiyi üçün batareyanız daha uzun dayanır.
+
+<b>SÜRƏTLİ:</b> Miqyaslama, axtarış və marşrut hesablamaları nəzərəçarpacaq dərəcədə sürətlidir.
+
+<b>ƏTRAFLI VƏ YENİLƏNƏN:</b> Xəritələr detallıdır və ayda iki dəfə yenilənir. Bir çox rəqiblərdən fərqli olaraq, onlar bina adları, skamyalar, yürüş cığırları və digər faydalı məlumatları ehtiva edir.
+
+<b>OPENSTREETMAP ƏSASLI:</b> OpenStreetMap milyonlarla könüllü tərəfindən yaradılan və saxlanılan, viki-üslublu dünya xəritəsidir. Bu icmanın işi daha az xəritələnmiş bölgələrdə belə yüksək dəqiqlik təmin edir. Organic Maps OpenStreetMap məlumatlarını hər iki həftədən bir yeniləyir və xəritələrinizi aktual saxlayır. Nəsə çatışmırsa, siz özünüz OpenStreetMap-ə əlavə edə və xəritəni daha da yaxşılaşdıra bilərsiniz.
+
+<b>MƏXFİLİK ÜSTÜNLÜYÜ:</b> Heç bir məlumat və identifikator toplanmır. Bu, məlumat sızması riskini aradan qaldırır və reklamlar və lazımsız bildirişlər olmadan təmiz, şəxsi xəritə təcrübəsi yaradır.
+
+<b>Vacib XÜSUSİYYƏTLƏR</b>
+
+<b>YERLƏRİ KƏŞF EDİN:</b> Ünvan, ad və ya kateqoriya üzrə axtarın, milyonlarla POI tapın və iş saatları, Vikipediya məqalələri, əlçatanlıq və digər faydalı məlumatları görün.
+
+<b>GPS NAVİQASİYA:</b> Səsli, addım-addım naviqasiyadan istifadə edin. Gəzinti, yürüş, velosiped və avtomobil marşrutları yaradın — şəhərlər, ölkələr və çoxlu dayanacaqlar arasında. Metro və gündəlik gedişlər üçün ən yaxşı marşrutları tapın. Android Auto dəstəklənir.
+
+<b>DÜNYANIN YÜRÜŞ VƏ VELOSEPED MARŞRUTLARI:</b> Xüsusi xəritə qatlarını aktiv edin və OpenStreetMap mənbəli məşhur yürüş və velosiped yollarını kəşf edin. Rəngli velosiped və MTB marşrutlarını, eləcə də rəsmi yürüş yollarını görmək üçün qatları dəyişin.
+
+<b>İCTİMAİ NƏQLİYYAT:</b> Dayanacaqlarda avtobus və metro xətt nömrələrini görün. Canlı qrafiklər və marşrutlar hazırlanma mərhələsindədir.
+
+<b>XƏRİTƏ ÜSLUBLARI:</b> Açıq hava, relyef xətləri, yürüş, velosiped və ya metro üçün uyğun xəritə üslubu seçin.
+
+<b>MARŞRUT QEYDİ:</b> Marşrutlarınızı və sevimli yerlərinizi qeyd edin, idxal edin, ixrac edin və paylaşın. KML, KMZ, GPX və GeoJSON formatlarını dəstəkləyir.
+
+<b>VİKİPEDİYA MƏQALƏLƏRİ:</b> Xəritədə tapdığınız yerlər üçün Vikipediya məqalələrini oxuyun. Axtarışda “?wiki” yazaraq Vikipediya məqaləsi olan bütün yerləri tapın.
+
+<b>XƏRİTƏ REDAKTORU:</b> Organic Maps-dən birbaşa OpenStreetMap-də çatışmayan yerləri əlavə edin və ya xəritəni redaktə edin.
+
+<b>TÜND REJİM:</b> Gecələri rahat istifadə üçün tünd rejimə keçin.
+
+Tətbiqi sınayın — 100% pulsuzdur, reklamsızdır, sürətlidir və tam oflayndır. Dünyanın istənilən yerində yürüş, velosiped, trekking və səyahət üçün etibarlı GPS naviqasiyasını kəşf edin! Sürətli, etibarlı və şəxsi xəritə təcrübəsindən zövq alın və başqaları ilə paylaşın!
+
+Organic Maps — yüzlərlə töhfəçinin iştirak etdiyi, açıq mənbəli, icma tərəfindən idarə olunan indie layihəsidir. Onlar yeni funksiyalar əlavə etməyə, problemləri həll etməyə, tərcümə etməyə və layihəni irəli aparmağa kömək edirlər.
+
+Telegram icmasına qoşulun: @OrganicMapsApp
+Layihəni dəstəkləməyin digər yolları: https://organicmaps.app/contribute/
+
+Dürüst rəyləriniz bizi motivasiya edir! Suallarınız varsa, əlavə məlumat və FAQ üçün organicmaps.app saytını ziyarət edin.
