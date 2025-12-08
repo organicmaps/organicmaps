@@ -196,7 +196,9 @@
 "length" = "طول";
 "share_my_location" = "هم‌رسانی موقعیت مکانی من";
 "prefs_group_route" = "مسیریابی";
-"pref_zoom_title" = "دکمه‌های بزرگنمایی";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "دکمه‌های + و - روی نقشه";
 
 /* Generic «Off» string */
 "off" = "خاموش";

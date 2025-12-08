@@ -192,7 +192,8 @@
     <string name="length">Độ dài</string>
     <string name="share_my_location">Chia sẻ Vị trí của tôi</string>
     <string name="prefs_group_route">Điều hướng</string>
-    <string name="pref_zoom_title">Nút Phóng to/Thu nhỏ</string>
+    <!-- Setting name which enables or disables zoom buttons on the map screen. -->
+    <string name="pref_zoom_title">Nút + và - trên bản đồ</string>
     <string name="pref_zoom_summary">Hiển thị trên màn hình</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Chế độ ban đêm</string>

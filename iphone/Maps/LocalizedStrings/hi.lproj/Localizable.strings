@@ -196,7 +196,9 @@
 "length" = "लंबाई";
 "share_my_location" = "मेरा स्थान साझा करें";
 "prefs_group_route" = "मार्गदर्शन";
-"pref_zoom_title" = "ज़ूम बटन";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "मानचित्र पर + और - बटन";
 
 /* Generic «Off» string */
 "off" = "बंद";

@@ -196,7 +196,9 @@
 "length" = "Uzunluq";
 "share_my_location" = "Məkanımı Paylaşın";
 "prefs_group_route" = "Naviqasiya";
-"pref_zoom_title" = "Böyütmə düymələri";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "+ və - düymələri xəritədə";
 
 /* Generic «Off» string */
 "off" = "Bağlı";

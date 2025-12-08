@@ -196,7 +196,9 @@
 "length" = "Lengde";
 "share_my_location" = "Del posisjonen min";
 "prefs_group_route" = "Navigasjon";
-"pref_zoom_title" = "Zoom-knapper";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "Knappene + og - på kartet";
 
 /* Generic «Off» string */
 "off" = "Av";

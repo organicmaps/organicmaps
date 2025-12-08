@@ -196,7 +196,9 @@
 "length" = "Dĺžka";
 "share_my_location" = "Zdieľať moje umiestnenie";
 "prefs_group_route" = "Navigácia";
-"pref_zoom_title" = "Tlačidlá priblíženia/oddialenia";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "Tlačidlá „+“ a „-“ na mape";
 
 /* Generic «Off» string */
 "off" = "Vypnúť";

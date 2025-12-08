@@ -196,7 +196,9 @@
 "length" = "אורך";
 "share_my_location" = "שיתוף מיקום שלי";
 "prefs_group_route" = "ניווט";
-"pref_zoom_title" = "כפתורי זום";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "כפתורי + ו- על המפה";
 
 /* Generic «Off» string */
 "off" = "כבוי";

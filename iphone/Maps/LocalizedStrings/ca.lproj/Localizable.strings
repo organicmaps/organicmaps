@@ -196,7 +196,9 @@
 "length" = "Longitud";
 "share_my_location" = "Comparteix la meva ubicació";
 "prefs_group_route" = "Navegació";
-"pref_zoom_title" = "Botons de zoom";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "Botons «+» i «-» al mapa";
 
 /* Generic «Off» string */
 "off" = "Desactivat";
