@@ -196,7 +196,9 @@
 "length" = "Längd";
 "share_my_location" = "Dela min plats";
 "prefs_group_route" = "Navigering";
-"pref_zoom_title" = "Zoom-knappar";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "Knapparna + och - på kartan";
 
 /* Generic «Off» string */
 "off" = "Av";

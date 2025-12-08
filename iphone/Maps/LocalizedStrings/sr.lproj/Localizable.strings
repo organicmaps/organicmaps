@@ -196,7 +196,9 @@
 "length" = "Дужина";
 "share_my_location" = "Подели моју локацију";
 "prefs_group_route" = "Навигација";
-"pref_zoom_title" = "Дугме за зумирање";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "Дугмад „+” и „-” на мапи";
 
 /* Generic «Off» string */
 "off" = "Искључено";

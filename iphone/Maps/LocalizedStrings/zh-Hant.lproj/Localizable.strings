@@ -196,7 +196,9 @@
 "length" = "長度";
 "share_my_location" = "分享我的位置";
 "prefs_group_route" = "導航";
-"pref_zoom_title" = "縮放按鈕";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "地圖上的「+」和「-」按鈕";
 
 /* Generic «Off» string */
 "off" = "關閉";

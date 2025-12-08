@@ -196,7 +196,9 @@
 "length" = "Länge";
 "share_my_location" = "Meinen Standort teilen";
 "prefs_group_route" = "Navigation";
-"pref_zoom_title" = "Zoom-Tasten";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "„+“ und „-“ Knöpfe auf der Karte";
 
 /* Generic «Off» string */
 "off" = "Aus";

@@ -196,7 +196,9 @@
 "length" = "الطول";
 "share_my_location" = "مشاركة موقعي";
 "prefs_group_route" = "الملاحة";
-"pref_zoom_title" = "أزرار التكبير والتصغير";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "أزرار + و- على الخريطة";
 
 /* Generic «Off» string */
 "off" = "تعطيل";

@@ -201,7 +201,8 @@
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Informācija</string>
     <string name="prefs_group_route">Navigācija</string>
-    <string name="pref_zoom_title">Tālummaiņas pogas</string>
+    <!-- Setting name which enables or disables zoom buttons on the map screen. -->
+    <string name="pref_zoom_title">Pogas \"+\" un \"-\" kartē</string>
     <string name="pref_zoom_summary">Rādīt kartē</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Tumšais motīvs</string>

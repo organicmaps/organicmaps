@@ -196,7 +196,9 @@
 "length" = "Pikkus";
 "share_my_location" = "Jaga minu asukohta";
 "prefs_group_route" = "Tee juhatamine";
-"pref_zoom_title" = "Suuminupud";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "Nupud „+” ja „-” kaardil";
 
 /* Generic «Off» string */
 "off" = "Väljas";

@@ -196,7 +196,9 @@
 "length" = "Độ dài";
 "share_my_location" = "Chia sẻ Vị trí của tôi";
 "prefs_group_route" = "Điều hướng";
-"pref_zoom_title" = "Nút Phóng to/Thu nhỏ";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "Nút + và - trên bản đồ";
 
 /* Generic «Off» string */
 "off" = "Tắt";

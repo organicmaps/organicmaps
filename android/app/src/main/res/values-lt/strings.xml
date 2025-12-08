@@ -201,7 +201,8 @@
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Informacija</string>
     <string name="prefs_group_route">Navigacija</string>
-    <string name="pref_zoom_title">Mastelio mygtukai</string>
+    <!-- Setting name which enables or disables zoom buttons on the map screen. -->
+    <string name="pref_zoom_title">Mygtukai „+“ ir „-“ žemėlapyje</string>
     <string name="pref_zoom_summary">Rodyti žemėlapyje</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Nakties veiksena</string>

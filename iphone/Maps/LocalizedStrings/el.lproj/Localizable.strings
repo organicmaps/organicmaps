@@ -196,7 +196,9 @@
 "length" = "Μήκος";
 "share_my_location" = "Κοινοποίηση της τοποθεσίας μου";
 "prefs_group_route" = "Πλοήγηση";
-"pref_zoom_title" = "Πλήκτρα μεγέθυνσης";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "Πλήκτρα «+» και «-» στον χάρτη";
 
 /* Generic «Off» string */
 "off" = "Απενεργ.";

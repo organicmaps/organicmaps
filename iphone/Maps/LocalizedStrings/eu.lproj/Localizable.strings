@@ -196,7 +196,9 @@
 "length" = "Luzera";
 "share_my_location" = "Partekatu nire kokapena";
 "prefs_group_route" = "Nabigazioa";
-"pref_zoom_title" = "Zoom botoiak";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "Mapako “+” eta “-” botoiak";
 
 /* Generic «Off» string */
 "off" = "Desgaituta";
