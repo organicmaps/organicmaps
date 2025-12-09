@@ -613,7 +613,7 @@ NSString * const kSettingsSegue = @"Map2Settings";
 }
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-  MWMMapViewControlsManager * manager = self.controlsManager;
+  MWMMapViewControlsManager * manager = _controlsManager;
   if (manager)
     return manager.preferredStatusBarStyle;
   return UIStatusBarStyleDefault;

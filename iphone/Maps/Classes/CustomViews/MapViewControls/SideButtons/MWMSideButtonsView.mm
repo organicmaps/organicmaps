@@ -140,6 +140,8 @@ CGFloat const kButtonsBottomOffset = 6;
 
 - (void)updateAvailableArea:(CGRect)frame
 {
+  if (CGRectIsEmpty(frame))
+    return;
   if (CGRectEqualToRect(self.availableArea, frame))
     return;
   // If during our show/hide animation position is changed it is corrupted.
