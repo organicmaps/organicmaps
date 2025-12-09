@@ -7,8 +7,8 @@
     <ImageView
         android:layout_width="@dimen/splash_screen_logo_size"
         android:layout_height="@dimen/splash_screen_logo_size"
-        android:layout_marginTop="3.2dp"
-        android:layout_marginEnd="0dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="1dp"
         android:contentDescription="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,30 +18,30 @@
 
     <LinearLayout
         android:id="@+id/ll__branding_info"
-        android:gravity="center"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/margin_double"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_eighth"
-            android:text="@string/app_name"
             android:gravity="center_horizontal"
+            android:text="@string/app_name"
             android:textAppearance="@style/MwmTextAppearance.Title.Splash" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/splash_subtitle"
             android:layout_marginStart="@dimen/margin_double"
             android:layout_marginEnd="@dimen/margin_double"
             android:gravity="center_horizontal"
+            android:text="@string/splash_subtitle"
             android:textAppearance="@style/MwmTextAppearance.Toolbar" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
