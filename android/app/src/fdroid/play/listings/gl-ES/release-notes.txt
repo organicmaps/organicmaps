@@ -1,8 +1,9 @@
-• Destaca no mapa do mundo as rexións descargadas, as reservas naturais, os parques nacionais, as áreas protexidas, as terras aborixes, as zonas de perigo e os lagos
-• O enrutamento admite os horarios de peche de estradas
-• Mapas OSM actualizados a 9 de novembro
-• Corrixíronse fallos e o enrutamento, incluído Android Auto
-• Engadíronse reloxeiros, aloxamentos para estudantes e axencias de viaxes
-• Indicacións de voz en estoniano, galego, hebreo e lituano
-
+• Artigos da Wikipedia en turco, xaponés e chinés, escribe ?wiki para velos no mapa
+• Nova opción para resaltar visualmente as rexións descargadas no mapa
+• Importa marcadores e lugares gardados de Google Takeout vía GeoJSON
+• Datos de OSM do 23 de novembro
+• Mellora na reprodución de audio e interrupcións de son
+• Corrixidos fallos no editor e ao descargar mapas
+• Estradas máis brillantes en modo vehículo escuro
+• Mellora do enrutamento en bicicleta en Austria
 …máis en omaps.org/gl/news

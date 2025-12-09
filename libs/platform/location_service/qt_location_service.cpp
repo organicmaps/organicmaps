@@ -1,39 +1,40 @@
 #include "platform/location_service/qt_location_service.hpp"
 
 #include "base/logging.hpp"
-#include "base/macros.hpp"
-
-#include "std/target_os.hpp"
 
 #include <QGeoPositionInfoSource>
 
 namespace
 {
-static location::GpsInfo gpsInfoFromQGeoPositionInfo(QGeoPositionInfo const & i, location::TLocationSource source)
+location::GpsInfo GpsInfoFromQGeoPositionInfo(QGeoPositionInfo const & i, location::TLocationSource source)
 {
   location::GpsInfo info;
   info.m_source = source;
 
-  info.m_latitude = i.coordinate().latitude();
-  info.m_longitude = i.coordinate().longitude();
+  auto const coord = i.coordinate();
+  info.m_latitude = coord.latitude();
+  info.m_longitude = coord.longitude();
+  if (coord.type() == QGeoCoordinate::Coordinate3D)
+    info.m_altitude = coord.altitude();
+
   info.m_timestamp = static_cast<double>(i.timestamp().toSecsSinceEpoch());
 
   if (i.hasAttribute(QGeoPositionInfo::HorizontalAccuracy))
-    info.m_horizontalAccuracy = static_cast<double>(i.attribute(QGeoPositionInfo::HorizontalAccuracy));
+    info.m_horizontalAccuracy = i.attribute(QGeoPositionInfo::HorizontalAccuracy);
 
   if (i.hasAttribute(QGeoPositionInfo::VerticalAccuracy))
-    info.m_verticalAccuracy = static_cast<double>(i.attribute(QGeoPositionInfo::VerticalAccuracy));
+    info.m_verticalAccuracy = i.attribute(QGeoPositionInfo::VerticalAccuracy);
 
   if (i.hasAttribute(QGeoPositionInfo::Direction))
-    info.m_bearing = static_cast<double>(i.attribute(QGeoPositionInfo::Direction));
+    info.m_bearing = i.attribute(QGeoPositionInfo::Direction);
 
   if (i.hasAttribute(QGeoPositionInfo::GroundSpeed))
-    info.m_speed = static_cast<double>(i.attribute(QGeoPositionInfo::GroundSpeed));
+    info.m_speed = i.attribute(QGeoPositionInfo::GroundSpeed);
 
   return info;
 }
 
-static location::TLocationError tLocationErrorFromQGeoPositionInfoError(QGeoPositionInfoSource::Error error)
+static location::TLocationError TLocationErrorFromQGeoPositionInfoError(QGeoPositionInfoSource::Error error)
 {
   location::TLocationError result = location::TLocationError::ENotSupported;
   switch (error)
@@ -48,7 +49,7 @@ static location::TLocationError tLocationErrorFromQGeoPositionInfoError(QGeoPosi
   return result;
 }
 
-static location::TLocationSource qStringToTLocationSource(QString const & sourceName)
+location::TLocationSource QStringToTLocationSource(QString const & sourceName)
 {
   if ("geoclue2" == sourceName)
     return location::TLocationSource::EGeoClue2;
@@ -108,7 +109,7 @@ void QtLocationService::OnLocationUpdate(QGeoPositionInfo const & info)
   auto const & coordinate = info.coordinate();
   LOG(LDEBUG, ("Location updated with valid coordinates:", coordinate.longitude(), coordinate.latitude()));
   m_observer.OnLocationUpdated(
-      gpsInfoFromQGeoPositionInfo(info, qStringToTLocationSource(m_positionSource->sourceName())));
+      GpsInfoFromQGeoPositionInfo(info, QStringToTLocationSource(m_positionSource->sourceName())));
   if (!m_clientIsActive)
   {
     m_clientIsActive = true;
@@ -120,7 +121,7 @@ void QtLocationService::OnErrorOccurred(QGeoPositionInfoSource::Error positionin
 {
   LOG(LWARNING, ("Location error occured QGeoPositionInfoSource::Error code:", positioningError));
   m_clientIsActive = false;
-  m_observer.OnLocationError(tLocationErrorFromQGeoPositionInfoError(positioningError));
+  m_observer.OnLocationError(TLocationErrorFromQGeoPositionInfoError(positioningError));
 }
 
 void QtLocationService::OnSupportedPositioningMethodsChanged()

@@ -1,8 +1,9 @@
-• A letöltött régiók, természetvédelmi területek, nemzeti parkok, védett területek, őslakos földek, veszélyes területek, tavak kiemelése a világtérképen
-• Az útvonaltervezés támogatja az útlezárási időket
-• Friss OSM térképek november 9-től
-• Javítottuk az összeomlásokat és az útvonaltervezést, beleértve az Android Autót is
-• Órások, diákszállások, utazási irodák hozzáadva
-• Hangutasítások észt, galíciai, héber és litván nyelven
-
-…továbbiak: omaps.org/hu/news
+• Wikipédia cikkek törökül, japánul és kínaiul, írja be a ?wiki-t a térképen való megtekintéshez
+• Új beállítás a letöltött régiók vizuális kiemeléséhez a térképen
+• Google Takeout könyvjelzők és mentett helyek importálása GeoJSON-on keresztül
+• OSM adatok november 23-ig
+• Javított hanglejátszás és hangmegszakítások
+• Javított összeomlások a szerkesztőben és térképek letöltésekor
+• Világosabb utak sötét jármű módban
+• Javított kerékpáros útvonaltervezés Ausztriában
+…több itt: omaps.org/hu/news

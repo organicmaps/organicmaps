@@ -1,33 +1,20 @@
-- NOU! Evidențiați regiunile descărcate pe harta lumii
-- NOU! Vedeți și căutați rezervații naturale, parcuri naționale, zone protejate, terenuri aborigene, zone de pericol și lacuri pe harta lumii începând cu nivelul de zoom 8
-- NOU! Acces condiționat pentru rutare, de exemplu, pentru drumurile care sunt închise la anumite ore
-- Date OpenStreetMap actualizate la 9 noiembrie 2025
-- Activat limbile estonă, galiciană, ebraică și lituaniană pentru indicațiile vocale TTS
-- S-a remediat o problemă cu numele de străzi implicite și localizate la editarea adreselor
-- S-a remediat o problemă cu zoom-ul la atingerea rezultatelor căutării de pe harta lumii
-- S-au adăugat link-uri de social media TikTok, Threads și BlueSky la ecranul "Despre"
-- S-a adăugat "Raportați o eroare" la acțiunile rapide ale pictogramei aplicației pe ecranul de pornire
-- După ștergerea unei liste de marcaje sau trasee (prin butonul "mai mult"), aplicația se întoarce acum corect la ecranul anterior
-- S-au remediat diverse blocări ale aplicației și ale CarPlay
+- Articole Wikipedia pentru locuri în turcă, japoneză și chineză; tastați ?wiki pentru a vedea toate articolele pe hartă
+- Setare pentru evidențierea vizuală a regiunilor descărcate pe hartă
+- Date OpenStreetMap din 23 noiembrie 2025
 
-### Hartă și stiluri
+- Editați numele unui marcaj sau traseu direct pe pagina de informații a locului
+- Apăsați lung pe numele sau adresa unui loc/marcaj selectat pentru a-l copia
+- Adăugată căutare pentru o listă specifică la schimbarea acesteia din pagina de informații a locului
+- Folosiți emoji-uri personalizate pe pagina de informații a locului
+- Animații corectate pentru butoanele laterale și culoarea butonului "Descarcă hărți" în tema întunecată
+- Suport iOS 26 și macOS 26 "Liquid Glass"
+- Când mutați un traseu într-o listă, acea listă devine implicită pentru marcaje/trasee noi
+- Import GeoJSON îmbunătățit, inclusiv `Saved Places.json` din Google Takeout
+- Traduceri actualizate în mai multe limbi, inclusiv o corecție pentru ebraică
 
-- S-a schimbat redarea căilor ferate "abandonate" și "nefolosite"
-- S-au adăugat ceasornicari și cazare pentru studenți pe hartă
-- S-au adăugat pictograme pentru agențiile de turism
-- S-a schimbat culoarea pictogramei de toaletă în gri
-- S-au actualizat pictogramele pentru audiolog, podiatru, optometrist și aparate auditive
-- S-a remediat pictograma de închiriere de biciclete în modul întunecat
-- Afișarea numelor statelor din SUA/Canada mai devreme pe harta lumii (de la nivelul de zoom 5)
+## Navigare și trasee
 
-### Traduceri
-
-- S-au adăugat sinonime de căutare în slovenă și s-a activat căutarea pe categorii pentru limba slovenă
-- S-au corectat greșeli de tipar, traduceri incorecte și sinonime de căutare; s-au adăugat traduceri lipsă pentru multe limbi
-- S-au adăugat traduceri specifice pentru spaniola mexicană (es-MX) și portugheza braziliană (pt-BR), distincte de spaniola standard (es) și portugheza (pt)
-- S-au corectat indicațiile vocale TTS în cehă
-
-Consultați notele detaliate ale versiunii pe site-ul nostru: https://organicmaps.app
-
-Vă mulțumim că folosiți Organic Maps și că susțineți proiectul!
-Echipa Organic Maps
+- Aspectul hărții corectat în timpul navigării pe iPad pentru ca traseul să rămână clar vizibil
+- Rutarea pentru biciclete ocolește acum străzile rezidențiale cu sens unic din Austria
+- Instrucțiuni simplificate pentru sensuri giratorii
+- Drumurile sunt mai luminoase cu contrast mai bun în modul vehicul întunecat

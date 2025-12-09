@@ -1,33 +1,20 @@
-- YENİ! Dünya haritasında indirilen bölgeleri vurgulayın
-- YENİ! Yakınlaştırma seviyesi 8'den başlayarak Dünya haritasında doğa koruma alanlarını, milli parkları, korunan alanları, Aborjin topraklarını, tehlike alanlarını ve gölleri görün ve arayın
-- YENİ! Belirli zamanlarda kapalı olan yollar gibi rotalama için koşullu erişim
-- 9 Kasım 2025 itibarıyla güncellenmiş OpenStreetMap verileri
-- TTS sesli yönlendirmeler için Estonca, Galiçyaca, İbranice ve Litvanyaca dilleri etkinleştirildi
-- Adresleri düzenlerken varsayılan ve yerelleştirilmiş sokak adlarıyla ilgili bir sorun düzeltildi
-- Dünya haritasından arama sonuçlarına dokunulduğunda yakınlaştırma ile ilgili bir sorun düzeltildi
-- "Hakkında" ekranına TikTok, Threads ve BlueSky sosyal medya bağlantıları eklendi
-- Ana ekrandaki uygulama simgesinin hızlı eylemlerine "Hata bildir" eklendi
-- Bir yer imi veya iz listesini sildikten sonra ( "daha fazla" düğmesi aracılığıyla), uygulama artık doğru şekilde önceki ekrana dönüyor
-- Çeşitli uygulama ve CarPlay çökmeleri düzeltildi
+- Türkçe, Japonca ve Çince mekanlar için Vikipedi makaleleri; haritadaki tüm makaleleri görmek için ?wiki yazın
+- Haritada indirilen bölgeleri görsel olarak vurgulama ayarı
+- 23 Kasım 2025 tarihli OpenStreetMap verileri
 
-### Harita ve Stiller
+- Yer Bilgisi Sayfasında doğrudan yer imi veya rota adını düzenleyin
+- Kopyalamak için seçili yerin/yer iminin adına veya adresine uzun basın
+- Yer Bilgisi Sayfasından değiştirirken belirli bir liste için arama eklendi
+- Yer Bilgisi Sayfasında özel emojiler kullanın
+- Yan düğmeler için animasyonlar ve karanlık temadaki "Harita İndir" düğmesi rengi düzeltildi
+- iOS 26 ve macOS 26 "Liquid Glass" desteği
+- Bir rotayı listeye taşıdığınızda, o liste yeni yer imleri/rotalar için varsayılan olur
+- Google Takeout'tan `Saved Places.json` dahil olmak üzere geliştirilmiş GeoJSON içe aktarma
+- İbranice düzeltme dahil olmak üzere birden fazla dilde güncellenmiş çeviriler
 
-- 'Terk edilmiş' ve 'kullanılmayan' demiryollarının oluşturulması değiştirildi
-- Haritaya saatçiler ve öğrenci konaklama yerleri eklendi
-- Seyahat acentesi simgeleri eklendi
-- Tuvalet simgesi rengi gri olarak değiştirildi
-- Odyolog, podiatrist, optometrist ve işitme cihazı simgeleri güncellendi
-- Karanlık modda bisiklet kiralama simgesi düzeltildi
-- ABD/Kanada eyalet adlarını Dünya haritasında daha erken görüntüleyin (yakınlaştırma seviyesi 5'ten itibaren)
+## Navigasyon ve Rota
 
-### Çeviriler
-
-- Slovence arama eşanlamlıları eklendi ve Slovence için kategori araması etkinleştirildi
-- Yazım hataları, yanlış çeviriler ve arama eşanlamlıları düzeltildi; birçok dil için eksik çeviriler eklendi
-- Standart İspanyolca (es) ve Portekizce'den (pt) farklı olarak Meksika İspanyolcası (es-MX) ve Brezilya Portekizcesi (pt-BR) için özel çeviriler eklendi
-- Çekçe TTS sesli yönlendirmeleri düzeltildi
-
-Ayrıntılı sürüm notlarını web sitemizde kontrol edin: https://organicmaps.app
-
-Organic Maps'i kullandığınız ve projeyi desteklediğiniz için teşekkürler!
-Organic Maps Ekibi
+- iPad'de navigasyon sırasında harita düzeni düzeltildi, böylece rota açıkça görünür kalıyor
+- Bisiklet rotası artık Avusturya'daki tek yönlü yerleşim caddelerini atlıyor
+- Basitleştirilmiş dönel kavşak yönergeleri
+- Karanlık araç modunda daha iyi kontrastla daha parlak yollar

@@ -1,9 +1,9 @@
-• Uthev nedlastede regioner, naturreservater, nasjonalparker, verneområder, aboriginske landområder, fareområder, innsjøer på verdenskartet
-• Ruting støtter veistengingstider
-• Ferske OSM-kart per 9. november
-• Fikset krasj og ruting, inkludert Android Auto
-• Lagt til urmakere, studentboliger, reisebyråer
-• Lagt til støtte for slovensk språk i søk
-• Stemmeanvisninger på estisk, galisisk, hebraisk og litauisk
-
+• Wikipedia-artikler på tyrkisk, japansk og kinesisk, skriv ?wiki for å se dem på kartet
+• Ny innstilling for å visuelt fremheve nedlastede områder på kartet
+• Importer Google Takeout-bokmerker og lagrede steder via GeoJSON
+• OSM-data per 23. november
+• Forbedret lydavspilling og lydavbrudd
+• Fikset krasj i redigeringsprogrammet og ved nedlasting av kart
+• Lysere veier i mørk kjøretøymodus
+• Forbedret sykkelruting i Østerrike
 …mer på omaps.org/news

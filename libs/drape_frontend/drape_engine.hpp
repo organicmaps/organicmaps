@@ -55,8 +55,8 @@ public:
            gui::TWidgetsInitInfo && info, location::TMyPositionModeChanged && myPositionModeChanged,
            bool allow3dBuildings, bool trafficEnabled, bool isolinesEnabled, bool blockTapEvents,
            bool showChoosePositionMark, std::vector<m2::TriangleD> && boundAreaTriangles, bool isRoutingActive,
-           bool isAutozoomEnabled, bool simplifiedTrafficColors, std::optional<Arrow3dCustomDecl> arrow3dCustomDecl,
-           OverlaysShowStatsCallback && overlaysShowStatsCallback,
+           bool isAutozoomEnabled, bool simplifiedTrafficColors, dp::BackgroundMode backgroundMode,
+           std::optional<Arrow3dCustomDecl> arrow3dCustomDecl, OverlaysShowStatsCallback && overlaysShowStatsCallback,
            OnGraphicsContextInitialized && onGraphicsContextInitialized,
            dp::RenderInjectionHandler && renderInjectionHandler)
       : m_apiVersion(apiVersion)
@@ -77,6 +77,7 @@ public:
       , m_isRoutingActive(isRoutingActive)
       , m_isAutozoomEnabled(isAutozoomEnabled)
       , m_simplifiedTrafficColors(simplifiedTrafficColors)
+      , m_backgroundMode(backgroundMode)
       , m_arrow3dCustomDecl(std::move(arrow3dCustomDecl))
       , m_overlaysShowStatsCallback(std::move(overlaysShowStatsCallback))
       , m_onGraphicsContextInitialized(std::move(onGraphicsContextInitialized))
@@ -102,6 +103,7 @@ public:
     bool m_isRoutingActive;
     bool m_isAutozoomEnabled;
     bool m_simplifiedTrafficColors;
+    dp::BackgroundMode m_backgroundMode;
     std::optional<Arrow3dCustomDecl> m_arrow3dCustomDecl;
     OverlaysShowStatsCallback m_overlaysShowStatsCallback;
     OnGraphicsContextInitialized m_onGraphicsContextInitialized;

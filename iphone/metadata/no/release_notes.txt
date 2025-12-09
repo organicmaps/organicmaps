@@ -1,33 +1,20 @@
-- NYTT! Uthev nedlastede regioner på verdenskartet
-- NYTT! Se og søk etter naturreservater, nasjonalparker, verneområder, aboriginske landområder, fareområder og innsjøer på verdenskartet fra zoomnivå 8
-- NYTT! Betinget tilgang for ruting, f.eks. for veier som er stengt til bestemte tider
-- Oppdaterte OpenStreetMap-data per 9. november 2025
-- Aktivert estisk, galisisk, hebraisk og litauisk språk for TTS-stemmeanvisninger
-- Fikset et problem med standard og lokaliserte gatenavn ved redigering av adresser
-- Fikset et problem med zoom når du trykker på søkeresultater fra verdenskartet
-- Lagt til lenker til sosiale medier TikTok, Threads og BlueSky på "Om"-skjermen
-- Lagt til "Rapporter en feil" i app-ikonets hurtighandlinger på startskjermen
-- Etter å ha slettet en bokmerke- eller sporliste (via "mer"-knappen), går appen nå riktig tilbake til forrige skjerm
-- Fikset diverse app- og CarPlay-krasj
+- Wikipedia-artikler for steder på tyrkisk, japansk og kinesisk; skriv ?wiki for å se alle artikler på kartet
+- Innstilling for å visuelt fremheve nedlastede regioner på kartet
+- OpenStreetMap-data fra 23. november 2025
 
-### Kart og stiler
+- Rediger et bokmerke eller rutenavn direkte på stedsinformasjonssiden
+- Langt trykk på navnet eller adressen til et valgt sted/bokmerke for å kopiere det
+- Lagt til søk etter en spesifikk liste ved endring fra stedsinformasjonssiden
+- Bruk egendefinerte emojier på stedsinformasjonssiden
+- Fikset animasjoner for sideknapper og fargen på "Last ned kart"-knappen i mørkt tema
+- iOS 26 og macOS 26 "Liquid Glass"-støtte
+- Når du flytter en rute til en liste, blir den listen standard for nye bokmerker/ruter
+- Forbedret GeoJSON-import, inkludert `Saved Places.json` fra Google Takeout
+- Oppdaterte oversettelser på flere språk, inkludert en hebraisk retting
 
-- Byttet om på gjengivelsen av "forlatte" og "nedlagte" jernbaner
-- Lagt til urmakere og studentboliger på kartet
-- Lagt til reisebyråikoner
-- Endret fargen på toalettikonet til grå
-- Oppdaterte ikoner for audiograf, fotterapeut, optiker og høreapparater
-- Fikset ikonet for sykkelutleie i mørk modus
-- Vis navn på delstater i USA/Canada tidligere på verdenskartet (fra zoomnivå 5)
+## Navigasjon og ruteplanlegging
 
-### Oversettelser
-
-- Lagt til slovenske søkesynonymer og aktivert kategorisøk for slovensk
-- Fikset skrivefeil, feil oversettelser og søkesynonymer; lagt til manglende oversettelser for mange språk
-- Lagt til spesifikke oversettelser for meksikansk spansk (es-MX) og brasiliansk portugisisk (pt-BR), atskilt fra standard spansk (es) og portugisisk (pt)
-- Korrigerte tsjekkiske TTS-stemmeanvisninger
-
-Sjekk detaljerte utgivelsesnotater på nettstedet vårt: https://organicmaps.app
-
-Takk for at du bruker Organic Maps og støtter prosjektet!
-Organic Maps-teamet
+- Kartoppsett fikset under navigasjon på iPad slik at ruten forblir tydelig synlig
+- Sykkelruter hopper nå over enveiskjørte boliggater i Østerrike
+- Forenklede rundkjøringsinstruksjoner
+- Veier er lysere med bedre kontrast i mørk kjøretøymodus

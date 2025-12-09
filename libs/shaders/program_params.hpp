@@ -17,6 +17,7 @@
 
 namespace gpu
 {
+// Note: value must be synchronized with shaders tile_background.vsh.glsl and tile_background.metal
 constexpr uint32_t kTileBackgroundMaxCount = 64;
 
 class ProgramParams
@@ -227,7 +228,7 @@ struct ALIGNMENT TileBackgroundProgramParams
   glsl::mat4 m_projection;
   glsl::mat4 m_pivotTransform;
 
-  BIND_PROGRAMS(TileBackgroundProgramParams, Program::TileBackground)
+  BIND_PROGRAMS(TileBackgroundProgramParams, Program::TileBackground, Program::TileBackgroundArray)
   IS_STORAGE_BUFFER_BOUND()
 };
 

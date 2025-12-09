@@ -16,13 +16,12 @@
 #include <iterator>
 #include <queue>
 #include <set>
-#include <tuple>
-
-using namespace std;
-using namespace routing;
 
 namespace openlr
 {
+using namespace std;
+using namespace routing;
+
 namespace cpg
 {
 int const kNumBuckets = 256;
@@ -209,8 +208,8 @@ void CandidatePathsGetter::GetBestCandidatePaths(vector<LinkPtr> const & allPath
       auto const bearEndPoint = pointsSelector.GetEndPoint(part->m_edge, part->m_distanceM);
 
       auto const bearing = cpg::Bearing(bearStartPoint, bearEndPoint);
-      auto const bearingDiff = AbsDifference(bearing, requiredBearing);
-      auto const pathDistDiff = AbsDifference(part->m_distanceM, bearDistM);
+      auto const bearingDiff = math::AbsDiff(bearing, requiredBearing);
+      auto const pathDistDiff = math::AbsDiff(part->m_distanceM, bearDistM);
 
       // TODO(mgsergio): Check bearing is within tolerance. Add to canidates if it is.
 

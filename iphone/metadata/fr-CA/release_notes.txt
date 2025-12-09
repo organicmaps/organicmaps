@@ -1,33 +1,20 @@
-- NOUVEAU ! Mettez en surbrillance les régions téléchargées sur la carte du monde
-- NOUVEAU ! Affichez et recherchez des réserves naturelles, des parcs nationaux, des zones protégées, des terres aborigènes, des zones de danger et des lacs sur la carte du monde à partir du niveau de zoom 8
-- NOUVEAU ! Accès conditionnel pour le routage, par exemple pour les routes fermées à certaines heures
-- Données OpenStreetMap mises à jour au 9 novembre 2025
-- Activation des langues estonienne, galicienne, hébraïque et lituanienne pour les instructions vocales TTS
-- Correction d'un problème avec les noms de rue par défaut et localisés lors de la modification des adresses
-- Correction d'un problème de zoom en appuyant sur les résultats de recherche de la carte du monde
-- Ajout des liens vers les médias sociaux TikTok, Threads et BlueSky sur l'écran "À propos"
-- Ajout de "Signaler un bogue" aux actions rapides de l'icône de l'application sur l'écran d'accueil
-- Après la suppression d'une liste de signets ou de traces (via le bouton "plus"), l'application revient maintenant correctement à l'écran précédent
-- Correction de divers plantages de l'application et de CarPlay
+- Articles Wikipédia pour les lieux en turc, japonais et chinois; tapez ?wiki pour voir tous les articles sur la carte
+- Paramètre pour mettre en évidence visuellement les régions téléchargées sur la carte
+- Données OpenStreetMap du 23 novembre 2025
 
-### Carte et styles
+- Modifiez le nom d'un signet ou d'un tracé directement sur la page d'informations du lieu
+- Appuyez longuement sur le nom ou l'adresse d'un lieu/signet sélectionné pour le copier
+- Ajout de la recherche d'une liste spécifique lors de son changement depuis la page d'informations du lieu
+- Utilisez des emojis personnalisés sur la page d'informations du lieu
+- Animations corrigées pour les boutons latéraux et la couleur du bouton « Télécharger les cartes » en thème sombre
+- Support iOS 26 et macOS 26 « Liquid Glass »
+- Lorsque vous déplacez un tracé vers une liste, celle-ci devient la liste par défaut pour les nouveaux signets/tracés
+- Importation GeoJSON améliorée, y compris `Saved Places.json` de Google Takeout
+- Traductions mises à jour dans plusieurs langues, y compris une correction en hébreu
 
-- Interversion du rendu des voies ferrées "abandonnées" et "désaffectées"
-- Ajout des horlogers et des logements étudiants à la carte
-- Ajout d'icônes d'agences de voyage
-- Changement de la couleur de l'icône des toilettes en gris
-- Mise à jour des icônes d'audiologiste, de podiatre, d'optométriste et d'appareils auditifs
-- Correction de l'icône de location de vélos en mode sombre
-- Affichage des noms d'États américains/canadiens plus tôt sur la carte du monde (à partir du niveau de zoom 5)
+## Navigation et itinéraires
 
-### Traductions
-
-- Ajout de synonymes de recherche en slovène et activation de la recherche par catégorie pour le slovène
-- Correction de fautes de frappe, de traductions incorrectes et de synonymes de recherche ; ajout de traductions manquantes pour de nombreuses langues
-- Ajout de traductions spécifiques pour l'espagnol mexicain (es-MX) et le portugais brésilien (pt-BR), distinctes de l'espagnol standard (es) et du portugais (pt)
-- Correction des instructions vocales TTS en tchèque
-
-Consultez les notes de version détaillées sur notre site Web : https://organicmaps.app
-
-Merci d'utiliser Organic Maps et de soutenir le projet !
-L'équipe d'Organic Maps
+- Disposition de la carte corrigée pendant la navigation sur iPad pour que l'itinéraire reste clairement visible
+- Le calcul d'itinéraires vélo évite maintenant les rues résidentielles à sens unique en Autriche
+- Instructions de rond-point simplifiées
+- Les routes sont plus lumineuses avec un meilleur contraste en mode véhicule sombre

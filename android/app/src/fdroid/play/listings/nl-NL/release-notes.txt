@@ -1,8 +1,8 @@
-• Markeer gedownloade regio's, natuurreservaten, nationale parken, beschermde gebieden, Aboriginal-landen, gevarenzones en meren op de wereldkaart
-• Routering ondersteunt tijden voor wegafsluitingen
-• Nieuwe OSM-kaarten per 9 november
-• Crashes en routering opgelost, inclusief Android Auto
-• Uurwerkmakers, studentenhuisvesting en reisbureaus toegevoegd
-• Gesproken aanwijzingen in het Ests, Galicisch, Hebreeuws en Litouws
-
+• Wikipedia-artikelen in het Turks, Japans en Chinees, typ ?wiki om ze op de kaart te zien
+• Nieuwe instelling om gedownloade regio's visueel te markeren op de kaart
+• Importeer Google Takeout-bladwijzers en opgeslagen plaatsen via GeoJSON
+• OSM-gegevens van 23 november
+• Verbeterde audioweergave en geluidsonderbrekingen
+• Crashes in de editor en bij het downloaden van kaarten opgelost
+• Helderdere wegen in donkere voertuigmodus
 …meer op omaps.org/nl/news

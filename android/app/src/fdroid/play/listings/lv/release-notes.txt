@@ -1,8 +1,9 @@
-• Pasaules kartē izceliet lejupielādētos reģionus, dabas rezervātus, nacionālos parkus, aizsargājamās teritorijas, aborigēnu zemes, bīstamās zonas, ezerus
-• Maršrutēšana atbalsta ceļu slēgšanas laikus
-• Svaigas OSM kartes no 9. novembra
-• Izlabotas avārijas un maršrutēšana, tostarp Android Auto
-• Pievienoti pulksteņmeistari, studentu kopmītnes, ceļojumu aģentūras
-• Balss norādes igauņu, galisiešu, ivritā un lietuviešu valodā
-
-…vairāk vietnē omaps.org/news
+• Vikipēdijas raksti turku, japāņu un ķīniešu valodā, ierakstiet ?wiki, lai tos redzētu kartē
+• Jauns iestatījums lejupielādēto reģionu vizuālai izcelšanai kartē
+• Importējiet Google Takeout grāmatzīmes un saglabātās vietas caur GeoJSON
+• OSM dati uz 23. novembri
+• Uzlabota audio atskaņošana un skaņas pārtraukumi
+• Laboti avārijas redaktorā un karšu lejupielādē
+• Spilgtāki ceļi tumšajā transportlīdzekļa režīmā
+• Uzlabota velosipēdu maršrutēšana Austrijā
+…vairāk omaps.org/news

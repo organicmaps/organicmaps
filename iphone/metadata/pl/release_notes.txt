@@ -1,33 +1,20 @@
-- NOWOŚĆ! Podświetlanie pobranych regionów na mapie świata
-- NOWOŚĆ! Wyświetlanie i wyszukiwanie rezerwatów przyrody, parków narodowych, obszarów chronionych, ziem Aborygenów, obszarów niebezpiecznych i jezior na mapie świata od 8. poziomu powiększenia
-- NOWOŚĆ! Warunkowy dostęp do wyznaczania tras, np. dla dróg, które są zamknięte w określonych godzinach
-- Zaktualizowane dane OpenStreetMap z dnia 9 listopada 2025 r.
-- Włączono języki estoński, galicyjski, hebrajski i litewski dla wskazówek głosowych TTS
-- Naprawiono problem z domyślnymi i zlokalizowanymi nazwami ulic podczas edycji adresów
-- Naprawiono problem z powiększaniem po dotknięciu wyników wyszukiwania z mapy świata
-- Dodano linki do mediów społecznościowych TikTok, Threads i BlueSky na ekranie "O aplikacji"
-- Dodano "Zgłoś błąd" do szybkich akcji ikony aplikacji na ekranie głównym
-- Po usunięciu listy zakładek lub tras (za pomocą przycisku "więcej"), aplikacja teraz poprawnie wraca do poprzedniego ekranu
-- Naprawiono różne awarie aplikacji i CarPlay
+- Artykuły Wikipedii dla miejsc po turecku, japońsku i chińsku; wpisz ?wiki, aby zobaczyć wszystkie artykuły na mapie
+- Ustawienie do wizualnego wyróżniania pobranych regionów na mapie
+- Dane OpenStreetMap z 23 listopada 2025
 
-### Mapa i style
+- Edytuj nazwę zakładki lub trasy bezpośrednio na stronie informacji o miejscu
+- Przytrzymaj nazwę lub adres wybranego miejsca/zakładki, aby skopiować
+- Dodano wyszukiwanie określonej listy podczas jej zmiany ze strony informacji o miejscu
+- Używaj niestandardowych emoji na stronie informacji o miejscu
+- Naprawiono animacje przycisków bocznych i kolor przycisku "Pobierz mapy" w ciemnym motywie
+- Wsparcie dla iOS 26 i macOS 26 "Liquid Glass"
+- Po przeniesieniu trasy na listę, ta lista staje się domyślną dla nowych zakładek/tras
+- Ulepszony import GeoJSON, w tym `Saved Places.json` z Google Takeout
+- Zaktualizowane tłumaczenia w wielu językach, w tym poprawka hebrajskiego
 
-- Zamieniono renderowanie "opuszczonych" i "nieużywanych" linii kolejowych
-- Dodano zegarmistrzów i kwatery studenckie do mapy
-- Dodano ikony biur podróży
-- Zmieniono kolor ikony toalety na szary
-- Zaktualizowano ikony audiologa, podologa, optometrysty i aparatów słuchowych
-- Naprawiono ikonę wypożyczalni rowerów w trybie ciemnym
-- Wyświetlanie nazw stanów USA/Kanady wcześniej na mapie świata (od 5. poziomu powiększenia)
+## Nawigacja i wyznaczanie tras
 
-### Tłumaczenia
-
-- Dodano słoweńskie synonimy wyszukiwania i włączono wyszukiwanie kategorii dla języka słoweńskiego
-- Poprawiono literówki, nieprawidłowe tłumaczenia i synonimy wyszukiwania; dodano brakujące tłumaczenia dla wielu języków
-- Dodano specyficzne tłumaczenia для meksykańskiego hiszpańskiego (es-MX) i brazylijskiego portugalskiego (pt-BR), odrębne od standardowego hiszpańskiego (es) i portugalskiego (pt)
-- Poprawiono czeskie wskazówki głosowe TTS
-
-Sprawdź szczegółowe informacje o wydaniu na naszej stronie internetowej: https://organicmaps.app
-
-Dziękujemy za korzystanie z Organic Maps i wspieranie projektu!
-Zespół Organic Maps
+- Naprawiono układ mapy podczas nawigacji na iPadzie, aby trasa była wyraźnie widoczna
+- Routing rowerowy pomija teraz jednokierunkowe ulice mieszkalne w Austrii
+- Uproszczone wskazówki dotyczące rond
+- Drogi są jaśniejsze z lepszym kontrastem w ciemnym trybie pojazdu

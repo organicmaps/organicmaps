@@ -131,6 +131,14 @@ jobs:
           ninja --version
           ./gradlew -P${{ matrix.arch }} assemble${{ matrix.flavor }}
 
+      - name: Free disk space for emulator
+        if: matrix.run-tests == true
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo docker image prune --all --force > /dev/null
+
       - name: Enable KVM
         if: matrix.run-tests == true
         run: |

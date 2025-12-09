@@ -1,4 +1,4 @@
-#import "StringUtils.h"
+#import "StringUtils+Core.h"
 #import "TrackInfo+Core.h"
 
 @implementation TrackInfo

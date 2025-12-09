@@ -204,13 +204,15 @@ bool RenderState::operator!=(RenderState const & other) const
   return !operator==(other);
 }
 
-uint8_t TextureState::m_usedSlots = 0;
+std::vector<glConst> TextureState::m_usedTextureTypes;
 
 void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState const & state,
                                  ref_ptr<GpuProgram> program)
 {
-  m_usedSlots = 0;
+  m_usedTextureTypes.clear();
+  m_usedTextureTypes.reserve(state.GetTextures().size());
   auto const apiVersion = context->GetApiVersion();
+  uint8_t slot = 0;
   if (apiVersion == dp::ApiVersion::OpenGLES3)
   {
     ref_ptr<dp::GLGpuProgram> p = program;
@@ -220,11 +222,12 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
       int texLoc = -1;
       if (tex != nullptr && (texLoc = p->GetUniformLocation(texture.first)) >= 0)
       {
-        GLFunctions::glActiveTexture(gl_const::GLTexture0 + m_usedSlots);
+        GLFunctions::glActiveTexture(gl_const::GLTexture0 + slot);
         tex->Bind(context);
-        GLFunctions::glUniformValuei(texLoc, m_usedSlots);
+        GLFunctions::glUniformValuei(texLoc, slot);
         tex->SetFilter(state.GetTextureFilter());
-        m_usedSlots++;
+        slot++;
+        m_usedTextureTypes.push_back(tex->GetHardwareTexture()->GetTarget());
       }
     }
   }
@@ -275,9 +278,9 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
   }
 }
 
-uint8_t TextureState::GetLastUsedSlots()
+std::vector<glConst> const & TextureState::GetLastUsedTextureTypes()
 {
-  return m_usedSlots;
+  return m_usedTextureTypes;
 }
 
 void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, RenderState const & state)
