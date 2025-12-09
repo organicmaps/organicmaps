@@ -31,6 +31,7 @@ class BottomTabBarViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.alpha = 0 // Hide the view until it receives a first available area update.
     presenter.configure()
   }
   
@@ -82,7 +83,7 @@ class BottomTabBarViewController: UIViewController {
                           y: isHidden ? avaliableArea.minY + avaliableArea.height : avaliableArea.minY,
                           width: avaliableArea.width,
                           height: avaliableArea.height)
-    let alpha:CGFloat = isHidden ? 0 : 1
+    let alpha: CGFloat = isHidden ? 0 : 1
     if animated {
       UIView.animate(withDuration: kDefaultAnimationDuration,
                      delay: 0,
