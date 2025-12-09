@@ -104,7 +104,7 @@ boundary-protected_area-3                           # icon z11-17 (also has capt
 boundary-protected_area-4                           # icon z11-17 (also has caption(optional) z12-17)
 boundary-protected_area-5                           # icon z11-17 (also has caption(optional) z12-17)
 boundary-protected_area-6                           # icon z11-17 (also has caption(optional) z12-17)
-leisure-nature_reserve                              # icon z11-17 and caption z8-9 (also has caption(optional) z12-17, area z8-17)
+leisure-nature_reserve                              # icon z11-17 and caption z9 (also has caption(optional) z12-17, area z8-17)
 === 6700
 
 landuse-reservoir                                   # caption z10- (also has area z12-)
@@ -323,8 +323,8 @@ tourism-theme_park                                  # icon z14- (also has captio
 tourism-zoo                                         # icon z13- (also has caption(optional) z13-)
 === 5200
 
-xmas:feature-market
-xmas:feature-tree
+xmas:feature-market                                 # icon z15- (also has caption(optional) z16-)
+xmas:feature-tree                                   # icon z15- (also has caption(optional) z16-)
 === 5150
 
 amenity-hospital                                    # icon z14- (also has caption(optional) z15-, area z14-)
@@ -1327,7 +1327,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # boundary-protected_area-4                         # caption(optional) z12-17 (also has icon z11-17)
 # boundary-protected_area-5                         # caption(optional) z12-17 (also has icon z11-17)
 # boundary-protected_area-6                         # caption(optional) z12-17 (also has icon z11-17)
-# leisure-nature_reserve                            # caption(optional) z12-17 (also has icon z11-17, caption z8-9, area z8-17)
+# leisure-nature_reserve                            # caption(optional) z12-17 (also has icon z11-17, caption z9, area z8-17)
 # === -3300
 
 # barrier-toll_booth                                # caption(optional) z14- (also has icon z12-)
@@ -1498,6 +1498,10 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # tourism-theme_park                                # caption(optional) z14- (also has icon z14-)
 # tourism-zoo                                       # caption(optional) z13- (also has icon z13-)
 # === -4800
+
+# xmas:feature-market                               # caption(optional) z16- (also has icon z15-)
+# xmas:feature-tree                                 # caption(optional) z16- (also has icon z15-)
+# === -4850
 
 # amenity-hospital                                  # caption(optional) z15- (also has icon z14-, area z14-)
 # amenity-university                                # caption(optional) z14- (also has icon z14-, area z14-)
