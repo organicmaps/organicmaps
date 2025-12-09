@@ -1638,3 +1638,5 @@ amenity|recycling|container
 *amenity|student_accommodation
 *craft|watchmaker
 *organicapp|mwm_border
+*xmas:feature|market
+*xmas:feature|tree
