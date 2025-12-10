@@ -61,7 +61,7 @@ if (PLATFORM_MAC)
   set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES)
 endif()
 
-target_compile_definitions(${PROJECT_NAME} 
+target_compile_definitions(${PROJECT_NAME}
   PRIVATE
     $<$<BOOL:${PLATFORM_LINUX}>:VK_USE_PLATFORM_XLIB_KHR>
     $<$<BOOL:${PLATFORM_WIN}>:VK_USE_PLATFORM_WIN32_KHR>
@@ -117,5 +117,5 @@ copy_resources(
 
 if (NOT PLATFORM_LINUX)
   # On Linux, ICU data is loaded from the shared library.
-  copy_resources(icudt75l.dat)
+  copy_resources(icudt78l.dat)
 endif()
