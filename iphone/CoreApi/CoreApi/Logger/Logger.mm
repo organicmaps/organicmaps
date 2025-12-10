@@ -242,7 +242,7 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
   // Log the message into the system log.
   os_log([self logger].osLogger, "%{public}s", logString.c_str());
 
-  if (level < base::GetDefaultLogAbortLevel())
+  if (level < LINFO)
     dispatch_async([self fileLoggingQueue], ^{ [self tryWriteToFile:logString]; });
   else
     [self tryWriteToFile:logString];
