@@ -114,11 +114,12 @@ size_t ScriptInterval(std::u16string const & text, int32_t start, size_t length,
 
   while (iterator != end)
   {
+    auto prev = iterator;
     c32 = utf8::unchecked::next16(iterator);
     scriptsSize = ScriptSetIntersect(c32, scripts, scriptsSize);
     if (scriptsSize == 0U)
     {
-      length = iterator - begin - 1;
+      length = prev - begin;
       break;
     }
   }
