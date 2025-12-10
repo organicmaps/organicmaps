@@ -24,6 +24,8 @@ add_library(icuuc
   icu/icu4c/source/common/dictionarydata.h
   icu/icu4c/source/common/edits.cpp
   icu/icu4c/source/common/emojiprops.cpp
+  icu/icu4c/source/common/fixedstring.cpp
+  icu/icu4c/source/common/fixedstring.h
   icu/icu4c/source/common/hash.h
   icu/icu4c/source/common/icuplugimp.h
   icu/icu4c/source/common/loadednormalizer2impl.cpp
