@@ -4,8 +4,6 @@
 
 #include <sstream>
 #include <tuple>
-#include <utility>
-#include <vector>
 
 namespace routing
 {
@@ -90,7 +88,7 @@ SpeedInUnits FeatureMaxspeed::GetBackwardSpeedInUnits() const
 // MaxspeedConverter -------------------------------------------------------------------------------
 MaxspeedConverter::MaxspeedConverter()
 {
-  vector<tuple<SpeedMacro, MaxspeedType, Units>> const table = {
+  tuple<SpeedMacro, MaxspeedType, Units> const table[] = {
       // Special values.
       {SpeedMacro::Undefined, kInvalidSpeed /* speed */, Units::Metric},
       {SpeedMacro::None, kNoneMaxSpeed /* speed */, Units::Metric},
@@ -233,15 +231,10 @@ MaxspeedConverter::MaxspeedConverter()
   };
 
   for (auto const & e : table)
-    m_macroToSpeed[static_cast<uint8_t>(get<0>(e))] = SpeedInUnits(get<1>(e), get<2>(e));
-
-  ASSERT_EQUAL(static_cast<uint8_t>(SpeedMacro::Undefined), 0, ());
-  m_speedToMacro.insert(make_pair(SpeedInUnits(kInvalidSpeed, Units::Metric), SpeedMacro::Undefined));
-  for (size_t i = 1; i < numeric_limits<uint8_t>::max(); ++i)
   {
-    auto const & speed = m_macroToSpeed[i];
-    if (speed.IsValid())
-      m_speedToMacro.insert(make_pair(speed, static_cast<SpeedMacro>(i)));
+    SpeedInUnits speed(get<1>(e), get<2>(e));
+    m_macroToSpeed[static_cast<uint8_t>(get<0>(e))] = speed;
+    m_speedToMacro.emplace(speed, get<0>(e));
   }
 }
 
@@ -290,8 +283,8 @@ SpeedInUnits MaxspeedConverter::ClosestValidMacro(SpeedInUnits const & speed) co
     auto const Diff = [&speed](SpeedInUnits const & rhs)
     {
       if (speed.GetUnits() != rhs.GetUnits())
-        return std::numeric_limits<int>::max();
-      return abs(int(rhs.GetSpeed()) - int(speed.GetSpeed()));
+        return std::numeric_limits<MaxspeedType>::max();
+      return math::AbsDiff(rhs.GetSpeed(), speed.GetSpeed());
     };
 
     if (Diff(it2->first) < Diff(it->first))
