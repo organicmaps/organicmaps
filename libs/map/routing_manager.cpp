@@ -79,6 +79,45 @@ void FillTrafficForRendering(vector<RouteSegment> const & segments, vector<traff
     traffic.push_back(s.GetTraffic());
 }
 
+float SlopeToDifficulty(float slope, df::RouteType routeType)
+{
+  float difficulty = 0.0f;
+  if (routeType == df::RouteType::Pedestrian)
+  {
+    difficulty = abs(slope);  // going uphill and going downhill are of the same difficulty
+  }
+  else if (routeType == df::RouteType::Bicycle)
+  {
+    float const slopeDifficultyCoef = 2.0;
+    difficulty = std::max(slope, 0.0f) * slopeDifficultyCoef;  // riding uphill is difficult
+  }
+  difficulty = std::min(difficulty, 1.0f);  // cut overflow
+  return difficulty;
+}
+
+void FillDifficultiesForRendering(Route::SubrouteAttrs const & subrouteAttrs, df::RouteType routeType,
+                                  vector<RouteSegment> const & segments, vector<float> & difficulties)
+{
+  difficulties.clear();
+  difficulties.reserve(segments.size());
+  auto prevAltitude = subrouteAttrs.GetStart().GetAltitude();
+  auto prevPoint = subrouteAttrs.GetStart().GetPoint();
+
+  for (auto const & s : segments)
+  {
+    auto altitude = s.GetJunction().GetAltitude();
+    auto point = s.GetJunction().GetPoint();
+    auto height = altitude - prevAltitude;
+    auto length = mercator::DistanceOnEarth(prevPoint, point);
+    float slope = (length < 1) ? 0.0f : height / length;
+
+    difficulties.push_back(SlopeToDifficulty(slope, routeType));
+
+    prevAltitude = altitude;
+    prevPoint = point;
+  }
+}
+
 RouteMarkData GetLastPassedPoint(BookmarkManager * bmManager, vector<RouteMarkData> const & points)
 {
   ASSERT_GREATER_OR_EQUAL(points.size(), 2, ());
@@ -698,12 +737,16 @@ bool RoutingManager::InsertRoute(Route const & route)
     {
       subroute->m_routeType = df::RouteType::Pedestrian;
       subroute->AddStyle(df::SubrouteStyle(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0)));
+      FillDifficultiesForRendering(route.GetSubrouteAttrs(subrouteIndex), subroute->m_routeType, segments,
+                                   subroute->m_difficulties);
       break;
     }
     case RouterType::Bicycle:
     {
       subroute->m_routeType = df::RouteType::Bicycle;
       subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle, df::RoutePattern(8.0, 2.0)));
+      FillDifficultiesForRendering(route.GetSubrouteAttrs(subrouteIndex), subroute->m_routeType, segments,
+                                   subroute->m_difficulties);
       FillTurnsDistancesForRendering(segments, subroute->m_baseDistance, subroute->m_turns);
       break;
     }
