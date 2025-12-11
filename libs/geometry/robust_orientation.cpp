@@ -1,9 +1,5 @@
 #include "geometry/robust_orientation.hpp"
 
-#include "base/macros.hpp"
-
-#include <algorithm>
-
 extern "C"
 {
 #if defined(__clang__)
@@ -18,18 +14,14 @@ extern "C"
 
 namespace m2::robust
 {
-bool Init()
+
+struct DoInit
 {
-  exactinit();
-  return true;
-}
+  DoInit() { exactinit(); }
+} g_init;
 
 double OrientedS(PointD const & p1, PointD const & p2, PointD const & p)
 {
-  static bool const res = Init();
-  ASSERT_EQUAL(res, true, ());
-  UNUSED_VALUE(res);
-
   double a[] = {p1.x, p1.y};
   double b[] = {p2.x, p2.y};
   double c[] = {p.x, p.y};
