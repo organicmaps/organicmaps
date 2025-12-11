@@ -16,6 +16,7 @@
 
 #include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/robust_orientation.hpp"
 #include "geometry/smoothing.hpp"
 
 #include "drape/color.hpp"
@@ -529,25 +530,20 @@ void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, 
     m2::ClipTriangleByRect(m_params.m_tileRect, p1, p3, p2, clipFunctor);
 }
 
+// Not sure with kEmptyTriangleS, check these:
+// https://github.com/organicmaps/organicmaps/issues/2643
+// https://github.com/organicmaps/organicmaps/issues/2862
+// https://github.com/organicmaps/organicmaps/issues/8903
 void ApplyAreaFeature::ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
 {
-  // For building we must filter degenerate polygons because now we have to reconstruct
-  // building outline by bunch of polygons.
-  // TODO(pastk) : filter degenerates in the generator.(see a TODO above).
-  m2::PointD const v1 = p2 - p1;
-  m2::PointD const v2 = p3 - p1;
-  if (v1.IsAlmostZero() || v2.IsAlmostZero())
+  double const crossProduct = m2::robust::OrientedS(p2, p3, p1);
+  // #ifdef DEBUG
+  //   if (fabs(m2::CrossProduct((p2-p1).Normalize(), (p3-p1).Normalize())) < 0.01)
+  //     LOG(LWARNING, ("[CP]", crossProduct));
+  // #endif
+  double constexpr kEmptyTriangleS = kMwmPointAccuracy * kMwmPointAccuracy * 0.01;
+  if (fabs(crossProduct) < kEmptyTriangleS)
     return;
-
-  double const crossProduct = m2::CrossProduct(v1.Normalize(), v2.Normalize());
-  double constexpr kEps = 0.01;
-  if (fabs(crossProduct) < kEps)
-    return;
-
-  // Triangles near to degenerate are drawn two-side, because we can't strictly determine
-  // vertex traversal direction.
-  double constexpr kTwoSideEps = 0.05;
-  bool const isTwoSide = fabs(crossProduct) < kTwoSideEps;
 
   auto const i1 = GetIndex(p1);
   auto const i2 = GetIndex(p2);
@@ -557,14 +553,14 @@ void ApplyAreaFeature::ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD 
     m_triangles.push_back(p1);
     m_triangles.push_back(p2);
     m_triangles.push_back(p3);
-    BuildEdges(i1, i2, i3, isTwoSide);
+    BuildEdges(i1, i2, i3, false /* isTwoSide */);
   }
   else
   {
     m_triangles.push_back(p1);
     m_triangles.push_back(p3);
     m_triangles.push_back(p2);
-    BuildEdges(i1, i3, i2, isTwoSide);
+    BuildEdges(i1, i3, i2, false /* isTwoSide */);
   }
 }
 
