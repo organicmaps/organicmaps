@@ -11,8 +11,6 @@ namespace m2
 {
 namespace robust
 {
-bool Init();
-
 /// @return > 0, (p1, p2, p) - is CCW (left oriented)
 ///         < 0, (p1, p2, p) - is CW (right oriented)
 /// Same as CrossProduct(p1 - p, p2 - p), but uses robust calculations.
