@@ -19,6 +19,7 @@ import app.organicmaps.editor.data.TimeFormatUtils;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
 import app.organicmaps.sdk.editor.OpeningHours;
+import app.organicmaps.sdk.editor.data.OpeningHoursInfo;
 import app.organicmaps.sdk.editor.data.Timespan;
 import app.organicmaps.sdk.editor.data.Timetable;
 import app.organicmaps.util.ThemeUtils;
@@ -28,6 +29,7 @@ import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class PlacePageOpeningHoursFragment extends Fragment implements Observer<MapObject>
 {
@@ -76,7 +78,6 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   {
     UiUtils.setTextAndShow(mTodayLabel, label);
     UiUtils.setTextAndShow(mTodayOpenTime, openTime);
-
     mTodayLabel.setTextColor(color);
     mTodayOpenTime.setTextColor(color);
   }
@@ -85,7 +86,6 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   {
     UiUtils.setTextAndShow(mTodayLabel, label);
     UiUtils.hide(mTodayOpenTime);
-
     mTodayLabel.setTextColor(color);
     mTodayOpenTime.setTextColor(color);
   }
@@ -96,16 +96,49 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
     mFrame.setOnLongClickListener((v) -> {
       PlacePageUtils.copyToClipboard(requireContext(), mFrame,
-                                     TimeFormatUtils.formatTimetables(getResources(), ohStr, timetables));
+          TimeFormatUtils.formatTimetables(getResources(), ohStr, timetables));
       return true;
     });
 
+    // Public holiday handling
+    long[] holidays = mapObject.getPublicHolidays();
+    java.util.Map<Long, String> holidayNames = mapObject.getPublicHolidayNames();
+    final long currentTime = System.currentTimeMillis() / 1000;
+    final OpeningHoursInfo ohInfo =
+        (ohStr != null && !ohStr.isEmpty()) ? OpeningHours.nativeGetInfo(ohStr, holidays, currentTime) : null;
+    final boolean isHoliday = (ohInfo != null && ohInfo.isHoliday());
+    final boolean hasPHRules = ohStr != null && ohStr.contains("PH");
+    String holidayName = null;
+    if (isHoliday && hasPHRules && holidayNames != null && !holidayNames.isEmpty())
+    {
+      Calendar today = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+      today.set(Calendar.HOUR_OF_DAY, 0);
+      today.set(Calendar.MINUTE, 0);
+      today.set(Calendar.SECOND, 0);
+      today.set(Calendar.MILLISECOND, 0);
+      long todayTs = today.getTimeInMillis() / 1000;
+      holidayName = holidayNames.getOrDefault(todayTs, null);
+      if (holidayName == null)
+      {
+        long todayDays = todayTs / 86400L;
+        for (java.util.Map.Entry<Long, String> e : holidayNames.entrySet())
+        {
+          if (e.getKey() / 86400L == todayDays)
+          {
+            holidayName = e.getValue();
+            break;
+          }
+        }
+      }
+    }
+
     final boolean isEmptyTT = (timetables == null || timetables.length == 0);
     final int color = ThemeUtils.getColor(requireContext(), android.R.attr.textColorPrimary);
+    final Resources resources = getResources();
 
     if (isEmptyTT)
     {
-      // 'opening_hours' tag wasn't parsed either because it's empty or wrong format.
+     // 'opening_hours' tag wasn't parsed either because it's empty or wrong format.
       if (!ohStr.isEmpty())
       {
         UiUtils.show(mFrame);
@@ -114,68 +147,109 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
         UiUtils.hide(mFullWeekOpeningHours);
       }
       else
-        UiUtils.hide(mFrame);
-    }
-    else
-    {
-      UiUtils.show(mFrame);
-      final Resources resources = getResources();
-      if (timetables[0].isFullWeek())
       {
-        final Timetable tt = timetables[0];
-        if (tt.isFullday)
+        UiUtils.hide(mFrame);
+      }
+      return;
+    }
+
+    UiUtils.show(mFrame);
+
+    if (timetables[0].isFullWeek())
+    {
+      Timetable tt = timetables[0];
+      if (hasPHRules && isHoliday && ohInfo != null)
+      {
+        if (ohInfo.getState() == OpeningHoursInfo.State.CLOSED)
         {
-          refreshTodayOpeningHours(resources.getString(R.string.twentyfour_seven), color);
-          UiUtils.clearTextAndHide(mTodayNonBusinessTime);
+          String label = resources.getString(R.string.day_off_today);
+          if (holidayName != null) label += " (" + holidayName + ")";
+          refreshTodayOpeningHours(label, ContextCompat.getColor(requireContext(), R.color.base_red));
           UiUtils.hide(mTodayNonBusinessTime);
         }
-        else
+        else if (ohInfo.getState() == OpeningHoursInfo.State.OPEN)
         {
-          refreshTodayOpeningHours(resources.getString(R.string.daily), tt.workingTimespan.toWideString(), color);
+          String label = resources.getString(R.string.daily);
+          if (holidayName != null) label += " (" + holidayName + ")";
+          refreshTodayOpeningHours(label, tt.isFullday ? resources.getString(R.string.twentyfour_seven) : tt.workingTimespan.toWideString(), color);
           refreshTodayNonBusinessTime(tt.closedTimespans);
         }
-        UiUtils.hide(mFullWeekOpeningHours);
+      }
+      else if (tt.isFullday)
+      {
+        refreshTodayOpeningHours(resources.getString(R.string.twentyfour_seven), color);
+        UiUtils.hide(mTodayNonBusinessTime);
       }
       else
       {
-        // Show whole week time table.
-        int firstDayOfWeek = Calendar.getInstance(Locale.getDefault()).getFirstDayOfWeek();
-        mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
-        UiUtils.show(mFullWeekOpeningHours);
+        refreshTodayOpeningHours(resources.getString(R.string.daily), tt.workingTimespan.toWideString(), color);
+        refreshTodayNonBusinessTime(tt.closedTimespans);
+      }
+      UiUtils.hide(mFullWeekOpeningHours);
+      return;
+    }
 
-        // Show today's open time + non-business time.
-        boolean containsCurrentWeekday = false;
-        final int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        for (Timetable tt : timetables)
+    // Weekday timetable
+    int firstDayOfWeek = Calendar.getInstance(Locale.getDefault()).getFirstDayOfWeek();
+    mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
+    UiUtils.show(mFullWeekOpeningHours);
+
+    int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+    boolean containsCurrentWeekday = false;
+
+    for (Timetable tt : timetables)
+    {
+      if (tt.containsWeekday(currentDay))
+      {
+        containsCurrentWeekday = true;
+        String openTime = tt.isFullday ? Utils.unCapitalize(resources.getString(R.string.editor_time_allday))
+                                       : tt.workingTimespan.toWideString();
+        if (hasPHRules && isHoliday && ohInfo != null)
         {
-          if (tt.containsWeekday(currentDay))
+          if (ohInfo.getState() == OpeningHoursInfo.State.CLOSED)
           {
-            containsCurrentWeekday = true;
-            String openTime;
-
-            if (tt.isFullday)
-            {
-              String allDay = resources.getString(R.string.editor_time_allday);
-              openTime = Utils.unCapitalize(allDay);
-            }
-            else
-              openTime = tt.workingTimespan.toWideString();
-
-            refreshTodayOpeningHours(resources.getString(R.string.today), openTime, color);
+            String label = resources.getString(R.string.day_off_today);
+            if (holidayName != null) label += " (" + holidayName + ")";
+            refreshTodayOpeningHours(label, ContextCompat.getColor(requireContext(), R.color.base_red));
+            UiUtils.hide(mTodayNonBusinessTime);
+          }
+          else if (ohInfo.getState() == OpeningHoursInfo.State.OPEN)
+          {
+            String label = resources.getString(R.string.today);
+            if (holidayName != null) label += " (" + holidayName + ")";
+            refreshTodayOpeningHours(label, openTime, color);
             refreshTodayNonBusinessTime(tt.closedTimespans);
-
-            break;
           }
         }
-
-        // Show that place is closed today.
-        if (!containsCurrentWeekday)
+        else
         {
-          refreshTodayOpeningHours(resources.getString(R.string.day_off_today),
-                                   ContextCompat.getColor(requireContext(), R.color.base_red));
-          UiUtils.hide(mTodayNonBusinessTime);
+          refreshTodayOpeningHours(resources.getString(R.string.today), openTime, color);
+          refreshTodayNonBusinessTime(tt.closedTimespans);
         }
+        break;
       }
+    }
+
+    if (!containsCurrentWeekday)
+    {
+      if (hasPHRules && isHoliday && ohInfo != null && ohInfo.getState() == OpeningHoursInfo.State.CLOSED)
+      {
+        String label = resources.getString(R.string.day_off_today);
+        if (holidayName != null) label += " (" + holidayName + ")";
+        refreshTodayOpeningHours(label, ContextCompat.getColor(requireContext(), R.color.base_red));
+      }
+      else if (hasPHRules && isHoliday && ohInfo != null && ohInfo.getState() == OpeningHoursInfo.State.OPEN)
+      {
+        String label = resources.getString(R.string.today);
+        if (holidayName != null) label += " (" + holidayName + ")";
+        refreshTodayOpeningHours(label, ContextCompat.getColor(requireContext(), R.color.base_green));
+      }
+      else
+      {
+        refreshTodayOpeningHours(resources.getString(R.string.day_off_today),
+                                 ContextCompat.getColor(requireContext(), R.color.base_red));
+      }
+      UiUtils.hide(mTodayNonBusinessTime);
     }
   }
 

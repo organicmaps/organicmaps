@@ -218,6 +218,12 @@ public:
 
   std::string FormatRouteRefs() const;
 
+  /// @returns public holidays for the country this feature belongs to.
+  feature::RegionData::THolidayTimestampSet const & GetPublicHolidays() const { return m_publicHolidays; }
+  
+  /// @returns public holiday names map (timestamp -> name).
+  feature::RegionData::THolidayNamesMap const & GetPublicHolidayNames() const { return m_publicHolidayNames; }
+
 private:
   std::string FormatSubtitle(bool withTypes, bool withMainType) const;
   std::string GetBookmarkName();
@@ -300,5 +306,8 @@ private:
   };
 
   std::vector<RouteRef> m_routes;
+
+  feature::RegionData::THolidayTimestampSet m_publicHolidays;
+  feature::RegionData::THolidayNamesMap m_publicHolidayNames;
 };
 }  // namespace place_page

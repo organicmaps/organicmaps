@@ -46,6 +46,11 @@ void Info::SetFromFeatureType(FeatureType & ft)
     feature::NameParamsIn in(m_name.ToBuffer(), mwmInfo->GetRegionData(), languages::GetCurrentMapLanguage(),
                              true /* allowTranslit */);
     feature::GetPreferredNames(in, out);
+
+    // Get public holidays for this country
+    std::string const countryName = mwmInfo->GetCountryName();
+    mwmInfo->GetRegionData().GetPublicHolidayTimestamps(m_publicHolidays);
+    mwmInfo->GetRegionData().GetPublicHolidayNames(m_publicHolidayNames);
   }
 
   bool emptyTitle = false;

@@ -391,7 +391,26 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
 
     RegionData regionData;
     if (!ReadRegionData(name, regionData))
+    {
       LOG(LWARNING, ("No extra data for country:", name));
+    }
+    else
+    {
+      // Verify holidays were loaded
+      RegionData::THolidayTimestampSet holidays;
+      regionData.GetPublicHolidayTimestamps(holidays);
+      RegionData::THolidayNamesMap holidayNames;
+      regionData.GetPublicHolidayNames(holidayNames);
+      if (!holidays.empty())
+      {
+        LOG(LINFO, ("Map generation: Country:", name, "has", holidays.size(), "holidays - will be written to MWM"));
+        LOG(LINFO,
+            ("Map generation: Country:", name, "has", holidayNames.size(), "holiday names - will be written to MWM"));
+        ;
+      }
+      else
+        LOG(LINFO, ("Map generation: Country:", name, "has no holidays in RegionData"));
+    }
 
     // Transform features from raw format to optimized format.
     try

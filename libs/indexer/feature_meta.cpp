@@ -244,6 +244,118 @@ void RegionData::AddPublicHoliday(int8_t month, int8_t offset)
   Set(RegionData::Type::RD_PUBLIC_HOLIDAYS, std::move(value));
 }
 
+void RegionData::SetPublicHolidayTimestamps(THolidayTimestampSet holidays)
+{
+  // Empty set → just clear meta value.
+  if (holidays.empty())
+  {
+    Set(RegionData::Type::RD_PUBLIC_HOLIDAYS, std::string());
+    return;
+  }
+
+  // Pack each time_t as 8 bytes into one string.
+  std::string value;
+  value.reserve(holidays.size() * sizeof(int64_t));
+
+  for (time_t t : holidays)
+  {
+    int64_t v = static_cast<int64_t>(t);
+    for (size_t i = 0; i < sizeof(v); ++i)
+      value.push_back(static_cast<char>((v >> (i * 8)) & 0xFF));
+  }
+
+  Set(RegionData::Type::RD_PUBLIC_HOLIDAYS, std::move(value));
+}
+
+void RegionData::GetPublicHolidayTimestamps(THolidayTimestampSet & holidays) const
+{
+  holidays.clear();
+
+  std::string_view value = Get(RegionData::Type::RD_PUBLIC_HOLIDAYS);
+  LOG(LINFO, ("RegionData::GetPublicHolidayTimestamps: Value size:", value.size(), "bytes"));
+  if (value.empty())
+  {
+    LOG(LINFO, ("RegionData::GetPublicHolidayTimestamps: No holidays in RegionData (empty value)"));
+    return;
+  }
+
+  size_t const sz = value.size();
+  if (sz % sizeof(int64_t) != 0)
+  {
+    ASSERT(false, ("Corrupted RD_PUBLIC_HOLIDAYS value"));
+    return;
+  }
+
+  for (size_t offset = 0; offset < sz; offset += sizeof(int64_t))
+  {
+    int64_t v = 0;
+    for (size_t i = 0; i < sizeof(v); ++i)
+    {
+      unsigned char byte = static_cast<unsigned char>(value[offset + i]);
+      v |= static_cast<int64_t>(byte) << (i * 8);
+    }
+    holidays.insert(static_cast<time_t>(v));
+  }
+}
+
+void RegionData::SetPublicHolidayNames(THolidayNamesMap const & names)
+{
+  if (names.empty())
+  {
+    Set(RegionData::Type::RD_PUBLIC_HOLIDAY_NAMES, std::string());
+    return;
+  }
+
+  std::string value;
+  for (auto const & [timestamp, name] : names)
+  {
+    value += std::to_string(timestamp);
+    value += '|';
+    value += name;
+    value += '\n';
+  }
+
+  Set(RegionData::Type::RD_PUBLIC_HOLIDAY_NAMES, std::move(value));
+}
+
+void RegionData::GetPublicHolidayNames(THolidayNamesMap & names) const
+{
+  names.clear();
+
+  std::string_view value = Get(RegionData::Type::RD_PUBLIC_HOLIDAY_NAMES);
+  if (value.empty())
+    return;
+
+  std::string_view remaining = value;
+  while (!remaining.empty())
+  {
+    size_t pipePos = remaining.find('|');
+    if (pipePos == std::string_view::npos)
+      break;
+
+    size_t newlinePos = remaining.find('\n', pipePos);
+    if (newlinePos == std::string_view::npos)
+      newlinePos = remaining.size();
+
+    std::string_view timestampStr = remaining.substr(0, pipePos);
+    std::string_view nameStr = remaining.substr(pipePos + 1, newlinePos - pipePos - 1);
+
+    try
+    {
+      time_t timestamp = static_cast<time_t>(std::stoll(std::string(timestampStr)));
+      names[timestamp] = std::string(nameStr);
+    }
+    catch (std::exception const &)
+    {
+    }
+
+    if (newlinePos < remaining.size())
+      remaining = remaining.substr(newlinePos + 1);
+    else
+      break;
+  }
+}
+
 // Warning: exact osm tag keys should be returned for valid enum values.
 string ToString(Metadata::EType type)
 {
