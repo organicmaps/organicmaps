@@ -172,14 +172,12 @@ if (USE_PCH)
   )
 endif()
 
-# Should be on the root level, not in 3party, so tests can get these dependencies.
-if (PLATFORM_LINUX)
+if (WITH_SYSTEM_PROVIDED_3PARTY)
+  # Should be on the root level, not in 3party, so tests can get these dependencies.
   find_package(ICU COMPONENTS uc i18n data REQUIRED)
   find_package(Freetype REQUIRED)
   find_package(harfbuzz REQUIRED)
-endif()
 
-if (WITH_SYSTEM_PROVIDED_3PARTY)
   set(GFLAGS_USE_TARGET_NAMESPACE ON)
   find_package(gflags REQUIRED)
 

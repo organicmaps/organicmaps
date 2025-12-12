@@ -115,7 +115,6 @@ copy_resources(
   WorldCoasts.mwm
 )
 
-if (NOT PLATFORM_LINUX)
-  # On Linux, ICU data is loaded from the shared library.
+if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   copy_resources(icudt78l.dat)
 endif()
