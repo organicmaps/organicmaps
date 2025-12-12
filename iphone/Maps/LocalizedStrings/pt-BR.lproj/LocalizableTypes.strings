@@ -1006,7 +1006,7 @@
 /* Short service tracks: siding, yard, crossover. */
 "type.railway.rail.service" = "Linha de serviço";
 "type.railway.rail.bridge" = "Ponte ferroviária";
-"type.railway.rail.highspeed.bridge" = "Ponte ferroviária";
+"type.railway.rail.highspeed.bridge" = "Ponte ferroviária de alta velocidade";
 "type.railway.rail.tourism.bridge" = "Ponte ferroviária turística";
 "type.railway.rail.main.bridge" = "Ponte ferroviária principal";
 "type.railway.rail.branch.bridge" = "Ponte ramal ferroviário";

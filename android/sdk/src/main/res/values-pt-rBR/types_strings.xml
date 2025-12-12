@@ -323,7 +323,6 @@
     <string name="type.railway.narrow_gauge.tunnel">Caminho de ferro de via estreita</string>
     <string name="type.railway.preserved.bridge">Ferrovia preservada</string>
     <string name="type.railway.preserved.tunnel">Ferrovia preservada</string>
-    <string name="type.railway.rail.highspeed.bridge">Ponte ferroviária</string>
     <string name="type.railway.station.light_rail.berlin">Estação de trem</string>
     <string name="type.railway.station.light_rail.london">Estação de trem</string>
     <string name="type.railway.station.light_rail.porto">Estação de metrô</string>
