@@ -435,6 +435,7 @@ void BookmarkManager::RecoverRecentlyDeletedCategoriesAtPaths(std::vector<std::s
     CHECK(Platform::IsFileExistsByFullPath(deletedFilePath), ("File should exist to be recovered.", deletedFilePath));
     auto recoveredFilePath = GenerateValidAndUniqueFilePathForKML(base::GetNameFromFullPathWithoutExt(deletedFilePath));
     base::MoveFileX(deletedFilePath, recoveredFilePath);
+    NotifyCategoryFilesChanged(FilesOperationEvent(FileOperationType::Created, {recoveredFilePath}));
     LOG(LINFO, ("Recently deleted category at", deletedFilePath, "is recovered"));
     ReloadBookmark(recoveredFilePath);
   }
@@ -573,9 +574,6 @@ void BookmarkManager::NotifyChanges(bool saveChangesOnDisk)
 
   if (m_changesTracker.HasBookmarksChanges())
     NotifyBookmarksChanged();
-
-  if (m_changesTracker.HasCategoriesChanges())
-    NotifyCategoriesChanged();
 
   m_bookmarksChangesTracker.AddChanges(m_changesTracker);
   m_drapeChangesTracker.AddChanges(m_changesTracker);
@@ -1845,9 +1843,9 @@ void BookmarkManager::SetBookmarksChangedCallback(BookmarksChangedCallback && ca
   m_bookmarksChangedCallback = std::move(callback);
 }
 
-void BookmarkManager::SetCategoriesChangedCallback(CategoriesChangedCallback && callback)
+void BookmarkManager::SetCategoryFilesChangedCallback(FilesChangedCallback && callback)
 {
-  m_categoriesChangedCallback = std::move(callback);
+  m_categoryFilesChangedCallback = std::move(callback);
 }
 
 void BookmarkManager::SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks)
@@ -2064,7 +2062,7 @@ Platform::FilesList BookmarkManager::GetCategoryFilesList() const
   return paths;
 }
 
-void BookmarkManager::LoadCategory(std::string const & filePath, bool isTemporaryFile)
+void BookmarkManager::LoadBookmark(std::string const & filePath, bool isTemporaryFile)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   // Defer bookmark loading in case of another asynchronous process.
@@ -2131,7 +2129,10 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
         if (!SaveKmlFileSafe(*kmlData, kmlFileToLoad, KmlFileType::Text))
           base::DeleteFileX(kmlFileToLoad);
         else
+        {
+          NotifyCategoryFilesChanged(FilesOperationEvent(FileOperationType::Created, {kmlFileToLoad}));
           collection->emplace_back(std::move(kmlFileToLoad), std::move(kmlData));
+        }
       }
     }
 
@@ -2164,7 +2165,10 @@ void BookmarkManager::ReloadBookmarkRoutine(std::string const & filePath)
 
     auto collection = std::make_shared<KMLDataCollection>();
     if (kmlData)
+    {
+      NotifyCategoryFilesChanged(FilesOperationEvent(FileOperationType::Updated, {filePath}));
       collection->emplace_back(std::move(filePath), std::move(kmlData));
+    }
 
     if (m_needTeardown)
       return;
@@ -2414,10 +2418,24 @@ void BookmarkManager::NotifyBookmarksChanged()
     m_bookmarksChangedCallback();
 }
 
-void BookmarkManager::NotifyCategoriesChanged()
+void BookmarkManager::NotifyCategoryFilesChanged(FilesOperationEvent event)
 {
-  if (m_categoriesChangedCallback != nullptr)
-    m_categoriesChangedCallback();
+  if (event.files.empty())
+    return;
+
+  if (m_testModeEnabled)
+  {
+    // Notify synchronously.
+    if (m_categoryFilesChangedCallback)
+      m_categoryFilesChangedCallback(std::move(event));
+    return;
+  }
+
+  GetPlatform().RunTask(Platform::Thread::File, [this, event = std::move(event)]()
+  {
+    if (m_categoryFilesChangedCallback)
+      m_categoryFilesChangedCallback(std::move(event));
+  });
 }
 
 bool BookmarkManager::HasBmCategory(kml::MarkGroupId groupId) const
@@ -2502,7 +2520,6 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
   UpdateBmGroupIdList();
   m_changesTracker.OnAddGroup(groupId);
   NotifyBookmarksChanged();
-  NotifyCategoriesChanged();
   return groupId;
 }
 
@@ -2566,13 +2583,17 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool permanentl
   if (permanently)
   {
     base::DeleteFileX(filePath);
+    NotifyCategoryFilesChanged(FilesOperationEvent(FileOperationType::Deleted, {filePath}));
     LOG(LINFO, ("Category at", filePath, "is deleted"));
   }
   else
   {
     auto const trashedFilePath = GenerateValidAndUniqueTrashedFilePath(base::FileNameFromFullPath(filePath));
     if (base::MoveFileX(filePath, trashedFilePath))
+    {
+      NotifyCategoryFilesChanged(FilesOperationEvent(FileOperationType::Deleted, {trashedFilePath}));
       LOG(LINFO, ("Category at", filePath, "is trashed to the", trashedFilePath));
+    }
     else
       LOG(LERROR, ("Failed to move", filePath, "into the trash at", trashedFilePath));
   }
@@ -2954,19 +2975,34 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
   if (!kmlDataCollection)
     return;
 
+  Platform::FilesList createdFiles;
+  Platform::FilesList updatedFiles;
+
+  for (auto const groupId : groupIdCollection)
+  {
+    auto const file = GetBmCategory(groupId)->GetFileName();
+    Platform::IsFileExistsByFullPath(file) ? updatedFiles.emplace_back(file) : createdFiles.emplace_back(file);
+  }
+
+  auto saveAndNotify = [this](auto const & kmlDataCollection, auto const & createdFiles, auto const & updatedFiles)
+  {
+    for (auto const & kmlItem : *kmlDataCollection)
+      SaveKmlFileByExt(*kmlItem.second, kmlItem.first);
+
+    NotifyCategoryFilesChanged(FilesOperationEvent(FileOperationType::Created, createdFiles));
+    NotifyCategoryFilesChanged(FilesOperationEvent(FileOperationType::Updated, updatedFiles));
+  };
+
   if (m_testModeEnabled)
   {
     // Save bookmarks synchronously.
-    for (auto const & kmlItem : *kmlDataCollection)
-      SaveKmlFileByExt(*kmlItem.second, kmlItem.first);
+    saveAndNotify(kmlDataCollection, createdFiles, updatedFiles);
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::File, [kmlDataCollection = std::move(kmlDataCollection)]()
-  {
-    for (auto const & kmlItem : *kmlDataCollection)
-      SaveKmlFileByExt(*kmlItem.second, kmlItem.first);
-  });
+  GetPlatform().RunTask(Platform::Thread::File,
+                        [this, kmlDataCollection = std::move(kmlDataCollection), createdFiles, updatedFiles,
+                         saveAndNotify]() { saveAndNotify(kmlDataCollection, createdFiles, updatedFiles); });
 }
 
 void BookmarkManager::PrepareTrackFileForSharing(kml::TrackId trackId, SharingHandler && handler,
