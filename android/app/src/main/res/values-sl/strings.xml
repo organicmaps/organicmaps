@@ -336,6 +336,8 @@
     <string name="gray">Siva</string>
     <!-- blue gray color -->
     <string name="blue_gray">Modro siva</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Podarite brezplačne zemljevide brez oglasov milijonom uporabnikov!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Pri sledenju poti upoštevajte:</string>

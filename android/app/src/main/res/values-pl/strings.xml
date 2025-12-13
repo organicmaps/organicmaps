@@ -336,6 +336,8 @@
     <string name="gray">Szary</string>
     <!-- blue gray color -->
     <string name="blue_gray">Szaroniebieski</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Podaruj darmowe mapy bez reklam milionom użytkowników!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Jadąc wyznaczoną trasą, pamiętaj, że:</string>

@@ -277,6 +277,8 @@
     <string name="enable_location_services">कृपया स्थान सेवाएँ सक्षम करें</string>
     <string name="save">सहेजें</string>
     <string name="create">बनाएं</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">लाखों उपयोगकर्ताओं को बिना विज्ञापनों वाले मुफ़्त नक्शे उपहार में दें!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">मार्ग का अनुसरण करते समय कृपया ध्यान रखें:</string>

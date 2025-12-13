@@ -125,10 +125,19 @@
         android:textColor="?android:textColorPrimary"
         android:textStyle="bold" />
 
+      <app.organicmaps.widget.DonationView
+          android:id="@+id/donate"
+          android:layout_marginStart="@dimen/margin_base"
+          android:layout_marginEnd="@dimen/margin_base"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/margin_half" />
+
       <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_half">
+          android:layout_marginTop="@dimen/margin_base"
+          android:layout_marginBottom="@dimen/margin_half">
 
         <ImageView
           android:id="@+id/osm_logo"
@@ -159,53 +168,19 @@
           app:layout_constraintTop_toTopOf="parent" />
       </androidx.constraintlayout.widget.ConstraintLayout>
 
-      <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_half"
-        android:orientation="horizontal">
-        <Button
-          android:id="@+id/donate"
-          style="@style/MwmWidget.Button.Accent"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:fontFamily="@string/robotoMedium"
-          android:padding="@dimen/margin_quarter"
-          android:text="@string/donate"
-          android:textAlignment="center"
-          android:layout_marginStart="@dimen/margin_base_plus"
-          android:layout_marginEnd="@dimen/margin_base_plus"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toStartOf="@+id/report"
-          app:layout_constraintHorizontal_bias="0.5"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_bias="0.5" />
-        <Button
-          android:id="@+id/report"
-          style="@style/MwmWidget.Button"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:background="@color/light_gray"
-          android:fontFamily="@string/robotoMedium"
-          android:text="@string/report_a_bug"
-          android:textAlignment="center"
-          android:textColor="@color/text_dark"
-          android:layout_marginEnd="@dimen/margin_base_plus"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="0.5"
-          app:layout_constraintStart_toEndOf="@+id/donate"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_bias="0.5" />
-      </androidx.constraintlayout.widget.ConstraintLayout>
-
       <TextView
         android:id="@+id/faq"
         style="@style/MwmWidget.TextView.Item"
         android:textAlignment="viewStart"
         android:text="@string/faq"
         app:drawableStartCompat="@drawable/ic_question_mark" />
+
+      <TextView
+          android:id="@+id/report"
+          style="@style/MwmWidget.TextView.Item"
+          android:text="@string/report_a_bug"
+          android:textAlignment="viewStart"
+          app:drawableStartCompat="@drawable/ic_report_a_bug" />
 
       <TextView
         android:id="@+id/support_us"

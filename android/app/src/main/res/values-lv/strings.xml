@@ -336,6 +336,8 @@
     <string name="gray">Pelēka</string>
     <!-- blue gray color -->
     <string name="blue_gray">Zilpelēka</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Dāviniet bezmaksas kartes bez reklāmām miljoniem lietotāju!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Sekojot maršrutam, ievērojiet:</string>

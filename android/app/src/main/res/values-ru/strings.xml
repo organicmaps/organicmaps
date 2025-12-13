@@ -336,6 +336,8 @@
     <string name="gray">Серый</string>
     <!-- blue gray color -->
     <string name="blue_gray">Серо-голубой</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Подарите миллионам пользователей бесплатные карты без рекламы!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">При движении по маршруту помните:</string>

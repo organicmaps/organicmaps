@@ -336,6 +336,8 @@
     <string name="gray">灰色</string>
     <!-- blue gray color -->
     <string name="blue_gray">藍灰色</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">向數百萬使用者贈送無廣告的免費地圖！</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">依照路線行進時，請牢記：</string>

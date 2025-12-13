@@ -325,6 +325,8 @@
     <string name="gray">Xám</string>
     <!-- blue gray color -->
     <string name="blue_gray">Xám xanh da trời</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Tặng bản đồ miễn phí không có quảng cáo cho hàng triệu người dùng!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Khi đi theo tuyến đường, hãy lưu ý:</string>

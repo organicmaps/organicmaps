@@ -336,6 +336,8 @@
     <string name="gray">Sivá</string>
     <!-- blue gray color -->
     <string name="blue_gray">Modro sivá</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Darujte bezplatné mapy bez reklám miliónom používateľov!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Pri sledovaní trasy majte na pamäti nasledujúce:</string>
