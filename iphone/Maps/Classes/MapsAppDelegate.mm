@@ -126,7 +126,7 @@ using namespace osm_auth_ios;
   [self enableTTSForTheFirstTime];
 
   if (![MapsAppDelegate isTestsEnvironment])
-    [[iCloudSynchronizaionManager shared] start];
+    [[iCloudSynchronizationManager shared] start];
 
   [[DeepLinkHandler shared] applicationDidFinishLaunching:launchOptions];
   // application:openUrl:options is called later for deep links if YES is returned.

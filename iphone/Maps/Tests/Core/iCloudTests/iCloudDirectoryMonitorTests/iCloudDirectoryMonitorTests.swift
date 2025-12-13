@@ -14,7 +14,10 @@ class iCloudDirectoryMonitorTests: XCTestCase {
     super.setUp()
     mockFileManager = FileManagerMock()
     mockDelegate = UbiquitousDirectoryMonitorDelegateMock()
-    cloudMonitor = iCloudDocumentsMonitor(fileManager: mockFileManager, cloudContainerIdentifier: cloudContainerIdentifier, fileType: .kml)
+    cloudMonitor = iCloudDocumentsMonitor(fileManager: mockFileManager,
+                                          cloudContainerIdentifier: cloudContainerIdentifier,
+                                          fileType: .kml,
+                                          queue: .main)
     cloudMonitor.delegate = mockDelegate
   }
 

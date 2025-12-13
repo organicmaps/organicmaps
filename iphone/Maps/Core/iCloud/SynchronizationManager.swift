@@ -30,7 +30,7 @@ final class SynchronizationManagerState: NSObject {
 }
 
 @objcMembers
-final class iCloudSynchronizaionManager: NSObject {
+final class iCloudSynchronizationManager: NSObject {
 
   fileprivate struct Observation {
     weak var observer: AnyObject?
@@ -44,7 +44,7 @@ final class iCloudSynchronizaionManager: NSObject {
   private let bookmarksManager: BookmarksManager
   private var synchronizationStateManager: SynchronizationStateResolver
   private var fileWriter: SynchronizationFileWriter?
-  private var observers = [ObjectIdentifier: iCloudSynchronizaionManager.Observation]()
+  private var observers = [ObjectIdentifier: iCloudSynchronizationManager.Observation]()
   private var synchronizationError: Error? {
     didSet { notifyObserversOnSynchronizationError(synchronizationError) }
   }
@@ -58,14 +58,15 @@ final class iCloudSynchronizaionManager: NSObject {
     }
   }
 
-  static let shared: iCloudSynchronizaionManager = {
+  static let shared: iCloudSynchronizationManager = {
     let fileManager = FileManager.default
     let fileType = FileType.kml
+
     let cloudDirectoryMonitor = iCloudDocumentsMonitor(fileManager: fileManager, fileType: fileType)
     let synchronizationStateManager = iCloudSynchronizationStateResolver(isInitialSynchronization: isInitialSynchronization)
     do {
-      let localDirectoryMonitor = try FileSystemDispatchSourceMonitor(fileManager: fileManager, directory: fileManager.bookmarksDirectoryUrl, fileType: fileType)
-      let clodStorageManager = iCloudSynchronizaionManager(fileManager: fileManager,
+      let localDirectoryMonitor = try FileSystemDispatchSourceMonitor(directory: fileManager.bookmarksDirectoryUrl)
+      let clodStorageManager = iCloudSynchronizationManager(fileManager: fileManager,
                                                            settings: Settings.self,
                                                            bookmarksManager: BookmarksManager.shared(),
                                                            cloudDirectoryMonitor: cloudDirectoryMonitor,
@@ -96,22 +97,20 @@ final class iCloudSynchronizaionManager: NSObject {
   // MARK: - Public
   @objc func start() {
     subscribeToSettingsNotifications()
-    subscribeToApplicationLifecycleNotifications()
     cloudDirectoryMonitor.delegate = self
     localDirectoryMonitor.delegate = self
+    startSynchronization()
   }
 }
 
 // MARK: - Private
-private extension iCloudSynchronizaionManager {
+private extension iCloudSynchronizationManager {
   // MARK: - Synchronization Lifecycle
   func startSynchronization() {
     switch cloudDirectoryMonitor.state {
     case .started:
-      LOG(.debug, "Synchronization is already started")
+      LOG(.debug, "SYNC: Synchronization is already started")
       return
-    case .paused:
-      resumeSynchronization()
     case .stopped:
       cloudDirectoryMonitor.start { [weak self] result in
         guard let self else { return }
@@ -124,7 +123,7 @@ private extension iCloudSynchronizaionManager {
             case .failure(let error):
               self.processError(error)
             case .success(let localDirectoryUrl):
-              LOG(.info, "Start synchronization")
+              LOG(.info, "SYNC: Start synchronization")
               self.fileWriter = SynchronizationFileWriter(fileManager: self.fileManager,
                                                           localDirectoryUrl: localDirectoryUrl,
                                                           cloudDirectoryUrl: cloudDirectoryUrl)
@@ -136,7 +135,7 @@ private extension iCloudSynchronizaionManager {
   }
 
   func stopSynchronization(withError error: Error? = nil) {
-    LOG(.info, "Stop synchronization")
+    LOG(.info, "SYNC: Stop synchronization")
     localDirectoryMonitor.stop()
     cloudDirectoryMonitor.stop()
     fileWriter = nil
@@ -145,44 +144,14 @@ private extension iCloudSynchronizaionManager {
     guard let error else { return }
     settings.setICLoudSynchronizationEnabled(false)
     synchronizationError = error
-    MWMAlertViewController.activeAlert().presentBugReportAlert(withTitle: L("icloud_synchronization_error_alert_title"))
-  }
-
-  func pauseSynchronization() {
-    LOG(.info, "Pause synchronization")
-    localDirectoryMonitor.pause()
-    cloudDirectoryMonitor.pause()
-  }
-
-  func resumeSynchronization() {
-    LOG(.info, "Resume synchronization")
-    localDirectoryMonitor.resume()
-    cloudDirectoryMonitor.resume()
+    DispatchQueue.main.async {
+      MWMAlertViewController.activeAlert().presentBugReportAlert(withTitle: L("icloud_synchronization_error_alert_title"))
+    }
   }
 
   // MARK: - App Lifecycle
-  func subscribeToApplicationLifecycleNotifications() {
-    NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: UIApplication.didBecomeActiveNotification, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-  }
-
-  func unsubscribeFromApplicationLifecycleNotifications() {
-    NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-    NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
-  }
-
   func subscribeToSettingsNotifications() {
     NotificationCenter.default.addObserver(self, selector: #selector(didChangeEnabledState), name: NSNotification.iCloudSynchronizationDidChangeEnabledState, object: nil)
-  }
-
-  @objc func appWillEnterForeground() {
-    guard settings.iCLoudSynchronizationEnabled() else { return }
-    startSynchronization()
-  }
-
-  @objc func appDidEnterBackground() {
-    guard settings.iCLoudSynchronizationEnabled() else { return }
-    pauseSynchronization()
   }
 
   @objc func didChangeEnabledState() {
@@ -197,7 +166,7 @@ private extension iCloudSynchronizaionManager {
 }
 
 // MARK: - iCloudStorageManger + LocalDirectoryMonitorDelegate
-extension iCloudSynchronizaionManager: LocalDirectoryMonitorDelegate {
+extension iCloudSynchronizationManager: LocalDirectoryMonitorDelegate {
   func didFinishGathering(_ contents: LocalContents) {
     let events = synchronizationStateManager.resolveEvent(.didFinishGatheringLocalContents(contents))
     processEvents(events)
@@ -214,7 +183,7 @@ extension iCloudSynchronizaionManager: LocalDirectoryMonitorDelegate {
 }
 
 // MARK: - iCloudStorageManger + CloudDirectoryMonitorDelegate
-extension iCloudSynchronizaionManager: CloudDirectoryMonitorDelegate {
+extension iCloudSynchronizationManager: CloudDirectoryMonitorDelegate {
   func didFinishGathering(_ contents: CloudContents) {
     let events = synchronizationStateManager.resolveEvent(.didFinishGatheringCloudContents(contents))
     processEvents(events)
@@ -231,7 +200,7 @@ extension iCloudSynchronizaionManager: CloudDirectoryMonitorDelegate {
 }
 
 // MARK: - Private methods
-private extension iCloudSynchronizaionManager {
+private extension iCloudSynchronizationManager {
   func processEvents(_ events: [OutgoingSynchronizationEvent]) {
     guard !events.isEmpty else {
       synchronizationError = nil
@@ -269,21 +238,21 @@ private extension iCloudSynchronizaionManager {
       case .fileUnavailable,
            .fileNotUploadedDueToQuota,
            .ubiquityServerNotAvailable:
-        LOG(.warning, "Synchronization Warning: \(syncError.localizedDescription)")
+        LOG(.warning, "SYNC: Warning: \(syncError.localizedDescription)")
         synchronizationError = syncError
       case .iCloudIsNotAvailable:
-        LOG(.warning, "Synchronization Warning: \(error.localizedDescription)")
+        LOG(.warning, "SYNC: Warning: \(error.localizedDescription)")
         stopSynchronization()
       case .failedToOpenLocalDirectoryFileDescriptor,
            .failedToRetrieveLocalDirectoryContent,
            .containerNotFound,
            .failedToCreateMetadataItem,
            .failedToRetrieveMetadataQueryContent:
-        LOG(.error, "Synchronization Error: \(error.localizedDescription)")
+        LOG(.error, "SYNC: Error: \(error.localizedDescription)")
         stopSynchronization(withError: error)
       }
     default:
-      LOG(.error, "System Error: \(error.localizedDescription)")
+      LOG(.error, "SYNC: System error: \(error.localizedDescription)")
       stopSynchronization(withError: error)
     }
   }
@@ -295,7 +264,7 @@ protocol SynchronizationStateObservation {
   func removeObserver(_ observer: AnyObject)
 }
 
-extension iCloudSynchronizaionManager {
+extension iCloudSynchronizationManager {
   func addObserver(_ observer: AnyObject, synchronizationStateDidChangeHandler: @escaping (SynchronizationManagerState) -> Void) {
     let id = ObjectIdentifier(observer)
     observers[id] = Observation(observer: observer, onSynchronizationStateDidChangeHandler: synchronizationStateDidChangeHandler)
@@ -336,7 +305,7 @@ extension Notification.Name {
 }
 
 // MARK: - Dictionary + RemoveUnreachable
-private extension Dictionary where Key == ObjectIdentifier, Value == iCloudSynchronizaionManager.Observation {
+private extension Dictionary where Key == ObjectIdentifier, Value == iCloudSynchronizationManager.Observation {
   mutating func removeUnreachable() -> Self {
     for (id, observation) in self {
       if observation.observer == nil {

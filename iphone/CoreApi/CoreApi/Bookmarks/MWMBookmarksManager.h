@@ -22,11 +22,18 @@ typedef NS_ENUM(NSInteger, MWMBookmarksSortingType) {
   MWMBookmarksSortingTypeByName
 } NS_SWIFT_NAME(BookmarksSortingType);
 
+typedef NS_ENUM(NSInteger, FileOperationType) {
+  FileOperationTypeCreated,
+  FileOperationTypeUpdated,
+  FileOperationTypeDeleted,
+};
+
 typedef void (^PingCompletionBlock)(BOOL success);
 typedef void (^ElevationPointChangedBlock)(double distance);
 typedef void (^SearchBookmarksCompletionBlock)(NSArray<MWMBookmark *> * bookmarks);
 typedef void (^SortBookmarksCompletionBlock)(NSArray<MWMBookmarksSection *> * _Nullable sortedSections);
 typedef void (^SharingResultCompletionHandler)(MWMBookmarksShareStatus status, NSURL * _Nullable urlToALocalFile);
+typedef void (^FilesChangedCallback)(FileOperationType type, NSArray<NSURL *> * URLs);
 
 @protocol RecentlyDeletedCategoriesManager <NSObject>
 - (uint64_t)recentlyDeletedCategoriesCount;
@@ -35,8 +42,15 @@ typedef void (^SharingResultCompletionHandler)(MWMBookmarksShareStatus status, N
 - (void)recoverRecentlyDeletedCategoriesAtURLs:(NSArray<NSURL *> *)urls;
 @end
 
+@protocol CategoryFilesChangesMonitor <NSObject>
+
+- (NSArray<NSURL *> *)categoryFilesList;
+- (void)setCategoryFilesChangedCallback:(FilesChangedCallback _Nullable)callback;
+
+@end
+
 NS_SWIFT_NAME(BookmarksManager)
-@interface MWMBookmarksManager : NSObject <BookmarksObservable, RecentlyDeletedCategoriesManager>
+@interface MWMBookmarksManager : NSObject <BookmarksObservable, RecentlyDeletedCategoriesManager, CategoryFilesChangesMonitor>
 
 + (MWMBookmarksManager *)sharedManager;
 
