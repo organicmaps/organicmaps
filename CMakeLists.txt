@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.22.1)
 project(omim C CXX)
 
 set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_C_STANDARD 23)
+set(CMAKE_C_STANDARD 11)
 # Our code does not rely on gnu extensions.
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_C_EXTENSIONS OFF)
