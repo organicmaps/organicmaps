@@ -336,6 +336,8 @@
     <string name="gray">Grijs</string>
     <!-- blue gray color -->
     <string name="blue_gray">Grijsblauw</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Geef gratis kaarten zonder advertenties aan miljoenen gebruikers!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Belangrijk bij het volgen van een route:</string>

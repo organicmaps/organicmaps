@@ -136,6 +136,8 @@
     <string name="blue">Azul</string>
     <!-- green color -->
     <string name="green">Verde</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">¡Regala mapes gratis y ensin anuncios a millones d\'usuarios!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_priority">— Road conditions, traffic laws, and road signs always take priority over navigation hints</string>

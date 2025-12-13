@@ -336,6 +336,8 @@
     <string name="gray">회색</string>
     <!-- blue gray color -->
     <string name="blue_gray">청회색</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">수백만 명의 사용자에게 광고 없는 무료 지도를 선물하세요!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">경로를 따라갈 때는 다음 사항에 주의해 주세요:</string>

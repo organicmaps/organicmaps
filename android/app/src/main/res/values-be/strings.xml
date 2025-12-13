@@ -336,6 +336,8 @@
     <string name="gray">Шэры</string>
     <!-- blue gray color -->
     <string name="blue_gray">Блакітна-шэры</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Падарыце бясплатныя мапы без рэкламы мільёнам карыстальнікаў!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Падчас руху па маршруце памятайце:</string>

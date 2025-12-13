@@ -240,6 +240,8 @@
     <string name="gray">Siva</string>
     <!-- blue gray color -->
     <string name="blue_gray">Plavo siva</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Poklonite besplatne karte bez oglasa milijunima korisnika!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_priority">— Road conditions, traffic laws, and road signs always take priority over navigation hints</string>

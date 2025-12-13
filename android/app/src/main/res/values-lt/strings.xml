@@ -336,6 +336,8 @@
     <string name="gray">Pilkas</string>
     <!-- blue gray color -->
     <string name="blue_gray">Mėlynai pilkas</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Padovanokite nemokamus žemėlapius be skelbimų milijonams vartotojų!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Keliaudami siūlomu maršrutu, nepamirškite, kad:</string>

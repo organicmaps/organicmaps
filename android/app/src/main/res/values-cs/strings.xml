@@ -336,6 +336,8 @@
     <string name="gray">Šedá</string>
     <!-- blue gray color -->
     <string name="blue_gray">Modrošedá</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Darujte bezplatné mapy bez reklam milionům uživatelů!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Při navigaci podle trasy mějte na paměti následující:</string>

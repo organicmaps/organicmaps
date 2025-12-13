@@ -336,6 +336,8 @@
     <string name="gray">灰色</string>
     <!-- blue gray color -->
     <string name="blue_gray">青灰色</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">何百万人ものユーザーに広告なしの無料地図を贈ろう！</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">案内ルートに従う際は、以下の点にご留意ください：</string>

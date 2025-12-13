@@ -336,6 +336,8 @@
     <string name="gray">Grisa</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gris urdinxka</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Oparitu doako mapak iragarkirik gabe milioika erabiltzaileri!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Arrastoa jarraitzean, kontuan izan:</string>

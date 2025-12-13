@@ -16,13 +16,13 @@ import app.organicmaps.BuildConfig;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.sdk.Framework;
-import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Constants;
 import app.organicmaps.sdk.util.DateUtils;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.ScrollableContentInsetsListener;
+import app.organicmaps.widget.DonationView;
 
 public class HelpFragment extends BaseMwmFragment implements View.OnClickListener
 {
@@ -73,15 +73,19 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     else
       setupItem(R.id.support_us, true, root);
 
-    final TextView donateView = root.findViewById(R.id.donate);
+    DonationView donationView = root.findViewById(R.id.donate);
     if (TextUtils.isEmpty(mDonateUrl))
-      donateView.setVisibility(View.GONE);
+    {
+      donationView.setVisibility(View.GONE);
+      donationView.setOnDonateClickListener(null);
+    }
     else
     {
-      if (Config.isNY())
-        donateView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_christmas_tree, 0,
-                                                                   R.drawable.ic_christmas_tree, 0);
-      setupItem(R.id.donate, isLandscape, root);
+      donationView.setVisibility(View.VISIBLE);
+      donationView.setOnDonateClickListener(() -> {
+        Utils.openUrl(requireActivity(), mDonateUrl);
+        Framework.nativeDidShowDonationPage();
+      });
     }
 
     if (BuildConfig.REVIEW_URL.isEmpty())
@@ -102,6 +106,13 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     ViewCompat.setOnApplyWindowInsetsListener(root, new ScrollableContentInsetsListener(root));
 
     return root;
+  }
+
+  @Override
+  public void onResume()
+  {
+    super.onResume();
+    Framework.nativeDidPossiblyReturnFromDonationPage();
   }
 
   @Override
@@ -136,8 +147,6 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
       Utils.sendBugReport(shareLauncher, requireActivity(), "", "");
     else if (id == R.id.support_us)
       Utils.openUrl(requireActivity(), getResources().getString(R.string.translated_om_site_url) + "support-us/");
-    else if (id == R.id.donate)
-      Utils.openUrl(requireActivity(), mDonateUrl);
     else if (id == R.id.rate)
       Utils.openAppInMarket(requireActivity(), BuildConfig.REVIEW_URL);
     else if (id == R.id.copyright)

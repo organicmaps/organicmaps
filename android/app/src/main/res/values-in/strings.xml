@@ -334,6 +334,8 @@
     <string name="gray">Abu-abu</string>
     <!-- blue gray color -->
     <string name="blue_gray">Biru Keabu-abuan</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Hadiahkan peta gratis tanpa iklan untuk jutaan pengguna!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Saat mengikuti rute, harap diingat:</string>

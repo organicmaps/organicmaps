@@ -336,6 +336,8 @@
     <string name="gray">Grátt</string>
     <!-- blue gray color -->
     <string name="blue_gray">Blágrátt</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Gefðu milljónum notenda ókeypis kort án auglýsinga!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Þegar ferðast er eftir leið, skaltu hafa eftirfarandi í huga:</string>

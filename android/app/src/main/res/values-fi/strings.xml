@@ -336,6 +336,8 @@
     <string name="gray">Harmaa</string>
     <!-- blue gray color -->
     <string name="blue_gray">Siniharmaa</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Lahjoita ilmaiset ja mainoksettomat kartat miljoonille käyttäjille!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Muista seuraavat asiat seuratessasi reittiä:</string>

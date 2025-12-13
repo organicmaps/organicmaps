@@ -336,6 +336,8 @@
     <string name="gray">Cinza</string>
     <!-- blue gray color -->
     <string name="blue_gray">Azul-cinza</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Ofereça mapas gratuitos e sem anúncios a milhões de utilizadores!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Ao seguir o trajeto, lembre-se que:</string>

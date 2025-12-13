@@ -103,6 +103,8 @@
     <string name="gray">Kijivu</string>
     <!-- blue gray color -->
     <string name="blue_gray">Kijivu Buluu</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Zawadia mamilioni ya watumiaji ramani za bure bila matangazo!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_change_intermediate">Imeshindwa kupata eneo la kati.</string>

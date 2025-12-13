@@ -336,6 +336,8 @@
     <string name="gray">Grau</string>
     <!-- blue gray color -->
     <string name="blue_gray">Graublau</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Schenke Millionen von Nutzern kostenlose und werbefreie Karten!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Wenn Sie der Route folgen, beachten Sie bitte:</string>

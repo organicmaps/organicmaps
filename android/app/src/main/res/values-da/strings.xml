@@ -336,6 +336,8 @@
     <string name="gray">Grå</string>
     <!-- blue gray color -->
     <string name="blue_gray">Blågrå</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Giv gratis kort uden reklamer til millioner af brugere!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Når du følger ruten, skal du være opmærksom på følgende:</string>

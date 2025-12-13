@@ -103,10 +103,18 @@ public class MapButtonsController extends Fragment
     final FloatingActionButton helpButton = mFrame.findViewById(R.id.help_button);
     if (helpButton != null)
     {
-      if (Config.isNY() && !TextUtils.isEmpty(Utils.getDonateUrl(requireContext())))
+      if (Framework.nativeCanShowCrowdfundingPromo())
+      {
+        helpButton.setImageResource(R.drawable.ic_crowdfunding);
+      }
+      else if (Config.isNY() && !TextUtils.isEmpty(Utils.getDonateUrl(requireContext())))
+      {
         helpButton.setImageResource(R.drawable.ic_christmas_tree);
+      }
       else
+      {
         helpButton.setImageResource(R.drawable.logo);
+      }
       // Keep this button colorful in normal theme.
       if (!ThemeUtils.isNightTheme())
         helpButton.getDrawable().setTintList(null);

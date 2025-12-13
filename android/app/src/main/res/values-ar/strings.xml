@@ -336,6 +336,8 @@
     <string name="gray">رمادي</string>
     <!-- blue gray color -->
     <string name="blue_gray">رمادي أزرق</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">اهْدِ خرائط مجانية بدون إعلانات لملايين المستخدمين!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">عند اتباع المسار، يُرجى الانتباه إلى ما يلي:</string>

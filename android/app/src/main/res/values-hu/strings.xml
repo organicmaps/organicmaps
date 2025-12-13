@@ -336,6 +336,8 @@
     <string name="gray">Szürke</string>
     <!-- blue gray color -->
     <string name="blue_gray">Kékes szürke</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Ajándékozzon ingyenes, hirdetésmentes térképeket felhasználók millióinak!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Az útvonal követése során vegye figyelembe az alábbiakat:</string>
