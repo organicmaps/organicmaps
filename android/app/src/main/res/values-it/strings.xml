@@ -336,6 +336,8 @@
     <string name="gray">Grigio</string>
     <!-- blue gray color -->
     <string name="blue_gray">Grigiazzurro</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Regala mappe gratuite e senza pubblicità a milioni di utenti!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Quando segui il percorso, ricorda che:</string>

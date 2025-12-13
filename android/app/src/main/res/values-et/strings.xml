@@ -336,6 +336,8 @@
     <string name="gray">Hall</string>
     <!-- blue gray color -->
     <string name="blue_gray">Sinakashall</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Kingi miljonitele kasutajatele tasuta ja reklaamideta kaardid!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Teekonda järgides palun pea meeles:</string>

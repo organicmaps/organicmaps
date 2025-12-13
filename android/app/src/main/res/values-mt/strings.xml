@@ -332,6 +332,8 @@
     <string name="gray">Griż</string>
     <!-- blue gray color -->
     <string name="blue_gray">Blu Griż</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Agħti mapep b\'xejn u bla reklami lil miljuni ta\' utenti!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Meta ssegwi r-rotta, jekk jogħġbok żomm f’ moħħok:</string>

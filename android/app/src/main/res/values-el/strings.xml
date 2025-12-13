@@ -336,6 +336,8 @@
     <string name="gray">Γκρι</string>
     <!-- blue gray color -->
     <string name="blue_gray">Γκρίζο μπλε</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Χαρίστε δωρεάν χάρτες χωρίς διαφημίσεις σε εκατομμύρια χρήστες!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Όταν ακολουθείτε την διαδρομή, να θυμάστε:</string>

@@ -336,6 +336,8 @@
     <string name="gray">Gri</string>
     <!-- blue gray color -->
     <string name="blue_gray">Mavi Gri</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Milyonlarca kullanıcıya reklamsız ve ücretsiz haritalar hediye edin!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Rotanızı izlerken şunları lütfen unutmayın:</string>

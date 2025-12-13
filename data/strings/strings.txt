@@ -9907,7 +9907,7 @@ zh-Hant = 其他
 
 [donate_description]
 comment = Tex label above the Donate button
-tags = apple-maps
+tags = android-app,apple-maps
 en = Gift free maps with no ads to millions of users!
 af = Skenk gratis kaarte sonder advertensies aan miljoene gebrui
 ar = اهْدِ خرائط مجانية بدون إعلانات لملايين المستخدمين!
