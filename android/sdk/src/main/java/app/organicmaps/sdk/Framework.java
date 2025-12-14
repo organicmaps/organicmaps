@@ -88,6 +88,16 @@ public class Framework
     nativeSetSpeedCamManagerMode(mode.ordinal());
   }
 
+  @NonNull
+  public static SpeedCameraMode getSpeedCamerasMode()
+  {
+    final int nativeMode = nativeGetSpeedCamManagerMode();
+    final SpeedCameraMode[] values = SpeedCameraMode.values();
+    if (nativeMode < 0 || nativeMode >= values.length)
+      return SpeedCameraMode.AUTO;
+    return values[nativeMode];
+  }
+
   public static native void nativeRestoreDownloadQueue();
 
   public static native void nativeShowTrackRect(long track);
@@ -221,6 +231,8 @@ public class Framework
   public static native String[] nativeGenerateNotifications(boolean announceStreets);
 
   private static native void nativeSetSpeedCamManagerMode(int mode);
+
+  private static native int nativeGetSpeedCamManagerMode();
 
   public static native void nativeSetRoutingListener(@NonNull RoutingListener listener);
 

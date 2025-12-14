@@ -291,7 +291,8 @@ public class NavigationService extends Service implements LocationListener
     if (routingInfo == null)
       return;
 
-    if (routingInfo.shouldPlayWarningSignal())
+    if (routingInfo.shouldPlayWarningSignal()
+        && app.organicmaps.sdk.settings.SpeedCameraMode.NEVER != Framework.getSpeedCamerasMode())
       mPlayer.playback(R.raw.speed_cams_beep);
 
     // Don't spend time on updating RemoteView if notifications are not allowed.
