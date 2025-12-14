@@ -158,9 +158,6 @@ NSString * const kUDDidShowLongTapToShowSideButtonsToast = @"kUDDidShowLongTapTo
 }
 - (void)setHidden:(BOOL)hidden
 {
-  if (!self.hidden && hidden)
-    [Toast showWithText:L(@"long_tap_toast")];
-
   return [self.sideView setHidden:hidden animated:YES];
 }
 

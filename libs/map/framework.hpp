@@ -805,6 +805,7 @@ public:
   bool CanShowRateUsRequest() const;
   void DidShowRateUsRequest() const;
 
+  std::optional<std::string> GetDontateURL() const;
   bool CanShowCrowdfundingPromo() const;
   void DidShowDonationPage() const;
   void DidPossiblyReturnFromDonationPage() const;

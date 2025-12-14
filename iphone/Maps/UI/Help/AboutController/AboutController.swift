@@ -67,7 +67,6 @@ final class AboutController: MWMViewController {
       completionHandler()
       onDidAppearCompletionHandler = nil
     }
-    donationView?.onAppear?()
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -128,14 +127,7 @@ private extension AboutController {
 
     func setupDonation() {
       guard let donationUrl = Settings.donateUrl() else { return }
-      donationView = DonationView(onAppear: { [weak self] in
-        DispatchQueue.main.asyncAfter(deadline: .now() + kDefaultAnimationDuration) {
-          if Settings.canShowCrowdfundingPromo() {
-            self?.donationView?.triggerTap()
-          }
-        }
-      },
-                                  onTap: { [weak self] in
+      donationView = DonationView(onTap: { [weak self] in
         if let self, openUrl(donationUrl, externally: true) {
           Settings.didShowDonationPage()
         }

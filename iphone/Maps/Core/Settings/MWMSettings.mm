@@ -185,13 +185,13 @@ NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
 
 + (NSString *)donateUrl
 {
-  std::string url;
-  if (!settings::Get(settings::kDonateUrl, url))
+  auto const url = GetFramework().GetDontateURL();
+  if (!url.has_value())
     return nil;
-  if (url == "https://organicmaps.app/donate/")
+  if (url.value() == "https://organicmaps.app/donate/")
     return [L(@"translated_om_site_url") stringByAppendingString:@"donate/"];
   else
-    return @(url.c_str());
+    return @(url.value().c_str());
 }
 
 + (BOOL)isNY
@@ -247,11 +247,6 @@ NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
 + (void)didShowDonationPage
 {
   GetFramework().DidShowDonationPage();
-}
-
-+ (void)didPossiblyReturnFromDonationPage
-{
-  GetFramework().DidPossiblyReturnFromDonationPage();
 }
 
 + (void)resetDonations

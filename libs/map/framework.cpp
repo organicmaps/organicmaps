@@ -123,9 +123,11 @@ std::string_view constexpr kProductsPopupCloseReasonSelectProductStr = "select_p
 std::string_view constexpr kFirstAskedForRateUsTimeKey = "FirstAskedForRateUsTime";
 std::string_view constexpr kLastAskedForRateUsTimeKey = "LastAskedForRateUsTime";
 
-std::string_view constexpr kDonationPageDisplayingTimeKey = "IsDonationPageShown";
-std::string_view constexpr kProbablyDonatedTimeKey = "ProbablyDonatedTime";
-std::string_view constexpr kMaxProbablyDonatedTimeoutKey = "ProbablyDonatedTimeout";
+std::string_view constexpr kDonationTapTimeKey = "DonationTapTime";
+std::string_view constexpr kDonationTapCountKey = "DonationTapCount";
+
+auto const kCrowdfundingStartTime = base::YYMMDDToSecondsSinceEpoch(251220);
+auto const kCrowdfundingEndTime = base::YYMMDDToSecondsSinceEpoch(260201);
 
 auto constexpr kLargeFontsScaleFactor = 1.6;
 size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
@@ -3591,24 +3593,30 @@ void Framework::DidShowRateUsRequest() const
   settings::Set(kLastAskedForRateUsTimeKey, now);
 }
 
-bool Framework::CanShowCrowdfundingPromo() const
+std::optional<std::string> Framework::GetDontateURL() const
 {
   std::string url;
-  if (!settings::Get(settings::kDonateUrl, url))
-    return false;
+  if (settings::Get(settings::kDonateUrl, url))
+    return url;
+  /// @todo(KK): Remove this crowdfunding hard-start in the next release.
+  if (base::SecondsSinceEpoch() > kCrowdfundingStartTime)
+    return "https://organicmaps.app/donate/";
+  return nullopt;
+}
 
-  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
-    return false;
-
-  if (!m_usageStats.IsLoyalUser())
+bool Framework::CanShowCrowdfundingPromo() const
+{
+  if (!GetDontateURL().has_value())
     return false;
 
   uint8_t constexpr kMinBatteryLevelPercent = 25;
   if (Platform::GetBatteryLevel() < kMinBatteryLevelPercent)
     return false;
 
-  uint64_t lastPromoDisplayingTime = 0;
-  if (settings::Get(kDonationPageDisplayingTimeKey, lastPromoDisplayingTime) && lastPromoDisplayingTime > 0)
+  uint64_t lastDonationTapTime = 0;
+  bool const donationWasTapped = settings::Get(kDonationTapTimeKey, lastDonationTapTime) && lastDonationTapTime > 0;
+  bool const crowdfundingHasEnded = base::SecondsSinceEpoch() > kCrowdfundingEndTime;
+  if (donationWasTapped && crowdfundingHasEnded)
     return false;
 
   return true;
@@ -3616,33 +3624,14 @@ bool Framework::CanShowCrowdfundingPromo() const
 
 void Framework::DidShowDonationPage() const
 {
-  settings::Set(kDonationPageDisplayingTimeKey, base::SecondsSinceEpoch());
-}
-
-void Framework::DidPossiblyReturnFromDonationPage() const
-{
-  uint64_t lastPromoDisplayingTime = 0;
-  if (!settings::Get(kDonationPageDisplayingTimeKey, lastPromoDisplayingTime))
-    return;
-
-#ifdef DEBUG
-  uint32_t constexpr kMinProbablyDonatedTimeout = 5;
-#else
-  uint32_t constexpr kMinProbablyDonatedTimeout = 30;
-#endif
-
-  int64_t const probablyDonatedTimeout = base::SecondsSinceEpoch() - lastPromoDisplayingTime;
-  if (probablyDonatedTimeout <= kMinProbablyDonatedTimeout)
-    return;
-
-  uint64_t maxProbablyDonatedTimeout = 0;
-  settings::Get(kMaxProbablyDonatedTimeoutKey, maxProbablyDonatedTimeout);
-  if (probablyDonatedTimeout > maxProbablyDonatedTimeout)
-    settings::Set(kMaxProbablyDonatedTimeoutKey, probablyDonatedTimeout);
+  settings::Set(kDonationTapTimeKey, base::SecondsSinceEpoch());
+  uint32_t tapCount = 0;
+  UNUSED_VALUE(settings::Get(kDonationTapCountKey, tapCount));
+  settings::Set(kDonationTapCountKey, tapCount + 1);
 }
 
 void Framework::ResetDonations() {
-  LOG(LDEBUG, ("Crowdfunding data was reset to initial state."));
-  settings::Set(kDonationPageDisplayingTimeKey, 0);
-  settings::Set(kMaxProbablyDonatedTimeoutKey, 0);
+  LOG(LDEBUG, ("Donations data was reset to initial state."));
+  settings::Set(kDonationTapTimeKey, 0);
+  settings::Set(kDonationTapCountKey, 0);
 }

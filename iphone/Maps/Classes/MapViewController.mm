@@ -289,7 +289,10 @@ NSString * const kSettingsSegue = @"Map2Settings";
   if (!self.searchManager.isSearching && isNavigationDashboardHidden)
   {
     if (!self.controlsManager.hidden)
+    {
       [self dismissPlacePage];
+      [Toast showWithText:L(@"long_tap_toast")];
+    }
     self.controlsManager.hidden = !self.controlsManager.hidden;
   }
 }
@@ -610,7 +613,7 @@ NSString * const kSettingsSegue = @"Map2Settings";
 }
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-  MWMMapViewControlsManager * manager = self.controlsManager;
+  MWMMapViewControlsManager * manager = _controlsManager;
   if (manager)
     return manager.preferredStatusBarStyle;
   return UIStatusBarStyleDefault;

@@ -15742,6 +15742,7 @@ lt = Kelias
 nb = Sti
 pt = Caminho
 ro = Cale
+sl = Pot
 sw = Njia
 th = เส้นทาง
 vi = Đường
@@ -28762,7 +28763,6 @@ zh-Hant = 鐵路橋
 ref = type.railway.rail.bridge
 et = Kiirraudtee sild
 pt = Ponte ferroviária de alta velocidade
-pt-BR = Ponte ferroviária
 
 [type.railway.rail.tourism.bridge]
 ref = type.railway.rail.bridge

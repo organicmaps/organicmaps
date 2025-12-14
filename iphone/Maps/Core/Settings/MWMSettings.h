@@ -2,7 +2,6 @@
 
 + (BOOL)canShowCrowdfundingPromo;
 + (void)didShowDonationPage;
-+ (void)didPossiblyReturnFromDonationPage;
 + (void)resetDonations;
 
 @end

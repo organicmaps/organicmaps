@@ -151,3 +151,4 @@ CJK_Compatibility_Forms 0xFE30 0xFE4F
 Small_Form_Variants 0xFE50 0xFE6F
 Arabic_Presentation_Forms-B 0xFE70 0xFEFF
 Halfwidth_and_Fullwidth_Forms 0xFF00 0xFFEF
+Emoji 0x1F300 0x1FAFF

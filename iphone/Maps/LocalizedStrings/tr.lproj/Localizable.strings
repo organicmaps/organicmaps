@@ -163,7 +163,7 @@
 "load_kmz_title" = "Yer İmleri Yükleniyor";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Yer İmleri başarılı bir şekilde yüklendi! Bunları Haritada ya da Yer İmleri Yöneticisi ekranında bulabilirsiniz.";
+"load_kmz_successful" = "Yer İmleri başarılıyla yüklendi! Bunları haritada ya da Yer İmleri Yöneticisi ekranında bulabilirsiniz.";
 
 /* Kml file loading failed */
 "load_kmz_failed" = "Yer İmlerini yükleme işlemi başarısız oldu. Dosya bozuk ya da hatalı olabilir.";
@@ -501,7 +501,7 @@
 
 /* Editable House Number text field (in address block). */
 "house_number" = "Bina numarası";
-"details" = "Detaylar";
+"details" = "Ayrıntılar";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Sokak ekle";
@@ -631,9 +631,9 @@
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
 "bookmarks_import" = "Yer İmlerini ve İzleri İçe Aktar";
-"bookmarks_error_message_share_general" = "Bir uygulama hatasından dolayı paylaşılamıyor";
-"bookmarks_error_title_share_empty" = "Paylaşma hatası";
-"bookmarks_error_message_share_empty" = "Boş bir liste paylaşılamaz";
+"bookmarks_error_message_share_general" = "Uygulama hatası nedeniyle paylaşılamıyor";
+"bookmarks_error_title_share_empty" = "Paylaşım hatası";
+"bookmarks_error_message_share_empty" = "Boş liste paylaşılamaz";
 "bookmarks_error_message_empty_list_name" = "Lütfen liste adını girin";
 "bookmarks_error_title_list_name_already_taken" = "Bu ad zaten alınmış";
 "profile" = "OpenStreetMap profili";
@@ -896,7 +896,7 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Tr:About";
 
 /* App Tip #00 */
-"app_tip_00" = "Topluluk tarafından oluşturulan haritalarımızı kullandığınız için teşekkür ederiz!";
+"app_tip_00" = "Toplulukça oluşturulan haritalarımızı kullandığınız için teşekkür ederiz!";
 
 /* App tip #01 */
 "app_tip_01" = "Bağışlarınız ve desteğinizle dünyanın en iyi haritalar uygulamasını oluşturabiliriz!";
@@ -905,7 +905,7 @@
 "app_tip_02" = "Uygulamamızı beğendiniz mi? Geliştirmemizi desteklemek için lütfen bağış yapın! Henüz beğenmediniz mi? Lütfen beğenmediğiniz şeyleri bize bildirin, düzelteceğiz!";
 
 /* App tip #03 */
-"app_tip_03" = "Bir yazılım mühendisi / geliştirici tanıyorsanız, ondan ihtiyacınız olan bir özelliği uygulamaya eklemesini isteyebilirsiniz.";
+"app_tip_03" = "Yazılım geliştirici tanıyorsanız, ondan gereksindiğiniz bir özelliği uygulamaya eklemesini isteyebilirsiniz.";
 
 /* App tip #04 */
 "app_tip_04" = "Herhangi bir şeyi seçmek için haritaya dokunun. Uzun dokunarak arayüz gizlenip gösterilebilir.";
@@ -917,7 +917,7 @@
 "app_tip_06" = "Uygulamamızın kendi dilinize çevrilmesine yardımcı olabilirsiniz.";
 
 /* App tip #07 */
-"app_tip_07" = "Uygulamamız birkaç teknoloji tutkunu ve topluluk tarafından geliştirilmiştir.";
+"app_tip_07" = "Uygulamamız birkaç teknoloji tutkunu ve toplulukça geliştirilmiştir.";
 
 /* App tip #08 */
 "app_tip_08" = "Harita verilerini kolayca düzeltebilir ve iyileştirebilirsiniz.";
@@ -932,7 +932,7 @@
 "car_used_on_the_car_screen" = "Şu anda araç ekranında Organic Maps kullanıyorsunuz";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
-"car_continue_on_the_phone" = "Telefonda devam et";
+"car_continue_on_the_phone" = "Telefonda sürdür";
 
 /* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
 "car_continue_in_the_car" = "Arabada göster";
@@ -999,7 +999,7 @@
 "track_title" = "İz";
 
 /* Text for the editing the Track's color button. */
-"change_color" = "Renk değiştir";
+"change_color" = "Renk Değiştir";
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Harita";

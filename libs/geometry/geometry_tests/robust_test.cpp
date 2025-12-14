@@ -29,6 +29,16 @@ bool InsideTriangle(P const & p, P const ps[])
   return IsPointInsideTriangle(p, ps[0], ps[1], ps[2]);
 }
 
+UNIT_TEST(OrientedS_CrossProduct)
+{
+  P arr[] = {{1, 2}, {3, 4}, {5, 6}};
+
+  m2::PointD const v1 = arr[1] - arr[0];
+  m2::PointD const v2 = arr[2] - arr[0];
+
+  TEST_ALMOST_EQUAL_ULPS(m2::CrossProduct(v1, v2), m2::robust::OrientedS(arr[1], arr[2], arr[0]), ());
+}
+
 UNIT_TEST(OrientedS_Smoke)
 {
   P arr[] = {{-1, -1}, {0, 0}, {1, -1}};

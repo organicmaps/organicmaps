@@ -12,7 +12,6 @@ final class DonationView: UIButton {
     static let gradientColorMultiplier: CGFloat = 0.3
     static let pressScale: CGFloat = 0.97
     static let tapAnimationDuration: TimeInterval = kFastAnimationDuration
-    static let triggerDelayAnimationDuration: TimeInterval = kDefaultAnimationDuration
     static let highlightAlpha: CGFloat = 0.12
   }
 
@@ -25,12 +24,9 @@ final class DonationView: UIButton {
   private let acationButtonGradientLayer = CAGradientLayer()
   private let highlightOverlayView = UIView()
   private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-
-  private(set) var onAppear: (() -> Void)?
   private let onTap: (() -> Void)
 
-  init(onAppear: (() -> Void)? = nil, onTap: @escaping (() -> Void)) {
-    self.onAppear = onAppear
+  init(onTap: @escaping (() -> Void)) {
     self.onTap = onTap
     super.init(frame: .zero)
     setupViews()
@@ -171,15 +167,6 @@ final class DonationView: UIButton {
       Settings.resetDonations()
       Toast.show(withText: "Donations statistics was reset.", alignment: .top)
     #endif
-  }
-
-  @objc
-  func triggerTap() {
-    touchDown()
-    DispatchQueue.main.asyncAfter(deadline: .now() + Constants.triggerDelayAnimationDuration) { [weak self] in
-      guard let self else { return }
-      self.touchUpInside()
-    }
   }
 
   @objc
