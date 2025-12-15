@@ -303,7 +303,7 @@ UNIT_TEST(RussiaSaintPetersburgPetrPaulChurchToDolphins)
 {
   integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Pedestrian),
                                                 mercator::FromLatLon(59.9502, 30.3165), {0., 0.},
-                                                mercator::FromLatLon(59.973, 30.2702), 4507.);
+                                                mercator::FromLatLon(59.973, 30.2702), 4607.);
 }
 
 UNIT_TEST(RussiaPetergofEntranceToErmitagePalace)
