@@ -1,38 +1,37 @@
-• Mappe offline dettagliate con luoghi che non esistono su altre mappe
-• Navigatore per bici, escursioni, e sentieri
-• Contorni, profili di elevazione, picchi e pendenze
-• Guida vocale a piedi, in bicicletta e in auto
-• Ricerca veloce offline
-• Aggiungi ai preferiti tutto ciò di cui hai bisogno, importa e condividi KML, KMZ, GPX
-• Modalità scura per proteggere gli occhi
+Organic Maps è un’app di mappe offline e navigazione GPS veloce e dettagliata per viaggi, escursioni e percorsi in bicicletta. Pianifica, importa e registra i percorsi e goditi una guida fluida senza consumare la batteria o usare la connessione Internet. Esplora i luoghi e naviga in sicurezza durante le tue avventure all’aperto e i viaggi in tutto il mondo. L’app offre download illimitati delle mappe e aggiornamenti bisettimanali. Basata su OpenStreetMap, realizzata da volontari, privacy-first, 100% offline e 100% gratuita.
 
-Organic Maps è pura e biologica, fatta con amore:
+OFFLINE: L’app funziona al 100% offline — inclusi ricerca e navigazione. Puoi esplorare la mappa e navigare senza connessione internet, risparmiando dati mobili e costi di roaming. Senza trasferimenti di dati in background, la batteria dura molto più a lungo.
 
-• Rispetta la tua privacy
-• Risparmia la batteria
-• Nessun addebito imprevisto sui dati mobili
+VELOCE: Zoom, ricerca e calcolo dei percorsi funzionano in modo rapido e fluido.
 
-Organic Maps è libero da trackers e altre cose cattive:
+DETTAGLIATA E AGGIORNATA: Le mappe sono ricche di dettagli e aggiornate due volte al mese per riflettere le condizioni reali. Diversamente da molti concorrenti noti, includono etichette degli edifici, panchine, sentieri escursionistici e altre informazioni utili.
 
-• Non ci sono annunci
-• Nessun monitoraggio
-• Nessuna raccolta di dati
-• Non ti telefona a casa
-• Nessuna registrazione fastidiosa
-• Nessun tutorial obbligatorio
-• Nessuno spam
-• Nessuna notifica push
-• Nessun crapware
-• Nessun pesticida
+BASATA SU OPENSTREETMAP: OpenStreetMap è una mappa mondiale in stile wiki costruita e mantenuta da milioni di volontari — locali che conoscono meglio le loro aree. Questo sforzo comunitario produce mappe altamente dettagliate, spesso più precise di quelle commerciali in aree meno mappate. Organic Maps aggiorna i dati da OpenStreetMap ogni due settimane, mantenendo le mappe fresche e affidabili. Se noti qualcosa che manca, puoi aggiungerlo su OpenStreetMap e contribuire a migliorare la mappa per tutti.
 
-Noi di Organic Maps crediamo che la privacy sia un diritto umano fondamentale:
+PRIVACY-FIRST: Non raccogliamo dati o identificatori. Questo significa che non ci sono rischi di perdite di dati e nessuna distrazione come annunci o notifiche rumorose — solo un’esperienza cartografica pulita e privata.
 
-• Organic Maps è un progetto indipendente guidato dalla comunità
-• Il codice è open-source
-• I dati delle mappe sono presi da OpenStreetMap, anch'esso un progetto basato sulla comunità
-• Proteggiamo la tua privacy dagli occhi indiscreti delle Big Tech
-• Stai al sicuro ovunque tu sia
+CARATTERISTICHE IMPORTANTI:
 
-Rifiuta la sorveglianza, abbraccia la tua libertà e sostieni la comunità.
+ESPLORA LUOGHI: Cerca per indirizzo, nome o categoria, scopri milioni di POI e visualizza informazioni dettagliate come orari di apertura, articoli Wikipedia, accessibilità per sedie a rotelle e altri dettagli utili. Tutto disponibile offline.
 
-Prova Organic Maps!
+NAVIGAZIONE GPS: Goditi indicazioni vocali passo passo. Crea percorsi a piedi, escursioni, in bicicletta o in auto — inclusi percorsi tra città, paesi e più waypoint. Trova i percorsi migliori per i tuoi viaggi in metropolitana e pendolarismo. CarPlay supportato.
+
+PERCORSI ESCURSIONISTICI E CICLABILI DAL MONDO: Attiva livelli di mappa speciali per scoprire percorsi escursionistici e ciclabili popolari in tutto il mondo, tutti da OpenStreetMap. Passa tra i livelli per vedere percorsi bici e MTB colorati e sentieri ufficiali.
+
+TRASPORTO PUBBLICO: Vedi i numeri delle linee dei trasporti pubblici alle fermate. Orari e percorsi in tempo reale in fase di sviluppo.
+
+STILI MAPPA: Scegli i livelli di mappa adatti alla tua attività — All’aperto, Linee di Contorno, Escursionismo, Ciclismo o Metropolitana/Treno.
+
+REGISTRATORE DI PERCORSI: Registra, importa, esporta e condividi percorsi e luoghi preferiti. Supporta formati KML, KMZ, GPX e GeoJSON.
+
+ARTICOLI WIKIPEDIA: Esplora articoli Wikipedia per i luoghi scoperti sulla mappa. Digita “?wiki” nella ricerca.
+
+EDITOR MAPPA: Contribuisci a OpenStreetMap aggiungendo luoghi mancanti o modificando la mappa direttamente da Organic Maps.
+
+SINCRONIZZAZIONE iCLOUD: Effettua facilmente il backup e sincronizza tutti i tuoi segnalibri e percorsi tramite iCloud.
+
+Prova l’app — è 100% gratuita, senza pubblicità, veloce e completamente offline. Goditi un’esperienza cartografica veloce, affidabile e privata, e condividila con altri.
+Organic Maps è un progetto indie, guidato dalla comunità, open-source, con centinaia di collaboratori che aiutano a sviluppare nuove funzionalità, correggere problemi, tradurre e far avanzare il progetto.
+
+Unisciti alla comunità su Telegram: @OrganicMapsApp
+Oppure scopri altri modi per supportare il progetto: https://organicmaps.app/contribute/

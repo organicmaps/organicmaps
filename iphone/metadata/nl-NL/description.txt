@@ -1,39 +1,37 @@
-• Detailed offline maps with places that don't exist on other maps
-• Cycling routes, hiking trails, and walking paths
-• Contour lines, elevation profiles, peaks, and slopes
-• Turn-by-turn walking, cycling, and car navigation with voice guidance
-• Fast offline search
-• Bookmark everything you need, import and share KML, KMZ, GPX
-• Dark mode to protect your eyes
-• … and many other features!
+Organic Maps is een snelle, gedetailleerde offline kaart- en GPS-navigatie-app voor reizen, wandelingen en fietstochten. Plan, importeer en registreer routes en geniet van soepele navigatie zonder je batterij leeg te trekken of een internetverbinding te gebruiken. Ontdek plaatsen en navigeer veilig tijdens je buitenavonturen en reizen over de hele wereld. De app biedt onbeperkte kaartdownloads en updates om de twee weken. Gebaseerd op OpenStreetMap, gemaakt door vrijwilligers, privacygericht, 100% offline en volledig gratis.
 
-Organic Maps is pure and organic, made with love:
+OFFLINE: De app werkt 100% offline — inclusief zoeken en navigatie. Je kunt de kaart verkennen en navigeren zonder internetverbinding, waardoor je mobiele data en roamingkosten bespaart. En zonder achtergrondgegevens gaat je batterij veel langer mee.
 
-• Respects your privacy
-• Saves your battery
-• No unexpected mobile data charges
+SNEL: In- en uitzoomen, zoeken en routeberekeningen werken merkbaar snel.
 
-Organic Maps is free from trackers and other bad stuff:
+DETAILRIJK & GEUPDATE: De kaarten zijn rijk aan details en worden twee keer per maand bijgewerkt om de actuele situatie weer te geven. In tegenstelling tot veel bekende concurrenten bevatten ze gebouwlabels, bankjes, wandelpaden en andere nuttige informatie.
 
-• No ads
-• No tracking
-• No data collection
-• No phoning home
-• No annoying registration
-• No mandatory tutorials
-• No noisy email spam
-• No push notifications
-• No crapware
-• No pesticides
+GEBASEERD OP OPENSTREETMAP: OpenStreetMap is een wiki-stijl wereldkaart, gebouwd en onderhouden door miljoenen vrijwilligers — lokale bewoners die hun gebied het beste kennen. Deze gemeenschapsinspanning resulteert in zeer gedetailleerde kaarten, vaak nauwkeuriger dan commerciële kaarten in minder gedetailleerde gebieden. Organic Maps werkt zijn gegevens bij vanuit OpenStreetMap om de twee weken, zodat je kaarten fris en betrouwbaar blijven. Als je iets mist, kun je dit toevoegen aan OpenStreetMap en helpen de kaart voor iedereen te verbeteren.
 
-At Organic Maps, we believe that privacy is a fundamental human right:
+PRIVACY VOOROP: Wij verzamelen geen gegevens of identificatoren. Dit betekent geen risico op datalekken en geen afleiding door advertenties of storende meldingen — alleen een schone, privékaartervaring.
 
-• Organic Maps is an indie community-driven project
-• The code is open-sourced
-• The maps data is taken from OpenStreetMap, also community-driven project
-• We protect your privacy from Big Tech’s prying eyes
-• Stay safe no matter wherever you are
+BELANGRIJKE FUNCTIES
 
-Reject surveillance, embrace your freedom, and support the community.
+ONTDEK PLAATSEN: Zoek op adres, naam of categorie, ontdek miljoenen POI’s en bekijk gedetailleerde informatie zoals openingstijden, Wikipedia-artikelen, rolstoeltoegankelijkheid en andere nuttige details. Alles offline beschikbaar.
 
-Give Organic Maps a try!
+GPS-NAVIGATIE: Geniet van stapsgewijze, gesproken aanwijzingen. Maak wandel-, wandel-, fiets- of autoroutes — inclusief routes tussen steden, landen en meerdere tussenpunten. Vind de beste routes voor je metroreizen en woon-werkverkeer. CarPlay wordt ondersteund.
+
+WANDEL- & FIETSRUTES VAN OVER DE HELE WERELD: Schakel speciale kaartlagen in om populaire wandel- en fietsroutes wereldwijd te ontdekken, allemaal afkomstig van OpenStreetMap. Wissel tussen lagen om gekleurde fiets- en MTB-routes te zien, evenals officiële wandelpaden.
+
+OPENBAAR VERVOER: Bekijk de lijnnummers van het openbaar vervoer bij haltes. Live reisinformatie en routeplanning zijn momenteel in ontwikkeling.
+
+KAARTSTIJLEN: Kies kaartlagen die passen bij je activiteit — Buiten, Hoogtelijnen, Wandelen, Fietsen of Metro.
+
+ROUTE OPNEMER: Neem je routes en favoriete plaatsen op, importeer, exporteer en deel ze. Ondersteunt KML, KMZ, GPX en GeoJSON.
+
+WIKIPEDIA-ARTIKELEN: Bekijk Wikipedia-artikelen van plaatsen die je op de kaart ontdekt. Typ “?wiki” in de zoekbalk om alle plaatsen met artikelen te vinden.
+
+KAARTEDITOR: Draag bij aan OpenStreetMap door ontbrekende plaatsen toe te voegen of de kaart rechtstreeks vanuit Organic Maps te bewerken.
+
+iCLOUD SYNC: Maak eenvoudig back-ups en synchroniseer al je bladwijzers en routes via iCloud.
+
+Probeer de app — hij is 100% gratis, zonder advertenties, snel en volledig offline. Geniet van een snelle, betrouwbare en privékaartervaring en deel deze met anderen!
+Organic Maps is een indie, community-gedreven, open-source project met honderden bijdragers die helpen bij het ontwikkelen van nieuwe functies, oplossen van problemen, vertalen en het project vooruithelpen.
+
+Word lid van de community op Telegram: @OrganicMapsApp
+Of ontdek andere manieren om het project te ondersteunen: https://organicmaps.app/contribute/
