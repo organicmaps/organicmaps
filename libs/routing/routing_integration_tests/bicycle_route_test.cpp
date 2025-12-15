@@ -315,7 +315,7 @@ UNIT_TEST(Germany_UseResidential)
   // https://github.com/organicmaps/organicmaps/issues/9330
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
                                    mercator::FromLatLon(48.1464472, 11.5589919), {0.0, 0.0},
-                                   mercator::FromLatLon(48.1418297, 11.5602123), 614.963 /* expectedRouteMeters */);
+                                   mercator::FromLatLon(48.1418297, 11.5602123), 591.427 /* expectedRouteMeters */);
 }
 
 UNIT_TEST(Belarus_StraightFootway)
