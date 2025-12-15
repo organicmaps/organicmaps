@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Inny";
 
 /* Tex label above the Donate button */
-"donate_description" = "Przekaż darowiznę, aby wspólnie tworzyć najlepsze mapy!";
+"donate_description" = "Podaruj darmowe mapy bez reklam milionom użytkowników!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Zgłoś lub napraw nieprawidłowe dane mapy";

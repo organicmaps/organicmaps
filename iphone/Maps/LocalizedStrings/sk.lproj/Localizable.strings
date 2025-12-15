@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Iný";
 
 /* Tex label above the Donate button */
-"donate_description" = "Darujte, aby sme spoločne vytvorili tie najlepšie mapy!";
+"donate_description" = "Darujte bezplatné mapy bez reklám miliónom používateľov!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Nahlásenie alebo oprava nesprávnych údajov mapy";

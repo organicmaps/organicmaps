@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Otros";
 
 /* Tex label above the Donate button */
-"donate_description" = "¡Dona para construir los mejores mapas juntos!";
+"donate_description" = "¡Regala mapas gratis y sin anuncios a millones de usuarios!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Informar o corregir datos de mapas incorrectos";

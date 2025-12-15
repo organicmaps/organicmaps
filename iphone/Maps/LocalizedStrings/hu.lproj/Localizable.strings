@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Egyéb";
 
 /* Tex label above the Donate button */
-"donate_description" = "Adományozzon, hogy együtt építsük a legjobb térképeket!";
+"donate_description" = "Ajándékozzon ingyenes, hirdetésmentes térképeket felhasználók millióinak!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Hibás térképadatok jelentése vagy javítása";

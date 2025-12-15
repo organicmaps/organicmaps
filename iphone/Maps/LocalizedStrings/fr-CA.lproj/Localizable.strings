@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Autre";
 
 /* Tex label above the Donate button */
-"donate_description" = "Fais un don pour construire ensemble les meilleures cartes !";
+"donate_description" = "Offrez des cartes gratuites et sans pub à des millions d'utilisateurs !";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Signaler ou corriger des données cartographiques incorrectes";

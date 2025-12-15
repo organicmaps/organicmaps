@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "その他";
 
 /* Tex label above the Donate button */
-"donate_description" = "寄付して最高の地図を一緒に作ろう！";
+"donate_description" = "何百万人ものユーザーに広告なしの無料地図を贈ろう！";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "誤った地図データを報告または修正する";

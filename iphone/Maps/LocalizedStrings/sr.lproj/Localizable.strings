@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Остало";
 
 /* Tex label above the Donate button */
-"donate_description" = "Донирате да бисмо заједно направили најбоље мапе!";
+"donate_description" = "Поклоните бесплатне мапе без огласа милионима корисника!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Пријавите или поправите нетачне податке на мапи";

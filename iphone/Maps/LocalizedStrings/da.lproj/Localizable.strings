@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Andet";
 
 /* Tex label above the Donate button */
-"donate_description" = "Donér for at bygge de bedste kort sammen!";
+"donate_description" = "Giv gratis kort uden reklamer til millioner af brugere!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Rapporter eller ret forkerte kortdata";

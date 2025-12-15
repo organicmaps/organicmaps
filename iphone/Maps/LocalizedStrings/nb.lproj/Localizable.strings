@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Andre";
 
 /* Tex label above the Donate button */
-"donate_description" = "Doner for å bygge de beste kartene sammen!";
+"donate_description" = "Gi gratis kart uten reklame til millioner av brukere!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Rapportere eller korrigere feil kartdata";

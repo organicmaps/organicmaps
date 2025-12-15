@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "อื่น ๆ";
 
 /* Tex label above the Donate button */
-"donate_description" = "บริจาคเพื่อสร้างแผนที่ที่ดีที่สุดด้วยกัน!";
+"donate_description" = "มอบแผนที่ฟรีไม่มีโฆษณาให้แก่ผู้ใช้นับล้าน!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "รายงานหรือแก้ไขข้อมูลแผนที่ที่ไม่ถูกต้อง";
