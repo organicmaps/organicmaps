@@ -1,39 +1,42 @@
-• Detailed offline maps with places that don't exist on other maps
-• Cycling routes, hiking trails, and walking paths
-• Contour lines, elevation profiles, peaks, and slopes
-• Turn-by-turn walking, cycling, and car navigation with voice guidance
-• Fast offline search
-• Bookmark everything you need, import and share KML, KMZ, GPX
-• Dark mode to protect your eyes
-• … and many other features!
+Organic Maps는 여행, 하이킹, 자전거 여행을 위한 빠르고 상세한 오프라인 지도 및 GPS 내비게이션 앱입니다. 경로를 계획하고, 가져오고, 기록하며, 배터리를 소모하거나 인터넷 연결 없이 부드러운 안내를 즐기세요. 야외 모험과 전 세계 여행 중 안전하게 길을 찾을 수 있습니다. 앱은 무제한 지도 다운로드와 격주 업데이트를 제공합니다. OpenStreetMap 기반, 자원봉사 제작, 개인정보 우선, 100% 오프라인, 100% 무료입니다.
 
-Organic Maps is pure and organic, made with love:
+오프라인: 앱은 검색 및 내비게이션을 포함하여 100% 오프라인에서 작동합니다. 인터넷 연결 없이 지도를 탐색하고 길을 찾을 수 있으며, 모바일 데이터 및 로밍 요금을 절약할 수 있습니다. 백그라운드 데이터 전송이 없으므로 배터리도 오래갑니다.
 
-• Respects your privacy
-• Saves your battery
-• No unexpected mobile data charges
+빠름: 확대/축소, 검색, 경로 계산이 매우 빠르게 작동합니다.
 
-Organic Maps is free from trackers and other bad stuff:
+상세 및 업데이트됨: 지도는 세부 정보가 풍부하며 실제 환경을 반영하기 위해 한 달에 두 번 업데이트됩니다. 많은 유명 경쟁사와 달리 건물 라벨, 벤치, 하이킹 경로 등 유용한 정보가 포함되어 있습니다.
 
-• No ads
-• No tracking
-• No data collection
-• No phoning home
-• No annoying registration
-• No mandatory tutorials
-• No noisy email spam
-• No push notifications
-• No crapware
-• No pesticides
+OpenStreetMap 기반: OpenStreetMap은 지역을 가장 잘 아는 현지 자원봉사자가 구축하고 유지 관리하는 위키 스타일의 세계 지도입니다. 이러한 커뮤니티 노력으로 매우 상세한 지도가 생성되며, 덜 지도화된 지역에서는 상업용 지도보다 정확할 수 있습니다. Organic Maps는 OpenStreetMap에서 2주마다 데이터를 업데이트하여 항상 최신 신뢰할 수 있는 지도를 제공합니다. 누락된 항목을 발견하면 OpenStreetMap에 추가하여 모든 사용자를 위해 지도를 개선할 수 있습니다.
 
-At Organic Maps, we believe that privacy is a fundamental human right:
+개인정보 우선: 데이터나 식별자를 수집하지 않습니다. 데이터 유출 위험이 없고 광고나 시끄러운 알림과 같은 방해 요소가 없으며, 깨끗하고 개인적인 지도 경험을 제공합니다.
 
-• Organic Maps is an indie community-driven project
-• The code is open-sourced
-• The maps data is taken from OpenStreetMap, also community-driven project
-• We protect your privacy from Big Tech’s prying eyes
-• Stay safe no matter wherever you are
+주요 기능:
 
-Reject surveillance, embrace your freedom, and support the community.
+장소 탐색: 주소, 이름 또는 카테고리로 검색하고 수백만 POI를 발견하며, 운영 시간, Wikipedia 문서, 휠체어 접근성 등 자세한 정보를 확인하세요. 모든 기능은 오프라인에서 사용 가능.
 
-Give Organic Maps a try!
+GPS 내비게이션: 음성 안내와 턴바이턴 지침 제공. 도보, 하이킹, 자전거, 운전 경로 생성 가능 — 도시 간, 국가 간, 다중 웨이포인트 포함. 지하철 및 출퇴근 최적 경로 제공. CarPlay 지원.
+
+전 세계 하이킹 및 자전거 코스: 특수 지도 레이어를 활성화하여 인기 하이킹 및 자전거 코스를 탐색. 레이어 전환으로 색상 표시된 자전거 및 MTB 경로, 공식 하이킹 경로 확인 가능.
+
+대중교통: 정류장에서 대중교통 노선 번호 확인. 실시간 운행 일정 및 경로 기능은 개발 중.
+
+지도 스타일: 활동에 맞는 지도 레이어 선택 — 야외, 등고선, 하이킹, 자전거, 지하철/메트로.
+
+트랙 기록기: 경로 및 즐겨찾기 장소 기록, 가져오기, 내보내기, 공유. KML, KMZ, GPX, GeoJSON 형식 지원.
+
+Wikipedia 문서: 지도에서 발견한 장소의 Wikipedia 문서 탐색. 검색에 “?wiki” 입력.
+
+지도 편집기: 누락된 장소 추가 또는 Organic Maps에서 직접 지도 편집으로 OpenStreetMap에 기여.
+
+다크 모드: 밤에도 편안하게 보기 위한 다크 테마 전환.
+
+iCloud 동기화: iCloud를 통해 북마크와 경로를 쉽게 백업 및 동기화.
+
+앱을 사용해보세요 — 100% 무료, 광고 없음, 빠르고 완전히 오프라인. 빠르고 신뢰할 수 있으며 개인적인 지도 경험을 즐기고 다른 사람과 공유하세요.
+Organic Maps는 커뮤니티 중심의 오픈소스 프로젝트로, 수백 명의 기여자가 새로운 기능 개발, 문제 해결, 번역, 프로젝트 진행을 지원합니다.
+
+Telegram에서 커뮤니티 참여: @OrganicMapsApp
+다른 지원 방법 보기: https://organicmaps.app/contribute/
+
+스토어에서 솔직한 피드백과 리뷰가 저희에게 큰 힘이 됩니다! 질문이 있으신가요? 자세한 내용과 FAQ는 organicmaps.app
+ 방문.

@@ -1,39 +1,37 @@
-• Detailed offline maps with places that don't exist on other maps
-• Cycling routes, hiking trails, and walking paths
-• Contour lines, elevation profiles, peaks, and slopes
-• Turn-by-turn walking, cycling, and car navigation with voice guidance
-• Fast offline search
-• Bookmark everything you need, import and share KML, KMZ, GPX
-• Dark mode to protect your eyes
-• … and many other features!
+Organic Maps je brza, detaljna offline karta i GPS navigacijska aplikacija za putovanja, planinarenje i vožnje. Planirajte, uvozite i bilježite rute te uživajte u glatkom vođenju bez pražnjenja baterije ili korištenja internetske veze. Istražujte mjesta i sigurno se krećite tijekom svojih avantura na otvorenom i putovanja širom svijeta. Aplikacija nudi neograničeno preuzimanje karata i ažuriranja svaka dva tjedna. Temeljeno na OpenStreetMap, izrađeno od volontera, s prioritetom privatnosti, 100% offline i potpuno besplatno.
 
-Organic Maps is pure and organic, made with love:
+OFFLINE: Aplikacija radi 100% offline — uključujući pretraživanje i navigaciju. Možete istraživati kartu i navigirati bez internetske veze, štedeći mobilne podatke i naknade za roaming. Bez prijenosa podataka u pozadini, baterija traje mnogo dulje.
 
-• Respects your privacy
-• Saves your battery
-• No unexpected mobile data charges
+DETALJNO I AŽURIRANO: Karte su bogate detaljima i ažuriraju se dva puta mjesečno kako bi odražavale stvarne uvjete. Za razliku od mnogih poznatih konkurenata, uključuju oznake zgrada, klupe, pješačke staze i druge korisne informacije.
 
-Organic Maps is free from trackers and other bad stuff:
+TEMELJENO NA OPENSTREETMAP: OpenStreetMap je wiki-stil svjetske karte koju grade i održavaju milijuni volontera — lokalni stanovnici koji najbolje poznaju svoje područje. Ovaj zajednički napor rezultira vrlo detaljnim kartama, često preciznijim od komercijalnih u slabije kartiranim područjima. Organic Maps ažurira podatke iz OpenStreetMap svaka dva tjedna, održavajući karte svježima i pouzdanim. Ako primijetite da nešto nedostaje, možete to dodati u OpenStreetMap i pomoći poboljšati kartu za sve.
 
-• No ads
-• No tracking
-• No data collection
-• No phoning home
-• No annoying registration
-• No mandatory tutorials
-• No noisy email spam
-• No push notifications
-• No crapware
-• No pesticides
+PRIORITET PRIVATNOSTI: Ne prikupljamo nikakve podatke ili identifikatore. To znači da nema rizika od curenja podataka i nema smetnji poput oglasa ili bučnih obavijesti — samo čisto, privatno iskustvo karte.
 
-At Organic Maps, we believe that privacy is a fundamental human right:
+VAŽNE FUNKCIJE
 
-• Organic Maps is an indie community-driven project
-• The code is open-sourced
-• The maps data is taken from OpenStreetMap, also community-driven project
-• We protect your privacy from Big Tech’s prying eyes
-• Stay safe no matter wherever you are
+ISTRAŽUJTE MJESTA: Pretražujte po adresi, imenu ili kategoriji, otkrijte milijune POI-a i pregledajte detaljne informacije poput radnog vremena, Wikipedia članaka, pristupačnosti za invalidska kolica i drugih korisnih podataka. Sve dostupno offline.
 
-Reject surveillance, embrace your freedom, and support the community.
+GPS NAVIGACIJA: Uživajte u glasovno vođenim uputama korak po korak. Kreirajte pješačke, planinarske, biciklističke ili vozačke rute — uključujući rute između gradova, država i više točaka. Pronađite najbolje rute za putovanja metroom i dnevne prijevoze. Podržava CarPlay.
 
-Give Organic Maps a try!
+PLANINARSKE I BICIKLISTIČKE STAZE IZ CIJELOG SVIJETA: Aktivirajte posebne slojeve karte kako biste otkrili popularne planinarske i biciklističke rute širom svijeta, sve iz OpenStreetMap-a. Prebacujte se između slojeva kako biste vidjeli obojene biciklističke i MTB rute, kao i službene planinarske staze.
+
+JAVNI PRIJEVOZ: Pogledajte brojeve linija javnog prijevoza na stajalištima. Trenutno se razvijaju živi rasporedi i planiranje ruta.
+
+STILOVI KARTE: Odaberite slojeve karte koji odgovaraju vašoj aktivnosti — Outdoor, Konturne linije, Planinarenje, Biciklizam ili Metro.
+
+SNIMAČ RUTA: Snimajte, uvozite, izvozite i dijelite svoje rute i omiljena mjesta. Podržava KML, KMZ, GPX i GeoJSON formate.
+
+WIKIPEDIA ČLANCI: Istražite Wikipedia članke za mjesta koja otkrijete na karti. Upišite “?wiki” u pretraživanju kako biste pronašli sva mjesta s člancima.
+
+UREĐIVAČ KARTE: Doprinijeti OpenStreetMap dodavanjem nedostajućih mjesta ili uređivanjem karte izravno u Organic Maps.
+
+iCLOUD SINHRONIZACIJA: Jednostavno izrađujte sigurnosne kopije i sinkronizirajte sve svoje oznake i rute putem iClouda.
+
+Isprobajte aplikaciju — 100% je besplatna, bez oglasa, brza i potpuno offline. Uživajte u brzom, pouzdanom i privatnom iskustvu karte i podijelite ga s drugima!
+Organic Maps je indie, zajednicom vođen, open-source projekt sa stotinama suradnika koji pomažu u razvoju novih funkcija, ispravljanju problema, prevođenju i napretku projekta.
+
+Pridružite se zajednici na Telegramu: @OrganicMapsApp
+Ili saznajte druge načine podrške projektu: https://organicmaps.app/contribute/
+
+Vaše iskrene povratne informacije i recenzije u trgovini motiviraju nas! Volimo čuti vaše mišljenje.
