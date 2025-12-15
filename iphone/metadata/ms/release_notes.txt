@@ -1,20 +1,27 @@
-- Artikel Wikipedia untuk tempat dalam bahasa Turki, Jepun, dan Cina; taip ?wiki untuk melihat semua artikel di peta
-- Tetapan untuk menyerlahkan secara visual kawasan yang dimuat turun di peta
-- Data OpenStreetMap setakat 23 November 2025
+- BARU: Pokok Krismas dan pasar kini muncul di peta; taip `Christmas Market` atau `Christmas Tree` dalam carian untuk mencarinya (atau tambahkannya di OpenStreetMap.org jika perlu)
+- Data OpenStreetMap setakat 14 Disember 2025
+- Kapasiti tempat letak kereta kini dipaparkan dalam hasil carian
+- Sempadan dan label taman negara kurang menonjol pada peta dunia
+- Menambah sinonim carian Lithuania dan mengaktifkan carian Lithuania
+- Hasil carian menggunakan ikon emoji satu warna
+- Memperbaiki isu CarPlay pada iOS 12
+- Menyelesaikan pelbagai isu visual pada iPhone dan iPad
+- Carian senarai penanda buku kini mencari nama dengan diakritik atau huruf beraksen
+- Trek yang diimport atau direkodkan kurang daripada 10 minit kini menunjukkan tempoh dalam minit dan saat
+- Animasi butang dan bar butang bawah yang diperbaiki
+- Mengalih keluar pemberitahuan isolines semasa pelancaran aplikasi
 
-- Edit nama penanda buku atau trek terus di Halaman Maklumat Tempat
-- Ketik lama pada nama atau alamat tempat/penanda buku yang dipilih untuk menyalinnya
-- Menambah carian untuk senarai tertentu apabila menukarnya dari Halaman Maklumat Tempat
-- Gunakan emoji tersuai di Halaman Maklumat Tempat
-- Animasi diperbaiki untuk butang sisi dan warna butang "Muat Turun Peta" dalam tema gelap
-- Sokongan iOS 26 & macOS 26 "Liquid Glass"
-- Apabila memindahkan trek ke senarai, senarai itu menjadi lalai untuk penanda buku/trek baharu
-- Import GeoJSON yang dipertingkatkan, termasuk `Saved Places.json` dari Google Takeout
-- Terjemahan dikemas kini merentasi pelbagai bahasa, termasuk pembetulan Ibrani
+## Kemas Kini Terjemahan
+- Terjemahan Ukraine yang diperbaiki
+- Terjemahan Jerman, Hungary, Lithuania, Sepanyol, dan Turki yang diperbaiki
+- Membetulkan arahan suara TTS bulatan dalam bahasa Croatia
 
-## Navigasi & Laluan
+Semak butiran lanjut mengenai keluaran ini dan sebelumnya di https://omaps.org/news/
 
-- Susun atur peta diperbaiki semasa navigasi di iPad supaya laluan kekal jelas kelihatan
-- Laluan basikal kini melangkau jalan kediaman sehala di Austria
-- Arahan bulatan dipermudahkan
-- Jalan lebih terang dengan kontras yang lebih baik dalam mod kenderaan gelap
+...dan nantikan ciri-ciri dan penambahbaikan yang akan datang!
+
+Terima kasih atas maklum balas dan sokongan anda, Organic Maps tidak akan mungkin wujud tanpa komuniti pengguna dan penyumbang kami yang hebat.
+
+Selamat Tahun Baru 2026!
+
+Pasukan Organic Maps
