@@ -1,39 +1,36 @@
-• Detailed offline maps with places that don't exist on other maps
-• Cycling routes, hiking trails, and walking paths
-• Contour lines, elevation profiles, peaks, and slopes
-• Turn-by-turn walking, cycling, and car navigation with voice guidance
-• Fast offline search
-• Bookmark everything you need, import and share KML, KMZ, GPX
-• Dark mode to protect your eyes
-• … and many other features!
+Organic Maps ialah aplikasi peta luar talian dan navigasi GPS yang pantas dan terperinci untuk perjalanan, mendaki, dan berbasikal. Rancang, import, dan rakam laluan, serta nikmati panduan lancar tanpa menghabiskan bateri atau menggunakan sambungan internet. Terokai tempat dan navigasi dengan selamat semasa pengembaraan luar dan perjalanan anda di seluruh dunia. Aplikasi ini menawarkan muat turun peta tanpa had dan kemas kini dua minggu sekali. Berasaskan OpenStreetMap, dibuat oleh sukarelawan, mengutamakan privasi, 100% luar talian, dan 100% percuma.
 
-Organic Maps is pure and organic, made with love:
+LUAR TALIAN: Aplikasi ini berfungsi 100% luar talian — termasuk carian dan navigasi. Anda boleh meneroka peta dan menavigasi tanpa sambungan internet, menjimatkan data mudah alih dan kos roaming. Tanpa pemindahan data latar belakang, bateri anda tahan lebih lama.
 
-• Respects your privacy
-• Saves your battery
-• No unexpected mobile data charges
+PANTAS: Zum, carian, dan pengiraan laluan berfungsi dengan sangat pantas.
 
-Organic Maps is free from trackers and other bad stuff:
+TERPERINCI & TERKINI: Peta kaya dengan perincian dan dikemas kini dua kali sebulan untuk mencerminkan keadaan sebenar. Berbeza dengan banyak pesaing terkenal, ia termasuk label bangunan, bangku, laluan mendaki, dan maklumat berguna lain.
 
-• No ads
-• No tracking
-• No data collection
-• No phoning home
-• No annoying registration
-• No mandatory tutorials
-• No noisy email spam
-• No push notifications
-• No crapware
-• No pesticides
+BERASASKAN OPENSTREETMAP: OpenStreetMap ialah peta dunia gaya wiki yang dibina dan diselenggara oleh jutaan sukarelawan — penduduk tempatan yang paling mengetahui kawasan mereka. Usaha komuniti ini menghasilkan peta yang sangat terperinci, sering lebih tepat daripada peta komersial di kawasan kurang dipetakan. Organic Maps mengemas kini datanya dari OpenStreetMap setiap dua minggu, memastikan peta anda sentiasa segar dan boleh dipercayai. Jika anda perasan ada sesuatu yang hilang, anda boleh menambahnya ke OpenStreetMap dan membantu meningkatkan peta untuk semua.
 
-At Organic Maps, we believe that privacy is a fundamental human right:
+UTAMAKAN PRIVASI: Kami tidak mengumpul sebarang data atau pengecam. Ini bermaksud tiada risiko kebocoran data dan tiada gangguan seperti iklan atau pemberitahuan bising — hanya pengalaman peta yang bersih dan peribadi.
 
-• Organic Maps is an indie community-driven project
-• The code is open-sourced
-• The maps data is taken from OpenStreetMap, also community-driven project
-• We protect your privacy from Big Tech’s prying eyes
-• Stay safe no matter wherever you are
+CIRI-CIRI PENTING:
 
-Reject surveillance, embrace your freedom, and support the community.
+TEROKAI TEMPAT: Cari mengikut alamat, nama, atau kategori, temui berjuta-juta POI, dan lihat maklumat terperinci seperti waktu operasi, artikel Wikipedia, akses kerusi roda, dan maklumat berguna lain. Semua boleh digunakan luar talian.
 
-Give Organic Maps a try!
+NAVIGASI GPS: Nikmati arahan berpandu suara, langkah demi langkah. Cipta laluan berjalan kaki, mendaki, berbasikal, atau memandu — termasuk laluan antara bandar, negara, dan pelbagai titik. Cari laluan terbaik untuk perjalanan metro dan harian anda. Sokongan CarPlay tersedia.
+
+LALUAN MENDaki & BERBASIKAL DARI SELURUH DUNIA: Aktifkan lapisan peta khas untuk menemui laluan mendaki dan berbasikal yang popular di seluruh dunia, semua daripada OpenStreetMap. Tukar antara lapisan untuk melihat laluan berwarna basikal dan MTB, serta laluan mendaki rasmi.
+
+PENGANGKUTAN AWAM: Lihat nombor laluan pengangkutan awam di hentian. Jadual perjalanan dan laluan masa nyata sedang dibangunkan.
+
+GAYA PETA: Pilih lapisan peta yang sesuai dengan aktiviti anda — Luar, Garis Ketinggian, Mendaki, Berbasikal, atau Metro/Transit.
+
+PEPERINGKAT LALUAN: Rakam, import, eksport, dan kongsi laluan dan tempat kegemaran anda. Menyokong format KML, KMZ, GPX, dan GeoJSON.
+
+ARTIKEL WIKIPEDIA: Terokai artikel Wikipedia untuk tempat yang anda temui di peta. Taip “?wiki” dalam carian untuk mencari semua tempat dengan artikel Wikipedia.
+
+EDITOR PETA: Sumbang kepada OpenStreetMap dengan menambah tempat yang hilang atau mengedit peta terus dari Organic Maps.
+
+SYNC iCLOUD: Mudah membuat sandaran dan menyegerakkan semua penanda halaman dan laluan melalui iCloud.
+
+Cuba aplikasi ini — ia 100% percuma, tanpa iklan, pantas, dan sepenuhnya luar talian. Nikmati pengalaman peta yang pantas, boleh dipercayai, dan peribadi, dan kongsi dengan orang lain.
+Organic Maps ialah projek indie sumber terbuka yang dikendalikan komuniti dengan ratusan penyumbang yang membantu membangunkan ciri baru, membaiki isu, menterjemah, dan memajukan projek.
+
+Sertai komuniti di Telegram: @OrganicMapsApp

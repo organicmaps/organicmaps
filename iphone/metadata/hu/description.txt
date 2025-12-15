@@ -1,38 +1,32 @@
-• Részletes offline térképek más térképeken meg nem található helyekkel
-• Kerékpárutak, turistautak és gyalogos ösvények
-• Szintvonalak, magassági profilok, csúcsok és lejtők
-• Részletes gyalogos, kerékpáros és autós navigáció hangutasítással
-• Gyors offline keresés
-• Minden szükséges hely könyvjelzőbe helyezése, KML, KMZ, GPX importálása és megosztása
-• Éjszakai üzemmód szemünk védelméért
+Az Organic Maps egy gyors, részletes offline térkép- és GPS navigációs alkalmazás utazáshoz, túrázáshoz és kerékpározáshoz. Tervezzen, importáljon és rögzítsen útvonalakat, és élvezze a zökkenőmentes navigációt anélkül, hogy lemerítené az akkumulátort vagy internetkapcsolatra lenne szüksége. Fedezze fel a helyeket és navigáljon biztonságosan a kültéri kalandjai és utazásai során világszerte. Az alkalmazás korlátlan térképletöltést és kétheti frissítéseket kínál. Az OpenStreetMap alapú, önkéntesek által készített, adatvédelmi szempontokat előtérbe helyező, 100% offline és 100% ingyenes.
 
-Az Organic Maps tiszta és organikus, szeretettel készült:
+OFFLINE: Az alkalmazás 100%-ban offline működik — beleértve a keresést és a navigációt is. Felfedezheti a térképet és navigálhat internetkapcsolat nélkül, megtakarítva a mobiladatot és a roaming költségeket. Háttéradat átvitel nélkül az akkumulátor sokkal tovább bírja.
 
-• Tiszteletben tartja a magánéletét
-• Kíméli az akkumulátort
-• Nem generál váratlan mobiladat-forgalmat
+RÉSZLETES ÉS FRISSÍTETT: A térképek gazdagok részletekben, és havonta kétszer frissítik őket a valós világ állapotának tükrözésére. Sok ismert versenytárssal ellentétben tartalmazzák az épületek címkéit, padokat, túraútvonalakat és más hasznos információkat.
 
-Az Organic Maps mentes a nyomkövetőktől és egyéb vackoktól:
+OPENSTREETMAP ALAPÚ: Az OpenStreetMap egy wiki-stílusú világtérkép, amelyet milliók önkéntesei — helyiek, akik a legjobban ismerik a környéküket — építettek és tartanak karban. Ez a közösségi erőfeszítés rendkívül részletes térképeket eredményez, gyakran pontosabbakat, mint a kereskedelmi térképek kevésbé feltérképezett területeken. Az Organic Maps kéthetente frissíti az OpenStreetMap adatait, így a térképek mindig frissek és megbízhatóak. Ha hiányzik valami, hozzáadhatja az OpenStreetMap-hez, és segíthet javítani a térképet mindenki számára.
 
-• Reklám nélkül
-• Nyomkövetés nélkül
-• Adatgyűjtés nélkül
-• Hazatelefonálás nélkül
-• Bosszantó regisztráció nélkül
-• Kötelező oktatóprogram nélkül
-• Zajos e-mail spam nélkül
-• Push értesítések nélkül
-• Crapware nélkül
-• Növényvédő szer nélkül
+PRIVACY-FIRST: Nem gyűjtünk adatokat vagy azonosítókat. Ez azt jelenti, hogy nincs adatvesztés kockázata, és nincsenek zavaró tényezők, mint például reklámok vagy hangos értesítések — csak egy tiszta, privát térképélmény.
 
-Az Organic Mapsnél hiszünk abban, hogy a magánélet alapvető emberi jog:
+FONTOS FUNKCIÓK:
 
-• Az Organic Maps egy független közösség által irányított projekt.
-• A kód nyílt forráskódú
-• A térképek adatai az OpenStreetMap-ről származnak, amely szintén közösségi projekt.
-• Védjük magánéletét a Big Tech kíváncsi szemeitől.
-• Maradjon biztonságban, bárhol is van
+HELYEK FELFEDEZÉSE: Keresés cím, név vagy kategória szerint, fedezze fel a millió POI-t, és tekintse meg a részletes információkat, például nyitvatartási idő, Wikipedia-cikkek, akadálymentesség és egyéb hasznos részletek.
 
-Utasítsa el a megfigyelést, fogadja el a szabadságát, és támogassa a közösséget.
+GPS NAVIGÁCIÓ: Élvezze a hangvezérelt, kanyarról-kanyarra navigációt. Hozzon létre gyalogos, túrázó, kerékpáros vagy autós útvonalakat — beleértve városok, országok és több útvonalpont közötti útvonalakat. Keresse meg a legjobb útvonalakat a metró- és ingázási utakhoz. CarPlay támogatott.
 
-Próbálja ki az Organic Maps-et!
+TÚRA- ÉS KERÉKPÁROS ÚTVONALAK A VILÁG MINDEN TÁJÁRÓL: Kapcsolja be a speciális térképrétegeket, hogy felfedezze a népszerű túra- és kerékpáros útvonalakat világszerte, mind az OpenStreetMap forrásából. Váltson a rétegek között, hogy színes kerékpár- és MTB útvonalakat, valamint hivatalos túraútvonalakat lásson.
+
+KÖZLEKEDÉS: Nézze meg a megállóknál a tömegközlekedési járatok számát. Az élő menetrendek és útvonaltervezés jelenleg fejlesztés alatt áll.
+
+TÉRKÉP STÍLUSOK: Válassza ki a tevékenységéhez illő térképrétegeket — Kültér, Kontúrvonalak, Túrázás, Kerékpározás vagy Metró/Aluljáró.
+
+ÚTVONAL FELVEVŐ: Rögzítse, importálja, exportálja és ossza meg útvonalait és kedvenc helyeit. Támogatja a KML, KMZ, GPX és GeoJSON formátumokat.
+
+WIKIPEDIA CIKKEK: Fedezze fel a térképen talált helyek Wikipedia-cikkeit. Írja be a "?wiki" keresésbe, hogy megtalálja az összes helyet Wikipedia-cikkel.
+
+TÉRKÉPSZERKESZTŐ: Hozzájárulhat az OpenStreetMap-hez hiányzó helyek hozzáadásával vagy a térkép szerkesztésével közvetlenül az Organic Maps alkalmazásból.
+
+iCLOUD SZINKRONIZÁCIÓ: Készítsen biztonsági másolatot és szinkronizálja könnyedén az összes könyvjelzőt és útvonalat az iCloudon keresztül.
+
+Próbálja ki az alkalmazást — 100% ingyenes, reklámmentes, gyors és teljesen offline. Élvezze a gyors, megbízható és privát térképélményt, és ossza meg másokkal!
+Az Organic Maps egy indie, közösség által vezérelt, nyílt forráskódú projekt, amelyben százak járulnak hozzá új funkciók fejlesztéséhez, hibák javításához, fordításhoz és a projekt előremozdításához.

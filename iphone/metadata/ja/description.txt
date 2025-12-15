@@ -1,39 +1,42 @@
-• Detailed offline maps with places that don't exist on other maps
-• Cycling routes, hiking trails, and walking paths
-• Contour lines, elevation profiles, peaks, and slopes
-• Turn-by-turn walking, cycling, and car navigation with voice guidance
-• Fast offline search
-• Bookmark everything you need, import and share KML, KMZ, GPX
-• Dark mode to protect your eyes
-• … and many other features!
+Organic Maps は、旅行、ハイキング、自転車ツアー向けの高速で詳細なオフライン地図およびGPSナビゲーションアプリです。ルートを計画、インポート、記録し、バッテリーを消耗せず、インターネット接続なしでスムーズな案内を楽しめます。屋外での冒険や世界中の旅行中に安全にナビゲートしましょう。アプリは無制限の地図ダウンロードと隔週の更新を提供します。OpenStreetMapベース、ボランティア制作、プライバシー重視、100%オフライン、100%無料です。
 
-Organic Maps is pure and organic, made with love:
+オフライン: 検索やナビゲーションを含め、アプリは完全にオフラインで動作します。インターネット接続なしで地図を探索し、ナビゲートでき、モバイルデータやローミング料金を節約できます。バックグラウンドでのデータ転送がないため、バッテリーも長持ちします。
 
-• Respects your privacy
-• Saves your battery
-• No unexpected mobile data charges
+高速: ズーム、検索、ルート計算は非常に高速に動作します。
 
-Organic Maps is free from trackers and other bad stuff:
+詳細かつ最新: 地図は詳細に富み、実際の状況を反映するために月2回更新されます。多くの有名な競合アプリとは異なり、建物のラベル、ベンチ、ハイキングコースなどの情報も含まれています。
 
-• No ads
-• No tracking
-• No data collection
-• No phoning home
-• No annoying registration
-• No mandatory tutorials
-• No noisy email spam
-• No push notifications
-• No crapware
-• No pesticides
+OpenStreetMapベース: OpenStreetMapは、地域をよく知る地元住民ボランティアによって構築・維持されるWikiスタイルの世界地図です。このコミュニティの努力により、詳細度が高く、商用地図よりも正確な場合があります。Organic Mapsは2週間ごとにOpenStreetMapからデータを更新し、常に最新で信頼できる地図を提供します。欠落している場所を見つけた場合は、OpenStreetMapに追加して地図改善に貢献できます。
 
-At Organic Maps, we believe that privacy is a fundamental human right:
+プライバシー重視: データや識別情報は一切収集しません。これにより、データ漏えいのリスクや広告や通知の邪魔もなく、清潔でプライベートな地図体験を提供します。
 
-• Organic Maps is an indie community-driven project
-• The code is open-sourced
-• The maps data is taken from OpenStreetMap, also community-driven project
-• We protect your privacy from Big Tech’s prying eyes
-• Stay safe no matter wherever you are
+主な機能:
 
-Reject surveillance, embrace your freedom, and support the community.
+場所の探索: 住所、名前、カテゴリーで検索し、数百万のPOIを発見。営業時間、Wikipedia記事、車椅子対応などの詳細情報を確認。すべてオフラインで利用可能。
 
-Give Organic Maps a try!
+GPSナビゲーション: 音声案内によるターンバイターンの指示。徒歩、ハイキング、自転車、車のルート作成（都市間や複数ウェイポイントも対応）。メトロや通勤に最適なルートを見つけることが可能。CarPlay対応。
+
+世界中のハイキング＆サイクリングコース: 特別な地図レイヤーを有効にして、世界中の人気コースを探索。レイヤー切替で自転車・MTBルートや公式ハイキングコースを確認可能。
+
+公共交通: 停留所で公共交通機関の路線番号を表示。リアルタイム運行情報は現在開発中。
+
+地図スタイル: アクティビティに合わせてレイヤーを選択 — アウトドア、等高線、ハイキング、自転車、地下鉄/メトロ。
+
+ルート記録: ルートやお気に入りの場所を記録、インポート、エクスポート、共有。KML、KMZ、GPX、GeoJSON形式対応。
+
+Wikipedia記事: 地図上で発見した場所のWikipedia記事を探索。「?wiki」と検索すると記事のある場所を表示。
+
+地図編集: 欠落している場所を追加、またはOrganic Mapsから直接地図を編集してOpenStreetMapに貢献。
+
+ダークモード: 夜間でも快適に閲覧可能なダークテーマに切替。
+
+iCloud同期: iCloud経由でブックマークやルートを簡単にバックアップ・同期。
+
+アプリを試してみてください — 100%無料、広告なし、高速、完全オフライン。高速で信頼性が高く、プライベートな地図体験を楽しみ、他の人と共有しましょう。
+Organic Mapsは、コミュニティ主導のオープンソースプロジェクトで、数百人の貢献者が新機能の開発、問題の修正、翻訳、プロジェクト推進をサポートしています。
+
+Telegramでコミュニティに参加: @OrganicMapsApp
+その他のサポート方法: https://organicmaps.app/contribute/
+
+ストアでの率直なフィードバックとレビューは私たちの励みになります！質問がありますか？詳細とFAQは organicmaps.app
+ をご覧ください。
