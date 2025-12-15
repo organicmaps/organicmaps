@@ -1,38 +1,35 @@
-• Diğer haritalarda bulunmayan yerleri içeren ayrıntılı çevrimdışı haritalar
-• Bisiklet yolları, yürüyüş parkurları ve yürüyüş yolları
-• Eş yükselti çizgileri, yükseklik profilleri, tepeler ve eğimler
-• Sesli yönergelerle adım adım yürüyüş, bisiklet ve araç navigasyonu
-• Hızlı çevrimdışı arama
-• İhtiyacınız olanları yer imlerine ekleyin, KML/KMZ'yi içe aktarın ve paylaşın (GPX desteği de planlanıyor)
-• Gözlerinizi korumak için karanlık mod
+Organic Maps, seyahatler, yürüyüşler ve sürüşler için hızlı ve detaylı bir çevrimdışı harita ve GPS navigasyon uygulamasıdır. Rotalar planlayın, içe aktarın ve kaydedin ve pilinizi tüketmeden veya internet bağlantısı kullanmadan sorunsuz yönlendirmelerin keyfini çıkarın. Dünyanın dört bir yanındaki açık hava maceralarınız ve seyahatleriniz sırasında yerleri keşfedin ve güvenle gezin. Uygulama sınırsız harita indirme ve iki haftada bir güncelleme sunar. OpenStreetMap tabanlı, gönüllüler tarafından yapılmış, gizlilik odaklı, %100 çevrimdışı ve %100 ücretsizdir.
 
-Organic Maps, sevgiyle yapılmış saf ve organiktir:
+ÇEVRİMDIŞI: Uygulama %100 çevrimdışı çalışır — arama ve navigasyon dahil. Haritayı keşfedebilir ve internet bağlantısı olmadan gezinebilirsiniz; böylece mobil veri ve dolaşım ücretlerinden tasarruf edersiniz. Arka planda veri transferi olmadığından piliniz çok daha uzun süre dayanır.
 
-• Gizliliğinize saygı duyar
-• Pilinizi korur
-• Beklenmeyen mobil veri ücretleri yok
+DETAYLI VE GÜNCEL: Haritalar detay açısından zengindir ve gerçek dünya koşullarını yansıtacak şekilde ayda iki kez güncellenir. Birçok tanınmış rakibin aksine, bina etiketleri, banklar, yürüyüş yolları ve diğer faydalı bilgiler içerir.
 
-Organic Maps, izleyici ve diğer kötü şeylerden arınmıştır:
+OPENSTREETMAP TABANLI: OpenStreetMap, milyonlarca gönüllü tarafından oluşturulan ve sürdürülen wiki tarzı bir dünya haritasıdır — bölgelerini en iyi bilen yerel halk. Bu topluluk çalışması, genellikle az haritalanmış bölgelerde ticari haritalardan daha doğru olan son derece detaylı haritalar ortaya çıkarır. Organic Maps, verilerini OpenStreetMap’ten iki haftada bir günceller, haritalarınızın taze ve güvenilir kalmasını sağlar. Eksik bir şey fark ederseniz, OpenStreetMap’e ekleyebilir ve haritayı herkes için geliştirmeye yardımcı olabilirsiniz.
 
-• Reklam yok
-• İzleme yok
-• Veri toplama yok
-• Evi aramak yok
-• Rahatsız edici kayıt yok
-• Zorunlu öğretici yok
-• Gürültülü e-posta spam yok
-• Push bildirimleri yok
-• Crapware yok
-• Böcek ilacı yok
+GİZLİLİK ÖNCELİKLİ: Hiçbir veri veya tanımlayıcı toplamayız. Bu, veri sızıntısı riski olmadığı ve reklam veya gürültülü bildirimler gibi dikkat dağıtıcı unsurlar olmadığı anlamına gelir — sadece temiz ve özel bir harita deneyimi.
 
-Organic Maps'te gizliliğin temel bir insan hakkı olduğuna inanıyoruz:
+ÖNEMLİ ÖZELLİKLER:
 
-• Organic Maps, bağımsız bir topluluk tarafından yönlendirilen bir projedir
-• Açık kaynak kodludur
-• Harita verileri, yine topluluk odaklı bir proje olan OpenStreetMap'ten alınmıştır
-• Gizliliğinizi Big Tech'in meraklı gözlerinden koruyoruz
-• Nerede olursanız olun güvende kalın
+YERLERİ KEŞFEDİN: Adres, isim veya kategoriye göre arama yapın, milyonlarca POI (ilgi noktası) keşfedin ve açılış saatleri, Wikipedia makaleleri, tekerlekli sandalye erişilebilirliği ve diğer faydalı detayları görüntüleyin. Hepsi çevrimdışı kullanılabilir.
 
-Gözetlemeyi reddedin - özgürlüğünüzü kucaklayın.
+GPS NAVİGASYON: Sesli, adım adım yönlendirmelerin keyfini çıkarın. Yürüyüş, doğa yürüyüşü, bisiklet veya sürüş rotaları oluşturun — şehirler, ülkeler ve birden fazla ara noktayı içeren rotalar dahil. Metro yolculuklarınız ve günlük ulaşımınız için en iyi rotaları bulun. CarPlay desteklenir.
 
-Organic Maps'i deneyin!
+DÜNYA ÇAPINDA YÜRÜYÜŞ VE BİSİKLET ROTALARI: Popüler yürüyüş ve bisiklet rotalarını keşfetmek için özel harita katmanlarını etkinleştirin, tümü OpenStreetMap’ten alınmıştır. Renkli bisiklet ve MTB rotalarını ve resmi yürüyüş yollarını görmek için katmanlar arasında geçiş yapın.
+
+TOPLU TAŞIMA: Duraklardaki toplu taşıma güzergah numaralarını görün.
+
+HARİTA STİLLERİ: Aktivitenize uygun harita katmanlarını seçin — Açık Alan, Yükselti Eğrileri, Yürüyüş, Bisiklet veya Metro.
+
+ROTALARI KAYDETME: Rotalarınızı ve favori yerlerinizi kaydedin, içe/dışa aktarın ve paylaşın. KML, KMZ, GPX ve GeoJSON formatlarını destekler.
+
+WIKIPEDIA MAKALELERİ: Haritada keşfettiğiniz yerler için Wikipedia makalelerini inceleyin. Tüm Wikipedia makaleli yerleri bulmak için aramada “?wiki” yazın.
+
+HARİTA DÜZENLEYİCİSİ: Eksik yerleri ekleyerek veya haritayı doğrudan Organic Maps’ten düzenleyerek OpenStreetMap’e katkıda bulunun.
+
+iCLOUD SENKRONİZASYONU: Tüm yer imlerinizi ve rotalarınızı kolayca yedekleyin ve iCloud ile senkronize edin.
+
+Uygulamayı deneyin — %100 ücretsiz, reklamsız, hızlı ve tamamen çevrimdışı. Hızlı, güvenilir ve özel bir harita deneyiminin keyfini çıkarın ve başkalarıyla paylaşın.
+Organic Maps, yeni özellikler geliştirmeye, sorunları çözmeye, çeviri yapmaya ve projeyi ileri taşımaya yardımcı olan yüzlerce katkıcıya sahip, bağımsız, topluluk odaklı ve açık kaynaklı bir projedir.
+
+Topluluğa katılın: Telegram: @OrganicMapsTR
+Projeyi desteklemenin diğer yollarını öğrenin: https://organicmaps.app/contribute/
