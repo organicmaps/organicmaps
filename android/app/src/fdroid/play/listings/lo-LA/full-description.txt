@@ -1,53 +1,27 @@
-‣ Our free app does not track you, does not have ads, and it needs your support.
-‣ It is constantly being improved by contributors and our small team, in our free time.
-‣ If something is wrong or missing on the map, please fix it in <b>OpenStreetMap</b> and see your changes in the future maps update.
-‣ If navigation or search doesn't work, please check it on osm.org first, and then email us. We reply to <i>EVERY</i> email, and we'll fix it ASAP!
+Organic Maps ແມ່ນແອັບແຜນທີ່ອອບໄລນ໌ ແລະ ນຳທາງ GPS ທີ່ໄວ ແລະລະອຽດ ສໍາລັບການເດີນທາງ, ຍ່າງປ່າ, trekking, ແລະການຜະຈົນໄພຂີ່ລົດຖີບ. ວາງແຜນ, ນໍາເຂົ້າ ແລະ ບັນທຶກເສັ້ນທາງ, ແລະເພີດເພີນກັບການນຳທາງທີ່ລື່ນໄຫຼໂດຍບໍ່ກິນແບດ ຫຼື ໃຊ້ອິນເຕີເນັດ. ສໍາຫຼວດສະຖານທີ່ ແລະນຳທາງຢ່າງປອດໄພໃນການຜະຈົນໄພກາງແຈ້ງ ແລະ ການເດີນທາງຮອບໂລກ. ແອັບລອງຮັບການດາວໂຫລດແຜນທີ່ບໍ່ຈໍາກັດ ແລະອັບເດດທຸກ 2 ອາທິດ. ພື້ນຖານຈາກ OpenStreetMap, ສ້າງໂດຍອາສາສະໝັກ, ໃຫ້ຄວາມສ່ວນຕົວ, 100% ອອບໄລນ໌, ແລະ 100% ຟຣີ.
 
-<b>Your feedback and 5-star reviews are the best motivators for us!</b>
+<b>ອອບໄລນ໌:</b> ແອັບເຮັດວຽກ 100% <b>ອອບໄລນ໌</b> — ລວມທັງການຄົ້ນຫາ ແລະ ນຳທາງ. ສາມາດສໍາຫຼວດແຜນທີ່ແລະນຳທາງໂດຍບໍ່ຕ້ອງໃຊ້ອິນເຕີເນັດ, ປະຢັດຄ່າອິນເຕີເນັດ ແລະ roaming.
 
-Key features:
+<b>ໄວ:</b> ການຊູມ, ຄົ້ນຫາ ແລະ ຄໍານວນເສັ້ນທາງ ໄວຄົງທີ່ແຕກຕ່າງ.
 
-• Free, open-source, no ads, no tracking
-• Detailed offline maps with places that don't exist on Google maps, thanks to the <b>OpenStreetMap</b> community
-• Cycling routes, hiking trails, and walking paths
-• Contour lines, elevation profiles, peaks, and slopes
-• Turn-by-turn walking, cycling, and car navigation with voice guidance and Android Auto
-• Fast offline search
-• Bookmarks and tracks export and import in KML, KMZ, GPX formats
-• Dark mode to protect your eyes
+<b>ລະອຽດ ແລະ ອັບເດດ:</b> ແຜນທີ່ລະອຽດ ແລະອັບເດດທຸກ 2 ອາທິດ. ລວມທັງຊື່ອາຄານ, ເກ້ຍນັ່ງ, ເສັ້ນທາງຍ່າງປ່າ ແລະອື່ນໆ.
 
-There is no public transport, satellite maps, and other cool features <i>yet</i> in Organic Maps. But with <i>your help and support</i>, we can make better maps step by step.
+<b>ພື້ນຖານຈາກ OpenStreetMap:</b> ສ້າງໂດຍອາສາສະໝັກທົ່ວໂລກ. ລະອຽດສູງ ແລະແມ່ນຍໍ້ກວ່າແຜນທີ່ການຄ້າໃນຫຼາຍພື້ນທີ່.
 
-Organic Maps is <b>pure and organic, made with love</b>:
+<b>ໃຫ້ຄວາມສ່ວນຕົວ:</b> ພວກເຮົາບໍ່ເກັບຂໍ້ມູນໃດໆ. ບໍ່ມີໂຄສະນາ, ບໍ່ມີການຕິດຕາມ.
 
-• Blazing fast offline experience
-• Respects your privacy
-• Saves your battery
-• No unexpected mobile data charges
-• Simple to use, with only most important features included
+<b>ຄຸນສົມບັດສຳຄັນ:</b>
+– ຄົ້ນຫາສະຖານທີ່ ແລະ POI
+– ນຳທາງ GPS ມີສຽງບອກ
+– ເສັ້ນທາງຍ່າງປ່າແລະຂີ່ລົດຖີບ
+– ຂົນສົ່ງສາທາລະນະ
+– ຮູບແບບແຜນທີ່ຫຼາຍຮູບແບບ
+– ບັນທຶກເສັ້ນທາງ (KML, KMZ, GPX, GeoJSON)
+– Wikipedia ໃນແຜນທີ່
+– ແກ້ໄຂແຜນທີ່ OSM
+– ໂໝດກາງຄືນ
 
-Free from trackers and other bad stuff:
+ລອງໃຊ້ແອັບ — ຟຣີ 100%, ໄວ, ແລະອອບໄລນ໌ທັງໝົດ.
 
-• No ads
-• No tracking
-• No data collection
-• No phoning home
-• No annoying registration
-• No mandatory tutorials
-• No noisy email spam
-• No push notifications
-• No crapware
-• N̶o̶ ̶p̶e̶s̶t̶i̶c̶i̶d̶e̶s̶ Purely organic
-
-At Organic Maps, we believe that <b>privacy is a fundamental human right</b>:
-
-• Organic Maps is an indie community-driven open-source project
-• We protect privacy from Big Tech's prying eyes
-• Stay safe no matter wherever you are
-
-Zero trackers and only minimally required permissions are found according to Exodus Privacy Report.
-
-Please visit <b><i>organicmaps.app</i></b> website for additional details and FAQ, and contact us directly at @OrganicMapsApp in Telegram.
-
-Reject surveillance - embrace your freedom.
-<b>Give Organic Maps a try!</b>
+ເຂົ້າຮ່ວມຊຸມຊົນ Telegram: @OrganicMapsApp
+ສະໜັບສະໜູນໂຄງການ: https://organicmaps.app/contribute/
