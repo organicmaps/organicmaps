@@ -1,1 +1,1 @@
-Privaatne, kogukonna poolt juhitud ja avatud lähtekoodiga kaardirakendus
+Usaldusväärsed offline-kaardid ja GPS matkajatele, ratturitele ja reisijatele.
