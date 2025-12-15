@@ -1,1 +1,1 @@
-Topluluk tarafından geliştirildi, gizliliğe saygılı ve açık kaynaklı
+GPS navigasyon Türkçe, çevrimdışı haritalar ve internetsiz yol gösterici.
