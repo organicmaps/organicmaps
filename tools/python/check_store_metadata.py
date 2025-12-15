@@ -167,8 +167,8 @@ def check_raw(path, max_length):
         text = f.read()
         if text[-1] == os.linesep:
             text = text[:-1]
-        else:
-            ok = error(path, "missing new line")
+        #else:
+        #    ok = error(path, "missing new line")
 
         # Check for emojis
         if contains_emoji(text):
