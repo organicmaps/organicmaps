@@ -1,20 +1,27 @@
-- Wikipédia-cikkek helyekhez törökül, japánul és kínaiul; írja be a ?wiki parancsot az összes cikk megtekintéséhez a térképen
-- Beállítás a letöltött régiók vizuális kiemelésére a térképen
-- OpenStreetMap adatok 2025. november 23-tól
+- ÚJ: A karácsonyfák és vásárok mostantól megjelennek a térképen; írja be a `Christmas Market` vagy `Christmas Tree` kifejezést a keresőbe a megtalálásukhoz (vagy adja hozzá őket az OpenStreetMap.org oldalon, ha szükséges)
+- OpenStreetMap adatok: 2025. december 14.
+- A parkolókapacitás mostantól megjelenik a keresési eredményekben
+- A nemzeti parkok határai és címkéi kevésbé hangsúlyosak a világtérképen
+- Litván keresési szinonimák hozzáadva és litván keresés engedélyezve
+- A keresési eredmények egyszínű emoji ikonokat használnak
+- Javítva egy CarPlay probléma iOS 12 rendszeren
+- Számos vizuális probléma megoldva iPhone és iPad készülékeken
+- A könyvjelzőlista keresése mostantól megtalálja a diakritikus jelekkel vagy ékezetes betűkkel írt neveket is
+- A 10 percnél rövidebb importált vagy rögzített nyomvonalak mostantól percekben és másodpercekben mutatják az időtartamot
+- Javított gombanimációk és alsó gombsor
+- Eltávolítva a szintvonalak értesítés az alkalmazás indításakor
 
-- Szerkessze a könyvjelző vagy útvonal nevét közvetlenül a Helyadatok oldalon
-- Hosszú érintéssel másolja a kiválasztott hely/könyvjelző nevét vagy címét
-- Keresés hozzáadva egy adott listához a Helyadatok oldalról történő váltáskor
-- Használjon egyéni emojikat a Helyadatok oldalon
-- Javított animációk az oldalsó gombokhoz és a "Térképek letöltése" gomb színéhez sötét témában
-- iOS 26 és macOS 26 "Liquid Glass" támogatás
-- Amikor egy útvonalat listára helyez, az lesz az alapértelmezett lista az új könyvjelzőkhöz/útvonalakhoz
-- Javított GeoJSON importálás, beleértve a `Saved Places.json` fájlt a Google Takeoutból
-- Frissített fordítások több nyelven, beleértve egy héber javítást
+## Fordítási frissítések
+- Javított ukrán fordítások
+- Javított német, magyar, litván, spanyol és török fordítások
+- Javított körforgalom TTS hangutasítások horvát nyelven
 
-## Navigáció és útvonaltervezés
+További részletek erről és a korábbi kiadásokról: https://omaps.org/news/
 
-- A térkép elrendezése javítva iPaden a navigáció során, hogy az útvonal jól látható maradjon
-- A kerékpáros útvonaltervezés mostantól kihagyja az egyirányú lakóutcákat Ausztriában
-- Egyszerűsített körforgalmi utasítások
-- Az utak világosabbak jobb kontraszttal sötét járműmódban
+…és maradjon velünk a közelgő funkciókért és fejlesztésekért!
+
+Köszönjük visszajelzését és támogatását, az Organic Maps nem jöhetett volna létre felhasználóink és közreműködőink csodálatos közössége nélkül.
+
+Boldog Új 2026-os Évet!
+
+Az Organic Maps Csapata
