@@ -11,10 +11,11 @@
 #include <OpenGL/gl3.h>
 #include <OpenGL/glext.h>
 #elif defined(OMIM_OS_WINDOWS)
+// clang-format off
 #include "std/windows.hpp"
-#define GL_GLEXT_PROTOTYPES
 #include <GL/gl.h>
 #include "3party/GL/glext.h"
+// clang-format on
 #elif defined(OMIM_OS_ANDROID)
 #define GL_GLEXT_PROTOTYPES
 #include <EGL/egl.h>
