@@ -109,13 +109,6 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
   }
 
   @Override
-  public void onResume()
-  {
-    super.onResume();
-    Framework.nativeDidPossiblyReturnFromDonationPage();
-  }
-
-  @Override
   public void onClick(View v)
   {
     final int id = v.getId();

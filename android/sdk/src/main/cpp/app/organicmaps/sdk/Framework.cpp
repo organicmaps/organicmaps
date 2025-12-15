@@ -1812,11 +1812,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDidShowDonationPage(JNIE
   frm()->DidShowDonationPage();
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDidPossiblyReturnFromDonationPage(JNIEnv *, jclass)
-{
-  frm()->DidPossiblyReturnFromDonationPage();
-}
-
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeResetDonations(JNIEnv *, jclass)
 {
   frm()->ResetDonations();

@@ -371,8 +371,5 @@ public class Framework
   public static native boolean nativeCanShowCrowdfundingPromo();
 
   public static native void nativeDidShowDonationPage();
-
-  public static native void nativeDidPossiblyReturnFromDonationPage();
-
   public static native void nativeResetDonations();
 }
