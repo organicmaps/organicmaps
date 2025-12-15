@@ -1,53 +1,36 @@
-‣ Our free app does not track you, does not have ads, and it needs your support.
-‣ It is constantly being improved by contributors and our small team, in our free time.
-‣ If something is wrong or missing on the map, please fix it in <b>OpenStreetMap</b> and see your changes in the future maps update.
-‣ If navigation or search doesn't work, please check it on osm.org first, and then email us. We reply to <i>EVERY</i> email, and we'll fix it ASAP!
+Organic Maps는 여행, 하이킹, 트레킹, 자전거 모험을 위한 빠르고 상세한 오프라인 지도 및 GPS 내비게이션 앱입니다. 경로를 계획하고 가져오고 기록하며, 배터리를 소모하지 않고 인터넷 없이도 부드러운 안내를 받을 수 있습니다. 세계 곳곳을 탐험하며 안전하게 이동하세요. 무제한 지도 다운로드와 격주 업데이트를 제공합니다. OpenStreetMap 기반, 자원봉사자 제작, 개인 정보 보호 우선, 100% 오프라인, 100% 무료입니다.
 
-<b>Your feedback and 5-star reviews are the best motivators for us!</b>
+<b>오프라인:</b> 검색과 내비게이션을 포함하여 100% 오프라인으로 작동합니다. 인터넷 없이도 지도를 탐색하고 이동할 수 있어 데이터와 로밍 비용을 절약합니다. 백그라운드 데이터 사용이 없어 배터리 수명도 더 오래갑니다.
 
-Key features:
+<b>빠름:</b> 확대/축소, 검색, 경로 계산이 매우 빠르게 작동합니다.
 
-• Free, open-source, no ads, no tracking
-• Detailed offline maps with places that don't exist on Google maps, thanks to the <b>OpenStreetMap</b> community
-• Cycling routes, hiking trails, and walking paths
-• Contour lines, elevation profiles, peaks, and slopes
-• Turn-by-turn walking, cycling, and car navigation with voice guidance and Android Auto
-• Fast offline search
-• Bookmarks and tracks export and import in KML, KMZ, GPX formats
-• Dark mode to protect your eyes
+<b>상세 & 최신:</b> 지도는 매우 상세하며, 실제 환경을 반영하기 위해 한 달에 두 번 업데이트됩니다. 건물 이름, 벤치, 하이킹 경로 등 유용한 정보도 포함합니다.
 
-There is no public transport, satellite maps, and other cool features <i>yet</i> in Organic Maps. But with <i>your help and support</i>, we can make better maps step by step.
+<b>OpenStreetMap 기반:</b> OSM은 전 세계 수백만 명의 자원봉사자가 함께 만드는 위키 스타일 지도입니다. 지역 주민이 직접 참여하여 매우 정밀하며, 상업 지도보다 더 정확한 지역이 많습니다. Organic Maps는 2주마다 데이터를 갱신합니다.
 
-Organic Maps is <b>pure and organic, made with love</b>:
+<b>개인 정보 보호 우선:</b> 어떠한 데이터나 식별자도 수집하지 않습니다. 데이터 유출 위험 없고 광고나 알림도 없습니다.
 
-• Blazing fast offline experience
-• Respects your privacy
-• Saves your battery
-• No unexpected mobile data charges
-• Simple to use, with only most important features included
+<b>주요 기능</b>
 
-Free from trackers and other bad stuff:
+<b>장소 탐색:</b> 주소, 이름, 카테고리로 검색하고 수백만 개의 POI와 상세 정보를 확인하세요.
 
-• No ads
-• No tracking
-• No data collection
-• No phoning home
-• No annoying registration
-• No mandatory tutorials
-• No noisy email spam
-• No push notifications
-• No crapware
-• N̶o̶ ̶p̶e̶s̶t̶i̶c̶i̶d̶e̶s̶ Purely organic
+<b>GPS 내비게이션:</b> 음성 안내와 턴바이턴 길안내를 제공합니다. 도보, 하이킹, 자전거, 운전 경로를 생성하고 도시·국가 간 이동도 가능합니다.
 
-At Organic Maps, we believe that <b>privacy is a fundamental human right</b>:
+<b>전 세계 하이킹 & 자전거 경로:</b> OSM 기반 인기 경로를 지도의 특수 레이어로 확인하세요.
 
-• Organic Maps is an indie community-driven open-source project
-• We protect privacy from Big Tech's prying eyes
-• Stay safe no matter wherever you are
+<b>대중교통:</b> 정류장에서 노선 번호를 확인할 수 있습니다. 실시간 일정 기능은 개발 중입니다.
 
-Zero trackers and only minimally required permissions are found according to Exodus Privacy Report.
+<b>지도 스타일:</b> 아웃도어, 등고선, 하이킹, 자전거, 지하철 등 다양한 스타일 제공.
 
-Please visit <b><i>organicmaps.app</i></b> website for additional details and FAQ, and contact us directly at @OrganicMapsApp in Telegram.
+<b>트랙 기록:</b> 경로를 기록·불러오기·내보내기·공유할 수 있으며 KML, GPX, GeoJSON 지원.
 
-Reject surveillance - embrace your freedom.
-<b>Give Organic Maps a try!</b>
+<b>위키백과:</b> “?wiki”로 검색하면 위키백과 정보가 있는 장소를 찾을 수 있습니다.
+
+<b>지도 편집:</b> 앱에서 직접 OSM에 장소를 추가하거나 수정할 수 있습니다.
+
+<b>다크 모드:</b> 야간 사용을 위한 다크 테마 지원.
+
+앱을 사용해 보세요 — 100% 무료, 광고 없음, 빠르고 완전 오프라인. 세계 어디서나 신뢰할 수 있는 GPS 내비게이션을 경험하세요!
+
+Telegram 커뮤니티: @OrganicMapsApp
+후원 방법: https://organicmaps.app/contribute/
