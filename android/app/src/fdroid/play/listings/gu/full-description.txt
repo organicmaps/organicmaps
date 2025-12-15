@@ -1,53 +1,40 @@
-‣ Our free app does not track you, does not have ads, and it needs your support.
-‣ It is constantly being improved by contributors and our small team, in our free time.
-‣ If something is wrong or missing on the map, please fix it in <b>OpenStreetMap</b> and see your changes in the future maps update.
-‣ If navigation or search doesn't work, please check it on osm.org first, and then email us. We reply to <i>EVERY</i> email, and we'll fix it ASAP!
+Organic Maps મુસાફરી, હાઈકિંગ, ટ્રેકિંગ અને સાયકલિંગ એડવેન્ચરને માટે ઝડપી, વિગતદાર ઑફલાઇન નકશો અને GPS નેવિગેશન એપ છે. રૂટોની આયોજન કરો, આયાત કરો, રેકોર્ડ કરો અને ઇન્ટરનેટ જોડાણ વાપર્યા વગર અથવા બેટરી ખાલી કર્યા વગર સરળ માર્ગદર્શનનો આનંદ મેળવો. બહારનાં સાહસો અને વિશ્વભરના પ્રવાસ દરમિયાન સ્થળોને શોધો અને સુરક્ષિત રીતે નેવિગેટ કરો. એપ અનલિમિટેડ નકશા ડાઉનલોડ અને દર પંદર દિવસે અપડેટ્સ આપે છે. OpenStreetMap આધારિત, સ્વયંસેવકો દ્વારા બનાવેલી, પ્રાઇવસી-પ્રથમ, 100% ઑફલાઇન અને 100% મફત.
 
-<b>Your feedback and 5-star reviews are the best motivators for us!</b>
+<b>ઓફલાઇન:</b> એપ 100% ઑફલાઇન કાર્ય કરે છે — શોધ અને નેવિગેશન સહિત. તમે ઇન્ટરનેટ જોડાણ વગર નકશો શોધી શકો છો અને નેવિગેટ કરી શકો છો, અને મોબાઇલ ડેટા અને રોમિંગ ખર્ચ બચાવો છો. અને બેકગ્રાઉન્ડ ડેટા ટ્રાન્સફર વગર બેટરી વધુ ટકાવે છે.
 
-Key features:
+<b>ઝડપી:</b> ઝૂમ, શોધ અને રૂટ ગણતરી ખૂબ જ ઝડપથી થાય છે.
 
-• Free, open-source, no ads, no tracking
-• Detailed offline maps with places that don't exist on Google maps, thanks to the <b>OpenStreetMap</b> community
-• Cycling routes, hiking trails, and walking paths
-• Contour lines, elevation profiles, peaks, and slopes
-• Turn-by-turn walking, cycling, and car navigation with voice guidance and Android Auto
-• Fast offline search
-• Bookmarks and tracks export and import in KML, KMZ, GPX formats
-• Dark mode to protect your eyes
+<b>વિગતવાર અને અપડેટેડ:</b> નકશાઓ વિશદ છે અને મહિને બે વખત અપડેટ થાય છે જેથી વાસ્તવિક પરિસ્થિતિ પ્રતિબિંબિત થાય. ઘણા જાણીતા સ્પર્ધકોની સરખામણીમાં અહીં ઇમારતનાં નામો, બેન્ચ, હાઈકિંગ પાથ અને અન્ય મદદરૂપ માહિતી શામેલ છે.
 
-There is no public transport, satellite maps, and other cool features <i>yet</i> in Organic Maps. But with <i>your help and support</i>, we can make better maps step by step.
+<b>OPENSTREETMAP આધારિત:</b> OpenStreetMap વિકિ-શૈલી વિશ્વ નકશો છે જે લાખો સ્વયંસેવકો — સ્થાનિક લોકો દ્વારા બનાવાયેલ અને જાળવવામાં આવે છે. આ સમૂહ પ્રયત્નો અત્યંત વિગતદાર નકશાઓ આપે છે, ખાસ કરીને ઓછા નકશાવાળી જગ્યાઓમાં વ્યાપારી નકશાઓ કરતાં વધુ ચોકસાઈવાળા. Organic Maps દર બે અઠવાડિયે OpenStreetMapમાંથી તેના ડેટા અપડેટ કરે છે, જેથી તમારા નકશા તાજા અને વિશ્વસનીય રહે. અને જો તમારે કંઈક ગુમ લાગતું હોય, તો તમે OpenStreetMapમાં ઉમેરો અને બધાના માટે નકશો સુધારો.
 
-Organic Maps is <b>pure and organic, made with love</b>:
+<b>પ્રાઈવસી-પ્રથમ:</b> અમે કોઈ ડેટા અથવા ઓળખકર્તાઓ એકત્રિત કરતા નથી. એટલે કોઈ ડેટા લીક થવાનું જોખમ નથી અને જાહેરાતો કે અવરોધક સૂચનાઓ જેવી કોઈ ડિસ્ટ્રેક્શન નથી — ફક્ત સ્વચ્છ અને ખાનગી નકશાનો અનુભવ.
 
-• Blazing fast offline experience
-• Respects your privacy
-• Saves your battery
-• No unexpected mobile data charges
-• Simple to use, with only most important features included
+<b>મહત્વની સુવિધાઓ</b>
 
-Free from trackers and other bad stuff:
+<b>સ્થળોની શોધ:</b> સરનામું, નામ અથવા કેટેગરી દ્વારા શોધો, કરોડો POIs શોધો અને ખુલ્લા કલાકો, વિકિપીડિયા લેખો, વ્હીલચેર સુલભતા જેવી વિગતવાર માહિતી જુઓ.
 
-• No ads
-• No tracking
-• No data collection
-• No phoning home
-• No annoying registration
-• No mandatory tutorials
-• No noisy email spam
-• No push notifications
-• No crapware
-• N̶o̶ ̶p̶e̶s̶t̶i̶c̶i̶d̶e̶s̶ Purely organic
+<b>GPS નેવિગેશન:</b> વોઈસ-ગાઈડેડ, વળાંક–દર–વળાંક નેવિગેશનનો આનંદ લો. ચાલવા, હાઈકિંગ, સાયકલિંગ અથવા ડ્રાઈવિંગ રૂટ બનાવો — શહેરો, દેશો અને અનેક વે પોઇન્ટ્સ વચ્ચે. મેટ્રો અને કમ્યુટ માટે શ્રેષ્ઠ રૂટ શોધો. Android Auto સપોર્ટ કરે છે.
 
-At Organic Maps, we believe that <b>privacy is a fundamental human right</b>:
+<b>વિશ્વભરના હાઈકિંગ અને સાયકલિંગ માર્ગો:</b> લોકપ્રિય હાઈકિંગ અને સાયકલિંગ રૂટ શોધવા માટે વિશેષ નકશા સ્તરો સક્રિય કરો, બધા OpenStreetMapમાંથી મેળવેલા. રંગીન બાઇક અને MTB રૂટો તેમજ સત્તાવાર હાઈકિંગ માર્ગો જોવા માટે સ્તરો વચ્ચે સ્વિચ કરો.
 
-• Organic Maps is an indie community-driven open-source project
-• We protect privacy from Big Tech's prying eyes
-• Stay safe no matter wherever you are
+<b>પબ્લિક ટ્રાન્સપોર્ટ:</b> સ્ટોપ પર જાહેર પરિવહન રૂટ નંબરો જુઓ. લાઈવ શેડ્યુલ અને રૂટિંગ હાલમાં વિકાસમાં છે.
 
-Zero trackers and only minimally required permissions are found according to Exodus Privacy Report.
+<b>નકશા શૈલીઓ:</b> તમારી પ્રવૃત્તિને અનુરૂપ નકશા સ્તરો પસંદ કરો — આઉટડોર્સ, કોન્ટૂર લાઈન્સ, હાઈકિંગ, સાયકલિંગ અથવા મેટ્રો/સબવે.
 
-Please visit <b><i>organicmaps.app</i></b> website for additional details and FAQ, and contact us directly at @OrganicMapsApp in Telegram.
+<b>ટ્રેક રેકોર્ડર:</b> તમારા રૂટ અને મનપસંદ સ્થળો રેકોર્ડ કરો, આયાત કરો, નિકાસ કરો અને શેર કરો. KML, KMZ, GPX અને GeoJSON ફોર્મેટ્સને સપોર્ટ કરે છે.
 
-Reject surveillance - embrace your freedom.
-<b>Give Organic Maps a try!</b>
+<b>વિકિપીડિયા લેખો:</b> નકશા પર શોધેલા સ્થળોના વિકિપીડિયા લેખો વાંચો. “?wiki” સર્ચમાં ટાઈપ કરો જેથી વિકિપીડિયા લેખ ધરાવતા બધા સ્થળો જોવા મળે.
+
+<b>નકશો સંપાદક:</b> Organic Mapsમાંથી સીધું OpenStreetMapમાં ગુમ માહિતી ઉમેરો અથવા નકશો સંપાદિત કરો.
+
+<b>ડાર્ક મોડ:</b> રાત્રી દરમિયાન આરામદાયક જોવા માટે ડાર્ક થીમ ચાલુ કરો.
+
+એપ અજમાવો — 100% મફત, જાહેરાત-વિહોણી, ઝડપી અને સંપૂર્ણ ઑફલાઇન. વિશ્વના કોઈપણ ખૂણે હાઈકિંગ, બાઈકિંગ, ટ્રેકિંગ અને પ્રવાસ માટે વિશ્વસનીય GPS નેવિગેશનનો અનુભવ કરો! ઝડપી, વિશ્વસનીય અને ખાનગી નકશાનો આનંદ લો અને તેને અન્ય લોકો સાથે શેર કરો!
+
+Organic Maps એક સ્વતંત્ર, સમુદાય આધારિત, ઓપન-સોર્સ પ્રોજેક્ટ છે જેમાં સેકડો યોગદાનકર્તાઓ નવી સુવિધાઓ બનાવે છે, સમસ્યાઓ ઠીક કરે છે, અનુવાદ કરે છે અને પ્રોજેક્ટને આગળ ધપાવે છે.
+
+Telegram પર સમુદાયમાં જોડાઓ: @OrganicMapsApp
+અથવા પ્રોજેક્ટને સપોર્ટ કરવાની અન્ય રીતો જાણો: https://organicmaps.app/contribute/
+
+તમારો ઇમાનદાર પ્રતિસાદ અને રિવ્યુ અમને પ્રેરણા આપે છે! તમને સાંભળવાનું અમને ખૂબ ગમે છે. પ્રશ્નો છે? વધુ વિગતો અને FAQ માટે organicmaps.app મુલાકાત લો.
