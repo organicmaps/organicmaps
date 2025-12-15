@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Drugo";
 
 /* Tex label above the Donate button */
-"donate_description" = "Donirajte za skupno gradnjo najboljših zemljevidov!";
+"donate_description" = "Podarite brezplačne zemljevide brez oglasov milijonom uporabnikov!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Prijavite ali popravite napačne podatke zemljevida";

@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Άλλo";
 
 /* Tex label above the Donate button */
-"donate_description" = "Κάντε δωρεά για να φτιάξουμε μαζί τους καλύτερους χάρτες!";
+"donate_description" = "Χαρίστε δωρεάν χάρτες χωρίς διαφημίσεις σε εκατομμύρια χρήστες!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Αναφορά ή διόρθωση λανθασμένων δεδομένων χάρτη";

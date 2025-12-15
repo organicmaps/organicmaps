@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "다른 언어";
 
 /* Tex label above the Donate button */
-"donate_description" = "기부하여 최고의 지도를 함께 만들어 보세요!";
+"donate_description" = "수백만 명의 사용자에게 광고 없는 무료 지도를 선물하세요!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "잘못된 지도 데이터 신고 또는 수정";

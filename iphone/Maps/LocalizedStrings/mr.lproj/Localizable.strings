@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "इतर";
 
 /* Tex label above the Donate button */
-"donate_description" = "एकत्र सर्वोत्तम नकाशे तयार करण्यासाठी देणगी द्या!";
+"donate_description" = "लाखो वापरकर्त्यांना जाहिरातीशिवाय विनामूल्य नकाशे भेट द्या!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "चुकीच्या नकाशा डेटाचा अहवाल द्या किंवा त्याचे निराकरण करा";
