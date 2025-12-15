@@ -52,9 +52,10 @@ UNIT_TEST(Zgrad924aTo1145)
 
 UNIT_TEST(MoscowMuzeonToLebedinoeOzeroGorkyPark)
 {
+  // Fountain is under construction now. Update after finish.
   integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Pedestrian),
                                                 mercator::FromLatLon(55.7348, 37.606), {0., 0.},
-                                                mercator::FromLatLon(55.724, 37.5956), 1640.0);
+                                                mercator::FromLatLon(55.724, 37.5956), 1763.5);
 }
 
 UNIT_TEST(Zgrad315parkingToMusicSchoolBus_BadRoute)
@@ -303,7 +304,7 @@ UNIT_TEST(RussiaSaintPetersburgPetrPaulChurchToDolphins)
 {
   integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Pedestrian),
                                                 mercator::FromLatLon(59.9502, 30.3165), {0., 0.},
-                                                mercator::FromLatLon(59.973, 30.2702), 4507.);
+                                                mercator::FromLatLon(59.973, 30.2702), 4607.);
 }
 
 UNIT_TEST(RussiaPetergofEntranceToErmitagePalace)
