@@ -1,20 +1,27 @@
-- Artículos de Wikipedia para lugares en turco, japonés y chino; escribe ?wiki para ver todos los artículos en el mapa
-- Configuración para resaltar visualmente las regiones descargadas en el mapa
-- Datos de OpenStreetMap del 23 de noviembre de 2025
+- NUEVO: Los árboles y mercados de Navidad ahora aparecen en el mapa; escriba `Christmas Market` o `Christmas Tree` en la búsqueda para encontrarlos (o agréguelos en OpenStreetMap.org si es necesario)
+- Datos de OpenStreetMap a 14 de diciembre de 2025
+- La capacidad de aparcamiento ahora se muestra en los resultados de búsqueda
+- Los bordes y etiquetas de los parques nacionales son menos prominentes en el mapa mundial
+- Se añadieron sinónimos de búsqueda en lituano y se habilitó la búsqueda en lituano
+- Los resultados de búsqueda utilizan iconos emoji de un solo color
+- Se solucionó un problema de CarPlay en iOS 12
+- Se resolvieron múltiples problemas visuales en iPhone y iPad
+- La búsqueda en la lista de marcadores ahora encuentra nombres con signos diacríticos o letras acentuadas
+- Las rutas importadas o grabadas de menos de 10 minutos ahora muestran la duración en minutos y segundos
+- Se mejoraron las animaciones de los botones y la barra de botones inferior
+- Se eliminó el aviso de curvas de nivel al iniciar la aplicación
 
-- Edita el nombre de un marcador o ruta directamente en la página de información del lugar
-- Mantén pulsado el nombre o la dirección de un lugar/marcador seleccionado para copiarlo
-- Añadida búsqueda de una lista específica al cambiarla desde la página de información del lugar
-- Usa emojis personalizados en la página de información del lugar
-- Animaciones corregidas para los botones laterales y el color del botón "Descargar mapas" en el tema oscuro
-- Compatibilidad con iOS 26 y macOS 26 "Liquid Glass"
-- Al mover una ruta a una lista, esa lista se convierte en la predeterminada para nuevos marcadores/rutas
-- Importación GeoJSON mejorada, incluyendo `Saved Places.json` de Google Takeout
-- Traducciones actualizadas en varios idiomas, incluyendo una corrección en hebreo
+## Actualizaciones de Traducciones
+- Se mejoraron las traducciones al ucraniano
+- Se mejoraron las traducciones al alemán, húngaro, lituano, español y turco
+- Se corrigieron las instrucciones de voz TTS en rotondas en croata
 
-## Navegación y rutas
+Consulte más detalles sobre esta y versiones anteriores en https://omaps.org/news/
 
-- Diseño del mapa corregido durante la navegación en iPad para que la ruta permanezca claramente visible
-- El cálculo de rutas en bicicleta ahora omite las calles residenciales de sentido único en Austria
-- Instrucciones de rotondas simplificadas
-- Las carreteras son más brillantes con mejor contraste en el modo nocturno del vehículo
+…¡y permanezca atento a las próximas funciones y mejoras!
+
+Gracias por sus comentarios y apoyo, Organic Maps no sería posible sin nuestra increíble comunidad de usuarios y colaboradores.
+
+¡Feliz Año Nuevo 2026!
+
+El Equipo de Organic Maps

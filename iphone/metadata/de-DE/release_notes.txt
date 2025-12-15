@@ -1,20 +1,27 @@
-- Wikipedia-Artikel für Orte auf Türkisch, Japanisch und Chinesisch; tippe ?wiki, um alle Artikel auf der Karte anzuzeigen
-- Einstellung zur visuellen Hervorhebung heruntergeladener Regionen auf der Karte
-- OpenStreetMap-Daten vom 23. November 2025
+- NEU: Weihnachtsbäume und Weihnachtsmärkte erscheinen jetzt auf der Karte; geben Sie `Christmas Market` oder `Christmas Tree` in die Suche ein, um sie zu finden (oder fügen Sie sie bei Bedarf auf OpenStreetMap.org hinzu)
+- OpenStreetMap-Daten vom 14. Dezember 2025
+- Parkplatzkapazität wird jetzt in den Suchergebnissen angezeigt
+- Grenzen und Beschriftungen von Nationalparks sind auf der Weltkarte weniger prominent
+- Litauische Suchsynonyme hinzugefügt und litauische Suche aktiviert
+- Suchergebnisse verwenden einfarbige Emoji-Symbole
+- Ein CarPlay-Problem unter iOS 12 wurde behoben
+- Mehrere visuelle Probleme auf iPhone und iPad behoben
+- Die Suche in der Lesezeichenliste findet jetzt Namen mit diakritischen Zeichen oder Akzentbuchstaben
+- Importierte oder aufgezeichnete Tracks, die kürzer als 10 Minuten sind, zeigen die Dauer jetzt in Minuten und Sekunden an
+- Verbesserte Tastenanimationen und die untere Tastenleiste
+- Der Hinweis zu Höhenlinien beim App-Start wurde entfernt
 
-- Bearbeite einen Lesezeichen- oder Routennamen direkt auf der Ortsinformationsseite
-- Langer Druck auf den Namen oder die Adresse eines ausgewählten Ortes/Lesezeichens zum Kopieren
-- Suche nach einer bestimmten Liste beim Wechseln von der Ortsinformationsseite hinzugefügt
-- Verwende benutzerdefinierte Emojis auf der Ortsinformationsseite
-- Animationen für Seitentasten und die Farbe der "Karten herunterladen"-Schaltfläche im dunklen Design korrigiert
-- iOS 26 & macOS 26 "Liquid Glass"-Unterstützung
-- Beim Verschieben einer Route in eine Liste wird diese zur Standardliste für neue Lesezeichen/Routen
-- Verbesserter GeoJSON-Import, einschließlich `Saved Places.json` von Google Takeout
-- Aktualisierte Übersetzungen in mehreren Sprachen, einschließlich einer Hebräisch-Korrektur
+## Übersetzungs-Updates
+- Verbesserte ukrainische Übersetzungen
+- Verbesserte deutsche, ungarische, litauische, spanische und türkische Übersetzungen
+- Korrigierte TTS-Sprachanweisungen für Kreisverkehre auf Kroatisch
 
-## Navigation & Routenplanung
+Weitere Details zu dieser und früheren Versionen finden Sie unter https://omaps.org/news/
 
-- Kartenlayout während der Navigation auf dem iPad korrigiert, damit die Route gut sichtbar bleibt
-- Fahrrad-Routing überspringt jetzt Einbahnstraßen in Wohngebieten in Österreich
-- Vereinfachte Kreisverkehrsanweisungen
-- Straßen sind heller mit besserem Kontrast im dunklen Fahrzeugmodus
+...und bleiben Sie gespannt auf kommende Funktionen und Verbesserungen!
+
+Vielen Dank für Ihr Feedback und Ihre Unterstützung. Organic Maps wäre ohne unsere großartige Gemeinschaft von Nutzern und Mitwirkenden nicht möglich.
+
+Frohes neues Jahr 2026!
+
+Das Organic Maps Team

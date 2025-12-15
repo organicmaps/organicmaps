@@ -1,20 +1,27 @@
-- Artykuły Wikipedii dla miejsc po turecku, japońsku i chińsku; wpisz ?wiki, aby zobaczyć wszystkie artykuły na mapie
-- Ustawienie do wizualnego wyróżniania pobranych regionów na mapie
-- Dane OpenStreetMap z 23 listopada 2025
+- NOWOŚĆ: Choinki i jarmarki bożonarodzeniowe są teraz widoczne na mapie; wpisz `Jarmark bożonarodzeniowy` lub `Choinka` w wyszukiwarce, aby je znaleźć (lub dodaj je na OpenStreetMap.org, jeśli ich brakuje)
+- Dane OpenStreetMap z dnia 14 grudnia 2025 r.
+- Pojemność parkingów jest teraz wyświetlana w wynikach wyszukiwania
+- Granice i etykiety parków narodowych są mniej widoczne na mapie świata
+- Dodano litewskie synonimy wyszukiwania i włączono wyszukiwanie w języku litewskim
+- Wyniki wyszukiwania używają jednokolorowych ikon emoji
+- Naprawiono problem z CarPlay na iOS 12
+- Rozwiązano wiele problemów wizualnych na iPhone'ach i iPadach
+- Wyszukiwanie na liście zakładek znajduje teraz nazwy ze znakami diakrytycznymi lub akcentowanymi literami
+- Zaimportowane lub nagrane ślady krótsze niż 10 minut pokazują teraz czas trwania w minutach i sekundach
+- Ulepszono animacje przycisków i dolny pasek przycisków
+- Usunięto komunikat o poziomicach przy uruchamianiu aplikacji
 
-- Edytuj nazwę zakładki lub trasy bezpośrednio na stronie informacji o miejscu
-- Przytrzymaj nazwę lub adres wybranego miejsca/zakładki, aby skopiować
-- Dodano wyszukiwanie określonej listy podczas jej zmiany ze strony informacji o miejscu
-- Używaj niestandardowych emoji na stronie informacji o miejscu
-- Naprawiono animacje przycisków bocznych i kolor przycisku "Pobierz mapy" w ciemnym motywie
-- Wsparcie dla iOS 26 i macOS 26 "Liquid Glass"
-- Po przeniesieniu trasy na listę, ta lista staje się domyślną dla nowych zakładek/tras
-- Ulepszony import GeoJSON, w tym `Saved Places.json` z Google Takeout
-- Zaktualizowane tłumaczenia w wielu językach, w tym poprawka hebrajskiego
+## Aktualizacje tłumaczeń
+- Ulepszono tłumaczenia na język ukraiński
+- Ulepszono tłumaczenia na język niemiecki, węgierski, litewski, hiszpański i turecki
+- Poprawiono wskazówki głosowe TTS dotyczące rond w języku chorwackim
 
-## Nawigacja i wyznaczanie tras
+Sprawdź więcej szczegółów na temat tego i poprzednich wydań na https://omaps.org/news/
 
-- Naprawiono układ mapy podczas nawigacji na iPadzie, aby trasa była wyraźnie widoczna
-- Routing rowerowy pomija teraz jednokierunkowe ulice mieszkalne w Austrii
-- Uproszczone wskazówki dotyczące rond
-- Drogi są jaśniejsze z lepszym kontrastem w ciemnym trybie pojazdu
+…i bądź na bieżąco z nadchodzącymi funkcjami i ulepszeniami!
+
+Dziękujemy za opinie i wsparcie, Organic Maps nie byłoby możliwe bez naszej niesamowitej społeczności użytkowników i współtwórców.
+
+Szczęśliwego Nowego Roku 2026!
+
+Zespół Organic Maps
