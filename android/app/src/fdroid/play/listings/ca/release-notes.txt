@@ -1,9 +1,8 @@
-• Articles de Viquipèdia en turc, japonès i xinès, escriviu ?wiki per veure'ls al mapa
-• Nova opció per ressaltar visualment les regions descarregades al mapa
-• Importa les adreces d'interès i llocs desats de Google Takeout via GeoJSON
-• Dades d'OSM del 23 de novembre
-• Millora de la reproducció d'àudio i les interrupcions de so
-• Corregits errors a l'editor i en descarregar mapes
-• Carreteres més brillants en mode vehicle fosc
-• Millora de les rutes en bicicleta a Àustria
-…més a omaps.org/news
+• NOU: Cerca `Arbre de Nadal` i `Mercat de Nadal` al mapa
+• Dades d'OpenStreetMap a 14 de desembre de 2025
+• L'enregistrament del track continua encara que l'aplicació es tanqui o es mati
+• Les fronteres i etiquetes dels parcs nacionals són menys prominents al mapa mundial
+• S'han afegit sinònims de cerca en lituà i s'ha habilitat la cerca en lituà
+• Traduccions millorades
+• Mostra la capacitat d'aparcament als resultats de la cerca
+…més a omaps.org/ca/news

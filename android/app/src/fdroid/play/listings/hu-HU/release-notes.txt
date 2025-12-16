@@ -1,9 +1,8 @@
-• Wikipédia cikkek törökül, japánul és kínaiul, írja be a ?wiki-t a térképen való megtekintéshez
-• Új beállítás a letöltött régiók vizuális kiemeléséhez a térképen
-• Google Takeout könyvjelzők és mentett helyek importálása GeoJSON-on keresztül
-• OSM adatok november 23-ig
-• Javított hanglejátszás és hangmegszakítások
-• Javított összeomlások a szerkesztőben és térképek letöltésekor
-• Világosabb utak sötét jármű módban
-• Javított kerékpáros útvonaltervezés Ausztriában
-…több itt: omaps.org/hu/news
+• ÚJ: Keressen `Karácsonyfa` és `Karácsonyi vásár` kifejezésekre a térképen
+• OpenStreetMap adatok 2025. december 14-i állapot szerint
+• A nyomvonal rögzítése akkor is folytatódik, ha az alkalmazást bezárják vagy leállítják
+• A nemzeti parkok határai és címkéi kevésbé feltűnőek a világtérképen
+• Hozzáadva litván keresési szinonimák és engedélyezve a litván keresés
+• Javított fordítások
+• Parkolókapacitás megjelenítése a keresési eredményekben
+…továbbiak az omaps.org/hu/news oldalon
