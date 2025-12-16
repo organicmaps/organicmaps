@@ -1,9 +1,8 @@
-• Türkçe, Japonca ve Çince Vikipedi makaleleri, haritada görmek için ?wiki yazın
-• İndirilen bölgeleri haritada görsel olarak vurgulamak için yeni ayar
-• Google Takeout yer imlerini ve kayıtlı yerleri GeoJSON ile içe aktarın
-• 23 Kasım itibarıyla OSM verileri
-• Geliştirilmiş ses çalma ve ses kesintileri
-• Düzenleyici ve harita indirmede çökmeler düzeltildi
-• Karanlık araç modunda daha parlak yollar
-• Avusturya'da geliştirilmiş bisiklet yönlendirmesi
-…daha fazlası omaps.org/tr/news
+• YENİ: Haritada `Noel ağacı` ve `Noel pazarı` arayın
+• 14 Aralık 2025 itibarıyla OpenStreetMap verileri
+• Uygulama kapatılsa veya sonlandırılsa bile iz kaydı devam eder
+• Milli park sınırları ve etiketleri dünya haritasında daha az belirgindir
+• Litvanca arama eşanlamlıları eklendi ve Litvanca arama etkinleştirildi
+• İyileştirilmiş çeviriler
+• Arama sonuçlarında otopark kapasitesini göster
+…daha fazlası omaps.org/tr/news adresinde

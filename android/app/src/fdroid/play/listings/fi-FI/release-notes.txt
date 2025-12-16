@@ -1,9 +1,8 @@
-• Wikipedia-artikkelit turkiksi, japaniksi ja kiinaksi, kirjoita ?wiki nähdäksesi ne kartalla
-• Uusi asetus ladattujen alueiden visuaaliseen korostamiseen kartalla
-• Tuo Google Takeoutin kirjanmerkit ja tallennetut paikat GeoJSONin kautta
-• OSM-tiedot 23. marraskuuta mennessä
-• Parannettu äänentoisto ja äänikatkokset
-• Korjattu kaatumisia editorissa ja karttojen latauksessa
-• Kirkkaammat tiet pimeässä ajoneuvotilassa
-• Parannettu pyöräreititys Itävallassa
+• UUTTA: Etsi kartalta `Joulukuusi` ja `Joulumarkkinat`
+• OpenStreetMap-tiedot 14. joulukuuta 2025
+• Reitin tallennus jatkuu, vaikka sovellus suljettaisiin tai tapettaisiin
+• Kansallispuistojen rajat ja nimet ovat vähemmän näkyviä maailmankartalla
+• Lisätty liettualaiset hakusynonyymit ja otettu käyttöön liettualainen haku
+• Parannetut käännökset
+• Näytä pysäköintikapasiteetti hakutuloksissa
 …lisää osoitteessa omaps.org/news

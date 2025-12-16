@@ -1,9 +1,8 @@
-• Artigos da Wikipédia em turco, japonês e chinês, digite ?wiki para vê-los no mapa
-• Nova configuração para destacar visualmente regiões baixadas no mapa
-• Importe favoritos e locais salvos do Google Takeout via GeoJSON
-• Dados do OSM de 23 de novembro
-• Reprodução de áudio melhorada e interrupções de som
-• Corrigidos travamentos no Editor e ao baixar mapas
-• Estradas mais brilhantes no modo veículo escuro
-• Roteamento de bicicleta melhorado na Áustria
+• NOVO: Pesquise por `Árvore de Natal` e `Mercado de Natal` no mapa
+• Dados do OpenStreetMap em 14 de dezembro de 2025
+• A gravação da trilha continua mesmo se o aplicativo for encerrado ou fechado
+• As fronteiras e rótulos dos parques nacionais são menos proeminentes no mapa mundial
+• Adicionados sinônimos de pesquisa em lituano e ativada a pesquisa em lituano
+• Traduções melhoradas
+• Exibir capacidade de estacionamento nos resultados da pesquisa
 …mais em omaps.org/pt-BR/news

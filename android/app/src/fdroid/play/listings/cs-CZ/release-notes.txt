@@ -1,9 +1,8 @@
-• Články z Wikipedie v turečtině, japonštině a čínštině, zadejte ?wiki pro zobrazení na mapě
-• Nové nastavení pro vizuální zvýraznění stažených oblastí na mapě
-• Import záložek a uložených míst z Google Takeout přes GeoJSON
-• OSM data k 23. listopadu
-• Vylepšené přehrávání zvuku a zvukové přerušení
-• Opraveny pády v editoru a při stahování map
-• Jasnější silnice v tmavém režimu vozidla
-• Vylepšené cyklistické směrování v Rakousku
+• NOVINKA: Vyhledávání `Vánoční strom` a `Vánoční trh` na mapě
+• Data OpenStreetMap k 14. prosinci 2025
+• Záznam stopy pokračuje, i když je aplikace ukončena nebo zavřena
+• Hranice a popisky národních parků jsou na mapě světa méně výrazné
+• Přidána litevská synonyma pro vyhledávání a povoleno vyhledávání v litevštině
+• Vylepšené překlady
+• Zobrazení kapacity parkoviště ve výsledcích vyhledávání
 …více na omaps.org/cs/news

@@ -1,9 +1,8 @@
-• Wikipediako artikuluak turkieraz, japonieraz eta txineraz, idatzi ?wiki mapan ikusteko
-• Ezarpen berria deskargatutako eskualdeak mapan bisualki nabarmentzeko
-• Inportatu Google Takeout-eko laster-markak eta gordetako lekuak GeoJSON bidez
-• OSM datuak azaroaren 23ra arte
-• Audio erreprodukzioa eta soinu etendura hobetuak
-• Editore eta mapa deskargetan hutsegiteak konponduta
-• Errepide distiratsuagoak ibilgailu modu ilunean
-• Austriako bizikleta bideratze hobetua
-…gehiago omaps.org/eu/news-en
+• BERRIA: Bilatu `Gabonetako zuhaitza` eta `Gabonetako azoka` mapan
+• OpenStreetMap datuak 2025eko abenduaren 14an
+• Ibilbidearen grabazioak jarraitzen du aplikazioa itxi edo hiltzen bada ere
+• Parke nazionalen mugak eta etiketak ez dira hain nabarmenak munduko mapan
+• Lituanierazko bilaketa sinonimoak gehitu dira eta lituanierazko bilaketa gaitu da
+• Itzulpen hobetuak
+• Erakutsi aparkalekuaren edukiera bilaketa-emaitzetan
+…gehiago omaps.org/eu/news helbidean
