@@ -1,9 +1,8 @@
-• Wikipedia-artikler på tyrkisk, japansk og kinesisk, skriv ?wiki for å se dem på kartet
-• Ny innstilling for å visuelt fremheve nedlastede områder på kartet
-• Importer Google Takeout-bokmerker og lagrede steder via GeoJSON
-• OSM-data per 23. november
-• Forbedret lydavspilling og lydavbrudd
-• Fikset krasj i redigeringsprogrammet og ved nedlasting av kart
-• Lysere veier i mørk kjøretøymodus
-• Forbedret sykkelruting i Østerrike
+• NYTT: Søk etter `Juletre` og `Julemarked` på kartet
+• OpenStreetMap-data per 14. desember 2025
+• Sporopptak fortsetter selv om appen drepes eller lukkes
+• Nasjonalparkgrenser og etiketter er mindre fremtredende på verdenskartet
+• Lagt til litauiske søkesynonymer og aktivert litauisk søk
+• Forbedrede oversettelser
+• Vis parkeringskapasitet i søkeresultater
 …mer på omaps.org/news

@@ -1,8 +1,8 @@
-• Wikipedia-artikelen in het Turks, Japans en Chinees, typ ?wiki om ze op de kaart te zien
-• Nieuwe instelling om gedownloade regio's visueel te markeren op de kaart
-• Importeer Google Takeout-bladwijzers en opgeslagen plaatsen via GeoJSON
-• OSM-gegevens van 23 november
-• Verbeterde audioweergave en geluidsonderbrekingen
-• Crashes in de editor en bij het downloaden van kaarten opgelost
-• Helderdere wegen in donkere voertuigmodus
+• NIEUW: Zoek naar `Kerstboom` en `Kerstmarkt` op de kaart
+• OpenStreetMap-gegevens per 14 december 2025
+• Trackopname gaat door, zelfs als de app wordt beëindigd of gesloten
+• Grenzen en labels van nationale parken zijn minder prominent op de wereldkaart
+• Litouwse zoeksynoniemen toegevoegd en Litouws zoeken ingeschakeld
+• Verbeterde vertalingen
+• Toon parkeercapaciteit in zoekresultaten
 …meer op omaps.org/nl/news
