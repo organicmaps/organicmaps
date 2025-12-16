@@ -1,8 +1,8 @@
-• Vikipedijos straipsniai turkų, japonų ir kinų kalbomis, įveskite ?wiki, kad matytumėte žemėlapyje
-• Naujas nustatymas vizualiai paryškinti atsisiųstus regionus žemėlapyje
-• Importuokite Google Takeout žymes ir išsaugotas vietas per GeoJSON
-• OSM duomenys iki lapkričio 23 d.
-• Patobulintas garso atkūrimas ir garso pertraukimai
-• Ištaisyti strigimai redaktoriuje ir atsisiunčiant žemėlapius
-• Ryškesni keliai tamsiame transporto priemonės režime
+• NAUJIENA: Ieškokite `Kalėdų eglutė` ir `Kalėdų mugė` žemėlapyje
+• OpenStreetMap duomenys 2025 m. gruodžio 14 d.
+• Maršruto įrašymas tęsiamas net jei programa yra uždaryta ar nutraukta
+• Nacionalinių parkų ribos ir etiketės yra mažiau pastebimos pasaulio žemėlapyje
+• Pridėti lietuviški paieškos sinonimai ir įjungta lietuviška paieška
+• Patobulinti vertimai
+• Rodyti automobilių stovėjimo aikštelės talpą paieškos rezultatuose
 …daugiau omaps.org/lt/news
