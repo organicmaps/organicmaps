@@ -337,7 +337,7 @@
     <!-- blue gray color -->
     <string name="blue_gray">Сіро-блакитний</string>
     <!-- Tex label above the Donate button -->
-    <string name="donate_description">Подаруйте мільйонам користувачів безкоштовні карти без реклами!</string>
+    <string name="donate_description">Подаруйте мільйонам користувачів безкоштовні мапи без реклами!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Під час руху за маршрутом пам\'ятайте:</string>

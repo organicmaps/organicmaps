@@ -253,7 +253,7 @@
 "donate" = "기부";
 "already_donated" = "기부완료";
 "remind_me_later" = "나중에 알림";
-"support_organic_maps" = "Organic Maps 지원하기";
+"support_organic_maps" = "Organic Maps를 지원해주세요";
 
 /* Button in the main Help dialog */
 "copyright" = "저작권";
