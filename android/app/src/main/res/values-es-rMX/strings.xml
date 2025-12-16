@@ -127,7 +127,6 @@
     <!-- Text in menu -->
     <string name="rate_the_app">Valora la aplicación</string>
     <string name="already_donated">Ya donado</string>
-    <string name="support_organic_maps">Mapas orgánicos de apoyo</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Apoyar el proyecto</string>
     <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
