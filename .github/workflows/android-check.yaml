@@ -45,6 +45,10 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v4
 
+      # Twine is required for localization strings generation
+      - name: Checkout twine
+        run: git submodule update --init --recursive tools/python/twine
+
       - name: Lint
         shell: bash
         working-directory: android
