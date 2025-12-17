@@ -490,34 +490,31 @@ void ApplyPointFeature::ProcessPointRules(SymbolRuleProto const * symbolRule, Ca
   }
 }
 
-void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+// Not sure with kEmptyTriangleS, check these:
+// https://github.com/organicmaps/organicmaps/issues/2643
+// https://github.com/organicmaps/organicmaps/issues/2862
+// https://github.com/organicmaps/organicmaps/issues/8903
+void ApplyAreaFeature::operator()(PointT const & p1, PointT const & p2, PointT const & p3)
 {
+  double const crossProduct = m2::robust::OrientedS(p2, p3, p1);
+  // #ifdef DEBUG
+  //   if (fabs(m2::CrossProduct((p2-p1).Normalize(), (p3-p1).Normalize())) < 0.01)
+  //     LOG(LWARNING, ("[CP]", crossProduct));
+  // #endif
+
+  double constexpr kEmptyTriangleS = kMwmPointAccuracy * kMwmPointAccuracy * 0.01;
+  if (fabs(crossProduct) < kEmptyTriangleS)
+    return;
+
   if (m_isBuilding)
   {
     /// @todo I suppose that we don't intersect triangles with tile rect because of _simple_
     /// 3D and outline algo. It makes sense only if buildings have _not many_ triangles.
-    ProcessBuildingPolygon(p1, p2, p3);
+    ProcessBuildingPolygon(p1, p2, p3, crossProduct);
     return;
   }
 
-  m2::PointD const v1 = p2 - p1;
-  m2::PointD const v2 = p3 - p1;
-  // TODO(pastk) : degenerate triangles filtering should be done in the generator.
-  //  ASSERT(!v1.IsAlmostZero() && !v2.IsAlmostZero(), ());
-  if (v1.IsAlmostZero() || v2.IsAlmostZero())
-    return;
-
-  double const crossProduct = m2::CrossProduct(v1.Normalize(), v2.Normalize());
-  double constexpr kEps = 1e-7;
-  // ASSERT_GREATER_OR_EQUAL(fabs(crossProduct), kEps, (fabs(crossProduct), p1, p2, p3, m_f.DebugString()));
-  // TODO(pastk) : e.g. a landuse-meadow has a following triangle with two identical points:
-  // m2::Point<d>(8.5829683287662987823, 53.929641499591184584)
-  // m2::Point<d>(8.5830675705005887721, 53.930025055483156393)
-  // m2::Point<d>(8.5830675705005887721, 53.930025055483156393)
-  if (fabs(crossProduct) < kEps)
-    return;
-
-  auto const clipFunctor = [this](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+  auto const clipFunctor = [this](PointT const & p1, PointT const & p2, PointT const & p3)
   {
     m_triangles.push_back(p1);
     m_triangles.push_back(p2);
@@ -530,21 +527,9 @@ void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, 
     m2::ClipTriangleByRect(m_params.m_tileRect, p1, p3, p2, clipFunctor);
 }
 
-// Not sure with kEmptyTriangleS, check these:
-// https://github.com/organicmaps/organicmaps/issues/2643
-// https://github.com/organicmaps/organicmaps/issues/2862
-// https://github.com/organicmaps/organicmaps/issues/8903
-void ApplyAreaFeature::ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+void ApplyAreaFeature::ProcessBuildingPolygon(PointT const & p1, PointT const & p2, PointT const & p3,
+                                              double crossProduct)
 {
-  double const crossProduct = m2::robust::OrientedS(p2, p3, p1);
-  // #ifdef DEBUG
-  //   if (fabs(m2::CrossProduct((p2-p1).Normalize(), (p3-p1).Normalize())) < 0.01)
-  //     LOG(LWARNING, ("[CP]", crossProduct));
-  // #endif
-  double constexpr kEmptyTriangleS = kMwmPointAccuracy * kMwmPointAccuracy * 0.01;
-  if (fabs(crossProduct) < kEmptyTriangleS)
-    return;
-
   auto const i1 = GetIndex(p1);
   auto const i2 = GetIndex(p2);
   auto const i3 = GetIndex(p3);
@@ -607,17 +592,17 @@ void ApplyAreaFeature::BuildEdges(int vertexIndex1, int vertexIndex2, int vertex
   if (vertexIndex1 == vertexIndex2 || vertexIndex2 == vertexIndex3 || vertexIndex1 == vertexIndex3)
     return;
 
-  auto edge1 = Edge(vertexIndex1, vertexIndex2);
+  Edge edge1{vertexIndex1, vertexIndex2};
   if (!IsDuplicatedEdge(edge1))
-    m_edges.emplace_back(std::move(edge1), vertexIndex3, twoSide);
+    m_edges.emplace_back(edge1, vertexIndex3, twoSide);
 
-  auto edge2 = Edge(vertexIndex2, vertexIndex3);
+  Edge edge2{vertexIndex2, vertexIndex3};
   if (!IsDuplicatedEdge(edge2))
-    m_edges.emplace_back(std::move(edge2), vertexIndex1, twoSide);
+    m_edges.emplace_back(edge2, vertexIndex1, twoSide);
 
-  auto edge3 = Edge(vertexIndex3, vertexIndex1);
+  Edge edge3{vertexIndex3, vertexIndex1};
   if (!IsDuplicatedEdge(edge3))
-    m_edges.emplace_back(std::move(edge3), vertexIndex2, twoSide);
+    m_edges.emplace_back(edge3, vertexIndex2, twoSide);
 }
 
 void ApplyAreaFeature::CalculateBuildingOutline(bool calculateNormals, BuildingOutline & outline)
@@ -698,7 +683,6 @@ void ApplyAreaFeature::ProcessRule(AreaRuleProto const & areaRule, double areaDe
   BuildingOutline outline;
   if (m_isBuilding && !isHatching)
   {
-    /// @todo Make borders work for non-building areas too.
     outline.m_generateOutline =
         areaRule.has_border() && areaRule.color() != areaRule.border().color() && areaRule.border().width() > 0.0;
     if (outline.m_generateOutline)
