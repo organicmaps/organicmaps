@@ -1,0 +1,110 @@
+import javax.inject.Inject
+
+abstract class GenerateLocalizationsSpec {
+  final String name
+
+  abstract Property<String> getPythonExecutable()
+
+  abstract DirectoryProperty getTwineDir()
+
+  final Property<String> dataFile
+
+  final Property<String> tag
+
+  final Property<String> outputFileName
+
+  abstract DirectoryProperty getOutputDir()
+
+  GenerateLocalizationsSpec(String name, ObjectFactory objects, Project project) {
+    this.name = name
+    pythonExecutable.convention("python3")
+    twineDir.convention(project.layout.projectDirectory.dir("${project.rootProject.ext.omimRoot}/tools/python/twine/python_twine"))
+    dataFile = project.objects.property(String)
+    tag = project.objects.property(String)
+    outputFileName = project.objects.property(String)
+    outputDir.convention(project.layout.projectDirectory.dir("src/main/res"))
+  }
+}
+
+abstract class GenerateLocalizationsExtension {
+  abstract NamedDomainObjectContainer<GenerateLocalizationsSpec> getGenerators()
+}
+
+@CacheableTask
+abstract class LocalizationGenerator extends DefaultTask {
+  @Input
+  abstract Property<String> getPythonExecutable()
+
+  @InputDirectory
+  @PathSensitive(PathSensitivity.ABSOLUTE)
+  abstract DirectoryProperty getTwineDir()
+
+  @InputFile
+  @PathSensitive(PathSensitivity.ABSOLUTE)
+  abstract RegularFileProperty getDataFile()
+
+  @Input
+  abstract Property<String> getTag()
+
+  @Input
+  abstract Property<String> getOutputFileName()
+
+  @OutputDirectory
+  abstract DirectoryProperty getOutputDir()
+
+  @Inject
+  abstract ExecOperations getExecOperations()
+
+  @TaskAction
+  void execute() {
+    def args = []
+    args << pythonExecutable.get()
+        << "${twineDir.get()}/twine_cli.py" << 'generate-all-localization-files'
+        << dataFile.get() << outputDir.get()
+        << "-f" << "android"
+        << "--include" << "translated"
+        << "--tags" << tag.get()
+        << "--file-name" << outputFileName.get()
+
+    execOperations.exec {
+      it.commandLine = args
+    }
+  }
+}
+
+class GenerateLocalizationsPlugin implements Plugin<Project> {
+  @Override
+  void apply(Project project) {
+    def ext = project.extensions.create(
+        "generateLocalizations",
+        GenerateLocalizationsExtension
+    )
+
+    ext.generators.configureEach { spec ->
+      def taskName = "generateLocalizations${spec.name.capitalize()}"
+
+      def taskProvider = project.tasks.register(
+          taskName,
+          LocalizationGenerator
+      ) {
+        group = "build"
+        description = "Generates localization files from twine strings txt file"
+      }
+
+      taskProvider.configure {
+        it.pythonExecutable = spec.pythonExecutable
+        it.twineDir = spec.twineDir
+        it.dataFile = new File(spec.dataFile.get())
+        it.tag = spec.tag
+        it.outputFileName = spec.outputFileName
+        it.outputDir = spec.outputDir
+      }
+
+      project.tasks.named("preBuild").configure {
+        dependsOn(taskProvider)
+      }
+    }
+  }
+}
+
+apply plugin: GenerateLocalizationsPlugin
