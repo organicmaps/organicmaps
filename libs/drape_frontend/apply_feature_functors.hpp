@@ -87,15 +87,14 @@ public:
     m_posZ = posZ;
   }
 
-  void operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
+  using PointT = m2::PointD;
+  void operator()(PointT const & p1, PointT const & p2, PointT const & p3);
+
   bool HasGeometry() const { return !m_triangles.empty(); }
   void ProcessAreaRules(AreaRuleProto const * areaRule, AreaRuleProto const * hatchingRule, std::string_view hatchKey);
 
   struct Edge
   {
-    Edge() = default;
-    Edge(int startIndex, int endIndex) : m_startIndex(startIndex), m_endIndex(endIndex) {}
-
     bool operator==(Edge const & edge) const
     {
       return (m_startIndex == edge.m_startIndex && m_endIndex == edge.m_endIndex) ||
@@ -108,13 +107,6 @@ public:
 
   struct ExtendedEdge
   {
-    ExtendedEdge() = default;
-    ExtendedEdge(Edge && edge, int internalVertexIndex, bool twoSide)
-      : m_edge(std::move(edge))
-      , m_internalVertexIndex(internalVertexIndex)
-      , m_twoSide(twoSide)
-    {}
-
     Edge m_edge;
     int m_internalVertexIndex = -1;
     bool m_twoSide = false;
@@ -124,16 +116,24 @@ private:
   bool HasArea() const override { return true; }
 
   void ProcessRule(AreaRuleProto const & areaRule, double areaDepth, std::string_view hatchKey);
-  void ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
+  void ProcessBuildingPolygon(PointT const & p1, PointT const & p2, PointT const & p3, double crossProduct);
+
+  /// @todo Factor out to a separate outline-building component.
+  /// @{
   void CalculateBuildingOutline(bool calculateNormals, BuildingOutline & outline);
   int GetIndex(m2::PointD const & pt);
   void BuildEdges(int vertexIndex1, int vertexIndex2, int vertexIndex3, bool twoSide);
   bool IsDuplicatedEdge(Edge const & edge);
   m2::PointD CalculateNormal(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3) const;
+  /// @}
 
-  std::vector<m2::PointD> m_triangles;
+  std::vector<PointT> m_triangles;
+
+  /// @todo Factor out to a separate outline-building component.
+  /// @{
   buffer_vector<m2::PointD, kBuildingOutlineSize> m_points;
   buffer_vector<ExtendedEdge, kBuildingOutlineSize> m_edges;
+  /// @}
 
   float const m_minPosZ;
   bool const m_isBuilding;
