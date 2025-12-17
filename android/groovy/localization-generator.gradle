@@ -1,3 +1,5 @@
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+
 import javax.inject.Inject
 
 abstract class GenerateLocalizationsSpec {
@@ -15,10 +17,10 @@ abstract class GenerateLocalizationsSpec {
 
   abstract DirectoryProperty getOutputDir()
 
-  GenerateLocalizationsSpec(String name, ObjectFactory objects, Project project) {
+  GenerateLocalizationsSpec(String name, Project project) {
     this.name = name
     pythonExecutable.convention("python3")
-    twineDir.convention(project.layout.projectDirectory.dir("${project.rootProject.ext.omimRoot}/tools/python/twine/python_twine"))
+    twineDir.convention(project.layout.projectDirectory.dir("${project.rootProject.ext.omimRoot}/tools/python/twine/python_twine/"))
     dataFile = project.objects.property(String)
     tag = project.objects.property(String)
     outputFileName = project.objects.property(String)
@@ -58,17 +60,43 @@ abstract class LocalizationGenerator extends DefaultTask {
   @TaskAction
   void execute() {
     def args = []
-    args << pythonExecutable.get()
-        << "${twineDir.get()}/twine_cli.py" << 'generate-all-localization-files'
-        << dataFile.get() << outputDir.get()
-        << "-f" << "android"
+    args << "${twineDir.get()}/twine_cli.py" << 'generate-all-localization-files'
+        << dataFile.get()
+        << outputDir.get()
+        << "--file-name" << outputFileName.get()
+        << "-f" << "android" << "--create-folders"
         << "--include" << "translated"
         << "--tags" << tag.get()
-        << "--file-name" << outputFileName.get()
+
+    // Our twine script requires Python 3.10+, so we try to find a suitable version
+    def pythonExec = getSuitablePythonVersionPath()
 
     execOperations.exec {
-      it.commandLine = args
+      it.commandLine = pythonExec
+      it.args = args
     }
+  }
+
+  private static String getSuitablePythonVersionPath() {
+    def isWindows = DefaultNativePlatform.getCurrentOperatingSystem().isWindows()
+    def lookupCommand = isWindows ? "where" : "which"
+    for (int i = 10; i < 30; i++) {
+      def version = "python3.${i}"
+      try {
+        def process = new ProcessBuilder(lookupCommand, version)
+            .redirectErrorStream(true)
+            .start()
+        process.waitFor()
+        if (process.exitValue() == 0) {
+          def absolutePath = process.inputStream.getText().trim()
+          if (!absolutePath.isEmpty())
+            return absolutePath
+        }
+      } catch (IOException ignored) {
+        // Ignore and try next version
+      }
+    }
+    throw new GradleException("No suitable Python 3.10+ version found in PATH.")
   }
 }
 
