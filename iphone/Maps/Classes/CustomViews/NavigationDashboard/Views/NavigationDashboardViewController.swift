@@ -24,6 +24,7 @@ final class NavigationDashboardViewController: UIViewController {
     static let routeStatusInsets = UIEdgeInsets(top: 8, left: 16, bottom: 0, right: -16)
     static let routeStatusStackSpacing: CGFloat = 4
     static let startButtonSpacing: CGFloat = 4
+    static let actionButtonWidthMultiplier: CGFloat = 1.5
 
     static let routePointsDiscoverabilityPadding: CGFloat = 20
     static let panGestureThreshold: CGFloat = 5
@@ -224,7 +225,7 @@ final class NavigationDashboardViewController: UIViewController {
       button.setImage(image, for: .normal)
       button.addTarget(self, action: action, for: .touchUpInside)
       button.translatesAutoresizingMaskIntoConstraints = false
-      button.widthAnchor.constraint(equalTo: button.heightAnchor).isActive = true
+      button.widthAnchor.constraint(equalTo: button.heightAnchor, multiplier: Constants.actionButtonWidthMultiplier).isActive = true
       return button
     }
 
