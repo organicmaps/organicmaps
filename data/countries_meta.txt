@@ -21,17 +21,17 @@
 },
 "Angola": {
  "languages": ["pt"],
- "timezone": "Africa/Luanda"
+ "timezone": "Africa/Lagos"
 },
 "Anguilla": {
  "driving": "l",
  "languages": ["en"],
- "timezone": "America/Anguilla"
+ "timezone": "America/Puerto_Rico"
 },
 "Antigua and Barbuda": {
  "driving": "l",
  "languages": ["en"],
- "timezone": "America/Antigua"
+ "timezone": "America/Puerto_Rico"
 },
 "Argentina": {
  "languages": ["es"],
@@ -56,7 +56,7 @@
 },
 "Bahrain": {
  "languages": ["ar"],
- "timezone": "Asia/Bahrain"
+ "timezone": "Asia/Qatar"
 },
 "Bangladesh": {
  "driving": "l",
@@ -112,7 +112,7 @@
 },
 "Benin": {
  "languages": ["fr"],
- "timezone": "Africa/Porto-Novo"
+ "timezone": "Africa/Lagos"
 },
 "Bermuda": {
  "driving": "l",
@@ -130,16 +130,16 @@
 },
 "Bosnia and Herzegovina": {
  "languages": ["sr"],
- "timezone": "Europe/Sarajevo"
+ "timezone": "Europe/Belgrade"
 },
 "Bosnia and Herzegovina_Entity Federation of Bosnia and Herzegovina": {
  "languages": ["hr", "sr", "bs"],
- "timezone": "Europe/Sarajevo"
+ "timezone": "Europe/Belgrade"
 },
 "Botswana": {
  "driving": "l",
  "languages": ["en", "tn"],
- "timezone": "Africa/Gaborone"
+ "timezone": "Africa/Maputo"
 },
 "Brazil": {
  "languages": ["pt"],
@@ -179,12 +179,12 @@
 "British Virgin Islands": {
  "driving": "l",
  "languages": ["en"],
- "timezone": "America/Tortola"
+ "timezone": "America/Puerto_Rico"
 },
 "Brunei": {
  "driving": "l",
  "languages": ["ms"],
- "timezone": "Asia/Brunei"
+ "timezone": "Asia/Kuching"
 },
 "Bulgaria": {
  "languages": ["bg"],
@@ -196,15 +196,15 @@
 },
 "Burundi": {
  "languages": ["rn", "fr"],
- "timezone": "Africa/Bujumbura"
+ "timezone": "Africa/Maputo"
 },
 "Cambodia": {
  "languages": ["km"],
- "timezone": "Asia/Phnom_Penh"
+ "timezone": "Asia/Bangkok"
 },
 "Cameroon": {
  "languages": ["fr", "en"],
- "timezone": "Africa/Douala"
+ "timezone": "Africa/Lagos"
 },
 "Campo de Hielo Sur": {
  "languages": ["es"],
@@ -293,16 +293,16 @@
  "timezone": "America/St_Johns"
 },
 "Canada_Northwest Territories": {
- "timezone": "America/Yellowknife"
+ "timezone": "America/Edmonton"
 },
 "Canada_Northwest Territories_East": {
- "timezone": "America/Yellowknife"
+ "timezone": "America/Edmonton"
 },
 "Canada_Northwest Territories_North": {
- "timezone": "America/Yellowknife"
+ "timezone": "America/Edmonton"
 },
 "Canada_Northwest Territories_Yellowknife": {
- "timezone": "America/Yellowknife"
+ "timezone": "America/Edmonton"
 },
 "Canada_Nunavut": {
  "timezone": "America/Iqaluit"
@@ -344,16 +344,16 @@
 },
 "Caribisch Nederland": {
  "languages": ["nl"],
- "timezone": "America/Kralendijk"
+ "timezone": "America/Puerto_Rico"
 },
 "Cayman Islands": {
  "driving": "l",
  "languages": ["en"],
- "timezone": "America/Cayman"
+ "timezone": "America/Panama"
 },
 "Central African Republic": {
  "languages": ["sg", "fr"],
- "timezone": "Africa/Bangui"
+ "timezone": "Africa/Lagos"
 },
 "Chad": {
  "languages": ["fr", "ar"],
@@ -379,21 +379,21 @@
 },
 "Comoros": {
  "languages": ["fr", "ar"],
- "timezone": "Indian/Comoro"
+ "timezone": "Africa/Nairobi"
 },
 "Congo-Brazzaville": {
  "languages": ["fr"],
- "timezone": "Africa/Brazzaville"
+ "timezone": "Africa/Lagos"
 },
 "Congo-Kinshasa": {
  "languages": ["fr"],
- "timezone": "Africa/Kinshasa"
+ "timezone": "Africa/Lagos"
 },
 "Congo-Kinshasa_Kivu": {
- "timezone": "Africa/Kinshasa"
+ "timezone": "Africa/Lagos"
 },
 "Congo-Kinshasa_West": {
- "timezone": "Africa/Kinshasa"
+ "timezone": "Africa/Lagos"
 },
 "Cook Islands": {
  "driving": "l",
@@ -414,7 +414,7 @@
 },
 "Croatia": {
  "languages": ["hr"],
- "timezone": "Europe/Zagreb"
+ "timezone": "Europe/Belgrade"
 },
 "Cuba": {
  "languages": ["es"],
@@ -431,16 +431,16 @@
 },
 "Denmark": {
  "languages": ["da"],
- "timezone": "Europe/Copenhagen"
+ "timezone": "Europe/Berlin"
 },
 "Djibouti": {
  "languages": ["fr", "ar"],
- "timezone": "Africa/Djibouti"
+ "timezone": "Africa/Nairobi"
 },
 "Dominica": {
  "driving": "l",
  "languages": ["en"],
- "timezone": "America/Dominica"
+ "timezone": "America/Puerto_Rico"
 },
 "Dominican Republic": {
  "languages": ["es"],
@@ -465,11 +465,11 @@
 },
 "Equatorial Guinea": {
  "languages": ["es", "fr"],
- "timezone": "Africa/Malabo"
+ "timezone": "Africa/Lagos"
 },
 "Eritrea": {
  "languages": ["ti", "ar", "en"],
- "timezone": "Africa/Asmara"
+ "timezone": "Africa/Nairobi"
 },
 "Estonia": {
  "languages": ["et"],
@@ -477,7 +477,7 @@
 },
 "Ethiopia": {
  "languages": ["am"],
- "timezone": "Africa/Addis_Ababa"
+ "timezone": "Africa/Nairobi"
 },
 "Falkland Islands": {
  "driving": "l",
@@ -490,7 +490,7 @@
 },
 "Federated States of Micronesia": {
  "languages": ["en"],
- "timezone": "Pacific/Chuuk"
+ "timezone": "Pacific/Port_Moresby"
 },
 "Fiji": {
  "driving": "l",
@@ -511,7 +511,7 @@
 },
 "Gabon": {
  "languages": ["fr"],
- "timezone": "Africa/Libreville"
+ "timezone": "Africa/Lagos"
 },
 "Georgia": {
  "languages": ["ka"],
@@ -540,11 +540,11 @@
 "Grenada": {
  "driving": "l",
  "languages": ["en"],
- "timezone": "America/Grenada"
+ "timezone": "America/Puerto_Rico"
 },
 "Guadeloupe": {
  "languages": ["fr"],
- "timezone": "America/Guadeloupe"
+ "timezone": "America/Puerto_Rico"
 },
 "Guatemala": {
  "languages": ["es"],
@@ -553,7 +553,7 @@
 "Guernsey": {
  "driving": "l",
  "languages": ["fr", "en"],
- "timezone": "Europe/Guernsey"
+ "timezone": "Europe/London"
 },
 "Guinea": {
  "languages": ["fr"],
@@ -582,7 +582,7 @@
 },
 "Iceland": {
  "languages": ["is"],
- "timezone": "Atlantic/Reykjavik"
+ "timezone": "Africa/Abidjan"
 },
 "India": {
  "driving": "l",
@@ -661,7 +661,7 @@
 "Isle of Man": {
  "driving": "l",
  "languages": ["en", "gv"],
- "timezone": "Europe/Isle_of_Man"
+ "timezone": "Europe/London"
 },
 "Israel": {
  "languages": ["he"],
@@ -684,7 +684,7 @@
 "Jersey": {
  "driving": "l",
  "languages": ["fr", "en"],
- "timezone": "Europe/Jersey"
+ "timezone": "Europe/London"
 },
 "Jerusalem": {
  "languages": ["he"],
@@ -706,7 +706,7 @@
 "Kingdom of Lesotho": {
  "driving": "l",
  "languages": ["en", "st"],
- "timezone": "Africa/Maseru"
+ "timezone": "Africa/Johannesburg"
 },
 "Kiribati": {
  "driving": "l",
@@ -715,7 +715,7 @@
 },
 "Kuwait": {
  "languages": ["ar"],
- "timezone": "Asia/Kuwait"
+ "timezone": "Asia/Riyadh"
 },
 "Kyrgyzstan": {
  "languages": ["ru", "ky"],
@@ -723,7 +723,7 @@
 },
 "Laos": {
  "languages": ["lo"],
- "timezone": "Asia/Vientiane"
+ "timezone": "Asia/Bangkok"
 },
 "Latvia": {
  "languages": ["lv"],
@@ -743,7 +743,7 @@
 },
 "Liechtenstein": {
  "languages": ["de"],
- "timezone": "Europe/Vaduz"
+ "timezone": "Europe/Zurich"
 },
 "Lithuania": {
  "languages": ["lt"],
@@ -751,25 +751,25 @@
 },
 "Luxembourg": {
  "languages": ["fr", "de", "en"],
- "timezone": "Europe/Luxembourg"
+ "timezone": "Europe/Brussels"
 },
 "Macedonia": {
  "languages": ["mk"],
- "timezone": "Europe/Skopje"
+ "timezone": "Europe/Belgrade"
 },
 "Madagascar": {
  "languages": ["mg", "fr"],
- "timezone": "Indian/Antananarivo"
+ "timezone": "Africa/Nairobi"
 },
 "Malawi": {
  "driving": "l",
  "languages": ["en", "ny"],
- "timezone": "Africa/Blantyre"
+ "timezone": "Africa/Maputo"
 },
 "Malaysia": {
  "driving": "l",
  "languages": ["en"],
- "timezone": "Asia/Kuala_Lumpur"
+ "timezone": "Asia/Singapore"
 },
 "Maldives": {
  "driving": "l",
@@ -787,7 +787,7 @@
 },
 "Marshall Islands": {
  "languages": ["en", "mh"],
- "timezone": "Pacific/Majuro"
+ "timezone": "Pacific/Tarawa"
 },
 "Martinique": {
  "languages": ["fr"],
@@ -821,7 +821,7 @@
 },
 "Monaco": {
  "languages": ["fr"],
- "timezone": "Europe/Monaco"
+ "timezone": "Europe/Paris"
 },
 "Mongolia": {
  "languages": ["mn"],
@@ -829,11 +829,11 @@
 },
 "Montenegro": {
  "languages": ["sr", "bs", "sq", "hr"],
- "timezone": "Europe/Podgorica"
+ "timezone": "Europe/Belgrade"
 },
 "Montserrat": {
  "languages": ["en"],
- "timezone": "America/Montserrat"
+ "timezone": "America/Puerto_Rico"
 },
 "Morocco": {
  "languages": ["ar"],
@@ -875,11 +875,11 @@
 },
 "Netherlands": {
  "languages": ["nl"],
- "timezone": "Europe/Amsterdam"
+ "timezone": "Europe/Brussels"
 },
 "Netherlands_Friesland": {
  "languages": ["nl"],
- "timezone": "Europe/Amsterdam"
+ "timezone": "Europe/Brussels"
 },
 "New Zealand North": {
  "driving": "l",
@@ -897,7 +897,7 @@
 },
 "Niger": {
  "languages": ["fr"],
- "timezone": "Africa/Niamey"
+ "timezone": "Africa/Lagos"
 },
 "Nigeria": {
  "languages": ["en"],
@@ -914,20 +914,20 @@
 },
 "Norway": {
  "languages": ["no"],
- "timezone": "Europe/Oslo"
+ "timezone": "Europe/Berlin"
 },
 "Norway_Bouvet Island": {
- "timezone": "Europe/Oslo"
+ "timezone": "Europe/Berlin"
 },
 "Norway_Jan Mayen": {
- "timezone": "Europe/Oslo"
+ "timezone": "Europe/Berlin"
 },
 "Norway_Svalbard": {
- "timezone": "Europe/Oslo"
+ "timezone": "Europe/Berlin"
 },
 "Oman": {
  "languages": ["ar"],
- "timezone": "Asia/Muscat"
+ "timezone": "Asia/Dubai"
 },
 "Pakistan": {
  "driving": "l",
@@ -1072,7 +1072,7 @@
 },
 "Rwanda": {
  "languages": ["rw", "en", "fr"],
- "timezone": "Africa/Kigali"
+ "timezone": "Africa/Maputo"
 },
 "Sahrawi Arab Democratic Republic": {
  "languages": ["ar", "es"],
@@ -1080,31 +1080,31 @@
 },
 "Saint Barthelemy": {
  "languages": ["fr"],
- "timezone": "America/St_Barthelemy"
+ "timezone": "America/Puerto_Rico"
 },
 "Saint Helena Ascension and Tristan da Cunha": {
  "driving": "l",
  "languages": ["en"],
- "timezone": "Atlantic/St_Helena"
+ "timezone": "Africa/Abidjan"
 },
 "Saint Kitts and Nevis": {
  "driving": "l",
  "languages": ["en"],
- "timezone": "America/St_Kitts"
+ "timezone": "America/Puerto_Rico"
 },
 "Saint Lucia": {
  "driving": "l",
  "languages": ["en"],
- "timezone": "America/St_Lucia"
+ "timezone": "America/Puerto_Rico"
 },
 "Saint Martin": {
  "languages": ["fr"],
- "timezone": "America/Marigot"
+ "timezone": "America/Puerto_Rico"
 },
 "Saint Vincent and the Grenadines": {
  "driving": "l",
  "languages": ["en"],
- "timezone": "America/St_Vincent"
+ "timezone": "America/Puerto_Rico"
 },
 "Samoa": {
  "driving": "l",
@@ -1113,7 +1113,7 @@
 },
 "San Marino": {
  "languages": ["it"],
- "timezone": "Europe/San_Marino"
+ "timezone": "Europe/Rome"
 },
 "Sao Tome and Principe": {
  "languages": ["pt"],
@@ -1134,7 +1134,7 @@
 "Seychelles": {
  "driving": "l",
  "languages": ["fr", "en"],
- "timezone": "Indian/Mahe"
+ "timezone": "Asia/Dubai"
 },
 "Sierra Leone": {
  "languages": ["en"],
@@ -1147,11 +1147,11 @@
 },
 "Slovakia": {
  "languages": ["sk"],
- "timezone": "Europe/Bratislava"
+ "timezone": "Europe/Prague"
 },
 "Slovenia": {
  "languages": ["sl"],
- "timezone": "Europe/Ljubljana"
+ "timezone": "Europe/Belgrade"
 },
 "Solomon Islands": {
  "driving": "l",
@@ -1160,7 +1160,7 @@
 },
 "Somalia": {
  "languages": ["so", "ar"],
- "timezone": "Africa/Mogadishu"
+ "timezone": "Africa/Nairobi"
 },
 "South Africa": {
  "driving": "l",
@@ -1237,11 +1237,11 @@
 "Swaziland": {
  "driving": "l",
  "languages": ["en", "ss"],
- "timezone": "Africa/Mbabane"
+ "timezone": "Africa/Johannesburg"
 },
 "Sweden": {
  "languages": ["sv", "fi", "yi"],
- "timezone": "Europe/Stockholm"
+ "timezone": "Europe/Berlin"
 },
 "Switzerland": {
  "languages": ["fr", "de", "it", "rm"],
@@ -1262,7 +1262,7 @@
 "Tanzania": {
  "driving": "l",
  "languages": ["sw", "en"],
- "timezone": "Africa/Dar_es_Salaam"
+ "timezone": "Africa/Nairobi"
 },
 "Thailand": {
  "driving": "l",
@@ -1272,7 +1272,7 @@
 "The Bahamas": {
  "driving": "l",
  "languages": ["en"],
- "timezone": "America/Nassau"
+ "timezone": "America/Toronto"
 },
 "The Gambia": {
  "languages": ["en"],
@@ -1295,7 +1295,7 @@
 "Trinidad and Tobago": {
  "driving": "l",
  "languages": ["en"],
- "timezone": "America/Port_of_Spain"
+ "timezone": "America/Puerto_Rico"
 },
 "Tunisia": {
  "languages": ["ar"],
@@ -1317,7 +1317,7 @@
 "Tuvalu": {
  "driving": "l",
  "languages": ["en"],
- "timezone": "Pacific/Funafuti"
+ "timezone": "Pacific/Tarawa"
 },
 "UK": {
  "driving": "l",
@@ -1455,7 +1455,7 @@
 "Uganda": {
  "driving": "l",
  "languages": ["en", "sw"],
- "timezone": "Africa/Kampala"
+ "timezone": "Africa/Nairobi"
 },
 "Ukraine": {
  "languages": ["uk"],
@@ -1468,7 +1468,7 @@
 "United States Virgin Islands": {
  "driving": "l",
  "languages": ["en"],
- "timezone": "America/St_Thomas"
+ "timezone": "America/Puerto_Rico"
 },
 "Uruguay": {
  "languages": ["es"],
@@ -1492,7 +1492,7 @@
 },
 "Wallis and Futuna": {
  "languages": ["fr"],
- "timezone": "Pacific/Wallis"
+ "timezone": "Pacific/Tarawa"
 },
 "Willis Island": {
  "languages": ["en"],
@@ -1500,16 +1500,16 @@
 },
 "Yemen": {
  "languages": ["ar"],
- "timezone": "Asia/Aden"
+ "timezone": "Asia/Riyadh"
 },
 "Zambia": {
  "driving": "l",
  "languages": ["en"],
- "timezone": "Africa/Lusaka"
+ "timezone": "Africa/Maputo"
 },
 "Zimbabwe": {
  "driving": "l",
  "languages": ["en", "sn", "nd"],
- "timezone": "Africa/Harare"
+ "timezone": "Africa/Maputo"
 }
 }
