@@ -287,24 +287,14 @@ public final class Config
       return NAV_AUTO.equals(theme);
     }
 
-    public static boolean isNight(@NonNull String theme)
-    {
-      return NIGHT.equals(theme);
-    }
-
-    public static boolean isDefault(@NonNull String theme)
-    {
-      return DEFAULT.equals(theme);
-    }
-
     @NonNull
     public static String getCurrent()
     {
-      final String res = getString(KEY_UI_THEME, DEFAULT);
+      final String res = getString(KEY_UI_THEME, AUTO);
       if (isValid(res))
         return res;
 
-      return DEFAULT;
+      return AUTO;
     }
 
     public static void setCurrent(@NonNull String theme)
@@ -318,11 +308,11 @@ public final class Config
     @NonNull
     public static String getUiThemeSettings()
     {
-      final String res = getString(KEY_UI_THEME_SETTINGS, DEFAULT);
+      final String res = getString(KEY_UI_THEME_SETTINGS, AUTO);
       if (isValid(res) || isAuto(res) || isNavAuto(res))
         return res;
 
-      return DEFAULT;
+      return AUTO;
     }
 
     public static boolean setUiThemeSettings(String theme)

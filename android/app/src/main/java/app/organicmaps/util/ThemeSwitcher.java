@@ -1,6 +1,6 @@
 package app.organicmaps.util;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.app.UiModeManager;
 import android.content.Context;
 import android.location.Location;
@@ -18,6 +18,7 @@ import java.util.Calendar;
 
 public enum ThemeSwitcher
 {
+  @SuppressLint("StaticFieldLeak")
   INSTANCE;
 
   private static final long CHECK_INTERVAL_MS = 30 * 60 * 1000;
@@ -32,15 +33,15 @@ public enum ThemeSwitcher
       UiThread.cancelDelayedTasks(mAutoThemeChecker);
 
       String theme;
-      if (navAuto || ThemeUtils.isAutoTheme())
+      if (navAuto)
       {
         UiThread.runLater(mAutoThemeChecker, CHECK_INTERVAL_MS);
         theme = calcAutoTheme();
       }
       else
       {
-        // Happens when exiting the Navigation mode. Should restore the light.
-        theme = Config.UiTheme.DEFAULT;
+        // Happens when exiting the Navigation mode. Should restore the system default theme.
+        theme = Config.UiTheme.AUTO;
       }
 
       setThemeAndMapStyle(theme);
@@ -70,71 +71,69 @@ public enum ThemeSwitcher
   {
     mRendererActive = isRendererActive;
     String theme = Config.UiTheme.getUiThemeSettings();
-    if (ThemeUtils.isAutoTheme() || ThemeUtils.isNavAutoTheme())
+    if (ThemeUtils.isNavAutoTheme())
     {
       mAutoThemeChecker.run();
-      return;
     }
-
-    UiThread.cancelDelayedTasks(mAutoThemeChecker);
-    setThemeAndMapStyle(theme);
+    else
+    {
+      UiThread.cancelDelayedTasks(mAutoThemeChecker);
+      setThemeAndMapStyle(theme);
+    }
   }
 
   private void setThemeAndMapStyle(@NonNull String theme)
   {
     UiModeManager uiModeManager = (UiModeManager) mContext.getSystemService(Context.UI_MODE_SERVICE);
-    String oldTheme = Config.UiTheme.getCurrent();
 
-    MapStyle style;
-    if (Config.UiTheme.isNight(theme))
+    MapStyle mapStyle;
+    switch (theme)
     {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-        uiModeManager.setApplicationNightMode(UiModeManager.MODE_NIGHT_YES);
-      else
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
-      if (RoutingController.get().isVehicleNavigation())
-        style = MapStyle.VehicleDark;
-      else if (Framework.nativeIsOutdoorsLayerEnabled())
-        style = MapStyle.OutdoorsDark;
-      else
-        style = MapStyle.Dark;
-    }
-    else
-    {
+    case Config.UiTheme.DEFAULT:
+      mapStyle = calculateMapStyle(false);
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
         uiModeManager.setApplicationNightMode(UiModeManager.MODE_NIGHT_NO);
-      else
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
-      if (RoutingController.get().isVehicleNavigation())
-        style = MapStyle.VehicleClear;
-      else if (Framework.nativeIsOutdoorsLayerEnabled())
-        style = MapStyle.OutdoorsClear;
-      else
-        style = MapStyle.Clear;
+      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+      break;
+    case Config.UiTheme.NIGHT:
+      mapStyle = calculateMapStyle(true);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+        uiModeManager.setApplicationNightMode(UiModeManager.MODE_NIGHT_YES);
+      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+      break;
+    case Config.UiTheme.AUTO:
+      var isSystemInDarkMode = uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_YES;
+      mapStyle = calculateMapStyle(isSystemInDarkMode);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+        uiModeManager.setApplicationNightMode(UiModeManager.MODE_NIGHT_AUTO);
+      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+      break;
+    default: return;
     }
 
+    final String oldTheme = Config.UiTheme.getCurrent();
     if (!theme.equals(oldTheme))
     {
       Config.UiTheme.setCurrent(theme);
       DownloaderStatusIcon.clearCache();
+    }
 
-      final Activity a = MwmApplication.from(mContext).getTopActivity();
-      if (a != null && !a.isFinishing())
-        a.recreate();
-    }
-    else
-    {
-      // If the UI theme is not changed we just need to change the map style if needed.
-      final MapStyle currentStyle = MapStyle.get();
-      if (currentStyle == style)
-        return;
-      SetMapStyle(style);
-    }
+    final MapStyle oldStyle = MapStyle.get();
+    if (oldStyle != mapStyle)
+      setMapStyle(mapStyle);
   }
 
-  private void SetMapStyle(MapStyle style)
+  private MapStyle calculateMapStyle(boolean dark)
+  {
+    if (RoutingController.get().isVehicleNavigation())
+      return dark ? MapStyle.VehicleDark : MapStyle.VehicleClear;
+    else if (Framework.nativeIsOutdoorsLayerEnabled())
+      return dark ? MapStyle.OutdoorsDark : MapStyle.OutdoorsClear;
+    else
+      return dark ? MapStyle.Dark : MapStyle.Clear;
+  }
+
+  private void setMapStyle(MapStyle style)
   {
     // Because of the distinct behavior in auto theme, Android Auto employs its own mechanism for theme switching.
     // For the Android Auto theme switcher, please consult the app.organicmaps.car.util.ThemeUtils module.
@@ -171,6 +170,6 @@ public enum ThemeSwitcher
       day = (currentHour < 18 && currentHour > 6);
     }
 
-    return (day ? Config.UiTheme.DEFAULT : Config.UiTheme.NIGHT);
+    return (day ? Config.UiTheme.AUTO : Config.UiTheme.NIGHT);
   }
 }
