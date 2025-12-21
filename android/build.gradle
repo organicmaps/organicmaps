@@ -25,6 +25,8 @@ rootProject.ext {
     def ver = getVersion()
     versionCode = ver.V1
     versionName = ver.V2
+    omimRoot = rootDir.parentFile
+    dataDir = new File(omimRoot, 'data')
 }
 
 subprojects {

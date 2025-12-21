@@ -1,0 +1,138 @@
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+
+import javax.inject.Inject
+
+abstract class GenerateLocalizationsSpec {
+  final String name
+
+  abstract Property<String> getPythonExecutable()
+
+  abstract DirectoryProperty getTwineDir()
+
+  final Property<String> dataFile
+
+  final Property<String> tag
+
+  final Property<String> outputFileName
+
+  abstract DirectoryProperty getOutputDir()
+
+  GenerateLocalizationsSpec(String name, Project project) {
+    this.name = name
+    pythonExecutable.convention("python3")
+    twineDir.convention(project.layout.projectDirectory.dir("${project.rootProject.ext.omimRoot}/tools/python/twine/python_twine/"))
+    dataFile = project.objects.property(String)
+    tag = project.objects.property(String)
+    outputFileName = project.objects.property(String)
+    outputDir.convention(project.layout.projectDirectory.dir("src/main/res"))
+  }
+}
+
+abstract class GenerateLocalizationsExtension {
+  abstract NamedDomainObjectContainer<GenerateLocalizationsSpec> getGenerators()
+}
+
+@CacheableTask
+abstract class LocalizationGenerator extends DefaultTask {
+  @Input
+  abstract Property<String> getPythonExecutable()
+
+  @InputDirectory
+  @PathSensitive(PathSensitivity.ABSOLUTE)
+  abstract DirectoryProperty getTwineDir()
+
+  @InputFile
+  @PathSensitive(PathSensitivity.ABSOLUTE)
+  abstract RegularFileProperty getDataFile()
+
+  @Input
+  abstract Property<String> getTag()
+
+  @Input
+  abstract Property<String> getOutputFileName()
+
+  @OutputDirectory
+  abstract DirectoryProperty getOutputDir()
+
+  @Inject
+  abstract ExecOperations getExecOperations()
+
+  @TaskAction
+  void execute() {
+    def args = []
+    args << "${twineDir.get()}/twine_cli.py" << 'generate-all-localization-files'
+        << dataFile.get()
+        << outputDir.get()
+        << "--file-name" << outputFileName.get()
+        << "-f" << "android" << "--create-folders"
+        << "--include" << "translated"
+        << "--tags" << tag.get()
+
+    // Our twine script requires Python 3.10+, so we try to find a suitable version
+    def pythonExec = getSuitablePythonVersionPath()
+
+    execOperations.exec {
+      it.commandLine = pythonExec
+      it.args = args
+    }
+  }
+
+  private static String getSuitablePythonVersionPath() {
+    def isWindows = DefaultNativePlatform.getCurrentOperatingSystem().isWindows()
+    def lookupCommand = isWindows ? "where" : "which"
+    for (int i = 10; i < 30; i++) {
+      def version = "python3.${i}"
+      try {
+        def process = new ProcessBuilder(lookupCommand, version)
+            .redirectErrorStream(true)
+            .start()
+        process.waitFor()
+        if (process.exitValue() == 0) {
+          def absolutePath = process.inputStream.getText().trim()
+          if (!absolutePath.isEmpty())
+            return absolutePath
+        }
+      } catch (IOException ignored) {
+        // Ignore and try next version
+      }
+    }
+    throw new GradleException("No suitable Python 3.10+ version found in PATH.")
+  }
+}
+
+class GenerateLocalizationsPlugin implements Plugin<Project> {
+  @Override
+  void apply(Project project) {
+    def ext = project.extensions.create(
+        "generateLocalizations",
+        GenerateLocalizationsExtension
+    )
+
+    ext.generators.configureEach { spec ->
+      def taskName = "generateLocalizations${spec.name.capitalize()}"
+
+      def taskProvider = project.tasks.register(
+          taskName,
+          LocalizationGenerator
+      ) {
+        group = "build"
+        description = "Generates localization files from twine strings txt file"
+      }
+
+      taskProvider.configure {
+        it.pythonExecutable = spec.pythonExecutable
+        it.twineDir = spec.twineDir
+        it.dataFile = new File(spec.dataFile.get())
+        it.tag = spec.tag
+        it.outputFileName = spec.outputFileName
+        it.outputDir = spec.outputDir
+      }
+
+      project.tasks.named("preBuild").configure {
+        dependsOn(taskProvider)
+      }
+    }
+  }
+}
+
+apply plugin: GenerateLocalizationsPlugin

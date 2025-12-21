@@ -3,6 +3,7 @@ plugins {
 }
 
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+apply from: "${rootProject.rootDir}/groovy/localization-generator.gradle"
 
 android {
   namespace = 'app.organicmaps.sdk'
@@ -80,6 +81,21 @@ android {
 
   compileOptions {
     coreLibraryDesugaringEnabled = true
+  }
+}
+
+generateLocalizations {
+  generators {
+    strings {
+      dataFile = "${rootProject.ext.dataDir}/strings/strings.txt"
+      tag = "android-sdk"
+      outputFileName = "strings.xml"
+    }
+    typesStrings {
+      dataFile = "${rootProject.ext.dataDir}/strings/types_strings.txt"
+      tag = ""
+      outputFileName = "types_strings.xml"
+    }
   }
 }
 

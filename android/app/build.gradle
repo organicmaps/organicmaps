@@ -49,6 +49,7 @@ apply plugin: 'com.github.triplet.play'
 apply plugin: 'ru.cian.huawei-publish-gradle-plugin'
 
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+apply from: "${rootProject.rootDir}/groovy/localization-generator.gradle"
 apply from: "${rootProject.rootDir}/groovy/permission-checker.gradle"
 
 import com.github.triplet.gradle.androidpublisher.ReleaseStatus
@@ -235,6 +236,16 @@ android {
 
   compileOptions {
     coreLibraryDesugaringEnabled = true
+  }
+}
+
+generateLocalizations {
+  generators {
+    strings {
+      dataFile = "${rootProject.ext.dataDir}/strings/strings.txt"
+      tag = "android-app"
+      outputFileName = "strings.xml"
+    }
   }
 }
 
