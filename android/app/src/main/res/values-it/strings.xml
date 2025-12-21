@@ -57,7 +57,7 @@
     <string name="not_enough_free_space_on_sdcard">Libera prima dello spazio sulla scheda SD/ memoria USB per utilizzare l\'app</string>
     <string name="download_resources">Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %s.</string>
     <string name="download_resources_continue">Vai alla mappa</string>
-    <string name="downloading_country_can_proceed">Sto scaricando %s. Ora puoi \nprocedere con la mappa.</string>
+    <string name="downloading_country_can_proceed">Sto scaricando %s. Ora puoi \nprocedere con la mappa.</string>
     <string name="download_country_ask">Scaricare %s?</string>
     <string name="update_country_ask">Aggiornare %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->

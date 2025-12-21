@@ -229,7 +229,7 @@
 "pref_tts_language_title" = "Hääljuhiste keel";
 
 /* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Testi hääljuhised (TTS, Text-To-Speech)";
+"pref_tts_test_voice_title" = "Testi hääljuhised (Kõnesüntees, TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Automaatne suum";
 "placepage_distance" = "Kaugus";
 "search_show_on_map" = "Vaata kaardil";
@@ -567,7 +567,7 @@
 "hour" = "h";
 "minute" = "min";
 "day" = "p";
-"second" = "s";
+"second" = "sek";
 "placepage_more_button" = "Veel";
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
