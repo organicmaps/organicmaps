@@ -70,12 +70,6 @@ public final class ThemeUtils
       MapStyle.set(newMapStyle);
   }
 
-  public static boolean isNightMode(@NonNull CarContext context)
-  {
-    final ThemeMode themeMode = getThemeMode(context);
-    return themeMode == ThemeMode.NIGHT || (themeMode == ThemeMode.AUTO && context.isDarkMode());
-  }
-
   @SuppressLint("ApplySharedPref")
   @UiThread
   public static void setThemeMode(@NonNull CarContext context, @NonNull ThemeMode themeMode)

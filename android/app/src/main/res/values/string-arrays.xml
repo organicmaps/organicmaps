@@ -27,7 +27,7 @@
   <string-array name="map_style">
     <item>@string/off</item>
     <item>@string/on</item>
-    <item>@string/auto</item>
+    <item>@string/follow_system</item>
     <item>@string/nav_auto</item>
   </string-array>
 

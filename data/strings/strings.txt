@@ -35823,6 +35823,13 @@ vi = Tự động điều hướng
 zh-Hans = 自动导航
 zh-Hant = 自動導航
 
+[follow_system]
+comment = Setting option to sync the app's theme with the operating system's dark/light mode
+tags = android-app
+en = Follow the system
+be = Як у сістэме
+ru = Как в системе
+
 [share_track]
 comment = Title of the bottom sheet when sharing the track
 tags = android-app
