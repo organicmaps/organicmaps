@@ -883,6 +883,19 @@ OpeningHours::OpeningHours(TRuleSequences const & rule):
 {
 }
 
+OpeningHours::OpeningHours(std::string const & rule, THolidayDates const & holidays, std::string const & timezone)
+  : m_valid(Parse(rule, m_rule))
+  , m_holidays(holidays)
+  , m_timeZone(std::chrono::locate_zone(timezone))
+{}
+
+OpeningHours::OpeningHours(TRuleSequences const & rule, THolidayDates const & holidays, std::string const & timezone)
+  : m_rule(rule)
+  , m_valid(true)
+  , m_holidays(holidays)
+  , m_timeZone(std::chrono::locate_zone(timezone))
+{}
+
 bool OpeningHours::IsOpen(time_t const dateTime) const
 {
   return osmoh::IsOpen(m_rule, dateTime);
@@ -902,9 +915,13 @@ OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime) const
 {
   InfoT info;
   info.state = GetState(m_rule, dateTime);
+
+  if (m_holidays.contains(dateTime))
+    info.isHoliday = true;
+
   if (info.state != RuleState::Unknown)
   {
-   if (info.state == RuleState::Open)
+    if (info.state == RuleState::Open)
       info.nextTimeOpen = dateTime;
     else
       info.nextTimeOpen = osmoh::GetNextTimeState(m_rule, dateTime, RuleState::Open);

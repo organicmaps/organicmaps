@@ -1529,6 +1529,31 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsActive)
     BOOST_CHECK(GetTimeTuple("2017-05-21 06:01", kDateTimeFmt, time));
     BOOST_CHECK(!IsActive(rules[0], time));
   }
+  {
+    Holiday holiday;
+    holiday.SetPlural(true);
+
+    THolidayDates holidays;
+
+    std::tm tm1{};
+    GetTimeTuple("2025-01-01", "%Y-%m-%d", tm1);
+    holidays.insert(std::mktime(&tm1));
+
+    std::tm tm2{};
+    GetTimeTuple("2025-05-01", "%Y-%m-%d", tm2);
+    holidays.insert(std::mktime(&tm2));
+
+    std::tm test1 = tm1;
+    BOOST_CHECK(IsActive(holiday, test1, holidays));
+
+    std::tm test2{};
+    GetTimeTuple("2025-01-02", "%Y-%m-%d", test2);
+    BOOST_CHECK(!IsActive(holiday, test2, holidays));
+
+    // Plural off
+    holiday.SetPlural(false);
+    BOOST_CHECK(!IsActive(holiday, test1, holidays));
+  }
 }
 
 BOOST_AUTO_TEST_CASE(OpeningHours_TestIsOpen)
@@ -1802,5 +1827,109 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestOpeningHours)
 
     BOOST_CHECK(GetTimeTuple("2016-05-31 10:30", fmt, time));
     BOOST_CHECK(oh.IsClosed(mktime(&time)));
+  }
+}
+
+BOOST_AUTO_TEST_CASE(OpeningHours_TestHolidayDetection_TimezoneAware)
+{
+  static auto const & fmt = "%Y-%m-%d %H:%M";
+  using namespace osmoh;
+
+  // === Define holidays (UTC-based reference dates) ===
+  std::tm holidayTime = {};
+  THolidayDates holidays(0, DateHash("UTC"), DateEqual("UTC"));
+
+  BOOST_CHECK(GetTimeTuple("2025-01-01 00:00", fmt, holidayTime));  // New Year
+  holidays.insert(timegm(&holidayTime));
+
+  BOOST_CHECK(GetTimeTuple("2025-12-25 00:00", fmt, holidayTime));  // Christmas
+  holidays.insert(timegm(&holidayTime));
+
+  BOOST_CHECK(GetTimeTuple("2025-05-01 00:00", fmt, holidayTime));  // Labor Day
+  holidays.insert(timegm(&holidayTime));
+
+  // === Regular holiday detection (timezone-agnostic) ===
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("Mo-Su 09:00-17:00", rules));
+
+    OpeningHours oh(rules, holidays, "UTC");
+    BOOST_CHECK(oh.IsValid());
+
+    std::tm time = {};
+
+    BOOST_CHECK(GetTimeTuple("2025-01-01 10:30", fmt, time));
+    auto info1 = oh.GetInfo(timegm(&time));
+    BOOST_CHECK(info1.isHoliday);
+
+    BOOST_CHECK(GetTimeTuple("2025-06-15 12:00", fmt, time));
+    auto info2 = oh.GetInfo(timegm(&time));
+    BOOST_CHECK(!info2.isHoliday);
+
+    BOOST_CHECK(GetTimeTuple("2025-12-25 14:30", fmt, time));
+    auto info3 = oh.GetInfo(timegm(&time));
+    BOOST_CHECK(info3.isHoliday);
+  }
+
+  // === Test with empty holidays ===
+  {
+    THolidayDates emptyHolidays(0, DateHash("UTC"), DateEqual("UTC"));
+
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("Mo-Su 09:00-17:00", rules));
+
+    OpeningHours oh(rules, emptyHolidays, "UTC");
+    BOOST_CHECK(oh.IsValid());
+
+    std::tm time = {};
+    BOOST_CHECK(GetTimeTuple("2025-01-01 12:00", fmt, time));
+    auto info = oh.GetInfo(timegm(&time));
+    BOOST_CHECK(!info.isHoliday);
+  }
+
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("Mo-Su 00:00-23:59", rules));
+
+    // Create timezone-aware holiday containers
+    THolidayDates holidaysBerlin(0, DateHash("Europe/Berlin"), DateEqual("Europe/Berlin"));
+    THolidayDates holidaysTokyo(0, DateHash("Asia/Tokyo"), DateEqual("Asia/Tokyo"));
+
+    // Add Jan 1, 2025, as a holiday for both
+    std::tm holidayTm = {};
+    BOOST_CHECK(GetTimeTuple("2025-01-01 00:00", fmt, holidayTm));
+    time_t holidayTime = timegm(&holidayTm);
+
+    holidaysBerlin.insert(holidayTime);
+    holidaysTokyo.insert(holidayTime);
+
+    OpeningHours ohBerlin(rules, holidaysBerlin, "Europe/Berlin");
+    OpeningHours ohTokyo(rules, holidaysTokyo, "Asia/Tokyo");
+
+    std::tm utcTime = {};
+
+    // 2024-12-31 21:00 UTC
+    // Berlin → 22:00 Dec 31
+    // Tokyo → 06:00 Jan 1
+    BOOST_CHECK(GetTimeTuple("2024-12-31 21:00", fmt, utcTime));
+    time_t utcTimestamp = timegm(&utcTime);
+
+    auto infoBerlin = ohBerlin.GetInfo(utcTimestamp);
+    auto infoTokyo = ohTokyo.GetInfo(utcTimestamp);
+
+    BOOST_CHECK(!infoBerlin.isHoliday);  // still Dec 31 in Berlin
+    BOOST_CHECK(infoTokyo.isHoliday);    // already Jan 1 in Tokyo
+
+    // 2024-12-31 23:00 UTC
+    // Berlin → 00:00 Jan 1
+    // Tokyo → 08:00 Jan 1
+    BOOST_CHECK(GetTimeTuple("2024-12-31 23:00", fmt, utcTime));
+    utcTimestamp = timegm(&utcTime);
+
+    infoBerlin = ohBerlin.GetInfo(utcTimestamp);
+    infoTokyo = ohTokyo.GetInfo(utcTimestamp);
+
+    BOOST_CHECK(infoBerlin.isHoliday);  // now Jan 1 in Berlin
+    BOOST_CHECK(infoTokyo.isHoliday);   // still Jan 1 in Tokyo
   }
 }
