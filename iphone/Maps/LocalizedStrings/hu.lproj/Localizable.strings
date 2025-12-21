@@ -339,7 +339,7 @@
 "teal" = "Zöldeskék";
 
 /* lime color */
-"lime" = "Mész";
+"lime" = "Lime";
 
 /* deep orange color */
 "deep_orange" = "Mély narancssárga";
@@ -533,7 +533,7 @@
 "message_invalid_feature_position" = "Itt nem található objektum";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Közösség által létrehozott OpenStreetMap adatok innen: %@. További információkat a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon találhat";
+"osm_presentation" = "A közösségi OpenStreetMap adatok frissítésének időpontja: %@. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon";
 "login_to_make_edits_visible" = "Hozzon létre egy fiókot az OpenStreetMapen, vagy jelentkezzen be, hogy közzétehesse térképszerkesztéseit a világ számára.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

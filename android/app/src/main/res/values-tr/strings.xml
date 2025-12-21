@@ -55,7 +55,7 @@
     <string name="disconnect_usb_cable">Organic Maps’i kullanabilmek için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmek için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
-    <string name="download_resources">Uygulamayı kullanmadan önce lütfen aygıtınıza dünya genel görünüm haritasını indirin. \nBu, %s alan kullanacaktır.</string>
+    <string name="download_resources">Uygulamayı kullanmadan önce lütfen aygıtınıza dünya genel görünüm haritasını indirin.\nBu, %s alan kullanacaktır.</string>
     <string name="download_resources_continue">Haritaya Git</string>
     <string name="downloading_country_can_proceed">%s indiriliyor. Şimdi haritaya\ngidebilirsiniz.</string>
     <string name="download_country_ask">%s indir?</string>

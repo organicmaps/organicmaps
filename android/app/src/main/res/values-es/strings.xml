@@ -57,7 +57,7 @@
     <string name="not_enough_free_space_on_sdcard">Libere espacio en la memoria SD o almacenamiento USB para usar la aplicación</string>
     <string name="download_resources">Antes de comenzar, permita que descarguemos en su dispositivo un mapamundi general.\nSe requieren %s de almacenamiento.</string>
     <string name="download_resources_continue">Ir al mapa</string>
-    <string name="downloading_country_can_proceed">Descargando %s. Puede ahora \nproceder al mapa.</string>
+    <string name="downloading_country_can_proceed">Descargando %s. Puedes ahora\nproceder al mapa.</string>
     <string name="download_country_ask">¿Descargar %s?</string>
     <string name="update_country_ask">¿Actualizar %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -95,7 +95,7 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Error al mover los archivos de mapas</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Esto podría tardar varios minutos. \nAguarde un momento…</string>
+    <string name="wait_several_minutes">Esto podría tardar varios minutos.\nPor favor espera…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Unidades de medida</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -487,7 +487,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Datos de OpenStreetMap creados por la comunidad a partir de %s. Más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) es un proyecto comunitario para construir un mapa libre y abierto. Es la principal fuente de datos cartográficos de Organic Maps y funciona de forma similar a Wikipedia. Usted puede añadir o editar lugares y estos pasan a estar disponibles para millones de usuarios de todo el mundo.\n¡Únase a la comunidad y ayude a crear un mapa mejor para todos!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) es un proyecto comunitario para construir un mapa gratis y abierto. Es la principal fuente de datos cartográficos de Organic Maps y funciona de forma similar a Wikipedia. Puedes añadir o editar lugares y estos pasan a estar disponibles para millones de usuarios de todo el mundo.\n¡Únete a la comunidad y ayuda a crear un mejor mapa para todos!</string>
     <string name="login_to_make_edits_visible">Cree una cuenta OpenStreetMap o inicie sesión para publicar sus ediciones de mapas en todo el mundo.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d de %2$d</string>
@@ -577,7 +577,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Opinión general</string>
     <string name="prefs_languages_information">Utilizamos el sistema TTS para las instrucciones de voz. Muchos dispositivos de Android usan Google TTS. Puede descargar o actualizarlo desde Google Play</string>
-    <string name="prefs_languages_information_off">Para algunos idiomas, debe instalar otro sintetizador de voz o un paquete de idioma adicional desde la tienda de aplicaciones (Google Play, Galaxy Store, App Gallery, FDroid).\nAbra los Ajustes de su dispositivo → Idioma y entrada de texto → Voz → Opciones texto a voz.\nAquí puede administrar la configuración de síntesis de voz (por ejemplo, descargar un paquete de idioma para poder usarlo sin conexión) o seleccionar otro motor de texto a voz.</string>
+    <string name="prefs_languages_information_off">Para algunos idiomas, debe instalar otro sintetizador de voz o un paquete de idioma adicional desde la tienda de aplicaciones (Google Play, Galaxy Store, App Gallery, FDroid).\nAbre los Ajustes de tu dispositivo → Idioma y entrada → Voz → Salida de texto a voz.\nAquí puedes administrar la configuración de síntesis de voz (por ejemplo, descargar un paquete de idioma para poder usarlo sin conexión) o seleccionar otro motor de texto a voz.</string>
     <string name="prefs_languages_information_off_link">Para obtener más información, consulte esta guía.</string>
     <string name="transliteration_title">Transliteración al alfabeto latino</string>
     <string name="learn_more">Conocer más</string>

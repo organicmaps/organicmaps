@@ -57,7 +57,7 @@
     <string name="not_enough_free_space_on_sdcard">Rakenduse kasutamiseks palun vabasta kõigepealt piisavalt ruumi mälukaardil/USB salvestusseadmel</string>
     <string name="download_resources">Enne rakenduse kasutamise alustamist luba meil laadida seadmesse alla maailma üldkaart. \nSee kasutab %s mälumahtu.</string>
     <string name="download_resources_continue">Ava kaart</string>
-    <string name="downloading_country_can_proceed">Allalaadimisel on %s. Võid nüüd \nkaardiga jätkata.</string>
+    <string name="downloading_country_can_proceed">Allalaadimisel on %s. Võid nüüd\nkaardiga jätkata.</string>
     <string name="download_country_ask">Kas laadime %s alla?</string>
     <string name="update_country_ask">Kas uuendame %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -162,7 +162,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Rakendus ei tunnista failitüüpi:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Faili avamine ei õnnestunud %1$s \n \n%2$s</string>
+    <string name="failed_to_open_file">„%1$s“ faili avamine ei õnnestunud\n \n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Muuda</string>
     <!-- Warning message when doing search around current position -->
@@ -226,9 +226,9 @@
     <!-- Settings «Route» category: «Tts language» title -->
     <string name="pref_tts_language_title">Hääljuhiste keel</string>
     <!-- Settings «Route» category: «Test Voice Directions» title -->
-    <string name="pref_tts_test_voice_title">Testi hääljuhised (TTS, Text-To-Speech)</string>
+    <string name="pref_tts_test_voice_title">Testi hääljuhised (Kõnesüntees, TTS, Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
-    <string name="pref_tts_playing_test_voice">Kontrolli helivaljust või süsteemi kõnesünteesi seadistusi, kui sa ei kuule nüüd häält.</string>
+    <string name="pref_tts_playing_test_voice">Kui sa ei kuule nüüd häält, siis kontrolli helivaljust või süsteemi kõnesünteesi seadistusi.</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
     <string name="pref_tts_unavailable">Ei ole saadaval</string>
     <string name="pref_map_auto_zoom">Automaatne suum</string>
@@ -487,7 +487,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Kogukonna loodud OpenStreetMapi andmed seisuga %s. Lisateavet kaardi muutmise ja uuendamise kohta leiad OpenStreetMap.org saidist</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) on kogukonna projekt, mille eesmärk on luua tasuta ja avatud kaart. See on Organic Mapsi peamine kaardiandmete allikas ja toimib sarnaselt Vikipeediaga. Saad lisada või muuta kohti ja need muutuvad kättesaadavaks miljonitele kasutajatele üle kogu maailma.\nLiitu kogukonnaga ja aita luua kõigi jaoks paremat kaarti!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) on kogukonna projekt, mille eesmärk on luua vaba, tasuta ja avatud kaart. See on Organic Mapsi peamine kaardiandmete allikas ja toimib sarnaselt Vikipeediaga. Saad lisada või muuta kohti ja need muutuvad kättesaadavaks miljonitele kasutajatele üle kogu maailma.\nLiitu kogukonnaga ja aita luua kõigi jaoks paremat kaarti!</string>
     <string name="login_to_make_edits_visible">Loo OpenStreetMapi konto või logi sisse, et avaldada oma kaardimuudatused kogu maailmale.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d/%2$d</string>
@@ -522,7 +522,7 @@
     <string name="hour">h</string>
     <string name="minute">min</string>
     <string name="day">p</string>
-    <string name="second">s</string>
+    <string name="second">sek</string>
     <string name="placepage_more_button">Veel</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Muuda järjehoidjat</string>
@@ -577,7 +577,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Üldine tagasiside</string>
     <string name="prefs_languages_information">Hääljuhiste jaoks kasutame kõnesünteesi. Paljud Android-seadmed kasutavad Google\'i TTS-i, saad selle alla laadida või värskendada Google Play teenusest</string>
-    <string name="prefs_languages_information_off">Mõne keele puhul pead paigaldama kõnesüntesaatori või täiendava keelepaketi rakenduste poest (Google Play, Galaxy Store, App Gallery, FDroid). \nAva oma nutiseadme seadistused → Keel ja sisend → Kõne → Tekst kõneks väljund. \nSiin saad hallata kõnesünteesi seadistusi (näiteks alla laadida keelepaketti võrguühenduseta kasutamiseks) ja valida mõne muu teksti kõneks muutmise mootori.</string>
+    <string name="prefs_languages_information_off">Mõne keele puhul pead paigaldama kõnesüntesaatori või täiendava keelepaketi rakenduste poest (Google Play, Galaxy Store, App Gallery, F-Droid). \nAva oma nutiseadmes „Seadistused → Keel ja sisend → Kõne → Kõnesüntees“ väljund. \nSiin saad hallata kõnesünteesi seadistusi (näiteks alla laadida keelepaketti võrguühenduseta kasutamiseks) ja valida mõne muu teksti kõneks muutmise mootori.</string>
     <string name="prefs_languages_information_off_link">Lisainfo saamiseks palun vaata seda juhist.</string>
     <string name="transliteration_title">Transliteratsioon ladina tähestikku</string>
     <string name="learn_more">Lisateave</string>

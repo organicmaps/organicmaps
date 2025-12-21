@@ -55,7 +55,7 @@
     <string name="disconnect_usb_cable">Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Veuillez d\'abord libérer de l\'espace sur la carte SD/le stockage USB afin d\'utiliser l\'appli</string>
-    <string name="download_resources">Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil. \n%s d\'espace de stockage sont nécessaires.</string>
+    <string name="download_resources">Avant d\'utiliser l\'application, veuillez télécharger la carte du monde sur votre appareil.\nElle utilisera %s d\'espace de stockage.</string>
     <string name="download_resources_continue">Aller sur la carte</string>
     <string name="downloading_country_can_proceed">%s en téléchargement. Vous pouvez\nmaintenant aller sur la carte.</string>
     <string name="download_country_ask">Télécharger %s ?</string>
@@ -577,7 +577,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Feedback général</string>
     <string name="prefs_languages_information">Nous utilisons le système TTS pour les instructions vocales. De nombreux appareils Android utilisent Google TTS, vous pouvez le télécharger ou le mettre à jour depuis Google Play</string>
-    <string name="prefs_languages_information_off">Pour certaines langues, il vous faudra installer un autre logiciel de synthèse vocale ou un pack de langue supplémentaire depuis l’app store (Google Play, Galaxy Store, App Gallery, FDroid). \nOuvrez les paramètres de votre appareil → Langue et saisie → Reconnaissance vocale → Saisie vocale. \nIci, vous pouvez gérer les paramètres pour la synthèse vocale (par exemple, télécharger un pack de langue pour une utilisation en mode hors ligne) et sélectionner un autre moteur de saisie vocale.</string>
+    <string name="prefs_languages_information_off">Pour certaines langues, vous devrez installer un synthétiseur vocal ou un pack de langue supplémentaire depuis une boutique d\'applications (Google Play, Galaxy Store, App Gallery, F-Droid).\nOuvrez les paramètres de votre appareil → Langue et saisie → Parole → Synthèse vocale.\nVous pourrez alors gérer les paramètres de synthèse vocale (par exemple, télécharger un pack de langue pour une utilisation hors ligne) et sélectionner un autre moteur de synthèse vocale.</string>
     <string name="prefs_languages_information_off_link">Pour plus d’informations, veuillez consulter ce guide.</string>
     <string name="transliteration_title">Translittéré en alphabet latin</string>
     <string name="learn_more">En savoir plus</string>

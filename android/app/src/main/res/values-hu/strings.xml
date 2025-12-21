@@ -329,7 +329,7 @@
     <!-- teal color -->
     <string name="teal">Zöldeskék</string>
     <!-- lime color -->
-    <string name="lime">Mész</string>
+    <string name="lime">Lime</string>
     <!-- deep orange color -->
     <string name="deep_orange">Mély narancssárga</string>
     <!-- gray color -->
@@ -485,7 +485,7 @@
     <string name="placepage_add_business_button">Vállalkozás hozzáadása</string>
     <string name="message_invalid_feature_position">Itt nem található objektum</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Közösség által létrehozott OpenStreetMap adatok innen: %s. További információkat a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon találhat</string>
+    <string name="osm_presentation">A közösségi OpenStreetMap adatok frissítésének időpontja: %s. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">Az OpenStreetMap.org (OSM) egy közösségi projekt, amelynek célja egy ingyenes és nyílt térkép létrehozása. Ez az Organic Maps alkalmazás térképadatainak fő forrása, és a Wikipédiához hasonlóan működik. Helyeket adhat hozzá vagy szerkeszthet, és azok világszerte felhasználók milliói számára válnak elérhetővé. \nCsatlakozzon a közösséghez, és segítsen egy jobb térképet készíteni mindenki számára!</string>
     <string name="login_to_make_edits_visible">Hozzon létre egy fiókot az OpenStreetMapen, vagy jelentkezzen be, hogy közzétehesse térképszerkesztéseit a világ számára.</string>
