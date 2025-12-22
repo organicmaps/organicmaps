@@ -143,4 +143,14 @@ public class Factory
       return false;
     }
   }
+
+  public static class GoggleAssistanceIntentProcessor extends GoogleAssistantIntentHandler implements IntentProcessor
+  {
+    @Override
+    public boolean process(@NonNull Intent intent, @NonNull MwmActivity activity)
+    {
+      return handleIntent(intent,
+                          (query, searchOnMap) -> { SearchActivity.start(activity, query, null, searchOnMap); });
+    }
+  }
 }
