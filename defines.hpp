@@ -77,6 +77,7 @@ auto constexpr TMP_OFFSETS_EXT = OFFSET_EXT EXTENSION_TMP;
 #define COUNTRIES_ROOT "Countries"
 
 #define COUNTRIES_META_FILE "countries_meta.txt"
+#define TIMEZONE_INFO_FILE "generator/timezone/timezone_info.json"
 #define LEAP_SPEEDS_FILE "leap_speeds.json"
 
 #define WORLD_FILE_NAME "World"
