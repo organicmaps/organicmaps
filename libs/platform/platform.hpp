@@ -19,6 +19,7 @@
 #include <vector>
 
 #include "defines.hpp"
+#include "timezone/serdes.hpp"
 
 DECLARE_EXCEPTION(FileAbsentException, RootException);
 DECLARE_EXCEPTION(FileSystemException, RootException);
@@ -91,6 +92,8 @@ public:
   using TFilesWithType = std::vector<std::pair<std::string, EFileType>>;
 
 protected:
+  void UpdateLocalTimeZone();
+
   /// Usually read-only directory for application resources
   std::string m_resourcesDir;
   /// Writable directory to store downloaded map data
@@ -117,6 +120,8 @@ protected:
   std::unique_ptr<base::DelayedThreadPool> m_backgroundThread;
 
   platform::BatteryLevelTracker m_batteryTracker;
+
+  om::tz::TimeZone m_localTimeZone;
 
 public:
   Platform();
@@ -330,6 +335,8 @@ public:
   void SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread);
 
   platform::BatteryLevelTracker & GetBatteryTracker() { return m_batteryTracker; }
+
+  om::tz::TimeZone const & GetLocalTimeZone() const { return m_localTimeZone; }
 
 private:
   void RunThreads();

@@ -6,6 +6,7 @@
 #include "base/logging.hpp"
 #include "base/random.hpp"
 #include "base/string_utils.hpp"
+#include "timezone/local_timezone.hpp"
 
 #include <algorithm>
 #include <thread>
@@ -46,6 +47,11 @@ bool GetFileTypeChecked(std::string const & path, Platform::EFileType & type)
   return true;
 }
 }  // namespace
+
+void Platform::UpdateLocalTimeZone()
+{
+  m_localTimeZone = om::tz::GetLocalTimeZone();
+}
 
 // static
 Platform::EError Platform::ErrnoToError()

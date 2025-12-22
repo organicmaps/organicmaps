@@ -9,6 +9,8 @@
 #include <cstdint>
 #include <vector>
 
+#include <glaze/json.hpp>
+
 namespace
 {
 int8_t ParseHolidayReference(std::string const & ref)
@@ -22,6 +24,24 @@ int8_t ParseHolidayReference(std::string const & ref)
   if (ref == "canadaDay")
     return feature::RegionData::PHReference::PH_CANADA_DAY;
   return 0;
+}
+
+om::tz::TimeZoneDb GetTimeZoneDb()
+{
+  om::tz::TimeZoneDb db;
+  std::string buffer;
+  GetPlatform().GetReader(TIMEZONE_INFO_FILE)->ReadAsString(buffer);
+  LOG(LWARNING, ("Timezone db", buffer));
+
+  if (auto const ec = glz::read_json(db, buffer); ec.ec != glz::error_code::none)
+    LOG(LERROR, ("Failed to load tz db. error:", ec.ec));
+  return db;
+}
+
+om::tz::TimeZone GetTimeZone(std::string const & tzName)
+{
+  static om::tz::TimeZoneDb const & db = GetTimeZoneDb();
+  return db.timezones.at(tzName);
 }
 }  // namespace
 
@@ -89,8 +109,11 @@ bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
 
     std::string timezone;
     FromJSONObjectOptionalField(jsonData, "timezone", timezone);
+    LOG(LINFO, ("Timezone:", timezone));
     if (!timezone.empty())
-      data.Set(RegionData::Type::RD_TIMEZONE, timezone);
+      data.Set(RegionData::Type::RD_TIMEZONE, om::tz::Serialize(GetTimeZone(timezone)));
+    else
+      throw std::runtime_error("Timezone is empty");
 
     bool allow_housenames;
     FromJSONObjectOptionalField(jsonData, "housenames", allow_housenames);
