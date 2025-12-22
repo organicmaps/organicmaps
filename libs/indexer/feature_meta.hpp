@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 
+#include "timezone/local_timezone.hpp"
+
 namespace feature
 {
 class MetadataBase
@@ -187,7 +189,7 @@ public:
   {
     RD_LANGUAGES,         // list of written languages
     RD_DRIVING,           // left- or right-hand driving (letter 'l' or 'r')
-    RD_TIMEZONE,          // UTC timezone offset, floating signed number of hours: -3, 4.5
+    RD_TIMEZONE,          // timezone in om::tz::TimeZone format, use separate getter
     RD_ADDRESS_FORMAT,    // address format, re: mapzen
     RD_PHONE_FORMAT,      // list of strings in "+N NNN NN-NN-NN" format
     RD_POSTCODE_FORMAT,   // list of strings in "AAA ANN" format
@@ -215,6 +217,7 @@ public:
   void Deserialize(Source & src)
   {
     MetadataBase::DeserializeFromMwmTmp(src);
+    LoadTimeZone();
   }
 
   void Set(Type type, std::string const & s)
@@ -235,6 +238,13 @@ public:
   {
     MetadataBase::Set(Type::RD_LEAP_WEIGHT_SPEED, std::to_string(speedValue));
   }
+
+  std::optional<om::tz::TimeZone> const & GetTimeZone() const { return m_timeZone; }
+
+private:
+  void LoadTimeZone();
+
+  std::optional<om::tz::TimeZone> m_timeZone = std::nullopt;
 
   /// @see EdgeEstimator::GetLeapWeightSpeed
   //  double GetLeapWeightSpeed(double defaultValue) const

@@ -1,7 +1,7 @@
 #include "indexer/feature_meta.hpp"
 #include "custom_keyvalue.hpp"
-
 #include "std/target_os.hpp"
+#include "timezone/serdes.hpp"
 
 namespace feature
 {
@@ -242,6 +242,22 @@ void RegionData::AddPublicHoliday(int8_t month, int8_t offset)
   value.push_back(month);
   value.push_back(offset);
   Set(RegionData::Type::RD_PUBLIC_HOLIDAYS, std::move(value));
+}
+
+void RegionData::LoadTimeZone()
+{
+  std::string_view const data = Get(RD_TIMEZONE);
+  // Catching old IANA-style timezones like "Europe/Minsk"
+  if (std::ranges::all_of(data, [](char const c) { return isascii(c) || c == '/'; }))
+  {
+    LOG(LDEBUG, ("Unsupported tz format"));
+    return;
+  }
+
+  if (auto res = om::tz::Deserialize(data))
+    m_timeZone = std::move(res.value());
+  else
+    LOG(LWARNING, ("Failed to read timezone info:", res.error()));
 }
 
 // Warning: exact osm tag keys should be returned for valid enum values.

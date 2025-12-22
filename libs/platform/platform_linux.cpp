@@ -75,6 +75,8 @@ std::unique_ptr<Socket> CreateSocket()
 
 Platform::Platform()
 {
+  UpdateLocalTimeZone();
+
   using base::JoinPath;
   // Current executable's path with a trailing slash.
   auto const execDir = GetExecutableDir();

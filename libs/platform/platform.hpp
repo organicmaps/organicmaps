@@ -12,6 +12,8 @@
 #include "base/task_loop.hpp"
 #include "base/thread_pool_delayed.hpp"
 
+#include "timezone/timezone.hpp"
+
 #include <cstdint>
 #include <memory>
 #include <string>
@@ -91,6 +93,8 @@ public:
   using TFilesWithType = std::vector<std::pair<std::string, EFileType>>;
 
 protected:
+  void UpdateLocalTimeZone();
+
   /// Usually read-only directory for application resources
   std::string m_resourcesDir;
   /// Writable directory to store downloaded map data
@@ -117,6 +121,8 @@ protected:
   std::unique_ptr<base::DelayedThreadPool> m_backgroundThread;
 
   platform::BatteryLevelTracker m_batteryTracker;
+
+  om::tz::TimeZone m_localTimeZone;
 
 public:
   Platform();
@@ -330,6 +336,8 @@ public:
   void SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread);
 
   platform::BatteryLevelTracker & GetBatteryTracker() { return m_batteryTracker; }
+
+  om::tz::TimeZone const & GetLocalTimeZone() const { return m_localTimeZone; }
 
 private:
   void RunThreads();
