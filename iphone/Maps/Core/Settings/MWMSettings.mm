@@ -186,7 +186,7 @@ NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
 + (NSString *)donateUrl
 {
   auto const url = GetFramework().GetDonateUrl();
-  return url ? @((*url).c_str()) : nil;
+  return url.empty() ? nil : @(url.c_str());
 }
 
 + (BOOL)isNY

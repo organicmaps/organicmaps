@@ -123,11 +123,9 @@ std::string_view constexpr kProductsPopupCloseReasonSelectProductStr = "select_p
 std::string_view constexpr kFirstAskedForRateUsTimeKey = "FirstAskedForRateUsTime";
 std::string_view constexpr kLastAskedForRateUsTimeKey = "LastAskedForRateUsTime";
 
-std::string_view constexpr kDonationDefaultUrl = "https://organicmaps.app/donate/";
 std::string_view constexpr kDonationTapTimeKey = "DonationTapTime";
 std::string_view constexpr kDonationTapCountKey = "DonationTapCount";
 
-auto const kCrowdfundingStartTime = base::YYMMDDToSecondsSinceEpoch(251220);
 auto const kCrowdfundingEndTime = base::YYMMDDToSecondsSinceEpoch(260120);
 
 auto constexpr kLargeFontsScaleFactor = 1.6;
@@ -3594,23 +3592,18 @@ void Framework::DidShowRateUsRequest() const
   settings::Set(kLastAskedForRateUsTimeKey, now);
 }
 
-std::optional<std::string> Framework::GetDonateUrl() const
+std::string Framework::GetDonateUrl() const
 {
   std::string url;
   UNUSED_VALUE(settings::Get(settings::kDonateUrl, url));
-  /// @todo(KK): Remove this crowdfunding hard-start in the next release.
-  if (url.empty() && base::SecondsSinceEpoch() > kCrowdfundingStartTime)
-    url = kDonationDefaultUrl;
-  if (url.empty())
-    return nullopt;
-  if (url == kDonationDefaultUrl)
-    return platform::GetLocalizedString("translated_om_site_url").append("donate/");
+  if (url.ends_with("organicmaps.app/donate/"))
+    return platform::GetLocalizedString("translated_om_site_url") + "donate/";
   return url;
 }
 
 bool Framework::CanShowCrowdfundingPromo() const
 {
-  if (!GetDonateUrl())
+  if (GetDonateUrl().empty())
     return false;
 
   uint64_t lastDonationTapTime = 0;
