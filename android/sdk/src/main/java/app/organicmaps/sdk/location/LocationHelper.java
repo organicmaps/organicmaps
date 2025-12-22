@@ -171,12 +171,11 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
     }
 
-    // TODO(AB): Pass the validity of altitude, speed, bearing to C++.
-    final LocationCompatExtractor.Altitude altitudeAndAccuracy = LocationCompatExtractor.getAltitude(mSavedLocation);
-    final double altitude = altitudeAndAccuracy != null ? altitudeAndAccuracy.altitude() : 0.0;
-    LocationState.nativeLocationUpdated(mSavedLocation.getTime(), mSavedLocation.getLatitude(),
-                                        mSavedLocation.getLongitude(), mSavedLocation.getAccuracy(), altitude,
-                                        mSavedLocation.getSpeed(), mSavedLocation.getBearing());
+    final LocationCompatExtractor.Altitude altitude = LocationCompatExtractor.getAltitude(mSavedLocation);
+    LocationState.nativeLocationUpdated(
+        mSavedLocation.getTime(), mSavedLocation.getLatitude(), mSavedLocation.getLongitude(),
+        mSavedLocation.getAccuracy(), altitude != null ? altitude.altitude() : 0,
+        altitude != null ? altitude.accuracy() : -1, mSavedLocation.getSpeed(), mSavedLocation.getBearing());
   }
 
   private void notifyLocationUpdateTimeout()
