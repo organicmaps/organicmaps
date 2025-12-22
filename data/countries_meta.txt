@@ -72,6 +72,10 @@
  "languages": ["be", "ru"],
  "timezone": "Europe/Minsk"
 },
+"Belarus_Minsk Region": {
+ "languages": ["be", "ru"],
+ "timezone": "Europe/Minsk"
+},
 "Belgium": {
  "languages": ["nl", "fr", "de"],
  "timezone": "Europe/Brussels"
