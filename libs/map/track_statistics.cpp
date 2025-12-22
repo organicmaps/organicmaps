@@ -1,6 +1,5 @@
 #include "map/track_statistics.hpp"
 
-#include "base/logging.hpp"
 #include "geometry/mercator.hpp"
 
 #include "platform/distance.hpp"
@@ -39,8 +38,10 @@ TrackStatistics::TrackStatistics(kml::MultiGeometry const & geometry) : TrackSta
 
 void TrackStatistics::AddGpsInfoPoint(location::GpsInfo const & point)
 {
-  auto const pointWithAltitude =
-      geometry::PointWithAltitude(mercator::FromLatLon(point.m_latitude, point.m_longitude), point.m_altitude);
+  geometry::PointWithAltitude const pointWithAltitude(mercator::FromLatLon(point.m_latitude, point.m_longitude),
+                                                      point.m_altitude);
+
+  /// @todo point.HasAltitude() ?
   auto const altitude = geometry::Altitude(point.m_altitude);
   if (HasNoPoints())
   {
