@@ -7,9 +7,24 @@ import androidx.annotation.Nullable;
 
 public class LocationCompatExtractor
 {
-  public record Altitude(double altitude, float accuracy) {}
-  public record Speed(float speed, float accuracy) {}
-  public record Bearing(float bearing, float accuracy) {}
+  public record Altitude(double altitude, float accuracy) {
+    public Altitude
+    {
+      assert accuracy > 0;
+    }
+  }
+  public record Speed(float speed, float accuracy) {
+    public Speed
+    {
+      assert speed >= 0;
+    }
+  }
+  public record Bearing(float bearing, float accuracy) {
+    public Bearing
+    {
+      assert bearing >= 0;
+    }
+  }
 
   private static float getDefaultAltitudeAccuracy(@NonNull Location location)
   {
