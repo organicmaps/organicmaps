@@ -171,10 +171,11 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
     }
 
-    LocationState.nativeLocationUpdated(mSavedLocation.getTime(), mSavedLocation.getLatitude(),
-                                        mSavedLocation.getLongitude(), mSavedLocation.getAccuracy(),
-                                        mSavedLocation.getAltitude(), mSavedLocation.getSpeed(),
-                                        mSavedLocation.getBearing());
+    final LocationCompatExtractor.Altitude altitude = LocationCompatExtractor.getAltitude(mSavedLocation);
+    LocationState.nativeLocationUpdated(
+        mSavedLocation.getTime(), mSavedLocation.getLatitude(), mSavedLocation.getLongitude(),
+        mSavedLocation.getAccuracy(), altitude != null ? altitude.altitude() : 0,
+        altitude != null ? altitude.accuracy() : -1, mSavedLocation.getSpeed(), mSavedLocation.getBearing());
   }
 
   private void notifyLocationUpdateTimeout()

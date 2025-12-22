@@ -51,9 +51,9 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_LocationState_nativeOnLocationE
 
 JNIEXPORT void Java_app_organicmaps_sdk_location_LocationState_nativeLocationUpdated(JNIEnv * env, jclass clazz,
                                                                                      jlong time, jdouble lat,
-                                                                                     jdouble lon, jfloat accuracy,
-                                                                                     jdouble altitude, jfloat speed,
-                                                                                     jfloat bearing)
+                                                                                     jdouble lon, jfloat accuracyH,
+                                                                                     jdouble altitude, jfloat accuracyV,
+                                                                                     jfloat speed, jfloat bearing)
 {
   location::GpsInfo info;
   info.m_source = location::EAndroidNative;
@@ -62,19 +62,19 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_LocationState_nativeLocationUpd
   info.m_latitude = lat;
   info.m_longitude = lon;
 
-  if (accuracy > 0.0)
-    info.m_horizontalAccuracy = accuracy;
+  if (accuracyH > 0)
+    info.m_horizontalAccuracy = accuracyH;
 
-  if (altitude != 0.0)
+  if (accuracyV > 0)
   {
     info.m_altitude = altitude;
-    info.m_verticalAccuracy = accuracy;
+    info.m_verticalAccuracy = accuracyV;
   }
 
-  if (bearing > 0.0)
+  if (bearing > 0)
     info.m_bearing = bearing;
 
-  if (speed > 0.0)
+  if (speed > 0)
     info.m_speed = speed;
 
   g_framework->OnLocationUpdated(info);
