@@ -127,7 +127,7 @@ std::string_view constexpr kDonationDefaultUrl = "https://organicmaps.app/donate
 std::string_view constexpr kDonationTapTimeKey = "DonationTapTime";
 std::string_view constexpr kDonationTapCountKey = "DonationTapCount";
 
-auto const kCrowdfundingStartTime = base::YYMMDDToSecondsSinceEpoch(251220);
+auto const kCrowdfundingStartTime = base::YYMMDDToSecondsSinceEpoch(251225);
 auto const kCrowdfundingEndTime = base::YYMMDDToSecondsSinceEpoch(260120);
 
 auto constexpr kLargeFontsScaleFactor = 1.6;
