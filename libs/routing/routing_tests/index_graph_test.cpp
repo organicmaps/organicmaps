@@ -2,8 +2,9 @@
 
 #include "routing/routing_tests/index_graph_tools.hpp"
 
+#include "traffic/traffic_cache.hpp"
+
 #include "routing/base/astar_algorithm.hpp"
-#include "routing/base/astar_graph.hpp"
 
 #include "routing/edge_estimator.hpp"
 #include "routing/fake_ending.hpp"
@@ -13,8 +14,6 @@
 #include "routing/index_router.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/vehicle_mask.hpp"
-
-#include "routing_common/car_model.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
@@ -27,7 +26,6 @@
 #include "base/math.hpp"
 
 #include <algorithm>
-#include <cstdint>
 #include <memory>
 #include <unordered_map>
 #include <vector>

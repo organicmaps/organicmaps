@@ -1,5 +1,6 @@
 #include "generator/camera_info_collector.hpp"
 
+#include "routing/routing_helpers.hpp"
 #include "routing/speed_camera_ser_des.hpp"
 
 #include "platform/local_country_file.hpp"
@@ -93,32 +94,22 @@ bool CamerasInfoCollector::ParseIntermediateInfo(std::string const & camerasInfo
                                                  routing::OsmIdToFeatureIds const & osmIdToFeatureIds)
 {
   FileReader reader(camerasInfoPath);
-  ReaderSource<FileReader> src(reader);
-
-  uint32_t maxSpeedKmPH = 0;
-  uint32_t relatedWaysNumber = 0;
-
-  uint32_t latInt = 0;
-  double lat = 0;
-
-  uint32_t lonInt = 0;
-  double lon = 0;
-  m2::PointD center;
+  ReaderSource src(reader);
 
   while (src.Size() > 0)
   {
     /// @todo Take out intermediate camera info serialization code.
     /// Should be equal with CameraCollector::CameraInfo::Read.
 
-    ReadPrimitiveFromSource(src, latInt);
-    ReadPrimitiveFromSource(src, lonInt);
-    lat = Uint32ToDouble(latInt, ms::LatLon::kMinLat, ms::LatLon::kMaxLat, kPointCoordBits);
-    lon = Uint32ToDouble(lonInt, ms::LatLon::kMinLon, ms::LatLon::kMaxLon, kPointCoordBits);
+    uint32_t const latInt = ReadPrimitiveFromSource<uint32_t>(src);
+    uint32_t const lonInt = ReadPrimitiveFromSource<uint32_t>(src);
+    double const lat = Uint32ToDouble(latInt, ms::LatLon::kMinLat, ms::LatLon::kMaxLat, kPointCoordBits);
+    double const lon = Uint32ToDouble(lonInt, ms::LatLon::kMinLon, ms::LatLon::kMaxLon, kPointCoordBits);
 
-    ReadPrimitiveFromSource(src, maxSpeedKmPH);
-    ReadPrimitiveFromSource(src, relatedWaysNumber);
+    uint32_t maxSpeedKmPH = ReadPrimitiveFromSource<uint32_t>(src);
+    uint32_t const relatedWaysNumber = ReadPrimitiveFromSource<uint32_t>(src);
 
-    center = mercator::FromLatLon(lat, lon);
+    m2::PointD const center = mercator::FromLatLon(lat, lon);
 
     if (maxSpeedKmPH >= routing::kMaxCameraSpeedKmpH)
     {
@@ -135,10 +126,9 @@ bool CamerasInfoCollector::ParseIntermediateInfo(std::string const & camerasInfo
     }
 
     std::vector<routing::SpeedCameraMwmPosition> ways;
-    uint64_t wayOsmId = 0;
     for (uint32_t i = 0; i < relatedWaysNumber; ++i)
     {
-      ReadPrimitiveFromSource(src, wayOsmId);
+      uint64_t const wayOsmId = ReadPrimitiveFromSource<uint64_t>(src);
 
       auto const it = osmIdToFeatureIds.find(base::MakeOsmWay(wayOsmId));
       if (it != osmIdToFeatureIds.cend())

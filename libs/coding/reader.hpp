@@ -5,13 +5,10 @@
 #include "base/assert.hpp"
 #include "base/exception.hpp"
 
-#include <cstddef>
-#include <cstdint>
 #include <cstring>
 #include <memory>
 #include <string>
 #include <type_traits>
-#include <vector>
 
 // Base class for random-access Reader. Not thread-safe.
 class Reader
@@ -274,10 +271,4 @@ TPrimitive ReadPrimitiveFromSource(TSource & source)
   TPrimitive primitive;
   source.Read(&primitive, sizeof(primitive));
   return SwapIfBigEndianMacroBased(primitive);
-}
-
-template <typename TPrimitive, typename TSource>
-void ReadPrimitiveFromSource(TSource & source, TPrimitive & primitive)
-{
-  primitive = ReadPrimitiveFromSource<TPrimitive, TSource>(source);
 }

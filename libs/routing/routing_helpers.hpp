@@ -16,8 +16,6 @@
 
 #include "base/cancellable.hpp"
 
-#include <memory>
-#include <queue>
 #include <set>
 #include <vector>
 
