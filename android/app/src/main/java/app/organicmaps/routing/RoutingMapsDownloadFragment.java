@@ -86,20 +86,23 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
   {
     int progress = MapManager.nativeGetOverallProgress(mMapsArray);
 
-    if (progress > 0) {
-        if (!mDownloadStarted) {
-          mDownloadStarted = true;
-          wheel.setPending(false);
-        }
+    if (progress > 0)
+    {
+      if (!mDownloadStarted)
+      {
+        mDownloadStarted = true;
+        wheel.setPending(false);
+      }
 
-        if (progress > mLastProgress) {
-          mLastProgress = progress;
-          wheel.setProgress(progress);
-        }
-    } else if (!mDownloadStarted)
+      if (progress > mLastProgress)
+      {
+        mLastProgress = progress;
+        wheel.setProgress(progress);
+      }
+    }
+    else if (!mDownloadStarted)
       wheel.setPending(true);
     else
-      // Maintain last known progress during transient 0 values from state transitions
       wheel.setProgress(mLastProgress);
   }
 
