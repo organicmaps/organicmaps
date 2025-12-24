@@ -78,7 +78,7 @@ public class MapView extends SurfaceView
                   @NonNull DisplayType displayType)
   {
     super(context, attrs, defStyleAttr, defStyleRes);
-    mMap = new Map(displayType);
+    mMap = new Map(displayType, context);
     getHolder().addCallback(new SurfaceHolderCallback());
   }
 
