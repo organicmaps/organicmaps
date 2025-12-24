@@ -149,7 +149,7 @@ public class MwmApplication extends Application implements Application.ActivityL
   {
     ThemeSwitcher.INSTANCE.initialize(this);
     return mOrganicMaps.init(() -> {
-      ThemeSwitcher.INSTANCE.restart(false);
+      ThemeSwitcher.INSTANCE.restart();
       ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
       onComplete.run();
     });
