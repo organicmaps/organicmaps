@@ -52,12 +52,14 @@ class StringUtf8Multilang
 public:
   struct Lang
   {
+    using TransliteratorsList = std::initializer_list<std::string_view>;
+
     /// OSM language code (e.g. for name:en it's "en" part).
     std::string_view m_code;
     /// Native language name.
     std::string_view m_name;
     /// Transliterators to latin ids.
-    std::vector<std::string_view> m_transliteratorsIds;
+    TransliteratorsList m_transliteratorsIds;
   };
 
   static int8_t constexpr kUnsupportedLanguageCode = -1;
@@ -91,7 +93,7 @@ public:
   /// @returns empty string if langCode is invalid.
   static std::string_view GetLangNameByCode(int8_t langCode);
   /// @returns nullptr if langCode is invalid.
-  static std::vector<std::string_view> const * GetTransliteratorsIdsByCode(int8_t langCode);
+  static Lang::TransliteratorsList const * GetTransliteratorsIdsByCode(int8_t langCode);
 
   static std::string GetOSMTagByCode(uint8_t const langCode);
   static uint8_t GetCodeByOSMTag(std::string const & name);
