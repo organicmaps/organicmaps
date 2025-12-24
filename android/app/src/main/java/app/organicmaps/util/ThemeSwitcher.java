@@ -6,6 +6,7 @@ import android.content.Context;
 import android.location.Location;
 import android.os.Build;
 import androidx.annotation.NonNull;
+import androidx.annotation.UiContext;
 import androidx.appcompat.app.AppCompatDelegate;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.downloader.DownloaderStatusIcon;
@@ -22,7 +23,6 @@ public enum ThemeSwitcher
   INSTANCE;
 
   private static final long CHECK_INTERVAL_MS = 30 * 60 * 1000;
-  private static boolean mRendererActive = false;
 
   private final Runnable mAutoThemeChecker = new Runnable() {
     @Override
@@ -44,7 +44,7 @@ public enum ThemeSwitcher
         theme = Config.UiTheme.AUTO;
       }
 
-      setThemeAndMapStyle(theme);
+      setTheme(theme);
     }
   };
 
@@ -58,18 +58,12 @@ public enum ThemeSwitcher
   }
 
   /**
-   * Changes the UI theme of application and the map style if necessary. If the contract regarding
-   * the input parameter is broken, the UI will be frozen during attempting to change the map style
-   * through the synchronous method {@link MapStyle#set(MapStyle)}.
-   *
-   * @param isRendererActive Indicates whether OpenGL renderer is active or not. Must be
-   *                         <code>true</code> only if the map is rendered and visible on the screen
-   *                         at this moment, otherwise <code>false</code>.
+   * Changes the UI theme of application. The map style will not be changed here, see
+   * `synchronizeMapStyle` method.
    */
   @androidx.annotation.UiThread
-  public void restart(boolean isRendererActive)
+  public void restart()
   {
-    mRendererActive = isRendererActive;
     String theme = Config.UiTheme.getUiThemeSettings();
     if (ThemeUtils.isNavAutoTheme())
     {
@@ -78,37 +72,52 @@ public enum ThemeSwitcher
     else
     {
       UiThread.cancelDelayedTasks(mAutoThemeChecker);
-      setThemeAndMapStyle(theme);
+      setTheme(theme);
     }
   }
 
-  private void setThemeAndMapStyle(@NonNull String theme)
+  /**
+   * Changes the style of the map according to application theme.
+   * If the contract regarding the input parameter is broken, the UI will be frozen during attempting to change the map
+   * style through the synchronous method {@link MapStyle#set(MapStyle)}.
+   *
+   * @param context UI context, that contains the information about current app ui mode.
+   *                Should be activity, that draws the map
+   * @param isRendererActive Indicates whether OpenGL renderer is active or not. Must be
+   *                         <code>true</code> only if the map is rendered and visible on the screen
+   *                         at this moment, otherwise <code>false</code>.
+   */
+  @androidx.annotation.UiThread
+  public void synchronizeMapStyle(@UiContext @NonNull Context context, boolean isRendererActive)
+  {
+    var isDarkMode = ThemeUtils.isDarkTheme(context);
+    var mapStyle = calculateMapStyle(isDarkMode);
+
+    var oldStyle = MapStyle.get();
+    if (oldStyle != mapStyle)
+      setMapStyle(mapStyle, isRendererActive);
+  }
+
+  private void setTheme(@NonNull String theme)
   {
     UiModeManager uiModeManager = (UiModeManager) mContext.getSystemService(Context.UI_MODE_SERVICE);
-
-    MapStyle mapStyle;
     switch (theme)
     {
     case Config.UiTheme.DEFAULT:
-      mapStyle = calculateMapStyle(false);
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
         uiModeManager.setApplicationNightMode(UiModeManager.MODE_NIGHT_NO);
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
       break;
     case Config.UiTheme.NIGHT:
-      mapStyle = calculateMapStyle(true);
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
         uiModeManager.setApplicationNightMode(UiModeManager.MODE_NIGHT_YES);
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
       break;
     case Config.UiTheme.AUTO:
-      var isSystemInDarkMode = uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_YES;
-      mapStyle = calculateMapStyle(isSystemInDarkMode);
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
         uiModeManager.setApplicationNightMode(UiModeManager.MODE_NIGHT_AUTO);
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
       break;
-    default: return;
     }
 
     final String oldTheme = Config.UiTheme.getCurrent();
@@ -117,10 +126,6 @@ public enum ThemeSwitcher
       Config.UiTheme.setCurrent(theme);
       DownloaderStatusIcon.clearCache();
     }
-
-    final MapStyle oldStyle = MapStyle.get();
-    if (oldStyle != mapStyle)
-      setMapStyle(mapStyle);
   }
 
   private MapStyle calculateMapStyle(boolean dark)
@@ -133,7 +138,7 @@ public enum ThemeSwitcher
       return dark ? MapStyle.Dark : MapStyle.Clear;
   }
 
-  private void setMapStyle(MapStyle style)
+  private void setMapStyle(MapStyle style, boolean isRendererActive)
   {
     // Because of the distinct behavior in auto theme, Android Auto employs its own mechanism for theme switching.
     // For the Android Auto theme switcher, please consult the app.organicmaps.car.util.ThemeUtils module.
@@ -141,7 +146,7 @@ public enum ThemeSwitcher
       return;
     // If rendering is not active we can mark map style, because all graphics
     // will be recreated after rendering activation.
-    if (mRendererActive)
+    if (isRendererActive)
       MapStyle.set(style);
     else
       MapStyle.mark(style);

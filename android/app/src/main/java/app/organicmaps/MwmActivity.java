@@ -256,7 +256,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Keep
   public void onRenderingInitializationFinished()
   {
-    ThemeSwitcher.INSTANCE.restart(true);
+    ThemeSwitcher.INSTANCE.restart();
 
     Framework.nativeRestoreDownloadQueue();
 
@@ -550,7 +550,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     updateViewsInsets();
 
     if (getIntent().getBooleanExtra(EXTRA_UPDATE_THEME, false))
-      ThemeSwitcher.INSTANCE.restart(mMapController.isRenderingActive());
+      ThemeSwitcher.INSTANCE.restart();
+
+    ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
 
     /*
      * onRenderingInitializationFinished() hook is not called when MwmActivity is recreated with the already
@@ -1051,7 +1053,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onResume()
   {
     super.onResume();
-    ThemeSwitcher.INSTANCE.restart(mMapController.isRenderingActive());
+    ThemeSwitcher.INSTANCE.restart();
     refreshSearchToolbar();
     setFullscreen(isFullscreen());
     makeNavigationBarTransparentInLightMode();
@@ -1535,7 +1537,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onNavigationCancelled()
   {
     closeFloatingToolbarsAndPanels(true);
-    ThemeSwitcher.INSTANCE.restart(mMapController.isRenderingActive());
+    ThemeSwitcher.INSTANCE.restart();
     if (mRoutingPlanInplaceController == null)
       return;
 
@@ -1551,7 +1553,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onNavigationStarted()
   {
     closeFloatingToolbarsAndPanels(true);
-    ThemeSwitcher.INSTANCE.restart(mMapController.isRenderingActive());
+    ThemeSwitcher.INSTANCE.restart();
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.navigation);
     refreshLightStatusBar();
 
@@ -1587,7 +1589,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onResetToPlanningState()
   {
     closeFloatingToolbarsAndPanels(true);
-    ThemeSwitcher.INSTANCE.restart(mMapController.isRenderingActive());
+    ThemeSwitcher.INSTANCE.restart();
     NavigationService.stopService(this);
     mMapButtonsViewModel.setSearchOption(null);
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.planning);

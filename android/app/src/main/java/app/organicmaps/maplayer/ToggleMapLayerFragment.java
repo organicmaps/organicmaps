@@ -75,7 +75,7 @@ public class ToggleMapLayerFragment extends Fragment
     mode.setEnabled(context, !mode.isEnabled(context));
     // TODO: dirty hack :(
     if (mode == Mode.OUTDOORS)
-      ThemeSwitcher.INSTANCE.restart(true);
+      ThemeSwitcher.INSTANCE.restart();
     mAdapter.notifyDataSetChanged();
     mMapButtonsController.updateLayerButton();
     if (MwmApplication.from(context).getIsolinesManager().shouldShowNotification())
