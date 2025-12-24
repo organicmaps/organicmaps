@@ -1,8 +1,8 @@
-• Türk, Yapon və Çin dillərində Vikipediya məqalələri, xəritədə görmək üçün ?wiki yazın
-• Yüklənmiş bölgələri xəritədə vurğulamaq üçün yeni parametr
-• Google Takeout əlfəcinlərini və saxlanmış yerləri GeoJSON vasitəsilə idxal edin
-• 23 Noyabr tarixinə OSM məlumatları
-• Təkmilləşdirilmiş audio oxutma və səs kəsilmələri
-• Redaktorda və xəritə yükləyərkən çökmələr düzəldildi
-• Qaranlıq avtomobil rejimində daha parlaq yollar
-…ətraflı omaps.org/news
+• YENİ: Xəritədə `Milad ağacı` və `Milad bazarı` axtarın
+• 14 dekabr 2025-ci il tarixinə olan OpenStreetMap məlumatları
+• Tətbiq öldürülsə və ya bağlansa belə, iz qeydi davam edir
+• Milli park sərhədləri və etiketləri dünya xəritəsində daha az nəzərə çarpır
+• Litva axtarış sinonimləri əlavə edildi və Litva axtarışı aktivləşdirildi
+• Tərcümələr təkmilləşdirildi
+• Axtarış nəticələrində parkinq tutumunu göstərin
+…daha çox omaps.org/news ünvanında

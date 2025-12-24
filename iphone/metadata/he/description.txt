@@ -1,39 +1,41 @@
-• Detailed offline maps with places that don't exist on other maps
-• Cycling routes, hiking trails, and walking paths
-• Contour lines, elevation profiles, peaks, and slopes
-• Turn-by-turn walking, cycling, and car navigation with voice guidance
-• Fast offline search
-• Bookmark everything you need, import and share KML, KMZ, GPX
-• Dark mode to protect your eyes
-• … and many other features!
+Organic Maps היא אפליקציית מפות וניווט GPS מהירה ומפורטת המאפשרת שימוש ללא חיבור לאינטרנט, לטיולים, מסלולי הליכה ורכיבה. תכננו, ייבאו והקליטו מסלולים, ותיהנו מניווט חלק ללא פגיעה בסוללה או שימוש בחיבור אינטרנט. חקרו מקומות ונווטו בבטחה במהלך ההרפתקאות והטיולים שלכם ברחבי העולם. האפליקציה מציעה הורדות מפות בלתי מוגבלות ועדכונים כל שבועיים. מבוססת על OpenStreetMap, נוצרה על ידי מתנדבים, עם דגש על פרטיות, 100% ללא חיבור לאינטרנט ו-100% חינמית.
 
-Organic Maps is pure and organic, made with love:
+ללא חיבור (OFFLINE): האפליקציה פועלת 100% ללא חיבור לאינטרנט — כולל חיפוש וניווט. ניתן לחקור את המפה ולנווט ללא חיבור אינטרנט, לחסוך בנתוני סלולרי ודמי נדידה. ללא העברות נתונים ברקע, הסוללה מחזיקה זמן רב יותר.
 
-• Respects your privacy
-• Saves your battery
-• No unexpected mobile data charges
+מהירה (FAST): זום, חיפוש וחישובי מסלולים פועלים במהירות ניכרת.
 
-Organic Maps is free from trackers and other bad stuff:
+מפורטת ומעודכנת (DETAILED & UPDATED): המפות עשירות בפרטים ומעודכנות פעמיים בחודש כדי לשקף את המציאות. בניגוד למתחרים ידועים רבים, הן כוללות תוויות מבנים, ספסלים, מסלולי הליכה ומידע שימושי נוסף.
 
-• No ads
-• No tracking
-• No data collection
-• No phoning home
-• No annoying registration
-• No mandatory tutorials
-• No noisy email spam
-• No push notifications
-• No crapware
-• No pesticides
+מבוססת על OpenStreetMap: OpenStreetMap היא מפת עולם בסגנון וויקי, שנבנתה ומנוהלת על ידי מיליוני מתנדבים — מקומיים שמכירים את האזור שלהם היטב. מאמץ קהילתי זה מוביל למפות מפורטות מאוד, לעיתים מדויקות יותר מאשר מסחריות באזורים פחות מתועדים. Organic Maps מעדכנת את הנתונים שלה מ-OpenStreetMap כל שבועיים, ושומרת על המפות שלכם מעודכנות ואמינות. אם תבחינו במשהו חסר, ניתן להוסיף אותו ל-OpenStreetMap ולעזור לשפר את המפה עבור כולם.
 
-At Organic Maps, we believe that privacy is a fundamental human right:
+דגש על פרטיות (PRIVACY-FIRST): אנו לא אוספים מידע או מזהים. משמעות הדבר היא שאין סיכון לדליפות מידע ואין הסחות דעת כמו פרסומות או התראות רועשות — רק חוויית מפות נקייה ופרטית.
 
-• Organic Maps is an indie community-driven project
-• The code is open-sourced
-• The maps data is taken from OpenStreetMap, also community-driven project
-• We protect your privacy from Big Tech’s prying eyes
-• Stay safe no matter wherever you are
+תכונות חשובות (IMPORTANT FEATURES):
 
-Reject surveillance, embrace your freedom, and support the community.
+חקור מקומות: חפש לפי כתובת, שם או קטגוריה, גלה מיליוני נקודות עניין וצפה במידע מפורט כגון שעות פתיחה, מאמרי ויקיפדיה, נגישות לכיסאות גלגלים ועוד. הכל זמין ללא חיבור אינטרנט.
 
-Give Organic Maps a try!
+ניווט GPS: הנאה מהכוונה קולית של מסלולים צעד-אחר-צעד. צור מסלולי הליכה, טיולים, רכיבה או נהיגה — כולל מסלולים בין ערים, מדינות וריבוי נקודות ביניים. מצא את המסלולים הטובים ביותר לנסיעות במטרו ולנסיעות יומיות. תומך ב-CarPlay.
+
+מסלולי הליכה ורכיבה מרחבי העולם: אפשר שכבות מפה מיוחדות כדי לגלות מסלולי הליכה ורכיבה פופולריים ברחבי העולם, כולם ממקורות OpenStreetMap. החלף בין שכבות כדי לראות מסלולי אופניים ורכיבת הרים בצבעים, וכן מסלולי הליכה רשמיים.
+
+תחבורה ציבורית: הצג מספרי קווים בתחנות. לוחות זמנים חיים וניתוב נמצאים כעת בפיתוח.
+
+סגנונות מפה: בחר שכבות מפה שמתאימות לפעילות שלך — חוץ, קווי מתאר, הליכה, רכיבה או מטרו/רכבת תחתית.
+
+רשמקול מסלולים: הקלט, יבא, יצא ושתף את המסלולים והמקומות האהובים עליך. תומך ב-KML, KMZ, GPX ו-GeoJSON.
+
+מאמרי ויקיפדיה: חקור מאמרי ויקיפדיה עבור מקומות שאתה מוצא במפה. הקלד “?wiki” בחיפוש כדי למצוא את כל המקומות עם מאמרי ויקיפדיה.
+
+עורך מפות: תרום ל-OpenStreetMap על ידי הוספת מקומות חסרים או עריכת המפה ישירות מתוך Organic Maps.
+
+מצב כהה: החלף לנושא כהה לנוחות צפייה בלילה.
+
+סנכרון iCloud: גבה וסנכרן בקלות את כל הסימניות והמסלולים שלך דרך iCloud.
+
+נסה את האפליקציה — היא 100% חינמית, ללא פרסומות, מהירה ומלאה ללא חיבור אינטרנט. תהנה מחוויית מפות מהירה, אמינה ופרטית, ושתף אותה עם אחרים!
+Organic Maps הוא פרויקט עצמאי, קהילתי וקוד פתוח עם מאות תורמים שמפתחים תכונות חדשות, מתקנים בעיות, מתרגמים ומקדמים את הפרויקט.
+
+הצטרף לקהילה ב-Telegram: @OrganicMapsApp
+או גלה דרכים נוספות לתמוך בפרויקט: https://organicmaps.app/contribute/
+
+המשוב הכנה והביקורות שלכם בחנות מעודדים אותנו! שאלות? בקרו באתר organicmaps.app לפרטים נוספים ושאלות נפוצות.

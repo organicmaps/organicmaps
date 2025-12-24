@@ -1,20 +1,27 @@
-- Wikipedia-artikler for steder på tyrkisk, japansk og kinesisk; skriv ?wiki for å se alle artikler på kartet
-- Innstilling for å visuelt fremheve nedlastede regioner på kartet
-- OpenStreetMap-data fra 23. november 2025
+- NYTT: Juletre og julemarkeder vises nå på kartet; skriv `Christmas Market` eller `Christmas Tree` i søkefeltet for å finne dem (eller legg dem til på OpenStreetMap.org om nødvendig)
+- OpenStreetMap-data per 14. desember 2025
+- Parkeringskapasitet vises nå i søkeresultatene
+- Nasjonalparkgrenser og etiketter er mindre fremtredende på verdenskartet
+- Lagt til litauiske søkesynonymer og aktivert litauisk søk
+- Søkeresultater bruker ensfargede emoji-ikoner
+- Fikset et CarPlay-problem på iOS 12
+- Løste flere visuelle problemer på iPhone og iPad
+- Søk i bokmerkelister finner nå navn med diakritiske tegn eller aksenterte bokstaver
+- Importerte eller innspilte spor kortere enn 10 minutter viser nå varighet i minutter og sekunder
+- Forbedret knappeanimasjoner og den nederste knappelinjen
+- Fjernet isolinjer-varsel ved oppstart av appen
 
-- Rediger et bokmerke eller rutenavn direkte på stedsinformasjonssiden
-- Langt trykk på navnet eller adressen til et valgt sted/bokmerke for å kopiere det
-- Lagt til søk etter en spesifikk liste ved endring fra stedsinformasjonssiden
-- Bruk egendefinerte emojier på stedsinformasjonssiden
-- Fikset animasjoner for sideknapper og fargen på "Last ned kart"-knappen i mørkt tema
-- iOS 26 og macOS 26 "Liquid Glass"-støtte
-- Når du flytter en rute til en liste, blir den listen standard for nye bokmerker/ruter
-- Forbedret GeoJSON-import, inkludert `Saved Places.json` fra Google Takeout
-- Oppdaterte oversettelser på flere språk, inkludert en hebraisk retting
+## Oversettelsesoppdateringer
+- Forbedret ukrainske oversettelser
+- Forbedret tyske, ungarske, litauiske, spanske og tyrkiske oversettelser
+- Korrigerte TTS-stemmeinstruksjoner for rundkjøringer på kroatisk
 
-## Navigasjon og ruteplanlegging
+Sjekk flere detaljer om denne og tidligere utgivelser på https://omaps.org/news/
 
-- Kartoppsett fikset under navigasjon på iPad slik at ruten forblir tydelig synlig
-- Sykkelruter hopper nå over enveiskjørte boliggater i Østerrike
-- Forenklede rundkjøringsinstruksjoner
-- Veier er lysere med bedre kontrast i mørk kjøretøymodus
+...og følg med for kommende funksjoner og forbedringer!
+
+Takk for tilbakemeldinger og støtte, Organic Maps ville ikke vært mulig uten vårt fantastiske fellesskap av brukere og bidragsytere.
+
+Godt nytt år 2026!
+
+Organic Maps-teamet

@@ -1,20 +1,27 @@
-- Wikipedia-artikelen voor plaatsen in het Turks, Japans en Chinees; typ ?wiki om alle artikelen op de kaart te zien
-- Instelling om gedownloade regio's visueel te markeren op de kaart
-- OpenStreetMap-gegevens van 23 november 2025
+- NIEUW: Kerstbomen en kerstmarkten verschijnen nu op de kaart; typ `Christmas Market` of `Christmas Tree` in de zoekbalk om ze te vinden (of voeg ze toe op OpenStreetMap.org indien nodig)
+- OpenStreetMap-gegevens van 14 december 2025
+- Parkeercapaciteit wordt nu weergegeven in zoekresultaten
+- Grenzen en labels van nationale parken zijn minder prominent op de wereldkaart
+- Litouwse zoeksynoniemen toegevoegd en Litouws zoeken ingeschakeld
+- Zoekresultaten gebruiken eenkleurige emoji-pictogrammen
+- Een CarPlay-probleem op iOS 12 opgelost
+- Meerdere visuele problemen op iPhone en iPad opgelost
+- Zoeken in bladwijzerlijst vindt nu namen met diakritische tekens of geaccentueerde letters
+- Geïmporteerde of opgenomen tracks korter dan 10 minuten tonen nu de duur in minuten en seconden
+- Knopanimaties en de onderste knoppenbalk verbeterd
+- De hoogtelijnen-melding bij het starten van de app verwijderd
 
-- Bewerk een bladwijzer- of routenaam rechtstreeks op de pagina met plaatsinformatie
-- Houd de naam of het adres van een geselecteerde plaats/bladwijzer lang ingedrukt om te kopiëren
-- Zoeken naar een specifieke lijst toegevoegd bij het wijzigen ervan vanaf de pagina met plaatsinformatie
-- Gebruik aangepaste emoji's op de pagina met plaatsinformatie
-- Animaties voor zijknoppen en de kleur van de "Kaarten downloaden"-knop in het donkere thema gecorrigeerd
-- iOS 26 & macOS 26 "Liquid Glass"-ondersteuning
-- Wanneer je een route naar een lijst verplaatst, wordt die lijst de standaard voor nieuwe bladwijzers/routes
-- Verbeterde GeoJSON-import, inclusief `Saved Places.json` van Google Takeout
-- Bijgewerkte vertalingen in meerdere talen, inclusief een Hebreeuwse correctie
+## Vertalingsupdates
+- Oekraïense vertalingen verbeterd
+- Duitse, Hongaarse, Litouwse, Spaanse en Turkse vertalingen verbeterd
+- TTS-spraakinstructies voor rotondes in het Kroatisch gecorrigeerd
 
-## Navigatie en routeplanning
+Bekijk meer details over deze en eerdere releases op https://omaps.org/news/
 
-- Kaartindeling gecorrigeerd tijdens navigatie op iPad zodat de route duidelijk zichtbaar blijft
-- Fietsroutes slaan nu eenrichtingsstraten in woonwijken in Oostenrijk over
-- Vereenvoudigde rotonde-instructies
-- Wegen zijn helderder met beter contrast in de donkere voertuigmodus
+...en blijf op de hoogte voor aankomende functies en verbeteringen!
+
+Bedankt voor uw feedback en steun, Organic Maps zou niet mogelijk zijn zonder onze geweldige gemeenschap van gebruikers en bijdragers.
+
+Gelukkig Nieuwjaar 2026!
+
+Het Organic Maps Team

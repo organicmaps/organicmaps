@@ -1,20 +1,27 @@
-- Članci s Wikipedije za mjesta na turskom, japanskom i kineskom; upišite ?wiki da vidite sve članke na karti
-- Postavka za vizualno isticanje preuzetih regija na karti
-- OpenStreetMap podaci od 23. studenog 2025.
+- NOVO: Božićna drvca i sajmovi sada se pojavljuju na karti; upišite `Christmas Market` ili `Christmas Tree` u pretragu da biste ih pronašli (ili ih dodajte na OpenStreetMap.org ako je potrebno)
+- Podaci OpenStreetMapa od 14. prosinca 2025.
+- Kapacitet parkirališta sada se prikazuje u rezultatima pretraživanja
+- Granice i oznake nacionalnih parkova manje su istaknute na karti svijeta
+- Dodani litavski sinonimi za pretraživanje i omogućeno litavsko pretraživanje
+- Rezultati pretraživanja koriste jednobojne emoji ikone
+- Ispravljen problem s CarPlayom na iOS-u 12
+- Riješeno više vizualnih problema na iPhoneu i iPadu
+- Pretraživanje popisa oznaka sada pronalazi imena s dijakritičkim znakovima ili naglašenim slovima
+- Uvezeni ili snimljeni tragovi kraći od 10 minuta sada prikazuju trajanje u minutama i sekundama
+- Poboljšane animacije gumba i donja traka s gumbima
+- Uklonjena obavijest o izohipsama pri pokretanju aplikacije
 
-- Uredite naziv oznake ili staze izravno na stranici s informacijama o mjestu
-- Dugim dodirom na naziv ili adresu odabranog mjesta/oznake kopirajte ga
-- Dodano pretraživanje određene liste pri promjeni sa stranice s informacijama o mjestu
-- Koristite prilagođene emotikone na stranici s informacijama o mjestu
-- Popravljene animacije za bočne gumbe i boja gumba "Preuzmi karte" u tamnoj temi
-- Podrška za iOS 26 i macOS 26 "Liquid Glass"
-- Kada premjestite stazu na popis, taj popis postaje zadani za nove oznake/staze
-- Poboljšani GeoJSON uvoz, uključujući `Saved Places.json` iz Google Takeouta
-- Ažurirani prijevodi na više jezika, uključujući ispravak na hebrejskom
+## Ažuriranja prijevoda
+- Poboljšani ukrajinski prijevodi
+- Poboljšani njemački, mađarski, litavski, španjolski i turski prijevodi
+- Ispravljene glasovne upute za kružne tokove (TTS) na hrvatskom jeziku
 
-## Navigacija i usmjeravanje
+Više detalja o ovom i prethodnim izdanjima provjerite na https://omaps.org/news/
 
-- Popravljen raspored karte tijekom navigacije na iPadu tako da ruta ostane jasno vidljiva
-- Biciklistička navigacija sada preskače jednosmjerne stambene ulice u Austriji
-- Pojednostavljene upute za kružne tokove
-- Ceste su svjetlije s boljim kontrastom u tamnom vozačkom načinu
+…i pratite nas za nadolazeće značajke i poboljšanja!
+
+Hvala vam na povratnim informacijama i podršci, Organic Maps ne bi bio moguć bez naše nevjerojatne zajednice korisnika i suradnika.
+
+Sretna Nova 2026. godina!
+
+Tim Organic Maps

@@ -1,20 +1,27 @@
-- Články z Wikipédie pre miesta v turečtine, japončine a čínštine; napíšte ?wiki pre zobrazenie všetkých článkov na mape
-- Nastavenie na vizuálne zvýraznenie stiahnutých oblastí na mape
-- Údaje OpenStreetMap z 23. novembra 2025
+- NOVINKA: Vianočné stromčeky a trhy sa teraz zobrazujú na mape; zadajte do vyhľadávania `Vianočný trh` alebo `Vianočný stromček`, aby ste ich našli (alebo ich pridajte na OpenStreetMap.org, ak je to potrebné)
+- Údaje OpenStreetMap k 14. decembru 2025
+- Kapacita parkoviska sa teraz zobrazuje vo výsledkoch vyhľadávania
+- Hranice a štítky národných parkov sú na mape sveta menej výrazné
+- Pridané litovské synonymá vyhľadávania a povolené litovské vyhľadávanie
+- Výsledky vyhľadávania používajú jednofarebné ikony emoji
+- Opravený problém s CarPlay na iOS 12
+- Vyriešené viaceré vizuálne problémy na iPhone a iPade
+- Vyhľadávanie v zozname záložiek teraz nájde názvy s diakritikou alebo písmenami s prízvukom
+- Importované alebo zaznamenané trasy kratšie ako 10 minút teraz zobrazujú trvanie v minútach a sekundách
+- Vylepšené animácie tlačidiel a spodná lišta tlačidiel
+- Odstránené upozornenie na izolínie pri spustení aplikácie
 
-- Upravte názov záložky alebo trasy priamo na stránke s informáciami o mieste
-- Dlhým stlačením názvu alebo adresy vybraného miesta/záložky ju skopírujete
-- Pridané vyhľadávanie konkrétneho zoznamu pri jeho zmene zo stránky s informáciami o mieste
-- Používajte vlastné emotikony na stránke s informáciami o mieste
-- Opravené animácie bočných tlačidiel a farba tlačidla "Stiahnuť mapy" v tmavom režime
-- Podpora iOS 26 a macOS 26 "Liquid Glass"
-- Pri presunutí trasy do zoznamu sa tento zoznam stane predvoleným pre nové záložky/trasy
-- Vylepšený import GeoJSON vrátane `Saved Places.json` z Google Takeout
-- Aktualizované preklady vo viacerých jazykoch vrátane opravy hebrejčiny
+## Aktualizácie prekladov
+- Vylepšené ukrajinské preklady
+- Vylepšené nemecké, maďarské, litovské, španielske a turecké preklady
+- Opravené hlasové pokyny TTS pre kruhové objazdy v chorvátčine
 
-## Navigácia a plánovanie trás
+Viac podrobností o tomto a predchádzajúcich vydaniach nájdete na https://omaps.org/news/
 
-- Opravené rozloženie mapy počas navigácie na iPade, aby bola trasa jasne viditeľná
-- Cyklistické smerovanie teraz vynecháva jednosmerné obytné ulice v Rakúsku
-- Zjednodušené pokyny pre kruhové objazdy
-- Cesty sú jasnejšie s lepším kontrastom v tmavom režime vozidla
+…a zostaňte naladení na nadchádzajúce funkcie a vylepšenia!
+
+Ďakujeme za vašu spätnú väzbu a podporu, Organic Maps by neboli možné bez našej úžasnej komunity používateľov a prispievateľov.
+
+Šťastný nový rok 2026!
+
+Tím Organic Maps

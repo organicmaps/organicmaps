@@ -1,20 +1,27 @@
-- Bài viết Wikipedia cho các địa điểm bằng tiếng Thổ Nhĩ Kỳ, Nhật Bản và Trung Quốc; gõ ?wiki để xem tất cả bài viết trên bản đồ
-- Cài đặt để làm nổi bật trực quan các khu vực đã tải xuống trên bản đồ
-- Dữ liệu OpenStreetMap tính đến ngày 23 tháng 11 năm 2025
+- MỚI: Cây thông Noel và chợ Giáng sinh hiện đã xuất hiện trên bản đồ; gõ `Christmas Market` hoặc `Christmas Tree` trong tìm kiếm để tìm chúng (hoặc thêm chúng trên OpenStreetMap.org nếu cần)
+- Dữ liệu OpenStreetMap tính đến ngày 14 tháng 12 năm 2025
+- Sức chứa bãi đậu xe hiện hiển thị trong kết quả tìm kiếm
+- Biên giới và nhãn của vườn quốc gia ít nổi bật hơn trên bản đồ thế giới
+- Đã thêm từ đồng nghĩa tìm kiếm tiếng Litva và bật tìm kiếm tiếng Litva
+- Kết quả tìm kiếm sử dụng biểu tượng emoji đơn sắc
+- Đã sửa lỗi CarPlay trên iOS 12
+- Đã giải quyết nhiều vấn đề hiển thị trên iPhone và iPad
+- Tìm kiếm danh sách dấu trang hiện tìm thấy tên có dấu hoặc ký tự có dấu
+- Các bản ghi hoặc track đã nhập ngắn hơn 10 phút hiện hiển thị thời lượng bằng phút và giây
+- Cải thiện hoạt ảnh nút và thanh nút dưới cùng
+- Đã xóa thông báo đường đồng mức khi khởi chạy ứng dụng
 
-- Chỉnh sửa tên dấu trang hoặc lộ trình trực tiếp trên Trang Thông tin Địa điểm
-- Nhấn giữ tên hoặc địa chỉ của địa điểm/dấu trang đã chọn để sao chép
-- Thêm tìm kiếm danh sách cụ thể khi thay đổi từ Trang Thông tin Địa điểm
-- Sử dụng emoji tùy chỉnh trên Trang Thông tin Địa điểm
-- Sửa hoạt ảnh cho các nút bên và màu nút "Tải bản đồ" trong chủ đề tối
-- Hỗ trợ iOS 26 & macOS 26 "Liquid Glass"
-- Khi di chuyển lộ trình vào danh sách, danh sách đó trở thành mặc định cho dấu trang/lộ trình mới
-- Cải thiện nhập GeoJSON, bao gồm `Saved Places.json` từ Google Takeout
-- Cập nhật bản dịch trên nhiều ngôn ngữ, bao gồm sửa lỗi tiếng Do Thái
+## Cập nhật bản dịch
+- Cải thiện bản dịch tiếng Ukraina
+- Cải thiện bản dịch tiếng Đức, Hungary, Litva, Tây Ban Nha và Thổ Nhĩ Kỳ
+- Đã sửa hướng dẫn giọng nói TTS cho vòng xuyến bằng tiếng Croatia
 
-## Điều hướng & Lộ trình
+Xem thêm chi tiết về bản phát hành này và các bản phát hành trước tại https://omaps.org/news/
 
-- Sửa bố cục bản đồ trong khi điều hướng trên iPad để lộ trình hiển thị rõ ràng
-- Định tuyến xe đạp giờ bỏ qua các đường dân cư một chiều ở Áo
-- Hướng dẫn vòng xuyến đơn giản hóa
-- Đường sáng hơn với độ tương phản tốt hơn trong chế độ phương tiện tối
+…và hãy theo dõi các tính năng và cải tiến sắp tới!
+
+Cảm ơn phản hồi và sự ủng hộ của bạn, Organic Maps sẽ không thể thực hiện được nếu không có cộng đồng người dùng và cộng tác viên tuyệt vời của chúng tôi.
+
+Chúc mừng năm mới 2026!
+
+Đội ngũ Organic Maps

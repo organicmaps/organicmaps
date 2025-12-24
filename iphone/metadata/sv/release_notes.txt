@@ -1,20 +1,27 @@
-- Wikipedia-artiklar för platser på turkiska, japanska och kinesiska; skriv ?wiki för att se alla artiklar på kartan
-- Inställning för att visuellt markera nedladdade regioner på kartan
-- OpenStreetMap-data från 23 november 2025
+- NYHET: Julgranar och julmarknader visas nu på kartan; skriv `Julmarknad` eller `Julgran` i sökfältet för att hitta dem (eller lägg till dem på OpenStreetMap.org om det behövs)
+- OpenStreetMap-data från den 14 december 2025
+- Parkeringskapacitet visas nu i sökresultaten
+- Nationalparksgränser och etiketter är mindre framträdande på världskartan
+- Lade till litauiska söksynonymer och aktiverade litauisk sökning
+- Sökresultat använder enfärgade emoji-ikoner
+- Fixade ett CarPlay-problem på iOS 12
+- Löste flera visuella problem på iPhone och iPad
+- Sökning i bokmärkeslistan hittar nu namn med diakritiska tecken eller accenter
+- Importerade eller inspelade spår kortare än 10 minuter visar nu varaktighet i minuter och sekunder
+- Förbättrade knappanimationer och den nedre knappraden
+- Tog bort isolinjer-notisen vid appstart
 
-- Redigera ett bokmärkes- eller ruttnamn direkt på platsinformationssidan
-- Tryck länge på namnet eller adressen för en vald plats/bokmärke för att kopiera
-- Lade till sökning efter en specifik lista vid byte från platsinformationssidan
-- Använd anpassade emojis på platsinformationssidan
-- Fixade animationer för sidoknappar och färgen på "Ladda ner kartor"-knappen i mörkt tema
-- iOS 26 & macOS 26 "Liquid Glass"-stöd
-- När du flyttar en rutt till en lista blir den listan standard för nya bokmärken/rutter
-- Förbättrad GeoJSON-import, inklusive `Saved Places.json` från Google Takeout
-- Uppdaterade översättningar på flera språk, inklusive en hebreisk korrigering
+## Översättningsuppdateringar
+- Förbättrade ukrainska översättningar
+- Förbättrade tyska, ungerska, litauiska, spanska och turkiska översättningar
+- Korrigerade röstinstruktioner för rondeller (TTS) på kroatiska
 
-## Navigering och vägvisning
+Se mer information om denna och tidigare utgåvor på https://omaps.org/news/
 
-- Kartlayout fixad under navigering på iPad så att rutten förblir tydligt synlig
-- Cykelrutter hoppar nu över enkelriktade bostadsgator i Österrike
-- Förenklade rondellvägvisningar
-- Vägar är ljusare med bättre kontrast i mörkt fordonsläge
+…och håll utkik efter kommande funktioner och förbättringar!
+
+Tack för din feedback och ditt stöd, Organic Maps skulle inte vara möjligt utan vår fantastiska gemenskap av användare och bidragsgivare.
+
+Gott nytt år 2026!
+
+Organic Maps-teamet

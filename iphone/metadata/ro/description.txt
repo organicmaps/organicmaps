@@ -1,10 +1,36 @@
-Organic Maps este o aplicație de navigare GPS cu intimitate, pentru șoferi, drumeți și cicliști. Aplicația conține navigația cu intimitate - fără urmărire a locației, fără colectare date, și fără anunțuri. Căutarea, rutele și navigația operează fără semnal de telefon, ideal pentru călătorii pe cărări de drumeții lungi sau locații cu conexiuni slabe. Hărți Organic folosește datele OpenStreetMap adunate de contribuabili de pe tot globul. Proiectul e condus de comunitate, codul este sursă deschisă, și prioritizează dezvoltarea comunității și colaborarea.
+Organic Maps este o aplicație rapidă și detaliată de hărți offline și navigație GPS pentru călătorii, drumeții și plimbări. Planifică, importă și înregistrează rute și bucură-te de ghidaj fluid fără a consuma bateria sau a folosi conexiunea la internet. Explorează locuri și navighează în siguranță în timpul aventurilor tale în aer liber și al călătoriilor în întreaga lume. Aplicația oferă descărcări nelimitate de hărți și actualizări bilunare. Bazată pe OpenStreetMap, realizată de voluntari, cu prioritate pe confidențialitate, 100% offline și 100% gratuită.
 
-• Nu este necesar un semnal celular - Căutați și Rutați fără semnal
-• Utilizarea bateriei eficientă - Reducerea utilizării bateriei
-• Căutare rapidă - Găsiți locații rapid
+OFFLINE: Aplicația funcționează 100% offline — inclusiv căutarea și navigarea. Poți explora harta și naviga fără conexiune la internet, economisind date mobile și taxe de roaming. Iar fără transferuri de date în fundal, bateria durează mult mai mult.
 
-La Organic Maps, vă prețuim intimitatea dvs:
-• Fără urmărire a locației
-• Fără colectare date
-• Fără anunțuri
+RAPIDĂ: Zoom-ul, căutarea și calculul rutelor funcționează vizibil rapid.
+
+DETALIATE ȘI ACTUALIZATE: Hărțile sunt bogate în detalii și actualizate de două ori pe lună pentru a reflecta condițiile reale. Spre deosebire de mulți concurenți cunoscuți, includ etichete de clădiri, bănci, trasee de drumeții și alte informații utile.
+
+BAZATĂ PE OPENSTREETMAP: OpenStreetMap este o hartă mondială de tip wiki, construită și întreținută de milioane de voluntari — localnici care cunosc cel mai bine zonele lor. Efortul comunității duce la hărți foarte detaliate, adesea mai precise decât cele comerciale în regiuni mai puțin cartografiate. Organic Maps își actualizează datele din OpenStreetMap la fiecare două săptămâni, menținând hărțile proaspete și de încredere. Dacă observi ceva lipsă, poți adăuga în OpenStreetMap și contribui la îmbunătățirea hărții pentru toți.
+
+PRIVACY-FIRST: Nu colectăm niciun fel de date sau identificatori. Asta înseamnă că nu există riscul de scurgeri de date și nici distrageri precum reclame sau notificări zgomotoase — doar o experiență de hartă curată și privată.
+
+FUNCȚII IMPORTANTE:
+
+EXPLOREAZĂ LOCURI: Caută după adresă, nume sau categorie, descoperă milioane de puncte de interes și vezi informații detaliate precum program, articole Wikipedia, accesibilitate pentru scaune cu rotile și alte detalii utile. Totul disponibil offline.
+
+NAVIGAȚIE GPS: Bucură-te de indicații vocale pas cu pas. Creează trasee de mers, drumeții, ciclism sau condus — inclusiv între orașe, țări și cu multiple puncte intermediare. Găsește cele mai bune trasee pentru călătoriile tale cu metroul și naveta zilnică. Suport pentru CarPlay.
+
+TRASEE DE DRUMEȚII ȘI CICLISM DIN ÎNTREAGA LUME: Activează straturi speciale de hartă pentru a descoperi trasee populare de drumeții și ciclism la nivel mondial, toate provenind din OpenStreetMap. Comută între straturi pentru a vedea trasee colorate pentru biciclete și MTB, precum și trasee oficiale de drumeții.
+
+TRANSPORT PUBLIC: Vezi numerele de rute de transport public la stații.
+
+STILURI DE HARTĂ: Alege straturi de hartă potrivite pentru activitatea ta — În aer liber, Linii de contur, Drumeții, Ciclism sau Metrou.
+
+ÎNREGISTRATOR DE TRASEE: Înregistrează, importă, exportă și partajează traseele și locurile tale preferate. Suportă formate KML, KMZ, GPX și GeoJSON.
+
+ARTICOLE WIKIPEDIA: Explorează articole Wikipedia pentru locurile pe care le descoperi pe hartă. Tastează „?wiki” în căutare pentru a găsi toate locurile cu articole Wikipedia.
+
+EDITOR DE HARTĂ: Contribuie la OpenStreetMap adăugând locuri lipsă sau editând harta direct din Organic Maps.
+
+SINCRONIZARE iCLOUD: Fă backup și sincronizează cu ușurință toate marcajele și traseele prin iCloud.
+
+Încearcă aplicația — este 100% gratuită, fără reclame, rapidă și complet offline. Bucură-te de o experiență de hartă rapidă, de încredere și privată și împărtășește-o cu alții.
+Organic Maps este un proiect indie, open-source, condus de comunitate, cu sute de contribuitori care ajută la dezvoltarea de funcții noi, rezolvarea problemelor, traduceri și dezvoltarea proiectului.
+
+Alătură-te comunității pe Telegram: @OrganicMapsApp

@@ -1,20 +1,27 @@
-- Články z Wikipedie pro místa v turečtině, japonštině a čínštině; napište ?wiki pro zobrazení všech článků na mapě
-- Nastavení pro vizuální zvýraznění stažených oblastí na mapě
-- Data OpenStreetMap z 23. listopadu 2025
+- NOVINKA: Vánoční stromky a trhy se nyní zobrazují na mapě; pro jejich nalezení zadejte do vyhledávání `Christmas Market` nebo `Christmas Tree` (nebo je v případě potřeby přidejte na OpenStreetMap.org)
+- Data OpenStreetMap k 14. prosinci 2025
+- Ve výsledcích vyhledávání se nyní zobrazuje kapacita parkoviště
+- Hranice a popisky národních parků jsou na mapě světa méně výrazné
+- Přidána litevská synonyma pro vyhledávání a povoleno vyhledávání v litevštině
+- Výsledky vyhledávání používají jednobarevné ikony emoji
+- Opraven problém s CarPlay na iOS 12
+- Vyřešeno několik vizuálních problémů na iPhonu a iPadu
+- Vyhledávání v seznamu záložek nyní najde i názvy s diakritikou
+- Importované nebo zaznamenané trasy kratší než 10 minut nyní zobrazují dobu trvání v minutách a sekundách
+- Vylepšeny animace tlačítek a spodní lišta tlačítek
+- Odstraněno upozornění na vrstevnice při spuštění aplikace
 
-- Upravte název záložky nebo trasy přímo na stránce s informacemi o místě
-- Dlouhým stisknutím názvu nebo adresy místa/záložky ji zkopírujete
-- Přidáno vyhledávání konkrétního seznamu při jeho změně ze stránky s informacemi o místě
-- Použijte vlastní emotikony na stránce s informacemi o místě
-- Opraveny animace postranních tlačítek a barva tlačítka "Stáhnout mapy" v tmavém režimu
-- Podpora iOS 26 a macOS 26 "Liquid Glass"
-- Při přesunutí trasy do seznamu se tento seznam stane výchozím pro nové záložky/trasy
-- Vylepšený import GeoJSON, včetně `Saved Places.json` z Google Takeout
-- Aktualizované překlady v různých jazycích, včetně opravy hebrejštiny
+## Aktualizace překladů
+- Vylepšen ukrajinský překlad
+- Vylepšeny německé, maďarské, litevské, španělské a turecké překlady
+- Opraveny hlasové pokyny TTS pro kruhové objezdy v chorvatštině
 
-## Navigace a trasování
+Více podrobností o tomto a předchozích vydáních naleznete na https://omaps.org/news/
 
-- Opraveno rozložení mapy během navigace na iPadu, aby byla trasa jasně viditelná
-- Cyklistické trasování nyní vynechává jednosměrné obytné ulice v Rakousku
-- Zjednodušené pokyny pro kruhové objezdy
-- Jasnější silnice s lepším kontrastem v nočním režimu vozidla
+...a těšte se na nadcházející funkce a vylepšení!
+
+Děkujeme za vaši zpětnou vazbu a podporu, Organic Maps by nebyly možné bez naší úžasné komunity uživatelů a přispěvatelů.
+
+Šťastný nový rok 2026!
+
+Tým Organic Maps

@@ -1,9 +1,8 @@
-• Wikipedia articles in Turkish, Japanese, and Chinese, type `?wiki` to see them on the map
-• New setting to visually highlight downloaded regions on the map
-• Import Google Takeout's bookmarks and saved places via GeoJSON
-• OSM data as of November 23
-• Improved audio playback and sound interruptions
-• Fixed crashes in the Editor and when downloading maps
-• Brighter roads in dark vehicle mode
-• Improved bicycle routing in Austria
+• NEW: Search for `Christmas tree` and `Christmas market` on the map
+• OpenStreetMap data as of December 14, 2025
+• Track recording continues even if the app is killed or closed
+• National park borders and labels are less prominent on the world map
+• Added Lithuanian search synonyms and enabled Lithuanian search
+• Improved translations
+• Display parking capacity in search results
 …more at omaps.org/news

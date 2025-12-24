@@ -1,39 +1,41 @@
-• Podrobné offline mapy s místy, která na jiných mapách nejsou
-• Cyklistické trasy, turistické stezky a pěší trasy
-• Vrstevnice, výškové profily, vrcholy a svahy
-• Pěší, cyklistická a automobilová navigace turn-by-turn s hlasovými pokyny
-• Rychlé offline vyhledávání na mapě a záložky
-• Uložte si do záložek vše, co potřebujete, importujte a sdílejte KML, KMZ a GPX
-• Tmavý režim pro ochranu vašich očí
-• … a mnoho dalších funkcí!
+Organic Maps je rychlá, podrobná offline mapa a GPS navigační aplikace pro cestování, túry a jízdy na kole. Plánujte, importujte a zaznamenávejte trasy a užívejte si plynulé navigace bez vybití baterie nebo použití internetového připojení. Objevujte místa a bezpečně se pohybujte během svých venkovních dobrodružství a cest po celém světě. Aplikace nabízí neomezené stahování map a aktualizace každé dva týdny. Založeno na OpenStreetMap, vytvořeno dobrovolníky, s prioritou soukromí, 100% offline a 100% zdarma.
 
-Organic Maps jsou čisté a organické, vyrobené s láskou:
+OFFLINE: Aplikace funguje 100% offline — včetně vyhledávání a navigace. Můžete prozkoumávat mapu a navigovat bez připojení k internetu, čímž šetříte mobilní data a roamingové poplatky. A bez přenosu dat na pozadí vydrží baterie mnohem déle.
 
-• Respektuje vaše soukromí
-• Šetří baterii
-• Žádné nečekané poplatky za mobilní data
+RYCHLÉ: Přibližování, vyhledávání a výpočty tras fungují výrazně rychle.
 
-Organic Maps neobsahují sledovací zařízení a další špatné věci:
+PODROBNÉ A AKTUALIZOVANÉ: Mapy jsou velmi detailní a aktualizují se dvakrát měsíčně, aby odrážely reálné podmínky. Na rozdíl od mnoha známých konkurentů obsahují označení budov, lavičky, turistické stezky a další užitečné informace.
 
-• Žádné reklamy
-• Žádné sledování
-• Žádné shromažďování dat
-• Žádné telefonování domů
-• Žádná obtěžující registrace
-• Žádné povinné výukové programy
-• Žádný hlučný e-mailový spam
-• Žádná push oznámení
-• Žádný crapware
-• Žádné pesticidy
+BAZOVÁNO NA OPENSTREETMAP: OpenStreetMap je wiki-styl světová mapa, vytvořená a udržovaná miliony dobrovolníků — místních, kteří nejlépe znají své oblasti. Tento komunitní přístup vede k vysoce detailním mapám, často přesnějším než komerční mapy v méně zmapovaných oblastech. Organic Maps aktualizuje svá data z OpenStreetMap každé dva týdny, udržuje mapy aktuální a spolehlivé. Pokud si všimnete něčeho chybějícího, můžete to přidat do OpenStreetMap a pomoci zlepšit mapu pro všechny.
 
-V Organic Maps věříme, že soukromí je základním lidským právem:
+PRIORITA SOUKROMÍ: Neshromažďujeme žádná data ani identifikátory. To znamená, že nehrozí únik dat a nejsou zde žádné rušivé prvky jako reklamy nebo hlasité notifikace — jen čistý, soukromý zážitek z mapy.
 
-• Organic Maps jsou nezávislý projekt řízený komunitou
-• Kód je otevřený
-• Mapová data jsou převzata z OpenStreetMap, rovněž komunitně řízeného projektu
-• Chráníme vaše soukromí před zvědavýma očima velkých technologických firem
-• Zůstaňte v bezpečí, ať jste kdekoli
+DŮLEŽITÉ FUNKCE
 
-Odmítněte dohled, přijměte svou svobodu a podpořte komunitu.
+PROZKOUMÁVEJTE MÍSTA: Hledejte podle adresy, názvu nebo kategorie, objevujte miliony POI a zobrazujte podrobné informace, jako jsou otevírací doby, články Wikipedie, přístupnost pro vozíčkáře a další užitečné údaje. Vše dostupné offline.
 
-Vyzkoušejte Organic Maps!
+GPS NAVIGACE: Užijte si hlasem vedené navigace krok za krokem. Vytvářejte pěší, turistické, cyklistické nebo řidičské trasy — včetně tras mezi městy, zeměmi a více body. Najděte nejlepší trasy pro vaše cesty metrem a do práce. Podporuje CarPlay.
+
+TURISTICKÉ A CYKLISTICKÉ TRASY Z CELÉHO SVĚTA: Aktivujte speciální vrstvy mapy a objevujte populární turistické a cyklistické trasy po celém světě, všechny z OpenStreetMap. Přepínejte mezi vrstvami a zobrazujte barevné cyklistické a MTB trasy a oficiální turistické stezky.
+
+VEŘEJNÁ DOPRAVA: Zobrazte čísla linek veřejné dopravy na zastávkách. Živé jízdní řády a plánování tras jsou aktuálně ve vývoji.
+
+STYLY MAP: Vyberte vrstvy mapy podle vaší aktivity — Outdoor, Konturové linie, Turistika, Cyklistika nebo Metro.
+
+ZÁZNAMNÍK TRAS: Zaznamenávejte, importujte, exportujte a sdílejte své trasy a oblíbená místa. Podporuje formáty KML, KMZ, GPX a GeoJSON.
+
+WIKIPEDIA ČLÁNKY: Prozkoumejte články Wikipedie pro místa, která objevíte na mapě. Zadejte “?wiki” do vyhledávání, abyste našli všechna místa s články.
+
+EDITACE MAP: Přispějte do OpenStreetMap přidáním chybějících míst nebo úpravou mapy přímo v Organic Maps.
+
+TMAVÝ REŽIM: Přepněte na tmavé téma pro pohodlné prohlížení v noci.
+
+iCLOUD SYNC: Snadno zálohujte a synchronizujte všechny své záložky a trasy přes iCloud.
+
+Vyzkoušejte aplikaci — je 100% zdarma, bez reklam, rychlá a plně offline. Užijte si rychlý, spolehlivý a soukromý zážitek s mapou a sdílejte jej s ostatními!
+Organic Maps je nezávislý, komunitou řízený open-source projekt se stovkami přispěvatelů, kteří pomáhají vyvíjet nové funkce, opravovat problémy, překládat a posouvat projekt vpřed.
+
+Připojte se ke komunitě na Telegramu: @OrganicMapsApp
+Nebo zjistěte další způsoby, jak projekt podpořit: https://organicmaps.app/contribute/
+
+Vaše upřímná zpětná vazba a recenze v obchodě nás motivují! Rádi slyšíme váš názor. Máte otázky? Navštivte web organicmaps.app pro více informací a FAQ.

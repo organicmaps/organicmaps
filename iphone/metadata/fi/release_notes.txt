@@ -1,20 +1,27 @@
-- Wikipedia-artikkelit paikoille turkiksi, japaniksi ja kiinaksi; kirjoita ?wiki nähdäksesi kaikki artikkelit kartalla
-- Asetus ladattujen alueiden visuaaliseen korostamiseen kartalla
-- OpenStreetMap-tiedot 23. marraskuuta 2025
+- UUTTA: Joulukuuset ja joulumarkkinat näkyvät nyt kartalla; kirjoita hakuun `Christmas Market` tai `Christmas Tree` löytääksesi ne (tai lisää ne OpenStreetMap.org-sivustolla tarvittaessa)
+- OpenStreetMap-tiedot 14. joulukuuta 2025
+- Pysäköintikapasiteetti näkyy nyt hakutuloksissa
+- Kansallispuistojen rajat ja nimet ovat vähemmän korostettuja maailmankartalla
+- Lisätty liettuankieliset hakusynonyymit ja otettu käyttöön liettuankielinen haku
+- Hakutulokset käyttävät yksivärisiä emoji-kuvakkeita
+- Korjattu CarPlay-ongelma iOS 12:ssa
+- Ratkaistu useita visuaalisia ongelmia iPhonella ja iPadilla
+- Kirjanmerkkilistan haku löytää nyt nimet, joissa on diakriittisiä merkkejä tai aksentteja
+- Tuodut tai tallennetut reitit, jotka ovat alle 10 minuuttia, näyttävät nyt keston minuutteina ja sekunteina
+- Parannettu painikkeiden animaatioita ja alapalkkia
+- Poistettu korkeuskäyrien ilmoitus sovelluksen käynnistyksestä
 
-- Muokkaa kirjanmerkin tai reitin nimeä suoraan paikan tietosivulla
-- Paina pitkään valitun paikan/kirjanmerkin nimeä tai osoitetta kopioidaksesi sen
-- Lisätty haku tietylle listalle, kun sitä vaihdetaan paikan tietosivulta
-- Käytä mukautettuja emojeja paikan tietosivulla
-- Korjattu sivupainikkeiden animaatiot ja "Lataa karttoja" -painikkeen väri tummassa teemassa
-- iOS 26 & macOS 26 "Liquid Glass" -tuki
-- Kun siirrät reitin listaan, siitä tulee oletusarvo uusille kirjanmerkeille/reiteille
-- Parannettu GeoJSON-tuonti, mukaan lukien `Saved Places.json` Google Takeoutista
-- Päivitetyt käännökset useilla kielillä, mukaan lukien heprean korjaus
+## Käännöspäivitykset
+- Parannettu ukrainan käännöksiä
+- Parannettu saksan, unkarin, liettuan, espanjan ja turkin käännöksiä
+- Korjattu liikenneympyrän TTS-ääniohjeet kroatiaksi
 
-## Navigointi ja reititys
+Katso lisätietoja tästä ja aiemmista julkaisuista osoitteessa https://omaps.org/news/
 
-- Kartan asettelu korjattu navigoinnin aikana iPadilla, jotta reitti pysyy selvästi näkyvissä
-- Pyöräreititys ohittaa nyt yksisuuntaiset asuntokadut Itävallassa
-- Yksinkertaistetut liikenneympyrän ohjeet
-- Tiet ovat kirkkaammat ja paremmin erottuvat pimeässä ajotilassa
+…ja pysy kuulolla tulevista ominaisuuksista ja parannuksista!
+
+Kiitos palautteestasi ja tuestasi, Organic Maps ei olisi mahdollinen ilman mahtavaa käyttäjä- ja avustajayhteisöämme.
+
+Hyvää uutta vuotta 2026!
+
+Organic Maps -tiimi
