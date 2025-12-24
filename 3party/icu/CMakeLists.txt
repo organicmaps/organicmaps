@@ -176,6 +176,7 @@ add_library(icuuc
   icu/icu4c/source/common/uvectr64.h
   icu/icu4c/source/common/wintz.cpp
   icu/icu4c/source/common/wintz.h
+  icu/icu4c/source/stubdata/stubdata.cpp
 )
 
 target_include_directories(icuuc
@@ -393,7 +394,6 @@ add_library(icui18n
   icu/icu4c/source/i18n/zonemeta.h
   icu/icu4c/source/i18n/zrule.h
   icu/icu4c/source/i18n/ztrans.h
-  icu/icu4c/source/stubdata/stubdata.cpp
 )
 
 target_compile_definitions(icui18n PUBLIC UCONFIG_USE_LOCAL)

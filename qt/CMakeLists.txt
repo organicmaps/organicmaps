@@ -140,8 +140,7 @@ if (PLATFORM_LINUX)
   install(FILES ${OMIM_ROOT}/qt/res/logo.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/512x512/apps/ RENAME organicmaps.png)
 endif()
 
-if (NOT PLATFORM_LINUX)
-  # On Linux, ICU data is loaded from the shared library.
+if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   copy_resources(icudt78l.dat)
 endif()
 
