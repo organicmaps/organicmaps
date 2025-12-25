@@ -1,5 +1,6 @@
 #include "geometry/mercator.hpp"
 
+#include "base/math.hpp"
 #include "geometry/area_on_earth.hpp"
 #include "geometry/distance_on_sphere.hpp"
 
@@ -71,14 +72,13 @@ void ClampPoint(m2::PointD & pt)
 
 double YToLat(double y)
 {
-  return math::RadToDeg(2.0 * atan(tanh(0.5 * math::DegToRad(y))));
+  return math::RadToDeg(2.0 * std::atan(std::tanh(0.5 * math::DegToRad(y))));
 }
 
 double LatToY(double lat)
 {
-  double const sinx = sin(math::DegToRad(math::Clamp(lat, -86.0, 86.0)));
-  double const res = math::RadToDeg(0.5 * log((1.0 + sinx) / (1.0 - sinx)));
-  return ClampY(res);
+  double const sinx = std::sin(math::DegToRad(math::Clamp(lat, -86.0, 86.0)));
+  return ClampY(math::RadToDeg(std::atanh(sinx)));
 }
 
 m2::RectD MetersToXY(double lon, double lat, double metersR)
