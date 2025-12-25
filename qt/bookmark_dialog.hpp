@@ -1,6 +1,6 @@
 #pragma once
 
-#include "kml/types.hpp"
+#include "map/bookmark_helpers.hpp"
 
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
@@ -30,7 +30,7 @@ private slots:
   void OnItemClick(QTreeWidgetItem * item, int column);
   void OnCloseClick();
   void OnImportClick();
-  void OnExportClick();
+  void OnExportClick(KmlFileType fileType);
   void OnDeleteClick();
 
 private:

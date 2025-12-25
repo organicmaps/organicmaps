@@ -1,5 +1,6 @@
 #include "qt/bookmark_dialog.hpp"
 
+#include "map/bookmark_helpers.hpp"
 #include "map/bookmark_manager.hpp"
 #include "map/framework.hpp"
 
@@ -36,8 +37,14 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   QPushButton * importButton = new QPushButton(tr("Import KML, KMZ, GPX"), this);
   connect(importButton, &QAbstractButton::clicked, this, &BookmarkDialog::OnImportClick);
 
-  QPushButton * exportButton = new QPushButton(tr("Export KMZ"), this);
-  connect(exportButton, &QAbstractButton::clicked, this, &BookmarkDialog::OnExportClick);
+  QPushButton * exportKmzButton = new QPushButton(tr("Export KMZ"), this);
+  connect(exportKmzButton, &QAbstractButton::clicked, this, [this] { OnExportClick(KmlFileType::Text); });
+
+  QPushButton * exportGpxButton = new QPushButton(tr("Export GPX"), this);
+  connect(exportGpxButton, &QAbstractButton::clicked, this, [this] { OnExportClick(KmlFileType::Gpx); });
+
+  QPushButton * exportGeoJsonButton = new QPushButton(tr("Export GeoJSON"), this);
+  connect(exportGeoJsonButton, &QAbstractButton::clicked, this, [this] { OnExportClick(KmlFileType::GeoJson); });
 
   m_tree = new QTreeWidget(this);
   m_tree->setColumnCount(2);
@@ -50,7 +57,9 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   QHBoxLayout * horizontalLayout = new QHBoxLayout();
   horizontalLayout->addStretch();
   horizontalLayout->addWidget(importButton);
-  horizontalLayout->addWidget(exportButton);
+  horizontalLayout->addWidget(exportKmzButton);
+  horizontalLayout->addWidget(exportGpxButton);
+  horizontalLayout->addWidget(exportGeoJsonButton);
   horizontalLayout->addWidget(deleteButton);
   horizontalLayout->addWidget(closeButton);
 
@@ -127,8 +136,9 @@ void BookmarkDialog::OnCloseClick()
 
 void BookmarkDialog::OnImportClick()
 {
-  auto const files = QFileDialog::getOpenFileNames(this /* parent */, tr("Open KML, KMZ, GPX..."), QString() /* dir */,
-                                                   "KML, KMZ, GPX files (*.kml *.KML *.kmz *.KMZ, *.gpx *.GPX)");
+  auto const files = QFileDialog::getOpenFileNames(
+      this /* parent */, tr("Open KML, KMZ, GPX, JSON, GeoJSON..."), QString() /* dir */,
+      "KML, KMZ, GPX, JSON, GeoJSON files (*.kml *.KML *.kmz *.KMZ *.gpx *.GPX *.json *.JSON *.geojson *.GEOJSON)");
 
   for (auto const & name : files)
   {
@@ -140,7 +150,7 @@ void BookmarkDialog::OnImportClick()
   }
 }
 
-void BookmarkDialog::OnExportClick()
+void BookmarkDialog::OnExportClick(KmlFileType exportedFileType)
 {
   auto const selected = m_tree->selectedItems();
   if (selected.empty())
@@ -164,8 +174,21 @@ void BookmarkDialog::OnExportClick()
     return;
   }
 
-  auto const name =
-      QFileDialog::getSaveFileName(this /* parent */, tr("Export KMZ..."), QString() /* dir */, "KMZ files (*.kmz)");
+  QString caption, filter;
+  switch (exportedFileType)
+  {
+  case KmlFileType::Gpx:
+    caption = tr("Export GPX...");
+    filter = tr("GPX files (*.gpx)");
+    break;
+  case KmlFileType::GeoJson:
+    caption = tr("Export GeoJSON...");
+    filter = tr("GeoJSON files (*.geojson);JSON files (*.json)");
+    break;
+  default: caption = tr("Export KMZ..."); filter = tr("KMZ files (*.kmz)");
+  }
+
+  auto const name = QFileDialog::getSaveFileName(this /* parent */, caption, QString() /* dir */, filter);
   if (name.isEmpty())
     return;
 
@@ -190,7 +213,7 @@ void BookmarkDialog::OnExportClick()
       ask.addButton(tr("OK"), QMessageBox::NoRole);
       ask.exec();
     }
-  }, KmlFileType::Text);
+  }, exportedFileType);
 }
 
 void BookmarkDialog::OnDeleteClick()
