@@ -43,8 +43,9 @@ size_t const kMinCommonTypesCount = 3;
 double const kNearDistanceInMeters = 20 * 1000.0;
 double const kMyPositionTrackSnapInMeters = 20.0;
 
-std::string const kKMZMimeType = "application/vnd.google-earth.kmz";
-std::string const kGPXMimeType = "application/gpx+xml";
+std::string_view const kKMZMimeType = "application/vnd.google-earth.kmz";
+std::string_view const kGPXMimeType = "application/gpx+xml";
+std::string_view const kGeoJsonMimeType = "application/geo+json";
 
 class FindMarkFunctor
 {
@@ -114,6 +115,17 @@ BookmarkManager::SharingResult ExportSingleFileGpx(
   if (!SaveKmlFileSafe(*kmlToShare.second, filePath, KmlFileType::Gpx))
     return {{categoryId}, BookmarkManager::SharingResult::Code::FileError, "Bookmarks file does not exist."};
   return {{categoryId}, std::move(filePath), kGPXMimeType};
+}
+
+BookmarkManager::SharingResult ExportSingleFileGeoJson(
+    BookmarkManager::KMLDataCollectionPtr::element_type::value_type const & kmlToShare)
+{
+  std::string const fileName = GetFileNameForExport(kmlToShare);
+  auto filePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string(kGeoJsonExtension));
+  auto const categoryId = kmlToShare.second->m_categoryData.m_id;
+  if (!SaveKmlFileSafe(*kmlToShare.second, filePath, KmlFileType::GeoJson))
+    return {{categoryId}, BookmarkManager::SharingResult::Code::FileError, "Bookmarks file does not exist."};
+  return {{categoryId}, std::move(filePath), kGeoJsonMimeType};
 }
 
 std::string BuildIndexFile(std::vector<std::string> const & filesForIndex)
@@ -196,6 +208,7 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
   {
   case KmlFileType::Text: return ExportSingleFileKml(collection->front());
   case KmlFileType::Gpx: return ExportSingleFileGpx(collection->front());
+  case KmlFileType::GeoJson: return ExportSingleFileGeoJson(collection->front());
   default:
     LOG(LERROR, ("Unexpected file type", kmlFileType));
     return {{collection->front().second->m_categoryData.m_id},
