@@ -336,15 +336,15 @@ UNIT_TEST(GeoJson_Writer_Simple)
         "coordinates": [
           [
             45.25,
-            46
-          ],
-          [
-            45.5,
             47
           ],
           [
-            45.75,
+            45.5,
             48
+          ],
+          [
+            45.75,
+            49
           ]
         ]
       },
@@ -409,15 +409,15 @@ UNIT_TEST(GeoJson_Writer_UMap)
         "coordinates": [
           [
             45.25,
-            46
-          ],
-          [
-            45.5,
             47
           ],
           [
-            45.75,
+            45.5,
             48
+          ],
+          [
+            45.75,
+            49
           ]
         ]
       },
@@ -570,9 +570,9 @@ kml::FileData GenerateKmlFileDataWithTrack()
                         {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
   trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
 
-  trackData.m_geometry.AddLine({{mercator::FromLatLon(46, 45.25), 1},
-                                {mercator::FromLatLon(47, 45.5), 2},
-                                {mercator::FromLatLon(48, 45.75), 3}});
+  trackData.m_geometry.AddLine({{mercator::FromLatLon(47, 45.25), 1},
+                                {mercator::FromLatLon(48, 45.5), 2},
+                                {mercator::FromLatLon(49, 45.75), 3}});
 
   trackData.m_properties = {{"tr_property1", "value1"}, {"tr_property2", "value2"}};
   result.m_tracksData.emplace_back(std::move(trackData));
