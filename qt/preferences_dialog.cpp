@@ -103,8 +103,12 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     bool developerMode;
     if (settings::Get(settings::kDeveloperMode, developerMode) && developerMode)
       developerModeCheckBox->setChecked(developerMode);
-    connect(developerModeCheckBox, &QCheckBox::stateChanged,
-            [](int i) { settings::Set(settings::kDeveloperMode, static_cast<bool>(i)); });
+    connect(developerModeCheckBox, &QCheckBox::stateChanged, [this](int i)
+    {
+      bool const enable = static_cast<bool>(i);
+      settings::Set(settings::kDeveloperMode, enable);
+      DeveloperModeChanged(enable);
+    });
   }
 
   QLabel * mapLanguageLabel = new QLabel("Map Language");
