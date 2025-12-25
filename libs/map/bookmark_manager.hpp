@@ -320,7 +320,7 @@ public:
       FileError
     };
 
-    SharingResult(kml::GroupIdCollection && categoriesIds, std::string && sharingPath, std::string const & mimeType)
+    SharingResult(kml::GroupIdCollection && categoriesIds, std::string && sharingPath, std::string_view mimeType)
       : m_categoriesIds(categoriesIds)
       , m_code(Code::Success)
       , m_sharingPath(std::move(sharingPath))
