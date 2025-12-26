@@ -744,6 +744,12 @@ IsBicycleParkingChecker::IsBicycleParkingChecker()
   m_types.push_back(c.GetTypeByPath({"amenity", "bicycle_rental"}));
 }
 
+IsMotorcycleParkingChecker::IsMotorcycleParkingChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"amenity", "motorcycle_parking"}));
+}
+
 IsPublicTransportStopChecker::IsPublicTransportStopChecker()
 {
   Classificator const & c = classif();

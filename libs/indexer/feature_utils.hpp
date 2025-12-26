@@ -19,6 +19,7 @@ static constexpr std::string_view kWheelchairSymbol = "♿";
 static constexpr std::string_view kWifiSymbol = "🛜";
 static constexpr std::string_view kCarSymbol = "🚘";
 static constexpr std::string_view kBicycleSymbol = "🚲";
+static constexpr std::string_view kMotorcycleSymbol = "🏍";
 
 /// OSM internet_access tag values.
 enum class Internet
