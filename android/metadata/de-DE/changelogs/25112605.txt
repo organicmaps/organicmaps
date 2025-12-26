@@ -1,0 +1,8 @@
+• Wikipedia-Artikel auf Türkisch, Japanisch und Chinesisch, tippe ?wiki um sie auf der Karte zu sehen
+• Neue Einstellung zur visuellen Hervorhebung heruntergeladener Regionen auf der Karte
+• Import von Google Takeout-Lesezeichen und gespeicherten Orten über GeoJSON
+• OSM-Daten vom 23. November
+• Verbesserte Audiowiedergabe und Tonunterbrechungen
+• Hellere Straßen im dunklen Fahrzeugmodus
+• Verbessertes Fahrrad-Routing in Österreich
+…mehr auf omaps.org/de/news

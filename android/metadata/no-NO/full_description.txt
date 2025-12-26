@@ -1,0 +1,54 @@
+Organic Maps er en rask og detaljert offline kart- og GPS-navigasjonsapp for reiser, fotturer, trekking og sykkelturer. Planlegg, importer og ta opp ruter, og nyt jevn veiledning uten å tømme batteriet eller bruke internett. Utforsk steder og naviger trygt under utendørsaktiviteter og reiser over hele verden. Appen tilbyr ubegrensede kartnedlastinger og oppdateringer annenhver uke. Basert på OpenStreetMap, laget av frivillige, personvernbasert, 100 % offline og helt gratis.
+
+OFFLINE:
+Appen fungerer 100 % offline – inkludert søk og navigasjon. Du kan utforske kartet og navigere uten internett, noe som sparer mobildata og roamingkostnader. Uten bakgrunnsoverføringer varer også batteriet lengre.
+
+RASK:
+Zooming, søk og ruteberegninger fungerer merkbart raskt.
+
+DETALJERT & OPPDATERT:
+Kartene inneholder rikelige detaljer og oppdateres to ganger i måneden for å gjenspeile virkelige forhold. I motsetning til mange kjente konkurrenter inkluderer de bygningsnavn, benker, turstier og annen nyttig informasjon.
+
+BASERT PÅ OPENSTREETMAP:
+OpenStreetMap er et verdensdekkende kart i wiki-stil, bygget og vedlikeholdt av millioner av frivillige – lokale folk som kjenner områdene sine best. Dette fellesskapet gir svært detaljerte kart, ofte mer nøyaktige enn kommersielle alternativer i mindre kartlagte områder. Organic Maps oppdaterer OSM-data annenhver uke, slik at kartene dine alltid er friske og pålitelige. Og hvis du legger merke til at noe mangler, kan du legge det til i OSM og hjelpe alle brukere.
+
+PERSONVERN FØRST:
+Vi samler ikke inn noen data eller identifikatorer. Det betyr ingen risiko for datalekkasjer, ingen annonser og ingen forstyrrende varsler – bare en ren og privat kartopplevelse.
+
+VIKTIGE FUNKSJONER
+
+UTFORSK STEDER:
+Søk etter adresse, navn eller kategori. Oppdag millioner av interessepunkter og se detaljert informasjon som åpningstider, Wikipedia-artikler, rullestoltilgjengelighet og mer.
+
+GPS-NAVIGASJON:
+Nyt stemmestyrte sving-for-sving-instruksjoner. Lag ruter for gange, fotturer, sykling eller kjøring – også mellom byer, land og flere veipunkter. Finn de beste rutene for t-bane og pendling. Støtte for Android Auto.
+
+TUR- OG SYKKELSTIER FRA HELE VERDEN:
+Aktiver spesielle kartlag for å finne populære tur- og sykkelruter globalt, hentet fra OpenStreetMap. Bytt lag for å se fargekodede sykkelruter, MTB-stier og offisielle hikingruter.
+
+KOLLEKTIVTRANSPORT:
+Se linjenumre ved stoppesteder. Live-rutetabeller og kollektivruting er under utvikling.
+
+KARTSTILER:
+Velg kartlag som passer aktiviteten din – Friluftsliv, Høydekurver, Hiking, Sykling eller Metro/T-bane.
+
+SPOROPPTAKER:
+Ta opp, importer, eksporter og del rutene dine og favorittsteder. Støtter KML, KMZ, GPX og GeoJSON.
+
+WIKIPEDIA-ARTIKLER:
+Utforsk Wikipedia-artikler for steder du finner på kartet. Skriv “?wiki” i søkefeltet for å vise steder som har artikler.
+
+KARTREDIGERING:
+Bidra til OpenStreetMap ved å legge inn manglende steder eller redigere kartet direkte fra Organic Maps.
+
+MØRK MODUS:
+Bytt til mørk modus for komfortabel visning om natten.
+
+Prøv appen — den er 100 % gratis, uten annonser, rask og helt offline. Opplev pålitelig GPS-navigasjon for hiking, sykling, trekking og reiser hvor som helst i verden! Nyt en rask, stabil og privat kartopplevelse – og del den med andre!
+
+Organic Maps er et uavhengig, fellesskapsdrevet og åpen kildekode-basert prosjekt med hundrevis av bidragsytere som utvikler funksjoner, fikser problemer, oversetter og hjelper prosjektet fremover.
+
+Bli med i fellesskapet på Telegram: @OrganicMapsApp
+Eller finn flere måter å støtte prosjektet på: organicmaps.app/contribute
+
+Din ærlige tilbakemelding og vurdering i appbutikken motiverer oss! Har du spørsmål? Besøk nettsiden organicmaps.app for mer info og FAQ.

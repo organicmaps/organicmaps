@@ -1,0 +1,9 @@
+• Artigos da Wikipédia em turco, japonês e chinês, digite ?wiki para vê-los no mapa
+• Nova configuração para destacar visualmente regiões baixadas no mapa
+• Importe favoritos e locais salvos do Google Takeout via GeoJSON
+• Dados do OSM de 23 de novembro
+• Reprodução de áudio melhorada e interrupções de som
+• Corrigidos travamentos no Editor e ao baixar mapas
+• Estradas mais brilhantes no modo veículo escuro
+• Roteamento de bicicleta melhorado na Áustria
+…mais em omaps.org/pt-BR/news

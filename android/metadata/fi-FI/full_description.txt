@@ -1,0 +1,40 @@
+Organic Maps on nopea ja yksityiskohtainen offline-kartta ja GPS-navigointisovellus matkustamiseen, vaelluksille, retkeilyyn ja pyöräilyseikkailuihin. Suunnittele, tuo ja tallenna reittejä sekä nauti sujuvasta navigoinnista ilman internetiä tai akun nopeaa tyhjenemistä. Tutki paikkoja ja navigoi turvallisesti ulkoillessasi ja matkustaessasi ympäri maailmaa. Sovellus tarjoaa rajattomat karttalataukset ja kahden viikon välein tulevat päivitykset. Rakennettu OpenStreetMapin pohjalle, vapaaehtoisten luoma, yksityisyyttä kunnioittava, 100 % offline ja täysin ilmainen.
+
+OFFLINE: Sovellus toimii 100 % offline-tilassa — myös haku ja navigointi. Voit selata karttaa ja navigoida ilman internetiä, mikä säästää mobiilidataa ja roaming-maksuja. Ja ilman taustalla siirrettäviä tietoja akku kestää paljon pidempään.
+
+NOPEA: Zoomaus, haku ja reittilaskenta toimivat huomattavan nopeasti.
+
+YKSITYISKOHTAINEN & AJANTASAINEN: Kartat ovat erittäin yksityiskohtaisia, ja niitä päivitetään kahdesti kuukaudessa. Toisin kuin monet tunnetut kilpailijat, ne sisältävät rakennusten nimet, penkit, vaelluspolut ja paljon muuta hyödyllistä tietoa.
+
+OPENSTREETMAP-POHJAINEN: OpenStreetMap on wiki-tyylinen maailmankartta, jota miljoonat vapaaehtoiset — paikalliset, jotka tuntevat alueensa parhaiten — ylläpitävät. Tämän yhteisön työn ansiosta kartat ovat hyvin tarkkoja ja monilla alueilla jopa kaupallisia karttoja parempia. Organic Maps päivittää tietonsa OSM:stä kahden viikon välein, jotta kartat pysyvät tuoreina ja luotettavina. Jos huomaat puutteita, voit itse lisätä kohteita OpenStreetMapiin ja parantaa karttaa kaikille.
+
+YKSITYISYYS ENSIN: Emme kerää mitään henkilötietoja tai tunnisteita. Ei vuotoriskiä, ei mainoksia, ei häiritseviä ilmoituksia — vain puhdas ja yksityinen karttakokemus.
+
+TÄRKEIMMÄT OMINAISUUDET
+
+P AIKKOJEN HAKU: Hae osoitteella, nimellä tai kategoriasta. Löydä miljoonia POI-kohteita ja katso tietoja, kuten aukioloajat, Wikipedia-artikkelit, esteettömyys ja paljon muuta.
+
+GPS-NAVIGOINTI: Nauti ääniopastetusta navigoinnista. Luo kävely-, vaellus-, pyöräily- ja ajoreittejä — myös kaupunkien ja maiden välillä sekä useilla välipisteillä. Löydä parhaat reitit metroon ja työmatkoille. Android Auto on tuettu.
+
+VAELLUS- JA PYÖRÄREITIT MAAILMAN YMPÄRI: Ota käyttöön erityiset karttatasot nähdäksesi suositut vaellus- ja pyöräilyreitit kaikkialla maailmassa. Näe värilliset pyörä- ja MTB-reitit sekä viralliset vaellusreitit.
+
+JOUKKOLIIKENNE: Näe pysäkkien linjanumerot. Live-aikataulut ja reittiopastus ovat kehitteillä.
+
+KARTTATYYLIT: Valitse aktiviteettisi mukaan — Outdoors, korkeuskäyrät, vaellus, pyöräily tai metro.
+
+REITTITALLENNIN: Tallenna, tuo, vie ja jaa reittejäsi ja suosikkipaikkojasi. Tukee KML-, KMZ-, GPX- ja GeoJSON-tiedostoja.
+
+WIKIPEDIA-ARTIKKELIT: Tutki Wikipedian kohteita suoraan kartalla. Kirjoita hakuun “?wiki” nähdäksesi kaikki artikkelilla varustetut paikat.
+
+KARTTAMUOKKAIN: Lisää puuttuvia kohteita tai muokkaa karttaa suoraan Organic Mapsissa ja auta kehittämään OpenStreetMapia.
+
+TUMMA TEEMA: Vaihda tummaan tilaan mukavampaa käyttöä varten yöllä.
+
+Kokeile sovellusta — se on 100 % ilmainen, mainokseton, nopea ja täysin offline. Saat luotettavan GPS-navigoinnin vaelluksille, pyöräilyyn, retkeilyyn ja matkustamiseen missä päin maailmaa tahansa! Nauti nopeasta, luotettavasta ja yksityisestä karttakokemuksesta ja jaa se muillekin.
+
+Organic Maps on itsenäinen, yhteisölähtöinen ja avoimen lähdekoodin projekti, jossa sadat avustajat kehittävät uusia ominaisuuksia, korjaavat virheitä, kääntävät ja vievät projektia eteenpäin.
+
+Liity yhteisöön Telegramissa: @OrganicMapsApp
+Katso muita tapoja tukea projektia: organicmaps.app/contribute
+
+Arvostelusi motivoi meitä — kerro kokemuksesi sovelluskaupassa! Kysyttävää? Katso lisätietoja ja usein kysytyt kysymykset osoitteesta organicmaps.app.

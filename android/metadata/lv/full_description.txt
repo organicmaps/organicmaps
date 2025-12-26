@@ -1,0 +1,31 @@
+Organic Maps ir ātra un detalizēta bezsaistes karšu un GPS navigācijas lietotne ceļojumiem, pārgājieniem, trekingam un riteņbraukšanas piedzīvojumiem. Plānojiet, importējiet un ierakstiet maršrutus un izbaudiet vienmērīgu navigāciju, neiztērējot bateriju vai interneta pieslēgumu. Izpētiet vietas un droši orientējieties savos āra piedzīvojumos un ceļojumos visā pasaulē. Lietotne piedāvā neierobežotu karšu lejupielādi un divreiz mēnesī atjauninājumus. Balstīta uz OpenStreetMap, veidota brīvprātīgo, privātuma prioritāte, 100% bezsaistē un pilnīgi bez maksas.
+
+<b>BEZSAISTĒ:</b> Lietotne darbojas 100% bezsaistē — ieskaitot meklēšanu un navigāciju. Jūs varat izpētīt karti un orientēties bez interneta savienojuma, ietaupot mobilos datus un viesabonēšanas maksu. Ar fona datu pārsūtīšanu nav jāuztraucas, un jūsu baterija kalpo daudz ilgāk.
+
+<b>DETALIZĒTI UN ATJAUNINĀTI:</b> Kartes ir bagātas ar detaļām un tiek atjauninātas divreiz mēnesī, atspoguļojot reālos apstākļus. Atšķirībā no daudzām labi zināmām konkurentu lietotnēm, tās ietver ēku nosaukumus, soliņus, pārgājienu takas un citu noderīgu informāciju.
+
+<b>BALSTĪTS UZ OPENSTREETMAP:</b> OpenStreetMap ir pasaules karte wiki stilā, ko veido un uztur miljoniem brīvprātīgo — vietējie iedzīvotāji, kuri vislabāk pārzina savas teritorijas. Šī kopienas iniciatīva nodrošina ļoti detalizētas kartes, bieži vien precīzākas nekā komerciālās mazāk pārklātās teritorijās. Organic Maps atjaunina savus datus no OpenStreetMap ik pēc divām nedēļām, uzturot jūsu kartes svaigas un uzticamas. Ja pamanāt, ka kaut kas trūkst, varat pievienot to OpenStreetMap un palīdzēt uzlabot karti visiem.
+
+<b>PRIVĀTUMS PIRMAJĀ VIETĀ:</b> Mēs neveicam datu vai identifikatoru vākšanu. Tas nozīmē, ka nav datu noplūdes riska un nav traucēkļu, piemēram, reklāmu vai trokšņainu paziņojumu — tikai tīra, privāta kartes pieredze.
+
+<b>SVARĪGĀS FUNKCIJAS</b>
+
+<b>IZPĒTĪT VIETAS:</b> Meklējiet pēc adreses, nosaukuma vai kategorijas, atklājiet miljoniem POI un skatiet detalizētu informāciju, piemēram, darba laiku, Wikipedia rakstus, pieejamību ratiņkrēsliem un citas noderīgas detaļas.
+
+<b>GPS NAVIGĀCIJA:</b> Izbaudiet balss vadītu, soli pa solim navigāciju. Izveidojiet pastaigu, pārgājienu, riteņbraukšanas vai braukšanas maršrutus — tostarp maršrutus starp pilsētām, valstīm un vairākiem kontrolpunktiem. Atrodiet labākos maršrutus metro braucieniem un ikdienas pārvietošanās vajadzībām. Atbalstīts Android Auto.
+
+<b>PĀRGĀJIENU UN RITEŅBRAUKŠANAS TAKAS NO VISAS PASAULES:</b> Ieslēdziet īpašus kartes slāņus, lai atklātu populāras pārgājienu un riteņbraukšanas takas visā pasaulē, visas no OpenStreetMap. Pārslēdzieties starp slāņiem, lai redzētu krāsainas velosipēdu un MTB takas, kā arī oficiālās pārgājienu takas.
+
+<b>SABIEDRISKAIS TRANSPORTS:</b> Skatiet sabiedriskā transporta maršruta numurus pieturvietās. Dzīvās transporta saraksti un maršrutēšana pašlaik tiek izstrādāta.
+
+<b>KARTES STILI:</b> Izvēlieties kartes slāņus, kas atbilst jūsu aktivitātēm — Āra aktivitātes, Kontūrlīnijas, Pārgājieni, Riteņbraukšana vai Metro/Subway.
+
+<b>MARŠRUTAIERAKSTĪTĀJS:</b> Ierakstiet, importējiet, eksportējiet un kopīgojiet savus maršrutus un iecienītās vietas. Atbalsta KML, KMZ, GPX un GeoJSON formātus.
+
+<b>WIKIPEDIA RAKSTI:</b> Izpētiet Wikipedia rakstus par vietām, kuras atklājat kartē. Meklēšanā ierakstiet “?wiki”, lai atrastu visas vietas ar Wikipedia rakstiem.
+
+<b>KARTES REDAKTORS:</b> Veiciniet OpenStreetMap, pievienojot trūkstošas vietas vai rediģējot karti tieši no Organic Maps.
+
+Izmēģiniet lietotni — tā ir 100% bez maksas, bez reklāmām, ātra un pilnībā bezsaistē. Piedzīvojiet uzticamu GPS navigāciju pārgājieniem, riteņbraukšanai, trekingam un ceļojumiem visā pasaulē! Izbaudiet ātru, uzticamu un privātu kartes pieredzi un dalieties tajā ar citiem!
+
+Organic Maps ir neatkarīgs, kopienas vadīts, atvērtā koda projekts ar simtiem līdzstrādnieku, kas palīdz izstrādāt jaunas funkcijas, labot problēmas, tulkot un virzīt projektu uz priekšu.

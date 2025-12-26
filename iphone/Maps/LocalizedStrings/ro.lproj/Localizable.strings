@@ -196,7 +196,9 @@
 "length" = "Lungime";
 "share_my_location" = "Trimite poziția mea";
 "prefs_group_route" = "Navigare";
-"pref_zoom_title" = "Butoane zoom";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "Butoanele „+” și „-” pe hartă";
 
 /* Generic «Off» string */
 "off" = "Oprit";

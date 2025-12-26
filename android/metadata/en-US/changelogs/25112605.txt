@@ -1,0 +1,9 @@
+• Wikipedia articles in Turkish, Japanese, and Chinese, type `?wiki` to see them on the map
+• New setting to visually highlight downloaded regions on the map
+• Import Google Takeout's bookmarks and saved places via GeoJSON
+• OSM data as of November 23
+• Improved audio playback and sound interruptions
+• Fixed crashes in the Editor and when downloading maps
+• Brighter roads in dark vehicle mode
+• Improved bicycle routing in Austria
+…more at omaps.org/news

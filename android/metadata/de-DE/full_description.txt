@@ -1,0 +1,38 @@
+Organic Maps ist eine schnelle, detaillierte Offline-Karten- und GPS-Navigationsapp für Reisen, Wanderungen und Radtouren. Planen, importieren und aufzeichnen von Routen – und dank vollständiger Offline-Funktion ohne Internetverbindung navigieren. Entdecken Sie Orte und bewegen Sie sich sicher bei Outdoor-Abenteuern und Reisen weltweit. Die App bietet unbegrenzte Kartendownloads und zweiwöchentliche Updates. OpenStreetMap-basiert, von Freiwilligen erstellt, datenschutzfreundlich, 100 % offline und 100 % kostenlos – ideal als navi und wander app kostenlos, routenplaner kostenlos deutsch und navi offline kostenlos.
+
+<b>OFFLINE:</b> Die App funktioniert vollständig offline – inklusive Suche und Navigation. Sie können Karten ansehen, Orte finden und navigieren, ohne mobile Daten zu benötigen. Das spart Roamingkosten und schont den Akku, da keine Hintergrundübertragungen stattfinden. Perfekt für navigation kostenlos deutsch offline.
+
+<b>SCHNELL:</b> Zoomen, Suche und Routenberechnungen funktionieren spürbar schnell – selbst bei großen Kartendaten.
+
+<b>DETAILLIERT & AKTUELL:</b> Die Karten sind äußerst detailliert und werden alle zwei Wochen aktualisiert. Im Vergleich zu vielen anderen Apps enthalten sie mehr Informationen: Gebäudenamen, Bänke, Wanderwege und viele weitere nützliche Details.
+
+<b>OPENSTREETMAP-BASIERT:</b> OpenStreetMap ist eine gemeinschaftlich erstellte Weltkarte, gepflegt von Millionen Freiwilligen, die ihre Regionen am besten kennen. Dadurch entstehen sehr genaue Karten, oft besser als kommerzielle Karten in weniger erfassten Gebieten. Organic Maps aktualisiert die Daten alle zwei Wochen. Wenn Sie etwas auf der Karte vermissen, können Sie es selbst in OpenStreetMap ergänzen.
+
+<b>DATENSCHUTZ ZUERST:</b> Wir sammeln keinerlei Daten oder Identifikatoren. Keine Tracker, keine Werbung, keine Ablenkungen – nur eine klare, private Karten- und Navigationslösung.
+
+<b>WICHTIGE FUNKTIONEN</b>
+
+<b>ORTE ENTDECKEN:</b> Offline nach Adressen, Namen oder Kategorien suchen. Millionen POIs mit Details wie Öffnungszeiten, Wikipedia-Infos, Barrierefreiheit und mehr.
+
+<b>GPS-NAVIGATION:</b> Sprachgeführte Abbiegehinweise. Routen für Wandern, Radfahren, Autofahrten oder längere Reisen über Ländergrenzen hinweg. Unterstützung für mehrere Zwischenstopps und Android Auto.
+
+<b>WANDER- & RADWEGE WELTWEIT:</b> Aktivieren Sie spezielle Kartenebenen für farbige Rad-, MTB- und offizielle Wanderwege – alles aus OpenStreetMap.
+
+<b>ÖPNV:</b> Liniennummern an Haltestellen anzeigen. Live-Fahrpläne und Routing sind in Entwicklung.
+
+<b>KARTENSTILE:</b> Wählen Sie je nach Aktivität: Outdoors, Höhenlinien, Wandern, Radfahren oder U-Bahn/Metro.
+
+<b>TRACKAUFZEICHNUNG:</b> Routen und Lieblingsorte aufzeichnen, importieren, exportieren und teilen. Unterstützt KML, KMZ, GPX und GeoJSON.
+
+<b>WIKIPEDIA:</b> Orte mit Wikipedia-Artikeln entdecken. Suchbefehl „?wiki“ zeigt alle Artikel in der Umgebung.
+
+<b>KARTENEDITOR:</b> Fehlende Orte hinzufügen oder direkt in Organic Maps für OpenStreetMap bearbeiten.
+
+<b>DUNKELMODUS:</b> Für angenehme Nutzung bei Nacht.
+
+Probieren Sie die App aus – sie ist 100 % kostenlos, werbefrei, schnell und vollständig offline. Genießen Sie eine zuverlässige, private Navigation und teilen Sie die App mit anderen!
+Organic Maps ist ein unabhängiges, community-getriebenes Open-Source-Projekt mit Hunderten Mitwirkenden, die Funktionen entwickeln, Fehler beheben, übersetzen und das Projekt ständig verbessern.
+
+Treten Sie der Community auf Telegram bei: @OrganicMapsApp  
+Weitere Möglichkeiten zur Unterstützung finden Sie unter: organicmaps.app/contribute  
+Ihr Feedback motiviert uns! Bei Fragen besuchen Sie bitte die Website organicmaps.app.

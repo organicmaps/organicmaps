@@ -201,7 +201,8 @@
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Informace</string>
     <string name="prefs_group_route">Navigace</string>
-    <string name="pref_zoom_title">Tlačítka přiblížení/oddálení</string>
+    <!-- Setting name which enables or disables zoom buttons on the map screen. -->
+    <string name="pref_zoom_title">Tlačítka „+“ a „-“ na mapě</string>
     <string name="pref_zoom_summary">Zobrazit na obrazovce</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Noční režim</string>

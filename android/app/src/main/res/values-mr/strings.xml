@@ -193,7 +193,8 @@
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">माहिती</string>
     <string name="prefs_group_route">मार्गनिर्देशन</string>
-    <string name="pref_zoom_title">झूम बटणे</string>
+    <!-- Setting name which enables or disables zoom buttons on the map screen. -->
+    <string name="pref_zoom_title">नकाशावर + आणि - बटणे</string>
     <string name="pref_zoom_summary">नकाशावर दाखवा</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">रात्र मोड</string>

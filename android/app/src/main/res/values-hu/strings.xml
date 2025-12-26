@@ -201,7 +201,8 @@
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Információk</string>
     <string name="prefs_group_route">Navigáció</string>
-    <string name="pref_zoom_title">Nagyítás/kicsinyítés gombok</string>
+    <!-- Setting name which enables or disables zoom buttons on the map screen. -->
+    <string name="pref_zoom_title">A térképen lévő + és - gombok</string>
     <string name="pref_zoom_summary">Megjelenítés a térképen</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Éjszakai mód</string>
