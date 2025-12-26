@@ -750,6 +750,12 @@ IsBicycleParkingChecker::IsBicycleParkingChecker()
   m_types.push_back(c.GetTypeByPath({"amenity", "bicycle_rental"}));
 }
 
+IsBicycleChargingChecker::IsBicycleChargingChecker() : BaseChecker(3 /* level */)
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"amenity", "charging_station", "bicycle"}));
+}
+
 IsMotorcycleParkingChecker::IsMotorcycleParkingChecker()
 {
   Classificator const & c = classif();
