@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Adres/blok";
 "type.addr_interpolation.even" = "Adres/blok";
 "type.addr_interpolation.odd" = "Adres/blok";
@@ -137,10 +133,6 @@
 "type.amenity.prison" = "Gevangenis";
 "type.amenity.pub" = "Kroeg";
 "type.amenity.public_bookcase" = "Boekenkast";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Milieustraat";
 "type.amenity.recycling" = "Recycling container";
 "type.amenity.recycling.container" = "Recycling container";
@@ -397,10 +389,6 @@
 "type.healthcare.psychotherapist" = "Psychotherapie";
 "type.healthcare.sample_collection" = "Bemonstering";
 "type.healthcare.speech_therapist" = "Logopedie";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Straat";
 "type.highway.bridleway" = "Ruiterpad";
 
@@ -617,10 +605,6 @@
 "type.area_highway.unclassified" = "Straat";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Historisch object";
 "type.historic.aircraft" = "Historische vliegtuigen";
 "type.historic.anchor" = "Historisch anker";
@@ -676,36 +660,6 @@
 
 /* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
-
-/* Do not translate. Here to avoid untranslated debug toast. */
-"type.hwtag.lit" = "hwtag-lit";
-
-/* Do not translate. Here to avoid untranslated debug toast. */
-"type.hwtag.nobicycle" = "hwtag-nobicycle";
-
-/* Do not translate. Here to avoid untranslated debug toast. */
-"type.hwtag.nocar" = "hwtag-nocar";
-
-/* Do not translate. Here to avoid untranslated debug toast. */
-"type.hwtag.nofoot" = "hwtag-nofoot";
-
-/* Do not translate. Here to avoid untranslated debug toast. */
-"type.hwtag.oneway" = "hwtag-oneway";
-
-/* Do not translate. Here to avoid untranslated debug toast. */
-"type.hwtag.private" = "hwtag-private";
-
-/* Do not translate. Here to avoid untranslated debug toast. */
-"type.hwtag.toll" = "hwtag-toll";
-
-/* Do not translate. Here to avoid untranslated debug toast. */
-"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-
-/* Do not translate. Here to avoid untranslated debug toast. */
-"type.hwtag.yescar" = "hwtag-yescar";
-
-/* Do not translate. Here to avoid untranslated debug toast. */
-"type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Draadloos internet";
 "type.junction" = "Kruispunt";
@@ -826,12 +780,6 @@
 "type.man_made.water_well.drinking_water_no" = "Waterput";
 "type.man_made.windmill" = "Windmolen";
 "type.man_made.works" = "Fabriek";
-
-/* Do not translate. Here to avoid untranslated debug toast. */
-"type.mapswithme" = "mapswithme";
-
-/* Do not translate. Here to avoid untranslated debug toast. */
-"type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Militair";
 "type.military.bunker" = "Bunker";
 "type.mountain_pass" = "Bergpas";

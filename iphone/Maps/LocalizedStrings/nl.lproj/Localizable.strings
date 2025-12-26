@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Annuleer";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Bladwijzergroepen";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Waar iets gaan eten";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Caravan Faciliteiten";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!";
 
 /* message title of loading file */
@@ -401,10 +389,6 @@
 
 /* bookmark button text */
 "bookmark" = "markeer";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Belangrijk bij het volgen van een route:";
 "dialog_routing_disclaimer_priority" = "— De toestand van het wegdek, de verkeersregels en -borden hebben altijd voorrang op het advies van het navigatiesysteem;";
 "dialog_routing_disclaimer_precision" = "— De kaart kan onnauwkeurig zijn en de voorgestelde route is niet altijd de meest optimale manier om uw bestemming te bereiken;";
@@ -434,10 +418,6 @@
 "dialog_routing_download_files" = "Download de vereiste bestanden";
 "dialog_routing_download_and_update_all" = "Download de kaart en route-informatie voor het ingestelde traject en werk deze bij om de route te berekenen.";
 
-
-/********** Strings for downloading map from search **********/
-
-
 /* «Show» context menu */
 "show" = "Toon";
 
@@ -460,7 +440,7 @@
 "wikimedia_commons" = "Wikimedia Commons";
 "p2p_your_location" = "Uw locatie";
 "p2p_start" = "Start";
-"p2p_from_here" = "Van";
+"p2p_from_here" = "Route van";
 "p2p_to_here" = "Route naar";
 "p2p_only_from_current" = "Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.";
 "p2p_reroute_from_current" = "Wilt u een route plannen vanaf uw huidige locatie?";
@@ -471,7 +451,7 @@
 "editor_time_allday" = "Elke dag (24 uur)";
 "editor_time_open" = "Open";
 "editor_time_close" = "Gesloten";
-"editor_time_add_closed" = "Sluitingstijden toevoegen";
+"editor_time_add_closed" = "Niet-kantooruren toevoegen";
 "editor_time_title" = "Openingstijden";
 "editor_time_advanced" = "Geavanceerde modus";
 "editor_time_simple" = "Eenvoudige modus";
@@ -516,7 +496,7 @@
 "downloader_delete_map_dialog" = "Alle wijzigingen aan de kaart zullen samen met de kaart worden verwijderd.";
 "downloader_update_maps" = "Update kaarten";
 "downloader_search_field_hint" = "Vind een kaart";
-"common_check_internet_connection_dialog" = "Controleer je instellingen en zorg ervoor dat het apparaat verbonden is met het internet.";
+"common_check_internet_connection_dialog" = "A.u.b zorg ervoor dat het apparaat verbonden is met het internet.";
 "downloader_no_space_title" = "Niet genoeg ruimte";
 
 /* Message shown when there is not enough space to download maps */
@@ -574,8 +554,8 @@
 "placepage_edit_bookmark_button" = "Bewerk bladwijzer";
 "placepage_personal_notes_hint" = "Persoonlijke aantekeningen (tekst of html)";
 "editor_comment_hint" = "Reactie…";
-"editor_reset_edits_message" = "Alle lokale wijzigingen weggooien?";
-"editor_reset_edits_button" = "Gooi weg";
+"editor_reset_edits_message" = "Alle lokale wijzigingen negeren?";
+"editor_reset_edits_button" = "Negeer";
 "editor_remove_place_message" = "Toegevoegde locatie verwijderen?";
 "editor_remove_place_button" = "Verwijder";
 "editor_place_doesnt_exist" = "Locatie bestaat niet";
@@ -850,10 +830,6 @@
 "sort_distance" = "Sorteer op afstand";
 "sort_date" = "Sorteer op datum";
 "sort_name" = "Sorteer op naam";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Voedsel";
 "tourist_places" = "Bezienswaardigheden";
 "museums" = "Musea";
@@ -1057,10 +1033,6 @@
 "contribute_to_osm_add_place" = "Plaats toevoegen";
 "contribute_to_osm_update_map" = "Werk de kaart bij om bij te dragen";
 "contribute_to_osm_update_map_description" = "U moet de %@-kaart bijwerken naar de nieuwste versie voordat u kunt bijdragen aan de gegevens van OpenStreetMap";
-
-
-/********** Uncategorized **********/
-
 
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Mijn locatie";
