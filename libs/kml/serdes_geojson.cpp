@@ -142,8 +142,7 @@ bool DeserializerGeoJson::Parse(std::string_view jsonContent)
         if (bookmark_name.empty())
           SetDefaultStr(bookmark.m_description, *google_maps_url);
         else
-          SetDefaultStr(bookmark.m_description,
-                             "<a href=\"" + (*google_maps_url) + "\">" + bookmark_name + "</a>");
+          SetDefaultStr(bookmark.m_description, "<a href=\"" + (*google_maps_url) + "\">" + bookmark_name + "</a>");
       }
 
       // Parse color
