@@ -1,6 +1,7 @@
 package app.organicmaps.util;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.util.TypedValue;
 import androidx.annotation.AttrRes;
@@ -43,19 +44,10 @@ public final class ThemeUtils
     return VALUE_BUFFER.resourceId;
   }
 
-  public static boolean isDefaultTheme()
+  public static boolean isDarkTheme(@NonNull Context context)
   {
-    return Config.UiTheme.isDefault(Config.UiTheme.getCurrent());
-  }
-
-  public static boolean isNightTheme()
-  {
-    return Config.UiTheme.isNight(Config.UiTheme.getCurrent());
-  }
-
-  public static boolean isAutoTheme()
-  {
-    return Config.UiTheme.isAuto(Config.UiTheme.getUiThemeSettings());
+    int nightFlag = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+    return nightFlag == Configuration.UI_MODE_NIGHT_YES;
   }
 
   public static boolean isNavAutoTheme()
