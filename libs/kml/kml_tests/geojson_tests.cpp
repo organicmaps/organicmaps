@@ -523,7 +523,7 @@ kml::FileData GenerateKmlFileData()
   bookmarkData.m_color = {kml::PredefinedColor::Blue, 0};
   bookmarkData.m_icon = kml::BookmarkIcon::None;
   bookmarkData.m_timestamp = kml::TimestampClock::from_time_t(800);
-  bookmarkData.m_point = mercator::FromLatLon(0.0, 0.0);
+  bookmarkData.m_point = mercator::FromLatLon(0.0, 0.0);  // TODO: Replace with real coordinates after Json Serialization is fixed
   bookmarkData.m_visible = false;
   bookmarkData.m_minZoom = 10;
   bookmarkData.m_properties = {{"bm_property1", "value1"}, {"bm_property2", "value2"}, {"score", "5"}};
@@ -553,7 +553,7 @@ kml::FileData GenerateKmlFileDataWithTrack()
   bookmarkData.m_color = {kml::PredefinedColor::Blue, 0};
   bookmarkData.m_icon = kml::BookmarkIcon::None;
   bookmarkData.m_timestamp = kml::TimestampClock::from_time_t(800);
-  bookmarkData.m_point = mercator::FromLatLon(0.0, 0.0);
+  bookmarkData.m_point = mercator::FromLatLon(0.0, 0.0);  // TODO: Replace with real coordinates after Json Serialization is fixed
   bookmarkData.m_boundTracks = {0};
   bookmarkData.m_visible = false;
   bookmarkData.m_minZoom = 10;
@@ -570,6 +570,7 @@ kml::FileData GenerateKmlFileDataWithTrack()
                         {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
   trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
 
+  // TODO: Replace with real coordinates after Json Serialization is fixed
   trackData.m_geometry.AddLine(
       {{mercator::FromLatLon(0, 0), 1}, {mercator::FromLatLon(0, 0), 2}, {mercator::FromLatLon(0, 0), 3}});
 
