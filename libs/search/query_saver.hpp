@@ -14,6 +14,7 @@ public:
 
   QuerySaver();
 
+  // TODO(AB): Important category or not flag is not saved.
   void Add(SearchRequest const & query);
 
   /// Returns several last saved queries from newest to oldest query.
