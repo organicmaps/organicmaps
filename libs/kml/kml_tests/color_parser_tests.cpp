@@ -21,14 +21,14 @@ UNIT_TEST(ColorParser_Smoke)
 UNIT_TEST(ColorData_Test)
 {
   kml::ColorData const defaultColor;
-  TEST_EQUAL(kml::toCssColor(defaultColor), "red", ());
+  TEST_EQUAL(kml::ToCssColor(defaultColor), "red", ());
 
   auto const greenHex = kml::ColorData{.m_predefinedColor = kml::PredefinedColor::None, .m_rgba = 0x00FF00FF};
-  TEST_EQUAL(kml::toCssColor(greenHex), "#00FF00", ());
+  TEST_EQUAL(kml::ToCssColor(greenHex), "#00FF00", ());
 
   auto const pinkPred = kml::ColorData{.m_predefinedColor = kml::PredefinedColor::Pink, .m_rgba = 0};
-  TEST_EQUAL(kml::toCssColor(pinkPred), "pink", ());
+  TEST_EQUAL(kml::ToCssColor(pinkPred), "pink", ());
 
   auto const deepOrange = kml::ColorData{.m_predefinedColor = kml::PredefinedColor::DeepOrange, .m_rgba = 0xFF00AAFF};
-  TEST_EQUAL(kml::toCssColor(deepOrange), "DarkOrange", ());
+  TEST_EQUAL(kml::ToCssColor(deepOrange), "DarkOrange", ());
 }
