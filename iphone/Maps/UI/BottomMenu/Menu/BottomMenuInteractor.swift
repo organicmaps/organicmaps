@@ -50,11 +50,9 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
 
   func donate() {
     close()
-    guard var url = Settings.donateUrl() else { return }
-    if url == "https://organicmaps.app/donate/" {
-      url = L("translated_om_site_url") + "donate/"
+    if let url = Settings.donateUrl(), viewController?.openUrl(url, externally: true) == true {
+      Settings.didShowDonationPage()
     }
-    viewController?.openUrl(url, externally: true)
   }
 
   func downloadMaps() {

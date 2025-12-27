@@ -253,7 +253,7 @@
 "donate" = "捐助我們";
 "already_donated" = "已捐贈";
 "remind_me_later" = "稍後提醒";
-"support_organic_maps" = "支持 Organic Maps";
+"support_organic_maps" = "支援 Organic Maps";
 
 /* Button in the main Help dialog */
 "copyright" = "版權";
@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "其他";
 
 /* Tex label above the Donate button */
-"donate_description" = "捐助，以共同打造最好的地圖！";
+"donate_description" = "向數百萬使用者贈送無廣告的免費地圖！";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "回報或修復不正確的地圖數據";
@@ -889,7 +889,7 @@
 /* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
 
-/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+/* Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/zh-Hans/";
 
 /* Link to OSM wiki for Editor, Profile and About pages */

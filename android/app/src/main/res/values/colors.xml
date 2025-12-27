@@ -116,4 +116,10 @@
 
   <color name="material_calendar_surface_dark">#929292</color>
   <color name="notification_warning">#FFC22219</color>
+
+  <color name="donation_bg_light">#537E4C</color>
+  <color name="donation_bg_dark">#063100</color>
+  <color name="donation_highlight">#1F000000</color>
+  <color name="donation_action_light">#FFE082</color>
+  <color name="donation_action_dark">#FFB300</color>
 </resources>

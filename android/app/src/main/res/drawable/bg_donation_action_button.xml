@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item>
+    <shape>
+      <corners android:radius="10dp" />
+      <solid android:color="@color/donation_action_dark" />
+    </shape>
+  </item>
+
+  <item>
+    <shape>
+      <corners android:radius="10dp" />
+      <gradient
+          android:centerX="0.1"
+          android:centerY="0.1"
+          android:endColor="@android:color/transparent"
+          android:gradientRadius="40dp"
+          android:startColor="@color/donation_action_light"
+          android:type="radial" />
+    </shape>
+  </item>
+
+</layer-list>

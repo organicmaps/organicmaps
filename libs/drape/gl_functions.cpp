@@ -127,6 +127,14 @@ typedef GLenum(DP_APIENTRY * TglCheckFramebufferStatusFn)(GLenum target);
 
 typedef GLubyte const *(DP_APIENTRY * TglGetStringiFn)(GLenum name, GLuint index);
 
+typedef void(DP_APIENTRY * TglTexImage3DFn)(GLenum target, GLint level, GLint internalformat, GLsizei width,
+                                            GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type,
+                                            void const * pixels);
+typedef void(DP_APIENTRY * TglTexSubImage3DFn)(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset,
+                                               GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type,
+                                               void const * pixels);
+typedef void(DP_APIENTRY * TglDrawArraysInstancedFn)(GLenum mode, GLint first, GLsizei count, GLsizei instancecount);
+
 TglClearColorFn glClearColorFn = nullptr;
 TglClearFn glClearFn = nullptr;
 TglViewportFn glViewportFn = nullptr;
@@ -205,6 +213,10 @@ TglCheckFramebufferStatusFn glCheckFramebufferStatusFn = nullptr;
 
 TglGetStringiFn glGetStringiFn = nullptr;
 
+TglTexImage3DFn glTexImage3DFn = nullptr;
+TglTexSubImage3DFn glTexSubImage3DFn = nullptr;
+TglDrawArraysInstancedFn glDrawArraysInstancedFn = nullptr;
+
 #if !defined(GL_NUM_EXTENSIONS)
 #define GL_NUM_EXTENSIONS 0x821D
 #endif
@@ -282,6 +294,9 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
   glMapBufferRangeFn = ::glMapBufferRange;
   glFlushMappedBufferRangeFn = ::glFlushMappedBufferRange;
   glGetStringiFn = ::glGetStringi;
+  glTexImage3DFn = ::glTexImage3D;
+  glTexSubImage3DFn = ::glTexSubImage3D;
+  glDrawArraysInstancedFn = ::glDrawArraysInstanced;
 
   glClearColorFn = LOAD_GL_FUNC(TglClearColorFn, glClearColor);
   glClearFn = LOAD_GL_FUNC(TglClearFn, glClear);
@@ -296,6 +311,9 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
   glMapBufferRangeFn = LOAD_GL_FUNC(TglMapBufferRangeFn, glMapBufferRange);
   glFlushMappedBufferRangeFn = LOAD_GL_FUNC(TglFlushMappedBufferRangeFn, glFlushMappedBufferRange);
   glGetStringiFn = LOAD_GL_FUNC(TglGetStringiFn, glGetStringi);
+  glTexImage3DFn = LOAD_GL_FUNC(TglTexImage3DFn, glTexImage3D);
+  glTexSubImage3DFn = LOAD_GL_FUNC(TglTexSubImage3DFn, glTexSubImage3D);
+  glDrawArraysInstancedFn = LOAD_GL_FUNC(TglDrawArraysInstancedFn, glDrawArraysInstanced);
 
   glClearColorFn = ::glClearColor;
   glClearFn = ::glClear;
@@ -1000,8 +1018,9 @@ void GLFunctions::glTexImage2DArray(int width, int height, int layers, glConst l
                                     void const * data)
 {
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
+  ASSERT(glTexImage3DFn != nullptr, ());
   int const internalFormat = TextureInternalFormatByLayout(layout, pixelType);
-  GLCHECK(::glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, internalFormat, width, height, layers, 0, layout, pixelType, data));
+  GLCHECK(glTexImage3DFn(GL_TEXTURE_2D_ARRAY, 0, internalFormat, width, height, layers, 0, layout, pixelType, data));
 }
 
 void GLFunctions::glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType,
@@ -1015,7 +1034,8 @@ void GLFunctions::glTexSubImage2DArray(int x, int y, int layer, int width, int h
                                        glConst pixelType, void const * data)
 {
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
-  GLCHECK(::glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, x, y, layer, width, height, 1, layout, pixelType, data));
+  ASSERT(glTexSubImage3DFn != nullptr, ());
+  GLCHECK(glTexSubImage3DFn(GL_TEXTURE_2D_ARRAY, 0, x, y, layer, width, height, 1, layout, pixelType, data));
 }
 
 void GLFunctions::glTexParameter(glConst param, glConst value, glConst target)
@@ -1036,10 +1056,12 @@ void GLFunctions::glDrawArrays(glConst mode, int32_t first, uint32_t count)
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
   GLCHECK(::glDrawArrays(mode, first, count));
 }
+
 void GLFunctions::glDrawArraysInstanced(glConst mode, int32_t first, uint32_t count, uint32_t instanceCount)
 {
   ASSERT_EQUAL(CurrentApiVersion, dp::ApiVersion::OpenGLES3, ());
-  GLCHECK(::glDrawArraysInstanced(mode, first, count, instanceCount));
+  ASSERT(glDrawArraysInstancedFn != nullptr, ());
+  GLCHECK(glDrawArraysInstancedFn(mode, first, count, instanceCount));
 }
 
 void GLFunctions::glGenFramebuffer(uint32_t * fbo)

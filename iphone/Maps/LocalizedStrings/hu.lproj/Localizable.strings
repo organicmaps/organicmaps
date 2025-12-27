@@ -253,7 +253,7 @@
 "donate" = "Adományozás";
 "already_donated" = "Már adományozott";
 "remind_me_later" = "Emlékeztessen később";
-"support_organic_maps" = "Támogatás";
+"support_organic_maps" = "Támogasd az Organic Maps-et";
 
 /* Button in the main Help dialog */
 "copyright" = "Szerzői jogok";
@@ -339,7 +339,7 @@
 "teal" = "Zöldeskék";
 
 /* lime color */
-"lime" = "Mész";
+"lime" = "Lime";
 
 /* deep orange color */
 "deep_orange" = "Mély narancssárga";
@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Egyéb";
 
 /* Tex label above the Donate button */
-"donate_description" = "Adományozzon, hogy együtt építsük a legjobb térképeket!";
+"donate_description" = "Ajándékozzon ingyenes, hirdetésmentes térképeket felhasználók millióinak!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Hibás térképadatok jelentése vagy javítása";
@@ -533,7 +533,7 @@
 "message_invalid_feature_position" = "Itt nem található objektum";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Közösség által létrehozott OpenStreetMap adatok innen: %@. További információkat a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon találhat";
+"osm_presentation" = "A közösségi OpenStreetMap adatok frissítésének időpontja: %@. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon";
 "login_to_make_edits_visible" = "Hozzon létre egy fiókot az OpenStreetMapen, vagy jelentkezzen be, hogy közzétehesse térképszerkesztéseit a világ számára.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
@@ -889,7 +889,7 @@
 /* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
 
-/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+/* Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/hu/";
 
 /* Link to OSM wiki for Editor, Profile and About pages */

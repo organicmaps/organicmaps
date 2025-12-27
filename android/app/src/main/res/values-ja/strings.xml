@@ -252,7 +252,7 @@
     <string name="donate">寄付</string>
     <string name="already_donated">寄付済み</string>
     <string name="remind_me_later">後でリマインド</string>
-    <string name="support_organic_maps">Organic Maps を支援</string>
+    <string name="support_organic_maps">Organic Maps を応援してください</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">プロジェクトを支援する</string>
     <!-- Button in the main Help dialog -->
@@ -336,6 +336,8 @@
     <string name="gray">灰色</string>
     <!-- blue gray color -->
     <string name="blue_gray">青灰色</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">何百万人ものユーザーに広告なしの無料地図を贈ろう！</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">案内ルートに従う際は、以下の点にご留意ください：</string>
@@ -771,8 +773,6 @@
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
-    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
-    <string name="translated_om_site_url">https://organicmaps.app/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/JA:参加する</string>
     <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->

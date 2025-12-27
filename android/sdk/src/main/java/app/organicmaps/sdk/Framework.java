@@ -367,4 +367,10 @@ public class Framework
   public static native void nativeDidSelectProduct(String title, String link);
 
   public static native void nativeSaveRoute();
+
+  public static native boolean nativeCanShowCrowdfundingPromo();
+
+  public static native void nativeDidShowDonationPage();
+
+  public static native void nativeResetDonations();
 }

@@ -325,6 +325,8 @@
     <string name="gray">สีเทา</string>
     <!-- blue gray color -->
     <string name="blue_gray">สีฟ้าอมเทา</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">มอบแผนที่ฟรีไม่มีโฆษณาให้แก่ผู้ใช้นับล้าน!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">ขณะกำลังเดินทางตามเส้นทาง โปรดจำไว้ว่า:</string>

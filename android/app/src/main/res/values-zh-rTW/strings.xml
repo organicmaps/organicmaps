@@ -252,7 +252,7 @@
     <string name="donate">捐助我們</string>
     <string name="already_donated">已捐贈</string>
     <string name="remind_me_later">稍後提醒</string>
-    <string name="support_organic_maps">支持 Organic Maps</string>
+    <string name="support_organic_maps">支援 Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">支持本項目</string>
     <!-- Button in the main Help dialog -->
@@ -336,6 +336,8 @@
     <string name="gray">灰色</string>
     <!-- blue gray color -->
     <string name="blue_gray">藍灰色</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">向數百萬使用者贈送無廣告的免費地圖！</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">依照路線行進時，請牢記：</string>
@@ -770,7 +772,7 @@
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
-    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/zh-Hans/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Zh-hant:關於OpenStreetMap</string>

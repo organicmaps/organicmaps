@@ -253,7 +253,7 @@
 "donate" = "Wspomóż";
 "already_donated" = "Już przekazano";
 "remind_me_later" = "Przypomnij później";
-"support_organic_maps" = "Wspierać Organic Maps";
+"support_organic_maps" = "Wesprzyj Organic Maps";
 
 /* Button in the main Help dialog */
 "copyright" = "Prawa autorskie";
@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Inny";
 
 /* Tex label above the Donate button */
-"donate_description" = "Przekaż darowiznę, aby wspólnie tworzyć najlepsze mapy!";
+"donate_description" = "Podaruj darmowe mapy bez reklam milionom użytkowników!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Zgłoś lub napraw nieprawidłowe dane mapy";
@@ -889,7 +889,7 @@
 /* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
 
-/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+/* Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/pl/";
 
 /* Link to OSM wiki for Editor, Profile and About pages */

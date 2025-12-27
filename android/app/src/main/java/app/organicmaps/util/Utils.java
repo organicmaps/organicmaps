@@ -34,7 +34,6 @@ import androidx.annotation.StringRes;
 import androidx.core.app.NavUtils;
 import androidx.core.os.BundleCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
@@ -499,6 +498,8 @@ public class Utils
   @NonNull
   public static String getDonateUrl(@NonNull Context context)
   {
+    // The same l11n logic as in Framework::GetDonateUrl()
+
     final String url = Config.getDonateUrl();
     // Enable donations by default if not Google or Huawei. Replace organicmaps.app/donate/ with localized page.
     if ((url.isEmpty() && !BuildConfig.FLAVOR.equals("google") && !BuildConfig.FLAVOR.equals("huawei"))

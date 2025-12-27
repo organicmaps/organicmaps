@@ -68,6 +68,7 @@ enum GlobalStyleSheet: String, CaseIterable {
   case sideMenuContent
   case toastBackground
   case toastLabel
+  case crowdfundingButton
 }
 
 extension GlobalStyleSheet: IStyleSheet {
@@ -309,6 +310,13 @@ extension GlobalStyleSheet: IStyleSheet {
         s.cornerRadius = .buttonDefaultBig
         s.backgroundColor = colors.linkBlue
         s.backgroundColorDisabled = colors.linkBlueHighlighted
+      }
+    case .crowdfundingButton:
+      return .addFrom(Self.flatNormalButtonBig) { s in
+        s.font = fonts.semibold16
+        s.fontColor = UIColor(fromHexString: "500000")
+        s.cornerRadius = .buttonDefaultBig
+        s.backgroundColor = colors.ratingYellow
       }
     case .flatNormalTransButton:
       return .add { s in

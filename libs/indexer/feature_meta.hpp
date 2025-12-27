@@ -118,6 +118,7 @@ public:
     FMD_SELF_SERVICE = 47,
     FMD_OUTDOOR_SEATING = 48,
     FMD_NETWORK = 49,
+    FMD_SCHEDULE_ID = 50,
     FMD_COUNT
   };
 

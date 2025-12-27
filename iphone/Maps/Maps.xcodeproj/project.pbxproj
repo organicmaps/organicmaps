@@ -480,7 +480,6 @@
 		ED7CCC4F2C1362E300E2A737 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7CCC4E2C1362E300E2A737 /* FileType.swift */; };
 		ED7D85EC2E2A55ED0026BCC4 /* RouteActionsBottomMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7D85E92E2A55ED0026BCC4 /* RouteActionsBottomMenuView.swift */; };
 		ED7D85ED2E2A55ED0026BCC4 /* StartRouteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7D85EA2E2A55ED0026BCC4 /* StartRouteButton.swift */; };
-		ED7D85FB2E2A775A0026BCC4 /* TransportOptionsSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7D85FA2E2A775A0026BCC4 /* TransportOptionsSegmentedControl.swift */; };
 		ED808D0F2C38407800D52585 /* CircleImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED808D0E2C38407800D52585 /* CircleImageButton.swift */; };
 		ED810EC52D566E9B00ECDE2C /* SearchOnMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */; };
 		ED8270F02C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */; };
@@ -1453,7 +1452,6 @@
 		ED7CCC4E2C1362E300E2A737 /* FileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
 		ED7D85E92E2A55ED0026BCC4 /* RouteActionsBottomMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteActionsBottomMenuView.swift; sourceTree = "<group>"; };
 		ED7D85EA2E2A55ED0026BCC4 /* StartRouteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRouteButton.swift; sourceTree = "<group>"; };
-		ED7D85FA2E2A775A0026BCC4 /* TransportOptionsSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportOptionsSegmentedControl.swift; sourceTree = "<group>"; };
 		ED808D0E2C38407800D52585 /* CircleImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageButton.swift; sourceTree = "<group>"; };
 		ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapTests.swift; sourceTree = "<group>"; };
 		ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewDetailedSwitchCell.swift; sourceTree = "<group>"; };
@@ -3192,7 +3190,6 @@
 			isa = PBXGroup;
 			children = (
 				ED18EF882DBAA60E00B383A0 /* TransportOptionsView.swift */,
-				ED7D85FA2E2A775A0026BCC4 /* TransportOptionsSegmentedControl.swift */,
 				ED4F4F3A2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift */,
 			);
 			path = TransportOptions;
@@ -4500,7 +4497,6 @@
 				47F86D0120C93D8D00FEE291 /* TabViewController.swift in Sources */,
 				99536113235DB86C008B218F /* InsetsLabel.swift in Sources */,
 				6741A9A51BF340DE002C974C /* MWMShareActivityItem.mm in Sources */,
-				ED7D85FB2E2A775A0026BCC4 /* TransportOptionsSegmentedControl.swift in Sources */,
 				994F790723E85C5900660E75 /* DifficultyView.swift in Sources */,
 				34AB66651FC5AA330078E451 /* TransportTransitTrain.swift in Sources */,
 				FA85D44E279B738F00B858E9 /* CopyableLabel.swift in Sources */,

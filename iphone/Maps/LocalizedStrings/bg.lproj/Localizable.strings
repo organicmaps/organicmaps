@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Друго";
 
 /* Tex label above the Donate button */
-"donate_description" = "Дарете, за да създадем заедно най-добрите карти!";
+"donate_description" = "Подарете безплатни карти без реклами на милиони потребители!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Докладване или поправяне на неправилни данни на картата";
@@ -889,7 +889,7 @@
 /* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
 
-/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+/* Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
 /* Link to OSM wiki for Editor, Profile and About pages */

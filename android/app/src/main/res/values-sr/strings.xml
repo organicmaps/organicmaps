@@ -252,7 +252,7 @@
     <string name="donate">Донација</string>
     <string name="already_donated">Већ је донирано</string>
     <string name="remind_me_later">Подсећати касније</string>
-    <string name="support_organic_maps">Подршка Organic Maps</string>
+    <string name="support_organic_maps">Подржава Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Подржи пројекат</string>
     <!-- Button in the main Help dialog -->
@@ -336,6 +336,8 @@
     <string name="gray">Сива</string>
     <!-- blue gray color -->
     <string name="blue_gray">Плаво сива</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Поклоните бесплатне мапе без огласа милионима корисника!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Када пратите руту, обратите пажњу на:</string>
@@ -763,8 +765,6 @@
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
-    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
-    <string name="translated_om_site_url">https://organicmaps.app/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
     <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->

@@ -252,7 +252,7 @@
     <string name="donate">Spenden</string>
     <string name="already_donated">Bereits gespendet</string>
     <string name="remind_me_later">Später erinnern</string>
-    <string name="support_organic_maps">Organic Maps unterstützen</string>
+    <string name="support_organic_maps">Unterstützen Sie Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Unterstütze das Projekt</string>
     <!-- Button in the main Help dialog -->
@@ -336,6 +336,8 @@
     <string name="gray">Grau</string>
     <!-- blue gray color -->
     <string name="blue_gray">Graublau</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Schenke Millionen von Nutzern kostenlose und werbefreie Karten!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Wenn Sie der Route folgen, beachten Sie bitte:</string>
@@ -774,7 +776,7 @@
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
-    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/de/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/DE:Über_OSM</string>

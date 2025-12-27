@@ -7,7 +7,6 @@
 
 #undef min
 #undef max
-// #undef far
-// #undef near
+#undef FindResource
 
 #endif  // OMIM_OS_WINDOWS

@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Kita";
 
 /* Tex label above the Donate button */
-"donate_description" = "Paaukokite, kad kartu sukurtume geriausius žemėlapius!";
+"donate_description" = "Padovanokite nemokamus žemėlapius be skelbimų milijonams vartotojų!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Ištaisyti arba pranešti apie neteisingus duomenis žemėlapyje";
@@ -889,8 +889,8 @@
 /* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
 
-/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
-"translated_om_site_url" = "https://organicmaps.app/";
+/* Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/lt/";
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";

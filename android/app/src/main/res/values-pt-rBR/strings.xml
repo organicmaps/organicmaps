@@ -161,7 +161,6 @@
     <string name="donate">Doação</string>
     <string name="already_donated">Já doou</string>
     <string name="remind_me_later">Lembrar mais tarde</string>
-    <string name="support_organic_maps">Apoiar Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Apoiar o projeto</string>
     <!-- Button in the main Help dialog -->
@@ -215,6 +214,8 @@
     <string name="lime">Cal</string>
     <!-- blue gray color -->
     <string name="blue_gray">Azul escuro</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Ofereça mapas gratuitos e sem anúncios a milhões de usuários!</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Ao seguir a rota, lembre-se que:</string>
@@ -534,7 +535,7 @@
     <string name="splash_subtitle">Dados do mapa do OpenStreetMap</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/pt-BR/faq/texto-para-fala-android-tts/</string>
-    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/pt-BR/</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Obrigado por você usar nossos mapas criados pela comunidade!</string>

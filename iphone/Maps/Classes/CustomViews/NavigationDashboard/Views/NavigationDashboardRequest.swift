@@ -43,36 +43,24 @@ extension MWMRouterType: CaseIterable {
   ]
 
   func image(for isSelected: Bool) -> UIImage {
-    if #available(iOS 15, *) {
-      switch self {
-      case .vehicle:
-        UIImage(resource: .navigationDashboardCar)
-      case .pedestrian:
-        UIImage(resource: .navigationDashboardWalk)
-      case .publicTransport:
-        UIImage(resource: .navigationDashboardTrain)
-      case .bicycle:
-        UIImage(resource: .navigationDashboardBike)
-      case .ruler:
-        UIImage(resource: .navigationDashboardRuler)
-      @unknown default:
-        fatalError("Unknown router type")
-      }
-    } else {
-      switch self {
-      case .vehicle:
-        UIImage(resource: isSelected ? .icCarSelected : .icCar)
-      case .pedestrian:
-        UIImage(resource: isSelected ? .icPedestrianSelected : .icPedestrian)
-      case .publicTransport:
-        UIImage(resource: isSelected ? .icTrainSelected : .icTrain)
-      case .bicycle:
-        UIImage(resource: isSelected ? .icBikeSelected : .icBike)
-      case .ruler:
-        UIImage(resource: isSelected ? .icRulerRouteSelected : .icRulerRoute)
-      @unknown default:
-        fatalError("Unknown router type")
-      }
+    var image: UIImage
+    switch self {
+    case .vehicle:
+      image = UIImage(resource: .navigationDashboardCar)
+    case .pedestrian:
+      image = UIImage(resource: .navigationDashboardWalk)
+    case .publicTransport:
+      image = UIImage(resource: .navigationDashboardTrain)
+    case .bicycle:
+      image = UIImage(resource: .navigationDashboardBike)
+    case .ruler:
+      image = UIImage(resource: .navigationDashboardRuler)
+    @unknown default:
+      fatalError("Unknown router type")
     }
+    if #available(iOS 13, *) {
+      return image.withTintColor(isSelected ? .linkBlue() : .blackSecondaryText(), renderingMode: .alwaysOriginal)
+    }
+    return image
   }
 }

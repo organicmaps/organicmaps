@@ -11032,6 +11032,7 @@ id:3Air
 it:3Acqua
 ja:水
 ko:물
+lt:3Vanduo
 lv:3Ūdens
 mr:पाणी
 nb:Vann
@@ -13045,7 +13046,7 @@ id:WiFi|Wi-Fi
 it:WiFi|Wi-Fi
 ja:無線LAN
 ko:WiFi인터넷|WiFi 인터넷|와이파이
-lt:WiFi|Wi-Fi|5Beviėlis internetas
+lt:WiFi|Wi-Fi|5Belaidis ryšys|5Beviėlis internetas
 lv:WiFi|Wi-Fi
 mr:WiFi|Wi-Fi
 nb:WiFi|Wi-Fi

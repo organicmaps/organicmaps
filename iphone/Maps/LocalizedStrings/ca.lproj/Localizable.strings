@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Altre";
 
 /* Tex label above the Donate button */
-"donate_description" = "Feu una donació per a construir els millors mapes junts!";
+"donate_description" = "Regala mapes gratuïts sense anuncis a milions d'usuaris!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Informa o corregeix dades de mapa incorrectes";
@@ -889,7 +889,7 @@
 /* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
 
-/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+/* Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/ca/";
 
 /* Link to OSM wiki for Editor, Profile and About pages */

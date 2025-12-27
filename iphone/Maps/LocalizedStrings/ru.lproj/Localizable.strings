@@ -369,7 +369,7 @@
 "pref_tts_other_section_title" = "Другой";
 
 /* Tex label above the Donate button */
-"donate_description" = "Поддержать деньгами, чтобы вместе создавать лучшие карты!";
+"donate_description" = "Подарите миллионам пользователей бесплатные карты без рекламы!";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Сообщить или исправить неправильные данные на карте";
@@ -889,7 +889,7 @@
 /* Instagram account url for the "?" About page */
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
 
-/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+/* Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/ru/";
 
 /* Link to OSM wiki for Editor, Profile and About pages */
