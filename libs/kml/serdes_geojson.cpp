@@ -136,13 +136,13 @@ bool DeserializerGeoJson::Parse(std::string_view jsonContent)
 
       // Parse description
       if (auto const descr = getStringFromJsonMap(propsJson, "description"))
-        kml::SetDefaultStr(bookmark.m_description, *descr);
+        SetDefaultStr(bookmark.m_description, *descr);
       else if (google_maps_url)
       {
         if (bookmark_name.empty())
-          kml::SetDefaultStr(bookmark.m_description, *google_maps_url);
+          SetDefaultStr(bookmark.m_description, *google_maps_url);
         else
-          kml::SetDefaultStr(bookmark.m_description,
+          SetDefaultStr(bookmark.m_description,
                              "<a href=\"" + (*google_maps_url) + "\">" + bookmark_name + "</a>");
       }
 
@@ -178,7 +178,7 @@ bool DeserializerGeoJson::Parse(std::string_view jsonContent)
       }
 
       if (!bookmark_name.empty())
-        kml::SetDefaultStr(bookmark.m_name, bookmark_name);
+        SetDefaultStr(bookmark.m_name, bookmark_name);
       bookmark.m_point = mercator::FromLatLon(latitude, longitude);
       m_fileData.m_bookmarksData.push_back(bookmark);
     }
@@ -201,9 +201,9 @@ bool DeserializerGeoJson::Parse(std::string_view jsonContent)
 
       // Parse "name" or "label"
       if (auto const name = getStringFromJsonMap(props_json, "name"))
-        kml::SetDefaultStr(track.m_name, *name);
+        SetDefaultStr(track.m_name, *name);
       else if (auto const label = getStringFromJsonMap(props_json, "label"))
-        kml::SetDefaultStr(track.m_name, *label);
+        SetDefaultStr(track.m_name, *label);
 
       // Parse color
       std::unique_ptr<ColorData> lineColor;
@@ -277,20 +277,15 @@ std::vector<std::vector<double>> convertPoints2GeoJsonCoords(std::vector<geometr
   for (size_t i = 0; i < points.size(); i++)
   {
     auto const & p = points[i];
-    auto const latLon = mercator::ToLatLon(p);
-    pairs[i] = std::vector<double>{latLon.m_lon, latLon.m_lat};
+    auto const [lat, lon] = mercator::ToLatLon(p);
+    pairs[i] = std::vector<double>{lon, lat};
   }
   return pairs;
 }
 
 void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
 {
-  // Make some classes from 'geojson' namespace visible here.
-  using geojson::GeoJsonFeature;
-  using geojson::GeoJsonGeometryLine;
-  using geojson::GeoJsonGeometryPoint;
-  using geojson::GeoJsonGeometryUnknown;
-  using geojson::JsonTMap;
+  using namespace geojson;
 
   // Convert FileData to GeoJsonData and then let Glaze generate Json from it.
   std::vector<GeoJsonFeature> geoJsonFeatures;
@@ -298,12 +293,12 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
   // Convert Bookmarks
   for (BookmarkData const & bookmark : fileData.m_bookmarksData)
   {
-    auto const p = mercator::ToLatLon(bookmark.m_point);
-    GeoJsonGeometryPoint point{.coordinates = {p.m_lon, p.m_lat}};
-    JsonTMap bookmarkProperties{{"name", kml::GetDefaultStr(bookmark.m_name)},
+    auto const [lat, lon] = mercator::ToLatLon(bookmark.m_point);
+    GeoJsonGeometryPoint point{.coordinates = {lon, lat}};
+    JsonTMap bookmarkProperties{{"name", GetDefaultStr(bookmark.m_name)},
                                 {"marker-color", toCssColor(bookmark.m_color)}};
     if (!bookmark.m_description.empty())
-      bookmarkProperties["description"] = kml::GetDefaultStr(bookmark.m_description);
+      bookmarkProperties["description"] = GetDefaultStr(bookmark.m_description);
 
     // Add '_umap_options' if needed.
     if (auto const umapOptionsPair = bookmark.m_properties.find("_umap_options");
@@ -342,9 +337,9 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
     auto points = track.m_geometry.m_lines[0];
     auto layer = track.m_layers[i];
 
-    JsonTMap trackProps{{"name", kml::GetDefaultStr(track.m_name)}, {"stroke", toCssColor(layer.m_color)}};
+    JsonTMap trackProps{{"name", GetDefaultStr(track.m_name)}, {"stroke", toCssColor(layer.m_color)}};
     if (!track.m_description.empty())
-      trackProps["description"] = kml::GetDefaultStr(track.m_description);
+      trackProps["description"] = GetDefaultStr(track.m_description);
 
     // Add '_umap_options' if needed.
     if (auto const umapOptionsPair = track.m_properties.find("_umap_options");

@@ -22,11 +22,11 @@ static kml::FileData LoadGeojsonFromString(std::string_view content)
       ());
 }
 
-static std::string SaveToGeoJsonString(kml::FileData & fileData, bool minimize = false)
+static std::string SaveToGeoJsonString(kml::FileData const & fileData, bool minimize = false)
 {
   TEST_NO_THROW(
       {
-        std::string buffer{};
+        std::string buffer;
         MemWriter bufferWriter(buffer);
         kml::GeoJsonWriter exporter(bufferWriter);
         exporter.Write(fileData, minimize);
@@ -351,7 +351,7 @@ UNIT_TEST(GeoJson_Writer_Simple)
       "properties": {
         "description": "Test track description",
         "name": "Test track",
-        "stroke": "#ff0000"
+        "stroke": "#FF0000"
       }
     }
   ]
@@ -369,7 +369,7 @@ UNIT_TEST(GeoJson_Writer_Simple_Minimized)
   std::string_view constexpr expected_geojson = R"({"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[47,45]},"properties":{"description":"Test bookmark description","marker-color":"RoyalBlue","name":"Marcador de prueba"}}]})";
   // clang-format on
 
-  kml::FileData testData = GenerateKmlFileData();
+  kml::FileData const testData = GenerateKmlFileData();
   auto jsonString = SaveToGeoJsonString(testData, true);
 
   TEST_EQUAL(jsonString, expected_geojson, ());
@@ -423,14 +423,14 @@ UNIT_TEST(GeoJson_Writer_UMap)
       },
       "properties": {
         "_umap_options": {
-          "color": "#ff0000",
+          "color": "#FF0000",
           "dashArray": "5,10",
           "opacity": 0.5,
           "weight": 2
         },
         "description": "Test track description",
         "name": "Test track",
-        "stroke": "#ff0000"
+        "stroke": "#FF0000"
       }
     }
   ]
