@@ -85,7 +85,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Karten speichern auf</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Wählen Sie den Speicherort für die heruntergeladenen Karten.</string>
+    <string name="maps_storage_summary">Speicherort für heruntergelandene Karten wählen.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Heruntergeladene Karten</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
@@ -421,7 +421,7 @@
     <string name="editor_report_problem_no_place_title">Der Ort existiert nicht</string>
     <string name="editor_report_problem_under_construction_title">Wegen Wartung geschlossen</string>
     <string name="editor_report_problem_duplicate_place_title">Doppelter Ort</string>
-    <string name="autodownload">Automatisch herunterladen</string>
+    <string name="autodownload">Karten automatisch herunterladen</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Täglich</string>
     <string name="twentyfour_seven">24/7</string>
@@ -666,7 +666,7 @@
     <string name="bookmarks_text_placement_description">Wenn du zu viele Lesezeichen hast, kann es sein, dass die App langsamer wird, wenn die Namen auf der Karte angezeigt werden.</string>
     <string name="show_to_the_right">Rechts anzeigen</string>
     <string name="show_at_the_bottom">Unten anzeigen</string>
-    <string name="enable_logging_warning_message">Diese Option wird aktiviert, um Aktivitäten zwecks Diagnostik aufzuzeichnen. Das hilft unserem Team, Probleme mit der App zu erkennen. Aktivieren Sie diese Option, reproduzieren Sie das Problem und senden Sie die Protokolle über die Schaltfläche \"Fehler melden\" an uns.</string>
+    <string name="enable_logging_warning_message">Aktivieren, um Diagnoseprotokolle aufzuzeichnen. Sollte ein App-Fehler auftreten, reproduzieren Sie das Problem und senden Sie uns die Protokolle über die Schaltfläche \"App-Fehler melden\" unter \"Hilfe\". Protokolle können Geopositions-Informationen enthalten.</string>
     <string name="driving_options_title">Routenbeschränkungen</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Mautstraßen vermeiden</string>
@@ -761,11 +761,11 @@
     <string name="disconnect_usb_cable_title">USB-Kabel trennen</string>
     <string name="enable_keep_screen_on">Bildschirm anlassen</string>
     <!-- Description in preferences -->
-    <string name="enable_keep_screen_on_description">Wenn diese Option aktiviert ist, ist der Bildschirm bei der Anzeige der Karte immer eingeschaltet.</string>
+    <string name="enable_keep_screen_on_description">Wenn diese Option aktiviert ist, bleibt der Bildschirm bei der Anzeige der Karte immer eingeschaltet.</string>
     <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">Auf dem Sperrbildschirm anzeigen</string>
     <!-- Description in preferences -->
-    <string name="enable_show_on_lock_screen_description">Wenn aktiviert, muss das Gerät nicht jedes Mal entsperrt werden, wenn die App ausgeführt wird.</string>
+    <string name="enable_show_on_lock_screen_description">Wenn aktiviert, funktioniert die App auf dem Sperrbildschirm auch wenn das Gerät gesperrt ist.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Karten-Sprache</string>
     <!-- OpenStreetMap text on splash screen -->
