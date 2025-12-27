@@ -43,13 +43,28 @@ struct GeoJsonGeometryLine
   }
 };
 
+struct GeoJsonGeometryMultiLine
+{
+  typedef std::vector<std::vector<double>> LineCoords;
+
+  std::string type{"MultiLineString"};  // Embedded tag field
+  std::vector<LineCoords> coordinates;
+
+  friend std::string DebugPrint(GeoJsonGeometryMultiLine const & c)
+  {
+    std::ostringstream out;
+    out << "GeoJsonGeometryMultiLine [coordinates = " << c.coordinates.size() << " lines(s)]";
+    return out.str();
+  }
+};
+
 struct GeoJsonGeometryUnknown
 {
   std::string type;
   glz::generic coordinates;
 };
 
-using GeoJsonGeometry = std::variant<GeoJsonGeometryPoint, GeoJsonGeometryLine, GeoJsonGeometryUnknown>;
+using GeoJsonGeometry = std::variant<GeoJsonGeometryPoint, GeoJsonGeometryLine, GeoJsonGeometryMultiLine, GeoJsonGeometryUnknown>;
 
 std::string DebugPrint(GeoJsonGeometry const & g);
 
@@ -116,6 +131,6 @@ template <>
 struct glz::meta<kml::geojson::GeoJsonGeometry>
 {
   static constexpr std::string_view tag = "type";  // Field name that serves as tag
-  // TODO: Support Polygon, MultiPoint, MultiLineString, and MultiPolygon
-  static constexpr auto ids = std::array{"Point", "LineString"};
+  // TODO: Support Polygon, MultiPoint, and MultiPolygon
+  static constexpr auto ids = std::array{"Point", "LineString", "MultiLineString"};
 };

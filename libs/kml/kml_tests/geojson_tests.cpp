@@ -9,6 +9,7 @@ namespace geojson_tests
 {
 kml::FileData GenerateKmlFileData();
 kml::FileData GenerateKmlFileDataWithTrack();
+kml::FileData GenerateKmlFileDataWithMultiTrack();
 
 static kml::FileData LoadGeojsonFromString(std::string_view content)
 {
@@ -79,6 +80,51 @@ UNIT_TEST(GeoJson_Parse_Basic)
       }
     },
     {
+      /* MultiLineString feature */
+      "type": "Feature",
+      "properties": {
+        "stroke": "green"
+      },
+      "geometry": {
+        "coordinates": [
+          /* First line section */
+          [
+            [
+              31.055034,
+              29.989067
+            ],
+            [
+              35.182237,
+              31.773850
+            ]
+          ],
+          /* Second line section */
+          [
+            [
+              35.159882,
+              31.755857
+            ],
+            [
+              35.162575,
+              31.749381
+            ],
+            [
+              35.170106,
+              31.746114
+            ],
+            [
+              35.178316,
+              31.746121
+            ]
+          ]
+        ],
+        "type": "MultiLineString"
+      },
+      "properties": {
+        "marker-color": "green"
+      }
+    },
+    {
       /* MultiPoint feature is not supported and should be ignored */
       "type": "Feature",
       "geometry": {
@@ -110,11 +156,19 @@ UNIT_TEST(GeoJson_Parse_Basic)
   TEST_EQUAL(kml::GetDefaultStr(bookmark.m_name), "Bookmark 1", ());
   TEST_EQUAL(bookmark.m_point, mercator::FromLatLon(29.8310316130992, 31.02177966625902), ());
 
-  TEST_EQUAL(dataFromText.m_tracksData.size(), 1, ());
-  auto track = dataFromText.m_tracksData.front();
-  TEST_EQUAL(track.m_layers.front().m_color, kml::ColorData{.m_rgba = 0x0000FFFF}, ());
-  TEST_EQUAL(track.m_geometry.m_lines.empty(), false, ());
-  TEST_EQUAL(track.m_geometry.m_lines.front().size(), 3, ());
+  // Check track data.
+  TEST_EQUAL(dataFromText.m_tracksData.size(), 2, ());
+  auto track1 = dataFromText.m_tracksData[0];
+  TEST_EQUAL(track1.m_layers[0].m_color, kml::ColorData{.m_rgba = 0x0000FFFF}, ());
+  TEST_EQUAL(track1.m_geometry.m_lines.empty(), false, ());
+  TEST_EQUAL(track1.m_geometry.m_lines.front().size(), 3, ());
+
+  // Check multiline track data.
+  auto track2 = dataFromText.m_tracksData[1];
+  TEST_EQUAL(track2.m_layers[0].m_color, kml::ColorData{.m_rgba = 0x008000FF}, ());
+  TEST_EQUAL(track2.m_geometry.m_lines.size(), 2, ());
+  TEST_EQUAL(track2.m_geometry.m_lines[0].size(), 2, ());
+  TEST_EQUAL(track2.m_geometry.m_lines[1].size(), 4, ());
 }
 
 UNIT_TEST(GeoJson_Parse_basic_2)
@@ -363,6 +417,66 @@ UNIT_TEST(GeoJson_Writer_Simple)
   TEST_EQUAL(jsonString, expected_geojson, ());
 }
 
+UNIT_TEST(GeoJson_Writer_MultiTrack)
+{
+  std::string_view constexpr expected_geojson = R"({
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "description": "Test multitrack description",
+        "name": "Test multitrack",
+        "stroke": "#00FF00"
+      }
+    }
+  ]
+})";
+
+  kml::FileData testData = GenerateKmlFileDataWithMultiTrack();
+  testData.m_bookmarksData.clear();
+  auto jsonString = SaveToGeoJsonString(testData);
+
+  TEST_EQUAL(jsonString, expected_geojson, ());
+}
+
 UNIT_TEST(GeoJson_Writer_Simple_Minimized)
 {
   // clang-format off
@@ -535,30 +649,9 @@ kml::FileData GenerateKmlFileData()
 kml::FileData GenerateKmlFileDataWithTrack()
 {
   auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
-  auto const kEnLang = StringUtf8Multilang::kEnglishCode;
   auto const kEsLang = static_cast<int8_t>(21);
 
-  kml::FileData result;
-  result.m_deviceId = "AAAA";
-  result.m_serverId = "AAAA-BBBB-CCCC-DDDD";
-
-  kml::BookmarkData bookmarkData;
-  bookmarkData.m_name[kDefaultLang] = "Marcador de prueba";
-  bookmarkData.m_name[kEnLang] = "Test bookmark";
-  bookmarkData.m_description[kDefaultLang] = "Test bookmark description";
-  bookmarkData.m_description[kEsLang] = "Descripción del marcador de prueba";
-  bookmarkData.m_featureTypes = {718, 715};
-  bookmarkData.m_customName[kDefaultLang] = "Mi lugar favorito";
-  bookmarkData.m_customName[kEnLang] = "My favorite place";
-  bookmarkData.m_color = {kml::PredefinedColor::Blue, 0};
-  bookmarkData.m_icon = kml::BookmarkIcon::None;
-  bookmarkData.m_timestamp = kml::TimestampClock::from_time_t(800);
-  bookmarkData.m_point = mercator::FromLatLon(0.0, 0.0);  // TODO: Replace with real coordinates after Json Serialization is fixed
-  bookmarkData.m_boundTracks = {0};
-  bookmarkData.m_visible = false;
-  bookmarkData.m_minZoom = 10;
-  bookmarkData.m_properties = {{"bm_property1", "value1"}, {"bm_property2", "value2"}, {"score", "5"}};
-  result.m_bookmarksData.emplace_back(std::move(bookmarkData));
+  kml::FileData result = GenerateKmlFileData();
 
   kml::TrackData trackData;
   trackData.m_localId = 0;
@@ -575,6 +668,34 @@ kml::FileData GenerateKmlFileDataWithTrack()
       {{mercator::FromLatLon(0, 0), 1}, {mercator::FromLatLon(0, 0), 2}, {mercator::FromLatLon(0, 0), 3}});
 
   trackData.m_properties = {{"tr_property1", "value1"}, {"tr_property2", "value2"}};
+  result.m_tracksData.emplace_back(std::move(trackData));
+
+  return result;
+}
+
+kml::FileData GenerateKmlFileDataWithMultiTrack()
+{
+  auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
+  auto const kEsLang = static_cast<int8_t>(21);
+
+  kml::FileData result = GenerateKmlFileData();
+
+  kml::TrackData trackData;
+  trackData.m_localId = 0;
+  trackData.m_name[kDefaultLang] = "Test multitrack";
+  trackData.m_name[kEsLang] = "Pista de prueba.";
+  trackData.m_description[kDefaultLang] = "Test multitrack description";
+  trackData.m_description[kEsLang] = "Descripción de prueba de la pista.";
+  trackData.m_layers = {{6.0, {kml::PredefinedColor::None, 0x00ff00ff}},
+                        {7.0, {kml::PredefinedColor::None, 0x0000ffff}}};
+  trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
+
+  // TODO: Replace with real coordinates after Json Serialization is fixed
+  trackData.m_geometry.AddLine(
+      {{mercator::FromLatLon(0, 0), 1}, {mercator::FromLatLon(0, 0), 2}, {mercator::FromLatLon(0, 0), 3}});
+  trackData.m_geometry.AddLine(
+      {{mercator::FromLatLon(0, 0), 1}, {mercator::FromLatLon(0, 0), 2}, {mercator::FromLatLon(0, 0), 3}, {mercator::FromLatLon(0, 0), 4}});
+
   result.m_tracksData.emplace_back(std::move(trackData));
 
   return result;

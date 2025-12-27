@@ -54,15 +54,30 @@ std::string DebugPrint(glz::generic const & json)
 
 }  // namespace geojson
 
+static std::vector<geometry::PointWithAltitude> coordsToPoints(std::vector<std::vector<double>> coords)
+{
+  std::vector<geometry::PointWithAltitude> points;
+  points.resize(coords.size());
+  for (size_t i = 0; i < coords.size(); i++)
+  {
+    auto const & pointCoords = coords[i];
+    if (pointCoords.size() >= 3)
+      // Third coordinate (if present) means altitude
+      points[i] = geometry::PointWithAltitude(mercator::FromLatLon(pointCoords[1], pointCoords[0]), static_cast<geometry::Altitude>(pointCoords[2]));
+    else
+      points[i] = mercator::FromLatLon(pointCoords[1], pointCoords[0]);
+  }
+
+  return points;
+}
+
+
 bool GeoJsonReader::Parse(std::string_view jsonContent)
 {
   // Make some classes from 'geojson' namespace visible here.
-  using geojson::GeoJsonGeometryLine;
-  using geojson::GeoJsonGeometryPoint;
-  using geojson::GeoJsonGeometryUnknown;
-  using geojson::JsonTMap;
+  using namespace geojson;
 
-  geojson::GeoJsonData geoJsonData;
+  GeoJsonData geoJsonData;
 
   glz::opts constexpr opts{.comments = true, .error_on_unknown_keys = false, .error_on_missing_keys = false};
   auto const ec = glz::read<opts>(geoJsonData, jsonContent);
@@ -190,10 +205,11 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
   // Copy tracks from parsed geoJsonData into m_fileData.
   for (auto const & feature : geoJsonData.features)
   {
-    if (auto const * lineGeometry = std::get_if<GeoJsonGeometryLine>(&feature.geometry))
-    {
-      std::vector<std::vector<double>> lineCoords = lineGeometry->coordinates;
+    auto const * lineGeometry = std::get_if<GeoJsonGeometryLine>(&feature.geometry);
+    auto const * multilineGeometry = std::get_if<GeoJsonGeometryMultiLine>(&feature.geometry);
 
+    if (lineGeometry!=nullptr || multilineGeometry!=nullptr)
+    {
       // Convert GeoJson properties to KML properties
       auto const & props_json = feature.properties;
       TrackData track;
@@ -234,21 +250,21 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
       if (lineColor)
         track.m_layers.push_back(TrackLayer{.m_color = *lineColor});
 
-      // Copy coordinates
-      std::vector<geometry::PointWithAltitude> points;
-      points.resize(lineCoords.size());
-      for (size_t i = 0; i < lineCoords.size(); i++)
+      // Convert line(s) coordinates
+      if (lineGeometry != nullptr)
       {
-        auto const & pointCoords = lineCoords[i];
-        if (pointCoords.size() >= 3)
-          // Third coordinate (if present) means altitude
-          points[i] = geometry::PointWithAltitude(mercator::FromLatLon(pointCoords[1], pointCoords[0]), pointCoords[2]);
-        else
-          points[i] = mercator::FromLatLon(pointCoords[1], pointCoords[0]);
+        track.m_geometry.m_lines.push_back(coordsToPoints(lineGeometry->coordinates));
+        track.m_geometry.AddTimestamps({});
+      }
+      if (multilineGeometry != nullptr)
+      {
+        for (auto & coords: multilineGeometry->coordinates)
+        {
+          track.m_geometry.m_lines.push_back(coordsToPoints(coords));
+          track.m_geometry.AddTimestamps({});
+        }
       }
 
-      track.m_geometry.m_lines.push_back(std::move(points));
-      track.m_geometry.AddTimestamps({});
       m_fileData.m_tracksData.push_back(track);
     }
   }
@@ -327,13 +343,9 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
   {
     TrackData const & track = fileData.m_tracksData[i];
     auto linesCount = track.m_geometry.m_lines.size();
+    bool isMultiline = linesCount > 1;
     if (linesCount == 0)
       continue;
-    else if (linesCount > 1)
-    {
-      // TODO: converty multiple lines into GeoJson multiline
-    }
-    auto points = track.m_geometry.m_lines[0];
     auto layer = track.m_layers[i];
 
     JsonTMap trackProps{{"name", GetDefaultStr(track.m_name)}, {"stroke", ToCssColor(layer.m_color)}};
@@ -359,12 +371,25 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
       }
     }
 
-    GeoJsonGeometryLine trackGeometry{.coordinates = convertPoints2GeoJsonCoords(points)};
+    GeoJsonGeometry trackGeometry;
+    if (isMultiline)
+    {
+      std::vector<GeoJsonGeometryMultiLine::LineCoords> lines;
+      for (auto & trackLine : track.m_geometry.m_lines)
+        lines.push_back(convertPoints2GeoJsonCoords(trackLine));
+
+      trackGeometry = GeoJsonGeometryMultiLine{.coordinates = lines};
+    }
+    else
+    {
+      auto points = track.m_geometry.m_lines[0];
+      trackGeometry = GeoJsonGeometryLine{.coordinates = convertPoints2GeoJsonCoords(points)};
+    }
     GeoJsonFeature trackFeature{.geometry = trackGeometry, .properties = trackProps};
     geoJsonFeatures.push_back(std::move(trackFeature));
   }
 
-  geojson::GeoJsonData geoJsonData{.features = geoJsonFeatures, .properties = std::nullopt};
+  GeoJsonData geoJsonData{.features = geoJsonFeatures, .properties = std::nullopt};
 
   // Export to GeoJson string.
   glz::error_ctx error;
