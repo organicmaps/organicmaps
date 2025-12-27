@@ -301,42 +301,7 @@ struct ColorData
   // Color in RGBA format.
   uint32_t m_rgba = 0;
 };
-
-inline std::string toCssColor(ColorData color)
-{
-  if (color.m_predefinedColor == PredefinedColor::None)
-  {
-    if (color.m_rgba == 0)
-      return "red";
-
-    return "#" + NumToHex(color.m_rgba >> 8).substr(2);
-  }
-
-  // Color names from https://htmlcolorcodes.com/color-names/
-  switch (color.m_predefinedColor)
-  {
-    using enum PredefinedColor;
-  case None: return {};
-  case Red: return "red";
-  case Pink: return "pink";
-  case Purple: return "purple";
-  case DeepPurple: return "RebeccaPurple";
-  case Blue: return "RoyalBlue";
-  case LightBlue: return "DodgerBlue";
-  case Cyan: return "MediumTurquoise";
-  case Teal: return "Teal";
-  case Green: return "ForestGreen";
-  case Lime: return "LimeGreen";
-  case Yellow: return "Gold";
-  case Orange: return "Orange";
-  case DeepOrange: return "DarkOrange";
-  case Brown: return "Brown";
-  case Gray: return "Gray";
-  case BlueGray: return "SlateGray";
-  case Count: UNREACHABLE();
-  }
-  UNREACHABLE();
-}
+std::string ToCssColor(ColorData color);
 
 // This structure is used in FileDataV6 because
 // its binary format is the same as in kmb version 6.

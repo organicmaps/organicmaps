@@ -296,7 +296,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
     auto const [lat, lon] = mercator::ToLatLon(bookmark.m_point);
     GeoJsonGeometryPoint point{.coordinates = {lon, lat}};
     JsonTMap bookmarkProperties{{"name", GetDefaultStr(bookmark.m_name)},
-                                {"marker-color", toCssColor(bookmark.m_color)}};
+                                {"marker-color", ToCssColor(bookmark.m_color)}};
     if (!bookmark.m_description.empty())
       bookmarkProperties["description"] = GetDefaultStr(bookmark.m_description);
 
@@ -314,7 +314,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
       else
       {
         // Update known UMap properties.
-        umap_options_obj["color"] = toCssColor(bookmark.m_color);
+        umap_options_obj["color"] = ToCssColor(bookmark.m_color);
         bookmarkProperties["_umap_options"] = umap_options_obj;
       }
     }
@@ -337,7 +337,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
     auto points = track.m_geometry.m_lines[0];
     auto layer = track.m_layers[i];
 
-    JsonTMap trackProps{{"name", GetDefaultStr(track.m_name)}, {"stroke", toCssColor(layer.m_color)}};
+    JsonTMap trackProps{{"name", GetDefaultStr(track.m_name)}, {"stroke", ToCssColor(layer.m_color)}};
     if (!track.m_description.empty())
       trackProps["description"] = GetDefaultStr(track.m_description);
 
@@ -355,7 +355,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
       else
       {
         // Update known UMap properties.
-        umap_options_obj["color"] = toCssColor(layer.m_color);
+        umap_options_obj["color"] = ToCssColor(layer.m_color);
         trackProps["_umap_options"] = umap_options_obj;
       }
     }
