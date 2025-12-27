@@ -115,6 +115,11 @@ Progress Storage::GetOverallProgress(CountriesVec const & countries) const
       overallProgress.m_bytesDownloaded += attr.m_downloadingProgress.m_bytesDownloaded;
       overallProgress.m_bytesTotal += attr.m_downloadingProgress.m_bytesTotal;
     }
+    else if (attr.m_status == NodeStatus::OnDisk)
+    {
+      overallProgress.m_bytesDownloaded += static_cast<int64_t>(attr.m_localMwmSize);
+      overallProgress.m_bytesTotal += static_cast<int64_t>(attr.m_localMwmSize);
+    }
   }
   return overallProgress;
 }

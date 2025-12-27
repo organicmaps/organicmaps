@@ -27,6 +27,10 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
 
   private int mSubscribeSlot;
 
+  private boolean mDownloadStarted = false;
+
+  private int mLastProgress = 0;
+
   @Override
   void beforeDialogCreated(AlertDialog.Builder builder)
   {
@@ -81,13 +85,25 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
   private void updateWheel(WheelProgressView wheel)
   {
     int progress = MapManager.nativeGetOverallProgress(mMapsArray);
-    if (progress == 0)
+
+    if (progress > 0)
+    {
+      if (!mDownloadStarted)
+      {
+        mDownloadStarted = true;
+        wheel.setPending(false);
+      }
+
+      if (progress > mLastProgress)
+      {
+        mLastProgress = progress;
+        wheel.setProgress(progress);
+      }
+    }
+    else if (!mDownloadStarted)
       wheel.setPending(true);
     else
-    {
-      wheel.setPending(false);
-      wheel.setProgress(progress);
-    }
+      wheel.setProgress(mLastProgress);
   }
 
   @Override
