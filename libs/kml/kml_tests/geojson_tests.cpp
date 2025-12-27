@@ -570,9 +570,8 @@ kml::FileData GenerateKmlFileDataWithTrack()
                         {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
   trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
 
-  trackData.m_geometry.AddLine({{mercator::FromLatLon(0, 0), 1},
-                                {mercator::FromLatLon(0, 0), 2},
-                                {mercator::FromLatLon(0, 0), 3}});
+  trackData.m_geometry.AddLine(
+        {{mercator::FromLatLon(0, 0), 1}, {mercator::FromLatLon(0, 0), 2}, {mercator::FromLatLon(0, 0), 3}});
 
   trackData.m_properties = {{"tr_property1", "value1"}, {"tr_property2", "value2"}};
   result.m_tracksData.emplace_back(std::move(trackData));
