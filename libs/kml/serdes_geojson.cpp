@@ -318,7 +318,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
     }
 
     GeoJsonFeature pointFeature{.geometry = GeoJsonGeometryPoint{.coordinates = {lon, lat}},
-      .properties = std::move(bookmarkProperties)};
+                                .properties = std::move(bookmarkProperties)};
     geoJsonFeatures.push_back(std::move(pointFeature));
   }
 
