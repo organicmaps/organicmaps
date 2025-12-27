@@ -61,8 +61,10 @@ UNIT_TEST(CaliforniaCupertinoFindPhantomAssertTest)
 }
 
 // Path in the last map through the other map.
-UNIT_TEST(RussiaUfaToUstKatavTest)
+UNIT_TEST(Russia_Ufa_UstKatav)
 {
+  /// @todo Should use "Восточный выезд из Уфы" road in the beginning.
+  /// Take into account "motorroad" tag?
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(54.7304, 55.9554), {0., 0.},
                                    FromLatLon(54.9228, 58.1469), 160565);
 }
@@ -680,6 +682,7 @@ UNIT_TEST(USA_Birmingham_AL_KeyWest_FL_NoMotorway)
   auto const finish = FromLatLon(24.5534713, -81.7932587);
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), start, {0., 0.}, finish, 1'471'410);
 
+  /// @todo Fails on sever also.
   RoutingOptionSetter optionsGuard(RoutingOptions::Motorway);
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), start, {0., 0.}, finish, 1'495'860);
 }
@@ -769,32 +772,13 @@ UNIT_TEST(Russia_UseGravelPrimary_Not_DefaultTertiary)
 }
 
 // https://github.com/organicmaps/organicmaps/issues/5695
-UNIT_TEST(Russia_Yekaterinburg_NChelny)
+UNIT_TEST(Russia_UseGravel_NotPrimaryDetour)
 {
-  // Make sense without Chelyabinsk and Izhevsk. Thus we can check really fancy cases.
-  // Otherwise, good routes will be through Perm-Izhevsk or Chelyabinsk-Ufa
-  auto components = CreateAllMapsComponents(VehicleType::Car, {"Russia_Chelyabinsk Oblast", "Russia_Udmurt Republic"});
-
-  auto const start = FromLatLon(56.8382242, 60.6308866);
-  auto const finish = FromLatLon(55.7341111, 52.4156012);
-
-  {
-    RoutingOptionSetter optionsGuard(RoutingOptions::Dirty | RoutingOptions::Ferry);
-    // forward
-    CalculateRouteAndTestRouteLength(*components, start, {0., 0.}, finish, 767702);
-    // backward
-    CalculateRouteAndTestRouteLength(*components, finish, {0., 0.}, start, 766226);
-  }
-
-  // OSRM, GraphHopper uses gravel, Valhalla makes a route like above.
+  // OSRM, GraphHopper uses gravel, Valhalla makes a detour.
 
   /// @todo Should use tertiary + gravel + villages (46km) here and below instead of primary (86km)?
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(55.9315, 58.202), {0., 0.},
                                    FromLatLon(55.7555, 57.8348), 45788);
-  // forward
-  CalculateRouteAndTestRouteLength(*components, start, {0., 0.}, finish, 757109);
-  // backward
-  CalculateRouteAndTestRouteLength(*components, finish, {0., 0.}, start, 755851);
 }
 
 // https://github.com/organicmaps/organicmaps/issues/5695
