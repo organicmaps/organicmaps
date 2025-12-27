@@ -479,7 +479,7 @@
 "editor_example_values" = "Beispiele";
 "editor_add_select_location" = "Standort auswählen";
 "editor_report_problem_send_button" = "Senden";
-"autodownload" = "Automatisch herunterladen";
+"autodownload" = "Karten automatisch herunterladen";
 
 /* Place Page opening hours text */
 "daily" = "Täglich";
@@ -673,7 +673,7 @@
 "bookmarks_text_placement_description" = "Wenn du zu viele Lesezeichen hast, kann es sein, dass die App langsamer wird, wenn die Namen auf der Karte angezeigt werden.";
 "show_to_the_right" = "Rechts anzeigen";
 "show_at_the_bottom" = "Unten anzeigen";
-"enable_logging_warning_message" = "Diese Option wird aktiviert, um Aktivitäten zwecks Diagnostik aufzuzeichnen. Das hilft unserem Team, Probleme mit der App zu erkennen. Aktivieren Sie diese Option, reproduzieren Sie das Problem und senden Sie die Protokolle über die Schaltfläche \"Fehler melden\" an uns.";
+"enable_logging_warning_message" = "Aktivieren, um Diagnoseprotokolle aufzuzeichnen. Sollte ein App-Fehler auftreten, reproduzieren Sie das Problem und senden Sie uns die Protokolle über die Schaltfläche \"App-Fehler melden\" unter \"Hilfe\". Protokolle können Geopositions-Informationen enthalten.";
 "driving_options_title" = "Routenbeschränkungen";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
