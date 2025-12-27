@@ -8,6 +8,7 @@
 #include "base/internal/message.hpp"  // DebugPrint(Timestamp)
 #include "base/stl_helpers.hpp"
 #include "base/visitor.hpp"
+#include "coding/hex.hpp"
 
 #include "drape/color.hpp"
 
@@ -303,25 +304,18 @@ struct ColorData
 
 inline std::string toCssColor(ColorData color)
 {
-  if (color.m_predefinedColor == kml::PredefinedColor::None)
+  if (color.m_predefinedColor == PredefinedColor::None)
   {
     if (color.m_rgba == 0)
       return "red";
 
-    auto const c = dp::Color::FromRGBA(color.m_rgba);
-    std::stringstream ss;
-    ss << '#';
-    ss << std::setfill('0') << std::setw(2) << std::hex << (c.GetRed() | 0);
-    ss << std::setfill('0') << std::setw(2) << std::hex << (c.GetGreen() | 0);
-    ss << std::setfill('0') << std::setw(2) << std::hex << (c.GetBlue() | 0);
-
-    return ss.str();
+    return "#" + NumToHex(color.m_rgba >> 8).substr(2);
   }
 
   // Color names from https://htmlcolorcodes.com/color-names/
   switch (color.m_predefinedColor)
   {
-    using enum kml::PredefinedColor;
+    using enum PredefinedColor;
   case None: return {};
   case Red: return "red";
   case Pink: return "pink";
@@ -339,7 +333,7 @@ inline std::string toCssColor(ColorData color)
   case Brown: return "Brown";
   case Gray: return "Gray";
   case BlueGray: return "SlateGray";
-  case Count: return {};
+  case Count: UNREACHABLE();
   }
   UNREACHABLE();
 }
