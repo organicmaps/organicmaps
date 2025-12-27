@@ -15,7 +15,7 @@ static kml::FileData LoadGeojsonFromString(std::string_view content)
   TEST_NO_THROW(
       {
         kml::FileData dataFromText;
-        kml::DeserializerGeoJson des(dataFromText);
+        kml::GeoJsonReader des(dataFromText);
         des.Deserialize(content);
         return dataFromText;
       },

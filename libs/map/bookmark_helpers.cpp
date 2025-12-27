@@ -549,7 +549,7 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fi
     }
     else if (fileType == KmlFileType::GeoJson || fileType == KmlFileType::Json)
     {
-      kml::DeserializerGeoJson des(*data);
+      kml::GeoJsonReader des(*data);
       std::string content;
       reader.ReadAsString(content);
 

@@ -13,7 +13,7 @@ namespace geojson
 {
 
 // object_t means map<string, json_t>.
-typedef glz::json_t::object_t JsonTMap;
+typedef glz::generic::object_t JsonTMap;
 
 // Data structures
 
@@ -46,14 +46,14 @@ struct GeoJsonGeometryLine
 struct GeoJsonGeometryUnknown
 {
   std::string type;
-  glz::json_t coordinates;
+  glz::generic coordinates;
 };
 
 using GeoJsonGeometry = std::variant<GeoJsonGeometryPoint, GeoJsonGeometryLine, GeoJsonGeometryUnknown>;
 
 std::string DebugPrint(GeoJsonGeometry const & g);
 
-std::string DebugPrint(glz::json_t const & json);
+std::string DebugPrint(glz::generic const & json);
 
 std::string DebugPrint(JsonTMap const & p);
 
@@ -82,12 +82,12 @@ struct GeoJsonData
 }  // namespace geojson
 
 // Reader and Writer.
-class DeserializerGeoJson
+class GeoJsonReader
 {
 public:
   DECLARE_EXCEPTION(DeserializeException, RootException);
 
-  explicit DeserializerGeoJson(FileData & fileData) : m_fileData(fileData) {}
+  explicit GeoJsonReader(FileData & fileData) : m_fileData(fileData) {}
 
   void Deserialize(std::string_view content);
 
