@@ -285,6 +285,8 @@ void FillDetails(FeatureType & ft, std::string const & name, Result::Details & d
 
   auto const capacity = feature::FormatCapacity(ft.GetMetadata(feature::Metadata::FMD_CAPACITY), typesHolder);
 
+  auto const level = feature::FormatLevel(ft.GetMetadata(feature::Metadata::FMD_LEVEL));
+
   std::string description;
 
   auto const append = [&description](std::string_view sv)
@@ -305,6 +307,7 @@ void FillDetails(FeatureType & ft, std::string const & name, Result::Details & d
   append(recycling);
   append(fee);
   append(capacity);
+  append(level);
 
   details.m_description = std::move(description);
 
