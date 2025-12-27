@@ -293,7 +293,6 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
   for (BookmarkData const & bookmark : fileData.m_bookmarksData)
   {
     auto const [lat, lon] = mercator::ToLatLon(bookmark.m_point);
-    GeoJsonGeometryPoint point{.coordinates = {lon, lat}};
     JsonTMap bookmarkProperties{{"name", GetDefaultStr(bookmark.m_name)},
                                 {"marker-color", ToCssColor(bookmark.m_color)}};
     if (!bookmark.m_description.empty())
@@ -318,7 +317,8 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
       }
     }
 
-    GeoJsonFeature pointFeature{.geometry = point, .properties = bookmarkProperties};
+    GeoJsonFeature pointFeature{.geometry = GeoJsonGeometryPoint{.coordinates = {lon, lat}},
+      .properties = std::move(bookmarkProperties)};
     geoJsonFeatures.push_back(std::move(pointFeature));
   }
 
