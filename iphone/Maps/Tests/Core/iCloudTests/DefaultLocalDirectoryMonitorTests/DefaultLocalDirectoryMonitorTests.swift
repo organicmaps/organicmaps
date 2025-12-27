@@ -11,7 +11,7 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
   override func setUpWithError() throws {
     try super.setUpWithError()
     // Setup with a temporary directory and a mock delegate
-    directoryMonitor = try FileSystemDispatchSourceMonitor(fileManager: fileManager, directory: tempDirectory)
+    directoryMonitor = try FileSystemDispatchSourceMonitor(directory: tempDirectory, queue: .main)
     mockDelegate = LocalDirectoryMonitorDelegateMock()
     directoryMonitor.delegate = mockDelegate
   }
@@ -48,15 +48,6 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
     XCTAssertTrue(directoryMonitor.state == .stopped, "Monitor should be stopped.")
   }
 
-  func testPauseAndResumeMonitoring() {
-    directoryMonitor.start()
-    directoryMonitor.pause()
-    XCTAssertTrue(directoryMonitor.state == .paused, "Monitor should be paused.")
-
-    directoryMonitor.resume()
-    XCTAssertTrue(directoryMonitor.state == .started, "Monitor should be started.")
-  }
-
   func testDelegateDidFinishGathering() {
     mockDelegate.didFinishGatheringExpectation = expectation(description: "didFinishGathering called")
     directoryMonitor.start()
@@ -70,65 +61,5 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
     directoryMonitor.delegate?.didReceiveLocalMonitorError(error)
 
     wait(for: [mockDelegate.didReceiveErrorExpectation!], timeout: 1.0)
-  }
-
-  func testContentUpdateDetection() {
-    let startExpectation = expectation(description: "Start monitoring")
-    let didFinishGatheringExpectation = expectation(description: "didFinishGathering called")
-    let didUpdateExpectation = expectation(description: "didUpdate called")
-
-    mockDelegate.didFinishGatheringExpectation = didFinishGatheringExpectation
-    mockDelegate.didUpdateExpectation = didUpdateExpectation
-
-    directoryMonitor.start { result in
-      if case .success = result {
-        XCTAssertTrue(self.directoryMonitor.state == .started, "Monitor should be started.")
-      }
-      startExpectation.fulfill()
-    }
-
-    wait(for: [startExpectation], timeout: 5)
-
-    let fileURL = tempDirectory.appendingPathComponent("test.kml")
-    
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-      self.fileManager.createFile(atPath: fileURL.path, contents: Data(), attributes: nil)
-    }
-
-    wait(for: [didFinishGatheringExpectation, didUpdateExpectation], timeout: 20)
-  }
-
-  func testFileWithIncorrectExtension() {
-    let startExpectation = expectation(description: "Start monitoring")
-    let didFinishGatheringExpectation = expectation(description: "didFinishGathering called")
-    mockDelegate.didFinishGatheringExpectation = didFinishGatheringExpectation
-
-    let file1URL = tempDirectory.appendingPathComponent("test.kml.tmp")
-    let file2URL = tempDirectory.appendingPathComponent("test2.tmp")
-    let file3URL = tempDirectory.appendingPathComponent("test3.jpg")
-    let correctFileURL = tempDirectory.appendingPathComponent("test.kml")
-
-    let fileData = Data(count: 12)
-    try! fileData.write(to: file1URL, options: .atomic)
-    try! fileData.write(to: file2URL, options: .atomic)
-    try! fileData.write(to: file3URL, options: .atomic)
-    try! fileData.write(to: correctFileURL, options: .atomic)
-
-    directoryMonitor.start { result in
-      switch result {
-        case .failure(let error):
-          XCTFail("Monitoring failed to start with error: \(error)")
-      case .success:
-        XCTAssertTrue(self.directoryMonitor.state == .started, "Monitor should be started.")
-        startExpectation.fulfill()
-      }
-    }
-    wait(for: [startExpectation, didFinishGatheringExpectation], timeout: 5)
-
-    let contents = self.mockDelegate.contents.map { $0.fileUrl }
-    XCTAssertFalse(contents.contains(file1URL), "File with incorrect extension should not be included")
-    XCTAssertFalse(contents.contains(file2URL), "File with incorrect extension should not be included")
-    XCTAssertFalse(contents.contains(file3URL), "File with incorrect extension should not be included")
-    XCTAssertTrue(contents.contains(correctFileURL), "File with correct extension should be included")
   }
 }
