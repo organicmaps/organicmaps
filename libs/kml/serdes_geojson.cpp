@@ -43,7 +43,7 @@ std::string DebugPrint(JsonTMap const & p)
   return out.str();
 }
 
-std::string DebugPrint(glz::json_t const & json)
+std::string DebugPrint(glz::generic const & json)
 {
   std::string buffer;
   if (glz::write_json(json, buffer))
@@ -54,7 +54,7 @@ std::string DebugPrint(glz::json_t const & json)
 
 }  // namespace geojson
 
-bool DeserializerGeoJson::Parse(std::string_view jsonContent)
+bool GeoJsonReader::Parse(std::string_view jsonContent)
 {
   // Make some classes from 'geojson' namespace visible here.
   using geojson::GeoJsonGeometryLine;
@@ -256,7 +256,7 @@ bool DeserializerGeoJson::Parse(std::string_view jsonContent)
   return true;
 }
 
-void DeserializerGeoJson::Deserialize(std::string_view content)
+void GeoJsonReader::Deserialize(std::string_view content)
 {
   ASSERT(!content.empty(), ());
 
