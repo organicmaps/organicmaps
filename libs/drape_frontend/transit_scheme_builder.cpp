@@ -27,12 +27,12 @@
 namespace df
 {
 int constexpr kTransitSchemeMinZoomLevel = 10;
-float constexpr kTransitLineHalfWidth = 0.8f;
+float constexpr kTransitLineHalfWidth = 0.68f;
 std::array<float, 20> constexpr kTransitLinesWidthInPixel = {
     // 1   2     3     4     5     6     7     8     9    10
-    1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.25f,
+    0.85f, 0.85f, 0.85f, 0.85f, 0.85f, 0.85f, 0.85f, 0.85f, 0.85f, 1.06f,
     // 11  12    13    14    15    16    17    18    19     20
-    1.65f, 2.0f, 2.5f, 3.0f, 3.5f, 4.3f, 5.0f, 5.5f, 5.8f, 5.8f};
+    1.4f, 1.7f, 2.1f, 2.55f, 3.0f, 3.65f, 4.25f, 4.7f, 4.93f, 4.93f};
 
 namespace
 {
