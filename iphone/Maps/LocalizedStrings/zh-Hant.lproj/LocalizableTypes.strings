@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "地址/區塊";
 "type.addr_interpolation.even" = "地址/區塊";
 "type.addr_interpolation.odd" = "地址/區塊";
@@ -85,7 +81,7 @@
 "type.amenity.hunting_stand" = "狩獵場";
 "type.amenity.ice_cream" = "冰淇淋攤";
 "type.amenity.internet_cafe" = "網路咖啡店";
-"type.amenity.kindergarten" = "幼兒園";
+"type.amenity.kindergarten" = "幼稚園";
 "type.amenity.library" = "圖書館";
 "type.amenity.loading_dock" = "裝卸碼頭";
 "type.amenity.luggage_locker" = "行李保管箱";
@@ -137,10 +133,6 @@
 "type.amenity.prison" = "監獄";
 "type.amenity.pub" = "酒館";
 "type.amenity.public_bookcase" = "書架";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "回收中心";
 "type.amenity.recycling" = "回收箱";
 "type.amenity.recycling.container" = "回收箱";
@@ -397,10 +389,6 @@
 "type.healthcare.psychotherapist" = "心理治療";
 "type.healthcare.sample_collection" = "採樣";
 "type.healthcare.speech_therapist" = "言語治療";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "道路";
 "type.highway.bridleway" = "馬道";
 
@@ -617,10 +605,6 @@
 "type.area_highway.unclassified" = "道路";
 "type.highway.world_level" = "公路 - 世界等級";
 "type.highway.world_towns_level" = "公路 - 世界城鎮等級";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "歷史地點";
 "type.historic.aircraft" = "歷史悠久的飛機";
 "type.historic.anchor" = "歷史錨";

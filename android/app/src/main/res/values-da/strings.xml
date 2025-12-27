@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Tilbage</string>
@@ -55,9 +54,9 @@
     <string name="disconnect_usb_cable">Frakobl venligst USB-kabel, eller indsæt et hukommelseskort for at bruge Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Frigør først noget plads på dit SD-kort/USB lager for at bruge denne app</string>
-    <string name="download_resources">Før du begynder at bruge appen, skal du hente oversigtskortet over verden til din enhed. \nDet vil bruge %s lagerplads.</string>
+    <string name="download_resources">Før du begynder at bruge appen, skal du hente oversigtskortet over verden til din enhed.\nDet vil bruge %s lagerplads.</string>
     <string name="download_resources_continue">Gå til kortet</string>
-    <string name="downloading_country_can_proceed">Henter %s. Du kan nu \nfortsætte til kortet.</string>
+    <string name="downloading_country_can_proceed">Henter %s. Du kan nu\nfortsætte til kortet.</string>
     <string name="download_country_ask">Hent %s?</string>
     <string name="update_country_ask">Opdater %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -100,7 +99,6 @@
     <string name="measurement_units">Måleenheder</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Vælg mellem mil eller kilometer</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Spisesteder</string>
@@ -146,7 +144,6 @@
     <string name="category_water">Vand</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Til RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Noter</string>
@@ -178,7 +175,7 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hey, tjek min nuværende placering på Organic Maps-kortet!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hej, \n \nJeg er her nu: %1$s. Tryk på dette link %2$s eller dette %3$s for at se stedet på kortet. \n \nTak.</string>
+    <string name="my_position_share_email">Hej,\n\nJeg er her nu: %1$s. Tryk på dette link %2$s eller dette %3$s for at se stedet på kortet. \n\nTak.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Del</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -338,7 +335,6 @@
     <string name="blue_gray">Blågrå</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Giv gratis kort uden reklamer til millioner af brugere!</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Når du følger ruten, skal du være opmærksom på følgende:</string>
     <string name="dialog_routing_disclaimer_priority">— Vejforhold, færdselsregler og skiltning skal altid prioriteres højere end navigationsanvisninger;</string>
@@ -368,7 +364,6 @@
     <string name="not_now">Ikke nu</string>
     <string name="dialog_routing_download_and_build_cross_route">Ønsker du at downloade kortet og planlægge en mere optimal rute, der strækker sig over mere end ét kort?</string>
     <string name="dialog_routing_download_cross_route">Download yderligere kort for at planlægge en mere optimal rute, der strækker sig ud over dette korts grænser.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">For at komme i gang med at søge og oprette ruter skal du downloade kortet. Derefter har du ikke længere brug for en internetforbindelse.</string>
     <string name="search_select_map">Vælg kort</string>
@@ -577,7 +572,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Generel feedback</string>
     <string name="prefs_languages_information">Vi bruger systemets TTS til stemmevejledning. Mange Android-enheder bruger Google TTS, du kan hente eller opdatere det via Google Play</string>
-    <string name="prefs_languages_information_off">For nogle sprog skal du installere en anden talesyntese eller en yderligere sprogpakke fra appbutiken (Google Play, Galaxy Store, App Gallery, FDroid). \nÅbn enhedens indstillinger → Sprog og input → Tale → Tekst til tale. \nHer kan du administrere indstillingerne for talesyntese (f.eks. downloade en sprogpakke til brug offline) og vælge et andet tekst-til-tale program.</string>
+    <string name="prefs_languages_information_off">For nogle sprog skal du installere en anden talesyntese eller en yderligere sprogpakke fra appbutiken (Google Play, Galaxy Store, App Gallery, FDroid). \n\nÅbn din enheds indstillinger → Sprog og input → Tale → Tekst til tale.\nHer kan du administrere indstillingerne for talesyntese (f.eks. downloade en sprogpakke til brug offline) og vælge et andet tekst-til-tale program.</string>
     <string name="prefs_languages_information_off_link">Se denne vejledning for flere oplysninger.</string>
     <string name="transliteration_title">Translitterer til det latinske alfabet</string>
     <string name="learn_more">Flere oplysninger</string>
@@ -714,7 +709,6 @@
     <string name="moreyear_ago_sorttype">Mere end et år siden</string>
     <string name="near_me_sorttype">I nærheden</string>
     <string name="others_sorttype">Andre</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Mad</string>
     <string name="tourist_places">Seværdigheder</string>

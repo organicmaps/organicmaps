@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adres/blok</string>
     <string name="type.addr_interpolation.even">Adres/blok</string>
@@ -135,7 +134,6 @@
     <string name="type.amenity.prison">Gevangenis</string>
     <string name="type.amenity.pub">Kroeg</string>
     <string name="type.amenity.public_bookcase">Boekenkast</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Milieustraat</string>
     <string name="type.amenity.recycling">Recycling container</string>
@@ -380,7 +378,6 @@
     <string name="type.healthcare.psychotherapist">Psychotherapie</string>
     <string name="type.healthcare.sample_collection">Bemonstering</string>
     <string name="type.healthcare.speech_therapist">Logopedie</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Straat</string>
     <string name="type.highway.bridleway">Ruiterpad</string>
@@ -549,7 +546,6 @@
     <string name="type.area_highway.unclassified">Straat</string>
     <string name="type.highway.world_level">highway-world_level</string>
     <string name="type.highway.world_towns_level">highway-world_towns_level</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historisch object</string>
     <string name="type.historic.aircraft">Historische vliegtuigen</string>
@@ -1426,4 +1422,7 @@
     <string name="type.craft.watchmaker">Horlogemaker</string>
     <string name="type.xmas_feature.market">Kerstmarkt</string>
     <string name="type.xmas_feature.tree">Kerstboom</string>
+    <string name="type.hwtag">hwtag</string>
+    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
+    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
 </resources>

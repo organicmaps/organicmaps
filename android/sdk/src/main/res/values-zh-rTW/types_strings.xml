@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">地址/區塊</string>
     <string name="type.addr_interpolation.even">地址/區塊</string>
@@ -82,7 +81,7 @@
     <string name="type.amenity.hunting_stand">狩獵場</string>
     <string name="type.amenity.ice_cream">冰淇淋攤</string>
     <string name="type.amenity.internet_cafe">網路咖啡店</string>
-    <string name="type.amenity.kindergarten">幼兒園</string>
+    <string name="type.amenity.kindergarten">幼稚園</string>
     <string name="type.amenity.library">圖書館</string>
     <string name="type.amenity.loading_dock">裝卸碼頭</string>
     <string name="type.amenity.luggage_locker">行李保管箱</string>
@@ -134,7 +133,6 @@
     <string name="type.amenity.prison">監獄</string>
     <string name="type.amenity.pub">酒館</string>
     <string name="type.amenity.public_bookcase">書架</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">回收中心</string>
     <string name="type.amenity.recycling">回收箱</string>
@@ -378,7 +376,6 @@
     <string name="type.healthcare.psychotherapist">心理治療</string>
     <string name="type.healthcare.sample_collection">採樣</string>
     <string name="type.healthcare.speech_therapist">言語治療</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">道路</string>
     <string name="type.highway.bridleway">馬道</string>
@@ -547,7 +544,6 @@
     <string name="type.area_highway.unclassified">道路</string>
     <string name="type.highway.world_level">公路 - 世界等級</string>
     <string name="type.highway.world_towns_level">公路 - 世界城鎮等級</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">歷史地點</string>
     <string name="type.historic.aircraft">歷史悠久的飛機</string>
