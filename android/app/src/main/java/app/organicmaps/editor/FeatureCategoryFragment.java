@@ -25,8 +25,10 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.widget.SearchToolbarController;
 import app.organicmaps.widget.ToolbarController;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 public class FeatureCategoryFragment
     extends BaseMwmRecyclerFragment<FeatureCategoryAdapter> implements FeatureCategoryAdapter.FooterListener
@@ -74,9 +76,13 @@ public class FeatureCategoryFragment
     String[] creatableTypes = query.isEmpty() ? Editor.nativeGetAllCreatableFeatureTypes(locale)
                                               : Editor.nativeSearchCreatableFeatureTypes(query, locale);
 
-    FeatureCategory[] categories = makeFeatureCategoriesFromTypes(creatableTypes);
+    // Get recent POI types if not searching
+    List<String> recentTypes = query.isEmpty() ? RecentPoiTypes.getRecentTypes(requireContext()) : new ArrayList<>();
+    
+    // Filter out recent types from the main list to avoid duplicates
+    FeatureCategory[] categories = makeFeatureCategoriesFromTypes(creatableTypes, recentTypes);
 
-    getAdapter().setCategories(categories);
+    getAdapter().setCategories(categories, recentTypes);
     getRecyclerView().scrollToPosition(0);
   }
 
@@ -86,23 +92,32 @@ public class FeatureCategoryFragment
   {
     String locale = Language.getDefaultLocale();
     String[] creatableTypes = Editor.nativeGetAllCreatableFeatureTypes(locale);
+    
+    // Get recent POI types
+    List<String> recentTypes = RecentPoiTypes.getRecentTypes(requireContext());
+    
+    // Filter out recent types from the main list to avoid duplicates
+    FeatureCategory[] categories = makeFeatureCategoriesFromTypes(creatableTypes, recentTypes);
 
-    FeatureCategory[] categories = makeFeatureCategoriesFromTypes(creatableTypes);
-
-    return new FeatureCategoryAdapter(this, categories, mSelectedCategory);
+    return new FeatureCategoryAdapter(this, categories, mSelectedCategory, recentTypes);
   }
 
   @NonNull
-  private FeatureCategory[] makeFeatureCategoriesFromTypes(@NonNull String[] creatableTypes)
+  private FeatureCategory[] makeFeatureCategoriesFromTypes(@NonNull String[] creatableTypes, @NonNull List<String> recentTypes)
   {
-    FeatureCategory[] categories = new FeatureCategory[creatableTypes.length];
+    List<FeatureCategory> categoriesList = new ArrayList<>();
 
-    for (int i = 0; i < creatableTypes.length; ++i)
+    for (String creatableType : creatableTypes)
     {
-      String localizedType = getLocalizedFeatureType(requireContext(), creatableTypes[i]);
-      categories[i] = new FeatureCategory(creatableTypes[i], localizedType);
+      // Skip if this type is in the recent list
+      if (!recentTypes.contains(creatableType))
+      {
+        String localizedType = getLocalizedFeatureType(requireContext(), creatableType);
+        categoriesList.add(new FeatureCategory(creatableType, localizedType));
+      }
     }
 
+    FeatureCategory[] categories = categoriesList.toArray(new FeatureCategory[0]);
     Arrays.sort(categories, Comparator.comparing(FeatureCategory::getLocalizedTypeName));
 
     return categories;
