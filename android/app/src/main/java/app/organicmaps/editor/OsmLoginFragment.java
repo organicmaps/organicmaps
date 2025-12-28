@@ -9,9 +9,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
+
+import com.google.android.material.textfield.TextInputEditText;
+
 import app.organicmaps.BuildConfig;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
@@ -25,8 +29,6 @@ import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.ScrollableContentInsetsListener;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textfield.TextInputEditText;
 
 public class OsmLoginFragment extends BaseMwmToolbarFragment
 {
@@ -61,7 +63,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     {
       // Hide login and password inputs and Forgot password button
       UiUtils.hide(view.findViewById(R.id.osm_username_container), view.findViewById(R.id.osm_password_container),
-                   mLostPasswordButton);
+          mLostPasswordButton);
 
       mLoginButton.setOnClickListener((v) -> loginWithBrowser());
     }
@@ -134,10 +136,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
 
   private void onAuthFail()
   {
-    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.editor_login_error_dialog)
-        .setPositiveButton(R.string.ok, null)
-        .show();
+    OsmLoginAuthFailDialogFragment.newInstance().show(requireActivity().getSupportFragmentManager(), "osm_auth_fail");
   }
 
   private void onAuthSuccess(String oauthToken, String username)
@@ -163,7 +162,9 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
         // Finish OAuth2 auth flow and get username for UI.
         final String oauthToken = OsmOAuth.nativeAuthWithOAuth2Code(oauth2code);
         final String username = (oauthToken == null) ? null : OsmOAuth.nativeGetOsmUsername(oauthToken);
-        UiThread.run(() -> { processAuth(oauthToken, username); });
+        UiThread.run(() -> {
+          processAuth(oauthToken, username);
+        });
       });
     }
   }
