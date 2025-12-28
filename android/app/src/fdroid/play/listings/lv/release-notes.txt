@@ -1,9 +1,8 @@
-• Vikipēdijas raksti turku, japāņu un ķīniešu valodā, ierakstiet ?wiki, lai tos redzētu kartē
-• Jauns iestatījums lejupielādēto reģionu vizuālai izcelšanai kartē
-• Importējiet Google Takeout grāmatzīmes un saglabātās vietas caur GeoJSON
-• OSM dati uz 23. novembri
-• Uzlabota audio atskaņošana un skaņas pārtraukumi
-• Laboti avārijas redaktorā un karšu lejupielādē
-• Spilgtāki ceļi tumšajā transportlīdzekļa režīmā
-• Uzlabota velosipēdu maršrutēšana Austrijā
-…vairāk omaps.org/news
+• JAUNUMS: Meklējiet `Ziemassvētku egle` un `Ziemassvētku tirdziņš` kartē
+• OpenStreetMap dati uz 2025. gada 14. decembri
+• Maršruta ierakstīšana turpinās pat tad, ja lietotne tiek aizvērta vai pārtraukta
+• Nacionālo parku robežas un etiķetes ir mazāk pamanāmas pasaules kartē
+• Pievienoti lietuviešu meklēšanas sinonīmi un iespējota lietuviešu meklēšana
+• Uzlaboti tulkojumi
+• Rādīt autostāvvietas ietilpību meklēšanas rezultātos
+…vairāk vietnē omaps.org/news

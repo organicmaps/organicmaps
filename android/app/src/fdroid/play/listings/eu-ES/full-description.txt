@@ -1,52 +1,31 @@
-‣ Gure doako aplikazioak ez dizu jarraipenik egiten eta ez du iragarkirik, zure dohaintzek bultzatzen dute.
-‣ Gure talde txikia etengabe hobetzen ari da, gure denbora librean, gure dirua eta gure erabiltzaileen dohaintzak/ekarpenak erabiliz.
-‣ Mapan zerbait gaizki badago edo falta bada, mesedez konpondu <b>OpenStreetMap</b> atalean eta ikusi zure aldaketak etorkizuneko mapen eguneraketan.
-‣ Nabigazioak edo bilaketak ez badu funtzionatzen, bidali mezu elektronikoa. <i></i> mezu elektroniko GUZTIEI erantzuten diogu eta lehenbailehen konponduko dugu!
+Organic Maps bidaia, mendiko ibilaldi, trekking eta txirrindularitza abenturetarako mapa lineaz kanpoko eta GPS nabigazio aplikazio azkar eta zehatza da. Planifikatu, inportatu eta grabatu ibilbideak, eta gozatu nabigazio leunaz bateria agortu gabe edo Internet konexiorik erabili gabe. Aztertu tokiek eskaintzen dutena eta nabigatu segurtasunez zure kanpoko abenturetan eta mundu osoko bidaietan. Aplikazioak mapa deskarga mugagabeak eta hamabostero eguneraketak eskaintzen ditu. OpenStreetMap-en oinarritua, boluntarioek egina, pribatutasuna lehenesten duena, %100 lineaz kanpo, eta %100 doakoa.
 
-<b>Zure iritzia eta 5 izarreko iruzkinak dira guretzat motibazio handiena!</b>
+<b>LINEAZ KANPO:</b> Aplikazioa %100 lineaz kanpo funtzionatzen du — bilaketa eta nabigazioa barne. Mapa araka dezakezu eta nabigatu Internet konexiorik gabe, datu mugikorrean eta roaming-gastuetan aurrezteko. Atzeko planoko datu-transferentziarik gabe, bateriak askoz gehiago irauten du.
 
-Ezaugarri nagusiak:
-• Doakoa, kode irekikoa, iragarkirik gabe, jarraipenik gabe
-• Lineaz kanpoko mapa zehatzak Google maps-en ez dauden tokiekin, <b>OpenStreetMap</b> komunitateari esker.
-• Bizikleta-ibilbideak, mendi-ibilbideak eta oinezkoentzako bideak
-• Sestra-lerroak, kota-profilak, gailurrak eta maldak
-• Pausoz pauso oinez, bizikletaz eta autoen nabigazio ESPERIMENTALA, ahots bidezko gidaritzapean
-• Lineaz kanpoko bilaketa azkarra
-• Laster-markak esportatu eta inportatu KML, KMZ, GPX formatuetan
-• Modu iluna begiak babesteko
+<b>XEHATZA ETA EGUNERATUA:</b> Mapak xehetasunez beteak daude eta hilean bitan eguneratzen dira benetako baldintzak islatzeko. Ohiko lehiakide askok ez bezala, eraikinen izenak, bankuak, mendi-ibilbideak eta bestelako informazio erabilgarria biltzen dituzte.
 
-<i>Oraindik</i> ez daude garraio publikoa, satelite bidezko mapak eta beste eginbide polit batzuk Organic Mapsen. Baina <i>zure laguntzarekin</i>, urratsez urrats hobetu dezakegu.
+<b>OPENSTREETMAP-OINARRITUA:</b> OpenStreetMap munduko mapa kolaboratiboa da, milioika boluntariok eraikia — euren tokirik ondoen ezagutzen duten bertakoek. Komunitate-lan horrek xehetasun handiko mapak sortzen ditu, askotan komertzialak baino zehatzagoak gutxi mapatutako eskualdeetan. Organic Maps-ek OpenStreetMap datuak bi astetik behin eguneratzen ditu, zure mapak eguneratuta eta fidagarri mantenduz. Eta zerbait falta dela ikusten baduzu, zuk zeuk gehi dezakezu OpenStreetMap-era eta lagundu mapa guztiontzat hobetzen.
 
-Organic Maps <b>maitasunez egina</b> dago:
+<b>PRIBATUTASUNA LEHENIK:</b> Ez dugu daturik edo identifikatzailerik biltzen. Horrek esan nahi du ez dagoela datu-ihesen arriskurik eta ez zaituela distraituko iragarkiek edo jakinarazpen gogaikariek — mapa-esperientzia garbia eta pribatua besterik ez duzu izango.
 
-• Konexioz kanpoko esperientzia izugarria
-• Zure pribatutasuna errespetatzen du
-• Bateria aurrezten du
-• Ez dago ustekabeko datu mugikorren xahutzerik
-• Erabiltzeko erraza
+<b>EZAUGARRI GARRANTZITSUAK</b>
 
-Arakatzailerik eta beste gauza txarrik gabe:
+<b>TOKIAK ARATU:</b> Bilatu helbidearen, izenaren edo kategoriaren arabera; aurkitu milioika POI; eta ikusi informazio zehatza, adibidez, ordutegiak, Wikipedia artikuluak, gurpil-aulki irisgarritasuna eta bestelako xehetasun erabilgarriak.
 
-• Iragarkirik ez
-• Arakatzerik ez
-• Ez dago datu bilketarik
-• Etxera deitu gabe
-• Erregistro gogaikarririk ez
-• Derrigorrezko tutoretzarik ez
-• Ez dago posta elektronikoko spamik
-• Ez dago push jakinarazpenik
-• Crapwarerik ez
-• Pestizidarik ez. Guztiz organikoa
+<b>GPS NABIGAZIOA:</b> Gozatu ahotsez gidatutako, biraketa bakoitzeko jarraibideekin. Sortu oinezko, mendiko, txirrindularitza edo auto ibilbideak — hirien, herrialdeen eta hainbat geldialdiren artekoak barne. Aurkitu metro-bidaientzako eta joan-etorrietarako ibilbide onenak. Android Auto ere onartzen da.
 
-Organic Maps-en, <b>pribatutasuna oinarrizko giza eskubide bat dela uste dugu</b>:
+<b>MUNDU OSOKO MENDI- ETA TXIRRINDULARITZA-IBILBIDEAK:</b> Gaitu mapa-geruza bereziak mundu osoko mendiko eta txirrindularitza ibilbide ezagunak aurkitzeko, guztiak OpenStreetMap-etik jasotakoak. Aldatu geruzen artean koloretako bizikleta eta MTB ibilbideak, baita mendiko ibilbide ofizialak ikusteko.
 
-• Organic Maps komunitate independenteek gidatutako kode irekiko proiektu bat da
-• Pribatutasuna, enpresa teknologiko handiengandik babesten zaitugu
-• Egon seguru zauden lekuan zaudela ere
+<b>GARRAIO PUBLIKOA:</b> Ikusi garraio publikoaren lineako zenbakiak geltokietan.
 
-Zero arakatzaile eta gutxieneko baimenak soilik eskatzen dira Exodus Pribatutasun Txostenaren arabera.
+<b>MAPA-ESTILOAK:</b> Aukeratu zure jarduerari egokitzen zaizkion geruzak — “Kanpoa”, “Kurba-lerroak”, “Mendiko ibilaldiak”, “Txirrindularitza” edo “Metroa/Trena”.
 
-Mesedez, bisitatu <b><i>organicmaps.app</i></b> webgunea xehetasun gehiagorako eta ohiko galderetarako, edo jar zaitez zuzenean gurekin harremanetan @OrganicMapsApp Telegram-en.
+<b>IBILIEN GRABAGAILUA:</b> Grabatu, inportatu, esportatu eta partekatu zure ibilbideak eta gogoko tokiak. KML, KMZ, GPX eta GeoJSON formatuak onartzen ditu.
 
-Baztertu jarraipena - hautatu askatasuna.
-<b>Probatu Organic Maps!</b>
+<b>WIKIPEDIA ARTIKULUAK:</b> Arakatu mapan aurkitzen dituzun tokien Wikipedia artikuluak. Idatzi “?wiki” bilaketan artikuluak dituzten toki guztiak ikusteko.
+
+<b>MAPA EDITOREA:</b> Lagundu OpenStreetMap hobetzera tokirik faltan badaude edo mapa zuzenean Organic Maps-etik editatuz.
+
+Probatu aplikazioa — %100 doakoa, iragarkirik gabea, azkarra eta guztiz lineaz kanpokoa. Esperimentatu GPS nabigazio fidagarria mendian, bizikletan, trekkingean eta munduko edozein bidaiatan! Gozatu mapa-esperientzia azkar, fidagarri eta pribatu batez, eta partekatu besteekin!
+
+Organic Maps proiektu independente, komunitatean oinarritua eta kode irekikoa da, eta ehunka laguntzaile ditu ezaugarri berriak garatzen, arazoak konpontzen, itzultzen eta proiektua aurrera eramaten.

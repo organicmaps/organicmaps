@@ -1,8 +1,8 @@
-• Articole Wikipedia în turcă, japoneză și chineză, tastați ?wiki pentru a le vedea pe hartă
-• Setare nouă pentru evidențierea vizuală a regiunilor descărcate pe hartă
-• Importați marcajele și locurile salvate din Google Takeout prin GeoJSON
-• Date OSM din 23 noiembrie
-• Redare audio îmbunătățită și întreruperi de sunet
-• Remediate blocările în Editor și la descărcarea hărților
-• Drumuri mai luminoase în modul vehicul întunecat
+• NOU: Căutați `Brad de Crăciun` și `Târg de Crăciun` pe hartă
+• Date OpenStreetMap din 14 decembrie 2025
+• Înregistrarea traseului continuă chiar dacă aplicația este oprită sau închisă
+• Granițele și etichetele parcurilor naționale sunt mai puțin proeminente pe harta lumii
+• S-au adăugat sinonime de căutare în lituaniană și s-a activat căutarea în lituaniană
+• Traduceri îmbunătățite
+• Afișați capacitatea parcării în rezultatele căutării
 …mai multe pe omaps.org/news

@@ -1,20 +1,27 @@
-- Artigos da Wikipédia para lugares em turco, japonês e chinês; digite ?wiki para ver todos os artigos no mapa
-- Configuração para destacar visualmente as regiões baixadas no mapa
-- Dados do OpenStreetMap de 23 de novembro de 2025
+- NOVIDADE: Árvores de Natal e mercados de Natal agora aparecem no mapa; digite `Mercado de Natal` ou `Árvore de Natal` na busca para encontrá-los (ou adicione-os no OpenStreetMap.org se necessário)
+- Dados do OpenStreetMap de 14 de dezembro de 2025
+- A capacidade de estacionamento agora é exibida nos resultados da busca
+- As fronteiras e rótulos dos parques nacionais estão menos proeminentes no mapa mundial
+- Adicionados sinônimos de busca em lituano e ativada a busca em lituano
+- Os resultados da busca usam ícones emoji de cor única
+- Corrigido um problema no CarPlay no iOS 12
+- Resolvidos vários problemas visuais no iPhone e iPad
+- A busca na lista de favoritos agora encontra nomes com diacríticos ou letras acentuadas
+- Trilhas importadas ou gravadas com menos de 10 minutos agora mostram a duração em minutos e segundos
+- Melhoradas as animações dos botões e a barra de botões inferior
+- Removido o aviso de isolinhas ao iniciar o aplicativo
 
-- Edite o nome de um marcador ou trajeto diretamente na página de informações do local
-- Toque longo no nome ou endereço de um local/marcador selecionado para copiá-lo
-- Adicionada pesquisa por uma lista específica ao alterá-la na página de informações do local
-- Use emojis personalizados na página de informações do local
-- Animações corrigidas para os botões laterais e a cor do botão "Baixar mapas" no tema escuro
-- Suporte para iOS 26 e macOS 26 "Liquid Glass"
-- Ao mover um trajeto para uma lista, essa lista se torna padrão para novos marcadores/trajetos
-- Importação GeoJSON aprimorada, incluindo `Saved Places.json` do Google Takeout
-- Traduções atualizadas em vários idiomas, incluindo uma correção em hebraico
+## Atualizações de Traduções
+- Melhoradas as traduções para ucraniano
+- Melhoradas as traduções para alemão, húngaro, lituano, espanhol e turco
+- Corrigidas as instruções de voz TTS em rotatórias em croata
 
-## Navegação e rotas
+Confira mais detalhes sobre este e lançamentos anteriores em https://omaps.org/news/
 
-- Layout do mapa corrigido durante a navegação no iPad para que a rota permaneça claramente visível
-- O roteamento de bicicletas agora pula ruas residenciais de mão única na Áustria
-- Instruções de rotatória simplificadas
-- Estradas mais brilhantes com melhor contraste no modo veículo escuro
+…e fique ligado para os próximos recursos e melhorias!
+
+Obrigado pelo seu feedback e apoio, o Organic Maps não seria possível sem nossa incrível comunidade de usuários e colaboradores.
+
+Feliz Ano Novo de 2026!
+
+A Equipe Organic Maps

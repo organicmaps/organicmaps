@@ -1,39 +1,37 @@
-• Detailed offline maps with places that don't exist on other maps
-• Cycling routes, hiking trails, and walking paths
-• Contour lines, elevation profiles, peaks, and slopes
-• Turn-by-turn walking, cycling, and car navigation with voice guidance
-• Fast offline search
-• Bookmark everything you need, import and share KML, KMZ, GPX
-• Dark mode to protect your eyes
-• … and many other features!
+Organic Maps là ứng dụng bản đồ ngoại tuyến và điều hướng GPS nhanh, chi tiết dành cho du lịch, đi bộ đường dài và các chuyến đi. Lập kế hoạch, nhập và ghi lại lộ trình, đồng thời tận hưởng điều hướng mượt mà mà không hao pin và không cần kết nối internet. Khám phá các địa điểm và điều hướng an toàn trong những chuyến phiêu lưu ngoài trời và hành trình khắp thế giới. Ứng dụng cho phép tải bản đồ không giới hạn và cập nhật hai lần mỗi tháng. Dựa trên OpenStreetMap, do cộng đồng tình nguyện phát triển, ưu tiên quyền riêng tư, hoạt động 100% ngoại tuyến và hoàn toàn miễn phí.
 
-Organic Maps is pure and organic, made with love:
+NGOẠI TUYẾN: Ứng dụng hoạt động hoàn toàn ngoại tuyến — bao gồm tìm kiếm và điều hướng. Bạn có thể khám phá bản đồ và điều hướng mà không cần internet, giúp tiết kiệm dữ liệu di động và phí chuyển vùng. Không có truyền dữ liệu nền, pin của bạn cũng kéo dài lâu hơn đáng kể.
 
-• Respects your privacy
-• Saves your battery
-• No unexpected mobile data charges
+NHANH: Thu phóng, tìm kiếm và tính toán lộ trình hoạt động rất nhanh.
 
-Organic Maps is free from trackers and other bad stuff:
+CHI TIẾT & LUÔN CẬP NHẬT: Bản đồ cực kỳ chi tiết và được cập nhật hai lần mỗi tháng để phản ánh điều kiện thực tế. Khác với nhiều đối thủ nổi tiếng, chúng bao gồm tên tòa nhà, ghế ngồi, đường mòn đi bộ và nhiều thông tin hữu ích khác.
 
-• No ads
-• No tracking
-• No data collection
-• No phoning home
-• No annoying registration
-• No mandatory tutorials
-• No noisy email spam
-• No push notifications
-• No crapware
-• No pesticides
+DỰA TRÊN OPENSTREETMAP: OpenStreetMap là bản đồ thế giới dạng wiki, được xây dựng và duy trì bởi hàng triệu tình nguyện viên — những người địa phương hiểu rõ khu vực của họ nhất. Nỗ lực cộng đồng này tạo ra bản đồ chi tiết và thường chính xác hơn bản đồ thương mại ở nhiều khu vực. Organic Maps cập nhật dữ liệu từ OpenStreetMap hai tuần một lần để giữ bản đồ luôn mới và đáng tin cậy. Nếu bạn thấy thiếu thông tin, bạn có thể thêm vào OpenStreetMap và giúp cải thiện bản đồ cho mọi người.
 
-At Organic Maps, we believe that privacy is a fundamental human right:
+ƯU TIÊN QUYỀN RIÊNG TƯ: Chúng tôi không thu thập bất kỳ dữ liệu hay mã định danh nào. Điều này đồng nghĩa không có nguy cơ rò rỉ dữ liệu và không có quảng cáo hay thông báo phiền nhiễu — chỉ là trải nghiệm bản đồ sạch sẽ và riêng tư.
 
-• Organic Maps is an indie community-driven project
-• The code is open-sourced
-• The maps data is taken from OpenStreetMap, also community-driven project
-• We protect your privacy from Big Tech’s prying eyes
-• Stay safe no matter wherever you are
+CÁC TÍNH NĂNG QUAN TRỌNG
 
-Reject surveillance, embrace your freedom, and support the community.
+KHÁM PHÁ ĐỊA ĐIỂM: Tìm kiếm theo địa chỉ, tên hoặc danh mục; khám phá hàng triệu POI và xem thông tin chi tiết như giờ mở cửa, bài viết Wikipedia, khả năng tiếp cận xe lăn và nhiều thông tin hữu ích khác. Tất cả đều hoạt động ngoại tuyến.
 
-Give Organic Maps a try!
+ĐIỀU HƯỚNG GPS: Tận hưởng điều hướng từng chặng có hướng dẫn bằng giọng nói. Tạo lộ trình đi bộ, đi bộ đường dài, đạp xe hoặc lái xe — bao gồm lộ trình giữa các thành phố, quốc gia và nhiều điểm dừng. Tìm lộ trình tốt nhất cho hành trình metro và đi lại hằng ngày. Hỗ trợ CarPlay.
+
+ĐƯỜNG MÒN ĐI BỘ & ĐẠP XE TRÊN TOÀN THẾ GIỚI: Bật các lớp bản đồ đặc biệt để khám phá các đường mòn đi bộ và đạp xe nổi tiếng trên toàn thế giới từ dữ liệu OpenStreetMap. Chuyển đổi lớp để xem tuyến đường xe đạp, MTB có màu và các đường mòn đi bộ chính thức.
+
+GIAO THÔNG CÔNG CỘNG: Xem số tuyến giao thông công cộng tại các điểm dừng. Lịch trình trực tiếp và điều hướng bằng phương tiện công cộng đang được phát triển.
+
+KIỂU HIỂN THỊ BẢN ĐỒ: Chọn lớp bản đồ phù hợp với hoạt động của bạn — Outdoors, Contour Lines, Hiking, Cycling hoặc Metro/Subway.
+
+GHI LẠI LỘ TRÌNH: Ghi, nhập, xuất và chia sẻ các lộ trình và địa điểm yêu thích. Hỗ trợ KML, KMZ, GPX và GeoJSON.
+
+BÀI VIẾT WIKIPEDIA: Khám phá bài viết Wikipedia về những địa điểm bạn nhìn thấy trên bản đồ. Gõ “?wiki” trong ô tìm kiếm để xem tất cả địa điểm có bài viết.
+
+TRÌNH CHỈNH SỬA BẢN ĐỒ: Đóng góp cho OpenStreetMap bằng cách thêm địa điểm còn thiếu hoặc chỉnh sửa bản đồ trực tiếp từ Organic Maps.
+
+CHẾ ĐỘ TỐI: Chuyển sang giao diện tối để sử dụng thoải mái vào ban đêm.
+
+ĐỒNG BỘ iCLOUD: Dễ dàng sao lưu và đồng bộ dấu trang và lộ trình qua iCloud.
+
+Hãy thử ứng dụng — hoàn toàn miễn phí, không quảng cáo, nhanh và hoạt động ngoại tuyến hoàn toàn. Tận hưởng trải nghiệm bản đồ nhanh, đáng tin cậy và riêng tư, và hãy chia sẻ với mọi người!
+
+Organic Maps là một dự án độc lập, định hướng cộng đồng, mã nguồn mở với hàng trăm cộng tác viên đóng góp tính năng, sửa lỗi, dịch thuật và phát triển dự án.

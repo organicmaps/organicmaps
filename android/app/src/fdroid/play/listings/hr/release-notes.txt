@@ -1,9 +1,8 @@
-• Wikipedia članci na turskom, japanskom i kineskom, upišite ?wiki da ih vidite na karti
-• Nova postavka za vizualno isticanje preuzetih regija na karti
-• Uvoz Google Takeout oznaka i spremljenih mjesta putem GeoJSON-a
-• OSM podaci od 23. studenog
-• Poboljšana reprodukcija zvuka i prekidi zvuka
-• Popravljeni padovi u uređivaču i pri preuzimanju karata
-• Svjetlije ceste u tamnom načinu vozila
-• Poboljšano biciklističko usmjeravanje u Austriji
+• NOVO: Pretražite `Božićno drvce` i `Božićni sajam` na karti
+• Podaci OpenStreetMapa od 14. prosinca 2025.
+• Snimanje traga se nastavlja čak i ako je aplikacija ubijena ili zatvorena
+• Granice i oznake nacionalnih parkova manje su istaknute na karti svijeta
+• Dodani litavski sinonimi za pretraživanje i omogućeno pretraživanje na litavskom
+• Poboljšani prijevodi
+• Prikaz kapaciteta parkirališta u rezultatima pretraživanja
 …više na omaps.org/news

@@ -1,39 +1,34 @@
-• Mapes detallats fora de línia amb llocs que no existeixen en altres mapes
-• Rutes amb bicicleta, d'excursionisme i senderisme
-• Corbes de nivell, perfils d'elevació, cims i pendents
-• Navegació pas a pas a peu, en bicicleta i en cotxe amb guia de veu
-• Cerca ràpida fora de línia
-• Afegiu a favorits tot el que necessiteu, importeu i compartiu en format KML, KZ i GPX
-• Mode fosc per protegir els ulls
-•... i moltes altres característiques!
+Organic Maps és una aplicació de mapes i navegació GPS ràpida, detallada i offline per a viatges, excursions i rutes. Planifica, importa i registra rutes, i gaudeix d’orientació fluida sense gastar la bateria ni utilitzar connexió a Internet. Explora llocs i desplaça’t amb seguretat durant les teves aventures a l’aire lliure i viatges arreu del món. L’aplicació ofereix descàrregues il·limitades de mapes i actualitzacions cada dues setmanes. Basada en OpenStreetMap, creada per voluntaris, centrada en la privadesa, 100% offline i 100% gratuïta.
 
-Organic Maps és pur i orgànic, fet amb amor:
+OFFLINE: L’aplicació funciona 100% offline, incloent cerca i navegació. Pots explorar el mapa i desplaçar-te sense connexió a Internet, estalviant dades mòbils i costos de roaming. I sense transferències de dades en segon pla, la teva bateria dura molt més.
 
-• Respecta la vostra privadesa
-• Estalvia la bateria
-• Sense càrrecs inesperats de dades mòbils
+DETALLADA I ACTUALITZADA: Els mapes són molt detallats i s’actualitzen dues vegades al mes per reflectir les condicions reals. A diferència de molts competidors coneguts, inclouen etiquetes d’edificis, bancs, camins per fer excursions i altra informació útil.
 
-L'Organic Maps està lliure de rastrejadors i altres coses dolentes:
+BASADA EN OPENSTREETMAP: OpenStreetMap és un mapa mundial d’estil wiki creat i mantingut per milions de voluntaris —locals que coneixen millor les seves zones. Aquest esforç comunitari resulta en mapes molt detallats, sovint més precisos que els comercials en regions menys cartografiades. Organic Maps actualitza les seves dades d’OpenStreetMap cada dues setmanes, mantenint els mapes frescos i fiables. I si detectes alguna cosa que falta, la pots afegir a OpenStreetMap i ajudar a millorar el mapa per a tothom.
 
-• Sense anuncis
-• Sense seguiment
-• Sense recollida de dades
-• Sense trucades per a vendre-us res
-• Sense cap mena de registre
-• Sense tutorials obligatoris
-• Sense enviar-vos correu brossa
-• Sense notificacions push
-• Sense programari perjudicial
-• Sense pesticides
+PRIVACITAT PRIMER: No recopilem dades ni identificadors. Això significa que no hi ha risc de filtració de dades ni distraccions com anuncis o notificacions molestes —només una experiència de mapa neta i privada.
 
-A l'Organic Maps, creiem que la privadesa és un dret humà fonamental:
+FUNCIONALITATS IMPORTANTS
 
-• Organic Maps és un projecte independent impulsat per la comunitat
-• És de codi obert
-• Les dades dels mapes estan extretes de l'OpenStreetMap, també projecte impulsat per la seva comunitat
-• Protegim la vostra privadesa de les mirades indiscretes per part de grans multinacionals
-• Navegació GPS de forma segura allà on sigueu
+EXPLORA LLOCS: Cerca per adreça, nom o categoria, descobreix milions de punts d’interès i consulta informació detallada com horaris, articles de Wikipedia, accessibilitat per a cadires de rodes i altres detalls útils. Tot disponible offline.
 
-Rebutgeu la vigilància, accepteu la vostra llibertat i doneu suport a la comunitat.
+NAVEGACIÓ GPS: Gaudeix de direccions pas a pas amb veu. Crea rutes a peu, per fer excursions, en bicicleta o amb cotxe —incloent rutes entre ciutats, països i amb múltiples punts intermedis. Troba les millors rutes per als teus trajectes en metro i desplaçaments. Compatible amb CarPlay.
 
-Proveu l'Organic Maps!
+RUTES DE CAMINADES I CICLISME D’ARREU DEL MÓN: Activa capes especials del mapa per descobrir rutes populars de caminades i ciclisme a tot el món, totes extretes d’OpenStreetMap. Canvia entre capes per veure rutes de bicicleta i MTB en colors, així com camins oficials de senderisme.
+
+TRANSPORT PÚBLIC: Consulta els números de línia del transport públic a les parades. Els horaris en temps real i el càlcul de rutes estan en desenvolupament.
+
+ESTILS DE MAPA: Tria les capes del mapa segons la teva activitat — Outdoor, Línies de Contorn, Caminades, Ciclisme o Metro/Subterrani.
+
+REGISTRADOR DE RUTES: Registra, importa, exporta i comparteix les teves rutes i llocs favorits. Compatible amb formats KML, KMZ, GPX i GeoJSON.
+
+ARTICLES DE WIKIPEDIA: Explora articles de Wikipedia sobre els llocs que descobreixes al mapa. Escriu “?wiki” a la cerca per trobar tots els llocs amb articles de Wikipedia.
+
+EDITOR DE MAPES: Contribueix a OpenStreetMap afegint llocs que falten o editant el mapa directament des d’Organic Maps.
+
+SINCRONITZACIÓ ICLOUD: Fes còpies de seguretat i sincronitza fàcilment tots els teus marcadors i rutes via iCloud.
+
+Prova l’aplicació — és 100% gratuïta, sense anuncis, ràpida i totalment offline. Gaudeix d’una experiència de mapes ràpida, fiable i privada, i comparteix-la amb els altres!
+Organic Maps és un projecte independent, de codi obert i impulsat per la comunitat, amb centenars de contribuïdors que ajuden a desenvolupar noves funcionalitats, corregir problemes, traduir i fer avançar el projecte.
+
+Uneix-te a la comunitat a Telegram: @OrganicMapsApp

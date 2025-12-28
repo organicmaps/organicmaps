@@ -1,1 +1,1 @@
-Nyílt forráskódú közösségi térképek utazóknak, túrázóknak és kerékpárosoknak
+Navigáció és offline térképek túrához, biciklizéshez és utazáshoz.

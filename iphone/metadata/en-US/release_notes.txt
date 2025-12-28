@@ -1,20 +1,27 @@
-- Wikipedia articles for places in Turkish, Japanese, and Chinese; type ?wiki in the search to see all articles on the map
-- Setting to visually highlight downloaded regions on the map
-- OpenStreetMap data as of from November 23, 2025
+- NEW: Christmas trees and markets now appear on the map; type `Christmas Market` or `Christmas Tree` in search to find them (or add them on OpenStreetMap.org if needed)
+- OpenStreetMap data as of December 14, 2025
+- Parking capacity now displays in search results
+- National park borders and labels are less prominent on the world map
+- Added Lithuanian search synonyms and enabled Lithuanian search
+- Search results use single-color emoji icons
+- Fixed a CarPlay issue on iOS 12
+- Resolved multiple visual issues on iPhone and iPad
+- Bookmark list search now finds names with diacritics or accented letters
+- Imported or recorded tracks shorter than 10 minutes now show duration in minutes and seconds
+- Improved button animations and the bottom button bar
+- Removed the isolines toast at app launch
 
-- Edit a bookmark or track name directly on the Place Information Page
-- Long-tap the name or address of a selected place/bookmark to copy it
-- Added search for a specific list when changing it from the Place Information Page
-- Use custom emojis on the Place Information Page
-- Fixed animations for side buttons and the dark-theme “Download Maps” button color
-- iOS 26 & macOS 26 “Liquid Glass” support
-- When moving a track to a list, that list becomes the default for new bookmarks/tracks
-- Improved GeoJSON import, including `Saved Places.json` from Google Takeout
-- Updated translations across multiple languages, including a Hebrew fix
+## Translations Updates
+- Improved Ukrainian translations
+- Improved German, Hungarian, Lithuanian, Spanish, and Turkish translations
+- Corrected roundabout TTS voice directions in Croatian
 
-## Navigation & Routing
+Check more details about this and previous releases at https://omaps.org/news/
 
-- Map layout fixed during navigation on iPad so the route stays clearly visible
-- Bicycle routing now skips one-way living streets in Austria
-- Simplified roundabout directions
-- Roads are brighter with better contrast in dark vehicle mode
+…and stay tuned for upcoming features and improvements!
+
+Thank you for your feedback and support, Organic Maps would not be possible without our amazing community of users and contributors.
+
+Happy New 2026 Year!
+
+The Organic Maps Team

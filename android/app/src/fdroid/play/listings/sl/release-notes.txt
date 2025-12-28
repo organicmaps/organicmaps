@@ -1,9 +1,8 @@
-• Članki Wikipedije v turščini, japonščini in kitajščini, vnesite ?wiki za ogled na zemljevidu
-• Nova nastavitev za vizualno označevanje prenesenih regij na zemljevidu
-• Uvozite zaznamke in shranjene lokacije iz Google Takeout prek GeoJSON
-• OSM podatki na dan 23. november
-• Izboljšano predvajanje zvoka in zvočne prekinitve
-• Popravljene sesutja v urejevalniku in pri prenosu zemljevidov
-• Svetlejše ceste v temnem načinu vozila
-• Izboljšano kolesarsko usmerjanje v Avstriji
+• NOVO: Iščite `Božično drevo` in `Božični sejem` na zemljevidu
+• Podatki OpenStreetMap z dne 14. decembra 2025
+• Snemanje sledi se nadaljuje, tudi če je aplikacija ukinjena ali zaprta
+• Meje in oznake nacionalnih parkov so na zemljevidu sveta manj izrazite
+• Dodani litovski iskalni sinonimi in omogočeno iskanje v litovščini
+• Izboljšani prevodi
+• Prikaz zmogljivosti parkirišča v rezultatih iskanja
 …več na omaps.org/news

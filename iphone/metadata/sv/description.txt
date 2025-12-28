@@ -1,39 +1,41 @@
-• Detaljerade offline-kartor med platser som inte finns på andra kartor
-• Cykelvägar, vandringsleder och gångbanor
-• Konturlinjer, höjdprofiler, bergstoppar och lutningar
-• Röstvägledd navigering till fots, på cykel och bakom ratten
-• Snabb offline-sökning
-• Bokmärken för allt du behöver; importera och dela KML-, KMZ- och GPX-filer
-• Mörkt läge för att skona ögonen
-• ... och många andra funktioner!
+Organic Maps är en snabb, detaljerad offline-karta och GPS-navigationsapp för resor, vandringar och cykelturer. Planera, importera och spela in rutter och njut av smidig vägledning utan att tömma batteriet eller använda internetuppkoppling. Utforska platser och navigera säkert under dina utomhusäventyr och resor världen över. Appen erbjuder obegränsade kartnedladdningar och uppdateras varannan vecka. Baserad på OpenStreetMap, skapad av volontärer, med fokus på integritet, 100 % offline och 100 % gratis.
 
-Organic Maps är rent och ekologiskt, gjort med kärlek:
+OFFLINE: Appen fungerar 100 % offline — inklusive sökning och navigering. Du kan utforska kartan och navigera utan internetuppkoppling, vilket sparar mobildata och roamingkostnader. Och utan bakgrundsöverföringar varar batteriet mycket längre.
 
-• Respekterar din personliga integritet
-• Sparar på ditt batteri
-• Förhindrar oförutsedda mobildataavgifter
+SNABB: Zoomning, sökning och ruttberäkningar fungerar märkbart snabbt.
 
-Organic Maps är fritt från spårare och annat ont:
+DETALJERAD OCH UPPDATERAD: Kartorna är rika på detaljer och uppdateras två gånger i månaden för att återspegla verkliga förhållanden. Till skillnad från många välkända konkurrenter inkluderar de byggnadsetiketter, bänkar, vandringsleder och annan användbar information.
 
-• Ingen reklam
-• Ingen spårning
-• Ingen datainhämtning
-• Ingen telemetri
-• Inget jobbigt registreringskrav
-• Inga obligatoriska genomgångar
-• Ingen störig skräppost
-• Inga pushnotiser
-• Ingen skräpprogramvara
-• Fri från bekämpningsmedel
+BASERAD PÅ OPENSTREETMAP: OpenStreetMap är en wiki-stil världskarta, byggd och underhållen av miljontals volontärer — lokalbefolkning som känner sina områden bäst. Detta gemenskapsarbete resulterar i mycket detaljerade kartor, ofta mer exakta än kommersiella kartor i mindre kartlagda områden. Organic Maps uppdaterar sina data från OpenStreetMap varannan vecka, vilket håller dina kartor färska och pålitliga. Och om du märker att något saknas kan du lägga till det i OpenStreetMap och hjälpa till att förbättra kartan för alla.
 
-På Organic Maps anser vi att personlig integritet är en grundläggande mänsklig rättighet:
+INTEGRITET FÖRST: Vi samlar inte in några data eller identifierare. Detta innebär att det inte finns någon risk för dataläckor och inga störande annonser eller högljudda aviseringar — bara en ren och privat kartupplevelse.
 
-• Organic Maps är ett oberoende, gemenskapsdrivet projekt
-• Källkoden är öppen
-• Kartdatan kommer från OpenStreetMap, som också är ett gemenskapsdrivet projekt
-• Vi skyddar din personliga integritet från techjättarnas vakande ögon
-• Var säker oavsett var du befinner dig
+VIKTIGA FUNKTIONER:
 
-Vägra övervakning. Välkomna friheten. Stöd gemenskapen.
+UPPTÄCK PLATSER: Sök efter adress, namn eller kategori, upptäck miljontals POI:er och se detaljerad information som öppettider, Wikipedia-artiklar, tillgänglighet för rullstol och andra användbara detaljer. Allt tillgängligt offline.
 
-Prova Organic Maps!
+GPS-NAVIGERING: Njut av röststyrd, sväng-för-sväng-vägledning. Skapa rutter för promenader, vandring, cykling eller bilkörning — inklusive rutter mellan städer, länder och flera vägpunkter. Hitta de bästa rutterna för dina tunnelbaneresor och pendling. CarPlay stöds.
+
+VANDRINGS- OCH CYKELLEDER FRÅN HELA VÄRLDEN: Aktivera specialkartlager för att upptäcka populära vandrings- och cykelleder världen över, alla från OpenStreetMap. Växla mellan lager för att se färgade cykel- och MTB-rutter samt officiella vandringsleder.
+
+KOLLEKTIVTRAFIK: Se kollektivtrafiklinjers nummer vid hållplatser. Live-scheman och ruttplanering utvecklas för närvarande.
+
+KARTSTILAR: Välj kartlager som passar din aktivitet — Utomhus, Höjdkurvor, Vandring, Cykling eller Tunnelbana.
+
+SPÅRINSPERNING: Spela in, importera, exportera och dela dina rutter och favoriter. Stöder KML, KMZ, GPX och GeoJSON.
+
+WIKIPEDIA-ARTIKLAR: Utforska Wikipedia-artiklar för platser du upptäcker på kartan. Skriv “?wiki” i sökningen för att hitta alla platser med Wikipedia-artiklar.
+
+KARTREDAKTÖR: Bidra till OpenStreetMap genom att lägga till saknade platser eller redigera kartan direkt i Organic Maps.
+
+MÖRK LÄGE: Byt till ett mörkt tema för bekväm visning på natten.
+
+iCLOUD-SYNK: Säkerhetskopiera och synkronisera enkelt alla dina bokmärken och spår via iCloud.
+
+Prova appen — den är 100 % gratis, utan annonser, snabb och helt offline. Njut av en snabb, pålitlig och privat kartupplevelse och dela den med andra.
+Organic Maps är ett indie, community-drivet, open-source-projekt med hundratals bidragsgivare som hjälper till att utveckla nya funktioner, fixa problem, översätta och driva projektet framåt.
+
+Gå med i communityn på Telegram: @OrganicMapsApp
+Eller lär dig andra sätt att stödja projektet: https://organicmaps.app/contribute/
+
+Din ärliga feedback och recensioner i butiken motiverar oss!

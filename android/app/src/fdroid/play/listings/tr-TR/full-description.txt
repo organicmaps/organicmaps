@@ -1,52 +1,40 @@
-‣ Ücretsiz uygulamamız sizi takip etmez, reklam içermez ve desteğinizle geliştirilir.
-‣ Küçük ekibimiz ve katkıda bulunanlar tarafından, boş zamanlarımızda sürekli olarak geliştirilmektedir.
-‣ Haritada yanlış veya eksik bir şey varsa, lütfen <b>OpenStreetMap'te</b> düzeltin ve gelecekteki harita güncellemelerinde değişikliklerinizi görün.
-‣ Navigasyon veya arama çalışmazsa, lütfen önce osm.org'da kontrol edin ve ardından bize e-posta gönderin. <i>HER</i> e-postaya cevap veriyoruz ve en kısa sürede düzelteceğiz!
+Organic Maps, hızlı ve detaylı bir haritalar ve navigasyon uygulamasıdır, özellikle seyahat, trekking, doğa yürüyüşleri ve bisiklet maceraları için tasarlanmıştır. Rotalarınızı planlayın, içe aktarın ve kaydedin; internet bağlantısı olmadan sorunsuz rehberlik deneyimi yaşayın. Dünyanın her yerinde yerleri keşfedin ve güvenle gezin. Uygulama, sınırsız çevrimdışı haritalar indirme ve iki haftada bir güncelleme imkânı sunar. OpenStreetMap tabanlı, gönüllü yapımı, gizliliği öncelikli, %100 çevrimdışı ve tamamen ücretsizdir.
 
-<b>Geri bildiriminiz ve 5 yıldızlı yorumlarınız bizim için en iyi motivasyon kaynağı!</b>
+<b>ÇEVRİMDIŞI:</b> Uygulama %100 çevrimdışı çalışır; arama ve navigasyon da dahildir. İnternet bağlantısı olmadan haritaları keşfedin ve gezin, böylece mobil veri ve dolaşım ücretlerinden tasarruf edin. Arka planda veri aktarımı olmadığından pil ömrü daha uzun olur.
 
-Öne Çıkan Özellikler:
-• Ücretsiz, açık kaynaklı, reklam ve izleyici içermez
-• <b>OpenStreetMap</b> topluluğu sayesinde, Google haritalarda bulunmayan yerleri içeren ayrıntılı çevrimdışı haritalar
-• Bisiklet yolları, yürüyüş parkurları ve yürüyüş yolları
-• Eş yükselti çizgileri, yükseklik profilleri, tepeler ve eğimler
-• Sesli yönergelerle ayrıntılı yürüyüş, bisiklet ve Android Auto desteğine sahip araç navigasyonu
-• Hızlı çevrimdışı arama
-• Yer imlerini KML, KMZ ve GPX dosyalarını dışa ve içe aktarma
-• Gözlerinizi korumak için karanlık mod
+<b>HIZLI:</b> Yakınlaştırma, arama ve rota hesaplamaları çok hızlı çalışır.
 
-Organic Maps'te <i>henüz</i> toplu taşıma, uydu haritaları ve diğer harika özellikler yok. Ancak <i>sizin yardımınız ve desteğinizle</i> bu dünyayı adım adım daha iyi hale getirebiliriz.
+<b>DETAYLI & GÜNCEL:</b> Haritalar detaylıdır ve gerçek dünya koşullarını yansıtacak şekilde iki haftada bir güncellenir. Binalar, banklar, yürüyüş yolları ve diğer yararlı bilgiler de mevcuttur.
 
-Organic Maps; sevgiyle yapılmış, saf ve organiktir:
+<b>OPENSTREETMAP TABANLI:</b> OpenStreetMap, yerel gönüllüler tarafından oluşturulan ve bakımı yapılan bir dünya haritasıdır. Bu topluluk çalışması, az haritalanmış bölgelerde bile yüksek doğruluk sağlar. Organic Maps, verilerini iki haftada bir OSM’den günceller. Eksik bir şey fark ederseniz, OpenStreetMap’e ekleyerek haritayı herkes için geliştirebilirsiniz.
 
-• Göz alıcı derecede hızlı çevrimdışı deneyim
-• Gizliliğinize saygı duyar
-• Pilinizi korur
-• Beklenmeyen mobil veri ücretleri olmaz
-• Yalnızca en önemli özellikleri içerir, kullanımı basittir
+<b>GİZLİLİK ÖNCELİKLİ:</b> Herhangi bir veri veya kimlik bilgisi toplanmaz. Reklam veya rahatsız edici bildirimler yoktur — sadece temiz ve özel bir haritalar ve navigasyon deneyimi.
 
-İzleyicilerden ve diğer kötü şeylerden arınmıştır:
+ÖNEMLİ ÖZELLİKLER
 
-• Reklam yok
-• İzleyiciler yok
-• Veri toplama yok
-• Evi aramak yok
-• Rahatsız edici kayıt yok
-• Zorunlu öğretici yok
-• Sürekli e-posta spamı yok
-• Push bildirimleri yok
-• Zararlı yazılım yok
-• Böcek ilacı yok. Tamamen organik!
+<b>KEŞFET:</b> Adres, isim veya kategori ile arama yapın; milyonlarca POI’yi keşfedin ve açılış saatleri, Wikipedia makaleleri, tekerlekli sandalye erişimi gibi detayları görün.
 
-Organic Maps'te <b>gizliliğin temel bir insan hakkı olduğuna</b> inanıyoruz:
+<b>GPS NAVIGASYON:</b> Sesli yönlendirme ile adım adım rota takibi. Yürüyüş, trekking, bisiklet veya sürüş rotaları oluşturun — şehirler, ülkeler ve çoklu durak noktaları dahil. Metro ve günlük yolculuklar için en iyi rotaları bulun. Android Auto desteklenir.
 
-• Organic Maps, bağımsız bir topluluk tarafından yürütülen açık kaynaklı bir projedir
-• Gizliliğinizi büyük teknoloji şirketlerinin meraklı gözlerinden koruyoruz
-• Nerede olursanız olun güvende kalın
+<b>DOĞA YÜRÜYÜŞÜ & BİSİKLET ROTALARI:</b> Dünyanın dört bir yanındaki popüler yürüyüş ve bisiklet rotalarını keşfetmek için özel harita katmanlarını etkinleştirin. Renkli MTB ve bisiklet rotaları ile resmi yürüyüş yolları arasında geçiş yapın.
 
-Exodus Gizlilik Raporuna göre hiç izleyici içermez ve yalnızca minimum düzeyde izinler gerekir.
+<b>TOPLU TAŞIMA:</b> Duraklarda toplu taşıma numaralarını görün. Canlı tarifeler ve rota planlama geliştirme aşamasında.
 
-Ek ayrıntılar ve SSS için lütfen <b><i>organicmaps.app/tr</i></b> adresini ziyaret edin. Ayrıca Telegram'daki @OrganicMapsTR adresinden bizimle doğrudan iletişime geçin.
+<b>HARİTA STİLLERİ:</b> Aktivitenize uygun katmanı seçin — Doğa, Yükselti Konturları, Yürüyüş, Bisiklet veya Metro/Taşımacılık.
 
-Gözetlemeyi reddedin - özgürlüğünüzü kucaklayın.
-<b>Organic Maps'i deneyin!</b>
+<b>ROTA KAYDEDİCİ:</b> Rotalarınızı ve favori yerlerinizi kaydedin, içe aktarın, dışa aktarın ve paylaşın. KML, KMZ, GPX ve GeoJSON formatlarını destekler.
+
+<b>WIKIPEDIA MAKALELERİ:</b> Haritadaki yerler için Wikipedia makalelerini keşfedin. Aramaya “?wiki” yazarak tüm makalelere ulaşabilirsiniz.
+
+<b>HARİTA DÜZENLEYİCİ:</b> Eksik yerleri ekleyerek veya haritayı doğrudan Organic Maps’ten düzenleyerek OpenStreetMap’e katkıda bulunun.
+
+<b>KARANLIK MOD:</b> Gece kullanımı için koyu tema seçin.
+
+Uygulamayı deneyin — %100 ücretsiz, reklamsız, hızlı ve tamamen çevrimdışı haritalar ile haritalar ve navigasyon deneyimi sunar. Dünya çapında yürüyüş, bisiklet, trekking ve seyahat için güvenilir GPS navigasyonunu yaşayın!
+
+Organic Maps, bağımsız ve topluluk odaklı bir açık kaynak projesidir. Yüzlerce katkıcı, yeni özellikler geliştirir, hataları düzeltir ve çeviriler yapar.
+
+Topluluğa katılın: Telegram @OrganicMapsTR
+Projeyi desteklemenin yolları: https://organicmaps.app/contribute
+
+Geri bildirimleriniz ve yorumlarınız bizi motive ediyor! Sorularınız için web sitesini ziyaret edin: organicmaps.app

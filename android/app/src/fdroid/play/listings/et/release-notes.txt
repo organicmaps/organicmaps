@@ -1,8 +1,8 @@
-• Vikipeedia artiklid türgi, jaapani ja hiina keeles, tippige ?wiki nende nägemiseks kaardil
-• Uus seade allalaaditud piirkondade visuaalseks esiletõstmiseks kaardil
-• Google Takeouti järjehoidjate ja salvestatud kohtade importimine GeoJSONi kaudu
-• OSM andmed seisuga 23. november
-• Täiustatud heli taasesitus ja helikatkestused
-• Parandatud kokkujooksmised redaktoris ja kaartide allalaadimisel
-• Heledamad teed pimedas sõidukireziimis
+• UUS: Otsi kaardilt `Jõulupuu` ja `Jõuluturg`
+• OpenStreetMapi andmed seisuga 14. detsember 2025
+• Raja salvestamine jätkub isegi siis, kui rakendus suletakse või tapetakse
+• Rahvusparkide piirid ja sildid on maailmakaardil vähem silmatorkavad
+• Lisatud leedu otsingu sünonüümid ja lubatud leedu otsing
+• Täiustatud tõlked
+• Kuva parkimiskohtade arv otsingutulemustes
 …rohkem aadressil omaps.org/et/news
