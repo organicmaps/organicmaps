@@ -11,6 +11,8 @@
 
 #include "base/thread_checker.hpp"
 
+#include "base/logging.hpp"
+
 #include "platform/downloader_defines.hpp"
 #include "platform/downloader_utils.hpp"
 #include "platform/local_country_file_utils.hpp"
@@ -383,7 +385,19 @@ static void EndBatchingCallbacks(JNIEnv * env)
 
     // Invoke Java callback
     jmethodID const method = jni::GetMethodID(env, *ptr, "onStatusChanged", "(Ljava/util/List;)V");
+    if (!method)
+    {
+      LOG(LWARNING, ("onStatusChanged method not found, skipping callback"));
+      if (env->ExceptionCheck())
+        env->ExceptionClear();
+      continue;
+    }
     env->CallVoidMethod(*ptr, method, list.get());
+    if (env->ExceptionCheck())
+    {
+      LOG(LWARNING, ("Exception in onStatusChanged callback"));
+      env->ExceptionClear();
+    }
   }
 
   g_batchedCallbackData.clear();
@@ -450,8 +464,20 @@ static void ProgressChangedCallback(std::shared_ptr<jobject> const & listenerRef
   JNIEnv * env = jni::GetEnv();
 
   jmethodID const methodID = jni::GetMethodID(env, *listenerRef, "onProgress", "(Ljava/lang/String;JJ)V");
+  if (!methodID)
+  {
+    LOG(LWARNING, ("onProgress method not found, skipping callback"));
+    if (env->ExceptionCheck())
+      env->ExceptionClear();
+    return;
+  }
   env->CallVoidMethod(*listenerRef, methodID, jni::TScopedLocalRef(env, jni::ToJavaString(env, countryId)).get(),
                       progress.m_bytesDownloaded, progress.m_bytesTotal);
+  if (env->ExceptionCheck())
+  {
+    LOG(LWARNING, ("Exception in onProgress callback"));
+    env->ExceptionClear();
+  }
 }
 
 // static int nativeSubscribe(StorageCallback listener);
@@ -487,7 +513,19 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeSubscribeOnC
   {
     JNIEnv * env = jni::GetEnv();
     jmethodID methodID = jni::GetMethodID(env, *listener, "onCurrentCountryChanged", "(Ljava/lang/String;)V");
+    if (!methodID)
+    {
+      LOG(LWARNING, ("onCurrentCountryChanged method not found, skipping callback"));
+      if (env->ExceptionCheck())
+        env->ExceptionClear();
+      return;
+    }
     env->CallVoidMethod(*listener, methodID, jni::TScopedLocalRef(env, jni::ToJavaString(env, countryId)).get());
+    if (env->ExceptionCheck())
+    {
+      LOG(LWARNING, ("Exception in onCurrentCountryChanged callback"));
+      env->ExceptionClear();
+    }
   });
 }
 
