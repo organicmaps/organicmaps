@@ -517,6 +517,13 @@ string FormatCapacity(std::string_view capacity, TypesHolder const & types)
   return {};
 }
 
+std::string FormatLevel(std::string_view level)
+{
+  if (!level.empty())
+    return std::string{feature::kLevelSymbol} + std::string{level};
+  return {};
+}
+
 constexpr char const * kWlan = "wlan";
 constexpr char const * kWired = "wired";
 constexpr char const * kTerminal = "terminal";
