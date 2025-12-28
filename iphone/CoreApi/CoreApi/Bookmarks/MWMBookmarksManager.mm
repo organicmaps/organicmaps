@@ -6,6 +6,7 @@
 #import "MWMCarPlayBookmarkObject.h"
 #import "MWMTrack+Core.h"
 #import "RecentlyDeletedCategory+Core.h"
+#import "StringUtils+Core.h"
 
 #include "Framework.h"
 
@@ -75,6 +76,31 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType)
   case MWMKmlFileTypeGeoJson: return KmlFileType::GeoJson;
   case MWMKmlFileTypeJson: return KmlFileType::Json;
   }
+}
+
+static FileOperationType FileOperationTypeFromCore(BookmarkManager::FileOperationType type)
+{
+  using enum BookmarkManager::FileOperationType;
+  switch (type)
+  {
+  case Created: return FileOperationTypeCreated;
+  case Updated: return FileOperationTypeUpdated;
+  case Deleted: return FileOperationTypeDeleted;
+  }
+}
+
+static NSArray<NSURL *> * FileURLsFromPaths(std::vector<std::string> const & paths)
+{
+  NSMutableArray * urls = [[NSMutableArray alloc] initWithCapacity:paths.size()];
+  for (auto const & path : paths)
+  {
+    NSURL * url = [NSURL fileURLWithPath:ToNSString(path)];
+    if (url)
+      [urls addObject:url];
+    else
+      LOG(LERROR, ("Failed to convert", path, " to NSURL"));
+  }
+  return urls;
 }
 
 @interface MWMBookmarksManager ()
@@ -169,6 +195,22 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType)
     };
   }
   self.bm.SetAsyncLoadingCallbacks(std::move(bookmarkCallbacks));
+}
+
+- (NSArray<NSURL *> *)categoryFilesList
+{
+  return FileURLsFromPaths(self.bm.GetCategoryFilesList());
+}
+
+- (void)setCategoryFilesChangedCallback:(FilesChangedCallback _Nullable)callback
+{
+  BookmarkManager::FilesChangedCallback categoryFilesChangedCallback =
+      [callback](BookmarkManager::FilesOperationEvent const & event)
+  {
+    if (callback)
+      callback(FileOperationTypeFromCore(event.type), FileURLsFromPaths(event.files));
+  };
+  self.bm.SetCategoryFilesChangedCallback(std::move(categoryFilesChangedCallback));
 }
 
 #pragma mark - Bookmarks loading
