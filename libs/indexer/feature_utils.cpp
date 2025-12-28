@@ -509,10 +509,12 @@ string FormatCapacity(std::string_view capacity, TypesHolder const & types)
 {
   if (!capacity.empty())
   {
-    if (ftypes::IsParkingChecker::Instance()(types))
+    if (ftypes::IsParkingChecker::Instance()(types) || ftypes::IsCarChargingChecker::Instance()(types))
       return std::string{capacity} + " " + std::string{feature::kCarSymbol};
-    else if (ftypes::IsBicycleParkingChecker::Instance()(types))
+    else if (ftypes::IsBicycleParkingChecker::Instance()(types) || ftypes::IsBicycleChargingChecker::Instance()(types))
       return std::string{capacity} + " " + std::string{feature::kBicycleSymbol};
+    else if (ftypes::IsMotorcycleParkingChecker::Instance()(types))
+      return std::string{capacity} + " " + std::string{feature::kMotorcycleSymbol};
   }
   return {};
 }

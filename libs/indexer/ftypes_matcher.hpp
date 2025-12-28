@@ -509,12 +509,36 @@ public:
   DECLARE_CHECKER_INSTANCE(IsParkingChecker);
 };
 
+class IsCarChargingChecker : public BaseChecker
+{
+  IsCarChargingChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsCarChargingChecker);
+};
+
 class IsBicycleParkingChecker : public BaseChecker
 {
   IsBicycleParkingChecker();
 
 public:
   DECLARE_CHECKER_INSTANCE(IsBicycleParkingChecker);
+};
+
+class IsBicycleChargingChecker : public BaseChecker
+{
+  IsBicycleChargingChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsBicycleChargingChecker);
+};
+
+class IsMotorcycleParkingChecker : public BaseChecker
+{
+  IsMotorcycleParkingChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsMotorcycleParkingChecker);
 };
 
 class IsPublicTransportStopChecker : public BaseChecker
