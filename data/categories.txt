@@ -5779,7 +5779,7 @@ zh-Hant:賭博
 amenity-gambling|@gambling
 sl:4Hazardne igre|3igre na srečo
 
-amenity-casino|@category_entertainment|@category_nightlife|@gambling
+amenity-casino|@category_nightlife|@gambling
 en:Casino|U+1F3B0|U+1F3B2|U+1F3B4
 ar:كازينو
 bg:Казино|хазарт|машинки
