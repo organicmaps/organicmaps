@@ -832,4 +832,6 @@
     <string name="uri_open_location_failed">Ebda applikazzjoni installata li tista’ tiftaħ il-post</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto fin-navigazzjoni</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">Segwi s-sistema</string>
 </resources>

@@ -853,6 +853,8 @@
     <string name="uri_open_location_failed">위치를 열 수 있는 앱이 설치되어 있지 않습니다.</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">내비게이션에서 자동</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">시스템 설정 따름</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">트랙 공유</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->

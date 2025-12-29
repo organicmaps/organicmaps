@@ -870,4 +870,6 @@
     <string name="uri_open_location_failed">No hi ha cap aplicació instal·lada que pugui obrir la ubicació</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto a la navegació</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">Segueix el sistema</string>
 </resources>

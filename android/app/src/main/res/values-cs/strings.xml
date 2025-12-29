@@ -875,6 +875,8 @@
     <string name="uri_open_location_failed">Není nainstalována žádná aplikace, která by mohla otevřít umístění</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automaticky v navigaci</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">Podle systému</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Sdílet trasu</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->

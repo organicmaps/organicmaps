@@ -873,6 +873,8 @@
     <string name="uri_open_location_failed">Aucune application installée ne permet d\'ouvrir l\'emplacement</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto dans la navigation</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">Suivre le système</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Partager la piste</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->

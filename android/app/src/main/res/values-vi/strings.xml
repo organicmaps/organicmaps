@@ -799,4 +799,6 @@
     <string name="uri_open_location_failed">Không có ứng dụng nào được cài đặt có thể mở vị trí</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Tự động điều hướng</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">Theo hệ thống</string>
 </resources>

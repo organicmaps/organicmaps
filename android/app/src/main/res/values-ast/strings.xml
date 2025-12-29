@@ -359,4 +359,6 @@
     <string name="track_recording_toast_nothing_to_save">El trayeutu ta baleru; nun hai nada pa guardar</string>
     <string name="choose_color">Escueyi un color</string>
     <string name="edit_track">Editar trayeutu</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">Siguir el sistema</string>
 </resources>

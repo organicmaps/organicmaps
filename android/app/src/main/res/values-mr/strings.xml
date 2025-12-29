@@ -831,4 +831,6 @@
     <string name="uri_open_location_failed">स्थान उघडू शकणारे कोणतेही ॲप स्थापित केलेले नाही</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">नेव्हिगेशनमध्ये ऑटो</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">प्रणालीचे अनुसरण करा</string>
 </resources>
