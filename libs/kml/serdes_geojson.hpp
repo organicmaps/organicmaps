@@ -64,7 +64,9 @@ struct GeoJsonGeometryUnknown
   glz::generic coordinates;
 };
 
+// clang-format off
 using GeoJsonGeometry = std::variant<GeoJsonGeometryPoint, GeoJsonGeometryLine, GeoJsonGeometryMultiLine, GeoJsonGeometryUnknown>;
+// clang-format on
 
 std::string DebugPrint(GeoJsonGeometry const & g);
 
