@@ -54,7 +54,7 @@ std::string DebugPrint(glz::generic const & json)
 
 }  // namespace geojson
 
-static std::vector<geometry::PointWithAltitude> coordsToPoints(std::vector<std::vector<double>> coords)
+static std::vector<geometry::PointWithAltitude> CoordsToPoints(std::vector<std::vector<double>> coords)
 {
   std::vector<geometry::PointWithAltitude> points;
   points.resize(coords.size());
@@ -72,10 +72,8 @@ static std::vector<geometry::PointWithAltitude> coordsToPoints(std::vector<std::
   return points;
 }
 
-
 bool GeoJsonReader::Parse(std::string_view jsonContent)
 {
-  // Make some classes from 'geojson' namespace visible here.
   using namespace geojson;
 
   GeoJsonData geoJsonData;
@@ -252,16 +250,16 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
         track.m_layers.push_back(TrackLayer{.m_color = *lineColor});
 
       // Convert line(s) coordinates
-      if (lineGeometry != nullptr)
+      if (lineGeometry)
       {
-        track.m_geometry.m_lines.push_back(coordsToPoints(lineGeometry->coordinates));
+        track.m_geometry.m_lines.push_back(CoordsToPoints(lineGeometry->coordinates));
         track.m_geometry.AddTimestamps({});
       }
-      if (multilineGeometry != nullptr)
+      if (multilineGeometry)
       {
-        for (auto & coords: multilineGeometry->coordinates)
+        for (auto & coords : multilineGeometry->coordinates)
         {
-          track.m_geometry.m_lines.push_back(coordsToPoints(coords));
+          track.m_geometry.m_lines.push_back(CoordsToPoints(coords));
           track.m_geometry.AddTimestamps({});
         }
       }
@@ -286,16 +284,20 @@ void GeoJsonReader::Deserialize(std::string_view content)
   }
 }
 
-std::vector<std::vector<double>> ConvertPoints2GeoJsonCoords(std::vector<geometry::PointWithAltitude> const & points)
+std::vector<std::vector<double>> ConvertPoints2GeoJsonCoords(std::vector<geometry::PointWithAltitude> const & points,
+  bool addAltitude=false)
 {
-  std::vector<std::vector<double>> pairs;
-  pairs.reserve(points.size());
+  std::vector<std::vector<double>> coordinates;
+  coordinates.reserve(points.size());
   for (auto const & point : points)
   {
     auto const [lat, lon] = mercator::ToLatLon(point);
-    pairs.emplace_back(lon, lat);
+    if (addAltitude)
+      coordinates.emplace_back(std::vector{lon, lat, static_cast<double>(point.GetAltitude())});
+    else
+      coordinates.emplace_back(std::vector{lon, lat});
   }
-  return pairs;
+  return coordinates;
 }
 
 void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
@@ -383,7 +385,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
     else
     {
       auto points = track.m_geometry.m_lines[0];
-      trackGeometry = GeoJsonGeometryLine{.coordinates = convertPoints2GeoJsonCoords(points)};
+      trackGeometry = GeoJsonGeometryLine{.coordinates = ConvertPoints2GeoJsonCoords(points)};
     }
     GeoJsonFeature trackFeature{.geometry = trackGeometry, .properties = trackProps};
     geoJsonFeatures.push_back(std::move(trackFeature));

@@ -243,7 +243,7 @@ UNIT_TEST(GeoJson_Parse_UMapOptions)
 
   // Parse the stored JSON to verify it contains the expected data
   std::string const & umapOptionsStr = umapOptionsIt->second;
-  glz::json_t umapOptionsJson;
+  glz::generic umapOptionsJson;
   auto const parseResult = glz::read_json(umapOptionsJson, umapOptionsStr);
   TEST_EQUAL(parseResult, glz::error_code::none, ("Should be able to parse stored _umap_options JSON"));
 
@@ -268,7 +268,7 @@ UNIT_TEST(GeoJson_Parse_UMapOptions)
 
   // Parse the stored JSON to verify it contains the expected data
   std::string const & trackUmapOptionsStr = trackUmapOptionsIt->second;
-  glz::json_t trackUmapOptionsJson;
+  glz::generic trackUmapOptionsJson;
   auto const trackParseResult = glz::read_json(trackUmapOptionsJson, trackUmapOptionsStr);
   TEST_EQUAL(trackParseResult, glz::error_code::none, ("Should be able to parse stored track _umap_options JSON"));
 
