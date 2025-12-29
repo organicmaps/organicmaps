@@ -63,7 +63,8 @@ static std::vector<geometry::PointWithAltitude> coordsToPoints(std::vector<std::
     auto const & pointCoords = coords[i];
     if (pointCoords.size() >= 3)
       // Third coordinate (if present) means altitude
-      points[i] = geometry::PointWithAltitude(mercator::FromLatLon(pointCoords[1], pointCoords[0]), static_cast<geometry::Altitude>(pointCoords[2]));
+      points[i] = geometry::PointWithAltitude(mercator::FromLatLon(pointCoords[1], pointCoords[0]),
+                                              static_cast<geometry::Altitude>(pointCoords[2]));
     else
       points[i] = mercator::FromLatLon(pointCoords[1], pointCoords[0]);
   }
@@ -208,7 +209,7 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
     auto const * lineGeometry = std::get_if<GeoJsonGeometryLine>(&feature.geometry);
     auto const * multilineGeometry = std::get_if<GeoJsonGeometryMultiLine>(&feature.geometry);
 
-    if (lineGeometry!=nullptr || multilineGeometry!=nullptr)
+    if (lineGeometry != nullptr || multilineGeometry != nullptr)
     {
       // Convert GeoJson properties to KML properties
       auto const & props_json = feature.properties;
@@ -265,7 +266,7 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
         }
       }
 
-      m_fileData.m_tracksData.push_back(track);
+      m_fileData.m_tracksData.push_back(std::move(track));
     }
   }
 
@@ -285,15 +286,14 @@ void GeoJsonReader::Deserialize(std::string_view content)
   }
 }
 
-std::vector<std::vector<double>> convertPoints2GeoJsonCoords(std::vector<geometry::PointWithAltitude> points)
+std::vector<std::vector<double>> ConvertPoints2GeoJsonCoords(std::vector<geometry::PointWithAltitude> const & points)
 {
   std::vector<std::vector<double>> pairs;
-  pairs.resize(points.size());
-  for (size_t i = 0; i < points.size(); i++)
+  pairs.reserve(points.size());
+  for (auto const & point : points)
   {
-    auto const & p = points[i];
-    auto const [lat, lon] = mercator::ToLatLon(p);
-    pairs[i] = std::vector<double>{lon, lat};
+    auto const [lat, lon] = mercator::ToLatLon(point);
+    pairs.emplace_back(lon, lat);
   }
   return pairs;
 }
@@ -329,7 +329,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
       {
         // Update known UMap properties.
         umap_options_obj["color"] = ToCssColor(bookmark.m_color);
-        bookmarkProperties["_umap_options"] = umap_options_obj;
+        bookmarkProperties["_umap_options"] = std::move(umap_options_obj);
       }
     }
 
@@ -342,11 +342,11 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
   for (size_t i = 0; i < fileData.m_tracksData.size(); i++)
   {
     TrackData const & track = fileData.m_tracksData[i];
-    auto linesCount = track.m_geometry.m_lines.size();
+    auto const linesCount = track.m_geometry.m_lines.size();
     bool isMultiline = linesCount > 1;
     if (linesCount == 0)
       continue;
-    auto layer = track.m_layers[i];
+    auto const & layer = track.m_layers[i];
 
     JsonTMap trackProps{{"name", GetDefaultStr(track.m_name)}, {"stroke", ToCssColor(layer.m_color)}};
     if (!track.m_description.empty())
@@ -367,7 +367,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
       {
         // Update known UMap properties.
         umap_options_obj["color"] = ToCssColor(layer.m_color);
-        trackProps["_umap_options"] = umap_options_obj;
+        trackProps["_umap_options"] = std::move(umap_options_obj);
       }
     }
 
@@ -375,10 +375,10 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
     if (isMultiline)
     {
       std::vector<GeoJsonGeometryMultiLine::LineCoords> lines;
-      for (auto & trackLine : track.m_geometry.m_lines)
-        lines.push_back(convertPoints2GeoJsonCoords(trackLine));
+      for (auto const & trackLine : track.m_geometry.m_lines)
+        lines.push_back(ConvertPoints2GeoJsonCoords(trackLine));
 
-      trackGeometry = GeoJsonGeometryMultiLine{.coordinates = lines};
+      trackGeometry = GeoJsonGeometryMultiLine{.coordinates = std::move(lines)};
     }
     else
     {
