@@ -870,6 +870,8 @@
     <string name="uri_open_location_failed">Δεν υπάρχει εγκατεστημένη εφαρμογή που να μπορεί να ανοίξει την τοποθεσία</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Αυτόματη πλοήγηση</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">Ακολούθησε το σύστημα</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Κοινοποίηση ίχνους</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->

@@ -868,6 +868,8 @@
     <string name="uri_open_location_failed">Nav uzstādīta neviena lietotne, kas varētu atvērt atrašanās vietu</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automātisks navigācijas laikā</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">Sekot sistēmai</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Koplietošanas trase</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->

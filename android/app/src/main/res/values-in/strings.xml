@@ -849,6 +849,8 @@
     <string name="uri_open_location_failed">Tidak ada Aplikasi yang diinstal yang dapat membuka lokasi</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Otomatis dalam navigasi</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">Ikuti sistem</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Bagikan Lintasan</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->

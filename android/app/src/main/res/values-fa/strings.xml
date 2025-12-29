@@ -862,4 +862,6 @@
     <string name="uri_open_location_failed">هیچ برنامه‌ای نصب نشده است که بتواند مکان را باز کند</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">مسیریابی خودکار</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">تابع سیستم</string>
 </resources>

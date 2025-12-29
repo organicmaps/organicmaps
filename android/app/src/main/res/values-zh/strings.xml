@@ -870,6 +870,8 @@
     <string name="uri_open_location_failed">未安装可以打开位置的应用</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">自动导航</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">跟随系统</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">分享轨迹</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->

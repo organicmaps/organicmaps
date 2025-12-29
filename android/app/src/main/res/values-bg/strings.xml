@@ -862,6 +862,8 @@
     <string name="uri_open_location_failed">Не е инсталирано приложение, което може да отвори местоположението</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Автоматично в навигацията</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">Като системата</string>
     <!-- Title of the bottom sheet when sharing the track -->
     <string name="share_track">Споделяне на пистата</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
