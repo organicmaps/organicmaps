@@ -693,8 +693,10 @@ kml::FileData GenerateKmlFileDataWithMultiTrack()
   // TODO: Replace with real coordinates after Json Serialization is fixed
   trackData.m_geometry.AddLine(
       {{mercator::FromLatLon(0, 0), 1}, {mercator::FromLatLon(0, 0), 2}, {mercator::FromLatLon(0, 0), 3}});
-  trackData.m_geometry.AddLine(
-      {{mercator::FromLatLon(0, 0), 1}, {mercator::FromLatLon(0, 0), 2}, {mercator::FromLatLon(0, 0), 3}, {mercator::FromLatLon(0, 0), 4}});
+  trackData.m_geometry.AddLine({{mercator::FromLatLon(0, 0), 1},
+                                {mercator::FromLatLon(0, 0), 2},
+                                {mercator::FromLatLon(0, 0), 3},
+                                {mercator::FromLatLon(0, 0), 4}});
 
   result.m_tracksData.emplace_back(std::move(trackData));
 
