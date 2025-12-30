@@ -230,3 +230,9 @@ jobs:
             ./android/app/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk
             ./android/app/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk.sha256sum
           fail_on_unmatched_files: true
+
+  android-sdk-release:
+    uses: ./.github/workflows/android-sdk.yaml
+    needs: tag
+    with:
+      tag: ${{ needs.tag.outputs.tag }}
