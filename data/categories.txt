@@ -79,7 +79,7 @@
 en:Where to eat|eat|Food
 ar:طعام|أمكان لتناول الطعام
 be:Дзе паесці|паесці|ежа
-bg:Места за хапване|ядене|храна
+bg:Места за хапване|ядене|храна|ястие|манджа|гозба
 ca:On menjar|Menjar
 cs:Kde se najíst|Jídlo
 da:Spisesteder|Mad
