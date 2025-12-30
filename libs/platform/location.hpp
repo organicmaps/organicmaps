@@ -3,12 +3,8 @@
 #include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
-#include "base/base.hpp"
-
 #include <cmath>
 #include <functional>
-#include <string>
-#include <vector>
 
 namespace location
 {
@@ -60,7 +56,7 @@ public:
   bool IsValid() const { return m_source != EUndefined; }
   bool HasBearing() const { return m_bearing >= 0.0; }
   bool HasSpeed() const { return m_speed >= 0.0; }
-  bool HasVerticalAccuracy() const { return m_verticalAccuracy >= 0.0; }
+  bool HasAltitude() const { return m_verticalAccuracy >= 0.0; }
   ms::LatLon GetLatLon() const { return {m_latitude, m_longitude}; }
 };
 
