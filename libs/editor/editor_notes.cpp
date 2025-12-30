@@ -181,10 +181,22 @@ void Notes::Upload(osm::OsmOAuth const & auth)
 
         LOG(LINFO, ("A note uploaded with id", id));
       }
+      catch (osm::OsmOAuth::NetworkError const & e)
+      {
+        ulock.lock();  // important: restore mutex before returning
+        LOG(LWARNING, ("Network error while uploading note:", e.what()));
+        return;
+      }
       catch (osm::ServerApi06::ServerApi06Exception const & e)
       {
         LOG(LERROR, ("Can't upload note.", e.Msg()));
         // We believe that next iterations will suffer from the same error.
+        return;
+      }
+      catch (std::exception const & e)
+      {
+        ulock.lock();
+        LOG(LERROR, ("Unexpected exception while uploading note:", e.what()));
         return;
       }
 
