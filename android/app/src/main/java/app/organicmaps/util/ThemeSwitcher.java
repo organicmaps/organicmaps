@@ -58,11 +58,16 @@ public enum ThemeSwitcher
   }
 
   /**
-   * Changes the UI theme of application. The map style will not be changed here, see
-   * `synchronizeMapStyle` method.
+   * Updates the application's visual theme to match current user preferences,
+   * device settings, and navigation state. Call this method whenever any of
+   * these conditions change to maintain proper theme consistency.
+   *
+   * <p><b>Note:</b> This method does not affect map styling. Map appearance
+   * requires separate synchronization via {@link #synchronizeMapStyle(Context, boolean)} when
+   * map-related theme changes occur.
    */
   @androidx.annotation.UiThread
-  public void restart()
+  public void synchronizeApplicationTheme()
   {
     String theme = Config.UiTheme.getUiThemeSettings();
     if (ThemeUtils.isNavAutoTheme())
@@ -77,15 +82,24 @@ public enum ThemeSwitcher
   }
 
   /**
-   * Changes the style of the map according to application theme.
-   * If the contract regarding the input parameter is broken, the UI will be frozen during attempting to change the map
-   * style through the synchronous method {@link MapStyle#set(MapStyle)}.
+   * Updates the map's visual style to match the current application theme and
+   * navigation mode. Call this method when any of the following conditions change:
    *
-   * @param context UI context, that contains the information about current app ui mode.
-   *                Should be activity, that draws the map
-   * @param isRendererActive Indicates whether OpenGL renderer is active or not. Must be
-   *                         <code>true</code> only if the map is rendered and visible on the screen
-   *                         at this moment, otherwise <code>false</code>.
+   * <ul>
+   *   <li>Application theme (light/dark mode)</li>
+   *   <li>Navigation mode</li>
+   *   <li>Outdoor map layer availability</li>
+   * </ul>
+   *
+   * <p><b>Important:</b> This method must be called on the UI thread and only
+   * when the map is rendered and visible on the screen. Incorrect parameters or calling this
+   * method at the wrong time will cause UI freezing.</p>
+   *
+   * @param context The activity context currently displaying the map
+   * @param isRendererActive Whether the OpenGL renderer is currently active
+   *                         and the map is visible on screen
+   *
+   * @see #synchronizeApplicationTheme()
    */
   @androidx.annotation.UiThread
   public void synchronizeMapStyle(@UiContext @NonNull Context context, boolean isRendererActive)
