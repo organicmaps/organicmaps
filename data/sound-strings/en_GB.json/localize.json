@@ -39,5 +39,7 @@
 "take_the_10_exit_street": "NULL",
 "take_the_10_exit_street_verb": "NULL",
 "take_the_11_exit_street": "NULL",
-"take_the_11_exit_street_verb": "NULL"
+"take_the_11_exit_street_verb": "NULL",
+"make_a_right_turn": "Turn right.",
+"make_a_left_turn": "Turn left."
 }

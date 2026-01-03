@@ -2,9 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-
-<!-- ********** Strings for downloading map from search **********/ -->
-
 	<key>bookmarks_places</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -25,7 +22,6 @@
 			<string>%d zabilješki</string>
 		</dict>
 	</dict>
-
 	<key>bookmarks_detect_message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -46,7 +42,6 @@
 			<string>Pronađeno je %d datoteka. Možeš ih vidjeti nakon konverzije.</string>
 		</dict>
 	</dict>
-
 	<key>tracks</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -58,15 +53,14 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>zero</key>
-			<string>%d tragova</string>
+			<string>%d puteva</string>
 			<key>one</key>
-			<string>%d trag</string>
+			<string>%d put</string>
 			<key>few</key>
-			<string>%d traga</string>
+			<string>%d puta</string>
 			<key>other</key>
-			<string>%d tragova</string>
+			<string>%d puteva</string>
 		</dict>
 	</dict>
-
 </dict>
 </plist>

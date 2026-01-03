@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Uncategorized -->
     <string name="postal_code">Postcode</string>
     <string name="subway_data_unavailable">Metro map is unavailable</string>
+    <string name="routes_update_maps_text">To display routes, maps must be updated.</string>
+    <string name="show_downloaded_regions">Purple downloaded regions</string>
 </resources>
