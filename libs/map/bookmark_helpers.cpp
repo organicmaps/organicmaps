@@ -606,7 +606,7 @@ static bool SaveGpxData(kml::FileData & kmlData, Writer & writer)
   return true;
 }
 
-static bool SaveGeoJsonData(kml::FileData & kmlData, Writer & writer)
+static bool SaveGeoJsonData(kml::FileData const & kmlData, Writer & writer)
 {
   try
   {

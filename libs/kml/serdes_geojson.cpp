@@ -25,7 +25,7 @@ std::string DebugPrint(GeoJsonGeometry const & g)
   }
 }
 
-std::string DebugPrint(JsonTMap const & p)
+std::string DebugPrint(GenericJsonMap const & p)
 {
   std::ostringstream out;
   bool isFirst = true;
@@ -88,7 +88,7 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
     return false;
   }
 
-  auto getStringFromJsonMap = [](JsonTMap const & propsJson,
+  auto getStringFromJsonMap = [](GenericJsonMap const & propsJson,
                                  std::string const & fieldName) -> std::optional<std::string>
   {
     if (auto const field = propsJson.find(fieldName); field != propsJson.end() && field->second.is_string())
@@ -114,7 +114,7 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
       if (auto const gmapLocation = propsJson.find("location");
           gmapLocation != propsJson.end() && gmapLocation->second.is_object())
       {
-        JsonTMap const gmapLocation_object = gmapLocation->second.get_object();
+        GenericJsonMap const gmapLocation_object = gmapLocation->second.get_object();
         /* Parse "location" structure from Google Maps GeoJson:
 
           "location": {
@@ -176,7 +176,7 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
       if (auto const umapOptions = propsJson.find("_umap_options");
           umapOptions != propsJson.end() && umapOptions->second.is_object())
       {
-        JsonTMap const umap_options = umapOptions->second.get_object();
+        GenericJsonMap const umap_options = umapOptions->second.get_object();
         // Parse color from properties['_umap_options']['color']
         if (auto const color = getStringFromJsonMap(umap_options, "color"))
         {
@@ -232,7 +232,7 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
       if (auto const umapOptions = props_json.find("_umap_options");
           umapOptions != props_json.end() && umapOptions->second.is_object())
       {
-        JsonTMap const umap_options = umapOptions->second.get_object();
+        GenericJsonMap const umap_options = umapOptions->second.get_object();
         // Parse color from properties['_umap_options']['color']
         if (auto const color = getStringFromJsonMap(umap_options, "color"))
         {
@@ -317,8 +317,8 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
   for (BookmarkData const & bookmark : fileData.m_bookmarksData)
   {
     auto const [lat, lon] = mercator::ToLatLon(bookmark.m_point);
-    JsonTMap bookmarkProperties{{"name", GetDefaultStr(bookmark.m_name)},
-                                {"marker-color", ToCssColor(bookmark.m_color)}};
+    GenericJsonMap bookmarkProperties{{"name", GetDefaultStr(bookmark.m_name)},
+                                      {"marker-color", ToCssColor(bookmark.m_color)}};
     if (!bookmark.m_description.empty())
       bookmarkProperties["description"] = GetDefaultStr(bookmark.m_description);
 
@@ -326,7 +326,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
     if (auto const umapOptionsPair = bookmark.m_properties.find("_umap_options");
         umapOptionsPair != bookmark.m_properties.end())
     {
-      JsonTMap umap_options_obj;
+      GenericJsonMap umap_options_obj;
       if (auto error = glz::read_json(umap_options_obj, umapOptionsPair->second))
       {
         // Some error happened!
@@ -356,7 +356,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
       continue;
     auto const & layer = track.m_layers[i];
 
-    JsonTMap trackProps{{"name", GetDefaultStr(track.m_name)}, {"stroke", ToCssColor(layer.m_color)}};
+    GenericJsonMap trackProps{{"name", GetDefaultStr(track.m_name)}, {"stroke", ToCssColor(layer.m_color)}};
     if (!track.m_description.empty())
       trackProps["description"] = GetDefaultStr(track.m_description);
 
@@ -364,7 +364,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
     if (auto const umapOptionsPair = track.m_properties.find("_umap_options");
         umapOptionsPair != track.m_properties.end())
     {
-      JsonTMap umap_options_obj;
+      GenericJsonMap umap_options_obj;
       if (auto error = glz::read_json(umap_options_obj, umapOptionsPair->second))
       {
         // Some error happened!
@@ -397,7 +397,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
     geoJsonFeatures.push_back(std::move(trackFeature));
   }
 
-  GeoJsonData geoJsonData{.features = geoJsonFeatures, .properties = std::nullopt};
+  GeoJsonData const geoJsonData{.features = std::move(geoJsonFeatures), .properties = std::nullopt};
 
   // Export to GeoJson string.
   glz::error_ctx error;

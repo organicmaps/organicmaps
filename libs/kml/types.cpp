@@ -142,9 +142,8 @@ std::string ToCssColor(ColorData color)
   case Brown: return "Brown";
   case Gray: return "Gray";
   case BlueGray: return "SlateGray";
-  case Count: UNREACHABLE();
+  default: UNREACHABLE();
   }
-  UNREACHABLE();
 }
 
 }  // namespace kml
