@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Zurück</string>
@@ -100,7 +99,6 @@
     <string name="measurement_units">Maßeinheiten</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Wählen Sie zwischen Kilometern und Meilen</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Essmöglichkeiten</string>
@@ -146,7 +144,6 @@
     <string name="category_water">Wasser</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Einrichtungen für Wohnmobile</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notizen</string>
@@ -339,7 +336,6 @@
     <string name="blue_gray">Graublau</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Schenke Millionen von Nutzern kostenlose und werbefreie Karten!</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Wenn Sie der Route folgen, beachten Sie bitte:</string>
     <string name="dialog_routing_disclaimer_priority">– Zustand der Straßen, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;</string>
@@ -369,7 +365,6 @@
     <string name="not_now">Nicht jetzt</string>
     <string name="dialog_routing_download_and_build_cross_route">Möchten Sie die Karte herunterladen und eine bessere Route erstellen, die mehr als eine Karte umfasst?</string>
     <string name="dialog_routing_download_cross_route">Laden Sie zusätzliche Karten herunter, um eine bessere Route zu erstellen, die die Grenzen dieser Karte überschreitet.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Um mit der Suche und dem Erstellen von Routen zu beginnen, laden Sie bitte die Karte herunter. Sie benötigen danach keine Internetverbindung mehr.</string>
     <string name="search_select_map">Karte auswählen</string>
@@ -717,7 +712,6 @@
     <string name="moreyear_ago_sorttype">Vor über einem Jahr</string>
     <string name="near_me_sorttype">In meiner Nähe</string>
     <string name="others_sorttype">Sonstiges</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Essen</string>
     <string name="tourist_places">Sehenswürdigkeiten</string>

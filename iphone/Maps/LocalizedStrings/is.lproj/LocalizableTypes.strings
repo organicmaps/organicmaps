@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Heimilisfang/Blokk";
 "type.addr_interpolation.even" = "Heimilisfang/Blokk";
 "type.addr_interpolation.odd" = "Heimilisfang/Blokk";
@@ -137,10 +133,6 @@
 "type.amenity.prison" = "Fangelsi";
 "type.amenity.pub" = "Krá";
 "type.amenity.public_bookcase" = "Bókaskipti";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Endurvinnslustöð";
 "type.amenity.recycling" = "Endurvinnslugámur";
 "type.amenity.recycling.container" = "Endurvinnslugámur";
@@ -397,10 +389,6 @@
 "type.healthcare.psychotherapist" = "Sálmeðferðarfræðingur";
 "type.healthcare.sample_collection" = "Söfnunarmiðstöð sýna";
 "type.healthcare.speech_therapist" = "Talmeinafræði";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Þjóðvegur";
 "type.highway.bridleway" = "Reiðstígur";
 
@@ -617,10 +605,6 @@
 "type.area_highway.unclassified" = "Aukavegur";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Sögulegur hlutur";
 "type.historic.aircraft" = "Söguleg flugvél";
 "type.historic.anchor" = "Sögulegt akkeri";
@@ -722,7 +706,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Kristinn grafreitur";
 "type.landuse.religious" = "Kirkjugarður";
-"type.landuse.churchyard" = "Churchyard";
+"type.landuse.churchyard" = "Kirkjugarður";
 "type.landuse.commercial" = "Verslunarsvæði";
 "type.landuse.construction" = "Byggingarsvæði";
 "type.landuse.education" = "Menntastofnun";
@@ -1343,7 +1327,7 @@
 "type.shop.pet_grooming" = "Snyrting fyrir gæludýr";
 "type.shop.photo" = "Ljósmyndavöruverslun";
 "type.shop.rental" = "Leiga";
-"type.shop.rental.bicycle" = "Bicycle Rental Shop";
+"type.shop.rental.bicycle" = "Reiðhjólaleiga";
 "type.amenity.bicycle_rental.shop" = "Hjólaleiga";
 "type.shop.seafood" = "Fisksali";
 "type.shop.second_hand" = "Verslun með notað";
@@ -1569,5 +1553,5 @@
 "type.man_made.monitoring_station.weather" = "Veðurstöð";
 "type.amenity.student_accommodation" = "Stúdentagarðar";
 "type.craft.watchmaker" = "Úrsmiður";
-"type.xmas_feature.market" = "Christmas Market";
-"type.xmas_feature.tree" = "Christmas Tree";
+"type.xmas_feature.market" = "Jólamarkaður";
+"type.xmas_feature.tree" = "Jólatré";
