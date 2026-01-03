@@ -549,7 +549,7 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fi
     }
     else if (fileType == KmlFileType::GeoJson || fileType == KmlFileType::Json)
     {
-      kml::DeserializerGeoJson des(*data);
+      kml::GeoJsonReader des(*data);
       std::string content;
       reader.ReadAsString(content);
 
@@ -606,6 +606,26 @@ static bool SaveGpxData(kml::FileData & kmlData, Writer & writer)
   return true;
 }
 
+static bool SaveGeoJsonData(kml::FileData const & kmlData, Writer & writer)
+{
+  try
+  {
+    kml::GeoJsonWriter exporter(writer);
+    exporter.Write(kmlData, false);
+  }
+  catch (Writer::Exception const & e)
+  {
+    LOG(LWARNING, ("GeoJSON writing failure:", e.what()));
+    return false;
+  }
+  catch (std::exception const & e)
+  {
+    LOG(LWARNING, ("GeoJSON serialization failure:", e.what()));
+    return false;
+  }
+  return true;
+}
+
 static bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)
 {
   FileWriter writer(file);
@@ -614,8 +634,8 @@ static bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFi
   case KmlFileType::Text:  // fallthrough
   case KmlFileType::Binary: return SaveKmlData(kmlData, writer, fileType);
   case KmlFileType::Gpx: return SaveGpxData(kmlData, writer);
-  case KmlFileType::GeoJson:  // TODO: implement. fallthrough
-  case KmlFileType::Json:     // TODO: implement. fallthrough
+  case KmlFileType::GeoJson:  // fallthrough
+  case KmlFileType::Json: return SaveGeoJsonData(kmlData, writer);
   default:
   {
     LOG(LWARNING, ("Unexpected KmlFileType", fileType));
