@@ -256,7 +256,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Keep
   public void onRenderingInitializationFinished()
   {
-    ThemeSwitcher.INSTANCE.restart();
+    ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
 
     Framework.nativeRestoreDownloadQueue();
 
@@ -550,7 +550,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     updateViewsInsets();
 
     if (getIntent().getBooleanExtra(EXTRA_UPDATE_THEME, false))
-      ThemeSwitcher.INSTANCE.restart();
+      ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
 
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
 
@@ -1053,7 +1053,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onResume()
   {
     super.onResume();
-    ThemeSwitcher.INSTANCE.restart();
+    ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
+    ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     refreshSearchToolbar();
     setFullscreen(isFullscreen());
     makeNavigationBarTransparentInLightMode();
@@ -1537,7 +1538,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onNavigationCancelled()
   {
     closeFloatingToolbarsAndPanels(true);
-    ThemeSwitcher.INSTANCE.restart();
+    ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
+    ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     if (mRoutingPlanInplaceController == null)
       return;
 
@@ -1553,7 +1555,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onNavigationStarted()
   {
     closeFloatingToolbarsAndPanels(true);
-    ThemeSwitcher.INSTANCE.restart();
+    ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
+    ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.navigation);
     refreshLightStatusBar();
 
@@ -1589,7 +1592,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onResetToPlanningState()
   {
     closeFloatingToolbarsAndPanels(true);
-    ThemeSwitcher.INSTANCE.restart();
+    ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
+    ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     NavigationService.stopService(this);
     mMapButtonsViewModel.setSearchOption(null);
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.planning);

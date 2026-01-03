@@ -396,7 +396,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       if (!Config.UiTheme.setUiThemeSettings(themeName))
         return true;
 
-      ThemeSwitcher.INSTANCE.restart();
+      ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
 
       final ThemeMode mode = ThemeMode.getInstance(themeName);
       final CharSequence summary = pref.getEntries()[mode.ordinal()];
