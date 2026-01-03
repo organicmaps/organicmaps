@@ -373,8 +373,8 @@ UNIT_TEST(GeoJson_Writer_Simple)
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          13.39712,
+          52.48982
         ]
       },
       "properties": {
@@ -389,16 +389,16 @@ UNIT_TEST(GeoJson_Writer_Simple)
         "type": "LineString",
         "coordinates": [
           [
-            0,
-            0
+            45.25,
+            47
           ],
           [
-            0,
-            0
+            45.5,
+            48
           ],
           [
-            0,
-            0
+            45.75,
+            49
           ]
         ]
       },
@@ -429,34 +429,34 @@ UNIT_TEST(GeoJson_Writer_MultiTrack)
         "coordinates": [
           [
             [
-              0,
-              0
+              45.25,
+              47
             ],
             [
-              0,
-              0
+              45.5,
+              48
             ],
             [
-              0,
-              0
+              45.75,
+              49
             ]
           ],
           [
             [
-              0,
-              0
+              45.95,
+              49.2
             ],
             [
-              0,
-              0
+              46.15,
+              49.4
             ],
             [
-              0,
-              0
+              46.4,
+              49.6
             ],
             [
-              0,
-              0
+              46.55,
+              49.8
             ]
           ]
         ]
@@ -480,7 +480,7 @@ UNIT_TEST(GeoJson_Writer_MultiTrack)
 UNIT_TEST(GeoJson_Writer_Simple_Minimized)
 {
   // clang-format off
-  std::string_view constexpr expected_geojson = R"({"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[0,0]},"properties":{"description":"Test bookmark description","marker-color":"RoyalBlue","name":"Marcador de prueba"}}]})";
+  std::string_view constexpr expected_geojson = R"({"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[13.39712,52.48982]},"properties":{"description":"Test bookmark description","marker-color":"RoyalBlue","name":"Marcador de prueba"}}]})";
   // clang-format on
 
   kml::FileData const testData = GenerateKmlFileData();
@@ -499,8 +499,8 @@ UNIT_TEST(GeoJson_Writer_UMap)
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          13.39712,
+          52.48982
         ]
       },
       "properties": {
@@ -522,16 +522,16 @@ UNIT_TEST(GeoJson_Writer_UMap)
         "type": "LineString",
         "coordinates": [
           [
-            0,
-            0
+            45.25,
+            47
           ],
           [
-            0,
-            0
+            45.5,
+            48
           ],
           [
-            0,
-            0
+            45.75,
+            49
           ]
         ]
       },
@@ -589,8 +589,8 @@ UNIT_TEST(GeoJson_Writer_UMap_Invalid_Json)
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          13.39712,
+          52.48982
         ]
       },
       "properties": {
@@ -637,7 +637,7 @@ kml::FileData GenerateKmlFileData()
   bookmarkData.m_color = {kml::PredefinedColor::Blue, 0};
   bookmarkData.m_icon = kml::BookmarkIcon::None;
   bookmarkData.m_timestamp = kml::TimestampClock::from_time_t(800);
-  bookmarkData.m_point = mercator::FromLatLon(0.0, 0.0);  // TODO: Replace with real coordinates after Json Serialization is fixed
+  bookmarkData.m_point = mercator::FromLatLon(52.48982, 13.39712);
   bookmarkData.m_visible = false;
   bookmarkData.m_minZoom = 10;
   bookmarkData.m_properties = {{"bm_property1", "value1"}, {"bm_property2", "value2"}, {"score", "5"}};
@@ -663,9 +663,9 @@ kml::FileData GenerateKmlFileDataWithTrack()
                         {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
   trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
 
-  // TODO: Replace with real coordinates after Json Serialization is fixed
-  trackData.m_geometry.AddLine(
-      {{mercator::FromLatLon(0, 0), 1}, {mercator::FromLatLon(0, 0), 2}, {mercator::FromLatLon(0, 0), 3}});
+  trackData.m_geometry.AddLine({{mercator::FromLatLon(47, 45.25), 1},
+                                {mercator::FromLatLon(48, 45.5), 2},
+                                {mercator::FromLatLon(49, 45.75), 3}});
 
   trackData.m_properties = {{"tr_property1", "value1"}, {"tr_property2", "value2"}};
   result.m_tracksData.emplace_back(std::move(trackData));
@@ -690,13 +690,13 @@ kml::FileData GenerateKmlFileDataWithMultiTrack()
                         {7.0, {kml::PredefinedColor::None, 0x0000ffff}}};
   trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
 
-  // TODO: Replace with real coordinates after Json Serialization is fixed
-  trackData.m_geometry.AddLine(
-      {{mercator::FromLatLon(0, 0), 1}, {mercator::FromLatLon(0, 0), 2}, {mercator::FromLatLon(0, 0), 3}});
-  trackData.m_geometry.AddLine({{mercator::FromLatLon(0, 0), 1},
-                                {mercator::FromLatLon(0, 0), 2},
-                                {mercator::FromLatLon(0, 0), 3},
-                                {mercator::FromLatLon(0, 0), 4}});
+  trackData.m_geometry.AddLine({{mercator::FromLatLon(47, 45.25), 1},
+                                {mercator::FromLatLon(48, 45.5), 2},
+                                {mercator::FromLatLon(49, 45.75), 3}});
+  trackData.m_geometry.AddLine({{mercator::FromLatLon(49.2, 45.95), 1},
+                                {mercator::FromLatLon(49.4, 46.15), 2},
+                                {mercator::FromLatLon(49.6, 46.40), 3},
+                                {mercator::FromLatLon(49.8, 46.55), 4}});
 
   result.m_tracksData.emplace_back(std::move(trackData));
 

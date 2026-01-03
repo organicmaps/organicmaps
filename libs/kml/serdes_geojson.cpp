@@ -285,7 +285,7 @@ void GeoJsonReader::Deserialize(std::string_view content)
 }
 
 std::vector<std::vector<double>> ConvertPoints2GeoJsonCoords(std::vector<geometry::PointWithAltitude> const & points,
-  bool addAltitude=false)
+                                                             bool addAltitude = false)
 {
   std::vector<std::vector<double>> coordinates;
   coordinates.reserve(points.size());
@@ -299,6 +299,12 @@ std::vector<std::vector<double>> ConvertPoints2GeoJsonCoords(std::vector<geometr
   }
   return coordinates;
 }
+
+// Options for Glaze Json writer
+struct GeoJsonOpts : glz::opts
+{
+  static constexpr std::string_view float_format = "{:.10g}";
+};
 
 void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
 {
@@ -396,11 +402,15 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
   // Export to GeoJson string.
   glz::error_ctx error;
   std::string buffer;
+
   if (minimize_output)
-    error = glz::write<glz::opts{.prettify = false}>(geoJsonData, buffer);
+  {
+    GeoJsonOpts constexpr opts{glz::opts{.prettify = false}};
+    error = glz::write<opts>(geoJsonData, buffer);
+  }
   else
   {
-    glz::opts constexpr opts{.prettify = true, .indentation_width = 2};
+    GeoJsonOpts constexpr opts{glz::opts{.prettify = true, .indentation_width = 2}};
     error = glz::write<opts>(geoJsonData, buffer);
   }
 
