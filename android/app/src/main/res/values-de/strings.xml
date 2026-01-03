@@ -219,15 +219,15 @@
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">3D-Gebäude werden im Energiesparmodus ausgeschaltet</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
-    <string name="pref_tts_enable_title">Sprachführung</string>
+    <string name="pref_tts_enable_title">Sprachanweisungen</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
     <string name="pref_tts_street_names_title">Straßennamen ankündigen</string>
     <!-- Settings «Route» category: «Tts announce street names» description -->
     <string name="pref_tts_street_names_description">Wenn aktiviert, wird der Name der Straße oder Ausfahrt, in die abgebogen werden soll, laut angekündigt.</string>
     <!-- Settings «Route» category: «Tts language» title -->
-    <string name="pref_tts_language_title">Sprache für Sprachführung</string>
+    <string name="pref_tts_language_title">Sprache für Sprachanweisungen</string>
     <!-- Settings «Route» category: «Test Voice Directions» title -->
-    <string name="pref_tts_test_voice_title">Teste Sprachanweisungen (TTS, Text-To-Speech)</string>
+    <string name="pref_tts_test_voice_title">Sprachanweisungen testen(TTS, Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Überprüfe die Lautstärke oder die Text-to-speech Einstellungen des Systems, wenn du die Stimme jetzt nicht hörst.</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->

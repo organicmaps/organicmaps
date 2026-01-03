@@ -219,7 +219,7 @@
 "pref_map_3d_buildings_disabled_summary" = "3D-Gebäude werden im Energiesparmodus ausgeschaltet";
 
 /* Settings «Route» category: «Tts enabled» title */
-"pref_tts_enable_title" = "Sprachführung";
+"pref_tts_enable_title" = "Sprachanweisungen";
 
 /* Settings «Route» category: «Tts announce street names» title */
 "pref_tts_street_names_title" = "Straßennamen ankündigen";
@@ -228,10 +228,10 @@
 "pref_tts_street_names_description" = "Wenn aktiviert, wird der Name der Straße oder Ausfahrt, in die abgebogen werden soll, laut angekündigt.";
 
 /* Settings «Route» category: «Tts language» title */
-"pref_tts_language_title" = "Sprache für Sprachführung";
+"pref_tts_language_title" = "Sprache für Sprachanweisungen";
 
 /* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Teste Sprachanweisungen (TTS, Text-To-Speech)";
+"pref_tts_test_voice_title" = "Sprachanweisungen testen(TTS, Text-To-Speech)";
 "pref_map_auto_zoom" = "Auto-Zoom";
 "placepage_distance" = "Entfernung";
 "search_show_on_map" = "Auf der Karte ansehen";
