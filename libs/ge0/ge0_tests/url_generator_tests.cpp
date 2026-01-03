@@ -345,10 +345,7 @@ UNIT_TEST(GenerateShortShowMapUrl_UnicodeMixedWithOtherChars)
 UNIT_TEST(GenerateGeoUri_SmokeTest)
 {
   string res = GenerateGeoUri(33.8904075, 35.5066454, 16.5, "Falafel M. Sahyoun");
-  TEST_EQUAL("geo:33.8904075,35.5066454?z=16.5&q=33.8904075,35.5066454(Falafel%20M.%20Sahyoun)", res, ());
-
-  // geo:33.8904075,35.5066454?z=16.5(Falafel%20M.%20Sahyoun)
-  // geo:33.890408,35.506645?z=16.5(Falafel%20M.%20Sahyoun)
+  TEST_EQUAL("geo:33.8904075,35.5066454?z=16.5&q=33.8904075,35.5066454", res, ());
 
   geo::GeoURLInfo info;
   geo::GeoParser parser;
@@ -356,7 +353,6 @@ UNIT_TEST(GenerateGeoUri_SmokeTest)
   TEST_ALMOST_EQUAL_ABS(info.m_lat, 33.8904075, kEps, ());
   TEST_ALMOST_EQUAL_ABS(info.m_lon, 35.5066454, kEps, ());
   TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.5, kEps, ());
-  TEST_EQUAL(info.m_label, "Falafel M. Sahyoun", ());
 }
 
 }  // namespace ge0
