@@ -327,10 +327,10 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
         umapOptionsPair != bookmark.m_properties.end())
     {
       GenericJsonMap umap_options_obj;
-      if (auto error = glz::read_json(umap_options_obj, umapOptionsPair->second))
+      if (auto const error = glz::read_json(umap_options_obj, umapOptionsPair->second))
       {
         // Some error happened!
-        std::string err = glz::format_error(error, umapOptionsPair->second);
+        std::string const err = glz::format_error(error, umapOptionsPair->second);
         LOG(LWARNING, ("Error parsing '_umap_options' from KML properties:", err));
       }
       else
@@ -365,10 +365,10 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
         umapOptionsPair != track.m_properties.end())
     {
       GenericJsonMap umap_options_obj;
-      if (auto error = glz::read_json(umap_options_obj, umapOptionsPair->second))
+      if (auto const error = glz::read_json(umap_options_obj, umapOptionsPair->second))
       {
         // Some error happened!
-        std::string err = glz::format_error(error, umapOptionsPair->second);
+        std::string const err = glz::format_error(error, umapOptionsPair->second);
         LOG(LWARNING, ("Error parsing '_umap_options' from KML properties:", err));
       }
       else
@@ -393,7 +393,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
       auto points = track.m_geometry.m_lines[0];
       trackGeometry = GeoJsonGeometryLine{.coordinates = ConvertPoints2GeoJsonCoords(points)};
     }
-    GeoJsonFeature trackFeature{.geometry = trackGeometry, .properties = trackProps};
+    GeoJsonFeature const trackFeature{.geometry = trackGeometry, .properties = trackProps};
     geoJsonFeatures.push_back(std::move(trackFeature));
   }
 
@@ -416,7 +416,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
 
   if (error)
   {
-    std::string err = glz::format_error(error, buffer);
+    std::string const err = glz::format_error(error, buffer);
     LOG(LWARNING, ("Error exporting to GeoJson:", err));
     MYTHROW(WriteGeoJsonException, ("Could not write to GeoJson: " + err));
   }
