@@ -253,7 +253,6 @@ target_link_libraries(${PROJECT_NAME}
     cppjansson
     expat::expat
     tess2
-    glaze::glaze
     ${CMAKE_DL_LIBS} # dladdr from boost::stacktrace
 )
 

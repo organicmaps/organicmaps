@@ -122,7 +122,7 @@ protected:
 
   platform::BatteryLevelTracker m_batteryTracker;
 
-  om::tz::TimeZone m_localTimeZone;
+  om::tz::LocalTimeZone m_localTimeZone;
 
 public:
   Platform();
@@ -337,7 +337,7 @@ public:
 
   platform::BatteryLevelTracker & GetBatteryTracker() { return m_batteryTracker; }
 
-  om::tz::TimeZone const & GetLocalTimeZone() const { return m_localTimeZone; }
+  om::tz::LocalTimeZone const & GetLocalTimeZone() const { return m_localTimeZone; }
 
 private:
   void RunThreads();

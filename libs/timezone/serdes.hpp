@@ -14,6 +14,7 @@ enum class SerializationError
   IncorrectBaseOffsetFormat,
   IncorrectDstDeltaFormat,
   IncorrectTransitionsLengthFormat,
+  IncorrectTransitionsAmount,
   IncorrectDayDeltaFormat,
   IncorrectMinuteOfDayFormat
 };

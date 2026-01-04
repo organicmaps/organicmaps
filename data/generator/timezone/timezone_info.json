@@ -38,23 +38,19 @@
       "transitions": [
         {
           "day_delta": 113,
-          "minute_of_day": 1320,
-          "is_dst": 1
+          "minute_of_day": 1320
         },
         {
           "day_delta": 189,
-          "minute_of_day": 1260,
-          "is_dst": 0
+          "minute_of_day": 1260
         },
         {
           "day_delta": 175,
-          "minute_of_day": 1320,
-          "is_dst": 1
+          "minute_of_day": 1320
         },
         {
           "day_delta": 189,
-          "minute_of_day": 1260,
-          "is_dst": 0
+          "minute_of_day": 1260
         }
       ]
     },
@@ -64,23 +60,19 @@
       "transitions": [
         {
           "day_delta": 53,
-          "minute_of_day": 120,
-          "is_dst": 0
+          "minute_of_day": 120
         },
         {
           "day_delta": 42,
-          "minute_of_day": 120,
-          "is_dst": 1
+          "minute_of_day": 120
         },
         {
           "day_delta": 315,
-          "minute_of_day": 120,
-          "is_dst": 0
+          "minute_of_day": 120
         },
         {
           "day_delta": 35,
-          "minute_of_day": 120,
-          "is_dst": 1
+          "minute_of_day": 120
         }
       ]
     },
@@ -90,23 +82,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -126,23 +114,19 @@
       "transitions": [
         {
           "day_delta": 53,
-          "minute_of_day": 120,
-          "is_dst": 0
+          "minute_of_day": 120
         },
         {
           "day_delta": 42,
-          "minute_of_day": 120,
-          "is_dst": 1
+          "minute_of_day": 120
         },
         {
           "day_delta": 315,
-          "minute_of_day": 120,
-          "is_dst": 0
+          "minute_of_day": 120
         },
         {
           "day_delta": 35,
-          "minute_of_day": 120,
-          "is_dst": 1
+          "minute_of_day": 120
         }
       ]
     },
@@ -232,23 +216,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 660,
-          "is_dst": 1
+          "minute_of_day": 660
         },
         {
           "day_delta": 238,
-          "minute_of_day": 600,
-          "is_dst": 0
+          "minute_of_day": 600
         },
         {
           "day_delta": 126,
-          "minute_of_day": 660,
-          "is_dst": 1
+          "minute_of_day": 660
         },
         {
           "day_delta": 238,
-          "minute_of_day": 600,
-          "is_dst": 0
+          "minute_of_day": 600
         }
       ]
     },
@@ -293,23 +273,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 540,
-          "is_dst": 1
+          "minute_of_day": 540
         },
         {
           "day_delta": 238,
-          "minute_of_day": 480,
-          "is_dst": 0
+          "minute_of_day": 480
         },
         {
           "day_delta": 126,
-          "minute_of_day": 540,
-          "is_dst": 1
+          "minute_of_day": 540
         },
         {
           "day_delta": 238,
-          "minute_of_day": 480,
-          "is_dst": 0
+          "minute_of_day": 480
         }
       ]
     },
@@ -329,23 +305,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 480,
-          "is_dst": 1
+          "minute_of_day": 480
         },
         {
           "day_delta": 238,
-          "minute_of_day": 420,
-          "is_dst": 0
+          "minute_of_day": 420
         },
         {
           "day_delta": 126,
-          "minute_of_day": 480,
-          "is_dst": 1
+          "minute_of_day": 480
         },
         {
           "day_delta": 238,
-          "minute_of_day": 420,
-          "is_dst": 0
+          "minute_of_day": 420
         }
       ]
     },
@@ -370,23 +342,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 540,
-          "is_dst": 1
+          "minute_of_day": 540
         },
         {
           "day_delta": 238,
-          "minute_of_day": 480,
-          "is_dst": 0
+          "minute_of_day": 480
         },
         {
           "day_delta": 126,
-          "minute_of_day": 540,
-          "is_dst": 1
+          "minute_of_day": 540
         },
         {
           "day_delta": 238,
-          "minute_of_day": 480,
-          "is_dst": 0
+          "minute_of_day": 480
         }
       ]
     },
@@ -396,23 +364,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 420,
-          "is_dst": 1
+          "minute_of_day": 420
         },
         {
           "day_delta": 238,
-          "minute_of_day": 360,
-          "is_dst": 0
+          "minute_of_day": 360
         },
         {
           "day_delta": 126,
-          "minute_of_day": 420,
-          "is_dst": 1
+          "minute_of_day": 420
         },
         {
           "day_delta": 238,
-          "minute_of_day": 360,
-          "is_dst": 0
+          "minute_of_day": 360
         }
       ]
     },
@@ -422,23 +386,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 540,
-          "is_dst": 1
+          "minute_of_day": 540
         },
         {
           "day_delta": 238,
-          "minute_of_day": 480,
-          "is_dst": 0
+          "minute_of_day": 480
         },
         {
           "day_delta": 126,
-          "minute_of_day": 540,
-          "is_dst": 1
+          "minute_of_day": 540
         },
         {
           "day_delta": 238,
-          "minute_of_day": 480,
-          "is_dst": 0
+          "minute_of_day": 480
         }
       ]
     },
@@ -458,23 +418,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 360,
-          "is_dst": 1
+          "minute_of_day": 360
         },
         {
           "day_delta": 238,
-          "minute_of_day": 300,
-          "is_dst": 0
+          "minute_of_day": 300
         },
         {
           "day_delta": 126,
-          "minute_of_day": 360,
-          "is_dst": 1
+          "minute_of_day": 360
         },
         {
           "day_delta": 238,
-          "minute_of_day": 300,
-          "is_dst": 0
+          "minute_of_day": 300
         }
       ]
     },
@@ -484,23 +440,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 420,
-          "is_dst": 1
+          "minute_of_day": 420
         },
         {
           "day_delta": 238,
-          "minute_of_day": 360,
-          "is_dst": 0
+          "minute_of_day": 360
         },
         {
           "day_delta": 126,
-          "minute_of_day": 420,
-          "is_dst": 1
+          "minute_of_day": 420
         },
         {
           "day_delta": 238,
-          "minute_of_day": 360,
-          "is_dst": 0
+          "minute_of_day": 360
         }
       ]
     },
@@ -525,23 +477,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 300,
-          "is_dst": 1
+          "minute_of_day": 300
         },
         {
           "day_delta": 238,
-          "minute_of_day": 300,
-          "is_dst": 0
+          "minute_of_day": 300
         },
         {
           "day_delta": 126,
-          "minute_of_day": 300,
-          "is_dst": 1
+          "minute_of_day": 300
         },
         {
           "day_delta": 238,
-          "minute_of_day": 300,
-          "is_dst": 0
+          "minute_of_day": 300
         }
       ]
     },
@@ -556,23 +504,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 420,
-          "is_dst": 1
+          "minute_of_day": 420
         },
         {
           "day_delta": 238,
-          "minute_of_day": 360,
-          "is_dst": 0
+          "minute_of_day": 360
         },
         {
           "day_delta": 126,
-          "minute_of_day": 420,
-          "is_dst": 1
+          "minute_of_day": 420
         },
         {
           "day_delta": 238,
-          "minute_of_day": 360,
-          "is_dst": 0
+          "minute_of_day": 360
         }
       ]
     },
@@ -582,23 +526,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 420,
-          "is_dst": 1
+          "minute_of_day": 420
         },
         {
           "day_delta": 238,
-          "minute_of_day": 360,
-          "is_dst": 0
+          "minute_of_day": 360
         },
         {
           "day_delta": 126,
-          "minute_of_day": 420,
-          "is_dst": 1
+          "minute_of_day": 420
         },
         {
           "day_delta": 238,
-          "minute_of_day": 360,
-          "is_dst": 0
+          "minute_of_day": 360
         }
       ]
     },
@@ -623,23 +563,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 600,
-          "is_dst": 1
+          "minute_of_day": 600
         },
         {
           "day_delta": 238,
-          "minute_of_day": 540,
-          "is_dst": 0
+          "minute_of_day": 540
         },
         {
           "day_delta": 126,
-          "minute_of_day": 600,
-          "is_dst": 1
+          "minute_of_day": 600
         },
         {
           "day_delta": 238,
-          "minute_of_day": 540,
-          "is_dst": 0
+          "minute_of_day": 540
         }
       ]
     },
@@ -674,23 +610,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 420,
-          "is_dst": 1
+          "minute_of_day": 420
         },
         {
           "day_delta": 238,
-          "minute_of_day": 360,
-          "is_dst": 0
+          "minute_of_day": 360
         },
         {
           "day_delta": 126,
-          "minute_of_day": 420,
-          "is_dst": 1
+          "minute_of_day": 420
         },
         {
           "day_delta": 238,
-          "minute_of_day": 360,
-          "is_dst": 0
+          "minute_of_day": 360
         }
       ]
     },
@@ -700,23 +632,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -741,23 +669,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 420,
-          "is_dst": 1
+          "minute_of_day": 420
         },
         {
           "day_delta": 238,
-          "minute_of_day": 360,
-          "is_dst": 0
+          "minute_of_day": 360
         },
         {
           "day_delta": 126,
-          "minute_of_day": 420,
-          "is_dst": 1
+          "minute_of_day": 420
         },
         {
           "day_delta": 238,
-          "minute_of_day": 360,
-          "is_dst": 0
+          "minute_of_day": 360
         }
       ]
     },
@@ -787,23 +711,19 @@
       "transitions": [
         {
           "day_delta": 95,
-          "minute_of_day": 180,
-          "is_dst": 0
+          "minute_of_day": 180
         },
         {
           "day_delta": 154,
-          "minute_of_day": 240,
-          "is_dst": 1
+          "minute_of_day": 240
         },
         {
           "day_delta": 210,
-          "minute_of_day": 180,
-          "is_dst": 0
+          "minute_of_day": 180
         },
         {
           "day_delta": 154,
-          "minute_of_day": 240,
-          "is_dst": 1
+          "minute_of_day": 240
         }
       ]
     },
@@ -823,23 +743,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 360,
-          "is_dst": 1
+          "minute_of_day": 360
         },
         {
           "day_delta": 238,
-          "minute_of_day": 300,
-          "is_dst": 0
+          "minute_of_day": 300
         },
         {
           "day_delta": 126,
-          "minute_of_day": 360,
-          "is_dst": 1
+          "minute_of_day": 360
         },
         {
           "day_delta": 238,
-          "minute_of_day": 300,
-          "is_dst": 0
+          "minute_of_day": 300
         }
       ]
     },
@@ -854,23 +770,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 600,
-          "is_dst": 1
+          "minute_of_day": 600
         },
         {
           "day_delta": 238,
-          "minute_of_day": 540,
-          "is_dst": 0
+          "minute_of_day": 540
         },
         {
           "day_delta": 126,
-          "minute_of_day": 600,
-          "is_dst": 1
+          "minute_of_day": 600
         },
         {
           "day_delta": 238,
-          "minute_of_day": 540,
-          "is_dst": 0
+          "minute_of_day": 540
         }
       ]
     },
@@ -880,23 +792,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 420,
-          "is_dst": 1
+          "minute_of_day": 420
         },
         {
           "day_delta": 238,
-          "minute_of_day": 360,
-          "is_dst": 0
+          "minute_of_day": 360
         },
         {
           "day_delta": 126,
-          "minute_of_day": 420,
-          "is_dst": 1
+          "minute_of_day": 420
         },
         {
           "day_delta": 238,
-          "minute_of_day": 360,
-          "is_dst": 0
+          "minute_of_day": 360
         }
       ]
     },
@@ -906,23 +814,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 600,
-          "is_dst": 1
+          "minute_of_day": 600
         },
         {
           "day_delta": 238,
-          "minute_of_day": 540,
-          "is_dst": 0
+          "minute_of_day": 540
         },
         {
           "day_delta": 126,
-          "minute_of_day": 600,
-          "is_dst": 1
+          "minute_of_day": 600
         },
         {
           "day_delta": 238,
-          "minute_of_day": 540,
-          "is_dst": 0
+          "minute_of_day": 540
         }
       ]
     },
@@ -937,23 +841,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 480,
-          "is_dst": 1
+          "minute_of_day": 480
         },
         {
           "day_delta": 238,
-          "minute_of_day": 420,
-          "is_dst": 0
+          "minute_of_day": 420
         },
         {
           "day_delta": 126,
-          "minute_of_day": 480,
-          "is_dst": 1
+          "minute_of_day": 480
         },
         {
           "day_delta": 238,
-          "minute_of_day": 420,
-          "is_dst": 0
+          "minute_of_day": 420
         }
       ]
     },
@@ -998,23 +898,19 @@
       "transitions": [
         {
           "day_delta": 87,
-          "minute_of_day": 1320,
-          "is_dst": 1
+          "minute_of_day": 1320
         },
         {
           "day_delta": 210,
-          "minute_of_day": 1260,
-          "is_dst": 0
+          "minute_of_day": 1260
         },
         {
           "day_delta": 154,
-          "minute_of_day": 1320,
-          "is_dst": 1
+          "minute_of_day": 1320
         },
         {
           "day_delta": 210,
-          "minute_of_day": 1260,
-          "is_dst": 0
+          "minute_of_day": 1260
         }
       ]
     },
@@ -1059,23 +955,19 @@
       "transitions": [
         {
           "day_delta": 101,
-          "minute_of_day": 0,
-          "is_dst": 1
+          "minute_of_day": 0
         },
         {
           "day_delta": 195,
-          "minute_of_day": 1380,
-          "is_dst": 0
+          "minute_of_day": 1380
         },
         {
           "day_delta": 155,
-          "minute_of_day": 0,
-          "is_dst": 1
+          "minute_of_day": 0
         },
         {
           "day_delta": 209,
-          "minute_of_day": 1380,
-          "is_dst": 0
+          "minute_of_day": 1380
         }
       ]
     },
@@ -1100,23 +992,19 @@
       "transitions": [
         {
           "day_delta": 86,
-          "minute_of_day": 0,
-          "is_dst": 1
+          "minute_of_day": 0
         },
         {
           "day_delta": 211,
-          "minute_of_day": 1380,
-          "is_dst": 0
+          "minute_of_day": 1380
         },
         {
           "day_delta": 153,
-          "minute_of_day": 0,
-          "is_dst": 1
+          "minute_of_day": 0
         },
         {
           "day_delta": 211,
-          "minute_of_day": 1380,
-          "is_dst": 0
+          "minute_of_day": 1380
         }
       ]
     },
@@ -1176,23 +1064,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1307,23 +1191,19 @@
       "transitions": [
         {
           "day_delta": 67,
-          "minute_of_day": 360,
-          "is_dst": 1
+          "minute_of_day": 360
         },
         {
           "day_delta": 238,
-          "minute_of_day": 300,
-          "is_dst": 0
+          "minute_of_day": 300
         },
         {
           "day_delta": 126,
-          "minute_of_day": 360,
-          "is_dst": 1
+          "minute_of_day": 360
         },
         {
           "day_delta": 238,
-          "minute_of_day": 300,
-          "is_dst": 0
+          "minute_of_day": 300
         }
       ]
     },
@@ -1333,23 +1213,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1364,23 +1240,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1390,23 +1262,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1431,23 +1299,19 @@
       "transitions": [
         {
           "day_delta": 94,
-          "minute_of_day": 960,
-          "is_dst": 0
+          "minute_of_day": 960
         },
         {
           "day_delta": 182,
-          "minute_of_day": 960,
-          "is_dst": 1
+          "minute_of_day": 960
         },
         {
           "day_delta": 182,
-          "minute_of_day": 960,
-          "is_dst": 0
+          "minute_of_day": 960
         },
         {
           "day_delta": 182,
-          "minute_of_day": 960,
-          "is_dst": 1
+          "minute_of_day": 960
         }
       ]
     },
@@ -1457,23 +1321,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1483,23 +1343,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1509,23 +1365,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1535,23 +1387,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1561,23 +1409,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1587,23 +1431,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1613,23 +1453,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1639,23 +1475,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 0,
-          "is_dst": 1
+          "minute_of_day": 0
         },
         {
           "day_delta": 210,
-          "minute_of_day": 0,
-          "is_dst": 0
+          "minute_of_day": 0
         },
         {
           "day_delta": 154,
-          "minute_of_day": 0,
-          "is_dst": 1
+          "minute_of_day": 0
         },
         {
           "day_delta": 210,
-          "minute_of_day": 0,
-          "is_dst": 0
+          "minute_of_day": 0
         }
       ]
     },
@@ -1665,23 +1497,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1691,23 +1519,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1717,23 +1541,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1753,23 +1573,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1779,23 +1595,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1805,23 +1617,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1831,23 +1639,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1857,23 +1661,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1893,23 +1693,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1919,23 +1715,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1945,23 +1737,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1971,23 +1759,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -1997,23 +1781,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -2023,23 +1803,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -2049,23 +1825,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -2075,23 +1847,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -2101,23 +1869,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -2127,23 +1891,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -2153,23 +1913,19 @@
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         },
         {
           "day_delta": 154,
-          "minute_of_day": 60,
-          "is_dst": 1
+          "minute_of_day": 60
         },
         {
           "day_delta": 210,
-          "minute_of_day": 60,
-          "is_dst": 0
+          "minute_of_day": 60
         }
       ]
     },
@@ -2199,23 +1955,19 @@
       "transitions": [
         {
           "day_delta": 94,
-          "minute_of_day": 840,
-          "is_dst": 0
+          "minute_of_day": 840
         },
         {
           "day_delta": 175,
-          "minute_of_day": 840,
-          "is_dst": 1
+          "minute_of_day": 840
         },
         {
           "day_delta": 189,
-          "minute_of_day": 840,
-          "is_dst": 0
+          "minute_of_day": 840
         },
         {
           "day_delta": 175,
-          "minute_of_day": 840,
-          "is_dst": 1
+          "minute_of_day": 840
         }
       ]
     },

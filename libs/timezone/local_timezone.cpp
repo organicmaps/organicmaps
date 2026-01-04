@@ -4,7 +4,7 @@
 
 namespace om::tz
 {
-TimeZone GetLocalTimeZone()
+LocalTimeZone GetLocalTimeZone()
 {
   // Get current time in the local timezone
   time_t const now = std::time(nullptr);
@@ -39,21 +39,9 @@ TimeZone GetLocalTimeZone()
 
   auto const janOffset = static_cast<int32_t>(difftime(timegm(&jan), timegm(&janUtc)));
 
-  TimeZone localTz{
-      .generation_year_offset = static_cast<uint16_t>(local.tm_year + 1900 - TimeZone::kGenerationYearStart),
-      .base_offset = static_cast<uint8_t>(janOffset / 60 / 15 + 64),
-      .dst_delta = static_cast<int16_t>((total_offset_sec - janOffset) / 60),
-      .transitions = {}};
-  if (isDst)
-  {
-    // We cannot determine DST rules for the local timezone at runtime.
-    // Assume it is always DST.
-    localTz.transitions = {
-        {0, 0, 1},
-        {365 * 5, 0, 0},
-    };
-  }
-
-  return localTz;
+  return {.generation_year_offset = static_cast<uint16_t>(local.tm_year + 1900 - TimeZone::kGenerationYearStart),
+          .base_offset = static_cast<uint8_t>(janOffset / 60 / 15 + 64),
+          .dst_delta = static_cast<int16_t>((total_offset_sec - janOffset) / 60),
+          .is_dst = isDst};
 }
 }  // namespace om::tz
