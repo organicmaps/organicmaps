@@ -246,15 +246,7 @@ void RegionData::AddPublicHoliday(int8_t month, int8_t offset)
 
 void RegionData::LoadTimeZone()
 {
-  std::string_view const data = Get(RD_TIMEZONE);
-  // Catching old IANA-style timezones like "Europe/Minsk"
-  if (std::ranges::all_of(data, [](char const c) { return isascii(c) || c == '/'; }))
-  {
-    LOG(LDEBUG, ("Unsupported tz format"));
-    return;
-  }
-
-  if (auto res = om::tz::Deserialize(data))
+  if (auto res = om::tz::Deserialize(Get(RD_TIMEZONE)))
     m_timeZone = std::move(res.value());
   else
     LOG(LWARNING, ("Failed to read timezone info:", res.error()));
