@@ -18594,7 +18594,7 @@ shop-lighting|@shop
 en:4Lighting|4Lamps
 ar:مصابيح
 be:Лямпы
-bg:Лампи|Лампа
+bg:Лампи
 ca:Làmpades
 cs:Lampy
 da:Lamper
