@@ -443,9 +443,12 @@ extension DownloadMapsViewController: StorageObserver {
     if countryId == dataSource.getParentCountryId() {
       downloadAllView.downloadProgress = CGFloat(downloadedBytes) / CGFloat(totalBytes)
       downloadAllView.downloadSize = totalBytes
-    } else if dataSource.isRoot && dataSource is DownloadedMapsDataSource {
-      downloadAllView.state = .dowloading
-      downloadAllView.isSizeHidden = true
+    } 
+    else if dataSource.isRoot && dataSource is DownloadedMapsDataSource {
+      if downloadAllView.state != .dowloading { 
+        downloadAllView.state = .dowloading
+        downloadAllView.isSizeHidden = true
+      }
     }
   }
 }
