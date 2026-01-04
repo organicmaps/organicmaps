@@ -26,13 +26,11 @@ The JSON file is generated only for timezones listed in our [countries_meta.txt]
       "transitions": [
         {
           "day_delta": 88,
-          "minute_of_day": 120,
-          "is_dst": 1
+          "minute_of_day": 120
         },
         {
           "day_delta": 180,
-          "minute_of_day": 180,
-          "is_dst": 0
+          "minute_of_day": 180
         }
       ]
     },
@@ -98,12 +96,6 @@ The JSON file is generated only for timezones listed in our [countries_meta.txt]
 * Description: Minute of the day when the transition occurs (0–1439).
 * Usage: Combined with day_delta to calculate the exact UTC timestamp of the DST change.
 
-`is_dst`
-
-* Type: integer (0 or 1)
-* Description: Indicates whether DST is active after this transition.
-* Usage: Determines whether dst_delta should be added to base_offset after this transition.
-
 ## Notes
 
 The JSON only includes future transitions; historical changes are ignored.
@@ -146,13 +138,12 @@ For each timezone:
 
 Each transition encodes a DST change relative to the previous one.
 
-| Field         | Bits | Description                              |
-|---------------|------|------------------------------------------|
-| day_delta     | 9    | Days since previous transition (0–511)   |
-| minute_of_day | 11   | Minute of day (0–1439)                   |
-| is_dst        | 1    | Whether DST is active *after* transition |
+| Field         | Bits | Description                            |
+|---------------|------|----------------------------------------|
+| day_delta     | 9    | Days since previous transition (0–511) |
+| minute_of_day | 11   | Minute of day (0–1439)                 |
 
-**Total:** 21 bits
+**Total:** 20 bits → 3 bytes
 
 ---
 
@@ -212,8 +203,8 @@ Typical DST-observing timezone (Europe/Berlin, 4 years):
 | Component               | Size         |
 |-------------------------|--------------|
 | Header                  | 27 bits      |
-| 8 transitions * 21 bits | 168 bits     |
-| **Total**               | **25 bytes** |
+| 8 transitions * 20 bits | 160 bits     |
+| **Total**               | **24 bytes** |
 
 Timezone without DST (Europe/Moscow):
 
