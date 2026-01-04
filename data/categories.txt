@@ -18417,10 +18417,10 @@ zh-Hans:奶酪店
 zh-Hant:奶酪店c
 
 shop-dairy|@category_food|@shop
-en:Dairy Products|Lactose
+en:Dairy Products|Milk|Lactose
 ar:متجر الألبان
 be:Малако|Малочныя прадукты
-bg:Млечни продукти|Лактоза
+bg:Млечни продукти|Мляко|Лактоза
 cs:Mléčné výrobky
 da:Mejeriprodukter
 de:5Milchprodukte
