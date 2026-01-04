@@ -1,5 +1,6 @@
 #include "local_timezone.hpp"
 
+#include <cstdint>
 #include <ctime>
 
 namespace om::tz
