@@ -4,5 +4,5 @@
 
 namespace om::tz
 {
-LocalTimeZone GetLocalTimeZone();
+TimeZone GetLocalTimeZone();
 }
