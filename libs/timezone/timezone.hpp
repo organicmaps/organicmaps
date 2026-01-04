@@ -9,13 +9,11 @@ struct Transition
 {
   static constexpr size_t kDayDeltaBitSize = 16;
   static constexpr size_t kMinuteOfDayBitSize = 11;
-  static constexpr size_t kIsDstBitSize = 1;
-  static constexpr size_t kTotalSizeInBits = kDayDeltaBitSize + kMinuteOfDayBitSize + kIsDstBitSize;
+  static constexpr size_t kTotalSizeInBits = kDayDeltaBitSize + kMinuteOfDayBitSize;
   static constexpr size_t kTotalSizeInBytes = (kTotalSizeInBits + CHAR_BIT - 1) / CHAR_BIT;
 
   uint16_t day_delta;
   uint16_t minute_of_day;
-  uint16_t is_dst;
 
   constexpr auto operator<=>(Transition const & rhs) const = default;
 };
@@ -40,6 +38,14 @@ struct TimeZone
   constexpr auto operator<=>(TimeZone const & rhs) const = default;
 };
 
+struct LocalTimeZone
+{
+  uint16_t generation_year_offset;
+  uint8_t base_offset;
+  int16_t dst_delta;
+  bool is_dst;
+};
+
 struct TimeZoneDb
 {
   std::string tzdb_version;
@@ -47,7 +53,14 @@ struct TimeZoneDb
   std::unordered_map<std::string, TimeZone> timezones;
 };
 
-time_t Convert(time_t time, TimeZone const & srcTimeZone, TimeZone const & dstTimeZone);
+namespace impl
+{
+template <class T>
+concept TimeZoneT = std::same_as<T, TimeZone> || std::same_as<T, LocalTimeZone>;
+}  // namespace impl
+
+template <impl::TimeZoneT T1, impl::TimeZoneT T2>
+time_t Convert(time_t time, T1 const & srcTimeZone, T2 const & dstTimeZone);
 
 /// @warning Do not call in runtime. Only for generator and testing.
 TimeZoneDb const & GetTimeZoneDb();

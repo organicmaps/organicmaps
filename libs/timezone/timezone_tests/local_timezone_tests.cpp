@@ -1,5 +1,5 @@
-#include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 #include "timezone/local_timezone.hpp"
 
@@ -7,7 +7,7 @@ using namespace om::tz;
 
 TEST(TimeZoneLocal, ShouldCreateLocalTimeZone)
 {
-  TimeZone const localTz = GetLocalTimeZone();
+  LocalTimeZone const localTz = GetLocalTimeZone();
 
   // Just check that base offset is in reasonable range
   EXPECT_GE(localTz.base_offset, -12 * 60);
@@ -16,14 +16,9 @@ TEST(TimeZoneLocal, ShouldCreateLocalTimeZone)
   time_t const now = std::time(nullptr);
   std::tm local{};
   localtime_r(&now, &local);
-  if (local.tm_isdst > 0)
-  {
+  EXPECT_EQ(local.tm_isdst, localTz.dst_delta);
+  if (localTz.dst_delta > 0)
     EXPECT_THAT(localTz.dst_delta, testing::Not(testing::Eq(0)));
-    EXPECT_THAT(localTz.transitions, testing::Not(testing::IsEmpty()));
-  }
   else
-  {
     EXPECT_THAT(localTz.dst_delta, testing::Eq(0));
-    EXPECT_THAT(localTz.transitions, testing::IsEmpty());
-  }
 }

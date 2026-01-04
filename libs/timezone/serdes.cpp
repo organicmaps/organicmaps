@@ -60,19 +60,24 @@ std::expected<std::string, SerializationError> Serialize(TimeZone const & timeZo
 
     if (!IsTransitionsLengthValid(timeZone.transitions.size()))
       return std::unexpected{SerializationError::IncorrectTransitionsLengthFormat};
+
+    // The number of transitions must always be even. Otherwise, we may have a case with infinite dst
+    if (timeZone.transitions.size() % 2 != 0)
+      return std::unexpected{SerializationError::IncorrectTransitionsAmount};
+
     bw.Write(timeZone.transitions.size(), TimeZone::kTransitionsLengthBitSize);
 
-    for (auto const & [day_delta, minute_of_day, is_dst] : timeZone.transitions)
+    for (size_t i = 0; i < timeZone.transitions.size(); ++i)
     {
-      if (!IsDayDeltaValid(day_delta))
+      auto const & [dayDelta, minuteOfDay] = timeZone.transitions[i];
+
+      if (!IsDayDeltaValid(dayDelta))
         return std::unexpected{SerializationError::IncorrectDayDeltaFormat};
-      bw.WriteAtMost32Bits(day_delta, Transition::kDayDeltaBitSize);
+      bw.WriteAtMost32Bits(dayDelta, Transition::kDayDeltaBitSize);
 
-      if (!IsMinuteOfDayValid(minute_of_day))
+      if (!IsMinuteOfDayValid(minuteOfDay))
         return std::unexpected{SerializationError::IncorrectMinuteOfDayFormat};
-      bw.WriteAtMost32Bits(minute_of_day, Transition::kMinuteOfDayBitSize);
-
-      bw.Write(is_dst ? 1 : 0, Transition::kIsDstBitSize);
+      bw.WriteAtMost32Bits(minuteOfDay, Transition::kMinuteOfDayBitSize);
     }
   }
 
@@ -105,7 +110,6 @@ std::expected<TimeZone, SerializationError> Deserialize(std::string_view const &
     Transition t{};
     t.day_delta = static_cast<uint16_t>(br.ReadAtMost32Bits(Transition::kDayDeltaBitSize));
     t.minute_of_day = static_cast<uint16_t>(br.ReadAtMost32Bits(Transition::kMinuteOfDayBitSize));
-    t.is_dst = br.Read(Transition::kIsDstBitSize);
     tz.transitions.push_back(t);
   }
 

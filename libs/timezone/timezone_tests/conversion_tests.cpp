@@ -88,10 +88,10 @@ TEST(TimeZoneConvert, ShouldApplyDst)
                        .base_offset = 64,
                        .dst_delta = 60,
                        .transitions = {
-                           {.day_delta = 67, .minute_of_day = 120, .is_dst = 1},   // DST starts 2025, Mar 9, 2:00
-                           {.day_delta = 238, .minute_of_day = 120, .is_dst = 0},  // DST ends 2025, Nov 2, 2:00
-                           {.day_delta = 127, .minute_of_day = 120, .is_dst = 1},  // DST starts 2026, Mar 9, 2:00
-                           {.day_delta = 238, .minute_of_day = 120, .is_dst = 0},  // DST ends 2026, Nov 2, 2:00
+                           {.day_delta = 67, .minute_of_day = 120},   // DST starts 2025, Mar 9, 2:00
+                           {.day_delta = 238, .minute_of_day = 120},  // DST ends 2025, Nov 2, 2:00
+                           {.day_delta = 127, .minute_of_day = 120},  // DST starts 2026, Mar 9, 2:00
+                           {.day_delta = 238, .minute_of_day = 120},  // DST ends 2026, Nov 2, 2:00
                        }};
 
   for (int const year : {2025, 2026})
@@ -143,8 +143,8 @@ TEST(TimeZoneConvert, CrossTimeZoneWithOffsets)
                        .base_offset = 96,  // +8 hours
                        .dst_delta = 60,     // +1 hour DST
                        .transitions = {
-                           {.day_delta = 67, .minute_of_day = 451, .is_dst = 1},   // DST starts Mar 9, 7:31
-                           {.day_delta = 238, .minute_of_day = 218, .is_dst = 0},  // DST ends Nov 2, 3:38
+                           {.day_delta = 67, .minute_of_day = 451},   // DST starts Mar 9, 7:31
+                           {.day_delta = 238, .minute_of_day = 218},  // DST ends Nov 2, 3:38
                        }};
 
   // Test before DST starts

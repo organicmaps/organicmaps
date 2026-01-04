@@ -52,11 +52,9 @@ def generate_timezone_data(tz_name: str, start_year: int, end_year: int) -> dict
     for t in transitions:
         day_delta = t["utc_day"] - prev_day
         prev_day = t["utc_day"]
-        is_dst = 1 if t["offset"] > base_offset else 0
         final_transitions.append({
             "day_delta": day_delta,
             "minute_of_day": t["minute_of_day"],
-            "is_dst": is_dst
         })
 
     return {
