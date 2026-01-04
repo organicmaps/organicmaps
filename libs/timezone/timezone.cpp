@@ -34,8 +34,7 @@ int32_t DecodeBaseOffset(uint8_t const baseOffset)
 }
 
 // Compute offset at UTC timestamp deterministically
-template <impl::TimeZoneT T>
-int32_t TzOffsetAtUtc(T const & timeZone, time_t const utcTime)
+int32_t TzOffsetAtUtc(TimeZone const & timeZone, time_t const utcTime)
 {
   int32_t const baseOffset = DecodeBaseOffset(timeZone.base_offset);
   int32_t offset = baseOffset;
@@ -43,30 +42,26 @@ int32_t TzOffsetAtUtc(T const & timeZone, time_t const utcTime)
   time_t const startOfYear = GenerationYearStart(timeZone.generation_year_offset);
   int64_t dayOffset = 0;
 
-  if constexpr (std::is_same_v<T, TimeZone>)
-    for (size_t i = 0; i < timeZone.transitions.size(); ++i)
-    {
-      auto const & [dayDelta, minuteOfDay] = timeZone.transitions[i];
-      bool const isDst = i % 2 == 0;
+  for (size_t i = 0; i < timeZone.transitions.size(); ++i)
+  {
+    auto const & [dayDelta, minuteOfDay] = timeZone.transitions[i];
+    bool const isDst = i % 2 == 0;
 
-      dayOffset += dayDelta;
+    dayOffset += dayDelta;
 
-      time_t const utcTransition = startOfYear + dayOffset * kSecondsPerDay + minuteOfDay * kSecondsPerMinute;
+    time_t const utcTransition = startOfYear + dayOffset * kSecondsPerDay + minuteOfDay * kSecondsPerMinute;
 
-      if (utcTime >= utcTransition)
-        offset = baseOffset + (isDst ? timeZone.dst_delta : 0);
-      else
-        break;
-    }
-  else if constexpr (std::is_same_v<T, LocalTimeZone>)
-    offset = baseOffset + (timeZone.is_dst ? timeZone.dst_delta : 0);
+    if (utcTime >= utcTransition)
+      offset = baseOffset + (isDst ? timeZone.dst_delta : 0);
+    else
+      break;
+  }
 
   return offset;
 }
 
 // Compute UTC from local time handling ambiguous DST times
-template <impl::TimeZoneT T>
-time_t LocalToUtc(T const & tz, time_t const localTime)
+time_t LocalToUtc(TimeZone const & tz, time_t const localTime)
 {
   // Initial guess using base offset
   int32_t offset = DecodeBaseOffset(tz.base_offset);
@@ -99,8 +94,7 @@ time_t LocalToUtc(T const & tz, time_t const localTime)
 }
 }  // namespace
 
-template <impl::TimeZoneT T1, impl::TimeZoneT T2>
-time_t Convert(time_t const time, T1 const & srcTimeZone, T2 const & dstTimeZone)
+time_t Convert(time_t const time, TimeZone const & srcTimeZone, TimeZone const & dstTimeZone)
 {
   // Step 1: Convert local → UTC handling DST ambiguity
   time_t const utcTime = LocalToUtc(srcTimeZone, time);
@@ -109,10 +103,6 @@ time_t Convert(time_t const time, T1 const & srcTimeZone, T2 const & dstTimeZone
   int32_t const dstOffset = TzOffsetAtUtc(dstTimeZone, utcTime);
   return utcTime + dstOffset * kSecondsPerMinute;
 }
-
-template time_t Convert<LocalTimeZone, TimeZone>(time_t, LocalTimeZone const &, TimeZone const &);
-template time_t Convert<TimeZone, LocalTimeZone>(time_t, TimeZone const &, LocalTimeZone const &);
-template time_t Convert<TimeZone, TimeZone>(time_t, TimeZone const &, TimeZone const &);
 
 TimeZoneDb const & GetTimeZoneDb()
 {
