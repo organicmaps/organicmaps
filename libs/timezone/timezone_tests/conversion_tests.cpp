@@ -8,8 +8,7 @@ namespace
 {
 constexpr TimeZone kZeroTz{.generation_year_offset = 0, .base_offset = 64, .dst_delta = 0, .transitions = {}};
 
-time_t CreateTime(int const year, int const month, int const day, int const hour, int const minute,
-                       int const second)
+time_t CreateTime(int const year, int const month, int const day, int const hour, int const minute, int const second)
 {
   std::tm tm_time{};
   tm_time.tm_year = year - 1900;  // tm_year is years since 1900
@@ -141,7 +140,7 @@ TEST(TimeZoneConvert, CrossTimeZoneWithOffsets)
   // Destination timezone: +8:00, DST +60 minutes
   TimeZone const dstTz{.generation_year_offset = 0,
                        .base_offset = 96,  // +8 hours
-                       .dst_delta = 60,     // +1 hour DST
+                       .dst_delta = 60,    // +1 hour DST
                        .transitions = {
                            {.day_delta = 67, .minute_of_day = 451},   // DST starts Mar 9, 7:31
                            {.day_delta = 238, .minute_of_day = 218},  // DST ends Nov 2, 3:38
