@@ -19839,7 +19839,7 @@ leisure-hackerspace
 en:Hackerspace
 ar:هاكرزبيس
 be:Хакерская прастора
-bg:Хакерско пространство|Хакърспейс
+bg:Хакерско пространство|Хакерспейс
 es:Espacio para hackers
 es-MX:Espacio hacker
 fa:فضای هکرها
