@@ -9604,6 +9604,7 @@ leisure-hackerspace
 en:4Hackerspace
 ar:هاكرزبيس
 be:Хакерская прастора
+bg:Хакерско пространство|Хакерспейс|Хакспейс
 es-MX:Espacio hacker
 fa:فضای هکرها
 he:האקרספייס
@@ -19839,7 +19840,7 @@ leisure-hackerspace
 en:Hackerspace
 ar:هاكرزبيس
 be:Хакерская прастора
-bg:Хакерско пространство|Хакерспейс
+bg:Хакерско пространство|Хакерспейс|Хакспейс
 es:Espacio para hackers
 es-MX:Espacio hacker
 fa:فضای هکرها
