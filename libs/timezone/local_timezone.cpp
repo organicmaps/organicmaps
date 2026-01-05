@@ -43,7 +43,7 @@ TimeZone GetLocalTimeZone()
   TimeZone localTz{
       .generation_year_offset = static_cast<uint16_t>(local.tm_year + 1900 - TimeZone::kGenerationYearStart),
       .base_offset = static_cast<uint8_t>(janOffset / 60 / 15 + 64),
-      .dst_delta = static_cast<int16_t>((total_offset_sec - janOffset) / 60),
+      .dst_delta = static_cast<uint8_t>((total_offset_sec - janOffset) / 60),
       .transitions = {}};
   if (isDst)
   {

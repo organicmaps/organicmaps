@@ -68,13 +68,14 @@ def generate_timezones_data(timezones: Set[str]) -> dict:
     result = {}
     for tz_name in sorted(timezones):
         print(f"Generating timezone data for {tz_name}")
-        result[tz_name] = generate_timezone_data(tz_name, 2025, 2026)
+        result[tz_name] = generate_timezone_data(tz_name, 2026, 2027)
     return result
 
 
 timezone_info = {
     "tzdb_version": get_local_tzdb_version(),
-    "tzdb_generation_year_offset": 2025 - 2025,
+    "tzdb_format_version": 0,
+    "tzdb_generation_year_offset": 2026 - 2026,
     "timezones": generate_timezones_data(get_countries_meta_timezones())
 }
 
