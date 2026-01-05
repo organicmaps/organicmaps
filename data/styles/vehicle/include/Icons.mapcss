@@ -327,13 +327,13 @@ area|z17-[historic=memorial][memorial=cross],
 
 node|z13-14[historic=city_gate],
 area|z13-14[historic=city_gate]
-{icon-image: remains-m.svg;}
+{icon-image: city_gate-m.svg;}
 node|z15[historic=city_gate],
 area|z15[historic=city_gate],
-{icon-image: remains-m.svg;icon-min-distance: 24;}
+{icon-image: city_gate-m.svg;icon-min-distance: 24;}
 node|z16-[historic=city_gate],
 area|z16-[historic=city_gate],
-{icon-image: remains-m.svg;icon-min-distance: 12;}
+{icon-image: city_gate-m.svg;icon-min-distance: 12;}
 
 node|z15[tourism=museum],
 area|z15[tourism=museum]

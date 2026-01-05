@@ -594,10 +594,10 @@ area|z13-14[historic=city_gate]
 {icon-image: remains-s.svg;text-offset: 1;icon-min-distance: 12;}
 node|z15[historic=city_gate],
 area|z15[historic=city_gate],
-{icon-image: remains-m.svg;icon-min-distance: 24;}
+{icon-image: city_gate-m.svg;icon-min-distance: 24;}
 node|z16-[historic=city_gate],
 area|z16-[historic=city_gate],
-{icon-image: remains-m.svg;icon-min-distance: 12;}
+{icon-image: city_gate-m.svg;icon-min-distance: 12;}
 
 node|z13-14[tourism=museum],
 area|z13-14[tourism=museum]
