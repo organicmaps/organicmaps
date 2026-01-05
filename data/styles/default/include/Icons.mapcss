@@ -864,9 +864,9 @@ area|z15[amenity=cafe]
 {icon-image: cafe-m.svg;icon-min-distance: 12;}
 node|z15[amenity=restaurant],
 area|z15[amenity=restaurant],
-node|z15[amenity=food_court],
-area|z15[amenity=food_court]
 {icon-image: restaurant-m.svg;icon-min-distance: 28;}
+node|z15[amenity=food_court],
+{icon-image: food-m.svg;icon-min-distance: 28;}
 node|z15[amenity=fast_food],
 area|z15[amenity=fast_food],
 {icon-image: fastfood-m.svg;icon-min-distance: 28;}
@@ -884,9 +884,9 @@ area|z16-[amenity=cafe]
 {icon-image: cafe-m.svg;icon-min-distance: 12;}
 node|z16-[amenity=restaurant],
 area|z16-[amenity=restaurant],
-node|z16-[amenity=food_court],
-area|z16-[amenity=food_court]
 {icon-image: restaurant-m.svg;icon-min-distance: 12;}
+node|z16-[amenity=food_court],
+{icon-image: food-m.svg;icon-min-distance: 12;}
 node|z16-[amenity=fast_food],
 area|z16-[amenity=fast_food],
 {icon-image: fastfood-m.svg;icon-min-distance: 12;}
