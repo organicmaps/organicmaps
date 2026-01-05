@@ -19,6 +19,8 @@ The JSON file is generated only for timezones listed in our [countries_meta.txt]
 ```json
 {
   "tzdb_version": "2025b",
+  "tzdb_format_version": 0,
+  "tzdb_generation_year_offset": 0,
   "timezones": {
     "Europe/Berlin": {
       "base_offset": 68,
@@ -52,6 +54,19 @@ The JSON file is generated only for timezones listed in our [countries_meta.txt]
 * Usage: Useful for verification and future updates to ensure consistency with the tz rules.
 * Example: `2025b`.
 
+`tzdb_format_version`
+
+* Type: `int` in range `[0, 7]`
+* Description: Indicates the version of the binary format used to serialize this JSON.
+* Usage: Useful for future updates to ensure compatibility with older versions.
+
+`tzdb_generation_year_offset`
+
+* Type: `int` in range `[0, 63]`
+* Description: The generation year of tzdb since 2026 (0-based).
+* Usage: Used to interpret transition dates relative to the generation year.
+* Example: `0` for 2026, `1` for 2027, etc.
+
 `timezones`
 
 * Type: `object`
@@ -64,7 +79,7 @@ The JSON file is generated only for timezones listed in our [countries_meta.txt]
 
 `base_offset`
 
-* Type: `int8` (minutes)
+* Type: `int` (minutes)
 * Description: Standard UTC offset during non-DST (winter) time.
 * Usage: Added to UTC to get local time during standard time.
 * Note: Encoded as Excess-64
@@ -127,21 +142,22 @@ The binary format mirrors the JSON data but removes redundancy, text overhead, a
 
 For each timezone:
 
-| Field                  | Bits | Description                                       |
-|------------------------|------|---------------------------------------------------|
-| generation_year_offset | 8    | The generation year of tzdb since 2025 (0-based). |
-| base_offset            | 7    | Standard UTC offset encoded as Excess-64          |
-| dst_delta              | 8    | DST adjustment in minutes (usually 60)            |
-| transition_count       | 4    | Number of transitions (0–15)                      |
+| Field                  | Bits | 
+|------------------------|------|
+| format_version         | 3    |
+| generation_year_offset | 6    |
+| base_offset            | 7    |
+| dst_delta              | 8    |
+| transition_count       | 4    |
 
-**Total:** 27 bits → 4 bytes
+**Total:** 28 bits → 4 bytes
 
 Each transition encodes a DST change relative to the previous one.
 
-| Field         | Bits | Description                            |
-|---------------|------|----------------------------------------|
-| day_delta     | 9    | Days since previous transition (0–511) |
-| minute_of_day | 11   | Minute of day (0–1439)                 |
+| Field         | Bits |
+|---------------|------|
+| day_delta     | 9    |
+| minute_of_day | 11   |
 
 **Total:** 20 bits → 3 bytes
 
@@ -202,7 +218,7 @@ Typical DST-observing timezone (Europe/Berlin, 4 years):
 
 | Component               | Size         |
 |-------------------------|--------------|
-| Header                  | 27 bits      |
+| Header                  | 28 bits      |
 | 8 transitions * 20 bits | 160 bits     |
 | **Total**               | **24 bytes** |
 

@@ -1,5 +1,6 @@
 #include "serdes.hpp"
 
+#include "base/stl_helpers.hpp"
 #include "coding/bit_streams.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
@@ -8,6 +9,11 @@ namespace om::tz
 {
 namespace
 {
+constexpr bool IsTimeZoneFormatVersionValid(TimeZoneFormatVersion const version)
+{
+  return base::E2I(version) == base::E2I(TimeZoneFormatVersion::Count) - 1;
+}
+
 constexpr bool IsGenerationYearOffsetValid(uint16_t const generationYearOffset)
 {
   return generationYearOffset <= (1 << TimeZone::kGenerationYearBitSize) - 1;
@@ -45,6 +51,10 @@ std::expected<std::string, SerializationError> Serialize(TimeZone const & timeZo
   {
     MemWriter w(buf);
     BitWriter bw(w);
+
+    if (!IsTimeZoneFormatVersionValid(timeZone.format_version))
+      return std::unexpected{SerializationError::UnsupportedTimeZoneFormat};
+    bw.Write(base::E2I(timeZone.format_version), TimeZone::kFormatVersionBitSize);
 
     if (!IsGenerationYearOffsetValid(timeZone.generation_year_offset))
       return std::unexpected{SerializationError::IncorrectGenerationYearOffsetFormat};
@@ -93,6 +103,10 @@ std::expected<TimeZone, SerializationError> Deserialize(std::string_view const &
   ReaderSource src(buf);
   BitReader br{src};
   TimeZone tz;
+
+  tz.format_version = static_cast<TimeZoneFormatVersion>(br.Read(TimeZone::kFormatVersionBitSize));
+  if (!IsTimeZoneFormatVersionValid(tz.format_version))
+    return std::unexpected{SerializationError::UnsupportedTimeZoneFormat};
 
   tz.generation_year_offset = br.Read(TimeZone::kGenerationYearBitSize);
   tz.base_offset = static_cast<int16_t>(br.ReadAtMost32Bits(TimeZone::kBaseOffsetBitSize));

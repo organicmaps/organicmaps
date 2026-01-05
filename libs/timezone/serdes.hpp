@@ -10,6 +10,7 @@ enum class SerializationError
 {
   IncorrectHeader,
   IncorrectTransitionsFormat,
+  UnsupportedTimeZoneFormat,
   IncorrectGenerationYearOffsetFormat,
   IncorrectBaseOffsetFormat,
   IncorrectDstDeltaFormat,

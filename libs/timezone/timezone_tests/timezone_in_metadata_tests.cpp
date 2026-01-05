@@ -21,7 +21,9 @@ TEST(TimeZoneInMetadata, ShouldCorrectlyStoreAndLoadTimeZone)
                     }};
 
   feature::RegionData rd;
-  rd.Set(feature::RegionData::RD_TIMEZONE, Serialize(tz).value());
+  auto const result = Serialize(tz);
+  EXPECT_TRUE(result.has_value());
+  rd.Set(feature::RegionData::RD_TIMEZONE, result.value());
   EXPECT_EQ(tz, Deserialize(rd.Get(feature::RegionData::RD_TIMEZONE)).value());
 
   std::vector<uint8_t> buf;

@@ -14,6 +14,7 @@ omim_add_test_subdirectory(timezone_tests)
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
+  base
   coding
   glaze::glaze
   platform

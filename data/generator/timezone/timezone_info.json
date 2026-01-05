@@ -1,5 +1,6 @@
 {
   "tzdb_version": "2025b",
+  "tzdb_format_version": 0,
   "tzdb_generation_year_offset": 0,
   "timezones": {
     "Africa/Abidjan": {
@@ -37,7 +38,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 113,
+          "day_delta": 112,
           "minute_of_day": 1320
         },
         {
@@ -45,11 +46,11 @@
           "minute_of_day": 1260
         },
         {
-          "day_delta": 175,
+          "day_delta": 182,
           "minute_of_day": 1320
         },
         {
-          "day_delta": 189,
+          "day_delta": 182,
           "minute_of_day": 1260
         }
       ]
@@ -59,15 +60,15 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 53,
+          "day_delta": 45,
           "minute_of_day": 120
         },
         {
-          "day_delta": 42,
+          "day_delta": 35,
           "minute_of_day": 120
         },
         {
-          "day_delta": 315,
+          "day_delta": 322,
           "minute_of_day": 120
         },
         {
@@ -81,7 +82,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -93,7 +94,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -113,15 +114,15 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 53,
+          "day_delta": 45,
           "minute_of_day": 120
         },
         {
-          "day_delta": 42,
+          "day_delta": 35,
           "minute_of_day": 120
         },
         {
-          "day_delta": 315,
+          "day_delta": 322,
           "minute_of_day": 120
         },
         {
@@ -215,7 +216,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 660
         },
         {
@@ -223,7 +224,7 @@
           "minute_of_day": 600
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 660
         },
         {
@@ -272,7 +273,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 540
         },
         {
@@ -280,7 +281,7 @@
           "minute_of_day": 480
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 540
         },
         {
@@ -304,7 +305,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 480
         },
         {
@@ -312,7 +313,7 @@
           "minute_of_day": 420
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 480
         },
         {
@@ -341,7 +342,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 540
         },
         {
@@ -349,7 +350,7 @@
           "minute_of_day": 480
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 540
         },
         {
@@ -363,7 +364,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 420
         },
         {
@@ -371,7 +372,7 @@
           "minute_of_day": 360
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 420
         },
         {
@@ -385,7 +386,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 540
         },
         {
@@ -393,7 +394,7 @@
           "minute_of_day": 480
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 540
         },
         {
@@ -417,7 +418,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 360
         },
         {
@@ -425,7 +426,7 @@
           "minute_of_day": 300
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 360
         },
         {
@@ -439,7 +440,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 420
         },
         {
@@ -447,7 +448,7 @@
           "minute_of_day": 360
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 420
         },
         {
@@ -476,7 +477,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 300
         },
         {
@@ -484,7 +485,7 @@
           "minute_of_day": 300
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 300
         },
         {
@@ -503,7 +504,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 420
         },
         {
@@ -511,7 +512,7 @@
           "minute_of_day": 360
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 420
         },
         {
@@ -525,7 +526,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 420
         },
         {
@@ -533,7 +534,7 @@
           "minute_of_day": 360
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 420
         },
         {
@@ -562,7 +563,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 600
         },
         {
@@ -570,7 +571,7 @@
           "minute_of_day": 540
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 600
         },
         {
@@ -609,7 +610,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 420
         },
         {
@@ -617,7 +618,7 @@
           "minute_of_day": 360
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 420
         },
         {
@@ -631,7 +632,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -643,7 +644,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -668,7 +669,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 420
         },
         {
@@ -676,7 +677,7 @@
           "minute_of_day": 360
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 420
         },
         {
@@ -710,7 +711,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 95,
+          "day_delta": 94,
           "minute_of_day": 180
         },
         {
@@ -742,7 +743,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 360
         },
         {
@@ -750,7 +751,7 @@
           "minute_of_day": 300
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 360
         },
         {
@@ -769,7 +770,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 600
         },
         {
@@ -777,7 +778,7 @@
           "minute_of_day": 540
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 600
         },
         {
@@ -791,7 +792,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 420
         },
         {
@@ -799,7 +800,7 @@
           "minute_of_day": 360
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 420
         },
         {
@@ -813,7 +814,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 600
         },
         {
@@ -821,7 +822,7 @@
           "minute_of_day": 540
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 600
         },
         {
@@ -840,7 +841,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 480
         },
         {
@@ -848,7 +849,7 @@
           "minute_of_day": 420
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 480
         },
         {
@@ -897,7 +898,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 87,
+          "day_delta": 86,
           "minute_of_day": 1320
         },
         {
@@ -909,7 +910,7 @@
           "minute_of_day": 1320
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 1260
         }
       ]
@@ -954,11 +955,11 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 101,
+          "day_delta": 86,
           "minute_of_day": 0
         },
         {
-          "day_delta": 195,
+          "day_delta": 209,
           "minute_of_day": 1380
         },
         {
@@ -966,7 +967,7 @@
           "minute_of_day": 0
         },
         {
-          "day_delta": 209,
+          "day_delta": 216,
           "minute_of_day": 1380
         }
       ]
@@ -991,7 +992,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 86,
+          "day_delta": 85,
           "minute_of_day": 0
         },
         {
@@ -1003,7 +1004,7 @@
           "minute_of_day": 0
         },
         {
-          "day_delta": 211,
+          "day_delta": 218,
           "minute_of_day": 1380
         }
       ]
@@ -1063,7 +1064,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1075,7 +1076,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1190,7 +1191,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 67,
+          "day_delta": 66,
           "minute_of_day": 360
         },
         {
@@ -1198,7 +1199,7 @@
           "minute_of_day": 300
         },
         {
-          "day_delta": 126,
+          "day_delta": 133,
           "minute_of_day": 360
         },
         {
@@ -1212,7 +1213,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1224,7 +1225,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1239,7 +1240,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1251,7 +1252,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1261,7 +1262,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1273,7 +1274,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1298,7 +1299,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 94,
+          "day_delta": 93,
           "minute_of_day": 960
         },
         {
@@ -1320,7 +1321,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1332,7 +1333,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1342,7 +1343,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1354,7 +1355,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1364,7 +1365,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1376,7 +1377,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1386,7 +1387,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1398,7 +1399,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1408,7 +1409,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1420,7 +1421,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1430,7 +1431,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1442,7 +1443,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1452,7 +1453,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1464,7 +1465,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1474,7 +1475,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 0
         },
         {
@@ -1486,7 +1487,7 @@
           "minute_of_day": 0
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 0
         }
       ]
@@ -1496,7 +1497,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1508,7 +1509,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1518,7 +1519,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1530,7 +1531,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1540,7 +1541,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1552,7 +1553,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1572,7 +1573,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1584,7 +1585,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1594,7 +1595,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1606,7 +1607,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1616,7 +1617,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1628,7 +1629,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1638,7 +1639,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1650,7 +1651,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1660,7 +1661,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1672,7 +1673,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1692,7 +1693,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1704,7 +1705,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1714,7 +1715,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1726,7 +1727,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1736,7 +1737,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1748,7 +1749,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1758,7 +1759,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1770,7 +1771,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1780,7 +1781,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1792,7 +1793,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1802,7 +1803,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1814,7 +1815,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1824,7 +1825,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1836,7 +1837,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1846,7 +1847,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1858,7 +1859,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1868,7 +1869,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1880,7 +1881,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1890,7 +1891,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1902,7 +1903,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1912,7 +1913,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 88,
+          "day_delta": 87,
           "minute_of_day": 60
         },
         {
@@ -1924,7 +1925,7 @@
           "minute_of_day": 60
         },
         {
-          "day_delta": 210,
+          "day_delta": 217,
           "minute_of_day": 60
         }
       ]
@@ -1954,7 +1955,7 @@
       "dst_delta": 60,
       "transitions": [
         {
-          "day_delta": 94,
+          "day_delta": 93,
           "minute_of_day": 840
         },
         {
