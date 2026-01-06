@@ -28,15 +28,10 @@ time_t GenerationYearStart(int const generation_year_offset)
   return DaysUntilYear(generation_year) * kSecondsPerDay;
 }
 
-int32_t DecodeBaseOffset(uint8_t const baseOffset)
-{
-  return (static_cast<int32_t>(baseOffset) - 64) * 15;
-}
-
 // Compute offset at UTC timestamp deterministically
 int32_t TzOffsetAtUtc(TimeZone const & timeZone, time_t const utcTime)
 {
-  int32_t const baseOffset = DecodeBaseOffset(timeZone.base_offset);
+  int32_t const baseOffset = timeZone.GetBaseOffset();
   int32_t offset = baseOffset;
 
   time_t const startOfYear = GenerationYearStart(timeZone.generation_year_offset);
@@ -61,10 +56,10 @@ int32_t TzOffsetAtUtc(TimeZone const & timeZone, time_t const utcTime)
 }
 
 // Compute UTC from local time handling ambiguous DST times
-time_t LocalToUtc(TimeZone const & tz, time_t const localTime)
+time_t LocalToUtc(TimeZone const & tz, ZonedTime const localTime)
 {
   // Initial guess using base offset
-  int32_t offset = DecodeBaseOffset(tz.base_offset);
+  int32_t offset = tz.GetBaseOffset();
   time_t utc = localTime - offset * kSecondsPerMinute;
 
   for (int i = 0; i < 2; ++i)  // handle rare ambiguous DST hour
@@ -94,7 +89,7 @@ time_t LocalToUtc(TimeZone const & tz, time_t const localTime)
 }
 }  // namespace
 
-time_t Convert(time_t const time, TimeZone const & srcTimeZone, TimeZone const & dstTimeZone)
+ZonedTime Convert(ZonedTime const time, TimeZone const & srcTimeZone, TimeZone const & dstTimeZone)
 {
   // Step 1: Convert local → UTC handling DST ambiguity
   time_t const utcTime = LocalToUtc(srcTimeZone, time);
@@ -102,6 +97,12 @@ time_t Convert(time_t const time, TimeZone const & srcTimeZone, TimeZone const &
   // Step 2: Convert UTC → dst local
   int32_t const dstOffset = TzOffsetAtUtc(dstTimeZone, utcTime);
   return utcTime + dstOffset * kSecondsPerMinute;
+}
+
+ZonedTime Convert(time_t const time, TimeZone const & timeZone)
+{
+  int32_t const dstOffset = TzOffsetAtUtc(timeZone, time);
+  return time + dstOffset * kSecondsPerMinute;
 }
 
 TimeZoneDb const & GetTimeZoneDb()

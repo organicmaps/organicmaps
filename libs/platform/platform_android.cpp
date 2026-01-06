@@ -21,8 +21,6 @@
 Platform::Platform()
 {
   /// @see initialization routine in android/sdk/src/main/cpp/com/.../Platform.hpp
-
-  UpdateLocalTimeZone();
 }
 
 #ifdef DEBUG

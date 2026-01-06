@@ -54,8 +54,6 @@ std::unique_ptr<Socket> CreateSocket()
 
 Platform::Platform()
 {
-  UpdateLocalTimeZone();
-
   std::string path;
   CHECK(GetPathToBinary(path), ("Can't get path to binary"));
 
