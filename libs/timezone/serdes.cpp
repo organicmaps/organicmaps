@@ -77,10 +77,8 @@ std::expected<std::string, SerializationError> Serialize(TimeZone const & timeZo
 
     bw.Write(timeZone.transitions.size(), TimeZone::kTransitionsLengthBitSize);
 
-    for (size_t i = 0; i < timeZone.transitions.size(); ++i)
+    for (auto [dayDelta, minuteOfDay] : timeZone.transitions)
     {
-      auto const & [dayDelta, minuteOfDay] = timeZone.transitions[i];
-
       if (!IsDayDeltaValid(dayDelta))
         return std::unexpected{SerializationError::IncorrectDayDeltaFormat};
       bw.WriteAtMost32Bits(dayDelta, Transition::kDayDeltaBitSize);

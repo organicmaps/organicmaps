@@ -6,10 +6,7 @@ using namespace om::tz;
 
 TEST(TimeZoneSerDes, EmptyTimeZone)
 {
-  TimeZone const tz{.generation_year_offset = 0,
-                    .base_offset = 0,
-                    .dst_delta = 0,
-                    .transitions = {}};
+  TimeZone const tz{.generation_year_offset = 0, .base_offset = 0, .dst_delta = 0, .transitions = {}};
 
   auto const result = Serialize(tz);
   EXPECT_TRUE(result.has_value());
