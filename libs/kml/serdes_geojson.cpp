@@ -11,18 +11,36 @@ namespace kml
 {
 namespace geojson
 {
+std::string DebugPrint(GeoJsonGeometryPoint const & c)
+{
+  std::ostringstream out;
+  out << "GeoJsonGeometryPoint [coordinates = " << c.coordinates.at(1) << ", " << c.coordinates.at(0) << "]";
+  return out.str();
+}
+
+std::string DebugPrint(GeoJsonGeometryLine const & c)
+{
+  std::ostringstream out;
+  out << "GeoJsonGeometryLine [coordinates = " << c.coordinates.size() << " point(s)]";
+  return out.str();
+}
+
+std::string DebugPrint(GeoJsonGeometryMultiLine const & c)
+{
+  std::ostringstream out;
+  out << "GeoJsonGeometryMultiLine [coordinates = " << c.coordinates.size() << " lines(s)]";
+  return out.str();
+}
 
 std::string DebugPrint(GeoJsonGeometry const & g)
 {
   if (auto const * point = std::get_if<GeoJsonGeometryPoint>(&g))
     return DebugPrint(*point);
-  else if (auto const * line = std::get_if<GeoJsonGeometryLine>(&g))
+  if (auto const * line = std::get_if<GeoJsonGeometryLine>(&g))
     return DebugPrint(*line);
-  else
-  {
-    auto const geoUnknown = std::get_if<GeoJsonGeometryUnknown>(&g);
-    return "GeoJsonGeometryUnknown [type = " + geoUnknown->type + "]";
-  }
+
+  auto const geoUnknown = std::get_if<GeoJsonGeometryUnknown>(&g);
+  return "GeoJsonGeometryUnknown [type = " + geoUnknown->type + "]";
 }
 
 std::string DebugPrint(GenericJsonMap const & p)
@@ -50,6 +68,14 @@ std::string DebugPrint(glz::generic const & json)
     return buffer;
   else
     return "<JSON_ERROR>";
+}
+
+std::string DebugPrint(GeoJsonFeature const & c)
+{
+  std::ostringstream out;
+  out << "GeoJsonFeature [type = " << c.type << ", geometry = " << DebugPrint(c.geometry)
+      << ", properties = " << DebugPrint(c.properties) << "]";
+  return out.str();
 }
 
 }  // namespace geojson

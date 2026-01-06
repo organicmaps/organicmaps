@@ -15,33 +15,27 @@ namespace geojson
 // object_t means map<string, generic_json>.
 typedef glz::generic::object_t GenericJsonMap;
 
+std::string DebugPrint(glz::generic const & json);
+
+std::string DebugPrint(GenericJsonMap const & p);
+
 // Data structures
 
 struct GeoJsonGeometryPoint
 {
   std::string type{"Point"};  // Embedded tag field
   std::vector<double> coordinates;
-
-  friend std::string DebugPrint(GeoJsonGeometryPoint const & c)
-  {
-    std::ostringstream out;
-    out << "GeoJsonGeometryPoint [coordinates = " << c.coordinates.at(1) << ", " << c.coordinates.at(0) << "]";
-    return out.str();
-  }
 };
+
+std::string DebugPrint(GeoJsonGeometryPoint const & c);
 
 struct GeoJsonGeometryLine
 {
   std::string type{"LineString"};  // Embedded tag field
   std::vector<std::vector<double>> coordinates;
-
-  friend std::string DebugPrint(GeoJsonGeometryLine const & c)
-  {
-    std::ostringstream out;
-    out << "GeoJsonGeometryLine [coordinates = " << c.coordinates.size() << " point(s)]";
-    return out.str();
-  }
 };
+
+std::string DebugPrint(GeoJsonGeometryLine const & c);
 
 struct GeoJsonGeometryMultiLine
 {
@@ -49,14 +43,9 @@ struct GeoJsonGeometryMultiLine
 
   std::string type{"MultiLineString"};  // Embedded tag field
   std::vector<LineCoords> coordinates;
-
-  friend std::string DebugPrint(GeoJsonGeometryMultiLine const & c)
-  {
-    std::ostringstream out;
-    out << "GeoJsonGeometryMultiLine [coordinates = " << c.coordinates.size() << " lines(s)]";
-    return out.str();
-  }
 };
+
+std::string DebugPrint(GeoJsonGeometryMultiLine const & c);
 
 struct GeoJsonGeometryUnknown
 {
@@ -70,24 +59,14 @@ using GeoJsonGeometry = std::variant<GeoJsonGeometryPoint, GeoJsonGeometryLine, 
 
 std::string DebugPrint(GeoJsonGeometry const & g);
 
-std::string DebugPrint(glz::generic const & json);
-
-std::string DebugPrint(GenericJsonMap const & p);
-
 struct GeoJsonFeature
 {
   std::string type = "Feature";
   GeoJsonGeometry geometry;
   GenericJsonMap properties;
-
-  friend std::string DebugPrint(GeoJsonFeature const & c)
-  {
-    std::ostringstream out;
-    out << "GeoJsonFeature [type = " << c.type << ", geometry = " << DebugPrint(c.geometry)
-        << ", properties = " << DebugPrint(c.properties) << "]";
-    return out.str();
-  }
 };
+
+std::string DebugPrint(GeoJsonFeature const & c);
 
 struct GeoJsonData
 {
