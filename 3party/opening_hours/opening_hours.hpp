@@ -24,6 +24,8 @@
 
 #pragma once
 
+#include "timezone/timezone.hpp"
+
 #include <chrono>
 #include <iostream>
 #include <string>
@@ -719,7 +721,7 @@ public:
     time_t nextTimeClosed;
   };
 
-  InfoT GetInfo(time_t const dateTime) const;
+  InfoT GetInfo(time_t dateTime, std::optional<om::tz::TimeZone> const & timeZone = std::nullopt) const;
 
   bool IsValid() const;
 

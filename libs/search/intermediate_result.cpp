@@ -248,12 +248,8 @@ void FillDetails(FeatureType & ft, std::string const & name, Result::Details & d
     if (OpeningHours const oh{openHours}; oh.IsValid())
     {
       time_t now = time(nullptr);
-
-      // TODO: OH library should be adjusted to properly distinguish time_t and ZonedTime
-      // if (auto const & ftTimezone = ft.GetID().m_mwmId.GetInfo()->GetRegionData().GetTimeZone())
-      //   now = om::tz::Convert(now, ftTimezone.value());
-
-      auto const info = oh.GetInfo(now);
+      auto const & ftTimezone = ft.GetID().m_mwmId.GetInfo()->GetRegionData().GetTimeZone();
+      auto const info = oh.GetInfo(now, ftTimezone);
       if (info.state != RuleState::Unknown)
       {
         // In else case value is osm::Unknown, it's set in preview's constructor.

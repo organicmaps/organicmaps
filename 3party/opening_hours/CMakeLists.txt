@@ -19,6 +19,8 @@ set(SRC
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
+target_link_libraries(${PROJECT_NAME} PRIVATE om::timezone)
+
 target_include_directories(${PROJECT_NAME} INTERFACE .)
 
 omim_add_test_subdirectory(opening_hours_tests)

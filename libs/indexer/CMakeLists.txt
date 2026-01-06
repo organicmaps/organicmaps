@@ -156,6 +156,7 @@ target_link_libraries(${PROJECT_NAME}
     geometry
     protobuf
     coding
+    om::timezone
 )
 
 omim_add_test_subdirectory(indexer_tests)

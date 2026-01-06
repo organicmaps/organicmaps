@@ -8,6 +8,7 @@ set(SRC
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})
+add_library(om::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 omim_add_test_subdirectory(timezone_tests)
 
 target_link_libraries(${PROJECT_NAME}

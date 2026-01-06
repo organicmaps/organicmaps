@@ -181,7 +181,6 @@ target_link_libraries(${PROJECT_NAME}
   PUBLIC
     geometry  # mercator::YToLat
     coding
-    timezone
     cppjansson
     glaze::glaze
     $<$<BOOL:${PLATFORM_DESKTOP}>:Qt6::Core>
