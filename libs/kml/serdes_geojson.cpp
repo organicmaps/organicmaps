@@ -279,14 +279,14 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
       if (lineGeometry)
       {
         track.m_geometry.m_lines.push_back(CoordsToPoints(lineGeometry->coordinates));
-        track.m_geometry.AddTimestamps({});
+        track.m_geometry.AddTimestamps({});  // TODO: parse timestamps from GeoJson.
       }
       if (multilineGeometry)
       {
         for (auto & coords : multilineGeometry->coordinates)
         {
           track.m_geometry.m_lines.push_back(CoordsToPoints(coords));
-          track.m_geometry.AddTimestamps({});
+          track.m_geometry.AddTimestamps({});  // TODO: parse timestamps from GeoJson.
         }
       }
 
@@ -410,13 +410,14 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
     {
       std::vector<GeoJsonGeometryMultiLine::LineCoords> lines;
       for (auto const & trackLine : track.m_geometry.m_lines)
-        lines.push_back(ConvertPoints2GeoJsonCoords(trackLine));
+        lines.push_back(ConvertPoints2GeoJsonCoords(trackLine));  // TODO: add timestamps to GeoJson lines.
 
       trackGeometry = GeoJsonGeometryMultiLine{.coordinates = std::move(lines)};
     }
     else
     {
       auto points = track.m_geometry.m_lines[0];
+      // TODO: add timestamps to GeoJson lines.
       trackGeometry = GeoJsonGeometryLine{.coordinates = ConvertPoints2GeoJsonCoords(points)};
     }
     GeoJsonFeature const trackFeature{.geometry = trackGeometry, .properties = trackProps};
