@@ -198,6 +198,7 @@ bool HasExtendedHours(osmoh::RuleSequence const & rule)
 
 std::tm MakeTimetuple(time_t const timestamp)
 {
+  // TODO: should use gmtime for ZonedTime
   std::tm tm{};
 #ifdef _MSC_VER
   localtime_s(&tm, &timestamp);
