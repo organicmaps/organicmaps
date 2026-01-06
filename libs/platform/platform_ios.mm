@@ -36,8 +36,6 @@
 
 Platform::Platform()
 {
-  UpdateLocalTimeZone();
-
   m_isTablet = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
 
   NSBundle * bundle = NSBundle.mainBundle;

@@ -137,6 +137,7 @@ std::string DebugPrint(SerializationError error)
     using enum SerializationError;
   case IncorrectHeader: return "IncorrectHeader";
   case IncorrectTransitionsFormat: return "IncorrectTransitionsFormat";
+  case UnsupportedTimeZoneFormat: return "UnsupportedTimeZoneFormat";
   case IncorrectGenerationYearOffsetFormat: return "IncorrectGenerationYearOffsetFormat";
   case IncorrectBaseOffsetFormat: return "IncorrectBaseOffsetFormat";
   case IncorrectDstDeltaFormat: return "IncorrectDstDeltaFormat";

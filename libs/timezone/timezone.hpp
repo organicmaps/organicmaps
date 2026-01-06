@@ -47,6 +47,8 @@ struct TimeZone
   uint8_t dst_delta;
   std::vector<Transition> transitions;
 
+  int32_t GetBaseOffset() const { return (static_cast<int32_t>(base_offset) - 64) * 15; }
+
   constexpr auto operator<=>(TimeZone const & rhs) const = default;
 };
 
@@ -58,7 +60,44 @@ struct TimeZoneDb
   std::unordered_map<std::string, TimeZone> timezones;
 };
 
-time_t Convert(time_t time, TimeZone const & srcTimeZone, TimeZone const & dstTimeZone);
+/**
+ * time_t stores the value in UTC-0 format by default, E.g.,
+ * @code
+ * time_t currentTime = std::time(nullptr);
+ * @endcode
+ * currentTime will be the number of seconds since "00:00, Jan 1 1970 UTC-0"
+ *
+ * We use time_t to store our own time format that respects time zones.  E.g.,
+ * @code
+ * time_t currentTime = std::time(nullptr); // 12:00, Mar 12 2026 UTC-0
+ * TimeZone localTimeZone = ...; // UTC+3
+ * ZonedTime currentLocalTime = Convert(currentTime, localTimeZone); // 15:00, Mar 12 2026 UTC+3
+ *
+ * currentTime + 3h == currentLocalTime
+ * @endcode
+ */
+using ZonedTime = time_t;
+
+/**
+ * Converts time between time zones.
+ *
+ * @param time Time in the source time zone format. Make sure that you use ZonedTime not default time_t.
+ * @param srcTimeZone Source time zone.
+ * @param dstTimeZone Destination time zone.
+ * @return Time in the destination time zone format.
+ */
+ZonedTime Convert(ZonedTime time, TimeZone const & srcTimeZone, TimeZone const & dstTimeZone);
+
+/**
+ * Converts the time from UTC-0 to the specified time zone.
+ * This function is helpful when you need to convert localtime to the specific zone time.
+ * E.g., when you use time(nullptr)
+ *
+ * @param time Time in UTC-0.
+ * @param timeZone Time zone.
+ * @return Time in the ZonedTime format for the specified time zone.
+ */
+ZonedTime Convert(time_t time, TimeZone const & timeZone);
 
 /// @warning Do not call in runtime. Only for generator and testing.
 TimeZoneDb const & GetTimeZoneDb();

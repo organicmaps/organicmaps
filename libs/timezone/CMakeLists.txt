@@ -1,8 +1,6 @@
 project(timezone)
 
 set(SRC
-  local_timezone.cpp
-  local_timezone.hpp
   serdes.cpp
   serdes.hpp
   timezone.hpp
