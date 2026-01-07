@@ -189,11 +189,11 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
                                                 isOn:[MWMSettings iCLoudSynchronizationEnabled]];
 
   __weak __typeof(self) weakSelf = self;
-  [iCloudSynchronizaionManager.shared addObserver:self
-             synchronizationStateDidChangeHandler:^(SynchronizationManagerState * state) {
-               __strong auto strongSelf = weakSelf;
-               [strongSelf.iCloudSynchronizationCell updateWithSynchronizationState:state];
-             }];
+  [iCloudSynchronizationManager.shared addObserver:self
+              synchronizationStateDidChangeHandler:^(SynchronizationManagerState * state) {
+                __strong auto strongSelf = weakSelf;
+                [strongSelf.iCloudSynchronizationCell updateWithSynchronizationState:state];
+              }];
 
   [self.enableLoggingCell configWithDelegate:self title:L(@"enable_logging") isOn:MWMSettings.isFileLoggingEnabled];
   [self updateLogFileSize];

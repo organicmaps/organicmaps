@@ -64,21 +64,19 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
       cloudContentGatheringIsFinished = true
       outgoingEvents = resolveDidFinishGathering(localContents: currentLocalContents, cloudContents: contents)
     case .didUpdateLocalContents(let contents, let update):
-      currentLocalContents = contents
-      outgoingEvents = resolveDidUpdateLocalContents(update)
+      outgoingEvents = resolveDidUpdateLocalContents(contents, update)
     case .didUpdateCloudContents(let contents, let update):
-      currentCloudContents = contents
-      outgoingEvents = resolveDidUpdateCloudContents(update)
+      outgoingEvents = resolveDidUpdateCloudContents(contents, update)
     }
 
-    LOG(.info, "Events to process (\(outgoingEvents.count)):")
-    outgoingEvents.forEach { LOG(.info, $0) }
+    LOG(.info, "SYNC: Events to process (\(outgoingEvents.count)):")
+    outgoingEvents.forEach { LOG(.info, "SYNC: \($0)") }
 
     return outgoingEvents
   }
 
   func resetState() {
-    LOG(.debug, "Resetting state")
+    LOG(.info, "SYNC: Resetting state")
     currentLocalContents.removeAll()
     currentCloudContents.removeAll()
     localContentsGatheringIsFinished = false
@@ -92,13 +90,14 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
   private func resolveDidFinishGathering(localContents: LocalContents, cloudContents: CloudContents) -> [OutgoingSynchronizationEvent] {
     currentLocalContents = localContents
     currentCloudContents = cloudContents
-    guard localContentsGatheringIsFinished, cloudContentGatheringIsFinished else { return [] }
+    guard isGatheringFinished else { return [] }
+    LOG(.info, "SYNC: Gathering is finished. Initial synchronization: \(isInitialSynchronization)")
 
     switch (localContents.isEmpty, cloudContents.isEmpty) {
     case (true, true):
       return []
     case (true, false):
-      return cloudContents.map { .createLocalItem(with: $0) }
+      return cloudContents.map { $0.isDownloaded ? .createLocalItem(with: $0) : .startDownloading($0) }
     case (false, true):
       return localContents.map { .createCloudItem(with: $0) }
     case (false, false):
@@ -161,17 +160,20 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
     }
   }
 
-  private func resolveDidUpdateLocalContents(_ localContents: LocalContentsUpdate) -> [OutgoingSynchronizationEvent] {
+  private func resolveDidUpdateLocalContents(_ contents: LocalContents, _ update: LocalContentsUpdate) -> [OutgoingSynchronizationEvent] {
+    currentLocalContents = contents
+    guard isGatheringFinished else { return [] }
+
     var outgoingEvents = [OutgoingSynchronizationEvent]()
-    localContents.removed.forEach { localItem in
+    update.removed.forEach { localItem in
       guard let cloudItem = self.currentCloudContents.firstByName(localItem) else { return }
       outgoingEvents.append(.removeCloudItem(cloudItem))
     }
-    localContents.added.forEach { localItem in
+    update.added.forEach { localItem in
       guard !self.currentCloudContents.containsByName(localItem) else { return }
       outgoingEvents.append(.createCloudItem(with: localItem))
     }
-    localContents.updated.forEach { localItem in
+    update.updated.forEach { localItem in
       guard let cloudItem = self.currentCloudContents.firstByName(localItem) else {
         outgoingEvents.append(.createCloudItem(with: localItem))
         return
@@ -182,23 +184,26 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
     return outgoingEvents
   }
 
-  private func resolveDidUpdateCloudContents(_ cloudContents: CloudContentsUpdate) -> [OutgoingSynchronizationEvent] {
+  private func resolveDidUpdateCloudContents(_ contents: CloudContents, _ update: CloudContentsUpdate) -> [OutgoingSynchronizationEvent] {
+    currentCloudContents = contents
+    guard isGatheringFinished else { return [] }
+
     var outgoingEvents = [OutgoingSynchronizationEvent]()
     currentCloudContents.getErrors.forEach { outgoingEvents.append(.didReceiveError($0)) }
     currentCloudContents.withUnresolvedConflicts.forEach { outgoingEvents.append(.resolveVersionsConflict($0)) }
 
-    cloudContents.added.notDownloaded.forEach { outgoingEvents.append(.startDownloading($0)) }
-    cloudContents.updated.notDownloaded.forEach { outgoingEvents.append(.startDownloading($0)) }
+    update.added.notDownloaded.forEach { outgoingEvents.append(.startDownloading($0)) }
+    update.updated.notDownloaded.forEach { outgoingEvents.append(.startDownloading($0)) }
 
-    cloudContents.removed.forEach { cloudItem in
+    update.removed.forEach { cloudItem in
       guard let localItem = self.currentLocalContents.firstByName(cloudItem) else { return }
       outgoingEvents.append(.removeLocalItem(localItem))
     }
-    cloudContents.added.downloaded.forEach { cloudItem in
+    update.added.downloaded.forEach { cloudItem in
       guard !self.currentLocalContents.containsByName(cloudItem) else { return }
       outgoingEvents.append(.createLocalItem(with: cloudItem))
     }
-    cloudContents.updated.downloaded.forEach { cloudItem in
+    update.updated.downloaded.forEach { cloudItem in
       guard let localItem = self.currentLocalContents.firstByName(cloudItem) else {
         outgoingEvents.append(.createLocalItem(with: cloudItem))
         return
@@ -207,6 +212,16 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
       outgoingEvents.append(.updateLocalItem(with: cloudItem))
     }
     return outgoingEvents
+  }
+
+  private var isGatheringFinished: Bool {
+    if !localContentsGatheringIsFinished {
+      LOG(.info, "SYNC: Waiting for the Local gathering...")
+    }
+    if !cloudContentGatheringIsFinished {
+      LOG(.info, "SYNC: Waiting for the Cloud gathering...")
+    }
+    return localContentsGatheringIsFinished && cloudContentGatheringIsFinished
   }
 }
 

@@ -338,6 +338,15 @@ std::string GenerateUniqueFileName(std::string const & path, std::string name, s
   return res;
 }
 
+std::string GenerateFilePathForKML(std::string const & fileName)
+{
+  std::string filePath = RemoveInvalidSymbols(fileName);
+  if (filePath.empty())
+    return filePath;
+
+  return base::JoinPath(GetBookmarksDirectory(), std::move(filePath.append(kKmlExtension)));
+}
+
 std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
 {
   std::string filePath = RemoveInvalidSymbols(fileName);

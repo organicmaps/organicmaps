@@ -49,7 +49,6 @@ public:
   using KMLDataCollectionPtr = std::shared_ptr<KMLDataCollection>;
 
   using BookmarksChangedCallback = std::function<void()>;
-  using CategoriesChangedCallback = std::function<void()>;
   using ElevationActivePointChangedCallback = std::function<void()>;
   using ElevationMyPositionChangedCallback = std::function<void()>;
 
@@ -99,6 +98,24 @@ public:
     AttachedBookmarksCallback m_attachedBookmarksCallback;
     DetachedBookmarksCallback m_detachedBookmarksCallback;
   };
+
+  enum class FileOperationType
+  {
+    Created,
+    Updated,
+    Deleted
+  };
+
+  struct FilesOperationEvent
+  {
+    FileOperationType type;
+    Platform::FilesList files;
+
+    FilesOperationEvent(FileOperationType type, Platform::FilesList const & files) : type(type), files(std::move(files))
+    {}
+  };
+
+  using FilesChangedCallback = std::function<void(FilesOperationEvent const &)>;
 
   class EditSession
   {
@@ -175,7 +192,7 @@ public:
   void InitRegionAddressGetter(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter);
 
   void SetBookmarksChangedCallback(BookmarksChangedCallback && callback);
-  void SetCategoriesChangedCallback(CategoriesChangedCallback && callback);
+  void SetCategoryFilesChangedCallback(FilesChangedCallback && callback);
   void SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks);
   bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
 
@@ -267,6 +284,7 @@ public:
 
   BookmarkCategory * CreateBookmarkCompilation(kml::CategoryData && data);
 
+  Platform::FilesList GetCategoryFilesList() const;
   std::string GetCategoryName(kml::MarkGroupId categoryId) const;
   std::string GetCategoryFileName(kml::MarkGroupId categoryId) const;
   kml::MarkGroupId GetCategoryByFileName(std::string const & fileName) const;
@@ -634,7 +652,7 @@ private:
   void UpdateBmGroupIdList();
 
   void NotifyBookmarksChanged();
-  void NotifyCategoriesChanged();
+  void NotifyCategoryFilesChanged(FilesOperationEvent event);
 
   void SendBookmarksChanges(MarksChangesTracker const & changesTracker);
   void GetBookmarksInfo(kml::MarkIdSet const & marks, std::vector<BookmarkInfo> & bookmarks) const;
@@ -731,7 +749,7 @@ private:
   std::mutex m_regionAddressMutex;
 
   BookmarksChangedCallback m_bookmarksChangedCallback;
-  CategoriesChangedCallback m_categoriesChangedCallback;
+  FilesChangedCallback m_categoryFilesChangedCallback;
   ElevationActivePointChangedCallback m_elevationActivePointChanged;
   ElevationMyPositionChangedCallback m_elevationMyPositionChanged;
   m2::PointD m_lastElevationMyPosition = m2::PointD::Zero();
