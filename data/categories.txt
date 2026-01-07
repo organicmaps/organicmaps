@@ -19836,27 +19836,6 @@ vi:Cửa hàng gas
 zh-Hans:燃气站
 zh-Hant:煤氣庫
 
-leisure-hackerspace
-en:Hackerspace
-ar:هاكرزبيس
-be:Хакерская прастора
-bg:Хакерско пространство|Хакерспейс|Хакспейс
-es:Espacio para hackers
-es-MX:Espacio hacker
-fa:فضای هکرها
-fi:Hacklab
-he:משרד היי טק משותף
-hi:हैकर्सस्पेस
-ja:ハッカースペース
-ko:해커스 스페이스
-lt:5Hakeriai|5Technologijų erdvė
-mr:हॅकरस्पेस
-ru:Хакерспейс
-th:แฮกเกอร์สเปซ
-vi:Không gian tin tặc
-zh-Hans:创客空间
-zh-Hant:駭客空間
-
 shop-pet_grooming
 en:Pet Grooming
 ar:العناية بالحيوانات الأليفة
