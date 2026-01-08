@@ -435,15 +435,7 @@ line|z18-[highway=secondary_link][bridge?]::bridgeblack
 line|z11-[highway=tertiary],
 line|z11-[highway=unclassified],
 line|z14-[highway=tertiary_link],
-{color: @tertiary; opacity: 0.7;}
-line|z14-15[highway=tertiary],
-line|z14-15[highway=unclassified],
-line|z15-16[highway=tertiary_link],
-{opacity: 0.85;}
-line|z16-[highway=tertiary],
-line|z16-[highway=unclassified],
-line|z17-[highway=tertiary_link],
-{opacity: 1;}
+{color: @tertiary; opacity: 1;}
 
 line|z14-[highway=tertiary][bridge?]::bridgewhite,
 line|z14-[highway=tertiary_link][bridge?]::bridgewhite
@@ -537,15 +529,7 @@ line|z18-[highway=unclassified][bridge?]::bridgeblack,
 line|z12-[highway=residential],
 line|z12-[highway=road],
 line|z12-[highway=living_street],
-{color: @residential; opacity: 0.7;}
-line|z14-16[highway=residential],
-line|z14-16[highway=road],
-line|z14-16[highway=living_street],
-{opacity: 0.85;}
-line|z17-[highway=residential],
-line|z17-[highway=road],
-line|z17-[highway=living_street],
-{opacity: 1;}
+{color: @residential; opacity: 1;}
 
 line|z14-[highway=residential][bridge?]::bridgewhite,
 {casing-linecap: butt;casing-color:@bridge_background;casing-opacity: 0.8;}
@@ -614,7 +598,7 @@ line|z18-[highway=residential][bridge?]::bridgeblack,
 line|z15-[highway=service],
 line|z15-[highway=service][service=busway],
 line|z15-[highway=busway],
-{color: @residential; opacity: 0.8;}
+{color: @residential; opacity: 1;}
 
 line|z15[highway=service],
 line|z15[highway=service][service=busway],
@@ -643,7 +627,7 @@ line|z19-[highway=busway],
 
 line|z13-[highway=pedestrian],
 line|z13-[highway=ford]
-{color: @pedestrian;opacity: 0.85;}
+{color: @pedestrian;opacity: 1;}
 line|z13-[highway=cycleway],
 line|z14-[highway=path][bicycle=designated]::cycleline,
 line|z15-[highway=footway][bicycle=designated]::cycleline,
@@ -679,10 +663,10 @@ line|z15-[leisure=track][!area],
 line|z14-[highway=bridleway]
 {color: @bridleway;opacity: 0.6;}
 line|z15-[highway=footway],
-{color: @footway;opacity: 0.75;}
+{color: @footway;opacity: 1;}
 line|z15-[highway=ladder],
 line|z15-[highway=steps],
-{color: @footway;opacity: 0.85;}
+{color: @footway;opacity: 1;}
 line|z14-[highway=path],
 {color: @path;opacity: 0.6;}
 line|z14-[highway=path][_path_grade=expert],
@@ -996,7 +980,7 @@ line|z17-[highway=footway][bridge?]::bridgeblack
 
 /* Do not draw highway-footway-area like lines, but keep z13 lines so as not to break routing */
 line|z13[highway=footway][area?],
-{color: @pedestrian; opacity: 0.85; width: 1; dashes: 2,1;}
+{color: @pedestrian; opacity: 1; width: 1; dashes: 2,1;}
 line|z14-[highway=footway][area?],
 {width: 0;}
 

@@ -110,10 +110,10 @@
 @primary2: #FFA14C;
 @secondary0: #FFB226;
 @secondary1: #FFBF52;
-@tertiary: #FFFFFF;
-@residential: #F8F8F8;
-@pedestrian: #F8F8F8;
-@footway: #F8F8F8;
+@tertiary: #f7f7f7;
+@residential: #f2f2f2;
+@pedestrian: #f2f2f2;
+@footway: #f2f2f2;
 @cycleway: #5654FF;
 @construction: #BBBBAA;
 @track: #635730;
