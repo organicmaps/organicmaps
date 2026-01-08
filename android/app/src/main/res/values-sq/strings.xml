@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">Prapa</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">Anulo</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Fshi</string>
+    <string name="download_maps">Shkarko Harta</string>
+    <!-- Settings/Downloader - info for country when download fails -->
+    <string name="download_has_failed">Shkarkimi dështoi. Prekni për të provuar përsëri.</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
+    <string name="downloading">Duke shkarkuar…</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">Kilometra</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <string name="miles">Milje</string>
+    <!-- Update maps later button text -->
+    <string name="later">Më vonë</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Kërko</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+    <string name="search_map">Kërko në Hartë</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Aktualisht i keni të çaktivizuara të gjitha Shërbimet e Vendndodhjes për këtë pajisje ose aplikacion. Ju lutemi aktivizoni ato në Cilësimet.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Saktësi e Kufizuar</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Për të siguruar lundrim të saktë, aktivizoni Vendndodhjen e Saktë në cilësimet.</string>
+    <!-- View and button titles for accessibility -->
+    <string name="zoom_to_country">Shfaq në hartë</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Shkarkimi dështoi</string>
+    <!-- Button text for the button under the country_status_download_failed message -->
+    <string name="try_again">Provo Përsëri</string>
+    <string name="about_menu_title">Rreth Organic Maps</string>
+    <!-- Text in About screen -->
+    <string name="about_headline">Falas për të gjithë, bërë me dashuri</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_1">• Pa reklama, pa gjurmim, pa mbledhje të dhënash</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_2">• Nuk harxhon baterinë, punon jashtë linje</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_3">• I shpejtë, minimalist, zhvilluar nga komuniteti</string>
+    <!-- Text in About screen -->
+    <string name="about_developed_by_enthusiasts">Aplikacion me burim të hapur i krijuar nga entuziastë dhe vullnetarë.</string>
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">Cilësimet e Vendndodhjes</string>
+    <string name="close">Mbyll</string>
+    <string name="unsupported_phone">Aplikacioni kërkon OpenGL të përshpejtuar nga hardueri. Fatkeqësisht, pajisja juaj nuk mbështetet.</string>
+    <string name="download">Shkarko</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable">Ju lutemi shkëputni kabllon USB ose futni kartën e memories për të përdorur Organic Maps</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="not_enough_free_space_on_sdcard">Ju lutemi lironi pak hapësirë në kartën SD/ruajtjen USB fillimisht për të përdorur aplikacionin</string>
+    <string name="download_resources">Para se të filloni të përdorni aplikacionin, ju lutemi shkarkoni hartën e përgjithshme të botës në pajisjen tuaj.\nAjo do të përdorë %s të hapësirës.</string>
+    <string name="download_resources_continue">Shko te Harta</string>
+    <string name="downloading_country_can_proceed">Duke shkarkuar %s. Tani mund të\nvazhdoni te harta.</string>
+    <string name="download_country_ask">Shkarko %s?</string>
+    <string name="update_country_ask">Përditëso %s?</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="pause">Pauzë</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="continue_button">Vazhdo</string>
+    <!-- Show popup notification on top of the map when country download has failed. -->
+    <string name="download_country_failed">%s shkarkimi dështoi</string>
+    <!-- "Add new bookmark list" dialog title -->
+    <string name="add_new_set">Shto një Listë të Re</string>
+    <!-- Add Bookmark list dialog - hint when the list name is empty -->
+    <string name="bookmark_set_name">Emri i Listës së Faqeshënuesve</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Faqeshënuesit</string>
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
+    <string name="bookmarks_and_tracks">Faqeshënuesit dhe Gjurmët</string>
+    <!-- Add bookmark dialog - bookmark name -->
+    <string name="name">Emri</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">Adresa</string>
+    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+    <string name="list">Lista</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Cilësimet</string>
+    <!-- Header of settings activity where user defines storage path -->
+    <string name="maps_storage">Ruaj hartat në</string>
+    <!-- Detailed description of Maps Storage settings button -->
+    <string name="maps_storage_summary">Zgjidhni dosjen ku të shkarkohen hartat.</string>
+    <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+    <string name="maps_storage_downloaded">Hartat e shkarkuara</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%1$s të lira nga %2$s</string>
+    <!-- Question dialog for transferring maps from one storage to another -->
+    <string name="move_maps">Leviz hartat?</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">Gabim gjatë lëvizjes së skedarëve të hartës</string>
+    <!-- Ask user to wait several minutes (some long process in modal dialog). -->
+    <string name="wait_several_minutes">Kjo mund të zgjasë disa minuta.\nJu lutemi prisni…</string>
+    <!-- Measurement units title in settings activity -->
+    <string name="measurement_units">Njësitë matëse</string>
+    <!-- Detailed description of Measurement Units settings button -->
+    <string name="measurement_units_summary">Zgjidhni midis miljeve dhe kilometrave</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Ku të hani</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Ushqimore</string>
+    <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+    <string name="category_transport">Transporti</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Karburant</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parkim</string>
+    <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+    <string name="category_shopping">Pazari</string>
+    <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+    <string name="category_secondhand">Të përdorura</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Hotel</string>
+    <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+    <string name="category_tourism">Vende turistike</string>
+    <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+    <string name="category_entertainment">Argëtim</string>
+    <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+    <string name="category_atm">Bankomat</string>
+    <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+    <string name="category_nightlife">Jeta e natës</string>
+    <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+    <string name="category_children">Pushime familjare</string>
+    <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+    <string name="category_bank">Banka</string>
+    <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+    <string name="category_pharmacy">Farmacia</string>
+    <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+    <string name="category_hospital">Spitali</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Tualet</string>
+    <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+    <string name="category_post">Posta</string>
+    <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+    <string name="category_police">Policia</string>
+    <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+    <string name="category_recycling">Riciklimi</string>
+    <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+    <string name="category_water">Ujë</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Objekte për RV</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Notes field in Bookmarks view -->
+    <string name="description">Shënime</string>
+    <!-- Email Subject when sharing bookmark list -->
+    <string name="share_bookmarks_email_subject">Faqeshënuesit e Organic Maps u ndanë me ju</string>
+    <string name="share_bookmarks_email_body">Përshëndetje!\n\nBashkëngjitur janë faqeshënuesit e mi; ju lutemi hapini ato në Organic Maps. Nëse nuk e keni të instaluar, mund ta shkarkoni këtu: https://omaps.app/get?kmz\n\nShijoni udhëtimin me Organic Maps!</string>
+    <!-- message title of loading file -->
+    <string name="load_kmz_title">Duke ngarkuar Faqeshënuesit</string>
+    <!-- Kmz file successful loading -->
+    <string name="load_kmz_successful">Faqeshënuesit u ngarkuan me sukses! Mund t\'i gjeni në hartë ose në ekranin e Menaxherit të Faqeshënuesve.</string>
+    <!-- Kml file loading failed -->
+    <string name="load_kmz_failed">Dështoi ngarkimi i faqeshënuesve. Skedari mund të jetë i dëmtuar ose me defekt.</string>
+    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
+    <string name="unknown_file_type">Lloji i skedarit nuk njihet nga aplikacioni:\n%1$s</string>
+    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <string name="failed_to_open_file">Dështoi hapja e skedarit %1$s\n\n%2$s</string>
+    <!-- resource for context menu -->
+    <string name="edit">Ndrysho</string>
+    <!-- Warning message when doing search around current position -->
+    <string name="unknown_current_position">Vendndodhja juaj nuk është përcaktuar ende</string>
+    <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+    <string name="cant_change_this_setting">Na vjen keq, cilësimet e Ruajtjes së Hartës janë aktualisht të çaktivizuara.</string>
+    <!-- Alert message that downloading is in progress. -->
+    <string name="downloading_is_active">Shkarkimi i hartës është në progres tani.</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Shikoni vendndodhjen time aktuale në Organic Maps! %1$s ose %2$s Nuk keni harta offline? Shkarkoni këtu: https://omaps.app/get</string>
+    <!-- Subject for emailed bookmark -->
+    <string name="bookmark_share_email_subject">Hej, shiko vendosjen time në Organic Maps!</string>
+    <!-- Subject for emailed position -->
+    <string name="my_position_share_email_subject">Hej, shiko vendndodhjen time aktuale në hartën e Organic Maps!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email">Përshëndetje,\n\nUnë jam këtu tani: %1$s. Klikoni këtë lidhje %2$s ose këtë tjetrën %3$s për të parë vendin në hartë.\n\nFaleminderit.</string>
+    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+    <string name="share">Ndaj</string>
+    <!-- Share by email button text, also used in editor and About. -->
+    <string name="email">Email</string>
+    <!-- Text for message when used successfully copied something -->
+    <string name="copied_to_clipboard">U kopjua në kujtesën e fragmenteve: %s</string>
+    <!-- Used for bookmark editing -->
+    <string name="done">U krye</string>
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">Të dhënat OpenStreetMap: %s</string>
+    <!-- Confirmation for OpenStreetMap log out. -->
+    <string name="osm_log_out_confirmation">Jeni i sigurt që dëshironi të dilni nga llogaria juaj OpenStreetMap?</string>
+    <!-- Title for tracks category in bookmarks manager -->
+    <string name="tracks_title">Gjurmët</string>
+    <!-- Length of track in cell that describes route -->
+    <string name="length">Gjatësia</string>
+    <string name="share_my_location">Ndaj Vendndodhjen Time</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">Cilësimet e përgjithshme</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">Informacion</string>
+    <string name="prefs_group_route">Lundrimi</string>
+    <!-- Setting name which enables or disables zoom buttons on the map screen. -->
+    <string name="pref_zoom_title">Butonat “+” dhe “-” në hartë</string>
+    <string name="pref_zoom_summary">Shfaq në hartë</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Modaliteti i Natës</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Jo</string>
+    <!-- Generic «On» string -->
+    <string name="on">Po</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Automatike</string>
+    <!-- Settings «Map» category: «Perspective view» title -->
+    <string name="pref_map_3d_title">Pamja perspektive</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">Ndërtesat 3D</string>
+    <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+    <string name="pref_map_3d_buildings_disabled_summary">Ndërtesat 3D janë të çaktivizuara në modalitetin e kursimit të energjisë</string>
+    <!-- Settings «Route» category: «Tts enabled» title -->
+    <string name="pref_tts_enable_title">Udhëzimet Zanore</string>
+    <!-- Settings «Route» category: «Tts announce street names» title -->
+    <string name="pref_tts_street_names_title">Shpall Emrat e Rrugëve</string>
+    <!-- Settings «Route» category: «Tts announce street names» description -->
+    <string name="pref_tts_street_names_description">Kur aktivizohet, emri i rrugës ose daljes për t\'u kthyer do të thuhet me zë të lartë.</string>
+    <!-- Settings «Route» category: «Tts language» title -->
+    <string name="pref_tts_language_title">Gjuha e Zërit</string>
+    <!-- Settings «Route» category: «Test Voice Directions» title -->
+    <string name="pref_tts_test_voice_title">Testoni Udhëzimet me Zë (TTS, Tekst-në-Fjalë)</string>
+    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+    <string name="pref_tts_playing_test_voice">Kontrolloni volumin ose cilësimet e sistemit Tekst-në-Fjalë nëse nuk e dëgjoni zërin tani.</string>
+    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <string name="pref_tts_unavailable">Nuk Disponohet</string>
+    <string name="pref_map_auto_zoom">Zmadhim automatik</string>
+    <string name="placepage_distance">Distanca</string>
+    <string name="search_show_on_map">Shiko në hartë</string>
+    <!-- Menu button -->
+    <string name="menu">Menuja</string>
+    <!-- Text in menu -->
+    <string name="website">Faqja e internetit</string>
+    <!-- Text in About menu, opens Organic Maps news website -->
+    <string name="news">Lajme</string>
+    <!-- Settings: Send feedback button and dialog title -->
+    <string name="feedback">Reagime</string>
+    <!-- Text in menu -->
+    <string name="rate_the_app">Vlerësoni aplikacionin</string>
+    <!-- Text in menu -->
+    <string name="help">Ndihmë</string>
+    <!-- Button in the main Help dialog -->
+    <string name="faq">Pyetjet e Bëra Shpesh</string>
+    <!-- Button in the main menu -->
+    <string name="donate">Dhuroni</string>
+    <string name="already_donated">Tashmë keni dhuruar</string>
+    <string name="remind_me_later">Kujto më vonë</string>
+    <string name="support_organic_maps">Mbështet Organic Maps</string>
+    <!-- Button in the main Help dialog -->
+    <string name="how_to_support_us">Mbështet projektin</string>
+    <!-- Button in the main Help dialog -->
+    <string name="copyright">E drejta e autorit</string>
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
+    <string name="report_a_bug">Raporto një problem</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_recommended">Përmirësoni drejtimin e shigjetës duke lëvizur telefonin në formë teti për të kalibruar busullën.</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_required">Lëvizni telefonin në formë teti për të kalibruar busullën dhe për të rregulluar drejtimin e shigjetës në hartë.</string>
+    <!-- Toast text when user hides UI with a long tap anywhere on the map -->
+    <string name="long_tap_toast">Prekni gjatë në hartë përsëri për të parë ndërfaqen</string>
+    <!-- Update all button text -->
+    <string name="downloader_update_all_button">Përditëso të Gjitha</string>
+    <!-- Cancel all button text -->
+    <string name="downloader_cancel_all">Anulo të Gjitha</string>
+    <!-- Downloaded maps list header -->
+    <string name="downloader_downloaded_subtitle">Shkarkuar</string>
+    <!-- Country queued for download -->
+    <string name="downloader_queued">Në radhë</string>
+    <string name="downloader_near_me_subtitle">Pranë meje</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Hartat</string>
+    <string name="downloader_download_all_button">Shkarko të Gjitha</string>
+    <string name="downloader_downloading">Duke shkarkuar:</string>
+    <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+    <string name="downloader_delete_map_while_routing_dialog">Për të fshirë hartën, ju lutemi ndaloni lundrimin.</string>
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Rrugët mund të krijohen vetëm nëse përfshihen plotësisht brenda hartës së një rajoni të vetëm.</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Shkarko hartën</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Riprovo</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_delete_map">Fshi Hartën</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Përditëso Hartën</string>
+    <!-- Preference title -->
+    <string name="google_play_services">Shërbimet e Vendndodhjes Google Play</string>
+    <!-- Preference text -->
+    <string name="pref_use_google_play">Përcaktoni shpejt vendndodhjen tuaj të përafërt duke përdorur Bluetooth, WiFi, ose rrjetin celular</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Shkarkoni të gjitha hartat përgjatë rrugës suaj</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Për të krijuar një rrugë, duhet të shkarkojmë dhe përditësojmë të gjitha hartat nga vendndodhja juaj deri në destinacion.</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_not_enough_space">Nuk ka hapësirë të mjaftueshme</string>
+    <!-- location service disabled -->
+    <string name="enable_location_services">Ju lutemi aktivizoni Shërbimet e Vendndodhjes</string>
+    <string name="save">Ruaj</string>
+    <string name="create">krijo</string>
+    <!-- red color -->
+    <string name="red">E kuqe</string>
+    <!-- yellow color -->
+    <string name="yellow">E verdhë</string>
+    <!-- blue color -->
+    <string name="blue">Blu</string>
+    <!-- green color -->
+    <string name="green">E gjelbër</string>
+    <!-- purple color -->
+    <string name="purple">Vjollcë</string>
+    <!-- orange color -->
+    <string name="orange">Portokalli</string>
+    <!-- brown color -->
+    <string name="brown">Kafe</string>
+    <!-- pink color -->
+    <string name="pink">Rozë</string>
+    <!-- deep purple color -->
+    <string name="deep_purple">Vjollcë e errët</string>
+    <!-- light blue color -->
+    <string name="light_blue">Blu e hapur</string>
+    <!-- cyan color -->
+    <string name="cyan">Cyan</string>
+    <!-- teal color -->
+    <string name="teal">Teal</string>
+    <!-- lime color -->
+    <string name="lime">Limoni</string>
+    <!-- deep orange color -->
+    <string name="deep_orange">Portokalli e thellë</string>
+    <!-- gray color -->
+    <string name="gray">Gri</string>
+    <!-- blue gray color -->
+    <string name="blue_gray">Gri Blu</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Dhuroni harta falas pa reklama për miliona përdorues!</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_disclaimer_title">Kur ndiqni rrugën, ju lutemi mbani parasysh:</string>
+    <string name="dialog_routing_disclaimer_priority">— Kushtet e rrugës, ligjet e trafikut dhe shenjat rrugore kanë gjithmonë përparësi ndaj udhëzimeve të navigimit;</string>
+    <string name="dialog_routing_disclaimer_precision">— Harta mund të jetë e pasaktë dhe rruga e sugjeruar mund të mos jetë gjithmonë mënyra më optimale për të arritur destinacionin;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— Rrugët e sugjeruara duhet të kuptohen vetëm si rekomandime;</string>
+    <string name="dialog_routing_disclaimer_borders">— Tregoni kujdes me rrugët në zonat kufitare: rrugët e krijuara nga aplikacioni ynë ndonjëherë mund të kalojnë kufijtë shtetërorë në vende të paautorizuara.</string>
+    <string name="dialog_routing_disclaimer_beware">Ju lutemi qëndroni vigjilentë dhe të sigurt në rrugë!</string>
+    <string name="dialog_routing_check_gps">Kontrollo sinjalin GPS</string>
+    <string name="dialog_routing_error_location_not_found">Nuk mund të krijohet rruga. Koordinatat aktuale GPS nuk mund të identifikoheshin.</string>
+    <string name="dialog_routing_location_turn_wifi">Ju lutemi kontrolloni sinjalin tuaj GPS. Aktivizimi i Wi-Fi do të përmirësojë saktësinë e vendndodhjes suaj.</string>
+    <string name="dialog_routing_location_turn_on">Aktivizo shërbimet e vendndodhjes</string>
+    <string name="dialog_routing_location_unknown_turn_on">Nuk mund të gjenden koordinatat aktuale GPS. Aktivizoni shërbimet e vendndodhjes për të llogaritur rrugën.</string>
+    <string name="dialog_routing_unable_locate_route">Nuk mund të gjendet rruga</string>
+    <string name="dialog_routing_cant_build_route">Nuk mund të krijohet rruga.</string>
+    <string name="dialog_routing_change_start_or_end">Ju lutemi rregulloni pikën e nisjes ose destinacionin.</string>
+    <string name="dialog_routing_change_start">Rregullo pikën e nisjes</string>
+    <string name="dialog_routing_start_not_determined">Rruga nuk u krijua. Nuk mund të gjendet pika e nisjes.</string>
+    <string name="dialog_routing_select_closer_start">Ju lutemi zgjidhni një pikë nisjeje më afër një rruge.</string>
+    <string name="dialog_routing_change_end">Rregullo destinacionin</string>
+    <string name="dialog_routing_end_not_determined">Rruga nuk u krijua. Nuk mund të gjendet destinacioni.</string>
+    <string name="dialog_routing_select_closer_end">Ju lutemi zgjidhni një pikë destinacioni të vendosur më afër një rruge.</string>
+    <string name="dialog_routing_change_intermediate">Nuk mund të gjendet pika e ndërmjetme.</string>
+    <string name="dialog_routing_intermediate_not_determined">Ju lutemi rregulloni pikën tuaj të ndërmjetme.</string>
+    <string name="dialog_routing_system_error">Gabim sistemi</string>
+    <string name="dialog_routing_application_error">Nuk mund të krijohet rruga për shkak të një gabimi në aplikacion.</string>
+    <string name="dialog_routing_try_again">Ju lutemi provoni përsëri</string>
+    <string name="not_now">Jo Tani</string>
+    <string name="dialog_routing_download_and_build_cross_route">A dëshironi të shkarkoni hartën dhe të krijoni një rrugë më optimale që përfshin më shumë se një hartë?</string>
+    <string name="dialog_routing_download_cross_route">Shkarkoni harta shtesë për të krijuar një rrugë më të mirë që kalon kufijtë e kësaj harte.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="search_without_internet_advertisement">Për të filluar kërkimin dhe krijimin e rrugëve, ju lutemi shkarkoni hartën. Pas kësaj nuk do të keni më nevojë për lidhje interneti.</string>
+    <string name="search_select_map">Zgjidh Hartën</string>
+    <!-- «Show» context menu -->
+    <string name="show">Shfaq</string>
+    <!-- «Hide» context menu -->
+    <string name="hide">Fshih</string>
+    <string name="categories">Kategoritë</string>
+    <string name="history">Historiku</string>
+    <string name="search_not_found">Ups, nuk u gjetën rezultate.</string>
+    <!-- The message when user did not find anything in the search. -->
+    <string name="search_not_found_query">Shkarkoni rajonin ku po kërkoni ose provoni të shtoni emrin e një qyteti/fshati të afërt.</string>
+    <string name="search_history_title">Historiku i Kërkimit</string>
+    <string name="search_history_text">Shikoni kërkimet tuaja të fundit.</string>
+    <string name="clear_search">Pastro Historikun e Kërkimit</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="p2p_your_location">Vendndodhja Juaj</string>
+    <string name="p2p_start">Fillo</string>
+    <string name="p2p_from_here">Rruga nga</string>
+    <string name="p2p_to_here">Rruga për</string>
+    <string name="p2p_only_from_current">Lundrimi është i disponueshëm vetëm nga vendndodhja juaj aktuale.</string>
+    <string name="p2p_reroute_from_current">A dëshironi të planifikoni një rrugë nga vendndodhja juaj aktuale?</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Tjetra</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_from">Nga</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_to">Për</string>
+    <string name="editor_time_add">Shto Orar</string>
+    <string name="editor_time_delete">Fshi Orarin</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Gjithë Ditën (24 orë)</string>
+    <string name="editor_time_open">Hapur</string>
+    <string name="editor_time_close">Mbyllur</string>
+    <string name="editor_time_add_closed">Shto Orarin Jo-Punues</string>
+    <string name="editor_time_title">Orari i Punës</string>
+    <string name="editor_time_advanced">Modaliteti i Avancuar</string>
+    <string name="editor_time_simple">Modaliteti i Thjeshtë</string>
+    <string name="editor_hours_closed">Orari Jo-Punues</string>
+    <string name="editor_example_values">Vlerat Shembull</string>
+    <string name="editor_correct_mistake">Korrigjo gabimin</string>
+    <string name="editor_add_select_location">Zgjidh Vendi</string>
+    <string name="editor_report_problem_desription_1">Ju lutemi përshkruani problemin në detaje në mënyrë që komuniteti OpenStreetMap ta rregullojë atë.</string>
+    <string name="editor_report_problem_desription_2">Ose bëjeni vetë në https://www.openstreetmap.org/</string>
+    <string name="editor_report_problem_send_button">Dërgo</string>
+    <string name="editor_report_problem_title">Çështje</string>
+    <string name="editor_report_problem_no_place_title">Ky vend nuk ekziston</string>
+    <string name="editor_report_problem_under_construction_title">Mbyllur për mirëmbajtje</string>
+    <string name="editor_report_problem_duplicate_place_title">Vend i dyfishtë</string>
+    <string name="autodownload">Shkarko automatikisht hartat</string>
+    <!-- Place Page opening hours text -->
+    <string name="daily">Çdo ditë</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Mbyllur sot</string>
+    <string name="day_off">Mbyllur</string>
+    <string name="today">Sot</string>
+    <string name="opens_in">Hapet në %s</string>
+    <string name="closes_in">Mbyllet në %s</string>
+    <string name="closed">Mbyllur</string>
+    <string name="edit_opening_hours">Ndrysho orarin e punës</string>
+    <string name="no_osm_account">Nuk keni një llogari OpenStreetMap?</string>
+    <string name="register_at_openstreetmap">Regjistrohuni në OpenStreetMap</string>
+    <string name="login">Hyrja</string>
+    <!-- Status message indicating that user did not login to OSM profile yet. -->
+    <string name="not_signed_in">Nuk jeni i regjistruar</string>
+    <string name="login_osm">Hyni në OpenStreetMap</string>
+    <string name="password">Fjalëkalimi</string>
+    <string name="forgot_password">Keni harruar fjalëkalimin?</string>
+    <string name="logout">Dilni</string>
+    <string name="edit_place">Ndrysho Vendin</string>
+    <string name="add_language">Shto një gjuhë</string>
+    <string name="street">Rruga</string>
+    <!-- Editable House Number text field (in address block). -->
+    <string name="house_number">Numri i ndërtesës</string>
+    <string name="details">Detajet</string>
+    <string name="social_media">Media Sociale</string>
+    <string name="building">Ndërtesa</string>
+    <!-- Text field to enter non-existing street name, below list of known streets around -->
+    <string name="add_street">Shto një rrugë</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">Ju lutemi vendosni një emër rruge</string>
+    <string name="choose_language">Zgjidhni një gjuhë</string>
+    <string name="choose_street">Zgjidhni një rrugë</string>
+    <string name="cuisine">Kuzhina</string>
+    <string name="select_cuisine">Zgjidh kuzhinën</string>
+    <!-- login text field -->
+    <string name="email_or_username">Email ose emri i përdoruesit</string>
+    <string name="editor_add_phone">Shto Telefon</string>
+    <string name="level">Kati</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Niveli: %s</string>
+    <string name="downloader_delete_map_dialog">Të gjitha ndryshimet e hartës suaj do të fshihen së bashku me hartën.</string>
+    <string name="downloader_update_maps">Përditëso Hartat</string>
+    <string name="downloader_mwm_migration_dialog">Për të krijuar një rrugë, duhet të përditësoni të gjitha hartat dhe më pas të planifikoni rrugën përsëri.</string>
+    <string name="downloader_search_field_hint">Gjej hartën</string>
+    <string name="common_check_internet_connection_dialog">Ju lutemi sigurohuni që pajisja juaj është e lidhur me internetin.</string>
+    <string name="downloader_no_space_title">Nuk ka hapësirë të mjaftueshme</string>
+    <!-- Message shown when there is not enough space to download maps -->
+    <string name="downloader_no_space_message">Ju lutemi fshini të dhënat e panevojshme</string>
+    <string name="editor_login_error_dialog">Gabim në hyrje.</string>
+    <string name="editor_profile_changes">Ndryshime të Verifikuara</string>
+    <string name="editor_focus_map_on_location">Tërhiqni hartën për të vendosur kryqin në vendndodhjen e vendit ose biznesit.</string>
+    <string name="editor_edit_place_title">Duke ndryshuar</string>
+    <string name="editor_add_place_title">Duke shtuar</string>
+    <string name="editor_edit_place_name_hint">Emri i vendit</string>
+    <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+    <string name="editor_default_language_hint">Siç shkruhet në gjuhën vendase</string>
+    <string name="editor_edit_place_category_title">Kategoria</string>
+    <string name="detailed_problem_description">Përshkrim i detajuar i problemit</string>
+    <string name="editor_report_problem_other_title">Problem tjetër</string>
+    <string name="placepage_add_business_button">Shto biznes</string>
+    <string name="message_invalid_feature_position">Asnjë objekt nuk mund të vendoset këtu</string>
+    <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+    <string name="osm_presentation">Të dhëna të OpenStreetMap të krijuara nga komuniteti që nga %s. Mësoni më shumë për mënyrën se si të redaktoni dhe përditësoni hartën në OpenStreetMap.org</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) është një projekt komunitar për të ndërtuar një hartë të lirë dhe të hapur. Është burimi kryesor i të dhënave të hartës në Organic Maps dhe funksionon ngjashëm me Wikipedia. Ju mund të shtoni ose redaktoni vende dhe ato bëhen të disponueshme për miliona përdorues në të gjithë botën.\nBashkohuni me komunitetin dhe ndihmoni për të bërë një hartë më të mirë për të gjithë!</string>
+    <string name="login_to_make_edits_visible">Krijoni një llogari OpenStreetMap ose hyni për të publikuar ndryshimet tuaja të hartës për botën.</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d nga %2$d</string>
+    <string name="download_over_mobile_header">Të shkarkohet përmes një lidhjeje rrjeti celular?</string>
+    <string name="download_over_mobile_message">Kjo mund të jetë mjaft e shtrenjtë me disa plane ose nëse jeni në roaming.</string>
+    <string name="error_enter_correct_house_number">Vendosni një numër të vlefshëm ndërtese</string>
+    <string name="editor_storey_number">Numri i kateve (maksimumi %d)</string>
+    <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+    <string name="error_enter_correct_storey_number">Numri i kateve nuk duhet të kalojë %d</string>
+    <string name="editor_zip_code">Kodi Postar</string>
+    <string name="error_enter_correct_zip_code">Vendosni një kod postar të vlefshëm</string>
+    <!-- Title for OSM note section in the editor -->
+    <string name="editor_other_info">Shënim për vullnetarët e OpenStreetMap (opsionale)</string>
+    <!-- Hint of the input field in the OSM note section of the editor -->
+    <string name="editor_note_hint">Përshkruani gabimet në hartë ose gjërat që nuk mund të redaktohen me Organic Maps</string>
+    <!-- Information about OSM at the top of the editing page -->
+    <string name="editor_about_osm">Ndryshimet tuaja ngarkohen në bazën e të dhënave publike <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Ju lutemi mos shtoni informacione personale ose të mbrojtura nga e drejta e autorit.</string>
+    <string name="editor_more_about_osm">Më shumë rreth OpenStreetMap</string>
+    <string name="editor_osm_history">Historiku juaj i redaktimit</string>
+    <string name="editor_osm_notes">Shënimet tuaja të të dhënave të hartës</string>
+    <string name="editor_operator">Operatori</string>
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
+    <string name="operator">Operatori: %s</string>
+    <string name="editor_category_unsuitable_title">Nuk mund të gjeni një kategori të përshtatshme?</string>
+    <string name="editor_category_unsuitable_text">Organic Maps lejon shtimin e kategorive të thjeshta të pikave, që do të thotë jo qytete, rrugë, liqene, konture ndërtesash, etj. Ju lutemi shtoni kategori të tilla drejtpërdrejt në <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrolloni <a href="https://organicmaps.app/faq/editing/advanced-map-editing">udhëzuesin tonë</a> për udhëzime të detajuara hap pas hapi.</string>
+    <string name="downloader_no_downloaded_maps_title">Nuk keni shkarkuar asnjë hartë</string>
+    <string name="downloader_no_downloaded_maps_message">Shkarkoni harta për të kërkuar dhe lundruar jashtë linje.</string>
+    <string name="current_location_unknown_error_title">Vendndodhja aktuale është e panjohur.</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/h</string>
+    <string name="miles_per_hour">mph</string>
+    <string name="hour">o</string>
+    <string name="minute">min</string>
+    <string name="day">d</string>
+    <string name="second">s</string>
+    <string name="placepage_more_button">Më shumë</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="placepage_edit_bookmark_button">Ndrysho Faqeshënuesin</string>
+    <string name="placepage_personal_notes_hint">Shënime personale (tekst ose html)</string>
+    <string name="editor_comment_hint">Komento…</string>
+    <string name="editor_reset_edits_message">Të hiqen të gjitha ndryshimet vendase?</string>
+    <string name="editor_reset_edits_button">Hiq dorë</string>
+    <string name="editor_remove_place_message">Fshi vendin e shtuar?</string>
+    <string name="editor_remove_place_button">Fshi</string>
+    <string name="editor_place_doesnt_exist">Vendi nuk ekziston</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">Ju lutemi tregoni arsyen për fshirjen e vendit</string>
+    <!-- Phone number error message -->
+    <string name="error_enter_correct_phone">Vendosni një numër telefoni të vlefshëm</string>
+    <string name="error_enter_correct_web">Vendosni një adresë uebi të vlefshme</string>
+    <string name="error_enter_correct_email">Vendosni një email të vlefshëm</string>
+    <string name="error_enter_correct_facebook_page">Vendosni një adresë Facebook, llogari ose emër faqeje të vlefshëm</string>
+    <string name="error_enter_correct_instagram_page">Vendosni një emër përdoruesi ose adresë uebi Instagram të vlefshëm</string>
+    <string name="error_enter_correct_twitter_page">Vendosni një emër përdoruesi ose adresë uebi Twitter të vlefshëm</string>
+    <string name="error_enter_correct_vk_page">Vendosni një emër përdoruesi ose adresë uebi VK të vlefshëm</string>
+    <string name="error_enter_correct_line_page">Vendosni një ID LINE ose adresë uebi të vlefshme</string>
+    <string name="placepage_add_place_button">Shto vend në OpenStreetMap</string>
+    <string name="osm_note_hint">Ose, në mënyrë alternative, lini një shënim për komunitetin OpenStreetMap në mënyrë që dikush tjetër të mund të shtojë ose rregullojë një vend këtu.</string>
+    <string name="osm_note_toast">Shënimi do të dërgohet në OpenStreetMap</string>
+    <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
+    <string name="editor_share_to_all_dialog_title">A dëshironi t\'ua dërgoni të gjithë përdoruesve?</string>
+    <!-- Dialog before publishing the modifications to the public map. -->
+    <string name="editor_share_to_all_dialog_message_1">Sigurohuni që nuk keni futur të dhëna private ose personale.</string>
+    <string name="editor_share_to_all_dialog_message_2">Redaktorët e OpenStreetMap do të kontrollojnë ndryshimet dhe do t\'ju kontaktojnë nëse kanë ndonjë pyetje.</string>
+    <string name="navigation_stop_button">Ndal</string>
+    <!-- Shown as toast when starting the recent track recording -->
+    <string name="track_recording">Duke regjistruar gjurmën</string>
+    <!-- For the first routing -->
+    <string name="accept">Prano</string>
+    <!-- For the first routing -->
+    <string name="decline">Refuzo</string>
+    <string name="mobile_data_dialog">Të përdoret interneti celular për të shfaqur informacione të detajuara?</string>
+    <string name="mobile_data_option_always">Përdor Gjithmonë</string>
+    <string name="mobile_data_option_today">Vetëm Sot</string>
+    <string name="mobile_data_option_not_today">Mos Përdor Sot</string>
+    <string name="mobile_data">Internet Celular</string>
+    <!-- NOTE to translators: please synchronize your translation with the English one. -->
+    <string name="mobile_data_description">Interneti celular kërkohet për njoftimet e përditësimit të hartës dhe ngarkimin e ndryshimeve.</string>
+    <string name="mobile_data_option_never">Mos Përdor Kurrë</string>
+    <string name="mobile_data_option_ask">Pyet Gjithmonë</string>
+    <string name="traffic_update_maps_text">Për të shfaqur të dhënat e trafikut, hartat duhet të jenë të përditësuara.</string>
+    <string name="big_font">Rrit madhësinë për etiketat e hartës</string>
+    <string name="traffic_update_app">Ju lutemi përditësoni Organic Maps</string>
+    <!-- "traffic" as in "road congestion" -->
+    <string name="traffic_data_unavailable">Të dhënat e trafikut nuk janë të disponueshme</string>
+    <string name="enable_logging">Aktivizo regjistrimin</string>
+    <!-- Settings: "Send general feedback" button -->
+    <string name="feedback_general">Reagime të Përgjithshme</string>
+    <string name="prefs_languages_information">Ne përdorim sistemin TTS për udhëzime zanore. Shumë pajisje Android përdorin Google TTS, mund ta shkarkoni ose përditësoni nga Google Play</string>
+    <string name="prefs_languages_information_off">Për disa gjuhë, do t\'ju duhet të instaloni një sintetizues të të folurit ose një paketë gjuhësore shtesë nga dyqani i aplikacioneve (Google Play, Galaxy Store, App Gallery, FDroid).\nHapni cilësimet e pajisjes suaj → Gjuha dhe hyrja → Të folurit → Dalja tekst-në-të-folur.\nKëtu mund të menaxhoni cilësimet për sintezën e të folurit (për shembull, shkarkoni paketën gjuhësore për përdorim jashtë linje) dhe zgjidhni një motor tjetër tekst-në-të-folur.</string>
+    <string name="prefs_languages_information_off_link">Për më shumë informacion, ju lutemi kontrolloni këtë udhëzues.</string>
+    <string name="transliteration_title">Translitero në alfabetin latin</string>
+    <string name="learn_more">Mëso më shumë</string>
+    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+    <string name="routing_add_start_point">Përdorni kërkimin, zgjidhni një faqeshënues ose prekni në hartë për të shtuar një pikë nisjeje të rrugës</string>
+    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+    <string name="routing_add_finish_point">Përdorni kërkimin, zgjidhni një faqeshënues ose prekni në hartë për të shtuar një pikë destinacioni</string>
+    <string name="planning_route_manage_route">Menaxho Rrugën</string>
+    <string name="button_plan">Planifiko</string>
+    <string name="placepage_remove_stop">Hiq Ndalesën</string>
+    <string name="placepage_add_stop">Shto Ndalesë</string>
+    <string name="saved">Ruajtur</string>
+    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+    <string name="alert_reauth_message">Ju lutemi hyni në OpenStreetMap për të ngarkuar automatikisht të gjitha ndryshimet tuaja të hartës. Mësoni më shumë <a href="https://github.com/organicmaps/organicmaps/issues/6144">këtu</a>.</string>
+    <string name="dialog_error_storage_title">Problem me qasjen në ruajtje</string>
+    <string name="dialog_error_storage_message">Ruajtja e jashtme nuk është e qasshme. Karta SD mund të jetë hequr, dëmtuar ose sistemi i skedarëve është vetëm për lexim. Ju lutemi verifikoni kartën tuaj SD ose na kontaktoni në support\@organicmaps.app</string>
+    <string name="setting_emulate_bad_storage">Simulo ruajtje të keqe</string>
+    <string name="error_enter_correct_name">Ju lutemi vendosni një emër të saktë</string>
+    <string name="bookmark_lists">Listat</string>
+    <!-- Do not display all bookmark lists on the map -->
+    <string name="bookmark_lists_hide_all">Fshih të gjitha</string>
+    <string name="bookmark_lists_show_all">Shfaq të gjitha</string>
+    <string name="bookmarks_create_new_group">Krijo një listë të re</string>
+    <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+    <string name="bookmarks_import">Importo Faqeshënues dhe Gjurmë</string>
+    <string name="bookmarks_error_message_share_general">Nuk mund të ndahet për shkak të një gabimi në aplikacion</string>
+    <string name="bookmarks_error_title_share_empty">Gabim në ndarje</string>
+    <string name="bookmarks_error_message_share_empty">Nuk mund të ndahet një listë boshe</string>
+    <string name="bookmarks_error_title_empty_list_name">Emri nuk mund të jetë bosh</string>
+    <string name="bookmarks_error_message_empty_list_name">Ju lutemi vendosni emrin e listës</string>
+    <string name="bookmarks_new_list_hint">Listë e re</string>
+    <string name="bookmarks_error_title_list_name_already_taken">Ky emër është tashmë i zënë</string>
+    <string name="bookmarks_error_message_list_name_already_taken">Ju lutemi zgjidhni një emër tjetër</string>
+    <string name="please_wait">Ju lutemi prisni…</string>
+    <string name="phone_number">Numri i telefonit</string>
+    <string name="profile">Profili OpenStreetMap</string>
+    <string name="restore">Restauro</string>
+    <!-- Settings privacy group in settings screen -->
+    <string name="privacy">Privatësia</string>
+    <string name="privacy_policy">Politika e privatësisë</string>
+    <string name="terms_of_use">Kushtet e përdorimit</string>
+    <string name="button_layer_traffic">Trafiku</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Eisje në natyrë</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Çiklizëm</string>
+    <string name="button_layer_subway">Metro</string>
+    <string name="layers_title">Stilet e Hartave dhe Shtresat</string>
+    <string name="bookmarks_empty_list_title">Kjo listë është boshe</string>
+    <string name="bookmarks_empty_list_message">Për të shtuar një faqeshënues, prekni një vend në hartë dhe më pas prekni ikonën e yllit</string>
+    <string name="category_desc_more">…më shumë</string>
+    <string name="export_file">Eksporto KMZ</string>
+    <string name="export_file_gpx">Eksporto GPX</string>
+    <string name="delete_list">Fshi listen</string>
+    <string name="speedcams_alert_title">Kamerat e shpejtësisë</string>
+    <string name="place_description_title">Përshkrimi i Vendit</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Shkarkuesi i hartave</string>
+    <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+    <string name="pref_tts_speedcams_auto">Paralajmëro nëse tejkalohet shpejtësia</string>
+    <!-- Speed camera settings menu option - Always warn (about speedcams) -->
+    <string name="pref_tts_speedcams_always">Paralajmëro gjithmonë</string>
+    <!-- Speed camera settings menu option - Never warn (about speedcams) -->
+    <string name="pref_tts_speedcams_never">Mos paralajmëro kurrë</string>
+    <string name="power_managment_title">Modaliteti i kursimit të energjisë</string>
+    <string name="power_managment_description">Provoni të ulni përdorimin e energjisë duke sakrifikuar disa funksionalitete.</string>
+    <string name="power_managment_setting_never">Kurrë</string>
+    <string name="power_managment_setting_auto">Kur bateria është e ulët</string>
+    <string name="power_managment_setting_manual_max">Gjithmonë</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Emrat e faqeshënuesve në hartë</string>
+    <string name="bookmarks_text_placement_description">Nëse ka shumë faqeshënues, shfaqja e emrave të tyre në hartë mund të ngadalësojë aplikacionin.</string>
+    <string name="show_to_the_right">Shfaq në të djathtë</string>
+    <string name="show_at_the_bottom">Shfaq në fund</string>
+    <string name="enable_logging_warning_message">Aktivizoni këtë opsion përkohësisht për të regjistruar dhe dërguar manualisht logje diagnostike të detajuara për problemin tuaj duke përdorur \"Raporto një problem\" në dialogun Ndihmë. Logjet mund të përfshijnë informacione vendndodhjeje.</string>
+    <string name="driving_options_title">Mundësitë e rrugëtimit</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Shmang pagesat</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Shmang rrugët e paasfaltuara</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Shmang tragetet</string>
+    <string name="avoid_motorways">Shmang autostradat</string>
+    <string name="unable_to_calc_alert_title">Nuk mund të llogaritet rruga</string>
+    <string name="unable_to_calc_alert_subtitle">Rruga nuk mund të gjendej. Kjo mund të shkaktohet nga opsionet tuaja të rrugëtimit ose të dhëna të paplota të OpenStreetMap. Ju lutemi ndryshoni opsionet tuaja të rrugëtimit dhe provoni përsëri.</string>
+    <string name="define_to_avoid_btn">Përcaktoni rrugët për të shmangur</string>
+    <string name="change_driving_options_btn">Mundësitë e rrugëtimit u aktivizuan</string>
+    <string name="toll_road">Rrugë me pagesë</string>
+    <string name="unpaved_road">Rrugë e paasfaltuar</string>
+    <string name="ferry_crossing">Kalim me traget</string>
+    <!-- A generic "Yes" button in dialogs -->
+    <string name="yes">Po</string>
+    <!-- A generic "No" button in dialogs -->
+    <string name="no">Jo</string>
+    <!-- E.g. "WiFi:Yes" -->
+    <string name="yes_available">Po</string>
+    <!-- E.g. "WiFi:No" -->
+    <string name="no_available">Jo</string>
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
+    <string name="capacity">Kapaciteti: %s</string>
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
+    <string name="network">Rrjeti: %s</string>
+    <string name="trip_finished">Keni mbërritur!</string>
+    <string name="ok">OK</string>
+    <!-- max. 10 symbols, both iOS and Android -->
+    <string name="sort">Rendit…</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Rendit faqeshënuesit</string>
+    <!-- Android -->
+    <string name="by_default">Sipas parazgjedhjes</string>
+    <!-- Android -->
+    <string name="by_type">Sipas llojit</string>
+    <!-- Android -->
+    <string name="by_distance">Sipas distancës</string>
+    <!-- Android -->
+    <string name="by_date">Sipas datës</string>
+    <!-- Android -->
+    <string name="by_name">Sipas emrit</string>
+    <string name="week_ago_sorttype">Një javë më parë</string>
+    <string name="month_ago_sorttype">Një muaj më parë</string>
+    <string name="moremonth_ago_sorttype">Më shumë se një muaj më parë</string>
+    <string name="moreyear_ago_sorttype">Më shumë se një vit më parë</string>
+    <string name="near_me_sorttype">Pranë meje</string>
+    <string name="others_sorttype">Të tjera</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="food_places">Ushqim</string>
+    <string name="tourist_places">Vende turistike</string>
+    <string name="museums">Muzetë</string>
+    <string name="parks">Parqe</string>
+    <string name="swim_places">Not</string>
+    <string name="mountains">Male</string>
+    <string name="animals">Kafshë</string>
+    <string name="hotels">Hotele</string>
+    <string name="buildings">Ndërtesa</string>
+    <string name="money">Para</string>
+    <string name="shops">Dyqane</string>
+    <string name="parkings">Parkim</string>
+    <string name="fuel_places">Pompa karburanti</string>
+    <string name="medicine">Mjekësi</string>
+    <string name="search_in_the_list">Kërko në listë</string>
+    <string name="religious_places">Vende fetare</string>
+    <string name="select_list">Zgjidh listën</string>
+    <string name="transit_not_found">Lundrimi me metro në këtë rajon nuk është ende i disponueshëm</string>
+    <string name="dialog_pedestrian_route_is_long_header">Nuk u gjet asnjë rrugë metroje</string>
+    <string name="dialog_pedestrian_route_is_long_message">Ju lutemi zgjidhni një pikë fillimi ose fundi më afër një stacioni metroje</string>
+    <string name="button_layer_isolines">Vija Konture</string>
+    <string name="isolines_activation_error_dialog">Aktivizimi i vijave të konturit kërkon shkarkimin e të dhënave të hartës për këtë zonë</string>
+    <string name="isolines_location_error_dialog">Vijat e konturit nuk janë ende të disponueshme në këtë zonë</string>
+    <string name="elevation_profile_ascent">Ngjitje</string>
+    <string name="elevation_profile_descent">Zbritje</string>
+    <string name="elevation_profile_min_elevation">Lartësia min.</string>
+    <string name="elevation_profile_max_elevation">Lartësia maks.</string>
+    <string name="elevation_profile_difficulty">Vështirësia</string>
+    <string name="elevation_profile_distance">Dist.:</string>
+    <string name="elevation_profile_time">Koha:</string>
+    <string name="isolines_toast_zooms_1_10">Zmadhoni për të eksploruar izolinat</string>
+    <string name="downloader_loading_ios">Duke shkarkuar</string>
+    <string name="download_map_title">Shkarko hartën e përgjithshme të botës</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">Nuk mund të krijohet dosja dhe të lëvizen skedarët në memorien e brendshme të pajisjes ose kartën sd</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">Gabim disku</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">Dështim i lidhjes</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">Shkëputni kabllon USB</string>
+    <string name="enable_keep_screen_on">Mbaje ekranin ndezur</string>
+    <!-- Description in preferences -->
+    <string name="enable_keep_screen_on_description">Kur aktivizohet, ekrani do të jetë gjithmonë i ndezur kur shfaqet harta.</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">Shfaq në ekranin e kyçjes</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">Kur aktivizohet, aplikacioni do të punojë në ekranin e kyçjes edhe kur pajisja është e kyçur.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Gjuha e hartës</string>
+    <!-- OpenStreetMap text on splash screen -->
+    <string name="splash_subtitle">Të dhëna harte nga OpenStreetMap</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <!-- Link to OSM wiki for Editor, Profile and About pages -->
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <!-- App Tip #00 -->
+    <string name="app_tip_00">Faleminderit që përdorni hartat tona të ndërtuara nga komuniteti!</string>
+    <!-- App tip #01 -->
+    <string name="app_tip_01">Me donacionet dhe mbështetjen tuaj, ne mund të krijojmë hartat më të mira në Botë!</string>
+    <!-- App tip #02 -->
+    <string name="app_tip_02">A ju pëlqen aplikacioni ynë? Ju lutemi dhuroni për të mbështetur zhvillimin! Nuk ju pëlqen ende? Ju lutemi na tregoni pse, dhe ne do ta rregullojmë!</string>
+    <!-- App tip #03 -->
+    <string name="app_tip_03">Nëse njihni një zhvillues softuerësh, mund t\'i kërkoni atij ose asaj të zbatojë një veçori që ju nevojitet.</string>
+    <!-- App tip #04 -->
+    <string name="app_tip_04">Prekni kudo në hartë për të zgjedhur çdo gjë. Një prekje e gjatë përdoret për të fshehur dhe shfaqur ndërfaqen.</string>
+    <!-- App tip #05 -->
+    <string name="app_tip_05">A e dinit që vendndodhja juaj aktuale në hartë mund të zgjidhet?</string>
+    <!-- App tip #06 -->
+    <string name="app_tip_06">Ju mund të ndihmoni në përkthimin e aplikacionit tonë në gjuhën tuaj.</string>
+    <!-- App tip #07 -->
+    <string name="app_tip_07">Aplikacioni ynë zhvillohet nga disa entuziastë dhe komuniteti.</string>
+    <!-- App tip #08 -->
+    <string name="app_tip_08">Ju mund të rregulloni dhe përmirësoni lehtësisht të dhënat e hartës.</string>
+    <!-- App tip #09 -->
+    <string name="app_tip_09">Qëllimi ynë kryesor është të ndërtojmë harta të shpejta, të fokusuara te privatësia dhe të lehta për t\'u përdorur që do t\'i doni.</string>
+    <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+    <string name="car_used_on_the_phone_screen">Tani jeni duke përdorur Organic Maps në ekranin e telefonit</string>
+    <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
+    <string name="car_used_on_the_car_screen">Tani jeni duke përdorur Organic Maps në ekranin e makinës</string>
+    <!-- Displayed on the phone screen. Android Auto connected -->
+    <string name="aa_connected_title">Jeni lidhur me Android Auto</string>
+    <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
+    <string name="car_continue_on_the_phone">Vazhdoni në telefon</string>
+    <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+    <string name="car_continue_in_the_car">Te ekrani i makinës</string>
+    <!-- Ask user to grant location permissions -->
+    <string name="aa_location_permissions_request">Organic Maps ka nevojë për qasje në vendndodhje. Kur të jetë e sigurt, kontrolloni njoftimin në telefonin tuaj.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">Ky aplikacion ka nevojë për lejen tuaj</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps në Android Auto ka nevojë për leje vendndodhjeje për të punuar me efikasitet</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">Jepni Lejet</string>
+    <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+    <string name="button_layer_outdoor">Jashtë</string>
+    <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+    <string name="browser_not_available">Shfletuesi i uebit nuk është i disponueshëm</string>
+    <string name="volume">Volumi</string>
+    <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+    <string name="bookmarks_export">Eksporto të gjithë Faqeshënuesit dhe Gjurmët</string>
+    <!-- button in (app) TTS settings, to open the system TTS settings. -->
+    <string name="pref_tts_open_system_settings">Cilësimet e sistemit të sintezës së të folurit</string>
+    <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+    <string name="pref_tts_no_system_tts">Cilësimet e Sintezës së Të Folurit nuk u gjetën, a jeni i sigurt që pajisja juaj e mbështet?</string>
+    <string name="drive_through">Drive-through</string>
+    <string name="clear_the_search">Pastroj kërkimin</string>
+    <string name="zoom_in">Zmadho</string>
+    <!-- Accessibility text for the zoom-out button on the map -->
+    <string name="zoom_out">Zvogëlo</string>
+    <!-- Restaurant or other food place's menu URL field in the Editor -->
+    <string name="website_menu">Lidhja e Menusë</string>
+    <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+    <string name="view_menu">Shiko Menunë</string>
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
+    <string name="open_in_app">Hape në Një Aplikacion Tjetër</string>
+    <!-- To indicate if the place proposed self service… -->
+    <string name="self_service">Vetë-shërbim</string>
+    <string name="select_option">Zgjidh opsionin</string>
+    <!-- To indicate if restaurant or other place has outdoor seating -->
+    <string name="outdoor_seating">Ulëse jashtë</string>
+    <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+    <string name="power_save_dialog_summary">Për lundrimin më të saktë, rekomandojmë çaktivizimin e modalitetit të kursimit të energjisë në cilësimet e baterisë së telefonit.</string>
+    <!-- Prompt to start recording a track. -->
+    <string name="start_track_recording">Regjistro Gjurmën</string>
+    <!-- Prompt for stopping a track recording. -->
+    <string name="stop_track_recording">Ndalo Regjistrimin e Gjurmës</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Regjistrimi i Gjurmës</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="stop_without_saving">Ndalo Pa Ruajtur</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="continue_recording">Vazhdo Regjistrimin</string>
+    <!-- Title for the alert when saving a track recording. -->
+    <string name="track_recording_alert_title">Të ruhet në Faqeshënues dhe Gjurmë?</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">Gjurma është boshe - asgjë për t\'u ruajtur</string>
+    <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+    <string name="error_no_file_manager_app">Nuk mund të shfaqet dialogu i zgjedhjes së dosjes sepse asnjë aplikacion i përshtatshëm nuk është i instaluar në pajisjen tuaj. Ju lutemi instaloni një aplikacion menaxhimi skedarësh dhe provoni përsëri.</string>
+    <string name="choose_color">Zgjidh Ngjyrën</string>
+    <string name="edit_track">Ndrysho Gjurmën</string>
+    <string name="uri_open_location_failed">Asnjë aplikacion i instaluar që mund të hapë vendndodhjen</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">Automatike në lundrim</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">Ndiq sistemin</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Ndaj Gjurmën</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Fshi %s?</string>
+</resources>
