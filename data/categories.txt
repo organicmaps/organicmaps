@@ -5779,10 +5779,10 @@ zh-Hant:賭博
 amenity-gambling|@gambling
 sl:4Hazardne igre|3igre na srečo
 
-amenity-casino|@category_entertainment|@category_nightlife|@gambling
+amenity-casino|@category_nightlife|@gambling
 en:Casino|U+1F3B0|U+1F3B2|U+1F3B4
 ar:كازينو
-bg:Казино|хазарт|машинки
+bg:Казино|хазарт|машинки|слот машина
 cs:Casino
 da:Kasino
 de:Casino|Kasino|Spielkasino|Spielhalle
@@ -7663,7 +7663,7 @@ uk:4Злив нечистот|слив туалету|слив для туале
 amenity-school
 en:3School|U+1F392|U+1F3EB
 ar:مدرسة
-bg:Училище|гимназия
+bg:Училище|гимназия|даскало
 cs:3Škola
 da:2Skole
 de:3Schule|Schulgebäude
@@ -9604,6 +9604,7 @@ leisure-hackerspace
 en:4Hackerspace
 ar:هاكرزبيس
 be:Хакерская прастора
+bg:Хакерско пространство|Хакерспейс|Хакспейс
 es-MX:Espacio hacker
 fa:فضای هکرها
 he:האקרספייס
@@ -18290,7 +18291,7 @@ shop-baby_goods|@category_children|@shop
 en:Baby Goods
 ar:متجر الأطفال
 be:Дзіцячая
-bg:Детски
+bg:Детски|Бебешки
 ca:Nens|Nadons
 cs:Dětský obchod
 da:Børnebutik
@@ -18334,7 +18335,7 @@ shop-bag|@category_shopping|@shop
 en:Bags
 ar:متجر الحقائب
 be:Крама сумак
-bg:Магазин за чанти
+bg:Магазин за чанти|Торбички
 cs:Obchod s taškami
 da:Tasker butik
 de:5Taschen Shop
@@ -18377,7 +18378,7 @@ shop-cheese|@category_food|@shop
 en:Cheese
 ar:متجر جبن
 be:Сыр|Сырны
-bg:Магазин за сирене
+bg:Магазин за сирене|сирене
 cs:Prodejna sýrů
 da:Ostebutik
 de:3Käseladen
@@ -18417,10 +18418,10 @@ zh-Hans:奶酪店
 zh-Hant:奶酪店c
 
 shop-dairy|@category_food|@shop
-en:Dairy Products
+en:Dairy Products|Milk|Lactose
 ar:متجر الألبان
 be:Малако|Малочныя прадукты
-bg:Млечни продукти
+bg:Млечни продукти|Мляко|Лактоза
 cs:Mléčné výrobky
 da:Mejeriprodukter
 de:5Milchprodukte
@@ -18551,7 +18552,7 @@ shop-interior_decoration|@shop
 en:Interior Decorations
 ar:محل ديكورات داخلية
 be:Ўпрыгажэнні інтэр'еру
-bg:Вътрешни декорации
+bg:Вътрешни декорации|Интериор
 cs:Interiérové dekorace
 da:Indvendige dekorationer
 de:4Einrichtungsgeschäft|5Innendekorationen
@@ -18637,7 +18638,7 @@ shop-lottery|@gambling
 en:Lottery Tickets
 ar:ﺐﻴﺼﻧﺎﻴﻟﺍ ﺮﻛﺍﺬﺗ
 be:Латарэя|Латарэйныя білеты
-bg:Лотарийни билети
+bg:Лотарийни билети|Лотария|Тото
 cs:Loterijní lístky
 da:Lotterikuponer
 de:Lotteriescheine
@@ -18767,7 +18768,7 @@ shop-paint|@shop
 en:Paints
 ar:ﺕﺎﻧﺎﻫﺪﻟﺍ
 be:Фарбы
-bg:Бои
+bg:Бои|Боя
 ca:Pintures
 cs:Barvy
 da:Maling
@@ -18811,7 +18812,7 @@ shop-perfumery|@category_shopping|@shop
 en:Perfumery
 ar:العطور
 be:Парфум|Парфумерыя
-bg:Парфюмерия
+bg:Парфюмерия|Парфюми|Одеколон
 ca:Perfumería
 cs:Parfumerie
 da:Parfumeri
@@ -18899,7 +18900,7 @@ shop-storage_rental
 en:Storage Rental
 ar:ﻦﻳﺰﺨﺘﻟﺍ ﺕﺍﺪﺣﻭ ﺮﻴﺟﺄﺗ
 be:Арэнда сховішчаў
-bg:Склад под наем
+bg:Склад под наем|Наемен склад
 cs:Pronájem skladu
 da:Lagerudlejning
 de:5Lagervermietung|Speichermiete
@@ -18939,10 +18940,10 @@ zh-Hans:存储租赁
 zh-Hant:存儲租賃
 
 shop-tobacco|@shop
-en:Smoke|Tobacco
+en:Smoke|Tobacco|Nicotine
 ar:تبغ
 be:Тытунь
-bg:Тютюн
+bg:Тютюн|Никотин|Пушене|Табако
 ca:Tabac
 cs:Tabák
 da:Tobak
@@ -19028,7 +19029,7 @@ shop-watches|@category_shopping|@shop
 en:Watches
 ar:ساعات
 be:Гадзіннік
-bg:Часовници
+bg:Часовници|Часовник
 ca:Rellotger|Rellotgeria
 cs:Hodinky
 da:Ure
@@ -19267,7 +19268,7 @@ shop-collector|@category_shopping|@category_secondhand
 en:Collectables|Collector
 ar:جامع
 be:Калекцыянер
-bg:Колектор
+bg:Колектор|Събирач|Колекционер
 ca:Col·leccionista
 cs:Collector
 da:Samler
@@ -19461,6 +19462,7 @@ zh-Hant:體育館
 amenity-arts_centre|@category_tourism
 en:Arts Center
 ar:مركز فن
+bg:Център за рисуване
 ca:Centre d’art
 cs:Umělecké centrum
 da:Kunsthus
@@ -19506,7 +19508,7 @@ amenity-prison
 en:prison
 ar:سجن
 be:турма
-bg:затвор
+bg:затвор|килия
 ca:presó
 cs:vězení
 da:Fængsel
@@ -19637,7 +19639,7 @@ shop-bed|@shop
 en:Bed Shop
 ar:متجر الأسِرّة
 be:Крама ложкаў
-bg:Магазин за легла
+bg:Магазин за легла|легло
 ca:Botiga de llits
 cs:Prodejna postelí
 da:Senge butik
@@ -19723,6 +19725,7 @@ zh-Hant:精品店
 amenity-food_court
 en:Food Court
 ar:مكان تناول الطعام
+bg:Зона за хранене
 ca:Zona de restaurants
 es:Zona de comidas
 et:Toiduväljak
@@ -19749,7 +19752,7 @@ shop-curtain|@shop
 en:Curtain Shop
 ar:متجر ستائر
 be:Шторы
-bg:Пердета
+bg:Пердета|Завеси
 ca:Cortines
 cs:Závěsy
 da:Gardiner
@@ -19793,7 +19796,7 @@ shop-gas|@shop
 en:Gas Store
 ar:متجر غاز
 be:Газавая крама
-bg:Магазин за газ
+bg:Магазин за газ|Газстанция
 ca:Botiga de gas
 cs:Obchod s plynem
 da:Gas butik
@@ -19832,26 +19835,6 @@ uk:Газовий магазин
 vi:Cửa hàng gas
 zh-Hans:燃气站
 zh-Hant:煤氣庫
-
-leisure-hackerspace
-en:Hackerspace
-ar:هاكرزبيس
-be:Хакерская прастора
-es:Espacio para hackers
-es-MX:Espacio hacker
-fa:فضای هکرها
-fi:Hacklab
-he:משרד היי טק משותף
-hi:हैकर्सस्पेस
-ja:ハッカースペース
-ko:해커스 스페이스
-lt:5Hakeriai|5Technologijų erdvė
-mr:हॅकरस्पेस
-ru:Хакерспейс
-th:แฮกเกอร์สเปซ
-vi:Không gian tin tặc
-zh-Hans:创客空间
-zh-Hant:駭客空間
 
 shop-pet_grooming
 en:Pet Grooming
@@ -19988,7 +19971,7 @@ shop-herbalist|@shop
 en:Herbalist
 ar:متجر أعشاب
 be:Магазін траў
-bg:Магазин за билки
+bg:Магазин за билки|билкар
 ca:Botiga d'herbes
 cs:Obchod s bylinkami
 da:Urtebutik
