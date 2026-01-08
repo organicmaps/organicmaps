@@ -8,6 +8,7 @@
 #include "base/internal/message.hpp"  // DebugPrint(Timestamp)
 #include "base/stl_helpers.hpp"
 #include "base/visitor.hpp"
+#include "coding/hex.hpp"
 
 #include "drape/color.hpp"
 
@@ -300,6 +301,7 @@ struct ColorData
   // Color in RGBA format.
   uint32_t m_rgba = 0;
 };
+std::string ToCssColor(ColorData color);
 
 // This structure is used in FileDataV6 because
 // its binary format is the same as in kmb version 6.

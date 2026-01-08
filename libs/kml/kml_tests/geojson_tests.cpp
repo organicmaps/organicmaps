@@ -2,19 +2,36 @@
 
 #include "geometry/mercator.hpp"
 
+#include "coding/string_utf8_multilang.hpp"
 #include "kml/serdes_geojson.hpp"
 
 namespace geojson_tests
 {
+kml::FileData GenerateKmlFileData();
+kml::FileData GenerateKmlFileDataWithTrack();
+kml::FileData GenerateKmlFileDataWithMultiTrack();
 
 static kml::FileData LoadGeojsonFromString(std::string_view content)
 {
   TEST_NO_THROW(
       {
         kml::FileData dataFromText;
-        kml::DeserializerGeoJson des(dataFromText);
+        kml::GeoJsonReader des(dataFromText);
         des.Deserialize(content);
         return dataFromText;
+      },
+      ());
+}
+
+static std::string SaveToGeoJsonString(kml::FileData const & fileData, bool minimize = false)
+{
+  TEST_NO_THROW(
+      {
+        std::string buffer;
+        MemWriter bufferWriter(buffer);
+        kml::GeoJsonWriter exporter(bufferWriter);
+        exporter.Write(fileData, minimize);
+        return buffer;
       },
       ());
 }
@@ -63,6 +80,51 @@ UNIT_TEST(GeoJson_Parse_Basic)
       }
     },
     {
+      /* MultiLineString feature */
+      "type": "Feature",
+      "properties": {
+        "stroke": "green"
+      },
+      "geometry": {
+        "coordinates": [
+          /* First line section */
+          [
+            [
+              31.055034,
+              29.989067
+            ],
+            [
+              35.182237,
+              31.773850
+            ]
+          ],
+          /* Second line section */
+          [
+            [
+              35.159882,
+              31.755857
+            ],
+            [
+              35.162575,
+              31.749381
+            ],
+            [
+              35.170106,
+              31.746114
+            ],
+            [
+              35.178316,
+              31.746121
+            ]
+          ]
+        ],
+        "type": "MultiLineString"
+      },
+      "properties": {
+        "marker-color": "green"
+      }
+    },
+    {
       /* MultiPoint feature is not supported and should be ignored */
       "type": "Feature",
       "geometry": {
@@ -94,11 +156,19 @@ UNIT_TEST(GeoJson_Parse_Basic)
   TEST_EQUAL(kml::GetDefaultStr(bookmark.m_name), "Bookmark 1", ());
   TEST_EQUAL(bookmark.m_point, mercator::FromLatLon(29.8310316130992, 31.02177966625902), ());
 
-  TEST_EQUAL(dataFromText.m_tracksData.size(), 1, ());
-  auto track = dataFromText.m_tracksData.front();
-  TEST_EQUAL(track.m_layers.front().m_color, kml::ColorData{.m_rgba = 0x0000FFFF}, ());
-  TEST_EQUAL(track.m_geometry.m_lines.empty(), false, ());
-  TEST_EQUAL(track.m_geometry.m_lines.front().size(), 3, ());
+  // Check track data.
+  TEST_EQUAL(dataFromText.m_tracksData.size(), 2, ());
+  auto track1 = dataFromText.m_tracksData[0];
+  TEST_EQUAL(track1.m_layers[0].m_color, kml::ColorData{.m_rgba = 0x0000FFFF}, ());
+  TEST_EQUAL(track1.m_geometry.m_lines.empty(), false, ());
+  TEST_EQUAL(track1.m_geometry.m_lines.front().size(), 3, ());
+
+  // Check multiline track data.
+  auto track2 = dataFromText.m_tracksData[1];
+  TEST_EQUAL(track2.m_layers[0].m_color, kml::ColorData{.m_rgba = 0x008000FF}, ());
+  TEST_EQUAL(track2.m_geometry.m_lines.size(), 2, ());
+  TEST_EQUAL(track2.m_geometry.m_lines[0].size(), 2, ());
+  TEST_EQUAL(track2.m_geometry.m_lines[1].size(), 4, ());
 }
 
 UNIT_TEST(GeoJson_Parse_basic_2)
@@ -173,7 +243,7 @@ UNIT_TEST(GeoJson_Parse_UMapOptions)
 
   // Parse the stored JSON to verify it contains the expected data
   std::string const & umapOptionsStr = umapOptionsIt->second;
-  glz::json_t umapOptionsJson;
+  glz::generic umapOptionsJson;
   auto const parseResult = glz::read_json(umapOptionsJson, umapOptionsStr);
   TEST_EQUAL(parseResult, glz::error_code::none, ("Should be able to parse stored _umap_options JSON"));
 
@@ -198,7 +268,7 @@ UNIT_TEST(GeoJson_Parse_UMapOptions)
 
   // Parse the stored JSON to verify it contains the expected data
   std::string const & trackUmapOptionsStr = trackUmapOptionsIt->second;
-  glz::json_t trackUmapOptionsJson;
+  glz::generic trackUmapOptionsJson;
   auto const trackParseResult = glz::read_json(trackUmapOptionsJson, trackUmapOptionsStr);
   TEST_EQUAL(trackParseResult, glz::error_code::none, ("Should be able to parse stored track _umap_options JSON"));
 
@@ -291,6 +361,346 @@ UNIT_TEST(GeoJson_Parse_FromGoogle)
   TEST(vaticanBookmark.m_point.EqualDxDy(mercator::FromLatLon(0, 0), 0.000001), ());
   TEST_EQUAL(kml::GetDefaultStr(vaticanBookmark.m_description),
              "https://maps.google.com/?q=00120+Vatican+City&ftid=0x1325890a57d42d3d:0x94f9ab23a7eb0", ());
+}
+
+UNIT_TEST(GeoJson_Writer_Simple)
+{
+  std::string_view constexpr expected_geojson = R"({
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.39712,
+          52.48982
+        ]
+      },
+      "properties": {
+        "description": "Test bookmark description",
+        "marker-color": "RoyalBlue",
+        "name": "Marcador de prueba"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            45.25,
+            47
+          ],
+          [
+            45.5,
+            48
+          ],
+          [
+            45.75,
+            49
+          ]
+        ]
+      },
+      "properties": {
+        "description": "Test track description",
+        "name": "Test track",
+        "stroke": "#FF0000"
+      }
+    }
+  ]
+})";
+
+  kml::FileData const testData = GenerateKmlFileDataWithTrack();
+  auto const jsonString = SaveToGeoJsonString(testData);
+
+  TEST_EQUAL(jsonString, expected_geojson, ());
+}
+
+UNIT_TEST(GeoJson_Writer_MultiTrack)
+{
+  std::string_view constexpr expected_geojson = R"({
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              45.25,
+              47
+            ],
+            [
+              45.5,
+              48
+            ],
+            [
+              45.75,
+              49
+            ]
+          ],
+          [
+            [
+              45.95,
+              49.2
+            ],
+            [
+              46.15,
+              49.4
+            ],
+            [
+              46.4,
+              49.6
+            ],
+            [
+              46.55,
+              49.8
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "description": "Test multitrack description",
+        "name": "Test multitrack",
+        "stroke": "#00FF00"
+      }
+    }
+  ]
+})";
+
+  kml::FileData testData = GenerateKmlFileDataWithMultiTrack();
+  testData.m_bookmarksData.clear();
+  auto const jsonString = SaveToGeoJsonString(testData);
+
+  TEST_EQUAL(jsonString, expected_geojson, ());
+}
+
+UNIT_TEST(GeoJson_Writer_Simple_Minimized)
+{
+  // clang-format off
+  std::string_view constexpr expected_geojson = R"({"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[13.39712,52.48982]},"properties":{"description":"Test bookmark description","marker-color":"RoyalBlue","name":"Marcador de prueba"}}]})";
+  // clang-format on
+
+  kml::FileData const testData = GenerateKmlFileData();
+  auto const jsonString = SaveToGeoJsonString(testData, true);
+
+  TEST_EQUAL(jsonString, expected_geojson, ());
+}
+
+UNIT_TEST(GeoJson_Writer_UMap)
+{
+  std::string_view constexpr expected_geojson = R"({
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.39712,
+          52.48982
+        ]
+      },
+      "properties": {
+        "_umap_options": {
+          "color": "RoyalBlue",
+          "customProperty": "should be preserved",
+          "iconClass": "Drop",
+          "opacity": 0.8,
+          "weight": 4
+        },
+        "description": "Test bookmark description",
+        "marker-color": "RoyalBlue",
+        "name": "Marcador de prueba"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            45.25,
+            47
+          ],
+          [
+            45.5,
+            48
+          ],
+          [
+            45.75,
+            49
+          ]
+        ]
+      },
+      "properties": {
+        "_umap_options": {
+          "color": "#FF0000",
+          "dashArray": "5,10",
+          "opacity": 0.5,
+          "weight": 2
+        },
+        "description": "Test track description",
+        "name": "Test track",
+        "stroke": "#FF0000"
+      }
+    }
+  ]
+})";
+
+  // NOTE: Glaze will sort keys alphabetically when exported to GeoJson
+  auto const bookmark_umap_properties_str = R"(
+  {
+    "iconClass": "Drop",
+    "color": "red",
+    "weight": 4,
+    "opacity": 0.8,
+    "customProperty": "should be preserved"
+  })";
+
+  auto const track_umap_properties_str = R"(
+  {
+    "color": "red",
+    "weight": 2,
+    "opacity": 0.5,
+    "dashArray": "5,10"
+  })";
+
+  kml::FileData testData = GenerateKmlFileDataWithTrack();
+
+  // Add '_umap_options' to test data.
+  testData.m_bookmarksData[0].m_properties["_umap_options"] = bookmark_umap_properties_str;
+  testData.m_tracksData[0].m_properties["_umap_options"] = track_umap_properties_str;
+
+  auto const jsonString = SaveToGeoJsonString(testData);
+
+  TEST_EQUAL(jsonString, expected_geojson, ());
+}
+
+UNIT_TEST(GeoJson_Writer_UMap_Invalid_Json)
+{
+  std::string_view constexpr expected_geojson = R"({
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.39712,
+          52.48982
+        ]
+      },
+      "properties": {
+        "description": "Test bookmark description",
+        "marker-color": "RoyalBlue",
+        "name": "Marcador de prueba"
+      }
+    }
+  ]
+})";
+
+  // Invalid JSON property will lead to warning. But no errors.
+  auto const bookmark_umap_properties_str = R"({some $ invalid ^ json})";
+
+  kml::FileData testData = GenerateKmlFileData();
+
+  // Add '_umap_options' to test data.
+  testData.m_bookmarksData[0].m_properties["_umap_options"] = bookmark_umap_properties_str;
+
+  // Expecting some warning here.
+  auto const jsonString = SaveToGeoJsonString(testData);
+
+  TEST_EQUAL(jsonString, expected_geojson, ());
+}
+
+kml::FileData GenerateKmlFileData()
+{
+  auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
+  auto const kEnLang = StringUtf8Multilang::kEnglishCode;
+  auto const kEsLang = static_cast<int8_t>(21);
+
+  kml::FileData result;
+  result.m_deviceId = "AAAA";
+  result.m_serverId = "AAAA-BBBB-CCCC-DDDD";
+
+  kml::BookmarkData bookmarkData;
+  bookmarkData.m_name[kDefaultLang] = "Marcador de prueba";
+  bookmarkData.m_name[kEnLang] = "Test bookmark";
+  bookmarkData.m_description[kDefaultLang] = "Test bookmark description";
+  bookmarkData.m_description[kEsLang] = "Descripción del marcador de prueba";
+  bookmarkData.m_featureTypes = {718, 715};
+  bookmarkData.m_customName[kDefaultLang] = "Mi lugar favorito";
+  bookmarkData.m_customName[kEnLang] = "My favorite place";
+  bookmarkData.m_color = {kml::PredefinedColor::Blue, 0};
+  bookmarkData.m_icon = kml::BookmarkIcon::None;
+  bookmarkData.m_timestamp = kml::TimestampClock::from_time_t(800);
+  bookmarkData.m_point = mercator::FromLatLon(52.48982, 13.39712);
+  bookmarkData.m_visible = false;
+  bookmarkData.m_minZoom = 10;
+  bookmarkData.m_properties = {{"bm_property1", "value1"}, {"bm_property2", "value2"}, {"score", "5"}};
+  result.m_bookmarksData.emplace_back(std::move(bookmarkData));
+
+  return result;
+}
+
+kml::FileData GenerateKmlFileDataWithTrack()
+{
+  auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
+  auto const kEsLang = static_cast<int8_t>(21);
+
+  kml::FileData result = GenerateKmlFileData();
+
+  kml::TrackData trackData;
+  trackData.m_localId = 0;
+  trackData.m_name[kDefaultLang] = "Test track";
+  trackData.m_name[kEsLang] = "Pista de prueba.";
+  trackData.m_description[kDefaultLang] = "Test track description";
+  trackData.m_description[kEsLang] = "Descripción de prueba de la pista.";
+  trackData.m_layers = {{6.0, {kml::PredefinedColor::None, 0xff0000ff}},
+                        {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
+  trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
+
+  trackData.m_geometry.AddLine({{mercator::FromLatLon(47, 45.25), 1},
+                                {mercator::FromLatLon(48, 45.5), 2},
+                                {mercator::FromLatLon(49, 45.75), 3}});
+
+  trackData.m_properties = {{"tr_property1", "value1"}, {"tr_property2", "value2"}};
+  result.m_tracksData.emplace_back(std::move(trackData));
+
+  return result;
+}
+
+kml::FileData GenerateKmlFileDataWithMultiTrack()
+{
+  auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
+  auto const kEsLang = static_cast<int8_t>(21);
+
+  kml::FileData result = GenerateKmlFileData();
+
+  kml::TrackData trackData;
+  trackData.m_localId = 0;
+  trackData.m_name[kDefaultLang] = "Test multitrack";
+  trackData.m_name[kEsLang] = "Pista de prueba.";
+  trackData.m_description[kDefaultLang] = "Test multitrack description";
+  trackData.m_description[kEsLang] = "Descripción de prueba de la pista.";
+  trackData.m_layers = {{6.0, {kml::PredefinedColor::None, 0x00ff00ff}},
+                        {7.0, {kml::PredefinedColor::None, 0x0000ffff}}};
+  trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
+
+  trackData.m_geometry.AddLine({{mercator::FromLatLon(47, 45.25), 1},
+                                {mercator::FromLatLon(48, 45.5), 2},
+                                {mercator::FromLatLon(49, 45.75), 3}});
+  trackData.m_geometry.AddLine({{mercator::FromLatLon(49.2, 45.95), 1},
+                                {mercator::FromLatLon(49.4, 46.15), 2},
+                                {mercator::FromLatLon(49.6, 46.40), 3},
+                                {mercator::FromLatLon(49.8, 46.55), 4}});
+
+  result.m_tracksData.emplace_back(std::move(trackData));
+
+  return result;
 }
 
 }  // namespace geojson_tests

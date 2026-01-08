@@ -103,11 +103,47 @@ MultiGeometry mergeGeometry(std::vector<MultiGeometry> && aGeometries)
   return merged;
 }
 
-kml::PredefinedColor GetRandomPredefinedColor()
+PredefinedColor GetRandomPredefinedColor()
 {
   // Simple time-based seed instead of random_device is enough.
   static std::mt19937 gen(static_cast<uint8_t>(std::chrono::system_clock::now().time_since_epoch().count()));
   static std::uniform_int_distribution<> distr(1, static_cast<uint8_t>(PredefinedColor::Count) - 1);
   return static_cast<PredefinedColor>(distr(gen));
 }
+
+std::string ToCssColor(ColorData color)
+{
+  if (color.m_predefinedColor == PredefinedColor::None)
+  {
+    if (color.m_rgba == 0)
+      return "red";
+
+    return "#" + NumToHex(color.m_rgba >> 8).substr(2);
+  }
+
+  // Color names from https://htmlcolorcodes.com/color-names/
+  switch (color.m_predefinedColor)
+  {
+    using enum PredefinedColor;
+  case None: return {};
+  case Red: return "red";
+  case Pink: return "pink";
+  case Purple: return "purple";
+  case DeepPurple: return "RebeccaPurple";
+  case Blue: return "RoyalBlue";
+  case LightBlue: return "DodgerBlue";
+  case Cyan: return "MediumTurquoise";
+  case Teal: return "Teal";
+  case Green: return "ForestGreen";
+  case Lime: return "LimeGreen";
+  case Yellow: return "Gold";
+  case Orange: return "Orange";
+  case DeepOrange: return "DarkOrange";
+  case Brown: return "Brown";
+  case Gray: return "Gray";
+  case BlueGray: return "SlateGray";
+  default: UNREACHABLE();
+  }
+}
+
 }  // namespace kml
