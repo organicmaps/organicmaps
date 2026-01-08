@@ -391,7 +391,7 @@
     <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Uw locatie</string>
     <string name="p2p_start">Start</string>
-    <string name="p2p_from_here">Van</string>
+    <string name="p2p_from_here">Route van</string>
     <string name="p2p_to_here">Route naar</string>
     <string name="p2p_only_from_current">Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.</string>
     <string name="p2p_reroute_from_current">Wilt u een route plannen vanaf uw huidige locatie?</string>
@@ -400,14 +400,14 @@
     <!-- Tab title in the Edit Opening Hours time picker -->
     <string name="editor_time_from">Van</string>
     <!-- Tab title in the Edit Opening Hours time picker -->
-    <string name="editor_time_to">Tot</string>
+    <string name="editor_time_to">Naar</string>
     <string name="editor_time_add">Voeg schema toe</string>
     <string name="editor_time_delete">Verwijder schema</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Elke dag (24 uur)</string>
     <string name="editor_time_open">Open</string>
     <string name="editor_time_close">Gesloten</string>
-    <string name="editor_time_add_closed">Sluitingstijden toevoegen</string>
+    <string name="editor_time_add_closed">Niet-kantooruren toevoegen</string>
     <string name="editor_time_title">Openingstijden</string>
     <string name="editor_time_advanced">Geavanceerde modus</string>
     <string name="editor_time_simple">Eenvoudige modus</string>
@@ -419,7 +419,7 @@
     <string name="editor_report_problem_desription_2">Of doe het zelf op https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Verzend</string>
     <string name="editor_report_problem_title">Probleem</string>
-    <string name="editor_report_problem_no_place_title">De plaats bestaat niet</string>
+    <string name="editor_report_problem_no_place_title">Deze plaats bestaat niet</string>
     <string name="editor_report_problem_under_construction_title">Gesloten voor onderhoud</string>
     <string name="editor_report_problem_duplicate_place_title">Dubbele plaats</string>
     <string name="autodownload">Download kaarten automatisch</string>
@@ -453,7 +453,7 @@
     <!-- Text field to enter non-existing street name, below list of known streets around -->
     <string name="add_street">Voeg een straat toe</string>
     <!-- Error to display when a new street name is not entered in the New street dialog -->
-    <string name="empty_street_name_error">Voer een straatnaam in a.u.b.</string>
+    <string name="empty_street_name_error">Voer een straatnaam in alstublieft</string>
     <string name="choose_language">Kies een taal</string>
     <string name="choose_street">Kies een straat</string>
     <string name="cuisine">Keuken</string>
@@ -468,7 +468,7 @@
     <string name="downloader_update_maps">Update kaarten</string>
     <string name="downloader_mwm_migration_dialog">Om een route te creëren, moet je alle kaarten updaten en dan de route opnieuw plannen.</string>
     <string name="downloader_search_field_hint">Vind een kaart</string>
-    <string name="common_check_internet_connection_dialog">Controleer je instellingen en zorg ervoor dat het apparaat verbonden is met het internet.</string>
+    <string name="common_check_internet_connection_dialog">A.u.b zorg ervoor dat het apparaat verbonden is met het internet.</string>
     <string name="downloader_no_space_title">Niet genoeg ruimte</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Verwijder overbodige gegevens</string>
@@ -529,8 +529,8 @@
     <string name="placepage_edit_bookmark_button">Bewerk bladwijzer</string>
     <string name="placepage_personal_notes_hint">Persoonlijke aantekeningen (tekst of html)</string>
     <string name="editor_comment_hint">Reactie…</string>
-    <string name="editor_reset_edits_message">Alle lokale wijzigingen weggooien?</string>
-    <string name="editor_reset_edits_button">Gooi weg</string>
+    <string name="editor_reset_edits_message">Alle lokale wijzigingen negeren?</string>
+    <string name="editor_reset_edits_button">Negeer</string>
     <string name="editor_remove_place_message">Toegevoegde locatie verwijderen?</string>
     <string name="editor_remove_place_button">Verwijder</string>
     <string name="editor_place_doesnt_exist">Locatie bestaat niet</string>
@@ -542,8 +542,8 @@
     <string name="error_enter_correct_email">Voer een geldig emailadres in</string>
     <string name="error_enter_correct_facebook_page">Voer een geldig Facebook-webadres, een accountnaam of een paginanaam in</string>
     <string name="error_enter_correct_instagram_page">Voer een geldig Instagram-webadres of accountnaam in</string>
-    <string name="error_enter_correct_twitter_page">Voer een geldig Twitter-webadres of gebruikersnaam in</string>
-    <string name="error_enter_correct_vk_page">Voer een geldig VB-webadres of accountnaam in</string>
+    <string name="error_enter_correct_twitter_page">Voer een geldig Twitter-gebruikersnaam of web adres in</string>
+    <string name="error_enter_correct_vk_page">Voer een geldig VK-webadres of accountnaam in</string>
     <string name="error_enter_correct_line_page">Voer een geldig LINE-webadres of LINE ID in</string>
     <string name="placepage_add_place_button">Voeg een plaats toe aan OpenStreetMap</string>
     <string name="osm_note_hint">Of, als alternatief, laat een opmerking achter voor de OpenStreetMap gemeenschap zodat iemand anders een plaats kan toevoegen of verbeteren.</string>
@@ -585,7 +585,7 @@
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Gebruik zoeken of tik op de kaart om een startpunt voor de route toe te voegen</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Gebruik Zoeken of tik op de kaart om een bestemmingspunt toe te voegen</string>
+    <string name="routing_add_finish_point">Gebruik zoeken of tik op de kaart om een bestemmingspunt toe te voegen</string>
     <string name="planning_route_manage_route">Beheer route</string>
     <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Verwijder tussenstop</string>

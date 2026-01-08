@@ -462,7 +462,7 @@
 "wikimedia_commons" = "Wikimedia Commons";
 "p2p_your_location" = "Uw locatie";
 "p2p_start" = "Start";
-"p2p_from_here" = "Van";
+"p2p_from_here" = "Route van";
 "p2p_to_here" = "Route naar";
 "p2p_only_from_current" = "Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.";
 "p2p_reroute_from_current" = "Wilt u een route plannen vanaf uw huidige locatie?";
@@ -473,7 +473,7 @@
 "editor_time_allday" = "Elke dag (24 uur)";
 "editor_time_open" = "Open";
 "editor_time_close" = "Gesloten";
-"editor_time_add_closed" = "Sluitingstijden toevoegen";
+"editor_time_add_closed" = "Niet-kantooruren toevoegen";
 "editor_time_title" = "Openingstijden";
 "editor_time_advanced" = "Geavanceerde modus";
 "editor_time_simple" = "Eenvoudige modus";
@@ -518,7 +518,7 @@
 "downloader_delete_map_dialog" = "Alle wijzigingen aan de kaart zullen samen met de kaart worden verwijderd.";
 "downloader_update_maps" = "Update kaarten";
 "downloader_search_field_hint" = "Vind een kaart";
-"common_check_internet_connection_dialog" = "Controleer je instellingen en zorg ervoor dat het apparaat verbonden is met het internet.";
+"common_check_internet_connection_dialog" = "A.u.b zorg ervoor dat het apparaat verbonden is met het internet.";
 "downloader_no_space_title" = "Niet genoeg ruimte";
 
 /* Message shown when there is not enough space to download maps */
@@ -576,8 +576,8 @@
 "placepage_edit_bookmark_button" = "Bewerk bladwijzer";
 "placepage_personal_notes_hint" = "Persoonlijke aantekeningen (tekst of html)";
 "editor_comment_hint" = "Reactie…";
-"editor_reset_edits_message" = "Alle lokale wijzigingen weggooien?";
-"editor_reset_edits_button" = "Gooi weg";
+"editor_reset_edits_message" = "Alle lokale wijzigingen negeren?";
+"editor_reset_edits_button" = "Negeer";
 "editor_remove_place_message" = "Toegevoegde locatie verwijderen?";
 "editor_remove_place_button" = "Verwijder";
 "editor_place_doesnt_exist" = "Locatie bestaat niet";

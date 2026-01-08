@@ -55,9 +55,9 @@
     <string name="disconnect_usb_cable">Aftengdu USB-kapal eða settu inn minniskort til að nota Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Losaðu fyrst um eitthvað pláss á SD-minniskorti/USB-geymslu til að nota forritið</string>
-    <string name="download_resources">Áður en þú byrjar skaltu sækja heims-yfirlitskortið yfir á tækið þitt. \nÞað mun nota %s af tiltæku minni.</string>
+    <string name="download_resources">Áður en þú byrjar skaltu sækja heims-yfirlitskortið yfir á tækið þitt.\nÞað mun nota %s af tiltæku minni.</string>
     <string name="download_resources_continue">Fara á kort</string>
-    <string name="downloading_country_can_proceed">Sæki %s. Þú getur núna \nfarið yfir á landakortið.</string>
+    <string name="downloading_country_can_proceed">Sæki %s. Þú getur núna\nfarið yfir á landakortið.</string>
     <string name="download_country_ask">Sækja %s?</string>
     <string name="update_country_ask">Uppfæra %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -160,7 +160,7 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Mistókst að hlaða inn bókamerkjum. Skráin gæti verið skemmd eða gölluð.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Forritið þekkti ekki skráategundina: \n%1$s</string>
+    <string name="unknown_file_type">Forritið þekkti ekki skráategundina:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
     <string name="failed_to_open_file">Mistókst að opna skrána %1$s \n \n%2$s</string>
     <!-- resource for context menu -->
@@ -178,7 +178,7 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hæ, skoðaðu núverandi staðsetninguna mína á Organic Maps landakortinu!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hæ, \n \nÉg er núna hérna: %1$s. Smelltu á þennan tengil %2$s eða þennan%3$s til að sjá staðinn á kortinu. \n \nBestu þakkir.</string>
+    <string name="my_position_share_email">Hæ, \n \nÉg er núna hérna: %1$s. Smelltu á þennan tengil %2$s eða þennan %3$s til að sjá staðinn á kortinu. \n \nBestu þakkir.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Deila</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -488,7 +488,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">OpenStreetMap-gögn gerð af þátttakendum eins og þau voru %s. Fræðstu betur um hvernig hægt sé að breyta og uppfæra landakortið á OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) er samfélagsverkefni sem stefnir að uppbyggingu á frjálsu og opnu landakorti. Þetta er meginuppistaðan í Organic Maps og virkar svipað og Wikipedia. Þú getur bætt við eð breytt stöðum, og verða þeir þá aðgengilegir milljónum notenda um víða veröld. \nTaktu þátt og hjálpaðu til við að gera betri landakort fyrir alla!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) er samfélagsverkefni sem stefnir að uppbyggingu á frjálsu og opnu landakorti. Þetta er meginuppistaðan í Organic Maps og virkar svipað og Wikipedia. Þú getur bætt við eð breytt stöðum, og verða þeir þá aðgengilegir milljónum notenda um víða veröld.\nTaktu þátt og hjálpaðu til við að gera betri landakort fyrir alla!</string>
     <string name="login_to_make_edits_visible">Útbúðu OpenStreetMap aðgang eða skráðu þig inn til að birta breytingarnar þínar.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d af %2$d</string>
@@ -578,7 +578,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Almennar umsagnir</string>
     <string name="prefs_languages_information">Við notum TTS-talgervil kerfisins fyrir talaðar leiðbeiningar. Mörg Android-tæki nota TTS-kerfi Google, þú getur sótt það eða uppfært á Google Play</string>
-    <string name="prefs_languages_information_off">Fyrir sum tungumál þarftu að setja upp talgervil eða viðbótar-tungumálapakka úr hugbúnaðarsöfnum (Google Play, Galaxy Store, App Gallery, FDroid). \nOpnaðu stillingar tækisins þíns → Tungumál og innsláttur → Tal → Texti-í-tal úttak upplesturs. \nHér geturðu sýslað með stillingar fyrir talgervilinn (til dæmis sótt tungumálapakka til notkunar án nettengingar) og valið önnur texti-í-tal kerfi.</string>
+    <string name="prefs_languages_information_off">Fyrir sum tungumál þarftu að setja upp talgervil eða viðbótar-tungumálapakka úr hugbúnaðarsöfnum (Google Play, Galaxy Store, App Gallery, FDroid).\nOpnaðu stillingar tækisins þíns → Tungumál og innsláttur → Tal → Texti-í-tal úttak upplesturs.\nHér geturðu sýslað með stillingar fyrir talgervilinn (til dæmis sótt tungumálapakka til notkunar án nettengingar) og valið önnur texti-í-tal kerfi.</string>
     <string name="prefs_languages_information_off_link">Til að sjá nánari upplýsingar, ættirðu að skoða þessar leiðbeiningar.</string>
     <string name="transliteration_title">Umrita yfir í latneskt stafróf</string>
     <string name="learn_more">Kanna nánar</string>

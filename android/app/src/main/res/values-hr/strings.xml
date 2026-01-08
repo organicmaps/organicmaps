@@ -69,11 +69,11 @@
     <!-- "Add new bookmark list" dialog title -->
     <string name="add_new_set">Dodaj novi popis</string>
     <!-- Add Bookmark list dialog - hint when the list name is empty -->
-    <string name="bookmark_set_name">Naziv popisa oznaka</string>
+    <string name="bookmark_set_name">Ime popisa zabilješki</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
-    <string name="bookmarks">Oznake</string>
+    <string name="bookmarks">Zabilješke</string>
     <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
-    <string name="bookmarks_and_tracks">Oznake i tragovi</string>
+    <string name="bookmarks_and_tracks">Zabilješke i putevi</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Naziv</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -103,6 +103,8 @@
     <string name="failed_to_open_file">Neuspjelo otvaranje datoteke %1$s\n\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Uredi</string>
+    <!-- Subject for emailed bookmark -->
+    <string name="bookmark_share_email_subject">Hej, pogledaj moj marker u Organic Maps!</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Dijeli</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -115,6 +117,8 @@
     <string name="data_version">OpenStreetMap podaci: %s</string>
     <!-- Confirmation for OpenStreetMap log out. -->
     <string name="osm_log_out_confirmation">Stvarno se želiš odjaviti sa svog OpenStreetMap računa?</string>
+    <!-- Title for tracks category in bookmarks manager -->
+    <string name="tracks_title">Putevi</string>
     <!-- Length of track in cell that describes route -->
     <string name="length">Dužina</string>
     <string name="share_my_location">Dijeli moju lokaciju</string>
@@ -245,9 +249,12 @@
     <string name="donate_description">Poklonite besplatne karte bez oglasa milijunima korisnika!</string>
 
     <!-- SECTION: Routing dialogs strings -->
-    <string name="dialog_routing_disclaimer_priority">— Road conditions, traffic laws, and road signs always take priority over navigation hints</string>
-    <string name="dialog_routing_disclaimer_precision">— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination</string>
-    <string name="dialog_routing_disclaimer_recommendations">— Suggested routes should only be understood as recommendations</string>
+    <string name="dialog_routing_disclaimer_title">Prilikom praćenja rute, imajte sljedeće na umu:</string>
+    <string name="dialog_routing_disclaimer_priority">– Uvjeti na cesti, prometni propisi i prometni znakovi uvijek imaju prednost pred navigacijskim savjetima;</string>
+    <string name="dialog_routing_disclaimer_precision">– Karta može biti netočna, a predložena ruta možda nije uvijek najoptimalniji način za dolazak do odredišta;</string>
+    <string name="dialog_routing_disclaimer_recommendations">– Predložene rute treba shvatiti samo kao preporuke;</string>
+    <string name="dialog_routing_disclaimer_borders">– Budite oprezni s rutama u pograničnim zonama: rute koje je kreirala naša aplikacija ponekad mogu prelaziti državne granice na nedozvoljenim mjestima.</string>
+    <string name="dialog_routing_disclaimer_beware">Budite oprezni i sigurni na cestama!</string>
     <string name="dialog_routing_check_gps">Provjeri GPS signal</string>
     <string name="dialog_routing_location_turn_on">Aktiviraj usluge lokacija</string>
     <string name="dialog_routing_try_again">Pokušaj ponovo</string>
@@ -342,6 +349,7 @@
     <string name="downloader_no_space_title">Nema dovoljno memorije</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Izbriši sve nepotrebne podatke</string>
+    <string name="editor_category_unsuitable_text">Organic Maps omogućuje dodavanje samo jednostavnih kategorija točaka, znači bez navođenja gradova, cesta, jezera, obrisa zgrada itd. Dodajte takve kategorije izravno na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Pogledajte naš <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vodič</a> za detaljne upute.</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Uredi zabilješku</string>
     <string name="saved">Spremljeno</string>
@@ -356,6 +364,8 @@
         <item quantity="other">%d zabilješki</item>
     </plurals>
     <string name="bookmarks_create_new_group">Stvori novi popis</string>
+    <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+    <string name="bookmarks_import">Uvezi zabilješke i puteve</string>
     <string name="bookmarks_error_message_share_general">Nije moguće dijeliti zbog greške aplikacije</string>
     <string name="bookmarks_error_title_share_empty">Greška prilikom dijeljenja</string>
     <string name="bookmarks_error_message_share_empty">Prazan popis se ne može dijeliti</string>
@@ -375,10 +385,10 @@
     </plurals>
     <string name="restore">Obnovi</string>
     <plurals name="tracks">
-        <item quantity="zero">%d tragova</item>
-        <item quantity="one">%d trag</item>
-        <item quantity="few">%d traga</item>
-        <item quantity="other">%d tragova</item>
+        <item quantity="zero">%d puteva</item>
+        <item quantity="one">%d put</item>
+        <item quantity="few">%d puta</item>
+        <item quantity="other">%d puteva</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Privatnost</string>
@@ -543,6 +553,8 @@
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">Web preglednik nije dostupan</string>
     <string name="volume">Glasnoća</string>
+    <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+    <string name="bookmarks_export">Izvezi sve zabilješke i puteve</string>
     <string name="clear_the_search">Očisti pretragu</string>
     <string name="zoom_in">Uvećaj</string>
     <!-- Accessibility text for the zoom-out button on the map -->
@@ -560,6 +572,8 @@
     <string name="stop_without_saving">Prekini bez spremanja</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Nastavi snimanje</string>
+    <!-- Title for the alert when saving a track recording. -->
+    <string name="track_recording_alert_title">Spremiti u „Zabilješke i putevi”?</string>
     <string name="choose_color">Odaberi boju</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Prati sustav</string>

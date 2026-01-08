@@ -52,13 +52,13 @@
 "add_new_set" = "Dodaj novi popis";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
-"bookmark_set_name" = "Naziv popisa oznaka";
+"bookmark_set_name" = "Ime popisa zabilješki";
 
 /* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
-"bookmarks" = "Oznake";
+"bookmarks" = "Zabilješke";
 
 /* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
-"bookmarks_and_tracks" = "Oznake i tragovi";
+"bookmarks_and_tracks" = "Zabilješke i putevi";
 
 /* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Adresa";
@@ -82,7 +82,7 @@
 "country_status_download_without_size" = "Preuzmi kartu";
 
 /* "Bookmark Lists" dialog title */
-"bookmark_sets" = "Popisi oznaka";
+"bookmark_sets" = "Popisi zabilješki";
 
 
 /********** Search categories **********/
@@ -175,7 +175,7 @@
 "unknown_current_position" = "Your location hasn't been determined yet";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hey, check out my pin in Organic Maps!";
+"bookmark_share_email_subject" = "Hej, pogledaj moj marker u Organic Maps!";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hey, check out my current location on the Organic Maps map!";
@@ -190,7 +190,7 @@
 "done" = "Gotovo";
 
 /* Title for tracks category in bookmarks manager */
-"tracks_title" = "Tracks";
+"tracks_title" = "Putevi";
 
 /* Length of track in cell that describes route */
 "length" = "Dužina";
@@ -389,30 +389,30 @@
 "email_error_title" = "Error sending email";
 
 /* Settings item title */
-"pref_calibration_title" = "Compass calibration";
+"pref_calibration_title" = "Kalibracija kompasa";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
-"downloader_search_results" = "Found";
+"downloader_available_maps" = "Dostupno";
+"downloader_search_results" = "Pronađeno";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Update";
+"downloader_status_outdated" = "Aktualizirano";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Failed";
+"downloader_status_failed" = "Neuspjelo";
 
 /* bookmark button text */
-"bookmark" = "bookmark";
+"bookmark" = "zabilješka";
 
 
 /********** Routing dialogs strings **********/
 
-"dialog_routing_disclaimer_title" = "When following the route, please keep in mind:";
-"dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over navigation hints";
-"dialog_routing_disclaimer_precision" = "— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination";
-"dialog_routing_disclaimer_recommendations" = "— Suggested routes should only be understood as recommendations";
-"dialog_routing_disclaimer_borders" = "— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.";
-"dialog_routing_disclaimer_beware" = "Please stay alert and safe on the roads!";
+"dialog_routing_disclaimer_title" = "Prilikom praćenja rute, imajte sljedeće na umu:";
+"dialog_routing_disclaimer_priority" = "– Uvjeti na cesti, prometni propisi i prometni znakovi uvijek imaju prednost pred navigacijskim savjetima;";
+"dialog_routing_disclaimer_precision" = "– Karta može biti netočna, a predložena ruta možda nije uvijek najoptimalniji način za dolazak do odredišta;";
+"dialog_routing_disclaimer_recommendations" = "– Predložene rute treba shvatiti samo kao preporuke;";
+"dialog_routing_disclaimer_borders" = "– Budite oprezni s rutama u pograničnim zonama: rute koje je kreirala naša aplikacija ponekad mogu prelaziti državne granice na nedozvoljenim mjestima.";
+"dialog_routing_disclaimer_beware" = "Budite oprezni i sigurni na cestama!";
 "dialog_routing_check_gps" = "Provjeri GPS signal";
 "dialog_routing_error_location_not_found" = "Unable to create route. Current GPS coordinates could not be identified.";
 "dialog_routing_location_turn_wifi" = "Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.";
@@ -558,7 +558,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operator: %@";
 "editor_category_unsuitable_title" = "Can't find a suitable category?";
-"editor_category_unsuitable_text" = "Organic Maps allows to add simple point categories only, that means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Check our <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> for detailed step by step instructions.";
+"editor_category_unsuitable_text" = "Organic Maps omogućuje dodavanje samo jednostavnih kategorija točaka, znači bez navođenja gradova, cesta, jezera, obrisa zgrada itd. Dodajte takve kategorije izravno na <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Pogledajte naš <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">vodič</a> za detaljne upute.";
 "downloader_no_downloaded_maps_title" = "You haven't downloaded any maps";
 "downloader_no_downloaded_maps_message" = "Download maps to search and navigate offline.";
 "current_location_unknown_error_title" = "Current location is unknown.";
@@ -632,7 +632,7 @@
 "bookmarks_create_new_group" = "Stvori novi popis";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
-"bookmarks_import" = "Import Bookmarks and Tracks";
+"bookmarks_import" = "Uvezi zabilješke i puteve";
 "bookmarks_error_message_share_general" = "Nije moguće dijeliti zbog greške aplikacije";
 "bookmarks_error_title_share_empty" = "Greška prilikom dijeljenja";
 "bookmarks_error_message_share_empty" = "Prazan popis se ne može dijeliti";
@@ -778,8 +778,8 @@
 "location_services_disabled_on_device_additional_message" = "Or continue using Organic Maps without Location";
 "book_button" = "Book";
 "placepage_call_button" = "Call";
-"placepage_bookmark_name_hint" = "Bookmark Name";
-"placepage_delete_bookmark_button" = "Delete Bookmark";
+"placepage_bookmark_name_hint" = "Ime zabilješke";
+"placepage_delete_bookmark_button" = "Izbriši zabilješku";
 "editor_edits_sent_message" = "Your note will be sent to OpenStreetMap";
 "text_more_button" = "…more";
 "refresh" = "Update";
@@ -809,12 +809,12 @@
 "downloader_percent" = "%@ (%@ of %@)";
 "downloader_process" = "Downloading %@…";
 "downloader_applying" = "Applying %@…";
-"bookmarks_error_title_list_name_too_long" = "This name is too long";
-"bookmarks_detect_title" = "New files detected";
+"bookmarks_error_title_list_name_too_long" = "Ovo je ime predugačko";
+"bookmarks_detect_title" = "Otrkivene su nove datoteke";
 "button_convert" = "Convert";
-"bookmarks_convert_error_title" = "Error";
-"bookmarks_convert_error_message" = "Some files were not converted.";
-"title_error_downloading_bookmarks" = "An error occurred";
+"bookmarks_convert_error_title" = "Greška";
+"bookmarks_convert_error_message" = "Neke datoteke nisu konvertirane.";
+"title_error_downloading_bookmarks" = "Dogodila se greška";
 "popular_place" = "Popular";
 "hide_from_map" = "Hide from map";
 "tags_loading_error_subtitle" = "An error occurred while loading tags, please try again";
@@ -839,8 +839,8 @@
 "dialog_routing_system_error_carplay" = "An error occurred. Please restart the application";
 "dialog_routing_rebuild_from_current_location_carplay" = "The route will be rebuilt from your current location";
 "dialog_routing_rebuild_for_vehicle_carplay" = "The route will be converted into an automobile one";
-"not_all_shown_bookmarks_carplay" = "Not all bookmarks are shown";
-"switch_to_phone_bookmarks_carplay" = "Switch to the phone to see all bookmarks";
+"not_all_shown_bookmarks_carplay" = "Ne prikazuju se sve zabilješke";
+"switch_to_phone_bookmarks_carplay" = "Prijeđi na mobitel za prikaz svih zabilješki";
 "speedcams_alert_title_carplay_1" = "Speedсams";
 "speedcams_alert_title_carplay_2" = "Speed warnings";
 "download_map_carplay" = "Please download maps in the app on your mobile device";
@@ -943,7 +943,7 @@
 "button_layer_outdoor" = "Na otvorenom";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Export all Bookmarks and Tracks";
+"bookmarks_export" = "Izvezi sve zabilješke i puteve";
 "drive_through" = "Drive-through";
 
 /* Restaurant or other food place's menu URL field in the Editor */
@@ -1013,7 +1013,7 @@
 "enable_icloud_synchronization_title" = "Enable iCloud Syncronization";
 
 /* Message for the "Enable iCloud Syncronization" alert. */
-"enable_icloud_synchronization_message" = "iCloud synchronization is an experimental feature under development. Make sure that you have made a backup of all your bookmarks and tracks.";
+"enable_icloud_synchronization_message" = "Sinkronizacija iClouda je eksperimentalna funkcija u razvoju. Spremi sigurnosnu kopiju svih svojih zabilješki i puteva.";
 
 /* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud Is Disabled";
@@ -1040,7 +1040,7 @@
 "icloud_synchronization_error_cloud_is_unavailable" = "Error: iCloud is not available";
 
 /* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
-"bookmarks_recently_deleted" = "Recently Deleted Lists";
+"bookmarks_recently_deleted" = "Nedavno izbrisani popisi";
 
 /* Title for the "Clear" button on the Recently Deleted Lists screen. */
 "clear" = "Clear";

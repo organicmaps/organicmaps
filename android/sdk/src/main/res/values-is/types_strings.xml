@@ -609,6 +609,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Kristinn grafreitur</string>
     <string name="type.landuse.religious">Kirkjugarður</string>
+    <string name="type.landuse.churchyard">Kirkjugarður</string>
     <string name="type.landuse.commercial">Verslunarsvæði</string>
     <string name="type.landuse.construction">Byggingarsvæði</string>
     <string name="type.landuse.education">Menntastofnun</string>
@@ -1206,6 +1207,7 @@
     <string name="type.shop.pet_grooming">Snyrting fyrir gæludýr</string>
     <string name="type.shop.photo">Ljósmyndavöruverslun</string>
     <string name="type.shop.rental">Leiga</string>
+    <string name="type.shop.rental.bicycle">Reiðhjólaleiga</string>
     <string name="type.amenity.bicycle_rental.shop">Hjólaleiga</string>
     <string name="type.shop.seafood">Fisksali</string>
     <string name="type.shop.second_hand">Verslun með notað</string>
@@ -1422,4 +1424,6 @@
     <string name="type.man_made.monitoring_station.weather">Veðurstöð</string>
     <string name="type.amenity.student_accommodation">Stúdentagarðar</string>
     <string name="type.craft.watchmaker">Úrsmiður</string>
+    <string name="type.xmas_feature.market">Jólamarkaður</string>
+    <string name="type.xmas_feature.tree">Jólatré</string>
 </resources>

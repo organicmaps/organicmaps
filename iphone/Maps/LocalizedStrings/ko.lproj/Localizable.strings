@@ -530,7 +530,7 @@
 "editor_edit_place_name_hint" = "장소 이름";
 
 /* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
-"editor_default_language_hint" = "현지 언어로 작성되었으므로";
+"editor_default_language_hint" = "현지 언어";
 "editor_edit_place_category_title" = "범주";
 "message_invalid_feature_position" = "목적지를 이곳에서 찾을 수 없습니다";
 
