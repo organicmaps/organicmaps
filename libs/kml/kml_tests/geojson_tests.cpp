@@ -411,8 +411,8 @@ UNIT_TEST(GeoJson_Writer_Simple)
   ]
 })";
 
-  kml::FileData testData = GenerateKmlFileDataWithTrack();
-  auto jsonString = SaveToGeoJsonString(testData);
+  kml::FileData const testData = GenerateKmlFileDataWithTrack();
+  auto const jsonString = SaveToGeoJsonString(testData);
 
   TEST_EQUAL(jsonString, expected_geojson, ());
 }
@@ -472,7 +472,7 @@ UNIT_TEST(GeoJson_Writer_MultiTrack)
 
   kml::FileData testData = GenerateKmlFileDataWithMultiTrack();
   testData.m_bookmarksData.clear();
-  auto jsonString = SaveToGeoJsonString(testData);
+  auto const jsonString = SaveToGeoJsonString(testData);
 
   TEST_EQUAL(jsonString, expected_geojson, ());
 }
@@ -484,7 +484,7 @@ UNIT_TEST(GeoJson_Writer_Simple_Minimized)
   // clang-format on
 
   kml::FileData const testData = GenerateKmlFileData();
-  auto jsonString = SaveToGeoJsonString(testData, true);
+  auto const jsonString = SaveToGeoJsonString(testData, true);
 
   TEST_EQUAL(jsonString, expected_geojson, ());
 }
@@ -574,7 +574,7 @@ UNIT_TEST(GeoJson_Writer_UMap)
   testData.m_bookmarksData[0].m_properties["_umap_options"] = bookmark_umap_properties_str;
   testData.m_tracksData[0].m_properties["_umap_options"] = track_umap_properties_str;
 
-  auto jsonString = SaveToGeoJsonString(testData);
+  auto const jsonString = SaveToGeoJsonString(testData);
 
   TEST_EQUAL(jsonString, expected_geojson, ());
 }
@@ -611,7 +611,7 @@ UNIT_TEST(GeoJson_Writer_UMap_Invalid_Json)
   testData.m_bookmarksData[0].m_properties["_umap_options"] = bookmark_umap_properties_str;
 
   // Expecting some warning here.
-  auto jsonString = SaveToGeoJsonString(testData);
+  auto const jsonString = SaveToGeoJsonString(testData);
 
   TEST_EQUAL(jsonString, expected_geojson, ());
 }

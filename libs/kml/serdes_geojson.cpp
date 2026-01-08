@@ -14,7 +14,7 @@ namespace geojson
 std::string DebugPrint(GeoJsonGeometryPoint const & c)
 {
   std::ostringstream out;
-  out << "GeoJsonGeometryPoint [coordinates = " << c.coordinates.at(1) << ", " << c.coordinates.at(0) << "]";
+  out << "GeoJsonGeometryPoint [coordinates = " << c.coordinates[1] << ", " << c.coordinates[0] << "]";
   return out.str();
 }
 
@@ -444,7 +444,6 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
   if (error)
   {
     std::string const err = glz::format_error(error, buffer);
-    LOG(LWARNING, ("Error exporting to GeoJson:", err));
     MYTHROW(WriteGeoJsonException, ("Could not write to GeoJson: " + err));
   }
 
