@@ -1,0 +1,1573 @@
+
+
+/********** Types **********/
+
+"type.addr_interpolation" = "Adresë/Bllok";
+"type.addr_interpolation.even" = "Adresë/Bllok";
+"type.addr_interpolation.odd" = "Adresë/Bllok";
+"type.aerialway" = "Teleferik";
+"type.aerialway.cable_car" = "Teleferik";
+"type.aerialway.chair_lift" = "Teleferik me karrige";
+"type.aerialway.drag_lift" = "Ashensor skish";
+"type.aerialway.gondola" = "Gondolë";
+"type.aerialway.mixed_lift" = "Teleferik i përzier";
+"type.aerialway.station" = "Stacion teleferiku";
+"type.aeroway" = "Infrastruktura ajrore";
+"type.aeroway.aerodrome" = "Aeroport";
+"type.aeroway.aerodrome.international" = "Aeroport Ndërkombëtar";
+"type.aeroway.apron" = "Pistë qëndrimi";
+"type.aeroway.gate" = "Portë";
+"type.aeroway.helipad" = "Helipad";
+"type.aeroway.runway" = "Pistë fluturimi";
+"type.aeroway.taxiway" = "Rrugë lidhëse";
+"type.aeroway.terminal" = "Terminal";
+"type.amenity" = "Komoditet";
+"type.amenity.arts_centre" = "Qendër Arti";
+"type.amenity.atm" = "Bankomat";
+"type.amenity.bank" = "Bankë";
+"type.amenity.bar" = "Bar";
+"type.amenity.bbq" = "Zgarë";
+"type.amenity.bench" = "Stol";
+"type.amenity.bicycle_parking" = "Parkim biçikletash";
+"type.amenity.bicycle_parking.covered" = "Parkim i mbuluar";
+"type.amenity.bicycle_rental" = "Marrje biçikletash me qira";
+"type.amenity.bicycle_repair_station" = "Stacion riparimi";
+"type.amenity.biergarten" = "Birrari";
+"type.amenity.brothel" = "Shtëpi publike";
+"type.amenity.love_hotel" = "Hotel dashurie";
+"type.amenity.bureau_de_change" = "Këmbim valutor";
+"type.amenity.bus_station" = "Stacion autobusi";
+"type.amenity.cafe" = "Kafe";
+"type.amenity.car_rental" = "Marrje makinash me qira";
+"type.amenity.motorcycle_rental" = "Marrje motorësh me qira";
+"type.amenity.car_sharing" = "Ndarje makinash";
+"type.amenity.car_wash" = "Lavazh";
+"type.amenity.casino" = "Kazino";
+"type.amenity.gambling" = "Lojëra fati";
+"type.leisure.adult_gaming_centre" = "Qendër lojërash për të rritur";
+"type.leisure.amusement_arcade" = "Arkade";
+"type.amenity.charging_station" = "Stacion karikimi";
+"type.amenity.charging_station.bicycle" = "Karikim biçikletash";
+"type.amenity.charging_station.motorcar" = "Karikim makinash";
+"type.amenity.childcare" = "Çerdhe";
+"type.amenity.cinema" = "Kinema";
+"type.amenity.studio" = "Studio";
+"type.leisure.bowling_alley" = "Sallë boulingu";
+"type.amenity.clinic" = "Klinikë";
+"type.amenity.college" = "Kolegj";
+"type.amenity.community_centre" = "Qendër komunitare";
+"type.amenity.compressed_air" = "Ajër i kompresuar";
+"type.amenity.conference_centre" = "Qendër konferencash";
+"type.amenity.courthouse" = "Gjykata";
+"type.amenity.dentist" = "Dentist";
+"type.amenity.doctors" = "Doktor";
+"type.amenity.drinking_water" = "Ujë i pijshëm";
+"type.drinking_water.yes" = "Ujë i pijshëm";
+"type.amenity.driving_school" = "Auto shkollë";
+"type.amenity.exhibition_centre" = "Qendër ekspozitash";
+"type.amenity.money_transfer" = "Transfertë parash";
+"type.amenity.music_school" = "Shkollë muzike";
+"type.amenity.language_school" = "Shkollë gjuhe";
+"type.office.diplomatic" = "Ambasadë";
+"type.amenity.fast_food" = "Fast Food";
+"type.amenity.ferry_terminal" = "Traget";
+"type.amenity.fire_station" = "Zjarrfikës";
+"type.amenity.food_court" = "Zonë ngrënie";
+"type.amenity.fountain" = "Shatërvan";
+"type.amenity.fuel" = "Karburant";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard" = "Varreza";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard.christian" = "Varreza të krishtera";
+"type.amenity.hospital" = "Spital";
+"type.amenity.hunting_stand" = "Vend gjuetie";
+"type.amenity.ice_cream" = "Akullore";
+"type.amenity.internet_cafe" = "Internet Kafe";
+"type.amenity.kindergarten" = "Kopsht fëmijësh";
+"type.amenity.library" = "Bibliotekë";
+"type.amenity.loading_dock" = "Platformë ngarkimi";
+"type.amenity.luggage_locker" = "Dollap bagazhesh";
+"type.amenity.marketplace" = "Treg";
+"type.amenity.motorcycle_parking" = "Parkim motorësh";
+"type.amenity.nightclub" = "Klub nate";
+"type.amenity.nursing_home" = "Shtëpi pleqsh";
+"type.amenity.parking" = "Parkim";
+"type.amenity.parking.fee" = "Parkim";
+"type.amenity.parking.multi.storey" = "Parkim shumëkatësh";
+"type.amenity.parking.multi.storey.fee" = "Parkim shumëkatësh";
+"type.amenity.parking.no.access" = "Parkim privat";
+"type.amenity.parking.permissive" = "Parkim privat";
+"type.amenity.parking.private" = "Parkim privat";
+"type.amenity.parking.park_and_ride" = "Parkim Park & Ride";
+"type.amenity.parking.underground" = "Parkim nëntokësor";
+"type.amenity.parking.underground.fee" = "Parkim nëntokësor";
+"type.amenity.parking.underground.private" = "Parkim privat nëntokësor";
+"type.amenity.parking.street_side" = "Parkim në rrugë";
+"type.amenity.parking.street_side.fee" = "Parkim në rrugë";
+"type.amenity.parking.street_side.private" = "Parkim privat në rrugë";
+"type.amenity.parking.lane" = "Parkim në korsi";
+"type.amenity.parking.lane.fee" = "Parkim në korsi";
+"type.amenity.parking.lane.private" = "Parkim privat në korsi";
+"type.amenity.parking_entrance" = "Hyrje parkimi";
+"type.amenity.parking_entrance.private" = "Hyrje parkimi privat";
+"type.amenity.parking_entrance.permissive" = "Hyrje parkimi";
+"type.amenity.parking_space" = "Vend parkimi";
+"type.amenity.parking_space.permissive" = "Vend parkimi";
+"type.amenity.parking_space.private" = "Vend parkimi";
+"type.amenity.parking_space.underground" = "Vend parkimi";
+"type.amenity.parking_space.disabled" = "Parkim për invalidë";
+"type.amenity.payment_terminal" = "Terminal pagese";
+"type.amenity.pharmacy" = "Farmaci";
+"type.amenity.place_of_worship" = "Vend kulti";
+"type.amenity.place_of_worship.buddhist" = "Tempull budist";
+"type.amenity.place_of_worship.christian" = "Kishë";
+"type.amenity.place_of_worship.christian.mormon" = "Kisha Mormone";
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "Dëshmitarët e Jehovait";
+"type.amenity.place_of_worship.hindu" = "Tempull Hindu";
+"type.amenity.place_of_worship.jewish" = "Sinagogë";
+"type.amenity.place_of_worship.muslim" = "Xhami";
+"type.amenity.place_of_worship.shinto" = "Tempull Shinto";
+"type.amenity.place_of_worship.taoist" = "Tempull Taoist";
+"type.amenity.police" = "Polici";
+"type.amenity.post_box" = "Kuti postare";
+"type.amenity.post_office" = "Posta";
+"type.post_office.post_partner" = "Partner poste";
+"type.amenity.prison" = "Burg";
+"type.amenity.pub" = "Pub";
+"type.amenity.public_bookcase" = "Shkëmbim librash";
+
+
+/********** Types: Recycling **********/
+
+"type.amenity.recycling.centre" = "Qendër riciklimi";
+"type.amenity.recycling" = "Kontejner riciklimi";
+"type.amenity.recycling.container" = "Kontejner riciklimi";
+"type.recycling.batteries" = "Bateri";
+"type.recycling.clothes" = "Rroba";
+"type.recycling.glass_bottles" = "Shishe qelqi";
+"type.recycling.paper" = "Letër";
+"type.recycling.plastic" = "Plastikë";
+"type.recycling.plastic_bottles" = "Shishe plastike";
+"type.recycling.scrap_metal" = "Metal për skrap";
+"type.recycling.small_appliances" = "Mbetje elektronike";
+"type.recycling.cardboard" = "Karton";
+"type.recycling.cans" = "Kanaçe";
+"type.recycling.shoes" = "Këpucë";
+"type.recycling.green_waste" = "Mbetje organike";
+"type.recycling.cartons" = "Kartona";
+"type.amenity.restaurant" = "Restorant";
+"type.amenity.sanitary_dump_station" = "Stacion shkarkimi depozitash";
+"type.amenity.school" = "Shkollë";
+
+/* Weather shelter (including sun shelters and natural rock shelters). */
+"type.amenity.shelter" = "Strehë";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Strehë";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "Bivak";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Strehë e hapur";
+"type.amenity.public_bath" = "Banjo publike";
+"type.amenity.shower" = "Dush";
+"type.amenity.stripclub" = "Klub striptizmi";
+"type.amenity.taxi" = "Stacion taksish";
+"type.amenity.telephone" = "Telefon";
+"type.amenity.theatre" = "Teatër";
+"type.amenity.toilets" = "Tualet";
+"type.toilets.yes" = "Tualet";
+"type.amenity.townhall" = "Bashki";
+"type.amenity.university" = "Universitet";
+"type.amenity.vending_machine" = "Makineri shitëse";
+"type.amenity.vending_machine.cigarettes" = "Cigare";
+"type.amenity.vending_machine.coffee" = "Kafe";
+"type.amenity.vending_machine.condoms" = "Prezervativë";
+"type.amenity.vending_machine.drinks" = "Pije";
+"type.amenity.vending_machine.food" = "Ushqim";
+"type.amenity.vending_machine.newspapers" = "Gazeta";
+"type.amenity.vending_machine.parking_tickets" = "Parkometër";
+"type.amenity.vending_machine.public_transport_tickets" = "Bileta";
+"type.amenity.vending_machine.sweets" = "Ëmbëlsira";
+"type.amenity.vending_machine.excrement_bags" = "Qese për jashtëqitje";
+"type.amenity.parcel_locker" = "Dollap postar";
+"type.amenity.vehicle_inspection" = "Kontroll teknik";
+"type.amenity.vending_machine.fuel" = "Pompë karburanti";
+"type.amenity.veterinary" = "Veteriner";
+"type.amenity.waste_basket" = "Kosh plehrash";
+"type.amenity.waste_disposal" = "Kazan plehrash";
+"type.amenity.waste_transfer_station" = "Stacion transferimi mbetjesh";
+"type.amenity.water_point" = "Mbushje autoboti me ujë";
+"type.amenity.water_point.drinking_water_no" = "Mbushje autoboti me ujë";
+"type.barrier" = "Barrierë";
+"type.barrier.block" = "Bllok";
+"type.barrier.bollard" = "Shtyllë";
+"type.barrier.border_control" = "Kontroll kufitar";
+"type.barrier.chain" = "Zinxhir";
+"type.barrier.city_wall" = "Muret e qytetit";
+"type.barrier.cycle_barrier" = "Barrierë biçikletash";
+"type.waterway.ditch" = "Kanal kullues";
+"type.natural.water.moat" = "Hendek";
+"type.natural.water.wastewater" = "Ujëra të zeza";
+"type.barrier.entrance" = "Hyrje";
+"type.barrier.fence" = "Gardh";
+"type.barrier.guard_rail" = "Mbrojtëse metalike";
+"type.barrier.gate" = "Portë";
+"type.barrier.hedge" = "Gardh i gjallë";
+"type.barrier.kissing_gate" = "Portë kalimi";
+"type.barrier.lift_gate" = "Tra";
+"type.barrier.retaining_wall" = "Mur mbajtës";
+"type.barrier.stile" = "Shkallë kalimi";
+"type.barrier.turnstile" = "Turniket";
+"type.barrier.swing_gate" = "Portë me kanate";
+"type.barrier.toll_booth" = "Kabinë taksash";
+"type.barrier.wall" = "Mur";
+"type.boundary" = "Kufi";
+"type.boundary.administrative" = "Kufi administrativ";
+
+/* Borders between countries. */
+"type.boundary.administrative.2" = "Kufi kombëtar";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Kufi rajonal";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Kufi rajonal";
+"type.boundary.national_park" = "Park Kombëtar";
+"type.boundary.aboriginal_lands" = "Tokat indigjene";
+"type.boundary.protected_area" = "Zonë e mbrojtur";
+"type.boundary.protected_area.1" = "Zonë e mbrojtur";
+"type.boundary.protected_area.2" = "Zonë e mbrojtur";
+"type.boundary.protected_area.3" = "Zonë e mbrojtur";
+"type.boundary.protected_area.4" = "Zonë e mbrojtur";
+"type.boundary.protected_area.5" = "Zonë e mbrojtur";
+"type.boundary.protected_area.6" = "Zonë e mbrojtur";
+"type.building" = "Ndërtesë";
+
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Adresë";
+"type.building.has_parts" = "Ndërtesë";
+"type.building_part" = "Ndërtesë";
+"type.building.garage" = "Garazh";
+"type.building.train_station" = "Ndërtesë stacioni";
+"type.building.warehouse" = "Magazinë";
+"type.cemetery.grave" = "Varr";
+"type.craft" = "Zejtari";
+"type.craft.beekeeper" = "Bletar";
+"type.craft.blacksmith" = "Kovaç";
+"type.craft.brewery" = "Birrari artizanale";
+"type.craft.caterer" = "Katering";
+"type.craft.carpenter" = "Marpangoz";
+"type.craft.confectionery" = "Pastiçier";
+"type.craft.electrician" = "Elektricist";
+"type.craft.electronics_repair" = "Riparim elektronikash";
+"type.craft.gardener" = "Kopshtar";
+"type.craft.grinding_mill" = "Mulli";
+"type.craft.handicraft" = "Punim dore";
+
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "Kondicionim";
+"type.craft.key_cutter" = "Riprodhim çelësash";
+"type.craft.locksmith" = "Çelësapunues";
+"type.craft.metal_construction" = "Punues metalesh";
+"type.craft.painter" = "Bojaxhi";
+"type.craft.photographer" = "Fotograf";
+"type.shop.camera" = "Dyqan aparatesh";
+"type.craft.plumber" = "Hidraulik";
+"type.craft.sawmill" = "Sharrë druri";
+"type.craft.shoemaker" = "Riparim këpucësh";
+"type.craft.winery" = "Verari";
+"type.craft.tailor" = "Rrobaqepës";
+"type.cuisine.african" = "Afrikane";
+"type.cuisine.american" = "Amerikane";
+"type.cuisine.arab" = "Arabe";
+"type.cuisine.argentinian" = "Argjentinase";
+"type.cuisine.asian" = "Aziatike";
+"type.cuisine.austrian" = "Austriake";
+"type.cuisine.bagel" = "Bagel";
+"type.cuisine.balkan" = "Ballkanase";
+"type.cuisine.barbecue" = "Barbekju";
+"type.cuisine.bavarian" = "Bavareze";
+"type.cuisine.beef_bowl" = "Tas me mish viçi";
+"type.cuisine.brazilian" = "Braziliane";
+"type.cuisine.breakfast" = "Mëngjes";
+"type.cuisine.bubble_tea" = "Çaj Bubble";
+"type.cuisine.burger" = "Burger";
+"type.cuisine.buschenschank" = "Tavernë vere";
+"type.cuisine.cake" = "Ëmbëlsira";
+"type.cuisine.caribbean" = "Karaibe";
+"type.cuisine.chicken" = "Pule";
+"type.cuisine.chinese" = "Kineze";
+"type.cuisine.coffee_shop" = "Kafe";
+"type.cuisine.crepe" = "Krepe";
+"type.cuisine.croatian" = "Kroate";
+"type.cuisine.curry" = "Kerri";
+"type.cuisine.deli" = "Deli";
+"type.cuisine.diner" = "Diner";
+"type.cuisine.donut" = "Donut";
+"type.cuisine.ethiopian" = "Etiopiane";
+"type.cuisine.filipino" = "Filipinase";
+"type.cuisine.fine_dining" = "Restorant luksoz";
+"type.cuisine.fish" = "Peshk";
+"type.cuisine.fish_and_chips" = "Peshk dhe patate";
+"type.cuisine.french" = "Franceze";
+"type.cuisine.friture" = "Të skuqura";
+"type.cuisine.georgian" = "Gjeorgjiane";
+"type.cuisine.german" = "Gjermane";
+"type.cuisine.greek" = "Greke";
+"type.cuisine.grill" = "Zgarë";
+"type.cuisine.heuriger" = "Tavernë vere";
+"type.cuisine.hotdog" = "Hotdog";
+"type.cuisine.hungarian" = "Hungareze";
+"type.cuisine.ice_cream" = "Akullore";
+"type.cuisine.indian" = "Indiane";
+"type.cuisine.indonesian" = "Indoneziane";
+"type.cuisine.international" = "Ndërkombëtare";
+"type.cuisine.irish" = "Irlandeze";
+"type.cuisine.italian" = "Italiane";
+"type.cuisine.italian_pizza" = "Italiane, Pica";
+"type.cuisine.japanese" = "Japoneze";
+"type.cuisine.kebab" = "Qebap";
+"type.cuisine.korean" = "Koreane";
+"type.cuisine.lao" = "Laotiane";
+"type.cuisine.lebanese" = "Libaneze";
+"type.cuisine.local" = "Lokale";
+"type.cuisine.malagasy" = "Malagazi";
+"type.cuisine.malaysian" = "Malajziane";
+"type.cuisine.mediterranean" = "Mesdhetare";
+"type.cuisine.mexican" = "Meksikane";
+"type.cuisine.moroccan" = "Marokene";
+"type.cuisine.noodles" = "Nudëll";
+"type.cuisine.oriental" = "Aziatike Lindore";
+"type.cuisine.pancake" = "Pankake";
+"type.cuisine.pasta" = "Makarna";
+"type.cuisine.persian" = "Persiane";
+"type.cuisine.peruvian" = "Peratiane";
+"type.cuisine.pizza" = "Pica";
+"type.cuisine.polish" = "Polake";
+"type.cuisine.portuguese" = "Portugeze";
+"type.cuisine.ramen" = "Ramen";
+"type.cuisine.regional" = "Rajonale";
+"type.cuisine.russian" = "Ruse";
+"type.cuisine.sandwich" = "Sanduiç";
+"type.cuisine.sausage" = "Salsiçe";
+"type.cuisine.savory_pancakes" = "Pankake të kripura";
+"type.cuisine.seafood" = "Ushqim deti";
+"type.cuisine.soba" = "Soba";
+"type.cuisine.spanish" = "Spanjolle";
+"type.cuisine.steak_house" = "Steak House";
+"type.cuisine.sushi" = "Sushi";
+"type.cuisine.tapas" = "Tapas";
+"type.cuisine.tea" = "Çaj";
+"type.cuisine.thai" = "Tajlandeze";
+"type.cuisine.turkish" = "Turke";
+"type.cuisine.vegan" = "Vegane";
+"type.cuisine.vegetarian" = "Vegjetariane";
+"type.cuisine.vietnamese" = "Vietnameze";
+"type.emergency" = "Urgjencë";
+"type.emergency.assembly_point" = "Pikë grumbullimi emergjence";
+"type.emergency.defibrillator" = "Defibrilator";
+"type.emergency.fire_hydrant" = "Hidrant zjarri";
+"type.emergency.phone" = "Telefon urgjence";
+
+/* A place where a lifeguard is on duty. */
+"type.emergency.lifeguard" = "Rojet bregdetare";
+
+/* A mountain rescue base for search and rescue activities. */
+"type.emergency.mountain_rescue" = "Stacion shpëtimi malor";
+
+/* This is for secondary entrances, for main entrances see type.entrance.main */
+"type.entrance" = "Hyrje";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Hyrja kryesore";
+"type.entrance.exit" = "Dalje";
+"type.fee.yes" = "Me pagesë";
+"type.fee.no" = "Falas";
+"type.healthcare.laboratory" = "Laborator mjekësor";
+"type.healthcare.physiotherapist" = "Fizioterapist";
+"type.healthcare.alternative" = "Mjekësi alternative";
+"type.healthcare.audiologist" = "Audiolog";
+"type.healthcare.blood_donation" = "Qendër dhurimi gjaku";
+"type.healthcare.optometrist" = "Optometrist";
+"type.healthcare.podiatrist" = "Podiatër";
+"type.healthcare.psychotherapist" = "Psikoterapist";
+"type.healthcare.sample_collection" = "Qendër marrjeje mostrash";
+"type.healthcare.speech_therapist" = "Logoped";
+
+
+/********** Types: Roads **********/
+
+"type.highway" = "Autostradë";
+"type.highway.bridleway" = "Shteg kuajsh";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Urë";
+"type.highway.bridleway.permissive" = "Shteg kuajsh";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tunel";
+"type.highway.busway" = "Rrugë autobusësh";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Urë";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Tunel";
+"type.highway.bus_stop" = "Stacion autobusi";
+"type.highway.construction" = "Rrugë në ndërtim";
+"type.highway.cycleway" = "Korsi biçikletash";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Urë";
+"type.highway.cycleway.permissive" = "Korsi biçikletash";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tunel";
+"type.highway.elevator" = "Ashensor";
+"type.highway.footway" = "Shteg këmbësorësh";
+"type.highway.footway.sidewalk" = "Trotuar";
+"type.highway.footway.crossing" = "Vendkalim këmbësorësh";
+"type.highway.footway.area" = "Zonë këmbësorësh";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Urë këmbësorësh";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tunel këmbësorësh";
+"type.highway.ford" = "Va";
+"type.highway.living_street" = "Rrugë banimi";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Urë";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tunel";
+"type.highway.motorway" = "Autostradë";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Urë autostrade";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tunel autostrade";
+"type.highway.motorway_junction" = "Dalje rruge";
+"type.highway.motorway_link" = "Hyrje/dalje autostrade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Urë";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunel";
+"type.highway.path" = "Shteg";
+
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Shteg i vështirë";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Shteg për ekspertë";
+"type.highway.path.bicycle" = "Shteg biçikletash dhe këmbësorësh";
+"type.highway.footway.bicycle" = "Shteg biçikletash dhe këmbësorësh";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Urë";
+"type.highway.path.horse" = "Shteg kuajsh";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunel";
+"type.highway.pedestrian" = "Rrugë këmbësorësh";
+"type.highway.pedestrian.area" = "Zonë këmbësorësh";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Urë këmbësorësh";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tunel këmbësorësh";
+"type.highway.primary" = "Rrugë kryesore";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Urë";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tunel";
+"type.highway.primary_link" = "Hyrje/dalje rrugë kryesore";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Urë";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunel";
+"type.highway.raceway" = "Pistë garash";
+"type.highway.residential" = "Rrugë lagjeje";
+"type.highway.residential.area" = "Rrugë lagjeje";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Urë";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunel";
+"type.highway.rest_area" = "Zonë pushimi";
+"type.highway.road" = "Rrugë";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Urë";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "Urë";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunel";
+"type.highway.secondary" = "Rrugë dytësore";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Urë";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tunel";
+"type.highway.secondary_link" = "Hyrje/dalje rrugë dytësore";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Urë";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tunel";
+"type.highway.service" = "Rrugë shërbimi";
+"type.highway.service.area" = "Rrugë shërbimi";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Urë";
+"type.highway.service.driveway" = "Rrugë hyrëse";
+"type.highway.service.parking_aisle" = "Korsi parkimi";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tunel";
+"type.highway.services" = "Zonë shërbimi";
+"type.highway.speed_camera" = "Kamera shpejtësie";
+"type.highway.steps" = "Shkallë";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Urë";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunel";
+"type.highway.ladder" = "Shkallë dore";
+"type.highway.tertiary" = "Rrugë tretësore";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Urë";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tunel";
+"type.highway.tertiary_link" = "Hyrje/dalje rrugë tretësore";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Urë";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tunel";
+"type.highway.track" = "Shteg fushe";
+"type.highway.track.area" = "Shteg fushe";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Urë";
+"type.highway.track.grade1" = "Shteg fushe";
+"type.highway.track.no.access" = "Shteg fushe";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tunel";
+"type.highway.traffic_signals" = "Semaforë";
+"type.highway.trunk" = "Rrugë nacionale";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Urë";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunel";
+"type.highway.trunk_link" = "Hyrje/dalje rrugë nacionale";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Urë";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunel";
+"type.highway.unclassified" = "Rrugë e vogël";
+"type.highway.unclassified.area" = "Rrugë e vogël";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Urë";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tunel";
+"type.area_highway.cycleway" = "Korsi biçikletash";
+"type.area_highway.footway" = "Shteg këmbësorësh";
+"type.area_highway.living_street" = "Rrugë banimi";
+"type.area_highway.motorway" = "Autostradë";
+"type.area_highway.path" = "Shteg";
+"type.area_highway.pedestrian" = "Rrugë këmbësorësh";
+"type.area_highway.primary" = "Rrugë kryesore";
+"type.area_highway.residential" = "Rrugë lagjeje";
+"type.area_highway.secondary" = "Rrugë dytësore";
+"type.area_highway.service" = "Rrugë shërbimi";
+"type.area_highway.tertiary" = "Rrugë tretësore";
+"type.area_highway.steps" = "Shkallë";
+"type.area_highway.track" = "Shteg fushe";
+"type.area_highway.trunk" = "Rrugë nacionale";
+"type.area_highway.unclassified" = "Rrugë e vogël";
+"type.highway.world_level" = "highway-world_level";
+"type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
+"type.historic" = "Objekt historik";
+"type.historic.aircraft" = "Avion historik";
+"type.historic.anchor" = "Spirancë historike";
+"type.historic.archaeological_site" = "Sit arkeologjik";
+"type.historic.battlefield" = "Fushëbetejë historike";
+"type.historic.boundary_stone" = "Gur kufitar";
+"type.historic.cannon" = "Top";
+"type.historic.castle" = "Kështjellë";
+"type.historic.castle.castrum" = "Fortesë romake";
+"type.historic.castle.defensive" = "Fortesë";
+"type.historic.castle.fortified_church" = "Kishë e fortifikuar";
+"type.historic.castle.fortress" = "Kështjellë";
+"type.historic.castle.hillfort" = "Vendbanim i fortifikuar";
+"type.historic.castle.kremlin" = "Kremlin";
+"type.historic.castle.manor" = "Rezidencë feudale";
+"type.historic.castle.palace" = "Pallat";
+"type.historic.castle.shiro" = "Kështjellë japoneze";
+"type.historic.castle.stately" = "Kështjellë madhështore";
+"type.historic.city_gate" = "Porta e qytetit";
+"type.historic.citywalls" = "Muret e qytetit";
+"type.historic.fort" = "Fortesë";
+"type.historic.gallows" = "Gijotinë";
+"type.historic.locomotive" = "Lokomotivë historike";
+"type.historic.memorial" = "Memorial";
+"type.historic.memorial.cross" = "Kryq përkujtimor";
+"type.historic.memorial.plaque" = "Pllakë përkujtimore";
+"type.historic.memorial.sculpture" = "Skulpturë";
+"type.historic.memorial.statue" = "Statuja";
+"type.historic.memorial.stolperstein" = "Gur pengese";
+"type.historic.stone" = "Gur historik";
+"type.historic.memorial.war_memorial" = "Memorial lufte";
+"type.historic.mine" = "Minierë historike";
+"type.historic.monument" = "Monument";
+"type.historic.pillory" = "Shtyllë turpi";
+"type.historic.ruins" = "Rënoja historike";
+"type.historic.ship" = "Anije";
+"type.historic.tank" = "Tank historik";
+"type.historic.tomb" = "Varr";
+
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
+"type.man_made.cross" = "Kryq";
+
+/* Usually a Christian historical cross placed along a road. */
+"type.historic.wayside_cross" = "Kryq rruge";
+"type.historic.wayside_shrine" = "Altari rruge";
+"type.historic.wreck" = "Anije e mbytur";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+"type.internet_access" = "Internet";
+"type.internet_access.wlan" = "Internet";
+"type.junction" = "Kryqëzim";
+"type.junction.circular" = "Rrethrrotullim";
+"type.junction.roundabout" = "Rrethrrotullim";
+"type.landuse" = "Përdorim toke";
+"type.landuse.allotments" = "Kopshte";
+"type.landuse.basin" = "Bazen";
+"type.landuse.brownfield" = "Zonë industriale e braktisur";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery" = "Varreza";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery.christian" = "Varreza të krishtera";
+"type.landuse.religious" = "Oborr kishe";
+"type.landuse.churchyard" = "Oborr kishe";
+"type.landuse.commercial" = "Zonë tregtare";
+"type.landuse.construction" = "Zonë ndërtimi";
+"type.landuse.education" = "Institucion arsimor";
+"type.landuse.farmland" = "Tokë bujqësore";
+"type.landuse.farmyard" = "Oborr ferme";
+"type.landuse.field" = "Fushë";
+"type.landuse.flowerbed" = "Lulishte";
+"type.landuse.forest" = "Pyll";
+"type.landuse.forest.coniferous" = "Pyll halor";
+"type.landuse.forest.deciduous" = "Pyll gjethegjerë";
+"type.landuse.forest.mixed" = "Pyll i përzier";
+"type.landuse.garages" = "Garazhe";
+"type.landuse.grass" = "Bar";
+"type.landuse.greenfield" = "Zonë e gjelbër";
+"type.landuse.greenhouse_horticulture" = "Serë";
+"type.landuse.industrial" = "Zonë industriale";
+"type.landuse.landfill" = "Vendgrumbullim mbetjesh";
+"type.landuse.meadow" = "Lëndinë";
+"type.landuse.military" = "Zonë ushtarake";
+"type.landuse.orchard" = "Pemëtore";
+"type.landuse.quarry" = "Gurore";
+"type.landuse.railway" = "Zonë hekurudhore";
+"type.landuse.recreation_ground" = "Zonë rekreative";
+"type.landuse.reservoir" = "Rezervuar";
+"type.landuse.residential" = "Zonë banimi";
+"type.landuse.retail" = "Zonë shitjesh";
+"type.landuse.salt_pond" = "Kripore";
+"type.landuse.village_green" = "Tokë";
+"type.landuse.vineyard" = "Vresht";
+"type.landuse.plant_nursery" = "Fidanishte";
+"type.leisure" = "Kohë e lirë";
+"type.leisure.common" = "Tokë publike";
+"type.leisure.dog_park" = "Park qensh";
+"type.leisure.escape_game" = "Dhomë arratisjeje";
+"type.leisure.fitness_centre" = "Palestër";
+"type.leisure.fitness_station" = "Vegla force";
+"type.leisure.dance" = "Sallë vallëzimi";
+"type.leisure.garden" = "Kopsht";
+"type.leisure.garden.residential" = "Kopsht banimi";
+"type.leisure.golf_course" = "Fushë golfi";
+"type.leisure.miniature_golf" = "Minigolf";
+"type.leisure.hackerspace" = "Hackerspace";
+"type.leisure.ice_rink" = "Pistë akulli";
+"type.leisure.marina" = "Marina";
+"type.leisure.nature_reserve" = "Rezervat natyror";
+"type.leisure.outdoor_seating" = "Ndenjëse jashtë";
+"type.leisure.firepit" = "Vatër zjarri";
+"type.leisure.park" = "Park";
+"type.leisure.park.no.access" = "Park privat";
+"type.leisure.park.permissive" = "Park";
+"type.leisure.park.private" = "Park privat";
+"type.leisure.picnic_table" = "Tavolinë pikniku";
+"type.leisure.pitch" = "Fushë sporti";
+"type.leisure.playground" = "Kënd lojërash";
+"type.leisure.recreation_ground" = "Zonë rekreative";
+"type.leisure.sauna" = "Sauna";
+"type.leisure.slipway" = "Rrëshqitëse varkash";
+"type.leisure.sports_centre" = "Qendër sportive";
+"type.sport.climbing" = "Qendër ngjitjeje";
+"type.sport.yoga" = "Studio Joga";
+"type.leisure.stadium" = "Stadium";
+"type.leisure.swimming_pool" = "Pishinë";
+"type.leisure.swimming_pool.private" = "Pishinë";
+"type.leisure.track" = "Shteg fushe";
+"type.leisure.track.area" = "Shteg fushe";
+"type.leisure.water_park" = "Park ujor";
+"type.leisure.beach_resort" = "Resort plazhi";
+"type.man_made" = "E bërë nga njeriu";
+"type.man_made.breakwater" = "Moli";
+"type.man_made.cairn" = "Grumbull gurësh";
+"type.man_made.chimney" = "Oxhak";
+"type.man_made.cutline" = "Linjë prerjeje";
+"type.man_made.survey_point" = "Pikë matjeje";
+"type.man_made.flagpole" = "Shtyllë flamuri";
+"type.man_made.lighthouse" = "Far";
+"type.man_made.mast" = "Direk";
+"type.man_made.pier" = "Mol";
+"type.man_made.pipeline" = "Tubacion";
+"type.man_made.pipeline.overground" = "Tubacion mbitokësor";
+"type.man_made.silo" = "Silo";
+"type.man_made.storage_tank" = "Depozitë";
+"type.man_made.surveillance" = "Kamera vëzhgimi";
+"type.man_made.tower" = "Kullë";
+
+/* A huge telecommunications tower. Often a local monument or a landmark. */
+"type.man_made.communications_tower" = "Kullë komunikimi";
+
+/* A regular telecommunications tower / mast. */
+"type.man_made.tower.communication" = "Kullë komunikimi";
+
+/* A deep hole drilled into the earth to extract oil or gas. */
+"type.man_made.petroleum_well" = "Pus nafte ose gazi";
+
+/* A tower/mast constructed to burn off excess gas. */
+"type.man_made.flare" = "Flakë gazi";
+"type.man_made.wastewater_plant" = "Impiant trajtimi ujërash të zeza";
+"type.man_made.water_tap" = "Rubinet uji";
+"type.man_made.water_tap.drinking_water_no" = "Rubinet uji";
+"type.man_made.water_tower" = "Kullë uji";
+"type.man_made.water_well" = "Pus uji";
+"type.man_made.water_well.drinking_water_no" = "Pus uji";
+"type.man_made.windmill" = "Mulli ere";
+"type.man_made.works" = "Uzinë";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.mapswithme.grid" = "mapswithme-grid";
+"type.military" = "Ushtria";
+"type.military.bunker" = "Bunker";
+"type.mountain_pass" = "Qafë mali";
+"type.natural" = "Natyra";
+
+/* A rocky land cover. */
+"type.natural.bare_rock" = "Shkëmb i zhveshur";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Zall";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Humbëtirë";
+"type.natural.bay" = "Gji";
+"type.natural.beach" = "Plazh";
+"type.natural.beach.sand" = "Plazh ranor";
+"type.natural.beach.gravel" = "Plazh me guralecë";
+"type.natural.cape" = "Kep";
+"type.natural.cave_entrance" = "Hyrje shpelle";
+"type.natural.cliff" = "Shkëmb";
+"type.natural.earth_bank" = "Brevore dheu";
+"type.man_made.embankment" = "Argjinaturë";
+"type.natural.coastline" = "Vijë bregdetare";
+"type.natural.desert" = "Shkretëtirë";
+"type.natural.geyser" = "Gejzer";
+"type.natural.glacier" = "Akullnaje";
+"type.natural.grassland" = "Kullotë";
+"type.natural.heath" = "Tokë barishtore";
+"type.natural.hot_spring" = "Burim termal";
+"type.natural.water.lake" = "Liqen";
+"type.natural.water.lock" = "Dhomë bllokimi";
+"type.natural.water.pond" = "Pellg";
+"type.natural.water.reservoir" = "Rezervuar";
+"type.natural.water.basin" = "Bazen";
+"type.natural.water.river" = "Lumë";
+"type.natural.land" = "Tokë";
+"type.natural.meadow" = "Lëndinë";
+"type.natural.orchard" = "Pemëtore";
+"type.natural.peak" = "Majë";
+"type.natural.saddle" = "Qafë mali";
+"type.natural.rock" = "Shkëmb";
+"type.natural.scrub" = "Shkurre";
+"type.natural.spring" = "Burim natyror";
+"type.natural.spring.drinking_water_no" = "Burim natyror";
+"type.natural.strait" = "Ngushticë";
+"type.natural.tree_row" = "Rresht pemësh";
+"type.natural.vineyard" = "Vresht";
+"type.natural.volcano" = "Vullkan";
+"type.natural.water" = "Ujë";
+"type.natural.wetland" = "Zonë ligatinore";
+"type.natural.wetland.bog" = "Mocal";
+"type.natural.wetland.marsh" = "Kënetë";
+"type.noexit" = "Rrugë pa krye";
+"type.office" = "Zyrë";
+"type.office.company" = "Zyrë kompanie";
+"type.office.estate_agent" = "Agjent imobiliar";
+"type.office.government" = "Zyrë qeveritare";
+"type.office.insurance" = "Zyre sigurimesh";
+"type.office.lawyer" = "Avokat";
+"type.office.ngo" = "OJQ";
+"type.office.telecommunication" = "Komani telekomunikacioni";
+"type.organic.only" = "Organike";
+"type.organic.yes" = "Organike";
+"type.place.city" = "Qytet";
+"type.place.city.capital" = "Kryeqytet";
+"type.place.city.capital.10" = "Qytet";
+"type.place.city.capital.11" = "Qytet";
+"type.place.city.capital.2" = "Kryeqytet";
+"type.place.city.capital.3" = "Qytet";
+"type.place.city.capital.4" = "Qytet";
+"type.place.city.capital.5" = "Qytet";
+"type.place.city.capital.6" = "Qytet";
+"type.place.city.capital.7" = "Qytet";
+"type.place.city.capital.8" = "Qytet";
+"type.place.city.capital.9" = "Qytet";
+"type.place.continent" = "Kontinent";
+"type.place.country" = "Shtet";
+"type.place.county" = "Qark";
+"type.place.farm" = "Fermë";
+"type.place.hamlet" = "Fshat i vogël";
+"type.place.island" = "Ishull";
+"type.place.islet" = "Ishull i vogël";
+"type.place.isolated_dwelling" = "Banesë e izoluar";
+"type.place.locality" = "Lokalitet";
+
+/* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
+"type.place.quarter" = "Lagje";
+
+/* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
+"type.place.neighbourhood" = "Lagje";
+"type.place.ocean" = "Oqean";
+"type.place.region" = "Rajon";
+"type.place.sea" = "Det";
+"type.place.square" = "Shesh";
+"type.place.state" = "Shtet";
+"type.place.state.major" = "Shtet";
+
+/* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
+"type.place.suburb" = "Periferi";
+"type.place.town" = "Qytezë";
+"type.place.village" = "Fshat";
+"type.power" = "Energji";
+"type.power.generator" = "Gjenerator";
+"type.power.generator.solar" = "Gjenerator diellor";
+"type.power.generator.wind" = "Gjenerator ere";
+"type.power.generator.gas" = "Termocentral me gaz";
+"type.power.generator.hydro" = "Hidrocentral";
+"type.power.line" = "Linjë tensioni";
+"type.power.line.underground" = "Linjë nëntokësore";
+"type.power.minor_line" = "Linjë e vogël tensioni";
+"type.power.plant" = "Termocentral";
+"type.power.plant.coal" = "Termocentral me qymyr";
+"type.power.plant.gas" = "Termocentral me gaz";
+"type.power.plant.hydro" = "Hidrocentral";
+"type.power.plant.solar" = "Impiant fotovoltaik";
+"type.power.plant.wind" = "Park eolik";
+"type.power.station" = "Stacion energjie";
+"type.power.substation" = "Nënstacion";
+
+/* A tower or pylon carrying high voltage electricity cables. */
+"type.power.tower" = "Shtyllë tensioni";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "Shtyllë elektrike";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "Shtyllë utilitare";
+"type.psurface" = "psurface";
+"type.psurface.paved_bad" = "psurface-paved_bad";
+"type.psurface.paved_good" = "psurface-paved_good";
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
+"type.public_transport" = "Transport Publik";
+"type.public_transport.platform" = "Platformë";
+"type.railway" = "Hekurudhë";
+"type.railway.abandoned" = "Hekurudhë e braktisur";
+"type.railway.abandoned.bridge" = "Urë hekurudhore e braktisur";
+"type.railway.abandoned.tunnel" = "Tunel hekurudhor i braktisur";
+"type.railway.construction" = "Hekurudhë në ndërtim";
+"type.railway.crossing" = "Kryqëzim hekurudhor";
+"type.railway.disused" = "Hekurudhë jashtë përdorimit";
+"type.railway.funicular" = "Funikular";
+"type.railway.funicular.bridge" = "Urë funikulari";
+"type.railway.funicular.tunnel" = "Tunel funikulari";
+"type.railway.halt" = "Stacion treni";
+"type.railway.level_crossing" = "Kalim në nivel";
+"type.railway.light_rail" = "Tren i lehtë";
+"type.railway.light_rail.bridge" = "Urë treni të lehtë";
+"type.railway.light_rail.tunnel" = "Tunel treni të lehtë";
+"type.railway.monorail" = "Monorail";
+"type.railway.monorail.bridge" = "Urë monorail";
+"type.railway.monorail.tunnel" = "Tunel monorail";
+"type.railway.narrow_gauge" = "Hekurudhë me binarë të ngushtë";
+"type.railway.narrow_gauge.bridge" = "Urë hekurudhore e ngushtë";
+"type.railway.narrow_gauge.tunnel" = "Tunel hekurudhor i ngushtë";
+"type.railway.platform" = "Platformë hekurudhore";
+"type.railway.preserved" = "Hekurudhë e ruajtur";
+"type.railway.preserved.bridge" = "Urë hekurudhore e ruajtur";
+"type.railway.preserved.tunnel" = "Tunel hekurudhor i ruajtur";
+"type.railway.rail" = "Hekurudhë";
+"type.railway.rail.highspeed" = "Hekurudhë shpejtësie të lartë";
+"type.railway.rail.tourism" = "Hekurudhë turistike";
+"type.railway.rail.main" = "Hekurudhë";
+
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Degëzim hekurudhor";
+
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Hekurudhë shërbimi";
+"type.railway.rail.spur" = "Binar anësor";
+
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Binar shërbimi";
+"type.railway.rail.bridge" = "Urë hekurudhore";
+"type.railway.rail.highspeed.bridge" = "Urë hekurudhore";
+"type.railway.rail.tourism.bridge" = "Urë hekurudhore";
+"type.railway.rail.main.bridge" = "Urë hekurudhore";
+"type.railway.rail.branch.bridge" = "Urë hekurudhore";
+"type.railway.rail.utility.bridge" = "Urë hekurudhore";
+"type.railway.rail.spur.bridge" = "Urë hekurudhore";
+"type.railway.rail.service.bridge" = "Urë hekurudhore";
+"type.railway.rail.tunnel" = "Tunel hekurudhor";
+"type.railway.rail.highspeed.tunnel" = "Tunel hekurudhor";
+"type.railway.rail.tourism.tunnel" = "Tunel hekurudhor";
+"type.railway.rail.main.tunnel" = "Tunel hekurudhor";
+"type.railway.rail.branch.tunnel" = "Tunel hekurudhor";
+"type.railway.rail.utility.tunnel" = "Tunel hekurudhor";
+"type.railway.rail.spur.tunnel" = "Tunel hekurudhor";
+"type.railway.rail.service.tunnel" = "Tunel hekurudhor";
+"type.railway.station" = "Stacion treni";
+"type.railway.station.funicular" = "Funikular";
+"type.railway.station.light_rail" = "Stacion treni të lehtë";
+"type.railway.station.light_rail.berlin" = "Stacion S-Bahn";
+"type.railway.station.light_rail.london" = "Stacion DLR";
+"type.railway.station.light_rail.porto" = "Metro Porto";
+"type.railway.station.monorail" = "Stacion Monorail";
+"type.railway.station.subway" = "Stacion metroje";
+"type.railway.station.subway.adana" = "Stacion metroje";
+"type.railway.station.subway.algiers" = "Stacion metroje";
+"type.railway.station.subway.almaty" = "Stacion metroje";
+"type.railway.station.subway.amsterdam" = "Stacion metroje";
+"type.railway.station.subway.ankara" = "Stacion metroje";
+"type.railway.station.subway.athens" = "Stacion metroje";
+"type.railway.station.subway.baku" = "Stacion metroje";
+"type.railway.station.subway.bangkok" = "Stacion metroje";
+"type.railway.station.subway.barcelona" = "Stacion metroje";
+"type.railway.station.subway.beijing" = "Stacion metroje";
+"type.railway.station.subway.bengalore" = "Stacion metroje";
+"type.railway.station.subway.berlin" = "Stacion metroje";
+"type.railway.station.subway.bilbao" = "Stacion metroje";
+"type.railway.station.subway.brasilia" = "Stacion metroje";
+"type.railway.station.subway.brescia" = "Stacion metroje";
+"type.railway.station.subway.brussels" = "Stacion metroje";
+"type.railway.station.subway.bucharest" = "Stacion metroje";
+"type.railway.station.subway.budapest" = "Stacion metroje";
+"type.railway.station.subway.buenos_aires" = "Stacion metroje";
+"type.railway.station.subway.bursa" = "Stacion metroje";
+"type.railway.station.subway.cairo" = "Stacion metroje";
+"type.railway.station.subway.caracas" = "Stacion metroje";
+"type.railway.station.subway.catania" = "Stacion metroje";
+"type.railway.station.subway.changchun" = "Stacion metroje";
+"type.railway.station.subway.chengdu" = "Stacion metroje";
+"type.railway.station.subway.chicago" = "Stacion metroje";
+"type.railway.station.subway.chongqing" = "Stacion metroje";
+"type.railway.station.subway.dalian" = "Stacion metroje";
+"type.railway.station.subway.delhi" = "Stacion metroje";
+"type.railway.station.subway.dnepro" = "Stacion metroje";
+"type.railway.station.subway.dubai" = "Stacion metroje";
+"type.railway.station.subway.ekb" = "Stacion metroje";
+"type.railway.station.subway.fukuoka" = "Stacion metroje";
+"type.railway.station.subway.glasgow" = "Stacion metroje";
+"type.railway.station.subway.guangzhou" = "Stacion metroje";
+"type.railway.station.subway.hamburg" = "Stacion metroje";
+"type.railway.station.subway.helsinki" = "Stacion metroje";
+"type.railway.station.subway.hiroshima" = "Stacion metroje";
+"type.railway.station.subway.hongkong" = "Stacion metroje";
+"type.railway.station.subway.isfahan" = "Stacion metroje";
+"type.railway.station.subway.istanbul" = "Stacion metroje";
+"type.railway.station.subway.izmir" = "Stacion metroje";
+"type.railway.station.subway.kazan" = "Stacion metroje";
+"type.railway.station.subway.kharkiv" = "Stacion metroje";
+"type.railway.station.subway.kiev" = "Stacion metroje";
+"type.railway.station.subway.kobe" = "Stacion metroje";
+"type.railway.station.subway.kolkata" = "Stacion metroje";
+"type.railway.station.subway.kunming" = "Stacion metroje";
+"type.railway.station.subway.kyoto" = "Stacion metroje";
+"type.railway.station.subway.la" = "Stacion metroje";
+"type.railway.station.subway.lausanne" = "Stacion metroje";
+"type.railway.station.subway.lille" = "Stacion metroje";
+"type.railway.station.subway.lima" = "Stacion metroje";
+"type.railway.station.subway.lisboa" = "Stacion metroje";
+"type.railway.station.subway.london" = "Stacion metroje";
+"type.railway.station.subway.lyon" = "Stacion metroje";
+"type.railway.station.subway.madrid" = "Stacion metroje";
+"type.railway.station.subway.malaga" = "Stacion metroje";
+"type.railway.station.subway.manila" = "Stacion metroje";
+"type.railway.station.subway.maracaibo" = "Stacion metroje";
+"type.railway.station.subway.mashhad" = "Stacion metroje";
+"type.railway.station.subway.mecca" = "Stacion metroje";
+"type.railway.station.subway.medellin" = "Stacion metroje";
+"type.railway.station.subway.mexico" = "Stacion metroje";
+"type.railway.station.subway.milan" = "Stacion metroje";
+"type.railway.station.subway.minsk" = "Stacion metroje";
+"type.railway.station.subway.montreal" = "Stacion metroje";
+"type.railway.station.subway.moscow" = "Stacion metroje";
+"type.railway.station.subway.munchen" = "Stacion metroje";
+"type.railway.station.subway.nagoya" = "Stacion metroje";
+"type.railway.station.subway.newyork" = "Stacion metroje";
+"type.railway.station.subway.nnov" = "Stacion metroje";
+"type.railway.station.subway.novosibirsk" = "Stacion metroje";
+"type.railway.station.subway.osaka" = "Stacion metroje";
+"type.railway.station.subway.oslo" = "Stacion metroje";
+"type.railway.station.subway.palma" = "Stacion metroje";
+"type.railway.station.subway.panama" = "Stacion metroje";
+"type.railway.station.subway.paris" = "Stacion metroje";
+"type.railway.station.subway.philadelphia" = "Stacion metroje";
+"type.railway.station.subway.pyongyang" = "Stacion metroje";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Stacion metroje";
+"type.railway.station.subway.rennes" = "Stacion metroje";
+"type.railway.station.subway.rio" = "Stacion metroje";
+"type.railway.station.subway.roma" = "Stacion metroje";
+"type.railway.station.subway.rotterdam" = "Stacion metroje";
+"type.railway.station.subway.samara" = "Stacion metroje";
+"type.railway.station.subway.santiago" = "Stacion metroje";
+"type.railway.station.subway.santo_domingo" = "Stacion metroje";
+"type.railway.station.subway.saopaulo" = "Stacion metroje";
+"type.railway.station.subway.sapporo" = "Stacion metroje";
+"type.railway.station.subway.sendai" = "Stacion metroje";
+"type.railway.station.subway.sf" = "Stacion metroje";
+"type.railway.station.subway.shanghai" = "Stacion metroje";
+"type.railway.station.subway.shenzhen" = "Stacion metroje";
+"type.railway.station.subway.shiraz" = "Stacion metroje";
+"type.railway.station.subway.singapore" = "Stacion metroje";
+"type.railway.station.subway.sofia" = "Stacion metroje";
+"type.railway.station.subway.spb" = "Stacion metroje";
+"type.railway.station.subway.stockholm" = "Stacion metroje";
+"type.railway.station.subway.tabriz" = "Stacion metroje";
+"type.railway.station.subway.taipei" = "Stacion metroje";
+"type.railway.station.subway.taoyuan" = "Stacion metroje";
+"type.railway.station.subway.tashkent" = "Stacion metroje";
+"type.railway.station.subway.tbilisi" = "Stacion metroje";
+"type.railway.station.subway.tehran" = "Stacion metroje";
+"type.railway.station.subway.tianjin" = "Stacion metroje";
+"type.railway.station.subway.tokyo" = "Stacion metroje";
+"type.railway.station.subway.valencia" = "Stacion metroje";
+"type.railway.station.subway.vienna" = "Stacion metroje";
+"type.railway.station.subway.warszawa" = "Stacion metroje";
+"type.railway.station.subway.washington" = "Stacion metroje";
+"type.railway.station.subway.wuhan" = "Stacion metroje";
+"type.railway.station.subway.yerevan" = "Stacion metroje";
+"type.railway.station.subway.yokohama" = "Stacion metroje";
+"type.railway.subway" = "Linjë metroje";
+"type.railway.subway.bridge" = "Urë metroje";
+"type.railway.subway.tunnel" = "Tunel metroje";
+"type.railway.subway_entrance" = "Hyrje metroje";
+"type.railway.subway_entrance.adana" = "Hyrje metroje";
+"type.railway.subway_entrance.algiers" = "Hyrje metroje";
+"type.railway.subway_entrance.almaty" = "Hyrje metroje";
+"type.railway.subway_entrance.amsterdam" = "Hyrje metroje";
+"type.railway.subway_entrance.ankara" = "Hyrje metroje";
+"type.railway.subway_entrance.athens" = "Hyrje metroje";
+"type.railway.subway_entrance.baku" = "Hyrje metroje";
+"type.railway.subway_entrance.bangkok" = "Hyrje metroje";
+"type.railway.subway_entrance.barcelona" = "Hyrje metroje";
+"type.railway.subway_entrance.beijing" = "Hyrje metroje";
+"type.railway.subway_entrance.bengalore" = "Hyrje metroje";
+"type.railway.subway_entrance.berlin" = "Hyrje metroje";
+"type.railway.subway_entrance.bilbao" = "Hyrje metroje";
+"type.railway.subway_entrance.brasilia" = "Hyrje metroje";
+"type.railway.subway_entrance.brescia" = "Hyrje metroje";
+"type.railway.subway_entrance.brussels" = "Hyrje metroje";
+"type.railway.subway_entrance.bucharest" = "Hyrje metroje";
+"type.railway.subway_entrance.budapest" = "Hyrje metroje";
+"type.railway.subway_entrance.buenos_aires" = "Hyrje metroje";
+"type.railway.subway_entrance.bursa" = "Hyrje metroje";
+"type.railway.subway_entrance.cairo" = "Hyrje metroje";
+"type.railway.subway_entrance.caracas" = "Hyrje metroje";
+"type.railway.subway_entrance.catania" = "Hyrje metroje";
+"type.railway.subway_entrance.changchun" = "Hyrje metroje";
+"type.railway.subway_entrance.chengdu" = "Hyrje metroje";
+"type.railway.subway_entrance.chicago" = "Hyrje metroje";
+"type.railway.subway_entrance.chongqing" = "Hyrje metroje";
+"type.railway.subway_entrance.dalian" = "Hyrje metroje";
+"type.railway.subway_entrance.delhi" = "Hyrje metroje";
+"type.railway.subway_entrance.dnepro" = "Hyrje metroje";
+"type.railway.subway_entrance.dubai" = "Hyrje metroje";
+"type.railway.subway_entrance.ekb" = "Hyrje metroje";
+"type.railway.subway_entrance.fukuoka" = "Hyrje metroje";
+"type.railway.subway_entrance.glasgow" = "Hyrje metroje";
+"type.railway.subway_entrance.guangzhou" = "Hyrje metroje";
+"type.railway.subway_entrance.hamburg" = "Hyrje metroje";
+"type.railway.subway_entrance.helsinki" = "Hyrje metroje";
+"type.railway.subway_entrance.hiroshima" = "Hyrje metroje";
+"type.railway.subway_entrance.hongkong" = "Hyrje metroje";
+"type.railway.subway_entrance.isfahan" = "Hyrje metroje";
+"type.railway.subway_entrance.istanbul" = "Hyrje metroje";
+"type.railway.subway_entrance.izmir" = "Hyrje metroje";
+"type.railway.subway_entrance.kazan" = "Hyrje metroje";
+"type.railway.subway_entrance.kharkiv" = "Hyrje metroje";
+"type.railway.subway_entrance.kiev" = "Hyrje metroje";
+"type.railway.subway_entrance.kobe" = "Hyrje metroje";
+"type.railway.subway_entrance.kolkata" = "Hyrje metroje";
+"type.railway.subway_entrance.kunming" = "Hyrje metroje";
+"type.railway.subway_entrance.kyoto" = "Hyrje metroje";
+"type.railway.subway_entrance.la" = "Hyrje metroje";
+"type.railway.subway_entrance.lausanne" = "Hyrje metroje";
+"type.railway.subway_entrance.lille" = "Hyrje metroje";
+"type.railway.subway_entrance.lima" = "Hyrje metroje";
+"type.railway.subway_entrance.lisboa" = "Hyrje metroje";
+"type.railway.subway_entrance.london" = "Hyrje stacioni metroje";
+"type.railway.subway_entrance.lyon" = "Hyrje metroje";
+"type.railway.subway_entrance.madrid" = "Hyrje metroje";
+"type.railway.subway_entrance.malaga" = "Hyrje metroje";
+"type.railway.subway_entrance.manila" = "Hyrje metroje";
+"type.railway.subway_entrance.maracaibo" = "Hyrje metroje";
+"type.railway.subway_entrance.mashhad" = "Hyrje metroje";
+"type.railway.subway_entrance.mecca" = "Hyrje metroje";
+"type.railway.subway_entrance.medellin" = "Hyrje metroje";
+"type.railway.subway_entrance.mexico" = "Hyrje metroje";
+"type.railway.subway_entrance.milan" = "Hyrje metroje";
+"type.railway.subway_entrance.minsk" = "Hyrje metroje";
+"type.railway.subway_entrance.montreal" = "Hyrje metroje";
+"type.railway.subway_entrance.moscow" = "Hyrje metroje";
+"type.railway.subway_entrance.munchen" = "Hyrje metroje";
+"type.railway.subway_entrance.nagoya" = "Hyrje metroje";
+"type.railway.subway_entrance.newyork" = "Hyrje metroje";
+"type.railway.subway_entrance.nnov" = "Hyrje metroje";
+"type.railway.subway_entrance.novosibirsk" = "Hyrje metroje";
+"type.railway.subway_entrance.osaka" = "Hyrje metroje";
+"type.railway.subway_entrance.oslo" = "Hyrje metroje";
+"type.railway.subway_entrance.palma" = "Hyrje metroje";
+"type.railway.subway_entrance.panama" = "Hyrje metroje";
+"type.railway.subway_entrance.paris" = "Hyrje metroje";
+"type.railway.subway_entrance.philadelphia" = "Hyrje metroje";
+"type.railway.subway_entrance.pyongyang" = "Hyrje metroje";
+"type.railway.subway_entrance.rennes" = "Hyrje metroje";
+"type.railway.subway_entrance.rio" = "Hyrje metroje";
+"type.railway.subway_entrance.roma" = "Hyrje metroje";
+"type.railway.subway_entrance.rotterdam" = "Hyrje metroje";
+"type.railway.subway_entrance.samara" = "Hyrje metroje";
+"type.railway.subway_entrance.santiago" = "Hyrje metroje";
+"type.railway.subway_entrance.santo_domingo" = "Hyrje metroje";
+"type.railway.subway_entrance.saopaulo" = "Hyrje metroje";
+"type.railway.subway_entrance.sapporo" = "Hyrje metroje";
+"type.railway.subway_entrance.sendai" = "Hyrje metroje";
+"type.railway.subway_entrance.sf" = "Hyrje metroje";
+"type.railway.subway_entrance.shanghai" = "Hyrje metroje";
+"type.railway.subway_entrance.shenzhen" = "Hyrje metroje";
+"type.railway.subway_entrance.shiraz" = "Hyrje metroje";
+"type.railway.subway_entrance.singapore" = "Hyrje metroje";
+"type.railway.subway_entrance.sofia" = "Hyrje metroje";
+"type.railway.subway_entrance.spb" = "Hyrje metroje";
+"type.railway.subway_entrance.stockholm" = "Hyrje metroje";
+"type.railway.subway_entrance.tabriz" = "Hyrje metroje";
+"type.railway.subway_entrance.taipei" = "Hyrje metroje";
+"type.railway.subway_entrance.taoyuan" = "Hyrje metroje";
+"type.railway.subway_entrance.tashkent" = "Hyrje metroje";
+"type.railway.subway_entrance.tbilisi" = "Hyrje metroje";
+"type.railway.subway_entrance.tehran" = "Hyrje metroje";
+"type.railway.subway_entrance.tianjin" = "Hyrje metroje";
+"type.railway.subway_entrance.tokyo" = "Hyrje metroje";
+"type.railway.subway_entrance.valencia" = "Hyrje metroje";
+"type.railway.subway_entrance.vienna" = "Hyrje metroje";
+"type.railway.subway_entrance.warszawa" = "Hyrje metroje";
+"type.railway.subway_entrance.washington" = "Hyrje metroje";
+"type.railway.subway_entrance.wuhan" = "Hyrje metroje";
+"type.railway.subway_entrance.yerevan" = "Hyrje metroje";
+"type.railway.subway_entrance.yokohama" = "Hyrje metroje";
+"type.railway.tram" = "Linjë tramvaji";
+"type.railway.tram.bridge" = "Urë tramvaji";
+"type.railway.tram.tunnel" = "Tunel tramvaji";
+"type.railway.tram_stop" = "Stacion tramvaji";
+"type.route" = "Rrugëkalim";
+"type.route.ferry" = "Traget";
+"type.route.shuttle_train" = "route-shuttle_train";
+"type.shop" = "Dyqan";
+"type.shop.alcohol" = "Dyqan pijesh alkoolike";
+"type.shop.bakery" = "Furrrë buke";
+"type.shop.bathroom_furnishing" = "Pajisje banjoje";
+"type.shop.beauty" = "Sallon bukurie";
+"type.shop.beverages" = "Pije";
+"type.shop.bicycle" = "Dyqan biçikletash";
+"type.shop.bookmaker" = "Lototo";
+"type.shop.books" = "Librari";
+"type.shop.butcher" = "Kasap";
+"type.shop.cannabis" = "Dyqan kanabisi";
+"type.shop.car" = "Shitje makinash";
+"type.shop.car_parts" = "Pjesë këmbimi";
+"type.shop.car_repair" = "Servis makinash";
+"type.shop.car_repair.tyres" = "Gomisteri";
+"type.shop.caravan" = "Shitje rulotash";
+"type.shop.carpet" = "Dyqan qilimash";
+"type.shop.chemist" = "Farmaci";
+"type.shop.chocolate" = "Dyqan çokollatash";
+"type.shop.clothes" = "Dyqan rrobash";
+"type.shop.coffee" = "Dyqan kafeje";
+"type.shop.computer" = "Dyqan kompjuterash";
+"type.shop.confectionery" = "Dyqan ëmbëlsirash";
+"type.shop.convenience" = "Dyqan lagjeje";
+"type.shop.copyshop" = "Qendër fotokopjimi";
+"type.shop.cosmetics" = "Dyqan kozmetike";
+"type.shop.curtain" = "Dyqan perdesh";
+"type.shop.deli" = "Ushqimor";
+"type.shop.department_store" = "Qendër tregtare";
+"type.shop.doityourself" = "Dyqan veglash";
+"type.shop.dry_cleaning" = "Pastrim kimik";
+"type.shop.electronics" = "Dyqan elektronik";
+"type.shop.erotic" = "Dyqan erotik";
+"type.shop.fabric" = "Dyqan pëlhurash";
+"type.shop.farm" = "Dyqan ferme";
+"type.shop.fashion_accessories" = "Aksesorë mode";
+"type.shop.florist" = "Dyqan lulesh";
+"type.shop.funeral_directors" = "Agjenci funerale";
+"type.shop.furniture" = "Dyqan mobiljesh";
+"type.shop.garden_centre" = "Qendër kopshtarie";
+"type.shop.gas" = "Dyqan gazi";
+"type.shop.gift" = "Dyqan dhuratash";
+"type.shop.greengrocer" = "Dyqan frutash-perimesh";
+"type.shop.grocery" = "Ushqimore";
+"type.shop.hairdresser" = "Parukeri";
+"type.shop.hardware" = "Knaluri";
+"type.shop.health_food" = "Ushqim i shëndetshëm";
+"type.shop.hearing_aids" = "Aparate dëgjimi";
+"type.shop.herbalist" = "Bimë mjekësore";
+"type.shop.hifi" = "Dyqan audio";
+"type.shop.houseware" = "Pajisje shtëpiake";
+"type.shop.jewelry" = "Argjendari";
+"type.shop.kiosk" = "Kioskë";
+"type.shop.kitchen" = "Pajisje kuzhine";
+"type.shop.laundry" = "Lavanderi";
+"type.shop.mall" = "Qendër tregtare";
+"type.shop.massage" = "Sallon masazhi";
+"type.shop.mobile_phone" = "Dyqan celularësh";
+"type.shop.money_lender" = "Huadhënës";
+"type.shop.motorcycle" = "Dyqan motorësh";
+"type.shop.motorcycle_repair" = "Servis motorësh";
+"type.shop.music" = "Dyqan muzikore";
+"type.shop.musical_instrument" = "Vegla muzikore";
+"type.shop.newsagent" = "Gazeta";
+"type.shop.optician" = "Optikë";
+"type.shop.outdoor" = "Pajisje për natyrë";
+"type.shop.outpost" = "Pikë marrjeje";
+"type.shop.pasta" = "Dyqan makaronash";
+"type.shop.pastry" = "Pastiçeri";
+"type.shop.pawnbroker" = "Lombard";
+"type.shop.pet" = "Dyqan kafshësh";
+"type.shop.pet_grooming" = "Kujdes për kafshët";
+"type.shop.photo" = "Foto studio";
+"type.shop.rental" = "Dyqan me qira";
+"type.shop.rental.bicycle" = "Qira biçikletash";
+"type.amenity.bicycle_rental.shop" = "Qira biçikletash";
+"type.shop.seafood" = "Dyqan peshku";
+"type.shop.second_hand" = "Dyqan rrobash të përdorura";
+"type.shop.shoes" = "Dyqan këpucësh";
+"type.shop.sports" = "Dyqan sportiv";
+"type.shop.stationery" = "Kanceleri";
+"type.shop.supermarket" = "Supermarket";
+"type.shop.tattoo" = "Studio tatuazhesh";
+"type.shop.tea" = "Dyqan çaji";
+"type.shop.ticket" = "Biletari";
+"type.shop.toys" = "Dyqan lodrash";
+"type.shop.travel_agency" = "Agjenci udhëtimi";
+"type.shop.tyres" = "Gomisteri";
+"type.shop.variety_store" = "Dyqan gjithçkaje";
+"type.shop.video" = "Dyqan videosh";
+"type.shop.video_games" = "Lojëra elektronike";
+"type.shop.wine" = "Dyqan vere";
+"type.shop.agrarian" = "Dyqan bujqësor";
+"type.shop.antiques" = "Dyqan antikuaresh";
+"type.shop.appliance" = "Pajisje elektroshtëpiake";
+
+/* maybe change to Art Gallery for en-US when supported */
+"type.shop.art" = "Dyqan arti";
+"type.shop.baby_goods" = "Artikuj për bebe";
+"type.shop.bag" = "Dyqan çantash";
+"type.shop.bed" = "Dyqan dyshekësh";
+"type.shop.boutique" = "Butik";
+"type.shop.charity" = "Dyqan bamirësie";
+"type.shop.cheese" = "Dyqan djathi";
+"type.shop.craft" = "Materiale artizanale";
+"type.shop.dairy" = "Bulmetore";
+"type.shop.electrical" = "Materiale elektrike";
+"type.shop.fishing" = "Pajisje peshkimi";
+"type.shop.interior_decoration" = "Dekore të brendshme";
+"type.shop.lottery" = "Bileta lotarie";
+"type.shop.medical_supply" = "Pajisje mjekësore";
+"type.shop.nutrition_supplements" = "Suplemente ushqimore";
+"type.shop.paint" = "Dyqan bojërash";
+"type.shop.perfumery" = "Parfumeri";
+"type.shop.sewing" = "Materiale rrobaqepësie";
+"type.shop.storage_rental" = "Magazinë me qira";
+"type.shop.tobacco" = "Dyqan duhani";
+"type.shop.trade" = "Materiale ndërtimi";
+"type.shop.watches" = "Dyqan orësh";
+"type.shop.wholesale" = "Shitje me shumicë";
+"type.sport" = "Sport";
+"type.sport.american_football" = "Futboll amerikan";
+"type.sport.archery" = "Hark";
+"type.sport.athletics" = "Atletikë";
+"type.sport.australian_football" = "Futboll australian";
+"type.sport.baseball" = "Bejsboll";
+"type.sport.basketball" = "Basketboll";
+"type.sport.beachvolleyball" = "Volejboll plazhi";
+"type.sport.bowls" = "Kugla";
+"type.sport.chess" = "Shah";
+"type.sport.cricket" = "Kriket";
+"type.sport.curling" = "Kërling";
+"type.sport.equestrian" = "Hipizëm";
+"type.sport.golf" = "Golf";
+"type.sport.gymnastics" = "Gjimnastikë";
+"type.sport.handball" = "Hendboll";
+"type.sport.multi" = "sporte të ndryshme";
+
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Zhytje";
+"type.sport.shooting" = "Qitje";
+"type.sport.skateboard" = "Skejt";
+"type.sport.skiing" = "Ski";
+"type.sport.soccer" = "Futboll";
+"type.sport.swimming" = "Not";
+"type.sport.table_tennis" = "Tenis tavoline";
+"type.sport.tennis" = "Fushë tenisi";
+"type.sport.volleyball" = "Volejboll";
+"type.sport.10pin" = "Bouling";
+"type.sport.9pin" = "Bouling";
+"type.sport.padel" = "Padel";
+"type.sport.futsal" = "Futboll sallash";
+"type.sport.ice_hockey" = "Hokej në akull";
+"type.sport.field_hockey" = "Hokej në fushë";
+"type.sport.badminton" = "Badminton";
+"type.sport.pelota" = "Pelota Baske";
+"type.tourism" = "Turizëm";
+"type.tourism.aquarium" = "Akuarium";
+
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Bujtine malore";
+"type.tourism.apartment" = "Apartament pushimi";
+"type.tourism.artwork" = "Vepër arti";
+"type.tourism.artwork.architecture" = "Vepër arkitekturale";
+"type.tourism.artwork.painting" = "Pikturë";
+"type.tourism.artwork.sculpture" = "Skulpturë";
+"type.tourism.artwork.statue" = "Statuja";
+"type.tourism.attraction" = "Atraksion";
+"type.attraction.amusement_ride" = "Lojëra argëtuese";
+"type.attraction.animal" = "Kopsht kafshësh";
+"type.attraction.bumper_car" = "Makinë përplasëse";
+"type.attraction.big_wheel" = "Rrotë panoramike";
+"type.attraction.carousel" = "Karousel";
+"type.attraction.historic" = "Atraksion historik";
+"type.attraction.maze" = "Labirint";
+"type.attraction.roller_coaster" = "Roler koster";
+"type.attraction.water_slide" = "Rrëshqitëse uji";
+"type.tourism.attraction.specified" = "Atraksion";
+"type.tourism.camp_site" = "Kamping";
+"type.tourism.caravan_site" = "Park rulotash";
+
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Shtëpi pushimi";
+"type.tourism.gallery" = "Galeri arti";
+"type.tourism.guest_house" = "Bujtinë";
+"type.tourism.hostel" = "Hostel";
+"type.tourism.hotel" = "Hotel";
+"type.tourism.information" = "Informacion turistik";
+"type.tourism.information.board" = "Tabelë informacioni";
+"type.tourism.information.guidepost" = "Tabelë udhëzuese";
+"type.tourism.information.map" = "Hartë turistike";
+"type.tourism.information.office" = "Zyrë turistike";
+"type.tourism.information.visitor_centre" = "Qendër vizitorësh";
+"type.amenity.ranger_station" = "Stacion rojesh";
+"type.tourism.motel" = "Motel";
+"type.tourism.museum" = "Muze";
+"type.tourism.picnic_site" = "Vend pikniku";
+"type.leisure.resort" = "Resort";
+"type.tourism.theme_park" = "Park tematik";
+"type.tourism.viewpoint" = "Pikë vrojtimi";
+
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
+"type.tourism.wilderness_hut" = "Kasolle";
+"type.tourism.zoo" = "Kopsht zoologjik";
+"type.tourism.zoo.petting" = "Kopsht ledhatimi";
+"type.traffic_calming" = "Qetësim trafiku";
+"type.traffic_calming.bump" = "Kurriz artificial";
+"type.traffic_calming.hump" = "Kurriz i gjerë";
+"type.waterway" = "Rrugë ujore";
+"type.waterway.canal" = "Kanal";
+"type.waterway.canal.tunnel" = "Tunel kanali";
+"type.waterway.fish_pass" = "Kalim peshqish";
+"type.waterway.dam" = "Diga";
+"type.barrier.ditch" = "Kanal";
+"type.natural.water.ditch" = "Kanal kullues";
+"type.waterway.ditch.tunnel" = "Tombinë";
+"type.waterway.dock" = "Dok";
+"type.waterway.drain" = "Kullues";
+"type.natural.water.drain" = "Kullues";
+"type.waterway.drain.tunnel" = "Tombinë";
+"type.waterway.lock_gate" = "Portë bllokimi";
+"type.waterway.river" = "Lumë";
+"type.waterway.river.tunnel" = "Lumë";
+"type.waterway.stream" = "Përrua";
+"type.waterway.stream.ephemeral" = "Përrua sezonal";
+"type.waterway.stream.intermittent" = "Përrua i ndërprerë";
+"type.waterway.stream.tunnel" = "Përrua";
+"type.waterway.waterfall" = "Ujëvarë";
+"type.waterway.weir" = "Pendë";
+"type.wheelchair" = "Karrige me rrota";
+"type.wheelchair.limited" = "Karrige me rrota (kufizuar)";
+"type.wheelchair.no" = "Pa akses karrige me rrota";
+"type.wheelchair.yes" = "Akses i plotë";
+"type.aerialway.j.bar" = "Ashensor J-bar";
+"type.aerialway.magic_carpet" = "Tapet magjik";
+"type.aerialway.platter" = "Ashensor pjate";
+"type.aerialway.rope_tow" = "Tërheqës me litar";
+"type.aerialway.t.bar" = "Ashensor T-bar";
+"type.piste_type.downhill" = "Pistë skish";
+"type.piste_type.downhill.area" = "Pistë skish";
+"type.piste_type.downhill.advanced" = "Pistë skish (E avancuar)";
+"type.piste_type.downhill.advanced.area" = "Pistë skish (E avancuar)";
+"type.piste_type.downhill.easy" = "Pistë skish (E lehtë)";
+"type.piste_type.downhill.easy.area" = "Pistë skish (E lehtë)";
+"type.piste_type.downhill.expert" = "Pistë skish (Ekspert)";
+"type.piste_type.downhill.expert.area" = "Pistë skish (Ekspert)";
+"type.piste_type.downhill.freeride" = "Pistë skish (Freeride)";
+"type.piste_type.downhill.intermediate" = "Pistë skish (Mesatare)";
+"type.piste_type.downhill.intermediate.area" = "Pistë skish (Mesatare)";
+"type.piste_type.downhill.novice" = "Pistë skish (Fillestar)";
+"type.piste_type.downhill.novice.area" = "Pistë skish (Fillestar)";
+"type.piste_type.nordic" = "Shteg skish nordike";
+"type.piste_type.sled" = "Pistë sajë";
+"type.piste_type.sled.area" = "Pistë sajë";
+"type.piste_type.snow_park" = "Park dëbore";
+"type.piste_type.hike" = "Shteg ecjeje në dëborë";
+"type.piste_type.connection" = "Lidhje pistash";
+"type.piste_type.skitour" = "Tur me ski";
+"type.amenity.events_venue" = "Vend ngjarjesh";
+"type.shop.auction" = "Ankand";
+"type.shop.collector" = "Kolesione";
+"type.self_service.yes" = "Vetë-shërbim";
+"type.self_service.only" = "Vetëm vetë-shërbim";
+"type.self_service.partially" = "Vetë-shërbim i pjesshëm";
+"type.self_service.no" = "Pa vetë-shërbim";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "Objekt social";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
+"type.emergency.emergency_ward_entrance" = "Hyrje e urgjencës";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Doho";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Sallë sporti";
+"type.sport.diving" = "Zhytje";
+"type.man_made.crane" = "Vinç";
+"type.barrier.wicket_gate" = "Portë e vogël";
+"type.barrier.yes" = "Barrierë";
+"type.building.guardhouse" = "Roje";
+"type.office.security" = "Zyrë sigurie";
+"type.power.portal" = "Shtyllë tensioni";
+"type.shop.lighting" = "Dyqan ndriçimi";
+"type.barrier.jersey_barrier" = "Bllok";
+"type.barrier.debris" = "Rrënoja";
+"type.barrier.log" = "Barrierë druri";
+"type.amenity.boat_rental" = "Marrje varkash me qira";
+"type.shop.telecommunication" = "Dyqan telekomunikacioni";
+"type.leisure.indoor_play" = "Qendër lojërash";
+"type.tourism.camp_pitch" = "Vend kampingu";
+"type.railway.miniature" = "Hekurudhë në miniaturë";
+"type.amenity.kneipp_water_cure" = "Kura Kneipp";
+"type.area_highway.traffic_island" = "Ishull trafiku";
+"type.man_made.monitoring_station" = "Stacion monitorimi";
+"type.man_made.monitoring_station.water_level" = "Monitorim niveli uji";
+"type.man_made.monitoring_station.weather" = "Stacion meteorologjik";
+"type.amenity.student_accommodation" = "Konvikt";
+"type.craft.watchmaker" = "Orëndreqës";
+"type.xmas_feature.market" = "Treg Krishtlindjesh";
+"type.xmas_feature.tree" = "Pema e Krishtlindjeve";
