@@ -263,6 +263,7 @@ void Processor::SetQuery(string const & query, bool categorialRequest /* = false
 
   // Get preferred types to show in results.
   m_preferredTypes.clear();
+  m_cuisineTypes.clear();
   m_isCategorialRequest = categorialRequest;
 
   auto const locales = GetCategoryLocales();

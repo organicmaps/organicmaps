@@ -16,16 +16,14 @@ namespace search
 std::vector<uint32_t> GetCategoryTypes(std::string const & name, std::string const & locale,
                                        CategoriesHolder const & categories)
 {
-  std::vector<uint32_t> types;
-
   int8_t const code = CategoriesHolder::MapLocaleToInteger(locale);
   Locales locales;
   locales.Insert(static_cast<uint64_t>(code));
 
   auto const tokens = NormalizeAndTokenizeString(name);
 
-  FillCategories(QuerySliceOnRawStrings<std::vector<strings::UniString>>(tokens, {} /* prefix */), locales, categories,
-                 types);
+  std::vector<uint32_t> types;
+  FillCategories(QuerySliceOnRawStrings(tokens, {} /* prefix */), locales, categories, types);
 
   base::SortUnique(types);
   return types;
