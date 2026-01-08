@@ -3489,7 +3489,7 @@ tr = Anaokulu
 uk = Дитячий садок
 vi = Mẫu giáo
 zh-Hans = 幼儿园
-zh-Hant = 幼兒園
+zh-Hant = 幼稚園
 
 [type.amenity.library]
 en = Library
@@ -19810,6 +19810,7 @@ fa = قبرستان
 hu = Keresztény temető
 id = Pemakaman
 ko = 묘소
+lt = Kapinės
 nb = Gravplass
 nl = Christelijke begraafplaats
 ro = Cimitir
@@ -19880,6 +19881,7 @@ fr = Cour d'église
 he = חצר כנסיה
 hu = Templomkert
 id = Halaman gereja
+is = Kirkjugarður
 it = Sagrato della chiesa
 ja = キリスト教教会付属地
 ko = 교회 마당
@@ -29537,6 +29539,7 @@ is = S-Bahn stöð
 it = Stazione ferroviaria
 ja = 鉄道駅
 ko = 기차역
+lt = Geležinkelio stotis
 mr = रेल्वे स्थानक
 nb = Togstasjon
 nl = Station
@@ -29580,6 +29583,7 @@ is = Lestarstöð (DLR)
 it = Stazione ferroviaria
 ja = 鉄道駅
 ko = 기차역
+lt = Geležinkelio stotis
 mr = रेल्वे स्थानक
 nb = Togstasjon
 nl = Station
@@ -29622,6 +29626,7 @@ is = Neðanjarðarlestarstöð (PM)
 it = Stazione ferroviaria
 ja = 鉄道駅
 ko = 기차역
+lt = Geležinkelio stotis
 mr = रेल्वे स्थानक
 nb = Togstasjon
 nl = Station
@@ -34713,6 +34718,7 @@ fr = Magasin de location de vélos
 he = חנות להשכרת אופניים
 hu = Kerékpárkölcsönző
 id = Toko Penyewaan Sepeda
+is = Reiðhjólaleiga
 it = Negozio di noleggio biciclette
 ja = レンタサイクルショップ
 ko = 자전거 대여점
@@ -41303,7 +41309,9 @@ es = Pista de esquí alpino
 fi = Laskettelurinne
 fr = Piste de ski alpin
 gl = Pista de esquí alpino
+lt = Kalnų slidinėjimo trasa
 zh-Hans = 高级速降滑雪区
+zh-Hant = 下坡滑雪道
 
 [type.piste_type.downhill.easy]
 ref = type.piste_type.downhill
@@ -41337,7 +41345,9 @@ es = Pista de esquí alpino
 fi = Laskettelurinne
 fr = Piste de ski alpin
 gl = Pista de esquí alpino
+lt = Kalnų slidinėjimo trasa
 zh-Hans = 初级速降滑雪区
+zh-Hant = 下坡滑雪道
 
 [type.piste_type.downhill.expert]
 ref = type.piste_type.downhill
@@ -41372,7 +41382,9 @@ es = Pista de esquí alpino
 fi = Laskettelurinne
 fr = Piste de ski alpin
 gl = Pista de esquí alpino
+lt = Kalnų slidinėjimo trasa
 zh-Hans = 专家级速降滑雪区
+zh-Hant = 下坡滑雪道
 
 [type.piste_type.downhill.freeride]
 ref = type.piste_type.downhill
@@ -41431,7 +41443,9 @@ es = Pista de esquí alpino
 fi = Laskettelurinne
 fr = Piste de ski alpin
 gl = Pista de esquí alpino
+lt = Kalnų slidinėjimo trasa
 zh-Hans = 中级速降滑雪区
+zh-Hant = 下坡滑雪道
 
 [type.piste_type.downhill.novice]
 ref = type.piste_type.downhill
@@ -41465,7 +41479,9 @@ es = Pista de esquí alpino
 fi = Laskettelurinne
 fr = Piste de ski alpin
 gl = Pista de esquí alpino
+lt = Kalnų slidinėjimo trasa
 zh-Hans = 新手速降滑雪区
+zh-Hant = 下坡滑雪道
 
 [type.piste_type.nordic]
 en = Nordic Ski Trail
@@ -43110,6 +43126,7 @@ he = שוק חג המולד
 hi = क्रिसमस का बाजार
 hu = Karácsonyi piac
 id = Pasar Natal
+is = Jólamarkaður
 it = Mercatino di Natale
 ja = クリスマス・マーケット
 ko = 크리스마스 마켓
@@ -43154,6 +43171,7 @@ he = עץ חג המולד
 hi = क्रिसमस ट्री
 hu = Karácsonyfa
 id = Pohon Natal
+is = Jólatré
 it = Albero di Natale
 ja = クリスマスツリー
 ko = 크리스마스 트리
