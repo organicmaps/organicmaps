@@ -55,9 +55,9 @@
     <string name="disconnect_usb_cable">Frakobl venligst USB-kabel, eller indsæt et hukommelseskort for at bruge Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Frigør først noget plads på dit SD-kort/USB lager for at bruge denne app</string>
-    <string name="download_resources">Før du begynder at bruge appen, skal du hente oversigtskortet over verden til din enhed. \nDet vil bruge %s lagerplads.</string>
+    <string name="download_resources">Før du begynder at bruge appen, skal du hente oversigtskortet over verden til din enhed.\nDet vil bruge %s lagerplads.</string>
     <string name="download_resources_continue">Gå til kortet</string>
-    <string name="downloading_country_can_proceed">Henter %s. Du kan nu \nfortsætte til kortet.</string>
+    <string name="downloading_country_can_proceed">Henter %s. Du kan nu\nfortsætte til kortet.</string>
     <string name="download_country_ask">Hent %s?</string>
     <string name="update_country_ask">Opdater %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -178,7 +178,7 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hey, tjek min nuværende placering på Organic Maps-kortet!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hej, \n \nJeg er her nu: %1$s. Tryk på dette link %2$s eller dette %3$s for at se stedet på kortet. \n \nTak.</string>
+    <string name="my_position_share_email">Hej,\n\nJeg er her nu: %1$s. Tryk på dette link %2$s eller dette %3$s for at se stedet på kortet. \n\nTak.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Del</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -578,7 +578,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Generel feedback</string>
     <string name="prefs_languages_information">Vi bruger systemets TTS til stemmevejledning. Mange Android-enheder bruger Google TTS, du kan hente eller opdatere det via Google Play</string>
-    <string name="prefs_languages_information_off">For nogle sprog skal du installere en anden talesyntese eller en yderligere sprogpakke fra appbutiken (Google Play, Galaxy Store, App Gallery, FDroid). \nÅbn enhedens indstillinger → Sprog og input → Tale → Tekst til tale. \nHer kan du administrere indstillingerne for talesyntese (f.eks. downloade en sprogpakke til brug offline) og vælge et andet tekst-til-tale program.</string>
+    <string name="prefs_languages_information_off">For nogle sprog skal du installere en anden talesyntese eller en yderligere sprogpakke fra appbutiken (Google Play, Galaxy Store, App Gallery, FDroid). \n\nÅbn din enheds indstillinger → Sprog og input → Tale → Tekst til tale.\nHer kan du administrere indstillingerne for talesyntese (f.eks. downloade en sprogpakke til brug offline) og vælge et andet tekst-til-tale program.</string>
     <string name="prefs_languages_information_off_link">Se denne vejledning for flere oplysninger.</string>
     <string name="transliteration_title">Translitterer til det latinske alfabet</string>
     <string name="learn_more">Flere oplysninger</string>

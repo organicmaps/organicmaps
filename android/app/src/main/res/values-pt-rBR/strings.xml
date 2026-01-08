@@ -11,6 +11,8 @@
     <string name="downloading">Baixando…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Quilômetros</string>
+    <!-- Update maps later button text -->
+    <string name="later">Depois</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
     <string name="search">Buscar</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
@@ -64,6 +66,8 @@
     <string name="move_maps_error">Erro ao mover arquivos de mapas</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
     <string name="wait_several_minutes">Isto pode demorar alguns minutos. \nPor favor, aguarde…</string>
+    <!-- Measurement units title in settings activity -->
+    <string name="measurement_units">Unidades de medidas</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Escolha entre milhas e quilômetros</string>
 
@@ -131,6 +135,8 @@
     <string name="pref_zoom_summary">Mostrar na tela</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Modo Noturno</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Desligar</string>
     <!-- Generic «On» string -->
     <string name="on">Em</string>
     <!-- Generic «Auto» string -->
@@ -154,6 +160,8 @@
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Verifique o volume ou as configurações de conversão de texto em fala do sistema se você não estiver ouvindo a voz agora.</string>
     <string name="pref_map_auto_zoom">Zoom automático</string>
+    <!-- Settings: Send feedback button and dialog title -->
+    <string name="feedback">Opinião</string>
     <!-- Text in menu -->
     <string name="rate_the_app">Avaliar o aplicativo</string>
     <!-- Button in the main Help dialog -->
@@ -162,6 +170,7 @@
     <string name="donate">Doação</string>
     <string name="already_donated">Já doou</string>
     <string name="remind_me_later">Lembrar mais tarde</string>
+    <string name="support_organic_maps">Apoiar o Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Apoiar o projeto</string>
     <!-- Button in the main Help dialog -->
@@ -186,6 +195,8 @@
     <string name="routing_failed_cross_mwm_building">Só podem ser criadas rotas que estejam totalmente contidas em um mapa de uma única região.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Baixar o mapa</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Tentar novamente</string>
     <!-- Item in context menu. -->
     <string name="downloader_delete_map">Apagar mapa</string>
     <!-- Item in context menu. -->
@@ -210,9 +221,9 @@
     <!-- cyan color -->
     <string name="cyan">Ciano</string>
     <!-- teal color -->
-    <string name="teal">Cerceta</string>
+    <string name="teal">Azul petróleo</string>
     <!-- lime color -->
-    <string name="lime">Cal</string>
+    <string name="lime">Verde limão</string>
     <!-- blue gray color -->
     <string name="blue_gray">Azul escuro</string>
     <!-- Tex label above the Donate button -->
@@ -251,6 +262,7 @@
     <string name="search_without_internet_advertisement">Para começar a pesquisar e criar rotas, por favor, baixe o mapa. Assim, você não precisará mais de uma conexão com a internet.</string>
     <!-- «Hide» context menu -->
     <string name="hide">Esconder</string>
+    <string name="history">História</string>
     <string name="search_not_found">Sinto muito, nenhum resultado foi encontrado.</string>
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Faça o download da região onde está pesquisando ou tente adicionar o nome de uma cidade ou povoado ao redor.</string>
@@ -287,6 +299,9 @@
     <string name="editor_report_problem_under_construction_title">Fechado para manutenção</string>
     <string name="editor_report_problem_duplicate_place_title">Lugar duplicado</string>
     <string name="autodownload">Download automático</string>
+    <!-- Place Page opening hours text -->
+    <string name="daily">Agenda</string>
+    <string name="twentyfour_seven">24/7</string>
     <string name="edit_opening_hours">Editar horário comercial</string>
     <string name="no_osm_account">Sem conta no OpenStreetMap?</string>
     <string name="register_at_openstreetmap">Abra uma conta no OpenStreetMap</string>
@@ -350,6 +365,7 @@
     <string name="editor_category_unsuitable_text">O Organic Maps permite que você adicione apenas categorias de pontos simples, o que significa que não há cidades, estradas, lagos, contornos de edifícios etc. Por favor, adicione essas categorias diretamente no <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nosso <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> para obter instruções detalhadas passo a passo.</string>
     <string name="downloader_no_downloaded_maps_title">Você não fez o download de nenhum mapa</string>
     <string name="downloader_no_downloaded_maps_message">Baixe mapas para pesquisar locais e usar navegação offline.</string>
+    <string name="day">d</string>
     <string name="placepage_more_button">Mais informações</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Editar marcador</string>
@@ -491,7 +507,10 @@
     <string name="sort_bookmarks">Classificar marcadores</string>
     <!-- Android -->
     <string name="by_default">Por padrão</string>
+    <string name="week_ago_sorttype">Há uma semana</string>
+    <string name="month_ago_sorttype">Há um mês</string>
     <string name="moremonth_ago_sorttype">Há mais de um mês</string>
+    <string name="moreyear_ago_sorttype">Há mais de um ano</string>
     <string name="near_me_sorttype">Próximo de mim</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
@@ -532,6 +551,8 @@
     <string name="enable_show_on_lock_screen">Mostrar na tela de bloqueio</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">Quando ativado, você não precisará debloquear seu dispositivo toda vez que o aplicativo estiver funcionando.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Idioma do Mapa</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Dados do mapa do OpenStreetMap</string>
     <!-- A link to the TTS FAQ -->
@@ -621,4 +642,6 @@
     <string name="uri_open_location_failed">Nenhum aplicativo instalado que possa abrir o local</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automático na navegação</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">Usar o padrão do sistema</string>
 </resources>

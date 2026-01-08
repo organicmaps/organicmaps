@@ -58,13 +58,13 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>zero</key>
-			<string>%d tragova</string>
+			<string>%d puteva</string>
 			<key>one</key>
-			<string>%d trag</string>
+			<string>%d put</string>
 			<key>few</key>
-			<string>%d traga</string>
+			<string>%d puta</string>
 			<key>other</key>
-			<string>%d tragova</string>
+			<string>%d puteva</string>
 		</dict>
 	</dict>
 

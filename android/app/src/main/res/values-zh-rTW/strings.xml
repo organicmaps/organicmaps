@@ -602,6 +602,7 @@
     <string name="bookmark_lists_hide_all">全部隱藏</string>
     <string name="bookmark_lists_show_all">全部顯示</string>
     <plurals name="bookmarks_places">
+        <item quantity="zero">沒有書籤</item>
         <item quantity="other">%d 個書籤</item>
     </plurals>
     <string name="bookmarks_create_new_group">創建新的列表</string>
@@ -619,11 +620,13 @@
     <string name="phone_number">電話號碼</string>
     <string name="profile">OpenStreetMap 資料</string>
     <plurals name="bookmarks_detect_message">
+        <item quantity="zero">沒有找到文件</item>
         <item quantity="one">找到 %d 個文件，轉換後您可以看到它。</item>
         <item quantity="other">找到 %d 個文件，轉換後您可以看到它們。</item>
     </plurals>
     <string name="restore">恢復</string>
     <plurals name="tracks">
+        <item quantity="zero">沒有軌跡</item>
         <item quantity="other">%d 軌跡</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

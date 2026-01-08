@@ -722,7 +722,7 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Kristinn grafreitur";
 "type.landuse.religious" = "Kirkjugarður";
-"type.landuse.churchyard" = "Churchyard";
+"type.landuse.churchyard" = "Kirkjugarður";
 "type.landuse.commercial" = "Verslunarsvæði";
 "type.landuse.construction" = "Byggingarsvæði";
 "type.landuse.education" = "Menntastofnun";
@@ -1343,7 +1343,7 @@
 "type.shop.pet_grooming" = "Snyrting fyrir gæludýr";
 "type.shop.photo" = "Ljósmyndavöruverslun";
 "type.shop.rental" = "Leiga";
-"type.shop.rental.bicycle" = "Bicycle Rental Shop";
+"type.shop.rental.bicycle" = "Reiðhjólaleiga";
 "type.amenity.bicycle_rental.shop" = "Hjólaleiga";
 "type.shop.seafood" = "Fisksali";
 "type.shop.second_hand" = "Verslun með notað";
@@ -1569,5 +1569,5 @@
 "type.man_made.monitoring_station.weather" = "Veðurstöð";
 "type.amenity.student_accommodation" = "Stúdentagarðar";
 "type.craft.watchmaker" = "Úrsmiður";
-"type.xmas_feature.market" = "Christmas Market";
-"type.xmas_feature.tree" = "Christmas Tree";
+"type.xmas_feature.market" = "Jólamarkaður";
+"type.xmas_feature.tree" = "Jólatré";
