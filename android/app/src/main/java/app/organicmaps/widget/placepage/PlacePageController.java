@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -54,7 +56,6 @@ public class PlacePageController
   private static final String PLACE_PAGE_BUTTONS_FRAGMENT_TAG = "PLACE_PAGE_BUTTONS";
   private static final String PLACE_PAGE_FRAGMENT_TAG = "PLACE_PAGE";
 
-  private static final float PREVIEW_PLUS_RATIO = 0.45f;
   private BottomSheetBehavior<View> mPlacePageBehavior;
   private NestedScrollView mPlacePage;
   private ViewGroup mPlacePageContainer;
@@ -205,6 +206,17 @@ public class PlacePageController
     });
 
     ViewCompat.requestApplyInsets(mPlacePage);
+    // if landscape then layout contains pp_bottom_container
+    final View ppBottomContainer = activity.findViewById(R.id.pp_bottom_container);
+    if (ppBottomContainer != null)
+    {
+      ViewCompat.setOnApplyWindowInsetsListener(ppBottomContainer, (v, insets) -> {
+        Insets horizontalInsets =
+            insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
+        v.setPadding(horizontalInsets.left, v.getPaddingTop(), horizontalInsets.right, 0);
+        return insets;
+      });
+    }
   }
 
   @NonNull
@@ -375,11 +387,20 @@ public class PlacePageController
     mCustomPeekHeightAnimator.start();
   }
 
+  private float getHeightRatio()
+  {
+    return ResourcesCompat.getFloat(getResources(), R.dimen.place_page_bottom_sheet_height_ratio);
+  }
+
   private int calculatePeekHeight()
   {
+    final int bottomInsets = (mCurrentWindowInsets != null)
+                               ? mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+                               : 0;
+    final boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     if (mMapObject != null && mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS)
-      return (int) (mCoordinator.getHeight() * PREVIEW_PLUS_RATIO);
-    return mPreviewHeight + mButtonsHeight;
+      return (int) (mCoordinator.getHeight() * getHeightRatio());
+    return mPreviewHeight + mButtonsHeight + (isLandscape ? bottomInsets : 0);
   }
 
   @Override

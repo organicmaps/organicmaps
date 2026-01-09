@@ -350,6 +350,11 @@
     <item name="behavior_hideable">false</item>
   </style>
 
+  <style name="MwmWidget.BottomSheet.Rounded" parent="">
+    <item name="backgroundTint">?cardBackground</item>
+    <item name="shapeAppearance">@style/ShapeAppearance.Material3.LargeComponent</item>
+  </style>
+
   <style name="FAB" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
     <item name="android:minHeight">30dp</item>
     <item name="android:minWidth">30dp</item>
