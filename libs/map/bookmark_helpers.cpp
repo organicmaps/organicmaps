@@ -285,13 +285,9 @@ bool IsBadCharForPath(strings::UniChar c)
 }  // namespace
 
 std::map<std::string_view, KmlFileType> extension_to_type = {
-  {kKmlExtension, KmlFileType::Text},
-  {kKmbExtension, KmlFileType::Binary},
-  {kGpxExtension, KmlFileType::Gpx},
-  {kKmzExtension, KmlFileType::Archive},
-  {kGeoJsonExtension, KmlFileType::GeoJson},
-  {kJsonExtension, KmlFileType::Json}
-};
+    {kKmlExtension, KmlFileType::Text},        {kKmbExtension, KmlFileType::Binary},
+    {kGpxExtension, KmlFileType::Gpx},         {kKmzExtension, KmlFileType::Archive},
+    {kGeoJsonExtension, KmlFileType::GeoJson}, {kJsonExtension, KmlFileType::Json}};
 
 std::string GetBookmarksDirectory()
 {
@@ -438,12 +434,9 @@ std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePat
     case KmlFileType::Text:
     case KmlFileType::Gpx:
     case KmlFileType::GeoJson:
-    case KmlFileType::Json:
-      return GetFilePathsToLoadFromPath(filePath, fileType);
-    case KmlFileType::Archive:
-      return GetFilePathsToLoadFromKmz(filePath);
-    case KmlFileType::Binary:
-      return GetFilePathsToLoadFromKmb(filePath);
+    case KmlFileType::Json: return GetFilePathsToLoadFromPath(filePath, fileType);
+    case KmlFileType::Archive: return GetFilePathsToLoadFromKmz(filePath);
+    case KmlFileType::Binary: return GetFilePathsToLoadFromKmb(filePath);
     }
     UNREACHABLE();
   }
@@ -485,7 +478,8 @@ std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath)
   if (kmlData == nullptr)
     return {};
 
-  auto fileSavePath = GenerateValidAndUniqueFilePathForBookmark(base::FileNameFromFullPath(filePath), KmlFileType::Text);
+  auto fileSavePath =
+      GenerateValidAndUniqueFilePathForBookmark(base::FileNameFromFullPath(filePath), KmlFileType::Text);
   if (!SaveKmlFileByExt(*kmlData, fileSavePath))
     return {};
   return {std::move(fileSavePath)};
