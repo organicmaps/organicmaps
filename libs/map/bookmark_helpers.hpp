@@ -119,6 +119,7 @@ std::string GetBookmarksDirectory();
 std::string GetTrashDirectory();
 std::string RemoveInvalidSymbols(std::string const & name);
 std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string_view ext = kKmlExtension);
+std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName);
 std::string GenerateValidAndUniqueFilePathForBookmark(std::string const & fileName, KmlFileType const fileType);
 /// @}
 
