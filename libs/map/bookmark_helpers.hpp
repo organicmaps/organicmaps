@@ -76,17 +76,33 @@ extern std::string const kDefaultBookmarksFileName;
 enum class KmlFileType
 {
   Text,
+  Archive,
   Binary,
   Gpx,
   GeoJson,
   Json
 };
 
+inline std::string_view GetFileTypeExtension(KmlFileType fileType)
+{
+  switch (fileType)
+  {
+  case KmlFileType::Text: return kKmlExtension;
+  case KmlFileType::Archive: return kKmzExtension;
+  case KmlFileType::Binary: return kKmbExtension;
+  case KmlFileType::Gpx: return kGpxExtension;
+  case KmlFileType::GeoJson: return kGeoJsonExtension;
+  case KmlFileType::Json: return kJsonExtension;
+  }
+  UNREACHABLE();
+}
+
 inline std::string DebugPrint(KmlFileType fileType)
 {
   switch (fileType)
   {
   case KmlFileType::Text: return "Text";
+  case KmlFileType::Archive: return "Archive";
   case KmlFileType::Binary: return "Binary";
   case KmlFileType::Gpx: return "GPX";
   case KmlFileType::GeoJson: return "GeoJson";
@@ -95,16 +111,15 @@ inline std::string DebugPrint(KmlFileType fileType)
   UNREACHABLE();
 }
 
+extern std::map<std::string_view, KmlFileType> extension_to_type;
+
 /// @name File name/path helpers.
 /// @{
 std::string GetBookmarksDirectory();
 std::string GetTrashDirectory();
 std::string RemoveInvalidSymbols(std::string const & name);
 std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string_view ext = kKmlExtension);
-std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
-std::string GenerateValidAndUniqueFilePathForGPX(std::string const & fileName);
-std::string GenerateValidAndUniqueFilePathForGeoJson(std::string const & fileName);
-std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName);
+std::string GenerateValidAndUniqueFilePathForBookmark(std::string const & fileName, KmlFileType const fileType);
 /// @}
 
 /// @name SerDes helpers.

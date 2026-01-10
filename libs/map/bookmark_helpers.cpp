@@ -209,6 +209,15 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
 
     {"shop-funeral_directors", {kml::BookmarkIcon::None, BookmarkBaseType::None}}};
 
+std::map<std::string_view, KmlFileType> extension_to_type = {
+  {kKmlExtension, KmlFileType::Text},
+  {kKmbExtension, KmlFileType::Binary},
+  {kGpxExtension, KmlFileType::Gpx},
+  {kKmzExtension, KmlFileType::Archive},
+  {kGeoJsonExtension, KmlFileType::GeoJson},
+  {kJsonExtension, KmlFileType::Json}
+};
+
 void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
 {
   if (!data)
@@ -338,31 +347,13 @@ std::string GenerateUniqueFileName(std::string const & path, std::string name, s
   return res;
 }
 
-std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
+std::string GenerateValidAndUniqueFilePathForBookmark(std::string const & fileName, KmlFileType const fileType)
 {
   std::string filePath = RemoveInvalidSymbols(fileName);
   if (filePath.empty())
     filePath = kDefaultBookmarksFileName;
 
-  return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kKmlExtension);
-}
-
-std::string GenerateValidAndUniqueFilePathForGPX(std::string const & fileName)
-{
-  std::string filePath = RemoveInvalidSymbols(fileName);
-  if (filePath.empty())
-    filePath = kDefaultBookmarksFileName;
-
-  return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kGpxExtension);
-}
-
-std::string GenerateValidAndUniqueFilePathForGeoJson(std::string const & fileName)
-{
-  std::string filePath = RemoveInvalidSymbols(fileName);
-  if (filePath.empty())
-    filePath = kDefaultBookmarksFileName;
-
-  return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kGeoJsonExtension);
+  return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), GetFileTypeExtension(fileType));
 }
 
 std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName)
@@ -479,7 +470,7 @@ std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath)
     for (auto const & [kmlFileInZip, size] : files)
     {
       auto const name = base::FileNameFromFullPath(kmlFileInZip);
-      auto fileSavePath = GenerateValidAndUniqueFilePathForKML(kmlFileInZip);
+      auto fileSavePath = GenerateValidAndUniqueFilePathForBookmark(kmlFileInZip, KmlFileType::Text);
       ZipFileReader::UnzipFile(filePath, kmlFileInZip, fileSavePath);
       kmlFilePaths.push_back(std::move(fileSavePath));
     }
@@ -497,7 +488,7 @@ std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath)
   if (kmlData == nullptr)
     return {};
 
-  auto fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
+  auto fileSavePath = GenerateValidAndUniqueFilePathForBookmark(base::FileNameFromFullPath(filePath), KmlFileType::Text);
   if (!SaveKmlFileByExt(*kmlData, fileSavePath))
     return {};
   return {std::move(fileSavePath)};
@@ -505,7 +496,7 @@ std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath)
 
 std::vector<std::string> GetFilePathsToLoadFromGpx(std::string const & filePath)
 {  // Copy input file to temp GPX with unique name.
-  auto fileSavePath = GenerateValidAndUniqueFilePathForGPX(base::FileNameFromFullPath(filePath));
+  auto fileSavePath = GenerateValidAndUniqueFilePathForBookmark(base::FileNameFromFullPath(filePath), KmlFileType::Gpx);
   if (!base::CopyFileX(filePath, fileSavePath))
     return {};
   return {std::move(fileSavePath)};
@@ -513,7 +504,7 @@ std::vector<std::string> GetFilePathsToLoadFromGpx(std::string const & filePath)
 
 std::vector<std::string> GetFilePathsToLoadFromKml(std::string const & filePath)
 {  // Copy input file to temp output KML with unique name.
-  auto fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
+  auto fileSavePath = GenerateValidAndUniqueFilePathForBookmark(base::FileNameFromFullPath(filePath), KmlFileType::Text);
   if (!base::CopyFileX(filePath, fileSavePath))
     return {};
   return {std::move(fileSavePath)};
@@ -521,7 +512,7 @@ std::vector<std::string> GetFilePathsToLoadFromKml(std::string const & filePath)
 
 std::vector<std::string> GetFilePathsToLoadFromGeoJson(std::string const & filePath)
 {  // Copy input file to temp GeoJson with unique name.
-  auto fileSavePath = GenerateValidAndUniqueFilePathForGeoJson(base::FileNameFromFullPath(filePath));
+  auto fileSavePath = GenerateValidAndUniqueFilePathForBookmark(base::FileNameFromFullPath(filePath), KmlFileType::GeoJson);
   if (!base::CopyFileX(filePath, fileSavePath))
     return {};
   return {std::move(fileSavePath)};
