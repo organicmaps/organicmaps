@@ -154,12 +154,11 @@ public class SplashActivity extends AppCompatActivity
   @SuppressWarnings({"unused", "unchecked"})
   public void processNavigation()
   {
-    if (isDestroyed())
+    if (isFinishing() || isDestroyed())
     {
-      Logger.w(TAG, "Ignore late callback from core because activity is already destroyed");
+      Logger.w(TAG, "Ignore late callback from core because activity is already finishing or destroyed");
       return;
     }
-
     // Re-use original intent with the known safe subset of flags to retain security permissions.
     // https://github.com/organicmaps/organicmaps/issues/6944
     final Intent intent = Objects.requireNonNull(getIntent());
@@ -188,7 +187,7 @@ public class SplashActivity extends AppCompatActivity
 
     Config.setFirstStartDialogSeen(this);
     startActivity(intent);
-    finish();
+    new android.os.Handler(android.os.Looper.getMainLooper()).post(this::finish);
   }
 
   private boolean isManageSpaceActivity(@NonNull Intent intent)
