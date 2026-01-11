@@ -477,8 +477,7 @@ std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath)
   if (kmlData == nullptr)
     return {};
 
-  auto fileSavePath =
-      GenerateValidAndUniqueFilePath(base::FileNameFromFullPath(filePath), KmlFileType::Text);
+  auto fileSavePath = GenerateValidAndUniqueFilePath(base::FileNameFromFullPath(filePath), KmlFileType::Text);
   if (!SaveKmlFileByExt(*kmlData, fileSavePath))
     return {};
   return {std::move(fileSavePath)};
