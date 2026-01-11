@@ -446,7 +446,7 @@ void BookmarkManager::RecoverRecentlyDeletedCategoriesAtPaths(std::vector<std::s
     CHECK(IsRecentlyDeletedCategory(deletedFilePath),
           ("The category at path", deletedFilePath, "should be in the trash."));
     CHECK(Platform::IsFileExistsByFullPath(deletedFilePath), ("File should exist to be recovered.", deletedFilePath));
-    auto recoveredFilePath = GenerateValidAndUniqueFilePathForBookmark(
+    auto recoveredFilePath = GenerateValidAndUniqueFilePath(
         base::GetNameFromFullPathWithoutExt(deletedFilePath), KmlFileType::Text);
     base::MoveFileX(deletedFilePath, recoveredFilePath);
     LOG(LINFO, ("Recently deleted category at", deletedFilePath, "is recovered"));
@@ -2124,7 +2124,7 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
         if (kmlData->m_categoryData.m_lastModified == kml::Timestamp{})
           kmlData->m_categoryData.m_lastModified = FileModificationTimestamp(filePath);
 
-        auto kmlFileToLoad = GenerateValidAndUniqueFilePathForBookmark(base::GetNameFromFullPathWithoutExt(fileToLoad),
+        auto kmlFileToLoad = GenerateValidAndUniqueFilePath(base::GetNameFromFullPathWithoutExt(fileToLoad),
                                                                        KmlFileType::Text);
 
         if (!SaveKmlFileSafe(*kmlData, kmlFileToLoad, KmlFileType::Text))

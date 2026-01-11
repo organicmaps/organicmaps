@@ -111,8 +111,6 @@ inline std::string DebugPrint(KmlFileType fileType)
   UNREACHABLE();
 }
 
-extern std::map<std::string_view, KmlFileType> extension_to_type;
-
 /// @name File name/path helpers.
 /// @{
 std::string GetBookmarksDirectory();
@@ -120,7 +118,7 @@ std::string GetTrashDirectory();
 std::string RemoveInvalidSymbols(std::string const & name);
 std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string_view ext = kKmlExtension);
 std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName);
-std::string GenerateValidAndUniqueFilePathForBookmark(std::string const & fileName, KmlFileType const fileType);
+std::string GenerateValidAndUniqueFilePath(std::string const & fileName, KmlFileType const fileType);
 /// @}
 
 /// @name SerDes helpers.
