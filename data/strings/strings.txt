@@ -23784,6 +23784,7 @@ zh-Hans = …更多
 zh-Hant = …更多
 
 [export_file]
+comment = Menu title for exporting a file in the default KMZ format
 tags = android-app,apple-maps
 en = Export KMZ
 af = Voer KMZ uit
@@ -23837,6 +23838,7 @@ zh-Hans = 导出为 KMZ
 zh-Hant = 導出為 KMZ
 
 [export_file_gpx]
+comment = Menu title for exporting a file in GPX format
 tags = android-app,apple-maps
 en = Export GPX
 af = Voer GPX uit
@@ -23888,6 +23890,60 @@ uk = Експорт GPX
 vi = Xuất GPX
 zh-Hans = 导出为 GPX
 zh-Hant = 導出為 GPX
+
+[export_file_geojson]
+comment = Menu title for exporting a file in GeoJSON format
+tags = android-app,apple-maps
+en = Export GeoJSON
+af = Voer GeoJSON uit
+ar = تصدير GeoJSON
+ast = Esportar GeoJSON
+az = GeoJSON ixrac edin
+be = Экспарт GeoJSON
+bg = Експорт на GeoJSON
+ca = Exporta GeoJSON
+cs = Exportovat GeoJSON
+da = Eksporter GeoJSON
+de = GeoJSON exportieren
+el = Εξαγωγή GeoJSON
+es = Exportar GeoJSON
+et = Ekspordi GeoJSON-failina
+eu = Esportatu GeoJSON
+fa = صادرات GeoJSON
+fi = Vie GeoJSON
+fr = Exporter GeoJSON
+gl = Exportar GeoJSON
+he = ייצא GeoJSON
+hi = निर्यात GeoJSON
+hr = Izvezi GeoJSON
+hu = Exportálás GeoJSON-fájlba
+id = Ekspor GeoJSON
+is = Flytja út GeoJSON
+it = Esporta GeoJSON
+ja = GeoJSONをエクスポートする
+ko = GeoJSON 내보내기
+lt = Eksportuoti GeoJSON
+lv = Izgūt GeoJSON formātā
+mr = GeoJSON निर्यात करा
+mt = Esporta GeoJSON
+nb = Eksporter GeoJSON
+nl = Exporteer GeoJSON
+pl = Eksportuj GeoJSON
+pt = Exportar GeoJSON
+ro = Export GeoJSON
+ru = Экспорт GeoJSON
+sk = Exportovať GeoJSON
+sl = Izvozi GeoJSON
+sq = Eksporto GeoJSON
+sr = Експортуј GeoJSON
+sv = Exportera GeoJSON
+sw = Hamisha GeoJSON
+th = ส่งออก GeoJSON
+tr = GeoJSON Olarak Dışa Aktar
+uk = Експорт GeoJSON
+vi = Xuất GeoJSON
+zh-Hans = 导出为 GeoJSON
+zh-Hant = 導出為 GeoJSON
 
 [delete_list]
 tags = android-app,apple-maps
