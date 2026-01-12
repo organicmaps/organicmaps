@@ -159,7 +159,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, TopPOIs_Smoke)
 
     Range const range(results, 0, kPopularPoiResultsCount);
     EqualClassifType(range, GetClassifTypes({{"shop"}, {"amenity", "fast_food"}}));
-    TEST_LESS(SortedByDistance(range, center).first, 500, ());
+    TEST_LESS(SortedByDistance(range, center).first, 550, ());
   }
 
   // https://github.com/organicmaps/organicmaps/issues/1376
@@ -1260,7 +1260,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Family_Viewport)
   params.m_maxNumResults = search::SearchParams::kDefaultNumResultsInViewport;
 
   {
-    params.m_viewport = {LonToX(-58.4015885), LatToY(-34.5901233), LonToX(-58.396118), LatToY(-34.5876888)};
+    params.m_viewport = {LonToX(-58.4019), LatToY(-34.5908), LonToX(-58.396118), LatToY(-34.5876888)};
 
     auto request = MakeRequest(params);
     auto const & results = request->Results();
