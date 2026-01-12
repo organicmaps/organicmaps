@@ -422,31 +422,9 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, FileType fi
   return kmlData;
 }
 
-std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath)
+static std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath)
 {
-  std::string const fileExt = GetLowercaseFileExt(filePath);
-  if (auto const found = kExtensionToType.find(fileExt); found != kExtensionToType.end())
-  {
-    switch (found->second)
-    {
-    case FileType::Text:
-    case FileType::Gpx:
-    case FileType::GeoJson:
-    case FileType::Json: return GetFilePathsToLoadFromPath(filePath, found->second);
-    case FileType::Archive: return GetFilePathsToLoadFromKmz(filePath);
-    case FileType::Binary: return GetFilePathsToLoadFromKmb(filePath);
-    }
-    UNREACHABLE();
-  }
-  else
-  {
-    LOG(LWARNING, ("Unknown file type", filePath));
-    return {};
-  }
-}
-
-std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath)
-{  // Extract KML files from KMZ archive and save to temp KMLs with unique name.
+  // Extract KML files from KMZ archive and save to temp KMLs with unique name.
   std::vector<std::string> kmlFilePaths;
   try
   {
@@ -470,8 +448,9 @@ std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath)
   return kmlFilePaths;
 }
 
-std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath)
-{  // Convert input file and save to temp KML with unique name.
+static std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath)
+{
+  // Convert input KMB file and save to temp KML with unique name.
   auto kmlData = LoadKmlFile(filePath, FileType::Binary);
   if (kmlData == nullptr)
     return {};
@@ -482,13 +461,39 @@ std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath)
   return {std::move(fileSavePath)};
 }
 
-std::vector<std::string> GetFilePathsToLoadFromPath(std::string const & filePath, FileType const fileType)
+static std::vector<std::string> GetFilePathsToLoadByType(std::string const & filePath, FileType const fileType)
 {
   // Copy input file to temp file with unique name.
   auto fileSavePath = GenerateValidAndUniqueFilePath(base::FileNameFromFullPath(filePath), fileType);
   if (!base::CopyFileX(filePath, fileSavePath))
     return {};
   return {std::move(fileSavePath)};
+}
+
+std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath)
+{
+  // Copy or convert file from 'filePath' to temp folder.
+  // KMZ archives are unpacked to temp folder.
+
+  std::string const fileExt = GetLowercaseFileExt(filePath);
+  if (auto const found = kExtensionToType.find(fileExt); found != kExtensionToType.end())
+  {
+    switch (found->second)
+    {
+    case FileType::Text:
+    case FileType::Gpx:
+    case FileType::GeoJson:
+    case FileType::Json: return GetFilePathsToLoadByType(filePath, found->second);
+    case FileType::Archive: return GetFilePathsToLoadFromKmz(filePath);
+    case FileType::Binary: return GetFilePathsToLoadFromKmb(filePath);
+    }
+    UNREACHABLE();
+  }
+  else
+  {
+    LOG(LWARNING, ("Unknown file type", filePath));
+    return {};
+  }
 }
 
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, FileType fileType)

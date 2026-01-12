@@ -127,9 +127,6 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, FileType fi
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, FileType fileType);
 
 std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath);
-std::vector<std::string> GetFilePathsToLoadFromPath(std::string const & filePath, FileType const fileType);
-std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath);
-std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath);
 std::string GetLowercaseFileExt(std::string const & filePath);
 
 bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, FileType fileType);

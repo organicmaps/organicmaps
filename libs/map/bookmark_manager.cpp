@@ -2096,7 +2096,7 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
 
     auto collection = std::make_shared<KMLDataCollection>();
 
-    // Convert KML/KMZ/KMB files to temp KML file and GPX to temp GPX file.
+    // Convert KMZ/KMB files to temp KML file and copy KML/GPX/GeoJson to temp file.
     for (auto const & fileToLoad : GetKMLOrGPXFilesPathsToLoad(filePath))
     {
       auto const ext = GetLowercaseFileExt(fileToLoad);
