@@ -170,7 +170,7 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
       let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
       let kmlAction = UIAlertAction(title: L("export_file"), style: .default) { [weak self] _ in
         guard let self else { return }
-        self.presenter?.onExportTrackButtonPress(.text, from: self.shareButton)
+        self.presenter?.onExportTrackButtonPress(.kml, from: self.shareButton)
       }
       let gpxAction = UIAlertAction(title: L("export_file_gpx"), style: .default) { [weak self] _ in
         guard let self else { return }
@@ -187,7 +187,7 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
       let menu = UIMenu(title: "", image: nil, children: [
         UIAction(title: L("export_file"), image: nil, handler: { [weak self] _ in
           guard let self else { return }
-          self.presenter?.onExportTrackButtonPress(.text, from: self.shareButton)
+          self.presenter?.onExportTrackButtonPress(.kml, from: self.shareButton)
         }),
         UIAction(title: L("export_file_gpx"), image: nil, handler: { [weak self] _ in
           guard let self else { return }

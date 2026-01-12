@@ -17,7 +17,7 @@ UNIT_TEST(KMZ_UnzipTest)
 
   TEST(filePath.ends_with("doc.kml"), (filePath));
 
-  auto const kmlData = LoadKmlFile(filePath, KmlFileType::Text);
+  auto const kmlData = LoadKmlFile(filePath, FileType::Kml);
   TEST(kmlData != nullptr, ());
 
   TEST_EQUAL(kmlData->m_bookmarksData.size(), 6, ("Category wrong number of bookmarks"));

@@ -73,26 +73,33 @@ std::string_view constexpr kTrashDirectoryName = ".Trash";
 
 extern std::string const kDefaultBookmarksFileName;
 
-enum class KmlFileType
+enum class FileType
 {
-  Text,
-  Binary,
+  Kml,
+  Kmz,
+  Kmb,
   Gpx,
   GeoJson,
   Json
 };
 
-inline std::string DebugPrint(KmlFileType fileType)
+inline std::string_view GetFileTypeExtension(FileType fileType)
 {
   switch (fileType)
   {
-  case KmlFileType::Text: return "Text";
-  case KmlFileType::Binary: return "Binary";
-  case KmlFileType::Gpx: return "GPX";
-  case KmlFileType::GeoJson: return "GeoJson";
-  case KmlFileType::Json: return "Json";
+  case FileType::Kml: return kKmlExtension;
+  case FileType::Kmz: return kKmzExtension;
+  case FileType::Kmb: return kKmbExtension;
+  case FileType::Gpx: return kGpxExtension;
+  case FileType::GeoJson: return kGeoJsonExtension;
+  case FileType::Json: return kJsonExtension;
   }
   UNREACHABLE();
+}
+
+inline std::string DebugPrint(FileType const fileType)
+{
+  return "FileType [" + std::string{GetFileTypeExtension(fileType)} + "]";
 }
 
 /// @name File name/path helpers.
@@ -101,27 +108,21 @@ std::string GetBookmarksDirectory();
 std::string GetTrashDirectory();
 std::string RemoveInvalidSymbols(std::string const & name);
 std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string_view ext = kKmlExtension);
-std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
-std::string GenerateValidAndUniqueFilePathForGPX(std::string const & fileName);
-std::string GenerateValidAndUniqueFilePathForGeoJson(std::string const & fileName);
 std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName);
+std::string GenerateValidAndUniqueFilePath(std::string const & fileName, FileType const fileType);
 /// @}
 
 /// @name SerDes helpers.
 /// @{
-std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType);
-std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType);
+std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, FileType fileType);
+std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, FileType fileType);
 
 std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath);
-std::vector<std::string> GetFilePathsToLoadFromKml(std::string const & filePath);
-std::vector<std::string> GetFilePathsToLoadFromGpx(std::string const & filePath);
-std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath);
-std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath);
-std::vector<std::string> GetFilePathsToLoadFromGeoJson(std::string const & filePath);
 std::string GetLowercaseFileExt(std::string const & filePath);
+std::optional<FileType> GetFileType(std::string const & filePath);
 
-bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType);
-bool SaveKmlData(kml::FileData & kmlData, Writer & writer, KmlFileType fileType);
+bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, FileType fileType);
+bool SaveKmlData(kml::FileData & kmlData, Writer & writer, FileType fileType);
 bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file);
 /// @}
 

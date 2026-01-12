@@ -35,7 +35,7 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.sdk.bookmarks.data.CategoryDataSource;
-import app.organicmaps.sdk.bookmarks.data.KmlFileType;
+import app.organicmaps.sdk.bookmarks.data.FileType;
 import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
 import app.organicmaps.sdk.bookmarks.data.SortedBlock;
 import app.organicmaps.sdk.bookmarks.data.Track;
@@ -737,10 +737,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
                                                          requireActivity(), getChildFragmentManager());
   }
 
-  private void onShareOptionSelected(KmlFileType kmlFileType)
+  private void onShareOptionSelected(FileType fileType)
   {
     long catId = mCategoryDataSource.getData().getId();
-    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), catId, kmlFileType);
+    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), catId, fileType);
   }
 
   private void onSettingsOptionSelected()
@@ -765,9 +765,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       if (types.length > 0)
         items.add(new MenuBottomSheetItem(R.string.sort, R.drawable.ic_sort, this::onSortOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz,
-                                        () -> onShareOptionSelected(KmlFileType.Text)));
+                                        () -> onShareOptionSelected(FileType.Kml)));
       items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
-                                        () -> onShareOptionSelected(KmlFileType.Gpx)));
+                                        () -> onShareOptionSelected(FileType.Gpx)));
     }
     items.add(new MenuBottomSheetItem(R.string.edit, R.drawable.ic_settings, this::onSettingsOptionSelected));
     if (!isLastOwnedCategory())
@@ -789,17 +789,17 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
     items.add(new MenuBottomSheetItem(R.string.edit, R.drawable.ic_edit, this::onTrackEditActionSelected));
     items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz,
-                                      () -> onShareTrackSelected(track.getTrackId(), KmlFileType.Text)));
+                                      () -> onShareTrackSelected(track.getTrackId(), FileType.Kml)));
     items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
-                                      () -> onShareTrackSelected(track.getTrackId(), KmlFileType.Gpx)));
+                                      () -> onShareTrackSelected(track.getTrackId(), FileType.Gpx)));
     items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete,
                                       () -> onDeleteTrackSelected(track.getTrackId())));
     return items;
   }
 
-  private void onShareTrackSelected(long trackId, KmlFileType kmlFileType)
+  private void onShareTrackSelected(long trackId, FileType fileType)
   {
-    BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), trackId, kmlFileType);
+    BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), trackId, fileType);
   }
 
   @Override

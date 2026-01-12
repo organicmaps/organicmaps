@@ -403,17 +403,19 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeSet
   frm()->GetBookmarkManager().SetAllCategoriesVisibility(static_cast<bool>(visible));
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativePrepareTrackFileForSharing(
-    JNIEnv * env, jclass, jlong trackId, jint kmlFileType)
+JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativePrepareTrackFileForSharing(JNIEnv * env,
+                                                                                                        jclass,
+                                                                                                        jlong trackId,
+                                                                                                        jint fileType)
 {
   frm()->GetBookmarkManager().PrepareTrackFileForSharing(static_cast<kml::TrackId>(trackId),
                                                          [env](BookmarkManager::SharingResult const & result)
-  { OnPreparedFileForSharing(env, result); }, static_cast<KmlFileType>(kmlFileType));
+  { OnPreparedFileForSharing(env, result); }, static_cast<FileType>(fileType));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativePrepareFileForSharing(JNIEnv * env, jclass,
                                                                                                    jlongArray catIds,
-                                                                                                   jint kmlFileType)
+                                                                                                   jint fileType)
 {
   auto const size = env->GetArrayLength(catIds);
   kml::GroupIdCollection catIdsVector(size);
@@ -421,7 +423,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativePre
   env->GetLongArrayRegion(catIds, 0, size, reinterpret_cast<jlong *>(catIdsVector.data()));
   frm()->GetBookmarkManager().PrepareFileForSharing(std::move(catIdsVector),
                                                     [env](BookmarkManager::SharingResult const & result)
-  { OnPreparedFileForSharing(env, result); }, static_cast<KmlFileType>(kmlFileType));
+  { OnPreparedFileForSharing(env, result); }, static_cast<FileType>(fileType));
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeSetNotificationsEnabled(JNIEnv *, jclass,
