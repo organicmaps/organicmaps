@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Fahrradrouten";
 "button_layer_subway" = "U-Bahn";
 "layers_title" = "Kartenstile und Ebenen";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "KMZ exportieren";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "GPX exportieren";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "GeoJSON exportieren";
 "delete_list" = "Liste löschen";
 "speedcams_alert_title" = "Blitzer";
 "place_description_title" = "Ortsbeschreibung";

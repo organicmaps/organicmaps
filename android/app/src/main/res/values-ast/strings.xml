@@ -266,8 +266,12 @@
     <string name="layers_title">Estilos y capes del mapa</string>
     <string name="bookmarks_empty_list_title">Esta llista ta balera</string>
     <string name="category_desc_more">… más</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Esportar KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Esportar GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Esportar GeoJSON</string>
     <string name="delete_list">Desaniciar llista</string>
     <string name="speedcams_alert_title">Radares de velocidá</string>
     <string name="place_description_title">Descripción del llugar</string>

@@ -643,8 +643,12 @@
     <string name="bookmarks_empty_list_title">該列表為空</string>
     <string name="bookmarks_empty_list_message">要增加新書籤，請點擊對象卡片中的星型圖標</string>
     <string name="category_desc_more">…更多</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">導出為 KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">導出為 GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">導出為 GeoJSON</string>
     <string name="delete_list">刪除列表</string>
     <string name="speedcams_alert_title">測速照相</string>
     <string name="place_description_title">地點說明</string>

@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Пакатушкі";
 "button_layer_subway" = "Метро";
 "layers_title" = "Стылі і слаі карты";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Экспарт KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Экспарт GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Экспарт GeoJSON";
 "delete_list" = "Выдаліць спіс";
 "speedcams_alert_title" = "Камеры хуткасці";
 "place_description_title" = "Апісанне месца";

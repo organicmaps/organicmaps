@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Jalgrattasõit";
 "button_layer_subway" = "Metroo";
 "layers_title" = "Kaardi stiilid ja kihid";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Ekspordi KMZ-failina";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Ekspordi GPX-failina";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Ekspordi GeoJSON-failina";
 "delete_list" = "Kustuta loend";
 "speedcams_alert_title" = "Kiiruskaamerad";
 "place_description_title" = "Koha kirjeldus";

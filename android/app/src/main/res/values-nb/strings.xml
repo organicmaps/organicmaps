@@ -638,8 +638,12 @@
     <string name="bookmarks_empty_list_title">Denne listen er tom</string>
     <string name="bookmarks_empty_list_message">For å legge til et bokmerke, trykk et sted på kartet og trykk så stjerneikonet</string>
     <string name="category_desc_more">…mer</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Eksporter KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Eksporter GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Eksporter GeoJSON</string>
     <string name="delete_list">Slett liste</string>
     <string name="speedcams_alert_title">Fartskamera</string>
     <string name="place_description_title">Plasser beskrivelse</string>

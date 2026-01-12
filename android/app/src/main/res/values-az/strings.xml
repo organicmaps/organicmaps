@@ -633,8 +633,12 @@
     <string name="bookmarks_empty_list_title">Bu siyahı boşdur</string>
     <string name="bookmarks_empty_list_message">Əlfəcin əlavə etmək üçün xəritədə yerə və sonra ulduz işarəsinə toxunun</string>
     <string name="category_desc_more">…daha çox</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">KMZ ixrac edin</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">GPX ixrac edin</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">GeoJSON ixrac edin</string>
     <string name="delete_list">Siyahını silin</string>
     <string name="speedcams_alert_title">Sürət kameraları</string>
     <string name="place_description_title">Məkan Təsviri</string>

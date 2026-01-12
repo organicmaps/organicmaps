@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Cycling";
 "button_layer_subway" = "รถไฟใต้ดิน";
 "layers_title" = "รูปแบบและเลเยอร์ของแผนที่";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "ส่งออก KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "ส่งออก GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "ส่งออก GeoJSON";
 "delete_list" = "ลบรายการ";
 "speedcams_alert_title" = "กล้องตรวจจับความเร็ว";
 "place_description_title" = "รายละเอียดของสถานที่";

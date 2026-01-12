@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Cycling";
 "button_layer_subway" = "Xe điện ngầm";
 "layers_title" = "Kiểu và lớp bản đồ";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Xuất KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Xuất GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Xuất GeoJSON";
 "delete_list" = "Xóa danh sách";
 "speedcams_alert_title" = "Tăn tốc độ máy ảnh";
 "place_description_title" = "Mô tả Địa điểm";

@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Веломаршруты";
 "button_layer_subway" = "Метро";
 "layers_title" = "Стили и слои карты";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Экспорт KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Экспорт GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Экспорт GeoJSON";
 "delete_list" = "Удалить список";
 "speedcams_alert_title" = "Камеры скорости";
 "place_description_title" = "Описание места";

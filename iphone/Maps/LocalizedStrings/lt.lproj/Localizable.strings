@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Kelionės dviračiu";
 "button_layer_subway" = "Metro";
 "layers_title" = "Žemėlapio stiliai ir sluoksniai";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Eksportuoti KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Eksportuoti GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Eksportuoti GeoJSON";
 "delete_list" = "Šalinti sąrašą";
 "speedcams_alert_title" = "Greičio matuokliai";
 "place_description_title" = "Vietos aprašymas";

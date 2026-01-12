@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Cykling";
 "button_layer_subway" = "Tunnelbana";
 "layers_title" = "Kartstilar och lager";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Exportera KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Exportera GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Exportera GeoJSON";
 "delete_list" = "Radera listan";
 "speedcams_alert_title" = "Hastighetskameror";
 "place_description_title" = "Beskrivning av platsen";

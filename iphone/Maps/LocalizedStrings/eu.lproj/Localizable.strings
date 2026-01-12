@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Txirrindularitza";
 "button_layer_subway" = "Metroa";
 "layers_title" = "Maparen estiloak eta geruzak";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Esportatu KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Esportatu GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Esportatu GeoJSON";
 "delete_list" = "Ezabatu zerrenda";
 "speedcams_alert_title" = "Abiadura kamerak";
 "place_description_title" = "Tokiaren deskribapena";

@@ -624,8 +624,12 @@
     <string name="bookmarks_empty_list_title">רשימה זו ריקה</string>
     <string name="bookmarks_empty_list_message">כדי להוסיף סימניה, לחץ על מקום במפה ואז לחץ על סימן הכוכב</string>
     <string name="category_desc_more">…עוד</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">ייצא KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">ייצוא GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">ייצא GeoJSON</string>
     <string name="delete_list">מחק רשימה</string>
     <string name="speedcams_alert_title">מצלמות מהירות</string>
     <string name="place_description_title">תיאור מיקום</string>

@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Cyklistika";
 "button_layer_subway" = "Metro";
 "layers_title" = "Styly a vrstvy mapy";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Exportovat KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Export GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Exportovat GeoJSON";
 "delete_list" = "Smazat seznam";
 "speedcams_alert_title" = "Radary";
 "place_description_title" = "Popis místa";

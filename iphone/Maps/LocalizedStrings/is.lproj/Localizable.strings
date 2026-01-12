@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Hjólreiðar";
 "button_layer_subway" = "Neðanjarðarlest";
 "layers_title" = "Stílar landakorta og þekjur";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Flytja út KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Flytja út GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Flytja út GeoJSON";
 "delete_list" = "Eyða lista";
 "speedcams_alert_title" = "Hraðamyndavélar";
 "place_description_title" = "Lýsing á stað";

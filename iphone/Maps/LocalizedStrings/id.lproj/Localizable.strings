@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Bersepeda";
 "button_layer_subway" = "Kereta bawah tanah";
 "layers_title" = "Gaya dan Lapisan Peta";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Ekspor KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Ekspor GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Ekspor GeoJSON";
 "delete_list" = "Hapus Daftar";
 "speedcams_alert_title" = "Kamera cepat";
 "place_description_title" = "Deskripsi Tempat";

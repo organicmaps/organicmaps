@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Велоспорт";
 "button_layer_subway" = "Метрополітен";
 "layers_title" = "Стилі та шари мапи";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Експорт KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Експорт GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Експорт GeoJSON";
 "delete_list" = "Видалити список";
 "speedcams_alert_title" = "Камери швидкості";
 "place_description_title" = "Опис місця";

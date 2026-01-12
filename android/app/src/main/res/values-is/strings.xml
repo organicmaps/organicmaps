@@ -645,8 +645,12 @@
     <string name="bookmarks_empty_list_title">Þessi listi er tómur</string>
     <string name="bookmarks_empty_list_message">Til að bæta við bókamerki, skaltu ýta á stað á kortinu og ýta síðan á stjörnutáknið</string>
     <string name="category_desc_more">…meira</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Flytja út KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Flytja út GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Flytja út GeoJSON</string>
     <string name="delete_list">Eyða lista</string>
     <string name="speedcams_alert_title">Hraðamyndavélar</string>
     <string name="place_description_title">Lýsing á stað</string>

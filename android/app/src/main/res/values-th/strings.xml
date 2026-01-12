@@ -605,8 +605,12 @@
     <string name="bookmarks_empty_list_title">รายการนี้ว่างเปล่า</string>
     <string name="bookmarks_empty_list_message">เพื่อเพิ่มบุ๊กมาร์ก โปรดแตะที่สถานที่บนแผนที่ แล้วจากนั้นแตะที่ไอคอนรูปดาว</string>
     <string name="category_desc_more">…เพิ่มเติม</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">ส่งออก KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">ส่งออก GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">ส่งออก GeoJSON</string>
     <string name="delete_list">ลบรายการ</string>
     <string name="speedcams_alert_title">กล้องตรวจจับความเร็ว</string>
     <string name="place_description_title">รายละเอียดของสถานที่</string>

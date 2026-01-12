@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Cycling";
 "button_layer_subway" = "רכבת תחתית";
 "layers_title" = "סגנונות ושכבות מפה";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "ייצא KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "ייצוא GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "ייצא GeoJSON";
 "delete_list" = "מחק רשימה";
 "speedcams_alert_title" = "מצלמות מהירות";
 "place_description_title" = "תיאור מיקום";

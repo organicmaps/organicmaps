@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Велосипеден туризъм";
 "button_layer_subway" = "Метро";
 "layers_title" = "Стилове и слоеве на картата";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Експорт на KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Експортиране на GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Експорт на GeoJSON";
 "delete_list" = "Изтриване на списък";
 "speedcams_alert_title" = "Камери за скорост";
 "place_description_title" = "Описание на мястото";

@@ -642,8 +642,12 @@
     <string name="bookmarks_empty_list_title">Zerrenda hau hutsik dago</string>
     <string name="bookmarks_empty_list_message">Markagailu bat gehitzeko, ukitu mapako toki bat eta, ondoren, ukitu izarraren ikonoa</string>
     <string name="category_desc_more">…gehiago</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Esportatu KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Esportatu GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Esportatu GeoJSON</string>
     <string name="delete_list">Ezabatu zerrenda</string>
     <string name="speedcams_alert_title">Abiadura kamerak</string>
     <string name="place_description_title">Tokiaren deskribapena</string>

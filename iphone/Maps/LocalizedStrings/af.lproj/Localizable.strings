@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Fietsroetes";
 "button_layer_subway" = "Moltrein";
 "layers_title" = "Kaartstyle en -lae";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Voer KMZ uit";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Voer GPX uit";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Voer GeoJSON uit";
 "delete_list" = "Skrap lys";
 "speedcams_alert_title" = "Spoedkameras";
 "place_description_title" = "Plekbeskrywing";

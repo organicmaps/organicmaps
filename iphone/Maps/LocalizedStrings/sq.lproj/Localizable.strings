@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Çiklizëm";
 "button_layer_subway" = "Metro";
 "layers_title" = "Stilet e Hartave dhe Shtresat";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Eksporto KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Eksporto GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Eksporto GeoJSON";
 "delete_list" = "Fshi listen";
 "speedcams_alert_title" = "Kamerat e shpejtësisë";
 "place_description_title" = "Përshkrimi i Vendit";

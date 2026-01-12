@@ -641,8 +641,12 @@
     <string name="bookmarks_empty_list_title">このリストは空です</string>
     <string name="bookmarks_empty_list_message">ブックマークを追加するには、地図上の場所をタップし、星のアイコンをタップしてください。</string>
     <string name="category_desc_more">詳細</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">KMZをエクスポートする</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">GPXをエクスポートする</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">GeoJSONをエクスポートする</string>
     <string name="delete_list">リストを削除</string>
     <string name="speedcams_alert_title">自動速度違反取締装置</string>
     <string name="place_description_title">場所の説明</string>

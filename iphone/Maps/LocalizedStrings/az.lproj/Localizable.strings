@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Velosiped gəzintisi";
 "button_layer_subway" = "Metro";
 "layers_title" = "Xəritə Üslubları və Qatları";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "KMZ ixrac edin";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "GPX ixrac edin";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "GeoJSON ixrac edin";
 "delete_list" = "Siyahını silin";
 "speedcams_alert_title" = "Sürət kameraları";
 "place_description_title" = "Məkan Təsviri";

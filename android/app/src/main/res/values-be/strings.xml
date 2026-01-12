@@ -651,8 +651,12 @@
     <string name="bookmarks_empty_list_title">Гэты спіс пусты</string>
     <string name="bookmarks_empty_list_message">Каб дадаць закладку, дакраніцеся да месца на карце, а затым націсніце значок зорачкі</string>
     <string name="category_desc_more">…яшчэ</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Экспарт KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Экспарт GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Экспарт GeoJSON</string>
     <string name="delete_list">Выдаліць спіс</string>
     <string name="speedcams_alert_title">Камеры хуткасці</string>
     <string name="place_description_title">Апісанне месца</string>

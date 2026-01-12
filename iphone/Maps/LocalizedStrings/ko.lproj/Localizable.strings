@@ -650,8 +650,15 @@
 "button_layer_cycling" = "사이클링";
 "button_layer_subway" = "지하철";
 "layers_title" = "맵 스타일 및 레이어";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "KMZ 내보내기";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "GPX 내보내기";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "GeoJSON 내보내기";
 "delete_list" = "리스트 삭제";
 "speedcams_alert_title" = "속도 감시 카메라";
 "place_description_title" = "장소 묘사";

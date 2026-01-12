@@ -649,8 +649,12 @@
     <string name="bookmarks_empty_list_title">Список пустой</string>
     <string name="bookmarks_empty_list_message">Чтобы добавить метку, нажмите на место на карте, а затем на иконку звёздочки</string>
     <string name="category_desc_more">…ещё</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Экспорт KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Экспорт GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Экспорт GeoJSON</string>
     <string name="delete_list">Удалить список</string>
     <string name="speedcams_alert_title">Камеры скорости</string>
     <string name="place_description_title">Описание места</string>

@@ -630,8 +630,12 @@
     <string name="bookmarks_empty_list_title">Kjo listë është boshe</string>
     <string name="bookmarks_empty_list_message">Për të shtuar një faqeshënues, prekni një vend në hartë dhe më pas prekni ikonën e yllit</string>
     <string name="category_desc_more">…më shumë</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Eksporto KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Eksporto GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Eksporto GeoJSON</string>
     <string name="delete_list">Fshi listen</string>
     <string name="speedcams_alert_title">Kamerat e shpejtësisë</string>
     <string name="place_description_title">Përshkrimi i Vendit</string>

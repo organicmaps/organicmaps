@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Ciclismo";
 "button_layer_subway" = "Metropolitana";
 "layers_title" = "Stili e livelli della mappa";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Esporta KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Esporta GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Esporta GeoJSON";
 "delete_list" = "Elimina lista";
 "speedcams_alert_title" = "Autovelox";
 "place_description_title" = "Descrizione luogo";

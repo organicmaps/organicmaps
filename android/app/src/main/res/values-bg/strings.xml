@@ -639,8 +639,12 @@
     <string name="bookmarks_empty_list_title">Този списък е празен</string>
     <string name="bookmarks_empty_list_message">За да добавите отметка, докоснете място на картата, след което докоснете звездообразната икона.</string>
     <string name="category_desc_more">…още</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Експорт на KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Експортиране на GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Експорт на GeoJSON</string>
     <string name="delete_list">Изтриване на списък</string>
     <string name="speedcams_alert_title">Камери за скорост</string>
     <string name="place_description_title">Описание на мястото</string>

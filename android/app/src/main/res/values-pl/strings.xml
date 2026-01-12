@@ -648,8 +648,12 @@
     <string name="bookmarks_empty_list_title">Lista jest pusta</string>
     <string name="bookmarks_empty_list_message">Aby dodać zakładkę, dotknij miejsca na mapie, a następnie dotknij ikony gwiazdy.</string>
     <string name="category_desc_more">…więcej</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Eksportuj KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Eksport GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Eksportuj GeoJSON</string>
     <string name="delete_list">Usuń listę</string>
     <string name="speedcams_alert_title">Fotoradary</string>
     <string name="place_description_title">Opis miejsca</string>

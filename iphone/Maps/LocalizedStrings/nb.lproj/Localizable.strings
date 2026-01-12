@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Sykling";
 "button_layer_subway" = "T-bane";
 "layers_title" = "Kartstiler og -lag";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Eksporter KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Eksporter GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Eksporter GeoJSON";
 "delete_list" = "Slett liste";
 "speedcams_alert_title" = "Fartskamera";
 "place_description_title" = "Plasser beskrivelse";

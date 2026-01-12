@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Ciclism";
 "button_layer_subway" = "Metrou";
 "layers_title" = "Stiluri și straturi de hartă";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Export KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Exportați GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Export GeoJSON";
 "delete_list" = "Șterge lista";
 "speedcams_alert_title" = "Radare";
 "place_description_title" = "Descrierea locului";
