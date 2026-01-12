@@ -654,8 +654,12 @@
     <string name="bookmarks_empty_list_title">هذه اللائحة فارغة</string>
     <string name="bookmarks_empty_list_message">لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر على رمز النجمة</string>
     <string name="category_desc_more">…المزيد</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">تصدير KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">تصدير GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">تصدير GeoJSON</string>
     <string name="delete_list">حذف القائمة</string>
     <string name="speedcams_alert_title">تحذيرات كاميرات السرعة</string>
     <string name="place_description_title">وصف المكان</string>

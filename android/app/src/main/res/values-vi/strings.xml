@@ -604,8 +604,12 @@
     <string name="bookmarks_empty_list_title">Danh sách trống</string>
     <string name="bookmarks_empty_list_message">Để thêm dấu trang, hãy nhấn vào một địa điểm trên bản đồ và sau đó nhấn vào biểu tượng dấu sao</string>
     <string name="category_desc_more">…thêm</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Xuất KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Xuất GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Xuất GeoJSON</string>
     <string name="delete_list">Xóa danh sách</string>
     <string name="speedcams_alert_title">Tăn tốc độ máy ảnh</string>
     <string name="place_description_title">Mô tả Địa điểm</string>

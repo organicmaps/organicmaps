@@ -640,8 +640,12 @@
     <string name="bookmarks_empty_list_title">این فهرست خالی است</string>
     <string name="bookmarks_empty_list_message">برای افزودن یک نشانک، روی یک مکان روی نقشه ضربه بزنید و سپس روی نماد ستاره ضربه بزنید</string>
     <string name="category_desc_more">…بیشتر</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">صادرات KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">صادرات GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">صادرات GeoJSON</string>
     <string name="delete_list">حذف فهرست</string>
     <string name="speedcams_alert_title">دوربین‌های سرعت</string>
     <string name="place_description_title">توضیحات محل</string>

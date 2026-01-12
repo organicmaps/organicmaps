@@ -621,8 +621,12 @@
     <string name="bookmarks_empty_list_title">ही यादी रिकामी आहे</string>
     <string name="bookmarks_empty_list_message">खूणपत्र जोडण्यासाठी, नकाशातील ठिकाणाला स्पर्श करा आणि नंतर तारा चिन्हाला स्पर्श करा</string>
     <string name="category_desc_more">…अधिक</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">KMZ निर्यात करा</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">GPX निर्यात करा</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">GeoJSON निर्यात करा</string>
     <string name="delete_list">यादी मिटवा</string>
     <string name="speedcams_alert_title">वेग कॅमेरे</string>
     <string name="place_description_title">ठिकाणाचे वर्णन</string>

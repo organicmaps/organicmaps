@@ -644,8 +644,12 @@
     <string name="bookmarks_empty_list_title">Die Liste ist leer</string>
     <string name="bookmarks_empty_list_message">Zum Hinzufügen eine Lesezeichens tippen Sie in der Karte auf den Ort und dann unten auf das Sternchen</string>
     <string name="category_desc_more">…mehr</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">KMZ exportieren</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">GPX exportieren</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">GeoJSON exportieren</string>
     <string name="delete_list">Liste löschen</string>
     <string name="speedcams_alert_title">Blitzer</string>
     <string name="place_description_title">Ortsbeschreibung</string>

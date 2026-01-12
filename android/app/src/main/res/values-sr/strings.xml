@@ -638,8 +638,12 @@
     <string name="bookmarks_empty_list_title">Ова листа је празна</string>
     <string name="bookmarks_empty_list_message">Да бисте додали маркер, кратко додирните место на мапи, а онда додирните иконицу са звездом</string>
     <string name="category_desc_more">…више</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Експортуј KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Експортуј GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Експортуј GeoJSON</string>
     <string name="delete_list">Обриши листу</string>
     <string name="speedcams_alert_title">Прекршајне камере</string>
     <string name="place_description_title">Опис места</string>

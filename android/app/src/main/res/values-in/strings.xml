@@ -632,8 +632,12 @@
     <string name="bookmarks_empty_list_title">Daftar ini kosong</string>
     <string name="bookmarks_empty_list_message">Untuk menambahkan bookmark, ketuk satu tempat di peta lalu ketuk ikon bintang</string>
     <string name="category_desc_more">…selengkapnya</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Ekspor KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Ekspor GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Ekspor GeoJSON</string>
     <string name="delete_list">Hapus Daftar</string>
     <string name="speedcams_alert_title">Kamera cepat</string>
     <string name="place_description_title">Deskripsi Tempat</string>

@@ -404,8 +404,12 @@
     <string name="bookmarks_empty_list_title">Ovaj je popis prazan</string>
     <string name="bookmarks_empty_list_message">Za dodavanje zabilješke dodirni mjesto na karti, a zatim dodirni ikonu zvjezdice</string>
     <string name="category_desc_more">… više</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Izvezi KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Izvezi GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Izvezi GeoJSON</string>
     <string name="delete_list">Izbriši popis</string>
     <string name="place_description_title">Opis mjesta</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->

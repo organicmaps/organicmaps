@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Bisiklet";
 "button_layer_subway" = "Metro";
 "layers_title" = "Harita Stilleri ve Katmanlar";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "KMZ Olarak Dışa Aktar";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "GPX Olarak Dışa Aktar";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "GeoJSON Olarak Dışa Aktar";
 "delete_list" = "Listeyi sil";
 "speedcams_alert_title" = "Hız kameraları";
 "place_description_title" = "Yer Açıklaması";

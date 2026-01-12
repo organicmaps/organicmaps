@@ -617,8 +617,12 @@
     <string name="bookmarks_empty_list_title">Hierdie lys is leeg</string>
     <string name="bookmarks_empty_list_message">Tik op ’n plek op die kaart en dan op die sterikoon om ’n boekmerk toe te voeg</string>
     <string name="category_desc_more">…nog</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Voer KMZ uit</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Voer GPX uit</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Voer GeoJSON uit</string>
     <string name="delete_list">Skrap lys</string>
     <string name="speedcams_alert_title">Spoedkameras</string>
     <string name="place_description_title">Plekbeskrywing</string>

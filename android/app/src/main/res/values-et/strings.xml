@@ -645,8 +645,12 @@
     <string name="bookmarks_empty_list_title">See loend on tühi</string>
     <string name="bookmarks_empty_list_message">Järjehoidja lisamiseks puuduta kohta kaardil ja seejärel puuduta tähekese ikooni</string>
     <string name="category_desc_more">…veel</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Ekspordi KMZ-failina</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Ekspordi GPX-failina</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Ekspordi GeoJSON-failina</string>
     <string name="delete_list">Kustuta loend</string>
     <string name="speedcams_alert_title">Kiiruskaamerad</string>
     <string name="place_description_title">Koha kirjeldus</string>

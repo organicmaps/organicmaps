@@ -647,8 +647,12 @@
     <string name="bookmarks_empty_list_title">Questa lista è vuota</string>
     <string name="bookmarks_empty_list_message">Per aggiungere un preferito, tocca un punto sulla mappa e poi tocca l\'icona a forma di stella</string>
     <string name="category_desc_more">…altro</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Esporta KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Esporta GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Esporta GeoJSON</string>
     <string name="delete_list">Elimina lista</string>
     <string name="speedcams_alert_title">Autovelox</string>
     <string name="place_description_title">Descrizione luogo</string>

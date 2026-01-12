@@ -650,8 +650,15 @@
 "button_layer_cycling" = "單車";
 "button_layer_subway" = "捷運";
 "layers_title" = "地圖樣式和圖層";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "導出為 KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "導出為 GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "導出為 GeoJSON";
 "delete_list" = "刪除列表";
 "speedcams_alert_title" = "測速照相";
 "place_description_title" = "地點說明";

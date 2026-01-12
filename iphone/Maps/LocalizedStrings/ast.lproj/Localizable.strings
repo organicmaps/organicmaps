@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Ciclismu";
 "button_layer_subway" = "Metro";
 "layers_title" = "Estilos y capes del mapa";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Esportar KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Esportar GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Esportar GeoJSON";
 "delete_list" = "Desaniciar llista";
 "speedcams_alert_title" = "Radares de velocidá";
 "place_description_title" = "Descripción del llugar";

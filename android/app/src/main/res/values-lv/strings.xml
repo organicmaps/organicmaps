@@ -645,8 +645,12 @@
     <string name="bookmarks_empty_list_title">Saraksts ir tukšs</string>
     <string name="bookmarks_empty_list_message">Lai pievienotu grāmatzīmi, sākumā spiediet uz vietas kartē, bet tad uz zvaigznītes ikonas</string>
     <string name="category_desc_more">…vairāk</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Izgūt KMZ formātā</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Izgūt GPX formātā</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Izgūt GeoJSON formātā</string>
     <string name="delete_list">Dzēst sarakstu</string>
     <string name="speedcams_alert_title">Fotoradari</string>
     <string name="place_description_title">Vietas apraksts</string>

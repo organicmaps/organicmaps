@@ -650,8 +650,15 @@
 "button_layer_cycling" = "دوچرخه‌سواری";
 "button_layer_subway" = "مترو";
 "layers_title" = "سبک ها و لایه های نقشه";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "صادرات KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "صادرات GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "صادرات GeoJSON";
 "delete_list" = "حذف فهرست";
 "speedcams_alert_title" = "دوربین‌های سرعت";
 "place_description_title" = "توضیحات محل";

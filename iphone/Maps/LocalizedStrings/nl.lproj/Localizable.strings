@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Fiets";
 "button_layer_subway" = "Metro";
 "layers_title" = "Kaartstijlen en -lagen";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Exporteer KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Exporteer GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Exporteer GeoJSON";
 "delete_list" = "Verwijder lijst";
 "speedcams_alert_title" = "Snelheidscamera's";
 "place_description_title" = "Plaatsbeschrijving";

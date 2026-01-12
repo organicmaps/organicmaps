@@ -648,8 +648,12 @@
     <string name="bookmarks_empty_list_title">Seznam je prázdný</string>
     <string name="bookmarks_empty_list_message">Pro přidání nové značky klikněte na symbol hvězdičky na obrázku objektu</string>
     <string name="category_desc_more">…ještě</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Exportovat KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Export GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Exportovat GeoJSON</string>
     <string name="delete_list">Smazat seznam</string>
     <string name="speedcams_alert_title">Radary</string>
     <string name="place_description_title">Popis místa</string>

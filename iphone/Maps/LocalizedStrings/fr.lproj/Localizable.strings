@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Cyclisme";
 "button_layer_subway" = "Métro";
 "layers_title" = "Styles et couches de cartes";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Exporter KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Exporter GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Exporter GeoJSON";
 "delete_list" = "Supprimer la liste";
 "speedcams_alert_title" = "Radars de vitesse";
 "place_description_title" = "Description d'endroit";

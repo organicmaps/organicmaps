@@ -650,8 +650,15 @@
 "button_layer_cycling" = "Kolesarjenje";
 "button_layer_subway" = "Podzemna železnica";
 "layers_title" = "Slogi in plasti zemljevida";
+
+/* Menu title for exporting a file in the default KMZ format */
 "export_file" = "Izvozi KMZ";
+
+/* Menu title for exporting a file in GPX format */
 "export_file_gpx" = "Izvozi GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "Izvozi GeoJSON";
 "delete_list" = "Izbriši seznam";
 "speedcams_alert_title" = "Radarji";
 "place_description_title" = "Opis mesta";

@@ -645,8 +645,12 @@
     <string name="bookmarks_empty_list_title">Sąrašas tuščias</string>
     <string name="bookmarks_empty_list_message">Jeigu norite pridėti žymę, bakstelėkite vietą žemėlapyje, o tada – žvaigždutės piktogramą</string>
     <string name="category_desc_more">…daugiau</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Eksportuoti KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Eksportuoti GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Eksportuoti GeoJSON</string>
     <string name="delete_list">Šalinti sąrašą</string>
     <string name="speedcams_alert_title">Greičio matuokliai</string>
     <string name="place_description_title">Vietos aprašymas</string>

@@ -631,8 +631,12 @@
     <string name="bookmarks_empty_list_title">Din il-lista hija vojta</string>
     <string name="bookmarks_empty_list_message">Biex iżżid bookmark, għafas post fuq il-mappa u mbagħad għafas is-simbolu tal-istilla</string>
     <string name="category_desc_more">…aktar</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
     <string name="export_file">Esporta KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
     <string name="export_file_gpx">Esporta GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Esporta GeoJSON</string>
     <string name="delete_list">Ħassar il-lista</string>
     <string name="speedcams_alert_title">Kameras tal-veloċita</string>
     <string name="place_description_title">Deskrizzjoni tal-Post</string>
