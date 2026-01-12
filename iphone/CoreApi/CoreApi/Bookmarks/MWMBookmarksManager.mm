@@ -65,15 +65,16 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   }
 }
 
-static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType)
+static FileType convertFileTypeToCore(MWMKmlFileType fileType)
 {
   switch (fileType)
   {
-  case MWMKmlFileTypeText: return KmlFileType::Text;
-  case MWMKmlFileTypeBinary: return KmlFileType::Binary;
-  case MWMKmlFileTypeGpx: return KmlFileType::Gpx;
-  case MWMKmlFileTypeGeoJson: return KmlFileType::GeoJson;
-  case MWMKmlFileTypeJson: return KmlFileType::Json;
+  case MWMKmlFileTypeText: return FileType::Text;
+  case MWMKmlFileTypeArchive: return FileType::Archive;
+  case MWMKmlFileTypeBinary: return FileType::Binary;
+  case MWMKmlFileTypeGpx: return FileType::Gpx;
+  case MWMKmlFileTypeGeoJson: return FileType::GeoJson;
+  case MWMKmlFileTypeJson: return FileType::Json;
   }
 }
 
