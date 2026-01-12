@@ -30,7 +30,7 @@ private slots:
   void OnItemClick(QTreeWidgetItem * item, int column);
   void OnCloseClick();
   void OnImportClick();
-  void OnExportClick(KmlFileType fileType);
+  void OnExportClick(FileType fileType);
   void OnDeleteClick();
 
 private:

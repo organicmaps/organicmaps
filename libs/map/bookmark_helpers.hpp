@@ -73,7 +73,7 @@ std::string_view constexpr kTrashDirectoryName = ".Trash";
 
 extern std::string const kDefaultBookmarksFileName;
 
-enum class KmlFileType
+enum class FileType
 {
   Text,
   Archive,
@@ -83,30 +83,30 @@ enum class KmlFileType
   Json
 };
 
-inline std::string_view GetFileTypeExtension(KmlFileType fileType)
+inline std::string_view GetFileTypeExtension(FileType fileType)
 {
   switch (fileType)
   {
-  case KmlFileType::Text: return kKmlExtension;
-  case KmlFileType::Archive: return kKmzExtension;
-  case KmlFileType::Binary: return kKmbExtension;
-  case KmlFileType::Gpx: return kGpxExtension;
-  case KmlFileType::GeoJson: return kGeoJsonExtension;
-  case KmlFileType::Json: return kJsonExtension;
+  case FileType::Text: return kKmlExtension;
+  case FileType::Archive: return kKmzExtension;
+  case FileType::Binary: return kKmbExtension;
+  case FileType::Gpx: return kGpxExtension;
+  case FileType::GeoJson: return kGeoJsonExtension;
+  case FileType::Json: return kJsonExtension;
   }
   UNREACHABLE();
 }
 
-inline std::string DebugPrint(KmlFileType fileType)
+inline std::string DebugPrint(FileType fileType)
 {
   switch (fileType)
   {
-  case KmlFileType::Text: return "Text";
-  case KmlFileType::Archive: return "Archive";
-  case KmlFileType::Binary: return "Binary";
-  case KmlFileType::Gpx: return "GPX";
-  case KmlFileType::GeoJson: return "GeoJson";
-  case KmlFileType::Json: return "Json";
+  case FileType::Text: return "Text";
+  case FileType::Archive: return "Archive";
+  case FileType::Binary: return "Binary";
+  case FileType::Gpx: return "GPX";
+  case FileType::GeoJson: return "GeoJson";
+  case FileType::Json: return "Json";
   }
   UNREACHABLE();
 }
@@ -118,22 +118,22 @@ std::string GetTrashDirectory();
 std::string RemoveInvalidSymbols(std::string const & name);
 std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string_view ext = kKmlExtension);
 std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName);
-std::string GenerateValidAndUniqueFilePath(std::string const & fileName, KmlFileType const fileType);
+std::string GenerateValidAndUniqueFilePath(std::string const & fileName, FileType const fileType);
 /// @}
 
 /// @name SerDes helpers.
 /// @{
-std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType);
-std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType);
+std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, FileType fileType);
+std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, FileType fileType);
 
 std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath);
-std::vector<std::string> GetFilePathsToLoadFromPath(std::string const & filePath, KmlFileType const fileType);
+std::vector<std::string> GetFilePathsToLoadFromPath(std::string const & filePath, FileType const fileType);
 std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath);
 std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath);
 std::string GetLowercaseFileExt(std::string const & filePath);
 
-bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType);
-bool SaveKmlData(kml::FileData & kmlData, Writer & writer, KmlFileType fileType);
+bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, FileType fileType);
+bool SaveKmlData(kml::FileData & kmlData, Writer & writer, FileType fileType);
 bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file);
 /// @}
 
