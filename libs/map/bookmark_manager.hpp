@@ -346,8 +346,8 @@ public:
   };
 
   using SharingHandler = platform::SafeCallback<void(SharingResult const & result)>;
-  void PrepareFileForSharing(kml::GroupIdCollection && categoriesIds, SharingHandler && handler, FileType kmlFileType);
-  void PrepareTrackFileForSharing(kml::TrackId trackId, SharingHandler && handler, FileType kmlFileType);
+  void PrepareFileForSharing(kml::GroupIdCollection && categoriesIds, SharingHandler && handler, FileType fileType);
+  void PrepareTrackFileForSharing(kml::TrackId trackId, SharingHandler && handler, FileType fileType);
   void PrepareAllFilesForSharing(SharingHandler && handler);
 
   bool AreAllCategoriesEmpty() const;

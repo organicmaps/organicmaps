@@ -464,14 +464,14 @@ public enum BookmarkManager {
     nativeSetAllCategoriesVisibility(visible);
   }
 
-  public void prepareCategoriesForSharing(long[] catIds, @NonNull KmlFileType kmlFileType)
+  public void prepareCategoriesForSharing(long[] catIds, @NonNull FileType fileType)
   {
-    nativePrepareFileForSharing(catIds, kmlFileType.ordinal());
+    nativePrepareFileForSharing(catIds, fileType.ordinal());
   }
 
-  public void prepareTrackForSharing(long trackId, @NonNull KmlFileType kmlFileType)
+  public void prepareTrackForSharing(long trackId, @NonNull FileType fileType)
   {
-    nativePrepareTrackFileForSharing(trackId, kmlFileType.ordinal());
+    nativePrepareTrackFileForSharing(trackId, fileType.ordinal());
   }
 
   public void setNotificationsEnabled(boolean enabled)
@@ -552,9 +552,9 @@ public enum BookmarkManager {
 
   private static native void nativeSetAllCategoriesVisibility(boolean visible);
 
-  private static native void nativePrepareFileForSharing(long[] catIds, int kmlFileType);
+  private static native void nativePrepareFileForSharing(long[] catIds, int fileType);
 
-  private static native void nativePrepareTrackFileForSharing(long trackId, int kmlFileType);
+  private static native void nativePrepareTrackFileForSharing(long trackId, int fileType);
 
   private static native void nativeSetNotificationsEnabled(boolean enabled);
 

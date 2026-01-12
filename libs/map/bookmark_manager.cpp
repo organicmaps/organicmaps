@@ -199,17 +199,17 @@ BookmarkManager::SharingResult ExportMultipleFiles(BookmarkManager::KMLDataColle
   return {std::move(categoriesIds), std::move(kmzFilePath), kKMZMimeType};
 }
 
-BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollectionPtr collection, FileType kmlFileType)
+BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollectionPtr collection, FileType fileType)
 {
   if (collection->size() > 1)
     return ExportMultipleFiles(collection);
-  switch (kmlFileType)
+  switch (fileType)
   {
   case FileType::Text: return ExportSingleFileKml(collection->front());
   case FileType::Gpx: return ExportSingleFileGpx(collection->front());
   case FileType::GeoJson: return ExportSingleFileGeoJson(collection->front());
   default:
-    LOG(LERROR, ("Unexpected file type", kmlFileType));
+    LOG(LERROR, ("Unexpected file type", fileType));
     return {{collection->front().second->m_categoryData.m_id},
             BookmarkManager::SharingResult::Code::FileError,
             "Unexpected file type"};
@@ -2967,25 +2967,25 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
   });
 }
 
-void BookmarkManager::PrepareTrackFileForSharing(kml::TrackId trackId, SharingHandler && handler, FileType kmlFileType)
+void BookmarkManager::PrepareTrackFileForSharing(kml::TrackId trackId, SharingHandler && handler, FileType fileType)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(handler, ());
   auto collection = PrepareToSaveBookmarksForTrack(trackId);
   if (m_testModeEnabled)
   {
-    handler(GetFileForSharing(std::move(collection), kmlFileType));
+    handler(GetFileForSharing(std::move(collection), fileType));
   }
   else
   {
     GetPlatform().RunTask(Platform::Thread::File, [collection = std::move(collection), handler = std::move(handler),
-                                                   kmlFileType = kmlFileType]() mutable
-    { handler(GetFileForSharing(std::move(collection), kmlFileType)); });
+                                                   fileType = fileType]() mutable
+    { handler(GetFileForSharing(std::move(collection), fileType)); });
   }
 }
 
 void BookmarkManager::PrepareFileForSharing(kml::GroupIdCollection && categoriesIds, SharingHandler && handler,
-                                            FileType kmlFileType)
+                                            FileType fileType)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(handler, ());
@@ -3004,13 +3004,13 @@ void BookmarkManager::PrepareFileForSharing(kml::GroupIdCollection && categories
 
   if (m_testModeEnabled)
   {
-    handler(GetFileForSharing(std::move(collection), kmlFileType));
+    handler(GetFileForSharing(std::move(collection), fileType));
   }
   else
   {
     GetPlatform().RunTask(Platform::Thread::File, [collection = std::move(collection), handler = std::move(handler),
-                                                   kmlFileType = kmlFileType]() mutable
-    { handler(GetFileForSharing(std::move(collection), kmlFileType)); });
+                                                   fileType = fileType]() mutable
+    { handler(GetFileForSharing(std::move(collection), fileType)); });
   }
 }
 

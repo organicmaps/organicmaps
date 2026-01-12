@@ -522,7 +522,7 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, FileType fileT
     }
     else
     {
-      CHECK(false, ("Not supported KmlFileType"));
+      CHECK(false, ("Not supported FileType"));
     }
     ValidateKmlData(data);
     RemoveDuplicatedTrackPoints(data);
@@ -602,7 +602,7 @@ static bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, FileT
   case FileType::Json: return SaveGeoJsonData(kmlData, writer);
   default:
   {
-    LOG(LWARNING, ("Unexpected KmlFileType", fileType));
+    LOG(LWARNING, ("Unexpected FileType", fileType));
     return false;
   }
   }
@@ -637,7 +637,7 @@ bool SaveKmlData(kml::FileData & kmlData, Writer & writer, FileType fileType)
     }
     else
     {
-      CHECK(false, ("Not supported KmlFileType"));
+      CHECK(false, ("Not supported FileType"));
     }
   }
   catch (Writer::Exception const & e)

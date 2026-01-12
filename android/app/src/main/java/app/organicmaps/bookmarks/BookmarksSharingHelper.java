@@ -10,7 +10,7 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
-import app.organicmaps.sdk.bookmarks.data.KmlFileType;
+import app.organicmaps.sdk.bookmarks.data.FileType;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.SharingUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -26,16 +26,16 @@ public enum BookmarksSharingHelper
   @Nullable
   private ProgressDialog mProgressDialog;
 
-  public void prepareBookmarkCategoryForSharing(@NonNull Activity context, long catId, KmlFileType kmlFileType)
+  public void prepareBookmarkCategoryForSharing(@NonNull Activity context, long catId, FileType fileType)
   {
     showProgressDialog(context);
-    BookmarkManager.INSTANCE.prepareCategoriesForSharing(new long[] {catId}, kmlFileType);
+    BookmarkManager.INSTANCE.prepareCategoriesForSharing(new long[] {catId}, fileType);
   }
 
-  public void prepareTrackForSharing(@NonNull Activity context, long trackId, KmlFileType kmlFileType)
+  public void prepareTrackForSharing(@NonNull Activity context, long trackId, FileType fileType)
   {
     showProgressDialog(context);
-    BookmarkManager.INSTANCE.prepareTrackForSharing(trackId, kmlFileType);
+    BookmarkManager.INSTANCE.prepareTrackForSharing(trackId, fileType);
   }
 
   private void showProgressDialog(@NonNull Activity context)
@@ -88,6 +88,6 @@ public enum BookmarksSharingHelper
     long[] categoryIds = new long[categories.size()];
     for (int i = 0; i < categories.size(); i++)
       categoryIds[i] = categories.get(i).getId();
-    BookmarkManager.INSTANCE.prepareCategoriesForSharing(categoryIds, KmlFileType.Text);
+    BookmarkManager.INSTANCE.prepareCategoriesForSharing(categoryIds, FileType.Text);
   }
 }
