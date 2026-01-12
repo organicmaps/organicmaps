@@ -372,7 +372,7 @@ extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
     presenter?.showShareSheet(for: placePageData, from: sourceView)
   }
 
-  func previewDidPressExportTrack(_ type: KmlFileType, from sourceView: UIView) {
+  func previewDidPressExportTrack(_ type: FileType, from sourceView: UIView) {
     guard let trackId = placePageData.trackData?.trackId else {
       fatalError("Track data should not be nil during the track export")
     }

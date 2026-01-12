@@ -1,21 +1,28 @@
 import UniformTypeIdentifiers
 
-// TODO: (KK) Remove this type-wrapper and use custom UTTypeIdentifier that is registered into the Info.plist after updating to the iOS >= 14.0.
-struct FileType {
-  let fileExtension: String
-  let typeIdentifier: String
-}
-
 extension FileType {
-  static let kml = FileType(fileExtension: "kml", typeIdentifier: "com.google.earth.kml")
-  static let kmz = FileType(fileExtension: "kmz", typeIdentifier: "com.google.earth.kmz")
-  static let gpx = FileType(fileExtension: "gpx", typeIdentifier: "com.topografix.gpx")
-  static let geojson = FileType(fileExtension: "geojson", typeIdentifier: "public.geojson")
-  static let json = FileType(fileExtension: "json", typeIdentifier: "public.json")
-}
+  var fileExtension: String {
+    switch self {
+    case .text: return "kml"
+    case .archive: return "kmz"
+    case .binary: return "kmb"
+    case .gpx: return "gpx"
+    case .geoJson: return "gejson"
+    case .json: return "json"
+    }
+  }
 
-// MARK: - FileType + UTType
-extension FileType {
+  var typeIdentifier: String {
+    switch self {
+    case .text: return "com.google.earth.kml"
+    case .archive: return "com.google.earth.kmz"
+    case .binary: return "app.omaps.kmb"
+    case .gpx: return "com.topografix.gpx"
+    case .geoJson: return "public.geojson"
+    case .json: return "public.json"
+    }
+  }
+
   @available(iOS 14.0, *)
   var utType: UTType {
     UTType(filenameExtension: fileExtension)!

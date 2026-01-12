@@ -143,7 +143,7 @@ final class BookmarksListPresenter {
       self.router.listSettings(self.bookmarkGroup, delegate: self)
     }))
 
-    func exportMenuItem(for fileType: KmlFileType) -> BookmarksListMenuItem {
+    func exportMenuItem(for fileType: FileType) -> BookmarksListMenuItem {
       let title: String
       switch fileType {
       case .text:

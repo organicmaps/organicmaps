@@ -63,7 +63,7 @@ final class BMCViewController: MWMViewController {
     }
   }
 
-  private func shareCategoryFile(at index: Int, fileType: KmlFileType, anchor: UIView) {
+  private func shareCategoryFile(at index: Int, fileType: FileType, anchor: UIView) {
     UIApplication.shared.showLoadingOverlay()
     viewModel.shareCategoryFile(at: index, fileType: fileType, handler: sharingResultHandler(anchorView: anchor))
   }

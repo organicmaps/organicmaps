@@ -109,7 +109,7 @@ NS_SWIFT_NAME(BookmarksManager)
  non-nil only if `status` is `MWMBookmarksShareStatusSuccess`. In other cases, it will be nil.
 */
 - (void)shareCategory:(MWMMarkGroupID)groupId
-             fileType:(MWMKmlFileType)fileType
+             fileType:(MWMFileType)fileType
            completion:(SharingResultCompletionHandler)completion;
 /**
  Shares all categories.
@@ -128,7 +128,7 @@ NS_SWIFT_NAME(BookmarksManager)
  @param fileType Text/Binary/GPX
  */
 - (void)shareTrack:(MWMTrackID)trackId
-          fileType:(MWMKmlFileType)fileType
+          fileType:(MWMFileType)fileType
         completion:(SharingResultCompletionHandler)completion;
 - (void)finishSharing;
 
