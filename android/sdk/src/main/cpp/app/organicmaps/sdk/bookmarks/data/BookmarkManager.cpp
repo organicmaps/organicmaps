@@ -403,8 +403,10 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeSet
   frm()->GetBookmarkManager().SetAllCategoriesVisibility(static_cast<bool>(visible));
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativePrepareTrackFileForSharing(
-    JNIEnv * env, jclass, jlong trackId, jint fileType)
+JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativePrepareTrackFileForSharing(JNIEnv * env,
+                                                                                                        jclass,
+                                                                                                        jlong trackId,
+                                                                                                        jint fileType)
 {
   frm()->GetBookmarkManager().PrepareTrackFileForSharing(static_cast<kml::TrackId>(trackId),
                                                          [env](BookmarkManager::SharingResult const & result)
