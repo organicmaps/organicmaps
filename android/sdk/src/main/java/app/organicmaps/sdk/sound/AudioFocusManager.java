@@ -95,12 +95,12 @@ abstract class AudioFocusManager
     {
       mPlaybackAllowed = true;
     }
-    else if (focusChange == AudioManager.AUDIOFOCUS_LOSS || focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT
-             || focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK)
+    else if (focusChange == AudioManager.AUDIOFOCUS_LOSS || focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT)
     {
       mPlaybackAllowed = false;
       mOnAudioFocusLost.onAudioFocusLost();
     }
+    // Continue playing (potentially important) voice command on AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK.
   }
 
   @RequiresApi(31)
