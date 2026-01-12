@@ -97,18 +97,9 @@ inline std::string_view GetFileTypeExtension(FileType fileType)
   UNREACHABLE();
 }
 
-inline std::string DebugPrint(FileType fileType)
+inline std::string DebugPrint(FileType const fileType)
 {
-  switch (fileType)
-  {
-  case FileType::Kml: return "Text";
-  case FileType::Kmz: return "Archive";
-  case FileType::Kmb: return "Binary";
-  case FileType::Gpx: return "GPX";
-  case FileType::GeoJson: return "GeoJson";
-  case FileType::Json: return "Json";
-  }
-  UNREACHABLE();
+  return "FileType [" + std::string{GetFileTypeExtension(fileType)} + "]";
 }
 
 /// @name File name/path helpers.
@@ -128,6 +119,7 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, FileType fileT
 
 std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath);
 std::string GetLowercaseFileExt(std::string const & filePath);
+std::optional<FileType> GetFileType(std::string const & filePath);
 
 bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, FileType fileType);
 bool SaveKmlData(kml::FileData & kmlData, Writer & writer, FileType fileType);

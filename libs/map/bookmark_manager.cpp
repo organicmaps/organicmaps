@@ -2099,18 +2099,20 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
     // Convert KMZ/KMB files to temp KML file and copy KML/GPX/GeoJson to temp file.
     for (auto const & fileToLoad : GetKMLOrGPXFilesPathsToLoad(filePath))
     {
-      auto const ext = GetLowercaseFileExt(fileToLoad);
       std::unique_ptr<kml::FileData> kmlData;
-      if (ext == kKmlExtension)
-        kmlData = LoadKmlFile(fileToLoad, FileType::Kml);
-      else if (ext == kGpxExtension)
-        kmlData = LoadKmlFile(fileToLoad, FileType::Gpx);
-      else if (ext == kGeoJsonExtension)
-        kmlData = LoadKmlFile(fileToLoad, FileType::GeoJson);
-      else if (ext == kJsonExtension)  // The same as GeoJSON.
-        kmlData = LoadKmlFile(fileToLoad, FileType::Json);
+      if (auto const fileType = GetFileType(filePath))
+      {
+        switch (*fileType)
+        {
+        case FileType::Kml: kmlData = LoadKmlFile(fileToLoad, FileType::Kml); break;
+        case FileType::Gpx: kmlData = LoadKmlFile(fileToLoad, FileType::Gpx); break;
+        case FileType::GeoJson: kmlData = LoadKmlFile(fileToLoad, FileType::GeoJson); break;
+        case FileType::Json: kmlData = LoadKmlFile(fileToLoad, FileType::Json); break;
+        default: ASSERT(false, ("Unsupported bookmarks file type", (*fileType)));
+        }
+      }
       else
-        ASSERT(false, ("Unsupported bookmarks extension", ext));
+        ASSERT(false, ("Unknown file type for ", filePath));
 
       base::DeleteFileX(fileToLoad);
 
@@ -2148,14 +2150,18 @@ void BookmarkManager::ReloadBookmarkRoutine(std::string const & filePath)
     if (m_needTeardown)
       return;
 
-    auto const ext = GetLowercaseFileExt(filePath);
     std::unique_ptr<kml::FileData> kmlData;
-    if (ext == kKmlExtension)
-      kmlData = LoadKmlFile(filePath, FileType::Kml);
-    else if (ext == kGpxExtension)
-      kmlData = LoadKmlFile(filePath, FileType::Gpx);
+    if (auto const fileType = GetFileType(filePath))
+    {
+      switch (*fileType)
+      {
+      case FileType::Kml: kmlData = LoadKmlFile(filePath, FileType::Kml); break;
+      case FileType::Gpx: kmlData = LoadKmlFile(filePath, FileType::Gpx); break;
+      default: ASSERT(false, ("Unsupported bookmarks file type", (*fileType)));
+      }
+    }
     else
-      ASSERT(false, ("Unsupported bookmarks extension", ext));
+      ASSERT(false, ("Unknown file type for ", filePath));
 
     if (m_needTeardown)
       return;

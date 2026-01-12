@@ -284,10 +284,6 @@ bool IsBadCharForPath(strings::UniChar c)
 }
 }  // namespace
 
-static std::map<std::string_view, FileType> const kExtensionToType = {
-    {kKmlExtension, FileType::Kml}, {kKmbExtension, FileType::Kmb},         {kGpxExtension, FileType::Gpx},
-    {kKmzExtension, FileType::Kmz}, {kGeoJsonExtension, FileType::GeoJson}, {kJsonExtension, FileType::Json}};
-
 std::string GetBookmarksDirectory()
 {
   return base::JoinPath(GetPlatform().SettingsDir(), "bookmarks");
@@ -319,6 +315,25 @@ std::string RemoveInvalidSymbols(std::string const & name)
 std::string GetLowercaseFileExt(std::string const & filePath)
 {
   return strings::MakeLowerCase(base::GetFileExtension(filePath));
+}
+
+std::optional<FileType> GetFileType(std::string const & filePath)
+{
+  auto const ext = GetLowercaseFileExt(filePath);
+  if (ext == kKmlExtension)
+    return FileType::Kml;
+  else if (ext == kKmzExtension)
+    return FileType::Kmz;
+  else if (ext == kKmbExtension)
+    return FileType::Kmb;
+  else if (ext == kGpxExtension)
+    return FileType::Gpx;
+  else if (ext == kGeoJsonExtension)
+    return FileType::GeoJson;
+  else if (ext == kJsonExtension)
+    return FileType::Json;
+  else
+    return {};
 }
 
 std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string_view ext)
@@ -474,16 +489,14 @@ std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePat
 {
   // Copy or convert file from 'filePath' to temp folder.
   // KMZ archives are unpacked to temp folder.
-
-  std::string const fileExt = GetLowercaseFileExt(filePath);
-  if (auto const found = kExtensionToType.find(fileExt); found != kExtensionToType.end())
+  if (auto const fileType = GetFileType(filePath))
   {
-    switch (found->second)
+    switch (*fileType)
     {
     case FileType::Kml:
     case FileType::Gpx:
     case FileType::GeoJson:
-    case FileType::Json: return GetFilePathsToLoadByType(filePath, found->second);
+    case FileType::Json: return GetFilePathsToLoadByType(filePath, *fileType);
     case FileType::Kmz: return GetFilePathsToLoadFromKmz(filePath);
     case FileType::Kmb: return GetFilePathsToLoadFromKmb(filePath);
     }
