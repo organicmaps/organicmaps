@@ -146,7 +146,7 @@ final class BookmarksListPresenter {
     func exportMenuItem(for fileType: FileType) -> BookmarksListMenuItem {
       let title: String
       switch fileType {
-      case .text:
+      case .kml:
         title = L("export_file")
       case .gpx:
         title = L("export_file_gpx")
@@ -171,7 +171,7 @@ final class BookmarksListPresenter {
         }
       })
     }
-    moreItems.append(exportMenuItem(for: .text))
+    moreItems.append(exportMenuItem(for: .kml))
     moreItems.append(exportMenuItem(for: .gpx))
     moreItems.append(BookmarksListMenuItem(title: L("delete_list"),
                                            destructive: true,

@@ -60,7 +60,7 @@ final class iCloudSynchronizaionManager: NSObject {
 
   static let shared: iCloudSynchronizaionManager = {
     let fileManager = FileManager.default
-    let fileType = FileType.text
+    let fileType = FileType.kml
     let cloudDirectoryMonitor = iCloudDocumentsMonitor(fileManager: fileManager, fileType: fileType)
     let synchronizationStateManager = iCloudSynchronizationStateResolver(isInitialSynchronization: isInitialSynchronization)
     do {

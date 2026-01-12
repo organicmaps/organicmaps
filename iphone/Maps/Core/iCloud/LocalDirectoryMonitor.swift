@@ -49,7 +49,7 @@ final class FileSystemDispatchSourceMonitor: LocalDirectoryMonitor {
   private(set) var state: DirectoryMonitorState = .stopped
   weak var delegate: Delegate?
 
-  init(fileManager: FileManager, directory: URL, fileType: FileType = .text) throws {
+  init(fileManager: FileManager, directory: URL, fileType: FileType = .kml) throws {
     self.fileManager = fileManager
     self.directory = directory
     self.fileType = fileType

@@ -27,9 +27,9 @@ typedef NS_ENUM(NSUInteger, MWMTheme) {
 };
 
 typedef NS_ENUM(NSUInteger, MWMFileType) {
-  MWMFileTypeText,
-  MWMFileTypeArchive,
-  MWMFileTypeBinary,
+  MWMFileTypeKml,
+  MWMFileTypeKmz,
+  MWMFileTypeKmb,
   MWMFileTypeGpx,
   MWMFileTypeGeoJson,
   MWMFileTypeJson

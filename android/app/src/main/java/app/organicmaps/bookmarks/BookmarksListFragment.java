@@ -765,7 +765,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       if (types.length > 0)
         items.add(new MenuBottomSheetItem(R.string.sort, R.drawable.ic_sort, this::onSortOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz,
-                                        () -> onShareOptionSelected(FileType.Text)));
+                                        () -> onShareOptionSelected(FileType.Kml)));
       items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
                                         () -> onShareOptionSelected(FileType.Gpx)));
     }
@@ -789,7 +789,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
     items.add(new MenuBottomSheetItem(R.string.edit, R.drawable.ic_edit, this::onTrackEditActionSelected));
     items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz,
-                                      () -> onShareTrackSelected(track.getTrackId(), FileType.Text)));
+                                      () -> onShareTrackSelected(track.getTrackId(), FileType.Kml)));
     items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
                                       () -> onShareTrackSelected(track.getTrackId(), FileType.Gpx)));
     items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete,

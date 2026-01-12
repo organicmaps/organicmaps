@@ -3,9 +3,9 @@ import UniformTypeIdentifiers
 extension FileType {
   var fileExtension: String {
     switch self {
-    case .text: return "kml"
-    case .archive: return "kmz"
-    case .binary: return "kmb"
+    case .kml: return "kml"
+    case .kmz: return "kmz"
+    case .kmb: return "kmb"
     case .gpx: return "gpx"
     case .geoJson: return "gejson"
     case .json: return "json"
@@ -14,9 +14,9 @@ extension FileType {
 
   var typeIdentifier: String {
     switch self {
-    case .text: return "com.google.earth.kml"
-    case .archive: return "com.google.earth.kmz"
-    case .binary: return "app.omaps.kmb"
+    case .kml: return "com.google.earth.kml"
+    case .kmz: return "com.google.earth.kmz"
+    case .kmb: return "app.omaps.kmb"
     case .gpx: return "com.topografix.gpx"
     case .geoJson: return "public.geojson"
     case .json: return "public.json"

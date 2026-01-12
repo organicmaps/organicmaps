@@ -75,9 +75,9 @@ extern std::string const kDefaultBookmarksFileName;
 
 enum class FileType
 {
-  Text,
-  Archive,
-  Binary,
+  Kml,
+  Kmz,
+  Kmb,
   Gpx,
   GeoJson,
   Json
@@ -87,9 +87,9 @@ inline std::string_view GetFileTypeExtension(FileType fileType)
 {
   switch (fileType)
   {
-  case FileType::Text: return kKmlExtension;
-  case FileType::Archive: return kKmzExtension;
-  case FileType::Binary: return kKmbExtension;
+  case FileType::Kml: return kKmlExtension;
+  case FileType::Kmz: return kKmzExtension;
+  case FileType::Kmb: return kKmbExtension;
   case FileType::Gpx: return kGpxExtension;
   case FileType::GeoJson: return kGeoJsonExtension;
   case FileType::Json: return kJsonExtension;
@@ -101,9 +101,9 @@ inline std::string DebugPrint(FileType fileType)
 {
   switch (fileType)
   {
-  case FileType::Text: return "Text";
-  case FileType::Archive: return "Archive";
-  case FileType::Binary: return "Binary";
+  case FileType::Kml: return "Text";
+  case FileType::Kmz: return "Archive";
+  case FileType::Kmb: return "Binary";
   case FileType::Gpx: return "GPX";
   case FileType::GeoJson: return "GeoJson";
   case FileType::Json: return "Json";

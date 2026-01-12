@@ -69,9 +69,9 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
 {
   switch (fileType)
   {
-  case MWMFileTypeText: return FileType::Text;
-  case MWMFileTypeArchive: return FileType::Archive;
-  case MWMFileTypeBinary: return FileType::Binary;
+  case MWMFileTypeKml: return FileType::Kml;
+  case MWMFileTypeKmz: return FileType::Kmz;
+  case MWMFileTypeKmb: return FileType::Kmb;
   case MWMFileTypeGpx: return FileType::Gpx;
   case MWMFileTypeGeoJson: return FileType::GeoJson;
   case MWMFileTypeJson: return FileType::Json;

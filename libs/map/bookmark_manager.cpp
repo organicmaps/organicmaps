@@ -95,7 +95,7 @@ BookmarkManager::SharingResult ExportSingleFileKml(
 
   auto const categoryId = kmlToShare.second->m_categoryData.m_id;
 
-  if (!SaveKmlFileSafe(*kmlToShare.second, filePath, FileType::Text))
+  if (!SaveKmlFileSafe(*kmlToShare.second, filePath, FileType::Kml))
     return {{categoryId}, BookmarkManager::SharingResult::Code::FileError, "Bookmarks file does not exist."};
 
   auto tmpFilePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmzExtension});
@@ -177,7 +177,7 @@ BookmarkManager::SharingResult ExportMultipleFiles(BookmarkManager::KMLDataColle
       fileName = "OrganicMaps_" + std::to_string(suffix++);
     auto const kmlPath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmlExtension});
     auto const filePathInArchive = filesDir + fileName + std::string{kKmlExtension};
-    if (!SaveKmlFileSafe(*kmlToExport.second, kmlPath, FileType::Text))
+    if (!SaveKmlFileSafe(*kmlToExport.second, kmlPath, FileType::Kml))
       continue;
     pathsForArchive.push_back(kmlPath);
     filesInArchive.push_back(filePathInArchive);
@@ -205,7 +205,7 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
     return ExportMultipleFiles(collection);
   switch (fileType)
   {
-  case FileType::Text: return ExportSingleFileKml(collection->front());
+  case FileType::Kml: return ExportSingleFileKml(collection->front());
   case FileType::Gpx: return ExportSingleFileGpx(collection->front());
   case FileType::GeoJson: return ExportSingleFileGeoJson(collection->front());
   default:
@@ -428,7 +428,7 @@ size_t BookmarkManager::GetRecentlyDeletedCategoriesCount() const
 BookmarkManager::KMLDataCollectionPtr BookmarkManager::GetRecentlyDeletedCategories()
 {
   auto collection =
-      LoadBookmarks(GetTrashDirectory(), kKmlExtension, FileType::Text, [](kml::FileData const &) { return true; });
+      LoadBookmarks(GetTrashDirectory(), kKmlExtension, FileType::Kml, [](kml::FileData const &) { return true; });
   return collection;
 }
 
@@ -446,7 +446,7 @@ void BookmarkManager::RecoverRecentlyDeletedCategoriesAtPaths(std::vector<std::s
           ("The category at path", deletedFilePath, "should be in the trash."));
     CHECK(Platform::IsFileExistsByFullPath(deletedFilePath), ("File should exist to be recovered.", deletedFilePath));
     auto recoveredFilePath =
-        GenerateValidAndUniqueFilePath(base::GetNameFromFullPathWithoutExt(deletedFilePath), FileType::Text);
+        GenerateValidAndUniqueFilePath(base::GetNameFromFullPathWithoutExt(deletedFilePath), FileType::Kml);
     base::MoveFileX(deletedFilePath, recoveredFilePath);
     LOG(LINFO, ("Recently deleted category at", deletedFilePath, "is recovered"));
     ReloadBookmark(recoveredFilePath);
@@ -2048,7 +2048,7 @@ void BookmarkManager::LoadBookmarks()
   NotifyAboutStartAsyncLoading();
   GetPlatform().RunTask(Platform::Thread::File, [this]()
   {
-    auto collection = LoadBookmarks(GetBookmarksDirectory(), kKmlExtension, FileType::Text, [](kml::FileData const &)
+    auto collection = LoadBookmarks(GetBookmarksDirectory(), kKmlExtension, FileType::Kml, [](kml::FileData const &)
     {
       return true;  // Allow to load any files from the bookmarks directory.
     });
@@ -2102,7 +2102,7 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
       auto const ext = GetLowercaseFileExt(fileToLoad);
       std::unique_ptr<kml::FileData> kmlData;
       if (ext == kKmlExtension)
-        kmlData = LoadKmlFile(fileToLoad, FileType::Text);
+        kmlData = LoadKmlFile(fileToLoad, FileType::Kml);
       else if (ext == kGpxExtension)
         kmlData = LoadKmlFile(fileToLoad, FileType::Gpx);
       else if (ext == kGeoJsonExtension)
@@ -2124,9 +2124,9 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
           kmlData->m_categoryData.m_lastModified = FileModificationTimestamp(filePath);
 
         auto kmlFileToLoad =
-            GenerateValidAndUniqueFilePath(base::GetNameFromFullPathWithoutExt(fileToLoad), FileType::Text);
+            GenerateValidAndUniqueFilePath(base::GetNameFromFullPathWithoutExt(fileToLoad), FileType::Kml);
 
-        if (!SaveKmlFileSafe(*kmlData, kmlFileToLoad, FileType::Text))
+        if (!SaveKmlFileSafe(*kmlData, kmlFileToLoad, FileType::Kml))
           base::DeleteFileX(kmlFileToLoad);
         else
           collection->emplace_back(std::move(kmlFileToLoad), std::move(kmlData));
@@ -2151,7 +2151,7 @@ void BookmarkManager::ReloadBookmarkRoutine(std::string const & filePath)
     auto const ext = GetLowercaseFileExt(filePath);
     std::unique_ptr<kml::FileData> kmlData;
     if (ext == kKmlExtension)
-      kmlData = LoadKmlFile(filePath, FileType::Text);
+      kmlData = LoadKmlFile(filePath, FileType::Kml);
     else if (ext == kGpxExtension)
       kmlData = LoadKmlFile(filePath, FileType::Gpx);
     else
@@ -3019,7 +3019,7 @@ void BookmarkManager::PrepareAllFilesForSharing(SharingHandler && handler)
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(handler, ());
   PrepareFileForSharing(decltype(m_unsortedBmGroupsIdList){m_unsortedBmGroupsIdList}, std::move(handler),
-                        FileType::Text);
+                        FileType::Kml);
 }
 
 bool BookmarkManager::AreAllCategoriesEmpty() const

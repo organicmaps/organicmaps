@@ -38,7 +38,7 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   connect(importButton, &QAbstractButton::clicked, this, &BookmarkDialog::OnImportClick);
 
   QPushButton * exportKmzButton = new QPushButton(tr("Export KMZ"), this);
-  connect(exportKmzButton, &QAbstractButton::clicked, this, [this] { OnExportClick(FileType::Text); });
+  connect(exportKmzButton, &QAbstractButton::clicked, this, [this] { OnExportClick(FileType::Kml); });
 
   QPushButton * exportGpxButton = new QPushButton(tr("Export GPX"), this);
   connect(exportGpxButton, &QAbstractButton::clicked, this, [this] { OnExportClick(FileType::Gpx); });
