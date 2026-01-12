@@ -148,7 +148,7 @@ extension BMCDefaultViewModel {
     manager.checkCategoryName(name)
   }
 
-  func shareCategoryFile(at index: Int, fileType: FileType, handler: @escaping SharingResultCompletionHandler) {
+  func shareCategoryFile(at index: Int, fileType: KmlFileType, handler: @escaping SharingResultCompletionHandler) {
     let category = categories[index]
     manager.shareCategory(category.categoryId, fileType: fileType, completion: handler)
   }

@@ -117,7 +117,7 @@ protocol IBookmarksListInteractor {
   func updateTrack(_ trackId: MWMTrackID, setGroupId groupId: MWMMarkGroupID)
   func deleteBookmarksGroup()
   func canDeleteGroup() -> Bool
-  func exportFile(fileType: FileType, completion: @escaping SharingResultCompletionHandler)
+  func exportFile(fileType: KmlFileType, completion: @escaping SharingResultCompletionHandler)
   func finishExportFile()
 }
 
