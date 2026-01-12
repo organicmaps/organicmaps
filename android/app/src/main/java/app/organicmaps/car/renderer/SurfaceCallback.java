@@ -75,8 +75,7 @@ class SurfaceCallback extends SurfaceCallbackBase
     mVirtualDisplay =
         mCarContext.getSystemService(DisplayManager.class)
             .createVirtualDisplay(VIRTUAL_DISPLAY_NAME, surfaceContainer.getWidth(), surfaceContainer.getHeight(),
-                                  surfaceContainer.getDpi(), surfaceContainer.getSurface(),
-                                  DisplayManager.VIRTUAL_DISPLAY_FLAG_OWN_CONTENT_ONLY);
+                                  surfaceContainer.getDpi(), surfaceContainer.getSurface(), 0);
     mPresentation = new Presentation(mCarContext, mVirtualDisplay.getDisplay());
 
     mPresentation.setContentView(prepareViewForPresentation(mMapController.getView()));
