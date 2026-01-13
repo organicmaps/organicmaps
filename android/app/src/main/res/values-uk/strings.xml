@@ -296,7 +296,7 @@
     <!-- Preference text -->
     <string name="pref_use_google_play">Швидке визначення приблизного місця розташування за допомогою Bluetooth, WiFi або мобільної мережі</string>
     <!-- Text for routing error dialog -->
-    <string name="routing_download_maps_along">Завантажити мапи з дороги</string>
+    <string name="routing_download_maps_along">Завантажити мапи вздовж маршруту</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Для створення маршруту необхідно щоб всі мапи, починаючи від вашого місцезнаходження і до пункту призначення, були завантажені та оновлені.</string>
     <!-- Text for routing error dialog -->
@@ -408,7 +408,7 @@
     <string name="editor_time_open">Відчинено</string>
     <string name="editor_time_close">Зачинено</string>
     <string name="editor_time_add_closed">Додати перерву</string>
-    <string name="editor_time_title">Час роботи</string>
+    <string name="editor_time_title">Години роботи</string>
     <string name="editor_time_advanced">Розширений режим</string>
     <string name="editor_time_simple">Простий режим</string>
     <string name="editor_hours_closed">Перерва</string>
@@ -531,7 +531,7 @@
     <string name="editor_comment_hint">Коментар…</string>
     <string name="editor_reset_edits_message">Скинути всі локальні виправлення?</string>
     <string name="editor_reset_edits_button">Скинути</string>
-    <string name="editor_remove_place_message">Видалити об\'єкт, що ви додали?</string>
+    <string name="editor_remove_place_message">Видалити доданий об\'єкт?</string>
     <string name="editor_remove_place_button">Видалити</string>
     <string name="editor_place_doesnt_exist">Місце не існує</string>
     <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
@@ -587,7 +587,7 @@
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Скористайтеся пошуком, виберіть мітку, або торкніться мапи, щоб додати пункт призначення</string>
     <string name="planning_route_manage_route">Редагування маршруту</string>
-    <string name="button_plan">Прокласти маршрут</string>
+    <string name="button_plan">Маршрут</string>
     <string name="placepage_remove_stop">Видалити зупинку</string>
     <string name="placepage_add_stop">Додати зупинку</string>
     <string name="saved">Збережено</string>
@@ -609,7 +609,7 @@
     </plurals>
     <string name="bookmarks_create_new_group">Створити новий список</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
-    <string name="bookmarks_import">Імпортувати мітки та маршрути</string>
+    <string name="bookmarks_import">Імпорт міток та маршрутів</string>
     <string name="bookmarks_error_message_share_general">Неможливо поділитися через помилку програми</string>
     <string name="bookmarks_error_title_share_empty">Помилка обміну</string>
     <string name="bookmarks_error_message_share_empty">Неможливо поділитися пустим списком</string>
@@ -742,7 +742,7 @@
     <string name="parkings">Парковки</string>
     <string name="fuel_places">Заправки</string>
     <string name="medicine">Медицина</string>
-    <string name="search_in_the_list">Шукати в списку</string>
+    <string name="search_in_the_list">Пошук у списку</string>
     <string name="religious_places">Святі місця</string>
     <string name="select_list">Обрати список</string>
     <string name="transit_not_found">Навігація на метро ще недоступна в цьому регіоні</string>
