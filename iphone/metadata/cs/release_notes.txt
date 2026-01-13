@@ -1,20 +1,16 @@
-- Články z Wikipedie pro místa v turečtině, japonštině a čínštině; napište ?wiki pro zobrazení všech článků na mapě
-- Nastavení pro vizuální zvýraznění stažených oblastí na mapě
-- Data OpenStreetMap z 23. listopadu 2025
+• NOVINKA: Barvy tmavého motivu s vyšším kontrastem
+• Aktualizována data OpenStreetMap (11. ledna)
+• Vyřazení kasin z kategorie „Zábava“
+• Snížena tloušťka linek metra
+• Přidány informace o kapacitě do výsledků vyhledávání pro parkování motocyklů, půjčovny kol, nabíjení kol a nabíjení aut
+• Zobrazení podlaží ve výsledcích vyhledávání
+• Širší tlačítka pro plánování trasy
 
-- Upravte název záložky nebo trasy přímo na stránce s informacemi o místě
-- Dlouhým stisknutím názvu nebo adresy místa/záložky ji zkopírujete
-- Přidáno vyhledávání konkrétního seznamu při jeho změně ze stránky s informacemi o místě
-- Použijte vlastní emotikony na stránce s informacemi o místě
-- Opraveny animace postranních tlačítek a barva tlačítka "Stáhnout mapy" v tmavém režimu
-- Podpora iOS 26 a macOS 26 "Liquid Glass"
-- Při přesunutí trasy do seznamu se tento seznam stane výchozím pro nové záložky/trasy
-- Vylepšený import GeoJSON, včetně `Saved Places.json` z Google Takeout
-- Aktualizované překlady v různých jazycích, včetně opravy hebrejštiny
+### Překlady
 
-## Navigace a trasování
-
-- Opraveno rozložení mapy během navigace na iPadu, aby byla trasa jasně viditelná
-- Cyklistické trasování nyní vynechává jednosměrné obytné ulice v Rakousku
-- Zjednodušené pokyny pro kruhové objezdy
-- Jasnější silnice s lepším kontrastem v nočním režimu vozidla
+• Přidán překlad aplikace a hlasové navigace do albánštiny
+• Aktualizovány Často kladené otázky (FAQ) a přidány překlady pro arabštinu, češtinu, holandštinu, perštinu, řečtinu, hebrejštinu, hindštinu, maďarštinu, indonéštinu, italštinu, litevštinu, maráthštinu, švédštinu a telugštinu
+• Vylepšeny německé překlady aplikace a FAQ
+• Přidána bulharská synonyma pro vyhledávání
+• Přejmenováno nastavení „Tlačítka přiblížení“ pro větší srozumitelnost
+• Opravy překladů od přispěvatelů Weblate pro různé jazyky

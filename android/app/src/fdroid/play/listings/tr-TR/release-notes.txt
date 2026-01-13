@@ -1,9 +1,9 @@
-• Türkçe, Japonca ve Çince Vikipedi makaleleri, haritada görmek için ?wiki yazın
-• İndirilen bölgeleri haritada görsel olarak vurgulamak için yeni ayar
-• Google Takeout yer imlerini ve kayıtlı yerleri GeoJSON ile içe aktarın
-• 23 Kasım itibarıyla OSM verileri
-• Geliştirilmiş ses çalma ve ses kesintileri
-• Düzenleyici ve harita indirmede çökmeler düzeltildi
-• Karanlık araç modunda daha parlak yollar
-• Avusturya'da geliştirilmiş bisiklet yönlendirmesi
+• YENİ: Daha yüksek kontrastlı koyu tema renkleri
+• YENİ: Navigasyon ve arama için Google Assistant
+• 11 Ocak itibarıyla OSM harita verileri
+• "Otomatik" navigasyon teması ayarı, sistemin koyu/açık modunu takip eder
+• Daha ince metro hatları
+• Arama sonuçları motosiklet park yeri, bisiklet kiralama, bisiklet şarjı ve araba şarjı kapasitesini gösterir
+• Arama sonuçlarında kat seviyesini göster
+• Arnavutça çeviriler ve TTS sesli rehberlik
 …daha fazlası omaps.org/tr/news

@@ -1,20 +1,16 @@
-- Wikipedia-artiklar för platser på turkiska, japanska och kinesiska; skriv ?wiki för att se alla artiklar på kartan
-- Inställning för att visuellt markera nedladdade regioner på kartan
-- OpenStreetMap-data från 23 november 2025
+• NYHET: Mörkt tema med högre kontrast
+• Uppdaterad OpenStreetMap-data (11 januari)
+• Exkluderade kasinon från kategorin "Underhållning"
+• Minskad tjocklek på tunnelbanelinjer
+• Lade till kapacitetsinformation i sökresultat för motorcykelparkering, cykeluthyrning, cykelladdning och billaddning
+• Visa våningsplan i sökresultat
+• Bredare ruttplaneringsknappar
 
-- Redigera ett bokmärkes- eller ruttnamn direkt på platsinformationssidan
-- Tryck länge på namnet eller adressen för en vald plats/bokmärke för att kopiera
-- Lade till sökning efter en specifik lista vid byte från platsinformationssidan
-- Använd anpassade emojis på platsinformationssidan
-- Fixade animationer för sidoknappar och färgen på "Ladda ner kartor"-knappen i mörkt tema
-- iOS 26 & macOS 26 "Liquid Glass"-stöd
-- När du flyttar en rutt till en lista blir den listan standard för nya bokmärken/rutter
-- Förbättrad GeoJSON-import, inklusive `Saved Places.json` från Google Takeout
-- Uppdaterade översättningar på flera språk, inklusive en hebreisk korrigering
+### Översättningar
 
-## Navigering och vägvisning
-
-- Kartlayout fixad under navigering på iPad så att rutten förblir tydligt synlig
-- Cykelrutter hoppar nu över enkelriktade bostadsgator i Österrike
-- Förenklade rondellvägvisningar
-- Vägar är ljusare med bättre kontrast i mörkt fordonsläge
+• Lade till albansk översättning av appen och röstguidning
+• Uppdaterade FAQ och lade till FAQ-översättningar för arabiska, tjeckiska, nederländska, farsi, grekiska, hebreiska, hindi, ungerska, indonesiska, italienska, litauiska, marathi, svenska, telugu
+• Förbättrade tyska app- och FAQ-översättningar
+• Lade till bulgariska sökssynonymer
+• Döpte om inställningen "Zoomknappar" för tydlighetens skull
+• Översättningskorrigeringar från Weblate-bidragsgivare för olika språk

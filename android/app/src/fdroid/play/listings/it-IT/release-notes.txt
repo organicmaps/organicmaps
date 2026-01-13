@@ -1,9 +1,8 @@
-• Articoli Wikipedia in turco, giapponese e cinese, digita ?wiki per vederli sulla mappa
-• Nuova impostazione per evidenziare le regioni scaricate sulla mappa
-• Importa segnalibri e luoghi salvati di Google Takeout tramite GeoJSON
-• Dati OSM al 23 novembre
-• Riproduzione audio migliorata e interruzioni del suono
-• Corretti crash nell'editor e durante il download delle mappe
-• Strade più luminose in modalità veicolo scura
-• Migliorato il routing ciclabile in Austria
+• NUOVO: Colori del tema scuro a contrasto più elevato
+• NUOVO: Google Assistant per navigazione e ricerca
+• Dati mappe OSM aggiornati all'11 gennaio
+• L'impostazione del tema di navigazione "Auto" segue la modalità scura/chiara del sistema
+• Linee della metropolitana più sottili
+• I risultati di ricerca mostrano la capacità per parcheggio moto, noleggio bici, ricarica bici e ricarica auto
+• Mostra il piano nei risultati di ricerca
 …altro su omaps.org/it/news

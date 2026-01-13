@@ -1,9 +1,9 @@
-• Түрік, жапон және қытай тілдеріндегі Уикипедия мақалалары, картада көру үшін ?wiki теріңіз
-• Жүктелген аймақтарды картада ерекшелеу үшін жаңа параметр
-• GeoJSON арқылы Google Takeout бетбелгілері мен сақталған орындарды импорттау
-• 23 қарашадағы OSM деректері
-• Жақсартылған аудио ойнату және дыбыс үзілістері
-• Редактордағы және карталарды жүктеу кезіндегі істен шығулар түзетілді
-• Қараңғы көлік режимінде жарықтау жолдар
-• Австрияда жақсартылған велосипед бағыттауы
+• JANA: Joğary kontrastty qara taqyryp tüsteri
+• JANA: Navigaçija jäne izdeu üşin Google Assistant
+• 11 qańtardağı OSM karta derekteri
+• "Avto" navigaçija taqyryby jújesi sistemanıń qara/jaryq rejimine säikes keledi
+• Juqa metro jelileri
+• Izdeu nätijeleri motosikl turağı, velosiped jalğa alu, velosipedti qattau jäne kòlikti qattau syiymdylyğın kòrsetedi
+• Izdeu nätijelerinde qabat deńgeiin kòrsetu
+• Alban audarmalary jäne TTS dauystyq nusqau
 …толығырақ omaps.org/news

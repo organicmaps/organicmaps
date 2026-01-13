@@ -1,9 +1,9 @@
-• Wikipédia cikkek törökül, japánul és kínaiul, írja be a ?wiki-t a térképen való megtekintéshez
-• Új beállítás a letöltött régiók vizuális kiemeléséhez a térképen
-• Google Takeout könyvjelzők és mentett helyek importálása GeoJSON-on keresztül
-• OSM adatok november 23-ig
-• Javított hanglejátszás és hangmegszakítások
-• Javított összeomlások a szerkesztőben és térképek letöltésekor
-• Világosabb utak sötét jármű módban
-• Javított kerékpáros útvonaltervezés Ausztriában
-…több itt: omaps.org/hu/news
+• ÚJ: Nagyobb kontrasztú sötét téma színek
+• ÚJ: Google Assistant navigációhoz és kereséshez
+• OSM térképadatok január 11-i állapot szerint
+• Az „Auto” navigációs téma beállítás követi a rendszer sötét/világos módját
+• Vékonyabb metróvonalak
+• A keresési eredmények mutatják a motorkerékpár-parkoló, kerékpárkölcsönző, kerékpártöltő és autótöltő kapacitását
+• Emeletszint megjelenítése a keresési eredményekben
+• Albán fordítások és TTS hangos navigáció
+…továbbiak itt omaps.org/hu/news

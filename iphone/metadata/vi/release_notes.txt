@@ -1,20 +1,16 @@
-- Bài viết Wikipedia cho các địa điểm bằng tiếng Thổ Nhĩ Kỳ, Nhật Bản và Trung Quốc; gõ ?wiki để xem tất cả bài viết trên bản đồ
-- Cài đặt để làm nổi bật trực quan các khu vực đã tải xuống trên bản đồ
-- Dữ liệu OpenStreetMap tính đến ngày 23 tháng 11 năm 2025
+• MỚI: Màu sắc giao diện tối có độ tương phản cao hơn
+• Cập nhật dữ liệu OpenStreetMap (11 tháng 1)
+• Loại bỏ sòng bạc khỏi danh mục "Giải trí"
+• Giảm độ dày của các tuyến tàu điện ngầm
+• Thêm thông tin sức chứa vào kết quả tìm kiếm cho bãi đậu xe máy, thuê xe đạp, sạc xe đạp và sạc ô tô
+• Hiển thị tầng trong kết quả tìm kiếm
+• Các nút lập kế hoạch lộ trình rộng hơn
 
-- Chỉnh sửa tên dấu trang hoặc lộ trình trực tiếp trên Trang Thông tin Địa điểm
-- Nhấn giữ tên hoặc địa chỉ của địa điểm/dấu trang đã chọn để sao chép
-- Thêm tìm kiếm danh sách cụ thể khi thay đổi từ Trang Thông tin Địa điểm
-- Sử dụng emoji tùy chỉnh trên Trang Thông tin Địa điểm
-- Sửa hoạt ảnh cho các nút bên và màu nút "Tải bản đồ" trong chủ đề tối
-- Hỗ trợ iOS 26 & macOS 26 "Liquid Glass"
-- Khi di chuyển lộ trình vào danh sách, danh sách đó trở thành mặc định cho dấu trang/lộ trình mới
-- Cải thiện nhập GeoJSON, bao gồm `Saved Places.json` từ Google Takeout
-- Cập nhật bản dịch trên nhiều ngôn ngữ, bao gồm sửa lỗi tiếng Do Thái
+### Bản dịch
 
-## Điều hướng & Lộ trình
-
-- Sửa bố cục bản đồ trong khi điều hướng trên iPad để lộ trình hiển thị rõ ràng
-- Định tuyến xe đạp giờ bỏ qua các đường dân cư một chiều ở Áo
-- Hướng dẫn vòng xuyến đơn giản hóa
-- Đường sáng hơn với độ tương phản tốt hơn trong chế độ phương tiện tối
+• Thêm bản dịch ứng dụng và hướng dẫn bằng giọng nói tiếng Albania
+• Cập nhật câu hỏi thường gặp (FAQ) và thêm bản dịch cho tiếng Ả Rập, Séc, Hà Lan, Farsi, Hy Lạp, Do Thái, Hindi, Hungary, Indonesia, Ý, Litva, Marathi, Thụy Điển, Telugu
+• Cải thiện bản dịch ứng dụng và FAQ tiếng Đức
+• Thêm từ đồng nghĩa tìm kiếm tiếng Bulgaria
+• Đổi tên cài đặt "Nút thu phóng" để rõ ràng hơn
+• Các sửa lỗi dịch thuật từ những người đóng góp trên Weblate cho nhiều ngôn ngữ

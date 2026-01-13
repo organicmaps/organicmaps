@@ -1,8 +1,9 @@
-• Wikipedia-artikelen in het Turks, Japans en Chinees, typ ?wiki om ze op de kaart te zien
-• Nieuwe instelling om gedownloade regio's visueel te markeren op de kaart
-• Importeer Google Takeout-bladwijzers en opgeslagen plaatsen via GeoJSON
-• OSM-gegevens van 23 november
-• Verbeterde audioweergave en geluidsonderbrekingen
-• Crashes in de editor en bij het downloaden van kaarten opgelost
-• Helderdere wegen in donkere voertuigmodus
+• NIEUW: Donkere themakleuren met hoger contrast
+• NIEUW: Google Assistant voor navigatie en zoeken
+• OSM-kaartgegevens van 11 januari
+• De instelling "Auto" voor het navigatiethema volgt de donkere/lichte modus van het systeem
+• Dunnere metrolijnen
+• Zoekresultaten tonen capaciteit voor motorfietsen parkeren, fietsverhuur, fietsen opladen en auto's opladen
+• Toon vloerniveau in zoekresultaten
+• Albanese vertalingen en TTS-spraakbegeleiding
 …meer op omaps.org/nl/news

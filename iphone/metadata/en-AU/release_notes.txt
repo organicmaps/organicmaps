@@ -1,20 +1,16 @@
-- Wikipedia articles for places in Turkish, Japanese, and Chinese; type ?wiki to see all articles on the map
-- Setting to visually highlight downloaded regions on the map
-- OpenStreetMap data as of from November 23, 2025
+• NEW: Higher-contrast dark theme colours
+• Updated OpenStreetMap data (January 11)
+• Excluded casinos from the “Entertainment” category
+• Reduced the thickness of subway lines
+• Added capacity information to search results for motorcycle parking, bicycle rental, bicycle charging, and car charging
+• Show floor level in search results
+• Wider route planning buttons
 
-- Edit a bookmark or track name directly on the Place Information Page
-- Long-tap the name or address of a selected place/bookmark to copy it
-- Added search for a specific list when changing it from the Place Information Page
-- Use custom emojis on the Place Information Page
-- Fixed animations for side buttons and the dark-theme "Download Maps" button colour
-- iOS 26 & macOS 26 "Liquid Glass" support
-- When moving a track to a list, that list becomes the default for new bookmarks/tracks
-- Improved GeoJSON import, including `Saved Places.json` from Google Takeout
-- Updated translations across multiple languages, including a Hebrew fix
+### Translations
 
-## Navigation & Routing
-
-- Map layout fixed during navigation on iPad so the route stays clearly visible
-- Bicycle routing now skips one-way living streets in Austria
-- Simplified roundabout directions
-- Roads are brighter with better contrast in dark vehicle mode
+• Added Albanian app translations and TTS voice guidance
+• Updated the FAQ and added FAQ translations for Arabic, Czech, Dutch, Farsi, Greek, Hebrew, Hindi, Hungarian, Indonesian, Italian, Lithuanian, Marathi, Swedish, Telugu
+• Improved German app and FAQ translations
+• Added Bulgarian search synonyms
+• Renamed the “Zoom buttons” setting for clarity
+• Translation fixes from Weblate contributors for various languages

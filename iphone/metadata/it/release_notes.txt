@@ -1,20 +1,16 @@
-- Articoli di Wikipedia per luoghi in turco, giapponese e cinese; digita ?wiki per vedere tutti gli articoli sulla mappa
-- Impostazione per evidenziare visivamente le regioni scaricate sulla mappa
-- Dati OpenStreetMap del 23 novembre 2025
+• NOVITÀ: Colori del tema scuro a contrasto più elevato
+• Dati OpenStreetMap aggiornati (11 gennaio)
+• Esclusi i casinò dalla categoria “Intrattenimento”
+• Ridotto lo spessore delle linee della metropolitana
+• Aggiunte informazioni sulla capacità ai risultati di ricerca per parcheggi moto, noleggio bici, ricarica bici e ricarica auto
+• Mostra il piano nei risultati di ricerca
+• Pulsanti di pianificazione del percorso più larghi
 
-- Modifica il nome di un segnalibro o di un percorso direttamente nella pagina delle informazioni sul luogo
-- Tocca a lungo il nome o l'indirizzo di un luogo/segnalibro selezionato per copiarlo
-- Aggiunta ricerca per un elenco specifico quando lo si cambia dalla pagina delle informazioni sul luogo
-- Usa emoji personalizzate nella pagina delle informazioni sul luogo
-- Corrette le animazioni per i pulsanti laterali e il colore del pulsante "Scarica mappe" nel tema scuro
-- Supporto iOS 26 e macOS 26 "Liquid Glass"
-- Quando sposti un percorso in un elenco, quell'elenco diventa quello predefinito per nuovi segnalibri/percorsi
-- Importazione GeoJSON migliorata, incluso `Saved Places.json` da Google Takeout
-- Traduzioni aggiornate in più lingue, inclusa una correzione per l'ebraico
+### Traduzioni
 
-## Navigazione e percorsi
-
-- Layout della mappa corretto durante la navigazione su iPad in modo che il percorso rimanga chiaramente visibile
-- Il routing per biciclette ora salta le strade residenziali a senso unico in Austria
-- Indicazioni per le rotatorie semplificate
-- Le strade sono più luminose con un migliore contrasto nella modalità veicolo scura
+• Aggiunte traduzioni dell'app e guida vocale in albanese
+• Aggiornate le FAQ e aggiunte le traduzioni delle FAQ per arabo, ceco, olandese, farsi, greco, ebraico, hindi, ungherese, indonesiano, italiano, lituano, marathi, svedese, telugu
+• Migliorate le traduzioni dell'app e delle FAQ in tedesco
+• Aggiunti sinonimi di ricerca in bulgaro
+• Rinominata l'impostazione "Pulsanti zoom" per chiarezza
+• Correzioni alle traduzioni dai contributori di Weblate per varie lingue

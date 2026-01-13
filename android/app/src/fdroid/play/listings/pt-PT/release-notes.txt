@@ -1,9 +1,8 @@
-• Artigos da Wikipédia em turco, japonês e chinês, escreva ?wiki para os ver no mapa
-• Nova definição para destacar visualmente as regiões descarregadas no mapa
-• Importar marcadores e locais guardados do Google Takeout via GeoJSON
-• Dados OSM de 23 de novembro
-• Reprodução de áudio melhorada e interrupções de som
-• Corrigidas falhas no Editor e ao descarregar mapas
-• Estradas mais brilhantes no modo veículo escuro
-• Encaminhamento de bicicleta melhorado na Áustria
+• NOVO: Cores de tema escuro de maior contraste
+• NOVO: Google Assistant para navegação e pesquisa
+• Dados do mapa OSM de 11 de janeiro
+• A configuração do tema de navegação "Auto" segue o modo escuro/claro do sistema
+• Linhas de metro mais finas
+• Os resultados da pesquisa mostram a capacidade para estacionamento de motociclos, aluguer de bicicletas, carregamento de bicicletas e carregamento de carros
+• Mostrar nível do andar nos resultados da pesquisa
 …mais em omaps.org/pt/news

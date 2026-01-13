@@ -1,9 +1,9 @@
-• Vikipēdijas raksti turku, japāņu un ķīniešu valodā, ierakstiet ?wiki, lai tos redzētu kartē
-• Jauns iestatījums lejupielādēto reģionu vizuālai izcelšanai kartē
-• Importējiet Google Takeout grāmatzīmes un saglabātās vietas caur GeoJSON
-• OSM dati uz 23. novembri
-• Uzlabota audio atskaņošana un skaņas pārtraukumi
-• Laboti avārijas redaktorā un karšu lejupielādē
-• Spilgtāki ceļi tumšajā transportlīdzekļa režīmā
-• Uzlabota velosipēdu maršrutēšana Austrijā
-…vairāk omaps.org/news
+• JAUNUMS: Augstāka kontrasta tumšās tēmas krāsas
+• JAUNUMS: Google Assistant navigācijai un meklēšanai
+• OSM kartes dati uz 11. janvāri
+• "Auto" navigācijas tēmas iestatījums seko sistēmas tumšajam/gaišajam režīmam
+• Plānākas metro līnijas
+• Meklēšanas rezultāti rāda motociklu stāvvietu, velosipēdu nomas, velosipēdu uzlādes un automašīnu uzlādes ietilpību
+• Rādīt stāva līmeni meklēšanas rezultātos
+• Albāņu tulkojumi un TTS balss vadība
+…vairāk vietnē omaps.org/news

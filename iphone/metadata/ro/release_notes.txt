@@ -1,20 +1,16 @@
-- Articole Wikipedia pentru locuri în turcă, japoneză și chineză; tastați ?wiki pentru a vedea toate articolele pe hartă
-- Setare pentru evidențierea vizuală a regiunilor descărcate pe hartă
-- Date OpenStreetMap din 23 noiembrie 2025
+• NOU: Culori cu contrast mai mare pentru tema întunecată
+• Date OpenStreetMap actualizate (11 ianuarie)
+• Cazinouri excluse din categoria „Divertisment”
+• S-a redus grosimea liniilor de metrou
+• S-au adăugat informații despre capacitate în rezultatele căutării pentru parcări motociclete, închirieri biciclete, încărcare biciclete și încărcare mașini
+• Afișare etaj în rezultatele căutării
+• Butoane de planificare a rutei mai largi
 
-- Editați numele unui marcaj sau traseu direct pe pagina de informații a locului
-- Apăsați lung pe numele sau adresa unui loc/marcaj selectat pentru a-l copia
-- Adăugată căutare pentru o listă specifică la schimbarea acesteia din pagina de informații a locului
-- Folosiți emoji-uri personalizate pe pagina de informații a locului
-- Animații corectate pentru butoanele laterale și culoarea butonului "Descarcă hărți" în tema întunecată
-- Suport iOS 26 și macOS 26 "Liquid Glass"
-- Când mutați un traseu într-o listă, acea listă devine implicită pentru marcaje/trasee noi
-- Import GeoJSON îmbunătățit, inclusiv `Saved Places.json` din Google Takeout
-- Traduceri actualizate în mai multe limbi, inclusiv o corecție pentru ebraică
+### Traduceri
 
-## Navigare și trasee
-
-- Aspectul hărții corectat în timpul navigării pe iPad pentru ca traseul să rămână clar vizibil
-- Rutarea pentru biciclete ocolește acum străzile rezidențiale cu sens unic din Austria
-- Instrucțiuni simplificate pentru sensuri giratorii
-- Drumurile sunt mai luminoase cu contrast mai bun în modul vehicul întunecat
+• S-au adăugat traduceri ale aplicației și ghidare vocală în albaneză
+• S-au actualizat întrebările frecvente și s-au adăugat traduceri pentru arabă, cehă, olandeză, farsi, greacă, ebraică, hindi, maghiară, indoneziană, italiană, lituaniană, marathi, suedeză, telugu
+• S-au îmbunătățit traducerile aplicației și ale întrebărilor frecvente în germană
+• S-au adăugat sinonime de căutare în bulgară
+• S-a redenumit setarea „Butoane zoom” pentru claritate
+• Corecții de traducere de la contribuitorii Weblate pentru diverse limbi

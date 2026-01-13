@@ -1,9 +1,9 @@
-• Wikipedia-artikkelit turkiksi, japaniksi ja kiinaksi, kirjoita ?wiki nähdäksesi ne kartalla
-• Uusi asetus ladattujen alueiden visuaaliseen korostamiseen kartalla
-• Tuo Google Takeoutin kirjanmerkit ja tallennetut paikat GeoJSONin kautta
-• OSM-tiedot 23. marraskuuta mennessä
-• Parannettu äänentoisto ja äänikatkokset
-• Korjattu kaatumisia editorissa ja karttojen latauksessa
-• Kirkkaammat tiet pimeässä ajoneuvotilassa
-• Parannettu pyöräreititys Itävallassa
+• UUTTA: Korkeamman kontrastin tumman teeman värit
+• UUTTA: Google Assistant navigointiin ja hakuun
+• OSM-karttatiedot 11. tammikuuta
+• "Auto"-navigointiteeman asetus noudattaa järjestelmän tummaa/vaaleaa tilaa
+• Ohuemmat metrolinjat
+• Hakutulokset näyttävät moottoripyöräpysäköinnin, polkupyörävuokrauksen, polkupyörien latauksen ja autojen latauksen kapasiteetin
+• Näytä kerrostaso hakutuloksissa
+• Albanialaiset käännökset ja TTS-ääniopastus
 …lisää osoitteessa omaps.org/news

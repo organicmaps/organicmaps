@@ -1,9 +1,11 @@
-• Wikipedia-artikler på tyrkisk, japansk og kinesisk, skriv ?wiki for at se dem på kortet
-• Ny indstilling til visuelt at fremhæve downloadede områder på kortet
-• Importér Google Takeouts bogmærker og gemte steder via GeoJSON
-• OSM-data pr. 23. november
-• Forbedret lydafspilning og lydafbrydelser
-• Rettede nedbrud i editoren og ved download af kort
-• Lysere veje i mørk køretøjstilstand
-• Forbedret cykelrute i Østrig
+• NYHED: Højere kontrast mørke temafarver
+• NYHED: Google Assistant til navigation og søgning
+• OSM-kortdata pr. 11. januar
+• Indstillingen "Auto" navigationstema følger systemets mørke/lyse tilstand
+• Tyndere metrolinjer
+• Søgeresultater viser kapacitet for motorcykelparkering, cykeludlejning, cykelopladning og bilopladning
+• Vis etageniveau i søgeresultater
+• Albanske oversættelser og TTS stemmevejledning
+• Opdaterede FAQ og app-oversættelser
+• Rettede nedbrud
 …mere på omaps.org/news

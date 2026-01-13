@@ -1,9 +1,10 @@
-• Články z Wikipedie v turečtině, japonštině a čínštině, zadejte ?wiki pro zobrazení na mapě
-• Nové nastavení pro vizuální zvýraznění stažených oblastí na mapě
-• Import záložek a uložených míst z Google Takeout přes GeoJSON
-• OSM data k 23. listopadu
-• Vylepšené přehrávání zvuku a zvukové přerušení
-• Opraveny pády v editoru a při stahování map
-• Jasnější silnice v tmavém režimu vozidla
-• Vylepšené cyklistické směrování v Rakousku
+• NOVÉ: Kontrastnější barvy tmavého motivu
+• NOVÉ: Google Assistant pro navigaci a vyhledávání
+• Mapová data OSM k 11. lednu
+• Nastavení motivu navigace „Auto“ sleduje systémový tmavý/světlý režim
+• Tenčí linky metra
+• Výsledky vyhledávání zobrazují kapacitu pro parkování motocyklů, půjčovny kol, nabíjení kol a nabíjení aut
+• Zobrazit úroveň podlaží ve výsledcích vyhledávání
+• Albánské překlady a hlasové navádění TTS
+• Aktualizované FAQ a překlady aplikací
 …více na omaps.org/cs/news

@@ -1,20 +1,16 @@
-- Wikipedia-Artikel für Orte auf Türkisch, Japanisch und Chinesisch; tippe ?wiki, um alle Artikel auf der Karte anzuzeigen
-- Einstellung zur visuellen Hervorhebung heruntergeladener Regionen auf der Karte
-- OpenStreetMap-Daten vom 23. November 2025
+• NEU: Kontrastreichere Farben für das dunkle Design
+• Aktualisierte OpenStreetMap-Daten (11. Januar)
+• Casinos aus der Kategorie „Unterhaltung“ ausgeschlossen
+• Dicke der U-Bahn-Linien verringert
+• Kapazitätsinformationen in den Suchergebnissen für Motorradparkplätze, Fahrradverleih, Fahrrad- und Autoladestationen hinzugefügt
+• Anzeige der Etage in den Suchergebnissen
+• Breitere Schaltflächen für die Routenplanung
 
-- Bearbeite einen Lesezeichen- oder Routennamen direkt auf der Ortsinformationsseite
-- Langer Druck auf den Namen oder die Adresse eines ausgewählten Ortes/Lesezeichens zum Kopieren
-- Suche nach einer bestimmten Liste beim Wechseln von der Ortsinformationsseite hinzugefügt
-- Verwende benutzerdefinierte Emojis auf der Ortsinformationsseite
-- Animationen für Seitentasten und die Farbe der "Karten herunterladen"-Schaltfläche im dunklen Design korrigiert
-- iOS 26 & macOS 26 "Liquid Glass"-Unterstützung
-- Beim Verschieben einer Route in eine Liste wird diese zur Standardliste für neue Lesezeichen/Routen
-- Verbesserter GeoJSON-Import, einschließlich `Saved Places.json` von Google Takeout
-- Aktualisierte Übersetzungen in mehreren Sprachen, einschließlich einer Hebräisch-Korrektur
+### Übersetzungen
 
-## Navigation & Routenplanung
-
-- Kartenlayout während der Navigation auf dem iPad korrigiert, damit die Route gut sichtbar bleibt
-- Fahrrad-Routing überspringt jetzt Einbahnstraßen in Wohngebieten in Österreich
-- Vereinfachte Kreisverkehrsanweisungen
-- Straßen sind heller mit besserem Kontrast im dunklen Fahrzeugmodus
+• Albanische App-Übersetzungen und TTS-Sprachführung hinzugefügt
+• FAQ aktualisiert und FAQ-Übersetzungen für Arabisch, Tschechisch, Niederländisch, Farsi, Griechisch, Hebräisch, Hindi, Ungarisch, Indonesisch, Italienisch, Litauisch, Marathi, Schwedisch und Telugu hinzugefügt
+• Verbesserte deutsche App- und FAQ-Übersetzungen
+• Bulgarische Suchsynonyme hinzugefügt
+• Einstellung „Zoom-Tasten“ zur besseren Verständlichkeit umbenannt
+• Übersetzungsverbesserungen von Weblate-Mitwirkenden für verschiedene Sprachen

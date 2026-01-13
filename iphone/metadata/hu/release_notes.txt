@@ -1,20 +1,16 @@
-- Wikipédia-cikkek helyekhez törökül, japánul és kínaiul; írja be a ?wiki parancsot az összes cikk megtekintéséhez a térképen
-- Beállítás a letöltött régiók vizuális kiemelésére a térképen
-- OpenStreetMap adatok 2025. november 23-tól
+• ÚJ: Nagyobb kontrasztú sötét téma színek
+• Frissített OpenStreetMap adatok (január 11.)
+• A kaszinók kizárva a „Szórakozás” kategóriából
+• Csökkentett metróvonal-vastagság
+• Kapacitásinformációk hozzáadva a keresési eredményekhez motorkerékpár-parkolók, kerékpárkölcsönzők, kerékpártöltők és autótöltők esetén
+• Emeletszint megjelenítése a keresési eredményekben
+• Szélesebb útvonaltervező gombok
 
-- Szerkessze a könyvjelző vagy útvonal nevét közvetlenül a Helyadatok oldalon
-- Hosszú érintéssel másolja a kiválasztott hely/könyvjelző nevét vagy címét
-- Keresés hozzáadva egy adott listához a Helyadatok oldalról történő váltáskor
-- Használjon egyéni emojikat a Helyadatok oldalon
-- Javított animációk az oldalsó gombokhoz és a "Térképek letöltése" gomb színéhez sötét témában
-- iOS 26 és macOS 26 "Liquid Glass" támogatás
-- Amikor egy útvonalat listára helyez, az lesz az alapértelmezett lista az új könyvjelzőkhöz/útvonalakhoz
-- Javított GeoJSON importálás, beleértve a `Saved Places.json` fájlt a Google Takeoutból
-- Frissített fordítások több nyelven, beleértve egy héber javítást
+### Fordítások
 
-## Navigáció és útvonaltervezés
-
-- A térkép elrendezése javítva iPaden a navigáció során, hogy az útvonal jól látható maradjon
-- A kerékpáros útvonaltervezés mostantól kihagyja az egyirányú lakóutcákat Ausztriában
-- Egyszerűsített körforgalmi utasítások
-- Az utak világosabbak jobb kontraszttal sötét járműmódban
+• Albán alkalmazásfordítások és hangos navigáció hozzáadva
+• Frissített GYIK és hozzáadott GYIK fordítások arab, cseh, holland, perzsa, görög, héber, hindi, magyar, indonéz, olasz, litván, marathi, svéd, telugu nyelvekhez
+• Javított német alkalmazás- és GYIK-fordítások
+• Bolgár keresési szinonimák hozzáadva
+• A „Nagyítás gombok” beállítás átnevezése az egyértelműség érdekében
+• Fordítási javítások a Weblate közreműködőitől különböző nyelvekre

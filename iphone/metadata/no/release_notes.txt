@@ -1,20 +1,16 @@
-- Wikipedia-artikler for steder på tyrkisk, japansk og kinesisk; skriv ?wiki for å se alle artikler på kartet
-- Innstilling for å visuelt fremheve nedlastede regioner på kartet
-- OpenStreetMap-data fra 23. november 2025
+• NYHET: Mørkt tema med høyere kontrast
+• Oppdaterte OpenStreetMap-data (11. januar)
+• Ekskluderte kasinoer fra kategorien «Underholdning»
+• Reduserte tykkelsen på T-banelinjer
+• Lagt til kapasitetsinformation i søkeresultater for motorsykkelparkering, sykkelutleie, sykkellading og billading
+• Vis etasje i søkeresultater
+• Bredere ruteplanleggingsknapper
 
-- Rediger et bokmerke eller rutenavn direkte på stedsinformasjonssiden
-- Langt trykk på navnet eller adressen til et valgt sted/bokmerke for å kopiere det
-- Lagt til søk etter en spesifikk liste ved endring fra stedsinformasjonssiden
-- Bruk egendefinerte emojier på stedsinformasjonssiden
-- Fikset animasjoner for sideknapper og fargen på "Last ned kart"-knappen i mørkt tema
-- iOS 26 og macOS 26 "Liquid Glass"-støtte
-- Når du flytter en rute til en liste, blir den listen standard for nye bokmerker/ruter
-- Forbedret GeoJSON-import, inkludert `Saved Places.json` fra Google Takeout
-- Oppdaterte oversettelser på flere språk, inkludert en hebraisk retting
+### Oversettelser
 
-## Navigasjon og ruteplanlegging
-
-- Kartoppsett fikset under navigasjon på iPad slik at ruten forblir tydelig synlig
-- Sykkelruter hopper nå over enveiskjørte boliggater i Østerrike
-- Forenklede rundkjøringsinstruksjoner
-- Veier er lysere med bedre kontrast i mørk kjøretøymodus
+• Lagt til albansk oversettelse av appen og taleveiledning
+• Oppdatert FAQ og lagt til FAQ-oversettelser for arabisk, tsjekkisk, nederlandsk, farsi, gresk, hebraisk, hindi, ungarsk, indonesisk, italiensk, litauisk, marathi, svensk, telugu
+• Forbedret tyske app- og FAQ-oversættelser
+• Lagt til bulgarske søkesynonymer
+• Omdøpte innstillingen «Zoom-knapper» for klarhetens skyld
+• Oversettelsesrettelser fra Weblate-bidragsytere for ulike språk

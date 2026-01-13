@@ -1,20 +1,16 @@
-- Artykuły Wikipedii dla miejsc po turecku, japońsku i chińsku; wpisz ?wiki, aby zobaczyć wszystkie artykuły na mapie
-- Ustawienie do wizualnego wyróżniania pobranych regionów na mapie
-- Dane OpenStreetMap z 23 listopada 2025
+• NOWOŚĆ: Kolory ciemnego motywu o wyższym kontraście
+• Zaktualizowane dane OpenStreetMap (11 stycznia)
+• Wyłączono kasyna z kategorii „Rozrywka”
+• Zmniejszono grubość linii metra
+• Dodano informacje o pojemności do wyników wyszukiwania parkingów motocyklowych, wypożyczalni rowerów, ładowania rowerów i ładowania samochodów
+• Pokazywanie piętra w wynikach wyszukiwania
+• Szersze przyciski planowania trasy
 
-- Edytuj nazwę zakładki lub trasy bezpośrednio na stronie informacji o miejscu
-- Przytrzymaj nazwę lub adres wybranego miejsca/zakładki, aby skopiować
-- Dodano wyszukiwanie określonej listy podczas jej zmiany ze strony informacji o miejscu
-- Używaj niestandardowych emoji na stronie informacji o miejscu
-- Naprawiono animacje przycisków bocznych i kolor przycisku "Pobierz mapy" w ciemnym motywie
-- Wsparcie dla iOS 26 i macOS 26 "Liquid Glass"
-- Po przeniesieniu trasy na listę, ta lista staje się domyślną dla nowych zakładek/tras
-- Ulepszony import GeoJSON, w tym `Saved Places.json` z Google Takeout
-- Zaktualizowane tłumaczenia w wielu językach, w tym poprawka hebrajskiego
+### Tłumaczenia
 
-## Nawigacja i wyznaczanie tras
-
-- Naprawiono układ mapy podczas nawigacji na iPadzie, aby trasa była wyraźnie widoczna
-- Routing rowerowy pomija teraz jednokierunkowe ulice mieszkalne w Austrii
-- Uproszczone wskazówki dotyczące rond
-- Drogi są jaśniejsze z lepszym kontrastem w ciemnym trybie pojazdu
+• Dodano albańskie tłumaczenia aplikacji i wskazówki głosowe
+• Zaktualizowano FAQ i dodano tłumaczenia FAQ na arabski, czeski, holenderski, perski, grecki, hebrajski, hindi, węgierski, indonezyjski, włoski, litewski, marathi, szwedzki, telugu
+• Ulepszono niemieckie tłumaczenia aplikacji i FAQ
+• Dodano bułgarskie synonimy wyszukiwania
+• Zmieniono nazwę ustawienia „Przyciski powiększania” dla jasności
+• Poprawki tłumaczeń od współtwórców Weblate dla różnych języków

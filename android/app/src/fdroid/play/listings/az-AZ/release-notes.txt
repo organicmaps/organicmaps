@@ -1,8 +1,9 @@
-• Türk, Yapon və Çin dillərində Vikipediya məqalələri, xəritədə görmək üçün ?wiki yazın
-• Yüklənmiş bölgələri xəritədə vurğulamaq üçün yeni parametr
-• Google Takeout əlfəcinlərini və saxlanmış yerləri GeoJSON vasitəsilə idxal edin
-• 23 Noyabr tarixinə OSM məlumatları
-• Təkmilləşdirilmiş audio oxutma və səs kəsilmələri
-• Redaktorda və xəritə yükləyərkən çökmələr düzəldildi
-• Qaranlıq avtomobil rejimində daha parlaq yollar
-…ətraflı omaps.org/news
+• YENİ: Daha yüksək kontrastlı tünd mövzu rəngləri
+• YENİ: Naviqasiya və axtarış üçün Google Assistant
+• 11 yanvar tarixinə OSM xəritə məlumatları
+• "Auto" naviqasiya mövzusu tənzimləməsi sistemin tünd/işıqlı rejiminə uyğunlaşır
+• Daha nazik metro xətləri
+• Axtarış nəticələri motosiklet parkı, velosiped kirayəsi, velosiped şarjı və avtomobil şarjı üçün tutumu göstərir
+• Axtarış nəticələrində mərtəbə səviyyəsini göstərmək
+• Alban tərcümələri və TTS səsli bələdçi
+…daha ətraflı omaps.org/news

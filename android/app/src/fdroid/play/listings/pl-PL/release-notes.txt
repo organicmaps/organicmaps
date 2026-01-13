@@ -1,9 +1,9 @@
-• Artykuły Wikipedii po turecku, japońsku i chińsku, wpisz ?wiki, aby zobaczyć je na mapie
-• Nowe ustawienie do wizualnego podświetlania pobranych regionów na mapie
-• Importuj zakładki i zapisane miejsca z Google Takeout przez GeoJSON
-• Dane OSM na dzień 23 listopada
-• Ulepszone odtwarzanie dźwięku i przerwy w dźwięku
-• Naprawiono awarie w edytorze i podczas pobierania map
-• Jaśniejsze drogi w ciemnym trybie pojazdu
-• Ulepszone trasowanie rowerowe w Austrii
+• NOWOŚĆ: Kolory ciemnego motywu o wyższym kontraście
+• NOWOŚĆ: Google Assistant do nawigacji i wyszukiwania
+• Dane mapy OSM z 11 stycznia
+• Ustawienie motywu nawigacji „Auto” podąża za systemowym trybem ciemnym/jasnym
+• Cieńsze linie metra
+• Wyniki wyszukiwania pokazują pojemność parkingów dla motocykli, wypożyczalni rowerów, ładowania rowerów i ładowania samochodów
+• Pokaż poziom piętra w wynikach wyszukiwania
+• Tłumaczenia na albański i wskazówki głosowe TTS
 …więcej na omaps.org/pl/news

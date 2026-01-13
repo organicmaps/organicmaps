@@ -1,9 +1,9 @@
-• Bài viết Wikipedia bằng tiếng Thổ Nhĩ Kỳ, Nhật Bản và Trung Quốc, gõ ?wiki để xem trên bản đồ
-• Cài đặt mới để làm nổi bật các khu vực đã tải xuống trên bản đồ
-• Nhập dấu trang và địa điểm đã lưu của Google Takeout qua GeoJSON
-• Dữ liệu OSM đến ngày 23 tháng 11
-• Cải thiện phát âm thanh và ngắt âm thanh
-• Sửa lỗi sập trong Trình chỉnh sửa và khi tải bản đồ
-• Đường sáng hơn trong chế độ xe tối
-• Cải thiện định tuyến xe đạp ở Áo
+• MỚI: Màu chủ đề tối có độ tương phản cao hơn
+• MỚI: Google Assistant để điều hướng và tìm kiếm
+• Dữ liệu bản đồ OSM kể từ ngày 11 tháng 1
+• Cài đặt chủ đề điều hướng "Tự động" tuân theo chế độ tối/sáng của hệ thống
+• Đường tàu điện ngầm mỏng hơn
+• Kết quả tìm kiếm hiển thị sức chứa cho bãi đậu xe máy, thuê xe đạp, sạc xe đạp và sạc ô tô
+• Hiển thị cấp tầng trong kết quả tìm kiếm
+• Bản dịch tiếng Albania và hướng dẫn bằng giọng nói TTS
 …thêm tại omaps.org/news

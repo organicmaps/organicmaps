@@ -1,20 +1,16 @@
-- Artigos da Wikipédia para lugares em turco, japonês e chinês; escreva ?wiki para ver todos os artigos no mapa
-- Definição para destacar visualmente as regiões transferidas no mapa
-- Dados do OpenStreetMap de 23 de novembro de 2025
+• NOVO: Cores de tema escuro com maior contraste
+• Dados do OpenStreetMap atualizados (11 de janeiro)
+• Casinos excluídos da categoria "Entretenimento"
+• Reduzida a espessura das linhas de metro
+• Adicionada informação de capacidade aos resultados de pesquisa para estacionamento de motos, aluguer de bicicletas, carregamento de bicicletas e carregamento de carros
+• Mostrar o piso nos resultados de pesquisa
+• Botões de planeamento de rota mais largos
 
-- Edite o nome de um marcador ou trajeto diretamente na página de informações do local
-- Toque longo no nome ou morada de um local/marcador selecionado para o copiar
-- Adicionada pesquisa por uma lista específica ao alterá-la a partir da página de informações do local
-- Utilize emojis personalizados na página de informações do local
-- Animações corrigidas para os botões laterais e a cor do botão "Transferir mapas" no tema escuro
-- Suporte para iOS 26 e macOS 26 "Liquid Glass"
-- Ao mover um trajeto para uma lista, essa lista torna-se a predefinida para novos marcadores/trajetos
-- Importação GeoJSON melhorada, incluindo `Saved Places.json` do Google Takeout
-- Traduções atualizadas em vários idiomas, incluindo uma correção em hebraico
+### Traduções
 
-## Navegação e percursos
-
-- Disposição do mapa corrigida durante a navegação no iPad para que o percurso permaneça claramente visível
-- O encaminhamento de bicicletas agora ignora ruas residenciais de sentido único na Áustria
-- Instruções de rotunda simplificadas
-- Estradas mais brilhantes com melhor contraste no modo veículo escuro
+• Adicionadas traduções da aplicação e orientação por voz em albanês
+• Perguntas frequentes (FAQ) atualizadas e adicionadas traduções para árabe, checo, neerlandês, farsi, grego, hebraico, hindi, húngaro, indonésio, italiano, lituano, marata, sueco e telugu
+• Melhoradas as traduções da aplicação e FAQ em alemão
+• Adicionados sinónimos de pesquisa em búlgaro
+• Renomeada a configuração "Botões de zoom" para maior clareza
+• Correções de tradução de colaboradores do Weblate para vários idiomas

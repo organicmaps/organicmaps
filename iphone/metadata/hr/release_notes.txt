@@ -1,20 +1,16 @@
-- Članci s Wikipedije za mjesta na turskom, japanskom i kineskom; upišite ?wiki da vidite sve članke na karti
-- Postavka za vizualno isticanje preuzetih regija na karti
-- OpenStreetMap podaci od 23. studenog 2025.
+• NOVO: Boje tamne teme većeg kontrasta
+• Ažurirani podaci OpenStreetMap-a (11. siječnja)
+• Isključena casina iz kategorije "Zabava"
+• Smanjena debljina linija podzemne željeznice
+• Dodane informacije o kapacitetu u rezultate pretraživanja za parkiranje motocikala, najam bicikala, punjenje bicikala i punjenje automobila
+• Prikaz kata u rezultatima pretraživanja
+• Širi gumbi za planiranje rute
 
-- Uredite naziv oznake ili staze izravno na stranici s informacijama o mjestu
-- Dugim dodirom na naziv ili adresu odabranog mjesta/oznake kopirajte ga
-- Dodano pretraživanje određene liste pri promjeni sa stranice s informacijama o mjestu
-- Koristite prilagođene emotikone na stranici s informacijama o mjestu
-- Popravljene animacije za bočne gumbe i boja gumba "Preuzmi karte" u tamnoj temi
-- Podrška za iOS 26 i macOS 26 "Liquid Glass"
-- Kada premjestite stazu na popis, taj popis postaje zadani za nove oznake/staze
-- Poboljšani GeoJSON uvoz, uključujući `Saved Places.json` iz Google Takeouta
-- Ažurirani prijevodi na više jezika, uključujući ispravak na hebrejskom
+### Prijevodi
 
-## Navigacija i usmjeravanje
-
-- Popravljen raspored karte tijekom navigacije na iPadu tako da ruta ostane jasno vidljiva
-- Biciklistička navigacija sada preskače jednosmjerne stambene ulice u Austriji
-- Pojednostavljene upute za kružne tokove
-- Ceste su svjetlije s boljim kontrastom u tamnom vozačkom načinu
+• Dodani prijevodi aplikacije i glasovno navođenje na albanskom jeziku
+• Ažurirana Česta pitanja (FAQ) i dodani prijevodi za arapski, češki, nizozemski, perzijski, grčki, hebrejski, hindi, mađarski, indonezijski, talijanski, litvanski, marati, švedski, telugu
+• Poboljšani njemački prijevodi aplikacije i Čestih pitanja
+• Dodani bugarski sinonimi za pretraživanje
+• Preimenovana postavka "Gumbi za zumiranje" radi jasnoće
+• Ispravci prijevoda suradnika Weblatea za razne jezike

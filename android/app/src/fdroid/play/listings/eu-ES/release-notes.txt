@@ -1,9 +1,9 @@
-• Wikipediako artikuluak turkieraz, japonieraz eta txineraz, idatzi ?wiki mapan ikusteko
-• Ezarpen berria deskargatutako eskualdeak mapan bisualki nabarmentzeko
-• Inportatu Google Takeout-eko laster-markak eta gordetako lekuak GeoJSON bidez
-• OSM datuak azaroaren 23ra arte
-• Audio erreprodukzioa eta soinu etendura hobetuak
-• Editore eta mapa deskargetan hutsegiteak konponduta
-• Errepide distiratsuagoak ibilgailu modu ilunean
-• Austriako bizikleta bideratze hobetua
-…gehiago omaps.org/eu/news-en
+• BERRIA: Kontraste handiagoko gai iluneko koloreak
+• Google Assistant nabigaziorako eta bilaketarako
+• OSM maparen datuak urtarrilaren 11koak
+• "Auto" nabigazio-gaiak sistemaren modu iluna/argia jarraitzen du
+• Metro linea meheagoak
+• Bilaketa-emaitzek motozikletak aparkatzeko, bizikletak alokatzeko, bizikletak kargatzeko eta autoak kargatzeko edukiera erakusten dute
+• Erakutsi solairuaren maila bilaketa-emaitzetan
+• Albaniako itzulpenak eta TTS ahots-gida
+…gehiago hemen omaps.org/eu/news

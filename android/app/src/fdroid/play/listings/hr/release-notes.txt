@@ -1,9 +1,9 @@
-• Wikipedia članci na turskom, japanskom i kineskom, upišite ?wiki da ih vidite na karti
-• Nova postavka za vizualno isticanje preuzetih regija na karti
-• Uvoz Google Takeout oznaka i spremljenih mjesta putem GeoJSON-a
-• OSM podaci od 23. studenog
-• Poboljšana reprodukcija zvuka i prekidi zvuka
-• Popravljeni padovi u uređivaču i pri preuzimanju karata
-• Svjetlije ceste u tamnom načinu vozila
-• Poboljšano biciklističko usmjeravanje u Austriji
+• NOVO: Boje tamne teme s većim kontrastom
+• NOVO: Google Assistant za navigaciju i pretraživanje
+• OSM podaci karte od 11. siječnja
+• Postavka teme navigacije "Automatski" prati tamni/svijetli način rada sustava
+• Tanije linije podzemne željeznice
+• Rezultati pretraživanja prikazuju kapacitet za parkiranje motocikala, najam bicikala, punjenje bicikala i punjenje automobila
+• Prikaži razinu kata u rezultatima pretraživanja
+• Albanski prijevodi i TTS glasovno navođenje
 …više na omaps.org/news

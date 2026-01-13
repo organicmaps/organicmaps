@@ -1,8 +1,9 @@
-• Vikipeedia artiklid türgi, jaapani ja hiina keeles, tippige ?wiki nende nägemiseks kaardil
-• Uus seade allalaaditud piirkondade visuaalseks esiletõstmiseks kaardil
-• Google Takeouti järjehoidjate ja salvestatud kohtade importimine GeoJSONi kaudu
-• OSM andmed seisuga 23. november
-• Täiustatud heli taasesitus ja helikatkestused
-• Parandatud kokkujooksmised redaktoris ja kaartide allalaadimisel
-• Heledamad teed pimedas sõidukireziimis
+• UUS: Suurema kontrastsusega tumeda teema värvid
+• Google Assistant navigeerimiseks ja otsinguks
+• OSM kaardiandmed seisuga 11. jaanuar
+• Navigeerimisteema säte "Automaatne" järgib süsteemi tumedat/heledat režiimi
+• Peenemad metrooliinid
+• Otsingutulemused näitavad mootorrataste parkimise, jalgrattarendi, jalgrataste laadimise ja autode laadimise mahtu
+• Näita korruse taset otsingutulemustes
+• Albaania tõlked ja TTS hääljuhised
 …rohkem aadressil omaps.org/et/news

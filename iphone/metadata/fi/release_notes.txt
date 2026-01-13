@@ -1,20 +1,16 @@
-- Wikipedia-artikkelit paikoille turkiksi, japaniksi ja kiinaksi; kirjoita ?wiki nähdäksesi kaikki artikkelit kartalla
-- Asetus ladattujen alueiden visuaaliseen korostamiseen kartalla
-- OpenStreetMap-tiedot 23. marraskuuta 2025
+• UUTTA: Tumman teeman värit korkeammalla kontrastilla
+• Päivitetyt OpenStreetMap-tiedot (11. tammikuuta)
+• Yökerhot/kasinot poistettu Viihde-kategoriasta
+• Metrolinjojen paksuutta pienennetty
+• Lisätty kapasiteettitiedot hakutuloksiin moottoripyöräparkeille, pyörävuokraamoille sekä pyörien ja autojen latauspisteille
+• Näytä kerrosnumero hakutuloksissa
+• Leveämmät reittisuunnittelun painikkeet
 
-- Muokkaa kirjanmerkin tai reitin nimeä suoraan paikan tietosivulla
-- Paina pitkään valitun paikan/kirjanmerkin nimeä tai osoitetta kopioidaksesi sen
-- Lisätty haku tietylle listalle, kun sitä vaihdetaan paikan tietosivulta
-- Käytä mukautettuja emojeja paikan tietosivulla
-- Korjattu sivupainikkeiden animaatiot ja "Lataa karttoja" -painikkeen väri tummassa teemassa
-- iOS 26 & macOS 26 "Liquid Glass" -tuki
-- Kun siirrät reitin listaan, siitä tulee oletusarvo uusille kirjanmerkeille/reiteille
-- Parannettu GeoJSON-tuonti, mukaan lukien `Saved Places.json` Google Takeoutista
-- Päivitetyt käännökset useilla kielillä, mukaan lukien heprean korjaus
+### Käännökset
 
-## Navigointi ja reititys
-
-- Kartan asettelu korjattu navigoinnin aikana iPadilla, jotta reitti pysyy selvästi näkyvissä
-- Pyöräreititys ohittaa nyt yksisuuntaiset asuntokadut Itävallassa
-- Yksinkertaistetut liikenneympyrän ohjeet
-- Tiet ovat kirkkaammat ja paremmin erottuvat pimeässä ajotilassa
+• Lisätty Albanian sovelluskäännökset ja puheopastus
+• Päivitetty UKK ja lisätty UKK-käännökset seuraaville kielille: arabia, tšekki, hollanti, persia, kreikka, heprea, hindi, unkari, indonesia, italia, liettua, marathi, ruotsi, telugu
+• Parannettu saksan sovellus- ja UKK-käännöksiä
+• Lisätty bulgarian hakusynonyymejä
+• Nimetty "Zoomauspainikkeet"-asetus uudelleen selkeyden vuoksi
+• Käännöskorjauksia Weblate-avustajilta useille kielille

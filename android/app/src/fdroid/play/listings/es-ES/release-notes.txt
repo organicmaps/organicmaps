@@ -1,8 +1,8 @@
-• Artículos de Wikipedia en turco, japonés y chino, escribe ?wiki para verlos en el mapa
-• Nueva opción para resaltar visualmente las regiones descargadas en el mapa
-• Importa marcadores y lugares guardados de Google Takeout vía GeoJSON
-• Datos de OSM del 23 de noviembre
-• Mejora en la reproducción de audio e interrupciones de sonido
-• Corregidos fallos en el editor y al descargar mapas
-• Carreteras más brillantes en modo vehículo oscuro
+• NUEVO: Colores de tema oscuro de mayor contraste
+• NUEVO: Asistente de Google para navegación y búsqueda
+• Datos del mapa OSM al 11 de enero
+• La configuración del tema de navegación "Auto" sigue el modo oscuro/claro del sistema
+• Líneas de metro más finas
+• Los resultados de búsqueda muestran la capacidad para estacionamiento de motocicletas, alquiler de bicicletas, carga de bicicletas y carga de automóviles
+• Mostrar nivel de piso en los resultados de búsqueda
 …más en omaps.org/es/news

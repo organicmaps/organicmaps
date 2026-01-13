@@ -1,9 +1,8 @@
-• Članki Wikipedije v turščini, japonščini in kitajščini, vnesite ?wiki za ogled na zemljevidu
-• Nova nastavitev za vizualno označevanje prenesenih regij na zemljevidu
-• Uvozite zaznamke in shranjene lokacije iz Google Takeout prek GeoJSON
-• OSM podatki na dan 23. november
-• Izboljšano predvajanje zvoka in zvočne prekinitve
-• Popravljene sesutja v urejevalniku in pri prenosu zemljevidov
-• Svetlejše ceste v temnem načinu vozila
-• Izboljšano kolesarsko usmerjanje v Avstriji
+• NOVO: Barve temne teme z višjim kontrastom
+• NOVO: Google Assistant za navigacijo in iskanje
+• Podatki zemljevida OSM z dne 11. januarja
+• Nastavitev navigacijske teme »Samodejno« sledi sistemskemu temnemu/svetlemu načinu
+• Tanjše linije podzemne železnice
+• Rezultati iskanja prikazujejo zmogljivost za parkiranje motornih koles, izposojo koles, polnjenje koles in polnjenje avtomobilov
+• Prikaži nivo nadstropja v rezultatih iskanja
 …več na omaps.org/news

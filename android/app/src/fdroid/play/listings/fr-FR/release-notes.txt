@@ -1,8 +1,11 @@
-• Articles Wikipédia en turc, japonais et chinois, tapez ?wiki pour les voir sur la carte
-• Nouveau paramètre pour mettre en évidence les régions téléchargées sur la carte
-• Importer les favoris et lieux enregistrés de Google Takeout via GeoJSON
-• Données OSM au 23 novembre
-• Amélioration de la lecture audio et des interruptions sonores
-• Correction des plantages dans l'éditeur et lors du téléchargement des cartes
-• Routes plus lumineuses en mode véhicule sombre
+• NOUVEAU : Thème sombre plus contrasté
+• NOUVEAU : Assistant Google pour navigation/recherche
+• Données OSM du 11 janvier
+• Thème navigation « Auto » selon le système
+• Lignes de métro plus fines
+• Capacités stationnement motos, location/recharge vélos, recharge autos affichées
+• Niveau d'étage dans la recherche
+• Traductions albanais et voix TTS
+• FAQ et traductions app mises à jour
+• Plantages corrigés
 …plus sur omaps.org/fr/news

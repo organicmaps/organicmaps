@@ -1,20 +1,16 @@
-- Wikipedia-artikelen voor plaatsen in het Turks, Japans en Chinees; typ ?wiki om alle artikelen op de kaart te zien
-- Instelling om gedownloade regio's visueel te markeren op de kaart
-- OpenStreetMap-gegevens van 23 november 2025
+• NIEUW: Donker thema kleuren met hoger contrast
+• OpenStreetMap-gegevens bijgewerkt (11 januari)
+• Casino's uitgesloten van de categorie "Entertainment"
+• Dikte van metrolijnen verminderd
+• Capaciteitsinformatie toegevoegd aan zoekresultaten voor motorparkeren, fietsverhuur, fiets opladen en auto opladen
+• Toon verdieping in zoekresultaten
+• Bredere knoppen voor routeplanning
 
-- Bewerk een bladwijzer- of routenaam rechtstreeks op de pagina met plaatsinformatie
-- Houd de naam of het adres van een geselecteerde plaats/bladwijzer lang ingedrukt om te kopiëren
-- Zoeken naar een specifieke lijst toegevoegd bij het wijzigen ervan vanaf de pagina met plaatsinformatie
-- Gebruik aangepaste emoji's op de pagina met plaatsinformatie
-- Animaties voor zijknoppen en de kleur van de "Kaarten downloaden"-knop in het donkere thema gecorrigeerd
-- iOS 26 & macOS 26 "Liquid Glass"-ondersteuning
-- Wanneer je een route naar een lijst verplaatst, wordt die lijst de standaard voor nieuwe bladwijzers/routes
-- Verbeterde GeoJSON-import, inclusief `Saved Places.json` van Google Takeout
-- Bijgewerkte vertalingen in meerdere talen, inclusief een Hebreeuwse correctie
+### Vertalingen
 
-## Navigatie en routeplanning
-
-- Kaartindeling gecorrigeerd tijdens navigatie op iPad zodat de route duidelijk zichtbaar blijft
-- Fietsroutes slaan nu eenrichtingsstraten in woonwijken in Oostenrijk over
-- Vereenvoudigde rotonde-instructies
-- Wegen zijn helderder met beter contrast in de donkere voertuigmodus
+• Albanese app-vertalingen en stembegeleiding toegevoegd
+• FAQ bijgewerkt en FAQ-vertalingen toegevoegd voor Arabisch, Tsjechisch, Nederlands, Farsi, Grieks, Hebreeuws, Hindi, Hongaars, Indonesisch, Italiaans, Litouws, Marathi, Zweeds, Telugu
+• Duitse app- en FAQ-vertalingen verbeterd
+• Bulgaarse zoeksynoniemen toegevoegd
+• Instelling "Zoomknoppen" hernoemd voor meer duidelijkheid
+• Vertaalcorrecties van Weblate-bijdragers voor diverse talen

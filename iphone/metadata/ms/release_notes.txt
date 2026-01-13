@@ -1,20 +1,16 @@
-- Artikel Wikipedia untuk tempat dalam bahasa Turki, Jepun, dan Cina; taip ?wiki untuk melihat semua artikel di peta
-- Tetapan untuk menyerlahkan secara visual kawasan yang dimuat turun di peta
-- Data OpenStreetMap setakat 23 November 2025
+• BARU: Warna tema gelap kontras lebih tinggi
+• Data OpenStreetMap dikemas kini (11 Januari)
+• Kasino dikecualikan daripada kategori "Hiburan"
+• Mengurangkan ketebalan laluan kereta api bawah tanah
+• Menambah maklumat kapasiti pada hasil carian untuk tempat letak motosikal, sewaan basikal, pengecasan basikal dan pengecasan kereta
+• Tunjukkan tingkat dalam hasil carian
+• Butang perancangan laluan yang lebih lebar
 
-- Edit nama penanda buku atau trek terus di Halaman Maklumat Tempat
-- Ketik lama pada nama atau alamat tempat/penanda buku yang dipilih untuk menyalinnya
-- Menambah carian untuk senarai tertentu apabila menukarnya dari Halaman Maklumat Tempat
-- Gunakan emoji tersuai di Halaman Maklumat Tempat
-- Animasi diperbaiki untuk butang sisi dan warna butang "Muat Turun Peta" dalam tema gelap
-- Sokongan iOS 26 & macOS 26 "Liquid Glass"
-- Apabila memindahkan trek ke senarai, senarai itu menjadi lalai untuk penanda buku/trek baharu
-- Import GeoJSON yang dipertingkatkan, termasuk `Saved Places.json` dari Google Takeout
-- Terjemahan dikemas kini merentasi pelbagai bahasa, termasuk pembetulan Ibrani
+### Terjemahan
 
-## Navigasi & Laluan
-
-- Susun atur peta diperbaiki semasa navigasi di iPad supaya laluan kekal jelas kelihatan
-- Laluan basikal kini melangkau jalan kediaman sehala di Austria
-- Arahan bulatan dipermudahkan
-- Jalan lebih terang dengan kontras yang lebih baik dalam mod kenderaan gelap
+• Menambah terjemahan aplikasi dan panduan suara bahasa Albania
+• Mengemas kini Soalan Lazim (FAQ) dan menambah terjemahan untuk bahasa Arab, Czech, Belanda, Farsi, Yunani, Ibrani, Hindi, Hungary, Indonesia, Itali, Lithuania, Marathi, Sweden, Telugu
+• Menambah baik terjemahan aplikasi dan FAQ bahasa Jerman
+• Menambah sinonim carian bahasa Bulgaria
+• Menamakan semula tetapan "Butang zum" untuk lebih jelas
+• Pembetulan terjemahan daripada penyumbang Weblate untuk pelbagai bahasa

@@ -1,20 +1,16 @@
-- Články z Wikipédie pre miesta v turečtine, japončine a čínštine; napíšte ?wiki pre zobrazenie všetkých článkov na mape
-- Nastavenie na vizuálne zvýraznenie stiahnutých oblastí na mape
-- Údaje OpenStreetMap z 23. novembra 2025
+• NOVINKA: Farby tmavého motívu s vyšším kontrastom
+• Aktualizované údaje OpenStreetMap (11. januára)
+• Kasína vylúčené z kategórie „Zábava“
+• Znížená hrúbka liniek metra
+• Pridané informácie o kapacite do výsledkov vyhľadávania pre parkovanie motocyklov, požičovne bicyklov, nabíjanie bicyklov a nabíjanie áut
+• Zobrazenie poschodia vo výsledkoch vyhľadávania
+• Širšie tlačidlá na plánovanie trasy
 
-- Upravte názov záložky alebo trasy priamo na stránke s informáciami o mieste
-- Dlhým stlačením názvu alebo adresy vybraného miesta/záložky ju skopírujete
-- Pridané vyhľadávanie konkrétneho zoznamu pri jeho zmene zo stránky s informáciami o mieste
-- Používajte vlastné emotikony na stránke s informáciami o mieste
-- Opravené animácie bočných tlačidiel a farba tlačidla "Stiahnuť mapy" v tmavom režime
-- Podpora iOS 26 a macOS 26 "Liquid Glass"
-- Pri presunutí trasy do zoznamu sa tento zoznam stane predvoleným pre nové záložky/trasy
-- Vylepšený import GeoJSON vrátane `Saved Places.json` z Google Takeout
-- Aktualizované preklady vo viacerých jazykoch vrátane opravy hebrejčiny
+### Preklady
 
-## Navigácia a plánovanie trás
-
-- Opravené rozloženie mapy počas navigácie na iPade, aby bola trasa jasne viditeľná
-- Cyklistické smerovanie teraz vynecháva jednosmerné obytné ulice v Rakúsku
-- Zjednodušené pokyny pre kruhové objazdy
-- Cesty sú jasnejšie s lepším kontrastom v tmavom režime vozidla
+• Pridaný preklad aplikácie a hlasová navigácia do albánčiny
+• Aktualizované Často kladené otázky (FAQ) a pridané preklady pre arabčinu, češtinu, holandčinu, perzštinu, gréčtinu, hebrejčinu, hindčinu, maďarčinu, indonézštinu, taliančinu, litovčinu, maráthčinu, švédčinu a telugčinu
+• Vylepšené nemecké preklady aplikácie a FAQ
+• Pridané bulharské synonymá pre vyhľadávanie
+• Premenované nastavenie „Tlačidlá priblíženia“ pre lepšiu zrozumiteľnosť
+• Opravy prekladov od prispievateľov Weblate pre rôzne jazyky

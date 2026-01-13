@@ -1,8 +1,8 @@
-• Vikipedijos straipsniai turkų, japonų ir kinų kalbomis, įveskite ?wiki, kad matytumėte žemėlapyje
-• Naujas nustatymas vizualiai paryškinti atsisiųstus regionus žemėlapyje
-• Importuokite Google Takeout žymes ir išsaugotas vietas per GeoJSON
-• OSM duomenys iki lapkričio 23 d.
-• Patobulintas garso atkūrimas ir garso pertraukimai
-• Ištaisyti strigimai redaktoriuje ir atsisiunčiant žemėlapius
-• Ryškesni keliai tamsiame transporto priemonės režime
-…daugiau omaps.org/lt/news
+• NAUJIENA: Didesnio kontrasto tamsios temos spalvos
+• NAUJIENA: „Google Assistant“ navigacijai ir paieškai
+• OSM žemėlapio duomenys nuo sausio 11 d.
+• „Auto“ navigacijos temos nustatymas vadovaujasi sistemos tamsiu / šviesiu režimu
+• Plonesnės metro linijos
+• Paieškos rezultatuose rodoma motociklų stovėjimo, dviračių nuomos, dviračių įkrovimo ir automobilių įkrovimo vietų talpa
+• Rodyti aukšto lygį paieškos rezultatuose
+…daugiau adresu omaps.org/lt/news

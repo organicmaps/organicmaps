@@ -1,20 +1,16 @@
-- Articles Wikipédia pour les lieux en turc, japonais et chinois ; tapez ?wiki pour voir tous les articles sur la carte
-- Paramètre pour mettre en évidence visuellement les régions téléchargées sur la carte
-- Données OpenStreetMap du 23 novembre 2025
+• NOUVEAU : Couleurs du thème sombre plus contrastées
+• Données OpenStreetMap mises à jour (11 janvier)
+• Casinos exclus de la catégorie « Divertissement »
+• Réduction de l'épaisseur des lignes de métro
+• Ajout d'informations sur la capacité dans les résultats de recherche pour le stationnement de motos, la location de vélos, la recharge de vélos et la recharge de voitures
+• Affichage du niveau d'étage dans les résultats de recherche
+• Boutons de planification d'itinéraire plus larges
 
-- Modifiez le nom d'un signet ou d'un tracé directement sur la page d'informations du lieu
-- Appuyez longuement sur le nom ou l'adresse d'un lieu/signet sélectionné pour le copier
-- Ajout de la recherche d'une liste spécifique lors de son changement depuis la page d'informations du lieu
-- Utilisez des emojis personnalisés sur la page d'informations du lieu
-- Animations corrigées pour les boutons latéraux et la couleur du bouton « Télécharger les cartes » en thème sombre
-- Support iOS 26 et macOS 26 « Liquid Glass »
-- Lorsque vous déplacez un tracé vers une liste, celle-ci devient la liste par défaut pour les nouveaux signets/tracés
-- Importation GeoJSON améliorée, y compris `Saved Places.json` de Google Takeout
-- Traductions mises à jour dans plusieurs langues, y compris une correction en hébreu
+### Traductions
 
-## Navigation et itinéraires
-
-- Disposition de la carte corrigée pendant la navigation sur iPad pour que l'itinéraire reste clairement visible
-- Le calcul d'itinéraires vélo évite maintenant les rues résidentielles à sens unique en Autriche
-- Instructions de rond-point simplifiées
-- Les routes sont plus lumineuses avec un meilleur contraste en mode véhicule sombre
+• Ajout des traductions de l'application et du guidage vocal en albanais
+• Mise à jour de la FAQ et ajout des traductions de la FAQ pour l'arabe, le tchèque, le néerlandais, le farsi, le grec, l'hébreu, l'hindi, le hongrois, l'indonésien, l'italien, le lituanien, le marathi, le suédois et le télougou
+• Amélioration des traductions allemandes de l'application et de la FAQ
+• Ajout de synonymes de recherche en bulgare
+• Renommage du paramètre « Boutons de zoom » pour plus de clarté
+• Corrections de traduction par les contributeurs Weblate pour plusieurs langues
