@@ -197,6 +197,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
                                         () -> onShareActionSelected(mSelectedCategory, FileType.Kml)));
       items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
                                         () -> onShareActionSelected(mSelectedCategory, FileType.Gpx)));
+      items.add(new MenuBottomSheetItem(R.string.export_file_geojson, R.drawable.ic_file_geojson,
+                                        () -> onShareActionSelected(mSelectedCategory, FileType.GeoJson)));
       // Disallow deleting the last category
       if (getAdapter().getBookmarkCategories().size() > 1)
         items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete,
