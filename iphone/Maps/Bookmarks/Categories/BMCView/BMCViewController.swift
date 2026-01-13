@@ -147,6 +147,9 @@ final class BMCViewController: MWMViewController {
     actionSheet.addAction(UIAlertAction(title: L("export_file_gpx"), style: .default, handler: { _ in
       self.shareCategoryFile(at: index, fileType: .gpx, anchor: anchor)
     }))
+    actionSheet.addAction(UIAlertAction(title: L("export_file_geojson"), style: .default, handler: { _ in
+      self.shareCategoryFile(at: index, fileType: .geoJson, anchor: anchor)
+    }))
     let delete = L("delete_list")
     let deleteAction = UIAlertAction(title: delete, style: .destructive, handler: { [viewModel] _ in
       viewModel!.deleteCategory(at: index)

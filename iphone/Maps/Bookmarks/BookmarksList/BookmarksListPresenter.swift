@@ -150,6 +150,8 @@ final class BookmarksListPresenter {
         title = L("export_file")
       case .gpx:
         title = L("export_file_gpx")
+      case .geoJson:
+        title = L("export_file_geojson")
       default:
         fatalError("Unexpected file type")
       }
@@ -173,6 +175,7 @@ final class BookmarksListPresenter {
     }
     moreItems.append(exportMenuItem(for: .kml))
     moreItems.append(exportMenuItem(for: .gpx))
+    moreItems.append(exportMenuItem(for: .geoJson))
     moreItems.append(BookmarksListMenuItem(title: L("delete_list"),
                                            destructive: true,
                                            enabled: interactor.canDeleteGroup(),
@@ -394,7 +397,7 @@ extension BookmarksListPresenter: SelectBookmarkGroupViewControllerDelegate {
       defer { viewController.dismiss(animated: true) }
 
       guard groupId != bookmarkGroup.categoryId else { return }
-      
+
       switch editingItem {
       case .bookmark(let bookmarkId):
         interactor.moveBookmark(bookmarkId, toGroupId: groupId)
@@ -403,9 +406,9 @@ extension BookmarksListPresenter: SelectBookmarkGroupViewControllerDelegate {
       case .none:
         break
       }
-      
+
       editingItem = nil
-      
+
       if bookmarkGroup.bookmarksCount > 0 || bookmarkGroup.trackCount > 0 {
         reload()
       } else {
