@@ -297,7 +297,7 @@
 "downloader_delete_map" = "Видалити мапу";
 
 /* Text for routing error dialog */
-"routing_download_maps_along" = "Завантажити мапи з дороги";
+"routing_download_maps_along" = "Завантажити мапи вздовж маршруту";
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "Для створення маршруту необхідно щоб всі мапи, починаючи від вашого місцезнаходження і до пункту призначення, були завантажені та оновлені.";
@@ -474,7 +474,7 @@
 "editor_time_open" = "Відчинено";
 "editor_time_close" = "Зачинено";
 "editor_time_add_closed" = "Додати перерву";
-"editor_time_title" = "Час роботи";
+"editor_time_title" = "Години роботи";
 "editor_time_advanced" = "Розширений режим";
 "editor_time_simple" = "Простий режим";
 "editor_hours_closed" = "Перерва";
@@ -578,7 +578,7 @@
 "editor_comment_hint" = "Коментар…";
 "editor_reset_edits_message" = "Скинути всі локальні виправлення?";
 "editor_reset_edits_button" = "Скинути";
-"editor_remove_place_message" = "Видалити об'єкт, що ви додали?";
+"editor_remove_place_message" = "Видалити доданий об'єкт?";
 "editor_remove_place_button" = "Видалити";
 "editor_place_doesnt_exist" = "Місце не існує";
 
@@ -619,7 +619,7 @@
 "enable_logging" = "Включити логіювання";
 "transliteration_title" = "Транслітерувати латиницею";
 "planning_route_manage_route" = "Редагування маршруту";
-"button_plan" = "Прокласти маршрут";
+"button_plan" = "Маршрут";
 "placepage_remove_stop" = "Видалити зупинку";
 "placepage_add_stop" = "Додати зупинку";
 "saved" = "Збережено";
@@ -632,7 +632,7 @@
 "bookmarks_create_new_group" = "Створити новий список";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
-"bookmarks_import" = "Імпортувати мітки та маршрути";
+"bookmarks_import" = "Імпорт міток та маршрутів";
 "bookmarks_error_message_share_general" = "Неможливо поділитися через помилку програми";
 "bookmarks_error_title_share_empty" = "Помилка обміну";
 "bookmarks_error_message_share_empty" = "Неможливо поділитися пустим списком";
@@ -877,7 +877,7 @@
 "parkings" = "Парковки";
 "fuel_places" = "Заправки";
 "medicine" = "Медицина";
-"search_in_the_list" = "Шукати в списку";
+"search_in_the_list" = "Пошук у списку";
 "religious_places" = "Святі місця";
 "transit_not_found" = "Навігація на метро ще недоступна в цьому регіоні";
 "dialog_pedestrian_route_is_long_header" = "Жодного маршруту метро не знайдено";
@@ -1047,7 +1047,7 @@
 "icloud_synchronization_error_cloud_is_unavailable" = "Помилка: iCloud недоступний";
 
 /* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
-"bookmarks_recently_deleted" = "Нещодавно видалені списки";
+"bookmarks_recently_deleted" = "Нещодавно видалене";
 
 /* Title for the "Clear" button on the Recently Deleted Lists screen. */
 "clear" = "Очистити";
