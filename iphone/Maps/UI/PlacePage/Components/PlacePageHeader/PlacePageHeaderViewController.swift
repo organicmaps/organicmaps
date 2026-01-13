@@ -168,16 +168,18 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
       // The menu will be shown by the shareButton itself
     } else {
       let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-      let kmlAction = UIAlertAction(title: L("export_file"), style: .default) { [weak self] _ in
+      alert.addAction(UIAlertAction(title: L("export_file"), style: .default) { [weak self] _ in
         guard let self else { return }
         self.presenter?.onExportTrackButtonPress(.kml, from: self.shareButton)
-      }
-      let gpxAction = UIAlertAction(title: L("export_file_gpx"), style: .default) { [weak self] _ in
+      })
+      alert.addAction(UIAlertAction(title: L("export_file_gpx"), style: .default) { [weak self] _ in
         guard let self else { return }
         self.presenter?.onExportTrackButtonPress(.gpx, from: self.shareButton)
-      }
-      alert.addAction(kmlAction)
-      alert.addAction(gpxAction)
+      })
+      alert.addAction(UIAlertAction(title: L("export_file_geojson"), style: .default) { [weak self] _ in
+        guard let self else { return }
+        self.presenter?.onExportTrackButtonPress(.geoJson, from: self.shareButton)
+      })
       present(alert, animated: true, completion: nil)
     }
   }
@@ -192,6 +194,10 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
         UIAction(title: L("export_file_gpx"), image: nil, handler: { [weak self] _ in
           guard let self else { return }
           self.presenter?.onExportTrackButtonPress(.gpx, from: self.shareButton)
+        }),
+        UIAction(title: L("export_file_geojson"), image: nil, handler: { [weak self] _ in
+          guard let self else { return }
+          self.presenter?.onExportTrackButtonPress(.geoJson, from: self.shareButton)
         }),
       ])
       shareButton.menu = menu
