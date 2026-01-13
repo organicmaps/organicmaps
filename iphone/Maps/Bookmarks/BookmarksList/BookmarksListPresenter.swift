@@ -151,6 +151,8 @@ final class BookmarksListPresenter {
         title = L("export_file")
       case .gpx:
         title = L("export_file_gpx")
+      case .geoJson:
+        title = L("export_file_geojson")
       default:
         fatalError("Unexpected file type")
       }
@@ -174,6 +176,7 @@ final class BookmarksListPresenter {
     }
     moreItems.append(exportMenuItem(for: .kml))
     moreItems.append(exportMenuItem(for: .gpx))
+    moreItems.append(exportMenuItem(for: .geoJson))
     moreItems.append(BookmarksListMenuItem(title: L("delete_list"),
                                            destructive: true,
                                            enabled: interactor.canDeleteGroup(),
