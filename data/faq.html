@@ -84,31 +84,28 @@
   <script>
     "use strict";
     function getLanguages() {
-      var langs = [].concat(navigator.languages || navigator.language || navigator.userLanguage);
-      var question = location.href.indexOf("?");
-      if (question != -1) {
-        var queryStr;
-        var hash = location.href.indexOf("#");
-        if (hash != -1 )
-          queryStr = location.href.substr(question, hash - question);
-        else
-          queryStr = location.href.substr(question);
-        var urlParams = new URLSearchParams(queryStr);
-        var queryLang = urlParams.get("lang");
-        if (queryLang)
-          langs = [queryLang];
+      var langs = navigator.languages && navigator.languages.length > 0 
+          ? navigator.languages 
+          : [navigator.language || navigator.userLanguage || 'en'];
+      if (location.search) {
+        try {
+          var urlParams = new URLSearchParams(location.search);
+          var queryLang = urlParams.get("lang");
+          if (queryLang)
+            langs = [queryLang];
+        } catch (e) {
+          // Fallback for Android 5 devices without URLSearchParams
+          var match = location.search.match(/[?&]lang=([^&]+)/);
+          if (match && match[1])
+            langs = [decodeURIComponent(match[1])];
+        }
       }
       return langs;
     }
 
     // TODO: Update this list with new translations.
     var translations = ['en', 'ar', 'cs', 'de', 'el', 'es', 'fa', 'fr', 'he', 'hi', 'hu', 'id', 'it', 'lt', 'mr', 'nl', 'pl', 'pt', 'pt-BR', 'ru', 'sv', 'te', 'tr', 'uk', 'zh'];
-    var isoTranslations = [];
-    for (var i = 0; i < translations.length; ++i) {
-      if (translations[i].length == 2)
-        continue;
-      isoTranslations.push(translations[i].substring(0, 2));
-    }
+    
     // Show Russian for browsers with these language codes.
     var canReadRussian = ['ab', 'be', 'kk', 'ky', 'tg', 'uz'];
 
@@ -116,6 +113,7 @@
       var langs = getLanguages();
       var lang = 'en';
       for (var i = 0; i < langs.length; ++i) {
+        if (!langs[i]) continue;
         var iso6391 = langs[i].substring(0, 2);
         if (canReadRussian.indexOf(iso6391) >= 0 && translations.indexOf('ru') >= 0) {  // Array.includes is not supported in Android 5 and 6.
           lang = 'ru';
