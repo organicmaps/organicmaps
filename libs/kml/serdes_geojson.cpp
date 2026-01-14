@@ -1,6 +1,8 @@
 #include "kml/serdes_geojson.hpp"
 #include "kml/color_parser.hpp"
 
+#include "base/string_utils.hpp"
+#include "coding/hex.hpp"
 #include "ge0/geo_url_parser.hpp"
 #include "geometry/mercator.hpp"
 
@@ -76,6 +78,98 @@ std::string DebugPrint(GeoJsonFeature const & c)
   out << "GeoJsonFeature [type = " << c.type << ", geometry = " << DebugPrint(c.geometry)
       << ", properties = " << DebugPrint(c.properties) << "]";
   return out.str();
+}
+
+std::string ToGeoJsonColor(ColorData color)
+{
+  // Returns string compatible with CSS color palette.
+  if (color.m_predefinedColor == PredefinedColor::None)
+  {
+    if (color.m_rgba == 0)
+      return "red";
+
+    return "#" + NumToHex(color.m_rgba >> 8).substr(2);
+  }
+
+  switch (color.m_predefinedColor)
+  {
+    using enum PredefinedColor;
+  case None: return {};
+  case Red: return "red";
+  case Pink: return "pink";
+  case Purple: return "purple";
+  case DeepPurple: return "rebeccapurple";
+  case Blue: return "blue";
+  case LightBlue: return "lightblue";
+  case Cyan: return "cyan";
+  case Teal: return "teal";
+  case Green: return "green";
+  case Lime: return "lime";
+  case Yellow: return "yellow";
+  case Orange: return "orange";
+  case DeepOrange: return "tomato";
+  case Brown: return "brown";
+  case Gray: return "gray";
+  case BlueGray: return "slategray";
+  default: UNREACHABLE();
+  }
+}
+
+std::optional<ColorData> ParseGeoJsonColor(std::string const & color)
+{
+  // Try to recognize color from string and update `destColor` value.
+  // Input color could be hex string "#FF8000", or some color name "red", "orange".
+
+  // Check if color matches any predefined color
+  auto const predefColor = FindPredefinedColor(color);
+  if (predefColor != PredefinedColor::None)
+    return ColorData{.m_predefinedColor = predefColor};
+
+  // Convert color using Hex parser, Garmin and OSM color palettes.
+  if (auto const colorRGBA = ParseHexOsmGarminColor(color))
+    return ColorData{.m_predefinedColor = MapPredefinedColor(*colorRGBA), .m_rgba = *colorRGBA};
+
+  return {};
+}
+
+PredefinedColor FindPredefinedColor(std::string colorName)
+{
+  // Try to match color name to a name we use for GeoJson.
+  strings::AsciiToLower(colorName);
+
+  if (colorName == "red")
+    return PredefinedColor::Red;
+  if (colorName == "pink")
+    return PredefinedColor::Pink;
+  if (colorName == "purple")
+    return PredefinedColor::Purple;
+  if (colorName == "rebeccapurple")
+    return PredefinedColor::DeepPurple;
+  if (colorName == "blue")
+    return PredefinedColor::Blue;
+  if (colorName == "lightblue")
+    return PredefinedColor::LightBlue;
+  if (colorName == "cyan")
+    return PredefinedColor::Cyan;
+  if (colorName == "teal")
+    return PredefinedColor::Teal;
+  if (colorName == "green")
+    return PredefinedColor::Green;
+  if (colorName == "lime")
+    return PredefinedColor::Lime;
+  if (colorName == "yellow")
+    return PredefinedColor::Yellow;
+  if (colorName == "orange")
+    return PredefinedColor::Orange;
+  if (colorName == "tomato")
+    return PredefinedColor::DeepOrange;
+  if (colorName == "brown")
+    return PredefinedColor::Brown;
+  if (colorName == "gray")
+    return PredefinedColor::Gray;
+  if (colorName == "slategray")
+    return PredefinedColor::BlueGray;
+  return PredefinedColor::None;
 }
 
 }  // namespace geojson
@@ -187,11 +281,8 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
 
       // Parse color
       if (auto const markerColor = getStringFromJsonMap(propsJson, "marker-color"))
-      {
-        auto const colorRGBA = ParseHexOsmGarminColor(*markerColor);
-        if (colorRGBA)
-          bookmark.m_color = ColorData{.m_predefinedColor = MapPredefinedColor(*colorRGBA), .m_rgba = *colorRGBA};
-      }
+        if (auto colorData = ParseGeoJsonColor(*markerColor))
+          bookmark.m_color = *colorData;
 
       // Parse icon
       // if (auto const markerSymbol = getStringFromJsonMap(propsJson, "marker-symbol"))
@@ -204,12 +295,9 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
       {
         GenericJsonMap const umap_options = umapOptions->second.get_object();
         // Parse color from properties['_umap_options']['color']
-        if (auto const color = getStringFromJsonMap(umap_options, "color"))
-        {
-          auto const colorRGBA = ParseHexOsmGarminColor(*color);
-          if (colorRGBA)
-            bookmark.m_color = ColorData{.m_rgba = *colorRGBA};
-        }
+        if (auto const markerColor = getStringFromJsonMap(propsJson, "color"))
+          if (auto colorData = ParseGeoJsonColor(*markerColor))
+            bookmark.m_color = *colorData;
 
         // Store '_umap_options' as a JSON string to preserve all UMap properties
         if (std::string umapOptionsStr; glz::write_json(umapOptions->second, umapOptionsStr) == glz::error_code::none)
@@ -246,13 +334,9 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
         SetDefaultStr(track.m_name, *label);
 
       // Parse color
-      std::unique_ptr<ColorData> lineColor;
+      std::optional<ColorData> lineColor;
       if (auto const stroke = getStringFromJsonMap(props_json, "stroke"))
-      {
-        auto const colorRGBA = ParseHexOsmGarminColor(*stroke);
-        if (colorRGBA)
-          lineColor = std::make_unique<ColorData>(PredefinedColor::None, *colorRGBA);
-      }
+        lineColor = ParseGeoJsonColor(*stroke);
 
       // UMap custom properties
       if (auto const umapOptions = props_json.find("_umap_options");
@@ -261,11 +345,7 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
         GenericJsonMap const umap_options = umapOptions->second.get_object();
         // Parse color from properties['_umap_options']['color']
         if (auto const color = getStringFromJsonMap(umap_options, "color"))
-        {
-          auto const colorRGBA = ParseHexOsmGarminColor(*color);
-          if (colorRGBA)
-            lineColor = std::make_unique<ColorData>(PredefinedColor::None, *colorRGBA);
-        }
+          lineColor = ParseGeoJsonColor(*color);
 
         // Store '_umap_options' as a JSON string to preserve all UMap properties
         if (std::string umapOptionsStr; glz::write_json(umapOptions->second, umapOptionsStr) == glz::error_code::none)
@@ -344,7 +424,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
   {
     auto const [lat, lon] = mercator::ToLatLon(bookmark.m_point);
     GenericJsonMap bookmarkProperties{{"name", GetDefaultStr(bookmark.m_name)},
-                                      {"marker-color", ToCssColor(bookmark.m_color)}};
+                                      {"marker-color", ToGeoJsonColor(bookmark.m_color)}};
     if (!bookmark.m_description.empty())
       bookmarkProperties["description"] = GetDefaultStr(bookmark.m_description);
 
@@ -362,7 +442,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
       else
       {
         // Update known UMap properties.
-        umap_options_obj["color"] = ToCssColor(bookmark.m_color);
+        umap_options_obj["color"] = ToGeoJsonColor(bookmark.m_color);
         bookmarkProperties["_umap_options"] = std::move(umap_options_obj);
       }
     }
@@ -380,9 +460,9 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
     bool isMultiline = linesCount > 1;
     if (linesCount == 0)
       continue;
-    auto const & layer = track.m_layers[i];
+    auto const color = track.m_layers.front().m_color;
 
-    GenericJsonMap trackProps{{"name", GetDefaultStr(track.m_name)}, {"stroke", ToCssColor(layer.m_color)}};
+    GenericJsonMap trackProps{{"name", GetDefaultStr(track.m_name)}, {"stroke", ToGeoJsonColor(color)}};
     if (!track.m_description.empty())
       trackProps["description"] = GetDefaultStr(track.m_description);
 
@@ -400,7 +480,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
       else
       {
         // Update known UMap properties.
-        umap_options_obj["color"] = ToCssColor(layer.m_color);
+        umap_options_obj["color"] = ToGeoJsonColor(color);
         trackProps["_umap_options"] = std::move(umap_options_obj);
       }
     }

@@ -75,6 +75,11 @@ struct GeoJsonData
   std::optional<std::map<std::string, std::string>> properties;
 };
 
+// Color convertion functions
+std::string ToGeoJsonColor(ColorData color);
+std::optional<ColorData> ParseGeoJsonColor(std::string const & color);
+PredefinedColor FindPredefinedColor(std::string colorName);
+
 }  // namespace geojson
 
 // Reader and Writer.

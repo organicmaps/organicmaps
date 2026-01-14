@@ -8,7 +8,6 @@
 #include "base/internal/message.hpp"  // DebugPrint(Timestamp)
 #include "base/stl_helpers.hpp"
 #include "base/visitor.hpp"
-#include "coding/hex.hpp"
 
 #include "drape/color.hpp"
 
@@ -42,7 +41,7 @@ enum class PredefinedColor : uint8_t
   Count
 };
 
-std::array constexpr kOrderedPredefinedColors = {
+static std::array constexpr kOrderedPredefinedColors = {
     // clang-format off
     PredefinedColor::None,
     PredefinedColor::Red,
@@ -74,7 +73,7 @@ static_assert(base::HasUniqueElements(kOrderedPredefinedColors), "All values mus
  * kOrderedPredefinedColors[kColorIndexMap[base::E2I(PredefinedColor::Red)]] == PredefinedColor::Red
  * @endcode
  */
-std::array constexpr kColorIndexMap = [] consteval
+static std::array constexpr kColorIndexMap = [] consteval
 {
   std::array<int, static_cast<std::size_t>(PredefinedColor::Count)> map{};
   for (std::size_t i = 0; i < kOrderedPredefinedColors.size(); ++i)
@@ -301,7 +300,6 @@ struct ColorData
   // Color in RGBA format.
   uint32_t m_rgba = 0;
 };
-std::string ToCssColor(ColorData color);
 
 // This structure is used in FileDataV6 because
 // its binary format is the same as in kmb version 6.
