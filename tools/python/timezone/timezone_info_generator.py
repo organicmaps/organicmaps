@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import json
 from datetime import datetime, timedelta, timezone
 from typing import Set
@@ -8,6 +9,7 @@ from zoneinfo import ZoneInfo
 from common import TIMEZONE_INFO_FILE_PATH, get_countries_meta_timezones, get_local_tzdb_version
 
 EPOCH = datetime(1970, 1, 1, tzinfo=timezone.utc)
+INITIAL_YEAR = 2026
 
 
 def day_index(dt):
@@ -64,19 +66,27 @@ def generate_timezone_data(tz_name: str, start_year: int, end_year: int) -> dict
     }
 
 
-def generate_timezones_data(timezones: Set[str]) -> dict:
+def generate_timezones_data(timezones: Set[str], start_year: int, years: int) -> dict:
     result = {}
     for tz_name in sorted(timezones):
         print(f"Generating timezone data for {tz_name}")
-        result[tz_name] = generate_timezone_data(tz_name, 2026, 2027)
+        result[tz_name] = generate_timezone_data(tz_name, start_year, start_year + years - 1)
     return result
 
 
-timezone_info = {
-    "tzdb_version": get_local_tzdb_version(),
-    "tzdb_format_version": 0,
-    "tzdb_generation_year_offset": 2026 - 2026,
-    "timezones": generate_timezones_data(get_countries_meta_timezones())
-}
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(prog="timezone_info_generator")
+    parser.add_argument("--output", type=str, default=TIMEZONE_INFO_FILE_PATH)
+    parser.add_argument("--start-year", type=int, required=True, help="Year to start generation from.")
+    parser.add_argument("--years", type=int, required=False, default=2, help="Number of years to generate.")
 
-open(TIMEZONE_INFO_FILE_PATH, "w").write(json.dumps(timezone_info, indent=2))
+    args = parser.parse_args()
+
+    timezone_info = {
+        "tzdb_version": get_local_tzdb_version(),
+        "tzdb_format_version": 0,
+        "tzdb_generation_year_offset": args.start_year - INITIAL_YEAR,
+        "timezones": generate_timezones_data(get_countries_meta_timezones(), args.start_year, args.years)
+    }
+
+    open(TIMEZONE_INFO_FILE_PATH, "w").write(json.dumps(timezone_info, indent=2))
