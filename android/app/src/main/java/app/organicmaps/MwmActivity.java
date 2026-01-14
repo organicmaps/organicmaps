@@ -45,6 +45,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -2378,24 +2379,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void makeNavigationBarTransparentInLightMode()
   {
-    int nightMask = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-    if (nightMask == Configuration.UI_MODE_NIGHT_NO) // if light mode
-    {
-      Window window = getWindow();
-      window.setNavigationBarColor(Color.TRANSPARENT);
-      window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-
-      int flags = window.getDecorView().getSystemUiVisibility();
-      flags |= View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
-
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
-        flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-
-      window.getDecorView().setSystemUiVisibility(flags);
-
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-        window.setNavigationBarContrastEnforced(false);
-    }
+    final boolean isLightMode = !app.organicmaps.sdk.util.Utils.isDarkMode(this);
+    final Window window = getWindow();
+    window.setNavigationBarColor(Color.TRANSPARENT);
+    new WindowInsetsControllerCompat(window, window.getDecorView()).setAppearanceLightNavigationBars(isLightMode);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+      window.setNavigationBarContrastEnforced(false);
   }
 
   private void reportUnsupported()
