@@ -768,6 +768,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
                                         () -> onShareOptionSelected(FileType.Kml)));
       items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
                                         () -> onShareOptionSelected(FileType.Gpx)));
+      items.add(new MenuBottomSheetItem(R.string.export_file_geojson, R.drawable.ic_file_geojson,
+                                        () -> onShareOptionSelected(FileType.GeoJson)));
     }
     items.add(new MenuBottomSheetItem(R.string.edit, R.drawable.ic_settings, this::onSettingsOptionSelected));
     if (!isLastOwnedCategory())
@@ -792,6 +794,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
                                       () -> onShareTrackSelected(track.getTrackId(), FileType.Kml)));
     items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
                                       () -> onShareTrackSelected(track.getTrackId(), FileType.Gpx)));
+    items.add(new MenuBottomSheetItem(R.string.export_file_geojson, R.drawable.ic_file_geojson,
+                                      () -> onShareTrackSelected(track.getTrackId(), FileType.GeoJson)));
     items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete,
                                       () -> onDeleteTrackSelected(track.getTrackId())));
     return items;

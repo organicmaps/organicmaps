@@ -1083,6 +1083,8 @@ public class PlacePageView extends Fragment
                                       () -> onShareTrackSelected(track.getTrackId(), FileType.Kml)));
     items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
                                       () -> onShareTrackSelected(track.getTrackId(), FileType.Gpx)));
+    items.add(new MenuBottomSheetItem(R.string.export_file_geojson, R.drawable.ic_file_geojson,
+                                      () -> onShareTrackSelected(track.getTrackId(), FileType.GeoJson)));
     return items;
   }
 
