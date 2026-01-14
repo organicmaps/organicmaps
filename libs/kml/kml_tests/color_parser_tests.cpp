@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "kml/color_parser.hpp"
+#include "kml/serdes_geojson.hpp"
 
 UNIT_TEST(ColorParser_Smoke)
 {
@@ -14,21 +15,30 @@ UNIT_TEST(ColorParser_Smoke)
   TEST(!kml::ParseGarminColor("xxyyzz"), ());
   TEST(!kml::ParseOSMColor("#xxyyzz"), ());
 
-  // Current implementation gives assert with default 0 channel value. I didn't change this.
-  // TEST(!kml::ParseHexColor("#xxyyzz"), ());
+  TEST(!kml::ParseHexColor("#xxyyzz"), ());
 }
 
-UNIT_TEST(ColorData_Test)
+UNIT_TEST(ColorData_JSON_Serialization_Test)
 {
   kml::ColorData const defaultColor;
-  TEST_EQUAL(kml::ToCssColor(defaultColor), "red", ());
+  TEST_EQUAL(kml::geojson::ToGeoJsonColor(defaultColor), "red", ());
 
   auto const greenHex = kml::ColorData{.m_predefinedColor = kml::PredefinedColor::None, .m_rgba = 0x00FF00FF};
-  TEST_EQUAL(kml::ToCssColor(greenHex), "#00FF00", ());
+  TEST_EQUAL(kml::geojson::ToGeoJsonColor(greenHex), "#00FF00", ());
 
-  auto const pinkPred = kml::ColorData{.m_predefinedColor = kml::PredefinedColor::Pink, .m_rgba = 0};
-  TEST_EQUAL(kml::ToCssColor(pinkPred), "pink", ());
+  // Convert each value of kml::PredefinedColor to JSON and back.
+  // Make sure we get the same color after parsing.
+  for (auto const predefColor : kml::kOrderedPredefinedColors)
+  {
+    kml::ColorData const colorData(predefColor);
+    auto const jsonColor = kml::geojson::ToGeoJsonColor(colorData);
+    TEST(!jsonColor.empty(), ());
 
-  auto const deepOrange = kml::ColorData{.m_predefinedColor = kml::PredefinedColor::DeepOrange, .m_rgba = 0xFF00AAFF};
-  TEST_EQUAL(kml::ToCssColor(deepOrange), "DarkOrange", ());
+    auto const parsedColor = kml::geojson::ParseGeoJsonColor(jsonColor);
+    if (predefColor == kml::PredefinedColor::None)
+      TEST_EQUAL(kml::ColorData{.m_predefinedColor = kml::PredefinedColor::Red}, *parsedColor,
+                 ("JSON serializes None to Red"));
+    else
+      TEST_EQUAL(colorData, *parsedColor, ());
+  }
 }
