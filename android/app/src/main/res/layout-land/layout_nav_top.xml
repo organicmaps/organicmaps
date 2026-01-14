@@ -16,21 +16,17 @@
     app:layout_constraintTop_toTopOf="parent"
     android:clickable="true"
     android:background="?cardBackground">
-    <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:ignore="UselessParent">
-      <TextView
+    <TextView
         android:id="@+id/street"
         style="@style/MwmWidget.TextView.NavStreet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="@dimen/nav_street_height"
         android:layout_marginStart="@dimen/nav_street_left"
         android:maxLines="2"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center_vertical"
         android:gravity="center"
         tools:text="Sample street name.\nLong looooooooong!!!!"/>
-    </RelativeLayout>
   </FrameLayout>
 
   <RelativeLayout
