@@ -111,5 +111,4 @@ PredefinedColor GetRandomPredefinedColor()
   return static_cast<PredefinedColor>(distr(gen));
 }
 
-
 }  // namespace kml

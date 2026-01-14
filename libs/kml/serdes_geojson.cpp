@@ -138,22 +138,38 @@ std::optional<PredefinedColor> FindPredefinedColor(std::string colorName)
   // Try to match color name to a name we use for GeoJson.
   strings::AsciiToLower(colorName);
 
-  if (colorName == "red") return PredefinedColor::Red;
-  if (colorName == "pink") return PredefinedColor::Pink;
-  if (colorName == "purple") return PredefinedColor::Purple;
-  if (colorName == "rebeccapurple") return PredefinedColor::DeepPurple;
-  if (colorName == "blue") return PredefinedColor::Blue;
-  if (colorName == "lightblue") return PredefinedColor::LightBlue;
-  if (colorName == "cyan") return PredefinedColor::Cyan;
-  if (colorName == "teal") return PredefinedColor::Teal;
-  if (colorName == "green") return PredefinedColor::Green;
-  if (colorName == "lime") return PredefinedColor::Lime;
-  if (colorName == "yellow") return PredefinedColor::Yellow;
-  if (colorName == "orange") return PredefinedColor::Orange;
-  if (colorName == "tomato") return PredefinedColor::DeepOrange;
-  if (colorName == "brown") return PredefinedColor::Brown;
-  if (colorName == "gray") return PredefinedColor::Gray;
-  if (colorName == "slategray") return PredefinedColor::BlueGray;
+  if (colorName == "red")
+    return PredefinedColor::Red;
+  if (colorName == "pink")
+    return PredefinedColor::Pink;
+  if (colorName == "purple")
+    return PredefinedColor::Purple;
+  if (colorName == "rebeccapurple")
+    return PredefinedColor::DeepPurple;
+  if (colorName == "blue")
+    return PredefinedColor::Blue;
+  if (colorName == "lightblue")
+    return PredefinedColor::LightBlue;
+  if (colorName == "cyan")
+    return PredefinedColor::Cyan;
+  if (colorName == "teal")
+    return PredefinedColor::Teal;
+  if (colorName == "green")
+    return PredefinedColor::Green;
+  if (colorName == "lime")
+    return PredefinedColor::Lime;
+  if (colorName == "yellow")
+    return PredefinedColor::Yellow;
+  if (colorName == "orange")
+    return PredefinedColor::Orange;
+  if (colorName == "tomato")
+    return PredefinedColor::DeepOrange;
+  if (colorName == "brown")
+    return PredefinedColor::Brown;
+  if (colorName == "gray")
+    return PredefinedColor::Gray;
+  if (colorName == "slategray")
+    return PredefinedColor::BlueGray;
   return {};
 }
 
