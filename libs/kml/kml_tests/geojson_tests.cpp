@@ -151,7 +151,7 @@ UNIT_TEST(GeoJson_Parse_Basic)
 
   TEST_EQUAL(dataFromText.m_bookmarksData.size(), 1, ());
   auto bookmark = dataFromText.m_bookmarksData.front();
-  auto green = kml::ColorData{.m_predefinedColor = kml::PredefinedColor::Green, .m_rgba = 0x008000FF};
+  auto green = kml::ColorData{.m_predefinedColor = kml::PredefinedColor::Green};
   TEST_EQUAL(bookmark.m_color, green, ());
   TEST_EQUAL(kml::GetDefaultStr(bookmark.m_name), "Bookmark 1", ());
   TEST_EQUAL(bookmark.m_point, mercator::FromLatLon(29.8310316130992, 31.02177966625902), ());
@@ -159,13 +159,13 @@ UNIT_TEST(GeoJson_Parse_Basic)
   // Check track data.
   TEST_EQUAL(dataFromText.m_tracksData.size(), 2, ());
   auto track1 = dataFromText.m_tracksData[0];
-  TEST_EQUAL(track1.m_layers[0].m_color, kml::ColorData{.m_rgba = 0x0000FFFF}, ());
+  TEST_EQUAL(track1.m_layers[0].m_color, kml::ColorData{.m_predefinedColor = kml::PredefinedColor::Blue}, ());
   TEST_EQUAL(track1.m_geometry.m_lines.empty(), false, ());
   TEST_EQUAL(track1.m_geometry.m_lines.front().size(), 3, ());
 
   // Check multiline track data.
   auto track2 = dataFromText.m_tracksData[1];
-  TEST_EQUAL(track2.m_layers[0].m_color, kml::ColorData{.m_rgba = 0x008000FF}, ());
+  TEST_EQUAL(track2.m_layers[0].m_color, kml::ColorData{.m_predefinedColor = kml::PredefinedColor::Green}, ());
   TEST_EQUAL(track2.m_geometry.m_lines.size(), 2, ());
   TEST_EQUAL(track2.m_geometry.m_lines[0].size(), 2, ());
   TEST_EQUAL(track2.m_geometry.m_lines[1].size(), 4, ());
@@ -379,7 +379,7 @@ UNIT_TEST(GeoJson_Writer_Simple)
       },
       "properties": {
         "description": "Test bookmark description",
-        "marker-color": "RoyalBlue",
+        "marker-color": "blue",
         "name": "Marcador de prueba"
       }
     },
@@ -480,7 +480,7 @@ UNIT_TEST(GeoJson_Writer_MultiTrack)
 UNIT_TEST(GeoJson_Writer_Simple_Minimized)
 {
   // clang-format off
-  std::string_view constexpr expected_geojson = R"({"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[13.39712,52.48982]},"properties":{"description":"Test bookmark description","marker-color":"RoyalBlue","name":"Marcador de prueba"}}]})";
+  std::string_view constexpr expected_geojson = R"({"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[13.39712,52.48982]},"properties":{"description":"Test bookmark description","marker-color":"blue","name":"Marcador de prueba"}}]})";
   // clang-format on
 
   kml::FileData const testData = GenerateKmlFileData();
@@ -505,14 +505,14 @@ UNIT_TEST(GeoJson_Writer_UMap)
       },
       "properties": {
         "_umap_options": {
-          "color": "RoyalBlue",
+          "color": "blue",
           "customProperty": "should be preserved",
           "iconClass": "Drop",
           "opacity": 0.8,
           "weight": 4
         },
         "description": "Test bookmark description",
-        "marker-color": "RoyalBlue",
+        "marker-color": "blue",
         "name": "Marcador de prueba"
       }
     },
@@ -595,7 +595,7 @@ UNIT_TEST(GeoJson_Writer_UMap_Invalid_Json)
       },
       "properties": {
         "description": "Test bookmark description",
-        "marker-color": "RoyalBlue",
+        "marker-color": "blue",
         "name": "Marcador de prueba"
       }
     }
