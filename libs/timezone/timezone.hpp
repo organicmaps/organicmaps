@@ -17,7 +17,7 @@ enum class TimeZoneFormatVersion : uint8_t
 
 struct Transition
 {
-  static constexpr size_t kDayDeltaBitSize = 16;
+  static constexpr size_t kDayDeltaBitSize = 9;
   static constexpr size_t kMinuteOfDayBitSize = 11;
   static constexpr size_t kTotalSizeInBits = kDayDeltaBitSize + kMinuteOfDayBitSize;
   static constexpr size_t kTotalSizeInBytes = (kTotalSizeInBits + CHAR_BIT - 1) / CHAR_BIT;
