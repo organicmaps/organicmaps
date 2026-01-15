@@ -19,7 +19,7 @@ UNIT_TEST(ColorParser_Smoke)
   // TEST(!kml::ParseHexColor("#xxyyzz"), ());
 }
 
-UNIT_TEST(ColorData_Test)
+UNIT_TEST(ColorData_JSON_Serialization_Test)
 {
   kml::ColorData const defaultColor;
   TEST_EQUAL(kml::geojson::ToGeoJsonColor(defaultColor), "red", ());
@@ -27,9 +27,18 @@ UNIT_TEST(ColorData_Test)
   auto const greenHex = kml::ColorData{.m_predefinedColor = kml::PredefinedColor::None, .m_rgba = 0x00FF00FF};
   TEST_EQUAL(kml::geojson::ToGeoJsonColor(greenHex), "#00FF00", ());
 
-  auto const pinkPred = kml::ColorData{.m_predefinedColor = kml::PredefinedColor::Pink, .m_rgba = 0};
-  TEST_EQUAL(kml::geojson::ToGeoJsonColor(pinkPred), "pink", ());
+  // Convert each value of kml::PredefinedColor to JSON and back.
+  // Make sure we get the same color after parsing.
+  for (auto predefColor : kml::kOrderedPredefinedColors)
+  {
+    if (predefColor == kml::PredefinedColor::None)
+      continue;
+    kml::ColorData colorData(predefColor);
+    std::string jsonColor = kml::geojson::ToGeoJsonColor(colorData);
+    TEST(!jsonColor.empty(), ());
 
-  auto const deepOrange = kml::ColorData{.m_predefinedColor = kml::PredefinedColor::DeepOrange, .m_rgba = 0xFF00AAFF};
-  TEST_EQUAL(kml::geojson::ToGeoJsonColor(deepOrange), "tomato", ());
+    kml::ColorData parsedColor;
+    kml::geojson::ParseGeoJsonColor(jsonColor, parsedColor);
+    TEST_EQUAL(colorData, parsedColor, ());
+  }
 }
