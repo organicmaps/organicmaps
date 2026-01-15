@@ -84,7 +84,17 @@
   <script>
     "use strict";
     function getLanguages() {
-      var langs = [].concat(navigator.languages || navigator.language || navigator.userLanguage);
+      var langs = [];
+      // Safely extract language(s) from navigator object
+      if (navigator.languages && navigator.languages.length > 0) {
+        langs = [].concat(navigator.languages);
+      } else if (navigator.language) {
+        langs = [navigator.language];
+      } else if (navigator.userLanguage) {
+        langs = [navigator.userLanguage];
+      } else {
+        langs = ['en'];  // Final fallback
+      }
       var question = location.href.indexOf("?");
       if (question != -1) {
         var queryStr;
@@ -93,8 +103,17 @@
           queryStr = location.href.substr(question, hash - question);
         else
           queryStr = location.href.substr(question);
-        var urlParams = new URLSearchParams(queryStr);
-        var queryLang = urlParams.get("lang");
+        var queryLang = null;
+        try {
+          // Try URLSearchParams first (modern browsers and Android 6+)
+          var urlParams = new URLSearchParams(queryStr);
+          queryLang = urlParams.get("lang");
+        } catch (e) {
+          // Fallback for older devices without URLSearchParams support
+          var match = queryStr.match(/[?&]lang=([^&]+)/);
+          if (match && match[1])
+            queryLang = decodeURIComponent(match[1]);
+        }
         if (queryLang)
           langs = [queryLang];
       }
@@ -103,11 +122,13 @@
 
     // TODO: Update this list with new translations.
     var translations = ['en', 'ar', 'cs', 'de', 'el', 'es', 'fa', 'fr', 'he', 'hi', 'hu', 'id', 'it', 'lt', 'mr', 'nl', 'pl', 'pt', 'pt-BR', 'ru', 'sv', 'te', 'tr', 'uk', 'zh'];
+    var translationMap = {};
     var isoTranslations = [];
     for (var i = 0; i < translations.length; ++i) {
+      translationMap[translations[i].toLowerCase()] = translations[i];
       if (translations[i].length == 2)
         continue;
-      isoTranslations.push(translations[i].substring(0, 2));
+      isoTranslations.push(translations[i].substring(0, 2).toLowerCase());
     }
     // Show Russian for browsers with these language codes.
     var canReadRussian = ['ab', 'be', 'kk', 'ky', 'tg', 'uz'];
@@ -116,17 +137,22 @@
       var langs = getLanguages();
       var lang = 'en';
       for (var i = 0; i < langs.length; ++i) {
-        var iso6391 = langs[i].substring(0, 2);
-        if (canReadRussian.indexOf(iso6391) >= 0 && translations.indexOf('ru') >= 0) {  // Array.includes is not supported in Android 5 and 6.
-          lang = 'ru';
+        var rawLang = (langs[i] || '').toString().trim();
+        if (!rawLang)
+          continue;
+        var lowerLang = rawLang.toLowerCase();
+        var iso6391 = lowerLang.substring(0, 2);
+        // Older Android WebView may return upper-case locales (e.g. ES-ES), so compare case-insensitively.
+        if (canReadRussian.indexOf(iso6391) >= 0 && translationMap['ru']) {  // Array.includes is not supported in Android 5 and 6.
+          lang = translationMap['ru'];
           break;
         }
-        if (translations.indexOf(langs[i]) >= 0) {
-          lang = langs[i];
+        if (translationMap[lowerLang]) {
+          lang = translationMap[lowerLang];
           break;
         }
-        if (translations.indexOf(iso6391) >= 0) {
-          lang = iso6391;
+        if (translationMap[iso6391]) {
+          lang = translationMap[iso6391];
           break;
         }
       }
@@ -135,7 +161,20 @@
       if (rtlLangs.indexOf(lang) >= 0) {
         document.documentElement.setAttribute('dir', 'rtl')
       }
-      var elems = document.querySelectorAll('[lang="' + lang + '"]');
+      // Use getElementsByTagName as fallback for older Android WebView
+      var elems;
+      if (document.querySelectorAll) {
+        elems = document.querySelectorAll('[lang="' + lang + '"]');
+      } else {
+        // Fallback: manually iterate through all elements with lang attribute
+        elems = [];
+        var allElems = document.getElementsByTagName('*');
+        for (var j = 0; j < allElems.length; ++j) {
+          if (allElems[j].getAttribute && allElems[j].getAttribute('lang') === lang) {
+            elems.push(allElems[j]);
+          }
+        }
+      }
       // Make them visible.
       for (var i = 0; i < elems.length; ++i)
         elems[i].style.display = "block";
