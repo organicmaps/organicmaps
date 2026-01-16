@@ -116,8 +116,11 @@ std::string ToGeoJsonColor(ColorData color)
 
 bool ParseGeoJsonColor(std::string const & color, ColorData & destColor)
 {
+  // Try to recognize color from string and update `destColor` value.
+  // Input color could be hex string "#FF8000", or some color name "red", "orange".
+
   // Check if color matches any predefined color
-  if (auto predefColor = FindPredefinedColor(color))
+  if (auto const predefColor = FindPredefinedColor(color))
   {
     destColor = ColorData{.m_predefinedColor = *predefColor};
     return true;
