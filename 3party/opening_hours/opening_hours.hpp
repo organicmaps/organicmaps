@@ -28,7 +28,10 @@
 #include <iostream>
 #include <string>
 #include <type_traits>
+#include <unordered_set>
 #include <vector>
+
+#include <boost/container_hash/hash.hpp>
 
 // Implemented in accordance with the specification
 // https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification
@@ -699,6 +702,60 @@ enum class RuleState
   Closed,
   Unknown
 };
+using TTimeZone = std::chrono::time_zone const *;
+
+struct DateHash
+{
+  TTimeZone timezone;
+
+  explicit DateHash(std::string const & tz = "UTC") : timezone(std::chrono::locate_zone(tz)) {}
+
+  std::size_t operator()(time_t const & t) const
+  {
+    // auto tp = zoned_time{timezone, system_clock::now()}.get_local_time();
+
+    auto tp = std::chrono::system_clock::from_time_t(t);
+    std::chrono::zoned_time zt{timezone, tp};
+    auto local = zt.get_local_time();
+    auto dp = floor<std::chrono::days>(local);
+    auto ymd = std::chrono::year_month_day{dp};
+
+    std::size_t seed = 0;
+    boost::hash_combine(seed, int(ymd.year()));
+    boost::hash_combine(seed, unsigned(ymd.month()));
+    boost::hash_combine(seed, unsigned(ymd.day()));
+    return seed;
+  }
+};
+
+struct DateEqual
+{
+  TTimeZone timezone;
+
+  explicit DateEqual(std::string const & tz = "UTC") : timezone(std::chrono::locate_zone(tz)) {}
+
+  bool operator()(time_t const & t1, time_t const & t2) const
+  {
+    auto tp1 = std::chrono::system_clock::from_time_t(t1);
+    auto tp2 = std::chrono::system_clock::from_time_t(t2);
+
+    std::chrono::zoned_time zt1{timezone, tp1};
+    std::chrono::zoned_time zt2{timezone, tp2};
+
+    auto local1 = zt1.get_local_time();
+    auto local2 = zt2.get_local_time();
+
+    auto days1 = floor<std::chrono::days>(local1);
+    auto days2 = floor<std::chrono::days>(local2);
+
+    auto ymd1 = std::chrono::year_month_day{days1};
+    auto ymd2 = std::chrono::year_month_day{days2};
+
+    return ymd1 == ymd2;
+  }
+};
+
+using THolidayDates = std::unordered_set<time_t, DateHash, DateEqual>;
 
 class OpeningHours
 {
@@ -706,6 +763,8 @@ public:
   OpeningHours() = default;
   OpeningHours(std::string const & rule);
   OpeningHours(TRuleSequences const & rule);
+  OpeningHours(std::string const & rule, THolidayDates const & holidays, std::string const & timezone);
+  OpeningHours(TRuleSequences const & rule, THolidayDates const & holidays, std::string const & timezone);
 
   bool IsOpen(time_t const dateTime) const;
   bool IsClosed(time_t const dateTime) const;
@@ -717,8 +776,8 @@ public:
     /// Calculated only if state != RuleState::Unknown.
     time_t nextTimeOpen;
     time_t nextTimeClosed;
+    bool isHoliday;
   };
-
   InfoT GetInfo(time_t const dateTime) const;
 
   bool IsValid() const;
@@ -738,6 +797,8 @@ public:
 private:
   TRuleSequences m_rule;
   bool m_valid = false;
+  THolidayDates m_holidays;
+  TTimeZone m_timeZone;
 };
 
 std::ostream & operator<<(std::ostream & ost, OpeningHours const & oh);
