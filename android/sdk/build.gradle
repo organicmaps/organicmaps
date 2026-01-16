@@ -69,14 +69,10 @@ android {
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
-  buildTypes {
-    debug {
-    }
-  }
-  packagingOptions {
-    doNotStrip "**/liborganicmaps.so"
-  }
 
+  packagingOptions{
+      doNotStrip "**/liborganicmaps.so"
+  }
 
   externalNativeBuild {
     cmake {
