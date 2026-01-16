@@ -204,6 +204,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">Painikkeet ”+” ja ”-” kartalla</string>
     <string name="pref_zoom_summary">Näytä kartalla</string>
+    <string name="pref_auto_night_in_navigation_title">Yötyyli, kun navigoidaan pimeässä</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Yötila</string>
     <!-- Generic «Off» string -->
@@ -337,6 +338,12 @@
     <string name="gray">Harmaa</string>
     <!-- blue gray color -->
     <string name="blue_gray">Siniharmaa</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Ulkoasu</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Vaalea</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Tumma</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Lahjoita ilmaiset ja mainoksettomat kartat miljoonille käyttäjille!</string>
 

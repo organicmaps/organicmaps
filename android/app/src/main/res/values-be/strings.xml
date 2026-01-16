@@ -204,6 +204,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">Кнопкі «+» і «-» на мапе</string>
     <string name="pref_zoom_summary">Адлюстраванне на карце</string>
+    <string name="pref_auto_night_in_navigation_title">Начны стыль пры навігацыі ў цемры</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Начны рэжым</string>
     <!-- Generic «Off» string -->
@@ -337,6 +338,12 @@
     <string name="gray">Шэры</string>
     <!-- blue gray color -->
     <string name="blue_gray">Блакітна-шэры</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Выгляд</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Светлы</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Цёмны</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Падарыце бясплатныя мапы без рэкламы мільёнам карыстальнікаў!</string>
 

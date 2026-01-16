@@ -136,6 +136,12 @@
     <string name="blue">Azul</string>
     <!-- green color -->
     <string name="green">Verde</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Aspeutu</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Claru</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Escuru</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">¡Regala mapes gratis y ensin anuncios a millones d\'usuarios!</string>
 

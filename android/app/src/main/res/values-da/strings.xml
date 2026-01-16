@@ -204,6 +204,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">Knapperne + og - på kortet</string>
     <string name="pref_zoom_summary">Vis på skærmen</string>
+    <string name="pref_auto_night_in_navigation_title">Nat-stil, når du navigerer i mørke</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Nattilstand</string>
     <!-- Generic «Off» string -->
@@ -337,6 +338,12 @@
     <string name="gray">Grå</string>
     <!-- blue gray color -->
     <string name="blue_gray">Blågrå</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Udseende</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Lys</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Mørk</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Giv gratis kort uden reklamer til millioner af brugere!</string>
 

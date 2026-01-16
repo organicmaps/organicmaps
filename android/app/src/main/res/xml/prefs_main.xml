@@ -15,6 +15,12 @@
     android:title="@string/prefs_group_general"
     android:order="2">
     <ListPreference
+      android:key="@string/pref_map_appearance"
+      android:title="@string/pref_appearance_title"
+      app:singleLineTitle="false"
+      android:entries="@array/map_appearance"
+      android:order="0" />
+    <ListPreference
       android:key="@string/pref_munits"
       android:title="@string/measurement_units"
       app:singleLineTitle="false"
@@ -126,11 +132,10 @@
     android:key="@string/pref_navigation"
     android:title="@string/prefs_group_route"
     android:order="3">
-    <ListPreference
-      android:key="@string/pref_map_style"
-      android:title="@string/pref_map_style_title"
+    <SwitchPreferenceCompat
+      android:key="@string/pref_auto_night_in_navigation"
+      android:title="@string/pref_auto_night_in_navigation_title"
       app:singleLineTitle="false"
-      android:entries="@array/map_style"
       android:order="1" />
     <SwitchPreferenceCompat
       android:key="@string/pref_3d"

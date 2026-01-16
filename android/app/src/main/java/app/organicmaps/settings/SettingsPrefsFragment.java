@@ -68,6 +68,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     initSearchPrivacyPrefsCallbacks();
     initScreenSleepEnabledPrefsCallbacks();
     initShowOnLockScreenPrefsCallbacks();
+    initNightNavigationPrefsCallbacks();
   }
 
   private void updateVoiceInstructionsPrefsSummary()
@@ -386,20 +387,19 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
 
   private void initMapStylePrefsCallbacks()
   {
-    final ListPreference pref = getPreference(getString(R.string.pref_map_style));
-    pref.setEntryValues(new CharSequence[] {Config.UiTheme.DEFAULT, Config.UiTheme.NIGHT, Config.UiTheme.AUTO,
-                                            Config.UiTheme.NAV_AUTO});
-    pref.setValue(Config.UiTheme.getUiThemeSettings());
+    final ListPreference pref = getPreference(getString(R.string.pref_map_appearance));
+    pref.setEntryValues(
+        new CharSequence[] {Config.UiTheme.SYSTEM.value, Config.UiTheme.LIGHT.value, Config.UiTheme.DARK.value});
+    pref.setValue(Config.UiTheme.getUiThemePreference().value);
     pref.setSummary(pref.getEntry());
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
-      final String themeName = (String) newValue;
-      if (!Config.UiTheme.setUiThemeSettings(themeName))
+      final var newTheme = Config.UiTheme.ofValue((String) newValue);
+      if (!Config.UiTheme.setUiThemePreference(newTheme))
         return true;
 
       ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
 
-      final ThemeMode mode = ThemeMode.getInstance(themeName);
-      final CharSequence summary = pref.getEntries()[mode.ordinal()];
+      final CharSequence summary = pref.getEntries()[newTheme.ordinal()];
       pref.setSummary(summary);
       return true;
     });
@@ -482,6 +482,22 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     });
   }
 
+  private void initNightNavigationPrefsCallbacks()
+  {
+    final Preference pref = getPreference(getString(R.string.pref_auto_night_in_navigation));
+
+    final var isAutoDarkNavigationEnabled = Config.UiTheme.isAutoDarkNavigationEnabled();
+    ((TwoStatePreference) pref).setChecked(isAutoDarkNavigationEnabled);
+    pref.setOnPreferenceChangeListener((preference, newValue) -> {
+      var isChanged = Config.UiTheme.setAutoDarkNavigationEnabled((Boolean) newValue);
+      if (isChanged)
+      {
+        ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
+      }
+      return isChanged;
+    });
+  }
+
   private void initBookmarksTextPlacementPrefsCallbacks()
   {
     final ListPreference bookmarksTextPlacementPref = getPreference(getString(R.string.pref_bookmarks_text_placement));
@@ -519,32 +535,5 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   {
     MapLanguageCode.setMapLanguageCode(language.code);
     getSettingsActivity().onBackPressed();
-  }
-
-  enum ThemeMode
-  {
-    DEFAULT(Config.UiTheme.DEFAULT),
-    NIGHT(Config.UiTheme.NIGHT),
-    AUTO(Config.UiTheme.AUTO),
-    NAV_AUTO(Config.UiTheme.NAV_AUTO);
-
-    @NonNull
-    private final String mMode;
-
-    ThemeMode(@NonNull String mode)
-    {
-      mMode = mode;
-    }
-
-    @NonNull
-    public static ThemeMode getInstance(@NonNull String src)
-    {
-      for (ThemeMode each : values())
-      {
-        if (each.mMode.equals(src))
-          return each;
-      }
-      return AUTO;
-    }
   }
 }
