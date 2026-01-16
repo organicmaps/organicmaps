@@ -180,7 +180,7 @@ void Screenshoter::ProcessNextKml()
     m_nextScreenshotName = base::GetNameFromFullPathWithoutExt(filePath) + postfix;
 
     ChangeState(State::LoadKml);
-    kmlData = LoadKmlFile(filePath, FileType::Kml);
+    kmlData = LoadKmlFile(filePath, KmlFileType::Text);
     if (kmlData != nullptr && kmlData->m_bookmarksData.empty() && kmlData->m_tracksData.empty())
       kmlData.reset();
   }

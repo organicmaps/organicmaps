@@ -38,13 +38,13 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   connect(importButton, &QAbstractButton::clicked, this, &BookmarkDialog::OnImportClick);
 
   QPushButton * exportKmzButton = new QPushButton(tr("Export KMZ"), this);
-  connect(exportKmzButton, &QAbstractButton::clicked, this, [this] { OnExportClick(FileType::Kml); });
+  connect(exportKmzButton, &QAbstractButton::clicked, this, [this] { OnExportClick(KmlFileType::Text); });
 
   QPushButton * exportGpxButton = new QPushButton(tr("Export GPX"), this);
-  connect(exportGpxButton, &QAbstractButton::clicked, this, [this] { OnExportClick(FileType::Gpx); });
+  connect(exportGpxButton, &QAbstractButton::clicked, this, [this] { OnExportClick(KmlFileType::Gpx); });
 
   QPushButton * exportGeoJsonButton = new QPushButton(tr("Export GeoJSON"), this);
-  connect(exportGeoJsonButton, &QAbstractButton::clicked, this, [this] { OnExportClick(FileType::GeoJson); });
+  connect(exportGeoJsonButton, &QAbstractButton::clicked, this, [this] { OnExportClick(KmlFileType::GeoJson); });
 
   m_tree = new QTreeWidget(this);
   m_tree->setColumnCount(2);
@@ -150,7 +150,7 @@ void BookmarkDialog::OnImportClick()
   }
 }
 
-void BookmarkDialog::OnExportClick(FileType exportedFileType)
+void BookmarkDialog::OnExportClick(KmlFileType exportedFileType)
 {
   auto const selected = m_tree->selectedItems();
   if (selected.empty())
@@ -177,11 +177,11 @@ void BookmarkDialog::OnExportClick(FileType exportedFileType)
   QString caption, filter;
   switch (exportedFileType)
   {
-  case FileType::Gpx:
+  case KmlFileType::Gpx:
     caption = tr("Export GPX...");
     filter = tr("GPX files (*.gpx)");
     break;
-  case FileType::GeoJson:
+  case KmlFileType::GeoJson:
     caption = tr("Export GeoJSON...");
     filter = tr("GeoJSON files (*.geojson);JSON files (*.json)");
     break;

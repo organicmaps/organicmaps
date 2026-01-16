@@ -29,7 +29,7 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.sdk.bookmarks.data.DataChangedListener;
-import app.organicmaps.sdk.bookmarks.data.FileType;
+import app.organicmaps.sdk.bookmarks.data.KmlFileType;
 import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
@@ -194,9 +194,9 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
                                         mSelectedCategory.isVisible() ? R.drawable.ic_hide : R.drawable.ic_show,
                                         () -> onShowActionSelected(mSelectedCategory)));
       items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz,
-                                        () -> onShareActionSelected(mSelectedCategory, FileType.Kml)));
+                                        () -> onShareActionSelected(mSelectedCategory, KmlFileType.Text)));
       items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
-                                        () -> onShareActionSelected(mSelectedCategory, FileType.Gpx)));
+                                        () -> onShareActionSelected(mSelectedCategory, KmlFileType.Gpx)));
       // Disallow deleting the last category
       if (getAdapter().getBookmarkCategories().size() > 1)
         items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete,
@@ -290,9 +290,9 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     getAdapter().notifyDataSetChanged();
   }
 
-  protected void onShareActionSelected(@NonNull BookmarkCategory category, FileType fileType)
+  protected void onShareActionSelected(@NonNull BookmarkCategory category, KmlFileType kmlFileType)
   {
-    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), category.getId(), fileType);
+    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), category.getId(), kmlFileType);
   }
 
   private void onDeleteActionSelected(@NonNull BookmarkCategory category)

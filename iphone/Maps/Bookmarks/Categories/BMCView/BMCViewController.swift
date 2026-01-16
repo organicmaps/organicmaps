@@ -63,7 +63,7 @@ final class BMCViewController: MWMViewController {
     }
   }
 
-  private func shareCategoryFile(at index: Int, fileType: FileType, anchor: UIView) {
+  private func shareCategoryFile(at index: Int, fileType: KmlFileType, anchor: UIView) {
     UIApplication.shared.showLoadingOverlay()
     viewModel.shareCategoryFile(at: index, fileType: fileType, handler: sharingResultHandler(anchorView: anchor))
   }
@@ -142,7 +142,7 @@ final class BMCViewController: MWMViewController {
       self.tableView.reloadRows(at: [IndexPath(row: index, section: sectionIndex)], with: .none)
     }))
     actionSheet.addAction(UIAlertAction(title: L("export_file"), style: .default, handler: { _ in
-      self.shareCategoryFile(at: index, fileType: .kml, anchor: anchor)
+      self.shareCategoryFile(at: index, fileType: .text, anchor: anchor)
     }))
     actionSheet.addAction(UIAlertAction(title: L("export_file_gpx"), style: .default, handler: { _ in
       self.shareCategoryFile(at: index, fileType: .gpx, anchor: anchor)

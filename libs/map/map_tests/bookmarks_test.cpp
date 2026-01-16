@@ -185,9 +185,9 @@ void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
   TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetTimeStamp()), 0, ());
 }
 
-FileType GetActiveFileType()
+KmlFileType GetActiveKmlFileType()
 {
-  return FileType::Kml;
+  return KmlFileType::Text;
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
@@ -198,7 +198,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
   BookmarkManager::KMLDataCollection kmlDataCollection;
 
   kmlDataCollection.emplace_back("" /* filePath */,
-                                 LoadKmlData(MemReader(kmlString, strlen(kmlString)), FileType::Kml));
+                                 LoadKmlData(MemReader(kmlString, strlen(kmlString)), KmlFileType::Text));
   TEST(kmlDataCollection.back().second, ());
   bmManager.CreateCategories(std::move(kmlDataCollection));
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
@@ -228,7 +228,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   bmManager.EnableTestMode(true);
 
   BookmarkManager::KMLDataCollection kmlDataCollection1;
-  kmlDataCollection1.emplace_back("", LoadKmlData(MemReader(kmlString, strlen(kmlString)), FileType::Kml));
+  kmlDataCollection1.emplace_back("", LoadKmlData(MemReader(kmlString, strlen(kmlString)), KmlFileType::Text));
   bmManager.CreateCategories(std::move(kmlDataCollection1));
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
 
@@ -243,7 +243,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
 
   {
     FileWriter writer(fileName);
-    bmManager.SaveBookmarkCategory(groupId1, writer, GetActiveFileType());
+    bmManager.SaveBookmarkCategory(groupId1, writer, GetActiveKmlFileType());
   }
 
   bmManager.GetEditSession().ClearGroup(groupId1);
@@ -254,7 +254,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 0, ());
 
   BookmarkManager::KMLDataCollection kmlDataCollection2;
-  kmlDataCollection2.emplace_back("", LoadKmlData(FileReader(fileName), GetActiveFileType()));
+  kmlDataCollection2.emplace_back("", LoadKmlData(FileReader(fileName), GetActiveKmlFileType()));
   TEST(kmlDataCollection2.back().second, ());
 
   bmManager.CreateCategories(std::move(kmlDataCollection2));
@@ -268,7 +268,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   TEST_EQUAL(bmManager.HasBmCategory(groupId2), false, ());
 
   BookmarkManager::KMLDataCollection kmlDataCollection3;
-  kmlDataCollection3.emplace_back(fileName, LoadKmlFile(fileName, GetActiveFileType()));
+  kmlDataCollection3.emplace_back(fileName, LoadKmlFile(fileName, GetActiveKmlFileType()));
   TEST(kmlDataCollection3.back().second, ());
 
   bmManager.CreateCategories(std::move(kmlDataCollection3), true /* autoSave */);
@@ -980,7 +980,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_InnerFolder)
   BookmarkManager::KMLDataCollection kmlDataCollection;
 
   kmlDataCollection.emplace_back("" /* filePath */,
-                                 LoadKmlData(MemReader(kmlString2, strlen(kmlString2)), FileType::Kml));
+                                 LoadKmlData(MemReader(kmlString2, strlen(kmlString2)), KmlFileType::Text));
   bmManager.CreateCategories(std::move(kmlDataCollection));
   auto const & groupIds = bmManager.GetUnsortedBmGroupsIdList();
   TEST_EQUAL(groupIds.size(), 1, ());
@@ -1051,7 +1051,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
   auto const fileNameFromMemory = "";
   BookmarkManager::KMLDataCollection kmlDataCollection1;
   kmlDataCollection1.emplace_back(fileNameFromMemory /* filePath */,
-                                  LoadKmlData(MemReader(kmlString3, strlen(kmlString3)), FileType::Kml));
+                                  LoadKmlData(MemReader(kmlString3, strlen(kmlString3)), KmlFileType::Text));
   bmManager.CreateCategories(std::move(kmlDataCollection1));
 
   auto const & groupIds = bmManager.GetSortedBmGroupIdList();
@@ -1077,12 +1077,12 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
 
   auto const fileNameOnDisk = "file1";
   BookmarkManager::KMLDataCollection kmlDataCollection2;
-  kmlDataCollection2.emplace_back(fileNameOnDisk /* filePath */, LoadKmlFile(fileNameTmp, GetActiveFileType()));
+  kmlDataCollection2.emplace_back(fileNameOnDisk /* filePath */, LoadKmlFile(fileNameTmp, GetActiveKmlFileType()));
   bmManager.CreateCategories(std::move(kmlDataCollection2));
 
   BookmarkManager::KMLDataCollection kmlDataCollection3;
   kmlDataCollection3.emplace_back(fileNameFromMemory /* filePath */,
-                                  LoadKmlData(MemReader(kmlString3, strlen(kmlString3)), FileType::Kml));
+                                  LoadKmlData(MemReader(kmlString3, strlen(kmlString3)), KmlFileType::Text));
 
   bmManager.CreateCategories(std::move(kmlDataCollection3));
 
@@ -1112,7 +1112,7 @@ UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
   bmManager.EnableTestMode(true);
 
   BookmarkManager::KMLDataCollection kmlDataCollection;
-  kmlDataCollection.emplace_back(kmlFile, LoadKmlFile(kmlFile, FileType::Kml));
+  kmlDataCollection.emplace_back(kmlFile, LoadKmlFile(kmlFile, KmlFileType::Text));
   TEST(kmlDataCollection.back().second, ("KML can't be loaded"));
 
   bmManager.CreateCategories(std::move(kmlDataCollection));
@@ -1147,13 +1147,13 @@ UNIT_CLASS_TEST(Runner, FillEmptyTrackNames)
   bmManager.EnableTestMode(true);
 
   string const kmlFile1 = GetPlatform().TestsDataPathForFile("test_data/gpx/empty_names1.gpx");
-  auto fileData1 = LoadKmlFile(kmlFile1, FileType::Gpx);
+  auto fileData1 = LoadKmlFile(kmlFile1, KmlFileType::Gpx);
   TEST_EQUAL(fileData1->m_categoryData.m_name[kml::kDefaultLangCode], "empty_names1", ());
   TEST_EQUAL(fileData1->m_tracksData[0].m_name[kml::kDefaultLangCode], "empty_names1 1", ());
   TEST_EQUAL(fileData1->m_tracksData[1].m_name[kml::kDefaultLangCode], "empty_names1 2", ());
 
   string const kmlFile2 = GetPlatform().TestsDataPathForFile("test_data/gpx/empty_names2.gpx");
-  auto fileData2 = LoadKmlFile(kmlFile2, FileType::Gpx);
+  auto fileData2 = LoadKmlFile(kmlFile2, KmlFileType::Gpx);
   TEST_EQUAL(fileData2->m_categoryData.m_name[kml::kDefaultLangCode], "empty_names2", ());
   TEST_EQUAL(fileData2->m_tracksData[0].m_name[kml::kDefaultLangCode], "empty_names2", ());
 }
@@ -1165,7 +1165,7 @@ UNIT_CLASS_TEST(Runner, TrackParsingTest_2)
   bmManager.EnableTestMode(true);
 
   BookmarkManager::KMLDataCollection kmlDataCollection;
-  kmlDataCollection.emplace_back(kmlFile, LoadKmlFile(kmlFile, FileType::Kml));
+  kmlDataCollection.emplace_back(kmlFile, LoadKmlFile(kmlFile, KmlFileType::Text));
 
   TEST(kmlDataCollection.back().second, ("KML can't be loaded"));
   bmManager.CreateCategories(std::move(kmlDataCollection));
@@ -1343,7 +1343,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
   }
   auto const fileName = bmManager.GetCategoryFileName(catId);
 
-  auto kmlData = LoadKmlFile(fileName, GetActiveFileType());
+  auto kmlData = LoadKmlFile(fileName, GetActiveKmlFileType());
   TEST(kmlData != nullptr, ());
   TEST_EQUAL(kmlData->m_bookmarksData.size(), 1, ());
   TEST_EQUAL(kml::GetDefaultStr(kmlData->m_bookmarksData.front().m_name), "name 0", ());
@@ -1367,20 +1367,20 @@ UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
     bmId = editSession.CreateBookmark(std::move(data3))->GetId();
     editSession.AttachBookmark(bmId, catId);
 
-    kmlData = LoadKmlFile(fileName, GetActiveFileType());
+    kmlData = LoadKmlFile(fileName, GetActiveKmlFileType());
     TEST(kmlData != nullptr, ());
     TEST_EQUAL(kmlData->m_bookmarksData.size(), 1, ());
     TEST_EQUAL(kml::GetDefaultStr(kmlData->m_bookmarksData.front().m_name), "name 0", ());
   }
 
-  kmlData = LoadKmlFile(fileName, GetActiveFileType());
+  kmlData = LoadKmlFile(fileName, GetActiveKmlFileType());
   TEST(kmlData != nullptr, ());
   TEST_EQUAL(kmlData->m_bookmarksData.size(), 4, ());
   TEST_EQUAL(kml::GetDefaultStr(kmlData->m_bookmarksData.front().m_name), "name 0 renamed", ());
 
   bmManager.GetEditSession().DeleteBookmark(bmId0);
 
-  kmlData = LoadKmlFile(fileName, GetActiveFileType());
+  kmlData = LoadKmlFile(fileName, GetActiveKmlFileType());
   TEST(kmlData != nullptr, ());
   TEST_EQUAL(kmlData->m_bookmarksData.size(), 3, ());
   TEST_EQUAL(kml::GetDefaultStr(kmlData->m_bookmarksData.front().m_name), "name 1", ());
@@ -1389,13 +1389,13 @@ UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
   auto const movedBmId = *bmManager.GetUserMarkIds(catId).begin();
   bmManager.GetEditSession().MoveBookmark(movedBmId, catId, catId2);
 
-  kmlData = LoadKmlFile(fileName, GetActiveFileType());
+  kmlData = LoadKmlFile(fileName, GetActiveKmlFileType());
   TEST(kmlData != nullptr, ());
   TEST_EQUAL(kmlData->m_bookmarksData.size(), 2, ());
   TEST_EQUAL(kml::GetDefaultStr(kmlData->m_bookmarksData.front().m_name), "name 1", ());
 
   auto const fileName2 = bmManager.GetCategoryFileName(catId2);
-  auto kmlData2 = LoadKmlFile(fileName2, GetActiveFileType());
+  auto kmlData2 = LoadKmlFile(fileName2, GetActiveKmlFileType());
   TEST(kmlData2 != nullptr, ());
   TEST_EQUAL(kmlData2->m_bookmarksData.size(), 1, ());
   TEST_EQUAL(kml::GetDefaultStr(kmlData2->m_bookmarksData.front().m_name), "name 3", ());
@@ -1415,7 +1415,7 @@ UNIT_CLASS_TEST(Runner, ExportAll)
 
   BookmarkManager::KMLDataCollection kmlDataCollection;
   for (auto const & file : gpxFiles)
-    kmlDataCollection.emplace_back(file, LoadKmlFile(file, FileType::Gpx));
+    kmlDataCollection.emplace_back(file, LoadKmlFile(file, KmlFileType::Gpx));
 
   bmManager.CreateCategories(std::move(kmlDataCollection));
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 4, ());
@@ -1449,9 +1449,9 @@ UNIT_CLASS_TEST(Runner, ExportAll)
     TEST(base::DeleteFileX(indexPath), ());
     TEST(base::DeleteFileX(tmpPath), ());
   };
-  // We use FileType::Kml for both single and all tracks export. File structure is determined based on categories
+  // We use KmlFileType::Text for both single and all tracks export. File structure is determined based on categories
   // size
-  bmManager.PrepareFileForSharing(std::move(categories), checker, FileType::Kml);
+  bmManager.PrepareFileForSharing(std::move(categories), checker, KmlFileType::Text);
 }
 
 UNIT_CLASS_TEST(Runner, ExportSingleUnicode)
@@ -1460,7 +1460,7 @@ UNIT_CLASS_TEST(Runner, ExportSingleUnicode)
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
   BookmarkManager::KMLDataCollection kmlDataCollection;
-  kmlDataCollection.emplace_back(file, LoadKmlFile(file, FileType::Gpx));
+  kmlDataCollection.emplace_back(file, LoadKmlFile(file, KmlFileType::Gpx));
   bmManager.CreateCategories(std::move(kmlDataCollection));
   auto categories = bmManager.GetUnsortedBmGroupsIdList();
   auto const checker = [](BookmarkManager::SharingResult const & result)
@@ -1475,7 +1475,7 @@ UNIT_CLASS_TEST(Runner, ExportSingleUnicode)
     TEST(base::DeleteFileX(kmz), ());
     TEST(base::DeleteFileX(tmpPath), ());
   };
-  bmManager.PrepareFileForSharing(std::move(categories), checker, FileType::Kml);
+  bmManager.PrepareFileForSharing(std::move(categories), checker, KmlFileType::Text);
 }
 
 UNIT_CLASS_TEST(Runner, ExportSingleTrackKmz)
@@ -1484,7 +1484,7 @@ UNIT_CLASS_TEST(Runner, ExportSingleTrackKmz)
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
   BookmarkManager::KMLDataCollection kmlDataCollection;
-  kmlDataCollection.emplace_back(file, LoadKmlFile(file, FileType::Gpx));
+  kmlDataCollection.emplace_back(file, LoadKmlFile(file, KmlFileType::Gpx));
   bmManager.CreateCategories(std::move(kmlDataCollection));
 
   auto const kmzChecker = [](BookmarkManager::SharingResult const & result)
@@ -1496,7 +1496,7 @@ UNIT_CLASS_TEST(Runner, ExportSingleTrackKmz)
     std::string kmlFileName = "Some random route.kml";
     auto kmlFilePath = base::JoinPath(GetPlatform().TmpDir(), kmlFileName);
     ZipFileReader::UnzipFile(filePath, kmlFileName, kmlFilePath);
-    auto fileData = LoadKmlFile(kmlFilePath, FileType::Kml);
+    auto fileData = LoadKmlFile(kmlFilePath, KmlFileType::Text);
     TEST_EQUAL(1, fileData->m_tracksData.size(), ());
     TEST(base::DeleteFileX(filePath), ());
     TEST(base::DeleteFileX(kmlFilePath), ());
@@ -1508,7 +1508,7 @@ UNIT_CLASS_TEST(Runner, ExportSingleTrackKmz)
   {
     auto track = bmManager.GetTrack(trackId);
     if (track->GetName().find("Some random route") != std::string::npos)
-      bmManager.PrepareTrackFileForSharing(track->GetId(), kmzChecker, FileType::Kml);
+      bmManager.PrepareTrackFileForSharing(track->GetId(), kmzChecker, KmlFileType::Text);
   }
 }
 
@@ -1518,14 +1518,14 @@ UNIT_CLASS_TEST(Runner, ExportSingleTrackGpx)
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
   BookmarkManager::KMLDataCollection kmlDataCollection;
-  kmlDataCollection.emplace_back(file, LoadKmlFile(file, FileType::Gpx));
+  kmlDataCollection.emplace_back(file, LoadKmlFile(file, KmlFileType::Gpx));
   bmManager.CreateCategories(std::move(kmlDataCollection));
 
   auto const gpxChecker = [](BookmarkManager::SharingResult const & result)
   {
     auto filePath = result.m_sharingPath;
     TEST(filePath.find("Some random route.gpx") != std::string::npos, ());
-    auto fileData = LoadKmlFile(filePath, FileType::Gpx);
+    auto fileData = LoadKmlFile(filePath, KmlFileType::Gpx);
     TEST_EQUAL(1, fileData->m_tracksData.size(), ());
     TEST(base::DeleteFileX(filePath), ());
   };
@@ -1536,7 +1536,7 @@ UNIT_CLASS_TEST(Runner, ExportSingleTrackGpx)
   {
     auto track = bmManager.GetTrack(trackId);
     if (track->GetName().find("Some random route") != std::string::npos)
-      bmManager.PrepareTrackFileForSharing(track->GetId(), gpxChecker, FileType::Gpx);
+      bmManager.PrepareTrackFileForSharing(track->GetId(), gpxChecker, KmlFileType::Gpx);
   }
 }
 
@@ -1546,7 +1546,7 @@ UNIT_CLASS_TEST(Runner, ExportSingleGpx)
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
   BookmarkManager::KMLDataCollection kmlDataCollection;
-  kmlDataCollection.emplace_back(file, LoadKmlFile(file, FileType::Gpx));
+  kmlDataCollection.emplace_back(file, LoadKmlFile(file, KmlFileType::Gpx));
   bmManager.CreateCategories(std::move(kmlDataCollection));
   auto categories = bmManager.GetUnsortedBmGroupsIdList();
   auto const checker = [](BookmarkManager::SharingResult const & result)
@@ -1555,13 +1555,13 @@ UNIT_CLASS_TEST(Runner, ExportSingleGpx)
     TEST(filePath.find("Some random route.gpx") != std::string::npos, ());
     TEST(base::DeleteFileX(filePath), ());
   };
-  bmManager.PrepareFileForSharing(std::move(categories), checker, FileType::Gpx);
+  bmManager.PrepareFileForSharing(std::move(categories), checker, KmlFileType::Gpx);
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_BrokenFile)
 {
   string const fileName = GetPlatform().TestsDataPathForFile("test_data/broken_bookmarks.kmb.test");
-  auto kmlData = LoadKmlFile(fileName, FileType::Kmb);
+  auto kmlData = LoadKmlFile(fileName, KmlFileType::Binary);
   TEST(kmlData == nullptr, ());
 }
 
@@ -1579,7 +1579,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
 
   std::string const filePath = base::JoinPath(dir, "file" + std::string{kKmlExtension});
   BookmarkManager::KMLDataCollection kmlDataCollection;
-  kmlDataCollection.emplace_back(filePath, LoadKmlData(MemReader(kmlString, std::strlen(kmlString)), FileType::Kml));
+  kmlDataCollection.emplace_back(filePath,
+                                 LoadKmlData(MemReader(kmlString, std::strlen(kmlString)), KmlFileType::Text));
 
   FileWriter w(filePath);
   w.Write(kmlDataCollection.data(), kmlDataCollection.size());

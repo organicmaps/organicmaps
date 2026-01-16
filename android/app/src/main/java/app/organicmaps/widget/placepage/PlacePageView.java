@@ -46,8 +46,8 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
-import app.organicmaps.sdk.bookmarks.data.FileType;
 import app.organicmaps.sdk.bookmarks.data.Icon;
+import app.organicmaps.sdk.bookmarks.data.KmlFileType;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
 import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
@@ -1059,9 +1059,9 @@ public class PlacePageView extends Fragment
       SharingUtils.shareMapObject(requireContext(), mMapObject);
   }
 
-  private void onShareTrackSelected(long trackId, FileType fileType)
+  private void onShareTrackSelected(long trackId, KmlFileType kmlFileType)
   {
-    BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), trackId, fileType);
+    BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), trackId, kmlFileType);
   }
 
   @Nullable
@@ -1080,9 +1080,9 @@ public class PlacePageView extends Fragment
     Track track = (Track) mMapObject;
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
     items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz,
-                                      () -> onShareTrackSelected(track.getTrackId(), FileType.Kml)));
+                                      () -> onShareTrackSelected(track.getTrackId(), KmlFileType.Text)));
     items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
-                                      () -> onShareTrackSelected(track.getTrackId(), FileType.Gpx)));
+                                      () -> onShareTrackSelected(track.getTrackId(), KmlFileType.Gpx)));
     return items;
   }
 

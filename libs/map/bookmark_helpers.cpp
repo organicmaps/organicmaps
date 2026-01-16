@@ -317,25 +317,6 @@ std::string GetLowercaseFileExt(std::string const & filePath)
   return strings::MakeLowerCase(base::GetFileExtension(filePath));
 }
 
-std::optional<FileType> GetFileType(std::string const & filePath)
-{
-  auto const ext = GetLowercaseFileExt(filePath);
-  if (ext == kKmlExtension)
-    return FileType::Kml;
-  else if (ext == kKmzExtension)
-    return FileType::Kmz;
-  else if (ext == kKmbExtension)
-    return FileType::Kmb;
-  else if (ext == kGpxExtension)
-    return FileType::Gpx;
-  else if (ext == kGeoJsonExtension)
-    return FileType::GeoJson;
-  else if (ext == kJsonExtension)
-    return FileType::Json;
-  else
-    return {};
-}
-
 std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string_view ext)
 {
   // Remove extension, if file name already contains it.
@@ -357,13 +338,31 @@ std::string GenerateUniqueFileName(std::string const & path, std::string name, s
   return res;
 }
 
-std::string GenerateValidAndUniqueFilePath(std::string const & fileName, FileType const fileType)
+std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
 {
   std::string filePath = RemoveInvalidSymbols(fileName);
   if (filePath.empty())
     filePath = kDefaultBookmarksFileName;
 
-  return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), GetFileTypeExtension(fileType));
+  return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kKmlExtension);
+}
+
+std::string GenerateValidAndUniqueFilePathForGPX(std::string const & fileName)
+{
+  std::string filePath = RemoveInvalidSymbols(fileName);
+  if (filePath.empty())
+    filePath = kDefaultBookmarksFileName;
+
+  return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kGpxExtension);
+}
+
+std::string GenerateValidAndUniqueFilePathForGeoJson(std::string const & fileName)
+{
+  std::string filePath = RemoveInvalidSymbols(fileName);
+  if (filePath.empty())
+    filePath = kDefaultBookmarksFileName;
+
+  return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kGeoJsonExtension);
 }
 
 std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName)
@@ -418,7 +417,7 @@ void FillEmptyNames(std::unique_ptr<kml::FileData> & kmlData, std::string const 
   }
 }
 
-std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, FileType fileType)
+std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType)
 {
   std::unique_ptr<kml::FileData> kmlData;
   try
@@ -437,9 +436,38 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, FileType fi
   return kmlData;
 }
 
-static std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath)
+std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath)
 {
-  // Extract KML files from KMZ archive and save to temp KMLs with unique name.
+  std::string const fileExt = GetLowercaseFileExt(filePath);
+  if (fileExt == kKmlExtension)
+  {
+    return GetFilePathsToLoadFromKml(filePath);
+  }
+  else if (fileExt == kGpxExtension)
+  {
+    return GetFilePathsToLoadFromGpx(filePath);
+  }
+  else if (fileExt == kKmbExtension)
+  {
+    return GetFilePathsToLoadFromKmb(filePath);
+  }
+  else if (fileExt == kKmzExtension)
+  {
+    return GetFilePathsToLoadFromKmz(filePath);
+  }
+  else if (fileExt == kGeoJsonExtension || fileExt == kJsonExtension)
+  {
+    return GetFilePathsToLoadFromGeoJson(filePath);
+  }
+  else
+  {
+    LOG(LWARNING, ("Unknown file type", filePath));
+    return {};
+  }
+}
+
+std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath)
+{  // Extract KML files from KMZ archive and save to temp KMLs with unique name.
   std::vector<std::string> kmlFilePaths;
   try
   {
@@ -451,7 +479,7 @@ static std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & fi
     for (auto const & [kmlFileInZip, size] : files)
     {
       auto const name = base::FileNameFromFullPath(kmlFileInZip);
-      auto fileSavePath = GenerateValidAndUniqueFilePath(kmlFileInZip, FileType::Kml);
+      auto fileSavePath = GenerateValidAndUniqueFilePathForKML(kmlFileInZip);
       ZipFileReader::UnzipFile(filePath, kmlFileInZip, fileSavePath);
       kmlFilePaths.push_back(std::move(fileSavePath));
     }
@@ -463,73 +491,63 @@ static std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & fi
   return kmlFilePaths;
 }
 
-static std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath)
-{
-  // Convert input KMB file and save to temp KML with unique name.
-  auto kmlData = LoadKmlFile(filePath, FileType::Kmb);
+std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath)
+{  // Convert input file and save to temp KML with unique name.
+  auto kmlData = LoadKmlFile(filePath, KmlFileType::Binary);
   if (kmlData == nullptr)
     return {};
 
-  auto fileSavePath = GenerateValidAndUniqueFilePath(base::FileNameFromFullPath(filePath), FileType::Kml);
+  auto fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
   if (!SaveKmlFileByExt(*kmlData, fileSavePath))
     return {};
   return {std::move(fileSavePath)};
 }
 
-static std::vector<std::string> GetFilePathsToLoadByType(std::string const & filePath, FileType const fileType)
-{
-  // Copy input file to temp file with unique name.
-  auto fileSavePath = GenerateValidAndUniqueFilePath(base::FileNameFromFullPath(filePath), fileType);
+std::vector<std::string> GetFilePathsToLoadFromGpx(std::string const & filePath)
+{  // Copy input file to temp GPX with unique name.
+  auto fileSavePath = GenerateValidAndUniqueFilePathForGPX(base::FileNameFromFullPath(filePath));
   if (!base::CopyFileX(filePath, fileSavePath))
     return {};
   return {std::move(fileSavePath)};
 }
 
-std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath)
-{
-  // Copy or convert file from 'filePath' to temp folder.
-  // KMZ archives are unpacked to temp folder.
-  if (auto const fileType = GetFileType(filePath))
-  {
-    switch (*fileType)
-    {
-    case FileType::Kml:
-    case FileType::Gpx:
-    case FileType::GeoJson:
-    case FileType::Json: return GetFilePathsToLoadByType(filePath, *fileType);
-    case FileType::Kmz: return GetFilePathsToLoadFromKmz(filePath);
-    case FileType::Kmb: return GetFilePathsToLoadFromKmb(filePath);
-    }
-    UNREACHABLE();
-  }
-  else
-  {
-    LOG(LWARNING, ("Unknown file type", filePath));
+std::vector<std::string> GetFilePathsToLoadFromKml(std::string const & filePath)
+{  // Copy input file to temp output KML with unique name.
+  auto fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
+  if (!base::CopyFileX(filePath, fileSavePath))
     return {};
-  }
+  return {std::move(fileSavePath)};
 }
 
-std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, FileType fileType)
+std::vector<std::string> GetFilePathsToLoadFromGeoJson(std::string const & filePath)
+{  // Copy input file to temp GeoJson with unique name.
+  auto fileSavePath = GenerateValidAndUniqueFilePathForGeoJson(base::FileNameFromFullPath(filePath));
+  if (!base::CopyFileX(filePath, fileSavePath))
+    return {};
+  return {std::move(fileSavePath)};
+}
+
+std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType)
 {
   auto data = std::make_unique<kml::FileData>();
   try
   {
-    if (fileType == FileType::Kmb)
+    if (fileType == KmlFileType::Binary)
     {
       kml::binary::DeserializerKml des(*data);
       des.Deserialize(reader);
     }
-    else if (fileType == FileType::Kml)
+    else if (fileType == KmlFileType::Text)
     {
       kml::DeserializerKml des(*data);
       des.Deserialize(reader);
     }
-    else if (fileType == FileType::Gpx)
+    else if (fileType == KmlFileType::Gpx)
     {
       kml::DeserializerGpx des(*data);
       des.Deserialize(reader);
     }
-    else if (fileType == FileType::GeoJson || fileType == FileType::Json)
+    else if (fileType == KmlFileType::GeoJson || fileType == KmlFileType::Json)
     {
       kml::GeoJsonReader des(*data);
       std::string content;
@@ -540,7 +558,7 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, FileType fileT
     }
     else
     {
-      CHECK(false, ("Not supported FileType"));
+      CHECK(false, ("Not supported KmlFileType"));
     }
     ValidateKmlData(data);
     RemoveDuplicatedTrackPoints(data);
@@ -608,25 +626,25 @@ static bool SaveGeoJsonData(kml::FileData const & kmlData, Writer & writer)
   return true;
 }
 
-static bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, FileType fileType)
+static bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)
 {
   FileWriter writer(file);
   switch (fileType)
   {
-  case FileType::Kml:  // fallthrough
-  case FileType::Kmb: return SaveKmlData(kmlData, writer, fileType);
-  case FileType::Gpx: return SaveGpxData(kmlData, writer);
-  case FileType::GeoJson:  // fallthrough
-  case FileType::Json: return SaveGeoJsonData(kmlData, writer);
+  case KmlFileType::Text:  // fallthrough
+  case KmlFileType::Binary: return SaveKmlData(kmlData, writer, fileType);
+  case KmlFileType::Gpx: return SaveGpxData(kmlData, writer);
+  case KmlFileType::GeoJson:  // fallthrough
+  case KmlFileType::Json: return SaveGeoJsonData(kmlData, writer);
   default:
   {
-    LOG(LWARNING, ("Unexpected FileType", fileType));
+    LOG(LWARNING, ("Unexpected KmlFileType", fileType));
     return false;
   }
   }
 }
 
-bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, FileType fileType)
+bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)
 {
   LOG(LINFO, ("Save kml file of type", fileType, "to", file));
   return base::WriteToTempAndRenameToFile(
@@ -636,26 +654,26 @@ bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, FileType
 bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file)
 {
   auto const ext = base::GetFileExtension(file);
-  return SaveKmlFileSafe(kmlData, file, ext == kKmbExtension ? FileType::Kmb : FileType::Kml);
+  return SaveKmlFileSafe(kmlData, file, ext == kKmbExtension ? KmlFileType::Binary : KmlFileType::Text);
 }
 
-bool SaveKmlData(kml::FileData & kmlData, Writer & writer, FileType fileType)
+bool SaveKmlData(kml::FileData & kmlData, Writer & writer, KmlFileType fileType)
 {
   try
   {
-    if (fileType == FileType::Kmb)
+    if (fileType == KmlFileType::Binary)
     {
       kml::binary::SerializerKml ser(kmlData);
       ser.Serialize(writer);
     }
-    else if (fileType == FileType::Kml)
+    else if (fileType == KmlFileType::Text)
     {
       kml::SerializerKml ser(kmlData);
       ser.Serialize(writer);
     }
     else
     {
-      CHECK(false, ("Not supported FileType"));
+      CHECK(false, ("Not supported KmlFileType"));
     }
   }
   catch (Writer::Exception const & e)

@@ -65,16 +65,15 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   }
 }
 
-static FileType convertFileTypeToCore(MWMFileType fileType)
+static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType)
 {
   switch (fileType)
   {
-  case MWMFileTypeKml: return FileType::Kml;
-  case MWMFileTypeKmz: return FileType::Kmz;
-  case MWMFileTypeKmb: return FileType::Kmb;
-  case MWMFileTypeGpx: return FileType::Gpx;
-  case MWMFileTypeGeoJson: return FileType::GeoJson;
-  case MWMFileTypeJson: return FileType::Json;
+  case MWMKmlFileTypeText: return KmlFileType::Text;
+  case MWMKmlFileTypeBinary: return KmlFileType::Binary;
+  case MWMKmlFileTypeGpx: return KmlFileType::Gpx;
+  case MWMKmlFileTypeGeoJson: return KmlFileType::GeoJson;
+  case MWMKmlFileTypeJson: return KmlFileType::Json;
   }
 }
 
@@ -607,7 +606,7 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
 #pragma mark - Category sharing
 
 - (void)shareCategory:(MWMMarkGroupID)groupId
-             fileType:(MWMFileType)fileType
+             fileType:(MWMKmlFileType)fileType
            completion:(SharingResultCompletionHandler)completion
 {
   self.bm.PrepareFileForSharing({groupId}, [self, completion](auto sharingResult)
@@ -621,7 +620,7 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
 }
 
 - (void)shareTrack:(MWMTrackID)trackId
-          fileType:(MWMFileType)fileType
+          fileType:(MWMKmlFileType)fileType
         completion:(SharingResultCompletionHandler)completion
 {
   self.bm.PrepareTrackFileForSharing(trackId, [self, completion](auto sharingResult)
