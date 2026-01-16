@@ -195,6 +195,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">ปุ่ม + และ - บนแผนที่</string>
     <string name="pref_zoom_summary">แสดงบนหน้าจอ</string>
+    <string name="pref_auto_night_in_navigation_title">สไตล์กลางคืนเมื่อนำทางในที่มืด</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">โหมดกลางคืน</string>
     <!-- Generic «Off» string -->
@@ -326,6 +327,12 @@
     <string name="gray">สีเทา</string>
     <!-- blue gray color -->
     <string name="blue_gray">สีฟ้าอมเทา</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">รูปแบบ</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">สว่าง</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">มืด</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">มอบแผนที่ฟรีไม่มีโฆษณาให้แก่ผู้ใช้นับล้าน!</string>
 

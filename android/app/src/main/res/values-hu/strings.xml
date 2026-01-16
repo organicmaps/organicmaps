@@ -204,6 +204,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">A térképen lévő + és - gombok</string>
     <string name="pref_zoom_summary">Megjelenítés a térképen</string>
+    <string name="pref_auto_night_in_navigation_title">Éjszakai stílus sötétben történő navigáláskor</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Éjszakai mód</string>
     <!-- Generic «Off» string -->
@@ -337,6 +338,12 @@
     <string name="gray">Szürke</string>
     <!-- blue gray color -->
     <string name="blue_gray">Kékes szürke</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Megjelenés</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Világos</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Sötét</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Ajándékozzon ingyenes, hirdetésmentes térképeket felhasználók millióinak!</string>
 

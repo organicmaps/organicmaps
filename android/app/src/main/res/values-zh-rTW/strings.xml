@@ -204,6 +204,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">地圖上的「+」和「-」按鈕</string>
     <string name="pref_zoom_summary">在螢幕上顯示</string>
+    <string name="pref_auto_night_in_navigation_title">在黑暗中導航時的夜間風格</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">夜間模式</string>
     <!-- Generic «Off» string -->
@@ -337,6 +338,12 @@
     <string name="gray">灰色</string>
     <!-- blue gray color -->
     <string name="blue_gray">藍灰色</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">外觀</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">淺色</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">深色</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">向數百萬使用者贈送無廣告的免費地圖！</string>
 

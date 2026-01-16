@@ -204,6 +204,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">Il-buttuni + u - fuq il-mappa</string>
     <string name="pref_zoom_summary">Uri fuq il-mappa</string>
+    <string name="pref_auto_night_in_navigation_title">Stil bil-lejl meta tkun qed tinnaviga fid-dlam</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Il-mod ta’ bil-lejl</string>
     <!-- Generic «Off» string -->
@@ -333,6 +334,8 @@
     <string name="gray">Griż</string>
     <!-- blue gray color -->
     <string name="blue_gray">Blu Griż</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Dehra</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Agħti mapep b\'xejn u bla reklami lil miljuni ta\' utenti!</string>
 

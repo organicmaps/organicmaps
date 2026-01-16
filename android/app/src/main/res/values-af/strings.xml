@@ -202,6 +202,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">Knoppies + en - op die kaart</string>
     <string name="pref_zoom_summary">Vertoon op die kaart</string>
+    <string name="pref_auto_night_in_navigation_title">Nagstyl wanneer in die donker genavigeer word</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Nagmodus</string>
     <!-- Generic «On» string -->

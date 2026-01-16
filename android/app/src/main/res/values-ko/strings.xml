@@ -204,6 +204,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">지도에서 + 및 - 버튼</string>
     <string name="pref_zoom_summary">화면에 표시</string>
+    <string name="pref_auto_night_in_navigation_title">어두운 곳에서 내비게이션할 때의 야간 스타일</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">나이트 모드</string>
     <!-- Generic «Off» string -->
@@ -337,6 +338,12 @@
     <string name="gray">회색</string>
     <!-- blue gray color -->
     <string name="blue_gray">청회색</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">모양</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">라이트</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">다크</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">수백만 명의 사용자에게 광고 없는 무료 지도를 선물하세요!</string>
 
