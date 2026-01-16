@@ -2100,7 +2100,7 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
     for (auto const & fileToLoad : GetKMLOrGPXFilesPathsToLoad(filePath))
     {
       std::unique_ptr<kml::FileData> kmlData;
-      if (auto const fileType = GetFileType(filePath))
+      if (auto const fileType = GetFileType(fileToLoad))
       {
         switch (*fileType)
         {
