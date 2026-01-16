@@ -638,7 +638,6 @@ UNIT_TEST(Germany_Italy_Malcesine)
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(45.7662964, 10.8111554), {0., 0.},
                                    FromLatLon(48.4101446, 11.5892265), 431341);
 
-  /// @todo Again strange detour (near finish) on a long route.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(50.8499365, 12.4662169), {0., 0.},
                                    FromLatLon(45.7662964, 10.8111554), 776000);
 }
@@ -675,14 +674,10 @@ UNIT_TEST(USA_Birmingham_AL_KeyWest_FL_NoMotorway)
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(28.9666499, -82.127271), {0., 0.},
                                    FromLatLon(25.8633542, -80.3878891), 457734);
 
-  /// @note These tests works good on release server, my desktop release skips MWM Florida_Orlando ...
-  /// 15 vs 8 cross-mwm candidates.
-
   auto const start = FromLatLon(33.5209837, -86.807945);
   auto const finish = FromLatLon(24.5534713, -81.7932587);
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), start, {0., 0.}, finish, 1'471'410);
 
-  /// @todo Fails on sever also.
   RoutingOptionSetter optionsGuard(RoutingOptions::Motorway);
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), start, {0., 0.}, finish, 1'495'860);
 }
