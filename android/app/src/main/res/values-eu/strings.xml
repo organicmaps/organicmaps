@@ -204,6 +204,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">Mapako “+” eta “-” botoiak</string>
     <string name="pref_zoom_summary">Erakutsi mapan</string>
+    <string name="pref_auto_night_in_navigation_title">Gau estiloa ilunpean nabigatzean</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Gaueko modua</string>
     <!-- Generic «Off» string -->
@@ -337,6 +338,12 @@
     <string name="gray">Grisa</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gris urdinxka</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Itxura</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Argi</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Iluna</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Oparitu doako mapak iragarkirik gabe milioika erabiltzaileri!</string>
 

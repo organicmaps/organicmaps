@@ -104,6 +104,7 @@
     <!-- Title for tracks category in bookmarks manager -->
     <string name="tracks_title">Rutas</string>
     <string name="pref_zoom_summary">Visualización en el mapa</string>
+    <string name="pref_auto_night_in_navigation_title">Estilo nocturno cuando se navega en la oscuridad</string>
     <!-- Settings «Map» category: «3D buildings» title -->
     <string name="pref_map_3d_buildings_title">Edificios 3D</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
@@ -169,6 +170,10 @@
     <string name="deep_orange">Naranja intenso</string>
     <!-- blue gray color -->
     <string name="blue_gray">Azul Gris</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Apariencia</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Luz</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Cuando siga la ruta, tenga en cuenta lo siguiente:</string>

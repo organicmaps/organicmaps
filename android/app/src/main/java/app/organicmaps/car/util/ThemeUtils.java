@@ -16,11 +16,11 @@ public final class ThemeUtils
 {
   public enum ThemeMode
   {
-    AUTO(R.string.auto, Config.UiTheme.AUTO),
-    LIGHT(R.string.off, Config.UiTheme.DEFAULT),
-    NIGHT(R.string.on, Config.UiTheme.NIGHT);
+    AUTO(R.string.auto, Config.UiTheme.SYSTEM),
+    LIGHT(R.string.off, Config.UiTheme.LIGHT),
+    NIGHT(R.string.on, Config.UiTheme.DARK);
 
-    ThemeMode(@StringRes int titleId, @NonNull String config)
+    ThemeMode(@StringRes int titleId, @NonNull Config.UiTheme config)
     {
       mTitleId = titleId;
       mConfig = config;
@@ -33,7 +33,7 @@ public final class ThemeUtils
     }
 
     @NonNull
-    public String getConfig()
+    public Config.UiTheme getConfig()
     {
       return mConfig;
     }
@@ -41,7 +41,7 @@ public final class ThemeUtils
     @StringRes
     private final int mTitleId;
     @NonNull
-    private final String mConfig;
+    private final Config.UiTheme mConfig;
   }
 
   private static final String ANDROID_AUTO_PREFERENCES_FILE_KEY = "ANDROID_AUTO_PREFERENCES_FILE_KEY";
@@ -74,23 +74,22 @@ public final class ThemeUtils
   @UiThread
   public static void setThemeMode(@NonNull CarContext context, @NonNull ThemeMode themeMode)
   {
-    getSharedPreferences(context).edit().putString(THEME_KEY, themeMode.getConfig()).commit();
+    getSharedPreferences(context).edit().putString(THEME_KEY, themeMode.getConfig().value).commit();
     update(context, themeMode);
   }
 
   @NonNull
   public static ThemeMode getThemeMode(@NonNull CarContext context)
   {
-    final String themeMode = getSharedPreferences(context).getString(THEME_KEY, ThemeMode.AUTO.getConfig());
+    final var preferences = getSharedPreferences(context);
+    final var uiTheme = Config.UiTheme.ofValue(preferences.getString(THEME_KEY, Config.UiTheme.SYSTEM.value));
 
-    if (themeMode.equals(ThemeMode.AUTO.getConfig()))
-      return ThemeMode.AUTO;
-    else if (themeMode.equals(ThemeMode.LIGHT.getConfig()))
-      return ThemeMode.LIGHT;
-    else if (themeMode.equals(ThemeMode.NIGHT.getConfig()))
-      return ThemeMode.NIGHT;
-    else
-      throw new IllegalArgumentException("Unsupported value");
+    return switch (uiTheme)
+    {
+      case DARK -> ThemeMode.NIGHT;
+      case LIGHT -> ThemeMode.LIGHT;
+      case SYSTEM -> ThemeMode.AUTO;
+    };
   }
 
   @NonNull

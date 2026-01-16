@@ -130,6 +130,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">Gumbi „+“ i „-“ na karti</string>
     <string name="pref_zoom_summary">Prikaži na karti</string>
+    <string name="pref_auto_night_in_navigation_title">Noćni stil pri navigaciji u mraku</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Noćni modus</string>
     <!-- Generic «Off» string -->

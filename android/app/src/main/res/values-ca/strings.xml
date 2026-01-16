@@ -204,6 +204,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">Botons «+» i «-» al mapa</string>
     <string name="pref_zoom_summary">Mostra\'ls al mapa</string>
+    <string name="pref_auto_night_in_navigation_title">Estil nocturn quan es navega en la foscor</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Mode nocturn</string>
     <!-- Generic «Off» string -->
@@ -337,6 +338,12 @@
     <string name="gray">Gris</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gris blavós</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Aspecte</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Clar</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Fosc</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Regala mapes gratuïts sense anuncis a milions d\'usuaris!</string>
 

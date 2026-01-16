@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import androidx.annotation.NonNull;
-import app.organicmaps.sdk.R;
+import androidx.annotation.Nullable;
 
 public final class Config
 {
@@ -267,66 +267,75 @@ public final class Config
     setBool(KEY_MISC_LOCATION_REQUESTED);
   }
 
-  public static class UiTheme
+  public enum UiTheme
   {
-    private static final String KEY_UI_THEME = "UiTheme";
-    private static final String KEY_UI_THEME_SETTINGS = "UiThemeSettings";
+    SYSTEM("auto"),
+    LIGHT("default"),
+    DARK("night");
 
-    public static final String AUTO = "auto";
-    public static final String NIGHT = "night";
-    public static final String NAV_AUTO = "nav_auto";
-    public static final String DEFAULT = "default";
-
-    public static boolean isAuto(@NonNull String theme)
+    UiTheme(@NonNull String value)
     {
-      return AUTO.equals(theme);
-    }
-
-    public static boolean isNavAuto(@NonNull String theme)
-    {
-      return NAV_AUTO.equals(theme);
+      this.value = value;
     }
 
     @NonNull
-    public static String getCurrent()
-    {
-      final String res = getString(KEY_UI_THEME, AUTO);
-      if (isValid(res))
-        return res;
+    public final String value;
 
-      return AUTO;
+    private static final String KEY_UI_THEME_PREFERENCE = "UiThemeSettings";
+    private static final String KEY_AUTO_DARK_NAVIGATION_PREFERENCE = "AutoDarkNavigation";
+
+    private static final String LEGACY_NAV_AUTO_THEME = "nav_auto";
+
+    @NonNull
+    public String getValue()
+    {
+      return value;
     }
 
-    public static void setCurrent(@NonNull String theme)
+    public static UiTheme ofValue(@Nullable String value)
     {
-      if (getCurrent().equals(theme))
-        return;
-
-      setString(KEY_UI_THEME, theme);
+      for (UiTheme uiTheme : UiTheme.values())
+      {
+        if (uiTheme.value.equalsIgnoreCase(value))
+          return uiTheme;
+      }
+      return UiTheme.SYSTEM;
     }
 
     @NonNull
-    public static String getUiThemeSettings()
+    public static UiTheme getUiThemePreference()
     {
-      final String res = getString(KEY_UI_THEME_SETTINGS, AUTO);
-      if (isValid(res) || isAuto(res) || isNavAuto(res))
-        return res;
-
-      return AUTO;
+      var value = getString(KEY_UI_THEME_PREFERENCE);
+      boolean isLegacyNavAuto = LEGACY_NAV_AUTO_THEME.equalsIgnoreCase(value);
+      if (isLegacyNavAuto && !nativeHasConfigValue(KEY_AUTO_DARK_NAVIGATION_PREFERENCE))
+      {
+        setAutoDarkNavigationEnabled(true);
+      }
+      return UiTheme.ofValue(value);
     }
 
-    public static boolean setUiThemeSettings(String theme)
+    public static boolean setUiThemePreference(@NonNull UiTheme theme)
     {
-      if (getUiThemeSettings().equals(theme))
+      if (getUiThemePreference().equals(theme))
         return false;
 
-      setString(KEY_UI_THEME_SETTINGS, theme);
+      setString(KEY_UI_THEME_PREFERENCE, theme.value);
       return true;
     }
 
-    private static boolean isValid(@NonNull String theme)
+    public static boolean isAutoDarkNavigationEnabled()
     {
-      return DEFAULT.equals(theme) || NIGHT.equals(theme);
+      return getBool(KEY_AUTO_DARK_NAVIGATION_PREFERENCE);
+    }
+
+    public static boolean setAutoDarkNavigationEnabled(boolean enabled)
+    {
+      final var prev = isAutoDarkNavigationEnabled();
+      if (prev == enabled)
+        return false;
+
+      setBool(KEY_AUTO_DARK_NAVIGATION_PREFERENCE, enabled);
+      return true;
     }
   }
 

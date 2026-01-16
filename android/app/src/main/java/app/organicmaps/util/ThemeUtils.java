@@ -49,9 +49,4 @@ public final class ThemeUtils
     int nightFlag = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
     return nightFlag == Configuration.UI_MODE_NIGHT_YES;
   }
-
-  public static boolean isNavAutoTheme()
-  {
-    return Config.UiTheme.isNavAuto(Config.UiTheme.getUiThemeSettings());
-  }
 }

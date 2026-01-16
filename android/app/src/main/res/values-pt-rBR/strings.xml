@@ -133,6 +133,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">Botões \"+\" e \"-\" no mapa</string>
     <string name="pref_zoom_summary">Mostrar na tela</string>
+    <string name="pref_auto_night_in_navigation_title">Estilo noturno ao navegar no escuro</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Modo Noturno</string>
     <!-- Generic «Off» string -->
@@ -226,6 +227,12 @@
     <string name="lime">Verde limão</string>
     <!-- blue gray color -->
     <string name="blue_gray">Azul escuro</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Aparência</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Clara</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Escura</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Ofereça mapas gratuitos e sem anúncios a milhões de usuários!</string>
 
