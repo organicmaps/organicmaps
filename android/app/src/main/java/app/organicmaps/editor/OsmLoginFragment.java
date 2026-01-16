@@ -35,6 +35,8 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
   private Button mLostPasswordButton;
   private TextInputEditText mLoginInput;
   private TextInputEditText mPasswordInput;
+  private boolean mIsErrorDialogShown = false;
+  private static final String STATE_ERROR_DIALOG = "state_error_dialog";
 
   @Nullable
   @Override
@@ -71,13 +73,24 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
       mLostPasswordButton.setOnClickListener(
           (v) -> Utils.openUrl(requireActivity(), Constants.Url.OSM_RECOVER_PASSWORD));
     }
-
     String code = readOAuth2CodeFromArguments();
+    boolean flowStarted = false;
     if (code != null && !code.isEmpty())
+    {
+      flowStarted = true;
       continueOAuth2Flow(code);
-
+    }
     ScrollView scrollView = view.findViewById(R.id.scrollView);
     ViewCompat.setOnApplyWindowInsetsListener(scrollView, new ScrollableContentInsetsListener(scrollView));
+    if (savedInstanceState != null && savedInstanceState.getBoolean(STATE_ERROR_DIALOG, false) && !flowStarted)
+      onAuthFail();
+  }
+
+  @Override
+  public void onSaveInstanceState(@NonNull Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    outState.putBoolean(STATE_ERROR_DIALOG, mIsErrorDialogShown);
   }
 
   private String readOAuth2CodeFromArguments()
@@ -134,9 +147,11 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
 
   private void onAuthFail()
   {
+    mIsErrorDialogShown = true;
     new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.editor_login_error_dialog)
         .setPositiveButton(R.string.ok, null)
+        .setOnDismissListener(dialog -> mIsErrorDialogShown = false)
         .show();
   }
 
