@@ -140,6 +140,7 @@ std::string DebugPrint(SerializationError error)
   case IncorrectBaseOffsetFormat: return "IncorrectBaseOffsetFormat";
   case IncorrectDstDeltaFormat: return "IncorrectDstDeltaFormat";
   case IncorrectTransitionsLengthFormat: return "IncorrectTransitionsLengthFormat";
+  case IncorrectTransitionsAmount: return "IncorrectTransitionsAmount";
   case IncorrectDayDeltaFormat: return "IncorrectDayDeltaFormat";
   case IncorrectMinuteOfDayFormat: return "IncorrectMinuteOfDayFormat";
   default: UNREACHABLE();

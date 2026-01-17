@@ -89,4 +89,5 @@ if __name__ == "__main__":
         "timezones": generate_timezones_data(get_countries_meta_timezones(), args.start_year, args.years)
     }
 
-    open(TIMEZONE_INFO_FILE_PATH, "w").write(json.dumps(timezone_info, indent=2))
+    with open(TIMEZONE_INFO_FILE_PATH, "w") as f:
+        f.write(json.dumps(timezone_info, indent=2))

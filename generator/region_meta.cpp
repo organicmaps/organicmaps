@@ -96,7 +96,7 @@ bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
 
     std::string timezone;
     FromJSONObjectOptionalField(jsonData, "timezone", timezone);
-    LOG(LINFO, ("Timezone:", timezone));
+    LOG(LDEBUG, ("Timezone:", timezone));
     if (timezone.empty())
       MYTHROW(TimeZoneError, ("No timezone info in countries_meta for", countryName));
 

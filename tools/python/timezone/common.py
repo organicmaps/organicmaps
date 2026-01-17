@@ -10,7 +10,7 @@ TIMEZONE_INFO_FILE_PATH = OM_ROOT / "data" / "generator" / "timezone" / "timezon
 
 def get_countries_meta_timezones(data: dict = None) -> Set[str]:
     if data is None:
-        data = json.loads(open(COUNTRIES_META_FILE_PATH, 'r').read())
+        data = json.loads(COUNTRIES_META_FILE_PATH.read_text(encoding="utf-8"))
     timezones = set()
     if isinstance(data, dict):
         for key, value in data.items():
