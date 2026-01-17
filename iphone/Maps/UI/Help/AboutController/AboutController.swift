@@ -36,17 +36,17 @@ final class AboutController: MWMViewController {
   private let termsOfUseAndPrivacyPolicyView = ButtonsStackView()
   private var infoTableViewData = [AboutInfoTableViewCellModel]()
   private var socialMediaCollectionViewData = [SocialMediaCollectionViewCellModel]()
-  private var onDidAppearCompletionHandler: (() -> Void)?
+   private var onDidAppearCompletionHandler: (() -> Void)?
 
-  init(onDidAppearCompletionHandler: (() -> Void)? = nil) {
-    self.onDidAppearCompletionHandler = onDidAppearCompletionHandler
-    super.init(nibName: nil, bundle: nil)
-  }
+   init(onDidAppearCompletionHandler: (() -> Void)? = nil) {
+     self.onDidAppearCompletionHandler = onDidAppearCompletionHandler
+     super.init(nibName: nil, bundle: nil)
+   }
 
-  @available(*, unavailable)
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+   @available(*, unavailable)
+   required init?(coder: NSCoder) {
+     fatalError("init(coder:) has not been implemented")
+   }
 
   // MARK: - Lifecycle
   override func viewDidLoad() {
@@ -61,13 +61,13 @@ final class AboutController: MWMViewController {
     updateCollection()
   }
 
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    if let completionHandler = onDidAppearCompletionHandler {
-      completionHandler()
-      onDidAppearCompletionHandler = nil
-    }
-  }
+   override func viewDidAppear(_ animated: Bool) {
+     super.viewDidAppear(animated)
+     if let completionHandler = onDidAppearCompletionHandler {
+       completionHandler()
+       onDidAppearCompletionHandler = nil
+     }
+   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
