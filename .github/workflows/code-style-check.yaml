@@ -42,14 +42,14 @@ jobs:
           clang-format --version
 
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Run clang-format
         run: tools/unix/clang-format.sh
 
       - name: Post clang-format comments
         if: failure()
-        uses: reviewdog/action-suggester@4747dbc9f9e37adba0943e681cc20db466642158 # v1.21.0
+        uses: reviewdog/action-suggester@aa38384ceb608d00f84b4690cacc83a5aba307ff # v1.24.0
         with:
           fail_level: error
           tool_name: clang-format
