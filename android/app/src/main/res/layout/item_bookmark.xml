@@ -15,6 +15,7 @@
     android:layout_height="@dimen/track_circle_size"
     android:layout_gravity="center"
     android:layout_marginEnd="@dimen/margin_base"
+    android:contentDescription="@string/change_color"
     tools:background="@color/base_red"
     tools:src="@drawable/ic_bookmark_transport" />
 
