@@ -14,6 +14,7 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.IconClickListener;
 import app.organicmaps.sdk.bookmarks.data.SortedBlock;
+import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.content.DataSource;
 import app.organicmaps.widget.recycler.RecyclerClickListener;
 import app.organicmaps.widget.recycler.RecyclerLongClickListener;
@@ -434,6 +435,28 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     mIconClickListener = listener;
   }
 
+  private class TrackVisibilityClickListener implements View.OnClickListener
+  {
+    @NonNull
+    private final Holders.TrackViewHolder mHolder;
+
+    TrackVisibilityClickListener(@NonNull Holders.TrackViewHolder holder)
+    {
+      mHolder = holder;
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+      int position = mHolder.getBindingAdapterPosition();
+      SectionPosition sp = getSectionPosition(position);
+      long trackId = mSectionsDataSource.getTrackId(sp);
+      Track track = BookmarkManager.INSTANCE.getTrack(trackId);
+      track.toggleVisibility();
+      notifyItemChanged(position);
+    }
+  }
+
   @Override
   @NonNull
   public Holders.BaseBookmarkHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
@@ -449,6 +472,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
       trackHolder.setOnLongClickListener(mLongClickListener);
       trackHolder.setTrackIconClickListener(mIconClickListener);
       trackHolder.setMoreButtonClickListener(mMoreClickListener);
+      trackHolder.setVisibilityListener(new TrackVisibilityClickListener(trackHolder));
       holder = trackHolder;
       break;
     case TYPE_BOOKMARK:

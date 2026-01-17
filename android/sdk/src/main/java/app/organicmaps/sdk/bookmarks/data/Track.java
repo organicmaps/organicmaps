@@ -19,11 +19,12 @@ public final class Track extends MapObject
   private ElevationInfo mElevationInfo;
   @Nullable
   private TrackStatistics mTrackStatistics;
+  private boolean mVisible;
 
   // Called from JNI.
   @Keep
   @SuppressWarnings("unused")
-  private Track(long id, long categoryId, String name, Distance length, int color)
+  private Track(long id, long categoryId, String name, Distance length, int color, boolean visible)
   {
     super(TRACK, name, "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW_PLUS, "", "",
           RoadWarningMarkType.UNKNOWN.ordinal(), null);
@@ -32,6 +33,7 @@ public final class Track extends MapObject
     mName = name;
     mLength = length;
     mColor = color;
+    mVisible = visible;
   }
 
   // Called from JNI.
@@ -40,7 +42,7 @@ public final class Track extends MapObject
   private Track(long categoryId, long id, String title, @Nullable String secondaryTitle, @Nullable String subtitle,
                 @Nullable String address, @Nullable RoutePointInfo routePointInfo, @OpeningMode int openingMode,
                 @NonNull String wikiArticle, @NonNull String osmDescription, @Nullable String[] rawTypes,
-                @ColorInt int color, Distance length, double lat, double lon)
+                @ColorInt int color, Distance length, double lat, double lon, boolean visible)
   {
     super(TRACK, title, secondaryTitle, subtitle, address, lat, lon, "", routePointInfo, openingMode, wikiArticle,
           osmDescription, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
@@ -49,6 +51,7 @@ public final class Track extends MapObject
     mColor = color;
     mName = title;
     mLength = length;
+    mVisible = visible;
   }
 
   public long getTrackId()
@@ -77,6 +80,11 @@ public final class Track extends MapObject
     return mLength;
   }
 
+  public void toggleVisibility()
+  {
+    setVisibility(!isVisible());
+  }
+
   @ColorInt
   public int getColor()
   {
@@ -87,6 +95,17 @@ public final class Track extends MapObject
   {
     mColor = color;
     nativeChangeColor(mId, mColor);
+  }
+
+  public boolean isVisible()
+  {
+    return mVisible;
+  }
+
+  public void setVisibility(boolean isVisible)
+  {
+    mVisible = isVisible;
+    nativeTrackSetVisibility(mId, mVisible);
   }
 
   public long getCategoryId()
@@ -152,6 +171,7 @@ public final class Track extends MapObject
   private static native void nativeSetParams(long id, @NonNull String name, @ColorInt int color, @NonNull String descr);
   private static native void nativeChangeColor(long id, @ColorInt int color);
   private static native void nativeChangeCategory(long oldCatId, long newCatId, long trackId);
+  private static native void nativeTrackSetVisibility(long trackId, boolean visible);
 
   private static native double nativeGetElevationCurPositionDistance(long trackId);
   private static native double nativeGetElevationActivePointDistance(long trackId);
