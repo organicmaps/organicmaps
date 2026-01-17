@@ -1,0 +1,4 @@
+--indent 2
+--ifdef outdent
+--pattern-let inline
+--disable wrapMultilineStatementBraces
