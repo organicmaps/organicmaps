@@ -163,10 +163,21 @@ void Track::SetColor(dp::Color color)
   m_data.m_layers[0].m_color.m_rgba = color.GetRGBA();
 }
 
+void Track::SetIsVisible(bool visible)
+{
+  m_isDirty = true;
+  m_data.m_visible = visible;
+}
+
 float Track::GetWidth(size_t layerIndex) const
 {
   CHECK_LESS(layerIndex, m_data.m_layers.size(), ());
   return static_cast<float>(m_data.m_layers[layerIndex].m_lineWidth);
+}
+
+bool Track::IsVisible() const
+{
+  return m_data.m_visible;
 }
 
 float Track::GetDepth(size_t layerIndex) const

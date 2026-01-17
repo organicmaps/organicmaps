@@ -370,6 +370,8 @@ public class Holders
   static class TrackViewHolder extends BaseBookmarkHolder
   {
     @NonNull
+    private final CheckBox mVisibilityMarker;
+    @NonNull
     private final ImageView mIcon;
     @NonNull
     private final TextView mName;
@@ -380,6 +382,7 @@ public class Holders
     TrackViewHolder(@NonNull View itemView)
     {
       super(itemView);
+      mVisibilityMarker = itemView.findViewById(R.id.checkbox);
       mIcon = itemView.findViewById(R.id.iv__bookmark_color);
       mName = itemView.findViewById(R.id.tv__bookmark_name);
       mDistance = itemView.findViewById(R.id.tv__bookmark_distance);
@@ -400,6 +403,12 @@ public class Holders
       Drawable circle =
           Graphics.drawCircle(track.getColor(), R.dimen.track_circle_size, mIcon.getContext().getResources());
       mIcon.setImageDrawable(circle);
+      mVisibilityMarker.setChecked(track.isVisible());
+    }
+
+    public void setVisibilityListener(@Nullable View.OnClickListener listener)
+    {
+      mVisibilityMarker.setOnClickListener(listener);
     }
 
     public void setMoreButtonClickListener(RecyclerClickListener listener)

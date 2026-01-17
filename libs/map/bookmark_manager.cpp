@@ -485,7 +485,7 @@ Track * BookmarkManager::CreateTrack(kml::TrackData && trackData)
   return AddTrack(std::make_unique<Track>(std::move(trackData)));
 }
 
-Track const * BookmarkManager::GetTrack(kml::TrackId trackId) const
+Track * BookmarkManager::GetTrack(kml::TrackId trackId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_tracks.find(trackId);
@@ -926,6 +926,8 @@ Track::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD const & to
     for (auto trackId : category.GetUserLines())
     {
       auto const track = GetTrack(trackId);
+      if (!track->IsVisible())
+        continue;
       if (tracksFilter && !tracksFilter(track))
         continue;
 
@@ -1745,6 +1747,23 @@ UserMark const * BookmarkManager::FindMarkInRect(kml::MarkGroupId groupId, m2::A
     }
   }
   return resMark;
+}
+
+void BookmarkManager::SetTrackIsVisible(kml::TrackId trackId, bool visible)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  GetTrack(trackId)->SetIsVisible(visible);
+  m_changesTracker.OnUpdateLine(trackId);
+
+  auto const markId = GetTrackSelectionMarkId(trackId);
+  if (markId != kml::kInvalidMarkId)
+  {
+    auto const infoMark = GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
+    if (infoMark->GetTrackId() == trackId && infoMark->IsVisible())
+      infoMark->SetIsVisible(visible);
+    auto mark = GetMarkForEdit<TrackSelectionMark>(markId);
+    mark->SetIsVisible(visible);
+  }
 }
 
 void BookmarkManager::SetIsVisible(kml::MarkGroupId groupId, bool visible)
@@ -3567,6 +3586,11 @@ void BookmarkManager::EditSession::ClearGroup(kml::MarkGroupId groupId)
 void BookmarkManager::EditSession::SetIsVisible(kml::MarkGroupId groupId, bool visible)
 {
   m_bmManager.SetIsVisible(groupId, visible);
+}
+
+void BookmarkManager::EditSession::SetTrackIsVisible(kml::TrackId groupId, bool visible)
+{
+  m_bmManager.SetTrackIsVisible(groupId, visible);
 }
 
 void BookmarkManager::EditSession::MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID,
