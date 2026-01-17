@@ -951,6 +951,8 @@ std::vector<Track::TrackSelectionInfo> BookmarkManager::FindTracksInRect(m2::Rec
     for (auto trackId : category.GetUserLines())
     {
       auto const track = GetTrack(trackId);
+      if (!track->IsVisible())
+        continue;
       if (tracksFilter && !tracksFilter(track))
         continue;
 
@@ -2374,6 +2376,11 @@ void BookmarkManager::UpdateTrack(kml::TrackId trackId, kml::TrackData const & t
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto * track = GetTrackForEdit(trackId);
   track->SetData(trackData);
+
+  auto const markId = GetTrackSelectionMarkId(trackId);
+  if (markId != kml::kInvalidMarkId)
+    GetMarkForEdit<TrackSelectionMark>(markId)->SetIsVisible(track->IsVisible());
+  m_changesTracker.OnUpdateLine(trackId);
 }
 
 kml::MarkGroupId BookmarkManager::LastEditedBMCategory()

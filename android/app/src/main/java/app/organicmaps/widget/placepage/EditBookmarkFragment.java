@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,14 +23,18 @@ import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
+import app.organicmaps.bookmarks.BookmarksSharingHelper;
 import app.organicmaps.bookmarks.ChooseBookmarkCategoryFragment;
 import app.organicmaps.bookmarks.ChooseBookmarkCategoryFragment.Listener;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
+import app.organicmaps.sdk.bookmarks.data.FileType;
 import app.organicmaps.sdk.bookmarks.data.Icon;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.util.InputUtils;
+import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import app.organicmaps.utils.Graphics;
@@ -38,8 +43,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 
-public class EditBookmarkFragment
-    extends BaseMwmDialogFragment implements View.OnClickListener, Listener, ColorPickerFragment.OnColorChangeListener
+public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.OnClickListener, Listener,
+                                                                           ColorPickerFragment.OnColorChangeListener,
+                                                                           BookmarkManager.BookmarksSharingListener
 {
   public static final String EXTRA_CATEGORY_ID = "CategoryId";
   public static final String EXTRA_ID = "BookmarkTrackId";
@@ -66,6 +72,8 @@ public class EditBookmarkFragment
   private Track mTrack;
   private int mType;
   private int mColor = -1;
+  private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
+  private ViewGroup mTrackExportButtons;
 
   public interface EditBookmarkListener
   {
@@ -143,8 +151,16 @@ public class EditBookmarkFragment
     mEtDescription = view.findViewById(R.id.et__description);
     mTvBookmarkGroup = view.findViewById(R.id.tv__bookmark_set);
     mTvBookmarkGroup.setOnClickListener(this);
-    mIvColor = view.findViewById(R.id.iv__bookmark_color);
-    mIvColor.setOnClickListener(this);
+    mIvColor = view.findViewById(R.id.iv__bookmark_color_icon);
+    View colorLayout = view.findViewById(R.id.iv__bookmark_color);
+    colorLayout.setOnClickListener(this);
+
+    // Initialize export buttons for tracks
+    mTrackExportButtons = view.findViewById(R.id.track_export_buttons);
+    view.findViewById(R.id.btn).setOnClickListener(v -> onShareTrackSelected(FileType.Kml));
+    view.findViewById(R.id.btn_export_gpx).setOnClickListener(v -> onShareTrackSelected(FileType.Gpx));
+    view.findViewById(R.id.btn_export_geojson).setOnClickListener(v -> onShareTrackSelected(FileType.GeoJson));
+    view.findViewById(R.id.btn_delete_track).setOnClickListener(v -> onDeleteTrackSelected());
 
     // For tracks an bookmarks same category is used so this portion is common for both
     if (savedInstanceState != null && savedInstanceState.getParcelable(STATE_BOOKMARK_CATEGORY) != null)
@@ -194,6 +210,21 @@ public class EditBookmarkFragment
       // https://developer.android.com/develop/ui/views/touch-and-input/keyboard-input/visibility#ShowReliably
       WindowCompat.getInsetsController(requireActivity().getWindow(), mEtName).show(WindowInsetsCompat.Type.ime());
     }
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState)
+  {
+    super.onCreate(savedInstanceState);
+    shareLauncher = SharingUtils.RegisterLauncher(this);
+    BookmarkManager.INSTANCE.addSharingListener(this);
+  }
+
+  @Override
+  public void onDestroy()
+  {
+    super.onDestroy();
+    BookmarkManager.INSTANCE.removeSharingListener(this);
   }
 
   @Override
@@ -377,6 +408,9 @@ public class EditBookmarkFragment
       mEtDescription.setText(mTrack.getDescription());
     refreshCategory();
     refreshTrackColor();
+
+    // Show export buttons for tracks
+    UiUtils.show(mTrackExportButtons);
   }
 
   @Override
@@ -395,5 +429,26 @@ public class EditBookmarkFragment
     textView.getEditableText().clear();
     textView.requestFocus();
     InputUtils.showKeyboard(textView);
+  }
+
+  private void onShareTrackSelected(FileType fileType)
+  {
+    if (mTrack == null)
+      return;
+    BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), mTrack.getTrackId(), fileType);
+  }
+
+  private void onDeleteTrackSelected()
+  {
+    if (mTrack == null)
+      return;
+    BookmarkManager.INSTANCE.deleteTrack(mTrack.getTrackId());
+    dismiss();
+  }
+
+  @Override
+  public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
+  {
+    BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), shareLauncher, result);
   }
 }

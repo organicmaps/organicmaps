@@ -24,11 +24,13 @@ public final class Track extends MapObject
   private TrackStatistics mTrackStatistics;
   @NonNull
   private final List<TrackSelectionCandidate> mCandidates;
+  private boolean mVisible;
 
   // Called from JNI.
   @Keep
   @SuppressWarnings("unused")
-  private Track(long id, long categoryId, boolean isRelationTrack, String name, Distance length, int color)
+  private Track(long id, long categoryId, boolean isRelationTrack, String name, Distance length, int color,
+                boolean visible)
   {
     super(TRACK, name, "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW_PLUS, "", "",
           RoadWarningMarkType.UNKNOWN.ordinal(), null);
@@ -39,6 +41,7 @@ public final class Track extends MapObject
     mLength = length;
     mColor = color;
     mCandidates = List.of();
+    mVisible = visible;
   }
 
   // Called from JNI.
@@ -48,7 +51,7 @@ public final class Track extends MapObject
                 @Nullable String subtitle, @Nullable String address, @Nullable RoutePointInfo routePointInfo,
                 @OpeningMode int openingMode, @NonNull String wikiArticle, @NonNull String osmDescription,
                 @Nullable String[] rawTypes, @ColorInt int color, Distance length, double lat, double lon,
-                @Nullable TrackSelectionCandidate[] candidates)
+                @Nullable TrackSelectionCandidate[] candidates, boolean visible)
   {
     super(TRACK, title, secondaryTitle, subtitle, address, lat, lon, "", routePointInfo, openingMode, wikiArticle,
           osmDescription, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
@@ -59,6 +62,7 @@ public final class Track extends MapObject
     mName = title;
     mLength = length;
     mCandidates = (candidates != null) ? List.copyOf(Arrays.asList(candidates)) : List.of();
+    mVisible = visible;
   }
 
   public long getTrackId()
@@ -102,6 +106,11 @@ public final class Track extends MapObject
   {
     mColor = color;
     nativeChangeColor(mId, mColor);
+  }
+
+  public boolean isVisible()
+  {
+    return mVisible;
   }
 
   public long getCategoryId()
