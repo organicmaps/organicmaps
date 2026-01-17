@@ -69,6 +69,7 @@ struct UserLineRenderParams
   DepthLayer m_depthLayer = DepthLayer::UserLineLayer;
   std::vector<LineLayer> m_layers;
   std::vector<m2::SharedSpline> m_splines;
+  bool m_visible = true;
 };
 
 using UserMarksRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<UserMarkRenderParams>>;
@@ -129,7 +130,8 @@ class TracksSource : public SourceBase
 public:
   using SourceBase::SourceBase;
 
-  /// Iterates unique tracks across all visible groups, filtering by minZoom.
+  /// Iterates unique tracks across all visible groups, skipping individually-hidden tracks
+  /// (m_visible) and those above their minZoom.
   /// @param fn is called with UserLineRenderParams const &.
   template <class FnT>
   void ForEachUniqueTrack(int zoom, UserLinesRenderCollection const & lines, FnT && fn) const
@@ -141,7 +143,7 @@ public:
         if (visited.insert(lineId).second)
         {
           auto it = lines.find(lineId);
-          if (it != lines.end() && it->second->m_minZoom <= zoom)
+          if (it != lines.end() && it->second->m_visible && it->second->m_minZoom <= zoom)
             fn(*it->second);
         }
     });
