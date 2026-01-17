@@ -1,3 +1,4 @@
+// swiftformat:disable preferForLoop
 import CarPlay
 import Contacts
 

@@ -25,7 +25,8 @@ Install and setup the [Clang-Format extension](https://marketplace.visualstudio.
 
 ## Swift Style
 
-Follow the existing style in Swift files as much as possible. We'll add a more detailed guide later.
+We are using [swiftformat](https://github.com/nicklockwood/SwiftFormat) for Swift code. Install it and configure
+format on save in Xcode by following instructions at https://medium.com/@jozott/format-on-save-xcode-swift-8133d049b3ac
 
 ## Python Style
 
