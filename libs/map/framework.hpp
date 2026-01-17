@@ -281,6 +281,11 @@ public:
   void ShowBookmark(kml::MarkId id);
   void ShowBookmark(Bookmark const * bookmark);
   void ShowTrack(kml::TrackId trackId);
+  // Sets individual track visibility. Hiding the track that is currently shown in the
+  // Place Page also resets the selection so nothing stays selected on an invisible track.
+  void SetTrackVisibility(kml::TrackId trackId, bool visible);
+  // Deletes the track, closing the Place Page first if it currently shows this track.
+  void DeleteTrack(kml::TrackId trackId);
   void ShowFeature(FeatureID const & featureId);
   void ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation = true);
 

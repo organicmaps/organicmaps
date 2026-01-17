@@ -53,6 +53,21 @@
         android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <ImageView
+      android:id="@+id/iv__track_visibility"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin_half"
+      android:background="?selectableItemBackgroundBorderless"
+      android:clickable="true"
+      android:contentDescription="@string/hide_track"
+      android:focusable="true"
+      android:padding="@dimen/margin_half"
+      android:visibility="gone"
+      app:srcCompat="@drawable/ic_show"
+      app:tint="?secondary"
+      tools:visibility="visible" />
+
     <FrameLayout
       android:id="@+id/color_row"
       android:layout_width="wrap_content"
@@ -60,6 +75,7 @@
       android:layout_marginStart="@dimen/margin_half"
       android:background="?selectableItemBackgroundBorderless"
       android:clickable="true"
+      android:contentDescription="@string/change_color"
       android:focusable="true"
       android:padding="@dimen/margin_half">
       <ImageView

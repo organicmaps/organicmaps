@@ -400,8 +400,6 @@ void SaveBookmarkExtendedData(Writer & writer, BookmarkData const & bookmarkData
     SaveStringsArray(writer, boundTracks, "boundTracks", kIndent6);
   }
 
-  writer << kIndent6 << "<mwm:visibility>" << (bookmarkData.m_visible ? "1" : "0") << "</mwm:visibility>\n";
-
   if (!bookmarkData.m_nearestToponym.empty())
   {
     writer << kIndent6 << "<mwm:nearestToponym>";
@@ -440,6 +438,10 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
     SaveStringWithCDATA(writer, *description);
     writer << "</description>\n";
   }
+
+  // Use the standard KML <visibility> element (default is visible, so emit only when hidden).
+  if (!bookmarkData.m_visible)
+    writer << kIndent4 << "<visibility>0</visibility>\n";
 
   if (bookmarkData.m_timestamp != Timestamp())
     writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(bookmarkData.m_timestamp) << "</when></TimeStamp>\n";
@@ -585,8 +587,6 @@ void SaveTrackExtendedData(Writer & writer, TrackData const & trackData)
   }
   writer << kIndent6 << "</mwm:additionalStyle>\n";
 
-  writer << kIndent6 << "<mwm:visibility>" << (trackData.m_visible ? "1" : "0") << "</mwm:visibility>\n";
-
   SaveStringsArray(writer, trackData.m_nearestToponyms, "nearestToponyms", kIndent6);
   SaveStringsMap(writer, trackData.m_properties, "properties", kIndent6);
 
@@ -609,6 +609,11 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
     SaveStringWithCDATA(writer, *description);
     writer << "</description>\n";
   }
+
+  // Use the standard KML <visibility> element (default is visible, so emit only when hidden).
+  // Other KML readers honor it too, and it round-trips via the shared m_visible parse state.
+  if (!trackData.m_visible)
+    writer << kIndent4 << "<visibility>0</visibility>\n";
 
   if (trackData.m_layers.empty())
     MYTHROW(KmlWriter::WriteKmlException, ("Layers list is empty."));
@@ -1274,6 +1279,12 @@ void KmlParser::CharData(std::string & value)
         if (m_name.find(kDefaultLang) == m_name.end())
           m_name[kDefaultLang] = value;
       }
+      else if (currTag == "visibility")
+      {
+        // Standard KML visibility of a Placemark; applied to the bookmark/track built at its close.
+        // Individual bookmarks can't be hidden in the UI, so this only has effect for tracks.
+        m_visible = value != "0";
+      }
       else if (currTag == kStyleUrl)
       {
         // Bookmark draw style. Resolve a StyleMap alias to its target style first, so a StyleMap
@@ -1386,10 +1397,6 @@ void KmlParser::CharData(std::string & value)
         else if (currTag == "mwm:icon")
         {
           m_icon = GetIcon(value);
-        }
-        else if (currTag == "mwm:visibility")
-        {
-          m_visible = value != "0";
         }
         else if (currTag == "mwm:nearestToponym")
         {
