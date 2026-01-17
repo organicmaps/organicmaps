@@ -63,6 +63,8 @@ public:
   float GetWidth(size_t layerIndex) const override;
   float GetDepth(size_t layerIndex) const override;
   void ForEachGeometry(GeometryFnT && fn) const override;
+  bool IsVisible() const override;
+  void SetIsVisible(bool visible);
 
   void Attach(kml::MarkGroupId groupId);
   void Detach();
