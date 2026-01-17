@@ -81,66 +81,94 @@
     }
   </style>
 
-  <script>
-    "use strict";
-    function getLanguages() {
-      var langs = [].concat(navigator.languages || navigator.language || navigator.userLanguage);
-      var question = location.href.indexOf("?");
-      if (question != -1) {
-        var queryStr;
-        var hash = location.href.indexOf("#");
-        if (hash != -1 )
-          queryStr = location.href.substr(question, hash - question);
-        else
-          queryStr = location.href.substr(question);
-        var urlParams = new URLSearchParams(queryStr);
-        var queryLang = urlParams.get("lang");
-        if (queryLang)
-          langs = [queryLang];
-      }
-      return langs;
-    }
+    <script>
+        "use strict";
 
-    // TODO: Update this list with new translations.
-    var translations = ['en', 'ar', 'cs', 'de', 'el', 'es', 'fa', 'fr', 'he', 'hi', 'hu', 'id', 'it', 'lt', 'mr', 'nl', 'pl', 'pt', 'pt-BR', 'ru', 'sv', 'te', 'tr', 'uk', 'zh'];
-    var isoTranslations = [];
-    for (var i = 0; i < translations.length; ++i) {
-      if (translations[i].length == 2)
-        continue;
-      isoTranslations.push(translations[i].substring(0, 2));
-    }
-    // Show Russian for browsers with these language codes.
-    var canReadRussian = ['ab', 'be', 'kk', 'ky', 'tg', 'uz'];
+         function getQueryParam(name) {
+         var url = location.href;
+         var questionMarkIndex = url.indexOf("?");
+         if (questionMarkIndex === -1) return null;
 
-    function showLanguage() {
-      var langs = getLanguages();
-      var lang = 'en';
-      for (var i = 0; i < langs.length; ++i) {
-        var iso6391 = langs[i].substring(0, 2);
-        if (canReadRussian.indexOf(iso6391) >= 0 && translations.indexOf('ru') >= 0) {  // Array.includes is not supported in Android 5 and 6.
-          lang = 'ru';
-          break;
-        }
-        if (translations.indexOf(langs[i]) >= 0) {
-          lang = langs[i];
-          break;
-        }
-        if (translations.indexOf(iso6391) >= 0) {
-          lang = iso6391;
-          break;
-        }
-      }
+         var hashIndex = url.indexOf('#');
+         var queryString = "";
+         if (hashIndex === -1) {
+             queryString = url.substring(questionMarkIndex + 1);
+            } else {
+                queryString = url.substring(questionMarkIndex + 1, hashIndex);
+              }
 
-      var rtlLangs = ['ar', 'fa', 'he', 'ug', 'ur'];
-      if (rtlLangs.indexOf(lang) >= 0) {
-        document.documentElement.setAttribute('dir', 'rtl')
-      }
-      var elems = document.querySelectorAll('[lang="' + lang + '"]');
-      // Make them visible.
-      for (var i = 0; i < elems.length; ++i)
-        elems[i].style.display = "block";
-    }
-  </script>
+              var pairs = queryString.split("&");
+              for (var i = 0; i < pairs.length; i++) {
+                var pair = pairs[i].split("=");
+                if (decodeURIComponent(pair[0]) === name) {
+                  return decodeURIComponent(pair[1] || "");
+                }
+              }
+              return null;
+            }
+
+            function getLanguages() {
+              var langs = [];
+
+              if (navigator.language) {
+                langs.push(navigator.language);
+              }
+              if (navigator.languages) {
+                for (var i = 0; i < navigator.languages.length; i++) {
+                  langs.push(navigator.languages[i]);
+                }
+              }
+              if (navigator.userLanguage) {
+                langs.push(navigator.userLanguage);
+              }
+
+              var queryLang = getQueryParam("lang");
+              if (queryLang) {
+                langs.unshift(queryLang);
+              }
+              return langs;
+            }
+
+            // TODO: Update this list with new translations.
+            var translations = ['en', 'ar', 'cs', 'de', 'el', 'es', 'fa', 'fr', 'he', 'hi', 'hu', 'id', 'it', 'lt', 'mr', 'nl', 'pl', 'pt', 'pt-BR', 'ru', 'sv', 'te', 'tr', 'uk', 'zh'];
+            var canReadRussian = ['ab', 'be', 'kk', 'ky', 'tg', 'uz'];
+
+            function showLanguage() {
+              var langs = getLanguages();
+              var lang = 'en';
+
+              for (var i = 0; i < langs.length; ++i) {
+                if (!langs[i]) continue;
+
+                var currentLang = langs[i];
+                var iso6391 = currentLang.substring(0, 2);
+
+                if (canReadRussian.indexOf(iso6391) >= 0 && translations.indexOf('ru') >= 0) {
+                  lang = 'ru';
+                  break;
+                }
+                if (translations.indexOf(currentLang) >= 0) {
+                  lang = currentLang;
+                  break;
+                }
+                if (translations.indexOf(iso6391) >= 0) {
+                  if (iso6391 !== 'en') {
+                    lang = iso6391;
+                    break;
+                  }
+                }
+              }
+
+              var rtlLangs = ['ar', 'fa', 'he', 'ug', 'ur'];
+              if (rtlLangs.indexOf(lang) >= 0) {
+                document.documentElement.setAttribute('dir', 'rtl');
+              }
+              var elems = document.querySelectorAll('[lang="' + lang + '"]');
+              // Make them visible.
+              for (var i = 0; i < elems.length; ++i)
+                elems[i].style.display = "block";
+            }
+    </script>
 </head>
 
 <body onload="showLanguage()">
