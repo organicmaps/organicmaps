@@ -6,14 +6,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.StringUtils;
+import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
@@ -112,6 +118,25 @@ public class NavMenu
     Button stop = bottomFrame.findViewById(R.id.stop);
     stop.setOnClickListener(v -> onStopClicked());
     UiUtils.updateRedButton(stop);
+
+    if (BuildConfig.DEBUG)
+    {
+      final ImageView route_sim = bottomFrame.findViewById(R.id.route_simulation);
+      UiUtils.show(route_sim);
+      route_sim.setOnClickListener(v -> {
+        Logger.i("RouteSimulation");
+        final JunctionInfo[] points = Framework.nativeGetRouteJunctionPoints();
+        if (points == null)
+        {
+          Logger.e("RouteSimulation", "Navigation has not started yet");
+          return;
+        }
+
+        final LocationHelper locationHelper = MwmApplication.from(v.getContext()).getLocationHelper();
+        locationHelper.startNavigationSimulation(points);
+        Toast.makeText(v.getContext(), "Route simulation started", Toast.LENGTH_LONG).show();
+      });
+    }
   }
 
   private void onStopClicked()
