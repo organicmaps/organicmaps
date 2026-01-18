@@ -84,7 +84,6 @@ template <class T>
 T * CreateBlackControl(QString const & name)
 {
   T * p = new T(name);
-  p->setStyleSheet("color: black;");
   return p;
 }
 
