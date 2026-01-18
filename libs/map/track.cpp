@@ -163,7 +163,7 @@ void Track::SetColor(dp::Color color)
   m_data.m_layers[0].m_color.m_rgba = color.GetRGBA();
 }
 
-void Track::SetIsVisible(bool visible)
+void Track::SetVisibility(bool visible)
 {
   m_isDirty = true;
   m_data.m_visible = visible;
