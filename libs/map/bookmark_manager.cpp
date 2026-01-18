@@ -912,7 +912,7 @@ void BookmarkManager::SetElevationActivePointChangedCallback(ElevationActivePoin
 }
 
 Track::TrackSelectionInfo BookmarkManager::FindNearestVisibleTrack(m2::RectD const & touchRect,
-                                                            TracksFilter const & tracksFilter) const
+                                                                   TracksFilter const & tracksFilter) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   Track::TrackSelectionInfo selectionInfo;
