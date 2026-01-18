@@ -485,7 +485,7 @@ Track * BookmarkManager::CreateTrack(kml::TrackData && trackData)
   return AddTrack(std::make_unique<Track>(std::move(trackData)));
 }
 
-Track * BookmarkManager::GetTrack(kml::TrackId trackId) const
+Track const * BookmarkManager::GetTrack(kml::TrackId trackId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_tracks.find(trackId);
@@ -836,7 +836,7 @@ void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId)
     auto const snapRect =
         mercator::RectByCenterXYAndSizeInMeters(m_myPositionMark->GetPivot(), kMyPositionTrackSnapInMeters);
     auto const selectionInfo =
-        FindNearestTrack(snapRect, [trackId](Track const * track) { return track->GetId() == trackId; });
+        FindNearestVisibleTrack(snapRect, [trackId](Track const * track) { return track->GetId() == trackId; });
     if (selectionInfo.m_trackId == trackId)
       myPositionDistance = selectionInfo.m_distFromBegM;
   }
@@ -911,7 +911,7 @@ void BookmarkManager::SetElevationActivePointChangedCallback(ElevationActivePoin
   m_elevationActivePointChanged = cb;
 }
 
-Track::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD const & touchRect,
+Track::TrackSelectionInfo BookmarkManager::FindNearestVisibleTrack(m2::RectD const & touchRect,
                                                             TracksFilter const & tracksFilter) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1749,10 +1749,10 @@ UserMark const * BookmarkManager::FindMarkInRect(kml::MarkGroupId groupId, m2::A
   return resMark;
 }
 
-void BookmarkManager::SetTrackIsVisible(kml::TrackId trackId, bool visible)
+void BookmarkManager::SetTrackVisibility(kml::TrackId trackId, bool visible)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  GetTrack(trackId)->SetIsVisible(visible);
+  GetTrackForEdit(trackId)->SetVisibility(visible);
   m_changesTracker.OnUpdateLine(trackId);
 
   auto const markId = GetTrackSelectionMarkId(trackId);
@@ -3588,9 +3588,9 @@ void BookmarkManager::EditSession::SetIsVisible(kml::MarkGroupId groupId, bool v
   m_bmManager.SetIsVisible(groupId, visible);
 }
 
-void BookmarkManager::EditSession::SetTrackIsVisible(kml::TrackId groupId, bool visible)
+void BookmarkManager::EditSession::SetTrackVisibility(kml::TrackId groupId, bool visible)
 {
-  m_bmManager.SetTrackIsVisible(groupId, visible);
+  m_bmManager.SetTrackVisibility(groupId, visible);
 }
 
 void BookmarkManager::EditSession::MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID,

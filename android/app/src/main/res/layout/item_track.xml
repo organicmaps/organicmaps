@@ -8,7 +8,7 @@
     android:orientation="horizontal"
     android:background="@drawable/bg_clickable_card">
   <CheckBox
-      android:id="@+id/checkbox"
+      android:id="@+id/eye"
       android:layout_width="@dimen/margin_double_plus"
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"

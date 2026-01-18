@@ -137,7 +137,7 @@ public:
     void ClearGroup(kml::MarkGroupId groupId);
 
     void SetIsVisible(kml::MarkGroupId groupId, bool visible);
-    void SetTrackIsVisible(kml::TrackId groupId, bool visible);
+    void SetTrackVisibility(kml::TrackId groupId, bool visible);
 
     void MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
     void UpdateBookmark(kml::MarkId bmId, kml::BookmarkData const & bm);
@@ -210,7 +210,7 @@ public:
 
   UserMark const * GetUserMark(kml::MarkId markId) const;
   Bookmark const * GetBookmark(kml::MarkId markId) const;
-  Track * GetTrack(kml::TrackId trackId) const;
+  Track const * GetTrack(kml::TrackId trackId) const;
 
   kml::MarkIdSet const & GetUserMarkIds(kml::MarkGroupId groupId) const;
   kml::TrackIdSet const & GetTrackIds(kml::MarkGroupId groupId) const;
@@ -411,7 +411,7 @@ public:
   void SetElevationMyPositionChangedCallback(ElevationMyPositionChangedCallback const & cb);
 
   using TracksFilter = std::function<bool(Track const * track)>;
-  Track::TrackSelectionInfo FindNearestTrack(m2::RectD const & touchRect,
+  Track::TrackSelectionInfo FindNearestVisibleTrack(m2::RectD const & touchRect,
                                              TracksFilter const & tracksFilter = nullptr) const;
   Track::TrackSelectionInfo GetTrackSelectionInfo(kml::TrackId const & trackId) const;
 
@@ -581,7 +581,7 @@ private:
   void UpdateTrack(kml::TrackId trackId, kml::TrackData const & trackData);
 
   void ClearGroup(kml::MarkGroupId groupId);
-  void SetTrackIsVisible(kml::TrackId groupId, bool visible);
+  void SetTrackVisibility(kml::TrackId groupId, bool visible);
   void SetIsVisible(kml::MarkGroupId groupId, bool visible);
 
   void SetCategoryName(kml::MarkGroupId categoryId, std::string const & name);
