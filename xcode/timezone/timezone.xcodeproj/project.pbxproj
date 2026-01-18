@@ -1,0 +1,212 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		16CDB3F62F15B0870040FC4F /* serdes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 16CDB3F22F15B0870040FC4F /* serdes.hpp */; };
+		16CDB3F72F15B0870040FC4F /* timezone.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 16CDB3F42F15B0870040FC4F /* timezone.hpp */; };
+		16CDB3F82F15B0870040FC4F /* timezone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16CDB3F52F15B0870040FC4F /* timezone.cpp */; };
+		16CDB3F92F15B0870040FC4F /* serdes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16CDB3F32F15B0870040FC4F /* serdes.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		16CDB3D02F15AF850040FC4F /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = SOURCE_ROOT; };
+		16CDB3D12F15AF850040FC4F /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = SOURCE_ROOT; };
+		16CDB3DC2F15AFEA0040FC4F /* libtimezone.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtimezone.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		16CDB3F22F15B0870040FC4F /* serdes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = serdes.hpp; path = ../../libs/timezone/serdes.hpp; sourceTree = SOURCE_ROOT; };
+		16CDB3F32F15B0870040FC4F /* serdes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = serdes.cpp; path = ../../libs/timezone/serdes.cpp; sourceTree = SOURCE_ROOT; };
+		16CDB3F42F15B0870040FC4F /* timezone.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = timezone.hpp; path = ../../libs/timezone/timezone.hpp; sourceTree = SOURCE_ROOT; };
+		16CDB3F52F15B0870040FC4F /* timezone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = timezone.cpp; path = ../../libs/timezone/timezone.cpp; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		16CDB3D92F15AFEA0040FC4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		16CDB3B62F15AEF90040FC4F = {
+			isa = PBXGroup;
+			children = (
+				16CDB3F12F15B06E0040FC4F /* timezone */,
+				16CDB3D02F15AF850040FC4F /* common-debug.xcconfig */,
+				16CDB3D12F15AF850040FC4F /* common-release.xcconfig */,
+				16CDB3C02F15AEF90040FC4F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		16CDB3C02F15AEF90040FC4F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				16CDB3DC2F15AFEA0040FC4F /* libtimezone.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		16CDB3F12F15B06E0040FC4F /* timezone */ = {
+			isa = PBXGroup;
+			children = (
+				16CDB3F22F15B0870040FC4F /* serdes.hpp */,
+				16CDB3F32F15B0870040FC4F /* serdes.cpp */,
+				16CDB3F42F15B0870040FC4F /* timezone.hpp */,
+				16CDB3F52F15B0870040FC4F /* timezone.cpp */,
+			);
+			path = timezone;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		16CDB3EE2F15B02D0040FC4F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16CDB3F62F15B0870040FC4F /* serdes.hpp in Headers */,
+				16CDB3F72F15B0870040FC4F /* timezone.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		16CDB3DB2F15AFEA0040FC4F /* timezone */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 16CDB3E32F15AFEA0040FC4F /* Build configuration list for PBXNativeTarget "timezone" */;
+			buildPhases = (
+				16CDB3D82F15AFEA0040FC4F /* Sources */,
+				16CDB3D92F15AFEA0040FC4F /* Frameworks */,
+				16CDB3EE2F15B02D0040FC4F /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = timezone;
+			packageProductDependencies = (
+			);
+			productName = timezone;
+			productReference = 16CDB3DC2F15AFEA0040FC4F /* libtimezone.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		16CDB3B72F15AEF90040FC4F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					16CDB3DB2F15AFEA0040FC4F = {
+						CreatedOnToolsVersion = 16.4;
+					};
+				};
+			};
+			buildConfigurationList = 16CDB3BA2F15AEF90040FC4F /* Build configuration list for PBXProject "timezone" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 16CDB3B62F15AEF90040FC4F;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 16CDB3C02F15AEF90040FC4F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				16CDB3DB2F15AFEA0040FC4F /* timezone */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		16CDB3D82F15AFEA0040FC4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16CDB3F82F15B0870040FC4F /* timezone.cpp in Sources */,
+				16CDB3F92F15B0870040FC4F /* serdes.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		16CDB3C92F15AEFA0040FC4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16CDB3D02F15AF850040FC4F /* common-debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		16CDB3CA2F15AEFA0040FC4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16CDB3D12F15AF850040FC4F /* common-release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		16CDB3E42F15AFEA0040FC4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9Z6432XD7L;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		16CDB3E52F15AFEA0040FC4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9Z6432XD7L;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		16CDB3BA2F15AEF90040FC4F /* Build configuration list for PBXProject "timezone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				16CDB3C92F15AEFA0040FC4F /* Debug */,
+				16CDB3CA2F15AEFA0040FC4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		16CDB3E32F15AFEA0040FC4F /* Build configuration list for PBXNativeTarget "timezone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				16CDB3E42F15AFEA0040FC4F /* Debug */,
+				16CDB3E52F15AFEA0040FC4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 16CDB3B72F15AEF90040FC4F /* Project object */;
+}

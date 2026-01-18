@@ -3,14 +3,16 @@
 #include "coding/reader.hpp"
 
 #include "platform/platform.hpp"
+#include "timezone/serdes.hpp"
 
 #include "cppjansson/cppjansson.hpp"
 
-#include <cstdint>
 #include <vector>
 
 namespace
 {
+DECLARE_EXCEPTION(TimeZoneError, RootException);
+
 int8_t ParseHolidayReference(std::string const & ref)
 {
   if (ref == "easter")
@@ -22,6 +24,11 @@ int8_t ParseHolidayReference(std::string const & ref)
   if (ref == "canadaDay")
     return feature::RegionData::PHReference::PH_CANADA_DAY;
   return 0;
+}
+
+om::tz::TimeZone GetTimeZone(std::string const & tzName)
+{
+  return om::tz::GetTimeZoneDb().timezones.at(tzName);
 }
 }  // namespace
 
@@ -89,8 +96,14 @@ bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
 
     std::string timezone;
     FromJSONObjectOptionalField(jsonData, "timezone", timezone);
-    if (!timezone.empty())
-      data.Set(RegionData::Type::RD_TIMEZONE, timezone);
+    LOG(LDEBUG, ("Timezone:", timezone));
+    if (timezone.empty())
+      MYTHROW(TimeZoneError, ("No timezone info in countries_meta for", countryName));
+
+    auto const & tzSerializationResult = om::tz::Serialize(GetTimeZone(timezone));
+    if (!tzSerializationResult)
+      MYTHROW(TimeZoneError, ("Failed to serialize timezone:", tzSerializationResult.error()));
+    data.Set(RegionData::Type::RD_TIMEZONE, tzSerializationResult.value());
 
     bool allow_housenames;
     FromJSONObjectOptionalField(jsonData, "housenames", allow_housenames);

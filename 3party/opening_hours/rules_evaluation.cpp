@@ -196,15 +196,14 @@ bool HasExtendedHours(osmoh::RuleSequence const & rule)
   return false;
 }
 
-std::tm MakeTimetuple(time_t const timestamp)
+std::tm MakeTimetuple(time_t const timestamp, std::optional<om::tz::TimeZone> const & timeZone = std::nullopt)
 {
-  std::tm tm{};
-#ifdef _MSC_VER
-  localtime_s(&tm, &timestamp);
-#else
-  localtime_r(&timestamp, &tm);
-#endif
-  return tm;
+  if (timeZone)
+  {
+    om::tz::ZonedTime const localTime = om::tz::Convert(timestamp, *timeZone);
+    return *gmtime(&localTime);
+  }
+  return *localtime(&timestamp);
 }
 } // namespace
 
@@ -350,12 +349,13 @@ std::pair<bool, bool> MakeActiveResult(RuleSequence const & rule, std::tm const 
 }
 
 /// @return [day active, time active].
-std::pair<bool, bool> IsActiveImpl(RuleSequence const & rule, time_t const timestamp)
+std::pair<bool, bool> IsActiveImpl(RuleSequence const & rule, time_t const timestamp,
+                                   std::optional<om::tz::TimeZone> const & timeZone = std::nullopt)
 {
   if (rule.IsTwentyFourHours())
     return {true, true};
 
-  auto const dateTimeTM = MakeTimetuple(timestamp);
+  auto const dateTimeTM = MakeTimetuple(timestamp, timeZone);
   if (!HasExtendedHours(rule))
     return MakeActiveResult(rule, dateTimeTM, rule.GetTimes());
 
@@ -368,7 +368,7 @@ std::pair<bool, bool> IsActiveImpl(RuleSequence const & rule, time_t const times
     return res1;
 
   time_t constexpr twentyFourHoursShift = 24 * 60 * 60;
-  auto const dateTimeTMShifted = MakeTimetuple(timestamp - twentyFourHoursShift);
+  auto const dateTimeTMShifted = MakeTimetuple(timestamp - twentyFourHoursShift, timeZone);
 
   auto const res2 = MakeActiveResult(rule, dateTimeTMShifted, additionalSpan);
   return { res1.first || res2.first, res2.second };
@@ -476,7 +476,8 @@ time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, Rul
   return kTimeTMax;
 }
 
-RuleState GetState(TRuleSequences const & rules, time_t const timestamp)
+RuleState GetState(TRuleSequences const & rules, time_t const timestamp,
+                   std::optional<om::tz::TimeZone> const & timeZone)
 {
   RuleSequence const * emptyRule = nullptr;
   RuleSequence const * dayMatchedRule = nullptr;
@@ -484,7 +485,7 @@ RuleState GetState(TRuleSequences const & rules, time_t const timestamp)
   for (auto it = rules.rbegin(); it != rules.rend(); ++it)
   {
     auto const & rule = *it;
-    auto const res = IsActiveImpl(rule, timestamp);
+    auto const res = IsActiveImpl(rule, timestamp, timeZone);
     if (!res.first)
       continue;
 
