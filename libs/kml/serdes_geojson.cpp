@@ -380,9 +380,9 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
     bool isMultiline = linesCount > 1;
     if (linesCount == 0)
       continue;
-    auto const & layer = track.m_layers[i];
+    auto const color = track.m_layers.front().m_color;
 
-    GenericJsonMap trackProps{{"name", GetDefaultStr(track.m_name)}, {"stroke", ToCssColor(layer.m_color)}};
+    GenericJsonMap trackProps{{"name", GetDefaultStr(track.m_name)}, {"stroke", ToGeoJsonColor(color)}};
     if (!track.m_description.empty())
       trackProps["description"] = GetDefaultStr(track.m_description);
 
@@ -400,7 +400,7 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
       else
       {
         // Update known UMap properties.
-        umap_options_obj["color"] = ToCssColor(layer.m_color);
+        umap_options_obj["color"] = ToGeoJsonColor(color);
         trackProps["_umap_options"] = std::move(umap_options_obj);
       }
     }
