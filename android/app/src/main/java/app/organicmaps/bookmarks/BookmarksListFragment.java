@@ -634,11 +634,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       return;
     final Bundle args = new Bundle();
     final FragmentManager manager = getChildFragmentManager();
-    String className = BookmarkColorDialogFragment.class.getName();
+    final String className = BookmarkColorDialogFragment.class.getName();
     final FragmentFactory factory = manager.getFragmentFactory();
     final BookmarkColorDialogFragment dialogFragment =
         (BookmarkColorDialogFragment) factory.instantiate(getContext().getClassLoader(), className);
-    int type = adapter.getItemViewType(position);
+    final int type = adapter.getItemViewType(position);
 
     if (type == BookmarkListAdapter.TYPE_TRACK)
     {
@@ -646,31 +646,33 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       args.putInt(BookmarkColorDialogFragment.ICON_COLOR, PredefinedColors.getPredefinedColorIndex(mTrack.getColor()));
       dialogFragment.setArguments(args);
       dialogFragment.setOnColorSetListener((colorPos) -> {
-        int from = mTrack.getColor();
-        int to = PredefinedColors.getColor(colorPos);
+        final int from = mTrack.getColor();
+        final int to = PredefinedColors.getColor(colorPos);
         if (from == to)
           return;
         mTrack.setColor(to);
-        Drawable circle = Graphics.drawCircle(to, R.dimen.track_circle_size, requireContext().getResources());
+        final Drawable circle = Graphics.drawCircle(to, R.dimen.track_circle_size, requireContext().getResources());
         v.setImageDrawable(circle);
       });
     }
     else if (type == BookmarkListAdapter.TYPE_BOOKMARK)
     {
       final BookmarkInfo bookmark = (BookmarkInfo) item;
-      args.putInt(BookmarkColorDialogFragment.ICON_COLOR,
-                  PredefinedColors.getPredefinedColorIndex(bookmark.getIcon().getColor()));
+      args.putInt(BookmarkColorDialogFragment.ICON_COLOR, bookmark.getIcon().getColor());
       args.putInt(BookmarkColorDialogFragment.ICON_RES, bookmark.getIcon().getResId());
       dialogFragment.setArguments(args);
       dialogFragment.setOnColorSetListener((colorPos) -> {
-        int from = bookmark.getIcon().getColor();
-        int to = PredefinedColors.getColor(colorPos);
+        final int from = bookmark.getIcon().getColor();
+        final int to = PredefinedColors.getColor(colorPos);
         if (from == to)
           return;
-        Icon newIcon = new Icon(PredefinedColors.getPredefinedColorIndex(to), bookmark.getIcon().getType());
+        final int colorIndex = PredefinedColors.getPredefinedColorIndex(to);
+        if (colorIndex == -1)
+          return;
+        final Icon newIcon = new Icon(colorIndex, bookmark.getIcon().getType());
         bookmark.update(bookmark.getName(), newIcon, bookmark.getDescription());
-        Drawable icon = Graphics.drawCircleAndImage(to, R.dimen.track_circle_size, bookmark.getIcon().getResId(),
-                                                    R.dimen.bookmark_icon_size, requireContext());
+        final Drawable icon = Graphics.drawCircleAndImage(to, R.dimen.track_circle_size, bookmark.getIcon().getResId(),
+                                                          R.dimen.bookmark_icon_size, requireContext());
         v.setImageDrawable(icon);
       });
     }
