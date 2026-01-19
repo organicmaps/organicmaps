@@ -10,7 +10,7 @@
 namespace impl
 {
 void ToHexRaw(void const * src, size_t size, void * dst);
-void FromHexRaw(void const * src, size_t size, void * dst);
+bool FromHexRaw(void const * src, size_t size, void * dst);
 }  // namespace impl
 
 inline std::string ToHex(void const * ptr, size_t size)
@@ -73,11 +73,17 @@ inline std::string NumToHex<char>(char c)
 }
 /// @}
 
+/// Returns binary bytes decoded from hex string, or empty string for the odd size or any invalid symbol.
 inline std::string FromHex(std::string_view s)
 {
+  if (s.empty() || s.size() % 2 != 0)
+    return {};
+
   std::string result;
   result.resize(s.size() / 2);
-  ::impl::FromHexRaw(s.data(), s.size(), &result[0]);
+  if (!::impl::FromHexRaw(s.data(), s.size(), result.data()))
+    return {};
+
   return result;
 }
 
