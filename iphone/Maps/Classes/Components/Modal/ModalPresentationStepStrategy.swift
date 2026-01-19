@@ -1,4 +1,4 @@
-protocol ModalPresentationStepStrategy<Step> : Equatable {
+protocol ModalPresentationStepStrategy<Step>: Equatable {
   associatedtype Step
 
   func upperTo(_ step: Step) -> Step

@@ -20,7 +20,7 @@ class OpeningHoursTodayViewController: UIViewController {
     closedLabel.isHidden = !closedNow
   }
 
-  @IBAction func onTap(_ sender: UITapGestureRecognizer) {
+  @IBAction func onTap(_: UITapGestureRecognizer) {
     onExpand?()
   }
 }
@@ -66,21 +66,21 @@ class OpeningHoursViewController: UIViewController {
       todayView.arrowImageView.isHidden = true
       return
     }
-    
-    openingHours.days.suffix(from: 1).forEach {
-      let vc = createDayItem($0)
+
+    for item in openingHours.days.suffix(from: 1) {
+      let vc = createDayItem(item)
       otherDaysViews.append(vc)
       addToStack(vc)
     }
 
     todayView.onExpand = { [unowned self] in
-      self.expanded = !self.expanded
+      expanded = !expanded
       UIView.animate(withDuration: kDefaultAnimationDuration) {
-        self.otherDaysViews.forEach { vc in
+        for vc in self.otherDaysViews {
           vc.view.isHidden = !self.expanded
         }
         self.todayView.arrowImageView.transform = self.expanded ? CGAffineTransform(rotationAngle: -CGFloat.pi + 0.01)
-                                                                : CGAffineTransform.identity
+          : CGAffineTransform.identity
         self.view.layoutIfNeeded()
       }
     }
@@ -92,7 +92,7 @@ class OpeningHoursViewController: UIViewController {
     vc.view.isHidden = true
     return vc
   }
-    
+
   private func addToStack(_ viewController: UIViewController) {
     addChild(viewController)
     stackView.addArrangedSubview(viewController.view)

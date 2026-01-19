@@ -13,22 +13,26 @@ final class CarPlayService: NSObject {
   var currentPositionMode: MWMMyPositionMode = .pendingPosition
   var isSpeedCamActivated: Bool {
     set {
-      router?.updateSpeedCameraMode(newValue ? .always: .never)
+      router?.updateSpeedCameraMode(newValue ? .always : .never)
     }
     get {
       let mode: SpeedCameraManagerMode = router?.speedCameraMode ?? .never
       return mode == .always ? true : false
     }
   }
+
   var isKeyboardLimited: Bool {
-    return sessionConfiguration?.limitedUserInterfaces.contains(.keyboard) ?? false
+    sessionConfiguration?.limitedUserInterfaces.contains(.keyboard) ?? false
   }
+
   private var carplayVC: CarPlayMapViewController? {
-    return window?.rootViewController as? CarPlayMapViewController
+    window?.rootViewController as? CarPlayMapViewController
   }
+
   private var rootMapTemplate: CPMapTemplate? {
-    return interfaceController?.rootTemplate as? CPMapTemplate
+    interfaceController?.rootTemplate as? CPMapTemplate
   }
+
   var preparedToPreviewTrips: [CPTrip] = []
   var isUserPanMap: Bool = false
   private var searchText = ""
@@ -146,7 +150,7 @@ final class CarPlayService: NSObject {
 
   @objc func interfaceStyle() -> UIUserInterfaceStyle {
     if let window = window,
-      window.traitCollection.userInterfaceIdiom == .carPlay {
+       window.traitCollection.userInterfaceIdiom == .carPlay {
       return rootTemplateStyle == .dark ? .dark : .light
     }
     return .unspecified
@@ -244,7 +248,7 @@ final class CarPlayService: NSObject {
 
   func updateMapTemplateUIToBase() {
     guard let mapTemplate = rootMapTemplate else {
-        return
+      return
     }
     MapTemplateBuilder.configureBaseUI(mapTemplate: mapTemplate)
     if currentPositionMode == .pendingPosition {
@@ -260,13 +264,13 @@ final class CarPlayService: NSObject {
 
   func updateMapTemplateUIToTripFinished(_ trip: CPTrip) {
     guard let mapTemplate = rootMapTemplate else {
-        return
+      return
     }
     mapTemplate.leadingNavigationBarButtons = []
     mapTemplate.trailingNavigationBarButtons = []
     mapTemplate.mapButtons = []
     let doneAction = CPAlertAction(title: L("done"), style: .cancel) { [unowned self] _ in
-      self.updateMapTemplateUIToBase()
+      updateMapTemplateUIToBase()
     }
     var subtitle = ""
     if let locationName = trip.destination.name {
@@ -298,8 +302,9 @@ final class CarPlayService: NSObject {
 
   @objc func showNoMapAlert() {
     guard let mapTemplate = interfaceController?.topTemplate as? CPMapTemplate,
-      let info = mapTemplate.userInfo as? MapInfo,
-      info.type == CPConstants.TemplateType.main else {
+          let info = mapTemplate.userInfo as? MapInfo,
+          info.type == CPConstants.TemplateType.main
+    else {
       return
     }
     let alert = CPAlertTemplate(titleVariants: [L("download_map_carplay")], actions: [])
@@ -309,19 +314,20 @@ final class CarPlayService: NSObject {
 
   @objc func hideNoMapAlert() {
     if let presentedTemplate = interfaceController?.presentedTemplate,
-      let info = presentedTemplate.userInfo as? [String: String],
-      let alertType = info[CPConstants.TemplateKey.alert],
-      alertType == CPConstants.TemplateType.downloadMap {
+       let info = presentedTemplate.userInfo as? [String: String],
+       let alertType = info[CPConstants.TemplateKey.alert],
+       alertType == CPConstants.TemplateType.downloadMap {
       interfaceController?.dismissTemplate(animated: true)
     }
   }
 }
 
 // MARK: - CPInterfaceControllerDelegate implementation
+
 extension CarPlayService: CPInterfaceControllerDelegate {
-  func templateWillAppear(_ aTemplate: CPTemplate, animated: Bool) {
+  func templateWillAppear(_ aTemplate: CPTemplate, animated _: Bool) {
     guard let info = aTemplate.userInfo as? MapInfo else {
-        return
+      return
     }
     switch info.type {
     case CPConstants.TemplateType.main:
@@ -337,12 +343,13 @@ extension CarPlayService: CPInterfaceControllerDelegate {
     }
   }
 
-  func templateDidAppear(_ aTemplate: CPTemplate, animated: Bool) {
+  func templateDidAppear(_ aTemplate: CPTemplate, animated _: Bool) {
     guard let mapTemplate = aTemplate as? CPMapTemplate,
-      let info = aTemplate.userInfo as? MapInfo else {
-        return
+          let info = aTemplate.userInfo as? MapInfo
+    else {
+      return
     }
-    if !preparedToPreviewTrips.isEmpty && info.type == CPConstants.TemplateType.main {
+    if !preparedToPreviewTrips.isEmpty, info.type == CPConstants.TemplateType.main {
       preparePreview(trips: preparedToPreviewTrips)
       preparedToPreviewTrips = []
       return
@@ -353,22 +360,23 @@ extension CarPlayService: CPInterfaceControllerDelegate {
     }
   }
 
-  func templateWillDisappear(_ aTemplate: CPTemplate, animated: Bool) {
+  func templateWillDisappear(_ aTemplate: CPTemplate, animated _: Bool) {
     guard let info = aTemplate.userInfo as? MapInfo else {
-        return
+      return
     }
     if info.type == CPConstants.TemplateType.preview {
       router?.completeRouteAndRemovePoints()
     }
   }
 
-  func templateDidDisappear(_ aTemplate: CPTemplate, animated: Bool) {
+  func templateDidDisappear(_ aTemplate: CPTemplate, animated _: Bool) {
     guard !preparedToPreviewTrips.isEmpty,
-      let info = aTemplate.userInfo as? [String: String],
-      let alertType = info[CPConstants.TemplateKey.alert],
-      alertType == CPConstants.TemplateType.redirectRoute ||
-        alertType == CPConstants.TemplateType.restoreRoute else {
-        return
+          let info = aTemplate.userInfo as? [String: String],
+          let alertType = info[CPConstants.TemplateKey.alert],
+          alertType == CPConstants.TemplateType.redirectRoute ||
+          alertType == CPConstants.TemplateType.restoreRoute
+    else {
+      return
     }
     preparePreview(trips: preparedToPreviewTrips)
     preparedToPreviewTrips = []
@@ -376,13 +384,13 @@ extension CarPlayService: CPInterfaceControllerDelegate {
 }
 
 // MARK: - CPSessionConfigurationDelegate implementation
-extension CarPlayService: CPSessionConfigurationDelegate {
-  func sessionConfiguration(_ sessionConfiguration: CPSessionConfiguration,
-                            limitedUserInterfacesChanged limitedUserInterfaces: CPLimitableUserInterface) {
 
-  }
+extension CarPlayService: CPSessionConfigurationDelegate {
+  func sessionConfiguration(_: CPSessionConfiguration,
+                            limitedUserInterfacesChanged _: CPLimitableUserInterface) {}
+
   @available(iOS 13.0, *)
-  func sessionConfiguration(_ sessionConfiguration: CPSessionConfiguration,
+  func sessionConfiguration(_: CPSessionConfiguration,
                             contentStyleChanged contentStyle: CPContentStyle) {
     // Handle the CarPlay content style changing triggered by the 'Always Show Dark Maps' toggle.
     updateContentStyle(contentStyle)
@@ -390,16 +398,17 @@ extension CarPlayService: CPSessionConfigurationDelegate {
 }
 
 // MARK: - CPMapTemplateDelegate implementation
+
 extension CarPlayService: CPMapTemplateDelegate {
-  public func mapTemplateDidShowPanningInterface(_ mapTemplate: CPMapTemplate) {
+  func mapTemplateDidShowPanningInterface(_ mapTemplate: CPMapTemplate) {
     isUserPanMap = false
     MapTemplateBuilder.configurePanUI(mapTemplate: mapTemplate)
     FrameworkHelper.stopLocationFollow()
   }
 
-  public func mapTemplateDidDismissPanningInterface(_ mapTemplate: CPMapTemplate) {
+  func mapTemplateDidDismissPanningInterface(_ mapTemplate: CPMapTemplate) {
     if let info = mapTemplate.userInfo as? MapInfo,
-      info.type == CPConstants.TemplateType.navigation {
+       info.type == CPConstants.TemplateType.navigation {
       MapTemplateBuilder.configureNavigationUI(mapTemplate: mapTemplate)
     } else {
       MapTemplateBuilder.configureBaseUI(mapTemplate: mapTemplate)
@@ -407,7 +416,7 @@ extension CarPlayService: CPMapTemplateDelegate {
     FrameworkHelper.switchMyPositionMode()
   }
 
-  func mapTemplate(_ mapTemplate: CPMapTemplate, panEndedWith direction: CPMapTemplate.PanDirection) {
+  func mapTemplate(_: CPMapTemplate, panEndedWith direction: CPMapTemplate.PanDirection) {
     var offset = UIOffset(horizontal: 0.0, vertical: 0.0)
     let offsetStep: CGFloat = 0.25
     if direction.contains(.up) { offset.vertical -= offsetStep }
@@ -418,7 +427,7 @@ extension CarPlayService: CPMapTemplateDelegate {
     isUserPanMap = true
   }
 
-  func mapTemplate(_ mapTemplate: CPMapTemplate, panWith direction: CPMapTemplate.PanDirection) {
+  func mapTemplate(_: CPMapTemplate, panWith direction: CPMapTemplate.PanDirection) {
     var offset = UIOffset(horizontal: 0.0, vertical: 0.0)
     let offsetStep: CGFloat = 0.1
     if direction.contains(.up) { offset.vertical -= offsetStep }
@@ -429,16 +438,16 @@ extension CarPlayService: CPMapTemplateDelegate {
     isUserPanMap = true
   }
 
-  func mapTemplate(_ mapTemplate: CPMapTemplate, didUpdatePanGestureWithTranslation translation: CGPoint, velocity: CGPoint) {
-    let scaleFactor = self.carplayVC?.mapView?.contentScaleFactor ?? 1
-    FrameworkHelper.scrollMap(toDistanceX:-scaleFactor * translation.x, andY:-scaleFactor * translation.y);
+  func mapTemplate(_: CPMapTemplate, didUpdatePanGestureWithTranslation translation: CGPoint, velocity _: CGPoint) {
+    let scaleFactor = carplayVC?.mapView?.contentScaleFactor ?? 1
+    FrameworkHelper.scrollMap(toDistanceX: -scaleFactor * translation.x, andY: -scaleFactor * translation.y)
   }
 
   func mapTemplate(_ mapTemplate: CPMapTemplate, startedTrip trip: CPTrip, using routeChoice: CPRouteChoice) {
     guard let info = routeChoice.userInfo as? RouteInfo else {
       if let info = routeChoice.userInfo as? [String: Any],
-        let code = info[CPConstants.Trip.errorCode] as? RouterResultCode,
-        let countries = info[CPConstants.Trip.missedCountries] as? [String] {
+         let code = info[CPConstants.Trip.errorCode] as? RouterResultCode,
+         let countries = info[CPConstants.Trip.missedCountries] as? [String] {
         showErrorAlert(code: code, countries: countries)
       }
       return
@@ -447,9 +456,10 @@ extension CarPlayService: CPMapTemplateDelegate {
     mapTemplate.hideTripPreviews()
 
     guard let router = router,
-      let interfaceController = interfaceController,
-      let rootMapTemplate = rootMapTemplate else {
-        return
+          let interfaceController = interfaceController,
+          let rootMapTemplate = rootMapTemplate
+    else {
+      return
     }
 
     MapTemplateBuilder.configureNavigationUI(mapTemplate: rootMapTemplate)
@@ -470,9 +480,9 @@ extension CarPlayService: CPMapTemplateDelegate {
     updateVisibleViewPortState(.navigation)
   }
 
-  func mapTemplate(_ mapTemplate: CPMapTemplate, displayStyleFor maneuver: CPManeuver) -> CPManeuverDisplayStyle {
+  func mapTemplate(_: CPMapTemplate, displayStyleFor maneuver: CPManeuver) -> CPManeuverDisplayStyle {
     if let type = maneuver.userInfo as? String,
-      type == CPConstants.Maneuvers.secondary {
+       type == CPConstants.Maneuvers.secondary {
       return .trailingSymbol
     }
     return .leadingSymbol
@@ -487,7 +497,8 @@ extension CarPlayService: CPMapTemplateDelegate {
       return
     }
     guard let info = routeChoice.userInfo as? RouteInfo,
-      let estimates = createEstimates(routeInfo: info) else {
+          let estimates = createEstimates(routeInfo: info)
+    else {
       applyUndefinedEstimates(template: mapTemplate, trip: trip)
       router?.rebuildRoute()
       return
@@ -498,10 +509,10 @@ extension CarPlayService: CPMapTemplateDelegate {
   }
 }
 
-
 // MARK: - CPListTemplateDelegate implementation
+
 extension CarPlayService: CPListTemplateDelegate {
-  func listTemplate(_ listTemplate: CPListTemplate, didSelect item: CPListItem, completionHandler: @escaping () -> Void) {
+  func listTemplate(_: CPListTemplate, didSelect item: CPListItem, completionHandler: @escaping () -> Void) {
     if let userInfo = item.userInfo as? ListItemInfo {
       switch userInfo.type {
       case CPConstants.ListItemType.history:
@@ -538,8 +549,9 @@ extension CarPlayService: CPListTemplateDelegate {
 }
 
 // MARK: - CPSearchTemplateDelegate implementation
+
 extension CarPlayService: CPSearchTemplateDelegate {
-  func searchTemplate(_ searchTemplate: CPSearchTemplate, updatedSearchText searchText: String, completionHandler: @escaping ([CPListItem]) -> Void) {
+  func searchTemplate(_: CPSearchTemplate, updatedSearchText searchText: String, completionHandler: @escaping ([CPListItem]) -> Void) {
     self.searchText = searchText
     let locale = window?.textInputMode?.primaryLanguage ?? "en"
     guard let searchService = searchService else {
@@ -558,16 +570,16 @@ extension CarPlayService: CPSearchTemplateDelegate {
     })
   }
 
-  func searchTemplate(_ searchTemplate: CPSearchTemplate, selectedResult item: CPListItem, completionHandler: @escaping () -> Void) {
+  func searchTemplate(_: CPSearchTemplate, selectedResult item: CPListItem, completionHandler: @escaping () -> Void) {
     searchService?.saveLastQuery()
     if let info = item.userInfo as? ListItemInfo,
-      let metadata = info.metadata as? SearchResultInfo {
+       let metadata = info.metadata as? SearchResultInfo {
       preparePreviewForSearchResults(selectedRow: metadata.originalRow)
     }
     completionHandler()
   }
 
-  func searchTemplateSearchButtonPressed(_ searchTemplate: CPSearchTemplate) {
+  func searchTemplateSearchButtonPressed(_: CPSearchTemplate) {
     let locale = window?.textInputMode?.primaryLanguage ?? "en"
     guard let searchService = searchService else {
       return
@@ -581,12 +593,14 @@ extension CarPlayService: CPSearchTemplateDelegate {
 }
 
 // MARK: - CarPlayRouterListener implementation
+
 extension CarPlayService: CarPlayRouterListener {
   func didCreateRoute(routeInfo: RouteInfo, trip: CPTrip) {
     guard let currentTemplate = interfaceController?.topTemplate as? CPMapTemplate,
-      let info = currentTemplate.userInfo as? MapInfo,
-      info.type == CPConstants.TemplateType.preview else {
-        return
+          let info = currentTemplate.userInfo as? MapInfo,
+          info.type == CPConstants.TemplateType.preview
+    else {
+      return
     }
     if let estimates = createEstimates(routeInfo: routeInfo) {
       currentTemplate.updateEstimates(estimates, for: trip)
@@ -598,8 +612,9 @@ extension CarPlayService: CarPlayRouterListener {
       carplayVC.updateCurrentSpeed(routeInfo.speedMps, speedLimitMps: routeInfo.speedLimitMps)
     }
     guard let router = router,
-      let template = rootMapTemplate else {
-        return
+          let template = rootMapTemplate
+    else {
+      return
     }
     router.updateEstimates()
     if let estimates = createEstimates(routeInfo: routeInfo) {
@@ -625,13 +640,15 @@ extension CarPlayService: CarPlayRouterListener {
 }
 
 // MARK: - LocationModeListener implementation
+
 extension CarPlayService: LocationModeListener {
   func processMyPositionStateModeEvent(_ mode: MWMMyPositionMode) {
     currentPositionMode = mode
     guard let rootMapTemplate = rootMapTemplate,
-      let info = rootMapTemplate.userInfo as? MapInfo,
-      info.type == CPConstants.TemplateType.main else {
-        return
+          let info = rootMapTemplate.userInfo as? MapInfo,
+          info.type == CPConstants.TemplateType.main
+    else {
+      return
     }
     switch mode {
     case .follow, .followAndRotate:
@@ -649,6 +666,7 @@ extension CarPlayService: LocationModeListener {
 }
 
 // MARK: - Alerts and Trip Previews
+
 extension CarPlayService {
   func preparePreviewForSearchResults(selectedRow row: Int) {
     var results = searchService?.lastResults ?? []
@@ -659,14 +677,14 @@ extension CarPlayService {
       results.insert(MWMCarPlaySearchResultObject(forRow: row), at: 0)
     }
     if let router = router,
-      let startPoint = MWMRoutePoint(lastLocationAndType: .start,
-                                     intermediateIndex: 0) {
-      let endPoints = results.compactMap({ MWMRoutePoint(cgPoint: $0.mercatorPoint,
+       let startPoint = MWMRoutePoint(lastLocationAndType: .start,
+                                      intermediateIndex: 0) {
+      let endPoints = results.compactMap { MWMRoutePoint(cgPoint: $0.mercatorPoint,
                                                          title: $0.title,
                                                          subtitle: $0.address,
                                                          type: .finish,
-                                                         intermediateIndex: 0) })
-      let trips = endPoints.map({ router.createTrip(startPoint: startPoint, endPoint: $0) })
+                                                         intermediateIndex: 0) }
+      let trips = endPoints.map { router.createTrip(startPoint: startPoint, endPoint: $0) }
       if router.currentTrip == nil {
         preparePreview(trips: trips)
       } else {
@@ -677,13 +695,13 @@ extension CarPlayService {
 
   func preparePreview(forBookmark bookmark: MWMCarPlayBookmarkObject) {
     if let router = router,
-      let startPoint = MWMRoutePoint(lastLocationAndType: .start,
+       let startPoint = MWMRoutePoint(lastLocationAndType: .start,
                                       intermediateIndex: 0),
-      let endPoint = MWMRoutePoint(cgPoint: bookmark.mercatorPoint,
-                                   title: bookmark.prefferedName,
-                                   subtitle: bookmark.address,
-                                   type: .finish,
-                                   intermediateIndex: 0) {
+       let endPoint = MWMRoutePoint(cgPoint: bookmark.mercatorPoint,
+                                    title: bookmark.prefferedName,
+                                    subtitle: bookmark.address,
+                                    type: .finish,
+                                    intermediateIndex: 0) {
       let trip = router.createTrip(startPoint: startPoint, endPoint: endPoint)
       if router.currentTrip == nil {
         preparePreview(trips: [trip])
@@ -727,13 +745,13 @@ extension CarPlayService {
 
   func showRerouteAlert(trips: [CPTrip]) {
     let yesAction = CPAlertAction(title: L("yes"), style: .default, handler: { [unowned self] _ in
-      self.router?.cancelTrip()
-      self.updateMapTemplateUIToBase()
-      self.preparedToPreviewTrips = trips
-      self.interfaceController?.dismissTemplate(animated: true)
+      router?.cancelTrip()
+      updateMapTemplateUIToBase()
+      preparedToPreviewTrips = trips
+      interfaceController?.dismissTemplate(animated: true)
     })
     let noAction = CPAlertAction(title: L("no"), style: .cancel, handler: { [unowned self] _ in
-      self.interfaceController?.dismissTemplate(animated: true)
+      interfaceController?.dismissTemplate(animated: true)
     })
     let alert = CPAlertTemplate(titleVariants: [L("redirect_route_alert")], actions: [noAction, yesAction])
     alert.userInfo = [CPConstants.TemplateKey.alert: CPConstants.TemplateType.redirectRoute]
@@ -742,13 +760,13 @@ extension CarPlayService {
 
   func showKeyboardAlert() {
     let okAction = CPAlertAction(title: L("ok"), style: .default, handler: { [unowned self] _ in
-      self.interfaceController?.dismissTemplate(animated: true)
+      interfaceController?.dismissTemplate(animated: true)
     })
     let alert = CPAlertTemplate(titleVariants: [L("keyboard_availability_alert")], actions: [okAction])
     presentAlert(alert, animated: true)
   }
 
-  func showErrorAlert(code: RouterResultCode, countries: [String]) {
+  func showErrorAlert(code: RouterResultCode, countries _: [String]) {
     var titleVariants = [String]()
     switch code {
     case .noCurrentPosition:
@@ -778,7 +796,7 @@ extension CarPlayService {
     }
 
     let okAction = CPAlertAction(title: L("ok"), style: .cancel, handler: { [unowned self] _ in
-      self.interfaceController?.dismissTemplate(animated: true)
+      interfaceController?.dismissTemplate(animated: true)
     })
     let alert = CPAlertTemplate(titleVariants: titleVariants, actions: [okAction])
     presentAlert(alert, animated: true)
@@ -793,14 +811,14 @@ extension CarPlayService {
         info?[CPConstants.Trip.start] = startPoint
       }
       trip.userInfo = info
-      self.preparedToPreviewTrips = [trip]
-      self.router?.updateStartPointAndRebuild(trip: trip)
-      self.interfaceController?.dismissTemplate(animated: true)
+      preparedToPreviewTrips = [trip]
+      router?.updateStartPointAndRebuild(trip: trip)
+      interfaceController?.dismissTemplate(animated: true)
     })
     let noAction = CPAlertAction(title: L("cancel"), style: .cancel, handler: { [unowned self] _ in
       FrameworkHelper.rotateMap(0.0, animated: false)
-      self.router?.completeRouteAndRemovePoints()
-      self.interfaceController?.dismissTemplate(animated: true)
+      router?.completeRouteAndRemovePoints()
+      interfaceController?.dismissTemplate(animated: true)
     })
     let title = isTypeCorrect ? L("dialog_routing_rebuild_from_current_location_carplay") : L("dialog_routing_rebuild_for_vehicle_carplay")
     let alert = CPAlertTemplate(titleVariants: [title], actions: [noAction, yesAction])

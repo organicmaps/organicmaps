@@ -17,8 +17,8 @@ public class ChartPresentationData {
   public init(_ chartData: ChartData, formatter: ChartFormatter) {
     self.chartData = chartData
     self.formatter = formatter
-    self.presentationLines = chartData.lines.map { ChartPresentationLine($0) }
-    self.labels = chartData.xAxisValues.map { formatter.xAxisString(from: $0) }
+    presentationLines = chartData.lines.map { ChartPresentationLine($0) }
+    labels = chartData.xAxisValues.map { formatter.xAxisString(from: $0) }
     recalculateBounds()
   }
 
@@ -45,12 +45,11 @@ public class ChartPresentationData {
 
     var l = CGFloat(Int.max)
     var u = CGFloat(Int.min)
-    presentationLines.forEach {
-      l = min($0.minY, l)
-      u = max($0.maxY, u)
+    for presentationLine in presentationLines {
+      l = min(presentationLine.minY, l)
+      u = max(presentationLine.maxY, u)
     }
     lower = l
     upper = u
   }
 }
-

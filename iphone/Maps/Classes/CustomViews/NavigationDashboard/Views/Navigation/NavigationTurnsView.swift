@@ -1,3 +1,3 @@
 final class NavigationTurnsView: UIView {
-  override var placePageAreaAffectDirections: MWMAvailableAreaAffectDirections { return alternative(iPhone: [], iPad: .left) }
+  override var placePageAreaAffectDirections: MWMAvailableAreaAffectDirections { alternative(iPhone: [], iPad: .left) }
 }

@@ -39,9 +39,10 @@ final class SearchOnMapViewController: UIViewController {
   private var searchResults = SearchOnMap.SearchResults([])
 
   // MARK: - Init
+
   init() {
     super.init(nibName: nil, bundle: nil)
-    self.configureModalPresentation()
+    configureModalPresentation()
   }
 
   private func configureModalPresentation() {
@@ -62,11 +63,12 @@ final class SearchOnMapViewController: UIViewController {
   }
 
   @available(*, unavailable)
-  required init?(coder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
   // MARK: - Lifecycle
+
   override func loadView() {
     view = TouchTransparentView()
   }
@@ -97,6 +99,7 @@ final class SearchOnMapViewController: UIViewController {
   }
 
   // MARK: - Private methods
+
   private func setupViews() {
     if isiPad {
       availableAreaView.setStyleAndApply(.sideMenuBackground)
@@ -202,7 +205,7 @@ final class SearchOnMapViewController: UIViewController {
       resultsTableView.topAnchor.constraint(equalTo: searchResultsView.topAnchor),
       resultsTableView.leadingAnchor.constraint(equalTo: searchResultsView.leadingAnchor),
       resultsTableView.trailingAnchor.constraint(equalTo: searchResultsView.trailingAnchor),
-      resultsTableView.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor)
+      resultsTableView.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor),
     ])
   }
 
@@ -214,7 +217,7 @@ final class SearchOnMapViewController: UIViewController {
       historyAndCategoryTabViewController.view.topAnchor.constraint(equalTo: searchResultsView.topAnchor),
       historyAndCategoryTabViewController.view.leadingAnchor.constraint(equalTo: searchResultsView.leadingAnchor),
       historyAndCategoryTabViewController.view.trailingAnchor.constraint(equalTo: searchResultsView.trailingAnchor),
-      historyAndCategoryTabViewController.view.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor)
+      historyAndCategoryTabViewController.view.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor),
     ])
   }
 
@@ -225,7 +228,7 @@ final class SearchOnMapViewController: UIViewController {
       searchNoResultsView.topAnchor.constraint(equalTo: searchResultsView.topAnchor),
       searchNoResultsView.leadingAnchor.constraint(equalTo: searchResultsView.leadingAnchor),
       searchNoResultsView.trailingAnchor.constraint(equalTo: searchResultsView.trailingAnchor),
-      searchNoResultsView.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor)
+      searchNoResultsView.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor),
     ])
   }
 
@@ -236,11 +239,12 @@ final class SearchOnMapViewController: UIViewController {
       searchingActivityView.leadingAnchor.constraint(equalTo: searchResultsView.leadingAnchor),
       searchingActivityView.trailingAnchor.constraint(equalTo: searchResultsView.trailingAnchor),
       searchingActivityView.topAnchor.constraint(equalTo: searchResultsView.topAnchor),
-      searchingActivityView.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor)
+      searchingActivityView.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor),
     ])
   }
 
   // MARK: - Handle Presentation Steps
+
   private func updateFrameOfPresentedViewInContainerView() {
     presentationStepsController.updateFrame()
     view.layoutIfNeeded()
@@ -249,7 +253,7 @@ final class SearchOnMapViewController: UIViewController {
   @objc
   private func handleTapOutside(_ gesture: UITapGestureRecognizer) {
     let location = gesture.location(in: view)
-    if resultsTableView.frame.contains(location) && searchResults.isEmpty {
+    if resultsTableView.frame.contains(location), searchResults.isEmpty {
       headerView.setIsSearching(false)
     }
   }
@@ -298,11 +302,12 @@ final class SearchOnMapViewController: UIViewController {
   }
 
   // MARK: - Handle Content Updates
+
   private func setContent(_ content: Content) {
     switch content {
     case .historyAndCategory:
       historyAndCategoryTabViewController.reloadSearchHistory()
-    case let .results(results):
+    case .results(let results):
       if searchResults != results {
         searchResults = results
         resultsTableView.reloadData()
@@ -339,9 +344,9 @@ final class SearchOnMapViewController: UIViewController {
                    delay: 0,
                    options: .curveEaseInOut,
                    animations: {
-      viewsToHide.forEach { $0.alpha = 0 }
-      view.alpha = 1
-    }) { _ in
+                     viewsToHide.forEach { $0.alpha = 0 }
+                     view.alpha = 1
+                   }) { _ in
       viewsToHide.forEach { $0.isHidden = true }
       view.isHidden = false
     }
@@ -359,6 +364,7 @@ final class SearchOnMapViewController: UIViewController {
 }
 
 // MARK: - Public methods
+
 extension SearchOnMapViewController: SearchOnMapView {
   func render(_ viewModel: ViewModel) {
     setContent(viewModel.contentState)
@@ -383,6 +389,7 @@ extension SearchOnMapViewController: SearchOnMapView {
 }
 
 // MARK: - ModallyPresentedViewController
+
 extension SearchOnMapViewController: ModallyPresentedViewController {
   func presentationFrameDidChange(_ frame: CGRect) {
     let translationY = frame.origin.y
@@ -394,8 +401,9 @@ extension SearchOnMapViewController: ModallyPresentedViewController {
 }
 
 // MARK: - UITableViewDataSource
+
 extension SearchOnMapViewController: UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
     searchResults.count
   }
 
@@ -418,6 +426,7 @@ extension SearchOnMapViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
+
 extension SearchOnMapViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let result = searchResults[indexPath.row]
@@ -425,14 +434,15 @@ extension SearchOnMapViewController: UITableViewDelegate {
     tableView.deselectRow(at: indexPath, animated: true)
   }
 
-  func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+  func scrollViewWillBeginDragging(_: UIScrollView) {
     interactor?.handle(.didStartDraggingSearch)
   }
 }
 
 // MARK: - SearchOnMapHeaderViewDelegate
+
 extension SearchOnMapViewController: SearchOnMapHeaderViewDelegate {
-  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+  func searchBarTextDidBeginEditing(_: UISearchBar) {
     interactor?.handle(.didStartTyping)
   }
 
@@ -459,20 +469,22 @@ extension SearchOnMapViewController: SearchOnMapHeaderViewDelegate {
 }
 
 // MARK: - SearchTabViewControllerDelegate
+
 extension SearchOnMapViewController: SearchTabViewControllerDelegate {
-  func searchTabController(_ viewController: SearchTabViewController, didSearch query: SearchQuery) {
+  func searchTabController(_: SearchTabViewController, didSearch query: SearchQuery) {
     interactor?.handle(.didSelect(query))
   }
 }
 
 // MARK: - UIGestureRecognizerDelegate
+
 extension SearchOnMapViewController: UIGestureRecognizerDelegate {
-  func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+  func gestureRecognizerShouldBegin(_: UIGestureRecognizer) -> Bool {
     true
   }
 
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    if gestureRecognizer is UIPanGestureRecognizer && otherGestureRecognizer is UIPanGestureRecognizer {
+    if gestureRecognizer is UIPanGestureRecognizer, otherGestureRecognizer is UIPanGestureRecognizer {
       // threshold is used to soften transition from the internal scroll zero content offset
       return internalScrollViewContentOffset < Constants.panGestureThreshold
     }
@@ -481,6 +493,7 @@ extension SearchOnMapViewController: UIGestureRecognizerDelegate {
 }
 
 // MARK: - ScrollViewDelegate
+
 extension SearchOnMapViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     let hasContainerReachedTheTop = Int(availableAreaView.frame.origin.y) > Int(presentationStepsController.maxAvailableFrame.origin.y)
@@ -492,7 +505,7 @@ extension SearchOnMapViewController: UIScrollViewDelegate {
     internalScrollViewContentOffset = scrollView.contentOffset.y
   }
 
-  func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+  func scrollViewWillEndDragging(_: UIScrollView, withVelocity _: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
     // lock internal scroll view when the user fast scrolls screen to the top
     if internalScrollViewContentOffset == 0 {
       targetContentOffset.pointee = .zero

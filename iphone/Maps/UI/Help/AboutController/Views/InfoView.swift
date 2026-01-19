@@ -1,5 +1,4 @@
 final class InfoView: UIView {
-
   private let stackView = UIStackView()
   private let imageView = UIImageView()
   private let titleLabel = UILabel()
@@ -7,13 +6,13 @@ final class InfoView: UIView {
 
   init() {
     super.init(frame: .zero)
-    self.setupView()
-    self.layoutViews()
+    setupView()
+    layoutViews()
   }
 
   convenience init(image: UIImage?, title: String) {
     self.init()
-    self.set(image: image, title: title)
+    set(image: image, title: title)
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -24,7 +23,7 @@ final class InfoView: UIView {
   }
 
   @available(*, unavailable)
-  required init?(coder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -61,7 +60,7 @@ final class InfoView: UIView {
       stackView.topAnchor.constraint(equalTo: topAnchor),
       stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
       imageView.heightAnchor.constraint(equalToConstant: 24),
-      imageViewWidthConstrain
+      imageViewWidthConstrain,
     ])
     updateImageWidth()
   }
@@ -72,6 +71,7 @@ final class InfoView: UIView {
   }
 
   // MARK: - Public
+
   func set(image: UIImage?, title: String) {
     imageView.image = image
     titleLabel.text = title

@@ -41,7 +41,7 @@ class BadgeWithNumber: UIView {
       label.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 4),
       label.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -4),
       label.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 2),
-      label.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -2)
+      label.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -2),
     ])
 
     layer.masksToBounds = true
@@ -60,7 +60,7 @@ class BadgeWithNumber: UIView {
       topAnchor.constraint(equalTo: view.topAnchor, constant: insets.top),
       trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -insets.right),
       heightAnchor.constraint(greaterThanOrEqualToConstant: 18),
-      widthAnchor.constraint(greaterThanOrEqualTo: heightAnchor)
+      widthAnchor.constraint(greaterThanOrEqualTo: heightAnchor),
     ])
   }
 }

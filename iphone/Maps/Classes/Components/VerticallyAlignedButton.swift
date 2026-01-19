@@ -35,7 +35,7 @@ class VerticallyAlignedButton: UIControl {
   @IBInspectable
   var numberOfLines: Int {
     get {
-      return titleLabel.numberOfLines
+      titleLabel.numberOfLines
     }
     set {
       titleLabel.numberOfLines = newValue
@@ -82,7 +82,7 @@ class VerticallyAlignedButton: UIControl {
       spacingConstraint,
       titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
       titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-      titleLabel.topAnchor.constraint(equalTo: bottomAnchor)
+      titleLabel.topAnchor.constraint(equalTo: bottomAnchor),
     ])
   }
 }

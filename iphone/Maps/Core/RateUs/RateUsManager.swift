@@ -2,7 +2,6 @@ import StoreKit
 
 @objcMembers
 final class RateUsManager: NSObject {
-
   static let shared = RateUsManager()
 
   func showAppStoreReviewRequest() {

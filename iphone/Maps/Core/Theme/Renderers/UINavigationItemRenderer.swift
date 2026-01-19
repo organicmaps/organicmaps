@@ -9,6 +9,7 @@ extension UINavigationItem {
     }
   }
 }
+
 class UINavigationItemRenderer {
   class func render(_ control: UINavigationItem, style: Style) {
     if let item = control.backBarButtonItem {

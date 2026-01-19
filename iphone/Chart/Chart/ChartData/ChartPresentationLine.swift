@@ -4,8 +4,8 @@ final class ChartPresentationLine {
   private let chartLine: ChartLine
 
   var aggregatedValues: [ChartValue] = []
-  var minY: CGFloat = CGFloat(Int.max)
-  var maxY: CGFloat = CGFloat(Int.min)
+  var minY: CGFloat = .init(Int.max)
+  var maxY: CGFloat = .init(Int.min)
   var path = UIBezierPath()
   var previewPath = UIBezierPath()
 

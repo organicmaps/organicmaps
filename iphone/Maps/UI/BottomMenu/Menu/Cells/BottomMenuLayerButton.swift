@@ -32,8 +32,8 @@ final class BottomMenuLayerButton: VerticallyAlignedButton {
         addSubview(badgeView!)
       }
       let imageFrame = imageView.frame
-      badgeView?.frame = CGRect(x:imageFrame.minX + imageFrame.width - badgeSize.width / 2 + badgeOffset.x,
-                                y:imageFrame.minY - badgeSize.height/2 + badgeOffset.y,
+      badgeView?.frame = CGRect(x: imageFrame.minX + imageFrame.width - badgeSize.width / 2 + badgeOffset.x,
+                                y: imageFrame.minY - badgeSize.height / 2 + badgeOffset.y,
                                 width: badgeSize.width,
                                 height: badgeSize.height)
     }

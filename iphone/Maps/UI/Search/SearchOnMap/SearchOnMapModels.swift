@@ -36,10 +36,10 @@ enum SearchOnMap {
 
     init(_ results: [SearchResult]) {
       self.results = results
-      self.hasPartialMatch = !results.allSatisfy { $0.highlightRanges.isEmpty }
-      self.isEmpty = results.isEmpty
-      self.count = results.count
-      self.suggestionsCount = results.filter { $0.itemType == .suggestion }.count
+      hasPartialMatch = !results.allSatisfy(\.highlightRanges.isEmpty)
+      isEmpty = results.isEmpty
+      count = results.count
+      suggestionsCount = results.filter { $0.itemType == .suggestion }.count
     }
   }
 

@@ -2,15 +2,13 @@ import Foundation
 import UIKit
 
 enum CarPlayWindowScaleAdjuster {
-
   static func updateAppearance(
     fromWindow sourceWindow: UIWindow,
     toWindow destinationWindow: UIWindow,
     isCarplayActivated: Bool
   ) {
-
-    let sourceContentScale = sourceWindow.screen.scale;
-    let destinationContentScale = destinationWindow.screen.scale;
+    let sourceContentScale = sourceWindow.screen.scale
+    let destinationContentScale = destinationWindow.screen.scale
 
     if abs(sourceContentScale - destinationContentScale) > 0.1 {
       if isCarplayActivated {
@@ -42,10 +40,10 @@ enum CarPlayWindowScaleAdjuster {
   }
 
   private static var isGraphicContextInitialized: Bool {
-    return mapViewController?.mapView.graphicContextInitialized ?? false
+    mapViewController?.mapView.graphicContextInitialized ?? false
   }
 
   private static var mapViewController: MapViewController? {
-    return MapViewController.shared()
+    MapViewController.shared()
   }
 }

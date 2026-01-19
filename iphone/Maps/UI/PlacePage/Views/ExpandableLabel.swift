@@ -17,6 +17,7 @@ final class ExpandableLabel: UIView {
       textView.invalidateIntrinsicContentSize()
     }
   }
+
   private var oldWidth: CGFloat = 0
 
   // MARK: - Public properties
@@ -171,10 +172,11 @@ final class ExpandableLabel: UIView {
     }
 
     guard containerMaximumNumberOfLines > 0,
-      containerMaximumNumberOfLines != numberOfLines,
-      let s = containerText,
-      !s.isEmpty else {
-        return
+          containerMaximumNumberOfLines != numberOfLines,
+          let s = containerText,
+          !s.isEmpty
+    else {
+      return
     }
     let textRect = s.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
                                   options: .usesLineFragmentOrigin,

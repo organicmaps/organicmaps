@@ -1,7 +1,6 @@
 import UIKit
 
 final class TransportOptionsView: UIView {
-
   private var segmentedControl = UISegmentedControl()
   private var routerTypes: [MWMRouterType] = []
   private var selectedRouterType: MWMRouterType = .vehicle
@@ -14,16 +13,16 @@ final class TransportOptionsView: UIView {
   }
 
   @available(*, unavailable)
-  required init?(coder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
   func set(transportOptions: [MWMRouterType], selectedRouterType: MWMRouterType) {
-    let optionsChanged = self.routerTypes != transportOptions
+    let optionsChanged = routerTypes != transportOptions
     let selectionChanged = self.selectedRouterType != selectedRouterType
     guard optionsChanged || selectionChanged else { return }
 
-    self.routerTypes = transportOptions
+    routerTypes = transportOptions
     self.selectedRouterType = selectedRouterType
 
     if optionsChanged {
@@ -41,13 +40,13 @@ final class TransportOptionsView: UIView {
       segmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor),
       segmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor),
       segmentedControl.topAnchor.constraint(equalTo: topAnchor),
-      segmentedControl.bottomAnchor.constraint(equalTo: bottomAnchor)
+      segmentedControl.bottomAnchor.constraint(equalTo: bottomAnchor),
     ])
   }
 
   func reload() {
     segmentedControl.removeAllSegments()
-    routerTypes.enumerated().forEach { index, type in
+    for (index, type) in routerTypes.enumerated() {
       let isSelected = type == selectedRouterType
       segmentedControl.insertSegment(with: type.image(for: isSelected), at: index, animated: false)
       if isSelected {

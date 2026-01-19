@@ -21,11 +21,12 @@ class ChartMyPositionView: UIView {
     transform = CGAffineTransform.identity.scaledBy(x: 1, y: -1)
     pinView.transform = CGAffineTransform.identity.scaledBy(x: 1, y: -1)
   }
-  
-  required init?(coder: NSCoder) {
+
+  @available(*, unavailable)
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   override func layoutSubviews() {
     super.layoutSubviews()
     let path = UIBezierPath()
@@ -41,7 +42,7 @@ class ChartMyPositionView: UIView {
   }
 }
 
-fileprivate class MyPositionPinView: UIView {
+private class MyPositionPinView: UIView {
   override class var layerClass: AnyClass { CAShapeLayer.self }
   var shapeLayer: CAShapeLayer { layer as! CAShapeLayer }
 
@@ -78,7 +79,8 @@ fileprivate class MyPositionPinView: UIView {
     shapeLayer.fillRule = .evenOdd
   }
 
-  required init?(coder: NSCoder) {
+  @available(*, unavailable)
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 

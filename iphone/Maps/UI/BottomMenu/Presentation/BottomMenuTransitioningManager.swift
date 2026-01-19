@@ -3,12 +3,12 @@ final class BottomMenuTransitioningManager: NSObject, UIViewControllerTransition
     BottomMenuPresentationController(presentedViewController: presented,
                                      presenting: presenting)
   }
-  
+
   func animationController(forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    return BottomMenuTransitioning(isPresentation: true)
+    BottomMenuTransitioning(isPresentation: true)
   }
-  
+
   func animationController(forDismissed _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    return BottomMenuTransitioning(isPresentation: false)
+    BottomMenuTransitioning(isPresentation: false)
   }
 }

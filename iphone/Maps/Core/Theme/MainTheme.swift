@@ -9,4 +9,3 @@ class MainTheme: Theme {
     registerStyleSheet(TextColorStyleSheet.self)
   }
 }
-

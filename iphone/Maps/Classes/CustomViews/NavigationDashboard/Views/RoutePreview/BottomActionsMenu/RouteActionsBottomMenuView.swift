@@ -15,12 +15,12 @@ final class RouteActionsBottomMenuView: UIView {
   }
 
   @available(*, unavailable)
-  required init?(coder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
   // Prevent touches from being passed to the touch transparent view
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {}
+  override func touchesBegan(_: Set<UITouch>, with _: UIEvent?) {}
 
   private func setupView() {
     setStyle(.background)
@@ -38,7 +38,7 @@ final class RouteActionsBottomMenuView: UIView {
       stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Constants.insets.right),
       stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: Constants.insets.top),
       stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -Constants.insets.bottom),
-      stackView.heightAnchor.constraint(equalToConstant: Constants.height)
+      stackView.heightAnchor.constraint(equalToConstant: Constants.height),
     ])
   }
 

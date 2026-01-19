@@ -1,5 +1,4 @@
 final class SettingsTableViewiCloudSwitchCell: SettingsTableViewDetailedSwitchCell {
-
   @objc
   func updateWithSynchronizationState(_ state: SynchronizationManagerState) {
     guard state.isAvailable else {

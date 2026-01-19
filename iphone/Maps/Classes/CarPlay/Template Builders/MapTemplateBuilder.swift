@@ -6,6 +6,7 @@ final class MapTemplateBuilder {
     case zoomIn
     case zoomOut
   }
+
   enum BarButtonType {
     case dismissPaning
     case destination
@@ -16,12 +17,13 @@ final class MapTemplateBuilder {
     case redirectRoute
     case endRoute
   }
-  
+
   private enum Constants {
     static let carPlayGuidanceBackgroundColor = UIColor(46, 100, 51, 1.0)
   }
-  
+
   // MARK: - CPMapTemplate builders
+
   class func buildBaseTemplate(positionMode: MWMMyPositionMode) -> CPMapTemplate {
     let mapTemplate = CPMapTemplate()
     mapTemplate.hidesButtonsWithNavigationBar = false
@@ -35,14 +37,14 @@ final class MapTemplateBuilder {
     }
     return mapTemplate
   }
-  
+
   class func buildNavigationTemplate() -> CPMapTemplate {
     let mapTemplate = CPMapTemplate()
     mapTemplate.hidesButtonsWithNavigationBar = false
     configureNavigationUI(mapTemplate: mapTemplate)
     return mapTemplate
   }
-  
+
   class func buildTripPreviewTemplate(forTrips trips: [CPTrip]) -> CPMapTemplate {
     let mapTemplate = CPMapTemplate()
     mapTemplate.userInfo = MapInfo(type: CPConstants.TemplateType.preview, trips: trips)
@@ -56,8 +58,9 @@ final class MapTemplateBuilder {
     mapTemplate.trailingNavigationBarButtons = [settingsButton]
     return mapTemplate
   }
-  
+
   // MARK: - MapTemplate UI configs
+
   class func configureBaseUI(mapTemplate: CPMapTemplate) {
     mapTemplate.userInfo = MapInfo(type: CPConstants.TemplateType.main)
     let panningButton = buildMapButton(type: .startPanning) { _ in
@@ -70,14 +73,14 @@ final class MapTemplateBuilder {
       FrameworkHelper.zoomMap(.out)
     }
     mapTemplate.mapButtons = [panningButton, zoomInButton, zoomOutButton]
-    
+
     let settingsButton = buildBarButton(type: .settings) { _ in
       let gridTemplate = SettingsTemplateBuilder.buildGridTemplate()
       CarPlayService.shared.pushTemplate(gridTemplate, animated: true)
     }
     mapTemplate.trailingNavigationBarButtons = [settingsButton]
   }
-  
+
   class func configurePanUI(mapTemplate: CPMapTemplate) {
     let zoomInButton = buildMapButton(type: .zoomIn) { _ in
       FrameworkHelper.zoomMap(.in)
@@ -86,14 +89,14 @@ final class MapTemplateBuilder {
       FrameworkHelper.zoomMap(.out)
     }
     mapTemplate.mapButtons = [zoomInButton, zoomOutButton]
-    
+
     let doneButton = buildBarButton(type: .dismissPaning) { _ in
       mapTemplate.dismissPanningInterface(animated: true)
     }
     mapTemplate.leadingNavigationBarButtons = []
     mapTemplate.trailingNavigationBarButtons = [doneButton]
   }
-  
+
   class func configureNavigationUI(mapTemplate: CPMapTemplate) {
     mapTemplate.userInfo = MapInfo(type: CPConstants.TemplateType.navigation)
     let panningButton = buildMapButton(type: .startPanning) { _ in
@@ -107,8 +110,9 @@ final class MapTemplateBuilder {
     mapTemplate.trailingNavigationBarButtons = [endButton]
     mapTemplate.guidanceBackgroundColor = Constants.carPlayGuidanceBackgroundColor
   }
-  
+
   // MARK: - Conditional navigation buttons
+
   class func setupDestinationButton(mapTemplate: CPMapTemplate) {
     let destinationButton = buildBarButton(type: .destination) { _ in
       let listTemplate = ListTemplateBuilder.buildListTemplate(for: .history)
@@ -116,14 +120,14 @@ final class MapTemplateBuilder {
     }
     mapTemplate.leadingNavigationBarButtons = [destinationButton]
   }
-  
+
   class func setupRecenterButton(mapTemplate: CPMapTemplate) {
     let recenterButton = buildBarButton(type: .recenter) { _ in
       FrameworkHelper.switchMyPositionMode()
     }
     mapTemplate.leadingNavigationBarButtons = [recenterButton]
   }
-  
+
   private class func setupMuteAndRedirectButtons(template: CPMapTemplate) {
     let muteButton = buildBarButton(type: .mute) { _ in
       MWMTextToSpeech.setTTSEnabled(false)
@@ -135,7 +139,7 @@ final class MapTemplateBuilder {
     }
     template.leadingNavigationBarButtons = [muteButton, redirectButton]
   }
-  
+
   private class func setupUnmuteAndRedirectButtons(template: CPMapTemplate) {
     let unmuteButton = buildBarButton(type: .unmute) { _ in
       MWMTextToSpeech.setTTSEnabled(true)
@@ -147,8 +151,9 @@ final class MapTemplateBuilder {
     }
     template.leadingNavigationBarButtons = [unmuteButton, redirectButton]
   }
-  
+
   // MARK: - CPMapButton builder
+
   private class func buildMapButton(type: MapButtonType, action: ((CPMapButton) -> Void)?) -> CPMapButton {
     let button = CPMapButton(handler: action)
     switch type {
@@ -161,8 +166,9 @@ final class MapTemplateBuilder {
     }
     return button
   }
-  
+
   // MARK: - CPBarButton builder
+
   private class func buildBarButton(type: BarButtonType, action: ((CPBarButton) -> Void)?) -> CPBarButton {
     switch type {
     case .dismissPaning:

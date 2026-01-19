@@ -1,7 +1,6 @@
 import UIKit
 
 final class LocationServicesDisabledAlert: MWMAlert {
-
   @objc
   class func alert() -> LocationServicesDisabledAlert? {
     guard let alert = Bundle.main.loadNibNamed("LocationServicesDisabledAlert", owner: nil)?.first as? LocationServicesDisabledAlert else {
@@ -12,7 +11,7 @@ final class LocationServicesDisabledAlert: MWMAlert {
     return alert
   }
 
-  @IBAction func okButtonDidTap(_ sender: Any) {
+  @IBAction func okButtonDidTap(_: Any) {
     close(nil)
   }
 }

@@ -13,7 +13,7 @@ class PlacePageInteractor: NSObject {
   private var placePageData: PlacePageData
 
   init(data: PlacePageData) {
-    self.placePageData = data
+    placePageData = data
     super.init()
     addToBookmarksManagerObserverList()
     subscribeOnTrackActivePointUpdatesIfNeeded()
@@ -106,15 +106,15 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
   func didPressWebsiteMenu() {
     MWMPlacePageManagerHelper.openWebsiteMenu(placePageData)
   }
-  
+
   func didPressWikimediaCommons() {
     MWMPlacePageManagerHelper.openWikimediaCommons(placePageData)
   }
-  
+
   func didPressFacebook() {
     MWMPlacePageManagerHelper.openFacebook(placePageData)
   }
-  
+
   func didPressInstagram() {
     MWMPlacePageManagerHelper.openInstagram(placePageData)
   }
@@ -122,19 +122,19 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
   func didPressTwitter() {
     MWMPlacePageManagerHelper.openTwitter(placePageData)
   }
-  
+
   func didPressVk() {
     MWMPlacePageManagerHelper.openVk(placePageData)
   }
-  
+
   func didPressLine() {
     MWMPlacePageManagerHelper.openLine(placePageData)
   }
-  
+
   func didPressEmail() {
     MWMPlacePageManagerHelper.openEmail(placePageData)
   }
-  
+
   func didCopy(_ content: String) {
     UIPasteboard.general.string = content
     let message = String(format: L("copied_to_clipboard"), content)
@@ -207,7 +207,7 @@ extension PlacePageInteractor: PlacePageEditBookmarkOrTrackViewControllerDelegat
                                             category: category)
     }
   }
-  
+
   func didPressEdit(_ data: PlacePageEditData) {
     switch data {
     case .bookmark:
@@ -221,7 +221,7 @@ extension PlacePageInteractor: PlacePageEditBookmarkOrTrackViewControllerDelegat
 // MARK: - ActionBarViewControllerDelegate
 
 extension PlacePageInteractor: ActionBarViewControllerDelegate {
-  func actionBar(_ actionBar: ActionBarViewController, didPressButton type: ActionBarButtonType) {
+  func actionBar(_: ActionBarViewController, didPressButton type: ActionBarButtonType) {
     switch type {
     case .booking:
       MWMPlacePageManagerHelper.book(placePageData)
@@ -240,7 +240,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       let hasOnePhoneNumber = phones.count == 1
       if hasOnePhoneNumber {
         MWMPlacePageManagerHelper.call(phones[0])
-      } else if (phones.count > 1) {
+      } else if phones.count > 1 {
         showPhoneNumberPicker(phones, handler: MWMPlacePageManagerHelper.call)
       }
     case .download:
@@ -267,7 +267,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       guard placePageData.trackData != nil else { return }
       showTrackDeletionConfirmationDialog()
     case .saveTrackRecording:
-      trackRecordingManager.stopAndSave() { [weak self] result in
+      trackRecordingManager.stopAndSave { [weak self] result in
         switch result {
         case .success:
           break
@@ -333,11 +333,11 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
 
   private func showPhoneNumberPicker(_ phones: [PlacePagePhone], handler: @escaping (PlacePagePhone) -> Void) {
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-    phones.forEach({phone in
+    for phone in phones {
       alert.addAction(UIAlertAction(title: phone.phone, style: .default, handler: { _ in
         handler(phone)
       }))
-    })
+    }
     alert.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
     presenter?.showAlert(alert)
   }
@@ -381,7 +381,7 @@ extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
       switch status {
       case .success:
         guard let url else { fatalError("Invalid sharing url") }
-        let shareViewController = ActivityViewController.share(for: url, message: self.placePageData.previewData.title!) { _,_,_,_ in
+        let shareViewController = ActivityViewController.share(for: url, message: self.placePageData.previewData.title!) { _, _, _, _ in
           self.bookmarksManager.finishSharing()
         }
         self.presenter?.showActivity(shareViewController, from: sourceView)
@@ -424,6 +424,7 @@ extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
 }
 
 // MARK: - BookmarksObserver
+
 extension PlacePageInteractor: BookmarksObserver {
   func onBookmarksLoadFinished() {
     updatePlacePageIfNeeded()

@@ -1,4 +1,5 @@
 import Foundation
+
 extension MWMTableViewCell {
   @objc override func applyTheme() {
     if styleName.isEmpty {
@@ -6,7 +7,7 @@ extension MWMTableViewCell {
     }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {
-        MWMTableViewCellRenderer.render(self, style: style)
+      MWMTableViewCellRenderer.render(self, style: style)
     }
   }
 }

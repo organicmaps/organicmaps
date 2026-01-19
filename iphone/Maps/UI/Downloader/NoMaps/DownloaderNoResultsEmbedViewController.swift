@@ -1,10 +1,8 @@
 
 @objc(MWMDownloaderNoResultsEmbedViewController)
 final class DownloaderNoResultsEmbed: UINavigationController {
-
   @objc(MWMDownloaderNoResultsScreen)
   enum Screen: Int {
-
     case noMaps
     case noSearchResults
   }

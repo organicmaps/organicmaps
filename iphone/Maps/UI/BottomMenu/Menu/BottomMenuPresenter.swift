@@ -36,15 +36,15 @@ class BottomMenuPresenter: NSObject {
     self.interactor = interactor
     self.sections = sections
     let disableDonate = Settings.donateUrl() == nil
-    self.menuCells = CellType.allCases.filter { disableDonate ? $0 != .donate : true }
-    self.cellToHighlight = Self.getCellToHighlight()
+    menuCells = CellType.allCases.filter { disableDonate ? $0 != .donate : true }
+    cellToHighlight = Self.getCellToHighlight()
     let mapsStorage = Storage.shared()
     self.mapsStorage = mapsStorage
-    self.countryId = mapsStorage.countryForViewportCenter()
-    self.shouldUpdateMapToContribute =
+    countryId = mapsStorage.countryForViewportCenter()
+    shouldUpdateMapToContribute =
       !(MWMNavigationDashboardManager.shared().state == .closed &&
-      FrameworkHelper.canEditMapAtViewportCenter() &&
-      self.countryId != nil)
+        FrameworkHelper.canEditMapAtViewportCenter() &&
+        countryId != nil)
     super.init()
   }
 
@@ -71,19 +71,19 @@ extension BottomMenuPresenter: BottomMenuPresenterProtocol {
     return IndexPath(row: cellIndex, section: sectionIndex)
   }
 
-  func setCellHighlighted(_ highlighted: Bool) {
+  func setCellHighlighted(_: Bool) {
     cellToHighlight = nil
   }
 }
 
-//MARK: -- UITableViewDataSource
+// MARK: - - UITableViewDataSource
 
 extension BottomMenuPresenter {
-  func numberOfSections(in tableView: UITableView) -> Int {
+  func numberOfSections(in _: UITableView) -> Int {
     sections.count
   }
 
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch sections[section] {
     case .layers:
       return 1
@@ -135,7 +135,7 @@ extension BottomMenuPresenter {
   }
 }
 
-//MARK: -- UITableViewDelegate
+// MARK: - - UITableViewDelegate
 
 extension BottomMenuPresenter {
   func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {

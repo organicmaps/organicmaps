@@ -1,5 +1,4 @@
 final class DonationView: UIButton {
-
   private enum Constants {
     static let contentInsets = UIEdgeInsets(top: 12, left: 16, bottom: -16, right: -16)
     static let backgroundColorHex = "094600"
@@ -24,7 +23,7 @@ final class DonationView: UIButton {
   private let acationButtonGradientLayer = CAGradientLayer()
   private let highlightOverlayView = UIView()
   private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-  private let onTap: (() -> Void)
+  private let onTap: () -> Void
 
   init(onTap: @escaping (() -> Void)) {
     self.onTap = onTap
@@ -34,7 +33,7 @@ final class DonationView: UIButton {
   }
 
   @available(*, unavailable)
-  required init?(coder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError()
   }
 

@@ -2,7 +2,6 @@ import Chart
 import CoreApi
 
 final class ElevationProfileFormatter {
-
   private enum Constants {
     static let metricToImperialMultiplier: CGFloat = 0.3048
     static var metricAltitudeStep: CGFloat = 50
@@ -17,15 +16,15 @@ final class ElevationProfileFormatter {
 
   init(units: Units = Settings.measurementUnits()) {
     self.units = units
-    self.distanceFormatter = DistanceFormatter.self
-    self.altitudeFormatter = AltitudeFormatter.self
+    distanceFormatter = DistanceFormatter.self
+    altitudeFormatter = AltitudeFormatter.self
     switch units {
     case .metric:
-      self.altitudeStep = Constants.metricAltitudeStep
-      self.unitSystemMultiplier = 1
+      altitudeStep = Constants.metricAltitudeStep
+      unitSystemMultiplier = 1
     case .imperial:
-      self.altitudeStep = Constants.imperialAltitudeStep
-      self.unitSystemMultiplier = Constants.metricToImperialMultiplier
+      altitudeStep = Constants.imperialAltitudeStep
+      unitSystemMultiplier = Constants.metricToImperialMultiplier
     @unknown default:
       fatalError("Unsupported units")
     }

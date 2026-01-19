@@ -1,24 +1,24 @@
 final class NavigationControlView: SolidTouchView {
-  @IBOutlet private weak var distanceLabel: UILabel!
-  @IBOutlet private weak var distanceLegendLabel: UILabel!
-  @IBOutlet private weak var distanceWithLegendLabel: UILabel!
-  @IBOutlet private weak var progressView: UIView!
-  @IBOutlet private weak var routingProgress: NSLayoutConstraint!
-  @IBOutlet private weak var speedLabel: UILabel!
-  @IBOutlet private weak var speedBackground: UIView!
-  @IBOutlet private weak var speedLegendLabel: UILabel!
-  @IBOutlet private weak var speedWithLegendLabel: UILabel!
-  @IBOutlet private weak var timeLabel: UILabel!
-  @IBOutlet private weak var timePageControl: UIPageControl!
-  @IBOutlet private weak var extendedView: UIView!
+  @IBOutlet private var distanceLabel: UILabel!
+  @IBOutlet private var distanceLegendLabel: UILabel!
+  @IBOutlet private var distanceWithLegendLabel: UILabel!
+  @IBOutlet private var progressView: UIView!
+  @IBOutlet private var routingProgress: NSLayoutConstraint!
+  @IBOutlet private var speedLabel: UILabel!
+  @IBOutlet private var speedBackground: UIView!
+  @IBOutlet private var speedLegendLabel: UILabel!
+  @IBOutlet private var speedWithLegendLabel: UILabel!
+  @IBOutlet private var timeLabel: UILabel!
+  @IBOutlet private var timePageControl: UIPageControl!
+  @IBOutlet private var extendedView: UIView!
 
-  @IBOutlet private weak var extendButton: UIButton! {
+  @IBOutlet private var extendButton: UIButton! {
     didSet {
       setExtendButtonImage()
     }
   }
 
-  @IBOutlet private weak var ttsButton: UIButton! {
+  @IBOutlet private var ttsButton: UIButton! {
     didSet {
       ttsButton.setImage(UIImage(resource: .icVoiceOff), for: .normal)
       ttsButton.setImage(UIImage(resource: .icVoiceOn), for: .selected)
@@ -27,11 +27,9 @@ final class NavigationControlView: SolidTouchView {
     }
   }
 
-  private lazy var dimBackground: DimBackground = {
-    DimBackground(mainView: self, tapAction: { [weak self] in
-      self?.diminish()
-    })
-  }()
+  private lazy var dimBackground: DimBackground = .init(mainView: self, tapAction: { [weak self] in
+    self?.diminish()
+  })
 
   weak var ownerView: UIView!
   weak var delegate: RouteNavigationControlsDelegate!
@@ -58,14 +56,14 @@ final class NavigationControlView: SolidTouchView {
       morphExtendButton()
     }
     didSet {
-      guard isVisible && superview != nil else { return }
+      guard isVisible, superview != nil else { return }
       guard isExtended != oldValue else { return }
 
       dimBackground.setVisible(isExtended, completion: nil)
       extendedView.isHidden = !isExtended
       superview!.animateConstraints(animations: { [weak self] in
         guard let self else { return }
-        if (self.isExtended) {
+        if self.isExtended {
           self.notExtendedConstraint.isActive = false
           self.extendedConstraint.isActive = true
         } else {
@@ -141,12 +139,12 @@ final class NavigationControlView: SolidTouchView {
     let routingNumberAttributes: [NSAttributedString.Key: Any] =
       [
         NSAttributedString.Key.foregroundColor: UIColor.blackPrimaryText(),
-        NSAttributedString.Key.font: UIFont.bold24()
+        NSAttributedString.Key.font: UIFont.bold24(),
       ]
     let routingLegendAttributes: [NSAttributedString.Key: Any] =
       [
         NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText(),
-        NSAttributedString.Key.font: UIFont.bold14()
+        NSAttributedString.Key.font: UIFont.bold14(),
       ]
 
     if timePageControl.currentPage == 0 {
@@ -174,10 +172,10 @@ final class NavigationControlView: SolidTouchView {
       speedMps = s
     }
     let speedMeasure = Measure(asSpeed: speedMps)
-    var speed = speedMeasure.valueAsString;
+    var speed = speedMeasure.valueAsString
     /// @todo Draw speed limit sign similar to the CarPlay implemenation.
     // speedLimitMps >= 0 means known limited speed.
-    if (info.speedLimitMps >= 0) {
+    if info.speedLimitMps >= 0 {
       // Short delimeter to not overlap with timeToTarget longer than an hour.
       let delimeter = info.timeToTarget < 60 * 60 ? " / " : "/"
       let speedLimitMeasure = Measure(asSpeed: info.speedLimitMps)
@@ -221,20 +219,20 @@ final class NavigationControlView: SolidTouchView {
   }
 
   @IBAction
-  private func ttsButtonAction(_ sender: Any) {
+  private func ttsButtonAction(_: Any) {
     delegate.ttsButtonDidTap()
   }
 
   @IBAction
-  private func settingsButtonAction(_ sender: Any) {
+  private func settingsButtonAction(_: Any) {
     delegate.settingsButtonDidTap()
   }
-  
+
   @IBAction
-  private func stopRoutingButtonAction(_ sender: Any) {
+  private func stopRoutingButtonAction(_: Any) {
     delegate.stopRoutingButtonDidTap()
   }
-  
+
   private func morphExtendButton() {
     guard let imageView = extendButton.imageView else { return }
     let morphImagesCount = 6
@@ -285,15 +283,15 @@ final class NavigationControlView: SolidTouchView {
   }
 
   override var sideButtonsAreaAffectDirections: MWMAvailableAreaAffectDirections {
-    return .bottom
+    .bottom
   }
 
   override var widgetsAreaAffectDirections: MWMAvailableAreaAffectDirections {
-    return alternative(iPhone: .bottom, iPad: [])
+    alternative(iPhone: .bottom, iPad: [])
   }
 
   override var trackRecordingButtonAreaAffectDirections: MWMAvailableAreaAffectDirections {
-    return .bottom
+    .bottom
   }
 }
 

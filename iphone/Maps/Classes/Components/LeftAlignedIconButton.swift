@@ -10,4 +10,3 @@ class LeftAlignedIconButton: UIButton {
     titleEdgeInsets = UIEdgeInsets(top: 0, left: floor(availableWidth) / 2, bottom: 0, right: 0)
   }
 }
-

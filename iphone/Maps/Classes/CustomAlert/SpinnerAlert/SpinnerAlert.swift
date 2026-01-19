@@ -1,10 +1,10 @@
 @objc(MWMSpinnerAlert)
 final class SpinnerAlert: MWMAlert {
-  @IBOutlet private weak var progressView: UIView!
-  @IBOutlet private weak var title: UILabel!
-  @IBOutlet private weak var cancelHeight: NSLayoutConstraint!
-  @IBOutlet private weak var cancelButton: UIButton!
-  @IBOutlet private weak var divider: UIView!
+  @IBOutlet private var progressView: UIView!
+  @IBOutlet private var title: UILabel!
+  @IBOutlet private var cancelHeight: NSLayoutConstraint!
+  @IBOutlet private var cancelButton: UIButton!
+  @IBOutlet private var divider: UIView!
 
   private var cancel: MWMVoidBlock?
 
@@ -13,10 +13,10 @@ final class SpinnerAlert: MWMAlert {
     return p
   }()
 
-
   @objc static func alert(title: String, cancel: MWMVoidBlock?) -> SpinnerAlert? {
     guard let alert = Bundle.main.loadNibNamed(className(), owner: nil, options: nil)?.first
-      as? SpinnerAlert else {
+      as? SpinnerAlert
+    else {
       assertionFailure()
       return nil
     }

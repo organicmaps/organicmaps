@@ -2,7 +2,7 @@ extension MWMButton {
   @objc override func applyTheme() {
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {
-        MWMButtonRenderer.render(self, style: style)
+      MWMButtonRenderer.render(self, style: style)
     }
   }
 }
@@ -18,4 +18,3 @@ class MWMButtonRenderer {
     }
   }
 }
-

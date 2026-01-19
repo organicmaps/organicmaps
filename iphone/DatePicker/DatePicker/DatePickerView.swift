@@ -92,7 +92,7 @@ public final class DatePickerView: UIView {
     components.weekday = indexPath.item % 7 + calendar.firstWeekday
     components.weekOfMonth = indexPath.item / 7 + firstWeek
     guard let date = calendar.date(from: components),
-      calendar.isDate(date, equalTo: month, toGranularity: .month) else { return nil }
+          calendar.isDate(date, equalTo: month, toGranularity: .month) else { return nil }
     return date
   }
 
@@ -115,7 +115,7 @@ public final class DatePickerView: UIView {
       return first ? .first : .middle
     }
 
-    if indexPath.item % 7 == 6 || calendar.isDate(date, equalTo: endOfMonth, toGranularity: .day){
+    if indexPath.item % 7 == 6 || calendar.isDate(date, equalTo: endOfMonth, toGranularity: .day) {
       last = true
     }
 
@@ -132,7 +132,7 @@ public final class DatePickerView: UIView {
   }
 
   private func isActiveDate(_ date: Date) -> Bool {
-    return calendar.isDate(date, inSameDayAs: minimumDate) ||
+    calendar.isDate(date, inSameDayAs: minimumDate) ||
       calendar.isDate(date, inSameDayAs: maximumDate) ||
       (date >= minimumDate && date <= maximumDate)
   }
@@ -154,21 +154,20 @@ public final class DatePickerView: UIView {
 
     if calendar.isDate(date, inSameDayAs: endDate) {
       state = .last
-    } else if date > startDate && date < endDate {
+    } else if date > startDate, date < endDate {
       state = .middle
     }
 
     return state
   }
-
 }
 
 extension DatePickerView: UICollectionViewDataSource {
-  public func numberOfSections(in collectionView: UICollectionView) -> Int {
+  public func numberOfSections(in _: UICollectionView) -> Int {
     numberOfMonths
   }
 
-  public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  public func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     var components = DateComponents()
     components.year = year
     components.month = section + firstMonth
@@ -177,7 +176,7 @@ extension DatePickerView: UICollectionViewDataSource {
     return range.count * 7
   }
 
-  public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+  public func collectionView(_: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = cellStrategy.cell(positionInRange: positionInRange(indexPath),
                                  positionInRow: positionInRow(indexPath),
                                  indexPath: indexPath)
@@ -203,7 +202,7 @@ extension DatePickerView: UICollectionViewDataSource {
       let date = calendar.date(from: components)
       let realComponents = calendar.dateComponents([.month, .year], from: date!)
       header.config("\(calendar.standaloneMonthSymbols[realComponents.month! - 1].capitalized) \(realComponents.year!)",
-                    weekdays: calendar.shortStandaloneWeekdaySymbols.map { $0.capitalized },
+                    weekdays: calendar.shortStandaloneWeekdaySymbols.map(\.capitalized),
                     firstWeekday: calendar.firstWeekday)
       return header
     default:
@@ -213,12 +212,12 @@ extension DatePickerView: UICollectionViewDataSource {
 }
 
 extension DatePickerView: UICollectionViewDelegate {
-  public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+  public func collectionView(_: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
     guard let date = dateAtIndexPath(indexPath) else { return false }
     return isActiveDate(date)
   }
 
-  public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+  public func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     guard let date = dateAtIndexPath(indexPath) else { fatalError() }
     delegate?.datePickerView(self, didSelect: date)
   }

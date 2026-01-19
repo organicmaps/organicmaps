@@ -1,8 +1,7 @@
-import XCTest
 @testable import Organic_Maps__Debug_
+import XCTest
 
 final class TrackRecordingManagerTests: XCTestCase {
-
   private var trackRecordingManager: TrackRecordingManager!
 
   private var mockTrackRecorder: MockTrackRecorder.Type!
@@ -61,7 +60,7 @@ final class TrackRecordingManagerTests: XCTestCase {
   func test_GivenStartRecording_WhenLocationDisabled_ThenShouldFail() {
     mockLocationService.locationIsProhibited = true
     let expectation = expectation(description: "Location is prohibited")
-    trackRecordingManager.start() { result in
+    trackRecordingManager.start { result in
       switch result {
       case .success:
         XCTFail("Should not succeed")
@@ -75,7 +74,7 @@ final class TrackRecordingManagerTests: XCTestCase {
       }
     }
     wait(for: [expectation], timeout: 1.0)
-    XCTAssertFalse(self.mockTrackRecorder.startTrackRecordingCalled)
+    XCTAssertFalse(mockTrackRecorder.startTrackRecordingCalled)
     XCTAssertTrue(trackRecordingManager.recordingState == .inactive)
   }
 
@@ -133,11 +132,11 @@ private final class MockTrackRecorder: TrackRecorder {
   }
 
   static func isTrackRecordingEnabled() -> Bool {
-    return trackRecordingIsEnabled
+    trackRecordingIsEnabled
   }
 
   static func isTrackRecordingEmpty() -> Bool {
-    return trackRecordingIsEmpty
+    trackRecordingIsEmpty
   }
 
   static func startTrackRecording() {
@@ -150,11 +149,11 @@ private final class MockTrackRecorder: TrackRecorder {
     trackRecordingIsEnabled = false
   }
 
-  static func saveTrackRecording(withName name: String) {
+  static func saveTrackRecording(withName _: String) {
     saveTrackRecordingCalled = true
   }
 
-  static func setTrackRecordingUpdateHandler(_ handler: ((TrackInfo) -> Void)?) {}
+  static func setTrackRecordingUpdateHandler(_: ((TrackInfo) -> Void)?) {}
 
   static func trackRecordingElevationInfo() -> ElevationProfileData {
     ElevationProfileData()
@@ -171,7 +170,7 @@ private final class MockLocationService: LocationService {
   }
 
   static func isLocationProhibited() -> Bool {
-    return locationIsProhibited
+    locationIsProhibited
   }
 
   static func checkLocationStatus() {
@@ -183,7 +182,7 @@ final class MockTrackRecordingActivityManager: TrackRecordingActivityManager {
   var startCalled = false
   var stopCalled = false
 
-  func start(with info: TrackInfo) throws {
+  func start(with _: TrackInfo) throws {
     startCalled = true
   }
 
@@ -191,5 +190,5 @@ final class MockTrackRecordingActivityManager: TrackRecordingActivityManager {
     stopCalled = true
   }
 
-  func update(_ info: TrackInfo) {}
+  func update(_: TrackInfo) {}
 }

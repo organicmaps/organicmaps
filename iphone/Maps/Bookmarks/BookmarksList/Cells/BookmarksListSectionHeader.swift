@@ -5,7 +5,7 @@ final class BookmarksListSectionHeader: UITableViewHeaderFooterView {
   typealias VisibilityHandlerClosure = () -> Void
   var visibilityHandler: VisibilityHandlerClosure?
 
-  @IBAction private func onVisibilityButton(_ sender: UIButton) {
+  @IBAction private func onVisibilityButton(_: UIButton) {
     visibilityHandler?()
   }
 

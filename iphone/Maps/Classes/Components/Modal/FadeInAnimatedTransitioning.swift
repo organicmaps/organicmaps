@@ -1,6 +1,6 @@
 final class FadeInAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
-  func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-    return kDefaultAnimationDuration
+  func transitionDuration(using _: UIViewControllerContextTransitioning?) -> TimeInterval {
+    kDefaultAnimationDuration
   }
 
   func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -9,7 +9,7 @@ final class FadeInAnimatedTransitioning: NSObject, UIViewControllerAnimatedTrans
     presentedView.alpha = 0
     UIView.animate(withDuration: transitionDuration(using: transitionContext),
                    animations: {
-                    presentedView.alpha = 1
-    }) { transitionContext.completeTransition($0) }
+                     presentedView.alpha = 1
+                   }) { transitionContext.completeTransition($0) }
   }
 }

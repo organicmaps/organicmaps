@@ -1,5 +1,4 @@
 class SettingsTableViewDetailedSwitchCell: SettingsTableViewSwitchCell {
-
   override func awakeFromNib() {
     super.awakeFromNib()
     styleDetail()

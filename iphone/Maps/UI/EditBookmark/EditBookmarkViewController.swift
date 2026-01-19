@@ -15,7 +15,7 @@ final class EditBookmarkViewController: MWMTableViewController {
     case bookmarkGroup
     case count
   }
-  
+
   private var editingCompleted: ((Bool) -> Void)?
 
   private var placePageData: PlacePageData?
@@ -51,7 +51,7 @@ final class EditBookmarkViewController: MWMTableViewController {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-        updateBookmarkIfNeeded()
+    updateBookmarkIfNeeded()
   }
 
   deinit {
@@ -79,24 +79,24 @@ final class EditBookmarkViewController: MWMTableViewController {
   func configure(with placePageData: PlacePageData) {
     guard let bookmarkData = placePageData.bookmarkData else { fatalError("placePageData and bookmarkData can't be nil") }
     self.placePageData = placePageData
-    
+
     bookmarkTitle = placePageData.previewData.title
     bookmarkDescription = bookmarkData.bookmarkDescription
     bookmarkGroupTitle = bookmarkData.bookmarkCategory
     bookmarkId = bookmarkData.bookmarkId
     bookmarkGroupId = bookmarkData.bookmarkGroupId
     bookmarkColor = bookmarkData.color
-    
+
     editingCompleted = nil
   }
 
   // MARK: - Table view data source
 
-  override func numberOfSections(in tableView: UITableView) -> Int {
+  override func numberOfSections(in _: UITableView) -> Int {
     Sections.count.rawValue
   }
 
-  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch Sections(rawValue: section) {
     case .info:
       return InfoSectionRows.count.rawValue
@@ -127,7 +127,7 @@ final class EditBookmarkViewController: MWMTableViewController {
         cell.imageView?.image = UIImage(named: "ic_folder")
         cell.imageView?.setStyle(.black)
         cell.accessoryType = .disclosureIndicator
-        return cell;
+        return cell
       default:
         fatalError()
       }
@@ -217,19 +217,19 @@ extension EditBookmarkViewController: BookmarkTitleCellDelegate {
 }
 
 extension EditBookmarkViewController: MWMNoteCellDelegate {
-  func cell(_ cell: MWMNoteCell, didChangeSizeAndText text: String) {
+  func cell(_: MWMNoteCell, didChangeSizeAndText _: String) {
     UIView.setAnimationsEnabled(false)
     tableView.refresh()
     UIView.setAnimationsEnabled(true)
   }
 
-  func cell(_ cell: MWMNoteCell, didFinishEditingWithText text: String) {
+  func cell(_: MWMNoteCell, didFinishEditingWithText text: String) {
     bookmarkDescription = text
   }
 }
 
 extension EditBookmarkViewController: MWMButtonCellDelegate {
-  func cellDidPressButton(_ cell: UITableViewCell) {
+  func cellDidPressButton(_: UITableViewCell) {
     BookmarksManager.shared().deleteBookmark(bookmarkId)
     if let placePageData = placePageData {
       FrameworkHelper.updateAfterDeleteBookmark()
@@ -250,6 +250,7 @@ extension EditBookmarkViewController: SelectBookmarkGroupViewControllerDelegate 
 }
 
 // MARK: - BookmarksObserver
+
 extension EditBookmarkViewController: BookmarksObserver {
   func onBookmarksLoadFinished() {
     updateBookmarkIfNeeded()

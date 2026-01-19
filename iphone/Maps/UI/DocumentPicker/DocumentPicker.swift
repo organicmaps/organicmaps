@@ -22,8 +22,9 @@ final class DocumentPicker: NSObject {
 }
 
 // MARK: - UIDocumentPickerDelegate
+
 extension DocumentPicker: UIDocumentPickerDelegate {
-  func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+  func documentPicker(_: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
     completionHandler?(urls)
   }
 }

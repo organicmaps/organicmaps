@@ -1,5 +1,5 @@
 @objc class BackgroundFetchTask: NSObject {
-  var frameworkType: BackgroundFetchTaskFrameworkType { return .none }
+  var frameworkType: BackgroundFetchTaskFrameworkType { .none }
 
   private var backgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
 
@@ -7,7 +7,7 @@
 
   func start(completion: @escaping BackgroundFetchScheduler.FetchResultHandler) {
     completionHandler = completion
-    backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(withName:description,
+    backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(withName: description,
                                                                         expirationHandler: {
                                                                           self.finish(.failed)
                                                                         })
@@ -29,10 +29,10 @@
 @objc(MWMBackgroundEditsUpload)
 final class BackgroundEditsUpload: BackgroundFetchTask {
   override fileprivate func fire() {
-    MWMEditorHelper.uploadEdits(self.finish)
+    MWMEditorHelper.uploadEdits(finish)
   }
 
   override var description: String {
-    return "Edits upload"
+    "Edits upload"
   }
 }

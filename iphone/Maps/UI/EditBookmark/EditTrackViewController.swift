@@ -6,15 +6,15 @@ final class EditTrackViewController: MWMTableViewController {
     case delete
     case count
   }
-  
+
   private enum InfoSectionRows: Int {
     case title
     case color
-    //case lineWidth // TODO: possible new section & ability - edit track line width
+    // case lineWidth // TODO: possible new section & ability - edit track line width
     case bookmarkGroup
     case count
   }
-  
+
   private var editingCompleted: (Bool) -> Void
 
   private var placePageData: PlacePageData?
@@ -29,16 +29,16 @@ final class EditTrackViewController: MWMTableViewController {
   @objc
   init(trackId: MWMTrackID, editCompletion completion: @escaping (Bool) -> Void) {
     self.trackId = trackId
-    
+
     let track = bookmarksManager.track(withId: trackId)
-    self.trackTitle = track.trackName
-    self.trackColor = track.trackColor
+    trackTitle = track.trackName
+    trackColor = track.trackColor
 
     let category = bookmarksManager.category(forTrackId: trackId)
-    self.trackGroupId = category.categoryId
-    self.trackGroupTitle = category.title
+    trackGroupId = category.categoryId
+    trackGroupTitle = category.title
 
-    self.editingCompleted = completion
+    editingCompleted = completion
     super.init(style: .grouped)
   }
 
@@ -51,7 +51,8 @@ final class EditTrackViewController: MWMTableViewController {
     removeFromBookmarksManagerObserverList()
   }
 
-  required init?(coder: NSCoder) {
+  @available(*, unavailable)
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -68,14 +69,14 @@ final class EditTrackViewController: MWMTableViewController {
 
     addToBookmarksManagerObserverList()
   }
-    
+
   // MARK: - Table view data source
-  
-  override func numberOfSections(in tableView: UITableView) -> Int {
+
+  override func numberOfSections(in _: UITableView) -> Int {
     Sections.count.rawValue
   }
-  
-  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+  override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch Sections(rawValue: section) {
     case .info:
       return InfoSectionRows.count.rawValue
@@ -85,7 +86,7 @@ final class EditTrackViewController: MWMTableViewController {
       fatalError()
     }
   }
-  
+
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     switch Sections(rawValue: indexPath.section) {
     case .info:
@@ -106,7 +107,7 @@ final class EditTrackViewController: MWMTableViewController {
         cell.imageView?.image = UIImage(named: "ic_folder")
         cell.imageView?.setStyle(.black)
         cell.accessoryType = .disclosureIndicator
-        return cell;
+        return cell
       default:
         fatalError()
       }
@@ -118,7 +119,7 @@ final class EditTrackViewController: MWMTableViewController {
       fatalError()
     }
   }
-  
+
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     switch InfoSectionRows(rawValue: indexPath.row) {
@@ -130,7 +131,7 @@ final class EditTrackViewController: MWMTableViewController {
       break
     }
   }
-  
+
   // MARK: - Private
 
   private func updateTrackIfNeeded() {
@@ -210,6 +211,7 @@ extension EditTrackViewController: BookmarkColorViewControllerDelegate {
 }
 
 // MARK: - SelectBookmarkGroupViewControllerDelegate
+
 extension EditTrackViewController: SelectBookmarkGroupViewControllerDelegate {
   func bookmarkGroupViewController(_ viewController: SelectBookmarkGroupViewController,
                                    didSelect groupTitle: String,
@@ -223,6 +225,7 @@ extension EditTrackViewController: SelectBookmarkGroupViewControllerDelegate {
 }
 
 // MARK: - BookmarksObserver
+
 extension EditTrackViewController: BookmarksObserver {
   func onBookmarksLoadFinished() {
     updateTrackIfNeeded()

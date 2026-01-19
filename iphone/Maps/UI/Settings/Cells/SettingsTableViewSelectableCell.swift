@@ -1,6 +1,5 @@
 @objc
 final class SettingsTableViewSelectableCell: MWMTableViewCell {
-
   override func awakeFromNib() {
     super.awakeFromNib()
     setupCell()
