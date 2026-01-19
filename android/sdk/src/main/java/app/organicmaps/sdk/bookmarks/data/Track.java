@@ -82,7 +82,8 @@ public final class Track extends MapObject
 
   public void toggleVisibility()
   {
-    setVisibility(!isVisible());
+    mVisible = !mVisible;
+    nativeSetTrackVisibility(mId, mVisible);
   }
 
   @ColorInt
@@ -100,12 +101,6 @@ public final class Track extends MapObject
   public boolean isVisible()
   {
     return mVisible;
-  }
-
-  public void setVisibility(boolean isVisible)
-  {
-    mVisible = isVisible;
-    nativeSetTrackVisibility(mId, mVisible);
   }
 
   public long getCategoryId()
