@@ -25,6 +25,9 @@
 /* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "Ara";
 
+/* Placeholder text for search box to clarify that the search does not look for places outside downloaded maps */
+"search_hint" = "İndirilen haritalarda arama";
+
 /* View and button titles for accessibility */
 "zoom_to_country" = "Haritada göster";
 
