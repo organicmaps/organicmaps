@@ -96,16 +96,11 @@ public final class BookmarkCategory implements Parcelable
     mIsVisible = nativeIsVisible(mId);
     return mIsVisible;
   }
-
-  public void setVisibility(boolean isVisible)
-  {
-    mIsVisible = isVisible;
-    nativeSetVisibility(mId, mIsVisible);
-  }
-
+  
   public void toggleVisibility()
   {
-    setVisibility(!isVisible());
+    mIsVisible = !mIsVisible;
+    nativeSetVisibility(mId, mIsVisible);
   }
 
   public int size()
