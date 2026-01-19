@@ -365,6 +365,11 @@ public class Holders
                                       bookmark.getIcon().getResId(), R.dimen.bookmark_icon_size, mIcon.getContext());
       mIcon.setImageDrawable(circle);
     }
+
+    public void setBookmarkIconClickListener(IconClickListener listener)
+    {
+      mIcon.setOnClickListener(v -> listener.onItemClick((ImageView) v, getBindingAdapterPosition()));
+    }
   }
 
   static class TrackViewHolder extends BaseBookmarkHolder

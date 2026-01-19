@@ -36,6 +36,7 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.sdk.bookmarks.data.CategoryDataSource;
 import app.organicmaps.sdk.bookmarks.data.FileType;
+import app.organicmaps.sdk.bookmarks.data.Icon;
 import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
 import app.organicmaps.sdk.bookmarks.data.SortedBlock;
 import app.organicmaps.sdk.bookmarks.data.Track;
@@ -628,26 +629,51 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     BookmarkListAdapter adapter = getBookmarkListAdapter();
 
     mSelectedPosition = position;
-    final Track mTrack = (Track) adapter.getItem(mSelectedPosition);
-    if (mTrack == null)
+    final Object item = adapter.getItem(mSelectedPosition);
+    if (item == null)
       return;
     final Bundle args = new Bundle();
-    args.putInt(BookmarkColorDialogFragment.ICON_COLOR, PredefinedColors.getPredefinedColorIndex(mTrack.getColor()));
     final FragmentManager manager = getChildFragmentManager();
     String className = BookmarkColorDialogFragment.class.getName();
     final FragmentFactory factory = manager.getFragmentFactory();
     final BookmarkColorDialogFragment dialogFragment =
         (BookmarkColorDialogFragment) factory.instantiate(getContext().getClassLoader(), className);
-    dialogFragment.setArguments(args);
-    dialogFragment.setOnColorSetListener((colorPos) -> {
-      int from = mTrack.getColor();
-      int to = PredefinedColors.getColor(colorPos);
-      if (from == to)
-        return;
-      mTrack.setColor(to);
-      Drawable circle = Graphics.drawCircle(to, R.dimen.track_circle_size, requireContext().getResources());
-      v.setImageDrawable(circle);
-    });
+    int type = adapter.getItemViewType(position);
+
+    if (type == BookmarkListAdapter.TYPE_TRACK)
+    {
+      final Track mTrack = (Track) adapter.getItem(mSelectedPosition);
+      args.putInt(BookmarkColorDialogFragment.ICON_COLOR, PredefinedColors.getPredefinedColorIndex(mTrack.getColor()));
+      dialogFragment.setArguments(args);
+      dialogFragment.setOnColorSetListener((colorPos) -> {
+        int from = mTrack.getColor();
+        int to = PredefinedColors.getColor(colorPos);
+        if (from == to)
+          return;
+        mTrack.setColor(to);
+        Drawable circle = Graphics.drawCircle(to, R.dimen.track_circle_size, requireContext().getResources());
+        v.setImageDrawable(circle);
+      });
+    }
+    else if (type == BookmarkListAdapter.TYPE_BOOKMARK)
+    {
+      final BookmarkInfo bookmark = (BookmarkInfo) item;
+      args.putInt(BookmarkColorDialogFragment.ICON_COLOR,
+                  PredefinedColors.getPredefinedColorIndex(bookmark.getIcon().getColor()));
+      args.putInt(BookmarkColorDialogFragment.ICON_RES, bookmark.getIcon().getResId());
+      dialogFragment.setArguments(args);
+      dialogFragment.setOnColorSetListener((colorPos) -> {
+        int from = bookmark.getIcon().getColor();
+        int to = PredefinedColors.getColor(colorPos);
+        if (from == to)
+          return;
+        Icon newIcon = new Icon(PredefinedColors.getPredefinedColorIndex(to), bookmark.getIcon().getType());
+        bookmark.update(bookmark.getName(), newIcon, bookmark.getDescription());
+        Drawable icon = Graphics.drawCircleAndImage(to, R.dimen.track_circle_size, bookmark.getIcon().getResId(),
+                                                    R.dimen.bookmark_icon_size, requireContext());
+        v.setImageDrawable(icon);
+      });
+    }
 
     dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
   }
