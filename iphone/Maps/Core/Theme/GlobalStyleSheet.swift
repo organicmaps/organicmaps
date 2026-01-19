@@ -90,7 +90,7 @@ extension GlobalStyleSheet: IStyleSheet {
         s.exclusions = [String(describing: UIDatePicker.self), "_UIActivityUserDefaultsActivityCell"]
       }
     case .tableViewCell:
-      return .addFrom(Self.tableCell) { s in
+      return .addFrom(Self.tableCell) { _ in
       }
     case .defaultTableViewCell:
       return .add { s in
@@ -200,7 +200,7 @@ extension GlobalStyleSheet: IStyleSheet {
         s.coloring = MWMButtonColoring.black
         s.cornerRadius = .buttonDefault
         s.imageContainerInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        s.shadowColor = UIColor(0,0,0,alpha20)
+        s.shadowColor = UIColor(0, 0, 0, alpha20)
         s.shadowOpacity = 1
         s.shadowOffset = CGSize(width: 0, height: 1)
         s.onTintColor = .red
@@ -255,7 +255,7 @@ extension GlobalStyleSheet: IStyleSheet {
       return .add { s in
         s.cornerRadius = .buttonDefault
         s.shadowRadius = 2
-        s.shadowColor = UIColor(0,0,0,alpha26)
+        s.shadowColor = UIColor(0, 0, 0, alpha26)
         s.shadowOpacity = 1
         s.shadowOffset = CGSize(width: 0, height: 1)
         s.backgroundColor = colors.white
@@ -265,7 +265,7 @@ extension GlobalStyleSheet: IStyleSheet {
       return .add { s in
         s.cornerRadius = .modalSheet
         s.shadowRadius = 6
-        s.shadowColor = UIColor(0,0,0,alpha20)
+        s.shadowColor = UIColor(0, 0, 0, alpha20)
         s.shadowOpacity = 1
         s.shadowOffset = CGSize(width: 0, height: 3)
         s.backgroundColor = colors.alertBackground

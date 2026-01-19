@@ -5,8 +5,8 @@ enum ChartYAxisViewAlignment {
   case right
 }
 
-fileprivate class ChartYAxisInnerView: UIView {
-  override class var layerClass: AnyClass { return CAShapeLayer.self }
+private class ChartYAxisInnerView: UIView {
+  override class var layerClass: AnyClass { CAShapeLayer.self }
 
   private static let font = UIFont.systemFont(ofSize: 12, weight: .regular)
   var lowerBound: CGFloat = 0
@@ -18,28 +18,28 @@ fileprivate class ChartYAxisInnerView: UIView {
   let upperLabelBackground = UIView()
   var alignment: ChartYAxisViewAlignment = .left
 
-  var font: UIFont = UIFont.systemFont(ofSize: 12, weight: .regular) {
+  var font: UIFont = .systemFont(ofSize: 12, weight: .regular) {
     didSet {
       lowerLabel.font = font
       upperLabel.font = font
     }
   }
 
-  var textColor: UIColor = UIColor(white: 0, alpha: 0.3) {
+  var textColor: UIColor = .init(white: 0, alpha: 0.3) {
     didSet {
       lowerLabel.textColor = textColor
       upperLabel.textColor = textColor
     }
   }
 
-  var textBackgroundColor: UIColor = UIColor(white: 1, alpha: 0.7) {
+  var textBackgroundColor: UIColor = .init(white: 1, alpha: 0.7) {
     didSet {
       lowerLabelBackground.backgroundColor = textBackgroundColor
       upperLabelBackground.backgroundColor = textBackgroundColor
     }
   }
 
-  var gridColor: UIColor = UIColor.white {
+  var gridColor: UIColor = .white {
     didSet {
       shapeLayer.strokeColor = gridColor.cgColor
     }
@@ -48,7 +48,7 @@ fileprivate class ChartYAxisInnerView: UIView {
   private var path: UIBezierPath?
 
   var shapeLayer: CAShapeLayer {
-    return layer as! CAShapeLayer
+    layer as! CAShapeLayer
   }
 
   override init(frame: CGRect) {
@@ -81,7 +81,7 @@ fileprivate class ChartYAxisInnerView: UIView {
       lowerLabelBackground.topAnchor.constraint(equalTo: topAnchor, constant: 5),
       lowerLabelBackground.rightAnchor.constraint(equalTo: rightAnchor, constant: -5),
       upperLabelBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
-      upperLabelBackground.rightAnchor.constraint(equalTo: rightAnchor, constant:  -5)
+      upperLabelBackground.rightAnchor.constraint(equalTo: rightAnchor, constant: -5),
     ])
 
     lowerLabel.textColor = textColor
@@ -94,14 +94,15 @@ fileprivate class ChartYAxisInnerView: UIView {
     shapeLayer.lineWidth = 1
   }
 
-  required init?(coder: NSCoder) {
+  @available(*, unavailable)
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    if upperBound > 0 && lowerBound > 0 {
+    if upperBound > 0, lowerBound > 0 {
       updateGrid()
     }
 
@@ -151,8 +152,8 @@ fileprivate class ChartYAxisInnerView: UIView {
     if animationStyle != .none {
       let timingFunction = CAMediaTimingFunction(name: animationStyle == .interactive ? .linear : .easeInEaseOut)
       if shapeLayer.animationKeys()?.contains("path") ?? false,
-        let presentation = shapeLayer.presentation(),
-        let path = presentation.path {
+         let presentation = shapeLayer.presentation(),
+         let path = presentation.path {
         shapeLayer.removeAnimation(forKey: "path")
         shapeLayer.path = path
       }
@@ -174,25 +175,25 @@ class ChartYAxisView: UIView {
   var upperBound: CGFloat = 0
   var alignment: ChartYAxisViewAlignment = .right
 
-  var font: UIFont = UIFont.systemFont(ofSize: 12, weight: .regular) {
+  var font: UIFont = .systemFont(ofSize: 12, weight: .regular) {
     didSet {
       gridView?.font = font
     }
   }
 
-  var textColor: UIColor = UIColor(white: 0, alpha: 0.3) {
+  var textColor: UIColor = .init(white: 0, alpha: 0.3) {
     didSet {
       gridView?.textColor = textColor
     }
   }
 
-  var textBackgroundColor: UIColor = UIColor(white: 0, alpha: 0.3) {
+  var textBackgroundColor: UIColor = .init(white: 0, alpha: 0.3) {
     didSet {
       gridView?.textBackgroundColor = textBackgroundColor
     }
   }
 
-  var gridColor: UIColor = UIColor(white: 0, alpha: 0.3) {
+  var gridColor: UIColor = .init(white: 0, alpha: 0.3) {
     didSet {
       gridView?.gridColor = gridColor
     }
@@ -229,8 +230,8 @@ class ChartYAxisView: UIView {
                      upperLabelText: upperLabel,
                      steps: steps)
         gv.alpha = 0
-        gv.updateBounds(lower: lower, upper:upper, animationStyle: animationStyle)
-        gridView.updateBounds(lower: lower, upper:upper, animationStyle: animationStyle)
+        gv.updateBounds(lower: lower, upper: upper, animationStyle: animationStyle)
+        gridView.updateBounds(lower: lower, upper: upper, animationStyle: animationStyle)
         UIView.animate(withDuration: animationStyle.rawValue, animations: {
           gv.alpha = 1
           gridView.alpha = 0

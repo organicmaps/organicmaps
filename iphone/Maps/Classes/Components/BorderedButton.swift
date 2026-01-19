@@ -1,6 +1,5 @@
 @objc(MWMBorderedButton)
 final class BorderedButton: UIButton {
-
   private var borderColor: UIColor?
   private var borderHighlightedColor: UIColor?
   private var borderDisabledColor: UIColor?

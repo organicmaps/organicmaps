@@ -1,7 +1,7 @@
 extension UIView {
   @objc func applyTheme() {
-    if type(of: self.superview) == UINavigationBar.self {
-      return;
+    if type(of: superview) == UINavigationBar.self {
+      return
     }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {

@@ -9,7 +9,6 @@ enum PlacePageEditData {
 }
 
 final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableDetailsSectionInteractor {
-
   let presenter: PlacePageExpandableDetailsSectionPresenter
   var data: PlacePageEditData? {
     didSet {
@@ -17,6 +16,7 @@ final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableD
       reloadData()
     }
   }
+
   weak var delegate: PlacePageEditBookmarkOrTrackViewControllerDelegate?
 
   init(presenter: PlacePageExpandableDetailsSectionPresenter,
@@ -81,7 +81,7 @@ final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableD
       .updateTitle(category ?? ""),
       .updateIcon(editColorImage),
       .updateAccessory(.ic24PxEdit),
-      .updateExpandableText(description, isHTML: isHtmlDescription)
+      .updateExpandableText(description, isHTML: isHtmlDescription),
     ])
   }
 
@@ -129,9 +129,10 @@ final class PlacePageEditBookmarkAndTrackSectionInteractor: PlacePageExpandableD
 }
 
 // MARK: - SelectBookmarkGroupViewControllerDelegate
+
 extension PlacePageEditBookmarkAndTrackSectionInteractor: SelectBookmarkGroupViewControllerDelegate {
   func bookmarkGroupViewController(_ viewController: SelectBookmarkGroupViewController,
-                                   didSelect groupTitle: String,
+                                   didSelect _: String,
                                    groupId: MWMMarkGroupID) {
     viewController.dismiss(animated: true)
     update(category: groupId)

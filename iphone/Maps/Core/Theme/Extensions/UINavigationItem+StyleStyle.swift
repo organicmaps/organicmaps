@@ -1,10 +1,10 @@
-fileprivate struct AssociatedKeys {
+private enum AssociatedKeys {
   static var styleName: UInt8 = 0
   static var isStyleApplied: UInt8 = 1
 }
 
 @objc extension UINavigationItem: StyleApplicable {
-  @objc var styleName: String {
+  var styleName: String {
     get {
       isStyleApplied = false
       guard let value = objc_getAssociatedObject(self, &AssociatedKeys.styleName) as? String else {
@@ -17,7 +17,7 @@ fileprivate struct AssociatedKeys {
     }
   }
 
-  @objc var isStyleApplied: Bool {
+  var isStyleApplied: Bool {
     get {
       guard let value = objc_getAssociatedObject(self, &AssociatedKeys.isStyleApplied) as? Bool else {
         return false

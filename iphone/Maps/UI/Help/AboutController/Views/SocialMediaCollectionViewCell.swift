@@ -1,5 +1,4 @@
 final class SocialMediaCollectionViewCell: UICollectionViewCell {
-
   private let imageView = UIImageView()
 
   override init(frame: CGRect) {
@@ -29,7 +28,7 @@ final class SocialMediaCollectionViewCell: UICollectionViewCell {
       imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
       imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
       imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-      imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+      imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
     ])
   }
 
@@ -38,6 +37,7 @@ final class SocialMediaCollectionViewCell: UICollectionViewCell {
   }
 
   // MARK: - Public
+
   func setImage(_ image: UIImage) {
     imageView.image = image
     updateImageColor()

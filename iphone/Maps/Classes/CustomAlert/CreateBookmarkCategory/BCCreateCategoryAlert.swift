@@ -7,23 +7,24 @@ final class BCCreateCategoryAlert: MWMAlert {
     case nameAlreadyExists
   }
 
-  @IBOutlet private(set) weak var textField: UITextField!
-  @IBOutlet private weak var titleLabel: UILabel!
-  @IBOutlet private weak var textFieldContainer: UIView!
-  @IBOutlet private weak var centerHorizontaly: NSLayoutConstraint!
-  @IBOutlet private weak var errorLabel: UILabel!
-  @IBOutlet private weak var charactersCountLabel: UILabel!
-  @IBOutlet private weak var rightButton: UIButton!
+  @IBOutlet private(set) var textField: UITextField!
+  @IBOutlet private var titleLabel: UILabel!
+  @IBOutlet private var textFieldContainer: UIView!
+  @IBOutlet private var centerHorizontaly: NSLayoutConstraint!
+  @IBOutlet private var errorLabel: UILabel!
+  @IBOutlet private var charactersCountLabel: UILabel!
+  @IBOutlet private var rightButton: UIButton!
 
   private var maxCharactersNum: UInt?
   private var minCharactersNum: UInt?
   private var callback: MWMCheckStringBlock?
 
   @objc static func alert(maxCharachersNum: UInt,
-                    minCharactersNum: UInt,
-                    callback: @escaping MWMCheckStringBlock) -> BCCreateCategoryAlert? {
+                          minCharactersNum: UInt,
+                          callback: @escaping MWMCheckStringBlock) -> BCCreateCategoryAlert? {
     guard let alert = Bundle.main.loadNibNamed(className(), owner: nil, options: nil)?.first
-          as? BCCreateCategoryAlert else {
+      as? BCCreateCategoryAlert
+    else {
       assertionFailure()
       return nil
     }
@@ -61,8 +62,8 @@ final class BCCreateCategoryAlert: MWMAlert {
       process(state: .nameAlreadyExists)
     }
   }
-  
-  @IBAction private func editingChanged(sender: UITextField) {
+
+  @IBAction private func editingChanged(sender _: UITextField) {
     formatCharactersCountText()
     process(state: checkState())
   }
@@ -114,7 +115,7 @@ final class BCCreateCategoryAlert: MWMAlert {
 }
 
 extension BCCreateCategoryAlert: UITextFieldDelegate {
-  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+  func textFieldShouldReturn(_: UITextField) -> Bool {
     if checkState() == .valid {
       rightButtonTap()
     }

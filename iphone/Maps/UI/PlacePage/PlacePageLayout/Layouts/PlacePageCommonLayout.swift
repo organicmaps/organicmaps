@@ -1,5 +1,4 @@
 class PlacePageCommonLayout: NSObject, IPlacePageLayout {
-  
   private let distanceFormatter = DistanceFormatter.self
   private let altitudeFormatter = AltitudeFormatter.self
 
@@ -15,9 +14,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     [headerViewController, previewViewController]
   }
 
-  lazy var bodyViewControllers: [UIViewController] = {
-    configureViewControllers()
-  }()
+  lazy var bodyViewControllers: [UIViewController] = configureViewControllers()
 
   var actionBar: ActionBarViewController? {
     actionBarViewController
@@ -26,10 +23,8 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   var navigationBar: UIViewController? {
     placePageNavigationViewController
   }
-  
-  lazy var headerViewController: PlacePageHeaderViewController = {
-    PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .flexible)
-  }()
+
+  lazy var headerViewController: PlacePageHeaderViewController = PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .flexible)
 
   private lazy var previewViewController: PlacePagePreviewViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePagePreviewViewController.self)
@@ -72,9 +67,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return ProductsViewController(viewModel: viewModel)
   }
 
-  private lazy var buttonsViewController: PlacePageOSMContributionViewController = {
-    PlacePageOSMContributionViewController(data: placePageData.osmContributionData!, delegate: interactor)
-  }()
+  private lazy var buttonsViewController: PlacePageOSMContributionViewController = .init(data: placePageData.osmContributionData!, delegate: interactor)
 
   private lazy var actionBarViewController: ActionBarViewController = {
     let vc = storyboard.instantiateViewController(ofType: ActionBarViewController.self)
@@ -88,14 +81,12 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return vc
   }()
 
-  private lazy var placePageNavigationViewController: PlacePageHeaderViewController = {
-    return PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .fixed)
-  }()
+  private lazy var placePageNavigationViewController: PlacePageHeaderViewController = PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .fixed)
 
   init(interactor: PlacePageInteractor, storyboard: UIStoryboard, data: PlacePageData) {
     self.interactor = interactor
     self.storyboard = storyboard
-    self.placePageData = data
+    placePageData = data
   }
 
   private func configureViewControllers() -> [UIViewController] {
@@ -149,7 +140,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
         break
       }
     }
-    placePageData.onMapNodeProgressUpdate = { [weak self] (downloadedBytes, totalBytes) in
+    placePageData.onMapNodeProgressUpdate = { [weak self] downloadedBytes, totalBytes in
       guard let self = self, let downloadButton = self.actionBarViewController.downloadButton else { return }
       downloadButton.mapDownloadProgress?.progress = CGFloat(downloadedBytes) / CGFloat(totalBytes)
     }
@@ -187,8 +178,8 @@ extension PlacePageCommonLayout: MWMLocationObserver {
   func onLocationUpdate(_ location: CLLocation) {
     if placePageData.isMyPosition {
       let altString = "▲ \(altitudeFormatter.altitudeString(fromMeters: location.altitude))"
-      if location.speed > 0 && location.timestamp.timeIntervalSinceNow >= -2 {
-        let speedMeasure = Measure.init(asSpeed: location.speed)
+      if location.speed > 0, location.timestamp.timeIntervalSinceNow >= -2 {
+        let speedMeasure = Measure(asSpeed: location.speed)
         let speedString = "\(LocationManager.speedSymbolFor(location.speed))\(speedMeasure.valueAsString) \(speedMeasure.unit)"
         previewViewController.updateSpeedAndAltitude("\(altString)  \(speedString)")
       } else {
@@ -205,9 +196,7 @@ extension PlacePageCommonLayout: MWMLocationObserver {
     }
   }
 
-  func onLocationError(_ locationError: MWMLocationStatus) {
-
-  }
+  func onLocationError(_: MWMLocationStatus) {}
 
   private func updateHeading(_ heading: CLLocationDirection) {
     guard let location = lastLocation, heading > 0 else {

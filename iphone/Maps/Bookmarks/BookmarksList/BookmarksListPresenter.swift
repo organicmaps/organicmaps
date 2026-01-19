@@ -13,6 +13,7 @@ final class BookmarksListPresenter {
     case bookmark(MWMMarkID)
     case track(MWMTrackID)
   }
+
   private var editingItem: EditableItem?
 
   init(view: IBookmarksListView,
@@ -23,8 +24,8 @@ final class BookmarksListPresenter {
     self.router = router
     self.delegate = delegate
     self.interactor = interactor
-    self.bookmarkGroup = interactor.getBookmarkGroup()
-    self.subscribeOnGroupReloading()
+    bookmarkGroup = interactor.getBookmarkGroup()
+    subscribeOnGroupReloading()
   }
 
   private func subscribeOnGroupReloading() {
@@ -68,7 +69,7 @@ final class BookmarksListPresenter {
       sections.append(SubgroupsSectionViewModel(title: L("collections"), subgroups: collections, type: .collection))
     }
 
-    let categories = bookmarkGroup.categories.map { SubgroupViewModel($0)}
+    let categories = bookmarkGroup.categories.map { SubgroupViewModel($0) }
     if !categories.isEmpty {
       sections.append(SubgroupsSectionViewModel(title: L("categories"), subgroups: categories, type: .category))
     }
@@ -126,7 +127,7 @@ final class BookmarksListPresenter {
             self?.sort(.name)
           })
         }
-    }
+      }
     sortItems.append(BookmarksListMenuItem(title: L("sort_default"), action: { [weak self] in
       self?.setDefaultSections()
     }))
@@ -154,7 +155,7 @@ final class BookmarksListPresenter {
         fatalError("Unexpected file type")
       }
       return BookmarksListMenuItem(title: title, action: { [weak self] in
-        self?.interactor.exportFile(fileType: fileType) { (status, url) in
+        self?.interactor.exportFile(fileType: fileType) { status, url in
           switch status {
           case .success:
             guard let url = url else { fatalError() }
@@ -177,7 +178,7 @@ final class BookmarksListPresenter {
                                            destructive: true,
                                            enabled: interactor.canDeleteGroup(),
                                            action: { [weak self] in
-                                            self?.interactor.deleteBookmarksGroup()
+                                             self?.interactor.deleteBookmarksGroup()
                                            }))
     view.showMenu(moreItems, from: .more)
   }
@@ -189,7 +190,7 @@ final class BookmarksListPresenter {
 
   private func sort(_ sortingType: BookmarksListSortingType) {
     interactor.sort(sortingType, location: LocationManager.lastLocation()) { [weak self] sortedSections in
-      let sections = sortedSections.map { (bookmarksSection) -> IBookmarksListSectionViewModel in
+      let sections = sortedSections.map { bookmarksSection -> IBookmarksListSectionViewModel in
         if let bookmarks = bookmarksSection.bookmarks, let self = self {
           return BookmarksSectionViewModel(title: bookmarksSection.sectionName, bookmarks: self.mapBookmarks(bookmarks))
         }
@@ -233,9 +234,7 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     interactor.prepareForSearch()
   }
 
-  func deactivateSearch() {
-
-  }
+  func deactivateSearch() {}
 
   func cancelSearch() {
     reload()
@@ -246,7 +245,7 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
       guard let self = self else { return }
       let bookmarks = self.mapBookmarks($0)
       self.view.setSections(bookmarks.isEmpty ? [] : [BookmarksSectionViewModel(title: L("bookmarks"),
-                                                                                 bookmarks: bookmarks)])
+                                                                                bookmarks: bookmarks)])
     }
   }
 
@@ -356,8 +355,8 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
       case .showAll:
         visible = true
       }
-      subgroupsSection.subgroups.forEach {
-        let subgroup = $0 as! SubgroupViewModel
+      for item in subgroupsSection.subgroups {
+        let subgroup = item as! SubgroupViewModel
         interactor.setGroup(subgroup.groupId, visible: visible)
       }
       reload()
@@ -368,7 +367,7 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
 }
 
 extension BookmarksListPresenter: CategorySettingsViewControllerDelegate {
-  func categorySettingsController(_ viewController: CategorySettingsViewController, didEndEditing categoryId: MWMMarkGroupID) {
+  func categorySettingsController(_ viewController: CategorySettingsViewController, didEndEditing _: MWMMarkGroupID) {
     let info = BookmarksListInfo(title: bookmarkGroup.title,
                                  description: bookmarkGroup.detailedAnnotation,
                                  hasDescription: bookmarkGroup.hasDescription,
@@ -379,7 +378,7 @@ extension BookmarksListPresenter: CategorySettingsViewControllerDelegate {
     viewController.goBack()
   }
 
-  func categorySettingsController(_ viewController: CategorySettingsViewController, didDelete categoryId: MWMMarkGroupID) {
+  func categorySettingsController(_ viewController: CategorySettingsViewController, didDelete _: MWMMarkGroupID) {
     if let delegate = delegate as? UIViewController {
       viewController.navigationController?.popToViewController(delegate, animated: true)
     }
@@ -387,35 +386,34 @@ extension BookmarksListPresenter: CategorySettingsViewControllerDelegate {
 }
 
 extension BookmarksListPresenter: SelectBookmarkGroupViewControllerDelegate {
-    func bookmarkGroupViewController(_ viewController: SelectBookmarkGroupViewController,
-                                     didSelect groupTitle: String,
-                                     groupId: MWMMarkGroupID) {
+  func bookmarkGroupViewController(_ viewController: SelectBookmarkGroupViewController,
+                                   didSelect _: String,
+                                   groupId: MWMMarkGroupID) {
+    defer { viewController.dismiss(animated: true) }
 
-      defer { viewController.dismiss(animated: true) }
+    guard groupId != bookmarkGroup.categoryId else { return }
 
-      guard groupId != bookmarkGroup.categoryId else { return }
-      
-      switch editingItem {
-      case .bookmark(let bookmarkId):
-        interactor.moveBookmark(bookmarkId, toGroupId: groupId)
-      case .track(let trackId):
-        interactor.moveTrack(trackId, toGroupId: groupId)
-      case .none:
-        break
-      }
-      
-      editingItem = nil
-      
-      if bookmarkGroup.bookmarksCount > 0 || bookmarkGroup.trackCount > 0 {
-        reload()
-      } else {
-        // if there are no bookmarks or tracks in current group no need to show this group
-        // e.g. popping view controller 2 times
-        if let rootNavigationController = viewController.presentingViewController as? UINavigationController {
-          rootNavigationController.popViewController(animated: false)
-        }
+    switch editingItem {
+    case .bookmark(let bookmarkId):
+      interactor.moveBookmark(bookmarkId, toGroupId: groupId)
+    case .track(let trackId):
+      interactor.moveTrack(trackId, toGroupId: groupId)
+    case .none:
+      break
+    }
+
+    editingItem = nil
+
+    if bookmarkGroup.bookmarksCount > 0 || bookmarkGroup.trackCount > 0 {
+      reload()
+    } else {
+      // if there are no bookmarks or tracks in current group no need to show this group
+      // e.g. popping view controller 2 times
+      if let rootNavigationController = viewController.presentingViewController as? UINavigationController {
+        rootNavigationController.popViewController(animated: false)
       }
     }
+  }
 }
 
 extension IBookmarksSectionViewModel {
@@ -436,16 +434,18 @@ extension ISubgroupsSectionViewModel {
   var visibilityButtonState: BookmarksListVisibilityButtonState {
     subgroups.reduce(false) { $0 ? $0 : $1.isVisible } ? .hideAll : .showAll
   }
+
   var canEdit: Bool { false }
 }
 
-fileprivate struct BookmarkViewModel: IBookmarksListItemViewModel {
+private struct BookmarkViewModel: IBookmarksListItemViewModel {
   let bookmarkId: MWMMarkID
   let name: String
   let subtitle: String
   var image: UIImage {
     bookmarkColor.image(bookmarkIconName)
   }
+
   var colorDidTapAction: (() -> Void)?
 
   private let bookmarkColor: BookmarkColor
@@ -461,13 +461,14 @@ fileprivate struct BookmarkViewModel: IBookmarksListItemViewModel {
   }
 }
 
-fileprivate struct TrackViewModel: IBookmarksListItemViewModel {
+private struct TrackViewModel: IBookmarksListItemViewModel {
   let trackId: MWMTrackID
   let name: String
   let subtitle: String
   var image: UIImage {
     circleImageForColor(trackColor, frameSize: 22)
   }
+
   var colorDidTapAction: (() -> Void)?
 
   private let trackColor: UIColor
@@ -481,7 +482,7 @@ fileprivate struct TrackViewModel: IBookmarksListItemViewModel {
   }
 }
 
-fileprivate struct SubgroupViewModel: ISubgroupViewModel {
+private struct SubgroupViewModel: ISubgroupViewModel {
   let groupId: MWMMarkGroupID
   let subgroupName: String
   let subtitle: String
@@ -497,7 +498,7 @@ fileprivate struct SubgroupViewModel: ISubgroupViewModel {
   }
 }
 
-fileprivate struct BookmarksSectionViewModel: IBookmarksSectionViewModel {
+private struct BookmarksSectionViewModel: IBookmarksSectionViewModel {
   let sectionTitle: String
   let bookmarks: [IBookmarksListItemViewModel]
 
@@ -507,7 +508,7 @@ fileprivate struct BookmarksSectionViewModel: IBookmarksSectionViewModel {
   }
 }
 
-fileprivate struct TracksSectionViewModel: ITracksSectionViewModel {
+private struct TracksSectionViewModel: ITracksSectionViewModel {
   let tracks: [IBookmarksListItemViewModel]
 
   init(tracks: [IBookmarksListItemViewModel]) {
@@ -515,7 +516,7 @@ fileprivate struct TracksSectionViewModel: ITracksSectionViewModel {
   }
 }
 
-fileprivate struct SubgroupsSectionViewModel: ISubgroupsSectionViewModel {
+private struct SubgroupsSectionViewModel: ISubgroupsSectionViewModel {
   let subgroups: [ISubgroupViewModel]
   let sectionTitle: String
   var type: BookmarkGroupType
@@ -527,7 +528,7 @@ fileprivate struct SubgroupsSectionViewModel: ISubgroupsSectionViewModel {
   }
 }
 
-fileprivate struct BookmarksListMenuItem: IBookmarksListMenuItem {
+private struct BookmarksListMenuItem: IBookmarksListMenuItem {
   let title: String
   let destructive: Bool
   let enabled: Bool
@@ -541,7 +542,7 @@ fileprivate struct BookmarksListMenuItem: IBookmarksListMenuItem {
   }
 }
 
-fileprivate struct BookmarksListInfo: IBookmarksListInfoViewModel {
+private struct BookmarksListInfo: IBookmarksListInfoViewModel {
   let title: String
   let description: String
   let hasDescription: Bool

@@ -5,7 +5,7 @@ final class ThemeManager: NSObject {
   private static let instance = ThemeManager()
   private weak var timer: Timer?
 
-  private override init() {
+  override private init() {
     super.init()
   }
 
@@ -47,15 +47,14 @@ final class ThemeManager: NSObject {
       case .vehicleDay: return false
       case .night: fallthrough
       case .vehicleNight: return true
-      case .auto: assert(false); return false
+      case .auto: assertionFailure(); return false
       @unknown default:
         fatalError()
       }
     }(actualTheme)
 
-
     FrameworkHelper.setTheme(actualTheme)
-    if nightMode != newNightMode || StyleManager.shared.hasTheme() == false{
+    if nightMode != newNightMode || StyleManager.shared.hasTheme() == false {
       UIColor.setNightMode(newNightMode)
       if newNightMode {
         StyleManager.shared.setTheme(MainTheme(type: .dark, colors: NightColors(), fonts: Fonts()))
@@ -85,10 +84,10 @@ final class ThemeManager: NSObject {
     UIApplication.shared.delegate?.window??.overrideUserInterfaceStyle = userInterfaceStyle
   }
 
-  @available(iOS, deprecated:13.0)
+  @available(iOS, deprecated: 13.0)
   @objc static var autoUpdates: Bool {
     get {
-      return instance.timer != nil
+      instance.timer != nil
     }
     set {
       if newValue {

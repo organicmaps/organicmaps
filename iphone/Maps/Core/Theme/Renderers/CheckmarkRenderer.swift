@@ -1,4 +1,5 @@
 import Foundation
+
 extension Checkmark {
   @objc override func applyTheme() {
     if styleName.isEmpty {
@@ -6,7 +7,7 @@ extension Checkmark {
     }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {
-        CheckmarkRenderer.render(self, style: style)
+      CheckmarkRenderer.render(self, style: style)
     }
   }
 }
@@ -22,4 +23,3 @@ class CheckmarkRenderer {
     }
   }
 }
-

@@ -1,9 +1,8 @@
-import XCTest
 @testable import Organic_Maps__Debug_
+import XCTest
 
 @available(iOS 18.4, *)
 final class GeoNavigationToOMURLConverterTests: XCTestCase {
-
   private let converter = GeoNavigationToOMURLConverter.self
 
   private let coordinate1 = "1.1,2.2"

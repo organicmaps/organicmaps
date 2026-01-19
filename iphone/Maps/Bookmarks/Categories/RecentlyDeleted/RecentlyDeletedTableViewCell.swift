@@ -1,17 +1,16 @@
 final class RecentlyDeletedTableViewCell: UITableViewCell {
-
   struct ViewModel: Equatable, Hashable {
     let fileName: String
     let fileURL: URL
     let deletionDate: Date
   }
 
-  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+  override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
   }
 
   @available(*, unavailable)
-  required init?(coder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -25,8 +24,8 @@ final class RecentlyDeletedTableViewCell: UITableViewCell {
 
 extension RecentlyDeletedTableViewCell.ViewModel {
   init(_ category: RecentlyDeletedCategory) {
-    self.fileName = category.title
-    self.fileURL = category.fileURL
-    self.deletionDate = category.deletionDate
+    fileName = category.title
+    fileURL = category.fileURL
+    deletionDate = category.deletionDate
   }
 }

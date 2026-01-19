@@ -7,9 +7,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
 
   weak var presenter: PlacePagePresenterProtocol?
 
-  lazy var bodyViewControllers: [UIViewController] = {
-    return configureViewControllers()
-  }()
+  lazy var bodyViewControllers: [UIViewController] = configureViewControllers()
 
   var actionBar: ActionBarViewController? {
     actionBarViewController
@@ -23,9 +21,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
     [headerViewController, previewViewController]
   }
 
-  lazy var headerViewController: PlacePageHeaderViewController = {
-    PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .flexible)
-  }()
+  lazy var headerViewController: PlacePageHeaderViewController = PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .flexible)
 
   private lazy var previewViewController: PlacePagePreviewViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePagePreviewViewController.self)
@@ -33,9 +29,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
     return vc
   }()
 
-  private lazy var placePageNavigationViewController: PlacePageHeaderViewController = {
-    return PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .fixed)
-  }()
+  private lazy var placePageNavigationViewController: PlacePageHeaderViewController = PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .fixed)
 
   private lazy var editTrackViewController: PlacePageExpandableDetailsSectionViewController = {
     let vc = PlacePageExpandableDetailsSectionBuilder.buildEditBookmarkAndTrackSection(data: nil, delegate: interactor)
@@ -66,7 +60,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
   init(interactor: PlacePageInteractor, storyboard: UIStoryboard, data: PlacePageData) {
     self.interactor = interactor
     self.storyboard = storyboard
-    self.placePageData = data
+    placePageData = data
     guard let trackData = data.trackData else {
       fatalError("PlacePageData must contain trackData for the PlacePageTrackLayout")
     }
@@ -89,7 +83,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
     return viewControllers
   }
 
-  func calculateSteps(inScrollView scrollView: UIScrollView, compact: Bool) -> [PlacePageState] {
+  func calculateSteps(inScrollView scrollView: UIScrollView, compact _: Bool) -> [PlacePageState] {
     var steps: [PlacePageState] = []
     let scrollHeight = scrollView.height
     steps.append(.closed(-scrollHeight))

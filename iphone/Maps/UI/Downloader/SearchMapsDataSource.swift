@@ -1,9 +1,9 @@
 class SearchMapsDataSource {
   typealias SearchCallback = (Bool) -> Void
 
-  fileprivate var searchResults: [MapSearchResult] = []
-  fileprivate var searchId = 0
-  fileprivate var onUpdate: SearchCallback?
+  private var searchResults: [MapSearchResult] = []
+  private var searchId = 0
+  private var onUpdate: SearchCallback?
 }
 
 extension SearchMapsDataSource: IDownloaderDataSource {
@@ -28,14 +28,14 @@ extension SearchMapsDataSource: IDownloaderDataSource {
   }
 
   func getParentCountryId() -> String {
-    return Storage.shared().getRootId()
+    Storage.shared().getRootId()
   }
 
   func parentAttributes() -> MapNodeAttributes {
-    return Storage.shared().attributesForRoot()
+    Storage.shared().attributesForRoot()
   }
 
-  func numberOfItems(in section: Int) -> Int {
+  func numberOfItems(in _: Int) -> Int {
     searchResults.count
   }
 
@@ -47,7 +47,7 @@ extension SearchMapsDataSource: IDownloaderDataSource {
     searchResults[indexPath.item].matchedName
   }
 
-  func title(for section: Int) -> String {
+  func title(for _: Int) -> String {
     L("downloader_search_results")
   }
 
@@ -66,7 +66,7 @@ extension SearchMapsDataSource: IDownloaderDataSource {
   func search(_ query: String, locale: String, update: @escaping SearchCallback) {
     searchId += 1
     onUpdate = update
-    FrameworkHelper.search(inDownloader: query, inputLocale: locale) { [weak self, searchId] (results, finished) in
+    FrameworkHelper.search(inDownloader: query, inputLocale: locale) { [weak self, searchId] results, finished in
       if searchId != self?.searchId {
         return
       }

@@ -1,15 +1,14 @@
 @objcMembers
 final class MailComposer: NSObject {
-
   private static let mailComposer = MailComposer()
   private static var topViewController: UIViewController { .topViewController() }
 
-  private override init() {}
+  override private init() {}
 
   /// Composes an email with the provided subject, body and attachment file for the given recipients.
   static func sendEmail(subject: String? = nil, body: String? = nil, toRecipients recipients: [String], attachmentFileURL: URL? = nil) {
     sendEmailWith(subject: subject ?? "",
-                  body: body ?? "" ,
+                  body: body ?? "",
                   toRecipients: recipients,
                   attachmentFileURL: attachmentFileURL)
   }
@@ -18,7 +17,7 @@ final class MailComposer: NSObject {
   static func sendBugReportWith(title: String) {
     func subject() -> String {
       let appInfo = AppInfo.shared()
-      return String(format:"[%@-%@ iOS] %@", appInfo.bundleVersion, appInfo.buildNumber, title)
+      return String(format: "[%@-%@ iOS] %@", appInfo.bundleVersion, appInfo.buildNumber, title)
     }
 
     func body() -> String {
@@ -48,10 +47,10 @@ final class MailComposer: NSObject {
         let mailViewController = MWMMailViewController()
         mailViewController.mailComposeDelegate = mailComposer
         mailViewController.setSubject(subject)
-        mailViewController.setMessageBody(body, isHTML:false)
+        mailViewController.setMessageBody(body, isHTML: false)
         mailViewController.setToRecipients(recipients)
         mailViewController.addAttachmentData(attachmentData, mimeType: "application/zip", fileName: attachmentFileURL.lastPathComponent)
-        topViewController.present(mailViewController, animated: true, completion:nil)
+        topViewController.present(mailViewController, animated: true, completion: nil)
       } else {
         showMailComposingAlert(recipients: recipients)
       }
@@ -60,8 +59,8 @@ final class MailComposer: NSObject {
 
     // Before iOS 14, try to open alternate email apps first, assuming that if users installed them, they're using them.
     let os = ProcessInfo().operatingSystemVersion
-    if (os.majorVersion < 14 && (openGmail(subject: subject, body: body, recipients: recipients) ||
-                                 openOutlook(subject: subject, body: body, recipients: recipients))) {
+    if os.majorVersion < 14, openGmail(subject: subject, body: body, recipients: recipients) ||
+      openOutlook(subject: subject, body: body, recipients: recipients) {
       return
     }
 
@@ -116,18 +115,18 @@ final class MailComposer: NSObject {
   }
 
   private static func showMailComposingAlert(recipients: [String]) {
-    let text = String(format:L("email_error_body"), recipients.joined(separator: ";"))
+    let text = String(format: L("email_error_body"), recipients.joined(separator: ";"))
     let alert = UIAlertController(title: L("email_error_title"), message: text, preferredStyle: .alert)
     let action = UIAlertAction(title: L("ok"), style: .default, handler: nil)
     alert.addAction(action)
     topViewController.present(alert, animated: true, completion: nil)
   }
-
 }
 
 // MARK: - MFMailComposeViewControllerDelegate
+
 extension MailComposer: MFMailComposeViewControllerDelegate {
-  func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+  func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith _: MFMailComposeResult, error _: Error?) {
     controller.dismiss(animated: true, completion: nil)
   }
 }

@@ -22,7 +22,7 @@ final class LoadingOverlayViewController: UIViewController {
     view.addSubview(activityIndicator)
     NSLayoutConstraint.activate([
       activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+      activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
     ])
     view.isUserInteractionEnabled = false
   }

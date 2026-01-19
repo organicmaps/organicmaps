@@ -9,11 +9,10 @@ extension BookmarkGroup {
       return "\(bookmarks), \(tracks)"
     }
 
-    if (bookmarksCount > 0) {
+    if bookmarksCount > 0 {
       return bookmarks
     }
 
     return tracks
-
   }
 }

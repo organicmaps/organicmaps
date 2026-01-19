@@ -1,6 +1,5 @@
 final class RecentlyDeletedCategoriesViewModel: NSObject {
-
-  typealias BookmarksManager = RecentlyDeletedCategoriesManager & BookmarksObservable
+  typealias BookmarksManager = BookmarksObservable & RecentlyDeletedCategoriesManager
 
   enum Section: CaseIterable {
     struct Model: Equatable {
@@ -24,6 +23,7 @@ final class RecentlyDeletedCategoriesViewModel: NSObject {
       }
     }
   }
+
   private(set) var state: State = .nothingSelected
   private(set) var filteredDataSource: [Section.Model] = []
   private(set) var selectedIndexPaths: [IndexPath] = []
@@ -34,7 +34,7 @@ final class RecentlyDeletedCategoriesViewModel: NSObject {
   var onCategoriesIsEmpty: (() -> Void)?
 
   init(bookmarksManager: BookmarksManager) {
-    self.recentlyDeletedCategoriesManager = bookmarksManager
+    recentlyDeletedCategoriesManager = bookmarksManager
     super.init()
     subscribeOnBookmarksManagerNotifications()
     fetchRecentlyDeletedCategories()
@@ -45,6 +45,7 @@ final class RecentlyDeletedCategoriesViewModel: NSObject {
   }
 
   // MARK: - Private methods
+
   private func subscribeOnBookmarksManagerNotifications() {
     recentlyDeletedCategoriesManager.add(self)
   }
@@ -64,11 +65,11 @@ final class RecentlyDeletedCategoriesViewModel: NSObject {
     filteredDataSourceDidChange?(filteredDataSource)
   }
 
-  private func updateSelectionAtIndexPath(_ indexPath: IndexPath, isSelected: Bool) {
+  private func updateSelectionAtIndexPath(_: IndexPath, isSelected: Bool) {
     if isSelected {
       updateState(to: .someSelected)
     } else {
-      let allDeselected = dataSource.allSatisfy { $0.content.isEmpty }
+      let allDeselected = dataSource.allSatisfy(\.content.isEmpty)
       updateState(to: allDeselected ? .nothingSelected : .someSelected)
     }
   }
@@ -77,7 +78,7 @@ final class RecentlyDeletedCategoriesViewModel: NSObject {
     var fileToRemoveURLs: [URL]
     if indexPaths.isEmpty {
       // Remove all without selection.
-      fileToRemoveURLs = dataSource.flatMap { $0.content.map { $0.fileURL } }
+      fileToRemoveURLs = dataSource.flatMap { $0.content.map(\.fileURL) }
       dataSource.removeAll()
     } else {
       fileToRemoveURLs = [URL]()
@@ -94,7 +95,7 @@ final class RecentlyDeletedCategoriesViewModel: NSObject {
   }
 
   private func removeSelectedCategories(completion: ([URL]) -> Void) {
-    let removeAll = selectedIndexPaths.isEmpty || selectedIndexPaths.count == dataSource.flatMap({ $0.content }).count
+    let removeAll = selectedIndexPaths.isEmpty || selectedIndexPaths.count == dataSource.flatMap(\.content).count
     removeCategories(at: removeAll ? [] : selectedIndexPaths, completion: completion)
     selectedIndexPaths.removeAll()
     updateState(to: .nothingSelected)
@@ -102,6 +103,7 @@ final class RecentlyDeletedCategoriesViewModel: NSObject {
 }
 
 // MARK: - Public methods
+
 extension RecentlyDeletedCategoriesViewModel {
   func fetchRecentlyDeletedCategories() {
     let categories = recentlyDeletedCategoriesManager.getRecentlyDeletedCategories()
@@ -192,7 +194,6 @@ extension RecentlyDeletedCategoriesViewModel: BookmarksObserver {
     fetchRecentlyDeletedCategories()
   }
 }
-
 
 private extension Array where Element == RecentlyDeletedCategoriesViewModel.Section.Model {
   func filtered(using searchText: String) -> [Element] {

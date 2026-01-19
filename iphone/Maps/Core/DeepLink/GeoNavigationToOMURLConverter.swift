@@ -2,7 +2,6 @@ import CoreLocation
 
 @available(iOS 18.4, *)
 struct GeoNavigationToOMURLConverter {
-
   private enum Scheme {
     static let geoNavigation = "geo-navigation"
     static let om = "om"
@@ -70,7 +69,8 @@ struct GeoNavigationToOMURLConverter {
     }
 
     guard let components = URLComponents(url: geoURL, resolvingAgainstBaseURL: false),
-          let geoAction = GeoAction(rawValue: components.path.lowercased()) else {
+          let geoAction = GeoAction(rawValue: components.path.lowercased())
+    else {
       LOG(.warning, "Invalid URL: \(geoURL.absoluteString)")
       return nil
     }
@@ -80,7 +80,8 @@ struct GeoNavigationToOMURLConverter {
       guard parts.count == 2,
             let lat = Double(parts[0]),
             let lon = Double(parts[1]),
-            abs(lat) <= 90, abs(lon) <= 180 else {
+            abs(lat) <= 90, abs(lon) <= 180
+      else {
         LOG(.warning, "Failed to parse coordinates: \(s)")
         return nil
       }
@@ -108,7 +109,7 @@ struct GeoNavigationToOMURLConverter {
       if let destination {
         if let source {
           // TODO: (KK) Implement waypoints parsing when it will be supported by the core url parser.
-          if source.coordinate != nil && destination.coordinate != nil {
+          if source.coordinate != nil, destination.coordinate != nil {
             omAction = .route(Route(source: source, destination: destination))
           } else {
             LOG(.warning, "Source and destination must have coordinates to build a route: \(geoURL.absoluteString)")
@@ -138,7 +139,7 @@ struct GeoNavigationToOMURLConverter {
     return buildOMURL(for: omAction)
   }
 
-  static private func buildOMURL(for action: OMAction) -> URL? {
+  private static func buildOMURL(for action: OMAction) -> URL? {
     switch action {
     case .route(let route):
       return buildRouteURL(route, path: action.path)
@@ -151,7 +152,7 @@ struct GeoNavigationToOMURLConverter {
 
   // MARK: - Builders
 
-  static private func buildRouteURL(_ route: Route, path: String) -> URL? {
+  private static func buildRouteURL(_ route: Route, path: String) -> URL? {
     var urlComponents = baseURLComponents(for: path)
     var items: [URLQueryItem] = []
 
@@ -174,7 +175,7 @@ struct GeoNavigationToOMURLConverter {
     return urlComponents.url
   }
 
-  static private func buildMapURL(_ place: Place, path: String) -> URL? {
+  private static func buildMapURL(_ place: Place, path: String) -> URL? {
     var urlComponents = baseURLComponents(for: path)
     var items: [URLQueryItem] = [URLQueryItem(name: OMQueryKey.version, value: OMQueryValue.version1)]
 
@@ -189,7 +190,7 @@ struct GeoNavigationToOMURLConverter {
     return urlComponents.url
   }
 
-  static private func buildSearchURL(_ place: Place, path: String) -> URL? {
+  private static func buildSearchURL(_ place: Place, path: String) -> URL? {
     var urlComponents = baseURLComponents(for: path)
     var items: [URLQueryItem] = []
 
@@ -205,7 +206,7 @@ struct GeoNavigationToOMURLConverter {
     return urlComponents.url
   }
 
-  static private func baseURLComponents(for host: String) -> URLComponents {
+  private static func baseURLComponents(for host: String) -> URLComponents {
     var c = URLComponents()
     c.scheme = Scheme.om
     c.host = host

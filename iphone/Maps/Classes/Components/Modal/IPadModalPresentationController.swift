@@ -1,11 +1,11 @@
 final class IPadModalPresentationController: DimmedModalPresentationController {
-override var frameOfPresentedViewInContainerView: CGRect {
+  override var frameOfPresentedViewInContainerView: CGRect {
     guard let containerView = containerView else { return CGRect.zero }
     let screenSize = UIScreen.main.bounds
     let contentSize = presentedViewController.preferredContentSize
     let r = alternative(iPhone: containerView.bounds,
-                        iPad: CGRect(x: screenSize.width/2 - contentSize.width/2,
-                                     y: screenSize.height/2 - contentSize.height/2,
+                        iPad: CGRect(x: screenSize.width / 2 - contentSize.width / 2,
+                                     y: screenSize.height / 2 - contentSize.height / 2,
                                      width: contentSize.width,
                                      height: contentSize.height))
     return r

@@ -40,8 +40,8 @@ enum OutgoingSynchronizationEvent: Equatable {
 }
 
 final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
-
   // MARK: - Public properties
+
   private var localContentsGatheringIsFinished = false
   private var cloudContentGatheringIsFinished = false
   private var currentLocalContents: LocalContents = []
@@ -53,6 +53,7 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
   }
 
   // MARK: - Public methods
+
   @discardableResult
   func resolveEvent(_ event: IncomingSynchronizationEvent) -> [OutgoingSynchronizationEvent] {
     let outgoingEvents: [OutgoingSynchronizationEvent]
@@ -109,7 +110,7 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
          - all items that are in the cloud but not in the local container will be created in the local container
          - all items that are in the local container but not in the cloud container will be created in the cloud container
          */
-        localContents.forEach { localItem in
+        for localItem in localContents {
           if let cloudItem = cloudContents.downloaded.firstByName(localItem), localItem.lastModificationDate != cloudItem.lastModificationDate {
             if cloudItem.isDownloaded {
               events.append(.resolveInitialSynchronizationConflict(localItem))
@@ -163,20 +164,20 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
 
   private func resolveDidUpdateLocalContents(_ localContents: LocalContentsUpdate) -> [OutgoingSynchronizationEvent] {
     var outgoingEvents = [OutgoingSynchronizationEvent]()
-    localContents.removed.forEach { localItem in
-      guard let cloudItem = self.currentCloudContents.firstByName(localItem) else { return }
+    for localItem in localContents.removed {
+      guard let cloudItem = currentCloudContents.firstByName(localItem) else { continue }
       outgoingEvents.append(.removeCloudItem(cloudItem))
     }
-    localContents.added.forEach { localItem in
-      guard !self.currentCloudContents.containsByName(localItem) else { return }
+    for localItem in localContents.added {
+      guard !currentCloudContents.containsByName(localItem) else { continue }
       outgoingEvents.append(.createCloudItem(with: localItem))
     }
-    localContents.updated.forEach { localItem in
-      guard let cloudItem = self.currentCloudContents.firstByName(localItem) else {
+    for localItem in localContents.updated {
+      guard let cloudItem = currentCloudContents.firstByName(localItem) else {
         outgoingEvents.append(.createCloudItem(with: localItem))
-        return
+        continue
       }
-      guard localItem.lastModificationDate > cloudItem.lastModificationDate else { return }
+      guard localItem.lastModificationDate > cloudItem.lastModificationDate else { continue }
       outgoingEvents.append(.updateCloudItem(with: localItem))
     }
     return outgoingEvents
@@ -190,20 +191,20 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
     cloudContents.added.notDownloaded.forEach { outgoingEvents.append(.startDownloading($0)) }
     cloudContents.updated.notDownloaded.forEach { outgoingEvents.append(.startDownloading($0)) }
 
-    cloudContents.removed.forEach { cloudItem in
-      guard let localItem = self.currentLocalContents.firstByName(cloudItem) else { return }
+    for cloudItem in cloudContents.removed {
+      guard let localItem = currentLocalContents.firstByName(cloudItem) else { continue }
       outgoingEvents.append(.removeLocalItem(localItem))
     }
-    cloudContents.added.downloaded.forEach { cloudItem in
-      guard !self.currentLocalContents.containsByName(cloudItem) else { return }
+    for cloudItem in cloudContents.added.downloaded {
+      guard !currentLocalContents.containsByName(cloudItem) else { continue }
       outgoingEvents.append(.createLocalItem(with: cloudItem))
     }
-    cloudContents.updated.downloaded.forEach { cloudItem in
-      guard let localItem = self.currentLocalContents.firstByName(cloudItem) else {
+    for cloudItem in cloudContents.updated.downloaded {
+      guard let localItem = currentLocalContents.firstByName(cloudItem) else {
         outgoingEvents.append(.createLocalItem(with: cloudItem))
-        return
+        continue
       }
-      guard cloudItem.lastModificationDate > localItem.lastModificationDate else { return }
+      guard cloudItem.lastModificationDate > localItem.lastModificationDate else { continue }
       outgoingEvents.append(.updateLocalItem(with: cloudItem))
     }
     return outgoingEvents
@@ -212,17 +213,17 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
 
 private extension CloudContents {
   var withUnresolvedConflicts: CloudContents {
-    filter { $0.hasUnresolvedConflicts }
+    filter(\.hasUnresolvedConflicts)
   }
 
   var getErrors: [SynchronizationError] {
-     reduce(into: [SynchronizationError](), { partialResult, cloudItem in
-       if let downloadingError = cloudItem.downloadingError, let synchronizationError = downloadingError.ubiquitousError {
+    reduce(into: [SynchronizationError]()) { partialResult, cloudItem in
+      if let downloadingError = cloudItem.downloadingError, let synchronizationError = downloadingError.ubiquitousError {
         partialResult.append(synchronizationError)
       }
-       if let uploadingError = cloudItem.uploadingError, let synchronizationError = uploadingError.ubiquitousError {
+      if let uploadingError = cloudItem.uploadingError, let synchronizationError = uploadingError.ubiquitousError {
         partialResult.append(synchronizationError)
       }
-    })
+    }
   }
 }

@@ -24,7 +24,6 @@ class BottomTabBarViewController: UIViewController {
 
   @objc static var controller: BottomTabBarViewController? { MWMMapViewControlsManager.manager()?.tabBarController }
 
-
   override func viewDidLoad() {
     super.viewDidLoad()
     view.alpha = 0 // Hide the view until it receives a first available area update.
@@ -48,26 +47,26 @@ class BottomTabBarViewController: UIViewController {
     BottomTabBarViewController.controller?.updateAvailableArea(frame)
   }
 
-  @IBAction func onSearchButtonPressed(_ sender: Any) {
+  @IBAction func onSearchButtonPressed(_: Any) {
     presenter.onSearchButtonPressed()
   }
 
-  @IBAction func onHelpButtonPressed(_ sender: Any) {
+  @IBAction func onHelpButtonPressed(_: Any) {
     presenter.onHelpButtonPressed()
   }
 
-  @IBAction func onBookmarksButtonPressed(_ sender: Any) {
+  @IBAction func onBookmarksButtonPressed(_: Any) {
     presenter.onBookmarksButtonPressed()
   }
 
-  @IBAction func onMenuButtonPressed(_ sender: Any) {
+  @IBAction func onMenuButtonPressed(_: Any) {
     presenter.onMenuButtonPressed()
   }
 
-  private func updateAvailableArea(_ frame:CGRect) {
+  private func updateAvailableArea(_ frame: CGRect) {
     avaliableArea = frame
     updateFrame(animated: false)
-    self.view.layoutIfNeeded()
+    view.layoutIfNeeded()
   }
 
   private func updateFrame(animated: Bool) {
@@ -84,12 +83,12 @@ class BottomTabBarViewController: UIViewController {
                      delay: 0,
                      options: [.beginFromCurrentState],
                      animations: {
-        self.view.frame = newFrame
-        self.view.alpha = alpha
-      }, completion: nil)
+                       self.view.frame = newFrame
+                       self.view.alpha = alpha
+                     }, completion: nil)
     } else {
-      self.view.frame = newFrame
-      self.view.alpha = alpha
+      view.frame = newFrame
+      view.alpha = alpha
     }
   }
 

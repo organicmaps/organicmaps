@@ -27,7 +27,7 @@ extension UILabel {
                                                          text: attributedString)
       }
     }
-    return self.sw_setAttributedText(text: attributedString)
+    return sw_setAttributedText(text: attributedString)
   }
 }
 
@@ -44,17 +44,17 @@ class UILabelRenderer: UIViewRenderer {
       control.textAlignment = textAlignment
     }
     if style.attributes != nil,
-      control.isAttributed,
-      let attributedText = control.attributedText {
+       control.isAttributed,
+       let attributedText = control.attributedText {
       control.attributedText = attributedText
     }
   }
 
   class func transformText(style: Style, text: NSAttributedString) -> NSAttributedString {
     if let attributes = style.attributes,
-      attributes.isEmpty == false,
-      let attributedtext = text.mutableCopy() as? NSMutableAttributedString{
-      attributedtext.setAttributes(attributes, range: NSRange(location: 0, length: attributedtext.length));
+       attributes.isEmpty == false,
+       let attributedtext = text.mutableCopy() as? NSMutableAttributedString {
+      attributedtext.setAttributes(attributes, range: NSRange(location: 0, length: attributedtext.length))
       return attributedtext
     }
     return text

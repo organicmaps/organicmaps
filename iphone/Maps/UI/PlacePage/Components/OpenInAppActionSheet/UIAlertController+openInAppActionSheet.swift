@@ -6,7 +6,7 @@ extension UIAlertController {
                                       didSelectApp: @escaping OpenInApplicationCompletionHandler) -> UIAlertController {
     let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-    apps.forEach { app in
+    for app in apps {
       let action = UIAlertAction(title: app.name, style: .default) { _ in
         didSelectApp(app)
       }

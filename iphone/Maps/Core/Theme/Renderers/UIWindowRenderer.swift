@@ -5,17 +5,16 @@ extension UIWindow {
       UIWindowRenderer.render(self, style: style)
     }
   }
+
   @objc func sw_becomeKeyWindow() {
     if !isStyleApplied {
-      self.applyTheme()
+      applyTheme()
     }
-    self.isStyleApplied = true
-    self.sw_becomeKeyWindow();
+    isStyleApplied = true
+    sw_becomeKeyWindow()
   }
 }
 
 class UIWindowRenderer {
-  class func render(_ control: UIView, style: Style) {
-
-  }
+  class func render(_: UIView, style _: Style) {}
 }

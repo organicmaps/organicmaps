@@ -4,7 +4,7 @@ class CarplayPlaceholderView: UIView {
   private let containerView = UIView()
   private let imageView = UIImageView()
   private let descriptionLabel = UILabel()
-  private let switchButton = UIButton(type: .system);
+  private let switchButton = UIButton(type: .system)
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -51,7 +51,7 @@ class CarplayPlaceholderView: UIView {
     switchButton.setTitleColor(UIColor.whitePrimaryText(), for: .normal)
   }
 
-  @objc private func onSwitchButtonTap(_ sender: UIButton) {
+  @objc private func onSwitchButtonTap(_: UIButton) {
     CarPlayService.shared.showOnPhone()
   }
 
@@ -85,7 +85,7 @@ class CarplayPlaceholderView: UIView {
       switchButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontalPadding),
       switchButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -horizontalPadding),
       switchButton.heightAnchor.constraint(equalToConstant: 48),
-      switchButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+      switchButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
     ])
   }
 }

@@ -1,4 +1,3 @@
 extension UIViewController {
-  @objc func applyTheme() {
-  }
+  @objc func applyTheme() {}
 }

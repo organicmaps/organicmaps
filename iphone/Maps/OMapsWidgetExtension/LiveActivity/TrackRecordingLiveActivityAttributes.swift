@@ -7,6 +7,7 @@ struct TrackRecordingLiveActivityAttributes: ActivityAttributes {
       let key: String
       let value: String
     }
+
     let duration: StatisticsViewModel
     let distance: StatisticsViewModel
     let ascent: StatisticsViewModel

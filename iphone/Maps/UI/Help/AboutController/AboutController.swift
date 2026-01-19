@@ -1,7 +1,6 @@
 import OSLog
 
 final class AboutController: MWMViewController {
-
   fileprivate struct AboutInfoTableViewCellModel {
     let title: String
     let image: UIImage?
@@ -44,11 +43,12 @@ final class AboutController: MWMViewController {
   }
 
   @available(*, unavailable)
-  required init?(coder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
   // MARK: - Lifecycle
+
   override func viewDidLoad() {
     super.viewDidLoad()
     setupViews()
@@ -76,6 +76,7 @@ final class AboutController: MWMViewController {
 }
 
 // MARK: - Private
+
 private extension AboutController {
   func setupViews() {
     func setupTitle() {
@@ -122,7 +123,7 @@ private extension AboutController {
       additionalInfoStackView.axis = .vertical
       additionalInfoStackView.spacing = 15
 
-      [AboutInfo.noTracking, .noWifi, .community].forEach({ additionalInfoStackView.addArrangedSubview(InfoView(image: nil, title: $0.title)) })
+      [AboutInfo.noTracking, .noWifi, .community].forEach { additionalInfoStackView.addArrangedSubview(InfoView(image: nil, title: $0.title)) }
     }
 
     func setupDonation() {
@@ -274,7 +275,7 @@ private extension AboutController {
         case .faq:
           self?.navigationController?.pushViewController(FaqController(), animated: true)
         case .reportABug:
-          MailComposer.sendBugReportWith(title:"Organic Maps Bug Report")
+          MailComposer.sendBugReportWith(title: "Organic Maps Bug Report")
         case .reportMapDataProblem, .volunteer, .news:
           self?.openUrl(aboutInfo.link)
         case .rateTheApp:
@@ -317,7 +318,7 @@ private extension AboutController {
   static func formattedMapsDataVersion() -> String {
     // First, convert version code like 220131 to a date.
     let df = DateFormatter()
-    df.locale = Locale(identifier:"en_US_POSIX")
+    df.locale = Locale(identifier: "en_US_POSIX")
     df.dateFormat = "yyMMdd"
     let mapsVersionInt = FrameworkHelper.dataVersion()
     let mapsDate = df.date(from: String(mapsVersionInt))!
@@ -325,11 +326,11 @@ private extension AboutController {
     df.locale = Locale.current
     df.dateStyle = .long
     df.timeStyle = .none
-    return df.string(from:mapsDate)
+    return df.string(from: mapsDate)
   }
 
   static func formattedAppVersion() -> String {
-    let appInfo = AppInfo.shared();
+    let appInfo = AppInfo.shared()
     // Use strong left-to-right unicode direction characters for the app version.
     return String(format: L("version"), "\u{2066}\(appInfo.bundleVersion)-\(appInfo.buildNumber)\u{2069}")
   }
@@ -337,9 +338,9 @@ private extension AboutController {
   func showCopyright() {
     let path = Bundle.main.path(forResource: "copyright", ofType: "html")!
     let html = try! String(contentsOfFile: path, encoding: String.Encoding.utf8)
-    let webViewController = WebViewController.init(html: html, baseUrl: nil, title: L("copyright"))!
+    let webViewController = WebViewController(html: html, baseUrl: nil, title: L("copyright"))!
     webViewController.openInSafari = true
-    self.navigationController?.pushViewController(webViewController, animated: true)
+    navigationController?.pushViewController(webViewController, animated: true)
   }
 
   func copyToClipboard(_ content: String) {
@@ -351,6 +352,7 @@ private extension AboutController {
 }
 
 // MARK: - Actions
+
 private extension AboutController {
   @objc func appVersionButtonTapped() {
     copyToClipboard(Self.formattedAppVersion())
@@ -362,21 +364,23 @@ private extension AboutController {
 }
 
 // MARK: - UITableViewDelegate
+
 extension AboutController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     infoTableViewData[indexPath.row].didTapHandler?()
   }
 
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return Constants.infoTableViewCellHeight
+  func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+    Constants.infoTableViewCellHeight
   }
 }
 
 // MARK: - UITableViewDataSource
+
 extension AboutController: UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return infoTableViewData.count
+  func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+    infoTableViewData.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -388,9 +392,10 @@ extension AboutController: UITableViewDataSource {
 }
 
 // MARK: - UICollectionViewDataSource
+
 extension AboutController: UICollectionViewDataSource {
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return socialMediaCollectionViewData.count
+  func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
+    socialMediaCollectionViewData.count
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -401,16 +406,18 @@ extension AboutController: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegate
+
 extension AboutController: UICollectionViewDelegate {
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+  func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     let model = socialMediaCollectionViewData[indexPath.row]
     model.didTapHandler?()
   }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
+
 extension AboutController: UICollectionViewDelegateFlowLayout {
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+  func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
     let spacing = Constants.socialMediaCollectionViewSpacing
     let numberOfItemsInRowCompact = Constants.socialMediaCollectionNumberOfItemsInRowCompact
     let numberOfItemsInRowRegular = Constants.socialMediaCollectionNumberOfItemsInRowRegular
@@ -425,15 +432,17 @@ extension AboutController: UICollectionViewDelegateFlowLayout {
     return CGSize(width: width, height: width)
   }
 
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-    return Constants.socialMediaCollectionViewSpacing
+  func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumLineSpacingForSectionAt _: Int) -> CGFloat {
+    Constants.socialMediaCollectionViewSpacing
   }
 
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-    return Constants.socialMediaCollectionViewSpacing
+  func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumInteritemSpacingForSectionAt _: Int) -> CGFloat {
+    Constants.socialMediaCollectionViewSpacing
   }
 }
+
 // MARK: - UIStackView + AddArrangedSubviewWithSeparator
+
 private extension UIStackView {
   func addArrangedSubviewWithSeparator(_ view: UIView) {
     if !arrangedSubviews.isEmpty {

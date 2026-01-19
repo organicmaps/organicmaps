@@ -1,5 +1,4 @@
 final class RoutePointCollectionViewCell: UICollectionViewCell {
-
   enum CellType {
     case point(PointViewModel)
     case addPoint
@@ -35,6 +34,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     let separatorInsets = UIEdgeInsets(top: 0, left: Constants.logoImageLeadingInset + Constants.logoSize + Constants.horizontalSpacing, bottom: 0, right: 0)
     return contentBackgroundView.addSeparator(.bottom, insets: separatorInsets)
   }()
+
   private var didTapClose: (() -> Void)?
 
   override init(frame: CGRect) {
@@ -50,7 +50,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
   }
 
   @available(*, unavailable)
-  required init?(coder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -123,7 +123,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     view.layer.cornerRadius = 2
     NSLayoutConstraint.activate([
       view.widthAnchor.constraint(equalToConstant: 4),
-      view.heightAnchor.constraint(equalToConstant: 4)
+      view.heightAnchor.constraint(equalToConstant: 4),
     ])
     return view
   }

@@ -1,5 +1,4 @@
 final class ElevationProfileView: UIView {
-
   private enum Constants {
     static let imageHeight: CGFloat = 60
   }
@@ -13,7 +12,7 @@ final class ElevationProfileView: UIView {
   }
 
   @available(*, unavailable)
-  required init?(coder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -34,7 +33,7 @@ final class ElevationProfileView: UIView {
       imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
       imageView.topAnchor.constraint(equalTo: topAnchor),
       imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-      imageView.heightAnchor.constraint(equalToConstant: Constants.imageHeight)
+      imageView.heightAnchor.constraint(equalToConstant: Constants.imageHeight),
     ])
   }
 

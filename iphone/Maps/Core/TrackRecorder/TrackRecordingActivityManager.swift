@@ -12,7 +12,6 @@ protocol TrackRecordingActivityManager {
 
 @available(iOS 16.2, *)
 final class TrackRecordingLiveActivityManager {
-
   static let shared = TrackRecordingLiveActivityManager()
 
   private var activity: Activity<TrackRecordingLiveActivityAttributes>?
@@ -24,7 +23,6 @@ final class TrackRecordingLiveActivityManager {
 
 @available(iOS 16.2, *)
 extension TrackRecordingLiveActivityManager: TrackRecordingActivityManager {
-
   func start(with info: TrackInfo) throws {
     stop()
     let state = TrackRecordingLiveActivityAttributes.ContentState(trackInfo: info)
@@ -64,12 +62,12 @@ extension TrackRecordingLiveActivityManager: TrackRecordingActivityManager {
 
 private extension TrackRecordingLiveActivityAttributes.ContentState {
   init(trackInfo: TrackInfo) {
-    self.distance = StatisticsViewModel(key: "", value: trackInfo.distance)
-    self.duration = StatisticsViewModel(key: "", value: trackInfo.duration)
-    self.maxElevation = StatisticsViewModel(key: L("elevation_profile_max_elevation"), value: trackInfo.maxElevation)
-    self.minElevation = StatisticsViewModel(key: L("elevation_profile_min_elevation"), value: trackInfo.minElevation)
-    self.ascent = StatisticsViewModel(key: L("elevation_profile_ascent"), value: trackInfo.ascent)
-    self.descent = StatisticsViewModel(key: L("elevation_profile_descent"), value: trackInfo.descent)
+    distance = StatisticsViewModel(key: "", value: trackInfo.distance)
+    duration = StatisticsViewModel(key: "", value: trackInfo.duration)
+    maxElevation = StatisticsViewModel(key: L("elevation_profile_max_elevation"), value: trackInfo.maxElevation)
+    minElevation = StatisticsViewModel(key: L("elevation_profile_min_elevation"), value: trackInfo.minElevation)
+    ascent = StatisticsViewModel(key: L("elevation_profile_ascent"), value: trackInfo.ascent)
+    descent = StatisticsViewModel(key: L("elevation_profile_descent"), value: trackInfo.descent)
   }
 }
 

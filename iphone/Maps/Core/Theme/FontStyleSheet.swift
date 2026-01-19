@@ -60,12 +60,12 @@ enum FontStyleSheet: String, CaseIterable {
   case semibold15
   case semibold16
   case semibold18
-  
+
   case emojiMedium13
 }
 
 extension FontStyleSheet: IStyleSheet {
-  func styleResolverFor(colors: IColors, fonts: IFonts) -> Theme.StyleResolver {
+  func styleResolverFor(colors _: IColors, fonts: IFonts) -> Theme.StyleResolver {
     let font: UIFont = {
       switch self {
       case .regular9: return fonts.regular9
@@ -82,7 +82,6 @@ extension FontStyleSheet: IStyleSheet {
       case .regular24: return fonts.regular24
       case .regular32: return fonts.regular32
       case .regular52: return fonts.regular52
-
       case .medium9: return fonts.medium9
       case .medium10: return fonts.medium10
       case .medium12: return fonts.medium12
@@ -97,12 +96,10 @@ extension FontStyleSheet: IStyleSheet {
       case .medium36: return fonts.medium36
       case .medium40: return fonts.medium40
       case .medium44: return fonts.medium44
-
       case .light10: return fonts.light10
       case .light12: return fonts.light12
       case .light16: return fonts.light16
       case .light17: return fonts.light17
-
       case .bold12: return fonts.bold12
       case .bold14: return fonts.bold14
       case .bold16: return fonts.bold16
@@ -115,21 +112,17 @@ extension FontStyleSheet: IStyleSheet {
       case .bold34: return fonts.bold34
       case .bold36: return fonts.bold36
       case .bold48: return fonts.bold48
-
       case .heavy17: return fonts.heavy17
       case .heavy20: return fonts.heavy20
       case .heavy32: return fonts.heavy32
       case .heavy38: return fonts.heavy38
-
       case .italic12: return fonts.italic12
       case .italic16: return fonts.italic16
-
       case .semibold12: return fonts.semibold12
       case .semibold14: return fonts.semibold14
       case .semibold15: return fonts.semibold15
       case .semibold16: return fonts.semibold16
       case .semibold18: return fonts.semibold18
-        
       case .emojiMedium13: return fonts.emojiMedium13
       }
     }()

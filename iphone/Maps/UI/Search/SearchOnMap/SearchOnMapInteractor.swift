@@ -1,5 +1,4 @@
 final class SearchOnMapInteractor: NSObject {
-
   private let presenter: SearchOnMapPresenter
   private let searchManager: SearchManager.Type
   private var isUpdatesDisabled = false
@@ -66,6 +65,7 @@ final class SearchOnMapInteractor: NSObject {
     case .updateVisibleAreaInsets(let insets):
       MapViewController.shared()!.updateVisibleAreaInsets(for: self, insets: insets, updatingViewport: true)
       return .none
+
     case .closeSearch:
       return closeSearch()
     }
@@ -115,7 +115,7 @@ final class SearchOnMapInteractor: NSObject {
   }
 
   private func deselectPlaceOnMap() -> SearchOnMap.Response {
-    return .setSearchScreenHidden(false)
+    .setSearchScreenHidden(false)
   }
 
   private func closeSearch() -> SearchOnMap.Response {
@@ -129,14 +129,15 @@ final class SearchOnMapInteractor: NSObject {
     case .expanded:
       return isiPad ? .everywhereAndViewport : .everywhere
     case .halfScreen, .compact:
-      return  .everywhereAndViewport
+      return .everywhereAndViewport
     case .hidden:
-      return  .viewport
+      return .viewport
     }
   }
 }
 
 // MARK: - MWMSearchObserver
+
 extension SearchOnMapInteractor: MWMSearchObserver {
   func onSearchCompleted() {
     guard !isUpdatesDisabled, searchManager.searchMode() != .viewport else { return }

@@ -1,8 +1,7 @@
-import XCTest
 @testable import Organic_Maps__Debug_
+import XCTest
 
 final class DefaultLocalDirectoryMonitorTests: XCTestCase {
-
   let fileManager = FileManager.default
   let tempDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
   var directoryMonitor: FileSystemDispatchSourceMonitor!
@@ -90,7 +89,7 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
     wait(for: [startExpectation], timeout: 5)
 
     let fileURL = tempDirectory.appendingPathComponent("test.kml")
-    
+
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
       self.fileManager.createFile(atPath: fileURL.path, contents: Data(), attributes: nil)
     }
@@ -116,8 +115,8 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
 
     directoryMonitor.start { result in
       switch result {
-        case .failure(let error):
-          XCTFail("Monitoring failed to start with error: \(error)")
+      case .failure(let error):
+        XCTFail("Monitoring failed to start with error: \(error)")
       case .success:
         XCTAssertTrue(self.directoryMonitor.state == .started, "Monitor should be started.")
         startExpectation.fulfill()
@@ -125,7 +124,7 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
     }
     wait(for: [startExpectation, didFinishGatheringExpectation], timeout: 5)
 
-    let contents = self.mockDelegate.contents.map { $0.fileUrl }
+    let contents = mockDelegate.contents.map(\.fileUrl)
     XCTAssertFalse(contents.contains(file1URL), "File with incorrect extension should not be included")
     XCTAssertFalse(contents.contains(file2URL), "File with incorrect extension should not be included")
     XCTAssertFalse(contents.contains(file3URL), "File with incorrect extension should not be included")

@@ -1,10 +1,9 @@
-import XCTest
 @testable import Organic_Maps__Debug_
+import XCTest
 
 typealias UbiquityIdentityToken = NSCoding & NSCopying & NSObjectProtocol
 
 class iCloudDirectoryMonitorTests: XCTestCase {
-
   var cloudMonitor: iCloudDocumentsMonitor!
   var mockFileManager: FileManagerMock!
   var mockDelegate: UbiquitousDirectoryMonitorDelegateMock!

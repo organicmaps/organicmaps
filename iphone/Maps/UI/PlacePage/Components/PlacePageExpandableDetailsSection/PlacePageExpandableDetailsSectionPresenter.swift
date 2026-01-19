@@ -1,5 +1,4 @@
 final class PlacePageExpandableDetailsSectionPresenter {
-
   private var viewModel: PlacePageExpandableDetailsSectionViewModel
 
   weak var view: PlacePageExpandableDetailsSectionViewController?
@@ -13,7 +12,7 @@ final class PlacePageExpandableDetailsSectionPresenter {
     for response in responses {
       currentViewModel = resolve(response, with: currentViewModel)
     }
-    self.viewModel = currentViewModel
+    viewModel = currentViewModel
     view?.render(currentViewModel)
   }
 
@@ -63,10 +62,10 @@ final class PlacePageExpandableDetailsSectionPresenter {
         str.addAttribute(NSAttributedString.Key.foregroundColor,
                          value: color,
                          range: NSRange(location: 0, length: str.length))
-        attributedString = str;
+        attributedString = str
       } else {
         attributedString = NSAttributedString(string: htmlString,
-                                              attributes: [NSAttributedString.Key.font : font,
+                                              attributes: [NSAttributedString.Key.font: font,
                                                            NSAttributedString.Key.foregroundColor: color,
                                                            NSAttributedString.Key.paragraphStyle: paragraphStyle])
       }

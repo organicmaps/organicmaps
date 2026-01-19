@@ -7,11 +7,12 @@ var isiPad: Bool {
   return UIDevice.current.userInterfaceIdiom == .pad
 }
 
-func L(_ key: String) -> String { return NSLocalizedString(key, comment: "") }
+func L(_ key: String) -> String { NSLocalizedString(key, comment: "") }
 
 func L(_ key: String, languageCode: String) -> String {
   guard let path = Bundle.main.path(forResource: languageCode, ofType: "lproj"),
-        let bundle = Bundle(path: path) else {
+        let bundle = Bundle(path: path)
+  else {
     LOG(.warning, "Localization bundle not found for language code: \(languageCode)")
     return L(key)
   }
@@ -33,7 +34,7 @@ func iPhoneSpecific(_ f: () -> Void) {
 }
 
 func toString(_ cls: AnyClass) -> String {
-  return String(describing: cls)
+  String(describing: cls)
 }
 
 func statusBarHeight() -> CGFloat {
@@ -46,7 +47,7 @@ func LOG(_ level: LogLevel,
          functionName: StaticString = #function,
          fileName: StaticString = #file,
          lineNumber: UInt = #line) {
-  if (Logger.canLog(level)) {
+  if Logger.canLog(level) {
     let shortFileName = URL(string: "\(fileName)")?.lastPathComponent ?? ""
     let formattedMessage = "\(shortFileName):\(lineNumber) \(functionName): \(message())"
     Logger.log(level, message: formattedMessage)

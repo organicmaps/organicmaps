@@ -1,5 +1,4 @@
 final class InfoItemView: UIView {
-
   private enum Constants {
     static let contentInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
     static let iconButtonSize: CGFloat = 56
@@ -88,7 +87,7 @@ final class InfoItemView: UIView {
 
       textLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.infoLabelMinHeight),
       textLabel.topAnchor.constraint(equalTo: contentStackView.topAnchor, constant: Constants.contentInsets.top),
-      textLabel.bottomAnchor.constraint(equalTo: contentStackView.bottomAnchor, constant: Constants.contentInsets.bottom)
+      textLabel.bottomAnchor.constraint(equalTo: contentStackView.bottomAnchor, constant: Constants.contentInsets.bottom),
     ])
   }
 
