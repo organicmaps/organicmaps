@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -387,20 +386,36 @@ public class PlacePageController
     mCustomPeekHeightAnimator.start();
   }
 
-  private float getHeightRatio()
-  {
-    return ResourcesCompat.getFloat(getResources(), R.dimen.place_page_bottom_sheet_height_ratio);
-  }
-
   private int calculatePeekHeight()
   {
     final int bottomInsets = (mCurrentWindowInsets != null)
                                ? mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
                                : 0;
     final boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-    if (mMapObject != null && mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS)
-      return (int) (mCoordinator.getHeight() * getHeightRatio());
-    return mPreviewHeight + mButtonsHeight + (isLandscape ? bottomInsets : 0);
+    final int bottomMargins = getResources().getDimensionPixelSize(R.dimen.margin_double);
+    final int ppOpeningHoursHeight =
+        (int) (getResources().getDimension(R.dimen.text_size_body_1)
+               * 2.5); // as the TextView is set to Wrap_content ,it ends up taking the font_size
+    final int mWikiHeight = mPlacePage.findViewById(R.id.place_page_wikipedia_fragment).getHeight();
+    final int mBookmarkHeight = mPlacePage.findViewById(R.id.place_page_bookmark_fragment).getHeight();
+    final int ppRouteRefHeight = mPlacePage.findViewById(R.id.ll__place_route_ref).getHeight();
+    int peekHeight = mPreviewHeight + mButtonsHeight;
+    if (mMapObject != null)
+    {
+      switch (mMapObject.getOpeningMode())
+      {
+      case MapObject.OPENING_MODE_PREVIEW_PUBLIC_TRANSPORT_STOP: peekHeight += ppRouteRefHeight + bottomMargins; break;
+      case MapObject.OPENING_MODE_PREVIEW_OPENING_HOURS: peekHeight += ppOpeningHoursHeight + bottomMargins; break;
+      case MapObject.OPENING_MODE_PREVIEW_Wiki: peekHeight += mWikiHeight + bottomMargins; break;
+      case MapObject.OPENING_MODE_PREVIEW_Bookmark: peekHeight += mBookmarkHeight + bottomMargins; break;
+      case MapObject.OPENING_MODE_FULL:
+      case MapObject.OPENING_MODE_PREVIEW:
+      case MapObject.OPENING_MODE_DETAILS:
+      default: break;
+      }
+    }
+    return Math.min(peekHeight + (isLandscape ? bottomInsets : 0),
+                    (mCoordinator.getHeight() - (mPlacePageStatusBarBackground.getHeight() * 2)));
   }
 
   @Override

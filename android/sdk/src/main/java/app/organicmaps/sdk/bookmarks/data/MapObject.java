@@ -36,14 +36,19 @@ public class MapObject implements PlacePageData
   public static final int TRACK_RECORDING = 6;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({OPENING_MODE_PREVIEW, OPENING_MODE_PREVIEW_PLUS, OPENING_MODE_DETAILS, OPENING_MODE_FULL})
+  @IntDef({OPENING_MODE_PREVIEW, OPENING_MODE_PREVIEW_Wiki, OPENING_MODE_DETAILS, OPENING_MODE_FULL,
+           OPENING_MODE_PREVIEW_OPENING_HOURS, OPENING_MODE_PREVIEW_PUBLIC_TRANSPORT_STOP,
+           OPENING_MODE_PREVIEW_Bookmark})
   public @interface OpeningMode
   {}
 
   public static final int OPENING_MODE_PREVIEW = 0;
-  public static final int OPENING_MODE_PREVIEW_PLUS = 1;
+  public static final int OPENING_MODE_PREVIEW_Wiki = 1;
   public static final int OPENING_MODE_DETAILS = 2;
   public static final int OPENING_MODE_FULL = 3;
+  public static final int OPENING_MODE_PREVIEW_OPENING_HOURS = 4;
+  public static final int OPENING_MODE_PREVIEW_PUBLIC_TRANSPORT_STOP = 5;
+  public static final int OPENING_MODE_PREVIEW_Bookmark = 6;
 
   private static final String kHttp = "http://";
   private static final String kHttps = "https://";

@@ -25,9 +25,13 @@ std::string_view constexpr kDebugAllTypesSetting = "DebugAllTypes";
 enum class OpeningMode
 {
   Preview = 0,
-  PreviewPlus,
+  Wiki,
   Details,
-  Full
+  Full,
+  OpeningHours,
+  Transport,
+  Bookmark
+
 };
 
 enum class CoordinatesFormat

@@ -26,7 +26,7 @@ public final class Track extends MapObject
   @SuppressWarnings("unused")
   private Track(long id, long categoryId, String name, Distance length, int color, boolean visible)
   {
-    super(TRACK, name, "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW_PLUS, "", "",
+    super(TRACK, name, "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW_Wiki, "", "",
           RoadWarningMarkType.UNKNOWN.ordinal(), null);
     mId = id;
     mCategoryId = categoryId;

@@ -640,7 +640,7 @@ void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) 
   auto const description = GetPreferredBookmarkStr(info.GetBookmarkData().m_description);
   auto const openingMode = m_routingManager.IsRoutingActive() || description.empty()
                              ? place_page::OpeningMode::Preview
-                             : place_page::OpeningMode::PreviewPlus;
+                             : place_page::OpeningMode::Bookmark;
   info.SetOpeningMode(openingMode);
   if (bmk.CanFillPlacePageMetadata())
   {
@@ -735,6 +735,11 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
     info.SetAddress(GetAddressAtPoint(feature::GetCenter(ft)).FormatAddress());
 
   info.SetFromFeatureType(ft);
+
+  if (!info.GetOpeningHours().empty())
+    info.SetOpeningMode(place_page::OpeningMode::OpeningHours);
+  else if (!info.FormatRouteRefs().empty())
+    info.SetOpeningMode(place_page::OpeningMode::Transport);
 
   FillDescriptions(ft, info);
 
@@ -3378,7 +3383,7 @@ void Framework::FillDescriptions(FeatureType & ft, place_page::Info & info) cons
   {
     info.SetWikiDescription(std::move(wikiDescription));
     info.SetOpeningMode(m_routingManager.IsRoutingActive() ? place_page::OpeningMode::Preview
-                                                           : place_page::OpeningMode::PreviewPlus);
+                                                           : place_page::OpeningMode::Wiki);
   }
 
   std::string_view const osmDescriptionValue = ft.GetMetadata(feature::Metadata::FMD_DESCRIPTION);
