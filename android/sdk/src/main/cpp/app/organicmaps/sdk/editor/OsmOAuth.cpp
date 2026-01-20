@@ -39,21 +39,42 @@ JNIEXPORT jstring Java_app_organicmaps_sdk_editor_OsmOAuth_nativeGetOAuth2Url(JN
   return ToJavaString(env, auth.BuildOAuth2Url());
 }
 
-JNIEXPORT jstring Java_app_organicmaps_sdk_editor_OsmOAuth_nativeAuthWithPassword(JNIEnv * env, jclass clazz,
-                                                                                  jstring login, jstring password)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_OsmOAuth_nativeAuthWithPassword(JNIEnv * env, jclass clazz,
+                                                                                       jstring login, jstring password)
 {
   OsmOAuth auth = OsmOAuth::ServerAuth();
+  jclass const stringClass = env->FindClass("java/lang/String");
+  if (!stringClass)
+    return nullptr;
+
+  jobjectArray const result = env->NewObjectArray(2, stringClass, nullptr);
+  if (env->ExceptionCheck())
+    return nullptr;
+  if (!result)
+    return nullptr;
+
   try
   {
     if (auth.AuthorizePassword(ToNativeString(env, login), ToNativeString(env, password)))
-      return ToJavaString(env, auth.GetAuthToken());
+    {
+      env->SetObjectArrayElement(result, 0, ToJavaString(env, auth.GetAuthToken()));
+      if (env->ExceptionCheck())
+        return nullptr;
+      return result;
+    }
     LOG(LWARNING, ("nativeAuthWithPassword: invalid login or password."));
+    env->SetObjectArrayElement(result, 1, ToJavaString(env, "Invalid login or password"));
+    if (env->ExceptionCheck())
+      return nullptr;
   }
   catch (std::exception const & ex)
   {
     LOG(LWARNING, ("nativeAuthWithPassword error ", ex.what()));
+    env->SetObjectArrayElement(result, 1, ToJavaString(env, ex.what()));
+    if (env->ExceptionCheck())
+      return nullptr;
   }
-  return nullptr;
+  return result;
 }
 
 JNIEXPORT jstring Java_app_organicmaps_sdk_editor_OsmOAuth_nativeAuthWithOAuth2Code(JNIEnv * env, jclass,

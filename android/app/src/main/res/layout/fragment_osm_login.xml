@@ -88,6 +88,18 @@
           android:hint="@string/password"
           android:inputType="textPassword" />
       </com.google.android.material.textfield.TextInputLayout>
+      <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base"
+        android:gravity="center"
+        android:textColor="@color/base_red"
+        android:visibility="gone"
+        android:importantForAccessibility="yes"
+        android:accessibilityLiveRegion ="polite"
+        tools:text ="Error Message"
+        tools:visibility = "visible"/>
       <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

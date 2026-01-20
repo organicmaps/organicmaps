@@ -108,12 +108,12 @@ public final class OsmOAuth
   public static native String nativeGetOAuth2Url();
 
   /**
-   * @return string with OAuth2 token
+   * @return a String array of length 2 where index 0 contains the OAuth2 token on success
    */
   @WorkerThread
-  @Size(2)
   @Nullable
-  public static native String nativeAuthWithPassword(String login, String password);
+  @Size(2)
+  public static native String[] nativeAuthWithPassword(String login, String password);
 
   /**
    * @return string with OAuth2 token
