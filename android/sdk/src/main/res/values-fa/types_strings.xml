@@ -738,6 +738,7 @@
     <string name="type.railway.construction">راه‌آهن در دست ساخت</string>
     <string name="type.railway.crossing">گذرگاه راه‌آهن</string>
     <string name="type.railway.disused">راه‌آهن رها شده</string>
+    <string name="type.railway.disused.bridge">پل راه‌آهن رها شده</string>
     <string name="type.railway.funicular">فونیکولور</string>
     <string name="type.railway.funicular.bridge">پل کابلی</string>
     <string name="type.railway.funicular.tunnel">تونل کابلی</string>

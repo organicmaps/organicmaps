@@ -973,6 +973,7 @@
 "type.railway.construction" = "Ehitusel raudtee";
 "type.railway.crossing" = "Raudtee ülesõit";
 "type.railway.disused" = "Kasutamata raudtee";
+"type.railway.disused.bridge" = "Kasutamata raudteesild";
 "type.railway.funicular" = "Köisraudtee";
 "type.railway.funicular.bridge" = "Köisraudtee sild";
 "type.railway.funicular.tunnel" = "Köisraudtee tunnel";

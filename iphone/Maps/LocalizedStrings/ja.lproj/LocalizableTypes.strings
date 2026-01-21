@@ -973,6 +973,7 @@
 "type.railway.construction" = "建設中の鉄道";
 "type.railway.crossing" = "歩行者用踏切";
 "type.railway.disused" = "休止線";
+"type.railway.disused.bridge" = "休止線(橋)";
 "type.railway.funicular" = "フニクラ";
 "type.railway.funicular.bridge" = "ケーブルカー(橋)";
 "type.railway.funicular.tunnel" = "ケーブルカー(トンネル)";

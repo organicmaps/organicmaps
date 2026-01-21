@@ -973,6 +973,7 @@
 "type.railway.construction" = "Eisenbahnstrecke im Bau";
 "type.railway.crossing" = "Bahnübergang";
 "type.railway.disused" = "Stillgelegte Bahnstrecke";
+"type.railway.disused.bridge" = "Stillgelegte Eisenbahnbrücke";
 "type.railway.funicular" = "Standseilbahn";
 "type.railway.funicular.bridge" = "Standseilbahnbrücke";
 "type.railway.funicular.tunnel" = "Standseilbahntunnel";

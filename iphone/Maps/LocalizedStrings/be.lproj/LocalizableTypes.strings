@@ -973,6 +973,7 @@
 "type.railway.construction" = "Будаўніцтва чыгункі";
 "type.railway.crossing" = "Чыгуначны пераезд";
 "type.railway.disused" = "Закінутая чыгунка";
+"type.railway.disused.bridge" = "Закінуты чыгуначны мост";
 "type.railway.funicular" = "Фунікулёр";
 "type.railway.funicular.bridge" = "Фунікулярны мост";
 "type.railway.funicular.tunnel" = "Фунікулярны тунэль";

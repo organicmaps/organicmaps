@@ -973,6 +973,7 @@
 "type.railway.construction" = "Tory kolejowe w budowie";
 "type.railway.crossing" = "Przejście przez tory";
 "type.railway.disused" = "Nieużywane tory kolejowe";
+"type.railway.disused.bridge" = "Nieczynny most kolejowy";
 "type.railway.funicular" = "Kolej linowo-terenowa";
 "type.railway.funicular.bridge" = "Most kolejki linowej";
 "type.railway.funicular.tunnel" = "Tunel kolejki linowej";

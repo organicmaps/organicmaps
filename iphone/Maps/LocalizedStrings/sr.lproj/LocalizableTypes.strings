@@ -973,6 +973,7 @@
 "type.railway.construction" = "Пруга у изградњи";
 "type.railway.crossing" = "Пружни прелаз";
 "type.railway.disused" = "Напуштена пруга";
+"type.railway.disused.bridge" = "Напуштен железнички мост";
 "type.railway.funicular" = "Успињача";
 "type.railway.funicular.bridge" = "Мост успињаче";
 "type.railway.funicular.tunnel" = "Тунел успињаче";

@@ -841,6 +841,7 @@
     <string name="type.railway.construction">Treinspoor in aanbouw</string>
     <string name="type.railway.crossing">Spoorwegovergang</string>
     <string name="type.railway.disused">Ongebruikt spoor</string>
+    <string name="type.railway.disused.bridge">Ongebruikte spoorbrug</string>
     <string name="type.railway.funicular">Tunnel</string>
     <string name="type.railway.funicular.bridge">Kabelspoorbuur</string>
     <string name="type.railway.funicular.tunnel">Kabelspoortunnel</string>

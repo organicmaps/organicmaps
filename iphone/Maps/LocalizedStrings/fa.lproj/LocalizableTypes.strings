@@ -973,6 +973,7 @@
 "type.railway.construction" = "راه‌آهن در دست ساخت";
 "type.railway.crossing" = "گذرگاه راه‌آهن";
 "type.railway.disused" = "راه‌آهن رها شده";
+"type.railway.disused.bridge" = "پل راه‌آهن رها شده";
 "type.railway.funicular" = "فونیکولور";
 "type.railway.funicular.bridge" = "پل کابلی";
 "type.railway.funicular.tunnel" = "تونل کابلی";

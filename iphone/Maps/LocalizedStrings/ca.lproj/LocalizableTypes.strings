@@ -973,6 +973,7 @@
 "type.railway.construction" = "Construcció ferroviària";
 "type.railway.crossing" = "Passatge a nivell";
 "type.railway.disused" = "Ferrocarril en desús";
+"type.railway.disused.bridge" = "Pont ferroviari en desús";
 "type.railway.funicular" = "Funicular";
 "type.railway.funicular.bridge" = "Pont funicular";
 "type.railway.funicular.tunnel" = "Túnel funicular";

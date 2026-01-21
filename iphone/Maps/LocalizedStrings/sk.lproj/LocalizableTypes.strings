@@ -973,6 +973,7 @@
 "type.railway.construction" = "Railway Construction";
 "type.railway.crossing" = "Železničné priecestie";
 "type.railway.disused" = "Nepoužívaná trať";
+"type.railway.disused.bridge" = "Nepoužívaný železničný most";
 "type.railway.funicular" = "Lanovka";
 "type.railway.funicular.bridge" = "Funicular Bridge";
 "type.railway.funicular.tunnel" = "Funicular Tunnel";

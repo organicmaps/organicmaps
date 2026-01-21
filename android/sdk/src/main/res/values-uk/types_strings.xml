@@ -841,6 +841,7 @@
     <string name="type.railway.construction">Будівництво залізниці</string>
     <string name="type.railway.crossing">Пішохідний перехід</string>
     <string name="type.railway.disused">Недійсна залізниця</string>
+    <string name="type.railway.disused.bridge">Недіючий залізничний міст</string>
     <string name="type.railway.funicular">Фунікулер</string>
     <string name="type.railway.funicular.bridge">Фунікулер</string>
     <string name="type.railway.funicular.tunnel">Фунікулер</string>

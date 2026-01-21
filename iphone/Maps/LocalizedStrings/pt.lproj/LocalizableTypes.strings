@@ -973,6 +973,7 @@
 "type.railway.construction" = "Ferrovia em construção";
 "type.railway.crossing" = "Passagem de pedestre";
 "type.railway.disused" = "Ferrovia em desuso";
+"type.railway.disused.bridge" = "Ponte de Ferrovia em desuso";
 "type.railway.funicular" = "Funicular";
 "type.railway.funicular.bridge" = "Ponte Funicular";
 "type.railway.funicular.tunnel" = "Túnel Funicular";
