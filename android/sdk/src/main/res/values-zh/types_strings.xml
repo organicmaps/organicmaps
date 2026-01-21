@@ -841,6 +841,7 @@
     <string name="type.railway.construction">在建铁路</string>
     <string name="type.railway.crossing">铁路道口</string>
     <string name="type.railway.disused">废弃铁路</string>
+    <string name="type.railway.disused.bridge">废弃铁路桥梁</string>
     <string name="type.railway.funicular">缆车</string>
     <string name="type.railway.funicular.bridge">悬链线桥‌</string>
     <string name="type.railway.funicular.tunnel">缆索隧道</string>

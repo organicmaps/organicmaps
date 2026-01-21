@@ -973,6 +973,7 @@
 "type.railway.construction" = "Järnväg under uppbyggnad";
 "type.railway.crossing" = "Järnvägsövergång";
 "type.railway.disused" = "Otrafikerad järnväg";
+"type.railway.disused.bridge" = "Otrafikerad järnvägsbro";
 "type.railway.funicular" = "Bergbana";
 "type.railway.funicular.bridge" = "Funicular Bridge";
 "type.railway.funicular.tunnel" = "Bergbanetunnel";

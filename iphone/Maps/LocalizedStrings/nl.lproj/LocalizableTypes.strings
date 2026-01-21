@@ -973,6 +973,7 @@
 "type.railway.construction" = "Treinspoor in aanbouw";
 "type.railway.crossing" = "Spoorwegovergang";
 "type.railway.disused" = "Ongebruikt spoor";
+"type.railway.disused.bridge" = "Ongebruikte spoorbrug";
 "type.railway.funicular" = "Tunnel";
 "type.railway.funicular.bridge" = "Kabelspoorbuur";
 "type.railway.funicular.tunnel" = "Kabelspoortunnel";

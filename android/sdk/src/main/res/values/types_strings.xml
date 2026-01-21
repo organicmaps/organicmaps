@@ -871,6 +871,7 @@
     <string name="type.railway.construction">Railway Construction</string>
     <string name="type.railway.crossing">Railway Crossing</string>
     <string name="type.railway.disused">Disused Railway</string>
+    <string name="type.railway.disused.bridge">Disused Railway Bridge</string>
     <string name="type.railway.funicular">Funicular</string>
     <string name="type.railway.funicular.bridge">Funicular Bridge</string>
     <string name="type.railway.funicular.tunnel">Funicular Tunnel</string>

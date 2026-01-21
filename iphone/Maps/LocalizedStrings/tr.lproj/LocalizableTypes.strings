@@ -973,6 +973,7 @@
 "type.railway.construction" = "Demir Yolu İnşaatı";
 "type.railway.crossing" = "Demir Yolu Geçişi";
 "type.railway.disused" = "Kullanılmayan Demir Yolu";
+"type.railway.disused.bridge" = "Kullanılmayan Demir Yolu Köprüsü";
 "type.railway.funicular" = "Füniküler";
 "type.railway.funicular.bridge" = "Füniküler Köprüsü";
 "type.railway.funicular.tunnel" = "Füniküler Tüneli";

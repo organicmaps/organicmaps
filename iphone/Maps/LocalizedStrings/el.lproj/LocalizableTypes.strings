@@ -973,6 +973,7 @@
 "type.railway.construction" = "Κατασκευή σιδηροδρόμου";
 "type.railway.crossing" = "Σιδηροδρομική διάβαση";
 "type.railway.disused" = "Αχρησιμοποίητος σιδηρόδρομος";
+"type.railway.disused.bridge" = "Αχρησιμοποίητη σιδηροδρομική γέφυρα";
 "type.railway.funicular" = "Τελεφερίκ";
 "type.railway.funicular.bridge" = "Γέφυρα τελεφερίκ";
 "type.railway.funicular.tunnel" = "Σήραγγα τελεφερίκ";

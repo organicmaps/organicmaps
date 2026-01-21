@@ -808,6 +808,7 @@
     <string name="type.railway.construction">Järnväg under uppbyggnad</string>
     <string name="type.railway.crossing">Järnvägsövergång</string>
     <string name="type.railway.disused">Otrafikerad järnväg</string>
+    <string name="type.railway.disused.bridge">Otrafikerad järnvägsbro</string>
     <string name="type.railway.funicular">Bergbana</string>
     <string name="type.railway.funicular.tunnel">Bergbanetunnel</string>
     <string name="type.railway.halt">Tågstation</string>

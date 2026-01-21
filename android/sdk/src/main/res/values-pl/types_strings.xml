@@ -841,6 +841,7 @@
     <string name="type.railway.construction">Tory kolejowe w budowie</string>
     <string name="type.railway.crossing">Przejście przez tory</string>
     <string name="type.railway.disused">Nieużywane tory kolejowe</string>
+    <string name="type.railway.disused.bridge">Nieczynny most kolejowy</string>
     <string name="type.railway.funicular">Kolej linowo-terenowa</string>
     <string name="type.railway.funicular.bridge">Most kolejki linowej</string>
     <string name="type.railway.funicular.tunnel">Tunel kolejki linowej</string>

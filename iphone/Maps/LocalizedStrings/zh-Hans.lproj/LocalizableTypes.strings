@@ -973,6 +973,7 @@
 "type.railway.construction" = "在建铁路";
 "type.railway.crossing" = "铁路道口";
 "type.railway.disused" = "废弃铁路";
+"type.railway.disused.bridge" = "废弃铁路桥梁";
 "type.railway.funicular" = "缆车";
 "type.railway.funicular.bridge" = "悬链线桥‌";
 "type.railway.funicular.tunnel" = "缆索隧道";
