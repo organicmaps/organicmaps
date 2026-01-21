@@ -174,19 +174,18 @@ PredefinedColor FindPredefinedColor(std::string colorName)
 
 }  // namespace geojson
 
-static std::vector<geometry::PointWithAltitude> CoordsToPoints(std::vector<std::vector<double>> coords)
+std::vector<geometry::PointWithAltitude> CoordsToPoints(std::vector<std::vector<double>> const & coords)
 {
   std::vector<geometry::PointWithAltitude> points;
-  points.resize(coords.size());
-  for (size_t i = 0; i < coords.size(); i++)
+  points.reserve(coords.size());
+  for (auto const & c : coords)
   {
-    auto const & pointCoords = coords[i];
-    if (pointCoords.size() >= 3)
+    auto const pt = mercator::FromLatLon(c[1], c[0]);
+    if (c.size() >= 3)
       // Third coordinate (if present) means altitude
-      points[i] = geometry::PointWithAltitude(mercator::FromLatLon(pointCoords[1], pointCoords[0]),
-                                              static_cast<geometry::Altitude>(pointCoords[2]));
+      points.emplace_back(pt, static_cast<geometry::Altitude>(std::round(c[2])));
     else
-      points[i] = mercator::FromLatLon(pointCoords[1], pointCoords[0]);
+      points.emplace_back(pt);
   }
 
   return points;
@@ -447,9 +446,8 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
       }
     }
 
-    GeoJsonFeature pointFeature{.geometry = GeoJsonGeometryPoint{.coordinates = {lon, lat}},
-                                .properties = std::move(bookmarkProperties)};
-    geoJsonFeatures.push_back(std::move(pointFeature));
+    geoJsonFeatures.push_back(GeoJsonFeature{.geometry = GeoJsonGeometryPoint{.coordinates = {lon, lat}},
+                                             .properties = std::move(bookmarkProperties)});
   }
 
   // Convert Tracks
@@ -460,6 +458,8 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
     bool isMultiline = linesCount > 1;
     if (linesCount == 0)
       continue;
+
+    ASSERT(!track.m_layers.empty(), ());
     auto const color = track.m_layers.front().m_color;
 
     GenericJsonMap trackProps{{"name", GetDefaultStr(track.m_name)}, {"stroke", ToGeoJsonColor(color)}};
@@ -496,12 +496,13 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
     }
     else
     {
-      auto points = track.m_geometry.m_lines[0];
+      auto const & points = track.m_geometry.m_lines[0];
       // TODO: add timestamps to GeoJson lines.
       trackGeometry = GeoJsonGeometryLine{.coordinates = ConvertPoints2GeoJsonCoords(points)};
     }
-    GeoJsonFeature const trackFeature{.geometry = trackGeometry, .properties = trackProps};
-    geoJsonFeatures.push_back(std::move(trackFeature));
+
+    geoJsonFeatures.push_back(
+        GeoJsonFeature{.geometry = std::move(trackGeometry), .properties = std::move(trackProps)});
   }
 
   GeoJsonData const geoJsonData{.features = std::move(geoJsonFeatures), .properties = std::nullopt};
