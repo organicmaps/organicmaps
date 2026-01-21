@@ -414,7 +414,7 @@ void GpxParser::ParseAltitude(std::string const & value)
 {
   double rawAltitude;
   if (strings::to_double(value, rawAltitude))
-    m_altitude = static_cast<geometry::Altitude>(round(rawAltitude));
+    m_altitude = static_cast<geometry::Altitude>(std::round(rawAltitude));
   else
     m_altitude = geometry::kInvalidAltitude;
 }
