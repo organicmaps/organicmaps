@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -64,7 +65,8 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     mOpeningHoursAdapter = new PlaceOpeningHoursAdapter();
     mFullWeekOpeningHours.setAdapter(mOpeningHoursAdapter);
     dropDownIcon = view.findViewById(R.id.dropdown_icon);
-    UiUtils.hide(mFullWeekOpeningHours, dropDownIcon);
+    mFullWeekOpeningHours.getLayoutParams().height = 0;
+    UiUtils.hide(dropDownIcon);
     isOhExpanded = false;
   }
 
@@ -149,8 +151,22 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
         mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
         final View iconView = mFrame.findViewById(R.id.dropdown_icon);
         UiUtils.show(iconView);
-        mFrame.setOnClickListener((v) -> { expandOpeningHours(); });
-
+        mFrame.setOnClickListener((v) -> expandOpeningHours());
+        mFullWeekOpeningHours.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+          @Override
+          public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
+          {
+            if (e.getAction() == MotionEvent.ACTION_UP)
+              expandOpeningHours();
+            return false;
+          }
+          @Override
+          public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
+          {}
+          @Override
+          public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept)
+          {}
+        });
         // Show today's open time + non-business time.
         boolean containsCurrentWeekday = false;
         final int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
@@ -189,11 +205,11 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
 
   private void expandOpeningHours()
   {
-    int targetHeight, startheight;
+    int targetHeight, startHeight;
     if (!isOhExpanded)
     {
       UiUtils.show(mFullWeekOpeningHours);
-      startheight = 0;
+      startHeight = 0;
       mFullWeekOpeningHours.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
                                     View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
       targetHeight = mFullWeekOpeningHours.getMeasuredHeight();
@@ -202,13 +218,13 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     }
     else
     {
-      startheight = mFullWeekOpeningHours.getMeasuredHeight();
+      startHeight = mFullWeekOpeningHours.getMeasuredHeight();
       targetHeight = 0;
       dropDownIcon.animate().rotation(0f).setDuration(200).start();
       isOhExpanded = false;
     }
-    mFullWeekOpeningHours.getLayoutParams().height = startheight; // Start at zero
-    ValueAnimator va = ValueAnimator.ofInt(startheight, targetHeight);
+    mFullWeekOpeningHours.getLayoutParams().height = startHeight;
+    final ValueAnimator va = ValueAnimator.ofInt(startHeight, targetHeight);
     va.setDuration(200);
     va.addUpdateListener(animation -> {
       mFullWeekOpeningHours.getLayoutParams().height = (int) animation.getAnimatedValue();
