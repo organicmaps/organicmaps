@@ -10,6 +10,7 @@ import shutil
 import subprocess
 import sys
 import time
+from pathlib import Path
 from typing import Optional, Dict, List
 
 import requests
@@ -280,8 +281,7 @@ DEEPL_TARGET_LANGUAGES = [
     "zh-Hant",  # Chinese (traditional)
     # "zu",  # Zulu
 ]
-GOOGLE_TARGET_LANGUAGES = list(set(GOOGLE_TARGET_LANGUAGES))  # Remove duplicates
-GOOGLE_TARGET_LANGUAGES.sort()
+GOOGLE_TARGET_LANGUAGES = sorted(set(GOOGLE_TARGET_LANGUAGES))  # Remove duplicates
 
 
 def get_api_key() -> str:
@@ -295,12 +295,8 @@ def get_api_key() -> str:
 
 
 def google_translate(text: str, source_language: str) -> Dict[str, str]:
-    fromTo = source_language.lower() + ":"
     # Translate all languages with Google to replace failed DeepL translations.
-    for lang in GOOGLE_TARGET_LANGUAGES:
-        fromTo += lang + "+"
-    # Remove last +
-    fromTo = fromTo[:-1]
+    fromTo = source_language.lower() + ":" + ("+".join(GOOGLE_TARGET_LANGUAGES))
     res = subprocess.run(
         [TRANS_CMD, "-b", "-no-bidi", fromTo, text], text=True, capture_output=True
     )
@@ -311,9 +307,7 @@ def google_translate(text: str, source_language: str) -> Dict[str, str]:
 
     print("\nGoogle translations:")
     translations = {}
-    i = 0
-    for line in res.stdout.splitlines():
-        lang = GOOGLE_TARGET_LANGUAGES[i]
+    for line, lang in zip(res.stdout.splitlines(), GOOGLE_TARGET_LANGUAGES):
         # Map Google language codes to OM language codes
         om_lang = lang
         if lang == "zh-TW":
@@ -323,7 +317,6 @@ def google_translate(text: str, source_language: str) -> Dict[str, str]:
         elif lang == "zh-CN":
             om_lang = "zh-Hans"
         translations[om_lang] = line
-        i = i + 1
         print(om_lang + " = " + line)
     return translations
 
@@ -387,9 +380,7 @@ def deepl_translate_one(
                 # Fall through to error exit
 
         # Fallback error handling
-        print(
-            f"Error: DeepL API request failed with status code {response.status_code}"
-        )
+        print(f"Error: DeepL API request failed with status code {response.status_code}")
         print("Response:", response.text)
         exit(1)
 
@@ -433,8 +424,9 @@ def deepl_translate(
 
 # Returns a list of all languages supported by the core (search) in data/categories.txt
 def get_supported_categories_txt_languages() -> List[str]:
-    script_dir = os.path.dirname(os.path.realpath(__file__))
-    categories_txt_path = os.path.join(script_dir, "..", "..", "data", "categories.txt")
+    script_path = Path(os.path.realpath(__file__))
+    repo_dir = script_path.parent.parent.parent
+    categories_txt_path = repo_dir / "data" / "categories.txt"
     languages = set()
     with open(categories_txt_path) as f:
         for line in f.readlines():
@@ -506,9 +498,7 @@ def main(text_to_translate: str, context: str):
     langs.sort()
 
     categories_txt_languages = get_supported_categories_txt_languages()
-    absent_in_categories_txt = [
-        item for item in langs if item not in categories_txt_languages
-    ]
+    absent_in_categories_txt = [item for item in langs if item not in categories_txt_languages]
     print("============ categories.txt format ============")
     if len(absent_in_categories_txt) > 0:
         print(
@@ -532,9 +522,7 @@ if __name__ == "__main__":
     text_to_translate, context = parse_args(sys.argv[0])
 
     if not "DEEPL_FREE_API_KEY" in os.environ and not "DEEPL_API_KEY" in os.environ:
-        print(
-            "Error: neither DEEPL_FREE_API_KEY nor DEEPL_API_KEY environment variables are set."
-        )
+        print("Error: neither DEEPL_FREE_API_KEY nor DEEPL_API_KEY environment variables are set.")
         print(
             "DeepL translations are not available. Register for a free Developer API account here:"
         )
