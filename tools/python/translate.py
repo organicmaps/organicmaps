@@ -10,7 +10,7 @@ import shutil
 import subprocess
 import sys
 import time
-from typing import Optional
+from typing import Optional, Dict, List
 
 import requests
 
@@ -284,17 +284,17 @@ GOOGLE_TARGET_LANGUAGES = list(set(GOOGLE_TARGET_LANGUAGES))  # Remove duplicate
 GOOGLE_TARGET_LANGUAGES.sort()
 
 
-def get_api_key():
+def get_api_key() -> str:
     key = os.environ.get("DEEPL_FREE_API_KEY")
-    if key == None:
+    if key is None:
         key = os.environ.get("DEEPL_API_KEY")
-    if key == None:
+    if key is None:
         print("Error: DEEPL_FREE_API_KEY or DEEPL_API_KEY env variables are not set")
         exit(1)
     return key
 
 
-def google_translate(text, source_language):
+def google_translate(text: str, source_language: str) -> Dict[str, str]:
     fromTo = source_language.lower() + ":"
     # Translate all languages with Google to replace failed DeepL translations.
     for lang in GOOGLE_TARGET_LANGUAGES:
@@ -328,7 +328,7 @@ def google_translate(text, source_language):
     return translations
 
 
-def google_translate_one(text, source_language, target_language):
+def google_translate_one(text: str, source_language: str, target_language: str) -> str:
     fromTo = source_language.lower() + ":" + target_language.lower()
     res = subprocess.run(
         [TRANS_CMD, "-b", "-no-bidi", fromTo, text], text=True, capture_output=True
@@ -340,7 +340,9 @@ def google_translate_one(text, source_language, target_language):
     return res.stdout.splitlines()[0]
 
 
-def deepl_translate_one(text, source_language, target_language, context=None):
+def deepl_translate_one(
+    text: str, source_language: str, target_language: str, context: Optional[str] = None
+) -> str:
     url = "https://api-free.deepl.com/v2/translate"
     # Normalize target language for formality check (lowercase, no region)
     target_lang_base = target_language.lower().split("-")[0]
@@ -392,7 +394,9 @@ def deepl_translate_one(text, source_language, target_language, context=None):
         exit(1)
 
 
-def translate_one(text, source_language, target_language, context=None):
+def translate_one(
+    text: str, source_language: str, target_language: str, context: Optional[str] = None
+) -> str:
     # Check if target_language is in DeepL list (case-insensitive)
     deepl_languages_lower = [lang.lower() for lang in DEEPL_TARGET_LANGUAGES]
     if target_language.lower() in deepl_languages_lower:
@@ -407,7 +411,9 @@ def translate_one(text, source_language, target_language, context=None):
         raise ValueError(f"Unsupported target language {target_language}")
 
 
-def deepl_translate(text, source_language, context=None):
+def deepl_translate(
+    text: str, source_language: str, context: Optional[str] = None
+) -> Dict[str, str]:
     translations = {}
     print("Deepl translations:")
     for lang in DEEPL_TARGET_LANGUAGES:
@@ -424,8 +430,9 @@ def deepl_translate(text, source_language, context=None):
         print(om_lang + " = " + translation)
     return translations
 
+
 # Returns a list of all languages supported by the core (search) in data/categories.txt
-def get_supported_categories_txt_languages():
+def get_supported_categories_txt_languages() -> List[str]:
     script_dir = os.path.dirname(os.path.realpath(__file__))
     categories_txt_path = os.path.join(script_dir, "..", "..", "data", "categories.txt")
     languages = set()
@@ -445,6 +452,7 @@ def get_supported_categories_txt_languages():
     languages.sort()
     return languages
 
+
 def parse_args(app_name) -> tuple[str, Optional[str]]:
     """
     Parse command line arguments
@@ -457,14 +465,17 @@ Supported DeepL languages: {', '.join(DEEPL_TARGET_LANGUAGES)}
 Supported Google languages: {', '.join(GOOGLE_TARGET_LANGUAGES)}
 """
 
-    parser = argparse.ArgumentParser(epilog=description, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser(
+        epilog=description, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     parser.add_argument("--context", help="Additional context for translation")
     parser.add_argument("text", help="Some English text to translate.")
     args, unknownargs = parser.parse_known_args()
     text = args.text + " " + " ".join(unknownargs)
     return text, args.context
 
-def main(text_to_translate:str, context:str):
+
+def main(text_to_translate: str, context: str):
     source_language = "en"
     if len(text_to_translate) > 3 and text_to_translate[2] == ":":
         source_language = text_to_translate[0:2]
@@ -515,6 +526,7 @@ def main(text_to_translate:str, context:str):
     print("    en =", en)
     for lang in langs:
         print("   ", lang, "=", translations[lang])
+
 
 if __name__ == "__main__":
     text_to_translate, context = parse_args(sys.argv[0])
