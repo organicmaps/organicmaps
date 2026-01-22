@@ -3,13 +3,16 @@
 # Requires `brew install translate-shell`
 # and DEEPL_FREE_API_KEY or DEEPL_API_KEY environment variables set.
 
+import argparse
 import os
-import subprocess
 import platform
-import requests
 import shutil
+import subprocess
 import sys
 import time
+from typing import Optional
+
+import requests
 
 TRANS_CMD = "trans"
 
@@ -342,7 +345,6 @@ def deepl_translate_one(text, source_language, target_language, context=None):
     # Normalize target language for formality check (lowercase, no region)
     target_lang_base = target_language.lower().split("-")[0]
     payload = {
-        "auth_key": get_api_key(),
         "text": text,
         "source_lang": source_language.lower(),
         "target_lang": target_language,
@@ -357,7 +359,10 @@ def deepl_translate_one(text, source_language, target_language, context=None):
         payload["formality"] = (
             "prefer_less" if target_language in INFORMAL_LANGUAGES else "prefer_more"
         )
-    headers = {"Content-Type": "application/x-www-form-urlencoded"}
+    headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Authorization": "DeepL-Auth-Key " + get_api_key(),
+    }
 
     max_retries = 5
     retry_delay = 1.0  # seconds
@@ -419,25 +424,6 @@ def deepl_translate(text, source_language, context=None):
         print(om_lang + " = " + translation)
     return translations
 
-
-def usage():
-    print(
-        "Usage:",
-        sys.argv[0],
-        '[--context "context info"]',
-        "Some English text to translate",
-    )
-    print(
-        "For a custom source language add a two-letter code with a colon in the beginning:"
-    )
-    print("      ", sys.argv[0], "de:Some German text to translate")
-    print()
-    print("Supported DeepL languages:")
-    print(", ".join(DEEPL_TARGET_LANGUAGES))
-    print("Supported Google languages:")
-    print(", ".join(GOOGLE_TARGET_LANGUAGES))
-
-
 # Returns a list of all languages supported by the core (search) in data/categories.txt
 def get_supported_categories_txt_languages():
     script_dir = os.path.dirname(os.path.realpath(__file__))
@@ -459,48 +445,26 @@ def get_supported_categories_txt_languages():
     languages.sort()
     return languages
 
+def parse_args(app_name) -> tuple[str, Optional[str]]:
+    """
+    Parse command line arguments
+    :return: text to translate and optional context string
+    """
+    description = f"""For a custom source language add a two-letter code with a colon in the beginning:
+    {app_name} de:Some German text to translate
 
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        usage()
-        exit(1)
+Supported DeepL languages: {', '.join(DEEPL_TARGET_LANGUAGES)}
+Supported Google languages: {', '.join(GOOGLE_TARGET_LANGUAGES)}
+"""
 
-    if not "DEEPL_FREE_API_KEY" in os.environ and not "DEEPL_API_KEY" in os.environ:
-        print(
-            "Error: neither DEEPL_FREE_API_KEY nor DEEPL_API_KEY environment variables are set."
-        )
-        print(
-            "DeepL translations are not available. Register for a free Developer API account here:"
-        )
-        print("https://www.deepl.com/pro#developer")
-        print("and get the API key here: https://www.deepl.com/account/summary")
-        exit(1)
+    parser = argparse.ArgumentParser(epilog=description, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--context", help="Additional context for translation")
+    parser.add_argument("text", help="Some English text to translate.")
+    args, unknownargs = parser.parse_known_args()
+    text = args.text + " " + " ".join(unknownargs)
+    return text, args.context
 
-    if shutil.which(TRANS_CMD) == None:
-        print("Error: translate-shell program for Google Translate is not installed.")
-        if platform.system() == "Darwin":
-            print("Install it using `brew install translate-shell`")
-        else:
-            print(
-                "See https://github.com/soimort/translate-shell/wiki/Distros for installation instructions."
-            )
-        exit(1)
-
-    args = sys.argv[1:]
-    context = None
-    if "--context" in args:
-        try:
-            c_idx = args.index("--context")
-            if c_idx + 1 >= len(args):
-                print("Error: --context requires an argument")
-                exit(1)
-            context = args[c_idx + 1]
-            del args[c_idx : c_idx + 2]
-        except ValueError:
-            pass
-
-    text_to_translate = " ".join(args)
-
+def main(text_to_translate:str, context:str):
     source_language = "en"
     if len(text_to_translate) > 3 and text_to_translate[2] == ":":
         source_language = text_to_translate[0:2]
@@ -547,7 +511,32 @@ if __name__ == "__main__":
             continue
         print(lang + ":" + translations[lang])
 
-    print("============ strings.txt format ============")
+    print("\n============ strings.txt format ============")
     print("    en =", en)
     for lang in langs:
         print("   ", lang, "=", translations[lang])
+
+if __name__ == "__main__":
+    text_to_translate, context = parse_args(sys.argv[0])
+
+    if not "DEEPL_FREE_API_KEY" in os.environ and not "DEEPL_API_KEY" in os.environ:
+        print(
+            "Error: neither DEEPL_FREE_API_KEY nor DEEPL_API_KEY environment variables are set."
+        )
+        print(
+            "DeepL translations are not available. Register for a free Developer API account here:"
+        )
+        print("https://www.deepl.com/pro#developer")
+        print("and get the API key here: https://www.deepl.com/account/summary")
+        exit(1)
+
+    if shutil.which(TRANS_CMD) is None:
+        print("Error: translate-shell program for Google Translate is not installed.")
+        if platform.system() == "Darwin":
+            print("Install it using `brew install translate-shell`")
+        else:
+            print(
+                "See https://github.com/soimort/translate-shell/wiki/Distros for installation instructions."
+            )
+        exit(1)
+    main(text_to_translate, context)
