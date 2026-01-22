@@ -60,7 +60,8 @@ public class SplashActivity extends AppCompatActivity
     setContentView(R.layout.activity_splash);
     adjustBrandingInfoPadding();
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+    // https://github.com/organicmaps/organicmaps/issues/11938
+    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S_V2)
       getSplashScreen().setOnExitAnimationListener(SplashScreenView::remove);
     mPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
                                                    result -> Config.setLocationRequested());
