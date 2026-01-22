@@ -1,0 +1,16 @@
+# This file doesn't define Python project (no Python version, no dependencies) and is used
+# Only for 'black' formatting tool ( https://black.readthedocs.io/en/stable/ )
+
+[tool.black]
+# Code formatting parameters
+line-length = 120
+target-version = ['py311']
+include = 'tools/python/translate.py'
+
+# Exclude submodules
+exclude = '''
+( 3party/ | 
+  tools/python/twine/ |
+  tools/kothic/
+)
+'''

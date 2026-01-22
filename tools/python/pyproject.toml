@@ -1,5 +1,0 @@
-[tool.black]
-# Code formatting parameters
-line-length = 100
-target-version = ['py311']
-include = 'translate.py'

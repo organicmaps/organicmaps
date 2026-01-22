@@ -297,9 +297,7 @@ def get_api_key() -> str:
 def google_translate(text: str, source_language: str) -> Dict[str, str]:
     # Translate all languages with Google to replace failed DeepL translations.
     fromTo = source_language.lower() + ":" + ("+".join(GOOGLE_TARGET_LANGUAGES))
-    res = subprocess.run(
-        [TRANS_CMD, "-b", "-no-bidi", fromTo, text], text=True, capture_output=True
-    )
+    res = subprocess.run([TRANS_CMD, "-b", "-no-bidi", fromTo, text], text=True, capture_output=True)
     if res.returncode != 0:
         print(f"Error running {TRANS_CMD} program:")
         print(res.stderr)
@@ -323,9 +321,7 @@ def google_translate(text: str, source_language: str) -> Dict[str, str]:
 
 def google_translate_one(text: str, source_language: str, target_language: str) -> str:
     fromTo = source_language.lower() + ":" + target_language.lower()
-    res = subprocess.run(
-        [TRANS_CMD, "-b", "-no-bidi", fromTo, text], text=True, capture_output=True
-    )
+    res = subprocess.run([TRANS_CMD, "-b", "-no-bidi", fromTo, text], text=True, capture_output=True)
     if res.returncode != 0:
         print(f"Error running {TRANS_CMD} program:")
         print(res.stderr)
@@ -333,9 +329,7 @@ def google_translate_one(text: str, source_language: str, target_language: str) 
     return res.stdout.splitlines()[0]
 
 
-def deepl_translate_one(
-    text: str, source_language: str, target_language: str, context: Optional[str] = None
-) -> str:
+def deepl_translate_one(text: str, source_language: str, target_language: str, context: Optional[str] = None) -> str:
     url = "https://api-free.deepl.com/v2/translate"
     # Normalize target language for formality check (lowercase, no region)
     target_lang_base = target_language.lower().split("-")[0]
@@ -351,9 +345,7 @@ def deepl_translate_one(
 
     # Only add formality for languages that support it
     if target_lang_base not in DEEPL_NO_FORMALITY_LANGUAGES:
-        payload["formality"] = (
-            "prefer_less" if target_language in INFORMAL_LANGUAGES else "prefer_more"
-        )
+        payload["formality"] = "prefer_less" if target_language in INFORMAL_LANGUAGES else "prefer_more"
     headers = {
         "Content-Type": "application/x-www-form-urlencoded",
         "Authorization": "DeepL-Auth-Key " + get_api_key(),
@@ -369,9 +361,7 @@ def deepl_translate_one(
             return json["translations"][0]["text"]
         elif response.status_code == 429:
             if attempt < max_retries:
-                print(
-                    f"Warning: DeepL rate limit exceeded (429). Retrying in {retry_delay} seconds..."
-                )
+                print(f"Warning: DeepL rate limit exceeded (429). Retrying in {retry_delay} seconds...")
                 time.sleep(retry_delay)
                 retry_delay *= 2
                 continue
@@ -385,26 +375,20 @@ def deepl_translate_one(
         exit(1)
 
 
-def translate_one(
-    text: str, source_language: str, target_language: str, context: Optional[str] = None
-) -> str:
+def translate_one(text: str, source_language: str, target_language: str, context: Optional[str] = None) -> str:
     # Check if target_language is in DeepL list (case-insensitive)
     deepl_languages_lower = [lang.lower() for lang in DEEPL_TARGET_LANGUAGES]
     if target_language.lower() in deepl_languages_lower:
         # Find the correct case version
         idx = deepl_languages_lower.index(target_language.lower())
-        return deepl_translate_one(
-            text, source_language, DEEPL_TARGET_LANGUAGES[idx], context=context
-        )
+        return deepl_translate_one(text, source_language, DEEPL_TARGET_LANGUAGES[idx], context=context)
     elif target_language in GOOGLE_TARGET_LANGUAGES:
         return google_translate_one(text, source_language, target_language)
     else:
         raise ValueError(f"Unsupported target language {target_language}")
 
 
-def deepl_translate(
-    text: str, source_language: str, context: Optional[str] = None
-) -> Dict[str, str]:
+def deepl_translate(text: str, source_language: str, context: Optional[str] = None) -> Dict[str, str]:
     translations = {}
     print("Deepl translations:")
     for lang in DEEPL_TARGET_LANGUAGES:
@@ -457,9 +441,7 @@ Supported DeepL languages: {', '.join(DEEPL_TARGET_LANGUAGES)}
 Supported Google languages: {', '.join(GOOGLE_TARGET_LANGUAGES)}
 """
 
-    parser = argparse.ArgumentParser(
-        epilog=description, formatter_class=argparse.RawDescriptionHelpFormatter
-    )
+    parser = argparse.ArgumentParser(epilog=description, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--context", help="Additional context for translation")
     parser.add_argument("text", help="Some English text to translate.")
     args, unknownargs = parser.parse_known_args()
@@ -501,9 +483,7 @@ def main(text_to_translate: str, context: str):
     absent_in_categories_txt = [item for item in langs if item not in categories_txt_languages]
     print("============ categories.txt format ============")
     if len(absent_in_categories_txt) > 0:
-        print(
-            "\nWARNING: The following translations are not supported yet in the categories.txt and are skipped:"
-        )
+        print("\nWARNING: The following translations are not supported yet in the categories.txt and are skipped:")
         print(absent_in_categories_txt)
         print("See indexer/categories_holder.hpp for details.\n")
     print("en:" + en)
@@ -522,12 +502,10 @@ if __name__ == "__main__":
     text_to_translate, context = parse_args(sys.argv[0])
 
     if not "DEEPL_FREE_API_KEY" in os.environ and not "DEEPL_API_KEY" in os.environ:
-        print("Error: neither DEEPL_FREE_API_KEY nor DEEPL_API_KEY environment variables are set.")
-        print(
-            "DeepL translations are not available. Register for a free Developer API account here:"
-        )
-        print("https://www.deepl.com/pro#developer")
-        print("and get the API key here: https://www.deepl.com/account/summary")
+        print("""Error: neither DEEPL_FREE_API_KEY nor DEEPL_API_KEY environment variables are set.
+DeepL translations are not available. Register for a free Developer API account here:
+https://www.deepl.com/pro#developer
+and get the API key here: https://www.deepl.com/account/summary""")
         exit(1)
 
     if shutil.which(TRANS_CMD) is None:
@@ -535,8 +513,6 @@ if __name__ == "__main__":
         if platform.system() == "Darwin":
             print("Install it using `brew install translate-shell`")
         else:
-            print(
-                "See https://github.com/soimort/translate-shell/wiki/Distros for installation instructions."
-            )
+            print("See https://github.com/soimort/translate-shell/wiki/Distros for installation instructions.")
         exit(1)
     main(text_to_translate, context)
