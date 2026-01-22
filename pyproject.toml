@@ -1,6 +1,12 @@
 # This file doesn't define Python project (no Python version, no dependencies) and is used
 # Only for 'black' formatting tool ( https://black.readthedocs.io/en/stable/ )
 
+[tool.uv]
+# You can run 'black' formatter using `uv run black .`
+dev-dependencies = [
+  "black>=24.0"
+]
+
 [tool.black]
 # Code formatting parameters
 line-length = 120
