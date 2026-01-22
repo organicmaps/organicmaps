@@ -1,5 +1,6 @@
 package app.organicmaps.widget.placepage.sections;
 
+import android.animation.ValueAnimator;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,6 +38,8 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   private TextView mTodayNonBusinessTime;
   private RecyclerView mFullWeekOpeningHours;
   private PlaceOpeningHoursAdapter mOpeningHoursAdapter;
+  private View dropDownIcon;
+  private boolean isOhExpanded;
 
   private PlacePageViewModel mViewModel;
 
@@ -60,6 +63,9 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     mFullWeekOpeningHours = view.findViewById(R.id.rw__full_opening_hours);
     mOpeningHoursAdapter = new PlaceOpeningHoursAdapter();
     mFullWeekOpeningHours.setAdapter(mOpeningHoursAdapter);
+    dropDownIcon = view.findViewById(R.id.dropdown_icon);
+    UiUtils.hide(mFullWeekOpeningHours, dropDownIcon);
+    isOhExpanded = false;
   }
 
   private void refreshTodayNonBusinessTime(Timespan[] closedTimespans)
@@ -141,7 +147,9 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
         // Show whole week time table.
         int firstDayOfWeek = Calendar.getInstance(Locale.getDefault()).getFirstDayOfWeek();
         mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
-        UiUtils.show(mFullWeekOpeningHours);
+        final View iconView = mFrame.findViewById(R.id.dropdown_icon);
+        UiUtils.show(iconView);
+        mFrame.setOnClickListener((v) -> { expandOpeningHours(); });
 
         // Show today's open time + non-business time.
         boolean containsCurrentWeekday = false;
@@ -177,6 +185,36 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
         }
       }
     }
+  }
+
+  private void expandOpeningHours()
+  {
+    int targetHeight, startheight;
+    if (!isOhExpanded)
+    {
+      UiUtils.show(mFullWeekOpeningHours);
+      startheight = 0;
+      mFullWeekOpeningHours.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+      targetHeight = mFullWeekOpeningHours.getMeasuredHeight();
+      dropDownIcon.animate().rotation(-180f).setDuration(200).start();
+      isOhExpanded = true;
+    }
+    else
+    {
+      startheight = mFullWeekOpeningHours.getMeasuredHeight();
+      targetHeight = 0;
+      dropDownIcon.animate().rotation(0f).setDuration(200).start();
+      isOhExpanded = false;
+    }
+    mFullWeekOpeningHours.getLayoutParams().height = startheight; // Start at zero
+    ValueAnimator va = ValueAnimator.ofInt(startheight, targetHeight);
+    va.setDuration(200);
+    va.addUpdateListener(animation -> {
+      mFullWeekOpeningHours.getLayoutParams().height = (int) animation.getAnimatedValue();
+      mFullWeekOpeningHours.requestLayout();
+    });
+    va.start();
   }
 
   @Override

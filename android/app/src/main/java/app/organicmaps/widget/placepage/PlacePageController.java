@@ -217,6 +217,13 @@ public class PlacePageController
         return insets;
       });
     }
+    mPlacePage.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+      if (top != oldTop)
+      {
+        mDistanceToTop = oldTop;
+        mViewModel.setPlacePageDistanceToTop(mDistanceToTop);
+      }
+    });
   }
 
   @NonNull
