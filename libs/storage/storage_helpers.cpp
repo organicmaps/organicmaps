@@ -47,7 +47,7 @@ bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage
   // - max MWM file size to apply diff patch (patches are applying one-by-one) = m_maxFileSizeInBytes
   // - final size difference between old and new MWMs = m_sizeDifference
 
-  [[maybe_unused]] MwmSize const diff = updateInfo.m_sizeDifference > 0 ? updateInfo.m_sizeDifference : 0;
+  [[maybe_unused]] MwmSize const diff = std::max(updateInfo.m_sizeDifference, int64_t{0});
   //  return IsEnoughSpaceForDownload(std::max(diff, updateInfo.m_totalDownloadSizeInBytes) +
   //                                  updateInfo.m_maxFileSizeInBytes);
 
