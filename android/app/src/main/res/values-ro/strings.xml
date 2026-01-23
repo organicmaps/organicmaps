@@ -866,7 +866,7 @@
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto în navigație</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
-    <string name="follow_system">Urmează системол</string>
+    <string name="follow_system">Urmează sistemul</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Ștergeți %s?</string>
 </resources>
