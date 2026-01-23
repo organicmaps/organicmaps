@@ -60,22 +60,19 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
   }
 
   @NonNull
+  @SuppressLint("InflateParams")
   private View buildView()
   {
     final List<Integer> colors = PredefinedColors.getAllPredefinedColors();
     final ColorsAdapter adapter = new ColorsAdapter(requireActivity(), colors, mIconResId);
     adapter.chooseItem(mIconColor);
-
-    @SuppressLint("InflateParams")
-    final GridView gView =
-        (GridView) LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_color_grid, null);
-    gView.setAdapter(adapter);
-    gView.setOnItemClickListener((parent, view, pos, id) -> {
+    GridView gridView = (GridView) LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_color_grid, null);
+    gridView.setAdapter(adapter);
+    gridView.setOnItemClickListener((parent, view, pos, id) -> {
       if (mColorSetListener != null)
         mColorSetListener.onBookmarkColorSet(adapter.getItem(pos));
       dismiss();
     });
-
-    return gView;
+    return gridView;
   }
 }

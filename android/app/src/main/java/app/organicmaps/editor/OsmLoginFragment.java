@@ -3,6 +3,7 @@ package app.organicmaps.editor;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,8 @@ import androidx.core.view.ViewCompat;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.editor.OsmOAuth;
 import app.organicmaps.sdk.util.Constants;
-import app.organicmaps.sdk.util.DateUtils;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.util.InputUtils;
@@ -56,12 +55,12 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     mLoginInput = view.findViewById(R.id.osm_username);
     mPasswordInput = view.findViewById(R.id.osm_password);
     mErrorTv = view.findViewById(R.id.tv_error);
+    mErrorTv.setGravity(Gravity.CENTER);
     mLoginButton = view.findViewById(R.id.login);
     mLostPasswordButton = view.findViewById(R.id.lost_password);
     Button registerButton = view.findViewById(R.id.register);
     registerButton.setOnClickListener((v) -> Utils.openUrl(requireActivity(), Constants.Url.OSM_REGISTER));
     mProgress = view.findViewById(R.id.osm_login_progress);
-    final String dataVersion = DateUtils.getShortDateFormatter().format(Framework.getDataVersion());
 
     if (BuildConfig.FLAVOR.equals("google") && Utils.isBrowserAvailable(requireContext()))
     {
@@ -114,11 +113,21 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     mLoginButton.setText("");
 
     ThreadPool.getWorker().execute(() -> {
-      final String[] authResult = OsmOAuth.nativeAuthWithPassword(username, password);
-      final String oauthToken = authResult != null ? authResult[0] : null;
-      final String error = (authResult != null && authResult.length > 1) ? authResult[1] : null;
-      final String username1 = (oauthToken == null) ? null : OsmOAuth.nativeGetOsmUsername(oauthToken);
-      UiThread.run(() -> processAuth(oauthToken, username1, error));
+      final String[] authResult = new String[1];
+      final boolean success = OsmOAuth.nativeAuthWithPassword(username, password, authResult);
+      final String oauthToken = success ? authResult[0] : null;
+      final String error = !success ? authResult[0] : null;
+      if (success)
+      {
+        final String osmUsername = OsmOAuth.nativeGetOsmUsername(oauthToken);
+        OsmOAuth.setAuthorization(oauthToken, osmUsername);
+      }
+      UiThread.run(() -> {
+        if (success)
+          onAuthSuccess();
+        else
+          onAuthFail(error);
+      });
     });
   }
 
@@ -135,7 +144,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     mLostPasswordButton.setEnabled(enable);
   }
 
-  private void processAuth(String oauthToken, String username, @Nullable String error)
+  private void onAuthFail(@Nullable String error)
   {
     if (!isAdded())
       return;
@@ -143,14 +152,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     enableInput(true);
     UiUtils.hide(mProgress);
     mLoginButton.setText(R.string.login_osm);
-    if (oauthToken == null)
-      onAuthFail(error);
-    else
-      onAuthSuccess(oauthToken, username);
-  }
 
-  private void onAuthFail(@Nullable String error)
-  {
     mIsErrorShown = true;
     mErrorText = error;
     if (mErrorTv != null)
@@ -171,9 +173,15 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     outState.putString(STATE_ERROR_TEXT, mErrorText);
   }
 
-  private void onAuthSuccess(String oauthToken, String username)
+  private void onAuthSuccess()
   {
-    OsmOAuth.setAuthorization(oauthToken, username);
+    if (!isAdded())
+      return;
+
+    enableInput(true);
+    UiUtils.hide(mProgress);
+    mLoginButton.setText(R.string.login_osm);
+
     final Bundle extras = requireActivity().getIntent().getExtras();
     if (extras != null && extras.getBoolean("redirectToProfile", false))
       startActivity(new Intent(requireContext(), ProfileActivity.class));
@@ -181,21 +189,26 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
   }
 
   // This method is called by MwmActivity & UrlProcessor when "om://oauth2/osm/callback?code=XXX" is handled
-  private void continueOAuth2Flow(String oauth2code)
+  private void continueOAuth2Flow(@NonNull String oauth2code)
   {
     if (!isAdded())
       return;
 
-    if (oauth2code == null || oauth2code.isEmpty())
-      onAuthFail(null);
-    else
-    {
-      ThreadPool.getWorker().execute(() -> {
-        // Finish OAuth2 auth flow and get username for UI.
-        final String oauthToken = OsmOAuth.nativeAuthWithOAuth2Code(oauth2code);
-        final String username = (oauthToken == null) ? null : OsmOAuth.nativeGetOsmUsername(oauthToken);
-        UiThread.run(() -> { processAuth(oauthToken, username, null); });
+    ThreadPool.getWorker().execute(() -> {
+      // Finish OAuth2 auth flow and get username for UI.
+
+      final String oauthToken = OsmOAuth.nativeAuthWithOAuth2Code(oauth2code);
+      if (oauthToken != null)
+      {
+        final String username = OsmOAuth.nativeGetOsmUsername(oauthToken);
+        OsmOAuth.setAuthorization(oauthToken, username);
+      }
+      UiThread.run(() -> {
+        if (oauthToken != null)
+          onAuthSuccess();
+        else
+          onAuthFail(null);
       });
-    }
+    });
   }
 }
