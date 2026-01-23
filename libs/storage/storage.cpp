@@ -383,7 +383,7 @@ LocalAndRemoteSize Storage::CountrySizeInBytes(CountryId const & countryId) cons
   CountryFile const & countryFile = GetCountryFile(countryId);
   LocalAndRemoteSize sizes(0, GetRemoteSize(countryFile));
 
-  if (!IsCountryInQueue(countryId) && !IsDiffApplyingInProgressToCountry(countryId))
+  if (!IsDiffApplyingInProgressToCountry(countryId))
     sizes.first = localFile ? localFile->GetSize(MapFileType::Map) : 0;
 
   auto const it = m_downloadingCountries.find(countryId);
