@@ -6,6 +6,7 @@ import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.log.Logger;
 
 abstract class AudioFocusManager
@@ -15,11 +16,13 @@ abstract class AudioFocusManager
     void onAudioFocusLost();
   }
 
-  public static final AudioAttributes AUDIO_ATTRIBUTES =
-      new AudioAttributes.Builder()
-          .setUsage(AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE)
-          .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-          .build();
+  @NonNull
+  public static AudioAttributes getAudioAttributes()
+  {
+    final int usage = Config.TTS.isHandsfreeProfile() ? AudioAttributes.USAGE_VOICE_COMMUNICATION
+                                                      : AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE;
+    return new AudioAttributes.Builder().setUsage(usage).setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build();
+  }
 
   private static final String TAG = AudioFocusManager.class.getSimpleName();
 
