@@ -45,7 +45,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.shape.MaterialShapeDrawable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PlacePageController
@@ -55,9 +54,6 @@ public class PlacePageController
   private static final String TAG = PlacePageController.class.getSimpleName();
   private static final String PLACE_PAGE_BUTTONS_FRAGMENT_TAG = "PLACE_PAGE_BUTTONS";
   private static final String PLACE_PAGE_FRAGMENT_TAG = "PLACE_PAGE";
-  private static final List<String> requiredCells =
-      Arrays.asList("place_page_bookmark_fragment", "place_page_wikipedia_fragment",
-                    "place_page_opening_hours_fragment", "ll__place_route_ref");
 
   private BottomSheetBehavior<View> mPlacePageBehavior;
   private NestedScrollView mPlacePage;
@@ -409,27 +405,11 @@ public class PlacePageController
                                : 0;
     final boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     final int bottomMargins = getResources().getDimensionPixelSize(R.dimen.margin_double);
-    final ViewGroup detailsContainer = mPlacePage.findViewById(R.id.details_container);
+    final View plusDetailsContainer = mPlacePage.findViewById(R.id.plus_details);
     int peekHeight = mPreviewHeight + mButtonsHeight;
     if (mMapObject != null && mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS)
     {
-      for (int i = 0; i < detailsContainer.getChildCount(); i++)
-      {
-        final int height = detailsContainer.getChildAt(i).getHeight();
-        if (requiredCells.stream().anyMatch(
-                getResources().getResourceEntryName(detailsContainer.getChildAt(i).getId())::contains)
-            && height > 4)
-        {
-          if (getResources().getResourceEntryName(detailsContainer.getChildAt(i).getId()).contains(requiredCells.get(0))
-              && requiredCells.stream().anyMatch(
-                  getResources().getResourceEntryName(detailsContainer.getChildAt(i + 1).getId())::contains))
-          {
-            peekHeight += detailsContainer.getChildAt(i + 1).getHeight();
-          }
-          peekHeight += height + bottomMargins;
-          break;
-        }
-      }
+      peekHeight += plusDetailsContainer.getHeight() + bottomMargins;
     }
     return Math.min(peekHeight + (isLandscape ? bottomInsets : 0),
                     (mCoordinator.getHeight() - (mPlacePageStatusBarBackground.getHeight())));
