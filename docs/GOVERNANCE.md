@@ -33,4 +33,3 @@ The Governing Board is the governing body responsible for the overall oversight 
 
 - [Alexander Borsuk](https://github.com/biodranik)
 - [Victor Govako](https://github.com/vng)
-- [Roman Tsisyk](https://github.com/rtsisyk)
