@@ -11,9 +11,9 @@ import java.util.Locale;
 
 public class StringUtils
 {
-  public static String toSnakeCase(String input)
+  public static String toSnakeCaseUsLocale(String input)
   {
-    return input.replaceAll("([a-z])([A-Z]+)", "$1_$2").toLowerCase();
+    return input.replaceAll("([a-z])([A-Z]+)", "$1_$2").toLowerCase(Locale.US);
   }
   public static String formatUsingUsLocale(String pattern, Object... args)
   {
