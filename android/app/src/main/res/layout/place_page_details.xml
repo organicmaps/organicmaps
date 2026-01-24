@@ -11,6 +11,7 @@
   <include layout="@layout/place_page_fat_shadow"/>
 
   <LinearLayout
+    android:id="@+id/details_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?ppBackground"
@@ -34,6 +35,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       tools:layout="@layout/place_page_opening_hours_fragment" />
+
+    <include layout="@layout/place_page_route_ref" />
 
     <include layout="@layout/place_page_cuisine"/>
 
@@ -65,7 +68,6 @@
 
     <include layout="@layout/place_page_outdoor_seating"/>
 
-    <include layout="@layout/place_page_route_ref"/>
 
     <!-- ToDo: Address is missing compared with iOS. It's shown in title but anyway .. -->
 
