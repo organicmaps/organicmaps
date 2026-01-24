@@ -83,21 +83,27 @@
 
   <script>
     "use strict";
+    function getQueryParamFromUrl(name, url) {
+      var question = url.indexOf("?");
+      if (question == -1)
+        return null;
+      // URLSearchParams is not supported in Android 5.
+      var hash = url.indexOf("#", question + 1);
+      var query = (hash == -1) ? url.substr(question + 1) : url.substr(question + 1, hash - question - 1);
+      var params = query.split("&");
+      for (var i = 0; i < params.length; i++) {
+        var pair = params[i].split("=");
+        if (decodeURIComponent(pair[0]) == name)
+          return decodeURIComponent(pair[1] || "");
+      }
+      return null;
+    }
+
     function getLanguages() {
       var langs = [].concat(navigator.languages || navigator.language || navigator.userLanguage);
-      var question = location.href.indexOf("?");
-      if (question != -1) {
-        var queryStr;
-        var hash = location.href.indexOf("#");
-        if (hash != -1 )
-          queryStr = location.href.substr(question, hash - question);
-        else
-          queryStr = location.href.substr(question);
-        var urlParams = new URLSearchParams(queryStr);
-        var queryLang = urlParams.get("lang");
-        if (queryLang)
-          langs = [queryLang];
-      }
+      var queryLang = getQueryParamFromUrl("lang", location.href);
+      if (queryLang)
+        langs = [queryLang];
       return langs;
     }
 
@@ -551,7 +557,6 @@
       </li>
 
     </ul>
-
 
     <h4 lang="en">
       For more information please visit our web-site <a href="https://organicmaps.app/">organicmaps.app</a>
@@ -6973,6 +6978,7 @@ Kimlik Düzenleyicide, <em>Düzenleme özelliği</em> yan panelindeki <em>Etiket
   <a href="#" lang="tr">Başa Git</a>
   <a href="#" lang="uk">Перейти до початку</a>
   <a href="#" lang="zh">回到顶部</a>
+
 
 </body>
 
