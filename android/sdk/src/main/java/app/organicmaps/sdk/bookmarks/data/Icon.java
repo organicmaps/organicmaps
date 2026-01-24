@@ -108,7 +108,7 @@ public class Icon implements Parcelable
     int[] icons = new int[names.length];
     for (int i = 0; i < names.length; i++)
     {
-      final String name = StringUtils.toSnakeCase(names[i]);
+      final String name = StringUtils.toSnakeCaseUsLocale(names[i]);
       icons[i] = resources.getIdentifier("ic_bookmark_" + name, "drawable", packageName);
       if (icons[i] == 0)
       {
