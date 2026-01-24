@@ -202,6 +202,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">मानचित्र पर + और - बटन</string>
     <string name="pref_zoom_summary">मानचित्र पर बटन प्रदर्शित करें</string>
+    <string name="pref_auto_night_in_navigation_title">अंधेरे में नेविगेट करते समय नाइट स्टाइल</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">रात का मोड</string>
     <!-- Generic «Off» string -->
@@ -278,6 +279,12 @@
     <string name="enable_location_services">कृपया स्थान सेवाएँ सक्षम करें</string>
     <string name="save">सहेजें</string>
     <string name="create">बनाएं</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">प्रकटन</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">हल्का</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">गहरा</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">लाखों उपयोगकर्ताओं को बिना विज्ञापनों वाले मुफ़्त नक्शे उपहार में दें!</string>
 

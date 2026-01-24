@@ -1,7 +1,7 @@
 import Chart
 
 protocol ElevationProfileViewProtocol: AnyObject {
-  var presenter: ElevationProfilePresenterProtocol?  { get set }
+  var presenter: ElevationProfilePresenterProtocol? { get set }
 
   var userInteractionEnabled: Bool { get set }
   var isChartViewHidden: Bool { get set }
@@ -15,7 +15,6 @@ protocol ElevationProfileViewProtocol: AnyObject {
 }
 
 final class ElevationProfileViewController: UIViewController {
-
   private enum Constants {
     static let descriptionCollectionViewHeight: CGFloat = 52
     static let descriptionCollectionViewContentInsets = UIEdgeInsets(top: 20, left: 16, bottom: 4, right: 16)
@@ -24,7 +23,7 @@ final class ElevationProfileViewController: UIViewController {
     static let chartViewVisibleHeight: CGFloat = 176
     static let chartViewHiddenHeight: CGFloat = .zero
   }
-  
+
   var presenter: ElevationProfilePresenterProtocol?
 
   init() {
@@ -32,10 +31,10 @@ final class ElevationProfileViewController: UIViewController {
   }
 
   @available(*, unavailable)
-  required init?(coder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   private var chartView = ChartView()
   private var graphViewContainer = UIView()
   private var descriptionCollectionView: UICollectionView = {
@@ -44,8 +43,8 @@ final class ElevationProfileViewController: UIViewController {
     layout.minimumInteritemSpacing = 0
     return UICollectionView(frame: .zero, collectionViewLayout: layout)
   }()
-  private var chartViewHeightConstraint: NSLayoutConstraint!
 
+  private var chartViewHeightConstraint: NSLayoutConstraint!
 
   // MARK: - Lifecycle
 
@@ -61,7 +60,7 @@ final class ElevationProfileViewController: UIViewController {
     descriptionCollectionView.reloadData()
   }
 
-// MARK: - Private methods
+  // MARK: - Private methods
 
   private func setupViews() {
     view.setStyle(.background)
@@ -120,7 +119,6 @@ final class ElevationProfileViewController: UIViewController {
 // MARK: - ElevationProfileViewProtocol
 
 extension ElevationProfileViewController: ElevationProfileViewProtocol {
-
   var userInteractionEnabled: Bool {
     get { chartView.isUserInteractionEnabled }
     set { chartView.isUserInteractionEnabled = newValue }

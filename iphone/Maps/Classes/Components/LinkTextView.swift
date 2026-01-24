@@ -1,5 +1,5 @@
-class LinkTextView : UITextView {
+class LinkTextView: UITextView {
   override var canBecomeFirstResponder: Bool {
-    return false;
+    false
   }
 }

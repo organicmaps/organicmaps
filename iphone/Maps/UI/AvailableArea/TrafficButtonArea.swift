@@ -1,6 +1,6 @@
 final class TrafficButtonArea: AvailableArea {
   override func isAreaAffectingView(_ other: UIView) -> Bool {
-    return !other.trafficButtonAreaAffectDirections.isEmpty
+    !other.trafficButtonAreaAffectDirections.isEmpty
   }
 
   override func addAffectingView(_ other: UIView) {
@@ -15,7 +15,7 @@ final class TrafficButtonArea: AvailableArea {
 }
 
 extension UIView {
-  @objc var trafficButtonAreaAffectDirections: MWMAvailableAreaAffectDirections { return [] }
+  @objc var trafficButtonAreaAffectDirections: MWMAvailableAreaAffectDirections { [] }
 
-  var trafficButtonAreaAffectView: UIView { return self }
+  var trafficButtonAreaAffectView: UIView { self }
 }

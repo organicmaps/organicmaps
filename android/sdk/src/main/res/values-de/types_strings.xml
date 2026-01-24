@@ -841,6 +841,7 @@
     <string name="type.railway.construction">Eisenbahnstrecke im Bau</string>
     <string name="type.railway.crossing">Bahnübergang</string>
     <string name="type.railway.disused">Stillgelegte Bahnstrecke</string>
+    <string name="type.railway.disused.bridge">Stillgelegte Eisenbahnbrücke</string>
     <string name="type.railway.funicular">Standseilbahn</string>
     <string name="type.railway.funicular.bridge">Standseilbahnbrücke</string>
     <string name="type.railway.funicular.tunnel">Standseilbahntunnel</string>

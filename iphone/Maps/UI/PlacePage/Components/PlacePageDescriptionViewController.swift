@@ -13,7 +13,7 @@ final class PlacePageDescriptionViewController: WebViewController {
     html = html.replacingOccurrences(of: "</body>", with: "<p><b>wikipedia.org</b></p></body>")
     return html
   }
-  
+
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
     if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle {
@@ -21,7 +21,7 @@ final class PlacePageDescriptionViewController: WebViewController {
       webView.loadHTMLString(configuredHtml(withText: m_htmlText), baseURL: nil)
     }
   }
-  
+
   private func isOnBottom(_ scrollView: UIScrollView) -> Bool {
     let bottom = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.bounds.height
     return scrollView.contentOffset.y >= bottom

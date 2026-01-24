@@ -8,7 +8,7 @@ final class TabBarArea: AvailableArea {
   }
 
   override func isAreaAffectingView(_ other: UIView) -> Bool {
-    return !other.tabBarAreaAffectDirections.isEmpty
+    !other.tabBarAreaAffectDirections.isEmpty
   }
 
   override func addAffectingView(_ other: UIView) {
@@ -23,7 +23,7 @@ final class TabBarArea: AvailableArea {
 }
 
 extension UIView {
-  @objc var tabBarAreaAffectDirections: MWMAvailableAreaAffectDirections { return [] }
+  @objc var tabBarAreaAffectDirections: MWMAvailableAreaAffectDirections { [] }
 
-  var tabBarAreaAffectView: UIView { return self }
+  var tabBarAreaAffectView: UIView { self }
 }

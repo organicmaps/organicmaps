@@ -1,4 +1,4 @@
-final class BookmarksListBuilder {
+enum BookmarksListBuilder {
   static func build(markGroupId: MWMMarkGroupID,
                     bookmarksCoordinator: BookmarksCoordinator?,
                     delegate: BookmarksListDelegate? = nil) -> BookmarksListViewController {

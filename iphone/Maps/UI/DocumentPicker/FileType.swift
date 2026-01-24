@@ -28,4 +28,3 @@ extension FileType {
     UTType(filenameExtension: fileExtension)!
   }
 }
-

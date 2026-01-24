@@ -204,6 +204,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">+ və - düymələri xəritədə</string>
     <string name="pref_zoom_summary">Xəritədə göstər</string>
+    <string name="pref_auto_night_in_navigation_title">Qaranlıqda naviqasiya edərkən gecə üslubu</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Gecə rejimi</string>
     <!-- Generic «Off» string -->
@@ -335,6 +336,12 @@
     <string name="gray">Boz</string>
     <!-- blue gray color -->
     <string name="blue_gray">Mavi-boz</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Görünüş</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Parlaq</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Tünd</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Milyonlarla istifadəçiyə reklamsız, pulsuz xəritələr hədiyyə edin!</string>
 

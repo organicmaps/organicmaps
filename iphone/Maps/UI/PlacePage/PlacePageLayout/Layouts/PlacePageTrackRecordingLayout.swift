@@ -4,9 +4,7 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
   private let storyboard: UIStoryboard
   weak var presenter: PlacePagePresenterProtocol?
 
-  lazy var bodyViewControllers: [UIViewController] = {
-    configureViewControllers()
-  }()
+  lazy var bodyViewControllers: [UIViewController] = configureViewControllers()
 
   var actionBar: ActionBarViewController? {
     actionBarViewController
@@ -20,13 +18,9 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
     [headerViewController]
   }
 
-  lazy var headerViewController: PlacePageHeaderViewController = {
-    PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .flexible)
-  }()
+  lazy var headerViewController: PlacePageHeaderViewController = PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .flexible)
 
-  private lazy var placePageNavigationViewController: PlacePageHeaderViewController = {
-    PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .fixed)
-  }()
+  private lazy var placePageNavigationViewController: PlacePageHeaderViewController = PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .fixed)
 
   private lazy var elevationProfileViewController: ElevationProfileViewController? = {
     guard let trackData = placePageData.trackData else {
@@ -53,7 +47,7 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
   init(interactor: PlacePageInteractor, storyboard: UIStoryboard, data: PlacePageData) {
     self.interactor = interactor
     self.storyboard = storyboard
-    self.placePageData = data
+    placePageData = data
   }
 
   private func configureViewControllers() -> [UIViewController] {
@@ -70,7 +64,7 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
     return viewControllers
   }
 
-  func calculateSteps(inScrollView scrollView: UIScrollView, compact: Bool) -> [PlacePageState] {
+  func calculateSteps(inScrollView scrollView: UIScrollView, compact _: Bool) -> [PlacePageState] {
     var steps: [PlacePageState] = []
     let scrollHeight = scrollView.height
     steps.append(.closed(-scrollHeight))

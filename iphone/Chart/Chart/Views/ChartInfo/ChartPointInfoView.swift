@@ -27,7 +27,7 @@ final class ChartPointInfoView: UIView {
     }
   }
 
-  var font: UIFont = UIFont.systemFont(ofSize: 12, weight: .regular) {
+  var font: UIFont = .systemFont(ofSize: 12, weight: .regular) {
     didSet {
       distanceLabel.font = font
       altitudeLabel.font = font
@@ -68,7 +68,7 @@ final class ChartPointInfoView: UIView {
       stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 6),
       stackView.topAnchor.constraint(equalTo: topAnchor, constant: 6),
       stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -6),
-      stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6)
+      stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6),
     ])
 
     stackView.addArrangedSubview(distanceLabel)
@@ -82,23 +82,24 @@ final class ChartPointInfoView: UIView {
     altitudeLabel.textColor = textColor
   }
 
-  required init?(coder aDecoder: NSCoder) {
+  @available(*, unavailable)
+  required init?(coder _: NSCoder) {
     fatalError()
   }
 
-  func set(x: CGFloat, label: String, points: [ChartLineInfo]) {
+  func set(x _: CGFloat, label: String, points: [ChartLineInfo]) {
     distanceLabel.text = label
     altitudeLabel.text = altitudeText(points[0])
   }
 
-  func update(x: CGFloat, label: String, points: [ChartLineInfo]) {
+  func update(x _: CGFloat, label: String, points: [ChartLineInfo]) {
     distanceLabel.text = label
     altitudeLabel.text = altitudeText(points[0])
     setNeedsLayout()
   }
 
   private func altitudeText(_ point: ChartLineInfo) -> String {
-    return String(isInterfaceRightToLeft ? "\(point.formattedValue) ▲" : "▲ \(point.formattedValue)")
+    String(isInterfaceRightToLeft ? "\(point.formattedValue) ▲" : "▲ \(point.formattedValue)")
   }
 
   override func layoutSubviews() {

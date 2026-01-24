@@ -204,6 +204,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">Tombol + dan - pada peta</string>
     <string name="pref_zoom_summary">Tampilkan pada layar</string>
+    <string name="pref_auto_night_in_navigation_title">Gaya malam saat menavigasi dalam gelap</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Mode Malam</string>
     <!-- Generic «Off» string -->
@@ -335,6 +336,12 @@
     <string name="gray">Abu-abu</string>
     <!-- blue gray color -->
     <string name="blue_gray">Biru Keabu-abuan</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Tampilan</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Terang</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Gelap</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Hadiahkan peta gratis tanpa iklan untuk jutaan pengguna!</string>
 

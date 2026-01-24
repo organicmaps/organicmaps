@@ -204,6 +204,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">Mygtukai „+“ ir „-“ žemėlapyje</string>
     <string name="pref_zoom_summary">Rodyti žemėlapyje</string>
+    <string name="pref_auto_night_in_navigation_title">Naktinis stilius, kai navigacija vykdoma tamsoje</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Nakties veiksena</string>
     <!-- Generic «Off» string -->
@@ -337,6 +338,12 @@
     <string name="gray">Pilkas</string>
     <!-- blue gray color -->
     <string name="blue_gray">Mėlynai pilkas</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Išvaizda</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Šviesi</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Tamsi</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Padovanokite nemokamus žemėlapius be skelbimų milijonams vartotojų!</string>
 

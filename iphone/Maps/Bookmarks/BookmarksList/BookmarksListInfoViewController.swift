@@ -20,10 +20,10 @@ final class BookmarksListInfoViewController: UIViewController {
   @IBOutlet private var infoStack: UIStackView!
   @IBOutlet private var separatorsConstraints: [NSLayoutConstraint]!
 
-  @IBAction private func onDescription(_ sender: UIButton) {
+  @IBAction private func onDescription(_: UIButton) {
     delegate?.didPressDescription()
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     separatorsConstraints.forEach { $0.constant = 1 / UIScreen.main.scale }
@@ -42,17 +42,17 @@ final class BookmarksListInfoViewController: UIViewController {
         : info.description
       descriptionButton.setTitle(description, for: .normal)
     }
-    
+
     titleImageView.isHidden = true
     if let imageUrl = info.imageUrl {
-      titleImageView.wi_setImage(with: imageUrl, transitionDuration: 0) { [weak self] (image, error) in
+      titleImageView.wi_setImage(with: imageUrl, transitionDuration: 0) { [weak self] image, _ in
         guard image != nil else { return }
         self?.titleImageView.isHidden = false
         self?.delegate?.didUpdateContent()
       }
     }
   }
-  
+
   private static func getPlainText(_ htmlText: String) -> String? {
     let formattedText = NSAttributedString.string(withHtml: htmlText, defaultAttributes: [:])
     return formattedText?.string

@@ -973,6 +973,7 @@
 "type.railway.construction" = "Jernbanebyggeri";
 "type.railway.crossing" = "Jernbaneovergang";
 "type.railway.disused" = "Ubenyttet jernbane";
+"type.railway.disused.bridge" = "Ubenyttet jernbanebro";
 "type.railway.funicular" = "Funicular";
 "type.railway.funicular.bridge" = "Kabelbanebro";
 "type.railway.funicular.tunnel" = "Kabelbanetunnel";

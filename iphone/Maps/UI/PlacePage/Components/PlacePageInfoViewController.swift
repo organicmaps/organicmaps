@@ -17,7 +17,7 @@ protocol PlacePageInfoViewControllerDelegate: AnyObject {
 }
 
 class PlacePageInfoViewController: UIViewController {
-  private struct Constants {
+  private enum Constants {
     static let coordFormatIdKey = "PlacePageInfoViewController_coordFormatIdKey"
   }
 
@@ -26,9 +26,7 @@ class PlacePageInfoViewController: UIViewController {
 
   @IBOutlet var stackView: UIStackView!
 
-  private lazy var openingHoursViewController: OpeningHoursViewController = {
-    storyboard!.instantiateViewController(ofType: OpeningHoursViewController.self)
-  }()
+  private lazy var openingHoursViewController: OpeningHoursViewController = storyboard!.instantiateViewController(ofType: OpeningHoursViewController.self)
 
   private var rawOpeningHoursView: InfoItemView?
   private var phoneViews: [InfoItemView] = []
@@ -76,12 +74,13 @@ class PlacePageInfoViewController: UIViewController {
       stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
       stackView.topAnchor.constraint(equalTo: view.topAnchor),
-      stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+      stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
     ])
     setupViews()
   }
 
   // MARK: private
+
   private func setupViews() {
     if let openingHours = placePageInfoData.openingHours {
       openingHoursViewController.openingHours = openingHours
@@ -102,21 +101,21 @@ class PlacePageInfoViewController: UIViewController {
 
     /// @todo Entrance is missing compared with Android. It's shown in title, but anyway ..
 
-    phoneViews = placePageInfoData.phones.map({ phone in
+    phoneViews = placePageInfoData.phones.map { phone in
       var cellStyle: Style = .regular
       if let phoneUrl = phone.url, UIApplication.shared.canOpenURL(phoneUrl) {
         cellStyle = .link
       }
       return createInfoItem(phone.phone,
-                                 icon: UIImage(resource: .icPlacepagePhoneNumber),
-                                 style: cellStyle,
-                                 tapHandler: { [weak self] in
-        self?.delegate?.didPressCall(to: phone)
-      },
-                                 longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(phone.phone)
-      })
-    })
+                            icon: UIImage(resource: .icPlacepagePhoneNumber),
+                            style: cellStyle,
+                            tapHandler: { [weak self] in
+                              self?.delegate?.didPressCall(to: phone)
+                            },
+                            longPressHandler: { [weak self] in
+                              self?.delegate?.didCopy(phone.phone)
+                            })
+    }
 
     if let ppOperator = placePageInfoData.ppOperator {
       operatorView = createInfoItem(ppOperator, icon: UIImage(resource: .icPlacepageOperator))
@@ -132,11 +131,11 @@ class PlacePageInfoViewController: UIViewController {
                                    icon: UIImage(resource: .icPlacepageWebsite),
                                    style: .link,
                                    tapHandler: { [weak self] in
-        self?.delegate?.didPressWebsite()
-      },
+                                     self?.delegate?.didPressWebsite()
+                                   },
                                    longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(website)
-      })
+                                     self?.delegate?.didCopy(website)
+                                   })
     }
 
     if let websiteMenu = placePageInfoData.websiteMenu {
@@ -144,11 +143,11 @@ class PlacePageInfoViewController: UIViewController {
                                    icon: UIImage(resource: .icPlacepageWebsiteMenu),
                                    style: .link,
                                    tapHandler: { [weak self] in
-        self?.delegate?.didPressWebsiteMenu()
-      },
+                                     self?.delegate?.didPressWebsiteMenu()
+                                   },
                                    longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(websiteMenu)
-      })
+                                     self?.delegate?.didCopy(websiteMenu)
+                                   })
     }
 
     if let wikipedia = placePageInfoData.wikipedia {
@@ -156,11 +155,11 @@ class PlacePageInfoViewController: UIViewController {
                                      icon: UIImage(resource: .icPlacepageWiki),
                                      style: .link,
                                      tapHandler: { [weak self] in
-        self?.delegate?.didPressWikipedia()
-      },
+                                       self?.delegate?.didPressWikipedia()
+                                     },
                                      longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(wikipedia)
-      })
+                                       self?.delegate?.didCopy(wikipedia)
+                                     })
     }
 
     if let wikimediaCommons = placePageInfoData.wikimediaCommons {
@@ -168,11 +167,11 @@ class PlacePageInfoViewController: UIViewController {
                                             icon: UIImage(resource: .icPlacepageWikimediaCommons),
                                             style: .link,
                                             tapHandler: { [weak self] in
-        self?.delegate?.didPressWikimediaCommons()
-      },
+                                              self?.delegate?.didPressWikimediaCommons()
+                                            },
                                             longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(wikimediaCommons)
-      })
+                                              self?.delegate?.didCopy(wikimediaCommons)
+                                            })
     }
 
     if let wifi = placePageInfoData.wifiAvailable {
@@ -212,11 +211,11 @@ class PlacePageInfoViewController: UIViewController {
                                  icon: UIImage(resource: .icPlacepageEmail),
                                  style: .link,
                                  tapHandler: { [weak self] in
-        self?.delegate?.didPressEmail()
-      },
+                                   self?.delegate?.didPressEmail()
+                                 },
                                  longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(email)
-      })
+                                   self?.delegate?.didCopy(email)
+                                 })
     }
 
     if let facebook = placePageInfoData.facebook {
@@ -224,11 +223,11 @@ class PlacePageInfoViewController: UIViewController {
                                     icon: UIImage(resource: .icPlacepageFacebook),
                                     style: .link,
                                     tapHandler: { [weak self] in
-        self?.delegate?.didPressFacebook()
-      },
+                                      self?.delegate?.didPressFacebook()
+                                    },
                                     longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(facebook)
-      })
+                                      self?.delegate?.didCopy(facebook)
+                                    })
     }
 
     if let instagram = placePageInfoData.instagram {
@@ -236,11 +235,11 @@ class PlacePageInfoViewController: UIViewController {
                                      icon: UIImage(resource: .icPlacepageInstagram),
                                      style: .link,
                                      tapHandler: { [weak self] in
-        self?.delegate?.didPressInstagram()
-      },
+                                       self?.delegate?.didPressInstagram()
+                                     },
                                      longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(instagram)
-      })
+                                       self?.delegate?.didCopy(instagram)
+                                     })
     }
 
     if let twitter = placePageInfoData.twitter {
@@ -248,11 +247,11 @@ class PlacePageInfoViewController: UIViewController {
                                    icon: UIImage(resource: .icPlacepageTwitter),
                                    style: .link,
                                    tapHandler: { [weak self] in
-        self?.delegate?.didPressTwitter()
-      },
+                                     self?.delegate?.didPressTwitter()
+                                   },
                                    longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(twitter)
-      })
+                                     self?.delegate?.didCopy(twitter)
+                                   })
     }
 
     if let vk = placePageInfoData.vk {
@@ -260,11 +259,11 @@ class PlacePageInfoViewController: UIViewController {
                               icon: UIImage(resource: .icPlacepageVk),
                               style: .link,
                               tapHandler: { [weak self] in
-        self?.delegate?.didPressVk()
-      },
+                                self?.delegate?.didPressVk()
+                              },
                               longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(vk)
-      })
+                                self?.delegate?.didCopy(vk)
+                              })
     }
 
     if let line = placePageInfoData.line {
@@ -272,19 +271,19 @@ class PlacePageInfoViewController: UIViewController {
                                 icon: UIImage(resource: .icPlacepageLine),
                                 style: .link,
                                 tapHandler: { [weak self] in
-        self?.delegate?.didPressLine()
-      },
+                                  self?.delegate?.didPressLine()
+                                },
                                 longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(line)
-      })
+                                  self?.delegate?.didCopy(line)
+                                })
     }
 
     if let address = placePageInfoData.address {
       addressView = createInfoItem(address,
                                    icon: UIImage(resource: .icPlacepageAddress),
                                    longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(address)
-      })
+                                     self?.delegate?.didCopy(address)
+                                   })
     }
 
     setupCoordinatesView()
@@ -292,7 +291,7 @@ class PlacePageInfoViewController: UIViewController {
   }
 
   private func setupCoordinatesView() {
-    guard let coordFormats = placePageInfoData.coordFormats as? Array<String> else { return }
+    guard let coordFormats = placePageInfoData.coordFormats as? [String] else { return }
     var formatId = coordinatesFormatId
     if formatId >= coordFormats.count {
       formatId = 0
@@ -302,15 +301,15 @@ class PlacePageInfoViewController: UIViewController {
                                      style: .link,
                                      accessoryImage: UIImage(resource: .icPlacepageChange),
                                      tapHandler: { [weak self] in
-      guard let self else { return }
-      let formatId = (self.coordinatesFormatId + 1) % coordFormats.count
-      self.setCoordinatesSelected(formatId: formatId)
-    },
+                                       guard let self else { return }
+                                       let formatId = (self.coordinatesFormatId + 1) % coordFormats.count
+                                       self.setCoordinatesSelected(formatId: formatId)
+                                     },
                                      longPressHandler: { [weak self] in
-      self?.copyCoordinatesToPasteboard()
-    })
+                                       self?.copyCoordinatesToPasteboard()
+                                     })
     if #available(iOS 14.0, *) {
-      let menu = UIMenu(children: coordFormats.enumerated().map { (index, format) in
+      let menu = UIMenu(children: coordFormats.enumerated().map { index, format in
         UIAction(title: format, handler: { [weak self] _ in
           self?.setCoordinatesSelected(formatId: index)
           self?.copyCoordinatesToPasteboard()
@@ -321,14 +320,14 @@ class PlacePageInfoViewController: UIViewController {
   }
 
   private func setCoordinatesSelected(formatId: Int) {
-    guard let coordFormats = placePageInfoData.coordFormats as? Array<String> else { return }
+    guard let coordFormats = placePageInfoData.coordFormats as? [String] else { return }
     coordinatesFormatId = formatId
     let coordinates: String = coordFormats[formatId]
     coordinatesView?.setTitle(coordinates, style: .link)
   }
 
   private func copyCoordinatesToPasteboard() {
-    guard let coordFormats = placePageInfoData.coordFormats as? Array<String> else { return }
+    guard let coordFormats = placePageInfoData.coordFormats as? [String] else { return }
     let coordinates: String = coordFormats[coordinatesFormatId]
     delegate?.didCopy(coordinates)
   }
@@ -339,9 +338,9 @@ class PlacePageInfoViewController: UIViewController {
                                      icon: UIImage(resource: .icOpenInApp),
                                      style: .link,
                                      tapHandler: { [weak self] in
-      guard let self, let openWithAppView else { return }
-      self.delegate?.didPressOpenInApp(from: openWithAppView)
-    })
+                                       guard let self, let openWithAppView else { return }
+                                       self.delegate?.didPressOpenInApp(from: openWithAppView)
+                                     })
   }
 
   private func createInfoItem(_ info: String,
@@ -369,8 +368,8 @@ class PlacePageInfoViewController: UIViewController {
 
   private func stripUrl(str: String) -> String {
     let dropFromStart = str.hasPrefix(PlacePageInfoViewController.kHttps) ? PlacePageInfoViewController.kHttps.count
-        : (str.hasPrefix(PlacePageInfoViewController.kHttp) ? PlacePageInfoViewController.kHttp.count : 0);
-    let dropFromEnd = str.hasSuffix("/") ? 1 : 0;
+      : (str.hasPrefix(PlacePageInfoViewController.kHttp) ? PlacePageInfoViewController.kHttp.count : 0)
+    let dropFromEnd = str.hasSuffix("/") ? 1 : 0
     return String(str.dropFirst(dropFromStart).dropLast(dropFromEnd))
   }
 }

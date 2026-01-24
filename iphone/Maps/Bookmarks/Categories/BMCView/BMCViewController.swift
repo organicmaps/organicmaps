@@ -8,7 +8,7 @@ final class BMCViewController: MWMViewController {
 
   private weak var coordinator: BookmarksCoordinator?
 
-  @IBOutlet private weak var tableView: UITableView! {
+  @IBOutlet private var tableView: UITableView! {
     didSet {
       let cells = [
         BMCCategoryCell.self,
@@ -28,7 +28,8 @@ final class BMCViewController: MWMViewController {
     self.coordinator = coordinator
   }
 
-  required init?(coder: NSCoder) {
+  @available(*, unavailable)
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -51,8 +52,7 @@ final class BMCViewController: MWMViewController {
 
   private func createNewCategory() {
     alertController.presentCreateBookmarkCategoryAlert(withMaxCharacterNum: viewModel.maxCategoryNameLength,
-                                                       minCharacterNum: viewModel.minCategoryNameLength)
-    { [weak viewModel] (name: String!) -> Bool in
+                                                       minCharacterNum: viewModel.minCategoryNameLength) { [weak viewModel] (name: String!) -> Bool in
       guard let model = viewModel else { return false }
       if model.checkCategory(name: name) {
         model.addCategory(name: name)
@@ -79,8 +79,7 @@ final class BMCViewController: MWMViewController {
         guard let self else { return }
         switch status {
         case .success:
-          let shareController = ActivityViewController.share(for: url, message: L("share_bookmarks_email_body"))
-          { [weak self] _, _, _, _ in
+          let shareController = ActivityViewController.share(for: url, message: L("share_bookmarks_email_body")) { [weak self] _, _, _, _ in
             self?.viewModel?.finishShareCategory()
           }
           shareController.present(inParentViewController: self, anchorView: anchorView)
@@ -147,6 +146,9 @@ final class BMCViewController: MWMViewController {
     actionSheet.addAction(UIAlertAction(title: L("export_file_gpx"), style: .default, handler: { _ in
       self.shareCategoryFile(at: index, fileType: .gpx, anchor: anchor)
     }))
+    actionSheet.addAction(UIAlertAction(title: L("export_file_geojson"), style: .default, handler: { _ in
+      self.shareCategoryFile(at: index, fileType: .geoJson, anchor: anchor)
+    }))
     let delete = L("delete_list")
     let deleteAction = UIAlertAction(title: delete, style: .destructive, handler: { [viewModel] _ in
       viewModel!.deleteCategory(at: index)
@@ -194,7 +196,7 @@ extension BMCViewController: BMCView {
 
 extension BMCViewController: UITableViewDataSource {
   func numberOfSections(in _: UITableView) -> Int {
-    return viewModel.numberOfSections()
+    viewModel.numberOfSections()
   }
 
   func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -207,7 +209,7 @@ extension BMCViewController: UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     func dequeCell<Cell>(_ cell: Cell.Type) -> Cell where Cell: UITableViewCell {
-      return tableView.dequeueReusableCell(cell: cell, indexPath: indexPath)
+      tableView.dequeueReusableCell(cell: cell, indexPath: indexPath)
     }
 
     switch viewModel.sectionType(section: indexPath.section) {
@@ -225,7 +227,7 @@ extension BMCViewController: UITableViewDataSource {
 }
 
 extension BMCViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+  func tableView(_: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
     if viewModel.sectionType(section: indexPath.section) != .categories {
       return false
     }
@@ -233,13 +235,14 @@ extension BMCViewController: UITableViewDelegate {
     return viewModel.canDeleteCategory()
   }
 
-  func tableView(_ tableView: UITableView,
+  func tableView(_: UITableView,
                  commit editingStyle: UITableViewCell.EditingStyle,
                  forRowAt indexPath: IndexPath) {
     guard editingStyle == .delete,
-      viewModel.sectionType(section: indexPath.section) == .categories else {
-        assertionFailure()
-        return
+          viewModel.sectionType(section: indexPath.section) == .categories
+    else {
+      assertionFailure()
+      return
     }
 
     viewModel.deleteCategory(at: indexPath.row)
@@ -315,13 +318,13 @@ extension BMCViewController: BMCCategoriesHeaderDelegate {
 }
 
 extension BMCViewController: CategorySettingsViewControllerDelegate {
-  func categorySettingsController(_ viewController: CategorySettingsViewController,
-                                  didEndEditing categoryId: MWMMarkGroupID) {
+  func categorySettingsController(_: CategorySettingsViewController,
+                                  didEndEditing _: MWMMarkGroupID) {
     navigationController?.popViewController(animated: true)
   }
 
-  func categorySettingsController(_ viewController: CategorySettingsViewController,
-                                  didDelete categoryId: MWMMarkGroupID) {
+  func categorySettingsController(_: CategorySettingsViewController,
+                                  didDelete _: MWMMarkGroupID) {
     navigationController?.popViewController(animated: true)
   }
 }

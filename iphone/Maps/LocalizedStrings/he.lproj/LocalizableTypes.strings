@@ -973,6 +973,7 @@
 "type.railway.construction" = "מסילת רכבת בבניה";
 "type.railway.crossing" = "מעבר חציית פסי רכבת";
 "type.railway.disused" = "מסילת רכבת לא בשימוש";
+"type.railway.disused.bridge" = "גשר רכבת לא בשימוש";
 "type.railway.funicular" = "פוניקולר";
 "type.railway.funicular.bridge" = "Funicular Bridge";
 "type.railway.funicular.tunnel" = "Funicular Tunnel";

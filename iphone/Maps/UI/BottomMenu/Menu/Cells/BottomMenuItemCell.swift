@@ -1,7 +1,6 @@
 import UIKit
 
 class BottomMenuItemCell: UITableViewCell {
-
   private enum Constants {
     static let badgeSpacing: CGFloat = 8
     static let badgeBackgroundWidth: CGFloat = 32
@@ -15,9 +14,7 @@ class BottomMenuItemCell: UITableViewCell {
   @IBOutlet private var badgeSpacingConstraint: NSLayoutConstraint!
   @IBOutlet private var badgeBackgroundWidthConstraint: NSLayoutConstraint!
   var anchorView: UIView {
-    get {
-      return icon
-    }
+    icon
   }
 
   private(set) var isEnabled: Bool = true

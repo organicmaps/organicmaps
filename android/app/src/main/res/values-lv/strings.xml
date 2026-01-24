@@ -204,6 +204,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">Pogas \"+\" un \"-\" kartē</string>
     <string name="pref_zoom_summary">Rādīt kartē</string>
+    <string name="pref_auto_night_in_navigation_title">Nakts stils, ja navigācija notiek tumsā</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Tumšais motīvs</string>
     <!-- Generic «Off» string -->
@@ -337,6 +338,12 @@
     <string name="gray">Pelēka</string>
     <!-- blue gray color -->
     <string name="blue_gray">Zilpelēka</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Izskats</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Gaišs</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Tumšs</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Dāviniet bezmaksas kartes bez reklāmām miljoniem lietotāju!</string>
 

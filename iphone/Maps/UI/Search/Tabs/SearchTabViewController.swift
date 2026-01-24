@@ -12,10 +12,10 @@ final class SearchTabViewController: TabViewController {
 
   private static let selectedIndexKey = "SearchTabViewController_selectedIndexKey"
   @objc weak var delegate: SearchTabViewControllerDelegate?
-  
+
   private var frameworkHelper = MWMSearchFrameworkHelper.self
 
-  private var activeTab: SearchActiveTab = SearchActiveTab.init(rawValue:
+  private var activeTab: SearchActiveTab = .init(rawValue:
     UserDefaults.standard.integer(forKey: SearchTabViewController.selectedIndexKey)) ?? .categories {
     didSet {
       UserDefaults.standard.set(activeTab.rawValue, forKey: SearchTabViewController.selectedIndexKey)
@@ -28,22 +28,22 @@ final class SearchTabViewController: TabViewController {
     let history = SearchHistoryViewController(frameworkHelper: frameworkHelper,
                                               delegate: self)
     history.title = L("history")
-    
+
     let categories = SearchCategoriesViewController(frameworkHelper: frameworkHelper,
                                                     delegate: self)
     categories.title = L("categories")
     viewControllers = [history, categories]
-    
+
     if frameworkHelper.isSearchHistoryEmpty() {
       tabView.selectedIndex = SearchActiveTab.categories.rawValue
     } else {
       tabView.selectedIndex = activeTab.rawValue
     }
   }
-  
+
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    activeTab = SearchActiveTab.init(rawValue: tabView.selectedIndex ?? 0) ?? .categories
+    activeTab = SearchActiveTab(rawValue: tabView.selectedIndex ?? 0) ?? .categories
   }
 
   func reloadSearchHistory() {
@@ -68,7 +68,7 @@ extension SearchTabViewController: UIScrollViewDelegate {
 }
 
 extension SearchTabViewController: SearchCategoriesViewControllerDelegate {
-  func categoriesViewController(_ viewController: SearchCategoriesViewController,
+  func categoriesViewController(_: SearchCategoriesViewController,
                                 didSelect category: String) {
     let preferredLang = AppInfo.shared().languageId
     let supportedBySearchLang = MWMSearchFrameworkHelper.isLanguageSupported(preferredLang) ? preferredLang : "en"
@@ -79,7 +79,7 @@ extension SearchTabViewController: SearchCategoriesViewControllerDelegate {
 }
 
 extension SearchTabViewController: SearchHistoryViewControllerDelegate {
-  func searchHistoryViewController(_ viewController: SearchHistoryViewController,
+  func searchHistoryViewController(_: SearchHistoryViewController,
                                    didSelect query: String) {
     let query = SearchQuery(query.trimmingCharacters(in: .whitespacesAndNewlines) + " ", source: .history)
     delegate?.searchTabController(self, didSearch: query)

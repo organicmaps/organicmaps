@@ -4,8 +4,8 @@ protocol ActionBarViewControllerDelegate: AnyObject {
 
 final class ActionBarViewController: UIViewController {
   @IBOutlet var stackView: UIStackView!
-  private(set) var downloadButton: ActionBarButton? = nil
-  private(set) var bookmarkButton: ActionBarButton? = nil
+  private(set) var downloadButton: ActionBarButton?
+  private(set) var bookmarkButton: ActionBarButton?
   private var popoverSourceView: UIView? {
     stackView.arrangedSubviews.last
   }
@@ -128,11 +128,11 @@ final class ActionBarViewController: UIViewController {
     var selected = false
     let enabled = true
     switch buttonType {
-      case .bookmark:
+    case .bookmark:
       selected = placePageData.bookmarkData != nil
-      case .track:
+    case .track:
       selected = placePageData.trackData != nil
-      default:
+    default:
       break
     }
     return (selected, enabled)
@@ -147,9 +147,9 @@ final class ActionBarViewController: UIViewController {
       let action = UIAlertAction(title: titleForButton(button, selected),
                                  style: .default,
                                  handler: { [weak self] _ in
-                                  guard let self = self else { return }
-                                  self.delegate?.actionBar(self, didPressButton: button)
-      })
+                                   guard let self = self else { return }
+                                   self.delegate?.actionBar(self, didPressButton: button)
+                                 })
       action.isEnabled = enabled
       actionSheet.addAction(action)
     }
@@ -164,9 +164,9 @@ final class ActionBarViewController: UIViewController {
   // MARK: - Public methods
 
   func resetButtons() {
-    stackView.arrangedSubviews.forEach {
-      stackView.removeArrangedSubview($0)
-      $0.removeFromSuperview()
+    for arrangedSubview in stackView.arrangedSubviews {
+      stackView.removeArrangedSubview(arrangedSubview)
+      arrangedSubview.removeFromSuperview()
     }
     visibleButtons.removeAll()
     additionalButtons.removeAll()
@@ -175,7 +175,7 @@ final class ActionBarViewController: UIViewController {
     configureButtons()
   }
 
-  func updateDownloadButtonState(_ nodeStatus: MapNodeStatus) {
+  func updateDownloadButtonState(_: MapNodeStatus) {
     guard let downloadButton = downloadButton, let mapNodeAttributes = placePageData.mapNodeAttributes else { return }
     switch mapNodeAttributes.nodeStatus {
     case .downloading:

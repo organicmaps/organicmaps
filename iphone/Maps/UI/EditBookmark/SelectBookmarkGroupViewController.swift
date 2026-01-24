@@ -22,6 +22,7 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
   private var currentGroups: [NormalizedBookmarkGroup] {
     isSearching ? filteredGroups : bookmarkGroups
   }
+
   private let searchController = UISearchController(searchResultsController: nil)
 
   private struct NormalizedBookmarkGroup {
@@ -30,21 +31,21 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
     let normalizedTitle: String
 
     init(group: BookmarkGroup) {
-      self.categoryId = group.categoryId
-      self.title = group.title
-      self.normalizedTitle = group.title.normalizedAndSimplified
+      categoryId = group.categoryId
+      title = group.title
+      normalizedTitle = group.title.normalizedAndSimplified
     }
   }
 
   init(groupName: String, groupId: MWMMarkGroupID) {
     self.groupName = groupName
     self.groupId = groupId
-    self.bookmarkGroups = BookmarksManager.shared().sortedUserCategories().map(NormalizedBookmarkGroup.init)
+    bookmarkGroups = BookmarksManager.shared().sortedUserCategories().map(NormalizedBookmarkGroup.init)
     super.init(style: .grouped)
   }
 
   @available(*, unavailable)
-  required init?(coder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -54,7 +55,7 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
   }
 
   private func setupView() {
-    title = L("bookmark_sets");
+    title = L("bookmark_sets")
     navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonDidTap))
 
     searchController.searchBar.placeholder = L("search")
@@ -71,11 +72,11 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
     dismiss(animated: true, completion: nil)
   }
 
-  override func numberOfSections(in tableView: UITableView) -> Int {
+  override func numberOfSections(in _: UITableView) -> Int {
     Sections.count.rawValue
   }
 
-  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch Sections(rawValue: section) {
     case .addGroup:
       return 1
@@ -123,7 +124,7 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
       guard BookmarksManager.shared().checkCategoryName(name) else { return false }
       searchController.isActive = false
       let newGroupId = BookmarksManager.shared().createCategory(withName: name)
-      self.delegate?.bookmarkGroupViewController(self, didSelect: name, groupId: newGroupId)
+      delegate?.bookmarkGroupViewController(self, didSelect: name, groupId: newGroupId)
       return true
     }
   }
@@ -157,7 +158,7 @@ extension SelectBookmarkGroupViewController: UISearchBarDelegate {
     applyFilter(for: "")
   }
 
-  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+  func searchBar(_: UISearchBar, textDidChange searchText: String) {
     applyFilter(for: searchText)
   }
 }

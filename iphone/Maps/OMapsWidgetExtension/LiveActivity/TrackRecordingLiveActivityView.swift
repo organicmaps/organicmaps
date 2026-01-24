@@ -26,7 +26,7 @@ struct TrackRecordingLiveActivityView: View {
     }
     .activityBackgroundTint(.black.opacity(0.2))
     // Uncomment the line below to simulate the background color in Preview because the `activityBackgroundTint` can only displayed on the device or simulator.
-    //.background(.black.opacity(0.85))
+    // .background(.black.opacity(0.85))
   }
 }
 

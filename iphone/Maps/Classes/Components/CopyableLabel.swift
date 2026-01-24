@@ -1,26 +1,25 @@
 // Label shows copy popup menu on tap or long tap.
 class CopyableLabel: UILabel {
-
   override init(frame: CGRect) {
     super.init(frame: frame)
-    self.sharedInit()
+    sharedInit()
   }
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    self.sharedInit()
+    sharedInit()
   }
 
   private func sharedInit() {
-    self.isUserInteractionEnabled = true
-    self.gestureRecognizers = [
-        UILongPressGestureRecognizer(target: self, action: #selector(self.showMenu)),
-        UITapGestureRecognizer(target: self, action: #selector(self.showMenu))
+    isUserInteractionEnabled = true
+    gestureRecognizers = [
+      UILongPressGestureRecognizer(target: self, action: #selector(showMenu)),
+      UITapGestureRecognizer(target: self, action: #selector(showMenu)),
     ]
   }
 
   @objc func showMenu(_ recognizer: UILongPressGestureRecognizer) {
-    self.becomeFirstResponder()
+    becomeFirstResponder()
 
     let menu = UIMenuController.shared
     let locationOfTouchInLabel = recognizer.location(in: self)
@@ -38,16 +37,16 @@ class CopyableLabel: UILabel {
     }
   }
 
-  override func copy(_ sender: Any?) {
+  override func copy(_: Any?) {
     UIPasteboard.general.string = text
     UIMenuController.shared.setMenuVisible(false, animated: true)
   }
 
   override var canBecomeFirstResponder: Bool {
-    return true
+    true
   }
 
-  override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-    return action == #selector(UIResponderStandardEditActions.copy)
+  override func canPerformAction(_ action: Selector, withSender _: Any?) -> Bool {
+    action == #selector(UIResponderStandardEditActions.copy)
   }
 }

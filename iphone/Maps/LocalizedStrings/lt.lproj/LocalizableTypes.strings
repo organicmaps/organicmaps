@@ -973,6 +973,7 @@
 "type.railway.construction" = "Statomas geležinkelis";
 "type.railway.crossing" = "Geležinkelio perėja";
 "type.railway.disused" = "Nenaudojamas geležinkelis";
+"type.railway.disused.bridge" = "Nenaudojamo geležinkelio tiltas";
 "type.railway.funicular" = "Funikulierius";
 "type.railway.funicular.bridge" = "Funikulieriaus tiltas";
 "type.railway.funicular.tunnel" = "Funikulieriaus tunelis";

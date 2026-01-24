@@ -4,15 +4,15 @@ final class SearchHistoryCell: MWMTableViewCell {
     case clear
   }
 
-  static private let placeholderImage = UIImage.filled(with: .clear, size: CGSize(width: 28, height: 28))
+  private static let placeholderImage = UIImage.filled(with: .clear, size: CGSize(width: 28, height: 28))
 
-  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+  override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: .default, reuseIdentifier: reuseIdentifier)
     setStyle(.defaultTableViewCell)
   }
 
   @available(*, unavailable)
-  required init?(coder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 

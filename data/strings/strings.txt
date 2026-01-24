@@ -5976,6 +5976,62 @@ vi = Hiển thị trên màn hình
 zh-Hans = 在屏幕上显示
 zh-Hant = 在螢幕上顯示
 
+[pref_auto_night_in_navigation_title]
+tags = android-app
+en = Night style when navigating in the dark
+af = Nagstyl wanneer in die donker genavigeer word
+ar = النمط الليلي عند التنقل في الظلام
+az = Qaranlıqda naviqasiya edərkən gecə üslubu
+be = Начны стыль пры навігацыі ў цемры
+bg = Нощен стил при навигация на тъмно
+bn = অন্ধকারে নেভিগেট করার সময় নাইট স্টাইল
+ca = Estil nocturn quan es navega en la foscor
+cs = Noční styl při navigaci ve tmě
+da = Nat-stil, når du navigerer i mørke
+de = Nacht-Stil beim Navigieren im Dunkeln
+el = Νυχτερινό στυλ κατά την πλοήγηση στο σκοτάδι
+es = Estilo nocturno al navegar en la oscuridad
+es-MX = Estilo nocturno cuando se navega en la oscuridad
+et = Öine stiil pimedas navigeerimisel
+eu = Gau estiloa ilunpean nabigatzean
+fa = سبک شب هنگام ناوبری در تاریکی
+fi = Yötyyli, kun navigoidaan pimeässä
+fr = Style nocturne lorsque vous naviguez dans l'obscurité
+gl = Estilo nocturno ao navegar en escuro
+he = סגנון לילה בעת ניווט בחושך
+hi = अंधेरे में नेविगेट करते समय नाइट स्टाइल
+hr = Noćni stil pri navigaciji u mraku
+hu = Éjszakai stílus sötétben történő navigáláskor
+id = Gaya malam saat menavigasi dalam gelap
+is = Næturstíll þegar siglt er í myrkri
+it = Stile notturno quando naviga al buio
+ja = 暗闇でナビゲートする際のナイトスタイル
+ko = 어두운 곳에서 내비게이션할 때의 야간 스타일
+lt = Naktinis stilius, kai navigacija vykdoma tamsoje
+lv = Nakts stils, ja navigācija notiek tumsā
+mr = अंधारात नेव्हिगेट करताना रात्रीची शैली
+mt = Stil bil-lejl meta tkun qed tinnaviga fid-dlam
+nb = Nattstil når du navigerer i mørket
+nl = Nachtstijl bij navigeren in het donker
+pa = ਅੰਧੇਰੇ ਵਿੱਚ ਨੈਵੀਗੇਸ਼ਨ ਕਰਦਿਆਂ ਰਾਤ ਦੀ ਸ਼ੈਲੀ
+pl = Styl nocny podczas nawigacji w ciemności
+pt = Estilo noturno quando navega no escuro
+pt-BR = Estilo noturno ao navegar no escuro
+ro = Stil de noapte atunci când navigați în întuneric
+ru = Ночной стиль при навигации в темноте
+sk = Nočný štýl pri navigácii v tme
+sl = Nočni slog pri navigaciji v temi
+sq = Stili nate kur navigoni në errësirë
+sr = Ноћни стил приликом навигације у мраку
+sv = Nattstil när du navigerar i mörkret
+sw = Mtindo wa usiku unapovinjari gizani
+th = สไตล์กลางคืนเมื่อนำทางในที่มืด
+tr = Karanlıkta navigasyon yaparken gece stili
+uk = Нічний стиль під час навігації в темряві
+vi = Chế độ ban đêm khi điều hướng trong điều kiện thiếu sáng
+zh-Hans = 黑暗中导航时的夜间风格
+zh-Hant = 在黑暗中導航時的夜間風格
+
 [pref_map_style_title]
 comment = Settings «Map» category: «Night style» title
 tags = android-app
@@ -9892,7 +9948,7 @@ zh-Hant = Organic Maps 版本：%@
 
 [pref_appearance_title]
 comment = Settings «Map» category: «Appearance» title
-tags = apple-maps
+tags = android-app,apple-maps
 en = Appearance
 ar = المظهر
 ast = Aspeutu
@@ -9945,7 +10001,7 @@ zh-Hant = 外觀
 
 [pref_appearance_light]
 comment = Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation.
-tags = apple-maps
+tags = android-app,apple-maps
 en = Light
 ar = فاتح
 ast = Claru
@@ -9997,7 +10053,7 @@ zh-Hant = 淺色
 
 [pref_appearance_dark]
 comment = Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation.
-tags = apple-maps
+tags = android-app,apple-maps
 en = Dark
 ar = داكن
 ast = Escuru
@@ -36653,7 +36709,7 @@ pa = ਸਿਸਟਮ ਮੁਤਾਬਕ
 pl = Zgodnie z systemem
 pt = Seguir o sistema
 pt-BR = Usar o padrão do sistema
-ro = Urmează системол
+ro = Urmează sistemul
 ru = Как в системе
 sk = Podľa systému
 sl = Sledi sistemu

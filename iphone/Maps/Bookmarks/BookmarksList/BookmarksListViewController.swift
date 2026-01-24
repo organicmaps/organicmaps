@@ -45,14 +45,14 @@ final class BookmarksListViewController: MWMViewController {
     navigationItem.hidesSearchBarWhenScrolling = false
 
     cellStrategy.registerCells(tableView)
-    cellStrategy.cellCheckHandler = { [weak self] (viewModel, index, checked) in
+    cellStrategy.cellCheckHandler = { [weak self] viewModel, index, checked in
       self?.presenter.checkItem(in: viewModel, at: index, checked: checked)
     }
     cellStrategy.cellVisibilityHandler = { [weak self] viewModel in
       self?.presenter.toggleVisibility(in: viewModel)
     }
     presenter.viewDidLoad()
-    MWMKeyboard.add(self);
+    MWMKeyboard.add(self)
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -61,7 +61,7 @@ final class BookmarksListViewController: MWMViewController {
   }
 
   deinit {
-    MWMKeyboard.remove(self);
+    MWMKeyboard.remove(self)
   }
 
   override func viewDidLayoutSubviews() {
@@ -79,11 +79,11 @@ final class BookmarksListViewController: MWMViewController {
     tableView.tableHeaderView = infoView
   }
 
-  @IBAction private func onSortItem(_ sender: UIBarButtonItem) {
+  @IBAction private func onSortItem(_: UIBarButtonItem) {
     presenter.sort()
   }
 
-  @IBAction private func onMoreItem(_ sender: UIBarButtonItem) {
+  @IBAction private func onMoreItem(_: UIBarButtonItem) {
     presenter.more()
   }
 
@@ -94,11 +94,11 @@ final class BookmarksListViewController: MWMViewController {
 }
 
 extension BookmarksListViewController: UITableViewDataSource {
-  func numberOfSections(in tableView: UITableView) -> Int {
+  func numberOfSections(in _: UITableView) -> Int {
     sections?.count ?? 0
   }
 
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
     guard let section = sections?[section] else { fatalError() }
     return section.numberOfItems
   }
@@ -110,7 +110,7 @@ extension BookmarksListViewController: UITableViewDataSource {
 }
 
 extension BookmarksListViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+  func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
     Constants.headerHeight
   }
 
@@ -119,8 +119,8 @@ extension BookmarksListViewController: UITableViewDelegate {
     return cellStrategy.headerView(tableView, for: section)
   }
 
-  func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-    return indexPath
+  func tableView(_: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+    indexPath
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -129,22 +129,22 @@ extension BookmarksListViewController: UITableViewDelegate {
     presenter.selectItem(in: section, at: indexPath.row)
   }
 
-  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+  func tableView(_: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
     guard let section = sections?[indexPath.section] else { fatalError() }
     return canEdit && section.canEdit
   }
 
-  func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
+  func tableView(_: UITableView, willBeginEditingRowAt _: IndexPath) {
     isEditing = true
   }
 
-  func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+  func tableView(_: UITableView, didEndEditingRowAt _: IndexPath?) {
     isEditing = false
   }
 
-  func tableView(_ tableView: UITableView,
+  func tableView(_: UITableView,
                  leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    let moveAction = UIContextualAction(style: .normal, title: L("move")) { [weak self] (_, _, completion) in
+    let moveAction = UIContextualAction(style: .normal, title: L("move")) { [weak self] _, _, completion in
       guard let section = self?.sections?[indexPath.section] else { fatalError() }
       self?.presenter.moveItem(in: section, at: indexPath.row)
       completion(true)
@@ -152,14 +152,14 @@ extension BookmarksListViewController: UITableViewDelegate {
     return UISwipeActionsConfiguration(actions: [moveAction])
   }
 
-  func tableView(_ tableView: UITableView,
+  func tableView(_: UITableView,
                  trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    let deleteAction = UIContextualAction(style: .destructive, title: L("delete")) { [weak self] (_, _, completion) in
+    let deleteAction = UIContextualAction(style: .destructive, title: L("delete")) { [weak self] _, _, completion in
       guard let section = self?.sections?[indexPath.section] else { fatalError() }
       self?.presenter.deleteItem(in: section, at: indexPath.row)
       completion(true)
     }
-    let editAction = UIContextualAction(style: .normal, title: L("edit")) { [weak self] (_, _, completion) in
+    let editAction = UIContextualAction(style: .normal, title: L("edit")) { [weak self] _, _, completion in
       guard let section = self?.sections?[indexPath.section] else { fatalError() }
       self?.presenter.editItem(in: section, at: indexPath.row)
       completion(true)
@@ -167,7 +167,7 @@ extension BookmarksListViewController: UITableViewDelegate {
     return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
   }
 
-  func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+  func tableView(_: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
     guard let section = sections?[indexPath.section] else { fatalError() }
     presenter.editItem(in: section, at: indexPath.row)
   }
@@ -192,7 +192,7 @@ extension BookmarksListViewController: UISearchBarDelegate {
     presenter.cancelSearch()
   }
 
-  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+  func searchBar(_: UISearchBar, textDidChange searchText: String) {
     guard !searchText.isEmpty else {
       presenter.cancelSearch()
       return
@@ -223,7 +223,7 @@ extension BookmarksListViewController: IBookmarksListView {
 
   func showMenu(_ items: [IBookmarksListMenuItem], from source: BookmarkToolbarButtonSource) {
     let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-    items.forEach { item in
+    for item in items {
       let action = UIAlertAction(title: item.title, style: item.destructive ? .destructive : .default) { _ in
         item.action()
       }
@@ -232,8 +232,8 @@ extension BookmarksListViewController: IBookmarksListView {
     }
     actionSheet.addAction(UIAlertAction(title: L("cancel"), style: .cancel, handler: nil))
     let barButtonItem = switch source {
-      case .sort: sortToolbarItem
-      case .more: moreToolbarItem
+    case .sort: sortToolbarItem
+    case .more: moreToolbarItem
     }
     actionSheet.popoverPresentationController?.barButtonItem = barButtonItem
     present(actionSheet, animated: true)
@@ -250,10 +250,10 @@ extension BookmarksListViewController: IBookmarksListView {
 
   func share(_ url: URL, completion: @escaping () -> Void) {
     let shareController = ActivityViewController.share(for: url,
-                                                       message: L("share_bookmarks_email_body")) { (_, _, _, _) in
+                                                       message: L("share_bookmarks_email_body")) { _, _, _, _ in
       completion()
     }
-    shareController.present(inParentViewController: self, anchorView: self.toolBar)
+    shareController.present(inParentViewController: self, anchorView: toolBar)
   }
 
   func showError(title: String, message: String) {
@@ -273,7 +273,7 @@ extension BookmarksListViewController: BookmarksListInfoViewControllerDelegate {
 
 extension BookmarksListViewController: MWMKeyboardObserver {
   func onKeyboardAnimation() {
-    let keyboardHeight = MWMKeyboard.keyboardHeight();
+    let keyboardHeight = MWMKeyboard.keyboardHeight()
     tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
   }
 }

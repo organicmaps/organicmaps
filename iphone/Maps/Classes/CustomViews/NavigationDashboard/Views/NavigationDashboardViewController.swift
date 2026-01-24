@@ -1,6 +1,5 @@
 @objcMembers
 final class NavigationDashboardViewController: UIViewController {
-
   private enum Constants {
     static let navigationInfoViewXibName = "MWMNavigationInfoView"
     static let navigationControlViewXibName = "NavigationControlView"
@@ -10,7 +9,7 @@ final class NavigationDashboardViewController: UIViewController {
     static let grabberTopInset: CGFloat = 5
 
     static let closeButtonInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -16)
-    static let closeButtonSize: CGSize = CGSize(width: 28, height: 28)
+    static let closeButtonSize: CGSize = .init(width: 28, height: 28)
 
     static let settingsButtonSize: CGFloat = 32
     static let settingsButtonInsetRight: CGFloat = -16
@@ -33,7 +32,8 @@ final class NavigationDashboardViewController: UIViewController {
   typealias StepsController = ModalPresentationStepsController<NavigationDashboardModalPresentationStep>
 
   // MARK: - UI Components
-  @objc let availableAreaView = SearchOnMapAreaView()
+
+  let availableAreaView = SearchOnMapAreaView()
   private let grabberView = UIView()
   private let closeButton = CircleImageButton()
   private var transportOptionsView = TransportOptionsView()
@@ -60,25 +60,28 @@ final class NavigationDashboardViewController: UIViewController {
   private var presentationStepsController: StepsController!
 
   // MARK: - Init
+
   init() {
     super.init(nibName: nil, bundle: nil)
-    self.configureModalPresentation()
+    configureModalPresentation()
   }
 
   @available(*, unavailable)
-  required init?(coder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
   // MARK: - Lifecycle
+
   override func loadView() {
     view = TouchTransparentView()
     guard let navigationInfoView = Bundle.main.loadNibNamed(Constants.navigationInfoViewXibName,
                                                             owner: nil,
                                                             options: nil)?.first as? NavigationInfoView,
-          let navigationControlView = Bundle.main.loadNibNamed(Constants.navigationControlViewXibName,
-                                                               owner: nil,
-                                                               options: nil)?.first as? NavigationControlView else {
+      let navigationControlView = Bundle.main.loadNibNamed(Constants.navigationControlViewXibName,
+                                                           owner: nil,
+                                                           options: nil)?.first as? NavigationControlView
+    else {
       fatalError("Failed to load NavigationInfoView or NavigationControlView from nib")
     }
     navigationInfoView.ownerView = view
@@ -125,6 +128,7 @@ final class NavigationDashboardViewController: UIViewController {
   }
 
   // MARK: - Setup Views
+
   private func setupView() {
     view.backgroundColor = .clear
     setupAvailableView()
@@ -159,7 +163,6 @@ final class NavigationDashboardViewController: UIViewController {
         self.interactor?.process(.updateVisibleAreaInsets(visibleAreaInsets(for: frame)))
       case .didUpdateStep(let step):
         self.interactor?.process(.didUpdatePresentationStep(step))
-        break
       }
     }
   }
@@ -284,6 +287,7 @@ final class NavigationDashboardViewController: UIViewController {
   }
 
   // MARK: - Layout
+
   private func layout() {
     view.addSubview(availableAreaView)
     availableAreaView.addSubview(grabberView)
@@ -357,13 +361,13 @@ final class NavigationDashboardViewController: UIViewController {
   private func updatePresentationStep(_ step: NavigationDashboardModalPresentationStep) {
     availableAreaView.layoutIfNeeded()
     let regularHeight = routePointsView.contentBottom.y
-    + bottomActionsMenu.frame.height
-    + Constants.startButtonSpacing
+      + bottomActionsMenu.frame.height
+      + Constants.startButtonSpacing
 
     let compactHeight = routePointsView.origin.y
-    + bottomActionsMenu.frame.height
-    + Constants.startButtonSpacing
-    + Constants.routePointsDiscoverabilityPadding
+      + bottomActionsMenu.frame.height
+      + Constants.startButtonSpacing
+      + Constants.routePointsDiscoverabilityPadding
 
     let shouldForceContentFrameUpdate = presentationStepStrategy.regularHeigh != regularHeight || presentationStepStrategy.compactHeight != compactHeight
     presentationStepStrategy.regularHeigh = regularHeight
@@ -383,13 +387,14 @@ final class NavigationDashboardViewController: UIViewController {
 }
 
 // MARK: - UIGestureRecognizerDelegate
+
 extension NavigationDashboardViewController: UIGestureRecognizerDelegate {
-  func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+  func gestureRecognizerShouldBegin(_: UIGestureRecognizer) -> Bool {
     true
   }
 
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    if gestureRecognizer is UIPanGestureRecognizer && otherGestureRecognizer is UIPanGestureRecognizer {
+    if gestureRecognizer is UIPanGestureRecognizer, otherGestureRecognizer is UIPanGestureRecognizer {
       // threshold is used to soften transition from the internal scroll zero content offset
       return internalScrollViewContentOffset < Constants.panGestureThreshold
     }
@@ -398,6 +403,7 @@ extension NavigationDashboardViewController: UIGestureRecognizerDelegate {
 }
 
 // MARK: - SearchOnMapScrollViewDelegate
+
 extension NavigationDashboardViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     let hasContainerReachedTheTop = Int(availableAreaView.frame.origin.y) <= Int(presentationStepsController.maxAvailableFrame.origin.y)

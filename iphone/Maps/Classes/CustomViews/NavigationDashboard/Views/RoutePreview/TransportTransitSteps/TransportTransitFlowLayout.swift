@@ -22,7 +22,7 @@ final class TransportTransitFlowLayout: UICollectionViewLayout {
 
   override var collectionViewContentSize: CGSize {
     let width = collectionView?.frame.width ?? 0
-    let height = cellsLayoutAttrs.reduce(0) { return max($0, $1.frame.maxY) }
+    let height = cellsLayoutAttrs.reduce(0) { max($0, $1.frame.maxY) }
     return CGSize(width: width, height: height)
   }
 
@@ -67,11 +67,11 @@ final class TransportTransitFlowLayout: UICollectionViewLayout {
   }
 
   override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-    return cellsLayoutAttrs.first(where: { $0.indexPath == indexPath })
+    cellsLayoutAttrs.first(where: { $0.indexPath == indexPath })
   }
 
   override func layoutAttributesForDecorationView(ofKind _: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-    return decoratorsLayoutAttrs.first(where: { $0.indexPath == indexPath })
+    decoratorsLayoutAttrs.first(where: { $0.indexPath == indexPath })
   }
 
   override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {

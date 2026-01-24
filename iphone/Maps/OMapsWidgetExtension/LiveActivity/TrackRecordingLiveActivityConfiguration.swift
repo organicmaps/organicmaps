@@ -1,5 +1,5 @@
-import WidgetKit
 import SwiftUI
+import WidgetKit
 
 struct TrackRecordingLiveActivityConfiguration: Widget {
   @Environment(\.colorScheme) private var colorScheme
@@ -22,5 +22,3 @@ struct TrackRecordingLiveActivityConfiguration: Widget {
     }
   }
 }
-
-

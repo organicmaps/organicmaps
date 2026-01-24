@@ -973,6 +973,7 @@
 "type.railway.construction" = "Будівництво залізниці";
 "type.railway.crossing" = "Пішохідний перехід";
 "type.railway.disused" = "Недійсна залізниця";
+"type.railway.disused.bridge" = "Недіючий залізничний міст";
 "type.railway.funicular" = "Фунікулер";
 "type.railway.funicular.bridge" = "Фунікулер";
 "type.railway.funicular.tunnel" = "Фунікулер";

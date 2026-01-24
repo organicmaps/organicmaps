@@ -1,7 +1,7 @@
 import UIKit
 
-fileprivate class CircleView: UIView {
-  override class var layerClass: AnyClass { return CAShapeLayer.self }
+private class CircleView: UIView {
+  override class var layerClass: AnyClass { CAShapeLayer.self }
 
   var color: UIColor? {
     didSet {
@@ -12,7 +12,7 @@ fileprivate class CircleView: UIView {
   }
 
   var shapeLayer: CAShapeLayer {
-    return layer as! CAShapeLayer
+    layer as! CAShapeLayer
   }
 
   let ringLayer = CAShapeLayer()
@@ -41,7 +41,8 @@ fileprivate class CircleView: UIView {
     centerLayer.fillColor = color?.cgColor
   }
 
-  required init?(coder aDecoder: NSCoder) {
+  @available(*, unavailable)
+  required init?(coder _: NSCoder) {
     fatalError()
   }
 }
@@ -49,7 +50,7 @@ fileprivate class CircleView: UIView {
 class ChartPointIntersectionView: UIView {
   fileprivate var intersectionView = CircleView()
 
-  var color: UIColor = UIColor(red: 0.14, green: 0.61, blue: 0.95, alpha: 1) {
+  var color: UIColor = .init(red: 0.14, green: 0.61, blue: 0.95, alpha: 1) {
     didSet {
       intersectionView.color = color
       backgroundColor = color.withAlphaComponent(0.5)
@@ -67,7 +68,8 @@ class ChartPointIntersectionView: UIView {
     addSubview(intersectionView)
   }
 
-  required init?(coder aDecoder: NSCoder) {
+  @available(*, unavailable)
+  required init?(coder _: NSCoder) {
     fatalError()
   }
 

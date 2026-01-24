@@ -28911,6 +28911,41 @@ uk = Недійсна залізниця
 zh-Hans = 废弃铁路
 zh-Hant = 不使用鐵路
 
+[type.railway.disused.bridge]
+en = Disused Railway Bridge
+af = Ongebruikte spoorbrug
+az = İstifadəsiz dəmir yolu körpüsü
+be = Закінуты чыгуначны мост
+ca = Pont ferroviari en desús
+cs = Most nepoužívané železnice
+da = Ubenyttet jernbanebro
+de = Stillgelegte Eisenbahnbrücke
+el = Αχρησιμοποίητη σιδηροδρομική γέφυρα
+es = Puente ferroviario en desuso
+et = Kasutamata raudteesild
+fa = پل راه‌آهن رها شده
+fr = Pont ferroviaire désaffecté
+gl = Ponte ferroviario en desuso
+he = גשר רכבת לא בשימוש
+hu = Használaton kívüli vasúti híd
+is = Aflögð járnbrautarbrú
+it = Ponte ferroviario in disuso
+ja = 休止線(橋)
+lt = Nenaudojamo geležinkelio tiltas
+nl = Ongebruikte spoorbrug
+pl = Nieczynny most kolejowy
+pt = Ponte de Ferrovia em desuso
+ru = Заброшенный железнодорожный мост
+sk = Nepoužívaný železničný most
+sl = Neuporabljen železniški most
+sq = Urë hekurudhore jashtë përdorimit
+sr = Напуштен железнички мост
+sv = Otrafikerad järnvägsbro
+tr = Kullanılmayan Demir Yolu Köprüsü
+uk = Недіючий залізничний міст
+zh-Hans = 废弃铁路桥梁
+zh-Hant = 廢棄鐵路橋樑
+
 [type.railway.funicular]
 en = Funicular
 af = Kabelspoor

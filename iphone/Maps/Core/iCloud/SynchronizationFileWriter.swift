@@ -38,6 +38,7 @@ final class SynchronizationFileWriter {
   }
 
   // MARK: - Read/Write/Downloading/Uploading
+
   private func startDownloading(_ cloudMetadataItem: CloudMetadataItem, completion: WritingResultCompletionHandler) {
     LOG(.info, "Start downloading file: \(cloudMetadataItem.fileUrl.path)...")
     do {
@@ -86,7 +87,6 @@ final class SynchronizationFileWriter {
       } catch {
         completion(.failure(error))
       }
-      return
     }
     if let coordinationError {
       completion(.failure(coordinationError))
@@ -130,7 +130,6 @@ final class SynchronizationFileWriter {
       } catch {
         completion(.failure(error))
       }
-      return
     }
     if let coordinationError {
       completion(.failure(coordinationError))
@@ -154,11 +153,13 @@ final class SynchronizationFileWriter {
   }
 
   // MARK: - Merge conflicts resolving
+
   private func resolveVersionsConflict(_ cloudMetadataItem: CloudMetadataItem, completion: @escaping WritingResultCompletionHandler) {
     LOG(.info, "Start resolving version conflict for file \(cloudMetadataItem.fileName)...")
 
     guard let versionsInConflict = NSFileVersion.unresolvedConflictVersionsOfItem(at: cloudMetadataItem.fileUrl), !versionsInConflict.isEmpty,
-          let currentVersion = NSFileVersion.currentVersionOfItem(at: cloudMetadataItem.fileUrl) else {
+          let currentVersion = NSFileVersion.currentVersionOfItem(at: cloudMetadataItem.fileUrl)
+    else {
       LOG(.info, "No versions in conflict found for file \(cloudMetadataItem.fileName).")
       completion(.success)
       return
@@ -237,6 +238,7 @@ final class SynchronizationFileWriter {
   }
 
   // MARK: - Helper methods
+
   // Generate a new file URL with a new name for the file with the same name.
   // This method should generate the same name for the same file on different devices during the simultaneous conflict resolving.
   private func generateNewFileUrl(for fileUrl: URL, addDeviceName: Bool = false) -> URL {
@@ -251,6 +253,7 @@ final class SynchronizationFileWriter {
 }
 
 // MARK: - FileManager + FileReplacing
+
 private extension FileManager {
   func replaceFileSafe(at targetUrl: URL, with sourceUrl: URL) throws {
     guard fileExists(atPath: targetUrl.path) else {
@@ -267,10 +270,11 @@ private extension FileManager {
 }
 
 // MARK: - URL + ResourceValues
+
 private extension URL {
   func setResourceModificationDate(_ date: Date) throws {
     var url = self
-    var resource = try resourceValues(forKeys:[.contentModificationDateKey])
+    var resource = try resourceValues(forKeys: [.contentModificationDateKey])
     resource.contentModificationDate = date
     try url.setResourceValues(resource)
   }

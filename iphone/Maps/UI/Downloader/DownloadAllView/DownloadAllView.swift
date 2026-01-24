@@ -14,6 +14,7 @@ class DownloadAllView: UIView {
     case error
     case dowloading
   }
+
   enum Style {
     case download
     case update
@@ -25,7 +26,7 @@ class DownloadAllView: UIView {
   @IBOutlet private var stateWrapper: UIView!
   @IBOutlet private var downloadButton: UIButton!
   @IBOutlet private var titleCenterConstraint: NSLayoutConstraint!
-  lazy private var progress: MWMCircularProgress = {
+  private lazy var progress: MWMCircularProgress = {
     let view = MWMCircularProgress.downloaderProgress(forParentView: stateWrapper)
     view.delegate = self
     return view
@@ -38,6 +39,7 @@ class DownloadAllView: UIView {
       }
     }
   }
+
   var style: Style = .download {
     didSet {
       if oldValue != style {
@@ -45,6 +47,7 @@ class DownloadAllView: UIView {
       }
     }
   }
+
   var state: State = .ready {
     didSet {
       if oldValue != state {
@@ -53,19 +56,22 @@ class DownloadAllView: UIView {
       }
     }
   }
+
   var downloadSize: UInt64 = 0 {
     didSet {
       downloadSizeLabel.text = formattedSize(downloadSize)
     }
   }
+
   var downloadProgress: CGFloat = 0 {
     didSet {
-      self.progress.progress = downloadProgress
+      progress.progress = downloadProgress
     }
   }
+
   weak var delegate: DownloadAllViewDelegate?
 
-  @IBAction func onDownloadButtonPress(_ sender: Any) {
+  @IBAction func onDownloadButtonPress(_: Any) {
     if state == .error {
       delegate?.onRetryButtonPressed()
     } else {
@@ -121,14 +127,14 @@ class DownloadAllView: UIView {
       stateWrapper.isHidden = false
       progress.state = .spinner
     case .none:
-      self.downloadButton.isHidden = true
-      self.stateWrapper.isHidden = true
+      downloadButton.isHidden = true
+      stateWrapper.isHidden = true
     }
   }
 }
 
 extension DownloadAllView: MWMCircularProgressProtocol {
-  func progressButtonPressed(_ progress: MWMCircularProgress) {
+  func progressButtonPressed(_: MWMCircularProgress) {
     delegate?.onCancelButtonPressed()
   }
 }

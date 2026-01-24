@@ -1072,7 +1072,15 @@ void KmlParser::CharData(std::string & value)
       {
         auto & timestamps = m_geometry.m_timestamps;
         ASSERT(!timestamps.empty(), ());
-        timestamps.back().emplace_back(base::StringToTimestamp(value));
+
+        /// @todo Add INVALID_TIME_STAMP post processing like in GpxParser?
+        auto const timestamp = base::StringToTimestamp(value);
+        ASSERT(timestamp != base::INVALID_TIME_STAMP, (value));
+
+        auto & cont = timestamps.back();
+        if (!cont.empty())
+          ASSERT_LESS_OR_EQUAL(cont.back(), timestamp, ());
+        cont.emplace_back(timestamp);
       }
       else if (IsCoord(currTag))
       {

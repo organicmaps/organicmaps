@@ -3,7 +3,7 @@ protocol ModalPresentationStep: Equatable {
   static var hidden: Self { get }
 }
 
-fileprivate enum Constants {
+private enum Constants {
   static let slowSwipeVelocity: CGFloat = 500
   static let fastSwipeDownVelocity: CGFloat = 4000
   static let fastSwipeUpVelocity: CGFloat = 3000
@@ -11,7 +11,6 @@ fileprivate enum Constants {
 }
 
 final class ModalPresentationStepsController<Step: ModalPresentationStep> {
-
   enum StepUpdate {
     case didClose
     case didUpdateFrame(CGRect)

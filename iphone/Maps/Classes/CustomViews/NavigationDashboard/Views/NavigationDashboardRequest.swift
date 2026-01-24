@@ -39,7 +39,7 @@ extension MWMRouterType: CaseIterable {
     .pedestrian,
     .publicTransport,
     .bicycle,
-    .ruler
+    .ruler,
   ]
 
   func image(for isSelected: Bool) -> UIImage {

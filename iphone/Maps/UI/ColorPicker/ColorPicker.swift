@@ -4,12 +4,12 @@ enum ColorPickerType {
 }
 
 final class ColorPicker: NSObject {
-
   static let shared = ColorPicker()
 
   private var onUpdateColorHandler: ((UIColor) -> Void)?
 
   // MARK: - Public
+
   /// Presents a color picker view controller modally from a specified root view controller.
   ///
   /// - Uses native color picker on the iOS 14.0+ for the `defaultColorPicker` type on iPhone and iPad.
@@ -33,6 +33,7 @@ final class ColorPicker: NSObject {
   }
 
   // MARK: - Private
+
   @available(iOS 14.0, *)
   private func defaultColorPickerViewController(with selectedColor: UIColor) -> UIViewController {
     let colorPickerController = UIColorPickerViewController()
@@ -52,6 +53,7 @@ final class ColorPicker: NSObject {
 }
 
 // MARK: - BookmarkColorViewControllerDelegate
+
 extension ColorPicker: BookmarkColorViewControllerDelegate {
   func bookmarkColorViewController(_ viewController: BookmarkColorViewController, didSelect bookmarkColor: BookmarkColor) {
     onUpdateColorHandler?(bookmarkColor.color)
@@ -61,6 +63,7 @@ extension ColorPicker: BookmarkColorViewControllerDelegate {
 }
 
 // MARK: - UIColorPickerViewControllerDelegate
+
 extension ColorPicker: UIColorPickerViewControllerDelegate {
   @available(iOS 14.0, *)
   func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {

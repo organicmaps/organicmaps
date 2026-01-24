@@ -1,5 +1,3 @@
 import UIKit
 
-final class EmptyCell: Cell {
-
-}
+final class EmptyCell: Cell {}

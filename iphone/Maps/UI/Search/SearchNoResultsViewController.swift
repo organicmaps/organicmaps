@@ -1,13 +1,12 @@
 
 final class SearchNoResultsViewController: MWMViewController {
-
   static var controller: SearchNoResultsViewController {
     let storyboard = UIStoryboard.instance(.main)
     return storyboard.instantiateViewController(withIdentifier: toString(self)) as! SearchNoResultsViewController
   }
 
-  @IBOutlet private weak var container: UIView!
-  @IBOutlet private weak var containerCenterYConstraint: NSLayoutConstraint!
+  @IBOutlet private var container: UIView!
+  @IBOutlet private var containerCenterYConstraint: NSLayoutConstraint!
 
   override func viewDidLoad() {
     super.viewDidLoad()

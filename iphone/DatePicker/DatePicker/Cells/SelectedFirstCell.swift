@@ -10,7 +10,7 @@ final class SelectedFirstCell: SelectedSingleCell {
       rangeTrailingView.leadingAnchor.constraint(equalTo: contentView.centerXAnchor),
       rangeTrailingView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
       rangeTrailingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
-      rangeTrailingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+      rangeTrailingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
     ])
     super.addSubviews()
   }

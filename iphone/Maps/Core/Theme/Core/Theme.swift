@@ -3,8 +3,9 @@
     case dark
     case light
   }
+
   typealias StyleName = String
-  typealias Resolver = ((Style) -> (Void))
+  typealias Resolver = (Style) -> Void
 
   @objc let colors: IColors
   @objc let fonts: IFonts
@@ -13,35 +14,35 @@
   private var resolvers: [StyleName: Resolver] = [:]
   private var dependencies: [StyleName: StyleName] = [:]
 
-  init (type: ThemeType, colors: IColors, fonts: IFonts) {
+  init(type: ThemeType, colors: IColors, fonts: IFonts) {
     self.colors = colors
     self.fonts = fonts
-    self.themeType = type
+    themeType = type
     super.init()
-    self.register()
+    register()
   }
 
-  func registerStyleSheet<U: IStyleSheet> (_ type: U.Type) {
+  func registerStyleSheet<U: IStyleSheet>(_: U.Type) {
     U.register(theme: self, colors: colors, fonts: fonts)
   }
 
-  func add(styleName: StyleName, _ resolver:@escaping Resolver) {
+  func add(styleName: StyleName, _ resolver: @escaping Resolver) {
     resolvers[styleName] = resolver
   }
 
-  func add(styleName: StyleName, from: StyleName, _ resolver:@escaping Resolver) {
+  func add(styleName: StyleName, from: StyleName, _ resolver: @escaping Resolver) {
     resolvers[styleName] = resolver
     dependencies[styleName] = from
   }
 
-  func add(styleName: StyleName,  forType: ThemeType, _ resolver:@escaping Resolver) {
+  func add(styleName: StyleName, forType: ThemeType, _ resolver: @escaping Resolver) {
     guard themeType == forType else {
       return
     }
     resolvers[styleName] = resolver
   }
 
-  func add(styleName: StyleName, from: StyleName, forType: ThemeType, _ resolver:@escaping Resolver) {
+  func add(styleName: StyleName, from: StyleName, forType: ThemeType, _ resolver: @escaping Resolver) {
     guard themeType == forType else {
       return
     }
@@ -60,7 +61,7 @@
         let style = Style()
         resolver(style)
         if let dependency = dependencies[strName] {
-          style.append(self.get(dependency))
+          style.append(get(dependency))
         }
         result.append(style)
       } else {

@@ -14,7 +14,8 @@
   <string name="pref_emulate_bad_external_storage" translatable="false">EmulateBadExternalStorage</string>
   <string name="pref_about" translatable="false">AboutOrganicMaps</string>
   <string name="pref_help" translatable="false">Help</string>
-  <string name="pref_map_style" translatable="false">MapStyle</string>
+  <string name="pref_map_appearance" translatable="false">MapStyle</string>
+  <string name="pref_auto_night_in_navigation" translatable="false">AutoNightInNavigation</string>
   <string name="pref_tts_screen" translatable="false">TtsScreen</string>
   <string name="pref_tts_enabled" translatable="false">TtsEnabled</string>
   <string name="pref_tts_street_names" translatable="false">TtsStreetNames</string>

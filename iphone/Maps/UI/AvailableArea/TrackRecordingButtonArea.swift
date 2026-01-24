@@ -1,6 +1,6 @@
 final class TrackRecordingButtonArea: AvailableArea {
   override func isAreaAffectingView(_ other: UIView) -> Bool {
-    return !other.trackRecordingButtonAreaAffectDirections.isEmpty
+    !other.trackRecordingButtonAreaAffectDirections.isEmpty
   }
 
   override func addAffectingView(_ other: UIView) {
@@ -15,7 +15,7 @@ final class TrackRecordingButtonArea: AvailableArea {
 }
 
 extension UIView {
-  @objc var trackRecordingButtonAreaAffectDirections: MWMAvailableAreaAffectDirections { return [] }
+  @objc var trackRecordingButtonAreaAffectDirections: MWMAvailableAreaAffectDirections { [] }
 
-  var trackRecordingButtonAreaAffectView: UIView { return self }
+  var trackRecordingButtonAreaAffectView: UIView { self }
 }

@@ -52,4 +52,3 @@ class UIButtonRenderer {
     UIViewRenderer.renderShadow(control, style: style)
   }
 }
-

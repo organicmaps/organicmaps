@@ -973,6 +973,7 @@
 "type.railway.construction" = "Hekurudhë në ndërtim";
 "type.railway.crossing" = "Kryqëzim hekurudhor";
 "type.railway.disused" = "Hekurudhë jashtë përdorimit";
+"type.railway.disused.bridge" = "Urë hekurudhore jashtë përdorimit";
 "type.railway.funicular" = "Funikular";
 "type.railway.funicular.bridge" = "Urë funikulari";
 "type.railway.funicular.tunnel" = "Tunel funikulari";

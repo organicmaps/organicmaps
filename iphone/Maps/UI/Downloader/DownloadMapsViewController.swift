@@ -172,8 +172,8 @@ class DownloadMapsViewController: MWMViewController {
         action = UIAlertAction(title: "\(prefix) (\(formattedSize(nodeAttrs.totalSize)))",
                                style: .default,
                                handler: { _ in
-                                Storage.shared().downloadNode(nodeAttrs.countryId)
-        })
+                                 Storage.shared().downloadNode(nodeAttrs.countryId)
+                               })
       case .update:
         let size = formattedSize(nodeAttrs.totalUpdateSizeBytes)
         let title = "\(L("downloader_status_outdated")) \(size)"
@@ -228,7 +228,7 @@ class DownloadMapsViewController: MWMViewController {
       if error {
         downloadAllView.state = dataSource.isRoot ? .none : .error
         downloadAllView.downloadSize = parentAttributes.downloadingSize
-      } else if downloading && dataSource is DownloadedMapsDataSource {
+      } else if downloading, dataSource is DownloadedMapsDataSource {
         downloadAllView.state = .dowloading
         if dataSource.isRoot {
           downloadAllView.style = .download
@@ -257,19 +257,19 @@ class DownloadMapsViewController: MWMViewController {
 // MARK: - UITableViewDataSource
 
 extension DownloadMapsViewController: UITableViewDataSource {
-  func numberOfSections(in tableView: UITableView) -> Int {
+  func numberOfSections(in _: UITableView) -> Int {
     dataSource.numberOfSections() + (hasAddMapSection ? 1 : 0)
   }
 
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if hasAddMapSection && section == dataSource.numberOfSections() {
+  func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
+    if hasAddMapSection, section == dataSource.numberOfSections() {
       return 1
     }
     return dataSource.numberOfItems(in: section)
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    if hasAddMapSection && indexPath.section == dataSource.numberOfSections() {
+    if hasAddMapSection, indexPath.section == dataSource.numberOfSections() {
       let cellType = MWMMapDownloaderButtonTableViewCell.self
       let buttonCell = tableView.dequeueReusableCell(cell: cellType, indexPath: indexPath)
       return buttonCell
@@ -301,19 +301,19 @@ extension DownloadMapsViewController: UITableViewDataSource {
     return cell
   }
 
-  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+  func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
     dataSource.title(for: section)
   }
 
-  func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+  func sectionIndexTitles(for _: UITableView) -> [String]? {
     dataSource.indexTitles()
   }
 
-  func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+  func tableView(_: UITableView, sectionForSectionIndexTitle _: String, at index: Int) -> Int {
     index
   }
 
-  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+  func tableView(_: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
     if indexPath.section == dataSource.numberOfSections() {
       return false
     }
@@ -326,7 +326,7 @@ extension DownloadMapsViewController: UITableViewDataSource {
     }
   }
 
-  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+  func tableView(_: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
       let nodeAttrs = dataSource.item(at: indexPath)
       Storage.shared().deleteNode(nodeAttrs.countryId)
@@ -337,7 +337,7 @@ extension DownloadMapsViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension DownloadMapsViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+  func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let headerView = MWMMapDownloaderCellHeader()
     if section != dataSource.numberOfSections() {
       headerView.text = dataSource.title(for: section)
@@ -345,11 +345,11 @@ extension DownloadMapsViewController: UITableViewDelegate {
     return headerView
   }
 
-  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+  func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
     28
   }
 
-  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+  func tableView(_: UITableView, heightForFooterInSection section: Int) -> CGFloat {
     section == dataSource.numberOfSections() - 1 ? 68 : 0
   }
 
@@ -371,7 +371,7 @@ extension DownloadMapsViewController: UITableViewDelegate {
 // MARK: - UIScrollViewDelegate
 
 extension DownloadMapsViewController: UIScrollViewDelegate {
-  func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+  func scrollViewWillBeginDragging(_: UIScrollView) {
     searchController.searchBar.resignFirstResponder()
   }
 }
@@ -414,7 +414,7 @@ extension DownloadMapsViewController: MWMMapDownloaderTableViewCellDelegate {
 
 extension DownloadMapsViewController: StorageObserver {
   func processCountryEvent(_ countryId: String) {
-    if skipCountryEvent && countryId == dataSource.getParentCountryId() {
+    if skipCountryEvent, countryId == dataSource.getParentCountryId() {
       return
     }
     dataSource.reload {
@@ -443,7 +443,7 @@ extension DownloadMapsViewController: StorageObserver {
     if countryId == dataSource.getParentCountryId() {
       downloadAllView.downloadProgress = CGFloat(downloadedBytes) / CGFloat(totalBytes)
       downloadAllView.downloadSize = totalBytes
-    } else if dataSource.isRoot && dataSource is DownloadedMapsDataSource {
+    } else if dataSource.isRoot, dataSource is DownloadedMapsDataSource {
       downloadAllView.state = .dowloading
       downloadAllView.isSizeHidden = true
     }
@@ -463,7 +463,7 @@ extension DownloadMapsViewController: UISearchBarDelegate {
 
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     let locale = searchBar.textInputMode?.primaryLanguage
-    dataSource.search(searchText, locale: locale ?? "") { [weak self] finished in
+    dataSource.search(searchText, locale: locale ?? "") { [weak self] _ in
       guard let self = self else { return }
       self.reloadData()
       self.noSerchResultViewController.view.isHidden = !self.dataSource.isEmpty

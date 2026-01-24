@@ -49,3 +49,14 @@ UNIT_TEST(DecodeEmptyString)
 {
   TEST_EQUAL(FromHex(""), "", ());
 }
+
+UNIT_TEST(FromHex_InvalidInput)
+{
+  TEST_EQUAL(FromHex("0G"), "", ());
+  TEST_EQUAL(FromHex("0g"), "", ());
+  TEST_EQUAL(FromHex("G0"), "", ());
+  TEST_EQUAL(FromHex("g0"), "", ());
+  TEST_EQUAL(FromHex("Zz"), "", ());
+  TEST_EQUAL(FromHex("0"), "", ());
+  TEST_EQUAL(FromHex("012"), "", ());
+}

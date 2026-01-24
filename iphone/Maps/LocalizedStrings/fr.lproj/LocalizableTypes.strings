@@ -973,6 +973,7 @@
 "type.railway.construction" = "Chemin de fer en construction";
 "type.railway.crossing" = "Passage à niveau pour piéton";
 "type.railway.disused" = "Chemin de fer désaffecté";
+"type.railway.disused.bridge" = "Pont ferroviaire désaffecté";
 "type.railway.funicular" = "Funiculaire";
 "type.railway.funicular.bridge" = "Funiculaire";
 "type.railway.funicular.tunnel" = "Funiculaire";

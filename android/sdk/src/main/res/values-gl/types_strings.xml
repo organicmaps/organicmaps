@@ -837,6 +837,7 @@
     <string name="type.railway.construction">Vía férrea en construción</string>
     <string name="type.railway.crossing">Paso a nivel</string>
     <string name="type.railway.disused">Vía férrea en desuso</string>
+    <string name="type.railway.disused.bridge">Ponte ferroviario en desuso</string>
     <string name="type.railway.funicular">Funicular</string>
     <string name="type.railway.funicular.bridge">Ponte de funicular</string>
     <string name="type.railway.funicular.tunnel">Túnel de funicular</string>

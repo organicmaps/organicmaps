@@ -14,7 +14,7 @@ final class SearchCategoriesViewController: MWMTableViewController {
   }
 
   @available(*, unavailable)
-  required init?(coder aDecoder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -25,16 +25,16 @@ final class SearchCategoriesViewController: MWMTableViewController {
     tableView.keyboardDismissMode = .onDrag
   }
 
-  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return categories.count
+  override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+    categories.count
   }
-  
+
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(cell: SearchCategoryCell.self, indexPath: indexPath)
     cell.configure(with: category(at: indexPath))
     return cell
   }
-  
+
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selectedCategory = category(at: indexPath)
     delegate?.categoriesViewController(self, didSelect: selectedCategory)

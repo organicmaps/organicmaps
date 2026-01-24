@@ -456,6 +456,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
           new Holders.BookmarkViewHolder(inflater.inflate(R.layout.item_bookmark, parent, false));
       bookmarkHolder.setOnClickListener(mClickListener);
       bookmarkHolder.setOnLongClickListener(mLongClickListener);
+      bookmarkHolder.setBookmarkIconClickListener(mIconClickListener);
       holder = bookmarkHolder;
       break;
     case TYPE_SECTION:

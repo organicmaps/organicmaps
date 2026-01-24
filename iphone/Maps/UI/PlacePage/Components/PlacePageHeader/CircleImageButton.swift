@@ -1,5 +1,4 @@
 final class CircleImageButton: UIButton {
-
   private static let expandedTappableAreaInsets = UIEdgeInsets(top: -5, left: -5, bottom: -5, right: -5)
 
   private let circleImageView = UIImageView()
@@ -38,7 +37,7 @@ final class CircleImageButton: UIButton {
       circleImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
       circleImageView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor),
       circleImageView.heightAnchor.constraint(lessThanOrEqualTo: heightAnchor),
-      aspectRatioConstraint
+      aspectRatioConstraint,
     ])
   }
 
@@ -47,7 +46,7 @@ final class CircleImageButton: UIButton {
     circleImageView.layer.cornerRadius = circleImageView.bounds.width / 2.0
   }
 
-  override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+  override func point(inside point: CGPoint, with _: UIEvent?) -> Bool {
     let expandedBounds = bounds.inset(by: Self.expandedTappableAreaInsets)
     return expandedBounds.contains(point)
   }
@@ -58,5 +57,5 @@ final class CircleImageButton: UIButton {
   }
 
   @available(*, unavailable)
-  override func setImage(_ image: UIImage?, for state: UIControl.State) {}
+  override func setImage(_: UIImage?, for _: UIControl.State) {}
 }

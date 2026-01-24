@@ -973,6 +973,7 @@
 "type.railway.construction" = "Železniční stavba";
 "type.railway.crossing" = "Železniční přejezd";
 "type.railway.disused" = "Nepoužívaná železnice";
+"type.railway.disused.bridge" = "Most nepoužívané železnice";
 "type.railway.funicular" = "Pozemní lanová dráha";
 "type.railway.funicular.bridge" = "Most pozemní lanové dráhy";
 "type.railway.funicular.tunnel" = "Tunel pozemní lanové dráhy";

@@ -1,20 +1,19 @@
 final class ProductButton: UIButton {
-
   private var action: () -> Void
 
   init(title: String, action: @escaping () -> Void) {
     self.action = action
     super.init(frame: .zero)
-    self.setup(title: title, action: action)
-    self.layout()
+    setup(title: title, action: action)
+    layout()
   }
 
   @available(*, unavailable)
-  required init?(coder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  private func setup(title: String, action: @escaping () -> Void) {
+  private func setup(title: String, action _: @escaping () -> Void) {
     setStyleAndApply(.blueBackground)
     setTitle(title, for: .normal)
     setTitleColor(.white, for: .normal)

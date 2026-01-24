@@ -204,6 +204,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">Butoanele „+” și „-” pe hartă</string>
     <string name="pref_zoom_summary">Arată pe hartă</string>
+    <string name="pref_auto_night_in_navigation_title">Stil de noapte atunci când navigați în întuneric</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Mod nocturn</string>
     <!-- Generic «Off» string -->
@@ -337,6 +338,12 @@
     <string name="gray">Gri</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gri albăstriu</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Aspect</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Luminos</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Întunecat</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Oferiți hărți gratuite fără reclame pentru milioane de utilizatori!</string>
 
@@ -859,7 +866,7 @@
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto în navigație</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
-    <string name="follow_system">Urmează системол</string>
+    <string name="follow_system">Urmează sistemul</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Ștergeți %s?</string>
 </resources>

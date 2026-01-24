@@ -204,6 +204,7 @@
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">כפתורי + ו- על המפה</string>
     <string name="pref_zoom_summary">הצג על המסך</string>
+    <string name="pref_auto_night_in_navigation_title">סגנון לילה בעת ניווט בחושך</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">מצב לילה</string>
     <!-- Generic «Off» string -->
@@ -331,6 +332,12 @@
     <string name="gray">אפור</string>
     <!-- blue gray color -->
     <string name="blue_gray">כחול אפרפר</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">מראה</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">בהיר</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">כהה</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">העניקו במתנה מפות חינמיות וללא פרסומות למיליוני משתמשים!</string>
 

@@ -8,11 +8,11 @@ extension UITableView {
   }
 
   @objc func dequeueReusableCell(withCellClass cellClass: AnyClass) -> UITableViewCell? {
-    return dequeueReusableCell(withIdentifier: toString(cellClass))
+    dequeueReusableCell(withIdentifier: toString(cellClass))
   }
 
   @objc func dequeueReusableCell(withCellClass cellClass: AnyClass, indexPath: IndexPath) -> UITableViewCell {
-    return dequeueReusableCell(withIdentifier: toString(cellClass), for: indexPath)
+    dequeueReusableCell(withIdentifier: toString(cellClass), for: indexPath)
   }
 
   func registerNib<Cell>(cell: Cell.Type) where Cell: UITableViewCell {
@@ -28,11 +28,11 @@ extension UITableView {
   }
 
   func dequeueReusableCell<Cell>(cell: Cell.Type) -> Cell? where Cell: UITableViewCell {
-    return dequeueReusableCell(withIdentifier: toString(cell)) as? Cell
+    dequeueReusableCell(withIdentifier: toString(cell)) as? Cell
   }
 
   func dequeueReusableCell<Cell>(cell: Cell.Type, indexPath: IndexPath) -> Cell where Cell: UITableViewCell {
-    return dequeueReusableCell(withIdentifier: toString(cell), for: indexPath) as! Cell
+    dequeueReusableCell(withIdentifier: toString(cell), for: indexPath) as! Cell
   }
 
   func registerNibForHeaderFooterView<View>(_ view: View.Type) where View: UIView {
@@ -40,6 +40,6 @@ extension UITableView {
   }
 
   func dequeueReusableHeaderFooterView<View>(_ view: View.Type) -> View where View: UIView {
-    return dequeueReusableHeaderFooterView(withIdentifier: toString(view)) as! View
+    dequeueReusableHeaderFooterView(withIdentifier: toString(view)) as! View
   }
 }

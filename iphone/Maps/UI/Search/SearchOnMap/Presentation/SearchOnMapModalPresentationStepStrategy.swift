@@ -49,7 +49,7 @@ struct SearchOnMapModalPresentationStepStrategy: ModalPresentationStepStrategy {
     .compact
   }
 
-  func frame(_ step: Step, for presentedView: UIView, in containerViewController: UIViewController) -> CGRect {
+  func frame(_ step: Step, for _: UIView, in containerViewController: UIViewController) -> CGRect {
     let isIPad = UIDevice.current.userInterfaceIdiom == .pad
     var containerSize = containerViewController.view.bounds.size
     if containerSize == .zero {
@@ -97,4 +97,3 @@ struct SearchOnMapModalPresentationStepStrategy: ModalPresentationStepStrategy {
     return frame
   }
 }
-

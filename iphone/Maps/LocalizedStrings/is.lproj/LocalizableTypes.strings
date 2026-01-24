@@ -973,6 +973,7 @@
 "type.railway.construction" = "Járnbraut í byggingu";
 "type.railway.crossing" = "Þverun járnbrauta";
 "type.railway.disused" = "Aflögð járnbraut";
+"type.railway.disused.bridge" = "Aflögð járnbrautarbrú";
 "type.railway.funicular" = "Dráttarlest";
 "type.railway.funicular.bridge" = "Dráttarlestarbrú";
 "type.railway.funicular.tunnel" = "Dráttarlestargöng";

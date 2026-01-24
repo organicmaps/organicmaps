@@ -269,13 +269,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       }
     }
 
-    if (!Editor.nativeIsPhoneValid(mPhone.getText().toString()))
-    {
-      mPhone.requestFocus();
-      InputUtils.showKeyboard(mPhone);
-      return false;
-    }
-
     return validateNames();
   }
 

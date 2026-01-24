@@ -803,6 +803,7 @@
     <string name="type.railway.construction">Železnica v gradnji</string>
     <string name="type.railway.crossing">Železniški prehod</string>
     <string name="type.railway.disused">Neuporabljena železnica</string>
+    <string name="type.railway.disused.bridge">Neuporabljen železniški most</string>
     <string name="type.railway.funicular">Vzpenjača</string>
     <string name="type.railway.funicular.bridge">Most vzpenjače</string>
     <string name="type.railway.funicular.tunnel">Predor vzpenjače</string>

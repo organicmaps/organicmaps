@@ -7,13 +7,14 @@ final class ListTemplateBuilder {
     case bookmarks(category: BookmarkGroup)
     case searchResults(results: [MWMCarPlaySearchResultObject])
   }
-  
+
   enum BarButtonType {
     case bookmarks
     case search
   }
-  
+
   // MARK: - CPListTemplate bilder
+
   class func buildListTemplate(for type: ListTemplateType) -> CPListTemplate {
     var title = ""
     var trailingNavigationBarButtons = [CPBarButton]()
@@ -45,7 +46,7 @@ final class ListTemplateBuilder {
     obtainResources(for: type, template: template)
     return template
   }
-  
+
   private class func obtainResources(for type: ListTemplateType, template: CPListTemplate) {
     switch type {
     case .history:
@@ -58,44 +59,44 @@ final class ListTemplateBuilder {
       convertSearchResults(results, template: template)
     }
   }
-  
+
   private class func obtainHistory(template: CPListTemplate) {
     let searchQueries = FrameworkHelper.obtainLastSearchQueries()
-    let items = searchQueries.map({ (text) -> CPListItem in
+    let items = searchQueries.map { text -> CPListItem in
       let item = CPListItem(text: text, detailText: nil, image: UIImage(named: "ic_carplay_recent"))
       item.userInfo = ListItemInfo(type: CPConstants.ListItemType.history,
                                    metadata: nil)
       return item
-    })
+    }
     let section = CPListSection(items: items)
     template.updateSections([section])
   }
-  
+
   private class func obtainCategories(template: CPListTemplate) {
     let bookmarkManager = BookmarksManager.shared()
     let categories = bookmarkManager.sortedUserCategories()
-    let items: [CPListItem] = categories.compactMap({ category in
+    let items: [CPListItem] = categories.compactMap { category in
       if category.bookmarksCount == 0 { return nil }
       let placesString = category.placesCountTitle()
       let item = CPListItem(text: category.title, detailText: placesString)
       item.userInfo = ListItemInfo(type: CPConstants.ListItemType.bookmarkLists,
                                    metadata: CategoryInfo(category: category))
       return item
-    })
+    }
     let section = CPListSection(items: items)
     template.updateSections([section])
   }
-  
+
   private class func obtainBookmarks(template: CPListTemplate, categoryId: MWMMarkGroupID) {
     let bookmarkManager = BookmarksManager.shared()
     let bookmarks = bookmarkManager.bookmarks(forCategory: categoryId)
-    var items = bookmarks.map({ (bookmark) -> CPListItem in
+    var items = bookmarks.map { bookmark -> CPListItem in
       let item = CPListItem(text: bookmark.prefferedName, detailText: bookmark.address)
       item.userInfo = ListItemInfo(type: CPConstants.ListItemType.bookmarks,
                                    metadata: BookmarkInfo(categoryId: categoryId,
                                                           bookmarkId: bookmark.bookmarkId))
       return item
-    })
+    }
     if #available(iOS 15.0, *) {
       let maxItemCount = CPListTemplate.maximumItemCount - 1
       if items.count >= maxItemCount {
@@ -108,7 +109,7 @@ final class ListTemplateBuilder {
     let section = CPListSection(items: items)
     template.updateSections([section])
   }
-  
+
   private class func convertSearchResults(_ results: [MWMCarPlaySearchResultObject], template: CPListTemplate) {
     var items = [CPListItem]()
     for object in results {
@@ -120,8 +121,9 @@ final class ListTemplateBuilder {
     let section = CPListSection(items: items)
     template.updateSections([section])
   }
-  
+
   // MARK: - CPBarButton builder
+
   private class func buildBarButton(type: BarButtonType, action: ((CPBarButton) -> Void)?) -> CPBarButton {
     switch type {
     case .bookmarks:

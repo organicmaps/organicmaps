@@ -31,5 +31,5 @@ protocol IPlacePageLayout: AnyObject {
 }
 
 extension IPlacePageLayout {
-  var sectionSpacing: CGFloat { return 12.0 }
+  var sectionSpacing: CGFloat { 12.0 }
 }

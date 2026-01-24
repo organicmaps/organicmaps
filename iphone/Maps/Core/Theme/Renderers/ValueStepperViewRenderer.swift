@@ -9,7 +9,7 @@ extension ValueStepperView {
   }
 }
 
-fileprivate final class ValueStepperViewRenderer {
+private final class ValueStepperViewRenderer {
   class func render(_ control: ValueStepperView, style: Style) {
     control.plusButton.coloring = style.coloring!
     control.minusButton.coloring = style.coloring!

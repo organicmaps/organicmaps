@@ -1,20 +1,20 @@
-fileprivate struct AssociatedKeys {
+private enum AssociatedKeys {
   static var styleName: UInt8 = 0
   static var isStyleApplied: UInt8 = 1
 }
 
 @objc extension UIView: StyleApplicable {
-  @objc func sw_didMoveToWindow() {
+  func sw_didMoveToWindow() {
     guard MapsAppDelegate.theApp().window === window else {
-      sw_didMoveToWindow();
+      sw_didMoveToWindow()
       return
     }
     applyTheme()
     isStyleApplied = true
-    sw_didMoveToWindow();
+    sw_didMoveToWindow()
   }
 
-  @objc var styleName: String {
+  var styleName: String {
     get {
       isStyleApplied = false
       guard let value = objc_getAssociatedObject(self, &AssociatedKeys.styleName) as? String else {
@@ -27,7 +27,7 @@ fileprivate struct AssociatedKeys {
     }
   }
 
-  @objc var isStyleApplied: Bool {
+  var isStyleApplied: Bool {
     get {
       guard let value = objc_getAssociatedObject(self, &AssociatedKeys.isStyleApplied) as? Bool else {
         return false
@@ -39,7 +39,7 @@ fileprivate struct AssociatedKeys {
     }
   }
 
-  @objc func setStyleNameAndApply(_ styleName: String) {
+  func setStyleNameAndApply(_ styleName: String) {
     self.styleName = styleName
     applyTheme()
   }

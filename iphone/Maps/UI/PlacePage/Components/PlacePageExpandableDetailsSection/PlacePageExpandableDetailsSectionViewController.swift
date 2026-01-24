@@ -1,5 +1,4 @@
 final class PlacePageExpandableDetailsSectionViewController: UIViewController {
-
   private enum Constants {
     static let collapsedTextMaxLines: Int = 3
     static let expandableLabelInsets = UIEdgeInsets(top: 0, left: 16, bottom: -8, right: -16)
@@ -19,7 +18,7 @@ final class PlacePageExpandableDetailsSectionViewController: UIViewController {
   }
 
   @available(*, unavailable)
-  required init?(coder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -69,19 +68,19 @@ final class PlacePageExpandableDetailsSectionViewController: UIViewController {
     headerInfoView.setTitle(viewModel.title,
                             style: viewModel.style,
                             tapHandler: { [weak self] in
-      self?.interactor.handle(.didTapTitle)
-    },
+                              self?.interactor.handle(.didTapTitle)
+                            },
                             longPressHandler: { [weak self] in
-      self?.interactor.handle(.didLongPressTitle)
-    })
+                              self?.interactor.handle(.didLongPressTitle)
+                            })
     headerInfoView.setIcon(image: viewModel.icon,
                            tapHandler: { [weak self] in
-      self?.interactor.handle(.didTapIcon)
-    })
+                             self?.interactor.handle(.didTapIcon)
+                           })
     headerInfoView.setAccessory(image: viewModel.accessory,
                                 tapHandler: { [weak self] in
-      self?.interactor.handle(.didTapAccessory)
-    })
+                                  self?.interactor.handle(.didTapAccessory)
+                                })
 
     if let attributedText = viewModel.expandableAttributedText {
       expandableLabel.text = nil

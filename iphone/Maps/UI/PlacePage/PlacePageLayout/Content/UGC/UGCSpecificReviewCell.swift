@@ -5,9 +5,9 @@ protocol UGCSpecificReviewDelegate: NSObjectProtocol {
 
 @objc(MWMUGCSpecificReviewCell)
 final class UGCSpecificReviewCell: MWMTableViewCell {
-  @IBOutlet private weak var specification: UILabel!
+  @IBOutlet private var specification: UILabel!
   @IBOutlet private var stars: [UIButton]!
-  private var indexPath: NSIndexPath = NSIndexPath()
+  private var indexPath: NSIndexPath = .init()
   private var delegate: UGCSpecificReviewDelegate?
 
   @objc func configWith(specification: String, rate: Int, atIndexPath: NSIndexPath, delegate: UGCSpecificReviewDelegate?) {

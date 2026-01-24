@@ -2,7 +2,7 @@ extension BottomMenuLayerButton {
   @objc override func applyTheme() {
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {
-        BottomMenuLayerButtonRenderer.render(self, style: style)
+      BottomMenuLayerButtonRenderer.render(self, style: style)
     }
   }
 }

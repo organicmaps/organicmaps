@@ -25,10 +25,10 @@ class RouteInfo: NSObject {
              roundExitNumber: Int) {
     self.timeToTarget = timeToTarget
     self.targetDistance = targetDistance
-    self.targetUnits = RouteInfo.unitLength(for: targetUnitsIndex)
+    targetUnits = RouteInfo.unitLength(for: targetUnitsIndex)
     self.distanceToTurn = distanceToTurn
-    self.turnUnits = RouteInfo.unitLength(for: turnUnitsIndex)
-    self.streetName = streetName;
+    turnUnits = RouteInfo.unitLength(for: turnUnitsIndex)
+    self.streetName = streetName
     self.turnImageName = turnImageName
     self.nextTurnImageName = nextTurnImageName
     self.speedMps = speedMps
@@ -36,7 +36,6 @@ class RouteInfo: NSObject {
     self.speedLimitMps = speedLimitMps < 0 ? nil : speedLimitMps
     self.roundExitNumber = roundExitNumber
   }
-
 
   /// > Warning: Order of enum values MUST BE the same with
   /// > native ``Distance::Units`` enum (see platform/distance.hpp for details).

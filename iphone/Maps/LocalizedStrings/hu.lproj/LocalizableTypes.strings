@@ -973,6 +973,7 @@
 "type.railway.construction" = "Vasúti építési terület";
 "type.railway.crossing" = "Gyalogos vasúti átjáró";
 "type.railway.disused" = "Használaton kívüli vasútvonal";
+"type.railway.disused.bridge" = "Használaton kívüli vasúti híd";
 "type.railway.funicular" = "Sikló";
 "type.railway.funicular.bridge" = "Sikló hídja";
 "type.railway.funicular.tunnel" = "Síkló alagútja";

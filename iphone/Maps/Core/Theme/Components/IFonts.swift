@@ -13,7 +13,7 @@
   var regular24: UIFont { get }
   var regular32: UIFont { get }
   var regular52: UIFont { get }
-  
+
   var medium9: UIFont { get }
   var medium10: UIFont { get }
   var medium12: UIFont { get }
@@ -29,12 +29,12 @@
   var medium36: UIFont { get }
   var medium40: UIFont { get }
   var medium44: UIFont { get }
-  
+
   var light10: UIFont { get }
   var light12: UIFont { get }
   var light16: UIFont { get }
   var light17: UIFont { get }
-  
+
   var bold12: UIFont { get }
   var bold14: UIFont { get }
   var bold16: UIFont { get }
@@ -47,22 +47,22 @@
   var bold34: UIFont { get }
   var bold36: UIFont { get }
   var bold48: UIFont { get }
-  
+
   var header: UIFont { get }
-  
+
   var heavy17: UIFont { get }
   var heavy20: UIFont { get }
   var heavy32: UIFont { get }
   var heavy38: UIFont { get }
-  
+
   var italic12: UIFont { get }
   var italic16: UIFont { get }
-  
+
   var semibold12: UIFont { get }
   var semibold14: UIFont { get }
   var semibold15: UIFont { get }
   var semibold16: UIFont { get }
   var semibold18: UIFont { get }
-  
+
   var emojiMedium13: UIFont { get }
 }
