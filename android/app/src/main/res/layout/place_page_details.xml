@@ -29,12 +29,6 @@
 
     <include layout="@layout/place_page_placename"/>
 
-    <androidx.fragment.app.FragmentContainerView
-      android:id="@+id/place_page_opening_hours_fragment"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:layout="@layout/place_page_opening_hours_fragment" />
-
     <include layout="@layout/place_page_cuisine"/>
 
     <include layout="@layout/place_page_entrance"/>
@@ -64,8 +58,6 @@
     <include layout="@layout/place_page_self_service" />
 
     <include layout="@layout/place_page_outdoor_seating"/>
-
-    <include layout="@layout/place_page_route_ref"/>
 
     <!-- ToDo: Address is missing compared with iOS. It's shown in title but anyway .. -->
 
