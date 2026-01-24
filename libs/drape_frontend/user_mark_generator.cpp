@@ -251,6 +251,7 @@ void UserMarkGenerator::CacheUserLines(ref_ptr<dp::GraphicsContext> context, Til
   {
     if (m_groupsVisibility.contains(gp.first))
     {
+      // TODO: Avoid visibleLineIds
       kml::TrackIdCollection visibleLineIds;
       for (auto const & lineId : gp.second->m_lineIds)
       {
