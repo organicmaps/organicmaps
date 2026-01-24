@@ -7,7 +7,9 @@
     android:paddingTop="@dimen/margin_half"
     android:gravity="center"
     android:layoutDirection="ltr"
-    android:numColumns="3"
+    android:numColumns="4"
+    android:verticalSpacing="8dp"
+    android:horizontalSpacing="8dp"
     tools:listitem="@layout/item_color"/>
     <!--
     GridView doesn't show up correctly in RTL Layout.
