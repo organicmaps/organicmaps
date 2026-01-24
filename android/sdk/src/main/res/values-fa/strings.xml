@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Settings/Voice instructions/Use handsfree profile for TTS audio -->
+    <string name="pref_tts_handsfree_profile_setting">استفاده از پروفایل بلوتوث بدون‌سیم (HFP) به جای A2DP</string>
+    <!-- Settings/Voice instructions/Hint for handsfree profile setting -->
+    <string name="pref_tts_handsfree_profile_setting_hint">در صورتی که دستورالعمل‌های صوتی TTS با سیستم صوتی خودرو یا دستگاه بلوتوث دیگری کار نمی‌کند، آن را فعال کنید.</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">مگابایت</string>

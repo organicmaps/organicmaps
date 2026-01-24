@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Settings/Voice instructions/Use handsfree profile for TTS audio -->
+    <string name="pref_tts_handsfree_profile_setting">A2DP के बजाय ब्लूटूथ हैंड्स-फ्री प्रोफ़ाइल (HFP) का उपयोग करना</string>
+    <!-- Settings/Voice instructions/Hint for handsfree profile setting -->
+    <string name="pref_tts_handsfree_profile_setting_hint">यदि TTS वॉयस निर्देश आपके कार स्टीरियो या किसी अन्य ब्लूटूथ डिवाइस के साथ काम नहीं करते हैं तो सक्रिय करें</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">मेगाबाइट</string>
