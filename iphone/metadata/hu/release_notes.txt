@@ -1,27 +1,16 @@
-- ÚJ: A karácsonyfák és vásárok mostantól megjelennek a térképen; írja be a `Christmas Market` vagy `Christmas Tree` kifejezést a keresőbe a megtalálásukhoz (vagy adja hozzá őket az OpenStreetMap.org oldalon, ha szükséges)
-- OpenStreetMap adatok: 2025. december 14.
-- A parkolókapacitás mostantól megjelenik a keresési eredményekben
-- A nemzeti parkok határai és címkéi kevésbé hangsúlyosak a világtérképen
-- Litván keresési szinonimák hozzáadva és litván keresés engedélyezve
-- A keresési eredmények egyszínű emoji ikonokat használnak
-- Javítva egy CarPlay probléma iOS 12 rendszeren
-- Számos vizuális probléma megoldva iPhone és iPad készülékeken
-- A könyvjelzőlista keresése mostantól megtalálja a diakritikus jelekkel vagy ékezetes betűkkel írt neveket is
-- A 10 percnél rövidebb importált vagy rögzített nyomvonalak mostantól percekben és másodpercekben mutatják az időtartamot
-- Javított gombanimációk és alsó gombsor
-- Eltávolítva a szintvonalak értesítés az alkalmazás indításakor
+• ÚJ: Nagyobb kontrasztú sötét téma színek
+• Frissített OpenStreetMap adatok (január 11.)
+• A kaszinók kizárva a „Szórakozás” kategóriából
+• Csökkentett metróvonal-vastagság
+• Kapacitásinformációk hozzáadva a keresési eredményekhez motorkerékpár-parkolók, kerékpárkölcsönzők, kerékpártöltők és autótöltők esetén
+• Emeletszint megjelenítése a keresési eredményekben
+• Szélesebb útvonaltervező gombok
 
-## Fordítási frissítések
-- Javított ukrán fordítások
-- Javított német, magyar, litván, spanyol és török fordítások
-- Javított körforgalom TTS hangutasítások horvát nyelven
+### Fordítások
 
-További részletek erről és a korábbi kiadásokról: https://omaps.org/news/
-
-…és maradjon velünk a közelgő funkciókért és fejlesztésekért!
-
-Köszönjük visszajelzését és támogatását, az Organic Maps nem jöhetett volna létre felhasználóink és közreműködőink csodálatos közössége nélkül.
-
-Boldog Új 2026-os Évet!
-
-Az Organic Maps Csapata
+• Albán alkalmazásfordítások és hangos navigáció hozzáadva
+• Frissített GYIK és hozzáadott GYIK fordítások arab, cseh, holland, perzsa, görög, héber, hindi, magyar, indonéz, olasz, litván, marathi, svéd, telugu nyelvekhez
+• Javított német alkalmazás- és GYIK-fordítások
+• Bolgár keresési szinonimák hozzáadva
+• A „Nagyítás gombok” beállítás átnevezése az egyértelműség érdekében
+• Fordítási javítások a Weblate közreműködőitől különböző nyelvekre

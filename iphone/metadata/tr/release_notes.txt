@@ -1,27 +1,16 @@
-- YENİ: Noel ağaçları ve pazarları artık haritada görünüyor; bulmak için aramaya `Noel Pazarı` veya `Noel Ağacı` yazın (veya gerekirse OpenStreetMap.org üzerinden ekleyin)
-- 14 Aralık 2025 itibarıyla OpenStreetMap verileri
-- Otopark kapasitesi artık arama sonuçlarında görüntüleniyor
-- Milli park sınırları ve etiketleri dünya haritasında daha az belirgin
-- Litvanca arama eşanlamlıları eklendi ve Litvanca arama etkinleştirildi
-- Arama sonuçları tek renkli emoji simgeleri kullanıyor
-- iOS 12'de bir CarPlay sorunu düzeltildi
-- iPhone ve iPad'de birden fazla görsel sorun çözüldü
-- Yer imi listesi araması artık aksan işaretli veya vurgulu harflere sahip adları buluyor
-- 10 dakikadan kısa içe aktarılan veya kaydedilen izler artık süreyi dakika ve saniye cinsinden gösteriyor
-- Düğme animasyonları ve alt düğme çubuğu iyileştirildi
-- Uygulama açılışındaki eş yükselti eğrileri uyarısı kaldırıldı
+• YENİ: Daha yüksek kontrastlı koyu tema renkleri
+• OpenStreetMap verileri güncellendi (11 Ocak)
+• Kumarhaneler "Eğlence" kategorisinden çıkarıldı
+• Metro hatlarının kalınlığı azaltıldı
+• Motosiklet park yeri, bisiklet kiralama, bisiklet şarjı ve araç şarjı için arama sonuçlarına kapasite bilgisi eklendi
+• Arama sonuçlarında kat bilgisini göster
+• Daha geniş rota planlama düğmeleri
 
-## Çeviri Güncellemeleri
-- Ukraynaca çeviriler iyileştirildi
-- Almanca, Macarca, Litvanca, İspanyolca ve Türkçe çeviriler iyileştirildi
-- Hırvatça döner kavşak TTS sesli yönlendirmeleri düzeltildi
+### Çeviriler
 
-Bu ve önceki sürümler hakkında daha fazla ayrıntıyı https://omaps.org/news/ adresinde bulabilirsiniz.
-
-…ve gelecek özellikler ve iyileştirmeler için takipte kalın!
-
-Geri bildiriminiz ve desteğiniz için teşekkür ederiz, Organic Maps harika kullanıcı ve katkıda bulunanlar topluluğumuz olmadan mümkün olmazdı.
-
-Mutlu Yıllar 2026!
-
-Organic Maps Ekibi
+• Arnavutça uygulama çevirileri ve sesli yönlendirme eklendi
+• SSS güncellendi ve Arapça, Çekçe, Felemenkçe, Farsça, Yunanca, İbranice, Hintçe, Macarca, Endonezce, İtalyanca, Litvanca, Marathi, İsveççe, Telugu dilleri için SSS çevirileri eklendi
+• Almanca uygulama ve SSS çevirileri iyileştirildi
+• Bulgarca arama eşanlamlıları eklendi
+• Netlik için "Yakınlaştırma düğmeleri" ayarı yeniden adlandırıldı
+• Çeşitli diller için Weblate katkıda bulunanlardan çeviri düzeltmeleri

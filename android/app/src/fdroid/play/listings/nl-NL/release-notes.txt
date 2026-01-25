@@ -1,8 +1,9 @@
-• NIEUW: Zoek naar `Kerstboom` en `Kerstmarkt` op de kaart
-• OpenStreetMap-gegevens per 14 december 2025
-• Trackopname gaat door, zelfs als de app wordt beëindigd of gesloten
-• Grenzen en labels van nationale parken zijn minder prominent op de wereldkaart
-• Litouwse zoeksynoniemen toegevoegd en Litouws zoeken ingeschakeld
-• Verbeterde vertalingen
-• Toon parkeercapaciteit in zoekresultaten
+• NIEUW: Donkere themakleuren met hoger contrast
+• NIEUW: Google Assistant voor navigatie en zoeken
+• OSM-kaartgegevens van 11 januari
+• De instelling "Auto" voor het navigatiethema volgt de donkere/lichte modus van het systeem
+• Dunnere metrolijnen
+• Zoekresultaten tonen capaciteit voor motorfietsen parkeren, fietsverhuur, fietsen opladen en auto's opladen
+• Toon vloerniveau in zoekresultaten
+• Albanese vertalingen en TTS-spraakbegeleiding
 …meer op omaps.org/nl/news

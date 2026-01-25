@@ -1,27 +1,16 @@
-- NUOVO: Alberi di Natale e mercatini ora appaiono sulla mappa; digita `Christmas Market` o `Christmas Tree` nella ricerca per trovarli (o aggiungili su OpenStreetMap.org se necessario)
-- Dati OpenStreetMap aggiornati al 14 dicembre 2025
-- La capacità dei parcheggi è ora visualizzata nei risultati di ricerca
-- I confini e le etichette dei parchi nazionali sono meno prominenti sulla mappa del mondo
-- Aggiunti sinonimi di ricerca in lituano e abilitata la ricerca in lituano
-- I risultati di ricerca utilizzano icone emoji monocromatiche
-- Risolto un problema con CarPlay su iOS 12
-- Risolti diversi problemi visivi su iPhone e iPad
-- La ricerca nell'elenco dei segnalibri ora trova nomi con segni diacritici o lettere accentate
-- Le tracce importate o registrate più brevi di 10 minuti ora mostrano la durata in minuti e secondi
-- Migliorate le animazioni dei pulsanti e la barra dei pulsanti inferiore
-- Rimosso l'avviso delle curve di livello all'avvio dell'app
+• NOVITÀ: Colori del tema scuro a contrasto più elevato
+• Dati OpenStreetMap aggiornati (11 gennaio)
+• Esclusi i casinò dalla categoria “Intrattenimento”
+• Ridotto lo spessore delle linee della metropolitana
+• Aggiunte informazioni sulla capacità ai risultati di ricerca per parcheggi moto, noleggio bici, ricarica bici e ricarica auto
+• Mostra il piano nei risultati di ricerca
+• Pulsanti di pianificazione del percorso più larghi
 
-## Aggiornamenti delle traduzioni
-- Migliorate le traduzioni in ucraino
-- Migliorate le traduzioni in tedesco, ungherese, lituano, spagnolo e turco
-- Corrette le indicazioni vocali TTS per le rotonde in croato
+### Traduzioni
 
-Scopri maggiori dettagli su questa e le versioni precedenti su https://omaps.org/news/
-
-…e restate sintonizzati per le prossime funzionalità e miglioramenti!
-
-Grazie per il vostro feedback e supporto, Organic Maps non sarebbe possibile senza la nostra straordinaria comunità di utenti e collaboratori.
-
-Felice Anno Nuovo 2026!
-
-Il Team di Organic Maps
+• Aggiunte traduzioni dell'app e guida vocale in albanese
+• Aggiornate le FAQ e aggiunte le traduzioni delle FAQ per arabo, ceco, olandese, farsi, greco, ebraico, hindi, ungherese, indonesiano, italiano, lituano, marathi, svedese, telugu
+• Migliorate le traduzioni dell'app e delle FAQ in tedesco
+• Aggiunti sinonimi di ricerca in bulgaro
+• Rinominata l'impostazione "Pulsanti zoom" per chiarezza
+• Correzioni alle traduzioni dai contributori di Weblate per varie lingue

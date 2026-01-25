@@ -1,8 +1,9 @@
-• YENİ: Haritada `Noel ağacı` ve `Noel pazarı` arayın
-• 14 Aralık 2025 itibarıyla OpenStreetMap verileri
-• Uygulama kapatılsa veya sonlandırılsa bile iz kaydı devam eder
-• Milli park sınırları ve etiketleri dünya haritasında daha az belirgindir
-• Litvanca arama eşanlamlıları eklendi ve Litvanca arama etkinleştirildi
-• İyileştirilmiş çeviriler
-• Arama sonuçlarında otopark kapasitesini göster
-…daha fazlası omaps.org/tr/news adresinde
+• YENİ: Daha yüksek kontrastlı koyu tema renkleri
+• YENİ: Navigasyon ve arama için Google Assistant
+• 11 Ocak itibarıyla OSM harita verileri
+• "Otomatik" navigasyon teması ayarı, sistemin koyu/açık modunu takip eder
+• Daha ince metro hatları
+• Arama sonuçları motosiklet park yeri, bisiklet kiralama, bisiklet şarjı ve araba şarjı kapasitesini gösterir
+• Arama sonuçlarında kat seviyesini göster
+• Arnavutça çeviriler ve TTS sesli rehberlik
+…daha fazlası omaps.org/tr/news

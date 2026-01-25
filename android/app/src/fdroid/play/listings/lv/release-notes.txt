@@ -1,8 +1,9 @@
-• JAUNUMS: Meklējiet `Ziemassvētku egle` un `Ziemassvētku tirdziņš` kartē
-• OpenStreetMap dati uz 2025. gada 14. decembri
-• Maršruta ierakstīšana turpinās pat tad, ja lietotne tiek aizvērta vai pārtraukta
-• Nacionālo parku robežas un etiķetes ir mazāk pamanāmas pasaules kartē
-• Pievienoti lietuviešu meklēšanas sinonīmi un iespējota lietuviešu meklēšana
-• Uzlaboti tulkojumi
-• Rādīt autostāvvietas ietilpību meklēšanas rezultātos
+• JAUNUMS: Augstāka kontrasta tumšās tēmas krāsas
+• JAUNUMS: Google Assistant navigācijai un meklēšanai
+• OSM kartes dati uz 11. janvāri
+• "Auto" navigācijas tēmas iestatījums seko sistēmas tumšajam/gaišajam režīmam
+• Plānākas metro līnijas
+• Meklēšanas rezultāti rāda motociklu stāvvietu, velosipēdu nomas, velosipēdu uzlādes un automašīnu uzlādes ietilpību
+• Rādīt stāva līmeni meklēšanas rezultātos
+• Albāņu tulkojumi un TTS balss vadība
 …vairāk vietnē omaps.org/news

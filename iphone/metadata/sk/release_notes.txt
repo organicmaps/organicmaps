@@ -1,27 +1,16 @@
-- NOVINKA: Vianočné stromčeky a trhy sa teraz zobrazujú na mape; zadajte do vyhľadávania `Vianočný trh` alebo `Vianočný stromček`, aby ste ich našli (alebo ich pridajte na OpenStreetMap.org, ak je to potrebné)
-- Údaje OpenStreetMap k 14. decembru 2025
-- Kapacita parkoviska sa teraz zobrazuje vo výsledkoch vyhľadávania
-- Hranice a štítky národných parkov sú na mape sveta menej výrazné
-- Pridané litovské synonymá vyhľadávania a povolené litovské vyhľadávanie
-- Výsledky vyhľadávania používajú jednofarebné ikony emoji
-- Opravený problém s CarPlay na iOS 12
-- Vyriešené viaceré vizuálne problémy na iPhone a iPade
-- Vyhľadávanie v zozname záložiek teraz nájde názvy s diakritikou alebo písmenami s prízvukom
-- Importované alebo zaznamenané trasy kratšie ako 10 minút teraz zobrazujú trvanie v minútach a sekundách
-- Vylepšené animácie tlačidiel a spodná lišta tlačidiel
-- Odstránené upozornenie na izolínie pri spustení aplikácie
+• NOVINKA: Farby tmavého motívu s vyšším kontrastom
+• Aktualizované údaje OpenStreetMap (11. januára)
+• Kasína vylúčené z kategórie „Zábava“
+• Znížená hrúbka liniek metra
+• Pridané informácie o kapacite do výsledkov vyhľadávania pre parkovanie motocyklov, požičovne bicyklov, nabíjanie bicyklov a nabíjanie áut
+• Zobrazenie poschodia vo výsledkoch vyhľadávania
+• Širšie tlačidlá na plánovanie trasy
 
-## Aktualizácie prekladov
-- Vylepšené ukrajinské preklady
-- Vylepšené nemecké, maďarské, litovské, španielske a turecké preklady
-- Opravené hlasové pokyny TTS pre kruhové objazdy v chorvátčine
+### Preklady
 
-Viac podrobností o tomto a predchádzajúcich vydaniach nájdete na https://omaps.org/news/
-
-…a zostaňte naladení na nadchádzajúce funkcie a vylepšenia!
-
-Ďakujeme za vašu spätnú väzbu a podporu, Organic Maps by neboli možné bez našej úžasnej komunity používateľov a prispievateľov.
-
-Šťastný nový rok 2026!
-
-Tím Organic Maps
+• Pridaný preklad aplikácie a hlasová navigácia do albánčiny
+• Aktualizované Často kladené otázky (FAQ) a pridané preklady pre arabčinu, češtinu, holandčinu, perzštinu, gréčtinu, hebrejčinu, hindčinu, maďarčinu, indonézštinu, taliančinu, litovčinu, maráthčinu, švédčinu a telugčinu
+• Vylepšené nemecké preklady aplikácie a FAQ
+• Pridané bulharské synonymá pre vyhľadávanie
+• Premenované nastavenie „Tlačidlá priblíženia“ pre lepšiu zrozumiteľnosť
+• Opravy prekladov od prispievateľov Weblate pre rôzne jazyky

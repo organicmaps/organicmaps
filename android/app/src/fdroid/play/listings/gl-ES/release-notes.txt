@@ -1,8 +1,8 @@
-• NOVO: Busca `Árbore de Nadal` e `Mercado de Nadal` no mapa
-• Datos de OpenStreetMap a 14 de decembro de 2025
-• A gravación do track continúa aínda que a aplicación se peche ou se mate
-• Os límites e etiquetas dos parques nacionais son menos prominentes no mapa mundial
-• Engadíronse sinónimos de busca en lituano e habilitouse a busca en lituano
-• Traducións melloradas
-• Mostrar a capacidade de aparcamento nos resultados da busca
+• NOVO: Cores do tema escuro de maior contraste
+• NOVO: Google Assistant para navegación e busca
+• Datos do mapa OSM a 11 de xaneiro
+• A configuración do tema de navegación "Auto" segue o modo escuro/claro do sistema
+• Liñas de metro máis finas
+• Os resultados da busca mostran a capacidade para aparcamento de motocicletas, aluguer de bicicletas, carga de bicicletas e carga de automóbiles
+• Mostrar o nivel do andar nos resultados da busca
 …máis en omaps.org/gl/news

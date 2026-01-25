@@ -1,27 +1,16 @@
-- NYTT: Juletre og julemarkeder vises nå på kartet; skriv `Christmas Market` eller `Christmas Tree` i søkefeltet for å finne dem (eller legg dem til på OpenStreetMap.org om nødvendig)
-- OpenStreetMap-data per 14. desember 2025
-- Parkeringskapasitet vises nå i søkeresultatene
-- Nasjonalparkgrenser og etiketter er mindre fremtredende på verdenskartet
-- Lagt til litauiske søkesynonymer og aktivert litauisk søk
-- Søkeresultater bruker ensfargede emoji-ikoner
-- Fikset et CarPlay-problem på iOS 12
-- Løste flere visuelle problemer på iPhone og iPad
-- Søk i bokmerkelister finner nå navn med diakritiske tegn eller aksenterte bokstaver
-- Importerte eller innspilte spor kortere enn 10 minutter viser nå varighet i minutter og sekunder
-- Forbedret knappeanimasjoner og den nederste knappelinjen
-- Fjernet isolinjer-varsel ved oppstart av appen
+• NYHET: Mørkt tema med høyere kontrast
+• Oppdaterte OpenStreetMap-data (11. januar)
+• Ekskluderte kasinoer fra kategorien «Underholdning»
+• Reduserte tykkelsen på T-banelinjer
+• Lagt til kapasitetsinformation i søkeresultater for motorsykkelparkering, sykkelutleie, sykkellading og billading
+• Vis etasje i søkeresultater
+• Bredere ruteplanleggingsknapper
 
-## Oversettelsesoppdateringer
-- Forbedret ukrainske oversettelser
-- Forbedret tyske, ungarske, litauiske, spanske og tyrkiske oversettelser
-- Korrigerte TTS-stemmeinstruksjoner for rundkjøringer på kroatisk
+### Oversettelser
 
-Sjekk flere detaljer om denne og tidligere utgivelser på https://omaps.org/news/
-
-...og følg med for kommende funksjoner og forbedringer!
-
-Takk for tilbakemeldinger og støtte, Organic Maps ville ikke vært mulig uten vårt fantastiske fellesskap av brukere og bidragsytere.
-
-Godt nytt år 2026!
-
-Organic Maps-teamet
+• Lagt til albansk oversettelse av appen og taleveiledning
+• Oppdatert FAQ og lagt til FAQ-oversettelser for arabisk, tsjekkisk, nederlandsk, farsi, gresk, hebraisk, hindi, ungarsk, indonesisk, italiensk, litauisk, marathi, svensk, telugu
+• Forbedret tyske app- og FAQ-oversættelser
+• Lagt til bulgarske søkesynonymer
+• Omdøpte innstillingen «Zoom-knapper» for klarhetens skyld
+• Oversettelsesrettelser fra Weblate-bidragsytere for ulike språk

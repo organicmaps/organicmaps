@@ -1,27 +1,16 @@
-- MỚI: Cây thông Noel và chợ Giáng sinh hiện đã xuất hiện trên bản đồ; gõ `Christmas Market` hoặc `Christmas Tree` trong tìm kiếm để tìm chúng (hoặc thêm chúng trên OpenStreetMap.org nếu cần)
-- Dữ liệu OpenStreetMap tính đến ngày 14 tháng 12 năm 2025
-- Sức chứa bãi đậu xe hiện hiển thị trong kết quả tìm kiếm
-- Biên giới và nhãn của vườn quốc gia ít nổi bật hơn trên bản đồ thế giới
-- Đã thêm từ đồng nghĩa tìm kiếm tiếng Litva và bật tìm kiếm tiếng Litva
-- Kết quả tìm kiếm sử dụng biểu tượng emoji đơn sắc
-- Đã sửa lỗi CarPlay trên iOS 12
-- Đã giải quyết nhiều vấn đề hiển thị trên iPhone và iPad
-- Tìm kiếm danh sách dấu trang hiện tìm thấy tên có dấu hoặc ký tự có dấu
-- Các bản ghi hoặc track đã nhập ngắn hơn 10 phút hiện hiển thị thời lượng bằng phút và giây
-- Cải thiện hoạt ảnh nút và thanh nút dưới cùng
-- Đã xóa thông báo đường đồng mức khi khởi chạy ứng dụng
+• MỚI: Màu sắc giao diện tối có độ tương phản cao hơn
+• Cập nhật dữ liệu OpenStreetMap (11 tháng 1)
+• Loại bỏ sòng bạc khỏi danh mục "Giải trí"
+• Giảm độ dày của các tuyến tàu điện ngầm
+• Thêm thông tin sức chứa vào kết quả tìm kiếm cho bãi đậu xe máy, thuê xe đạp, sạc xe đạp và sạc ô tô
+• Hiển thị tầng trong kết quả tìm kiếm
+• Các nút lập kế hoạch lộ trình rộng hơn
 
-## Cập nhật bản dịch
-- Cải thiện bản dịch tiếng Ukraina
-- Cải thiện bản dịch tiếng Đức, Hungary, Litva, Tây Ban Nha và Thổ Nhĩ Kỳ
-- Đã sửa hướng dẫn giọng nói TTS cho vòng xuyến bằng tiếng Croatia
+### Bản dịch
 
-Xem thêm chi tiết về bản phát hành này và các bản phát hành trước tại https://omaps.org/news/
-
-…và hãy theo dõi các tính năng và cải tiến sắp tới!
-
-Cảm ơn phản hồi và sự ủng hộ của bạn, Organic Maps sẽ không thể thực hiện được nếu không có cộng đồng người dùng và cộng tác viên tuyệt vời của chúng tôi.
-
-Chúc mừng năm mới 2026!
-
-Đội ngũ Organic Maps
+• Thêm bản dịch ứng dụng và hướng dẫn bằng giọng nói tiếng Albania
+• Cập nhật câu hỏi thường gặp (FAQ) và thêm bản dịch cho tiếng Ả Rập, Séc, Hà Lan, Farsi, Hy Lạp, Do Thái, Hindi, Hungary, Indonesia, Ý, Litva, Marathi, Thụy Điển, Telugu
+• Cải thiện bản dịch ứng dụng và FAQ tiếng Đức
+• Thêm từ đồng nghĩa tìm kiếm tiếng Bulgaria
+• Đổi tên cài đặt "Nút thu phóng" để rõ ràng hơn
+• Các sửa lỗi dịch thuật từ những người đóng góp trên Weblate cho nhiều ngôn ngữ

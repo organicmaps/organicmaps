@@ -1,27 +1,16 @@
-- NOVETAT: Els arbres i mercats de Nadal ara apareixen al mapa; escriviu `Christmas Market` o `Christmas Tree` a la cerca per trobar-los (o afegiu-los a OpenStreetMap.org si cal)
-- Dades d'OpenStreetMap a 14 de desembre de 2025
-- La capacitat d'aparcament ara es mostra als resultats de la cerca
-- Les fronteres i etiquetes dels parcs nacionals són menys prominents al mapa mundial
-- S'han afegit sinònims de cerca en lituà i s'ha habilitat la cerca en lituà
-- Els resultats de la cerca utilitzen icones emoji d'un sol color
-- S'ha solucionat un problema de CarPlay a iOS 12
-- S'han resolt diversos problemes visuals a iPhone i iPad
-- La cerca de la llista de marcadors ara troba noms amb diacrítics o lletres accentuades
-- Les rutes importades o enregistrades de menys de 10 minuts ara mostren la durada en minuts i segons
-- S'han millorat les animacions dels botons i la barra de botons inferior
-- S'ha eliminat l'avís d'isolínies en iniciar l'aplicació
+• NOVETAT: Colors del tema fosc amb més contrast
+• Dades d’OpenStreetMap actualitzades (11 de gener)
+• Exclosos els casinos de la categoria "Entreteniment"
+• Reduït el gruix de les línies de metro
+• Afegida informació de capacitat als resultats de cerca per a aparcaments de motos, lloguer de bicicletes, càrrega de bicicletes i càrrega de cotxes
+• Mostra el nivell del pis als resultats de cerca
+• Botons de planificació de rutes més amples
 
-## Actualitzacions de traduccions
-- Millora de les traduccions a l'ucraïnès
-- Millora de les traduccions a l'alemany, hongarès, lituà, espanyol i turc
-- S'han corregit les indicacions de veu TTS de les rotondes en croat
+### Traduccions
 
-Consulteu més detalls sobre aquesta i les versions anteriors a https://omaps.org/news/
-
-...i estigueu atents a les properes funcions i millores!
-
-Gràcies pels vostres comentaris i suport, Organic Maps no seria possible sense la nostra increïble comunitat d'usuaris i col·laboradors.
-
-Feliç any nou 2026!
-
-L'equip d'Organic Maps
+• Afegides traduccions de l'aplicació i guiatge per veu en albanès
+• Actualitzades les PMF i afegides traduccions de les PMF per a àrab, txec, neerlandès, farsi, grec, hebreu, hindi, hongarès, indonesi, italià, lituà, marathi, suec i telugu
+• Millorades les traduccions de l'aplicació i de les PMF en alemany
+• Afegits sinònims de cerca en búlgar
+• Canviat el nom de la configuració "Botons de zoom" per a més claredat
+• Correccions de traducció dels col·laboradors de Weblate per a diversos idiomes

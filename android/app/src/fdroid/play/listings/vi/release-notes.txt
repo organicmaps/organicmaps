@@ -1,8 +1,9 @@
-• MỚI: Tìm kiếm `Cây thông Noel` và `Chợ Giáng sinh` trên bản đồ
-• Dữ liệu OpenStreetMap tính đến ngày 14 tháng 12 năm 2025
-• Ghi lại lộ trình vẫn tiếp tục ngay cả khi ứng dụng bị tắt hoặc đóng
-• Biên giới và nhãn của công viên quốc gia ít nổi bật hơn trên bản đồ thế giới
-• Đã thêm từ đồng nghĩa tìm kiếm tiếng Litva và bật tìm kiếm tiếng Litva
-• Cải thiện bản dịch
-• Hiển thị sức chứa bãi đậu xe trong kết quả tìm kiếm
+• MỚI: Màu chủ đề tối có độ tương phản cao hơn
+• MỚI: Google Assistant để điều hướng và tìm kiếm
+• Dữ liệu bản đồ OSM kể từ ngày 11 tháng 1
+• Cài đặt chủ đề điều hướng "Tự động" tuân theo chế độ tối/sáng của hệ thống
+• Đường tàu điện ngầm mỏng hơn
+• Kết quả tìm kiếm hiển thị sức chứa cho bãi đậu xe máy, thuê xe đạp, sạc xe đạp và sạc ô tô
+• Hiển thị cấp tầng trong kết quả tìm kiếm
+• Bản dịch tiếng Albania và hướng dẫn bằng giọng nói TTS
 …thêm tại omaps.org/news

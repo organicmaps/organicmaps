@@ -1,8 +1,9 @@
-• NOVINKA: Vyhľadávanie `Vianočný stromček` a `Vianočný trh` na mape
-• Údaje OpenStreetMap k 14. decembru 2025
-• Nahrávanie trasy pokračuje, aj keď je aplikácia ukončená alebo zatvorená
-• Hranice a štítky národných parkov sú na mape sveta menej výrazné
-• Pridané litovské synonymá vyhľadávania a povolené vyhľadávanie v litovčine
-• Vylepšené preklady
-• Zobrazenie kapacity parkoviska vo výsledkoch vyhľadávania
+• NOVÉ: Kontrastnejšie farby tmavej témy
+• NOVÉ: Google Assistant pre navigáciu a vyhľadávanie
+• Mapové údaje OSM k 11. januáru
+• Nastavenie témy navigácie „Auto“ sa riadi systémovým tmavým/svetlým režimom
+• Tenšie linky metra
+• Výsledky vyhľadávania zobrazujú kapacitu pre parkovanie motocyklov, požičovňu bicyklov, nabíjanie bicyklov a nabíjanie áut
+• Zobraziť úroveň podlažia vo výsledkoch vyhľadávania
+• Albánske preklady a hlasové navádzanie TTS
 …viac na omaps.org/news

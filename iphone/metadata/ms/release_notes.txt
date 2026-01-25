@@ -1,27 +1,16 @@
-- BARU: Pokok Krismas dan pasar kini muncul di peta; taip `Christmas Market` atau `Christmas Tree` dalam carian untuk mencarinya (atau tambahkannya di OpenStreetMap.org jika perlu)
-- Data OpenStreetMap setakat 14 Disember 2025
-- Kapasiti tempat letak kereta kini dipaparkan dalam hasil carian
-- Sempadan dan label taman negara kurang menonjol pada peta dunia
-- Menambah sinonim carian Lithuania dan mengaktifkan carian Lithuania
-- Hasil carian menggunakan ikon emoji satu warna
-- Memperbaiki isu CarPlay pada iOS 12
-- Menyelesaikan pelbagai isu visual pada iPhone dan iPad
-- Carian senarai penanda buku kini mencari nama dengan diakritik atau huruf beraksen
-- Trek yang diimport atau direkodkan kurang daripada 10 minit kini menunjukkan tempoh dalam minit dan saat
-- Animasi butang dan bar butang bawah yang diperbaiki
-- Mengalih keluar pemberitahuan isolines semasa pelancaran aplikasi
+• BARU: Warna tema gelap kontras lebih tinggi
+• Data OpenStreetMap dikemas kini (11 Januari)
+• Kasino dikecualikan daripada kategori "Hiburan"
+• Mengurangkan ketebalan laluan kereta api bawah tanah
+• Menambah maklumat kapasiti pada hasil carian untuk tempat letak motosikal, sewaan basikal, pengecasan basikal dan pengecasan kereta
+• Tunjukkan tingkat dalam hasil carian
+• Butang perancangan laluan yang lebih lebar
 
-## Kemas Kini Terjemahan
-- Terjemahan Ukraine yang diperbaiki
-- Terjemahan Jerman, Hungary, Lithuania, Sepanyol, dan Turki yang diperbaiki
-- Membetulkan arahan suara TTS bulatan dalam bahasa Croatia
+### Terjemahan
 
-Semak butiran lanjut mengenai keluaran ini dan sebelumnya di https://omaps.org/news/
-
-...dan nantikan ciri-ciri dan penambahbaikan yang akan datang!
-
-Terima kasih atas maklum balas dan sokongan anda, Organic Maps tidak akan mungkin wujud tanpa komuniti pengguna dan penyumbang kami yang hebat.
-
-Selamat Tahun Baru 2026!
-
-Pasukan Organic Maps
+• Menambah terjemahan aplikasi dan panduan suara bahasa Albania
+• Mengemas kini Soalan Lazim (FAQ) dan menambah terjemahan untuk bahasa Arab, Czech, Belanda, Farsi, Yunani, Ibrani, Hindi, Hungary, Indonesia, Itali, Lithuania, Marathi, Sweden, Telugu
+• Menambah baik terjemahan aplikasi dan FAQ bahasa Jerman
+• Menambah sinonim carian bahasa Bulgaria
+• Menamakan semula tetapan "Butang zum" untuk lebih jelas
+• Pembetulan terjemahan daripada penyumbang Weblate untuk pelbagai bahasa

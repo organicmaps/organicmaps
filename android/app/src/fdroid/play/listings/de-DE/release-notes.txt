@@ -1,8 +1,9 @@
-• NEU: Suche nach `Weihnachtsbaum` und `Weihnachtsmarkt` auf der Karte
-• OpenStreetMap-Daten vom 14. Dezember 2025
-• Die Track-Aufzeichnung wird fortgesetzt, auch wenn die App beendet oder geschlossen wird
-• Grenzen und Beschriftungen von Nationalparks sind auf der Weltkarte weniger auffällig
-• Litauische Suchsynonyme hinzugefügt und litauische Suche aktiviert
-• Verbesserte Übersetzungen
-• Anzeige der Parkplatzkapazität in den Suchergebnissen
+• NEU: Dunkles Design mit höherem Kontrast
+• NEU: Google Assistant für Navigation und Suche
+• OSM-Kartendaten vom 11. Januar
+• Die Einstellung „Auto“ für das Navigationsdesign folgt dem Hell-/Dunkelmodus des Systems
+• Dünnere U-Bahn-Linien
+• Suchergebnisse zeigen Kapazität für Motorradparkplätze, Fahrradverleih, Fahrradaufladen und Autoaufladen an
+• Anzeige der Etage in Suchergebnissen
+• Albanische Übersetzungen und TTS-Sprachführung
 …mehr unter omaps.org/de/news

@@ -1,8 +1,9 @@
-• UUS: Otsi kaardilt `Jõulupuu` ja `Jõuluturg`
-• OpenStreetMapi andmed seisuga 14. detsember 2025
-• Raja salvestamine jätkub isegi siis, kui rakendus suletakse või tapetakse
-• Rahvusparkide piirid ja sildid on maailmakaardil vähem silmatorkavad
-• Lisatud leedu otsingu sünonüümid ja lubatud leedu otsing
-• Täiustatud tõlked
-• Kuva parkimiskohtade arv otsingutulemustes
+• UUS: Suurema kontrastsusega tumeda teema värvid
+• Google Assistant navigeerimiseks ja otsinguks
+• OSM kaardiandmed seisuga 11. jaanuar
+• Navigeerimisteema säte "Automaatne" järgib süsteemi tumedat/heledat režiimi
+• Peenemad metrooliinid
+• Otsingutulemused näitavad mootorrataste parkimise, jalgrattarendi, jalgrataste laadimise ja autode laadimise mahtu
+• Näita korruse taset otsingutulemustes
+• Albaania tõlked ja TTS hääljuhised
 …rohkem aadressil omaps.org/et/news

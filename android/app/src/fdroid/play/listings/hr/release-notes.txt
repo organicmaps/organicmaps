@@ -1,8 +1,9 @@
-• NOVO: Pretražite `Božićno drvce` i `Božićni sajam` na karti
-• Podaci OpenStreetMapa od 14. prosinca 2025.
-• Snimanje traga se nastavlja čak i ako je aplikacija ubijena ili zatvorena
-• Granice i oznake nacionalnih parkova manje su istaknute na karti svijeta
-• Dodani litavski sinonimi za pretraživanje i omogućeno pretraživanje na litavskom
-• Poboljšani prijevodi
-• Prikaz kapaciteta parkirališta u rezultatima pretraživanja
+• NOVO: Boje tamne teme s većim kontrastom
+• NOVO: Google Assistant za navigaciju i pretraživanje
+• OSM podaci karte od 11. siječnja
+• Postavka teme navigacije "Automatski" prati tamni/svijetli način rada sustava
+• Tanije linije podzemne željeznice
+• Rezultati pretraživanja prikazuju kapacitet za parkiranje motocikala, najam bicikala, punjenje bicikala i punjenje automobila
+• Prikaži razinu kata u rezultatima pretraživanja
+• Albanski prijevodi i TTS glasovno navođenje
 …više na omaps.org/news

@@ -1,27 +1,16 @@
-- NOU: Brazii și târgurile de Crăciun apar acum pe hartă; tastați `Târg de Crăciun` sau `Brad de Crăciun` în căutare pentru a le găsi (sau adăugați-le pe OpenStreetMap.org dacă este necesar)
-- Date OpenStreetMap din 14 decembrie 2025
-- Capacitatea parcărilor este acum afișată în rezultatele căutării
-- Granițele și etichetele parcurilor naționale sunt mai puțin proeminente pe harta lumii
-- S-au adăugat sinonime de căutare în lituaniană și s-a activat căutarea în lituaniană
-- Rezultatele căutării folosesc pictograme emoji monocolore
-- S-a remediat o problemă CarPlay pe iOS 12
-- S-au rezolvat mai multe probleme vizuale pe iPhone și iPad
-- Căutarea în lista de marcaje găsește acum nume cu diacritice sau litere accentuate
-- Traseele importate sau înregistrate mai scurte de 10 minute afișează acum durata în minute și secunde
-- S-au îmbunătățit animațiile butoanelor și bara de butoane inferioară
-- S-a eliminat notificarea despre izoline la lansarea aplicației
+• NOU: Culori cu contrast mai mare pentru tema întunecată
+• Date OpenStreetMap actualizate (11 ianuarie)
+• Cazinouri excluse din categoria „Divertisment”
+• S-a redus grosimea liniilor de metrou
+• S-au adăugat informații despre capacitate în rezultatele căutării pentru parcări motociclete, închirieri biciclete, încărcare biciclete și încărcare mașini
+• Afișare etaj în rezultatele căutării
+• Butoane de planificare a rutei mai largi
 
-## Actualizări de traduceri
-- S-au îmbunătățit traducerile în ucraineană
-- S-au îmbunătățit traducerile în germană, maghiară, lituaniană, spaniolă și turcă
-- S-au corectat indicațiile vocale TTS pentru sensurile giratorii în croată
+### Traduceri
 
-Verificați mai multe detalii despre această versiune și cele anterioare la https://omaps.org/news/
-
-…și rămâneți pe fază pentru funcțiile și îmbunătățirile viitoare!
-
-Vă mulțumim pentru feedback și sprijin, Organic Maps nu ar fi posibil fără comunitatea noastră uimitoare de utilizatori și colaboratori.
-
-Un An Nou 2026 Fericit!
-
-Echipa Organic Maps
+• S-au adăugat traduceri ale aplicației și ghidare vocală în albaneză
+• S-au actualizat întrebările frecvente și s-au adăugat traduceri pentru arabă, cehă, olandeză, farsi, greacă, ebraică, hindi, maghiară, indoneziană, italiană, lituaniană, marathi, suedeză, telugu
+• S-au îmbunătățit traducerile aplicației și ale întrebărilor frecvente în germană
+• S-au adăugat sinonime de căutare în bulgară
+• S-a redenumit setarea „Butoane zoom” pentru claritate
+• Corecții de traducere de la contribuitorii Weblate pentru diverse limbi

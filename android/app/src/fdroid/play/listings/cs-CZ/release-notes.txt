@@ -1,8 +1,10 @@
-• NOVINKA: Vyhledávání `Vánoční strom` a `Vánoční trh` na mapě
-• Data OpenStreetMap k 14. prosinci 2025
-• Záznam stopy pokračuje, i když je aplikace ukončena nebo zavřena
-• Hranice a popisky národních parků jsou na mapě světa méně výrazné
-• Přidána litevská synonyma pro vyhledávání a povoleno vyhledávání v litevštině
-• Vylepšené překlady
-• Zobrazení kapacity parkoviště ve výsledcích vyhledávání
+• NOVÉ: Kontrastnější barvy tmavého motivu
+• NOVÉ: Google Assistant pro navigaci a vyhledávání
+• Mapová data OSM k 11. lednu
+• Nastavení motivu navigace „Auto“ sleduje systémový tmavý/světlý režim
+• Tenčí linky metra
+• Výsledky vyhledávání zobrazují kapacitu pro parkování motocyklů, půjčovny kol, nabíjení kol a nabíjení aut
+• Zobrazit úroveň podlaží ve výsledcích vyhledávání
+• Albánské překlady a hlasové navádění TTS
+• Aktualizované FAQ a překlady aplikací
 …více na omaps.org/cs/news

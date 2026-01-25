@@ -1,27 +1,16 @@
-- NEW: Christmas trees and markets now appear on the map; type `Christmas Market` or `Christmas Tree` in search to find them (or add them on OpenStreetMap.org if needed)
-- OpenStreetMap data as of December 14, 2025
-- Parking capacity now displays in search results
-- National park borders and labels are less prominent on the world map
-- Added Lithuanian search synonyms and enabled Lithuanian search
-- Search results use single-colour emoji icons
-- Fixed a CarPlay issue on iOS 12
-- Resolved multiple visual issues on iPhone and iPad
-- Bookmark list search now finds names with diacritics or accented letters
-- Imported or recorded tracks shorter than 10 minutes now show duration in minutes and seconds
-- Improved button animations and the bottom button bar
-- Removed the isolines toast at app launch
+• NEW: Higher-contrast dark theme colours
+• Updated OpenStreetMap data (January 11)
+• Excluded casinos from the “Entertainment” category
+• Reduced the thickness of subway lines
+• Added capacity information to search results for motorcycle parking, bicycle rental, bicycle charging, and car charging
+• Show floor level in search results
+• Wider route planning buttons
 
-## Translations Updates
-- Improved Ukrainian translations
-- Improved German, Hungarian, Lithuanian, Spanish, and Turkish translations
-- Corrected roundabout TTS voice directions in Croatian
+### Translations
 
-Check more details about this and previous releases at https://omaps.org/news/
-
-…and stay tuned for upcoming features and improvements!
-
-Thank you for your feedback and support, Organic Maps would not be possible without our amazing community of users and contributors.
-
-Happy New 2026 Year!
-
-The Organic Maps Team
+• Added Albanian app translations and TTS voice guidance
+• Updated the FAQ and added FAQ translations for Arabic, Czech, Dutch, Farsi, Greek, Hebrew, Hindi, Hungarian, Indonesian, Italian, Lithuanian, Marathi, Swedish, Telugu
+• Improved German app and FAQ translations
+• Added Bulgarian search synonyms
+• Renamed the “Zoom buttons” setting for clarity
+• Translation fixes from Weblate contributors for various languages

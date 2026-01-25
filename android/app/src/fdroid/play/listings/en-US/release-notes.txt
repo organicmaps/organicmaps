@@ -1,8 +1,11 @@
-• NEW: Search for `Christmas tree` and `Christmas market` on the map
-• OpenStreetMap data as of December 14, 2025
-• Track recording continues even if the app is killed or closed
-• National park borders and labels are less prominent on the world map
-• Added Lithuanian search synonyms and enabled Lithuanian search
-• Improved translations
-• Display parking capacity in search results
+• NEW: Higher-contrast dark theme colors
+• NEW: Google Assistant for navigation and search
+• OSM map data as of January 11
+• “Auto” navigation theme setting follows the system dark/light mode
+• Thinner subway lines
+• Search results show capacity for motorcycle parking, bicycle rental, bicycle charging, and car charging
+• Show floor level in search results
+• Albanian translations and TTS voice guidance
+• Updated FAQ and app translations
+• Fixed crashes
 …more at omaps.org/news

@@ -1,8 +1,11 @@
-• NYTT: Sök efter `Julgran` och `Julmarknad` på kartan
-• OpenStreetMap-data per den 14 december 2025
-• Spårinspelning fortsätter även om appen dödas eller stängs
-• Nationalparksgränser och etiketter är mindre framträdande på världskartan
-• Lade till litauiska söksynonymer och aktiverade litauisk sökning
-• Förbättrade översättningar
-• Visa parkeringskapacitet i sökresultaten
+• NYHET: Mörkare temafärger med högre kontrast
+• NYHET: Google Assistant för navigering och sökning
+• OSM-kartdata från 11 januari
+• Navigeringstemainställningen "Auto" följer systemets mörka/ljusa läge
+• Tunnare tunnelbanelinjer
+• Sökresultat visar kapacitet för motorcykelparkering, cykeluthyrning, cykelladdning och billaddning
+• Visa våningsplan i sökresultat
+• Albanska översättningar och TTS-röstguidning
+• Uppdaterade FAQ och appöversättningar
+• Fixade krascher
 …mer på omaps.org/sv/news

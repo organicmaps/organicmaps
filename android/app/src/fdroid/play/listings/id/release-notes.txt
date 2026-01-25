@@ -1,8 +1,9 @@
-• BARU: Cari `Pohon Natal` dan `Pasar Natal` di peta
-• Data OpenStreetMap per 14 Desember 2025
-• Perekaman jejak berlanjut bahkan jika aplikasi dimatikan atau ditutup
-• Batas dan label taman nasional kurang menonjol di peta dunia
-• Menambahkan sinonim pencarian Lituania dan mengaktifkan pencarian Lituania
-• Terjemahan yang ditingkatkan
-• Tampilkan kapasitas parkir di hasil pencarian
+• BARU: Warna tema gelap kontras lebih tinggi
+• Google Assistant untuk navigasi dan pencarian
+• Data peta OSM per 11 Januari
+• Pengaturan tema navigasi "Otomatis" mengikuti mode gelap/terang sistem
+• Garis kereta bawah tanah lebih tipis
+• Hasil pencarian menunjukkan kapasitas parkir sepeda motor, penyewaan sepeda, pengisian daya sepeda, dan pengisian daya mobil
+• Tampilkan tingkat lantai dalam hasil pencarian
+• Terjemahan bahasa Albania dan panduan suara TTS
 …selengkapnya di omaps.org/id/news

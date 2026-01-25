@@ -1,8 +1,8 @@
-• NUOVO: Cerca `Albero di Natale` e `Mercatino di Natale` sulla mappa
-• Dati OpenStreetMap al 14 dicembre 2025
-• La registrazione della traccia continua anche se l'app viene terminata o chiusa
-• I confini e le etichette dei parchi nazionali sono meno evidenti sulla mappa del mondo
-• Aggiunti sinonimi di ricerca in lituano e abilitata la ricerca in lituano
-• Traduzioni migliorate
-• Mostra la capacità del parcheggio nei risultati di ricerca
+• NUOVO: Colori del tema scuro a contrasto più elevato
+• NUOVO: Google Assistant per navigazione e ricerca
+• Dati mappe OSM aggiornati all'11 gennaio
+• L'impostazione del tema di navigazione "Auto" segue la modalità scura/chiara del sistema
+• Linee della metropolitana più sottili
+• I risultati di ricerca mostrano la capacità per parcheggio moto, noleggio bici, ricarica bici e ricarica auto
+• Mostra il piano nei risultati di ricerca
 …altro su omaps.org/it/news

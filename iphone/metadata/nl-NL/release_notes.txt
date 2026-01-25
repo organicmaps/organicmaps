@@ -1,27 +1,16 @@
-- NIEUW: Kerstbomen en kerstmarkten verschijnen nu op de kaart; typ `Christmas Market` of `Christmas Tree` in de zoekbalk om ze te vinden (of voeg ze toe op OpenStreetMap.org indien nodig)
-- OpenStreetMap-gegevens van 14 december 2025
-- Parkeercapaciteit wordt nu weergegeven in zoekresultaten
-- Grenzen en labels van nationale parken zijn minder prominent op de wereldkaart
-- Litouwse zoeksynoniemen toegevoegd en Litouws zoeken ingeschakeld
-- Zoekresultaten gebruiken eenkleurige emoji-pictogrammen
-- Een CarPlay-probleem op iOS 12 opgelost
-- Meerdere visuele problemen op iPhone en iPad opgelost
-- Zoeken in bladwijzerlijst vindt nu namen met diakritische tekens of geaccentueerde letters
-- Geïmporteerde of opgenomen tracks korter dan 10 minuten tonen nu de duur in minuten en seconden
-- Knopanimaties en de onderste knoppenbalk verbeterd
-- De hoogtelijnen-melding bij het starten van de app verwijderd
+• NIEUW: Donker thema kleuren met hoger contrast
+• OpenStreetMap-gegevens bijgewerkt (11 januari)
+• Casino's uitgesloten van de categorie "Entertainment"
+• Dikte van metrolijnen verminderd
+• Capaciteitsinformatie toegevoegd aan zoekresultaten voor motorparkeren, fietsverhuur, fiets opladen en auto opladen
+• Toon verdieping in zoekresultaten
+• Bredere knoppen voor routeplanning
 
-## Vertalingsupdates
-- Oekraïense vertalingen verbeterd
-- Duitse, Hongaarse, Litouwse, Spaanse en Turkse vertalingen verbeterd
-- TTS-spraakinstructies voor rotondes in het Kroatisch gecorrigeerd
+### Vertalingen
 
-Bekijk meer details over deze en eerdere releases op https://omaps.org/news/
-
-...en blijf op de hoogte voor aankomende functies en verbeteringen!
-
-Bedankt voor uw feedback en steun, Organic Maps zou niet mogelijk zijn zonder onze geweldige gemeenschap van gebruikers en bijdragers.
-
-Gelukkig Nieuwjaar 2026!
-
-Het Organic Maps Team
+• Albanese app-vertalingen en stembegeleiding toegevoegd
+• FAQ bijgewerkt en FAQ-vertalingen toegevoegd voor Arabisch, Tsjechisch, Nederlands, Farsi, Grieks, Hebreeuws, Hindi, Hongaars, Indonesisch, Italiaans, Litouws, Marathi, Zweeds, Telugu
+• Duitse app- en FAQ-vertalingen verbeterd
+• Bulgaarse zoeksynoniemen toegevoegd
+• Instelling "Zoomknoppen" hernoemd voor meer duidelijkheid
+• Vertaalcorrecties van Weblate-bijdragers voor diverse talen
