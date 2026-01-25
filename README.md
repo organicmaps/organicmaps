@@ -3,13 +3,14 @@
 </div>
 <h1 align="center">Organic Maps</h1>
 
-**Organic Maps** is a privacy-first offline maps & GPS app for hiking, cycling, biking, and driving. Absolutely free. No ads. No tracking. Developed with love by the open-source community. Powered by [OpenStreetMap](https://www.openstreetmap.org) data.
+**Organic Maps** is a privacy-first offline maps & GPS app for hiking, cycling, biking, and driving. Absolutely free. No ads. No tracking. Created and maintained by MapsWithMe (MAPS.ME) founders, developed with love by the open-source community. Powered by [OpenStreetMap](https://www.openstreetmap.org) data. Installed by [over 6 million users worldwide](https://organicmaps.app/news/2025-12-31/organic-maps-2025-year-in-review/).
 
-[<img src="docs/badges/apple-appstore.png" alt="App Store" width="160">](https://apps.apple.com/app/organic-maps/id1567437057)
-[<img src="docs/badges/google-play.png" alt="Google Play" width="160">](https://play.google.com/store/apps/details?id=app.organicmaps)
-[<img src="docs/badges/huawei-appgallery.png" alt="AppGallery" width="160">](https://appgallery.huawei.com/#/app/C104325611)
-[<img src="docs/badges/obtainium.png" alt="Obtainium" width="160">](https://github.com/organicmaps/organicmaps/wiki/Installing-Organic-Maps-from-GitHub-using-Obtainium)
-[<img src="docs/badges/fdroid.png" alt="F-Droid" width="160">](https://f-droid.org/en/packages/app.organicmaps/)
+[<img src="docs/badges/apple-appstore.png" alt="App Store" width="140">](https://apps.apple.com/app/organic-maps/id1567437057)
+[<img src="docs/badges/google-play.png" alt="Google Play" width="140">](https://play.google.com/store/apps/details?id=app.organicmaps)
+[<img src="docs/badges/huawei-appgallery.png" alt="AppGallery" width="140">](https://appgallery.huawei.com/#/app/C104325611)
+[<img src="docs/badges/obtainium.png" alt="Obtainium" width="140">](https://github.com/organicmaps/organicmaps/wiki/Installing-Organic-Maps-from-GitHub-using-Obtainium)
+[<img src="docs/badges/fdroid.png" alt="F-Droid" width="140">](https://f-droid.org/en/packages/app.organicmaps/)
+[<img src="docs/badges/accrescent.png" alt="Accrescent" width="140">](https://accrescent.app/app/app.organicmaps)
 
 <p float="left">
   <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/1.jpg" width="400" />
@@ -26,10 +27,12 @@ Organic Maps is the ultimate companion app for travellers, tourists, hikers, and
 - Cycling routes, hiking trails, and walking paths
 - Contour lines, elevation profiles, peaks, and slopes
 - Turn-by-turn walking, cycling, and car navigation with voice guidance
+- Subway maps and public transport routes
 - Fast offline search on the map
-- Bookmarks and tracks import and export in KML, KMZ & GPX formats
+- Bookmarks and tracks import and export in KML, KMZ, GPX, GeoJSON formats
 - Dark Mode to protect your eyes
 - Countries and regions don't take a lot of space
+- Wikipedia articles for places of interest
 - Free and open-source
 
 ## Why Organic?
@@ -39,6 +42,8 @@ Organic Maps is pure and organic, made with love:
 - Respects your privacy
 - Saves your battery
 - No unexpected mobile data charges
+- Offline and fast
+- Open-source alternative to Google Maps, Apple Maps, and MAPS.ME
 
 Organic Maps is free from trackers and other bad stuff:
 
@@ -54,14 +59,10 @@ Organic Maps is free from trackers and other bad stuff:
 - ~~No pesticides~~ Purely organic!
 
 The Android application is verified by the <a href="https://reports.exodus-privacy.eu.org/en/reports/app.organicmaps/latest/">Exodus Privacy Project:
-
-<img src="docs/privacy/exodus.png" width="400">
-</a>
+<img src="docs/privacy/exodus.png" width="400"></a>
 
 The iOS application is verified by <a href="https://ios.trackercontrol.org/analysis/app.organicmaps">TrackerControl for iOS:
-
-<img src="docs/privacy/trackercontrol-ios.png" width="400">
-</a>
+<img src="docs/privacy/trackercontrol-ios.png" width="400"></a>
 
 <br/>
 
@@ -84,7 +85,7 @@ Reject surveillance - embrace your freedom.
 
 ## Who is paying for the development?
 
-The app is free for everyone, so we rely on donations. Please donate at [organicmaps.app/donate](https://organicmaps.app/donate) to support us!
+The app is free for everyone, so we rely on your donations. Please donate at [organicmaps.app/donate](https://organicmaps.app/donate/) to support the project!
 
 Beloved institutional sponsors below have provided targeted grants to cover some infrastructure costs and fund development of new selected features:
 
@@ -133,17 +134,7 @@ Beloved institutional sponsors below have provided targeted grants to cover some
 
 The majority of all expenses have been funded by founders of the project since its inception. The project is far from achieving any sort of financial sustainability. The current level of voluntary donations falls significantly short of covering efforts needed to sustain the app. Any new developments of features are beyond the scope of possibility due to the absence of the necessary financial resources.
 
-Please consider [donating](https://organicmaps.app/donate) if you want to see this open-source project thriving, not dying. There are [other ways how to support the project](#contributing). No coding skills required.
-
-## Copyrights
-
-Licensed under the Apache License, Version 2.0. See
-[LICENSE](https://github.com/organicmaps/organicmaps/blob/master/LICENSE),
-[NOTICE](https://github.com/organicmaps/organicmaps/blob/master/NOTICE),
-[data/copyright.html](http://htmlpreview.github.io/?https://github.com/organicmaps/organicmaps/blob/master/data/copyright.html) and [.reuse/dep5](https://github.com/organicmaps/organicmaps/blob/master/.reuse/dep5),
-for more information.
-
-[![REUSE status](https://api.reuse.software/badge/github.com/organicmaps/organicmaps)](https://api.reuse.software/info/github.com/organicmaps/organicmaps)
+Please consider [donating](https://organicmaps.app/donate/) if you want to see this open-source project thriving, not dying. There are [other ways how to support the project](#contributing). No coding skills required.
 
 ## Governance
 
@@ -175,25 +166,33 @@ and [Google Play](https://play.google.com/store/apps/details?id=app.organicmaps)
   - Diğer kullanıcılarla tartışmak için [Telegram Grubumuza](https://t.me/OrganicMapsTR) katılın.
   - Rejoignez notre groupe [Telegram](https://t.me/OrganicMapsFR) pour obtenir de l'aide.
 - Contact us by [email](mailto:hello@organicmaps.app).
-- Follow our updates in
-[Mastodon](https://fosstodon.org/@organicmaps),
-[Facebook](https://facebook.com/OrganicMaps),
-[X (Twitter)](https://x.com/OrganicMapsApp),
-[Instagram](https://instagram.com/organicmaps.app/).
-  - Güncellemelerimizi [Instagram](https://instagram.com/organicmapstr/) üzerinden takip edin.
+- Follow our updates in social media:
+   - [Mastodon](https://fosstodon.org/@organicmaps)
+   - [Facebook](https://facebook.com/OrganicMaps)
+   - [X (Twitter)](https://x.com/OrganicMapsApp)
+   - [Instagram](https://instagram.com/organicmaps.app/)
+   - [Bluesky](https://bsky.app/profile/organicmaps.bsky.social)
+   - [Threads](https://www.threads.net/@organicmaps)
+   - [Reddit](https://www.reddit.com/r/organicmaps/)
+   - [LinkedIn](https://www.linkedin.com/company/organic-maps/)
+   - [TikTok](https://www.tiktok.com/@organicmaps)
 
 The Organic Maps community abides by the CNCF [code of conduct](https://github.com/organicmaps/organicmaps/blob/master/docs/CODE_OF_CONDUCT.md).
 
-## License
+## License and Copyrights
 
-Organic Maps is licensed under the [Apache License 2.0](LICENSE).
+The code is Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE), [NOTICE](NOTICE),
+[data/copyright.html](http://htmlpreview.github.io/?https://github.com/organicmaps/organicmaps/blob/master/data/copyright.html) and [.reuse/dep5](https://github.com/organicmaps/organicmaps/blob/master/.reuse/dep5) for more information.
 
-Binary map data files (`.mwm`) are provided under a separate license.
-See `DATA_LICENSE.txt` for details.
+Binary data files (including, but not limited to `.mwm` map files) are provided under a separate license.
+See [DATA_LICENSE.txt](https://github.com/organicmaps/organicmaps/blob/master/DATA_LICENSE.txt) for details.
+
+[![REUSE status](https://api.reuse.software/badge/github.com/organicmaps/organicmaps)](https://api.reuse.software/info/github.com/organicmaps/organicmaps)
 
 ### Attribution for forks and derivative apps based on Organic Maps
 
-If you use Organic Maps source code or its user interface in your project, please include a visible, human-readable mention of the “Organic Maps Project” and a clickable link to https://organicmaps.app. To respect the work of all project contributors and to comply with license attribution terms, this notice should appear in user-visible locations, such as the product’s “About” and “Main Menu” screens.
+If you use Organic Maps binary data (e.g. maps), source code, or its user interface in your project, include a visible, human-readable mention of the “Organic Maps Project” and a clickable link to https://organicmaps.app.
+To respect the work of all project contributors and to comply with license attribution terms, this notice should appear in user-visible locations, such as the product’s “About” and “Main Menu” screens.
 
 ### 🤝 White-label
 
