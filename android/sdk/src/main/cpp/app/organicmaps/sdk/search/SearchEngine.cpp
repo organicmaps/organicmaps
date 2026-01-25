@@ -113,7 +113,7 @@ jobject ToJavaResult(Result const & result, search::ProductInfo const & productI
   jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, result.GetLocalizedFeatureType()));
   jni::TScopedLocalRef address(env, jni::ToJavaString(env, result.GetAddress()));
   jni::TScopedLocalRef dist(env, ToJavaDistance(env, distance));
-  jni::TScopedLocalRef description(env, jni::ToJavaString(env, result.GetFeatureDescription()));
+  jni::TScopedLocalRef description(env, jni::ToJavaStringWithSupplementalCharsFix(env, result.GetFeatureDescription()));
 
   jni::TScopedLocalRef desc(
       env, env->NewObject(g_descriptionClass, g_descriptionConstructor, featureType.get(), address.get(), dist.get(),
