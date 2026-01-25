@@ -4,20 +4,25 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
+
 import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
-import app.organicmaps.sdk.Framework;
-import app.organicmaps.sdk.util.StorageUtils;
-import app.organicmaps.sdk.util.concurrency.UiThread;
-import app.organicmaps.sdk.util.log.Logger;
+
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.util.ByteUtils;
+import app.organicmaps.sdk.util.StorageUtils;
+import app.organicmaps.sdk.util.concurrency.UiThread;
+import app.organicmaps.sdk.util.log.Logger;
 
 @MainThread
 public enum BookmarkManager {
@@ -348,11 +353,55 @@ public enum BookmarkManager {
         return filename + ".gpx";
     }
 
-    // WhatsApp doesn't provide correct mime type and extension for GPX files.
+    // Need to read file content and guess from its signature.
+    String extension = guessFileExtensionByContent(resolver, uri);
+    if (extension != null)
+      return filename + extension;
+
+    // WhatsApp doesn't provide correct mime type and extension for GPX and GeoJson files.
     if (uri.getHost().contains("com.whatsapp.provider.media"))
       return filename + ".gpx";
 
     return null;
+  }
+
+  private static String guessFileExtensionByContent(@NonNull ContentResolver resolver, @NonNull Uri uri)
+  {
+    // If first symbol is '{' -> GeoJson
+    // Else if first symbols 'PK' -> Zip archive, probably KMZ
+    // Else if first symbols '<?xml ' and contains '<kml '  -> KML
+    // Else if first symbols '<?xml ' and contains '<gpx '  -> GPX
+
+    byte[] xmlMarker = "<?xml ".getBytes();
+    byte[] kmlMarker = "<kml ".getBytes();
+    byte[] gpxMarker = "<gpx ".getBytes();
+
+    try
+    {
+      InputStream inputStream = resolver.openInputStream(uri);
+      byte[] buffer = new byte[100];
+      inputStream.read(buffer);
+
+      // Search for markers
+      if (buffer[0] == '{')
+        return ".geojson";
+
+      if (buffer[0] == 'P' && buffer[1] == 'K')
+        return ".kmz";
+
+      if (ByteUtils.startsWith(buffer, xmlMarker))
+      {
+        // Content has XML format
+        if (ByteUtils.contains(buffer, kmlMarker))
+          return ".kml";
+        if (ByteUtils.contains(buffer, gpxMarker))
+          return ".gpx";
+      }
+      return null;
+    } catch (IOException e)
+    {
+      return null;
+    }
   }
 
   @WorkerThread
