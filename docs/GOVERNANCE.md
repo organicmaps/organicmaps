@@ -32,4 +32,4 @@ The Governing Board is the governing body responsible for the overall oversight 
 ## Current Sitting Board
 
 - [Alexander Borsuk](https://github.com/biodranik)
-- [Victor Govako](https://github.com/vng)
+- [Viktar Havaka](https://github.com/vng)
