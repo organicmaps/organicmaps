@@ -21,8 +21,9 @@ data/patterns_design.txt
 data/bookmarks
 data/edits.xml
 
-# Compiled Python
+# Python compiled files and dependencies
 *.pyc
+uv.lock
 
 # Windows generated files
 *.vcxproj*
