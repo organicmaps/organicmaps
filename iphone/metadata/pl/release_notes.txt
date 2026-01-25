@@ -1,27 +1,16 @@
-- NOWOŚĆ: Choinki i jarmarki bożonarodzeniowe są teraz widoczne na mapie; wpisz `Jarmark bożonarodzeniowy` lub `Choinka` w wyszukiwarce, aby je znaleźć (lub dodaj je na OpenStreetMap.org, jeśli ich brakuje)
-- Dane OpenStreetMap z dnia 14 grudnia 2025 r.
-- Pojemność parkingów jest teraz wyświetlana w wynikach wyszukiwania
-- Granice i etykiety parków narodowych są mniej widoczne na mapie świata
-- Dodano litewskie synonimy wyszukiwania i włączono wyszukiwanie w języku litewskim
-- Wyniki wyszukiwania używają jednokolorowych ikon emoji
-- Naprawiono problem z CarPlay na iOS 12
-- Rozwiązano wiele problemów wizualnych na iPhone'ach i iPadach
-- Wyszukiwanie na liście zakładek znajduje teraz nazwy ze znakami diakrytycznymi lub akcentowanymi literami
-- Zaimportowane lub nagrane ślady krótsze niż 10 minut pokazują teraz czas trwania w minutach i sekundach
-- Ulepszono animacje przycisków i dolny pasek przycisków
-- Usunięto komunikat o poziomicach przy uruchamianiu aplikacji
+• NOWOŚĆ: Kolory ciemnego motywu o wyższym kontraście
+• Zaktualizowane dane OpenStreetMap (11 stycznia)
+• Wyłączono kasyna z kategorii „Rozrywka”
+• Zmniejszono grubość linii metra
+• Dodano informacje o pojemności do wyników wyszukiwania parkingów motocyklowych, wypożyczalni rowerów, ładowania rowerów i ładowania samochodów
+• Pokazywanie piętra w wynikach wyszukiwania
+• Szersze przyciski planowania trasy
 
-## Aktualizacje tłumaczeń
-- Ulepszono tłumaczenia na język ukraiński
-- Ulepszono tłumaczenia na język niemiecki, węgierski, litewski, hiszpański i turecki
-- Poprawiono wskazówki głosowe TTS dotyczące rond w języku chorwackim
+### Tłumaczenia
 
-Sprawdź więcej szczegółów na temat tego i poprzednich wydań na https://omaps.org/news/
-
-…i bądź na bieżąco z nadchodzącymi funkcjami i ulepszeniami!
-
-Dziękujemy za opinie i wsparcie, Organic Maps nie byłoby możliwe bez naszej niesamowitej społeczności użytkowników i współtwórców.
-
-Szczęśliwego Nowego Roku 2026!
-
-Zespół Organic Maps
+• Dodano albańskie tłumaczenia aplikacji i wskazówki głosowe
+• Zaktualizowano FAQ i dodano tłumaczenia FAQ na arabski, czeski, holenderski, perski, grecki, hebrajski, hindi, węgierski, indonezyjski, włoski, litewski, marathi, szwedzki, telugu
+• Ulepszono niemieckie tłumaczenia aplikacji i FAQ
+• Dodano bułgarskie synonimy wyszukiwania
+• Zmieniono nazwę ustawienia „Przyciski powiększania” dla jasności
+• Poprawki tłumaczeń od współtwórców Weblate dla różnych języków

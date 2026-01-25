@@ -1,8 +1,8 @@
-• NAUJIENA: Ieškokite `Kalėdų eglutė` ir `Kalėdų mugė` žemėlapyje
-• OpenStreetMap duomenys 2025 m. gruodžio 14 d.
-• Maršruto įrašymas tęsiamas net jei programa yra uždaryta ar nutraukta
-• Nacionalinių parkų ribos ir etiketės yra mažiau pastebimos pasaulio žemėlapyje
-• Pridėti lietuviški paieškos sinonimai ir įjungta lietuviška paieška
-• Patobulinti vertimai
-• Rodyti automobilių stovėjimo aikštelės talpą paieškos rezultatuose
-…daugiau omaps.org/lt/news
+• NAUJIENA: Didesnio kontrasto tamsios temos spalvos
+• NAUJIENA: „Google Assistant“ navigacijai ir paieškai
+• OSM žemėlapio duomenys nuo sausio 11 d.
+• „Auto“ navigacijos temos nustatymas vadovaujasi sistemos tamsiu / šviesiu režimu
+• Plonesnės metro linijos
+• Paieškos rezultatuose rodoma motociklų stovėjimo, dviračių nuomos, dviračių įkrovimo ir automobilių įkrovimo vietų talpa
+• Rodyti aukšto lygį paieškos rezultatuose
+…daugiau adresu omaps.org/lt/news

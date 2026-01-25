@@ -1,8 +1,9 @@
-• ЖАҢА: Картадан `Жаңа жылдық шырша` және `Жаңа жылдық жәрмеңке` іздеңіз
-• 2025 жылғы 14 желтоқсандағы OpenStreetMap деректері
-• Қолданба өлтірілсе немесе жабылса да, трек жазу жалғасады
-• Ұлттық парк шекаралары мен белгілері әлем картасында азырақ байқалады
-• Литвалық іздеу синонимдері қосылды және литвалық іздеу қосылды
-• Жақсартылған аудармалар
-• Іздеу нәтижелерінде тұрақ сыйымдылығын көрсету
-…толығырақ omaps.org/news сайтында
+• JANA: Joğary kontrastty qara taqyryp tüsteri
+• JANA: Navigaçija jäne izdeu üşin Google Assistant
+• 11 qańtardağı OSM karta derekteri
+• "Avto" navigaçija taqyryby jújesi sistemanıń qara/jaryq rejimine säikes keledi
+• Juqa metro jelileri
+• Izdeu nätijeleri motosikl turağı, velosiped jalğa alu, velosipedti qattau jäne kòlikti qattau syiymdylyğın kòrsetedi
+• Izdeu nätijelerinde qabat deńgeiin kòrsetu
+• Alban audarmalary jäne TTS dauystyq nusqau
+…толығырақ omaps.org/news

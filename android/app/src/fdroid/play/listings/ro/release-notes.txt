@@ -1,8 +1,8 @@
-• NOU: Căutați `Brad de Crăciun` și `Târg de Crăciun` pe hartă
-• Date OpenStreetMap din 14 decembrie 2025
-• Înregistrarea traseului continuă chiar dacă aplicația este oprită sau închisă
-• Granițele și etichetele parcurilor naționale sunt mai puțin proeminente pe harta lumii
-• S-au adăugat sinonime de căutare în lituaniană și s-a activat căutarea în lituaniană
-• Traduceri îmbunătățite
-• Afișați capacitatea parcării în rezultatele căutării
-…mai multe pe omaps.org/news
+• NOU: Culori cu contrast mai mare pentru tema întunecată
+• NOU: Google Assistant pentru navigare și căutare
+• Datele hărții OSM la 11 ianuarie
+• Setarea temei de navigare „Auto” urmează modul întunecat/luminos al sistemului
+• Linii de metrou mai subțiri
+• Rezultatele căutării arată capacitatea pentru parcarea motocicletelor, închirierea de biciclete, încărcarea bicicletelor și încărcarea mașinilor
+• Afișați nivelul etajului în rezultatele căutării
+…mai mult la omaps.org/news

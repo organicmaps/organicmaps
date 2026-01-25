@@ -1,8 +1,9 @@
-• ÚJ: Keressen `Karácsonyfa` és `Karácsonyi vásár` kifejezésekre a térképen
-• OpenStreetMap adatok 2025. december 14-i állapot szerint
-• A nyomvonal rögzítése akkor is folytatódik, ha az alkalmazást bezárják vagy leállítják
-• A nemzeti parkok határai és címkéi kevésbé feltűnőek a világtérképen
-• Hozzáadva litván keresési szinonimák és engedélyezve a litván keresés
-• Javított fordítások
-• Parkolókapacitás megjelenítése a keresési eredményekben
-…továbbiak az omaps.org/hu/news oldalon
+• ÚJ: Nagyobb kontrasztú sötét téma színek
+• ÚJ: Google Assistant navigációhoz és kereséshez
+• OSM térképadatok január 11-i állapot szerint
+• Az „Auto” navigációs téma beállítás követi a rendszer sötét/világos módját
+• Vékonyabb metróvonalak
+• A keresési eredmények mutatják a motorkerékpár-parkoló, kerékpárkölcsönző, kerékpártöltő és autótöltő kapacitását
+• Emeletszint megjelenítése a keresési eredményekben
+• Albán fordítások és TTS hangos navigáció
+…továbbiak itt omaps.org/hu/news

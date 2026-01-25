@@ -1,8 +1,9 @@
-• NOWOŚĆ: Szukaj `Choinka` i `Jarmark Bożonarodzeniowy` na mapie
-• Dane OpenStreetMap z dnia 14 grudnia 2025 r.
-• Nagrywanie śladu jest kontynuowane nawet po zamknięciu lub zabiciu aplikacji
-• Granice i etykiety parków narodowych są mniej widoczne na mapie świata
-• Dodano litewskie synonimy wyszukiwania i włączono wyszukiwanie w języku litewskim
-• Ulepszone tłumaczenia
-• Wyświetlaj pojemność parkingu w wynikach wyszukiwania
+• NOWOŚĆ: Kolory ciemnego motywu o wyższym kontraście
+• NOWOŚĆ: Google Assistant do nawigacji i wyszukiwania
+• Dane mapy OSM z 11 stycznia
+• Ustawienie motywu nawigacji „Auto” podąża za systemowym trybem ciemnym/jasnym
+• Cieńsze linie metra
+• Wyniki wyszukiwania pokazują pojemność parkingów dla motocykli, wypożyczalni rowerów, ładowania rowerów i ładowania samochodów
+• Pokaż poziom piętra w wynikach wyszukiwania
+• Tłumaczenia na albański i wskazówki głosowe TTS
 …więcej na omaps.org/pl/news

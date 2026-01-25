@@ -1,7 +1,11 @@
-• NOUVEAU : Recherchez `Sapin de Noël` et `Marché de Noël` sur la carte
-• Données OpenStreetMap au 14 décembre 2025
-• L'enregistrement de la trace continue même si l'application est tuée ou fermée
-• Les frontières et les étiquettes des parcs nationaux sont moins proéminentes sur la carte du monde
-• Ajout de synonymes de recherche en lituanien et activation de la recherche en lituanien
-• Afficher la capacité de stationnement dans les résultats de recherche
+• NOUVEAU : Thème sombre plus contrasté
+• NOUVEAU : Assistant Google pour navigation/recherche
+• Données OSM du 11 janvier
+• Thème navigation « Auto » selon le système
+• Lignes de métro plus fines
+• Capacités stationnement motos, location/recharge vélos, recharge autos affichées
+• Niveau d'étage dans la recherche
+• Traductions albanais et voix TTS
+• FAQ et traductions app mises à jour
+• Plantages corrigés
 …plus sur omaps.org/fr/news

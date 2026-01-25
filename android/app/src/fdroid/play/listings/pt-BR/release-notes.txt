@@ -1,8 +1,8 @@
-• NOVO: Pesquise por `Árvore de Natal` e `Mercado de Natal` no mapa
-• Dados do OpenStreetMap em 14 de dezembro de 2025
-• A gravação da trilha continua mesmo se o aplicativo for encerrado ou fechado
-• As fronteiras e rótulos dos parques nacionais são menos proeminentes no mapa mundial
-• Adicionados sinônimos de pesquisa em lituano e ativada a pesquisa em lituano
-• Traduções melhoradas
-• Exibir capacidade de estacionamento nos resultados da pesquisa
+• NOVO: Cores de tema escuro de maior contraste
+• NOVO: Google Assistant para navegação e pesquisa
+• Dados do mapa OSM de 11 de janeiro
+• A configuração do tema de navegação "Auto" segue o modo escuro/claro do sistema
+• Linhas de metrô mais finas
+• Os resultados da pesquisa mostram a capacidade para estacionamento de motocicletas, aluguel de bicicletas, carregamento de bicicletas e carregamento de carros
+• Mostrar nível do andar nos resultados da pesquisa
 …mais em omaps.org/pt-BR/news

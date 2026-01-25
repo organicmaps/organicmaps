@@ -1,8 +1,8 @@
-• NOVO: Iščite `Božično drevo` in `Božični sejem` na zemljevidu
-• Podatki OpenStreetMap z dne 14. decembra 2025
-• Snemanje sledi se nadaljuje, tudi če je aplikacija ukinjena ali zaprta
-• Meje in oznake nacionalnih parkov so na zemljevidu sveta manj izrazite
-• Dodani litovski iskalni sinonimi in omogočeno iskanje v litovščini
-• Izboljšani prevodi
-• Prikaz zmogljivosti parkirišča v rezultatih iskanja
+• NOVO: Barve temne teme z višjim kontrastom
+• NOVO: Google Assistant za navigacijo in iskanje
+• Podatki zemljevida OSM z dne 11. januarja
+• Nastavitev navigacijske teme »Samodejno« sledi sistemskemu temnemu/svetlemu načinu
+• Tanjše linije podzemne železnice
+• Rezultati iskanja prikazujejo zmogljivost za parkiranje motornih koles, izposojo koles, polnjenje koles in polnjenje avtomobilov
+• Prikaži nivo nadstropja v rezultatih iskanja
 …več na omaps.org/news

@@ -1,27 +1,16 @@
-- UUTTA: Joulukuuset ja joulumarkkinat näkyvät nyt kartalla; kirjoita hakuun `Christmas Market` tai `Christmas Tree` löytääksesi ne (tai lisää ne OpenStreetMap.org-sivustolla tarvittaessa)
-- OpenStreetMap-tiedot 14. joulukuuta 2025
-- Pysäköintikapasiteetti näkyy nyt hakutuloksissa
-- Kansallispuistojen rajat ja nimet ovat vähemmän korostettuja maailmankartalla
-- Lisätty liettuankieliset hakusynonyymit ja otettu käyttöön liettuankielinen haku
-- Hakutulokset käyttävät yksivärisiä emoji-kuvakkeita
-- Korjattu CarPlay-ongelma iOS 12:ssa
-- Ratkaistu useita visuaalisia ongelmia iPhonella ja iPadilla
-- Kirjanmerkkilistan haku löytää nyt nimet, joissa on diakriittisiä merkkejä tai aksentteja
-- Tuodut tai tallennetut reitit, jotka ovat alle 10 minuuttia, näyttävät nyt keston minuutteina ja sekunteina
-- Parannettu painikkeiden animaatioita ja alapalkkia
-- Poistettu korkeuskäyrien ilmoitus sovelluksen käynnistyksestä
+• UUTTA: Tumman teeman värit korkeammalla kontrastilla
+• Päivitetyt OpenStreetMap-tiedot (11. tammikuuta)
+• Yökerhot/kasinot poistettu Viihde-kategoriasta
+• Metrolinjojen paksuutta pienennetty
+• Lisätty kapasiteettitiedot hakutuloksiin moottoripyöräparkeille, pyörävuokraamoille sekä pyörien ja autojen latauspisteille
+• Näytä kerrosnumero hakutuloksissa
+• Leveämmät reittisuunnittelun painikkeet
 
-## Käännöspäivitykset
-- Parannettu ukrainan käännöksiä
-- Parannettu saksan, unkarin, liettuan, espanjan ja turkin käännöksiä
-- Korjattu liikenneympyrän TTS-ääniohjeet kroatiaksi
+### Käännökset
 
-Katso lisätietoja tästä ja aiemmista julkaisuista osoitteessa https://omaps.org/news/
-
-…ja pysy kuulolla tulevista ominaisuuksista ja parannuksista!
-
-Kiitos palautteestasi ja tuestasi, Organic Maps ei olisi mahdollinen ilman mahtavaa käyttäjä- ja avustajayhteisöämme.
-
-Hyvää uutta vuotta 2026!
-
-Organic Maps -tiimi
+• Lisätty Albanian sovelluskäännökset ja puheopastus
+• Päivitetty UKK ja lisätty UKK-käännökset seuraaville kielille: arabia, tšekki, hollanti, persia, kreikka, heprea, hindi, unkari, indonesia, italia, liettua, marathi, ruotsi, telugu
+• Parannettu saksan sovellus- ja UKK-käännöksiä
+• Lisätty bulgarian hakusynonyymejä
+• Nimetty "Zoomauspainikkeet"-asetus uudelleen selkeyden vuoksi
+• Käännöskorjauksia Weblate-avustajilta useille kielille

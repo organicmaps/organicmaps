@@ -1,27 +1,16 @@
-- BARU: Pohon Natal dan pasar kini muncul di peta; ketik `Christmas Market` atau `Christmas Tree` di pencarian untuk menemukannya (atau tambahkan di OpenStreetMap.org jika diperlukan)
-- Data OpenStreetMap per 14 Desember 2025
-- Kapasitas parkir kini ditampilkan di hasil pencarian
-- Batas dan label taman nasional tidak terlalu menonjol di peta dunia
-- Menambahkan sinonim pencarian bahasa Lituania dan mengaktifkan pencarian bahasa Lituania
-- Hasil pencarian menggunakan ikon emoji satu warna
-- Memperbaiki masalah CarPlay di iOS 12
-- Menyelesaikan beberapa masalah visual di iPhone dan iPad
-- Pencarian daftar penanda kini menemukan nama dengan diakritik atau huruf beraksen
-- Trek yang diimpor atau direkam kurang dari 10 menit kini menampilkan durasi dalam menit dan detik
-- Animasi tombol dan bilah tombol bawah ditingkatkan
-- Menghapus pemberitahuan isoline saat peluncuran aplikasi
+• BARU: Warna tema gelap dengan kontras lebih tinggi
+• Data OpenStreetMap diperbarui (11 Januari)
+• Kasino dikecualikan dari kategori "Hiburan"
+• Ketebalan jalur kereta bawah tanah dikurangi
+• Informasi kapasitas ditambahkan ke hasil pencarian untuk parkir sepeda motor, penyewaan sepeda, pengisian daya sepeda, dan pengisian daya mobil
+• Tampilkan tingkat lantai di hasil pencarian
+• Tombol perencanaan rute yang lebih lebar
 
-## Pembaruan Terjemahan
-- Peningkatan terjemahan bahasa Ukraina
-- Peningkatan terjemahan bahasa Jerman, Hongaria, Lituania, Spanyol, dan Turki
-- Memperbaiki arah suara TTS bundaran dalam bahasa Kroasia
+### Terjemahan
 
-Cek detail lebih lanjut tentang rilis ini dan sebelumnya di https://omaps.org/news/
-
-…dan nantikan fitur serta peningkatan mendatang!
-
-Terima kasih atas umpan balik dan dukungan Anda, Organic Maps tidak akan mungkin terwujud tanpa komunitas pengguna dan kontributor kami yang luar biasa.
-
-Selamat Tahun Baru 2026!
-
-Tim Organic Maps
+• Menambahkan terjemahan aplikasi dan panduan suara bahasa Albania
+• Memperbarui FAQ dan menambahkan terjemahan FAQ untuk bahasa Arab, Ceko, Belanda, Farsi, Yunani, Ibrani, Hindi, Hungaria, Indonesia, Italia, Lithuania, Marathi, Swedia, Telugu
+• Meningkatkan terjemahan aplikasi dan FAQ bahasa Jerman
+• Menambahkan sinonim pencarian bahasa Bulgaria
+• Mengubah nama pengaturan "Tombol zoom" demi kejelasan
+• Perbaikan terjemahan dari kontributor Weblate untuk berbagai bahasa

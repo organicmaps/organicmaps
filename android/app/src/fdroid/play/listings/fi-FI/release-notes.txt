@@ -1,8 +1,9 @@
-• UUTTA: Etsi kartalta `Joulukuusi` ja `Joulumarkkinat`
-• OpenStreetMap-tiedot 14. joulukuuta 2025
-• Reitin tallennus jatkuu, vaikka sovellus suljettaisiin tai tapettaisiin
-• Kansallispuistojen rajat ja nimet ovat vähemmän näkyviä maailmankartalla
-• Lisätty liettualaiset hakusynonyymit ja otettu käyttöön liettualainen haku
-• Parannetut käännökset
-• Näytä pysäköintikapasiteetti hakutuloksissa
+• UUTTA: Korkeamman kontrastin tumman teeman värit
+• UUTTA: Google Assistant navigointiin ja hakuun
+• OSM-karttatiedot 11. tammikuuta
+• "Auto"-navigointiteeman asetus noudattaa järjestelmän tummaa/vaaleaa tilaa
+• Ohuemmat metrolinjat
+• Hakutulokset näyttävät moottoripyöräpysäköinnin, polkupyörävuokrauksen, polkupyörien latauksen ja autojen latauksen kapasiteetin
+• Näytä kerrostaso hakutuloksissa
+• Albanialaiset käännökset ja TTS-ääniopastus
 …lisää osoitteessa omaps.org/news

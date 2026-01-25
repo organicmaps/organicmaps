@@ -1,8 +1,9 @@
-• YENİ: Xəritədə `Milad ağacı` və `Milad bazarı` axtarın
-• 14 dekabr 2025-ci il tarixinə olan OpenStreetMap məlumatları
-• Tətbiq öldürülsə və ya bağlansa belə, iz qeydi davam edir
-• Milli park sərhədləri və etiketləri dünya xəritəsində daha az nəzərə çarpır
-• Litva axtarış sinonimləri əlavə edildi və Litva axtarışı aktivləşdirildi
-• Tərcümələr təkmilləşdirildi
-• Axtarış nəticələrində parkinq tutumunu göstərin
-…daha çox omaps.org/news ünvanında
+• YENİ: Daha yüksək kontrastlı tünd mövzu rəngləri
+• YENİ: Naviqasiya və axtarış üçün Google Assistant
+• 11 yanvar tarixinə OSM xəritə məlumatları
+• "Auto" naviqasiya mövzusu tənzimləməsi sistemin tünd/işıqlı rejiminə uyğunlaşır
+• Daha nazik metro xətləri
+• Axtarış nəticələri motosiklet parkı, velosiped kirayəsi, velosiped şarjı və avtomobil şarjı üçün tutumu göstərir
+• Axtarış nəticələrində mərtəbə səviyyəsini göstərmək
+• Alban tərcümələri və TTS səsli bələdçi
+…daha ətraflı omaps.org/news

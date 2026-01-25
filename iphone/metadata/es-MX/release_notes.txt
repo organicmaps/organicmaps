@@ -1,27 +1,16 @@
-- NUEVO: Los árboles y mercados de Navidad ahora aparecen en el mapa; escribe `Christmas Market` o `Christmas Tree` en la búsqueda para encontrarlos (o agrégalos en OpenStreetMap.org si es necesario)
-- Datos de OpenStreetMap al 14 de diciembre de 2025
-- La capacidad de estacionamiento ahora se muestra en los resultados de búsqueda
-- Los bordes y etiquetas de los parques nacionales son menos prominentes en el mapa mundial
-- Se agregaron sinónimos de búsqueda en lituano y se habilitó la búsqueda en lituano
-- Los resultados de búsqueda usan íconos emoji de un solo color
-- Se corrigió un problema de CarPlay en iOS 12
-- Se resolvieron múltiples problemas visuales en iPhone y iPad
-- La búsqueda en la lista de marcadores ahora encuentra nombres con diacríticos o letras acentuadas
-- Las pistas importadas o grabadas de menos de 10 minutos ahora muestran la duración en minutos y segundos
-- Se mejoraron las animaciones de los botones y la barra de botones inferior
-- Se eliminó el aviso de isolíneas al iniciar la aplicación
+• NUEVO: Colores de tema oscuro con mayor contraste
+• Datos de OpenStreetMap actualizados (11 de enero)
+• Se excluyeron los casinos de la categoría "Entretenimiento"
+• Se redujo el grosor de las líneas del metro
+• Se agregó información de capacidad a los resultados de búsqueda para estacionamiento de motocicletas, alquiler de bicicletas, carga de bicicletas y carga de automóviles
+• Mostrar el nivel del piso en los resultados de búsqueda
+• Botones de planificación de rutas más anchos
 
-## Actualizaciones de traducciones
-- Se mejoraron las traducciones al ucraniano
-- Se mejoraron las traducciones al alemán, húngaro, lituano, español y turco
-- Se corrigieron las instrucciones de voz TTS en rotondas en croata
+### Traducciones
 
-Consulta más detalles sobre este y otros lanzamientos anteriores en https://omaps.org/news/
-
-…¡y mantente atento a las próximas funciones y mejoras!
-
-Gracias por tus comentarios y apoyo, Organic Maps no sería posible sin nuestra increíble comunidad de usuarios y colaboradores.
-
-¡Feliz Año Nuevo 2026!
-
-El equipo de Organic Maps
+• Se agregaron traducciones de la aplicación y guía de voz en albanés
+• Se actualizaron las preguntas frecuentes (FAQ) y se agregaron traducciones para árabe, checo, holandés, persa, griego, hebreo, hindi, húngaro, indonesio, italiano, lituano, marathi, sueco y telugu
+• Mejoradas las traducciones de la aplicación y FAQ en alemán
+• Se agregaron sinónimos de búsqueda en búlgaro
+• Se renombró la configuración "Botones de zoom" para mayor claridad
+• Correcciones de traducción de colaboradores de Weblate para varios idiomas

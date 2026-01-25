@@ -1,27 +1,16 @@
-- NOVO: Božićna drvca i sajmovi sada se pojavljuju na karti; upišite `Christmas Market` ili `Christmas Tree` u pretragu da biste ih pronašli (ili ih dodajte na OpenStreetMap.org ako je potrebno)
-- Podaci OpenStreetMapa od 14. prosinca 2025.
-- Kapacitet parkirališta sada se prikazuje u rezultatima pretraživanja
-- Granice i oznake nacionalnih parkova manje su istaknute na karti svijeta
-- Dodani litavski sinonimi za pretraživanje i omogućeno litavsko pretraživanje
-- Rezultati pretraživanja koriste jednobojne emoji ikone
-- Ispravljen problem s CarPlayom na iOS-u 12
-- Riješeno više vizualnih problema na iPhoneu i iPadu
-- Pretraživanje popisa oznaka sada pronalazi imena s dijakritičkim znakovima ili naglašenim slovima
-- Uvezeni ili snimljeni tragovi kraći od 10 minuta sada prikazuju trajanje u minutama i sekundama
-- Poboljšane animacije gumba i donja traka s gumbima
-- Uklonjena obavijest o izohipsama pri pokretanju aplikacije
+• NOVO: Boje tamne teme većeg kontrasta
+• Ažurirani podaci OpenStreetMap-a (11. siječnja)
+• Isključena casina iz kategorije "Zabava"
+• Smanjena debljina linija podzemne željeznice
+• Dodane informacije o kapacitetu u rezultate pretraživanja za parkiranje motocikala, najam bicikala, punjenje bicikala i punjenje automobila
+• Prikaz kata u rezultatima pretraživanja
+• Širi gumbi za planiranje rute
 
-## Ažuriranja prijevoda
-- Poboljšani ukrajinski prijevodi
-- Poboljšani njemački, mađarski, litavski, španjolski i turski prijevodi
-- Ispravljene glasovne upute za kružne tokove (TTS) na hrvatskom jeziku
+### Prijevodi
 
-Više detalja o ovom i prethodnim izdanjima provjerite na https://omaps.org/news/
-
-…i pratite nas za nadolazeće značajke i poboljšanja!
-
-Hvala vam na povratnim informacijama i podršci, Organic Maps ne bi bio moguć bez naše nevjerojatne zajednice korisnika i suradnika.
-
-Sretna Nova 2026. godina!
-
-Tim Organic Maps
+• Dodani prijevodi aplikacije i glasovno navođenje na albanskom jeziku
+• Ažurirana Česta pitanja (FAQ) i dodani prijevodi za arapski, češki, nizozemski, perzijski, grčki, hebrejski, hindi, mađarski, indonezijski, talijanski, litvanski, marati, švedski, telugu
+• Poboljšani njemački prijevodi aplikacije i Čestih pitanja
+• Dodani bugarski sinonimi za pretraživanje
+• Preimenovana postavka "Gumbi za zumiranje" radi jasnoće
+• Ispravci prijevoda suradnika Weblatea za razne jezike

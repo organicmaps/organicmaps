@@ -1,27 +1,16 @@
-- NYHET: Julgranar och julmarknader visas nu på kartan; skriv `Julmarknad` eller `Julgran` i sökfältet för att hitta dem (eller lägg till dem på OpenStreetMap.org om det behövs)
-- OpenStreetMap-data från den 14 december 2025
-- Parkeringskapacitet visas nu i sökresultaten
-- Nationalparksgränser och etiketter är mindre framträdande på världskartan
-- Lade till litauiska söksynonymer och aktiverade litauisk sökning
-- Sökresultat använder enfärgade emoji-ikoner
-- Fixade ett CarPlay-problem på iOS 12
-- Löste flera visuella problem på iPhone och iPad
-- Sökning i bokmärkeslistan hittar nu namn med diakritiska tecken eller accenter
-- Importerade eller inspelade spår kortare än 10 minuter visar nu varaktighet i minuter och sekunder
-- Förbättrade knappanimationer och den nedre knappraden
-- Tog bort isolinjer-notisen vid appstart
+• NYHET: Mörkt tema med högre kontrast
+• Uppdaterad OpenStreetMap-data (11 januari)
+• Exkluderade kasinon från kategorin "Underhållning"
+• Minskad tjocklek på tunnelbanelinjer
+• Lade till kapacitetsinformation i sökresultat för motorcykelparkering, cykeluthyrning, cykelladdning och billaddning
+• Visa våningsplan i sökresultat
+• Bredare ruttplaneringsknappar
 
-## Översättningsuppdateringar
-- Förbättrade ukrainska översättningar
-- Förbättrade tyska, ungerska, litauiska, spanska och turkiska översättningar
-- Korrigerade röstinstruktioner för rondeller (TTS) på kroatiska
+### Översättningar
 
-Se mer information om denna och tidigare utgåvor på https://omaps.org/news/
-
-…och håll utkik efter kommande funktioner och förbättringar!
-
-Tack för din feedback och ditt stöd, Organic Maps skulle inte vara möjligt utan vår fantastiska gemenskap av användare och bidragsgivare.
-
-Gott nytt år 2026!
-
-Organic Maps-teamet
+• Lade till albansk översättning av appen och röstguidning
+• Uppdaterade FAQ och lade till FAQ-översättningar för arabiska, tjeckiska, nederländska, farsi, grekiska, hebreiska, hindi, ungerska, indonesiska, italienska, litauiska, marathi, svenska, telugu
+• Förbättrade tyska app- och FAQ-översättningar
+• Lade till bulgariska sökssynonymer
+• Döpte om inställningen "Zoomknappar" för tydlighetens skull
+• Översättningskorrigeringar från Weblate-bidragsgivare för olika språk
