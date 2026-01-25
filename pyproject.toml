@@ -10,7 +10,7 @@ dev-dependencies = [
 [tool.black]
 # Code formatting parameters
 line-length = 120
-target-version = ['py311']
+target-version = ['py311', 'py312', 'py313', 'py314']
 include = 'tools/python/translate.py'
 
 # Exclude submodules
