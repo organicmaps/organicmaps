@@ -51,6 +51,11 @@
       android:visibility="invisible" />
   </RelativeLayout>
   <androidx.fragment.app.FragmentContainerView
+    android:id="@+id/search_container_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:name="app.organicmaps.search.SearchFragmentController" />
+  <androidx.fragment.app.FragmentContainerView
     android:id="@+id/place_page_container_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
