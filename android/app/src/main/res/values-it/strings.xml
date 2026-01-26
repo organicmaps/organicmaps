@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Indietro</string>
@@ -100,7 +99,6 @@
     <string name="measurement_units">Unità di misura</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Scegli tra miglia e chilometri</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Dove mangiare</string>
@@ -146,7 +144,6 @@
     <string name="category_water">Acqua</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Per camper</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Informazioni</string>
@@ -346,7 +343,6 @@
     <string name="pref_appearance_dark">Scuro</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Regala mappe gratuite e senza pubblicità a milioni di utenti!</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Quando segui il percorso, ricorda che:</string>
     <string name="dialog_routing_disclaimer_priority">— Le condizioni stradali, il codice della strada e la segnaletica hanno sempre la precedenza sulle indicazioni del navigatore;</string>
@@ -376,7 +372,6 @@
     <string name="not_now">Non ora</string>
     <string name="dialog_routing_download_and_build_cross_route">Vuoi scaricare la mappa e creare un percorso migliore che si estende su più mappe?</string>
     <string name="dialog_routing_download_cross_route">Scarica altre mappe per creare un percorso migliore che attraversi i confini di questa mappa.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Per iniziare a cercare e a creare i percorsi, scarica la mappa. Dopodiché non avrai più bisogno di una connessione a internet.</string>
     <string name="search_select_map">Seleziona mappa</string>
@@ -731,7 +726,6 @@
     <string name="moreyear_ago_sorttype">Più di un anno fa</string>
     <string name="near_me_sorttype">Vicino a me</string>
     <string name="others_sorttype">Altri</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Cibo</string>
     <string name="tourist_places">Luoghi turistici</string>

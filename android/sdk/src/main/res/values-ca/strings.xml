@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Uncategorized -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">MB</string>
@@ -38,4 +37,5 @@
     <string name="subway_data_unavailable">El mapa del metro no està disponible</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Regions descarregades liles</string>
+    <string name="routes_update_maps_text">Per mostrar els itineraris, cal actualitzar els mapes.</string>
 </resources>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Retour</string>
@@ -100,7 +99,6 @@
     <string name="measurement_units">Unités de mesure</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Choisir entre miles et kilomètres</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Un endroit pour manger</string>
@@ -146,7 +144,6 @@
     <string name="category_water">Eau</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Aménagements pour camping-car</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notes</string>
@@ -346,7 +343,6 @@
     <string name="pref_appearance_dark">Sombre</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Offrez des cartes gratuites et sans pub à des millions d\'utilisateurs !</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Lorsque vous suivez l\'itinéraire, gardez à l\'esprit les points suivants :</string>
     <string name="dialog_routing_disclaimer_priority">— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l\'appareil de navigation ;</string>
@@ -376,7 +372,6 @@
     <string name="not_now">Pas maintenant</string>
     <string name="dialog_routing_download_and_build_cross_route">Voulez-vous télécharger la carte et créer un itinéraire plus direct s\'étendant sur plus d\'une carte ?</string>
     <string name="dialog_routing_download_cross_route">Téléchargez des cartes pour créer un itinéraire plus direct sortant des limites de cette carte.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Pour commencer à rechercher et à créer des itinéraires, veuillez télécharger la carte. Après cela, vous n\'aurez plus besoin d\'une connexion Internet.</string>
     <string name="search_select_map">Sélectionner la carte</string>
@@ -493,7 +488,7 @@
     <string name="placepage_add_business_button">Ajouter une entreprise</string>
     <string name="message_invalid_feature_position">Aucun objet ne peut être localisé ici</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Données OpenStreetMap créées par la communauté en date du %s. Pour en savoir plus sur la façon de modifier et de mettre à jour la carte, consulte le site OpenStreetMap.org.</string>
+    <string name="osm_presentation">Données OpenStreetMap créées par la communauté en date du %s. Pour en savoir plus sur la façon de modifier et de mettre à jour la carte, consulte le site OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">OpenStreetMap.org (OSM) est un projet communautaire visant à créer une carte libre et ouverte. C\'est la principale source de données cartographiques d\'Organic Maps et son fonctionnement est similaire à celui de Wikipédia. Vous pouvez ajouter ou modifier des lieux et ils deviennent accessibles à des millions d\'utilisateurs dans le monde entier.\nRejoignez la communauté et aidez-nous à créer une meilleure carte pour tout le monde !</string>
     <string name="login_to_make_edits_visible">Créez un compte OpenStreetMap ou connectez-vous pour publier vos modifications de cartes dans le monde entier.</string>
@@ -510,7 +505,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Note aux volontaires OpenStreetMap (facultatif)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Décrivez les erreurs sur la carte ou les éléments qui ne peuvent pas être modifiés avec Organic Maps.</string>
+    <string name="editor_note_hint">Décrivez les erreurs sur la carte ou les éléments qui ne peuvent pas être modifiés avec Organic Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Vos modifications sont téléchargées dans la base de données publique <a href="https://wiki.openstreetmap.org/wiki/FR:À_propos_d’OpenStreetMap">OpenStreetMap</a>. Veuillez ne pas ajouter d\'informations personnelles ou protégées par le droit d\'auteur.</string>
     <string name="editor_more_about_osm">En savoir plus sur OpenStreetMap</string>
@@ -522,7 +517,7 @@
     <string name="editor_category_unsuitable_title">Tu ne trouves pas de catégorie appropriée ?</string>
     <string name="editor_category_unsuitable_text">Organic Maps ne permet d\'ajouter que des catégories de points simples, c\'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d\'ajouter ces catégories directement sur <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte notre <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> pour obtenir des instructions détaillées étape par étape.</string>
     <string name="downloader_no_downloaded_maps_title">Vous n\'avez téléchargé aucune carte</string>
-    <string name="downloader_no_downloaded_maps_message">Téléchargez des cartes pour rechercher un lieu et utiliser la navigation hors ligne</string>
+    <string name="downloader_no_downloaded_maps_message">Téléchargez des cartes pour rechercher un lieu et utiliser la navigation hors ligne.</string>
     <string name="current_location_unknown_error_title">L\'emplacement actuel est inconnu.</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/h</string>
@@ -610,6 +605,7 @@
     <string name="bookmark_lists_show_all">Tout afficher</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d signet</item>
+        <item quantity="many">%d signets</item>
         <item quantity="other">%d signets</item>
     </plurals>
     <string name="bookmarks_create_new_group">Créer une nouvelle liste</string>
@@ -671,7 +667,7 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">Jamais avertir</string>
     <string name="power_managment_title">Mode économie d\'énergie</string>
-    <string name="power_managment_description">Si le mode d\'économie d\'énergie est activé, l\'application désactive les fonctions consommant de l\'énergie en fonction de la charge actuelle du téléphone</string>
+    <string name="power_managment_description">Si le mode d\'économie d\'énergie est activé, l\'application désactive les fonctions consommant de l\'énergie en fonction de la charge actuelle du téléphone.</string>
     <string name="power_managment_setting_never">Jamais</string>
     <string name="power_managment_setting_auto">Automatique</string>
     <string name="power_managment_setting_manual_max">Économie d\'énergie maximale</string>
@@ -730,7 +726,6 @@
     <string name="moreyear_ago_sorttype">Il y a plus d\'un an</string>
     <string name="near_me_sorttype">Près de moi</string>
     <string name="others_sorttype">Autres</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Aliments</string>
     <string name="tourist_places">Choses à voir</string>
