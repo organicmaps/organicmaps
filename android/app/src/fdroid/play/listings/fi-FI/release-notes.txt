@@ -1,9 +1,10 @@
-• UUTTA: Korkeamman kontrastin tumman teeman värit
-• UUTTA: Google Assistant navigointiin ja hakuun
-• OSM-karttatiedot 11. tammikuuta
-• "Auto"-navigointiteeman asetus noudattaa järjestelmän tummaa/vaaleaa tilaa
-• Ohuemmat metrolinjat
-• Hakutulokset näyttävät moottoripyöräpysäköinnin, polkupyörävuokrauksen, polkupyörien latauksen ja autojen latauksen kapasiteetin
-• Näytä kerrostaso hakutuloksissa
-• Albanialaiset käännökset ja TTS-ääniopastus
+• Nopeampi reititys pitkille matkoille
+• Tuoreet OSM-karttatiedot 25. tammikuuta alkaen
+• GeoJSON-vienti
+• Laajennetut aukioloajat
+• Sovelluksen vaalea/tumma teema jaettu Ulkoasu- ja Navigointi-asetuksiin
+• Kirjanmerkin värin vaihtaminen luettelosta
+• Parempi vaakanäkymä valitulle paikalle kartalla
+• Korjattu toimimaton muokkain paikoissa, joissa on virheellinen puhelinnumero
+• Korjattu useita kaatumisia ja käyttöliittymävirheitä
 …lisää osoitteessa omaps.org/news

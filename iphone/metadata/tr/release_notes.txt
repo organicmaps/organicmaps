@@ -1,16 +1,7 @@
-• YENİ: Daha yüksek kontrastlı koyu tema renkleri
-• OpenStreetMap verileri güncellendi (11 Ocak)
-• Kumarhaneler "Eğlence" kategorisinden çıkarıldı
-• Metro hatlarının kalınlığı azaltıldı
-• Motosiklet park yeri, bisiklet kiralama, bisiklet şarjı ve araç şarjı için arama sonuçlarına kapasite bilgisi eklendi
-• Arama sonuçlarında kat bilgisini göster
-• Daha geniş rota planlama düğmeleri
+• Ülkeler arası rotalar daha hızlı oluşturuluyor ve artık hafıza yetersizliği çökmelerine neden olmuyor
+• 25 Ocak itibariyle güncellenmiş OpenStreetMap verileri
+• Yer imleri ve izler için GeoJSON dışa aktarma desteği
+• Kullanılmayan köprüler için eksik çeviriler eklendi
+• Çeviriler düzeltildi ve güncellendi
 
-### Çeviriler
-
-• Arnavutça uygulama çevirileri ve sesli yönlendirme eklendi
-• SSS güncellendi ve Arapça, Çekçe, Felemenkçe, Farsça, Yunanca, İbranice, Hintçe, Macarca, Endonezce, İtalyanca, Litvanca, Marathi, İsveççe, Telugu dilleri için SSS çevirileri eklendi
-• Almanca uygulama ve SSS çevirileri iyileştirildi
-• Bulgarca arama eşanlamlıları eklendi
-• Netlik için "Yakınlaştırma düğmeleri" ayarı yeniden adlandırıldı
-• Çeşitli diller için Weblate katkıda bulunanlardan çeviri düzeltmeleri
+Organic Maps'e katkıda bulunan, bağış yapan ve destekleyen herkese teşekkürler! En iyi haritaları birlikte oluşturalım!

@@ -1,16 +1,7 @@
-• NOVETAT: Colors del tema fosc amb més contrast
-• Dades d’OpenStreetMap actualitzades (11 de gener)
-• Exclosos els casinos de la categoria "Entreteniment"
-• Reduït el gruix de les línies de metro
-• Afegida informació de capacitat als resultats de cerca per a aparcaments de motos, lloguer de bicicletes, càrrega de bicicletes i càrrega de cotxes
-• Mostra el nivell del pis als resultats de cerca
-• Botons de planificació de rutes més amples
+• Les rutes entre països es creen més ràpidament i ja no causen problemes de memòria
+• Dades d'OpenStreetMap actualitzades a 25 de gener
+• Suport per a l'exportació GeoJSON per a marcadors i rutes
+• Afegides traduccions mancants per a ponts en desús
+• Traduccions corregides i actualitzades
 
-### Traduccions
-
-• Afegides traduccions de l'aplicació i guiatge per veu en albanès
-• Actualitzades les PMF i afegides traduccions de les PMF per a àrab, txec, neerlandès, farsi, grec, hebreu, hindi, hongarès, indonesi, italià, lituà, marathi, suec i telugu
-• Millorades les traduccions de l'aplicació i de les PMF en alemany
-• Afegits sinònims de cerca en búlgar
-• Canviat el nom de la configuració "Botons de zoom" per a més claredat
-• Correccions de traducció dels col·laboradors de Weblate per a diversos idiomes
+Gràcies a tothom qui contribueix, fa donatius i dóna suport a Organic Maps! Construïm els millors mapes junts!

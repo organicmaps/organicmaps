@@ -1,16 +1,7 @@
-• NEW: Higher-contrast dark theme colours
-• Updated OpenStreetMap data (11 January)
-• Excluded casinos from the “Entertainment” category
-• Reduced the thickness of subway lines
-• Added capacity information to search results for motorcycle parking, bicycle rental, bicycle charging, and car charging
-• Show floor level in search results
-• Wider route planning buttons
+• Routes between countries are created faster and no longer cause out-of-memory crashes
+• Updated OpenStreetMap data as of January 25
+• GeoJSON export support for bookmarks and tracks
+• Added missing translations for disused bridges
+• Fixed and updated translations
 
-### Translations
-
-• Added Albanian app translations and TTS voice guidance
-• Updated the FAQ and added FAQ translations for Arabic, Czech, Dutch, Farsi, Greek, Hebrew, Hindi, Hungarian, Indonesian, Italian, Lithuanian, Marathi, Swedish, Telugu
-• Improved German app and FAQ translations
-• Added Bulgarian search synonyms
-• Renamed the “Zoom buttons” setting for clarity
-• Translation fixes from Weblate contributors for various languages
+Thanks to everyone who is contributing, donating and supporting Organic Maps! Let's build the best maps together!

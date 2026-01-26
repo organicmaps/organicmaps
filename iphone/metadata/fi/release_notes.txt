@@ -1,16 +1,7 @@
-• UUTTA: Tumman teeman värit korkeammalla kontrastilla
-• Päivitetyt OpenStreetMap-tiedot (11. tammikuuta)
-• Yökerhot/kasinot poistettu Viihde-kategoriasta
-• Metrolinjojen paksuutta pienennetty
-• Lisätty kapasiteettitiedot hakutuloksiin moottoripyöräparkeille, pyörävuokraamoille sekä pyörien ja autojen latauspisteille
-• Näytä kerrosnumero hakutuloksissa
-• Leveämmät reittisuunnittelun painikkeet
+• Reitit maiden välillä luodaan nopeammin eivätkä ne enää aiheuta muistin loppumisesta johtuvia kaatumisia
+• Päivitetty OpenStreetMap-aineisto 25. tammikuuta
+• GeoJSON-viennin tuki kirjanmerkeille ja jäljille
+• Lisätty puuttuvia käännöksiä käytöstä poistetuille silloille
+• Korjattu ja päivitetty käännöksiä
 
-### Käännökset
-
-• Lisätty Albanian sovelluskäännökset ja puheopastus
-• Päivitetty UKK ja lisätty UKK-käännökset seuraaville kielille: arabia, tšekki, hollanti, persia, kreikka, heprea, hindi, unkari, indonesia, italia, liettua, marathi, ruotsi, telugu
-• Parannettu saksan sovellus- ja UKK-käännöksiä
-• Lisätty bulgarian hakusynonyymejä
-• Nimetty "Zoomauspainikkeet"-asetus uudelleen selkeyden vuoksi
-• Käännöskorjauksia Weblate-avustajilta useille kielille
+Kiitos kaikille, jotka osallistuvat, lahjoittavat ja tukevat Organic Mapsia! Rakennetaan parhaat kartat yhdessä!

@@ -1,8 +1,10 @@
-• NAUJIENA: Didesnio kontrasto tamsios temos spalvos
-• NAUJIENA: „Google Assistant“ navigacijai ir paieškai
-• OSM žemėlapio duomenys nuo sausio 11 d.
-• „Auto“ navigacijos temos nustatymas vadovaujasi sistemos tamsiu / šviesiu režimu
-• Plonesnės metro linijos
-• Paieškos rezultatuose rodoma motociklų stovėjimo, dviračių nuomos, dviračių įkrovimo ir automobilių įkrovimo vietų talpa
-• Rodyti aukšto lygį paieškos rezultatuose
-…daugiau adresu omaps.org/lt/news
+• Greitesnis maršruto parinkimas ilgiems atstumams
+• Nauji OSM žemėlapio duomenys (sausio 25 d.)
+• GeoJSON eksportas
+• Išplėstas darbo laikas
+• Programėlės šviesios / tamsios temos parinktis padalinta į Išvaizdos ir Navigacijos nustatymus
+• Žymės spalvos keitimas iš sąrašo
+• Patobulinta gulsčia sąsaja pasirinktai vietai žemėlapyje
+• Pataisytas neveikiantis redaktorius vietoms su neteisingais telefono numeriais
+• Pataisyti įvairūs strigimai ir sąsajos trikdžiai
+…daugiau omaps.org/news

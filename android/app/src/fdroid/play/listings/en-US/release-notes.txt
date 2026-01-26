@@ -1,11 +1,11 @@
-• NEW: Higher-contrast dark theme colors
-• NEW: Google Assistant for navigation and search
-• OSM map data as of January 11
-• “Auto” navigation theme setting follows the system dark/light mode
-• Thinner subway lines
-• Search results show capacity for motorcycle parking, bicycle rental, bicycle charging, and car charging
-• Show floor level in search results
-• Albanian translations and TTS voice guidance
-• Updated FAQ and app translations
-• Fixed crashes
+• Faster routing for long cross-country routes
+• Fresh OSM map data as of January 25
+• GeoJSON export
+• Expanded opening hours
+• Split the Light/Dark app theme option into Appearance and Navigation settings
+• Change bookmark color from a list
+• Improved landscape UI for a selected place on the map
+• Fixed a non-working editor for places with invalid phone numbers
+• Fixed several crashes and UI glitches
+• Fixed “Not Enough Free Space” error
 …more at omaps.org/news

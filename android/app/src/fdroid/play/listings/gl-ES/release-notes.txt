@@ -1,8 +1,9 @@
-• NOVO: Cores do tema escuro de maior contraste
-• NOVO: Google Assistant para navegación e busca
-• Datos do mapa OSM a 11 de xaneiro
-• A configuración do tema de navegación "Auto" segue o modo escuro/claro do sistema
-• Liñas de metro máis finas
-• Os resultados da busca mostran a capacidade para aparcamento de motocicletas, aluguer de bicicletas, carga de bicicletas e carga de automóbiles
-• Mostrar o nivel do andar nos resultados da busca
-…máis en omaps.org/gl/news
+• Enrutamento máis rápido para rutas longas
+• Datos de mapas OSM actualizados ao 25 de xaneiro
+• Exportación GeoJSON
+• Horario de apertura ampliado
+• Dividida a opción de tema claro/escuro en axustes de Aparencia e Navegación
+• Cambio de cor do marcador dende unha lista
+• Mellora da interface horizontal para un lugar seleccionado no mapa
+• Arranxado o editor que non funcionaba para lugares con números de teléfono non válidos
+…máis en omaps.org/news

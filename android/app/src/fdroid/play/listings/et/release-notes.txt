@@ -1,9 +1,10 @@
-• UUS: Suurema kontrastsusega tumeda teema värvid
-• Google Assistant navigeerimiseks ja otsinguks
-• OSM kaardiandmed seisuga 11. jaanuar
-• Navigeerimisteema säte "Automaatne" järgib süsteemi tumedat/heledat režiimi
-• Peenemad metrooliinid
-• Otsingutulemused näitavad mootorrataste parkimise, jalgrattarendi, jalgrataste laadimise ja autode laadimise mahtu
-• Näita korruse taset otsingutulemustes
-• Albaania tõlked ja TTS hääljuhised
-…rohkem aadressil omaps.org/et/news
+• Kiirem marsruutimine pikkadel maastikureisidel
+• Värsked OSM kaardiandmed seisuga 25. jaanuar
+• GeoJSON eksport
+• Laiendatud lahtiolekuajad
+• Rakenduse heleda/tumeda teema valik jaotati välimuse ja navigeerimise sätete vahel
+• Järjehoidja värvi muutmine loendist
+• Parem rõhtpaigutuse kasutajaliides valitud koha jaoks kaardil
+• Parandatud mittetöötav redaktor kehtetute telefoninumbritega kohtade jaoks
+• Parandatud mitmed kukkumised ja kasutajaliidese vead
+…rohkem aadressil omaps.org/news

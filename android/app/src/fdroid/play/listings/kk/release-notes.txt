@@ -1,9 +1,10 @@
-• JANA: Joğary kontrastty qara taqyryp tüsteri
-• JANA: Navigaçija jäne izdeu üşin Google Assistant
-• 11 qańtardağı OSM karta derekteri
-• "Avto" navigaçija taqyryby jújesi sistemanıń qara/jaryq rejimine säikes keledi
-• Juqa metro jelileri
-• Izdeu nätijeleri motosikl turağı, velosiped jalğa alu, velosipedti qattau jäne kòlikti qattau syiymdylyğın kòrsetedi
-• Izdeu nätijelerinde qabat deńgeiin kòrsetu
-• Alban audarmalary jäne TTS dauystyq nusqau
-…толығырақ omaps.org/news
+• Ұзақ жолдар үшін жылдамырақ бағыттау
+• 25 қаңтардағы жаңа OSM карта деректері
+• GeoJSON экспорты
+• Жұмыс уақыты кеңейтілді
+• Қолданбаның Жарық/Қараңғы тақырып опциясы Сыртқы көрініс және Навигация параметрлеріне бөлінді
+• Тізімнен бетбелгі түсін өзгерту
+• Картада таңдалған орын үшін жақсартылған көлденең интерфейс
+• Жарамсыз телефон нөмірлері бар орындар үшін жұмыс істемейтін редактор түзетілді
+• Бірнеше бұзылулар мен интерфейс ақаулары түзетілді
+…толығырақ omaps.org/news сайтында

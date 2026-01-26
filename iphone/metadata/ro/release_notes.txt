@@ -1,16 +1,7 @@
-• NOU: Culori cu contrast mai mare pentru tema întunecată
-• Date OpenStreetMap actualizate (11 ianuarie)
-• Cazinouri excluse din categoria „Divertisment”
-• S-a redus grosimea liniilor de metrou
-• S-au adăugat informații despre capacitate în rezultatele căutării pentru parcări motociclete, închirieri biciclete, încărcare biciclete și încărcare mașini
-• Afișare etaj în rezultatele căutării
-• Butoane de planificare a rutei mai largi
+• Rutele între țări sunt create mai rapid și nu mai cauzează blocaje din cauza lipsei de memorie
+• Date OpenStreetMap actualizate la 25 ianuarie
+• Suport export GeoJSON pentru marcaje și trasee
+• S-au adăugat traduceri lipsă pentru podurile dezafectate
+• Traduceri corectate și actualizate
 
-### Traduceri
-
-• S-au adăugat traduceri ale aplicației și ghidare vocală în albaneză
-• S-au actualizat întrebările frecvente și s-au adăugat traduceri pentru arabă, cehă, olandeză, farsi, greacă, ebraică, hindi, maghiară, indoneziană, italiană, lituaniană, marathi, suedeză, telugu
-• S-au îmbunătățit traducerile aplicației și ale întrebărilor frecvente în germană
-• S-au adăugat sinonime de căutare în bulgară
-• S-a redenumit setarea „Butoane zoom” pentru claritate
-• Corecții de traducere de la contribuitorii Weblate pentru diverse limbi
+Mulțumim tuturor celor care contribuie, donează și susțin Organic Maps! Să construim împreună cele mai bune hărți!

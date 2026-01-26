@@ -1,11 +1,11 @@
-• NYHET: Mörkare temafärger med högre kontrast
-• NYHET: Google Assistant för navigering och sökning
-• OSM-kartdata från 11 januari
-• Navigeringstemainställningen "Auto" följer systemets mörka/ljusa läge
-• Tunnare tunnelbanelinjer
-• Sökresultat visar kapacitet för motorcykelparkering, cykeluthyrning, cykelladdning och billaddning
-• Visa våningsplan i sökresultat
-• Albanska översättningar och TTS-röstguidning
-• Uppdaterade FAQ och appöversättningar
-• Fixade krascher
-…mer på omaps.org/sv/news
+• Snabbare ruttberäkning för långa resor
+• Färska OSM-kartdata från 25 januari
+• GeoJSON-export
+• Utökade öppettider
+• Delade upp appens ljust/mörkt tema-alternativ i Utseende- och Navigeringsinställningar
+• Ändra bokmärkesfärg från en lista
+• Förbättrat liggande gränssnitt för en vald plats på kartan
+• Fixade en icke-fungerande redigerare för platser med ogiltiga telefonnummer
+• Fixade flera krascher och UI-fel
+• Fixade felet "Inte tillräckligt med ledigt utrymme"
+…mer på omaps.org/news

@@ -1,16 +1,7 @@
-• NOWOŚĆ: Kolory ciemnego motywu o wyższym kontraście
-• Zaktualizowane dane OpenStreetMap (11 stycznia)
-• Wyłączono kasyna z kategorii „Rozrywka”
-• Zmniejszono grubość linii metra
-• Dodano informacje o pojemności do wyników wyszukiwania parkingów motocyklowych, wypożyczalni rowerów, ładowania rowerów i ładowania samochodów
-• Pokazywanie piętra w wynikach wyszukiwania
-• Szersze przyciski planowania trasy
+• Trasy między krajami są tworzone szybciej i nie powodują już awarii z powodu braku pamięci
+• Zaktualizowane dane OpenStreetMap na dzień 25 stycznia
+• Obsługa eksportu GeoJSON dla zakładek i śladów
+• Dodano brakujące tłumaczenia dla nieużywanych mostów
+• Poprawiono i zaktualizowano tłumaczenia
 
-### Tłumaczenia
-
-• Dodano albańskie tłumaczenia aplikacji i wskazówki głosowe
-• Zaktualizowano FAQ i dodano tłumaczenia FAQ na arabski, czeski, holenderski, perski, grecki, hebrajski, hindi, węgierski, indonezyjski, włoski, litewski, marathi, szwedzki, telugu
-• Ulepszono niemieckie tłumaczenia aplikacji i FAQ
-• Dodano bułgarskie synonimy wyszukiwania
-• Zmieniono nazwę ustawienia „Przyciski powiększania” dla jasności
-• Poprawki tłumaczeń od współtwórców Weblate dla różnych języków
+Dziękujemy wszystkim, którzy pomagają, przekazują datki i wspierają Organic Maps! Zbudujmy razem najlepsze mapy!

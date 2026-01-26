@@ -1,8 +1,10 @@
-• NOU: Culori cu contrast mai mare pentru tema întunecată
-• NOU: Google Assistant pentru navigare și căutare
-• Datele hărții OSM la 11 ianuarie
-• Setarea temei de navigare „Auto” urmează modul întunecat/luminos al sistemului
-• Linii de metrou mai subțiri
-• Rezultatele căutării arată capacitatea pentru parcarea motocicletelor, închirierea de biciclete, încărcarea bicicletelor și încărcarea mașinilor
-• Afișați nivelul etajului în rezultatele căutării
-…mai mult la omaps.org/news
+• Rutare mai rapidă pentru trasee lungi
+• Date de hartă OSM recente de la 25 ianuarie
+• Export GeoJSON
+• Program de lucru extins
+• Opțiunea temă Luminoasă/Întunecată a fost împărțită în setări de Aspect și Navigare
+• Schimbarea culorii marcajului dintr-o listă
+• Interfață landscape îmbunătățită pentru un loc selectat pe hartă
+• Editor reparat pentru locuri cu numere de telefon nevalide
+• Mai multe blocări și erori de interfață reparate
+…mai multe la omaps.org/news

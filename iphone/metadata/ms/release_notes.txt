@@ -1,16 +1,7 @@
-• BARU: Warna tema gelap kontras lebih tinggi
-• Data OpenStreetMap dikemas kini (11 Januari)
-• Kasino dikecualikan daripada kategori "Hiburan"
-• Mengurangkan ketebalan laluan kereta api bawah tanah
-• Menambah maklumat kapasiti pada hasil carian untuk tempat letak motosikal, sewaan basikal, pengecasan basikal dan pengecasan kereta
-• Tunjukkan tingkat dalam hasil carian
-• Butang perancangan laluan yang lebih lebar
+• Laluan antara negara dibuat lebih pantas dan tidak lagi menyebabkan kerosakan memori
+• Data OpenStreetMap dikemas kini pada 25 Januari
+• Sokongan eksport GeoJSON untuk penanda buku dan jejak
+• Menambah terjemahan yang hilang untuk jambatan yang tidak digunakan
+• Terjemahan diperbaiki dan dikemas kini
 
-### Terjemahan
-
-• Menambah terjemahan aplikasi dan panduan suara bahasa Albania
-• Mengemas kini Soalan Lazim (FAQ) dan menambah terjemahan untuk bahasa Arab, Czech, Belanda, Farsi, Yunani, Ibrani, Hindi, Hungary, Indonesia, Itali, Lithuania, Marathi, Sweden, Telugu
-• Menambah baik terjemahan aplikasi dan FAQ bahasa Jerman
-• Menambah sinonim carian bahasa Bulgaria
-• Menamakan semula tetapan "Butang zum" untuk lebih jelas
-• Pembetulan terjemahan daripada penyumbang Weblate untuk pelbagai bahasa
+Terima kasih kepada semua yang menyumbang, menderma dan menyokong Organic Maps! Mari kita bina peta terbaik bersama!

@@ -1,16 +1,7 @@
-• NUEVO: Colores de tema oscuro con mayor contraste
-• Datos de OpenStreetMap actualizados (11 de enero)
-• Se excluyeron los casinos de la categoría "Entretenimiento"
-• Se redujo el grosor de las líneas del metro
-• Se agregó información de capacidad a los resultados de búsqueda para estacionamiento de motocicletas, alquiler de bicicletas, carga de bicicletas y carga de automóviles
-• Mostrar el nivel del piso en los resultados de búsqueda
-• Botones de planificación de rutas más anchos
+• Las rutas entre países se crean más rápido y ya no causan bloqueos por falta de memoria
+• Datos de OpenStreetMap actualizados al 25 de enero
+• Soporte de exportación GeoJSON para marcadores y rutas
+• Añadidas traducciones faltantes para puentes en desuso
+• Traducciones corregidas y actualizadas
 
-### Traducciones
-
-• Se agregaron traducciones de la aplicación y guía de voz en albanés
-• Se actualizaron las preguntas frecuentes (FAQ) y se agregaron traducciones para árabe, checo, holandés, persa, griego, hebreo, hindi, húngaro, indonesio, italiano, lituano, marathi, sueco y telugu
-• Mejoradas las traducciones de la aplicación y FAQ en alemán
-• Se agregaron sinónimos de búsqueda en búlgaro
-• Se renombró la configuración "Botones de zoom" para mayor claridad
-• Correcciones de traducción de colaboradores de Weblate para varios idiomas
+¡Gracias a todos los que contribuyen, donan y apoyan a Organic Maps! ¡Construyamos los mejores mapas juntos!

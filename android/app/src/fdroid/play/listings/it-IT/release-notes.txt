@@ -1,8 +1,9 @@
-• NUOVO: Colori del tema scuro a contrasto più elevato
-• NUOVO: Google Assistant per navigazione e ricerca
-• Dati mappe OSM aggiornati all'11 gennaio
-• L'impostazione del tema di navigazione "Auto" segue la modalità scura/chiara del sistema
-• Linee della metropolitana più sottili
-• I risultati di ricerca mostrano la capacità per parcheggio moto, noleggio bici, ricarica bici e ricarica auto
-• Mostra il piano nei risultati di ricerca
-…altro su omaps.org/it/news
+• Calcolo del percorso più veloce per lunghi viaggi
+• Dati mappa OSM aggiornati al 25 gennaio
+• Esportazione GeoJSON
+• Orari di apertura estesi
+• L'opzione tema chiaro/scuro è stata divisa nelle impostazioni Aspetto e Navigazione
+• Modifica colore dei segnalibri da un elenco
+• Interfaccia orizzontale migliorata per un luogo selezionato sulla mappa
+• Corretto l'editor non funzionante per luoghi con numeri di telefono non validi
+…altro su omaps.org/news

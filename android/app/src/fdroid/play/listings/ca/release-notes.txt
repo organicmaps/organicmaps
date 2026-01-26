@@ -1,8 +1,9 @@
-• NOU: Colors del tema fosc de més contrast
-• NOU: Google Assistant per a la navegació i cerca
-• Dades del mapa OSM de l'11 de gener
-• La configuració del tema de navegació "Auto" segueix el mode fosc/clar del sistema
-• Línies de metro més primes
-• Els resultats de la cerca mostren la capacitat per a l'aparcament de motocicletes, lloguer de bicicletes, càrrega de bicicletes i càrrega de cotxes
-• Mostra el nivell del pis als resultats de la cerca
-…més a omaps.org/ca/news
+• Enrutament més ràpid per a rutes llargues a través del país
+• Dades del mapa OSM actualitzades a 25 de gener
+• Exportació GeoJSON
+• Horari d'obertura ampliat
+• S'ha dividit l'opció de tema clar/fosc de l'aplicació en configuració d'Aparença i Navegació
+• Canvi del color del marcador des d'una llista
+• Interfície d'usuari horitzontal millorada per a un lloc seleccionat al mapa
+• S'ha corregit un editor que no funcionava per a llocs amb números de telèfon no vàlids
+…més a omaps.org/news

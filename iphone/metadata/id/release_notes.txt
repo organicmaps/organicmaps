@@ -1,16 +1,7 @@
-• BARU: Warna tema gelap dengan kontras lebih tinggi
-• Data OpenStreetMap diperbarui (11 Januari)
-• Kasino dikecualikan dari kategori "Hiburan"
-• Ketebalan jalur kereta bawah tanah dikurangi
-• Informasi kapasitas ditambahkan ke hasil pencarian untuk parkir sepeda motor, penyewaan sepeda, pengisian daya sepeda, dan pengisian daya mobil
-• Tampilkan tingkat lantai di hasil pencarian
-• Tombol perencanaan rute yang lebih lebar
+• Rute antar negara dibuat lebih cepat dan tidak lagi menyebabkan kerusakan akibat kehabisan memori
+• Data OpenStreetMap diperbarui per 25 Januari
+• Dukungan ekspor GeoJSON untuk penanda dan jejak
+• Menambahkan terjemahan yang hilang untuk jembatan yang tidak digunakan
+• Perbaikan dan pembaruan terjemahan
 
-### Terjemahan
-
-• Menambahkan terjemahan aplikasi dan panduan suara bahasa Albania
-• Memperbarui FAQ dan menambahkan terjemahan FAQ untuk bahasa Arab, Ceko, Belanda, Farsi, Yunani, Ibrani, Hindi, Hungaria, Indonesia, Italia, Lithuania, Marathi, Swedia, Telugu
-• Meningkatkan terjemahan aplikasi dan FAQ bahasa Jerman
-• Menambahkan sinonim pencarian bahasa Bulgaria
-• Mengubah nama pengaturan "Tombol zoom" demi kejelasan
-• Perbaikan terjemahan dari kontributor Weblate untuk berbagai bahasa
+Terima kasih kepada semua yang berkontribusi, mendonasikan, dan mendukung Organic Maps! Mari kita buat peta terbaik bersama!

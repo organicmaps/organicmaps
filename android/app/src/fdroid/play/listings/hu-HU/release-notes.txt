@@ -1,9 +1,10 @@
-• ÚJ: Nagyobb kontrasztú sötét téma színek
-• ÚJ: Google Assistant navigációhoz és kereséshez
-• OSM térképadatok január 11-i állapot szerint
-• Az „Auto” navigációs téma beállítás követi a rendszer sötét/világos módját
-• Vékonyabb metróvonalak
-• A keresési eredmények mutatják a motorkerékpár-parkoló, kerékpárkölcsönző, kerékpártöltő és autótöltő kapacitását
-• Emeletszint megjelenítése a keresési eredményekben
-• Albán fordítások és TTS hangos navigáció
-…továbbiak itt omaps.org/hu/news
+• Gyorsabb útvonaltervezés hosszú távú utakhoz
+• Friss OSM térképadatok január 25-i állapot szerint
+• GeoJSON exportálás
+• Bővített nyitvatartási idő
+• A Világos/Sötét téma opció szétválasztása Megjelenés és Navigáció beállításokra
+• Könyvjelző színének módosítása listából
+• Javított fekvő tájolású felület a térképen kiválasztott helyhez
+• Javítva a nem működő szerkesztő érvénytelen telefonszámú helyeknél
+• Számos összeomlás és felületi hiba javítva
+…továbbiak az omaps.org/news oldalon

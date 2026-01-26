@@ -1,16 +1,7 @@
-• NOVO: Cores de tema escuro com maior contraste
-• Dados do OpenStreetMap atualizados (11 de janeiro)
-• Cassinos excluídos da categoria "Entretenimento"
-• Reduzida a espessura das linhas de metrô
-• Adicionada informação de capacidade aos resultados de busca para estacionamento de motos, aluguel de bicicletas, carregamento de bicicletas e carregamento de carros
-• Mostrar o nível do andar nos resultados de busca
-• Botões de planejamento de rota mais largos
+• Rotas entre países são criadas mais rapidamente e não causam mais falhas de falta de memória
+• Dados do OpenStreetMap atualizados em 25 de janeiro
+• Suporte à exportação GeoJSON para marcadores e trilhas
+• Adicionadas traduções ausentes para pontes desativadas
+• Traduções corrigidas e atualizadas
 
-### Traduções
-
-• Adicionadas traduções do aplicativo e orientação por voz em albanês
-• FAQ atualizado e adicionadas traduções do FAQ para árabe, tcheco, holandês, farsi, grego, hebraico, hindi, húngaro, indonésio, italiano, lituano, marathi, sueco e telugu
-• Melhoradas as traduções do aplicativo e FAQ em alemão
-• Adicionados sinônimos de busca em búlgaro
-• Renomeada a configuração "Botões de zoom" para maior clareza
-• Correções de tradução de colaboradores do Weblate para vários idiomas
+Obrigado a todos que contribuem, doam e apoiam o Organic Maps! Vamos construir os melhores mapas juntos!

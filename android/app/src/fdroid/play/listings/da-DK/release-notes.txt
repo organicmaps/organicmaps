@@ -1,11 +1,11 @@
-• NYHED: Højere kontrast mørke temafarver
-• NYHED: Google Assistant til navigation og søgning
-• OSM-kortdata pr. 11. januar
-• Indstillingen "Auto" navigationstema følger systemets mørke/lyse tilstand
-• Tyndere metrolinjer
-• Søgeresultater viser kapacitet for motorcykelparkering, cykeludlejning, cykelopladning og bilopladning
-• Vis etageniveau i søgeresultater
-• Albanske oversættelser og TTS stemmevejledning
-• Opdaterede FAQ og app-oversættelser
-• Rettede nedbrud
+• Hurtigere ruteberegning for lange ture på tværs af landet
+• Nye OSM-kortdata fra 25. januar
+• GeoJSON-eksport
+• Udvidede åbningstider
+• Opdelt appens lyst/mørkt tema i indstillinger for Udseende og Navigation
+• Skift bogmærkefarve fra en liste
+• Forbedret liggende visning for et valgt sted på kortet
+• Rettet en ikke-fungerende editor for steder med ugyldige telefonnumre
+• Rettet adskillige nedbrud og UI-fejl
+• Rettet fejlen "Ikke nok ledig plads"
 …mere på omaps.org/news
