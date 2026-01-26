@@ -1,8 +1,10 @@
-• NOVO: Barve temne teme z višjim kontrastom
-• NOVO: Google Assistant za navigacijo in iskanje
-• Podatki zemljevida OSM z dne 11. januarja
-• Nastavitev navigacijske teme »Samodejno« sledi sistemskemu temnemu/svetlemu načinu
-• Tanjše linije podzemne železnice
-• Rezultati iskanja prikazujejo zmogljivost za parkiranje motornih koles, izposojo koles, polnjenje koles in polnjenje avtomobilov
-• Prikaži nivo nadstropja v rezultatih iskanja
+• Hitrejše usmerjanje za dolge poti
+• Sveži podatki zemljevida OSM z dne 25. januarja
+• Izvoz GeoJSON
+• Razširjen delovni čas
+• Možnost svetle/temne teme aplikacije razdeljena na nastavitve Videz in Navigacija
+• Spreminjanje barve zaznamka s seznama
+• Izboljšan ležeči vmesnik za izbrano mesto na zemljevidu
+• Popravljen nedelujoč urejevalnik za mesta z neveljavnimi telefonskimi številkami
+• Popravljenih več zrušitev in napak v vmesniku
 …več na omaps.org/news

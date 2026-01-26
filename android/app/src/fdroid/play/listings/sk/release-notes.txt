@@ -1,9 +1,10 @@
-• NOVÉ: Kontrastnejšie farby tmavej témy
-• NOVÉ: Google Assistant pre navigáciu a vyhľadávanie
-• Mapové údaje OSM k 11. januáru
-• Nastavenie témy navigácie „Auto“ sa riadi systémovým tmavým/svetlým režimom
-• Tenšie linky metra
-• Výsledky vyhľadávania zobrazujú kapacitu pre parkovanie motocyklov, požičovňu bicyklov, nabíjanie bicyklov a nabíjanie áut
-• Zobraziť úroveň podlažia vo výsledkoch vyhľadávania
-• Albánske preklady a hlasové navádzanie TTS
+• Rýchlejšie plánovanie trás pre dlhé cesty
+• Čerstvé údaje mapy OSM k 25. januáru
+• Export GeoJSON
+• Rozšírené otváracie hodiny
+• Rozdelenie voľby svetlej/tmavej témy aplikácie do nastavení Vzhľad a Navigácia
+• Zmena farby záložky zo zoznamu
+• Vylepšené používateľské rozhranie na šírku pre vybrané miesto na mape
+• Opravený nefunkčný editor pre miesta s neplatnými telefónnymi číslami
+• Opravené viaceré pády a chyby v používateľskom rozhraní
 …viac na omaps.org/news

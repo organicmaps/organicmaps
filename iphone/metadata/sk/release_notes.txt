@@ -1,16 +1,7 @@
-• NOVINKA: Farby tmavého motívu s vyšším kontrastom
-• Aktualizované údaje OpenStreetMap (11. januára)
-• Kasína vylúčené z kategórie „Zábava“
-• Znížená hrúbka liniek metra
-• Pridané informácie o kapacite do výsledkov vyhľadávania pre parkovanie motocyklov, požičovne bicyklov, nabíjanie bicyklov a nabíjanie áut
-• Zobrazenie poschodia vo výsledkoch vyhľadávania
-• Širšie tlačidlá na plánovanie trasy
+• Trasy medzi krajinami sa vytvárajú rýchlejšie a nespôsobujú pády kvôli nedostatku pamäte
+• Aktualizované údaje OpenStreetMap k 25. januáru
+• Podpora exportu GeoJSON pre záložky a trasy
+• Pridané chýbajúce preklady pre nepoužívané mosty
+• Opravené a aktualizované preklady
 
-### Preklady
-
-• Pridaný preklad aplikácie a hlasová navigácia do albánčiny
-• Aktualizované Často kladené otázky (FAQ) a pridané preklady pre arabčinu, češtinu, holandčinu, perzštinu, gréčtinu, hebrejčinu, hindčinu, maďarčinu, indonézštinu, taliančinu, litovčinu, maráthčinu, švédčinu a telugčinu
-• Vylepšené nemecké preklady aplikácie a FAQ
-• Pridané bulharské synonymá pre vyhľadávanie
-• Premenované nastavenie „Tlačidlá priblíženia“ pre lepšiu zrozumiteľnosť
-• Opravy prekladov od prispievateľov Weblate pre rôzne jazyky
+Vďaka všetkým, ktorí prispievajú, darujú a podporujú Organic Maps! Poďme spoločne vytvoriť tie najlepšie mapy!

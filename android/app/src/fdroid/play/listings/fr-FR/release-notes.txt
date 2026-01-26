@@ -1,11 +1,9 @@
-• NOUVEAU : Thème sombre plus contrasté
-• NOUVEAU : Assistant Google pour navigation/recherche
-• Données OSM du 11 janvier
-• Thème navigation « Auto » selon le système
-• Lignes de métro plus fines
-• Capacités stationnement motos, location/recharge vélos, recharge autos affichées
-• Niveau d'étage dans la recherche
-• Traductions albanais et voix TTS
-• FAQ et traductions app mises à jour
-• Plantages corrigés
-…plus sur omaps.org/fr/news
+• Itinéraires plus rapides pour les longs trajets
+• Données cartographiques OSM à jour au 25 janvier
+• Export GeoJSON
+• Horaires d'ouverture étendus
+• Séparation du thème clair/sombre dans les paramètres Apparence et Navigation
+• Changement de la couleur des signets depuis une liste
+• Interface paysage améliorée pour un lieu sélectionné sur la carte
+• Correction de l'éditeur pour les lieux avec numéros de téléphone invalides
+…plus sur omaps.org/news
