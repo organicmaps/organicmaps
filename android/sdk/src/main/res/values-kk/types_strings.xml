@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="type.addr_interpolation">Мекенжай/Орам</string>
+    <string name="type.addr_interpolation.even">Мекенжай/Блок</string>
+    <string name="type.addr_interpolation.odd">Тақ</string>
+    <string name="type.aerialway">Аспалы жол</string>
+</resources>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">Til baka</string>
@@ -100,7 +99,6 @@
     <string name="measurement_units">Mælieiningar</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Veldu á milli kílómetra og mílna</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Út að borða</string>
@@ -146,7 +144,6 @@
     <string name="category_water">Vatn</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Aðstaða fyrir húsbíla</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Minnispunktar</string>
@@ -346,7 +343,6 @@
     <string name="pref_appearance_dark">Dökkt</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Gefðu milljónum notenda ókeypis kort án auglýsinga!</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Þegar ferðast er eftir leið, skaltu hafa eftirfarandi í huga:</string>
     <string name="dialog_routing_disclaimer_priority">— Ástand vega, umferðarreglur og vegmerkingar hafa alltaf forgang fram yfir ábendingar í leiðsögn;</string>
@@ -376,7 +372,6 @@
     <string name="not_now">Ekki núna</string>
     <string name="dialog_routing_download_and_build_cross_route">Myndirðu vilja sækja landakortið og útbúa þægilegri leið sem spannar fleiri en eitt landakort?</string>
     <string name="dialog_routing_download_cross_route">Sækja viðbótar-landakort til að útbúa þægilegri leið sem fer út fyrir mörk þessa landakorts.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Til að byrja að leita og útbúa leiðir skaltu sækja landakortið. Eftir það er internettenging ekki nauðsynleg.</string>
     <string name="search_select_map">Veldu kort</string>
@@ -729,7 +724,6 @@
     <string name="moreyear_ago_sorttype">Fyrir meira en ári síðan</string>
     <string name="near_me_sorttype">Nálægt mér</string>
     <string name="others_sorttype">Annað</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Matur</string>
     <string name="tourist_places">Skoðunarverðir staðir</string>
@@ -887,4 +881,5 @@
     <string name="share_track">Deila ferli</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Eyða %s?</string>
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
 </resources>

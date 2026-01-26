@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Strings -->
     <!-- Button text (should be short) -->
     <string name="back">返回</string>
@@ -100,7 +99,6 @@
     <string name="measurement_units">測量單位</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">選擇公里或英哩</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">在哪裡吃</string>
@@ -146,7 +144,6 @@
     <string name="category_water">水</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">露營車設施</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">註釋</string>
@@ -346,7 +343,6 @@
     <string name="pref_appearance_dark">深色</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">向數百萬使用者贈送無廣告的免費地圖！</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">依照路線行進時，請牢記：</string>
     <string name="dialog_routing_disclaimer_priority">— 路況、交通法規和路標始終優先於導航建議；</string>
@@ -376,7 +372,6 @@
     <string name="not_now">以後再說</string>
     <string name="dialog_routing_download_and_build_cross_route">您是否要下載地圖，以規劃跨越邊界的更佳路線？</string>
     <string name="dialog_routing_download_cross_route">下載地圖，以規劃一條跨越邊界的更佳路線。</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">要開始搜索和規劃路線，請下載地圖，然後您就不再需要網絡連接了。</string>
     <string name="search_select_map">選擇地圖</string>
@@ -590,9 +585,9 @@
     <string name="transliteration_title">拉丁字母音譯</string>
     <string name="learn_more">瞭解更多資訊</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">請搜尋地點或點擊地圖以新增路線起點</string>
+    <string name="routing_add_start_point">請搜尋地點、選擇書籤或點擊地圖以新增路線起點</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">請搜尋地點或點擊地圖以新增目的地</string>
+    <string name="routing_add_finish_point">請搜尋地點、選擇書籤或點擊地圖以新增目的地</string>
     <string name="planning_route_manage_route">管理路線</string>
     <string name="button_plan">計畫</string>
     <string name="placepage_remove_stop">刪除停止</string>
@@ -727,7 +722,6 @@
     <string name="moreyear_ago_sorttype">一年多以前</string>
     <string name="near_me_sorttype">在我附近</string>
     <string name="others_sorttype">其他</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">食物</string>
     <string name="tourist_places">旅遊景點</string>

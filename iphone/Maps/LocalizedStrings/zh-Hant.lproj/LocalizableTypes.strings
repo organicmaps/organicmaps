@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "地址/區塊";
 "type.addr_interpolation.even" = "地址/區塊";
 "type.addr_interpolation.odd" = "地址/區塊";
@@ -51,7 +47,7 @@
 "type.amenity.charging_station.motorcar" = "汽車充電站";
 "type.amenity.childcare" = "保育";
 "type.amenity.cinema" = "電影院";
-"type.amenity.studio" = "Studio";
+"type.amenity.studio" = "錄音室";
 "type.leisure.bowling_alley" = "保齡球館";
 "type.amenity.clinic" = "診所";
 "type.amenity.college" = "學院";
@@ -137,10 +133,6 @@
 "type.amenity.prison" = "監獄";
 "type.amenity.pub" = "酒館";
 "type.amenity.public_bookcase" = "書架";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "回收中心";
 "type.amenity.recycling" = "回收箱";
 "type.amenity.recycling.container" = "回收箱";
@@ -397,10 +389,6 @@
 "type.healthcare.psychotherapist" = "心理治療";
 "type.healthcare.sample_collection" = "採樣";
 "type.healthcare.speech_therapist" = "言語治療";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "道路";
 "type.highway.bridleway" = "馬道";
 
@@ -617,10 +605,6 @@
 "type.area_highway.unclassified" = "道路";
 "type.highway.world_level" = "公路 - 世界等級";
 "type.highway.world_towns_level" = "公路 - 世界城鎮等級";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "歷史地點";
 "type.historic.aircraft" = "歷史悠久的飛機";
 "type.historic.anchor" = "歷史錨";
@@ -667,9 +651,6 @@
 "type.historic.wayside_cross" = "路旁十字架";
 "type.historic.wayside_shrine" = "路旁神龕";
 "type.historic.wreck" = "沉船";
-
-/* Do not translate. Here to avoid untranslated debug toast. */
-"type.hwtag" = "hwtag";
 
 /* Do not translate. Here to avoid untranslated debug toast. */
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
@@ -834,7 +815,7 @@
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "軍事";
 "type.military.bunker" = "地堡";
-"type.mountain_pass" = "Mountain Pass";
+"type.mountain_pass" = "隘口";
 "type.natural" = "自然";
 
 /* A rocky land cover. */
@@ -964,8 +945,8 @@
 "type.psurface.paved_good" = "路面舖設 - 良好";
 "type.psurface.unpaved_bad" = "路面舖設 - 較差";
 "type.psurface.unpaved_good" = "路面舖設 - 良好";
-"type.public_transport" = "Public Transport";
-"type.public_transport.platform" = "Platform";
+"type.public_transport" = "大眾運輸";
+"type.public_transport.platform" = "月台";
 "type.railway" = "鐵路設施";
 "type.railway.abandoned" = "廢棄鐵路";
 "type.railway.abandoned.bridge" = "廢棄鐵路橋樑";
@@ -1482,7 +1463,7 @@
 "type.waterway.canal" = "運河";
 "type.waterway.canal.tunnel" = "運河";
 "type.waterway.fish_pass" = "魚梯";
-"type.waterway.dam" = "Dam";
+"type.waterway.dam" = "水壩";
 "type.barrier.ditch" = "溝渠";
 "type.natural.water.ditch" = "排水溝";
 "type.waterway.ditch.tunnel" = "涵洞";
@@ -1554,7 +1535,7 @@
 "type.building.guardhouse" = "警衛";
 "type.office.security" = "保全辦公室";
 "type.power.portal" = "H架電塔";
-"type.shop.lighting" = "Lighting Shop";
+"type.shop.lighting" = "燈具店";
 "type.barrier.jersey_barrier" = "塊體";
 "type.barrier.debris" = "碎石";
 "type.barrier.log" = "原木屏障";

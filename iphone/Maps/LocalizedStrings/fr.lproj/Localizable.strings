@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Annuler";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Groupes de signets";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Un endroit pour manger";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Aménagements pour camping-car";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz\n\nBon voyage avec Organic Maps !";
 
 /* message title of loading file */
@@ -264,7 +252,7 @@
 "report_a_bug" = "Signaler un bug";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
-"long_tap_toast" = "Appuyer à nouveau longuement sur la carte pour voir l'interface.";
+"long_tap_toast" = "Appuyer à nouveau longuement sur la carte pour afficher l'interface";
 
 /* Update all button text */
 "downloader_update_all_button" = "Tout mettre à jour";
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "signet";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Lorsque vous suivez l'itinéraire, gardez à l'esprit les points suivants :";
 "dialog_routing_disclaimer_priority" = "— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l'appareil de navigation ;";
 "dialog_routing_disclaimer_precision" = "— La carte peut être imprécise et l'itinéraire proposé n'est pas forcément le plus direct pour arriver à destination ;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Téléchargez des cartes pour créer un itinéraire plus direct sortant des limites de cette carte.";
 "dialog_routing_download_files" = "Téléchargez les fichiers requis";
 "dialog_routing_download_and_update_all" = "Téléchargez et mettez à jour les informations de carte et d'itinéraire de votre trajet pour calculer l'itinéraire.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Afficher";
@@ -535,7 +515,7 @@
 "message_invalid_feature_position" = "Aucun objet ne peut être localisé ici";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Données OpenStreetMap créées par la communauté en date du %@. Pour en savoir plus sur la façon de modifier et de mettre à jour la carte, consulte le site OpenStreetMap.org.";
+"osm_presentation" = "Données OpenStreetMap créées par la communauté en date du %@. Pour en savoir plus sur la façon de modifier et de mettre à jour la carte, consulte le site OpenStreetMap.org";
 "login_to_make_edits_visible" = "Créez un compte OpenStreetMap ou connectez-vous pour publier vos modifications de cartes dans le monde entier.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
@@ -560,7 +540,7 @@
 "editor_category_unsuitable_title" = "Tu ne trouves pas de catégorie appropriée ?";
 "editor_category_unsuitable_text" = "Organic Maps ne permet d'ajouter que des catégories de points simples, c'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d'ajouter ces catégories directement sur <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulte notre <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> pour obtenir des instructions détaillées étape par étape.";
 "downloader_no_downloaded_maps_title" = "Vous n'avez téléchargé aucune carte";
-"downloader_no_downloaded_maps_message" = "Téléchargez des cartes pour rechercher un lieu et utiliser la navigation hors ligne";
+"downloader_no_downloaded_maps_message" = "Téléchargez des cartes pour rechercher un lieu et utiliser la navigation hors ligne.";
 "current_location_unknown_error_title" = "L'emplacement actuel est inconnu.";
 
 /* abbreviation for kilometers per hour */
@@ -672,7 +652,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Jamais avertir";
 "power_managment_title" = "Mode économie d'énergie";
-"power_managment_description" = "Si le mode d'économie d'énergie est activé, l'application désactive les fonctions consommant de l'énergie en fonction de la charge actuelle du téléphone";
+"power_managment_description" = "Si le mode d'économie d'énergie est activé, l'application désactive les fonctions consommant de l'énergie en fonction de la charge actuelle du téléphone.";
 "power_managment_setting_never" = "Jamais";
 "power_managment_setting_auto" = "Automatique";
 "power_managment_setting_manual_max" = "Économie d'énergie maximale";
@@ -695,7 +675,7 @@
 "avoid_ferry" = "Éviter les ferries";
 "avoid_motorways" = "Éviter les autoroutes";
 "unable_to_calc_alert_title" = "Impossible de calculer l'itinéraire";
-"unable_to_calc_alert_subtitle" = "Malheureusement, nous n'avons pas pu créer l'itinéraire avec les options sélectionnées. Modifiez les paramètres et réessayez";
+"unable_to_calc_alert_subtitle" = "Un tracé n'a pu être établi. Cela peut être causé par les options choisies ou des données OpenStreetMap incomplètes. Merci de modifier vos options et de réessayer.";
 "define_to_avoid_btn" = "Définissez les routes à éviter";
 "change_driving_options_btn" = "Paramètres d'itinéraire activés";
 "toll_road" = "Route à péage";
@@ -771,7 +751,7 @@
 "editor_sharing_title" = "J'ai amélioré les cartes de Organic Maps";
 "editor_detailed_description_hint" = "Commentaire détaillé";
 "editor_detailed_description" = "Vos modifications suggérées seront envoyées à la communauté OpenStreetMap. Décrivez les détails qui ne peuvent pas être modifiés dans Organic Maps.";
-"current_location_unknown_error_message" = "Une erreur est survenue lors de la recherche de votre emplacement. Vérifiez que le périphérique fonctionne correctement et réessayez ultérieurement";
+"current_location_unknown_error_message" = "Une erreur est survenue lors de la recherche de votre emplacement. Vérifiez que votre appareil fonctionne correctement et réessayez ultérieurement.";
 "location_services_disabled_header" = "L'identification de la localisation est désactivée";
 "location_services_disabled_message" = "Permettre l'accès à la géolocalisation dans les paramètres de l'appareil";
 "location_services_disabled_1" = "1. Ouvrir les paramètres";
@@ -859,10 +839,6 @@
 "sort_distance" = "Trier par distance";
 "sort_date" = "Classer par date";
 "sort_name" = "Trier par nom";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Aliments";
 "tourist_places" = "Choses à voir";
 "museums" = "Musées";
@@ -1066,10 +1042,6 @@
 "contribute_to_osm_add_place" = "Ajouter un lieu";
 "contribute_to_osm_update_map" = "Mettre à jour la carte pour contribuer";
 "contribute_to_osm_update_map_description" = "Vous devez mettre à jour la carte %@ vers la dernière version avant de pouvoir contribuer aux données OpenStreetMap";
-
-
-/********** Uncategorized **********/
-
 
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Ma position";
