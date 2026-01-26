@@ -253,7 +253,7 @@ void RegionData::LoadTimeZone()
   if (auto res = om::tz::Deserialize(Get(RD_TIMEZONE)))
     m_timeZone = std::move(res.value());
   else
-    LOG(LWARNING, ("Failed to read timezone info:", res.error()));
+    LOG(LWARNING, ("Timezone deserialize error:", res.error()));
 }
 
 void RegionData::MergeFrom(RegionData const & rhs)
