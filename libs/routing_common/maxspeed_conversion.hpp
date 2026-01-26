@@ -213,16 +213,24 @@ public:
   void SetUnits(measurement_utils::Units units) { m_units = units; }
   void SetForward(MaxspeedType forward) { m_forward = forward; }
   void SetBackward(MaxspeedType backward) { m_backward = backward; }
+  void SetConditional(MaxspeedType speed, std::string const & condition)
+  {
+    mConditionalSpeed = speed;
+    mConditionalString = condition;
+  }
 
   measurement_utils::Units GetUnits() const { return m_units; }
   MaxspeedType GetForward() const { return m_forward; }
   MaxspeedType GetBackward() const { return m_backward; }
+  MaxspeedType GetConditionalSpeed() const { return mConditionalSpeed; }
+  std::string const & GetCondition() const { return mConditionalString; }
 
   bool IsValid() const { return m_forward != kInvalidSpeed; }
   /// \returns true if Maxspeed is considered as Bidirectional(). It means different
   /// speed is set for forward and backward direction. Otherwise returns false. It means
   /// |m_forward| speed should be used for the both directions.
   bool IsBidirectional() const { return IsValid() && m_backward != kInvalidSpeed; }
+  bool HasConditional() const { return !mConditionalString.empty(); }
 
   /// \brief returns speed according to |m_units|. |kInvalidSpeed|, |kNoneMaxSpeed| or
   /// |kWalkMaxSpeed| may be returned.
@@ -240,6 +248,9 @@ private:
   // Speed in km per hour or mile per hour depends on |m_units|. If |m_backward| == kInvalidSpeed
   // |m_forward| speed should be used for the both directions.
   MaxspeedType m_backward = kInvalidSpeed;
+
+  MaxspeedType mConditionalSpeed = kInvalidSpeed;
+  std::string mConditionalString;
 };
 
 /// \brief Feature id and corresponding maxspeed tag value. |m_forward| and |m_backward| fields
@@ -270,6 +281,7 @@ public:
 
   uint32_t GetFeatureId() const { return m_featureId; }
   Maxspeed const & GetMaxspeed() const { return m_maxspeed; }
+  Maxspeed & GetMaxspeed() { return m_maxspeed; }
 
   SpeedInUnits GetForwardSpeedInUnits() const;
   SpeedInUnits GetBackwardSpeedInUnits() const;
