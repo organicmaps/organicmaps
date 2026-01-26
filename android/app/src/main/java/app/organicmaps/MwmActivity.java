@@ -113,6 +113,8 @@ import app.organicmaps.sdk.widget.placepage.PlacePageData;
 import app.organicmaps.search.FloatingSearchToolbarController;
 import app.organicmaps.search.SearchActivity;
 import app.organicmaps.search.SearchFragment;
+import app.organicmaps.search.SearchFragmentController;
+import app.organicmaps.search.SearchPageViewModel;
 import app.organicmaps.settings.DrivingOptionsActivity;
 import app.organicmaps.settings.SettingsActivity;
 import app.organicmaps.util.SharingUtils;
@@ -191,6 +193,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private int mNavBarHeight;
 
   private PlacePageViewModel mPlacePageViewModel;
+  private SearchPageViewModel mSearchPageViewModel;
   private MapButtonsViewModel mMapButtonsViewModel;
   private MapButtonsController.LayoutMode mPreviousMapLayoutMode;
 
@@ -422,7 +425,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     else
     {
-      SearchActivity.start(this, query);
+      mSearchPageViewModel.setSearchEnabled(true, query);
     }
   }
 
@@ -514,6 +517,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     makeNavigationBarTransparentInLightMode();
 
     mPlacePageViewModel = new ViewModelProvider(this).get(PlacePageViewModel.class);
+    mSearchPageViewModel = new ViewModelProvider(this).get(SearchPageViewModel.class);
     mMapButtonsViewModel = new ViewModelProvider(this).get(MapButtonsViewModel.class);
     // We don't need to manually handle removing the observers it follows the activity lifecycle
     mMapButtonsViewModel.getBottomButtonsHeight().observe(this, this::onMapBottomButtonsHeightChange);
