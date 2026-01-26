@@ -202,9 +202,9 @@
     <string name="prefs_group_information">Információk</string>
     <string name="prefs_group_route">Navigáció</string>
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
-    <string name="pref_zoom_title">A térképen lévő + és - gombok</string>
+    <string name="pref_zoom_title">„+” és „-” gombok a térképen</string>
     <string name="pref_zoom_summary">Megjelenítés a térképen</string>
-    <string name="pref_auto_night_in_navigation_title">Éjszakai stílus sötétben történő navigáláskor</string>
+    <string name="pref_auto_night_in_navigation_title">Éjszakai stílus a sötétben történő navigáláshoz</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Éjszakai mód</string>
     <!-- Generic «Off» string -->
@@ -216,9 +216,9 @@
     <!-- Settings «Map» category: «Perspective view» title -->
     <string name="pref_map_3d_title">Perspektivikus nézet</string>
     <!-- Settings «Map» category: «3D buildings» title -->
-    <string name="pref_map_3d_buildings_title">3D-s épületek</string>
+    <string name="pref_map_3d_buildings_title">3D épületek</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
-    <string name="pref_map_3d_buildings_disabled_summary">A 3D-s épületek energiatakarékos módban ki vannak kapcsolva</string>
+    <string name="pref_map_3d_buildings_disabled_summary">A 3D épületek energiatakarékos módban ki vannak kapcsolva</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Hangutasítások</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -254,7 +254,7 @@
     <string name="donate">Adományozás</string>
     <string name="already_donated">Már adományozott</string>
     <string name="remind_me_later">Emlékeztessen később</string>
-    <string name="support_organic_maps">Támogasd az Organic Maps-et</string>
+    <string name="support_organic_maps">Támogassa az Organic Maps-et</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Támogatás</string>
     <!-- Button in the main Help dialog -->

@@ -198,7 +198,7 @@
 "prefs_group_route" = "Navigáció";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
-"pref_zoom_title" = "A térképen lévő + és - gombok";
+"pref_zoom_title" = "„+” és „-” gombok a térképen";
 
 /* Generic «Off» string */
 "off" = "Ki";
@@ -213,10 +213,10 @@
 "pref_map_3d_title" = "Perspektivikus nézet";
 
 /* Settings «Map» category: «3D buildings» title */
-"pref_map_3d_buildings_title" = "3D-s épületek";
+"pref_map_3d_buildings_title" = "3D épületek";
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
-"pref_map_3d_buildings_disabled_summary" = "A 3D-s épületek energiatakarékos módban ki vannak kapcsolva";
+"pref_map_3d_buildings_disabled_summary" = "A 3D épületek energiatakarékos módban ki vannak kapcsolva";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hangutasítások";
@@ -255,7 +255,7 @@
 "donate" = "Adományozás";
 "already_donated" = "Már adományozott";
 "remind_me_later" = "Emlékeztessen később";
-"support_organic_maps" = "Támogasd az Organic Maps-et";
+"support_organic_maps" = "Támogassa az Organic Maps-et";
 
 /* Button in the main Help dialog */
 "copyright" = "Szerzői jogok";
