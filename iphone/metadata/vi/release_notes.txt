@@ -1,16 +1,7 @@
-• MỚI: Màu sắc giao diện tối có độ tương phản cao hơn
-• Cập nhật dữ liệu OpenStreetMap (11 tháng 1)
-• Loại bỏ sòng bạc khỏi danh mục "Giải trí"
-• Giảm độ dày của các tuyến tàu điện ngầm
-• Thêm thông tin sức chứa vào kết quả tìm kiếm cho bãi đậu xe máy, thuê xe đạp, sạc xe đạp và sạc ô tô
-• Hiển thị tầng trong kết quả tìm kiếm
-• Các nút lập kế hoạch lộ trình rộng hơn
+• Các tuyến đường giữa các quốc gia được tạo nhanh hơn và không còn gây ra sự cố hết bộ nhớ
+• Cập nhật dữ liệu OpenStreetMap tính đến ngày 25 tháng 1
+• Hỗ trợ xuất GeoJSON cho dấu trang và bản theo dõi
+• Đã thêm bản dịch còn thiếu cho các cây cầu không còn sử dụng
+• Đã sửa và cập nhật bản dịch
 
-### Bản dịch
-
-• Thêm bản dịch ứng dụng và hướng dẫn bằng giọng nói tiếng Albania
-• Cập nhật câu hỏi thường gặp (FAQ) và thêm bản dịch cho tiếng Ả Rập, Séc, Hà Lan, Farsi, Hy Lạp, Do Thái, Hindi, Hungary, Indonesia, Ý, Litva, Marathi, Thụy Điển, Telugu
-• Cải thiện bản dịch ứng dụng và FAQ tiếng Đức
-• Thêm từ đồng nghĩa tìm kiếm tiếng Bulgaria
-• Đổi tên cài đặt "Nút thu phóng" để rõ ràng hơn
-• Các sửa lỗi dịch thuật từ những người đóng góp trên Weblate cho nhiều ngôn ngữ
+Cảm ơn tất cả những người đang đóng góp, quyên góp và hỗ trợ Organic Maps! Hãy cùng nhau xây dựng bản đồ tốt nhất!

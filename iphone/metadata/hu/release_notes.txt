@@ -1,16 +1,7 @@
-• ÚJ: Nagyobb kontrasztú sötét téma színek
-• Frissített OpenStreetMap adatok (január 11.)
-• A kaszinók kizárva a „Szórakozás” kategóriából
-• Csökkentett metróvonal-vastagság
-• Kapacitásinformációk hozzáadva a keresési eredményekhez motorkerékpár-parkolók, kerékpárkölcsönzők, kerékpártöltők és autótöltők esetén
-• Emeletszint megjelenítése a keresési eredményekben
-• Szélesebb útvonaltervező gombok
+• Az országok közötti útvonalak gyorsabban jönnek létre, és nem okoznak többé memóriahiba miatti összeomlást
+• Frissített OpenStreetMap adatok január 25-i állapot szerint
+• GeoJSON export támogatás a könyvjelzőkhöz és nyomvonalakhoz
+• Hiányzó fordítások hozzáadva a használaton kívüli hidakhoz
+• Javított és frissített fordítások
 
-### Fordítások
-
-• Albán alkalmazásfordítások és hangos navigáció hozzáadva
-• Frissített GYIK és hozzáadott GYIK fordítások arab, cseh, holland, perzsa, görög, héber, hindi, magyar, indonéz, olasz, litván, marathi, svéd, telugu nyelvekhez
-• Javított német alkalmazás- és GYIK-fordítások
-• Bolgár keresési szinonimák hozzáadva
-• A „Nagyítás gombok” beállítás átnevezése az egyértelműség érdekében
-• Fordítási javítások a Weblate közreműködőitől különböző nyelvekre
+Köszönjük mindenkinek, aki hozzájárul, adományoz és támogatja az Organic Maps-et! Építsük együtt a legjobb térképeket!

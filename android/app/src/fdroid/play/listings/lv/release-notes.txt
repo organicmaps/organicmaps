@@ -1,9 +1,11 @@
-• JAUNUMS: Augstāka kontrasta tumšās tēmas krāsas
-• JAUNUMS: Google Assistant navigācijai un meklēšanai
-• OSM kartes dati uz 11. janvāri
-• "Auto" navigācijas tēmas iestatījums seko sistēmas tumšajam/gaišajam režīmam
-• Plānākas metro līnijas
-• Meklēšanas rezultāti rāda motociklu stāvvietu, velosipēdu nomas, velosipēdu uzlādes un automašīnu uzlādes ietilpību
-• Rādīt stāva līmeni meklēšanas rezultātos
-• Albāņu tulkojumi un TTS balss vadība
+• Ātrāka maršrutēšana gariem braucieniem
+• Jauni OSM kartes dati uz 25. janvāri
+• GeoJSON eksportēšana
+• Paplašināts darba laiks
+• Lietotnes gaišā/tumšā motīva opcija sadalīta Izskata un Navigācijas iestatījumos
+• Grāmatzīmes krāsas maiņa no saraksta
+• Uzlabots ainavas UI izvēlētajai vietai kartē
+• Izlabots nestrādājošs redaktors vietām ar nederīgiem tālruņa numuriem
+• Izlabotas vairākas avārijas un UI kļūdas
+• Izlabota kļūda “Nav pietiekami daudz brīvas vietas”
 …vairāk vietnē omaps.org/news
