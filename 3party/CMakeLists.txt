@@ -48,11 +48,9 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   # Add protobuf library.
   add_subdirectory(protobuf)
 
-  if (NOT PLATFORM_LINUX)
-    add_subdirectory(freetype)
-    add_subdirectory(icu)
-    add_subdirectory(harfbuzz)
-  endif()
+  add_subdirectory(freetype)
+  add_subdirectory(icu)
+  add_subdirectory(harfbuzz)
 
   add_library(utf8cpp INTERFACE)
   add_library(utf8cpp::utf8cpp ALIAS utf8cpp)
