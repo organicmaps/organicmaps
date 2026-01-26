@@ -4,25 +4,24 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
-
 import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.util.ByteUtils;
 import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @MainThread
 public enum BookmarkManager {
@@ -354,7 +353,7 @@ public enum BookmarkManager {
     }
 
     // Need to read file content and guess from its signature.
-    String extension = guessFileExtensionByContent(resolver, uri);
+    String extension = guessExtensionByContent(resolver, uri);
     if (extension != null)
       return filename + extension;
 
@@ -365,12 +364,12 @@ public enum BookmarkManager {
     return null;
   }
 
-  private static String guessFileExtensionByContent(@NonNull ContentResolver resolver, @NonNull Uri uri)
+  private static String guessExtensionByContent(@NonNull ContentResolver resolver, @NonNull Uri uri)
   {
     // If first symbol is '{' -> GeoJson
-    // Else if first symbols 'PK' -> Zip archive, probably KMZ
-    // Else if first symbols '<?xml ' and contains '<kml '  -> KML
-    // Else if first symbols '<?xml ' and contains '<gpx '  -> GPX
+    // If first symbols 'PK' -> Zip archive, probably KMZ
+    // If first symbols '<?xml ' and contains '<kml '  -> KML
+    // If first symbols '<?xml ' and contains '<gpx '  -> GPX
 
     byte[] xmlMarker = "<?xml ".getBytes();
     byte[] kmlMarker = "<kml ".getBytes();
@@ -381,6 +380,15 @@ public enum BookmarkManager {
       InputStream inputStream = resolver.openInputStream(uri);
       byte[] buffer = new byte[100];
       inputStream.read(buffer);
+
+      Charset charset = ByteUtils.guessEncodingByBom(buffer);
+      if (charset != null && charset != StandardCharsets.UTF_8)
+      {
+        // According to BOM, file content has two bytes unicode encoding.
+        // Re-encode it to UTF8 bytes before processing.
+        String fileContent = new String(buffer, charset);
+        buffer = fileContent.getBytes(StandardCharsets.UTF_8);
+      }
 
       // Search for markers
       if (buffer[0] == '{')
@@ -397,8 +405,11 @@ public enum BookmarkManager {
         if (ByteUtils.contains(buffer, gpxMarker))
           return ".gpx";
       }
+
+      // No known signatures found.
       return null;
-    } catch (IOException e)
+    }
+    catch (IOException e)
     {
       return null;
     }
@@ -542,9 +553,12 @@ public enum BookmarkManager {
 
   @NonNull
   native BookmarkCategory nativeGetBookmarkCategory(long catId);
+
   @NonNull
   native BookmarkCategory[] nativeGetBookmarkCategories();
+
   native int nativeGetBookmarkCategoriesCount();
+
   @NonNull
   native BookmarkCategory[] nativeGetChildrenCategories(long catId);
 
