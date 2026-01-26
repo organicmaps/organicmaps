@@ -219,8 +219,18 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   auto cell = [tableView dequeueReusableCellWithCellClass:[UITableViewCell class] indexPath:indexPath];
-  cell.textLabel.text = [self.dataSource getTranslation:indexPath.row];
-  auto const type = [self.dataSource getType:indexPath.row];
+  NSString * type;
+  if (!self.isSearch && indexPath.section == 0 && [self.dataSource recentCategoriesListSize] > 0)
+  {
+    cell.textLabel.text = [self.dataSource getRecentCategoriesTranslation:indexPath.row];
+    type = [self.dataSource getRecentCategoriesType:indexPath.row];
+  }
+  else
+  {
+    cell.textLabel.text = [self.dataSource getTranslation:indexPath.row];
+    type = [self.dataSource getType:indexPath.row];
+  }
+
   if ([type isEqualToString:self.selectedType])
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
   else
@@ -230,7 +240,11 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  self.selectedType = [self.dataSource getType:indexPath.row];
+  if (!self.isSearch && indexPath.section == 0 && [self.dataSource recentCategoriesListSize] > 0)
+    self.selectedType = [self.dataSource getRecentCategoriesType:indexPath.row];
+  else
+    self.selectedType = [self.dataSource getType:indexPath.row];
+  [self.dataSource addToRecentCategories:self.selectedType];
 
   id<MWMObjectsCategorySelectorDelegate> delegate = self.delegate;
   if (delegate)
@@ -243,15 +257,22 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
     [self performSegueWithIdentifier:kToEditorSegue sender:nil];
 }
 
-// TODO(Vlad): Uncoment this line when we will be ready to show recent categories
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//  return self.isSearch ? 1 : !m_categories.m_allSorted.empty() + !m_categories.m_lastUsed.empty();
-//}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  auto recentCategoriesSize = [self.dataSource recentCategoriesListSize];
+  auto allCategoriesSize = [self.dataSource size];
+  return self.isSearch ? 1 : bool(allCategoriesSize) + bool(recentCategoriesSize);
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  NSInteger size = [self.dataSource size];
+  NSInteger recentCategoriesListSize = [self.dataSource recentCategoriesListSize];
+  NSInteger categoriesListSize = [self.dataSource size];
+  NSInteger size;
+  if (!self.isSearch && section == 0 && recentCategoriesListSize > 0)
+    size = recentCategoriesListSize;
+  else
+    size = categoriesListSize;
   [self.searchResultsIsEmptyDisclaimer setHidden:size != 0];
   return size;
 }
@@ -260,12 +281,10 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 {
   if (self.isSearch)
     return nil;
-  return L(@"editor_add_select_category_all_subtitle");
-  // TODO(Vlad): Uncoment this line when we will be ready to show recent categories
-  //  if (m_categories.m_lastUsed.empty())
-  //    return L(@"editor_add_select_category_all_subtitle");
-  //  return section == 0 ? L(@"editor_add_select_category_popular_subtitle") :
-  //  L(@"editor_add_select_category_all_subtitle");
+  if (0 == [self.dataSource recentCategoriesListSize])
+    return L(@"editor_add_select_category_all_subtitle");
+  return section == 0 ? L(@"editor_add_select_category_recent_subtitle")
+                      : L(@"editor_add_select_category_all_subtitle");
 }
 
 #pragma mark - UISearchBarDelegate
