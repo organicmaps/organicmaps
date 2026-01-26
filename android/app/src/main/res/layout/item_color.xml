@@ -7,9 +7,9 @@
 
   <ImageView
       android:id="@+id/iv__color"
-      android:layout_width="30dp"
-      android:layout_height="30dp"
-      android:layout_margin="4dp"
+      android:layout_width="@dimen/track_circle_size"
+      android:layout_height="@dimen/track_circle_size"
+      android:layout_margin="@dimen/margin_half"
       android:layout_gravity="center"
       android:background="@null"
       android:contentDescription="@null"
