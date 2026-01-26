@@ -1106,3 +1106,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Purple downloaded regions";
+
+/* Recently used categories, section subtitle*/
+"editor_add_select_category_recent_subtitle" = "Recently used";
