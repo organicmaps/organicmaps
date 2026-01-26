@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Adresas / blokas";
 "type.addr_interpolation.even" = "Adresas / blokas";
 "type.addr_interpolation.odd" = "Adresas / blokas";
@@ -137,10 +133,6 @@
 "type.amenity.prison" = "Kalėjimas";
 "type.amenity.pub" = "Pubas";
 "type.amenity.public_bookcase" = "Knygų mainų lentyna";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Atliekų rūšiavimo centras";
 "type.amenity.recycling" = "Rūšiavimo konteineris";
 "type.amenity.recycling.container" = "Rūšiavimo konteineris";
@@ -397,10 +389,6 @@
 "type.healthcare.psychotherapist" = "Psichoterapeutas";
 "type.healthcare.sample_collection" = "Mėginių paėmimo punktas";
 "type.healthcare.speech_therapist" = "Logopedas";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Kelias";
 "type.highway.bridleway" = "Jojimo takas";
 
@@ -617,10 +605,6 @@
 "type.area_highway.unclassified" = "Kitas kelias";
 "type.highway.world_level" = "Pasaulinio lygio kelias";
 "type.highway.world_towns_level" = "Vietinės reikšmės kelias";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Istorinis objektas";
 "type.historic.aircraft" = "Istorinis lėktuvas";
 "type.historic.anchor" = "Istorinis inkaras";

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <string name="core_my_position">ຕຳແໜ່ງຂອງຂ້ອຍ</string>
+    <string name="core_my_places">ສະຖານທີ່ຂອງຂ້ອຍ</string>
+    <string name="maps_storage_internal">ບ່ອນເກັບຂໍ້ມູນພາຍໃນສ່ວນຕົວ</string>
+    <string name="maps_storage_shared">ບ່ອນເກັບຂໍ້ມູນພາຍໃນທີ່ໃຊ້ຮ່ວມກັນ</string>
+    <string name="maps_storage_removable">ກາດ SD</string>
+    <string name="maps_storage_external">ບ່ອນເກັບຂໍ້ມູນພາຍນອກທີ່ໃຊ້ຮ່ວມກັນ</string>
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">ລະຫັດໄປສະນີ</string>
+    <string name="core_placepage_unknown_place">ຈຸດໃນແຜນທີ່</string>
+    <string name="m">ມ</string>
+    <string name="km">ກມ</string>
+    <string name="mi">ໄມລ໌</string>
+    <string name="ft">ຟຸດ</string>
+    <string name="routes_update_maps_text">ເພື່ອສະແດງເສັ້ນທາງ, ຕ້ອງໄດ້ອັບເດດແຜນທີ່.</string>
+    <string name="core_exit">ທາງອອກ</string>
+    <string name="core_entrance">ທາງເຂົ້າ</string>
+    <string name="subway_data_unavailable">ບໍ່ມີຂໍ້ມູນແຜນທີ່ລົດໄຟໃຕ້ດິນ</string>
+    <string name="show_downloaded_regions">ສະແດງພື້ນທີ່ທີ່ດາວໂຫລດແລ້ວເປັນສີມ່ວງ</string>
+</resources>
