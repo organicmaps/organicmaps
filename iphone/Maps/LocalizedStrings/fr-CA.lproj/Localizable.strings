@@ -264,7 +264,7 @@
 "report_a_bug" = "Signaler un bug";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
-"long_tap_toast" = "Appuyer à nouveau longuement sur la carte pour voir l'interface.";
+"long_tap_toast" = "Appuyer à nouveau longuement sur la carte pour afficher l'interface";
 
 /* Update all button text */
 "downloader_update_all_button" = "Tout mettre à jour";
@@ -695,7 +695,7 @@
 "avoid_ferry" = "Éviter les ferries";
 "avoid_motorways" = "Éviter les autoroutes";
 "unable_to_calc_alert_title" = "Impossible de calculer l'itinéraire";
-"unable_to_calc_alert_subtitle" = "Malheureusement, nous n'avons pas pu créer l'itinéraire avec les options sélectionnées. Modifiez les paramètres et réessayez";
+"unable_to_calc_alert_subtitle" = "Un tracé n'a pu être établi. Cela peut être causé par les options choisies ou des données OpenStreetMap incomplètes. Merci de modifier vos options et de réessayer.";
 "define_to_avoid_btn" = "Définissez les routes à éviter";
 "change_driving_options_btn" = "Paramètres d'itinéraire activés";
 "toll_road" = "Route à péage";
@@ -771,7 +771,7 @@
 "editor_sharing_title" = "J'ai amélioré les cartes de Organic Maps";
 "editor_detailed_description_hint" = "Commentaire détaillé";
 "editor_detailed_description" = "Vos modifications suggérées seront envoyées à la communauté OpenStreetMap. Décrivez les détails qui ne peuvent pas être modifiés dans Organic Maps.";
-"current_location_unknown_error_message" = "Une erreur est survenue lors de la recherche de votre emplacement. Vérifiez que le périphérique fonctionne correctement et réessayez ultérieurement";
+"current_location_unknown_error_message" = "Une erreur est survenue lors de la recherche de votre emplacement. Vérifiez que votre appareil fonctionne correctement et réessayez ultérieurement.";
 "location_services_disabled_header" = "L'identification de la localisation est désactivée";
 "location_services_disabled_message" = "Permettre l'accès à la géolocalisation dans les paramètres de l'appareil";
 "location_services_disabled_1" = "1. Ouvrir les paramètres";

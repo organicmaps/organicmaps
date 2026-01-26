@@ -51,6 +51,7 @@
     <string name="type.amenity.charging_station.motorcar">汽車充電站</string>
     <string name="type.amenity.childcare">保育</string>
     <string name="type.amenity.cinema">電影院</string>
+    <string name="type.amenity.studio">錄音室</string>
     <string name="type.leisure.bowling_alley">保齡球館</string>
     <string name="type.amenity.clinic">診所</string>
     <string name="type.amenity.college">學院</string>
@@ -367,6 +368,7 @@
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">主要入口</string>
     <string name="type.entrance.exit">出口</string>
+    <string name="type.fee.yes">$</string>
     <string name="type.fee.no">免費</string>
     <string name="type.healthcare.laboratory">醫學實驗室</string>
     <string name="type.healthcare.physiotherapist">物理治療師</string>
@@ -709,6 +711,7 @@
     <string name="type.man_made.works">工業設施</string>
     <string name="type.military">軍事</string>
     <string name="type.military.bunker">地堡</string>
+    <string name="type.mountain_pass">隘口</string>
     <string name="type.natural">自然</string>
     <!-- A rocky land cover. -->
     <string name="type.natural.bare_rock">岩石</string>
@@ -829,6 +832,8 @@
     <string name="type.psurface.paved_good">路面舖設 - 良好</string>
     <string name="type.psurface.unpaved_bad">路面舖設 - 較差</string>
     <string name="type.psurface.unpaved_good">路面舖設 - 良好</string>
+    <string name="type.public_transport">大眾運輸</string>
+    <string name="type.public_transport.platform">月台</string>
     <string name="type.railway">鐵路設施</string>
     <string name="type.railway.abandoned">廢棄鐵路</string>
     <string name="type.railway.abandoned.bridge">廢棄鐵路橋樑</string>
@@ -1336,6 +1341,7 @@
     <string name="type.waterway.canal">運河</string>
     <string name="type.waterway.canal.tunnel">運河</string>
     <string name="type.waterway.fish_pass">魚梯</string>
+    <string name="type.waterway.dam">水壩</string>
     <string name="type.barrier.ditch">溝渠</string>
     <string name="type.natural.water.ditch">排水溝</string>
     <string name="type.waterway.ditch.tunnel">涵洞</string>
@@ -1403,6 +1409,7 @@
     <string name="type.building.guardhouse">警衛</string>
     <string name="type.office.security">保全辦公室</string>
     <string name="type.power.portal">H架電塔</string>
+    <string name="type.shop.lighting">燈具店</string>
     <string name="type.barrier.jersey_barrier">塊體</string>
     <string name="type.barrier.debris">碎石</string>
     <string name="type.barrier.log">原木屏障</string>

@@ -95,7 +95,7 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Errore durante lo spostamento delle mappe</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Può richiedere diversi minuti. \nAttendere prego…</string>
+    <string name="wait_several_minutes">Può richiedere diversi minuti.\nAttendere prego…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Unità di misura</string>
     <!-- Detailed description of Measurement Units settings button -->

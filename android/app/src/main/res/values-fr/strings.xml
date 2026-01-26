@@ -266,7 +266,7 @@
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_required">Déplacez le téléphone en huit pour calibrer la boussole et fixer la direction de la flèche sur la carte.</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
-    <string name="long_tap_toast">Appuyer à nouveau longuement sur la carte pour voir l\'interface.</string>
+    <string name="long_tap_toast">Appuyer à nouveau longuement sur la carte pour afficher l\'interface</string>
     <!-- Update all button text -->
     <string name="downloader_update_all_button">Tout mettre à jour</string>
     <!-- Cancel all button text -->
@@ -690,7 +690,7 @@
     <string name="avoid_ferry">Éviter les ferries</string>
     <string name="avoid_motorways">Éviter les autoroutes</string>
     <string name="unable_to_calc_alert_title">Impossible de calculer l\'itinéraire</string>
-    <string name="unable_to_calc_alert_subtitle">Malheureusement, nous n\'avons pas pu créer l\'itinéraire avec les options sélectionnées. Modifiez les paramètres et réessayez</string>
+    <string name="unable_to_calc_alert_subtitle">Un tracé n\'a pu être établi. Cela peut être causé par les options choisies ou des données OpenStreetMap incomplètes. Merci de modifier vos options et de réessayer.</string>
     <string name="define_to_avoid_btn">Définissez les routes à éviter</string>
     <string name="change_driving_options_btn">Paramètres d\'itinéraire activés</string>
     <string name="toll_road">Route à péage</string>

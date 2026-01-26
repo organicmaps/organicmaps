@@ -1097,7 +1097,7 @@
 "ft" = "ft";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Per mostrar els itineraris, cal actualitzar els mapes.";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Sortida";

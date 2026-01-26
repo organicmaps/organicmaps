@@ -51,7 +51,7 @@
 "type.amenity.charging_station.motorcar" = "汽車充電站";
 "type.amenity.childcare" = "保育";
 "type.amenity.cinema" = "電影院";
-"type.amenity.studio" = "Studio";
+"type.amenity.studio" = "錄音室";
 "type.leisure.bowling_alley" = "保齡球館";
 "type.amenity.clinic" = "診所";
 "type.amenity.college" = "學院";
@@ -834,7 +834,7 @@
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "軍事";
 "type.military.bunker" = "地堡";
-"type.mountain_pass" = "Mountain Pass";
+"type.mountain_pass" = "隘口";
 "type.natural" = "自然";
 
 /* A rocky land cover. */
@@ -964,8 +964,8 @@
 "type.psurface.paved_good" = "路面舖設 - 良好";
 "type.psurface.unpaved_bad" = "路面舖設 - 較差";
 "type.psurface.unpaved_good" = "路面舖設 - 良好";
-"type.public_transport" = "Public Transport";
-"type.public_transport.platform" = "Platform";
+"type.public_transport" = "大眾運輸";
+"type.public_transport.platform" = "月台";
 "type.railway" = "鐵路設施";
 "type.railway.abandoned" = "廢棄鐵路";
 "type.railway.abandoned.bridge" = "廢棄鐵路橋樑";
@@ -1482,7 +1482,7 @@
 "type.waterway.canal" = "運河";
 "type.waterway.canal.tunnel" = "運河";
 "type.waterway.fish_pass" = "魚梯";
-"type.waterway.dam" = "Dam";
+"type.waterway.dam" = "水壩";
 "type.barrier.ditch" = "溝渠";
 "type.natural.water.ditch" = "排水溝";
 "type.waterway.ditch.tunnel" = "涵洞";
@@ -1554,7 +1554,7 @@
 "type.building.guardhouse" = "警衛";
 "type.office.security" = "保全辦公室";
 "type.power.portal" = "H架電塔";
-"type.shop.lighting" = "Lighting Shop";
+"type.shop.lighting" = "燈具店";
 "type.barrier.jersey_barrier" = "塊體";
 "type.barrier.debris" = "碎石";
 "type.barrier.log" = "原木屏障";
