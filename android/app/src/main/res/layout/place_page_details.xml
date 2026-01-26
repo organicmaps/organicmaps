@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -8,7 +7,7 @@
   android:orientation="vertical">
 
 
-  <include layout="@layout/place_page_fat_shadow"/>
+  <include layout="@layout/place_page_fat_shadow" />
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -16,32 +15,42 @@
     android:background="?ppBackground"
     android:orientation="vertical">
 
-    <androidx.fragment.app.FragmentContainerView
-      android:id="@+id/place_page_bookmark_fragment"
+    <LinearLayout
+      android:id="@+id/plus_details"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:layout="@layout/place_page_bookmark_fragment" />
-    <androidx.fragment.app.FragmentContainerView
-      android:id="@+id/place_page_wikipedia_fragment"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:layout="@layout/place_page_wikipedia_fragment" />
+      android:layout_height="match_parent"
+      android:orientation="vertical">
 
-    <include layout="@layout/place_page_placename"/>
+      <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/place_page_bookmark_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/place_page_bookmark_fragment" />
 
-    <androidx.fragment.app.FragmentContainerView
-      android:id="@+id/place_page_opening_hours_fragment"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:layout="@layout/place_page_opening_hours_fragment" />
+      <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/place_page_wikipedia_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/place_page_wikipedia_fragment" />
 
-    <include layout="@layout/place_page_cuisine"/>
+      <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/place_page_opening_hours_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/place_page_opening_hours_fragment" />
 
-    <include layout="@layout/place_page_entrance"/>
+      <include layout="@layout/place_page_route_ref" />
+    </LinearLayout>
 
-    <include layout="@layout/place_page_operator"/>
+    <include layout="@layout/place_page_placename" />
 
-    <include layout="@layout/place_page_network"/>
+    <include layout="@layout/place_page_cuisine" />
+
+    <include layout="@layout/place_page_entrance" />
+
+    <include layout="@layout/place_page_operator" />
+
+    <include layout="@layout/place_page_network" />
 
     <androidx.fragment.app.FragmentContainerView
       android:id="@+id/place_page_links_fragment"
@@ -55,7 +64,7 @@
 
     <include layout="@layout/place_page_wheelchair" />
 
-    <include layout="@layout/place_page_wifi"/>
+    <include layout="@layout/place_page_wifi" />
 
     <include layout="@layout/place_page_atm" />
 
@@ -63,38 +72,43 @@
 
     <include layout="@layout/place_page_self_service" />
 
-    <include layout="@layout/place_page_outdoor_seating"/>
+    <include layout="@layout/place_page_outdoor_seating" />
 
-    <include layout="@layout/place_page_route_ref"/>
 
     <!-- ToDo: Address is missing compared with iOS. It's shown in title but anyway .. -->
 
-    <include layout="@layout/place_page_latlon"/>
+    <include layout="@layout/place_page_latlon" />
 
-    <include layout="@layout/place_page_open_in"/>
+    <include layout="@layout/place_page_open_in" />
   </LinearLayout>
 
   <androidx.fragment.app.FragmentContainerView
-      android:id="@+id/place_page_products_fragment"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:layout="@layout/place_page_products_fragment" />
+    android:id="@+id/place_page_products_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:layout="@layout/place_page_products_fragment" />
 
   <include
-    layout="@layout/place_page_fat_shadow"
     android:id="@+id/edit_top_space"
-    android:visibility="gone"
+    layout="@layout/place_page_fat_shadow"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content"
+    android:visibility="gone" />
 
-  <include android:visibility="gone" layout="@layout/place_page_editor"/>
+  <include
+    layout="@layout/place_page_editor"
+    android:visibility="gone" />
 
-  <include android:visibility="gone" layout="@layout/place_page_add_business"/>
+  <include
+    layout="@layout/place_page_add_business"
+    android:visibility="gone" />
 
-  <include android:visibility="gone" layout="@layout/place_page_add"/>
+  <include
+    layout="@layout/place_page_add"
+    android:visibility="gone" />
 
   <android.widget.Space
     android:layout_width="match_parent"
-    android:layout_height="@dimen/place_page_buttons_height"/>
+    android:layout_height="@dimen/place_page_buttons_height" />
 
 </LinearLayout>

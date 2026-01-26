@@ -51,7 +51,6 @@
   <dimen name="place_page_icon_background_size">56dp</dimen>
   <dimen name="place_page_icon_size">40dp</dimen>
   <item name="place_page_bottom_sheet_width_ratio" type="fraction">0.0</item>
-  <item name="place_page_bottom_sheet_height_ratio" type="dimen" format="float">0.45</item>
 
   <dimen name="downloader_status_size">40dp</dimen>
   <dimen name="search_progress_size">32dp</dimen>
