@@ -39,6 +39,10 @@ private:
   // 1. osm id,units kmh or mph,maxspeed value
   // 2. osm id,units kmh or mph,maxspeed:forward value
   // 3. osm id,units kmh or mph,maxspeed:forward value,maxspeed:backward value
+  // 4. osm id,units kmh or mph,maxspeed:forward value,maxspeed:conditional value,string condition
+  // 5. osm id,units kmh or mph,maxspeed:forward value,maxspeed:backward value,maxspeed:conditional value,string
+  // condition
+  //
   // There are possible examples of strings contained in the list |m_data|:
   // 2343313,Metric,60
   // 13243214,Imperial,60
@@ -46,6 +50,8 @@ private:
   // 134243,Imperial,30,50
   // 45432423,Metric,60,65534
   // 53445423,Metric,60,65533
+  // 106897002,Metric,130,110,nov - mar
+  // 31171117,Metric,100,80,80,nov - mar
   //
   // Note 1. 65534 means kNoneMaxSpeed and 65533 means kWalkMaxSpeed. They are constants for
   // maxspeed tag value "none" and "walk" correspondingly.

@@ -273,6 +273,13 @@ public:
     SpeedMacro const backwardMacro = m_converter.SpeedToMacro(backward);
     MaxspeedsSerializer::FeatureSpeedMacro ftSpeed{featureID, m_converter.SpeedToMacro(forward), backwardMacro};
 
+    if (speed.HasConditional())
+    {
+      SpeedInUnits const conditional(speed.GetConditionalSpeed(), speed.GetUnits());
+      ftSpeed.m_conditional = m_converter.SpeedToMacro(conditional);
+      ftSpeed.m_conditionalString = speed.GetCondition();
+    }
+
     if (ftSpeed.m_forward == SpeedMacro::Undefined)
     {
       LOG(LWARNING, ("Undefined forward speed macro", forward, "for way", osmID));
@@ -380,15 +387,54 @@ bool ParseMaxspeeds(string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed)
 
     if (iter)
     {
-      // There's backward maxspeed limit.
-      MaxspeedType backward = 0;
-      if (!ParseOneSpeedValue(iter, backward))
+      auto peekIter = iter;
+      MaxspeedType speed1 = 0;  // Backward or Conditional
+      if (!ParseOneSpeedValue(peekIter, speed1))
         return false;
 
-      speed.SetBackward(backward);
+      MaxspeedType speed2 = 0;
+      bool hasSecondNumber = ParseOneSpeedValue(peekIter, speed2);
+      ++iter;
 
-      if (iter)
-        return false;
+      if (hasSecondNumber)
+      {
+        // forward, backward, conditional_speed, condition
+        speed.SetBackward(speed1);
+
+        MaxspeedType conditionalSpeed = 0;
+        if (!ParseOneSpeedValue(iter, conditionalSpeed))
+          return false;
+
+        string condition;
+        while (iter)
+        {
+          condition += *iter;
+          ++iter;
+          if (iter)
+            condition += " ";
+        }
+
+        speed.SetConditional(conditionalSpeed, condition);
+      }
+      else if (iter)
+      {
+        // forward, conditional_speed, condition
+        string condition;
+        while (iter)
+        {
+          condition += *iter;
+          ++iter;
+          if (iter)
+            condition += " ";
+        }
+
+        speed.SetConditional(speed1, condition);
+      }
+      else
+      {
+        // forward, backward
+        speed.SetBackward(speed1);
+      }
     }
 
     auto const res = osmIdToMaxspeed.emplace(base::MakeOsmWay(osmId), speed);

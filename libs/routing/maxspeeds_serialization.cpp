@@ -8,7 +8,7 @@ std::vector<uint8_t> MaxspeedsSerializer::GetForwardMaxspeeds(std::vector<Featur
   std::vector<uint8_t> result;
   for (auto const & s : speeds)
   {
-    if (!s.IsBidirectional())
+    if (!s.IsComplex())
     {
       result.push_back(static_cast<uint8_t>(s.m_forward));
       maxFeatureID = s.m_featureID;

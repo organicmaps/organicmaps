@@ -28,6 +28,9 @@ bool RoadCategoryToSpeed(std::string const & category, routing::SpeedInUnits & s
 /// matter in this case.
 bool ParseMaxspeedTag(std::string const & maxspeedValue, routing::SpeedInUnits & speed);
 
+bool ParseMaxspeedConditionalTag(std::string const & maxspeedConditional, routing::SpeedInUnits & speed,
+                                 std::string & condition);
+
 std::string UnitsToString(measurement_utils::Units units);
 
 /// \brief Converts string to measurement_utils::Units.

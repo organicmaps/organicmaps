@@ -447,4 +447,62 @@ UNIT_TEST(Maxspeed_CollectorSmoke)
 
   TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(5)].GetForward(), static_cast<MaxspeedType>(20), ());
 }
+
+UNIT_TEST(Maxspeed_ParseConditional)
+{
+  SpeedInUnits speed;
+  string condition;
+
+  TEST(ParseMaxspeedConditionalTag("110 @ (Nov - Mar)", speed, condition), ());
+  TEST(speed == SpeedInUnits(110, Units::Metric), (speed));
+  TEST_EQUAL(condition, "nov - mar", ());
+
+  TEST(ParseMaxspeedConditionalTag("60 mph @ winter", speed, condition), ());
+  TEST(speed == SpeedInUnits(60, Units::Imperial), (speed));
+  TEST_EQUAL(condition, "nov - mar", ());
+
+  TEST(ParseMaxspeedConditionalTag("30 @ (Mo - Fr 07:00-09:00)", speed, condition), ());
+  TEST(speed == SpeedInUnits(30, Units::Metric), (speed));
+  TEST_EQUAL(condition, "mo - fr 07:00-09:00", ());
+
+  TEST(!ParseMaxspeedConditionalTag("110 (Nov - Mar)", speed, condition), ());
+}
+
+UNIT_TEST(Maxspeed_ParseConditionalCsv)
+{
+  string const csv1 = "10,Metric,130,110,nov - mar";
+  OsmIdToMaxspeed mapping1;
+  TEST(ParseCsv(csv1, mapping1), ());
+
+  auto const it1 = mapping1.find(base::MakeOsmWay(10));
+  TEST(it1 != mapping1.end(), ());
+  Maxspeed const & m1 = it1->second;
+
+  TEST(m1.GetUnits() == Units::Metric, ());
+  TEST_EQUAL(m1.GetForward(), static_cast<MaxspeedType>(130), ());
+
+  TEST(!m1.IsBidirectional(), ());
+  TEST(m1.HasConditional(), ());
+
+  TEST_EQUAL(static_cast<MaxspeedType>(m1.GetConditionalSpeed()), static_cast<MaxspeedType>(110), ());
+  TEST_EQUAL(m1.GetCondition(), "nov - mar", ());
+
+  string const csv2 = "11,Metric,100,80,80,nov - mar";
+  OsmIdToMaxspeed mapping2;
+  TEST(ParseCsv(csv2, mapping2), ());
+
+  auto const it2 = mapping2.find(base::MakeOsmWay(11));
+  TEST(it2 != mapping2.end(), ());
+  Maxspeed const & m2 = it2->second;
+
+  TEST(m2.GetUnits() == Units::Metric, ());
+  TEST_EQUAL(m2.GetForward(), static_cast<MaxspeedType>(100), ());
+
+  TEST(m2.IsBidirectional(), ());
+  TEST_EQUAL(m2.GetBackward(), static_cast<MaxspeedType>(80), ());
+  TEST(m2.HasConditional(), ());
+
+  TEST_EQUAL(static_cast<MaxspeedType>(m2.GetConditionalSpeed()), static_cast<MaxspeedType>(80), ());
+  TEST_EQUAL(m2.GetCondition(), "nov - mar", ());
+}
 }  // namespace maxspeeds_tests
