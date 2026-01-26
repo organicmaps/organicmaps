@@ -1278,3 +1278,18 @@ UNIT_TEST(ToLower_ToUpper)
   strings::AsciiToUpper(s);
   TEST_EQUAL(s, "ABC0;9Z", ());
 }
+
+UNIT_TEST(UniString_operator_string_view)
+{
+  using namespace strings;
+  size_t constexpr kUniCharBufSize = 32;
+  UniString us{kUniCharBufSize, U'ё'};
+  std::u32string_view constexpr svStack{U"ёёёёёёёёёёёёёёёёёёёёёёёёёёёёёёёё"};
+  TEST_EQUAL(kUniCharBufSize, svStack.size(), ());
+  TEST_EQUAL(svStack, std::u32string_view{us}, ());
+
+  us.push_back(U'ë');
+  std::u32string_view constexpr svHeap = U"ёёёёёёёёёёёёёёёёёёёёёёёёёёёёёёёёё";
+  TEST_EQUAL(kUniCharBufSize + 1, svHeap.size(), ());
+  TEST_EQUAL(svHeap, std::u32string_view{us}, ());
+}
