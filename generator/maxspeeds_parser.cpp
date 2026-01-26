@@ -201,6 +201,39 @@ bool ParseMaxspeedTag(std::string const & maxspeedValue, routing::SpeedInUnits &
   return false;
 }
 
+bool ParseMaxspeedConditionalTag(std::string const & maxspeedConditional, routing::SpeedInUnits & speed,
+                                 std::string & condition)
+{
+  // Example: "110 @ (Nov - Mar)"
+  auto const atPos = maxspeedConditional.find('@');
+  if (atPos == std::string::npos)
+    return false;
+
+  std::string speedStr = maxspeedConditional.substr(0, atPos);
+  strings::Trim(speedStr);
+
+  if (!ParseMaxspeedTag(speedStr, speed))
+    return false;
+
+  std::string temp = maxspeedConditional.substr(atPos + 1);
+  strings::Trim(temp);
+  condition.clear();
+  for (auto c : temp)
+    if (c != '(' && c != ')')
+      condition.push_back(tolower(c));
+
+  if (temp == "winter")
+    condition = "nov - mar";
+  else if (temp == "spring")
+    condition = "mar - may";
+  else if (temp == "summer")
+    condition = "jun - aug";
+  else if (temp == "fall")
+    condition = "sep - nov";
+
+  return true;
+}
+
 std::string UnitsToString(Units units)
 {
   switch (units)
