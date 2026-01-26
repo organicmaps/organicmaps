@@ -21,6 +21,7 @@ std::string locale()
 {
   osm::NewFeatureCategories m_categories;
   Categories m_categoriesList;
+  Categories m_recentCategoriesList;
 }
 
 @end
@@ -45,6 +46,13 @@ std::string locale()
   std::sort(m_categoriesList.begin(), m_categoriesList.end());
 }
 
+- (void)initializeRecentCategoriesList:(osm::NewFeatureCategories::TypeNames const &)types
+{
+  m_recentCategoriesList.clear();
+  for (auto const & type : types)
+    m_recentCategoriesList.emplace_back(platform::GetLocalizedTypeName(type), type);
+}
+
 - (void)load
 {
   m_categories = GetFramework().GetEditorCategories();
@@ -53,8 +61,10 @@ std::string locale()
 
   auto const & types = m_categories.GetAllCreatableTypeNames();
   m_categoriesList.reserve(types.size());
+  m_recentCategoriesList.reserve(types.size());
 
   [self initializeList:types];
+  [self initializeRecentCategoriesList:m_categories.GetRecentCategories()];
 }
 
 - (void)search:(NSString *)query
@@ -65,9 +75,20 @@ std::string locale()
     [self initializeList:m_categories.Search([query UTF8String])];
 }
 
+- (void)addToRecentCategories:(NSString *)query
+{
+  m_categories.AddToRecentCategories([query UTF8String]);
+  [self initializeRecentCategoriesList:m_categories.GetRecentCategories()];
+}
+
 - (NSString *)getTranslation:(NSInteger)row
 {
   return @(m_categoriesList[row].first.c_str());
+}
+
+- (NSString *)getRecentCategoriesTranslation:(NSInteger)row
+{
+  return @(m_recentCategoriesList[row].first.c_str());
 }
 
 - (NSString *)getType:(NSInteger)row
@@ -75,9 +96,19 @@ std::string locale()
   return @(m_categoriesList[row].second.c_str());
 }
 
+- (NSString *)getRecentCategoriesType:(NSInteger)row
+{
+  return @(m_recentCategoriesList[row].second.c_str());
+}
+
 - (NSInteger)size
 {
   return m_categoriesList.size();
+}
+
+- (NSInteger)recentCategoriesListSize
+{
+  return m_recentCategoriesList.size();
 }
 
 @end
