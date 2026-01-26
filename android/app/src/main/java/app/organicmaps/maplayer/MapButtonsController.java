@@ -31,6 +31,7 @@ import app.organicmaps.sdk.maplayer.subway.SubwayManager;
 import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
+import app.organicmaps.search.SearchPageViewModel;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
@@ -67,8 +68,10 @@ public class MapButtonsController extends Fragment
   private MapButtonClickListener mMapButtonClickListener;
   private PlacePageViewModel mPlacePageViewModel;
   private MapButtonsViewModel mMapButtonsViewModel;
+  private SearchPageViewModel mSearchPageViewModel;
 
   private final Observer<Integer> mPlacePageDistanceToTopObserver = this::move;
+  private final Observer<Integer> mSearchPageDistanceToTopObserver = this::move;
   private final Observer<Boolean> mButtonHiddenObserver = this::setButtonsHidden;
   private final Observer<Integer> mMyPositionModeObserver = this::updateNavMyPositionButton;
   private final Observer<SearchWheel.SearchOption> mSearchOptionObserver = this::onSearchOptionChange;
@@ -88,6 +91,7 @@ public class MapButtonsController extends Fragment
     mMapButtonClickListener = (MwmActivity) activity;
     mPlacePageViewModel = new ViewModelProvider(activity).get(PlacePageViewModel.class);
     mMapButtonsViewModel = new ViewModelProvider(activity).get(MapButtonsViewModel.class);
+    mSearchPageViewModel = new ViewModelProvider(activity).get(SearchPageViewModel.class);
     final LayoutMode layoutMode = mMapButtonsViewModel.getLayoutMode().getValue();
     if (layoutMode == LayoutMode.navigation)
       mFrame = inflater.inflate(R.layout.map_buttons_layout_navigation, container, false);
@@ -408,6 +412,7 @@ public class MapButtonsController extends Fragment
     super.onStart();
     final FragmentActivity activity = requireActivity();
     mPlacePageViewModel.getPlacePageDistanceToTop().observe(activity, mPlacePageDistanceToTopObserver);
+    mSearchPageViewModel.getSearchPageDistanceToTop().observe(activity, mSearchPageDistanceToTopObserver);
     mMapButtonsViewModel.getButtonsHidden().observe(activity, mButtonHiddenObserver);
     mMapButtonsViewModel.getMyPositionMode().observe(activity, mMyPositionModeObserver);
     mMapButtonsViewModel.getSearchOption().observe(activity, mSearchOptionObserver);
@@ -445,6 +450,7 @@ public class MapButtonsController extends Fragment
     super.onStop();
     mMapButtonsViewModel.getTopButtonsMarginTop().removeObserver(mTopButtonMarginObserver);
     mPlacePageViewModel.getPlacePageDistanceToTop().removeObserver(mPlacePageDistanceToTopObserver);
+    mSearchPageViewModel.getSearchPageDistanceToTop().removeObserver(mSearchPageDistanceToTopObserver);
     mMapButtonsViewModel.getButtonsHidden().removeObserver(mButtonHiddenObserver);
     mMapButtonsViewModel.getMyPositionMode().removeObserver(mMyPositionModeObserver);
     mMapButtonsViewModel.getSearchOption().removeObserver(mSearchOptionObserver);

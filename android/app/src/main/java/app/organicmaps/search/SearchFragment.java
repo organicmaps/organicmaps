@@ -1,6 +1,5 @@
 package app.organicmaps.search;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
@@ -19,13 +19,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.downloader.CountrySuggestFragment;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
@@ -45,17 +46,19 @@ import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.SearchToolbarController;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SearchFragment extends BaseMwmFragment implements SearchListener, CategoriesAdapter.CategoriesUiListener
+public class SearchFragment extends Fragment implements SearchListener, CategoriesAdapter.CategoriesUiListener
 {
   private long mLastQueryTimestamp;
   @NonNull
   private final List<HiddenCommand> mHiddenCommands = new ArrayList<>();
+  private SearchFragmentListener mSearchFragmentListener;
 
   private static class LastPosition
   {
@@ -76,6 +79,7 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
     public ToolbarController(View root)
     {
       super(root, SearchFragment.this.requireActivity());
+      ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), null);
     }
 
     @Override
@@ -87,6 +91,7 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
       if (TextUtils.isEmpty(query))
       {
         mSearchAdapter.clear();
+        mSearchViewModel.setSearchQuery(null);
         stopSearch();
         return;
       }
@@ -95,10 +100,11 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
       {
         mSearchAdapter.clear();
         stopSearch();
-        closeSearch();
+        requireActivity().finish();
         return;
       }
 
+      mSearchViewModel.setSearchQuery(query);
       runSearch();
     }
 
@@ -144,6 +150,7 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   private View mResultsFrame;
   private PlaceholderView mResultsPlaceholder;
   private ExtendedFloatingActionButton mShowOnMapFab;
+  private SearchPageViewModel mSearchViewModel;
 
   @NonNull
   private SearchToolbarController mToolbarController;
@@ -181,6 +188,14 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
 
       if (!TextUtils.isEmpty(getQuery()))
         mSearchAdapter.notifyDataSetChanged();
+    }
+  };
+
+  private final Observer<Integer> mBottomSheetStateObserver = new Observer<>() {
+    public void onChanged(Integer state)
+    {
+      if (state != BottomSheetBehavior.STATE_EXPANDED)
+        mToolbarController.deactivate();
     }
   };
 
@@ -252,7 +267,19 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   {
     super.onViewCreated(view, savedInstanceState);
     mSearchAdapter = new SearchAdapter(this);
-    readArguments();
+    mSearchViewModel = new ViewModelProvider(requireActivity()).get(SearchPageViewModel.class);
+
+    requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),
+                                                               new OnBackPressedCallback(true) {
+                                                                 @Override
+                                                                 public void handleOnBackPressed()
+                                                                 {
+                                                                   if (!onBackPressed())
+                                                                     setEnabled(true);
+                                                                 }
+                                                               });
+
+    mSearchFragmentListener = (SearchFragmentListener) getParentFragment();
 
     ViewGroup root = (ViewGroup) view;
     View mTabFrame = root.findViewById(R.id.tab_frame);
@@ -260,6 +287,8 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
 
     mToolbarController = new ToolbarController(view);
     TabLayout tabLayout = root.findViewById(R.id.tabs);
+
+    mSearchViewModel.getSearchPageLastState().observe(requireActivity(), mBottomSheetStateObserver);
 
     if (Config.isSearchHistoryEnabled())
       tabLayout.setVisibility(View.VISIBLE);
@@ -288,6 +317,7 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
     mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
     mResults.setAdapter(mSearchAdapter);
 
+    //    readArguments();
     updateFrames();
     updateResultsPlaceholder();
     ViewCompat.setOnApplyWindowInsetsListener(
@@ -319,7 +349,7 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   {
     super.onResume();
     MwmApplication.from(requireContext()).getLocationHelper().addListener(mLocationListener);
-    if (mInitialQuery != null)
+    if (mInitialQuery != null && !mInitialQuery.isEmpty())
     {
       setQuery(mInitialQuery, false);
       mInitialQuery = null;
@@ -338,6 +368,7 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   {
     super.onStop();
     mToolbarController.detach();
+    mSearchViewModel.getSearchPageLastState().removeObserver(mBottomSheetStateObserver);
   }
 
   @Override
@@ -366,13 +397,13 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
 
   private void readArguments()
   {
-    final Bundle arguments = getArguments();
-    if (arguments == null)
-      return;
-
-    mInitialQuery = arguments.getString(SearchActivity.EXTRA_QUERY);
-    mInitialLocale = arguments.getString(SearchActivity.EXTRA_LOCALE);
-    mInitialSearchOnMap = arguments.getBoolean(SearchActivity.EXTRA_SEARCH_ON_MAP);
+    if (mSearchViewModel.getSearchQuery() != null && !mSearchViewModel.getSearchQuery().isEmpty())
+    {
+      mInitialQuery = mSearchViewModel.getSearchQuery();
+      mSearchViewModel.setSearchQuery(null);
+    }
+    //    mInitialLocale = arguments.getString(SearchActivity.EXTRA_LOCALE);
+    //    mInitialSearchOnMap = arguments.getBoolean(SearchActivity.EXTRA_SEARCH_ON_MAP);
   }
 
   private boolean tryRecognizeHiddenCommand(@NonNull String query)
@@ -530,7 +561,6 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
     mToolbarController.showProgress(true);
   }
 
-  @Override
   public boolean onBackPressed()
   {
     if (mToolbarController.hasQuery())
@@ -539,25 +569,16 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
       return true;
     }
 
-    boolean isSearchActivity = requireActivity() instanceof SearchActivity;
     mToolbarController.deactivate();
     if (RoutingController.get().isWaitingPoiPick())
     {
       RoutingController.get().onPoiSelected(null);
-      if (isSearchActivity)
-        closeSearch();
-      return !isSearchActivity;
+      return true;
     }
 
-    if (isSearchActivity)
-      closeSearch();
-    return isSearchActivity;
-  }
-
-  private void closeSearch()
-  {
-    final Activity activity = requireActivity();
-    activity.finish();
+    if (mSearchFragmentListener.getBackPressedCallback())
+      return true;
+    return false;
   }
 
   public void setRecyclerScrollListener(RecyclerView recycler)
@@ -628,5 +649,10 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
     @Override
     void executeInternal()
     {}
+  }
+
+  interface SearchFragmentListener
+  {
+    boolean getBackPressedCallback();
   }
 }
