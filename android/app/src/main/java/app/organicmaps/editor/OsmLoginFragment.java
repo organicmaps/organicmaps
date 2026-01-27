@@ -115,19 +115,18 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     ThreadPool.getWorker().execute(() -> {
       final String[] authResult = new String[1];
       final boolean success = OsmOAuth.nativeAuthWithPassword(username, password, authResult);
-      final String oauthToken = success ? authResult[0] : null;
-      final String error = !success ? authResult[0] : null;
       if (success)
       {
+        final String oauthToken = authResult[0];
         final String osmUsername = OsmOAuth.nativeGetOsmUsername(oauthToken);
         OsmOAuth.setAuthorization(oauthToken, osmUsername);
+        UiThread.run(() -> onAuthSuccess());
       }
-      UiThread.run(() -> {
-        if (success)
-          onAuthSuccess();
-        else
-          onAuthFail(error);
-      });
+      else
+      {
+        final String error = authResult[0];
+        UiThread.run(() -> onAuthFail(error));
+      };
     });
   }
 
@@ -144,7 +143,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     mLostPasswordButton.setEnabled(enable);
   }
 
-  private void onAuthFail(@Nullable String error)
+  private void onAuthFail(@NonNull String error)
   {
     if (!isAdded())
       return;
@@ -152,15 +151,13 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     enableInput(true);
     UiUtils.hide(mProgress);
     mLoginButton.setText(R.string.login_osm);
-
-    mIsErrorShown = true;
     mErrorText = error;
-    if (mErrorTv != null)
+    if (mErrorText != null && (mErrorText.contains("NetworkError")))
+      mErrorText = getString(R.string.common_check_internet_connection_dialog);
+
+    if (mErrorText != null)
     {
-      if (mErrorText != null)
-        mErrorTv.setText(mErrorText);
-      else
-        mErrorTv.setText(R.string.editor_login_error_dialog);
+      mErrorTv.setText(mErrorText);
       UiUtils.show(mErrorTv);
     }
   }
