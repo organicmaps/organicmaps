@@ -14110,6 +14110,15 @@ vi = Ẩm thực thổ nhĩ kỳ
 zh-Hans = 土耳其菜
 zh-Hant = 土耳其料理
 
+[type.cuisine.uzbek]
+en = Uzbek
+be = Узбекская
+de = Usbekische
+fr = Cuisine ouzbèke
+ru = Узбекская кухня
+sr = Узбекистанска
+uk = Узбецька кухня
+
 [type.cuisine.vegan]
 en = Vegan
 af = Veganisties
