@@ -10,11 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.util.ByteUtils;
 import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -348,11 +350,64 @@ public enum BookmarkManager {
         return filename + ".gpx";
     }
 
-    // WhatsApp doesn't provide correct mime type and extension for GPX files.
+    // Need to read file content and guess from its signature.
+    String extension = guessExtensionByContent(resolver, uri);
+    if (extension != null)
+      return filename + extension;
+
+    // WhatsApp doesn't provide correct mime type and extension for GPX and GeoJson files.
     if (uri.getHost().contains("com.whatsapp.provider.media"))
       return filename + ".gpx";
 
     return null;
+  }
+
+  private static String guessExtensionByContent(@NonNull ContentResolver resolver, @NonNull Uri uri)
+  {
+    // If first symbol is '{' -> GeoJson
+    // If first symbols 'PK' -> Zip archive, probably KMZ
+    // If first symbols '<?xml ' and contains '<kml '  -> KML
+    // If first symbols '<?xml ' and contains '<gpx '  -> GPX
+
+    byte[] xmlMarker = "<?xml ".getBytes();
+    byte[] kmlMarker = "<kml ".getBytes();
+    byte[] gpxMarker = "<gpx ".getBytes();
+    byte[] utf8Bom = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF};
+
+    try
+    {
+      InputStream inputStream = resolver.openInputStream(uri);
+      byte[] buffer = new byte[100];
+      inputStream.read(buffer);
+
+      // Search for ZIP marker
+      if (buffer[0] == 'P' && buffer[1] == 'K')
+        return ".kmz";
+
+      int bomOffset = 0;
+      if (ByteUtils.startsWith(buffer, utf8Bom))
+        bomOffset = 3; // Skip first 3 bytes with BOM
+
+      // Search for markers
+      if (buffer[bomOffset] == '{')
+        return ".geojson";
+
+      if (ByteUtils.startsWith(buffer, xmlMarker, bomOffset))
+      {
+        // Content has XML format
+        if (ByteUtils.contains(buffer, kmlMarker, bomOffset))
+          return ".kml";
+        if (ByteUtils.contains(buffer, gpxMarker, bomOffset))
+          return ".gpx";
+      }
+
+      // No known signatures found.
+      return null;
+    }
+    catch (IOException e)
+    {
+      return null;
+    }
   }
 
   @WorkerThread
@@ -493,9 +548,12 @@ public enum BookmarkManager {
 
   @NonNull
   native BookmarkCategory nativeGetBookmarkCategory(long catId);
+
   @NonNull
   native BookmarkCategory[] nativeGetBookmarkCategories();
+
   native int nativeGetBookmarkCategoriesCount();
+
   @NonNull
   native BookmarkCategory[] nativeGetChildrenCategories(long catId);
 
