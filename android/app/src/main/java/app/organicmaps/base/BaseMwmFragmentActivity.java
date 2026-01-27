@@ -2,6 +2,7 @@ package app.organicmaps.base;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Bundle;
@@ -41,7 +42,9 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   protected final void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
+    int nightMask = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+    SystemBarStyle style = (nightMask == Configuration.UI_MODE_NIGHT_NO) ? SystemBarStyle.light(Color.TRANSPARENT) : SystemBarStyle.dark(Color.TRANSPARENT);
+    EdgeToEdge.enable(this, style);
     RtlUtils.manageRtl(this);
     if (!MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
     {
