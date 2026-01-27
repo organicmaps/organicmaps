@@ -1,9 +1,18 @@
 #include "new_feature_categories.hpp"
 
+#include "base/string_utils.hpp"
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
+#include "platform/settings.hpp"
 
 #include <algorithm>
+
+namespace
+{
+std::string_view constexpr kSettingsKey = "RecentCategory";
+using Length = uint16_t;
+Length constexpr kMaxRecentCategoriesCount = 5;
+}  // namespace
 
 namespace osm
 {
@@ -59,5 +68,37 @@ NewFeatureCategories::TypeNames NewFeatureCategories::Search(std::string const &
 
   return result;
 }
+
+void NewFeatureCategories::AddToRecentCategories(std::string const & category)
+{
+  std::string current;
+  m_recentCategories.clear();
+  m_recentCategories.emplace_back(category);
+  if (settings::Get(kSettingsKey, current) && !current.empty())
+  {
+    strings::Tokenize(current, ";", [this, &category](std::string_view const & s)
+    {
+      if (!s.empty() && s != category && m_recentCategories.size() < kMaxRecentCategoriesCount)
+        m_recentCategories.emplace_back(s);
+    });
+  }
+  std::string result = strings::JoinStrings(m_recentCategories, ";");
+  settings::Set(kSettingsKey, result);
+}
+
+NewFeatureCategories::TypeNames NewFeatureCategories::GetRecentCategories()
+{
+  std::string current;
+  m_recentCategories.clear();
+  if (settings::Get(kSettingsKey, current) && !current.empty())
+  {
+    strings::Tokenize(current, ";", [this](std::string_view const & s)
+    {
+      if (!s.empty())
+        m_recentCategories.emplace_back(s);
+    });
+  }
+  return m_recentCategories;
+}  // namespace search
 
 }  // namespace osm
