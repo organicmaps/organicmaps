@@ -17,8 +17,6 @@ import app.organicmaps.sdk.util.log.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -374,6 +372,7 @@ public enum BookmarkManager {
     byte[] xmlMarker = "<?xml ".getBytes();
     byte[] kmlMarker = "<kml ".getBytes();
     byte[] gpxMarker = "<gpx ".getBytes();
+    byte[] utf8Bom = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF};
 
     try
     {
@@ -381,28 +380,24 @@ public enum BookmarkManager {
       byte[] buffer = new byte[100];
       inputStream.read(buffer);
 
-      Charset charset = ByteUtils.guessEncodingByBom(buffer);
-      if (charset != null && charset != StandardCharsets.UTF_8)
-      {
-        // According to BOM, file content has two bytes unicode encoding.
-        // Re-encode it to UTF8 bytes before processing.
-        String fileContent = new String(buffer, charset);
-        buffer = fileContent.getBytes(StandardCharsets.UTF_8);
-      }
-
-      // Search for markers
-      if (buffer[0] == '{')
-        return ".geojson";
-
+      // Search for ZIP marker
       if (buffer[0] == 'P' && buffer[1] == 'K')
         return ".kmz";
 
-      if (ByteUtils.startsWith(buffer, xmlMarker))
+      int bomOffset = 0;
+      if (ByteUtils.startsWith(buffer, utf8Bom))
+        bomOffset = 3; // Skip first 3 bytes with BOM
+
+      // Search for markers
+      if (buffer[bomOffset] == '{')
+        return ".geojson";
+
+      if (ByteUtils.startsWith(buffer, xmlMarker, bomOffset))
       {
         // Content has XML format
-        if (ByteUtils.contains(buffer, kmlMarker))
+        if (ByteUtils.contains(buffer, kmlMarker, bomOffset))
           return ".kml";
-        if (ByteUtils.contains(buffer, gpxMarker))
+        if (ByteUtils.contains(buffer, gpxMarker, bomOffset))
           return ".gpx";
       }
 
