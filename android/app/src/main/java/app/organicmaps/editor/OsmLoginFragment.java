@@ -207,7 +207,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
         if (oauthToken != null)
           onAuthSuccess();
         else
-          onAuthFail(null);
+          onAuthFail("AuthWithOAuth2Code failed");
       });
     });
   }
