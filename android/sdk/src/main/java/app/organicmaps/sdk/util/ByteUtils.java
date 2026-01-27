@@ -20,7 +20,8 @@ public class ByteUtils
     return true;
   }
 
-  public static boolean contains(byte[] source, byte[] target) {
+  public static boolean contains(byte[] source, byte[] target)
+  {
     return contains(source, target, 0);
   }
 
