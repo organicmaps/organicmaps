@@ -213,7 +213,8 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikimedia_commons)
   p(kWikiKey, "Category:Bosphorus");
   TEST_EQUAL(md.Get(Metadata::FMD_WIKIMEDIA_COMMONS), "Category:Bosphorus", ());
 
-  TEST_EQUAL(md.ToWikimediaCommonsURL("Category:What If? (Bonn)"), "https://commons.wikimedia.org/wiki/Category:What_If%3F_(Bonn)", ());
+  TEST_EQUAL(md.ToWikimediaCommonsURL("Category:What If? (Bonn)"),
+             "https://commons.wikimedia.org/wiki/Category:What_If%3F_(Bonn)", ());
 
   md.Drop(Metadata::FMD_WIKIMEDIA_COMMONS);
   p(kWikiKey, "incorrect_wikimedia_content");
