@@ -362,7 +362,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
 {
   // Track(long trackId, long categoryId, String name, String lengthString, int color)
   static jmethodID const cId =
-      jni::GetConstructorID(env, trackClazz, "(JJLjava/lang/String;Lapp/organicmaps/sdk/util/Distance;I)V");
+      jni::GetConstructorID(env, trackClazz, "(JJLjava/lang/String;Lapp/organicmaps/sdk/util/Distance;IZ)V");
   auto const * nTrack = frm()->GetBookmarkManager().GetTrack(static_cast<kml::TrackId>(trackId));
 
   ASSERT(nTrack, ("Track must not be null with id:)", trackId));
@@ -370,7 +370,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
   return env->NewObject(trackClazz, cId, trackId, static_cast<jlong>(nTrack->GetGroupId()),
                         jni::ToJavaString(env, nTrack->GetName()),
                         ToJavaDistance(env, platform::Distance::CreateFormatted(nTrack->GetLengthMeters())),
-                        nTrack->GetColor(0).GetARGB());
+                        nTrack->GetColor(0).GetARGB(), static_cast<jboolean>(nTrack->IsVisible()));
 }
 
 JNIEXPORT jboolean JNICALL

@@ -836,7 +836,7 @@ void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId)
     auto const snapRect =
         mercator::RectByCenterXYAndSizeInMeters(m_myPositionMark->GetPivot(), kMyPositionTrackSnapInMeters);
     auto const selectionInfo =
-        FindNearestTrack(snapRect, [trackId](Track const * track) { return track->GetId() == trackId; });
+        FindNearestVisibleTrack(snapRect, [trackId](Track const * track) { return track->GetId() == trackId; });
     if (selectionInfo.m_trackId == trackId)
       myPositionDistance = selectionInfo.m_distFromBegM;
   }
@@ -911,8 +911,8 @@ void BookmarkManager::SetElevationActivePointChangedCallback(ElevationActivePoin
   m_elevationActivePointChanged = cb;
 }
 
-Track::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD const & touchRect,
-                                                            TracksFilter const & tracksFilter) const
+Track::TrackSelectionInfo BookmarkManager::FindNearestVisibleTrack(m2::RectD const & touchRect,
+                                                                   TracksFilter const & tracksFilter) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   Track::TrackSelectionInfo selectionInfo;
@@ -926,6 +926,8 @@ Track::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD const & to
     for (auto trackId : category.GetUserLines())
     {
       auto const track = GetTrack(trackId);
+      if (!track->IsVisible())
+        continue;
       if (tracksFilter && !tracksFilter(track))
         continue;
 
@@ -1745,6 +1747,22 @@ UserMark const * BookmarkManager::FindMarkInRect(kml::MarkGroupId groupId, m2::A
     }
   }
   return resMark;
+}
+
+void BookmarkManager::SetTrackVisibility(kml::TrackId trackId, bool visible)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  GetTrackForEdit(trackId)->SetVisibility(visible);
+  m_changesTracker.OnUpdateLine(trackId);
+
+  auto const markId = GetTrackSelectionMarkId(trackId);
+  if (markId != kml::kInvalidMarkId)
+  {
+    auto const infoMark = GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
+    if (infoMark->GetTrackId() == trackId && infoMark->IsVisible())
+      infoMark->SetIsVisible(visible);
+    GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId)->SetIsVisible(visible);
+  }
 }
 
 void BookmarkManager::SetIsVisible(kml::MarkGroupId groupId, bool visible)
@@ -3567,6 +3585,11 @@ void BookmarkManager::EditSession::ClearGroup(kml::MarkGroupId groupId)
 void BookmarkManager::EditSession::SetIsVisible(kml::MarkGroupId groupId, bool visible)
 {
   m_bmManager.SetIsVisible(groupId, visible);
+}
+
+void BookmarkManager::EditSession::SetTrackVisibility(kml::TrackId groupId, bool visible)
+{
+  m_bmManager.SetTrackVisibility(groupId, visible);
 }
 
 void BookmarkManager::EditSession::MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID,

@@ -2350,7 +2350,7 @@ Track::TrackSelectionInfo Framework::FindTrackInTapPosition(place_page::BuildInf
     return selection;
   }
   auto const touchRect = df::TapInfo::GetDefaultTapRect(buildInfo.m_mercator, m_currentModelView).GetGlobalRect();
-  return bm.FindNearestTrack(touchRect);
+  return bm.FindNearestVisibleTrack(touchRect);
 }
 
 UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const
