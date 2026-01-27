@@ -91,7 +91,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       if (TextUtils.isEmpty(query))
       {
         mSearchAdapter.clear();
-        mSearchViewModel.setSearchQuery(null);
+        mSearchViewModel.setLastResults(null);
         stopSearch();
         return;
       }
@@ -104,7 +104,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
         return;
       }
 
-      mSearchViewModel.setSearchQuery(query);
       runSearch();
     }
 
@@ -268,7 +267,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     super.onViewCreated(view, savedInstanceState);
     mSearchAdapter = new SearchAdapter(this);
     mSearchViewModel = new ViewModelProvider(requireActivity()).get(SearchPageViewModel.class);
-
     requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),
                                                                new OnBackPressedCallback(true) {
                                                                  @Override
@@ -286,17 +284,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     ViewPager pager = mTabFrame.findViewById(R.id.pages);
 
     mToolbarController = new ToolbarController(view);
+    if (savedInstanceState != null)
+      mToolbarController.skipNextTextChange();
     TabLayout tabLayout = root.findViewById(R.id.tabs);
-
-    mSearchViewModel.getSearchPageLastState().observe(requireActivity(), mBottomSheetStateObserver);
-
-    if (Config.isSearchHistoryEnabled())
-      tabLayout.setVisibility(View.VISIBLE);
-    else
-      tabLayout.setVisibility(View.GONE);
-
-    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
-
     mResultsFrame = root.findViewById(R.id.results_frame);
     RecyclerView mResults = mResultsFrame.findViewById(R.id.recycler);
     setRecyclerScrollListener(mResults);
@@ -316,6 +306,29 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
     mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
     mResults.setAdapter(mSearchAdapter);
+
+    // Restore cached results (query is restored by view state; we only need to repopulate the list).
+    final SearchResult[] cachedResults = mSearchViewModel.getLastResults();
+    if (cachedResults != null)
+    {
+      final String cachedQuery = mSearchViewModel.getSearchQuery();
+      if (!TextUtils.isEmpty(cachedQuery))
+        mToolbarController.setQuerySilently(cachedQuery, false);
+      mSearchAdapter.refreshData(cachedResults);
+      mSearchRunning = false;
+      mToolbarController.showProgress(false);
+      updateFrames();
+      updateResultsPlaceholder();
+    }
+
+    mSearchViewModel.getSearchPageLastState().observe(requireActivity(), mBottomSheetStateObserver);
+
+    if (Config.isSearchHistoryEnabled())
+      tabLayout.setVisibility(View.VISIBLE);
+    else
+      tabLayout.setVisibility(View.GONE);
+
+    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
 
     //    readArguments();
     updateFrames();
@@ -367,6 +380,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   public void onStop()
   {
     super.onStop();
+    mSearchViewModel.setLastResults(mSearchAdapter.getResults());
+    mSearchViewModel.setSearchQuery(TextUtils.isEmpty(getQuery()) ? null : getQuery());
     mToolbarController.detach();
     mSearchViewModel.getSearchPageLastState().removeObserver(mBottomSheetStateObserver);
   }
@@ -558,6 +573,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mSearchRunning = true;
     updateFrames();
     mSearchAdapter.refreshData(results);
+    mSearchViewModel.setLastResults(results);
+    mSearchViewModel.setSearchQuery(getQuery());
     mToolbarController.showProgress(true);
   }
 
