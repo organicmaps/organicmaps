@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import app.organicmaps.sdk.search.SearchResult;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 public class SearchPageViewModel extends ViewModel
 {
@@ -14,6 +15,8 @@ public class SearchPageViewModel extends ViewModel
       new MutableLiveData<>(BottomSheetBehavior.STATE_COLLAPSED);
   private final MutableLiveData<Boolean> mSearchEnabled = new MutableLiveData<>();
   private String mSearchQuery = null;
+  @Nullable
+  private SearchResult[] mLastResults = null;
 
   public MutableLiveData<Integer> getSearchPageDistanceToTop()
   {
@@ -55,5 +58,16 @@ public class SearchPageViewModel extends ViewModel
   {
     mSearchEnabled.setValue(enabled);
     mSearchQuery = query;
+  }
+
+  @Nullable
+  public SearchResult[] getLastResults()
+  {
+    return mLastResults;
+  }
+
+  public void setLastResults(@Nullable SearchResult[] results)
+  {
+    mLastResults = results;
   }
 }
