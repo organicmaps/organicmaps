@@ -161,11 +161,6 @@
       "dst_delta": 0,
       "transitions": []
     },
-    "Africa/Lubumbashi": {
-      "base_offset": 72,
-      "dst_delta": 0,
-      "transitions": []
-    },
     "Africa/Maputo": {
       "base_offset": 72,
       "dst_delta": 0,
@@ -249,11 +244,6 @@
       "transitions": []
     },
     "America/Asuncion": {
-      "base_offset": 52,
-      "dst_delta": 0,
-      "transitions": []
-    },
-    "America/Bahia": {
       "base_offset": 52,
       "dst_delta": 0,
       "transitions": []
@@ -868,28 +858,6 @@
         }
       ]
     },
-    "Arctic/Longyearbyen": {
-      "base_offset": 68,
-      "dst_delta": 60,
-      "transitions": [
-        {
-          "day_delta": 87,
-          "minute_of_day": 60
-        },
-        {
-          "day_delta": 210,
-          "minute_of_day": 60
-        },
-        {
-          "day_delta": 154,
-          "minute_of_day": 60
-        },
-        {
-          "day_delta": 217,
-          "minute_of_day": 60
-        }
-      ]
-    },
     "Asia/Almaty": {
       "base_offset": 84,
       "dst_delta": 0,
@@ -949,11 +917,6 @@
     },
     "Asia/Bishkek": {
       "base_offset": 88,
-      "dst_delta": 0,
-      "transitions": []
-    },
-    "Asia/Brunei": {
-      "base_offset": 96,
       "dst_delta": 0,
       "transitions": []
     },
@@ -1073,6 +1036,11 @@
     },
     "Asia/Krasnoyarsk": {
       "base_offset": 92,
+      "dst_delta": 0,
+      "transitions": []
+    },
+    "Asia/Kuching": {
+      "base_offset": 96,
       "dst_delta": 0,
       "transitions": []
     },
@@ -1311,11 +1279,6 @@
         }
       ]
     },
-    "Atlantic/Reykjavik": {
-      "base_offset": 64,
-      "dst_delta": 0,
-      "transitions": []
-    },
     "Atlantic/South_Georgia": {
       "base_offset": 56,
       "dst_delta": 0,
@@ -1350,28 +1313,6 @@
         {
           "day_delta": 182,
           "minute_of_day": 960
-        }
-      ]
-    },
-    "Europe/Amsterdam": {
-      "base_offset": 68,
-      "dst_delta": 60,
-      "transitions": [
-        {
-          "day_delta": 87,
-          "minute_of_day": 60
-        },
-        {
-          "day_delta": 210,
-          "minute_of_day": 60
-        },
-        {
-          "day_delta": 154,
-          "minute_of_day": 60
-        },
-        {
-          "day_delta": 217,
-          "minute_of_day": 60
         }
       ]
     },
@@ -1548,28 +1489,6 @@
         {
           "day_delta": 217,
           "minute_of_day": 0
-        }
-      ]
-    },
-    "Europe/Copenhagen": {
-      "base_offset": 68,
-      "dst_delta": 60,
-      "transitions": [
-        {
-          "day_delta": 87,
-          "minute_of_day": 60
-        },
-        {
-          "day_delta": 210,
-          "minute_of_day": 60
-        },
-        {
-          "day_delta": 154,
-          "minute_of_day": 60
-        },
-        {
-          "day_delta": 217,
-          "minute_of_day": 60
         }
       ]
     },
@@ -1769,28 +1688,6 @@
       "dst_delta": 0,
       "transitions": []
     },
-    "Europe/Oslo": {
-      "base_offset": 68,
-      "dst_delta": 60,
-      "transitions": [
-        {
-          "day_delta": 87,
-          "minute_of_day": 60
-        },
-        {
-          "day_delta": 210,
-          "minute_of_day": 60
-        },
-        {
-          "day_delta": 154,
-          "minute_of_day": 60
-        },
-        {
-          "day_delta": 217,
-          "minute_of_day": 60
-        }
-      ]
-    },
     "Europe/Paris": {
       "base_offset": 68,
       "dst_delta": 60,
@@ -1881,28 +1778,6 @@
     },
     "Europe/Sofia": {
       "base_offset": 72,
-      "dst_delta": 60,
-      "transitions": [
-        {
-          "day_delta": 87,
-          "minute_of_day": 60
-        },
-        {
-          "day_delta": 210,
-          "minute_of_day": 60
-        },
-        {
-          "day_delta": 154,
-          "minute_of_day": 60
-        },
-        {
-          "day_delta": 217,
-          "minute_of_day": 60
-        }
-      ]
-    },
-    "Europe/Stockholm": {
-      "base_offset": 68,
       "dst_delta": 60,
       "transitions": [
         {
@@ -2060,11 +1935,6 @@
       "dst_delta": 0,
       "transitions": []
     },
-    "Indian/Mahe": {
-      "base_offset": 80,
-      "dst_delta": 0,
-      "transitions": []
-    },
     "Indian/Maldives": {
       "base_offset": 84,
       "dst_delta": 0,
@@ -2132,11 +2002,6 @@
       "dst_delta": 0,
       "transitions": []
     },
-    "Pacific/Majuro": {
-      "base_offset": 112,
-      "dst_delta": 0,
-      "transitions": []
-    },
     "Pacific/Nauru": {
       "base_offset": 112,
       "dst_delta": 0,
@@ -2154,11 +2019,6 @@
     },
     "Pacific/Pitcairn": {
       "base_offset": 32,
-      "dst_delta": 0,
-      "transitions": []
-    },
-    "Pacific/Pohnpei": {
-      "base_offset": 108,
       "dst_delta": 0,
       "transitions": []
     },
@@ -2184,11 +2044,6 @@
     },
     "Pacific/Tongatapu": {
       "base_offset": 116,
-      "dst_delta": 0,
-      "transitions": []
-    },
-    "Pacific/Wallis": {
-      "base_offset": 112,
       "dst_delta": 0,
       "transitions": []
     }
