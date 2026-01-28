@@ -197,11 +197,16 @@ public class PlacePageController
           (ViewGroup.MarginLayoutParams) mPlacePageStatusBarBackground.getLayoutParams();
       // Layout calculations are heavy so we compute them once then move the view from behind the place page to the
       // status bar
-      layoutParams.height = insets.top;
-      layoutParams.width = mPlacePage.getWidth();
-      // Make sure the view is centered within the insets as is the place page
-      layoutParams.setMargins(insets.left, 0, insets.right, 0);
-      mPlacePageStatusBarBackground.setLayoutParams(layoutParams);
+      boolean needsUpdate = layoutParams.height != insets.top || layoutParams.width != mPlacePage.getWidth()
+                         || layoutParams.leftMargin != insets.left || layoutParams.rightMargin != insets.right;
+      if (needsUpdate)
+      {
+        layoutParams.height = insets.top;
+        layoutParams.width = mPlacePage.getWidth();
+        layoutParams.setMargins(insets.left, 0, insets.right, 0);
+        mPlacePageStatusBarBackground.setLayoutParams(layoutParams);
+      }
+
       return windowInsets;
     });
 
