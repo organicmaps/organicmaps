@@ -245,11 +245,12 @@ void FillDetails(FeatureType & ft, std::string const & name, Result::Details & d
   if (!openHours.empty())
   {
     using namespace osmoh;
-    if (OpeningHours const oh{openHours}; oh.IsValid())
+    OpeningHours const oh((std::string(openHours)));
+    if (oh.IsValid())
     {
-      time_t now = time(nullptr);
-      auto const & ftTimezone = ft.GetID().m_mwmId.GetInfo()->GetRegionData().GetTimeZone();
-      auto const info = oh.GetInfo(now, ftTimezone);
+      /// @todo We should check closed/open time for specific feature's timezone.
+      time_t const now = time(nullptr);
+      auto const info = oh.GetInfo(now);
       if (info.state != RuleState::Unknown)
       {
         // In else case value is osm::Unknown, it's set in preview's constructor.

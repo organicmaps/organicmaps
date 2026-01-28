@@ -1,8 +1,8 @@
 #pragma once
 
-#include "base/stl_helpers.hpp"
 #include "coding/string_utf8_multilang.hpp"
-#include "timezone/timezone.hpp"
+
+#include "base/stl_helpers.hpp"
 
 #include <map>
 #include <string>
@@ -187,7 +187,7 @@ public:
   {
     RD_LANGUAGES,         // list of written languages
     RD_DRIVING,           // left- or right-hand driving (letter 'l' or 'r')
-    RD_TIMEZONE,          // timezone in om::tz::TimeZone format, use separate getter
+    RD_TIMEZONE,          // UTC timezone offset, floating signed number of hours: -3, 4.5
     RD_ADDRESS_FORMAT,    // address format, re: mapzen
     RD_PHONE_FORMAT,      // list of strings in "+N NNN NN-NN-NN" format
     RD_POSTCODE_FORMAT,   // list of strings in "AAA ANN" format
@@ -215,7 +215,6 @@ public:
   void Deserialize(Source & src)
   {
     MetadataBase::DeserializeFromMwmTmp(src);
-    LoadTimeZone();
   }
 
   void Set(Type type, std::string const & s)
@@ -236,13 +235,6 @@ public:
   {
     MetadataBase::Set(Type::RD_LEAP_WEIGHT_SPEED, std::to_string(speedValue));
   }
-
-  std::optional<om::tz::TimeZone> const & GetTimeZone() const { return m_timeZone; }
-
-private:
-  void LoadTimeZone();
-
-  std::optional<om::tz::TimeZone> m_timeZone = std::nullopt;
 
   /// @see EdgeEstimator::GetLeapWeightSpeed
   //  double GetLeapWeightSpeed(double defaultValue) const

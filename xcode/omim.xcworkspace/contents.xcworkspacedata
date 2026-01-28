@@ -152,9 +152,6 @@
       location = "container:storage/storage.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:timezone/timezone.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:tracking/tracking.xcodeproj">
    </FileRef>
    <FileRef

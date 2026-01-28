@@ -2,16 +2,12 @@
 
 #include "opening_hours.hpp"
 
-#include "timezone/timezone.hpp"
-
 #include <ctime>
-#include <optional>
 
 namespace osmoh
 {
 
-RuleState GetState(TRuleSequences const & rules, time_t timestamp,
-                   std::optional<om::tz::TimeZone> const & timeZone = std::nullopt);
+RuleState GetState(TRuleSequences const & rules, time_t const dateTime);
 
 time_t GetNextTimeState(TRuleSequences const & rules, time_t const dateTime, RuleState state);
 

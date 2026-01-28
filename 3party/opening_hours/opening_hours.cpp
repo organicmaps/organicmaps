@@ -898,10 +898,10 @@ bool OpeningHours::IsUnknown(time_t const dateTime) const
   return osmoh::IsUnknown(m_rule, dateTime);
 }
 
-OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone) const
+OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime) const
 {
   InfoT info;
-  info.state = GetState(m_rule, dateTime, timeZone);
+  info.state = GetState(m_rule, dateTime);
   if (info.state != RuleState::Unknown)
   {
    if (info.state == RuleState::Open)
