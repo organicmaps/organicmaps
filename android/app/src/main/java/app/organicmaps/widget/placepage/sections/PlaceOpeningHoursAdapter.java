@@ -1,6 +1,5 @@
 package app.organicmaps.widget.placepage.sections;
 
-import static app.organicmaps.editor.data.TimeFormatUtils.formatNonBusinessTime;
 import static app.organicmaps.editor.data.TimeFormatUtils.formatWeekdaysRange;
 
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.sdk.editor.data.Timespan;
 import app.organicmaps.sdk.editor.data.Timetable;
-import app.organicmaps.util.UiUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -103,33 +101,37 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     final WeekScheduleData schedule = mWeekSchedule.get(position);
 
     holder.setBoldStyle(schedule.isBold);
-
-    if (schedule.isClosed)
-    {
-      holder.setWeekdays(formatWeekdaysRange(schedule.startWeekDay, schedule.endWeekDay));
-      holder.setOpenTime(holder.itemView.getResources().getString(R.string.day_off));
-      holder.hideNonBusinessTime();
-      return;
-    }
-
-    final Timetable tt = schedule.timetable;
-
-    String workingTime = tt.isFullday ? holder.itemView.getResources().getString(R.string.editor_time_allday)
-                                      : tt.workingTimespan.toWideString();
-
     holder.setWeekdays(formatWeekdaysRange(schedule.startWeekDay, schedule.endWeekDay));
-    holder.setOpenTime(workingTime);
 
-    final Timespan[] closedTime = tt.closedTimespans;
-    if (closedTime == null || closedTime.length == 0)
-    {
-      holder.hideNonBusinessTime();
-    }
+    final String openTime;
+    if (schedule.isClosed)
+      openTime = holder.itemView.getResources().getString(R.string.day_off);
+    else if (schedule.timetable.isFullday)
+      openTime = holder.itemView.getResources().getString(R.string.editor_time_allday);
     else
+      openTime = formatOpenShifts(schedule.timetable);
+
+    holder.setOpenTime(openTime);
+  }
+
+  /**
+   * Splits a working day into its open shifts around the closed (break) spans, one shift per line.
+   * OpenStreetMap stores a single working span plus the closed spans nested inside it, so N ordered
+   * closed spans yield N+1 open shifts (e.g. a lunch break gives "09:00\u201413:00\n16:00\u201420:00"). With
+   * no closed spans this is just the whole working span. Not for full-day/day-off rows.
+   */
+  @NonNull
+  static String formatOpenShifts(@NonNull Timetable tt)
+  {
+    final StringBuilder shifts = new StringBuilder();
+    var shiftStart = tt.workingTimespan.start;
+    for (final Timespan closed : tt.closedTimespans)
     {
-      final String hoursNonBusinessLabel = holder.itemView.getResources().getString(R.string.editor_hours_closed);
-      holder.setNonBusinessTime(formatNonBusinessTime(closedTime, hoursNonBusinessLabel));
+      shifts.append(shiftStart).append('\u2014').append(closed.start).append('\n');
+      shiftStart = closed.end;
     }
+    shifts.append(shiftStart).append('\u2014').append(tt.workingTimespan.end);
+    return shifts.toString();
   }
 
   @Override
@@ -160,14 +162,12 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
   {
     private final TextView mWeekdays;
     private final TextView mOpenTime;
-    private final TextView mNonBusinessTime;
 
     public ViewHolder(@NonNull View itemView)
     {
       super(itemView);
       mWeekdays = itemView.findViewById(R.id.tv__opening_hours_weekdays);
       mOpenTime = itemView.findViewById(R.id.tv__opening_hours_time);
-      mNonBusinessTime = itemView.findViewById(R.id.tv__opening_hours_nonbusiness_time);
       itemView.setVisibility(View.VISIBLE);
     }
 
@@ -186,16 +186,6 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     public void setOpenTime(String openTime)
     {
       mOpenTime.setText(openTime);
-    }
-
-    public void setNonBusinessTime(String nonBusinessTime)
-    {
-      UiUtils.setTextAndShow(mNonBusinessTime, nonBusinessTime);
-    }
-
-    public void hideNonBusinessTime()
-    {
-      UiUtils.clearTextAndHide(mNonBusinessTime);
     }
   }
 }

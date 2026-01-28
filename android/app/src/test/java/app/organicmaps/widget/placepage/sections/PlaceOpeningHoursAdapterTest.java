@@ -410,4 +410,34 @@ public class PlaceOpeningHoursAdapterTest
     assertEquals(schedule.get(0).endWeekDay, 1);
     assertTrue(schedule.get(0).isBold);
   }
+
+  @Test
+  public void test_format_open_shifts_no_break()
+  {
+    // "Mo 09:00-18:00" -> a single shift.
+    Timetable tt = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(18, 0, true)),
+                                 new Timespan[0], false, new int[] {2});
+    assertEquals("09:00—18:00", PlaceOpeningHoursAdapter.formatOpenShifts(tt));
+  }
+
+  @Test
+  public void test_format_open_shifts_one_break()
+  {
+    // "Mo 09:00-13:00,16:00-20:00" -> working 09:00-20:00 with one lunch break -> two shifts.
+    Timespan[] closed = {new Timespan(new HoursMinutes(13, 0, true), new HoursMinutes(16, 0, true))};
+    Timetable tt = new Timetable(new Timespan(new HoursMinutes(9, 0, true), new HoursMinutes(20, 0, true)), closed,
+                                 false, new int[] {2});
+    assertEquals("09:00—13:00\n16:00—20:00", PlaceOpeningHoursAdapter.formatOpenShifts(tt));
+  }
+
+  @Test
+  public void test_format_open_shifts_two_breaks()
+  {
+    // "Mo 08:00-12:00,13:00-15:00,16:00-19:00" -> working 08:00-19:00 with two breaks -> three shifts.
+    Timespan[] closed = {new Timespan(new HoursMinutes(12, 0, true), new HoursMinutes(13, 0, true)),
+                         new Timespan(new HoursMinutes(15, 0, true), new HoursMinutes(16, 0, true))};
+    Timetable tt = new Timetable(new Timespan(new HoursMinutes(8, 0, true), new HoursMinutes(19, 0, true)), closed,
+                                 false, new int[] {2});
+    assertEquals("08:00—12:00\n13:00—15:00\n16:00—19:00", PlaceOpeningHoursAdapter.formatOpenShifts(tt));
+  }
 }
