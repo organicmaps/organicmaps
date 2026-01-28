@@ -390,13 +390,8 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
       header.SetScales(g_arrCountryScales);
 
     RegionData regionData;
-    ReadRegionData(name, regionData);
-    {
-      std::vector<int8_t> langCodes;
-      regionData.GetLanguages(langCodes);
-      if (langCodes.empty())
-        LOG(LWARNING, ("No info (languages) for region:", name));
-    }
+    if (!ReadRegionData(name, regionData))
+      LOG(LWARNING, ("No extra data for country:", name));
 
     // Transform features from raw format to optimized format.
     try
