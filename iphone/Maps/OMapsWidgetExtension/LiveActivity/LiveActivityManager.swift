@@ -4,7 +4,7 @@ import SwiftUI
 @available(iOS 16.2, *)
 final class LiveActivityManager {
   static func startActivity<T: ActivityAttributes>(_ attributes: T, content: ActivityContent<T.ContentState>) throws -> Activity<T> {
-    try Activity.request(attributes: attributes, content: content, pushType: nil)
+    return try Activity.request(attributes: attributes, content: content, pushType: nil)
   }
 
   static func update<T: ActivityAttributes>(_ activity: Activity<T>, content: ActivityContent<T.ContentState>) {
@@ -23,3 +23,4 @@ final class LiveActivityManager {
     semaphore.wait()
   }
 }
+

@@ -5,7 +5,7 @@ protocol CloudDirectoryMonitor: DirectoryMonitor {
   func isCloudAvailable() -> Bool
 }
 
-protocol CloudDirectoryMonitorDelegate: AnyObject {
+protocol CloudDirectoryMonitorDelegate : AnyObject {
   func didFinishGathering(_ contents: CloudContents)
   func didUpdate(_ contents: CloudContents, _ update: CloudContentsUpdate)
   func didReceiveCloudMonitorError(_ error: Error)
@@ -15,11 +15,12 @@ private let kUDCloudIdentityKey = "com.apple.organicmaps.UbiquityIdentityToken"
 private let kDocumentsDirectoryName = "Documents"
 
 final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
+
   private static let sharedContainerIdentifier: String = {
     var identifier = "iCloud.app.organicmaps"
-#if DEBUG
+    #if DEBUG
     identifier.append(".debug")
-#endif
+    #endif
     return identifier
   }()
 
@@ -31,13 +32,12 @@ final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
   private var previouslyChangedContents = CloudContentsUpdate()
 
   // MARK: - Public properties
-
   private(set) var state: DirectoryMonitorState = .stopped
   weak var delegate: CloudDirectoryMonitorDelegate?
 
   init(fileManager: FileManager = .default, cloudContainerIdentifier: String = iCloudDocumentsMonitor.sharedContainerIdentifier, fileType: FileType) {
     self.fileManager = fileManager
-    containerIdentifier = cloudContainerIdentifier
+    self.containerIdentifier = cloudContainerIdentifier
     self.fileType = fileType
     super.init()
 
@@ -46,7 +46,6 @@ final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
   }
 
   // MARK: - Public methods
-
   func start(completion: ((Result<URL, Error>) -> Void)? = nil) {
     guard isCloudAvailable() else {
       completion?(.failure(SynchronizationError.iCloudIsNotAvailable))
@@ -134,10 +133,8 @@ final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
 }
 
 // MARK: - Private
-
 private extension iCloudDocumentsMonitor {
   // MARK: - MetadataQuery
-
   func subscribeOnMetadataQueryNotifications() {
     NotificationCenter.default.addObserver(self, selector: #selector(queryDidFinishGathering(_:)), name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(queryDidUpdate(_:)), name: NSNotification.Name.NSMetadataQueryDidUpdate, object: nil)
@@ -178,7 +175,7 @@ private extension iCloudDocumentsMonitor {
     do {
       let changedContents = try Self.getChangedContents(notification)
       /* The metadataQuery can send the same changes multiple times with only uploading/downloading process updates.
-       This unnecessary updated should be skipped. */
+      This unnecessary updated should be skipped. */
       if changedContents != previouslyChangedContents {
         previouslyChangedContents = changedContents
         let currentContents = try Self.getCurrentContents(notification)
@@ -206,8 +203,7 @@ private extension iCloudDocumentsMonitor {
 
   static func getCurrentContents(_ notification: Notification) throws -> [CloudMetadataItem] {
     guard let metadataQuery = notification.object as? NSMetadataQuery,
-          let metadataItems = metadataQuery.results as? [NSMetadataItem]
-    else {
+          let metadataItems = metadataQuery.results as? [NSMetadataItem] else {
       throw SynchronizationError.failedToRetrieveMetadataQueryContent
     }
     return try metadataItems.map { try CloudMetadataItem(metadataItem: $0) }
@@ -227,7 +223,7 @@ private extension iCloudDocumentsMonitor {
        This file will appear in the `deleted` list in the next notification.
        Such files should be skipped to avoid unnecessary updates and unexpected behavior.
        See https://github.com/organicmaps/organicmaps/pull/10070 for details. */
-      if item.isDownloaded, !FileManager.default.fileExists(atPath: item.fileUrl.path) {
+      if item.isDownloaded && !FileManager.default.fileExists(atPath: item.fileUrl.path) {
         LOG(.warning, "Skip the update of the file that doesn't exist in the file system: \(item.fileUrl)")
         return false
       }
@@ -240,8 +236,8 @@ private extension iCloudDocumentsMonitor {
 
 private extension CloudContentsUpdate {
   init() {
-    added = []
-    updated = []
-    removed = []
+    self.added = []
+    self.updated = []
+    self.removed = []
   }
 }

@@ -3,7 +3,7 @@ extension UIApplication {
 
   @objc
   func showLoadingOverlay(completion: (() -> Void)? = nil) {
-    guard let window = windows.first(where: { $0.isKeyWindow }) else {
+    guard let window = self.windows.first(where: { $0.isKeyWindow }) else {
       completion?()
       return
     }

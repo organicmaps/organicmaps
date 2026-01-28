@@ -4,10 +4,10 @@ class FileManagerMock: FileManager {
   var stubCloudDirectory: URL?
 
   override var ubiquityIdentityToken: (any UbiquityIdentityToken)? {
-    stubUbiquityIdentityToken
+    return stubUbiquityIdentityToken
   }
 
-  override func url(forUbiquityContainerIdentifier _: String?) -> URL? {
-    shouldReturnContainerURL ? stubCloudDirectory ?? URL(fileURLWithPath: NSTemporaryDirectory()) : nil
+  override func url(forUbiquityContainerIdentifier identifier: String?) -> URL? {
+    return shouldReturnContainerURL ? stubCloudDirectory ?? URL(fileURLWithPath: NSTemporaryDirectory()) :  nil
   }
 }

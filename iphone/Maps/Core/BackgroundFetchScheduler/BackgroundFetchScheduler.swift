@@ -29,7 +29,7 @@ final class BackgroundFetchScheduler: NSObject {
   }
 
   private func minFrameworkTypeRequired() -> BackgroundFetchTaskFrameworkType {
-    tasks.reduce(.none) { max($0, $1.frameworkType) }
+    return tasks.reduce(.none) { max($0, $1.frameworkType) }
   }
 
   private func finishTask(result: UIBackgroundFetchResult) {
@@ -48,10 +48,10 @@ final class BackgroundFetchScheduler: NSObject {
 
   private func resultPriority(_ result: UIBackgroundFetchResult) -> Int {
     switch result {
-    case .newData: return 3
-    case .noData: return 1
-    case .failed: return 2
-    @unknown default: fatalError("Unexpected case in UIBackgroundFetchResult switch")
+      case .newData: return 3
+      case .noData: return 1
+      case .failed: return 2
+      @unknown default: fatalError("Unexpected case in UIBackgroundFetchResult switch")
     }
   }
 }

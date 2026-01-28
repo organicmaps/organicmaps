@@ -1,6 +1,6 @@
 final class WidgetsArea: AvailableArea {
   override var areaFrame: CGRect {
-    alternative(iPhone: {
+    return alternative(iPhone: {
       var frame = super.areaFrame
       frame.origin.y -= 16
       frame.size.height += 16
@@ -9,7 +9,7 @@ final class WidgetsArea: AvailableArea {
   }
 
   override func isAreaAffectingView(_ other: UIView) -> Bool {
-    !other.widgetsAreaAffectDirections.isEmpty
+    return !other.widgetsAreaAffectDirections.isEmpty
   }
 
   override func addAffectingView(_ other: UIView) {
@@ -24,7 +24,7 @@ final class WidgetsArea: AvailableArea {
 }
 
 extension UIView {
-  @objc var widgetsAreaAffectDirections: MWMAvailableAreaAffectDirections { [] }
+  @objc var widgetsAreaAffectDirections: MWMAvailableAreaAffectDirections { return [] }
 
-  var widgetsAreaAffectView: UIView { self }
+  var widgetsAreaAffectView: UIView { return self }
 }

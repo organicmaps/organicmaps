@@ -1,25 +1,25 @@
 final class TransportTransitTrain: TransportTransitCell {
   enum Config {
-    static var labelTextColor: UIColor { .white }
+    static var labelTextColor: UIColor { return .white }
     static let labelTextFont = UIFont.bold12()
     static let labelTrailing: CGFloat = 4
   }
 
-  @IBOutlet private var background: UIView! {
+  @IBOutlet private weak var background: UIView! {
     didSet {
       background.layer.setCornerRadius(.buttonSmall)
     }
   }
 
-  @IBOutlet private var image: UIImageView!
-  @IBOutlet private var label: UILabel! {
+  @IBOutlet private weak var image: UIImageView!
+  @IBOutlet private weak var label: UILabel! {
     didSet {
       label.textColor = Config.labelTextColor
       label.font = Config.labelTextFont
     }
   }
 
-  @IBOutlet private var labelTrailing: NSLayoutConstraint! {
+  @IBOutlet private weak var labelTrailing: NSLayoutConstraint! {
     didSet {
       labelTrailing.constant = Config.labelTrailing
     }

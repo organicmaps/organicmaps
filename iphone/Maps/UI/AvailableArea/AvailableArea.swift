@@ -3,7 +3,7 @@ class AvailableArea: UIView {
     static let observeKeyPath = "sublayers"
   }
 
-  var deferNotification: Bool { true }
+  var deferNotification: Bool { return true }
 
   private(set) var orientation = UIDeviceOrientation.unknown {
     didSet {
@@ -20,7 +20,7 @@ class AvailableArea: UIView {
   }
 
   var areaFrame: CGRect {
-    alternative(iPhone: {
+    return alternative(iPhone: {
       var frame = self.frame
       if self.shouldUpdateAreaFrame {
         switch self.orientation {
@@ -57,7 +57,7 @@ class AvailableArea: UIView {
     let nc = NotificationCenter.default
     nc.addObserver(forName: UIDevice.orientationDidChangeNotification, object: nil, queue: .main) { _ in
       let orientation = UIDevice.current.orientation
-      guard !orientation.isFlat, orientation != .portraitUpsideDown else { return }
+      guard !orientation.isFlat && orientation != .portraitUpsideDown else { return }
       self.orientation = orientation
     }
   }
@@ -86,8 +86,8 @@ class AvailableArea: UIView {
     if isAreaAffectingView(view) {
       views.insert(view)
     }
-    for subview in view.subviews {
-      views.formUnion(newAffectingViews(view: subview))
+    view.subviews.forEach {
+      views.formUnion(newAffectingViews(view: $0))
     }
     return views
   }
@@ -117,7 +117,7 @@ class AvailableArea: UIView {
       .right: (.right, .left, .lessThanOrEqual),
     ]
     .filter { directions.contains($0.key) }
-    .map(\.value)
+    .map { $0.value }
     .forEach(add)
   }
 
@@ -132,13 +132,13 @@ class AvailableArea: UIView {
     }
   }
 
-  func isAreaAffectingView(_: UIView) -> Bool { false }
+  func isAreaAffectingView(_: UIView) -> Bool { return false }
   func addAffectingView(_: UIView) {}
   @objc func notifyObserver() {}
 }
 
 extension MWMAvailableAreaAffectDirections: Hashable {
   public var hashValue: Int {
-    rawValue
+    return rawValue
   }
 }

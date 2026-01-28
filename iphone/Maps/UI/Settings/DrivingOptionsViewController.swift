@@ -17,7 +17,7 @@ class DrivingOptionsViewController: MWMTableViewController {
 }
 
 extension DrivingOptionsViewController: SettingsTableViewSwitchCellDelegate {
-  func switchCell(_ cell: SettingsTableViewSwitchCell, didChangeValue _: Bool) {
+  func switchCell(_ cell: SettingsTableViewSwitchCell, didChangeValue value: Bool) {
     if cell == tollRoadsCell {
       options.avoidToll = cell.isOn
     } else if cell == unpavedRoadsCell {

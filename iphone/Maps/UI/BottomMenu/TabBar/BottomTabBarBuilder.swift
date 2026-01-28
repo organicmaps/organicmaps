@@ -5,7 +5,7 @@
                                             mapViewController: mapViewController,
                                             controlsManager: controlsManager)
     let presenter = BottomTabBarPresenter(interactor: interactor)
-    viewController.presenter = presenter
+    viewController.presenter = presenter    
     return viewController
   }
 }

@@ -2,19 +2,19 @@
   @objc static func buildMenu(mapViewController: MapViewController,
                               controlsManager: MWMMapViewControlsManager,
                               delegate: BottomMenuDelegate) -> UIViewController {
-    BottomMenuBuilder.build(mapViewController: mapViewController,
-                            controlsManager: controlsManager,
-                            delegate: delegate,
-                            sections: [.layers, .items])
+    return BottomMenuBuilder.build(mapViewController: mapViewController,
+                                   controlsManager: controlsManager,
+                                   delegate: delegate,
+                                   sections: [.layers, .items])
   }
 
   @objc static func buildLayers(mapViewController: MapViewController,
                                 controlsManager: MWMMapViewControlsManager,
                                 delegate: BottomMenuDelegate) -> UIViewController {
-    BottomMenuBuilder.build(mapViewController: mapViewController,
-                            controlsManager: controlsManager,
-                            delegate: delegate,
-                            sections: [.layers])
+    return BottomMenuBuilder.build(mapViewController: mapViewController,
+                                   controlsManager: controlsManager,
+                                   delegate: delegate,
+                                   sections: [.layers])
   }
 
   private static func build(mapViewController: MapViewController,
@@ -27,10 +27,10 @@
                                           controlsManager: controlsManager,
                                           delegate: delegate)
     let presenter = BottomMenuPresenter(view: viewController, interactor: interactor, sections: sections)
-
+    
     interactor.presenter = presenter
     viewController.presenter = presenter
-
+    
     return viewController
   }
 }

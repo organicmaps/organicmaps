@@ -46,7 +46,7 @@ import UIKit
     state = .hidden(categoryId: categoryId)
   }
 
-  private func updateForState(newState _: BookmarksState) {
+  private func updateForState(newState: BookmarksState) {
     guard let navigationController = navigationController else {
       fatalError()
     }
@@ -67,19 +67,19 @@ import UIKit
                         options: [.curveEaseInOut, .transitionCrossDissolve],
                         animations: {
                           navigationController.setViewControllers(controllers, animated: false)
-                        }, completion: nil)
+      }, completion: nil)
       FrameworkHelper.deactivateMapSelection()
       self.bookmarksControllers = nil
     case .closed:
       navigationController.popToRootViewController(animated: true)
       bookmarksControllers = nil
-    case .hidden:
+    case .hidden(_):
       UIView.transition(with: self.navigationController!.view,
                         duration: kDefaultAnimationDuration,
                         options: [.curveEaseInOut, .transitionCrossDissolve],
                         animations: {
                           self.bookmarksControllers = navigationController.popToRootViewController(animated: false)
-                        }, completion: nil)
+      }, completion: nil)
     }
   }
 }

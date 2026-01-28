@@ -13,7 +13,6 @@ final class SearchHistoryViewController: MWMViewController {
   private let tableView = UITableView()
 
   // MARK: - Init
-
   init(frameworkHelper: MWMSearchFrameworkHelper.Type, delegate: SearchHistoryViewControllerDelegate?) {
     self.delegate = delegate
     self.frameworkHelper = frameworkHelper
@@ -21,12 +20,11 @@ final class SearchHistoryViewController: MWMViewController {
   }
 
   @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
   // MARK: - Lifecycle
-
   override func viewDidLoad() {
     super.viewDidLoad()
     setupTableView()
@@ -39,7 +37,6 @@ final class SearchHistoryViewController: MWMViewController {
   }
 
   // MARK: - Private methods
-
   private func setupTableView() {
     tableView.setStyle(.background)
     tableView.register(cell: SearchHistoryCell.self)
@@ -54,7 +51,7 @@ final class SearchHistoryViewController: MWMViewController {
       tableView.topAnchor.constraint(equalTo: view.topAnchor),
       tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ])
   }
 
@@ -65,7 +62,7 @@ final class SearchHistoryViewController: MWMViewController {
       emptyHistoryView.topAnchor.constraint(equalTo: view.topAnchor),
       emptyHistoryView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       emptyHistoryView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      emptyHistoryView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      emptyHistoryView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ])
   }
 
@@ -77,14 +74,13 @@ final class SearchHistoryViewController: MWMViewController {
       self.emptyHistoryView.isHidden = !isVisible
     }
   }
-
+  
   private func clearSearchHistory() {
     frameworkHelper.clearSearchHistory()
     reload()
   }
 
   // MARK: - Public methods
-
   func reload() {
     guard isViewLoaded else { return }
     lastQueries = frameworkHelper.lastSearchQueries()
@@ -94,10 +90,10 @@ final class SearchHistoryViewController: MWMViewController {
 }
 
 extension SearchHistoryViewController: UITableViewDataSource {
-  func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-    lastQueries.isEmpty ? 0 : lastQueries.count + 1
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return lastQueries.isEmpty ? 0 : lastQueries.count + 1
   }
-
+  
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(cell: SearchHistoryCell.self, indexPath: indexPath)
     if indexPath.row == lastQueries.count {

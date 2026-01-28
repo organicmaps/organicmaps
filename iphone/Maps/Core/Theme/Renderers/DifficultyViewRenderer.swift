@@ -1,5 +1,4 @@
 import Foundation
-
 extension DifficultyView {
   @objc override func applyTheme() {
     if styleName.isEmpty {
@@ -7,7 +6,7 @@ extension DifficultyView {
     }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {
-      DifficultyViewRenderer.render(self, style: style)
+        DifficultyViewRenderer.render(self, style: style)
     }
   }
 }
@@ -23,3 +22,4 @@ class DifficultyViewRenderer: UIViewRenderer {
     }
   }
 }
+

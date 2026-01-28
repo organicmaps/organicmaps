@@ -35,13 +35,13 @@ extension Error {
   var ubiquitousError: SynchronizationError? {
     let nsError = self as NSError
     switch nsError.code {
-    // NSURLUbiquitousItemDownloadingErrorKey contains an error with this code when the item has not been uploaded to iCloud by the other devices yet
+      // NSURLUbiquitousItemDownloadingErrorKey contains an error with this code when the item has not been uploaded to iCloud by the other devices yet
     case NSUbiquitousFileUnavailableError:
       return .fileUnavailable
-    // NSURLUbiquitousItemUploadingErrorKey contains an error with this code when the item has not been uploaded to iCloud because it would make the account go over-quota
+      // NSURLUbiquitousItemUploadingErrorKey contains an error with this code when the item has not been uploaded to iCloud because it would make the account go over-quota
     case NSUbiquitousFileNotUploadedDueToQuotaError:
       return .fileNotUploadedDueToQuota
-    // NSURLUbiquitousItemDownloadingErrorKey and NSURLUbiquitousItemUploadingErrorKey contain an error with this code when connecting to the iCloud servers failed
+      // NSURLUbiquitousItemDownloadingErrorKey and NSURLUbiquitousItemUploadingErrorKey contain an error with this code when connecting to the iCloud servers failed
     case NSUbiquitousFileUbiquityServerNotAvailable:
       return .ubiquityServerNotAvailable
     default:

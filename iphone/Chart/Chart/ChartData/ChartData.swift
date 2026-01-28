@@ -35,13 +35,13 @@ public struct ChartValue {
   let y: CGFloat
 
   public init(xValues: CGFloat, y: CGFloat) {
-    x = xValues
+    self.x = xValues
     self.y = y
   }
 }
 
 extension Array where Element == ChartValue {
-  var maxDistance: CGFloat { map(\.x).max() ?? 0 }
+  var maxDistance: CGFloat { return map { $0.x }.max() ?? 0 }
 
   func altitude(at relativeDistance: CGFloat) -> CGFloat {
     guard let distance = last?.x else { return 0 }

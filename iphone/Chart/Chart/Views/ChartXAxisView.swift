@@ -1,18 +1,18 @@
 import UIKit
 
-private class ChartXAxisInnerView: UIView {
+fileprivate class ChartXAxisInnerView: UIView {
   var lowerBound = 0
   var upperBound = 0
   var steps: [String] = []
   var labels: [UILabel] = []
 
-  var font: UIFont = .systemFont(ofSize: 12, weight: .regular) {
+  var font: UIFont = UIFont.systemFont(ofSize: 12, weight: .regular) {
     didSet {
       labels.forEach { $0.font = font }
     }
   }
 
-  var textColor: UIColor = .init(white: 0, alpha: 0.3) {
+  var textColor: UIColor = UIColor(white: 0, alpha: 0.3) {
     didSet {
       labels.forEach { $0.textColor = textColor }
     }
@@ -43,7 +43,7 @@ private class ChartXAxisInnerView: UIView {
     labels.forEach { $0.removeFromSuperview() }
     labels.removeAll()
 
-    for i in 0 ..< steps.count {
+    for i in 0..<steps.count {
       let step = steps[i]
       let label = makeLabel(text: step)
       if i == 0 {
@@ -62,7 +62,7 @@ private class ChartXAxisInnerView: UIView {
 
   private func updateLabels() {
     let step = CGFloat(upperBound - lowerBound) / CGFloat(labels.count - 1)
-    for i in 0 ..< labels.count {
+    for i in 0..<labels.count {
       let x = bounds.width * step * CGFloat(i) / CGFloat(upperBound - lowerBound)
       let l = labels[i]
       var f = l.frame
@@ -74,6 +74,7 @@ private class ChartXAxisInnerView: UIView {
 }
 
 class ChartXAxisView: UIView {
+
   struct Value {
     let index: Int
     let value: Double
@@ -84,13 +85,13 @@ class ChartXAxisView: UIView {
   var upperBound = 0
   var values: [Value] = []
 
-  var font: UIFont = .systemFont(ofSize: 12, weight: .regular) {
+  var font: UIFont = UIFont.systemFont(ofSize: 12, weight: .regular) {
     didSet {
       labelsView?.font = font
     }
   }
 
-  var textColor: UIColor = .init(white: 0, alpha: 0.3) {
+  var textColor: UIColor = UIColor(white: 0, alpha: 0.3) {
     didSet {
       labelsView?.textColor = textColor
     }
@@ -106,7 +107,7 @@ class ChartXAxisView: UIView {
     let end = values[upper].value
     let step = CGFloat(end - begin) / 5
     var labels: [String] = []
-    for i in 0 ..< 5 {
+    for i in 0..<5 {
       if let x = values.first(where: { $0.value >= (begin + step * CGFloat(i)) }) {
         labels.append(x.text)
       }

@@ -46,6 +46,7 @@ typealias TrackRecordingStateHandler = (TrackRecordingState, TrackInfo, Elevatio
 
 @objcMembers
 final class TrackRecordingManager: NSObject {
+
   fileprivate struct Observation {
     weak var observer: AnyObject?
     var recordingStateDidChangeHandler: TrackRecordingStateHandler?
@@ -55,11 +56,11 @@ final class TrackRecordingManager: NSObject {
     let trackRecorder = FrameworkHelper.self
     let locationManager = LocationManager.self
     var activityManager: TrackRecordingActivityManager? = nil
-#if canImport(ActivityKit)
+    #if canImport(ActivityKit)
     if #available(iOS 16.2, *), !ProcessInfo.processInfo.isiOSAppOnMac {
       activityManager = TrackRecordingLiveActivityManager.shared
     }
-#endif
+    #endif
     return TrackRecordingManager(trackRecorder: trackRecorder,
                                  locationService: locationManager,
                                  activityManager: activityManager)
@@ -86,11 +87,12 @@ final class TrackRecordingManager: NSObject {
     self.locationService = locationService
     self.activityManager = activityManager
     super.init()
-    subscribeOnTheAppLifecycleEvents()
+    self.subscribeOnTheAppLifecycleEvents()
   }
 
   // MARK: - Public methods
 
+  @objc
   func setup() {
     do {
       try checkIsLocationEnabled()
@@ -105,6 +107,7 @@ final class TrackRecordingManager: NSObject {
     }
   }
 
+  @objc
   func isActive() -> Bool {
     recordingState == .active
   }
@@ -193,6 +196,7 @@ final class TrackRecordingManager: NSObject {
       locationService.checkLocationStatus()
     default:
       LOG(.error, error.localizedDescription)
+      break
     }
   }
 }
@@ -223,8 +227,8 @@ extension TrackRecordingManager: TrackRecordingObservable {
   @objc
   private func notifyObservers() {
     observations.removeAll { $0.observer == nil }
-    for observation in observations {
-      observation.recordingStateDidChangeHandler?(recordingState, trackRecordingInfo) { self.trackRecordingElevationProfileData }
+    observations.forEach {
+      $0.recordingStateDidChangeHandler?(recordingState, trackRecordingInfo, { self.trackRecordingElevationProfileData })
     }
   }
 }

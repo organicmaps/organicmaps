@@ -1,1 +1,2 @@
-final class BMCEmtyDescriptionCell: UITableViewCell {}
+final class BMCEmtyDescriptionCell: UITableViewCell {
+}

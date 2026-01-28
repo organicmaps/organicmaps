@@ -23,9 +23,9 @@ final class BookmarksListInteractor: NSObject {
 
   init(markGroupId: MWMMarkGroupID) {
     self.markGroupId = markGroupId
-    bookmarksManager = BookmarksManager.shared()
+    self.bookmarksManager = BookmarksManager.shared()
     super.init()
-    addToBookmarksManagerObserverList()
+    self.addToBookmarksManagerObserverList()
   }
 
   deinit {
@@ -86,7 +86,7 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
   func setGroup(_ groupId: MWMMarkGroupID, visible: Bool) {
     bookmarksManager.setCategory(groupId, isVisible: visible)
   }
-
+  
   func sort(_ sortingType: BookmarksListSortingType,
             location: CLLocation?,
             completion: @escaping ([BookmarksSection]) -> Void) {
@@ -132,7 +132,7 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
   func moveBookmark(_ bookmarkId: MWMMarkID, toGroupId groupId: MWMMarkGroupID) {
     bookmarksManager.moveBookmark(bookmarkId, toGroupId: groupId)
   }
-
+  
   func moveTrack(_ trackId: MWMTrackID, toGroupId groupId: MWMMarkGroupID) {
     bookmarksManager.moveTrack(trackId, toGroupId: groupId)
   }
@@ -175,13 +175,12 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
 }
 
 // MARK: - BookmarksObserver
-
 extension BookmarksListInteractor: BookmarksObserver {
   func onBookmarksLoadFinished() {
     reloadCategory()
   }
 
-  func onBookmarksCategoryDeleted(_: MWMMarkGroupID) {
+  func onBookmarksCategoryDeleted(_ groupId: MWMMarkGroupID) {
     reloadCategory()
   }
 }

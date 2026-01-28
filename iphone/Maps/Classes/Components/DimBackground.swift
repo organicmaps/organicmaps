@@ -12,7 +12,6 @@ final class DimBackground: SolidTouchView {
     addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onTap)))
   }
 
-  @available(*, unavailable)
   required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -33,7 +32,7 @@ final class DimBackground: SolidTouchView {
                        self.removeFromSuperview()
                      }
                      completion?()
-                   })
+    })
   }
 
   @objc

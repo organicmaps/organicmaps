@@ -5,6 +5,7 @@ protocol SettingsTableViewSwitchCellDelegate {
 
 @objc
 class SettingsTableViewSwitchCell: MWMTableViewCell {
+
   let switchButton = UISwitch()
 
   @IBOutlet weak var delegate: SettingsTableViewSwitchCellDelegate?
@@ -19,7 +20,7 @@ class SettingsTableViewSwitchCell: MWMTableViewCell {
 
   @objc
   var isOn: Bool {
-    get { switchButton.isOn }
+    get { return switchButton.isOn }
     set { switchButton.isOn = newValue }
   }
 
@@ -33,13 +34,13 @@ class SettingsTableViewSwitchCell: MWMTableViewCell {
     setupCell()
   }
 
-  @objc
+  @objc 
   func config(delegate: SettingsTableViewSwitchCellDelegate, title: String, isOn: Bool) {
     backgroundColor = UIColor.white()
 
     self.delegate = delegate
 
-    textLabel?.text = title
+    self.textLabel?.text = title
     styleTitle()
 
     switchButton.isOn = isOn
@@ -56,7 +57,7 @@ class SettingsTableViewSwitchCell: MWMTableViewCell {
     accessoryView = switchButton
   }
 
-  @objc
+  @objc 
   private func switchChanged() {
     delegate?.switchCell(self, didChangeValue: switchButton.isOn)
   }

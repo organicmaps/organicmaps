@@ -13,8 +13,7 @@ class TintView: UIView {
     layer.mask = maskLayer
   }
 
-  @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     fatalError()
   }
 
@@ -39,8 +38,7 @@ class ViewPortView: ExpandedTouchView {
     layer.mask = maskLayer
   }
 
-  @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     fatalError()
   }
 
@@ -70,13 +68,13 @@ class ChartPreviewView: ExpandedTouchView {
   let tintView = TintView()
   var previewViews: [ChartLineView] = []
 
-  var selectorColor: UIColor = .white {
+  var selectorColor: UIColor = UIColor.white {
     didSet {
       viewPortView.backgroundColor = selectorColor
     }
   }
 
-  var selectorTintColor: UIColor = .clear {
+  var selectorTintColor: UIColor = UIColor.clear {
     didSet {
       tintView.backgroundColor = selectorTintColor
     }
@@ -98,7 +96,7 @@ class ChartPreviewView: ExpandedTouchView {
     didSet {
       previewViews.forEach { $0.removeFromSuperview() }
       previewViews.removeAll()
-      for i in (0 ..< chartData.linesCount).reversed() {
+      for i in (0..<chartData.linesCount).reversed() {
         let line = chartData.lineAt(i)
         let v = ChartLineView()
         v.isPreview = true
@@ -132,8 +130,7 @@ class ChartPreviewView: ExpandedTouchView {
       previewContainerView.leftAnchor.constraint(equalTo: leftAnchor),
       previewContainerView.rightAnchor.constraint(equalTo: rightAnchor),
       t,
-      b,
-    ])
+      b])
 
     tintView.frame = bounds
     tintView.backgroundColor = selectorTintColor
@@ -157,8 +154,7 @@ class ChartPreviewView: ExpandedTouchView {
     rightBoundView.addGestureRecognizer(rightPan)
   }
 
-  @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     fatalError()
   }
 
@@ -171,7 +167,7 @@ class ChartPreviewView: ExpandedTouchView {
     let dx = maxX - minX
     let mx = x + dx
 
-    if x > 0, mx < count {
+    if x > 0 && mx < count {
       viewPortView.frame = viewPortView.frame.offsetBy(dx: p.x, dy: 0)
       sender.setTranslation(CGPoint(x: 0, y: 0), in: viewPortView)
       if x != minX {
@@ -179,9 +175,9 @@ class ChartPreviewView: ExpandedTouchView {
         maxX = mx
         delegate?.chartPreviewView(self, didChangeMinX: minX, maxX: maxX)
       }
-    } else if minX > 0, x <= 0 {
+    } else if minX > 0 && x <= 0 {
       setX(min: 0, max: dx)
-    } else if maxX < count, mx >= count {
+    } else if maxX < count && mx >= count {
       setX(min: count - dx, max: count)
     }
   }
@@ -193,7 +189,7 @@ class ChartPreviewView: ExpandedTouchView {
     let count = chartData.labels.count - 1
     let x = Int((viewPortView.frame.minX + p.x) / bounds.width * CGFloat(count))
 
-    if x > 0, x < maxX, maxX - x >= count / 10 {
+    if x > 0 && x < maxX && maxX - x >= count / 10 {
       var f = viewPortView.frame
       f = CGRect(x: f.minX + p.x, y: f.minY, width: f.width - p.x, height: f.height)
       viewPortView.frame = f
@@ -203,7 +199,7 @@ class ChartPreviewView: ExpandedTouchView {
         minX = x
         delegate?.chartPreviewView(self, didChangeMinX: minX, maxX: maxX)
       }
-    } else if x <= 0, minX > 0 {
+    } else if x <= 0 && minX > 0 {
       setX(min: 0, max: maxX)
     }
   }
@@ -215,7 +211,7 @@ class ChartPreviewView: ExpandedTouchView {
     let count = chartData.labels.count - 1
     let x = Int((viewPortView.frame.maxX + p.x) / bounds.width * CGFloat(count))
 
-    if x > minX, x < count, x - minX >= count / 10 {
+    if x > minX && x < count && x - minX >= count / 10 {
       var f = viewPortView.frame
       f = CGRect(x: f.minX, y: f.minY, width: f.width + p.x, height: f.height)
       viewPortView.frame = f
@@ -225,7 +221,7 @@ class ChartPreviewView: ExpandedTouchView {
         maxX = x
         delegate?.chartPreviewView(self, didChangeMinX: minX, maxX: maxX)
       }
-    } else if x >= count, maxX < count {
+    } else if x >= count && maxX < count {
       setX(min: minX, max: count)
     }
   }

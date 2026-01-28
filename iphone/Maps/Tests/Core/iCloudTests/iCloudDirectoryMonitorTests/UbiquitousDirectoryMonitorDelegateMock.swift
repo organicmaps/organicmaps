@@ -1,5 +1,5 @@
-@testable import Organic_Maps__Debug_
 import XCTest
+@testable import Organic_Maps__Debug_
 
 class UbiquitousDirectoryMonitorDelegateMock: CloudDirectoryMonitorDelegate {
   var didFinishGatheringCalled = false
@@ -18,13 +18,13 @@ class UbiquitousDirectoryMonitorDelegateMock: CloudDirectoryMonitorDelegate {
     self.contents = contents
   }
 
-  func didUpdate(_ contents: CloudContents, _: CloudContentsUpdate) {
+  func didUpdate(_ contents: CloudContents, _ update: CloudContentsUpdate) {
     didUpdateCalled = true
     didUpdateExpectation?.fulfill()
     self.contents = contents
   }
 
-  func didReceiveCloudMonitorError(_: Error) {
+  func didReceiveCloudMonitorError(_ error: Error) {
     didReceiveErrorCalled = true
     didReceiveErrorExpectation?.fulfill()
   }

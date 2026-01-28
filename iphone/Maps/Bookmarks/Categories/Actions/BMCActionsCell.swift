@@ -1,7 +1,7 @@
 final class BMCActionsCell: MWMTableViewCell {
-  @IBOutlet private var actionImage: UIImageView!
+  @IBOutlet private weak var actionImage: UIImageView!
 
-  @IBOutlet private var actionTitle: UILabel!
+  @IBOutlet private weak var actionTitle: UILabel!
 
   private var model: BMCAction! {
     didSet {

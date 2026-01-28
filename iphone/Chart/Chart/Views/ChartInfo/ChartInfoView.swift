@@ -46,37 +46,37 @@ class ChartInfoView: ExpandedTouchView {
     }
   }
 
-  var tooltipBackgroundColor: UIColor = .white {
+  var tooltipBackgroundColor: UIColor = UIColor.white {
     didSet {
       pointInfoView.backgroundColor = tooltipBackgroundColor
     }
   }
 
-  var font: UIFont = .systemFont(ofSize: 12, weight: .regular) {
+  var font: UIFont = UIFont.systemFont(ofSize: 12, weight: .regular) {
     didSet {
       pointInfoView.font = font
     }
   }
 
-  var textColor: UIColor = .black {
+  var textColor: UIColor = UIColor.black {
     didSet {
       pointInfoView.textColor = textColor
     }
   }
 
-  var infoBackgroundColor: UIColor = .white {
+  public var infoBackgroundColor: UIColor = UIColor.white {
     didSet {
       pointInfoView.backgroundColor = infoBackgroundColor
     }
   }
 
-  var infoShadowColor: UIColor = .black {
+  public var infoShadowColor: UIColor = UIColor.black {
     didSet {
       pointInfoView.layer.shadowColor = infoShadowColor.cgColor
     }
   }
 
-  var infoShadowOpacity: Float = 0.25 {
+  public var infoShadowOpacity: Float = 0.25 {
     didSet {
       pointInfoView.layer.shadowOpacity = infoShadowOpacity
     }
@@ -99,8 +99,7 @@ class ChartInfoView: ExpandedTouchView {
     pointInfoView.backgroundColor = tooltipBackgroundColor
   }
 
-  @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     fatalError()
   }
 
@@ -109,7 +108,7 @@ class ChartInfoView: ExpandedTouchView {
     let x = x ?? pointsView.center.x
     _infoX = x / bounds.width
     guard let delegate = delegate,
-          let (label, intersectionPoints) = delegate.chartInfoView(self, infoAtPointX: x) else { return }
+      let (label, intersectionPoints) = delegate.chartInfoView(self, infoAtPointX: x) else { return }
     lineInfo = intersectionPoints[0]
     pointsView.updatePoint(lineInfo!)
     pointInfoView.update(x: x, label: label, points: intersectionPoints)
@@ -148,11 +147,11 @@ class ChartInfoView: ExpandedTouchView {
   private func updateViews(point: CGPoint) {
     pointsView.alpha = 1
     pointsView.center = CGPoint(x: point.x, y: bounds.midY)
-
+    
     let s = pointInfoView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
     pointInfoView.frame.size = s
     let y = max(pointInfoView.frame.height / 2 + 5,
-                min(bounds.height - pointInfoView.frame.height / 2 - 5, bounds.height - lineInfo!.point.y))
+                min(bounds.height - pointInfoView.frame.height / 2 - 5, bounds.height - lineInfo!.point.y));
     let orientationChangeX = pointInfoView.alignment == .left ? s.width + 40 : bounds.width - s.width - 40
     if point.x > orientationChangeX {
       pointInfoView.alignment = .left
@@ -191,8 +190,8 @@ class ChartInfoView: ExpandedTouchView {
 }
 
 extension ChartInfoView: UIGestureRecognizerDelegate {
-  func gestureRecognizer(_: UIGestureRecognizer,
-                         shouldRecognizeSimultaneouslyWith _: UIGestureRecognizer) -> Bool {
-    !captured
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    return !captured
   }
 }

@@ -10,18 +10,18 @@ protocol CarPlayRouterListener: AnyObject {
   func routeDidFinish(_ trip: CPTrip)
 }
 
+
 @objc(MWMCarPlayRouter)
 final class CarPlayRouter: NSObject {
   private let listenerContainer: ListenerContainer<CarPlayRouterListener>
   private var routeSession: CPNavigationSession?
   private var initialSpeedCamSettings: SpeedCameraManagerMode
   var currentTrip: CPTrip? {
-    routeSession?.trip
+    return routeSession?.trip
   }
-
   var previewTrip: CPTrip?
   var speedCameraMode: SpeedCameraManagerMode {
-    RoutingManager.routingManager.speedCameraMode
+    return RoutingManager.routingManager.speedCameraMode
   }
 
   override init() {
@@ -59,10 +59,10 @@ final class CarPlayRouter: NSObject {
     do {
       try RoutingManager.routingManager.buildRoute()
     } catch let error as NSError {
-      listenerContainer.forEach {
+      listenerContainer.forEach({
         let code = RouterResultCode(rawValue: UInt(error.code)) ?? .internalError
         $0.didFailureBuildRoute(forTrip: trip, code: code, countries: [])
-      }
+      })
     }
   }
 
@@ -70,24 +70,23 @@ final class CarPlayRouter: NSObject {
     completeRouteAndRemovePoints()
     previewTrip = trip
     guard let info = trip.userInfo as? [String: MWMRoutePoint] else {
-      listenerContainer.forEach {
+      listenerContainer.forEach({
         $0.didFailureBuildRoute(forTrip: trip, code: .routeNotFound, countries: [])
-      }
+      })
       return
     }
     guard let startPoint = info[CPConstants.Trip.start],
-          let endPoint = info[CPConstants.Trip.end]
-    else {
-      listenerContainer.forEach {
-        var code: RouterResultCode!
-        if info[CPConstants.Trip.end] == nil {
-          code = .endPointNotFound
-        } else {
-          code = .startPointNotFound
-        }
-        $0.didFailureBuildRoute(forTrip: trip, code: code, countries: [])
-      }
-      return
+      let endPoint = info[CPConstants.Trip.end] else {
+        listenerContainer.forEach({
+          var code: RouterResultCode!
+          if info[CPConstants.Trip.end] == nil {
+            code = .endPointNotFound
+          } else {
+            code = .startPointNotFound
+          }
+          $0.didFailureBuildRoute(forTrip: trip, code: code, countries: [])
+        })
+        return
     }
 
     let manager = RoutingManager.routingManager
@@ -97,10 +96,10 @@ final class CarPlayRouter: NSObject {
     do {
       try manager.buildRoute()
     } catch let error as NSError {
-      listenerContainer.forEach {
+      listenerContainer.forEach({
         let code = RouterResultCode(rawValue: UInt(error.code)) ?? .internalError
         $0.didFailureBuildRoute(forTrip: trip, code: code, countries: [])
-      }
+      })
     }
   }
 
@@ -108,26 +107,26 @@ final class CarPlayRouter: NSObject {
     let manager = RoutingManager.routingManager
     previewTrip = trip
     guard let info = trip.userInfo as? [String: MWMRoutePoint] else {
-      listenerContainer.forEach {
+      listenerContainer.forEach({
         $0.didFailureBuildRoute(forTrip: trip, code: .routeNotFound, countries: [])
-      }
+      })
       return
     }
     guard let startPoint = info[CPConstants.Trip.start] else {
-      listenerContainer.forEach {
-        $0.didFailureBuildRoute(forTrip: trip, code: .startPointNotFound, countries: [])
-      }
-      return
+        listenerContainer.forEach({
+          $0.didFailureBuildRoute(forTrip: trip, code: .startPointNotFound, countries: [])
+        })
+        return
     }
     manager.add(routePoint: startPoint)
     manager.apply(routeType: .vehicle)
     do {
       try manager.buildRoute()
     } catch let error as NSError {
-      listenerContainer.forEach {
+      listenerContainer.forEach({
         let code = RouterResultCode(rawValue: UInt(error.code)) ?? .internalError
         $0.didFailureBuildRoute(forTrip: trip, code: code, countries: [])
-      }
+      })
     }
   }
 
@@ -161,11 +160,10 @@ final class CarPlayRouter: NSObject {
     let manager = RoutingManager.routingManager
     MWMRouter.hideNavigationMapControls()
     guard manager.isRoutingActive,
-          let startPoint = manager.startPoint,
-          let endPoint = manager.endPoint
-    else {
-      completeRouteAndRemovePoints()
-      return
+      let startPoint = manager.startPoint,
+      let endPoint = manager.endPoint else {
+        completeRouteAndRemovePoints()
+        return
     }
     let trip = createTrip(startPoint: startPoint,
                           endPoint: endPoint,
@@ -189,10 +187,10 @@ final class CarPlayRouter: NSObject {
   func restoredNavigationSession() -> (CPTrip, RouteInfo)? {
     let manager = RoutingManager.routingManager
     if manager.isOnRoute,
-       manager.type == .vehicle,
-       let startPoint = manager.startPoint,
-       let endPoint = manager.endPoint,
-       let routeInfo = manager.routeInfo {
+      manager.type == .vehicle,
+      let startPoint = manager.startPoint,
+      let endPoint = manager.endPoint,
+      let routeInfo = manager.routeInfo {
       MWMRouter.hideNavigationMapControls()
       let trip = createTrip(startPoint: startPoint,
                             endPoint: endPoint,
@@ -205,7 +203,6 @@ final class CarPlayRouter: NSObject {
 }
 
 // MARK: - Navigation session management
-
 extension CarPlayRouter {
   func startNavigationSession(forTrip trip: CPTrip, template: CPMapTemplate) {
     guard routeSession == nil else {
@@ -253,8 +250,7 @@ extension CarPlayRouter {
     guard let routeSession = routeSession,
           let routeInfo = RoutingManager.routingManager.routeInfo,
           let primaryManeuver = routeSession.upcomingManeuvers.first,
-          let estimates = createEstimates(routeInfo)
-    else {
+          let estimates = createEstimates(routeInfo) else {
       return
     }
     routeSession.updateEstimates(estimates, for: primaryManeuver)
@@ -282,7 +278,7 @@ extension CarPlayRouter {
     }
     primaryManeuver.instructionVariants = [instructionVariant]
     if let imageName = routeInfo.turnImageName,
-       let symbol = UIImage(named: imageName) {
+      let symbol = UIImage(named: imageName) {
       if #available(iOS 13.0, *) {
         primaryManeuver.symbolImage = symbol
       } else {
@@ -294,7 +290,7 @@ extension CarPlayRouter {
     }
     maneuvers.append(primaryManeuver)
     if let imageName = routeInfo.nextTurnImageName,
-       let symbol = UIImage(named: imageName) {
+      let symbol = UIImage(named: imageName) {
       let secondaryManeuver = CPManeuver()
       secondaryManeuver.userInfo = CPConstants.Maneuvers.secondary
       secondaryManeuver.instructionVariants = [L("then_turn")]
@@ -328,7 +324,6 @@ extension CarPlayRouter {
 }
 
 // MARK: - RoutingManagerListener implementation
-
 extension CarPlayRouter: RoutingManagerListener {
   func updateCameraInfo(isCameraOnRoute: Bool, speedLimitMps limit: Double) {
     CarPlayService.shared.updateCameraUI(isCameraOnRoute: isCameraOnRoute, speedLimitMps: limit < 0 ? nil : limit)
@@ -342,29 +337,29 @@ extension CarPlayRouter: RoutingManagerListener {
     case .noError, .hasWarnings:
       let manager = RoutingManager.routingManager
       if manager.isRouteFinished {
-        listenerContainer.forEach {
+        listenerContainer.forEach({
           $0.routeDidFinish(trip)
-        }
+        })
         return
       }
       if let info = manager.routeInfo {
         previewTrip?.routeChoices.first?.userInfo = info
         if routeSession == nil {
-          listenerContainer.forEach {
+          listenerContainer.forEach({
             $0.didCreateRoute(routeInfo: info,
                               trip: trip)
-          }
+          })
         } else {
-          listenerContainer.forEach {
+          listenerContainer.forEach({
             $0.didUpdateRouteInfo(info, forTrip: trip)
-          }
+          })
           updateUpcomingManeuvers()
         }
       }
     default:
-      listenerContainer.forEach {
+      listenerContainer.forEach({
         $0.didFailureBuildRoute(forTrip: trip, code: code, countries: countries)
-      }
+      })
     }
   }
 
@@ -373,20 +368,20 @@ extension CarPlayRouter: RoutingManagerListener {
 
     let manager = RoutingManager.routingManager
     if manager.isRouteFinished {
-      listenerContainer.forEach {
+      listenerContainer.forEach({
         $0.routeDidFinish(trip)
-      }
+      })
       return
     }
 
     guard let routeInfo = manager.routeInfo,
-          manager.isRoutingActive else { return }
-    listenerContainer.forEach {
+      manager.isRoutingActive else { return }
+    listenerContainer.forEach({
       $0.didUpdateRouteInfo(routeInfo, forTrip: trip)
-    }
+    })
 
     let tts = MWMTextToSpeech.tts()!
-    if manager.isOnRoute, tts.active {
+    if manager.isOnRoute && tts.active {
       tts.playTurnNotifications(notifications)
       tts.playWarningSound()
     }

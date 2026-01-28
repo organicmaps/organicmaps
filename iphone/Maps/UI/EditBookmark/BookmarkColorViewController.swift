@@ -15,8 +15,7 @@ final class BookmarkColorViewController: MWMTableViewController {
     super.init(style: .grouped)
   }
 
-  @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -30,7 +29,7 @@ final class BookmarkColorViewController: MWMTableViewController {
     dismiss(animated: true, completion: nil)
   }
 
-  override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     colors.count
   }
 
@@ -44,7 +43,7 @@ final class BookmarkColorViewController: MWMTableViewController {
     return cell
   }
 
-  override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let color = colors[indexPath.row]
     delegate?.bookmarkColorViewController(self, didSelect: color)
   }

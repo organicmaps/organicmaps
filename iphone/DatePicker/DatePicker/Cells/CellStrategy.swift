@@ -19,16 +19,16 @@ enum PositionInRange {
 
 final class CellStrategy {
   enum CellId: String {
-    case empty
-    case regular
-    case inactive
-    case selectedSingle
-    case selectedFirst
-    case selectedLast
-    case rangeSingle
-    case rangeFirst
-    case rangeMiddle
-    case rangeLast
+    case empty = "empty"
+    case regular = "regular"
+    case inactive = "inactive"
+    case selectedSingle = "selectedSingle"
+    case selectedFirst = "selectedFirst"
+    case selectedLast = "selectedLast"
+    case rangeSingle = "rangeSingle"
+    case rangeFirst = "rangeFirst"
+    case rangeMiddle = "rangeMiddle"
+    case rangeLast = "rangeLast"
   }
 
   weak var collectionView: UICollectionView?

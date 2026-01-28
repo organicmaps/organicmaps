@@ -4,16 +4,16 @@ protocol BMCCategoryCellDelegate: AnyObject {
 }
 
 final class BMCCategoryCell: MWMTableViewCell {
-  @IBOutlet private var titleLabel: UILabel!
-  @IBOutlet private var subtitleLabel: UILabel!
+  @IBOutlet private weak var titleLabel: UILabel!
+  @IBOutlet private weak var subtitleLabel: UILabel!
 
-  @IBOutlet private var moreButton: UIButton! {
+  @IBOutlet private weak var moreButton: UIButton! {
     didSet {
       moreButton.setImage(#imageLiteral(resourceName: "ic24PxMore"), for: .normal)
     }
   }
 
-  @IBOutlet var visibleCheckmark: Checkmark!
+  @IBOutlet weak var visibleCheckmark: Checkmark!
 
   private var category: BookmarkGroup? {
     didSet {

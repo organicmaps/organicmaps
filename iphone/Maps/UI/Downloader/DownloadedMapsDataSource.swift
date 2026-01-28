@@ -2,11 +2,13 @@ class DownloadedMapsDataSource {
   private let parentCountryId: String?
   private var countryIds: [String]
 
-  private var searching = false
-  private lazy var searchDataSource: IDownloaderDataSource = SearchMapsDataSource()
+  fileprivate var searching = false
+  fileprivate lazy var searchDataSource: IDownloaderDataSource = {
+    SearchMapsDataSource()
+  }()
 
   init(_ parentId: String? = nil) {
-    parentCountryId = parentId
+    self.parentCountryId = parentId
     countryIds = DownloadedMapsDataSource.loadData(parentId)
   }
 
@@ -22,17 +24,19 @@ class DownloadedMapsDataSource {
       CountryIdAndName(countryId: $0, name: Storage.shared().name(forCountry: $0))
     }.sorted {
       $0.countryName.compare($1.countryName) == .orderedAscending
-    }.map(\.countryId)
+    }.map {
+      $0.countryId
+    }
   }
 
-  private func reloadData() {
+  fileprivate func reloadData() {
     countryIds = DownloadedMapsDataSource.loadData(parentCountryId)
   }
 }
 
 extension DownloadedMapsDataSource: IDownloaderDataSource {
   var isEmpty: Bool {
-    searching ? searchDataSource.isEmpty : countryIds.isEmpty
+    return searching ? searchDataSource.isEmpty : countryIds.isEmpty
   }
 
   var title: String {
@@ -120,7 +124,7 @@ extension DownloadedMapsDataSource: IDownloaderDataSource {
       update(true)
       return
     }
-    searchDataSource.search(query, locale: locale) { [weak self] finished in
+    searchDataSource.search(query, locale: locale) { [weak self] (finished) in
       if finished {
         self?.searching = true
         update(finished)

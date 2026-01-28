@@ -1,4 +1,5 @@
 final class OSMView: UIView {
+
   private let OSMImageView = UIImageView()
   private let OSMTextLabel = UILabel()
   private var mapDate: String?
@@ -26,14 +27,12 @@ final class OSMView: UIView {
   }
 
   // MARK: - Public
-
   func setMapDate(_ mapDate: String) {
     self.mapDate = mapDate
     OSMTextLabel.attributedText = attributedString(for: mapDate)
   }
 
   // MARK: - Private
-
   private func setupViews() {
     OSMImageView.image = UIImage(named: "osm_logo")
 
@@ -41,7 +40,7 @@ final class OSMView: UIView {
     OSMTextLabel.lineBreakMode = .byWordWrapping
     OSMTextLabel.numberOfLines = 0
     OSMTextLabel.isUserInteractionEnabled = true
-
+    
     let osmDidTapGesture = UITapGestureRecognizer(target: self, action: #selector(osmDidTap))
     OSMTextLabel.addGestureRecognizer(osmDidTapGesture)
   }
@@ -66,7 +65,7 @@ final class OSMView: UIView {
       OSMTextLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
       OSMTextLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
       OSMTextLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
-      OSMTextLabel.centerYAnchor.constraint(equalTo: OSMImageView.centerYAnchor),
+      OSMTextLabel.centerYAnchor.constraint(equalTo: OSMImageView.centerYAnchor)
     ])
   }
 
@@ -78,10 +77,11 @@ final class OSMView: UIView {
     let osmLink = "OpenStreetMap.org"
     let attributedString = NSMutableAttributedString(string: String(format: L("osm_presentation"), date.trimmingCharacters(in: .punctuationCharacters)),
                                                      attributes: [.font: UIFont.regular14(),
-                                                                  .foregroundColor: StyleManager.shared.theme!.colors.blackPrimaryText])
+                                                                  .foregroundColor: StyleManager.shared.theme!.colors.blackPrimaryText]
+    )
     let linkRange = attributedString.mutableString.range(of: osmLink)
     attributedString.addAttribute(.link, value: "https://www.openstreetmap.org/", range: linkRange)
-
+    
     return attributedString
   }
 }

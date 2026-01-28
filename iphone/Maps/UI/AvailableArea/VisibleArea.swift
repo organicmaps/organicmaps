@@ -1,6 +1,6 @@
 final class VisibleArea: AvailableArea {
   override func isAreaAffectingView(_ other: UIView) -> Bool {
-    !other.visibleAreaAffectDirections.isEmpty
+    return !other.visibleAreaAffectDirections.isEmpty
   }
 
   override func addAffectingView(_ other: UIView) {
@@ -24,12 +24,12 @@ final class VisibleArea: AvailableArea {
     let mainScreenBounds = UIScreen.main.bounds
     let kMinAvailableToUpdateFactor: CGFloat = 4.0
     return area.height < mainScreenBounds.height / kMinAvailableToUpdateFactor ||
-      area.width < mainScreenBounds.width / kMinAvailableToUpdateFactor
+           area.width < mainScreenBounds.width / kMinAvailableToUpdateFactor
   }
 }
 
 extension UIView {
-  @objc var visibleAreaAffectDirections: MWMAvailableAreaAffectDirections { [] }
+  @objc var visibleAreaAffectDirections: MWMAvailableAreaAffectDirections { return [] }
 
-  var visibleAreaAffectView: UIView { self }
+  var visibleAreaAffectView: UIView { return self }
 }

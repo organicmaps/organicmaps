@@ -14,7 +14,7 @@ final class SearchIndex: NSObject {
   private var items: [Item] = []
 
   @objc var count: Int {
-    items.count
+    return items.count
   }
 
   @objc init(suggestionsCount: Int, resultsCount: Int) {
@@ -35,7 +35,7 @@ final class SearchIndex: NSObject {
   @objc func build() {
     positionItems.sort(by: >)
     var itemsDict: [Int: Item] = [:]
-    for item in positionItems {
+    positionItems.forEach { item in
       var position = item.position
       while itemsDict[position] != nil {
         position += 1
@@ -54,16 +54,16 @@ final class SearchIndex: NSObject {
   }
 
   @objc func resultType(row: Int) -> SearchItemType {
-    items[row].type
+    return items[row].type
   }
 
   @objc func resultContainerIndex(row: Int) -> Int {
-    items[row].containerIndex
+    return items[row].containerIndex
   }
 }
 
 extension SearchIndex.PositionItem: Equatable {
-  static func == (lhs: SearchIndex.PositionItem, rhs: SearchIndex.PositionItem) -> Bool {
+  static func ==(lhs: SearchIndex.PositionItem, rhs: SearchIndex.PositionItem) -> Bool {
     let lhsCache = lhs.item
     let rhsCache = rhs.item
     return lhsCache.type == rhsCache.type &&
@@ -73,7 +73,7 @@ extension SearchIndex.PositionItem: Equatable {
 }
 
 extension SearchIndex.PositionItem: Comparable {
-  static func < (lhs: SearchIndex.PositionItem, rhs: SearchIndex.PositionItem) -> Bool {
+  static func <(lhs: SearchIndex.PositionItem, rhs: SearchIndex.PositionItem) -> Bool {
     let lhsCache = lhs.item
     let rhsCache = rhs.item
     guard lhsCache.type == rhsCache.type else {

@@ -35,3 +35,4 @@ extension BottomTabBarPresenter: BottomTabBarPresenterProtocol {
     interactor.openMenu()
   }
 }
+

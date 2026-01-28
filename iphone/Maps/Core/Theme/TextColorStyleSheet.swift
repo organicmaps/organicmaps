@@ -12,7 +12,7 @@ enum TextColorStyleSheet: String, CaseIterable {
 }
 
 extension TextColorStyleSheet: IStyleSheet {
-  func styleResolverFor(colors: IColors, fonts _: IFonts) -> Theme.StyleResolver {
+  func styleResolverFor(colors: IColors, fonts: IFonts) -> Theme.StyleResolver {
     let color: UIColor = {
       switch self {
       case .whitePrimary: return colors.whitePrimaryText

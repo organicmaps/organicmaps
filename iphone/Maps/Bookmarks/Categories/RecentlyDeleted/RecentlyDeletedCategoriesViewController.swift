@@ -1,4 +1,5 @@
 final class RecentlyDeletedCategoriesViewController: MWMViewController {
+
   private enum LocalizedStrings {
     static let clear = L("clear")
     static let delete = L("delete")
@@ -34,7 +35,7 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
       if dataSource.isEmpty {
         self.tableView.reloadData()
       } else {
-        let indexes = IndexSet(integersIn: 0 ... dataSource.count - 1)
+        let indexes = IndexSet(integersIn: 0...dataSource.count - 1)
         self.tableView.update { self.tableView.reloadSections(indexes, with: .automatic) }
       }
     }
@@ -42,12 +43,12 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
       self?.goBack()
     }
   }
-
+  
   @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     setupView()
@@ -80,7 +81,7 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
       recoverButton,
       flexibleSpace,
       deleteButton,
-      fixedSpace,
+      fixedSpace
     ]
   }
 
@@ -118,7 +119,7 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
 
       toolBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
       toolBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-      toolBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+      toolBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
     ])
   }
 
@@ -133,7 +134,7 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
       deleteButton.title = LocalizedStrings.deleteAll
       searchController.searchBar.isUserInteractionEnabled = true
       navigationItem.rightBarButtonItem = nil
-      tableView.indexPathsForSelectedRows?.forEach { tableView.deselectRow(at: $0, animated: true) }
+      tableView.indexPathsForSelectedRows?.forEach { tableView.deselectRow(at: $0, animated: true)}
     case .someSelected:
       toolBar.isHidden = false
       recoverButton.title = LocalizedStrings.recover
@@ -144,7 +145,6 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
   }
 
   // MARK: - Actions
-
   @objc private func clearButtonDidTap() {
     viewModel.cancelSelecting()
   }
@@ -159,13 +159,12 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
 }
 
 // MARK: - UITableViewDataSource
-
 extension RecentlyDeletedCategoriesViewController: UITableViewDataSource {
-  func numberOfSections(in _: UITableView) -> Int {
+  func numberOfSections(in tableView: UITableView) -> Int {
     viewModel.filteredDataSource.count
   }
 
-  func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     viewModel.filteredDataSource[section].content.count
   }
 
@@ -178,7 +177,6 @@ extension RecentlyDeletedCategoriesViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-
 extension RecentlyDeletedCategoriesViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard tableView.isEditing else {
@@ -198,12 +196,12 @@ extension RecentlyDeletedCategoriesViewController: UITableViewDelegate {
     viewModel.deselectCategory(at: indexPath)
   }
 
-  func tableView(_: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    let deleteAction = UIContextualAction(style: .destructive, title: LocalizedStrings.delete) { [weak self] _, _, completion in
+  func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    let deleteAction = UIContextualAction(style: .destructive, title: LocalizedStrings.delete) { [weak self] (_, _, completion) in
       self?.viewModel.deleteCategory(at: indexPath)
       completion(true)
     }
-    let recoverAction = UIContextualAction(style: .normal, title: LocalizedStrings.recover) { [weak self] _, _, completion in
+    let recoverAction = UIContextualAction(style: .normal, title: LocalizedStrings.recover) { [weak self] (_, _, completion) in
       self?.viewModel.recoverCategory(at: indexPath)
       completion(true)
     }
@@ -212,7 +210,6 @@ extension RecentlyDeletedCategoriesViewController: UITableViewDelegate {
 }
 
 // MARK: - UISearchBarDelegate
-
 extension RecentlyDeletedCategoriesViewController: UISearchBarDelegate {
   func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
     toolBar.setHidden(true)
@@ -231,7 +228,7 @@ extension RecentlyDeletedCategoriesViewController: UISearchBarDelegate {
     viewModel.cancelSearching()
   }
 
-  func searchBar(_: UISearchBar, textDidChange searchText: String) {
+  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     viewModel.search(searchText)
   }
 }

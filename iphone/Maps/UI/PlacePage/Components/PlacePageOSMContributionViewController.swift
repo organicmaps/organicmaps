@@ -6,6 +6,7 @@ protocol PlacePageOSMContributionViewControllerDelegate: AnyObject {
 }
 
 final class PlacePageOSMContributionViewController: UIViewController {
+
   private enum Constants {
     static let horizontalPadding: CGFloat = 16
     static let headerHeight: CGFloat = 44
@@ -26,17 +27,16 @@ final class PlacePageOSMContributionViewController: UIViewController {
       updateButtonsVisibility()
     }
   }
-
   private weak var delegate: PlacePageOSMContributionViewControllerDelegate?
 
   init(data: PlacePageOSMContributionData, delegate: PlacePageOSMContributionViewControllerDelegate?) {
-    buttonsData = data
+    self.buttonsData = data
     self.delegate = delegate
     super.init(nibName: nil, bundle: nil)
   }
 
   @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -54,8 +54,8 @@ final class PlacePageOSMContributionViewController: UIViewController {
     osmHeaderView.setTitle(L("contribute_to_osm"))
     osmHeaderView.setAccessory(image: UIImage(resource: .icQuestionmark),
                                tapHandler: { [weak self] in
-                                 self?.onOSMInfo()
-                               })
+      self?.onOSMInfo()
+    })
 
     configureButton(addPlaceButton, enabledTitle: L("contribute_to_osm_add_place"), action: #selector(onAddPlace))
     configureButton(editPlaceButton, enabledTitle: L("edit_place"), action: #selector(onEditPlace))
@@ -103,7 +103,7 @@ final class PlacePageOSMContributionViewController: UIViewController {
       buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.horizontalPadding),
       buttonsStackView.topAnchor.constraint(equalTo: osmHeaderView.bottomAnchor, constant: Constants.buttonsTopSpacing),
       buttonsStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constants.buttonsBottomPadding),
-      buttonsStackView.heightAnchor.constraint(equalToConstant: Constants.buttonsHeight),
+      buttonsStackView.heightAnchor.constraint(equalToConstant: Constants.buttonsHeight)
     ])
   }
 

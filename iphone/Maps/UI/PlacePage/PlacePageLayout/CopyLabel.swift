@@ -3,11 +3,11 @@ final class CopyLabel: UILabel {
     true
   }
 
-  override func canPerformAction(_ action: Selector, withSender _: Any?) -> Bool {
+  override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
     action == #selector(copy(_:))
   }
 
-  override func copy(_: Any?) {
+  override func copy(_ sender: Any?) {
     UIPasteboard.general.string = text
   }
 }

@@ -1,5 +1,5 @@
-@testable import Organic_Maps__Debug_
 import XCTest
+@testable import Organic_Maps__Debug_
 
 final class RecentlyDeletedCategoriesViewModelTests: XCTestCase {
   var viewModel: RecentlyDeletedCategoriesViewModel!
@@ -30,15 +30,14 @@ final class RecentlyDeletedCategoriesViewModelTests: XCTestCase {
 
   func testInitializationFetchesCategories() {
     XCTAssertEqual(viewModel.state, .nothingSelected)
-    XCTAssertEqual(viewModel.filteredDataSource.flatMap(\.content).count, Int(bookmarksManagerMock.recentlyDeletedCategoriesCount()))
+    XCTAssertEqual(viewModel.filteredDataSource.flatMap { $0.content }.count, Int(bookmarksManagerMock.recentlyDeletedCategoriesCount()))
   }
 
   // MARK: - Selection Tests
-
   func testMultipleSelectionAndDeselection() {
     viewModel.selectAllCategories()
     let initialSelectedCount = viewModel.selectedIndexPaths.count
-    XCTAssertEqual(initialSelectedCount, viewModel.filteredDataSource.flatMap(\.content).count)
+    XCTAssertEqual(initialSelectedCount, viewModel.filteredDataSource.flatMap { $0.content }.count)
 
     viewModel.deselectAllCategories()
     XCTAssertTrue(viewModel.selectedIndexPaths.isEmpty)
@@ -89,19 +88,18 @@ final class RecentlyDeletedCategoriesViewModelTests: XCTestCase {
     XCTAssertEqual(viewModel.state, .someSelected)
 
     viewModel.cancelSelecting()
-    XCTAssertEqual(viewModel.filteredDataSource.flatMap(\.content).count, Int(bookmarksManagerMock.recentlyDeletedCategoriesCount()))
+    XCTAssertEqual(viewModel.filteredDataSource.flatMap { $0.content }.count, Int(bookmarksManagerMock.recentlyDeletedCategoriesCount()))
   }
 
   // MARK: - Searching Tests
-
   func testSearchWithEmptyString() {
     viewModel.search("")
-    XCTAssertEqual(viewModel.filteredDataSource.flatMap(\.content).count, 4)
+    XCTAssertEqual(viewModel.filteredDataSource.flatMap { $0.content }.count, 4)
   }
 
   func testSearchWithNoResults() {
     viewModel.search("xyz") // Assuming "xyz" matches no category names
-    XCTAssertTrue(viewModel.filteredDataSource.allSatisfy(\.content.isEmpty))
+    XCTAssertTrue(viewModel.filteredDataSource.allSatisfy { $0.content.isEmpty })
   }
 
   func testCancelSearchRestoresDataSource() {
@@ -109,15 +107,14 @@ final class RecentlyDeletedCategoriesViewModelTests: XCTestCase {
     viewModel.search(searchText)
     XCTAssertEqual(viewModel.state, .searching)
     XCTAssertTrue(viewModel.filteredDataSource.allSatisfy { $0.content.allSatisfy { $0.title.localizedCaseInsensitiveContains(searchText) } })
-    XCTAssertEqual(viewModel.filteredDataSource.flatMap(\.content).count, 2)
+    XCTAssertEqual(viewModel.filteredDataSource.flatMap { $0.content }.count, 2)
 
     viewModel.cancelSearching()
     XCTAssertEqual(viewModel.state, .nothingSelected)
-    XCTAssertEqual(viewModel.filteredDataSource.flatMap(\.content).count, 4)
+    XCTAssertEqual(viewModel.filteredDataSource.flatMap { $0.content }.count, 4)
   }
 
   // MARK: - Deletion Tests
-
   func testDeleteCategory() {
     let initialCount = bookmarksManagerMock.categories.count
     viewModel.deleteCategory(at: IndexPath(row: 0, section: 0))
@@ -135,12 +132,11 @@ final class RecentlyDeletedCategoriesViewModelTests: XCTestCase {
     viewModel.deleteSelectedCategories()
     XCTAssertEqual(viewModel.state, .nothingSelected)
     XCTAssertEqual(bookmarksManagerMock.categories.count, 2)
-    XCTAssertEqual(viewModel.filteredDataSource.flatMap(\.content).count, 2)
-    XCTAssertEqual(viewModel.filteredDataSource.flatMap(\.content).count, Int(bookmarksManagerMock.recentlyDeletedCategoriesCount()))
+    XCTAssertEqual(viewModel.filteredDataSource.flatMap { $0.content }.count, 2)
+    XCTAssertEqual(viewModel.filteredDataSource.flatMap { $0.content }.count, Int(bookmarksManagerMock.recentlyDeletedCategoriesCount()))
   }
 
   // MARK: - Recovery Tests
-
   func testRecoverCategory() {
     viewModel.recoverCategory(at: IndexPath(row: 0, section: 0))
     XCTAssertEqual(viewModel.state, .nothingSelected)
@@ -160,7 +156,7 @@ final class RecentlyDeletedCategoriesViewModelTests: XCTestCase {
     viewModel.recoverSelectedCategories()
     XCTAssertEqual(viewModel.state, .nothingSelected)
     XCTAssertEqual(bookmarksManagerMock.categories.count, 2)
-    XCTAssertEqual(viewModel.filteredDataSource.flatMap(\.content).count, Int(bookmarksManagerMock.recentlyDeletedCategoriesCount()))
+    XCTAssertEqual(viewModel.filteredDataSource.flatMap { $0.content }.count, Int(bookmarksManagerMock.recentlyDeletedCategoriesCount()))
   }
 
   func testSearchFiltersCategories() {

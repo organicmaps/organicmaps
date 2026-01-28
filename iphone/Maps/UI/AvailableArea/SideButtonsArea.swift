@@ -1,8 +1,8 @@
 final class SideButtonsArea: AvailableArea {
-  override var deferNotification: Bool { false }
+  override var deferNotification: Bool { return false }
 
   override func isAreaAffectingView(_ other: UIView) -> Bool {
-    !other.sideButtonsAreaAffectDirections.isEmpty
+    return !other.sideButtonsAreaAffectDirections.isEmpty
   }
 
   override func addAffectingView(_ other: UIView) {
@@ -17,7 +17,7 @@ final class SideButtonsArea: AvailableArea {
 }
 
 extension UIView {
-  @objc var sideButtonsAreaAffectDirections: MWMAvailableAreaAffectDirections { [] }
+  @objc var sideButtonsAreaAffectDirections: MWMAvailableAreaAffectDirections { return [] }
 
-  var sideButtonsAreaAffectView: UIView { self }
+  var sideButtonsAreaAffectView: UIView { return self }
 }

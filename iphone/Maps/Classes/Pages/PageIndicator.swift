@@ -1,13 +1,13 @@
 
-private let kDotWidth: CGFloat = 6.0
-private let kExtraDotWidth: CGFloat = kDotWidth * 4
+fileprivate let kDotWidth: CGFloat = 6.0
+fileprivate let kExtraDotWidth: CGFloat = kDotWidth * 4
 
 class PageIndicator: UIView {
   private var pageViews: [UIView] = []
   var pageCount = 0 {
     didSet {
       pageViews.removeAll()
-      for _ in 0 ..< pageCount {
+      for _ in 0..<pageCount {
         let v = UIView()
         v.layer.cornerRadius = kDotWidth / 2.0
         v.clipsToBounds = true
@@ -36,13 +36,13 @@ class PageIndicator: UIView {
   }
 
   private func updateLayout() {
-    for i in 0 ..< pageCount {
+    for i in 0..<pageCount {
       let v = pageViews[i]
 
       let d = CGFloat(i) - currentPage
       let ad = abs(d)
       let x = kDotWidth * CGFloat(i * 2) + kExtraDotWidth * min(max(0, d), 1)
-      let w = kDotWidth + kExtraDotWidth * max(0, 1 - ad)
+      let w = kDotWidth + kExtraDotWidth * max(0, (1 - ad))
       v.frame = CGRect(x: x, y: 0, width: w, height: kDotWidth)
 
       if ad >= 1 {

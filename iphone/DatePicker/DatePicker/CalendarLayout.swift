@@ -16,7 +16,7 @@ final class CalendarLayout: UICollectionViewFlowLayout {
     sectionHeadersPinToVisibleBounds = true
   }
 
-  override func shouldInvalidateLayout(forBoundsChange _: CGRect) -> Bool {
+  override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
     true
   }
 }

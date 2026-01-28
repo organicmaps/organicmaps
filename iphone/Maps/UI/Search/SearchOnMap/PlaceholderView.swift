@@ -1,4 +1,5 @@
 final class PlaceholderView: UIView {
+
   private let activityIndicator: UIActivityIndicatorView?
   private let titleLabel = UILabel()
   private let subtitleLabel = UILabel()
@@ -10,7 +11,7 @@ final class PlaceholderView: UIView {
   private let maxOffsetFromTheTop: CGFloat = 100
 
   init(title: String? = nil, subtitle: String? = nil, hasActivityIndicator: Bool = false) {
-    activityIndicator = hasActivityIndicator ? UIActivityIndicatorView() : nil
+    self.activityIndicator = hasActivityIndicator ? UIActivityIndicatorView() : nil
     super.init(frame: .zero)
     setupView(title: title, subtitle: subtitle)
     layoutView()
@@ -18,7 +19,7 @@ final class PlaceholderView: UIView {
   }
 
   @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -44,7 +45,7 @@ final class PlaceholderView: UIView {
     }
   }
 
-  @objc private func keyboardWillHide(_: Notification) {
+  @objc private func keyboardWillHide(_ notification: Notification) {
     keyboardHeight = 0
     reloadConstraints()
   }
@@ -100,7 +101,7 @@ final class PlaceholderView: UIView {
     NSLayoutConstraint.activate([
       stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
       stackView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.8),
-      centerYConstraint,
+      centerYConstraint
     ])
   }
 
@@ -115,10 +116,9 @@ final class PlaceholderView: UIView {
 }
 
 // MARK: - ModallyPresentedViewController
-
 extension PlaceholderView: ModallyPresentedViewController {
   func presentationFrameDidChange(_ frame: CGRect) {
-    containerModalYTranslation = frame.origin.y
+    self.containerModalYTranslation = frame.origin.y
     reloadConstraints()
   }
 }

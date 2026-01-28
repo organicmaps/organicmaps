@@ -11,7 +11,7 @@ extension ChartView {
   }
 }
 
-private final class ChartViewRenderer {
+fileprivate final class ChartViewRenderer {
   class func render(_ control: ChartView, style: Style) {
     control.backgroundColor = style.backgroundColor
     control.textColor = style.fontColor!

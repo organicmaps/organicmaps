@@ -1,20 +1,20 @@
-private enum AssociatedKeys {
+fileprivate struct AssociatedKeys {
   static var styleName: UInt8 = 0
   static var isStyleApplied: UInt8 = 1
 }
 
 @objc extension UIView: StyleApplicable {
-  func sw_didMoveToWindow() {
+  @objc func sw_didMoveToWindow() {
     guard MapsAppDelegate.theApp().window === window else {
-      sw_didMoveToWindow()
+      sw_didMoveToWindow();
       return
     }
     applyTheme()
     isStyleApplied = true
-    sw_didMoveToWindow()
+    sw_didMoveToWindow();
   }
 
-  var styleName: String {
+  @objc var styleName: String {
     get {
       isStyleApplied = false
       guard let value = objc_getAssociatedObject(self, &AssociatedKeys.styleName) as? String else {
@@ -27,7 +27,7 @@ private enum AssociatedKeys {
     }
   }
 
-  var isStyleApplied: Bool {
+  @objc var isStyleApplied: Bool {
     get {
       guard let value = objc_getAssociatedObject(self, &AssociatedKeys.isStyleApplied) as? Bool else {
         return false
@@ -39,7 +39,7 @@ private enum AssociatedKeys {
     }
   }
 
-  func setStyleNameAndApply(_ styleName: String) {
+  @objc func setStyleNameAndApply(_ styleName: String) {
     self.styleName = styleName
     applyTheme()
   }

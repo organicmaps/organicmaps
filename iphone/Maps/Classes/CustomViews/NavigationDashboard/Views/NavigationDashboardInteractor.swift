@@ -39,7 +39,7 @@ extension NavigationDashboard {
         router.rebuild(withBestRouter: false)
         return .none
 
-      case .selectRoutePoint(let point):
+      case let .selectRoutePoint(point):
         delegate?.routePreviewDidSelect(point, shouldAppend: false)
         searchManager.startSearching(isRouting: false)
         if let point, !point.isMyPosition, let textToSearch = point.title {
@@ -86,7 +86,7 @@ extension NavigationDashboard {
         frameworkHelper.saveRouteAsTrack()
         return .setRouteAsTrackSaved
 
-      case .updateRouteBuildingProgress(let progress, let routerType):
+      case let .updateRouteBuildingProgress(progress, routerType):
         return .updateRouteBuildingProgress(progress, routerType: routerType)
 
       case .updateNavigationInfo(let entity):
@@ -104,11 +104,11 @@ extension NavigationDashboard {
         }
         return .updateSearchState(state)
 
-      case .updateDrivingOptionsState:
+      case .updateDrivingOptionsState(_):
         let routingOptions = RoutingOptions()
         return .updateDrivingOptionsState(routingOptions)
 
-      case .moveRoutePoint(let from, let to):
+      case let .moveRoutePoint(from, to):
         router.movePoint(at: from, to: to)
         router.rebuild(withBestRouter: false)
         return .show(points: router.points(), routerType: router.type())
@@ -136,7 +136,6 @@ extension NavigationDashboard {
 }
 
 // MARK: - NavigationDashboardView
-
 extension NavigationDashboard.Interactor: NavigationDashboardView {
   func setHidden(_ hidden: Bool) {
     process(.setHidden(hidden))

@@ -1,12 +1,12 @@
 final class BMCNotificationsCell: MWMTableViewCell {
-  @IBOutlet private var spinner: UIView! {
+  @IBOutlet private weak var spinner: UIView! {
     didSet {
       circularProgress = MWMCircularProgress(parentView: spinner)
       circularProgress.state = .spinner
     }
   }
 
-  @IBOutlet private var label: UILabel! {
+  @IBOutlet private weak var label: UILabel! {
     didSet {
       label.text = L("load_kmz_title")
     }

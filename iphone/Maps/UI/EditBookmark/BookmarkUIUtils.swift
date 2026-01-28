@@ -1,8 +1,8 @@
 import Foundation
 
 extension BookmarkColor {
-  public static var allCases: [BookmarkColor] = [.red, .pink, .purple, .deepPurple, .blue, .lightBlue, .cyan, .teal, .green,
-                                                 .lime, .yellow, .orange, .deepOrange, .brown, .gray, .blueGray]
+  public static var allCases: [BookmarkColor] =  [.red, .pink, .purple, .deepPurple, .blue, .lightBlue, .cyan, .teal, .green,
+                                                  .lime, .yellow, .orange, .deepOrange, .brown, .gray, .blueGray]
 
   var title: String {
     localizedTitleForBookmarkColor(self)
@@ -29,7 +29,7 @@ extension BookmarkColor {
   }
 }
 
-private func titleForBookmarkColor(_ color: BookmarkColor) -> String {
+fileprivate func titleForBookmarkColor(_ color: BookmarkColor) -> String {
   switch color {
   case .red: return "red"
   case .blue: return "blue"
@@ -53,32 +53,32 @@ private func titleForBookmarkColor(_ color: BookmarkColor) -> String {
   }
 }
 
-private func localizedTitleForBookmarkColor(_ color: BookmarkColor) -> String {
+fileprivate func localizedTitleForBookmarkColor(_ color: BookmarkColor) -> String {
   L(titleForBookmarkColor(color))
 }
 
-private func rgbColor(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> UIColor {
+fileprivate func rgbColor(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> UIColor {
   UIColor(red: r / 255, green: g / 255, blue: b / 255, alpha: 0.8)
 }
 
-private func uiColorForBookmarkColor(_ color: BookmarkColor) -> UIColor {
+fileprivate func uiColorForBookmarkColor(_ color: BookmarkColor) -> UIColor {
   switch color {
-  case .red: return rgbColor(229, 27, 35)
-  case .pink: return rgbColor(255, 65, 130)
-  case .purple: return rgbColor(155, 36, 178)
-  case .deepPurple: return rgbColor(102, 57, 191)
-  case .blue: return rgbColor(0, 102, 204)
-  case .lightBlue: return rgbColor(36, 156, 242)
-  case .cyan: return rgbColor(20, 190, 205)
-  case .teal: return rgbColor(0, 165, 140)
-  case .green: return rgbColor(60, 140, 60)
-  case .lime: return rgbColor(147, 191, 57)
-  case .yellow: return rgbColor(255, 200, 0)
-  case .orange: return rgbColor(255, 150, 0)
-  case .deepOrange: return rgbColor(240, 100, 50)
-  case .brown: return rgbColor(128, 70, 51)
-  case .gray: return rgbColor(115, 115, 115)
-  case .blueGray: return rgbColor(89, 115, 128)
+  case .red: return rgbColor(229, 27, 35);
+  case .pink: return rgbColor(255, 65, 130);
+  case .purple: return rgbColor(155, 36, 178);
+  case .deepPurple: return rgbColor(102, 57, 191);
+  case .blue: return rgbColor(0, 102, 204);
+  case .lightBlue: return rgbColor(36, 156, 242);
+  case .cyan: return rgbColor(20, 190, 205);
+  case .teal: return rgbColor(0, 165, 140);
+  case .green: return rgbColor(60, 140, 60);
+  case .lime: return rgbColor(147, 191, 57);
+  case .yellow: return rgbColor(255, 200, 0);
+  case .orange: return rgbColor(255, 150, 0);
+  case .deepOrange: return rgbColor(240, 100, 50);
+  case .brown: return rgbColor(128, 70, 51);
+  case .gray: return rgbColor(115, 115, 115);
+  case .blueGray: return rgbColor(89, 115, 128);
   case .none, .count:
     fatalError()
   @unknown default:

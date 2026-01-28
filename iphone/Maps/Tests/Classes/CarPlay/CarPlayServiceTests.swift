@@ -1,7 +1,8 @@
-@testable import Organic_Maps__Debug_
 import XCTest
+@testable import Organic_Maps__Debug_
 
 final class CarPlayServiceTests: XCTestCase {
+
   var carPlayService: CarPlayService!
 
   override func setUp() {

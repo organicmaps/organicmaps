@@ -1,5 +1,5 @@
 class AvailableMapsDataSource {
-  enum Const {
+  struct Const {
     static let locationArrow = "➤"
   }
 
@@ -9,8 +9,10 @@ class AvailableMapsDataSource {
   private var sectionsContent: [String: [String]]?
   private var nearbySection: [String]?
 
-  private var searching = false
-  private lazy var searchDataSource: IDownloaderDataSource = SearchMapsDataSource()
+  fileprivate var searching = false
+  fileprivate lazy var searchDataSource: IDownloaderDataSource = {
+    SearchMapsDataSource()
+  }()
 
   init(_ parentCountryId: String? = nil, location: CLLocationCoordinate2D? = nil) {
     self.parentCountryId = parentCountryId
@@ -151,7 +153,7 @@ extension AvailableMapsDataSource: IDownloaderDataSource {
       update(true)
       return
     }
-    searchDataSource.search(query, locale: locale) { [weak self] finished in
+    searchDataSource.search(query, locale: locale) { [weak self] (finished) in
       if finished {
         self?.searching = true
         update(finished)

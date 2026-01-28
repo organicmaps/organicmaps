@@ -1,6 +1,6 @@
 final class CoverVerticalPresentationAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-  func transitionDuration(using _: UIViewControllerContextTransitioning?) -> TimeInterval {
-    kDefaultAnimationDuration
+  func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    return kDefaultAnimationDuration
   }
 
   func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -15,7 +15,7 @@ final class CoverVerticalPresentationAnimator: NSObject, UIViewControllerAnimate
     toVC.view.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
     UIView.animate(withDuration: transitionDuration(using: transitionContext),
                    animations: {
-                     toVC.view.frame = finalFrame
-                   }) { transitionContext.completeTransition($0) }
+                    toVC.view.frame = finalFrame
+    }) { transitionContext.completeTransition($0) }
   }
 }

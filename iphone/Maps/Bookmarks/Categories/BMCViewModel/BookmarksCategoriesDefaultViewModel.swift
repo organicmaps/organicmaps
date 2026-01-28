@@ -2,19 +2,19 @@ struct BMCDefaultViewModel: BMCViewModel {
   private var sections: [BMCSection] = [.permissions, .categoriesList, .creation]
 
   func numberOfSections() -> Int {
-    sections.count
+    return sections.count
   }
 
   func sectionType(section: Int) -> BMCSection {
-    sections[section]
+    return sections[section]
   }
 
   func sectionIndex(section: BMCSection) -> Int {
-    sections.index(of: section)!
+    return sections.index(of: section)!
   }
 
   func numberOfRows(section _: Int) -> Int {
-    1
+    return 1
   }
 
   func item(indexPath: IndexPath) -> BMCModel {

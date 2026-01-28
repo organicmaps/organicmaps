@@ -1,4 +1,4 @@
-@objc class PlacePageBuilder: NSObject {
+@objc class PlacePageBuilder: NSObject {    
   @objc static func build(for data: PlacePageData) -> PlacePageViewController {
     let storyboard = UIStoryboard.instance(.placePage)
     guard let viewController = storyboard.instantiateInitialViewController() as? PlacePageViewController else {
@@ -27,7 +27,7 @@
     interactor.presenter = presenter
     layout.presenter = presenter
     return viewController
-  }
+	}
 
   @objc static func update(_ viewController: PlacePageViewController, with data: PlacePageData) {
     viewController.isPreviewPlus = data.isPreviewPlus

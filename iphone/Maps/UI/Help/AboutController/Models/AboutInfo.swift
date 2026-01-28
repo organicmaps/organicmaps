@@ -11,6 +11,7 @@ enum AboutInfo {
 
   var title: String {
     switch self {
+
     case .faq:
       return L("faq")
     case .reportABug:

@@ -1,5 +1,5 @@
 final class BMCNotificationsHeader: UIView {
-  @IBOutlet private var label: UILabel! {
+  @IBOutlet private weak var label: UILabel! {
     didSet {
       label.text = L("bookmark_lists").uppercased()
     }

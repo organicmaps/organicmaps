@@ -1,12 +1,13 @@
 @testable import Organic_Maps__Debug_
 
 extension LocalMetadataItem {
-  static func stub(fileName: String,
+  static func stub(fileName: String, 
                    lastModificationDate: TimeInterval) -> LocalMetadataItem {
     let item = LocalMetadataItem(fileName: fileName,
                                  fileUrl: URL(string: "url")!,
                                  lastModificationDate: lastModificationDate)
     return item
+
   }
 }
 

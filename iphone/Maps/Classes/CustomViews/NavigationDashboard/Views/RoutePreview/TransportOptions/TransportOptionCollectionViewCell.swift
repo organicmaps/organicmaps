@@ -1,4 +1,5 @@
 final class TransportOptionCollectionViewCell: UICollectionViewCell {
+
   private let imageView = UIImageView()
   private(set) var routerType: MWMRouterType = .vehicle
 
@@ -19,7 +20,7 @@ final class TransportOptionCollectionViewCell: UICollectionViewCell {
   }
 
   @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -31,13 +32,13 @@ final class TransportOptionCollectionViewCell: UICollectionViewCell {
       imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
       imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
       imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-      imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+      imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
     ])
   }
 
   func configure(with routerType: MWMRouterType) {
     self.routerType = routerType
-    isSelected = false
+    self.isSelected = false
   }
 
   private func setSelected(_ selected: Bool) {

@@ -1,5 +1,4 @@
 import Foundation
-
 extension UISearchBar {
   @objc override func applyTheme() {
     if styleName.isEmpty {
@@ -13,12 +12,12 @@ extension UISearchBar {
 
   @objc override func sw_didMoveToWindow() {
     guard MapsAppDelegate.theApp().window === window else {
-      sw_didMoveToWindow()
+      sw_didMoveToWindow();
       return
     }
     applyTheme()
     isStyleApplied = true
-    sw_didMoveToWindow()
+    sw_didMoveToWindow();
   }
 }
 
@@ -82,7 +81,7 @@ class UISearchBarRenderer: UIViewRenderer {
     }
   }
 
-  // fix for iOS 12 and below
+  //fix for iOS 12 and below
   class func setAppearance() {
     for style in StyleManager.shared.getStyle("SearchBar") {
       if let backgroundColor = style.backgroundColor {

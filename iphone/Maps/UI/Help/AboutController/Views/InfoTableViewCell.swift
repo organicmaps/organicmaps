@@ -1,7 +1,8 @@
 final class InfoTableViewCell: UITableViewCell {
+
   private let infoView = InfoView()
 
-  override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: .default, reuseIdentifier: reuseIdentifier)
     setupView()
   }
@@ -26,7 +27,6 @@ final class InfoTableViewCell: UITableViewCell {
   }
 
   // MARK: - Public
-
   func set(image: UIImage?, title: String) {
     infoView.set(image: image, title: title)
   }

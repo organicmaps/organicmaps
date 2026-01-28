@@ -29,26 +29,26 @@ public class ChartView: UIView {
     }
   }
 
-  public var previewSelectorColor: UIColor = .lightGray.withAlphaComponent(0.9) {
+  public var previewSelectorColor: UIColor = UIColor.lightGray.withAlphaComponent(0.9) {
     didSet {
       chartPreviewView.selectorColor = previewSelectorColor
     }
   }
 
-  public var previewTintColor: UIColor = .lightGray.withAlphaComponent(0.5) {
+  public var previewTintColor: UIColor = UIColor.lightGray.withAlphaComponent(0.5) {
     didSet {
       chartPreviewView.selectorTintColor = previewTintColor
     }
   }
 
-  public var infoBackgroundColor: UIColor = .white {
+  public var infoBackgroundColor: UIColor = UIColor.white {
     didSet {
       chartInfoView.infoBackgroundColor = infoBackgroundColor
       yAxisView.textBackgroundColor = infoBackgroundColor.withAlphaComponent(0.7)
     }
   }
 
-  public var infoShadowColor: UIColor = .black {
+  public var infoShadowColor: UIColor = UIColor.black {
     didSet {
       chartInfoView.infoShadowColor = infoShadowColor
     }
@@ -60,7 +60,7 @@ public class ChartView: UIView {
     }
   }
 
-  public var font: UIFont = .systemFont(ofSize: 12, weight: .regular) {
+  public var font: UIFont = UIFont.systemFont(ofSize: 12, weight: .regular) {
     didSet {
       xAxisView.font = font
       yAxisView.font = font
@@ -68,7 +68,7 @@ public class ChartView: UIView {
     }
   }
 
-  public var textColor: UIColor = .init(white: 0, alpha: 0.2) {
+  public var textColor: UIColor = UIColor(white: 0, alpha: 0.2) {
     didSet {
       xAxisView.textColor = textColor
       yAxisView.textColor = textColor
@@ -76,13 +76,13 @@ public class ChartView: UIView {
     }
   }
 
-  public var gridColor: UIColor = .init(white: 0, alpha: 0.2) {
+  public var gridColor: UIColor = UIColor(white: 0, alpha: 0.2) {
     didSet {
       yAxisView.gridColor = gridColor
     }
   }
 
-  override public var backgroundColor: UIColor? {
+  public override var backgroundColor: UIColor? {
     didSet {
       chartInfoView.tooltipBackgroundColor = backgroundColor ?? .white
     }
@@ -92,7 +92,7 @@ public class ChartView: UIView {
     didSet {
       lineViews.forEach { $0.removeFromSuperview() }
       lineViews.removeAll()
-      for i in (0 ..< chartData.linesCount).reversed() {
+      for i in (0..<chartData.linesCount).reversed() {
         let line = chartData.lineAt(i)
         let v = ChartLineView()
         v.clipsToBounds = true
@@ -219,7 +219,7 @@ public class ChartView: UIView {
     chartsContainerView.frame = chartsFrame
   }
 
-  override public func point(inside point: CGPoint, with _: UIEvent?) -> Bool {
+  override public func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
     let rect = bounds.insetBy(dx: -30, dy: 0)
     return rect.contains(point)
   }
@@ -275,7 +275,7 @@ public class ChartView: UIView {
     if lower < 0 || upper > chartData.labels.count - 1 {
       return
     }
-
+    
     chartPreviewView.setX(min: lower, max: upper)
     xAxisView.setBounds(lower: lower, upper: upper)
     updateCharts(animationStyle: .none)
@@ -286,13 +286,13 @@ public class ChartView: UIView {
     var lower = CGFloat(Int.max)
     var upper = CGFloat(Int.min)
 
-    for i in 0 ..< chartData.linesCount {
+    for i in 0..<chartData.linesCount {
       let line = chartData.lineAt(i)
-      let subrange = line.aggregatedValues[xAxisView.lowerBound ... xAxisView.upperBound]
-      for item in subrange {
-        upper = max(item.y, upper)
+      let subrange = line.aggregatedValues[xAxisView.lowerBound...xAxisView.upperBound]
+      subrange.forEach {
+        upper = max($0.y, upper)
         if line.type == .line || line.type == .lineArea {
-          lower = min(item.y, lower)
+          lower = min($0.y, lower)
         }
       }
     }
@@ -311,18 +311,18 @@ public class ChartView: UIView {
                           animationStyle: animationStyle)
     }
 
-    for lineView in lineViews {
-      lineView.setViewport(minX: xAxisView.lowerBound,
-                           maxX: xAxisView.upperBound,
-                           minY: lower,
-                           maxY: upper,
-                           animationStyle: animationStyle)
+    lineViews.forEach {
+      $0.setViewport(minX: xAxisView.lowerBound,
+                     maxX: xAxisView.upperBound,
+                     minY: lower,
+                     maxY: upper,
+                     animationStyle: animationStyle)
     }
   }
 }
 
 extension ChartView: ChartPreviewViewDelegate {
-  func chartPreviewView(_: ChartPreviewView, didChangeMinX minX: Int, maxX: Int) {
+  func chartPreviewView(_ view: ChartPreviewView, didChangeMinX minX: Int, maxX: Int) {
     xAxisView.setBounds(lower: minX, upper: maxX)
     updateCharts(animationStyle: .none)
     chartInfoView.update()
@@ -339,7 +339,7 @@ extension ChartView: ChartInfoViewDelegate {
     onSelectedPointChanged?(x)
   }
 
-  func chartInfoView(_: ChartInfoView, didCaptureInfoView captured: Bool) {
+  func chartInfoView(_ view: ChartInfoView, didCaptureInfoView captured: Bool) {
     panGR.isEnabled = !captured
   }
 
@@ -348,11 +348,11 @@ extension ChartView: ChartInfoViewDelegate {
     let x = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
     let x1 = floor(x)
     let x2 = ceil(x)
-    guard !pointX.isZero, Int(x1) < chartData.labels.count, x >= 0 else { return nil }
+    guard !pointX.isZero, Int(x1) < chartData.labels.count && x >= 0 else { return nil }
     let label = chartData.labelAt(x)
 
     var result: [ChartLineInfo] = []
-    for i in 0 ..< chartData.linesCount {
+    for i in 0..<chartData.linesCount {
       let line = chartData.lineAt(i)
       guard line.type != .lineArea else { continue }
       let y1 = line.values.altitude(at: x1 / CGFloat(chartData.pointsCount))

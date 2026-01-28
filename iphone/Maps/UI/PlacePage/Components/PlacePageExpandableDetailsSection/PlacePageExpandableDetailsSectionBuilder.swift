@@ -1,4 +1,4 @@
-enum PlacePageExpandableDetailsSectionBuilder {
+struct PlacePageExpandableDetailsSectionBuilder {
   static func buildWikipediaSection(_ wikiDescriptionHtml: String, showLinkButton: Bool, delegate: WikiDescriptionViewControllerDelegate) -> PlacePageExpandableDetailsSectionViewController {
     let viewModel = PlacePageExpandableDetailsSectionViewModel(title: L("read_in_wikipedia"),
                                                                style: .header,
@@ -37,4 +37,5 @@ enum PlacePageExpandableDetailsSectionBuilder {
     presenter.view = viewController
     return viewController
   }
+
 }

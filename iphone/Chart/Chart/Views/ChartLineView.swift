@@ -1,7 +1,7 @@
 import UIKit
 
 class ChartLineView: UIView {
-  override class var layerClass: AnyClass { CAShapeLayer.self }
+  override class var layerClass: AnyClass { return CAShapeLayer.self }
 
   private var minX = 0
   private var maxX = 0
@@ -42,17 +42,16 @@ class ChartLineView: UIView {
     isUserInteractionEnabled = false
   }
 
-  @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     fatalError()
   }
 
   var shapeLayer: CAShapeLayer {
-    layer as! CAShapeLayer
+    return layer as! CAShapeLayer
   }
 
   func setViewport(minX: Int, maxX: Int, minY: CGFloat, maxY: CGFloat, animationStyle: ChartAnimation = .none) {
-    guard minX < maxX, minY < maxY else { return }
+    guard minX < maxX && minY < maxY else { return }
     self.minX = minX
     self.maxX = maxX
     self.minY = minY
@@ -90,8 +89,8 @@ class ChartLineView: UIView {
     if animationStyle != .none {
       let timingFunction = CAMediaTimingFunction(name: animationStyle == .interactive ? .linear : .easeInEaseOut)
       if shapeLayer.animationKeys()?.contains("path") ?? false,
-         let presentation = shapeLayer.presentation(),
-         let path = presentation.path {
+        let presentation = shapeLayer.presentation(),
+        let path = presentation.path {
         shapeLayer.removeAnimation(forKey: "path")
         shapeLayer.path = path
       }

@@ -1,4 +1,5 @@
 final class StartRouteButton: UIView {
+
   enum State {
     case enabled
     case loading
@@ -29,7 +30,7 @@ final class StartRouteButton: UIView {
   }
 
   @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -58,7 +59,7 @@ final class StartRouteButton: UIView {
       button.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
 
       activityIndicator.centerXAnchor.constraint(equalTo: button.centerXAnchor),
-      activityIndicator.centerYAnchor.constraint(equalTo: button.centerYAnchor),
+      activityIndicator.centerYAnchor.constraint(equalTo: button.centerYAnchor)
     ])
   }
 
@@ -73,21 +74,21 @@ final class StartRouteButton: UIView {
                       duration: Constants.animationDuration,
                       options: .transitionCrossDissolve,
                       animations: { [weak self] in
-                        guard let self = self else { return }
-                        switch state {
-                        case .enabled:
-                          self.button.setTitle(Constants.buttonTitle, for: .normal)
-                          self.activityIndicator.stopAnimating()
-                          self.button.isEnabled = true
-                        case .loading:
-                          self.button.setTitle(nil, for: .normal)
-                          self.activityIndicator.startAnimating()
-                          self.button.isEnabled = false
-                        case .disabled:
-                          self.button.setTitle(Constants.buttonTitle, for: .normal)
-                          self.activityIndicator.stopAnimating()
-                          self.button.isEnabled = false
-                        }
-                      })
+      guard let self = self else { return }
+      switch state {
+      case .enabled:
+        self.button.setTitle(Constants.buttonTitle, for: .normal)
+        self.activityIndicator.stopAnimating()
+        self.button.isEnabled = true
+      case .loading:
+        self.button.setTitle(nil, for: .normal)
+        self.activityIndicator.startAnimating()
+        self.button.isEnabled = false
+      case .disabled:
+        self.button.setTitle(Constants.buttonTitle, for: .normal)
+        self.activityIndicator.stopAnimating()
+        self.button.isEnabled = false
+      }
+    })
   }
 }

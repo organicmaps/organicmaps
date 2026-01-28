@@ -38,7 +38,7 @@ final class Toast: NSObject {
       label.leadingAnchor.constraint(equalTo: blurView.contentView.leadingAnchor, constant: Constants.labelOffsets.left),
       label.trailingAnchor.constraint(equalTo: blurView.contentView.trailingAnchor, constant: Constants.labelOffsets.right),
       label.topAnchor.constraint(equalTo: blurView.contentView.topAnchor, constant: Constants.labelOffsets.top),
-      label.bottomAnchor.constraint(equalTo: blurView.contentView.bottomAnchor, constant: Constants.labelOffsets.bottom),
+      label.bottomAnchor.constraint(equalTo: blurView.contentView.bottomAnchor, constant: Constants.labelOffsets.bottom)
     ])
   }
 
@@ -81,10 +81,10 @@ final class Toast: NSObject {
     switch alignment {
     case .bottom:
       verticalConstraint = blurView.bottomAnchor.constraint(equalTo: pinToSafeArea ? view.safeAreaLayoutGuide.bottomAnchor : view.bottomAnchor,
-                                                            constant: -Constants.bottomOffset)
+                                                       constant: -Constants.bottomOffset)
     case .top:
       verticalConstraint = blurView.topAnchor.constraint(equalTo: pinToSafeArea ? view.safeAreaLayoutGuide.topAnchor : view.topAnchor,
-                                                         constant: Constants.topOffset)
+                                                    constant: Constants.topOffset)
     }
 
     NSLayoutConstraint.activate([
@@ -92,12 +92,12 @@ final class Toast: NSObject {
       trailingConstraint,
       maxWidthConstraint,
       verticalConstraint,
-      blurView.centerXAnchor.constraint(equalTo: pinToSafeArea ? view.safeAreaLayoutGuide.centerXAnchor : view.centerXAnchor),
+      blurView.centerXAnchor.constraint(equalTo: pinToSafeArea ? view.safeAreaLayoutGuide.centerXAnchor : view.centerXAnchor)
     ])
 
     UIView.animate(withDuration: Constants.animationDuration, animations: {
       self.blurView.alpha = 1
-    }, completion: { _ in
+    } , completion: { _ in
       DispatchQueue.main.asyncAfter(deadline: .now() + Constants.presentationDuration) {
         self.hide()
       }
@@ -105,12 +105,11 @@ final class Toast: NSObject {
   }
 
   private func hide() {
-    if blurView.superview != nil {
+    if self.blurView.superview != nil {
       UIView.animate(withDuration: Constants.animationDuration,
                      animations: { self.blurView.alpha = 0 }) { [self] _ in
-        blurView.removeFromSuperview()
-        Self.toasts.removeAll(where: { $0 === self })
-      }
+        self.blurView.removeFromSuperview()
+        Self.toasts.removeAll(where: { $0 === self }) }
     }
   }
 }

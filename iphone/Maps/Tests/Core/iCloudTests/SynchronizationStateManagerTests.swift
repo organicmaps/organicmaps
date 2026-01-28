@@ -1,7 +1,8 @@
-@testable import Organic_Maps__Debug_
 import XCTest
+@testable import Organic_Maps__Debug_
 
 final class SynchronizationtateManagerTests: XCTestCase {
+
   var syncStateManager: SynchronizationStateResolver!
   var outgoingEvents: [OutgoingSynchronizationEvent] = []
 
@@ -15,9 +16,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
     outgoingEvents.removeAll()
     super.tearDown()
   }
-
   // MARK: - Test didFinishGathering without errors and on initial synchronization
-
   func testInitialSynchronization() {
     syncStateManager = iCloudSynchronizationStateResolver(isInitialSynchronization: true)
 
@@ -71,7 +70,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
     outgoingEvents.append(contentsOf: syncStateManager.resolveEvent(.didFinishGatheringLocalContents([localItem])))
     outgoingEvents.append(contentsOf: syncStateManager.resolveEvent(.didFinishGatheringCloudContents([cloudItem])))
 
-    XCTAssertTrue(outgoingEvents.contains { if case .resolveInitialSynchronizationConflict = $0 { return true } else { return false } }, "Expected conflict resolution for a newer cloud item")
+    XCTAssertTrue(outgoingEvents.contains { if case .resolveInitialSynchronizationConflict(_) = $0 { return true } else { return false } }, "Expected conflict resolution for a newer cloud item")
   }
 
   func testInitialSynchronizationWithNewerLocalItem() {
@@ -83,7 +82,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
     outgoingEvents.append(contentsOf: syncStateManager.resolveEvent(.didFinishGatheringLocalContents([localItem])))
     outgoingEvents.append(contentsOf: syncStateManager.resolveEvent(.didFinishGatheringCloudContents([cloudItem])))
 
-    XCTAssertTrue(outgoingEvents.contains { if case .resolveInitialSynchronizationConflict = $0 { return true } else { return false } }, "Expected conflict resolution for a newer local item")
+    XCTAssertTrue(outgoingEvents.contains { if case .resolveInitialSynchronizationConflict(_) = $0 { return true } else { return false } }, "Expected conflict resolution for a newer local item")
   }
 
   func testInitialSynchronizationWithNonConflictingItems() {
@@ -95,11 +94,11 @@ final class SynchronizationtateManagerTests: XCTestCase {
     outgoingEvents.append(contentsOf: syncStateManager.resolveEvent(.didFinishGatheringLocalContents([localItem])))
     outgoingEvents.append(contentsOf: syncStateManager.resolveEvent(.didFinishGatheringCloudContents([cloudItem])))
 
-    XCTAssertTrue(outgoingEvents.contains { if case .createLocalItem = $0 { return true } else { return false } }, "Expected creation of local item for cloudFile")
-    XCTAssertTrue(outgoingEvents.contains { if case .createCloudItem = $0 { return true } else { return false } }, "Expected creation of cloud item for localFile")
+    XCTAssertTrue(outgoingEvents.contains { if case .createLocalItem(_) = $0 { return true } else { return false } }, "Expected creation of local item for cloudFile")
+    XCTAssertTrue(outgoingEvents.contains { if case .createCloudItem(_) = $0 { return true } else { return false } }, "Expected creation of cloud item for localFile")
   }
 
-  func testInitialSynchronizationWhenCloudFilesAreNotDownloadedTheDownloadingShouldStart() {
+  func testInitialSynchronizationWhenCloudFilesAreNotDownloadedTheDownloadingShouldStart () {
     syncStateManager = iCloudSynchronizationStateResolver(isInitialSynchronization: true)
 
     let localItem1 = LocalMetadataItem.stub(fileName: "file1", lastModificationDate: TimeInterval(1))
@@ -115,7 +114,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
 
     XCTAssertEqual(outgoingEvents.count, 5)
 
-    for event in outgoingEvents {
+    outgoingEvents.forEach { event in
       switch event {
       case .resolveInitialSynchronizationConflict(let item):
         // copy local file with a new name and replace the original with the cloud file
@@ -140,7 +139,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
     outgoingEvents = syncStateManager.resolveEvent(.didUpdateCloudContents(contents: newCloudItems, update: cloudUpdate))
 
     XCTAssertEqual(outgoingEvents.count, 1)
-    for event in outgoingEvents {
+    outgoingEvents.forEach { event in
       switch event {
       case .createLocalItem(let item):
         XCTAssertEqual(item, cloudItem2Downloaded)
@@ -151,7 +150,6 @@ final class SynchronizationtateManagerTests: XCTestCase {
   }
 
   // MARK: - Test didFinishGathering without errors and after initial synchronization
-
   func testDidFinishGatheringWhenCloudAndLocalIsEmpty() {
     let localItems: LocalContents = []
     let cloudItems: CloudContents = []
@@ -168,7 +166,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
     let localItem2 = LocalMetadataItem.stub(fileName: "file2", lastModificationDate: TimeInterval(2))
     let localItem3 = LocalMetadataItem.stub(fileName: "file3", lastModificationDate: TimeInterval(3))
 
-    let localItems = LocalContents([localItem1, localItem2, localItem3])
+    let localItems: LocalContents = LocalContents([localItem1, localItem2, localItem3])
     let cloudItems: CloudContents = []
 
     outgoingEvents = syncStateManager.resolveEvent(.didFinishGatheringCloudContents(cloudItems))
@@ -176,7 +174,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
     XCTAssertEqual(outgoingEvents.count, 0)
 
     outgoingEvents = syncStateManager.resolveEvent(.didFinishGatheringLocalContents(localItems))
-    for event in outgoingEvents {
+    outgoingEvents.forEach { event in
       switch event {
       case .createCloudItem(let item):
         XCTAssertTrue(localItems.containsByName(item))
@@ -198,7 +196,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
     XCTAssertEqual(outgoingEvents.count, 0)
 
     outgoingEvents = syncStateManager.resolveEvent(.didFinishGatheringLocalContents(localItems))
-    for event in outgoingEvents {
+    outgoingEvents.forEach { event in
       switch event {
       case .createLocalItem(let item):
         XCTAssertTrue(cloudItems.containsByName(item))
@@ -219,7 +217,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
     outgoingEvents = syncStateManager.resolveEvent(.didFinishGatheringLocalContents(localItems))
 
     XCTAssertEqual(outgoingEvents.count, 3)
-    for event in outgoingEvents {
+    outgoingEvents.forEach { event in
       switch event {
       case .createCloudItem(let item):
         XCTAssertTrue(localItems.containsByName(item))
@@ -242,7 +240,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
 
     outgoingEvents = syncStateManager.resolveEvent(.didFinishGatheringLocalContents(localItems))
     XCTAssertEqual(outgoingEvents.count, 3)
-    for event in outgoingEvents {
+    outgoingEvents.forEach { event in
       switch event {
       case .createLocalItem(let item):
         XCTAssertTrue(cloudItems.containsByName(item))
@@ -288,7 +286,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
 
     outgoingEvents = syncStateManager.resolveEvent(.didFinishGatheringCloudContents(cloudItems))
     XCTAssertEqual(outgoingEvents.count, 2)
-    for event in outgoingEvents {
+    outgoingEvents.forEach { event in
       switch event {
       case .updateCloudItem(let item):
         XCTAssertTrue([localItem2, localItem3].containsByName(item))
@@ -315,7 +313,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
 
     outgoingEvents = syncStateManager.resolveEvent(.didFinishGatheringCloudContents(cloudItems))
     XCTAssertEqual(outgoingEvents.count, 2)
-    for event in outgoingEvents {
+    outgoingEvents.forEach { event in
       switch event {
       case .updateLocalItem(let item):
         XCTAssertTrue([cloudItem1, cloudItem3].containsByName(item))
@@ -337,7 +335,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
 
     outgoingEvents = syncStateManager.resolveEvent(.didFinishGatheringCloudContents(cloudItems))
     XCTAssertEqual(outgoingEvents.count, 1)
-    for event in outgoingEvents {
+    outgoingEvents.forEach { event in
       switch event {
       case .updateLocalItem(let item):
         XCTAssertEqual(item, cloudItem)
@@ -361,7 +359,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
 
     outgoingEvents = syncStateManager.resolveEvent(.didFinishGatheringCloudContents(cloudItems))
     XCTAssertEqual(outgoingEvents.count, 1)
-    for event in outgoingEvents {
+    outgoingEvents.forEach { event in
       switch event {
       case .updateCloudItem(let item):
         XCTAssertEqual(item, localItem3)
@@ -372,7 +370,6 @@ final class SynchronizationtateManagerTests: XCTestCase {
   }
 
   // MARK: - Test didUpdateLocalContents
-
   func testDidUpdateLocalContentsWhenContentWasNotChanged() {
     let localItem1 = LocalMetadataItem.stub(fileName: "file1", lastModificationDate: TimeInterval(1))
     let localItem2 = LocalMetadataItem.stub(fileName: "file2", lastModificationDate: TimeInterval(2))
@@ -415,7 +412,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
     outgoingEvents = syncStateManager.resolveEvent(.didUpdateLocalContents(contents: newLocalItems, update: update))
     XCTAssertEqual(outgoingEvents.count, 1)
 
-    for event in outgoingEvents {
+    outgoingEvents.forEach { event in
       switch event {
       case .createCloudItem(let item):
         XCTAssertEqual(item, localItem4)
@@ -450,7 +447,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
     outgoingEvents = syncStateManager.resolveEvent(.didUpdateLocalContents(contents: newLocalItems, update: update))
     XCTAssertEqual(outgoingEvents.count, 2)
 
-    for event in outgoingEvents {
+    outgoingEvents.forEach { event in
       switch event {
       case .updateCloudItem(let item):
         XCTAssertTrue([localItem2Updated, localItem3Updated].containsByName(item))
@@ -482,7 +479,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
     outgoingEvents = syncStateManager.resolveEvent(.didUpdateLocalContents(contents: newLocalItems, update: update))
     XCTAssertEqual(outgoingEvents.count, 1)
 
-    for event in outgoingEvents {
+    outgoingEvents.forEach { event in
       switch event {
       case .removeCloudItem(let item):
         XCTAssertEqual(item, cloudItem3)
@@ -538,7 +535,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
     var update = CloudContentsUpdate(added: [cloudItem4], updated: [], removed: [])
     outgoingEvents = syncStateManager.resolveEvent(.didUpdateCloudContents(contents: cloudItems, update: update))
     XCTAssertEqual(outgoingEvents.count, 1)
-    for event in outgoingEvents {
+    outgoingEvents.forEach { event in
       switch event {
       case .startDownloading(let cloudMetadataItem):
         XCTAssertEqual(cloudMetadataItem, cloudItem4)
@@ -564,7 +561,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
     outgoingEvents = syncStateManager.resolveEvent(.didUpdateCloudContents(contents: cloudItems, update: update))
 
     XCTAssertEqual(outgoingEvents.count, 1)
-    for event in outgoingEvents {
+    outgoingEvents.forEach { event in
       switch event {
       case .createLocalItem(let cloudMetadataItem):
         XCTAssertEqual(cloudMetadataItem, cloudItem4)

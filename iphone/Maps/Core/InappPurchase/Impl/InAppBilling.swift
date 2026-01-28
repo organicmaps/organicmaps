@@ -1,18 +1,18 @@
-private struct BillingProduct: IBillingProduct {
+fileprivate struct BillingProduct: IBillingProduct {
   var productId: String {
-    product.productIdentifier
+    return product.productIdentifier
   }
 
   var localizedName: String {
-    product.localizedTitle
+    return product.localizedTitle
   }
 
   var price: NSDecimalNumber {
-    product.price
+    return product.price
   }
 
   var priceLocale: Locale {
-    product.priceLocale
+    return product.priceLocale
   }
 
   let product: SKProduct
@@ -49,10 +49,10 @@ final class InAppBilling: NSObject, IInAppBilling {
 
   func makePayment(_ product: IBillingProduct, completion: @escaping PaymentCompletion) {
     guard let billingProduct = product as? BillingProduct else {
-      assertionFailure("Wrong product type")
+      assert(false, "Wrong product type")
       return
     }
-
+    
     paymentCompletion = completion
     self.billingProduct = billingProduct
     SKPaymentQueue.default().add(SKPayment(product: billingProduct.product))
@@ -60,7 +60,7 @@ final class InAppBilling: NSObject, IInAppBilling {
 
   func finishTransaction() {
     guard let transaction = pendingTransaction else {
-      assertionFailure("You must call makePayment() first")
+      assert(false, "You must call makePayment() first")
       return
     }
 
@@ -71,16 +71,17 @@ final class InAppBilling: NSObject, IInAppBilling {
 }
 
 extension InAppBilling: SKProductsRequestDelegate {
-  func productsRequest(_: SKProductsRequest, didReceive response: SKProductsResponse) {
+  func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
     DispatchQueue.main.async { [weak self] in
       let products = response.products.map { BillingProduct($0) }
       self?.productsCompletion?(products, nil)
       self?.productsCompletion = nil
       self?.productRequest = nil
+
     }
   }
 
-  func request(_: SKRequest, didFailWithError error: Error) {
+  func request(_ request: SKRequest, didFailWithError error: Error) {
     DispatchQueue.main.async { [weak self] in
       self?.productsCompletion?(nil, error)
       self?.productsCompletion = nil
@@ -90,27 +91,30 @@ extension InAppBilling: SKProductsRequestDelegate {
 }
 
 extension InAppBilling: SKPaymentTransactionObserver {
-  func paymentQueue(_: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+  func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
     guard let productId = billingProduct?.productId else { return }
-    for transaction in transactions {
-      if transaction.payment.productIdentifier != productId { continue }
-      pendingTransaction = transaction
-
-      switch transaction.transactionState {
+    transactions.forEach {
+      if ($0.payment.productIdentifier != productId) { return }
+      self.pendingTransaction = $0
+      
+      switch $0.transactionState {
       case .purchasing:
         break
       case .purchased:
         paymentCompletion?(.success, nil)
+        break
       case .failed:
-        if transaction.error?._code == SKError.paymentCancelled.rawValue {
-          paymentCompletion?(.userCancelled, transaction.error)
+        if ($0.error?._code == SKError.paymentCancelled.rawValue) {
+          paymentCompletion?(.userCancelled, $0.error)
         } else {
-          paymentCompletion?(.failed, transaction.error)
+          paymentCompletion?(.failed, $0.error)
         }
+        break
       case .restored:
         break
       case .deferred:
         paymentCompletion?(.deferred, nil)
+        break
       }
     }
   }

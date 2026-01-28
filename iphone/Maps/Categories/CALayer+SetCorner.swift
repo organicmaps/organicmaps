@@ -13,6 +13,6 @@ extension CALayer {
 
 extension CACornerMask {
   static var all: CACornerMask {
-    [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+    return [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
   }
 }

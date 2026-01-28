@@ -1,10 +1,10 @@
 final class PlacePageArea: AvailableArea {
   override var areaFrame: CGRect {
-    frame
+    return frame
   }
 
   override func isAreaAffectingView(_ other: UIView) -> Bool {
-    !other.placePageAreaAffectDirections.isEmpty
+    return !other.placePageAreaAffectDirections.isEmpty
   }
 
   override func addAffectingView(_ other: UIView) {
@@ -19,7 +19,7 @@ final class PlacePageArea: AvailableArea {
 }
 
 extension UIView {
-  @objc var placePageAreaAffectDirections: MWMAvailableAreaAffectDirections { [] }
+  @objc var placePageAreaAffectDirections: MWMAvailableAreaAffectDirections { return [] }
 
-  var placePageAreaAffectView: UIView { self }
+  var placePageAreaAffectView: UIView { return self }
 }

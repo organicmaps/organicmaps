@@ -15,7 +15,7 @@ final class ValueStepperView: UIControl {
 
   var value = 0 {
     didSet {
-      guard value <= maxValue, value >= minValue else { fatalError() }
+      guard value <= maxValue && value >= minValue else { fatalError() }
       minusButton.isEnabled = value > minValue
       plusButton.isEnabled = value < maxValue
       valueLabel.text = "\(value)"
@@ -68,16 +68,16 @@ final class ValueStepperView: UIControl {
       plusButton.topAnchor.constraint(equalTo: topAnchor),
       plusButton.bottomAnchor.constraint(equalTo: bottomAnchor),
       minusButton.widthAnchor.constraint(equalTo: minusButton.heightAnchor, multiplier: 1),
-      plusButton.widthAnchor.constraint(equalTo: plusButton.heightAnchor, multiplier: 1),
+      plusButton.widthAnchor.constraint(equalTo: plusButton.heightAnchor, multiplier: 1)
     ])
   }
 
-  @objc func onMinus(_: UIButton) {
+  @objc func onMinus(_ sender: UIButton) {
     value -= 1
     sendActions(for: .valueChanged)
   }
 
-  @objc func onPlus(_: UIButton) {
+  @objc func onPlus(_ sender: UIButton) {
     value += 1
     sendActions(for: .valueChanged)
   }

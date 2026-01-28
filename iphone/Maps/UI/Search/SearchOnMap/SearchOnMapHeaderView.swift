@@ -12,11 +12,11 @@ final class SearchOnMapHeaderView: UIView {
 
   private enum Constants {
     static let searchBarHeight: CGFloat = 36
-    static let searchBarInsets: UIEdgeInsets = .init(top: 8, left: 10, bottom: 10, right: 0)
+    static let searchBarInsets: UIEdgeInsets = UIEdgeInsets(top: 8, left: 10, bottom: 10, right: 0)
     static let grabberHeight: CGFloat = 5
     static let grabberWidth: CGFloat = 36
     static let grabberTopMargin: CGFloat = 5
-    static let cancelButtonInsets: UIEdgeInsets = .init(top: 0, left: 6, bottom: 0, right: 16)
+    static let cancelButtonInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 16)
   }
 
   private let grabberView = UIView()
@@ -33,7 +33,7 @@ final class SearchOnMapHeaderView: UIView {
   }
 
   @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 

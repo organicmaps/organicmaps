@@ -23,9 +23,9 @@ extension UIView {
   @objc func startRotation(_ duration: TimeInterval = 1.0) {
     let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
     rotationAnimation.toValue = Double.pi * 2
-    rotationAnimation.duration = duration
-    rotationAnimation.isCumulative = true
-    rotationAnimation.repeatCount = Float.greatestFiniteMagnitude
+    rotationAnimation.duration = duration;
+    rotationAnimation.isCumulative = true;
+    rotationAnimation.repeatCount = Float.greatestFiniteMagnitude;
     rotationAnimation.isRemovedOnCompletion = false
     layer.add(rotationAnimation, forKey: "rotationAnimation")
   }
@@ -35,6 +35,6 @@ extension UIView {
   }
 
   @objc var isRotating: Bool {
-    layer.animationKeys()?.contains("rotationAnimation") ?? false
+    return layer.animationKeys()?.contains("rotationAnimation") ?? false
   }
 }

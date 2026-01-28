@@ -5,6 +5,7 @@ protocol WikiDescriptionViewControllerDelegate: AnyObject {
 }
 
 final class PlacePageWikipediaDetailsSectionInteractor: PlacePageExpandableDetailsSectionInteractor {
+
   private let presenter: PlacePageExpandableDetailsSectionPresenter
   private let wikiDescriptionHtml: String
   private let showLinkButton: Bool

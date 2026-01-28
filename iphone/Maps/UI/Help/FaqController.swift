@@ -3,11 +3,11 @@ final class FaqController: MWMViewController {
     super.loadView()
 
     // TODO: FAQ?
-    title = L("help")
+    self.title = L("help")
 
     let path = Bundle.main.path(forResource: "faq", ofType: "html")!
     let html = try! String(contentsOfFile: path, encoding: String.Encoding.utf8)
-    let webViewController = WebViewController(html: html, baseUrl: nil, title: nil)!
+    let webViewController = WebViewController.init(html: html, baseUrl: nil, title: nil)!
     webViewController.openInSafari = true
     addChild(webViewController)
     let aboutView = webViewController.view!
@@ -18,7 +18,7 @@ final class FaqController: MWMViewController {
       aboutView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       aboutView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
       aboutView.topAnchor.constraint(equalTo: view.topAnchor),
-      aboutView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      aboutView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ])
   }
 }

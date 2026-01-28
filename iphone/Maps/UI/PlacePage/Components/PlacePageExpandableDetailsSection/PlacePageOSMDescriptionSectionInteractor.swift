@@ -1,4 +1,5 @@
 final class PlacePageOSMDescriptionSectionInteractor: PlacePageExpandableDetailsSectionInteractor {
+
   private let presenter: PlacePageExpandableDetailsSectionPresenter
   private let description: String
   private let isTranslationAllowed: Bool
@@ -8,9 +9,9 @@ final class PlacePageOSMDescriptionSectionInteractor: PlacePageExpandableDetails
     self.description = description
 
     if #available(iOS 18.0, *), !ProcessInfo.processInfo.isiOSAppOnMac {
-      isTranslationAllowed = true
+      self.isTranslationAllowed = true
     } else {
-      isTranslationAllowed = false
+      self.isTranslationAllowed = false
     }
   }
 

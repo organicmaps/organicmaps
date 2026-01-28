@@ -1,4 +1,5 @@
 final class ProductsViewController: UIViewController {
+
   private enum Constants {
     static let spacing: CGFloat = 10
     static let titleLeadingPadding: CGFloat = 12
@@ -26,10 +27,10 @@ final class ProductsViewController: UIViewController {
   }
 
   @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     setupViews()
@@ -72,7 +73,7 @@ final class ProductsViewController: UIViewController {
     stackView.distribution = .fillEqually
     stackView.spacing = Constants.spacing
     stackView.translatesAutoresizingMaskIntoConstraints = false
-    for product in viewModel.products {
+    viewModel.products.forEach { product in
       let button = ProductButton(title: product.title) { [weak self] in
         self?.productButtonDidTap(product)
       }
@@ -101,7 +102,7 @@ final class ProductsViewController: UIViewController {
     view.addSubview(stackView)
     view.addSubview(leadingSubtitleButton)
     view.addSubview(trailingSubtitleButton)
-
+    
     NSLayoutConstraint.activate([
       titleLabel.topAnchor.constraint(equalTo: closeButton.topAnchor),
       titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.titleLeadingPadding),
@@ -128,7 +129,7 @@ final class ProductsViewController: UIViewController {
       trailingSubtitleButton.topAnchor.constraint(equalTo: leadingSubtitleButton.topAnchor, constant: Constants.subtitleButtonTopPadding),
       trailingSubtitleButton.leadingAnchor.constraint(equalTo: view.centerXAnchor),
       trailingSubtitleButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.titleLeadingPadding),
-      trailingSubtitleButton.bottomAnchor.constraint(equalTo: leadingSubtitleButton.bottomAnchor),
+      trailingSubtitleButton.bottomAnchor.constraint(equalTo: leadingSubtitleButton.bottomAnchor)
     ])
   }
 

@@ -8,9 +8,9 @@ struct ProductsViewModel {
   let products: [Product]
 
   init(manager: ProductsManager.Type, configuration: ProductsConfiguration) {
-    productsManager = manager
-    description = configuration.placePagePrompt
-    products = configuration.products
+    self.productsManager = manager
+    self.description = configuration.placePagePrompt
+    self.products = configuration.products
   }
 
   func didSelectProduct(_ product: Product) {

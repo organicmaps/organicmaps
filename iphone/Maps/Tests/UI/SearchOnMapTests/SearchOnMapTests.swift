@@ -1,7 +1,8 @@
-@testable import Organic_Maps__Debug_
 import XCTest
+@testable import Organic_Maps__Debug_
 
 final class SearchOnMapTests: XCTestCase {
+
   private var presenter: SearchOnMapPresenter!
   private var interactor: SearchOnMapInteractor!
   private var view: SearchOnMapViewMock!
@@ -265,35 +266,34 @@ private class SearchOnMapViewMock: SearchOnMapView {
   func render(_ viewModel: SearchOnMap.ViewModel) {
     self.viewModel = viewModel
   }
-
-  func close() {}
-
-  func show() {}
+  func close() {
+  }
+  func show() {
+  }
 }
 
 private class SearchManagerMock: SearchManager {
   static var observers = ListenerContainer<MWMSearchObserver>()
   static var results = SearchOnMap.SearchResults.empty {
     didSet {
-      for observer in observers {
+      observers.forEach { observer in
         observer.onSearchCompleted?()
       }
     }
   }
-
   private static var _searchMode: SearchMode = .everywhere
 
   static func add(_ observer: any MWMSearchObserver) {
-    observers.addListener(observer)
+    self.observers.addListener(observer)
   }
 
   static func remove(_ observer: any MWMSearchObserver) {
-    observers.removeListener(observer)
+    self.observers.removeListener(observer)
   }
 
-  static func save(_: SearchQuery) {}
-  static func searchQuery(_: SearchQuery) {}
-  static func showResult(at _: UInt) {}
+  static func save(_ query: SearchQuery) {}
+  static func searchQuery(_ query: SearchQuery) {}
+  static func showResult(at index: UInt) {}
   static func clear() {}
   static func getResults() -> [SearchResult] { results.results }
   static func searchMode() -> SearchMode { _searchMode }
@@ -305,7 +305,7 @@ private extension SearchResult {
     SearchOnMap.SearchResults([
       SearchResult(),
       SearchResult(),
-      SearchResult(),
+      SearchResult()
     ])
   }
 }

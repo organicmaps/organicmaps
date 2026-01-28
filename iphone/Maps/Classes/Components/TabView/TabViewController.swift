@@ -1,15 +1,17 @@
 class TabViewController: MWMViewController {
   var viewControllers: [UIViewController] = [] {
     didSet {
-      for viewController in viewControllers {
-        addChild(viewController)
-        viewController.didMove(toParent: self)
+      viewControllers.forEach {
+        self.addChild($0)
+        $0.didMove(toParent: self)
       }
     }
   }
 
   var tabView: TabView {
-    view as! TabView
+    get {
+      return view as! TabView
+    }
   }
 
   override func loadView() {
@@ -20,15 +22,15 @@ class TabViewController: MWMViewController {
 }
 
 extension TabViewController: TabViewDataSource {
-  func numberOfPages(in _: TabView) -> Int {
-    viewControllers.count
+  func numberOfPages(in tabView: TabView) -> Int {
+    return viewControllers.count
   }
 
-  func tabView(_: TabView, viewAt index: Int) -> UIView {
-    viewControllers[index].view
+  func tabView(_ tabView: TabView, viewAt index: Int) -> UIView {
+    return viewControllers[index].view
   }
 
-  func tabView(_: TabView, titleAt index: Int) -> String? {
-    viewControllers[index].title
+  func tabView(_ tabView: TabView, titleAt index: Int) -> String? {
+    return viewControllers[index].title
   }
 }

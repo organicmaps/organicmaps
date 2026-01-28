@@ -1,4 +1,5 @@
 final class SocialMediaCollectionViewHeader: UICollectionReusableView {
+
   static let reuseIdentifier = String(describing: SocialMediaCollectionViewHeader.self)
 
   private let titleLabel = UILabel()
@@ -9,7 +10,7 @@ final class SocialMediaCollectionViewHeader: UICollectionReusableView {
   }
 
   @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -23,7 +24,6 @@ final class SocialMediaCollectionViewHeader: UICollectionReusableView {
   }
 
   // MARK: - Public
-
   func setTitle(_ title: String) {
     titleLabel.text = title
   }

@@ -22,7 +22,7 @@ final class SearchBanners: NSObject {
       type = .facebook
       prefferedPosition = 2
     default:
-      assertionFailure("Unsupported banner type")
+      assert(false, "Unsupported banner type")
       type = .regular
       prefferedPosition = 0
     }
@@ -30,7 +30,7 @@ final class SearchBanners: NSObject {
   }
 
   @objc func banner(atIndex index: Int) -> MWMBanner {
-    banners[index]
+    return banners[index]
   }
 
   deinit {

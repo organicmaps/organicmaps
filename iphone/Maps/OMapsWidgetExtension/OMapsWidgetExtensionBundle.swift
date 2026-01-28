@@ -1,5 +1,5 @@
-import SwiftUI
 import WidgetKit
+import SwiftUI
 
 @main
 struct OMapsWidgetExtensionBundle: WidgetBundle {

@@ -3,7 +3,7 @@ import UIKit
 class DirectionView: SolidTouchView {
   @IBOutlet private var titleLabel: UILabel!
   @IBOutlet private var typeLabel: UILabel!
-  @IBOutlet private var distanceLabel: UILabel!
+  @IBOutlet private var distanceLabel :UILabel!
   @IBOutlet private var directionArrow: UIImageView!
   @IBOutlet private var contentView: UIView!
 
@@ -44,13 +44,13 @@ class DirectionView: SolidTouchView {
       return
     }
     superview.addSubview(self)
-    alignToSuperview()
+    self.alignToSuperview()
     setNeedsLayout()
   }
 
   func updateTitle(_ title: String?, subtitle: String?) {
-    titleLabel.text = title
-    typeLabel.text = subtitle
+    self.titleLabel.text = title
+    self.typeLabel.text = subtitle
   }
 
   func updateDistance(_ distance: String?) {
@@ -62,11 +62,11 @@ class DirectionView: SolidTouchView {
                    delay: 0,
                    options: [.beginFromCurrentState, .curveEaseInOut],
                    animations: { [unowned self] in
-                     directionArrow?.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2 - angle)
-                   })
+                    self.directionArrow?.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2 - angle)
+    })
   }
 
-  @IBAction func onTap(_: Any) {
+  @IBAction func onTap(_ sender: Any) {
     removeFromSuperview()
   }
 }

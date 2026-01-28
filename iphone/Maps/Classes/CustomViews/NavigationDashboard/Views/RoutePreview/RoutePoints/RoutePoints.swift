@@ -6,9 +6,9 @@ extension NavigationDashboard {
     let points: [MWMRoutePoint]
 
     init(points: [MWMRoutePoint]) {
-      start = points.first { $0.type == .start }
-      finish = points.first { $0.type == .finish }
-      intermediate = points.filter { $0.type == .intermediate }
+      self.start = points.first { $0.type == .start }
+      self.finish = points.first { $0.type == .finish }
+      self.intermediate = points.filter { $0.type == .intermediate }
       self.points = points
     }
   }
@@ -65,7 +65,7 @@ extension NavigationDashboard.RoutePoints {
 
   mutating func movePoint(from sourceIndex: Int, to destinationIndex: Int) {
     guard sourceIndex != destinationIndex else { return }
-    var points = points
+    var points = self.points
     if points.count == 1, let point = points.first {
       point.type = point.type == .start ? .finish : .start
     } else {

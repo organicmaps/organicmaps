@@ -1,4 +1,5 @@
 final class TrackRecordingButtonViewController: MWMViewController {
+
   private enum Constants {
     static let buttonDiameter = CGFloat(48)
     static let topOffset = CGFloat(6)
@@ -18,7 +19,6 @@ final class TrackRecordingButtonViewController: MWMViewController {
   private static var topConstraintValue: CGFloat {
     availableArea.origin.y + Constants.topOffset
   }
-
   private static var trailingConstraintValue: CGFloat {
     -(UIScreen.main.bounds.maxX - availableArea.maxX + Constants.trailingOffset)
   }
@@ -29,19 +29,19 @@ final class TrackRecordingButtonViewController: MWMViewController {
     let ownerViewController = MapViewController.shared()
     ownerViewController?.addChild(self)
     ownerViewController?.controlsView.addSubview(view)
-    setupView()
-    layout()
-    startTimer()
+    self.setupView()
+    self.layout()
+    self.startTimer()
   }
 
   @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    setState(state, completion: nil)
+    setState(self.state, completion: nil)
   }
 
   // MARK: - Public methods
@@ -140,7 +140,7 @@ final class TrackRecordingButtonViewController: MWMViewController {
   // MARK: - Actions
 
   @objc
-  private func didTap(_: Any) {
+  private func didTap(_ sender: Any) {
     MapViewController.shared()?.showTrackRecordingPlacePage()
   }
 }

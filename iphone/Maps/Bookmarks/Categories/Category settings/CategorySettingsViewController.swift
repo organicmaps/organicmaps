@@ -30,8 +30,7 @@ final class CategorySettingsViewController: MWMTableViewController {
     super.init(style: .grouped)
   }
 
-  @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -48,11 +47,11 @@ final class CategorySettingsViewController: MWMTableViewController {
     tableView.registerNib(cell: MWMNoteCell.self)
   }
 
-  override func numberOfSections(in _: UITableView) -> Int {
+  override func numberOfSections(in tableView: UITableView) -> Int {
     Sections.count.rawValue
   }
 
-  override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch Sections(rawValue: section) {
     case .info:
       return 1
@@ -118,7 +117,7 @@ extension CategorySettingsViewController: BookmarkTitleCellDelegate {
 }
 
 extension CategorySettingsViewController: MWMNoteCellDelegate {
-  func cell(_: MWMNoteCell, didChangeSizeAndText _: String) {
+  func cell(_ cell: MWMNoteCell, didChangeSizeAndText text: String) {
     UIView.setAnimationsEnabled(false)
     tableView.refresh()
     UIView.setAnimationsEnabled(true)
@@ -127,13 +126,13 @@ extension CategorySettingsViewController: MWMNoteCellDelegate {
                           animated: true)
   }
 
-  func cell(_: MWMNoteCell, didFinishEditingWithText text: String) {
+  func cell(_ cell: MWMNoteCell, didFinishEditingWithText text: String) {
     newAnnotation = text
   }
 }
 
 extension CategorySettingsViewController: MWMButtonCellDelegate {
-  func cellDidPressButton(_: UITableViewCell) {
+  func cellDidPressButton(_ cell: UITableViewCell) {
     BookmarksManager.shared().deleteCategory(bookmarkGroup.categoryId)
     delegate?.categorySettingsController(self, didDelete: bookmarkGroup.categoryId)
   }

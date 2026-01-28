@@ -1,4 +1,5 @@
 class MockRecentlyDeletedCategoriesManager: NSObject, RecentlyDeletedCategoriesManager, BookmarksObservable {
+  
   var categories = [RecentlyDeletedCategory]()
 
   func recentlyDeletedCategoriesCount() -> UInt64 {
@@ -25,7 +26,7 @@ class MockRecentlyDeletedCategoriesManager: NSObject, RecentlyDeletedCategoriesM
     categories.removeAll { urls.contains($0.fileURL) }
   }
 
-  func add(_: any BookmarksObserver) {}
+  func add(_ observer: any BookmarksObserver) {}
 
-  func remove(_: any BookmarksObserver) {}
+  func remove(_ observer: any BookmarksObserver) {}
 }

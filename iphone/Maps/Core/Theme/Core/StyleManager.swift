@@ -12,30 +12,30 @@
     SwizzleStyle.swizzle()
   }
 
-  func setTheme(_ theme: Theme) {
-    self.theme = theme
+  func setTheme (_ theme: Theme) {
+    self.theme = theme;
     update()
   }
 
-  func hasTheme() -> Bool {
-    theme != nil
+  func hasTheme () -> Bool {
+    return theme != nil
   }
 
-  func update() {
+  func update () {
     for window in UIApplication.shared.windows {
       updateView(window.rootViewController?.view)
     }
-
+    
     let appDelegate = UIApplication.shared.delegate as! MapsAppDelegate
     if let vc = appDelegate.window.rootViewController?.presentedViewController {
       vc.applyTheme()
       updateView(vc.view)
-    } else if let vcs = appDelegate.window.rootViewController?.children {
+    }  else if let vcs = appDelegate.window.rootViewController?.children {
       for vc in vcs {
         vc.applyTheme()
       }
     }
-
+    
     for container in listeners {
       if let listener = container.value {
         listener.applyTheme()
@@ -53,16 +53,16 @@
     }
     view.isStyleApplied = false
     for subview in view.subviews {
-      updateView(subview)
+      self.updateView(subview)
     }
     view.applyTheme()
-    view.isStyleApplied = true
+    view.isStyleApplied = true;
   }
 
-  func getStyle(_ styleName: String) -> [Style] {
-    theme?.get(styleName) ?? [Style]()
+  func getStyle(_ styleName: String) -> [Style]{
+    return theme?.get(styleName) ?? [Style]()
   }
-
+  
   @objc func addListener(_ themeListener: ThemeListener) {
     if theme != nil {
       themeListener.applyTheme()
@@ -71,9 +71,9 @@
       listeners.append(Weak(value: themeListener))
     }
   }
-
+  
   @objc func removeListener(_ themeListener: ThemeListener) {
-    listeners.removeAll { container -> Bool in
+    listeners.removeAll { (container) -> Bool in
       return container.value === themeListener
     }
   }

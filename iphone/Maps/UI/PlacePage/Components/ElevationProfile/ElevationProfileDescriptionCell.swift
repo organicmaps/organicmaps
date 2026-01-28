@@ -1,8 +1,9 @@
 final class ElevationProfileDescriptionCell: UICollectionViewCell {
+
   private enum Constants {
     static let insets = UIEdgeInsets(top: 2, left: 0, bottom: -2, right: 0)
     static let valueSpacing: CGFloat = 8.0
-    static let imageSize: CGSize = .init(width: 20, height: 20)
+    static let imageSize: CGSize = CGSize(width: 20, height: 20)
   }
 
   private let valueLabel = UILabel()
@@ -61,7 +62,7 @@ final class ElevationProfileDescriptionCell: UICollectionViewCell {
 
       subtitleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor),
       subtitleLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
-      subtitleLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: Constants.insets.bottom),
+      subtitleLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: Constants.insets.bottom)
     ])
     subtitleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
   }

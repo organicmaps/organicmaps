@@ -1,10 +1,11 @@
 final class RoutePointsView: UIView {
+
   private enum Constants {
     static let cellHeight: CGFloat = 44
     static var bottomContentInset: CGFloat {
       let bottomActionBartHeight = RouteActionsBottomMenuView.Constants.height +
-        RouteActionsBottomMenuView.Constants.insets.top +
-        RouteActionsBottomMenuView.Constants.insets.bottom
+                                   RouteActionsBottomMenuView.Constants.insets.top +
+                                   RouteActionsBottomMenuView.Constants.insets.bottom
       let safeAreaInsets = MapsAppDelegate.theApp().window.safeAreaInsets
       return bottomActionBartHeight + safeAreaInsets.bottom + safeAreaInsets.top
     }
@@ -27,11 +28,11 @@ final class RoutePointsView: UIView {
   }
 
   @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  func viewWillTransition(to _: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+  func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
     coordinator.animate(alongsideTransition: { _ in
       self.collectionView.collectionViewLayout.invalidateLayout()
     }, completion: nil)
@@ -69,7 +70,7 @@ final class RoutePointsView: UIView {
       collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
       collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
       collectionView.topAnchor.constraint(equalTo: topAnchor),
-      collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
+      collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
     ])
   }
 
@@ -95,7 +96,6 @@ final class RoutePointsView: UIView {
 }
 
 // MARK: - UIScrollViewDelegate
-
 extension RoutePointsView: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     scrollViewDelegate?.scrollViewDidScroll?(scrollView)
@@ -103,9 +103,8 @@ extension RoutePointsView: UIScrollViewDelegate {
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
-
 extension RoutePointsView: UICollectionViewDataSource, UICollectionViewDelegate {
-  func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     routePoints.hasStartAndFinish ? routePoints.count + 1 : routePoints.count
   }
 
@@ -115,7 +114,7 @@ extension RoutePointsView: UICollectionViewDataSource, UICollectionViewDelegate 
     return cell
   }
 
-  func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     switch indexPath.item {
     case routePoints.count:
       interactor?.process(.addRoutePointButtonDidTap)
@@ -126,21 +125,19 @@ extension RoutePointsView: UICollectionViewDataSource, UICollectionViewDelegate 
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-
 extension RoutePointsView: UICollectionViewDelegateFlowLayout {
-  func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     CGSize(width: collectionView.bounds.width, height: Constants.cellHeight)
   }
 
-  func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumLineSpacingForSectionAt _: Int) -> CGFloat {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     0
   }
 }
 
 // MARK: - UICollectionViewDragDelegate, UICollectionViewDropDelegate
-
 extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
-  func collectionView(_: UICollectionView, itemsForBeginning _: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+  func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
     guard indexPath.item < routePoints.count else { return [] }
     let item = routePoints[indexPath.item]
     let title = routePoints.title(for: indexPath.item)
@@ -150,7 +147,7 @@ extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDel
     return [dragItem]
   }
 
-  func collectionView(_: UICollectionView, dragPreviewParametersForItemAt _: IndexPath) -> UIDragPreviewParameters? {
+  func collectionView(_ collectionView: UICollectionView, dragPreviewParametersForItemAt indexPath: IndexPath) -> UIDragPreviewParameters? {
     let parameters = UIDragPreviewParameters()
     parameters.backgroundColor = .clear
     return parameters
@@ -163,8 +160,7 @@ extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDel
     for item in coordinator.items {
       if let sourceIndexPath = item.sourceIndexPath {
         guard sourceIndexPath != destinationIndexPath,
-              sourceIndexPath.row < routePoints.count
-        else {
+              sourceIndexPath.row < routePoints.count else {
           return
         }
 
@@ -172,7 +168,7 @@ extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDel
         collectionView.performBatchUpdates {
           collectionView.moveItem(at: sourceIndexPath, to: destinationIndexPath)
         }
-        for i in 0 ..< routePoints.count {
+        for i in 0..<routePoints.count {
           let indexPath = IndexPath(item: i, section: 0)
           guard let cell = collectionView.cellForItem(at: indexPath) as? RoutePointCollectionViewCell else { continue }
           configure(cell, at: indexPath)
@@ -187,20 +183,19 @@ extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDel
     }
   }
 
-  func collectionView(_: UICollectionView, canHandle _: UIDropSession) -> Bool {
+  func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
     true
   }
 
-  func collectionView(_: UICollectionView, dropSessionDidUpdate _: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+  func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
     guard let destinationIndexPath = destinationIndexPath,
-          destinationIndexPath.item < routePoints.count
-    else {
+          destinationIndexPath.item < routePoints.count else {
       return UICollectionViewDropProposal(operation: .forbidden)
     }
     return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
   }
 
-  func collectionView(_: UICollectionView, dropPreviewParametersForItemAt _: IndexPath) -> UIDragPreviewParameters? {
+  func collectionView(_ collectionView: UICollectionView, dropPreviewParametersForItemAt indexPath: IndexPath) -> UIDragPreviewParameters? {
     let parameters = UIDragPreviewParameters()
     parameters.backgroundColor = .clear
     return parameters

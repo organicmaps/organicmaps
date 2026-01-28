@@ -28,7 +28,7 @@ extension LocalMetadataItem {
       LOG(.error, "Failed to initialize LocalMetadataItem from URL's resources: \(resources)")
       throw SynchronizationError.failedToCreateMetadataItem
     }
-    fileName = fileUrl.lastPathComponent
+    self.fileName = fileUrl.lastPathComponent
     self.fileUrl = fileUrl.standardizedFileURL
     self.lastModificationDate = lastModificationDate
   }
@@ -45,20 +45,19 @@ extension CloudMetadataItem {
           let downloadStatus = metadataItem.value(forAttribute: NSMetadataUbiquitousItemDownloadingStatusKey) as? String,
           let percentDownloaded = metadataItem.value(forAttribute: NSMetadataUbiquitousItemPercentDownloadedKey) as? NSNumber,
           let lastModificationDate = (metadataItem.value(forAttribute: NSMetadataItemFSContentChangeDateKey) as? Date)?.roundedTime,
-          let hasUnresolvedConflicts = metadataItem.value(forAttribute: NSMetadataUbiquitousItemHasUnresolvedConflictsKey) as? Bool
-    else {
+          let hasUnresolvedConflicts = metadataItem.value(forAttribute: NSMetadataUbiquitousItemHasUnresolvedConflictsKey) as? Bool else {
       let allAttributes = metadataItem.values(forAttributes: metadataItem.attributes)
       LOG(.error, "Failed to initialize CloudMetadataItem from NSMetadataItem: \(allAttributes.debugDescription)")
       throw SynchronizationError.failedToCreateMetadataItem
     }
     self.fileName = fileName
     self.fileUrl = fileUrl.standardizedFileURL
-    isDownloaded = downloadStatus == NSMetadataUbiquitousItemDownloadingStatusCurrent
+    self.isDownloaded = downloadStatus == NSMetadataUbiquitousItemDownloadingStatusCurrent
     self.percentDownloaded = percentDownloaded
     self.lastModificationDate = lastModificationDate
     self.hasUnresolvedConflicts = hasUnresolvedConflicts
-    downloadingError = metadataItem.value(forAttribute: NSMetadataUbiquitousItemDownloadingErrorKey) as? NSError
-    uploadingError = metadataItem.value(forAttribute: NSMetadataUbiquitousItemUploadingErrorKey) as? NSError
+    self.downloadingError = metadataItem.value(forAttribute: NSMetadataUbiquitousItemDownloadingErrorKey) as? NSError
+    self.uploadingError = metadataItem.value(forAttribute: NSMetadataUbiquitousItemUploadingErrorKey) as? NSError
   }
 
   init(fileUrl: URL) throws {
@@ -72,20 +71,19 @@ extension CloudMetadataItem {
           // Not used.
           // let percentDownloaded = resources.ubiquitousItemDownloadingStatus,
           let lastModificationDate = resources.contentModificationDate?.roundedTime,
-          let hasUnresolvedConflicts = resources.ubiquitousItemHasUnresolvedConflicts
-    else {
+          let hasUnresolvedConflicts = resources.ubiquitousItemHasUnresolvedConflicts else {
       LOG(.error, "Failed to initialize CloudMetadataItem from \(fileUrl) resources: \(resources.allValues)")
       throw SynchronizationError.failedToCreateMetadataItem
     }
-    fileName = fileUrl.lastPathComponent
+    self.fileName = fileUrl.lastPathComponent
     self.fileUrl = fileUrl.standardizedFileURL
     let isDownloaded = downloadStatus.rawValue == NSMetadataUbiquitousItemDownloadingStatusCurrent
     self.isDownloaded = isDownloaded
-    percentDownloaded = isDownloaded ? 0.0 : 100.0
+    self.percentDownloaded = isDownloaded ? 0.0 : 100.0
     self.lastModificationDate = lastModificationDate
     self.hasUnresolvedConflicts = hasUnresolvedConflicts
-    downloadingError = resources.ubiquitousItemDownloadingError
-    uploadingError = resources.ubiquitousItemUploadingError
+    self.downloadingError = resources.ubiquitousItemDownloadingError
+    self.uploadingError = resources.ubiquitousItemUploadingError
   }
 
   func relatedLocalItemUrl(to localContainer: URL) -> URL {
@@ -107,21 +105,20 @@ extension LocalMetadataItem {
 
 extension Array where Element: MetadataItem {
   func containsByName(_ item: any MetadataItem) -> Bool {
-    contains(where: { $0.fileName == item.fileName })
+    return contains(where: { $0.fileName == item.fileName })
   }
-
   func firstByName(_ item: any MetadataItem) -> Element? {
-    first(where: { $0.fileName == item.fileName })
+    return first(where: { $0.fileName == item.fileName })
   }
 
   var shortDebugDescription: String {
-    map(\.shortDebugDescription).joined(separator: "\n")
+    map { $0.shortDebugDescription }.joined(separator: "\n")
   }
 }
 
 extension Array where Element == CloudMetadataItem {
   var downloaded: Self {
-    filter(\.isDownloaded)
+    filter { $0.isDownloaded }
   }
 
   var notDownloaded: Self {
@@ -133,7 +130,7 @@ extension Array where Element == CloudMetadataItem {
   }
 }
 
-private extension Date {
+fileprivate extension Date {
   var roundedTime: TimeInterval {
     timeIntervalSince1970.rounded(.down)
   }

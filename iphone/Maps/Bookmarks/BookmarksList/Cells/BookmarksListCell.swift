@@ -1,4 +1,5 @@
 final class BookmarksListCell: UITableViewCell {
+
   private static let extendedImageViewTappableMargin: CGFloat = -15
 
   private var trackColorDidTapAction: (() -> Void)?
@@ -24,7 +25,7 @@ final class BookmarksListCell: UITableViewCell {
     trackColorDidTapAction = bookmark.colorDidTapAction
   }
 
-  @objc private func colorDidTapAction(_: UITapGestureRecognizer) {
+  @objc private func colorDidTapAction(_ sender: UITapGestureRecognizer) {
     trackColorDidTapAction?()
   }
 

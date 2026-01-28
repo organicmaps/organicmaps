@@ -71,7 +71,7 @@ final class SearchOnMapPresenter {
       viewModel.contentState = .historyAndCategory
       viewModel.presentationStep = .expanded
     case .showResults(var searchResults, let isSearchCompleted):
-      if viewModel.skipSuggestions {
+      if (viewModel.skipSuggestions) {
         searchResults.skipSuggestions()
       }
       viewModel.contentState = searchResults.isEmpty && isSearchCompleted ? .noResults : .results(searchResults)

@@ -15,9 +15,9 @@ final class CalendarHeader: UICollectionReusableView {
     backgroundColor = theme.monthHeaderBackgroundColor
     monthLabel.textColor = theme.monthHeaderColor
     monthLabel.font = theme.monthHeaderFont
-    for weekdayLabel in weekdayLabels {
-      weekdayLabel.textColor = theme.weekdaySymbolsColor
-      weekdayLabel.font = theme.weekdaySymbolsFont
+    weekdayLabels.forEach {
+      $0.textColor = theme.weekdaySymbolsColor
+      $0.font = theme.weekdaySymbolsFont
     }
   }
 
@@ -27,7 +27,7 @@ final class CalendarHeader: UICollectionReusableView {
     vStack.alignToSuperview()
     vStack.addArrangedSubview(monthLabel)
     vStack.addArrangedSubview(weekdaysStack)
-    for _ in 0 ..< 7 {
+    for _ in 0..<7 {
       let label = UILabel()
       label.textAlignment = .center
       weekdayLabels.append(label)
@@ -40,8 +40,7 @@ final class CalendarHeader: UICollectionReusableView {
     monthLabel.textAlignment = .center
   }
 
-  @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -51,7 +50,7 @@ final class CalendarHeader: UICollectionReusableView {
 
   func config(_ month: String, weekdays: [String], firstWeekday: Int) {
     monthLabel.text = month
-    for i in 0 ..< 7 {
+    for i in 0..<7 {
       let index = (i + firstWeekday - 1) % 7
       let label = weekdayLabels[i]
       label.text = weekdays[index]

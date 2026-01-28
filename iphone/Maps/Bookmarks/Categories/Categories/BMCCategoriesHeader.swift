@@ -3,8 +3,8 @@ protocol BMCCategoriesHeaderDelegate: AnyObject {
 }
 
 final class BMCCategoriesHeader: UITableViewHeaderFooterView {
-  @IBOutlet private var label: UILabel!
-  @IBOutlet private var button: UIButton!
+  @IBOutlet private weak var label: UILabel!
+  @IBOutlet private weak var button: UIButton!
 
   var isShowAll = false {
     didSet {

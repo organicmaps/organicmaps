@@ -2,7 +2,7 @@ extension InsetsLabel {
   @objc override func applyTheme() {
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {
-      InsetsLabelRenderer.render(self, style: style)
+        InsetsLabelRenderer.render(self, style: style)
     }
   }
 }

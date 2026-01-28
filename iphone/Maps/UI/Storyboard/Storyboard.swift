@@ -31,7 +31,7 @@ extension UIStoryboard {
   }
 
   func instantiateViewController<T: UIViewController>(ofType: T.Type) -> T {
-    let name = String(describing: ofType)
-    return instantiateViewController(withIdentifier: name) as! T
+    let name = String(describing: ofType);
+    return self.instantiateViewController(withIdentifier: name) as! T;
   }
 }

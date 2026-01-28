@@ -8,19 +8,19 @@ class FadeTransitioning<T: DimmedModalPresentationController>: NSObject, UIViewC
     super.init()
   }
 
-  func animationController(forPresented _: UIViewController,
-                           presenting _: UIViewController,
-                           source _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    presentedTransitioning
+  func animationController(forPresented presented: UIViewController,
+                           presenting: UIViewController,
+                           source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    return presentedTransitioning
   }
 
-  func animationController(forDismissed _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    dismissedTransitioning
+  func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    return dismissedTransitioning
   }
 
   func presentationController(forPresented presented: UIViewController,
                               presenting: UIViewController?,
-                              source _: UIViewController) -> UIPresentationController? {
-    T(presentedViewController: presented, presenting: presenting, cancellable: isCancellable)
+                              source: UIViewController) -> UIPresentationController? {
+    return T(presentedViewController: presented, presenting: presenting, cancellable: isCancellable)
   }
 }

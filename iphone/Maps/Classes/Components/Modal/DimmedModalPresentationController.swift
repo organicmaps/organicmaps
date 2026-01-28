@@ -1,5 +1,7 @@
 class DimmedModalPresentationController: UIPresentationController {
-  private lazy var onTapGr: UITapGestureRecognizer = .init(target: self, action: #selector(onTap))
+  private lazy var onTapGr: UITapGestureRecognizer = {
+    return UITapGestureRecognizer(target: self, action: #selector(onTap))
+  }()
 
   private lazy var dimView: UIView = {
     let view = UIView()

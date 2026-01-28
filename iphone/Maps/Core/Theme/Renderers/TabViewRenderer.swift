@@ -23,11 +23,11 @@ class TabViewRenderer {
     }
     if let font = style.font, let fontColor = style.fontColorHighlighted {
       control.selectedHeaderTextAttributes = [.foregroundColor: fontColor,
-                                              .font: font]
+                                      .font: font]
     }
     if let font = style.font, let fontColor = style.fontColor {
       control.deselectedHeaderTextAttributes = [.foregroundColor: fontColor,
-                                                .font: font]
+                                      .font: font]
     }
   }
 }

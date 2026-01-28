@@ -9,6 +9,7 @@ protocol PlacePageHeaderViewProtocol: AnyObject {
 }
 
 final class PlacePageHeaderViewController: UIViewController {
+
   private enum Constants {
     static let editImageRect = CGRect(x: 0, y: -2, width: 14, height: 14)
   }
@@ -32,7 +33,6 @@ final class PlacePageHeaderViewController: UIViewController {
       didStartEditingTitle?(isEditingTitle)
     }
   }
-
   var didStartEditingTitle: ((Bool) -> Void)?
   var didChangeEditedTitle: (() -> Void)?
 
@@ -85,7 +85,7 @@ final class PlacePageHeaderViewController: UIViewController {
     updateTitleEditingStyle()
   }
 
-  @objc private func onExpandPressed(sender _: UITapGestureRecognizer) {
+  @objc private func onExpandPressed(sender: UITapGestureRecognizer) {
     presenter?.onExpandPress()
   }
 
@@ -103,11 +103,11 @@ final class PlacePageHeaderViewController: UIViewController {
     presenter?.onCopy(titleTextView.text)
   }
 
-  @IBAction private func onCloseButtonPressed(_: Any) {
+  @IBAction private func onCloseButtonPressed(_ sender: Any) {
     presenter?.onClosePress()
   }
 
-  @IBAction private func onShareButtonPressed(_: Any) {
+  @IBAction private func onShareButtonPressed(_ sender: Any) {
     presenter?.onShareButtonPress(from: shareButton)
   }
 
@@ -145,7 +145,7 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
   private func updateTitleEditingStyle() {
     let titleAttributes: [NSAttributedString.Key: Any] = [
       .font: StyleManager.shared.theme!.fonts.medium20,
-      .foregroundColor: UIColor.blackPrimaryText(),
+      .foregroundColor: UIColor.blackPrimaryText()
     ]
     let editImage = NSTextAttachment()
     editImage.image = UIImage(resource: .ic24PxEdit)
@@ -155,7 +155,7 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
                              range: NSRange(location: 0, length: editString.length))
 
     let titleString = NSMutableAttributedString(string: titleText ?? "", attributes: titleAttributes)
-    if presenter?.canEditTitle == true, !isEditingTitle {
+    if presenter?.canEditTitle == true && !isEditingTitle {
       titleString.append(NSAttributedString(string: " "))
       titleString.append(editString)
     }
@@ -209,7 +209,7 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
 // MARK: - UITextViewDelegate
 
 extension PlacePageHeaderViewController: UITextViewDelegate {
-  func textViewDidBeginEditing(_: UITextView) {
+  func textViewDidBeginEditing(_ textView: UITextView) {
     isEditingTitle = true
     clearTitleTextButton.isHidden = false
     cancelButton.isHidden = false
@@ -241,9 +241,9 @@ extension PlacePageHeaderViewController: UITextViewDelegate {
     }
   }
 
-  func textView(_ textView: UITextView, shouldChangeTextIn _: NSRange, replacementText text: String) -> Bool {
+  func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
     let isReturnTapped = text == "\n"
-    if isReturnTapped {
+    if (isReturnTapped) {
       textView.resignFirstResponder()
       updateTitleEditingStyle()
       return false

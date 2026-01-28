@@ -23,7 +23,7 @@ final class TransportTransitStepsCollectionView: UICollectionView {
   }
 
   @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -54,18 +54,18 @@ final class TransportTransitStepsCollectionView: UICollectionView {
   }
 
   func estimatedCellSize(item: Int) -> CGSize {
-    cellClass(item: item).estimatedCellSize(step: steps[item])
+    return cellClass(item: item).estimatedCellSize(step: steps[item])
   }
 }
 
 extension TransportTransitStepsCollectionView: UICollectionViewDataSource {
   func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-    steps.count
+    return steps.count
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let item = indexPath.item
-    let cellClass = cellClass(item: item)
+    let cellClass = self.cellClass(item: item)
     let cell = collectionView.dequeueReusableCell(withCellClass: cellClass, indexPath: indexPath) as! TransportTransitCell
     cell.config(step: steps[item])
     return cell

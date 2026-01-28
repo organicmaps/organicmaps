@@ -16,7 +16,6 @@ final class SearchOnMapManager: NSObject {
   }
 
   // MARK: - Public methods
-
   func startSearching(isRouting: Bool) {
     if viewController != nil {
       interactor?.handle(.openSearch)
@@ -61,7 +60,7 @@ final class SearchOnMapManager: NSObject {
   }
 }
 
-private enum SearchOnMapViewControllerBuilder {
+private struct SearchOnMapViewControllerBuilder {
   static func build(isRouting: Bool, didChangeState: @escaping ((SearchOnMapState) -> Void)) -> SearchOnMapViewController {
     let viewController = SearchOnMapViewController()
     let presenter = SearchOnMapPresenter(isRouting: isRouting,

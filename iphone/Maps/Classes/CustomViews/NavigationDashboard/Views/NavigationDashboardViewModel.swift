@@ -15,7 +15,7 @@ enum NavigationDashboard {
     var canSaveRouteAsTrack: Bool
     var errorMessage: String?
   }
-
+  
   struct ElevationInfo: Equatable {
     var estimates: NSAttributedString
     var image: UIImage?
@@ -51,16 +51,16 @@ extension NavigationDashboard.ViewModel {
 
   var startButtonState: StartRouteButton.State {
     if routePoints.count < 2 ||
-      routePoints.start == nil ||
-      routePoints.finish == nil ||
-      dashboardState == .error {
+       routePoints.start == nil ||
+       routePoints.finish == nil ||
+       dashboardState == .error {
       return .disabled
     }
     if progress < 1 {
       return .loading
     }
     if routerType == .ruler ||
-      routerType == .publicTransport {
+        routerType == .publicTransport {
       return .disabled
     }
     return .enabled
@@ -80,13 +80,13 @@ extension NavigationDashboard.ViewModel {
 extension NavigationDashboard.NavigationInfo {
   static let hidden = NavigationDashboard.NavigationInfo(
     state: .hidden,
-    availableArea: MapViewController.shared()?.navigationInfoArea.areaFrame ?? .screenBounds
+    availableArea: MapViewController.shared()?.navigationInfoArea.areaFrame ?? .screenBounds,
   )
 }
 
 extension CGRect {
   static var screenBounds: CGRect {
-    UIScreen.main.bounds
+    return UIScreen.main.bounds
   }
 }
 

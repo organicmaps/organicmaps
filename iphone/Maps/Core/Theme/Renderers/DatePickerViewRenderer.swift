@@ -11,7 +11,7 @@ extension DatePickerView {
   }
 }
 
-private final class DatePickerViewRenderer {
+fileprivate final class DatePickerViewRenderer {
   class func render(_ control: DatePickerView, style: Style) {
     control.backgroundColor = style.backgroundColor
 

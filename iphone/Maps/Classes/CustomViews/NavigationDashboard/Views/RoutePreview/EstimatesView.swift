@@ -19,7 +19,7 @@ final class EstimatesView: UIView {
   }
 
   @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -46,27 +46,27 @@ final class EstimatesView: UIView {
                       duration: Constants.animationDuration,
                       options: .transitionCrossDissolve,
                       animations: { [weak self] in
-                        guard let self else { return }
-                        switch state {
-                        case .none:
-                          self.estimatesLabel.alpha = 0.0
-                          self.estimatesLabel.text = nil
-                          self.estimatesLabel.attributedText = nil
-                        case .error(let errorMessage):
-                          self.estimatesLabel.alpha = 1.0
-                          self.estimatesLabel.attributedText = NSAttributedString(string: errorMessage, attributes: [
-                            .font: Fonts().semibold16,
-                            .foregroundColor: UIColor.buttonRed(),
-                          ])
-                        case .estimates(let estimates):
-                          self.estimatesLabel.alpha = 1.0
-                          self.estimatesLabel.text = nil
-                          self.estimatesLabel.attributedText = estimates
-                        case .loading:
-                          self.estimatesLabel.alpha = 0.0
-                          self.estimatesLabel.text = nil
-                          self.estimatesLabel.attributedText = nil
-                        }
-                      })
+      guard let self else { return }
+      switch state {
+      case .none:
+        self.estimatesLabel.alpha = 0.0
+        self.estimatesLabel.text = nil
+        self.estimatesLabel.attributedText = nil
+      case .error(let errorMessage):
+        self.estimatesLabel.alpha = 1.0
+        self.estimatesLabel.attributedText = NSAttributedString(string: errorMessage, attributes: [
+          .font: Fonts().semibold16,
+          .foregroundColor: UIColor.buttonRed()
+        ])
+      case .estimates(let estimates):
+        self.estimatesLabel.alpha = 1.0
+        self.estimatesLabel.text = nil
+        self.estimatesLabel.attributedText = estimates
+      case .loading:
+        self.estimatesLabel.alpha = 0.0
+        self.estimatesLabel.text = nil
+        self.estimatesLabel.attributedText = nil
+      }
+    })
   }
 }

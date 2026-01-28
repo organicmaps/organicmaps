@@ -1,6 +1,6 @@
 final class BillingPendingTransaction: NSObject, IBillingPendingTransaction {
   private var pendingTransaction: SKPaymentTransaction?
-
+  
   override init() {
     super.init()
     SKPaymentQueue.default().add(self)
@@ -14,18 +14,18 @@ final class BillingPendingTransaction: NSObject, IBillingPendingTransaction {
     let routeTransactions = SKPaymentQueue.default().transactions.filter {
       var isOk = !Subscription.legacyProductIds.contains($0.payment.productIdentifier) &&
         !Subscription.productIds.contains($0.payment.productIdentifier)
-      if isOk, $0.transactionState == .purchasing {
+      if isOk && $0.transactionState == .purchasing {
         isOk = false
         Statistics.logEvent("Pending_purchasing_transaction",
-                            withParameters: ["productId": $0.payment.productIdentifier])
+                            withParameters: ["productId" : $0.payment.productIdentifier])
       }
       return isOk
     }
 
     if routeTransactions.count > 1 {
       pendingTransaction = routeTransactions.last
-      for item in routeTransactions.prefix(routeTransactions.count - 1) {
-        SKPaymentQueue.default().finishTransaction(item)
+      routeTransactions.prefix(routeTransactions.count - 1).forEach {
+        SKPaymentQueue.default().finishTransaction($0)
       }
     } else if routeTransactions.count == 1 {
       pendingTransaction = routeTransactions[0]
@@ -43,7 +43,7 @@ final class BillingPendingTransaction: NSObject, IBillingPendingTransaction {
 
   func finishTransaction() {
     guard let transaction = pendingTransaction else {
-      assertionFailure("There is no pending transactions")
+      assert(false, "There is no pending transactions")
       return
     }
 
@@ -53,7 +53,7 @@ final class BillingPendingTransaction: NSObject, IBillingPendingTransaction {
 }
 
 extension BillingPendingTransaction: SKPaymentTransactionObserver {
-  func paymentQueue(_: SKPaymentQueue, updatedTransactions _: [SKPaymentTransaction]) {
+  func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
     // Do nothing. Only for SKPaymentQueue.default().transactions to work
   }
 }

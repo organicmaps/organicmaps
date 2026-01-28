@@ -1,4 +1,4 @@
-private class ContentCell: UICollectionViewCell {
+fileprivate class ContentCell: UICollectionViewCell {
   var view: UIView? {
     didSet {
       if let view = view, view != oldValue {
@@ -17,10 +17,10 @@ private class ContentCell: UICollectionViewCell {
   }
 }
 
-private class HeaderCell: UICollectionViewCell {
+fileprivate class HeaderCell: UICollectionViewCell {
   private let label = UILabel()
-  private var selectedAttributes: [NSAttributedString.Key: Any] = [:]
-  private var deselectedAttributes: [NSAttributedString.Key: Any] = [:]
+  private var selectedAttributes: [NSAttributedString.Key : Any] = [:]
+  private var deselectedAttributes: [NSAttributedString.Key : Any] = [:]
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -37,7 +37,7 @@ private class HeaderCell: UICollectionViewCell {
   override var isSelected: Bool {
     didSet {
       label.attributedText = NSAttributedString(string: label.text ?? "",
-                                                attributes: isSelected ? selectedAttributes : deselectedAttributes)
+                                            attributes: isSelected ? selectedAttributes : deselectedAttributes)
     }
   }
 
@@ -51,8 +51,8 @@ private class HeaderCell: UICollectionViewCell {
     label.frame = contentView.bounds
   }
 
-  func configureWith(selectedAttributes: [NSAttributedString.Key: Any],
-                     deselectedAttributes: [NSAttributedString.Key: Any],
+  func configureWith(selectedAttributes: [NSAttributedString.Key : Any],
+                     deselectedAttributes: [NSAttributedString.Key : Any],
                      text: String) {
     self.selectedAttributes = selectedAttributes
     self.deselectedAttributes = deselectedAttributes
@@ -87,7 +87,7 @@ class TabView: UIView {
   private let slidingView = UIView()
   private var slidingViewLeft: NSLayoutConstraint!
   private var slidingViewWidth: NSLayoutConstraint!
-  private lazy var pageCount = self.dataSource?.numberOfPages(in: self) ?? 0
+  private lazy var pageCount = { return self.dataSource?.numberOfPages(in: self) ?? 0; }()
   var selectedIndex: Int?
   private var lastSelectedIndex: Int?
 
@@ -100,19 +100,19 @@ class TabView: UIView {
     }
   }
 
-  var selectedHeaderTextAttributes: [NSAttributedString.Key: Any] = [
-    .foregroundColor: UIColor.white,
-    .font: UIFont.systemFont(ofSize: 14, weight: .semibold),
-  ] {
+  var selectedHeaderTextAttributes: [NSAttributedString.Key : Any] = [
+    .foregroundColor : UIColor.white,
+    .font : UIFont.systemFont(ofSize: 14, weight: .semibold)
+    ] {
     didSet {
       tabsCollectionView.reloadData()
     }
   }
 
-  var deselectedHeaderTextAttributes: [NSAttributedString.Key: Any] = [
-    .foregroundColor: UIColor.gray,
-    .font: UIFont.systemFont(ofSize: 14, weight: .semibold),
-  ] {
+  var deselectedHeaderTextAttributes: [NSAttributedString.Key : Any] = [
+    .foregroundColor : UIColor.gray,
+    .font : UIFont.systemFont(ofSize: 14, weight: .semibold)
+    ] {
     didSet {
       tabsCollectionView.reloadData()
     }
@@ -147,7 +147,7 @@ class TabView: UIView {
 
     configureHeader()
     configureContent()
-
+    
     addSubview(tabsContentCollectionView)
     addSubview(headerView)
 
@@ -188,7 +188,7 @@ class TabView: UIView {
   }
 
   private func configureLayoutContraints() {
-    tabsCollectionView.translatesAutoresizingMaskIntoConstraints = false
+    tabsCollectionView.translatesAutoresizingMaskIntoConstraints = false;
     tabsContentCollectionView.translatesAutoresizingMaskIntoConstraints = false
     headerView.translatesAutoresizingMaskIntoConstraints = false
     slidingView.translatesAutoresizingMaskIntoConstraints = false
@@ -234,9 +234,9 @@ class TabView: UIView {
   }
 }
 
-extension TabView: UICollectionViewDataSource {
-  func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-    pageCount
+extension TabView : UICollectionViewDataSource {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return pageCount
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -265,7 +265,7 @@ extension TabView: UICollectionViewDataSource {
   }
 }
 
-extension TabView: UICollectionViewDelegateFlowLayout {
+extension TabView : UICollectionViewDelegateFlowLayout {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     if scrollView.contentSize.width > 0 {
       let scrollOffset = scrollView.contentOffset.x / scrollView.contentSize.width
@@ -273,7 +273,7 @@ extension TabView: UICollectionViewDelegateFlowLayout {
     }
   }
 
-  func scrollViewWillBeginDragging(_: UIScrollView) {
+  func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
     lastSelectedIndex = selectedIndex
   }
 
@@ -285,7 +285,7 @@ extension TabView: UICollectionViewDelegateFlowLayout {
   }
 
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    if collectionView == tabsCollectionView {
+    if (collectionView == tabsCollectionView) {
       let isSelected = selectedIndex == indexPath.item
       if !isSelected {
         selectedIndex = indexPath.item
@@ -296,14 +296,14 @@ extension TabView: UICollectionViewDelegateFlowLayout {
   }
 
   func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-    if collectionView == tabsCollectionView {
+    if (collectionView == tabsCollectionView) {
       collectionView.deselectItem(at: indexPath, animated: false)
     }
   }
 
   func collectionView(_ collectionView: UICollectionView,
-                      layout _: UICollectionViewLayout,
-                      sizeForItemAt _: IndexPath) -> CGSize {
+                      layout collectionViewLayout: UICollectionViewLayout,
+                      sizeForItemAt indexPath: IndexPath) -> CGSize {
     let bounds = collectionView.bounds.inset(by: collectionView.adjustedContentInset)
 
     if collectionView == tabsContentCollectionView {

@@ -18,13 +18,14 @@ protocol LocalDirectoryMonitor: DirectoryMonitor {
   var delegate: LocalDirectoryMonitorDelegate? { get set }
 }
 
-protocol LocalDirectoryMonitorDelegate: AnyObject {
+protocol LocalDirectoryMonitorDelegate : AnyObject {
   func didFinishGathering(_ contents: LocalContents)
   func didUpdate(_ contents: LocalContents, _ update: LocalContentsUpdate)
   func didReceiveLocalMonitorError(_ error: Error)
 }
 
 final class FileSystemDispatchSourceMonitor: LocalDirectoryMonitor {
+
   typealias Delegate = LocalDirectoryMonitorDelegate
 
   fileprivate enum DispatchSourceDebounceState {
@@ -44,7 +45,6 @@ final class FileSystemDispatchSourceMonitor: LocalDirectoryMonitor {
   private var contents: LocalContents = []
 
   // MARK: - Public properties
-
   let directory: URL
   private(set) var state: DirectoryMonitorState = .stopped
   weak var delegate: Delegate?
@@ -59,7 +59,6 @@ final class FileSystemDispatchSourceMonitor: LocalDirectoryMonitor {
   }
 
   // MARK: - Public methods
-
   func start(completion: ((Result<URL, Error>) -> Void)? = nil) {
     guard state != .started else { return }
 
@@ -117,7 +116,6 @@ final class FileSystemDispatchSourceMonitor: LocalDirectoryMonitor {
   }
 
   // MARK: - Private
-
   private func queueDidFire() {
     let debounceTimeInterval = 0.5
     switch dispatchSourceDebounceState {
@@ -128,7 +126,7 @@ final class FileSystemDispatchSourceMonitor: LocalDirectoryMonitor {
       dispatchSourceDebounceState = .debounce(source: source, timer: timer)
     case .debounce(_, let timer):
       timer.fireDate = Date(timeIntervalSinceNow: debounceTimeInterval)
-    // Stay in the `.debounce` state.
+      // Stay in the `.debounce` state.
     case .stopped:
       // This can happen if the read source fired and enqueued a block on the
       // main queue but, before the main queue got to service that block, someone

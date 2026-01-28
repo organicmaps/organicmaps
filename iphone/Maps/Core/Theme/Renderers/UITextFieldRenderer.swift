@@ -8,12 +8,12 @@ extension UITextField {
 
   @objc override func sw_didMoveToWindow() {
     guard MapsAppDelegate.theApp().window === window else {
-      sw_didMoveToWindow()
+      sw_didMoveToWindow();
       return
     }
     applyTheme()
     isStyleApplied = true
-    sw_didMoveToWindow()
+    sw_didMoveToWindow();
   }
 }
 
@@ -24,7 +24,7 @@ class UITextFieldRenderer {
       control.clipsToBounds = true
     }
     control.borderStyle = .none
-    var placeholderAttributes = [NSAttributedString.Key: Any]()
+    var placeholderAttributes = [NSAttributedString.Key : Any]()
     if let backgroundColor = style.backgroundColor {
       control.backgroundColor = backgroundColor
     }

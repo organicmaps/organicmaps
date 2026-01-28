@@ -1,13 +1,12 @@
 import Foundation
 
-enum CPConstants {
-  enum TemplateKey {
+struct CPConstants {
+  struct TemplateKey {
     static let map = "map_type"
     static let alert = "alert_type"
     static let list = "list_type"
   }
-
-  enum TemplateType {
+  struct TemplateType {
     static let main = "main"
     static let navigation = "navigation"
     static let preview = "preview"
@@ -17,20 +16,20 @@ enum CPConstants {
     static let restoreRoute = "restore_route"
     static let downloadMap = "download_map"
   }
-
-  enum ListItemType {
+  
+  struct ListItemType {
     static let history = "history"
     static let bookmarks = "bookmarks"
     static let bookmarkLists = "bookmark_lists"
     static let searchResults = "search_results"
   }
-
-  enum Maneuvers {
+  
+  struct Maneuvers {
     static let primary = "primary"
     static let secondary = "secondary"
   }
-
-  enum Trip {
+  
+  struct Trip {
     static let start = "start_point"
     static let end = "end_point"
     static let errorCode = "error_code"

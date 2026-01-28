@@ -1,6 +1,6 @@
 extension UIView {
   @objc func hasSubview(viewClass: AnyClass) -> Bool {
-    !subviews.filter { type(of: $0) == viewClass }.isEmpty
+    return !subviews.filter { type(of: $0) == viewClass }.isEmpty
   }
 
   func clearTreeBackground() {
@@ -14,7 +14,7 @@ extension UIView {
       topAnchor.constraint(equalTo: superview!.topAnchor, constant: insets.top),
       leftAnchor.constraint(equalTo: superview!.leftAnchor, constant: insets.left),
       bottomAnchor.constraint(equalTo: superview!.bottomAnchor, constant: insets.bottom),
-      rightAnchor.constraint(equalTo: superview!.rightAnchor, constant: insets.right),
+      rightAnchor.constraint(equalTo: superview!.rightAnchor, constant: insets.right)
     ])
   }
 }

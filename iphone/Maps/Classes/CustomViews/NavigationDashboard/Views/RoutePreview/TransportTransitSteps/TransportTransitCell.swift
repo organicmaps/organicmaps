@@ -4,7 +4,7 @@ class TransportTransitCell: UICollectionViewCell {
   }
 
   class func estimatedCellSize(step _: MWMRouterTransitStepInfo) -> CGSize {
-    Config.cellSize
+    return Config.cellSize
   }
 
   func config(step _: MWMRouterTransitStepInfo) {}

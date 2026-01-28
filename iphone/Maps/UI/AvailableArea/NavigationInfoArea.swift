@@ -1,6 +1,6 @@
 final class NavigationInfoArea: AvailableArea {
   override func isAreaAffectingView(_ other: UIView) -> Bool {
-    !other.navigationInfoAreaAffectDirections.isEmpty
+    return !other.navigationInfoAreaAffectDirections.isEmpty
   }
 
   override func addAffectingView(_ other: UIView) {
@@ -15,7 +15,7 @@ final class NavigationInfoArea: AvailableArea {
 }
 
 extension UIView {
-  var navigationInfoAreaAffectDirections: MWMAvailableAreaAffectDirections { [] }
+  var navigationInfoAreaAffectDirections: MWMAvailableAreaAffectDirections { return [] }
 
-  var navigationInfoAreaAffectView: UIView { self }
+  var navigationInfoAreaAffectView: UIView { return self }
 }

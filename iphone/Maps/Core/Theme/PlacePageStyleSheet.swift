@@ -79,7 +79,7 @@ extension PlacePageStyleSheet: IStyleSheet {
           colors.ratingOrange,
           colors.ratingYellow,
           colors.ratingLightGreen,
-          colors.ratingGreen,
+          colors.ratingGreen
         ]
         s.images = [
           "ic_24px_rating_normal",
@@ -87,7 +87,7 @@ extension PlacePageStyleSheet: IStyleSheet {
           "ic_24px_rating_bad",
           "ic_24px_rating_normal",
           "ic_24px_rating_good",
-          "ic_24px_rating_excellent",
+          "ic_24px_rating_excellent"
         ]
       }
     case .ppRatingSummaryView12:
@@ -99,7 +99,7 @@ extension PlacePageStyleSheet: IStyleSheet {
           "ic_12px_rating_bad",
           "ic_12px_rating_normal",
           "ic_12px_rating_good",
-          "ic_12px_rating_excellent",
+          "ic_12px_rating_excellent"
         ]
       }
     case .ppRatingSummaryView12User:

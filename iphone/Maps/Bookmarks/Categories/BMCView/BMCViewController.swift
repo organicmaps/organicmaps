@@ -8,7 +8,7 @@ final class BMCViewController: MWMViewController {
 
   private weak var coordinator: BookmarksCoordinator?
 
-  @IBOutlet private var tableView: UITableView! {
+  @IBOutlet private weak var tableView: UITableView! {
     didSet {
       let cells = [
         BMCCategoryCell.self,
@@ -28,8 +28,7 @@ final class BMCViewController: MWMViewController {
     self.coordinator = coordinator
   }
 
-  @available(*, unavailable)
-  required init?(coder _: NSCoder) {
+  required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -52,7 +51,8 @@ final class BMCViewController: MWMViewController {
 
   private func createNewCategory() {
     alertController.presentCreateBookmarkCategoryAlert(withMaxCharacterNum: viewModel.maxCategoryNameLength,
-                                                       minCharacterNum: viewModel.minCategoryNameLength) { [weak viewModel] (name: String!) -> Bool in
+                                                       minCharacterNum: viewModel.minCategoryNameLength)
+    { [weak viewModel] (name: String!) -> Bool in
       guard let model = viewModel else { return false }
       if model.checkCategory(name: name) {
         model.addCategory(name: name)
@@ -79,7 +79,8 @@ final class BMCViewController: MWMViewController {
         guard let self else { return }
         switch status {
         case .success:
-          let shareController = ActivityViewController.share(for: url, message: L("share_bookmarks_email_body")) { [weak self] _, _, _, _ in
+          let shareController = ActivityViewController.share(for: url, message: L("share_bookmarks_email_body"))
+          { [weak self] _, _, _, _ in
             self?.viewModel?.finishShareCategory()
           }
           shareController.present(inParentViewController: self, anchorView: anchorView)
@@ -196,7 +197,7 @@ extension BMCViewController: BMCView {
 
 extension BMCViewController: UITableViewDataSource {
   func numberOfSections(in _: UITableView) -> Int {
-    viewModel.numberOfSections()
+    return viewModel.numberOfSections()
   }
 
   func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -209,7 +210,7 @@ extension BMCViewController: UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     func dequeCell<Cell>(_ cell: Cell.Type) -> Cell where Cell: UITableViewCell {
-      tableView.dequeueReusableCell(cell: cell, indexPath: indexPath)
+      return tableView.dequeueReusableCell(cell: cell, indexPath: indexPath)
     }
 
     switch viewModel.sectionType(section: indexPath.section) {
@@ -227,7 +228,7 @@ extension BMCViewController: UITableViewDataSource {
 }
 
 extension BMCViewController: UITableViewDelegate {
-  func tableView(_: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
     if viewModel.sectionType(section: indexPath.section) != .categories {
       return false
     }
@@ -235,14 +236,13 @@ extension BMCViewController: UITableViewDelegate {
     return viewModel.canDeleteCategory()
   }
 
-  func tableView(_: UITableView,
+  func tableView(_ tableView: UITableView,
                  commit editingStyle: UITableViewCell.EditingStyle,
                  forRowAt indexPath: IndexPath) {
     guard editingStyle == .delete,
-          viewModel.sectionType(section: indexPath.section) == .categories
-    else {
-      assertionFailure()
-      return
+      viewModel.sectionType(section: indexPath.section) == .categories else {
+        assertionFailure()
+        return
     }
 
     viewModel.deleteCategory(at: indexPath.row)
@@ -318,13 +318,13 @@ extension BMCViewController: BMCCategoriesHeaderDelegate {
 }
 
 extension BMCViewController: CategorySettingsViewControllerDelegate {
-  func categorySettingsController(_: CategorySettingsViewController,
-                                  didEndEditing _: MWMMarkGroupID) {
+  func categorySettingsController(_ viewController: CategorySettingsViewController,
+                                  didEndEditing categoryId: MWMMarkGroupID) {
     navigationController?.popViewController(animated: true)
   }
 
-  func categorySettingsController(_: CategorySettingsViewController,
-                                  didDelete _: MWMMarkGroupID) {
+  func categorySettingsController(_ viewController: CategorySettingsViewController,
+                                  didDelete categoryId: MWMMarkGroupID) {
     navigationController?.popViewController(animated: true)
   }
 }

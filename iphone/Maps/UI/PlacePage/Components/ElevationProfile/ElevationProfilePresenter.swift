@@ -18,7 +18,7 @@ protocol ElevationProfileViewControllerDelegate: AnyObject {
   func updateMapPoint(_ point: CLLocationCoordinate2D, distance: Double)
 }
 
-private struct DescriptionsViewModel {
+fileprivate struct DescriptionsViewModel {
   let title: String
   let value: String
   let imageName: String
@@ -44,9 +44,9 @@ final class ElevationProfilePresenter: NSObject {
     self.formatter = formatter
     self.trackData = trackData
     if let profileData = trackData.elevationProfileData {
-      chartData = ElevationProfileChartData(profileData)
+      self.chartData = ElevationProfileChartData(profileData)
     }
-    descriptionModels = Self.descriptionModels(for: trackData.trackInfo)
+    self.descriptionModels = Self.descriptionModels(for: trackData.trackInfo)
   }
 
   private static func descriptionModels(for trackInfo: TrackInfo) -> [DescriptionsViewModel] {
@@ -54,7 +54,7 @@ final class ElevationProfilePresenter: NSObject {
       DescriptionsViewModel(title: L("elevation_profile_ascent"), value: trackInfo.ascent, imageName: "ic_em_ascent_24"),
       DescriptionsViewModel(title: L("elevation_profile_descent"), value: trackInfo.descent, imageName: "ic_em_descent_24"),
       DescriptionsViewModel(title: L("elevation_profile_max_elevation"), value: trackInfo.maxElevation, imageName: "ic_em_max_attitude_24"),
-      DescriptionsViewModel(title: L("elevation_profile_min_elevation"), value: trackInfo.minElevation, imageName: "ic_em_min_attitude_24"),
+      DescriptionsViewModel(title: L("elevation_profile_min_elevation"), value: trackInfo.minElevation, imageName: "ic_em_min_attitude_24")
     ]
   }
 }
@@ -63,9 +63,9 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
   func update(with trackData: PlacePageTrackData) {
     self.trackData = trackData
     if let profileData = trackData.elevationProfileData {
-      chartData = ElevationProfileChartData(profileData)
+      self.chartData = ElevationProfileChartData(profileData)
     } else {
-      chartData = nil
+      self.chartData = nil
     }
     descriptionModels = Self.descriptionModels(for: trackData.trackInfo)
     configure()
@@ -88,8 +88,7 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     guard let trackData = trackData,
           let profileData = trackData.elevationProfileData,
           let chartData,
-          chartData.points.count >= kMinPointsToDraw
-    else {
+          chartData.points.count >= kMinPointsToDraw else {
       view?.userInteractionEnabled = false
       return
     }
@@ -122,8 +121,8 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
 // MARK: - UICollectionDataSource
 
 extension ElevationProfilePresenter {
-  func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-    descriptionModels.count
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return descriptionModels.count
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -137,7 +136,7 @@ extension ElevationProfilePresenter {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension ElevationProfilePresenter {
-  func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     let width = collectionView.width
     let cellHeight = collectionView.height
     let modelsCount = CGFloat(descriptionModels.count)
@@ -145,12 +144,13 @@ extension ElevationProfilePresenter {
     return CGSize(width: cellWidth, height: cellHeight)
   }
 
-  func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumInteritemSpacingForSectionAt _: Int) -> CGFloat {
-    cellSpacing
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    return cellSpacing
   }
 }
 
-private struct ElevationProfileChartData {
+fileprivate struct ElevationProfileChartData {
+
   struct Line: ChartLine {
     var values: [ChartValue]
     var color: UIColor
@@ -164,10 +164,10 @@ private struct ElevationProfileChartData {
   fileprivate let points: [ElevationHeightPoint]
 
   init(_ elevationData: ElevationProfileData) {
-    points = elevationData.points
-    chartValues = points.map { ChartValue(xValues: $0.distance, y: $0.altitude) }
-    distances = points.map(\.distance)
-    maxDistance = distances.last ?? 0
+    self.points = elevationData.points
+    self.chartValues = points.map { ChartValue(xValues: $0.distance, y: $0.altitude) }
+    self.distances = points.map { $0.distance }
+    self.maxDistance = distances.last ?? 0
     let lineColor = StyleManager.shared.theme?.colors.chartLine ?? .blue
     let lineShadowColor = StyleManager.shared.theme?.colors.chartShadow ?? .lightGray
     let l1 = Line(values: chartValues, color: lineColor, type: .line)

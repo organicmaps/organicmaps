@@ -1,4 +1,5 @@
 final class ButtonsStackView: UIView {
+
   private let stackView = UIStackView()
   private var didTapHandlers = [UIButton: (() -> Void)?]()
 
@@ -33,7 +34,7 @@ final class ButtonsStackView: UIView {
       stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: offset),
       stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -offset),
       stackView.topAnchor.constraint(equalTo: topAnchor),
-      stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+      stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
     ])
   }
 
@@ -43,7 +44,6 @@ final class ButtonsStackView: UIView {
   }
 
   // MARK: - Public
-
   func addButton(title: String, font: UIFont = .regular14(), didTapHandler: @escaping () -> Void) {
     let button = UIButton()
     button.setStyleAndApply(.flatPrimaryTransButton)

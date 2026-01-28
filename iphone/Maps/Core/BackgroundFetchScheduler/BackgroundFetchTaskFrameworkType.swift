@@ -11,13 +11,13 @@
 }
 
 extension BackgroundFetchTaskFrameworkType: Equatable {
-  static func == (lhs: BackgroundFetchTaskFrameworkType, rhs: BackgroundFetchTaskFrameworkType) -> Bool {
-    lhs.rawValue == rhs.rawValue
+  static func ==(lhs: BackgroundFetchTaskFrameworkType, rhs: BackgroundFetchTaskFrameworkType) -> Bool {
+    return lhs.rawValue == rhs.rawValue
   }
 }
 
 extension BackgroundFetchTaskFrameworkType: Comparable {
-  static func < (lhs: BackgroundFetchTaskFrameworkType, rhs: BackgroundFetchTaskFrameworkType) -> Bool {
-    lhs.rawValue < rhs.rawValue
+  static func <(lhs: BackgroundFetchTaskFrameworkType, rhs: BackgroundFetchTaskFrameworkType) -> Bool {
+    return lhs.rawValue < rhs.rawValue
   }
 }

@@ -40,13 +40,14 @@ final class DefaultTranslationController {
 
 @available(iOS 18, *)
 private class TranslationHostingController: UIHostingController<TranslateAccessoryView> {
+
   init(isPresented: Binding<Bool>, text: String, frame: CGRect) {
     let view = TranslateAccessoryView(isPresented: isPresented, text: text, frame: frame)
     super.init(rootView: view)
   }
 
   @available(*, unavailable)
-  dynamic required init?(coder _: NSCoder) {
+  required dynamic init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 }

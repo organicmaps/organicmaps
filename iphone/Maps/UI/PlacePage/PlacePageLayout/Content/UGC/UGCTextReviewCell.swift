@@ -9,10 +9,10 @@ final class UGCTextReviewCell: MWMTableViewCell, UITextViewDelegate {
     static let kMaxNumberOfSymbols = 400
   }
 
-  @IBOutlet private var textView: MWMTextView!
-  @IBOutlet private var countLabel: UILabel!
+  @IBOutlet private weak var textView: MWMTextView!
+  @IBOutlet private weak var countLabel: UILabel!
   private weak var delegate: UGCTextReviewDelegate?
-  private var indexPath: NSIndexPath = .init()
+  private var indexPath: NSIndexPath = NSIndexPath()
 
   @objc func configWith(delegate: UGCTextReviewDelegate?) {
     self.delegate = delegate
@@ -24,9 +24,8 @@ final class UGCTextReviewCell: MWMTableViewCell, UITextViewDelegate {
   }
 
   // MARK: UITextViewDelegate
-
   func textView(_ textView: UITextView, shouldChangeTextIn _: NSRange, replacementText _: String) -> Bool {
-    textView.text.characters.count <= Consts.kMaxNumberOfSymbols
+    return textView.text.characters.count <= Consts.kMaxNumberOfSymbols
   }
 
   func textViewDidChange(_ textView: UITextView) {

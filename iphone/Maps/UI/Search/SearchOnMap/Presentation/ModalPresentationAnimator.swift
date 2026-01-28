@@ -4,13 +4,14 @@ enum PresentationStepChangeAnimation {
   case slideAndBounce
 }
 
-enum ModalPresentationAnimator {
+final class ModalPresentationAnimator {
+
   private enum Constants {
     static let animationDuration: TimeInterval = kDefaultAnimationDuration
     static let springDamping: CGFloat = 0.8
     static let springVelocity: CGFloat = 0.2
-    static let controlPoint1: CGPoint = .init(x: 0.25, y: 0.1)
-    static let controlPoint2: CGPoint = .init(x: 0.15, y: 1.0)
+    static let controlPoint1: CGPoint = CGPoint(x: 0.25, y: 0.1)
+    static let controlPoint2: CGPoint = CGPoint(x: 0.15, y: 1.0)
   }
 
   static func animate(with stepAnimation: PresentationStepChangeAnimation = .slide,

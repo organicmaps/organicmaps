@@ -5,11 +5,11 @@
   private(set) var isLaunchedByUniversalLink = false
   private(set) var url: URL?
 
-  override private init() {
+  private override init() {
     super.init()
   }
 
-  func applicationDidFinishLaunching(_ options: [UIApplication.LaunchOptionsKey: Any]? = nil) {
+  func applicationDidFinishLaunching(_ options: [UIApplication.LaunchOptionsKey : Any]? = nil) {
     if let launchDeeplink = options?[UIApplication.LaunchOptionsKey.url] as? URL {
       isLaunchedByDeeplink = true
       url = launchDeeplink
@@ -33,11 +33,11 @@
 
   func applicationDidReceiveUniversalLink(_ universalLink: URL) -> Bool {
     // Convert http(s)://omaps.app/ENCODEDCOORDS/NAME to om://ENCODEDCOORDS/NAME
-    url = URL(string: universalLink.absoluteString
-      .replacingOccurrences(of: "http://omaps.app", with: "om:/")
-      .replacingOccurrences(of: "https://omaps.app", with: "om:/"))
+    self.url = URL(string: universalLink.absoluteString
+                    .replacingOccurrences(of: "http://omaps.app", with: "om:/")
+                    .replacingOccurrences(of: "https://omaps.app", with: "om:/"))
     isLaunchedByUniversalLink = true
-    return handleDeepLink(url: url!)
+    return handleDeepLink(url: self.url!)
   }
 
   func reset() {
@@ -53,7 +53,7 @@
   }
 
   func getInAppFeatureHighlightData() -> DeepLinkInAppFeatureHighlightData? {
-    guard isLaunchedByUniversalLink || isLaunchedByDeeplink, let url else { return nil }
+    guard (isLaunchedByUniversalLink || isLaunchedByDeeplink), let url else { return nil }
     reset()
     return DeepLinkInAppFeatureHighlightData(DeepLinkParser.parseAndSetApiURL(url))
   }
@@ -102,26 +102,26 @@
         MapsAppDelegate.theApp().showMap()
         return true
       }
-      return false
+      return false;
     case .map:
       DeepLinkParser.executeMapApiRequest()
       MapsAppDelegate.theApp().showMap()
       return true
     case .search:
       let sd = DeepLinkSearchData()
-      let kSearchInViewportZoom: Int32 = 16
+      let kSearchInViewportZoom: Int32 = 16;
       // Set viewport only when cll parameter was provided in url.
       // Equator and Prime Meridian are perfectly valid separately.
-      if sd.hasValidCenterLatLon() {
+      if (sd.hasValidCenterLatLon()) {
         MapViewController.setViewport(sd.centerLat, lon: sd.centerLon, zoomLevel: kSearchInViewportZoom)
         // Need to update viewport for search API manually because Drape engine
         // will not notify subscribers when search view is shown.
-        if !sd.isSearchOnMap {
+        if (!sd.isSearchOnMap) {
           sd.onViewportChanged(kSearchInViewportZoom)
         }
       }
       let searchQuery = SearchQuery(sd.query, locale: sd.locale, source: .deeplink)
-      if sd.isSearchOnMap {
+      if (sd.isSearchOnMap) {
         MWMMapViewControlsManager.manager()?.search(onMap: searchQuery)
       } else {
         MWMMapViewControlsManager.manager()?.search(searchQuery)
@@ -135,16 +135,16 @@
       return true
     case .crosshair:
       // Not supported on iOS.
-      return false
+      return false;
     case .oAuth2:
       // TODO: support OAuth2
-      return false
+      return false;
     case .incorrect:
       // Invalid URL or API parameters.
-      return false
+      return false;
     @unknown default:
       LOG(.critical, "Unknown URL type: \(urlType)")
-      return false
+      return false;
     }
   }
 }
