@@ -88,7 +88,10 @@ public class TimeFormatUtils
       if (!firstLine)
         closedTextBuilder.append('\n');
 
-      closedTextBuilder.append(hoursClosedLabel).append(' ').append(cts.toWideString());
+      if (hoursClosedLabel != null && !hoursClosedLabel.isEmpty())
+        closedTextBuilder.append(hoursClosedLabel).append(' ');
+
+      closedTextBuilder.append(cts.toWideString());
       firstLine = false;
     }
     return closedTextBuilder.toString();

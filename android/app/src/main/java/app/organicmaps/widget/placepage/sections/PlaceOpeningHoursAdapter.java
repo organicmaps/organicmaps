@@ -1,6 +1,5 @@
 package app.organicmaps.widget.placepage.sections;
 
-import static app.organicmaps.editor.data.TimeFormatUtils.formatNonBusinessTime;
 import static app.organicmaps.editor.data.TimeFormatUtils.formatWeekdaysRange;
 
 import android.view.LayoutInflater;
@@ -114,22 +113,27 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     }
 
     final Timetable tt = schedule.timetable;
-
-    String workingTime = tt.isFullday ? holder.itemView.getResources().getString(R.string.editor_time_allday)
-                                      : tt.workingTimespan.toWideString();
-
     holder.setWeekdays(formatWeekdaysRange(schedule.startWeekDay, schedule.endWeekDay));
-    holder.setOpenTime(workingTime);
-
-    final Timespan[] closedTime = tt.closedTimespans;
-    if (closedTime == null || closedTime.length == 0)
+    if (tt.isFullday)
     {
+      holder.setOpenTime(holder.itemView.getResources().getString(R.string.editor_time_allday));
       holder.hideNonBusinessTime();
     }
     else
     {
-      final String hoursNonBusinessLabel = holder.itemView.getResources().getString(R.string.editor_hours_closed);
-      holder.setNonBusinessTime(formatNonBusinessTime(closedTime, hoursNonBusinessLabel));
+      final Timespan[] closedTime = tt.closedTimespans;
+      if (closedTime != null && closedTime.length == 1)
+      {
+        String s1 = tt.workingTimespan.start + "\u2014" + closedTime[0].start;
+        String s2 = closedTime[0].end + "\u2014" + tt.workingTimespan.end;
+        holder.setOpenTime(s1);
+        holder.setNonBusinessTime(s2);
+      }
+      else
+      {
+        holder.setOpenTime(tt.workingTimespan.toWideString());
+        holder.hideNonBusinessTime();
+      }
     }
   }
 
