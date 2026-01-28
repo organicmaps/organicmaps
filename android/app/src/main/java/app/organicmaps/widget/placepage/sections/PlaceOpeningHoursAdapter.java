@@ -1,6 +1,6 @@
 package app.organicmaps.widget.placepage.sections;
 
-import static app.organicmaps.editor.data.TimeFormatUtils.formatNonBusinessTime;
+import static app.organicmaps.editor.data.TimeFormatUtils.formatOpenShifts;
 import static app.organicmaps.editor.data.TimeFormatUtils.formatWeekdaysRange;
 
 import android.view.LayoutInflater;
@@ -10,9 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
-import app.organicmaps.sdk.editor.data.Timespan;
 import app.organicmaps.sdk.editor.data.Timetable;
-import app.organicmaps.util.UiUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -103,33 +101,17 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     final WeekScheduleData schedule = mWeekSchedule.get(position);
 
     holder.setBoldStyle(schedule.isBold);
-
-    if (schedule.isClosed)
-    {
-      holder.setWeekdays(formatWeekdaysRange(schedule.startWeekDay, schedule.endWeekDay));
-      holder.setOpenTime(holder.itemView.getResources().getString(R.string.day_off));
-      holder.hideNonBusinessTime();
-      return;
-    }
-
-    final Timetable tt = schedule.timetable;
-
-    String workingTime = tt.isFullday ? holder.itemView.getResources().getString(R.string.editor_time_allday)
-                                      : tt.workingTimespan.toWideString();
-
     holder.setWeekdays(formatWeekdaysRange(schedule.startWeekDay, schedule.endWeekDay));
-    holder.setOpenTime(workingTime);
 
-    final Timespan[] closedTime = tt.closedTimespans;
-    if (closedTime == null || closedTime.length == 0)
-    {
-      holder.hideNonBusinessTime();
-    }
+    final String openTime;
+    if (schedule.isClosed)
+      openTime = holder.itemView.getResources().getString(R.string.day_off);
+    else if (schedule.timetable.isFullday)
+      openTime = holder.itemView.getResources().getString(R.string.editor_time_allday);
     else
-    {
-      final String hoursNonBusinessLabel = holder.itemView.getResources().getString(R.string.editor_hours_closed);
-      holder.setNonBusinessTime(formatNonBusinessTime(closedTime, hoursNonBusinessLabel));
-    }
+      openTime = formatOpenShifts(schedule.timetable, "\n");
+
+    holder.setOpenTime(openTime);
   }
 
   @Override
@@ -160,14 +142,12 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
   {
     private final TextView mWeekdays;
     private final TextView mOpenTime;
-    private final TextView mNonBusinessTime;
 
     public ViewHolder(@NonNull View itemView)
     {
       super(itemView);
       mWeekdays = itemView.findViewById(R.id.tv__opening_hours_weekdays);
       mOpenTime = itemView.findViewById(R.id.tv__opening_hours_time);
-      mNonBusinessTime = itemView.findViewById(R.id.tv__opening_hours_nonbusiness_time);
       itemView.setVisibility(View.VISIBLE);
     }
 
@@ -186,16 +166,6 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     public void setOpenTime(String openTime)
     {
       mOpenTime.setText(openTime);
-    }
-
-    public void setNonBusinessTime(String nonBusinessTime)
-    {
-      UiUtils.setTextAndShow(mNonBusinessTime, nonBusinessTime);
-    }
-
-    public void hideNonBusinessTime()
-    {
-      UiUtils.clearTextAndHide(mNonBusinessTime);
     }
   }
 }

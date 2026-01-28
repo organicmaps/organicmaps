@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<!-- Layout, width and gravity (center_vertical) come from @style/PlacePageOpeningHoursItem.
+     gravity=top overrides it so the weekday label lines up with the first shift when the
+     hours column spans several lines (split shifts). Weekday/hours use fixed 0.4/0.6 weights
+     so the hours column starts at the same x across all rows. -->
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/ll__place_opening_hours_item"
   style="@style/PlacePageOpeningHoursItem"
-  android:visibility="visible">
+  android:baselineAligned="false"
+  android:gravity="top">
 
   <TextView
     android:id="@+id/tv__opening_hours_weekdays"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:layout_alignParentStart="true"
+    android:layout_weight="0.4"
     android:textAppearance="@style/MwmTextAppearance.Body3"
     tools:text="Mo-Fr"/>
 
+  <!-- One or more open shifts, one per line (e.g. "09:00—13:00\n16:00—20:00"). -->
   <TextView
     android:id="@+id/tv__opening_hours_time"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:layout_alignParentEnd="true"
-    android:layout_toEndOf="@id/tv__opening_hours_weekdays"
+    android:layout_weight="0.6"
     android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:textAlignment="viewEnd"
-    tools:text="08:00 - 19:00"/>
+    tools:text="09:00—13:00"/>
 
-  <TextView
-    android:id="@+id/tv__opening_hours_nonbusiness_time"
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:layout_alignParentEnd="true"
-    android:layout_below="@id/tv__opening_hours_weekdays"
-    android:textAppearance="@style/MwmTextAppearance.Body4"
-    android:textAlignment="viewEnd"
-    android:visibility="gone"/>
-</RelativeLayout>
+</LinearLayout>
