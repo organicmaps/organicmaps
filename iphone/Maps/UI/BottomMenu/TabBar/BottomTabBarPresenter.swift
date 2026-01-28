@@ -1,14 +1,14 @@
 protocol BottomTabBarPresenterProtocol: AnyObject {
   func viewWillAppear()
   func onSearchButtonPressed()
-  func onHelpButtonPressed()
+  func onHelpButtonPressed(withBadge: Bool)
   func onBookmarksButtonPressed()
   func onMenuButtonPressed()
 }
 
 class BottomTabBarPresenter: NSObject {
   private let interactor: BottomTabBarInteractorProtocol
-
+  
   init(interactor: BottomTabBarInteractorProtocol) {
     self.interactor = interactor
   }
@@ -23,8 +23,8 @@ extension BottomTabBarPresenter: BottomTabBarPresenterProtocol {
     interactor.openSearch()
   }
 
-  func onHelpButtonPressed() {
-    interactor.openHelp()
+  func onHelpButtonPressed(withBadge: Bool) {
+    withBadge ? interactor.openFaq() : interactor.openHelp()
   }
 
   func onBookmarksButtonPressed() {

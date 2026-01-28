@@ -1,12 +1,16 @@
+
+private let kUDDidShowFirstTimeRoutingEducationalHint = "kUDDidShowFirstTimeRoutingEducationalHint"
+
 class BottomTabBarViewController: UIViewController {
   var presenter: BottomTabBarPresenterProtocol!
-
+  
   @IBOutlet var searchButton: MWMButton!
   @IBOutlet var helpButton: MWMButton!
   @IBOutlet var bookmarksButton: MWMButton!
   @IBOutlet var moreButton: MWMButton!
   @IBOutlet var downloadBadge: UIView!
-
+  @IBOutlet var helpBadge: UIView!
+  
   private var avaliableArea = CGRect.zero
   @objc var isHidden: Bool = false {
     didSet {
@@ -24,12 +28,12 @@ class BottomTabBarViewController: UIViewController {
 
   @objc static var controller: BottomTabBarViewController? { MWMMapViewControlsManager.manager()?.tabBarController }
 
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     view.alpha = 0 // Hide the view until it receives a first available area update.
   }
-
+  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     presenter.viewWillAppear()
@@ -47,19 +51,24 @@ class BottomTabBarViewController: UIViewController {
   static func updateAvailableArea(_ frame: CGRect) {
     BottomTabBarViewController.controller?.updateAvailableArea(frame)
   }
-
+  
   @IBAction func onSearchButtonPressed(_ sender: Any) {
     presenter.onSearchButtonPressed()
   }
-
+  
   @IBAction func onHelpButtonPressed(_ sender: Any) {
-    presenter.onHelpButtonPressed()
+    if !helpBadge.isHidden {
+      presenter.onHelpButtonPressed(withBadge: true)
+      setHelpBadgeShown()
+    } else {
+      presenter.onHelpButtonPressed(withBadge: false)
+    }
   }
-
+  
   @IBAction func onBookmarksButtonPressed(_ sender: Any) {
     presenter.onBookmarksButtonPressed()
   }
-
+  
   @IBAction func onMenuButtonPressed(_ sender: Any) {
     presenter.onMenuButtonPressed()
   }
@@ -69,7 +78,7 @@ class BottomTabBarViewController: UIViewController {
     updateFrame(animated: false)
     self.view.layoutIfNeeded()
   }
-
+  
   private func updateFrame(animated: Bool) {
     if avaliableArea == .zero {
       return
@@ -92,8 +101,20 @@ class BottomTabBarViewController: UIViewController {
       self.view.alpha = alpha
     }
   }
-
+  
   private func updateBadge() {
     downloadBadge.isHidden = isApplicationBadgeHidden
+    helpBadge.isHidden = !needsToShowHelpBadge()
+  }
+}
+
+// MARK: - Help badge
+private extension BottomTabBarViewController {
+  private func needsToShowHelpBadge() -> Bool {
+    !UserDefaults.standard.bool(forKey: kUDDidShowFirstTimeRoutingEducationalHint)
+  }
+  
+  private func setHelpBadgeShown() {
+    UserDefaults.standard.set(true, forKey: kUDDidShowFirstTimeRoutingEducationalHint)
   }
 }
