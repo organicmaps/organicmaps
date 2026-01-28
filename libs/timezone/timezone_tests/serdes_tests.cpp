@@ -8,14 +8,12 @@ TEST(TimeZoneSerDes, EmptyTimeZone)
 {
   TimeZone const tz{.generation_year_offset = 0, .base_offset = 0, .dst_delta = 0, .transitions = {}};
 
-  auto const result = Serialize(tz);
-  EXPECT_TRUE(result.has_value());
-  std::string const & serialized = result.value();
+  std::string serialized;
+  EXPECT_EQ(Serialize(tz, serialized), SerializationError::OK);
   EXPECT_EQ(serialized.size(), TimeZone::kTotalSizeInBytes);
 
-  auto const result2 = Deserialize(serialized);
-  EXPECT_TRUE(result2.has_value());
-  TimeZone const & deserialized = result2.value();
+  TimeZone deserialized;
+  EXPECT_EQ(Deserialize(serialized, deserialized), SerializationError::OK);
   EXPECT_EQ(tz, deserialized);
 }
 
@@ -31,16 +29,15 @@ TEST(TimeZoneSerDes, TimeZoneWithTransitions)
                         {.day_delta = 234, .minute_of_day = 120},
                     }};
 
-  auto const result = Serialize(tz);
-  EXPECT_TRUE(result.has_value());
-  std::string const & serialized = result.value();
+  std::string serialized;
+  EXPECT_EQ(Serialize(tz, serialized), SerializationError::OK);
+
   constexpr size_t expectedSizeInBytes =
       (TimeZone::kTotalSizeInBits + 4 * Transition::kTotalSizeInBits + CHAR_BIT - 1) / CHAR_BIT;
   EXPECT_EQ(serialized.size(), expectedSizeInBytes);
 
-  auto const result2 = Deserialize(serialized);
-  EXPECT_TRUE(result2.has_value());
-  TimeZone const & deserialized = result2.value();
+  TimeZone deserialized;
+  EXPECT_EQ(Deserialize(serialized, deserialized), SerializationError::OK);
   EXPECT_EQ(tz, deserialized);
 }
 
@@ -56,9 +53,9 @@ TEST(TimeZoneSerDes, StringView)
                         {.day_delta = 234, .minute_of_day = 120},
                     }};
 
-  auto const result = Serialize(tz);
-  EXPECT_TRUE(result.has_value());
-  std::string const & serialized = result.value();
+  std::string serialized;
+  EXPECT_EQ(Serialize(tz, serialized), SerializationError::OK);
+
   constexpr size_t expectedSizeInBytes =
       (TimeZone::kTotalSizeInBits + 4 * Transition::kTotalSizeInBits + CHAR_BIT - 1) / CHAR_BIT;
   EXPECT_EQ(serialized.size(), expectedSizeInBytes);

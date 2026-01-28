@@ -20,11 +20,15 @@ TEST(TimeZoneInMetadata, ShouldCorrectlyStoreAndLoadTimeZone)
                         {.day_delta = 234, .minute_of_day = 120},
                     }};
 
+  std::string serialized;
+  EXPECT_EQ(Serialize(tz, serialized), SerializationError::OK);
+
   feature::RegionData rd;
-  auto const result = Serialize(tz);
-  EXPECT_TRUE(result.has_value());
-  rd.Set(feature::RegionData::RD_TIMEZONE, result.value());
-  EXPECT_EQ(tz, Deserialize(rd.Get(feature::RegionData::RD_TIMEZONE)).value());
+  rd.Set(feature::RegionData::RD_TIMEZONE, serialized);
+
+  TimeZone deserialized;
+  EXPECT_EQ(Deserialize(rd.Get(feature::RegionData::RD_TIMEZONE), deserialized), SerializationError::OK);
+  EXPECT_EQ(tz, deserialized);
 
   std::vector<uint8_t> buf;
 
@@ -37,5 +41,8 @@ TEST(TimeZoneInMetadata, ShouldCorrectlyStoreAndLoadTimeZone)
   ReaderSource src(reader);
   feature::RegionData rd2;
   rd2.Deserialize(src);
-  EXPECT_EQ(tz, Deserialize(rd2.Get(feature::RegionData::RD_TIMEZONE)).value());
+
+  deserialized = {};
+  EXPECT_EQ(Deserialize(rd2.Get(feature::RegionData::RD_TIMEZONE), deserialized), SerializationError::OK);
+  EXPECT_EQ(tz, deserialized);
 }

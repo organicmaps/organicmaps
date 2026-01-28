@@ -1,7 +1,9 @@
 #include "indexer/feature_meta.hpp"
 #include "custom_keyvalue.hpp"
-#include "std/target_os.hpp"
+
 #include "timezone/serdes.hpp"
+
+#include "std/target_os.hpp"
 
 namespace feature
 {
@@ -250,10 +252,12 @@ void RegionData::AddPublicHoliday(int8_t month, int8_t offset)
 
 void RegionData::LoadTimeZone()
 {
-  if (auto res = om::tz::Deserialize(Get(RD_TIMEZONE)))
-    m_timeZone = std::move(res.value());
+  om::tz::TimeZone tz;
+  auto const res = om::tz::Deserialize(Get(RD_TIMEZONE), tz);
+  if (res == om::tz::SerializationError::OK)
+    m_timeZone = tz;
   else
-    LOG(LWARNING, ("Failed to read timezone info:", res.error()));
+    LOG(LWARNING, ("Failed to read timezone info:", res));
 }
 
 void RegionData::MergeFrom(RegionData const & rhs)
@@ -331,7 +335,7 @@ string DebugPrint(Metadata const & metadata)
 {
   bool first = true;
   std::string res = "Metadata [";
-  for (uint8_t i = 0; i < static_cast<uint8_t>(Metadata::FMD_COUNT); ++i)
+  for (uint8_t i = 1; i < static_cast<uint8_t>(Metadata::FMD_COUNT); ++i)
   {
     auto const t = static_cast<Metadata::EType>(i);
     auto const sv = metadata.Get(t);

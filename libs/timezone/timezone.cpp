@@ -117,7 +117,7 @@ TimeZoneDb const & GetTimeZoneDb()
   if (auto const ec = glz::read_json(*tzdb, buffer); ec.ec != glz::error_code::none)
     LOG(LERROR, ("Failed to load timezone database. ec:", ec.ec, "custom_error_message:", ec.custom_error_message));
 
-  for (auto & tz : tzdb->timezones | std::views::values)
+  for (auto & [_, tz] : tzdb->timezones)
   {
     tz.format_version = static_cast<TimeZoneFormatVersion>(tzdb->tzdb_format_version);
     tz.generation_year_offset = tzdb->tzdb_generation_year_offset;

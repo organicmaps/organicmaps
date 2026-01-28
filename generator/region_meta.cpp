@@ -84,9 +84,9 @@ void ReadEntryImpl(std::string_view keyName, json_t const * jsonData, RegionData
   FromJSONObjectOptionalField(jsonData, "timezone", timezone);
   if (!timezone.empty())
   {
-    auto const & res = om::tz::Serialize(GetTimeZone(timezone));
-    CHECK(res, (timezone));
-    data.Set(RegionData::Type::RD_TIMEZONE, res.value());
+    std::string tz;
+    CHECK_EQUAL(om::tz::Serialize(GetTimeZone(timezone), tz), om::tz::SerializationError::OK, (timezone));
+    data.Set(RegionData::Type::RD_TIMEZONE, tz);
   }
 
   bool allow_housenames;
