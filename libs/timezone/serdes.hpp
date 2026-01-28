@@ -1,13 +1,12 @@
 #pragma once
 
-#include <expected>
-
 #include "timezone/timezone.hpp"
 
 namespace om::tz
 {
 enum class SerializationError
 {
+  OK,
   IncorrectHeader,
   IncorrectTransitionsFormat,
   UnsupportedTimeZoneFormat,
@@ -20,8 +19,8 @@ enum class SerializationError
   IncorrectMinuteOfDayFormat
 };
 
-std::expected<std::string, SerializationError> Serialize(TimeZone const & timeZone);
-std::expected<TimeZone, SerializationError> Deserialize(std::string_view const & data);
+SerializationError Serialize(TimeZone const & timeZone, std::string & buf);
+SerializationError Deserialize(std::string_view const & data, TimeZone & res);
 
 std::string DebugPrint(SerializationError error);
 }  // namespace om::tz

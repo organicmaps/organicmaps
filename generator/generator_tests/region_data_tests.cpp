@@ -29,8 +29,8 @@ void RunTestSamples(std::function<void(std::string_view, RegionData &)> const & 
     TEST_EQUAL(rd.Get(RegionData::RD_DRIVING), "l", ());
 
     /// @todo Add something like equal to GMT+0 check.
-    auto const tz = om::tz::Deserialize(rd.Get(RegionData::RD_TIMEZONE));
-    TEST(tz, ());
+    om::tz::TimeZone tz;
+    TEST_EQUAL(om::tz::Deserialize(rd.Get(RegionData::RD_TIMEZONE), tz), om::tz::SerializationError::OK, ());
   }
 }
 
