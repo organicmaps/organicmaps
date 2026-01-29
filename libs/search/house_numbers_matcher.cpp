@@ -555,8 +555,7 @@ bool HouseNumbersMatchConscription(UniString const & houseNumber, TokensT const 
   return HouseNumbersMatch(houseNumber, queryParse);
 }
 
-bool HouseNumbersMatchRange(std::string_view const & hnRange, TokensT const & queryParse,
-                            feature::InterpolType interpol)
+bool HouseNumbersMatchRange(std::string_view const hnRange, TokensT const & queryParse, feature::InterpolType interpol)
 {
   ASSERT(!queryParse.empty() && interpol != feature::InterpolType::None, ());
 

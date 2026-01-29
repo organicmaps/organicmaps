@@ -21,7 +21,7 @@ enum class SerializationError
 };
 
 std::expected<std::string, SerializationError> Serialize(TimeZone const & timeZone);
-std::expected<TimeZone, SerializationError> Deserialize(std::string_view const & data);
+std::expected<TimeZone, SerializationError> Deserialize(std::string_view const data);
 
 std::string DebugPrint(SerializationError error);
 }  // namespace om::tz
