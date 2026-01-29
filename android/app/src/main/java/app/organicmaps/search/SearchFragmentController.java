@@ -1,8 +1,11 @@
 package app.organicmaps.search;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -20,6 +23,7 @@ import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class SearchFragmentController extends Fragment implements SearchFragment.SearchFragmentListener
 {
@@ -31,23 +35,30 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   int mViewportMinHeight;
   SearchPageViewModel mViewModel;
   PlacePageViewModel mPlacePageViewModel;
+  // These variables are used to determine if the touch event is a tap or a drag
+  static AtomicReference<Float> mInitialX = new AtomicReference<>((float) 0);
+  static AtomicReference<Float> mInitialY = new AtomicReference<>((float) 0);
 
   private final BottomSheetBehavior.BottomSheetCallback mDefaultBottomSheetCallback =
       new BottomSheetBehavior.BottomSheetCallback() {
         @Override
         public void onStateChanged(@NonNull View bottomSheet, int newState)
         {
-          //          Logger.d(TAG, "State change, new = " + PlacePageUtils.toString(newState));
           if (PlacePageUtils.isSettlingState(newState) || PlacePageUtils.isDraggingState(newState))
             return;
 
           PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
 
-          if (PlacePageUtils.isHiddenState(newState) && mPlacePageViewModel.getMapObject() == null)
-            closeSearch();
+          if (PlacePageUtils.isHiddenState(newState) && mPlacePageViewModel.getMapObject().getValue() == null)
+            mViewModel.setSearchEnabled(false, null);
           // we do not save the state if search page is hiding
-          if (!PlacePageUtils.isHiddenState(newState))
+          if (newState == BottomSheetBehavior.STATE_EXPANDED || newState == BottomSheetBehavior.STATE_HALF_EXPANDED
+              || newState == BottomSheetBehavior.STATE_COLLAPSED)
             mViewModel.setSearchPageLastState(newState);
+          else if (newState != BottomSheetBehavior.STATE_HIDDEN)
+          {
+            mViewModel.setSearchPageLastState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+          }
         }
 
         @Override
@@ -78,11 +89,30 @@ public class SearchFragmentController extends Fragment implements SearchFragment
       if (mapObject != null)
       {
         // Hide search when place page is opened
-        mViewModel.setSearchPageLastState(mFrameLayoutBottomSheetBehavior.getState());
-        mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        if (mFrameLayoutBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN)
+        {
+          mViewModel.setSearchPageLastState(mFrameLayoutBottomSheetBehavior.getState());
+          mCoordinator.post(() -> mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN));
+        }
       }
       else if (mViewModel.getSearchEnabled().getValue() != null && mViewModel.getSearchEnabled().getValue() != false)
         mFrameLayoutBottomSheetBehavior.setState(mViewModel.getSearchPageLastState().getValue());
+    }
+  };
+
+  private final View.OnTouchListener mMapTouchListener = new View.OnTouchListener() {
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public boolean onTouch(View v, MotionEvent event)
+    {
+      if (!isDrag(event))
+        return false;
+      if (mFrameLayoutBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_SETTLING)
+        return false;
+      if (mFrameLayoutBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED
+          || mFrameLayoutBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HALF_EXPANDED)
+        mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+      return false;
     }
   };
 
@@ -94,6 +124,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     return inflater.inflate(R.layout.search_fragment_container, container, false);
   }
 
+  @SuppressLint("ClickableViewAccessibility")
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
@@ -118,14 +149,16 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mFrameLayoutBottomSheetBehavior.setDraggable(true);
     mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
-    mViewModel.getSearchEnabled().observe(requireActivity(), mSearchPageEnabledObserver);
-
     ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
       boolean imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime());
       if (imeVisible && mFrameLayoutBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED)
         mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
       return insets;
     });
+
+    // Set touch listener on map view to handle drag events
+    SurfaceView mapView = requireActivity().findViewById(R.id.map);
+    mapView.setOnTouchListener(mMapTouchListener);
 
     final FragmentManager fm = getChildFragmentManager();
     if (savedInstanceState == null && fm.findFragmentByTag("SearchPageFragment") == null)
@@ -144,6 +177,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     super.onStart();
     mPlacePageViewModel.getMapObject().observe(this, mPlacePageMapObjectObserver);
     mFrameLayoutBottomSheetBehavior.addBottomSheetCallback(mDefaultBottomSheetCallback);
+    mViewModel.getSearchEnabled().observe(getViewLifecycleOwner(), mSearchPageEnabledObserver);
   }
 
   @Override
@@ -152,29 +186,46 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     super.onStop();
     mPlacePageViewModel.getMapObject().removeObserver(mPlacePageMapObjectObserver);
     mFrameLayoutBottomSheetBehavior.removeBottomSheetCallback(mDefaultBottomSheetCallback);
+    mViewModel.getSearchEnabled().removeObserver(mSearchPageEnabledObserver);
   }
 
-  private void closeSearch()
+  @Override
+  public void onDestroy()
   {
-    FragmentManager childFm = getChildFragmentManager();
-    childFm.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-    Fragment search = childFm.findFragmentByTag("SearchPageFragment");
-    if (search != null)
-      childFm.beginTransaction().remove(search).commitNowAllowingStateLoss();
+    super.onDestroy();
+  }
 
-    getParentFragmentManager().beginTransaction().remove(this).commitNowAllowingStateLoss();
+  boolean isDrag(MotionEvent event)
+  {
+    return switch (event.getAction())
+    {
+      case MotionEvent.ACTION_DOWN ->
+      {
+        mInitialX.set(event.getX());
+        mInitialY.set(event.getY());
+        yield false;
+      }
+      case MotionEvent.ACTION_UP -> false;
+      case MotionEvent.ACTION_MOVE ->
+      {
+        float dx = Math.abs(event.getX() - mInitialX.get());
+        float dy = Math.abs(event.getY() - mInitialY.get());
+        yield !(dx < 50) || !(dy < 50);
+      }
+      default -> false;
+    };
   }
 
   @Override
   public boolean getBackPressedCallback()
   {
-    if (mFrameLayoutBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED
-        || mFrameLayoutBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HALF_EXPANDED)
-    {
-      mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-      return true;
-    }
     mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     return false;
+  }
+
+  @Override
+  public void onSearchClicked()
+  {
+    mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
   }
 }
