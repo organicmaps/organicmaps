@@ -54,12 +54,12 @@ void OsmElement::AddTag(std::string_view key, std::string_view value)
   m_tags.emplace_back(key, value);
 }
 
-bool OsmElement::HasTag(std::string_view const & key) const
+bool OsmElement::HasTag(std::string_view const key) const
 {
   return base::AnyOf(m_tags, [&](auto const & t) { return t.m_key == key; });
 }
 
-bool OsmElement::HasTag(std::string_view const & key, std::string_view const & value) const
+bool OsmElement::HasTag(std::string_view const key, std::string_view const value) const
 {
   return base::AnyOf(m_tags, [&](auto const & t) { return t.m_key == key && t.m_value == value; });
 }

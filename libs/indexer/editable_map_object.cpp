@@ -646,11 +646,11 @@ void EditableMapObject::ApplyJournalEntry(JournalEntry const & entry)
       Classificator const & cl = classif();
       // Remove old cuisine values
       vector<std::string_view> oldCuisines = strings::Tokenize(tagModData.old_value, ";");
-      for (std::string_view const & cuisine : oldCuisines)
+      for (std::string_view const cuisine : oldCuisines)
         m_types.Remove(cl.GetTypeByPath({kTagCuisine, cuisine}));
       // Add new cuisine values
       vector<std::string_view> newCuisines = strings::Tokenize(tagModData.new_value, ";");
-      for (std::string_view const & cuisine : newCuisines)
+      for (std::string_view const cuisine : newCuisines)
         m_types.SafeAdd(cl.GetTypeByPath({kTagCuisine, cuisine}));
     }
     else if (tagModData.key == "diet:vegetarian")
@@ -722,8 +722,8 @@ void EditableMapObject::LogDiffInJournal(EditableMapObject const & unedited_emo)
   for (uint8_t i = 0; i < static_cast<uint8_t>(feature::Metadata::FMD_COUNT); ++i)
   {
     auto const type = static_cast<feature::Metadata::EType>(i);
-    std::string_view const & value = GetMetadata(type);
-    std::string_view const & old_value = unedited_emo.GetMetadata(type);
+    std::string_view const value = GetMetadata(type);
+    std::string_view const old_value = unedited_emo.GetMetadata(type);
 
     if (value != old_value)
       m_journal.AddTagChange(ToString(type), std::string(old_value), std::string(value));
