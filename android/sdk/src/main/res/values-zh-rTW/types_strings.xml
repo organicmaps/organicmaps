@@ -842,6 +842,7 @@
     <string name="type.railway.crossing">鐵路平交道</string>
     <string name="type.railway.disused">不使用鐵路</string>
     <string name="type.railway.disused.bridge">廢棄鐵路橋樑</string>
+    <string name="type.railway.disused.tunnel">廢棄鐵路隧道</string>
     <string name="type.railway.funicular">纜車</string>
     <string name="type.railway.funicular.bridge">纜車橋</string>
     <string name="type.railway.funicular.tunnel">纜車隧道</string>

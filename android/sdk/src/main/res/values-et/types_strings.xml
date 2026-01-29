@@ -842,6 +842,7 @@
     <string name="type.railway.crossing">Raudtee ülesõit</string>
     <string name="type.railway.disused">Kasutamata raudtee</string>
     <string name="type.railway.disused.bridge">Kasutamata raudteesild</string>
+    <string name="type.railway.disused.tunnel">Kasutamata raudteetunnel</string>
     <string name="type.railway.funicular">Köisraudtee</string>
     <string name="type.railway.funicular.bridge">Köisraudtee sild</string>
     <string name="type.railway.funicular.tunnel">Köisraudtee tunnel</string>

@@ -872,6 +872,7 @@
     <string name="type.railway.crossing">Geležinkelio perėja</string>
     <string name="type.railway.disused">Nenaudojamas geležinkelis</string>
     <string name="type.railway.disused.bridge">Nenaudojamo geležinkelio tiltas</string>
+    <string name="type.railway.disused.tunnel">Nenaudojamo geležinkelio tunelis</string>
     <string name="type.railway.funicular">Funikulierius</string>
     <string name="type.railway.funicular.bridge">Funikulieriaus tiltas</string>
     <string name="type.railway.funicular.tunnel">Funikulieriaus tunelis</string>

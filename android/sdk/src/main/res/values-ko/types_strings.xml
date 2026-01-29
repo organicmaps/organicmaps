@@ -692,6 +692,7 @@
     <string name="type.power.substation">변전소</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">전봇대</string>
+    <string name="type.railway.disused.tunnel">폐철도 터널</string>
     <string name="type.railway.funicular">케이블카</string>
     <string name="type.railway.halt">기차역</string>
     <string name="type.railway.level_crossing">철도 건널목</string>

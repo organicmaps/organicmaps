@@ -842,6 +842,7 @@
     <string name="type.railway.crossing">Gyalogos vasúti átjáró</string>
     <string name="type.railway.disused">Használaton kívüli vasútvonal</string>
     <string name="type.railway.disused.bridge">Használaton kívüli vasúti híd</string>
+    <string name="type.railway.disused.tunnel">Használaton kívüli vasúti alagút</string>
     <string name="type.railway.funicular">Sikló</string>
     <string name="type.railway.funicular.bridge">Sikló hídja</string>
     <string name="type.railway.funicular.tunnel">Síkló alagútja</string>

@@ -842,6 +842,7 @@
     <string name="type.railway.crossing">Пешеходный переход</string>
     <string name="type.railway.disused">Неиспользуемая железная дорога</string>
     <string name="type.railway.disused.bridge">Заброшенный железнодорожный мост</string>
+    <string name="type.railway.disused.tunnel">Недействующий железнодорожный туннель</string>
     <string name="type.railway.funicular">Фуникулер</string>
     <string name="type.railway.funicular.bridge">Фуникулер</string>
     <string name="type.railway.funicular.tunnel">Фуникулер</string>

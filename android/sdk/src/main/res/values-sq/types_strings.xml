@@ -835,6 +835,7 @@
     <string name="type.railway.crossing">Kryqëzim hekurudhor</string>
     <string name="type.railway.disused">Hekurudhë jashtë përdorimit</string>
     <string name="type.railway.disused.bridge">Urë hekurudhore jashtë përdorimit</string>
+    <string name="type.railway.disused.tunnel">Tunel hekurudhor jashtë përdorimit</string>
     <string name="type.railway.funicular">Funikular</string>
     <string name="type.railway.funicular.bridge">Urë funikulari</string>
     <string name="type.railway.funicular.tunnel">Tunel funikulari</string>

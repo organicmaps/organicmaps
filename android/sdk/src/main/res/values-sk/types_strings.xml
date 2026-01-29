@@ -792,6 +792,7 @@
     <string name="type.railway.crossing">Železničné priecestie</string>
     <string name="type.railway.disused">Nepoužívaná trať</string>
     <string name="type.railway.disused.bridge">Nepoužívaný železničný most</string>
+    <string name="type.railway.disused.tunnel">Nepoužívaný železničný tunel</string>
     <string name="type.railway.funicular">Lanovka</string>
     <string name="type.railway.halt">Železničná zastávka</string>
     <string name="type.railway.level_crossing">Železničné priecestie</string>

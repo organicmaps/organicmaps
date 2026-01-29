@@ -470,6 +470,7 @@
     <string name="type.power.tower">संचरण स्तम्भ</string>
     <string name="type.public_transport.platform">रेलवे प्लेटफार्म</string>
     <string name="type.railway">रेल</string>
+    <string name="type.railway.disused.tunnel">अप्रयुक्त रेलवे सुरंग</string>
     <string name="type.railway.funicular">रज्जुरेल</string>
     <string name="type.railway.funicular.bridge">रज्जुरेल</string>
     <string name="type.railway.funicular.tunnel">रज्जुरेल</string>

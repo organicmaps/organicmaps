@@ -686,6 +686,7 @@
     <string name="type.power.substation">Stație subterană</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Stâlp de electricitate</string>
+    <string name="type.railway.disused.tunnel">Tunel feroviar dezafectat</string>
     <string name="type.railway.funicular">Funicular</string>
     <string name="type.railway.halt">Gară</string>
     <string name="type.railway.level_crossing">Trecere feroviară</string>

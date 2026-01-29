@@ -818,6 +818,7 @@
     <string name="type.railway.crossing">מעבר חציית פסי רכבת</string>
     <string name="type.railway.disused">מסילת רכבת לא בשימוש</string>
     <string name="type.railway.disused.bridge">גשר רכבת לא בשימוש</string>
+    <string name="type.railway.disused.tunnel">מנהרת רכבת לא בשימוש</string>
     <string name="type.railway.funicular">פוניקולר</string>
     <string name="type.railway.rail.highspeed">רכבת מהירה</string>
     <string name="type.railway.rail.tourism">רכבת תיירות</string>
