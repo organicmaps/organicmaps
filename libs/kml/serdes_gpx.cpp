@@ -119,6 +119,9 @@ void GpxParser::AddAttr(std::string_view attr, char const * value)
 {
   if (IsValidCoordinatesPosition())
   {
+    // Yes, https://touren.bodenmais.de/bodenmais/ , we're thinking of you.
+    if (*value == '+')
+      ++value;
     if (attr == "lat" && !strings::to_double(value, m_lat))
       LOG(LERROR, ("Bad gpx latitude:", value));
     else if (attr == "lon" && !strings::to_double(value, m_lon))
