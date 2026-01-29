@@ -40,14 +40,13 @@ import app.organicmaps.sdk.search.SearchResult;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
+import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
-import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.SearchToolbarController;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,6 +82,14 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     }
 
     @Override
+    public void setQuery(CharSequence query)
+    {
+      super.setQuery(query);
+      if (query != "")
+        mSearchFragmentListener.onSearchClicked();
+    }
+
+    @Override
     protected void onTextChanged(String query)
     {
       if (!isAdded())
@@ -111,6 +118,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     protected boolean onStartSearchClick()
     {
       deactivate();
+      mSearchFragmentListener.onSearchClicked();
       return true;
     }
 
@@ -148,7 +156,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   private View mResultsFrame;
   private PlaceholderView mResultsPlaceholder;
-  private ExtendedFloatingActionButton mShowOnMapFab;
   private SearchPageViewModel mSearchViewModel;
 
   @NonNull
@@ -173,7 +180,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private String mInitialQuery;
   @Nullable
   private String mInitialLocale;
-  private boolean mInitialSearchOnMap = false;
 
   private final ActivityResultLauncher<Intent> startVoiceRecognitionForResult =
       registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -187,6 +193,28 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
       if (!TextUtils.isEmpty(getQuery()))
         mSearchAdapter.notifyDataSetChanged();
+    }
+  };
+
+  private final OnBackPressedCallback mOnBackPressedCallback = new OnBackPressedCallback(true) {
+    @Override
+    public void handleOnBackPressed()
+    {
+      if (!onBackPressed())
+        setEnabled(true);
+    }
+  };
+
+  private final Observer<Boolean> mSearchEnabledObserver = new Observer<>() {
+    public void onChanged(Boolean enabled)
+    {
+      if (enabled != null && !enabled)
+      {
+        if (mToolbarController.hasQuery())
+          mToolbarController.clear();
+        mSearchViewModel.setSearchQuery(null);
+        mSearchViewModel.setLastResults(null);
+      }
     }
   };
 
@@ -238,7 +266,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     toolbar.setLayoutParams(lp);
 
     UiUtils.showIf(hasQuery, mResultsFrame);
-    UiUtils.showIf(hasQuery, mShowOnMapFab);
     if (hasQuery)
       hideDownloadSuggest();
     else if (doShowDownloadSuggest())
@@ -267,15 +294,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     super.onViewCreated(view, savedInstanceState);
     mSearchAdapter = new SearchAdapter(this);
     mSearchViewModel = new ViewModelProvider(requireActivity()).get(SearchPageViewModel.class);
-    requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),
-                                                               new OnBackPressedCallback(true) {
-                                                                 @Override
-                                                                 public void handleOnBackPressed()
-                                                                 {
-                                                                   if (!onBackPressed())
-                                                                     setEnabled(true);
-                                                                 }
-                                                               });
+    requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), mOnBackPressedCallback);
 
     mSearchFragmentListener = (SearchFragmentListener) getParentFragment();
 
@@ -301,8 +320,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
                                                    updateResultsPlaceholder();
                                                  }
                                                });
-    mShowOnMapFab = root.findViewById(R.id.show_on_map_fab);
-    mShowOnMapFab.setOnClickListener(v -> showAllResultsOnMap());
 
     mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
     mResults.setAdapter(mSearchAdapter);
@@ -333,8 +350,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     //    readArguments();
     updateFrames();
     updateResultsPlaceholder();
-    ViewCompat.setOnApplyWindowInsetsListener(
-        mResults, new WindowInsetUtils.ScrollableContentInsetsListener(mResults, mShowOnMapFab));
 
     mToolbarController.activate();
 
@@ -346,20 +361,20 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       pager.setCurrentItem(lastSelectedTabPosition);
 
     tabAdapter.setTabSelectedListener(tab -> mToolbarController.deactivate());
-
-    if (mInitialSearchOnMap)
-      showAllResultsOnMap();
   }
 
   @Override
   public void onStart()
   {
+    Logger.d("kavi", "on start got called for search fragment");
     super.onStart();
     mToolbarController.attach(requireActivity());
+    mSearchViewModel.getSearchEnabled().observe(getViewLifecycleOwner(), mSearchEnabledObserver);
   }
 
   public void onResume()
   {
+    Logger.d("kavi", "on resume got called for search fragment");
     super.onResume();
     MwmApplication.from(requireContext()).getLocationHelper().addListener(mLocationListener);
     if (mInitialQuery != null && !mInitialQuery.isEmpty())
@@ -372,6 +387,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   @Override
   public void onPause()
   {
+    Logger.d("kavi", "on pause got called for search fragment");
     MwmApplication.from(requireContext()).getLocationHelper().removeListener(mLocationListener);
     super.onPause();
   }
@@ -379,11 +395,13 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   @Override
   public void onStop()
   {
+    Logger.d("kavi", "on stop got called for search fragment");
     super.onStop();
     mSearchViewModel.setLastResults(mSearchAdapter.getResults());
     mSearchViewModel.setSearchQuery(TextUtils.isEmpty(getQuery()) ? null : getQuery());
     mToolbarController.detach();
     mSearchViewModel.getSearchPageLastState().removeObserver(mBottomSheetStateObserver);
+    mSearchViewModel.getSearchEnabled().observe(getViewLifecycleOwner(), mSearchEnabledObserver);
   }
 
   @Override
@@ -418,7 +436,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       mSearchViewModel.setSearchQuery(null);
     }
     //    mInitialLocale = arguments.getString(SearchActivity.EXTRA_LOCALE);
-    //    mInitialSearchOnMap = arguments.getBoolean(SearchActivity.EXTRA_SEARCH_ON_MAP);
   }
 
   private boolean tryRecognizeHiddenCommand(@NonNull String query)
@@ -467,9 +484,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     }
 
     mToolbarController.deactivate();
-
-    if (requireActivity() instanceof SearchActivity)
-      Utils.navigateToParent(requireActivity());
   }
 
   void showAllResultsOnMap()
@@ -671,5 +685,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   interface SearchFragmentListener
   {
     boolean getBackPressedCallback();
+    void onSearchClicked();
   }
 }
