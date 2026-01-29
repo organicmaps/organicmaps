@@ -95,14 +95,6 @@
         android:layout_height="match_parent"/>
     </FrameLayout>
 
-    <include
-      layout="@layout/show_on_map_fab"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="bottom|center"
-      android:layout_margin="@dimen/margin_base"/>
-
-
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>
 
