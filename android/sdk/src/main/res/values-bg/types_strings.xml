@@ -596,6 +596,7 @@
     <string name="type.power.plant.hydro">Водноелектрическа централа</string>
     <string name="type.power.plant.solar">Слънчева електроцентрала</string>
     <string name="type.power.plant.wind">Вятърна електроцентрала</string>
+    <string name="type.railway.disused.tunnel">Неизползван железопътен тунел</string>
     <string name="type.railway.funicular">Фуникуляр</string>
     <string name="type.railway.rail.highspeed">Високоскоростна железница</string>
     <string name="type.railway.rail.tourism">Туристическа железница</string>

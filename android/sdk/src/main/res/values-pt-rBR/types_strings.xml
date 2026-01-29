@@ -309,6 +309,7 @@
     <string name="type.railway.abandoned.bridge">Ferrovia abandonada</string>
     <string name="type.railway.abandoned.tunnel">Ferrovia abandonada</string>
     <string name="type.railway.crossing">Passagem pedestre</string>
+    <string name="type.railway.disused.tunnel">Túnel ferroviário desativado</string>
     <string name="type.railway.funicular.bridge">Funicular</string>
     <string name="type.railway.funicular.tunnel">Funicular</string>
     <string name="type.railway.halt">Ponto de parada</string>

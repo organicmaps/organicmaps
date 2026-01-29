@@ -841,6 +841,7 @@
     <string name="type.railway.crossing">Чыгуначны пераезд</string>
     <string name="type.railway.disused">Закінутая чыгунка</string>
     <string name="type.railway.disused.bridge">Закінуты чыгуначны мост</string>
+    <string name="type.railway.disused.tunnel">Закінуты чыгуначны тунэль</string>
     <string name="type.railway.funicular">Фунікулёр</string>
     <string name="type.railway.funicular.bridge">Фунікулярны мост</string>
     <string name="type.railway.funicular.tunnel">Фунікулярны тунэль</string>

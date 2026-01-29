@@ -791,6 +791,7 @@
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Zutabe elektrikoa</string>
     <string name="type.public_transport">Garraio publikoa</string>
+    <string name="type.railway.disused.tunnel">Erabilerarik gabeko trenbide-tunela</string>
     <string name="type.railway.funicular">Funikularra</string>
     <string name="type.railway.halt">Tren geltokian</string>
     <string name="type.railway.level_crossing">Trenbide-pasagunea</string>

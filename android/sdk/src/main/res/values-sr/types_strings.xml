@@ -833,6 +833,7 @@
     <string name="type.railway.crossing">Пружни прелаз</string>
     <string name="type.railway.disused">Напуштена пруга</string>
     <string name="type.railway.disused.bridge">Напуштен железнички мост</string>
+    <string name="type.railway.disused.tunnel">Напуштен железнички тунел</string>
     <string name="type.railway.funicular">Успињача</string>
     <string name="type.railway.funicular.bridge">Мост успињаче</string>
     <string name="type.railway.funicular.tunnel">Тунел успињаче</string>

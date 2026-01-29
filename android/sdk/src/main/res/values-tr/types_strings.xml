@@ -842,6 +842,7 @@
     <string name="type.railway.crossing">Demir Yolu Geçişi</string>
     <string name="type.railway.disused">Kullanılmayan Demir Yolu</string>
     <string name="type.railway.disused.bridge">Kullanılmayan Demir Yolu Köprüsü</string>
+    <string name="type.railway.disused.tunnel">Kullanılmayan Demir Yolu Tüneli</string>
     <string name="type.railway.funicular">Füniküler</string>
     <string name="type.railway.funicular.bridge">Füniküler Köprüsü</string>
     <string name="type.railway.funicular.tunnel">Füniküler Tüneli</string>

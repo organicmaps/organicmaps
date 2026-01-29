@@ -842,6 +842,7 @@
     <string name="type.railway.crossing">Σιδηροδρομική διάβαση</string>
     <string name="type.railway.disused">Αχρησιμοποίητος σιδηρόδρομος</string>
     <string name="type.railway.disused.bridge">Αχρησιμοποίητη σιδηροδρομική γέφυρα</string>
+    <string name="type.railway.disused.tunnel">Αχρησιμοποίητη σιδηροδρομική σήραγγα</string>
     <string name="type.railway.funicular">Τελεφερίκ</string>
     <string name="type.railway.funicular.bridge">Γέφυρα τελεφερίκ</string>
     <string name="type.railway.funicular.tunnel">Σήραγγα τελεφερίκ</string>
