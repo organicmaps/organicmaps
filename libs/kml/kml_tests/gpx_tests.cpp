@@ -1,3 +1,4 @@
+#include "kml/types.hpp"
 #include "testing/testing.hpp"
 
 #include "kml/color_parser.hpp"
@@ -12,7 +13,10 @@
 
 namespace gpx_tests
 {
-static kml::FileData LoadGpxFromString(std::string_view content)
+namespace
+{
+
+kml::FileData LoadGpxFromString(std::string_view content)
 {
   TEST_NO_THROW(
       {
@@ -23,7 +27,7 @@ static kml::FileData LoadGpxFromString(std::string_view content)
       ());
 }
 
-static kml::FileData LoadGpxFromFile(std::string const & file)
+kml::FileData LoadGpxFromFile(std::string const & file)
 {
   auto const fileName = GetPlatform().TestsDataPathForFile(file);
   std::string text;
@@ -31,7 +35,7 @@ static kml::FileData LoadGpxFromFile(std::string const & file)
   return LoadGpxFromString(text);
 }
 
-static std::string ReadFile(char const * testFile)
+std::string ReadFile(char const * testFile)
 {
   auto const fileName = GetPlatform().TestsDataPathForFile(testFile);
   std::string sourceFileText;
@@ -39,7 +43,7 @@ static std::string ReadFile(char const * testFile)
   return sourceFileText;
 }
 
-static std::string Serialize(kml::FileData const & dataFromFile)
+std::string Serialize(kml::FileData const & dataFromFile)
 {
   std::string resultBuffer;
   MemWriter<decltype(resultBuffer)> sink(resultBuffer);
@@ -48,7 +52,7 @@ static std::string Serialize(kml::FileData const & dataFromFile)
   return resultBuffer;
 }
 
-static std::string ReadFileAndSerialize(char const * testFile)
+std::string ReadFileAndSerialize(char const * testFile)
 {
   kml::FileData const dataFromFile = LoadGpxFromFile(testFile);
   return Serialize(dataFromFile);
@@ -67,6 +71,7 @@ void ImportExportCompare(char const * sourceFile, char const * destinationFile)
   std::string const destinationFileText = ReadFile(destinationFile);
   TEST_EQUAL(resultBuffer, destinationFileText, ());
 }
+}  // namespace
 
 UNIT_TEST(Gpx_ImportExport_Test)
 {
@@ -104,6 +109,44 @@ UNIT_TEST(Gpx_Test_Point_With_Valid_Timestamp)
   kml::FileData const dataFromText = LoadGpxFromString(input);
 
   TEST_EQUAL(dataFromText, data, ());
+}
+
+UNIT_TEST(Gpx_With_Plus_In_Coordinates)
+{
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.0">
+  <wpt lat="+42.81025" lon="+2.65727">
+    <name>Plus</name>
+   </wpt>
+   <trk>
+    <name>https://touren.bodenmais.de/bodenmais/details.php?id=135124</name>
+    <type>Cycling</type>
+    <trkseg>
+      <trkpt lat="+1" lon="+1"><ele>1.0</ele></trkpt>
+      <trkpt lat="+2" lon="+2"><ele>2.0</ele></trkpt>
+      <trkpt lat="+3" lon="+3"><ele>3.0</ele></trkpt>
+      <trkpt lat="+4" lon="+4"><ele>4</ele></trkpt>
+      <trkpt lat="+5" lon="+5"><ele>5</ele></trkpt>
+      <trkpt lat="+6.999" lon="+7.001"><ele>6</ele></trkpt>
+    </trkseg>
+</trk>
+
+)";
+
+  auto const point = mercator::FromLatLon(42.81025, 2.65727);
+
+  std::vector<geometry::PointWithAltitude> const line = {
+      {geometry::PointWithAltitude(mercator::FromLatLon(1, 1), 1.0),
+       geometry::PointWithAltitude(mercator::FromLatLon(2, 2), 2.0),
+       geometry::PointWithAltitude(mercator::FromLatLon(3, 3), 3.0),
+       geometry::PointWithAltitude(mercator::FromLatLon(4, 4), 4.0),
+       geometry::PointWithAltitude(mercator::FromLatLon(5, 5), 5.0),
+       geometry::PointWithAltitude(mercator::FromLatLon(6.999, 7.001), 6.0)}};
+
+  kml::FileData const dataFromText = LoadGpxFromString(input);
+
+  TEST_EQUAL(dataFromText.m_bookmarksData.front().m_point, point, ());
+  TEST_EQUAL(dataFromText.m_tracksData.front().m_geometry.m_lines.front(), line, ());
 }
 
 UNIT_TEST(Gpx_Test_Point_With_Invalid_Timestamp)
