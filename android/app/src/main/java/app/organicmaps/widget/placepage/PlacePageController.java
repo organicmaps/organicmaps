@@ -418,7 +418,12 @@ public class PlacePageController
     mViewModel.setPlacePageWidth(mPlacePage.getWidth());
     mPlacePageStatusBarBackground.getLayoutParams().width = mPlacePage.getWidth();
     // Make sure to update the peek height on the UI thread to prevent weird animation jumps
+    // TODO(AB): Investigate if this post is still necessary.
     mPlacePage.post(() -> {
+      // Fragment may be detached when posting the runnable.
+      if (!isAdded())
+        return;
+
       setPeekHeight();
       if (mShouldCollapse && !PlacePageUtils.isCollapsedState(mPlacePageBehavior.getState()))
       {
