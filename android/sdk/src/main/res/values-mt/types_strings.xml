@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Types: Historic -->
+    <string name="type.railway.disused.tunnel">Mina tal-ferrovija mitluqa</string>
+</resources>

@@ -770,6 +770,7 @@
     <string name="type.power.substation">Muuntoasema</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Sähköpylväs</string>
+    <string name="type.railway.disused.tunnel">Käytöstä poistettu rautatietunneli</string>
     <string name="type.railway.funicular">Köysirata</string>
     <string name="type.railway.halt">Rautatieasema</string>
     <string name="type.railway.level_crossing">Rautatien tasoristeys</string>

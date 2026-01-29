@@ -834,6 +834,7 @@
     <string name="type.railway.crossing">Jernbaneovergang</string>
     <string name="type.railway.disused">Ubenyttet jernbane</string>
     <string name="type.railway.disused.bridge">Ubenyttet jernbanebro</string>
+    <string name="type.railway.disused.tunnel">Ubenyttet jernbanetunnel</string>
     <string name="type.railway.funicular">Funicular</string>
     <string name="type.railway.funicular.bridge">Kabelbanebro</string>
     <string name="type.railway.funicular.tunnel">Kabelbanetunnel</string>

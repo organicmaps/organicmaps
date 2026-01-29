@@ -842,6 +842,7 @@
     <string name="type.railway.crossing">Passage à niveau pour piéton</string>
     <string name="type.railway.disused">Chemin de fer désaffecté</string>
     <string name="type.railway.disused.bridge">Pont ferroviaire désaffecté</string>
+    <string name="type.railway.disused.tunnel">Tunnel ferroviaire désaffecté</string>
     <string name="type.railway.funicular">Funiculaire</string>
     <string name="type.railway.funicular.bridge">Funiculaire</string>
     <string name="type.railway.funicular.tunnel">Funiculaire</string>

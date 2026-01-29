@@ -699,6 +699,7 @@
     <string name="type.power.tower">Strømmast</string>
     <string name="type.public_transport">Offentlig transport</string>
     <string name="type.railway">Jernbane</string>
+    <string name="type.railway.disused.tunnel">Nedlagt jernbanetunnel</string>
     <string name="type.railway.funicular">Kabelbane</string>
     <string name="type.railway.halt">Togstasjon</string>
     <string name="type.railway.level_crossing">Planovergang</string>

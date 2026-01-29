@@ -842,6 +842,7 @@
     <string name="type.railway.crossing">Þverun járnbrauta</string>
     <string name="type.railway.disused">Aflögð járnbraut</string>
     <string name="type.railway.disused.bridge">Aflögð járnbrautarbrú</string>
+    <string name="type.railway.disused.tunnel">Aflögð járnbrautargöng</string>
     <string name="type.railway.funicular">Dráttarlest</string>
     <string name="type.railway.funicular.bridge">Dráttarlestarbrú</string>
     <string name="type.railway.funicular.tunnel">Dráttarlestargöng</string>

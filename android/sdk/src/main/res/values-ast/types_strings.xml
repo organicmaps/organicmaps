@@ -286,6 +286,7 @@
     <string name="type.public_transport">Tresporte públicu</string>
     <string name="type.railway.abandoned.bridge">Ponte ferroviaria abandonada</string>
     <string name="type.railway.abandoned.tunnel">Túnel ferroviariu abandonáu</string>
+    <string name="type.railway.disused.tunnel">Túnel ferroviariu en desusu</string>
     <string name="type.railway.preserved.bridge">Ponte ferroviaria conservada</string>
     <string name="type.railway.preserved.tunnel">Túnel ferroviariu conserváu</string>
     <string name="type.railway.rail.bridge">Ponte ferroviaria</string>
