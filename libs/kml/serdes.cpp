@@ -134,7 +134,7 @@ BookmarkIcon GetIcon(std::string const & iconName)
   return BookmarkIcon::None;
 }
 
-void SaveStyle(Writer & writer, std::string const & style, std::string_view const & indent)
+void SaveStyle(Writer & writer, std::string const & style, std::string_view const indent)
 {
   if (style.empty())
     return;
@@ -164,7 +164,7 @@ std::string TimestampToString(Timestamp const & timestamp)
 }
 
 void SaveLocalizableString(Writer & writer, LocalizableString const & str, std::string const & tagName,
-                           std::string_view const & indent)
+                           std::string_view const indent)
 {
   writer << indent << "<mwm:" << tagName << ">\n";
   for (auto const & s : str)
@@ -178,7 +178,7 @@ void SaveLocalizableString(Writer & writer, LocalizableString const & str, std::
 
 template <class StringViewLike>
 void SaveStringsArray(Writer & writer, std::vector<StringViewLike> const & stringsArray, std::string const & tagName,
-                      std::string_view const & indent)
+                      std::string_view const indent)
 {
   if (stringsArray.empty())
     return;
@@ -201,7 +201,7 @@ void SaveStringsArray(Writer & writer, std::vector<StringViewLike> const & strin
 }
 
 void SaveStringsMap(Writer & writer, std::map<std::string, std::string> const & stringsMap, std::string const & tagName,
-                    std::string_view const & indent)
+                    std::string_view const indent)
 {
   if (stringsMap.empty())
     return;
@@ -424,7 +424,7 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
   writer << kIndent2 << "</Placemark>\n";
 }
 
-void SaveTrackLayer(Writer & writer, TrackLayer const & layer, std::string_view const & indent)
+void SaveTrackLayer(Writer & writer, TrackLayer const & layer, std::string_view const indent)
 {
   writer << indent << "<color>";
   SaveColorToABGR(writer, layer.m_color.m_rgba);

@@ -92,7 +92,7 @@ std::expected<std::string, SerializationError> Serialize(TimeZone const & timeZo
   return buf;
 }
 
-std::expected<TimeZone, SerializationError> Deserialize(std::string_view const & data)
+std::expected<TimeZone, SerializationError> Deserialize(std::string_view const data)
 {
   if (data.size() < TimeZone::kTotalSizeInBytes)
     return std::unexpected{SerializationError::IncorrectHeader};
