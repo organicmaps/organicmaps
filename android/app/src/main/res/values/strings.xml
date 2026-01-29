@@ -23,6 +23,8 @@
     <string name="search">Search</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Search Map</string>
+    <!-- Placeholder text for search box to clarify that the search does not look for places outside downloaded maps -->
+    <string name="search_hint">Search downloaded maps</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">You currently have all Location Services for this device or application disabled. Please enable them in Settings.</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->

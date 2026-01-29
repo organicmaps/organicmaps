@@ -2,6 +2,8 @@
 <resources>
 
     <!-- SECTION: Strings -->
+    <!-- Placeholder text for search box to clarify that the search does not look for places outside downloaded maps -->
+    <string name="search_hint">Tafuta katika ramani zilizopakuliwa</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">Usahihi mdogo</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->

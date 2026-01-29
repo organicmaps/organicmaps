@@ -23,6 +23,8 @@
     <string name="search">搜索</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">搜索地图</string>
+    <!-- Placeholder text for search box to clarify that the search does not look for places outside downloaded maps -->
+    <string name="search_hint">搜索已下载的地图</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">您当前已禁用此设备或应用程序的所有位置服务，请在设置中启用。</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->

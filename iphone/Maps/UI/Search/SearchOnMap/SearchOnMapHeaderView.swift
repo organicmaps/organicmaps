@@ -63,7 +63,7 @@ final class SearchOnMapHeaderView: UIView {
 
   private func setupSearchBar() {
     searchBar.setStyle(.searchOnMapSearchBar)
-    searchBar.placeholder = L("search")
+    searchBar.placeholder = L("search_hint")
     searchBar.showsCancelButton = false
     searchBar.searchBarStyle = .minimal
     if #available(iOS 13.0, *) {
