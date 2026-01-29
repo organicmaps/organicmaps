@@ -22,7 +22,7 @@ bool RelationTagsBase::IsSkipRelation(std::string_view type)
   return type == "multipolygon" || type == "bridge";
 }
 
-bool RelationTagsBase::IsKeyTagExists(std::string_view const & key) const
+bool RelationTagsBase::IsKeyTagExists(std::string_view const key) const
 {
   return m_current->HasTag(key);
 }

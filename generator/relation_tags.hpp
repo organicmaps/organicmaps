@@ -39,7 +39,7 @@ public:
 
 protected:
   static bool IsSkipRelation(std::string_view type);
-  bool IsKeyTagExists(std::string_view const & key) const;
+  bool IsKeyTagExists(std::string_view const key) const;
   void AddCustomTag(std::string_view key, std::string_view value);
   void AddCustomTag(std::pair<std::string, std::string> const & p) { AddCustomTag(p.first, p.second); }
   void AddTagIfNotExist(std::string_view key, std::string_view value);

@@ -109,7 +109,7 @@ class TestAddrInterpol : public TestStreet
 {
 public:
   TestAddrInterpol(vector<m2::PointD> const & points, feature::InterpolType interpol, string const & hnBeg,
-                   string const & hnEnd, string_view const & street = {})
+                   string const & hnEnd, string_view const street = {})
     : TestStreet(points, {})
     , m_street(street)
   {

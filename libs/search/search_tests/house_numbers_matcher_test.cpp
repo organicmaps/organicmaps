@@ -27,7 +27,7 @@ bool HouseNumbersMatchConscription(string const & houseNumber, string const & qu
   return search::house_numbers::HouseNumbersMatchConscription(MakeUniString(houseNumber), queryParse);
 }
 
-bool HouseNumbersMatchRange(string_view const & hnRange, string const & query, feature::InterpolType interpol)
+bool HouseNumbersMatchRange(string_view const hnRange, string const & query, feature::InterpolType interpol)
 {
   vector<Token> queryParse;
   ParseQuery(MakeUniString(query), false /* isPrefix */, queryParse);
