@@ -258,7 +258,7 @@ public class Holders
     @NonNull
     private final TextView mName;
     @NonNull
-    CheckBox mVisibilityMarker;
+    ImageView mVisibilityMarker;
     @NonNull
     ImageView mMoreButton;
 
@@ -272,7 +272,10 @@ public class Holders
 
     void setVisibilityState(boolean visible)
     {
-      mVisibilityMarker.setChecked(visible);
+      if (visible)
+        mVisibilityMarker.setImageResource(R.drawable.ic_show);
+      else
+        mVisibilityMarker.setImageResource(R.drawable.ic_hide);
     }
 
     void setVisibilityListener(@Nullable View.OnClickListener listener)
