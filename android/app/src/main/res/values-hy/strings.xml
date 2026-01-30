@@ -1,0 +1,889 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">Հետ</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">Չեղարկել</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Ջնջել</string>
+    <string name="download_maps">Ներբեռնել քարտեզներ</string>
+    <!-- Settings/Downloader - info for country when download fails -->
+    <string name="download_has_failed">Ներբեռնումը ձախողվեց: Հպեք՝ նորից փորձելու համար:</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
+    <string name="downloading">Ներբեռնում…</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">Կիլոմետրեր</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <string name="miles">Մղոններ</string>
+    <!-- Update maps later button text -->
+    <string name="later">Ավելի ուշ</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Որոնում</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+    <string name="search_map">Որոնում քարտեզի վրա</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Ձեր սարքում կամ հավելվածում անջատված են տեղորոշման բոլոր ծառայությունները: Խնդրում ենք միացնել դրանք Կարգավորումներում:</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Սահմանափակ ճշգրտություն</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Ճշգրիտ նավիգացիայի համար միացրեք «Ճշգրիտ տեղորոշումը» կարգավորումներում:</string>
+    <!-- View and button titles for accessibility -->
+    <string name="zoom_to_country">Ցուցադրել քարտեզի վրա</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Ներբեռնումը ձախողվեց</string>
+    <!-- Button text for the button under the country_status_download_failed message -->
+    <string name="try_again">Փորձել նորից</string>
+    <string name="about_menu_title">Organic Maps-ի մասին</string>
+    <!-- Text in About screen -->
+    <string name="about_headline">Անվճար բոլորի համար՝ պատրաստված սիրով</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_1">• Ոչ մի գովազդ, հետևում կամ տվյալների հավաքագրում</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_2">• Չի սպառում մարտկոցը, աշխատում է օֆլայն</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_3">• Արագ, մինիմալիստական, մշակված համայնքի կողմից</string>
+    <!-- Text in About screen -->
+    <string name="about_developed_by_enthusiasts">Էնտուզիաստների և կամավորների կողմից ստեղծված բաց կոդով հավելված:</string>
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">Տեղորոշման կարգավորումներ</string>
+    <string name="close">Փակել</string>
+    <string name="unsupported_phone">Հավելվածը պահանջում է ապարատային արագացմամբ OpenGL: Ցավոք, ձեր սարքը չի աջակցվում:</string>
+    <string name="download">Ներբեռնել</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable">Organic Maps-ից օգտվելու համար խնդրում ենք անջատել USB մալուխը կամ տեղադրել հիշողության քարտը</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="not_enough_free_space_on_sdcard">Հավելվածից օգտվելու համար խնդրում ենք ազատել տեղ SD քարտի/USB կրիչի վրա</string>
+    <string name="download_resources">Նախքան հավելվածից օգտվելը, խնդրում ենք ներբեռնել աշխարհի ընդհանուր քարտեզը.\nԱյն կզբաղեցնի %s հիշողություն:</string>
+    <string name="download_resources_continue">Անցնել քարտեզին</string>
+    <string name="downloading_country_can_proceed">Ներբեռնվում է %s: Այժմ կարող եք\nանցնել քարտեզին:</string>
+    <string name="download_country_ask">Ներբեռնե՞լ %s-ը:</string>
+    <string name="update_country_ask">Թարմացնե՞լ %s-ը:</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="pause">Դադար</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="continue_button">Շարունակել</string>
+    <!-- Show popup notification on top of the map when country download has failed. -->
+    <string name="download_country_failed">%s: ներբեռնումը ձախողվեց</string>
+    <!-- "Add new bookmark list" dialog title -->
+    <string name="add_new_set">Ավելացնել նոր ցուցակ</string>
+    <!-- Add Bookmark list dialog - hint when the list name is empty -->
+    <string name="bookmark_set_name">Էջանիշների ցուցակի անունը</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Էջանիշներ</string>
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
+    <string name="bookmarks_and_tracks">Էջանիշներ և հետագծեր</string>
+    <!-- Add bookmark dialog - bookmark name -->
+    <string name="name">Անուն</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">Հասցե</string>
+    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+    <string name="list">Ցուցակ</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Կարգավորումներ</string>
+    <!-- Header of settings activity where user defines storage path -->
+    <string name="maps_storage">Պահպանել քարտեզները՝</string>
+    <!-- Detailed description of Maps Storage settings button -->
+    <string name="maps_storage_summary">Ընտրեք պանակը, որտեղ ներբեռնվելու են քարտեզները:</string>
+    <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+    <string name="maps_storage_downloaded">Ներբեռնված քարտեզներ</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%1$s ազատ է %2$s-ից</string>
+    <!-- Question dialog for transferring maps from one storage to another -->
+    <string name="move_maps">Տեղափոխե՞լ քարտեզները:</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">Քարտեզի ֆայլերի տեղափոխման սխալ</string>
+    <!-- Ask user to wait several minutes (some long process in modal dialog). -->
+    <string name="wait_several_minutes">Դա կարող է տևել մի քանի րոպե.\nԽնդրում ենք սպասել…</string>
+    <!-- Measurement units title in settings activity -->
+    <string name="measurement_units">Չափման միավորներ</string>
+    <!-- Detailed description of Measurement Units settings button -->
+    <string name="measurement_units_summary">Ընտրեք մղոնների և կիլոմետրերի միջև</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Որտեղ սնվել</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Մթերային</string>
+    <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+    <string name="category_transport">Տրանսպորտ</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Վառելիք</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Կայանատեղի</string>
+    <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+    <string name="category_shopping">Գնումներ</string>
+    <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+    <string name="category_secondhand">Սեքենդ Հենդ</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Հյուրանոց</string>
+    <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+    <string name="category_tourism">Տեսարժան վայրեր</string>
+    <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+    <string name="category_entertainment">Ժամանց</string>
+    <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+    <string name="category_atm">Բանկոմատ</string>
+    <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+    <string name="category_nightlife">Գիշերային կյանք</string>
+    <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+    <string name="category_children">Ընտանեկան հանգիստ</string>
+    <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+    <string name="category_bank">Բանկ</string>
+    <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+    <string name="category_pharmacy">Դեղատուն</string>
+    <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+    <string name="category_hospital">Հիվանդանոց</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Զուգարան</string>
+    <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+    <string name="category_post">Փոստ</string>
+    <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+    <string name="category_police">Ոստիկանություն</string>
+    <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+    <string name="category_recycling">Վերամշակում</string>
+    <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+    <string name="category_water">Ջուր</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Քեմփինգներ</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Notes field in Bookmarks view -->
+    <string name="description">Նշումներ</string>
+    <!-- Email Subject when sharing bookmark list -->
+    <string name="share_bookmarks_email_subject">Ձեզ հետ կիսվել են Organic Maps-ի էջանիշներով</string>
+    <string name="share_bookmarks_email_body">Ողջույն!\nԿից ներկայացված են իմ էջանիշները: Խնդրում եմ բացել դրանք Organic Maps-ում: Եթե այն տեղադրված չէ, կարող եք ներբեռնել այստեղ՝ https://omaps.app/get?kmz\nՎայելեք ճանապարհորդությունը Organic Maps-ի հետ:</string>
+    <!-- message title of loading file -->
+    <string name="load_kmz_title">Էջանիշների բեռնում</string>
+    <!-- Kmz file successful loading -->
+    <string name="load_kmz_successful">Էջանիշները հաջողությամբ բեռնվեցին: Դուք կարող եք գտնել դրանք քարտեզի վրա կամ «Էջանիշների կառավարիչ» էկրանին:</string>
+    <!-- Kml file loading failed -->
+    <string name="load_kmz_failed">Չհաջողվեց բեռնել էջանիշները: Ֆայլը կարող է վնասված կամ անսարք լինել:</string>
+    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
+    <string name="unknown_file_type">Ֆայլի տեսակը չի ճանաչվել հավելվածի կողմից՝\n%1$s</string>
+    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <string name="failed_to_open_file">Չհաջողվեց բացել %1$s ֆայլը\n\n%2$s</string>
+    <!-- resource for context menu -->
+    <string name="edit">Խմբագրել</string>
+    <!-- Warning message when doing search around current position -->
+    <string name="unknown_current_position">Ձեր տեղորոշումը դեռ չի որոշվել</string>
+    <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+    <string name="cant_change_this_setting">Ներեցեք, քարտեզների պահպանման կարգավորումները ներկայումս անջատված են:</string>
+    <!-- Alert message that downloading is in progress. -->
+    <string name="downloading_is_active">Քարտեզի ներբեռնումն ընթացքի մեջ է:</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Տես իմ ընթացիկ դիրքը Organic Maps-ում: %1$s կամ %2$s Չունե՞ք օֆլայն քարտեզներ: Ներբեռնեք այստեղ՝ https://omaps.app/get</string>
+    <!-- Subject for emailed bookmark -->
+    <string name="bookmark_share_email_subject">Հեյ, տես իմ նշումը Organic Maps-ում:</string>
+    <!-- Subject for emailed position -->
+    <string name="my_position_share_email_subject">Հեյ, տես իմ ընթացիկ դիրքը Organic Maps քարտեզի վրա:</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email">Ողջույն,\n\nԵս հիմա այստեղ եմ՝ %1$s: Սեղմեք այս հղմանը՝ %2$s կամ սրան՝ %3$s, տեղանքը քարտեզի վրա տեսնելու համար.\n\nՇնորհակալություն.</string>
+    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+    <string name="share">Կիսվել</string>
+    <!-- Share by email button text, also used in editor and About. -->
+    <string name="email">Էլ․ փոստ</string>
+    <!-- Text for message when used successfully copied something -->
+    <string name="copied_to_clipboard">Պատճենված է սեղմատախտակին՝ %s</string>
+    <!-- Used for bookmark editing -->
+    <string name="done">Պատրաստ է</string>
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMap տվյալներ՝ %s</string>
+    <!-- Confirmation for OpenStreetMap log out. -->
+    <string name="osm_log_out_confirmation">Վստա՞հ եք, որ ցանկանում եք դուրս գալ ձեր OpenStreetMap հաշվից:</string>
+    <!-- Title for tracks category in bookmarks manager -->
+    <string name="tracks_title">Հետագծեր</string>
+    <!-- Length of track in cell that describes route -->
+    <string name="length">Երկարություն</string>
+    <string name="share_my_location">Կիսվել իմ տեղադիրքով</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">Ընդհանուր կարգավորումներ</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">Տեղեկություն</string>
+    <string name="prefs_group_route">Նավիգացիա</string>
+    <!-- Setting name which enables or disables zoom buttons on the map screen. -->
+    <string name="pref_zoom_title">«+» և «-» կոճակները քարտեզի վրա</string>
+    <string name="pref_zoom_summary">Ցուցադրել քարտեզի վրա</string>
+    <string name="pref_auto_night_in_navigation_title">Գիշերային ոճ մթության մեջ վարելիս</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Գիշերային ռեժիմ</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Անջատված</string>
+    <!-- Generic «On» string -->
+    <string name="on">Միացված</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Ավտոմատ</string>
+    <!-- Settings «Map» category: «Perspective view» title -->
+    <string name="pref_map_3d_title">Հեռանկարային տեսք</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D շենքեր</string>
+    <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+    <string name="pref_map_3d_buildings_disabled_summary">3D շենքերն անջատված են էներգախնայողության ռեժիմում</string>
+    <!-- Settings «Route» category: «Tts enabled» title -->
+    <string name="pref_tts_enable_title">Ձայնային հրահանգներ</string>
+    <!-- Settings «Route» category: «Tts announce street names» title -->
+    <string name="pref_tts_street_names_title">Հայտարարել փողոցների անունները</string>
+    <!-- Settings «Route» category: «Tts announce street names» description -->
+    <string name="pref_tts_street_names_description">Միացված լինելու դեպքում, փողոցի անունը կամ շրջադարձի ելքը կհնչեցվի բարձրաձայն:</string>
+    <!-- Settings «Route» category: «Tts language» title -->
+    <string name="pref_tts_language_title">Ձայնի լեզուն</string>
+    <!-- Settings «Route» category: «Test Voice Directions» title -->
+    <string name="pref_tts_test_voice_title">Փորձարկել ձայնային ուղղորդումը (TTS)</string>
+    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+    <string name="pref_tts_playing_test_voice">Ստուգեք ձայնի ուժգնությունը կամ համակարգի Text-To-Speech կարգավորումները, եթե հիմա ձայն չեք լսում:</string>
+    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <string name="pref_tts_unavailable">Անհասանելի է</string>
+    <string name="pref_map_auto_zoom">Ավտոմատ խոշորացում</string>
+    <string name="placepage_distance">Հեռավորություն</string>
+    <string name="search_show_on_map">Դիտել քարտեզի վրա</string>
+    <!-- Menu button -->
+    <string name="menu">Մենյու</string>
+    <!-- Text in menu -->
+    <string name="website">Կայք</string>
+    <!-- Text in About menu, opens Organic Maps news website -->
+    <string name="news">Նորություններ</string>
+    <!-- Settings: Send feedback button and dialog title -->
+    <string name="feedback">Հետադարձ կապ</string>
+    <!-- Text in menu -->
+    <string name="rate_the_app">Գնահատել հավելվածը</string>
+    <!-- Text in menu -->
+    <string name="help">Օգնություն</string>
+    <!-- Button in the main Help dialog -->
+    <string name="faq">Հաճախ տրվող հարցեր</string>
+    <!-- Button in the main menu -->
+    <string name="donate">Նվիրաբերել</string>
+    <string name="already_donated">Արդեն նվիրաբերել եմ</string>
+    <string name="remind_me_later">Հիշեցնել ավելի ուշ</string>
+    <string name="support_organic_maps">Աջակցել Organic Maps-ին</string>
+    <!-- Button in the main Help dialog -->
+    <string name="how_to_support_us">Աջակցել նախագծին</string>
+    <!-- Button in the main Help dialog -->
+    <string name="copyright">Հեղինակային իրավունք</string>
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
+    <string name="report_a_bug">Հայտնել սխալի մասին</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_recommended">Նետի ուղղությունը բարելավելու համար հեռախոսը շարժեք ութաձև՝ կողմնացույցը կարգաբերելու նպատակով:</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_required">Հեռախոսը շարժեք ութաձև՝ կողմնացույցը կարգաբերելու և քարտեզի վրա նետի ուղղությունը ուղղելու համար:</string>
+    <!-- Toast text when user hides UI with a long tap anywhere on the map -->
+    <string name="long_tap_toast">Կրկին երկար սեղմեք քարտեզին՝ ինտերֆեյսը տեսնելու համար</string>
+    <!-- Update all button text -->
+    <string name="downloader_update_all_button">Թարմացնել բոլորը</string>
+    <!-- Cancel all button text -->
+    <string name="downloader_cancel_all">Չեղարկել բոլորը</string>
+    <!-- Downloaded maps list header -->
+    <string name="downloader_downloaded_subtitle">Ներբեռնված են</string>
+    <!-- Country queued for download -->
+    <string name="downloader_queued">Հերթագրված է</string>
+    <string name="downloader_near_me_subtitle">Իմ մոտակայքում</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Քարտեզներ</string>
+    <string name="downloader_download_all_button">Ներբեռնել բոլորը</string>
+    <string name="downloader_downloading">Ներբեռնվում է՝</string>
+    <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+    <string name="downloader_delete_map_while_routing_dialog">Քարտեզը ջնջելու համար խնդրում ենք դադարեցնել նավիգացիան:</string>
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Երթուղիները կարող են ստեղծվել միայն մեկ տարածաշրջանի քարտեզի սահմաններում:</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Ներբեռնել քարտեզը</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Կրկնել</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_delete_map">Ջնջել քարտեզը</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Թարմացնել քարտեզը</string>
+    <!-- Preference title -->
+    <string name="google_play_services">Google Play Տեղորոշման ծառայություններ</string>
+    <!-- Preference text -->
+    <string name="pref_use_google_play">Արագ որոշեք ձեր մոտավոր տեղորոշումը Bluetooth-ի, WiFi-ի կամ բջջային ցանցի միջոցով</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Ներբեռնել ձեր երթուղու երկայնքով բոլոր քարտեզները</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Երթուղի ստեղծելու համար մենք պետք է ներբեռնենք և թարմացնենք բոլոր քարտեզները՝ ձեր գտնվելու վայրից մինչև նպատակակետ:</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_not_enough_space">Բավարար տեղ չկա</string>
+    <!-- location service disabled -->
+    <string name="enable_location_services">Խնդրում ենք միացնել տեղորոշման ծառայությունները</string>
+    <string name="save">Պահպանել</string>
+    <string name="create">ստեղծել</string>
+    <!-- red color -->
+    <string name="red">Կարմիր</string>
+    <!-- yellow color -->
+    <string name="yellow">Դեղին</string>
+    <!-- blue color -->
+    <string name="blue">Կապույտ</string>
+    <!-- green color -->
+    <string name="green">Կանաչ</string>
+    <!-- purple color -->
+    <string name="purple">Մանուշակագույն</string>
+    <!-- orange color -->
+    <string name="orange">Նարնջագույն</string>
+    <!-- brown color -->
+    <string name="brown">Շագանակագույն</string>
+    <!-- pink color -->
+    <string name="pink">Վարդագույն</string>
+    <!-- deep purple color -->
+    <string name="deep_purple">Մուգ մանուշակագույն</string>
+    <!-- light blue color -->
+    <string name="light_blue">Բաց կապույտ</string>
+    <!-- cyan color -->
+    <string name="cyan">Երկնագույն</string>
+    <!-- teal color -->
+    <string name="teal">Փիրուզագույն</string>
+    <!-- lime color -->
+    <string name="lime">Լայմ</string>
+    <!-- deep orange color -->
+    <string name="deep_orange">Մուգ նարնջագույն</string>
+    <!-- gray color -->
+    <string name="gray">Մոխրագույն</string>
+    <!-- blue gray color -->
+    <string name="blue_gray">Կապտամոխրագույն</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Արտաքին տեսք</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Լուսավոր</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Մուգ</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">Նվիրեք անվճար և առանց գովազդի քարտեզներ միլիոնավոր օգտատերերի:</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_disclaimer_title">Երթուղով շարժվելիս հիշեք՝</string>
+    <string name="dialog_routing_disclaimer_priority">— Ճանապարհային պայմանները, երթևեկության կանոնները և նշանները միշտ ավելի կարևոր են, քան նավիգացիայի հուշումները;</string>
+    <string name="dialog_routing_disclaimer_precision">— Քարտեզը կարող է անճիշտ լինել, իսկ առաջարկվող երթուղին միշտ չէ, որ նպատակակետ հասնելու լավագույն տարբերակն է;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— Առաջարկվող երթուղիները պետք է ընկալել միայն որպես խորհուրդ;</string>
+    <string name="dialog_routing_disclaimer_borders">— Զգույշ եղեք սահմանամերձ գոտիներում երթուղիների հետ. հավելվածի կողմից ստեղծված երթուղիները երբեմն կարող են հատել պետական սահմանները չթույլատրված վայրերում:</string>
+    <string name="dialog_routing_disclaimer_beware">Խնդրում ենք լինել ուշադիր և զգույշ ճանապարհներին:</string>
+    <string name="dialog_routing_check_gps">Ստուգեք GPS ազդանշանը</string>
+    <string name="dialog_routing_error_location_not_found">Հնարավոր չէ կառուցել երթուղին։ Ընթացիկ GPS կոորդինատները չեն որոշվել:</string>
+    <string name="dialog_routing_location_turn_wifi">Խնդրում ենք ստուգել GPS ազդանշանը: Wi-Fi-ի միացումը կբարելավի տեղորոշման ճշգրտությունը:</string>
+    <string name="dialog_routing_location_turn_on">Միացնել տեղորոշման ծառայությունները</string>
+    <string name="dialog_routing_location_unknown_turn_on">Հնարավոր չէ որոշել ընթացիկ GPS կոորդինատները։ Միացրեք տեղորոշման ծառայությունները՝ երթուղին հաշվարկելու համար:</string>
+    <string name="dialog_routing_unable_locate_route">Երթուղին չի գտնվել</string>
+    <string name="dialog_routing_cant_build_route">Հնարավոր չէ կառուցել երթուղին:</string>
+    <string name="dialog_routing_change_start_or_end">Խնդրում ենք փոխել մեկնարկային կետը կամ նպատակակետը:</string>
+    <string name="dialog_routing_change_start">Փոխել մեկնարկային կետը</string>
+    <string name="dialog_routing_start_not_determined">Երթուղին չի կառուցվել։ Հնարավոր չէ գտնել մեկնարկային կետը:</string>
+    <string name="dialog_routing_select_closer_start">Խնդրում ենք ընտրել ճանապարհին ավելի մոտ մեկնարկային կետ:</string>
+    <string name="dialog_routing_change_end">Փոխել նպատակակետը</string>
+    <string name="dialog_routing_end_not_determined">Երթուղին չի կառուցվել։ Հնարավոր չէ գտնել նպատակակետը:</string>
+    <string name="dialog_routing_select_closer_end">Խնդրում ենք ընտրել ճանապարհին ավելի մոտ նպատակակետ:</string>
+    <string name="dialog_routing_change_intermediate">Հնարավոր չէ գտնել միջանկյալ կետը:</string>
+    <string name="dialog_routing_intermediate_not_determined">Խնդրում ենք փոխել միջանկյալ կետը:</string>
+    <string name="dialog_routing_system_error">Համակարգային սխալ</string>
+    <string name="dialog_routing_application_error">Հնարավոր չէ կառուցել երթուղին ծրագրային սխալի պատճառով:</string>
+    <string name="dialog_routing_try_again">Խնդրում ենք փորձել կրկին</string>
+    <string name="not_now">Ոչ հիմա</string>
+    <string name="dialog_routing_download_and_build_cross_route">Ցանկանո՞ւմ եք ներբեռնել քարտեզը և կառուցել ավելի օպտիմալ երթուղի, որն անցնում է մեկից ավելի քարտեզներով:</string>
+    <string name="dialog_routing_download_cross_route">Ներբեռնեք լրացուցիչ քարտեզներ՝ ավելի լավ երթուղի կառուցելու համար, որն անցնում է այս քարտեզի սահմաններից դուրս:</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="search_without_internet_advertisement">Որոնման և երթուղիների կառուցման համար խնդրում ենք ներբեռնել քարտեզը: Դրանից հետո ինտերնետ կապ այլևս չի պահանջվի:</string>
+    <string name="search_select_map">Ընտրել քարտեզը</string>
+    <!-- «Show» context menu -->
+    <string name="show">Ցուցադրել</string>
+    <!-- «Hide» context menu -->
+    <string name="hide">Թաքցնել</string>
+    <string name="categories">Կատեգորիաներ</string>
+    <string name="history">Պատմություն</string>
+    <string name="search_not_found">Ոչինչ չգտնվեց:</string>
+    <!-- The message when user did not find anything in the search. -->
+    <string name="search_not_found_query">Ներբեռնեք այն տարածաշրջանի քարտեզը, որտեղ որոնում եք կատարում, կամ փորձեք ավելացնել մոտակա քաղաքի/գյուղի անունը:</string>
+    <string name="search_history_title">Որոնման պատմություն</string>
+    <string name="search_history_text">Դիտեք ձեր վերջին որոնումները:</string>
+    <string name="clear_search">Մաքրել որոնման պատմությունը</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Վիքիպեդիա</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Վիքիպահեստ</string>
+    <string name="p2p_your_location">Ձեր գտնվելու վայրը</string>
+    <string name="p2p_start">Սկիզբ</string>
+    <string name="p2p_from_here">Երթուղի այստեղից</string>
+    <string name="p2p_to_here">Երթուղի դեպի այստեղ</string>
+    <string name="p2p_only_from_current">Նավիգացիան հասանելի է միայն ձեր ընթացիկ վայրից:</string>
+    <string name="p2p_reroute_from_current">Ցանկանո՞ւմ եք կառուցել երթուղի ձեր ընթացիկ վայրից:</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Հաջորդը</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_from">Սկիզբ</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_to">Ավարտ</string>
+    <string name="editor_time_add">Ավելացնել գրաֆիկ</string>
+    <string name="editor_time_delete">Ջնջել գրաֆիկը</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Շուրջօրյա (24 ժամ)</string>
+    <string name="editor_time_open">Բաց է</string>
+    <string name="editor_time_close">Փակ է</string>
+    <string name="editor_time_add_closed">Ավելացնել ոչ աշխատանքային ժամերը</string>
+    <string name="editor_time_title">Աշխատանքային ժամեր</string>
+    <string name="editor_time_advanced">Ընդլայնված ռեժիմ</string>
+    <string name="editor_time_simple">Պարզ ռեժիմ</string>
+    <string name="editor_hours_closed">Ոչ աշխատանքային ժամեր</string>
+    <string name="editor_example_values">Օրինակելի արժեքներ</string>
+    <string name="editor_correct_mistake">Ուղղել սխալը</string>
+    <string name="editor_add_select_location">Ընտրել վայրը</string>
+    <string name="editor_report_problem_desription_1">Խնդրում ենք մանրամասն նկարագրել խնդիրը, որպեսզի OpenStreetMap համայնքը կարողանա ուղղել այն:</string>
+    <string name="editor_report_problem_desription_2">Կամ արեք դա ինքներդ https://www.openstreetmap.org/ կայքում</string>
+    <string name="editor_report_problem_send_button">Ուղարկել</string>
+    <string name="editor_report_problem_title">Խնդիր</string>
+    <string name="editor_report_problem_no_place_title">Այս վայրը գոյություն չունի</string>
+    <string name="editor_report_problem_under_construction_title">Փակ է վերանորոգման համար</string>
+    <string name="editor_report_problem_duplicate_place_title">Կրկնվող վայր</string>
+    <string name="autodownload">Քարտեզների ավտոմատ ներբեռնում</string>
+    <!-- Place Page opening hours text -->
+    <string name="daily">Ամեն օր</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Այսօր փակ է</string>
+    <string name="day_off">Փակ է</string>
+    <string name="today">Այսօր</string>
+    <string name="opens_in">Բացվում է %s</string>
+    <string name="closes_in">Փակվում է %s</string>
+    <string name="closed">Փակ է</string>
+    <string name="edit_opening_hours">Խմբագրել աշխատանքային ժամերը</string>
+    <string name="no_osm_account">Չունե՞ք OpenStreetMap հաշիվ:</string>
+    <string name="register_at_openstreetmap">Գրանցվել OpenStreetMap-ում</string>
+    <string name="login">Մուտք</string>
+    <!-- Status message indicating that user did not login to OSM profile yet. -->
+    <string name="not_signed_in">Մուտք չեք գործել</string>
+    <string name="login_osm">Մուտք OpenStreetMap</string>
+    <string name="password">Գաղտնաբառ</string>
+    <string name="forgot_password">Մոռացե՞լ եք գաղտնաբառը:</string>
+    <string name="logout">Դուրս գալ</string>
+    <string name="edit_place">Խմբագրել վայրը</string>
+    <string name="add_language">Ավելացնել լեզու</string>
+    <string name="street">Փողոց</string>
+    <!-- Editable House Number text field (in address block). -->
+    <string name="house_number">Շենքի համարը</string>
+    <string name="details">Մանրամասներ</string>
+    <string name="social_media">Սոցիալական ցանցեր</string>
+    <string name="building">Շենք</string>
+    <!-- Text field to enter non-existing street name, below list of known streets around -->
+    <string name="add_street">Ավելացնել փողոց</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">Խնդրում ենք մուտքագրել փողոցի անունը</string>
+    <string name="choose_language">Ընտրեք լեզուն</string>
+    <string name="choose_street">Ընտրեք փողոցը</string>
+    <string name="cuisine">Խոհանոց</string>
+    <string name="select_cuisine">Ընտրել խոհանոց</string>
+    <!-- login text field -->
+    <string name="email_or_username">Էլ․ փոստ կամ օգտանուն</string>
+    <string name="editor_add_phone">Ավելացնել հեռախոսահամար</string>
+    <string name="level">Հարկ</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Հարկ՝ %s</string>
+    <string name="downloader_delete_map_dialog">Քարտեզի հետ կջնջվեն նաև ձեր բոլոր խմբագրումները:</string>
+    <string name="downloader_update_maps">Թարմացնել քարտեզները</string>
+    <string name="downloader_mwm_migration_dialog">Երթուղի կառուցելու համար անհրաժեշտ է թարմացնել բոլոր քարտեզները, իսկ հետո կրկին պլանավորել երթուղին:</string>
+    <string name="downloader_search_field_hint">Գտնել քարտեզ</string>
+    <string name="common_check_internet_connection_dialog">Համոզվեք, որ ձեր սարքը միացված է ինտերնետին:</string>
+    <string name="downloader_no_space_title">Բավականաչափ հիշողություն չկա</string>
+    <!-- Message shown when there is not enough space to download maps -->
+    <string name="downloader_no_space_message">Խնդրում ենք ջնջել ավելորդ տվյալները</string>
+    <string name="editor_login_error_dialog">Մուտքի սխալ։</string>
+    <string name="editor_profile_changes">Ստուգված փոփոխություններ</string>
+    <string name="editor_focus_map_on_location">Տեղաշարժեք քարտեզը՝ խաչը վայրի կամ կազմակերպության վրա տեղադրելու համար:</string>
+    <string name="editor_edit_place_title">Խմբագրում</string>
+    <string name="editor_add_place_title">Ավելացում</string>
+    <string name="editor_edit_place_name_hint">Վայրի անվանումը</string>
+    <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+    <string name="editor_default_language_hint">Ինչպես գրված է տեղական լեզվով</string>
+    <string name="editor_edit_place_category_title">Կատեգորիա</string>
+    <string name="detailed_problem_description">Խնդրի մանրամասն նկարագրություն</string>
+    <string name="editor_report_problem_other_title">Այլ խնդիր</string>
+    <string name="placepage_add_business_button">Ավելացնել կազմակերպություն</string>
+    <string name="message_invalid_feature_position">Այստեղ օբյեկտ չի կարող գտնվել</string>
+    <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+    <string name="osm_presentation">Համայնքի կողմից ստեղծված OpenStreetMap տվյալներ՝ %s թ. դրությամբ։ Իմացեք ավելին քարտեզի խմբագրման և թարմացման մասին OpenStreetMap.org կայքում:</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM)-ը համայնքային նախագիծ է՝ անվճար և բաց քարտեզ ստեղծելու համար: Այն Organic Maps-ի քարտեզային տվյալների հիմնական աղբյուրն է և աշխատում է Վիքիպեդիայի նման: Դուք կարող եք ավելացնել կամ խմբագրել վայրեր, և դրանք հասանելի կդառնան միլիոնավոր օգտատերերի ամբողջ աշխարհում.\nՄիացեք համայնքին և օգնեք ստեղծել ավելի լավ քարտեզ բոլորի համար!</string>
+    <string name="login_to_make_edits_visible">Ստեղծեք OpenStreetMap հաշիվ կամ մուտք գործեք՝ ձեր քարտեզային խմբագրումները հրապարակելու համար:</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d՝ %2$d-ից</string>
+    <string name="download_over_mobile_header">Ներբեռնե՞լ բջջային ցանցի միջոցով:</string>
+    <string name="download_over_mobile_message">Սա կարող է բավականին թանկ արժենալ որոշ սակագնային պլանների դեպքում կամ ռոումինգում:</string>
+    <string name="error_enter_correct_house_number">Մուտքագրեք շենքի վավեր համար</string>
+    <string name="editor_storey_number">Հարկերի քանակը (առավելագույնը %d)</string>
+    <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+    <string name="error_enter_correct_storey_number">Հարկերի քանակը չպետք է գերազանցի %d-ը</string>
+    <string name="editor_zip_code">Փոստային ինդեքս</string>
+    <string name="error_enter_correct_zip_code">Մուտքագրեք վավեր փոստային ինդեքս</string>
+    <!-- Title for OSM note section in the editor -->
+    <string name="editor_other_info">Նշում OpenStreetMap կամավորների համար (ոչ պարտադիր)</string>
+    <!-- Hint of the input field in the OSM note section of the editor -->
+    <string name="editor_note_hint">Նկարագրեք քարտեզի սխալները կամ այն, ինչը հնարավոր չէ խմբագրել Organic Maps-ով</string>
+    <!-- Information about OSM at the top of the editing page -->
+    <string name="editor_about_osm">Ձեր խմբագրումները բեռնվում են հանրային <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> տվյալների բազա։ Խնդրում ենք չավելացնել անձնական կամ հեղինակային իրավունքով պաշտպանված տեղեկություններ:</string>
+    <string name="editor_more_about_osm">Ավելին OpenStreetMap-ի մասին</string>
+    <string name="editor_osm_history">Ձեր խմբագրումների պատմությունը</string>
+    <string name="editor_osm_notes">Ձեր նշումները քարտեզի տվյալների մասին</string>
+    <string name="editor_operator">Օպերատոր</string>
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
+    <string name="operator">Օպերատոր՝ %s</string>
+    <string name="editor_category_unsuitable_title">Չե՞ք գտնում համապատասխան կատեգորիա:</string>
+    <string name="editor_category_unsuitable_text">Organic Maps-ը թույլ է տալիս ավելացնել միայն պարզ կետային կատեգորիաներ, այսինքն՝ ոչ քաղաքներ, ճանապարհներ, լճեր, շենքերի ուրվագծեր և այլն։ Խնդրում ենք ավելացնել նման կատեգորիաները անմիջապես <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> կայքում։ Մանրամասն քայլ առ քայլ հրահանգների համար ստուգեք մեր <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ուղեցույցը</a>:</string>
+    <string name="downloader_no_downloaded_maps_title">Դուք դեռ քարտեզներ չեք ներբեռնել</string>
+    <string name="downloader_no_downloaded_maps_message">Ներբեռնեք քարտեզներ՝ օֆլայն որոնման և նավիգացիայի համար:</string>
+    <string name="current_location_unknown_error_title">Ընթացիկ դիրքն անհայտ է:</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">կմ/ժ</string>
+    <string name="miles_per_hour">մղ/ժ</string>
+    <string name="hour">ժ</string>
+    <string name="minute">ր</string>
+    <string name="day">օ</string>
+    <string name="second">վ</string>
+    <string name="placepage_more_button">Ավելին</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="placepage_edit_bookmark_button">Խմբագրել էջանիշը</string>
+    <string name="placepage_personal_notes_hint">Անձնական նշումներ (տեքստ կամ html)</string>
+    <string name="editor_comment_hint">Մեկնաբանություն...</string>
+    <string name="editor_reset_edits_message">Չեղարկե՞լ բոլոր տեղական փոփոխությունները:</string>
+    <string name="editor_reset_edits_button">Չեղարկել</string>
+    <string name="editor_remove_place_message">Ջնջե՞լ ավելացված վայրը:</string>
+    <string name="editor_remove_place_button">Ջնջել</string>
+    <string name="editor_place_doesnt_exist">Վայրը գոյություն չունի</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">Խնդրում ենք նշել վայրը ջնջելու պատճառը</string>
+    <!-- Phone number error message -->
+    <string name="error_enter_correct_phone">Մուտքագրեք վավեր հեռախոսահամար</string>
+    <string name="error_enter_correct_web">Մուտքագրեք վավեր վեբ հասցե</string>
+    <string name="error_enter_correct_email">Մուտքագրեք վավեր էլ. փոստ</string>
+    <string name="error_enter_correct_facebook_page">Մուտքագրեք վավեր Facebook-ի վեբ հասցե, հաշիվ կամ էջի անուն</string>
+    <string name="error_enter_correct_instagram_page">Մուտքագրեք վավեր Instagram-ի օգտանուն կամ վեբ հասցե</string>
+    <string name="error_enter_correct_twitter_page">Մուտքագրեք վավեր Twitter-ի օգտանուն կամ վեբ հասցե</string>
+    <string name="error_enter_correct_vk_page">Մուտքագրեք վավեր VK-ի օգտանուն կամ վեբ հասցե</string>
+    <string name="error_enter_correct_line_page">Մուտքագրեք վավեր LINE ID կամ վեբ հասցե</string>
+    <string name="placepage_add_place_button">Ավելացնել վայր OpenStreetMap-ում</string>
+    <string name="osm_note_hint">Կամ թողեք նշում OpenStreetMap համայնքի համար, որպեսզի մեկ ուրիշը կարողանա ավելացնել կամ ուղղել վայրը:</string>
+    <string name="osm_note_toast">Նշումը կուղարկվի OpenStreetMap</string>
+    <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
+    <string name="editor_share_to_all_dialog_title">Ցանկանո՞ւմ եք ուղարկել այն բոլոր օգտատերերին:</string>
+    <!-- Dialog before publishing the modifications to the public map. -->
+    <string name="editor_share_to_all_dialog_message_1">Համոզվեք, որ չեք մուտքագրել որևէ անձնական կամ գաղտնի տվյալ:</string>
+    <string name="editor_share_to_all_dialog_message_2">OpenStreetMap-ի խմբագիրները կստուգեն փոփոխությունները և հարցերի դեպքում կկապվեն ձեզ հետ:</string>
+    <string name="navigation_stop_button">Դադար</string>
+    <!-- Shown as toast when starting the recent track recording -->
+    <string name="track_recording">Հետագծի ձայնագրում</string>
+    <!-- For the first routing -->
+    <string name="accept">Ընդունել</string>
+    <!-- For the first routing -->
+    <string name="decline">Մերժել</string>
+    <string name="mobile_data_dialog">Օգտագործե՞լ բջջային ինտերնետ՝ մանրամասն տեղեկատվություն ցուցադրելու համար:</string>
+    <string name="mobile_data_option_always">Միշտ օգտագործել</string>
+    <string name="mobile_data_option_today">Միայն այսօր</string>
+    <string name="mobile_data_option_not_today">Չօգտագործել այսօր</string>
+    <string name="mobile_data">Բջջային ինտերնետ</string>
+    <!-- NOTE to translators: please synchronize your translation with the English one. -->
+    <string name="mobile_data_description">Բջջային ինտերնետն անհրաժեշտ է քարտեզի թարմացման ծանուցումների և խմբագրումների վերբեռնման համար:</string>
+    <string name="mobile_data_option_never">Երբեք չօգտագործել</string>
+    <string name="mobile_data_option_ask">Միշտ հարցնել</string>
+    <string name="traffic_update_maps_text">Երթևեկության տվյալները ցուցադրելու համար քարտեզները պետք է թարմացվեն:</string>
+    <string name="big_font">Մեծացնել քարտեզի գրությունների չափսը</string>
+    <string name="traffic_update_app">Խնդրում ենք թարմացնել Organic Maps-ը</string>
+    <!-- "traffic" as in "road congestion" -->
+    <string name="traffic_data_unavailable">Երթևեկության տվյալները հասանելի չեն</string>
+    <string name="enable_logging">Միացնել գրանցումը</string>
+    <!-- Settings: "Send general feedback" button -->
+    <string name="feedback_general">Ընդհանուր կարծիք</string>
+    <string name="prefs_languages_information">Ձայնային հրահանգների համար օգտագործում ենք համակարգային TTS-ը։ Շատ Android սարքեր օգտագործում են Google TTS, որը կարող եք ներբեռնել կամ թարմացնել Google Play-ից։</string>
+    <string name="prefs_languages_information_off">Որոշ լեզուների համար անհրաժեշտ կլինի տեղադրել խոսքի սինթեզատոր կամ լրացուցիչ լեզվական փաթեթ հավելվածների խանութից (Google Play, Galaxy Store, App Gallery, F-Droid).\nԲացեք սարքի կարգավորումները → Լեզու և մուտքագրում → Խոսք → Տեքստից խոսք։\nԱյստեղ կարող եք կառավարել խոսքի սինթեզի կարգավորումները (օրինակ՝ ներբեռնել լեզվական փաթեթ օֆլայն օգտագործման համար) և ընտրել տեքստից խոսքի այլ շարժիչ։</string>
+    <string name="prefs_languages_information_off_link">Լրացուցիչ տեղեկությունների համար խնդրում ենք ծանոթանալ այս ուղեցույցին։</string>
+    <string name="transliteration_title">Տառադարձել լատինատառի</string>
+    <string name="learn_more">Իմանալ ավելին</string>
+    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+    <string name="routing_add_start_point">Օգտագործեք որոնումը, ընտրեք էջանիշ կամ հպեք քարտեզին՝ երթուղու սկզբնակետ ավելացնելու համար</string>
+    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+    <string name="routing_add_finish_point">Օգտագործեք որոնումը, ընտրեք էջանիշ կամ հպեք քարտեզին՝ նշանակման կետ ավելացնելու համար</string>
+    <string name="planning_route_manage_route">Կառավարել երթուղին</string>
+    <string name="button_plan">Պլանավորել</string>
+    <string name="placepage_remove_stop">Հեռացնել կանգառը</string>
+    <string name="placepage_add_stop">Ավելացնել կանգառ</string>
+    <string name="saved">Պահպանված է</string>
+    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+    <string name="alert_reauth_message">Խնդրում ենք մուտք գործել OpenStreetMap, որպեսզի Ձեր քարտեզի փոփոխությունները ավտոմատ վերբեռնվեն: Իմացեք ավելին <a href="https://github.com/organicmaps/organicmaps/issues/6144">այստեղ</a>:</string>
+    <string name="dialog_error_storage_title">Հիշողության հասանելիության խնդիր</string>
+    <string name="dialog_error_storage_message">Արտաքին հիշողությունը հասանելի չէ։ SD քարտը գուցե հեռացված է, վնասված, կամ ֆայլային համակարգը միայն կարդալու համար է։ Խնդրում ենք ստուգել Ձեր SD քարտը կամ կապվել մեզ հետ support\@organicmaps.app հասցեով։</string>
+    <string name="setting_emulate_bad_storage">Նմանակել վատ հիշողությունը</string>
+    <string name="error_enter_correct_name">Խնդրում ենք մուտքագրել ճիշտ անուն</string>
+    <string name="bookmark_lists">Ցուցակներ</string>
+    <!-- Do not display all bookmark lists on the map -->
+    <string name="bookmark_lists_hide_all">Թաքցնել բոլորը</string>
+    <string name="bookmark_lists_show_all">Ցուցադրել բոլորը</string>
+    <plurals name="bookmarks_places">
+        <item quantity="one">%d էջանիշ</item>
+        <item quantity="other">%d էջանիշ</item>
+    </plurals>
+    <string name="bookmarks_create_new_group">Ստեղծել նոր ցուցակ</string>
+    <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+    <string name="bookmarks_import">Ներմուծել էջանիշներ և հետագծեր</string>
+    <string name="bookmarks_error_message_share_general">Հնարավոր չէ կիսվել հավելվածի սխալի պատճառով</string>
+    <string name="bookmarks_error_title_share_empty">Կիսվելու սխալ</string>
+    <string name="bookmarks_error_message_share_empty">Հնարավոր չէ կիսվել դատարկ ցուցակով</string>
+    <string name="bookmarks_error_title_empty_list_name">Անունը չի կարող դատարկ լինել</string>
+    <string name="bookmarks_error_message_empty_list_name">Խնդրում ենք մուտքագրել ցուցակի անունը</string>
+    <string name="bookmarks_new_list_hint">Նոր ցուցակ</string>
+    <string name="bookmarks_error_title_list_name_already_taken">Այս անունն արդեն զբաղված է</string>
+    <string name="bookmarks_error_message_list_name_already_taken">Խնդրում ենք ընտրել այլ անուն</string>
+    <string name="please_wait">Խնդրում ենք սպասել…</string>
+    <string name="phone_number">Հեռախոսահամար</string>
+    <string name="profile">OpenStreetMap պրոֆիլ</string>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">%d ֆայլ</item>
+        <item quantity="other">%d ֆայլ</item>
+    </plurals>
+    <string name="restore">Վերականգնել</string>
+    <plurals name="tracks">
+        <item quantity="one">%d երթուղի</item>
+        <item quantity="other">%d երթուղի</item>
+    </plurals>
+    <!-- Settings privacy group in settings screen -->
+    <string name="privacy">Գաղտնիություն</string>
+    <string name="privacy_policy">Գաղտնիության քաղաքականություն</string>
+    <string name="terms_of_use">Օգտագործման պայմաններ</string>
+    <string name="button_layer_traffic">Երթևեկություն</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Արշավային</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Հեծանվային</string>
+    <string name="button_layer_subway">Մետրո</string>
+    <string name="layers_title">Քարտեզի ոճեր և շերտեր</string>
+    <string name="bookmarks_empty_list_title">Այս ցուցակը դատարկ է</string>
+    <string name="bookmarks_empty_list_message">Էջանիշ ավելացնելու համար հպեք քարտեզի որևէ կետի, ապա՝ աստղիկի պատկերակին</string>
+    <string name="category_desc_more">…ավելին</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
+    <string name="export_file">Արտահանել KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
+    <string name="export_file_gpx">Արտահանել GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">Արտահանել GeoJSON</string>
+    <string name="delete_list">Ջնջել ցուցակը</string>
+    <string name="speedcams_alert_title">Արագաչափեր</string>
+    <string name="place_description_title">Վայրի նկարագրություն</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Քարտեզի ներբեռնիչ</string>
+    <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+    <string name="pref_tts_speedcams_auto">Զգուշացնել արագության գերազանցման դեպքում</string>
+    <!-- Speed camera settings menu option - Always warn (about speedcams) -->
+    <string name="pref_tts_speedcams_always">Միշտ զգուշացնել</string>
+    <!-- Speed camera settings menu option - Never warn (about speedcams) -->
+    <string name="pref_tts_speedcams_never">Երբեք չզգուշացնել</string>
+    <string name="power_managment_title">Էներգախնայողության ռեժիմ</string>
+    <string name="power_managment_description">Փորձել նվազեցնել էներգիայի սպառումը որոշ ֆունկցիոնալության հաշվին:</string>
+    <string name="power_managment_setting_never">Երբեք</string>
+    <string name="power_managment_setting_auto">Երբ մարտկոցը լիցքաթափված է</string>
+    <string name="power_managment_setting_manual_max">Միշտ</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Էջանիշների անունները քարտեզի վրա</string>
+    <string name="bookmarks_text_placement_description">Եթե էջանիշները շատ են, քարտեզի վրա դրանց անունների ցուցադրումը կարող է դանդաղեցնել հավելվածը:</string>
+    <string name="show_to_the_right">Ցուցադրել աջից</string>
+    <string name="show_at_the_bottom">Ցուցադրել ներքևից</string>
+    <string name="enable_logging_warning_message">Միացրեք այս ընտրանքը ժամանակավորապես՝ Ձեր խնդրի մասին մանրամասն ախտորոշիչ գրանցամատյանները գրանցելու և մեզ ձեռքով ուղարկելու համար՝ օգտագործելով «Զեկուցել սխալի մասին» Օգնության պատուհանում։ Գրանցամատյանները կարող են ներառել տեղադիրքի տվյալներ։</string>
+    <string name="driving_options_title">Երթուղու ընտրանքներ</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Խուսափել վճարովի ճանապարհներից</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Խուսափել գրունտային ճանապարհներից</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Խուսափել լաստանավերից</string>
+    <string name="avoid_motorways">Խուսափել մայրուղիներից</string>
+    <string name="unable_to_calc_alert_title">Հնարավոր չէ հաշվարկել երթուղին</string>
+    <string name="unable_to_calc_alert_subtitle">Երթուղին չի գտնվել։ Սա կարող է պայմանավորված լինել երթուղու ընտրանքներով կամ OpenStreetMap-ի ոչ ամբողջական տվյալներով։ Խնդրում ենք փոխել երթուղու ընտրանքները և կրկին փորձել։</string>
+    <string name="define_to_avoid_btn">Սահմանել ճանապարհներ՝ խուսափելու համար</string>
+    <string name="change_driving_options_btn">Երթուղու ընտրանքները միացված են</string>
+    <string name="toll_road">Վճարովի ճանապարհ</string>
+    <string name="unpaved_road">Գրունտային ճանապարհ</string>
+    <string name="ferry_crossing">Լաստանավային ուղի</string>
+    <!-- A generic "Yes" button in dialogs -->
+    <string name="yes">Այո</string>
+    <!-- A generic "No" button in dialogs -->
+    <string name="no">Ոչ</string>
+    <!-- E.g. "WiFi:Yes" -->
+    <string name="yes_available">Այո</string>
+    <!-- E.g. "WiFi:No" -->
+    <string name="no_available">Ոչ</string>
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
+    <string name="capacity">Տարողություն՝ %s</string>
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
+    <string name="network">Ցանց՝ %s</string>
+    <string name="trip_finished">Դուք ժամանել եք</string>
+    <string name="ok">Լավ</string>
+    <!-- max. 10 symbols, both iOS and Android -->
+    <string name="sort">Դասավորել…</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Դասավորել էջանիշները</string>
+    <!-- Android -->
+    <string name="by_default">Լռելյայն</string>
+    <!-- Android -->
+    <string name="by_type">Ըստ տեսակի</string>
+    <!-- Android -->
+    <string name="by_distance">Ըստ հեռավորության</string>
+    <!-- Android -->
+    <string name="by_date">Ըստ ամսաթվի</string>
+    <!-- Android -->
+    <string name="by_name">Ըստ անվան</string>
+    <string name="week_ago_sorttype">Մեկ շաբաթ առաջ</string>
+    <string name="month_ago_sorttype">Մեկ ամիս առաջ</string>
+    <string name="moremonth_ago_sorttype">Ավելի քան մեկ ամիս առաջ</string>
+    <string name="moreyear_ago_sorttype">Ավելի քան մեկ տարի առաջ</string>
+    <string name="near_me_sorttype">Իմ մոտակայքում</string>
+    <string name="others_sorttype">Այլ</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="food_places">Սնունդ</string>
+    <string name="tourist_places">Տեսարժան վայրեր</string>
+    <string name="museums">Թանգարաններ</string>
+    <string name="parks">Զբոսայգիներ</string>
+    <string name="swim_places">Լողավազաններ</string>
+    <string name="mountains">Լեռներ</string>
+    <string name="animals">Կենդանիներ</string>
+    <string name="hotels">Հյուրանոցներ</string>
+    <string name="buildings">Շենքեր</string>
+    <string name="money">Ֆինանսներ</string>
+    <string name="shops">Խանութներ</string>
+    <string name="parkings">Կայանատեղի</string>
+    <string name="fuel_places">Լցակայաններ</string>
+    <string name="medicine">Առողջապահություն</string>
+    <string name="search_in_the_list">Փնտրել ցուցակում</string>
+    <string name="religious_places">Կրոնական վայրեր</string>
+    <string name="select_list">Ընտրել ցուցակը</string>
+    <string name="transit_not_found">Մետրոյով երթևեկությունը այս տարածաշրջանում դեռ հասանելի չէ</string>
+    <string name="dialog_pedestrian_route_is_long_header">Մետրոյի երթուղի չի գտնվել</string>
+    <string name="dialog_pedestrian_route_is_long_message">Խնդրում ենք ընտրել մետրոյի կայարանին ավելի մոտ սկզբնակետ կամ վերջնակետ</string>
+    <string name="button_layer_isolines">Հորիզոնականներ</string>
+    <string name="isolines_activation_error_dialog">Հորիզոնականների ակտիվացումը պահանջում է ներբեռնել այս տարածքի քարտեզի տվյալները</string>
+    <string name="isolines_location_error_dialog">Հորիզոնականները դեռ հասանելի չեն այս տարածքում</string>
+    <string name="elevation_profile_ascent">Վերելք</string>
+    <string name="elevation_profile_descent">Վայրէջք</string>
+    <string name="elevation_profile_min_elevation">Նվազգ. բարձրություն</string>
+    <string name="elevation_profile_max_elevation">Առավել. բարձրություն</string>
+    <string name="elevation_profile_difficulty">Բարդություն</string>
+    <string name="elevation_profile_distance">Հեռ.՝</string>
+    <string name="elevation_profile_time">Ժամ.՝</string>
+    <string name="isolines_toast_zooms_1_10">Մեծացրեք մասշտաբը՝ հորիզոնականները տեսնելու համար</string>
+    <string name="downloader_loading_ios">Ներբեռնում</string>
+    <string name="download_map_title">Ներբեռնել աշխարհի ընդհանուր քարտեզը</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">Հնարավոր չէ ստեղծել պանակ և տեղափոխել ֆայլերը սարքի ներքին հիշողության կամ SD քարտի վրա</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">Սկավառակի սխալ</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">Կապի խափանում</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">Անջատեք USB մալուխը</string>
+    <string name="enable_keep_screen_on">Էկրանը միացած պահել</string>
+    <!-- Description in preferences -->
+    <string name="enable_keep_screen_on_description">Միացված լինելու դեպքում քարտեզը ցուցադրելիս էկրանը միշտ միացած կլինի։</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">Ցուցադրել կողպէկրանին</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">Միացված լինելու դեպքում հավելվածը կաշխատի կողպէկրանին, նույնիսկ երբ սարքը կողպված է։</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Քարտեզի լեզուն</string>
+    <!-- OpenStreetMap text on splash screen -->
+    <string name="splash_subtitle">Քարտեզի տվյալները՝ OpenStreetMap-ից</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <!-- Link to OSM wiki for Editor, Profile and About pages -->
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <!-- App Tip #00 -->
+    <string name="app_tip_00">Շնորհակալություն համայնքի կողմից ստեղծված մեր քարտեզներից օգտվելու համար։</string>
+    <!-- App tip #01 -->
+    <string name="app_tip_01">Ձեր նվիրատվություններով և աջակցությամբ մենք կարող ենք ստեղծել աշխարհի լավագույն քարտեզները։</string>
+    <!-- App tip #02 -->
+    <string name="app_tip_02">Հավանու՞մ եք մեր հավելվածը։ Խնդրում ենք նվիրատվություն կատարել՝ զարգացմանը աջակցելու համար։ Դեռ չե՞ք հավանում։ Խնդրում ենք հայտնել պատճառը, և մենք կշտկենք այն։</string>
+    <!-- App tip #03 -->
+    <string name="app_tip_03">Եթե ճանաչում եք ծրագրավորողի, կարող եք խնդրել նրան իրականացնել ձեզ անհրաժեշտ գործառույթը։</string>
+    <!-- App tip #04 -->
+    <string name="app_tip_04">Հպեք քարտեզի ցանկացած կետի՝ որևէ բան ընտրելու համար։ Երկար հպումը թաքցնում և ցուցադրում է ինտերֆեյսը։</string>
+    <!-- App tip #05 -->
+    <string name="app_tip_05">Գիտեի՞ք, որ քարտեզի վրա ձեր ընթացիկ դիրքը կարելի է ընտրել։</string>
+    <!-- App tip #06 -->
+    <string name="app_tip_06">Դուք կարող եք օգնել թարգմանել մեր հավելվածը ձեր լեզվով։</string>
+    <!-- App tip #07 -->
+    <string name="app_tip_07">Մեր հավելվածը մշակվում է մի քանի էնտուզիաստների և համայնքի կողմից։</string>
+    <!-- App tip #08 -->
+    <string name="app_tip_08">Դուք կարող եք հեշտությամբ ուղղել և բարելավել քարտեզի տվյալները։</string>
+    <!-- App tip #09 -->
+    <string name="app_tip_09">Մեր հիմնական նպատակն է ստեղծել արագ, գաղտնիությանը միտված և հեշտ օգտագործվող քարտեզներ, որոնք դուք կսիրեք։</string>
+    <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+    <string name="car_used_on_the_phone_screen">Դուք այժմ օգտագործում եք Organic Maps-ը հեռախոսի էկրանին</string>
+    <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
+    <string name="car_used_on_the_car_screen">Դուք այժմ օգտագործում եք Organic Maps-ը մեքենայի էկրանին</string>
+    <!-- Displayed on the phone screen. Android Auto connected -->
+    <string name="aa_connected_title">Դուք միացված եք Android Auto-ին</string>
+    <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
+    <string name="car_continue_on_the_phone">Շարունակել հեռախոսով</string>
+    <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+    <string name="car_continue_in_the_car">Դեպի մեքենայի էկրան</string>
+    <!-- Ask user to grant location permissions -->
+    <string name="aa_location_permissions_request">Organic Maps-ին անհրաժեշտ է տեղադիրքի հասանելիություն։ Երբ անվտանգ լինի, ստուգեք ծանուցումը ձեր հեռախոսում։</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">Այս հավելվածին անհրաժեշտ է ձեր թույլտվությունը</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Android Auto-ում Organic Maps-ի արդյունավետ աշխատանքի համար անհրաժեշտ է տեղադիրքի թույլտվություն</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">Տալ թույլտվություններ</string>
+    <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+    <string name="button_layer_outdoor">Ակտիվ հանգիստ</string>
+    <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+    <string name="browser_not_available">Վեբ զննարկիչը հասանելի չէ</string>
+    <string name="volume">Ձայնի ուժգնություն</string>
+    <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+    <string name="bookmarks_export">Արտահանել բոլոր էջանիշները և հետագծերը</string>
+    <!-- button in (app) TTS settings, to open the system TTS settings. -->
+    <string name="pref_tts_open_system_settings">Խոսքի սինթեզի համակարգային կարգավորումներ</string>
+    <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+    <string name="pref_tts_no_system_tts">Խոսքի սինթեզի կարգավորումներ չեն գտնվել, համոզվա՞ծ եք, որ ձեր սարքն ունի այդ հնարավորությունը։</string>
+    <string name="drive_through">Դրայվ-ին</string>
+    <string name="clear_the_search">Մաքրել որոնումը</string>
+    <string name="zoom_in">Մեծացնել</string>
+    <!-- Accessibility text for the zoom-out button on the map -->
+    <string name="zoom_out">Փոքրացնել</string>
+    <!-- Restaurant or other food place's menu URL field in the Editor -->
+    <string name="website_menu">Մենյուի հղում</string>
+    <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+    <string name="view_menu">Դիտել մենյուն</string>
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
+    <string name="open_in_app">Բացել այլ հավելվածում</string>
+    <!-- To indicate if the place proposed self service… -->
+    <string name="self_service">Ինքնասպասարկում</string>
+    <string name="select_option">Ընտրել տարբերակ</string>
+    <!-- To indicate if restaurant or other place has outdoor seating -->
+    <string name="outdoor_seating">Բացօթյա նստատեղեր</string>
+    <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+    <string name="power_save_dialog_summary">Առավել ճշգրիտ նավիգացիայի համար խորհուրդ ենք տալիս անջատել էներգախնայողության ռեժիմը հեռախոսի մարտկոցի կարգավորումներում։</string>
+    <!-- Prompt to start recording a track. -->
+    <string name="start_track_recording">Գրանցել հետագիծը</string>
+    <!-- Prompt for stopping a track recording. -->
+    <string name="stop_track_recording">Կանգնեցնել հետագծի գրանցումը</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Հետագծի գրանցում</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="stop_without_saving">Կանգնեցնել առանց պահպանելու</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="continue_recording">Շարունակել գրանցումը</string>
+    <!-- Title for the alert when saving a track recording. -->
+    <string name="track_recording_alert_title">Պահպանե՞լ Էջանիշներում և Հետագծերում։</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">Հետագիծը դատարկ է՝ պահպանելու ոչինչ չկա</string>
+    <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+    <string name="error_no_file_manager_app">Հնարավոր չէ ցուցադրել պանակի ընտրության պատուհանը, քանի որ սարքում չկա համապատասխան հավելված։ Խնդրում ենք տեղադրել ֆայլերի կառավարիչ և փորձել կրկին։</string>
+    <string name="choose_color">Ընտրել գույն</string>
+    <string name="edit_track">Խմբագրել հետագիծը</string>
+    <string name="uri_open_location_failed">Տեղադիրքը բացող հավելված տեղադրված չէ</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">Ավտոմատ՝ նավիգացիայի ժամանակ</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">Ինչպես համակարգում</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Կիսվել հետագծով</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Ջնջե՞լ %s</string>
+</resources>

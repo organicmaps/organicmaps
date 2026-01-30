@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">ກັບຄືນ</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">ຍົກເລີກ</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">ລຶບ</string>
+    <string name="download_maps">ດາວໂຫລດແຜນທີ່</string>
+    <!-- Settings/Downloader - info for country when download fails -->
+    <string name="download_has_failed">ການດາວໂຫລດລົ້ມເຫຼວ. ແຕະເພື່ອລອງໃໝ່.</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
+    <string name="downloading">ກຳລັງດາວໂຫລດ…</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">ກິໂລແມັດ</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <string name="miles">ໄມລ໌</string>
+    <!-- Update maps later button text -->
+    <string name="later">ພາຍຫຼັງ</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">ຄົ້ນຫາ</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+    <string name="search_map">ຄົ້ນຫາແຜນທີ່</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">ໃນປັດຈຸບັນທ່ານໄດ້ປິດການບໍລິການຕຳແໜ່ງທີ່ຕັ້ງທັງໝົດສຳລັບອຸປະກອນ ຫຼື ແອັບພລິເຄຊັນນີ້. ກະລຸນາເປີດການໃຊ້ງານໃນການຕັ້ງຄ່າ.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">ຄວາມຊັດເຈນຈຳກັດ</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">ເພື່ອໃຫ້ການນຳທາງຊັດເຈນ, ກະລຸນາເປີດຕຳແໜ່ງທີ່ຕັ້ງຊັດເຈນໃນການຕັ້ງຄ່າ.</string>
+    <!-- View and button titles for accessibility -->
+    <string name="zoom_to_country">ສະແດງໃນແຜນທີ່</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">ການດາວໂຫລດລົ້ມເຫຼວ</string>
+    <!-- Button text for the button under the country_status_download_failed message -->
+    <string name="try_again">ລອງໃໝ່</string>
+    <string name="about_menu_title">ກ່ຽວກັບ Organic Maps</string>
+    <!-- Text in About screen -->
+    <string name="about_headline">ຟຣີສຳລັບທຸກຄົນ, ສ້າງດ້ວຍຄວາມຮັກ</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_1">• ບໍ່ມີໂຄສະນາ, ບໍ່ມີການຕິດຕາມ, ບໍ່ມີການເກັບກຳຂໍ້ມູນ</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_2">• ບໍ່ເປືອງແບັດເຕີຣີ, ໃຊ້ງານໄດ້ແບບອອບລາຍ</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_3">• ໄວ, ງ່າຍດາຍ, ພັດທະນາໂດຍຊຸມຊົນ</string>
+    <!-- Text in About screen -->
+    <string name="about_developed_by_enthusiasts">ແອັບພລິເຄຊັນໂອເພັນຊອດທີ່ສ້າງໂດຍຜູ້ມີໃຈຮັກ ແລະ ອາສາສະໝັກ.</string>
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">ການຕັ້ງຄ່າຕຳແໜ່ງທີ່ຕັ້ງ</string>
+    <string name="close">ປິດ</string>
+    <string name="unsupported_phone">ແອັບນີ້ຕ້ອງການການເລັ່ງຮາດແວ OpenGL. ໜ້າເສຍດາຍ, ອຸປະກອນຂອງທ່ານບໍ່ຮອງຮັບ.</string>
+    <string name="download">ດາວໂຫລດ</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable">ກະລຸນາຖອດສາຍ USB ຫຼື ສຽບກາດໜ່ວຍຄວາມຈຳເພື່ອໃຊ້ Organic Maps</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="not_enough_free_space_on_sdcard">ກະລຸນາເພີ່ມພື້ນທີ່ວ່າງໃນ SD ກາດ/ບ່ອນເກັບຂໍ້ມູນ USB ກ່ອນເພື່ອໃຊ້ແອັບ</string>
+    <string name="download_resources">ກ່ອນຈະເລີ່ມໃຊ້ແອັບ, ກະລຸນາດາວໂຫລດແຜນທີ່ພາບລວມຂອງໂລກລົງໃນອຸປະກອນຂອງທ່ານ.\nມັນຈະໃຊ້ພື້ນທີ່ %s.</string>
+    <string name="download_resources_continue">ໄປທີ່ແຜນທີ່</string>
+    <string name="downloading_country_can_proceed">ກຳລັງດາວໂຫລດ %s. ທ່ານສາມາດ\nໄປທີ່ແຜນທີ່ໄດ້ເລີຍ.</string>
+    <string name="download_country_ask">ດາວໂຫລດ %s ບໍ່?</string>
+    <string name="update_country_ask">ອັບເດດ %s ບໍ່?</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="pause">ພັກ</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="continue_button">ຕໍ່ໄປ</string>
+    <!-- Show popup notification on top of the map when country download has failed. -->
+    <string name="download_country_failed">ການດາວໂຫລດ %s ລົ້ມເຫຼວ</string>
+    <!-- "Add new bookmark list" dialog title -->
+    <string name="add_new_set">ເພີ່ມລາຍການໃໝ່</string>
+    <!-- Add Bookmark list dialog - hint when the list name is empty -->
+    <string name="bookmark_set_name">ຊື່ລາຍການບຸກມາກ</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">ບຸກມາກ</string>
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
+    <string name="bookmarks_and_tracks">ບຸກມາກ ແລະ ເສັ້ນທາງ</string>
+    <!-- Add bookmark dialog - bookmark name -->
+    <string name="name">ຊື່</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">ທີ່ຢູ່</string>
+    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+    <string name="list">ລາຍການ</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">ການຕັ້ງຄ່າ</string>
+    <!-- Header of settings activity where user defines storage path -->
+    <string name="maps_storage">ບັນທຶກແຜນທີ່ໄວ້ທີ່</string>
+    <!-- Detailed description of Maps Storage settings button -->
+    <string name="maps_storage_summary">ເລືອກໂຟນເດີເພື່ອດາວໂຫລດແຜນທີ່ໄວ້.</string>
+    <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+    <string name="maps_storage_downloaded">ແຜນທີ່ທີ່ດາວໂຫລດແລ້ວ</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">ວ່າງ %1$s ຈາກ %2$s</string>
+    <!-- Question dialog for transferring maps from one storage to another -->
+    <string name="move_maps">ຍ້າຍແຜນທີ່ບໍ່?</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">ເກີດຂໍ້ຜິດພາດໃນການຍ້າຍໄຟລ໌ແຜນທີ່</string>
+    <!-- Ask user to wait several minutes (some long process in modal dialog). -->
+    <string name="wait_several_minutes">ອາດໃຊ້ເວລາຫຼາຍນາທີ.\nກະລຸນາລໍຖ້າ…</string>
+    <!-- Measurement units title in settings activity -->
+    <string name="measurement_units">ຫົວໜ່ວຍວັດແທກ</string>
+    <!-- Detailed description of Measurement Units settings button -->
+    <string name="measurement_units_summary">ເລືອກລະຫວ່າງໄມລ໌ ແລະ ກິໂລແມັດ</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Notes field in Bookmarks view -->
+    <string name="description">ບັນທຶກ</string>
+    <!-- Email Subject when sharing bookmark list -->
+    <string name="share_bookmarks_email_subject">ມີການແບ່ງປັນບຸກມາກ Organic Maps ໃຫ້ທ່ານ</string>
+    <string name="share_bookmarks_email_body">ສະບາຍດີ!\n\nນີ້ແມ່ນບຸກມາກຂອງຂ້ອຍ; ກະລຸນາເປີດໃນ Organic Maps. ຫາກທ່ານຍັງບໍ່ໄດ້ຕິດຕັ້ງ, ສາມາດດາວໂຫລດໄດ້ທີ່ນີ້: https://omaps.app/get?kmz\n\nຂໍໃຫ້ມ່ວນກັບການເດີນທາງດ້ວຍ Organic Maps!</string>
+    <!-- message title of loading file -->
+    <string name="load_kmz_title">ກຳລັງໂຫລດບຸກມາກ</string>
+    <!-- Kmz file successful loading -->
+    <string name="load_kmz_successful">ໂຫລດບຸກມາກສຳເລັດແລ້ວ! ທ່ານສາມາດຊອກຫາພວກມັນໄດ້ໃນແຜນທີ່ ຫຼື ໃນໜ້າຈໍຈັດການບຸກມາກ.</string>
+    <!-- Kml file loading failed -->
+    <string name="load_kmz_failed">ໂຫລດບຸກມາກບໍ່ສຳເລັດ. ໄຟລ໌ອາດເສຍຫາຍ ຫຼື ບົກພ່ອງ.</string>
+    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
+    <string name="unknown_file_type">ແອັບບໍ່ຮູ້ຈັກປະເພດໄຟລ໌ນີ້:\n%1$s</string>
+    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <string name="failed_to_open_file">ເປີດໄຟລ໌ບໍ່ສຳເລັດ %1$s\n\n%2$s</string>
+    <!-- resource for context menu -->
+    <string name="edit">ແກ້ໄຂ</string>
+    <!-- Warning message when doing search around current position -->
+    <string name="unknown_current_position">ຍັງບໍ່ທັນສາມາດລະບຸຕຳແໜ່ງຂອງທ່ານໄດ້</string>
+    <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+    <string name="cant_change_this_setting">ຂໍອະໄພ, ການຕັ້ງຄ່າບ່ອນເກັບຂໍ້ມູນແຜນທີ່ຖືກປິດການໃຊ້ງານໃນຂະນະນີ້.</string>
+    <!-- Alert message that downloading is in progress. -->
+    <string name="downloading_is_active">ພວມຢູ່ໃນຂະນະດາວໂຫລດແຜນທີ່.</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">ເບິ່ງຕຳແໜ່ງປັດຈຸບັນຂອງຂ້ອຍໃນ Organic Maps! %1$s ຫຼື %2$s ຫາກບໍ່ມີແຜນທີ່ອອບລາຍ? ດາວໂຫລດໄດ້ທີ່ນີ້: https://omaps.app/get</string>
+    <!-- Subject for emailed bookmark -->
+    <string name="bookmark_share_email_subject">ເຮີ້ຍ, ເບິ່ງປັກໝຸດຂອງຂ້ອຍໃນ Organic Maps ແມ້!</string>
+    <!-- Subject for emailed position -->
+    <string name="my_position_share_email_subject">ເຮີ້ຍ, ເບິ່ງຕຳແໜ່ງປັດຈຸບັນຂອງຂ້ອຍໃນແຜນທີ່ Organic Maps ແມ້!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email">ສະບາຍດີ,\n\nຕອນນີ້ຂ້ອຍຢູ່ທີ່ນີ້: %1$s. ຄລິກລິ້ງນີ້ %2$s ຫຼື ອັນນີ້ %3$s ເພື່ອເບິ່ງສະຖານທີ່ໃນແຜນທີ່.\n\nຂອບໃຈ.</string>
+    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+    <string name="share">ແບ່ງປັນ</string>
+    <!-- Share by email button text, also used in editor and About. -->
+    <string name="email">ອີເມລ</string>
+    <!-- Text for message when used successfully copied something -->
+    <string name="copied_to_clipboard">ຄັດລອກໄປທີ່ຄລິບບອດແລ້ວ: %s</string>
+    <!-- Used for bookmark editing -->
+    <string name="done">ສຳເລັດ</string>
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">ຂໍ້ມູນ OpenStreetMap: %s</string>
+    <!-- Confirmation for OpenStreetMap log out. -->
+    <string name="osm_log_out_confirmation">ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການອອກຈາກລະບົບ OpenStreetMap?</string>
+    <!-- Title for tracks category in bookmarks manager -->
+    <string name="tracks_title">ເສັ້ນທາງ</string>
+    <!-- Length of track in cell that describes route -->
+    <string name="length">ຄວາມຍາວ</string>
+    <string name="share_my_location">ແບ່ງປັນຕຳແໜ່ງຂອງຂ້ອຍ</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">ການຕັ້ງຄ່າທົ່ວໄປ</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">ຂໍ້ມູນ</string>
+    <string name="prefs_group_route">ການນຳທາງ</string>
+    <!-- Setting name which enables or disables zoom buttons on the map screen. -->
+    <string name="pref_zoom_title">ປຸ່ມ “+” ແລະ “-” ໃນແຜນທີ່</string>
+    <string name="pref_zoom_summary">ສະແດງໃນແຜນທີ່</string>
+    <string name="pref_auto_night_in_navigation_title">ຮູບແບບກາງຄືນເມື່ອນຳທາງໃນບ່ອນມືດ</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">ໂໝດກາງຄືນ</string>
+    <!-- Generic «Off» string -->
+    <string name="off">ປິດ</string>
+    <!-- Generic «On» string -->
+    <string name="on">ເປີດ</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">ອັດຕະໂນມັດ</string>
+    <!-- Settings «Map» category: «Perspective view» title -->
+    <string name="pref_map_3d_title">ມຸມມອງເປີສະເປັກທິບ</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">ອາຄານ 3D</string>
+    <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+    <string name="pref_map_3d_buildings_disabled_summary">ອາຄານ 3D ຖືກປິດໃຊ້ງານໃນໂໝດປະຢັດພະລັງງານ</string>
+    <!-- Settings «Route» category: «Tts enabled» title -->
+    <string name="pref_tts_enable_title">ຄຳແນະນຳດ້ວຍສຽງ</string>
+    <!-- Settings «Route» category: «Tts announce street names» title -->
+    <string name="pref_tts_street_names_title">ປະກາດຊື່ຖະໜົນ</string>
+    <!-- Settings «Route» category: «Tts announce street names» description -->
+    <string name="pref_tts_street_names_description">ເມື່ອເປີດໃຊ້, ຊື່ຖະໜົນ ຫຼື ທາງອອກທີ່ຈະລ້ຽວເຂົ້າຈະຖືກອ່ານອອກສຽງ.</string>
+    <!-- Settings «Route» category: «Tts language» title -->
+    <string name="pref_tts_language_title">ພາສາຂອງສຽງ</string>
+    <!-- Settings «Route» category: «Test Voice Directions» title -->
+    <string name="pref_tts_test_voice_title">ທົດສອບຄຳແນະນຳດ້ວຍສຽງ (TTS)</string>
+    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+    <string name="pref_tts_playing_test_voice">ກະລຸນາກວດເບິ່ງລະດັບສຽງ ຫຼື ການຕັ້ງຄ່າ Text-To-Speech ຂອງລະບົບ ຫາກທ່ານບໍ່ໄດ້ຍິນສຽງໃນຕອນນີ້.</string>
+    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <string name="pref_tts_unavailable">ບໍ່ສາມາດໃຊ້ງານໄດ້</string>
+    <string name="pref_map_auto_zoom">ຊູມອັດຕະໂນມັດ</string>
+    <string name="placepage_distance">ໄລຍະທາງ</string>
+    <string name="search_show_on_map">ເບິ່ງໃນແຜນທີ່</string>
+    <!-- Menu button -->
+    <string name="menu">ເມນູ</string>
+    <!-- Text in menu -->
+    <string name="website">ເວັບໄຊ</string>
+    <!-- Text in About menu, opens Organic Maps news website -->
+    <string name="news">ຂ່າວສານ</string>
+    <!-- Settings: Send feedback button and dialog title -->
+    <string name="feedback">ຄຳຕິຊົມ</string>
+    <!-- Text in menu -->
+    <string name="rate_the_app">ໃຫ້ຄະແນນແອັບ</string>
+    <!-- Text in menu -->
+    <string name="help">ຊ່ວຍເຫຼືອ</string>
+    <!-- Button in the main Help dialog -->
+    <string name="faq">ຄຳຖາມທີ່ພົບເລື້ອຍ</string>
+    <!-- Button in the main menu -->
+    <string name="donate">ບໍລິຈາກ</string>
+    <string name="already_donated">ບໍລິຈາກແລ້ວ</string>
+    <string name="remind_me_later">ເຕືອນພາຍຫຼັງ</string>
+    <string name="support_organic_maps">ສະໜັບສະໜູນ Organic Maps</string>
+    <!-- Button in the main Help dialog -->
+    <string name="how_to_support_us">ສະໜັບສະໜູນໂຄງການ</string>
+    <!-- Button in the main Help dialog -->
+    <string name="copyright">ລິຂະສິດ</string>
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
+    <string name="report_a_bug">ລາຍງານຂໍ້ຜິດພາດ</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_recommended">ປັບປຸງທິດທາງຂອງລູກສອນໂດຍການເຄື່ອນຍ້າຍໂທລະສັບເປັນຮູບເລກແປດເພື່ອຄາລິເບຣດເຂັມທິດ.</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_required">ເຄື່ອນຍ້າຍໂທລະສັບເປັນຮູບເລກແປດເພື່ອຄາລິເບຣດເຂັມທິດ ແລະ ແກ້ໄຂທິດທາງລູກສອນໃນແຜນທີ່.</string>
+    <!-- Toast text when user hides UI with a long tap anywhere on the map -->
+    <string name="long_tap_toast">ແຕະຄ້າງໃນແຜນທີ່ອີກຄັ້ງເພື່ອເບິ່ງອິນເຕີເຟດ</string>
+    <!-- Update all button text -->
+    <string name="downloader_update_all_button">ອັບເດດທັງໝົດ</string>
+    <!-- Cancel all button text -->
+    <string name="downloader_cancel_all">ຍົກເລີກທັງໝົດ</string>
+    <!-- Downloaded maps list header -->
+    <string name="downloader_downloaded_subtitle">ດາວໂຫລດແລ້ວ</string>
+    <!-- Country queued for download -->
+    <string name="downloader_queued">ຢູ່ໃນຄິວ</string>
+    <string name="downloader_near_me_subtitle">ໃກ້ຂ້ອຍ</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">ແຜນທີ່</string>
+    <string name="downloader_download_all_button">ດາວໂຫລດທັງໝົດ</string>
+    <string name="downloader_downloading">ກຳລັງດາວໂຫລດ:</string>
+    <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+    <string name="downloader_delete_map_while_routing_dialog">ເພື່ອລຶບແຜນທີ່, ກະລຸນາຢຸດການນຳທາງ.</string>
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">ເສັ້ນທາງສາມາດສ້າງໄດ້ສະເພາະພາຍໃນແຜນທີ່ຂອງພາກພື້ນດຽວກັນເທົ່ານັ້ນ.</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">ດາວໂຫລດແຜນທີ່</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">ລອງໃໝ່</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_delete_map">ລຶບແຜນທີ່</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">ອັບເດດແຜນທີ່</string>
+    <!-- Preference title -->
+    <string name="google_play_services">ບໍລິການຕຳແໜ່ງທີ່ຕັ້ງຂອງ Google Play</string>
+    <!-- Preference text -->
+    <string name="pref_use_google_play">ລະບຸຕຳແໜ່ງໂດຍປະມານຂອງທ່ານຢ່າງວ່ອງໄວໂດຍໃຊ້ Bluetooth, WiFi, ຫຼື ເຄືອຂ່າຍມືຖື</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">ດາວໂຫລດແຜນທີ່ທັງໝົດຕາມເສັ້ນທາງຂອງທ່ານ</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">ເພື່ອສ້າງເສັ້ນທາງ, ພວກເຮົາຕ້ອງດາວໂຫລດ ແລະ ອັບເດດແຜນທີ່ທັງໝົດຕັ້ງແຕ່ຕຳແໜ່ງຂອງທ່ານໄປຈົນຮອດປາຍທາງ.</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_not_enough_space">ພື້ນທີ່ບໍ່ພໍ</string>
+    <!-- location service disabled -->
+    <string name="enable_location_services">ກະລຸນາເປີດບໍລິການຕຳແໜ່ງທີ່ຕັ້ງ</string>
+    <string name="save">ບັນທຶກ</string>
+    <string name="create">ສ້າງ</string>
+    <!-- red color -->
+    <string name="red">ສີແດງ</string>
+    <!-- yellow color -->
+    <string name="yellow">ສີເຫຼືອງ</string>
+    <!-- blue color -->
+    <string name="blue">ສີຟ້າ</string>
+    <!-- green color -->
+    <string name="green">ສີຂຽວ</string>
+    <!-- purple color -->
+    <string name="purple">ສີມ່ວງ</string>
+    <!-- orange color -->
+    <string name="orange">ສີສົ້ມ</string>
+    <!-- brown color -->
+    <string name="brown">ສີນ້ຳຕານ</string>
+    <!-- pink color -->
+    <string name="pink">ສີບົວ</string>
+    <!-- deep purple color -->
+    <string name="deep_purple">ສີມ່ວງເຂັ້ມ</string>
+    <!-- light blue color -->
+    <string name="light_blue">ສີຟ້າອ່ອນ</string>
+    <!-- cyan color -->
+    <string name="cyan">ສີຟ້າຂຽວ</string>
+    <!-- teal color -->
+    <string name="teal">ສີຂຽວນົກເປັດນ້ຳ</string>
+    <!-- lime color -->
+    <string name="lime">ສີຂຽວໝາກນາວ</string>
+    <!-- deep orange color -->
+    <string name="deep_orange">ສີສົ້ມເຂັ້ມ</string>
+    <!-- gray color -->
+    <string name="gray">ສີເທົາ</string>
+    <!-- blue gray color -->
+    <string name="blue_gray">ສີເທົາຟ້າ</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">ຮູບລັກສະນະ</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">ແຈ້ງ</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">ມືດ</string>
+    <!-- Tex label above the Donate button -->
+    <string name="donate_description">ມອບແຜນທີ່ຟຣີທີ່ບໍ່ມີໂຄສະນາໃຫ້ກັບຜູ້ໃຊ້ຫຼາຍລ້ານຄົນ!</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_disclaimer_title">ເມື່ອເດີນທາງຕາມເສັ້ນທາງ, ກະລຸນາຈື່ໄວ້ວ່າ:</string>
+    <string name="dialog_routing_disclaimer_priority">— ສະພາບຖະໜົນ, ກົດໝາຍຈະລາຈອນ, ແລະ ປ້າຍຈະລາຈອນ ມີຄວາມສຳຄັນກວ່າຄຳແນະນຳໃນການນຳທາງສະເໝີ;</string>
+    <string name="dialog_routing_disclaimer_precision">— ແຜນທີ່ອາດບໍ່ຊັດເຈນ, ແລະ ເສັ້ນທາງທີ່ແນະນຳອາດບໍ່ແມ່ນທາງທີ່ດີທີ່ສຸດສະເໝີໄປ;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— ເສັ້ນທາງທີ່ແນະນຳຄວນຖືວ່າເປັນພຽງຄຳແນະນຳເທົ່ານັ້ນ;</string>
+    <string name="dialog_routing_disclaimer_borders">— ລະມັດລະວັງກັບເສັ້ນທາງໃນເຂດຊາຍແດນ: ເສັ້ນທາງທີ່ສ້າງໂດຍແອັບຂອງພວກເຮົາອາດຂ້າມຊາຍແດນປະເທດໃນຈຸດທີ່ບໍ່ໄດ້ຮັບອະນຸຍາດ.</string>
+    <string name="dialog_routing_disclaimer_beware">ກະລຸນາມີສະຕິ ແລະ ປອດໄພໃນການເດີນທາງ!</string>
+    <string name="dialog_routing_check_gps">ກວດເບິ່ງສັນຍານ GPS</string>
+    <string name="dialog_routing_error_location_not_found">ບໍ່ສາມາດສ້າງເສັ້ນທາງໄດ້. ບໍ່ສາມາດລະບຸພິກັດ GPS ປັດຈຸບັນໄດ້.</string>
+    <string name="dialog_routing_location_turn_wifi">ກະລຸນາກວດເບິ່ງສັນຍານ GPS ຂອງທ່ານ. ການເປີດ Wi-Fi ຈະຊ່ວຍໃຫ້ຕຳແໜ່ງທີ່ຕັ້ງຊັດເຈນຂຶ້ນ.</string>
+    <string name="dialog_routing_location_turn_on">ເປີດບໍລິການຕຳແໜ່ງທີ່ຕັ້ງ</string>
+    <string name="dialog_routing_location_unknown_turn_on">ບໍ່ສາມາດລະບຸພິກັດ GPS ປັດຈຸບັນໄດ້. ເປີດບໍລິການຕຳແໜ່ງທີ່ຕັ້ງເພື່ອຄິດໄລ່ເສັ້ນທາງ.</string>
+    <string name="dialog_routing_unable_locate_route">ບໍ່ສາມາດຊອກຫາເສັ້ນທາງໄດ້</string>
+    <string name="dialog_routing_cant_build_route">ບໍ່ສາມາດສ້າງເສັ້ນທາງໄດ້.</string>
+    <string name="dialog_routing_change_start_or_end">ກະລຸນາປັບປຸງຈຸດເລີ່ມຕົ້ນ ຫຼື ປາຍທາງຂອງທ່ານ.</string>
+    <string name="dialog_routing_change_start">ປັບປຸງຈຸດເລີ່ມຕົ້ນ</string>
+    <string name="dialog_routing_start_not_determined">ເສັ້ນທາງບໍ່ຖືກສ້າງ. ບໍ່ສາມາດລະບຸຈຸດເລີ່ມຕົ້ນໄດ້.</string>
+    <string name="dialog_routing_select_closer_start">ກະລຸນາເລືອກຈຸດເລີ່ມຕົ້ນໃຫ້ໃກ້ກັບຖະໜົນ.</string>
+    <string name="dialog_routing_change_end">ປັບປຸງປາຍທາງ</string>
+    <string name="dialog_routing_end_not_determined">ເສັ້ນທາງບໍ່ຖືກສ້າງ. ບໍ່ສາມາດລະບຸປາຍທາງໄດ້.</string>
+    <string name="dialog_routing_select_closer_end">ກະລຸນາເລືອກຈຸດປາຍທາງໃຫ້ໃກ້ກັບຖະໜົນ.</string>
+    <string name="dialog_routing_change_intermediate">ບໍ່ສາມາດລະບຸຈຸດແວ່ພັກໄດ້.</string>
+    <string name="dialog_routing_intermediate_not_determined">ກະລຸນາປັບປຸງຈຸດແວ່ພັກຂອງທ່ານ.</string>
+    <string name="dialog_routing_system_error">ຂໍ້ຜິດພາດຂອງລະບົບ</string>
+    <string name="dialog_routing_application_error">ບໍ່ສາມາດສ້າງເສັ້ນທາງໄດ້ເນື່ອງຈາກຂໍ້ຜິດພາດຂອງແອັບພລິເຄຊັນ.</string>
+    <string name="dialog_routing_try_again">ກະລຸນາລອງໃໝ່</string>
+    <string name="not_now">ບໍ່ແມ່ນຕອນນີ້</string>
+    <string name="dialog_routing_download_and_build_cross_route">ທ່ານຕ້ອງການດາວໂຫລດແຜນທີ່ ແລະ ສ້າງເສັ້ນທາງທີ່ດີກວ່າເຊິ່ງກວມເອົາຫຼາຍກວ່າໜຶ່ງແຜນທີ່ບໍ່?</string>
+    <string name="dialog_routing_download_cross_route">ດາວໂຫລດແຜນທີ່ເພີ່ມເຕີມເພື່ອສ້າງເສັ້ນທາງທີ່ດີກວ່າເຊິ່ງຂ້າມຂອບເຂດຂອງແຜນທີ່ນີ້.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="search_without_internet_advertisement">ເພື່ອເລີ່ມການຄົ້ນຫາ ແລະ ສ້າງເສັ້ນທາງ, ກະລຸນາດາວໂຫລດແຜນທີ່. ຫຼັງຈາກນັ້ນ, ທ່ານຈະບໍ່ຈຳເປັນຕ້ອງໃຊ້ການເຊື່ອມຕໍ່ອິນເຕີເນັດອີກ.</string>
+    <string name="search_select_map">ເລືອກແຜນທີ່</string>
+    <!-- «Show» context menu -->
+    <string name="show">ສະແດງ</string>
+    <!-- «Hide» context menu -->
+    <string name="hide">ເຊື່ອງ</string>
+    <string name="categories">ໝວດໝູ່</string>
+    <string name="history">ປະຫວັດ</string>
+    <string name="search_not_found">ຂໍອະໄພ, ບໍ່ພົບຜົນການຄົ້ນຫາ.</string>
+    <!-- The message when user did not find anything in the search. -->
+    <string name="search_not_found_query">ດາວໂຫລດພາກພື້ນທີ່ທ່ານກຳລັງຄົ້ນຫາ ຫຼື ລອງເພີ່ມຊື່ເມືອງ/ບ້ານທີ່ຢູ່ໃກ້ຄຽງ.</string>
+    <string name="search_history_title">ປະຫວັດການຄົ້ນຫາ</string>
+    <string name="search_history_text">ເບິ່ງການຄົ້ນຫາຫຼ້າສຸດຂອງທ່ານ.</string>
+    <string name="clear_search">ລຶບປະຫວັດການຄົ້ນຫາ</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">ວິກິພີເດຍ</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">ວິກິມີເດຍ ຄອມມອນສ໌</string>
+    <string name="p2p_your_location">ຕຳແໜ່ງຂອງທ່ານ</string>
+    <string name="p2p_start">ເລີ່ມ</string>
+    <string name="p2p_from_here">ເສັ້ນທາງຈາກ</string>
+    <string name="p2p_to_here">ເສັ້ນທາງໄປຫາ</string>
+    <string name="p2p_only_from_current">ການນຳທາງສາມາດໃຊ້ໄດ້ສະເພາະຈາກຕຳແໜ່ງປັດຈຸບັນຂອງທ່ານເທົ່ານັ້ນ.</string>
+    <string name="p2p_reroute_from_current">ທ່ານຕ້ອງການວາງແຜນເສັ້ນທາງຈາກຕຳແໜ່ງປັດຈຸບັນຂອງທ່ານບໍ່?</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">ຕໍ່ໄປ</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_from">ຈາກ</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_to">ຫາ</string>
+    <string name="editor_time_add">ເພີ່ມຕາຕະລາງ</string>
+    <string name="editor_time_delete">ລຶບຕາຕະລາງ</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">ທັງໝົດມື້ (24 ຊົ່ວໂມງ)</string>
+    <string name="editor_time_open">ເປີດ</string>
+    <string name="editor_time_close">ປິດ</string>
+    <string name="editor_time_add_closed">ເພີ່ມຊົ່ວໂມງທີ່ບໍ່ແມ່ນເວລາທຳການ</string>
+    <string name="editor_time_title">ເວລາທຳການ</string>
+    <string name="editor_time_advanced">ໂໝດຂັ້ນສູງ</string>
+    <string name="editor_time_simple">ໂໝດງ່າຍດາຍ</string>
+    <string name="editor_hours_closed">ຊົ່ວໂມງທີ່ບໍ່ແມ່ນເວລາທຳການ</string>
+    <string name="editor_example_values">ຕົວຢ່າງຄ່າ</string>
+    <string name="editor_correct_mistake">ແກ້ໄຂຂໍ້ຜິດພາດ</string>
+    <string name="editor_add_select_location">ເລືອກຕຳແໜ່ງທີ່ຕັ້ງ</string>
+    <string name="editor_report_problem_desription_1">ກະລຸນາອະທິບາຍບັນຫາໂດຍລະອຽດເພື່ອໃຫ້ຊຸມຊົນ OpenStreetMap ສາມາດແກ້ໄຂໄດ້.</string>
+    <string name="editor_report_problem_desription_2">ຫຼື ເຮັດດ້ວຍຕົນເອງໄດ້ທີ່ https://www.openstreetmap.org/</string>
+    <string name="editor_report_problem_send_button">ສົ່ງ</string>
+    <string name="editor_report_problem_title">ບັນຫາ</string>
+    <string name="editor_report_problem_no_place_title">ສະຖານທີ່ນີ້ບໍ່ມີຢູ່ແທ້</string>
+    <string name="editor_report_problem_under_construction_title">ປິດເພື່ອປັບປຸງ</string>
+    <string name="editor_report_problem_duplicate_place_title">ສະຖານທີ່ຊ້ຳຊ້ອນ</string>
+    <string name="autodownload">ດາວໂຫລດແຜນທີ່ອັດຕະໂນມັດ</string>
+    <!-- Place Page opening hours text -->
+    <string name="daily">ທຸກມື້</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">ປິດມື້ນີ້</string>
+    <string name="day_off">ປິດ</string>
+    <string name="today">ມື້ນີ້</string>
+    <string name="opens_in">ຈະເປີດໃນອີກ %s</string>
+    <string name="closes_in">ຈະປິດໃນອີກ %s</string>
+    <string name="closed">ປິດ</string>
+    <string name="edit_opening_hours">ແກ້ໄຂເວລາທຳການ</string>
+    <string name="no_osm_account">ຍັງບໍ່ມີບັນຊີ OpenStreetMap ບໍ່?</string>
+    <string name="register_at_openstreetmap">ລົງທະບຽນທີ່ OpenStreetMap</string>
+    <string name="login">ເຂົ້າສູ່ລະບົບ</string>
+    <!-- Status message indicating that user did not login to OSM profile yet. -->
+    <string name="not_signed_in">ຍັງບໍ່ທັນໄດ້ເຂົ້າສູ່ລະບົບ</string>
+    <string name="login_osm">ເຂົ້າສູ່ລະບົບ OpenStreetMap</string>
+    <string name="password">ລະຫັດຜ່ານ</string>
+    <string name="forgot_password">ລືມລະຫັດຜ່ານບໍ່?</string>
+    <string name="logout">ອອກຈາກລະບົບ</string>
+    <string name="edit_place">ແກ້ໄຂສະຖານທີ່</string>
+    <string name="add_language">ເພີ່ມພາສາ</string>
+    <string name="street">ຖະໜົນ</string>
+    <!-- Editable House Number text field (in address block). -->
+    <string name="house_number">ເລກທີອາຄານ</string>
+    <string name="details">ລາຍລະອຽດ</string>
+    <string name="social_media">ສື່ສັງຄົມອອນລາຍ</string>
+    <string name="building">ອາຄານ</string>
+    <!-- Text field to enter non-existing street name, below list of known streets around -->
+    <string name="add_street">ເພີ່ມຖະໜົນ</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">ກະລຸນາປ້ອນຊື່ຖະໜົນ</string>
+    <string name="choose_language">ເລືອກພາສາ</string>
+    <string name="choose_street">ເລືອກຖະໜົນ</string>
+    <string name="cuisine">ປະເພດອາຫານ</string>
+    <string name="select_cuisine">ເລືອກປະເພດອາຫານ</string>
+    <!-- login text field -->
+    <string name="email_or_username">ອີເມລ ຫຼື ຊື່ຜູ້ໃຊ້</string>
+    <string name="editor_add_phone">ເພີ່ມເບີໂທລະສັບ</string>
+    <string name="level">ຊັ້ນ</string>
+    <!-- Building level -->
+    <string name="level_value_generic">ຊັ້ນ: %s</string>
+    <string name="downloader_delete_map_dialog">ການແກ້ໄຂແຜນທີ່ທັງໝົດຂອງທ່ານຈະຖືກລຶບໄປພ້ອມກັບແຜນທີ່.</string>
+    <string name="downloader_update_maps">ອັບເດດແຜນທີ່</string>
+    <string name="downloader_mwm_migration_dialog">ເພື່ອສ້າງເສັ້ນທາງ, ທ່ານຕ້ອງອັບເດດແຜນທີ່ທັງໝົດ ແລ້ວຈຶ່ງວາງແຜນເສັ້ນທາງໃໝ່ອີກຄັ້ງ.</string>
+    <string name="downloader_search_field_hint">ຊອກຫາແຜນທີ່</string>
+    <string name="common_check_internet_connection_dialog">ກະລຸນາໃຫ້ແນ່ໃຈວ່າອຸປະກອນຂອງທ່ານໄດ້ເຊື່ອມຕໍ່ອິນເຕີເນັດແລ້ວ.</string>
+    <string name="downloader_no_space_title">ພື້ນທີ່ບໍ່ພໍ</string>
+    <!-- Message shown when there is not enough space to download maps -->
+    <string name="downloader_no_space_message">ກະລຸນາລຶບຂໍ້ມູນທີ່ບໍ່ຈຳເປັນອອກ</string>
+    <string name="editor_login_error_dialog">ເກີດຂໍ້ຜິດພາດໃນການເຂົ້າສູ່ລະບົບ.</string>
+    <string name="editor_profile_changes">ການປ່ຽນແປງທີ່ໄດ້ຮັບການຢືນຢັນແລ້ວ</string>
+    <string name="editor_focus_map_on_location">ລາກແຜນທີ່ເພື່ອວາງເຄື່ອງໝາຍບວກໃສ່ຕຳແໜ່ງຂອງສະຖານທີ່ ຫຼື ທຸລະກິດ.</string>
+    <string name="editor_edit_place_title">ກຳລັງແກ້ໄຂ</string>
+    <string name="editor_add_place_title">ກຳລັງເພີ່ມ</string>
+    <string name="editor_edit_place_name_hint">ຊື່ຂອງສະຖານທີ່</string>
+    <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+    <string name="editor_default_language_hint">ຕາມທີ່ຂຽນໃນພາສາທ້ອງຖິ່ນ</string>
+    <string name="editor_edit_place_category_title">ໝວດໝູ່</string>
+    <string name="detailed_problem_description">ລາຍລະອຽດຂອງບັນຫາ</string>
+    <string name="editor_report_problem_other_title">ບັນຫາອື່ນໆ</string>
+    <string name="placepage_add_business_button">ເພີ່ມທຸລະກິດ</string>
+    <string name="message_invalid_feature_position">ບໍ່ມີວັດຖຸໃດສາມາດຕັ້ງຢູ່ບ່ອນນີ້ໄດ້</string>
+    <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+    <string name="osm_presentation">ຂໍ້ມູນ OpenStreetMap ທີ່ສ້າງໂດຍຊຸມຊົນ ນັບຕັ້ງແຕ່ %s. ສຶກສາເພີ່ມເຕີມກ່ຽວກັບວິທີແກ້ໄຂ ແລະ ອັບເດດແຜນທີ່ໄດ້ທີ່ OpenStreetMap.org</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ແມ່ນໂຄງການຊຸມຊົນເພື່ອສ້າງແຜນທີ່ທີ່ຟຣີ ແລະ ເປີດກວ້າງ. ມັນເປັນແຫຼ່ງຂໍ້ມູນແຜນທີ່ຫຼັກໃນ Organic Maps ແລະ ເຮັດວຽກຄ້າຍຄືກັບ Wikipedia. ທ່ານສາມາດເພີ່ມ ຫຼື ແກ້ໄຂສະຖານທີ່ ແລະ ພວກມັນຈະພ້ອມໃຫ້ຜູ້ໃຊ້ຫຼາຍລ້ານຄົນທົ່ວໂລກໄດ້ໃຊ້.\nມາເຂົ້າຮ່ວມຊຸມຊົນ ແລະ ຊ່ວຍກັນສ້າງແຜນທີ່ທີ່ດີກວ່າສຳລັບທຸກຄົນ!</string>
+    <string name="login_to_make_edits_visible">ສ້າງບັນຊີ OpenStreetMap ຫຼື ເຂົ້າສູ່ລະບົບເພື່ອເຜີຍແຜ່ການແກ້ໄຂແຜນທີ່ຂອງທ່ານໃຫ້ໂລກໄດ້ເຫັນ.</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d ຈາກ %2$d</string>
+    <string name="download_over_mobile_header">ດາວໂຫລດຜ່ານການເຊື່ອມຕໍ່ເຄືອຂ່າຍມືຖືບໍ່?</string>
+    <string name="download_over_mobile_message">ນີ້ອາດຈະມີຄ່າໃຊ້ຈ່າຍສູງສຳລັບບາງແພັກເກັດ ຫຼື ຫາກໃຊ້ບໍລິການໂຣມມິ່ງ.</string>
+    <string name="error_enter_correct_house_number">ປ້ອນເລກທີອາຄານທີ່ຖືກຕ້ອງ</string>
+    <string name="editor_storey_number">ຈຳນວນຊັ້ນ (ສູງສຸດ %d)</string>
+    <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+    <string name="error_enter_correct_storey_number">ຈຳນວນຊັ້ນຕ້ອງບໍ່ເກີນ %d</string>
+    <string name="editor_zip_code">ລະຫັດໄປສະນີ</string>
+    <string name="error_enter_correct_zip_code">ປ້ອນລະຫັດໄປສະນີທີ່ຖືກຕ້ອງ</string>
+    <!-- Title for OSM note section in the editor -->
+    <string name="editor_other_info">ບັນທຶກເຖິງອາສາສະໝັກ OpenStreetMap (ບໍ່ບັງຄັບ)</string>
+    <!-- Hint of the input field in the OSM note section of the editor -->
+    <string name="editor_note_hint">ອະທິບາຍຂໍ້ຜິດພາດໃນແຜນທີ່ ຫຼື ສິ່ງທີ່ບໍ່ສາມາດແກ້ໄຂໄດ້ດ້ວຍ Organic Maps</string>
+    <!-- Information about OSM at the top of the editing page -->
+    <string name="editor_about_osm">ການແກ້ໄຂຂອງທ່ານຈະຖືກອັບໂຫລດໄປຍັງຖານຂໍ້ມູນສາທາລະນະ <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. ກະລຸນາຢ່າເພີ່ມຂໍ້ມູນສ່ວນຕົວ ຫຼື ຂໍ້ມູນທີ່ມີລິຂະສິດ.</string>
+    <string name="editor_more_about_osm">ເພີ່ມເຕີມກ່ຽວກັບ OpenStreetMap</string>
+    <string name="editor_osm_history">ປະຫວັດການແກ້ໄຂຂອງທ່ານ</string>
+    <string name="editor_osm_notes">ບັນທຶກຂໍ້ມູນແຜນທີ່ຂອງທ່ານ</string>
+    <string name="editor_operator">ຜູ້ດູແລ</string>
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
+    <string name="operator">ຜູ້ດຳເນີນການ: %s</string>
+    <string name="editor_category_unsuitable_title">ບໍ່ພົບໝວດໝູ່ທີ່ເໝາະສົມບໍ່?</string>
+    <string name="editor_category_unsuitable_text">Organic Maps ອະນຸຍາດໃຫ້ເພີ່ມສະເພາະໝວດໝູ່ຈຸດທີ່ງ່າຍດາຍເທົ່ານັ້ນ, ນັ້ນໝາຍຄວາມວ່າບໍ່ລວມເຖິງ ຕົວເມືອງ, ຖະໜົນ, ໜອງນ້ຳ, ຂອບເຂດອາຄານ ແລະ ອື່ນໆ. ກະລຸນາເພີ່ມໝວດໝູ່ດັ່ງກ່າວໂດຍກົງທີ່ <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. ກວດເບິ່ງ <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ຄຳແນະນຳ</a> ຂອງພວກເຮົາສຳລັບຂັ້ນຕອນໂດຍລະອຽດ.</string>
+    <string name="downloader_no_downloaded_maps_title">ທ່ານຍັງບໍ່ໄດ້ດາວໂຫລດແຜນທີ່ໃດໆ</string>
+    <string name="downloader_no_downloaded_maps_message">ດາວໂຫລດແຜນທີ່ເພື່ອຄົ້ນຫາ ແລະ ນຳທາງແບບອອບລາຍ.</string>
+    <string name="current_location_unknown_error_title">ບໍ່ຮູ້ຕຳແໜ່ງປັດຈຸບັນ.</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">ກມ/ຊມ</string>
+    <string name="miles_per_hour">ໄມ/ຊມ</string>
+    <string name="hour">ຊມ</string>
+    <string name="minute">ນາທີ</string>
+    <string name="day">ມື້</string>
+    <string name="second">ວິ</string>
+    <string name="placepage_more_button">ເພີ່ມເຕີມ</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="placepage_edit_bookmark_button">ແກ້ໄຂບຸກມາກ</string>
+    <string name="placepage_personal_notes_hint">ບັນທຶກສ່ວນຕົວ (ຂໍ້ຄວາມ ຫຼື html)</string>
+    <string name="editor_comment_hint">ສະແດງຄວາມຄິດເຫັນ…</string>
+    <string name="editor_reset_edits_message">ຍົກເລີກການປ່ຽນແປງພາຍໃນທັງໝົດບໍ່?</string>
+    <string name="editor_reset_edits_button">ຍົກເລີກ</string>
+    <string name="editor_remove_place_message">ລຶບສະຖານທີ່ທີ່ເພີ່ມເຂົ້າໄປບໍ່?</string>
+    <string name="editor_remove_place_button">ລຶບ</string>
+    <string name="editor_place_doesnt_exist">ສະຖານທີ່ນີ້ບໍ່ມີຢູ່ແທ້</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">ກະລຸນາລະບຸເຫດຜົນໃນການລຶບສະຖານທີ່</string>
+    <!-- Phone number error message -->
+    <string name="error_enter_correct_phone">ປ້ອນເບີໂທລະສັບທີ່ຖືກຕ້ອງ</string>
+    <string name="error_enter_correct_web">ປ້ອນທີ່ຢູ່ເວັບທີ່ຖືກຕ້ອງ</string>
+    <string name="error_enter_correct_email">ປ້ອນອີເມລທີ່ຖືກຕ້ອງ</string>
+    <string name="error_enter_correct_facebook_page">ປ້ອນທີ່ຢູ່ເວັບ Facebook, ບັນຊີ ຫຼື ຊື່ເພຈທີ່ຖືກຕ້ອງ</string>
+    <string name="error_enter_correct_instagram_page">ປ້ອນຊື່ຜູ້ໃຊ້ ຫຼື ທີ່ຢູ່ເວັບ Instagram ທີ່ຖືກຕ້ອງ</string>
+    <string name="error_enter_correct_twitter_page">ປ້ອນຊື່ຜູ້ໃຊ້ ຫຼື ທີ່ຢູ່ເວັບ Twitter ທີ່ຖືກຕ້ອງ</string>
+    <string name="error_enter_correct_vk_page">ປ້ອນຊື່ຜູ້ໃຊ້ ຫຼື ທີ່ຢູ່ເວັບ VK ທີ່ຖືກຕ້ອງ</string>
+    <string name="error_enter_correct_line_page">ປ້ອນ LINE ID ຫຼື ທີ່ຢູ່ເວັບທີ່ຖືກຕ້ອງ</string>
+    <string name="placepage_add_place_button">ເພີ່ມສະຖານທີ່ໃສ່ OpenStreetMap</string>
+    <string name="osm_note_hint">ຫຼື ອີກທາງເລືອກໜຶ່ງ, ຝາກບັນທຶກໄວ້ໃຫ້ຊຸມຊົນ OpenStreetMap ເພື່ອໃຫ້ຄົນອື່ນສາມາດເພີ່ມ ຫຼື ແກ້ໄຂສະຖານທີ່ບ່ອນນີ້ໄດ້.</string>
+    <string name="osm_note_toast">ບັນທຶກຈະຖືກສົ່ງໄປຫາ OpenStreetMap</string>
+    <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
+    <string name="editor_share_to_all_dialog_title">ທ່ານຕ້ອງການສົ່ງໃຫ້ຜູ້ໃຊ້ທັງໝົດບໍ່?</string>
+    <!-- Dialog before publishing the modifications to the public map. -->
+    <string name="editor_share_to_all_dialog_message_1">ໃຫ້ແນ່ໃຈວ່າທ່ານບໍ່ໄດ້ປ້ອນຂໍ້ມູນສ່ວນຕົວໃດໆ.</string>
+    <string name="editor_share_to_all_dialog_message_2">ຜູ້ກວດແກ້ OpenStreetMap ຈະກວດສອບການປ່ຽນແປງ ແລະ ຕິດຕໍ່ຫາທ່ານຫາກພວກເຂົາມີຄຳຖາມໃດໆ.</string>
+    <string name="navigation_stop_button">ຢຸດ</string>
+    <!-- Shown as toast when starting the recent track recording -->
+    <string name="track_recording">ກຳລັງບັນທຶກເສັ້ນທາງ</string>
+    <!-- For the first routing -->
+    <string name="accept">ຍອມຮັບ</string>
+    <!-- For the first routing -->
+    <string name="decline">ປະຕິເສດ</string>
+    <string name="mobile_data_dialog">ໃຊ້ ອິນເຕີເນັດມືຖື ເພື່ອສະແດງຂໍ້ມູນລະອຽດບໍ່?</string>
+    <string name="mobile_data_option_always">ໃຊ້ສະເໝີ</string>
+    <string name="mobile_data_option_today">ສະເພາະມື້ນີ້</string>
+    <string name="mobile_data_option_not_today">ບໍ່ໃຊ້ໃນມື້ນີ້</string>
+    <string name="mobile_data">ອິນເຕີເນັດມືຖື</string>
+    <!-- NOTE to translators: please synchronize your translation with the English one. -->
+    <string name="mobile_data_description">ຕ້ອງການອິນເຕີເນັດມືຖືສຳລັບການແຈ້ງເຕືອນອັບເດດແຜນທີ່ ແລະ ການອັບໂຫລດການແກ້ໄຂ.</string>
+    <string name="mobile_data_option_never">ບໍ່ໃຊ້ເລີຍ</string>
+    <string name="mobile_data_option_ask">ຖາມທຸກຄັ້ງ</string>
+    <string name="traffic_update_maps_text">ເພື່ອສະແດງຂໍ້ມູນການຈະລາຈອນ, ຕ້ອງອັບເດດແຜນທີ່ກ່ອນ.</string>
+    <string name="big_font">ເພີ່ມຂະໜາດສຳລັບປ້າຍຊື່ໃນແຜນທີ່</string>
+    <string name="traffic_update_app">ກະລຸນາອັບເດດ Organic Maps</string>
+    <!-- "traffic" as in "road congestion" -->
+    <string name="traffic_data_unavailable">ຂໍ້ມູນການຈະລາຈອນບໍ່ພ້ອມໃຊ້ງານ</string>
+    <string name="enable_logging">ເປີດການບັນທຶກລັອກ</string>
+    <!-- Settings: "Send general feedback" button -->
+    <string name="feedback_general">ຄຳຕິຊົມທົ່ວໄປ</string>
+    <string name="prefs_languages_information">ພວກເຮົາໃຊ້ TTS ຂອງລະບົບສຳລັບຄຳແນະນຳດ້ວຍສຽງ. ອຸປະກອນ Android ຫຼາຍລຸ້ນໃຊ້ Google TTS, ທ່ານສາມາດດາວໂຫລດ ຫຼື ອັບເດດໄດ້ຈາກ Google Play</string>
+    <string name="prefs_languages_information_off">ສຳລັບບາງພາສາ, ທ່ານຈະຕ້ອງຕິດຕັ້ງເຄື່ອງສັງເຄາະສຽງ ຫຼື ຊຸດພາສາເພີ່ມເຕີມຈາກແອັບສະໂຕ (Google Play, Galaxy Store, App Gallery, FDroid).\nເປີດການຕັ້ງຄ່າອຸປະກອນຂອງທ່ານ → ພາສາ ແລະ ການປ້ອນຂໍ້ມູນ → ສຽງ → ການອອກສຽງ Text to speech.\nຢູ່ບ່ອນນີ້ທ່ານສາມາດຈັດການການຕັ້ງຄ່າສຳລັບການສັງເຄາະສຽງ (ຕົວຢ່າງ: ດາວໂຫລດຊຸດພາສາສຳລັບໃຊ້ແບບອອບລາຍ) ແລະ ເລືອກເຄື່ອງຈັກ text-to-speech ອື່ນ.</string>
+    <string name="prefs_languages_information_off_link">ສຳລັບຂໍ້ມູນເພີ່ມເຕີມ ກະລຸນາກວດເບິ່ງຄຳແນະນຳນີ້.</string>
+    <string name="transliteration_title">ຖອດອັກສອນເປັນພາສາລາແຕັງ</string>
+    <string name="learn_more">ຮຽນຮູ້ເພີ່ມເຕີມ</string>
+    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+    <string name="routing_add_start_point">ໃຊ້ການຄົ້ນຫາ, ເລືອກບຸກມາກ, ຫຼື ແຕະໃນແຜນທີ່ເພື່ອເພີ່ມຈຸດເລີ່ມຕົ້ນຂອງເສັ້ນທາງ</string>
+    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+    <string name="routing_add_finish_point">ໃຊ້ການຄົ້ນຫາ, ເລືອກບຸກມາກ, ຫຼື ແຕະໃນແຜນທີ່ເພື່ອເພີ່ມຈຸດປາຍທາງ</string>
+    <string name="planning_route_manage_route">ຈັດການເສັ້ນທາງ</string>
+    <string name="button_plan">ວາງແຜນ</string>
+    <string name="placepage_remove_stop">ເອົາຈຸດແວ່ພັກອອກ</string>
+    <string name="placepage_add_stop">ເພີ່ມຈຸດແວ່ພັກ</string>
+    <string name="saved">ບັນທຶກແລ້ວ</string>
+    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+    <string name="alert_reauth_message">ກະລຸນາເຂົ້າສູ່ລະບົບ OpenStreetMap ເພື່ອອັບໂຫລດການແກ້ໄຂແຜນທີ່ທັງໝົດຂອງທ່ານໂດຍອັດຕະໂນມັດ. ສຶກສາເພີ່ມເຕີມ <a href="https://github.com/organicmaps/organicmaps/issues/6144">ທີ່ນີ້</a>.</string>
+    <string name="dialog_error_storage_title">ບັນຫາການເຂົ້າເຖິງບ່ອນເກັບຂໍ້ມູນ</string>
+    <string name="dialog_error_storage_message">ບໍ່ສາມາດເຂົ້າເຖິງບ່ອນເກັບຂໍ້ມູນພາຍນອກໄດ້. SD ກາດອາດຖືກຖອດອອກ, ເສຍຫາຍ, ຫຼື ລະບົບໄຟລ໌ເປັນແບບອ່ານຢ່າງດຽວ. ກະລຸນາກວດເບິ່ງ SD ກາດຂອງທ່ານ ຫຼື ຕິດຕໍ່ຫາພວກເຮົາໄດ້ທີ່ support\@organicmaps.app</string>
+    <string name="setting_emulate_bad_storage">ຈຳລອງບ່ອນເກັບຂໍ້ມູນທີ່ເສຍຫາຍ</string>
+    <string name="error_enter_correct_name">ກະລຸນາປ້ອນຊື່ທີ່ຖືກຕ້ອງ</string>
+    <string name="bookmark_lists">ລາຍການ</string>
+    <!-- Do not display all bookmark lists on the map -->
+    <string name="bookmark_lists_hide_all">ເຊື່ອງທັງໝົດ</string>
+    <string name="bookmark_lists_show_all">ສະແດງທັງໝົດ</string>
+    <plurals name="bookmarks_places">
+        <item quantity="zero">%d bookmarks</item>
+        <item quantity="other">%d bookmarks</item>
+    </plurals>
+    <string name="bookmarks_create_new_group">ສ້າງລາຍການໃໝ່</string>
+    <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+    <string name="bookmarks_import">ນຳເຂົ້າບຸກມາກ ແລະ ເສັ້ນທາງ</string>
+    <string name="bookmarks_error_message_share_general">ບໍ່ສາມາດແບ່ງປັນໄດ້ເນື່ອງຈາກຂໍ້ຜິດພາດຂອງແອັບພລິເຄຊັນ</string>
+    <string name="bookmarks_error_title_share_empty">ຂໍ້ຜິດພາດໃນການແບ່ງປັນ</string>
+    <string name="bookmarks_error_message_share_empty">ບໍ່ສາມາດແບ່ງປັນລາຍການທີ່ວ່າງເປົ່າໄດ້</string>
+    <string name="bookmarks_error_title_empty_list_name">ຊື່ຕ້ອງບໍ່ວ່າງເປົ່າ</string>
+    <string name="bookmarks_error_message_empty_list_name">ກະລຸນາປ້ອນຊື່ລາຍການ</string>
+    <string name="bookmarks_new_list_hint">ລາຍການໃໝ່</string>
+    <string name="bookmarks_error_title_list_name_already_taken">ຊື່ນີ້ຖືກໃຊ້ແລ້ວ</string>
+    <string name="bookmarks_error_message_list_name_already_taken">ກະລຸນາເລືອກຊື່ອື່ນ</string>
+    <string name="please_wait">ກະລຸນາລໍຖ້າ…</string>
+    <string name="phone_number">ເບີໂທລະສັບ</string>
+    <string name="profile">ໂປຣໄຟລ໌ OpenStreetMap</string>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="zero">ພົບເຫັນ %d ໄຟລ໌. ທ່ານສາມາດເບິ່ງມັນໄດ້ຫຼັງຈາກການແປງ.</item>
+        <item quantity="other">ພົບເຫັນ %d ໄຟລ໌. ທ່ານສາມາດເບິ່ງມັນໄດ້ຫຼັງຈາກການແປງ.</item>
+    </plurals>
+    <string name="restore">ກູ້ຄືນ</string>
+    <plurals name="tracks">
+        <item quantity="zero">%d ຕິດຕ່າງໆ</item>
+        <item quantity="other">%d ຕິດຕ່າງໆ</item>
+    </plurals>
+    <!-- Settings privacy group in settings screen -->
+    <string name="privacy">ຄວາມເປັນສ່ວນຕົວ</string>
+    <string name="privacy_policy">ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ</string>
+    <string name="terms_of_use">ເງື່ອນໄຂການໃຊ້ງານ</string>
+    <string name="button_layer_traffic">ການຈະລາຈອນ</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">ການຍ່າງປ່າ</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">ການຂີ່ລົດຖີບ</string>
+    <string name="button_layer_subway">ລົດໄຟໃຕ້ດິນ</string>
+    <string name="layers_title">ຮູບແບບແຜນທີ່ ແລະ ເລເຢີ້</string>
+    <string name="bookmarks_empty_list_title">ລາຍການນີ້ວ່າງເປົ່າ</string>
+    <string name="bookmarks_empty_list_message">ເພື່ອເພີ່ມບຸກມາກ, ໃຫ້ແຕະໃສ່ສະຖານທີ່ໃນແຜນທີ່ ແລ້ວແຕະທີ່ໄອຄອນຮູບດາວ</string>
+    <string name="category_desc_more">…ເພີ່ມເຕີມ</string>
+    <!-- Menu title for exporting a file in the default KMZ format -->
+    <string name="export_file">ສົ່ງອອກ KMZ</string>
+    <!-- Menu title for exporting a file in GPX format -->
+    <string name="export_file_gpx">ສົ່ງອອກ GPX</string>
+    <!-- Menu title for exporting a file in GeoJSON format -->
+    <string name="export_file_geojson">ສົ່ງອອກ GeoJSON</string>
+    <string name="delete_list">ລຶບລາຍການ</string>
+    <string name="speedcams_alert_title">ກ້ອງກວດຈັບຄວາມໄວ</string>
+    <string name="place_description_title">ລາຍລະອຽດສະຖານທີ່</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">ຕົວດາວໂຫລດແຜນທີ່</string>
+    <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+    <string name="pref_tts_speedcams_auto">ເຕືອນຫາກເກີນຄວາມໄວ</string>
+    <!-- Speed camera settings menu option - Always warn (about speedcams) -->
+    <string name="pref_tts_speedcams_always">ເຕືອນສະເໝີ</string>
+    <!-- Speed camera settings menu option - Never warn (about speedcams) -->
+    <string name="pref_tts_speedcams_never">ບໍ່ຕ້ອງເຕືອນ</string>
+    <string name="power_managment_title">ໂໝດປະຢັດພະລັງງານ</string>
+    <string name="power_managment_description">ພະຍາຍາມຫຼຸດການໃຊ້ພະລັງງານໂດຍແລກກັບບາງຟັງຊັນການໃຊ້ງານ.</string>
+    <string name="power_managment_setting_never">ບໍ່ເລີຍ</string>
+    <string name="power_managment_setting_auto">ເມື່ອແບັດເຕີຣີຕ່ຳ</string>
+    <string name="power_managment_setting_manual_max">ສະເໝີ</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">ຊື່ບຸກມາກໃນແຜນທີ່</string>
+    <string name="bookmarks_text_placement_description">ຫາກມີບຸກມາກຫຼາຍເກີນໄປ, ການສະແດງຊື່ຂອງພວກມັນໃນແຜນທີ່ອາດເຮັດໃຫ້ແອັບຊ້າລົງ.</string>
+    <string name="show_to_the_right">ສະແດງທາງເບື້ອງຂວາ</string>
+    <string name="show_at_the_bottom">ສະແດງທາງເບື້ອງລຸ່ມ</string>
+    <string name="enable_logging_warning_message">ເປີດໃຊ້ຕົວເລືອກນີ້ຊົ່ວຄາວເພື່ອບັນທຶກ ແລະ ສົ່ງລັອກການວິນິດໄສໂດຍລະອຽດກ່ຽວກັບບັນຫາຂອງທ່ານໃຫ້ພວກເຮົາໂດຍໃຊ້ \"ລາຍງານຂໍ້ຜິດພາດ\" ໃນສ່ວນຊ່ວຍເຫຼືອ. ລັອກອາດຈະລວມມີຂໍ້ມູນຕຳແໜ່ງທີ່ຕັ້ງ.</string>
+    <string name="driving_options_title">ຕົວເລືອກການສ້າງເສັ້ນທາງ</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">ເລ່ຽງທາງເສຍຄ່າທຳນຽມ</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">ເລ່ຽງທາງບໍ່ປູຢາງ</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">ເລ່ຽງເຮືອຂ້າມຟາກ</string>
+    <string name="avoid_motorways">ເລ່ຽງທາງດ່ວນ</string>
+    <string name="unable_to_calc_alert_title">ບໍ່ສາມາດຄິດໄລ່ເສັ້ນທາງໄດ້</string>
+    <string name="unable_to_calc_alert_subtitle">ບໍ່ພົບເສັ້ນທາງ. ນີ້ອາດຈະເກີດຈາກຕົວເລືອກການສ້າງເສັ້ນທາງຂອງທ່ານ ຫຼື ຂໍ້ມູນ OpenStreetMap ບໍ່ສົມບູນ. ກະລຸນາປ່ຽນຕົວເລືອກການສ້າງເສັ້ນທາງຂອງທ່ານ ແລະ ລອງໃໝ່.</string>
+    <string name="define_to_avoid_btn">ກຳນົດຖະໜົນທີ່ຕ້ອງການເລ່ຽງ</string>
+    <string name="change_driving_options_btn">ເປີດໃຊ້ຕົວເລືອກການສ້າງເສັ້ນທາງແລ້ວ</string>
+    <string name="toll_road">ທາງເສຍຄ່າທຳນຽມ</string>
+    <string name="unpaved_road">ທາງບໍ່ປູຢາງ</string>
+    <string name="ferry_crossing">ຈຸດຂ້າມເຮືອຟາກ</string>
+    <!-- A generic "Yes" button in dialogs -->
+    <string name="yes">ແມ່ນ</string>
+    <!-- A generic "No" button in dialogs -->
+    <string name="no">ບໍ່</string>
+    <!-- E.g. "WiFi:Yes" -->
+    <string name="yes_available">ມີ</string>
+    <!-- E.g. "WiFi:No" -->
+    <string name="no_available">ບໍ່ມີ</string>
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… -->
+    <string name="capacity">ຄວາມຈຸ: %s</string>
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
+    <string name="network">ເຄືອຂ່າຍ: %s</string>
+    <string name="trip_finished">ທ່ານມາຮອດແລ້ວ!</string>
+    <string name="ok">ຕົກລົງ</string>
+    <!-- max. 10 symbols, both iOS and Android -->
+    <string name="sort">ຈັດລຽງ…</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">ຈັດລຽງບຸກມາກ</string>
+    <!-- Android -->
+    <string name="by_default">ຕາມຄ່າເລີ່ມຕົ້ນ</string>
+    <!-- Android -->
+    <string name="by_type">ຕາມປະເພດ</string>
+    <!-- Android -->
+    <string name="by_distance">ຕາມໄລຍະທາງ</string>
+    <!-- Android -->
+    <string name="by_date">ຕາມວັນທີ</string>
+    <!-- Android -->
+    <string name="by_name">ຕາມຊື່</string>
+    <string name="week_ago_sorttype">ໜຶ່ງອາທິດຜ່ານມາ</string>
+    <string name="month_ago_sorttype">ໜຶ່ງເດືອນຜ່ານມາ</string>
+    <string name="moremonth_ago_sorttype">ຫຼາຍກວ່າໜຶ່ງເດືອນຜ່ານມາ</string>
+    <string name="moreyear_ago_sorttype">ຫຼາຍກວ່າໜຶ່ງປີຜ່ານມາ</string>
+    <string name="near_me_sorttype">ໃກ້ຂ້ອຍ</string>
+    <string name="others_sorttype">ອື່ນໆ</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="food_places">ອາຫານ</string>
+    <string name="tourist_places">ສະຖານທີ່ທ່ອງທ່ຽວ</string>
+    <string name="museums">ພິພິທະພັນ</string>
+    <string name="parks">ສວນສາທາລະນະ</string>
+    <string name="swim_places">ບ່ອນລອຍນ້ຳ</string>
+    <string name="mountains">ພູເຂົາ</string>
+    <string name="animals">ສັດ</string>
+    <string name="hotels">ໂຮງແຮມ</string>
+    <string name="buildings">ອາຄານ</string>
+    <string name="money">ການເງິນ</string>
+    <string name="shops">ຮ້ານຄ້າ</string>
+    <string name="parkings">ບ່ອນຈອດລົດ</string>
+    <string name="fuel_places">ປ້ຳນ້ຳມັນ</string>
+    <string name="medicine">ການແພດ</string>
+    <string name="search_in_the_list">ຄົ້ນຫາໃນລາຍການ</string>
+    <string name="religious_places">ສະຖານທີ່ທາງສາດສະໜາ</string>
+    <string name="select_list">ເລືອກລາຍການ</string>
+    <string name="transit_not_found">ການນຳທາງດ້ວຍລົດໄຟໃຕ້ດິນໃນພາກພື້ນນີ້ຍັງບໍ່ທັນມີເທື່ອ</string>
+    <string name="dialog_pedestrian_route_is_long_header">ບໍ່ພົບເສັ້ນທາງລົດໄຟໃຕ້ດິນ</string>
+    <string name="dialog_pedestrian_route_is_long_message">ກະລຸນາເລືອກຈຸດເລີ່ມຕົ້ນ ຫຼື ປາຍທາງໃຫ້ໃກ້ກັບສະຖານີລົດໄຟໃຕ້ດິນ</string>
+    <string name="button_layer_isolines">ເສັ້ນລະດັບຄວາມສູງ</string>
+    <string name="isolines_activation_error_dialog">ການເປີດໃຊ້ເສັ້ນລະດັບຄວາມສູງຕ້ອງດາວໂຫລດຂໍ້ມູນແຜນທີ່ສຳລັບພາກພື້ນນີ້</string>
+    <string name="isolines_location_error_dialog">ເສັ້ນລະດັບຄວາມສູງຍັງບໍ່ທັນມີເທື່ອໃນເຂດນີ້</string>
+    <string name="elevation_profile_ascent">ທາງຂຶ້ນ</string>
+    <string name="elevation_profile_descent">ທາງລົງ</string>
+    <string name="elevation_profile_min_elevation">ລະດັບຄວາມສູງຕ່ຳສຸດ</string>
+    <string name="elevation_profile_max_elevation">ລະດັບຄວາມສູງສູງສຸດ</string>
+    <string name="elevation_profile_difficulty">ຄວາມຍາກ</string>
+    <string name="elevation_profile_distance">ໄລຍະ:</string>
+    <string name="elevation_profile_time">ເວລາ:</string>
+    <string name="isolines_toast_zooms_1_10">ຊູມເຂົ້າເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງ</string>
+    <string name="downloader_loading_ios">ກຳລັງດາວໂຫລດ</string>
+    <string name="download_map_title">ດາວໂຫລດແຜນທີ່ພາບລວມຂອງໂລກ</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">ບໍ່ສາມາດສ້າງໂຟນເດີ ແລະ ຍ້າຍໄຟລ໌ໃນໜ່ວຍຄວາມຈຳພາຍໃນຂອງອຸປະກອນ ຫຼື sdcard ໄດ້</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">ຂໍ້ຜິດພາດຂອງດິສກ໌</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">ການເຊື່ອມຕໍ່ຫຼົ້ມເຫຼວ</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">ຖອດສາຍ USB</string>
+    <string name="enable_keep_screen_on">ເປີດໜ້າຈໍຄ້າງໄວ້</string>
+    <!-- Description in preferences -->
+    <string name="enable_keep_screen_on_description">ເມື່ອເປີດໃຊ້, ໜ້າຈໍຈະເປີດຄ້າງໄວ້ສະເໝີເມື່ອສະແດງແຜນທີ່.</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">ສະແດງໃນໜ້າຈໍລັອກ</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">ເມື່ອເປີດໃຊ້, ແອັບຈະເຮັດວຽກໃນໜ້າຈໍລັອກ ເຖິງແມ່ນວ່າອຸປະກອນຈະຖືກລັອກຢູ່ກໍຕາມ.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">ພາສາຂອງແຜນທີ່</string>
+    <!-- OpenStreetMap text on splash screen -->
+    <string name="splash_subtitle">ຂໍ້ມູນແຜນທີ່ຈາກ OpenStreetMap</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Link to OSM wiki for Editor, Profile and About pages -->
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <!-- App Tip #00 -->
+    <string name="app_tip_00">ຂອບໃຈທີ່ໃຊ້ແຜນທີ່ທີ່ສ້າງໂດຍຊຸມຊົນຂອງພວກເຮົາ!</string>
+    <!-- App tip #01 -->
+    <string name="app_tip_01">ດ້ວຍການບໍລິຈາກ ແລະ ການສະໜັບສະໜູນຂອງທ່ານ, ພວກເຮົາສາມາດສ້າງແຜນທີ່ທີ່ດີທີ່ສຸດໃນໂລກໄດ້!</string>
+    <!-- App tip #02 -->
+    <string name="app_tip_02">ທ່ານມັກແອັບຂອງພວກເຮົາບໍ່? ກະລຸນາບໍລິຈາກເພື່ອສະໜັບສະໜູນການພັດທະນາ! ຫາກຍັງບໍ່ມັກ? ກະລຸນາບອກໃຫ້ພວກເຮົາຮູ້ເຫດຜົນ, ແລ້ວພວກເຮົາຈະແກ້ໄຂໃຫ້!</string>
+    <!-- App tip #03 -->
+    <string name="app_tip_03">ຫາກທ່ານຮູ້ຈັກນັກພັດທະນາຊອບແວ, ທ່ານສາມາດຂໍໃຫ້ລາວຊ່ວຍພັດທະນາຟີເຈີທີ່ທ່ານຕ້ອງການໄດ້.</string>
+    <!-- App tip #04 -->
+    <string name="app_tip_04">ແຕະບ່ອນໃດກໍໄດ້ໃນແຜນທີ່ເພື່ອເລືອກສິ່ງຕ່າງໆ. ການແຕະຄ້າງແມ່ນໃຊ້ເພື່ອເຊື່ອງ ແລະ ສະແດງອິນເຕີເຟດ.</string>
+    <!-- App tip #05 -->
+    <string name="app_tip_05">ທ່ານຮູ້ບໍ່ວ່າຕຳແໜ່ງປັດຈຸບັນຂອງທ່ານໃນແຜນທີ່ສາມາດຖືກເລືອກໄດ້?</string>
+    <!-- App tip #06 -->
+    <string name="app_tip_06">ທ່ານສາມາດຊ່ວຍແປແອັບຂອງພວກເຮົາເປັນພາສາຂອງທ່ານໄດ້.</string>
+    <!-- App tip #07 -->
+    <string name="app_tip_07">ແອັບຂອງພວກເຮົາຖືກພັດທະນາໂດຍຜູ້ມີໃຈຮັກພຽງບໍ່ເທົ່າໃດຄົນ ແລະ ຊຸມຊົນ.</string>
+    <!-- App tip #08 -->
+    <string name="app_tip_08">ທ່ານສາມາດແກ້ໄຂ ແລະ ປັບປຸງຂໍ້ມູນແຜນທີ່ໄດ້ຢ່າງງ່າຍດາຍ.</string>
+    <!-- App tip #09 -->
+    <string name="app_tip_09">ເປົ້າໝາຍຫຼັກຂອງພວກເຮົາແມ່ນເພື່ອສ້າງແຜນທີ່ທີ່ໄວ, ເນັ້ນຄວາມເປັນສ່ວນຕົວ, ແລະ ໃຊ້ງານງ່າຍທີ່ທ່ານຈະມັກ.</string>
+    <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+    <string name="car_used_on_the_phone_screen">ຕອນນີ້ທ່ານກຳລັງໃຊ້ Organic Maps ໃນໜ້າຈໍໂທລະສັບ</string>
+    <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
+    <string name="car_used_on_the_car_screen">ຕອນນີ້ທ່ານກຳລັງໃຊ້ Organic Maps ໃນໜ້າຈໍລົດ</string>
+    <!-- Displayed on the phone screen. Android Auto connected -->
+    <string name="aa_connected_title">ທ່ານໄດ້ເຊື່ອມຕໍ່ກັບ Android Auto ແລ້ວ</string>
+    <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
+    <string name="car_continue_on_the_phone">ຕໍ່ໄປໃນໂທລະສັບ</string>
+    <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+    <string name="car_continue_in_the_car">ໄປທີ່ໜ້າຈໍລົດ</string>
+    <!-- Ask user to grant location permissions -->
+    <string name="aa_location_permissions_request">Organic Maps ຕ້ອງການການເຂົ້າເຖິງຕຳແໜ່ງທີ່ຕັ້ງ. ເມື່ອປອດໄພແລ້ວ, ໃຫ້ກວດເບິ່ງການແຈ້ງເຕືອນໃນໂທລະສັບຂອງທ່ານ.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">ແອັບນີ້ຕ້ອງການການອະນຸຍາດຈາກທ່ານ</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps ໃນ Android Auto ຕ້ອງການການອະນຸຍາດຕຳແໜ່ງທີ່ຕັ້ງເພື່ອໃຫ້ເຮັດວຽກໄດ້ຢ່າງມີປະສິດທິພາບ</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">ໃຫ້ການອະນຸຍາດ</string>
+    <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+    <string name="button_layer_outdoor">ກາງແຈ້ງ</string>
+    <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+    <string name="browser_not_available">ເວັບບຣາວເຊີບໍ່ພ້ອມໃຊ້ງານ</string>
+    <string name="volume">ລະດັບສຽງ</string>
+    <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+    <string name="bookmarks_export">ສົ່ງອອກບຸກມາກ ແລະ ເສັ້ນທາງທັງໝົດ</string>
+    <!-- button in (app) TTS settings, to open the system TTS settings. -->
+    <string name="pref_tts_open_system_settings">ການຕັ້ງຄ່າລະບົບການສັງເຄາະສຽງ</string>
+    <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+    <string name="pref_tts_no_system_tts">ບໍ່ພົບການຕັ້ງຄ່າການສັງເຄາະສຽງ, ທ່ານແນ່ໃຈບໍ່ວ່າອຸປະກອນຂອງທ່ານຮອງຮັບ?</string>
+    <string name="drive_through">ໄດຣຟ໌ທຣູ</string>
+    <string name="clear_the_search">ລຶບການຄົ້ນຫາ</string>
+    <string name="zoom_in">ຊູມເຂົ້າ</string>
+    <!-- Accessibility text for the zoom-out button on the map -->
+    <string name="zoom_out">ຊູມອອກ</string>
+    <!-- Restaurant or other food place's menu URL field in the Editor -->
+    <string name="website_menu">ລິ້ງເມນູ</string>
+    <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+    <string name="view_menu">ເບິ່ງເມນູ</string>
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
+    <string name="open_in_app">ເປີດໃນແອັບອື່ນ</string>
+    <!-- To indicate if the place proposed self service… -->
+    <string name="self_service">ບໍລິການຕົນເອງ</string>
+    <string name="select_option">ເລືອກຕົວເລືອກ</string>
+    <!-- To indicate if restaurant or other place has outdoor seating -->
+    <string name="outdoor_seating">ບ່ອນນັ່ງກາງແຈ້ງ</string>
+    <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+    <string name="power_save_dialog_summary">ເພື່ອການນຳທາງທີ່ຊັດເຈນທີ່ສຸດ, ພວກເຮົາແນະນຳໃຫ້ປິດໂໝດປະຢັດພະລັງງານໃນການຕັ້ງຄ່າແບັດເຕີຣີຂອງໂທລະສັບ.</string>
+    <!-- Prompt to start recording a track. -->
+    <string name="start_track_recording">ບັນທຶກເສັ້ນທາງ</string>
+    <!-- Prompt for stopping a track recording. -->
+    <string name="stop_track_recording">ຢຸດການບັນທຶກເສັ້ນທາງ</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">ການບັນທຶກເສັ້ນທາງ</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="stop_without_saving">ຢຸດໂດຍບໍ່ບັນທຶກ</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="continue_recording">ບັນທຶກຕໍ່ໄປ</string>
+    <!-- Title for the alert when saving a track recording. -->
+    <string name="track_recording_alert_title">ບັນທຶກລົງໃນບຸກມາກ ແລະ ເສັ້ນທາງບໍ່?</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">ເສັ້ນທາງວ່າງເປົ່າ - ບໍ່ມີຫຍັງໃຫ້ບັນທຶກ</string>
+    <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+    <string name="error_no_file_manager_app">ບໍ່ສາມາດສະແດງໜ້າຈໍເລືອກໂຟນເດີໄດ້ເນື່ອງຈາກບໍ່ມີແອັບທີ່ເໝາະສົມຕິດຕັ້ງໃນອຸປະກອນຂອງທ່ານ. ກະລຸນາຕິດຕັ້ງແອັບຈັດການໄຟລ໌ ແລະ ລອງໃໝ່ອີກຄັ້ງ.</string>
+    <string name="choose_color">ເລືອກສີ</string>
+    <string name="edit_track">ແກ້ໄຂເສັ້ນທາງ</string>
+    <string name="uri_open_location_failed">ບໍ່ມີແອັບທີ່ຕິດຕັ້ງໄວ້ເຊິ່ງສາມາດເປີດຕຳແໜ່ງທີ່ຕັ້ງນີ້ໄດ້</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">ອັດຕະໂນມັດໃນການນຳທາງ</string>
+    <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
+    <string name="follow_system">ຕາມລະບົບ</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">ແບ່ງປັນເສັ້ນທາງ</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">ລຶບ %s ບໍ່?</string>
+</resources>

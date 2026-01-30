@@ -4,31 +4,31 @@
 
 
 /* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
-"search" = "Search";
+"search" = "Որոնում";
 
 /* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
-"bookmarks_and_tracks" = "Bookmarks and Tracks";
+"bookmarks_and_tracks" = "Էջանիշներ և հետագծեր";
 
 
 /********** Other translations **********/
 
 
 /* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
-"report_a_bug" = "Report a bug";
+"report_a_bug" = "Հայտնել սխալի մասին";
 
 
 /********** 3d touch strings **********/
 
 
 /* Used in home screen quick actions. */
-"route" = "Route";
+"route" = "Երթուղի";
 
 
 /********** gps strings **********/
 
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Detecting location in the background is necessary to fully enjoy the functionality of the app. It is used for navigation and saving your recently traveled track.";
+"NSLocationAlwaysUsageDescription" = "Հավելվածի ֆունկցիոնալությունից լիարժեք օգտվելու համար անհրաժեշտ է տեղադիրքի հայտնաբերում ֆոնային ռեժիմում։ Այն օգտագործվում է նավիգացիայի և ձեր անցած հետագծի պահպանման համար։";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "Determining your location is necessary for navigation and for saving your recently traveled track.";
+"NSLocationWhenInUseUsageDescription" = "Ձեր տեղադիրքի որոշումը անհրաժեշտ է նավիգացիայի և ձեր անցած հետագծի պահպանման համար։";

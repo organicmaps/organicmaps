@@ -15,8 +15,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%d bookmark</string>
+			<key>zero</key>
+			<string>%d bookmarks</string>
 			<key>other</key>
 			<string>%d bookmarks</string>
 		</dict>
@@ -32,10 +32,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%d file was found. You can see it after conversion.</string>
+			<key>zero</key>
+			<string>ພົບເຫັນ %d ໄຟລ໌. ທ່ານສາມາດເບິ່ງມັນໄດ້ຫຼັງຈາກການແປງ.</string>
 			<key>other</key>
-			<string>%d files were found. You can see them after conversion.</string>
+			<string>ພົບເຫັນ %d ໄຟລ໌. ທ່ານສາມາດເບິ່ງມັນໄດ້ຫຼັງຈາກການແປງ.</string>
 		</dict>
 	</dict>
 
@@ -49,10 +49,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%d track</string>
+			<key>zero</key>
+			<string>%d ຕິດຕ່າງໆ</string>
 			<key>other</key>
-			<string>%d tracks</string>
+			<string>%d ຕິດຕ່າງໆ</string>
 		</dict>
 	</dict>
 
