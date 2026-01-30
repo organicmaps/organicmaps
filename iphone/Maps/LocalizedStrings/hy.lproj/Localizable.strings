@@ -4,893 +4,893 @@
 
 
 /* Button text (should be short) */
-"cancel" = "Cancel";
+"cancel" = "Չեղարկել";
 
 /* Button which deletes downloaded country */
-"delete" = "Delete";
-"download_maps" = "Download Maps";
+"delete" = "Ջնջել";
+"download_maps" = "Ներբեռնել քարտեզներ";
 
 /* Settings/Downloader - info for country which started downloading */
-"downloading" = "Downloading…";
+"downloading" = "Ներբեռնում…";
 
 /* Choose measurement on first launch alert - choose metric system button */
-"kilometres" = "Kilometers";
+"kilometres" = "Կիլոմետրեր";
 
 /* Choose measurement on first launch alert - choose imperial system button */
-"miles" = "Miles";
+"miles" = "Մղոններ";
 
 /* Update maps later button text */
-"later" = "Later";
+"later" = "Ավելի ուշ";
 
 /* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
-"search" = "Search";
+"search" = "Որոնում";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Show on the map";
+"zoom_to_country" = "Ցուցադրել քարտեզի վրա";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Download has failed";
+"country_status_download_failed" = "Ներբեռնումը ձախողվեց";
 
 /* Text in About screen */
-"about_headline" = "Free for everyone, made with love";
+"about_headline" = "Անվճար բոլորի համար՝ պատրաստված սիրով";
 
 /* Text in About screen */
-"about_proposition_1" = "• No ads, no tracking, no data collection";
+"about_proposition_1" = "• Ոչ մի գովազդ, հետևում կամ տվյալների հավաքագրում";
 
 /* Text in About screen */
-"about_proposition_2" = "• No battery drain, works offline";
+"about_proposition_2" = "• Չի սպառում մարտկոցը, աշխատում է օֆլայն";
 
 /* Text in About screen */
-"about_proposition_3" = "• Fast, minimalist, developed by the community";
-"close" = "Close";
-"download" = "Download";
+"about_proposition_3" = "• Արագ, մինիմալիստական, մշակված համայնքի կողմից";
+"close" = "Փակել";
+"download" = "Ներբեռնել";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_button" = "Continue";
+"continue_button" = "Շարունակել";
 
 /* "Add new bookmark list" dialog title */
-"add_new_set" = "Add a New List";
+"add_new_set" = "Ավելացնել նոր ցուցակ";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
-"bookmark_set_name" = "Bookmark List Name";
+"bookmark_set_name" = "Էջանիշների ցուցակի անունը";
 
 /* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
-"bookmarks" = "Bookmarks";
+"bookmarks" = "Էջանիշներ";
 
 /* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
-"bookmarks_and_tracks" = "Bookmarks and Tracks";
+"bookmarks_and_tracks" = "Էջանիշներ և հետագծեր";
 
 /* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
-"address" = "Address";
+"address" = "Հասցե";
 
 /* Settings button in system menu */
-"settings" = "Settings";
+"settings" = "Կարգավորումներ";
 
 /* Measurement units title in settings activity */
-"measurement_units" = "Measurement units";
+"measurement_units" = "Չափման միավորներ";
 
 /* Button which interrupts country download */
-"cancel_download" = "Cancel Download";
+"cancel_download" = "Չեղարկել ներբեռնումը";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "Leave a Review";
+"leave_a_review" = "Թողնել կարծիք";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
-"use_cellular_data" = "Yes";
+"use_cellular_data" = "Այո";
 
 /* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
-"country_status_download_without_size" = "Download Map";
+"country_status_download_without_size" = "Ներբեռնել քարտեզը";
 
 /* "Bookmark Lists" dialog title */
-"bookmark_sets" = "Bookmark Lists";
+"bookmark_sets" = "Էջանիշների ցուցակներ";
 
 
 /********** Search categories **********/
 
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
-"category_eat" = "Where to eat";
+"category_eat" = "Որտեղ սնվել";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
-"category_food" = "Groceries";
+"category_food" = "Մթերային";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
-"category_transport" = "Transport";
+"category_transport" = "Տրանսպորտ";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
-"category_fuel" = "Gas";
+"category_fuel" = "Վառելիք";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
-"category_parking" = "Parking";
+"category_parking" = "Կայանատեղի";
 
 /* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
-"category_shopping" = "Shopping";
+"category_shopping" = "Գնումներ";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
-"category_secondhand" = "Second Hand";
+"category_secondhand" = "Սեքենդ Հենդ";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
-"category_hotel" = "Hotel";
+"category_hotel" = "Հյուրանոց";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
-"category_tourism" = "Sights";
+"category_tourism" = "Տեսարժան վայրեր";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
-"category_entertainment" = "Entertainment";
+"category_entertainment" = "Ժամանց";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
-"category_atm" = "ATM";
+"category_atm" = "Բանկոմատ";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
-"category_nightlife" = "Nightlife";
+"category_nightlife" = "Գիշերային կյանք";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
-"category_children" = "Family holiday";
+"category_children" = "Ընտանեկան հանգիստ";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
-"category_bank" = "Bank";
+"category_bank" = "Բանկ";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
-"category_pharmacy" = "Pharmacy";
+"category_pharmacy" = "Դեղատուն";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
-"category_hospital" = "Hospital";
+"category_hospital" = "Հիվանդանոց";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
-"category_toilet" = "Toilet";
+"category_toilet" = "Զուգարան";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
-"category_post" = "Post";
+"category_post" = "Փոստ";
 
 /* Search category for police; any changes should be duplicated in categories.txt @category_police! */
-"category_police" = "Police";
+"category_police" = "Ոստիկանություն";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
-"category_recycling" = "Recycling";
+"category_recycling" = "Վերամշակում";
 
 /* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
-"category_water" = "Water";
+"category_water" = "Ջուր";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
-"category_rv" = "RV Facilities";
+"category_rv" = "Քեմփինգներ";
 
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
+"share_bookmarks_email_body" = "Ողջույն!\nԿից ներկայացված են իմ էջանիշները: Խնդրում եմ բացել դրանք Organic Maps-ում: Եթե այն տեղադրված չէ, կարող եք ներբեռնել այստեղ՝ https://omaps.app/get?kmz\nՎայելեք ճանապարհորդությունը Organic Maps-ի հետ:";
 
 /* message title of loading file */
-"load_kmz_title" = "Loading Bookmarks";
+"load_kmz_title" = "Էջանիշների բեռնում";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.";
+"load_kmz_successful" = "Էջանիշները հաջողությամբ բեռնվեցին: Դուք կարող եք գտնել դրանք քարտեզի վրա կամ «Էջանիշների կառավարիչ» էկրանին:";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Failed to load bookmarks. The file may be corrupted or defective.";
+"load_kmz_failed" = "Չհաջողվեց բեռնել էջանիշները: Ֆայլը կարող է վնասված կամ անսարք լինել:";
 
 /* resource for context menu */
-"edit" = "Edit";
+"edit" = "Խմբագրել";
 
 /* Warning message when doing search around current position */
-"unknown_current_position" = "Your location hasn't been determined yet";
+"unknown_current_position" = "Ձեր տեղորոշումը դեռ չի որոշվել";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hey, check out my pin in Organic Maps!";
+"bookmark_share_email_subject" = "Հեյ, տես իմ նշումը Organic Maps-ում:";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hey, check out my current location on the Organic Maps map!";
+"my_position_share_email_subject" = "Հեյ, տես իմ ընթացիկ դիրքը Organic Maps քարտեզի վրա:";
 
 /* Share by email button text, also used in editor and About. */
-"email" = "Email";
+"email" = "Էլ․ փոստ";
 
 /* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Copied to clipboard: %@";
+"copied_to_clipboard" = "Պատճենված է սեղմատախտակին՝ %@";
 
 /* Used for bookmark editing */
-"done" = "Done";
+"done" = "Պատրաստ է";
 
 /* Title for tracks category in bookmarks manager */
-"tracks_title" = "Tracks";
+"tracks_title" = "Հետագծեր";
 
 /* Length of track in cell that describes route */
-"length" = "Length";
-"share_my_location" = "Share My Location";
-"prefs_group_route" = "Navigation";
+"length" = "Երկարություն";
+"share_my_location" = "Կիսվել իմ տեղադիրքով";
+"prefs_group_route" = "Նավիգացիա";
 
 /* Setting name which enables or disables zoom buttons on the map screen. */
-"pref_zoom_title" = "“+” and “-” buttons on the map";
+"pref_zoom_title" = "«+» և «-» կոճակները քարտեզի վրա";
 
 /* Generic «Off» string */
-"off" = "Off";
+"off" = "Անջատված";
 
 /* Generic «On» string */
-"on" = "On";
+"on" = "Միացված";
 
 /* Generic «Auto» string */
-"auto" = "Auto";
+"auto" = "Ավտոմատ";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "Perspective view";
+"pref_map_3d_title" = "Հեռանկարային տեսք";
 
 /* Settings «Map» category: «3D buildings» title */
-"pref_map_3d_buildings_title" = "3D buildings";
+"pref_map_3d_buildings_title" = "3D շենքեր";
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
-"pref_map_3d_buildings_disabled_summary" = "3D buildings are disabled in power saving mode";
+"pref_map_3d_buildings_disabled_summary" = "3D շենքերն անջատված են էներգախնայողության ռեժիմում";
 
 /* Settings «Route» category: «Tts enabled» title */
-"pref_tts_enable_title" = "Voice Instructions";
+"pref_tts_enable_title" = "Ձայնային հրահանգներ";
 
 /* Settings «Route» category: «Tts announce street names» title */
-"pref_tts_street_names_title" = "Announce Street Names";
+"pref_tts_street_names_title" = "Հայտարարել փողոցների անունները";
 
 /* Settings «Route» category: «Tts announce street names» description */
-"pref_tts_street_names_description" = "When enabled, the name of the street or exit to turn onto will be spoken aloud.";
+"pref_tts_street_names_description" = "Միացված լինելու դեպքում, փողոցի անունը կամ շրջադարձի ելքը կհնչեցվի բարձրաձայն:";
 
 /* Settings «Route» category: «Tts language» title */
-"pref_tts_language_title" = "Voice Language";
+"pref_tts_language_title" = "Ձայնի լեզուն";
 
 /* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Test Voice Directions (TTS, Text-To-Speech)";
-"pref_map_auto_zoom" = "Auto zoom";
-"placepage_distance" = "Distance";
-"search_show_on_map" = "View on map";
+"pref_tts_test_voice_title" = "Փորձարկել ձայնային ուղղորդումը (TTS)";
+"pref_map_auto_zoom" = "Ավտոմատ խոշորացում";
+"placepage_distance" = "Հեռավորություն";
+"search_show_on_map" = "Դիտել քարտեզի վրա";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "Կայք";
 
 /* Text in About menu, opens Organic Maps news website */
-"news" = "News";
+"news" = "Նորություններ";
 
 /* Text in menu */
-"rate_the_app" = "Rate the app";
+"rate_the_app" = "Գնահատել հավելվածը";
 
 /* Text in menu */
-"help" = "Help";
+"help" = "Օգնություն";
 
 /* Button in the main Help dialog */
-"faq" = "Frequently Asked Questions";
+"faq" = "Հաճախ տրվող հարցեր";
 
 /* Button in the main menu */
-"donate" = "Donate";
-"already_donated" = "Already donated";
-"remind_me_later" = "Remind later";
-"support_organic_maps" = "Support Organic Maps";
+"donate" = "Նվիրաբերել";
+"already_donated" = "Արդեն նվիրաբերել եմ";
+"remind_me_later" = "Հիշեցնել ավելի ուշ";
+"support_organic_maps" = "Աջակցել Organic Maps-ին";
 
 /* Button in the main Help dialog */
-"copyright" = "Copyright";
+"copyright" = "Հեղինակային իրավունք";
 
 /* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
-"report_a_bug" = "Report a bug";
+"report_a_bug" = "Հայտնել սխալի մասին";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
-"long_tap_toast" = "Long-tap on the map again to see the interface";
+"long_tap_toast" = "Կրկին երկար սեղմեք քարտեզին՝ ինտերֆեյսը տեսնելու համար";
 
 /* Update all button text */
-"downloader_update_all_button" = "Update All";
+"downloader_update_all_button" = "Թարմացնել բոլորը";
 
 /* Downloaded maps list header */
-"downloader_downloaded_subtitle" = "Downloaded";
+"downloader_downloaded_subtitle" = "Ներբեռնված են";
 
 /* Country queued for download */
-"downloader_queued" = "Queued";
-"downloader_near_me_subtitle" = "Near me";
+"downloader_queued" = "Հերթագրված է";
+"downloader_near_me_subtitle" = "Իմ մոտակայքում";
 
 /* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
-"downloader_status_maps" = "Maps";
-"downloader_download_all_button" = "Download All";
-"downloader_downloading" = "Downloading:";
+"downloader_status_maps" = "Քարտեզներ";
+"downloader_download_all_button" = "Ներբեռնել բոլորը";
+"downloader_downloading" = "Ներբեռնվում է՝";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "To delete map, please stop navigation.";
+"downloader_delete_map_while_routing_dialog" = "Քարտեզը ջնջելու համար խնդրում ենք դադարեցնել նավիգացիան:";
 
 /* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Routes can only be created that are fully contained within a map of a single region.";
+"routing_failed_cross_mwm_building" = "Երթուղիները կարող են ստեղծվել միայն մեկ տարածաշրջանի քարտեզի սահմաններում:";
 
 /* Context menu item for downloader. */
-"downloader_download_map" = "Download map";
+"downloader_download_map" = "Ներբեռնել քարտեզը";
 
 /* Item status in downloader. */
-"downloader_retry" = "Retry";
+"downloader_retry" = "Կրկնել";
 
 /* Item in context menu. */
-"downloader_delete_map" = "Delete Map";
+"downloader_delete_map" = "Ջնջել քարտեզը";
 
 /* Text for routing error dialog */
-"routing_download_maps_along" = "Download all of the maps along your route";
+"routing_download_maps_along" = "Ներբեռնել ձեր երթուղու երկայնքով բոլոր քարտեզները";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "In order to create a route, we need to download and update all the maps from your location to your destination.";
-"save" = "Save";
-"create" = "create";
+"routing_requires_all_map" = "Երթուղի ստեղծելու համար մենք պետք է ներբեռնենք և թարմացնենք բոլոր քարտեզները՝ ձեր գտնվելու վայրից մինչև նպատակակետ:";
+"save" = "Պահպանել";
+"create" = "ստեղծել";
 
 /* red color */
-"red" = "Red";
+"red" = "Կարմիր";
 
 /* yellow color */
-"yellow" = "Yellow";
+"yellow" = "Դեղին";
 
 /* blue color */
-"blue" = "Blue";
+"blue" = "Կապույտ";
 
 /* green color */
-"green" = "Green";
+"green" = "Կանաչ";
 
 /* purple color */
-"purple" = "Purple";
+"purple" = "Մանուշակագույն";
 
 /* orange color */
-"orange" = "Orange";
+"orange" = "Նարնջագույն";
 
 /* brown color */
-"brown" = "Brown";
+"brown" = "Շագանակագույն";
 
 /* pink color */
-"pink" = "Pink";
+"pink" = "Վարդագույն";
 
 /* deep purple color */
-"deep_purple" = "Deep Purple";
+"deep_purple" = "Մուգ մանուշակագույն";
 
 /* light blue color */
-"light_blue" = "Light Blue";
+"light_blue" = "Բաց կապույտ";
 
 /* cyan color */
-"cyan" = "Cyan";
+"cyan" = "Երկնագույն";
 
 /* teal color */
-"teal" = "Teal";
+"teal" = "Փիրուզագույն";
 
 /* lime color */
-"lime" = "Lime";
+"lime" = "Լայմ";
 
 /* deep orange color */
-"deep_orange" = "Deep Orange";
+"deep_orange" = "Մուգ նարնջագույն";
 
 /* gray color */
-"gray" = "Gray";
+"gray" = "Մոխրագույն";
 
 /* blue gray color */
-"blue_gray" = "Blue Gray";
+"blue_gray" = "Կապտամոխրագույն";
 
 /* place preview title */
-"info" = "Info";
+"info" = "Տեղեկություն";
 
 /* Prints version number in About dialog */
-"version" = "Organic Maps version: %@";
+"version" = "Organic Maps-ի տարբերակ՝ %@";
 
 /* Settings «Map» category: «Appearance» title */
-"pref_appearance_title" = "Appearance";
+"pref_appearance_title" = "Արտաքին տեսք";
 
 /* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
-"pref_appearance_light" = "Light";
+"pref_appearance_light" = "Լուսավոր";
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
-"pref_appearance_dark" = "Dark";
+"pref_appearance_dark" = "Մուգ";
 
 /* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Other";
+"pref_tts_other_section_title" = "Այլ";
 
 /* Tex label above the Donate button */
-"donate_description" = "Gift free maps with no ads to millions of users!";
+"donate_description" = "Նվիրեք անվճար և առանց գովազդի քարտեզներ միլիոնավոր օգտատերերի:";
 
 /* Button in the About screen */
-"report_incorrect_map_bug" = "Report or fix incorrect map data";
+"report_incorrect_map_bug" = "Հայտնել կամ ուղղել քարտեզի սխալ տվյալները";
 
 /* Button in the About screen */
-"volunteer" = "Volunteer";
+"volunteer" = "Կամավոր";
 
 /* "Social media" section header in the About screen */
-"follow_us" = "Follow and contact us:";
+"follow_us" = "Հետևեք և կապվեք մեզ հետ՝";
 
 /* Alert text */
-"email_error_body" = "The email client has not been set up. Please configure it or contact us at %@";
+"email_error_body" = "Էլ. փոստի հավելվածը կարգավորված չէ: Խնդրում ենք կարգավորել այն կամ կապվել մեզ հետ՝ %@";
 
 /* Alert title */
-"email_error_title" = "Error sending email";
+"email_error_title" = "Էլ. նամակի ուղարկման սխալ";
 
 /* Settings item title */
-"pref_calibration_title" = "Compass calibration";
+"pref_calibration_title" = "Կողմնացույցի կարգաբերում";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
-"downloader_search_results" = "Found";
+"downloader_available_maps" = "Հասանելի";
+"downloader_search_results" = "Գտնված";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Update";
+"downloader_status_outdated" = "Թարմացնել";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Failed";
+"downloader_status_failed" = "Ձախողվեց";
 
 /* bookmark button text */
-"bookmark" = "bookmark";
+"bookmark" = "էջանիշ";
 
 
 /********** Routing dialogs strings **********/
 
-"dialog_routing_disclaimer_title" = "When following the route, please keep in mind:";
-"dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over navigation hints;";
-"dialog_routing_disclaimer_precision" = "— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;";
-"dialog_routing_disclaimer_recommendations" = "— Suggested routes should only be understood as recommendations;";
-"dialog_routing_disclaimer_borders" = "— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.";
-"dialog_routing_disclaimer_beware" = "Please stay alert and safe on the roads!";
-"dialog_routing_check_gps" = "Check GPS signal";
-"dialog_routing_error_location_not_found" = "Unable to create route. Current GPS coordinates could not be identified.";
-"dialog_routing_location_turn_wifi" = "Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.";
-"dialog_routing_location_turn_on" = "Enable location services";
-"dialog_routing_location_unknown_turn_on" = "Unable to locate current GPS coordinates. Enable location services to calculate route.";
-"dialog_routing_unable_locate_route" = "Unable to locate route";
-"dialog_routing_change_start_or_end" = "Please adjust your starting point or destination.";
-"dialog_routing_change_start" = "Adjust starting point";
-"dialog_routing_start_not_determined" = "Route was not created. Unable to locate starting point.";
-"dialog_routing_select_closer_start" = "Please select a starting point closer to a road.";
-"dialog_routing_change_end" = "Adjust destination";
-"dialog_routing_end_not_determined" = "Route was not created. Unable to locate the destination.";
-"dialog_routing_select_closer_end" = "Please select a destination point located closer to a road.";
-"dialog_routing_change_intermediate" = "Unable to locate the intermediate point.";
-"dialog_routing_intermediate_not_determined" = "Please adjust your intermediate point.";
-"dialog_routing_system_error" = "System error";
-"dialog_routing_application_error" = "Unable to create route due to an application error.";
-"dialog_routing_try_again" = "Please try again";
-"dialog_routing_download_and_build_cross_route" = "Would you like to download the map and create a more optimal route spanning more than one map?";
-"dialog_routing_download_cross_route" = "Download additional maps to create a better route that crosses the boundaries of this map.";
-"dialog_routing_download_files" = "Download required files";
-"dialog_routing_download_and_update_all" = "Download or update all maps along the projected path to calculate a route.";
+"dialog_routing_disclaimer_title" = "Երթուղով շարժվելիս հիշեք՝";
+"dialog_routing_disclaimer_priority" = "— Ճանապարհային պայմանները, երթևեկության կանոնները և նշանները միշտ ավելի կարևոր են, քան նավիգացիայի հուշումները;";
+"dialog_routing_disclaimer_precision" = "— Քարտեզը կարող է անճիշտ լինել, իսկ առաջարկվող երթուղին միշտ չէ, որ նպատակակետ հասնելու լավագույն տարբերակն է;";
+"dialog_routing_disclaimer_recommendations" = "— Առաջարկվող երթուղիները պետք է ընկալել միայն որպես խորհուրդ;";
+"dialog_routing_disclaimer_borders" = "— Զգույշ եղեք սահմանամերձ գոտիներում երթուղիների հետ. հավելվածի կողմից ստեղծված երթուղիները երբեմն կարող են հատել պետական սահմանները չթույլատրված վայրերում:";
+"dialog_routing_disclaimer_beware" = "Խնդրում ենք լինել ուշադիր և զգույշ ճանապարհներին:";
+"dialog_routing_check_gps" = "Ստուգեք GPS ազդանշանը";
+"dialog_routing_error_location_not_found" = "Հնարավոր չէ կառուցել երթուղին։ Ընթացիկ GPS կոորդինատները չեն որոշվել:";
+"dialog_routing_location_turn_wifi" = "Խնդրում ենք ստուգել GPS ազդանշանը: Wi-Fi-ի միացումը կբարելավի տեղորոշման ճշգրտությունը:";
+"dialog_routing_location_turn_on" = "Միացնել տեղորոշման ծառայությունները";
+"dialog_routing_location_unknown_turn_on" = "Հնարավոր չէ որոշել ընթացիկ GPS կոորդինատները։ Միացրեք տեղորոշման ծառայությունները՝ երթուղին հաշվարկելու համար:";
+"dialog_routing_unable_locate_route" = "Երթուղին չի գտնվել";
+"dialog_routing_change_start_or_end" = "Խնդրում ենք փոխել մեկնարկային կետը կամ նպատակակետը:";
+"dialog_routing_change_start" = "Փոխել մեկնարկային կետը";
+"dialog_routing_start_not_determined" = "Երթուղին չի կառուցվել։ Հնարավոր չէ գտնել մեկնարկային կետը:";
+"dialog_routing_select_closer_start" = "Խնդրում ենք ընտրել ճանապարհին ավելի մոտ մեկնարկային կետ:";
+"dialog_routing_change_end" = "Փոխել նպատակակետը";
+"dialog_routing_end_not_determined" = "Երթուղին չի կառուցվել։ Հնարավոր չէ գտնել նպատակակետը:";
+"dialog_routing_select_closer_end" = "Խնդրում ենք ընտրել ճանապարհին ավելի մոտ նպատակակետ:";
+"dialog_routing_change_intermediate" = "Հնարավոր չէ գտնել միջանկյալ կետը:";
+"dialog_routing_intermediate_not_determined" = "Խնդրում ենք փոխել միջանկյալ կետը:";
+"dialog_routing_system_error" = "Համակարգային սխալ";
+"dialog_routing_application_error" = "Հնարավոր չէ կառուցել երթուղին ծրագրային սխալի պատճառով:";
+"dialog_routing_try_again" = "Խնդրում ենք փորձել կրկին";
+"dialog_routing_download_and_build_cross_route" = "Ցանկանո՞ւմ եք ներբեռնել քարտեզը և կառուցել ավելի օպտիմալ երթուղի, որն անցնում է մեկից ավելի քարտեզներով:";
+"dialog_routing_download_cross_route" = "Ներբեռնեք լրացուցիչ քարտեզներ՝ ավելի լավ երթուղի կառուցելու համար, որն անցնում է այս քարտեզի սահմաններից դուրս:";
+"dialog_routing_download_files" = "Ներբեռնել պահանջվող ֆայլերը";
+"dialog_routing_download_and_update_all" = "Ներբեռնեք կամ թարմացրեք երթուղու երկայնքով բոլոր քարտեզները՝ երթուղին հաշվարկելու համար:";
 
 
 /********** Strings for downloading map from search **********/
 
 
 /* «Show» context menu */
-"show" = "Show";
+"show" = "Ցուցադրել";
 
 /* «Hide» context menu */
-"hide" = "Hide";
-"categories" = "Categories";
-"history" = "History";
-"search_not_found" = "Oops, no results found.";
+"hide" = "Թաքցնել";
+"categories" = "Կատեգորիաներ";
+"history" = "Պատմություն";
+"search_not_found" = "Ոչինչ չգտնվեց:";
 
 /* The message when user did not find anything in the search. */
-"search_not_found_query" = "Download the region where you are searching or try adding a nearby town/village name.";
-"search_history_title" = "Search History";
-"search_history_text" = "View your recent searches.";
-"clear_search" = "Clear Search History";
+"search_not_found_query" = "Ներբեռնեք այն տարածաշրջանի քարտեզը, որտեղ որոնում եք կատարում, կամ փորձեք ավելացնել մոտակա քաղաքի/գյուղի անունը:";
+"search_history_title" = "Որոնման պատմություն";
+"search_history_text" = "Դիտեք ձեր վերջին որոնումները:";
+"clear_search" = "Մաքրել որոնման պատմությունը";
 
 /* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
+"read_in_wikipedia" = "Վիքիպեդիա";
 
 /* Place Page link to Wikimedia Commons. */
-"wikimedia_commons" = "Wikimedia Commons";
-"p2p_your_location" = "Your Location";
-"p2p_start" = "Start";
-"p2p_from_here" = "Route from";
-"p2p_to_here" = "Route to";
-"p2p_only_from_current" = "Navigation is only available from your current location.";
-"p2p_reroute_from_current" = "Do you want to plan a route from your current location?";
-"editor_time_add" = "Add Schedule";
-"editor_time_delete" = "Delete Schedule";
+"wikimedia_commons" = "Վիքիպահեստ";
+"p2p_your_location" = "Ձեր գտնվելու վայրը";
+"p2p_start" = "Սկիզբ";
+"p2p_from_here" = "Երթուղի այստեղից";
+"p2p_to_here" = "Երթուղի դեպի այստեղ";
+"p2p_only_from_current" = "Նավիգացիան հասանելի է միայն ձեր ընթացիկ վայրից:";
+"p2p_reroute_from_current" = "Ցանկանո՞ւմ եք կառուցել երթուղի ձեր ընթացիկ վայրից:";
+"editor_time_add" = "Ավելացնել գրաֆիկ";
+"editor_time_delete" = "Ջնջել գրաֆիկը";
 
 /* Text for allday switch. */
-"editor_time_allday" = "All Day (24 hours)";
-"editor_time_open" = "Open";
-"editor_time_close" = "Closed";
-"editor_time_add_closed" = "Add Non-Business Hours";
-"editor_time_title" = "Business Hours";
-"editor_time_advanced" = "Advanced Mode";
-"editor_time_simple" = "Simple Mode";
-"editor_hours_closed" = "Non-Business Hours";
-"editor_example_values" = "Example Values";
-"editor_add_select_location" = "Select Location";
-"editor_report_problem_send_button" = "Send";
-"autodownload" = "Auto-download maps";
+"editor_time_allday" = "Շուրջօրյա (24 ժամ)";
+"editor_time_open" = "Բաց է";
+"editor_time_close" = "Փակ է";
+"editor_time_add_closed" = "Ավելացնել ոչ աշխատանքային ժամերը";
+"editor_time_title" = "Աշխատանքային ժամեր";
+"editor_time_advanced" = "Ընդլայնված ռեժիմ";
+"editor_time_simple" = "Պարզ ռեժիմ";
+"editor_hours_closed" = "Ոչ աշխատանքային ժամեր";
+"editor_example_values" = "Օրինակելի արժեքներ";
+"editor_add_select_location" = "Ընտրել վայրը";
+"editor_report_problem_send_button" = "Ուղարկել";
+"autodownload" = "Քարտեզների ավտոմատ ներբեռնում";
 
 /* Place Page opening hours text */
-"daily" = "Daily";
+"daily" = "Ամեն օր";
 "twentyfour_seven" = "24/7";
-"day_off_today" = "Closed today";
-"day_off" = "Closed";
-"today" = "Today";
-"opens_in" = "Opens in %@";
-"closes_in" = "Closes in %@";
-"closed" = "Closed";
-"no_osm_account" = "Don't have an OpenStreetMap account?";
-"register_at_openstreetmap" = "Register at OpenStreetMap";
-"login" = "Login";
-"login_osm" = "Login to OpenStreetMap";
-"forgot_password" = "Forgot your password?";
-"logout" = "Log Out";
-"edit_place" = "Edit Place";
-"add_language" = "Add a language";
+"day_off_today" = "Այսօր փակ է";
+"day_off" = "Փակ է";
+"today" = "Այսօր";
+"opens_in" = "Բացվում է %@";
+"closes_in" = "Փակվում է %@";
+"closed" = "Փակ է";
+"no_osm_account" = "Չունե՞ք OpenStreetMap հաշիվ:";
+"register_at_openstreetmap" = "Գրանցվել OpenStreetMap-ում";
+"login" = "Մուտք";
+"login_osm" = "Մուտք OpenStreetMap";
+"forgot_password" = "Մոռացե՞լ եք գաղտնաբառը:";
+"logout" = "Դուրս գալ";
+"edit_place" = "Խմբագրել վայրը";
+"add_language" = "Ավելացնել լեզու";
 
 /* Editable House Number text field (in address block). */
-"house_number" = "Building number";
-"details" = "Details";
+"house_number" = "Շենքի համարը";
+"details" = "Մանրամասներ";
 
 /* Text field to enter non-existing street name, below list of known streets around */
-"add_street" = "Add a street";
-"choose_language" = "Choose a language";
-"choose_street" = "Choose a street";
-"cuisine" = "Cuisine";
-"select_cuisine" = "Select cuisine";
+"add_street" = "Ավելացնել փողոց";
+"choose_language" = "Ընտրեք լեզուն";
+"choose_street" = "Ընտրեք փողոցը";
+"cuisine" = "Խոհանոց";
+"select_cuisine" = "Ընտրել խոհանոց";
 
 /* login text field */
-"email_or_username" = "Email or username";
-"level" = "Floor";
-"downloader_delete_map_dialog" = "All of your map edits will be deleted with the map.";
-"downloader_update_maps" = "Update Maps";
-"downloader_search_field_hint" = "Find map";
-"common_check_internet_connection_dialog" = "Please make sure your device is connected to the Internet.";
-"downloader_no_space_title" = "Not enough space";
+"email_or_username" = "Էլ․ փոստ կամ օգտանուն";
+"level" = "Հարկ";
+"downloader_delete_map_dialog" = "Քարտեզի հետ կջնջվեն նաև ձեր բոլոր խմբագրումները:";
+"downloader_update_maps" = "Թարմացնել քարտեզները";
+"downloader_search_field_hint" = "Գտնել քարտեզ";
+"common_check_internet_connection_dialog" = "Համոզվեք, որ ձեր սարքը միացված է ինտերնետին:";
+"downloader_no_space_title" = "Բավականաչափ հիշողություն չկա";
 
 /* Message shown when there is not enough space to download maps */
-"downloader_no_space_message" = "Please delete any unnecessary data";
-"editor_profile_changes" = "Verified Changes";
-"editor_focus_map_on_location" = "Drag the map to place the cross at the location of the place or business.";
-"editor_edit_place_title" = "Editing";
-"editor_add_place_title" = "Adding";
-"editor_edit_place_name_hint" = "Name of the place";
+"downloader_no_space_message" = "Խնդրում ենք ջնջել ավելորդ տվյալները";
+"editor_profile_changes" = "Ստուգված փոփոխություններ";
+"editor_focus_map_on_location" = "Տեղաշարժեք քարտեզը՝ խաչը վայրի կամ կազմակերպության վրա տեղադրելու համար:";
+"editor_edit_place_title" = "Խմբագրում";
+"editor_add_place_title" = "Ավելացում";
+"editor_edit_place_name_hint" = "Վայրի անվանումը";
 
 /* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
-"editor_default_language_hint" = "As it is written in the local language";
-"editor_edit_place_category_title" = "Category";
-"message_invalid_feature_position" = "No object can be located here";
+"editor_default_language_hint" = "Ինչպես գրված է տեղական լեզվով";
+"editor_edit_place_category_title" = "Կատեգորիա";
+"message_invalid_feature_position" = "Այստեղ օբյեկտ չի կարող գտնվել";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Community-created OpenStreetMap data as of %@. Learn more about how to edit and update the map at OpenStreetMap.org";
-"login_to_make_edits_visible" = "Create an OpenStreetMap account or log in to publish your map edits to the world.";
+"osm_presentation" = "Համայնքի կողմից ստեղծված OpenStreetMap տվյալներ՝ %@ թ. դրությամբ։ Իմացեք ավելին քարտեզի խմբագրման և թարմացման մասին OpenStreetMap.org կայքում:";
+"login_to_make_edits_visible" = "Ստեղծեք OpenStreetMap հաշիվ կամ մուտք գործեք՝ ձեր քարտեզային խմբագրումները հրապարակելու համար:";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
-"downloader_of" = "%1$d of %2$d";
-"download_over_mobile_header" = "Download over a cellular network connection?";
-"download_over_mobile_message" = "This could be considerably expensive with some plans or if roaming.";
-"error_enter_correct_house_number" = "Enter a valid building number";
-"editor_storey_number" = "Number of floors (maximum of %d)";
+"downloader_of" = "%1$d՝ %2$d-ից";
+"download_over_mobile_header" = "Ներբեռնե՞լ բջջային ցանցի միջոցով:";
+"download_over_mobile_message" = "Սա կարող է բավականին թանկ արժենալ որոշ սակագնային պլանների դեպքում կամ ռոումինգում:";
+"error_enter_correct_house_number" = "Մուտքագրեք շենքի վավեր համար";
+"editor_storey_number" = "Հարկերի քանակը (առավելագույնը %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
-"error_enter_correct_storey_number" = "The number of floors must non exceed %d";
-"editor_zip_code" = "ZIP Code";
-"error_enter_correct_zip_code" = "Enter a valid ZIP code";
+"error_enter_correct_storey_number" = "Հարկերի քանակը չպետք է գերազանցի %d-ը";
+"editor_zip_code" = "Փոստային ինդեքս";
+"error_enter_correct_zip_code" = "Մուտքագրեք վավեր փոստային ինդեքս";
 
 /* Title for OSM note section in the editor */
-"editor_other_info" = "Note to OpenStreetMap volunteers (optional)";
-"editor_more_about_osm" = "More about OpenStreetMap";
-"editor_operator" = "Operator";
+"editor_other_info" = "Նշում OpenStreetMap կամավորների համար (ոչ պարտադիր)";
+"editor_more_about_osm" = "Ավելին OpenStreetMap-ի մասին";
+"editor_operator" = "Օպերատոր";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
-"operator" = "Operator: %@";
-"editor_category_unsuitable_title" = "Can't find a suitable category?";
-"editor_category_unsuitable_text" = "Organic Maps allows to add simple point categories only, that means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Check our <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> for detailed step by step instructions.";
-"downloader_no_downloaded_maps_title" = "You haven't downloaded any maps";
-"downloader_no_downloaded_maps_message" = "Download maps to search and navigate offline.";
-"current_location_unknown_error_title" = "Current location is unknown.";
+"operator" = "Օպերատոր՝ %@";
+"editor_category_unsuitable_title" = "Չե՞ք գտնում համապատասխան կատեգորիա:";
+"editor_category_unsuitable_text" = "Organic Maps-ը թույլ է տալիս ավելացնել միայն պարզ կետային կատեգորիաներ, այսինքն՝ ոչ քաղաքներ, ճանապարհներ, լճեր, շենքերի ուրվագծեր և այլն։ Խնդրում ենք ավելացնել նման կատեգորիաները անմիջապես <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> կայքում։ Մանրամասն քայլ առ քայլ հրահանգների համար ստուգեք մեր <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ուղեցույցը</a>:";
+"downloader_no_downloaded_maps_title" = "Դուք դեռ քարտեզներ չեք ներբեռնել";
+"downloader_no_downloaded_maps_message" = "Ներբեռնեք քարտեզներ՝ օֆլայն որոնման և նավիգացիայի համար:";
+"current_location_unknown_error_title" = "Ընթացիկ դիրքն անհայտ է:";
 
 /* abbreviation for kilometers per hour */
-"kilometers_per_hour" = "km/h";
-"miles_per_hour" = "mph";
-"hour" = "h";
-"minute" = "min";
-"day" = "d";
-"second" = "s";
-"placepage_more_button" = "More";
+"kilometers_per_hour" = "կմ/ժ";
+"miles_per_hour" = "մղ/ժ";
+"hour" = "ժ";
+"minute" = "ր";
+"day" = "օ";
+"second" = "վ";
+"placepage_more_button" = "Ավելին";
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Edit Bookmark";
-"placepage_personal_notes_hint" = "Personal notes (text or html)";
-"editor_comment_hint" = "Comment…";
-"editor_reset_edits_message" = "Discard all local changes?";
-"editor_reset_edits_button" = "Discard";
-"editor_remove_place_message" = "Delete added place?";
-"editor_remove_place_button" = "Delete";
-"editor_place_doesnt_exist" = "Place does not exist";
+"placepage_edit_bookmark_button" = "Խմբագրել էջանիշը";
+"placepage_personal_notes_hint" = "Անձնական նշումներ (տեքստ կամ html)";
+"editor_comment_hint" = "Մեկնաբանություն...";
+"editor_reset_edits_message" = "Չեղարկե՞լ բոլոր տեղական փոփոխությունները:";
+"editor_reset_edits_button" = "Չեղարկել";
+"editor_remove_place_message" = "Ջնջե՞լ ավելացված վայրը:";
+"editor_remove_place_button" = "Ջնջել";
+"editor_place_doesnt_exist" = "Վայրը գոյություն չունի";
 
 /* Phone number error message */
-"error_enter_correct_phone" = "Enter a valid phone number";
-"error_enter_correct_web" = "Enter a valid web address";
-"error_enter_correct_email" = "Enter a valid email";
-"placepage_add_place_button" = "Add Place to OpenStreetMap";
+"error_enter_correct_phone" = "Մուտքագրեք վավեր հեռախոսահամար";
+"error_enter_correct_web" = "Մուտքագրեք վավեր վեբ հասցե";
+"error_enter_correct_email" = "Մուտքագրեք վավեր էլ. փոստ";
+"placepage_add_place_button" = "Ավելացնել վայր OpenStreetMap-ում";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
-"editor_share_to_all_dialog_title" = "Do you want to send it to all users?";
+"editor_share_to_all_dialog_title" = "Ցանկանո՞ւմ եք ուղարկել այն բոլոր օգտատերերին:";
 
 /* Dialog before publishing the modifications to the public map. */
-"editor_share_to_all_dialog_message_1" = "Make sure you did not enter any private or personal data.";
-"editor_share_to_all_dialog_message_2" = "OpenStreetMap editors will check the changes and contact you if they have any questions.";
-"navigation_stop_button" = "Stop";
+"editor_share_to_all_dialog_message_1" = "Համոզվեք, որ չեք մուտքագրել որևէ անձնական կամ գաղտնի տվյալ:";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap-ի խմբագիրները կստուգեն փոփոխությունները և հարցերի դեպքում կկապվեն ձեզ հետ:";
+"navigation_stop_button" = "Դադար";
 
 /* For the first routing */
-"accept" = "Accept";
+"accept" = "Ընդունել";
 
 /* For the first routing */
-"decline" = "Decline";
-"mobile_data_dialog" = "Use mobile internet to show detailed information?";
-"mobile_data_option_always" = "Use Always";
-"mobile_data_option_today" = "Only Today";
-"mobile_data_option_not_today" = "Do Not Use Today";
-"mobile_data" = "Mobile Internet";
+"decline" = "Մերժել";
+"mobile_data_dialog" = "Օգտագործե՞լ բջջային ինտերնետ՝ մանրամասն տեղեկատվություն ցուցադրելու համար:";
+"mobile_data_option_always" = "Միշտ օգտագործել";
+"mobile_data_option_today" = "Միայն այսօր";
+"mobile_data_option_not_today" = "Չօգտագործել այսօր";
+"mobile_data" = "Բջջային ինտերնետ";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "Mobile internet is required for map update notifications and uploading edits.";
-"mobile_data_option_never" = "Never Use";
-"mobile_data_option_ask" = "Always Ask";
-"traffic_update_maps_text" = "To display traffic data, maps must be updated.";
-"big_font" = "Increase size for map labels";
+"mobile_data_description" = "Բջջային ինտերնետն անհրաժեշտ է քարտեզի թարմացման ծանուցումների և խմբագրումների վերբեռնման համար:";
+"mobile_data_option_never" = "Երբեք չօգտագործել";
+"mobile_data_option_ask" = "Միշտ հարցնել";
+"traffic_update_maps_text" = "Երթևեկության տվյալները ցուցադրելու համար քարտեզները պետք է թարմացվեն:";
+"big_font" = "Մեծացնել քարտեզի գրությունների չափսը";
 
 /* "traffic" as in "road congestion" */
-"traffic_data_unavailable" = "Traffic data is not available";
-"enable_logging" = "Enable logging";
-"transliteration_title" = "Transliterate into Latin alphabet";
-"planning_route_manage_route" = "Manage Route";
-"button_plan" = "Plan";
-"placepage_remove_stop" = "Remove Stop";
-"placepage_add_stop" = "Add Stop";
-"saved" = "Saved";
-"error_enter_correct_name" = "Please enter a correct name";
-"bookmark_lists" = "Lists";
+"traffic_data_unavailable" = "Երթևեկության տվյալները հասանելի չեն";
+"enable_logging" = "Միացնել գրանցումը";
+"transliteration_title" = "Տառադարձել լատինատառի";
+"planning_route_manage_route" = "Կառավարել երթուղին";
+"button_plan" = "Պլանավորել";
+"placepage_remove_stop" = "Հեռացնել կանգառը";
+"placepage_add_stop" = "Ավելացնել կանգառ";
+"saved" = "Պահպանված է";
+"error_enter_correct_name" = "Խնդրում ենք մուտքագրել ճիշտ անուն";
+"bookmark_lists" = "Ցուցակներ";
 
 /* Do not display all bookmark lists on the map */
-"bookmark_lists_hide_all" = "Hide all";
-"bookmark_lists_show_all" = "Show all";
-"bookmarks_create_new_group" = "Create a new list";
+"bookmark_lists_hide_all" = "Թաքցնել բոլորը";
+"bookmark_lists_show_all" = "Ցուցադրել բոլորը";
+"bookmarks_create_new_group" = "Ստեղծել նոր ցուցակ";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
-"bookmarks_import" = "Import Bookmarks and Tracks";
-"bookmarks_error_message_share_general" = "Unable to share due to an application error";
-"bookmarks_error_title_share_empty" = "Sharing error";
-"bookmarks_error_message_share_empty" = "Cannot share an empty list";
-"bookmarks_error_message_empty_list_name" = "Please enter the list name";
-"bookmarks_error_title_list_name_already_taken" = "This name is already taken";
-"profile" = "OpenStreetMap profile";
-"restore" = "Restore";
-"privacy_policy" = "Privacy policy";
-"terms_of_use" = "Terms of use";
+"bookmarks_import" = "Ներմուծել էջանիշներ և հետագծեր";
+"bookmarks_error_message_share_general" = "Հնարավոր չէ կիսվել հավելվածի սխալի պատճառով";
+"bookmarks_error_title_share_empty" = "Կիսվելու սխալ";
+"bookmarks_error_message_share_empty" = "Հնարավոր չէ կիսվել դատարկ ցուցակով";
+"bookmarks_error_message_empty_list_name" = "Խնդրում ենք մուտքագրել ցուցակի անունը";
+"bookmarks_error_title_list_name_already_taken" = "Այս անունն արդեն զբաղված է";
+"profile" = "OpenStreetMap պրոֆիլ";
+"restore" = "Վերականգնել";
+"privacy_policy" = "Գաղտնիության քաղաքականություն";
+"terms_of_use" = "Օգտագործման պայմաններ";
 
 /* Hiking routes layer name in the Styles and Layers dialog */
-"button_layer_hiking" = "Hiking";
+"button_layer_hiking" = "Արշավային";
 
 /* Cycling routes layer name in the Styles and Layers dialog */
-"button_layer_cycling" = "Cycling";
-"button_layer_subway" = "Subway";
-"layers_title" = "Map Styles and Layers";
+"button_layer_cycling" = "Հեծանվային";
+"button_layer_subway" = "Մետրո";
+"layers_title" = "Քարտեզի ոճեր և շերտեր";
 
 /* Menu title for exporting a file in the default KMZ format */
-"export_file" = "Export KMZ";
+"export_file" = "Արտահանել KMZ";
 
 /* Menu title for exporting a file in GPX format */
-"export_file_gpx" = "Export GPX";
+"export_file_gpx" = "Արտահանել GPX";
 
 /* Menu title for exporting a file in GeoJSON format */
-"export_file_geojson" = "Export GeoJSON";
-"delete_list" = "Delete list";
-"speedcams_alert_title" = "Speed cameras";
-"place_description_title" = "Place Description";
+"export_file_geojson" = "Արտահանել GeoJSON";
+"delete_list" = "Ջնջել ցուցակը";
+"speedcams_alert_title" = "Արագաչափեր";
+"place_description_title" = "Վայրի նկարագրություն";
 
 /* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
-"pref_tts_speedcams_auto" = "Warn if speeding";
+"pref_tts_speedcams_auto" = "Զգուշացնել արագության գերազանցման դեպքում";
 
 /* Speed camera settings menu option - Always warn (about speedcams) */
-"pref_tts_speedcams_always" = "Always warn";
+"pref_tts_speedcams_always" = "Միշտ զգուշացնել";
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
-"pref_tts_speedcams_never" = "Never warn";
-"power_managment_title" = "Power saving mode";
-"power_managment_description" = "Try to reduce power usage at the expense of some functionality.";
-"power_managment_setting_never" = "Never";
-"power_managment_setting_auto" = "When battery is low";
-"power_managment_setting_manual_max" = "Always";
+"pref_tts_speedcams_never" = "Երբեք չզգուշացնել";
+"power_managment_title" = "Էներգախնայողության ռեժիմ";
+"power_managment_description" = "Փորձել նվազեցնել էներգիայի սպառումը որոշ ֆունկցիոնալության հաշվին:";
+"power_managment_setting_never" = "Երբեք";
+"power_managment_setting_auto" = "Երբ մարտկոցը լիցքաթափված է";
+"power_managment_setting_manual_max" = "Միշտ";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
-"enable_logging_warning_message" = "Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using \"Report a bug\" in the Help dialog. Logs may include location info.";
-"driving_options_title" = "Routing options";
+"bookmarks_text_placement_title" = "Էջանիշների անունները քարտեզի վրա";
+"bookmarks_text_placement_description" = "Եթե էջանիշները շատ են, քարտեզի վրա դրանց անունների ցուցադրումը կարող է դանդաղեցնել հավելվածը:";
+"show_to_the_right" = "Ցուցադրել աջից";
+"show_at_the_bottom" = "Ցուցադրել ներքևից";
+"enable_logging_warning_message" = "Միացրեք այս ընտրանքը ժամանակավորապես՝ Ձեր խնդրի մասին մանրամասն ախտորոշիչ գրանցամատյանները գրանցելու և մեզ ձեռքով ուղարկելու համար՝ օգտագործելով «Զեկուցել սխալի մասին» Օգնության պատուհանում։ Գրանցամատյանները կարող են ներառել տեղադիրքի տվյալներ։";
+"driving_options_title" = "Երթուղու ընտրանքներ";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_tolls" = "Avoid tolls";
+"avoid_tolls" = "Խուսափել վճարովի ճանապարհներից";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_unpaved" = "Avoid unpaved roads";
+"avoid_unpaved" = "Խուսափել գրունտային ճանապարհներից";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_ferry" = "Avoid ferries";
-"avoid_motorways" = "Avoid freeways";
-"unable_to_calc_alert_title" = "Unable to calculate route";
-"unable_to_calc_alert_subtitle" = "A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.";
-"define_to_avoid_btn" = "Define roads to avoid";
-"change_driving_options_btn" = "Routing options enabled";
-"toll_road" = "Toll road";
-"unpaved_road" = "Unpaved road";
-"ferry_crossing" = "Ferry crossing";
+"avoid_ferry" = "Խուսափել լաստանավերից";
+"avoid_motorways" = "Խուսափել մայրուղիներից";
+"unable_to_calc_alert_title" = "Հնարավոր չէ հաշվարկել երթուղին";
+"unable_to_calc_alert_subtitle" = "Երթուղին չի գտնվել։ Սա կարող է պայմանավորված լինել երթուղու ընտրանքներով կամ OpenStreetMap-ի ոչ ամբողջական տվյալներով։ Խնդրում ենք փոխել երթուղու ընտրանքները և կրկին փորձել։";
+"define_to_avoid_btn" = "Սահմանել ճանապարհներ՝ խուսափելու համար";
+"change_driving_options_btn" = "Երթուղու ընտրանքները միացված են";
+"toll_road" = "Վճարովի ճանապարհ";
+"unpaved_road" = "Գրունտային ճանապարհ";
+"ferry_crossing" = "Լաստանավային ուղի";
 
 /* A generic "Yes" button in dialogs */
-"yes" = "Yes";
+"yes" = "Այո";
 
 /* A generic "No" button in dialogs */
-"no" = "No";
+"no" = "Ոչ";
 
 /* E.g. "WiFi:Yes" */
-"yes_available" = "Yes";
+"yes_available" = "Այո";
 
 /* E.g. "WiFi:No" */
-"no_available" = "No";
+"no_available" = "Ոչ";
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
-"capacity" = "Capacity: %@";
+"capacity" = "Տարողություն՝ %@";
 
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
-"network" = "Network: %@";
-"trip_finished" = "You have arrived!";
-"ok" = "OK";
+"network" = "Ցանց՝ %@";
+"trip_finished" = "Դուք ժամանել եք";
+"ok" = "Լավ";
 
 /* max. 10 symbols, both iOS and Android */
-"sort" = "Sort…";
-"week_ago_sorttype" = "A week ago";
-"month_ago_sorttype" = "A month ago";
-"moremonth_ago_sorttype" = "More than a month ago";
-"moreyear_ago_sorttype" = "More than a year ago";
-"near_me_sorttype" = "Near me";
-"others_sorttype" = "Others";
+"sort" = "Դասավորել…";
+"week_ago_sorttype" = "Մեկ շաբաթ առաջ";
+"month_ago_sorttype" = "Մեկ ամիս առաջ";
+"moremonth_ago_sorttype" = "Ավելի քան մեկ ամիս առաջ";
+"moreyear_ago_sorttype" = "Ավելի քան մեկ տարի առաջ";
+"near_me_sorttype" = "Իմ մոտակայքում";
+"others_sorttype" = "Այլ";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "Route Planning Failed";
+"routing_planning_error" = "Երթուղու պլանավորումը ձախողվեց";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Arrival at %@";
+"routing_arrive" = "Ժամանումը՝ %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
-"editor_done_dialog_1" = "You’ve changed the world map! Don't keep it to yourself; tell your friends and edit it together.";
-"share_with_friends" = "Share with friends";
+"dialog_routing_download_and_update_maps" = "Ներբեռնել և թարմացնել բոլոր քարտեզները երթուղու երկայնքով՝ հաշվարկ կատարելու համար:";
+"editor_done_dialog_1" = "Դուք փոխեցիք աշխարհի քարտեզը: Մի պահեք դա Ձեզ, պատմեք ընկերներին և խմբագրեք միասին:";
+"share_with_friends" = "Կիսվել ընկերների հետ";
 
 /* Place Page opening hours text */
-"closed_now" = "Closed now";
-"opens_tomorrow_at" = "Opens tomorrow at %@";
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
-"opens_at" = "Opens at %@";
-"closes_at" = "Closes at %@";
-"add_opening_hours" = "Add opening hours";
-"password_8_chars_min" = "Password (8 characters minimum)";
-"invalid_username_or_password" = "Invalid username or password.";
-"osm_account" = "OSM Account";
+"closed_now" = "Փակ է";
+"opens_tomorrow_at" = "Բացվում է վաղը %@";
+"opens_dayoftheweek_at" = "Բացվում է %1$@՝ %2$@";
+"opens_at" = "Բացվում է %@";
+"closes_at" = "Փակվում է %@";
+"add_opening_hours" = "Ավելացնել աշխատանքային ժամերը";
+"password_8_chars_min" = "Գաղտնաբառ (առնվազն 8 նիշ)";
+"invalid_username_or_password" = "Սխալ օգտանուն կամ գաղտնաբառ:";
+"osm_account" = "OSM հաշիվ";
 
 /* Information text: "Last upload 11.01.2016" */
-"last_upload" = "Last upload";
-"thank_you" = "Thank You";
-"place_name" = "Place Name";
-"phone" = "Phone";
-"please_note" = "Please note";
-"migration_download_error_dialog" = "Download error";
-"editor_add_select_category" = "Select category";
-"editor_add_select_category_popular_subtitle" = "Popular";
-"editor_add_select_category_all_subtitle" = "All Categories";
-"whatsnew_editor_message_1" = "Add new places to the map, and edit existing ones directly from the app.";
-"dialog_incorrect_feature_position" = "Change location";
+"last_upload" = "Վերջին վերբեռնումը";
+"thank_you" = "Շնորհակալություն";
+"place_name" = "Վայրի անունը";
+"phone" = "Հեռախոս";
+"please_note" = "Խնդրում ենք նկատի ունենալ";
+"migration_download_error_dialog" = "Ներբեռնման սխալ";
+"editor_add_select_category" = "Ընտրեք կատեգորիան";
+"editor_add_select_category_popular_subtitle" = "Հայտնի";
+"editor_add_select_category_all_subtitle" = "Բոլոր կատեգորիաները";
+"whatsnew_editor_message_1" = "Ավելացրեք նոր վայրեր քարտեզին և խմբագրեք առկաները անմիջապես հավելվածից:";
+"dialog_incorrect_feature_position" = "Փոխել տեղադիրքը";
 
 /* Error dialog no space */
-"migration_no_space_message" = "To download, you need more space. Please delete any unnecessary data.";
-"editor_sharing_title" = "I improved the Organic Maps maps";
-"editor_detailed_description_hint" = "Detailed comment";
-"editor_detailed_description" = "Your suggested map changes will be sent to the OpenStreetMap community. Please describe any additional details that cannot be edited in Organic Maps.";
-"current_location_unknown_error_message" = "An error occurred while determining your location. Check that your device is working properly and try again later.";
-"location_services_disabled_header" = "Location services are disabled";
-"location_services_disabled_message" = "Enable access to geolocation in the device settings";
-"location_services_disabled_1" = "1. Open Settings";
-"location_services_disabled_2" = "2. Tap Location";
+"migration_no_space_message" = "Ներբեռնելու համար անհրաժեշտ է ավելի շատ տարածք։ Խնդրում ենք ջնջել ավելորդ տվյալները։";
+"editor_sharing_title" = "Ես բարելավեցի Organic Maps քարտեզները";
+"editor_detailed_description_hint" = "Մանրամասն մեկնաբանություն";
+"editor_detailed_description" = "Ձեր առաջարկած քարտեզի փոփոխությունները կուղարկվեն OpenStreetMap համայնքին։ Խնդրում ենք նկարագրել ցանկացած այլ մանրամասներ, որոնք հնարավոր չէ խմբագրել Organic Maps-ում։";
+"current_location_unknown_error_message" = "Ձեր տեղադիրքը որոշելիս առաջացել է սխալ։ Ստուգեք, որ Ձեր սարքը ճիշտ է աշխատում և փորձեք կրկին ավելի ուշ։";
+"location_services_disabled_header" = "Տեղորոշման ծառայություններն անջատված են";
+"location_services_disabled_message" = "Միացրեք աշխարհագրական տեղորոշման հասանելիությունը սարքի կարգավորումներում";
+"location_services_disabled_1" = "1. Բացեք Կարգավորումները";
+"location_services_disabled_2" = "2. Հպեք Տեղորոշում";
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
-"location_services_disabled_3" = "3. Select While Using the App";
-"location_services_disabled_on_device_2" = "2. Select Privacy";
-"location_services_disabled_on_device_3" = "3. Select Location Services";
-"location_services_disabled_on_device_4" = "4. Turn on Location Services";
-"location_services_disabled_on_device_additional_message" = "Or continue using Organic Maps without Location";
-"book_button" = "Book";
-"placepage_call_button" = "Call";
-"placepage_bookmark_name_hint" = "Bookmark Name";
-"placepage_delete_bookmark_button" = "Delete Bookmark";
-"editor_edits_sent_message" = "Your note will be sent to OpenStreetMap";
-"text_more_button" = "…more";
-"refresh" = "Update";
+"location_services_disabled_3" = "3. Ընտրեք «Հավելվածն օգտագործելիս»";
+"location_services_disabled_on_device_2" = "2. Ընտրեք Գաղտնիություն";
+"location_services_disabled_on_device_3" = "3. Ընտրեք Տեղորոշման ծառայություններ";
+"location_services_disabled_on_device_4" = "4. Միացրեք Տեղորոշման ծառայությունները";
+"location_services_disabled_on_device_additional_message" = "Կամ շարունակեք օգտագործել Organic Maps-ն առանց տեղորոշման";
+"book_button" = "Ամրագրել";
+"placepage_call_button" = "Զանգել";
+"placepage_bookmark_name_hint" = "Էջանիշի անունը";
+"placepage_delete_bookmark_button" = "Ջնջել էջանիշը";
+"editor_edits_sent_message" = "Ձեր նշումը կուղարկվի OpenStreetMap";
+"text_more_button" = "…ավելին";
+"refresh" = "Թարմացնել";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
-"recent_track_background_dialog_title" = "Disable recording of your recently travelled route?";
-"off_recent_track_background_button" = "Disable";
+"recent_track_background_dialog_title" = "Անջատե՞լ Ձեր անցած վերջին երթուղու ձայնագրումը:";
+"off_recent_track_background_button" = "Անջատել";
 
 /* For sharing via SMS and so on */
-"sharing_call_action_look" = "Check out";
-"recent_track_background_dialog_message" = "Organic Maps uses your location in the background to record your recently travelled route.";
-"general_settings" = "General settings";
+"sharing_call_action_look" = "Տեսեք սա";
+"recent_track_background_dialog_message" = "Organic Maps-ը օգտագործում է Ձեր տեղադիրքը ֆոնային ռեժիմում՝ Ձեր անցած վերջին երթուղին գրանցելու համար:";
+"general_settings" = "Ընդհանուր կարգավորումներ";
 
 /* "traffic" as in road congestion */
-"traffic_update_app_message" = "To display traffic data, the application must be updated.";
-"log_file_size" = "Log file size: %@";
-"planning_route_remove_title" = "Drag here to remove";
-"placepage_replace_stop" = "Replace Stop";
-"start_from_my_position" = "Start from";
+"traffic_update_app_message" = "Երթևեկության տվյալները ցուցադրելու համար հավելվածը պետք է թարմացվի:";
+"log_file_size" = "Գրանցամատյանի ֆայլի չափը՝ %@";
+"planning_route_remove_title" = "Քաշեք այստեղ՝ հեռացնելու համար";
+"placepage_replace_stop" = "Փոխարինել կանգառը";
+"start_from_my_position" = "Սկսել …-ից";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
-"alert_reauth_message_ios" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more";
+"alert_reauth_message_ios" = "Խնդրում ենք մուտք գործել OpenStreetMap՝ Ձեր քարտեզի բոլոր փոփոխություններն ավտոմատ վերբեռնելու համար։ Իմացեք ավելին";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
-"alert_reauth_link_text_ios" = "here";
-"downloader_hide_screen" = "Hide Screen";
-"downloader_percent" = "%@ (%@ of %@)";
-"downloader_process" = "Downloading %@…";
-"downloader_applying" = "Applying %@…";
-"bookmarks_error_title_list_name_too_long" = "This name is too long";
-"bookmarks_detect_title" = "New files detected";
-"button_convert" = "Convert";
-"bookmarks_convert_error_title" = "Error";
-"bookmarks_convert_error_message" = "Some files were not converted.";
-"title_error_downloading_bookmarks" = "An error occurred";
-"popular_place" = "Popular";
-"hide_from_map" = "Hide from map";
-"tags_loading_error_subtitle" = "An error occurred while loading tags, please try again";
+"alert_reauth_link_text_ios" = "այստեղ";
+"downloader_hide_screen" = "Թաքցնել էկրանը";
+"downloader_percent" = "%@ (%@ %@-ից)";
+"downloader_process" = "Ներբեռնվում է %@…";
+"downloader_applying" = "Կիրառվում է %@…";
+"bookmarks_error_title_list_name_too_long" = "Այս անունը շատ երկար է";
+"bookmarks_detect_title" = "Հայտնաբերվել են նոր ֆայլեր";
+"button_convert" = "Փոխարկել";
+"bookmarks_convert_error_title" = "Սխալ";
+"bookmarks_convert_error_message" = "Որոշ ֆայլեր չեն փոխարկվել:";
+"title_error_downloading_bookmarks" = "Տեղի ունեցավ սխալ";
+"popular_place" = "Հայտնի";
+"hide_from_map" = "Թաքցնել քարտեզից";
+"tags_loading_error_subtitle" = "Պիտակների բեռնման ժամանակ սխալ տեղի ունեցավ, խնդրում ենք փորձել կրկին";
 
 /* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Right";
+"right" = "Աջ";
 
 /* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bottom";
-"trip_start" = "Let's go";
-"pick_destination" = "Destination";
-"follow_my_position" = "Re-center";
-"search_results" = "Search results";
-"then_turn" = "Then";
-"redirect_route_alert" = "Do you want to rebuild the route?";
-"keyboard_availability_alert" = "Keyboard is not available while driving";
-"dialog_routing_change_start_carplay" = "Unable to build a route from your current location";
-"dialog_routing_change_end_carplay" = "Unable to find a route to your destination. Please choose another end point";
-"dialog_routing_check_gps_carplay" = "No GPS signal. Please move to an open area";
-"dialog_routing_unable_locate_route_carplay" = "Unable to build a route. Please specify other route points";
-"dialog_routing_download_files_carplay" = "To create a route, download missing maps on your device";
-"dialog_routing_system_error_carplay" = "An error occurred. Please restart the application";
-"dialog_routing_rebuild_from_current_location_carplay" = "The route will be rebuilt from your current location";
-"dialog_routing_rebuild_for_vehicle_carplay" = "The route will be converted into an automobile one";
-"not_all_shown_bookmarks_carplay" = "Not all bookmarks are shown";
-"switch_to_phone_bookmarks_carplay" = "Switch to the phone to see all bookmarks";
-"speedcams_alert_title_carplay_1" = "Speedсams";
-"speedcams_alert_title_carplay_2" = "Speed warnings";
-"download_map_carplay" = "Please download maps in the app on your mobile device";
-"carplay_roundabout_exit" = "%@ exit";
+"bottom" = "Ներքև";
+"trip_start" = "Գնացինք";
+"pick_destination" = "Նշանակման կետ";
+"follow_my_position" = "Կենտրոնացնել";
+"search_results" = "Որոնման արդյունքներ";
+"then_turn" = "Այնուհետև";
+"redirect_route_alert" = "Ցանկանո՞ւմ եք վերակառուցել երթուղին:";
+"keyboard_availability_alert" = "Ստեղնաշարը հասանելի չէ վարելիս";
+"dialog_routing_change_start_carplay" = "Հնարավոր չէ կառուցել երթուղի Ձեր ընթացիկ տեղադիրքից";
+"dialog_routing_change_end_carplay" = "Հնարավոր չէ գտնել երթուղի դեպի նշանակման վայր: Խնդրում ենք ընտրել այլ վերջնակետ";
+"dialog_routing_check_gps_carplay" = "GPS ազդանշան չկա: Խնդրում ենք տեղափոխվել բաց տարածք";
+"dialog_routing_unable_locate_route_carplay" = "Հնարավոր չէ կառուցել երթուղի: Խնդրում ենք նշել երթուղու այլ կետեր";
+"dialog_routing_download_files_carplay" = "Երթուղի ստեղծելու համար ներբեռնեք բացակայող քարտեզները Ձեր սարքում";
+"dialog_routing_system_error_carplay" = "Տեղի ունեցավ սխալ: Խնդրում ենք վերագործարկել հավելվածը";
+"dialog_routing_rebuild_from_current_location_carplay" = "Երթուղին կվերակառուցվի Ձեր ընթացիկ տեղադիրքից";
+"dialog_routing_rebuild_for_vehicle_carplay" = "Երթուղին կփոխարկվի ավտոմեքենայի երթուղու";
+"not_all_shown_bookmarks_carplay" = "Ոչ բոլոր էջանիշներն են ցուցադրվում";
+"switch_to_phone_bookmarks_carplay" = "Անցեք հեռախոսին՝ բոլոր էջանիշները տեսնելու համար";
+"speedcams_alert_title_carplay_1" = "Արագաչափեր";
+"speedcams_alert_title_carplay_2" = "Արագության զգուշացումներ";
+"download_map_carplay" = "Խնդրում ենք ներբեռնել քարտեզները հավելվածում՝ Ձեր բջջային սարքի վրա";
+"carplay_roundabout_exit" = "%@ ելք";
 
 /* iOS */
-"sort_default" = "Sort by default";
-"sort_type" = "Sort by type";
-"sort_distance" = "Sort by distance";
-"sort_date" = "Sort by date";
-"sort_name" = "Sort by name";
+"sort_default" = "Դասավորել լռելյայն";
+"sort_type" = "Դասավորել ըստ տեսակի";
+"sort_distance" = "Դասավորել ըստ հեռավորության";
+"sort_date" = "Դասավորել ըստ ամսաթվի";
+"sort_name" = "Դասավորել ըստ անվան";
 
 
 /********** Bookmark types used for sorting **********/
 
-"food_places" = "Food";
-"tourist_places" = "Sights";
-"museums" = "Museums";
-"parks" = "Parks";
-"swim_places" = "Swim";
-"mountains" = "Mountains";
-"animals" = "Animals";
-"hotels" = "Hotels";
-"buildings" = "Buildings";
-"money" = "Money";
-"shops" = "Shops";
-"parkings" = "Parking";
-"fuel_places" = "Gas Stations";
-"medicine" = "Medicine";
-"search_in_the_list" = "Search in the list";
-"religious_places" = "Religious places";
-"transit_not_found" = "Subway navigation in this region is not available yet";
-"dialog_pedestrian_route_is_long_header" = "No subway route found";
-"dialog_pedestrian_route_is_long_message" = "Please choose a start or end point closer to a subway station";
-"button_layer_isolines" = "Contour Lines";
-"isolines_activation_error_dialog" = "Activating contour lines requires downloading map data for this area";
-"isolines_location_error_dialog" = "Contour lines are not yet available in this area";
-"elevation_profile_ascent" = "Ascent";
-"elevation_profile_descent" = "Descent";
-"elevation_profile_min_elevation" = "Min. elevation";
-"elevation_profile_max_elevation" = "Max. elevation";
-"isolines_toast_zooms_1_10" = "Zoom in to explore isolines";
-"downloader_loading_ios" = "Downloading";
+"food_places" = "Սնունդ";
+"tourist_places" = "Տեսարժան վայրեր";
+"museums" = "Թանգարաններ";
+"parks" = "Զբոսայգիներ";
+"swim_places" = "Լողավազաններ";
+"mountains" = "Լեռներ";
+"animals" = "Կենդանիներ";
+"hotels" = "Հյուրանոցներ";
+"buildings" = "Շենքեր";
+"money" = "Ֆինանսներ";
+"shops" = "Խանութներ";
+"parkings" = "Կայանատեղի";
+"fuel_places" = "Լցակայաններ";
+"medicine" = "Առողջապահություն";
+"search_in_the_list" = "Փնտրել ցուցակում";
+"religious_places" = "Կրոնական վայրեր";
+"transit_not_found" = "Մետրոյով երթևեկությունը այս տարածաշրջանում դեռ հասանելի չէ";
+"dialog_pedestrian_route_is_long_header" = "Մետրոյի երթուղի չի գտնվել";
+"dialog_pedestrian_route_is_long_message" = "Խնդրում ենք ընտրել մետրոյի կայարանին ավելի մոտ սկզբնակետ կամ վերջնակետ";
+"button_layer_isolines" = "Հորիզոնականներ";
+"isolines_activation_error_dialog" = "Հորիզոնականների ակտիվացումը պահանջում է ներբեռնել այս տարածքի քարտեզի տվյալները";
+"isolines_location_error_dialog" = "Հորիզոնականները դեռ հասանելի չեն այս տարածքում";
+"elevation_profile_ascent" = "Վերելք";
+"elevation_profile_descent" = "Վայրէջք";
+"elevation_profile_min_elevation" = "Նվազգ. բարձրություն";
+"elevation_profile_max_elevation" = "Առավել. բարձրություն";
+"isolines_toast_zooms_1_10" = "Մեծացրեք մասշտաբը՝ հորիզոնականները տեսնելու համար";
+"downloader_loading_ios" = "Ներբեռնում";
 
 /* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
@@ -905,204 +905,204 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* App Tip #00 */
-"app_tip_00" = "Thank you for using our community-built maps!";
+"app_tip_00" = "Շնորհակալություն համայնքի կողմից ստեղծված մեր քարտեզներից օգտվելու համար։";
 
 /* App tip #01 */
-"app_tip_01" = "With your donations and support, we can create the best maps in the World!";
+"app_tip_01" = "Ձեր նվիրատվություններով և աջակցությամբ մենք կարող ենք ստեղծել աշխարհի լավագույն քարտեզները։";
 
 /* App tip #02 */
-"app_tip_02" = "Do you like our app? Please donate to support the development! Don't like it yet? Please let us know why, and we will fix it!";
+"app_tip_02" = "Հավանու՞մ եք մեր հավելվածը։ Խնդրում ենք նվիրատվություն կատարել՝ զարգացմանը աջակցելու համար։ Դեռ չե՞ք հավանում։ Խնդրում ենք հայտնել պատճառը, և մենք կշտկենք այն։";
 
 /* App tip #03 */
-"app_tip_03" = "If you know a software developer, you can ask him or her to implement a feature that you need.";
+"app_tip_03" = "Եթե ճանաչում եք ծրագրավորողի, կարող եք խնդրել նրան իրականացնել ձեզ անհրաժեշտ գործառույթը։";
 
 /* App tip #04 */
-"app_tip_04" = "Tap anywhere on the map to select anything. A long tap is used to hide and show the interface.";
+"app_tip_04" = "Հպեք քարտեզի ցանկացած կետի՝ որևէ բան ընտրելու համար։ Երկար հպումը թաքցնում և ցուցադրում է ինտերֆեյսը։";
 
 /* App tip #05 */
-"app_tip_05" = "Did you know that your current location on the map can be selected?";
+"app_tip_05" = "Գիտեի՞ք, որ քարտեզի վրա ձեր ընթացիկ դիրքը կարելի է ընտրել։";
 
 /* App tip #06 */
-"app_tip_06" = "You can help to translate our app into your language.";
+"app_tip_06" = "Դուք կարող եք օգնել թարգմանել մեր հավելվածը ձեր լեզվով։";
 
 /* App tip #07 */
-"app_tip_07" = "Our app is developed by a few enthusiasts and the community.";
+"app_tip_07" = "Մեր հավելվածը մշակվում է մի քանի էնտուզիաստների և համայնքի կողմից։";
 
 /* App tip #08 */
-"app_tip_08" = "You can easily fix and improve the map data.";
+"app_tip_08" = "Դուք կարող եք հեշտությամբ ուղղել և բարելավել քարտեզի տվյալները։";
 
 /* App tip #09 */
-"app_tip_09" = "Our main goal is to build fast, privacy-focused, easy-to-use maps that you will love.";
+"app_tip_09" = "Մեր հիմնական նպատակն է ստեղծել արագ, գաղտնիությանը միտված և հեշտ օգտագործվող քարտեզներ, որոնք դուք կսիրեք։";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "You are now using Organic Maps on the phone screen";
+"car_used_on_the_phone_screen" = "Դուք այժմ օգտագործում եք Organic Maps-ը հեռախոսի էկրանին";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "You are now using Organic Maps on the car screen";
+"car_used_on_the_car_screen" = "Դուք այժմ օգտագործում եք Organic Maps-ը մեքենայի էկրանին";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
-"car_continue_on_the_phone" = "Continue on the phone";
+"car_continue_on_the_phone" = "Շարունակել հեռախոսով";
 
 /* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
-"car_continue_in_the_car" = "To the car screen";
+"car_continue_in_the_car" = "Դեպի մեքենայի էկրան";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Outdoors";
+"button_layer_outdoor" = "Ակտիվ հանգիստ";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Export all Bookmarks and Tracks";
-"drive_through" = "Drive-through";
+"bookmarks_export" = "Արտահանել բոլոր էջանիշները և հետագծերը";
+"drive_through" = "Դրայվ-ին";
 
 /* Restaurant or other food place's menu URL field in the Editor */
-"website_menu" = "Menu Link";
+"website_menu" = "Մենյուի հղում";
 
 /* Title for the "Open in Another App" button on the PlacePage. */
-"open_in_app" = "Open in Another App";
+"open_in_app" = "Բացել այլ հավելվածում";
 
 /* To indicate if the place proposed self service… */
-"self_service" = "Self-service";
+"self_service" = "Ինքնասպասարկում";
 
 /* To indicate if restaurant or other place has outdoor seating */
-"outdoor_seating" = "Outdoor seating";
+"outdoor_seating" = "Բացօթյա նստատեղեր";
 
 /* Prompt to start recording a track. */
-"start_track_recording" = "Record Track";
+"start_track_recording" = "Գրանցել հետագիծը";
 
 /* Prompt for stopping a track recording. */
-"stop_track_recording" = "Stop Track Recording";
+"stop_track_recording" = "Կանգնեցնել հետագծի գրանցումը";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "Track is empty - nothing to save";
-"edit_track" = "Edit Track";
-"elevation_profile_diff_level" = "Difficulty level";
-"elevation_profile_diff_level_easy" = "Easy";
-"elevation_profile_diff_level_moderate" = "Moderate";
-"elevation_profile_diff_level_hard" = "Hard";
-"downloader_updating_ios" = "Updating";
+"track_recording_toast_nothing_to_save" = "Հետագիծը դատարկ է՝ պահպանելու ոչինչ չկա";
+"edit_track" = "Խմբագրել հետագիծը";
+"elevation_profile_diff_level" = "Բարդության մակարդակ";
+"elevation_profile_diff_level_easy" = "Հեշտ";
+"elevation_profile_diff_level_moderate" = "Միջին";
+"elevation_profile_diff_level_hard" = "Բարդ";
+"downloader_updating_ios" = "Թարմացում";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_title" = "Update downloaded maps";
+"whats_new_auto_update_title" = "Թարմացնել ներբեռնված քարտեզները";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_message" = "Updating maps keeps the information about objects up to date";
+"whats_new_auto_update_message" = "Քարտեզների թարմացումը թարմ է պահում օբյեկտների մասին տեղեկատվությունը";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "Update (%@)";
+"whats_new_auto_update_button_size" = "Թարմացնել (%@)";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Ձեռքով թարմացնել ավելի ուշ";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Ջնջել հետագիծը";
 
 /* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "Are you sure you want to delete this track?";
+"placepage_delete_track_confirmation_alert_message" = "Վստա՞հ եք, որ ցանկանում եք ջնջել այս հետագիծը։";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Հետագծի անունը";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "Տեղափոխել";
 
 /* edit track screen title */
-"track_title" = "Track";
+"track_title" = "Հետագիծ";
 
 /* Text for the editing the Track's color button. */
-"change_color" = "Change Color";
+"change_color" = "Փոխել գույնը";
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
-"map" = "Map";
+"map" = "Քարտեզ";
 
 /* Message for the bug report alert. */
-"bugreport_alert_message" = "Would you like to send a bug report to the developers?\nWe rely on our users as Organic Maps doesn't collect any error information automatically. Thank you in advance for supporting Organic Maps!";
+"bugreport_alert_message" = "Ցանկանու՞մ եք ուղարկել սխալի մասին հաշվետվություն մշակողներին?\nՄենք ապավինում ենք մեր օգտատերերին, քանի որ Organic Maps-ը ավտոմատ կերպով չի հավաքում սխալների մասին տեղեկատվություն։ Կանխավ շնորհակալություն Organic Maps-ին աջակցելու համար!";
 
 /* Title for the "Enable iCloud Syncronization" alert. */
-"enable_icloud_synchronization_title" = "Enable iCloud Syncronization";
+"enable_icloud_synchronization_title" = "Միացնել iCloud-ի համաժամացումը";
 
 /* Message for the "Enable iCloud Syncronization" alert. */
-"enable_icloud_synchronization_message" = "iCloud synchronization is an experimental feature under development. Make sure that you have made a backup of all your bookmarks and tracks.";
+"enable_icloud_synchronization_message" = "iCloud-ի համաժամացումը մշակման փուլում գտնվող փորձնական գործառույթ է։ Համոզվեք, որ կատարել եք ձեր բոլոր էջանիշների և հետագծերի պահուստավորում։";
 
 /* Title for the "iCloud Is Disabled" alert. */
-"icloud_disabled_title" = "iCloud Is Disabled";
+"icloud_disabled_title" = "iCloud-ն անջատված է";
 
 /* Message for the "iCloud is Disabled" alert. */
-"icloud_disabled_message" = "Please enable iCloud in your device's settings to use this feature.";
+"icloud_disabled_message" = "Այս գործառույթից օգտվելու համար խնդրում ենք միացնել iCloud-ը ձեր սարքի կարգավորումներում։";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
-"enable" = "Enable";
+"enable" = "Միացնել";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
-"backup" = "Backup";
+"backup" = "Պահուստավորել";
 
 /* Title for the "iCloud synchronization failure" alert. */
-"icloud_synchronization_error_alert_title" = "iCloud synchronization failure";
+"icloud_synchronization_error_alert_title" = "iCloud-ի համաժամացման ձախողում";
 
 /* iCloud error message: Failed to synchronize due to connection error */
-"icloud_synchronization_error_connection_error" = "Error: Failed to synchronize due to connection error";
+"icloud_synchronization_error_connection_error" = "Սխալ. Չհաջողվեց համաժամացնել կապի խափանման պատճառով";
 
 /* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
-"icloud_synchronization_error_quota_exceeded" = "Error: Failed to synchronize due to iCloud quota exceeded";
+"icloud_synchronization_error_quota_exceeded" = "Սխալ. Չհաջողվեց համաժամացնել iCloud-ի քվոտայի գերազանցման պատճառով";
 
 /* iCloud error message: iCloud is not available */
-"icloud_synchronization_error_cloud_is_unavailable" = "Error: iCloud is not available";
+"icloud_synchronization_error_cloud_is_unavailable" = "Սխալ. iCloud-ը հասանելի չէ";
 
 /* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
-"bookmarks_recently_deleted" = "Recently Deleted Lists";
+"bookmarks_recently_deleted" = "Վերջերս ջնջված ցուցակներ";
 
 /* Title for the "Clear" button on the Recently Deleted Lists screen. */
-"clear" = "Clear";
+"clear" = "Մաքրել";
 
 /* Title for the "Delete All" button on the Recently Deleted Lists screen. */
-"delete_all" = "Delete All";
+"delete_all" = "Ջնջել բոլորը";
 
 /* Title for the "Recover" button on the Recently Deleted Lists screen. */
-"recover" = "Recover";
+"recover" = "Վերականգնել";
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
-"recover_all" = "Recover All";
+"recover_all" = "Վերականգնել բոլորը";
 
 /* OpenStreetMap contribution section on the PlacePage. */
-"contribute_to_osm" = "Contribute to OpenStreetMap";
-"contribute_to_osm_add_place" = "Add Place";
-"contribute_to_osm_update_map" = "Update the Map to Contribute";
-"contribute_to_osm_update_map_description" = "You need to update the %@ map to the latest version before you can contribute to the OpenStreetMap data";
+"contribute_to_osm" = "Աջակցել OpenStreetMap-ին";
+"contribute_to_osm_add_place" = "Ավելացնել վայր";
+"contribute_to_osm_update_map" = "Թարմացնել քարտեզը աջակցելու համար";
+"contribute_to_osm_update_map_description" = "OpenStreetMap-ի տվյալներում ներդրում կատարելու համար անհրաժեշտ է թարմացնել %@ քարտեզը մինչև վերջին տարբերակը";
 
 
 /********** Uncategorized **********/
 
 
 /* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "My Position";
+"core_my_position" = "Իմ դիրքը";
 
 /* Default bookmark list name */
-"core_my_places" = "My Places";
+"core_my_places" = "Իմ վայրերը";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
 "category_wifi" = "WiFi";
-"postal_code" = "Postal Code";
+"postal_code" = "Փոստային ինդեքս";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "Map Point";
+"core_placepage_unknown_place" = "Կետ քարտեզի վրա";
 
 /* abbreviation for meters */
-"m" = "m";
+"m" = "մ";
 
 /* abbreviation for kilometers */
-"km" = "km";
+"km" = "կմ";
 
 /* abbreviation for mile(s) */
-"mi" = "mi";
+"mi" = "մղ";
 
 /* A unit of measure */
-"ft" = "ft";
+"ft" = "ֆուտ";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Երթուղիները ցուցադրելու համար քարտեզները պետք է թարմացվեն։";
 
 /* Subway exits for public transport marks on the map */
-"core_exit" = "Exit";
-"core_entrance" = "Entrance";
-"subway_data_unavailable" = "Subway map is unavailable";
+"core_exit" = "Ելք";
+"core_entrance" = "Մուտք";
+"subway_data_unavailable" = "Մետրոյի քարտեզը հասանելի չէ";
 
 /* Settings/Highlight downloaded regions on the map */
-"show_downloaded_regions" = "Purple downloaded regions";
+"show_downloaded_regions" = "Ներբեռնված մանուշակագույն տարածքներ";

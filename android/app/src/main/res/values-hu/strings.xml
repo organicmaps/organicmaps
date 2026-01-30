@@ -95,7 +95,7 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Hiba történt a térképfájlok áthelyezése közben</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Ez több percig is eltarthat. \nKis türelmet…</string>
+    <string name="wait_several_minutes">Ez több percig is eltarthat.\nKis türelmet…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Mértékegységek</string>
     <!-- Detailed description of Measurement Units settings button -->

@@ -3,8 +3,8 @@
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">地址/区块</string>
-    <string name="type.addr_interpolation.even">偶地址/区块</string>
-    <string name="type.addr_interpolation.odd">奇‌地址/区块</string>
+    <string name="type.addr_interpolation.even">地址/区块</string>
+    <string name="type.addr_interpolation.odd">地址/区块</string>
     <string name="type.aerialway">架空索道</string>
     <string name="type.aerialway.cable_car">缆车</string>
     <string name="type.aerialway.chair_lift">吊椅式缆车</string>
