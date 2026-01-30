@@ -1348,6 +1348,14 @@
 		AC420A152D79C2EC00A64AA9 /* mt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = mt; path = mt.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		AC420A162D79C2ED00A64AA9 /* mt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = mt; path = mt.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		AC79C8912A65AB9500594C24 /* UIColor+hexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hexString.swift"; sourceTree = "<group>"; };
+		AC89C2312F2CF84B00368057 /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hy; path = hy.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AC89C2322F2CF84C00368057 /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hy; path = hy.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC89C2332F2CF84C00368057 /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hy; path = hy.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		AC89C2342F2CF84D00368057 /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hy; path = hy.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
+		AC89C2352F2CF85F00368057 /* lo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lo; path = lo.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AC89C2362F2CF86000368057 /* lo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lo; path = lo.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC89C2372F2CF86000368057 /* lo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = lo; path = lo.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		AC89C2382F2CF86100368057 /* lo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lo; path = lo.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		B33D21AE20DAF9F000BAD749 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		B3E3B4FC20D463B700DA8C13 /* BMCCategoriesHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCCategoriesHeader.xib; sourceTree = "<group>"; };
 		BB25B1A51FB32767007276FA /* transit_colors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = transit_colors.txt; path = ../../data/transit_colors.txt; sourceTree = "<group>"; };
@@ -4292,6 +4300,8 @@
 				af,
 				sl,
 				sq,
+				hy,
+				lo,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
@@ -5087,6 +5097,8 @@
 				AC4209FF2D79BCEC00A64AA9 /* af */,
 				FAD021BE2E9E9A8C00915AFC /* sl */,
 				FA2640A12F0F9194007728CA /* sq */,
+				AC89C2312F2CF84B00368057 /* hy */,
+				AC89C2352F2CF85F00368057 /* lo */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -5143,6 +5155,8 @@
 				AC420A002D79BCED00A64AA9 /* af */,
 				FAD021C12E9E9A9000915AFC /* sl */,
 				FA2640A22F0F9195007728CA /* sq */,
+				AC89C2322F2CF84C00368057 /* hy */,
+				AC89C2362F2CF86000368057 /* lo */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -5199,6 +5213,8 @@
 				AC420A012D79BCED00A64AA9 /* af */,
 				FAD021C22E9E9A9400915AFC /* sl */,
 				FA2640A32F0F9195007728CA /* sq */,
+				AC89C2332F2CF84C00368057 /* hy */,
+				AC89C2372F2CF86000368057 /* lo */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -5255,6 +5271,8 @@
 				AC420A022D79BCEE00A64AA9 /* af */,
 				FAD021C32E9E9A9700915AFC /* sl */,
 				FA2640A42F0F9196007728CA /* sq */,
+				AC89C2342F2CF84D00368057 /* hy */,
+				AC89C2382F2CF86100368057 /* lo */,
 			);
 			name = LocalizableTypes.strings;
 			sourceTree = "<group>";
