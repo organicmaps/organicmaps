@@ -6,16 +6,17 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="@drawable/bg_clickable_card">
-  <CheckBox
+  <ImageView
     android:id="@+id/checkbox"
     android:layout_width="@dimen/margin_double_plus"
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
     android:layout_alignParentTop="true"
     android:layout_alignBottom="@id/bottom_line_container"
-    android:background="@null"
-    android:button="@drawable/button_visibility_centre_inset"
-    android:buttonTint="?accentColorSelector" />
+    android:background="?selectableItemBackgroundBorderless"
+    app:srcCompat="@drawable/button_visibility_centre_inset"
+    android:scaleType="center"
+    app:tint="?colorAccent" />
   <TextView
     android:id="@+id/name"
     android:layout_width="wrap_content"
@@ -55,6 +56,7 @@
     android:layout_alignParentTop="true"
     android:layout_alignBottom="@id/bottom_line_container"
     android:background="?selectableItemBackgroundBorderless"
+    android:scaleType="center"
     android:importantForAccessibility="no"
     android:paddingHorizontal="@dimen/margin_half"
     app:srcCompat="@drawable/ic_more"
