@@ -40,7 +40,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   private RecyclerView mFullWeekOpeningHours;
   private PlaceOpeningHoursAdapter mOpeningHoursAdapter;
   private View dropDownIcon;
-  private View mOhContainer; // Merged from master
+  private View mOhContainer;
   private boolean isOhExpanded;
 
   private PlacePageViewModel mViewModel;
@@ -70,10 +70,10 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     UiUtils.hide(dropDownIcon);
     isOhExpanded = false;
 
-
+    // Merged from master branch
     mOhContainer = mFrame.findViewById(R.id.oh_container);
 
-
+    // Your new Copy Logic
     View.OnLongClickListener todayLongClickListener = v ->
     {
       final StringBuilder sb = new StringBuilder();
@@ -154,7 +154,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
 
     if (isEmptyTT)
     {
-
+      // 'opening_hours' tag wasn't parsed either because it's empty or wrong format.
       if (!ohStr.isEmpty())
       {
         UiUtils.show(mFrame);
@@ -187,17 +187,23 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
       }
       else
       {
-
+        // Show whole week time table.
         int firstDayOfWeek = Calendar.getInstance(Locale.getDefault()).getFirstDayOfWeek();
         mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
         final View iconView = mFrame.findViewById(R.id.dropdown_icon);
         UiUtils.show(iconView);
-        mFrame.setOnClickListener((v) -> expandOpeningHours());
+        UiUtils.show(iconView);
+        
+        // This makes sure the expand arrow still works
+        mOhContainer.setOnClickListener((v) -> expandOpeningHours());
+
+        // This restores your "Copy All" on empty space
         mFrame.setOnLongClickListener((v) -> {
           PlacePageUtils.copyToClipboard(requireContext(), mFrame,
                                          TimeFormatUtils.formatTimetables(getResources(), ohStr, timetables));
           return true;
         });
+        
         mFullWeekOpeningHours.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
           @Override
           public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
@@ -238,7 +244,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
           }
         }
 
-
+        // Show that place is closed today.
         if (!containsCurrentWeekday)
         {
           refreshTodayOpeningHours(resources.getString(R.string.day_off_today),
