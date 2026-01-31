@@ -13,6 +13,8 @@
 
 #include "base/file_name_utils.hpp"
 
+#include "defines.hpp"
+
 #include <vector>
 
 namespace cities_boundaries_serdes_tests

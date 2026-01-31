@@ -15,14 +15,13 @@
 #include "base/file_name_utils.hpp"
 #include "base/stl_helpers.hpp"
 
-#include <algorithm>
+#include "defines.hpp"
+
 #include <fstream>
 #include <iterator>
 #include <map>
 #include <numeric>
 #include <string>
-#include <tuple>
-#include <utility>
 #include <vector>
 
 namespace generator_tests
