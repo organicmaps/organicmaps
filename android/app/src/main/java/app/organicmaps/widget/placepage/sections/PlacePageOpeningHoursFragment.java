@@ -104,8 +104,8 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   {
     final String ohStr = mapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
     final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
-    mFrame.setOnLongClickListener((v) -> {
-      PlacePageUtils.copyToClipboard(requireContext(), mFrame,
+    mOhContainer.setOnLongClickListener((v) -> {
+      PlacePageUtils.copyToClipboard(requireContext(), mOhContainer,
                                      TimeFormatUtils.formatTimetables(getResources(), ohStr, timetables));
       return true;
     });
