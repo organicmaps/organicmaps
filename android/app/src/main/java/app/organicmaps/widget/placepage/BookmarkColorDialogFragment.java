@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridView;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -14,8 +15,6 @@ import app.organicmaps.bookmarks.ColorsAdapter;
 import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.List;
-import android.view.ViewGroup;
-
 
 public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
 {
