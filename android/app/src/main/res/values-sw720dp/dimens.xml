@@ -13,5 +13,4 @@
 
   <!-- Altitude chart -->
   <dimen name="altitude_chart_image_width">720dp</dimen>
-  <item name="place_page_bottom_sheet_height_ratio" type="dimen" format="float">0.30</item>
 </resources>

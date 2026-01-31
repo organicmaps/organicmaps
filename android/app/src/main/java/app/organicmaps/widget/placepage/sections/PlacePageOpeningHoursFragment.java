@@ -40,6 +40,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   private RecyclerView mFullWeekOpeningHours;
   private PlaceOpeningHoursAdapter mOpeningHoursAdapter;
   private View dropDownIcon;
+  private View mOhContainer;
   private boolean isOhExpanded;
 
   private PlacePageViewModel mViewModel;
@@ -68,6 +69,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     mFullWeekOpeningHours.getLayoutParams().height = 0;
     UiUtils.hide(dropDownIcon);
     isOhExpanded = false;
+    mOhContainer = mFrame.findViewById(R.id.oh_container);
   }
 
   private void refreshTodayNonBusinessTime(Timespan[] closedTimespans)
@@ -151,7 +153,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
         mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
         final View iconView = mFrame.findViewById(R.id.dropdown_icon);
         UiUtils.show(iconView);
-        mFrame.setOnClickListener((v) -> expandOpeningHours());
+        mOhContainer.setOnClickListener((v) -> expandOpeningHours());
         mFullWeekOpeningHours.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
           @Override
           public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
