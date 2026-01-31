@@ -104,11 +104,6 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   {
     final String ohStr = mapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
     final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
-    mFrame.setOnLongClickListener((v) -> {
-      PlacePageUtils.copyToClipboard(requireContext(), mFrame,
-                                     TimeFormatUtils.formatTimetables(getResources(), ohStr, timetables));
-      return true;
-    });
 
     final boolean isEmptyTT = (timetables == null || timetables.length == 0);
     final int color = ThemeUtils.getColor(requireContext(), android.R.attr.textColorPrimary);
