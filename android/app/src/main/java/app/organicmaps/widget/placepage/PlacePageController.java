@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -218,6 +217,11 @@ public class PlacePageController
       });
     }
     mPlacePage.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+      final int topInset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+      if (mPlacePage.getHeight() >= mCoordinator.getHeight() - topInset)
+      {
+        mPlacePageDistanceToTopObserver.onChanged(oldTop);
+      }
       if (top != oldTop)
       {
         mDistanceToTop = oldTop;
@@ -394,20 +398,21 @@ public class PlacePageController
     mCustomPeekHeightAnimator.start();
   }
 
-  private float getHeightRatio()
-  {
-    return ResourcesCompat.getFloat(getResources(), R.dimen.place_page_bottom_sheet_height_ratio);
-  }
-
   private int calculatePeekHeight()
   {
     final int bottomInsets = (mCurrentWindowInsets != null)
                                ? mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
                                : 0;
     final boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    final int bottomMargins = getResources().getDimensionPixelSize(R.dimen.margin_double);
+    final View plusDetailsContainer = mPlacePage.findViewById(R.id.plus_details);
+    int peekHeight = mPreviewHeight + mButtonsHeight + bottomMargins;
     if (mMapObject != null && mMapObject.getOpeningMode() == MapObject.OPENING_MODE_PREVIEW_PLUS)
-      return (int) (mCoordinator.getHeight() * getHeightRatio());
-    return mPreviewHeight + mButtonsHeight + (isLandscape ? bottomInsets : 0);
+    {
+      peekHeight += plusDetailsContainer.getHeight();
+    }
+    return Math.min(peekHeight + (isLandscape ? bottomInsets : 0),
+                    (mCoordinator.getHeight() - (mPlacePageStatusBarBackground.getHeight())));
   }
 
   @Override

@@ -244,7 +244,15 @@
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_edit" />
+
     </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_bookmark_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:layout="@layout/place_page_bookmark_fragment" />
+
   </LinearLayout>
 
   <LinearLayout
@@ -275,6 +283,21 @@
         tools:text="Some very long text for a very very very very very very very very very very very very very very very very very very very very very very very very looooooong descriptions that doesn't fit into the cell. Interesting, how will it look for even longer text" />
     </LinearLayout>
 
+  </LinearLayout>
+
+  <include layout="@layout/place_page_route_ref" />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_opening_hours_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:layout="@layout/place_page_opening_hours_fragment"
+      tools:visibility="visible" />
   </LinearLayout>
 
   <androidx.fragment.app.FragmentContainerView
