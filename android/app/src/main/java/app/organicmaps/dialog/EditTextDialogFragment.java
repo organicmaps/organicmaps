@@ -128,6 +128,10 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     // Wait till alert is shown to get mPositiveButton.
     editTextDialog.setOnShowListener((dialog) -> {
       mPositiveButton = editTextDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+
+      mEtInput.requestFocus();
+      InputUtils.showKeyboard(mEtInput);
+
       final FragmentActivity activity = getActivity();
       if (activity == null)
         return;
@@ -189,8 +193,6 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
       mEtInput.setText(mInitialText);
       mEtInput.selectAll();
     }
-
-    InputUtils.showKeyboard(mEtInput);
 
     ((TextView) root.findViewById(R.id.tv__title)).setText(mTitle);
     return root;
