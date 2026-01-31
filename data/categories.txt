@@ -107,7 +107,7 @@ pl:Gdzie zjeść|Jedzenie
 pt:Onde comer|comer|comida
 pt-BR:Onde comer|comer|comida|alimentação
 ro:Unde să mănânci|Alimentație|mâncare
-ru:Где поесть|Поесть|Еда|кушать|покушать
+ru:Где поесть|Поесть|Еда|кушать|покушать|перекус
 sk:Kde sa najesť|Jedlo
 sl:Kje jesti
 sr:Где јести|Јело|Храна|Gde jesti|Jelo|Hrana
