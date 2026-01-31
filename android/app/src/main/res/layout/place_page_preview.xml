@@ -233,6 +233,16 @@
         android:textAllCaps="false"
         tools:text="@string/categories" />
 
+      <CheckBox
+        android:id="@+id/track_visibility"
+        android:layout_width="@dimen/margin_double_plus"
+        android:layout_height="@dimen/place_page_icon_background_size"
+        android:layout_gravity="center"
+        android:background="@null"
+        android:button="@drawable/button_visibility_centre_inset"
+        android:buttonTint="?accentColorSelector"
+        android:visibility="gone" />
+
       <ImageView
         android:id="@+id/edit_Bookmark"
         app:tint="?colorAccent"

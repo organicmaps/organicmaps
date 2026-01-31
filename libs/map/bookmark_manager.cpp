@@ -1757,12 +1757,7 @@ void BookmarkManager::SetTrackVisibility(kml::TrackId trackId, bool visible)
 
   auto const markId = GetTrackSelectionMarkId(trackId);
   if (markId != kml::kInvalidMarkId)
-  {
-    auto const infoMark = GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
-    if (infoMark->GetTrackId() == trackId && infoMark->IsVisible())
-      infoMark->SetIsVisible(visible);
-    GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId)->SetIsVisible(visible);
-  }
+    GetMarkForEdit<TrackSelectionMark>(markId)->SetIsVisible(visible);
 }
 
 void BookmarkManager::SetIsVisible(kml::MarkGroupId groupId, bool visible)
