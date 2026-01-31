@@ -14,6 +14,8 @@ import app.organicmaps.bookmarks.ColorsAdapter;
 import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.List;
+import android.view.ViewGroup;
+
 
 public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
 {
@@ -68,7 +70,12 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
 
     @SuppressLint("InflateParams")
     final GridView gView =
-        (GridView) LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_color_grid, null);
+        (GridView) LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_color_grid, null, false);
+    gView.post(() -> {
+      ViewGroup.LayoutParams params = gView.getLayoutParams();
+      if (params != null)
+        gView.setLayoutParams(params);
+    });
     gView.setAdapter(adapter);
     gView.setOnItemClickListener((parent, view, pos, id) -> {
       if (mColorSetListener != null)
