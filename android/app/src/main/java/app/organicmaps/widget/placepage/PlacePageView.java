@@ -873,12 +873,9 @@ public class PlacePageView extends Fragment
       showCategoryList();
     else if (id == R.id.track_visibility)
     {
-      if (mMapObject.isTrack())
-      {
-        Track track = (Track) mMapObject;
-        track.toggleVisibility();
-        mTrackVisibility.setChecked(track.isVisible());
-      }
+      Track track = (Track) mMapObject;
+      track.toggleVisibility();
+      mTrackVisibility.setChecked(track.isVisible());
     }
   }
 
