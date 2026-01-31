@@ -40,6 +40,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   private RecyclerView mFullWeekOpeningHours;
   private PlaceOpeningHoursAdapter mOpeningHoursAdapter;
   private View dropDownIcon;
+  private View mOhContainer; // Merged from master
   private boolean isOhExpanded;
 
   private PlacePageViewModel mViewModel;
@@ -68,6 +69,51 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     mFullWeekOpeningHours.getLayoutParams().height = 0;
     UiUtils.hide(dropDownIcon);
     isOhExpanded = false;
+
+
+    mOhContainer = mFrame.findViewById(R.id.oh_container);
+
+
+    View.OnLongClickListener todayLongClickListener = v ->
+    {
+      final StringBuilder sb = new StringBuilder();
+      sb.append(mTodayLabel.getText());
+      if (UiUtils.isVisible(mTodayOpenTime))
+        sb.append(" ").append(mTodayOpenTime.getText());
+      if (UiUtils.isVisible(mTodayNonBusinessTime))
+        sb.append(" ").append(mTodayNonBusinessTime.getText());
+
+      PlacePageUtils.copyToClipboard(requireContext(), mFrame, sb.toString());
+      return true;
+    };
+    mTodayLabel.setOnLongClickListener(todayLongClickListener);
+    mTodayOpenTime.setOnLongClickListener(todayLongClickListener);
+    mTodayNonBusinessTime.setOnLongClickListener(todayLongClickListener);
+
+    mOpeningHoursAdapter.setOnItemLongClickListener((v, data) -> {
+      final Resources res = getResources();
+      final StringBuilder sb = new StringBuilder();
+      sb.append(TimeFormatUtils.formatWeekdaysRange(data.startWeekDay, data.endWeekDay));
+      sb.append("   ");
+
+      if (data.isClosed)
+      {
+        sb.append(res.getString(R.string.day_off));
+      }
+      else
+      {
+        final Timetable tt = data.timetable;
+        String workingTime =
+            tt.isFullday ? res.getString(R.string.editor_time_allday) : tt.workingTimespan.toWideString();
+        sb.append(workingTime);
+        if (tt.closedTimespans != null && tt.closedTimespans.length > 0)
+        {
+          final String hoursNonBusinessLabel = res.getString(R.string.editor_hours_closed);
+          sb.append("   ").append(TimeFormatUtils.formatNonBusinessTime(tt.closedTimespans, hoursNonBusinessLabel));
+        }
+      }
+      PlacePageUtils.copyToClipboard(requireContext(), mFrame, sb.toString());
+    });
   }
 
   private void refreshTodayNonBusinessTime(Timespan[] closedTimespans)
@@ -102,18 +148,13 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   {
     final String ohStr = mapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
     final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
-    mFrame.setOnLongClickListener((v) -> {
-      PlacePageUtils.copyToClipboard(requireContext(), mFrame,
-                                     TimeFormatUtils.formatTimetables(getResources(), ohStr, timetables));
-      return true;
-    });
 
     final boolean isEmptyTT = (timetables == null || timetables.length == 0);
     final int color = ThemeUtils.getColor(requireContext(), android.R.attr.textColorPrimary);
 
     if (isEmptyTT)
     {
-      // 'opening_hours' tag wasn't parsed either because it's empty or wrong format.
+
       if (!ohStr.isEmpty())
       {
         UiUtils.show(mFrame);
@@ -146,12 +187,17 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
       }
       else
       {
-        // Show whole week time table.
+
         int firstDayOfWeek = Calendar.getInstance(Locale.getDefault()).getFirstDayOfWeek();
         mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
         final View iconView = mFrame.findViewById(R.id.dropdown_icon);
         UiUtils.show(iconView);
         mFrame.setOnClickListener((v) -> expandOpeningHours());
+        mFrame.setOnLongClickListener((v) -> {
+          PlacePageUtils.copyToClipboard(requireContext(), mFrame,
+                                         TimeFormatUtils.formatTimetables(getResources(), ohStr, timetables));
+          return true;
+        });
         mFullWeekOpeningHours.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
           @Override
           public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
@@ -192,7 +238,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
           }
         }
 
-        // Show that place is closed today.
+
         if (!containsCurrentWeekday)
         {
           refreshTodayOpeningHours(resources.getString(R.string.day_off_today),

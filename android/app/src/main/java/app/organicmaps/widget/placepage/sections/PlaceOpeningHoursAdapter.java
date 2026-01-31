@@ -20,9 +20,20 @@ import java.util.Collections;
 import java.util.List;
 public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningHoursAdapter.ViewHolder>
 {
+  public interface OnItemClickListener
+  {
+    void onItemClick(View v, WeekScheduleData data);
+  }
+
   private List<WeekScheduleData> mWeekSchedule = Collections.emptyList();
+  private OnItemClickListener mLongClickListener;
 
   public PlaceOpeningHoursAdapter() {}
+
+  public void setOnItemLongClickListener(OnItemClickListener longClickListener)
+  {
+    mLongClickListener = longClickListener;
+  }
 
   public PlaceOpeningHoursAdapter(Timetable[] timetables, int firstDayOfWeek)
   {
@@ -104,6 +115,15 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
       return;
 
     final WeekScheduleData schedule = mWeekSchedule.get(position);
+
+    holder.itemView.setOnLongClickListener(v -> {
+      if (mLongClickListener != null)
+      {
+        mLongClickListener.onItemClick(v, schedule);
+        return true;
+      }
+      return false;
+    });
 
     if (schedule.isClosed)
     {
