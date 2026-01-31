@@ -2,6 +2,8 @@
 
 #include "platform/platform.hpp"
 
+#include "defines.hpp"
+
 #include <glaze/json.hpp>
 
 namespace om::tz
@@ -59,8 +61,7 @@ int32_t TzOffsetAtUtc(TimeZone const & timeZone, time_t const utcTime)
 time_t LocalToUtc(TimeZone const & tz, ZonedTime const localTime)
 {
   // Initial guess using base offset
-  int32_t offset = tz.GetBaseOffset();
-  time_t utc = localTime - offset * kSecondsPerMinute;
+  time_t utc = localTime - tz.GetBaseOffset() * kSecondsPerMinute;
 
   for (int i = 0; i < 2; ++i)  // handle rare ambiguous DST hour
   {
@@ -70,7 +71,6 @@ time_t LocalToUtc(TimeZone const & tz, ZonedTime const localTime)
     if (newUtc == utc)
       break;  // converged
     utc = newUtc;
-    offset = candidate;
   }
 
   // Ambiguous fall-back: UTC corresponds to two possible offsets

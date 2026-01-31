@@ -6,6 +6,8 @@
 
 #include "base/logging.hpp"
 
+#include "defines.hpp"
+
 UNIT_TEST(CalculateWorldSHA)
 {
   auto const path = GetPlatform().ResourcesDir();

@@ -1,8 +1,6 @@
 #pragma once
 
 #include "platform/battery_tracker.hpp"
-#include "platform/country_defines.hpp"
-#include "platform/gui_thread.hpp"
 #include "platform/secure_storage.hpp"
 
 #include "coding/reader.hpp"
@@ -12,15 +10,9 @@
 #include "base/task_loop.hpp"
 #include "base/thread_pool_delayed.hpp"
 
-#include "timezone/timezone.hpp"
-
-#include <cstdint>
 #include <memory>
 #include <string>
-#include <utility>
 #include <vector>
-
-#include "defines.hpp"
 
 DECLARE_EXCEPTION(FileAbsentException, RootException);
 DECLARE_EXCEPTION(FileSystemException, RootException);

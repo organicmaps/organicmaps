@@ -7,10 +7,11 @@
 #include "base/assert.hpp"
 #include "base/cancellable.hpp"
 
-namespace storage
+#include "defines.hpp"
+
+namespace storage::diffs
 {
-namespace diffs
-{
+
 void ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancellable, OnDiffApplicationFinished const & task)
 {
   using namespace generator::mwm_diff;
@@ -64,5 +65,5 @@ void ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancellable, OnDi
     GetPlatform().RunTask(Platform::Thread::Gui, [task, result]() { task(result); });
   });
 }
-}  // namespace diffs
-}  // namespace storage
+
+}  // namespace storage::diffs

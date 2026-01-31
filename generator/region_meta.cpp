@@ -7,6 +7,8 @@
 
 #include "cppjansson/cppjansson.hpp"
 
+#include "defines.hpp"
+
 #include <vector>
 
 namespace feature
