@@ -95,7 +95,7 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Kunne ikke flytte kart</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Dette kan ta flere minutter. Vent et øyeblikk …</string>
+    <string name="wait_several_minutes">Dette kan ta flere minutter.\nVent et øyeblikk …</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Måleenheter</string>
     <!-- Detailed description of Measurement Units settings button -->

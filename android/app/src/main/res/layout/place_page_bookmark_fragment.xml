@@ -18,6 +18,4 @@
     android:textAppearance="?android:attr/textAppearance"
     tools:text="Long, long text Long, long text Long, long text Long, long text Long, long text Long, long text "/>
 
-  <include
-    layout="@layout/divider_horizontal"/>
 </LinearLayout>

@@ -1,0 +1,1574 @@
+
+
+/********** Types **********/
+
+"type.addr_interpolation" = "Հասցե/Թաղամաս";
+"type.addr_interpolation.even" = "Հասցե/Թաղամաս";
+"type.addr_interpolation.odd" = "Հասցե/Թաղամաս";
+"type.aerialway" = "Ճոպանուղի";
+"type.aerialway.cable_car" = "Տրամվայ ճոպանուղի";
+"type.aerialway.chair_lift" = "Բազկաթոռային ճոպանուղի";
+"type.aerialway.drag_lift" = "Քարշիչ ճոպանուղի";
+"type.aerialway.gondola" = "Գոնդոլային ճոպանուղի";
+"type.aerialway.mixed_lift" = "Խառը տիպի ճոպանուղի";
+"type.aerialway.station" = "Ճոպանուղու կայարան";
+"type.aeroway" = "Օդային ենթակառուցվածք";
+"type.aeroway.aerodrome" = "Օդանավակայան";
+"type.aeroway.aerodrome.international" = "Միջազգային օդանավակայան";
+"type.aeroway.apron" = "Օդանավակայանի կայանատեղի";
+"type.aeroway.gate" = "Ելք";
+"type.aeroway.helipad" = "Ուղղաթիռի հրապարակ";
+"type.aeroway.runway" = "Թռիչքուղի";
+"type.aeroway.taxiway" = "Գնացուղի";
+"type.aeroway.terminal" = "Տերմինալ";
+"type.amenity" = "Ծառայություններ";
+"type.amenity.arts_centre" = "Արվեստի կենտրոն";
+"type.amenity.atm" = "Բանկոմատ";
+"type.amenity.bank" = "Բանկ";
+"type.amenity.bar" = "Բար";
+"type.amenity.bbq" = "Խորովածի տեղ";
+"type.amenity.bench" = "Նստարան";
+"type.amenity.bicycle_parking" = "Հեծանվային կայանատեղի";
+"type.amenity.bicycle_parking.covered" = "Ծածկած հեծանվային կայանատեղի";
+"type.amenity.bicycle_rental" = "Հեծանիվների վարձույթ";
+"type.amenity.bicycle_repair_station" = "Հեծանիվների նորոգման կետ";
+"type.amenity.biergarten" = "Գարեջրատուն բաց երկնքի տակ";
+"type.amenity.brothel" = "Հասարակաց տուն";
+"type.amenity.love_hotel" = "Ժամավճարով հյուրանոց";
+"type.amenity.bureau_de_change" = "Տարադրամի փոխանակում";
+"type.amenity.bus_station" = "Ավտոբուսի կայարան";
+"type.amenity.cafe" = "Սրճարան";
+"type.amenity.car_rental" = "Ավտոմեքենաների վարձույթ";
+"type.amenity.motorcycle_rental" = "Մոտոցիկլետների վարձույթ";
+"type.amenity.car_sharing" = "Մեքենաների համատեղ օգտագործում";
+"type.amenity.car_wash" = "Ավտոլվացման կետ";
+"type.amenity.casino" = "Կազինո";
+"type.amenity.gambling" = "Մոլախաղեր";
+"type.leisure.adult_gaming_centre" = "Մեծահասակների խաղասրահ";
+"type.leisure.amusement_arcade" = "Խաղային ավտոմատների սրահ";
+"type.amenity.charging_station" = "Լիցքավորման կայան";
+"type.amenity.charging_station.bicycle" = "Հեծանիվների լիցքավորման կայան";
+"type.amenity.charging_station.motorcar" = "Ավտոմեքենաների լիցքավորման կայան";
+"type.amenity.childcare" = "Մսուր-մանկապարտեզ";
+"type.amenity.cinema" = "Կինոթատրոն";
+"type.amenity.studio" = "Ստուդիա";
+"type.leisure.bowling_alley" = "Բոուլինգ";
+"type.amenity.clinic" = "Կլինիկա";
+"type.amenity.college" = "Քոլեջ";
+"type.amenity.community_centre" = "Համայնքային կենտրոն";
+"type.amenity.compressed_air" = "Սեղմված օդ";
+"type.amenity.conference_centre" = "Կոնֆերանս կենտրոն";
+"type.amenity.courthouse" = "Դատարան";
+"type.amenity.dentist" = "Ատամնաբույժ";
+"type.amenity.doctors" = "Բժիշկ";
+"type.amenity.drinking_water" = "Խմելու ջուր";
+"type.drinking_water.yes" = "Խմելու ջուր";
+"type.amenity.driving_school" = "Ավտոդպրոց";
+"type.amenity.exhibition_centre" = "Ցուցահանդեսային կենտրոն";
+"type.amenity.money_transfer" = "Դրամական փոխանցումներ";
+"type.amenity.music_school" = "Երաժշտական դպրոց";
+"type.amenity.language_school" = "Լեզվի դպրոց";
+"type.office.diplomatic" = "Դեսպանատուն";
+"type.amenity.fast_food" = "Արագ սնունդ";
+"type.amenity.ferry_terminal" = "Լաստանավ";
+"type.amenity.fire_station" = "Հրշեջ կայան";
+"type.amenity.food_court" = "Ֆուդ կորտ";
+"type.amenity.fountain" = "Շատրվան";
+"type.amenity.fuel" = "Բենզալցակայան";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard" = "Գերեզմանոց";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard.christian" = "Քրիստոնեական գերեզմանոց";
+"type.amenity.hospital" = "Հիվանդանոց";
+"type.amenity.hunting_stand" = "Որսորդական աշտարակ";
+"type.amenity.ice_cream" = "Պաղպաղակ";
+"type.amenity.internet_cafe" = "Ինտերնետ սրճարան";
+"type.amenity.kindergarten" = "Մանկապարտեզ";
+"type.amenity.library" = "Գրադարան";
+"type.amenity.loading_dock" = "Բեռնման հարթակ";
+"type.amenity.luggage_locker" = "Պահախցիկ";
+"type.amenity.marketplace" = "Շուկա";
+"type.amenity.motorcycle_parking" = "Մոտոցիկլետների կայանատեղի";
+"type.amenity.nightclub" = "Գիշերային ակումբ";
+"type.amenity.nursing_home" = "Ծերանոց";
+"type.amenity.parking" = "Կայանատեղի";
+"type.amenity.parking.fee" = "Կայանատեղի";
+"type.amenity.parking.multi.storey" = "Բազմահարկ կայանատեղի";
+"type.amenity.parking.multi.storey.fee" = "Բազմահարկ կայանատեղի";
+"type.amenity.parking.no.access" = "Մասնավոր կայանատեղի";
+"type.amenity.parking.permissive" = "Մասնավոր կայանատեղի";
+"type.amenity.parking.private" = "Մասնավոր կայանատեղի";
+"type.amenity.parking.park_and_ride" = "Կայանիր և գնա (Park and Ride)";
+"type.amenity.parking.underground" = "Ստորգետնյա կայանատեղի";
+"type.amenity.parking.underground.fee" = "Ստորգետնյա կայանատեղի";
+"type.amenity.parking.underground.private" = "Ստորգետնյա մասնավոր կայանատեղի";
+"type.amenity.parking.street_side" = "Փողոցային կայանատեղի";
+"type.amenity.parking.street_side.fee" = "Փողոցային կայանատեղի";
+"type.amenity.parking.street_side.private" = "Փողոցային մասնավոր կայանատեղի";
+"type.amenity.parking.lane" = "Գծանշված կայանատեղի";
+"type.amenity.parking.lane.fee" = "Գծանշված կայանատեղի";
+"type.amenity.parking.lane.private" = "Գծանշված մասնավոր կայանատեղի";
+"type.amenity.parking_entrance" = "Կայանատեղիի մուտք";
+"type.amenity.parking_entrance.private" = "Կայանատեղիի մասնավոր մուտք";
+"type.amenity.parking_entrance.permissive" = "Կայանատեղիի մուտք";
+"type.amenity.parking_space" = "Կայանման տեղ";
+"type.amenity.parking_space.permissive" = "Կայանման տեղ";
+"type.amenity.parking_space.private" = "Կայանման տեղ";
+"type.amenity.parking_space.underground" = "Կայանման տեղ";
+"type.amenity.parking_space.disabled" = "Կայանման տեղ հաշմանդամների համար";
+"type.amenity.payment_terminal" = "Վճարային տերմինալ";
+"type.amenity.pharmacy" = "Դեղատուն";
+"type.amenity.place_of_worship" = "Պաշտամունքի վայր";
+"type.amenity.place_of_worship.buddhist" = "Բուդդայական տաճար";
+"type.amenity.place_of_worship.christian" = "Եկեղեցի";
+"type.amenity.place_of_worship.christian.mormon" = "Հիսուս Քրիստոսի Վերջին Օրերի Սրբերի Եկեղեցի";
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "Եհովայի վկաների Թագավորության սրահ";
+"type.amenity.place_of_worship.hindu" = "Հինդուիստական տաճար";
+"type.amenity.place_of_worship.jewish" = "Սինագոգ";
+"type.amenity.place_of_worship.muslim" = "Մզկիթ";
+"type.amenity.place_of_worship.shinto" = "Սինտոյական տաճար";
+"type.amenity.place_of_worship.taoist" = "Դաոսական տաճար";
+"type.amenity.police" = "Ոստիկանություն";
+"type.amenity.post_box" = "Փոստարկղ";
+"type.amenity.post_office" = "Փոստային բաժանմունք";
+"type.post_office.post_partner" = "Փոստային գործընկեր";
+"type.amenity.prison" = "Բանտ";
+"type.amenity.pub" = "Փաբ";
+"type.amenity.public_bookcase" = "Գրքի փոխանակման կետ";
+
+
+/********** Types: Recycling **********/
+
+"type.amenity.recycling.centre" = "Թափոնների վերամշակման կենտրոն";
+"type.amenity.recycling" = "Թափոնների վերամշակման տարա";
+"type.amenity.recycling.container" = "Թափոնների վերամշակման տարա";
+"type.recycling.batteries" = "Մարտկոցներ";
+"type.recycling.clothes" = "Հագուստ";
+"type.recycling.glass_bottles" = "Ապակե շշեր";
+"type.recycling.paper" = "Թուղթ";
+"type.recycling.plastic" = "Պլաստիկ";
+"type.recycling.plastic_bottles" = "Պլաստիկ շշեր";
+"type.recycling.scrap_metal" = "Մետաղի ջարդոն";
+"type.recycling.small_appliances" = "Էլեկտրոնային թափոններ";
+"type.recycling.cardboard" = "Ստվարաթուղթ";
+"type.recycling.cans" = "Տարաներ";
+"type.recycling.shoes" = "Կոշիկներ";
+"type.recycling.green_waste" = "Օրգանական աղբ";
+"type.recycling.cartons" = "Ստվարաթղթե տուփեր";
+"type.amenity.restaurant" = "Ռեստորան";
+"type.amenity.sanitary_dump_station" = "Սանիտարական մաքրման կայան";
+"type.amenity.school" = "Դպրոց";
+
+/* Weather shelter (including sun shelters and natural rock shelters). */
+"type.amenity.shelter" = "Ապաստարան";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Ապաստարան";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "Պարզունակ խրճիթ";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Մի թեքումով ծածկ";
+"type.amenity.public_bath" = "Հանրային բաղնիք";
+"type.amenity.shower" = "Ցնցուղ";
+"type.amenity.stripclub" = "Մերկապարի ակումբ";
+"type.amenity.taxi" = "Տաքսի";
+"type.amenity.telephone" = "Հեռախոս";
+"type.amenity.theatre" = "Թատրոն";
+"type.amenity.toilets" = "Զուգարան";
+"type.toilets.yes" = "Զուգարան";
+"type.amenity.townhall" = "Քաղաքապետարան";
+"type.amenity.university" = "Համալսարան";
+"type.amenity.vending_machine" = "Վաճառքի ավտոմատ";
+"type.amenity.vending_machine.cigarettes" = "Ծխախոտի ավտոմատ";
+"type.amenity.vending_machine.coffee" = "Սուրճի ավտոմատ";
+"type.amenity.vending_machine.condoms" = "Պահպանակների ավտոմատ";
+"type.amenity.vending_machine.drinks" = "Ըմպելիքների ավտոմատ";
+"type.amenity.vending_machine.food" = "Սննդի ավտոմատ";
+"type.amenity.vending_machine.newspapers" = "Թերթերի ավտոմատ";
+"type.amenity.vending_machine.parking_tickets" = "Կայանման վճարման տերմինալ";
+"type.amenity.vending_machine.public_transport_tickets" = "Տոմսերի ավտոմատ";
+"type.amenity.vending_machine.sweets" = "Քաղցրավենիքի ավտոմատ";
+"type.amenity.vending_machine.excrement_bags" = "Աղբի տոպրակների ավտոմատ";
+"type.amenity.parcel_locker" = "Ծանրոցների պահախցիկ";
+"type.amenity.vehicle_inspection" = "Տրանսպորտային միջոցների զննում";
+"type.amenity.vending_machine.fuel" = "Ինքնասպասարկման լցակայան";
+"type.amenity.veterinary" = "Անասնաբույժ";
+"type.amenity.waste_basket" = "Աղբաման";
+"type.amenity.waste_disposal" = "Աղբահանություն";
+"type.amenity.waste_transfer_station" = "Թափոնների փոխադրման կայան";
+"type.amenity.water_point" = "Ջրի պաշարի լրացման կետ";
+"type.amenity.water_point.drinking_water_no" = "Ջրի պաշարի լրացման կետ";
+"type.barrier" = "Արգելապ պատնեշ";
+"type.barrier.block" = "Բլոկ";
+"type.barrier.bollard" = "Սյուն";
+"type.barrier.border_control" = "Սահմանային հսկողություն";
+"type.barrier.chain" = "Շղթա";
+"type.barrier.city_wall" = "Քաղաքի պարիսպ";
+"type.barrier.cycle_barrier" = "Հեծանվային արգելապատնեշ";
+"type.waterway.ditch" = "Ցամաքուրդային առու";
+"type.natural.water.moat" = "Խրամ";
+"type.natural.water.wastewater" = "Կեղտաջրեր";
+"type.barrier.entrance" = "Մուտք";
+"type.barrier.fence" = "Ցանկապատ";
+"type.barrier.guard_rail" = "Պաշտպանիչ արգելապատնեշ";
+"type.barrier.gate" = "Դարպաս";
+"type.barrier.hedge" = "Կենդանի ցանկապատ";
+"type.barrier.kissing_gate" = "Պտտվող դռնակ";
+"type.barrier.lift_gate" = "Ուղեփակոց";
+"type.barrier.retaining_wall" = "Հենապատ";
+"type.barrier.stile" = "Աստիճանաձև անցում";
+"type.barrier.turnstile" = "Պտտադուռ";
+"type.barrier.swing_gate" = "Ճոճվող դարպաս";
+"type.barrier.toll_booth" = "Վճարման կետ";
+"type.barrier.wall" = "Պատ";
+"type.boundary" = "Սահման";
+"type.boundary.administrative" = "Վարչական սահման";
+
+/* Borders between countries. */
+"type.boundary.administrative.2" = "Պետական սահման";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Շրջանային սահման";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Շրջանային սահման";
+"type.boundary.national_park" = "Ազգային պարկ";
+"type.boundary.aboriginal_lands" = "Բնիկ ժողովուրդների հողեր";
+"type.boundary.protected_area" = "Պահպանվող տարածք";
+"type.boundary.protected_area.1" = "Պահպանվող տարածք";
+"type.boundary.protected_area.2" = "Պահպանվող տարածք";
+"type.boundary.protected_area.3" = "Պահպանվող տարածք";
+"type.boundary.protected_area.4" = "Պահպանվող տարածք";
+"type.boundary.protected_area.5" = "Պահպանվող տարածք";
+"type.boundary.protected_area.6" = "Պահպանվող տարածք";
+"type.building" = "Շենք";
+
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Հասցե";
+"type.building.has_parts" = "Շենք";
+"type.building_part" = "Շենք";
+"type.building.garage" = "Ավտոտնակ";
+"type.building.train_station" = "Կայարանի շենք";
+"type.building.warehouse" = "Պահեստ";
+"type.cemetery.grave" = "Գերեզման";
+"type.craft" = "Արհեստ";
+"type.craft.beekeeper" = "Մեղվապահ";
+"type.craft.blacksmith" = "Դարբին";
+"type.craft.brewery" = "Գարեջրի գործարան";
+"type.craft.caterer" = "Սննդի մատակարարում";
+"type.craft.carpenter" = "Հյուսն";
+"type.craft.confectionery" = "Հրուշակագործ";
+"type.craft.electrician" = "Էլեկտրիկ";
+"type.craft.electronics_repair" = "Էլեկտրոնիկայի նորոգում";
+"type.craft.gardener" = "Այգեպան";
+"type.craft.grinding_mill" = "Ջրաղաց";
+"type.craft.handicraft" = "Ձեռագործ աշխատանքներ";
+
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "Օդափոխության համակարգեր";
+"type.craft.key_cutter" = "Բանալիների պատրաստում";
+"type.craft.locksmith" = "Փականագործ";
+"type.craft.metal_construction" = "Մետաղագործ";
+"type.craft.painter" = "Ներկարար";
+"type.craft.photographer" = "Լուսանկարիչ";
+"type.shop.camera" = "Լուսանկարչական խանութ";
+"type.craft.plumber" = "Սանտեխնիկ";
+"type.craft.sawmill" = "Սղոցարան";
+"type.craft.shoemaker" = "Կոշկակար";
+"type.craft.winery" = "Գինեգործարան";
+"type.craft.tailor" = "Դերձակ";
+"type.cuisine.african" = "Աֆրիկյան";
+"type.cuisine.american" = "Ամերիկյան";
+"type.cuisine.arab" = "Արաբական";
+"type.cuisine.argentinian" = "Արգենտինական";
+"type.cuisine.asian" = "Ասիական";
+"type.cuisine.austrian" = "Ավստրիական";
+"type.cuisine.bagel" = "Բեյգլ";
+"type.cuisine.balkan" = "Բալկանյան";
+"type.cuisine.barbecue" = "Բարբեքյու";
+"type.cuisine.bavarian" = "Բավարական";
+"type.cuisine.beef_bowl" = "Տավարի մսով ճաշատեսակներ";
+"type.cuisine.brazilian" = "Բրազիլական";
+"type.cuisine.breakfast" = "Նախաճաշ";
+"type.cuisine.bubble_tea" = "Բաբլ թեյ";
+"type.cuisine.burger" = "Բուրգեր";
+"type.cuisine.buschenschank" = "Բուշենշանկ";
+"type.cuisine.cake" = "Տորթ";
+"type.cuisine.caribbean" = "Կարիբյան";
+"type.cuisine.chicken" = "Հավի մսով ճաշատեսակներ";
+"type.cuisine.chinese" = "Չինական";
+"type.cuisine.coffee_shop" = "Սուրճ";
+"type.cuisine.crepe" = "Նրբաբլիթ";
+"type.cuisine.croatian" = "Խորվաթական";
+"type.cuisine.curry" = "Կարի";
+"type.cuisine.deli" = "Դելիկատեսն";
+"type.cuisine.diner" = "Ճաշարան";
+"type.cuisine.donut" = "Փքաբլիթներ";
+"type.cuisine.ethiopian" = "Եթովպական";
+"type.cuisine.filipino" = "Ֆիլիպինյան";
+"type.cuisine.fine_dining" = "Բարձրակարգ խոհանոց";
+"type.cuisine.fish" = "Ձկնային";
+"type.cuisine.fish_and_chips" = "Ձուկ և կարտոֆիլ";
+"type.cuisine.french" = "Ֆրանսիական";
+"type.cuisine.friture" = "Ֆրիտյուր";
+"type.cuisine.georgian" = "Վրացական";
+"type.cuisine.german" = "Գերմանական";
+"type.cuisine.greek" = "Հունական";
+"type.cuisine.grill" = "Գրիլ";
+"type.cuisine.heuriger" = "Հոյրիգեր";
+"type.cuisine.hotdog" = "Հոթ-դոգ";
+"type.cuisine.hungarian" = "Հունգարական";
+"type.cuisine.ice_cream" = "Պաղպաղակ";
+"type.cuisine.indian" = "Հնդկական";
+"type.cuisine.indonesian" = "Ինդոնեզիական";
+"type.cuisine.international" = "Միջազգային";
+"type.cuisine.irish" = "Իռլանդական";
+"type.cuisine.italian" = "Իտալական";
+"type.cuisine.italian_pizza" = "Իտալական, Պիցցա";
+"type.cuisine.japanese" = "Ճապոնական";
+"type.cuisine.kebab" = "Քյաբաբ";
+"type.cuisine.korean" = "Կորեական";
+"type.cuisine.lao" = "Լաոսական";
+"type.cuisine.lebanese" = "Լիբանանյան";
+"type.cuisine.local" = "Տեղական";
+"type.cuisine.malagasy" = "Մալագասիական";
+"type.cuisine.malaysian" = "Մալայզիական";
+"type.cuisine.mediterranean" = "Միջերկրածովյան";
+"type.cuisine.mexican" = "Մեքսիկական";
+"type.cuisine.moroccan" = "Մարոկկոյական";
+"type.cuisine.noodles" = "Լապշա";
+"type.cuisine.oriental" = "Արևելաասիական";
+"type.cuisine.pancake" = "Նրբաբլիթներ";
+"type.cuisine.pasta" = "Պաստա";
+"type.cuisine.persian" = "Պարսկական";
+"type.cuisine.peruvian" = "Պերուական";
+"type.cuisine.pizza" = "Պիցցա";
+"type.cuisine.polish" = "Լեհական";
+"type.cuisine.portuguese" = "Պորտուգալական";
+"type.cuisine.ramen" = "Ռամեն";
+"type.cuisine.regional" = "Տարածաշրջանային";
+"type.cuisine.russian" = "Ռուսական";
+"type.cuisine.sandwich" = "Սենդվիչներ";
+"type.cuisine.sausage" = "Նրբերշիկներ";
+"type.cuisine.savory_pancakes" = "Չուղղված նրբաբլիթներ";
+"type.cuisine.seafood" = "Ծովամթերք";
+"type.cuisine.soba" = "Սոբա";
+"type.cuisine.spanish" = "Իսպանական";
+"type.cuisine.steak_house" = "Սթեյք հաուս";
+"type.cuisine.sushi" = "Սուշի";
+"type.cuisine.tapas" = "Տապաս";
+"type.cuisine.tea" = "Թեյ";
+"type.cuisine.thai" = "Թայլանդական";
+"type.cuisine.turkish" = "Թուրքական";
+"type.cuisine.vegan" = "Վեգան";
+"type.cuisine.vegetarian" = "Բուսական";
+"type.cuisine.vietnamese" = "Վիետնամական";
+"type.emergency" = "Արտակարգ իրավիճակներ";
+"type.emergency.assembly_point" = "Հավաքակետ արտակարգ իրավիճակների դեպքում";
+"type.emergency.defibrillator" = "Դեֆիբրիլյատոր";
+"type.emergency.fire_hydrant" = "Հրշեջ ծորակ";
+"type.emergency.phone" = "Վթարային հեռախոս";
+
+/* A place where a lifeguard is on duty. */
+"type.emergency.lifeguard" = "Փրկարար";
+
+/* A mountain rescue base for search and rescue activities. */
+"type.emergency.mountain_rescue" = "Լեռնային փրկարարական կայան";
+
+/* This is for secondary entrances, for main entrances see type.entrance.main */
+"type.entrance" = "Մուտք";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Գլխավոր մուտք";
+"type.entrance.exit" = "Ելք";
+"type.fee.yes" = "Վճարովի";
+"type.fee.no" = "Անվճար";
+"type.healthcare.laboratory" = "Բժշկական լաբորատորիա";
+"type.healthcare.physiotherapist" = "Ֆիզիոթերապևտ";
+"type.healthcare.alternative" = "Այլընտրանքային բժշկություն";
+"type.healthcare.audiologist" = "Աուդիոլոգ";
+"type.healthcare.blood_donation" = "Արյան դոնորական կենտրոն";
+"type.healthcare.optometrist" = "Օպտոմետրիստ";
+"type.healthcare.podiatrist" = "Պոդոլոգ";
+"type.healthcare.psychotherapist" = "Հոգեթերապևտ";
+"type.healthcare.sample_collection" = "Անալիզների հավաքման կետ";
+"type.healthcare.speech_therapist" = "Լոգոպեդ";
+
+
+/********** Types: Roads **********/
+
+"type.highway" = "Ավտոճանապարհ";
+"type.highway.bridleway" = "Ձիարշավարան";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Կամուրջ";
+"type.highway.bridleway.permissive" = "Ձիարշավարան";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Թունել";
+"type.highway.busway" = "Ավտոբուսի ճանապարհ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Թունել";
+"type.highway.bus_stop" = "Կանգառ";
+"type.highway.construction" = "Կառուցվող ճանապարհ";
+"type.highway.cycleway" = "Հեծանվուղի";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Կամուրջ";
+"type.highway.cycleway.permissive" = "Հեծանվուղի";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Թունել";
+"type.highway.elevator" = "Վերելակ";
+"type.highway.footway" = "Հետիոտնային ճանապարհ";
+"type.highway.footway.sidewalk" = "Մայթ";
+"type.highway.footway.crossing" = "Հետիոտնային անցում";
+"type.highway.footway.area" = "Հետիոտնային գոտի";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Հետիոտնային կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Հետիոտնային թունել";
+"type.highway.ford" = "Գետանցում";
+"type.highway.living_street" = "Բնակելի փողոց";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Թունել";
+"type.highway.motorway" = "Մայրուղի";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Մայրուղու կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Մայրուղու թունել";
+"type.highway.motorway_junction" = "Ճանապարհի ելք";
+"type.highway.motorway_link" = "Մայրուղու միացում";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Թունել";
+"type.highway.path" = "Արահետ";
+
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Դժվարանցանելի արահետ";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Բարդ արահետ";
+"type.highway.path.bicycle" = "Հեծանվային և հետիոտնային արահետ";
+"type.highway.footway.bicycle" = "Հեծանվային և հետիոտնային արահետ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Կամուրջ";
+"type.highway.path.horse" = "Ձիարշավարան";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Թունել";
+"type.highway.pedestrian" = "Հետիոտնային փողոց";
+"type.highway.pedestrian.area" = "Հետիոտնային գոտի";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Հետիոտնային կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Հետիոտնային թունել";
+"type.highway.primary" = "Առաջնային ճանապարհ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Թունել";
+"type.highway.primary_link" = "Առաջնային ճանապարհի միացում";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Թունել";
+"type.highway.raceway" = "Վազքուղի";
+"type.highway.residential" = "Բնակելի փողոց";
+"type.highway.residential.area" = "Բնակելի փողոց";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Թունել";
+"type.highway.rest_area" = "Հանգստի գոտի";
+"type.highway.road" = "Ճանապարհ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Կամուրջ";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "Կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Թունել";
+"type.highway.secondary" = "Երկրորդական ճանապարհ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Թունել";
+"type.highway.secondary_link" = "Երկրորդական ճանապարհի միացում";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Թունել";
+"type.highway.service" = "Ծառայողական ճանապարհ";
+"type.highway.service.area" = "Ծառայողական ճանապարհ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Կամուրջ";
+"type.highway.service.driveway" = "Մուտքի ճանապարհ";
+"type.highway.service.parking_aisle" = "Կայանատեղիի անցում";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Թունել";
+"type.highway.services" = "Սպասարկման տարածք";
+"type.highway.speed_camera" = "Արագաչափ";
+"type.highway.steps" = "Աստիճաններ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Թունել";
+"type.highway.ladder" = "Սանդուղք";
+"type.highway.tertiary" = "Երրորդական ճանապարհ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Թունել";
+"type.highway.tertiary_link" = "Երրորդական ճանապարհի միացում";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Թունել";
+"type.highway.track" = "Հողային ճանապարհ";
+"type.highway.track.area" = "Հողային ճանապարհ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Կամուրջ";
+"type.highway.track.grade1" = "Հողային ճանապարհ";
+"type.highway.track.no.access" = "Հողային ճանապարհ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Թունել";
+"type.highway.traffic_signals" = "Լուսացույց";
+"type.highway.trunk" = "Գլխավոր ճանապարհ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Թունել";
+"type.highway.trunk_link" = "Գլխավոր ճանապարհի միացում";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Թունել";
+"type.highway.unclassified" = "Չդասակարգված ճանապարհ";
+"type.highway.unclassified.area" = "Չդասակարգված ճանապարհ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Կամուրջ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Թունել";
+"type.area_highway.cycleway" = "Հեծանվուղի";
+"type.area_highway.footway" = "Հետիոտնային ճանապարհ";
+"type.area_highway.living_street" = "Բնակելի փողոց";
+"type.area_highway.motorway" = "Մայրուղի";
+"type.area_highway.path" = "Արահետ";
+"type.area_highway.pedestrian" = "Հետիոտնային փողոց";
+"type.area_highway.primary" = "Առաջնային ճանապարհ";
+"type.area_highway.residential" = "Բնակելի փողոց";
+"type.area_highway.secondary" = "Երկրորդական ճանապարհ";
+"type.area_highway.service" = "Ծառայողական ճանապարհ";
+"type.area_highway.tertiary" = "Երրորդական ճանապարհ";
+"type.area_highway.steps" = "Աստիճաններ";
+"type.area_highway.track" = "Հողային ճանապարհ";
+"type.area_highway.trunk" = "Գլխավոր ճանապարհ";
+"type.area_highway.unclassified" = "Չդասակարգված ճանապարհ";
+"type.highway.world_level" = "highway-world_level";
+"type.highway.world_towns_level" = "highway-world_towns_level";
+
+
+/********** Types: Historic **********/
+
+"type.historic" = "Պատմական օբյեկտ";
+"type.historic.aircraft" = "Պատմական օդանավ";
+"type.historic.anchor" = "Պատմական խարիսխ";
+"type.historic.archaeological_site" = "Հնագիտական վայր";
+"type.historic.battlefield" = "Մարտադաշտ";
+"type.historic.boundary_stone" = "Սահմանաքար";
+"type.historic.cannon" = "Թնդանոթ";
+"type.historic.castle" = "Ամրոց";
+"type.historic.castle.castrum" = "Հռոմեական ամրոց";
+"type.historic.castle.defensive" = "Միջնաբերդ";
+"type.historic.castle.fortified_church" = "Ամրացված եկեղեցի";
+"type.historic.castle.fortress" = "Բերդ";
+"type.historic.castle.hillfort" = "Բլրաշեն ամրոց";
+"type.historic.castle.kremlin" = "Կրեմլ";
+"type.historic.castle.manor" = "Առանձնատուն";
+"type.historic.castle.palace" = "Պալատ";
+"type.historic.castle.shiro" = "Ճապոնական ամրոց";
+"type.historic.castle.stately" = "Շքեղ ամրոց";
+"type.historic.city_gate" = "Քաղաքի դարպաս";
+"type.historic.citywalls" = "Քաղաքի պարիսպ";
+"type.historic.fort" = "Ֆորտ";
+"type.historic.gallows" = "Կախաղան";
+"type.historic.locomotive" = "Պատմական լոկոմոտիվ";
+"type.historic.memorial" = "Հուշահամալիր";
+"type.historic.memorial.cross" = "Հուշախաչ";
+"type.historic.memorial.plaque" = "Հուշատախտակ";
+"type.historic.memorial.sculpture" = "Քանդակ";
+"type.historic.memorial.statue" = "Արձան";
+"type.historic.memorial.stolperstein" = "Սայթաքման քար";
+"type.historic.stone" = "Պատմական քար";
+"type.historic.memorial.war_memorial" = "Ռազմական հուշահամալիր";
+"type.historic.mine" = "Պատմական հանքավայր";
+"type.historic.monument" = "Հուշարձան";
+"type.historic.pillory" = "Անարգանքի սյուն";
+"type.historic.ruins" = "Ավերակներ";
+"type.historic.ship" = "Նավ";
+"type.historic.tank" = "Պատմական տանկ";
+"type.historic.tomb" = "Դամբարան";
+
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
+"type.man_made.cross" = "Խաչ";
+
+/* Usually a Christian historical cross placed along a road. */
+"type.historic.wayside_cross" = "Ճամփեզրի խաչ";
+"type.historic.wayside_shrine" = "Մատուռ";
+"type.historic.wreck" = "Խորտակված նավ";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+"type.internet_access" = "Ինտերնետ";
+"type.internet_access.wlan" = "Ինտերնետ";
+"type.junction" = "Խաչմերուկ";
+"type.junction.circular" = "Շրջանաձև երթևեկություն";
+"type.junction.roundabout" = "Շրջանաձև երթևեկություն";
+"type.landuse" = "Հողօգտագործում";
+"type.landuse.allotments" = "Հողամասեր";
+"type.landuse.basin" = "Ավազան";
+"type.landuse.brownfield" = "Լքված տարածք";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery" = "Գերեզմանոց";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery.christian" = "Քրիստոնեական գերեզմանոց";
+"type.landuse.religious" = "Եկեղեցու բակ";
+"type.landuse.churchyard" = "Եկեղեցու բակ";
+"type.landuse.commercial" = "Կոմերցիոն տարածք";
+"type.landuse.construction" = "Շինհրապարակ";
+"type.landuse.education" = "Ուսումնական հաստատություն";
+"type.landuse.farmland" = "Վարելահող";
+"type.landuse.farmyard" = "Ֆերմերային տնտեսություն";
+"type.landuse.field" = "Դաշտ";
+"type.landuse.flowerbed" = "Ծաղկանոց";
+"type.landuse.forest" = "Անտառ";
+"type.landuse.forest.coniferous" = "Փշատերև անտառ";
+"type.landuse.forest.deciduous" = "Սաղարթախիտ անտառ";
+"type.landuse.forest.mixed" = "Խառը անտառ";
+"type.landuse.garages" = "Ավտոտնակներ";
+"type.landuse.grass" = "Խոտածածկ";
+"type.landuse.greenfield" = "Կանաչապատ տարածք";
+"type.landuse.greenhouse_horticulture" = "Ջերմոց";
+"type.landuse.industrial" = "Արդյունաբերական գոտի";
+"type.landuse.landfill" = "Աղբավայր";
+"type.landuse.meadow" = "Մարգագետին";
+"type.landuse.military" = "Ռազմական գոտի";
+"type.landuse.orchard" = "Պտղատու այգի";
+"type.landuse.quarry" = "Քարհանք";
+"type.landuse.railway" = "Երկաթուղային գոտի";
+"type.landuse.recreation_ground" = "Հանգստի գոտի";
+"type.landuse.reservoir" = "Ջրամբար";
+"type.landuse.residential" = "Բնակելի թաղամաս";
+"type.landuse.retail" = "Առևտրի գոտի";
+"type.landuse.salt_pond" = "Աղի լճակ";
+"type.landuse.village_green" = "Հողատարածք";
+"type.landuse.vineyard" = "Խաղողի այգի";
+"type.landuse.plant_nursery" = "Տնկարան";
+"type.leisure" = "Ժամանց";
+"type.leisure.common" = "Հանրային հողատարածք";
+"type.leisure.dog_park" = "Շների զբոսայգի";
+"type.leisure.escape_game" = "Փախուստի սենյակ";
+"type.leisure.fitness_centre" = "Ֆիտնես կենտրոն";
+"type.leisure.fitness_station" = "Մարզահրապարակ";
+"type.leisure.dance" = "Պարասրահ";
+"type.leisure.garden" = "Այգի";
+"type.leisure.garden.residential" = "Տնամերձ այգի";
+"type.leisure.golf_course" = "Գոլֆի դաշտ";
+"type.leisure.miniature_golf" = "Մինի գոլֆ";
+"type.leisure.hackerspace" = "Հաքերսփեյս";
+"type.leisure.ice_rink" = "Սահադաշտ";
+"type.leisure.marina" = "Նավակայան";
+"type.leisure.nature_reserve" = "Արգելոց";
+"type.leisure.outdoor_seating" = "Բացօթյա նստատեղեր";
+"type.leisure.firepit" = "Խարուկատեղ";
+"type.leisure.park" = "Զբոսայգի";
+"type.leisure.park.no.access" = "Մասնավոր զբոսայգի";
+"type.leisure.park.permissive" = "Զբոսայգի";
+"type.leisure.park.private" = "Մասնավոր զբոսայգի";
+"type.leisure.picnic_table" = "Պիկնիկի սեղան";
+"type.leisure.pitch" = "Սպորտային հրապարակ";
+"type.leisure.playground" = "Խաղահրապարակ";
+"type.leisure.recreation_ground" = "Հանգստի գոտի";
+"type.leisure.sauna" = "Սաունա";
+"type.leisure.slipway" = "Նավահարթակ";
+"type.leisure.sports_centre" = "Սպորտային կենտրոն";
+"type.sport.climbing" = "Մագլցման կենտրոն";
+"type.sport.yoga" = "Յոգայի ստուդիա";
+"type.leisure.stadium" = "Մարզադաշտ";
+"type.leisure.swimming_pool" = "Լողավազան";
+"type.leisure.swimming_pool.private" = "Լողավազան";
+"type.leisure.track" = "Վազքուղի";
+"type.leisure.track.area" = "Վազքուղի";
+"type.leisure.water_park" = "Ջրաշխարհ";
+"type.leisure.beach_resort" = "Ծովափնյա հանգստավայր";
+"type.man_made" = "Տեխնածին";
+"type.man_made.breakwater" = "Պատնեշ";
+"type.man_made.cairn" = "Քարաբուրգ";
+"type.man_made.chimney" = "Ծխնելույզ";
+"type.man_made.cutline" = "Անտառանցք";
+"type.man_made.survey_point" = "Գեոդեզիական կետ";
+"type.man_made.flagpole" = "Դրոշաձող";
+"type.man_made.lighthouse" = "Փարոս";
+"type.man_made.mast" = "Կայմ";
+"type.man_made.pier" = "Պիրս";
+"type.man_made.pipeline" = "Խողովակաշար";
+"type.man_made.pipeline.overground" = "Վերգետնյա խողովակաշար";
+"type.man_made.silo" = "Սիլոսային հոր";
+"type.man_made.storage_tank" = "Պահեստային բաք";
+"type.man_made.surveillance" = "Տեսախցիկ";
+"type.man_made.tower" = "Աշտարակ";
+
+/* A huge telecommunications tower. Often a local monument or a landmark. */
+"type.man_made.communications_tower" = "Կապի աշտարակ";
+
+/* A regular telecommunications tower / mast. */
+"type.man_made.tower.communication" = "Կապի աշտարակ";
+
+/* A deep hole drilled into the earth to extract oil or gas. */
+"type.man_made.petroleum_well" = "Նավթի կամ գազի հորատանցք";
+
+/* A tower/mast constructed to burn off excess gas. */
+"type.man_made.flare" = "Գազային ջահ";
+"type.man_made.wastewater_plant" = "Կեղտաջրերի մաքրման կայան";
+"type.man_made.water_tap" = "Ջրի ծորակ";
+"type.man_made.water_tap.drinking_water_no" = "Ջրի ծորակ";
+"type.man_made.water_tower" = "Ջրաշտարակ";
+"type.man_made.water_well" = "Ջրհոր";
+"type.man_made.water_well.drinking_water_no" = "Ջրհոր";
+"type.man_made.windmill" = "Հողմաղաց";
+"type.man_made.works" = "Գործարան";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.mapswithme.grid" = "mapswithme-grid";
+"type.military" = "Ռազմական";
+"type.military.bunker" = "Բունկեր";
+"type.mountain_pass" = "Լեռնանցք";
+"type.natural" = "Բնություն";
+
+/* A rocky land cover. */
+"type.natural.bare_rock" = "Մերկ ժայռ";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Խիճ";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Փլվածք";
+"type.natural.bay" = "Ծովածոց";
+"type.natural.beach" = "Լողափ";
+"type.natural.beach.sand" = "Ավազե լողափ";
+"type.natural.beach.gravel" = "Խճաքարե լողափ";
+"type.natural.cape" = "Հրվանդան";
+"type.natural.cave_entrance" = "Քարանձավի մուտք";
+"type.natural.cliff" = "Ժայռ";
+"type.natural.earth_bank" = "Հողաթումբ";
+"type.man_made.embankment" = "Պատնեշ";
+"type.natural.coastline" = "Ափագիծ";
+"type.natural.desert" = "Անապատ";
+"type.natural.geyser" = "Գեյզեր";
+"type.natural.glacier" = "Սառցադաշտ";
+"type.natural.grassland" = "Մարգագետին";
+"type.natural.heath" = "Մացառուտ";
+"type.natural.hot_spring" = "Տաք աղբյուր";
+"type.natural.water.lake" = "Լիճ";
+"type.natural.water.lock" = "Շլյուզ";
+"type.natural.water.pond" = "Լճակ";
+"type.natural.water.reservoir" = "Ջրամբար";
+"type.natural.water.basin" = "Ավազան";
+"type.natural.water.river" = "Գետ";
+"type.natural.land" = "Ցամաք";
+"type.natural.meadow" = "Մարգագետին";
+"type.natural.orchard" = "Պտղատու այգի";
+"type.natural.peak" = "Գագաթ";
+"type.natural.saddle" = "Թամբարդ";
+"type.natural.rock" = "Քար";
+"type.natural.scrub" = "Թփուտ";
+"type.natural.spring" = "Բնական աղբյուր";
+"type.natural.spring.drinking_water_no" = "Բնական աղբյուր";
+"type.natural.strait" = "Նեղուց";
+"type.natural.tree_row" = "Ծառաշարք";
+"type.natural.vineyard" = "Խաղողի այգի";
+"type.natural.volcano" = "Հրաբուխ";
+"type.natural.water" = "Ջուր";
+"type.natural.wetland" = "Խոնավ տարածք";
+"type.natural.wetland.bog" = "Տորֆաճահիճ";
+"type.natural.wetland.marsh" = "Ճահիճ";
+"type.noexit" = "Փակուղի";
+"type.office" = "Գրասենյակ";
+"type.office.company" = "Ընկերության գրասենյակ";
+"type.office.estate_agent" = "Անշարժ գույքի գործակալություն";
+"type.office.government" = "Կառավարական գրասենյակ";
+"type.office.insurance" = "Ապահովագրական գրասենյակ";
+"type.office.lawyer" = "Փաստաբան";
+"type.office.ngo" = "Հասարակական կազմակերպություն";
+"type.office.telecommunication" = "Հեռահաղորդակցության ընկերություն";
+"type.organic.only" = "Organic";
+"type.organic.yes" = "Organic";
+"type.place.city" = "Քաղաք";
+"type.place.city.capital" = "Մայրաքաղաք";
+"type.place.city.capital.10" = "Քաղաք";
+"type.place.city.capital.11" = "Քաղաք";
+"type.place.city.capital.2" = "Մայրաքաղաք";
+"type.place.city.capital.3" = "Քաղաք";
+"type.place.city.capital.4" = "Քաղաք";
+"type.place.city.capital.5" = "Քաղաք";
+"type.place.city.capital.6" = "Քաղաք";
+"type.place.city.capital.7" = "Քաղաք";
+"type.place.city.capital.8" = "Քաղաք";
+"type.place.city.capital.9" = "Քաղաք";
+"type.place.continent" = "Մայրցամաք";
+"type.place.country" = "Երկիր";
+"type.place.county" = "Վարչաշրջան";
+"type.place.farm" = "Ֆերմա";
+"type.place.hamlet" = "Ավան";
+"type.place.island" = "Կղզի";
+"type.place.islet" = "Կղզյակ";
+"type.place.isolated_dwelling" = "Առանձնացված բնակավայր";
+"type.place.locality" = "Տեղանք";
+
+/* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
+"type.place.quarter" = "Թաղամաս";
+
+/* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
+"type.place.neighbourhood" = "Թաղամաս";
+"type.place.ocean" = "Օվկիանոս";
+"type.place.region" = "Տարածաշրջան";
+"type.place.sea" = "Ծով";
+"type.place.square" = "Հրապարակ";
+"type.place.state" = "Նահանգ";
+"type.place.state.major" = "Նահանգ";
+
+/* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
+"type.place.suburb" = "Արվարձան";
+"type.place.town" = "Քաղաք";
+"type.place.village" = "Գյուղ";
+"type.power" = "Էներգետիկա";
+"type.power.generator" = "Էլեկտրական գեներատոր";
+"type.power.generator.solar" = "Արևային գեներատոր";
+"type.power.generator.wind" = "Հողմային գեներատոր";
+"type.power.generator.gas" = "Գազատուրբինային էլեկտրակայան";
+"type.power.generator.hydro" = "Հիդրոէլեկտրակայան";
+"type.power.line" = "Էլեկտրահաղորդման գիծ";
+"type.power.line.underground" = "Ստորգետնյա էլեկտրահաղորդման գիծ";
+"type.power.minor_line" = "Փոքր էլեկտրահաղորդման գիծ";
+"type.power.plant" = "Էլեկտրակայան";
+"type.power.plant.coal" = "Ածխային էլեկտրակայան";
+"type.power.plant.gas" = "Գազատուրբինային էլեկտրակայան";
+"type.power.plant.hydro" = "Հիդրոէլեկտրակայան";
+"type.power.plant.solar" = "Արևային էլեկտրակայան";
+"type.power.plant.wind" = "Հողմաէլեկտրակայան";
+"type.power.station" = "Էլեկտրակայան";
+"type.power.substation" = "Ենթակայան";
+
+/* A tower or pylon carrying high voltage electricity cables. */
+"type.power.tower" = "Էլեկտրասյուն";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "Էլեկտրասյուն";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "Կոմունալ սյուն";
+"type.psurface" = "psurface";
+"type.psurface.paved_bad" = "psurface-paved_bad";
+"type.psurface.paved_good" = "psurface-paved_good";
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
+"type.public_transport" = "Հասարակական տրանսպորտ";
+"type.public_transport.platform" = "Հարթակ";
+"type.railway" = "Երկաթուղի";
+"type.railway.abandoned" = "Լքված երկաթուղի";
+"type.railway.abandoned.bridge" = "Լքված երկաթուղային կամուրջ";
+"type.railway.abandoned.tunnel" = "Լքված երկաթուղային թունել";
+"type.railway.construction" = "Կառուցվող երկաթուղի";
+"type.railway.crossing" = "Երկաթուղային անցում";
+"type.railway.disused" = "Չօգտագործվող երկաթուղի";
+"type.railway.disused.bridge" = "Չօգտագործվող երկաթուղային կամուրջ";
+"type.railway.funicular" = "Ֆունիկուլյոր";
+"type.railway.funicular.bridge" = "Ֆունիկուլյորի կամուրջ";
+"type.railway.funicular.tunnel" = "Ֆունիկուլյորի թունել";
+"type.railway.halt" = "Կանգառ";
+"type.railway.level_crossing" = "Երկաթուղային գծանց";
+"type.railway.light_rail" = "Թեթև ռելսային տրանսպորտ";
+"type.railway.light_rail.bridge" = "Թեթև ռելսային տրանսպորտի կամուրջ";
+"type.railway.light_rail.tunnel" = "Թեթև ռելսային տրանսպորտի թունել";
+"type.railway.monorail" = "Մոնոռելս";
+"type.railway.monorail.bridge" = "Մոնոռելսային կամուրջ";
+"type.railway.monorail.tunnel" = "Մոնոռելսային թունել";
+"type.railway.narrow_gauge" = "Նեղուղի երկաթգիծ";
+"type.railway.narrow_gauge.bridge" = "Նեղուղի երկաթգծի կամուրջ";
+"type.railway.narrow_gauge.tunnel" = "Նեղուղի երկաթգծի թունել";
+"type.railway.platform" = "Երկաթուղային պլատֆորմ";
+"type.railway.preserved" = "Պահպանվող երկաթգիծ";
+"type.railway.preserved.bridge" = "Պահպանվող երկաթգծի կամուրջ";
+"type.railway.preserved.tunnel" = "Պահպանվող երկաթգծի թունել";
+"type.railway.rail" = "Երկաթուղի";
+"type.railway.rail.highspeed" = "Արագընթաց երկաթուղի";
+"type.railway.rail.tourism" = "Զբոսաշրջային երկաթուղի";
+"type.railway.rail.main" = "Երկաթուղի";
+
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Երկաթուղային ճյուղ";
+
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Տեխնիկական երկաթուղի";
+"type.railway.rail.spur" = "Երկաթուղային փակուղի";
+
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Սպասարկման երկաթգիծ";
+"type.railway.rail.bridge" = "Երկաթուղային կամուրջ";
+"type.railway.rail.highspeed.bridge" = "Երկաթուղային կամուրջ";
+"type.railway.rail.tourism.bridge" = "Երկաթուղային կամուրջ";
+"type.railway.rail.main.bridge" = "Երկաթուղային կամուրջ";
+"type.railway.rail.branch.bridge" = "Երկաթուղային կամուրջ";
+"type.railway.rail.utility.bridge" = "Երկաթուղային կամուրջ";
+"type.railway.rail.spur.bridge" = "Երկաթուղային կամուրջ";
+"type.railway.rail.service.bridge" = "Երկաթուղային կամուրջ";
+"type.railway.rail.tunnel" = "Երկաթուղային թունել";
+"type.railway.rail.highspeed.tunnel" = "Երկաթուղային թունել";
+"type.railway.rail.tourism.tunnel" = "Երկաթուղային թունել";
+"type.railway.rail.main.tunnel" = "Երկաթուղային թունել";
+"type.railway.rail.branch.tunnel" = "Երկաթուղային թունել";
+"type.railway.rail.utility.tunnel" = "Երկաթուղային թունել";
+"type.railway.rail.spur.tunnel" = "Երկաթուղային թունել";
+"type.railway.rail.service.tunnel" = "Երկաթուղային թունել";
+"type.railway.station" = "Երկաթուղային կայարան";
+"type.railway.station.funicular" = "Ֆունիկուլյոր";
+"type.railway.station.light_rail" = "Թեթև ռելսային տրանսպորտի կայարան";
+"type.railway.station.light_rail.berlin" = "S-Bahn կայարան";
+"type.railway.station.light_rail.london" = "DLR կայարան";
+"type.railway.station.light_rail.porto" = "Պորտո մետրո";
+"type.railway.station.monorail" = "Մոնոռելսի կայարան";
+"type.railway.station.subway" = "Մետրոյի կայարան";
+"type.railway.station.subway.adana" = "Մետրոյի կայարան";
+"type.railway.station.subway.algiers" = "Մետրոյի կայարան";
+"type.railway.station.subway.almaty" = "Մետրոյի կայարան";
+"type.railway.station.subway.amsterdam" = "Մետրոյի կայարան";
+"type.railway.station.subway.ankara" = "Մետրոյի կայարան";
+"type.railway.station.subway.athens" = "Մետրոյի կայարան";
+"type.railway.station.subway.baku" = "Մետրոյի կայարան";
+"type.railway.station.subway.bangkok" = "Մետրոյի կայարան";
+"type.railway.station.subway.barcelona" = "Մետրոյի կայարան";
+"type.railway.station.subway.beijing" = "Մետրոյի կայարան";
+"type.railway.station.subway.bengalore" = "Մետրոյի կայարան";
+"type.railway.station.subway.berlin" = "Մետրոյի կայարան";
+"type.railway.station.subway.bilbao" = "Մետրոյի կայարան";
+"type.railway.station.subway.brasilia" = "Մետրոյի կայարան";
+"type.railway.station.subway.brescia" = "Մետրոյի կայարան";
+"type.railway.station.subway.brussels" = "Մետրոյի կայարան";
+"type.railway.station.subway.bucharest" = "Մետրոյի կայարան";
+"type.railway.station.subway.budapest" = "Մետրոյի կայարան";
+"type.railway.station.subway.buenos_aires" = "Մետրոյի կայարան";
+"type.railway.station.subway.bursa" = "Մետրոյի կայարան";
+"type.railway.station.subway.cairo" = "Մետրոյի կայարան";
+"type.railway.station.subway.caracas" = "Մետրոյի կայարան";
+"type.railway.station.subway.catania" = "Մետրոյի կայարան";
+"type.railway.station.subway.changchun" = "Մետրոյի կայարան";
+"type.railway.station.subway.chengdu" = "Մետրոյի կայարան";
+"type.railway.station.subway.chicago" = "Մետրոյի կայարան";
+"type.railway.station.subway.chongqing" = "Մետրոյի կայարան";
+"type.railway.station.subway.dalian" = "Մետրոյի կայարան";
+"type.railway.station.subway.delhi" = "Մետրոյի կայարան";
+"type.railway.station.subway.dnepro" = "Մետրոյի կայարան";
+"type.railway.station.subway.dubai" = "Մետրոյի կայարան";
+"type.railway.station.subway.ekb" = "Մետրոյի կայարան";
+"type.railway.station.subway.fukuoka" = "Մետրոյի կայարան";
+"type.railway.station.subway.glasgow" = "Մետրոյի կայարան";
+"type.railway.station.subway.guangzhou" = "Մետրոյի կայարան";
+"type.railway.station.subway.hamburg" = "Մետրոյի կայարան";
+"type.railway.station.subway.helsinki" = "Մետրոյի կայարան";
+"type.railway.station.subway.hiroshima" = "Մետրոյի կայարան";
+"type.railway.station.subway.hongkong" = "Մետրոյի կայարան";
+"type.railway.station.subway.isfahan" = "Մետրոյի կայարան";
+"type.railway.station.subway.istanbul" = "Մետրոյի կայարան";
+"type.railway.station.subway.izmir" = "Մետրոյի կայարան";
+"type.railway.station.subway.kazan" = "Մետրոյի կայարան";
+"type.railway.station.subway.kharkiv" = "Մետրոյի կայարան";
+"type.railway.station.subway.kiev" = "Մետրոյի կայարան";
+"type.railway.station.subway.kobe" = "Մետրոյի կայարան";
+"type.railway.station.subway.kolkata" = "Մետրոյի կայարան";
+"type.railway.station.subway.kunming" = "Մետրոյի կայարան";
+"type.railway.station.subway.kyoto" = "Մետրոյի կայարան";
+"type.railway.station.subway.la" = "Մետրոյի կայարան";
+"type.railway.station.subway.lausanne" = "Մետրոյի կայարան";
+"type.railway.station.subway.lille" = "Մետրոյի կայարան";
+"type.railway.station.subway.lima" = "Մետրոյի կայարան";
+"type.railway.station.subway.lisboa" = "Մետրոյի կայարան";
+"type.railway.station.subway.london" = "Մետրոյի կայարան";
+"type.railway.station.subway.lyon" = "Մետրոյի կայարան";
+"type.railway.station.subway.madrid" = "Մետրոյի կայարան";
+"type.railway.station.subway.malaga" = "Մետրոյի կայարան";
+"type.railway.station.subway.manila" = "Մետրոյի կայարան";
+"type.railway.station.subway.maracaibo" = "Մետրոյի կայարան";
+"type.railway.station.subway.mashhad" = "Մետրոյի կայարան";
+"type.railway.station.subway.mecca" = "Մետրոյի կայարան";
+"type.railway.station.subway.medellin" = "Մետրոյի կայարան";
+"type.railway.station.subway.mexico" = "Մետրոյի կայարան";
+"type.railway.station.subway.milan" = "Մետրոյի կայարան";
+"type.railway.station.subway.minsk" = "Մետրոյի կայարան";
+"type.railway.station.subway.montreal" = "Մետրոյի կայարան";
+"type.railway.station.subway.moscow" = "Մետրոյի կայարան";
+"type.railway.station.subway.munchen" = "Մետրոյի կայարան";
+"type.railway.station.subway.nagoya" = "Մետրոյի կայարան";
+"type.railway.station.subway.newyork" = "Մետրոյի կայարան";
+"type.railway.station.subway.nnov" = "Մետրոյի կայարան";
+"type.railway.station.subway.novosibirsk" = "Մետրոյի կայարան";
+"type.railway.station.subway.osaka" = "Մետրոյի կայարան";
+"type.railway.station.subway.oslo" = "Մետրոյի կայարան";
+"type.railway.station.subway.palma" = "Մետրոյի կայարան";
+"type.railway.station.subway.panama" = "Մետրոյի կայարան";
+"type.railway.station.subway.paris" = "Մետրոյի կայարան";
+"type.railway.station.subway.philadelphia" = "Մետրոյի կայարան";
+"type.railway.station.subway.pyongyang" = "Մետրոյի կայարան";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "Մետրոյի կայարան";
+"type.railway.station.subway.rennes" = "Մետրոյի կայարան";
+"type.railway.station.subway.rio" = "Մետրոյի կայարան";
+"type.railway.station.subway.roma" = "Մետրոյի կայարան";
+"type.railway.station.subway.rotterdam" = "Մետրոյի կայարան";
+"type.railway.station.subway.samara" = "Մետրոյի կայարան";
+"type.railway.station.subway.santiago" = "Մետրոյի կայարան";
+"type.railway.station.subway.santo_domingo" = "Մետրոյի կայարան";
+"type.railway.station.subway.saopaulo" = "Մետրոյի կայարան";
+"type.railway.station.subway.sapporo" = "Մետրոյի կայարան";
+"type.railway.station.subway.sendai" = "Մետրոյի կայարան";
+"type.railway.station.subway.sf" = "Մետրոյի կայարան";
+"type.railway.station.subway.shanghai" = "Մետրոյի կայարան";
+"type.railway.station.subway.shenzhen" = "Մետրոյի կայարան";
+"type.railway.station.subway.shiraz" = "Մետրոյի կայարան";
+"type.railway.station.subway.singapore" = "Մետրոյի կայարան";
+"type.railway.station.subway.sofia" = "Մետրոյի կայարան";
+"type.railway.station.subway.spb" = "Մետրոյի կայարան";
+"type.railway.station.subway.stockholm" = "Մետրոյի կայարան";
+"type.railway.station.subway.tabriz" = "Մետրոյի կայարան";
+"type.railway.station.subway.taipei" = "Մետրոյի կայարան";
+"type.railway.station.subway.taoyuan" = "Մետրոյի կայարան";
+"type.railway.station.subway.tashkent" = "Մետրոյի կայարան";
+"type.railway.station.subway.tbilisi" = "Մետրոյի կայարան";
+"type.railway.station.subway.tehran" = "Մետրոյի կայարան";
+"type.railway.station.subway.tianjin" = "Մետրոյի կայարան";
+"type.railway.station.subway.tokyo" = "Մետրոյի կայարան";
+"type.railway.station.subway.valencia" = "Մետրոյի կայարան";
+"type.railway.station.subway.vienna" = "Մետրոյի կայարան";
+"type.railway.station.subway.warszawa" = "Մետրոյի կայարան";
+"type.railway.station.subway.washington" = "Մետրոյի կայարան";
+"type.railway.station.subway.wuhan" = "Մետրոյի կայարան";
+"type.railway.station.subway.yerevan" = "Մետրոյի կայարան";
+"type.railway.station.subway.yokohama" = "Մետրոյի կայարան";
+"type.railway.subway" = "Մետրոյի գիծ";
+"type.railway.subway.bridge" = "Մետրոյի կամուրջ";
+"type.railway.subway.tunnel" = "Մետրոյի թունել";
+"type.railway.subway_entrance" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.adana" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.algiers" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.almaty" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.amsterdam" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.ankara" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.athens" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.baku" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.bangkok" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.barcelona" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.beijing" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.bengalore" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.berlin" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.bilbao" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.brasilia" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.brescia" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.brussels" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.bucharest" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.budapest" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.buenos_aires" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.bursa" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.cairo" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.caracas" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.catania" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.changchun" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.chengdu" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.chicago" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.chongqing" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.dalian" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.delhi" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.dnepro" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.dubai" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.ekb" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.fukuoka" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.glasgow" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.guangzhou" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.hamburg" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.helsinki" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.hiroshima" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.hongkong" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.isfahan" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.istanbul" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.izmir" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.kazan" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.kharkiv" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.kiev" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.kobe" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.kolkata" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.kunming" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.kyoto" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.la" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.lausanne" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.lille" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.lima" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.lisboa" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.london" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.lyon" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.madrid" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.malaga" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.manila" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.maracaibo" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.mashhad" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.mecca" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.medellin" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.mexico" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.milan" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.minsk" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.montreal" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.moscow" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.munchen" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.nagoya" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.newyork" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.nnov" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.novosibirsk" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.osaka" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.oslo" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.palma" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.panama" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.paris" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.philadelphia" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.pyongyang" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.rennes" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.rio" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.roma" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.rotterdam" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.samara" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.santiago" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.santo_domingo" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.saopaulo" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.sapporo" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.sendai" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.sf" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.shanghai" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.shenzhen" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.shiraz" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.singapore" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.sofia" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.spb" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.stockholm" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.tabriz" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.taipei" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.taoyuan" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.tashkent" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.tbilisi" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.tehran" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.tianjin" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.tokyo" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.valencia" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.vienna" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.warszawa" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.washington" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.wuhan" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.yerevan" = "Մետրոյի մուտք";
+"type.railway.subway_entrance.yokohama" = "Մետրոյի մուտք";
+"type.railway.tram" = "Տրամվայի գիծ";
+"type.railway.tram.bridge" = "Տրամվայի կամուրջ";
+"type.railway.tram.tunnel" = "Տրամվայի թունել";
+"type.railway.tram_stop" = "Տրամվայի կանգառ";
+"type.route" = "Երթուղի";
+"type.route.ferry" = "Լաստանավ";
+"type.route.shuttle_train" = "Շաթլ գնացք";
+"type.shop" = "Խանութ";
+"type.shop.alcohol" = "Ալկոհոլի խանութ";
+"type.shop.bakery" = "Փուռ";
+"type.shop.bathroom_furnishing" = "Սանհանգույցի պարագաներ";
+"type.shop.beauty" = "Գեղեցկության սրահ";
+"type.shop.beverages" = "Խմիչքներ";
+"type.shop.bicycle" = "Հեծանիվների խանութ";
+"type.shop.bookmaker" = "Բուքմեյքերական գրասենյակ";
+"type.shop.books" = "Գրախանութ";
+"type.shop.butcher" = "Մսի խանութ";
+"type.shop.cannabis" = "Կանեփի խանութ";
+"type.shop.car" = "Ավտոսրահ";
+"type.shop.car_parts" = "Ավտոպահեստամասերի խանութ";
+"type.shop.car_repair" = "Ավտովերանորոգում";
+"type.shop.car_repair.tyres" = "Անվադողերի նորոգում";
+"type.shop.caravan" = "Տուն-մեքենաների խանութ";
+"type.shop.carpet" = "Գորգերի խանութ";
+"type.shop.chemist" = "Դեղատուն";
+"type.shop.chocolate" = "Շոկոլադի խանութ";
+"type.shop.clothes" = "Հագուստի խանութ";
+"type.shop.coffee" = "Սուրճի խանութ";
+"type.shop.computer" = "Համակարգչային խանութ";
+"type.shop.confectionery" = "Քաղցրավենիքի խանութ";
+"type.shop.convenience" = "Մթերային խանութ";
+"type.shop.copyshop" = "Պատճենահանում";
+"type.shop.cosmetics" = "Կոսմետիկայի խանութ";
+"type.shop.curtain" = "Վարագույրների խանութ";
+"type.shop.deli" = "Դելիկատեսների խանութ";
+"type.shop.department_store" = "Հանրախանութ";
+"type.shop.doityourself" = "Շինանյութի խանութ";
+"type.shop.dry_cleaning" = "Քիմմաքրում";
+"type.shop.electronics" = "Էլեկտրոնիկայի խանութ";
+"type.shop.erotic" = "Էրոտիկ խանութ";
+"type.shop.fabric" = "Կտորեղենի խանութ";
+"type.shop.farm" = "Գյուղմթերքի խանութ";
+"type.shop.fashion_accessories" = "Նորաձևության պարագաներ";
+"type.shop.florist" = "Ծաղկի խանութ";
+"type.shop.funeral_directors" = "Սգո ծառայություններ";
+"type.shop.furniture" = "Կահույքի խանութ";
+"type.shop.garden_centre" = "Այգեգործական կենտրոն";
+"type.shop.gas" = "Գազի խանութ";
+"type.shop.gift" = "Նվերների խանութ";
+"type.shop.greengrocer" = "Մրգի և բանջարեղենի խանութ";
+"type.shop.grocery" = "Մթերային խանութ";
+"type.shop.hairdresser" = "Վարսավիրանոց";
+"type.shop.hardware" = "Շինանյութի խանութ";
+"type.shop.health_food" = "Առողջ սննդի խանութ";
+"type.shop.hearing_aids" = "Լսողական սարքերի խանութ";
+"type.shop.herbalist" = "Բուսաբուժական խանութ";
+"type.shop.hifi" = "HiFi աուդիո խանութ";
+"type.shop.houseware" = "Տնտեսական ապրանքների խանութ";
+"type.shop.jewelry" = "Ոսկերչական խանութ";
+"type.shop.kiosk" = "Կրպակ";
+"type.shop.kitchen" = "Խոհանոցային պարագաների խանութ";
+"type.shop.laundry" = "Լվացքատուն";
+"type.shop.mall" = "Առևտրի կենտրոն";
+"type.shop.massage" = "Մերսման սրահ";
+"type.shop.mobile_phone" = "Բջջային հեռախոսների խանութ";
+"type.shop.money_lender" = "Վարկատու";
+"type.shop.motorcycle" = "Մոտոցիկլետների խանութ";
+"type.shop.motorcycle_repair" = "Մոտոցիկլետների վերանորոգում";
+"type.shop.music" = "Ձայնասկավառակների խանութ";
+"type.shop.musical_instrument" = "Երաժշտական գործիքների խանութ";
+"type.shop.newsagent" = "Թերթի կրպակ";
+"type.shop.optician" = "Օպտիկա";
+"type.shop.outdoor" = "Արշավային պարագաների խանութ";
+"type.shop.outpost" = "Հանձնման կետ";
+"type.shop.pasta" = "Մակարոնեղենի խանութ";
+"type.shop.pastry" = "Հրուշակեղենի խանութ";
+"type.shop.pawnbroker" = "Գրավատուն";
+"type.shop.pet" = "Կենդանիների խանութ";
+"type.shop.pet_grooming" = "Կենդանիների խնամք";
+"type.shop.photo" = "Լուսանկարչական խանութ";
+"type.shop.rental" = "Վարձույթի կետ";
+"type.shop.rental.bicycle" = "Հեծանիվների վարձույթ";
+"type.amenity.bicycle_rental.shop" = "Հեծանիվների վարձույթ";
+"type.shop.seafood" = "Ձկան խանութ";
+"type.shop.second_hand" = "Օգտագործված ապրանքների խանութ";
+"type.shop.shoes" = "Կոշիկի խանութ";
+"type.shop.sports" = "Սպորտային խանութ";
+"type.shop.stationery" = "Գրենական պիտույքների խանութ";
+"type.shop.supermarket" = "Սուպերմարկետ";
+"type.shop.tattoo" = "Դաջվածքի սրահ";
+"type.shop.tea" = "Թեյի խանութ";
+"type.shop.ticket" = "Տոմսարկղ";
+"type.shop.toys" = "Խաղալիքների խանութ";
+"type.shop.travel_agency" = "Տուրիստական գործակալություն";
+"type.shop.tyres" = "Անվադողերի խանութ";
+"type.shop.variety_store" = "Տարատեսակ ապրանքների խանութ";
+"type.shop.video" = "Տեսաֆիլմերի խանութ";
+"type.shop.video_games" = "Տեսախաղերի խանութ";
+"type.shop.wine" = "Գինու խանութ";
+"type.shop.agrarian" = "Գյուղատնտեսական խանութ";
+"type.shop.antiques" = "Հնաոճ իրերի խանութ";
+"type.shop.appliance" = "Կենցաղային տեխնիկայի խանութ";
+
+/* maybe change to Art Gallery for en-US when supported */
+"type.shop.art" = "Արվեստի գործերի խանութ";
+"type.shop.baby_goods" = "Մանկական ապրանքների խանութ";
+"type.shop.bag" = "Պայուսակների խանութ";
+"type.shop.bed" = "Անկողնային պարագաների խանութ";
+"type.shop.boutique" = "Բուտիկ";
+"type.shop.charity" = "Բարեգործական խանութ";
+"type.shop.cheese" = "Պանրի խանութ";
+"type.shop.craft" = "Արհեստագործական պարագաների խանութ";
+"type.shop.dairy" = "Կաթնամթերքի խանութ";
+"type.shop.electrical" = "Էլեկտրական պարագաների խանութ";
+"type.shop.fishing" = "Ձկնորսական խանութ";
+"type.shop.interior_decoration" = "Ինտերիերի ձևավորման խանութ";
+"type.shop.lottery" = "Վիճակախաղի տոմսեր";
+"type.shop.medical_supply" = "Բժշկական պարագաների խանութ";
+"type.shop.nutrition_supplements" = "Սննդային հավելումների խանութ";
+"type.shop.paint" = "Ներկերի խանութ";
+"type.shop.perfumery" = "Օծանելիքի խանութ";
+"type.shop.sewing" = "Կարի պարագաների խանութ";
+"type.shop.storage_rental" = "Պահեստի վարձակալություն";
+"type.shop.tobacco" = "Ծխախոտի խանութ";
+"type.shop.trade" = "Առևտրային պարագաներ";
+"type.shop.watches" = "Ժամացույցների խանութ";
+"type.shop.wholesale" = "Մեծածախ խանութ";
+"type.sport" = "Սպորտ";
+"type.sport.american_football" = "Ամերիկյան ֆուտբոլ";
+"type.sport.archery" = "Նետաձգություն";
+"type.sport.athletics" = "Աթլետիկա";
+"type.sport.australian_football" = "Ավստրալիական ֆուտբոլ";
+"type.sport.baseball" = "Բեյսբոլ";
+"type.sport.basketball" = "Բասկետբոլ";
+"type.sport.beachvolleyball" = "Լողափնյա վոլեյբոլ";
+"type.sport.bowls" = "Գնդախաղ";
+"type.sport.chess" = "Շախմատ";
+"type.sport.cricket" = "Կրիկետ";
+"type.sport.curling" = "Կյոռլինգ";
+"type.sport.equestrian" = "Ձիասպորտ";
+"type.sport.golf" = "Գոլֆ";
+"type.sport.gymnastics" = "Մարմնամարզություն";
+"type.sport.handball" = "Հանդբոլ";
+"type.sport.multi" = "Տարբեր սպորտաձևեր";
+
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Սկուբա դայվինգի վայր";
+"type.sport.shooting" = "Հրաձգություն";
+"type.sport.skateboard" = "Սքեյթբորդինգ";
+"type.sport.skiing" = "Դահուկավազք";
+"type.sport.soccer" = "Ֆուտբոլ";
+"type.sport.swimming" = "Լող";
+"type.sport.table_tennis" = "Սեղանի թենիս";
+"type.sport.tennis" = "Թենիսի կորտ";
+"type.sport.volleyball" = "Վոլեյբոլ";
+"type.sport.10pin" = "Բոուլինգ";
+"type.sport.9pin" = "Բոուլինգ";
+"type.sport.padel" = "Պադել";
+"type.sport.futsal" = "Ֆուտզալ";
+"type.sport.ice_hockey" = "Տափօղակով հոկեյ";
+"type.sport.field_hockey" = "Մականախաղ";
+"type.sport.badminton" = "Բադմինտոն";
+"type.sport.pelota" = "Բասկյան պելոտա";
+"type.tourism" = "Զբոսաշրջություն";
+"type.tourism.aquarium" = "Ակվարիում";
+
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Լեռնային կացարան";
+"type.tourism.apartment" = "Հանգստի բնակարան";
+"type.tourism.artwork" = "Արվեստի գործ";
+"type.tourism.artwork.architecture" = "Ճարտարապետական արվեստի գործ";
+"type.tourism.artwork.painting" = "Նկար";
+"type.tourism.artwork.sculpture" = "Քանդակ";
+"type.tourism.artwork.statue" = "Արձան";
+"type.tourism.attraction" = "Տեսարժան վայր";
+"type.attraction.amusement_ride" = "Ատրակցիոն";
+"type.attraction.animal" = "Կենդանիների վանդակ";
+"type.attraction.bumper_car" = "Ավտոդրոմ";
+"type.attraction.big_wheel" = "Սատանայի անիվ";
+"type.attraction.carousel" = "Կարուսել";
+"type.attraction.historic" = "Պատմական վայր";
+"type.attraction.maze" = "Լաբիրինթոս";
+"type.attraction.roller_coaster" = "Ամերիկյան բլուրներ";
+"type.attraction.water_slide" = "Ջրային սահուղի";
+"type.tourism.attraction.specified" = "Տեսարժան վայր";
+"type.tourism.camp_site" = "Ճամբարային տեղ";
+"type.tourism.caravan_site" = "Տնակ-ավտոմեքենաների կայանատեղի";
+
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Հանգստյան տնակ";
+"type.tourism.gallery" = "Արվեստի պատկերասրահ";
+"type.tourism.guest_house" = "Հյուրատուն";
+"type.tourism.hostel" = "Հոսթել";
+"type.tourism.hotel" = "Հյուրանոց";
+"type.tourism.information" = "Տեղեկատվություն զբոսաշրջիկների համար";
+"type.tourism.information.board" = "Տեղեկատվական վահանակ";
+"type.tourism.information.guidepost" = "Ուղեցույց սյուն";
+"type.tourism.information.map" = "Զբոսաշրջային քարտեզ";
+"type.tourism.information.office" = "Տուրիստական գրասենյակ";
+"type.tourism.information.visitor_centre" = "Այցելուների կենտրոն";
+"type.amenity.ranger_station" = "Ռեյնջերների կայան";
+"type.tourism.motel" = "Մոթել";
+"type.tourism.museum" = "Թանգարան";
+"type.tourism.picnic_site" = "Պիկնիկի վայր";
+"type.leisure.resort" = "Հանգստավայր";
+"type.tourism.theme_park" = "Թեմատիկ այգի";
+"type.tourism.viewpoint" = "Դիտակետ";
+
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
+"type.tourism.wilderness_hut" = "Վայրի բնության տնակ";
+"type.tourism.zoo" = "Կենդանաբանական այգի";
+"type.tourism.zoo.petting" = "Շփման կենդանաբանական այգի";
+"type.traffic_calming" = "Երթևեկության հանդարտեցում";
+"type.traffic_calming.bump" = "Արհեստական անհարթություն";
+"type.traffic_calming.hump" = "Արհեստական թմբիկ";
+"type.waterway" = "Ջրային ուղի";
+"type.waterway.canal" = "Ջրանցք";
+"type.waterway.canal.tunnel" = "Ջրանցքի թունել";
+"type.waterway.fish_pass" = "Ձկնանցարան";
+"type.waterway.dam" = "Ամբարտակ";
+"type.barrier.ditch" = "Խանդակ";
+"type.natural.water.ditch" = "Ցամաքուրդային առու";
+"type.waterway.ditch.tunnel" = "Ջրահեռացման խողովակ";
+"type.waterway.dock" = "Նավամատույց";
+"type.waterway.drain" = "Ջրահեռացման առու";
+"type.natural.water.drain" = "Ջրահեռացման առու";
+"type.waterway.drain.tunnel" = "Ջրահեռացման խողովակ";
+"type.waterway.lock_gate" = "Շլյուզի դարպաս";
+"type.waterway.river" = "Գետ";
+"type.waterway.river.tunnel" = "Գետ";
+"type.waterway.stream" = "Առու";
+"type.waterway.stream.ephemeral" = "Ժամանակավոր առու";
+"type.waterway.stream.intermittent" = "Ընդհատվող առու";
+"type.waterway.stream.tunnel" = "Առու";
+"type.waterway.waterfall" = "Ջրվեժ";
+"type.waterway.weir" = "Ջրթափ";
+"type.wheelchair" = "Հաշմանդամի սայլակ";
+"type.wheelchair.limited" = "Սահմանափակ հասանելիություն սայլակով";
+"type.wheelchair.no" = "Անհասանելի սայլակով";
+"type.wheelchair.yes" = "Լիովին հասանելի սայլակով";
+"type.aerialway.j.bar" = "J-աձև վերելակ";
+"type.aerialway.magic_carpet" = "Ժապավենավոր վերելակ";
+"type.aerialway.platter" = "Տարելկաձև վերելակ";
+"type.aerialway.rope_tow" = "Ճոպանավոր քարշակ";
+"type.aerialway.t.bar" = "T-աձև վերելակ";
+"type.piste_type.downhill" = "Լեռնադահուկային ուղի";
+"type.piste_type.downhill.area" = "Լեռնադահուկային ուղի";
+"type.piste_type.downhill.advanced" = "Բարդ լեռնադահուկային ուղի";
+"type.piste_type.downhill.advanced.area" = "Բարդ լեռնադահուկային ուղի";
+"type.piste_type.downhill.easy" = "Հեշտ լեռնադահուկային ուղի";
+"type.piste_type.downhill.easy.area" = "Հեշտ լեռնադահուկային ուղի";
+"type.piste_type.downhill.expert" = "Շատ բարդ լեռնադահուկային ուղի";
+"type.piste_type.downhill.expert.area" = "Շատ բարդ լեռնադահուկային ուղի";
+"type.piste_type.downhill.freeride" = "Ֆրիրայդ լեռնադահուկային ուղի";
+"type.piste_type.downhill.intermediate" = "Միջին բարդության լեռնադահուկային ուղի";
+"type.piste_type.downhill.intermediate.area" = "Միջին բարդության լեռնադահուկային ուղի";
+"type.piste_type.downhill.novice" = "Սկսնակների լեռնադահուկային ուղի";
+"type.piste_type.downhill.novice.area" = "Սկսնակների լեռնադահուկային ուղի";
+"type.piste_type.nordic" = "Դահուկավազքի ուղի";
+"type.piste_type.sled" = "Սահնակների ուղի";
+"type.piste_type.sled.area" = "Սահնակների ուղի";
+"type.piste_type.snow_park" = "Սնոու պարկ";
+"type.piste_type.hike" = "Ձմեռային քայլարշավի արահետ";
+"type.piste_type.connection" = "Ուղիների կապ";
+"type.piste_type.skitour" = "Սկիտուրի երթուղի";
+"type.amenity.events_venue" = "Միջոցառումների վայր";
+"type.shop.auction" = "Աճուրդ";
+"type.shop.collector" = "Հավաքածուների խանութ";
+"type.self_service.yes" = "Առկա է ինքնասպասարկում";
+"type.self_service.only" = "Միայն ինքնասպասարկում";
+"type.self_service.partially" = "Մասնակի ինքնասպասարկում";
+"type.self_service.no" = "Ինքնասպասարկում չկա";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "Սոցիալական հաստատություն";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
+"type.emergency.emergency_ward_entrance" = "Շտապօգնության բաժանմունքի մուտք";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Դոջո";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Սպորտային դահլիճ";
+"type.sport.diving" = "Դայվինգ";
+"type.man_made.crane" = "Ամբարձիչ կռունկ";
+"type.barrier.wicket_gate" = "Դռնակ";
+"type.barrier.yes" = "Արգելապատնեշ";
+"type.building.guardhouse" = "Պահակ";
+"type.office.security" = "Անվտանգության գրասենյակ";
+"type.power.portal" = "Էլեկտրահաղորդման աշտարակ (Պորտալ)";
+"type.shop.lighting" = "Լուսավորության խանութ";
+"type.barrier.jersey_barrier" = "Բետոնե արգելափակոց";
+"type.barrier.debris" = "Փլատակներ";
+"type.barrier.log" = "Գերաններից արգելափակոց";
+"type.amenity.boat_rental" = "Նավակների վարձույթ";
+"type.shop.telecommunication" = "Հեռահաղորդակցության խանութ";
+"type.leisure.indoor_play" = "Խաղային կենտրոն";
+"type.tourism.camp_pitch" = "Վրանային տեղ";
+"type.railway.miniature" = "Մանրակերտ երկաթուղի";
+"type.amenity.kneipp_water_cure" = "Կնեյպի ջրաբուժություն";
+"type.area_highway.traffic_island" = "Անվտանգության կղզյակ";
+"type.man_made.monitoring_station" = "Մոնիտորինգի կայան";
+"type.man_made.monitoring_station.water_level" = "Ջրի մակարդակի մոնիտորինգի կայան";
+"type.man_made.monitoring_station.weather" = "Եղանակի մոնիտորինգի կայան";
+"type.amenity.student_accommodation" = "Ուսանողական հանրակացարան";
+"type.craft.watchmaker" = "Ժամագործ";
+"type.xmas_feature.market" = "Սուրբ Ծննդյան տոնավաճառ";
+"type.xmas_feature.tree" = "Տոնածառ";

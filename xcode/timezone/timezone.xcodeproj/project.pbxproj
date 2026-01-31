@@ -7,20 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		16CDB3F62F15B0870040FC4F /* serdes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 16CDB3F22F15B0870040FC4F /* serdes.hpp */; };
-		16CDB3F72F15B0870040FC4F /* timezone.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 16CDB3F42F15B0870040FC4F /* timezone.hpp */; };
-		16CDB3F82F15B0870040FC4F /* timezone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16CDB3F52F15B0870040FC4F /* timezone.cpp */; };
-		16CDB3F92F15B0870040FC4F /* serdes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16CDB3F32F15B0870040FC4F /* serdes.cpp */; };
+		FA818F672F2ABCD200F6C3EF /* timezone.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FA818F642F2ABCD200F6C3EF /* timezone.hpp */; };
+		FA818F682F2ABCD200F6C3EF /* serdes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FA818F622F2ABCD200F6C3EF /* serdes.hpp */; };
+		FA818F6A2F2ABCD200F6C3EF /* timezone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA818F652F2ABCD200F6C3EF /* timezone.cpp */; };
+		FA818F6E2F2ABCD200F6C3EF /* serdes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA818F632F2ABCD200F6C3EF /* serdes.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		16CDB3D02F15AF850040FC4F /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = SOURCE_ROOT; };
 		16CDB3D12F15AF850040FC4F /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = SOURCE_ROOT; };
 		16CDB3DC2F15AFEA0040FC4F /* libtimezone.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtimezone.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		16CDB3F22F15B0870040FC4F /* serdes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = serdes.hpp; path = ../../libs/timezone/serdes.hpp; sourceTree = SOURCE_ROOT; };
-		16CDB3F32F15B0870040FC4F /* serdes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = serdes.cpp; path = ../../libs/timezone/serdes.cpp; sourceTree = SOURCE_ROOT; };
-		16CDB3F42F15B0870040FC4F /* timezone.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = timezone.hpp; path = ../../libs/timezone/timezone.hpp; sourceTree = SOURCE_ROOT; };
-		16CDB3F52F15B0870040FC4F /* timezone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = timezone.cpp; path = ../../libs/timezone/timezone.cpp; sourceTree = SOURCE_ROOT; };
+		FA818F622F2ABCD200F6C3EF /* serdes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = serdes.hpp; sourceTree = "<group>"; };
+		FA818F632F2ABCD200F6C3EF /* serdes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = serdes.cpp; sourceTree = "<group>"; };
+		FA818F642F2ABCD200F6C3EF /* timezone.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = timezone.hpp; sourceTree = "<group>"; };
+		FA818F652F2ABCD200F6C3EF /* timezone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = timezone.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,7 +37,7 @@
 		16CDB3B62F15AEF90040FC4F = {
 			isa = PBXGroup;
 			children = (
-				16CDB3F12F15B06E0040FC4F /* timezone */,
+				FA818F662F2ABCD200F6C3EF /* timezone */,
 				16CDB3D02F15AF850040FC4F /* common-debug.xcconfig */,
 				16CDB3D12F15AF850040FC4F /* common-release.xcconfig */,
 				16CDB3C02F15AEF90040FC4F /* Products */,
@@ -52,16 +52,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		16CDB3F12F15B06E0040FC4F /* timezone */ = {
+		FA818F662F2ABCD200F6C3EF /* timezone */ = {
 			isa = PBXGroup;
 			children = (
-				16CDB3F22F15B0870040FC4F /* serdes.hpp */,
-				16CDB3F32F15B0870040FC4F /* serdes.cpp */,
-				16CDB3F42F15B0870040FC4F /* timezone.hpp */,
-				16CDB3F52F15B0870040FC4F /* timezone.cpp */,
+				FA818F622F2ABCD200F6C3EF /* serdes.hpp */,
+				FA818F632F2ABCD200F6C3EF /* serdes.cpp */,
+				FA818F642F2ABCD200F6C3EF /* timezone.hpp */,
+				FA818F652F2ABCD200F6C3EF /* timezone.cpp */,
 			);
-			path = timezone;
-			sourceTree = "<group>";
+			name = timezone;
+			path = ../../libs/timezone;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -70,8 +71,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16CDB3F62F15B0870040FC4F /* serdes.hpp in Headers */,
-				16CDB3F72F15B0870040FC4F /* timezone.hpp in Headers */,
+				FA818F672F2ABCD200F6C3EF /* timezone.hpp in Headers */,
+				FA818F682F2ABCD200F6C3EF /* serdes.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,8 +137,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16CDB3F82F15B0870040FC4F /* timezone.cpp in Sources */,
-				16CDB3F92F15B0870040FC4F /* serdes.cpp in Sources */,
+				FA818F6A2F2ABCD200F6C3EF /* timezone.cpp in Sources */,
+				FA818F6E2F2ABCD200F6C3EF /* serdes.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,27 +162,16 @@
 		16CDB3E42F15AFEA0040FC4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9Z6432XD7L;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		16CDB3E52F15AFEA0040FC4F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9Z6432XD7L;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};

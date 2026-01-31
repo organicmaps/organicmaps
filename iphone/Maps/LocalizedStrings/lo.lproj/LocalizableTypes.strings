@@ -1,0 +1,1574 @@
+
+
+/********** Types **********/
+
+"type.addr_interpolation" = "ທີ່ຢູ່/ບລັອກ";
+"type.addr_interpolation.even" = "ທີ່ຢູ່/ບລັອກ";
+"type.addr_interpolation.odd" = "ທີ່ຢູ່/ບລັອກ";
+"type.aerialway" = "ທາງສາຍເຄເບິນ";
+"type.aerialway.cable_car" = "ກະເຊົ້າໄຟຟ້າ";
+"type.aerialway.chair_lift" = "ກະເຊົ້າບ່ອນນັ່ງ";
+"type.aerialway.drag_lift" = "ກະເຊົ້າລາກ";
+"type.aerialway.gondola" = "ກະເຊົ້າກົງໂດລາ";
+"type.aerialway.mixed_lift" = "ກະເຊົ້າແບບປະສົມ";
+"type.aerialway.station" = "ສະຖານີກະເຊົ້າ";
+"type.aeroway" = "ພື້ນຖານໂຄງລ່າງການບິນ";
+"type.aeroway.aerodrome" = "ສະໜາມບິນ";
+"type.aeroway.aerodrome.international" = "ສະໜາມບິນສາກົນ";
+"type.aeroway.apron" = "ລານຈອດເຮືອບິນ";
+"type.aeroway.gate" = "ປະຕູຂຶ້ນເຄື່ອງ";
+"type.aeroway.helipad" = "ບ່ອນຈອດເຮືອບິນເຮລີກົບແຕ";
+"type.aeroway.runway" = "ທາງແລ່ນເຮືອບິນ";
+"type.aeroway.taxiway" = "ທາງຂັບເຮືອບິນ";
+"type.aeroway.terminal" = "ອາຄານຜູ້ໂດຍສານ";
+"type.amenity" = "ສິ່ງອຳນວຍຄວາມສະດວກ";
+"type.amenity.arts_centre" = "ສູນສິລະປະ";
+"type.amenity.atm" = "ຕູ້ເອທີເອັມ (ATM)";
+"type.amenity.bank" = "ທະນາຄານ";
+"type.amenity.bar" = "ບາ";
+"type.amenity.bbq" = "ບ່ອນປີ້ງບາບີຄິວ";
+"type.amenity.bench" = "ມ້ານັ່ງ";
+"type.amenity.bicycle_parking" = "ບ່ອນຈອດລົດຖີບ";
+"type.amenity.bicycle_parking.covered" = "ບ່ອນຈອດລົດຖີບແບບມີຫຼັງຄາ";
+"type.amenity.bicycle_rental" = "ບ່ອນເຊົ່າລົດຖີບ";
+"type.amenity.bicycle_repair_station" = "ສະຖານີສ້ອມແປງລົດຖີບ";
+"type.amenity.biergarten" = "ສວນເບຍ";
+"type.amenity.brothel" = "ຊ່ອງ";
+"type.amenity.love_hotel" = "ໂຮງແຮມຊົ່ວຄາວ";
+"type.amenity.bureau_de_change" = "ບ່ອນແລກປ່ຽນເງິນຕາ";
+"type.amenity.bus_station" = "ສະຖານີລົດເມ";
+"type.amenity.cafe" = "ຮ້ານກາເຟ";
+"type.amenity.car_rental" = "ບ່ອນເຊົ່າລົດ";
+"type.amenity.motorcycle_rental" = "ບ່ອນເຊົ່າລົດຈັກ";
+"type.amenity.car_sharing" = "ການໃຊ້ລົດຮ່ວມກັນ";
+"type.amenity.car_wash" = "ບ່ອນລ້າງລົດ";
+"type.amenity.casino" = "ກາຊີໂນ";
+"type.amenity.gambling" = "ບ່ອນຫຼິ້ນການພະນັນ";
+"type.leisure.adult_gaming_centre" = "ສູນເກມສຳລັບຜູ້ໃຫຍ່";
+"type.leisure.amusement_arcade" = "ສູນເກມອາເຄດ";
+"type.amenity.charging_station" = "ສະຖານີຊາດໄຟ";
+"type.amenity.charging_station.bicycle" = "ສະຖານີຊາດໄຟລົດຖີບ";
+"type.amenity.charging_station.motorcar" = "ສະຖານີຊາດໄຟລົດ";
+"type.amenity.childcare" = "ບ່ອນລ້ຽງເດັກ";
+"type.amenity.cinema" = "ໂຮງຮູບເງົາ";
+"type.amenity.studio" = "ສະຕູດິໂອ";
+"type.leisure.bowling_alley" = "ລານໂບລິງ";
+"type.amenity.clinic" = "ຄລີນິກ";
+"type.amenity.college" = "ວິທະຍາໄລ";
+"type.amenity.community_centre" = "ສູນຊຸມຊົນ";
+"type.amenity.compressed_air" = "ບ່ອນເຕີມລົມ";
+"type.amenity.conference_centre" = "ສູນປະຊຸມ";
+"type.amenity.courthouse" = "ສານ";
+"type.amenity.dentist" = "ທັນຕະແພດ";
+"type.amenity.doctors" = "ທ່ານໝໍ";
+"type.amenity.drinking_water" = "ນໍ້າດື່ມ";
+"type.drinking_water.yes" = "ນໍ້າດື່ມ";
+"type.amenity.driving_school" = "ໂຮງຮຽນສອນຂັບລົດ";
+"type.amenity.exhibition_centre" = "ສູນວາງສະແດງ";
+"type.amenity.money_transfer" = "ບ່ອນໂອນເງິນ";
+"type.amenity.music_school" = "ໂຮງຮຽນດົນຕີ";
+"type.amenity.language_school" = "ໂຮງຮຽນສອນພາສາ";
+"type.office.diplomatic" = "ສະຖານທູດ";
+"type.amenity.fast_food" = "ອາຫານຈານດ່ວນ";
+"type.amenity.ferry_terminal" = "ທ່າເຮືອຂ້າມຟາກ";
+"type.amenity.fire_station" = "ສະຖານີດັບເພີງ";
+"type.amenity.food_court" = "ສູນອາຫານ";
+"type.amenity.fountain" = "ນໍ້າພຸ";
+"type.amenity.fuel" = "ປໍ້ານໍ້າມັນ";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard" = "ປ່າຊ້າ";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard.christian" = "ປ່າຊ້າຄຣິດສະຕຽນ";
+"type.amenity.hospital" = "ໂຮງໝໍ";
+"type.amenity.hunting_stand" = "ຫໍຊ່ອງສັດ";
+"type.amenity.ice_cream" = "ຮ້ານກະແລັມ";
+"type.amenity.internet_cafe" = "ຮ້ານອິນເຕີເນັດ";
+"type.amenity.kindergarten" = "ໂຮງຮຽນອະນຸບານ";
+"type.amenity.library" = "ຫໍສະໝຸດ";
+"type.amenity.loading_dock" = "ທ່າຂຶ້ນສິນຄ້າ";
+"type.amenity.luggage_locker" = "ຕູ້ຝາກເຄື່ອງ";
+"type.amenity.marketplace" = "ຕະຫຼາດ";
+"type.amenity.motorcycle_parking" = "ບ່ອນຈອດລົດຈັກ";
+"type.amenity.nightclub" = "ໄນຄັບ";
+"type.amenity.nursing_home" = "ສະຖານສົງເຄາະຄົນຊະລາ";
+"type.amenity.parking" = "ບ່ອນຈອດລົດ";
+"type.amenity.parking.fee" = "ບ່ອນຈອດລົດ (ເສຍຄ່າ)";
+"type.amenity.parking.multi.storey" = "ອາຄານຈອດລົດຫຼາຍຊັ້ນ";
+"type.amenity.parking.multi.storey.fee" = "ອາຄານຈອດລົດຫຼາຍຊັ້ນ";
+"type.amenity.parking.no.access" = "ບ່ອນຈອດລົດສ່ວນຕົວ";
+"type.amenity.parking.permissive" = "ບ່ອນຈອດລົດສ່ວນຕົວ";
+"type.amenity.parking.private" = "ບ່ອນຈອດລົດສ່ວນຕົວ";
+"type.amenity.parking.park_and_ride" = "ບ່ອນຈອດແລ້ວຕໍ່ລົດໂດຍສານ";
+"type.amenity.parking.underground" = "ບ່ອນຈອດລົດໃຕ້ດິນ";
+"type.amenity.parking.underground.fee" = "ບ່ອນຈອດລົດໃຕ້ດິນ";
+"type.amenity.parking.underground.private" = "ບ່ອນຈອດລົດໃຕ້ດິນສ່ວນຕົວ";
+"type.amenity.parking.street_side" = "ບ່ອນຈອດລົດແຄມທາງ";
+"type.amenity.parking.street_side.fee" = "ບ່ອນຈອດລົດແຄມທາງ";
+"type.amenity.parking.street_side.private" = "ບ່ອນຈອດລົດແຄມທາງສ່ວນຕົວ";
+"type.amenity.parking.lane" = "ບ່ອນຈອດລົດຕາມເລນ";
+"type.amenity.parking.lane.fee" = "ບ່ອນຈອດລົດຕາມເລນ";
+"type.amenity.parking.lane.private" = "ບ່ອນຈອດລົດຕາມເລນສ່ວນຕົວ";
+"type.amenity.parking_entrance" = "ທາງເຂົ້າບ່ອນຈອດລົດ";
+"type.amenity.parking_entrance.private" = "ທາງເຂົ້າບ່ອນຈອດລົດສ່ວນຕົວ";
+"type.amenity.parking_entrance.permissive" = "ທາງເຂົ້າບ່ອນຈອດລົດ";
+"type.amenity.parking_space" = "ຊ່ອງຈອດລົດ";
+"type.amenity.parking_space.permissive" = "ຊ່ອງຈອດລົດ";
+"type.amenity.parking_space.private" = "ຊ່ອງຈອດລົດ";
+"type.amenity.parking_space.underground" = "ຊ່ອງຈອດລົດໃຕ້ດິນ";
+"type.amenity.parking_space.disabled" = "ຊ່ອງຈອດລົດຄົນພິການ";
+"type.amenity.payment_terminal" = "ຕູ້ຊຳລະເງິນ";
+"type.amenity.pharmacy" = "ຮ້ານຂາຍຢາ";
+"type.amenity.place_of_worship" = "ສະຖານທີ່ສັກກາລະບູຊາ";
+"type.amenity.place_of_worship.buddhist" = "ວັດ";
+"type.amenity.place_of_worship.christian" = "ໂບດຄຣິດ";
+"type.amenity.place_of_worship.christian.mormon" = "ໂບດພະເຢຊູຄຣິດແຫ່ງໄພ່ພົນຍຸກສຸດທ້າຍ";
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "ຫໍປະຊຸມພະຍານພະເຢໂຮວາ";
+"type.amenity.place_of_worship.hindu" = "ວັດຮິນດູ";
+"type.amenity.place_of_worship.jewish" = "ທຳມະສາລາ";
+"type.amenity.place_of_worship.muslim" = "ສຸເຫຼົ່າ";
+"type.amenity.place_of_worship.shinto" = "ສານເຈົ້າຊິນໂຕ";
+"type.amenity.place_of_worship.taoist" = "ວັດເຕົ໋າ";
+"type.amenity.police" = "ຕຳຫຼວດ";
+"type.amenity.post_box" = "ຕູ້ໄປສະນີ";
+"type.amenity.post_office" = "ໄປສະນີ";
+"type.post_office.post_partner" = "ຕົວແທນໄປສະນີ";
+"type.amenity.prison" = "ຄຸກ";
+"type.amenity.pub" = "ຜັບ";
+"type.amenity.public_bookcase" = "ຈຸດແລກປ່ຽນປຶ້ມ";
+
+
+/********** Types: Recycling **********/
+
+"type.amenity.recycling.centre" = "ສູນຂີ້ເຫຍື້ອໝູນວຽນ";
+"type.amenity.recycling" = "ຖັງຂີ້ເຫຍື້ອແຍກປະເພດ";
+"type.amenity.recycling.container" = "ຖັງຂີ້ເຫຍື້ອແຍກປະເພດ";
+"type.recycling.batteries" = "ໝໍ້ໄຟ/ຖ່ານ";
+"type.recycling.clothes" = "ເຄື່ອງນຸ່ງ";
+"type.recycling.glass_bottles" = "ຕຸກແກ້ວ";
+"type.recycling.paper" = "ເຈ້ຍ";
+"type.recycling.plastic" = "ຢາງ";
+"type.recycling.plastic_bottles" = "ຕຸກຢາງ";
+"type.recycling.scrap_metal" = "ເສດເຫຼັກ";
+"type.recycling.small_appliances" = "ຂີ້ເຫຍື້ອອິດເລັກທຣອນິກ";
+"type.recycling.cardboard" = "ເຈ້ຍລັງ";
+"type.recycling.cans" = "ກະປ໋ອງ";
+"type.recycling.shoes" = "ເກີບ";
+"type.recycling.green_waste" = "ຂີ້ເຫຍື້ອຊີວະພາບ";
+"type.recycling.cartons" = "ກ່ອງເຈ້ຍ";
+"type.amenity.restaurant" = "ຮ້ານອາຫານ";
+"type.amenity.sanitary_dump_station" = "ຈຸດຖິ້ມສິ່ງປະຕິກູນ";
+"type.amenity.school" = "ໂຮງຮຽນ";
+
+/* Weather shelter (including sun shelters and natural rock shelters). */
+"type.amenity.shelter" = "ບ່ອນພັກເຊົາ";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "ບ່ອນພັກລົດໂດຍສານ";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "ຕູບພັກ";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "ຕູບພັກແບບມີເພີງ";
+"type.amenity.public_bath" = "ບ່ອນອາບນໍ້າສາທາລະນະ";
+"type.amenity.shower" = "ຫ້ອງອາບນໍ້າ";
+"type.amenity.stripclub" = "ສະຕິບຄັບ";
+"type.amenity.taxi" = "ບ່ອນຈອດລົດແທັກຊີ";
+"type.amenity.telephone" = "ໂທລະສັບ";
+"type.amenity.theatre" = "ໂຮງລະຄອນ";
+"type.amenity.toilets" = "ຫ້ອງນໍ້າ";
+"type.toilets.yes" = "ຫ້ອງນໍ້າ";
+"type.amenity.townhall" = "ຫ້ອງວ່າການເມືອງ";
+"type.amenity.university" = "ມະຫາວິທະຍາໄລ";
+"type.amenity.vending_machine" = "ຕູ້ຂາຍເຄື່ອງອັດຕະໂນມັດ";
+"type.amenity.vending_machine.cigarettes" = "ຕູ້ຂາຍຢາສູບ";
+"type.amenity.vending_machine.coffee" = "ຕູ້ຂາຍກາເຟ";
+"type.amenity.vending_machine.condoms" = "ຕູ້ຂາຍຖົງຢາງອະນາໄມ";
+"type.amenity.vending_machine.drinks" = "ຕູ້ຂາຍເຄື່ອງດື່ມ";
+"type.amenity.vending_machine.food" = "ຕູ້ຂາຍອາຫານ";
+"type.amenity.vending_machine.newspapers" = "ຕູ້ຂາຍໜັງສືພິມ";
+"type.amenity.vending_machine.parking_tickets" = "ຕູ້ເກັບຄ່າຈອດລົດ";
+"type.amenity.vending_machine.public_transport_tickets" = "ຕູ້ຂາຍປີ້";
+"type.amenity.vending_machine.sweets" = "ຕູ້ຂາຍເຂົ້າໜົມ";
+"type.amenity.vending_machine.excrement_bags" = "ຕູ້ແຈກຢາຍຖົງໃສ່ສິ່ງຂັບຖ່າຍສັດ";
+"type.amenity.parcel_locker" = "ຕູ້ຮັບຝາກພັດສະດຸ";
+"type.amenity.vehicle_inspection" = "ບ່ອນກວດສະພາບລົດ";
+"type.amenity.vending_machine.fuel" = "ຕູ້ເຕີມນໍ້າມັນອັດຕະໂນມັດ";
+"type.amenity.veterinary" = "ສັດຕະວະແພດ";
+"type.amenity.waste_basket" = "ຖັງຂີ້ເຫຍື້ອ";
+"type.amenity.waste_disposal" = "ຈຸດຖິ້ມຂີ້ເຫຍື້ອໃຫຍ່";
+"type.amenity.waste_transfer_station" = "ສະຖານີພັກຂີ້ເຫຍື້ອ";
+"type.amenity.water_point" = "ຈຸດເຕີມນໍ້າ";
+"type.amenity.water_point.drinking_water_no" = "ຈຸດເຕີມນໍ້າ";
+"type.barrier" = "ສິ່ງກີດຂວາງ";
+"type.barrier.block" = "ແທ່ງກີດຂວາງ";
+"type.barrier.bollard" = "ເສົາກີດຂວາງ";
+"type.barrier.border_control" = "ດ່ານກວດຄົນເຂົ້າເມືອງ";
+"type.barrier.chain" = "ໂສ້ກັ້ນ";
+"type.barrier.city_wall" = "ກຳແພງເມືອງ";
+"type.barrier.cycle_barrier" = "ສິ່ງກີດຂວາງລົດຖີບ";
+"type.waterway.ditch" = "ຮ່ອງລະບາຍນໍ້າ";
+"type.natural.water.moat" = "ຄູນໍ້າ";
+"type.natural.water.wastewater" = "ນໍ້າເສຍ";
+"type.barrier.entrance" = "ທາງເຂົ້າ";
+"type.barrier.fence" = "ຮົ້ວ";
+"type.barrier.guard_rail" = "ຮົ້ວກັ້ນທາງ";
+"type.barrier.gate" = "ປະຕູຮົ້ວ";
+"type.barrier.hedge" = "ຮົ້ວຕົ້ນໄມ້";
+"type.barrier.kissing_gate" = "ປະຕູໝູນແບບຄົນຍ່າງ";
+"type.barrier.lift_gate" = "ໄມ້ກັ້ນຍົກ";
+"type.barrier.retaining_wall" = "ກຳແພງກັ້ນດິນ";
+"type.barrier.stile" = "ຂັ້ນໄດຂ້າມຮົ້ວ";
+"type.barrier.turnstile" = "ປະຕູໝູນ";
+"type.barrier.swing_gate" = "ປະຕູເປີດໄກວ";
+"type.barrier.toll_booth" = "ດ່ານເກັບຄ່າຜ່ານທາງ";
+"type.barrier.wall" = "ກຳແພງ";
+"type.boundary" = "ຂອບເຂດ";
+"type.boundary.administrative" = "ຂອບເຂດການປົກຄອງ";
+
+/* Borders between countries. */
+"type.boundary.administrative.2" = "ຊາຍແດນປະເທດ";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "ຂອບເຂດພາກ";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "ຂອບເຂດແຂວງ";
+"type.boundary.national_park" = "ອຸທິຍານແຫ່ງຊາດ";
+"type.boundary.aboriginal_lands" = "ດິນແດນຊົນເຜົ່າ";
+"type.boundary.protected_area" = "ເຂດສະຫງວນ";
+"type.boundary.protected_area.1" = "ເຂດສະຫງວນ";
+"type.boundary.protected_area.2" = "ເຂດສະຫງວນ";
+"type.boundary.protected_area.3" = "ເຂດສະຫງວນ";
+"type.boundary.protected_area.4" = "ເຂດສະຫງວນ";
+"type.boundary.protected_area.5" = "ເຂດສະຫງວນ";
+"type.boundary.protected_area.6" = "ເຂດສະຫງວນ";
+"type.building" = "ອາຄານ";
+
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "ທີ່ຢູ່";
+"type.building.has_parts" = "ອາຄານ";
+"type.building_part" = "ອາຄານ";
+"type.building.garage" = "ໂຮງລົດ";
+"type.building.train_station" = "ອາຄານສະຖານີ";
+"type.building.warehouse" = "ສາງສິນຄ້າ";
+"type.cemetery.grave" = "ຂຸມຝັງສົບ";
+"type.craft" = "ງານຝີມື";
+"type.craft.beekeeper" = "ຄົນລ້ຽງເຜິ້ງ";
+"type.craft.blacksmith" = "ຊ່າງຕີເຫຼັກ";
+"type.craft.brewery" = "ໂຮງຕົ້ມເບຍຫັດຖະກຳ";
+"type.craft.caterer" = "ຜູ້ຈັດລ້ຽງ";
+"type.craft.carpenter" = "ຊ່າງໄມ້";
+"type.craft.confectionery" = "ຊ່າງເຮັດເຂົ້າໜົມ";
+"type.craft.electrician" = "ຊ່າງໄຟຟ້າ";
+"type.craft.electronics_repair" = "ຮ້ານສ້ອມແປງອິດເລັກທຣອນິກ";
+"type.craft.gardener" = "ຄົນສວນ";
+"type.craft.grinding_mill" = "ໂຮງໂມ້";
+"type.craft.handicraft" = "ຫັດຖະກຳ";
+
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "ຊ່າງແອ/ລະບົບລະບາຍອາກາດ";
+"type.craft.key_cutter" = "ຊ່າງປ້ຳລູກກະແຈ";
+"type.craft.locksmith" = "ຊ່າງກະແຈ";
+"type.craft.metal_construction" = "ຊ່າງເຫຼັກ";
+"type.craft.painter" = "ຊ່າງທາສີ";
+"type.craft.photographer" = "ຊ່າງພາບ";
+"type.shop.camera" = "ຮ້ານຂາຍກ້ອງ";
+"type.craft.plumber" = "ຊ່າງປາປາ";
+"type.craft.sawmill" = "ໂຮງເລື່ອຍ";
+"type.craft.shoemaker" = "ຊ່າງສ້ອມເກີບ";
+"type.craft.winery" = "ໂຮງບົ່ມເຫຼົ້າແວງ";
+"type.craft.tailor" = "ຊ່າງຕັດຫຍິບ";
+"type.cuisine.african" = "ອາຟຣິກາ";
+"type.cuisine.american" = "ອາເມຣິກາ";
+"type.cuisine.arab" = "ອາຣັບ";
+"type.cuisine.argentinian" = "ອາເຈນຕິນາ";
+"type.cuisine.asian" = "ອາຊີ";
+"type.cuisine.austrian" = "ໂອຕຣິດ";
+"type.cuisine.bagel" = "ເບເກິລ";
+"type.cuisine.balkan" = "ບານກັງ";
+"type.cuisine.barbecue" = "ບາບີຄິວ";
+"type.cuisine.bavarian" = "ບາວາເຣຍ";
+"type.cuisine.beef_bowl" = "ເຂົ້າໜ້າຊີ້ນງົວ";
+"type.cuisine.brazilian" = "ບຣາຊິນ";
+"type.cuisine.breakfast" = "ອາຫານເຊົ້າ";
+"type.cuisine.bubble_tea" = "ຊານົມໄຂ່ມຸກ";
+"type.cuisine.burger" = "ເບີເກີ";
+"type.cuisine.buschenschank" = "ຮ້ານເຫຼົ້າແວງບູເຊັນຊັງ";
+"type.cuisine.cake" = "ເຄັກ";
+"type.cuisine.caribbean" = "ຄາຣິບບຽນ";
+"type.cuisine.chicken" = "ເມນູໄກ່";
+"type.cuisine.chinese" = "ຈີນ";
+"type.cuisine.coffee_shop" = "ກາເຟ";
+"type.cuisine.crepe" = "ເຄຣັບ";
+"type.cuisine.croatian" = "ໂຄຣເອເຊຍ";
+"type.cuisine.curry" = "ແກງກະຫຼີ່";
+"type.cuisine.deli" = "ອາຫານສຳເລັດຮູບ";
+"type.cuisine.diner" = "ຮ້ານອາຫານຂ້າງທາງ";
+"type.cuisine.donut" = "ໂດນັດ";
+"type.cuisine.ethiopian" = "ເອທິໂອປີ";
+"type.cuisine.filipino" = "ຟີລິບປິນ";
+"type.cuisine.fine_dining" = "ອາຫານຊັ້ນເລີດ";
+"type.cuisine.fish" = "ເມນູປາ";
+"type.cuisine.fish_and_chips" = "ປາຈືນ ແລະ ມັນຝະລັ່ງ";
+"type.cuisine.french" = "ຝຣັ່ງ";
+"type.cuisine.friture" = "ອາຫານຈືນ";
+"type.cuisine.georgian" = "ຈໍເຈຍ";
+"type.cuisine.german" = "ເຢຍລະມັນ";
+"type.cuisine.greek" = "ເກຣັກ";
+"type.cuisine.grill" = "ປີ້ງ/ຢ້າງ";
+"type.cuisine.heuriger" = "ຮ້ານເຫຼົ້າແວງເຮີຣິເກີ";
+"type.cuisine.hotdog" = "ຮັອດດັອກ";
+"type.cuisine.hungarian" = "ຮັງກາຣີ";
+"type.cuisine.ice_cream" = "ກະແລັມ";
+"type.cuisine.indian" = "ອິນເດຍ";
+"type.cuisine.indonesian" = "ອິນໂດເນເຊຍ";
+"type.cuisine.international" = "ນານາຊາດ";
+"type.cuisine.irish" = "ໄອຣິສ";
+"type.cuisine.italian" = "ອິຕາລີ";
+"type.cuisine.italian_pizza" = "ອິຕາລີ, ພິດຊ່າ";
+"type.cuisine.japanese" = "ຍີ່ປຸ່ນ";
+"type.cuisine.kebab" = "ເຄບັບ";
+"type.cuisine.korean" = "ເກົາຫຼີ";
+"type.cuisine.lao" = "ລາວ";
+"type.cuisine.lebanese" = "ເລບານອນ";
+"type.cuisine.local" = "ພື້ນເມືອງ";
+"type.cuisine.malagasy" = "ມາດາກາສະກາ";
+"type.cuisine.malaysian" = "ມາເລເຊຍ";
+"type.cuisine.mediterranean" = "ເມດິເຕີເຣນຽນ";
+"type.cuisine.mexican" = "ເມັກຊິໂກ";
+"type.cuisine.moroccan" = "ໂມຣັອກໂກ";
+"type.cuisine.noodles" = "ເຝີ/ໝີ່";
+"type.cuisine.oriental" = "ອາຊີຕາເວັນອອກ";
+"type.cuisine.pancake" = "ແພນເຄັກ";
+"type.cuisine.pasta" = "ພັດສະຕ້າ";
+"type.cuisine.persian" = "ເປີເຊຍ";
+"type.cuisine.peruvian" = "ເປຣູ";
+"type.cuisine.pizza" = "ພິດຊ່າ";
+"type.cuisine.polish" = "ໂປໂລຍ";
+"type.cuisine.portuguese" = "ປອກຕຸຍການ";
+"type.cuisine.ramen" = "ຣາເມັງ";
+"type.cuisine.regional" = "ຕາມພາກພື້ນ";
+"type.cuisine.russian" = "ຣັດເຊຍ";
+"type.cuisine.sandwich" = "ແຊນວິດ";
+"type.cuisine.sausage" = "ໄສ້ກອກ";
+"type.cuisine.savory_pancakes" = "ແພນເຄັກຄາວ";
+"type.cuisine.seafood" = "ອາຫານທະເລ";
+"type.cuisine.soba" = "ໂຊບະ";
+"type.cuisine.spanish" = "ສະເປນ";
+"type.cuisine.steak_house" = "ຮ້ານສະເຕັກ";
+"type.cuisine.sushi" = "ຊູຊິ";
+"type.cuisine.tapas" = "ທາປັສ";
+"type.cuisine.tea" = "ຊາ";
+"type.cuisine.thai" = "ໄທ";
+"type.cuisine.turkish" = "ຕວກກີ";
+"type.cuisine.vegan" = "ວີແກນ";
+"type.cuisine.vegetarian" = "ອາຫານມັງສະວິລັດ";
+"type.cuisine.vietnamese" = "ຫວຽດນາມ";
+"type.emergency" = "ສຸກເສີນ";
+"type.emergency.assembly_point" = "ຈຸດລວມພົນສຸກເສີນ";
+"type.emergency.defibrillator" = "ເຄື່ອງກະຕຸ້ນຫົວໃຈ";
+"type.emergency.fire_hydrant" = "ກ໊ອກນໍ້າດັບເພີງ";
+"type.emergency.phone" = "ໂທລະສັບສຸກເສີນ";
+
+/* A place where a lifeguard is on duty. */
+"type.emergency.lifeguard" = "ໜ່ວຍກູ້ໄພທາງນໍ້າ";
+
+/* A mountain rescue base for search and rescue activities. */
+"type.emergency.mountain_rescue" = "ສະຖານີກູ້ໄພພູເຂົາ";
+
+/* This is for secondary entrances, for main entrances see type.entrance.main */
+"type.entrance" = "ທາງເຂົ້າ";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "ທາງເຂົ້າຫຼັກ";
+"type.entrance.exit" = "ທາງອອກ";
+"type.fee.yes" = "ເສຍຄ່າບໍລິການ";
+"type.fee.no" = "ຟຣີ";
+"type.healthcare.laboratory" = "ຫ້ອງທົດລອງທາງການແພດ";
+"type.healthcare.physiotherapist" = "ນັກກາຍະພາບບບຳບັດ";
+"type.healthcare.alternative" = "ການແພດທາງເລືອກ";
+"type.healthcare.audiologist" = "ຜູ້ຊ່ຽວຊານດ້ານການໄດ້ຍິນ";
+"type.healthcare.blood_donation" = "ສູນບໍລິຈາກເລືອດ";
+"type.healthcare.optometrist" = "ນັກວັດແທກສາຍຕາ";
+"type.healthcare.podiatrist" = "ໝໍປິ່ນປົວຕີນ";
+"type.healthcare.psychotherapist" = "ນັກຈິດຕະບຳບັດ";
+"type.healthcare.sample_collection" = "ສູນເກັບຕົວຢ່າງກວດ";
+"type.healthcare.speech_therapist" = "ການຝຶກເວົ້າ";
+
+
+/********** Types: Roads **********/
+
+"type.highway" = "ເສັ້ນທາງ";
+"type.highway.bridleway" = "ທາງມ້າ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "ຂົວ";
+"type.highway.bridleway.permissive" = "ທາງມ້າ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "ອຸມົງ";
+"type.highway.busway" = "ທາງສະເພາະລົດເມ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "ຂົວ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "ອຸມົງ";
+"type.highway.bus_stop" = "ບ່ອນຈອດລົດເມ";
+"type.highway.construction" = "ທາງກຳລັງກໍ່ສ້າງ";
+"type.highway.cycleway" = "ທາງລົດຖີບ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "ຂົວ";
+"type.highway.cycleway.permissive" = "ທາງລົດຖີບ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "ອຸມົງ";
+"type.highway.elevator" = "ລິບ";
+"type.highway.footway" = "ທາງຍ່າງ";
+"type.highway.footway.sidewalk" = "ທາງຍ່າງແຄມທາງ";
+"type.highway.footway.crossing" = "ທາງມ້າລາຍ";
+"type.highway.footway.area" = "ເຂດທາງຍ່າງ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "ຂົວຄົນຍ່າງ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "ອຸມົງຄົນຍ່າງ";
+"type.highway.ford" = "ທາງນໍ້າໄຫຼຜ່ານ";
+"type.highway.living_street" = "ຖະໜົນຊຸມຊົນ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "ຂົວ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "ອຸມົງ";
+"type.highway.motorway" = "ທາງດ່ວນ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "ຂົວທາງດ່ວນ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "ອຸມົງທາງດ່ວນ";
+"type.highway.motorway_junction" = "ທາງອອກ";
+"type.highway.motorway_link" = "ທາງເຊື່ອມທາງດ່ວນ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "ຂົວ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "ອຸມົງ";
+"type.highway.path" = "ທາງຍ່າງຂະໜາດນ້ອຍ";
+
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "ທາງຍ່າງທີ່ຍາກ ຫຼື ບໍ່ຊັດເຈນ";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "ທາງຍ່າງສຳລັບຜູ້ຊ່ຽວຊານ";
+"type.highway.path.bicycle" = "ທາງລົດຖີບ ແລະ ທາງຍ່າງ";
+"type.highway.footway.bicycle" = "ທາງລົດຖີບ ແລະ ທາງຍ່າງ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "ຂົວ";
+"type.highway.path.horse" = "ທາງມ້າ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "ອຸມົງ";
+"type.highway.pedestrian" = "ຖະໜົນຄົນຍ່າງ";
+"type.highway.pedestrian.area" = "ເຂດທາງຍ່າງ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "ຂົວຄົນຍ່າງ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "ອຸມົງຄົນຍ່າງ";
+"type.highway.primary" = "ທາງຫຼັກ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "ຂົວ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "ອຸມົງ";
+"type.highway.primary_link" = "ທາງເຊື່ອມທາງຫຼັກ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "ຂົວ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "ອຸມົງ";
+"type.highway.raceway" = "ສະໜາມແຂ່ງລົດ";
+"type.highway.residential" = "ຖະໜົນໃນເຂດທີ່ພັກອາໄສ";
+"type.highway.residential.area" = "ຖະໜົນໃນເຂດທີ່ພັກອາໄສ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "ຂົວ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "ອຸມົງ";
+"type.highway.rest_area" = "ຈຸດພັກລົດ";
+"type.highway.road" = "ຖະໜົນ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "ຂົວ";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "ຂົວ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "ອຸມົງ";
+"type.highway.secondary" = "ທາງຮອງ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "ຂົວ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "ອຸມົງ";
+"type.highway.secondary_link" = "ທາງເຊື່ອມທາງຮອງ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "ຂົວ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "ອຸມົງ";
+"type.highway.service" = "ທາງບໍລິການ";
+"type.highway.service.area" = "ທາງບໍລິການ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "ຂົວ";
+"type.highway.service.driveway" = "ທາງເຂົ້າເຮືອນ";
+"type.highway.service.parking_aisle" = "ຊ່ອງທາງໃນບ່ອນຈອດລົດ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "ອຸມົງ";
+"type.highway.services" = "ເຂດບໍລິການ";
+"type.highway.speed_camera" = "ກ້ອງກວດຈັບຄວາມໄວ";
+"type.highway.steps" = "ຂັ້ນໄດ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "ຂົວ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "ອຸມົງ";
+"type.highway.ladder" = "ຂັ້ນໄດລີງ";
+"type.highway.tertiary" = "ທາງຍ່ອຍ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "ຂົວ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "ອຸມົງ";
+"type.highway.tertiary_link" = "ທາງເຊື່ອມທາງຍ່ອຍ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "ຂົວ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "ອຸມົງ";
+"type.highway.track" = "ທາງຊອຍ/ທາງດິນ";
+"type.highway.track.area" = "ທາງຊອຍ/ທາງດິນ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "ຂົວ";
+"type.highway.track.grade1" = "ທາງຊອຍ/ທາງດິນ";
+"type.highway.track.no.access" = "ທາງຊອຍ/ທາງດິນ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "ອຸມົງ";
+"type.highway.traffic_signals" = "ໄຟອຳນາດ";
+"type.highway.trunk" = "ທາງຫຼວງສາຍຫຼັກ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "ຂົວ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "ອຸມົງ";
+"type.highway.trunk_link" = "ທາງເຊື່ອມທາງຫຼວງສາຍຫຼັກ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "ຂົວ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "ອຸມົງ";
+"type.highway.unclassified" = "ທາງທົ່ວໄປ";
+"type.highway.unclassified.area" = "ທາງທົ່ວໄປ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "ຂົວ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "ອຸມົງ";
+"type.area_highway.cycleway" = "ທາງລົດຖີບ";
+"type.area_highway.footway" = "ທາງຍ່າງ";
+"type.area_highway.living_street" = "ຖະໜົນຊຸມຊົນ";
+"type.area_highway.motorway" = "ທາງດ່ວນ";
+"type.area_highway.path" = "ທາງຍ່າງ";
+"type.area_highway.pedestrian" = "ຖະໜົນຄົນຍ່າງ";
+"type.area_highway.primary" = "ທາງຫຼັກ";
+"type.area_highway.residential" = "ຖະໜົນໃນເຂດທີ່ພັກອາໄສ";
+"type.area_highway.secondary" = "ທາງຮອງ";
+"type.area_highway.service" = "ທາງບໍລິການ";
+"type.area_highway.tertiary" = "ທາງຍ່ອຍ";
+"type.area_highway.steps" = "ຂັ້ນໄດ";
+"type.area_highway.track" = "ທາງຊອຍ";
+"type.area_highway.trunk" = "ທາງຫຼວງສາຍຫຼັກ";
+"type.area_highway.unclassified" = "ທາງທົ່ວໄປ";
+"type.highway.world_level" = "ທາງລະດັບໂລກ";
+"type.highway.world_towns_level" = "ທາງລະດັບເມືອງ";
+
+
+/********** Types: Historic **********/
+
+"type.historic" = "ວັດຖຸບູຮານ";
+"type.historic.aircraft" = "ເຮືອບິນປະຫວັດສາດ";
+"type.historic.anchor" = "ສະໝໍເຮືອເກົ່າ";
+"type.historic.archaeological_site" = "ແຫຼ່ງບູຮານຄະດີ";
+"type.historic.battlefield" = "ສະໜາມຮົບປະຫວັດສາດ";
+"type.historic.boundary_stone" = "ຫຼັກໝາຍເຂດແດນເກົ່າ";
+"type.historic.cannon" = "ປືນໃຫຍ່";
+"type.historic.castle" = "ປາສາດ";
+"type.historic.castle.castrum" = "ປ້ອມໂຣມັນ";
+"type.historic.castle.defensive" = "ປ້ອມປາສາດ";
+"type.historic.castle.fortified_church" = "ໂບດປ້ອມປາການ";
+"type.historic.castle.fortress" = "ປ້ອມປາການ";
+"type.historic.castle.hillfort" = "ປ້ອມເທິງພູ";
+"type.historic.castle.kremlin" = "ເຄຣມລິນ";
+"type.historic.castle.manor" = "ຄຶຫະສາດເກົ່າ";
+"type.historic.castle.palace" = "ພະລາຊະວັງ";
+"type.historic.castle.shiro" = "ປາສາດຍີ່ປຸ່ນ";
+"type.historic.castle.stately" = "ປາສາດໃຫຍ່";
+"type.historic.city_gate" = "ປະຕູເມືອງ";
+"type.historic.citywalls" = "ກຳແພງເມືອງ";
+"type.historic.fort" = "ປ້ອມ";
+"type.historic.gallows" = "ຕະແລງແກງ";
+"type.historic.locomotive" = "ຫົວລົດໄຟປະຫວັດສາດ";
+"type.historic.memorial" = "ອະນຸສອນສະຖານ";
+"type.historic.memorial.cross" = "ໄມ້ກາງແຂນອະນຸສອນ";
+"type.historic.memorial.plaque" = "ແຜ່ນຈາລຶກອະນຸສອນ";
+"type.historic.memorial.sculpture" = "ຮູບປັ້ນ";
+"type.historic.memorial.statue" = "ຮູບຫຼໍ່";
+"type.historic.memorial.stolperstein" = "ຫີນຈາລຶກຊື່";
+"type.historic.stone" = "ຫີນປະຫວັດສາດ";
+"type.historic.memorial.war_memorial" = "ອະນຸສອນສະຖານສົງຄາມ";
+"type.historic.mine" = "ເໝືອງເກົ່າ";
+"type.historic.monument" = "ອະນຸສາວະລີ";
+"type.historic.pillory" = "ເຄື່ອງພັນທະນາການປະຈານ";
+"type.historic.ruins" = "ຊາກຫັກພັງທາງປະຫວັດສາດ";
+"type.historic.ship" = "ເຮືອປະຫວັດສາດ";
+"type.historic.tank" = "ລົດຖັງປະຫວັດສາດ";
+"type.historic.tomb" = "ອຸບໂມງຝັງສົບ";
+
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
+"type.man_made.cross" = "ໄມ້ກາງແຂນ";
+
+/* Usually a Christian historical cross placed along a road. */
+"type.historic.wayside_cross" = "ໄມ້ກາງແຂນແຄມທາງ";
+"type.historic.wayside_shrine" = "ຫໍໄຫວ້ແຄມທາງ";
+"type.historic.wreck" = "ຊາກເຮືອເພ";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag" = "hwtag";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.lit" = "hwtag-lit";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nocar" = "hwtag-nocar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.nofoot" = "hwtag-nofoot";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.oneway" = "hwtag-oneway";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.private" = "hwtag-private";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.toll" = "hwtag-toll";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yescar" = "hwtag-yescar";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+"type.internet_access" = "ອິນເຕີເນັດ";
+"type.internet_access.wlan" = "ອິນເຕີເນັດໄຮ້ສາຍ";
+"type.junction" = "ທາງແຍກ";
+"type.junction.circular" = "ວົງວຽນ";
+"type.junction.roundabout" = "ວົງວຽນ";
+"type.landuse" = "ການນຳໃຊ້ທີ່ດິນ";
+"type.landuse.allotments" = "ສວນຜັກຊຸມຊົນ";
+"type.landuse.basin" = "ແອ່ງຮັບນໍ້າ";
+"type.landuse.brownfield" = "ພື້ນທີ່ລໍຖ້າການພັດທະນາ";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery" = "ປ່າຊ້າ";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery.christian" = "ສຸສານຄຣິດ";
+"type.landuse.religious" = "ເດີ່ນໂບດ";
+"type.landuse.churchyard" = "ເດີ່ນໂບດ";
+"type.landuse.commercial" = "ເຂດການຄ້າ";
+"type.landuse.construction" = "ເຂດກໍ່ສ້າງ";
+"type.landuse.education" = "ສະຖານການສຶກສາ";
+"type.landuse.farmland" = "ດິນໄຮ່ນາ";
+"type.landuse.farmyard" = "ບໍລິເວນໄຮ່ນາ";
+"type.landuse.field" = "ທົ່ງນາ";
+"type.landuse.flowerbed" = "ໜານດອກໄມ້";
+"type.landuse.forest" = "ປ່າໄມ້";
+"type.landuse.forest.coniferous" = "ປ່າສົນ";
+"type.landuse.forest.deciduous" = "ປ່າຜັດໃບ";
+"type.landuse.forest.mixed" = "ປ່າໄມ້ປະສົມ";
+"type.landuse.garages" = "ກຸ່ມໂຮງລົດ";
+"type.landuse.grass" = "ສະໜາມຫຍ້າ";
+"type.landuse.greenfield" = "ພື້ນທີ່ວ່າງເປົ່າ";
+"type.landuse.greenhouse_horticulture" = "ເຮືອນຮົ່ມ";
+"type.landuse.industrial" = "ເຂດອຸດສາຫະກຳ";
+"type.landuse.landfill" = "ບ່ອນຖິ້ມຂີ້ເຫຍື້ອ";
+"type.landuse.meadow" = "ທົ່ງຫຍ້າ";
+"type.landuse.military" = "ເຂດທະຫານ";
+"type.landuse.orchard" = "ສວນໝາກໄມ້";
+"type.landuse.quarry" = "ໂຮງໂມ້ຫີນ";
+"type.landuse.railway" = "ພື້ນທີ່ທາງລົດໄຟ";
+"type.landuse.recreation_ground" = "ສະຖານທີ່ພັກຜ່ອນ";
+"type.landuse.reservoir" = "ອ່າງເກັບນໍ້າ";
+"type.landuse.residential" = "ເຂດທີ່ພັກອາໄສ";
+"type.landuse.retail" = "ເຂດຂາຍຍ່ອຍ";
+"type.landuse.salt_pond" = "ນາເກືອ";
+"type.landuse.village_green" = "ດິນວ່າງໃນໝູ່ບ້ານ";
+"type.landuse.vineyard" = "ສວນອະງຸ່ນ";
+"type.landuse.plant_nursery" = "ໂຮງເພາະພັນໄມ້";
+"type.leisure" = "ການພັກຜ່ອນຢ່ອນໃຈ";
+"type.leisure.common" = "ທີ່ດິນສາທາລະນະ";
+"type.leisure.dog_park" = "ສວນສາທາລະນະສຳລັບໝາ";
+"type.leisure.escape_game" = "ເກມຖອດລະຫັດຫາທາງອອກ";
+"type.leisure.fitness_centre" = "ສູນຟິດເນັດ";
+"type.leisure.fitness_station" = "ຈຸດອອກກຳລັງກາຍ";
+"type.leisure.dance" = "ຫໍເຕັ້ນ";
+"type.leisure.garden" = "ສວນ";
+"type.leisure.garden.residential" = "ສວນໃນບ້ານ";
+"type.leisure.golf_course" = "ສະໜາມກອຟ";
+"type.leisure.miniature_golf" = "ມິນິກອຟ";
+"type.leisure.hackerspace" = "ພື້ນທີ່ສຳລັບນັກພັດທະນາ";
+"type.leisure.ice_rink" = "ລານສະເກັດນໍ້າແຂງ";
+"type.leisure.marina" = "ທ່າຈອດເຮືອສຳລານ";
+"type.leisure.nature_reserve" = "ເຂດສະຫງວນທຳມະຊາດ";
+"type.leisure.outdoor_seating" = "ບ່ອນນັ່ງກາງແຈ້ງ";
+"type.leisure.firepit" = "ກອງໄຟ";
+"type.leisure.park" = "ສວນສາທາລະນະ";
+"type.leisure.park.no.access" = "ສວນສ່ວນຕົວ";
+"type.leisure.park.permissive" = "ສວນສາທາລະນະ";
+"type.leisure.park.private" = "ສວນສ່ວນຕົວ";
+"type.leisure.picnic_table" = "ໂຕະກິນເຂົ້າປ່າ";
+"type.leisure.pitch" = "ເດີ່ນກິລາ";
+"type.leisure.playground" = "ເດີ່ນເດັກຫຼິ້ນ";
+"type.leisure.recreation_ground" = "ສະຖານທີ່ພັກຜ່ອນ";
+"type.leisure.sauna" = "ຊາວນ່າ";
+"type.leisure.slipway" = "ທາງລາດເຮືອ";
+"type.leisure.sports_centre" = "ສູນກິລາ";
+"type.sport.climbing" = "ສູນປີນຜາ";
+"type.sport.yoga" = "ສະຕູດິໂອໂຢຄະ";
+"type.leisure.stadium" = "ສະໜາມກິລາ";
+"type.leisure.swimming_pool" = "ສະລອຍນໍ້າ";
+"type.leisure.swimming_pool.private" = "ສະລອຍນໍ້າ";
+"type.leisure.track" = "ທາງແລ່ນ";
+"type.leisure.track.area" = "ທາງແລ່ນ";
+"type.leisure.water_park" = "ສວນນໍ້າ";
+"type.leisure.beach_resort" = "ຣີສອດແຄມຫາດຊາຍ";
+"type.man_made" = "ສິ່ງທີ່ມະນຸດສ້າງຂຶ້ນ";
+"type.man_made.breakwater" = "ເຂື່ອນກັ້ນຄື້ນ";
+"type.man_made.cairn" = "ກອງຫີນ";
+"type.man_made.chimney" = "ປ່ອງໄຟ";
+"type.man_made.cutline" = "ແນວຕັດຕົ້ນໄມ້";
+"type.man_made.survey_point" = "ຈຸດສຳຫຼວດ";
+"type.man_made.flagpole" = "ເສົາທຸງ";
+"type.man_made.lighthouse" = "ປະທີບ";
+"type.man_made.mast" = "ເສົາອາກາດ";
+"type.man_made.pier" = "ຂົວທ່າເຮືອ";
+"type.man_made.pipeline" = "ທໍ່ສົ່ງ";
+"type.man_made.pipeline.overground" = "ທໍ່ສົ່ງເທິງດິນ";
+"type.man_made.silo" = "ໄຊໂລ";
+"type.man_made.storage_tank" = "ຖັງເກັບ";
+"type.man_made.surveillance" = "ກ້ອງວົງຈອນປິດ";
+"type.man_made.tower" = "ຫໍຄອຍ";
+
+/* A huge telecommunications tower. Often a local monument or a landmark. */
+"type.man_made.communications_tower" = "ເສົາໂທລະຄົມມະນາຄົມ";
+
+/* A regular telecommunications tower / mast. */
+"type.man_made.tower.communication" = "ເສົາໂທລະຄົມມະນາຄົມ";
+
+/* A deep hole drilled into the earth to extract oil or gas. */
+"type.man_made.petroleum_well" = "ບ່ານໍ້າມັນ ຫຼື ກ໊າສ";
+
+/* A tower/mast constructed to burn off excess gas. */
+"type.man_made.flare" = "ປ່ອງເຜົາກ໊າສ";
+"type.man_made.wastewater_plant" = "ໂຮງບຳບັດນໍ້າເສຍ";
+"type.man_made.water_tap" = "ກ໊ອກນໍ້າ";
+"type.man_made.water_tap.drinking_water_no" = "ກ໊ອກນໍ້າ";
+"type.man_made.water_tower" = "ຫໍນໍ້າ";
+"type.man_made.water_well" = "ນໍ້າສ້າງ";
+"type.man_made.water_well.drinking_water_no" = "ນໍ້າສ້າງ";
+"type.man_made.windmill" = "ກັງຫັນລົມ";
+"type.man_made.works" = "ໂຮງງານອຸດສາຫະກຳ";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.mapswithme" = "mapswithme";
+
+/* Do not translate. Here to avoid untranslated debug toast. */
+"type.mapswithme.grid" = "mapswithme-grid";
+"type.military" = "ການທະຫານ";
+"type.military.bunker" = "ບັງເກີ";
+"type.mountain_pass" = "ຊ່ອງເຂົາ";
+"type.natural" = "ທຳມະຊາດ";
+
+/* A rocky land cover. */
+"type.natural.bare_rock" = "ລານຫີນ";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "ຫີນມົນແຄມຫາດ";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "ເສດຫີນເທິງພູ";
+"type.natural.bay" = "ອ່າວ";
+"type.natural.beach" = "ຫາດຊາຍ";
+"type.natural.beach.sand" = "ຫາດຊາຍ";
+"type.natural.beach.gravel" = "ຫາດຫີນແຮ່";
+"type.natural.cape" = "ແຫຼມ";
+"type.natural.cave_entrance" = "ປາກຖໍ້າ";
+"type.natural.cliff" = "ໜ້າຜາ";
+"type.natural.earth_bank" = "ຄັນດິນ";
+"type.man_made.embankment" = "ຄູກັ້ນນໍ້າ";
+"type.natural.coastline" = "ແນວຊາຍຝັ່ງ";
+"type.natural.desert" = "ທະເລຊາຍ";
+"type.natural.geyser" = "ນໍ້າພຸຮ້ອນ";
+"type.natural.glacier" = "ທານນໍ້າແຂງ";
+"type.natural.grassland" = "ທົ່ງຫຍ້າທຳມະຊາດ";
+"type.natural.heath" = "ທົ່ງໄມ້ພຸ່ມ";
+"type.natural.hot_spring" = "ນໍ້າພຸຮ້ອນ";
+"type.natural.water.lake" = "ໜອງ/ບຶງ";
+"type.natural.water.lock" = "ປະຕູນໍ້າ";
+"type.natural.water.pond" = "ໜອງນໍ້າ";
+"type.natural.water.reservoir" = "ອ່າງເກັບນໍ້າ";
+"type.natural.water.basin" = "ແອ່ງນໍ້າ";
+"type.natural.water.river" = "ແມ່ນໍ້າ";
+"type.natural.land" = "ພື້ນດິນ";
+"type.natural.meadow" = "ທົ່ງຫຍ້າ";
+"type.natural.orchard" = "ສວນໝາກໄມ້";
+"type.natural.peak" = "ຈອມພູ";
+"type.natural.saddle" = "ກິ່ວພູ";
+"type.natural.rock" = "ໂງ່ນຫີນ";
+"type.natural.scrub" = "ປ່າເລົ່າ";
+"type.natural.spring" = "ນ້ຳອອກຮູ";
+"type.natural.spring.drinking_water_no" = "ນ້ຳອອກຮູ";
+"type.natural.strait" = "ຊ່ອງແຄບ";
+"type.natural.tree_row" = "ແຖວຕົ້ນໄມ້";
+"type.natural.vineyard" = "ສວນອະງຸ່ນ";
+"type.natural.volcano" = "ພູໄຟ";
+"type.natural.water" = "ແຫຼ່ງນ້ຳ";
+"type.natural.wetland" = "ດິນຊຸ່ມນ້ຳ";
+"type.natural.wetland.bog" = "ໜອງບຶງ";
+"type.natural.wetland.marsh" = "ບຶງ";
+"type.noexit" = "ທາງຕັນ";
+"type.office" = "ຫ້ອງການ";
+"type.office.company" = "ຫ້ອງການບໍລິສັດ";
+"type.office.estate_agent" = "ນາຍໜ້າອະສັງຫາລິມະຊັບ";
+"type.office.government" = "ຫ້ອງການລັດ";
+"type.office.insurance" = "ຫ້ອງການປະກັນໄພ";
+"type.office.lawyer" = "ທະນາຍຄວາມ";
+"type.office.ngo" = "ອົງການຈັດຕັ້ງທີ່ບໍ່ສັງກັດລັດຖະບານ";
+"type.office.telecommunication" = "ບໍລິສັດໂທລະຄົມ";
+"type.organic.only" = "ອໍແກນິກ";
+"type.organic.yes" = "ອໍແກນິກ";
+"type.place.city" = "ຕົວເມືອງ";
+"type.place.city.capital" = "ນະຄອນຫຼວງ";
+"type.place.city.capital.10" = "ຕົວເມືອງ";
+"type.place.city.capital.11" = "ຕົວເມືອງ";
+"type.place.city.capital.2" = "ນະຄອນຫຼວງ";
+"type.place.city.capital.3" = "ຕົວເມືອງ";
+"type.place.city.capital.4" = "ຕົວເມືອງ";
+"type.place.city.capital.5" = "ຕົວເມືອງ";
+"type.place.city.capital.6" = "ຕົວເມືອງ";
+"type.place.city.capital.7" = "ຕົວເມືອງ";
+"type.place.city.capital.8" = "ຕົວເມືອງ";
+"type.place.city.capital.9" = "ຕົວເມືອງ";
+"type.place.continent" = "ທະວີບ";
+"type.place.country" = "ປະເທດ";
+"type.place.county" = "ເຂດການປົກຄອງ";
+"type.place.farm" = "ຟາມ";
+"type.place.hamlet" = "ບ້ານນ້ອຍ";
+"type.place.island" = "ເກາະ";
+"type.place.islet" = "ເກາະນ້ອຍ";
+"type.place.isolated_dwelling" = "ທີ່ພັກອາໄສໂດດດ່ຽວ";
+"type.place.locality" = "ທ້ອງຖິ່ນ";
+
+/* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
+"type.place.quarter" = "ເຂດ";
+
+/* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
+"type.place.neighbourhood" = "ບໍລິເວນໃກ້ຄຽງ";
+"type.place.ocean" = "ມະຫາສະໝຸດ";
+"type.place.region" = "ພາກພື້ນ";
+"type.place.sea" = "ທະເລ";
+"type.place.square" = "ເດີ່ນກວ້າງ";
+"type.place.state" = "ລັດ";
+"type.place.state.major" = "ລັດ";
+
+/* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
+"type.place.suburb" = "ຊານເມືອງ";
+"type.place.town" = "ຕົວເມືອງ";
+"type.place.village" = "ບ້ານ";
+"type.power" = "ພະລັງງານໄຟຟ້າ";
+"type.power.generator" = "ເຄື່ອງກຳເນີດໄຟຟ້າ";
+"type.power.generator.solar" = "ເຄື່ອງກຳເນີດໄຟຟ້າພະລັງງານແສງອາທິດ";
+"type.power.generator.wind" = "ເຄື່ອງກຳເນີດໄຟຟ້າພະລັງງານລົມ";
+"type.power.generator.gas" = "ໂຮງໄຟຟ້າກັງຫັນກາສ";
+"type.power.generator.hydro" = "ໂຮງໄຟຟ້າພະລັງນ້ຳ";
+"type.power.line" = "ສາຍສົ່ງໄຟຟ້າ";
+"type.power.line.underground" = "ສາຍໄຟໃຕ້ດິນ";
+"type.power.minor_line" = "ສາຍໄຟຟ້າຍ່ອຍ";
+"type.power.plant" = "ໂຮງໄຟຟ້າ";
+"type.power.plant.coal" = "ໂຮງໄຟຟ້າຖ່ານຫີນ";
+"type.power.plant.gas" = "ໂຮງໄຟຟ້າກັງຫັນກາສ";
+"type.power.plant.hydro" = "ໂຮງໄຟຟ້າພະລັງນ້ຳ";
+"type.power.plant.solar" = "ໂຮງໄຟຟ້າພະລັງງານແສງອາທິດ";
+"type.power.plant.wind" = "ໂຮງໄຟຟ້າພະລັງງານລົມ";
+"type.power.station" = "ສະຖານີໄຟຟ້າ";
+"type.power.substation" = "ສະຖານີໄຟຟ້າຍ່ອຍ";
+
+/* A tower or pylon carrying high voltage electricity cables. */
+"type.power.tower" = "ເສົາໄຟຟ້າແຮງສູງ";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "ເສົາໄຟຟ້າ";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "ເສົາສາທາລະນູປະໂພກ";
+"type.psurface" = "ພື້ນຜິວ";
+"type.psurface.paved_bad" = "ພື້ນຜິວປູຢາງສະພາບບໍ່ດີ";
+"type.psurface.paved_good" = "ພື້ນຜິວປູຢາງສະພາບດີ";
+"type.psurface.unpaved_bad" = "ພື້ນຜິວບໍ່ໄດ້ປູຢາງສະພາບບໍ່ດີ";
+"type.psurface.unpaved_good" = "ພື້ນຜິວບໍ່ໄດ້ປູຢາງສະພາບດີ";
+"type.public_transport" = "ຂົນສົ່ງສາທາລະນະ";
+"type.public_transport.platform" = "ຊານຊາລາ";
+"type.railway" = "ທາງລົດໄຟ";
+"type.railway.abandoned" = "ທາງລົດໄຟຮ້າງ";
+"type.railway.abandoned.bridge" = "ຂົວທາງລົດໄຟຮ້າງ";
+"type.railway.abandoned.tunnel" = "ອຸມົງທາງລົດໄຟຮ້າງ";
+"type.railway.construction" = "ການກໍ່ສ້າງທາງລົດໄຟ";
+"type.railway.crossing" = "ທາງຜ່ານລົດໄຟ";
+"type.railway.disused" = "ທາງລົດໄຟທີ່ເລີກໃຊ້ແລ້ວ";
+"type.railway.disused.bridge" = "ຂົວທາງລົດໄຟທີ່ເລີກໃຊ້ແລ້ວ";
+"type.railway.funicular" = "ລົດໄຟໄຕ່ເຂົາ";
+"type.railway.funicular.bridge" = "ຂົວລົດໄຟໄຕ່ເຂົາ";
+"type.railway.funicular.tunnel" = "ອຸມົງລົດໄຟໄຕ່ເຂົາ";
+"type.railway.halt" = "ບ່ອນຢຸດລົດໄຟ";
+"type.railway.level_crossing" = "ທາງຕັດຜ່ານລົດໄຟ";
+"type.railway.light_rail" = "ລົດໄຟເບົາ";
+"type.railway.light_rail.bridge" = "ຂົວລົດໄຟເບົາ";
+"type.railway.light_rail.tunnel" = "ອຸມົງລົດໄຟເບົາ";
+"type.railway.monorail" = "ລົດໄຟລາງດ່ຽວ";
+"type.railway.monorail.bridge" = "ຂົວລົດໄຟລາງດ່ຽວ";
+"type.railway.monorail.tunnel" = "ອຸມົງລົດໄຟລາງດ່ຽວ";
+"type.railway.narrow_gauge" = "ທາງລົດໄຟລາງແຄບ";
+"type.railway.narrow_gauge.bridge" = "ຂົວທາງລົດໄຟລາງແຄບ";
+"type.railway.narrow_gauge.tunnel" = "ອຸມົງທາງລົດໄຟລາງແຄບ";
+"type.railway.platform" = "ຊານຊາລາທາງລົດໄຟ";
+"type.railway.preserved" = "ທາງລົດໄຟອະນຸລັກ";
+"type.railway.preserved.bridge" = "ຂົວທາງລົດໄຟອະນຸລັກ";
+"type.railway.preserved.tunnel" = "ອຸມົງທາງລົດໄຟອະນຸລັກ";
+"type.railway.rail" = "ທາງລົດໄຟ";
+"type.railway.rail.highspeed" = "ທາງລົດໄຟຄວາມໄວສູງ";
+"type.railway.rail.tourism" = "ທາງລົດໄຟເພື່ອການທ່ອງທ່ຽວ";
+"type.railway.rail.main" = "ທາງລົດໄຟ";
+
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "ທາງລົດໄຟສາຍແຍກ";
+
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "ທາງລົດໄຟເພື່ອການໃຊ້ສອຍ";
+"type.railway.rail.spur" = "ທາງລົດໄຟສາຍສັ້ນ";
+
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "ລາງລົດໄຟບໍລິການ";
+"type.railway.rail.bridge" = "ຂົວທາງລົດໄຟ";
+"type.railway.rail.highspeed.bridge" = "ຂົວທາງລົດໄຟ";
+"type.railway.rail.tourism.bridge" = "ຂົວທາງລົດໄຟ";
+"type.railway.rail.main.bridge" = "ຂົວທາງລົດໄຟ";
+"type.railway.rail.branch.bridge" = "ຂົວທາງລົດໄຟ";
+"type.railway.rail.utility.bridge" = "ຂົວທາງລົດໄຟ";
+"type.railway.rail.spur.bridge" = "ຂົວທາງລົດໄຟ";
+"type.railway.rail.service.bridge" = "ຂົວທາງລົດໄຟ";
+"type.railway.rail.tunnel" = "ອຸມົງທາງລົດໄຟ";
+"type.railway.rail.highspeed.tunnel" = "ອຸມົງທາງລົດໄຟ";
+"type.railway.rail.tourism.tunnel" = "ອຸມົງທາງລົດໄຟ";
+"type.railway.rail.main.tunnel" = "ອຸມົງທາງລົດໄຟ";
+"type.railway.rail.branch.tunnel" = "ອຸມົງທາງລົດໄຟ";
+"type.railway.rail.utility.tunnel" = "ອຸມົງທາງລົດໄຟ";
+"type.railway.rail.spur.tunnel" = "ອຸມົງທາງລົດໄຟ";
+"type.railway.rail.service.tunnel" = "ອຸມົງທາງລົດໄຟ";
+"type.railway.station" = "ສະຖານີລົດໄຟ";
+"type.railway.station.funicular" = "ລົດໄຟໄຕ່ເຂົາ";
+"type.railway.station.light_rail" = "ສະຖານີລົດໄຟເບົາ";
+"type.railway.station.light_rail.berlin" = "ສະຖານີ S-Bahn";
+"type.railway.station.light_rail.london" = "ສະຖານີ DLR";
+"type.railway.station.light_rail.porto" = "ລົດໄຟໃຕ້ດິນ Porto";
+"type.railway.station.monorail" = "ສະຖານີລົດໄຟລາງດ່ຽວ";
+"type.railway.station.subway" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.adana" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.algiers" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.almaty" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.amsterdam" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.ankara" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.athens" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.baku" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.bangkok" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.barcelona" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.beijing" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.bengalore" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.berlin" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.bilbao" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.brasilia" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.brescia" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.brussels" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.bucharest" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.budapest" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.buenos_aires" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.bursa" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.cairo" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.caracas" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.catania" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.changchun" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.chengdu" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.chicago" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.chongqing" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.dalian" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.delhi" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.dnepro" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.dubai" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.ekb" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.fukuoka" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.glasgow" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.guangzhou" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.hamburg" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.helsinki" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.hiroshima" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.hongkong" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.isfahan" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.istanbul" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.izmir" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.kazan" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.kharkiv" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.kiev" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.kobe" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.kolkata" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.kunming" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.kyoto" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.la" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.lausanne" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.lille" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.lima" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.lisboa" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.london" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.lyon" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.madrid" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.malaga" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.manila" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.maracaibo" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.mashhad" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.mecca" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.medellin" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.mexico" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.milan" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.minsk" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.montreal" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.moscow" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.munchen" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.nagoya" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.newyork" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.nnov" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.novosibirsk" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.osaka" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.oslo" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.palma" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.panama" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.paris" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.philadelphia" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.pyongyang" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+
+/* TODO: add ref to "type.railway.station.subway" */
+"type.railway.station.subway.qingdao" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.rennes" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.rio" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.roma" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.rotterdam" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.samara" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.santiago" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.santo_domingo" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.saopaulo" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.sapporo" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.sendai" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.sf" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.shanghai" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.shenzhen" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.shiraz" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.singapore" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.sofia" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.spb" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.stockholm" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.tabriz" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.taipei" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.taoyuan" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.tashkent" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.tbilisi" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.tehran" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.tianjin" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.tokyo" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.valencia" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.vienna" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.warszawa" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.washington" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.wuhan" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.yerevan" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.station.subway.yokohama" = "ສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.subway" = "ສາຍລົດໄຟໃຕ້ດິນ";
+"type.railway.subway.bridge" = "ຂົວສາຍລົດໄຟໃຕ້ດິນ";
+"type.railway.subway.tunnel" = "ອຸມົງສາຍລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.adana" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.algiers" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.almaty" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.amsterdam" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.ankara" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.athens" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.baku" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.bangkok" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.barcelona" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.beijing" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.bengalore" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.berlin" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.bilbao" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.brasilia" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.brescia" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.brussels" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.bucharest" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.budapest" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.buenos_aires" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.bursa" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.cairo" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.caracas" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.catania" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.changchun" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.chengdu" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.chicago" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.chongqing" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.dalian" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.delhi" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.dnepro" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.dubai" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.ekb" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.fukuoka" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.glasgow" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.guangzhou" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.hamburg" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.helsinki" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.hiroshima" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.hongkong" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.isfahan" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.istanbul" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.izmir" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.kazan" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.kharkiv" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.kiev" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.kobe" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.kolkata" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.kunming" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.kyoto" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.la" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.lausanne" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.lille" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.lima" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.lisboa" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.london" = "ທາງເຂົ້າສະຖານີລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.lyon" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.madrid" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.malaga" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.manila" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.maracaibo" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.mashhad" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.mecca" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.medellin" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.mexico" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.milan" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.minsk" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.montreal" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.moscow" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.munchen" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.nagoya" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.newyork" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.nnov" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.novosibirsk" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.osaka" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.oslo" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.palma" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.panama" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.paris" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.philadelphia" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.pyongyang" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.rennes" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.rio" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.roma" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.rotterdam" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.samara" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.santiago" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.santo_domingo" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.saopaulo" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.sapporo" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.sendai" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.sf" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.shanghai" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.shenzhen" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.shiraz" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.singapore" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.sofia" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.spb" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.stockholm" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.tabriz" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.taipei" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.taoyuan" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.tashkent" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.tbilisi" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.tehran" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.tianjin" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.tokyo" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.valencia" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.vienna" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.warszawa" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.washington" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.wuhan" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.yerevan" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.subway_entrance.yokohama" = "ທາງເຂົ້າລົດໄຟໃຕ້ດິນ";
+"type.railway.tram" = "ສາຍລົດລາງ";
+"type.railway.tram.bridge" = "ຂົວສາຍລົດລາງ";
+"type.railway.tram.tunnel" = "ອຸມົງສາຍລົດລາງ";
+"type.railway.tram_stop" = "ບ່ອນຈອດລົດລາງ";
+"type.route" = "ເສັ້ນທາງ";
+"type.route.ferry" = "ເຮືອບັກ";
+"type.route.shuttle_train" = "ລົດໄຟຮັບສົ່ງ";
+"type.shop" = "ຮ້ານຄ້າ";
+"type.shop.alcohol" = "ຮ້ານຂາຍເຫຼົ້າ";
+"type.shop.bakery" = "ຮ້ານເຂົ້າຈີ່";
+"type.shop.bathroom_furnishing" = "ຮ້ານເຄື່ອງສຸຂະພັນ";
+"type.shop.beauty" = "ຮ້ານເສີມສວຍ";
+"type.shop.beverages" = "ຮ້ານເຄື່ອງດື່ມ";
+"type.shop.bicycle" = "ຮ້ານຂາຍລົດຖີບ";
+"type.shop.bookmaker" = "ຮ້ານຮັບແທງພະນັນ";
+"type.shop.books" = "ຮ້ານຂາຍປຶ້ມ";
+"type.shop.butcher" = "ຮ້ານຂາຍຊີ້ນ";
+"type.shop.cannabis" = "ຮ້ານຂາຍກັນຊາ";
+"type.shop.car" = "ຮ້ານຂາຍລົດ";
+"type.shop.car_parts" = "ຮ້ານຂາຍອາໄຫຼ່ລົດ";
+"type.shop.car_repair" = "ໂຮງຊ້ອມແປງລົດ";
+"type.shop.car_repair.tyres" = "ບ່ອນຊ້ອມແປງຢາງລົດ";
+"type.shop.caravan" = "ຮ້ານຂາຍລົດບ້ານ";
+"type.shop.carpet" = "ຮ້ານຂາຍພົມ";
+"type.shop.chemist" = "ຮ້ານຂາຍຢາ";
+"type.shop.chocolate" = "ຮ້ານຂາຍຊັອກໂກແລັດ";
+"type.shop.clothes" = "ຮ້ານຂາຍເສື້ອຜ້າ";
+"type.shop.coffee" = "ຮ້ານກາເຟ";
+"type.shop.computer" = "ຮ້ານຂາຍຄອມພິວເຕີ";
+"type.shop.confectionery" = "ຮ້ານຂາຍເຂົ້າໜົມ";
+"type.shop.convenience" = "ຮ້ານສະດວກຊື້";
+"type.shop.copyshop" = "ຮ້ານກັອບປີ້ເອກະສານ";
+"type.shop.cosmetics" = "ຮ້ານຂາຍເຄື່ອງສຳອາງ";
+"type.shop.curtain" = "ຮ້ານຂາຍຜ້າມ່ານ";
+"type.shop.deli" = "ຮ້ານຂາຍອາຫານສຳເລັດຮູບ";
+"type.shop.department_store" = "ຫ້າງສັບພະສິນຄ້າ";
+"type.shop.doityourself" = "ຮ້ານຂາຍອຸປະກອນຕົບແຕ່ງບ້ານ";
+"type.shop.dry_cleaning" = "ຮ້ານຊັກແຫ້ງ";
+"type.shop.electronics" = "ຮ້ານຂາຍເຄື່ອງເອເລັກໂຕຣນິກ";
+"type.shop.erotic" = "ຮ້ານຂາຍເຄື່ອງຫຼິ້ນຜູ້ໃຫຍ່";
+"type.shop.fabric" = "ຮ້ານຂາຍຜ້າ";
+"type.shop.farm" = "ຮ້ານຂາຍຜົນຜະລິດຈາກຟາມ";
+"type.shop.fashion_accessories" = "ຮ້ານເຄື່ອງປະດັບແຟຊັ້ນ";
+"type.shop.florist" = "ຮ້ານຂາຍດອກໄມ້";
+"type.shop.funeral_directors" = "ຮ້ານບໍລິການງານສົບ";
+"type.shop.furniture" = "ຮ້ານຂາຍເຟີນີເຈີ";
+"type.shop.garden_centre" = "ຮ້ານຂາຍອຸປະກອນເຮັດສວນ";
+"type.shop.gas" = "ຮ້ານຂາຍກາສ";
+"type.shop.gift" = "ຮ້ານຂາຍຂອງຂວັນ";
+"type.shop.greengrocer" = "ຮ້ານຂາຍຜັກແລະໝາກໄມ້";
+"type.shop.grocery" = "ຮ້ານຂາຍເຄື່ອງຍ່ອຍ";
+"type.shop.hairdresser" = "ຮ້ານຕັດຜົມ";
+"type.shop.hardware" = "ຮ້ານຂາຍເຄື່ອງເຕັກນິກ";
+"type.shop.health_food" = "ຮ້ານຂາຍອາຫານເພື່ອສຸຂະພາບ";
+"type.shop.hearing_aids" = "ຮ້ານຂາຍເຄື່ອງຊ່ວຍຟັງ";
+"type.shop.herbalist" = "ຮ້ານຂາຍສະໝຸນໄພ";
+"type.shop.hifi" = "ຮ້ານຂາຍເຄື່ອງສຽງ";
+"type.shop.houseware" = "ຮ້ານຂາຍເຄື່ອງໃຊ້ໃນເຮືອນ";
+"type.shop.jewelry" = "ຮ້ານຂາຍເຄື່ອງປະດັບ";
+"type.shop.kiosk" = "ຮ້ານຂາຍເຄື່ອງນ້ອຍ";
+"type.shop.kitchen" = "ຮ້ານຂາຍອຸປະກອນເຮືອນຄົວ";
+"type.shop.laundry" = "ຮ້ານຊັກລີດ";
+"type.shop.mall" = "ສູນການຄ້າ";
+"type.shop.massage" = "ຮ້ານນວດ";
+"type.shop.mobile_phone" = "ຮ້ານຂາຍໂທລະສັບ";
+"type.shop.money_lender" = "ຮ້ານໃຫ້ກູ້ຢືມເງິນ";
+"type.shop.motorcycle" = "ຮ້ານຂາຍລົດຈັກ";
+"type.shop.motorcycle_repair" = "ບ່ອນຊ້ອມແປງລົດຈັກ";
+"type.shop.music" = "ຮ້ານຂາຍແຜ່ນສຽງ";
+"type.shop.musical_instrument" = "ຮ້ານຂາຍເຄື່ອງດົນຕີ";
+"type.shop.newsagent" = "ຮ້ານຂາຍໜັງສືພິມ";
+"type.shop.optician" = "ຮ້ານແວ່ນຕາ";
+"type.shop.outdoor" = "ຮ້ານຂາຍອຸປະກອນກິດຈະກຳກາງແຈ້ງ";
+"type.shop.outpost" = "ຈຸດຮັບເຄື່ອງ";
+"type.shop.pasta" = "ຮ້ານຂາຍເສັ້ນປາສະຕາ";
+"type.shop.pastry" = "ຮ້ານຂາຍເຂົ້າໜົມຫວານ";
+"type.shop.pawnbroker" = "ໂຮງຮັບຈຳນຳ";
+"type.shop.pet" = "ຮ້ານຂາຍສັດລ້ຽງ";
+"type.shop.pet_grooming" = "ຮ້ານຕັດແຕ່ງຂົນສັດລ້ຽງ";
+"type.shop.photo" = "ຮ້ານຖ່າຍຮູບ";
+"type.shop.rental" = "ຮ້ານໃຫ້ເຊົ່າ";
+"type.shop.rental.bicycle" = "ຮ້ານໃຫ້ເຊົ່າລົດຖີບ";
+"type.amenity.bicycle_rental.shop" = "ຮ້ານໃຫ້ເຊົ່າລົດຖີບ";
+"type.shop.seafood" = "ຮ້ານຂາຍອາຫານທະເລ";
+"type.shop.second_hand" = "ຮ້ານຂາຍເຄື່ອງມືສອງ";
+"type.shop.shoes" = "ຮ້ານຂາຍເກີບ";
+"type.shop.sports" = "ຮ້ານຂາຍເຄື່ອງກິລາ";
+"type.shop.stationery" = "ຮ້ານເຄື່ອງຂຽນ";
+"type.shop.supermarket" = "ຊຸບເປີມາກເກັດ";
+"type.shop.tattoo" = "ຮ້ານສັກລາຍ";
+"type.shop.tea" = "ຮ້ານຂາຍຊາ";
+"type.shop.ticket" = "ຮ້ານຂາຍປີ້";
+"type.shop.toys" = "ຮ້ານຂາຍເຄື່ອງຫຼິ້ນ";
+"type.shop.travel_agency" = "ບໍລິສັດທ່ອງທ່ຽວ";
+"type.shop.tyres" = "ຮ້ານຂາຍຢາງລົດ";
+"type.shop.variety_store" = "ຮ້ານຂາຍເຄື່ອງທົ່ວໄປ";
+"type.shop.video" = "ຮ້ານວິດີໂອ";
+"type.shop.video_games" = "ຮ້ານຂາຍເກມວິດີໂອ";
+"type.shop.wine" = "ຮ້ານຂາຍເຫຼົ້າແວງ";
+"type.shop.agrarian" = "ຮ້ານຂາຍອຸປະກອນກະສິກຳ";
+"type.shop.antiques" = "ຮ້ານຂາຍຂອງເກົ່າ";
+"type.shop.appliance" = "ຮ້ານຂາຍເຄື່ອງໃຊ້ໄຟຟ້າ";
+
+/* maybe change to Art Gallery for en-US when supported */
+"type.shop.art" = "ຮ້ານຂາຍງານສິລະປະ";
+"type.shop.baby_goods" = "ຮ້ານຂາຍເຄື່ອງໃຊ້ເດັກນ້ອຍ";
+"type.shop.bag" = "ຮ້ານຂາຍກະເປົາ";
+"type.shop.bed" = "ຮ້ານຂາຍຕຽງນອນ";
+"type.shop.boutique" = "ຮ້ານເສື້ອຜ້າບູຕິກ";
+"type.shop.charity" = "ຮ້ານຂາຍເຄື່ອງເພື່ອການກຸສົນ";
+"type.shop.cheese" = "ຮ້ານຂາຍເນີຍແຂງ";
+"type.shop.craft" = "ຮ້ານຂາຍອຸປະກອນງານຝີມື";
+"type.shop.dairy" = "ຮ້ານຂາຍຜະລິດຕະພັນນົມ";
+"type.shop.electrical" = "ຮ້ານຂາຍອຸປະກອນໄຟຟ້າ";
+"type.shop.fishing" = "ຮ້ານຂາຍອຸປະກອນຕົກປາ";
+"type.shop.interior_decoration" = "ຮ້ານຂາຍເຄື່ອງຕົບແຕ່ງພາຍໃນ";
+"type.shop.lottery" = "ບ່ອນຂາຍຫວຍ";
+"type.shop.medical_supply" = "ຮ້ານຂາຍອຸປະກອນການແພດ";
+"type.shop.nutrition_supplements" = "ຮ້ານຂາຍອາຫານເສີມ";
+"type.shop.paint" = "ຮ້ານຂາຍສີ";
+"type.shop.perfumery" = "ຮ້ານຂາຍນ້ຳຫອມ";
+"type.shop.sewing" = "ຮ້ານຂາຍອຸປະກອນຫຍິບປັກຖັກຮ້ອຍ";
+"type.shop.storage_rental" = "ບໍລິການໃຫ້ເຊົ່າບ່ອນເກັບເຄື່ອງ";
+"type.shop.tobacco" = "ຮ້ານຂາຍຢາສູບ";
+"type.shop.trade" = "ຮ້ານຂາຍເຄື່ອງມືຊ່າງ";
+"type.shop.watches" = "ຮ້ານຂາຍໂມງ";
+"type.shop.wholesale" = "ຮ້ານຂາຍສົ່ງ";
+"type.sport" = "ກິລາ";
+"type.sport.american_football" = "ອະເມຣິກັນຟຸດບອນ";
+"type.sport.archery" = "ຍິງທະນູ";
+"type.sport.athletics" = "ກິລາກາຍຍະກຳ";
+"type.sport.australian_football" = "ອົດສະຕຣາລີຟຸດບອນ";
+"type.sport.baseball" = "ເບສບອນ";
+"type.sport.basketball" = "ບານບ້ວງ";
+"type.sport.beachvolleyball" = "ບານສົ່ງຫາດຊາຍ";
+"type.sport.bowls" = "ກິລາໂບລ";
+"type.sport.chess" = "ໝາກຮຸກ";
+"type.sport.cricket" = "ຄຣິກເກັດ";
+"type.sport.curling" = "ເຄີລິ່ງ";
+"type.sport.equestrian" = "ກິລາຂີ່ລົດມ້າ";
+"type.sport.golf" = "ກັອບ";
+"type.sport.gymnastics" = "ກາຍຍະກຳ";
+"type.sport.handball" = "ບານສົ່ງມື";
+"type.sport.multi" = "ກິລາຫຼາຍປະເພດ";
+
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "ບ່ອນດຳນ້ຳເລິກ";
+"type.sport.shooting" = "ຍິງປືນ";
+"type.sport.skateboard" = "ສະເກັດບອດ";
+"type.sport.skiing" = "ສະກີ";
+"type.sport.soccer" = "ເຕະບານ";
+"type.sport.swimming" = "ລອຍນ້ຳ";
+"type.sport.table_tennis" = "ປິງປອງ";
+"type.sport.tennis" = "ເດີ່ນເທັນນິດ";
+"type.sport.volleyball" = "ບານສົ່ງ";
+"type.sport.10pin" = "ໂບລິງ";
+"type.sport.9pin" = "ໂບລິງ";
+"type.sport.padel" = "ພາເດລ";
+"type.sport.futsal" = "ຟຸດຊໍ";
+"type.sport.ice_hockey" = "ຮອກກີ້ນ້ຳແຂງ";
+"type.sport.field_hockey" = "ຮອກກີ້";
+"type.sport.badminton" = "ດອກປີກໄກ່";
+"type.sport.pelota" = "ເປໂລຕ້າ";
+"type.tourism" = "ການທ່ອງທ່ຽວ";
+"type.tourism.aquarium" = "ສະຖານທີ່ສະແດງສັດນ້ຳ";
+
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "ບ້ານພັກເທິງພູ";
+"type.tourism.apartment" = "ອາພາດເມັ້ນພັກຜ່ອນ";
+"type.tourism.artwork" = "ງານສິລະປະ";
+"type.tourism.artwork.architecture" = "ສິລະປະທາງສະຖາປັດຕະຍະກຳ";
+"type.tourism.artwork.painting" = "ຮູບແຕ້ມ";
+"type.tourism.artwork.sculpture" = "ຮູບປັ້ນ";
+"type.tourism.artwork.statue" = "ຮູບຫຼໍ່";
+"type.tourism.attraction" = "ສະຖານທີ່ທ່ອງທ່ຽວ";
+"type.attraction.amusement_ride" = "ເຄື່ອງຫຼິ້ນສວນສະໜຸກ";
+"type.attraction.animal" = "ຄອກສັດ";
+"type.attraction.bumper_car" = "ລົດບຳເປີ";
+"type.attraction.big_wheel" = "ຊິງຊ້າສະຫວັນ";
+"type.attraction.carousel" = "ມ້າໝູນ";
+"type.attraction.historic" = "ສະຖານທີ່ທ່ອງທ່ຽວທາງປະຫວັດສາດ";
+"type.attraction.maze" = "ທາງວົງກົດ";
+"type.attraction.roller_coaster" = "ລົດໄຟເຫາະ";
+"type.attraction.water_slide" = "ສະໄລເດີນ້ຳ";
+"type.tourism.attraction.specified" = "ສະຖານທີ່ທ່ອງທ່ຽວ";
+"type.tourism.camp_site" = "ສະຖານທີ່ຕັ້ງແຄ້ມ";
+"type.tourism.caravan_site" = "ບ່ອນຈອດລົດບ້ານ";
+
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "ເຮືອນພັກຕາກອາກາດ";
+"type.tourism.gallery" = "ຫ້ອງສະແດງສິລະປະ";
+"type.tourism.guest_house" = "ເຮືອນພັກ";
+"type.tourism.hostel" = "ໂຮສເທວ";
+"type.tourism.hotel" = "ໂຮງແຮມ";
+"type.tourism.information" = "ຂໍ້ມູນການທ່ອງທ່ຽວ";
+"type.tourism.information.board" = "ປ້າຍຂໍ້ມູນ";
+"type.tourism.information.guidepost" = "ປ້າຍບອກທາງ";
+"type.tourism.information.map" = "ແຜນທີ່ທ່ອງທ່ຽວ";
+"type.tourism.information.office" = "ຫ້ອງການທ່ອງທ່ຽວ";
+"type.tourism.information.visitor_centre" = "ສູນບໍລິການນັກທ່ອງທ່ຽວ";
+"type.amenity.ranger_station" = "ສະຖານີເຈົ້າໜ້າທີ່ປ່າໄມ້";
+"type.tourism.motel" = "ໂມເທວ";
+"type.tourism.museum" = "ຫໍພິພິທະພັນ";
+"type.tourism.picnic_site" = "ສະຖານທີ່ກິນເຂົ້າປ່າ";
+"type.leisure.resort" = "ຣີສອດ";
+"type.tourism.theme_park" = "ສວນສະໜຸກ";
+"type.tourism.viewpoint" = "ຈຸດຊົມວິວ";
+
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
+"type.tourism.wilderness_hut" = "ຕູບພັກໃນປ່າ";
+"type.tourism.zoo" = "ສວນສັດ";
+"type.tourism.zoo.petting" = "ສວນສັດສຳຜັດ";
+"type.traffic_calming" = "ອຸປະກອນຫຼຸດຄວາມໄວ";
+"type.traffic_calming.bump" = "ລູກລະນາດ";
+"type.traffic_calming.hump" = "ເນີນຫຼຸດຄວາມໄວ";
+"type.waterway" = "ທາງນ້ຳ";
+"type.waterway.canal" = "ຄອງ";
+"type.waterway.canal.tunnel" = "ອຸມົງຄອງນ້ຳ";
+"type.waterway.fish_pass" = "ທາງປາຜ່ານ";
+"type.waterway.dam" = "ເຂື່ອນ";
+"type.barrier.ditch" = "ຮ່ອງນ້ຳ";
+"type.natural.water.ditch" = "ຮ່ອງລະບາຍນ້ຳ";
+"type.waterway.ditch.tunnel" = "ທໍ່ລະບາຍນ້ຳ";
+"type.waterway.dock" = "ທ່າທຽບເຮືອ";
+"type.waterway.drain" = "ຮ່ອງລະບາຍນ້ຳ";
+"type.natural.water.drain" = "ຮ່ອງລະບາຍນ້ຳ";
+"type.waterway.drain.tunnel" = "ທໍ່ລະບາຍນ້ຳ";
+"type.waterway.lock_gate" = "ປະຕູນ້ຳ";
+"type.waterway.river" = "ແມ່ນ້ຳ";
+"type.waterway.river.tunnel" = "ແມ່ນ້ຳ";
+"type.waterway.stream" = "ຫ້ວຍນ້ຳ";
+"type.waterway.stream.ephemeral" = "ຫ້ວຍນ້ຳຊົ່ວຄາວ";
+"type.waterway.stream.intermittent" = "ຫ້ວຍນ້ຳຂາດສາຍ";
+"type.waterway.stream.tunnel" = "ຫ້ວຍນ້ຳ";
+"type.waterway.waterfall" = "ຕາດ";
+"type.waterway.weir" = "ຝາຍ";
+"type.wheelchair" = "ລົດເຂັນຄົນພິການ";
+"type.wheelchair.limited" = "ເຂົ້າເຖິງດ້ວຍລົດເຂັນໄດ້ບາງສ່ວນ";
+"type.wheelchair.no" = "ເຂົ້າເຖິງດ້ວຍລົດເຂັນບໍ່ໄດ້";
+"type.wheelchair.yes" = "ເຂົ້າເຖິງດ້ວຍລົດເຂັນໄດ້ທັງໝົດ";
+"type.aerialway.j.bar" = "ລິບສະກີແບບ J-bar";
+"type.aerialway.magic_carpet" = "ລິບສະກີແບບສາຍພານ";
+"type.aerialway.platter" = "ລິບສະກີແບບ Platter";
+"type.aerialway.rope_tow" = "ລິບສະກີແບບລາກເຊືອກ";
+"type.aerialway.t.bar" = "ລິບສະກີແບບ T-bar";
+"type.piste_type.downhill" = "ທາງສະກີລົງເຂົາ";
+"type.piste_type.downhill.area" = "ທາງສະກີລົງເຂົາ";
+"type.piste_type.downhill.advanced" = "ທາງສະກີລົງເຂົາລະດັບສູງ";
+"type.piste_type.downhill.advanced.area" = "ທາງສະກີລົງເຂົາລະດັບສູງ";
+"type.piste_type.downhill.easy" = "ທາງສະກີລົງເຂົາລະດັບງ່າຍ";
+"type.piste_type.downhill.easy.area" = "ທາງສະກີລົງເຂົາລະດັບງ່າຍ";
+"type.piste_type.downhill.expert" = "ທາງສະກີລົງເຂົາລະດັບຊ່ຽວຊານ";
+"type.piste_type.downhill.expert.area" = "ທາງສະກີລົງເຂົາລະດັບຊ່ຽວຊານ";
+"type.piste_type.downhill.freeride" = "ທາງສະກີລົງເຂົາແບບອິດສະຫຼະ";
+"type.piste_type.downhill.intermediate" = "ທາງສະກີລົງເຂົາລະດັບກາງ";
+"type.piste_type.downhill.intermediate.area" = "ທາງສະກີລົງເຂົາລະດັບກາງ";
+"type.piste_type.downhill.novice" = "ທາງສະກີລົງເຂົາລະດັບເລີ່ມຕົ້ນ";
+"type.piste_type.downhill.novice.area" = "ທາງສະກີລົງເຂົາລະດັບເລີ່ມຕົ້ນ";
+"type.piste_type.nordic" = "ເສັ້ນທາງສະກີນໍດິກ";
+"type.piste_type.sled" = "ທາງຫຼິ້ນເລື່ອນ";
+"type.piste_type.sled.area" = "ທາງຫຼິ້ນເລື່ອນ";
+"type.piste_type.snow_park" = "ສວນສະນຸກຫິມະ";
+"type.piste_type.hike" = "ເສັ້ນທາງຍ່າງປ່າຫິມະ";
+"type.piste_type.connection" = "ທາງເຊື່ອມຕໍ່ສະກີ";
+"type.piste_type.skitour" = "ເສັ້ນທາງທ່ອງທ່ຽວສະກີ";
+"type.amenity.events_venue" = "ສະຖານທີ່ຈັດງານ";
+"type.shop.auction" = "ບ່ອນປະມູນ";
+"type.shop.collector" = "ຮ້ານຂາຍຂອງສະສົມ";
+"type.self_service.yes" = "ມີບໍລິການຕົນເອງ";
+"type.self_service.only" = "ບໍລິການຕົນເອງເທົ່ານັ້ນ";
+"type.self_service.partially" = "ບໍລິການຕົນເອງບາງສ່ວນ";
+"type.self_service.no" = "ບໍ່ມີບໍລິການຕົນເອງ";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "ສິ່ງອຳນວຍຄວາມສະດວກທາງສັງຄົມ";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
+"type.emergency.emergency_ward_entrance" = "ທາງເຂົ້າແຜນກສຸກເສີນ";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "ໂຮງຝຶກສິລະປະການຕໍ່ສູ້";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "ຫ້ອງກິລາ";
+"type.sport.diving" = "ກິລາດຳນ້ຳ";
+"type.man_made.crane" = "ລົດເຄນ";
+"type.barrier.wicket_gate" = "ປະຕູຮົ້ວນ້ອຍ";
+"type.barrier.yes" = "ສິ່ງກີດຂວາງ";
+"type.building.guardhouse" = "ປ້ອມຍາມ";
+"type.office.security" = "ຫ້ອງການຮັກສາຄວາມປອດໄພ";
+"type.power.portal" = "ເສົາໄຟຟ້າແຮງສູງ (ແບບໂຄງ)";
+"type.shop.lighting" = "ຮ້ານຂາຍໂຄມໄຟ";
+"type.barrier.jersey_barrier" = "ແທ່ງປູນກັ້ນທາງ";
+"type.barrier.debris" = "ເສດວັດສະດຸ";
+"type.barrier.log" = "ທ່ອນໄມ້ກັ້ນ";
+"type.amenity.boat_rental" = "ບໍລິການໃຫ້ເຊົ່າເຮືອ";
+"type.shop.telecommunication" = "ຮ້ານໂທລະຄົມມະນາຄົມ";
+"type.leisure.indoor_play" = "ສູນຫຼິ້ນໃນຮົ່ມ";
+"type.tourism.camp_pitch" = "ຈຸດກາງເຕັ້ນ";
+"type.railway.miniature" = "ທາງລົດໄຟຈຳລອງ";
+"type.amenity.kneipp_water_cure" = "ບ່ອນບຳບັດດ້ວຍນ້ຳ";
+"type.area_highway.traffic_island" = "ເກາະກາງທາງ";
+"type.man_made.monitoring_station" = "ສະຖານີກວດກາ";
+"type.man_made.monitoring_station.water_level" = "ສະຖານີກວດກາລະດັບນ້ຳ";
+"type.man_made.monitoring_station.weather" = "ສະຖານີກວດກາອາກາດ";
+"type.amenity.student_accommodation" = "ຫໍພັກນັກສຶກສາ";
+"type.craft.watchmaker" = "ຊ່າງແປງໂມງ";
+"type.xmas_feature.market" = "ຕະຫຼາດຄຣິສມາດ";
+"type.xmas_feature.tree" = "ຕົ້ນຄຣິສມາດ";

@@ -240,7 +240,7 @@ int main(int argc, char * argv[])
 
       if (g_lastTestOK)
       {
-        LOG(LINFO, ("OK"));
+        LOG(LINFO, ("[OK]"));
       }
       else
       {
@@ -255,13 +255,13 @@ int main(int argc, char * argv[])
     }
     catch (exception const & ex)
     {
-      LOG(LERROR, ("FAILED", "<<<Exception thrown [", ex.what(), "].>>>"));
+      LOG(LERROR, ("[FAILED]", "<<<Exception thrown [", ex.what(), "].>>>"));
       testResults[testIndex] = false;
       ++numFailedTests;
     }
     catch (...)
     {
-      LOG(LERROR, ("FAILED<<<Unknown exception thrown.>>>"));
+      LOG(LERROR, ("[FAILED]", "<<<Unknown exception thrown.>>>"));
       testResults[testIndex] = false;
       ++numFailedTests;
     }
@@ -277,7 +277,7 @@ int main(int argc, char * argv[])
     for (size_t i = 0; i < testnames.size(); ++i)
       if (!testResults[i])
         LOG(LINFO, (testnames[i]));
-    LOG(LINFO, ("Some tests FAILED."));
+    LOG(LINFO, ("Some tests [FAILED]."));
     return STATUS_FAILED;
   }
 

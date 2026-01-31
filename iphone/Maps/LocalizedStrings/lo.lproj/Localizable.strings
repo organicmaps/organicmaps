@@ -1,0 +1,1108 @@
+
+
+/********** Strings **********/
+
+
+/* Button text (should be short) */
+"cancel" = "ຍົກເລີກ";
+
+/* Button which deletes downloaded country */
+"delete" = "ລຶບ";
+"download_maps" = "ດາວໂຫລດແຜນທີ່";
+
+/* Settings/Downloader - info for country which started downloading */
+"downloading" = "ກຳລັງດາວໂຫລດ…";
+
+/* Choose measurement on first launch alert - choose metric system button */
+"kilometres" = "ກິໂລແມັດ";
+
+/* Choose measurement on first launch alert - choose imperial system button */
+"miles" = "ໄມລ໌";
+
+/* Update maps later button text */
+"later" = "ພາຍຫຼັງ";
+
+/* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
+"search" = "ຄົ້ນຫາ";
+
+/* View and button titles for accessibility */
+"zoom_to_country" = "ສະແດງໃນແຜນທີ່";
+
+/* Message to display at the center of the screen when the country download has failed */
+"country_status_download_failed" = "ການດາວໂຫລດລົ້ມເຫຼວ";
+
+/* Text in About screen */
+"about_headline" = "ຟຣີສຳລັບທຸກຄົນ, ສ້າງດ້ວຍຄວາມຮັກ";
+
+/* Text in About screen */
+"about_proposition_1" = "• ບໍ່ມີໂຄສະນາ, ບໍ່ມີການຕິດຕາມ, ບໍ່ມີການເກັບກຳຂໍ້ມູນ";
+
+/* Text in About screen */
+"about_proposition_2" = "• ບໍ່ເປືອງແບັດເຕີຣີ, ໃຊ້ງານໄດ້ແບບອອບລາຍ";
+
+/* Text in About screen */
+"about_proposition_3" = "• ໄວ, ງ່າຍດາຍ, ພັດທະນາໂດຍຊຸມຊົນ";
+"close" = "ປິດ";
+"download" = "ດາວໂຫລດ";
+
+/* REMOVE THIS STRING AFTER REFACTORING */
+"continue_button" = "ຕໍ່ໄປ";
+
+/* "Add new bookmark list" dialog title */
+"add_new_set" = "ເພີ່ມລາຍການໃໝ່";
+
+/* Add Bookmark list dialog - hint when the list name is empty */
+"bookmark_set_name" = "ຊື່ລາຍການບຸກມາກ";
+
+/* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
+"bookmarks" = "ບຸກມາກ";
+
+/* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
+"bookmarks_and_tracks" = "ບຸກມາກ ແລະ ເສັ້ນທາງ";
+
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
+"address" = "ທີ່ຢູ່";
+
+/* Settings button in system menu */
+"settings" = "ການຕັ້ງຄ່າ";
+
+/* Measurement units title in settings activity */
+"measurement_units" = "ຫົວໜ່ວຍວັດແທກ";
+
+/* Button which interrupts country download */
+"cancel_download" = "ຍົກເລີກການດາວໂຫຼດ";
+
+/* Leave Review dialog - Review button */
+"leave_a_review" = "ຂຽນຄຳວິຈານ";
+
+/* Settings/Downloader - 3G download warning dialog confirm button */
+"use_cellular_data" = "ແມ່ນ";
+
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "ດາວໂຫຼດແຜນທີ່";
+
+/* "Bookmark Lists" dialog title */
+"bookmark_sets" = "ລາຍການບຸກມາກ";
+
+
+/********** Search categories **********/
+
+
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "Where to eat";
+
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "Groceries";
+
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "Transport";
+
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "Gas";
+
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "Parking";
+
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "Shopping";
+
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "Second Hand";
+
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "Hotel";
+
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "Sights";
+
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "Entertainment";
+
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "ATM";
+
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "Nightlife";
+
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "Family holiday";
+
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "Bank";
+
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "Pharmacy";
+
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "Hospital";
+
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "Toilet";
+
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "Post";
+
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "Police";
+
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "Recycling";
+
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "Water";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "RV Facilities";
+
+
+/********** Other translations **********/
+
+"share_bookmarks_email_body" = "ສະບາຍດີ!\n\nນີ້ແມ່ນບຸກມາກຂອງຂ້ອຍ; ກະລຸນາເປີດໃນ Organic Maps. ຫາກທ່ານຍັງບໍ່ໄດ້ຕິດຕັ້ງ, ສາມາດດາວໂຫລດໄດ້ທີ່ນີ້: https://omaps.app/get?kmz\n\nຂໍໃຫ້ມ່ວນກັບການເດີນທາງດ້ວຍ Organic Maps!";
+
+/* message title of loading file */
+"load_kmz_title" = "ກຳລັງໂຫລດບຸກມາກ";
+
+/* Kmz file successful loading */
+"load_kmz_successful" = "ໂຫລດບຸກມາກສຳເລັດແລ້ວ! ທ່ານສາມາດຊອກຫາພວກມັນໄດ້ໃນແຜນທີ່ ຫຼື ໃນໜ້າຈໍຈັດການບຸກມາກ.";
+
+/* Kml file loading failed */
+"load_kmz_failed" = "ໂຫລດບຸກມາກບໍ່ສຳເລັດ. ໄຟລ໌ອາດເສຍຫາຍ ຫຼື ບົກພ່ອງ.";
+
+/* resource for context menu */
+"edit" = "ແກ້ໄຂ";
+
+/* Warning message when doing search around current position */
+"unknown_current_position" = "ຍັງບໍ່ທັນສາມາດລະບຸຕຳແໜ່ງຂອງທ່ານໄດ້";
+
+/* Subject for emailed bookmark */
+"bookmark_share_email_subject" = "ເຮີ້ຍ, ເບິ່ງປັກໝຸດຂອງຂ້ອຍໃນ Organic Maps ແມ້!";
+
+/* Subject for emailed position */
+"my_position_share_email_subject" = "ເຮີ້ຍ, ເບິ່ງຕຳແໜ່ງປັດຈຸບັນຂອງຂ້ອຍໃນແຜນທີ່ Organic Maps ແມ້!";
+
+/* Share by email button text, also used in editor and About. */
+"email" = "ອີເມລ";
+
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "ຄັດລອກໄປທີ່ຄລິບບອດແລ້ວ: %@";
+
+/* Used for bookmark editing */
+"done" = "ສຳເລັດ";
+
+/* Title for tracks category in bookmarks manager */
+"tracks_title" = "ເສັ້ນທາງ";
+
+/* Length of track in cell that describes route */
+"length" = "ຄວາມຍາວ";
+"share_my_location" = "ແບ່ງປັນຕຳແໜ່ງຂອງຂ້ອຍ";
+"prefs_group_route" = "ການນຳທາງ";
+
+/* Setting name which enables or disables zoom buttons on the map screen. */
+"pref_zoom_title" = "ປຸ່ມ “+” ແລະ “-” ໃນແຜນທີ່";
+
+/* Generic «Off» string */
+"off" = "ປິດ";
+
+/* Generic «On» string */
+"on" = "ເປີດ";
+
+/* Generic «Auto» string */
+"auto" = "ອັດຕະໂນມັດ";
+
+/* Settings «Map» category: «Perspective view» title */
+"pref_map_3d_title" = "ມຸມມອງເປີສະເປັກທິບ";
+
+/* Settings «Map» category: «3D buildings» title */
+"pref_map_3d_buildings_title" = "ອາຄານ 3D";
+
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "ອາຄານ 3D ຖືກປິດໃຊ້ງານໃນໂໝດປະຢັດພະລັງງານ";
+
+/* Settings «Route» category: «Tts enabled» title */
+"pref_tts_enable_title" = "ຄຳແນະນຳດ້ວຍສຽງ";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "ປະກາດຊື່ຖະໜົນ";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "ເມື່ອເປີດໃຊ້, ຊື່ຖະໜົນ ຫຼື ທາງອອກທີ່ຈະລ້ຽວເຂົ້າຈະຖືກອ່ານອອກສຽງ.";
+
+/* Settings «Route» category: «Tts language» title */
+"pref_tts_language_title" = "ພາສາຂອງສຽງ";
+
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "ທົດສອບຄຳແນະນຳດ້ວຍສຽງ (TTS)";
+"pref_map_auto_zoom" = "ຊູມອັດຕະໂນມັດ";
+"placepage_distance" = "ໄລຍະທາງ";
+"search_show_on_map" = "ເບິ່ງໃນແຜນທີ່";
+
+/* Text in menu */
+"website" = "ເວັບໄຊ";
+
+/* Text in About menu, opens Organic Maps news website */
+"news" = "ຂ່າວສານ";
+
+/* Text in menu */
+"rate_the_app" = "ໃຫ້ຄະແນນແອັບ";
+
+/* Text in menu */
+"help" = "ຊ່ວຍເຫຼືອ";
+
+/* Button in the main Help dialog */
+"faq" = "ຄຳຖາມທີ່ພົບເລື້ອຍ";
+
+/* Button in the main menu */
+"donate" = "ບໍລິຈາກ";
+"already_donated" = "ບໍລິຈາກແລ້ວ";
+"remind_me_later" = "ເຕືອນພາຍຫຼັງ";
+"support_organic_maps" = "ສະໜັບສະໜູນ Organic Maps";
+
+/* Button in the main Help dialog */
+"copyright" = "ລິຂະສິດ";
+
+/* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
+"report_a_bug" = "ລາຍງານຂໍ້ຜິດພາດ";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "ແຕະຄ້າງໃນແຜນທີ່ອີກຄັ້ງເພື່ອເບິ່ງອິນເຕີເຟດ";
+
+/* Update all button text */
+"downloader_update_all_button" = "ອັບເດດທັງໝົດ";
+
+/* Downloaded maps list header */
+"downloader_downloaded_subtitle" = "ດາວໂຫລດແລ້ວ";
+
+/* Country queued for download */
+"downloader_queued" = "ຢູ່ໃນຄິວ";
+"downloader_near_me_subtitle" = "ໃກ້ຂ້ອຍ";
+
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
+"downloader_status_maps" = "ແຜນທີ່";
+"downloader_download_all_button" = "ດາວໂຫລດທັງໝົດ";
+"downloader_downloading" = "ກຳລັງດາວໂຫລດ:";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "ເພື່ອລຶບແຜນທີ່, ກະລຸນາຢຸດການນຳທາງ.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "ເສັ້ນທາງສາມາດສ້າງໄດ້ສະເພາະພາຍໃນແຜນທີ່ຂອງພາກພື້ນດຽວກັນເທົ່ານັ້ນ.";
+
+/* Context menu item for downloader. */
+"downloader_download_map" = "ດາວໂຫລດແຜນທີ່";
+
+/* Item status in downloader. */
+"downloader_retry" = "ລອງໃໝ່";
+
+/* Item in context menu. */
+"downloader_delete_map" = "ລຶບແຜນທີ່";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "ດາວໂຫລດແຜນທີ່ທັງໝົດຕາມເສັ້ນທາງຂອງທ່ານ";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "ເພື່ອສ້າງເສັ້ນທາງ, ພວກເຮົາຕ້ອງດາວໂຫລດ ແລະ ອັບເດດແຜນທີ່ທັງໝົດຕັ້ງແຕ່ຕຳແໜ່ງຂອງທ່ານໄປຈົນຮອດປາຍທາງ.";
+"save" = "ບັນທຶກ";
+"create" = "ສ້າງ";
+
+/* red color */
+"red" = "ສີແດງ";
+
+/* yellow color */
+"yellow" = "ສີເຫຼືອງ";
+
+/* blue color */
+"blue" = "ສີຟ້າ";
+
+/* green color */
+"green" = "ສີຂຽວ";
+
+/* purple color */
+"purple" = "ສີມ່ວງ";
+
+/* orange color */
+"orange" = "ສີສົ້ມ";
+
+/* brown color */
+"brown" = "ສີນ້ຳຕານ";
+
+/* pink color */
+"pink" = "ສີບົວ";
+
+/* deep purple color */
+"deep_purple" = "ສີມ່ວງເຂັ້ມ";
+
+/* light blue color */
+"light_blue" = "ສີຟ້າອ່ອນ";
+
+/* cyan color */
+"cyan" = "ສີຟ້າຂຽວ";
+
+/* teal color */
+"teal" = "ສີຂຽວນົກເປັດນ້ຳ";
+
+/* lime color */
+"lime" = "ສີຂຽວໝາກນາວ";
+
+/* deep orange color */
+"deep_orange" = "ສີສົ້ມເຂັ້ມ";
+
+/* gray color */
+"gray" = "ສີເທົາ";
+
+/* blue gray color */
+"blue_gray" = "ສີເທົາຟ້າ";
+
+/* place preview title */
+"info" = "ຂໍ້ມູນ";
+
+/* Prints version number in About dialog */
+"version" = "ເວີຊັນ Organic Maps: %@";
+
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "ຮູບລັກສະນະ";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "ແຈ້ງ";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "ມືດ";
+
+/* Title for "Other" section in TTS settings. */
+"pref_tts_other_section_title" = "ອື່ນໆ";
+
+/* Tex label above the Donate button */
+"donate_description" = "ມອບແຜນທີ່ຟຣີທີ່ບໍ່ມີໂຄສະນາໃຫ້ກັບຜູ້ໃຊ້ຫຼາຍລ້ານຄົນ!";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "ແຈ້ງ ຫຼື ແກ້ໄຂຂໍ້ມູນແຜນທີ່ທີ່ບໍ່ຖືກຕ້ອງ";
+
+/* Button in the About screen */
+"volunteer" = "ອາສາສະໝັກ";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "ຕິດຕາມ ແລະ ຕິດຕໍ່ພວກເຮົາ:";
+
+/* Alert text */
+"email_error_body" = "ຍັງບໍ່ທັນໄດ້ຕັ້ງຄ່າແອັບອີເມລ. ກະລຸນາຕັ້ງຄ່າ ຫຼື ຕິດຕໍ່ພວກເຮົາທີ່ %@";
+
+/* Alert title */
+"email_error_title" = "ເກີດຂໍ້ຜິດພາດໃນການສົ່ງອີເມລ";
+
+/* Settings item title */
+"pref_calibration_title" = "ການປັບຕັ້ງເຂັມທິດ";
+
+/* Downloaded maps category */
+"downloader_available_maps" = "ມີໃຫ້ໃຊ້";
+"downloader_search_results" = "ພົບ";
+
+/* Status of outdated country in the list */
+"downloader_status_outdated" = "ອັບເດດ";
+
+/* Status of failed country in the list */
+"downloader_status_failed" = "ຫຼົ້ມເຫຼວ";
+
+/* bookmark button text */
+"bookmark" = "ບຸກມາກ";
+
+
+/********** Routing dialogs strings **********/
+
+"dialog_routing_disclaimer_title" = "ເມື່ອເດີນທາງຕາມເສັ້ນທາງ, ກະລຸນາຈື່ໄວ້ວ່າ:";
+"dialog_routing_disclaimer_priority" = "— ສະພາບຖະໜົນ, ກົດໝາຍຈະລາຈອນ, ແລະ ປ້າຍຈະລາຈອນ ມີຄວາມສຳຄັນກວ່າຄຳແນະນຳໃນການນຳທາງສະເໝີ;";
+"dialog_routing_disclaimer_precision" = "— ແຜນທີ່ອາດບໍ່ຊັດເຈນ, ແລະ ເສັ້ນທາງທີ່ແນະນຳອາດບໍ່ແມ່ນທາງທີ່ດີທີ່ສຸດສະເໝີໄປ;";
+"dialog_routing_disclaimer_recommendations" = "— ເສັ້ນທາງທີ່ແນະນຳຄວນຖືວ່າເປັນພຽງຄຳແນະນຳເທົ່ານັ້ນ;";
+"dialog_routing_disclaimer_borders" = "— ລະມັດລະວັງກັບເສັ້ນທາງໃນເຂດຊາຍແດນ: ເສັ້ນທາງທີ່ສ້າງໂດຍແອັບຂອງພວກເຮົາອາດຂ້າມຊາຍແດນປະເທດໃນຈຸດທີ່ບໍ່ໄດ້ຮັບອະນຸຍາດ.";
+"dialog_routing_disclaimer_beware" = "ກະລຸນາມີສະຕິ ແລະ ປອດໄພໃນການເດີນທາງ!";
+"dialog_routing_check_gps" = "ກວດເບິ່ງສັນຍານ GPS";
+"dialog_routing_error_location_not_found" = "ບໍ່ສາມາດສ້າງເສັ້ນທາງໄດ້. ບໍ່ສາມາດລະບຸພິກັດ GPS ປັດຈຸບັນໄດ້.";
+"dialog_routing_location_turn_wifi" = "ກະລຸນາກວດເບິ່ງສັນຍານ GPS ຂອງທ່ານ. ການເປີດ Wi-Fi ຈະຊ່ວຍໃຫ້ຕຳແໜ່ງທີ່ຕັ້ງຊັດເຈນຂຶ້ນ.";
+"dialog_routing_location_turn_on" = "ເປີດບໍລິການຕຳແໜ່ງທີ່ຕັ້ງ";
+"dialog_routing_location_unknown_turn_on" = "ບໍ່ສາມາດລະບຸພິກັດ GPS ປັດຈຸບັນໄດ້. ເປີດບໍລິການຕຳແໜ່ງທີ່ຕັ້ງເພື່ອຄິດໄລ່ເສັ້ນທາງ.";
+"dialog_routing_unable_locate_route" = "ບໍ່ສາມາດຊອກຫາເສັ້ນທາງໄດ້";
+"dialog_routing_change_start_or_end" = "ກະລຸນາປັບປຸງຈຸດເລີ່ມຕົ້ນ ຫຼື ປາຍທາງຂອງທ່ານ.";
+"dialog_routing_change_start" = "ປັບປຸງຈຸດເລີ່ມຕົ້ນ";
+"dialog_routing_start_not_determined" = "ເສັ້ນທາງບໍ່ຖືກສ້າງ. ບໍ່ສາມາດລະບຸຈຸດເລີ່ມຕົ້ນໄດ້.";
+"dialog_routing_select_closer_start" = "ກະລຸນາເລືອກຈຸດເລີ່ມຕົ້ນໃຫ້ໃກ້ກັບຖະໜົນ.";
+"dialog_routing_change_end" = "ປັບປຸງປາຍທາງ";
+"dialog_routing_end_not_determined" = "ເສັ້ນທາງບໍ່ຖືກສ້າງ. ບໍ່ສາມາດລະບຸປາຍທາງໄດ້.";
+"dialog_routing_select_closer_end" = "ກະລຸນາເລືອກຈຸດປາຍທາງໃຫ້ໃກ້ກັບຖະໜົນ.";
+"dialog_routing_change_intermediate" = "ບໍ່ສາມາດລະບຸຈຸດແວ່ພັກໄດ້.";
+"dialog_routing_intermediate_not_determined" = "ກະລຸນາປັບປຸງຈຸດແວ່ພັກຂອງທ່ານ.";
+"dialog_routing_system_error" = "ຂໍ້ຜິດພາດຂອງລະບົບ";
+"dialog_routing_application_error" = "ບໍ່ສາມາດສ້າງເສັ້ນທາງໄດ້ເນື່ອງຈາກຂໍ້ຜິດພາດຂອງແອັບພລິເຄຊັນ.";
+"dialog_routing_try_again" = "ກະລຸນາລອງໃໝ່";
+"dialog_routing_download_and_build_cross_route" = "ທ່ານຕ້ອງການດາວໂຫລດແຜນທີ່ ແລະ ສ້າງເສັ້ນທາງທີ່ດີກວ່າເຊິ່ງກວມເອົາຫຼາຍກວ່າໜຶ່ງແຜນທີ່ບໍ່?";
+"dialog_routing_download_cross_route" = "ດາວໂຫລດແຜນທີ່ເພີ່ມເຕີມເພື່ອສ້າງເສັ້ນທາງທີ່ດີກວ່າເຊິ່ງຂ້າມຂອບເຂດຂອງແຜນທີ່ນີ້.";
+"dialog_routing_download_files" = "ດາວໂຫຼດໄຟລ໌ທີ່ຈຳເປັນ";
+"dialog_routing_download_and_update_all" = "ດາວໂຫຼດ ຫຼື ອັບເດດແຜນທີ່ທັງໝົດຕາມເສັ້ນທາງເພື່ອຄິດໄລ່ເສັ້ນທາງ.";
+
+
+/********** Strings for downloading map from search **********/
+
+
+/* «Show» context menu */
+"show" = "ສະແດງ";
+
+/* «Hide» context menu */
+"hide" = "ເຊື່ອງ";
+"categories" = "ໝວດໝູ່";
+"history" = "ປະຫວັດ";
+"search_not_found" = "ຂໍອະໄພ, ບໍ່ພົບຜົນການຄົ້ນຫາ.";
+
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "ດາວໂຫລດພາກພື້ນທີ່ທ່ານກຳລັງຄົ້ນຫາ ຫຼື ລອງເພີ່ມຊື່ເມືອງ/ບ້ານທີ່ຢູ່ໃກ້ຄຽງ.";
+"search_history_title" = "ປະຫວັດການຄົ້ນຫາ";
+"search_history_text" = "ເບິ່ງການຄົ້ນຫາຫຼ້າສຸດຂອງທ່ານ.";
+"clear_search" = "ລຶບປະຫວັດການຄົ້ນຫາ";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "ວິກິພີເດຍ";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "ວິກິມີເດຍ ຄອມມອນສ໌";
+"p2p_your_location" = "ຕຳແໜ່ງຂອງທ່ານ";
+"p2p_start" = "ເລີ່ມ";
+"p2p_from_here" = "ເສັ້ນທາງຈາກ";
+"p2p_to_here" = "ເສັ້ນທາງໄປຫາ";
+"p2p_only_from_current" = "ການນຳທາງສາມາດໃຊ້ໄດ້ສະເພາະຈາກຕຳແໜ່ງປັດຈຸບັນຂອງທ່ານເທົ່ານັ້ນ.";
+"p2p_reroute_from_current" = "ທ່ານຕ້ອງການວາງແຜນເສັ້ນທາງຈາກຕຳແໜ່ງປັດຈຸບັນຂອງທ່ານບໍ່?";
+"editor_time_add" = "ເພີ່ມຕາຕະລາງ";
+"editor_time_delete" = "ລຶບຕາຕະລາງ";
+
+/* Text for allday switch. */
+"editor_time_allday" = "ທັງໝົດມື້ (24 ຊົ່ວໂມງ)";
+"editor_time_open" = "ເປີດ";
+"editor_time_close" = "ປິດ";
+"editor_time_add_closed" = "ເພີ່ມຊົ່ວໂມງທີ່ບໍ່ແມ່ນເວລາທຳການ";
+"editor_time_title" = "ເວລາທຳການ";
+"editor_time_advanced" = "ໂໝດຂັ້ນສູງ";
+"editor_time_simple" = "ໂໝດງ່າຍດາຍ";
+"editor_hours_closed" = "ຊົ່ວໂມງທີ່ບໍ່ແມ່ນເວລາທຳການ";
+"editor_example_values" = "ຕົວຢ່າງຄ່າ";
+"editor_add_select_location" = "ເລືອກຕຳແໜ່ງທີ່ຕັ້ງ";
+"editor_report_problem_send_button" = "ສົ່ງ";
+"autodownload" = "ດາວໂຫລດແຜນທີ່ອັດຕະໂນມັດ";
+
+/* Place Page opening hours text */
+"daily" = "ທຸກມື້";
+"twentyfour_seven" = "24/7";
+"day_off_today" = "ປິດມື້ນີ້";
+"day_off" = "ປິດ";
+"today" = "ມື້ນີ້";
+"opens_in" = "ຈະເປີດໃນອີກ %@";
+"closes_in" = "ຈະປິດໃນອີກ %@";
+"closed" = "ປິດ";
+"no_osm_account" = "ຍັງບໍ່ມີບັນຊີ OpenStreetMap ບໍ່?";
+"register_at_openstreetmap" = "ລົງທະບຽນທີ່ OpenStreetMap";
+"login" = "ເຂົ້າສູ່ລະບົບ";
+"login_osm" = "ເຂົ້າສູ່ລະບົບ OpenStreetMap";
+"forgot_password" = "ລືມລະຫັດຜ່ານບໍ່?";
+"logout" = "ອອກຈາກລະບົບ";
+"edit_place" = "ແກ້ໄຂສະຖານທີ່";
+"add_language" = "ເພີ່ມພາສາ";
+
+/* Editable House Number text field (in address block). */
+"house_number" = "ເລກທີອາຄານ";
+"details" = "ລາຍລະອຽດ";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "ເພີ່ມຖະໜົນ";
+"choose_language" = "ເລືອກພາສາ";
+"choose_street" = "ເລືອກຖະໜົນ";
+"cuisine" = "ປະເພດອາຫານ";
+"select_cuisine" = "ເລືອກປະເພດອາຫານ";
+
+/* login text field */
+"email_or_username" = "ອີເມລ ຫຼື ຊື່ຜູ້ໃຊ້";
+"level" = "ຊັ້ນ";
+"downloader_delete_map_dialog" = "ການແກ້ໄຂແຜນທີ່ທັງໝົດຂອງທ່ານຈະຖືກລຶບໄປພ້ອມກັບແຜນທີ່.";
+"downloader_update_maps" = "ອັບເດດແຜນທີ່";
+"downloader_search_field_hint" = "ຊອກຫາແຜນທີ່";
+"common_check_internet_connection_dialog" = "ກະລຸນາໃຫ້ແນ່ໃຈວ່າອຸປະກອນຂອງທ່ານໄດ້ເຊື່ອມຕໍ່ອິນເຕີເນັດແລ້ວ.";
+"downloader_no_space_title" = "ພື້ນທີ່ບໍ່ພໍ";
+
+/* Message shown when there is not enough space to download maps */
+"downloader_no_space_message" = "ກະລຸນາລຶບຂໍ້ມູນທີ່ບໍ່ຈຳເປັນອອກ";
+"editor_profile_changes" = "ການປ່ຽນແປງທີ່ໄດ້ຮັບການຢືນຢັນແລ້ວ";
+"editor_focus_map_on_location" = "ລາກແຜນທີ່ເພື່ອວາງເຄື່ອງໝາຍບວກໃສ່ຕຳແໜ່ງຂອງສະຖານທີ່ ຫຼື ທຸລະກິດ.";
+"editor_edit_place_title" = "ກຳລັງແກ້ໄຂ";
+"editor_add_place_title" = "ກຳລັງເພີ່ມ";
+"editor_edit_place_name_hint" = "ຊື່ຂອງສະຖານທີ່";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "ຕາມທີ່ຂຽນໃນພາສາທ້ອງຖິ່ນ";
+"editor_edit_place_category_title" = "ໝວດໝູ່";
+"message_invalid_feature_position" = "ບໍ່ມີວັດຖຸໃດສາມາດຕັ້ງຢູ່ບ່ອນນີ້ໄດ້";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "ຂໍ້ມູນ OpenStreetMap ທີ່ສ້າງໂດຍຊຸມຊົນ ນັບຕັ້ງແຕ່ %@. ສຶກສາເພີ່ມເຕີມກ່ຽວກັບວິທີແກ້ໄຂ ແລະ ອັບເດດແຜນທີ່ໄດ້ທີ່ OpenStreetMap.org";
+"login_to_make_edits_visible" = "ສ້າງບັນຊີ OpenStreetMap ຫຼື ເຂົ້າສູ່ລະບົບເພື່ອເຜີຍແຜ່ການແກ້ໄຂແຜນທີ່ຂອງທ່ານໃຫ້ໂລກໄດ້ເຫັນ.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d ຈາກ %2$d";
+"download_over_mobile_header" = "ດາວໂຫລດຜ່ານການເຊື່ອມຕໍ່ເຄືອຂ່າຍມືຖືບໍ່?";
+"download_over_mobile_message" = "ນີ້ອາດຈະມີຄ່າໃຊ້ຈ່າຍສູງສຳລັບບາງແພັກເກັດ ຫຼື ຫາກໃຊ້ບໍລິການໂຣມມິ່ງ.";
+"error_enter_correct_house_number" = "ປ້ອນເລກທີອາຄານທີ່ຖືກຕ້ອງ";
+"editor_storey_number" = "ຈຳນວນຊັ້ນ (ສູງສຸດ %d)";
+
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "ຈຳນວນຊັ້ນຕ້ອງບໍ່ເກີນ %d";
+"editor_zip_code" = "ລະຫັດໄປສະນີ";
+"error_enter_correct_zip_code" = "ປ້ອນລະຫັດໄປສະນີທີ່ຖືກຕ້ອງ";
+
+/* Title for OSM note section in the editor */
+"editor_other_info" = "ບັນທຶກເຖິງອາສາສະໝັກ OpenStreetMap (ບໍ່ບັງຄັບ)";
+"editor_more_about_osm" = "ເພີ່ມເຕີມກ່ຽວກັບ OpenStreetMap";
+"editor_operator" = "ຜູ້ດູແລ";
+
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
+"operator" = "ຜູ້ດຳເນີນການ: %@";
+"editor_category_unsuitable_title" = "ບໍ່ພົບໝວດໝູ່ທີ່ເໝາະສົມບໍ່?";
+"editor_category_unsuitable_text" = "Organic Maps ອະນຸຍາດໃຫ້ເພີ່ມສະເພາະໝວດໝູ່ຈຸດທີ່ງ່າຍດາຍເທົ່ານັ້ນ, ນັ້ນໝາຍຄວາມວ່າບໍ່ລວມເຖິງ ຕົວເມືອງ, ຖະໜົນ, ໜອງນ້ຳ, ຂອບເຂດອາຄານ ແລະ ອື່ນໆ. ກະລຸນາເພີ່ມໝວດໝູ່ດັ່ງກ່າວໂດຍກົງທີ່ <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. ກວດເບິ່ງ <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ຄຳແນະນຳ</a> ຂອງພວກເຮົາສຳລັບຂັ້ນຕອນໂດຍລະອຽດ.";
+"downloader_no_downloaded_maps_title" = "ທ່ານຍັງບໍ່ໄດ້ດາວໂຫລດແຜນທີ່ໃດໆ";
+"downloader_no_downloaded_maps_message" = "ດາວໂຫລດແຜນທີ່ເພື່ອຄົ້ນຫາ ແລະ ນຳທາງແບບອອບລາຍ.";
+"current_location_unknown_error_title" = "ບໍ່ຮູ້ຕຳແໜ່ງປັດຈຸບັນ.";
+
+/* abbreviation for kilometers per hour */
+"kilometers_per_hour" = "ກມ/ຊມ";
+"miles_per_hour" = "ໄມ/ຊມ";
+"hour" = "ຊມ";
+"minute" = "ນາທີ";
+"day" = "ມື້";
+"second" = "ວິ";
+"placepage_more_button" = "ເພີ່ມເຕີມ";
+
+/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
+"placepage_edit_bookmark_button" = "ແກ້ໄຂບຸກມາກ";
+"placepage_personal_notes_hint" = "ບັນທຶກສ່ວນຕົວ (ຂໍ້ຄວາມ ຫຼື html)";
+"editor_comment_hint" = "ສະແດງຄວາມຄິດເຫັນ…";
+"editor_reset_edits_message" = "ຍົກເລີກການປ່ຽນແປງພາຍໃນທັງໝົດບໍ່?";
+"editor_reset_edits_button" = "ຍົກເລີກ";
+"editor_remove_place_message" = "ລຶບສະຖານທີ່ທີ່ເພີ່ມເຂົ້າໄປບໍ່?";
+"editor_remove_place_button" = "ລຶບ";
+"editor_place_doesnt_exist" = "ສະຖານທີ່ນີ້ບໍ່ມີຢູ່ແທ້";
+
+/* Phone number error message */
+"error_enter_correct_phone" = "ປ້ອນເບີໂທລະສັບທີ່ຖືກຕ້ອງ";
+"error_enter_correct_web" = "ປ້ອນທີ່ຢູ່ເວັບທີ່ຖືກຕ້ອງ";
+"error_enter_correct_email" = "ປ້ອນອີເມລທີ່ຖືກຕ້ອງ";
+"placepage_add_place_button" = "ເພີ່ມສະຖານທີ່ໃສ່ OpenStreetMap";
+
+/* Displayed when saving some edits to the map to warn against publishing personal data */
+"editor_share_to_all_dialog_title" = "ທ່ານຕ້ອງການສົ່ງໃຫ້ຜູ້ໃຊ້ທັງໝົດບໍ່?";
+
+/* Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "ໃຫ້ແນ່ໃຈວ່າທ່ານບໍ່ໄດ້ປ້ອນຂໍ້ມູນສ່ວນຕົວໃດໆ.";
+"editor_share_to_all_dialog_message_2" = "ຜູ້ກວດແກ້ OpenStreetMap ຈະກວດສອບການປ່ຽນແປງ ແລະ ຕິດຕໍ່ຫາທ່ານຫາກພວກເຂົາມີຄຳຖາມໃດໆ.";
+"navigation_stop_button" = "ຢຸດ";
+
+/* For the first routing */
+"accept" = "ຍອມຮັບ";
+
+/* For the first routing */
+"decline" = "ປະຕິເສດ";
+"mobile_data_dialog" = "ໃຊ້ ອິນເຕີເນັດມືຖື ເພື່ອສະແດງຂໍ້ມູນລະອຽດບໍ່?";
+"mobile_data_option_always" = "ໃຊ້ສະເໝີ";
+"mobile_data_option_today" = "ສະເພາະມື້ນີ້";
+"mobile_data_option_not_today" = "ບໍ່ໃຊ້ໃນມື້ນີ້";
+"mobile_data" = "ອິນເຕີເນັດມືຖື";
+
+/* NOTE to translators: please synchronize your translation with the English one. */
+"mobile_data_description" = "ຕ້ອງການອິນເຕີເນັດມືຖືສຳລັບການແຈ້ງເຕືອນອັບເດດແຜນທີ່ ແລະ ການອັບໂຫລດການແກ້ໄຂ.";
+"mobile_data_option_never" = "ບໍ່ໃຊ້ເລີຍ";
+"mobile_data_option_ask" = "ຖາມທຸກຄັ້ງ";
+"traffic_update_maps_text" = "ເພື່ອສະແດງຂໍ້ມູນການຈະລາຈອນ, ຕ້ອງອັບເດດແຜນທີ່ກ່ອນ.";
+"big_font" = "ເພີ່ມຂະໜາດສຳລັບປ້າຍຊື່ໃນແຜນທີ່";
+
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "ຂໍ້ມູນການຈະລາຈອນບໍ່ພ້ອມໃຊ້ງານ";
+"enable_logging" = "ເປີດການບັນທຶກລັອກ";
+"transliteration_title" = "ຖອດອັກສອນເປັນພາສາລາແຕັງ";
+"planning_route_manage_route" = "ຈັດການເສັ້ນທາງ";
+"button_plan" = "ວາງແຜນ";
+"placepage_remove_stop" = "ເອົາຈຸດແວ່ພັກອອກ";
+"placepage_add_stop" = "ເພີ່ມຈຸດແວ່ພັກ";
+"saved" = "ບັນທຶກແລ້ວ";
+"error_enter_correct_name" = "ກະລຸນາປ້ອນຊື່ທີ່ຖືກຕ້ອງ";
+"bookmark_lists" = "ລາຍການ";
+
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "ເຊື່ອງທັງໝົດ";
+"bookmark_lists_show_all" = "ສະແດງທັງໝົດ";
+"bookmarks_create_new_group" = "ສ້າງລາຍການໃໝ່";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "ນຳເຂົ້າບຸກມາກ ແລະ ເສັ້ນທາງ";
+"bookmarks_error_message_share_general" = "ບໍ່ສາມາດແບ່ງປັນໄດ້ເນື່ອງຈາກຂໍ້ຜິດພາດຂອງແອັບພລິເຄຊັນ";
+"bookmarks_error_title_share_empty" = "ຂໍ້ຜິດພາດໃນການແບ່ງປັນ";
+"bookmarks_error_message_share_empty" = "ບໍ່ສາມາດແບ່ງປັນລາຍການທີ່ວ່າງເປົ່າໄດ້";
+"bookmarks_error_message_empty_list_name" = "ກະລຸນາປ້ອນຊື່ລາຍການ";
+"bookmarks_error_title_list_name_already_taken" = "ຊື່ນີ້ຖືກໃຊ້ແລ້ວ";
+"profile" = "ໂປຣໄຟລ໌ OpenStreetMap";
+"restore" = "ກູ້ຄືນ";
+"privacy_policy" = "ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ";
+"terms_of_use" = "ເງື່ອນໄຂການໃຊ້ງານ";
+
+/* Hiking routes layer name in the Styles and Layers dialog */
+"button_layer_hiking" = "ການຍ່າງປ່າ";
+
+/* Cycling routes layer name in the Styles and Layers dialog */
+"button_layer_cycling" = "ການຂີ່ລົດຖີບ";
+"button_layer_subway" = "ລົດໄຟໃຕ້ດິນ";
+"layers_title" = "ຮູບແບບແຜນທີ່ ແລະ ເລເຢີ້";
+
+/* Menu title for exporting a file in the default KMZ format */
+"export_file" = "ສົ່ງອອກ KMZ";
+
+/* Menu title for exporting a file in GPX format */
+"export_file_gpx" = "ສົ່ງອອກ GPX";
+
+/* Menu title for exporting a file in GeoJSON format */
+"export_file_geojson" = "ສົ່ງອອກ GeoJSON";
+"delete_list" = "ລຶບລາຍການ";
+"speedcams_alert_title" = "ກ້ອງກວດຈັບຄວາມໄວ";
+"place_description_title" = "ລາຍລະອຽດສະຖານທີ່";
+
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "ເຕືອນຫາກເກີນຄວາມໄວ";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "ເຕືອນສະເໝີ";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "ບໍ່ຕ້ອງເຕືອນ";
+"power_managment_title" = "ໂໝດປະຢັດພະລັງງານ";
+"power_managment_description" = "ພະຍາຍາມຫຼຸດການໃຊ້ພະລັງງານໂດຍແລກກັບບາງຟັງຊັນການໃຊ້ງານ.";
+"power_managment_setting_never" = "ບໍ່ເລີຍ";
+"power_managment_setting_auto" = "ເມື່ອແບັດເຕີຣີຕ່ຳ";
+"power_managment_setting_manual_max" = "ສະເໝີ";
+
+/* Settings/Bookmark Text Placement */
+"bookmarks_text_placement_title" = "ຊື່ບຸກມາກໃນແຜນທີ່";
+"bookmarks_text_placement_description" = "ຫາກມີບຸກມາກຫຼາຍເກີນໄປ, ການສະແດງຊື່ຂອງພວກມັນໃນແຜນທີ່ອາດເຮັດໃຫ້ແອັບຊ້າລົງ.";
+"show_to_the_right" = "ສະແດງທາງເບື້ອງຂວາ";
+"show_at_the_bottom" = "ສະແດງທາງເບື້ອງລຸ່ມ";
+"enable_logging_warning_message" = "ເປີດໃຊ້ຕົວເລືອກນີ້ຊົ່ວຄາວເພື່ອບັນທຶກ ແລະ ສົ່ງລັອກການວິນິດໄສໂດຍລະອຽດກ່ຽວກັບບັນຫາຂອງທ່ານໃຫ້ພວກເຮົາໂດຍໃຊ້ \"ລາຍງານຂໍ້ຜິດພາດ\" ໃນສ່ວນຊ່ວຍເຫຼືອ. ລັອກອາດຈະລວມມີຂໍ້ມູນຕຳແໜ່ງທີ່ຕັ້ງ.";
+"driving_options_title" = "ຕົວເລືອກການສ້າງເສັ້ນທາງ";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "ເລ່ຽງທາງເສຍຄ່າທຳນຽມ";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "ເລ່ຽງທາງບໍ່ປູຢາງ";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "ເລ່ຽງເຮືອຂ້າມຟາກ";
+"avoid_motorways" = "ເລ່ຽງທາງດ່ວນ";
+"unable_to_calc_alert_title" = "ບໍ່ສາມາດຄິດໄລ່ເສັ້ນທາງໄດ້";
+"unable_to_calc_alert_subtitle" = "ບໍ່ພົບເສັ້ນທາງ. ນີ້ອາດຈະເກີດຈາກຕົວເລືອກການສ້າງເສັ້ນທາງຂອງທ່ານ ຫຼື ຂໍ້ມູນ OpenStreetMap ບໍ່ສົມບູນ. ກະລຸນາປ່ຽນຕົວເລືອກການສ້າງເສັ້ນທາງຂອງທ່ານ ແລະ ລອງໃໝ່.";
+"define_to_avoid_btn" = "ກຳນົດຖະໜົນທີ່ຕ້ອງການເລ່ຽງ";
+"change_driving_options_btn" = "ເປີດໃຊ້ຕົວເລືອກການສ້າງເສັ້ນທາງແລ້ວ";
+"toll_road" = "ທາງເສຍຄ່າທຳນຽມ";
+"unpaved_road" = "ທາງບໍ່ປູຢາງ";
+"ferry_crossing" = "ຈຸດຂ້າມເຮືອຟາກ";
+
+/* A generic "Yes" button in dialogs */
+"yes" = "ແມ່ນ";
+
+/* A generic "No" button in dialogs */
+"no" = "ບໍ່";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "ມີ";
+
+/* E.g. "WiFi:No" */
+"no_available" = "ບໍ່ມີ";
+
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations… */
+"capacity" = "ຄວາມຈຸ: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… */
+"network" = "ເຄືອຂ່າຍ: %@";
+"trip_finished" = "ທ່ານມາຮອດແລ້ວ!";
+"ok" = "ຕົກລົງ";
+
+/* max. 10 symbols, both iOS and Android */
+"sort" = "ຈັດລຽງ…";
+"week_ago_sorttype" = "ໜຶ່ງອາທິດຜ່ານມາ";
+"month_ago_sorttype" = "ໜຶ່ງເດືອນຜ່ານມາ";
+"moremonth_ago_sorttype" = "ຫຼາຍກວ່າໜຶ່ງເດືອນຜ່ານມາ";
+"moreyear_ago_sorttype" = "ຫຼາຍກວ່າໜຶ່ງປີຜ່ານມາ";
+"near_me_sorttype" = "ໃກ້ຂ້ອຍ";
+"others_sorttype" = "ອື່ນໆ";
+
+/* Failed planning route message in navigation view */
+"routing_planning_error" = "ວາງແຜນເສັ້ນທາງບໍ່ສຳເລັດ";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "ມາຮອດໃນເວລາ %@";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "ດາວໂຫຼດ ແລະ ອັບເດດແຜນທີ່ທັງໝົດຕາມເສັ້ນທາງເພື່ອຄິດໄລ່ເສັ້ນທາງ.";
+"editor_done_dialog_1" = "ທ່ານໄດ້ຊ່ວຍປ່ຽນແປງແຜນທີ່ໂລກແລ້ວ! ຢ່າເກັບໄວ້ຄົນດຽວ; ບອກໝູ່ເພື່ອນຂອງທ່ານໃຫ້ມາຊ່ວຍກັນແກ້ໄຂນຳກັນ.";
+"share_with_friends" = "ແບ່ງປັນກັບໝູ່ເພື່ອນ";
+
+/* Place Page opening hours text */
+"closed_now" = "ປິດຢູ່ໃນຂະນະນີ້";
+"opens_tomorrow_at" = "ຈະເປີດມື້ອື່ນເວລາ %@";
+"opens_dayoftheweek_at" = "ຈະເປີດວັນ%1$@ ເວລາ %2$@";
+"opens_at" = "ຈະເປີດເວລາ %@";
+"closes_at" = "ຈະປິດເວລາ %@";
+"add_opening_hours" = "ເພີ່ມເວລາເປີດ-ປິດ";
+"password_8_chars_min" = "ລະຫັດຜ່ານ (ຢ່າງໜ້ອຍ 8 ຕົວອັກສອນ)";
+"invalid_username_or_password" = "ຊື່ຜູ້ໃຊ້ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ.";
+"osm_account" = "ບັນຊີ OSM";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "ອັບໂຫຼດຫຼ້າສຸດ";
+"thank_you" = "ຂອບໃຈ";
+"place_name" = "ຊື່ສະຖານທີ່";
+"phone" = "ເບີໂທລະສັບ";
+"please_note" = "ກະລຸນາໝາຍເຫດ";
+"migration_download_error_dialog" = "ເກີດຂໍ້ຜິດພາດໃນການດາວໂຫຼດ";
+"editor_add_select_category" = "ເລືອກໝວດໝູ່";
+"editor_add_select_category_popular_subtitle" = "ຍອດນິຍົມ";
+"editor_add_select_category_all_subtitle" = "ໝວດໝູ່ທັງໝົດ";
+"whatsnew_editor_message_1" = "ເພີ່ມສະຖານທີ່ໃໝ່ລົງໃນແຜນທີ່ ແລະ ແກ້ໄຂສະຖານທີ່ທີ່ມີຢູ່ແລ້ວໄດ້ໂດຍກົງຈາກແອັບ.";
+"dialog_incorrect_feature_position" = "ປ່ຽນຕຳແໜ່ງ";
+
+/* Error dialog no space */
+"migration_no_space_message" = "ທ່ານຕ້ອງການພື້ນທີ່ຈັດເກັບເພີ່ມເຕີມເພື່ອດາວໂຫຼດ. ກະລຸນາລຶບຂໍ້ມູນທີ່ບໍ່ຈຳເປັນອອກ.";
+"editor_sharing_title" = "ຂ້ອຍໄດ້ຊ່ວຍປັບປຸງແຜນທີ່ໃນ Organic Maps";
+"editor_detailed_description_hint" = "ຄວາມຄິດເຫັນລະອຽດ";
+"editor_detailed_description" = "ການປ່ຽນແປງທີ່ທ່ານແນະນຳຈະຖືກສົ່ງໄປຫາຊຸມຊົນ OpenStreetMap. ກະລຸນາອະທິບາຍລາຍລະອຽດເພີ່ມເຕີມທີ່ບໍ່ສາມາດແກ້ໄຂໄດ້ໃນ Organic Maps.";
+"current_location_unknown_error_message" = "ເກີດຂໍ້ຜິດພາດໃນການລະບຸຕຳແໜ່ງຂອງທ່ານ. ກະລຸນາກວດສອບວ່າອຸປະກອນເຮັດງານປົກກະຕິ ແລະ ລອງໃໝ່ອີກຄັ້ງ.";
+"location_services_disabled_header" = "ບໍລິການຕຳແໜ່ງຖືກປິດຢູ່";
+"location_services_disabled_message" = "ເປີດໃຊ້ການເຂົ້າເຖິງຕຳແໜ່ງໃນການຕັ້ງຄ່າອຸປະກອນ";
+"location_services_disabled_1" = "1. ເປີດການຕັ້ງຄ່າ";
+"location_services_disabled_2" = "2. ແຕະທີ່ ຕຳແໜ່ງ";
+
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
+"location_services_disabled_3" = "3. ເລືອກ ໃນລະຫວ່າງການໃຊ້ແອັບ";
+"location_services_disabled_on_device_2" = "2. ເລືອກ ຄວາມເປັນສ່ວນຕົວ";
+"location_services_disabled_on_device_3" = "3. ເລືອກ ບໍລິການຕຳແໜ່ງ";
+"location_services_disabled_on_device_4" = "4. ເປີດ ບໍລິການຕຳແໜ່ງ";
+"location_services_disabled_on_device_additional_message" = "ຫຼື ໃຊ້ Organic Maps ຕໍ່ໄປໂດຍບໍ່ໃຊ້ຕຳແໜ່ງ";
+"book_button" = "ຈອງ";
+"placepage_call_button" = "ໂທ";
+"placepage_bookmark_name_hint" = "ຊື່ບຸກມາກ";
+"placepage_delete_bookmark_button" = "ລຶບບຸກມາກ";
+"editor_edits_sent_message" = "ໝາຍເຫດຂອງທ່ານຈະຖືກສົ່ງໄປຫາ OpenStreetMap";
+"text_more_button" = "…ເພີ່ມເຕີມ";
+"refresh" = "ອັບເດດ";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "ປິດການບັນທຶກເສັ້ນທາງການເດີນທາງຫຼ້າສຸດຂອງທ່ານຫຼືບໍ່?";
+"off_recent_track_background_button" = "ປິດໃຊ້ງານ";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "ເບິ່ງທີ່ນີ້";
+"recent_track_background_dialog_message" = "Organic Maps ໃຊ້ຕຳແໜ່ງຂອງທ່ານໃນເບື້ອງຫຼັງເພື່ອບັນທຶກເສັ້ນທາງການເດີນທາງຫຼ້າສຸດຂອງທ່ານ.";
+"general_settings" = "ການຕັ້ງຄ່າທົ່ວໄປ";
+
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "ເພື່ອສະແດງຂໍ້ມູນການຈໍລະຈອນ, ຕ້ອງອັບເດດແອັບພລິເຄຊັນ.";
+"log_file_size" = "ຂະໜາດໄຟລ໌ລັອກ: %@";
+"planning_route_remove_title" = "ລາກມາທີ່ນີ້ເພື່ອລຶບ";
+"placepage_replace_stop" = "ປ່ຽນແທນຈຸດແວ່ພັກ";
+"start_from_my_position" = "ເລີ່ມຕົ້ນຈາກ";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "ກະລຸນາເຂົ້າສູ່ລະບົບ OpenStreetMap ເພື່ອອັບໂຫຼດການແກ້ໄຂແຜນທີ່ທັງໝົດຂອງທ່ານໂດຍອັດຕະໂນມັດ. ສຶກສາເພີ່ມເຕີມ";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "ທີ່ນີ້";
+"downloader_hide_screen" = "ເຊື່ອງໜ້າຈໍ";
+"downloader_percent" = "%@ (%@ ຈາກ %@)";
+"downloader_process" = "ກຳລັງດາວໂຫຼດ %@…";
+"downloader_applying" = "ກຳລັງຕິດຕັ້ງ %@…";
+"bookmarks_error_title_list_name_too_long" = "ຊື່ນີ້ຍາວເກີນໄປ";
+"bookmarks_detect_title" = "ກວດພົບໄຟລ໌ໃໝ່";
+"button_convert" = "ແປງໄຟລ໌";
+"bookmarks_convert_error_title" = "ຂໍ້ຜິດພາດ";
+"bookmarks_convert_error_message" = "ບາງໄຟລ໌ບໍ່ໄດ້ຖືກແປງ.";
+"title_error_downloading_bookmarks" = "ເກີດຂໍ້ຜິດພາດ";
+"popular_place" = "ຍອດນິຍົມ";
+"hide_from_map" = "ເຊື່ອງຈາກແຜນທີ່";
+"tags_loading_error_subtitle" = "ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດແທັກ, ກະລຸນາລອງໃໝ່";
+
+/* Position of the name label on the map relative to the bookmark pin (on the right) */
+"right" = "ຂວາ";
+
+/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
+"bottom" = "ລຸ່ມ";
+"trip_start" = "ໄປກັນເລີຍ";
+"pick_destination" = "ຈຸດໝາຍປາຍທາງ";
+"follow_my_position" = "ຈັດຕຳແໜ່ງກາງໃໝ່";
+"search_results" = "ຜົນການຄົ້ນຫາ";
+"then_turn" = "ຈາກນັ້ນ";
+"redirect_route_alert" = "ທ່ານຕ້ອງການສ້າງເສັ້ນທາງໃໝ່ຫຼືບໍ່?";
+"keyboard_availability_alert" = "ແປ້ນພິມບໍ່ສາມາດໃຊ້ໄດ້ໃນລະຫວ່າງການຂັບຂີ່";
+"dialog_routing_change_start_carplay" = "ບໍ່ສາມາດສ້າງເສັ້ນທາງຈາກຕຳແໜ່ງປັດຈຸບັນຂອງທ່ານໄດ້";
+"dialog_routing_change_end_carplay" = "ຫາເສັ້ນທາງໄປຫາຈຸດໝາຍປາຍທາງບໍ່ພົບ. ກະລຸນາເລືອກຈຸດໝາຍປາຍທາງອື່ນ";
+"dialog_routing_check_gps_carplay" = "ບໍ່ມີສັນຍານ GPS. ກະລຸນາຍ້າຍໄປບ່ອນທີ່ໂລ່ງແຈ້ງ";
+"dialog_routing_unable_locate_route_carplay" = "ບໍ່ສາມາດສ້າງເສັ້ນທາງໄດ້. ກະລຸນາລະບຸຈຸດອື່ນໆໃນເສັ້ນທາງ";
+"dialog_routing_download_files_carplay" = "ເພື່ອສ້າງເສັ້ນທາງ, ກະລຸນາດາວໂຫຼດແຜນທີ່ທີ່ຍັງຂາດຢູ່ໃນອຸປະກອນຂອງທ່ານ";
+"dialog_routing_system_error_carplay" = "ເກີດຂໍ້ຜິດພາດ. ກະລຸນາເລີ່ມແອັບໃໝ່";
+"dialog_routing_rebuild_from_current_location_carplay" = "ເສັ້ນທາງຈະຖືກສ້າງໃໝ່ຈາກຕຳແໜ່ງປັດຈຸບັນຂອງທ່ານ";
+"dialog_routing_rebuild_for_vehicle_carplay" = "ເສັ້ນທາງຈະຖືກປ່ຽນເປັນເສັ້ນທາງສຳລັບລົດຍົນ";
+"not_all_shown_bookmarks_carplay" = "ບຸກມາກບາງອັນບໍ່ໄດ້ຖືກສະແດງ";
+"switch_to_phone_bookmarks_carplay" = "ກະລຸນາເບິ່ງໃນໂທລະສັບເພື່ອເບິ່ງບຸກມາກທັງໝົດ";
+"speedcams_alert_title_carplay_1" = "ກ້ອງກວດຈັບຄວາມໄວ";
+"speedcams_alert_title_carplay_2" = "ການເຕືອນຄວາມໄວ";
+"download_map_carplay" = "ກະລຸນາດາວໂຫຼດແຜນທີ່ໃນແອັບເທິງອຸປະກອນມືຖືຂອງທ່ານ";
+"carplay_roundabout_exit" = "ທາງອອກທີ %@";
+
+/* iOS */
+"sort_default" = "ຈັດລຽງຕາມຄ່າມາດຕະຖານ";
+"sort_type" = "ຈັດລຽງຕາມປະເພດ";
+"sort_distance" = "ຈັດລຽງຕາມໄລຍະທາງ";
+"sort_date" = "ຈັດລຽງຕາມວັນທີ";
+"sort_name" = "ຈັດລຽງຕາມຊື່";
+
+
+/********** Bookmark types used for sorting **********/
+
+"food_places" = "ອາຫານ";
+"tourist_places" = "ສະຖານທີ່ທ່ອງທ່ຽວ";
+"museums" = "ພິພິທະພັນ";
+"parks" = "ສວນສາທາລະນະ";
+"swim_places" = "ບ່ອນລອຍນ້ຳ";
+"mountains" = "ພູເຂົາ";
+"animals" = "ສັດ";
+"hotels" = "ໂຮງແຮມ";
+"buildings" = "ອາຄານ";
+"money" = "ການເງິນ";
+"shops" = "ຮ້ານຄ້າ";
+"parkings" = "ບ່ອນຈອດລົດ";
+"fuel_places" = "ປ້ຳນ້ຳມັນ";
+"medicine" = "ການແພດ";
+"search_in_the_list" = "ຄົ້ນຫາໃນລາຍການ";
+"religious_places" = "ສະຖານທີ່ທາງສາດສະໜາ";
+"transit_not_found" = "ການນຳທາງດ້ວຍລົດໄຟໃຕ້ດິນໃນພາກພື້ນນີ້ຍັງບໍ່ທັນມີເທື່ອ";
+"dialog_pedestrian_route_is_long_header" = "ບໍ່ພົບເສັ້ນທາງລົດໄຟໃຕ້ດິນ";
+"dialog_pedestrian_route_is_long_message" = "ກະລຸນາເລືອກຈຸດເລີ່ມຕົ້ນ ຫຼື ປາຍທາງໃຫ້ໃກ້ກັບສະຖານີລົດໄຟໃຕ້ດິນ";
+"button_layer_isolines" = "ເສັ້ນລະດັບຄວາມສູງ";
+"isolines_activation_error_dialog" = "ການເປີດໃຊ້ເສັ້ນລະດັບຄວາມສູງຕ້ອງດາວໂຫລດຂໍ້ມູນແຜນທີ່ສຳລັບພາກພື້ນນີ້";
+"isolines_location_error_dialog" = "ເສັ້ນລະດັບຄວາມສູງຍັງບໍ່ທັນມີເທື່ອໃນເຂດນີ້";
+"elevation_profile_ascent" = "ທາງຂຶ້ນ";
+"elevation_profile_descent" = "ທາງລົງ";
+"elevation_profile_min_elevation" = "ລະດັບຄວາມສູງຕ່ຳສຸດ";
+"elevation_profile_max_elevation" = "ລະດັບຄວາມສູງສູງສຸດ";
+"isolines_toast_zooms_1_10" = "ຊູມເຂົ້າເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງ";
+"downloader_loading_ios" = "ກຳລັງດາວໂຫລດ";
+
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
+
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "ຂອບໃຈທີ່ໃຊ້ແຜນທີ່ທີ່ສ້າງໂດຍຊຸມຊົນຂອງພວກເຮົາ!";
+
+/* App tip #01 */
+"app_tip_01" = "ດ້ວຍການບໍລິຈາກ ແລະ ການສະໜັບສະໜູນຂອງທ່ານ, ພວກເຮົາສາມາດສ້າງແຜນທີ່ທີ່ດີທີ່ສຸດໃນໂລກໄດ້!";
+
+/* App tip #02 */
+"app_tip_02" = "ທ່ານມັກແອັບຂອງພວກເຮົາບໍ່? ກະລຸນາບໍລິຈາກເພື່ອສະໜັບສະໜູນການພັດທະນາ! ຫາກຍັງບໍ່ມັກ? ກະລຸນາບອກໃຫ້ພວກເຮົາຮູ້ເຫດຜົນ, ແລ້ວພວກເຮົາຈະແກ້ໄຂໃຫ້!";
+
+/* App tip #03 */
+"app_tip_03" = "ຫາກທ່ານຮູ້ຈັກນັກພັດທະນາຊອບແວ, ທ່ານສາມາດຂໍໃຫ້ລາວຊ່ວຍພັດທະນາຟີເຈີທີ່ທ່ານຕ້ອງການໄດ້.";
+
+/* App tip #04 */
+"app_tip_04" = "ແຕະບ່ອນໃດກໍໄດ້ໃນແຜນທີ່ເພື່ອເລືອກສິ່ງຕ່າງໆ. ການແຕະຄ້າງແມ່ນໃຊ້ເພື່ອເຊື່ອງ ແລະ ສະແດງອິນເຕີເຟດ.";
+
+/* App tip #05 */
+"app_tip_05" = "ທ່ານຮູ້ບໍ່ວ່າຕຳແໜ່ງປັດຈຸບັນຂອງທ່ານໃນແຜນທີ່ສາມາດຖືກເລືອກໄດ້?";
+
+/* App tip #06 */
+"app_tip_06" = "ທ່ານສາມາດຊ່ວຍແປແອັບຂອງພວກເຮົາເປັນພາສາຂອງທ່ານໄດ້.";
+
+/* App tip #07 */
+"app_tip_07" = "ແອັບຂອງພວກເຮົາຖືກພັດທະນາໂດຍຜູ້ມີໃຈຮັກພຽງບໍ່ເທົ່າໃດຄົນ ແລະ ຊຸມຊົນ.";
+
+/* App tip #08 */
+"app_tip_08" = "ທ່ານສາມາດແກ້ໄຂ ແລະ ປັບປຸງຂໍ້ມູນແຜນທີ່ໄດ້ຢ່າງງ່າຍດາຍ.";
+
+/* App tip #09 */
+"app_tip_09" = "ເປົ້າໝາຍຫຼັກຂອງພວກເຮົາແມ່ນເພື່ອສ້າງແຜນທີ່ທີ່ໄວ, ເນັ້ນຄວາມເປັນສ່ວນຕົວ, ແລະ ໃຊ້ງານງ່າຍທີ່ທ່ານຈະມັກ.";
+
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "ຕອນນີ້ທ່ານກຳລັງໃຊ້ Organic Maps ໃນໜ້າຈໍໂທລະສັບ";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "ຕອນນີ້ທ່ານກຳລັງໃຊ້ Organic Maps ໃນໜ້າຈໍລົດ";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "ຕໍ່ໄປໃນໂທລະສັບ";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "ໄປທີ່ໜ້າຈໍລົດ";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "ກາງແຈ້ງ";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "ສົ່ງອອກບຸກມາກ ແລະ ເສັ້ນທາງທັງໝົດ";
+"drive_through" = "ໄດຣຟ໌ທຣູ";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "ລິ້ງເມນູ";
+
+/* Title for the "Open in Another App" button on the PlacePage. */
+"open_in_app" = "ເປີດໃນແອັບອື່ນ";
+
+/* To indicate if the place proposed self service… */
+"self_service" = "ບໍລິການຕົນເອງ";
+
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "ບ່ອນນັ່ງກາງແຈ້ງ";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "ບັນທຶກເສັ້ນທາງ";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "ຢຸດການບັນທຶກເສັ້ນທາງ";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "ເສັ້ນທາງວ່າງເປົ່າ - ບໍ່ມີຫຍັງໃຫ້ບັນທຶກ";
+"edit_track" = "ແກ້ໄຂເສັ້ນທາງ";
+"elevation_profile_diff_level" = "ລະດັບຄວາມຍາກ";
+"elevation_profile_diff_level_easy" = "ງ່າຍ";
+"elevation_profile_diff_level_moderate" = "ປານກາງ";
+"elevation_profile_diff_level_hard" = "ຍາກ";
+"downloader_updating_ios" = "ກຳລັງອັບເດດ";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "ອັບເດດແຜນທີ່ທີ່ດາວໂຫຼດໄວ້";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "ການອັບເດດແຜນທີ່ຊ່ວຍໃຫ້ຂໍ້ມູນສະຖານທີ່ຕ່າງໆເປັນປັດຈຸບັນຢູ່ສະເໝີ";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "ອັບເດດ (%@)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "ອັບເດດເອງພາຍຫຼັງ";
+
+/* Delete track button on track edit screen */
+"placepage_delete_track_button" = "ລຶບເສັ້ນທາງ";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "ທ່ານແນ່ໃຈຫຼືບໍ່ວ່າຕ້ອງການລຶບເສັ້ນທາງນີ້?";
+
+/* Placeholder for track name input on track edit screen */
+"placepage_track_name_hint" = "ຊື່ເສັ້ນທາງ";
+
+/* move track or bookmark from the list button text */
+"move" = "ຍ້າຍ";
+
+/* edit track screen title */
+"track_title" = "ເສັ້ນທາງ";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "ປ່ຽນສີ";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "ແຜນທີ່";
+
+/* Message for the bug report alert. */
+"bugreport_alert_message" = "ທ່ານຕ້ອງການສົ່ງລາຍງານບັນຫາໃຫ້ກັບນັກພັດທະນາຫຼືບໍ່?\nເນື່ອງຈາກ Organic Maps ບໍ່ໄດ້ເກັບກຳຂໍ້ມູນຂໍ້ຜິດພາດໂດຍອັດຕະໂນມັດ ພວກເຮົາຈຶ່ງຕ້ອງອາໄສຂໍ້ມູນຈາກຜູ້ໃຊ້. ຂອບໃຈລ່ວງໜ້າທີ່ສະໜັບສະໜູນ Organic Maps!";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "ເປີດໃຊ້ການຊິງໂຄໄນຊ໌ກັບ iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "ການຊິງໂຄໄນຊ໌ກັບ iCloud ເປັນຟີເຈີທົດລອງທີ່ກຳລັງພັດທະນາ. ກະລຸນາກວດສອບໃຫ້ແນ່ໃຈວ່າທ່ານໄດ້ສຳຮອງຂໍ້ມູນບຸກມາກ ແລະ ເສັ້ນທາງທັງໝົດໄວ້ແລ້ວ.";
+
+/* Title for the "iCloud Is Disabled" alert. */
+"icloud_disabled_title" = "iCloud ຖືກປິດໃຊ້ງານຢູ່";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "ກະລຸນາເປີດໃຊ້ iCloud ໃນການຕັ້ງຄ່າອຸປະກອນຂອງທ່ານເພື່ອໃຊ້ຟີເຈີນີ້.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "ເປີດໃຊ້ງານ";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "ສຳຮອງຂໍ້ມູນ";
+
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "ການຊິງໂຄໄນຊ໌ກັບ iCloud ຫຼົ້ມເຫຼວ";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "ຂໍ້ຜິດພາດ: ຊິງໂຄໄນຊ໌ບໍ່ສຳເລັດເນື່ອງຈາກຂໍ້ຜິດພາດໃນການເຊື່ອມຕໍ່";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "ຂໍ້ຜິດພາດ: ຊິງໂຄໄນຊ໌ບໍ່ສຳເລັດເນື່ອງຈາກພື້ນທີ່ iCloud ເຕັມ";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "ຂໍ້ຜິດພາດ: iCloud ບໍ່ພ້ອມໃຊ້ງານ";
+
+/* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
+"bookmarks_recently_deleted" = "ລາຍການທີ່ຖືກລຶບຫຼ້າສຸດ";
+
+/* Title for the "Clear" button on the Recently Deleted Lists screen. */
+"clear" = "ລ້າງຂໍ້ມູນ";
+
+/* Title for the "Delete All" button on the Recently Deleted Lists screen. */
+"delete_all" = "ລຶບທັງໝົດ";
+
+/* Title for the "Recover" button on the Recently Deleted Lists screen. */
+"recover" = "ກູ້ຄືນ";
+
+/* Title for the "Recover All" button on the Recently Deleted Lists screen. */
+"recover_all" = "ກູ້ຄືນທັງໝົດ";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "ຊ່ວຍເຫຼືອ OpenStreetMap";
+"contribute_to_osm_add_place" = "ເພີ່ມສະຖານທີ່";
+"contribute_to_osm_update_map" = "ອັບເດດແຜນທີ່ເພື່ອຊ່ວຍເຫຼືອຂໍ້ມູນ";
+"contribute_to_osm_update_map_description" = "ທ່ານຕ້ອງອັບເດດແຜນທີ່ %@ ເປັນເວີຊັນຫຼ້າສຸດກ່ອນ ຈຶ່ງຈະສາມາດຊ່ວຍເພີ່ມຂໍ້ມູນ OpenStreetMap ໄດ້";
+
+
+/********** Uncategorized **********/
+
+
+/* A text for current gps location point/arrow selected on the map */
+"core_my_position" = "ຕຳແໜ່ງຂອງຂ້ອຍ";
+
+/* Default bookmark list name */
+"core_my_places" = "ສະຖານທີ່ຂອງຂ້ອຍ";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
+"postal_code" = "ລະຫັດໄປສະນີ";
+
+/* Place Page title for long tap */
+"core_placepage_unknown_place" = "ຈຸດໃນແຜນທີ່";
+
+/* abbreviation for meters */
+"m" = "ມ";
+
+/* abbreviation for kilometers */
+"km" = "ກມ";
+
+/* abbreviation for mile(s) */
+"mi" = "ໄມລ໌";
+
+/* A unit of measure */
+"ft" = "ຟຸດ";
+
+/* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
+"routes_update_maps_text" = "ເພື່ອສະແດງເສັ້ນທາງ, ຕ້ອງໄດ້ອັບເດດແຜນທີ່.";
+
+/* Subway exits for public transport marks on the map */
+"core_exit" = "ທາງອອກ";
+"core_entrance" = "ທາງເຂົ້າ";
+"subway_data_unavailable" = "ບໍ່ມີຂໍ້ມູນແຜນທີ່ລົດໄຟໃຕ້ດິນ";
+
+/* Settings/Highlight downloaded regions on the map */
+"show_downloaded_regions" = "ສະແດງພື້ນທີ່ທີ່ດາວໂຫລດແລ້ວເປັນສີມ່ວງ";
