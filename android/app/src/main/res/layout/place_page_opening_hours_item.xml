@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/ll__place_opening_hours_item"
   style="@style/PlacePageOpeningHoursItem"
+  android:background="?attr/selectableItemBackground"
   android:visibility="visible">
 
   <TextView
