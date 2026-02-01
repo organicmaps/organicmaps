@@ -1,4 +1,5 @@
 #import "MWMTextToSpeechObserver.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface MWMTextToSpeech : NSObject
 
@@ -8,6 +9,9 @@
 + (BOOL)isStreetNamesTTSEnabled;
 + (void)setStreetNamesTTSEnabled:(BOOL)enabled;
 + (NSString *)savedLanguage;
++ (NSString *)savedVoiceIdentifier;
++ (void)setSavedVoiceIdentifier:(NSString *)voiceIdentifier;
++ (NSArray<AVSpeechSynthesisVoice *> *)availableVoicesForLanguage:(NSString *)language;
 
 + (void)addObserver:(id<MWMTextToSpeechObserver>)observer;
 + (void)removeObserver:(id<MWMTextToSpeechObserver>)observer;
@@ -16,6 +20,7 @@
 
 @property(nonatomic) BOOL active;
 - (void)setNotificationsLocale:(NSString *)locale;
+- (void)setVoiceIdentifier:(NSString *)voiceIdentifier;
 - (void)playTurnNotifications:(NSArray<NSString *> *)turnNotifications;
 - (void)playWarningSound;
 - (void)play:(NSString *)text;
