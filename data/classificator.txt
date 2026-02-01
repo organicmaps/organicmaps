@@ -394,6 +394,7 @@ world  +
         tea  -
         thai  -
         turkish  -
+        uzbek  -
         vegan  -
         vegetarian  -
         vietnamese  -
