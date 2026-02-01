@@ -1,5 +1,6 @@
 #import "MWMTTSSettingsViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "MWMTTSVoiceViewController.h"
 #import "MWMTextToSpeech+CPP.h"
 #import "SwiftBridge.h"
 #import "TTSTester.h"
@@ -14,6 +15,7 @@ using namespace std;
 namespace
 {
 NSString * kSelectTTSLanguageSegueName = @"TTSLanguage";
+NSString * kSelectTTSVoiceSegueName = @"TTSVoice";
 
 enum class Section
 {
@@ -63,6 +65,18 @@ struct VoiceInstructionCellStrategy : BaseCellStategy
   }
 };
 
+NSString * getCurrentVoiceName()
+{
+  NSString * savedVoiceIdentifier = [MWMTextToSpeech savedVoiceIdentifier];
+  if (savedVoiceIdentifier.length > 0)
+  {
+    AVSpeechSynthesisVoice * voice = [AVSpeechSynthesisVoice voiceWithIdentifier:savedVoiceIdentifier];
+    if (voice)
+      return voice.name;
+  }
+  return nil;
+}
+
 struct LanguageCellStrategy : BaseCellStategy
 {
   TTSTester * ttsTester = [[TTSTester alloc] init];
@@ -81,8 +95,19 @@ struct LanguageCellStrategy : BaseCellStategy
       return cell;
     }
 
-    // "Test TTS" cell
+    // "Voice Selection" cell
     if (row == controller.languages.size() + 1)
+    {
+      Class cls = [SettingsTableViewLinkCell class];
+      auto cell = static_cast<SettingsTableViewLinkCell *>([tableView dequeueReusableCellWithCellClass:cls
+                                                                                             indexPath:indexPath]);
+      NSString * currentVoiceName = getCurrentVoiceName();
+      [cell configWithTitle:L(@"pref_tts_voice_title") info:currentVoiceName];
+      return cell;
+    }
+
+    // "Test TTS" cell
+    if (row == controller.languages.size() + 2)
     {
       Class cls = [SettingsTableViewSelectableCell class];
       auto cell =
@@ -114,7 +139,8 @@ struct LanguageCellStrategy : BaseCellStategy
 
   size_t NumberOfRows(MWMTTSSettingsViewController * controller) const override
   {
-    return controller.languages.size() + 2;  // Number of languages + "Other" cell + "TTS Test" cell
+    // Number of languages + "Other" cell + "Voice Selection" cell + "TTS Test" cell
+    return controller.languages.size() + 3;
   }
 
   NSString * TitleForHeader() const override { return L(@"pref_tts_language_title"); }
@@ -129,6 +155,12 @@ struct LanguageCellStrategy : BaseCellStategy
     }
 
     if (row == controller.languages.size() + 1)
+    {
+      [controller performSegueWithIdentifier:kSelectTTSVoiceSegueName sender:nil];
+      return;
+    }
+
+    if (row == controller.languages.size() + 2)
     {
       [ttsTester playRandomTestString];
       return;
@@ -343,6 +375,23 @@ struct StreetNamesCellStrategy : BaseCellStategy
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
   return [MWMTextToSpeech isTTSEnabled] ? base::Underlying(Section::Count) : 1;
+}
+
+- (void)onVoiceSelected
+{
+  [self.tableView reloadData];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+  if ([segue.identifier isEqualToString:kSelectTTSVoiceSegueName])
+  {
+    MWMTTSVoiceViewController * dest = segue.destinationViewController;
+    NSString * savedLanguage = [MWMTextToSpeech savedLanguage];
+    if (!savedLanguage || savedLanguage.length == 0)
+      savedLanguage = [AVSpeechSynthesisVoice currentLanguageCode];
+    dest.language = savedLanguage;
+  }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
