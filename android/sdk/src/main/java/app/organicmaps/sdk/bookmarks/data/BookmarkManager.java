@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import app.organicmaps.sdk.Framework;
-import app.organicmaps.sdk.util.ByteUtils;
 import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
@@ -351,7 +350,7 @@ public enum BookmarkManager {
     }
 
     // Need to read file content and guess from its signature.
-    String extension = guessExtensionByContent(resolver, uri);
+    final String extension = guessExtensionByContent(resolver, uri);
     if (extension != null)
       return filename + extension;
 
@@ -366,42 +365,43 @@ public enum BookmarkManager {
   {
     // If first symbol is '{' -> GeoJson
     // If first symbols 'PK' -> Zip archive, probably KMZ
-    // If first symbols '<?xml ' and contains '<kml '  -> KML
-    // If first symbols '<?xml ' and contains '<gpx '  -> GPX
+    // If first symbol is '<' and contains '<kml'  -> KML
+    // If first symbol is '<' and contains '<gpx'  -> GPX
 
-    byte[] xmlMarker = "<?xml ".getBytes();
-    byte[] kmlMarker = "<kml ".getBytes();
-    byte[] gpxMarker = "<gpx ".getBytes();
-    byte[] utf8Bom = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF};
-
-    try
+    try (InputStream is = resolver.openInputStream(uri))
     {
-      InputStream inputStream = resolver.openInputStream(uri);
-      byte[] buffer = new byte[100];
-      inputStream.read(buffer);
+      byte[] buf = new byte[512];
+      int len = is.read(buf);
+      if (len < 2)
+        return null;
 
-      // Search for ZIP marker
-      if (buffer[0] == 'P' && buffer[1] == 'K')
-        return ".kmz";
+      // ZIP (first two bytes are 'PK')
+      if (buf[0] == 0x50 && buf[1] == 0x4B)
+        return ".zip";
 
-      int bomOffset = 0;
-      if (ByteUtils.startsWith(buffer, utf8Bom))
-        bomOffset = 3; // Skip first 3 bytes with BOM
+      // Skip UTF-8 BOM
+      int i = (len >= 3 && buf[0] == (byte) 0xEF && buf[1] == (byte) 0xBB && buf[2] == (byte) 0xBF) ? 3 : 0;
 
-      // Search for markers
-      if (buffer[bomOffset] == '{')
-        return ".geojson";
+      // Skip whitespace
+      while (i < len && (buf[i] == ' ' || buf[i] == '\t' || buf[i] == '\n' || buf[i] == '\r'))
+        i++;
+      if (i >= len)
+        return null;
 
-      if (ByteUtils.startsWith(buffer, xmlMarker, bomOffset))
+      // JSON
+      if (buf[i] == '{' || buf[i] == '[')
+        return ".json";
+
+      // XML-based (KML, GPX)
+      if (buf[i] == '<')
       {
-        // Content has XML format
-        if (ByteUtils.contains(buffer, kmlMarker, bomOffset))
+        String s = new String(buf, i, len - i).toLowerCase();
+        if (s.contains("<kml"))
           return ".kml";
-        if (ByteUtils.contains(buffer, gpxMarker, bomOffset))
+        if (s.contains("<gpx"))
           return ".gpx";
       }
 
-      // No known signatures found.
       return null;
     }
     catch (IOException e)
