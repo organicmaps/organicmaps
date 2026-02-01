@@ -818,9 +818,9 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-highway|track
-highway|track
-highway|track
+highway|track|no-access
+highway|track|no-access
+highway|track|no-access
 *highway|track|no-access
 mapswithme
 mapswithme
@@ -1640,3 +1640,4 @@ amenity|recycling|container
 *organicapp|mwm_border
 *xmas:feature|market
 *xmas:feature|tree
+*cuisine|uzbek
