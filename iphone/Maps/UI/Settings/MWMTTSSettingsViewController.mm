@@ -1,6 +1,5 @@
 #import "MWMTTSSettingsViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "MWMTTSVoiceViewController.h"
 #import "MWMTextToSpeech+CPP.h"
 #import "SwiftBridge.h"
 #import "TTSTester.h"
@@ -15,7 +14,6 @@ using namespace std;
 namespace
 {
 NSString * kSelectTTSLanguageSegueName = @"TTSLanguage";
-NSString * kSelectTTSVoiceSegueName = @"TTSVoice";
 
 enum class Section
 {
@@ -65,28 +63,75 @@ struct VoiceInstructionCellStrategy : BaseCellStategy
   }
 };
 
-NSString * getCurrentVoiceName()
-{
-  NSString * savedVoiceIdentifier = [MWMTextToSpeech savedVoiceIdentifier];
-  if (savedVoiceIdentifier.length > 0)
-  {
-    AVSpeechSynthesisVoice * voice = [AVSpeechSynthesisVoice voiceWithIdentifier:savedVoiceIdentifier];
-    if (voice)
-      return voice.name;
-  }
-  return nil;
-}
-
 struct LanguageCellStrategy : BaseCellStategy
 {
   TTSTester * ttsTester = [[TTSTester alloc] init];
+
+  NSArray<AVSpeechSynthesisVoice *> * getVoicesForCurrentLanguage(MWMTTSSettingsViewController * controller) const
+  {
+    NSString * savedLanguage = [MWMTextToSpeech savedLanguage];
+    if (!savedLanguage || savedLanguage.length == 0)
+      savedLanguage = [AVSpeechSynthesisVoice currentLanguageCode];
+    return [MWMTextToSpeech availableVoicesForLanguage:savedLanguage];
+  }
 
   UITableViewCell * BuildCell(UITableView * tableView, NSIndexPath * indexPath,
                               MWMTTSSettingsViewController * controller) override
   {
     NSInteger const row = indexPath.row;
+    size_t const languagesCount = controller.languages.size();
+    NSArray<AVSpeechSynthesisVoice *> * voices = getVoicesForCurrentLanguage(controller);
+    size_t const voicesCount = voices.count;
+
+    // Language rows
+    if (row < languagesCount)
+    {
+      Class cls = [SettingsTableViewSelectableCell class];
+      auto cell = static_cast<SettingsTableViewSelectableCell *>([tableView dequeueReusableCellWithCellClass:cls
+                                                                                                 indexPath:indexPath]);
+      pair<string, string> const p = controller.languages[row];
+      [cell configWithTitle:@(p.second.c_str())];
+      BOOL const isSelected = [@(p.first.c_str()) isEqualToString:[MWMTextToSpeech savedLanguage]];
+      if (isSelected)
+      {
+        m_selectedLanguageCell = cell;
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+      }
+      else
+      {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+      }
+      return cell;
+    }
+
+    // Voice rows (after languages)
+    if (row < languagesCount + voicesCount)
+    {
+      Class cls = [SettingsTableViewSelectableCell class];
+      auto cell = static_cast<SettingsTableViewSelectableCell *>([tableView dequeueReusableCellWithCellClass:cls
+                                                                                                 indexPath:indexPath]);
+      NSInteger const voiceIndex = row - languagesCount;
+      if (voiceIndex < voices.count)
+      {
+        AVSpeechSynthesisVoice * voice = voices[voiceIndex];
+        // Use voice.name directly (already localized by iOS, no crash risk)
+        [cell configWithTitle:voice.name];
+        NSString * savedVoiceIdentifier = [MWMTextToSpeech savedVoiceIdentifier];
+        if (savedVoiceIdentifier && [voice.identifier isEqualToString:savedVoiceIdentifier])
+        {
+          m_selectedVoiceCell = cell;
+          cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+        else
+        {
+          cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+      }
+      return cell;
+    }
+
     // "Other" cell
-    if (row == controller.languages.size())
+    if (row == languagesCount + voicesCount)
     {
       Class cls = [SettingsTableViewLinkCell class];
       auto cell = static_cast<SettingsTableViewLinkCell *>([tableView dequeueReusableCellWithCellClass:cls
@@ -95,19 +140,8 @@ struct LanguageCellStrategy : BaseCellStategy
       return cell;
     }
 
-    // "Voice Selection" cell
-    if (row == controller.languages.size() + 1)
-    {
-      Class cls = [SettingsTableViewLinkCell class];
-      auto cell = static_cast<SettingsTableViewLinkCell *>([tableView dequeueReusableCellWithCellClass:cls
-                                                                                             indexPath:indexPath]);
-      NSString * currentVoiceName = getCurrentVoiceName();
-      [cell configWithTitle:L(@"pref_tts_voice_title") info:currentVoiceName];
-      return cell;
-    }
-
     // "Test TTS" cell
-    if (row == controller.languages.size() + 2)
+    if (row == languagesCount + voicesCount + 1)
     {
       Class cls = [SettingsTableViewSelectableCell class];
       auto cell =
@@ -118,29 +152,14 @@ struct LanguageCellStrategy : BaseCellStategy
       return cell;
     }
 
-    Class cls = [SettingsTableViewSelectableCell class];
-    auto cell = static_cast<SettingsTableViewSelectableCell *>([tableView dequeueReusableCellWithCellClass:cls
-                                                                                                 indexPath:indexPath]);
-    pair<string, string> const p = controller.languages[row];
-    [cell configWithTitle:@(p.second.c_str())];
-    BOOL const isSelected = [@(p.first.c_str()) isEqualToString:[MWMTextToSpeech savedLanguage]];
-    if (isSelected)
-    {
-      m_selectedCell = cell;
-      cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    }
-    else
-    {
-      cell.accessoryType = UITableViewCellAccessoryNone;
-    }
-
-    return cell;
+    return nil;
   }
 
   size_t NumberOfRows(MWMTTSSettingsViewController * controller) const override
   {
-    // Number of languages + "Other" cell + "Voice Selection" cell + "TTS Test" cell
-    return controller.languages.size() + 3;
+    NSArray<AVSpeechSynthesisVoice *> * voices = getVoicesForCurrentLanguage(controller);
+    // Number of languages + voices + "Other" cell + "TTS Test" cell
+    return controller.languages.size() + voices.count + 2;
   }
 
   NSString * TitleForHeader() const override { return L(@"pref_tts_language_title"); }
@@ -148,35 +167,62 @@ struct LanguageCellStrategy : BaseCellStategy
   void SelectCell(UITableView * tableView, NSIndexPath * indexPath, MWMTTSSettingsViewController * controller) override
   {
     NSInteger const row = indexPath.row;
-    if (row == controller.languages.size())
+    size_t const languagesCount = controller.languages.size();
+    NSArray<AVSpeechSynthesisVoice *> * voices = getVoicesForCurrentLanguage(controller);
+    size_t const voicesCount = voices.count;
+
+    // Language selection
+    if (row < languagesCount)
+    {
+      auto cell = [tableView cellForRowAtIndexPath:indexPath];
+      if (m_selectedLanguageCell == cell)
+        return;
+
+      m_selectedLanguageCell.accessoryType = UITableViewCellAccessoryNone;
+      [[MWMTextToSpeech tts] setNotificationsLocale:@(controller.languages[row].first.c_str())];
+      cell.accessoryType = UITableViewCellAccessoryCheckmark;
+      m_selectedLanguageCell = cell;
+      // Reload to update voices list for new language
+      [tableView reloadData];
+      return;
+    }
+
+    // Voice selection
+    if (row < languagesCount + voicesCount)
+    {
+      NSInteger const voiceIndex = row - languagesCount;
+      if (voiceIndex < voices.count)
+      {
+        AVSpeechSynthesisVoice * voice = voices[voiceIndex];
+        auto cell = [tableView cellForRowAtIndexPath:indexPath];
+        if (m_selectedVoiceCell == cell)
+          return;
+
+        m_selectedVoiceCell.accessoryType = UITableViewCellAccessoryNone;
+        [[MWMTextToSpeech tts] setVoiceIdentifier:voice.identifier];
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        m_selectedVoiceCell = cell;
+      }
+      return;
+    }
+
+    // "Other" cell
+    if (row == languagesCount + voicesCount)
     {
       [controller performSegueWithIdentifier:kSelectTTSLanguageSegueName sender:nil];
       return;
     }
 
-    if (row == controller.languages.size() + 1)
-    {
-      [controller performSegueWithIdentifier:kSelectTTSVoiceSegueName sender:nil];
-      return;
-    }
-
-    if (row == controller.languages.size() + 2)
+    // "Test TTS" cell
+    if (row == languagesCount + voicesCount + 1)
     {
       [ttsTester playRandomTestString];
       return;
     }
-
-    auto cell = [tableView cellForRowAtIndexPath:indexPath];
-    if (m_selectedCell == cell)
-      return;
-
-    m_selectedCell.accessoryType = UITableViewCellAccessoryNone;
-    [[MWMTextToSpeech tts] setNotificationsLocale:@(controller.languages[row].first.c_str())];
-    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    m_selectedCell = cell;
   }
 
-  SettingsTableViewSelectableCell * m_selectedCell = nil;
+  SettingsTableViewSelectableCell * m_selectedLanguageCell = nil;
+  SettingsTableViewSelectableCell * m_selectedVoiceCell = nil;
 };
 
 struct CamerasCellStrategy : BaseCellStategy
@@ -377,21 +423,8 @@ struct StreetNamesCellStrategy : BaseCellStategy
   return [MWMTextToSpeech isTTSEnabled] ? base::Underlying(Section::Count) : 1;
 }
 
-- (void)onVoiceSelected
-{
-  [self.tableView reloadData];
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-  if ([segue.identifier isEqualToString:kSelectTTSVoiceSegueName])
-  {
-    MWMTTSVoiceViewController * dest = segue.destinationViewController;
-    NSString * savedLanguage = [MWMTextToSpeech savedLanguage];
-    if (!savedLanguage || savedLanguage.length == 0)
-      savedLanguage = [AVSpeechSynthesisVoice currentLanguageCode];
-    dest.language = savedLanguage;
-  }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

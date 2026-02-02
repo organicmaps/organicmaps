@@ -10,6 +10,4 @@
 
 - (std::vector<std::pair<std::string, std::string>> const &)languages;
 
-- (void)onVoiceSelected;
-
 @end
