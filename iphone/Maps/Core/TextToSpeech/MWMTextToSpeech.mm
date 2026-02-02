@@ -49,7 +49,13 @@ using Observers = NSHashTable<Observer>;
 
 NSArray<AVSpeechSynthesisVoice *> * availableVoicesForLanguage(NSString * language)
 {
+  if (!language || language.length == 0)
+    return @[];
+  
   NSArray<AVSpeechSynthesisVoice *> * allVoices = [AVSpeechSynthesisVoice speechVoices];
+  if (!allVoices || allVoices.count == 0)
+    return @[];
+  
   NSMutableArray<AVSpeechSynthesisVoice *> * filteredVoices = [NSMutableArray array];
 
   // Extract base language (e.g., "en" from "en-US")

@@ -72,7 +72,12 @@ struct LanguageCellStrategy : BaseCellStategy
     NSString * savedLanguage = [MWMTextToSpeech savedLanguage];
     if (!savedLanguage || savedLanguage.length == 0)
       savedLanguage = [AVSpeechSynthesisVoice currentLanguageCode];
-    return [MWMTextToSpeech availableVoicesForLanguage:savedLanguage];
+    
+    if (!savedLanguage || savedLanguage.length == 0)
+      return @[];
+    
+    NSArray<AVSpeechSynthesisVoice *> * voices = [MWMTextToSpeech availableVoicesForLanguage:savedLanguage];
+    return voices ? voices : @[];
   }
 
   UITableViewCell * BuildCell(UITableView * tableView, NSIndexPath * indexPath,
@@ -87,8 +92,9 @@ struct LanguageCellStrategy : BaseCellStategy
     if (row < languagesCount)
     {
       Class cls = [SettingsTableViewSelectableCell class];
-      auto cell = static_cast<SettingsTableViewSelectableCell *>([tableView dequeueReusableCellWithCellClass:cls
-                                                                                                 indexPath:indexPath]);
+      auto cell =
+          static_cast<SettingsTableViewSelectableCell *>([tableView dequeueReusableCellWithCellClass:cls
+                                                                                           indexPath:indexPath]);
       pair<string, string> const p = controller.languages[row];
       [cell configWithTitle:@(p.second.c_str())];
       BOOL const isSelected = [@(p.first.c_str()) isEqualToString:[MWMTextToSpeech savedLanguage]];
@@ -108,8 +114,9 @@ struct LanguageCellStrategy : BaseCellStategy
     if (row < languagesCount + voicesCount)
     {
       Class cls = [SettingsTableViewSelectableCell class];
-      auto cell = static_cast<SettingsTableViewSelectableCell *>([tableView dequeueReusableCellWithCellClass:cls
-                                                                                                 indexPath:indexPath]);
+      auto cell =
+          static_cast<SettingsTableViewSelectableCell *>([tableView dequeueReusableCellWithCellClass:cls
+                                                                                           indexPath:indexPath]);
       NSInteger const voiceIndex = row - languagesCount;
       if (voiceIndex < voices.count)
       {
@@ -424,8 +431,7 @@ struct StreetNamesCellStrategy : BaseCellStategy
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-}
+{}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
