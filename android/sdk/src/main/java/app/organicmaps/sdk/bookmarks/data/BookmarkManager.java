@@ -377,7 +377,7 @@ public enum BookmarkManager {
 
       // ZIP (first two bytes are 'PK')
       if (buf[0] == 0x50 && buf[1] == 0x4B)
-        return ".zip";
+        return ".kmz";
 
       // Skip UTF-8 BOM
       int i = (len >= 3 && buf[0] == (byte) 0xEF && buf[1] == (byte) 0xBB && buf[2] == (byte) 0xBF) ? 3 : 0;
@@ -390,7 +390,7 @@ public enum BookmarkManager {
 
       // JSON
       if (buf[i] == '{' || buf[i] == '[')
-        return ".json";
+        return ".geojson";
 
       // XML-based (KML, GPX)
       if (buf[i] == '<')
