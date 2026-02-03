@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -183,83 +183,96 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S0n-BM-V4o" userLabel="Auth view">
-                                <rect key="frame" x="20" y="192" width="374" height="194"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kLT-DX-dSa" userLabel="Auth view">
+                                <rect key="frame" x="0.0" y="96" width="414" height="732"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tzz-yF-441">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="41"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="sq5-AS-HML"/>
-                                        </constraints>
-                                        <string key="text">Войдите, чтобы ваши изменения увидели 
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nqd-KT-cKL">
+                                        <rect key="frame" x="35" y="20" width="344" height="315"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="osm_logo" translatesAutoresizingMaskIntoConstraints="NO" id="RJS-2B-DC7">
+                                                <rect key="frame" x="0.0" y="0.0" width="344" height="40"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6p-1L-udI">
+                                                <rect key="frame" x="0.0" y="57" width="344" height="41"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="Fp3-iS-dEy"/>
+                                                </constraints>
+                                                <string key="text">Войдите, чтобы ваши изменения увидели 
 другие пользователи</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium17:whitePrimaryText"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="login_to_make_edits_visible"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gqm-JS-hos">
-                                        <rect key="frame" x="0.0" y="57" width="374" height="44"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="BfT-9z-7iV"/>
-                                        </constraints>
-                                        <state key="normal" title="Log inOpenStreetMap"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButtonBig"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="login_osm"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="loginOSM" destination="iZ6-Zi-bkZ" eventType="touchUpInside" id="U8A-dL-xzX"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have OpenStreetMap account?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhm-W1-U8A">
-                                        <rect key="frame" x="0.0" y="125" width="374" height="17"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="ntS-Lm-ZFB"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium17:whitePrimaryText"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="no_osm_account"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0p-dL-PG8">
-                                        <rect key="frame" x="0.0" y="150" width="374" height="44"/>
-                                        <color key="backgroundColor" red="0.0" green="0.55294117649999996" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="4EG-ux-LH6"/>
-                                        </constraints>
-                                        <state key="normal" title="Sign Up Now"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButtonBig"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="register_at_openstreetmap"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="signup" destination="iZ6-Zi-bkZ" eventType="touchUpInside" id="jMD-gB-R6e"/>
-                                        </connections>
-                                    </button>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium17:whitePrimaryText"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="login_to_make_edits_visible"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OxZ-n3-DoJ">
+                                                <rect key="frame" x="0.0" y="115" width="344" height="44"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="gPt-jd-vBU"/>
+                                                </constraints>
+                                                <state key="normal" title="Log inOpenStreetMap"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButtonBig"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="login_osm_browser"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="loginWithBrowser" destination="iZ6-Zi-bkZ" eventType="touchUpInside" id="AW6-Db-FRt"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Nd-hK-p5f">
+                                                <rect key="frame" x="0.0" y="176" width="344" height="44"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="HpZ-DR-SHE"/>
+                                                </constraints>
+                                                <state key="normal" title="Log inOpenStreetMap"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButtonBig"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="login_osm_credentials"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="loginWithPassword" destination="iZ6-Zi-bkZ" eventType="touchUpInside" id="TrH-gj-YUv"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have OpenStreetMap account?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBT-O0-vxv">
+                                                <rect key="frame" x="0.0" y="237" width="344" height="17"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="0Hi-Ph-zGd"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium17:whitePrimaryText"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="no_osm_account"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5wi-v3-I8c">
+                                                <rect key="frame" x="0.0" y="271" width="344" height="44"/>
+                                                <color key="backgroundColor" red="0.0" green="0.55294117649999996" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="xhd-De-vFg"/>
+                                                </constraints>
+                                                <state key="normal" title="Sign Up Now"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButtonBig"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="register_at_openstreetmap"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="signup" destination="iZ6-Zi-bkZ" eventType="touchUpInside" id="uQN-sD-nei"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="nhm-W1-U8A" secondAttribute="trailing" id="1tj-If-gNH"/>
-                                    <constraint firstItem="s0p-dL-PG8" firstAttribute="leading" secondItem="S0n-BM-V4o" secondAttribute="leading" id="6ve-gW-sY4"/>
-                                    <constraint firstItem="nhm-W1-U8A" firstAttribute="leading" secondItem="S0n-BM-V4o" secondAttribute="leading" id="7Ei-dL-0sY"/>
-                                    <constraint firstItem="tzz-yF-441" firstAttribute="leading" secondItem="S0n-BM-V4o" secondAttribute="leading" id="BXe-q8-WSf"/>
-                                    <constraint firstAttribute="trailing" secondItem="Gqm-JS-hos" secondAttribute="trailing" id="Bmb-Hs-40s"/>
-                                    <constraint firstItem="nhm-W1-U8A" firstAttribute="top" secondItem="Gqm-JS-hos" secondAttribute="bottom" constant="24" id="LEz-aI-70A"/>
-                                    <constraint firstItem="Gqm-JS-hos" firstAttribute="top" secondItem="tzz-yF-441" secondAttribute="bottom" constant="16" id="Q7e-6k-yBn"/>
-                                    <constraint firstItem="tzz-yF-441" firstAttribute="top" secondItem="S0n-BM-V4o" secondAttribute="top" id="Tfx-ro-4f5"/>
-                                    <constraint firstItem="s0p-dL-PG8" firstAttribute="top" secondItem="nhm-W1-U8A" secondAttribute="bottom" constant="8" id="f1G-qk-ZxV"/>
-                                    <constraint firstAttribute="trailing" secondItem="tzz-yF-441" secondAttribute="trailing" id="itw-Vw-hX3"/>
-                                    <constraint firstAttribute="bottom" secondItem="s0p-dL-PG8" secondAttribute="bottom" id="ixM-kI-0RH"/>
-                                    <constraint firstItem="Gqm-JS-hos" firstAttribute="leading" secondItem="S0n-BM-V4o" secondAttribute="leading" id="oZr-Ac-QKa"/>
-                                    <constraint firstAttribute="trailing" secondItem="s0p-dL-PG8" secondAttribute="trailing" id="tZN-SO-5WH"/>
+                                    <constraint firstItem="Nqd-KT-cKL" firstAttribute="leading" secondItem="kLT-DX-dSa" secondAttribute="leading" constant="35" id="VSh-CX-59m"/>
+                                    <constraint firstAttribute="trailing" secondItem="Nqd-KT-cKL" secondAttribute="trailing" constant="35" id="dTU-lh-2SY"/>
+                                    <constraint firstItem="Nqd-KT-cKL" firstAttribute="top" secondItem="kLT-DX-dSa" secondAttribute="top" constant="20" id="rgZ-gY-GSw"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qZp-mj-lui" userLabel="Account view">
@@ -286,7 +299,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VERIFIED CHANGES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61G-Rv-3df">
-                                                <rect key="frame" x="138.5" y="146" width="137" height="17"/>
+                                                <rect key="frame" x="138.5" y="146" width="137.5" height="17"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -296,7 +309,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last send 12.01.2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2UV-ZB-sPO">
-                                                <rect key="frame" x="148" y="171" width="118" height="15"/>
+                                                <rect key="frame" x="148" y="171" width="118" height="14.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -375,14 +388,12 @@
                         <constraints>
                             <constraint firstItem="SaE-2i-TVp" firstAttribute="bottom" secondItem="qZp-mj-lui" secondAttribute="bottom" id="11a-17-5z7"/>
                             <constraint firstItem="qZp-mj-lui" firstAttribute="top" secondItem="SaE-2i-TVp" secondAttribute="top" id="1LV-nh-oGb"/>
-                            <constraint firstItem="SaE-2i-TVp" firstAttribute="trailing" secondItem="S0n-BM-V4o" secondAttribute="trailing" constant="20" id="Rg1-Lp-MOi"/>
-                            <constraint firstItem="S0n-BM-V4o" firstAttribute="centerX" secondItem="SaE-2i-TVp" secondAttribute="centerX" id="hiF-Gl-4BZ"/>
+                            <constraint firstItem="SaE-2i-TVp" firstAttribute="bottom" secondItem="kLT-DX-dSa" secondAttribute="bottom" id="L2f-OZ-lHw"/>
+                            <constraint firstItem="kLT-DX-dSa" firstAttribute="leading" secondItem="SaE-2i-TVp" secondAttribute="leading" id="Ueh-y8-r41"/>
+                            <constraint firstItem="kLT-DX-dSa" firstAttribute="top" secondItem="SaE-2i-TVp" secondAttribute="top" id="Uhk-EN-0mf"/>
+                            <constraint firstItem="SaE-2i-TVp" firstAttribute="trailing" secondItem="kLT-DX-dSa" secondAttribute="trailing" id="ddM-MB-9X9"/>
                             <constraint firstItem="SaE-2i-TVp" firstAttribute="trailing" secondItem="qZp-mj-lui" secondAttribute="trailing" id="l4J-0M-bwW"/>
-                            <constraint firstItem="S0n-BM-V4o" firstAttribute="leading" secondItem="SaE-2i-TVp" secondAttribute="leading" constant="20" id="p8d-aP-wx0"/>
                             <constraint firstItem="qZp-mj-lui" firstAttribute="leading" secondItem="SaE-2i-TVp" secondAttribute="leading" id="szu-H2-kce"/>
-                            <constraint firstItem="S0n-BM-V4o" firstAttribute="top" secondItem="SaE-2i-TVp" secondAttribute="top" constant="96" id="ts0-lk-o7V">
-                                <variation key="heightClass=compact" constant="16"/>
-                            </constraint>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PrimaryBackground"/>
@@ -390,11 +401,8 @@
                     </view>
                     <connections>
                         <outlet property="accountView" destination="qZp-mj-lui" id="Iin-Uf-uWe"/>
-                        <outlet property="authView" destination="S0n-BM-V4o" id="pei-fj-H81"/>
                         <outlet property="changesCountLabel" destination="5mN-XO-0Df" id="bcc-Gp-vgH"/>
                         <outlet property="lastUpdateLabel" destination="2UV-ZB-sPO" id="CCE-Q5-ikN"/>
-                        <outlet property="loginOSMButton" destination="Gqm-JS-hos" id="zJS-TR-HDM"/>
-                        <outlet property="signupButton" destination="s0p-dL-PG8" id="3eb-cg-uku"/>
                         <segue destination="4R7-Vk-fQr" kind="custom" identifier="Authorization2OSMAuthorizationSegue" customClass="MWMSegue" id="nJf-7z-2TX"/>
                     </connections>
                 </viewController>
@@ -405,5 +413,6 @@
     </scenes>
     <resources>
         <image name="ic_nav_bar_back" width="14" height="22"/>
+        <image name="osm_logo" width="40" height="40"/>
     </resources>
 </document>

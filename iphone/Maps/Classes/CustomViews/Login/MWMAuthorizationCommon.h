@@ -12,6 +12,7 @@ enum class AuthorizationButtonType
 
 // Deletes any stored credentials if called with empty key or secret.
 void AuthorizationStoreCredentials(std::string const & oauthToken);
+void AuthorizationStoreCredentialsWithOauth2Code(std::string const & oauth2Code);
 BOOL AuthorizationHaveOAuth1Credentials();
 void AuthorizationClearOAuth1Credentials();
 BOOL AuthorizationHaveCredentials();
