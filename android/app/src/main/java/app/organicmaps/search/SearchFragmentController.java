@@ -1,8 +1,11 @@
 package app.organicmaps.search;
 
 import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -19,10 +22,16 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.log.Logger;
+import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.color.MaterialColors;
+import com.google.android.material.shape.CornerFamily;
+import com.google.android.material.shape.MaterialShapeDrawable;
+import com.google.android.material.shape.ShapeAppearanceModel;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class SearchFragmentController extends Fragment implements SearchFragment.SearchFragmentListener
@@ -30,6 +39,8 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   BottomSheetBehavior<FrameLayout> mFrameLayoutBottomSheetBehavior;
   private ViewGroup mCoordinator;
   private WindowInsetsCompat mCurrentWindowInsets;
+  @Nullable
+  private View mRoutingPlanFrame;
   FrameLayout mSearchPageContainer;
   int mDistanceToTop;
   int mViewportMinHeight;
@@ -133,9 +144,24 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mPlacePageViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
 
     mCoordinator = requireActivity().findViewById(R.id.coordinator);
+    mRoutingPlanFrame = requireActivity().findViewById(R.id.routing_plan_frame);
     mViewportMinHeight = requireActivity().getResources().getDimensionPixelSize(R.dimen.viewport_min_height);
 
     mSearchPageContainer = view.findViewById(R.id.search_page_container);
+
+    float topRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
+    ShapeAppearanceModel shape = ShapeAppearanceModel.builder()
+                                     .setTopLeftCorner(CornerFamily.ROUNDED, topRadius)
+                                     .setTopRightCorner(CornerFamily.ROUNDED, topRadius)
+                                     .setBottomLeftCorner(CornerFamily.ROUNDED, 0f)
+                                     .setBottomRightCorner(CornerFamily.ROUNDED, 0f)
+                                     .build();
+    MaterialShapeDrawable background = new MaterialShapeDrawable(shape);
+    int surface = MaterialColors.getColor(mSearchPageContainer, com.google.android.material.R.attr.colorSurface);
+    background.setFillColor(ColorStateList.valueOf(surface));
+    mSearchPageContainer.setBackground(background);
+    mSearchPageContainer.setClipToOutline(true);
+
     mFrameLayoutBottomSheetBehavior = BottomSheetBehavior.from(mSearchPageContainer);
 
     DisplayMetrics dm = getResources().getDisplayMetrics();
@@ -144,15 +170,20 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mFrameLayoutBottomSheetBehavior.setFitToContents(false);
     mFrameLayoutBottomSheetBehavior.setPeekHeight((int) (0.2f * h)); // collapsed
     mFrameLayoutBottomSheetBehavior.setHalfExpandedRatio(0.5f); // mid
-    mFrameLayoutBottomSheetBehavior.setExpandedOffset((int) (0.1f * h)); // full
     mFrameLayoutBottomSheetBehavior.setHideable(true);
     mFrameLayoutBottomSheetBehavior.setDraggable(true);
     mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+    mSearchPageContainer.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> updateExpandedOffset());
+    mSearchPageContainer.post(this::updateExpandedOffset);
+    if (mRoutingPlanFrame != null)
+      mRoutingPlanFrame.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> updateExpandedOffset());
 
     ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
+      mCurrentWindowInsets = insets;
       boolean imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime());
       if (imeVisible && mFrameLayoutBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED)
         mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+      updateExpandedOffset();
       return insets;
     });
 
@@ -193,6 +224,33 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   public void onDestroy()
   {
     super.onDestroy();
+  }
+
+  private void updateExpandedOffset()
+  {
+    if (mFrameLayoutBottomSheetBehavior == null || mSearchPageContainer == null)
+      return;
+
+    View parent = mCoordinator != null ? mCoordinator : (View) mSearchPageContainer.getParent();
+    if (parent == null)
+      return;
+
+    int parentHeight = parent.getHeight();
+    int contentHeight = mSearchPageContainer.getHeight();
+    if (parentHeight == 0 || contentHeight == 0)
+      return;
+
+    int topInset =
+        mCurrentWindowInsets != null ? mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top : 0;
+    int routingHeaderHeight = 0;
+    if (mRoutingPlanFrame != null && mRoutingPlanFrame.getVisibility() == View.VISIBLE)
+      routingHeaderHeight = mRoutingPlanFrame.getHeight();
+    if (routingHeaderHeight == 0 && RoutingController.get().isPlanning())
+      routingHeaderHeight = (int) getResources().getDimension(
+          ThemeUtils.getResource(requireContext(), androidx.appcompat.R.attr.actionBarSize));
+
+    int expandedOffset = Math.max(parentHeight - contentHeight, topInset + routingHeaderHeight);
+    mFrameLayoutBottomSheetBehavior.setExpandedOffset(Math.max(expandedOffset, 0));
   }
 
   boolean isDrag(MotionEvent event)
