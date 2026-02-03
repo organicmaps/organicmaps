@@ -82,7 +82,7 @@ public class SearchToolbarController extends ToolbarController implements View.O
       return (isSearchDown || isSearchAction) && onStartSearchClick();
     });
     mProgress = mSearchContainer.findViewById(R.id.progress);
-    mVoiceInput = mSearchContainer.findViewById(R.id.voice_input);
+    mVoiceInput = root.findViewById(R.id.voice_input);
     mVoiceInput.setOnClickListener(this);
 
     showProgress(false);
