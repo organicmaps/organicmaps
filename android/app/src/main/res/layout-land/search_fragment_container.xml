@@ -10,15 +10,16 @@
   <FrameLayout
     android:id="@+id/search_page_container"
     tools:background="@color/black_primary"
-    android:layout_width="match_parent"
+    android:layout_width="600dp"
     android:layout_height="wrap_content"
     tools:layout_height="match_parent"
-    android:layout_gravity="bottom"
+    android:layout_gravity="bottom|center_horizontal"
     android:clipToOutline="true"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
     <FrameLayout
       android:id="@+id/search_fragment"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom" />
   </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
