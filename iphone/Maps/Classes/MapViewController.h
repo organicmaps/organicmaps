@@ -32,6 +32,7 @@
 - (void)performAction:(NSString * _Nonnull)action;
 
 - (void)openMenu;
+- (void)closeCurrentView;
 - (void)openSettings;
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode;
 - (void)openEditor;
@@ -43,9 +44,12 @@
 /// Updates the map's visible viewport area.
 /// - Parameters:
 ///   - object: The source object for which the visible area is being set.
-///   - insets: The insets defining the portion of the map that is not covered or obstructed by the source object's view.
+///   - insets: The insets defining the portion of the map that is not covered or obstructed by the source object's
+///   view.
 ///   - updatingViewport: Should the core be notified to uptade a viewport.
-- (void)updateVisibleAreaInsetsFor:(NSObject * _Nonnull)object insets:(UIEdgeInsets)insets updatingViewport:(BOOL)updateViewport;
+- (void)updateVisibleAreaInsetsFor:(NSObject * _Nonnull)object
+                            insets:(UIEdgeInsets)insets
+                  updatingViewport:(BOOL)updateViewport;
 
 + (void)setViewport:(double)lat lon:(double)lon zoomLevel:(int)zoomlevel;
 
