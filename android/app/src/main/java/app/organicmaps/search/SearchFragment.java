@@ -260,9 +260,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     final boolean hasQuery = mToolbarController.hasQuery();
     Toolbar toolbar = mToolbarController.getToolbar();
     AppBarLayout.LayoutParams lp = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-    lp.setScrollFlags(hasQuery ? AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
-                                     | AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
-                               : 0);
+    lp.setScrollFlags(0); // keep toolbar always visible
     toolbar.setLayoutParams(lp);
 
     UiUtils.showIf(hasQuery, mResultsFrame);
