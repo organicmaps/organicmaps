@@ -284,10 +284,11 @@
     <item name="tabTextAppearance">@style/MwmTextAppearance.Tab</item>
     <item name="tabMode">fixed</item>
     <item name="tabGravity">fill</item>
-    <item name="tabBackground">?colorPrimary</item>
-    <item name="tabIndicatorColor">@color/white_primary</item>
+    <item name="tabBackground">@android:color/transparent</item>
+    <item name="tabIndicatorColor">@color/text_dark</item>
     <item name="tabRippleColor">@android:color/transparent</item>
-    <item name="tabSelectedTextColor">@color/white_primary</item>
+    <item name="tabSelectedTextColor">@color/text_dark</item>
+    <item name="tabTextColor">@color/text_dark_hint</item>
   </style>
 
   <style name="MwmWidget.Downloader.ToolbarButton">
