@@ -114,7 +114,8 @@
   </style>
 
   <style name="MwmTextAppearance.Toolbar.Search">
-    <item name="android:textColorHint">@color/text_light_hint</item>
+    <item name="android:textColor">@color/text_dark</item>
+    <item name="android:textColorHint">@color/text_dark_hint</item>
   </style>
 
   <style name="MwmTextAppearance.Toolbar.Title" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
