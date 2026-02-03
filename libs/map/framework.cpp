@@ -3347,7 +3347,8 @@ void Framework::OnRouteFollow(routing::RouterType type)
   // TODO. We need to sync two enums VehicleType and RouterType to be able to pass
   // GetRoutingSettings(type).m_matchRoute to the FollowRoute() instead of |isPedestrianRoute|.
   // |isArrowGlued| parameter fully corresponds to |m_matchRoute| in RoutingSettings.
-  m_drapeEngine->FollowRoute(scale, scale3d, enableAutoZoom, !isPedestrianRoute /* isArrowGlued */);
+  // For pedestrian and bicycle modes, use compass heading when stopped (isArrowGlued = false).
+  m_drapeEngine->FollowRoute(scale, scale3d, enableAutoZoom, !(isPedestrianRoute || isBicycleRoute) /* isArrowGlued */);
 }
 
 // RoutingManager::Delegate
