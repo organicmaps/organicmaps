@@ -1416,6 +1416,7 @@ line|z13-[aerialway=t-bar],
 line|z13-[aerialway=magic_carpet],
 line|z13-[aerialway=platter],
 line|z13-[aerialway=rope_tow],
+line|z13-[aerialway=zip_line],
 {color: @aerialway; opacity: 0.7;}
 
 line|z12-[aerialway=cable_car]::dash,
@@ -1428,6 +1429,7 @@ line|z13-[aerialway=t-bar]::dash,
 line|z13-[aerialway=magic_carpet]::dash,
 line|z13-[aerialway=platter]::dash,
 line|z13-[aerialway=rope_tow]::dash,
+line|z13-[aerialway=zip_line]::dash,
 {color: @aerialway; opacity: 0.7;}
 
 /* 10.2 Aerialway 12-22 ZOOM */
@@ -1461,6 +1463,7 @@ line|z13-15[aerialway=t-bar],
 line|z13-15[aerialway=magic_carpet],
 line|z13-15[aerialway=platter],
 line|z13-15[aerialway=rope_tow],
+line|z13-15[aerialway=zip_line],
 {width: 0.5;}
 line|z16-[aerialway=chair_lift],
 line|z16-[aerialway=drag_lift],
@@ -1469,6 +1472,7 @@ line|z16-[aerialway=t-bar],
 line|z16-[aerialway=magic_carpet],
 line|z16-[aerialway=platter],
 line|z16-[aerialway=rope_tow],
+line|z16-[aerialway=zip_line],
 {width: 1;}
 
 line|z13-14[aerialway=chair_lift]::dash,
@@ -1478,6 +1482,7 @@ line|z13-14[aerialway=t-bar]::dash,
 line|z13-14[aerialway=magic_carpet]::dash,
 line|z13-14[aerialway=platter]::dash,
 line|z13-14[aerialway=rope_tow]::dash,
+line|z13-14[aerialway=zip_line]::dash,
 {width: 2.5; dashes: 1,10; opacity: 0.5;}
 line|z15-16[aerialway=chair_lift]::dash,
 line|z15-16[aerialway=drag_lift]::dash,
@@ -1486,6 +1491,7 @@ line|z15-16[aerialway=t-bar]::dash,
 line|z15-16[aerialway=magic_carpet]::dash,
 line|z15-16[aerialway=platter]::dash,
 line|z15-16[aerialway=rope_tow]::dash,
+line|z15-16[aerialway=zip_line]::dash,
 {width: 3; dashes: 1,15;}
 line|z17-[aerialway=chair_lift]::dash,
 line|z17-[aerialway=drag_lift]::dash,
@@ -1494,6 +1500,7 @@ line|z17-[aerialway=t-bar]::dash,
 line|z17-[aerialway=magic_carpet]::dash,
 line|z17-[aerialway=platter]::dash,
 line|z17-[aerialway=rope_tow]::dash,
+line|z17-[aerialway=zip_line]::dash,
 {width: 4; dashes: 1,22; opacity: 1;}
 
 line|z18-[power=line],

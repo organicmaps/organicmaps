@@ -22,6 +22,7 @@ aerialway-mixed_lift::dash                          # line::dash z12- (also has 
 aerialway-platter::dash                             # line::dash z13- (also has line z13-, pathtext z15-)
 aerialway-rope_tow::dash                            # line::dash z13- (also has line z13-, pathtext z15-)
 aerialway-t-bar::dash                               # line::dash z13- (also has line z13-, pathtext z15-)
+aerialway-zip_line::dash                            # line::dash z13- (also has line z13-, pathtext z15-)
 === 380
 
 aerialway-cable_car                                 # line z12- (also has line::dash z12-, pathtext z15-)
@@ -34,6 +35,7 @@ aerialway-mixed_lift                                # line z12- (also has line::
 aerialway-platter                                   # line z13- (also has line::dash z13-, pathtext z15-)
 aerialway-rope_tow                                  # line z13- (also has line::dash z13-, pathtext z15-)
 aerialway-t-bar                                     # line z13- (also has line::dash z13-, pathtext z15-)
+aerialway-zip_line                                  # line z13- (also has line::dash z13-, pathtext z15-)
 === 370
 
 historic-citywalls                                  # line z14- (also has pathtext z16-)
