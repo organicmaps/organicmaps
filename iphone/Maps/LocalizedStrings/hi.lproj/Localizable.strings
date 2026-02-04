@@ -1106,3 +1106,13 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "बैंगनी डाउनलोड किए गए क्षेत्र";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "पासवर्ड से लॉगिन करें";
+
+/* Login to OSM button text */
+"login_osm_browser" = "ब्राउज़र का उपयोग करके लॉगिन करें";

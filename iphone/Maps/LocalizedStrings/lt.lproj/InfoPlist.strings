@@ -32,3 +32,9 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Vietos aptikimas yra būtinas navigacijai ir naujų trasų įrašymui.";
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Prisijungimas su slaptažodžiu";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Prisijungimas naudojant naršyklę";

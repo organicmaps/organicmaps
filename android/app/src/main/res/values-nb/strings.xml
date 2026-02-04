@@ -870,4 +870,10 @@
     <string name="share_track">Del spor</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Slett %s?</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Logg inn med passord</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Innlogging ved hjelp av nettleser</string>
 </resources>

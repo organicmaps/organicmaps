@@ -1106,3 +1106,13 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Фіолетові завантажені регіони";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Вхід за допомогою пароля";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Вхід через браузер";

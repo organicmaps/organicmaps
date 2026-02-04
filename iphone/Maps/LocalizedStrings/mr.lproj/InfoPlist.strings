@@ -32,3 +32,9 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "मार्गनिर्देशनासाठी व अलीकडे प्रवास केलेला मार्ग जतन करण्यासाठी तुमचे स्थान जाणणे आवश्यक आहे.";
+
+/* Login to OSM button text */
+"login_osm_credentials" = "पासवर्डने लॉगिन करा";
+
+/* Login to OSM button text */
+"login_osm_browser" = "ब्राउझर वापरून लॉगिन करा";

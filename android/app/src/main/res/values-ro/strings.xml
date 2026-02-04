@@ -869,4 +869,10 @@
     <string name="follow_system">Urmează sistemul</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Ștergeți %s?</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Autentificare cu parolă</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Conectare folosind browserul</string>
 </resources>

@@ -1106,3 +1106,13 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "जांभळे डाउनलोड केलेले प्रदेश";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "पासवर्डने लॉगिन करा";
+
+/* Login to OSM button text */
+"login_osm_browser" = "ब्राउझर वापरून लॉगिन करा";

@@ -883,4 +883,10 @@
     <string name="share_track">シェアトラック</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">を削除しますか %s？</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">パスワードでログイン</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">ブラウザでログイン</string>
 </resources>

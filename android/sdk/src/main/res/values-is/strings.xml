@@ -38,4 +38,10 @@
     <string name="subway_data_unavailable">Kort fyrir neðanjarðarlest er ekki tiltækt</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Fjólublá niðurhluð svæði</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Innskráning með lykilorði</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Innskráning með vafrara</string>
 </resources>

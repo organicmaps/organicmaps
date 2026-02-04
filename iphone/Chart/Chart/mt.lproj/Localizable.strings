@@ -8,3 +8,13 @@
 /********** Uncategorized **********/
 
 "you" = "You";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Login bil-password";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Login billi tuża l-browser";

@@ -38,4 +38,10 @@
     <string name="subway_data_unavailable">地铁地图不可用</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">紫色已下载区域</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">使用密码登录</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">使用浏览器登录</string>
 </resources>

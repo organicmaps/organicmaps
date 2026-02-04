@@ -798,4 +798,10 @@
     <string name="nav_auto">Outo in navigasie</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Volg die stelsel</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Aanmelding met wagwoord</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Teken aan met blaaier</string>
 </resources>

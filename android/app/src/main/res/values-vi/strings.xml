@@ -812,4 +812,10 @@
     <string name="nav_auto">Tự động điều hướng</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Theo hệ thống</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Đăng nhập bằng mật khẩu</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Đăng nhập bằng trình duyệt</string>
 </resources>

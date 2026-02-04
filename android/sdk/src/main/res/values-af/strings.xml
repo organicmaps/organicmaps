@@ -36,4 +36,10 @@
     <string name="subway_data_unavailable">Moltreinkaart is onbeskikbaar</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Pers afgelaaide streke</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Aanmelding met wagwoord</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Teken aan met blaaier</string>
 </resources>

@@ -38,4 +38,10 @@
     <string name="subway_data_unavailable">Metro haritası yok</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Mor indirilen bölgeler</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Şifre ile giriş yapın</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Tarayıcı kullanarak giriş yapın</string>
 </resources>

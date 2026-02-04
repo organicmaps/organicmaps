@@ -36,4 +36,10 @@
     <string name="subway_data_unavailable">O mapa do metro non está dispoñible</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Rexións descargadas en violeta</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Iniciar sesión con contrasinal</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Inicio de sesión usando o navegador</string>
 </resources>

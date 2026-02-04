@@ -895,4 +895,10 @@
     <string name="share_track">Падзяліцца маршрутам</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Выдаліць %s?</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Увайсці з паролем</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Уваход праз браўзер</string>
 </resources>

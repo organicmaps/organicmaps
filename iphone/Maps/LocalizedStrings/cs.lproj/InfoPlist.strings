@@ -32,3 +32,9 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Stanovení současného umístění se používá v možnostech sledování trasy a uložení vaší nedávno uskutečněné cesty.";
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Přihlášení pomocí hesla";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Přihlášení pomocí prohlížeče";

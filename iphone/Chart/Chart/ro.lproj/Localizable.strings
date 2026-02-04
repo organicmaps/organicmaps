@@ -8,3 +8,13 @@
 /********** Uncategorized **********/
 
 "you" = "Tu";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Autentificare cu parolă";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Conectare folosind browserul";

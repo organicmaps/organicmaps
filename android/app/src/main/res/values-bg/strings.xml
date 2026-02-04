@@ -879,4 +879,10 @@
     <string name="share_track">Споделяне на пистата</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Изтриване на %s?</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Влизане с парола</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Влизане чрез браузър</string>
 </resources>

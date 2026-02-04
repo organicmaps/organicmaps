@@ -8,3 +8,13 @@
 /********** Uncategorized **********/
 
 "you" = "Sa";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Sisselogimine parooliga";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Sisselogimine brauseri abil";

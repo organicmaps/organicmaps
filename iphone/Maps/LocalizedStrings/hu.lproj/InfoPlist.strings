@@ -32,3 +32,9 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "A navigációhoz és a legutóbb megtett útvonal mentéséhez szükséges a helymeghatározás.";
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Bejelentkezés jelszóval";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Bejelentkezés böngésző használatával";

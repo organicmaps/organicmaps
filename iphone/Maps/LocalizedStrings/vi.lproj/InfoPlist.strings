@@ -32,3 +32,9 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Xác định vị trí hiện tại được sử dụng trong các tùy chọn theo tuyến đường và lưu đường đi gần đây của bạn.";
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Đăng nhập bằng mật khẩu";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Đăng nhập bằng trình duyệt";
