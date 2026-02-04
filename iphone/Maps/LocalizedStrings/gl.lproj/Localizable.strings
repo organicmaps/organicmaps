@@ -1106,3 +1106,13 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Rexións descargadas en violeta";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Iniciar sesión con contrasinal";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Inicio de sesión usando o navegador";

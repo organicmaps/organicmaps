@@ -889,4 +889,10 @@
     <string name="share_track">Jaga rada</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Kas kustutame %s?</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Sisselogimine parooliga</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Sisselogimine brauseri abil</string>
 </resources>

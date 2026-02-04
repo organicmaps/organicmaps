@@ -877,4 +877,10 @@
     <string name="nav_auto">مسیریابی خودکار</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">تابع سیستم</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">ورود با رمز عبور</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">ورود با استفاده از مرورگر</string>
 </resources>

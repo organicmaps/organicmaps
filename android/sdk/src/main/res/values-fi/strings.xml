@@ -38,4 +38,10 @@
     <string name="subway_data_unavailable">Metrokartta ei ole saatavilla</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Violetit ladatut alueet</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Kirjaudu sisään salasanalla</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Sisäänkirjautuminen selaimella</string>
 </resources>

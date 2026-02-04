@@ -32,3 +32,9 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "定義當前位置在跟隨路線和保存您的最近行進路徑的選項中被使用。";
+
+/* Login to OSM button text */
+"login_osm_credentials" = "使用密碼登入";
+
+/* Login to OSM button text */
+"login_osm_browser" = "使用瀏覽器登入";

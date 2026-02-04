@@ -13,4 +13,10 @@
     <string name="maps_storage_internal">ਅੰਦਰੂਨੀ ਨਿੱਜੀ ਸਟੋਰੇਜ</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">ਬੈਂਗਣੀ ਡਾਊਨਲੋਡ ਕੀਤੇ ਖੇਤਰ</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">ਪਾਸਵਰਡ ਨਾਲ ਲੌਗਇਨ ਕਰੋ</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">ਬ੍ਰਾਊਜ਼ਰ ਰਾਹੀਂ ਲੌਗਇਨ ਕਰੋ</string>
 </resources>

@@ -32,3 +32,9 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Ο προσδιορισμός της θέσης σας είναι απαραίτητος για την πλοήγηση και για την αποθήκευση της διαδρομής που διανύσατε πρόσφατα.";
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Σύνδεση με κωδικό πρόσβασης";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Σύνδεση μέσω προγράμματος περιήγησης";

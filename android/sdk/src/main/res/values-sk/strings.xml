@@ -35,4 +35,10 @@
     <string name="subway_data_unavailable">Mapa metra nie je dostupná</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Fialové stiahnuté regióny</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Prihlásenie pomocou hesla</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Prihlásenie pomocou prehliadača</string>
 </resources>

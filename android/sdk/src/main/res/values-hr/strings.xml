@@ -38,4 +38,10 @@
     <string name="subway_data_unavailable">Karta podzemne željeznice nije dostupna</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Ljubičaste preuzete regije</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Prijava s lozinkom</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Prijava putem preglednika</string>
 </resources>

@@ -8,3 +8,13 @@
 /********** Uncategorized **********/
 
 "you" = "You";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "পাসওয়ার্ড দিয়ে লগইন";
+
+/* Login to OSM button text */
+"login_osm_browser" = "ব্রাউজার ব্যবহার করে লগইন";

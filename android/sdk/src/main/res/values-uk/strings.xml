@@ -38,4 +38,10 @@
     <string name="subway_data_unavailable">Мапа метрополітену недоступна</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Фіолетові завантажені регіони</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Вхід за допомогою пароля</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Вхід через браузер</string>
 </resources>

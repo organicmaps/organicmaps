@@ -888,4 +888,10 @@
     <string name="share_track">Track teilen</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">%s löschen?</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Anmeldung mit Passwort</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Anmeldung über den Browser</string>
 </resources>

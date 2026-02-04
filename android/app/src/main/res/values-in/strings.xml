@@ -866,4 +866,10 @@
     <string name="share_track">Bagikan Lintasan</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Hapus %s?</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Masuk dengan kata sandi</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Masuk menggunakan Browser</string>
 </resources>

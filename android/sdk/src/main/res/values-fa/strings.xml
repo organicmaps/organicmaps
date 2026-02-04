@@ -38,4 +38,10 @@
     <string name="subway_data_unavailable">نقشه مترو موجود نیست</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">مناطق دانلود شده بنفش</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">ورود با رمز عبور</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">ورود با استفاده از مرورگر</string>
 </resources>

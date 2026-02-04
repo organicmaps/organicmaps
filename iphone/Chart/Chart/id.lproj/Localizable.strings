@@ -8,3 +8,13 @@
 /********** Uncategorized **********/
 
 "you" = "Anda";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Masuk dengan kata sandi";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Masuk menggunakan Browser";

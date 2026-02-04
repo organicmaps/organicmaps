@@ -25,4 +25,10 @@
     <string name="subway_data_unavailable">Bản đồ tàu điện ngầm không khả dụng</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Vùng đã tải về màu tím</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Đăng nhập bằng mật khẩu</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Đăng nhập bằng trình duyệt</string>
 </resources>

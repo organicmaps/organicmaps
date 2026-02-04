@@ -874,4 +874,10 @@
     <string name="share_track">Ndaj Gjurmën</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Fshi %s?</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Hy me fjalëkalim</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Hyni me anë të shfletuesit</string>
 </resources>

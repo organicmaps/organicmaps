@@ -27,4 +27,10 @@
     <string name="km">किमी</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">बैंगनी डाउनलोड किए गए क्षेत्र</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">पासवर्ड से लॉगिन करें</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">ब्राउज़र का उपयोग करके लॉगिन करें</string>
 </resources>

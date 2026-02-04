@@ -32,3 +32,9 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Sijaintitietojasi käytetään reittivalintoihin ja viimeaikaisten matkojesi tallentamiseen.";
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Kirjaudu sisään salasanalla";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Sisäänkirjautuminen selaimella";

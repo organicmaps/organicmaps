@@ -1106,3 +1106,13 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Paarse gedownloade regio's";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Inloggen met wachtwoord";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Inloggen met browser";

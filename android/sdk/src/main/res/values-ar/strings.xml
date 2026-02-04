@@ -38,4 +38,10 @@
     <string name="subway_data_unavailable">خريطة مترو الانفاق غير متوفرة</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">المناطق المُنزّلة باللون الأرجواني</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">تسجيل الدخول باستخدام كلمة المرور</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">تسجيل الدخول باستخدام المتصفح</string>
 </resources>

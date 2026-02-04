@@ -8,3 +8,13 @@
 /********** Uncategorized **********/
 
 "you" = "Εσείς";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Σύνδεση με κωδικό πρόσβασης";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Σύνδεση μέσω προγράμματος περιήγησης";

@@ -32,3 +32,9 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Ваше місцезнаходження використовується для навігації та запису пройденого шляху.";
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Вхід за допомогою пароля";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Вхід через браузер";

@@ -1106,3 +1106,13 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Fialové stiahnuté regióny";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Prihlásenie pomocou hesla";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Prihlásenie pomocou prehliadača";

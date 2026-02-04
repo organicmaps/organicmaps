@@ -584,4 +584,10 @@
     <string name="follow_system">Prati sustav</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Izbrisati %s?</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Prijava s lozinkom</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Prijava putem preglednika</string>
 </resources>
