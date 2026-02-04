@@ -887,4 +887,10 @@
     <string name="share_track">分享轨迹</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">删除 %s？</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">使用密码登录</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">使用浏览器登录</string>
 </resources>

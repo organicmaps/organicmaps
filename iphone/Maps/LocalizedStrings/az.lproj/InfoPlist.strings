@@ -32,3 +32,9 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Cari yerinizin müəyyən edilməsi marşrutun izlənməsi və son səyahət edilmiş yol seçimlərinin saxlanmasında istifadə olunur.";
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Şifrə ilə giriş";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Brauzerdən istifadə edərək giriş";

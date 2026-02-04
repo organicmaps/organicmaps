@@ -32,3 +32,9 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "La definizione della posizione corrente viene utilizzata nelle opzioni di tracciamento del percorso e salvataggio del percorso effettuato di recente.";
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Accesso con password";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Effettuare il login con il browser";

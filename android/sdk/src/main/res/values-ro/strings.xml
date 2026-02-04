@@ -38,4 +38,10 @@
     <string name="subway_data_unavailable">Harta de metrou nu este disponibilă</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Regiuni descărcate violete</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Autentificare cu parolă</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Conectare folosind browserul</string>
 </resources>

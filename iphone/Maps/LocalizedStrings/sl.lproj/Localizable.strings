@@ -1106,3 +1106,13 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Vijolična prenesena območja";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Prijava z geslom";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Prijava z uporabo brskalnika";

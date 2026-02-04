@@ -36,4 +36,10 @@
     <string name="subway_data_unavailable">Мапа метроа не постоји</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Љубичасти преузети региони</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Пријава са лозинком</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Пријава преко прегледача</string>
 </resources>

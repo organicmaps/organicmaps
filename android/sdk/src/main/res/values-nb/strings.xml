@@ -37,4 +37,10 @@
     <string name="subway_data_unavailable">T-banekart er utilgjengelig</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Lilla nedlastede regioner</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Logg inn med passord</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Innlogging ved hjelp av nettleser</string>
 </resources>

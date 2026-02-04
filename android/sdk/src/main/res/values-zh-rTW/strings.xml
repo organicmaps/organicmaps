@@ -38,4 +38,10 @@
     <string name="subway_data_unavailable">捷運圖層不可用</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">紫色已下載區域</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">使用密碼登入</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">使用瀏覽器登入</string>
 </resources>

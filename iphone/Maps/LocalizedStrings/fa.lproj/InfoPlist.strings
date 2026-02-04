@@ -32,3 +32,9 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "تعیین موقعیت مکانی شما برای ناوبری و ذخیره مسیرهای اخیر سفر شده ضروری است.";
+
+/* Login to OSM button text */
+"login_osm_credentials" = "ورود با رمز عبور";
+
+/* Login to OSM button text */
+"login_osm_browser" = "ورود با استفاده از مرورگر";

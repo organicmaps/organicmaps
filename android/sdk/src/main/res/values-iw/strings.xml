@@ -31,4 +31,10 @@
     <string name="subway_data_unavailable">מפת רכבת תחתית לא זמינה</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">אזורים שהורדו בסגול</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">התחבר עם סיסמה</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">כניסה באמצעות דפדפן</string>
 </resources>

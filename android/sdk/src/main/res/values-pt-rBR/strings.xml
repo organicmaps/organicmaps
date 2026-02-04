@@ -20,4 +20,10 @@
     <string name="subway_data_unavailable">Mapa de metrô está indisponível</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Regiões descarregadas roxas</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Login com senha</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Fazer login usando o navegador</string>
 </resources>

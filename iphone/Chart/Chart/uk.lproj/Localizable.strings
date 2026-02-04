@@ -8,3 +8,13 @@
 /********** Uncategorized **********/
 
 "you" = "Ви";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Вхід за допомогою пароля";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Вхід через браузер";

@@ -832,4 +832,10 @@
     <string name="nav_auto">Naviqasiyada avtomatik</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Sistemə uyğun</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Şifrə ilə giriş</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Brauzerdən istifadə edərək giriş</string>
 </resources>

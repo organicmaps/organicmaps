@@ -841,4 +841,10 @@
     <string name="nav_auto">Auto fin-navigazzjoni</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Segwi s-sistema</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Login bil-password</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Login billi tuża l-browser</string>
 </resources>

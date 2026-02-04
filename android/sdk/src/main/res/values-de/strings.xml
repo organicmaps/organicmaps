@@ -38,4 +38,10 @@
     <string name="subway_data_unavailable">Die U-Bahnkarte steht nicht zur Verfügung</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Lila heruntergeladene Regionen</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Anmeldung mit Passwort</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Anmeldung über den Browser</string>
 </resources>

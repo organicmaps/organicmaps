@@ -651,4 +651,10 @@
     <string name="nav_auto">Automático na navegação</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Usar o padrão do sistema</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Login com senha</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Fazer login usando o navegador</string>
 </resources>

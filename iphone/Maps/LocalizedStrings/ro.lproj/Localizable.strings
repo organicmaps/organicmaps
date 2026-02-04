@@ -1106,3 +1106,13 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Regiuni descărcate violete";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Autentificare cu parolă";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Conectare folosind browserul";

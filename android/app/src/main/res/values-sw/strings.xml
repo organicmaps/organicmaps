@@ -408,4 +408,10 @@
     <string name="nav_auto">Urambazaji otomatiki</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Fuata mfumo</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Ingia kwa nenosiri</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Ingia kwa kutumia kivinjari</string>
 </resources>

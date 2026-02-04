@@ -35,4 +35,10 @@
     <string name="subway_data_unavailable">지하철 지도가 가용하지 않습니다.</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">보라색 다운로드 지역</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">비밀번호로 로그인</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">브라우저를 사용하여 로그인</string>
 </resources>

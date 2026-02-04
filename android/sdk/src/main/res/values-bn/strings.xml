@@ -9,4 +9,10 @@
     <string name="core_my_position">আমার অবস্থান</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">বেগুনি ডাউনলোড করা অঞ্চল</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">পাসওয়ার্ড দিয়ে লগইন</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">ব্রাউজার ব্যবহার করে লগইন</string>
 </resources>

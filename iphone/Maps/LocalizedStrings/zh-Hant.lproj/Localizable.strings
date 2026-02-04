@@ -1106,3 +1106,13 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "紫色已下載區域";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "使用密碼登入";
+
+/* Login to OSM button text */
+"login_osm_browser" = "使用瀏覽器登入";

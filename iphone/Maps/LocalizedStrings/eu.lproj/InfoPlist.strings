@@ -32,3 +32,9 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Uneko kokapenaren definizioa ibilbidea jarraitu eta duela gutxi egindako bidea gordetzeko aukeretan erabiltzen da.";
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Sartu pasahitzarekin";
+
+/* Login to OSM button text */
+"login_osm_browser" = "arakatzailea erabiliz saioa hasi";

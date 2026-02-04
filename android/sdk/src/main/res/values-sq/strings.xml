@@ -38,4 +38,10 @@
     <string name="subway_data_unavailable">Harta e metrosë nuk është e disponueshme</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Rajonet e shkarkuara vjollcë</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Hy me fjalëkalim</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Hyni me anë të shfletuesit</string>
 </resources>

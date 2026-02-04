@@ -38,4 +38,10 @@
     <string name="subway_data_unavailable">Metro žemėlapis neprieinamas</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Violetiniai atsisiųsti regionai</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Prisijungimas su slaptažodžiu</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Prisijungimas naudojant naršyklę</string>
 </resources>

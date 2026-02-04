@@ -38,4 +38,10 @@
     <string name="subway_data_unavailable">Картата на метрото не е налична</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Лилави изтеглени региони</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Влизане с парола</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Влизане чрез браузър</string>
 </resources>

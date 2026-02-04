@@ -32,3 +32,9 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Atrašanās vietas noteikšana ir nepieciešama navigācijai un nesen veiktā maršruta saglabāšanai.";
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Pieteikšanās ar paroli";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Pieteikšanās, izmantojot pārlūkprogrammu";

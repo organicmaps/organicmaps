@@ -38,4 +38,10 @@
     <string name="subway_data_unavailable">A metrótérkép nem érhető el</string>
     <!-- Settings/Highlight downloaded regions on the map -->
     <string name="show_downloaded_regions">Lila letöltött régiók</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Bejelentkezés jelszóval</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Bejelentkezés böngésző használatával</string>
 </resources>
