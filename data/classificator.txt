@@ -15,6 +15,7 @@ world  +
         rope_tow  -
         station  -
         t-bar  -
+        zip_line  -
         {}
     aeroway  +
         aerodrome  +

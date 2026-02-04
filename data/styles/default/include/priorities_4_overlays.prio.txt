@@ -630,6 +630,7 @@ aerialway-mixed_lift                                # pathtext z15- (also has li
 aerialway-platter                                   # pathtext z15- (also has line z13-, line::dash z13-)
 aerialway-rope_tow                                  # pathtext z15- (also has line z13-, line::dash z13-)
 aerialway-t-bar                                     # pathtext z15- (also has line z13-, line::dash z13-)
+aerialway-zip_line                                  # pathtext z15- (also has line z13-, line::dash z13-)
 highway-residential                                 # pathtext z13- (also has shield::shield z15-, line z12-)
 highway-residential-area                            # pathtext z13- (also has shield::shield z15-, line z12-)
 highway-residential-bridge                          # pathtext z13- (also has shield::shield z15-, line z12-, line::bridgeblack z14-, line::bridgewhite z14-)
