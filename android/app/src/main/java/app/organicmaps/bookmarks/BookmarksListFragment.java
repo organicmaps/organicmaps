@@ -708,6 +708,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     }
   }
 
+  private void onTrackVisibilityToggleSelected(Track track)
+  {
+    track.toggleVisibility();
+    getBookmarkListAdapter().notifyItemChanged(mSelectedPosition);
+  }
+
   private void onDeleteTrackSelected(long trackId)
   {
     BookmarkManager.INSTANCE.deleteTrack(trackId);
@@ -818,6 +824,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   {
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
     items.add(new MenuBottomSheetItem(R.string.edit, R.drawable.ic_edit, this::onTrackEditActionSelected));
+    int visibilityTextRes = track.isVisible() ? R.string.hide : R.string.show;
+    int visibilityIconRes = track.isVisible() ? R.drawable.ic_hide : R.drawable.ic_show;
+    items.add(new MenuBottomSheetItem(visibilityTextRes, visibilityIconRes,
+            () -> onTrackVisibilityToggleSelected(track)));
     items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz,
                                       () -> onShareTrackSelected(track.getTrackId(), FileType.Kml)));
     items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
