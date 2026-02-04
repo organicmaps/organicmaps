@@ -617,7 +617,7 @@ mapswithme
 mapswithme
 mapswithme
 *aerialway|j-bar
-mapswithme
+*aerialway|zip_line
 mapswithme
 mapswithme
 mapswithme

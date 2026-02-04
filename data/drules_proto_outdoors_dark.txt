@@ -2120,6 +2120,199 @@ cont {
   }
 }
 cont {
+  name: "aerialway-zip_line"
+  element {
+    scale: 13
+    lines {
+      width: 2.5
+      color: 2152615485
+      dashdot {
+        dd: 1.0
+        dd: 10.0
+      }
+      priority: 380
+      cap: BUTTCAP
+    }
+    lines {
+      width: 0.5
+      color: 1296977469
+      priority: 370
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 2.5
+      color: 2152615485
+      dashdot {
+        dd: 1.0
+        dd: 10.0
+      }
+      priority: 380
+      cap: BUTTCAP
+    }
+    lines {
+      width: 0.5
+      color: 1296977469
+      priority: 370
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 3.0
+      color: 1296977469
+      dashdot {
+        dd: 1.0
+        dd: 15.0
+      }
+      priority: 380
+      cap: BUTTCAP
+    }
+    lines {
+      width: 0.5
+      color: 1296977469
+      priority: 370
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 9
+        color: 10592673
+        stroke_color: 1292240384
+      }
+      priority: 3000
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 3.0
+      color: 1296977469
+      dashdot {
+        dd: 1.0
+        dd: 15.0
+      }
+      priority: 380
+    }
+    lines {
+      width: 1.0
+      color: 1296977469
+      priority: 370
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 10592673
+        stroke_color: 1292240384
+      }
+      priority: 3000
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 4.0
+      color: 5131837
+      dashdot {
+        dd: 1.0
+        dd: 22.0
+      }
+      priority: 380
+    }
+    lines {
+      width: 1.0
+      color: 1296977469
+      priority: 370
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 10592673
+        stroke_color: 1292240384
+      }
+      priority: 3000
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 4.0
+      color: 5131837
+      dashdot {
+        dd: 1.0
+        dd: 22.0
+      }
+      priority: 380
+    }
+    lines {
+      width: 1.0
+      color: 1296977469
+      priority: 370
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 10592673
+        stroke_color: 1292240384
+      }
+      priority: 3000
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 4.0
+      color: 5131837
+      dashdot {
+        dd: 1.0
+        dd: 22.0
+      }
+      priority: 380
+    }
+    lines {
+      width: 1.0
+      color: 1296977469
+      priority: 370
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 10592673
+        stroke_color: 1292240384
+      }
+      priority: 3000
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 4.0
+      color: 5131837
+      dashdot {
+        dd: 1.0
+        dd: 22.0
+      }
+      priority: 380
+    }
+    lines {
+      width: 1.0
+      color: 1296977469
+      priority: 370
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 10592673
+        stroke_color: 1292240384
+      }
+      priority: 3000
+    }
+  }
+}
+cont {
   name: "aeroway-aerodrome"
   element {
     scale: 10
