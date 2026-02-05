@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -25,7 +26,6 @@ import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.ScrollableContentInsetsListener;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class OsmLoginFragment extends BaseMwmToolbarFragment
@@ -35,6 +35,9 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
   private Button mLostPasswordButton;
   private TextInputEditText mLoginInput;
   private TextInputEditText mPasswordInput;
+  private TextView mErrorTv;
+  private boolean mIsErrorShown = false;
+  private static final String STATE_ERROR_SHOWN = "state_error_shown";
 
   @Nullable
   @Override
@@ -50,6 +53,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     getToolbarController().setTitle(R.string.login);
     mLoginInput = view.findViewById(R.id.osm_username);
     mPasswordInput = view.findViewById(R.id.osm_password);
+    mErrorTv = view.findViewById(R.id.tv_error);
     mLoginButton = view.findViewById(R.id.login);
     mLostPasswordButton = view.findViewById(R.id.lost_password);
     Button registerButton = view.findViewById(R.id.register);
@@ -71,13 +75,20 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
       mLostPasswordButton.setOnClickListener(
           (v) -> Utils.openUrl(requireActivity(), Constants.Url.OSM_RECOVER_PASSWORD));
     }
-
     String code = readOAuth2CodeFromArguments();
+    boolean flowStarted = false;
     if (code != null && !code.isEmpty())
+    {
+      flowStarted = true;
       continueOAuth2Flow(code);
-
+    }
     ScrollView scrollView = view.findViewById(R.id.scrollView);
     ViewCompat.setOnApplyWindowInsetsListener(scrollView, new ScrollableContentInsetsListener(scrollView));
+
+    if (savedInstanceState != null && savedInstanceState.getBoolean(STATE_ERROR_SHOWN, false))
+    {
+      onAuthFail();
+    }
   }
 
   private String readOAuth2CodeFromArguments()
@@ -91,6 +102,8 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
 
   private void login()
   {
+    mIsErrorShown = false;
+    UiUtils.hide(mErrorTv);
     InputUtils.hideKeyboard(mLoginInput);
     final String username = mLoginInput.getText().toString().trim();
     final String password = mPasswordInput.getText().toString();
@@ -134,10 +147,18 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
 
   private void onAuthFail()
   {
-    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.editor_login_error_dialog)
-        .setPositiveButton(R.string.ok, null)
-        .show();
+    mIsErrorShown = true;
+    if (mErrorTv != null)
+    {
+      mErrorTv.setText(R.string.editor_login_error_dialog);
+      UiUtils.show(mErrorTv);
+    }
+  }
+  @Override
+  public void onSaveInstanceState(@NonNull Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    outState.putBoolean(STATE_ERROR_SHOWN, mIsErrorShown);
   }
 
   private void onAuthSuccess(String oauthToken, String username)
