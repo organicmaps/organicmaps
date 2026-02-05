@@ -26,7 +26,6 @@ class Maxspeeds
 public:
   /// \returns false if there's no maxspeeds (forward or bidirectional) and true otherwise.
   bool IsEmpty() const;
-  static bool IsConditionalActive(osmoh::OpeningHours const & condition);
 
   /// \returns Maxspeed for feature id |fid|. If there's no Maxspeed value for |fid|
   /// returns an invalid Maxspeed value.

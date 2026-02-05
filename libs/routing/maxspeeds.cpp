@@ -1,9 +1,6 @@
 #include "routing/maxspeeds.hpp"
 #include "routing/maxspeeds_serialization.hpp"
 
-#include "platform/measurement_utils.hpp"
-
-#include "3party/opening_hours/opening_hours.hpp"
 #include "coding/files_container.hpp"
 
 #include "base/assert.hpp"
@@ -15,14 +12,6 @@
 
 namespace routing
 {
-bool Maxspeeds::IsConditionalActive(osmoh::OpeningHours const & condition)
-{
-  if (!condition.IsValid())
-    return false;
-
-  return condition.IsOpen(std::time(nullptr));
-}
-
 bool Maxspeeds::IsEmpty() const
 {
   return m_forwardMaxspeedsTable.size() == 0 && m_bidirectionalMaxspeeds.empty();
@@ -48,14 +37,8 @@ Maxspeed Maxspeeds::GetMaxspeed(uint32_t fid) const
   if (range.second == range.first)
     return Maxspeed();  // No maxspeed for |fid| is set. Returns an invalid Maxspeed instance.
 
-  CHECK_EQUAL(range.second - range.first, 1, ());
-
-  Maxspeed result = range.first->GetMaxspeed();
-
-  if (result.HasConditional() && IsConditionalActive(result.GetConditionalTime()))
-    result.SetForward(result.GetConditionalSpeed());
-
-  return result;
+  ASSERT_EQUAL(range.second - range.first, 1, ());
+  return range.first->GetMaxspeed();
 }
 
 MaxspeedType Maxspeeds::GetDefaultSpeed(bool inCity, HighwayType hwType) const

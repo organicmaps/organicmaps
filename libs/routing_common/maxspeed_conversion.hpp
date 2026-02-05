@@ -216,22 +216,22 @@ public:
   void SetBackward(MaxspeedType backward) { m_backward = backward; }
   void SetConditional(MaxspeedType speed, osmoh::OpeningHours const & condition)
   {
-    mConditionalSpeed = speed;
-    mConditionalTime = condition;
+    m_conditionalSpeed = speed;
+    m_conditionalTime = condition;
   }
 
   measurement_utils::Units GetUnits() const { return m_units; }
   MaxspeedType GetForward() const { return m_forward; }
   MaxspeedType GetBackward() const { return m_backward; }
-  MaxspeedType GetConditionalSpeed() const { return mConditionalSpeed; }
-  osmoh::OpeningHours const & GetConditionalTime() const { return mConditionalTime; }
+  MaxspeedType GetConditional() const { return m_conditionalSpeed; }
+  osmoh::OpeningHours const & GetConditionalTime() const { return m_conditionalTime; }
 
   bool IsValid() const { return m_forward != kInvalidSpeed; }
   /// \returns true if Maxspeed is considered as Bidirectional(). It means different
   /// speed is set for forward and backward direction. Otherwise returns false. It means
   /// |m_forward| speed should be used for the both directions.
   bool IsBidirectional() const { return IsValid() && m_backward != kInvalidSpeed; }
-  bool HasConditional() const { return mConditionalSpeed != kInvalidSpeed && mConditionalTime.IsValid(); }
+  bool HasConditional() const { return m_conditionalSpeed != kInvalidSpeed && m_conditionalTime.IsValid(); }
 
   /// \brief returns speed according to |m_units|. |kInvalidSpeed|, |kNoneMaxSpeed| or
   /// |kWalkMaxSpeed| may be returned.
@@ -250,8 +250,8 @@ private:
   // |m_forward| speed should be used for the both directions.
   MaxspeedType m_backward = kInvalidSpeed;
 
-  MaxspeedType mConditionalSpeed = kInvalidSpeed;
-  osmoh::OpeningHours mConditionalTime;
+  MaxspeedType m_conditionalSpeed = kInvalidSpeed;
+  osmoh::OpeningHours m_conditionalTime;
 };
 
 /// \brief Feature id and corresponding maxspeed tag value. |m_forward| and |m_backward| fields
@@ -277,12 +277,13 @@ public:
     bool operator()(FeatureMaxspeed const & l, uint32_t r) const { return l.m_featureId < r; }
   };
 
-  bool IsValid() const { return m_maxspeed.IsValid(); }
-  bool IsBidirectional() const { return m_maxspeed.IsBidirectional(); }
-
   uint32_t GetFeatureId() const { return m_featureId; }
   Maxspeed const & GetMaxspeed() const { return m_maxspeed; }
-  Maxspeed & GetMaxspeed() { return m_maxspeed; }
+
+  void SetConditional(MaxspeedType speed, osmoh::OpeningHours const & condition)
+  {
+    m_maxspeed.SetConditional(speed, condition);
+  }
 
   SpeedInUnits GetForwardSpeedInUnits() const;
   SpeedInUnits GetBackwardSpeedInUnits() const;

@@ -35,7 +35,8 @@ Maxspeed::Maxspeed(Units units, MaxspeedType forward, MaxspeedType backward)
 
 bool Maxspeed::operator==(Maxspeed const & rhs) const
 {
-  return m_units == rhs.m_units && m_forward == rhs.m_forward && m_backward == rhs.m_backward;
+  return (m_units == rhs.m_units && m_forward == rhs.m_forward && m_backward == rhs.m_backward &&
+          m_conditionalSpeed == rhs.m_conditionalSpeed && m_conditionalTime == rhs.m_conditionalTime);
 }
 
 MaxspeedType Maxspeed::GetSpeedInUnits(bool forward) const

@@ -10,9 +10,6 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include "base/file_name_utils.hpp"
-
-#include <cstdint>
 #include <limits>
 #include <vector>
 
@@ -32,8 +29,8 @@ void TestMaxspeedsSerialization(vector<FeatureMaxspeed> const & speeds)
   MaxspeedConverter const & converter = GetMaxspeedConverter();
   for (auto const & s : speeds)
   {
-    inputSpeeds.push_back({s.GetFeatureId(), converter.SpeedToMacro(s.GetForwardSpeedInUnits()),
-                           converter.SpeedToMacro(s.GetBackwardSpeedInUnits())});
+    inputSpeeds.emplace_back(s.GetFeatureId(), s.GetMaxspeed(), converter);
+    TEST(inputSpeeds.back().IsValid(), (s.GetMaxspeed()));
   }
 
   int constexpr SPEEDS_COUNT = MaxspeedsSerializer::DEFAULT_SPEEDS_COUNT;
@@ -131,36 +128,29 @@ UNIT_TEST(MaxspeedConverter_ClosestValidMacro)
 UNIT_TEST(MaxspeedsSerializer_Smoke)
 {
   TestMaxspeedsSerialization({});
-}
-
-UNIT_TEST(MaxspeedsSerializer_OneForwardMetric)
-{
   TestMaxspeedsSerialization({FeatureMaxspeed(0 /* feature id */, Units::Metric, 20 /* speed */)});
-}
-
-UNIT_TEST(MaxspeedsSerializer_OneNone)
-{
   TestMaxspeedsSerialization({FeatureMaxspeed(0 /* feature id */, Units::Metric, kNoneMaxSpeed)});
-}
-
-UNIT_TEST(MaxspeedsSerializer_OneWalk)
-{
   TestMaxspeedsSerialization({FeatureMaxspeed(0 /* feature id */, Units::Metric, kWalkMaxSpeed)});
-}
-
-UNIT_TEST(MaxspeedsSerializer_OneBidirectionalMetric_1)
-{
   TestMaxspeedsSerialization({FeatureMaxspeed(0 /* feature id */, Units::Metric, 20 /* speed */, 40 /* speed */)});
-}
-
-UNIT_TEST(MaxspeedsSerializer_OneBidirectionalMetric_2)
-{
   TestMaxspeedsSerialization({FeatureMaxspeed(0 /* feature id */, Units::Metric, 10 /* speed */, kWalkMaxSpeed)});
+  TestMaxspeedsSerialization({FeatureMaxspeed(0 /* feature id */, Units::Imperial, 30 /* speed */, 50 /* speed */)});
 }
 
-UNIT_TEST(MaxspeedsSerializer_OneBidirectionalImperial)
+UNIT_TEST(MaxspeedsSerializer_Conditional)
 {
-  TestMaxspeedsSerialization({FeatureMaxspeed(0 /* feature id */, Units::Imperial, 30 /* speed */, 50 /* speed */)});
+  osmoh::OpeningHours oh("nov - mar");
+  TEST(oh.IsValid(), ());
+
+  FeatureMaxspeed forward(0, Units::Metric, 10);
+  forward.SetConditional(20, oh);
+
+  FeatureMaxspeed backward(1, Units::Metric, 30, 40);
+  backward.SetConditional(50, oh);
+
+  FeatureMaxspeed condOnly(2, Units::Metric, kInvalidSpeed, kInvalidSpeed);
+  condOnly.SetConditional(60, oh);
+
+  TestMaxspeedsSerialization({forward, backward, condOnly});
 }
 
 UNIT_TEST(MaxspeedsSerializer_BigMetric)

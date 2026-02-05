@@ -484,7 +484,7 @@ UNIT_TEST(Maxspeed_ParseConditionalCsv)
   TEST(!m1.IsBidirectional(), ());
   TEST(m1.HasConditional(), ());
 
-  TEST_EQUAL(static_cast<MaxspeedType>(m1.GetConditionalSpeed()), static_cast<MaxspeedType>(110), ());
+  TEST_EQUAL(static_cast<MaxspeedType>(m1.GetConditional()), static_cast<MaxspeedType>(110), ());
 
   string const csv2 = "11,Metric,100,80,80,nov - mar";
   OsmIdToMaxspeed mapping2;
@@ -501,6 +501,6 @@ UNIT_TEST(Maxspeed_ParseConditionalCsv)
   TEST_EQUAL(m2.GetBackward(), static_cast<MaxspeedType>(80), ());
   TEST(m2.HasConditional(), ());
 
-  TEST_EQUAL(static_cast<MaxspeedType>(m2.GetConditionalSpeed()), static_cast<MaxspeedType>(80), ());
+  TEST_EQUAL(static_cast<MaxspeedType>(m2.GetConditional()), static_cast<MaxspeedType>(80), ());
 }
 }  // namespace maxspeeds_tests
