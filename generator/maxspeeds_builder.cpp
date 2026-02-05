@@ -22,11 +22,8 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include <algorithm>
 #include <cmath>
 #include <fstream>
-#include <sstream>
-#include <utility>
 
 #include "defines.hpp"
 
@@ -266,29 +263,18 @@ public:
   {
     // Add converted macro speed.
     SpeedInUnits const forward(speed.GetForward(), speed.GetUnits());
-    CHECK(forward.IsValid(), ());
     SpeedInUnits const backward(speed.GetBackward(), speed.GetUnits());
 
-    /// @todo Should we find closest macro speed here when Undefined? OSM has bad data sometimes.
-    SpeedMacro const backwardMacro = m_converter.SpeedToMacro(backward);
-    MaxspeedsSerializer::FeatureSpeedMacro ftSpeed{featureID, m_converter.SpeedToMacro(forward), backwardMacro};
-
-    if (speed.HasConditional())
     {
-      SpeedInUnits const conditional(speed.GetConditionalSpeed(), speed.GetUnits());
-      ftSpeed.m_conditional = m_converter.SpeedToMacro(conditional);
-      ftSpeed.m_conditionalTime = speed.GetConditionalTime();
-    }
+      MaxspeedsSerializer::FeatureSpeedMacro ftMacro(featureID, speed, m_converter);
+      if (!ftMacro.IsValid())
+      {
+        LOG(LWARNING, ("Invalid speed:", forward, backward, "for way:", osmID));
+        return;
+      }
 
-    if (ftSpeed.m_forward == SpeedMacro::Undefined)
-    {
-      LOG(LWARNING, ("Undefined forward speed macro", forward, "for way", osmID));
-      return;
+      m_maxspeeds.emplace_back(std::move(ftMacro));
     }
-    if (backward.IsValid() && backwardMacro == SpeedMacro::Undefined)
-      LOG(LWARNING, ("Undefined backward speed macro", backward, "for way", osmID));
-
-    m_maxspeeds.push_back(ftSpeed);
 
     // Possible in unit tests.
     if (m_graph == nullptr)

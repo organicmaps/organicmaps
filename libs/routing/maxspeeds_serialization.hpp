@@ -15,8 +15,6 @@
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 
-#include <algorithm>
-#include <cstdint>
 #include <memory>
 #include <vector>
 
@@ -50,16 +48,9 @@ public:
 
   struct FeatureSpeedMacro
   {
-    FeatureSpeedMacro(uint32_t featureID, SpeedMacro forward, SpeedMacro backward = SpeedMacro::Undefined)
-      : m_featureID(featureID)
-      , m_forward(forward)
-      , m_backward(backward)
-    {
-      // We store bidirectional speeds only if they are not equal,
-      // see Maxspeed::IsBidirectional() comments.
-      if (m_forward == m_backward)
-        m_backward = SpeedMacro::Undefined;
-    }
+    FeatureSpeedMacro(uint32_t featureID, Maxspeed const & speed, MaxspeedConverter const & converter);
+
+    bool IsValid() const { return m_forward != SpeedMacro::Undefined || IsComplex(); }
 
     // A feature is Complex if it has Backward OR Conditional data.
     bool IsComplex() const { return m_backward != SpeedMacro::Undefined || m_conditional != SpeedMacro::Undefined; }
@@ -216,12 +207,16 @@ public:
     auto const & converter = GetMaxspeedConverter();
     auto serDes = GetSerDes();
 
-    auto ReadSpeed = [&](size_t i)
+    auto ReadSpeed = [&](size_t i) -> SpeedInUnits
     {
-      uint8_t const idx = ReadPrimitiveFromSource<uint8_t>(src);
-      auto const speed = converter.MacroToSpeed(static_cast<SpeedMacro>(idx));
-      CHECK(speed.IsValid(), (i));
-      return speed;
+      auto const macro = static_cast<SpeedMacro>(ReadPrimitiveFromSource<uint8_t>(src));
+      if (macro != SpeedMacro::Undefined)
+      {
+        auto speed = converter.MacroToSpeed(macro);
+        CHECK(speed.IsValid(), (i));
+        return speed;
+      }
+      return {};
     };
 
     maxspeeds.m_bidirectionalMaxspeeds.reserve(header.m_bidirectionalMaxspeedNumber);
@@ -230,36 +225,23 @@ public:
     {
       auto const delta = ReadVarUint<uint32_t>(src);
       auto const forwardSpeed = ReadSpeed(i);
-
-      auto const backwardIdx = ReadPrimitiveFromSource<uint8_t>(src);
-      SpeedInUnits backwardSpeed;
-      if (static_cast<SpeedMacro>(backwardIdx) != SpeedMacro::Undefined)
-      {
-        backwardSpeed = converter.MacroToSpeed(static_cast<SpeedMacro>(backwardIdx));
-        CHECK(backwardSpeed.IsValid(), (i));
-      }
-      else
-        backwardSpeed = forwardSpeed;  // No backward.
+      auto const backwardSpeed = ReadSpeed(i);
 
       SpeedInUnits conditionalSpeed;
       osmoh::OpeningHours conditionalTime;
 
       if (version >= 3)
       {
-        auto const condIdx = ReadPrimitiveFromSource<uint8_t>(src);
-        auto const condMacro = static_cast<SpeedMacro>(condIdx);
-
-        if (condMacro != SpeedMacro::Undefined)
+        conditionalSpeed = ReadSpeed(i);
+        if (conditionalSpeed.IsValid())
         {
-          conditionalSpeed = converter.MacroToSpeed(condMacro);
-          CHECK(conditionalSpeed.IsValid(), (i));
-
           BitReader<Source> bitReader(src);
           conditionalTime = serDes.Deserialize(bitReader);
         }
       }
 
       CHECK(HaveSameUnits(forwardSpeed, backwardSpeed), (i));
+      CHECK(HaveSameUnits(forwardSpeed, conditionalSpeed), (i));
 
       // Note. If neither |forwardSpeed| nor |backwardSpeed| are numeric, it means
       // both of them have value "walk" or "none". So the units are not relevant for this case.
@@ -277,7 +259,7 @@ public:
       if (conditionalTime.IsValid())
       {
         auto & lastFeature = maxspeeds.m_bidirectionalMaxspeeds.back();
-        lastFeature.GetMaxspeed().SetConditional(conditionalSpeed.GetSpeed(), conditionalTime);
+        lastFeature.SetConditional(conditionalSpeed.GetSpeed(), conditionalTime);
       }
     }
 
