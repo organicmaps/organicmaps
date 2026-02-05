@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/maxspeeds.hpp"
+#include "routing/opening_hours_serdes.hpp"
 
 #include "routing_common/vehicle_model.hpp"
 
@@ -31,8 +32,7 @@ namespace routing
 ///   elias_fano with feature ids which have maxspeed tag in forward direction only
 ///   SimpleDenseCoding with speed macros
 /// * Bidirectional and Conditional speeds in raw table:
-///   <varint(delta(Feature id))><Forward speed macro><Backward speed macro><Conditional speed macro><String
-///   Length><String Chars>
+///   <varint(delta(Feature id))><Forward speed macro><Backward speed macro><Conditional speed macro><OpeningHours>
 ///
 /// \note elias_fano is better than raw table in case of high density of entries, so we assume that
 ///  Bidirectional speeds count *is much less than* Forward speeds count.
@@ -41,8 +41,9 @@ class MaxspeedsSerializer
   // 0 - start version
   // 1 - added HighwayType -> SpeedMacro
   // 2 - HighwayType -> SpeedMacro for inside/outside a city
+  // 3 - Maxspeed conditional
   using VersionT = uint16_t;
-  static VersionT constexpr kVersion = 2;
+  static VersionT constexpr kVersion = 3;
 
 public:
   MaxspeedsSerializer() = delete;
@@ -68,12 +69,24 @@ public:
     SpeedMacro m_backward;
 
     SpeedMacro m_conditional = SpeedMacro::Undefined;
-    std::string m_conditionalString;
+    osmoh::OpeningHours m_conditionalTime;
   };
 
   using HW2SpeedMap = std::map<HighwayType, SpeedMacro>;
 
   static int constexpr DEFAULT_SPEEDS_COUNT = Maxspeeds::DEFAULT_SPEEDS_COUNT;
+
+  static OpeningHoursSerDes GetSerDes()
+  {
+    OpeningHoursSerDes serDes;
+    serDes.Enable(OpeningHoursSerDes::Header::Bits::Year);
+    serDes.Enable(OpeningHoursSerDes::Header::Bits::Month);
+    serDes.Enable(OpeningHoursSerDes::Header::Bits::MonthDay);
+    serDes.Enable(OpeningHoursSerDes::Header::Bits::WeekDay);
+    serDes.Enable(OpeningHoursSerDes::Header::Bits::Hours);
+    serDes.Enable(OpeningHoursSerDes::Header::Bits::Minutes);
+    return serDes;
+  }
 
   template <class Sink>
   static void Serialize(std::vector<FeatureSpeedMacro> const & featureSpeeds, HW2SpeedMap typeSpeeds[], Sink & sink)
@@ -122,6 +135,7 @@ public:
 
     // Saving complex maxspeeds.
     uint32_t prevFeatureId = 0;
+    auto serDes = GetSerDes();
     for (auto const & s : featureSpeeds)
     {
       if (!s.IsComplex())
@@ -139,9 +153,8 @@ public:
       WriteToSink(sink, static_cast<uint8_t>(s.m_conditional));
       if (s.m_conditional != SpeedMacro::Undefined)
       {
-        auto const strSize = static_cast<uint32_t>(s.m_conditionalString.size());
-        WriteVarUint(sink, strSize);
-        sink.Write(s.m_conditionalString.data(), strSize);
+        BitWriter<Sink> bitWriter(sink);
+        serDes.Serialize(bitWriter, s.m_conditionalTime);
       }
     }
 
@@ -201,6 +214,8 @@ public:
 
     // Loading complex speeds.
     auto const & converter = GetMaxspeedConverter();
+    auto serDes = GetSerDes();
+
     auto ReadSpeed = [&](size_t i)
     {
       uint8_t const idx = ReadPrimitiveFromSource<uint8_t>(src);
@@ -227,21 +242,20 @@ public:
         backwardSpeed = forwardSpeed;  // No backward.
 
       SpeedInUnits conditionalSpeed;
-      std::string conditionalString;
+      osmoh::OpeningHours conditionalTime;
 
-      auto const condIdx = ReadPrimitiveFromSource<uint8_t>(src);
-      auto const condMacro = static_cast<SpeedMacro>(condIdx);
-
-      if (condMacro != SpeedMacro::Undefined)
+      if (version >= 3)
       {
-        conditionalSpeed = converter.MacroToSpeed(condMacro);
-        CHECK(conditionalSpeed.IsValid(), (i));
+        auto const condIdx = ReadPrimitiveFromSource<uint8_t>(src);
+        auto const condMacro = static_cast<SpeedMacro>(condIdx);
 
-        auto const len = ReadVarUint<uint32_t>(src);
-        if (len > 0)
+        if (condMacro != SpeedMacro::Undefined)
         {
-          conditionalString.resize(len);
-          src.Read(conditionalString.data(), len);
+          conditionalSpeed = converter.MacroToSpeed(condMacro);
+          CHECK(conditionalSpeed.IsValid(), (i));
+
+          BitReader<Source> bitReader(src);
+          conditionalTime = serDes.Deserialize(bitReader);
         }
       }
 
@@ -260,10 +274,10 @@ public:
                                                       backwardSpeed.GetSpeed());
 
       // Add conditional data to the object.
-      if (!conditionalString.empty())
+      if (conditionalTime.IsValid())
       {
         auto & lastFeature = maxspeeds.m_bidirectionalMaxspeeds.back();
-        lastFeature.GetMaxspeed().SetConditional(conditionalSpeed.GetSpeed(), conditionalString);
+        lastFeature.GetMaxspeed().SetConditional(conditionalSpeed.GetSpeed(), conditionalTime);
       }
     }
 

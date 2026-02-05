@@ -277,7 +277,7 @@ public:
     {
       SpeedInUnits const conditional(speed.GetConditionalSpeed(), speed.GetUnits());
       ftSpeed.m_conditional = m_converter.SpeedToMacro(conditional);
-      ftSpeed.m_conditionalString = speed.GetCondition();
+      ftSpeed.m_conditionalTime = speed.GetConditionalTime();
     }
 
     if (ftSpeed.m_forward == SpeedMacro::Undefined)
@@ -414,7 +414,7 @@ bool ParseMaxspeeds(string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed)
             condition += " ";
         }
 
-        speed.SetConditional(conditionalSpeed, condition);
+        speed.SetConditional(conditionalSpeed, osmoh::OpeningHours(condition));
       }
       else if (iter)
       {
@@ -428,7 +428,7 @@ bool ParseMaxspeeds(string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed)
             condition += " ";
         }
 
-        speed.SetConditional(speed1, condition);
+        speed.SetConditional(speed1, osmoh::OpeningHours(condition));
       }
       else
       {
