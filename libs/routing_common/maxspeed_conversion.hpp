@@ -1,5 +1,6 @@
 #pragma once
 
+#include "3party/opening_hours/opening_hours.hpp"
 #include "platform/measurement_utils.hpp"
 
 #include <array>
@@ -213,24 +214,24 @@ public:
   void SetUnits(measurement_utils::Units units) { m_units = units; }
   void SetForward(MaxspeedType forward) { m_forward = forward; }
   void SetBackward(MaxspeedType backward) { m_backward = backward; }
-  void SetConditional(MaxspeedType speed, std::string const & condition)
+  void SetConditional(MaxspeedType speed, osmoh::OpeningHours const & condition)
   {
     mConditionalSpeed = speed;
-    mConditionalString = condition;
+    mConditionalTime = condition;
   }
 
   measurement_utils::Units GetUnits() const { return m_units; }
   MaxspeedType GetForward() const { return m_forward; }
   MaxspeedType GetBackward() const { return m_backward; }
   MaxspeedType GetConditionalSpeed() const { return mConditionalSpeed; }
-  std::string const & GetCondition() const { return mConditionalString; }
+  osmoh::OpeningHours const & GetConditionalTime() const { return mConditionalTime; }
 
   bool IsValid() const { return m_forward != kInvalidSpeed; }
   /// \returns true if Maxspeed is considered as Bidirectional(). It means different
   /// speed is set for forward and backward direction. Otherwise returns false. It means
   /// |m_forward| speed should be used for the both directions.
   bool IsBidirectional() const { return IsValid() && m_backward != kInvalidSpeed; }
-  bool HasConditional() const { return !mConditionalString.empty(); }
+  bool HasConditional() const { return mConditionalSpeed != kInvalidSpeed && mConditionalTime.IsValid(); }
 
   /// \brief returns speed according to |m_units|. |kInvalidSpeed|, |kNoneMaxSpeed| or
   /// |kWalkMaxSpeed| may be returned.
@@ -250,7 +251,7 @@ private:
   MaxspeedType m_backward = kInvalidSpeed;
 
   MaxspeedType mConditionalSpeed = kInvalidSpeed;
-  std::string mConditionalString;
+  osmoh::OpeningHours mConditionalTime;
 };
 
 /// \brief Feature id and corresponding maxspeed tag value. |m_forward| and |m_backward| fields

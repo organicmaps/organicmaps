@@ -15,13 +15,12 @@
 
 namespace routing
 {
-bool Maxspeeds::IsConditionalActive(std::string const & condition)
+bool Maxspeeds::IsConditionalActive(osmoh::OpeningHours const & condition)
 {
-  osmoh::OpeningHours oh(condition);
-  if (!oh.IsValid())
+  if (!condition.IsValid())
     return false;
 
-  return oh.IsOpen(std::time(nullptr));
+  return condition.IsOpen(std::time(nullptr));
 }
 
 bool Maxspeeds::IsEmpty() const
@@ -53,7 +52,7 @@ Maxspeed Maxspeeds::GetMaxspeed(uint32_t fid) const
 
   Maxspeed result = range.first->GetMaxspeed();
 
-  if (result.HasConditional() && IsConditionalActive(result.GetCondition()))
+  if (result.HasConditional() && IsConditionalActive(result.GetConditionalTime()))
     result.SetForward(result.GetConditionalSpeed());
 
   return result;
