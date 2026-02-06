@@ -83,6 +83,10 @@ std::string Track::GetDescription() const
 {
   return GetPreferredBookmarkStr(m_data.m_description);
 }
+void Track::SetDescription(std::string const & description)
+{
+  kml::SetDefaultStr(m_data.m_description, description);
+}
 
 void Track::setData(kml::TrackData const & data)
 {

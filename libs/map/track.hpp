@@ -28,6 +28,7 @@ public:
   std::string GetName() const;
   void SetName(std::string const & name);
   std::string GetDescription() const;
+  void SetDescription(std::string const & description);
 
   m2::RectD GetLimitRect() const;
   double GetLengthMeters() const;
