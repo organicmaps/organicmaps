@@ -53,15 +53,7 @@ struct OHSerDesTestFixture
     Enable(OpeningHoursSerDes::Header::Bits::Holiday);
   }
 
-  void EnableForRouting()
-  {
-    Enable(OpeningHoursSerDes::Header::Bits::Year);
-    Enable(OpeningHoursSerDes::Header::Bits::Month);
-    Enable(OpeningHoursSerDes::Header::Bits::MonthDay);
-    Enable(OpeningHoursSerDes::Header::Bits::WeekDay);
-    Enable(OpeningHoursSerDes::Header::Bits::Hours);
-    Enable(OpeningHoursSerDes::Header::Bits::Minutes);
-  }
+  void EnableForRouting() { m_serializer = OpeningHoursSerDes::ForRouting(); }
 
   bool IsEnabled(OpeningHoursSerDes::Header::Bits feature) { return m_serializer.IsEnabled(feature); }
   bool Serialize(std::string const & oh) { return m_serializer.Serialize(GetWriter(), oh); }

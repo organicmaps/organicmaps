@@ -39,8 +39,16 @@ bool Maxspeed::operator==(Maxspeed const & rhs) const
           m_conditionalSpeed == rhs.m_conditionalSpeed && m_conditionalTime == rhs.m_conditionalTime);
 }
 
+void Maxspeed::SetConditional(MaxspeedType speed, osmoh::OpeningHours condition)
+{
+  ASSERT(condition.IsValid(), ());
+  m_conditionalSpeed = speed;
+  m_conditionalTime = std::move(condition);
+}
+
 MaxspeedType Maxspeed::GetSpeedInUnits(bool forward) const
 {
+  ASSERT(IsValid(), ());
   return (forward || !IsBidirectional()) ? m_forward : m_backward;
 }
 

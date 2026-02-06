@@ -220,7 +220,7 @@ bool ParseMaxspeedConditionalTag(std::string const & maxspeedConditional, routin
   condition.clear();
   for (auto c : temp)
     if (c != '(' && c != ')')
-      condition.push_back(tolower(c));
+      condition.push_back(std::tolower(c));
 
   if (temp == "winter")
     condition = "nov - mar";

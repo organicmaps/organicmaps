@@ -477,17 +477,7 @@ private:
     }
   }
 
-  static OpeningHoursSerDes GetOpeningHoursSerDesForRouting()
-  {
-    OpeningHoursSerDes openingHoursSerDes;
-    openingHoursSerDes.Enable(OpeningHoursSerDes::Header::Bits::Year);
-    openingHoursSerDes.Enable(OpeningHoursSerDes::Header::Bits::Month);
-    openingHoursSerDes.Enable(OpeningHoursSerDes::Header::Bits::MonthDay);
-    openingHoursSerDes.Enable(OpeningHoursSerDes::Header::Bits::WeekDay);
-    openingHoursSerDes.Enable(OpeningHoursSerDes::Header::Bits::Hours);
-    openingHoursSerDes.Enable(OpeningHoursSerDes::Header::Bits::Minutes);
-    return openingHoursSerDes;
-  }
+  static OpeningHoursSerDes GetOpeningHoursSerDesForRouting() { return OpeningHoursSerDes::ForRouting(); }
 };
 
 std::string DebugPrint(RoadAccessSerializer::Header const & header);

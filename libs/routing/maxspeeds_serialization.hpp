@@ -67,17 +67,7 @@ public:
 
   static int constexpr DEFAULT_SPEEDS_COUNT = Maxspeeds::DEFAULT_SPEEDS_COUNT;
 
-  static OpeningHoursSerDes GetSerDes()
-  {
-    OpeningHoursSerDes serDes;
-    serDes.Enable(OpeningHoursSerDes::Header::Bits::Year);
-    serDes.Enable(OpeningHoursSerDes::Header::Bits::Month);
-    serDes.Enable(OpeningHoursSerDes::Header::Bits::MonthDay);
-    serDes.Enable(OpeningHoursSerDes::Header::Bits::WeekDay);
-    serDes.Enable(OpeningHoursSerDes::Header::Bits::Hours);
-    serDes.Enable(OpeningHoursSerDes::Header::Bits::Minutes);
-    return serDes;
-  }
+  static OpeningHoursSerDes GetSerDes() { return OpeningHoursSerDes::ForRouting(); }
 
   template <class Sink>
   static void Serialize(std::vector<FeatureSpeedMacro> const & featureSpeeds, HW2SpeedMap typeSpeeds[], Sink & sink)
@@ -259,7 +249,7 @@ public:
       if (conditionalTime.IsValid())
       {
         auto & lastFeature = maxspeeds.m_bidirectionalMaxspeeds.back();
-        lastFeature.SetConditional(conditionalSpeed.GetSpeed(), conditionalTime);
+        lastFeature.SetConditional(conditionalSpeed.GetSpeed(), std::move(conditionalTime));
       }
     }
 

@@ -4,14 +4,10 @@
 
 #include "routing_common/maxspeed_conversion.hpp"
 
-#include "platform/measurement_utils.hpp"
-
 #include "base/geo_object_id.hpp"
 
-#include <cstdint>
 #include <map>
 #include <string>
-#include <vector>
 
 namespace routing
 {
@@ -22,7 +18,8 @@ using OsmIdToMaxspeed = std::map<base::GeoObjectId, Maxspeed>;
 namespace routing_builder
 {
 /// \brief Parses csv file with |filePath| and stores the result in |osmIdToMaxspeed|.
-/// \note There's a detailed description of the csv file in generator/maxspeed_collector.hpp.
+/// "OSM id,units (Metric/Imperial),maxspeed(forward),maxspeed:backward,maxspeed:conditional,string condition"
+/// Empty speeds are skipped - possible when conditional time isn't parsed properly.
 bool ParseMaxspeeds(std::string const & filePath, routing::OsmIdToMaxspeed & osmIdToMaxspeed);
 
 void BuildMaxspeedsSection(routing::IndexGraph * graph, std::string const & dataPath,

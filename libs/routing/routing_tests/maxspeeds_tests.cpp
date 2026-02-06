@@ -192,16 +192,24 @@ UNIT_TEST(Maxspeed_Smoke)
     Maxspeed maxspeed;
     TEST(!maxspeed.IsValid(), ());
     TEST(!maxspeed.IsBidirectional(), ());
+  }
+
+  {
+    Maxspeed maxspeed;
+    maxspeed.SetConditional(20, osmoh::OpeningHours("nov-mar"));
+    TEST(maxspeed.IsValid(), ());
+    TEST(!maxspeed.IsBidirectional(), ());
+
     TEST_EQUAL(maxspeed.GetSpeedInUnits(true /* forward */), kInvalidSpeed, ());
-    TEST_EQUAL(maxspeed.GetSpeedKmPH(true /* forward */), kInvalidSpeed, ());
     TEST_EQUAL(maxspeed.GetSpeedInUnits(false /* forward */), kInvalidSpeed, ());
-    TEST_EQUAL(maxspeed.GetSpeedKmPH(false /* forward */), kInvalidSpeed, ());
+    TEST_EQUAL(maxspeed.GetConditional(), 20, ());
   }
 
   {
     Maxspeed maxspeed = {Units::Metric, 20 /* forward */, kInvalidSpeed /* backward */};
     TEST(maxspeed.IsValid(), ());
     TEST(!maxspeed.IsBidirectional(), ());
+
     TEST_EQUAL(maxspeed.GetSpeedInUnits(true /* forward */), 20, ());
     TEST_EQUAL(maxspeed.GetSpeedKmPH(true /* forward */), 20, ());
     TEST_EQUAL(maxspeed.GetSpeedInUnits(false /* forward */), 20, ());
@@ -212,6 +220,7 @@ UNIT_TEST(Maxspeed_Smoke)
     Maxspeed maxspeed = {Units::Metric, 30 /* forward */, 40 /* backward */};
     TEST(maxspeed.IsValid(), ());
     TEST(maxspeed.IsBidirectional(), ());
+
     TEST_EQUAL(maxspeed.GetSpeedInUnits(true /* forward */), 30, ());
     TEST_EQUAL(maxspeed.GetSpeedKmPH(true /* forward */), 30, ());
     TEST_EQUAL(maxspeed.GetSpeedInUnits(false /* forward */), 40, ());

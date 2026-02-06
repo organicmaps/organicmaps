@@ -34,22 +34,15 @@ using namespace generator;
 using namespace routing;
 using std::string;
 
-char constexpr kDelim[] = ", \t\r\n";
-
 template <class TokenizerT>
 bool ParseOneSpeedValue(TokenizerT & iter, MaxspeedType & value)
 {
-  if (!iter)
+  if (!++iter)
     return false;
 
-  uint64_t parsedSpeed = 0;
-  if (!strings::to_uint(*iter, parsedSpeed))
-    return false;
-  if (parsedSpeed > routing::kInvalidSpeed)
-    return false;
-  value = static_cast<MaxspeedType>(parsedSpeed);
-  ++iter;
-  return true;
+  auto const & s = *iter;
+  value = routing::kInvalidSpeed;
+  return s.empty() || strings::to_uint(s, value);
 }
 
 /// \brief Collects all maxspeed tag values of specified mwm based on maxspeeds.csv file.
@@ -345,88 +338,57 @@ bool ParseMaxspeeds(string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed)
   if (!stream)
     return false;
 
-  string line;
+  string buffer;
   while (stream.good())
   {
-    getline(stream, line);
-    strings::SimpleTokenizer iter(line, kDelim);
-
-    if (!iter)  // empty line
+    getline(stream, buffer);
+    std::string_view line(buffer);
+    strings::Trim(line);  // with new "conditional" we accept only comma-separator
+    if (line.empty())
       continue;
 
+    using namespace strings;
+    TokenizeIterator<SimpleDelimiter, std::string_view::const_iterator, true /* KeepEmptyTokens */> iter(
+        line.begin(), line.end(), ",");
+
     uint64_t osmId = 0;
-    if (!strings::to_uint(*iter, osmId))
+    if (!to_uint(*iter, osmId))
       return false;
-    ++iter;
 
-    if (!iter)
+    if (!++iter)
       return false;
-    Maxspeed speed;
-    speed.SetUnits(StringToUnits(*iter));
-    ++iter;
+    auto const units = StringToUnits(*iter);
 
-    MaxspeedType forward = 0;
+    MaxspeedType forward, backward, conditional;
     if (!ParseOneSpeedValue(iter, forward))
       return false;
 
-    speed.SetForward(forward);
+    if (!ParseOneSpeedValue(iter, backward))
+      return false;
 
-    if (iter)
+    if (!ParseOneSpeedValue(iter, conditional))
+      return false;
+
+    Maxspeed speed(units, forward, backward);
+    if (++iter && conditional != kInvalidSpeed)
     {
-      auto peekIter = iter;
-      MaxspeedType speed1 = 0;  // Backward or Conditional
-      if (!ParseOneSpeedValue(peekIter, speed1))
-        return false;
+      std::string conditionalStr(*iter);
+      while (++iter)
+        conditionalStr.append(",").append(*iter);
 
-      MaxspeedType speed2 = 0;
-      bool hasSecondNumber = ParseOneSpeedValue(peekIter, speed2);
-      ++iter;
-
-      if (hasSecondNumber)
-      {
-        // forward, backward, conditional_speed, condition
-        speed.SetBackward(speed1);
-
-        MaxspeedType conditionalSpeed = 0;
-        if (!ParseOneSpeedValue(iter, conditionalSpeed))
-          return false;
-
-        string condition;
-        while (iter)
-        {
-          condition += *iter;
-          ++iter;
-          if (iter)
-            condition += " ";
-        }
-
-        speed.SetConditional(conditionalSpeed, osmoh::OpeningHours(condition));
-      }
-      else if (iter)
-      {
-        // forward, conditional_speed, condition
-        string condition;
-        while (iter)
-        {
-          condition += *iter;
-          ++iter;
-          if (iter)
-            condition += " ";
-        }
-
-        speed.SetConditional(speed1, osmoh::OpeningHours(condition));
-      }
-      else
-      {
-        // forward, backward
-        speed.SetBackward(speed1);
-      }
+      osmoh::OpeningHours oh(conditionalStr);
+      if (oh.IsValid())
+        speed.SetConditional(conditional, std::move(oh));
     }
 
-    auto const res = osmIdToMaxspeed.emplace(base::MakeOsmWay(osmId), speed);
-    if (!res.second)
+    // When OH parsing has failed.
+    if (!speed.IsValid())
+      continue;
+
+    if (!osmIdToMaxspeed.emplace(base::MakeOsmWay(osmId), std::move(speed)).second)
       return false;
   }
+
   return true;
 }
 
