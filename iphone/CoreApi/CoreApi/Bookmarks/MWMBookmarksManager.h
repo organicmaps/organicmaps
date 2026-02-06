@@ -141,6 +141,7 @@ NS_SWIFT_NAME(BookmarksManager)
 - (MWMBookmarkGroup *)categoryForBookmarkId:(MWMMarkID)bookmarkId;
 - (MWMBookmarkGroup *)categoryForTrackId:(MWMTrackID)trackId;
 - (NSString *)descriptionForBookmarkId:(MWMMarkID)bookmarkId;
+- (NSString *)descriptionForTrackId:(MWMTrackID)trackId;
 - (void)updateBookmark:(MWMMarkID)bookmarkId
             setGroupId:(MWMMarkGroupID)groupId
                  title:(NSString *)title
@@ -154,7 +155,8 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)updateTrack:(MWMTrackID)trackId
          setGroupId:(MWMMarkGroupID)groupId
               color:(UIColor *)color
-              title:(NSString *)title;
+              title:(NSString *)title
+              description: (NSString *)description;
 
 - (void)updateTrack:(MWMTrackID)trackId setColor:(UIColor *)color;
 
