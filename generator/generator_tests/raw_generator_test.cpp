@@ -115,7 +115,7 @@ UNIT_CLASS_TEST(TestRawGenerator, Towns)
 }
 
 // https://github.com/organicmaps/organicmaps/issues/2475
-UNIT_CLASS_TEST(TestRawGenerator, HighwayLinks)
+UNIT_CLASS_TEST(TestRawGenerator, Highway_Links)
 {
   std::string const mwmName = "Highways";
   BuildFB("./data/test_data/osm/highway_links.osm", mwmName);
@@ -126,7 +126,7 @@ UNIT_CLASS_TEST(TestRawGenerator, HighwayLinks)
   auto const fid2osm = LoadFID2OsmID(mwmName);
 
   using namespace routing;
-  MaxspeedType from120 = 104;  // like SpeedMacro::Speed104KmPH
+  MaxspeedType constexpr from120 = 104;  // like SpeedMacro::Speed104KmPH
   std::unordered_map<uint64_t, uint16_t> osmID2Speed = {
       {23011515, from120},  {23011492, from120},  {10689329, from120},   {371581901, from120}, {1017695671, from120},
       {577365212, from120}, {23011612, from120},  {1017695670, from120}, {304871606, from120}, {1017695669, from120},
@@ -136,12 +136,12 @@ UNIT_CLASS_TEST(TestRawGenerator, HighwayLinks)
 
   FrozenDataSource dataSource;
   auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(GetMwmPath(mwmName)));
-  CHECK_EQUAL(res.second, MwmSet::RegResult::Success, ());
+  TEST_EQUAL(res.second, MwmSet::RegResult::Success, ());
 
   FeaturesLoaderGuard guard(dataSource, res.first);
 
   auto const speeds = routing::LoadMaxspeeds(guard.GetHandle());
-  CHECK(speeds, ());
+  TEST(speeds, ());
 
   size_t speedChecked = 0, noSpeed = 0;
 
@@ -172,6 +172,42 @@ UNIT_CLASS_TEST(TestRawGenerator, HighwayLinks)
 
   TEST_EQUAL(speedChecked, osmID2Speed.size(), ());
   TEST_EQUAL(noSpeed, osmNoSpeed.size(), ());
+}
+
+UNIT_CLASS_TEST(TestRawGenerator, Highway_Speeds)
+{
+  std::string const mwmName = "Highways";
+  BuildFB("./data/test_data/osm/highway_speeds.osm", mwmName);
+
+  BuildFeatures(mwmName);
+  BuildRouting(mwmName, "Germany");
+
+  FrozenDataSource dataSource;
+  auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(GetMwmPath(mwmName)));
+  TEST_EQUAL(res.second, MwmSet::RegResult::Success, ());
+
+  FeaturesLoaderGuard guard(dataSource, res.first);
+
+  auto const speeds = routing::LoadMaxspeeds(guard.GetHandle());
+  TEST(speeds, ());
+
+  uint32_t const count = guard.GetNumFeatures();
+  int found = 0;
+  for (uint32_t id = 0; id < count; ++id)
+  {
+    auto const speed = speeds->GetMaxspeed(id);
+    if (speed.IsValid())
+    {
+      ++found;
+
+      TEST_EQUAL(speed.GetForward(), routing::kInvalidSpeed, ());
+      TEST_EQUAL(speed.GetBackward(), routing::kInvalidSpeed, ());
+      TEST_EQUAL(speed.GetConditional(), 10, ());
+      TEST(speed.GetUnits() == measurement_utils::Units::Metric, ());
+    }
+  }
+
+  TEST_EQUAL(found, 1, ());
 }
 
 UNIT_CLASS_TEST(TestRawGenerator, Building3D)

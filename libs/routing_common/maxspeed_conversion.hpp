@@ -1,7 +1,8 @@
 #pragma once
 
-#include "3party/opening_hours/opening_hours.hpp"
 #include "platform/measurement_utils.hpp"
+
+#include "3party/opening_hours/opening_hours.hpp"
 
 #include <array>
 #include <cstdint>
@@ -213,12 +214,7 @@ public:
 
   void SetUnits(measurement_utils::Units units) { m_units = units; }
   void SetForward(MaxspeedType forward) { m_forward = forward; }
-  void SetBackward(MaxspeedType backward) { m_backward = backward; }
-  void SetConditional(MaxspeedType speed, osmoh::OpeningHours const & condition)
-  {
-    m_conditionalSpeed = speed;
-    m_conditionalTime = condition;
-  }
+  void SetConditional(MaxspeedType speed, osmoh::OpeningHours condition);
 
   measurement_utils::Units GetUnits() const { return m_units; }
   MaxspeedType GetForward() const { return m_forward; }
@@ -226,11 +222,11 @@ public:
   MaxspeedType GetConditional() const { return m_conditionalSpeed; }
   osmoh::OpeningHours const & GetConditionalTime() const { return m_conditionalTime; }
 
-  bool IsValid() const { return m_forward != kInvalidSpeed; }
+  bool IsValid() const { return m_forward != kInvalidSpeed || m_conditionalSpeed != kInvalidSpeed; }
   /// \returns true if Maxspeed is considered as Bidirectional(). It means different
   /// speed is set for forward and backward direction. Otherwise returns false. It means
   /// |m_forward| speed should be used for the both directions.
-  bool IsBidirectional() const { return IsValid() && m_backward != kInvalidSpeed; }
+  bool IsBidirectional() const { return m_backward != kInvalidSpeed; }
   bool HasConditional() const { return m_conditionalSpeed != kInvalidSpeed && m_conditionalTime.IsValid(); }
 
   /// \brief returns speed according to |m_units|. |kInvalidSpeed|, |kNoneMaxSpeed| or
@@ -280,9 +276,9 @@ public:
   uint32_t GetFeatureId() const { return m_featureId; }
   Maxspeed const & GetMaxspeed() const { return m_maxspeed; }
 
-  void SetConditional(MaxspeedType speed, osmoh::OpeningHours const & condition)
+  void SetConditional(MaxspeedType speed, osmoh::OpeningHours condition)
   {
-    m_maxspeed.SetConditional(speed, condition);
+    m_maxspeed.SetConditional(speed, std::move(condition));
   }
 
   SpeedInUnits GetForwardSpeedInUnits() const;

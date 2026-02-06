@@ -34,31 +34,20 @@ protected:
   void OrderCollectedData() override;
 
 private:
-  // |m_data| contains strings with maxspeed tags value for corresponding features in one of the
-  // following formats
-  // 1. osm id,units kmh or mph,maxspeed value
-  // 2. osm id,units kmh or mph,maxspeed:forward value
-  // 3. osm id,units kmh or mph,maxspeed:forward value,maxspeed:backward value
-  // 4. osm id,units kmh or mph,maxspeed:forward value,maxspeed:conditional value,string condition
-  // 5. osm id,units kmh or mph,maxspeed:forward value,maxspeed:backward value,maxspeed:conditional value,string
-  // condition
+  // |m_stream| contains strings with maxspeed tags value for corresponding features:
+  // OSM id,units (Metric/Imperial),maxspeed(forward),maxspeed:backward,maxspeed:conditional,string condition
   //
-  // There are possible examples of strings contained in the list |m_data|:
-  // 2343313,Metric,60
-  // 13243214,Imperial,60
-  // 3243245345,Metric,60,80
-  // 134243,Imperial,30,50
-  // 45432423,Metric,60,65534
-  // 53445423,Metric,60,65533
-  // 106897002,Metric,130,110,nov - mar
+  // There are possible examples of strings contained in the list |m_stream|:
+  // 2343313,Metric,60,,,
+  // 3243245345,Metric,60,80,,
+  // 13243214,Imperial,,,45,nov - mar
   // 31171117,Metric,100,80,80,nov - mar
   //
-  // Note 1. 65534 means kNoneMaxSpeed and 65533 means kWalkMaxSpeed. They are constants for
-  // maxspeed tag value "none" and "walk" correspondingly.
-  // Note 2. Saying osm id means osm id of features with OsmElement::EntityType::Way type without
+  // Note 1. Some speed constants for maxpseed(forward): kNoneMaxSpeed, kWalkMaxSpeed, kCommonMaxSpeedValue
+  // Note 2. Saying OSM id means OSM id of features with OsmElement::EntityType::Way type without
   // any prefixes. It's done so to simplify the debugging process. This way it's very easy knowing
   // osm id to see the feature on the web.
-  // Note 3. A string is saved in |m_data| only if it's valid and parsed successfully
+  // Note 3. A string is saved in |m_stream| only if it's valid and parsed successfully
   // with ParseMaxspeedTag() function. That means all macro like RU:urban or GE:rural
   // are converted to an appropriate speed value and macro "none" and "walk" are converted
   // to |kNoneMaxSpeed| and |kWalkMaxSpeed|.

@@ -89,6 +89,18 @@ OpeningHoursSerDes::OpeningHoursSerDes() : m_currentYear(GetCurrentYear())
   }
 }
 
+OpeningHoursSerDes OpeningHoursSerDes::ForRouting()
+{
+  OpeningHoursSerDes res;
+  res.Enable(OpeningHoursSerDes::Header::Bits::Year);
+  res.Enable(OpeningHoursSerDes::Header::Bits::Month);
+  res.Enable(OpeningHoursSerDes::Header::Bits::MonthDay);
+  res.Enable(OpeningHoursSerDes::Header::Bits::WeekDay);
+  res.Enable(OpeningHoursSerDes::Header::Bits::Hours);
+  res.Enable(OpeningHoursSerDes::Header::Bits::Minutes);
+  return res;
+}
+
 void OpeningHoursSerDes::Enable(OpeningHoursSerDes::Header::Bits bit)
 {
   m_supportedFeatures.emplace_back(bit);

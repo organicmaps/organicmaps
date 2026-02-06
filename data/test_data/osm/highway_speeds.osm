@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='30925476' timestamp='2013-09-06T15:51:41Z' uid='75317' user='HoloDuke' visible='true' version='6' changeset='17705395' lat='50.0711818' lon='8.6788349' />
+  <node id='260151119' timestamp='2012-02-20T22:28:39Z' uid='161954' user='schlauchboot' visible='true' version='3' changeset='10745807' lat='50.0714162' lon='8.6790518' />
+  <node id='714096160' timestamp='2012-02-20T22:28:42Z' uid='161954' user='schlauchboot' visible='true' version='2' changeset='10745807' lat='50.0715018' lon='8.6790806' />
+  <node id='9900852784' timestamp='2022-07-21T01:10:12Z' uid='116463' user='celsius11' visible='true' version='1' changeset='123870644' lat='50.0715214' lon='8.6790883' />
+  <way id='1080155523' timestamp='2023-09-22T14:45:30Z' uid='20075511' user='skotek' visible='true' version='3' changeset='141608486'>
+    <nd ref='30925476' />
+    <nd ref='260151119' />
+    <nd ref='714096160' />
+    <nd ref='9900852784' />
+    <tag k='highway' v='service' />
+    <tag k='lit' v='yes' />
+    <tag k='maxspeed:conditional' v='10 @ spring' />
+    <tag k='name' v='Oberschweinstiegschneise' />
+    <tag k='smoothness' v='intermediate' />
+    <tag k='surface' v='asphalt' />
+  </way>
+</osm>

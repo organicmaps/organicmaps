@@ -96,6 +96,8 @@ public:
 
   OpeningHoursSerDes();
 
+  static OpeningHoursSerDes ForRouting();
+
   void Enable(Header::Bits bit);
   bool IsEnabled(Header::Bits bit) const;
 
