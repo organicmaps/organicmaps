@@ -150,6 +150,7 @@ public:
   // Loads all regions for country number |id| from |m_reader|.
   std::vector<m2::RegionD> LoadRegionsFromDisk(RegionId id) const;
 
+  bool HasRegionTriangles() const;
   void GetTriangles(RegionId id, FeatureType & ft) const;
 
 protected:

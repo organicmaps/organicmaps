@@ -244,6 +244,11 @@ auto CountryInfoReader::WithRegion(RegionId id, Fn && fn) const
   return fn(regions);
 }
 
+bool CountryInfoReader::HasRegionTriangles() const
+{
+  return m_reader.IsExist("t0");
+}
+
 void CountryInfoReader::GetTriangles(RegionId id, FeatureType & ft) const
 {
   std::lock_guard lock(m_trgMutex);
