@@ -156,7 +156,7 @@ NS_SWIFT_NAME(BookmarksManager)
          setGroupId:(MWMMarkGroupID)groupId
               color:(UIColor *)color
               title:(NSString *)title
-              description: (NSString *)description;
+              description:(NSString *)description;
 
 - (void)updateTrack:(MWMTrackID)trackId setColor:(UIColor *)color;
 
