@@ -23,7 +23,6 @@ import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RoutingController;
-import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
@@ -87,6 +86,9 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     {
       if (enabled != null && enabled)
       {
+        // Don't show search if place page is currently visible
+        if (mPlacePageViewModel.getMapObject().getValue() != null)
+          return;
         if (mFrameLayoutBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN)
           mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
       }
@@ -106,8 +108,15 @@ public class SearchFragmentController extends Fragment implements SearchFragment
           mCoordinator.post(() -> mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN));
         }
       }
-      else if (mViewModel.getSearchEnabled().getValue() != null && mViewModel.getSearchEnabled().getValue() != false)
-        mFrameLayoutBottomSheetBehavior.setState(mViewModel.getSearchPageLastState().getValue());
+      else
+      {
+        // Only restore search page if search is actually enabled
+        Boolean searchEnabled = mViewModel.getSearchEnabled().getValue();
+        Integer lastState = mViewModel.getSearchPageLastState().getValue();
+        if (searchEnabled != null && searchEnabled && lastState != null
+            && lastState != BottomSheetBehavior.STATE_HIDDEN)
+          mFrameLayoutBottomSheetBehavior.setState(lastState);
+      }
     }
   };
 
@@ -165,6 +174,12 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mFrameLayoutBottomSheetBehavior = BottomSheetBehavior.from(mSearchPageContainer);
 
     DisplayMetrics dm = getResources().getDisplayMetrics();
+    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+    {
+      ViewGroup.LayoutParams lp = mSearchPageContainer.getLayoutParams();
+      lp.width = (int) (dm.widthPixels * 0.6f);
+      mSearchPageContainer.setLayoutParams(lp);
+    }
     int h = dm.heightPixels;
 
     mFrameLayoutBottomSheetBehavior.setFitToContents(false);
@@ -172,7 +187,29 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mFrameLayoutBottomSheetBehavior.setHalfExpandedRatio(0.5f); // mid
     mFrameLayoutBottomSheetBehavior.setHideable(true);
     mFrameLayoutBottomSheetBehavior.setDraggable(true);
-    mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+    // Restore search page state after configuration change (e.g., rotation)
+    // Only restore if search is enabled AND place page is not visible
+    if (savedInstanceState != null)
+    {
+      Boolean searchEnabled = mViewModel.getSearchEnabled().getValue();
+      MapObject mapObject = mPlacePageViewModel.getMapObject().getValue();
+      Integer lastState = mViewModel.getSearchPageLastState().getValue();
+      if (searchEnabled != null && searchEnabled && mapObject == null && lastState != null
+          && lastState != BottomSheetBehavior.STATE_HIDDEN)
+      {
+        mFrameLayoutBottomSheetBehavior.setState(lastState);
+      }
+      else
+      {
+        mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+      }
+    }
+    else
+    {
+      mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+    }
+
     mSearchPageContainer.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> updateExpandedOffset());
     mSearchPageContainer.post(this::updateExpandedOffset);
     if (mRoutingPlanFrame != null)
@@ -206,7 +243,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   public void onStart()
   {
     super.onStart();
-    mPlacePageViewModel.getMapObject().observe(this, mPlacePageMapObjectObserver);
+    mPlacePageViewModel.getMapObject().observe(getViewLifecycleOwner(), mPlacePageMapObjectObserver);
     mFrameLayoutBottomSheetBehavior.addBottomSheetCallback(mDefaultBottomSheetCallback);
     mViewModel.getSearchEnabled().observe(getViewLifecycleOwner(), mSearchPageEnabledObserver);
   }
@@ -215,9 +252,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   public void onStop()
   {
     super.onStop();
-    mPlacePageViewModel.getMapObject().removeObserver(mPlacePageMapObjectObserver);
     mFrameLayoutBottomSheetBehavior.removeBottomSheetCallback(mDefaultBottomSheetCallback);
-    mViewModel.getSearchEnabled().removeObserver(mSearchPageEnabledObserver);
   }
 
   @Override
@@ -231,15 +266,6 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     if (mFrameLayoutBottomSheetBehavior == null || mSearchPageContainer == null)
       return;
 
-    View parent = mCoordinator != null ? mCoordinator : (View) mSearchPageContainer.getParent();
-    if (parent == null)
-      return;
-
-    int parentHeight = parent.getHeight();
-    int contentHeight = mSearchPageContainer.getHeight();
-    if (parentHeight == 0 || contentHeight == 0)
-      return;
-
     int topInset =
         mCurrentWindowInsets != null ? mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top : 0;
     int routingHeaderHeight = 0;
@@ -249,7 +275,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
       routingHeaderHeight = (int) getResources().getDimension(
           ThemeUtils.getResource(requireContext(), androidx.appcompat.R.attr.actionBarSize));
 
-    int expandedOffset = Math.max(parentHeight - contentHeight, topInset + routingHeaderHeight);
+    int expandedOffset = topInset + routingHeaderHeight;
     mFrameLayoutBottomSheetBehavior.setExpandedOffset(Math.max(expandedOffset, 0));
   }
 
@@ -277,7 +303,13 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   @Override
   public boolean getBackPressedCallback()
   {
-    mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+    // If search page is visible, hide it and consume the back press
+    if (mFrameLayoutBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN)
+    {
+      mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+      return true;
+    }
+    // Search page is already hidden, let activity handle the back press
     return false;
   }
 
