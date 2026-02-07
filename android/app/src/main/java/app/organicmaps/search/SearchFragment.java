@@ -201,7 +201,12 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     public void handleOnBackPressed()
     {
       if (!onBackPressed())
+      {
+        // Temporarily disable this callback and re-dispatch the back press to let activity handle it
+        setEnabled(false);
+        requireActivity().getOnBackPressedDispatcher().onBackPressed();
         setEnabled(true);
+      }
     }
   };
 

@@ -6,6 +6,9 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
+  <include
+    android:id="@+id/pull_icon_container"
+    layout="@layout/bottom_sheet_handle" />
   <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:id="@+id/coordinator"
     android:layout_width="match_parent"
