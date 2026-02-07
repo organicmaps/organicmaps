@@ -80,18 +80,6 @@ final class EditTrackViewController: MWMTableViewController {
   override func numberOfSections(in _: UITableView) -> Int {
     Sections.count.rawValue
   }
-
-//  override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-//    switch Sections(rawValue: section) {
-//    case .info:
-//      return InfoSectionRows.count.rawValue
-//    case .delete:
-//      return 1
-//    default:
-//      fatalError()
-//    }
-//  }
-  
   
   override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch Sections(rawValue: section) {
@@ -254,7 +242,6 @@ extension EditTrackViewController: SelectBookmarkGroupViewControllerDelegate {
 }
 
 
-// MARK: - BookmarksObserver
 // MARK: - BookmarksObserver
 
 extension EditTrackViewController: BookmarksObserver {

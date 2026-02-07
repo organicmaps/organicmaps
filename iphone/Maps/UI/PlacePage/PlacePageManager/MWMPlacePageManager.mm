@@ -238,7 +238,7 @@ using namespace storage;
            category:(MWMMarkGroupID)category
 {
   MWMBookmarksManager * bookmarksManager = [MWMBookmarksManager sharedManager];
-  [bookmarksManager updateTrack:data.trackData.trackId setGroupId:category color:color title:title description:@""];
+  [bookmarksManager updateTrack:data.trackData.trackId setGroupId:category color:color title:title description:data.trackData.trackDescription ?: @""];
   [MWMFrameworkHelper updatePlacePageData];
 }
 
