@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString * trackCategory;
 // TODO: The track description is not fully implemented in the core yet.
 @property(nonatomic, readonly, nullable) NSString * trackDescription;
+@property(nonatomic, readonly) BOOL isHtmlDescription;
 
 /// The color is nil for Track Recordings.
 @property(nonatomic, readonly, nullable) UIColor * color;
