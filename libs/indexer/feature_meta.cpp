@@ -54,7 +54,7 @@ std::string_view MetadataBase::Set(uint8_t type, std::string value)
 
 string Metadata::ToWikiURL(std::string v)
 {
-  auto const colon = v.find(':');
+  size_t const colon = v.find(':');
   if (colon == string::npos)
     return v;
 
@@ -86,11 +86,11 @@ std::string Metadata::ToWikimediaCommonsURL(std::string v)
   return kBaseCommonsUrl + v;
 }
 
-void Metadata::EncodeWikiURL(int startIndex, std::string & url)
+void Metadata::EncodeWikiURL(size_t startIndex, std::string & url)
 {
   // Spaces and ? characters should be corrected to form a valid URL's path.
   // Standard percent encoding also encodes other characters like (), which lead to an unnecessary HTTP redirection.
-  for (auto i = startIndex; i < url.size(); ++i)
+  for (size_t i = startIndex; i < url.size(); ++i)
   {
     auto & c = url[i];
     if (c == ' ')
@@ -101,7 +101,7 @@ void Metadata::EncodeWikiURL(int startIndex, std::string & url)
     {
       c = '%';
       url.insert(++i, "3F");  // ? => %3F
-      i += 1;
+      ++i;
     }
   }
 }
