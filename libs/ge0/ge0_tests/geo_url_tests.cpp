@@ -259,9 +259,7 @@ UNIT_TEST(GeoURL_OpenStreetMap)
   TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.0, kEps, ());
 
   TEST(parser.Parse("https://www.openstreetmap.org/search?query=Falafel%20Sahyoun#map=16/33.89041/35.50664", info), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 33.89041, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 35.50664, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.0, kEps, ());
+  TEST_EQUAL(info.m_query, "Falafel Sahyoun", ());
 
   TEST(parser.Parse("https://www.openstreetmap.org/#map=21/53.90323/-27.55806", info), ());
   TEST_ALMOST_EQUAL_ABS(info.m_lat, 53.90323, kEps, ());
