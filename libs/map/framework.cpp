@@ -3265,6 +3265,11 @@ void Framework::CreateNote(osm::MapObject const & mapObject, osm::Editor::NotePr
     DeactivateMapSelection();
 }
 
+void Framework::CreateStandaloneNote(ms::LatLon const & latLon, string const & note)
+{
+  osm::Editor::Instance().CreateStandaloneNote(latLon, note);
+}
+
 void Framework::RunUITask(function<void()> fn)
 {
   GetPlatform().RunTask(Platform::Thread::Gui, std::move(fn));

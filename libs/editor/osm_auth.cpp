@@ -383,10 +383,14 @@ OsmOAuth::Response OsmOAuth::Request(string const & method, string const & httpM
   return {request.ErrorCode(), request.ServerResponse()};
 }
 
-OsmOAuth::Response OsmOAuth::DirectRequest(string const & method, bool api) const
+OsmOAuth::Response OsmOAuth::DirectRequest(string const & method, bool api, string const & httpMethod,
+                                           string const & body) const
 {
   string const url = api ? m_apiUrl + kApiVersion + method : m_baseUrl + method;
   HttpClient request(url);
+
+  if (httpMethod != "GET")
+    request.SetBodyData(body, "application/xml", httpMethod);
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("DirectRequest Network error while connecting to", url));
   if (request.WasRedirected())
