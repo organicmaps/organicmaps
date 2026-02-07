@@ -387,7 +387,11 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   if (loadMaps)
     LoadMapsSync();
 
-  UNUSED_VALUE(settings::Get(kShowDownloadedRegions, m_showDownloadedRegions));
+  if (m_infoGetter->HasRegionTriangles())
+  {
+    m_showDownloadedRegions = true;
+    UNUSED_VALUE(settings::Get(kShowDownloadedRegions, m_showDownloadedRegions));
+  }
 }
 
 Framework::~Framework()
@@ -2615,6 +2619,9 @@ bool Framework::IsShowDownloadedRegions()
 
 void Framework::SetShowDownloadedRegions(bool isEnabled)
 {
+  if (isEnabled && !m_infoGetter->HasRegionTriangles())
+    return;
+
   m_showDownloadedRegions = isEnabled;
   settings::Set(kShowDownloadedRegions, isEnabled);
   Invalidate();
