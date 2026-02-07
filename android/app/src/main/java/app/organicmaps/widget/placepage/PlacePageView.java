@@ -17,7 +17,6 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -152,7 +151,6 @@ public class PlacePageView extends Fragment
   private TextView mTvOsmDescription;
   private MaterialButton mShareButton;
   private MaterialButton closeButton;
-  private CheckBox mTrackVisibility;
 
   // Data
   private CoordinatesFormat mCoordsFormat = CoordinatesFormat.LatLonDecimal;
@@ -266,11 +264,9 @@ public class PlacePageView extends Fragment
     mColorIcon = mFrame.findViewById(R.id.item_icon);
     mTvCategory = mFrame.findViewById(R.id.tv__category);
     mEditBookmark = mFrame.findViewById(R.id.edit_Bookmark);
-    mTrackVisibility = mFrame.findViewById(R.id.track_visibility);
     mColorIcon.setOnClickListener(this);
     mTvCategory.setOnClickListener(this);
     mEditBookmark.setOnClickListener(this);
-    mTrackVisibility.setOnClickListener(this);
 
     mOsmDescriptionContainer = mFrame.findViewById(R.id.osm_description_container);
     mTvOsmDescription = mFrame.findViewById(R.id.tv__osm_description);
@@ -525,8 +521,6 @@ public class PlacePageView extends Fragment
                                             requireContext().getResources());
       mColorIcon.setImageDrawable(circle);
       mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId()).getName());
-      mTrackVisibility.setChecked(track.isVisible());
-      UiUtils.show(mTrackVisibility);
     }
     else if (mMapObject.isBookmark())
     {
@@ -539,7 +533,6 @@ public class PlacePageView extends Fragment
         mColorIcon.setImageDrawable(circle);
         mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(bookmark.getCategoryId()).getName());
       }
-      UiUtils.hide(mTrackVisibility);
     }
     UiUtils.showIf(mMapObject.isTrack() || mMapObject.isBookmark(), categoryContainer);
   }
@@ -871,12 +864,6 @@ public class PlacePageView extends Fragment
       showBookmarkEditFragment();
     else if (id == R.id.tv__category)
       showCategoryList();
-    else if (id == R.id.track_visibility)
-    {
-      Track track = (Track) mMapObject;
-      track.toggleVisibility();
-      mTrackVisibility.setChecked(track.isVisible());
-    }
   }
 
   private void showBigDirection()

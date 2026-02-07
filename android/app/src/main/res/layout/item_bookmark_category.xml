@@ -23,7 +23,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_base"
     android:layout_toStartOf="@id/more"
-    android:layout_toEndOf="@id/checkbox"
+    android:layout_toEndOf="@id/eye"
     android:ellipsize="middle"
     android:singleLine="true"
     android:textAppearance="?fontBody1"

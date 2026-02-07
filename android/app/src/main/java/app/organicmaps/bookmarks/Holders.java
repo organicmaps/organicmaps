@@ -226,7 +226,7 @@ public class Holders
       super(root);
       mView = root;
       mName = root.findViewById(R.id.name);
-      mVisibilityMarker = root.findViewById(R.id.eye);
+      mVisibilityMarker = root.findViewById(R.id.checkbox);
     }
 
     void setOnClickListener(@Nullable OnItemClickListener<BookmarkCategory> listener)
@@ -266,7 +266,7 @@ public class Holders
     {
       super(root);
       mName = root.findViewById(R.id.name);
-      mVisibilityMarker = root.findViewById(R.id.eye);
+      mVisibilityMarker = root.findViewById(R.id.checkbox);
       mMoreButton = root.findViewById(R.id.more);
     }
 
@@ -378,7 +378,7 @@ public class Holders
   static class TrackViewHolder extends BaseBookmarkHolder
   {
     @NonNull
-    private final ImageView mColorIcon;
+    private final ImageView mIcon;
     @NonNull
     private final TextView mName;
     @NonNull
@@ -388,7 +388,7 @@ public class Holders
     TrackViewHolder(@NonNull View itemView)
     {
       super(itemView);
-      mColorIcon = itemView.findViewById(R.id.iv__bookmark_color);
+      mIcon = itemView.findViewById(R.id.iv__bookmark_color);
       mName = itemView.findViewById(R.id.tv__bookmark_name);
       mDistance = itemView.findViewById(R.id.tv__bookmark_distance);
       mMoreButton = itemView.findViewById(R.id.more);
@@ -406,8 +406,8 @@ public class Holders
                             .append(track.getLength().toString(mDistance.getContext()))
                             .toString());
       Drawable circle =
-          Graphics.drawCircle(track.getColor(), R.dimen.track_circle_size, mColorIcon.getContext().getResources());
-      mColorIcon.setImageDrawable(circle);
+          Graphics.drawCircle(track.getColor(), R.dimen.track_circle_size, mIcon.getContext().getResources());
+      mIcon.setImageDrawable(circle);
     }
 
     public void setMoreButtonClickListener(RecyclerClickListener listener)
@@ -417,7 +417,7 @@ public class Holders
 
     public void setTrackIconClickListener(IconClickListener listener)
     {
-      mColorIcon.setOnClickListener(v -> listener.onItemClick((ImageView) v, getBindingAdapterPosition()));
+      mIcon.setOnClickListener(v -> listener.onItemClick((ImageView) v, getBindingAdapterPosition()));
     }
   }
 
