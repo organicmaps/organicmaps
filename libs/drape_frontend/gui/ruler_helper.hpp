@@ -17,8 +17,7 @@ public:
   void Invalidate();
 
   static float GetRulerHalfHeight();
-  float GetRulerPixelLength() const;
-  static float GetMaxRulerPixelLength();
+  float GetRulerPixelLength() const { return m_pixelLength; }
   static int GetVerticalTextOffset();
   bool IsTextDirty() const;
   std::string const & GetRulerText() const;
@@ -30,11 +29,12 @@ private:
   void SetTextDirty();
 
 private:
+  std::string m_rulerText;
   float m_pixelLength;
   int m_rangeIndex;
-  std::string m_rulerText;
+
+  int m_currentDrawScale = 0;
   bool m_isTextDirty;
   mutable bool m_dirtyTextRequested;
-  int m_currentDrawScale = 0;
 };
 }  // namespace gui
