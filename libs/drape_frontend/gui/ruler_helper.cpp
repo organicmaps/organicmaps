@@ -19,8 +19,8 @@ namespace gui
 {
 namespace
 {
-float constexpr kMinPixelWidth = 60.f;
-int constexpr kMinMetersWidth = 5;
+int constexpr kMinPixelWidth = 60;
+int constexpr kMinMetersWidth = 2;
 int constexpr kMaxMetersWidth = 1000000;
 
 int constexpr kMinUnitValue = -1;
@@ -71,22 +71,19 @@ RulerHelper::RulerHelper()
 
 void RulerHelper::Update(ScreenBase const & screen)
 {
-  m2::PointD pivot = screen.PixelRect().Center();
-  long const minPxWidth = std::lround(kMinPixelWidth * df::VisualParams::Instance().GetVisualScale());
-  m2::PointD pt1 = screen.PtoG(pivot);
+  /// @todo We calculate the ruler's length based on the screen's center lat, but draw on the screen's bottom lat.
+  /// This is strange from my POV.
+
+  m2::PointD const pivot = screen.PixelRect().Center();
+  double const minPxWidth = kMinPixelWidth * df::VisualParams::Instance().GetVisualScale();
+  m2::PointD const pt1 = screen.PtoG(pivot);
   m2::PointD pt0 = screen.PtoG(pivot - m2::PointD(minPxWidth, 0));
 
-  double const distanceInMeters = mercator::DistanceOnEarth(pt0, pt1);
+  double const metersDiff = CalcMetersDiff(mercator::DistanceOnEarth(pt0, pt1));
+  ASSERT_GREATER(metersDiff, 0, ());
 
-  // convert metres to units for calculating m_metresDiff.
-  double metersDiff = CalcMetersDiff(distanceInMeters);
-
-  bool const higherThanMax = metersDiff > kMaxMetersWidth;
-  ASSERT_GREATER_OR_EQUAL(metersDiff, kMinMetersWidth, ());
-  m_pixelLength = static_cast<float>(minPxWidth);
-
-  if (higherThanMax)
-    m_pixelLength = static_cast<float>(minPxWidth) * 3.0f / 2.0f;
+  if (metersDiff > kMaxMetersWidth)
+    m_pixelLength = static_cast<float>(minPxWidth * 1.5);
   else
   {
     double const a = ang::AngleTo(pt1, pt0);
@@ -95,7 +92,7 @@ void RulerHelper::Update(ScreenBase const & screen)
     m_pixelLength = std::round(pivot.Length(screen.GtoP(pt0)));
   }
 
-  int drawScale = df::GetDrawTileScale(screen);
+  int const drawScale = df::GetDrawTileScale(screen);
   if (m_currentDrawScale < kVisibleRulerBottomScale && drawScale >= kVisibleRulerBottomScale)
     SetTextDirty();
 
@@ -119,17 +116,6 @@ float RulerHelper::GetRulerHalfHeight()
 {
   float constexpr kRulerHalfHeight = 1.0f;
   return kRulerHalfHeight * static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-}
-
-float RulerHelper::GetRulerPixelLength() const
-{
-  return m_pixelLength;
-}
-
-// static
-float RulerHelper::GetMaxRulerPixelLength()
-{
-  return kMinPixelWidth * 3.0f / 2.0f;
 }
 
 // static
