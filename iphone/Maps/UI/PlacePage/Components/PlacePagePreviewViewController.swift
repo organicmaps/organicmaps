@@ -39,6 +39,7 @@ final class PlacePagePreviewViewController: UIViewController {
   private var distance: String?
   private var speedAndAltitude: String?
   private var heading: CGFloat?
+  private var currentCoordinates: String?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -67,6 +68,15 @@ final class PlacePagePreviewViewController: UIViewController {
     if placePagePreviewData.isMyPosition {
       if let speedAndAltitude = speedAndAltitude {
         subtitleLabel.text = speedAndAltitude
+      }
+      if let coordinates = currentCoordinates {
+            let subtitleString = NSMutableAttributedString()
+            subtitleString.append(NSAttributedString(
+              string: coordinates,
+              attributes: [.foregroundColor: UIColor.blackSecondaryText(),
+                           .font: UIFont.emojiRegular14()]))
+            subtitleLabel.attributedText = subtitleString
+            subtitleContainerView.isHidden = false
       }
     } else {
       let subtitleString = NSMutableAttributedString()
@@ -124,6 +134,19 @@ final class PlacePagePreviewViewController: UIViewController {
   func updateSpeedAndAltitude(_ speedAndAltitude: String) {
     self.speedAndAltitude = speedAndAltitude
     subtitleLabel?.text = speedAndAltitude
+  }
+  func updateCoordinates(_ coordinates: String) {
+    self.currentCoordinates = coordinates
+    // Only update the UI if this is "My Position"
+    if placePagePreviewData.isMyPosition {
+      let subtitleString = NSMutableAttributedString()
+      subtitleString.append(NSAttributedString(
+        string: coordinates,
+        attributes: [.foregroundColor: UIColor.blackSecondaryText(),
+                     .font: UIFont.emojiRegular14()]))
+      subtitleLabel.attributedText = subtitleString
+      subtitleContainerView.isHidden = false
+    }
   }
 
   @IBAction func onLongPressAdress(_ sender: UILongPressGestureRecognizer) {
