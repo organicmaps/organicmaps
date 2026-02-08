@@ -70,13 +70,13 @@ final class PlacePagePreviewViewController: UIViewController {
         subtitleLabel.text = speedAndAltitude
       }
       if let coordinates = currentCoordinates {
-            let subtitleString = NSMutableAttributedString()
-            subtitleString.append(NSAttributedString(
-              string: coordinates,
-              attributes: [.foregroundColor: UIColor.blackSecondaryText(),
-                           .font: UIFont.emojiRegular14()]))
-            subtitleLabel.attributedText = subtitleString
-            subtitleContainerView.isHidden = false
+          let subtitleString = NSMutableAttributedString()
+          subtitleString.append(NSAttributedString(
+            string: coordinates,
+            attributes: [.foregroundColor: UIColor.blackSecondaryText(),
+                          .font: UIFont.emojiRegular14()]))
+          subtitleLabel.attributedText = subtitleString
+          subtitleContainerView.isHidden = false
       }
     } else {
       let subtitleString = NSMutableAttributedString()
