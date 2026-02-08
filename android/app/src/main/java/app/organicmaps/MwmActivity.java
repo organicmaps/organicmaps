@@ -411,7 +411,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     startActivity(intent);
   }
 
-  private void showSearch(String query)
+  public void showSearch(String query)
   {
     closeSearchToolbar(false, true);
     if (mIsTabletLayout)
