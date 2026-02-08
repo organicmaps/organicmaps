@@ -163,12 +163,6 @@ void Track::SetColor(dp::Color color)
   m_data.m_layers[0].m_color.m_rgba = color.GetRGBA();
 }
 
-void Track::SetVisibility(bool visible)
-{
-  m_isDirty = true;
-  m_data.m_visible = visible;
-}
-
 float Track::GetWidth(size_t layerIndex) const
 {
   CHECK_LESS(layerIndex, m_data.m_layers.size(), ());
