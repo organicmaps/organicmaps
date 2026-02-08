@@ -1653,7 +1653,9 @@ UNIT_CLASS_TEST(Runner, Bookmarks_TrackVisibilityPersistence)
   TEST_EQUAL(true, bmManager.GetTrack(trackId1)->IsVisible(), ());
 
   // Change visibility and save
-  bmManager.GetEditSession().SetTrackVisibility(trackId1, false);
+  kml::TrackData trackData = bmManager.GetTrack(trackId1)->GetData();
+  trackData.m_visible = false;
+  bmManager.GetEditSession().UpdateTrack(trackId1, trackData);
 
   {
     FileWriter writer(fileName);

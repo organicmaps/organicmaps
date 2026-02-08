@@ -133,10 +133,4 @@ JNIEXPORT jdouble Java_app_organicmaps_sdk_bookmarks_data_Track_nativeGetElevati
   return static_cast<jdouble>(bm.GetElevationActivePoint(static_cast<kml::TrackId>(trackId)));
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Track_nativeSetTrackVisibility(JNIEnv *, jclass, jlong trackId,
-                                                                                      jboolean isVisible)
-{
-  frm()->GetBookmarkManager().GetEditSession().SetTrackVisibility(static_cast<kml::TrackId>(trackId), isVisible);
-}
-
 }  // extern "C"

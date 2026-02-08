@@ -80,12 +80,6 @@ public final class Track extends MapObject
     return mLength;
   }
 
-  public void toggleVisibility()
-  {
-    mVisible = !mVisible;
-    nativeSetTrackVisibility(mId, mVisible);
-  }
-
   @ColorInt
   public int getColor()
   {
@@ -166,7 +160,6 @@ public final class Track extends MapObject
   private static native void nativeSetParams(long id, @NonNull String name, @ColorInt int color, @NonNull String descr);
   private static native void nativeChangeColor(long id, @ColorInt int color);
   private static native void nativeChangeCategory(long oldCatId, long newCatId, long trackId);
-  private static native void nativeSetTrackVisibility(long trackId, boolean visible);
 
   private static native double nativeGetElevationCurPositionDistance(long trackId);
   private static native double nativeGetElevationActivePointDistance(long trackId);
