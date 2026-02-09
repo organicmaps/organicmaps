@@ -21804,7 +21804,6 @@ zh-Hans = 常规反馈
 zh-Hant = 一般反應
 
 [prefs_languages_information]
-
 tags = android-app
 en = We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play
 af = Ons gebruik die TTS-stelsel vir steminstruksies. Talle Android-toestelle gebruik Google TTS; u kan dit aflaai of bywerk deur Google Play
@@ -21857,8 +21856,8 @@ uk = Для озвучування голосових інструкцій ми 
 vi = Chúng tôi sử dụng TTS hệ thống để hướng dẫn bằng giọng nói. Rất nhiều thiết bị Android sử dụng Google TTS, bạn có thể tải về hoặc cập nhật nó từ Google Play
 zh-Hans = 我们的语音导航使用“文本转语音”系统。许多 Android 设备使用 Google 的文本转语音系统，您可以从 Google Play 下载或更新这一功能
 zh-Hant = 我們的語音導航使用“文字轉語音”系統。許多 Android 裝置使用 Google 的文字轉語音系統，您可以從 Google Play 下載或更新這一功能
-[prefs_languages_information_off]
 
+[prefs_languages_information_off]
 tags = android-app
 en = For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen your device's settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.
 af = Vir sommige tale sal u ’n spraaksintetiseerder of bykomende taalpakket vanaf die toepwinkel (Google Play, Galaxy Store, App Gallery, FDroid) moet installeer.\nOpen u toestel se instellings → Taal en toevoer → Spraak → Teks na spraak afvoer.\nHier kan u instellings vir spraaksintetisering bestuur (bv. laai taalpakket vir vanlyn gebruik af) en kies ’n ander teks-na-spraak-enjin.
@@ -21911,8 +21910,8 @@ uk = Для деяких мов вам знадобиться встановит
 vi = Đối với một số ngôn ngữ, bạn sẽ cần cài đặt một trình tổng hợp lời nói khác hoặc một gói ngôn ngữ bổ sung từ cửa hàng ứng dụng (Google Play, Galaxy Store, App Gallery, FDroid).\nMở cài đặt của thiết bị → Ngôn ngữ và nhập liệu → Lời nói → Đầu ra văn bản sang lời nói.\nTại đây bạn có thể quản lý các cài đặt tổng hợp lời nói (ví dụ, tải về các gói ngôn ngữ để sử dụng ngoại tuyến) và chọn một công cụ chuyển đổi văn bản sang lời nói khác.
 zh-Hans = 对于某些语言，您需要从应用商店（例如 Google Play 商店、Galaxy Store）中安装其他语音合成器或语言包。\n打开您的设备的设置 → 语言和输入法 → 语音 → 文字转语音 (TTS) 输出。\n您可以在这里管理语音合成的设置（例如，下载语言包供离线使用）和选择其他文字转语音引擎。
 zh-Hant = 對於某些語言，您需要從應用商店（例如 Google Play Store、Galaxy Store）中安裝其他語音合成器或語言套件。\n打開您的裝置的設定 → 語言和輸入法 → 語音 → 文字轉語音 (TTS) 輸出。\n您可以在這裡管理語音合成的設定（例如，下載語言包供離線使用）和選擇其他文字轉語音引擎。
-[prefs_languages_information_off_link]
 
+[prefs_languages_information_off_link]
 tags = android-app
 en = For more information please check this guide.
 af = Sien hierdie gids vir meer inligting
@@ -21965,6 +21964,7 @@ uk = Додаткову інформацію див. у цьому керівн�
 vi = Để biết thêm thông tin, vui lòng kiểm tra bài hướng dẫn này.
 zh-Hans = 如需了解更多信息，请查阅此指南。
 zh-Hant = 如需瞭解更多資訊，請參閱此指南。
+
 [transliteration_title]
 tags = android-app,apple-maps
 en = Transliterate into Latin alphabet
@@ -22889,6 +22889,7 @@ zh-Hans = 全部显示
 zh-Hant = 全部顯示
 
 [bookmarks_places]
+tags = android-app,apple-maps
 en:one = %d bookmark
 en:other = %d bookmarks
 af:other = %d bookmarks
@@ -22955,6 +22956,8 @@ hr:other = %d zabilješki
 hu:zero = %d könyvjelző
 hu:one = %d könyvjelző
 hu:other = %d könyvjelző
+hy:one = %d էջանիշ
+hy:other = %d էջանիշ
 ia:one = %d marcapagina
 ia:other = %d marcapaginas
 id:other = %d markah
@@ -23030,9 +23033,6 @@ zh-Hans:other = %d 个书签
 zh-Hant:zero = 沒有書籤
 zh-Hant:other = %d 個書籤
 
-hy:one = %d էջանիշ
-hy:other = %d էջանիշ
-tags = android-app,apple-maps
 [bookmarks_create_new_group]
 tags = android-app,apple-maps
 en = Create a new list
@@ -23761,6 +23761,7 @@ zh-Hans = OpenStreetMap 资料
 zh-Hant = OpenStreetMap 資料
 
 [bookmarks_detect_message]
+tags = android-app,apple-maps
 en:one = %d file was found. You can see it after conversion.
 en:other = %d files were found. You can see them after conversion.
 af:other = %d files were found. You can see them after conversion.
@@ -23829,6 +23830,8 @@ hr:other = Pronađeno je %d datoteka. Možeš ih vidjeti nakon konverzije.
 hu:zero = %d fájl található.
 hu:one = %d fájl található. Látni fogja azt a konvertálás után.
 hu:other = %d fájl található. Látni fogja azokat a konvertálás után.
+hy:one = %d ֆայլ
+hy:other = %d ֆայլ
 ia:one = %d file esseva trovate. Tu pote vider lo post conversion.
 ia:other = %d files esseva trovate. Tu pote vider los post conversion.
 id:other = %d file ditemukan. Anda akan melihatnya setelah konversi.
@@ -23915,9 +23918,6 @@ zh-Hant:zero = 沒有找到文件
 zh-Hant:one = 找到 %d 個文件，轉換後您可以看到它。
 zh-Hant:other = 找到 %d 個文件，轉換後您可以看到它們。
 
-hy:one = %d ֆայլ
-hy:other = %d ֆայլ
-tags = android-app,apple-maps
 [restore]
 tags = android-app,apple-maps
 en = Restore
@@ -23972,6 +23972,7 @@ zh-Hans = 恢复
 zh-Hant = 恢復
 
 [tracks]
+tags = android-app,apple-maps
 en:one = %d track
 en:other = %d tracks
 af:other = %d tracks?
@@ -24043,6 +24044,8 @@ hr:other = %d puteva
 hu:zero = %d nyomvonal
 hu:one = %d nyomvonal
 hu:other = %d nyomvonal
+hy:one = %d երթուղի
+hy:other = %d երթուղի
 ia:one = %d tracia
 ia:other = %d tracias
 id:one = %d trek
@@ -24124,9 +24127,6 @@ zh-Hans:other = %d 个轨迹
 zh-Hant:zero = 沒有軌跡
 zh-Hant:other = %d 軌跡
 
-hy:one = %d երթուղի
-hy:other = %d երթուղի
-tags = android-app,apple-maps
 [privacy]
 comment = Settings privacy group in settings screen
 tags = android-app
@@ -25566,7 +25566,7 @@ be = Назвы закладак на карце
 bg = Имената на отметките в картата
 cs = Názvy záložek na mapě
 da = Bogmærk navne på kortet
-de = Markiere Namen auf der Karte
+de = Lesezeichenname auf der Karte mit anzeigen
 el = Ονόματα σελιδοδεικτών στο χάρτη
 es = Nombres de marcadores en el mapa
 es-MX = Nombres de favoritos en el mapa
@@ -41176,7 +41176,7 @@ bn = বেগুনি ডাউনলোড করা অঞ্চল
 ca = Regions descarregades liles
 cs = Fialové stažené regiony
 da = Lilla downloadede regioner
-de = Lila heruntergeladene Regionen
+de = Heruntergeladene Regionen farblich markieren
 el = Μωβ ληφθείσες περιοχές
 es = Regiones descargadas en morado
 et = Lillad allalaaditud piirkonnad
