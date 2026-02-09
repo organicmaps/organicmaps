@@ -107,7 +107,7 @@ pl:Gdzie zjeść|Jedzenie
 pt:Onde comer|comer|comida
 pt-BR:Onde comer|comer|comida|alimentação
 ro:Unde să mănânci|Alimentație|mâncare
-ru:Где поесть|Поесть|Еда|кушать|покушать
+ru:Где поесть|Поесть|Еда|кушать|покушать|перекус
 sk:Kde sa najesť|Jedlo
 sl:Kje jesti
 sr:Где јести|Јело|Храна|Gde jesti|Jelo|Hrana
@@ -18492,7 +18492,7 @@ pl:Sklep elektryczny
 pt:Loja de materiais elétricos
 pt-BR:Loja de materiais elétricos
 ro:Magazin de electronice
-ru:4Электроника|Электротовары
+ru:4Электроника|Электротовары|Электрика
 sk:Predajňa elektro
 sl:4Elektro material|Elektro trgovina
 sr:Електро-опрема|Електро-материјал|Elektro-oprema|Elektro-materijal
@@ -19622,7 +19622,7 @@ pl:Meble łazienkowe
 pt:Loja de móveis de casa de banho
 pt-BR:Loja de móveis de banheiro
 ro:Mobilier pentru baie
-ru:Мебель для ванной
+ru:Мебель для ванной|Сантехника
 sk:Vybavenie do kúpeľne
 sl:Kopalniško pohištvo|Oprema za kopalnice
 sr:Опрема за купатило|Oprema za kupatilo
