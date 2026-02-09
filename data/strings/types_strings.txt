@@ -5693,6 +5693,7 @@ gl = Intercambio de libros
 he = כוננית ספרים ציבורית
 hi = सार्वजनिक किताबों की अलमारी
 hu = Nyilvános könyvespolc
+hy = Գրքի փոխանակման կետ
 id = Rak Buku
 is = Bókaskipti
 it = Biblioteca di strada
@@ -5719,7 +5720,6 @@ zh-Hans = 公共书架
 zh-Hant = 書架
 
 [[Types: Recycling]]
-hy = Գրքի փոխանակման կետ
 
 [type.amenity.recycling.centre]
 en = Recycling Center
@@ -15979,6 +15979,7 @@ gl = Logopedia
 he = ריפוי בדיבור
 hi = वाक उपचार
 hu = Logopédia
+hy = Լոգոպեդ
 id = Logopedik
 is = Talmeinafræði
 it = Logopedia
@@ -16007,7 +16008,6 @@ zh-Hans = 语言治疗师
 zh-Hant = 言語治療
 
 [[Types: Roads]]
-hy = Լոգոպեդ
 
 [type.highway]
 en = Highway
@@ -18517,159 +18517,65 @@ zh-Hant = 道路
 
 [type.highway.unclassified.area]
 ref = type.highway.unclassified
-ca = Àrea sense classificar
 
 [type.highway.unclassified.bridge]
 ref = type.highway.road.bridge
 
 [type.highway.unclassified.tunnel]
 ref = type.highway.road.tunnel
-de = Straßentunnel
-es = Túnel de carretera sin clasificar
-gl = Túnel de estrada sen clasificar
-pl = Tunel drogowy
-pt-BR = Túnel rodoviário
 
 [type.area_highway.cycleway]
 ref = type.highway.cycleway
-eu = Bizikletabidea
-fa = مسیر دوچرخه
-pt-BR = Caminho para ciclistas
 
 [type.area_highway.footway]
 ref = type.highway.footway
-bg = Пешеходен път
-da = Sti
-de = Weg
-el = Μονοπάτι πεζοπορίας
-et = Jalgtee
-fi = Kävelytie
-hu = Ösvény
 
 [type.area_highway.living_street]
 ref = type.highway.living_street
-de = Wohnstraße
-pt-BR = Rua residencial
 
 [type.area_highway.motorway]
 ref = type.highway.motorway
-eu = Kalea
 
 [type.area_highway.path]
 ref = type.highway.path
-ca = Camí
-de = Weg
-lo = ທາງຍ່າງ
 
 [type.area_highway.pedestrian]
 ref = type.highway.pedestrian
-et = Jalakäigutee
-eu = Kalea
-fi = Kävelykatu
-pt-BR = Caminho pedonal
-tr = Yayalar için Cadde
 
 [type.area_highway.primary]
 ref = type.highway.primary
-eu = Kalea
-hu = Első- vagy másodrendű főút
 
 [type.area_highway.residential]
 ref = type.highway.residential
-et = Elamupiikonna tänav
-hu = Lakóövezeti utca
 
 [type.area_highway.secondary]
 ref = type.highway.secondary
-bg = Второстепенен път
-da = Sekundær hovedvej
-hu = Összekötő út
 
 [type.area_highway.service]
 ref = type.highway.service
-ca = Carretera de servei
 
 [type.area_highway.tertiary]
 ref = type.highway.tertiary
 
 [type.area_highway.steps]
 ref = type.highway.steps
-nl = Trappen
-pt-BR = Travessia
 
 [type.area_highway.track]
 ref = type.highway.track
-ca = Via
-hu = Mzg. vagy erdészeti út
-lo = ທາງຊອຍ
-pt = Pista para desportos não motorizados
 
 [type.area_highway.trunk]
 ref = type.highway.trunk
 
 [type.area_highway.unclassified]
 ref = type.highway.unclassified
-ca = Àrea de carretera sense classificar
-da = Mindre vej
 
 [type.highway.world_level]
 en = highway-world_level
-be = highway-world_level
-ca = highway-world_level
-cs = highway-world_level
-de = highway-world_level
-el = highway-world_level
-es = highway-world_level
-et = highway-world_level
-eu = Mundu mailako errepidea
-fa = بزرگراه جهانی
-fr = autoroute-niveau_monde
-gl = highway-world_level
-hu = út-világszint
-hy = highway-world_level
-is = highway-world_level
-it = highway-world_level
-lo = ທາງລະດັບໂລກ
-lt = Pasaulinio lygio kelias
-nl = highway-world_level
-pl = highway-world_level
-pt-BR = highway-world_level
-ru = Шоссе мирового значения
-sr = highway-world_level
-tr = highway-world_level
-uk = highway-world_level
-zh-Hans = 高速公路—世界级
-zh-Hant = 公路 - 世界等級
 
 [type.highway.world_towns_level]
 en = highway-world_towns_level
-be = highway-world_towns_level
-ca = highway-world_towns_level
-cs = highway-world_towns_level
-de = highway-world_towns_level
-el = highway-world_towns_level
-es = highway-world_towns_level
-et = highway-world_towns_level
-eu = Herri mailako errepidea
-fr = autoroute-monde_villes_niveau
-gl = highway-world_towns_level
-hu = út-világvárosok szint
-is = highway-world_towns_level
-it = highway-world_towns_level
-lo = ທາງລະດັບເມືອງ
-lt = Vietinės reikšmės kelias
-nl = highway-world_towns_level
-pl = highway-world_towns_level
-pt-BR = highway-world_towns_level
-ru = Шоссе местного значения
-sr = highway-world_towns_level
-tr = highway-world_towns_level
-uk = highway-world_towns_level
-zh-Hans = 高速公路—城镇级
-zh-Hant = 公路 - 世界城鎮等級
 
 [[Types: Historic]]
-hy = highway-world_towns_level
 
 [type.historic]
 en = Historic Object
@@ -33002,7 +32908,6 @@ bg = Вход ма метро
 it = Stazione metropolitana
 
 [type.railway.subway_entrance.london]
-
 ref = type.railway.subway_entrance
 en = Metro Station Entrance
 bg = Вход на метростанция
