@@ -169,14 +169,14 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
         mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
         if (isOhExpanded)
         {
-            mFullWeekOpeningHours.post(() -> {
+
                 mFullWeekOpeningHours.measure(
                         View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
                         View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
                 int newHeight = mFullWeekOpeningHours.getMeasuredHeight();
                 mFullWeekOpeningHours.getLayoutParams().height = newHeight;
                 mFullWeekOpeningHours.requestLayout();
-              });
+
           }
         UiUtils.show(dropDownIcon);
         mOhContainer.setOnClickListener((v) -> expandOpeningHours());
@@ -244,9 +244,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
       mFullWeekOpeningHours.getLayoutParams().height = (int) animation.getAnimatedValue();
       mFullWeekOpeningHours.requestLayout();
       if (mFrame.getParent() instanceof View)
-      {
-          ((View) mFrame.getParent()).requestLayout();
-      }
+        ((View) mFrame.getParent()).requestLayout();
     });
     va.start();
   }
