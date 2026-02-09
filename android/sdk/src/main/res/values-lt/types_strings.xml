@@ -351,6 +351,7 @@
     <string name="type.cuisine.tea">Arbata</string>
     <string name="type.cuisine.thai">Tajų virtuvė</string>
     <string name="type.cuisine.turkish">Turkų virtuvė</string>
+    <string name="type.cuisine.uzbek">Uzbekų</string>
     <string name="type.cuisine.vegan">Veganiška virtuvė</string>
     <string name="type.cuisine.vegetarian">Vegetariška virtuvė</string>
     <string name="type.cuisine.vietnamese">Vietnamiečių virtuvė</string>
@@ -547,8 +548,6 @@
     <string name="type.area_highway.track">Lauko kelias</string>
     <string name="type.area_highway.trunk">Svarbus užmiesčio kelias</string>
     <string name="type.area_highway.unclassified">Kitas kelias</string>
-    <string name="type.highway.world_level">Pasaulinio lygio kelias</string>
-    <string name="type.highway.world_towns_level">Vietinės reikšmės kelias</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Istorinis objektas</string>

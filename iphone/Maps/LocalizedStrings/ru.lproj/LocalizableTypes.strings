@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Чайная";
 "type.cuisine.thai" = "Тайская кухня";
 "type.cuisine.turkish" = "Турецкая кухня";
+"type.cuisine.uzbek" = "Узбекская";
 "type.cuisine.vegan" = "Веганская кухня";
 "type.cuisine.vegetarian" = "Вегетарианская кухня";
 "type.cuisine.vietnamese" = "Вьетнамская кухня";
@@ -615,8 +616,8 @@
 "type.area_highway.track" = "Грунтовка";
 "type.area_highway.trunk" = "Трасса";
 "type.area_highway.unclassified" = "Небольшая дорога";
-"type.highway.world_level" = "Шоссе мирового значения";
-"type.highway.world_towns_level" = "Шоссе местного значения";
+"type.highway.world_level" = "highway-world_level";
+"type.highway.world_towns_level" = "highway-world_towns_level";
 
 
 /********** Types: Historic **********/
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Пешеходный переход";
 "type.railway.disused" = "Неиспользуемая железная дорога";
 "type.railway.disused.bridge" = "Заброшенный железнодорожный мост";
+"type.railway.disused.tunnel" = "Недействующий железнодорожный туннель";
 "type.railway.funicular" = "Фуникулер";
 "type.railway.funicular.bridge" = "Фуникулер";
 "type.railway.funicular.tunnel" = "Фуникулер";

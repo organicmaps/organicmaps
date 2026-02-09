@@ -351,6 +351,7 @@
     <string name="type.cuisine.tea">Thee</string>
     <string name="type.cuisine.thai">Thais gerechten</string>
     <string name="type.cuisine.turkish">Turks</string>
+    <string name="type.cuisine.uzbek">Oezbeeks</string>
     <string name="type.cuisine.vegan">Veganistisch</string>
     <string name="type.cuisine.vegetarian">Vegetarisch</string>
     <string name="type.cuisine.vietnamese">Vietnamees</string>
@@ -543,12 +544,10 @@
     <string name="type.area_highway.secondary">Secundaire weg</string>
     <string name="type.area_highway.service">Straat</string>
     <string name="type.area_highway.tertiary">Tertiaire weg</string>
-    <string name="type.area_highway.steps">Trappen</string>
+    <string name="type.area_highway.steps">Trap</string>
     <string name="type.area_highway.track">Straat</string>
     <string name="type.area_highway.trunk">Straat</string>
     <string name="type.area_highway.unclassified">Straat</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historisch object</string>

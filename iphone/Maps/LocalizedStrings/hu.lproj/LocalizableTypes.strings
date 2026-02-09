@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Tea";
 "type.cuisine.thai" = "Thai";
 "type.cuisine.turkish" = "Török";
+"type.cuisine.uzbek" = "Üzbég";
 "type.cuisine.vegan" = "Vegán";
 "type.cuisine.vegetarian" = "Vegetáriánus";
 "type.cuisine.vietnamese" = "Vietnámi";
@@ -601,22 +602,22 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Alagút";
 "type.area_highway.cycleway" = "Kerékpárút";
-"type.area_highway.footway" = "Ösvény";
+"type.area_highway.footway" = "Gyalogút";
 "type.area_highway.living_street" = "Lakó-pihenő övezet";
 "type.area_highway.motorway" = "Autópálya";
 "type.area_highway.path" = "Ösvény";
 "type.area_highway.pedestrian" = "Sétálóutca";
-"type.area_highway.primary" = "Első- vagy másodrendű főút";
-"type.area_highway.residential" = "Lakóövezeti utca";
-"type.area_highway.secondary" = "Összekötő út";
+"type.area_highway.primary" = "Utca";
+"type.area_highway.residential" = "Utca";
+"type.area_highway.secondary" = "Utca";
 "type.area_highway.service" = "Szervizút";
 "type.area_highway.tertiary" = "Bekötőút";
 "type.area_highway.steps" = "Lépcső";
-"type.area_highway.track" = "Mzg. vagy erdészeti út";
+"type.area_highway.track" = "Mezőgazdasági vagy erdészeti út";
 "type.area_highway.trunk" = "Autóút";
 "type.area_highway.unclassified" = "Egyéb közút";
-"type.highway.world_level" = "út-világszint";
-"type.highway.world_towns_level" = "út-világvárosok szint";
+"type.highway.world_level" = "highway-world_level";
+"type.highway.world_towns_level" = "highway-world_towns_level";
 
 
 /********** Types: Historic **********/
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Gyalogos vasúti átjáró";
 "type.railway.disused" = "Használaton kívüli vasútvonal";
 "type.railway.disused.bridge" = "Használaton kívüli vasúti híd";
+"type.railway.disused.tunnel" = "Használaton kívüli vasúti alagút";
 "type.railway.funicular" = "Sikló";
 "type.railway.funicular.bridge" = "Sikló hídja";
 "type.railway.funicular.tunnel" = "Síkló alagútja";

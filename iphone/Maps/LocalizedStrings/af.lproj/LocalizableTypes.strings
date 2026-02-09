@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Tee";
 "type.cuisine.thai" = "Thai";
 "type.cuisine.turkish" = "Turks";
+"type.cuisine.uzbek" = "Oesbekies";
 "type.cuisine.vegan" = "Veganisties";
 "type.cuisine.vegetarian" = "Vegetaries";
 "type.cuisine.vietnamese" = "Viëtnamees";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Spoorwegoorgang";
 "type.railway.disused" = "Ongebruikte spoor";
 "type.railway.disused.bridge" = "Ongebruikte spoorbrug";
+"type.railway.disused.tunnel" = "Ongebruikte treintonnel";
 "type.railway.funicular" = "Kabelspoor";
 "type.railway.funicular.bridge" = "Kabelspoorbrug";
 "type.railway.funicular.tunnel" = "Kabelspoortonnel";

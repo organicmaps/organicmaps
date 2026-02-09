@@ -351,6 +351,7 @@
     <string name="type.cuisine.tea">Tee</string>
     <string name="type.cuisine.thai">Tai</string>
     <string name="type.cuisine.turkish">Türgi</string>
+    <string name="type.cuisine.uzbek">Usbeki</string>
     <string name="type.cuisine.vegan">Täistaimetoidukoht</string>
     <string name="type.cuisine.vegetarian">Taimetoit</string>
     <string name="type.cuisine.vietnamese">Vietnami</string>
@@ -533,13 +534,13 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Tunnel</string>
     <string name="type.area_highway.cycleway">Jalgrattatee</string>
-    <string name="type.area_highway.footway">Jalgtee</string>
+    <string name="type.area_highway.footway">Jalgrada</string>
     <string name="type.area_highway.living_street">Õueala tee</string>
     <string name="type.area_highway.motorway">Kiirtee</string>
     <string name="type.area_highway.path">Rada</string>
-    <string name="type.area_highway.pedestrian">Jalakäigutee</string>
+    <string name="type.area_highway.pedestrian">Jalakäijate tänav</string>
     <string name="type.area_highway.primary">Põhimaantee</string>
-    <string name="type.area_highway.residential">Elamupiikonna tänav</string>
+    <string name="type.area_highway.residential">Elamupiirkonna tänav</string>
     <string name="type.area_highway.secondary">Tugimaantee</string>
     <string name="type.area_highway.service">Juurdepääsutee</string>
     <string name="type.area_highway.tertiary">Kohalik maantee</string>
@@ -547,8 +548,6 @@
     <string name="type.area_highway.track">Rada</string>
     <string name="type.area_highway.trunk">E-tähistusega põhimaantee</string>
     <string name="type.area_highway.unclassified">Vähetähtis tee</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Ajalooline objekt</string>

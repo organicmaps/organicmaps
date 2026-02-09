@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Tea";
 "type.cuisine.thai" = "Thai";
 "type.cuisine.turkish" = "Turkish";
+"type.cuisine.uzbek" = "Узбекска";
 "type.cuisine.vegan" = "Vegan";
 "type.cuisine.vegetarian" = "Vegetarian";
 "type.cuisine.vietnamese" = "Vietnamese";
@@ -601,14 +602,14 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Тунел";
 "type.area_highway.cycleway" = "Пътека за колела";
-"type.area_highway.footway" = "Пешеходен път";
+"type.area_highway.footway" = "Пътека";
 "type.area_highway.living_street" = "Living Street";
 "type.area_highway.motorway" = "Магистрала";
 "type.area_highway.path" = "Път";
 "type.area_highway.pedestrian" = "Пешеходна улица";
 "type.area_highway.primary" = "Главен път";
 "type.area_highway.residential" = "Жилищна улица";
-"type.area_highway.secondary" = "Второстепенен път";
+"type.area_highway.secondary" = "Второстепенен пър";
 "type.area_highway.service" = "Обслужващ път";
 "type.area_highway.tertiary" = "Третостепенен път";
 "type.area_highway.steps" = "Стълби";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Railway Crossing";
 "type.railway.disused" = "Disused Railway";
 "type.railway.disused.bridge" = "Disused Railway Bridge";
+"type.railway.disused.tunnel" = "Неизползван железопътен тунел";
 "type.railway.funicular" = "Фуникуляр";
 "type.railway.funicular.bridge" = "Funicular Bridge";
 "type.railway.funicular.tunnel" = "Funicular Tunnel";

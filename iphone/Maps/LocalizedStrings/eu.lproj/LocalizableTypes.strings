@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Tea";
 "type.cuisine.thai" = "Thai sukaldaritza";
 "type.cuisine.turkish" = "Turkiar sukaldaritza";
+"type.cuisine.uzbek" = "Uzbekiarra";
 "type.cuisine.vegan" = "Sukaldaritza beganoa";
 "type.cuisine.vegetarian" = "Sukaldaritza begetarianoa";
 "type.cuisine.vietnamese" = "Vietnamgo sukaldaritza";
@@ -600,13 +601,13 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Tunel";
-"type.area_highway.cycleway" = "Bizikletabidea";
+"type.area_highway.cycleway" = "Bidegorri edo bizikleta-bidea";
 "type.area_highway.footway" = "Bidea";
 "type.area_highway.living_street" = "Kalea";
-"type.area_highway.motorway" = "Kalea";
+"type.area_highway.motorway" = "Autobidea";
 "type.area_highway.path" = "Bidea";
-"type.area_highway.pedestrian" = "Kalea";
-"type.area_highway.primary" = "Kalea";
+"type.area_highway.pedestrian" = "Oinezkoen kalea";
+"type.area_highway.primary" = "Errepide nagusia";
 "type.area_highway.residential" = "Kalea";
 "type.area_highway.secondary" = "Kalea";
 "type.area_highway.service" = "Kalea";
@@ -615,8 +616,8 @@
 "type.area_highway.track" = "Kalea";
 "type.area_highway.trunk" = "Kalea";
 "type.area_highway.unclassified" = "Kalea";
-"type.highway.world_level" = "Mundu mailako errepidea";
-"type.highway.world_towns_level" = "Herri mailako errepidea";
+"type.highway.world_level" = "highway-world_level";
+"type.highway.world_towns_level" = "highway-world_towns_level";
 
 
 /********** Types: Historic **********/
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Railway Crossing";
 "type.railway.disused" = "Disused Railway";
 "type.railway.disused.bridge" = "Disused Railway Bridge";
+"type.railway.disused.tunnel" = "Erabilerarik gabeko trenbide-tunela";
 "type.railway.funicular" = "Funikularra";
 "type.railway.funicular.bridge" = "Funicular Bridge";
 "type.railway.funicular.tunnel" = "Funicular Tunnel";

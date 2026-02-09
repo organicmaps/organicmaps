@@ -351,6 +351,7 @@
     <string name="type.cuisine.tea">Чайна</string>
     <string name="type.cuisine.thai">Тайська кухня</string>
     <string name="type.cuisine.turkish">Турецька кухня</string>
+    <string name="type.cuisine.uzbek">Узбецька</string>
     <string name="type.cuisine.vegan">Веганська кухня</string>
     <string name="type.cuisine.vegetarian">Вегетаріанська кухня</string>
     <string name="type.cuisine.vietnamese">В\'єтнамська кухня</string>
@@ -547,8 +548,6 @@
     <string name="type.area_highway.track">Ґрунтівка</string>
     <string name="type.area_highway.trunk">Траса</string>
     <string name="type.area_highway.unclassified">Невелика дорога</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Історичний об\'єкт</string>

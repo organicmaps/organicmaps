@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Τσάι";
 "type.cuisine.thai" = "Ταϊλανδική";
 "type.cuisine.turkish" = "Τουρκική";
+"type.cuisine.uzbek" = "Ουζμπεκική";
 "type.cuisine.vegan" = "Για χορτοφάγους";
 "type.cuisine.vegetarian" = "Χορτοφαγική";
 "type.cuisine.vietnamese" = "Βιετναμέζικη";
@@ -601,7 +602,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Σήραγγα";
 "type.area_highway.cycleway" = "Ποδηλατόδρομος";
-"type.area_highway.footway" = "Μονοπάτι πεζοπορίας";
+"type.area_highway.footway" = "Μονοπάτι πεζών";
 "type.area_highway.living_street" = "Οδός ήπιας κυκλοφορίας";
 "type.area_highway.motorway" = "Αυτοκινητόδρομος";
 "type.area_highway.path" = "Μονοπάτι";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Σιδηροδρομική διάβαση";
 "type.railway.disused" = "Αχρησιμοποίητος σιδηρόδρομος";
 "type.railway.disused.bridge" = "Αχρησιμοποίητη σιδηροδρομική γέφυρα";
+"type.railway.disused.tunnel" = "Αχρησιμοποίητη σιδηροδρομική σήραγγα";
 "type.railway.funicular" = "Τελεφερίκ";
 "type.railway.funicular.bridge" = "Γέφυρα τελεφερίκ";
 "type.railway.funicular.tunnel" = "Σήραγγα τελεφερίκ";

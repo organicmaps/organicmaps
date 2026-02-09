@@ -351,6 +351,7 @@
     <string name="type.cuisine.tea">Çay</string>
     <string name="type.cuisine.thai">Tay Mutfağı</string>
     <string name="type.cuisine.turkish">Türk Mutfağı</string>
+    <string name="type.cuisine.uzbek">Özbek</string>
     <string name="type.cuisine.vegan">Vegan Mutfağı</string>
     <string name="type.cuisine.vegetarian">Vejetaryen Mutfağı</string>
     <string name="type.cuisine.vietnamese">Vietnam Mutfağı</string>
@@ -537,7 +538,7 @@
     <string name="type.area_highway.living_street">Cadde</string>
     <string name="type.area_highway.motorway">Otoyol</string>
     <string name="type.area_highway.path">Yol</string>
-    <string name="type.area_highway.pedestrian">Yayalar için Cadde</string>
+    <string name="type.area_highway.pedestrian">Yaya Caddesi</string>
     <string name="type.area_highway.primary">Ana Yol</string>
     <string name="type.area_highway.residential">Sokak</string>
     <string name="type.area_highway.secondary">Tali Yol</string>
@@ -547,8 +548,6 @@
     <string name="type.area_highway.track">Pist</string>
     <string name="type.area_highway.trunk">Devlet Yolu</string>
     <string name="type.area_highway.unclassified">Tali Yol</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Tarihi Nesne</string>

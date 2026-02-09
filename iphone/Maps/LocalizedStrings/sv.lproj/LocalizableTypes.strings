@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Te";
 "type.cuisine.thai" = "Thailändsk mat";
 "type.cuisine.turkish" = "Turkisk mat";
+"type.cuisine.uzbek" = "Uzbekisk";
 "type.cuisine.vegan" = "Vegansk mat";
 "type.cuisine.vegetarian" = "Vegetarisk mat";
 "type.cuisine.vietnamese" = "Vietnamesisk mat";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Järnvägsövergång";
 "type.railway.disused" = "Otrafikerad järnväg";
 "type.railway.disused.bridge" = "Otrafikerad järnvägsbro";
+"type.railway.disused.tunnel" = "Nedlagd järnvägstunnel";
 "type.railway.funicular" = "Bergbana";
 "type.railway.funicular.bridge" = "Funicular Bridge";
 "type.railway.funicular.tunnel" = "Bergbanetunnel";

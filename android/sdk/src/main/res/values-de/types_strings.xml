@@ -351,6 +351,7 @@
     <string name="type.cuisine.tea">Tee</string>
     <string name="type.cuisine.thai">Thailändisch</string>
     <string name="type.cuisine.turkish">Türkisch</string>
+    <string name="type.cuisine.uzbek">Usbekisch</string>
     <string name="type.cuisine.vegan">Vegan</string>
     <string name="type.cuisine.vegetarian">Vegetarisch</string>
     <string name="type.cuisine.vietnamese">Vietnamesisch</string>
@@ -531,12 +532,12 @@
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.unclassified.bridge">Brücke</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.unclassified.tunnel">Straßentunnel</string>
+    <string name="type.highway.unclassified.tunnel">Tunnel</string>
     <string name="type.area_highway.cycleway">Radweg</string>
-    <string name="type.area_highway.footway">Weg</string>
-    <string name="type.area_highway.living_street">Wohnstraße</string>
+    <string name="type.area_highway.footway">Fußweg</string>
+    <string name="type.area_highway.living_street">Spielstraße</string>
     <string name="type.area_highway.motorway">Autobahn</string>
-    <string name="type.area_highway.path">Weg</string>
+    <string name="type.area_highway.path">Pfad</string>
     <string name="type.area_highway.pedestrian">Fußgängerzone</string>
     <string name="type.area_highway.primary">Hauptstraße</string>
     <string name="type.area_highway.residential">Wohnstraße</string>
@@ -547,8 +548,6 @@
     <string name="type.area_highway.track">Forst-/Feldweg</string>
     <string name="type.area_highway.trunk">Schnellstraße</string>
     <string name="type.area_highway.unclassified">Nebenstraße</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historisches Objekt</string>

@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Čaj";
 "type.cuisine.thai" = "Tajska";
 "type.cuisine.turkish" = "Turška";
+"type.cuisine.uzbek" = "Uzbeška";
 "type.cuisine.vegan" = "Veganska";
 "type.cuisine.vegetarian" = "Vegetarijanska";
 "type.cuisine.vietnamese" = "Vietnamska";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Železniški prehod";
 "type.railway.disused" = "Neuporabljena železnica";
 "type.railway.disused.bridge" = "Neuporabljen železniški most";
+"type.railway.disused.tunnel" = "Neuporabljen železniški predor";
 "type.railway.funicular" = "Vzpenjača";
 "type.railway.funicular.bridge" = "Most vzpenjače";
 "type.railway.funicular.tunnel" = "Predor vzpenjače";

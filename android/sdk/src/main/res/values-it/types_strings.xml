@@ -351,6 +351,7 @@
     <string name="type.cuisine.tea">Tè</string>
     <string name="type.cuisine.thai">Cucina tailandese</string>
     <string name="type.cuisine.turkish">Cucina turca</string>
+    <string name="type.cuisine.uzbek">Uzbeka</string>
     <string name="type.cuisine.vegan">Cucina vegana</string>
     <string name="type.cuisine.vegetarian">Cucina vegetariana</string>
     <string name="type.cuisine.vietnamese">Cucina vietnamita</string>
@@ -547,8 +548,6 @@
     <string name="type.area_highway.track">Via</string>
     <string name="type.area_highway.trunk">Strada</string>
     <string name="type.area_highway.unclassified">Via</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Oggetto storico</string>

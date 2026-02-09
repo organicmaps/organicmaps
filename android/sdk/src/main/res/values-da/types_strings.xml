@@ -351,6 +351,7 @@
     <string name="type.cuisine.tea">Te</string>
     <string name="type.cuisine.thai">Thailandsk</string>
     <string name="type.cuisine.turkish">Tyrkisk</string>
+    <string name="type.cuisine.uzbek">Usbekisk</string>
     <string name="type.cuisine.vegan">Vegansk</string>
     <string name="type.cuisine.vegetarian">Vegetarisk</string>
     <string name="type.cuisine.vietnamese">Vietnamesisk</string>
@@ -533,20 +534,20 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Tunnel</string>
     <string name="type.area_highway.cycleway">Cykelsti</string>
-    <string name="type.area_highway.footway">Sti</string>
+    <string name="type.area_highway.footway">Gangsti</string>
     <string name="type.area_highway.living_street">Legegade</string>
     <string name="type.area_highway.motorway">Motorvej</string>
     <string name="type.area_highway.path">Sti</string>
     <string name="type.area_highway.pedestrian">Gågade</string>
     <string name="type.area_highway.primary">Hovedvej</string>
     <string name="type.area_highway.residential">Gade</string>
-    <string name="type.area_highway.secondary">Sekundær hovedvej</string>
+    <string name="type.area_highway.secondary">Sækunder hovedvej</string>
     <string name="type.area_highway.service">Servicevej</string>
     <string name="type.area_highway.tertiary">Tertiær hovedvej</string>
     <string name="type.area_highway.steps">Trappe</string>
     <string name="type.area_highway.track">Hjulspor</string>
     <string name="type.area_highway.trunk">Motortrafikvej</string>
-    <string name="type.area_highway.unclassified">Mindre vej</string>
+    <string name="type.area_highway.unclassified">Vej</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historisk objekt</string>

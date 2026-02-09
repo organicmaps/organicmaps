@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "茶";
 "type.cuisine.thai" = "泰國料理";
 "type.cuisine.turkish" = "土耳其料理";
+"type.cuisine.uzbek" = "烏茲別克";
 "type.cuisine.vegan" = "全素料理";
 "type.cuisine.vegetarian" = "素食";
 "type.cuisine.vietnamese" = "越南料理";
@@ -615,8 +616,8 @@
 "type.area_highway.track" = "土路";
 "type.area_highway.trunk" = "主幹道";
 "type.area_highway.unclassified" = "道路";
-"type.highway.world_level" = "公路 - 世界等級";
-"type.highway.world_towns_level" = "公路 - 世界城鎮等級";
+"type.highway.world_level" = "highway-world_level";
+"type.highway.world_towns_level" = "highway-world_towns_level";
 
 
 /********** Types: Historic **********/
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "鐵路平交道";
 "type.railway.disused" = "不使用鐵路";
 "type.railway.disused.bridge" = "廢棄鐵路橋樑";
+"type.railway.disused.tunnel" = "廢棄鐵路隧道";
 "type.railway.funicular" = "纜車";
 "type.railway.funicular.bridge" = "纜車橋";
 "type.railway.funicular.tunnel" = "纜車隧道";

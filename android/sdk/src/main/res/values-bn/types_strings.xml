@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Types: Recycling -->
+    <string name="type.cuisine.uzbek">উজবেক</string>
+
     <!-- SECTION: Types: Historic -->
     <string name="type.railway.disused.tunnel">অব্যবহৃত রেল সুড়ঙ্গ</string>
 </resources>

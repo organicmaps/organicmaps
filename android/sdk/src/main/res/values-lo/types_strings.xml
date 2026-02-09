@@ -536,7 +536,7 @@
     <string name="type.area_highway.footway">ທາງຍ່າງ</string>
     <string name="type.area_highway.living_street">ຖະໜົນຊຸມຊົນ</string>
     <string name="type.area_highway.motorway">ທາງດ່ວນ</string>
-    <string name="type.area_highway.path">ທາງຍ່າງ</string>
+    <string name="type.area_highway.path">ທາງຍ່າງຂະໜາດນ້ອຍ</string>
     <string name="type.area_highway.pedestrian">ຖະໜົນຄົນຍ່າງ</string>
     <string name="type.area_highway.primary">ທາງຫຼັກ</string>
     <string name="type.area_highway.residential">ຖະໜົນໃນເຂດທີ່ພັກອາໄສ</string>
@@ -544,11 +544,9 @@
     <string name="type.area_highway.service">ທາງບໍລິການ</string>
     <string name="type.area_highway.tertiary">ທາງຍ່ອຍ</string>
     <string name="type.area_highway.steps">ຂັ້ນໄດ</string>
-    <string name="type.area_highway.track">ທາງຊອຍ</string>
+    <string name="type.area_highway.track">ທາງຊອຍ/ທາງດິນ</string>
     <string name="type.area_highway.trunk">ທາງຫຼວງສາຍຫຼັກ</string>
     <string name="type.area_highway.unclassified">ທາງທົ່ວໄປ</string>
-    <string name="type.highway.world_level">ທາງລະດັບໂລກ</string>
-    <string name="type.highway.world_towns_level">ທາງລະດັບເມືອງ</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">ວັດຖຸບູຮານ</string>

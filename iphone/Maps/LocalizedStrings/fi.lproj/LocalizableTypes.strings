@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Tee";
 "type.cuisine.thai" = "Thaimaalainen keittiö";
 "type.cuisine.turkish" = "Turkkilainen keittiö";
+"type.cuisine.uzbek" = "Uzbekkilainen";
 "type.cuisine.vegan" = "Vegaanikeittiö";
 "type.cuisine.vegetarian" = "Kasviskeittiö";
 "type.cuisine.vietnamese" = "Vietnamilainen keittiö";
@@ -601,11 +602,11 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Tunneli";
 "type.area_highway.cycleway" = "Pyörätie";
-"type.area_highway.footway" = "Kävelytie";
+"type.area_highway.footway" = "Polku";
 "type.area_highway.living_street" = "Asuinkatu";
 "type.area_highway.motorway" = "Moottoritie";
 "type.area_highway.path" = "Polku";
-"type.area_highway.pedestrian" = "Kävelykatu";
+"type.area_highway.pedestrian" = "Jalankulkutie";
 "type.area_highway.primary" = "Pääkatu";
 "type.area_highway.residential" = "Katu";
 "type.area_highway.secondary" = "Katu";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Railway Crossing";
 "type.railway.disused" = "Disused Railway";
 "type.railway.disused.bridge" = "Disused Railway Bridge";
+"type.railway.disused.tunnel" = "Käytöstä poistettu rautatietunneli";
 "type.railway.funicular" = "Köysirata";
 "type.railway.funicular.bridge" = "Funicular Bridge";
 "type.railway.funicular.tunnel" = "Funicular Tunnel";

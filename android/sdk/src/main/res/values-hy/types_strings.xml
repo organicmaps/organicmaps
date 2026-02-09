@@ -547,8 +547,6 @@
     <string name="type.area_highway.track">Հողային ճանապարհ</string>
     <string name="type.area_highway.trunk">Գլխավոր ճանապարհ</string>
     <string name="type.area_highway.unclassified">Չդասակարգված ճանապարհ</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Պատմական օբյեկտ</string>

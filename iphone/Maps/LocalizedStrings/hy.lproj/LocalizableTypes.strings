@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Թեյ";
 "type.cuisine.thai" = "Թայլանդական";
 "type.cuisine.turkish" = "Թուրքական";
+"type.cuisine.uzbek" = "Uzbek";
 "type.cuisine.vegan" = "Վեգան";
 "type.cuisine.vegetarian" = "Բուսական";
 "type.cuisine.vietnamese" = "Վիետնամական";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Երկաթուղային անցում";
 "type.railway.disused" = "Չօգտագործվող երկաթուղի";
 "type.railway.disused.bridge" = "Չօգտագործվող երկաթուղային կամուրջ";
+"type.railway.disused.tunnel" = "Disused Railway Tunnel";
 "type.railway.funicular" = "Ֆունիկուլյոր";
 "type.railway.funicular.bridge" = "Ֆունիկուլյորի կամուրջ";
 "type.railway.funicular.tunnel" = "Ֆունիկուլյորի թունել";
