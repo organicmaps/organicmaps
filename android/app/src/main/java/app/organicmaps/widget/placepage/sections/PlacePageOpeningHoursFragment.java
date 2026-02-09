@@ -71,7 +71,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     UiUtils.hide(dropDownIcon);
     isOhExpanded = false;
     mOhContainer = mFrame.findViewById(R.id.oh_container);
-    mRecyclerTouchListener = new RecyclerView.OnItemTouchListener()
+    RecyclerView.OnItemTouchListener touchListener = new RecyclerView.OnItemTouchListener()
     {
         @Override
         public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
@@ -87,7 +87,7 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
         public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept)
           {}
     };
-    mFullWeekOpeningHours.addOnItemTouchListener(mRecyclerTouchListener);
+    mFullWeekOpeningHours.addOnItemTouchListener(touchListener);
   }
 
   private void refreshTodayNonBusinessTime(Timespan[] closedTimespans)
