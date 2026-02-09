@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "ຊາ";
 "type.cuisine.thai" = "ໄທ";
 "type.cuisine.turkish" = "ຕວກກີ";
+"type.cuisine.uzbek" = "Uzbek";
 "type.cuisine.vegan" = "ວີແກນ";
 "type.cuisine.vegetarian" = "ອາຫານມັງສະວິລັດ";
 "type.cuisine.vietnamese" = "ຫວຽດນາມ";
@@ -604,7 +605,7 @@
 "type.area_highway.footway" = "ທາງຍ່າງ";
 "type.area_highway.living_street" = "ຖະໜົນຊຸມຊົນ";
 "type.area_highway.motorway" = "ທາງດ່ວນ";
-"type.area_highway.path" = "ທາງຍ່າງ";
+"type.area_highway.path" = "ທາງຍ່າງຂະໜາດນ້ອຍ";
 "type.area_highway.pedestrian" = "ຖະໜົນຄົນຍ່າງ";
 "type.area_highway.primary" = "ທາງຫຼັກ";
 "type.area_highway.residential" = "ຖະໜົນໃນເຂດທີ່ພັກອາໄສ";
@@ -612,11 +613,11 @@
 "type.area_highway.service" = "ທາງບໍລິການ";
 "type.area_highway.tertiary" = "ທາງຍ່ອຍ";
 "type.area_highway.steps" = "ຂັ້ນໄດ";
-"type.area_highway.track" = "ທາງຊອຍ";
+"type.area_highway.track" = "ທາງຊອຍ/ທາງດິນ";
 "type.area_highway.trunk" = "ທາງຫຼວງສາຍຫຼັກ";
 "type.area_highway.unclassified" = "ທາງທົ່ວໄປ";
-"type.highway.world_level" = "ທາງລະດັບໂລກ";
-"type.highway.world_towns_level" = "ທາງລະດັບເມືອງ";
+"type.highway.world_level" = "highway-world_level";
+"type.highway.world_towns_level" = "highway-world_towns_level";
 
 
 /********** Types: Historic **********/
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "ທາງຜ່ານລົດໄຟ";
 "type.railway.disused" = "ທາງລົດໄຟທີ່ເລີກໃຊ້ແລ້ວ";
 "type.railway.disused.bridge" = "ຂົວທາງລົດໄຟທີ່ເລີກໃຊ້ແລ້ວ";
+"type.railway.disused.tunnel" = "Disused Railway Tunnel";
 "type.railway.funicular" = "ລົດໄຟໄຕ່ເຂົາ";
 "type.railway.funicular.bridge" = "ຂົວລົດໄຟໄຕ່ເຂົາ";
 "type.railway.funicular.tunnel" = "ອຸມົງລົດໄຟໄຕ່ເຂົາ";

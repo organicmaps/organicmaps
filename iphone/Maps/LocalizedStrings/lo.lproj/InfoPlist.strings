@@ -32,3 +32,9 @@
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Determining your location is necessary for navigation and for saving your recently traveled track.";
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Login with password";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Login using Browser";

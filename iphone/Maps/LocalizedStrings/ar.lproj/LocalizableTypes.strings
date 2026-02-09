@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "شاي";
 "type.cuisine.thai" = "مطبخ تايلندي";
 "type.cuisine.turkish" = "مطبخ تركي";
+"type.cuisine.uzbek" = "أوزبكي";
 "type.cuisine.vegan" = "خضري";
 "type.cuisine.vegetarian" = "نباتي";
 "type.cuisine.vietnamese" = "مطبخ فيتنامي";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Railway Crossing";
 "type.railway.disused" = "Disused Railway";
 "type.railway.disused.bridge" = "Disused Railway Bridge";
+"type.railway.disused.tunnel" = "نفق سكة حديدية غير مستخدم";
 "type.railway.funicular" = "حبلي";
 "type.railway.funicular.bridge" = "Funicular Bridge";
 "type.railway.funicular.tunnel" = "Funicular Tunnel";

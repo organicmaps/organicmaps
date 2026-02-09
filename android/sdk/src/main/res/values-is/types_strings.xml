@@ -351,6 +351,7 @@
     <string name="type.cuisine.tea">Te</string>
     <string name="type.cuisine.thai">Taílenskt</string>
     <string name="type.cuisine.turkish">Tyrkneskt</string>
+    <string name="type.cuisine.uzbek">Úsbekska</string>
     <string name="type.cuisine.vegan">Grænkerafæði</string>
     <string name="type.cuisine.vegetarian">Grænmetisfæði</string>
     <string name="type.cuisine.vietnamese">Víetnamskt</string>
@@ -547,8 +548,6 @@
     <string name="type.area_highway.track">Slóði</string>
     <string name="type.area_highway.trunk">Stofnbraut</string>
     <string name="type.area_highway.unclassified">Aukavegur</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Sögulegur hlutur</string>

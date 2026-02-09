@@ -674,7 +674,7 @@
     <string name="power_managment_setting_auto">Auto</string>
     <string name="power_managment_setting_manual_max">Maximale Stromsparung</string>
     <!-- Settings/Bookmark Text Placement -->
-    <string name="bookmarks_text_placement_title">Markiere Namen auf der Karte</string>
+    <string name="bookmarks_text_placement_title">Lesezeichenname auf der Karte mit anzeigen</string>
     <string name="bookmarks_text_placement_description">Wenn du zu viele Lesezeichen hast, kann es sein, dass die App langsamer wird, wenn die Namen auf der Karte angezeigt werden.</string>
     <string name="show_to_the_right">Rechts anzeigen</string>
     <string name="show_at_the_bottom">Unten anzeigen</string>

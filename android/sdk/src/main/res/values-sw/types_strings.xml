@@ -104,6 +104,7 @@
     <string name="type.craft.winery">Mvinyo</string>
     <string name="type.craft.tailor">Mshonaji nguo</string>
     <string name="type.cuisine.coffee_shop">Kahawa</string>
+    <string name="type.cuisine.uzbek">Kiuzbeki</string>
     <string name="type.emergency.assembly_point">Sehemu ya Mkutano wa Dharura</string>
     <!-- A place where a lifeguard is on duty. -->
     <string name="type.emergency.lifeguard">Mlinzi wa maisha</string>

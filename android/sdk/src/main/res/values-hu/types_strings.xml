@@ -351,6 +351,7 @@
     <string name="type.cuisine.tea">Tea</string>
     <string name="type.cuisine.thai">Thai</string>
     <string name="type.cuisine.turkish">Török</string>
+    <string name="type.cuisine.uzbek">Üzbég</string>
     <string name="type.cuisine.vegan">Vegán</string>
     <string name="type.cuisine.vegetarian">Vegetáriánus</string>
     <string name="type.cuisine.vietnamese">Vietnámi</string>
@@ -533,22 +534,20 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Alagút</string>
     <string name="type.area_highway.cycleway">Kerékpárút</string>
-    <string name="type.area_highway.footway">Ösvény</string>
+    <string name="type.area_highway.footway">Gyalogút</string>
     <string name="type.area_highway.living_street">Lakó-pihenő övezet</string>
     <string name="type.area_highway.motorway">Autópálya</string>
     <string name="type.area_highway.path">Ösvény</string>
     <string name="type.area_highway.pedestrian">Sétálóutca</string>
-    <string name="type.area_highway.primary">Első- vagy másodrendű főút</string>
-    <string name="type.area_highway.residential">Lakóövezeti utca</string>
-    <string name="type.area_highway.secondary">Összekötő út</string>
+    <string name="type.area_highway.primary">Utca</string>
+    <string name="type.area_highway.residential">Utca</string>
+    <string name="type.area_highway.secondary">Utca</string>
     <string name="type.area_highway.service">Szervizút</string>
     <string name="type.area_highway.tertiary">Bekötőút</string>
     <string name="type.area_highway.steps">Lépcső</string>
-    <string name="type.area_highway.track">Mzg. vagy erdészeti út</string>
+    <string name="type.area_highway.track">Mezőgazdasági vagy erdészeti út</string>
     <string name="type.area_highway.trunk">Autóút</string>
     <string name="type.area_highway.unclassified">Egyéb közút</string>
-    <string name="type.highway.world_level">út-világszint</string>
-    <string name="type.highway.world_towns_level">út-világvárosok szint</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Történelmi objektum</string>

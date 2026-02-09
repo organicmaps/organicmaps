@@ -330,6 +330,7 @@
     <string name="type.cuisine.tea">Chás</string>
     <string name="type.cuisine.thai">Cozinha tailandesa</string>
     <string name="type.cuisine.turkish">Cozinha turca</string>
+    <string name="type.cuisine.uzbek">Uzbeque</string>
     <string name="type.cuisine.vegan">Cozinha vegana</string>
     <string name="type.cuisine.vegetarian">Cozinha vegetariana</string>
     <string name="type.cuisine.vietnamese">Cozinha vietnamita</string>
@@ -520,7 +521,7 @@
     <string name="type.area_highway.service">Estrada de acesso ou serviço</string>
     <string name="type.area_highway.tertiary">Estrada terciária</string>
     <string name="type.area_highway.steps">Escadas</string>
-    <string name="type.area_highway.track">Pista para desportos não motorizados</string>
+    <string name="type.area_highway.track">Carreiro florestal ou agrícola</string>
     <string name="type.area_highway.trunk">Via rápida</string>
     <string name="type.area_highway.unclassified">Estrada sem classificação</string>
 

@@ -286,6 +286,7 @@
     <string name="type.cuisine.tea">چای</string>
     <string name="type.cuisine.thai">تایلندی</string>
     <string name="type.cuisine.turkish">ترکی</string>
+    <string name="type.cuisine.uzbek">ازبکی</string>
     <string name="type.cuisine.vegan">گیاهخوار</string>
     <string name="type.cuisine.vegetarian">گیاه خوار</string>
     <string name="type.cuisine.vietnamese">ویتنامی</string>
@@ -466,7 +467,6 @@
     <string name="type.highway.unclassified.bridge">پل</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">تونل</string>
-    <string name="type.area_highway.cycleway">مسیر دوچرخه</string>
     <string name="type.area_highway.footway">مسیر</string>
     <string name="type.area_highway.living_street">جاده</string>
     <string name="type.area_highway.motorway">جاده</string>
@@ -481,7 +481,6 @@
     <string name="type.area_highway.track">جاده</string>
     <string name="type.area_highway.trunk">جاده</string>
     <string name="type.area_highway.unclassified">جاده</string>
-    <string name="type.highway.world_level">بزرگراه جهانی</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">شیء تاریخی</string>

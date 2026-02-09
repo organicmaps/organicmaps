@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Tee";
 "type.cuisine.thai" = "Tai";
 "type.cuisine.turkish" = "Türgi";
+"type.cuisine.uzbek" = "Usbeki";
 "type.cuisine.vegan" = "Täistaimetoidukoht";
 "type.cuisine.vegetarian" = "Taimetoit";
 "type.cuisine.vietnamese" = "Vietnami";
@@ -601,13 +602,13 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Tunnel";
 "type.area_highway.cycleway" = "Jalgrattatee";
-"type.area_highway.footway" = "Jalgtee";
+"type.area_highway.footway" = "Jalgrada";
 "type.area_highway.living_street" = "Õueala tee";
 "type.area_highway.motorway" = "Kiirtee";
 "type.area_highway.path" = "Rada";
-"type.area_highway.pedestrian" = "Jalakäigutee";
+"type.area_highway.pedestrian" = "Jalakäijate tänav";
 "type.area_highway.primary" = "Põhimaantee";
-"type.area_highway.residential" = "Elamupiikonna tänav";
+"type.area_highway.residential" = "Elamupiirkonna tänav";
 "type.area_highway.secondary" = "Tugimaantee";
 "type.area_highway.service" = "Juurdepääsutee";
 "type.area_highway.tertiary" = "Kohalik maantee";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Raudtee ülesõit";
 "type.railway.disused" = "Kasutamata raudtee";
 "type.railway.disused.bridge" = "Kasutamata raudteesild";
+"type.railway.disused.tunnel" = "Kasutamata raudteetunnel";
 "type.railway.funicular" = "Köisraudtee";
 "type.railway.funicular.bridge" = "Köisraudtee sild";
 "type.railway.funicular.tunnel" = "Köisraudtee tunnel";

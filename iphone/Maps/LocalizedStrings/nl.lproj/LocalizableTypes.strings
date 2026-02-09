@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Thee";
 "type.cuisine.thai" = "Thais gerechten";
 "type.cuisine.turkish" = "Turks";
+"type.cuisine.uzbek" = "Oezbeeks";
 "type.cuisine.vegan" = "Veganistisch";
 "type.cuisine.vegetarian" = "Vegetarisch";
 "type.cuisine.vietnamese" = "Vietnamees";
@@ -611,7 +612,7 @@
 "type.area_highway.secondary" = "Secundaire weg";
 "type.area_highway.service" = "Straat";
 "type.area_highway.tertiary" = "Tertiaire weg";
-"type.area_highway.steps" = "Trappen";
+"type.area_highway.steps" = "Trap";
 "type.area_highway.track" = "Straat";
 "type.area_highway.trunk" = "Straat";
 "type.area_highway.unclassified" = "Straat";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Spoorwegovergang";
 "type.railway.disused" = "Ongebruikt spoor";
 "type.railway.disused.bridge" = "Ongebruikte spoorbrug";
+"type.railway.disused.tunnel" = "Ongebruikte spoortunnel";
 "type.railway.funicular" = "Tunnel";
 "type.railway.funicular.bridge" = "Kabelspoorbuur";
 "type.railway.funicular.tunnel" = "Kabelspoortunnel";

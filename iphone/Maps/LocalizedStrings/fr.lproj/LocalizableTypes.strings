@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Thé";
 "type.cuisine.thai" = "Cuisine thaï";
 "type.cuisine.turkish" = "Cuisine turque";
+"type.cuisine.uzbek" = "Ouzbèke";
 "type.cuisine.vegan" = "Cuisine végétalienne";
 "type.cuisine.vegetarian" = "Cuisine végétarienne";
 "type.cuisine.vietnamese" = "Cuisine vietnamienne";
@@ -615,8 +616,8 @@
 "type.area_highway.track" = "Piste";
 "type.area_highway.trunk" = "Voie rapide";
 "type.area_highway.unclassified" = "Rue";
-"type.highway.world_level" = "autoroute-niveau_monde";
-"type.highway.world_towns_level" = "autoroute-monde_villes_niveau";
+"type.highway.world_level" = "highway-world_level";
+"type.highway.world_towns_level" = "highway-world_towns_level";
 
 
 /********** Types: Historic **********/
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Passage à niveau pour piéton";
 "type.railway.disused" = "Chemin de fer désaffecté";
 "type.railway.disused.bridge" = "Pont ferroviaire désaffecté";
+"type.railway.disused.tunnel" = "Tunnel ferroviaire désaffecté";
 "type.railway.funicular" = "Funiculaire";
 "type.railway.funicular.bridge" = "Funiculaire";
 "type.railway.funicular.tunnel" = "Funiculaire";

@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Чај";
 "type.cuisine.thai" = "Тајландска";
 "type.cuisine.turkish" = "Турска";
+"type.cuisine.uzbek" = "Узбечка";
 "type.cuisine.vegan" = "Веганска";
 "type.cuisine.vegetarian" = "Вегетаријанска";
 "type.cuisine.vietnamese" = "Вијетнамска";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Пружни прелаз";
 "type.railway.disused" = "Напуштена пруга";
 "type.railway.disused.bridge" = "Напуштен железнички мост";
+"type.railway.disused.tunnel" = "Напуштен железнички тунел";
 "type.railway.funicular" = "Успињача";
 "type.railway.funicular.bridge" = "Мост успињаче";
 "type.railway.funicular.tunnel" = "Тунел успињаче";

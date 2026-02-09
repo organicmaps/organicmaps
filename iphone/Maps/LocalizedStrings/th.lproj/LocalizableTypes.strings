@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "ชา";
 "type.cuisine.thai" = "อาหารไทย";
 "type.cuisine.turkish" = "ตุรกีอาหารตุรกี";
+"type.cuisine.uzbek" = "อุซเบก";
 "type.cuisine.vegan" = "อาหารมังสวิรัติ";
 "type.cuisine.vegetarian" = "อาหารมังสวิรัติ";
 "type.cuisine.vietnamese" = "อาหารเวียดนาม";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Railway Crossing";
 "type.railway.disused" = "Disused Railway";
 "type.railway.disused.bridge" = "Disused Railway Bridge";
+"type.railway.disused.tunnel" = "อุโมงค์รถไฟเลิกใช้";
 "type.railway.funicular" = "รถกระเช้าไฟฟ้า";
 "type.railway.funicular.bridge" = "Funicular Bridge";
 "type.railway.funicular.tunnel" = "Funicular Tunnel";

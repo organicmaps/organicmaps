@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Chás";
 "type.cuisine.thai" = "Cozinha tailandesa";
 "type.cuisine.turkish" = "Cozinha turca";
+"type.cuisine.uzbek" = "Uzbeque";
 "type.cuisine.vegan" = "Cozinha vegana";
 "type.cuisine.vegetarian" = "Cozinha vegetariana";
 "type.cuisine.vietnamese" = "Cozinha vietnamita";
@@ -599,19 +600,19 @@
 "type.highway.unclassified.bridge" = "Ponte";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.unclassified.tunnel" = "Túnel rodoviário";
-"type.area_highway.cycleway" = "Caminho para ciclistas";
+"type.highway.unclassified.tunnel" = "Túnel";
+"type.area_highway.cycleway" = "Ciclovia";
 "type.area_highway.footway" = "Caminho pedonal";
-"type.area_highway.living_street" = "Rua residencial";
+"type.area_highway.living_street" = "Zona de coexistência";
 "type.area_highway.motorway" = "Rodovia";
 "type.area_highway.path" = "Caminho";
-"type.area_highway.pedestrian" = "Caminho pedonal";
+"type.area_highway.pedestrian" = "Rua pedonal";
 "type.area_highway.primary" = "Estrada";
 "type.area_highway.residential" = "Rua residencial";
 "type.area_highway.secondary" = "Estrada";
 "type.area_highway.service" = "Estrada de acesso ou serviço";
 "type.area_highway.tertiary" = "Estrada";
-"type.area_highway.steps" = "Travessia";
+"type.area_highway.steps" = "Escadas";
 "type.area_highway.track" = "Estrada rústica";
 "type.area_highway.trunk" = "Via expressa";
 "type.area_highway.unclassified" = "Estrada sem classificação";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Passagem pedestre";
 "type.railway.disused" = "Ferrovia em desuso";
 "type.railway.disused.bridge" = "Ponte de Ferrovia em desuso";
+"type.railway.disused.tunnel" = "Túnel ferroviário desativado";
 "type.railway.funicular" = "Funicular";
 "type.railway.funicular.bridge" = "Funicular";
 "type.railway.funicular.tunnel" = "Funicular";

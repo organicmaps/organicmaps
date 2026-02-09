@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Te";
 "type.cuisine.thai" = "Tailandès";
 "type.cuisine.turkish" = "Turca";
+"type.cuisine.uzbek" = "Uzbeka";
 "type.cuisine.vegan" = "Vegà";
 "type.cuisine.vegetarian" = "Vegetarià";
 "type.cuisine.vietnamese" = "Vietnamita";
@@ -593,7 +594,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk_link.tunnel" = "Túnel";
 "type.highway.unclassified" = "Carretera sense classificar";
-"type.highway.unclassified.area" = "Àrea sense classificar";
+"type.highway.unclassified.area" = "Carretera sense classificar";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.unclassified.bridge" = "Pont";
@@ -604,17 +605,17 @@
 "type.area_highway.footway" = "Camí per a vianants";
 "type.area_highway.living_street" = "Carrer residencial";
 "type.area_highway.motorway" = "Autopista";
-"type.area_highway.path" = "Camí";
+"type.area_highway.path" = "Corriol";
 "type.area_highway.pedestrian" = "Carrer de vianants";
 "type.area_highway.primary" = "Carretera primària";
 "type.area_highway.residential" = "Carrer urbà";
 "type.area_highway.secondary" = "Carretera secundària";
-"type.area_highway.service" = "Carretera de servei";
+"type.area_highway.service" = "Via de servei";
 "type.area_highway.tertiary" = "Carretera terciària";
 "type.area_highway.steps" = "Escales";
-"type.area_highway.track" = "Via";
+"type.area_highway.track" = "Sender";
 "type.area_highway.trunk" = "Carretera nacional";
-"type.area_highway.unclassified" = "Àrea de carretera sense classificar";
+"type.area_highway.unclassified" = "Carretera sense classificar";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
 
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Passatge a nivell";
 "type.railway.disused" = "Ferrocarril en desús";
 "type.railway.disused.bridge" = "Pont ferroviari en desús";
+"type.railway.disused.tunnel" = "Túnel ferroviari en desús";
 "type.railway.funicular" = "Funicular";
 "type.railway.funicular.bridge" = "Pont funicular";
 "type.railway.funicular.tunnel" = "Túnel funicular";

@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Te";
 "type.cuisine.thai" = "Thailandsk";
 "type.cuisine.turkish" = "Tyrkisk";
+"type.cuisine.uzbek" = "Usbekisk";
 "type.cuisine.vegan" = "Vegansk";
 "type.cuisine.vegetarian" = "Vegetarisk";
 "type.cuisine.vietnamese" = "Vietnamesisk";
@@ -601,20 +602,20 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Tunnel";
 "type.area_highway.cycleway" = "Cykelsti";
-"type.area_highway.footway" = "Sti";
+"type.area_highway.footway" = "Gangsti";
 "type.area_highway.living_street" = "Legegade";
 "type.area_highway.motorway" = "Motorvej";
 "type.area_highway.path" = "Sti";
 "type.area_highway.pedestrian" = "Gågade";
 "type.area_highway.primary" = "Hovedvej";
 "type.area_highway.residential" = "Gade";
-"type.area_highway.secondary" = "Sekundær hovedvej";
+"type.area_highway.secondary" = "Sækunder hovedvej";
 "type.area_highway.service" = "Servicevej";
 "type.area_highway.tertiary" = "Tertiær hovedvej";
 "type.area_highway.steps" = "Trappe";
 "type.area_highway.track" = "Hjulspor";
 "type.area_highway.trunk" = "Motortrafikvej";
-"type.area_highway.unclassified" = "Mindre vej";
+"type.area_highway.unclassified" = "Vej";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
 
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Jernbaneovergang";
 "type.railway.disused" = "Ubenyttet jernbane";
 "type.railway.disused.bridge" = "Ubenyttet jernbanebro";
+"type.railway.disused.tunnel" = "Ubenyttet jernbanetunnel";
 "type.railway.funicular" = "Funicular";
 "type.railway.funicular.bridge" = "Kabelbanebro";
 "type.railway.funicular.tunnel" = "Kabelbanetunnel";

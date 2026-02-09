@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "紅茶";
 "type.cuisine.thai" = "タイ料理";
 "type.cuisine.turkish" = "トルコ料理";
+"type.cuisine.uzbek" = "ウズベク";
 "type.cuisine.vegan" = "ビーガン料理";
 "type.cuisine.vegetarian" = "ベジタリアン料理";
 "type.cuisine.vietnamese" = "ベトナム料理";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "歩行者用踏切";
 "type.railway.disused" = "休止線";
 "type.railway.disused.bridge" = "休止線(橋)";
+"type.railway.disused.tunnel" = "休止線(トンネル)";
 "type.railway.funicular" = "フニクラ";
 "type.railway.funicular.bridge" = "ケーブルカー(橋)";
 "type.railway.funicular.tunnel" = "ケーブルカー(トンネル)";

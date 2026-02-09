@@ -349,6 +349,7 @@
     <string name="type.cuisine.tea">Té</string>
     <string name="type.cuisine.thai">Tailandesa</string>
     <string name="type.cuisine.turkish">Turca</string>
+    <string name="type.cuisine.uzbek">Uzbeca</string>
     <string name="type.cuisine.vegan">Vegana</string>
     <string name="type.cuisine.vegetarian">Vegetariana</string>
     <string name="type.cuisine.vietnamese">Vietnamita</string>
@@ -529,7 +530,7 @@
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.unclassified.bridge">Ponte</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.unclassified.tunnel">Túnel de estrada sen clasificar</string>
+    <string name="type.highway.unclassified.tunnel">Túnel</string>
     <string name="type.area_highway.cycleway">Ciclovía</string>
     <string name="type.area_highway.footway">Senda</string>
     <string name="type.area_highway.living_street">Rúa de prioridade peonil</string>
@@ -545,8 +546,6 @@
     <string name="type.area_highway.track">Pista</string>
     <string name="type.area_highway.trunk">Vía troncal</string>
     <string name="type.area_highway.unclassified">Estrada sen clasificar</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Obxecto histórico</string>

@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Tee";
 "type.cuisine.thai" = "Thailändisch";
 "type.cuisine.turkish" = "Türkisch";
+"type.cuisine.uzbek" = "Usbekisch";
 "type.cuisine.vegan" = "Vegan";
 "type.cuisine.vegetarian" = "Vegetarisch";
 "type.cuisine.vietnamese" = "Vietnamesisch";
@@ -599,12 +600,12 @@
 "type.highway.unclassified.bridge" = "Brücke";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.unclassified.tunnel" = "Straßentunnel";
+"type.highway.unclassified.tunnel" = "Tunnel";
 "type.area_highway.cycleway" = "Radweg";
-"type.area_highway.footway" = "Weg";
-"type.area_highway.living_street" = "Wohnstraße";
+"type.area_highway.footway" = "Fußweg";
+"type.area_highway.living_street" = "Spielstraße";
 "type.area_highway.motorway" = "Autobahn";
-"type.area_highway.path" = "Weg";
+"type.area_highway.path" = "Pfad";
 "type.area_highway.pedestrian" = "Fußgängerzone";
 "type.area_highway.primary" = "Hauptstraße";
 "type.area_highway.residential" = "Wohnstraße";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Bahnübergang";
 "type.railway.disused" = "Stillgelegte Bahnstrecke";
 "type.railway.disused.bridge" = "Stillgelegte Eisenbahnbrücke";
+"type.railway.disused.tunnel" = "Stillgelegter Eisenbahntunnel";
 "type.railway.funicular" = "Standseilbahn";
 "type.railway.funicular.bridge" = "Standseilbahnbrücke";
 "type.railway.funicular.tunnel" = "Standseilbahntunnel";

@@ -351,6 +351,7 @@
     <string name="type.cuisine.tea">茶</string>
     <string name="type.cuisine.thai">泰國料理</string>
     <string name="type.cuisine.turkish">土耳其料理</string>
+    <string name="type.cuisine.uzbek">烏茲別克</string>
     <string name="type.cuisine.vegan">全素料理</string>
     <string name="type.cuisine.vegetarian">素食</string>
     <string name="type.cuisine.vietnamese">越南料理</string>
@@ -547,8 +548,6 @@
     <string name="type.area_highway.track">土路</string>
     <string name="type.area_highway.trunk">主幹道</string>
     <string name="type.area_highway.unclassified">道路</string>
-    <string name="type.highway.world_level">公路 - 世界等級</string>
-    <string name="type.highway.world_towns_level">公路 - 世界城鎮等級</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">歷史地點</string>

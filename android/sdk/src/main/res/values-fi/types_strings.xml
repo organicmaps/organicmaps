@@ -337,6 +337,7 @@
     <string name="type.cuisine.tea">Tee</string>
     <string name="type.cuisine.thai">Thaimaalainen keittiö</string>
     <string name="type.cuisine.turkish">Turkkilainen keittiö</string>
+    <string name="type.cuisine.uzbek">Uzbekkilainen</string>
     <string name="type.cuisine.vegan">Vegaanikeittiö</string>
     <string name="type.cuisine.vegetarian">Kasviskeittiö</string>
     <string name="type.cuisine.vietnamese">Vietnamilainen keittiö</string>
@@ -516,11 +517,11 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Tunneli</string>
     <string name="type.area_highway.cycleway">Pyörätie</string>
-    <string name="type.area_highway.footway">Kävelytie</string>
+    <string name="type.area_highway.footway">Polku</string>
     <string name="type.area_highway.living_street">Asuinkatu</string>
     <string name="type.area_highway.motorway">Moottoritie</string>
     <string name="type.area_highway.path">Polku</string>
-    <string name="type.area_highway.pedestrian">Kävelykatu</string>
+    <string name="type.area_highway.pedestrian">Jalankulkutie</string>
     <string name="type.area_highway.primary">Pääkatu</string>
     <string name="type.area_highway.residential">Katu</string>
     <string name="type.area_highway.secondary">Katu</string>

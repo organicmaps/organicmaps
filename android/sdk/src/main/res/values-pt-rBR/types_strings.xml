@@ -212,20 +212,12 @@
     <string name="type.highway.trunk_link">Saída de rodovia</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.trunk_link.tunnel">Túnel rodoviário</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.unclassified.tunnel">Túnel rodoviário</string>
-    <string name="type.area_highway.cycleway">Caminho para ciclistas</string>
-    <string name="type.area_highway.living_street">Rua residencial</string>
     <string name="type.area_highway.motorway">Rodovia</string>
-    <string name="type.area_highway.pedestrian">Caminho pedonal</string>
     <string name="type.area_highway.primary">Estrada</string>
     <string name="type.area_highway.secondary">Estrada</string>
     <string name="type.area_highway.tertiary">Estrada</string>
-    <string name="type.area_highway.steps">Travessia</string>
     <string name="type.area_highway.track">Estrada rústica</string>
     <string name="type.area_highway.trunk">Via expressa</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic.battlefield">Campo de batalha histórico</string>

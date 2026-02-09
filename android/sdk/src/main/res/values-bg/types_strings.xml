@@ -249,6 +249,7 @@
     <string name="type.cuisine.deli">Деликатеси</string>
     <string name="type.cuisine.noodles">Азиатски спагети</string>
     <string name="type.cuisine.pasta">Паста</string>
+    <string name="type.cuisine.uzbek">Узбекска</string>
     <string name="type.emergency.assembly_point">Авариен сборен пункт</string>
     <string name="type.emergency.fire_hydrant">Пожарен кран</string>
     <!-- A place where a lifeguard is on duty. -->
@@ -418,13 +419,13 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Тунел</string>
     <string name="type.area_highway.cycleway">Пътека за колела</string>
-    <string name="type.area_highway.footway">Пешеходен път</string>
+    <string name="type.area_highway.footway">Пътека</string>
     <string name="type.area_highway.motorway">Магистрала</string>
     <string name="type.area_highway.path">Път</string>
     <string name="type.area_highway.pedestrian">Пешеходна улица</string>
     <string name="type.area_highway.primary">Главен път</string>
     <string name="type.area_highway.residential">Жилищна улица</string>
-    <string name="type.area_highway.secondary">Второстепенен път</string>
+    <string name="type.area_highway.secondary">Второстепенен пър</string>
     <string name="type.area_highway.service">Обслужващ път</string>
     <string name="type.area_highway.tertiary">Третостепенен път</string>
     <string name="type.area_highway.steps">Стълби</string>

@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "چای";
 "type.cuisine.thai" = "تایلندی";
 "type.cuisine.turkish" = "ترکی";
+"type.cuisine.uzbek" = "ازبکی";
 "type.cuisine.vegan" = "گیاهخوار";
 "type.cuisine.vegetarian" = "گیاه خوار";
 "type.cuisine.vietnamese" = "ویتنامی";
@@ -600,7 +601,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "تونل";
-"type.area_highway.cycleway" = "مسیر دوچرخه";
+"type.area_highway.cycleway" = "Cycle Path";
 "type.area_highway.footway" = "مسیر";
 "type.area_highway.living_street" = "جاده";
 "type.area_highway.motorway" = "جاده";
@@ -615,7 +616,7 @@
 "type.area_highway.track" = "جاده";
 "type.area_highway.trunk" = "جاده";
 "type.area_highway.unclassified" = "جاده";
-"type.highway.world_level" = "بزرگراه جهانی";
+"type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
 
 
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "گذرگاه راه‌آهن";
 "type.railway.disused" = "راه‌آهن رها شده";
 "type.railway.disused.bridge" = "پل راه‌آهن رها شده";
+"type.railway.disused.tunnel" = "تونل راهآهن رها شده";
 "type.railway.funicular" = "فونیکولور";
 "type.railway.funicular.bridge" = "پل کابلی";
 "type.railway.funicular.tunnel" = "تونل کابلی";

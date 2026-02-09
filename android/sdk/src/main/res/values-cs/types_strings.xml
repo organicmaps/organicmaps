@@ -351,6 +351,7 @@
     <string name="type.cuisine.tea">Čaj</string>
     <string name="type.cuisine.thai">Thajská kuchyně</string>
     <string name="type.cuisine.turkish">Turecká kuchyně</string>
+    <string name="type.cuisine.uzbek">Uzbecká</string>
     <string name="type.cuisine.vegan">Veganská kuchyně</string>
     <string name="type.cuisine.vegetarian">Vegetariánská kuchyně</string>
     <string name="type.cuisine.vietnamese">Vietnamská kuchyně</string>
@@ -547,8 +548,6 @@
     <string name="type.area_highway.track">Ulice</string>
     <string name="type.area_highway.trunk">Ulice</string>
     <string name="type.area_highway.unclassified">Ulice</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historický objekt</string>

@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Te";
 "type.cuisine.thai" = "Taílenskt";
 "type.cuisine.turkish" = "Tyrkneskt";
+"type.cuisine.uzbek" = "Úsbekska";
 "type.cuisine.vegan" = "Grænkerafæði";
 "type.cuisine.vegetarian" = "Grænmetisfæði";
 "type.cuisine.vietnamese" = "Víetnamskt";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Þverun járnbrauta";
 "type.railway.disused" = "Aflögð járnbraut";
 "type.railway.disused.bridge" = "Aflögð járnbrautarbrú";
+"type.railway.disused.tunnel" = "Aflögð járnbrautargöng";
 "type.railway.funicular" = "Dráttarlest";
 "type.railway.funicular.bridge" = "Dráttarlestarbrú";
 "type.railway.funicular.tunnel" = "Dráttarlestargöng";

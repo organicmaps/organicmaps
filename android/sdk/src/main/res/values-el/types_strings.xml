@@ -351,6 +351,7 @@
     <string name="type.cuisine.tea">Τσάι</string>
     <string name="type.cuisine.thai">Ταϊλανδική</string>
     <string name="type.cuisine.turkish">Τουρκική</string>
+    <string name="type.cuisine.uzbek">Ουζμπεκική</string>
     <string name="type.cuisine.vegan">Για χορτοφάγους</string>
     <string name="type.cuisine.vegetarian">Χορτοφαγική</string>
     <string name="type.cuisine.vietnamese">Βιετναμέζικη</string>
@@ -533,7 +534,7 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Σήραγγα</string>
     <string name="type.area_highway.cycleway">Ποδηλατόδρομος</string>
-    <string name="type.area_highway.footway">Μονοπάτι πεζοπορίας</string>
+    <string name="type.area_highway.footway">Μονοπάτι πεζών</string>
     <string name="type.area_highway.living_street">Οδός ήπιας κυκλοφορίας</string>
     <string name="type.area_highway.motorway">Αυτοκινητόδρομος</string>
     <string name="type.area_highway.path">Μονοπάτι</string>
@@ -547,8 +548,6 @@
     <string name="type.area_highway.track">Αγροτικός δρόμος</string>
     <string name="type.area_highway.trunk">Κύρια οδική αρτηρία</string>
     <string name="type.area_highway.unclassified">Τοπικός δρόμος</string>
-    <string name="type.highway.world_level">highway-world_level</string>
-    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Ιστορικό αντικείμενο</string>
