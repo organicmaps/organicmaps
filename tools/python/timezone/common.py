@@ -24,8 +24,14 @@ def get_countries_meta_timezones(data: dict = None) -> Set[str]:
 
 
 def get_local_tzdb_version() -> Optional[str]:
-    tzdb_path = Path(zoneinfo.TZPATH[0])
-    version_file = tzdb_path / "+VERSION"
-    if version_file.exists():
-        return version_file.read_text().strip()
+    for tzdb_path in zoneinfo.TZPATH:
+        version_file = Path(tzdb_path) / "+VERSION"  # Mac OS
+        if version_file.exists():
+            return version_file.read_text().strip()
+        version_file = Path(tzdb_path) / "tzdata.zi"  # Ubuntu
+        if version_file.exists():
+            with open(version_file, "r") as f:
+                header = f.readline().strip();
+                if header.startswith("# version "):
+                    return header[10:]
     return None
