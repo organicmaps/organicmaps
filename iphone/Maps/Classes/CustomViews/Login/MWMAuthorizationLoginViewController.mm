@@ -28,6 +28,7 @@ using namespace osm_auth_ios;
 
 @property(weak, nonatomic) IBOutlet UILabel * changesCountLabel;
 @property(weak, nonatomic) IBOutlet UILabel * lastUpdateLabel;
+@property(weak, nonatomic) IBOutlet UITextView * descriptionTextView;
 
 @end
 
@@ -36,6 +37,43 @@ using namespace osm_auth_ios;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  [self setupDescriptionText];
+}
+
+- (void)setupDescriptionText
+{
+  NSString * text = self.descriptionTextView.text;
+
+  UIColor * textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+
+  NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+  paragraphStyle.alignment = NSTextAlignmentJustified;
+  paragraphStyle.lineSpacing = 4;
+
+  NSMutableAttributedString * attr =
+      [[NSMutableAttributedString alloc] initWithString:text
+                                             attributes:@{
+                                               NSForegroundColorAttributeName: textColor,
+                                               NSFontAttributeName: self.descriptionTextView.font,
+                                               NSParagraphStyleAttributeName: paragraphStyle
+                                             }];
+
+  NSRange linkRange = [text rangeOfString:@"OpenStreetMap.org"];
+  if (linkRange.location != NSNotFound)
+  {
+    [attr addAttribute:NSLinkAttributeName
+                 value:[NSURL URLWithString:@"https://www.openstreetmap.org"]
+                 range:linkRange];
+  }
+
+  self.descriptionTextView.attributedText = attr;
+
+  self.descriptionTextView.linkTextAttributes = @{
+    NSForegroundColorAttributeName: UIColor.systemBlueColor,
+    NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone)
+  };
+
+  self.descriptionTextView.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -140,6 +178,17 @@ using namespace osm_auth_ios;
   [alertController addAction:[UIAlertAction actionWithTitle:kCancel style:UIAlertActionStyleCancel handler:nil]];
 
   [self presentViewController:alertController animated:YES completion:nil];
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView
+    shouldInteractWithURL:(NSURL *)URL
+                  inRange:(NSRange)characterRange
+              interaction:(UITextItemInteraction)interaction
+{
+  [[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:nil];
+  return NO;
 }
 
 @end
