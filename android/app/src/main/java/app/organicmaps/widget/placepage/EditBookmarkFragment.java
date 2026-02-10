@@ -43,7 +43,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 
 public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.OnClickListener, Listener,
-        BookmarkManager.BookmarksSharingListener {
+        BookmarkManager.BookmarksSharingListener
+{
   public static final String EXTRA_CATEGORY_ID = "CategoryId";
   public static final String EXTRA_ID = "BookmarkTrackId";
   public static final String EXTRA_BOOKMARK_TYPE = "BookmarkType";
