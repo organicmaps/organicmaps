@@ -305,7 +305,7 @@
     <!-- location service disabled -->
     <string name="enable_location_services">위치 서비스를 작동시켜 주십시요.</string>
     <string name="save">저장</string>
-    <string name="create">만들기기</string>
+    <string name="create">만들기</string>
     <!-- red color -->
     <string name="red">빨간색</string>
     <!-- yellow color -->
