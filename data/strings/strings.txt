@@ -38673,7 +38673,7 @@ zh-Hant = 稍後手動更新
 
 [placepage_delete_track_button]
 comment = Delete track button on track edit screen
-tags = apple-maps
+tags = apple-maps,android-app
 en = Delete Track
 af = Skrap trajek
 ar = حذف المسار
