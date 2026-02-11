@@ -100,6 +100,16 @@
     <string name="measurement_units">Unitajiet tal-kejl</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Għażel bejn mili u kilometri</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">Ikkanċella it-Tniżżil</string>
+    <!-- Leave Review dialog - Review button -->
+    <string name="leave_a_review">Ħalli l-analiżi tiegħek</string>
+    <!-- Settings/Downloader - 3G download warning dialog confirm button -->
+    <string name="use_cellular_data">Iva</string>
+    <!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+    <string name="country_status_download_without_size">Niżżel il-mappa</string>
+    <!-- "Bookmark Lists" dialog title -->
+    <string name="bookmark_sets">Listi tal-Bookmark</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
@@ -236,6 +246,8 @@
     <string name="pref_map_auto_zoom">Iżżumja awtomatikament</string>
     <string name="placepage_distance">Distanza</string>
     <string name="search_show_on_map">Uri fuq il-mappa</string>
+    <!-- Menu button -->
+    <string name="menu">Menu</string>
     <!-- Text in menu -->
     <string name="website">Websajt</string>
     <!-- Text in About menu, opens Organic Maps news website -->
@@ -290,6 +302,8 @@
     <string name="downloader_delete_map">Ħassar il-Mappa</string>
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Aġġorna l-Mappa</string>
+    <!-- Preference title -->
+    <string name="google_play_services">Google Play Location Services</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Iddetermina malajr il-post approssimattiv tiegħek billi tuża Bluetooth, WiFi, jew netwerk mobbli</string>
     <!-- Text for routing error dialog -->
@@ -334,10 +348,41 @@
     <string name="gray">Griż</string>
     <!-- blue gray color -->
     <string name="blue_gray">Blu Griż</string>
+    <!-- place preview title -->
+    <string name="info">Informazzjoni</string>
+    <!-- Prints version number in About dialog -->
+    <string name="version">Verżjoni ta\' Organic Maps: %s</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Dehra</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Light</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Dark</string>
+    <!-- Title for "Other" section in TTS settings. -->
+    <string name="pref_tts_other_section_title">Oħrajn</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Agħti mapep b\'xejn u bla reklami lil miljuni ta\' utenti!</string>
+    <!-- Button in the About screen -->
+    <string name="report_incorrect_map_bug">Irrapporta jew sewwi informazzjoni żbaljata tal-mappa</string>
+    <!-- Button in the About screen -->
+    <string name="volunteer">Voluntier</string>
+    <!-- "Social media" section header in the About screen -->
+    <string name="follow_us">Segwi u kkuntattjana:</string>
+    <!-- Alert text -->
+    <string name="email_error_body">Il-klijent tal-posta elettronika ma ġiex ikkonfigurat. Jekk jogħġbok ikkonfiguraha jew ikkuntattjana fuq %s</string>
+    <!-- Alert title -->
+    <string name="email_error_title">Żball meta bgħatt e-mejl</string>
+    <!-- Settings item title -->
+    <string name="pref_calibration_title">Kalibrazzjoni tal-boxxla</string>
+    <!-- Downloaded maps category -->
+    <string name="downloader_available_maps">Disponibbli</string>
+    <string name="downloader_search_results">Misjuba</string>
+    <!-- Status of outdated country in the list -->
+    <string name="downloader_status_outdated">Aġġorna</string>
+    <!-- Status of failed country in the list -->
+    <string name="downloader_status_failed">Falla</string>
+    <!-- bookmark button text -->
+    <string name="bookmark">bookmark</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Meta ssegwi r-rotta, jekk jogħġbok żomm f’ moħħok:</string>
@@ -368,6 +413,8 @@
     <string name="not_now">Mhux issa</string>
     <string name="dialog_routing_download_and_build_cross_route">Tixtieq tniżżel il-mappa u toħloq rotta aktar ottimali li tkopri aktar minn mappa waħda?</string>
     <string name="dialog_routing_download_cross_route">Niżżel mapep addizzjonali biex toħloq rotta aħjar li taqsam il-konfini ta ’din il-mappa.</string>
+    <string name="dialog_routing_download_files">Niżżel il-fajls meħtieġa</string>
+    <string name="dialog_routing_download_and_update_all">Niżżel jew aġġorna l-mapep kollha tul il-mogħdija projettata biex tikkalkula rotta.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Biex tibda tfittex u toħloq rotot, jekk jogħġbok niżżel il-mappa. Wara dan ma jkollokx bżonn aktar konnessjoni mal-Internet.</string>
@@ -438,6 +485,7 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Mhux imdaħħal</string>
     <string name="login_osm">Illoggja f’ OpenStreetMap</string>
+    <string name="password">Password</string>
     <string name="forgot_password">Insejt il-password tiegħek?</string>
     <string name="logout">Oħroġ</string>
     <string name="edit_place">Editja l-Post</string>
@@ -515,6 +563,13 @@
     <string name="downloader_no_downloaded_maps_title">Ma niżżilt l-ebda mapep</string>
     <string name="downloader_no_downloaded_maps_message">Niżżel mapep biex tfittex u tinnaviga mingħajr l-użu tal-Internet.</string>
     <string name="current_location_unknown_error_title">Il-post attwali mhux magħruf.</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/h</string>
+    <string name="miles_per_hour">mph</string>
+    <string name="hour">h</string>
+    <string name="minute">min</string>
+    <string name="day">d</string>
+    <string name="second">s</string>
     <string name="placepage_more_button">Aktar</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="placepage_edit_bookmark_button">Editja l-Bookmark</string>
@@ -537,6 +592,8 @@
     <string name="error_enter_correct_vk_page">Daħħal isem l-utent jew indirizz tal-web validu ta\' VK</string>
     <string name="error_enter_correct_line_page">Daħħal ID tal-LINJA jew indirizz tal-web validu</string>
     <string name="placepage_add_place_button">Żid post f’ OpenStreetMap</string>
+    <string name="osm_note_hint">Or, alternatively, leave a note to OpenStreetMap community so that someone else can add or fix a place here.</string>
+    <string name="osm_note_toast">Note will be sent to OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Tixtieq tibgħatha lill-utenti kollha?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -579,6 +636,7 @@
     <string name="button_plan">Pjan</string>
     <string name="placepage_remove_stop">Neħħi l-Waqfa</string>
     <string name="placepage_add_stop">Żid Waqfa</string>
+    <string name="saved">Saved</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Illoggja f’ OpenStreetMap biex awtomatikament ittella’ l-editjar kollu tal-mappa tiegħek. Tgħallem aktar <a href="https://github.com/organicmaps/organicmaps/issues/6144">hawn</a>.</string>
     <string name="dialog_error_storage_title">Problema tal-aċċess għall-ħażna</string>
@@ -630,6 +688,11 @@
     <string name="privacy_policy">Politika dwar il-privatezza</string>
     <string name="terms_of_use">Termini tal-użu</string>
     <string name="button_layer_traffic">Traffiku</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Hiking</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Cycling</string>
+    <string name="button_layer_subway">Subway</string>
     <string name="layers_title">Stili u Saffi tal-Mapep</string>
     <string name="bookmarks_empty_list_title">Din il-lista hija vojta</string>
     <string name="bookmarks_empty_list_message">Biex iżżid bookmark, għafas post fuq il-mappa u mbagħad għafas is-simbolu tal-istilla</string>
@@ -656,6 +719,11 @@
     <string name="power_managment_setting_never">Qatt</string>
     <string name="power_managment_setting_auto">Meta l-batterija tkun baxxa</string>
     <string name="power_managment_setting_manual_max">Dejjem</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Bookmark names on the map</string>
+    <string name="bookmarks_text_placement_description">If there are too many bookmarks, displaying their names on the map may slow down the app.</string>
+    <string name="show_to_the_right">Show to the right</string>
+    <string name="show_at_the_bottom">Show at the bottom</string>
     <string name="enable_logging_warning_message">Attiva din l-għażla biex tirrekordja u tibgħat manwalment dijanjostiċi dettaljati dwar il-kwistjoni tiegħek lilna billi tuża “Irrapporta problemi” fid-djalogu għajnuna. Ir-reġistri jistgħu jinkludu informazzjoni dwar il-post.</string>
     <string name="driving_options_title">Għażliet tar-rotta</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -685,6 +753,7 @@
     <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="network">Netwerk: %s</string>
     <string name="trip_finished">Wasalt!</string>
+    <string name="ok">OK</string>
     <!-- max. 10 symbols, both iOS and Android -->
     <string name="sort">Issortja…</string>
     <!-- Android, title, max 20-22 symbols -->
@@ -705,11 +774,126 @@
     <string name="moreyear_ago_sorttype">Aktar minn sena ilu</string>
     <string name="near_me_sorttype">Ħdejja</string>
     <string name="others_sorttype">Oħrajn</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">L-Ippjanar tar-rotta ma rnexxiex</string>
+    <!-- Arrive routing message in navigation view -->
+    <string name="routing_arrive">Wasla fil-%s</string>
+    <!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+    <string name="dialog_routing_download_and_update_maps">Niżżel u aġġorna l-mappa kollha tul il-mogħdija proġettata biex tikkalkula r-rotta.</string>
+    <string name="editor_done_dialog_1">Biddilt il-mappa tad-dinja! Iżżommhiex għalik innifsek; għid lil sħabek u editjawha flimkien.</string>
+    <string name="share_with_friends">Ixxerja mal-ħbieb</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Magħluq issa</string>
+    <string name="opens_tomorrow_at">Jiftaħ għada fil-%s</string>
+    <string name="opens_dayoftheweek_at">Jiftaħ %1$s fl-%2$s</string>
+    <string name="opens_at">Jiftaħ f \' %s</string>
+    <string name="closes_at">Jagħlaq f ’ %s</string>
+    <string name="add_opening_hours">Add opening hours</string>
+    <string name="password_8_chars_min">Password (8 characters minimum)</string>
+    <string name="invalid_username_or_password">Invalid username or password.</string>
+    <string name="osm_account">OSM Account</string>
+    <!-- Information text: "Last upload 11.01.2016" -->
+    <string name="last_upload">Last upload</string>
+    <string name="thank_you">Thank You</string>
+    <string name="place_name">Place Name</string>
+    <string name="phone">Phone</string>
+    <string name="please_note">Please note</string>
+    <string name="migration_download_error_dialog">Download error</string>
+    <string name="editor_add_select_category">Select category</string>
+    <string name="editor_add_select_category_popular_subtitle">Popular</string>
+    <string name="editor_add_select_category_all_subtitle">All Categories</string>
+    <string name="whatsnew_editor_message_1">Add new places to the map, and edit existing ones directly from the app.</string>
+    <string name="dialog_incorrect_feature_position">Change location</string>
+    <!-- Error dialog no space -->
+    <string name="migration_no_space_message">To download, you need more space. Please delete any unnecessary data.</string>
+    <string name="editor_sharing_title">I improved the Organic Maps maps</string>
+    <string name="editor_detailed_description_hint">Detailed comment</string>
+    <string name="editor_detailed_description">Your suggested map changes will be sent to the OpenStreetMap community. Please describe any additional details that cannot be edited in Organic Maps.</string>
+    <string name="current_location_unknown_error_message">An error occurred while determining your location. Check that your device is working properly and try again later.</string>
+    <string name="location_services_disabled_header">Location services are disabled</string>
+    <string name="location_services_disabled_message">Enable access to geolocation in the device settings</string>
+    <string name="location_services_disabled_1">1. Open Settings</string>
+    <string name="location_services_disabled_2">2. Tap Location</string>
+    <!-- iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) -->
+    <string name="location_services_disabled_3">3. Select While Using the App</string>
+    <string name="location_services_disabled_on_device_2">2. Select Privacy</string>
+    <string name="location_services_disabled_on_device_3">3. Select Location Services</string>
+    <string name="location_services_disabled_on_device_4">4. Turn on Location Services</string>
+    <string name="location_services_disabled_on_device_additional_message">Or continue using Organic Maps without Location</string>
+    <string name="book_button">Book</string>
+    <string name="placepage_call_button">Call</string>
+    <string name="placepage_bookmark_name_hint">Bookmark Name</string>
+    <string name="placepage_delete_bookmark_button">Delete Bookmark</string>
+    <string name="editor_edits_sent_message">Your note will be sent to OpenStreetMap</string>
+    <string name="text_more_button">…more</string>
+    <string name="refresh">Update</string>
+    <!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+    <string name="recent_track_background_dialog_title">Disable recording of your recently travelled route?</string>
+    <string name="off_recent_track_background_button">Disable</string>
+    <!-- For sharing via SMS and so on -->
+    <string name="sharing_call_action_look">Check out</string>
+    <string name="recent_track_background_dialog_message">Organic Maps uses your location in the background to record your recently travelled route.</string>
+    <string name="general_settings">General settings</string>
+    <!-- "traffic" as in road congestion -->
+    <string name="traffic_update_app_message">To display traffic data, the application must be updated.</string>
+    <string name="log_file_size">Log file size: %s</string>
+    <string name="planning_route_remove_title">Drag here to remove</string>
+    <string name="placepage_replace_stop">Replace Stop</string>
+    <string name="start_from_my_position">Start from</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part -->
+    <string name="alert_reauth_message_ios">Please login to OpenStreetMap to automatically upload all your map edits. Learn more</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part -->
+    <string name="alert_reauth_link_text_ios">here</string>
+    <string name="downloader_hide_screen">Hide Screen</string>
+    <string name="downloader_percent">%1$s (%2$s of %3$s)</string>
+    <string name="downloader_process">Downloading %s…</string>
+    <string name="downloader_applying">Applying %s…</string>
+    <string name="bookmarks_error_title_list_name_too_long">This name is too long</string>
+    <string name="bookmarks_detect_title">New files detected</string>
+    <string name="button_convert">Convert</string>
+    <string name="bookmarks_convert_error_title">Error</string>
+    <string name="bookmarks_convert_error_message">Some files were not converted.</string>
+    <string name="title_error_downloading_bookmarks">An error occurred</string>
+    <string name="popular_place">Popular</string>
+    <string name="hide_from_map">Hide from map</string>
+    <string name="tags_loading_error_subtitle">An error occurred while loading tags, please try again</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (on the right) -->
+    <string name="right">Right</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (at the bottom) -->
+    <string name="bottom">Bottom</string>
+    <string name="trip_start">Let\'s go</string>
+    <string name="pick_destination">Destination</string>
+    <string name="follow_my_position">Re-center</string>
+    <string name="search_results">Search results</string>
+    <string name="then_turn">Then</string>
+    <string name="redirect_route_alert">Do you want to rebuild the route?</string>
+    <string name="keyboard_availability_alert">Keyboard is not available while driving</string>
+    <string name="dialog_routing_change_start_carplay">Unable to build a route from your current location</string>
+    <string name="dialog_routing_change_end_carplay">Unable to find a route to your destination. Please choose another end point</string>
+    <string name="dialog_routing_check_gps_carplay">No GPS signal. Please move to an open area</string>
+    <string name="dialog_routing_unable_locate_route_carplay">Unable to build a route. Please specify other route points</string>
+    <string name="dialog_routing_download_files_carplay">To create a route, download missing maps on your device</string>
+    <string name="dialog_routing_system_error_carplay">An error occurred. Please restart the application</string>
+    <string name="dialog_routing_rebuild_from_current_location_carplay">The route will be rebuilt from your current location</string>
+    <string name="dialog_routing_rebuild_for_vehicle_carplay">The route will be converted into an automobile one</string>
+    <string name="not_all_shown_bookmarks_carplay">Not all bookmarks are shown</string>
+    <string name="switch_to_phone_bookmarks_carplay">Switch to the phone to see all bookmarks</string>
+    <string name="speedcams_alert_title_carplay_1">Speedсams</string>
+    <string name="speedcams_alert_title_carplay_2">Speed warnings</string>
+    <string name="download_map_carplay">Please download maps in the app on your mobile device</string>
+    <string name="carplay_roundabout_exit">%s exit</string>
+    <!-- iOS -->
+    <string name="sort_default">Sort by default</string>
+    <string name="sort_type">Sort by type</string>
+    <string name="sort_distance">Sort by distance</string>
+    <string name="sort_date">Sort by date</string>
+    <string name="sort_name">Sort by name</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Ikel</string>
     <string name="tourist_places">Siti</string>
     <string name="museums">Mużewijiet</string>
+    <string name="parks">Parks</string>
     <string name="swim_places">Għawm</string>
     <string name="mountains">Muntanji</string>
     <string name="animals">Annimali</string>
@@ -758,6 +942,18 @@
     <string name="change_map_locale">Lingwa tal-mappa</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Informazzjoni tal-mappa minn OpenStreetMap</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <!-- Link to OSM wiki for Editor, Profile and About pages -->
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Grazzi talli użajtu l-mapep tagħna mibnija mill-komunita’!</string>
     <!-- App tip #01 -->
@@ -807,6 +1003,7 @@
     <string name="pref_tts_open_system_settings">Settings tas-sistema tas-sinteżi tad-diskors</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Is-settings tas-Sinteżi tad-diskors ma nstabux, żgur li t-tagħmir tiegħek jappoġġjah?</string>
+    <string name="drive_through">Drive-through</string>
     <string name="clear_the_search">Neħħi t-tiftixa</string>
     <string name="zoom_in">Iżżumja ’l ġewwa</string>
     <!-- Accessibility text for the zoom-out button on the map -->
@@ -817,6 +1014,8 @@
     <string name="view_menu">Ara l-Menu</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Iftaħ f’ Applikazzjoni Oħra</string>
+    <!-- To indicate if the place proposed self service… -->
+    <string name="self_service">Self-service</string>
     <string name="select_option">Agħżel l-għażla</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
     <string name="outdoor_seating">Sedili barra</string>
@@ -824,6 +1023,10 @@
     <string name="power_save_dialog_summary">Għan-navigazzjoni l-aktar preċiża, nirrakkomandaw li titfi l-mod tal-iffrankar tal-enerġija fl-issettjar tal-batterija tal-mowbajl.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Rekord Track</string>
+    <!-- Prompt for stopping a track recording. -->
+    <string name="stop_track_recording">Stop Track Recording</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Track Recording</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Waqqaf Mingħajr ma\' Tissejvja</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
@@ -841,8 +1044,127 @@
     <string name="nav_auto">Auto fin-navigazzjoni</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Segwi s-sistema</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Share Track</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Delete %s?</string>
+    <string name="elevation_profile_diff_level">Difficulty level</string>
+    <string name="elevation_profile_diff_level_easy">Easy</string>
+    <string name="elevation_profile_diff_level_moderate">Moderate</string>
+    <string name="elevation_profile_diff_level_hard">Hard</string>
+    <string name="downloader_updating_ios">Updating</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_title">Update downloaded maps</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_message">Updating maps keeps the information about objects up to date</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_size">Update (%s)</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_later">Manually update later</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Delete Track</string>
+    <!-- The track deletion confirmaion alert message. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Are you sure you want to delete this track?</string>
+    <!-- Placeholder for track name input on track edit screen -->
+    <string name="placepage_track_name_hint">Track Name</string>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Move</string>
+    <!-- edit track screen title -->
+    <string name="track_title">Track</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Change Color</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Hide track</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Show track</string>
+    <!-- Main screen title "Map" displayed in the navigation back button's menu. -->
+    <string name="map">Map</string>
+    <!-- Message for the bug report alert. -->
+    <string name="bugreport_alert_message">Would you like to send a bug report to the developers?\nWe rely on our users as Organic Maps doesn\'t collect any error information automatically. Thank you in advance for supporting Organic Maps!</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_title">Enable iCloud Syncronization</string>
+    <!-- Message for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_message">iCloud synchronization is an experimental feature under development. Make sure that you have made a backup of all your bookmarks and tracks.</string>
+    <!-- Title for the "iCloud Is Disabled" alert. -->
+    <string name="icloud_disabled_title">iCloud Is Disabled</string>
+    <!-- Message for the "iCloud is Disabled" alert. -->
+    <string name="icloud_disabled_message">Please enable iCloud in your device\'s settings to use this feature.</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button. -->
+    <string name="enable">Enable</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Backup" action button. -->
+    <string name="backup">Backup</string>
+    <!-- Title for the "iCloud synchronization failure" alert. -->
+    <string name="icloud_synchronization_error_alert_title">iCloud synchronization failure</string>
+    <!-- iCloud error message: Failed to synchronize due to connection error -->
+    <string name="icloud_synchronization_error_connection_error">Error: Failed to synchronize due to connection error</string>
+    <!-- iCloud error message: Failed to synchronize due to iCloud quota exceeded -->
+    <string name="icloud_synchronization_error_quota_exceeded">Error: Failed to synchronize due to iCloud quota exceeded</string>
+    <!-- iCloud error message: iCloud is not available -->
+    <string name="icloud_synchronization_error_cloud_is_unavailable">Error: iCloud is not available</string>
+    <!-- Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. -->
+    <string name="bookmarks_recently_deleted">Recently Deleted Lists</string>
+    <!-- Title for the "Clear" button on the Recently Deleted Lists screen. -->
+    <string name="clear">Clear</string>
+    <!-- Title for the "Delete All" button on the Recently Deleted Lists screen. -->
+    <string name="delete_all">Delete All</string>
+    <!-- Title for the "Recover" button on the Recently Deleted Lists screen. -->
+    <string name="recover">Recover</string>
+    <!-- Title for the "Recover All" button on the Recently Deleted Lists screen. -->
+    <string name="recover_all">Recover All</string>
+    <!-- OpenStreetMap contribution section on the PlacePage. -->
+    <string name="contribute_to_osm">Ikontribwixxi għal OpenStreetMap</string>
+    <string name="contribute_to_osm_add_place">Żid Post</string>
+    <string name="contribute_to_osm_update_map">Aġġorna l-mappa biex tikkontribwixxi</string>
+    <string name="contribute_to_osm_update_map_description">Trid taġġorna l-mappa %s għall-aħħar verżjoni qabel ma tkun tista\' tikkontribwixxi għad-data ta\' OpenStreetMap</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Il-Pożizzjoni Kurrenti</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Il-Postijiet Tiegħi</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Ħażna internali privata</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Ħażna internali maqsuma</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">Karta SD</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Ħażna esterna maqsuma</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Kodiċi Postali</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Il-Punt tal-Mappa</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">ft</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">To display routes, maps must be updated.</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Oħroġ</string>
+    <string name="core_entrance">Daħla</string>
+    <string name="subway_data_unavailable">Il-mappa tas-subway mhix disponibbli</string>
+    <string name="you">You</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Reġjuni mniżżla vjola</string>
+
+    <!-- SECTION: 3d touch strings -->
+    <!-- Used in home screen quick actions. -->
+    <string name="route">Rotta</string>
 
     <!-- SECTION: gps strings -->
+    <!-- Needed to explain why we always require access to GPS coordinates, and not only when the app is active. -->
+    <string name="NSLocationAlwaysUsageDescription">Id-detezzjoni tal-post fl-isfond hija meħtieġa biex wieħed igawdi bis-sħiħ il-funzjonalitajiet tal-applikazzjoni. Jintuża għan-navigazzjoni u l-issejvjar tal-korsija tiegħek ivvjaġġat riċentement.</string>
+    <!-- Needed to explain why we require access to GPS coordinates when the app is active. -->
+    <string name="NSLocationWhenInUseUsageDescription">Id-determinazzjoni tal-post tiegħek hija meħtieġa għan-navigazzjoni u biex tissejvja l-korsija tiegħek li vvjaġġajt dan l-aħħar.</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Login bil-password</string>
     <!-- Login to OSM button text -->

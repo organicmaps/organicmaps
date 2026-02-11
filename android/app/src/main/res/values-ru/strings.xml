@@ -100,6 +100,16 @@
     <string name="measurement_units">Единицы измерения</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Использовать километры или мили</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">Отменить загрузку</string>
+    <!-- Leave Review dialog - Review button -->
+    <string name="leave_a_review">Написать отзыв</string>
+    <!-- Settings/Downloader - 3G download warning dialog confirm button -->
+    <string name="use_cellular_data">Да</string>
+    <!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+    <string name="country_status_download_without_size">Загрузить карту</string>
+    <!-- "Bookmark Lists" dialog title -->
+    <string name="bookmark_sets">Списки меток</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
@@ -338,14 +348,41 @@
     <string name="gray">Серый</string>
     <!-- blue gray color -->
     <string name="blue_gray">Серо-голубой</string>
+    <!-- place preview title -->
+    <string name="info">Информация</string>
+    <!-- Prints version number in About dialog -->
+    <string name="version">Версия Organic Maps: %s</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Оформление</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_light">Светлое</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Темное</string>
+    <!-- Title for "Other" section in TTS settings. -->
+    <string name="pref_tts_other_section_title">Другой</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Подарите миллионам пользователей бесплатные карты без рекламы!</string>
+    <!-- Button in the About screen -->
+    <string name="report_incorrect_map_bug">Сообщить или исправить неправильные данные на карте</string>
+    <!-- Button in the About screen -->
+    <string name="volunteer">Cтать волонтёром</string>
+    <!-- "Social media" section header in the About screen -->
+    <string name="follow_us">Подписывайтесь и пишите нам:</string>
+    <!-- Alert text -->
+    <string name="email_error_body">Почтовый клиент не настроен. Настройте его или используйте другие способы для связи. Наш адрес - %s</string>
+    <!-- Alert title -->
+    <string name="email_error_title">Ошибка при отправлении письма</string>
+    <!-- Settings item title -->
+    <string name="pref_calibration_title">Калибровка компаса</string>
+    <!-- Downloaded maps category -->
+    <string name="downloader_available_maps">Доступные</string>
+    <string name="downloader_search_results">Найдено</string>
+    <!-- Status of outdated country in the list -->
+    <string name="downloader_status_outdated">Обновить</string>
+    <!-- Status of failed country in the list -->
+    <string name="downloader_status_failed">Ошибка</string>
+    <!-- bookmark button text -->
+    <string name="bookmark">метка</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">При движении по маршруту помните:</string>
@@ -376,6 +413,8 @@
     <string name="not_now">Не сейчас</string>
     <string name="dialog_routing_download_and_build_cross_route">Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?</string>
     <string name="dialog_routing_download_cross_route">Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.</string>
+    <string name="dialog_routing_download_files">Загрузите необходимые файлы</string>
+    <string name="dialog_routing_download_and_update_all">Для построения маршрута загрузите и обновите все карты и файлы маршрутов по пути следования.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.</string>
@@ -733,6 +772,120 @@
     <string name="moreyear_ago_sorttype">Больше года назад</string>
     <string name="near_me_sorttype">Рядом со мной</string>
     <string name="others_sorttype">Другие</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Ошибка построения маршрута</string>
+    <!-- Arrive routing message in navigation view -->
+    <string name="routing_arrive">Прибытие в %s</string>
+    <!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+    <string name="dialog_routing_download_and_update_maps">Для построения маршрута загрузите и обновите все карты по пути следования.</string>
+    <string name="editor_done_dialog_1">Вы изменили карту мира. Не скрывайте это, расскажите друзьям и редактируйте вместе.</string>
+    <string name="share_with_friends">Поделиться с друзьями</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Сейчас закрыто</string>
+    <string name="opens_tomorrow_at">Откроется завтра в %s</string>
+    <string name="opens_dayoftheweek_at">Открывается в %1$s в %2$s</string>
+    <string name="opens_at">Открывается в %s</string>
+    <string name="closes_at">Закрывается в %s</string>
+    <string name="add_opening_hours">Добавить время работы</string>
+    <string name="password_8_chars_min">Пароль (минимум 8 символов)</string>
+    <string name="invalid_username_or_password">Неверное имя пользователя или пароль.</string>
+    <string name="osm_account">OSM Аккаунт</string>
+    <!-- Information text: "Last upload 11.01.2016" -->
+    <string name="last_upload">Последняя отправка</string>
+    <string name="thank_you">Спасибо</string>
+    <string name="place_name">Название</string>
+    <string name="phone">Телефон</string>
+    <string name="please_note">Обратите внимание</string>
+    <string name="migration_download_error_dialog">Ошибка загрузки</string>
+    <string name="editor_add_select_category">Выбрать категорию</string>
+    <string name="editor_add_select_category_popular_subtitle">Популярные</string>
+    <string name="editor_add_select_category_all_subtitle">Все категории</string>
+    <string name="whatsnew_editor_message_1">Добавляйте новые объекты и редактируйте старые прямо из приложения.</string>
+    <string name="dialog_incorrect_feature_position">Измените местоположение</string>
+    <!-- Error dialog no space -->
+    <string name="migration_no_space_message">Для загрузки требуется больше свободного места. Пожалуйста, удалите ненужные данные.</string>
+    <string name="editor_sharing_title">Я улучшил карты Organic Maps</string>
+    <string name="editor_detailed_description_hint">Подробный комментарий</string>
+    <string name="editor_detailed_description">Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые Organic Maps не позволяет отредактировать.</string>
+    <string name="current_location_unknown_error_message">При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.</string>
+    <string name="location_services_disabled_header">Определение местоположения отключено</string>
+    <string name="location_services_disabled_message">Разрешите доступ к геопозиции в настройках устройства</string>
+    <string name="location_services_disabled_1">1. Откройте Настройки</string>
+    <string name="location_services_disabled_2">2. Нажмите Геопозиция</string>
+    <!-- iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) -->
+    <string name="location_services_disabled_3">3. Выберите «При использовании программы»</string>
+    <string name="location_services_disabled_on_device_2">2. Выберите Конфидециальность</string>
+    <string name="location_services_disabled_on_device_3">3. Выберите Службы геолокации</string>
+    <string name="location_services_disabled_on_device_4">4. Включите Службы геолокации</string>
+    <string name="location_services_disabled_on_device_additional_message">Или продолжите использование Organic Maps без определения местоположения</string>
+    <string name="book_button">Забронировать</string>
+    <string name="placepage_call_button">Позвонить</string>
+    <string name="placepage_bookmark_name_hint">Название метки</string>
+    <string name="placepage_delete_bookmark_button">Удалить метку</string>
+    <string name="editor_edits_sent_message">Ваша заметка будет отправлена в OpenStreetMap</string>
+    <string name="text_more_button">…ещё</string>
+    <string name="refresh">Обновить</string>
+    <!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+    <string name="recent_track_background_dialog_title">Выключить запись недавно пройденого пути?</string>
+    <string name="off_recent_track_background_button">Выключить</string>
+    <!-- For sharing via SMS and so on -->
+    <string name="sharing_call_action_look">Посмотри</string>
+    <string name="recent_track_background_dialog_message">Organic Maps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.</string>
+    <string name="general_settings">Общие настройки</string>
+    <!-- "traffic" as in road congestion -->
+    <string name="traffic_update_app_message">Для отображения пробок необходимо обновить приложение.</string>
+    <string name="log_file_size">Размер файла логов: %s</string>
+    <string name="planning_route_remove_title">Перетяните сюда, чтобы удалить</string>
+    <string name="placepage_replace_stop">Заменить остановку</string>
+    <string name="start_from_my_position">Начать от</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part -->
+    <string name="alert_reauth_message_ios">Пожалуйста войдите в аккаунт OpenStreetMap.org, чтобы публиковать ваши изменения карты. Подробности по</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part -->
+    <string name="alert_reauth_link_text_ios">ссылке</string>
+    <string name="downloader_hide_screen">Скрыть</string>
+    <string name="downloader_percent">%1$s (%2$s из %3$s)</string>
+    <string name="downloader_process">Загрузка %s…</string>
+    <string name="downloader_applying">Применение %s…</string>
+    <string name="bookmarks_error_title_list_name_too_long">Слишком длинное название</string>
+    <string name="bookmarks_detect_title">Обнаружены новые файлы</string>
+    <string name="button_convert">Конвертировать</string>
+    <string name="bookmarks_convert_error_title">Ошибка</string>
+    <string name="bookmarks_convert_error_message">Некоторые файлы не конвертировались.</string>
+    <string name="title_error_downloading_bookmarks">Произошла ошибка</string>
+    <string name="popular_place">Популярно</string>
+    <string name="hide_from_map">Скрыть с карты</string>
+    <string name="tags_loading_error_subtitle">Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте ещё раз</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (on the right) -->
+    <string name="right">Справа</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (at the bottom) -->
+    <string name="bottom">Снизу</string>
+    <string name="trip_start">Поехали</string>
+    <string name="pick_destination">Цель</string>
+    <string name="follow_my_position">Отцентровать</string>
+    <string name="search_results">Результаты поиска</string>
+    <string name="then_turn">Затем</string>
+    <string name="redirect_route_alert">Хотите перестроить маршрут?</string>
+    <string name="keyboard_availability_alert">Клавиатура недоступна во время движения</string>
+    <string name="dialog_routing_change_start_carplay">Невозможно построить маршрут от текущего местоположения</string>
+    <string name="dialog_routing_change_end_carplay">Невозможно построить маршрут до конечной точки. Выберите другую</string>
+    <string name="dialog_routing_check_gps_carplay">Нет сигнала GPS. Проследуйте на открытую местность</string>
+    <string name="dialog_routing_unable_locate_route_carplay">Невозможно построить маршрут. Выберите другие точки маршрута</string>
+    <string name="dialog_routing_download_files_carplay">Чтобы построить маршрут, загрузите недостающие карты на своём устройстве</string>
+    <string name="dialog_routing_system_error_carplay">Произошла ошибка. Перезапустите приложение</string>
+    <string name="dialog_routing_rebuild_from_current_location_carplay">Маршрут будет перестроен от вашего текущего местоположения</string>
+    <string name="dialog_routing_rebuild_for_vehicle_carplay">Маршрут будет изменён на автомобильный</string>
+    <string name="not_all_shown_bookmarks_carplay">Отображаются не все метки</string>
+    <string name="switch_to_phone_bookmarks_carplay">Переключитесь на телефон, чтобы увидеть все метки</string>
+    <string name="speedcams_alert_title_carplay_1">Камеры</string>
+    <string name="speedcams_alert_title_carplay_2">Инфо о камерах</string>
+    <string name="download_map_carplay">Скачайте карты в приложении Organic Maps на своём устройстве</string>
+    <string name="carplay_roundabout_exit">%s съезд</string>
+    <!-- iOS -->
+    <string name="sort_default">Сортировать по умолчанию</string>
+    <string name="sort_type">Сортировать по типу</string>
+    <string name="sort_distance">Сортировать по расстоянию</string>
+    <string name="sort_date">Сортировать по дате</string>
+    <string name="sort_name">Сортировать по имени</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Еда</string>
@@ -893,8 +1046,123 @@
     <string name="share_track">Поделиться треком</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Удалить %s?</string>
+    <string name="elevation_profile_diff_level">Уровень сложности</string>
+    <string name="elevation_profile_diff_level_easy">Лёгкий</string>
+    <string name="elevation_profile_diff_level_moderate">Умеренный</string>
+    <string name="elevation_profile_diff_level_hard">Сложный</string>
+    <string name="downloader_updating_ios">Обновление</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_title">Обновите ваши загруженные карты</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_message">Обновление карт поддерживает информацию об объектах в актуальном состоянии</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_size">Обновить (%s)</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_later">Обновить вручную позже</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Удалить трек</string>
+    <!-- The track deletion confirmaion alert message. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Вы уверены, что хотите удалить этот трек?</string>
+    <!-- Placeholder for track name input on track edit screen -->
+    <string name="placepage_track_name_hint">Название трека</string>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Переместить</string>
+    <!-- edit track screen title -->
+    <string name="track_title">Трек</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Изменить цвет</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Скрыть трек</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Показать трек</string>
+    <!-- Main screen title "Map" displayed in the navigation back button's menu. -->
+    <string name="map">Карта</string>
+    <!-- Message for the bug report alert. -->
+    <string name="bugreport_alert_message">Хотите отправить разработчикам сообщение об ошибке?\nМы полагаемся на наших пользователей, так как Organic Maps не собирает информацию об ошибках автоматически. Заранее спасибо за поддержку Organic Maps!</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_title">Включить синхронизацию с iCloud</string>
+    <!-- Message for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_message">Синхронизация с iCloud - это экспериментальная функция, которая находится в стадии разработки. Убедитесь, что вы сделали резервную копию всех своих меток и треков.</string>
+    <!-- Title for the "iCloud Is Disabled" alert. -->
+    <string name="icloud_disabled_title">iCloud отключен</string>
+    <!-- Message for the "iCloud is Disabled" alert. -->
+    <string name="icloud_disabled_message">Чтобы воспользоваться этой функцией, включите iCloud в настройках своего устройства.</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button. -->
+    <string name="enable">Включить</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Backup" action button. -->
+    <string name="backup">Резервная копия</string>
+    <!-- Title for the "iCloud synchronization failure" alert. -->
+    <string name="icloud_synchronization_error_alert_title">Сбой синхронизации iCloud</string>
+    <!-- iCloud error message: Failed to synchronize due to connection error -->
+    <string name="icloud_synchronization_error_connection_error">Ошибка: Не удалось выполнить синхронизацию из-за ошибки подключения</string>
+    <!-- iCloud error message: Failed to synchronize due to iCloud quota exceeded -->
+    <string name="icloud_synchronization_error_quota_exceeded">Ошибка: Не удалось выполнить синхронизацию из-за превышения квоты iCloud</string>
+    <!-- iCloud error message: iCloud is not available -->
+    <string name="icloud_synchronization_error_cloud_is_unavailable">Ошибка: iCloud недоступен</string>
+    <!-- Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. -->
+    <string name="bookmarks_recently_deleted">Недавно удаленные списки</string>
+    <!-- Title for the "Clear" button on the Recently Deleted Lists screen. -->
+    <string name="clear">Очистить</string>
+    <!-- Title for the "Delete All" button on the Recently Deleted Lists screen. -->
+    <string name="delete_all">Удалить всё</string>
+    <!-- Title for the "Recover" button on the Recently Deleted Lists screen. -->
+    <string name="recover">Восстановить</string>
+    <!-- Title for the "Recover All" button on the Recently Deleted Lists screen. -->
+    <string name="recover_all">Восстановить всё</string>
+    <!-- OpenStreetMap contribution section on the PlacePage. -->
+    <string name="contribute_to_osm">Внести вклад в OpenStreetMap</string>
+    <string name="contribute_to_osm_add_place">Добавить место</string>
+    <string name="contribute_to_osm_update_map">Обновить карту, чтобы внести вклад</string>
+    <string name="contribute_to_osm_update_map_description">Чтобы внести изменения в данные OpenStreetMap, необходимо сначала обновить карту %s до последней версии</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">МБ</string>
+    <string name="gb">ГБ</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Мое местоположение</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Мои Метки</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Внутренний скрытый накопитель</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Внутренний общий накопитель</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SD-карта</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Внешний общий накопитель</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Почтовый индекс</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Точка на карте</string>
+    <!-- abbreviation for meters -->
+    <string name="m">м</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">км</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">ми</string>
+    <!-- A unit of measure -->
+    <string name="ft">фут</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Обновите карты, чтобы увидеть маршруты.</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Выход</string>
+    <string name="core_entrance">Вход</string>
+    <string name="subway_data_unavailable">Карта метро недоступна</string>
+    <string name="you">Вы</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Фиолетовые загруженные регионы</string>
+
+    <!-- SECTION: 3d touch strings -->
+    <!-- Used in home screen quick actions. -->
+    <string name="route">Маршрут</string>
 
     <!-- SECTION: gps strings -->
+    <!-- Needed to explain why we always require access to GPS coordinates, and not only when the app is active. -->
+    <string name="NSLocationAlwaysUsageDescription">Определение местоположения в фоне необходимо для полноценного пользования приложением. Оно используется в движении по маршруту и сохранении недавно пройденного пути.</string>
+    <!-- Needed to explain why we require access to GPS coordinates when the app is active. -->
+    <string name="NSLocationWhenInUseUsageDescription">Определение местоположения используется в движении по маршруту и сохранении недавно пройденного пути.</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Вход с паролем</string>
     <!-- Login to OSM button text -->

@@ -100,6 +100,16 @@
     <string name="measurement_units">Unități de măsură</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Alege între mile și kilometri</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">Anulează descărcarea</string>
+    <!-- Leave Review dialog - Review button -->
+    <string name="leave_a_review">Lasă un comentariu</string>
+    <!-- Settings/Downloader - 3G download warning dialog confirm button -->
+    <string name="use_cellular_data">Da</string>
+    <!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+    <string name="country_status_download_without_size">Descarcă harta</string>
+    <!-- "Bookmark Lists" dialog title -->
+    <string name="bookmark_sets">Liste cu locuri preferate</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
@@ -338,14 +348,41 @@
     <string name="gray">Gri</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gri albăstriu</string>
+    <!-- place preview title -->
+    <string name="info">Info</string>
+    <!-- Prints version number in About dialog -->
+    <string name="version">Versiunea Organic Maps: %s</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Aspect</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_light">Luminos</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Întunecat</string>
+    <!-- Title for "Other" section in TTS settings. -->
+    <string name="pref_tts_other_section_title">Altceva</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Oferiți hărți gratuite fără reclame pentru milioane de utilizatori!</string>
+    <!-- Button in the About screen -->
+    <string name="report_incorrect_map_bug">Raportați sau remediați datele incorecte de pe hartă</string>
+    <!-- Button in the About screen -->
+    <string name="volunteer">Pentru a fi voluntar</string>
+    <!-- "Social media" section header in the About screen -->
+    <string name="follow_us">Urmăriți-ne și contactați-ne:</string>
+    <!-- Alert text -->
+    <string name="email_error_body">Aplicația de email nu a fost stabilită. Stabilește-o sau utilizează alt mod de a ne contacta la %s.</string>
+    <!-- Alert title -->
+    <string name="email_error_title">Eroare de trimitere e-mail</string>
+    <!-- Settings item title -->
+    <string name="pref_calibration_title">Calibrare busolă</string>
+    <!-- Downloaded maps category -->
+    <string name="downloader_available_maps">Disponibile</string>
+    <string name="downloader_search_results">Găsite</string>
+    <!-- Status of outdated country in the list -->
+    <string name="downloader_status_outdated">Actualizează</string>
+    <!-- Status of failed country in the list -->
+    <string name="downloader_status_failed">Eșuat</string>
+    <!-- bookmark button text -->
+    <string name="bookmark">preferat</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Când parcurgi traseul, ai în vedere următoarele:</string>
@@ -376,6 +413,8 @@
     <string name="not_now">Nu acum</string>
     <string name="dialog_routing_download_and_build_cross_route">Vrei să descarci harta și să creezi un traseu mai bun care include mai multe hărți?</string>
     <string name="dialog_routing_download_cross_route">Descarcă hărți suplimentare pentru a crea un traseu mai bun care să traverseze limitele acestei hărți.</string>
+    <string name="dialog_routing_download_files">Descarcă fișierele necesare</string>
+    <string name="dialog_routing_download_and_update_all">Pentru calcularea traseului, descarcă și actualizează toate hărțile și informațiile traseului pentru calea estimată.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Pentru a putea începe căutarea și crearea unor trasee, descarcă harta. După aceasta nu vei mai avea nevoie de conexiune la internet.</string>
@@ -394,6 +433,8 @@
     <string name="clear_search">Șterge istoricul căutărilor</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Poziția ta</string>
     <string name="p2p_start">Pornește</string>
     <string name="p2p_from_here">De la</string>
@@ -453,6 +494,7 @@
     <!-- Editable House Number text field (in address block). -->
     <string name="house_number">Număr</string>
     <string name="details">Detalii</string>
+    <string name="social_media">Social Media</string>
     <string name="building">Clădire</string>
     <!-- Text field to enter non-existing street name, below list of known streets around -->
     <string name="add_street">Adaugă o stradă</string>
@@ -723,6 +765,120 @@
     <string name="moreyear_ago_sorttype">Cu mai mult de un an în urmă</string>
     <string name="near_me_sorttype">Lângă mine</string>
     <string name="others_sorttype">Altele</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Planificarea traseului a eșuat</string>
+    <!-- Arrive routing message in navigation view -->
+    <string name="routing_arrive">Sosire la %s</string>
+    <!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+    <string name="dialog_routing_download_and_update_maps">Pentru a crea un traseu, descarcă și actualizează toate hărțile de pe parcursul traseului.</string>
+    <string name="editor_done_dialog_1">Ai modificat harta lumii. Nu ascunde acest lucru! Spune-le prietenilor și modificați-o împreună.</string>
+    <string name="share_with_friends">Trimite prietenilor</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Închis acum</string>
+    <string name="opens_tomorrow_at">Deschide mâine la %s</string>
+    <string name="opens_dayoftheweek_at">Deschide %1$s la %2$s</string>
+    <string name="opens_at">Deschide la %s</string>
+    <string name="closes_at">Închide la %s</string>
+    <string name="add_opening_hours">Adaugă orele de funcționare</string>
+    <string name="password_8_chars_min">Parola (minim 8 caractere)</string>
+    <string name="invalid_username_or_password">Nume de utilizator sau parolă incorecte.</string>
+    <string name="osm_account">Cont OSM</string>
+    <!-- Information text: "Last upload 11.01.2016" -->
+    <string name="last_upload">Ultima încărcare</string>
+    <string name="thank_you">Mulțumesc</string>
+    <string name="place_name">Numele locului</string>
+    <string name="phone">Telefon</string>
+    <string name="please_note">Reține</string>
+    <string name="migration_download_error_dialog">Eroare de descărcare</string>
+    <string name="editor_add_select_category">Alege categoria</string>
+    <string name="editor_add_select_category_popular_subtitle">Popular</string>
+    <string name="editor_add_select_category_all_subtitle">Toate categoriile</string>
+    <string name="whatsnew_editor_message_1">Adaugă locuri noi pe hartă și modifică-le pe cele existente direct din aplicație.</string>
+    <string name="dialog_incorrect_feature_position">Schimbă poziția</string>
+    <!-- Error dialog no space -->
+    <string name="migration_no_space_message">Ai nevoie de mai mult spațiu pentru a descărca. Șterge datele care nu sunt necesare.</string>
+    <string name="editor_sharing_title">Am îmbunătățit hărțile Organic Maps</string>
+    <string name="editor_detailed_description_hint">Comentariu detaliat</string>
+    <string name="editor_detailed_description">Modificările aduse hărții, sugerate de tine, vor fi trimise comunității OpenStreetMap. Descrie orice detalii suplimentare care nu pot fi modificate în Organic Maps.</string>
+    <string name="current_location_unknown_error_message">S-a produs o eroare la căutarea poziției tale. Verifică dacă dispozitivul funcționează corect și încearcă din nou.</string>
+    <string name="location_services_disabled_header">Serviciile de localizare sunt dezactivate</string>
+    <string name="location_services_disabled_message">Activează accesul la geolocalizare din setările dispozitivului</string>
+    <string name="location_services_disabled_1">1. Deschide Configurări</string>
+    <string name="location_services_disabled_2">2. Apasă pe Localizare</string>
+    <!-- iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) -->
+    <string name="location_services_disabled_3">3. Alege „În timp ce folosești aplicația”</string>
+    <string name="location_services_disabled_on_device_2">2. Selectează Intimitate și securitate</string>
+    <string name="location_services_disabled_on_device_3">3. Selectează Servicii de localizare</string>
+    <string name="location_services_disabled_on_device_4">4. Activează Servicii de localizare</string>
+    <string name="location_services_disabled_on_device_additional_message">Sau continuă să folosești Organic Maps fără Locație</string>
+    <string name="book_button">Rezervare</string>
+    <string name="placepage_call_button">Apelează</string>
+    <string name="placepage_bookmark_name_hint">Numele locului preferat</string>
+    <string name="placepage_delete_bookmark_button">Șterge locul preferat</string>
+    <string name="editor_edits_sent_message">Nota dvs. va fi trimisă către OpenStreetMap</string>
+    <string name="text_more_button">…mai mult</string>
+    <string name="refresh">Actualizează</string>
+    <!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+    <string name="recent_track_background_dialog_title">Dezactivezi înregistrarea celui mai recent traseu efectuat?</string>
+    <string name="off_recent_track_background_button">Dezactivează</string>
+    <!-- For sharing via SMS and so on -->
+    <string name="sharing_call_action_look">Verifică</string>
+    <string name="recent_track_background_dialog_message">Organic Maps folosește poziția ta geografică pentru a înregistra cel mai recent traseu urmat.</string>
+    <string name="general_settings">Opțiuni generale</string>
+    <!-- "traffic" as in road congestion -->
+    <string name="traffic_update_app_message">Pentru a afișa datele privind traficul, aplicația trebuie actualizată.</string>
+    <string name="log_file_size">Dimensiunea fișierului jurnal: %s</string>
+    <string name="planning_route_remove_title">Trage aici pentru a elimina</string>
+    <string name="placepage_replace_stop">Înlocuiți oprirea</string>
+    <string name="start_from_my_position">Pornește de la</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part -->
+    <string name="alert_reauth_message_ios">Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part -->
+    <string name="alert_reauth_link_text_ios">aici</string>
+    <string name="downloader_hide_screen">Ascunde pagina</string>
+    <string name="downloader_percent">%1$s (%2$s din %3$s)</string>
+    <string name="downloader_process">Se descarcă %s…</string>
+    <string name="downloader_applying">Se aplică %s…</string>
+    <string name="bookmarks_error_title_list_name_too_long">Acest nume e prea lung</string>
+    <string name="bookmarks_detect_title">Au fost detectate fișiere noi</string>
+    <string name="button_convert">Convertește</string>
+    <string name="bookmarks_convert_error_title">Eroare</string>
+    <string name="bookmarks_convert_error_message">Unele fișiere nu au fost convertite.</string>
+    <string name="title_error_downloading_bookmarks">A apărut o eroare</string>
+    <string name="popular_place">Populare</string>
+    <string name="hide_from_map">Ascunde de pe hartă</string>
+    <string name="tags_loading_error_subtitle">A apărut o eroare la încărcarea etichetelor, încearcă din nou</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (on the right) -->
+    <string name="right">Corect</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (at the bottom) -->
+    <string name="bottom">Fund</string>
+    <string name="trip_start">Să mergem</string>
+    <string name="pick_destination">Destinație</string>
+    <string name="follow_my_position">Centrează</string>
+    <string name="search_results">Rezultatul căutării</string>
+    <string name="then_turn">Apoi</string>
+    <string name="redirect_route_alert">Vrei să refaci traseul?</string>
+    <string name="keyboard_availability_alert">Tastatura nu poate fi folosită cât timp conduci</string>
+    <string name="dialog_routing_change_start_carplay">Traseul de la locul în care te afli nu poate fi alcătuit</string>
+    <string name="dialog_routing_change_end_carplay">Traseul către destinația aleasă nu poate fi alcătuit. Alege altă destinație.</string>
+    <string name="dialog_routing_check_gps_carplay">Nu este semnal GPS. Mergi la loc deschis.</string>
+    <string name="dialog_routing_unable_locate_route_carplay">Nu poate fi alcătuit un traseu. Alege alte puncte ale traseului</string>
+    <string name="dialog_routing_download_files_carplay">Pentru a crea un traseu, descarcă hărțile lipsă în dispozitivul tău</string>
+    <string name="dialog_routing_system_error_carplay">Eroare. Repornește aplicația.</string>
+    <string name="dialog_routing_rebuild_from_current_location_carplay">Traseul va fi refăcut de la locul în care te afli</string>
+    <string name="dialog_routing_rebuild_for_vehicle_carplay">Traseul va fi înlocuit cu unul pentru autovehicule</string>
+    <string name="not_all_shown_bookmarks_carplay">Nu sunt afișate toate marcajele</string>
+    <string name="switch_to_phone_bookmarks_carplay">Treceți la telefon pentru a vedea toate marcajele</string>
+    <string name="speedcams_alert_title_carplay_1">Radare</string>
+    <string name="speedcams_alert_title_carplay_2">Info radare</string>
+    <string name="download_map_carplay">Descarcă hărțile în aplicația Organic Maps din dispozitivul tău</string>
+    <string name="carplay_roundabout_exit">%s ieșire</string>
+    <!-- iOS -->
+    <string name="sort_default">Sortare standard</string>
+    <string name="sort_type">Sortează după tip</string>
+    <string name="sort_distance">Sortează după distanță</string>
+    <string name="sort_date">Sortează după dată</string>
+    <string name="sort_name">Sortează după nume</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Mâncare</string>
@@ -777,6 +933,18 @@
     <string name="change_map_locale">Limbă hartă</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Date cartografice din OpenStreetMap</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <!-- Link to OSM wiki for Editor, Profile and About pages -->
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Vă mulțumim că utilizați hărțile create de comunitatea noastră!</string>
     <!-- App tip #01 -->
@@ -867,10 +1035,127 @@
     <string name="nav_auto">Auto în navigație</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Urmează sistemul</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Share Track</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Ștergeți %s?</string>
+    <string name="elevation_profile_diff_level">Nivel de dificultate</string>
+    <string name="elevation_profile_diff_level_easy">Ușor</string>
+    <string name="elevation_profile_diff_level_moderate">Mediu</string>
+    <string name="elevation_profile_diff_level_hard">Dificil</string>
+    <string name="downloader_updating_ios">Se actualizează</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_title">Actualizează hărțile descărcate</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_message">Actualizarea hărților menține actualizate informațiile despre obiecte</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_size">Actualizează (%s)</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_later">Actualizează manual mai târziu</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Elimină traseul</string>
+    <!-- The track deletion confirmaion alert message. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Sunteți sigur că doriți să ștergeți această pistă?</string>
+    <!-- Placeholder for track name input on track edit screen -->
+    <string name="placepage_track_name_hint">Numele traseului</string>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Mută</string>
+    <!-- edit track screen title -->
+    <string name="track_title">Traseu</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Schimbă culoarea</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Ascundeți pista</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Afișează pista</string>
+    <!-- Main screen title "Map" displayed in the navigation back button's menu. -->
+    <string name="map">Hartă</string>
+    <!-- Message for the bug report alert. -->
+    <string name="bugreport_alert_message">Doriți să trimiteți un raport de eroare dezvoltatorilor?\nNe bazăm pe utilizatorii noștri, deoarece Organic Maps nu colectează automat nicio informație privind erorile. Vă mulțumim anticipat pentru susținerea Organic Maps!</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_title">Activați Sincronizarea iCloud</string>
+    <!-- Message for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_message">Sincronizarea iCloud este o funcție experimentală aflată în curs de dezvoltare. Asigurați-vă că ați făcut o copie de rezervă a tuturor marcajelor și pieselor dvs.</string>
+    <!-- Title for the "iCloud Is Disabled" alert. -->
+    <string name="icloud_disabled_title">iCloud este dezactivat</string>
+    <!-- Message for the "iCloud is Disabled" alert. -->
+    <string name="icloud_disabled_message">Vă rugăm să activați iCloud în setările dispozitivului dvs. pentru a utiliza această funcție.</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button. -->
+    <string name="enable">Activați</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Backup" action button. -->
+    <string name="backup">Backup</string>
+    <!-- Title for the "iCloud synchronization failure" alert. -->
+    <string name="icloud_synchronization_error_alert_title">Eșecul sincronizării iCloud</string>
+    <!-- iCloud error message: Failed to synchronize due to connection error -->
+    <string name="icloud_synchronization_error_connection_error">Eroare: Nu s-a reușit sincronizarea din cauza unei erori de conexiune</string>
+    <!-- iCloud error message: Failed to synchronize due to iCloud quota exceeded -->
+    <string name="icloud_synchronization_error_quota_exceeded">Eroare: Nu s-a reușit sincronizarea din cauza depășirii cotei iCloud</string>
+    <!-- iCloud error message: iCloud is not available -->
+    <string name="icloud_synchronization_error_cloud_is_unavailable">Eroare: iCloud nu este disponibil</string>
+    <!-- Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. -->
+    <string name="bookmarks_recently_deleted">Liste șterse recent</string>
+    <!-- Title for the "Clear" button on the Recently Deleted Lists screen. -->
+    <string name="clear">Șterge</string>
+    <!-- Title for the "Delete All" button on the Recently Deleted Lists screen. -->
+    <string name="delete_all">Ștergeți toate</string>
+    <!-- Title for the "Recover" button on the Recently Deleted Lists screen. -->
+    <string name="recover">Recuperare</string>
+    <!-- Title for the "Recover All" button on the Recently Deleted Lists screen. -->
+    <string name="recover_all">Recuperează tot</string>
+    <!-- OpenStreetMap contribution section on the PlacePage. -->
+    <string name="contribute_to_osm">Contribuie la OpenStreetMap</string>
+    <string name="contribute_to_osm_add_place">Adaugă loc</string>
+    <string name="contribute_to_osm_update_map">Actualizează harta pentru a contribui</string>
+    <string name="contribute_to_osm_update_map_description">Trebuie să actualizați harta %s la cea mai recentă versiune înainte de a putea contribui la datele OpenStreetMap</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Poziția mea</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Locurile mele</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Depozit intern privat</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Stocare partajată internă</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">Card SD</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Stocare partajată externă</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">Wi-Fi</string>
+    <string name="postal_code">Cod poștal</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Punct Hartă</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">picioare</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Pentru a afișa rutele, hărțile trebuie să fie actualizate.</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Ieșire</string>
+    <string name="core_entrance">Intrare</string>
+    <string name="subway_data_unavailable">Harta de metrou nu este disponibilă</string>
+    <string name="you">Tu</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Regiuni descărcate violete</string>
+
+    <!-- SECTION: 3d touch strings -->
+    <!-- Used in home screen quick actions. -->
+    <string name="route">Traseu</string>
 
     <!-- SECTION: gps strings -->
+    <!-- Needed to explain why we always require access to GPS coordinates, and not only when the app is active. -->
+    <string name="NSLocationAlwaysUsageDescription">Definirea locației curente în fundal este necesară pentru a vă bucura pe deplin de funcționalitatea aplicației. Acest lucru este utilizat în opțiunile de urmărire a traseului și salvare a căii parcurse recent.</string>
+    <!-- Needed to explain why we require access to GPS coordinates when the app is active. -->
+    <string name="NSLocationWhenInUseUsageDescription">Definirea locației curente este folosită în opțiunile de urmărire a traseului și salvarea rutelor recente.</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Autentificare cu parolă</string>
     <!-- Login to OSM button text -->

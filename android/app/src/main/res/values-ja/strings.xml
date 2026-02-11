@@ -100,6 +100,16 @@
     <string name="measurement_units">距離の単位</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">マイルまたはキロメートルを選択</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">ダウンロードをキャンセル</string>
+    <!-- Leave Review dialog - Review button -->
+    <string name="leave_a_review">評価する</string>
+    <!-- Settings/Downloader - 3G download warning dialog confirm button -->
+    <string name="use_cellular_data">はい</string>
+    <!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+    <string name="country_status_download_without_size">地図をダウンロード</string>
+    <!-- "Bookmark Lists" dialog title -->
+    <string name="bookmark_sets">ブックマークセット</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
@@ -338,14 +348,41 @@
     <string name="gray">灰色</string>
     <!-- blue gray color -->
     <string name="blue_gray">青灰色</string>
+    <!-- place preview title -->
+    <string name="info">情報</string>
+    <!-- Prints version number in About dialog -->
+    <string name="version">Organic Mapsバージョン: %s</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">外観</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_light">ライト</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">ダーク</string>
+    <!-- Title for "Other" section in TTS settings. -->
+    <string name="pref_tts_other_section_title">その他</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">何百万人ものユーザーに広告なしの無料地図を贈ろう！</string>
+    <!-- Button in the About screen -->
+    <string name="report_incorrect_map_bug">誤った地図データを報告または修正する</string>
+    <!-- Button in the About screen -->
+    <string name="volunteer">ボランティアに参加する</string>
+    <!-- "Social media" section header in the About screen -->
+    <string name="follow_us">フォローして連絡しよう：</string>
+    <!-- Alert text -->
+    <string name="email_error_body">メールアプリは設定されていません。設定するか、%sにご連絡ください。</string>
+    <!-- Alert title -->
+    <string name="email_error_title">メール送信エラー</string>
+    <!-- Settings item title -->
+    <string name="pref_calibration_title">コンパスの調整</string>
+    <!-- Downloaded maps category -->
+    <string name="downloader_available_maps">利用可能</string>
+    <string name="downloader_search_results">見つかりました</string>
+    <!-- Status of outdated country in the list -->
+    <string name="downloader_status_outdated">を更新</string>
+    <!-- Status of failed country in the list -->
+    <string name="downloader_status_failed">失敗</string>
+    <!-- bookmark button text -->
+    <string name="bookmark">お気に入り</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">案内ルートに従う際は、以下の点にご留意ください：</string>
@@ -376,6 +413,8 @@
     <string name="not_now">後で</string>
     <string name="dialog_routing_download_and_build_cross_route">マップをダウンロードし、複数マップを利用してより最適なルートを作成しますか？</string>
     <string name="dialog_routing_download_cross_route">このマップの境界を越えて複数マップを利用し、より最適なルートを作成するには、マップをダウンロードしてください。</string>
+    <string name="dialog_routing_download_files">必要なファイルをダウンロード</string>
+    <string name="dialog_routing_download_and_update_all">案内ルートを作成するには、表示されたパスに従ってすべてのマップ、ルート情報をダウンロードまたはアップデートしてください。</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">検索とルート作成を開始するには、地図をダウンロードしてください。地図をダウンロードすると、インターネット接続は不要です。</string>
@@ -725,6 +764,120 @@
     <string name="moreyear_ago_sorttype">1年以上前</string>
     <string name="near_me_sorttype">近隣</string>
     <string name="others_sorttype">その他</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">ルート検索に失敗</string>
+    <!-- Arrive routing message in navigation view -->
+    <string name="routing_arrive">到着予測: %s</string>
+    <!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+    <string name="dialog_routing_download_and_update_maps">ルートを作成するには、ルートの通過する地図を全てダウンロード・アップデートしてください。</string>
+    <string name="editor_done_dialog_1">世界地図を変更しました。この変更を秘密にしないでください! 友達に教えて一緒に編集しましょう。</string>
+    <string name="share_with_friends">友達にシェア</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">現在閉店</string>
+    <string name="opens_tomorrow_at">明日の %s から営業</string>
+    <string name="opens_dayoftheweek_at">%1$s の %2$s から営業</string>
+    <string name="opens_at">%s から営業</string>
+    <string name="closes_at">%s に閉店</string>
+    <string name="add_opening_hours">営業時間を追加</string>
+    <string name="password_8_chars_min">パスワード(最低8文字)</string>
+    <string name="invalid_username_or_password">ユーザー名またはパスワードが無効です。</string>
+    <string name="osm_account">OSMアカウント</string>
+    <!-- Information text: "Last upload 11.01.2016" -->
+    <string name="last_upload">最終更新</string>
+    <string name="thank_you">ありがとうございます</string>
+    <string name="place_name">場所の名前</string>
+    <string name="phone">電話</string>
+    <string name="please_note">ご注意ください</string>
+    <string name="migration_download_error_dialog">ダウンロードエラー</string>
+    <string name="editor_add_select_category">カテゴリを選択</string>
+    <string name="editor_add_select_category_popular_subtitle">人気</string>
+    <string name="editor_add_select_category_all_subtitle">全てのカテゴリ</string>
+    <string name="whatsnew_editor_message_1">アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。</string>
+    <string name="dialog_incorrect_feature_position">位置を変更してください</string>
+    <!-- Error dialog no space -->
+    <string name="migration_no_space_message">ダウンロードするには空き容量が必要です。不要なデータを削除してください。</string>
+    <string name="editor_sharing_title">Organic Mapsの地図を改善しました</string>
+    <string name="editor_detailed_description_hint">詳細コメント</string>
+    <string name="editor_detailed_description">提案した変更は、OpenStreetMapのコミュニティに送信されます。Organic Mapsで編集できない詳細を説明してください。</string>
+    <string name="current_location_unknown_error_message">現在地の検索中にエラーが発生しました。 デバイスが正常に動作していることを確認して、もう一度お試しください。</string>
+    <string name="location_services_disabled_header">位置情報が無効になっています</string>
+    <string name="location_services_disabled_message">デバイスの設定で位置情報へのアクセスを有効にしてください</string>
+    <string name="location_services_disabled_1">1. 「設定」を開きます</string>
+    <string name="location_services_disabled_2">2. 「位置情報」をタップします</string>
+    <!-- iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) -->
+    <string name="location_services_disabled_3">3. 「アプリの使用中」を選択してください</string>
+    <string name="location_services_disabled_on_device_2">2.プライバシーを選択する</string>
+    <string name="location_services_disabled_on_device_3">3.位置情報サービスを選択する</string>
+    <string name="location_services_disabled_on_device_4">4.位置情報サービスをオンにする</string>
+    <string name="location_services_disabled_on_device_additional_message">または、位置情報なしでオーガニック・マップを使い続ける</string>
+    <string name="book_button">予約</string>
+    <string name="placepage_call_button">電話をかける</string>
+    <string name="placepage_bookmark_name_hint">ブックマーク名</string>
+    <string name="placepage_delete_bookmark_button">ブックマークを削除</string>
+    <string name="editor_edits_sent_message">あなたのメモはOpenStreetMapに送られる</string>
+    <string name="text_more_button">…続き</string>
+    <string name="refresh">更新</string>
+    <!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+    <string name="recent_track_background_dialog_title">最近の走行ルートの記録を無効にしますか？</string>
+    <string name="off_recent_track_background_button">無効にする</string>
+    <!-- For sharing via SMS and so on -->
+    <string name="sharing_call_action_look">ご覧ください</string>
+    <string name="recent_track_background_dialog_message">Organic Mapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。</string>
+    <string name="general_settings">一般設定</string>
+    <!-- "traffic" as in road congestion -->
+    <string name="traffic_update_app_message">交通データを表示するには、アプリケーションをアップデートする必要があります。</string>
+    <string name="log_file_size">ログファイルのサイズ: %s</string>
+    <string name="planning_route_remove_title">ここにドラッグして削除</string>
+    <string name="placepage_replace_stop">リプレースストップ</string>
+    <string name="start_from_my_position">出発地</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part -->
+    <string name="alert_reauth_message_ios">すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part -->
+    <string name="alert_reauth_link_text_ios">こちら</string>
+    <string name="downloader_hide_screen">画面を非表示</string>
+    <string name="downloader_percent">%1$s (%2$s / %3$s)</string>
+    <string name="downloader_process">%s をダウンロードしています…</string>
+    <string name="downloader_applying">%s を適用中です…</string>
+    <string name="bookmarks_error_title_list_name_too_long">この名前は長すぎます</string>
+    <string name="bookmarks_detect_title">新しいファイルが検出されました</string>
+    <string name="button_convert">変換</string>
+    <string name="bookmarks_convert_error_title">エラー</string>
+    <string name="bookmarks_convert_error_message">一部のファイルは変換されませんでした。</string>
+    <string name="title_error_downloading_bookmarks">エラーが発生しました</string>
+    <string name="popular_place">人気</string>
+    <string name="hide_from_map">マップから隠す</string>
+    <string name="tags_loading_error_subtitle">タグのロード中にエラーが起きました発生しました。もう一度やり直してください</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (on the right) -->
+    <string name="right">右</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (at the bottom) -->
+    <string name="bottom">ボトム</string>
+    <string name="trip_start">出発</string>
+    <string name="pick_destination">目的地</string>
+    <string name="follow_my_position">リセンター</string>
+    <string name="search_results">検索結果</string>
+    <string name="then_turn">その後</string>
+    <string name="redirect_route_alert">ルートを再計算しますか?</string>
+    <string name="keyboard_availability_alert">運転中はキーボードを使用できません</string>
+    <string name="dialog_routing_change_start_carplay">現在位置からはルートを計算できません</string>
+    <string name="dialog_routing_change_end_carplay">目的地へのルートは計算できません。別の地点を選択してください</string>
+    <string name="dialog_routing_check_gps_carplay">GPS信号がありません。開けた場所へ移動してください</string>
+    <string name="dialog_routing_unable_locate_route_carplay">ルートが計算できません。別のルート地点を設定して下さい</string>
+    <string name="dialog_routing_download_files_carplay">ルートを作成するには、不足しているマップを端末でダウンロードしてください</string>
+    <string name="dialog_routing_system_error_carplay">エラーが発生しました。アプリを再起動してください</string>
+    <string name="dialog_routing_rebuild_from_current_location_carplay">ルートは現在位置から再計算されます</string>
+    <string name="dialog_routing_rebuild_for_vehicle_carplay">車ルートに変更されます</string>
+    <string name="not_all_shown_bookmarks_carplay">すべてのブックマークが表示されるわけではない</string>
+    <string name="switch_to_phone_bookmarks_carplay">携帯電話に切り替えてすべてのブックマークを見る</string>
+    <string name="speedcams_alert_title_carplay_1">速度警告</string>
+    <string name="speedcams_alert_title_carplay_2">速度警告</string>
+    <string name="download_map_carplay">端末のOrganic Mapsのアプリにマップをダウンロードしてください</string>
+    <string name="carplay_roundabout_exit">第%s出口</string>
+    <!-- iOS -->
+    <string name="sort_default">デフォルトで並べ替え</string>
+    <string name="sort_type">タイプで並べ替え</string>
+    <string name="sort_distance">距離で並べ替え</string>
+    <string name="sort_date">日付で並べ替え</string>
+    <string name="sort_name">名前で並べ替え</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">食べ物</string>
@@ -785,6 +938,8 @@
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/JA:参加する</string>
     <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
@@ -883,8 +1038,123 @@
     <string name="share_track">シェアトラック</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">を削除しますか %s？</string>
+    <string name="elevation_profile_diff_level">難易度</string>
+    <string name="elevation_profile_diff_level_easy">簡単</string>
+    <string name="elevation_profile_diff_level_moderate">普通</string>
+    <string name="elevation_profile_diff_level_hard">困難</string>
+    <string name="downloader_updating_ios">更新中</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_title">ダウンロード済みのマップを更新してください</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_message">地図を更新することで物件情報を最新の状態に保ちます</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_size">更新 (%s)</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_later">後で手動で更新</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">トラックを削除</string>
+    <!-- The track deletion confirmaion alert message. -->
+    <string name="placepage_delete_track_confirmation_alert_message">このトラックを削除してもよろしいですか？</string>
+    <!-- Placeholder for track name input on track edit screen -->
+    <string name="placepage_track_name_hint">トラック名</string>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">移動</string>
+    <!-- edit track screen title -->
+    <string name="track_title">トラック</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">色を変える</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">トラックを隠す</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">トラックを表示</string>
+    <!-- Main screen title "Map" displayed in the navigation back button's menu. -->
+    <string name="map">地図</string>
+    <!-- Message for the bug report alert. -->
+    <string name="bugreport_alert_message">開発者にバグレポートを送りたいか？\nオーガニック・マップはエラー情報を自動収集しないため、我々はユーザーに依存している。Organic Mapsを応援してくださりありがとう！</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_title">iCloud同期を有効にする</string>
+    <!-- Message for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_message">iCloud同期は開発中の実験的機能である。すべてのブックマークとトラックのバックアップをとっておくこと。</string>
+    <!-- Title for the "iCloud Is Disabled" alert. -->
+    <string name="icloud_disabled_title">iCloudが無効になっています</string>
+    <!-- Message for the "iCloud is Disabled" alert. -->
+    <string name="icloud_disabled_message">この機能を使うには、デバイスの設定でiCloudを有効にしてほしい。</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button. -->
+    <string name="enable">有効にする</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Backup" action button. -->
+    <string name="backup">バックアップ</string>
+    <!-- Title for the "iCloud synchronization failure" alert. -->
+    <string name="icloud_synchronization_error_alert_title">iCloud同期の失敗</string>
+    <!-- iCloud error message: Failed to synchronize due to connection error -->
+    <string name="icloud_synchronization_error_connection_error">エラー：接続エラーにより同期に失敗した</string>
+    <!-- iCloud error message: Failed to synchronize due to iCloud quota exceeded -->
+    <string name="icloud_synchronization_error_quota_exceeded">エラー：iCloudのクォータが超過したため、同期に失敗しました。</string>
+    <!-- iCloud error message: iCloud is not available -->
+    <string name="icloud_synchronization_error_cloud_is_unavailable">エラー：iCloudが利用できない</string>
+    <!-- Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. -->
+    <string name="bookmarks_recently_deleted">最近削除されたリスト</string>
+    <!-- Title for the "Clear" button on the Recently Deleted Lists screen. -->
+    <string name="clear">クリア</string>
+    <!-- Title for the "Delete All" button on the Recently Deleted Lists screen. -->
+    <string name="delete_all">すべて削除する</string>
+    <!-- Title for the "Recover" button on the Recently Deleted Lists screen. -->
+    <string name="recover">復元</string>
+    <!-- Title for the "Recover All" button on the Recently Deleted Lists screen. -->
+    <string name="recover_all">すべて復元</string>
+    <!-- OpenStreetMap contribution section on the PlacePage. -->
+    <string name="contribute_to_osm">OpenStreetMap に貢献する</string>
+    <string name="contribute_to_osm_add_place">場所を追加</string>
+    <string name="contribute_to_osm_update_map">地図を更新して貢献する</string>
+    <string name="contribute_to_osm_update_map_description">OpenStreetMap データに貢献する前に、%s の地図を最新バージョンに更新する必要があります</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">現在地</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">マイロケーション</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">アプリ固有のストレージ</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">共有ストレージ</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SDカード</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">外部ストレージ</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">無線LAN</string>
+    <string name="postal_code">郵便番号</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">マップポイント</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">ft</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">ルートを表示するには、地図を更新する必要がある。</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">出口</string>
+    <string name="core_entrance">入口</string>
+    <string name="subway_data_unavailable">地下鉄路線図はご利用いただけません</string>
+    <string name="you">君</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">紫色のダウンロード済み地域</string>
+
+    <!-- SECTION: 3d touch strings -->
+    <!-- Used in home screen quick actions. -->
+    <string name="route">経路</string>
 
     <!-- SECTION: gps strings -->
+    <!-- Needed to explain why we always require access to GPS coordinates, and not only when the app is active. -->
+    <string name="NSLocationAlwaysUsageDescription">バックグラウンドでの現在位置の定義は、アプリの機能を完全にご利用いただくために必要です。にルート追跡と最近の道のりの保存に使用されます。</string>
+    <!-- Needed to explain why we require access to GPS coordinates when the app is active. -->
+    <string name="NSLocationWhenInUseUsageDescription">現在位置の定義はルート追跡オプションと最近使用したルートの保存に使用されます。</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">パスワードでログイン</string>
     <!-- Login to OSM button text -->

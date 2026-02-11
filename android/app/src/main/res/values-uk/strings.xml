@@ -100,6 +100,16 @@
     <string name="measurement_units">Одиниці виміру</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Використовувати милі чи кілометри</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">Вiдмiнити завантаження</string>
+    <!-- Leave Review dialog - Review button -->
+    <string name="leave_a_review">Написати відгук</string>
+    <!-- Settings/Downloader - 3G download warning dialog confirm button -->
+    <string name="use_cellular_data">Так</string>
+    <!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+    <string name="country_status_download_without_size">Завантажити мапу</string>
+    <!-- "Bookmark Lists" dialog title -->
+    <string name="bookmark_sets">Списки мiток</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
@@ -338,14 +348,41 @@
     <string name="gray">Сірий</string>
     <!-- blue gray color -->
     <string name="blue_gray">Сіро-блакитний</string>
+    <!-- place preview title -->
+    <string name="info">Інфо</string>
+    <!-- Prints version number in About dialog -->
+    <string name="version">Версія Organic Maps: %s</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Вигляд</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_light">Світлий</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Темний</string>
+    <!-- Title for "Other" section in TTS settings. -->
+    <string name="pref_tts_other_section_title">Інша</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Подаруйте мільйонам користувачів безкоштовні мапи без реклами!</string>
+    <!-- Button in the About screen -->
+    <string name="report_incorrect_map_bug">Повідомляйте або виправляйте невірні картографічні дані</string>
+    <!-- Button in the About screen -->
+    <string name="volunteer">Стати волонтером</string>
+    <!-- "Social media" section header in the About screen -->
+    <string name="follow_us">Підписуйтесь та зв\'язуйтесь з нами:</string>
+    <!-- Alert text -->
+    <string name="email_error_body">Поштовий клієнт не налаштований. Налаштуйте його або скористайтеся іншими способами зв\'язку. Наша адреса – %s</string>
+    <!-- Alert title -->
+    <string name="email_error_title">Помилка при відправленні листа</string>
+    <!-- Settings item title -->
+    <string name="pref_calibration_title">Калібрування компаса</string>
+    <!-- Downloaded maps category -->
+    <string name="downloader_available_maps">Доступні</string>
+    <string name="downloader_search_results">Знайдено</string>
+    <!-- Status of outdated country in the list -->
+    <string name="downloader_status_outdated">Oновити</string>
+    <!-- Status of failed country in the list -->
+    <string name="downloader_status_failed">Помилка</string>
+    <!-- bookmark button text -->
+    <string name="bookmark">мітка</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Під час руху за маршрутом пам\'ятайте:</string>
@@ -376,6 +413,8 @@
     <string name="not_now">Не зараз</string>
     <string name="dialog_routing_download_and_build_cross_route">Завантажити мапу і побудувати більш оптимальний маршрут з перетином межі мапи?</string>
     <string name="dialog_routing_download_cross_route">Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.</string>
+    <string name="dialog_routing_download_files">Завантажте необхідні файли</string>
+    <string name="dialog_routing_download_and_update_all">Для побудови маршруту завантажте і обновіть всі мапи і файли маршрутів на шляху руху.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Щоб розпочати пошук та створення маршрутів, будь ласка, завантажте мапу і вам більше ніколи не знадобиться інтернет-з’єднання.</string>
@@ -733,6 +772,120 @@
     <string name="moreyear_ago_sorttype">Понад рік тому</string>
     <string name="near_me_sorttype">Поруч зі мною</string>
     <string name="others_sorttype">Інші</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Збій планування маршруту</string>
+    <!-- Arrive routing message in navigation view -->
+    <string name="routing_arrive">Прибуття в %s</string>
+    <!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+    <string name="dialog_routing_download_and_update_maps">Для створення маршруту, будь ласка, скачайте та обновіть всі карти за ним.</string>
+    <string name="editor_done_dialog_1">Ви змінили карту світу. Не приховуйте це! Розкажіть своїм друзям і редагуйте разом.</string>
+    <string name="share_with_friends">Поділитися з друзями</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Зараз закрито</string>
+    <string name="opens_tomorrow_at">Відкриття завтра о %s</string>
+    <string name="opens_dayoftheweek_at">Відчиняється в %1$s о %2$s</string>
+    <string name="opens_at">Відкриття о %s</string>
+    <string name="closes_at">Закривається о %s</string>
+    <string name="add_opening_hours">Додати години роботи</string>
+    <string name="password_8_chars_min">Пароль (мінімум 8 символів)</string>
+    <string name="invalid_username_or_password">Невірне ім\'я користувача або пароль.</string>
+    <string name="osm_account">Обліковий запис OSM</string>
+    <!-- Information text: "Last upload 11.01.2016" -->
+    <string name="last_upload">Остання вiдправка</string>
+    <string name="thank_you">Дякуємо</string>
+    <string name="place_name">Назва</string>
+    <string name="phone">Телефон</string>
+    <string name="please_note">Будь ласка, зверніть увагу</string>
+    <string name="migration_download_error_dialog">Помилка завантаження</string>
+    <string name="editor_add_select_category">Вибрати категорію</string>
+    <string name="editor_add_select_category_popular_subtitle">Популярні</string>
+    <string name="editor_add_select_category_all_subtitle">Усі категорії</string>
+    <string name="whatsnew_editor_message_1">Додати нові місця до мапи і редагувати існуючі місця прямо з програми.</string>
+    <string name="dialog_incorrect_feature_position">Змініть розташування</string>
+    <!-- Error dialog no space -->
+    <string name="migration_no_space_message">Для завантаження потрібно більше вільного місця. Будь ласка, видаліть непотрібні дані.</string>
+    <string name="editor_sharing_title">Я покращив мапи Organic Maps</string>
+    <string name="editor_detailed_description_hint">Докладний коментар</string>
+    <string name="editor_detailed_description">Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об\'єкт, які не можна редагувати у Organic Maps.</string>
+    <string name="current_location_unknown_error_message">Під час пошуку місцезнаходження сталася невідома помилка. Перевірте працездатність пристрою та спробуйте відшукати місцеположення пізніше.</string>
+    <string name="location_services_disabled_header">Ідентифікацію місцезнаходження відключено</string>
+    <string name="location_services_disabled_message">Увімкніть доступ до геолокації в налаштуваннях цього пристрою</string>
+    <string name="location_services_disabled_1">1. Відкрийте «Налаштування»</string>
+    <string name="location_services_disabled_2">2. Клацніть «Місцезнаходження»</string>
+    <!-- iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) -->
+    <string name="location_services_disabled_3">3. Оберіть \"Під час роботи програми\"</string>
+    <string name="location_services_disabled_on_device_2">2. Виберіть Конфіденційність</string>
+    <string name="location_services_disabled_on_device_3">3. Виберіть Служби визначення місцезнаходження</string>
+    <string name="location_services_disabled_on_device_4">4. Увімкніть Служби визначення місцезнаходження</string>
+    <string name="location_services_disabled_on_device_additional_message">Або продовжуйте використовувати Organic Maps без визначення місцезнаходження</string>
+    <string name="book_button">Забронювати</string>
+    <string name="placepage_call_button">Подзвонити</string>
+    <string name="placepage_bookmark_name_hint">Назва мiтки</string>
+    <string name="placepage_delete_bookmark_button">Видалити мiтку</string>
+    <string name="editor_edits_sent_message">Вашу замітку буде надіслано в OpenStreetMap</string>
+    <string name="text_more_button">…більше</string>
+    <string name="refresh">Оновити</string>
+    <!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+    <string name="recent_track_background_dialog_title">Вимкнути запис нещодавно пройденого шляху?</string>
+    <string name="off_recent_track_background_button">Вимкнути</string>
+    <!-- For sharing via SMS and so on -->
+    <string name="sharing_call_action_look">Подивись,</string>
+    <string name="recent_track_background_dialog_message">Organic Maps використовує вашу геопозицію у фоновому режимі для запису нещодавно пройденого шляху.</string>
+    <string name="general_settings">Загальні налаштування</string>
+    <!-- "traffic" as in road congestion -->
+    <string name="traffic_update_app_message">Для відображення даних про трафік оновіть додаток.</string>
+    <string name="log_file_size">Розмір файлу журналу: %s</string>
+    <string name="planning_route_remove_title">Перетягніть сюди, щоб видалити</string>
+    <string name="placepage_replace_stop">Замінити зупинку</string>
+    <string name="start_from_my_position">Почати з</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part -->
+    <string name="alert_reauth_message_ios">Будь ласка увійдіть в акаунт OpenStreetMap.org, щоб автоматично публікувати зміни до мапи. Подробиці за</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part -->
+    <string name="alert_reauth_link_text_ios">посиланням</string>
+    <string name="downloader_hide_screen">Приховати екран</string>
+    <string name="downloader_percent">%1$s (%2$s з %3$s)</string>
+    <string name="downloader_process">Завантаження %s…</string>
+    <string name="downloader_applying">Застосування %s…</string>
+    <string name="bookmarks_error_title_list_name_too_long">Це ім\'я задовге</string>
+    <string name="bookmarks_detect_title">Виявлено нові файли</string>
+    <string name="button_convert">Конвертувати</string>
+    <string name="bookmarks_convert_error_title">Помилка</string>
+    <string name="bookmarks_convert_error_message">Деякі файли не конвертувалися.</string>
+    <string name="title_error_downloading_bookmarks">Виникла помилка</string>
+    <string name="popular_place">Популярні</string>
+    <string name="hide_from_map">Приховати на мапі</string>
+    <string name="tags_loading_error_subtitle">Під час завантаження теґів сталася помилка, будь ласка, спробуйте ще раз</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (on the right) -->
+    <string name="right">Праворуч</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (at the bottom) -->
+    <string name="bottom">Вниз</string>
+    <string name="trip_start">Поїхали</string>
+    <string name="pick_destination">Ціль</string>
+    <string name="follow_my_position">Відцентрувати</string>
+    <string name="search_results">Результати пошуку</string>
+    <string name="then_turn">Далі</string>
+    <string name="redirect_route_alert">Бажаєте перебудувати маршрут?</string>
+    <string name="keyboard_availability_alert">Клавіатура недоступна під час руху</string>
+    <string name="dialog_routing_change_start_carplay">Неможливо побудувати маршрут від поточного місця розташування</string>
+    <string name="dialog_routing_change_end_carplay">Неможливо побудувати маршрут до кінцевої точки. Оберіть іншу</string>
+    <string name="dialog_routing_check_gps_carplay">Немає сигналу GPS. Перейдіть на відкриту місцевість</string>
+    <string name="dialog_routing_unable_locate_route_carplay">Неможливо побудувати маршрут. Оберіть інші точки маршруту</string>
+    <string name="dialog_routing_download_files_carplay">Щоб побудувати маршрут, завантажте відсутні карти на своєму пристрої</string>
+    <string name="dialog_routing_system_error_carplay">Виникла помилка. Перезапустіть додаток</string>
+    <string name="dialog_routing_rebuild_from_current_location_carplay">Маршрут буде перебудовано від вашого поточного місця розташування</string>
+    <string name="dialog_routing_rebuild_for_vehicle_carplay">Маршрут буде змінено на автомобільний</string>
+    <string name="not_all_shown_bookmarks_carplay">Відображаються не всі мітки</string>
+    <string name="switch_to_phone_bookmarks_carplay">Перейдіть на телефон, щоб побачити всі мітки</string>
+    <string name="speedcams_alert_title_carplay_1">Камери</string>
+    <string name="speedcams_alert_title_carplay_2">Інфо о камерах</string>
+    <string name="download_map_carplay">Завантажте карти в додатку Organic Maps на своєму пристрої</string>
+    <string name="carplay_roundabout_exit">%s з’їзд</string>
+    <!-- iOS -->
+    <string name="sort_default">Сортувати за промовчанням</string>
+    <string name="sort_type">Сортувати за типом</string>
+    <string name="sort_distance">Сортувати за відстанню</string>
+    <string name="sort_date">Сортувати за датою</string>
+    <string name="sort_name">Сортувати за ім\'ям</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Їжа</string>
@@ -893,8 +1046,123 @@
     <string name="share_track">Поділитися треком</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Видалити %s?</string>
+    <string name="elevation_profile_diff_level">Рівень складності</string>
+    <string name="elevation_profile_diff_level_easy">Простий</string>
+    <string name="elevation_profile_diff_level_moderate">Помірний</string>
+    <string name="elevation_profile_diff_level_hard">Складний</string>
+    <string name="downloader_updating_ios">Оновлення</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_title">Оновити завантажені мапи</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_message">Оновлення мап дозволяє підтримувати інформацію про об\'єкти в актуальному стані</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_size">Оновити (%s)</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_later">Оновити вручну пізніше</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Видалити трек</string>
+    <!-- The track deletion confirmaion alert message. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Ви дійсно бажаєте видалити цей маршрут?</string>
+    <!-- Placeholder for track name input on track edit screen -->
+    <string name="placepage_track_name_hint">Назва треку</string>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Перемістити</string>
+    <!-- edit track screen title -->
+    <string name="track_title">Маршрут</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Змінити колір</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Приховати трек</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Показати трек</string>
+    <!-- Main screen title "Map" displayed in the navigation back button's menu. -->
+    <string name="map">Мапа</string>
+    <!-- Message for the bug report alert. -->
+    <string name="bugreport_alert_message">Бажаєте надіслати розробникам звіт про помилку?\nМи покладаємося на наших користувачів, оскільки Organic Maps не збирає інформацію про помилки автоматично. Заздалегідь дякуємо за підтримку Organic Maps!</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_title">Увімкнути синхронізацію з iCloud</string>
+    <!-- Message for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_message">Синхронізація з iCloud - це експериментальна функція, яка перебуває на стадії розробки. Переконайтеся, що ви зробили резервну копію всіх ваших мiток і треків.</string>
+    <!-- Title for the "iCloud Is Disabled" alert. -->
+    <string name="icloud_disabled_title">iCloud вимкнено</string>
+    <!-- Message for the "iCloud is Disabled" alert. -->
+    <string name="icloud_disabled_message">Щоб скористатися цією функцією, увімкніть iCloud у налаштуваннях вашого пристрою.</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button. -->
+    <string name="enable">Увімкнути</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Backup" action button. -->
+    <string name="backup">Резервне копіювання</string>
+    <!-- Title for the "iCloud synchronization failure" alert. -->
+    <string name="icloud_synchronization_error_alert_title">Збій синхронізації iCloud</string>
+    <!-- iCloud error message: Failed to synchronize due to connection error -->
+    <string name="icloud_synchronization_error_connection_error">Помилка: Не вдалося синхронізувати через помилку з\'єднання</string>
+    <!-- iCloud error message: Failed to synchronize due to iCloud quota exceeded -->
+    <string name="icloud_synchronization_error_quota_exceeded">Помилка: Не вдалося синхронізувати через перевищення квоти iCloud</string>
+    <!-- iCloud error message: iCloud is not available -->
+    <string name="icloud_synchronization_error_cloud_is_unavailable">Помилка: iCloud недоступний</string>
+    <!-- Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. -->
+    <string name="bookmarks_recently_deleted">Нещодавно видалене</string>
+    <!-- Title for the "Clear" button on the Recently Deleted Lists screen. -->
+    <string name="clear">Очистити</string>
+    <!-- Title for the "Delete All" button on the Recently Deleted Lists screen. -->
+    <string name="delete_all">Видалити все</string>
+    <!-- Title for the "Recover" button on the Recently Deleted Lists screen. -->
+    <string name="recover">Відновити</string>
+    <!-- Title for the "Recover All" button on the Recently Deleted Lists screen. -->
+    <string name="recover_all">Відновити все</string>
+    <!-- OpenStreetMap contribution section on the PlacePage. -->
+    <string name="contribute_to_osm">Долучитися до OpenStreetMap</string>
+    <string name="contribute_to_osm_add_place">Додати місце</string>
+    <string name="contribute_to_osm_update_map">Оновіть карту, щоб долучитися</string>
+    <string name="contribute_to_osm_update_map_description">Ви повинні оновити карту %s до останньої версії, перш ніж зможете долучитися до даних OpenStreetMap</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">МБ</string>
+    <string name="gb">ГБ</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Моє місцезнаходження</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Мої Мітки</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Внутрішнє приватне сховище</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Внутрішнє спільне сховище</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SD-карта</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Зовнiшне спільне сховище</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">Wi-Fi</string>
+    <string name="postal_code">Поштовий індекс</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Точка на мапі</string>
+    <!-- abbreviation for meters -->
+    <string name="m">м</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">км</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">ми</string>
+    <!-- A unit of measure -->
+    <string name="ft">фут</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Для відображення маршрутів карти необхідно оновити.</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Вихід</string>
+    <string name="core_entrance">Вхід</string>
+    <string name="subway_data_unavailable">Мапа метрополітену недоступна</string>
+    <string name="you">Ви</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Фіолетові завантажені регіони</string>
+
+    <!-- SECTION: 3d touch strings -->
+    <!-- Used in home screen quick actions. -->
+    <string name="route">Маршрут</string>
 
     <!-- SECTION: gps strings -->
+    <!-- Needed to explain why we always require access to GPS coordinates, and not only when the app is active. -->
+    <string name="NSLocationAlwaysUsageDescription">Визначення місцезнаходження у фоновому режимі необхідно для повноцінного користування додатком. Воно використовується під час руху по маршруту та для збереження шляху, що було нещодавно пройдено.</string>
+    <!-- Needed to explain why we require access to GPS coordinates when the app is active. -->
+    <string name="NSLocationWhenInUseUsageDescription">Ваше місцезнаходження використовується для навігації та запису пройденого шляху.</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Вхід за допомогою пароля</string>
     <!-- Login to OSM button text -->

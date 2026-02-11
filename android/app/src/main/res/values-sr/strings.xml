@@ -100,6 +100,16 @@
     <string name="measurement_units">Јединице мере</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Изаберите између километара и миља</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">Обустави преузимање</string>
+    <!-- Leave Review dialog - Review button -->
+    <string name="leave_a_review">Оставите рецензију</string>
+    <!-- Settings/Downloader - 3G download warning dialog confirm button -->
+    <string name="use_cellular_data">Да</string>
+    <!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+    <string name="country_status_download_without_size">Преузми мапу</string>
+    <!-- "Bookmark Lists" dialog title -->
+    <string name="bookmark_sets">Листе маркера</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
@@ -338,14 +348,41 @@
     <string name="gray">Сива</string>
     <!-- blue gray color -->
     <string name="blue_gray">Плаво сива</string>
+    <!-- place preview title -->
+    <string name="info">Информације</string>
+    <!-- Prints version number in About dialog -->
+    <string name="version">Organic Maps верзија: %s</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Изглед</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_light">Светло</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Тамно</string>
+    <!-- Title for "Other" section in TTS settings. -->
+    <string name="pref_tts_other_section_title">Остало</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Поклоните бесплатне мапе без огласа милионима корисника!</string>
+    <!-- Button in the About screen -->
+    <string name="report_incorrect_map_bug">Пријавите или поправите нетачне податке на мапи</string>
+    <!-- Button in the About screen -->
+    <string name="volunteer">Волонтирајте</string>
+    <!-- "Social media" section header in the About screen -->
+    <string name="follow_us">Пратите и контактирајте нас:</string>
+    <!-- Alert text -->
+    <string name="email_error_body">Email клијент није подешен. Молимо вас да га подесите или нас контактирајте на %s</string>
+    <!-- Alert title -->
+    <string name="email_error_title">Грешка приликом слања email-а</string>
+    <!-- Settings item title -->
+    <string name="pref_calibration_title">Калибрација компаса</string>
+    <!-- Downloaded maps category -->
+    <string name="downloader_available_maps">Расположиве</string>
+    <string name="downloader_search_results">Пронађено</string>
+    <!-- Status of outdated country in the list -->
+    <string name="downloader_status_outdated">Ажурирано</string>
+    <!-- Status of failed country in the list -->
+    <string name="downloader_status_failed">Неуспешно</string>
+    <!-- bookmark button text -->
+    <string name="bookmark">маркер</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Када пратите руту, обратите пажњу на:</string>
@@ -376,6 +413,8 @@
     <string name="not_now">Не сада</string>
     <string name="dialog_routing_download_and_build_cross_route">Да ли желите да преузмете мапу и направите оптималнију руту која се простире на више од једне мапе?</string>
     <string name="dialog_routing_download_cross_route">Преузми додатне мапе и направи бољу руту која се престире преко граница ове мапе.</string>
+    <string name="dialog_routing_download_files">Преузимање потребних фајлова</string>
+    <string name="dialog_routing_download_and_update_all">Преузимање или ажурирање свих мапа које се налазе на предвиђеној путањи ради израчунавања руте.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Да бисте почели да претражујете и правите руте, молим Вас да преузмете мапу. Након тога веза са интернетом Вам више неће бити потребна.</string>
@@ -553,6 +592,8 @@
     <string name="error_enter_correct_vk_page">Унесите исправно VK корисничко име или веб адресу</string>
     <string name="error_enter_correct_line_page">Унесите исправан LINE ID или веб адресу</string>
     <string name="placepage_add_place_button">Додај место на OpenStreetMap</string>
+    <string name="osm_note_hint">Or, alternatively, leave a note to OpenStreetMap community so that someone else can add or fix a place here.</string>
+    <string name="osm_note_toast">Note will be sent to OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Да ли желите да поделите са свим другим корисницима?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -595,6 +636,7 @@
     <string name="button_plan">План</string>
     <string name="placepage_remove_stop">Уклони међуодредиште</string>
     <string name="placepage_add_stop">Међуодредиште</string>
+    <string name="saved">Saved</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Молим Вас да се пријавите на OpenStreetMap да бисте аутоматски послали своје промене на мапи. Сазнајте више о томе <a href="https://github.com/organicmaps/organicmaps/issues/6144">овде</a>.</string>
     <string name="dialog_error_storage_title">Проблем са приступом меморији</string>
@@ -640,6 +682,10 @@
     <string name="privacy_policy">Политика приватности</string>
     <string name="terms_of_use">Услови коришћења</string>
     <string name="button_layer_traffic">Саобраћај</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Hiking</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Cycling</string>
     <string name="button_layer_subway">Метро</string>
     <string name="layers_title">Стилови мапе и слојеви</string>
     <string name="bookmarks_empty_list_title">Ова листа је празна</string>
@@ -667,6 +713,11 @@
     <string name="power_managment_setting_never">Никад</string>
     <string name="power_managment_setting_auto">Када је батерија при крају</string>
     <string name="power_managment_setting_manual_max">Увек</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Bookmark names on the map</string>
+    <string name="bookmarks_text_placement_description">If there are too many bookmarks, displaying their names on the map may slow down the app.</string>
+    <string name="show_to_the_right">Show to the right</string>
+    <string name="show_at_the_bottom">Show at the bottom</string>
     <string name="enable_logging_warning_message">Привремено укључите ову опцију да бисте сачували детаљне дијагностичке логове уколико имате неки проблем. Логове можете да нам пошаљете коришћењем опције \"Пријавите проблем\" у прозору Помоћ. Напомена: Логови могу да садрже информације о вашој локацији.</string>
     <string name="driving_options_title">Опције рутирања</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -717,6 +768,120 @@
     <string name="moreyear_ago_sorttype">Пре више од годину дана</string>
     <string name="near_me_sorttype">Близу мене</string>
     <string name="others_sorttype">Остали</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Планирање руте није успело</string>
+    <!-- Arrive routing message in navigation view -->
+    <string name="routing_arrive">Долазак у: %s</string>
+    <!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+    <string name="dialog_routing_download_and_update_maps">Преузимање и ажурирање свих мапа уз пројектовану путању ради израчунавања руте.</string>
+    <string name="editor_done_dialog_1">Направили сте промену на мапи света! Не чувајте је само за себе; реците својим пријатељима и наставите да је мењате заједно.</string>
+    <string name="share_with_friends">Подели са пријатељима</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Затворено сада</string>
+    <string name="opens_tomorrow_at">Отвара се сутра у %s</string>
+    <string name="opens_dayoftheweek_at">Отвара се %1$s у %2$s</string>
+    <string name="opens_at">Отвара се у %s</string>
+    <string name="closes_at">Затвара се у %s</string>
+    <string name="add_opening_hours">Додај радно време</string>
+    <string name="password_8_chars_min">Лозинка (минимум 8 знакова)</string>
+    <string name="invalid_username_or_password">Неисправно корисничко име или лозинка.</string>
+    <string name="osm_account">OSM налог</string>
+    <!-- Information text: "Last upload 11.01.2016" -->
+    <string name="last_upload">Последње слање</string>
+    <string name="thank_you">Хвала</string>
+    <string name="place_name">Назив места</string>
+    <string name="phone">Телефон</string>
+    <string name="please_note">Обратите пажњу</string>
+    <string name="migration_download_error_dialog">Грешка приликом преузимања</string>
+    <string name="editor_add_select_category">Изаберите категорију</string>
+    <string name="editor_add_select_category_popular_subtitle">Популарно</string>
+    <string name="editor_add_select_category_all_subtitle">Све категорије</string>
+    <string name="whatsnew_editor_message_1">Додајте нова места на мапу, или промените постојећа директно из апликације.</string>
+    <string name="dialog_incorrect_feature_position">Промените локацију</string>
+    <!-- Error dialog no space -->
+    <string name="migration_no_space_message">Да бисте завршили преузимање потребно је више слободног простора. Молим Вас да обришете непотребне податке.</string>
+    <string name="editor_sharing_title">Ја сам поправио/ла мапе у Organic Maps-у</string>
+    <string name="editor_detailed_description_hint">Детаљан коментар</string>
+    <string name="editor_detailed_description">Ваши предлози промена на мапи ће бити послати OpenStreetMap заједници. Молим Вас опишите евентуалне додатне детаље који не могу да се промене помоћу Organic Maps-а.</string>
+    <string name="current_location_unknown_error_message">Десила се грешка приликом утврђивања ваше локације. Проверите да ли је ваш уређај исправан и покушајте поново касније.</string>
+    <string name="location_services_disabled_header">Локацијски сервиси су искључени</string>
+    <string name="location_services_disabled_message">Омогућите приступ геолокацији у подешавањима вашег уређаја</string>
+    <string name="location_services_disabled_1">1. Отворите Подешавања</string>
+    <string name="location_services_disabled_2">2. Додирните опцију Локација</string>
+    <!-- iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) -->
+    <string name="location_services_disabled_3">3. Изаберите За време коришћенја апликације</string>
+    <string name="location_services_disabled_on_device_2">2. Изаберите Приватност</string>
+    <string name="location_services_disabled_on_device_3">3. Изаберите Локацијски сервиси</string>
+    <string name="location_services_disabled_on_device_4">4. Укључите Локацијске сервисе</string>
+    <string name="location_services_disabled_on_device_additional_message">Или наставите да користите Organic Maps без локације</string>
+    <string name="book_button">Резервиши</string>
+    <string name="placepage_call_button">Позови</string>
+    <string name="placepage_bookmark_name_hint">Назив маркера</string>
+    <string name="placepage_delete_bookmark_button">Обриши маркер</string>
+    <string name="editor_edits_sent_message">Ваша напомена ће бити послана на OpenStreetMap</string>
+    <string name="text_more_button">…још</string>
+    <string name="refresh">Ажурирај</string>
+    <!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+    <string name="recent_track_background_dialog_title">Искључити снимање ваше недавно пређене руте?</string>
+    <string name="off_recent_track_background_button">Искључи</string>
+    <!-- For sharing via SMS and so on -->
+    <string name="sharing_call_action_look">Погледај</string>
+    <string name="recent_track_background_dialog_message">Organic Maps користи у позадини вашу локацију да би сачувао вашу недавно пређену руту.</string>
+    <string name="general_settings">Општа подешавања</string>
+    <!-- "traffic" as in road congestion -->
+    <string name="traffic_update_app_message">Да бисте видели податке о саобраћају, морате да ажурирате апликацију.</string>
+    <string name="log_file_size">Величина лог фајла: %s</string>
+    <string name="planning_route_remove_title">Превуците овде за уклањање</string>
+    <string name="placepage_replace_stop">Replace Stop</string>
+    <string name="start_from_my_position">Крени од</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part -->
+    <string name="alert_reauth_message_ios">Молим вас да се улогујете на OpenStreetMap да бисте аутоматски послали све ваше промене на мапи. Сазнајте више</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part -->
+    <string name="alert_reauth_link_text_ios">овде</string>
+    <string name="downloader_hide_screen">Сакриј екран</string>
+    <string name="downloader_percent">%1$s (%2$s од %3$s)</string>
+    <string name="downloader_process">Преузимам %s…</string>
+    <string name="downloader_applying">Примењујем %s…</string>
+    <string name="bookmarks_error_title_list_name_too_long">Изабрано име је предугачко</string>
+    <string name="bookmarks_detect_title">Пронађени су нови фајлови</string>
+    <string name="button_convert">Конвертуј</string>
+    <string name="bookmarks_convert_error_title">Грешка</string>
+    <string name="bookmarks_convert_error_message">Неки фајлови нису конвертовани.</string>
+    <string name="title_error_downloading_bookmarks">Десила се грешка</string>
+    <string name="popular_place">Популарно</string>
+    <string name="hide_from_map">Сакриј на карти</string>
+    <string name="tags_loading_error_subtitle">Десила се грешка приликом учитавања тагова, покушајте поново</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (on the right) -->
+    <string name="right">Right</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (at the bottom) -->
+    <string name="bottom">Bottom</string>
+    <string name="trip_start">Крећемо</string>
+    <string name="pick_destination">Одредиште</string>
+    <string name="follow_my_position">Центрирај</string>
+    <string name="search_results">Резултати претраге</string>
+    <string name="then_turn">Затим</string>
+    <string name="redirect_route_alert">Да ли желите да поново направим руту?</string>
+    <string name="keyboard_availability_alert">Тастатура је онемогућена у току вожње</string>
+    <string name="dialog_routing_change_start_carplay">Није могуће направити руту са ваше тренутне локације</string>
+    <string name="dialog_routing_change_end_carplay">Није могуће направити руту до изабраног одредишта. Изаберите друго одредиште.</string>
+    <string name="dialog_routing_check_gps_carplay">Нема ГПС сигнала. Померите се на отворен простор</string>
+    <string name="dialog_routing_unable_locate_route_carplay">Није могуће направити руту. Изаберите друге тачке на рути</string>
+    <string name="dialog_routing_download_files_carplay">Да бисте направили руту, преузмите недостајуће мапе на ваш уређај</string>
+    <string name="dialog_routing_system_error_carplay">Дошло је до грешке. Молим Вас рестартујте апликацију</string>
+    <string name="dialog_routing_rebuild_from_current_location_carplay">Рута ће бити поново направљена од ваше тренутне локације</string>
+    <string name="dialog_routing_rebuild_for_vehicle_carplay">Рута ће бити прилагођена за кретање аутомобилом</string>
+    <string name="not_all_shown_bookmarks_carplay">Нису приказани сви маркери</string>
+    <string name="switch_to_phone_bookmarks_carplay">Пребаците се на телефон да бисте видели све маркере</string>
+    <string name="speedcams_alert_title_carplay_1">Прекршајне камере</string>
+    <string name="speedcams_alert_title_carplay_2">Упозорење прекорачења</string>
+    <string name="download_map_carplay">Молим Вас да преузмете мапе у апликацији на Вашем мобилном уређају</string>
+    <string name="carplay_roundabout_exit">%s излаз</string>
+    <!-- iOS -->
+    <string name="sort_default">Подразумевано сортирање</string>
+    <string name="sort_type">Сортирање по типу</string>
+    <string name="sort_distance">Сортирање по удаљености</string>
+    <string name="sort_date">Сортирање по датуму</string>
+    <string name="sort_name">Сортирање по називу</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Храна</string>
@@ -777,6 +942,8 @@
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
     <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
@@ -853,6 +1020,8 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Заустави снимање путање</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="track_recording_title">Track Recording</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Заустави без снимања</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Настави снимање</string>
@@ -869,8 +1038,127 @@
     <string name="nav_auto">Аутоматски у навигацији</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Прати систем</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Share Track</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Delete %s?</string>
+    <string name="elevation_profile_diff_level">Тежина</string>
+    <string name="elevation_profile_diff_level_easy">Лако</string>
+    <string name="elevation_profile_diff_level_moderate">Умерено</string>
+    <string name="elevation_profile_diff_level_hard">Тешко</string>
+    <string name="downloader_updating_ios">Ажурирање</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_title">Ажурирај преузете мапе</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_message">Ажурирање мапа обезбеђује да су подаци о објектима ажурни</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_size">Ажурирај (%s)</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_later">Ручно ажурирај касније</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Обриши путању</string>
+    <!-- The track deletion confirmaion alert message. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Да ли сте сигурни да желите да обришете ову путању?</string>
+    <!-- Placeholder for track name input on track edit screen -->
+    <string name="placepage_track_name_hint">Назив путање</string>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Премести</string>
+    <!-- edit track screen title -->
+    <string name="track_title">Путања</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Промени боју</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Hide track</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Show track</string>
+    <!-- Main screen title "Map" displayed in the navigation back button's menu. -->
+    <string name="map">Мапа</string>
+    <!-- Message for the bug report alert. -->
+    <string name="bugreport_alert_message">Да ли желите да пошаљете пријаву бага програмерима?\nОслањамо се на кориснике пошто Organic Maps не прикупља податке о грешкама аутоматски. Хвала унапред што подржавате Organic Maps!</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_title">Омогући iCloud синхронизацију</string>
+    <!-- Message for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_message">iCloud синхронизација је експеримантална функционалност која је још увек у развоју. Проверите да ли сте направили резервну копију (бекап) свих ваших маркера и путања.</string>
+    <!-- Title for the "iCloud Is Disabled" alert. -->
+    <string name="icloud_disabled_title">iCloud је искључен</string>
+    <!-- Message for the "iCloud is Disabled" alert. -->
+    <string name="icloud_disabled_message">Молим Вас да укључите iCloud у подешавањима вашег уређаја да бисте користили ову опцију.</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button. -->
+    <string name="enable">Укључи</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Backup" action button. -->
+    <string name="backup">Резервна копија</string>
+    <!-- Title for the "iCloud synchronization failure" alert. -->
+    <string name="icloud_synchronization_error_alert_title">Неуспешна iCloud синхронизација</string>
+    <!-- iCloud error message: Failed to synchronize due to connection error -->
+    <string name="icloud_synchronization_error_connection_error">Грешка: синхронизација није успела због грешке приликом повезивања</string>
+    <!-- iCloud error message: Failed to synchronize due to iCloud quota exceeded -->
+    <string name="icloud_synchronization_error_quota_exceeded">Грешка: синхронизација није успела због прекорачења iCloud квоте</string>
+    <!-- iCloud error message: iCloud is not available -->
+    <string name="icloud_synchronization_error_cloud_is_unavailable">Грешка: iCloud није доступан</string>
+    <!-- Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. -->
+    <string name="bookmarks_recently_deleted">Недавно обрисане листе</string>
+    <!-- Title for the "Clear" button on the Recently Deleted Lists screen. -->
+    <string name="clear">Обриши</string>
+    <!-- Title for the "Delete All" button on the Recently Deleted Lists screen. -->
+    <string name="delete_all">Обриши све</string>
+    <!-- Title for the "Recover" button on the Recently Deleted Lists screen. -->
+    <string name="recover">Поврати</string>
+    <!-- Title for the "Recover All" button on the Recently Deleted Lists screen. -->
+    <string name="recover_all">Поврати све</string>
+    <!-- OpenStreetMap contribution section on the PlacePage. -->
+    <string name="contribute_to_osm">Допринос OpenStreetMap-у</string>
+    <string name="contribute_to_osm_add_place">Додај место</string>
+    <string name="contribute_to_osm_update_map">Ажурирајте мапу да бисте допринели</string>
+    <string name="contribute_to_osm_update_map_description">Морате ажурирати %s мапу на најновију верзију пре него што можете да допринесете OpenStreetMap подацима</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">МБ</string>
+    <string name="gb">ГБ</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Моја позиција</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Моја места</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Интерна приватна меморија</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Интерна дељена меморија</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SD картица</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Екстерна дељена меморија</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Поштански број</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Тачка на мапи</string>
+    <!-- abbreviation for meters -->
+    <string name="m">м</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">км</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">ми</string>
+    <!-- A unit of measure -->
+    <string name="ft">стопа</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">To display routes, maps must be updated.</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Излаз</string>
+    <string name="core_entrance">Улаз</string>
+    <string name="subway_data_unavailable">Мапа метроа не постоји</string>
+    <string name="you">You</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Љубичасти преузети региони</string>
+
+    <!-- SECTION: 3d touch strings -->
+    <!-- Used in home screen quick actions. -->
+    <string name="route">Путања</string>
 
     <!-- SECTION: gps strings -->
+    <!-- Needed to explain why we always require access to GPS coordinates, and not only when the app is active. -->
+    <string name="NSLocationAlwaysUsageDescription">Откривање локације у позадини је неопходно да у потпуности уживате у функционалности апликације. Користи се за навигацију и чување недавно путовао стазу.</string>
+    <!-- Needed to explain why we require access to GPS coordinates when the app is active. -->
+    <string name="NSLocationWhenInUseUsageDescription">Одређивање ваше локације је неопходно за навигацију и за чување недавног путовања.</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Пријава са лозинком</string>
     <!-- Login to OSM button text -->
