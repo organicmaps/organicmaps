@@ -1,10 +1,12 @@
 #import "MWMRoutingOptions.h"
 
 #include "routing/routing_options.hpp"
+#import "MWMRouterType.h"
 
 @interface MWMRoutingOptions ()
 {
   routing::RoutingOptions _options;
+  MWMRouterType _routerType;
 }
 
 @end
@@ -13,10 +15,29 @@
 
 - (instancetype)init
 {
-  self = [super init];
-  if (self)
-    _options = routing::RoutingOptions::LoadCarOptionsFromSettings();
+  return [self initWithRouterType:MWMRouterTypeVehicle];
+}
 
+- (instancetype)initWithRouterType:(MWMRouterType)type
+{
+  self = [super init];
+  if (self) {
+    _routerType = type;
+    switch (type) {
+      case MWMRouterTypeVehicle:
+        _options = routing::RoutingOptions::LoadCarOptionsFromSettings();
+        break;
+      case MWMRouterTypePedestrian:
+        _options = routing::RoutingOptions::LoadPedestrianOptionsFromSettings();
+        break;
+      case MWMRouterTypeBicycle:
+        _options = routing::RoutingOptions::LoadBicycleOptionsFromSettings();
+        break;
+      default:
+        _options = routing::RoutingOptions::LoadCarOptionsFromSettings();
+        break;
+    }
+  }
   return self;
 }
 
@@ -67,7 +88,20 @@
 
 - (void)save
 {
-  routing::RoutingOptions::SaveCarOptionsToSettings(_options);
+  switch (_routerType) {
+    case MWMRouterTypeVehicle:
+      routing::RoutingOptions::SaveCarOptionsToSettings(_options);
+      break;
+    case MWMRouterTypePedestrian:
+      routing::RoutingOptions::SavePedestrianOptionsToSettings(_options);
+      break;
+    case MWMRouterTypeBicycle:
+      routing::RoutingOptions::SaveBicycleOptionsToSettings(_options);
+      break;
+    default:
+      routing::RoutingOptions::SaveCarOptionsToSettings(_options);
+      break;
+  }
 }
 
 - (void)setOption:(routing::RoutingOptions::Road)option enabled:(BOOL)enabled
