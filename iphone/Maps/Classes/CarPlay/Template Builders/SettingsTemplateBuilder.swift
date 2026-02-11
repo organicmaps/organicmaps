@@ -12,7 +12,7 @@ final class SettingsTemplateBuilder {
   }
 
   private class func buildGridButtons() -> [CPGridButton] {
-    let options = RoutingOptions()
+    let options = RoutingOptions(routerType: .vehicle)
     return [createUnpavedButton(options: options),
             createTollButton(options: options),
             createFerryButton(options: options),
