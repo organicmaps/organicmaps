@@ -1,7 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "MWMRouterType.h"
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(RoutingOptions)
@@ -15,8 +14,6 @@ NS_SWIFT_NAME(RoutingOptions)
 
 - (instancetype)initWithRouterType:(MWMRouterType)type;
 - (void)save;
-
-
 
 @end
 
