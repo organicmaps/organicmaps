@@ -1,6 +1,6 @@
 
 class DrivingOptionsViewController: MWMTableViewController {
-  let options = RoutingOptions(routerType: .vehicle)
+  lazy var options = RoutingOptions(routerType: MWMRouter.type())
   @IBOutlet var tollRoadsCell: SettingsTableViewSwitchCell!
   @IBOutlet var unpavedRoadsCell: SettingsTableViewSwitchCell!
   @IBOutlet var ferryCrossingsCell: SettingsTableViewSwitchCell!

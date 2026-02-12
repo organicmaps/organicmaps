@@ -161,7 +161,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
     [MWMLocationManager addObserver:self];
     [MWMFrameworkListener addObserver:self];
     _canAutoAddLastLocation = YES;
-    _routingOptions = [MWMRoutingOptions new];
+    _routingOptions = [[MWMRoutingOptions alloc] initWithRouterType:[MWMRouter type]];
     _isRestoreProcessCompleted = NO;
   }
   return self;
@@ -550,7 +550,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 
 - (void)onRouteReady:(BOOL)hasWarnings
 {
-  self.routingOptions = [MWMRoutingOptions new];
+  self.routingOptions = [[MWMRoutingOptions alloc] initWithRouterType:[MWMRouter type]];
 
   auto startPoint = [MWMRouter startPoint];
   if (!startPoint || !startPoint.isMyPosition)
@@ -573,7 +573,8 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   case routing::RouterResultCode::NeedMoreMaps:
   case routing::RouterResultCode::FileTooOld:
   case routing::RouterResultCode::RouteNotFound:
-    self.routingOptions = [MWMRoutingOptions new];
+    self.routingOptions = [[MWMRoutingOptions alloc] initWithRouterType:[MWMRouter type]];
+
     [self presentDownloaderAlert:code countries:absentCountries];
     [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"routing_planning_error")];
     break;
@@ -693,19 +694,20 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 
 + (void)updateRoute
 {
-  MWMRoutingOptions * newOptions = [MWMRoutingOptions new];
+  MWMRoutingOptions * newOptions = [[MWMRoutingOptions alloc] initWithRouterType:self.type];
   if ((self.isRoutingActive && !self.isOnRoute) && ![newOptions isEqual:[self router].routingOptions])
     [self rebuildWithBestRouter:YES];
 }
 
 + (BOOL)hasActiveDrivingOptions
 {
-  return [MWMRoutingOptions new].hasOptions && self.type != MWMRouterTypeRuler;
+  return [[MWMRoutingOptions alloc] initWithRouterType:self.type].hasOptions
+  && self.type != MWMRouterTypeRuler;
 }
 
 + (void)avoidRoadTypeAndRebuild:(MWMRoadType)type
 {
-  MWMRoutingOptions * options = [MWMRoutingOptions new];
+  MWMRoutingOptions * options = [[MWMRoutingOptions alloc] initWithRouterType:self.type];
   switch (type)
   {
   case MWMRoadTypeToll: options.avoidToll = YES; break;
