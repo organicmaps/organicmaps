@@ -66,10 +66,9 @@ std::string DebugPrint(GenericJsonMap const & p)
 std::string DebugPrint(glz::generic const & json)
 {
   std::string buffer;
-  if (glz::write_json(json, buffer))
-    return buffer;
-  else
-    return "<JSON_ERROR>";
+  if (auto err = glz::write_json(json, buffer))
+    return "Could not serialize to Json: " + glz::format_error(err, buffer);
+  return buffer;
 }
 
 std::string DebugPrint(GeoJsonFeature const & c)
