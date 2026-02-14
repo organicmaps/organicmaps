@@ -55,6 +55,7 @@ enum class HighwayType : uint16_t
   RouteFerry = 259,
   HighwayTertiaryLink = 272,
   HighwayLadder = 478,
+  HighwayPlatform = 700,
   HighwayBusway = 857,  // reserve type here, but this type is not used for any routing by default
   RouteShuttleTrain = 1054,
 };

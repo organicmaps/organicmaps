@@ -303,6 +303,7 @@ HighwayBasedFactors GetOneFactorsForBicycleAndPedestrianModel()
       {HighwayType::HighwayLadder, InOutCityFactor(1.0)},
       {HighwayType::HighwaySteps, InOutCityFactor(1.0)},
       {HighwayType::HighwayPedestrian, InOutCityFactor(1.0)},
+      {HighwayType::HighwayPlatform, InOutCityFactor(1.0)},
       {HighwayType::HighwayFootway, InOutCityFactor(1.0)},
       {HighwayType::ManMadePier, InOutCityFactor(1.0)},
       {HighwayType::RouteFerry, InOutCityFactor(1.0)},
@@ -367,6 +368,7 @@ string DebugPrint(HighwayType type)
   case HighwayType::HighwaySteps: return "highway-steps";
   case HighwayType::HighwayTrunk: return "highway-trunk";
   case HighwayType::HighwayPedestrian: return "highway-pedestrian";
+  case HighwayType::HighwayPlatform: return "highway-platform";
   case HighwayType::HighwayTrunkLink: return "highway-trunk_link";
   case HighwayType::HighwayPrimaryLink: return "highway-primary_link";
   case HighwayType::ManMadePier: return "man_made-pier";

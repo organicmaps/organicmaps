@@ -30,10 +30,8 @@ public:
     m_map[c.GetTypeByPath({"route", "ferry"})] = HighwayClass::Transported;
     m_map[c.GetTypeByPath({"route", "shuttle_train"})] = HighwayClass::Transported;
 
-    m_map[c.GetTypeByPath({"highway", "motorway"})] = HighwayClass::Trunk;
-    m_map[c.GetTypeByPath({"highway", "motorway_link"})] = HighwayClass::Trunk;
-    m_map[c.GetTypeByPath({"highway", "trunk"})] = HighwayClass::Trunk;
-    m_map[c.GetTypeByPath({"highway", "trunk_link"})] = HighwayClass::Trunk;
+    for (char const * v : {"motorway", "motorway_link", "trunk", "trunk_link"})
+      m_map[c.GetTypeByPath({"highway", v})] = HighwayClass::Trunk;
 
     m_map[c.GetTypeByPath({"highway", "primary"})] = HighwayClass::Primary;
     m_map[c.GetTypeByPath({"highway", "primary_link"})] = HighwayClass::Primary;
@@ -44,28 +42,20 @@ public:
     m_map[c.GetTypeByPath({"highway", "tertiary"})] = HighwayClass::Tertiary;
     m_map[c.GetTypeByPath({"highway", "tertiary_link"})] = HighwayClass::Tertiary;
 
-    m_map[c.GetTypeByPath({"highway", "unclassified"})] = HighwayClass::LivingStreet;
-    m_map[c.GetTypeByPath({"highway", "residential"})] = HighwayClass::LivingStreet;
-    m_map[c.GetTypeByPath({"highway", "living_street"})] = HighwayClass::LivingStreet;
-    m_map[c.GetTypeByPath({"highway", "road"})] = HighwayClass::LivingStreet;
+    for (char const * v : {"unclassified", "residential", "living_street", "road"})
+      m_map[c.GetTypeByPath({"highway", v})] = HighwayClass::LivingStreet;
 
-    m_map[c.GetTypeByPath({"highway", "service"})] = HighwayClass::Service;
-    m_map[c.GetTypeByPath({"highway", "track"})] = HighwayClass::Service;
-    m_map[c.GetTypeByPath({"highway", "busway"})] = HighwayClass::Service;
+    for (char const * v : {"service", "track", "busway"})
+      m_map[c.GetTypeByPath({"highway", v})] = HighwayClass::Service;
     m_map[c.GetTypeByPath({"man_made", "pier"})] = HighwayClass::Service;
 
     // 3-level types.
     m_map[c.GetTypeByPath({"highway", "service", "driveway"})] = HighwayClass::ServiceMinor;
     m_map[c.GetTypeByPath({"highway", "service", "parking_aisle"})] = HighwayClass::ServiceMinor;
 
-    m_map[c.GetTypeByPath({"highway", "pedestrian"})] = HighwayClass::Pedestrian;
-    m_map[c.GetTypeByPath({"highway", "footway"})] = HighwayClass::Pedestrian;
-    m_map[c.GetTypeByPath({"highway", "bridleway"})] = HighwayClass::Pedestrian;
-    m_map[c.GetTypeByPath({"highway", "ladder"})] = HighwayClass::Pedestrian;
-    m_map[c.GetTypeByPath({"highway", "steps"})] = HighwayClass::Pedestrian;
-    m_map[c.GetTypeByPath({"highway", "cycleway"})] = HighwayClass::Pedestrian;
-    m_map[c.GetTypeByPath({"highway", "path"})] = HighwayClass::Pedestrian;
-    m_map[c.GetTypeByPath({"highway", "construction"})] = HighwayClass::Pedestrian;
+    for (char const * v :
+         {"pedestrian", "platform", "footway", "bridleway", "ladder", "steps", "cycleway", "path", "construction"})
+      m_map[c.GetTypeByPath({"highway", v})] = HighwayClass::Pedestrian;
   }
 
   HighwayClass Get(uint32_t t) const
@@ -314,28 +304,14 @@ IsWayChecker::IsWayChecker()
   Classificator const & c = classif();
   std::pair<char const *, SearchRank> const types[] = {
       // type           rank
-      {"cycleway", Cycleway},
-      {"footway", Pedestrian},
-      {"living_street", Residential},
-      {"motorway", Motorway},
-      {"motorway_link", Motorway},
-      {"path", Outdoor},
-      {"pedestrian", Pedestrian},
-      {"primary", Regular},
-      {"primary_link", Regular},
-      {"residential", Residential},
-      {"road", Minors},
-      {"secondary", Regular},
-      {"secondary_link", Regular},
-      {"service", Minors},
-      {"ladder", Pedestrian},
-      {"steps", Pedestrian},
-      {"tertiary", Regular},
-      {"tertiary_link", Regular},
-      {"track", Outdoor},
-      {"trunk", Motorway},
-      {"trunk_link", Motorway},
-      {"unclassified", Minors},
+      {"cycleway", Cycleway},     {"footway", Pedestrian},      {"living_street", Residential},
+      {"motorway", Motorway},     {"motorway_link", Motorway},  {"path", Outdoor},
+      {"pedestrian", Pedestrian}, {"platform", Pedestrian},     {"primary", Regular},
+      {"primary_link", Regular},  {"residential", Residential}, {"road", Minors},
+      {"secondary", Regular},     {"secondary_link", Regular},  {"service", Minors},
+      {"ladder", Pedestrian},     {"steps", Pedestrian},        {"tertiary", Regular},
+      {"tertiary_link", Regular}, {"track", Outdoor},           {"trunk", Motorway},
+      {"trunk_link", Motorway},   {"unclassified", Minors},
   };
 
   m_ranks.Reserve(std::size(types));

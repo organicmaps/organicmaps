@@ -489,6 +489,7 @@ UNIT_TEST(VehicleModel_HighwayType_Values)
   TEST(check(HighwayType::HighwaySteps, {"highway", "steps"}), ());
   TEST(check(HighwayType::HighwayTrunk, {"highway", "trunk"}), ());
   TEST(check(HighwayType::HighwayPedestrian, {"highway", "pedestrian"}), ());
+  TEST(check(HighwayType::HighwayPlatform, {"highway", "platform"}), ());
   TEST(check(HighwayType::HighwayTrunkLink, {"highway", "trunk_link"}), ());
   TEST(check(HighwayType::HighwayPrimaryLink, {"highway", "primary_link"}), ());
   TEST(check(HighwayType::ManMadePier, {"man_made", "pier"}), ());
