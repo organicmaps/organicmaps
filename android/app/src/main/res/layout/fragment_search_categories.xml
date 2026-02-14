@@ -4,6 +4,11 @@
   style="@style/MwmWidget.FrameLayout"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
-  <include
-    layout="@layout/recycler_default"/>
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recycler"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?windowBackgroundForced"
+    android:scrollbars="vertical"
+    android:scrollbarSize="@dimen/scrollbar_size" />
 </FrameLayout>
