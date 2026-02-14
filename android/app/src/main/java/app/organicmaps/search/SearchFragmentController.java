@@ -120,6 +120,15 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     }
   };
 
+  private final Observer<Integer> mToolbarHeightObserver = new Observer<>() {
+    @Override
+    public void onChanged(Integer height)
+    {
+      if (height != null && height > 0)
+        mFrameLayoutBottomSheetBehavior.setPeekHeight(height);
+    }
+  };
+
   private final View.OnTouchListener mMapTouchListener = new View.OnTouchListener() {
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -175,15 +184,10 @@ public class SearchFragmentController extends Fragment implements SearchFragment
 
     DisplayMetrics dm = getResources().getDisplayMetrics();
     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-    {
-      ViewGroup.LayoutParams lp = mSearchPageContainer.getLayoutParams();
-      lp.width = (int) (dm.widthPixels * 0.6f);
-      mSearchPageContainer.setLayoutParams(lp);
-    }
-    int h = dm.heightPixels;
+      adjustSearchContainerWidthForLandscape(dm);
 
     mFrameLayoutBottomSheetBehavior.setFitToContents(false);
-    mFrameLayoutBottomSheetBehavior.setPeekHeight((int) (0.2f * h)); // collapsed
+    // Peek height will be set dynamically when toolbar height is measured
     mFrameLayoutBottomSheetBehavior.setHalfExpandedRatio(0.5f); // mid
     mFrameLayoutBottomSheetBehavior.setHideable(true);
     mFrameLayoutBottomSheetBehavior.setDraggable(true);
@@ -246,6 +250,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mPlacePageViewModel.getMapObject().observe(getViewLifecycleOwner(), mPlacePageMapObjectObserver);
     mFrameLayoutBottomSheetBehavior.addBottomSheetCallback(mDefaultBottomSheetCallback);
     mViewModel.getSearchEnabled().observe(getViewLifecycleOwner(), mSearchPageEnabledObserver);
+    mViewModel.getToolbarHeight().observe(getViewLifecycleOwner(), mToolbarHeightObserver);
   }
 
   @Override
@@ -277,6 +282,25 @@ public class SearchFragmentController extends Fragment implements SearchFragment
 
     int expandedOffset = topInset + routingHeaderHeight;
     mFrameLayoutBottomSheetBehavior.setExpandedOffset(Math.max(expandedOffset, 0));
+  }
+
+  /**
+   * Adjusts the search container width for landscape orientation.
+   * On screens with sufficient width, sets the width to 60% of screen width.
+   * On smaller screens, uses full width to ensure content fits properly.
+   */
+  private void adjustSearchContainerWidthForLandscape(DisplayMetrics dm)
+  {
+    float screenWidthDp = dm.widthPixels / dm.density;
+
+    // Apply 60% width restriction only on screens wide enough (600dp+)
+    // This ensures content doesn't get clipped on smaller devices in landscape
+    if (screenWidthDp >= 600)
+    {
+      ViewGroup.LayoutParams lp = mSearchPageContainer.getLayoutParams();
+      lp.width = (int) (dm.widthPixels * 0.6f);
+      mSearchPageContainer.setLayoutParams(lp);
+    }
   }
 
   boolean isDrag(MotionEvent event)
