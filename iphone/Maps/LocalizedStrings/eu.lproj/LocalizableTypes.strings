@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Oinezkoen tunela";
+"type.highway.platform" = "Platform";
 "type.highway.primary" = "Errepide nagusia";
 
 /* These translations are used for all type.highway.*.bridge. */

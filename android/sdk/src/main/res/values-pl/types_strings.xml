@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Most dla pieszych</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunel dla pieszych</string>
+    <string name="type.highway.platform">Przystanek transportu publicznego</string>
     <string name="type.highway.primary">Ulica</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Most</string>

@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Híd</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Alagút</string>
+    <string name="type.highway.platform">Peron</string>
     <string name="type.highway.primary">Utca</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Híd</string>

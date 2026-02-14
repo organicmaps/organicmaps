@@ -426,6 +426,7 @@
     <string name="type.highway.pedestrian.bridge">Körpü</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunel</string>
+    <string name="type.highway.platform">Platforma</string>
     <string name="type.highway.primary">Əsas yol</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Körpü</string>

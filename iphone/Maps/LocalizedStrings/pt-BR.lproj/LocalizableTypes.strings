@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Túnel para pedestres";
+"type.highway.platform" = "Plataforma de transporte público";
 "type.highway.primary" = "Estrada";
 
 /* These translations are used for all type.highway.*.bridge. */

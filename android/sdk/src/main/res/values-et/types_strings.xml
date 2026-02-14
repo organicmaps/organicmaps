@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Jalakäijate sild</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Jalakäijate tunnel</string>
+    <string name="type.highway.platform">Ooteplatvorm</string>
     <string name="type.highway.primary">Põhimaantee</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Põhimaantee sild</string>

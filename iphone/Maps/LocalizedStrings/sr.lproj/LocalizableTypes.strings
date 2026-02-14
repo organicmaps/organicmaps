@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Пешачки тунел";
+"type.highway.platform" = "Стајалиште јавног превоза";
 "type.highway.primary" = "Пут прве класе";
 
 /* These translations are used for all type.highway.*.bridge. */

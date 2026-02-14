@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">橋</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">隧道</string>
+    <string name="type.highway.platform">月台</string>
     <string name="type.highway.primary">主要道路</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">橋</string>

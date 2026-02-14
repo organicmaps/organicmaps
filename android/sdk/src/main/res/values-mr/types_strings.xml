@@ -345,6 +345,7 @@
     <string name="type.highway.pedestrian.bridge">पादचारी पूल</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">पादचारी बोगदा</string>
+    <string name="type.highway.platform">फलाट</string>
     <string name="type.highway.primary">प्राथमिक मार्ग</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">पूल</string>

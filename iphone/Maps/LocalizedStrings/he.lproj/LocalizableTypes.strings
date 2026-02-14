@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "מנהרה להולכי רגל";
+"type.highway.platform" = "רציף תחבורה";
 "type.highway.primary" = "כביש ראשי";
 
 /* These translations are used for all type.highway.*.bridge. */

@@ -442,6 +442,7 @@
     <string name="type.highway.pedestrian.bridge">Пешачки мост</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Пешачки тунел</string>
+    <string name="type.highway.platform">Стајалиште јавног превоза</string>
     <string name="type.highway.primary">Пут прве класе</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Мост</string>

@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Voetgangersbrug</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Voetgangerstunnel</string>
+    <string name="type.highway.platform">Platform</string>
     <string name="type.highway.primary">Hoofdweg</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Brug</string>

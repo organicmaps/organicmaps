@@ -445,6 +445,7 @@
     <string name="type.highway.pedestrian.bridge">Pont de vianants</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Túnel de vianants</string>
+    <string name="type.highway.platform">Andana</string>
     <string name="type.highway.primary">Carretera primària</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Pont</string>

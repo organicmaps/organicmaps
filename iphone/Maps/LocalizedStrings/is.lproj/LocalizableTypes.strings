@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Göng fyrir fótgangandi";
+"type.highway.platform" = "Pallur";
 "type.highway.primary" = "Stofnvegur";
 
 /* These translations are used for all type.highway.*.bridge. */

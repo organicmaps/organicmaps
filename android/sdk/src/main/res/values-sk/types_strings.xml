@@ -430,6 +430,7 @@
     <string name="type.highway.pedestrian.bridge">Most pre chodcov</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunel pre chodcov</string>
+    <string name="type.highway.platform">Nástupište</string>
     <string name="type.highway.primary">Cesta I. triedy</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Most</string>

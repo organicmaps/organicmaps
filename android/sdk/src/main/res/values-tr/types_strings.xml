@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Yaya Köprüsü</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Yaya Tüneli</string>
+    <string name="type.highway.platform">Platform</string>
     <string name="type.highway.primary">Ana Yol</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Köprü</string>

@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Tiltas</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunelis</string>
+    <string name="type.highway.platform">Platforma</string>
     <string name="type.highway.primary">Pagrindinis kelias</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Tiltas</string>

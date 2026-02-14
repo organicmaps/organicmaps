@@ -446,6 +446,7 @@
     <string name="type.highway.pedestrian.bridge">ຂົວຄົນຍ່າງ</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">ອຸມົງຄົນຍ່າງ</string>
+    <string name="type.highway.platform">ຊານຊາລາ</string>
     <string name="type.highway.primary">ທາງຫຼັກ</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">ຂົວ</string>

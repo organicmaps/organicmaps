@@ -445,6 +445,7 @@
     <string name="type.highway.pedestrian.bridge">Ponte peonil</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Túnel peonil</string>
+    <string name="type.highway.platform">Plataforma</string>
     <string name="type.highway.primary">Estrada principal</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Ponte</string>

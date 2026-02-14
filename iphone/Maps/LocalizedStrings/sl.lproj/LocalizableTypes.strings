@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Predor za pešce";
+"type.highway.platform" = "Peron";
 "type.highway.primary" = "Glavna cesta";
 
 /* These translations are used for all type.highway.*.bridge. */

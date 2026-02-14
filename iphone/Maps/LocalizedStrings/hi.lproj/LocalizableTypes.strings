@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Pedestrian Tunnel";
+"type.highway.platform" = "रेलवे प्लेटफार्म";
 "type.highway.primary" = "प्राथमिक सड़क";
 
 /* These translations are used for all type.highway.*.bridge. */

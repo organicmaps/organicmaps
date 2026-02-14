@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "トンネル";
+"type.highway.platform" = "公共交通機関のプラットホーム";
 "type.highway.primary" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */

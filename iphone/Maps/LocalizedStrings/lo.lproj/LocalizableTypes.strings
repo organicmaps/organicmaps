@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "ອຸມົງຄົນຍ່າງ";
+"type.highway.platform" = "ຊານຊາລາ";
 "type.highway.primary" = "ທາງຫຼັກ";
 
 /* These translations are used for all type.highway.*.bridge. */

@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Göngubrú</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Göng fyrir fótgangandi</string>
+    <string name="type.highway.platform">Pallur</string>
     <string name="type.highway.primary">Stofnvegur</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Brú</string>

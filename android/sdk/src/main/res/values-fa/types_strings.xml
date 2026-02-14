@@ -381,6 +381,7 @@
     <string name="type.highway.pedestrian.bridge">پل</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">تونل</string>
+    <string name="type.highway.platform">سکو</string>
     <string name="type.highway.primary">جاده</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">پل</string>

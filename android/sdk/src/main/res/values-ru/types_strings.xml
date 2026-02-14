@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Пешеходный мост</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Пешеходный тоннель</string>
+    <string name="type.highway.platform">Платформа</string>
     <string name="type.highway.primary">Шоссе</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Мост</string>

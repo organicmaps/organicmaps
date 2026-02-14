@@ -427,6 +427,7 @@
     <string name="type.highway.pedestrian.bridge">Most za pešce</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Predor za pešce</string>
+    <string name="type.highway.platform">Peron</string>
     <string name="type.highway.primary">Glavna cesta</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Most</string>

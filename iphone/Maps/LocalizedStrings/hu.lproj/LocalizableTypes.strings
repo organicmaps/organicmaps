@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Alagút";
+"type.highway.platform" = "Peron";
 "type.highway.primary" = "Utca";
 
 /* These translations are used for all type.highway.*.bridge. */

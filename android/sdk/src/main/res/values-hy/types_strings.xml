@@ -446,6 +446,7 @@
     <string name="type.highway.pedestrian.bridge">Հետիոտնային կամուրջ</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Հետիոտնային թունել</string>
+    <string name="type.highway.platform">Հարթակ</string>
     <string name="type.highway.primary">Առաջնային ճանապարհ</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Կամուրջ</string>

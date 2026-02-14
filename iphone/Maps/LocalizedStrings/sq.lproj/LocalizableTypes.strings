@@ -486,6 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Tunel këmbësorësh";
+"type.highway.platform" = "Platformë";
 "type.highway.primary" = "Rrugë kryesore";
 
 /* These translations are used for all type.highway.*.bridge. */

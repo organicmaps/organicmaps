@@ -290,6 +290,7 @@
     <string name="type.highway.path.horse">पथ</string>
     <string name="type.highway.pedestrian">पैदल यात्रीयों की सड़क</string>
     <string name="type.highway.pedestrian.area">पैदल यात्रीयों की सड़क</string>
+    <string name="type.highway.platform">रेलवे प्लेटफार्म</string>
     <string name="type.highway.primary">प्राथमिक सड़क</string>
     <string name="type.highway.primary_link">प्राथमिक सड़क</string>
     <string name="type.highway.raceway">दौड़ का मैदान</string>

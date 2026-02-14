@@ -438,6 +438,7 @@
     <string name="type.highway.pedestrian.bridge">גשר הולכי רגל</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">מנהרה להולכי רגל</string>
+    <string name="type.highway.platform">רציף תחבורה</string>
     <string name="type.highway.primary">כביש ראשי</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">גשר</string>

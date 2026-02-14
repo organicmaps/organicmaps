@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Urë këmbësorësh</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunel këmbësorësh</string>
+    <string name="type.highway.platform">Platformë</string>
     <string name="type.highway.primary">Rrugë kryesore</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Urë</string>
