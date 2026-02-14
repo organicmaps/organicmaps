@@ -626,6 +626,7 @@ line|z19-[highway=busway],
 /* 8.OTHERS ROADS 13-22 ZOOM */
 
 line|z13-[highway=pedestrian],
+line|z16-[highway=platform],
 line|z13-[highway=ford]
 {color: @pedestrian;opacity: 1;}
 line|z13-[highway=cycleway],
@@ -704,15 +705,19 @@ line|z15[highway=pedestrian],
 line|z15[highway=ford]
 {width: 2;dashes: 5,2.2;}
 line|z16[highway=pedestrian],
+line|z16[highway=platform],
 line|z16[highway=ford]
 {width: 2.4;dashes: 5.4,2.7;}
 line|z17[highway=pedestrian],
+line|z17[highway=platform],
 line|z17[highway=ford]
 {width: 3;dashes: 5,2;}
 line|z18[highway=pedestrian],
+line|z18[highway=platform],
 line|z18[highway=ford]
 {width: 4;dashes: 7,3;opacity: 1;}
 line|z19-[highway=pedestrian],
+line|z19-[highway=platform],
 line|z19-[highway=ford]
 {width: 5;dashes: 16.2,8.1;opacity: 1;}
 

@@ -687,6 +687,23 @@ line|z18-[man_made=embankment],
 {width: 7; dashes: 8,4,4,3;}
 
 
+/*
+  Color is copied from Transport icon
+  Width is copied from highway=footway
+*/
+line|z16-[public_transport=platform],
+{width: 2; color: #2F6499;}
+
+line|z17[public_transport=platform],
+{width: 2.4;}
+
+line|z18[public_transport=platform],
+{width: 3.2;}
+
+line|z19-[public_transport=platform],
+{width: 4.2;}
+
+
 /* 9. ISOLINES */
 
 line|z11-[isoline=step_1000],

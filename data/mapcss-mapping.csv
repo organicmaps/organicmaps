@@ -816,7 +816,7 @@ deprecated|deprecated;697;x
 deprecated|deprecated;698;x
 deprecated|deprecated;699;x
 deprecated|deprecated;700;x
-deprecated|deprecated;701;x
+highway|platform;701;
 office|diplomatic;702;
 railway|station|subway;[railway=station][transport=subway],[railway=station][station=subway];;name;int_name;703;
 amenity|police;704;
