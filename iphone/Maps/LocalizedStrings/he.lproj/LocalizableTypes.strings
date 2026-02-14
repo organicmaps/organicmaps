@@ -16,7 +16,7 @@
 "type.aeroway.aerodrome" = "שדה תעופה";
 "type.aeroway.aerodrome.international" = "שדה תעופה בינלאומי";
 "type.aeroway.apron" = "חניית מטוסים";
-"type.aeroway.gate" = "שער עליה למטוס";
+"type.aeroway.gate" = "שער עלייה למטוס";
 "type.aeroway.helipad" = "מנחת מסוקים";
 "type.aeroway.runway" = "מסלול המראה";
 "type.aeroway.taxiway" = "מסלול הסעה";
@@ -86,7 +86,7 @@
 "type.amenity.ice_cream" = "חנות גלידה";
 "type.amenity.internet_cafe" = "קפה אינטרנט";
 "type.amenity.kindergarten" = "גן ילדים";
-"type.amenity.library" = "ספריה";
+"type.amenity.library" = "ספרייה";
 "type.amenity.loading_dock" = "מתחם העמסה";
 "type.amenity.luggage_locker" = "Luggage Locker";
 "type.amenity.marketplace" = "זירת מסחר";
@@ -251,7 +251,7 @@
 "type.building.address" = "כתובת";
 "type.building.has_parts" = "מבנה";
 "type.building_part" = "מבנה";
-"type.building.garage" = "מחסן/חניה";
+"type.building.garage" = "מחסן/חנייה";
 "type.building.train_station" = "בניין תחנת רכבת";
 "type.building.warehouse" = "מחסן";
 "type.cemetery.grave" = "קבר";
@@ -320,7 +320,7 @@
 "type.cuisine.greek" = "מטבח יווני";
 "type.cuisine.grill" = "גריל";
 "type.cuisine.heuriger" = "הויריגר";
-"type.cuisine.hotdog" = "נקניקיה";
+"type.cuisine.hotdog" = "נקניקייה";
 "type.cuisine.hungarian" = "מטבח הונגרי";
 "type.cuisine.ice_cream" = "גלידה";
 "type.cuisine.indian" = "מטבח הודי";
@@ -358,7 +358,7 @@
 "type.cuisine.seafood" = "מאכלי ים";
 "type.cuisine.soba" = "אטריות סובה";
 "type.cuisine.spanish" = "מטבח ספרדי";
-"type.cuisine.steak_house" = "סטייקיה";
+"type.cuisine.steak_house" = "סטקייה";
 "type.cuisine.sushi" = "סושי";
 "type.cuisine.tapas" = "טאפאס";
 "type.cuisine.tea" = "תה";
@@ -419,7 +419,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.busway.tunnel" = "מִנהָרָה";
 "type.highway.bus_stop" = "תחנת אוטובוס";
-"type.highway.construction" = "כביש בבניה";
+"type.highway.construction" = "כביש בבנייה";
 "type.highway.cycleway" = "שביל אופניים";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -540,7 +540,7 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "גשר";
 "type.highway.service.driveway" = "כביש גישה";
-"type.highway.service.parking_aisle" = "מעבר במגרש חניה";
+"type.highway.service.parking_aisle" = "מעבר במגרש חנייה";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "מִנהָרָה";
@@ -722,10 +722,10 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "בית קברות נוצרי";
-"type.landuse.religious" = "חצר כנסיה";
-"type.landuse.churchyard" = "חצר כנסיה";
+"type.landuse.religious" = "אזור דתי";
+"type.landuse.churchyard" = "חצר כנסייה";
 "type.landuse.commercial" = "אזור מסחרי";
-"type.landuse.construction" = "אתר בניה";
+"type.landuse.construction" = "אתר בנייה";
 "type.landuse.education" = "קריית חינוך";
 "type.landuse.farmland" = "אדמה חקלאית";
 "type.landuse.farmyard" = "חצר חקלאית";
@@ -804,7 +804,7 @@
 "type.man_made.pipeline" = "צינור";
 "type.man_made.pipeline.overground" = "צינור עילי";
 "type.man_made.silo" = "סילו";
-"type.man_made.storage_tank" = "מיכל איחסון";
+"type.man_made.storage_tank" = "מיכל אחסון";
 "type.man_made.surveillance" = "מצלמת מעקב";
 "type.man_made.tower" = "מגדל";
 
@@ -826,7 +826,7 @@
 "type.man_made.water_well" = "באר מים";
 "type.man_made.water_well.drinking_water_no" = "באר מים";
 "type.man_made.windmill" = "טחנת רוח";
-"type.man_made.works" = "עבודות תעשיה";
+"type.man_made.works" = "עבודות תעשייה";
 
 /* Do not translate. Here to avoid untranslated debug toast. */
 "type.mapswithme" = "mapswithme";
@@ -874,7 +874,7 @@
 "type.natural.peak" = "פסגה";
 "type.natural.saddle" = "אוכף הרים";
 "type.natural.rock" = "סלע";
-"type.natural.scrub" = "עשביה";
+"type.natural.scrub" = "עשבייה";
 "type.natural.spring" = "מעיין";
 "type.natural.spring.drinking_water_no" = "מעיין";
 "type.natural.strait" = "מצר ים";
@@ -922,7 +922,7 @@
 "type.place.quarter" = "שכונה";
 
 /* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
-"type.place.neighbourhood" = "שְׁכוּנָה";
+"type.place.neighbourhood" = "שכונה";
 "type.place.ocean" = "אוקיינוס";
 "type.place.region" = "חבל ארץ";
 "type.place.sea" = "ים";
@@ -971,7 +971,7 @@
 "type.railway.abandoned" = "מסילת רכבת נטושה";
 "type.railway.abandoned.bridge" = "גשר רכבת נטוש";
 "type.railway.abandoned.tunnel" = "מנהרת רכבת נטושה";
-"type.railway.construction" = "מסילת רכבת בבניה";
+"type.railway.construction" = "מסילת רכבת בבנייה";
 "type.railway.crossing" = "מעבר חציית פסי רכבת";
 "type.railway.disused" = "מסילת רכבת לא בשימוש";
 "type.railway.disused.bridge" = "גשר רכבת לא בשימוש";
@@ -979,8 +979,8 @@
 "type.railway.funicular" = "פוניקולר";
 "type.railway.funicular.bridge" = "Funicular Bridge";
 "type.railway.funicular.tunnel" = "Funicular Tunnel";
-"type.railway.halt" = "Rail Halt";
-"type.railway.level_crossing" = "Level Crossing";
+"type.railway.halt" = "תחנת רכבת";
+"type.railway.level_crossing" = "מפגש מסילת ברזל";
 "type.railway.light_rail" = "Light Rail";
 "type.railway.light_rail.bridge" = "Light Rail Bridge";
 "type.railway.light_rail.tunnel" = "Light Rail Tunnel";
@@ -1024,13 +1024,13 @@
 "type.railway.rail.utility.tunnel" = "מנהרת הרכבת";
 "type.railway.rail.spur.tunnel" = "מנהרת הרכבת";
 "type.railway.rail.service.tunnel" = "מנהרת הרכבת";
-"type.railway.station" = "Train Station";
+"type.railway.station" = "תחנת רכבת";
 "type.railway.station.funicular" = "פוניקולר";
-"type.railway.station.light_rail" = "Light Rail Station";
-"type.railway.station.light_rail.berlin" = "S-Bahn Station";
-"type.railway.station.light_rail.london" = "DLR Station";
-"type.railway.station.light_rail.porto" = "Porto Metro";
-"type.railway.station.monorail" = "Monorail Station";
+"type.railway.station.light_rail" = "תחנת רכבת";
+"type.railway.station.light_rail.berlin" = "תחנת רכבת";
+"type.railway.station.light_rail.london" = "תחנת רכבת";
+"type.railway.station.light_rail.porto" = "תחנת רכבת";
+"type.railway.station.monorail" = "תחנת רכבת";
 "type.railway.station.subway" = "Subway Station";
 "type.railway.station.subway.adana" = "Subway Station";
 "type.railway.station.subway.algiers" = "Subway Station";
@@ -1272,50 +1272,50 @@
 "type.route" = "Route";
 "type.route.ferry" = "Ferry";
 "type.route.shuttle_train" = "route-shuttle_train";
-"type.shop" = "Shop";
-"type.shop.alcohol" = "Liquor Shop";
-"type.shop.bakery" = "Bakery";
+"type.shop" = "חנות";
+"type.shop.alcohol" = "חנות אלכוהול";
+"type.shop.bakery" = "מאפייה";
 "type.shop.bathroom_furnishing" = "ריהוט חדר רחצה";
-"type.shop.beauty" = "Beauty Shop";
-"type.shop.beverages" = "Beverages";
-"type.shop.bicycle" = "Bicycle Shop";
-"type.shop.bookmaker" = "Bookmaker";
-"type.shop.books" = "Bookstore";
-"type.shop.butcher" = "Butcher";
+"type.shop.beauty" = "מכון יופי";
+"type.shop.beverages" = "חנות משקאות";
+"type.shop.bicycle" = "חנות אופניים";
+"type.shop.bookmaker" = "סוכן הימורים";
+"type.shop.books" = "חנות ספרים";
+"type.shop.butcher" = "קצבייה";
 "type.shop.cannabis" = "חנות קנאביס";
-"type.shop.car" = "Car Dealership";
-"type.shop.car_parts" = "Car Parts Shop";
-"type.shop.car_repair" = "Car Repair Workshop";
-"type.shop.car_repair.tyres" = "פנצ'ריה";
+"type.shop.car" = "מכירת רכב";
+"type.shop.car_parts" = "חנות חלקי רכב";
+"type.shop.car_repair" = "מוסך";
+"type.shop.car_repair.tyres" = "פנצ'רייה";
 "type.shop.caravan" = "סוחר בקראוונים";
-"type.shop.carpet" = "שטיחים";
+"type.shop.carpet" = "חנות שטיחים";
 "type.shop.chemist" = "Chemist";
 "type.shop.chocolate" = "חנות שוקולדים";
 "type.shop.clothes" = "חנות בגדים";
 "type.shop.coffee" = "בית קפה";
 "type.shop.computer" = "חנות מחשבים";
-"type.shop.confectionery" = "Candy Shop";
+"type.shop.confectionery" = "חנות ממתקים";
 "type.shop.convenience" = "חנות נוחות";
 "type.shop.copyshop" = "חנות דפוס ושעתוק";
 "type.shop.cosmetics" = "חנות קוסמטיקה";
-"type.shop.curtain" = "וילונות";
-"type.shop.deli" = "מעדניה";
+"type.shop.curtain" = "חנות וילונות";
+"type.shop.deli" = "מעדנייה";
 "type.shop.department_store" = "חנות כל-בו גדולה";
 "type.shop.doityourself" = "חנות לשיפוץ הבית";
 "type.shop.dry_cleaning" = "ניקוי יבש";
 "type.shop.electronics" = "חנות מוצרי חשמל";
 "type.shop.erotic" = "חנות אירוטיקה";
 "type.shop.fabric" = "חנות בדים";
-"type.shop.farm" = "הווחל ןוזמ תונח";
+"type.shop.farm" = "חנות מזון חקלאי";
 "type.shop.fashion_accessories" = "אביזרי אופנה";
 "type.shop.florist" = "חנות פרחים";
 "type.shop.funeral_directors" = "מנהלי הלוויות";
 "type.shop.furniture" = "חנות רהיטים";
-"type.shop.garden_centre" = "Garden Center";
+"type.shop.garden_centre" = "משתלה";
 "type.shop.gas" = "חנות גז";
 "type.shop.gift" = "חנות מתנות";
 "type.shop.greengrocer" = "ירקן";
-"type.shop.grocery" = "תלֶוֹכּמַ";
+"type.shop.grocery" = "מכולת";
 "type.shop.hairdresser" = "מספרה";
 "type.shop.hardware" = "חנות לחומרי בניין";
 "type.shop.health_food" = "חנות מזון בריאות";
@@ -1337,10 +1337,10 @@
 "type.shop.musical_instrument" = "חנות כלי נגינה";
 "type.shop.newsagent" = "דוכן עיתונים";
 "type.shop.optician" = "אופטיקה";
-"type.shop.outdoor" = "Outdoor Equipment Shop";
+"type.shop.outdoor" = "חנות מחנאות";
 "type.shop.outpost" = "נקודת איסוף";
 "type.shop.pasta" = "חנות פסטה";
-"type.shop.pastry" = "מגדניה";
+"type.shop.pastry" = "מגדנייה";
 "type.shop.pawnbroker" = "משכנתאות";
 "type.shop.pet" = "חנות בעלי חיים";
 "type.shop.pet_grooming" = "טיפוח חיות מחמד";
@@ -1349,9 +1349,9 @@
 "type.shop.rental.bicycle" = "חנות להשכרת אופניים";
 "type.amenity.bicycle_rental.shop" = "חנות להשכרת אופניים";
 "type.shop.seafood" = "חנות דגים";
-"type.shop.second_hand" = "היינש די תונח";
+"type.shop.second_hand" = "חנות יד שנייה";
 "type.shop.shoes" = "חנות נעליים";
-"type.shop.sports" = "Sports Shop";
+"type.shop.sports" = "חנות ספורט";
 "type.shop.stationery" = "חנות כלי כתיבה";
 "type.shop.supermarket" = "סופרמרקט";
 "type.shop.tattoo" = "מכון קעקועים";
@@ -1359,39 +1359,39 @@
 "type.shop.ticket" = "חנות כרטיסים";
 "type.shop.toys" = "חנות צעצועים";
 "type.shop.travel_agency" = "סוכנות נסיעות";
-"type.shop.tyres" = "פנצ'ריה";
+"type.shop.tyres" = "פנצ'רייה";
 "type.shop.variety_store" = "חנות חיסכון";
 "type.shop.video" = "Video Shop";
-"type.shop.video_games" = "Video Game Shop";
-"type.shop.wine" = "Wine Shop";
+"type.shop.video_games" = "חנות משחקי וידאו";
+"type.shop.wine" = "חנות יין";
 "type.shop.agrarian" = "חנות חקלאית";
-"type.shop.antiques" = "תוֹקיתִעַ";
+"type.shop.antiques" = "חנות עתיקות";
 "type.shop.appliance" = "חנות מוצרי חשמל";
 
 /* maybe change to Art Gallery for en-US when supported */
-"type.shop.art" = "תויונמוא תונח";
+"type.shop.art" = "חנות אומנויות";
 "type.shop.baby_goods" = "חנות מוצרי תינוקות";
-"type.shop.bag" = "םיקית תונח";
+"type.shop.bag" = "חנות תיקים";
 "type.shop.bed" = "חנות מיטות";
-"type.shop.boutique" = "קיטוב";
-"type.shop.charity" = "הקדצ תונח";
-"type.shop.cheese" = "תוניבג תונח";
-"type.shop.craft" = "הריציו תונמוא";
-"type.shop.dairy" = "בלח ירצומ";
-"type.shop.electrical" = "למשח תונח";
-"type.shop.fishing" = "גייד תונח";
-"type.shop.interior_decoration" = "םינפ יטושיק";
-"type.shop.lottery" = "הלרגה יסיטרכ";
+"type.shop.boutique" = "בוטיק";
+"type.shop.charity" = "חנות צדקה";
+"type.shop.cheese" = "חנות גבינה";
+"type.shop.craft" = "אומנות ויצירה";
+"type.shop.dairy" = "חלבייה";
+"type.shop.electrical" = "חנות חשמל";
+"type.shop.fishing" = "חנות דייג";
+"type.shop.interior_decoration" = "קישוטי פנים";
+"type.shop.lottery" = "כרטיסי הגרלה";
 "type.shop.medical_supply" = "חנות ציוד רפואי";
 "type.shop.nutrition_supplements" = "חנות תוספי תזונה";
 "type.shop.paint" = "חנות צבעים";
 "type.shop.perfumery" = "חנות בשמים";
 "type.shop.sewing" = "חנות לציוד תפירה";
-"type.shop.storage_rental" = "ןוסחא תרכשה";
-"type.shop.tobacco" = "קבָּטַ";
-"type.shop.trade" = "הקפסאב רחוס";
+"type.shop.storage_rental" = "השכרת אחסון";
+"type.shop.tobacco" = "טבק";
+"type.shop.trade" = "סוחר באספקה";
 "type.shop.watches" = "חנות שעונים";
-"type.shop.wholesale" = "תיאנוטיס תונח";
+"type.shop.wholesale" = "חנות סיטונאות";
 "type.sport" = "ספורט";
 "type.sport.american_football" = "כדורגל אמריקאי";
 "type.sport.archery" = "קַשׁתוּת";
@@ -1418,10 +1418,10 @@
 "type.sport.soccer" = "כדורגל";
 "type.sport.swimming" = "שחייה";
 "type.sport.table_tennis" = "טניס שולחן";
-"type.sport.tennis" = "טֶנִיס";
+"type.sport.tennis" = "טניס";
 "type.sport.volleyball" = "כדורעף";
-"type.sport.10pin" = "בָּאוּלִינְג";
-"type.sport.9pin" = "בָּאוּלִינְג";
+"type.sport.10pin" = "באולינג";
+"type.sport.9pin" = "באולינג";
 "type.sport.padel" = "לדאפ";
 "type.sport.futsal" = "לסטופ";
 "type.sport.ice_hockey" = "חרק יקוה";
@@ -1435,27 +1435,27 @@
 "type.tourism.alpine_hut" = "בקתת הרים";
 "type.tourism.apartment" = "דירת נופש";
 "type.tourism.artwork" = "יצירת אומנות";
-"type.tourism.artwork.architecture" = "יצירת אמנות אדריכלית";
+"type.tourism.artwork.architecture" = "יצירת אומנות אדריכלית";
 "type.tourism.artwork.painting" = "ציור";
 "type.tourism.artwork.sculpture" = "פסל אומנותי";
 "type.tourism.artwork.statue" = "פסל";
-"type.tourism.attraction" = "אטרקציה תיירותית";
+"type.tourism.attraction" = "אטרקצייה תיירותית";
 "type.attraction.amusement_ride" = "טיול שעשועים";
 "type.attraction.animal" = "מתחם בעלי חיים";
 "type.attraction.bumper_car" = "Bumper Car";
 "type.attraction.big_wheel" = "Big Wheel";
 "type.attraction.carousel" = "קרוסלה";
-"type.attraction.historic" = "אטרקציה היסטורית";
+"type.attraction.historic" = "אטרקצייה היסטורית";
 "type.attraction.maze" = "מָבוֹך";
 "type.attraction.roller_coaster" = "רכבת הרים";
 "type.attraction.water_slide" = "מגלשת מים";
-"type.tourism.attraction.specified" = "אטרקציה תיירותית";
+"type.tourism.attraction.specified" = "אטרקצייה תיירותית";
 "type.tourism.camp_site" = "אתר מחנאות";
 "type.tourism.caravan_site" = "חניון קרוואנים";
 
 /* A rentable countryside vacation house. */
 "type.tourism.chalet" = "בית נופש";
-"type.tourism.gallery" = "גלריה לאמנות";
+"type.tourism.gallery" = "גלריית אומנות";
 "type.tourism.guest_house" = "בית הארחה";
 "type.tourism.hostel" = "אכסניה";
 "type.tourism.hotel" = "מלון";
@@ -1499,7 +1499,7 @@
 "type.waterway.stream.ephemeral" = "Ephemeral Stream";
 "type.waterway.stream.intermittent" = "Intermittent Stream";
 "type.waterway.stream.tunnel" = "Stream";
-"type.waterway.waterfall" = "Waterfall";
+"type.waterway.waterfall" = "מפל";
 "type.waterway.weir" = "Weir";
 "type.wheelchair" = "Wheelchair";
 "type.wheelchair.limited" = "Limited Wheelchair Access";
@@ -1553,10 +1553,10 @@
 "type.man_made.crane" = "Crane";
 "type.barrier.wicket_gate" = "Wicket Gate";
 "type.barrier.yes" = "Barrier";
-"type.building.guardhouse" = "Guard";
+"type.building.guardhouse" = "שומר";
 "type.office.security" = "Security Office";
 "type.power.portal" = "Power Tower (Portal)";
-"type.shop.lighting" = "Lighting Shop";
+"type.shop.lighting" = "חנות תאורה";
 "type.barrier.jersey_barrier" = "בלוק";
 "type.barrier.debris" = "הריסות";
 "type.barrier.log" = "מחסום גזע עץ";
@@ -1566,7 +1566,7 @@
 "type.tourism.camp_pitch" = "נקודת קמפינג";
 "type.railway.miniature" = "רכבת מיניאטורית";
 "type.amenity.kneipp_water_cure" = "Kneipp Water Cure";
-"type.area_highway.traffic_island" = "אי התנועה";
+"type.area_highway.traffic_island" = "אי תנועה";
 "type.man_made.monitoring_station" = "תחנת ניטור";
 "type.man_made.monitoring_station.water_level" = "תחנת ניטור מפלס מים";
 "type.man_made.monitoring_station.weather" = "תחנת ניטור מזג האוויר";
