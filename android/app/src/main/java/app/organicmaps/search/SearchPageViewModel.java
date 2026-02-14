@@ -15,6 +15,8 @@ public class SearchPageViewModel extends ViewModel
       new MutableLiveData<>(BottomSheetBehavior.STATE_COLLAPSED);
   private final MutableLiveData<Boolean> mSearchEnabled = new MutableLiveData<>();
   private final MutableLiveData<Integer> mToolbarHeight = new MutableLiveData<>();
+  // Tracks whether the keyboard was visible before rotation
+  private boolean mKeyboardVisible = false;
   private String mSearchQuery = null;
   @Nullable
   private SearchResult[] mLastResults = null;
@@ -81,5 +83,15 @@ public class SearchPageViewModel extends ViewModel
   public void setToolbarHeight(int height)
   {
     mToolbarHeight.setValue(height);
+  }
+
+  public boolean isKeyboardVisible()
+  {
+    return mKeyboardVisible;
+  }
+
+  public void setKeyboardVisible(boolean visible)
+  {
+    mKeyboardVisible = visible;
   }
 }
