@@ -917,7 +917,7 @@ building-train_station                              # caption z16- (also has are
 railway-level_crossing                              # icon z17-
 === 1700
 
-railway-platform                                    # caption z16- (also has area z16-)
+railway-platform                                    # caption z16- (also has line z16-, area z16-)
 === 1650
 
 amenity-car_wash                                    # icon z17- (also has caption(optional) z17-)
@@ -1124,7 +1124,7 @@ junction-roundabout                                 # caption z17-
 man_made-breakwater                                 # caption z17- (also has line z14-, area z12-)
 man_made-pier                                       # caption z17- (also has line z14-, area z12-)
 man_made-works                                      # icon z16- (also has caption(optional) z17-)
-public_transport-platform                           # caption z17- (also has area z16-)
+public_transport-platform                           # caption z17- (also has line z16-, area z16-)
 waterway-lock_gate                                  # icon z16-
 === 700
 

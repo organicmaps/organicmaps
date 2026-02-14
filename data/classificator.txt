@@ -487,6 +487,7 @@ world  +
             bridge  -
             tunnel  -
             {}
+        platform  -
         primary  +
             bridge  -
             tunnel  -

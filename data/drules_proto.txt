@@ -32568,6 +32568,49 @@ cont {
   }
 }
 cont {
+  name: "highway-platform"
+  element {
+    scale: 16
+    lines {
+      width: 2.0
+      color: 3105945
+      priority: 200
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 2.4
+      color: 3105945
+      priority: 200
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.2
+      color: 3105945
+      priority: 200
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 4.2
+      color: 3105945
+      priority: 200
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 4.2
+      color: 3105945
+      priority: 200
+    }
+  }
+}
+cont {
   name: "highway-primary"
   element {
     scale: 8
@@ -77415,6 +77458,11 @@ cont {
   name: "public_transport-platform"
   element {
     scale: 16
+    lines {
+      width: 2.0
+      color: 3105945
+      priority: 200
+    }
     area {
       color: 15524822
       priority: -1890
@@ -77422,6 +77470,11 @@ cont {
   }
   element {
     scale: 17
+    lines {
+      width: 2.4
+      color: 3105945
+      priority: 200
+    }
     area {
       color: 15524822
       priority: -1890
@@ -77436,6 +77489,11 @@ cont {
   }
   element {
     scale: 18
+    lines {
+      width: 3.2
+      color: 3105945
+      priority: 200
+    }
     area {
       color: 15524822
       priority: -1890
@@ -77450,6 +77508,11 @@ cont {
   }
   element {
     scale: 19
+    lines {
+      width: 4.2
+      color: 3105945
+      priority: 200
+    }
     area {
       color: 15524822
       priority: -1890
@@ -77464,6 +77527,11 @@ cont {
   }
   element {
     scale: 20
+    lines {
+      width: 4.2
+      color: 3105945
+      priority: 200
+    }
     area {
       color: 15524822
       priority: -1890
@@ -79572,6 +79640,11 @@ cont {
   name: "railway-platform"
   element {
     scale: 16
+    lines {
+      width: 2.0
+      color: 3105945
+      priority: 200
+    }
     area {
       color: 15524822
       priority: -1890
@@ -79586,6 +79659,11 @@ cont {
   }
   element {
     scale: 17
+    lines {
+      width: 2.4
+      color: 3105945
+      priority: 200
+    }
     area {
       color: 15524822
       priority: -1890
@@ -79600,6 +79678,11 @@ cont {
   }
   element {
     scale: 18
+    lines {
+      width: 3.2
+      color: 3105945
+      priority: 200
+    }
     area {
       color: 15524822
       priority: -1890
@@ -79614,6 +79697,11 @@ cont {
   }
   element {
     scale: 19
+    lines {
+      width: 4.2
+      color: 3105945
+      priority: 200
+    }
     area {
       color: 15524822
       priority: -1890
@@ -79628,6 +79716,11 @@ cont {
   }
   element {
     scale: 20
+    lines {
+      width: 4.2
+      color: 3105945
+      priority: 200
+    }
     area {
       color: 15524822
       priority: -1890
