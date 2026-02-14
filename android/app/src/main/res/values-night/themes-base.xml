@@ -41,7 +41,8 @@
 
     <item name="secondary">@color/text_light_hint</item>
     <item name="dividerHorizontal">@color/divider</item>
-
+    <item name="textSearchField">@color/text_light</item>
+    <item name="textSearchFieldHint">@color/text_light_hint</item>
     <item name="ppBackground">@color/bg_cards</item>
     <item name="ppButtonsBackground">@color/bg_window</item>
     <item name="ppFloatingMarkerIconColor">@color/white_54</item>

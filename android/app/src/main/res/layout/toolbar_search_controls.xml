@@ -3,103 +3,67 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/search_container"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="horizontal"
   android:baselineAligned="false"
-  android:gravity="center_vertical"
-  android:background="@android:color/transparent"
-  android:padding="0dp"
-  android:layout_margin="0dp">
-  <LinearLayout
-    android:id="@+id/search_container"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
+  android:gravity="center_vertical">
+  <ImageView
+    android:id="@+id/back"
+    android:layout_width="?attr/actionBarSize"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    app:srcCompat="?homeAsUpIndicator"
+    android:scaleType="center"
+    tools:src="@drawable/ic_down"
+    android:contentDescription="@string/back" />
+  <com.google.android.material.textfield.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_weight="1"
-    android:orientation="horizontal"
-    android:baselineAligned="false"
-    android:gravity="center_vertical"
-    android:background="@drawable/bg_rounded_rect"
-    android:paddingHorizontal="@dimen/margin_half"
-    android:layout_marginHorizontal="@dimen/margin_base"
-    android:layout_marginVertical="@dimen/margin_base"
-    android:minHeight="@dimen/place_page_icon_size">
-    <ImageView
-      android:id="@+id/back"
-      android:layout_width="@dimen/place_page_icon_size"
-      android:layout_height="@dimen/place_page_icon_size"
-      android:background="?attr/selectableItemBackgroundBorderless"
-      app:srcCompat="?homeAsUpIndicator"
-      android:scaleType="center"
-      tools:src="@drawable/ic_down"
-      android:contentDescription="@string/back"
-      app:tint="@color/text_dark" />
-    <LinearLayout
-      android:id="@+id/search_content"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:layout_weight="1"
+    android:layout_gravity="center_vertical"
+    app:endIconMode="clear_text"
+    app:endIconTint="@android:color/white"
+    style="@style/MwmTextAppearance.Toolbar.Search"
+    app:boxBackgroundMode="none"
+    app:hintEnabled="false">
+    <com.google.android.material.textfield.TextInputEditText
+      android:id="@+id/query"
+      style="@style/MwmTextAppearance.Toolbar.Search"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:hint="@string/search"
+      android:imeOptions="actionSearch|flagNoExtractUi"
+      android:inputType="text"
+      android:singleLine="true"
+      android:background="@null"
+      android:paddingStart="@dimen/margin_half"
+      android:paddingEnd="0dp"
       android:gravity="center_vertical"
-      android:minHeight="@dimen/place_page_icon_size">
-      <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_gravity="center_vertical"
-        android:minHeight="@dimen/place_page_icon_size"
-        android:gravity="center_vertical"
-        app:endIconMode="clear_text"
-        app:endIconTint="@color/text_dark"
-        style="@style/MwmTextAppearance.Toolbar.Search"
-        app:boxBackgroundMode="none"
-        app:hintEnabled="false">
-        <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/query"
-          style="@style/MwmTextAppearance.Toolbar.Search"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:minHeight="0dp"
-          android:hint="@string/search"
-          android:imeOptions="actionSearch|flagNoExtractUi"
-          android:inputType="text"
-          android:singleLine="true"
-          android:background="@null"
-          android:paddingStart="@dimen/margin_half"
-          android:paddingEnd="0dp"
-          android:gravity="center_vertical"
-          android:textCursorDrawable="@drawable/cursor_drawable"
-          android:textColor="@color/text_dark"
-          android:textColorHint="@color/text_dark_hint" />
-      </com.google.android.material.textfield.TextInputLayout>
-      <ProgressBar
-        android:id="@+id/progress"
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="@dimen/search_progress_size"
-        android:layout_height="@dimen/search_progress_size"
-        android:layout_marginEnd="@dimen/margin_half"
-        android:layout_weight="0"
-        android:layout_gravity="center_vertical"
-        android:background="@null"
-        android:minHeight="@dimen/search_progress_size"
-        android:minWidth="@dimen/search_progress_size"
-        android:indeterminateTint="@color/bg_primary" />
-    </LinearLayout>
-  </LinearLayout>
+      android:textCursorDrawable="@drawable/cursor_drawable" />
+  </com.google.android.material.textfield.TextInputLayout>
+  <ProgressBar
+    android:id="@+id/progress"
+    style="@style/Widget.AppCompat.ProgressBar"
+    android:layout_width="@dimen/search_progress_size"
+    android:layout_height="@dimen/search_progress_size"
+    android:layout_marginEnd="@dimen/margin_half"
+    android:layout_weight="0"
+    android:background="@null"
+    android:minHeight="@dimen/search_progress_size"
+    android:minWidth="@dimen/search_progress_size" />
 
   <ImageView
     android:id="@+id/voice_input"
-    android:layout_width="@dimen/place_page_icon_size"
-    android:layout_height="@dimen/place_page_icon_size"
-    android:padding="0dp"
-    android:layout_marginEnd="@dimen/margin_half"
+    android:layout_width="?actionBarSize"
+    android:layout_height="?actionBarSize"
     android:layout_gravity="center_vertical"
     android:layout_weight="0"
     android:background="?attr/selectableItemBackgroundBorderless"
     android:contentDescription="@null"
     android:scaleType="center"
     app:srcCompat="@drawable/ic_mic_white"
-    app:tint="@color/bg_primary"
     android:visibility="gone"
     tools:visibility="visible"/>
 </LinearLayout>
