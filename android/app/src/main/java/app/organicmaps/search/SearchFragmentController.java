@@ -90,7 +90,10 @@ public class SearchFragmentController extends Fragment implements SearchFragment
         if (mPlacePageViewModel.getMapObject().getValue() != null)
           return;
         if (mFrameLayoutBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN)
+        {
           mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+          mSearchPageContainer.post(SearchFragmentController.this::activateSearchToolbar);
+        }
       }
     }
   };
@@ -203,6 +206,9 @@ public class SearchFragmentController extends Fragment implements SearchFragment
           && lastState != BottomSheetBehavior.STATE_HIDDEN)
       {
         mFrameLayoutBottomSheetBehavior.setState(lastState);
+        // Only activate the search toolbar if keyboard was visible before rotation
+        if (mViewModel.isKeyboardVisible())
+          mSearchPageContainer.post(this::activateSearchToolbar);
       }
       else
       {
@@ -222,6 +228,8 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
       mCurrentWindowInsets = insets;
       boolean imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime());
+      // Track keyboard visibility in ViewModel for persistence across rotation
+      mViewModel.setKeyboardVisible(imeVisible);
       if (imeVisible && mFrameLayoutBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED)
         mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
       updateExpandedOffset();
@@ -341,5 +349,19 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   public void onSearchClicked()
   {
     mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+  }
+
+  /**
+   * Activates the search toolbar to request focus and show the keyboard.
+   * This is called after the search page is shown or restored after rotation.
+   */
+  private void activateSearchToolbar()
+  {
+    Fragment fragment = getChildFragmentManager().findFragmentByTag("SearchPageFragment");
+    if (fragment instanceof SearchFragment searchFragment)
+    {
+      // Use postDelayed to ensure the fragment and its views are fully ready
+      mSearchPageContainer.postDelayed(searchFragment::activateToolbar, 100);
+    }
   }
 }
