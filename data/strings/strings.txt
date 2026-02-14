@@ -18016,7 +18016,7 @@ zh-Hant = 截至 %@ 的社群創建的開放街圖資料。請訪問 OpenStreetM
 
 [login_osm_presentation]
 comment = OSM explanation on Android login screen
-tags = android-app
+tags = android-app,apple-maps
 en = OpenStreetMap.org (OSM) is a community project to build a free and open map. It's the main source of map data in Organic Maps and works similar to Wikipedia. You can add or edit places and they become available to millions of users all over the World.\nJoin the community and help to make a better map for everyone!
 af = OpenStreetMap.org (OSM) is 'n gemeenskapsprojek om 'n gratis en oop kaart te bou. Dit is die hoofbron van kaartdata in Organic Maps en werk soortgelyk aan Wikipedia. Jy kan plekke byvoeg of wysig en hulle word beskikbaar vir miljoene gebruikers regoor die wêreld.\nSluit aan by die gemeenskap en help om 'n beter kaart vir almal te maak!
 ar = OpenStreetMap.org (OSM) هو مشروع مجتمعي لبناء خريطة مجانية ومفتوحة. إنه المصدر الرئيسي لبيانات الخرائط في الخرائط العضوية ويعمل على غرار ويكيبيديا. يمكنك إضافة الأماكن أو تعديلها وتصبح متاحة لملايين المستخدمين في جميع أنحاء العالم.\nانضم إلى المجتمع وساعد في إنشاء خريطة أفضل للجميع!
