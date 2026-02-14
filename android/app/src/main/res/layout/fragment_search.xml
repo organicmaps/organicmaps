@@ -5,7 +5,8 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+  android:background="?windowBackgroundForced">
   <include
     android:id="@+id/pull_icon_container"
     layout="@layout/bottom_sheet_handle" />
@@ -66,12 +67,12 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
-        android:background="?cardBackground">
+        android:background="?windowBackgroundForced">
 
         <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/recycler"
           android:clipToPadding="false"
-          android:background="?cardBackground"
+          android:background="@android:color/transparent"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:scrollbars="vertical"
