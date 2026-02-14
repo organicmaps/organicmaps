@@ -348,6 +348,18 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     else
       tabLayout.setVisibility(View.GONE);
 
+    // Measure and report toolbar height for collapsed state peek height
+    // Include handle, toolbar, and tab layout (categories/history tabs)
+    View pullIconContainer = root.findViewById(R.id.pull_icon_container);
+    Toolbar toolbar = mToolbarController.getToolbar();
+    TabLayout finalTabLayout = tabLayout;
+    toolbar.post(() -> {
+      int toolbarHeight = toolbar.getHeight();
+      int handleHeight = pullIconContainer != null ? pullIconContainer.getHeight() : 0;
+      int tabLayoutHeight = finalTabLayout.getVisibility() == View.VISIBLE ? finalTabLayout.getHeight() : 0;
+      mSearchViewModel.setToolbarHeight(handleHeight + toolbarHeight + tabLayoutHeight);
+    });
+
     final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
 
     //    readArguments();
