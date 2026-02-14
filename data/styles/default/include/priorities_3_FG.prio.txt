@@ -253,6 +253,7 @@ highway-pedestrian                                  # line z13- (also has pathte
 highway-pedestrian-area                             # line z13 and area z14-
 highway-pedestrian-bridge                           # line z13- (also has line::bridgeblack z14-, line::bridgewhite z13-, pathtext z14-)
 highway-pedestrian-tunnel                           # line z13- (also has line(casing) z16-, pathtext z14-)
+highway-platform
 === 200
 
 # highway-pedestrian-tunnel                         # line(casing) z16- (also has line z13-, pathtext z14-)

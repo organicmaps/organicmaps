@@ -17330,6 +17330,9 @@ sr = Пешачки тунел
 tr = Yaya Tüneli
 zh-Hans = 人行隧道
 
+[type.highway.platform]
+ref = type.public_transport.platform
+
 [type.highway.primary]
 en = Primary Road
 af = Primêre pad

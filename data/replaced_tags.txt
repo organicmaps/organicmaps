@@ -82,7 +82,6 @@ building=entrance : entrance=yes
 ice_road=yes : highway=ice_road
 winter_road=yes : highway=ice_road
 highway=turning_loop : highway=mini_roundabout
-highway=platform : highway=pedestrian
 
 man_made=quay : man_made=pier
 
