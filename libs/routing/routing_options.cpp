@@ -20,51 +20,56 @@ std::string_view constexpr kAvoidRoutingOptionSettingsForCar = "avoid_routing_op
 std::string_view constexpr kAvoidRoutingOptionSettingsForPedestrian = "avoid_routing_options_pedestrian";
 std::string_view constexpr kAvoidRoutingOptionSettingsForBicycle = "avoid_routing_options_bicycle";
 
+namespace
+{
+RoutingOptions LoadOptionsFromSettings(std::string_view key)
+{
+  uint32_t mode = 0;
+  if (!settings::Get(key, mode))
+    mode = 0;
+  return RoutingOptions(base::checked_cast<RoutingOptions::RoadType>(mode));
+}
+
+void SaveOptionsToSettings(std::string_view key, RoutingOptions options)
+{
+  settings::Set(key, strings::to_string(static_cast<int32_t>(options.GetOptions())));
+}
+}  // namespace
+
 // static
 RoutingOptions RoutingOptions::LoadCarOptionsFromSettings()
 {
-  uint32_t mode = 0;
-  if (!settings::Get(kAvoidRoutingOptionSettingsForCar, mode))
-    mode = 0;
-
-  return RoutingOptions(base::checked_cast<RoadType>(mode));
+  return LoadOptionsFromSettings(kAvoidRoutingOptionSettingsForCar);
 }
 
 // static
 void RoutingOptions::SaveCarOptionsToSettings(RoutingOptions options)
 {
-  settings::Set(kAvoidRoutingOptionSettingsForCar, strings::to_string(static_cast<int32_t>(options.GetOptions())));
+  SaveOptionsToSettings(kAvoidRoutingOptionSettingsForCar, options);
 }
+
 // static
 RoutingOptions RoutingOptions::LoadPedestrianOptionsFromSettings()
 {
-  uint32_t mode = 0;
-  if (!settings::Get(kAvoidRoutingOptionSettingsForPedestrian, mode))
-    mode = 0;
-
-  return RoutingOptions(base::checked_cast<RoadType>(mode));
+  return LoadOptionsFromSettings(kAvoidRoutingOptionSettingsForPedestrian);
 }
 
 // static
 void RoutingOptions::SavePedestrianOptionsToSettings(RoutingOptions options)
 {
-  settings::Set(kAvoidRoutingOptionSettingsForPedestrian, strings::to_string(static_cast<int32_t>(options.GetOptions())));
+  SaveOptionsToSettings(kAvoidRoutingOptionSettingsForPedestrian, options);
 }
 
 // static
 RoutingOptions RoutingOptions::LoadBicycleOptionsFromSettings()
 {
-  uint32_t mode = 0;
-  if (!settings::Get(kAvoidRoutingOptionSettingsForBicycle, mode))
-    mode = 0;
-
-  return RoutingOptions(base::checked_cast<RoadType>(mode));
+  return LoadOptionsFromSettings(kAvoidRoutingOptionSettingsForBicycle);
 }
 
 // static
 void RoutingOptions::SaveBicycleOptionsToSettings(RoutingOptions options)
 {
-  settings::Set(kAvoidRoutingOptionSettingsForBicycle, strings::to_string(static_cast<int32_t>(options.GetOptions())));
+  SaveOptionsToSettings(kAvoidRoutingOptionSettingsForBicycle, options);
 }
 
 void RoutingOptions::Add(RoutingOptions::Road type)
