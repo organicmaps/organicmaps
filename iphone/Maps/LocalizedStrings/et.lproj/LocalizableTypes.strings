@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Tee";
 "type.cuisine.thai" = "Tai";
 "type.cuisine.turkish" = "Türgi";
+"type.cuisine.uzbek" = "Usbeki";
 "type.cuisine.vegan" = "Täistaimetoidukoht";
 "type.cuisine.vegetarian" = "Taimetoit";
 "type.cuisine.vietnamese" = "Vietnami";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Raudtee ülesõit";
 "type.railway.disused" = "Kasutamata raudtee";
 "type.railway.disused.bridge" = "Kasutamata raudteesild";
+"type.railway.disused.tunnel" = "Kasutamata raudteetunnel";
 "type.railway.funicular" = "Köisraudtee";
 "type.railway.funicular.bridge" = "Köisraudtee sild";
 "type.railway.funicular.tunnel" = "Köisraudtee tunnel";

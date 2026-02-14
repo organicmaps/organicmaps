@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Tea";
 "type.cuisine.thai" = "Thai sukaldaritza";
 "type.cuisine.turkish" = "Turkiar sukaldaritza";
+"type.cuisine.uzbek" = "Uzbekiarra";
 "type.cuisine.vegan" = "Sukaldaritza beganoa";
 "type.cuisine.vegetarian" = "Sukaldaritza begetarianoa";
 "type.cuisine.vietnamese" = "Vietnamgo sukaldaritza";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Railway Crossing";
 "type.railway.disused" = "Disused Railway";
 "type.railway.disused.bridge" = "Disused Railway Bridge";
+"type.railway.disused.tunnel" = "Erabilerarik gabeko trenbide-tunela";
 "type.railway.funicular" = "Funikularra";
 "type.railway.funicular.bridge" = "Funicular Bridge";
 "type.railway.funicular.tunnel" = "Funicular Tunnel";

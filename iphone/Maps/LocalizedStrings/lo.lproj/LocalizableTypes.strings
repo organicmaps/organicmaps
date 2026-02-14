@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "ຊາ";
 "type.cuisine.thai" = "ໄທ";
 "type.cuisine.turkish" = "ຕວກກີ";
+"type.cuisine.uzbek" = "Uzbek";
 "type.cuisine.vegan" = "ວີແກນ";
 "type.cuisine.vegetarian" = "ອາຫານມັງສະວິລັດ";
 "type.cuisine.vietnamese" = "ຫວຽດນາມ";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "ທາງຜ່ານລົດໄຟ";
 "type.railway.disused" = "ທາງລົດໄຟທີ່ເລີກໃຊ້ແລ້ວ";
 "type.railway.disused.bridge" = "ຂົວທາງລົດໄຟທີ່ເລີກໃຊ້ແລ້ວ";
+"type.railway.disused.tunnel" = "Disused Railway Tunnel";
 "type.railway.funicular" = "ລົດໄຟໄຕ່ເຂົາ";
 "type.railway.funicular.bridge" = "ຂົວລົດໄຟໄຕ່ເຂົາ";
 "type.railway.funicular.tunnel" = "ອຸມົງລົດໄຟໄຕ່ເຂົາ";

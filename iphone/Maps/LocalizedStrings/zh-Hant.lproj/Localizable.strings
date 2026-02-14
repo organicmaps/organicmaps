@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "截至 %@ 的社群創建的開放街圖資料。請訪問 OpenStreetMap.org 以了解有關如何編輯和更新地圖的更多資訊";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "OpenStreetMap.org (OSM) 是一個建立免費開放地圖的社群專案。它是Organic Maps中地圖資料的主要來源，其工作方式類似於維基百科。您可以新增或編輯地點，全世界數百萬用戶都可以使用它們。\n加入社群來幫忙大家建造更好的地圖！";
 "login_to_make_edits_visible" = "建立 OpenStreetMap 帳戶或登入以向全世界發布您的地圖編輯。";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Teh";
 "type.cuisine.thai" = "Masakan thailand";
 "type.cuisine.turkish" = "Masakan turki";
+"type.cuisine.uzbek" = "Uzbek";
 "type.cuisine.vegan" = "Masakan vegan";
 "type.cuisine.vegetarian" = "Masakan vegetarian";
 "type.cuisine.vietnamese" = "Masakan vietnam";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Railway Crossing";
 "type.railway.disused" = "Disused Railway";
 "type.railway.disused.bridge" = "Disused Railway Bridge";
+"type.railway.disused.tunnel" = "Terowongan kereta api nonaktif";
 "type.railway.funicular" = "Kereta gantung";
 "type.railway.funicular.bridge" = "Funicular Bridge";
 "type.railway.funicular.tunnel" = "Funicular Tunnel";

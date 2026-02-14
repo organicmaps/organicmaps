@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Чайная";
 "type.cuisine.thai" = "Тайская кухня";
 "type.cuisine.turkish" = "Турецкая кухня";
+"type.cuisine.uzbek" = "Узбекская";
 "type.cuisine.vegan" = "Веганская кухня";
 "type.cuisine.vegetarian" = "Вегетарианская кухня";
 "type.cuisine.vietnamese" = "Вьетнамская кухня";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Пешеходный переход";
 "type.railway.disused" = "Неиспользуемая железная дорога";
 "type.railway.disused.bridge" = "Заброшенный железнодорожный мост";
+"type.railway.disused.tunnel" = "Недействующий железнодорожный туннель";
 "type.railway.funicular" = "Фуникулер";
 "type.railway.funicular.bridge" = "Фуникулер";
 "type.railway.funicular.tunnel" = "Фуникулер";

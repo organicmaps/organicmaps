@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Tee";
 "type.cuisine.thai" = "Thailändisch";
 "type.cuisine.turkish" = "Türkisch";
+"type.cuisine.uzbek" = "Usbekisch";
 "type.cuisine.vegan" = "Vegan";
 "type.cuisine.vegetarian" = "Vegetarisch";
 "type.cuisine.vietnamese" = "Vietnamesisch";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Bahnübergang";
 "type.railway.disused" = "Stillgelegte Bahnstrecke";
 "type.railway.disused.bridge" = "Stillgelegte Eisenbahnbrücke";
+"type.railway.disused.tunnel" = "Stillgelegter Eisenbahntunnel";
 "type.railway.funicular" = "Standseilbahn";
 "type.railway.funicular.bridge" = "Standseilbahnbrücke";
 "type.railway.funicular.tunnel" = "Standseilbahntunnel";

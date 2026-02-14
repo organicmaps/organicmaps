@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Kogukonna loodud OpenStreetMapi andmed seisuga %@. Lisateavet kaardi muutmise ja uuendamise kohta leiad OpenStreetMap.org saidist";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "OpenStreetMap.org (OSM) on kogukonna projekt, mille eesmärk on luua vaba, tasuta ja avatud kaart. See on Organic Mapsi peamine kaardiandmete allikas ja toimib sarnaselt Vikipeediaga. Saad lisada või muuta kohti ja need muutuvad kättesaadavaks miljonitele kasutajatele üle kogu maailma.\nLiitu kogukonnaga ja aita luua kõigi jaoks paremat kaarti!";
 "login_to_make_edits_visible" = "Loo OpenStreetMapi konto või logi sisse, et avaldada oma kaardimuudatused kogu maailmale.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

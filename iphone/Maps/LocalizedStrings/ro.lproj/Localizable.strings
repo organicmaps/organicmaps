@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Date OpenStreetMap create de comunitate la data de %@. Aflați mai multe despre cum să editați și să actualizați harta la OpenStreetMap.org";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "OpenStreetMap.org (OSM) este un proiect comunitar pentru construirea unei hărți libere și deschise. Este principala sursă de date cartografice în Organic Maps și funcționează similar cu Wikipedia. Puteți adăuga sau edita locuri, iar acestea devin disponibile pentru milioane de utilizatori din întreaga lume.\nAlăturați-vă comunității și ajutați la crearea unei hărți mai bune pentru toată lumea!";
 "login_to_make_edits_visible" = "Creați un cont OpenStreetMap sau conectați-vă pentru a vă publica edițiile de hartă în întreaga lume.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

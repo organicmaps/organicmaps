@@ -249,6 +249,7 @@
     <string name="type.cuisine.deli">Деликатеси</string>
     <string name="type.cuisine.noodles">Азиатски спагети</string>
     <string name="type.cuisine.pasta">Паста</string>
+    <string name="type.cuisine.uzbek">Узбекска</string>
     <string name="type.emergency.assembly_point">Авариен сборен пункт</string>
     <string name="type.emergency.fire_hydrant">Пожарен кран</string>
     <!-- A place where a lifeguard is on duty. -->

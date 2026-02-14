@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "茶";
 "type.cuisine.thai" = "泰国菜";
 "type.cuisine.turkish" = "土耳其菜";
+"type.cuisine.uzbek" = "乌兹别克";
 "type.cuisine.vegan" = "全素菜";
 "type.cuisine.vegetarian" = "素菜";
 "type.cuisine.vietnamese" = "越南菜";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "铁路道口";
 "type.railway.disused" = "废弃铁路";
 "type.railway.disused.bridge" = "废弃铁路桥梁";
+"type.railway.disused.tunnel" = "废弃铁路隧道";
 "type.railway.funicular" = "缆车";
 "type.railway.funicular.bridge" = "缆车桥";
 "type.railway.funicular.tunnel" = "缆车隧道";

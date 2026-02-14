@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Kopienas veidotie „OpenStreetMap“ dati, %@. Uzziniet vairāk par to, kā piedalīties kartes rediģēšanā un uzlabošanā vietnē „OpenStreetMap.org“.";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "OpenStreetMap.org (OSM) ir kopienas projekts, kura mērķis ir izveidot atvērtajos datos balstītu karti, kura ir pieejama bez maksas. Tas ir Organic Maps galvenais karšu datu avots un darbojas līdzīgi kā Vikipēdija. Jūs varat pievienot vai rediģēt vietas, un tās kļūst pieejamas miljoniem lietotāju visā pasaulē.\nPievienojieties kopienai, lai palīdzētu izveidot labāku karti visiem!";
 "login_to_make_edits_visible" = "Izveidojiet OpenStreetMap kontu vai piesakieties, lai publicētu savas kartes rediģējumus visā pasaulē.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Çaj";
 "type.cuisine.thai" = "Tajlandeze";
 "type.cuisine.turkish" = "Turke";
+"type.cuisine.uzbek" = "Uzbeke";
 "type.cuisine.vegan" = "Vegane";
 "type.cuisine.vegetarian" = "Vegjetariane";
 "type.cuisine.vietnamese" = "Vietnameze";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Kryqëzim hekurudhor";
 "type.railway.disused" = "Hekurudhë jashtë përdorimit";
 "type.railway.disused.bridge" = "Urë hekurudhore jashtë përdorimit";
+"type.railway.disused.tunnel" = "Tunel hekurudhor jashtë përdorimit";
 "type.railway.funicular" = "Funikular";
 "type.railway.funicular.bridge" = "Urë funikulari";
 "type.railway.funicular.tunnel" = "Tunel funikulari";

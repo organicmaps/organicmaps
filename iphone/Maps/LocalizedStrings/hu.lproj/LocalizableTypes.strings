@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Tea";
 "type.cuisine.thai" = "Thai";
 "type.cuisine.turkish" = "Török";
+"type.cuisine.uzbek" = "Üzbég";
 "type.cuisine.vegan" = "Vegán";
 "type.cuisine.vegetarian" = "Vegetáriánus";
 "type.cuisine.vietnamese" = "Vietnámi";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Gyalogos vasúti átjáró";
 "type.railway.disused" = "Használaton kívüli vasútvonal";
 "type.railway.disused.bridge" = "Használaton kívüli vasúti híd";
+"type.railway.disused.tunnel" = "Használaton kívüli vasúti alagút";
 "type.railway.funicular" = "Sikló";
 "type.railway.funicular.bridge" = "Sikló hídja";
 "type.railway.funicular.tunnel" = "Síkló alagútja";

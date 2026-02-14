@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "תה";
 "type.cuisine.thai" = "מטבח תאילנדי";
 "type.cuisine.turkish" = "מטבח תורכי";
+"type.cuisine.uzbek" = "אוזבקי";
 "type.cuisine.vegan" = "מטבח טבעוני";
 "type.cuisine.vegetarian" = "מטבח צמחוני";
 "type.cuisine.vietnamese" = "מטבח וייטנאמי";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "מעבר חציית פסי רכבת";
 "type.railway.disused" = "מסילת רכבת לא בשימוש";
 "type.railway.disused.bridge" = "גשר רכבת לא בשימוש";
+"type.railway.disused.tunnel" = "מנהרת רכבת לא בשימוש";
 "type.railway.funicular" = "פוניקולר";
 "type.railway.funicular.bridge" = "Funicular Bridge";
 "type.railway.funicular.tunnel" = "Funicular Tunnel";

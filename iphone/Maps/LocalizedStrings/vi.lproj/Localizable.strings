@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Dữ liệu OpenStreetMap do cộng đồng tạo ra kể từ %@. Tìm hiểu thêm về cách chỉnh sửa và cập nhật bản đồ tại OpenStreetMap.org";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "OpenStreetMap.org (OSM) là một dự án cộng đồng nhằm xây dựng bản đồ mở và miễn phí. Đây là nguồn dữ liệu bản đồ chính trong Bản đồ không phải trả tiền và hoạt động tương tự như Wikipedia. Bạn có thể thêm hoặc chỉnh sửa địa điểm và chúng sẽ có sẵn cho hàng triệu người dùng trên toàn thế giới.\nTham gia cộng đồng và giúp tạo bản đồ tốt hơn cho mọi người!";
 "login_to_make_edits_visible" = "Tạo tài khoản OpenStreetMap hoặc đăng nhập để xuất bản các chỉnh sửa bản đồ của bạn với thế giới.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

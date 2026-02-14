@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "समुदाय-निर्मित OpenStreetMap डेटा %@ नुसार. OpenStreetMap.org वर नकाशा संपादित आणि अपडेट कसा करायचा याबद्दल अधिक जाणून घ्या";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "OpenStreetMap.org (OSM) हा एक विनामूल्य आणि खुला नकाशा तयार करण्यासाठी एक समुदाय प्रकल्प आहे. ऑरगॅनिक नकाशे मधील नकाशा डेटाचा हा मुख्य स्त्रोत आहे आणि विकिपीडिया प्रमाणेच कार्य करतो. तुम्ही ठिकाणे जोडू किंवा संपादित करू शकता आणि ती जगभरातील लाखो वापरकर्त्यांसाठी उपलब्ध होतील.\nसमुदायामध्ये सामील व्हा आणि प्रत्येकासाठी चांगला नकाशा बनवण्यात मदत करा!";
 "login_to_make_edits_visible" = "एक OpenStreetMap खाते तयार करा किंवा तुमची नकाशा संपादने जगासमोर प्रकाशित करण्यासाठी लॉग इन करा.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

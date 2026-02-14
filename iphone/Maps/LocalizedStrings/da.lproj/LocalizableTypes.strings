@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Te";
 "type.cuisine.thai" = "Thailandsk";
 "type.cuisine.turkish" = "Tyrkisk";
+"type.cuisine.uzbek" = "Usbekisk";
 "type.cuisine.vegan" = "Vegansk";
 "type.cuisine.vegetarian" = "Vegetarisk";
 "type.cuisine.vietnamese" = "Vietnamesisk";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Jernbaneovergang";
 "type.railway.disused" = "Ubenyttet jernbane";
 "type.railway.disused.bridge" = "Ubenyttet jernbanebro";
+"type.railway.disused.tunnel" = "Ubenyttet jernbanetunnel";
 "type.railway.funicular" = "Funicular";
 "type.railway.funicular.bridge" = "Kabelbanebro";
 "type.railway.funicular.tunnel" = "Kabelbanetunnel";

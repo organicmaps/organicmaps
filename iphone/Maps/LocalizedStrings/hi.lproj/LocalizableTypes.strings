@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "चाय";
 "type.cuisine.thai" = "थाई पकवान";
 "type.cuisine.turkish" = "तुर्की व्यंजन";
+"type.cuisine.uzbek" = "उज़्बेक";
 "type.cuisine.vegan" = "शाकाहारी";
 "type.cuisine.vegetarian" = "शाकाहारी";
 "type.cuisine.vietnamese" = "वियतनामी व्यंजन";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Railway Crossing";
 "type.railway.disused" = "Disused Railway";
 "type.railway.disused.bridge" = "Disused Railway Bridge";
+"type.railway.disused.tunnel" = "अप्रयुक्त रेलवे सुरंग";
 "type.railway.funicular" = "रज्जुरेल";
 "type.railway.funicular.bridge" = "रज्जुरेल";
 "type.railway.funicular.tunnel" = "रज्जुरेल";

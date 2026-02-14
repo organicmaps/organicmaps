@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Herbaciarnia";
 "type.cuisine.thai" = "Kuchnia tajska";
 "type.cuisine.turkish" = "Kuchnia turecka";
+"type.cuisine.uzbek" = "Uzbecka";
 "type.cuisine.vegan" = "Kuchnia wegańska";
 "type.cuisine.vegetarian" = "Kuchnia wegetariańska";
 "type.cuisine.vietnamese" = "Kuchnia wietnamska";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Przejście przez tory";
 "type.railway.disused" = "Nieużywane tory kolejowe";
 "type.railway.disused.bridge" = "Nieczynny most kolejowy";
+"type.railway.disused.tunnel" = "Nieczynny tunel kolejowy";
 "type.railway.funicular" = "Kolej linowo-terenowa";
 "type.railway.funicular.bridge" = "Most kolejki linowej";
 "type.railway.funicular.tunnel" = "Tunel kolejki linowej";

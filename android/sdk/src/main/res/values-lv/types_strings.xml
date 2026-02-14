@@ -30,6 +30,7 @@
     <string name="type.amenity.pub">Krogs</string>
 
     <!-- SECTION: Types: Recycling -->
+    <string name="type.cuisine.uzbek">Uzbeku</string>
     <!-- A place where a lifeguard is on duty. -->
     <string name="type.emergency.lifeguard">Glābējs</string>
     <!-- A mountain rescue base for search and rescue activities. -->

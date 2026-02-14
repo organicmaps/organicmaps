@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Çay";
 "type.cuisine.thai" = "Tay Mutfağı";
 "type.cuisine.turkish" = "Türk Mutfağı";
+"type.cuisine.uzbek" = "Özbek";
 "type.cuisine.vegan" = "Vegan Mutfağı";
 "type.cuisine.vegetarian" = "Vejetaryen Mutfağı";
 "type.cuisine.vietnamese" = "Vietnam Mutfağı";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Demir Yolu Geçişi";
 "type.railway.disused" = "Kullanılmayan Demir Yolu";
 "type.railway.disused.bridge" = "Kullanılmayan Demir Yolu Köprüsü";
+"type.railway.disused.tunnel" = "Kullanılmayan Demir Yolu Tüneli";
 "type.railway.funicular" = "Füniküler";
 "type.railway.funicular.bridge" = "Füniküler Köprüsü";
 "type.railway.funicular.tunnel" = "Füniküler Tüneli";

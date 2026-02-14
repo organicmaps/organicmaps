@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Dejta tal-OpenStreetMap maħluqa mill-komunita’ fl-%@. Sir af aktar dwar kif teditja u taġġorna l-mappa f’ OpenStreetMap.org";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "OpenStreetMap.org (OSM) huwa proġett komunitarju biex tinbena mappa ħielsa u miftuħa. Huwa s-sors ewlieni tad-dejta tal-mapep fil-mapep organiċi u xogħlijiet simili għall-Wikipedija. Tista ’żżid jew teditja postijiet u dawn isiru disponibbli għal miljuni ta’ utenti madwar id-dinja kollha. \nIngħaqad mal-komunita’ u għen biex issir mappa aħjar għal kulħadd!";
 "login_to_make_edits_visible" = "Oħloq kont OpenStreetMap jew idħol biex tippubblika l-editjar tal-mapep tiegħek fid-dinja.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

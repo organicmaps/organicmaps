@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Համայնքի կողմից ստեղծված OpenStreetMap տվյալներ՝ %@ թ. դրությամբ։ Իմացեք ավելին քարտեզի խմբագրման և թարմացման մասին OpenStreetMap.org կայքում:";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "OpenStreetMap.org (OSM)-ը համայնքային նախագիծ է՝ անվճար և բաց քարտեզ ստեղծելու համար: Այն Organic Maps-ի քարտեզային տվյալների հիմնական աղբյուրն է և աշխատում է Վիքիպեդիայի նման: Դուք կարող եք ավելացնել կամ խմբագրել վայրեր, և դրանք հասանելի կդառնան միլիոնավոր օգտատերերի ամբողջ աշխարհում.\nՄիացեք համայնքին և օգնեք ստեղծել ավելի լավ քարտեզ բոլորի համար!";
 "login_to_make_edits_visible" = "Ստեղծեք OpenStreetMap հաշիվ կամ մուտք գործեք՝ ձեր քարտեզային խմբագրումները հրապարակելու համար:";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
@@ -1106,3 +1109,13 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Ներբեռնված մանուշակագույն տարածքներ";
+
+
+/********** gps strings **********/
+
+
+/* Login to OSM button text */
+"login_osm_credentials" = "Login with password";
+
+/* Login to OSM button text */
+"login_osm_browser" = "Login using Browser";

@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "چای";
 "type.cuisine.thai" = "تایلندی";
 "type.cuisine.turkish" = "ترکی";
+"type.cuisine.uzbek" = "ازبکی";
 "type.cuisine.vegan" = "گیاهخوار";
 "type.cuisine.vegetarian" = "گیاه خوار";
 "type.cuisine.vietnamese" = "ویتنامی";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "گذرگاه راه‌آهن";
 "type.railway.disused" = "راه‌آهن رها شده";
 "type.railway.disused.bridge" = "پل راه‌آهن رها شده";
+"type.railway.disused.tunnel" = "تونل راهآهن رها شده";
 "type.railway.funicular" = "فونیکولور";
 "type.railway.funicular.bridge" = "پل کابلی";
 "type.railway.funicular.tunnel" = "تونل کابلی";

@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Komunitateak sortutako OpenStreetMap datuak %@-tik aurrera. Lortu informazio gehiago mapa editatu eta eguneratzeari buruz OpenStreetMap.org helbidean";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "OpenStreetMap.org (OSM) mapa libre eta irekia eraikitzeko komunitateko proiektu bat da. Organic Maps-en mapen datuen iturri nagusia da eta Wikipediaren antzera funtzionatzen du. Tokiak gehitu edo edita ditzakezu eta mundu osoko milioika erabiltzailerentzat eskuragarri egongo dira.\nSartu komunitatean eta lagundu mapa hobea egiten guztiontzat!";
 "login_to_make_edits_visible" = "Sortu OpenStreetMap kontu bat edo hasi saioa zure maparen aldaketak munduan argitaratzeko.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

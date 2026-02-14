@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Dati OpenStreetMap creati dalla comunità aggiornati al %@. Per saperne di più su come modificare e aggiornare la mappa, visita OpenStreetMap.org";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "OpenStreetMap.org (OSM) è un progetto comunitario per creare una mappa libera e aperta. È la principale fonte di dati cartografici di Organic Maps e funziona in modo simile a Wikipedia. Puoi aggiungere o modificare luoghi che diventano disponibili per milioni di utenti in tutto il mondo. \nEntra a far parte della comunità e contribuisci a creare una mappa migliore per tutti!";
 "login_to_make_edits_visible" = "Crea un account OpenStreetMap o effettua il login per pubblicare le tue modifiche alla mappa in tutto il mondo.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

@@ -364,6 +364,7 @@
 "type.cuisine.tea" = "Tee";
 "type.cuisine.thai" = "Thaimaalainen keittiö";
 "type.cuisine.turkish" = "Turkkilainen keittiö";
+"type.cuisine.uzbek" = "Uzbekkilainen";
 "type.cuisine.vegan" = "Vegaanikeittiö";
 "type.cuisine.vegetarian" = "Kasviskeittiö";
 "type.cuisine.vietnamese" = "Vietnamilainen keittiö";
@@ -974,6 +975,7 @@
 "type.railway.crossing" = "Railway Crossing";
 "type.railway.disused" = "Disused Railway";
 "type.railway.disused.bridge" = "Disused Railway Bridge";
+"type.railway.disused.tunnel" = "Käytöstä poistettu rautatietunneli";
 "type.railway.funicular" = "Köysirata";
 "type.railway.funicular.bridge" = "Funicular Bridge";
 "type.railway.funicular.tunnel" = "Funicular Tunnel";
