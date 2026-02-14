@@ -114,8 +114,13 @@
   </style>
 
   <style name="MwmTextAppearance.Toolbar.Search">
-    <item name="android:textColor">@color/text_dark</item>
-    <item name="android:textColorHint">@color/text_dark_hint</item>
+    <item name="android:textColorHint">@color/text_light_hint</item>
+  </style>
+
+  <style name="MwmTextAppearance.Toolbar.SearchPlacePage">
+    <item name="android:textColor">?textSearchField</item>
+    <item name="android:textColorHint">?textSearchFieldHint</item>
+    <item name="android:textCursorDrawable">@null</item>
   </style>
 
   <style name="MwmTextAppearance.Toolbar.Title" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
@@ -191,7 +196,7 @@
 
   <style name="MwmTextAppearance.Tab" parent="MwmTextAppearance.Body3">
     <item name="android:textAllCaps">true</item>
-    <item name="android:textColor">@color/white_secondary</item>
+    <item name="android:textColor">?android:textColorSecondary</item>
   </style>
 
   <style name="TextAppearance.MdcTypographyStyles.Headline1"

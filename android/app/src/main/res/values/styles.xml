@@ -203,6 +203,7 @@
     <item name="android:paddingEnd">@dimen/margin_base_plus</item>
     <item name="android:gravity">center_vertical</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Body2</item>
+    <item name="android:textColor">?android:textColorPrimary</item>
     <item name="android:singleLine">true</item>
     <item name="android:background">?clickableBackground</item>
     <item name="android:drawablePadding">@dimen/margin_base_plus</item>
@@ -285,10 +286,9 @@
     <item name="tabMode">fixed</item>
     <item name="tabGravity">fill</item>
     <item name="tabBackground">@android:color/transparent</item>
-    <item name="tabIndicatorColor">@color/text_dark</item>
+    <item name="tabIndicatorColor">?android:textColorPrimary</item>
     <item name="tabRippleColor">@android:color/transparent</item>
-    <item name="tabSelectedTextColor">@color/text_dark</item>
-    <item name="tabTextColor">@color/text_dark_hint</item>
+    <item name="tabSelectedTextColor">?android:textColorPrimary</item>
   </style>
 
   <style name="MwmWidget.Downloader.ToolbarButton">
