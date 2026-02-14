@@ -702,4 +702,10 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     boolean getBackPressedCallback();
     void onSearchClicked();
   }
+  
+  public void activateToolbar()
+  {
+    if (mToolbarController != null)
+      mToolbarController.activate();
+  }
 }
