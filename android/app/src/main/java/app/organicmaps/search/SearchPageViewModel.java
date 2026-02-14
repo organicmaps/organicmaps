@@ -14,6 +14,7 @@ public class SearchPageViewModel extends ViewModel
   private final MutableLiveData<Integer> mSearchPageLastState =
       new MutableLiveData<>(BottomSheetBehavior.STATE_COLLAPSED);
   private final MutableLiveData<Boolean> mSearchEnabled = new MutableLiveData<>();
+  private final MutableLiveData<Integer> mToolbarHeight = new MutableLiveData<>();
   private String mSearchQuery = null;
   @Nullable
   private SearchResult[] mLastResults = null;
@@ -69,5 +70,16 @@ public class SearchPageViewModel extends ViewModel
   public void setLastResults(@Nullable SearchResult[] results)
   {
     mLastResults = results;
+  }
+
+  @NonNull
+  public MutableLiveData<Integer> getToolbarHeight()
+  {
+    return mToolbarHeight;
+  }
+
+  public void setToolbarHeight(int height)
+  {
+    mToolbarHeight.setValue(height);
   }
 }
