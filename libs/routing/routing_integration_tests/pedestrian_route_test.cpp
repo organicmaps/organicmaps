@@ -699,4 +699,10 @@ UNIT_TEST(Belarus_PedestrianArea)
                                    {0., 0.}, FromLatLon(53.911506, 27.7723211), 281.0);
 }
 
+UNIT_TEST(UK_HighwayPlatform)
+{
+  // highway=platform tag is routable
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Pedestrian), FromLatLon(51.498581, -0.069292),
+                                   {0., 0.}, FromLatLon(51.498604, -0.069994), 63.5389);
+}
 }  // namespace pedestrian_route_test

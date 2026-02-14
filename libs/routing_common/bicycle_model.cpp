@@ -59,6 +59,7 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
     // Steps have obvious inconvenience of a bike in hands.
     {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(1.0, 1.0))},
     {HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(kSpeedDismountKMpH)},
+    {HighwayType::HighwayPlatform, InOutCitySpeedKMpH(kSpeedDismountKMpH)},
     {HighwayType::HighwayFootway, InOutCitySpeedKMpH(kSpeedDismountKMpH)},
     {HighwayType::ManMadePier, InOutCitySpeedKMpH(kSpeedOnFootwayKMpH)},
     /// @todo A car ferry has {10, 10}. Weight = 9 is 60% from reasonable 15 average speed.
@@ -88,6 +89,7 @@ VehicleModel::LimitsInitList const kDefaultOptions = {
     // HighwayLadder is missing
     {HighwayType::HighwaySteps, true},
     {HighwayType::HighwayPedestrian, true},
+    {HighwayType::HighwayPlatform, true},
     {HighwayType::HighwayFootway, true},
     {HighwayType::ManMadePier, true},
     {HighwayType::RouteFerry, true}};
