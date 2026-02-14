@@ -52,6 +52,7 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
 
     // Set 10% higher weight (than default 5) for foot designated ways.
     {HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(SpeedKMpH(5.5, 5.0))},
+    {HighwayType::HighwayPlatform, InOutCitySpeedKMpH(SpeedKMpH(5.5, 5.0))},
     {HighwayType::HighwayFootway, InOutCitySpeedKMpH(SpeedKMpH(5.5, 5.0))},
 
     /// @todo A car ferry has {10, 10}. Weight = 3 is 60% from reasonable 5 max speed.
@@ -84,6 +85,7 @@ VehicleModel::LimitsInitList const kDefaultOptions = {
     {HighwayType::HighwayLadder, true},
     {HighwayType::HighwaySteps, true},
     {HighwayType::HighwayPedestrian, true},
+    {HighwayType::HighwayPlatform, true},
     {HighwayType::HighwayFootway, true},
     {HighwayType::ManMadePier, true},
     {HighwayType::RouteFerry, true}};
