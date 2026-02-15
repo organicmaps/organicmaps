@@ -1,10 +1,11 @@
 #include "timezone.hpp"
 
+#include <glaze/json.hpp>
+#include <ranges>
+
 #include "platform/platform.hpp"
 
 #include "defines.hpp"
-
-#include <glaze/json.hpp>
 
 namespace om::tz
 {
@@ -39,7 +40,7 @@ int32_t TzOffsetAtUtc(TimeZone const & timeZone, time_t const utcTime)
   time_t const startOfYear = GenerationYearStart(timeZone.generation_year_offset);
   int64_t dayOffset = 0;
 
-  for (size_t i = 0; i < timeZone.transitions.size(); ++i)
+  for (size_t i = 0; i < timeZone.transitions_length; ++i)
   {
     auto const & [dayDelta, minuteOfDay] = timeZone.transitions[i];
     bool const isDst = i % 2 == 0;
