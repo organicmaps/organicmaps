@@ -2,7 +2,7 @@
 
 #include "base/macros.hpp"
 
-#include <cstdint>
+#include <atomic>
 #include <memory>
 
 namespace base
@@ -10,16 +10,15 @@ namespace base
 class RefCounted
 {
 public:
-  virtual ~RefCounted() = default;
-
   void IncRef() noexcept { ++m_refs; }
-  uint64_t DecRef() noexcept { return --m_refs; }
-  uint64_t NumRefs() const noexcept { return m_refs; }
+  int DecRef() noexcept { return --m_refs; }
+  int NumRefs() const noexcept { return m_refs; }
 
 protected:
   RefCounted() noexcept = default;
 
-  uint64_t m_refs = 0;
+private:
+  std::atomic_int m_refs = 0;
 
   DISALLOW_COPY_AND_MOVE(RefCounted);
 };
@@ -38,9 +37,13 @@ public:
 
   explicit RefCountPtr(std::unique_ptr<T> p) noexcept : RefCountPtr(p.release()) {}
 
-  RefCountPtr(RefCountPtr const & rhs) { *this = rhs; }
+  RefCountPtr(RefCountPtr const & rhs) noexcept : m_p(rhs.m_p)
+  {
+    if (m_p)
+      m_p->IncRef();
+  }
 
-  RefCountPtr(RefCountPtr && rhs) { *this = std::move(rhs); }
+  RefCountPtr(RefCountPtr && rhs) noexcept : m_p(rhs.m_p) { rhs.m_p = nullptr; }
 
   ~RefCountPtr() { Reset(); }
 

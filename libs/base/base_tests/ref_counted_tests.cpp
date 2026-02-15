@@ -2,15 +2,15 @@
 
 #include "base/ref_counted.hpp"
 
+namespace ref_counted_tests
+{
 using namespace base;
 
-namespace
-{
 struct Resource : public RefCounted
 {
   explicit Resource(bool & destroyed) : m_destroyed(destroyed) { m_destroyed = false; }
 
-  ~Resource() override { m_destroyed = true; }
+  ~Resource() { m_destroyed = true; }
 
   bool & m_destroyed;
 };
@@ -80,4 +80,4 @@ UNIT_TEST(RefCounted_Smoke)
     TEST(destroyed, ());
   }
 }
-}  // namespace
+}  // namespace ref_counted_tests

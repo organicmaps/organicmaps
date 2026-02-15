@@ -2,11 +2,7 @@
 
 #include "coding/compressed_bit_vector.hpp"
 
-#include "base/ref_counted.hpp"
-
-#include <cstdint>
 #include <memory>
-#include <utility>
 
 namespace search
 {
