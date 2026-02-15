@@ -58,16 +58,12 @@ void ProgramManager::Destroy(ref_ptr<dp::GraphicsContext> context)
 
 void ProgramManager::InitForOpenGL(ref_ptr<dp::GraphicsContext> context)
 {
-  // This feature is not supported on some Android devices (especially on Android 4.x version).
-  // Since we can't predict on which devices it'll work fine, we have to turn off for all devices.
   std::string_view additionalDefines;
-#if !defined(OMIM_OS_ANDROID)
   if (GLFunctions::glGetInteger(gl_const::GLMaxVertexTextures) > 0)
   {
     LOG(LINFO, ("VTF enabled"));  // VTF == Vertex Texture Fetch
     additionalDefines = "#define ENABLE_VTF\n";
   }
-#endif
   m_pool = make_unique_dp<GLProgramPool>(context->GetApiVersion(), additionalDefines);
 
   m_paramsSetter = make_unique_dp<GLProgramParamsSetter>();
