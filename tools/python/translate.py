@@ -147,13 +147,28 @@ GOOGLE_TARGET_LANGUAGES = [
     "af",
     "az",
     "be",
+    "bn",
     "ca",
+    "cy",
     "eu",
     "fa",
+    "gl",
     "he",
     "hi",
+    "hr",
+    "hy",
+    "is",
+    "lo",
+    "ml",
     "mr",
+    "mt",
+    "oc",
+    "pa",
+    "sl",
+    "sq",
+    "sr",
     "sw",
+    "te",
     "th",
     "vi",
 ]
@@ -180,7 +195,7 @@ DEEPL_TARGET_LANGUAGES = [
     # "ceb",  # Cebuano
     # "ckb",  # Kurdish (Sorani)
     "cs",  # Czech
-    # "cy",  # Welsh
+    "cy",  # Welsh
     "da",  # Danish
     "de",  # German
     "el",  # Greek
@@ -205,7 +220,7 @@ DEEPL_TARGET_LANGUAGES = [
     "hr",  # Croatian
     # "ht",  # Haitian Creole
     "hu",  # Hungarian
-    # "hy",  # Armenian
+    "hy",  # Armenian
     "id",  # Indonesian
     # "ig",  # Igbo
     "is",  # Icelandic
@@ -227,7 +242,7 @@ DEEPL_TARGET_LANGUAGES = [
     # "mg",  # Malagasy
     # "mi",  # Maori
     # "mk",  # Macedonian
-    # "ml",  # Malayalam
+    "ml",  # Malayalam
     # "mn",  # Mongolian
     "mr",  # Marathi
     # "ms",  # Malay
@@ -236,7 +251,7 @@ DEEPL_TARGET_LANGUAGES = [
     "nb",  # Norwegian Bokmål
     # "ne",  # Nepali
     "nl",  # Dutch
-    # "oc",  # Occitan
+    "oc",  # Occitan
     # "om",  # Oromo
     "pa",  # Punjabi
     # "pag",  # Pangasinan
@@ -260,7 +275,7 @@ DEEPL_TARGET_LANGUAGES = [
     "sv",  # Swedish
     "sw",  # Swahili
     # "ta",  # Tamil
-    # "te",  # Telugu
+    "te",  # Telugu
     # "tg",  # Tajik
     "th",  # Thai
     # "tk",  # Turkmen
