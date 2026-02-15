@@ -87,10 +87,10 @@ void VulkanProgramParamsSetter::Destroy(ref_ptr<dp::vulkan::VulkanBaseContext> c
   {
     for (auto & ub : b->m_buffers)
     {
-      for (auto & b : ub)
+      for (auto & bufferData : ub)
       {
-        m_objectManager->UnmapUnsafe(b.m_object);
-        m_objectManager->DestroyObject(b.m_object);
+        m_objectManager->UnmapUnsafe(bufferData.m_object);
+        m_objectManager->DestroyObject(bufferData.m_object);
       }
       ub.clear();
     }
@@ -107,13 +107,13 @@ void VulkanProgramParamsSetter::Flush()
   Buffers * buffers[] = {&m_uniformBuffers, &m_storageBuffers};
   for (auto b : buffers)
   {
-    for (auto & b : b->m_buffers[m_currentInflightFrameIndex])
+    for (auto & bufferData : b->m_buffers[m_currentInflightFrameIndex])
     {
-      if (b.m_freeOffset == 0)
+      if (bufferData.m_freeOffset == 0)
         continue;
 
-      auto const size = b.m_freeOffset;
-      m_objectManager->FlushUnsafe(b.m_object, 0 /* offset */, size);
+      auto const size = bufferData.m_freeOffset;
+      m_objectManager->FlushUnsafe(bufferData.m_object, 0 /* offset */, size);
     }
   }
 }

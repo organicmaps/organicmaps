@@ -8,6 +8,7 @@
 
 #include <cstddef>
 #include <string>
+#include <string_view>
 
 namespace gpu
 {
@@ -31,7 +32,7 @@ struct UniformsGuard
   }
 
   ref_ptr<dp::GLGpuProgram> m_program;
-  std::string const m_paramsName;
+  std::string_view const m_paramsName;
   uint32_t m_counter = 0;
 };
 

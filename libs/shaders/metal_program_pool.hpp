@@ -31,7 +31,7 @@ public:
   drape_ptr<dp::GpuProgram> GetSystemProgram(SystemProgram program);
 
 private:
-  drape_ptr<dp::GpuProgram> Get(std::string const & programName, std::string const & vertexShaderName,
+  drape_ptr<dp::GpuProgram> Get(std::string_view programName, std::string const & vertexShaderName,
                                 std::string const & fragmentShaderName, std::map<uint8_t, uint8_t> const & layout);
 
   id<MTLFunction> GetFunction(std::string const & name);

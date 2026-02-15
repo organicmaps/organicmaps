@@ -18,7 +18,7 @@ class VulkanGpuProgram : public GpuProgram
 public:
   using TextureBindings = std::unordered_map<std::string, int8_t>;
 
-  VulkanGpuProgram(std::string const & programName, VkPipelineShaderStageCreateInfo const & vertexShader,
+  VulkanGpuProgram(std::string_view programName, VkPipelineShaderStageCreateInfo const & vertexShader,
                    VkPipelineShaderStageCreateInfo const & fragmentShader, VkDescriptorSetLayout descriptorSetLayout,
                    VkPipelineLayout pipelineLayout, TextureBindings const & textureBindings)
     : GpuProgram(programName)

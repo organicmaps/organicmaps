@@ -9,8 +9,7 @@
 
 namespace dp
 {
-GLGpuProgram::GLGpuProgram(std::string const & programName, ref_ptr<Shader> vertexShader,
-                           ref_ptr<Shader> fragmentShader)
+GLGpuProgram::GLGpuProgram(std::string_view programName, ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader)
   : GpuProgram(programName)
   , m_vertexShader(vertexShader)
   , m_fragmentShader(fragmentShader)

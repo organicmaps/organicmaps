@@ -250,7 +250,7 @@ drape_ptr<dp::GpuProgram> MetalProgramPool::Get(Program program)
   return Get(DebugPrint(program), info.m_vertexShaderName, info.m_fragmentShaderName, info.m_layout);
 }
 
-drape_ptr<dp::GpuProgram> MetalProgramPool::Get(std::string const & programName, std::string const & vertexShaderName,
+drape_ptr<dp::GpuProgram> MetalProgramPool::Get(std::string_view programName, std::string const & vertexShaderName,
                                                 std::string const & fragmentShaderName,
                                                 std::map<uint8_t, uint8_t> const & layout)
 {

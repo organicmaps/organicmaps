@@ -1,3 +1,5 @@
+#include "base/assert.hpp"
+
 #include "shaders/gl_program_pool.hpp"
 #include "shaders/gl_shaders.hpp"
 #include "shaders/program_params.hpp"
@@ -5,19 +7,22 @@
 #include "drape/gl_functions.hpp"
 #include "drape/gl_gpu_program.hpp"
 
+#include "std/target_os.hpp"
+
 namespace gpu
 {
-GLProgramPool::GLProgramPool(dp::ApiVersion apiVersion) : m_apiVersion(apiVersion)
+GLProgramPool::GLProgramPool(dp::ApiVersion apiVersion, std::string_view additionalDefines) : m_apiVersion(apiVersion)
 {
   ProgramParams::Init();
 
   if (m_apiVersion == dp::ApiVersion::OpenGLES3)
   {
 #if defined(OMIM_OS_DESKTOP)
-    m_baseDefines = std::string(GL3_SHADER_VERSION);
+    m_defines = std::string(GL3_SHADER_VERSION);
 #else
-    m_baseDefines = std::string(GLES3_SHADER_VERSION);
+    m_defines = std::string(GLES3_SHADER_VERSION);
 #endif
+    m_defines.append(additionalDefines);
   }
 }
 
@@ -39,21 +44,14 @@ drape_ptr<dp::GpuProgram> GLProgramPool::Get(Program program)
   return make_unique_dp<dp::GLGpuProgram>(name, vertexShader, fragmentShader);
 }
 
-void GLProgramPool::SetDefines(std::string const & defines)
-{
-  m_defines = defines;
-}
-
 ref_ptr<dp::Shader> GLProgramPool::GetShader(std::string const & name, std::string const & source,
                                              dp::Shader::Type type)
 {
-  auto const it = m_shaders.find(name);
-  if (it != m_shaders.end())
+  if (auto const it = m_shaders.find(name); it != m_shaders.end())
     return make_ref(it->second);
 
-  auto shader = make_unique_dp<dp::Shader>(name, source, m_baseDefines + m_defines, type);
-  auto result = make_ref(shader);
-  m_shaders[name] = std::move(shader);
-  return result;
+  auto [it, inserted] = m_shaders.emplace(name, make_unique_dp<dp::Shader>(name, source, m_defines, type));
+  ASSERT(inserted, ("Shader with name", name, "already exists in the pool"));
+  return make_ref(it->second);
 }
 }  // namespace gpu
