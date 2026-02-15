@@ -1,11 +1,11 @@
 #include "relations_draw_info.hpp"
 
 #include "indexer/feature.hpp"
+#include "indexer/map_style_reader.hpp"
 
 namespace df
 {
 
-dp::Color constexpr kDefaultTextColor = dp::Color::Blue();
 dp::Color constexpr kDefaultRouteColor{128, 0, 128};  // purple
 
 bool RelationsDrawInfo::HasHikingOrCycling(FeatureType & ft) const
@@ -71,6 +71,15 @@ void RelationsDrawInfo::Init(FeatureType & ft)
   if (m_colors.empty())
     return;
 
+  // Adjust colors to the current theme for readability.
+  bool const isLightTheme = !MapStyleIsDark(GetStyleReader().GetCurrentStyle());
+  for (auto & [c, _] : m_colors)
+  {
+    dp::HSL hsl = dp::Color2HSL(c);
+    if (hsl.AdjustLightness(isLightTheme))
+      c = dp::HSL2Color(hsl);
+  }
+
   // Most used color first.
   std::sort(m_colors.begin(), m_colors.end(), [](auto const & r1, auto const & r2) { return r1.second > r2.second; });
 
@@ -100,14 +109,7 @@ void RelationsDrawInfo::Init(FeatureType & ft)
 
 dp::Color RelationsDrawInfo::GetTextColor() const
 {
-  /// A simple patch, because white text looks strange.
-  /// @todo Take into account dark theme and other constrains,
-  /// something like ReadableTextColor(GetStyleReader().GetCurrentStyle(), color).
-
-  auto res = m_colors.front().first;
-  if (res == dp::Color::White())
-    res = m_colors.size() > 1 ? m_colors[1].first : kDefaultTextColor;
-  return res;
+  return m_colors.front().first;
 }
 
 }  // namespace df
