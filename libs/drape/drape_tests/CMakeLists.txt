@@ -9,6 +9,7 @@ set(SRC
   batcher_tests.cpp
   bingind_info_tests.cpp
   buffer_tests.cpp
+  color_tests.cpp
   dummy_texture.hpp
   font_texture_tests.cpp
   gl_functions.cpp

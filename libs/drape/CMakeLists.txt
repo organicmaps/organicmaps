@@ -13,6 +13,7 @@ set(DRAPE_TESTABLE_SRC
   binding_info.hpp
   buffer_base.cpp
   buffer_base.hpp
+  color.cpp
   color.hpp
   constants.hpp
   cpu_buffer.cpp
