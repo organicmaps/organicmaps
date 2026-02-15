@@ -433,6 +433,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     // TODO(yunikkk) think about refactoring. It probably should be called in editor.
     Editor.nativeStartEdit();
+    // Disable search to prevent it from re-appearing when returning from editor
+    mSearchPageViewModel.setSearchEnabled(false, null);
     if (mIsTabletLayout)
       replaceFragment(EditorHostFragment.class, null, null);
     else
