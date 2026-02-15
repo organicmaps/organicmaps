@@ -239,7 +239,7 @@ void RoutingSession::Reset()
 
   // reset announcement counters
   m_routingRebuildCount = -1;
-  m_routingRebuildAnnounceCount = 0;
+  
 }
 
 void RoutingSession::SetState(SessionState state)
@@ -300,6 +300,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     if (formerIter && curIter && IsNormalTurn(*formerIter) && formerIter->m_index < curIter->m_index && m_onNewTurn)
     {
       m_onNewTurn();
+    }
 
     return m_state;
   }
@@ -311,7 +312,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     auto const & lastGoodPoint = m_active_route->GetFollowedPolyline().GetCurrentIter().m_pt;
     double const dist =
         mercator::DistanceOnEarth(lastGoodPoint, mercator::FromLatLon(info.m_latitude, info.m_longitude));
-    if (base::AlmostEqualAbs(dist, m_lastDistance, kRunawayDistanceSensitivityMeters))
+    if (AlmostEqualAbs(dist, m_lastDistance, kRunawayDistanceSensitivityMeters))
       return m_state;
 
     if (!info.HasSpeed() || info.m_speed < m_routingSettings.m_minSpeedForRouteRebuildMpS)
@@ -446,11 +447,18 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   info.m_time = static_cast<int>(std::max(kMinimumETASec, m_active_route->GetCurrentTimeToEndSec()));
   RouteSegment::RoadNameInfo currentRoadNameInfo, nextRoadNameInfo, nextNextRoadNameInfo;
   m_active_route->GetCurrentStreetName(currentRoadNameInfo);
-  GetFullRoadName(currentRoadNameInfo, info.m_currentStreetName);
+GetFullRoadName(currentRoadNameInfo,
+                info.m_currentStreetShields,
+                info.m_currentStreetName);
   m_active_route->GetNextTurnStreetName(nextRoadNameInfo);
-  GetFullRoadName(nextRoadNameInfo, info.m_nextStreetName);
+GetFullRoadName(nextRoadNameInfo,
+                info.m_nextStreetShields,
+                info.m_nextStreetName);
   m_active_route->GetNextNextTurnStreetName(nextNextRoadNameInfo);
-  GetFullRoadName(nextNextRoadNameInfo, info.m_nextNextStreetName);
+  
+GetFullRoadName(nextNextRoadNameInfo,
+                info.m_nextNextStreetShields,
+                info.m_nextNextStreetName);
 
   info.m_completionPercent = GetCompletionPercent();
 
@@ -507,13 +515,7 @@ void RoutingSession::GenerateNotifications(std::vector<std::string> & notificati
 
   ASSERT(m_active_route, ());
 
-  // Generate recalculating notification if needed and reset
-  if (m_routingRebuildCount > m_routingRebuildAnnounceCount)
-  {
-    m_routingRebuildAnnounceCount = m_routingRebuildCount;
-    notifications.emplace_back(m_turnNotificationsMgr.GenerateRecalculatingText());
-    return;
-  }
+  
 
   // Voice turn notifications.
   if (!m_routingSettings.m_soundDirection)
@@ -609,9 +611,9 @@ void RoutingSession::MatchLocationToRoadGraph(location::GpsInfo & location)
   {
     if (m_active_route->GetCurrentRoutingSettings().m_matchRoute)
     {
-      if (!base::AlmostEqualAbs(m_proj.m_point, proj.m_point, kEps))
+      if (!AlmostEqualAbs(m_proj.m_point, proj.m_point, kEps))
       {
-        location.m_bearing = location::AngleToBearing(base::RadToDeg(ang::AngleTo(m_proj.m_point, proj.m_point)));
+        location.m_bearing = location::AngleToBearing(math::RadToDeg(ang::AngleTo(m_proj.m_point, proj.m_point)));
       }
     }
 

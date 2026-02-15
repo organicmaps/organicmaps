@@ -49,7 +49,7 @@ public:
     SpeedCamera() = default;
     SpeedCamera(double coef, uint8_t maxSpeedKmPH) : m_coef(coef), m_maxSpeedKmPH(maxSpeedKmPH) {}
 
-    bool EqualCoef(SpeedCamera const & rhs) const { return base::AlmostEqualAbs(m_coef, rhs.m_coef, 1.0E-5); }
+    bool EqualCoef(SpeedCamera const & rhs) const { return AlmostEqualAbs(m_coef, rhs.m_coef, 1.0E-5); }
 
     bool operator<(SpeedCamera const & rhs) const
     {

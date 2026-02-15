@@ -343,13 +343,15 @@ void Route::SetRouteSegments(vector<RouteSegment> && routeSegments)
     if (m_haveAltitudes && m_routeSegments[i].GetJunction().GetAltitude() == geometry::kInvalidAltitude)
     {
       m_haveAltitudes = false;
-
+    }
     if (!m_routeSegments[i].GetSegment().IsRealSegment())
       fakeSegmentIndexes.push_back(i);
+    
   }
 
   m_poly.SetFakeSegmentIndexes(std::move(fakeSegmentIndexes));
 }
+
 
 bool Route::MoveIterator(location::GpsInfo const & info)
 {
@@ -376,7 +378,7 @@ double Route::GetPolySegAngle(size_t ind) const
   {
     p2 = m_poly.GetPolyline().GetPoint(i);
   } while (m2::AlmostEqualULPs(p1, p2) && ++i < polySz);
-  return (i == polySz) ? 0 : base::RadToDeg(ang::AngleTo(p1, p2));
+  return (i == polySz) ? 0 : math::RadToDeg(ang::AngleTo(p1, p2));
 }
 
 bool Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const

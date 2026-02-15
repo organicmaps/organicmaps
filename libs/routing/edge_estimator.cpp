@@ -392,42 +392,10 @@ public:
 
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override
   {
-    double result = CalcClimbSegment(purpose, GetStrategy(), segment, road,
-        [purpose, this](double speedMpS, double tangent, geometry::Altitude altitude)
+     double result = CalcClimbSegment(purpose, GetStrategy(), segment, road,
+        [purpose](double speedMpS, double tangent, geometry::Altitude altitude)
         {
-          // Add small weight to distinguish roads by class (10 is a max factor value).
-          speedMpS = upperBound + (purpose == Purpose::Weight ? speedMpS / (10 * avgBicycleSpeed) : 0);
-        }
-      }
-      else
-        speedMpS /= factor;
-
-          /// @todo Take out "bad" bicycle road (path, track, footway, ...) check into BicycleModel?
-          static double constexpr badBicycleRoadSpeed = KmphToMps(9);
-          if (speedMpS <= badBicycleRoadSpeed)
-          {
-            if (factor > 1)
-              speedMpS /= factor;
-          }
-          else
-          {
-            if (factor > 1)
-            {
-              // Calculate uphill speed according to the average bicycle speed, because "good-roads" like
-              // residential, secondary, cycleway are "equal-low-speed" uphill and road type doesn't matter.
-              static double constexpr avgBicycleSpeed = KmphToMps(20);
-              double const upperBound = avgBicycleSpeed / factor;
-              if (speedMpS > upperBound)
-              {
-                // Add small weight to distinguish roads by class (10 is a max factor value).
-                speedMpS = upperBound + (purpose == Purpose::Weight ? speedMpS / (10 * avgBicycleSpeed) : 0);
-              }
-            }
-            else
-              speedMpS /= factor;
-          }
-
-          return std::min(speedMpS, GetMaxWeightSpeedMpS());
+          return speedMpS / GetPedestrianClimbPenalty(purpose, tangent, altitude);
         });
 
     if (purpose == EdgeEstimator::Purpose::Weight && !road.SuitableForOptions(EdgeEstimator::GetAvoidRoutingOptions()))
