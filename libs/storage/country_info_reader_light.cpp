@@ -57,7 +57,13 @@ bool CountryInfoReader::BelongsToRegion(m2::PointD const & pt, size_t id) const
   if (!m_countries[id].m_rect.IsPointInside(pt))
     return false;
 
-  for (auto const & region : LoadRegionsFromDisk(id))
+  bool isFound = false;
+  std::lock_guard lock(m_polyMutex);
+  auto & regions = m_polyCache.Find(static_cast<uint32_t>(id), isFound);
+  if (!isFound)
+    regions = LoadRegionsFromDisk(id);
+
+  for (auto const & region : regions)
     if (region.Contains(pt))
       return true;
 

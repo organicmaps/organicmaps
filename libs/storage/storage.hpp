@@ -16,6 +16,7 @@
 #include "base/thread_checker.hpp"
 #include "base/thread_pool_delayed.hpp"
 
+#include <algorithm>
 #include <functional>
 #include <list>
 #include <memory>
@@ -257,6 +258,9 @@ private:
   /// @}
 
   ThreadChecker m_threadChecker;
+
+  /// Guard preventing use-after-free in async callbacks that capture |this|.
+  std::shared_ptr<bool> m_aliveGuard = std::make_shared<bool>(true);
 
   bool m_needToStartDeferredDownloading = false;
 
@@ -635,8 +639,7 @@ private:
   void NotifyStatusChangedForHierarchy(CountryId const & countryId);
 
   /// Calculates progress of downloading for expandable nodes in country tree.
-  /// |descendants| All descendants of the parent node.
-  downloader::Progress CalculateProgress(CountriesVec const & descendants) const;
+  downloader::Progress CalculateProgress(CountryTree::Node const & subtreeRoot, CountriesSet const & mwmsInQueue) const;
 
   template <class ToDo>
   void ForEachAncestorExceptForTheRoot(CountryTree::NodesBufferT const & nodes, ToDo && toDo) const;
@@ -704,19 +707,17 @@ void Storage::ForEachAncestorExceptForTheRoot(CountryId const & countryId, ToDo 
 template <class ToDo>
 void Storage::ForEachAncestorExceptForTheRoot(CountryTree::NodesBufferT const & nodes, ToDo && toDo) const
 {
-  std::set<CountryTree::Node const *> visitedAncestors;
-  // In most cases nodes.size() == 1. In case of disputable territories nodes.size()
-  // may be more than one. It means |childId| is present in the country tree more than once.
+  // In most cases nodes.size() == 1, so a small inline buffer avoids heap allocation.
+  buffer_vector<CountryTree::Node const *, 8> visitedAncestors;
   for (auto const & node : nodes)
   {
     node->ForEachAncestorExceptForTheRoot([&](CountryTree::Node const & node)
     {
-      CountryId const ancestorId = node.Value().Name();
-      if (visitedAncestors.find(&node) != visitedAncestors.end())
+      if (std::find(visitedAncestors.begin(), visitedAncestors.end(), &node) != visitedAncestors.end())
         return;  // The node was visited before because countryId is present in the tree more
                  // than once.
-      visitedAncestors.insert(&node);
-      toDo(ancestorId, node);
+      visitedAncestors.push_back(&node);
+      toDo(node.Value().Name(), node);
     });
   }
 }
