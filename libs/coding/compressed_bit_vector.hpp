@@ -4,15 +4,11 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include "base/assert.hpp"
 #include "base/control_flow.hpp"
 #include "base/ref_counted.hpp"
 
-#include <cstddef>
-#include <cstdint>
 #include <memory>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace coding
