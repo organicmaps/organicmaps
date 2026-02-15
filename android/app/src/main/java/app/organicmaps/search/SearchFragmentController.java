@@ -211,14 +211,10 @@ public class SearchFragmentController extends Fragment implements SearchFragment
           mSearchPageContainer.post(this::activateSearchToolbar);
       }
       else
-      {
         mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-      }
     }
     else
-    {
       mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-    }
 
     mSearchPageContainer.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> updateExpandedOffset());
     mSearchPageContainer.post(this::updateExpandedOffset);
