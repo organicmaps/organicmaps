@@ -41,7 +41,9 @@ public:
   void Load(VehicleModelInterface const & vehicleModel, FeatureType & feature, geometry::Altitudes const * altitudes,
             RoadAttrsGetter & attrs);
 
-  SpeedKMpH const & GetSpeed(bool forward) const;
+  SpeedKMpH GetSpeed(bool forward, time_t time = 0) const;
+  Maxspeed const & GetMaxspeed() const { return m_maxspeed; }
+  void SetMaxspeed(Maxspeed const & maxspeed) { m_maxspeed = maxspeed; }
   std::optional<HighwayType> GetHighwayType() const { return m_highwayType; }
   bool IsOneWay() const { return m_isOneWay; }
   bool IsPassThroughAllowed() const { return m_isPassThroughAllowed; }
@@ -85,6 +87,7 @@ private:
   std::vector<LatLonWithAltitude> m_junctions;
   mutable std::vector<double> m_distances;  ///< as cache, @see GetDistance()
 
+  Maxspeed m_maxspeed;
   SpeedKMpH m_forwardSpeed;
   SpeedKMpH m_backwardSpeed;
   std::optional<HighwayType> m_highwayType;
@@ -103,7 +106,7 @@ public:
   virtual void Load(uint32_t featureId, RoadGeometry & road) = 0;
 
   /// Used in client-app only for the final route preparation.
-  virtual SpeedInUnits GetSavedMaxspeed(uint32_t featureId, bool forward);
+  virtual SpeedInUnits GetSavedMaxspeed(uint32_t featureId, bool forward, time_t time);
 
   using VehicleModelPtrT = std::shared_ptr<VehicleModelInterface>;
 
@@ -141,9 +144,9 @@ public:
   /// of GetPoint() methods.
   ms::LatLon const & GetPoint(RoadPoint const & rp) { return GetRoad(rp.GetFeatureId()).GetPoint(rp.GetPointId()); }
 
-  SpeedInUnits GetSavedMaxspeed(uint32_t featureId, bool forward)
+  SpeedInUnits GetSavedMaxspeed(uint32_t featureId, bool forward, time_t time)
   {
-    return m_loader->GetSavedMaxspeed(featureId, forward);
+    return m_loader->GetSavedMaxspeed(featureId, forward, time);
   }
 
 private:

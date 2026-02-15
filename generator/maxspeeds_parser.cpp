@@ -222,13 +222,15 @@ bool ParseMaxspeedConditionalTag(std::string const & maxspeedConditional, routin
     if (c != '(' && c != ')')
       condition.push_back(std::tolower(c));
 
-  if (temp == "winter")
+  strings::Trim(condition);
+
+  if (condition == "winter")
     condition = "nov - mar";
-  else if (temp == "spring")
+  else if (condition == "spring")
     condition = "mar - may";
-  else if (temp == "summer")
+  else if (condition == "summer")
     condition = "jun - aug";
-  else if (temp == "fall")
+  else if (condition == "fall")
     condition = "sep - nov";
 
   return true;

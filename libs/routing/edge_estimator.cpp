@@ -46,9 +46,10 @@ double CalcTrafficFactor(SpeedGroup speedGroup)
   return 1.0 / percentage;
 }
 
-double GetSpeedMpS(EdgeEstimator::Purpose purpose, Segment const & segment, RoadGeometry const & road)
+double GetSpeedMpS(EdgeEstimator::Purpose purpose, Segment const & segment, RoadGeometry const & road,
+                   time_t arrivalTime = 0)
 {
-  SpeedKMpH const & speed = road.GetSpeed(segment.IsForward());
+  SpeedKMpH const & speed = road.GetSpeed(segment.IsForward(), arrivalTime);
   double const speedMpS = KmphToMps(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
   ASSERT_GREATER(speedMpS, 0.0, (segment));
   return speedMpS;
@@ -280,7 +281,8 @@ public:
     UNREACHABLE();
   }
 
-  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override
+  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose,
+                           time_t arrivalTime) const override
   {
     return CalcClimbSegment(purpose, segment, road,
                             [purpose](double speedMpS, double tangent, geometry::Altitude altitude)
@@ -308,7 +310,8 @@ public:
     UNREACHABLE();
   }
 
-  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override
+  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose,
+                           time_t arrivalTime) const override
   {
     return CalcClimbSegment(purpose, segment, road,
                             [purpose, this](double speedMpS, double tangent, geometry::Altitude altitude)
@@ -358,7 +361,8 @@ public:
   {}
 
   // EdgeEstimator overrides:
-  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override;
+  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose,
+                           time_t arrivalTime) const override;
   double GetUTurnPenalty(Purpose /* purpose */) const override
   {
     // Adds 2 minutes penalty for U-turn. The value is quite arbitrary
@@ -381,9 +385,10 @@ private:
   shared_ptr<TrafficStash> m_trafficStash;
 };
 
-double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const
+double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose,
+                                       time_t arrivalTime) const
 {
-  double const speed = GetSpeedMpS(purpose, segment, road);
+  double const speed = GetSpeedMpS(purpose, segment, road, arrivalTime);
 
   // Debug log ETA calculated speed.
 #ifdef DEBUG

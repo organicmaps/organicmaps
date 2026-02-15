@@ -1673,10 +1673,14 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments, bas
   }
 #endif
 
+  double currentEta = 0.0;
   for (auto & routeSegment : route.GetRouteSegments())
   {
     auto & segment = routeSegment.GetSegment();
     routeSegment.SetTransitInfo(worldGraph.GetTransitInfo(segment));
+    double segmentDuration = 0;
+    if (segment.IsRealSegment())
+      segmentDuration = starter.CalculateETAWithoutPenalty(segment);
 
     if (!m_guides.IsActive())
       routeSegment.SetRoadTypes(starter.GetRoutingOptions(segment));
@@ -1691,9 +1695,13 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments, bas
         if (m_trafficStash)
           routeSegment.SetTraffic(m_trafficStash->GetSpeedGroup(segment));
 
-        routeSegment.SetSpeedLimit(worldGraph.GetSpeedLimit(segment));
+        time_t startTime = m_currentTimeGetter ? m_currentTimeGetter() : 0;
+        time_t arrivalTime = startTime + static_cast<time_t>(currentEta);
+        routeSegment.SetSpeedLimit(worldGraph.GetSpeedLimit(segment, arrivalTime));
       }
     }
+
+    currentEta += segmentDuration;
 
     /// @todo By VNG: I suspect that we should convert the |segment| to a real one first, and fetch
     /// MaxSpeed, SpeedCamera, SpeedGroup, RoadTypes then, but current speed camera tests fail:

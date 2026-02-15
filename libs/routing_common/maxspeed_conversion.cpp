@@ -48,7 +48,6 @@ void Maxspeed::SetConditional(MaxspeedType speed, osmoh::OpeningHours condition)
 
 MaxspeedType Maxspeed::GetSpeedInUnits(bool forward) const
 {
-  ASSERT(IsValid(), ());
   return (forward || !IsBidirectional()) ? m_forward : m_backward;
 }
 

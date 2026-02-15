@@ -106,6 +106,13 @@ public:
   ~ZeroGeometryLoader() override = default;
 
   void Load(uint32_t featureId, routing::RoadGeometry & road) override;
+  void SetMaxspeed(uint32_t featureId, routing::Maxspeed const & maxspeed)
+  {
+    m_featureIdToMaxspeed[featureId] = maxspeed;
+  }
+
+private:
+  std::map<uint32_t, routing::Maxspeed> m_featureIdToMaxspeed;
 };
 
 class TestIndexGraphLoader final : public IndexGraphLoader
@@ -159,8 +166,8 @@ public:
   // EdgeEstimator overrides:
   ~WeightedEdgeEstimator() override = default;
 
-  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & /* road */,
-                           EdgeEstimator::Purpose purpose) const override;
+  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, EdgeEstimator::Purpose purpose,
+                           time_t arrivalTime) const override;
 
   double GetUTurnPenalty(Purpose purpose) const override;
   double GetFerryLandingPenalty(Purpose purpose) const override;
@@ -190,6 +197,7 @@ public:
   void SetEdgeAccess(Vertex from, Vertex to, RoadAccess::Type type);
   /// \param |condition| in osm opening hours format.
   void SetEdgeAccessConditional(Vertex from, Vertex to, RoadAccess::Type type, std::string const & condition);
+  void SetEdgeMaxspeed(Vertex from, Vertex to, routing::Maxspeed const & maxspeed);
 
   // Sets access type for previously added point.
   void SetVertexAccess(Vertex v, RoadAccess::Type type);
@@ -212,6 +220,8 @@ private:
     Vertex m_from = 0;
     Vertex m_to = 0;
     double m_weight = 0.0;
+    bool m_hasMaxspeed = false;
+
     // Access type for edge.
     RoadAccess::Type m_accessType = RoadAccess::Type::Yes;
     RoadAccess::Conditional m_accessConditionalType;
@@ -221,6 +231,7 @@ private:
     // Access type for vertex to.
     RoadAccess::Type m_toAccessType = RoadAccess::Type::Yes;
     RoadAccess::Conditional m_toAccessConditionalType;
+    routing::Maxspeed m_maxspeed;
 
     EdgeRequest(uint32_t id, Vertex from, Vertex to, double weight) : m_id(id), m_from(from), m_to(to), m_weight(weight)
     {}
@@ -242,6 +253,7 @@ private:
     std::map<Segment, Edge> m_segmentToEdge;
     std::map<Vertex, std::vector<Segment>> m_outgoingSegments;
     std::map<Vertex, std::vector<Segment>> m_ingoingSegments;
+    std::map<uint32_t, routing::Maxspeed> m_featureMaxspeeds;
     std::vector<Joint> m_joints;
     RoadAccess m_roadAccess;
     std::function<time_t()> m_currentTimeGetter;
