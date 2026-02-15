@@ -349,15 +349,16 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       tabLayout.setVisibility(View.GONE);
 
     // Measure and report toolbar height for collapsed state peek height
-    // Include handle, toolbar, and tab layout (categories/history tabs)
-    View pullIconContainer = root.findViewById(R.id.pull_icon_container);
-    Toolbar toolbar = mToolbarController.getToolbar();
+    View appBarLayout = root.findViewById(R.id.app_bar);
+    View tabsDivider = root.findViewById(R.id.tabs_divider);
     TabLayout finalTabLayout = tabLayout;
-    toolbar.post(() -> {
-      int toolbarHeight = toolbar.getHeight();
-      int handleHeight = pullIconContainer != null ? pullIconContainer.getHeight() : 0;
+    // Use appBarLayout for measurement as it includes the toolbar with proper margins
+    appBarLayout.post(() -> {
+      int appBarHeight = appBarLayout.getHeight();
       int tabLayoutHeight = finalTabLayout.getVisibility() == View.VISIBLE ? finalTabLayout.getHeight() : 0;
-      mSearchViewModel.setToolbarHeight(handleHeight + toolbarHeight + tabLayoutHeight);
+      int dividerHeight =
+          tabsDivider != null && tabsDivider.getVisibility() == View.VISIBLE ? tabsDivider.getHeight() : 0;
+      mSearchViewModel.setToolbarHeight(appBarHeight + tabLayoutHeight + dividerHeight);
     });
 
     final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
@@ -412,7 +413,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mSearchViewModel.setSearchQuery(TextUtils.isEmpty(getQuery()) ? null : getQuery());
     mToolbarController.detach();
     mSearchViewModel.getSearchPageLastState().removeObserver(mBottomSheetStateObserver);
-    mSearchViewModel.getSearchEnabled().observe(getViewLifecycleOwner(), mSearchEnabledObserver);
+    mSearchViewModel.getSearchEnabled().removeObserver(mSearchEnabledObserver);
   }
 
   @Override
