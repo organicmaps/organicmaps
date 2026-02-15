@@ -1,4 +1,7 @@
 CompileFlags:
+  Add:
+    # For VScode llvm-vs-code-extensions.vscode-clangd plugin
+    - "-std=c++23"  
   Remove:
     # clang has an issue with this flag, while gcc does not
     - "-mno-direct-extern-access"
