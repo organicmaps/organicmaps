@@ -108,7 +108,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
         if (mFrameLayoutBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN)
         {
           mViewModel.setSearchPageLastState(mFrameLayoutBottomSheetBehavior.getState());
-          mCoordinator.post(() -> mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN));
+          mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         }
       }
       else
