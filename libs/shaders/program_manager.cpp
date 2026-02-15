@@ -12,6 +12,7 @@
 #include "gl_program_params.hpp"
 
 #include <algorithm>
+#include <string_view>
 
 namespace gpu
 {
@@ -57,22 +58,17 @@ void ProgramManager::Destroy(ref_ptr<dp::GraphicsContext> context)
 
 void ProgramManager::InitForOpenGL(ref_ptr<dp::GraphicsContext> context)
 {
-  std::string globalDefines;
-
   // This feature is not supported on some Android devices (especially on Android 4.x version).
   // Since we can't predict on which devices it'll work fine, we have to turn off for all devices.
+  std::string_view additionalDefines;
 #if !defined(OMIM_OS_ANDROID)
   if (GLFunctions::glGetInteger(gl_const::GLMaxVertexTextures) > 0)
   {
-    LOG(LINFO, ("VTF enabled"));
-    globalDefines.append("#define ENABLE_VTF\n");  // VTF == Vertex Texture Fetch
+    LOG(LINFO, ("VTF enabled"));  // VTF == Vertex Texture Fetch
+    additionalDefines = "#define ENABLE_VTF\n";
   }
 #endif
-
-  auto const apiVersion = context->GetApiVersion();
-  m_pool = make_unique_dp<GLProgramPool>(apiVersion);
-  ref_ptr<GLProgramPool> pool = make_ref(m_pool);
-  pool->SetDefines(globalDefines);
+  m_pool = make_unique_dp<GLProgramPool>(context->GetApiVersion(), additionalDefines);
 
   m_paramsSetter = make_unique_dp<GLProgramParamsSetter>();
 }

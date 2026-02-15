@@ -13,6 +13,7 @@
 #include "std/target_os.hpp"
 
 #include <map>
+#include <string_view>
 #include <vector>
 
 namespace gpu
@@ -25,23 +26,23 @@ class ProgramParams
 public:
   static void Init();
   static void Destroy();
-  static std::string GetBoundParamsName(ref_ptr<dp::GpuProgram> program);
+  static std::string_view GetBoundParamsName(ref_ptr<dp::GpuProgram> program);
 
 private:
-  static std::map<std::string, std::string> m_boundParams;
+  static std::map<std::string_view, std::string_view> m_boundParams;
 };
 
 #define BIND_PROGRAMS(ParamsType, ...)                                                              \
   static std::vector<gpu::Program> const & GetBoundPrograms()                                       \
   {                                                                                                 \
-    static std::vector<gpu::Program> programs = {__VA_ARGS__};                                      \
+    static std::vector<gpu::Program> const programs = {__VA_ARGS__};                                \
     return programs;                                                                                \
   }                                                                                                 \
-  static std::string GetName()                                                                      \
+  static std::string_view GetName()                                                                 \
   {                                                                                                 \
-    return std::string(#ParamsType);                                                                \
+    return #ParamsType;                                                                             \
   }                                                                                                 \
-  static void BindPrograms(std::map<std::string, std::string> & params)                             \
+  static void BindPrograms(std::map<std::string_view, std::string_view> & params)                   \
   {                                                                                                 \
     for (auto const p : GetBoundPrograms())                                                         \
     {                                                                                               \

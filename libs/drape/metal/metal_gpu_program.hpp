@@ -23,7 +23,7 @@ public:
   };
   using TexturesBindingInfo = std::map<std::string, TextureBindingInfo>;
 
-  MetalGpuProgram(std::string const & programName, id<MTLFunction> vertexShader, id<MTLFunction> fragmentShader,
+  MetalGpuProgram(std::string_view programName, id<MTLFunction> vertexShader, id<MTLFunction> fragmentShader,
                   int8_t vsUniformsBindingIndex, int8_t fsUniformsBindingIndex,
                   TexturesBindingInfo && vertexTextureBindingInfo, TexturesBindingInfo && fragmentTextureBindingInfo,
                   MTLVertexDescriptor * vertexDescriptor)

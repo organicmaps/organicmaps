@@ -3,7 +3,7 @@
 namespace gpu
 {
 // static
-std::map<std::string, std::string> ProgramParams::m_boundParams;
+std::map<std::string_view, std::string_view> ProgramParams::m_boundParams;
 
 // static
 void ProgramParams::Init()
@@ -29,7 +29,7 @@ void ProgramParams::Destroy()
 }
 
 // static
-std::string ProgramParams::GetBoundParamsName(ref_ptr<dp::GpuProgram> program)
+std::string_view ProgramParams::GetBoundParamsName(ref_ptr<dp::GpuProgram> program)
 {
   auto const it = m_boundParams.find(program->GetName());
   ASSERT(it != m_boundParams.cend(), (program->GetName(), "Program is not bound to params"));

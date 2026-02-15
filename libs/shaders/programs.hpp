@@ -72,7 +72,7 @@ enum class Program
   ProgramsCount
 };
 
-inline std::string DebugPrint(Program p)
+inline std::string_view DebugPrint(Program p)
 {
   switch (p)
   {
