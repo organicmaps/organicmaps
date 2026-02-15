@@ -112,6 +112,7 @@ public:
 
   virtual std::vector<RouteSegment::SpeedCamera> GetSpeedCamInfo(Segment const & segment);
   virtual SpeedInUnits GetSpeedLimit(Segment const & segment);
+  virtual SpeedInUnits GetSpeedLimit(Segment const & segment, time_t time = 0);
 
   virtual IndexGraph & GetIndexGraph(NumMwmId numMwmId) = 0;
   virtual CrossMwmGraph & GetCrossMwmGraph();

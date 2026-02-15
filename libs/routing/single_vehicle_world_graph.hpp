@@ -67,7 +67,7 @@ public:
   RoutingOptions GetRoutingOptions(Segment const & segment) override;
 
   std::vector<RouteSegment::SpeedCamera> GetSpeedCamInfo(Segment const & segment) override;
-  SpeedInUnits GetSpeedLimit(Segment const & segment) override;
+  SpeedInUnits GetSpeedLimit(Segment const & segment, time_t time) override;
 
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) override { return m_loader->GetIndexGraph(numMwmId); }
 

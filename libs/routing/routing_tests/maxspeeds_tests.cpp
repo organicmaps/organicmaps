@@ -2,10 +2,12 @@
 
 #include "routing/maxspeeds.hpp"
 #include "routing/maxspeeds_serialization.hpp"
+#include "routing/routing_tests/index_graph_tools.hpp"
 
 #include "routing_common/maxspeed_conversion.hpp"
 
 #include "platform/measurement_utils.hpp"
+#include "platform/platform_tests_support/helpers.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
@@ -17,7 +19,11 @@ namespace maxspeeds_test
 {
 using namespace measurement_utils;
 using namespace routing;
+using namespace routing_test;
+using namespace platform::tests_support;
 using namespace std;
+
+using TestEdge = TestIndexGraphTopology::Edge;
 
 void TestMaxspeedsSerialization(vector<FeatureMaxspeed> const & speeds)
 {
@@ -226,5 +232,47 @@ UNIT_TEST(Maxspeed_Smoke)
     TEST_EQUAL(maxspeed.GetSpeedInUnits(false /* forward */), 40, ());
     TEST_EQUAL(maxspeed.GetSpeedKmPH(false /* forward */), 40, ());
   }
+}
+
+UNIT_TEST(Maxspeeds_Routing_TimeDependent)
+{
+  uint32_t const numVertices = 4;
+  TestIndexGraphTopology graph(numVertices);
+
+  // 0->1 : 30 km at 60 km/h 1800 s.
+  graph.AddDirectedEdge(0, 1, 30000.0);
+  Maxspeed speed60(measurement_utils::Units::Metric, 60, 60);
+  graph.SetEdgeMaxspeed(0, 1, speed60);
+
+  // 1->2 : 10 km segment
+  // Normal: 60 km/h 600 s
+  // at 10:00–12:00: 20 km/h 1800 s
+  graph.AddDirectedEdge(1, 2, 10000.0);
+  Maxspeed conditionalSpeed(measurement_utils::Units::Metric, 60.0, 60.0);
+  conditionalSpeed.SetConditional(20.0, osmoh::OpeningHours("10:00-12:00"));
+  graph.SetEdgeMaxspeed(1, 2, conditionalSpeed);
+
+  // Alternative path 0->3->2 2700 s
+  graph.AddDirectedEdge(0, 3, 22500.0);
+  graph.AddDirectedEdge(3, 2, 22500.0);
+  Maxspeed altSpeed(measurement_utils::Units::Metric, 60.0, 60.0);
+  graph.SetEdgeMaxspeed(0, 3, altSpeed);
+  graph.SetEdgeMaxspeed(3, 2, altSpeed);
+
+  // Start at 08:30 arrive at node 1 at 09:00 condition inactive choose 0->1->2.
+  auto const startAt_8_30 = []() { return GetUnixtimeByWeekday(2026, Month::Apr, Weekday::Monday, 8, 30); };
+
+  graph.SetCurrentTimeGetter(startAt_8_30);
+  double expectedWeight = 2400.0;
+  vector<TestEdge> expectedEdges = {{0, 1}, {1, 2}};
+  TestTopologyGraph(graph, 0, 2, true, expectedWeight, expectedEdges);
+
+  // Start at 9:40 arrive at node 1 at 10:10 condition is active choose alternative path.
+  auto const startAt_9_40 = []() { return GetUnixtimeByWeekday(2026, Month::Apr, Weekday::Monday, 9, 40); };
+
+  graph.SetCurrentTimeGetter(startAt_9_40);
+  expectedWeight = 2700.0;
+  expectedEdges = {{0, 3}, {3, 2}};
+  TestTopologyGraph(graph, 0, 2, true, expectedWeight, expectedEdges);
 }
 }  // namespace maxspeeds_test

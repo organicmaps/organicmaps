@@ -91,9 +91,11 @@ public:
     road.Load(*m_vehicleModel, *feature, altitudes.empty() ? nullptr : &altitudes, m_attrsGetter);
   }
 
-  SpeedInUnits GetSavedMaxspeed(uint32_t featureId, bool forward) override
+  SpeedInUnits GetSavedMaxspeed(uint32_t featureId, bool forward, time_t time) override
   {
     auto const speed = m_attrsGetter.m_maxSpeeds.GetMaxspeed(featureId);
+    if (time != 0 && speed.HasConditional() && speed.GetConditionalTime().IsOpen(time))
+      return {speed.GetConditional(), speed.GetUnits()};
     return {speed.GetSpeedInUnits(forward), speed.GetUnits()};
   }
 
@@ -136,7 +138,8 @@ private:
 
 // RoadGeometry ------------------------------------------------------------------------------------
 RoadGeometry::RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedKMpH, Points const & points)
-  : m_forwardSpeed{weightSpeedKMpH, etaSpeedKMpH}
+  : m_maxspeed()
+  , m_forwardSpeed{weightSpeedKMpH, etaSpeedKMpH}
   , m_backwardSpeed(m_forwardSpeed)
   , m_isOneWay(oneWay)
   , m_valid(true)
@@ -172,6 +175,7 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
 
   uint32_t const fID = feature.GetID().m_index;
   m_inCity = attrs.m_cityRoads.IsCityRoad(fID);
+  m_maxspeed = attrs.m_maxSpeeds.GetMaxspeed(fID);
 
   SpeedParams params(attrs.m_maxSpeeds.GetMaxspeed(fID),
                      m_highwayType ? attrs.m_maxSpeeds.GetDefaultSpeed(m_inCity, *m_highwayType) : kInvalidSpeed,
@@ -248,8 +252,10 @@ double RoadGeometry::GetDistance(uint32_t idx) const
   return m_distances[idx];
 }
 
-SpeedKMpH const & RoadGeometry::GetSpeed(bool forward) const
+SpeedKMpH RoadGeometry::GetSpeed(bool forward, time_t time) const
 {
+  if (time != 0 && m_maxspeed.IsValid() && m_maxspeed.HasConditional() && m_maxspeed.GetConditionalTime().IsOpen(time))
+    return SpeedKMpH(ToSpeedKmPH(m_maxspeed.GetConditional(), m_maxspeed.GetUnits()));
   return forward ? m_forwardSpeed : m_backwardSpeed;
 }
 
@@ -282,7 +288,7 @@ RoadGeometry const & Geometry::GetRoad(uint32_t featureId)
   return m_featureIdToRoad->GetValue(featureId);
 }
 
-SpeedInUnits GeometryLoader::GetSavedMaxspeed(uint32_t featureId, bool forward)
+SpeedInUnits GeometryLoader::GetSavedMaxspeed(uint32_t featureId, bool forward, time_t time)
 {
   UNREACHABLE();
 }

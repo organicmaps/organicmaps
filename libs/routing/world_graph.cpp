@@ -48,6 +48,11 @@ SpeedInUnits WorldGraph::GetSpeedLimit(Segment const &)
   return {};
 }
 
+SpeedInUnits WorldGraph::GetSpeedLimit(Segment const & segment, time_t time)
+{
+  return {};
+}
+
 void WorldGraph::SetAStarParents(bool forward, Parents<Segment> & parents) {}
 void WorldGraph::SetAStarParents(bool forward, Parents<JointSegment> & parents) {}
 void WorldGraph::DropAStarParents() {}
