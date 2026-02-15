@@ -381,7 +381,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   @Override
   public void onStart()
   {
-    Logger.d("kavi", "on start got called for search fragment");
     super.onStart();
     mToolbarController.attach(requireActivity());
     mSearchViewModel.getSearchEnabled().observe(getViewLifecycleOwner(), mSearchEnabledObserver);
@@ -389,7 +388,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   public void onResume()
   {
-    Logger.d("kavi", "on resume got called for search fragment");
     super.onResume();
     MwmApplication.from(requireContext()).getLocationHelper().addListener(mLocationListener);
     if (mInitialQuery != null && !mInitialQuery.isEmpty())
@@ -402,7 +400,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   @Override
   public void onPause()
   {
-    Logger.d("kavi", "on pause got called for search fragment");
     MwmApplication.from(requireContext()).getLocationHelper().removeListener(mLocationListener);
     super.onPause();
   }
@@ -410,7 +407,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   @Override
   public void onStop()
   {
-    Logger.d("kavi", "on stop got called for search fragment");
     super.onStop();
     mSearchViewModel.setLastResults(mSearchAdapter.getResults());
     mSearchViewModel.setSearchQuery(TextUtils.isEmpty(getQuery()) ? null : getQuery());
@@ -702,7 +698,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     boolean getBackPressedCallback();
     void onSearchClicked();
   }
-  
+
   public void activateToolbar()
   {
     if (mToolbarController != null)
