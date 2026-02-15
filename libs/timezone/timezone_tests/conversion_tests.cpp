@@ -6,7 +6,8 @@ using namespace om::tz;
 
 namespace
 {
-constexpr TimeZone kZeroTz{.generation_year_offset = 0, .base_offset = 64, .dst_delta = 0, .transitions = {}};
+constexpr TimeZone kZeroTz{
+    .generation_year_offset = 0, .base_offset = 64, .dst_delta = 0, .transitions_length = 0, .transitions = {}};
 
 time_t CreateTime(int const year, int const month, int const day, int const hour, int const minute, int const second)
 {
@@ -42,7 +43,8 @@ TEST(TimeZoneConvert, ShoudNotChangeTimeWhenEqualTimeZones)
 
 TEST(TimeZoneConvert, ShoudAdd1Hour)
 {
-  TimeZone const dstTz{.generation_year_offset = 0, .base_offset = 68, .dst_delta = 0, .transitions = {}};
+  constexpr TimeZone dstTz{
+      .generation_year_offset = 0, .base_offset = 68, .dst_delta = 0, .transitions_length = 0, .transitions = {}};
 
   {
     time_t const srcTime = CreateTime(2026, 12, 13, 21, 18, 16);
@@ -62,7 +64,8 @@ TEST(TimeZoneConvert, ShoudAdd1Hour)
 
 TEST(TimeZoneConvert, ShoudDecrease1Hour)
 {
-  TimeZone const srcTz{.generation_year_offset = 0, .base_offset = 68, .dst_delta = 0, .transitions = {}};
+  constexpr TimeZone srcTz{
+      .generation_year_offset = 0, .base_offset = 68, .dst_delta = 0, .transitions_length = 0, .transitions = {}};
 
   {
     time_t const srcTime = CreateTime(2026, 12, 13, 22, 18, 16);
@@ -83,15 +86,16 @@ TEST(TimeZoneConvert, ShoudDecrease1Hour)
 TEST(TimeZoneConvert, ShouldApplyDst)
 {
   // Example: base offset = 0, DST +60 minutes
-  TimeZone const dstTz{.generation_year_offset = 0,
-                       .base_offset = 64,
-                       .dst_delta = 60,
-                       .transitions = {
-                           {.day_delta = 67, .minute_of_day = 120},   // DST starts 2026, Mar 9, 2:00
-                           {.day_delta = 238, .minute_of_day = 120},  // DST ends 2026, Nov 2, 2:00
-                           {.day_delta = 127, .minute_of_day = 120},  // DST starts 2026, Mar 9, 2:00
-                           {.day_delta = 238, .minute_of_day = 120},  // DST ends 2026, Nov 2, 2:00
-                       }};
+  constexpr TimeZone dstTz{.generation_year_offset = 0,
+                           .base_offset = 64,
+                           .dst_delta = 60,
+                           .transitions_length = 4,
+                           .transitions = {
+                               Transition{.day_delta = 67, .minute_of_day = 120},   // DST starts 2026, Mar 9, 2:00
+                               Transition{.day_delta = 238, .minute_of_day = 120},  // DST ends 2026, Nov 2, 2:00
+                               Transition{.day_delta = 127, .minute_of_day = 120},  // DST starts 2026, Mar 9, 2:00
+                               Transition{.day_delta = 238, .minute_of_day = 120},  // DST ends 2026, Nov 2, 2:00
+                           }};
 
   for (int const year : {2026, 2027})
   {
@@ -132,19 +136,21 @@ TEST(TimeZoneConvert, ShouldApplyDst)
 TEST(TimeZoneConvert, CrossTimeZoneWithOffsets)
 {
   // Source timezone: -2:30 (minutes = -150), no DST
-  TimeZone const srcTz{.generation_year_offset = 0,
-                       .base_offset = 54,  // -2:30 hours
-                       .dst_delta = 0,
-                       .transitions = {}};
+  constexpr TimeZone srcTz{.generation_year_offset = 0,
+                           .base_offset = 54,  // -2:30 hours
+                           .dst_delta = 0,
+                           .transitions_length = 0,
+                           .transitions = {}};
 
   // Destination timezone: +8:00, DST +60 minutes
-  TimeZone const dstTz{.generation_year_offset = 0,
-                       .base_offset = 96,  // +8 hours
-                       .dst_delta = 60,    // +1 hour DST
-                       .transitions = {
-                           {.day_delta = 67, .minute_of_day = 451},   // DST starts Mar 9, 7:31
-                           {.day_delta = 238, .minute_of_day = 218},  // DST ends Nov 2, 3:38
-                       }};
+  constexpr TimeZone dstTz{.generation_year_offset = 0,
+                           .base_offset = 96,  // +8 hours
+                           .dst_delta = 60,    // +1 hour DST
+                           .transitions_length = 2,
+                           .transitions = {
+                               Transition{.day_delta = 67, .minute_of_day = 451},   // DST starts Mar 9, 7:31
+                               Transition{.day_delta = 238, .minute_of_day = 218},  // DST ends Nov 2, 3:38
+                           }};
 
   // Test before DST starts
   {
