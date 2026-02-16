@@ -20,7 +20,7 @@ void CheckVector(TCont & cont, size_t count)
 UNIT_TEST(BufferVector_PushBackAndRealloc)
 {
   using ElementT = std::vector<int>;
-  ElementT element({1, 2, 3});
+  ElementT const element({1, 2, 3});
 
   size_t constexpr kFixedSize = 2;
   {
