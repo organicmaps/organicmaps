@@ -17,6 +17,7 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
+import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import java.util.ArrayList;
@@ -212,7 +213,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
 
   private void updateRoutePointsData()
   {
-    assert (mRoutePoints.size() >= 2);
+    Assert.debug(mRoutePoints.size() >= 2, "There must be at least two route points");
 
     // Set starting point.
     mRoutePoints.get(0).mPointType = RouteMarkType.Start;

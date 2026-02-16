@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.ROMUtils;
 import app.organicmaps.sdk.util.Utils;
@@ -146,7 +147,7 @@ public final class Map
 
   public void onSurfaceCreated(final Context context, final Surface surface, Rect surfaceFrame, int surfaceDpi)
   {
-    assert mLocationHelper != null : "LocationHelper must be initialized before calling onSurfaceCreated";
+    Assert.debug(mLocationHelper != null, "LocationHelper must be initialized before calling onSurfaceCreated");
 
     if (isThemeChangingProcess())
     {

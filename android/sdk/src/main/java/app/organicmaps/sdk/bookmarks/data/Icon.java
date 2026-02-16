@@ -8,6 +8,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import app.organicmaps.sdk.BuildConfig;
 import app.organicmaps.sdk.R;
+import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import dalvik.annotation.optimization.FastNative;
@@ -64,8 +65,7 @@ public class Icon implements Parcelable
   @DrawableRes
   public int getResId()
   {
-    // loadDefaultIcons should be called
-    assert (sTypeIcons != null);
+    Assert.debug(sTypeIcons != null, "loadDefaultIcons should be called before calling getResId");
     return sTypeIcons[mType];
   }
 

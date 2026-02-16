@@ -5,6 +5,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.sdk.BuildConfig;
+import app.organicmaps.sdk.util.Assert;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -151,7 +152,7 @@ public final class Logger
     case Log.WARN: return 'W';
     case Log.ERROR: return 'E';
     }
-    assert false : "Unknown log level " + level;
+    Assert.always(false, "Unknown log level " + level);
     return '_';
   }
 

@@ -23,6 +23,7 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.util.UiUtils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -125,7 +126,7 @@ public class ManageRouteBottomSheet
       ArrayList<RouteMarkData> newRoutePoints = mManageRouteAdapter.getRoutePoints();
 
       // Make sure that the new route contains at least 2 points (start and destination).
-      assert (newRoutePoints.size() >= 2);
+      Assert.debug(newRoutePoints.size() >= 2, "There must be at least two route points");
 
       // Remove all existing route points.
       Framework.nativeRemoveRoutePoints();

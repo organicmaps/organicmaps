@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import app.organicmaps.R;
 import app.organicmaps.sdk.routing.LaneInfo;
 import app.organicmaps.sdk.routing.LaneWay;
+import app.organicmaps.sdk.util.Assert;
 import java.util.Objects;
 
 public class LanesDrawable extends Drawable
@@ -151,7 +152,7 @@ public class LanesDrawable extends Drawable
   private LaneDrawable[] createLaneDrawables(@NonNull Context context, @NonNull LaneInfo[] lanes,
                                              @NonNull TintColorInfo tintColorInfo)
   {
-    assert lanes.length > 0;
+    Assert.debug(lanes.length > 0, "lanes must contain at least one element");
 
     final LaneDrawable[] laneDrawables = new LaneDrawable[lanes.length];
 

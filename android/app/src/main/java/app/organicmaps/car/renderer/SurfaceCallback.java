@@ -17,6 +17,7 @@ import androidx.annotation.RequiresApi;
 import androidx.car.app.CarContext;
 import androidx.car.app.SurfaceContainer;
 import app.organicmaps.sdk.MapController;
+import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.widget.SpeedLimitView;
 
@@ -87,7 +88,7 @@ class SurfaceCallback extends SurfaceCallbackBase
   {
     super.onVisibleAreaChanged(visibleArea);
 
-    assert mSpeedLimitContainer != null : "mSpeedLimitContainer must be initialized";
+    Assert.debug(mSpeedLimitContainer != null, "mSpeedLimitContainer must be initialized");
     mSpeedLimitContainer.setLayoutParams(getSpeedLimitContainerLayoutParams());
   }
 
@@ -104,7 +105,7 @@ class SurfaceCallback extends SurfaceCallbackBase
   @NonNull
   SpeedLimitView getSpeedLimitView()
   {
-    assert mSpeedLimitView != null : "mSpeedLimitContainer must be initialized";
+    Assert.debug(mSpeedLimitView != null, "mSpeedLimitContainer must be initialized");
     return mSpeedLimitView;
   }
 
