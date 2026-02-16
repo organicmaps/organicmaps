@@ -54,6 +54,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private RecyclerView mNamesView;
 
+  // RecyclerView observer to refresh names caption when adapter changes
   private final RecyclerView.AdapterDataObserver mNamesObserver = new RecyclerView.AdapterDataObserver() {
     @Override
     public void onChanged() { refreshNamesCaption(); }
@@ -83,6 +84,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextView mSelfService;
   private SwitchCompat mOutdoorSeating;
 
+  // Default Metadata entries.
   private static final class MetadataEntry
   {
     TextInputEditText mEdit;
@@ -111,13 +113,16 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextView mOpeningHours;
   private View mEditOpeningHours;
   private TextInputEditText mDescription;
+
+  // Define Metadata entries that have more complex logic separately.
   private final Map<Metadata.MetadataType, View> mDetailsBlocks = new HashMap<>();
   private final Map<Metadata.MetadataType, View> mSocialMediaBlocks = new HashMap<>();
+
   private TextView mReset;
 
   private EditorHostFragment mParent;
 
-  // ✅ إضافة المتغير لتتبع حالة توسيع Social Media
+  // ✅ Added variable to track expanded/collapsed state of Social Media
   private boolean mSocialMediaExpanded = false;
 
   @Nullable
@@ -149,6 +154,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       }
     });
 
+    // TODO Reimplement this to avoid https://github.com/organicmaps/organicmaps/issues/9049
     initMetadataEntry(Metadata.MetadataType.FMD_POSTCODE, R.string.error_enter_correct_zip_code);
 
     mBuildingLevels.setText(Editor.nativeGetBuildingLevels());
@@ -181,7 +187,10 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mSelfService.setText(Utils.getTagValueLocalized(view.getContext(), "self_service", selfServiceMetadata));
     initMetadataEntry(Metadata.MetadataType.FMD_OPERATOR, 0);
     mWifi.setChecked(Editor.nativeHasWifi());
-    UiUtils.hide(findViewById(R.id.block_outdoor_seating)); // مؤقت
+
+    // Temporarily hide outdoor seating
+    UiUtils.hide(findViewById(R.id.block_outdoor_seating));
+
     refreshOpeningTime();
     refreshEditableFields();
     refreshResetButton();
@@ -298,6 +307,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private void initViews(View view)
   {
     final View categoryBlock = view.findViewById(R.id.category);
+    // TODO show icon and fill it when core will implement that
     UiUtils.hide(categoryBlock.findViewById(R.id.icon));
     mCategory = categoryBlock.findViewById(R.id.name);
     mCardName = view.findViewById(R.id.cv__name);
@@ -385,17 +395,19 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mReset = view.findViewById(R.id.reset);
     mReset.setOnClickListener(this);
 
+    // Address
     mDetailsBlocks.put(Metadata.MetadataType.FMD_OPEN_HOURS, blockOpeningHours);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_PHONE_NUMBER, blockPhone);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_CUISINE, blockCuisine);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_INTERNET, blockWifi);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_SELF_SERVICE, blockSelfService);
-    UiUtils.hide(blockOutdoorSeating); // مؤقت
+    UiUtils.hide(blockOutdoorSeating); // Temporarily hide
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE, websiteBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE_MENU, websiteMenuBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_EMAIL, emailBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_OPERATOR, operatorBlock);
 
+    // Social Media
     mSocialMediaBlocks.put(Metadata.MetadataType.FMD_CONTACT_FACEBOOK, facebookContactBlock);
     mSocialMediaBlocks.put(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, instagramContactBlock);
     mSocialMediaBlocks.put(Metadata.MetadataType.FMD_CONTACT_TWITTER, twitterContactBlock);
@@ -415,32 +427,12 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
         mWifi.toggle();
     else if (id == R.id.block_self_service)
         mParent.editSelfService();
-    else if (id == R.id.cv__social_media)  // <-- البلوك الجديد
+    else if (id == R.id.cv__social_media)  
     {
         mSocialMediaExpanded = !mSocialMediaExpanded;
 
         for (var block : mSocialMediaBlocks.values())
         {
             if (mSocialMediaExpanded)
-                UiUtils.show(block);
-            else
-                UiUtils.hide(block);
-        }
-    }
-    else if (id == R.id.block_street)
-        mParent.editStreet();
-    else if (id == R.id.block_cuisine)
-        mParent.editCuisine();
-    else if (id == R.id.more_names || id == R.id.show_additional_names)
-    {
-        if (!mNamesAdapter.areAdditionalLanguagesShown() || validateNames())
-            showAdditionalNames(!mNamesAdapter.areAdditionalLanguagesShown());
-    }
-    else if (id == R.id.add_langs)
-        mParent.addLanguage();
-    else if (id == R.id.reset)
-        reset();
-    else if (id == R.id.block_outdoor_seating)
-        mOutdoorSeating.toggle();
-  }
-}
+                UiUtils.show
+
