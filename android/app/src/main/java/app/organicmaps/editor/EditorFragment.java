@@ -56,34 +56,15 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private final RecyclerView.AdapterDataObserver mNamesObserver = new RecyclerView.AdapterDataObserver() {
     @Override
-    public void onChanged()
-    {
-      refreshNamesCaption();
-    }
-
+    public void onChanged() { refreshNamesCaption(); }
     @Override
-    public void onItemRangeChanged(int positionStart, int itemCount)
-    {
-      refreshNamesCaption();
-    }
-
+    public void onItemRangeChanged(int positionStart, int itemCount) { refreshNamesCaption(); }
     @Override
-    public void onItemRangeInserted(int positionStart, int itemCount)
-    {
-      refreshNamesCaption();
-    }
-
+    public void onItemRangeInserted(int positionStart, int itemCount) { refreshNamesCaption(); }
     @Override
-    public void onItemRangeRemoved(int positionStart, int itemCount)
-    {
-      refreshNamesCaption();
-    }
-
+    public void onItemRangeRemoved(int positionStart, int itemCount) { refreshNamesCaption(); }
     @Override
-    public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount)
-    {
-      refreshNamesCaption();
-    }
+    public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) { refreshNamesCaption(); }
   };
 
   private MultilanguageAdapter mNamesAdapter;
@@ -95,7 +76,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextInputEditText mHouseNumber;
   private TextInputEditText mBuildingLevels;
 
-  // Define Metadata entries, that have more tricky logic, separately.
   private TextView mPhone;
   private TextView mEditPhoneLink;
   private TextView mCuisine;
@@ -103,7 +83,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextView mSelfService;
   private SwitchCompat mOutdoorSeating;
 
-  // Default Metadata entries.
   private static final class MetadataEntry
   {
     TextInputEditText mEdit;
@@ -137,6 +116,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextView mReset;
 
   private EditorHostFragment mParent;
+
+  // ✅ إضافة المتغير لتتبع حالة توسيع Social Media
+  private boolean mSocialMediaExpanded = false;
 
   @Nullable
   @Override
@@ -199,8 +181,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mSelfService.setText(Utils.getTagValueLocalized(view.getContext(), "self_service", selfServiceMetadata));
     initMetadataEntry(Metadata.MetadataType.FMD_OPERATOR, 0);
     mWifi.setChecked(Editor.nativeHasWifi());
-    // TODO Reimplement this to avoid https://github.com/organicmaps/organicmaps/issues/9049
-    // mOutdoorSeating.setChecked(Editor.nativeGetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(),"yes"));
+    UiUtils.hide(findViewById(R.id.block_outdoor_seating)); // مؤقت
     refreshOpeningTime();
     refreshEditableFields();
     refreshResetButton();
@@ -222,10 +203,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetBuildingLevels(mBuildingLevels.getText().toString());
     Editor.nativeSetHasWifi(mWifi.isChecked());
     Editor.nativeSetNames(mParent.getNamesAsArray());
-
-    // TODO Reimplement this to avoid https://github.com/organicmaps/organicmaps/issues/9049
-    // Editor.nativeSetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), mOutdoorSeating.isChecked(),
-    // "yes", "no");
 
     for (var e : mMetadata.entrySet())
       Editor.nativeSetMetadata(e.getKey().toInt(), e.getValue().mEdit.getText().toString());
@@ -282,12 +259,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
       View nameView = mNamesView.getChildAt(pos);
       nameView.requestFocus();
-
       InputUtils.showKeyboard(nameView);
-
       return false;
     }
-
     return true;
   }
 
@@ -321,86 +295,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     UiUtils.showIf(anyBlockElement, card);
   }
 
-  private void refreshOpeningTime()
-  {
-    final String openingHours = Editor.nativeGetOpeningHours();
-    if (TextUtils.isEmpty(openingHours) || !OpeningHours.nativeIsTimetableStringValid(openingHours))
-    {
-      UiUtils.show(mEmptyOpeningHours);
-      UiUtils.hide(mOpeningHours, mEditOpeningHours);
-    }
-    else
-    {
-      final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(openingHours);
-      String content = timetables == null ? openingHours
-                                          : TimeFormatUtils.formatTimetables(getResources(), openingHours, timetables);
-      UiUtils.hide(mEmptyOpeningHours);
-      UiUtils.setTextAndShow(mOpeningHours, content);
-      UiUtils.show(mEditOpeningHours);
-    }
-  }
-
-  private void initNamesView(final View view)
-  {
-    mNamesCaption = view.findViewById(R.id.show_additional_names);
-    mNamesCaption.setOnClickListener(this);
-
-    mAddLanguage = view.findViewById(R.id.add_langs);
-    mAddLanguage.setOnClickListener(this);
-
-    mMoreLanguages = view.findViewById(R.id.more_names);
-    mMoreLanguages.setOnClickListener(this);
-
-    mNamesView = view.findViewById(R.id.recycler);
-    mNamesView.setNestedScrollingEnabled(false);
-    mNamesView.setLayoutManager(new LinearLayoutManager(requireActivity()));
-    mNamesAdapter = new MultilanguageAdapter(mParent);
-    mNamesView.setAdapter(mNamesAdapter);
-    mNamesAdapter.registerAdapterDataObserver(mNamesObserver);
-
-    final Bundle args = getArguments();
-    if (args == null || !args.containsKey(LAST_INDEX_OF_NAMES_ARRAY))
-    {
-      showAdditionalNames(false);
-      return;
-    }
-    showAdditionalNames(true);
-    UiUtils.waitLayout(mNamesView, () -> {
-      LinearLayoutManager lm = (LinearLayoutManager) mNamesView.getLayoutManager();
-      int position = args.getInt(LAST_INDEX_OF_NAMES_ARRAY);
-
-      View nameItem = lm.findViewByPosition(position);
-
-      int cvNameTop = mCardName.getTop();
-      int nameItemTop = nameItem.getTop();
-
-      view.scrollTo(0, cvNameTop + nameItemTop);
-
-      // TODO(mgsergio): Uncomment if focus and keyboard are required.
-      // TODO(mgsergio): Keyboard doesn't want to hide. Only pressing back button works.
-      // View nameItemInput = nameItem.findViewById(R.id.input);
-      // nameItemInput.requestFocus();
-      // InputUtils.showKeyboard(nameItemInput);
-    });
-  }
-
-  private View initBlock(View view, Metadata.MetadataType type, @IdRes int idBlock, @DrawableRes int idIcon,
-                         @StringRes int idName, int inputType)
-  {
-    View block = view.findViewById(idBlock);
-    MetadataEntry e = new MetadataEntry();
-    e.mEdit = findInputAndInitBlock(block, idIcon, idName);
-    if (inputType > 0)
-      e.mEdit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE | inputType);
-    e.mInput = block.findViewById(R.id.custom_input);
-    mMetadata.put(type, e);
-    return block;
-  }
-
   private void initViews(View view)
   {
     final View categoryBlock = view.findViewById(R.id.category);
-    // TODO show icon and fill it when core will implement that
     UiUtils.hide(categoryBlock.findViewById(R.id.icon));
     mCategory = categoryBlock.findViewById(R.id.name);
     mCardName = view.findViewById(R.id.cv__name);
@@ -410,9 +307,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mCardBuilding = view.findViewById(R.id.cv__building);
     initNamesView(view);
 
-    // Address
     view.findViewById(R.id.block_street).setOnClickListener(this);
     mStreet = view.findViewById(R.id.street);
+
     View blockHouseNumber = view.findViewById(R.id.block_building);
     mHouseNumber = findInputAndInitBlock(blockHouseNumber, R.drawable.ic_building, R.string.house_number);
     mInputHouseNumber = blockHouseNumber.findViewById(R.id.custom_input);
@@ -427,11 +324,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
                               getString(R.string.editor_storey_number, Editor.nativeGetMaxEditableBuildingLevels()));
     mBuildingLevels.setInputType(InputType.TYPE_CLASS_NUMBER);
     mInputBuildingLevels = mBlockLevels.findViewById(R.id.custom_input);
+
     View blockPhone = view.findViewById(R.id.block_phone);
     mPhone = blockPhone.findViewById(R.id.phone);
     mEditPhoneLink = blockPhone.findViewById(R.id.edit_phone);
     mEditPhoneLink.setOnClickListener(this);
     mPhone.setOnClickListener(this);
+
     View websiteBlock = initBlock(view, Metadata.MetadataType.FMD_WEBSITE, R.id.block_website, R.drawable.ic_website,
                                   R.string.website, InputType.TYPE_TEXT_VARIATION_URI);
     View websiteMenuBlock =
@@ -470,6 +369,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     View blockOutdoorSeating = view.findViewById(R.id.block_outdoor_seating);
     mOutdoorSeating = view.findViewById(R.id.sw__outdoor_seating);
     blockOutdoorSeating.setOnClickListener(this);
+
     View blockOpeningHours = view.findViewById(R.id.block_opening_hours);
     mEditOpeningHours = blockOpeningHours.findViewById(R.id.edit_opening_hours);
     mEditOpeningHours.setOnClickListener(this);
@@ -477,6 +377,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mEmptyOpeningHours.setOnClickListener(this);
     mOpeningHours = blockOpeningHours.findViewById(R.id.opening_hours);
     mOpeningHours.setOnClickListener(this);
+
     final View cardMore = view.findViewById(R.id.cv__more);
     mDescription = findInput(cardMore);
     TextView osmInfo = view.findViewById(R.id.osm_info);
@@ -489,9 +390,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mDetailsBlocks.put(Metadata.MetadataType.FMD_CUISINE, blockCuisine);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_INTERNET, blockWifi);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_SELF_SERVICE, blockSelfService);
-    // TODO Reimplement this to avoid https://github.com/organicmaps/organicmaps/issues/9049
-    UiUtils.hide(blockOutdoorSeating);
-    // mDetailsBlocks.put(Metadata.MetadataType.FMD_OUTDOOR_SEATING, blockOutdoorSeating);
+    UiUtils.hide(blockOutdoorSeating); // مؤقت
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE, websiteBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE_MENU, websiteMenuBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_EMAIL, emailBlock);
@@ -504,184 +403,44 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mSocialMediaBlocks.put(Metadata.MetadataType.FMD_CONTACT_LINE, lineContactBlock);
   }
 
-  private static TextInputEditText findInput(View blockWithInput)
-  {
-    return blockWithInput.findViewById(R.id.input);
-  }
-
-  private TextInputEditText findInputAndInitBlock(View blockWithInput, @DrawableRes int icon, @StringRes int hint)
-  {
-    return findInputAndInitBlock(blockWithInput, icon, getString(hint));
-  }
-
-  private static TextInputEditText findInputAndInitBlock(View blockWithInput, @DrawableRes int icon, String hint)
-  {
-    ((ImageView) blockWithInput.findViewById(R.id.icon)).setImageResource(icon);
-    final TextInputLayout input = blockWithInput.findViewById(R.id.custom_input);
-    input.setHint(hint);
-    return input.findViewById(R.id.input);
-  }
-
   @Override
   public void onClick(View v)
   {
     final int id = v.getId();
     if (id == R.id.edit_opening_hours || id == R.id.empty_opening_hours || id == R.id.opening_hours)
-      mParent.editTimetable();
+        mParent.editTimetable();
     else if (id == R.id.phone || id == R.id.edit_phone)
-      mParent.editPhone();
+        mParent.editPhone();
     else if (id == R.id.block_wifi)
-      mWifi.toggle();
+        mWifi.toggle();
     else if (id == R.id.block_self_service)
-      mParent.editSelfService();
+        mParent.editSelfService();
+    else if (id == R.id.cv__social_media)  // <-- البلوك الجديد
+    {
+        mSocialMediaExpanded = !mSocialMediaExpanded;
+
+        for (var block : mSocialMediaBlocks.values())
+        {
+            if (mSocialMediaExpanded)
+                UiUtils.show(block);
+            else
+                UiUtils.hide(block);
+        }
+    }
     else if (id == R.id.block_street)
-      mParent.editStreet();
+        mParent.editStreet();
     else if (id == R.id.block_cuisine)
-      mParent.editCuisine();
+        mParent.editCuisine();
     else if (id == R.id.more_names || id == R.id.show_additional_names)
     {
-      if (!mNamesAdapter.areAdditionalLanguagesShown() || validateNames())
-        showAdditionalNames(!mNamesAdapter.areAdditionalLanguagesShown());
+        if (!mNamesAdapter.areAdditionalLanguagesShown() || validateNames())
+            showAdditionalNames(!mNamesAdapter.areAdditionalLanguagesShown());
     }
     else if (id == R.id.add_langs)
-      mParent.addLanguage();
+        mParent.addLanguage();
     else if (id == R.id.reset)
-      reset();
+        reset();
     else if (id == R.id.block_outdoor_seating)
-      mOutdoorSeating.toggle();
-  }
-
-  private void showAdditionalNames(boolean show)
-  {
-    mNamesAdapter.showAdditionalLanguages(show);
-
-    refreshNamesCaption();
-  }
-
-  private void refreshNamesCaption()
-  {
-    if (mNamesAdapter.getNamesCount() <= mNamesAdapter.getMandatoryNamesCount())
-      setNamesArrow(0 /* arrowResourceId */); // bind arrow with empty resource (do not draw arrow)
-    else if (mNamesAdapter.areAdditionalLanguagesShown())
-      setNamesArrow(R.drawable.ic_expand_less);
-    else
-      setNamesArrow(R.drawable.ic_expand_more);
-
-    boolean showAddLanguage = mNamesAdapter.getNamesCount() <= mNamesAdapter.getMandatoryNamesCount()
-                           || mNamesAdapter.areAdditionalLanguagesShown();
-
-    UiUtils.showIf(showAddLanguage, mAddLanguage);
-    UiUtils.showIf(!showAddLanguage, mMoreLanguages);
-  }
-
-  // Bind arrow in the top right corner of names caption with needed resource.
-  private void setNamesArrow(@DrawableRes int arrowResourceId)
-  {
-    if (arrowResourceId == 0)
-    {
-      mNamesCaption.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null);
-      return;
-    }
-
-    mNamesCaption.setCompoundDrawablesRelativeWithIntrinsicBounds(
-        null, null, Graphics.tint(requireActivity(), arrowResourceId, R.attr.iconTint), null);
-  }
-
-  private void refreshResetButton()
-  {
-    if (mParent.addingNewObject())
-    {
-      UiUtils.hide(mReset);
-      return;
-    }
-
-    if (Editor.nativeIsMapObjectUploaded())
-    {
-      mReset.setText(R.string.editor_place_doesnt_exist);
-      return;
-    }
-
-    switch (Editor.nativeGetMapObjectStatus())
-    {
-    case Editor.CREATED -> mReset.setText(R.string.editor_remove_place_button);
-    case Editor.MODIFIED -> mReset.setText(R.string.editor_reset_edits_button);
-    case Editor.UNTOUCHED -> mReset.setText(R.string.editor_place_doesnt_exist);
-    case Editor.DELETED -> throw new IllegalStateException("Can't delete already deleted feature.");
-    case Editor.OBSOLETE -> throw new IllegalStateException("Obsolete objects cannot be reverted.");
-    }
-  }
-
-  private void reset()
-  {
-    if (Editor.nativeIsMapObjectUploaded())
-    {
-      placeDoesntExist();
-      return;
-    }
-
-    switch (Editor.nativeGetMapObjectStatus())
-    {
-    case Editor.CREATED -> rollback(Editor.CREATED);
-    case Editor.MODIFIED -> rollback(Editor.MODIFIED);
-    case Editor.UNTOUCHED -> placeDoesntExist();
-    case Editor.DELETED -> throw new IllegalStateException("Can't delete already deleted feature.");
-    case Editor.OBSOLETE -> throw new IllegalStateException("Obsolete objects cannot be reverted.");
-    }
-  }
-
-  private void rollback(@Editor.FeatureStatus int status)
-  {
-    @StringRes
-    final int title;
-    @StringRes
-    final int message;
-    if (status == Editor.CREATED)
-    {
-      title = R.string.editor_remove_place_button;
-      message = R.string.editor_remove_place_message;
-    }
-    else
-    {
-      title = R.string.editor_reset_edits_button;
-      message = R.string.editor_reset_edits_message;
-    }
-
-    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
-        .setTitle(message)
-        .setPositiveButton(title,
-                           (dialog, which) -> {
-                             Editor.nativeRollbackMapObject();
-                             Framework.nativePokeSearchInViewport();
-                             mParent.onBackPressed();
-                           })
-        .setNegativeButton(R.string.cancel, null)
-        .show();
-  }
-
-  private void placeDoesntExist()
-  {
-    EditTextDialogFragment dialogFragment = EditTextDialogFragment.show(
-        getString(R.string.editor_place_doesnt_exist), "", getString(R.string.editor_comment_hint),
-        getString(R.string.editor_report_problem_send_button), getString(R.string.cancel), this,
-        getDeleteCommentValidator());
-    dialogFragment.setTextSaveListener(this::commitPlaceDoesntExists);
-  }
-
-  private void commitPlaceDoesntExists(@NonNull String text)
-  {
-    Editor.nativePlaceDoesNotExist(text);
-    mParent.onBackPressed();
-  }
-
-  @NonNull
-  private EditTextDialogFragment.Validator getDeleteCommentValidator()
-  {
-    return (activity, text) ->
-    {
-      if (TextUtils.isEmpty(text))
-        return activity.getString(R.string.delete_place_empty_comment_error);
-      else
-        return null;
-    };
+        mOutdoorSeating.toggle();
   }
 }
