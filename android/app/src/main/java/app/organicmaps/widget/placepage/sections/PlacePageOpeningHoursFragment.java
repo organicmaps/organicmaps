@@ -44,7 +44,6 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   private boolean isOhExpanded;
 
   private PlacePageViewModel mViewModel;
-  private RecyclerView.OnItemTouchListener mRecyclerTouchListener;
 
   @Nullable
   @Override
@@ -71,21 +70,20 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     UiUtils.hide(dropDownIcon);
     isOhExpanded = false;
     mOhContainer = mFrame.findViewById(R.id.oh_container);
-    RecyclerView.OnItemTouchListener touchListener = new RecyclerView.OnItemTouchListener()
-    {
-        @Override
-        public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
-        {
-            if (e.getAction() == MotionEvent.ACTION_UP)
-                expandOpeningHours();
-            return false;
-        }
-        @Override
-        public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
-          {}
-        @Override
-        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept)
-          {}
+    var touchListener = new RecyclerView.OnItemTouchListener() {
+      @Override
+      public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
+      {
+        if (e.getAction() == MotionEvent.ACTION_UP)
+          expandOpeningHours();
+        return false;
+      }
+      @Override
+      public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
+      {}
+      @Override
+      public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept)
+      {}
     };
     mFullWeekOpeningHours.addOnItemTouchListener(touchListener);
   }
@@ -169,15 +167,12 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
         mOpeningHoursAdapter.setTimetables(timetables, firstDayOfWeek);
         if (isOhExpanded)
         {
-
-                mFullWeekOpeningHours.measure(
-                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-                int newHeight = mFullWeekOpeningHours.getMeasuredHeight();
-                mFullWeekOpeningHours.getLayoutParams().height = newHeight;
-                mFullWeekOpeningHours.requestLayout();
-
-          }
+          mFullWeekOpeningHours.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+          int newHeight = mFullWeekOpeningHours.getMeasuredHeight();
+          mFullWeekOpeningHours.getLayoutParams().height = newHeight;
+          mFullWeekOpeningHours.requestLayout();
+        }
         UiUtils.show(dropDownIcon);
         mOhContainer.setOnClickListener((v) -> expandOpeningHours());
 
@@ -271,11 +266,10 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
   }
   private void resetWeeklyViewState()
   {
-        isOhExpanded = false;
-        mFullWeekOpeningHours.getLayoutParams().height = 0;
-        UiUtils.hide(mFullWeekOpeningHours);
-        UiUtils.hide(dropDownIcon);
-        dropDownIcon.setRotation(0f);
-        mOhContainer.setOnClickListener(null);
+    isOhExpanded = false;
+    UiUtils.hide(mFullWeekOpeningHours);
+    UiUtils.hide(dropDownIcon);
+    dropDownIcon.setRotation(0f);
+    mOhContainer.setOnClickListener(null);
   }
 }
