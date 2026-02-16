@@ -289,6 +289,17 @@ void Bookmark::SetTimeStamp(kml::Timestamp timeStamp)
   m_data.m_timestamp = timeStamp;
 }
 
+kml::Timestamp Bookmark::GetEditTimeStamp() const
+{
+  return m_data.m_editTimestamp;
+}
+
+void Bookmark::SetEditTimeStamp(kml::Timestamp timeStamp)
+{
+  SetDirty();
+  m_data.m_editTimestamp = timeStamp;
+}
+
 uint8_t Bookmark::GetScale() const
 {
   return m_data.m_viewportScale;

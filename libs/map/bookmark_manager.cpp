@@ -2272,6 +2272,8 @@ void BookmarkManager::UpdateBookmark(kml::MarkId bmID, kml::BookmarkData const &
     bookmark->InvalidateRGBAColor();
     SetLastEditedBmColor(bookmark->GetColor());
   }
+
+  bookmark->SetEditTimeStamp(kml::TimestampClock::now());
 }
 
 void BookmarkManager::ChangeTrackColor(kml::TrackId trackId, dp::Color color)
