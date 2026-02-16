@@ -2360,6 +2360,8 @@ void BookmarkManager::UpdateBookmark(kml::MarkId bmID, kml::BookmarkData const &
   auto const & newColor = bookmark->GetData().m_color;
   if (prevColor != newColor)
     SetLastEditedBmColor(newColor);
+
+  bookmark->SetEditTimeStamp(kml::TimestampClock::now());
 }
 
 void BookmarkManager::ChangeTrackColor(kml::TrackId trackId, dp::Color color)
