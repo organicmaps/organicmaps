@@ -590,7 +590,12 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
   writer << kIndent4 << "</LineStyle></Style>\n";
 
   if (trackData.m_timestamp != Timestamp())
-    writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(trackData.m_timestamp) << "</when></TimeStamp>\n";
+  {
+    writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(trackData.m_timestamp) << "</when>";
+    if (trackData.m_editTimestamp != Timestamp())
+      writer << kIndent4 << "<modified>" << TimestampToString(trackData.m_editTimestamp) << "</modified>";
+    writer << "</TimeStamp>\n";
+  }
 
   SaveTrackGeometry(writer, trackData.m_geometry);
   SaveTrackExtendedData(writer, trackData);
@@ -677,6 +682,7 @@ void KmlParser::ResetPoint()
   m_predefinedColor = PredefinedColor::None;
   m_viewportScale = 0;
   m_timestamp = {};
+  m_editTimestamp = {};
 
   m_color = 0;
   m_styleId.clear();
@@ -989,6 +995,7 @@ void KmlParser::Pop(std::string_view tag)
         data.m_description = std::move(m_description);
         data.m_layers = std::move(m_trackLayers);
         data.m_timestamp = m_timestamp;
+        data.m_editTimestamp = m_editTimestamp;
         data.m_geometry = std::move(m_geometry);
         data.m_visible = m_visible;
         data.m_nearestToponyms = std::move(m_nearestToponyms);
