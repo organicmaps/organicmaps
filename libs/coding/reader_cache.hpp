@@ -58,6 +58,7 @@ public:
     char * pDst = static_cast<char *>(p);
     uint64_t pageNum = pos >> m_LogPageSize;
     size_t const firstPageOffset = static_cast<size_t>(pos - (pageNum << m_LogPageSize));
+    ASSERT_LESS_OR_EQUAL(firstPageOffset, PageSize(), (pos, m_LogPageSize));
     size_t const firstCopySize = std::min(size, PageSize() - firstPageOffset);
     ASSERT_GREATER(firstCopySize, 0, ());
     memcpy(pDst, ReadPage(reader, pageNum) + firstPageOffset, firstCopySize);

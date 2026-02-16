@@ -67,8 +67,15 @@ private:
     std::optional<std::string> ReadLine() override;
 
   private:
-    size_t m_pos = 0;
+    void FillBuffer();
+
+    static size_t constexpr kBufferSize = 4096;
+
     Reader const & m_reader;
+    size_t m_pos = 0;
+    std::vector<char> m_buf;
+    size_t m_bufPos = 0;
+    size_t m_bufEnd = 0;
   };
 
   class DefaultReader : public ReaderInterface

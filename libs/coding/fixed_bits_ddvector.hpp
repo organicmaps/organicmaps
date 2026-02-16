@@ -96,7 +96,10 @@ public:
     uint64_t bytesOffset = bitsOffset / CHAR_BIT;
     size_t constexpr kBlockSize = sizeof(TBlock);
     if (bytesOffset + kBlockSize > m_bits.Size())
+    {
+      ASSERT(kBlockSize <= m_bits.Size(), ("What should be the right check here?"));
       bytesOffset = m_bits.Size() - kBlockSize;
+    }
 
     TBlock v = ReadPrimitiveFromPos<TBlock>(m_bits, bytesOffset);
     v >>= (bitsOffset - bytesOffset * CHAR_BIT);

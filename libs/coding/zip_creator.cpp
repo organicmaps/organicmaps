@@ -74,10 +74,10 @@ bool CreateZipFromFiles(std::vector<std::string> const & files, std::vector<std:
   try
   {
     int suffix = 0;
-    for (size_t i = 0; i < files.size(); i++)
+    for (size_t i = 0; i < files.size(); ++i)
     {
-      auto const & filePath = files.at(i);
-      std::string fileInArchive = filesInArchive.at(i);
+      auto const & filePath = files[i];
+      auto fileInArchive = filesInArchive[i];
       if (!strings::IsASCIIString(fileInArchive))
       {
         if (suffix == 0)

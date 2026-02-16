@@ -39,9 +39,10 @@ public:
 
   SinkReaderStream & operator>>(double & t)
   {
-    static_assert(sizeof(double) == sizeof(int64_t), "");
-    int64_t * tInt = reinterpret_cast<int64_t *>(&t);
-    operator>>(*tInt);
+    static_assert(sizeof(double) == sizeof(int64_t));
+    int64_t tInt;
+    std::memcpy(&tInt, &t, sizeof(t));
+    operator>>(tInt);
     return *this;
   }
 };
@@ -75,8 +76,9 @@ public:
 
   SinkWriterStream & operator<<(double t)
   {
-    static_assert(sizeof(double) == sizeof(int64_t), "");
-    int64_t const tInt = *reinterpret_cast<int64_t const *>(&t);
+    static_assert(sizeof(double) == sizeof(int64_t));
+    int64_t tInt;
+    std::memcpy(&tInt, &t, sizeof(t));
     operator<<(tInt);
     return (*this);
   }

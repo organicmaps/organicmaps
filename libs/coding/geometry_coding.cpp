@@ -319,8 +319,8 @@ m2::PointU D2U(m2::PointD const & p, uint32_t coordBits)
 m2::PointD U2D(m2::PointU const & p, uint32_t coordBits)
 {
   m2::PointD const pt = PointUToPointD(p, coordBits);
-  ASSERT(mercator::Bounds::kMinX <= pt.x && pt.y <= mercator::Bounds::kMaxX, (p, pt, coordBits));
-  ASSERT(mercator::Bounds::kMinY <= pt.x && pt.y <= mercator::Bounds::kMaxY, (p, pt, coordBits));
+  ASSERT(mercator::Bounds::kMinX <= pt.x && pt.x <= mercator::Bounds::kMaxX, (p, pt, coordBits));
+  ASSERT(mercator::Bounds::kMinY <= pt.y && pt.y <= mercator::Bounds::kMaxY, (p, pt, coordBits));
   return pt;
 }
 
