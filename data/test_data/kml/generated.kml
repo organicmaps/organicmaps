@@ -317,7 +317,7 @@
       <color>FF0000FF</color>
       <width>6</width>
     </LineStyle></Style>
-    <TimeStamp><when>1970-01-01T00:15:00Z</when></TimeStamp>
+    <TimeStamp><when>1970-01-01T00:15:00Z</when><modified>1970-01-01T00:20:00Z</modified></TimeStamp>
     <LineString><coordinates>45.9242,49.326859,1 45.2244,48.941288,2 45.1964,49.401948,3</coordinates></LineString>
     <ExtendedData xmlns:mwm="https://omaps.app">
       <mwm:name>

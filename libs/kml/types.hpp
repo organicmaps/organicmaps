@@ -443,8 +443,9 @@ struct TrackData
   {
     return m_id == data.m_id && m_localId == data.m_localId && m_name == data.m_name &&
            m_description == data.m_description && m_layers == data.m_layers && IsEqual(m_timestamp, data.m_timestamp) &&
-           m_geometry == data.m_geometry && m_visible == data.m_visible &&
-           m_nearestToponyms == data.m_nearestToponyms && m_properties == data.m_properties;
+           IsEqual(m_editTimestamp, data.m_editTimestamp) && m_geometry == data.m_geometry &&
+           m_visible == data.m_visible && m_nearestToponyms == data.m_nearestToponyms &&
+           m_properties == data.m_properties;
   }
 
   bool operator!=(TrackData const & data) const { return !operator==(data); }
@@ -461,6 +462,8 @@ struct TrackData
   std::vector<TrackLayer> m_layers;
   // Creation timestamp.
   Timestamp m_timestamp = {};
+  // Last modification timestamp.
+  Timestamp m_editTimestamp = {};
   MultiGeometry m_geometry;
   // Visibility.
   bool m_visible = true;
