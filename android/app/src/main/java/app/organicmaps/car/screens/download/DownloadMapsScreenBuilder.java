@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
 import app.organicmaps.routing.ResultCodesHelper;
+import app.organicmaps.sdk.util.Assert;
 import java.util.Objects;
 
 public class DownloadMapsScreenBuilder
@@ -58,16 +59,17 @@ public class DownloadMapsScreenBuilder
 
     if (mDownloaderType == DownloaderType.BuildRoute)
     {
-      assert mMissingMaps != null;
-      assert ResultCodesHelper.isDownloadable(mResultCode, mMissingMaps.length);
+      Assert.debug(mMissingMaps != null, "mMissingMaps must be initialized");
+      Assert.debug(ResultCodesHelper.isDownloadable(mResultCode, mMissingMaps.length),
+                   "Invalid result code for downloadable maps");
     }
     else if (mDownloaderType == DownloaderType.View)
     {
-      assert mMissingMaps != null;
-      assert mMissingMaps.length == 1;
+      Assert.debug(mMissingMaps != null, "mMissingMaps must be initialized");
+      Assert.debug(mMissingMaps.length == 1, "mMissingMaps must contain exactly one element");
     }
     else if (mDownloaderType == DownloaderType.FirstLaunch)
-      assert mMissingMaps == null;
+      Assert.debug(mMissingMaps == null, "mMissingMaps must be null for FirstLaunch");
 
     return switch (mDownloaderType)
     {

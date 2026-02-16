@@ -6,6 +6,7 @@ package org.chromium.base;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import app.organicmaps.sdk.util.Assert;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -65,7 +66,7 @@ public class ObserverList<E> implements Iterable<E>
     // Structurally modifying the underlying list here. This means we
     // cannot use the underlying list's iterator to iterate over the list.
     boolean result = mObservers.add(obs);
-    assert result;
+    Assert.debug(result, "Failed to add observer");
 
     ++mCount;
     return true;
@@ -100,7 +101,7 @@ public class ObserverList<E> implements Iterable<E>
       mObservers.set(index, null);
     }
     --mCount;
-    assert mCount >= 0;
+    Assert.debug(mCount >= 0, "Observer count must be non-negative");
 
     return true;
   }
@@ -172,7 +173,7 @@ public class ObserverList<E> implements Iterable<E>
    */
   private void compact()
   {
-    assert mIterationDepth == 0;
+    Assert.debug(mIterationDepth == 0, "Iteration depth must be zero before compacting");
     for (int i = mObservers.size() - 1; i >= 0; i--)
     {
       if (mObservers.get(i) == null)
@@ -190,7 +191,7 @@ public class ObserverList<E> implements Iterable<E>
   private void decrementIterationDepthAndCompactIfNeeded()
   {
     mIterationDepth--;
-    assert mIterationDepth >= 0;
+    Assert.debug(mIterationDepth >= 0, "Iteration depth must be non-negative");
     if (mIterationDepth > 0)
       return;
     if (!mNeedsCompact)

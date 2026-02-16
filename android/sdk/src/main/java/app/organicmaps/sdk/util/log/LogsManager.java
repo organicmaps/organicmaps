@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import app.organicmaps.sdk.BuildConfig;
 import app.organicmaps.sdk.R;
+import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.ROMUtils;
 import app.organicmaps.sdk.util.StringUtils;
@@ -80,7 +81,8 @@ public final class LogsManager
 
   private void assertFileLoggingInit()
   {
-    assert mApplicationContext != null : "mApplicationContext must be initialized first by calling initFileLogging()";
+    Assert.always(mApplicationContext != null,
+                  "mApplicationContext must be initialized first by calling initFileLogging()");
   }
 
   /**
