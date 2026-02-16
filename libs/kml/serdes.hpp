@@ -114,6 +114,7 @@ private:
   LocalizableString m_description;
   PredefinedColor m_predefinedColor;
   Timestamp m_timestamp;
+  Timestamp m_editTimestamp;
   m2::PointD m_org;
   uint8_t m_viewportScale;
   std::vector<uint32_t> m_featureTypes;
