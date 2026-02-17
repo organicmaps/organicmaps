@@ -80,7 +80,7 @@ final class EditTrackViewController: MWMTableViewController {
   override func numberOfSections(in _: UITableView) -> Int {
     Sections.count.rawValue
   }
-  
+
   override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch Sections(rawValue: section) {
     case .info:
@@ -118,16 +118,15 @@ final class EditTrackViewController: MWMTableViewController {
       default:
         fatalError()
       }
-      
-      case .description:
-          if let noteCell = noteCell {
-            return noteCell
-          } else {
-            let cell = tableView.dequeueReusableCell(cell: MWMNoteCell.self, indexPath: indexPath)
-            cell.config(with: self, noteText: trackDescription ?? "", placeholder: L("placepage_personal_notes_hint"))
-            noteCell = cell
-            return cell
-          }
+    case .description:
+      if let noteCell = noteCell {
+        return noteCell
+      } else {
+        let cell = tableView.dequeueReusableCell(cell: MWMNoteCell.self, indexPath: indexPath)
+        cell.config(with: self, noteText: trackDescription ?? "", placeholder: L("placepage_personal_notes_hint"))
+        noteCell = cell
+        return cell
+      }
     case .delete:
       let cell = tableView.dequeueReusableCell(cell: MWMButtonCell.self, indexPath: indexPath)
       cell.configure(with: self, title: L("placepage_delete_track_button"), enabled: true)
@@ -240,7 +239,6 @@ extension EditTrackViewController: SelectBookmarkGroupViewControllerDelegate {
                          with: .none)
   }
 }
-
 
 // MARK: - BookmarksObserver
 
