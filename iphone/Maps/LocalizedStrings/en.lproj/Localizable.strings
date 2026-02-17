@@ -231,7 +231,7 @@
 "pref_tts_language_title" = "Voice Language";
 
 /* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Test Voice Directions (TTS, Text-To-Speech)";
+"pref_tts_test_voice_title" = "Change Voice";
 "pref_map_auto_zoom" = "Auto zoom";
 "placepage_distance" = "Distance";
 "search_show_on_map" = "View on map";
@@ -369,6 +369,7 @@
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Other";
+"pref_tts_voices_section_title" = "Test Voice Directions (TTS, Text-To-Speech)";
 
 /* Tex label above the Donate button */
 "donate_description" = "Gift free maps with no ads to millions of users!";
