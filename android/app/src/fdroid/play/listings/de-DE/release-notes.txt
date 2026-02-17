@@ -4,6 +4,6 @@
 • Erweiterte Öffnungszeiten
 • Aufteilung der Einstellung Nachtmodus in die Einstellungen Erscheinungsbild und Navigation
 • Lesezeichenfarbe aus einer Liste ändern
-• Verbesserte Querformat-Benutzeroberfläche für einen ausgewählten Ort auf der Karte
+• Benutzeroberfläche im Querformat für einen ausgewählten Ort auf der Karte verbessert
 • Fehlerhafter Editor für Orte mit ungültigen Telefonnummern behoben
 …mehr unter omaps.org/news
