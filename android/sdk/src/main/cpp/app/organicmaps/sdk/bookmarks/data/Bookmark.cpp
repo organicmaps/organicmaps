@@ -53,13 +53,6 @@ Bookmark const * getBookmark(jlong bokmarkId)
 
 extern "C"
 {
-JNIEXPORT jint Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeGetColor(JNIEnv *, jclass, jlong bmk)
-{
-  auto const * mark = getBookmark(bmk);
-  return static_cast<jint>(
-      kml::kColorIndexMap[base::E2I(mark != nullptr ? mark->GetColor() : frm()->LastEditedBMColor())]);
-}
-
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeSetColor(JNIEnv *, jclass, jlong bmk, jint color)
 {
   auto const * mark = getBookmark(bmk);
@@ -69,43 +62,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeSetColor(J
   bmData.m_color.m_predefinedColor = kml::kOrderedPredefinedColors[color];
 
   g_framework->ReplaceBookmark(static_cast<kml::MarkId>(bmk), bmData);
-}
-
-JNIEXPORT jint Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeGetIcon(JNIEnv *, jclass, jlong bmk)
-{
-  auto const * mark = getBookmark(bmk);
-  return static_cast<jint>(mark != nullptr ? mark->GetData().m_icon : kml::BookmarkIcon::None);
-}
-
-JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeGetXY(JNIEnv * env, jclass, jlong bmk)
-{
-  return jni::GetNewParcelablePointD(env, getBookmark(bmk)->GetPivot());
-}
-
-JNIEXPORT jstring Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeGetFeatureType(JNIEnv * env, jclass, jlong bmk)
-{
-  return jni::ToJavaString(env, kml::GetLocalizedFeatureType(getBookmark(bmk)->GetData().m_featureTypes));
-}
-
-JNIEXPORT jstring Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeGetName(JNIEnv * env, jclass, jlong bmk)
-{
-  return jni::ToJavaString(env, getBookmark(bmk)->GetPreferredName());
-}
-
-JNIEXPORT jstring Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeGetDescription(JNIEnv * env, jclass, jlong bmk)
-{
-  return jni::ToJavaString(env, getBookmark(bmk)->GetDescription());
-}
-
-JNIEXPORT jdouble Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeGetScale(JNIEnv *, jclass, jlong bmk)
-{
-  return getBookmark(bmk)->GetScale();
-}
-
-JNIEXPORT jstring Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeGetAddress(JNIEnv * env, jclass, jlong bmkId)
-{
-  auto const address = frm()->GetAddressAtPoint(getBookmark(bmkId)->GetPivot()).FormatAddress();
-  return jni::ToJavaString(env, address);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_Bookmark_nativeUpdateParams(JNIEnv * env, jclass, jlong bmk,

@@ -18,6 +18,8 @@ public class BookmarkInfo
   @NonNull
   private String mTitle;
   @NonNull
+  private final String mDescription;
+  @NonNull
   private final String mFeatureType;
   @NonNull
   private Icon mIcon;
@@ -29,18 +31,20 @@ public class BookmarkInfo
   @NonNull
   private final ParcelablePointD mLatLonPoint;
 
-  public BookmarkInfo(@IntRange(from = 0) long categoryId, @IntRange(from = 0) long bookmarkId)
+  public BookmarkInfo(@IntRange(from = 0) long categoryId, @IntRange(from = 0) long bookmarkId, @NonNull String title,
+                      @NonNull String description, @NonNull String featureType, int color, int iconType,
+                      ParcelablePointD coords, double scale, @NonNull String address)
   {
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
-    mTitle = Bookmark.nativeGetName(mBookmarkId);
-    mFeatureType = Bookmark.nativeGetFeatureType(mBookmarkId);
-    mIcon = new Icon(Bookmark.nativeGetColor(mBookmarkId), Bookmark.nativeGetIcon(mBookmarkId));
-    final ParcelablePointD ll = Bookmark.nativeGetXY(mBookmarkId);
-    mMerX = ll.x;
-    mMerY = ll.y;
-    mScale = Bookmark.nativeGetScale(mBookmarkId);
-    mAddress = Bookmark.nativeGetAddress(mBookmarkId);
+    mTitle = title;
+    mDescription = description;
+    mFeatureType = featureType;
+    mIcon = new Icon(color, iconType);
+    mMerX = coords.x;
+    mMerY = coords.y;
+    mScale = scale;
+    mAddress = address;
     mLatLonPoint = GeoUtils.toLatLon(mMerX, mMerY);
   }
 
@@ -107,7 +111,7 @@ public class BookmarkInfo
   @NonNull
   public String getDescription()
   {
-    return Bookmark.nativeGetDescription(mBookmarkId);
+    return mDescription;
   }
 
   public void update(@NonNull String name, @Nullable Icon icon, @NonNull String description)
