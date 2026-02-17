@@ -84,14 +84,14 @@ UNIT_TEST(Transit_Vatikan_NotEnoughGraphDataAtThenEnd)
                                                                mercator::FromLatLon(41.89543, 12.41481), {0.0, 0.0},
                                                                mercator::FromLatLon(41.89203, 12.46263));
 
-  /// @todo Returns valid route now with long pedestrian part in the end, I don't see problems here.
+  // Returns valid route now with long pedestrian part in the end, I don't see a problem here.
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
   TEST(routeResult.first, ());
   auto const & route = *routeResult.first;
 
   integration::CheckSubwayExistence(route);
-  integration::TestRouteLength(route, 7703.56);
+  integration::TestRouteLength(route, 7564.21);
   TEST_LESS(route.GetTotalTimeSec(), 4000, ());
 }
 

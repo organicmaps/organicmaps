@@ -302,9 +302,10 @@ UNIT_TEST(Russia_SaintPetersburg_Bridge_Access_Conditional)
 
 UNIT_TEST(RussiaSaintPetersburgPetrPaulChurchToDolphins)
 {
+  // While "Кронверкский мост" is under construction.
   integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Pedestrian),
                                                 mercator::FromLatLon(59.9502, 30.3165), {0., 0.},
-                                                mercator::FromLatLon(59.973, 30.2702), 4607.);
+                                                mercator::FromLatLon(59.973, 30.2702), 4840.79);
 }
 
 UNIT_TEST(RussiaPetergofEntranceToErmitagePalace)
