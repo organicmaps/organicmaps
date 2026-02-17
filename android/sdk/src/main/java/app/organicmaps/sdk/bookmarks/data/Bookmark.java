@@ -17,9 +17,10 @@ import app.organicmaps.sdk.util.Constants;
 @SuppressLint("ParcelCreator")
 public class Bookmark extends MapObject
 {
-  private Icon mIcon;
+  private Icon mIcon; // Icon should not be 'final' because it's color could be changed.
   private long mCategoryId;
   private final long mBookmarkId;
+  private final BookmarkInfo mBookmarkInfo;
   private final double mMerX;
   private final double mMerY;
 
@@ -36,12 +37,10 @@ public class Bookmark extends MapObject
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
-    mIcon = getIconInternal();
-
-    final ParcelablePointD ll = nativeGetXY(mBookmarkId);
-    mMerX = ll.x;
-    mMerY = ll.y;
-
+    mBookmarkInfo = getBookmarkInfo();
+    mIcon = mBookmarkInfo.getIcon();
+    mMerX = mBookmarkInfo.getLat();
+    mMerY = mBookmarkInfo.getLon();
     initXY();
   }
 
@@ -57,7 +56,6 @@ public class Bookmark extends MapObject
     super.writeToParcel(dest, flags);
     dest.writeLong(mCategoryId);
     dest.writeLong(mBookmarkId);
-    dest.writeParcelable(mIcon, flags);
     dest.writeDouble(mMerX);
     dest.writeDouble(mMerY);
   }
@@ -70,7 +68,8 @@ public class Bookmark extends MapObject
     super(type, source);
     mCategoryId = source.readLong();
     mBookmarkId = source.readLong();
-    mIcon = ParcelCompat.readParcelable(source, Icon.class.getClassLoader(), Icon.class);
+    mBookmarkInfo = getBookmarkInfo();
+    mIcon = mBookmarkInfo.getIcon();
     mMerX = source.readDouble();
     mMerY = source.readDouble();
     initXY();
@@ -84,19 +83,13 @@ public class Bookmark extends MapObject
   @Override
   public double getScale()
   {
-    return nativeGetScale(mBookmarkId);
+    return mBookmarkInfo.getScale();
   }
 
   @NonNull
   public DistanceAndAzimut getDistanceAndAzimuth(double cLat, double cLon, double north)
   {
     return Framework.nativeGetDistanceAndAzimuth(mMerX, mMerY, cLat, cLon, north);
-  }
-
-  @NonNull
-  private Icon getIconInternal()
-  {
-    return new Icon(getColor(), nativeGetIcon(mBookmarkId));
   }
 
   @Nullable
@@ -126,38 +119,39 @@ public class Bookmark extends MapObject
 
   public void setIconColor(@ColorInt int color)
   {
-    mIcon = new Icon(PredefinedColors.getPredefinedColorIndex(color), nativeGetIcon(mBookmarkId));
-    nativeSetColor(mBookmarkId, mIcon.getColor());
+    final int colorIndex = PredefinedColors.getPredefinedColorIndex(color);
+    mIcon = new Icon(colorIndex, mIcon.getType());
+    nativeSetColor(mBookmarkId, colorIndex);
   }
 
   @NonNull
   public String getBookmarkFeatureType()
   {
-    return nativeGetFeatureType(mBookmarkId);
+    return mBookmarkInfo.getFeatureType();
   }
 
   @PredefinedColors.Color
   public int getColor()
   {
-    return nativeGetColor(mBookmarkId);
+    return mIcon.getColor();
   }
 
   @NonNull
   public String getName()
   {
-    return nativeGetName(mBookmarkId);
+    return mBookmarkInfo.getName();
   }
 
   @NonNull
   public String getDescription()
   {
-    return nativeGetDescription(mBookmarkId);
+    return mBookmarkInfo.getDescription();
   }
 
   @NonNull
   public String getBookmarkAddress()
   {
-    return nativeGetAddress(mBookmarkId);
+    return mBookmarkInfo.getAddress();
   }
 
   @NonNull
@@ -175,25 +169,14 @@ public class Bookmark extends MapObject
   @NonNull
   public BookmarkInfo getBookmarkInfo()
   {
-    return new BookmarkInfo(mCategoryId, mBookmarkId);
+    BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(mBookmarkId);
+    if (info == null)
+      throw new IllegalStateException("BookmarkInfo for " + mBookmarkId + " not found.");
+
+    return info;
   }
 
-  @NonNull
-  static native String nativeGetFeatureType(long bookmarkId);
-  @NonNull
-  static native String nativeGetName(long bookmarkId);
-  @NonNull
-  static native String nativeGetDescription(long bookmarkId);
-  static native double nativeGetScale(long bookmarkId);
-  @NonNull
-  static native String nativeGetAddress(long bookmarkId);
-  @NonNull
-  static native ParcelablePointD nativeGetXY(long bookmarkId);
-
-  @PredefinedColors.Color
-  static native int nativeGetColor(long bookmarkId);
   static native int nativeSetColor(long bookmarkId, @PredefinedColors.Color int color);
-  static native int nativeGetIcon(long bookmarkId);
 
   static native void nativeUpdateParams(long bookmarkId, @NonNull String name, @PredefinedColors.Color int color,
                                         @NonNull String description);
