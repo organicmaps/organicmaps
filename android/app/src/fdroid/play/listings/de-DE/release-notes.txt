@@ -2,7 +2,7 @@
 • Frische OSM-Kartendaten vom 25. Januar
 • GeoJSON-Export
 • Erweiterte Öffnungszeiten
-• Aufteilung der Hell/Dunkel-App-Designoption in die Einstellungen für Erscheinungsbild und Navigation
+• Aufteilung der Einstellung Nachtmodus in die Einstellungen Erscheinungsbild und Navigation
 • Lesezeichenfarbe aus einer Liste ändern
 • Verbesserte Querformat-Benutzeroberfläche für einen ausgewählten Ort auf der Karte
 • Fehlerhafter Editor für Orte mit ungültigen Telefonnummern behoben
