@@ -40,7 +40,7 @@ private:
 
   constexpr void SetStaticSize(size_t newSize)
   {
-    if constexpr (std::is_destructible_v<T>)
+    if constexpr (!std::is_trivially_destructible_v<T>)
     {
       // Call destructors for old elements.
       for (size_t i = newSize; i < m_size; ++i)
@@ -172,6 +172,8 @@ public:
 
     if (n <= N)
     {
+      /// @note Do not make value initialization intentionally!
+      /// To speedup its primary usage (uint8_t or Point buffer).
       SetStaticSize(n);
     }
     else
@@ -289,9 +291,18 @@ public:
   constexpr void swap(buffer_vector & rhs) noexcept
   {
     m_dynamic.swap(rhs.m_dynamic);
+
+    // Only swap static elements that are actually in use.
+    bool const lhsDyn = IsDynamic();
+    bool const rhsDyn = rhs.IsDynamic();
+    if (!lhsDyn || !rhsDyn)
+    {
+      size_t const maxUsed = lhsDyn ? rhs.m_size : (rhsDyn ? m_size : std::max(m_size, rhs.m_size));
+      for (size_t i = 0; i < maxUsed; ++i)
+        Swap(m_static[i], rhs.m_static[i]);
+    }
+
     Swap(m_size, rhs.m_size);
-    for (size_t i = 0; i < N; ++i)
-      Swap(m_static[i], rhs.m_static[i]);
   }
 
   /// By value to be consistent with m_vec.push_back(m_vec[0]).
@@ -322,6 +333,7 @@ public:
 
     ASSERT_GREATER(m_size, 0, ());
     --m_size;
+    m_static[m_size] = T();
   }
 
   template <class... Args>
@@ -408,8 +420,17 @@ private:
     ASSERT_EQUAL(m_dynamic.size(), 0, ());
 
     m_dynamic.reserve(toReserve);
-    m_dynamic.resize(m_size);
-    std::move(m_static, m_static + m_size, m_dynamic.begin());
+    if constexpr (std::is_trivially_constructible_v<T>)
+    {
+      // Use range move (memcpy) if cheap resize.
+      m_dynamic.resize(m_size);
+      std::move(m_static, m_static + m_size, m_dynamic.begin());
+    }
+    else
+    {
+      for (size_t i = 0; i < m_size; ++i)
+        m_dynamic.push_back(std::move(m_static[i]));
+    }
 
     m_size = USE_DYNAMIC;
   }

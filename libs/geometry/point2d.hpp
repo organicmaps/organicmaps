@@ -285,4 +285,8 @@ bool operator<(Point<T> const & l, Point<T> const & r)
     return l.x < r.x;
   return l.y < r.y;
 }
+
+static_assert(std::is_trivially_constructible_v<PointD>);
+static_assert(std::is_trivially_copyable_v<PointD>);
+static_assert(std::is_trivially_destructible_v<PointD>);
 }  // namespace m2
