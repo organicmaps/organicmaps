@@ -259,10 +259,33 @@ public final class LogsManager
         (ConnectivityManager) mApplicationContext.getSystemService(Context.CONNECTIVITY_SERVICE);
     if (manager != null)
     {
-      for (Network network : manager.getAllNetworks())
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
       {
-        final NetworkCapabilities cap = manager.getNetworkCapabilities(network);
-        sb.append("\n\tid=").append(network.toString()).append("\n").append(cap != null ? cap.toString() : "null");
+        final Network activeNetwork = manager.getActiveNetwork();
+        if (activeNetwork != null)
+        {
+          final NetworkCapabilities cap = manager.getNetworkCapabilities(activeNetwork);
+          sb.append("\n\tActive Network id=").append(activeNetwork.toString())
+            .append("\n").append(cap != null ? cap.toString() : "null");
+        }
+        else
+        {
+           sb.append("\n\tNo active network.");
+        }
+      }
+      else
+      {
+        // Fallback for older Android versions (API < 23)
+        @SuppressWarnings("deprecation")
+        final android.net.NetworkInfo activeNetworkInfo = manager.getActiveNetworkInfo();
+        if (activeNetworkInfo != null)
+        {
+           sb.append("\n\tActive Network: ").append(activeNetworkInfo.toString());
+        }
+        else
+        {
+           sb.append("\n\tNo active network.");
+        }
       }
     }
     sb.append("\nLocation providers:");
