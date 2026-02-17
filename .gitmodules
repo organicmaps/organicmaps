@@ -26,7 +26,7 @@
 [submodule "3party/expat"]
   path = 3party/expat
   url = https://github.com/libexpat/libexpat.git
-  branch = R_2_2_9
+  branch = R_2_7_4
 [submodule "3party/glm"]
   path = 3party/glm
   url = https://github.com/g-truc/glm.git
