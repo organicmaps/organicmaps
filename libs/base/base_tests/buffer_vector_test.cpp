@@ -6,6 +6,7 @@
 #include <array>
 #include <memory>
 #include <numeric>
+#include <string>
 
 namespace buffer_vector_test
 {
@@ -409,4 +410,71 @@ UNIT_TEST(BufferVector_Erase)
       TEST_EQUAL(v1[i], v2[i], ());
   }
 }
+
+// Bug: pop_back doesn't reset the element in static mode, and
+// resize(n) growing in static mode doesn't value-initialize new slots.
+// Combined, this exposes stale data after pop_back + resize.
+UNIT_TEST(BufferVector_PopBackThenResize_ExposesStaleData)
+{
+  // Scalar type: stale value exposed after pop_back + resize.
+  {
+    buffer_vector<int, 4> v;
+    v.push_back(42);
+    v.push_back(99);
+    v.pop_back();  // m_size=1, but m_static[1] still holds 99
+    v.resize(2);   // Grows back to 2 — should value-init v[1] to 0
+    TEST_EQUAL(v[0], 42, ());
+    TEST_EQUAL(v[1], 0, ("resize must value-initialize new elements, got stale data"));
+  }
+
+  // String type: resource not released by pop_back.
+  {
+    buffer_vector<std::string, 4> v;
+    v.push_back("hello");
+    v.push_back("world");
+    v.pop_back();  // m_size=1, but m_static[1] still holds "world"
+    v.resize(2);   // Should give an empty string at v[1]
+    TEST_EQUAL(v[0], "hello", ());
+    TEST_EQUAL(v[1], std::string(), ("pop_back must release resources; resize must value-init"));
+  }
+}
+
+// Resource leak bug: pop_back on a resource-owning type in static mode.
+UNIT_TEST(BufferVector_PopBack_ReleasesResources)
+{
+  // Use shared_ptr to observe reference counts.
+  auto sp = std::make_shared<int>(42);
+  TEST_EQUAL(sp.use_count(), 1, ());
+
+  {
+    buffer_vector<std::shared_ptr<int>, 4> v;
+    v.push_back(sp);
+    TEST_EQUAL(sp.use_count(), 2, ());  // sp + v[0]
+
+    v.pop_back();
+    // After pop_back, the shared_ptr in the static buffer should be released.
+    TEST_EQUAL(sp.use_count(), 1, ("pop_back must release resources in static mode"));
+  }
+}
+
+// Bug: swap is O(N) even for dynamic-mode vectors.
+// We can't directly measure perf in a unit test, but we can verify correctness
+// and demonstrate the code path: swap two dynamic-mode vectors and confirm data.
+UNIT_TEST(BufferVector_Swap_DynamicMode)
+{
+  buffer_vector<int, 4> v1, v2;
+  // Push enough to switch both to dynamic mode.
+  for (int i = 0; i < 10; ++i)
+    v1.push_back(i);
+  for (int i = 100; i < 110; ++i)
+    v2.push_back(i);
+
+  swap(v1, v2);
+
+  TEST_EQUAL(v1.size(), 10, ());
+  TEST_EQUAL(v2.size(), 10, ());
+  TEST_EQUAL(v1[0], 100, ());
+  TEST_EQUAL(v2[0], 0, ());
+}
+
 }  // namespace buffer_vector_test
