@@ -17,11 +17,11 @@ import app.organicmaps.sdk.util.Constants;
 @SuppressLint("ParcelCreator")
 public class Bookmark extends MapObject
 {
-  private Icon mIcon;
+  private Icon mIcon; // Icon should not be 'final' because its color could be changed.
   private long mCategoryId;
   private final long mBookmarkId;
-  private final double mMerX;
-  private final double mMerY;
+  private final String mDescription;
+  private final double mScale;
 
   // Used by JNI.
   @Keep
@@ -36,30 +36,25 @@ public class Bookmark extends MapObject
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
-    mIcon = getIconInternal();
+    BookmarkInfo bookmarkInfo = loadBookmarkInfo();
+    mDescription = bookmarkInfo.getDescription();
+    mIcon = bookmarkInfo.getIcon();
+    mScale = bookmarkInfo.getScale();
 
-    final ParcelablePointD ll = nativeGetXY(mBookmarkId);
-    mMerX = ll.x;
-    mMerY = ll.y;
-
-    initXY();
-  }
-
-  private void initXY()
-  {
-    setLat(Math.toDegrees(2.0 * Math.atan(Math.exp(Math.toRadians(mMerY))) - Math.PI / 2.0));
-    setLon(mMerX);
+    setLat(bookmarkInfo.getLat());
+    setLon(bookmarkInfo.getLon());
+    setTitle(bookmarkInfo.getName());
   }
 
   @Override
   public void writeToParcel(Parcel dest, int flags)
   {
-    super.writeToParcel(dest, flags);
+    super.writeToParcel(dest, flags); // Super class writes bookmark lat, lon and title
     dest.writeLong(mCategoryId);
     dest.writeLong(mBookmarkId);
+    dest.writeString(mDescription);
     dest.writeParcelable(mIcon, flags);
-    dest.writeDouble(mMerX);
-    dest.writeDouble(mMerY);
+    dest.writeDouble(mScale);
   }
 
   // Do not use Core while restoring from Parcel! In some cases this constructor is called before
@@ -67,13 +62,12 @@ public class Bookmark extends MapObject
   // TODO: Method restoreHasCurrentPermission causes this strange behaviour, needs to be investigated.
   protected Bookmark(@MapObjectType int type, Parcel source)
   {
-    super(type, source);
+    super(type, source); // Super class reads bookmark lat, lon and title
     mCategoryId = source.readLong();
     mBookmarkId = source.readLong();
+    mDescription = source.readString();
     mIcon = ParcelCompat.readParcelable(source, Icon.class.getClassLoader(), Icon.class);
-    mMerX = source.readDouble();
-    mMerY = source.readDouble();
-    initXY();
+    mScale = source.readDouble();
   }
 
   public long getBookmarkId()
@@ -84,31 +78,13 @@ public class Bookmark extends MapObject
   @Override
   public double getScale()
   {
-    return nativeGetScale(mBookmarkId);
-  }
-
-  @NonNull
-  public DistanceAndAzimut getDistanceAndAzimuth(double cLat, double cLon, double north)
-  {
-    return Framework.nativeGetDistanceAndAzimuth(mMerX, mMerY, cLat, cLon, north);
-  }
-
-  @NonNull
-  private Icon getIconInternal()
-  {
-    return new Icon(getColor(), nativeGetIcon(mBookmarkId));
+    return mScale;
   }
 
   @Nullable
   public Icon getIcon()
   {
     return mIcon;
-  }
-
-  @NonNull
-  public String getCategoryName()
-  {
-    return BookmarkManager.INSTANCE.getCategoryById(mCategoryId).getName();
   }
 
   public long getCategoryId()
@@ -126,74 +102,34 @@ public class Bookmark extends MapObject
 
   public void setIconColor(@ColorInt int color)
   {
-    mIcon = new Icon(PredefinedColors.getPredefinedColorIndex(color), nativeGetIcon(mBookmarkId));
-    nativeSetColor(mBookmarkId, mIcon.getColor());
-  }
-
-  @NonNull
-  public String getBookmarkFeatureType()
-  {
-    return nativeGetFeatureType(mBookmarkId);
+    final int colorIndex = PredefinedColors.getPredefinedColorIndex(color);
+    mIcon = new Icon(colorIndex, mIcon.getType());
+    nativeSetColor(mBookmarkId, colorIndex);
   }
 
   @PredefinedColors.Color
   public int getColor()
   {
-    return nativeGetColor(mBookmarkId);
-  }
-
-  @NonNull
-  public String getName()
-  {
-    return nativeGetName(mBookmarkId);
+    return mIcon.getColor();
   }
 
   @NonNull
   public String getDescription()
   {
-    return nativeGetDescription(mBookmarkId);
+    return mDescription;
   }
 
   @NonNull
-  public String getBookmarkAddress()
+  private BookmarkInfo loadBookmarkInfo()
   {
-    return nativeGetAddress(mBookmarkId);
+    BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(mBookmarkId);
+    if (info == null)
+      throw new IllegalStateException("BookmarkInfo for " + mBookmarkId + " not found.");
+
+    return info;
   }
 
-  @NonNull
-  public String getGe0Url(boolean addName)
-  {
-    return nativeEncode2Ge0Url(mBookmarkId, addName);
-  }
-
-  @NonNull
-  public String getHttpGe0Url(boolean addName)
-  {
-    return getGe0Url(addName).replaceFirst(Constants.Url.SHORT_SHARE_PREFIX, Constants.Url.HTTP_SHARE_PREFIX);
-  }
-
-  @NonNull
-  public BookmarkInfo getBookmarkInfo()
-  {
-    return new BookmarkInfo(mCategoryId, mBookmarkId);
-  }
-
-  @NonNull
-  static native String nativeGetFeatureType(long bookmarkId);
-  @NonNull
-  static native String nativeGetName(long bookmarkId);
-  @NonNull
-  static native String nativeGetDescription(long bookmarkId);
-  static native double nativeGetScale(long bookmarkId);
-  @NonNull
-  static native String nativeGetAddress(long bookmarkId);
-  @NonNull
-  static native ParcelablePointD nativeGetXY(long bookmarkId);
-
-  @PredefinedColors.Color
-  static native int nativeGetColor(long bookmarkId);
   static native int nativeSetColor(long bookmarkId, @PredefinedColors.Color int color);
-  static native int nativeGetIcon(long bookmarkId);
 
   static native void nativeUpdateParams(long bookmarkId, @NonNull String name, @PredefinedColors.Color int color,
                                         @NonNull String description);
