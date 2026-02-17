@@ -1,16 +1,7 @@
-• NEU: Kontrastreichere Farben für das dunkle Design
-• Aktualisierte OpenStreetMap-Daten (11. Januar)
-• Casinos aus der Kategorie „Unterhaltung“ ausgeschlossen
-• Dicke der U-Bahn-Linien verringert
-• Kapazitätsinformationen in den Suchergebnissen für Motorradparkplätze, Fahrradverleih, Fahrrad- und Autoladestationen hinzugefügt
-• Anzeige der Etage in den Suchergebnissen
-• Breitere Schaltflächen für die Routenplanung
+• Routen zwischen Ländern werden schneller erstellt und verursachen keine Abstürze mehr aufgrund von Speichermangel
+• OpenStreetMap-Daten aktualisiert (Stand: 25. Januar)
+• GeoJSON-Export für Lesezeichen und Tracks
+• Fehlende Übersetzungen für stillgelegte Brücken hinzugefügt
+• Übersetzungen korrigiert und aktualisiert
 
-### Übersetzungen
-
-• Albanische App-Übersetzungen und TTS-Sprachführung hinzugefügt
-• FAQ aktualisiert und FAQ-Übersetzungen für Arabisch, Tschechisch, Niederländisch, Farsi, Griechisch, Hebräisch, Hindi, Ungarisch, Indonesisch, Italienisch, Litauisch, Marathi, Schwedisch und Telugu hinzugefügt
-• Verbesserte deutsche App- und FAQ-Übersetzungen
-• Bulgarische Suchsynonyme hinzugefügt
-• Einstellung „Zoom-Tasten“ zur besseren Verständlichkeit umbenannt
-• Übersetzungsverbesserungen von Weblate-Mitwirkenden für verschiedene Sprachen
+Danke an alle, die zu Organic Maps beitragen, spenden und es unterstützen! Lasst uns gemeinsam die besten Karten bauen!

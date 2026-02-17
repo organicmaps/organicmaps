@@ -1,9 +1,10 @@
-• MỚI: Màu chủ đề tối có độ tương phản cao hơn
-• MỚI: Google Assistant để điều hướng và tìm kiếm
-• Dữ liệu bản đồ OSM kể từ ngày 11 tháng 1
-• Cài đặt chủ đề điều hướng "Tự động" tuân theo chế độ tối/sáng của hệ thống
-• Đường tàu điện ngầm mỏng hơn
-• Kết quả tìm kiếm hiển thị sức chứa cho bãi đậu xe máy, thuê xe đạp, sạc xe đạp và sạc ô tô
-• Hiển thị cấp tầng trong kết quả tìm kiếm
-• Bản dịch tiếng Albania và hướng dẫn bằng giọng nói TTS
-…thêm tại omaps.org/news
+• Định tuyến nhanh hơn cho các tuyến đường dài
+• Dữ liệu bản đồ OSM mới nhất tính đến ngày 25 tháng 1
+• Xuất GeoJSON
+• Giờ mở cửa mở rộng
+• Tách tùy chọn chủ đề ứng dụng Sáng/Tối thành cài đặt Giao diện và Điều hướng
+• Thay đổi màu dấu trang từ danh sách
+• Giao diện ngang được cải thiện cho địa điểm đã chọn trên bản đồ
+• Đã sửa lỗi trình chỉnh sửa không hoạt động đối với những địa điểm có số điện thoại không hợp lệ
+• Đã sửa một số sự cố và lỗi giao diện
+…xem thêm tại omaps.org/news

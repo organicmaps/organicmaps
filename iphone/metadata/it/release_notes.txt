@@ -1,16 +1,7 @@
-• NOVITÀ: Colori del tema scuro a contrasto più elevato
-• Dati OpenStreetMap aggiornati (11 gennaio)
-• Esclusi i casinò dalla categoria “Intrattenimento”
-• Ridotto lo spessore delle linee della metropolitana
-• Aggiunte informazioni sulla capacità ai risultati di ricerca per parcheggi moto, noleggio bici, ricarica bici e ricarica auto
-• Mostra il piano nei risultati di ricerca
-• Pulsanti di pianificazione del percorso più larghi
+• I percorsi tra paesi vengono creati più velocemente e non causano più arresti anomali per memoria insufficiente
+• Dati OpenStreetMap aggiornati al 25 gennaio
+• Supporto esportazione GeoJSON per segnalibri e tracce
+• Aggiunte traduzioni mancanti per ponti in disuso
+• Traduzioni corrette e aggiornate
 
-### Traduzioni
-
-• Aggiunte traduzioni dell'app e guida vocale in albanese
-• Aggiornate le FAQ e aggiunte le traduzioni delle FAQ per arabo, ceco, olandese, farsi, greco, ebraico, hindi, ungherese, indonesiano, italiano, lituano, marathi, svedese, telugu
-• Migliorate le traduzioni dell'app e delle FAQ in tedesco
-• Aggiunti sinonimi di ricerca in bulgaro
-• Rinominata l'impostazione "Pulsanti zoom" per chiarezza
-• Correzioni alle traduzioni dai contributori di Weblate per varie lingue
+Grazie a tutti coloro che contribuiscono, donano e supportano Organic Maps! Costruiamo insieme le migliori mappe!

@@ -1,9 +1,10 @@
-• NIEUW: Donkere themakleuren met hoger contrast
-• NIEUW: Google Assistant voor navigatie en zoeken
-• OSM-kaartgegevens van 11 januari
-• De instelling "Auto" voor het navigatiethema volgt de donkere/lichte modus van het systeem
-• Dunnere metrolijnen
-• Zoekresultaten tonen capaciteit voor motorfietsen parkeren, fietsverhuur, fietsen opladen en auto's opladen
-• Toon vloerniveau in zoekresultaten
-• Albanese vertalingen en TTS-spraakbegeleiding
-…meer op omaps.org/nl/news
+• Snellere routering voor lange afstanden
+• Verse OSM-kaartgegevens van 25 januari
+• GeoJSON-export
+• Uitgebreide openingstijden
+• De optie Licht/Donker thema is opgesplitst in instellingen voor Uiterlijk en Navigatie
+• Bladwijzerkleur wijzigen vanuit een lijst
+• Verbeterde landschaps-UI voor een geselecteerde plaats op de kaart
+• Niet-werkende editor voor plaatsen met ongeldige telefoonnummers gerepareerd
+• Diverse crashes en UI-fouten verholpen
+…meer op omaps.org/news

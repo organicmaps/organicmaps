@@ -1,16 +1,7 @@
-• NIEUW: Donker thema kleuren met hoger contrast
-• OpenStreetMap-gegevens bijgewerkt (11 januari)
-• Casino's uitgesloten van de categorie "Entertainment"
-• Dikte van metrolijnen verminderd
-• Capaciteitsinformatie toegevoegd aan zoekresultaten voor motorparkeren, fietsverhuur, fiets opladen en auto opladen
-• Toon verdieping in zoekresultaten
-• Bredere knoppen voor routeplanning
+• Routes tussen landen worden sneller aangemaakt en veroorzaken geen crashes meer door geheugentekort
+• OpenStreetMap-gegevens bijgewerkt tot 25 januari
+• GeoJSON-exportondersteuning voor bladwijzers en sporen
+• Ontbrekende vertalingen toegevoegd voor ongebruikte bruggen
+• Vertalingen gecorrigeerd en bijgewerkt
 
-### Vertalingen
-
-• Albanese app-vertalingen en stembegeleiding toegevoegd
-• FAQ bijgewerkt en FAQ-vertalingen toegevoegd voor Arabisch, Tsjechisch, Nederlands, Farsi, Grieks, Hebreeuws, Hindi, Hongaars, Indonesisch, Italiaans, Litouws, Marathi, Zweeds, Telugu
-• Duitse app- en FAQ-vertalingen verbeterd
-• Bulgaarse zoeksynoniemen toegevoegd
-• Instelling "Zoomknoppen" hernoemd voor meer duidelijkheid
-• Vertaalcorrecties van Weblate-bijdragers voor diverse talen
+Bedankt aan iedereen die bijdraagt, doneert en Organic Maps steunt! Laten we samen de beste kaarten bouwen!

@@ -1,16 +1,7 @@
-• NYHET: Mörkt tema med högre kontrast
-• Uppdaterad OpenStreetMap-data (11 januari)
-• Exkluderade kasinon från kategorin "Underhållning"
-• Minskad tjocklek på tunnelbanelinjer
-• Lade till kapacitetsinformation i sökresultat för motorcykelparkering, cykeluthyrning, cykelladdning och billaddning
-• Visa våningsplan i sökresultat
-• Bredare ruttplaneringsknappar
+• Rutter mellan länder skapas snabbare och orsakar inte längre krascher på grund av minnesbrist
+• Uppdaterad OpenStreetMap-data per den 25 januari
+• GeoJSON-exportstöd för bokmärken och spår
+• Lade till saknade översättningar för nedlagda broar
+• Rättade och uppdaterade översättningar
 
-### Översättningar
-
-• Lade till albansk översättning av appen och röstguidning
-• Uppdaterade FAQ och lade till FAQ-översättningar för arabiska, tjeckiska, nederländska, farsi, grekiska, hebreiska, hindi, ungerska, indonesiska, italienska, litauiska, marathi, svenska, telugu
-• Förbättrade tyska app- och FAQ-översättningar
-• Lade till bulgariska sökssynonymer
-• Döpte om inställningen "Zoomknappar" för tydlighetens skull
-• Översättningskorrigeringar från Weblate-bidragsgivare för olika språk
+Tack till alla som bidrar, donerar och stödjer Organic Maps! Låt oss bygga de bästa kartorna tillsammans!
