@@ -267,9 +267,10 @@ UNIT_TEST(CzechPragueHiltonToKvetniceViewpoint)
 
 UNIT_TEST(RussiaSaintPetersburgMoyka93ToAlexanderColumn)
 {
+  // Should use "Большая Морская улица" as a final street segment.
   integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Pedestrian),
                                                 mercator::FromLatLon(59.9241, 30.323), {0., 0.},
-                                                mercator::FromLatLon(59.939, 30.3159), 2307.17);
+                                                mercator::FromLatLon(59.939, 30.3159), 2240.88);
 }
 
 UNIT_TEST(RussiaSaintPetersburgMoyka93ToMarsovoPole)
