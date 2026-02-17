@@ -20,6 +20,8 @@
     <string name="type.amenity.car_rental">Alquiler d’automóviles</string>
     <string name="type.amenity.motorcycle_rental">Alquiler de motocicletes</string>
     <string name="type.amenity.casino">Casinu</string>
+    <string name="type.amenity.charging_station">Estación de carga</string>
+    <string name="type.amenity.cinema">Cine</string>
     <string name="type.amenity.studio">Estudiu</string>
     <string name="type.amenity.clinic">Clínica</string>
     <string name="type.amenity.college">Enseñu posobligatoriu</string>
@@ -27,12 +29,14 @@
     <string name="type.amenity.compressed_air">Aire comprimío</string>
     <string name="type.amenity.conference_centre">Centru de conferencies</string>
     <string name="type.amenity.dentist">Dentista</string>
+    <string name="type.amenity.driving_school">Autoescuela</string>
     <string name="type.amenity.money_transfer">Tresferencia de dineru</string>
-    <string name="type.amenity.music_school">Escuela de música</string>
+    <string name="type.amenity.music_school">Conservatoriu</string>
     <string name="type.amenity.language_school">Escuela de llingües</string>
     <string name="type.office.diplomatic">Embaxada</string>
     <string name="type.amenity.fast_food">Comida rápido</string>
     <string name="type.amenity.ferry_terminal">Tresbordador</string>
+    <string name="type.amenity.fire_station">Parque de bomberos</string>
     <string name="type.amenity.food_court">Plaza de restoranes</string>
     <string name="type.amenity.fountain">Fonte</string>
     <string name="type.amenity.fuel">Gasolinera</string>
@@ -40,6 +44,7 @@
     <string name="type.amenity.ice_cream">Xeladería</string>
     <string name="type.amenity.library">Biblioteca</string>
     <string name="type.amenity.motorcycle_parking">Aparcaderu pa motocicletes</string>
+    <string name="type.amenity.nightclub">Club nocherniegu</string>
     <string name="type.amenity.parking">Aparcaderu</string>
     <string name="type.amenity.parking.fee">Aparcaderu</string>
     <string name="type.amenity.parking.no.access">Aparcaderu priváu</string>

@@ -486,14 +486,14 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Túnel para pedestres";
-"type.highway.primary" = "Estrada";
+"type.highway.primary" = "Estrada primária";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary.bridge" = "Ponte";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Túnel rodoviário";
-"type.highway.primary_link" = "Saída de rodovia";
+"type.highway.primary_link" = "Rampa de Estrada Primária";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary_link.bridge" = "Ponte";
@@ -508,7 +508,7 @@
 "type.highway.residential.bridge" = "Ponte";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.residential.tunnel" = "Túnel residencial";
+"type.highway.residential.tunnel" = "Túnel";
 "type.highway.rest_area" = "Área de descanso";
 "type.highway.road" = "Estrada";
 
@@ -520,33 +520,33 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "Túnel";
-"type.highway.secondary" = "Estrada";
+"type.highway.secondary" = "Estrada secundária";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary.bridge" = "Ponte";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.secondary.tunnel" = "Túnel rodoviário";
-"type.highway.secondary_link" = "Saída de rodovia";
+"type.highway.secondary.tunnel" = "Túnel";
+"type.highway.secondary_link" = "Rampa de acesso à estrada secundária";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary_link.bridge" = "Ponte";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.secondary_link.tunnel" = "Túnel rodoviário";
-"type.highway.service" = "Estrada de acesso ou serviço";
-"type.highway.service.area" = "Estrada de acesso ou serviço";
+"type.highway.secondary_link.tunnel" = "Túnel";
+"type.highway.service" = "Estrada de serviço";
+"type.highway.service.area" = "Estrada de serviço";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Ponte";
 "type.highway.service.driveway" = "Via de acesso";
-"type.highway.service.parking_aisle" = "Estrada de estacionamento";
+"type.highway.service.parking_aisle" = "Corredor de estacionamento";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.service.tunnel" = "Túnel rodoviário";
-"type.highway.services" = "Área de serviços de estrada";
+"type.highway.service.tunnel" = "Túnel";
+"type.highway.services" = "Área de serviço";
 "type.highway.speed_camera" = "Radar de velocidade";
-"type.highway.steps" = "Escadas";
+"type.highway.steps" = "Escadaria";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Ponte";
@@ -554,47 +554,47 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Túnel";
 "type.highway.ladder" = "Escada";
-"type.highway.tertiary" = "Estrada";
+"type.highway.tertiary" = "Estrada Terciária";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary.bridge" = "Ponte";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.tertiary.tunnel" = "Túnel rodoviário";
-"type.highway.tertiary_link" = "Saída de rodovia";
+"type.highway.tertiary.tunnel" = "Túnel";
+"type.highway.tertiary_link" = "Rampa de acesso à estrada terciária";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary_link.bridge" = "Ponte";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.tertiary_link.tunnel" = "Túnel rodoviário";
-"type.highway.track" = "Estrada rústica";
-"type.highway.track.area" = "Estrada rústica";
+"type.highway.tertiary_link.tunnel" = "Túnel";
+"type.highway.track" = "Trilha";
+"type.highway.track.area" = "Trilha";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.track.bridge" = "Ponte";
-"type.highway.track.grade1" = "Estrada rústica";
-"type.highway.track.no.access" = "Estrada rústica";
+"type.highway.track.grade1" = "Trilha";
+"type.highway.track.no.access" = "Trilha";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.track.tunnel" = "Túnel rodoviário";
-"type.highway.traffic_signals" = "Semáforo";
-"type.highway.trunk" = "Via expressa";
+"type.highway.track.tunnel" = "Túnel";
+"type.highway.traffic_signals" = "Semáforos";
+"type.highway.trunk" = "Estrada Troncal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk.bridge" = "Ponte";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.trunk.tunnel" = "Túnel rodoviário";
-"type.highway.trunk_link" = "Saída de rodovia";
+"type.highway.trunk.tunnel" = "Túnel";
+"type.highway.trunk_link" = "Rampa de acesso à estrada Tronco";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk_link.bridge" = "Ponte";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.trunk_link.tunnel" = "Túnel rodoviário";
-"type.highway.unclassified" = "Estrada sem classificação";
-"type.highway.unclassified.area" = "Estrada sem classificação";
+"type.highway.trunk_link.tunnel" = "Túnel";
+"type.highway.unclassified" = "Via Local ou Estrada Vicinal";
+"type.highway.unclassified.area" = "Via Local ou Estrada Vicinal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.unclassified.bridge" = "Ponte";
@@ -607,15 +607,15 @@
 "type.area_highway.motorway" = "Rodovia";
 "type.area_highway.path" = "Caminho";
 "type.area_highway.pedestrian" = "Rua pedonal";
-"type.area_highway.primary" = "Estrada";
+"type.area_highway.primary" = "Estrada primária";
 "type.area_highway.residential" = "Rua residencial";
-"type.area_highway.secondary" = "Estrada";
-"type.area_highway.service" = "Estrada de acesso ou serviço";
-"type.area_highway.tertiary" = "Estrada";
-"type.area_highway.steps" = "Escadas";
-"type.area_highway.track" = "Estrada rústica";
-"type.area_highway.trunk" = "Via expressa";
-"type.area_highway.unclassified" = "Estrada sem classificação";
+"type.area_highway.secondary" = "Estrada secundária";
+"type.area_highway.service" = "Estrada de serviço";
+"type.area_highway.tertiary" = "Estrada Terciária";
+"type.area_highway.steps" = "Escadaria";
+"type.area_highway.track" = "Trilha";
+"type.area_highway.trunk" = "Estrada Troncal";
+"type.area_highway.unclassified" = "Via Local ou Estrada Vicinal";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
 

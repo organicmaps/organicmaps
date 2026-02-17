@@ -176,48 +176,35 @@
     <string name="type.highway.pedestrian.bridge">Ponte para pedestres</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Túnel para pedestres</string>
-    <string name="type.highway.primary">Estrada</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.primary.tunnel">Túnel rodoviário</string>
-    <string name="type.highway.primary_link">Saída de rodovia</string>
+    <string name="type.highway.primary_link">Rampa de Estrada Primária</string>
     <string name="type.highway.raceway">Pista de corrida</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.residential.tunnel">Túnel residencial</string>
-    <string name="type.highway.secondary">Estrada</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.secondary.tunnel">Túnel rodoviário</string>
-    <string name="type.highway.secondary_link">Saída de rodovia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.secondary_link.tunnel">Túnel rodoviário</string>
+    <string name="type.highway.secondary_link">Rampa de acesso à estrada secundária</string>
+    <string name="type.highway.service">Estrada de serviço</string>
+    <string name="type.highway.service.area">Estrada de serviço</string>
     <string name="type.highway.service.driveway">Via de acesso</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.service.tunnel">Túnel rodoviário</string>
-    <string name="type.highway.services">Área de serviços de estrada</string>
+    <string name="type.highway.service.parking_aisle">Corredor de estacionamento</string>
+    <string name="type.highway.steps">Escadaria</string>
     <string name="type.highway.ladder">Escada</string>
-    <string name="type.highway.tertiary">Estrada</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.tertiary.tunnel">Túnel rodoviário</string>
-    <string name="type.highway.tertiary_link">Saída de rodovia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.tertiary_link.tunnel">Túnel rodoviário</string>
-    <string name="type.highway.track">Estrada rústica</string>
-    <string name="type.highway.track.area">Estrada rústica</string>
-    <string name="type.highway.track.grade1">Estrada rústica</string>
-    <string name="type.highway.track.no.access">Estrada rústica</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.track.tunnel">Túnel rodoviário</string>
-    <string name="type.highway.trunk">Via expressa</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.trunk.tunnel">Túnel rodoviário</string>
-    <string name="type.highway.trunk_link">Saída de rodovia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.trunk_link.tunnel">Túnel rodoviário</string>
+    <string name="type.highway.tertiary">Estrada Terciária</string>
+    <string name="type.highway.tertiary_link">Rampa de acesso à estrada terciária</string>
+    <string name="type.highway.track">Trilha</string>
+    <string name="type.highway.track.area">Trilha</string>
+    <string name="type.highway.track.grade1">Trilha</string>
+    <string name="type.highway.track.no.access">Trilha</string>
+    <string name="type.highway.traffic_signals">Semáforos</string>
+    <string name="type.highway.trunk">Estrada Troncal</string>
+    <string name="type.highway.trunk_link">Rampa de acesso à estrada Tronco</string>
+    <string name="type.highway.unclassified">Via Local ou Estrada Vicinal</string>
+    <string name="type.highway.unclassified.area">Via Local ou Estrada Vicinal</string>
     <string name="type.area_highway.motorway">Rodovia</string>
-    <string name="type.area_highway.primary">Estrada</string>
-    <string name="type.area_highway.secondary">Estrada</string>
-    <string name="type.area_highway.tertiary">Estrada</string>
-    <string name="type.area_highway.track">Estrada rústica</string>
-    <string name="type.area_highway.trunk">Via expressa</string>
+    <string name="type.area_highway.service">Estrada de serviço</string>
+    <string name="type.area_highway.tertiary">Estrada Terciária</string>
+    <string name="type.area_highway.steps">Escadaria</string>
+    <string name="type.area_highway.track">Trilha</string>
+    <string name="type.area_highway.trunk">Estrada Troncal</string>
+    <string name="type.area_highway.unclassified">Via Local ou Estrada Vicinal</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic.battlefield">Campo de batalha histórico</string>
