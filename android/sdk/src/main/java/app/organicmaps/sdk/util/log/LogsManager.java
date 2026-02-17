@@ -15,6 +15,7 @@ import android.util.Log;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import app.organicmaps.sdk.BuildConfig;
 import app.organicmaps.sdk.R;
@@ -261,30 +262,18 @@ public final class LogsManager
     {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
       {
-        final Network activeNetwork = manager.getActiveNetwork();
-        if (activeNetwork != null)
-        {
-          final NetworkCapabilities cap = manager.getNetworkCapabilities(activeNetwork);
-          sb.append("\n\tActive Network id=").append(activeNetwork.toString())
-            .append("\n").append(cap != null ? cap.toString() : "null");
-        }
-        else
-        {
-           sb.append("\n\tNo active network.");
-        }
+        ImplApi23.appendActiveNetworkInfo(sb, manager);
       }
-      else
+      else 
       {
-        // Fallback for older Android versions (API < 23)
-        @SuppressWarnings("deprecation")
         final android.net.NetworkInfo activeNetworkInfo = manager.getActiveNetworkInfo();
         if (activeNetworkInfo != null)
         {
-           sb.append("\n\tActive Network: ").append(activeNetworkInfo.toString());
+          sb.append("\n\tActive Network: ").append(activeNetworkInfo.toString());
         }
         else
         {
-           sb.append("\n\tNo active network.");
+          sb.append("\n\tNo active network.");
         }
       }
     }
@@ -345,5 +334,23 @@ public final class LogsManager
     return log.toString();
   }
 
+  @RequiresApi(Build.VERSION_CODES.M)
+  private static class ImplApi23 
+  {
+    private static void appendActiveNetworkInfo(@NonNull StringBuilder sb, @NonNull ConnectivityManager manager) 
+    {
+      final Network activeNetwork = manager.getActiveNetwork();
+      if (activeNetwork != null) 
+      {
+        final NetworkCapabilities cap = manager.getNetworkCapabilities(activeNetwork);
+        sb.append("\n\tActive Network id=").append(activeNetwork.toString())
+          .append("\n").append(cap != null ? cap.toString() : "null");
+      } 
+      else 
+      {
+        sb.append("\n\tNo active network.");
+      }
+    }
+  }
   private static native void nativeToggleCoreDebugLogs(boolean enabled);
 }
