@@ -198,8 +198,11 @@ UNIT_TEST(Lithuania_Avoid_Ferry_Long_Route)
                                                 mercator::FromLatLon(55.7140174, 21.1365445), 56243.2);
 }
 
-UNIT_TEST(SpainTenerifeAdejeVilaflor)
+UNIT_TEST(SpainTenerife_AdejeVilaflor)
 {
+  // Google shows exactly this route while OSRM, GraphHopper and Valhalla gives much more longer
+  // (path + bicycle instead of unclassified).
+
   // Test on riding up from Adeje (sea level) to Vilaflor (altitude 1400 meters).
   // A long ETA due to going uphill.
   TRouteResult const res =
@@ -207,12 +210,15 @@ UNIT_TEST(SpainTenerifeAdejeVilaflor)
                      mercator::FromLatLon(28.15865, -16.63704));
   TEST_EQUAL(res.second, RouterResultCode::NoError, ());
 
-  TestRouteLength(*res.first, 26401);
-  TestRouteTime(*res.first, 10716);
+  TestRouteLength(*res.first, 26918.5);
+  TestRouteTime(*res.first, 10817);
 }
 
-UNIT_TEST(SpainTenerifeVilaflorAdeje)
+UNIT_TEST(SpainTenerife_VilaflorAdeje)
 {
+  // Google shows exactly this route while OSRM, GraphHopper and Valhalla gives much more longer
+  // (path + bicycle instead of unclassified).
+
   // Test on riding down from Vilaflor (altitude 1400 meters) to Adeje (sea level).
   // A short ETA going downhill.
   TRouteResult const res =
@@ -220,8 +226,8 @@ UNIT_TEST(SpainTenerifeVilaflorAdeje)
                      mercator::FromLatLon(28.11984, -16.72592));
   TEST_EQUAL(res.second, RouterResultCode::NoError, ());
 
-  TestRouteLength(*res.first, 24582);
-  TestRouteTime(*res.first, 4459);
+  TestRouteLength(*res.first, 25196.4);
+  TestRouteTime(*res.first, 4586);
 }
 
 // Two tests on not building route against traffic on road with oneway:bicycle=yes.
@@ -454,6 +460,13 @@ UNIT_TEST(Austria_BidirLivingStreet)
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
                                    mercator::FromLatLon(48.2053411, 16.3524902), {0.0, 0.0},
                                    mercator::FromLatLon(48.2064399, 16.3528722), 304.53);
+}
+
+UNIT_TEST(Germany_BicycleYes_VehicleNo)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
+                                   mercator::FromLatLon(48.077322, 11.252503), {0.0, 0.0},
+                                   mercator::FromLatLon(48.074355, 11.2472321), 551.705);
 }
 
 }  // namespace bicycle_route_test

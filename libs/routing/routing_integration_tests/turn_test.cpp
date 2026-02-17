@@ -1310,7 +1310,8 @@ UNIT_TEST(Integrated_TurnTest_IncludeServiceRoads)
   Sample arr[] = {
       // https://github.com/organicmaps/organicmaps/issues/8892
       {{50.128011, 14.7100098}, {50.1283017, 14.7119639}, 3},
-      {{50.1283462, 14.7122953}, {50.1280032, 14.7099638}, 3},
+      // service + parking_aisle is skipped as turn.
+      {{50.1283462, 14.7122953}, {50.1280032, 14.7099638}, 2},
       // https://github.com/organicmaps/organicmaps/issues/5888
       {{58.8428062, 5.71619759}, {58.8422583, 5.71672851}, 3},
       // https://github.com/organicmaps/organicmaps/issues/3596
