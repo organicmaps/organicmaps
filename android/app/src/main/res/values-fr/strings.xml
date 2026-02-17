@@ -773,7 +773,7 @@
     <string name="connection_failure">Erreur de connexion</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disconnect_usb_cable_title">Déconnectez le câble USB</string>
-    <string name="enable_keep_screen_on">Laisse l\'écran allumé</string>
+    <string name="enable_keep_screen_on">Laisser l\'écran allumé</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Lorsque cette option est activée, l\'écran sera toujours allumé lors de l\'affichage de la carte.</string>
     <!-- A preference title; keep short! -->

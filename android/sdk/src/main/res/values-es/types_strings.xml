@@ -1404,6 +1404,12 @@
     <string name="type.leisure.sports_hall">Pabellón deportivo</string>
     <string name="type.sport.diving">Clavados</string>
     <string name="type.man_made.crane">Grúa</string>
+    <string name="type.barrier.wicket_gate">Puerta peatonal</string>
+    <string name="type.barrier.yes">Barrera</string>
+    <string name="type.building.guardhouse">Garita</string>
+    <string name="type.office.security">Oficina de seguridad</string>
+    <string name="type.power.portal">Torre eléctrica (pórtico)</string>
+    <string name="type.shop.lighting">Tienda de iluminación</string>
     <string name="type.barrier.jersey_barrier">Bloque</string>
     <string name="type.barrier.debris">Escombros</string>
     <string name="type.barrier.log">Barrera de troncos</string>

@@ -32,6 +32,7 @@
     <string name="type.amenity.bicycle_repair_station">محطة تصليح الدراجات</string>
     <string name="type.amenity.biergarten">متجر بيرة</string>
     <string name="type.amenity.brothel">دعارة</string>
+    <string name="type.amenity.love_hotel">فندق الحب</string>
     <string name="type.amenity.bureau_de_change">صرافة العملات</string>
     <string name="type.amenity.bus_station">محطة حافلات</string>
     <string name="type.amenity.cafe">مقهى</string>
@@ -48,6 +49,7 @@
     <string name="type.amenity.charging_station.motorcar">محطة شحن السيارات</string>
     <string name="type.amenity.childcare">حضانة</string>
     <string name="type.amenity.cinema">سينما</string>
+    <string name="type.amenity.studio">استوديو</string>
     <string name="type.leisure.bowling_alley">صالة بولينج</string>
     <string name="type.amenity.clinic">عيادة</string>
     <string name="type.amenity.college">كلية</string>
