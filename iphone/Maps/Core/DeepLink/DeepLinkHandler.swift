@@ -138,7 +138,9 @@
       return false
     case .oAuth2:
       // TODO: support OAuth2
-      return false
+      MapsAppDelegate.theApp().completeOAuth()
+      MapsAppDelegate.theApp().mapViewController.closeCurrentWindow()
+      return true
     case .incorrect:
       // Invalid URL or API parameters.
       return false

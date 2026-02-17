@@ -46,6 +46,12 @@ void AuthorizationStoreCredentials(std::string const & oauthToken)
   }
 }
 
+void AuthorizationStoreCredentialsWithOAuth(std::string const & code)
+{
+  std::string const token = osm::OsmOAuth::ServerAuth().FinishAuthorization(code);
+  AuthorizationStoreCredentials(token);
+}
+
 BOOL AuthorizationHaveOAuth1Credentials()
 {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;

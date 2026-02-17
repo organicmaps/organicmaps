@@ -22,7 +22,8 @@ using namespace osm_auth_ios;
 @property(weak, nonatomic) IBOutlet UIView * authView;
 @property(weak, nonatomic) IBOutlet UIView * accountView;
 
-@property(weak, nonatomic) IBOutlet UIButton * loginOSMButton;
+@property(weak, nonatomic) IBOutlet UIButton * loginWithBrowserButton;
+@property(weak, nonatomic) IBOutlet UIButton * loginWithPasswordButton;
 @property(weak, nonatomic) IBOutlet UIButton * signupButton;
 
 @property(weak, nonatomic) IBOutlet UILabel * changesCountLabel;
@@ -85,9 +86,14 @@ using namespace osm_auth_ios;
     [self.alertController presentNoConnectionAlert];
 }
 
-- (IBAction)loginOSM
+- (IBAction)loginWithBrowser
 {
-  [self performOnlineAction:^{ [self performSegueWithIdentifier:kOSMAuthSegue sender:self.loginOSMButton]; }];
+  [self performOnlineAction:^{ [self openUrl:@(OsmOAuth::ServerAuth().BuildOAuth2Url().c_str()) externally:YES]; }];
+}
+
+- (IBAction)loginWitPassword
+{
+  [self performOnlineAction:^{ [self performSegueWithIdentifier:kOSMAuthSegue sender:self.loginWithPasswordButton]; }];
 }
 
 - (IBAction)signup

@@ -32,6 +32,7 @@
 - (void)performAction:(NSString * _Nonnull)action;
 
 - (void)openMenu;
+- (void)closeCurrentWindow;
 - (void)openSettings;
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode;
 - (void)openEditor;

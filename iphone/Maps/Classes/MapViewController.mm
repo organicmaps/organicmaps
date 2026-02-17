@@ -1063,6 +1063,20 @@ NSString * const kSettingsSegue = @"Map2Settings";
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:backURL] options:@{} completionHandler:nil];
 }
 
+- (void)closeCurrentWindow
+{
+  if (self.presentedViewController)
+  {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    return;
+  }
+  if (self.navigationController.viewControllers.count > 1)
+  {
+    [self.navigationController popViewControllerAnimated:YES];
+    return;
+  }
+}
+
 // MARK: - Track Recording Place Page
 
 - (void)showTrackRecordingPlacePage

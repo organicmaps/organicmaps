@@ -75,6 +75,11 @@ using namespace osm_auth_ios;
   return (MapsAppDelegate *)UIApplication.sharedApplication.delegate;
 }
 
+- (void)completeOAuth
+{
+  AuthorizationStoreCredentialsWithOAuth(GetFramework().GetParsedOAuthCode());
+}
+
 - (BOOL)isDrapeEngineCreated
 {
   return self.mapViewController.mapView.drapeEngineCreated;

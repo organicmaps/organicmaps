@@ -184,7 +184,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S0n-BM-V4o" userLabel="Auth view">
-                                <rect key="frame" x="20" y="192" width="374" height="194"/>
+                                <rect key="frame" x="10" y="100" width="400" height="700"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tzz-yF-441">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="41"/>
@@ -390,11 +390,8 @@
                     </view>
                     <connections>
                         <outlet property="accountView" destination="qZp-mj-lui" id="Iin-Uf-uWe"/>
-                        <outlet property="authView" destination="S0n-BM-V4o" id="pei-fj-H81"/>
                         <outlet property="changesCountLabel" destination="5mN-XO-0Df" id="bcc-Gp-vgH"/>
                         <outlet property="lastUpdateLabel" destination="2UV-ZB-sPO" id="CCE-Q5-ikN"/>
-                        <outlet property="loginOSMButton" destination="Gqm-JS-hos" id="zJS-TR-HDM"/>
-                        <outlet property="signupButton" destination="s0p-dL-PG8" id="3eb-cg-uku"/>
                         <segue destination="4R7-Vk-fQr" kind="custom" identifier="Authorization2OSMAuthorizationSegue" customClass="MWMSegue" id="nJf-7z-2TX"/>
                     </connections>
                 </viewController>
