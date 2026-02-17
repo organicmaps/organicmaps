@@ -2,11 +2,8 @@
 
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
-#include "routing/routing_tests/tools.hpp"
-
 #include "routing/route.hpp"
 #include "routing/routing_callbacks.hpp"
-#include "routing/routing_helpers.hpp"
 #include "routing/routing_session.hpp"
 #include "routing/speed_camera_manager.hpp"
 
@@ -14,8 +11,6 @@
 #include "platform/measurement_utils.hpp"
 
 #include "geometry/point2d.hpp"
-
-#include "base/assert.hpp"
 
 #include <algorithm>
 #include <memory>
@@ -300,15 +295,6 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_7)
       TEST(!CheckBeepSignal(routingSession), ());
     }
 
-    // Intermediate Move for correct calculating of passedDistance.
-    {
-      double const speedKmPH = 20.0;
-      ChangePosition({55.76559, 37.59016}, speedKmPH, routingSession);
-      TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::VoiceNotificationZone, ());
-      TEST(!CheckVoiceNotification(routingSession), ());
-      TEST(!CheckBeepSignal(routingSession), ());
-    }
-
     // No exceed speed limit in beep zone, but we did VoiceNotification earlier,
     // so now we make BeedSignal.
     {
@@ -318,8 +304,20 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_7)
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(CheckBeepSignal(routingSession), ());
     }
+
+    // Intermediate Move for correct calculating of passedDistance.
+    {
+      double const speedKmPH = 20.0;
+      ChangePosition({55.76559, 37.59016}, speedKmPH, routingSession);
+      TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::ImpactZone, ());
+      TEST(!CheckVoiceNotification(routingSession), ());
+      TEST(!CheckBeepSignal(routingSession), ());
+    }
   }
 }
+
+/// @todo "No speed camera found". Check how they are resolved.
+/// The closest one is on "Ленинский x Удальцова" in an opposite direction.
 
 // Mode: Always/Auto
 // ____Notification___|___beep____|_____Impact camera zone_____|
@@ -333,10 +331,9 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_8)
 {
   for (auto const mode : {SpeedCameraManagerMode::Auto, SpeedCameraManagerMode::Always})
   {
-    // On "Leningradskiy" from East to West direction.
     RoutingSession routingSession;
-    InitRoutingSession({55.6755737, 37.5264126},  // from
-                       {55.67052, 37.51893},      // to
+    InitRoutingSession({55.6754885, 37.5266064},  // from
+                       {55.6704386, 37.5191539},  // to
                        routingSession, mode);
 
     {
@@ -347,21 +344,21 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_8)
     }
     {
       double const speedKmPH = 180.0;
-      ChangePosition({55.67515, 37.52577}, speedKmPH, routingSession);
+      ChangePosition({55.6750679, 37.5259757}, speedKmPH, routingSession);
       TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::VoiceNotificationZone, ());
       TEST(CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
     }
     {
       double const speedKmPH = 180.0;
-      ChangePosition({55.67515, 37.52577}, speedKmPH, routingSession);
+      ChangePosition({55.6750679, 37.5259757}, speedKmPH, routingSession);
       TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::VoiceNotificationZone, ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
     }
     {
       double const speedKmPH = 180.0;
-      ChangePosition({55.67505, 37.52542}, speedKmPH, routingSession);
+      ChangePosition({55.6749048, 37.5257293}, speedKmPH, routingSession);
       TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::BeepSignalZone, ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(CheckBeepSignal(routingSession), ());
