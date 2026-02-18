@@ -7,11 +7,12 @@
 #include <cmath>
 #include <concepts>
 #include <functional>  // std::hash
+#include <numbers>
 #include <type_traits>
 
 namespace math
 {
-double constexpr pi = 3.14159265358979323846;
+double constexpr pi = std::numbers::pi;
 double constexpr pi2 = pi / 2.0;
 double constexpr pi4 = pi / 4.0;
 
