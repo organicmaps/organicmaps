@@ -1,0 +1,27 @@
+# Copyright: Veniamin Gvozdikov and contributors
+# License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
+
+FROM eclipse-temurin:17.0.14_7-jdk
+
+ENV ANDROID_SDK_ROOT /opt/android-sdk
+ENV PATH ${PATH}:${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/platform-tools
+
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+  && apt-get install -y \
+    nodejs \
+    git \
+    gcc \
+    g++ \
+    unzip \
+    cmake \
+    sudo 
+
+RUN mkdir -p ${ANDROID_SDK_ROOT}/cmdline-tools \
+ && cd ${ANDROID_SDK_ROOT}/cmdline-tools \
+ && wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O tools.zip \
+ && unzip tools.zip \
+ && rm tools.zip \
+ && mv cmdline-tools latest
+
+RUN yes | sdkmanager --licenses \
+ && sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
