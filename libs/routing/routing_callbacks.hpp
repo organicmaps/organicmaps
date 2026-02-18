@@ -1,7 +1,5 @@
 #pragma once
 
-#include "routing/turns.hpp"
-
 #include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
@@ -9,7 +7,6 @@
 
 #include <cstdint>
 #include <functional>
-#include <map>
 #include <memory>
 #include <set>
 #include <string>
@@ -113,10 +110,7 @@ inline std::string ToString(RouterResultCode code)
   return result;
 }
 
-inline std::string DebugPrint(RouterResultCode code)
-{
-  return ToString(code);
-}
+inline std::string DebugPrint(RouterResultCode code) { return ToString(code); }
 
 // This define should be set to see the spread of A* waves on the map.
 // #define SHOW_ROUTE_DEBUG_MARKS

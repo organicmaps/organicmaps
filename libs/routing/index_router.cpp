@@ -314,10 +314,11 @@ bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point, m2::Poin
   return true;
 }
 
-void IndexRouter::SetGuides(GuidesTracks && guides)
-{
-  m_guides = GuidesConnections(guides);
-}
+void IndexRouter::SetEstimatorOptions(RoutingOptions::RoadType options) {m_estimator ->SetAvoidRoutingOptions(options);}
+
+void IndexRouter::SetEstimatorStrategy(EdgeEstimator::Strategy strategy) {m_estimator ->SetStrategy(strategy);}
+
+void IndexRouter::SetGuides(GuidesTracks && guides) { m_guides = GuidesConnections(guides); }
 
 RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
                                              bool adjustToPrevRoute, RouterDelegate const & delegate, Route & route)

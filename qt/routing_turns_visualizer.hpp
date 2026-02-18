@@ -5,9 +5,6 @@
 #include "routing/turns.hpp"
 
 #include "drape_frontend/drape_api.hpp"
-#include "drape_frontend/drape_engine.hpp"
-
-#include "geometry/point2d.hpp"
 
 #include <string>
 #include <unordered_set>

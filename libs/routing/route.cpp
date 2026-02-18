@@ -2,11 +2,10 @@
 
 #include "traffic/speed_groups.hpp"
 
-#include "geometry/mercator.hpp"
-
 #include "platform/location.hpp"
 
 #include "geometry/angles.hpp"
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
 #include <algorithm>
@@ -25,10 +24,9 @@ double constexpr kSteetNameLinkMeters = 400.0;
 std::string DebugPrint(RouteSegment::RoadNameInfo const & rni)
 {
   stringstream out;
-  out << "RoadNameInfo "
-      << "{ m_name = " << rni.m_name << ", m_ref = " << rni.m_ref << ", m_junction_ref = " << rni.m_junction_ref
-      << ", m_destination_ref = " << rni.m_destination_ref << ", m_destination = " << rni.m_destination
-      << ", m_isLink = " << rni.m_isLink << " }";
+  out << "RoadNameInfo " << "{ m_name = " << rni.m_name << ", m_ref = " << rni.m_ref
+      << ", m_junction_ref = " << rni.m_junction_ref << ", m_destination_ref = " << rni.m_destination_ref
+      << ", m_destination = " << rni.m_destination << ", m_isLink = " << rni.m_isLink << " }";
   return out.str();
 }
 
@@ -89,10 +87,7 @@ double Route::GetTotalTimeSec() const
   return m_routeSegments.empty() ? 0 : m_routeSegments.back().GetTimeFromBeginningSec();
 }
 
-double Route::GetCurrentTimeToEndSec() const
-{
-  return GetCurrentTimeToSegmentSec(m_routeSegments.size() - 1);
-}
+double Route::GetCurrentTimeToEndSec() const { return GetCurrentTimeToSegmentSec(m_routeSegments.size() - 1); }
 
 double Route::GetCurrentTimeToNearestTurnSec() const
 {
@@ -336,10 +331,7 @@ bool Route::GetNextTurns(vector<TurnItemDist> & turns) const
   return true;
 }
 
-void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
-{
-  m_poly.GetCurrentDirectionPoint(pt, kOnEndToleranceM);
-}
+void Route::GetCurrentDirectionPoint(m2::PointD & pt) const { m_poly.GetCurrentDirectionPoint(pt, kOnEndToleranceM); }
 
 void Route::SetRouteSegments(vector<RouteSegment> && routeSegments)
 {
@@ -349,14 +341,17 @@ void Route::SetRouteSegments(vector<RouteSegment> && routeSegments)
   for (size_t i = 0; i < m_routeSegments.size(); ++i)
   {
     if (m_haveAltitudes && m_routeSegments[i].GetJunction().GetAltitude() == geometry::kInvalidAltitude)
+    {
       m_haveAltitudes = false;
-
+    }
     if (!m_routeSegments[i].GetSegment().IsRealSegment())
       fakeSegmentIndexes.push_back(i);
+    
   }
 
   m_poly.SetFakeSegmentIndexes(std::move(fakeSegmentIndexes));
 }
+
 
 bool Route::MoveIterator(location::GpsInfo const & info)
 {
@@ -382,8 +377,7 @@ double Route::GetPolySegAngle(size_t ind) const
   do
   {
     p2 = m_poly.GetPolyline().GetPoint(i);
-  }
-  while (AlmostEqualULPs(p1, p2) && ++i < polySz);
+  } while (m2::AlmostEqualULPs(p1, p2) && ++i < polySz);
   return (i == polySz) ? 0 : math::RadToDeg(ang::AngleTo(p1, p2));
 }
 
@@ -500,10 +494,7 @@ void Route::SetMwmsPartlyProhibitedForSpeedCams(vector<platform::CountryFile> &&
   m_speedCamPartlyProhibitedMwms = std::move(mwms);
 }
 
-bool Route::CrossMwmsPartlyProhibitedForSpeedCams() const
-{
-  return !m_speedCamPartlyProhibitedMwms.empty();
-}
+bool Route::CrossMwmsPartlyProhibitedForSpeedCams() const { return !m_speedCamPartlyProhibitedMwms.empty(); }
 
 vector<platform::CountryFile> const & Route::GetMwmsPartlyProhibitedForSpeedCams() const
 {
@@ -537,6 +528,13 @@ std::string Route::DebugPrintTurns() const
   return res;
 }
 
+std::shared_ptr<const Route> Routes::GetRoute(EdgeEstimator::Strategy strategy) { return *m_routes.Find(strategy); }
+
+void Routes::SetRoute(EdgeEstimator::Strategy strategy, std::shared_ptr<Route> route)
+{
+  m_routes.Insert(strategy, route);
+}
+
 bool IsNormalTurn(TurnItem const & turn)
 {
   CHECK_NOT_EQUAL(turn.m_turn, CarDirection::Count, ());
@@ -545,8 +543,5 @@ bool IsNormalTurn(TurnItem const & turn)
   return !turn.IsTurnNone();
 }
 
-string DebugPrint(Route const & r)
-{
-  return DebugPrint(r.m_poly.GetPolyline());
-}
+string DebugPrint(Route const & r) { return DebugPrint(r.m_poly.GetPolyline()); }
 }  // namespace routing

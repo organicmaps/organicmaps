@@ -2,6 +2,8 @@ package app.organicmaps.sdk.routing;
 
 import androidx.annotation.NonNull;
 import app.organicmaps.sdk.settings.RoadType;
+import app.organicmaps.sdk.settings.RoutingStrategyType;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +23,22 @@ public final class RoutingOptions
   {
     return nativeHasOption(roadType.ordinal());
   }
+
+  public static int getStrategy()
+  {
+    return nativeGetStrategy();
+  }
+
+  public static void setStrategy(@NonNull RoutingStrategyType routingStrategyType)
+  {
+    nativeSetStrategy(routingStrategyType.ordinal());
+  }
+
+  private static native void nativeAddOption(int option);
+  private static native void nativeRemoveOption(int option);
+  private static native boolean nativeHasOption(int option);
+  private static native int nativeGetStrategy();
+  private static native void nativeSetStrategy(int strategy);
 
   public static boolean hasAnyOptions()
   {
@@ -53,4 +71,9 @@ public final class RoutingOptions
   private static native void nativeRemoveOption(int option);
 
   private static native boolean nativeHasOption(int option);
+  public static RoutingStrategyType getActiveRoutingStrategyType()
+  {
+    int strategyType = getStrategy();
+    return RoutingStrategyType.values()[strategyType];
+  }
 }
