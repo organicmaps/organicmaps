@@ -216,6 +216,7 @@ public:
   void SetSelectedObject(df::SelectionShape::ESelectedObject selectedObject) { m_selectedObject = selectedObject; }
   df::SelectionShape::ESelectedObject GetSelectedObject() const { return m_selectedObject; }
 
+  bool HasRouteRefs() const { return !m_routes.empty(); }
   std::string FormatRouteRefs() const;
 
 private:

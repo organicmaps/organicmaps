@@ -740,7 +740,10 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
 
   info.SetFromFeatureType(ft);
 
-  FillDescriptions(ft, info);
+  bool const hasWikiOrOsmDescription = FillDescriptions(ft, info);
+
+  if (hasWikiOrOsmDescription || info.HasRouteRefs() || !info.GetOpeningHours().empty())
+    info.SetOpeningMode(place_page::OpeningMode::PreviewPlus);
 
   auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();
   bool const isMapVersionEditable = CanEditMapForPosition(info.GetMercator());
@@ -3371,26 +3374,27 @@ void Framework::SetPlacePageLocation(place_page::Info & info)
   }
 }
 
-void Framework::FillDescriptions(FeatureType & ft, place_page::Info & info) const
+bool Framework::FillDescriptions(FeatureType & ft, place_page::Info & info) const
 {
   if (!ft.GetID().m_mwmId.IsAlive())
-    return;
+    return false;
 
   auto const & regionData = ft.GetID().m_mwmId.GetInfo()->GetRegionData();
   auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentMapLanguage());
   auto const langPriority = feature::GetDescriptionLangPriority(regionData, deviceLang);
 
+  bool hasDescription = false;
+
   std::string wikiDescription = m_descriptionsLoader->GetWikiDescription(ft.GetID(), langPriority);
   if (!wikiDescription.empty())
   {
     info.SetWikiDescription(std::move(wikiDescription));
-    info.SetOpeningMode(m_routingManager.IsRoutingActive() ? place_page::OpeningMode::Preview
-                                                           : place_page::OpeningMode::PreviewPlus);
+    hasDescription = true;
   }
 
   std::string_view const osmDescriptionValue = ft.GetMetadata(feature::Metadata::FMD_DESCRIPTION);
   if (osmDescriptionValue.empty())
-    return;
+    return hasDescription;
 
   buffer_vector<int8_t, 4> langCodes;
   for (auto const & lang : languages::GetSystemPreferred())
@@ -3407,6 +3411,7 @@ void Framework::FillDescriptions(FeatureType & ft, place_page::Info & info) cons
   if (osmDescription.empty())
     osmDescription = osmDescriptionMultilang.GetFirstString();
   info.SetOSMDescription(std::string(osmDescription));
+  return true;
 }
 
 void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)
