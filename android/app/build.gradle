@@ -23,7 +23,7 @@ buildscript {
       googleFirebaseServicesDefault
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:8.13.2'
+    classpath 'com.android.tools.build:gradle:9.0.1'
 
     if (googleFirebaseServicesEnabled) {
       println('Building with Google Firebase Services')
@@ -34,7 +34,7 @@ buildscript {
       println('Building without Google Firebase Services')
     }
 
-    classpath('com.github.triplet.gradle:play-publisher:3.13.0')
+    classpath('com.github.triplet.gradle:play-publisher:4.0.0')
     classpath('ru.cian.huawei-plugin:plugin:1.5.0')
   }
 }
@@ -51,6 +51,8 @@ apply plugin: 'ru.cian.huawei-publish-gradle-plugin'
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 apply from: "${rootProject.rootDir}/groovy/permission-checker.gradle"
 
+import com.android.build.api.variant.BuildConfigField
+import com.android.build.api.variant.ResValue
 import com.github.triplet.gradle.androidpublisher.ReleaseStatus
 import ru.cian.huawei.publish.ReleaseNote
 import ru.cian.huawei.publish.ReleaseNotesExtension
@@ -65,9 +67,12 @@ project.ext.appName = 'Organic Maps'
 android {
   namespace = 'app.organicmaps'
 
+  enableKotlin = false
+
   buildFeatures {
     dataBinding = true
     buildConfig = true
+    resValues = true
   }
 
   // Users are complaining that the app should be re-downloaded from the Play Store after changing the language.
@@ -330,29 +335,36 @@ def allowedPermissions = [
 ]
 registerCheckApkPermissionsTasks(project, allowedPermissions)
 
-android.applicationVariants.all { variant ->
-  def authorityValue = variant.applicationId + ".provider"
-  def authority = "\"" + authorityValue + "\""
-  variant.buildConfigField 'String', 'FILE_PROVIDER_AUTHORITY', authority
-  def flavor = variant.getMergedFlavor()
-  flavor.manifestPlaceholders += [FILE_PROVIDER_PLACEHOLDER: authorityValue]
-  variant.resValue 'string', 'app_id', variant.applicationId
-}
+androidComponents {
+  def adb = sdkComponents.adb
 
-android.applicationVariants.all { variant ->
-  def variantCap = variant.name.capitalize()
-  def installTaskName = "install${variantCap}"
-  def runTaskName = "run${variantCap}"
+  onVariants(selector().all()) { variant ->
+    variant.buildConfigFields.put('FILE_PROVIDER_AUTHORITY',
+        variant.applicationId.map { appId ->
+          new BuildConfigField("String", "\"${appId}.provider\"", null)
+        })
+    variant.manifestPlaceholders.put("FILE_PROVIDER_PLACEHOLDER",
+        variant.applicationId.map { it + ".provider" })
+    variant.resValues.put(
+        variant.makeResValueKey("string", "app_id"),
+        variant.applicationId.map { new ResValue(it, null) })
 
-  tasks.register(runTaskName, Exec) {
-    group = "run"
-    description = "Installs and runs the ${variant.name} build on a device."
-    dependsOn installTaskName
+    def variantCap = variant.name.capitalize()
+    def installTaskName = "install${variantCap}"
+    def runTaskName = "run${variantCap}"
 
-    commandLine android.getAdbExe(), 'shell', 'am', 'start',
-        '-n', "$variant.applicationId/app.organicmaps.DownloadResourcesActivity",
-        '-a', 'android.intent.action.MAIN',
-        '-c', 'android.intent.category.LAUNCHER'
+    tasks.register(runTaskName, Exec) {
+      group = "run"
+      description = "Installs and runs the ${variant.name} build on a device."
+      dependsOn installTaskName
+
+      doFirst {
+        commandLine adb.get().asFile, 'shell', 'am', 'start',
+            '-n', "${variant.applicationId.get()}/app.organicmaps.DownloadResourcesActivity",
+            '-a', 'android.intent.action.MAIN',
+            '-c', 'android.intent.category.LAUNCHER'
+      }
+    }
   }
 }
 

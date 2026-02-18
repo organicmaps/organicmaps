@@ -67,10 +67,14 @@ abstract class CheckApkPermissions extends DefaultTask {
 }
 
 ext.registerCheckApkPermissionsTasks = { Project project, List<String> allowedPermissions ->
-  project.android.applicationVariants.all { variant ->
+  project.androidComponents.onVariants(project.androidComponents.selector().all()) { variant ->
     def variantName = variant.name
     def capitalizedVariantName = variantName.capitalize()
     def taskName = "check${capitalizedVariantName}ApkPermissions"
+
+    // Pre-compute APK output path from non-lazy variant identity properties
+    def flavorPath = variant.productFlavors.collect { it.second }.join('/')
+    def buildTypePath = variant.buildType ?: ''
 
     project.tasks.register(taskName, CheckApkPermissions) { task ->
       group = "verification"
@@ -80,16 +84,17 @@ ext.registerCheckApkPermissionsTasks = { Project project, List<String> allowedPe
       task.allowedPermissions = project.objects.listProperty(Pattern).value(
           allowedPermissions.collect { it instanceof Pattern ? it : Pattern.compile(it) }
       )
-      aapt2Executable = androidComponents.sdkComponents.aapt2.get().executable.getAsFile()
+      task.aapt2Executable = project.androidComponents.sdkComponents.aapt2.get().executable.getAsFile()
       doFirst {
-        apkPath = variant.outputs*.outputFile?.find { it.exists() }
+        def apkDir = new File(project.layout.buildDirectory.get().asFile, "outputs/apk/${flavorPath}/${buildTypePath}")
+        apkPath = project.fileTree(apkDir).matching { include '*.apk' }.files.find()
         if (!apkPath)
-          throw new GradleException("APK not found for ${variantName}")
+          throw new GradleException("APK not found for ${variantName} in ${apkDir}")
       }
     }
 
-    // Automatically run after assemble<Variant>
-    project.tasks.named("assemble${capitalizedVariantName}") {
+    // Automatically run after assemble<Variant> when such task exists.
+    project.tasks.matching { it.name == "assemble${capitalizedVariantName}" }.configureEach {
       finalizedBy(taskName)
     }
   }
