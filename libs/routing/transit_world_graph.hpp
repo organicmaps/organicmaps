@@ -49,6 +49,7 @@ public:
   ms::LatLon const & GetPoint(Segment const & segment, bool front) override;
   // All transit features are oneway.
   bool IsOneWay(NumMwmId mwmId, uint32_t featureId) override;
+  bool IsTunnel(Segment const & segment) override { return false; }
   // All transit features are allowed for through passage.
   bool IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId) override;
   void ClearCachedGraphs() override;

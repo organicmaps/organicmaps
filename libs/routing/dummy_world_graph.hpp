@@ -44,6 +44,8 @@ public:
 
   bool IsOneWay(NumMwmId mwmId, uint32_t featureId) override { UNREACHABLE(); }
 
+  bool IsTunnel(Segment const & segment) override { UNREACHABLE(); }
+
   bool IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId) override { UNREACHABLE(); }
 
   void ClearCachedGraphs() override { UNREACHABLE(); }
