@@ -37,7 +37,7 @@ public class Bookmark extends MapObject
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
-    mBookmarkInfo = getBookmarkInfo();
+    mBookmarkInfo = loadBookmarkInfo();
     mIcon = mBookmarkInfo.getIcon();
     mMerX = mBookmarkInfo.getLat();
     mMerY = mBookmarkInfo.getLon();
@@ -68,7 +68,7 @@ public class Bookmark extends MapObject
     super(type, source);
     mCategoryId = source.readLong();
     mBookmarkId = source.readLong();
-    mBookmarkInfo = getBookmarkInfo();
+    mBookmarkInfo = loadBookmarkInfo();
     mIcon = mBookmarkInfo.getIcon();
     mMerX = source.readDouble();
     mMerY = source.readDouble();
@@ -169,6 +169,11 @@ public class Bookmark extends MapObject
   @NonNull
   public BookmarkInfo getBookmarkInfo()
   {
+    return mBookmarkInfo;
+  }
+
+  @NonNull
+  protected BookmarkInfo loadBookmarkInfo() {
     BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(mBookmarkId);
     if (info == null)
       throw new IllegalStateException("BookmarkInfo for " + mBookmarkId + " not found.");
