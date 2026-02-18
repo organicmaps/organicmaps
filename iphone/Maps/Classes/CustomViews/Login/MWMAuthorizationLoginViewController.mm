@@ -29,6 +29,7 @@ using namespace osm_auth_ios;
 @property(weak, nonatomic) IBOutlet UILabel * changesCountLabel;
 @property(weak, nonatomic) IBOutlet UILabel * lastUpdateLabel;
 @property(weak, nonatomic) IBOutlet UITextView * descriptionTextView;
+@property(strong, nonatomic) UIImageView * logoImageView;
 
 @end
 
@@ -40,6 +41,34 @@ using namespace osm_auth_ios;
   [self setupDescriptionText];
 }
 
+- (void)viewDidLayoutSubviews
+{
+  [super viewDidLayoutSubviews];
+  [self applyTextWrapping];
+}
+
+- (void)applyTextWrapping
+{
+  if (!self.logoImageView)
+  {
+    UIImage * image = [UIImage imageNamed:@"osm_logo"];
+    self.logoImageView = [[UIImageView alloc] initWithImage:image];
+    self.logoImageView.frame = CGRectMake(5, 10, 60, 60);
+    [self.descriptionTextView addSubview:self.logoImageView];
+  }
+
+  CGRect imgFrame = self.logoImageView.frame;
+  CGRect exclusionRect =
+      CGRectMake(imgFrame.origin.x, imgFrame.origin.y, imgFrame.size.width + 7, imgFrame.size.height - 10);
+  UIBezierPath * path = [UIBezierPath bezierPathWithRect:exclusionRect];
+  self.descriptionTextView.textContainer.exclusionPaths = @[path];
+  [self.descriptionTextView.layoutManager
+      invalidateLayoutForCharacterRange:NSMakeRange(0, self.descriptionTextView.text.length)
+                   actualCharacterRange:NULL];
+  [self.descriptionTextView setNeedsLayout];
+  [self.descriptionTextView layoutIfNeeded];
+}
+
 - (void)setupDescriptionText
 {
   NSString * text = self.descriptionTextView.text;
@@ -48,8 +77,8 @@ using namespace osm_auth_ios;
 
   NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
   paragraphStyle.alignment = NSTextAlignmentJustified;
-  paragraphStyle.lineSpacing = 4;
-
+  paragraphStyle.lineSpacing = 0;
+  paragraphStyle.paragraphSpacing = 0;
   NSMutableAttributedString * attr =
       [[NSMutableAttributedString alloc] initWithString:text
                                              attributes:@{

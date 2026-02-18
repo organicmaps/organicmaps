@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_3" orientation="portrait" appearance="light"/>
+    <device id="retina6_3" orientation="landscape" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
@@ -14,14 +14,14 @@
             <objects>
                 <viewController storyboardIdentifier="UIViewController-4R7-Vk-fQr" id="4R7-Vk-fQr" customClass="MWMAuthorizationOSMLoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="S9T-iq-RN6">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <rect key="frame" x="0.0" y="0.0" width="874" height="402"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2p5-BG-sgS">
-                                <rect key="frame" x="0.0" y="144" width="402" height="88"/>
+                                <rect key="frame" x="62" y="102" width="750" height="88"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8t7-Lb-1dX" userLabel="Separator #1">
-                                        <rect key="frame" x="0.0" y="0.0" width="402" height="1"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="750" height="1"/>
                                         <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="UWu-iu-DyB"/>
@@ -31,7 +31,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xl1-50-Vih" userLabel="Separator #2">
-                                        <rect key="frame" x="16" y="43.666666666666657" width="386" height="1"/>
+                                        <rect key="frame" x="16" y="43.666666666666657" width="734" height="1"/>
                                         <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="vvu-MV-Pff"/>
@@ -41,7 +41,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e51-Qs-t6a">
-                                        <rect key="frame" x="16" y="44.666666666666657" width="370" height="43.333333333333343"/>
+                                        <rect key="frame" x="16" y="44.666666666666657" width="718" height="43.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                         <userDefinedRuntimeAttributes>
@@ -53,7 +53,7 @@
                                         </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Dm-Lz-QG7" userLabel="Separator #3">
-                                        <rect key="frame" x="0.0" y="87" width="402" height="1"/>
+                                        <rect key="frame" x="0.0" y="87" width="750" height="1"/>
                                         <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="twL-Z5-mey"/>
@@ -63,7 +63,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NyD-Tz-Vq4">
-                                        <rect key="frame" x="16" y="1" width="370" height="44.666666666666664"/>
+                                        <rect key="frame" x="16" y="1" width="718" height="44.666666666666664"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                                         <userDefinedRuntimeAttributes>
@@ -101,7 +101,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QoF-Wv-nc2">
-                                <rect key="frame" x="16" y="252" width="370" height="44"/>
+                                <rect key="frame" x="78" y="210" width="718" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="g9P-gK-jg8"/>
                                 </constraints>
@@ -115,7 +115,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOX-WF-oyI">
-                                <rect key="frame" x="16" y="308" width="370" height="44"/>
+                                <rect key="frame" x="78" y="266" width="718" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="SFg-uo-s0U"/>
                                 </constraints>
@@ -130,7 +130,7 @@
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jMt-5d-INe">
-                                <rect key="frame" x="191" y="264" width="20" height="20"/>
+                                <rect key="frame" x="427" y="222" width="20" height="20"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="9HJ-T7-PfS"/>
@@ -181,20 +181,20 @@
             <objects>
                 <viewController storyboardIdentifier="AuthorizationLoginViewController" id="iZ6-Zi-bkZ" customClass="MWMAuthorizationLoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="i64-CY-UO1">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <rect key="frame" x="0.0" y="0.0" width="874" height="402"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kLT-DX-dSa" userLabel="Auth view">
-                                <rect key="frame" x="20" y="124" width="382" height="682"/>
+                                <rect key="frame" x="82" y="82" width="730" height="266"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="z0U-NB-2WN">
-                                        <rect key="frame" x="0.0" y="20" width="362" height="469.66666666666669"/>
+                                        <rect key="frame" x="0.0" y="20" width="710" height="197"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="mZq-H3-5Kk">
-                                                <rect key="frame" x="0.0" y="0.0" width="362" height="248.66666666666666"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="193.66666666666666"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Zw-xN-yt1">
-                                                        <rect key="frame" x="0.0" y="0.0" width="362" height="40.666666666666664"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="40.666666666666664"/>
                                                         <string key="text">Войдите, чтобы ваши изменения увидели 
 другие пользователи</string>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -205,45 +205,28 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="login_to_make_edits_visible"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="VX7-5h-Lp1">
-                                                        <rect key="frame" x="0.0" y="60.666666666666657" width="362" height="188"/>
-                                                        <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="osm_logo" translatesAutoresizingMaskIntoConstraints="NO" id="RJS-2B-DC7">
-                                                                <rect key="frame" x="156" y="0.0" width="50" height="50"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="HKM-sw-LaT"/>
-                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="ril-T7-d0P"/>
-                                                                </constraints>
-                                                            </imageView>
-                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="oau-3c-TYN">
-                                                                <rect key="frame" x="0.0" y="55.000000000000028" width="362" height="133"/>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="250" constant="20" id="TuW-NT-v0a"/>
-                                                                </constraints>
-                                                                <string key="text">OpenStreetMap.org (OSM) is a community project to build a free and open map. It\'s the main source of map data in Organic Maps and works similar to Wikipedia. You can add or edit places and they become available to millions of users all over the World.\n Join the community and help to make a better map for everyone!</string>
-                                                                <color key="textColor" systemColor="secondarySystemFillColor"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="login_osm_presentation"/>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </textView>
-                                                        </subviews>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="oau-3c-TYN">
+                                                        <rect key="frame" x="0.0" y="60.666666666666657" width="343" height="133"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstItem="oau-3c-TYN" firstAttribute="leading" secondItem="VX7-5h-Lp1" secondAttribute="leading" id="5FI-Fd-EZX"/>
-                                                            <constraint firstAttribute="trailing" secondItem="oau-3c-TYN" secondAttribute="trailing" id="Gub-Bn-etb"/>
-                                                            <constraint firstItem="oau-3c-TYN" firstAttribute="top" secondItem="VX7-5h-Lp1" secondAttribute="top" constant="55.000000000000028" id="Lgs-dN-8KP"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="250" constant="40" id="TuW-NT-v0a"/>
                                                         </constraints>
-                                                    </stackView>
+                                                        <string key="text">OpenStreetMap.org (OSM) is a community project to build a free and open map. It\'s the main source of map data in Organic Maps and works similar to Wikipedia. You can add or edit places and they become available to millions of users all over the World.\n Join the community and help to make a better map for everyone!</string>
+                                                        <color key="textColor" systemColor="secondarySystemFillColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="login_osm_presentation"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </textView>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="250" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Nqd-KT-cKL">
-                                                <rect key="frame" x="0.0" y="272.66666666666669" width="362" height="197"/>
+                                                <rect key="frame" x="367" y="0.0" width="343" height="197"/>
                                                 <subviews>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OxZ-n3-DoJ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="362" height="44"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
                                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="44" id="gPt-jd-vBU"/>
@@ -258,7 +241,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Nd-hK-p5f">
-                                                        <rect key="frame" x="0.0" y="60" width="362" height="44"/>
+                                                        <rect key="frame" x="0.0" y="60" width="343" height="44"/>
                                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="44" id="HpZ-DR-SHE"/>
@@ -273,7 +256,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have OpenStreetMap account?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBT-O0-vxv">
-                                                        <rect key="frame" x="0.0" y="119.99999999999994" width="362" height="17"/>
+                                                        <rect key="frame" x="0.0" y="120" width="343" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="0Hi-Ph-zGd"/>
                                                         </constraints>
@@ -286,7 +269,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5wi-v3-I8c">
-                                                        <rect key="frame" x="0.0" y="152.99999999999994" width="362" height="44"/>
+                                                        <rect key="frame" x="0.0" y="153" width="343" height="44"/>
                                                         <color key="backgroundColor" red="0.0" green="0.55294117649999996" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="44" id="xhd-De-vFg"/>
@@ -309,13 +292,13 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d2n-li-o6d" userLabel="Account view">
-                                <rect key="frame" x="0.0" y="124" width="402" height="682"/>
+                                <rect key="frame" x="62" y="82" width="750" height="266"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGT-ZS-Ckz" userLabel="Main view">
-                                        <rect key="frame" x="0.0" y="0.0" width="402" height="212"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="750" height="128"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="−−−" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="arM-BL-maZ">
-                                                <rect key="frame" x="16" y="32" width="370" height="114"/>
+                                                <rect key="frame" x="16" y="0.0" width="718" height="67"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="114" id="NHD-Ea-BJo">
                                                         <variation key="heightClass=compact" constant="67"/>
@@ -332,7 +315,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VERIFIED CHANGES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tQb-EE-M3r">
-                                                <rect key="frame" x="132.33333333333331" y="146" width="137.33333333333331" height="17"/>
+                                                <rect key="frame" x="306.33333333333331" y="67" width="137.33333333333331" height="17"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -342,7 +325,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last send 12.01.2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QtO-Vy-tN0">
-                                                <rect key="frame" x="142" y="171" width="118" height="14.333333333333343"/>
+                                                <rect key="frame" x="316" y="92" width="118" height="14.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -372,7 +355,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eA-dM-PYT">
-                                        <rect key="frame" x="20" y="642" width="362" height="20"/>
+                                        <rect key="frame" x="20" y="234" width="710" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="KS8-eW-Xzv"/>
                                         </constraints>
@@ -386,7 +369,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XhV-EO-r1S" userLabel="History">
-                                        <rect key="frame" x="28" y="246" width="346" height="30"/>
+                                        <rect key="frame" x="28" y="162" width="694" height="30"/>
                                         <state key="normal" title="History"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="history"/>
@@ -454,7 +437,6 @@
     </scenes>
     <resources>
         <image name="ic_nav_bar_back" width="14" height="22"/>
-        <image name="osm_logo" width="40" height="40"/>
         <systemColor name="secondarySystemFillColor">
             <color red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.16" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
