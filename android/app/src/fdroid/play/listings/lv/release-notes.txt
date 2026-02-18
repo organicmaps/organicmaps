@@ -1,11 +1,9 @@
-• Ātrāka maršrutēšana gariem braucieniem
-• Jauni OSM kartes dati uz 25. janvāri
-• GeoJSON eksportēšana
-• Paplašināts darba laiks
-• Lietotnes gaišā/tumšā motīva opcija sadalīta Izskata un Navigācijas iestatījumos
-• Grāmatzīmes krāsas maiņa no saraksta
-• Uzlabots ainavas UI izvēlētajai vietai kartē
-• Izlabots nestrādājošs redaktors vietām ar nederīgiem tālruņa numuriem
-• Izlabotas vairākas avārijas un UI kļūdas
-• Izlabota kļūda “Nav pietiekami daudz brīvas vietas”
-…vairāk vietnē omaps.org/news
+• OSM dati uz 16. februāri, Wikipedia uz 1. februāri
+• Melnie pārgājienu un riteņbraukšanas maršruti tagad ir redzami tumšajā tēmā
+• Pievienotas trošu trases un vairāk auto pakalpojumu: remonts, apkope un rezerves daļas
+• Izlabota velosipēdu maršrutēšana un vidējā ātruma aprēķināšana
+• Uzlabota kategoriju meklēšana
+• Uzbeku virtuve
+• Paplašināms darba laiks
+• Rādīt un izmantot MSL augstumu ierakstītajiem maršrutiem operētājsistēmā Android 14+
+…vairāk omaps.org/news

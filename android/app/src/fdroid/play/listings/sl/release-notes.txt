@@ -1,10 +1,9 @@
-• Hitrejše usmerjanje za dolge poti
-• Sveži podatki zemljevida OSM z dne 25. januarja
-• Izvoz GeoJSON
-• Razširjen delovni čas
-• Možnost svetle/temne teme aplikacije razdeljena na nastavitve Videz in Navigacija
-• Spreminjanje barve zaznamka s seznama
-• Izboljšan ležeči vmesnik za izbrano mesto na zemljevidu
-• Popravljen nedelujoč urejevalnik za mesta z neveljavnimi telefonskimi številkami
-• Popravljenih več zrušitev in napak v vmesniku
+• Podatki OSM z dne 16. februarja, Wikipedija z dne 1. februarja
+• Črne pohodniške in kolesarske poti so zdaj vidne v temni temi
+• Dodane so zip linije in več avtomobilskih storitev: popravilo, servis in deli
+• Popravljeno usmerjanje koles in izračun povprečne hitrosti
+• Izboljšano iskanje kategorij
+• Uzbekistanska kuhinja
+• Razširljiv odpiralni čas
+• Prikaz in uporaba nadmorske višine MSL za posnete sledi v sistemu Android 14+
 …več na omaps.org/news

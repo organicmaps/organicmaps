@@ -1,10 +1,9 @@
-• Greitesnis maršruto parinkimas ilgiems atstumams
-• Nauji OSM žemėlapio duomenys (sausio 25 d.)
-• GeoJSON eksportas
-• Išplėstas darbo laikas
-• Programėlės šviesios / tamsios temos parinktis padalinta į Išvaizdos ir Navigacijos nustatymus
-• Žymės spalvos keitimas iš sąrašo
-• Patobulinta gulsčia sąsaja pasirinktai vietai žemėlapyje
-• Pataisytas neveikiantis redaktorius vietoms su neteisingais telefono numeriais
-• Pataisyti įvairūs strigimai ir sąsajos trikdžiai
+• OSM duomenys nuo vasario 16 d., Vikipedija nuo vasario 1 d.
+• Juodi pėsčiųjų ir dviračių maršrutai dabar matomi tamsioje temoje
+• Pridėtos lynų trasos ir daugiau automobilių paslaugų: remontas, aptarnavimas ir dalys
+• Pataisytas dviračių maršruto parinkimas ir vidutinio greičio skaičiavimas
+• Patobulinta kategorijų paieška
+• Uzbekų virtuvė
+• Išplečiamos darbo valandos
+• Rodyti ir naudoti MSL aukštį įrašytiems maršrutams „Android 14+“
 …daugiau omaps.org/news

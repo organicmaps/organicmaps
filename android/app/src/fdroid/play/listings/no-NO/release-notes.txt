@@ -1,11 +1,11 @@
-• Raskere ruting for lange turer
-• Ferske OSM-kartdata per 25. januar
-• GeoJSON-eksport
-• Utvidede åpningstider
-• Delte appens lyst/mørkt tema-alternativ inn i Utseende- og Navigasjonsinnstillinger
-• Endre bokmerkefarge fra en liste
-• Forbedret liggende visning for et valgt sted på kartet
-• Fikset en ikke-fungerende editor for steder med ugyldige telefonnumre
-• Fikset flere krasj og UI-feil
-• Fikset feilen "Ikke nok ledig plass"
+• OSM-data per 16. februar, Wikipedia per 1. februar
+• Svarte tur- og sykkelruter er nå synlige i mørkt tema
+• Lagt til zip-linjer og flere biltjenester: reparasjon, service og deler
+• Fikset sykkelruting og beregning av gjennomsnittshastighet
+• Forbedret kategorisøk
+• Usbekisk mat
+• Utvidbare åpningstider
+• Vis og bruk MSL-høyde for innspilte spor på Android 14+
+• Fikset import av KML, KMZ, GPX, GeoJSON fra WhatsApp
+• Lagt til oversettelser for laotisk og armensk
 …mer på omaps.org/news

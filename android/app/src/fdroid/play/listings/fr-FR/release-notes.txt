@@ -1,9 +1,9 @@
-• Itinéraires plus rapides pour les longs trajets
-• Données cartographiques OSM à jour au 25 janvier
-• Export GeoJSON
-• Horaires d'ouverture étendus
-• Séparation du thème clair/sombre dans les paramètres Apparence et Navigation
-• Changement de la couleur des signets depuis une liste
-• Interface paysage améliorée pour un lieu sélectionné sur la carte
-• Correction de l'éditeur pour les lieux avec numéros de téléphone invalides
+• Données OSM au 16 février, Wikipédia au 1er février
+• Les itinéraires de randonnée et cyclistes noirs sont désormais visibles dans le thème sombre
+• Ajout de tyroliennes et de plus de services automobiles : réparation, entretien et pièces
+• Correction du routage vélo et du calcul de la vitesse moyenne
+• Recherche par catégorie améliorée
+• Cuisine ouzbèke
+• Heures d'ouverture extensibles
+• Afficher et utiliser l'altitude MSL pour les traces enregistrées sur Android 14+
 …plus sur omaps.org/news

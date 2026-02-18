@@ -1,7 +1,27 @@
-• Các tuyến đường giữa các quốc gia được tạo nhanh hơn và không còn gây ra sự cố hết bộ nhớ
-• Cập nhật dữ liệu OpenStreetMap tính đến ngày 25 tháng 1
-• Hỗ trợ xuất GeoJSON cho dấu trang và bản theo dõi
-• Đã thêm bản dịch còn thiếu cho các cây cầu không còn sử dụng
-• Đã sửa và cập nhật bản dịch
+• Dữ liệu bản đồ OSM tính đến ngày 16 tháng 2
+• Dữ liệu Wikipedia tính đến ngày 1 tháng 2
+• Các tuyến đường đi bộ và đi xe đạp màu đen hiện có thể nhìn thấy trong giao diện tối
+• Đã thêm nhiều dịch vụ ô tô hơn: sửa chữa, bảo dưỡng và phụ tùng
+• Đã thêm xác thực trình duyệt OSM
+• Đã sửa lỗi truy cập xe đạp trên một số loại đường
+• Đã sửa lỗi tính toán tốc độ trung bình
+• Cải thiện xếp hạng tìm kiếm cho các danh mục
+• Đã thêm ẩm thực Uzbekistan
+• Đã thêm đường trượt zip (zip lines) trên bản đồ
+• Đã sửa các liên kết Wikimedia có dấu "?" trong tiêu đề
+• Đã sửa lỗi phân tích tệp GPX có dấu "+" trong tọa độ
 
-Cảm ơn tất cả những người đang đóng góp, quyên góp và hỗ trợ Organic Maps! Hãy cùng nhau xây dựng bản đồ tốt nhất!
+### Bản dịch
+
+• Đã xóa tên thành phố trùng lặp ở một số khu vực bản đồ
+• Đã sửa hướng dẫn bằng giọng nói tiếng Do Thái
+• Đã sửa lỗi chính tả tiếng Hàn
+• Đã thêm từ đồng nghĩa tìm kiếm tiếng Nga
+• Cải thiện hướng dẫn bằng giọng nói tiếng Đức
+• Đã sửa bản dịch còn thiếu cho đường hầm đường sắt không còn sử dụng
+• Đã sửa bản dịch quốc gia bằng tiếng Romania
+• Đã thêm bản dịch tiếng Lào và tiếng Armenia
+• Đã thêm các bản dịch tiếng Armenia còn thiếu
+• Đã cập nhật bản dịch từ những người đóng góp trên Weblate
+
+Cảm ơn tất cả mọi người đã đóng góp, quyên góp và ủng hộ Organic Maps! Hãy cùng nhau xây dựng những bản đồ tốt nhất!

@@ -1,7 +1,27 @@
-• Rute antar negara dibuat lebih cepat dan tidak lagi menyebabkan kerusakan akibat kehabisan memori
-• Data OpenStreetMap diperbarui per 25 Januari
-• Dukungan ekspor GeoJSON untuk penanda dan jejak
-• Menambahkan terjemahan yang hilang untuk jembatan yang tidak digunakan
-• Perbaikan dan pembaruan terjemahan
+• Data peta OSM per 16 Februari
+• Data Wikipedia per 1 Februari
+• Rute pendakian dan bersepeda warna hitam kini terlihat dalam tema gelap
+• Menambahkan lebih banyak layanan mobil: perbaikan, servis, dan suku cadang
+• Menambahkan autentikasi browser OSM
+• Memperbaiki akses sepeda pada beberapa jenis jalan
+• Memperbaiki perhitungan kecepatan rata-rata
+• Meningkatkan peringkat pencarian untuk kategori
+• Menambahkan masakan Uzbekistan
+• Menambahkan flying fox (zip line) di peta
+• Memperbaiki tautan Wikimedia dengan tanda "?" pada judul
+• Memperbaiki parsing file GPX dengan tanda "+" pada koordinat
 
-Terima kasih kepada semua yang berkontribusi, mendonasikan, dan mendukung Organic Maps! Mari kita buat peta terbaik bersama!
+### Terjemahan
+
+• Menghapus nama kota ganda di beberapa wilayah peta
+• Memperbaiki panduan suara bahasa Ibrani
+• Memperbaiki kesalahan ketik bahasa Korea
+• Menambahkan sinonim pencarian bahasa Rusia
+• Meningkatkan panduan suara bahasa Jerman
+• Memperbaiki terjemahan yang hilang untuk terowongan kereta api yang tidak digunakan
+• Memperbaiki terjemahan negara dalam bahasa Rumania
+• Menambahkan terjemahan bahasa Lao dan Armenia
+• Menambahkan terjemahan bahasa Armenia yang hilang
+• Memperbarui terjemahan dari kontributor Weblate
+
+Terima kasih kepada semua yang berkontribusi, mendonasikan, dan mendukung Organic Maps! Mari kita bangun peta terbaik bersama!

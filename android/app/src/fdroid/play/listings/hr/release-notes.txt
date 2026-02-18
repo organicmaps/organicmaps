@@ -1,10 +1,10 @@
-• Brže usmjeravanje za duge rute
-• Svježi OSM podaci karte od 25. siječnja
-• GeoJSON izvoz
+• OSM podaci od 16. veljače, Wikipedia od 1. veljače
+• Crne pješačke i biciklističke rute sada su vidljive u tamnoj temi
+• Dodane zipline i više usluga za automobile: popravak, servis i dijelovi
+• Ispravljeno rutiranje bicikla i izračun prosječne brzine
+• Poboljšano pretraživanje kategorija
+• Uzbekistanska kuhinja
 • Prošireno radno vrijeme
-• Opcija svijetle/tamne teme aplikacije podijeljena je na postavke Izgleda i Navigacije
-• Promjena boje oznake s popisa
-• Poboljšano pejzažno sučelje za odabrano mjesto na karti
-• Popravljen nefunkcionalni uređivač za mjesta s nevažećim telefonskim brojevima
-• Popravljeno nekoliko rušenja i grešaka sučelja
+• Prikaži i koristi MSL nadmorsku visinu za snimljene tragove na Androidu 14+
+• Ispravljen uvoz KML, KMZ, GPX, GeoJSON iz WhatsAppa
 …više na omaps.org/news

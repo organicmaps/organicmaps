@@ -1,9 +1,9 @@
-• Encaminhamento mais rápido para rotas longas
-• Dados de mapa OSM atualizados a 25 de janeiro
-• Exportação GeoJSON
-• Horários de funcionamento alargados
-• Opção de tema Claro/Escuro dividida em definições de Aparência e Navegação
-• Alterar cor do marcador a partir de uma lista
-• Interface de paisagem melhorada para local selecionado no mapa
-• Corrigido editor que não funcionava para locais com números de telefone inválidos
+• Dados OSM de 16 de fevereiro, Wikipédia de 1 de fevereiro
+• Percursos pedestres e de bicicleta pretos agora visíveis no tema escuro
+• Adicionados slide e mais serviços automóveis: reparação, serviço e peças
+• Corrigido o encaminhamento de bicicletas e cálculo da velocidade média
+• Pesquisa de categorias melhorada
+• Cozinha uzbeque
+• Horários de funcionamento expansíveis
+• Mostrar e usar a altitude MSL para trilhos gravados no Android 14+
 …mais em omaps.org/news

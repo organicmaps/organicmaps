@@ -1,9 +1,9 @@
-• Roteamento mais rápido para rotas longas
-• Dados de mapa OSM atualizados em 25 de janeiro
-• Exportação GeoJSON
-• Horários de funcionamento expandidos
-• Opção de tema Claro/Escuro dividida em configurações de Aparência e Navegação
-• Alterar cor do marcador a partir de uma lista
-• Interface de paisagem melhorada para local selecionado no mapa
-• Corrigido editor que não funcionava para locais com números de telefone inválidos
+• Dados do OSM de 16 de fevereiro, Wikipedia de 1 de fevereiro
+• Rotas de caminhada e ciclismo pretas agora são visíveis no tema escuro
+• Adicionadas tirolesas e mais serviços automotivos: reparo, manutenção e peças
+• Corrigido roteamento de bicicleta e cálculo de velocidade média
+• Busca por categoria aprimorada
+• Culinária uzbeque
+• Horários de funcionamento expansíveis
+• Mostrar e usar altitude MSL para trilhas gravadas no Android 14+
 …mais em omaps.org/news

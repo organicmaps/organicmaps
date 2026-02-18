@@ -1,10 +1,9 @@
-• Perutean lebih cepat untuk rute lintas negara yang panjang
-• Data peta OSM baru per 25 Januari
-• Ekspor GeoJSON
-• Jam buka diperluas
-• Memisahkan opsi tema aplikasi Terang/Gelap ke pengaturan Tampilan dan Navigasi
-• Ubah warna penanda dari daftar
-• UI lanskap yang ditingkatkan untuk tempat yang dipilih di peta
-• Memperbaiki editor yang tidak berfungsi untuk tempat dengan nomor telepon yang tidak valid
-• Memperbaiki beberapa kerusakan dan gangguan UI
+• Data OSM per 16 Februari, Wikipedia per 1 Februari
+• Rute pendakian dan bersepeda hitam kini terlihat dalam tema gelap
+• Menambahkan flying fox dan lebih banyak layanan mobil: perbaikan, servis, dan suku cadang
+• Perutean sepeda dan perhitungan kecepatan rata-rata diperbaiki
+• Pencarian kategori ditingkatkan
+• Masakan Uzbekistan
+• Jam buka yang dapat diperluas
+• Tampilkan dan gunakan ketinggian MSL untuk trek yang direkam di Android 14+
 …selengkapnya di omaps.org/news

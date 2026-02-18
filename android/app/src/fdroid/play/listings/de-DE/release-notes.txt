@@ -1,9 +1,9 @@
-• Schnelleres Routing für lange Überlandstrecken
-• Frische OSM-Kartendaten vom 25. Januar
-• GeoJSON-Export
-• Ausklappbare Öffnungszeiten
-• Aufteilung der Einstellung Nachtmodus in die Einstellungen Erscheinungsbild und Navigation
-• Lesezeichenfarbe aus einer Liste ändern
-• Benutzeroberfläche im Querformat für einen ausgewählten Ort auf der Karte verbessert
-• Fehlerhafter Editor für Orte mit ungültigen Telefonnummern behoben
-…mehr unter omaps.org/news
+• OSM-Daten vom 16. Februar, Wikipedia vom 1. Februar
+• Schwarze Wander- und Radwege sind jetzt im dunklen Design sichtbar
+• Seilrutschen und weitere Autodienste hinzugefügt: Reparatur, Service und Teile
+• Fahrrad-Routing und Durchschnittsgeschwindigkeitsberechnung korrigiert
+• Verbesserte Kategoriesuche
+• Usbekische Küche
+• Erweiterbare Öffnungszeiten
+• Anzeige und Verwendung der MSL-Höhe für aufgezeichnete Tracks auf Android 14+
+…mehr auf omaps.org/news

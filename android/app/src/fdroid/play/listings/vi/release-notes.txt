@@ -1,10 +1,9 @@
-• Định tuyến nhanh hơn cho các tuyến đường dài
-• Dữ liệu bản đồ OSM mới nhất tính đến ngày 25 tháng 1
-• Xuất GeoJSON
-• Giờ mở cửa mở rộng
-• Tách tùy chọn chủ đề ứng dụng Sáng/Tối thành cài đặt Giao diện và Điều hướng
-• Thay đổi màu dấu trang từ danh sách
-• Giao diện ngang được cải thiện cho địa điểm đã chọn trên bản đồ
-• Đã sửa lỗi trình chỉnh sửa không hoạt động đối với những địa điểm có số điện thoại không hợp lệ
-• Đã sửa một số sự cố và lỗi giao diện
+• Dữ liệu OSM tính đến ngày 16 tháng 2, Wikipedia tính đến ngày 1 tháng 2
+• Các tuyến đường đi bộ và đi xe đạp màu đen hiện có thể nhìn thấy trong giao diện tối
+• Đã thêm đường trượt zip và nhiều dịch vụ ô tô hơn: sửa chữa, bảo dưỡng và phụ tùng
+• Đã sửa lỗi định tuyến xe đạp và tính toán tốc độ trung bình
+• Cải thiện tìm kiếm danh mục
+• Ẩm thực Uzbekistan
+• Giờ mở cửa có thể mở rộng
+• Hiển thị và sử dụng độ cao MSL cho các bản ghi trên Android 14+
 …xem thêm tại omaps.org/news

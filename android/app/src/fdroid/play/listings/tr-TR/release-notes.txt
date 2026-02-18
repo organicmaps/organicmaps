@@ -1,10 +1,9 @@
-• Uzun rotalar için daha hızlı yönlendirme
-• 25 Ocak itibariyle güncel OSM harita verileri
-• GeoJSON dışa aktarımı
-• Genişletilmiş açılış saatleri
-• Açık/Koyu uygulama teması seçeneği Görünüm ve Navigasyon ayarlarına bölündü
-• Listeden yer imi rengini değiştirme
-• Haritada seçilen yer için geliştirilmiş yatay arayüz
-• Geçersiz telefon numaralarına sahip yerler için çalışmayan düzenleyici düzeltildi
-• Çeşitli çökmeler ve arayüz hataları düzeltildi
-…daha fazlası omaps.org/news
+• 16 Şubat itibarıyla OSM verileri, 1 Şubat itibarıyla Wikipedia
+• Siyah yürüyüş ve bisiklet rotaları artık karanlık temada görülebiliyor
+• Çelik halat hatları ve daha fazla araba servisi eklendi: onarım, servis ve parçalar
+• Bisiklet rotalaması ve ortalama hız hesaplaması düzeltildi
+• Geliştirilmiş kategori araması
+• Özbek mutfağı
+• Genişletilebilir açılış saatleri
+• Android 14+ üzerinde kaydedilen izler için MSL yüksekliğini göster ve kullan
+…daha fazlası omaps.org/news adresinde

@@ -1,7 +1,27 @@
-• Rute između zemalja se stvaraju brže i više ne uzrokuju rušenja zbog nedostatka memorije
-• Ažurirani OpenStreetMap podaci od 25. siječnja
-• Podrška za GeoJSON izvoz za oznake i tragove
-• Dodani nedostajući prijevodi za napuštene mostove
-• Ispravljeni i ažurirani prijevodi
+• Podaci OSM karte od 16. veljače
+• Podaci Wikipedije od 1. veljače
+• Crne pješačke i biciklističke rute sada su vidljive u tamnoj temi
+• Dodano više usluga za automobile: popravak, servis i dijelovi
+• Dodana autentifikacija preglednika OSM
+• Ispravljen pristup biciklima na nekim vrstama cesta
+• Ispravljen izračun prosječne brzine
+• Poboljšano rangiranje pretraživanja za kategorije
+• Dodana uzbečka kuhinja
+• Dodane zip linije na kartu
+• Ispravljene Wikimedia poveznice s "?" u naslovu
+• Ispravljeno parsiranje GPX datoteka s "+" u koordinatama
+
+### Prijevodi
+
+• Uklonjeni dupli nazivi gradova u nekim regijama karte
+• Ispravljene glasovne upute na hebrejskom
+• Ispravljene korejske tipfeleri
+• Dodani ruski sinonimi za pretraživanje
+• Poboljšane njemačke glasovne upute
+• Ispravljen nedostajući prijevod za napušteni željeznički tunel
+• Ispravljen prijevod zemlje na rumunjskom
+• Dodani prijevodi na laoski i armenski
+• Dodani nedostajući armenski prijevodi
+• Ažurirani prijevodi suradnika Weblate-a
 
 Hvala svima koji doprinose, doniraju i podržavaju Organic Maps! Izgradimo najbolje karte zajedno!

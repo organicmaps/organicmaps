@@ -1,10 +1,9 @@
-• Penghalaan lebih pantas untuk laluan jauh
-• Data peta OSM baharu setakat 25 Januari
-• Eksport GeoJSON
-• Waktu operasi diperluas
-• Membahagikan pilihan tema apl Cerah/Gelap kepada tetapan Penampilan dan Navigasi
-• Tukar warna penanda buku daripada senarai
-• UI landskap dipertingkat untuk tempat yang dipilih pada peta
-• Memperbaiki editor yang tidak berfungsi untuk tempat dengan nombor telefon yang tidak sah
-• Memperbaiki beberapa kerosakan dan gangguan UI
+• Data OSM setakat 16 Februari, Wikipedia setakat 1 Februari
+• Laluan mendaki dan berbasikal hitam kini kelihatan dalam tema gelap
+• Menambah flying fox dan lebih banyak perkhidmatan kereta: pembaikan, servis dan alat ganti
+• Memperbaiki laluan basikal dan pengiraan kelajuan purata
+• Carian kategori yang dipertingkatkan
+• Masakan Uzbekistan
+• Waktu operasi boleh dikembangkan
+• Tunjukkan dan gunakan ketinggian MSL untuk trek yang dirakam pada Android 14+
 …lagi di omaps.org/news

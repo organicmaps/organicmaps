@@ -1,11 +1,11 @@
-• Faster routing for long cross-country routes
-• Fresh OSM map data as of January 25
-• GeoJSON export
-• Expanded opening hours
-• Split the Light/Dark app theme option into Appearance and Navigation settings
-• Change bookmark color from a list
-• Improved landscape UI for a selected place on the map
-• Fixed a non-working editor for places with invalid phone numbers
-• Fixed several crashes and UI glitches
-• Fixed “Not Enough Free Space” error
+• OSM data as of February 16, Wikipedia as of February 1
+• Black hiking and cycling routes are now visible in the dark theme
+• Added zip lines and more car services: repair, service, and parts
+• Fixed bicycle routing and average speed calculation
+• Improved category search
+• Uzbek cuisine
+• Expandable opening hours
+• Show and use MSL altitude for recorded tracks on Android 14+
+• Fixed KML, KMZ, GPX, GeoJSON import from WhatsApp
+• Added Lao and Armenian translations
 …more at omaps.org/news
