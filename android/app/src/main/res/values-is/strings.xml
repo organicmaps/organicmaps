@@ -100,6 +100,16 @@
     <string name="measurement_units">Mælieiningar</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Veldu á milli kílómetra og mílna</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">Hætta við niðurhal</string>
+    <!-- Leave Review dialog - Review button -->
+    <string name="leave_a_review">Skildu eftir umsögn</string>
+    <!-- Settings/Downloader - 3G download warning dialog confirm button -->
+    <string name="use_cellular_data">Já</string>
+    <!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+    <string name="country_status_download_without_size">Sækja kort</string>
+    <!-- "Bookmark Lists" dialog title -->
+    <string name="bookmark_sets">Bókamerkjalisti</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
@@ -338,14 +348,41 @@
     <string name="gray">Grátt</string>
     <!-- blue gray color -->
     <string name="blue_gray">Blágrátt</string>
+    <!-- place preview title -->
+    <string name="info">Upplýsingar</string>
+    <!-- Prints version number in About dialog -->
+    <string name="version">Organic Maps útgáfa: %s</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Útlit</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_light">Ljóst</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Dökkt</string>
+    <!-- Title for "Other" section in TTS settings. -->
+    <string name="pref_tts_other_section_title">Annað</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Gefðu milljónum notenda ókeypis kort án auglýsinga!</string>
+    <!-- Button in the About screen -->
+    <string name="report_incorrect_map_bug">Tilkynntu eða lagaðu röng kortagögn</string>
+    <!-- Button in the About screen -->
+    <string name="volunteer">Bjóða sig fram</string>
+    <!-- "Social media" section header in the About screen -->
+    <string name="follow_us">Fylgjast með okkur og hafa samband:</string>
+    <!-- Alert text -->
+    <string name="email_error_body">Tölvupóstforrit hefur ekki verið sett upp. Stilltu það eða hafðu samband við okkur á %s</string>
+    <!-- Alert title -->
+    <string name="email_error_title">Villa við að senda tölvupóst</string>
+    <!-- Settings item title -->
+    <string name="pref_calibration_title">Kvörðun áttavita</string>
+    <!-- Downloaded maps category -->
+    <string name="downloader_available_maps">Tiltækt</string>
+    <string name="downloader_search_results">Fannst</string>
+    <!-- Status of outdated country in the list -->
+    <string name="downloader_status_outdated">Uppfærsla</string>
+    <!-- Status of failed country in the list -->
+    <string name="downloader_status_failed">Mistókst</string>
+    <!-- bookmark button text -->
+    <string name="bookmark">bókamerki</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Þegar ferðast er eftir leið, skaltu hafa eftirfarandi í huga:</string>
@@ -376,6 +413,8 @@
     <string name="not_now">Ekki núna</string>
     <string name="dialog_routing_download_and_build_cross_route">Myndirðu vilja sækja landakortið og útbúa þægilegri leið sem spannar fleiri en eitt landakort?</string>
     <string name="dialog_routing_download_cross_route">Sækja viðbótar-landakort til að útbúa þægilegri leið sem fer út fyrir mörk þessa landakorts.</string>
+    <string name="dialog_routing_download_files">Sækja nauðsynlegar skrár</string>
+    <string name="dialog_routing_download_and_update_all">Sæktu eða uppfærðu öll landakort meðfram áætluðum ferli til að reikna leið.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Til að byrja að leita og útbúa leiðir skaltu sækja landakortið. Eftir það er internettenging ekki nauðsynleg.</string>
@@ -729,6 +768,120 @@
     <string name="moreyear_ago_sorttype">Fyrir meira en ári síðan</string>
     <string name="near_me_sorttype">Nálægt mér</string>
     <string name="others_sorttype">Annað</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Skipulagning ferðar mistókst</string>
+    <!-- Arrive routing message in navigation view -->
+    <string name="routing_arrive">Koma kl. %s</string>
+    <!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+    <string name="dialog_routing_download_and_update_maps">Sæktu og uppfærðu öll landakort meðfram áætluðum ferli til að reikna leið.</string>
+    <string name="editor_done_dialog_1">Þú hefur breytt heimskortinu! Ekki halda því leyndu; segðu vinum þínum frá og þið getið haldið áfram að laga það saman.</string>
+    <string name="share_with_friends">Deildu með vinum</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Lokað núna</string>
+    <string name="opens_tomorrow_at">Opnar á morgun kl. %s</string>
+    <string name="opens_dayoftheweek_at">Opnar %1$s kl. %2$s</string>
+    <string name="opens_at">Opnar %s</string>
+    <string name="closes_at">Lokar %s</string>
+    <string name="add_opening_hours">Bæta við opnunartímum</string>
+    <string name="password_8_chars_min">Lykilorð (lágmark 8 stafir)</string>
+    <string name="invalid_username_or_password">Rangt notandanafn eða lykilorð.</string>
+    <string name="osm_account">OSM-notandaaðgangur</string>
+    <!-- Information text: "Last upload 11.01.2016" -->
+    <string name="last_upload">Síðasta innsending</string>
+    <string name="thank_you">Bestu þakkir</string>
+    <string name="place_name">Staðarheiti</string>
+    <string name="phone">Símanúmer</string>
+    <string name="please_note">Athugaðu</string>
+    <string name="migration_download_error_dialog">Villa við að sækja gögn</string>
+    <string name="editor_add_select_category">Veldu flokk</string>
+    <string name="editor_add_select_category_popular_subtitle">Vinsælt</string>
+    <string name="editor_add_select_category_all_subtitle">Allir flokkar</string>
+    <string name="whatsnew_editor_message_1">Bættu nýjum stöðum á kortið og breyttu fyrirliggjandi stöðum beint úr forritinu.</string>
+    <string name="dialog_incorrect_feature_position">Breyta staðsetningu</string>
+    <!-- Error dialog no space -->
+    <string name="migration_no_space_message">Til að sækja þarftu meira pláss. Eyddu öllum ónauðsynlegum gögnum.</string>
+    <string name="editor_sharing_title">Ég hef bætt landakort Organic Maps</string>
+    <string name="editor_detailed_description_hint">Ítarleg athugasemd</string>
+    <string name="editor_detailed_description">Breytingarnar á kortinu sem þú hefur stungið upp á verða sendar til þátttakenda í OpenStreetMap-verkefninu. Lýstu öllum nánari smáatriðum sem ekki er hægt að breyta í Organic Maps.</string>
+    <string name="current_location_unknown_error_message">Villa kom upp við að ákvarða staðsetninguna þína. Athugaðu hvort tækið þitt virki rétt og reyndu aftur síðar.</string>
+    <string name="location_services_disabled_header">Staðsetningarþjónustur eru óvirkar</string>
+    <string name="location_services_disabled_message">Virkjaðu aðgang að hnattstaðsetningu í stillingum tækisins</string>
+    <string name="location_services_disabled_1">1. Opna stillingar</string>
+    <string name="location_services_disabled_2">2. Ýttu á staðsetningu</string>
+    <!-- iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) -->
+    <string name="location_services_disabled_3">3. Veldu á meðan forritið er notað</string>
+    <string name="location_services_disabled_on_device_2">2. Veldu meðferð persónuupplýsinga</string>
+    <string name="location_services_disabled_on_device_3">3. Veldu staðsetningarþjónustur</string>
+    <string name="location_services_disabled_on_device_4">4. Kveiktu á staðsetningarþjónustum</string>
+    <string name="location_services_disabled_on_device_additional_message">Eða haltu áfram að nota Organic Maps án staðsetningar</string>
+    <string name="book_button">Bóka</string>
+    <string name="placepage_call_button">Hringja</string>
+    <string name="placepage_bookmark_name_hint">Heiti bókamerkis</string>
+    <string name="placepage_delete_bookmark_button">Eyða bókamerki</string>
+    <string name="editor_edits_sent_message">Minnispunkturinn þinn verður sendur til OpenStreetMap</string>
+    <string name="text_more_button">…meira</string>
+    <string name="refresh">Uppfæra</string>
+    <!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+    <string name="recent_track_background_dialog_title">Gera óvirka upptöku af leiðinni sem þú varst að ferðast eftir?</string>
+    <string name="off_recent_track_background_button">Gera óvirkt</string>
+    <!-- For sharing via SMS and so on -->
+    <string name="sharing_call_action_look">Kíktu á</string>
+    <string name="recent_track_background_dialog_message">Organic Maps notar staðsetningu þína í bakgrunni til að skrá leiðina sem þú varst að ferðast eftir.</string>
+    <string name="general_settings">Almennar stillingar</string>
+    <!-- "traffic" as in road congestion -->
+    <string name="traffic_update_app_message">Til að birta umferðargögn, þarf að uppfæra forritið.</string>
+    <string name="log_file_size">Stærð atvikaskrár: %s</string>
+    <string name="planning_route_remove_title">Dragðu hingað til að fjarlægja</string>
+    <string name="placepage_replace_stop">Skipta út stoppi</string>
+    <string name="start_from_my_position">Byrja frá</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part -->
+    <string name="alert_reauth_message_ios">Skráðu þig inn á OpenStreetMap til að senda sjálfkrafa inn allar breytingar þínar á kortinu. Kannaðu þetta nánar</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part -->
+    <string name="alert_reauth_link_text_ios">hér</string>
+    <string name="downloader_hide_screen">Fela skjá</string>
+    <string name="downloader_percent">%1$s (%2$s af %3$s)</string>
+    <string name="downloader_process">Sæki %s…</string>
+    <string name="downloader_applying">Virkja %s…</string>
+    <string name="bookmarks_error_title_list_name_too_long">Þetta heiti er of langt</string>
+    <string name="bookmarks_detect_title">Nýjar skrár fundust</string>
+    <string name="button_convert">Umbreyta</string>
+    <string name="bookmarks_convert_error_title">Villa</string>
+    <string name="bookmarks_convert_error_message">Sumum skrám var ekki umbreytt.</string>
+    <string name="title_error_downloading_bookmarks">Villa kom upp</string>
+    <string name="popular_place">Vinsælt</string>
+    <string name="hide_from_map">Fela á korti</string>
+    <string name="tags_loading_error_subtitle">Villa kom upp við að hlaða inn merkjum, reyndu aftur</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (on the right) -->
+    <string name="right">Hægri</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (at the bottom) -->
+    <string name="bottom">Neðst</string>
+    <string name="trip_start">Hefjumst handa</string>
+    <string name="pick_destination">Ákvörðunarstaður</string>
+    <string name="follow_my_position">Endurmiðja</string>
+    <string name="search_results">Leitarniðurstöður</string>
+    <string name="then_turn">síðan</string>
+    <string name="redirect_route_alert">Viltu endurhanna þessa leið?</string>
+    <string name="keyboard_availability_alert">Lyklaborð er ekki tiltækt á meðan akstri stendur</string>
+    <string name="dialog_routing_change_start_carplay">Tekst ekki að skipuleggja leið frá fyrirliggjandi staðsetningu þinni</string>
+    <string name="dialog_routing_change_end_carplay">Tekst ekki að finna leið að ákvörðunarstaðnum þínum. Veldu einhvern annan endapunkt</string>
+    <string name="dialog_routing_check_gps_carplay">Ekkert GPS-merki. Færðu þig yfir á opið svæði</string>
+    <string name="dialog_routing_unable_locate_route_carplay">Tekst ekki að skipuleggja leið. Tilgreindu einhverja aðra leiðarpunkta</string>
+    <string name="dialog_routing_download_files_carplay">Til að útbúa leið skaltu sækja kortin sem vantar á tækið þitt</string>
+    <string name="dialog_routing_system_error_carplay">Villa kom upp. Endurræstu forritið</string>
+    <string name="dialog_routing_rebuild_from_current_location_carplay">Leiðin verður endurhönnuð frá fyrirliggjandi staðsetningu þinni</string>
+    <string name="dialog_routing_rebuild_for_vehicle_carplay">Leiðinni verður umbreytt í leið fyrir akstur</string>
+    <string name="not_all_shown_bookmarks_carplay">Ekki eru öll bókamerki birt</string>
+    <string name="switch_to_phone_bookmarks_carplay">Skiptu yfir í símann til að sjá öll bókamerki</string>
+    <string name="speedcams_alert_title_carplay_1">Hraðamyndavélar</string>
+    <string name="speedcams_alert_title_carplay_2">Aðvaranir um hraðatakmörk</string>
+    <string name="download_map_carplay">Sæktu landakort í forritinu á snjalltækinu þínu</string>
+    <string name="carplay_roundabout_exit">%s útkeyrsla</string>
+    <!-- iOS -->
+    <string name="sort_default">Raða eftir sjálfgefnu</string>
+    <string name="sort_type">Raða eftir tegund</string>
+    <string name="sort_distance">Raða eftir vegalengd</string>
+    <string name="sort_date">Raða eftir dagsetningu</string>
+    <string name="sort_name">Raða eftir nafni</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Matur</string>
@@ -789,6 +942,8 @@
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
     <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
@@ -887,8 +1042,123 @@
     <string name="share_track">Deila ferli</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Eyða %s?</string>
+    <string name="elevation_profile_diff_level">Erfiðleikastig</string>
+    <string name="elevation_profile_diff_level_easy">Auðvelt</string>
+    <string name="elevation_profile_diff_level_moderate">Miðlungs</string>
+    <string name="elevation_profile_diff_level_hard">Erfitt</string>
+    <string name="downloader_updating_ios">Uppfæri</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_title">Uppfæra sótt kort</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_message">Uppfærsla á landakortum viðheldur upplýsingum um aðstæður sem réttustum</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_size">Uppfæra (%s)</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_later">Uppfæra handvirkt síðar</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Eyða ferliDelete Track</string>
+    <!-- The track deletion confirmaion alert message. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Ertu viss um að þú viljir eyða þessum ferli?</string>
+    <!-- Placeholder for track name input on track edit screen -->
+    <string name="placepage_track_name_hint">Heiti ferils</string>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Færa</string>
+    <!-- edit track screen title -->
+    <string name="track_title">Ferill</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Breyta lit</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Hide track</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Show track</string>
+    <!-- Main screen title "Map" displayed in the navigation back button's menu. -->
+    <string name="map">Landakort</string>
+    <!-- Message for the bug report alert. -->
+    <string name="bugreport_alert_message">Myndirðu vilja senda villuskýrslu til hönnuðanna?\nVið reiðum okkur á notendurna þar sem Organic Maps safnar ekki sjálfkrafa neinum villuupplýsingum. Fyrirfram þakkir fyrir að styðja við Organic Maps!</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_title">Virkja samstillingu við iCloud</string>
+    <!-- Message for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_message">Samstilling við iCloud synchronization er eiginleiki á tilraunastigi. Gakktu úr skugga um að þú hafir gert öryggisafrit af öllum bókamerkjum þínum og ferlum.</string>
+    <!-- Title for the "iCloud Is Disabled" alert. -->
+    <string name="icloud_disabled_title">iCloud er óvirkt</string>
+    <!-- Message for the "iCloud is Disabled" alert. -->
+    <string name="icloud_disabled_message">Virkjaðu iCloud í stillingum tækisins þíns til að nota þennan eiginleika.</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button. -->
+    <string name="enable">Virkja</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Backup" action button. -->
+    <string name="backup">Öryggisafrit</string>
+    <!-- Title for the "iCloud synchronization failure" alert. -->
+    <string name="icloud_synchronization_error_alert_title">Villa í samstillingu iCloud</string>
+    <!-- iCloud error message: Failed to synchronize due to connection error -->
+    <string name="icloud_synchronization_error_connection_error">Villa: Mistókst að samstilla vegna villu í tengingu</string>
+    <!-- iCloud error message: Failed to synchronize due to iCloud quota exceeded -->
+    <string name="icloud_synchronization_error_quota_exceeded">Villa: Mistókst að samstilla þar sem kvótinn á iCloud er uppurinn</string>
+    <!-- iCloud error message: iCloud is not available -->
+    <string name="icloud_synchronization_error_cloud_is_unavailable">Villa: iCloud er ekki tiltækt</string>
+    <!-- Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. -->
+    <string name="bookmarks_recently_deleted">Listi yfir nýlega eytt</string>
+    <!-- Title for the "Clear" button on the Recently Deleted Lists screen. -->
+    <string name="clear">Hreinsa</string>
+    <!-- Title for the "Delete All" button on the Recently Deleted Lists screen. -->
+    <string name="delete_all">Eyða öllu</string>
+    <!-- Title for the "Recover" button on the Recently Deleted Lists screen. -->
+    <string name="recover">Endurheimta</string>
+    <!-- Title for the "Recover All" button on the Recently Deleted Lists screen. -->
+    <string name="recover_all">Endurheimta alltRecover All</string>
+    <!-- OpenStreetMap contribution section on the PlacePage. -->
+    <string name="contribute_to_osm">Leggðu þitt af mörkum til OpenStreetMap</string>
+    <string name="contribute_to_osm_add_place">Bæta við stað</string>
+    <string name="contribute_to_osm_update_map">Uppfærðu kortið til að leggja af mörkum</string>
+    <string name="contribute_to_osm_update_map_description">Þú þarft að uppfæra %s kortið í nýjustu útgáfuna áður en þú getur lagt af mörkum til gagna í OpenStreetMap</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Staðsetning mín</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Staðirnir mínir</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Innbyggð einkageymsla</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Innbyggð sameiginleg geymsla</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SD-minniskort</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Ytri sameiginleg geymsla</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Póstnúmer</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Punktur á korti</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mí</string>
+    <!-- A unit of measure -->
+    <string name="ft">ft</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Til að birta leiðir þarf að uppfæra landakort.</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Útgangur</string>
+    <string name="core_entrance">Inngangur</string>
+    <string name="subway_data_unavailable">Kort fyrir neðanjarðarlest er ekki tiltækt</string>
+    <string name="you">You</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Fjólublá niðurhluð svæði</string>
+
+    <!-- SECTION: 3d touch strings -->
+    <!-- Used in home screen quick actions. -->
+    <string name="route">Leið</string>
 
     <!-- SECTION: gps strings -->
+    <!-- Needed to explain why we always require access to GPS coordinates, and not only when the app is active. -->
+    <string name="NSLocationAlwaysUsageDescription">Greining staðsetningar í bakgrunni er nauðsynleg til að njóta allra eiginleika forritsins. Það er notað við leiðsögn og vistun á nýförnum leiðum.</string>
+    <!-- Needed to explain why we require access to GPS coordinates when the app is active. -->
+    <string name="NSLocationWhenInUseUsageDescription">Greining staðsetningar í bakgrunni er nauðsynleg fyrir leiðsögn og vistun á nýförnum leiðum.</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Innskráning með lykilorði</string>
     <!-- Login to OSM button text -->

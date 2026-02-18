@@ -79,10 +79,16 @@
       android:layout_alignParentEnd="true"
       android:layout_alignEnd="@id/divideerrr"
       android:background="?clickableBackground"
-      android:padding="@dimen/margin_half"
-      tools:src="@drawable/ic_bookmark_none" />
+      android:padding="@dimen/margin_half">
+      <ImageView
+        android:id="@+id/iv__bookmark_color_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:src="@drawable/ic_bookmark_none" />
+    </ImageView>
   </RelativeLayout>
   <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/til__description"
     style="?fontBody1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -99,4 +105,47 @@
       android:hint="@string/placepage_personal_notes_hint"
       android:inputType="textMultiLine" />
   </com.google.android.material.textfield.TextInputLayout>
+  <LinearLayout
+    android:id="@+id/track_export_buttons"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/til__description"
+    android:layout_margin="@dimen/margin_half"
+    android:orientation="vertical"
+    android:visibility="gone">
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:gravity="center">
+      <Button
+        android:id="@+id/btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginEnd="@dimen/margin_quarter"
+        android:text="@string/export_file" />
+      <Button
+        android:id="@+id/btn_export_gpx"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/margin_quarter"
+        android:layout_marginEnd="@dimen/margin_quarter"
+        android:text="@string/export_file_gpx" />
+      <Button
+        android:id="@+id/btn_export_geojson"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/margin_quarter"
+        android:text="@string/export_file_geojson" />
+    </LinearLayout>
+    <Button
+      android:id="@+id/btn_delete_track"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_base"
+      android:text="@string/placepage_delete_track_button" />
+  </LinearLayout>
 </RelativeLayout>

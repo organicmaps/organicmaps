@@ -100,6 +100,16 @@
     <string name="measurement_units">Չափման միավորներ</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Ընտրեք մղոնների և կիլոմետրերի միջև</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">Չեղարկել ներբեռնումը</string>
+    <!-- Leave Review dialog - Review button -->
+    <string name="leave_a_review">Թողնել կարծիք</string>
+    <!-- Settings/Downloader - 3G download warning dialog confirm button -->
+    <string name="use_cellular_data">Այո</string>
+    <!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+    <string name="country_status_download_without_size">Ներբեռնել քարտեզը</string>
+    <!-- "Bookmark Lists" dialog title -->
+    <string name="bookmark_sets">Էջանիշների ցուցակներ</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
@@ -338,14 +348,41 @@
     <string name="gray">Մոխրագույն</string>
     <!-- blue gray color -->
     <string name="blue_gray">Կապտամոխրագույն</string>
+    <!-- place preview title -->
+    <string name="info">Տեղեկություն</string>
+    <!-- Prints version number in About dialog -->
+    <string name="version">Organic Maps-ի տարբերակ՝ %s</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Արտաքին տեսք</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_light">Լուսավոր</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Մուգ</string>
+    <!-- Title for "Other" section in TTS settings. -->
+    <string name="pref_tts_other_section_title">Այլ</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Նվիրեք անվճար և առանց գովազդի քարտեզներ միլիոնավոր օգտատերերի:</string>
+    <!-- Button in the About screen -->
+    <string name="report_incorrect_map_bug">Հայտնել կամ ուղղել քարտեզի սխալ տվյալները</string>
+    <!-- Button in the About screen -->
+    <string name="volunteer">Կամավոր</string>
+    <!-- "Social media" section header in the About screen -->
+    <string name="follow_us">Հետևեք և կապվեք մեզ հետ՝</string>
+    <!-- Alert text -->
+    <string name="email_error_body">Էլ. փոստի հավելվածը կարգավորված չէ: Խնդրում ենք կարգավորել այն կամ կապվել մեզ հետ՝ %s</string>
+    <!-- Alert title -->
+    <string name="email_error_title">Էլ. նամակի ուղարկման սխալ</string>
+    <!-- Settings item title -->
+    <string name="pref_calibration_title">Կողմնացույցի կարգաբերում</string>
+    <!-- Downloaded maps category -->
+    <string name="downloader_available_maps">Հասանելի</string>
+    <string name="downloader_search_results">Գտնված</string>
+    <!-- Status of outdated country in the list -->
+    <string name="downloader_status_outdated">Թարմացնել</string>
+    <!-- Status of failed country in the list -->
+    <string name="downloader_status_failed">Ձախողվեց</string>
+    <!-- bookmark button text -->
+    <string name="bookmark">էջանիշ</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Երթուղով շարժվելիս հիշեք՝</string>
@@ -376,6 +413,8 @@
     <string name="not_now">Ոչ հիմա</string>
     <string name="dialog_routing_download_and_build_cross_route">Ցանկանո՞ւմ եք ներբեռնել քարտեզը և կառուցել ավելի օպտիմալ երթուղի, որն անցնում է մեկից ավելի քարտեզներով:</string>
     <string name="dialog_routing_download_cross_route">Ներբեռնեք լրացուցիչ քարտեզներ՝ ավելի լավ երթուղի կառուցելու համար, որն անցնում է այս քարտեզի սահմաններից դուրս:</string>
+    <string name="dialog_routing_download_files">Ներբեռնել պահանջվող ֆայլերը</string>
+    <string name="dialog_routing_download_and_update_all">Ներբեռնեք կամ թարմացրեք երթուղու երկայնքով բոլոր քարտեզները՝ երթուղին հաշվարկելու համար:</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Որոնման և երթուղիների կառուցման համար խնդրում ենք ներբեռնել քարտեզը: Դրանից հետո ինտերնետ կապ այլևս չի պահանջվի:</string>
@@ -726,6 +765,120 @@
     <string name="moreyear_ago_sorttype">Ավելի քան մեկ տարի առաջ</string>
     <string name="near_me_sorttype">Իմ մոտակայքում</string>
     <string name="others_sorttype">Այլ</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Երթուղու պլանավորումը ձախողվեց</string>
+    <!-- Arrive routing message in navigation view -->
+    <string name="routing_arrive">Ժամանումը՝ %s</string>
+    <!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+    <string name="dialog_routing_download_and_update_maps">Ներբեռնել և թարմացնել բոլոր քարտեզները երթուղու երկայնքով՝ հաշվարկ կատարելու համար:</string>
+    <string name="editor_done_dialog_1">Դուք փոխեցիք աշխարհի քարտեզը: Մի պահեք դա Ձեզ, պատմեք ընկերներին և խմբագրեք միասին:</string>
+    <string name="share_with_friends">Կիսվել ընկերների հետ</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Փակ է</string>
+    <string name="opens_tomorrow_at">Բացվում է վաղը %s</string>
+    <string name="opens_dayoftheweek_at">Բացվում է %1$s՝ %2$s</string>
+    <string name="opens_at">Բացվում է %s</string>
+    <string name="closes_at">Փակվում է %s</string>
+    <string name="add_opening_hours">Ավելացնել աշխատանքային ժամերը</string>
+    <string name="password_8_chars_min">Գաղտնաբառ (առնվազն 8 նիշ)</string>
+    <string name="invalid_username_or_password">Սխալ օգտանուն կամ գաղտնաբառ:</string>
+    <string name="osm_account">OSM հաշիվ</string>
+    <!-- Information text: "Last upload 11.01.2016" -->
+    <string name="last_upload">Վերջին վերբեռնումը</string>
+    <string name="thank_you">Շնորհակալություն</string>
+    <string name="place_name">Վայրի անունը</string>
+    <string name="phone">Հեռախոս</string>
+    <string name="please_note">Խնդրում ենք նկատի ունենալ</string>
+    <string name="migration_download_error_dialog">Ներբեռնման սխալ</string>
+    <string name="editor_add_select_category">Ընտրեք կատեգորիան</string>
+    <string name="editor_add_select_category_popular_subtitle">Հայտնի</string>
+    <string name="editor_add_select_category_all_subtitle">Բոլոր կատեգորիաները</string>
+    <string name="whatsnew_editor_message_1">Ավելացրեք նոր վայրեր քարտեզին և խմբագրեք առկաները անմիջապես հավելվածից:</string>
+    <string name="dialog_incorrect_feature_position">Փոխել տեղադիրքը</string>
+    <!-- Error dialog no space -->
+    <string name="migration_no_space_message">Ներբեռնելու համար անհրաժեշտ է ավելի շատ տարածք։ Խնդրում ենք ջնջել ավելորդ տվյալները։</string>
+    <string name="editor_sharing_title">Ես բարելավեցի Organic Maps քարտեզները</string>
+    <string name="editor_detailed_description_hint">Մանրամասն մեկնաբանություն</string>
+    <string name="editor_detailed_description">Ձեր առաջարկած քարտեզի փոփոխությունները կուղարկվեն OpenStreetMap համայնքին։ Խնդրում ենք նկարագրել ցանկացած այլ մանրամասներ, որոնք հնարավոր չէ խմբագրել Organic Maps-ում։</string>
+    <string name="current_location_unknown_error_message">Ձեր տեղադիրքը որոշելիս առաջացել է սխալ։ Ստուգեք, որ Ձեր սարքը ճիշտ է աշխատում և փորձեք կրկին ավելի ուշ։</string>
+    <string name="location_services_disabled_header">Տեղորոշման ծառայություններն անջատված են</string>
+    <string name="location_services_disabled_message">Միացրեք աշխարհագրական տեղորոշման հասանելիությունը սարքի կարգավորումներում</string>
+    <string name="location_services_disabled_1">1. Բացեք Կարգավորումները</string>
+    <string name="location_services_disabled_2">2. Հպեք Տեղորոշում</string>
+    <!-- iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) -->
+    <string name="location_services_disabled_3">3. Ընտրեք «Հավելվածն օգտագործելիս»</string>
+    <string name="location_services_disabled_on_device_2">2. Ընտրեք Գաղտնիություն</string>
+    <string name="location_services_disabled_on_device_3">3. Ընտրեք Տեղորոշման ծառայություններ</string>
+    <string name="location_services_disabled_on_device_4">4. Միացրեք Տեղորոշման ծառայությունները</string>
+    <string name="location_services_disabled_on_device_additional_message">Կամ շարունակեք օգտագործել Organic Maps-ն առանց տեղորոշման</string>
+    <string name="book_button">Ամրագրել</string>
+    <string name="placepage_call_button">Զանգել</string>
+    <string name="placepage_bookmark_name_hint">Էջանիշի անունը</string>
+    <string name="placepage_delete_bookmark_button">Ջնջել էջանիշը</string>
+    <string name="editor_edits_sent_message">Ձեր նշումը կուղարկվի OpenStreetMap</string>
+    <string name="text_more_button">…ավելին</string>
+    <string name="refresh">Թարմացնել</string>
+    <!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+    <string name="recent_track_background_dialog_title">Անջատե՞լ Ձեր անցած վերջին երթուղու ձայնագրումը:</string>
+    <string name="off_recent_track_background_button">Անջատել</string>
+    <!-- For sharing via SMS and so on -->
+    <string name="sharing_call_action_look">Տեսեք սա</string>
+    <string name="recent_track_background_dialog_message">Organic Maps-ը օգտագործում է Ձեր տեղադիրքը ֆոնային ռեժիմում՝ Ձեր անցած վերջին երթուղին գրանցելու համար:</string>
+    <string name="general_settings">Ընդհանուր կարգավորումներ</string>
+    <!-- "traffic" as in road congestion -->
+    <string name="traffic_update_app_message">Երթևեկության տվյալները ցուցադրելու համար հավելվածը պետք է թարմացվի:</string>
+    <string name="log_file_size">Գրանցամատյանի ֆայլի չափը՝ %s</string>
+    <string name="planning_route_remove_title">Քաշեք այստեղ՝ հեռացնելու համար</string>
+    <string name="placepage_replace_stop">Փոխարինել կանգառը</string>
+    <string name="start_from_my_position">Սկսել …-ից</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part -->
+    <string name="alert_reauth_message_ios">Խնդրում ենք մուտք գործել OpenStreetMap՝ Ձեր քարտեզի բոլոր փոփոխություններն ավտոմատ վերբեռնելու համար։ Իմացեք ավելին</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part -->
+    <string name="alert_reauth_link_text_ios">այստեղ</string>
+    <string name="downloader_hide_screen">Թաքցնել էկրանը</string>
+    <string name="downloader_percent">%1$s (%2$s %3$s-ից)</string>
+    <string name="downloader_process">Ներբեռնվում է %s…</string>
+    <string name="downloader_applying">Կիրառվում է %s…</string>
+    <string name="bookmarks_error_title_list_name_too_long">Այս անունը շատ երկար է</string>
+    <string name="bookmarks_detect_title">Հայտնաբերվել են նոր ֆայլեր</string>
+    <string name="button_convert">Փոխարկել</string>
+    <string name="bookmarks_convert_error_title">Սխալ</string>
+    <string name="bookmarks_convert_error_message">Որոշ ֆայլեր չեն փոխարկվել:</string>
+    <string name="title_error_downloading_bookmarks">Տեղի ունեցավ սխալ</string>
+    <string name="popular_place">Հայտնի</string>
+    <string name="hide_from_map">Թաքցնել քարտեզից</string>
+    <string name="tags_loading_error_subtitle">Պիտակների բեռնման ժամանակ սխալ տեղի ունեցավ, խնդրում ենք փորձել կրկին</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (on the right) -->
+    <string name="right">Աջ</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (at the bottom) -->
+    <string name="bottom">Ներքև</string>
+    <string name="trip_start">Գնացինք</string>
+    <string name="pick_destination">Նշանակման կետ</string>
+    <string name="follow_my_position">Կենտրոնացնել</string>
+    <string name="search_results">Որոնման արդյունքներ</string>
+    <string name="then_turn">Այնուհետև</string>
+    <string name="redirect_route_alert">Ցանկանո՞ւմ եք վերակառուցել երթուղին:</string>
+    <string name="keyboard_availability_alert">Ստեղնաշարը հասանելի չէ վարելիս</string>
+    <string name="dialog_routing_change_start_carplay">Հնարավոր չէ կառուցել երթուղի Ձեր ընթացիկ տեղադիրքից</string>
+    <string name="dialog_routing_change_end_carplay">Հնարավոր չէ գտնել երթուղի դեպի նշանակման վայր: Խնդրում ենք ընտրել այլ վերջնակետ</string>
+    <string name="dialog_routing_check_gps_carplay">GPS ազդանշան չկա: Խնդրում ենք տեղափոխվել բաց տարածք</string>
+    <string name="dialog_routing_unable_locate_route_carplay">Հնարավոր չէ կառուցել երթուղի: Խնդրում ենք նշել երթուղու այլ կետեր</string>
+    <string name="dialog_routing_download_files_carplay">Երթուղի ստեղծելու համար ներբեռնեք բացակայող քարտեզները Ձեր սարքում</string>
+    <string name="dialog_routing_system_error_carplay">Տեղի ունեցավ սխալ: Խնդրում ենք վերագործարկել հավելվածը</string>
+    <string name="dialog_routing_rebuild_from_current_location_carplay">Երթուղին կվերակառուցվի Ձեր ընթացիկ տեղադիրքից</string>
+    <string name="dialog_routing_rebuild_for_vehicle_carplay">Երթուղին կփոխարկվի ավտոմեքենայի երթուղու</string>
+    <string name="not_all_shown_bookmarks_carplay">Ոչ բոլոր էջանիշներն են ցուցադրվում</string>
+    <string name="switch_to_phone_bookmarks_carplay">Անցեք հեռախոսին՝ բոլոր էջանիշները տեսնելու համար</string>
+    <string name="speedcams_alert_title_carplay_1">Արագաչափեր</string>
+    <string name="speedcams_alert_title_carplay_2">Արագության զգուշացումներ</string>
+    <string name="download_map_carplay">Խնդրում ենք ներբեռնել քարտեզները հավելվածում՝ Ձեր բջջային սարքի վրա</string>
+    <string name="carplay_roundabout_exit">%s ելք</string>
+    <!-- iOS -->
+    <string name="sort_default">Դասավորել լռելյայն</string>
+    <string name="sort_type">Դասավորել ըստ տեսակի</string>
+    <string name="sort_distance">Դասավորել ըստ հեռավորության</string>
+    <string name="sort_date">Դասավորել ըստ ամսաթվի</string>
+    <string name="sort_name">Դասավորել ըստ անվան</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Սնունդ</string>
@@ -886,4 +1039,125 @@
     <string name="share_track">Կիսվել հետագծով</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Ջնջե՞լ %s</string>
+    <string name="elevation_profile_diff_level">Բարդության մակարդակ</string>
+    <string name="elevation_profile_diff_level_easy">Հեշտ</string>
+    <string name="elevation_profile_diff_level_moderate">Միջին</string>
+    <string name="elevation_profile_diff_level_hard">Բարդ</string>
+    <string name="downloader_updating_ios">Թարմացում</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_title">Թարմացնել ներբեռնված քարտեզները</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_message">Քարտեզների թարմացումը թարմ է պահում օբյեկտների մասին տեղեկատվությունը</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_size">Թարմացնել (%s)</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_later">Ձեռքով թարմացնել ավելի ուշ</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Ջնջել հետագիծը</string>
+    <!-- The track deletion confirmaion alert message. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Վստա՞հ եք, որ ցանկանում եք ջնջել այս հետագիծը։</string>
+    <!-- Placeholder for track name input on track edit screen -->
+    <string name="placepage_track_name_hint">Հետագծի անունը</string>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Տեղափոխել</string>
+    <!-- edit track screen title -->
+    <string name="track_title">Հետագիծ</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Փոխել գույնը</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Hide track</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Show track</string>
+    <!-- Main screen title "Map" displayed in the navigation back button's menu. -->
+    <string name="map">Քարտեզ</string>
+    <!-- Message for the bug report alert. -->
+    <string name="bugreport_alert_message">Ցանկանու՞մ եք ուղարկել սխալի մասին հաշվետվություն մշակողներին?\nՄենք ապավինում ենք մեր օգտատերերին, քանի որ Organic Maps-ը ավտոմատ կերպով չի հավաքում սխալների մասին տեղեկատվություն։ Կանխավ շնորհակալություն Organic Maps-ին աջակցելու համար!</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_title">Միացնել iCloud-ի համաժամացումը</string>
+    <!-- Message for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_message">iCloud-ի համաժամացումը մշակման փուլում գտնվող փորձնական գործառույթ է։ Համոզվեք, որ կատարել եք ձեր բոլոր էջանիշների և հետագծերի պահուստավորում։</string>
+    <!-- Title for the "iCloud Is Disabled" alert. -->
+    <string name="icloud_disabled_title">iCloud-ն անջատված է</string>
+    <!-- Message for the "iCloud is Disabled" alert. -->
+    <string name="icloud_disabled_message">Այս գործառույթից օգտվելու համար խնդրում ենք միացնել iCloud-ը ձեր սարքի կարգավորումներում։</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button. -->
+    <string name="enable">Միացնել</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Backup" action button. -->
+    <string name="backup">Պահուստավորել</string>
+    <!-- Title for the "iCloud synchronization failure" alert. -->
+    <string name="icloud_synchronization_error_alert_title">iCloud-ի համաժամացման ձախողում</string>
+    <!-- iCloud error message: Failed to synchronize due to connection error -->
+    <string name="icloud_synchronization_error_connection_error">Սխալ. Չհաջողվեց համաժամացնել կապի խափանման պատճառով</string>
+    <!-- iCloud error message: Failed to synchronize due to iCloud quota exceeded -->
+    <string name="icloud_synchronization_error_quota_exceeded">Սխալ. Չհաջողվեց համաժամացնել iCloud-ի քվոտայի գերազանցման պատճառով</string>
+    <!-- iCloud error message: iCloud is not available -->
+    <string name="icloud_synchronization_error_cloud_is_unavailable">Սխալ. iCloud-ը հասանելի չէ</string>
+    <!-- Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. -->
+    <string name="bookmarks_recently_deleted">Վերջերս ջնջված ցուցակներ</string>
+    <!-- Title for the "Clear" button on the Recently Deleted Lists screen. -->
+    <string name="clear">Մաքրել</string>
+    <!-- Title for the "Delete All" button on the Recently Deleted Lists screen. -->
+    <string name="delete_all">Ջնջել բոլորը</string>
+    <!-- Title for the "Recover" button on the Recently Deleted Lists screen. -->
+    <string name="recover">Վերականգնել</string>
+    <!-- Title for the "Recover All" button on the Recently Deleted Lists screen. -->
+    <string name="recover_all">Վերականգնել բոլորը</string>
+    <!-- OpenStreetMap contribution section on the PlacePage. -->
+    <string name="contribute_to_osm">Աջակցել OpenStreetMap-ին</string>
+    <string name="contribute_to_osm_add_place">Ավելացնել վայր</string>
+    <string name="contribute_to_osm_update_map">Թարմացնել քարտեզը աջակցելու համար</string>
+    <string name="contribute_to_osm_update_map_description">OpenStreetMap-ի տվյալներում ներդրում կատարելու համար անհրաժեշտ է թարմացնել %s քարտեզը մինչև վերջին տարբերակը</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">ՄԲ</string>
+    <string name="gb">ԳԲ</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Իմ դիրքը</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Իմ վայրերը</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Ներքին մասնավոր հիշողություն</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Ներքին ընդհանուր հիշողություն</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SD քարտ</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Արտաքին ընդհանուր հիշողություն</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Փոստային ինդեքս</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Կետ քարտեզի վրա</string>
+    <!-- abbreviation for meters -->
+    <string name="m">մ</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">կմ</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">մղ</string>
+    <!-- A unit of measure -->
+    <string name="ft">ֆուտ</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Երթուղիները ցուցադրելու համար քարտեզները պետք է թարմացվեն։</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Ելք</string>
+    <string name="core_entrance">Մուտք</string>
+    <string name="subway_data_unavailable">Մետրոյի քարտեզը հասանելի չէ</string>
+    <string name="you">Դուք</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Ներբեռնված մանուշակագույն տարածքներ</string>
+
+    <!-- SECTION: 3d touch strings -->
+    <!-- Used in home screen quick actions. -->
+    <string name="route">Երթուղի</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Needed to explain why we always require access to GPS coordinates, and not only when the app is active. -->
+    <string name="NSLocationAlwaysUsageDescription">Հավելվածի ֆունկցիոնալությունից լիարժեք օգտվելու համար անհրաժեշտ է տեղադիրքի հայտնաբերում ֆոնային ռեժիմում։ Այն օգտագործվում է նավիգացիայի և ձեր անցած հետագծի պահպանման համար։</string>
+    <!-- Needed to explain why we require access to GPS coordinates when the app is active. -->
+    <string name="NSLocationWhenInUseUsageDescription">Ձեր տեղադիրքի որոշումը անհրաժեշտ է նավիգացիայի և ձեր անցած հետագծի պահպանման համար։</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_credentials">Login with password</string>
+    <!-- Login to OSM button text -->
+    <string name="login_osm_browser">Login using Browser</string>
 </resources>

@@ -88,14 +88,28 @@
     <string name="maps_storage_summary">Chọn vị trí nơi bản đồ sẽ được tải về</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Bản đồ</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%1$s free of %2$s</string>
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">Di chuyển bản đồ?</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">Error moving map files</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
     <string name="wait_several_minutes">Việc này có thể mất vài phút.\nVui lòng đợi…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Đơn vị đo</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Chọn giữa dặm và kilômét</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">Huỷ bỏ Tải xuống</string>
+    <!-- Leave Review dialog - Review button -->
+    <string name="leave_a_review">Để lại Đánh giá</string>
+    <!-- Settings/Downloader - 3G download warning dialog confirm button -->
+    <string name="use_cellular_data">Có</string>
+    <!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+    <string name="country_status_download_without_size">Tải xuống Bản đồ</string>
+    <!-- "Bookmark Lists" dialog title -->
+    <string name="bookmark_sets">Đánh dấu Bộ</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
@@ -148,6 +162,7 @@
     <string name="description">Ghi chú</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Điểm đánh dấu Organic Maps được chia sẻ</string>
+    <string name="share_bookmarks_email_body">Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don\'t have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Tải Điểm đánh dấu</string>
     <!-- Kmz file successful loading -->
@@ -191,6 +206,10 @@
     <!-- Length of track in cell that describes route -->
     <string name="length">Độ dài</string>
     <string name="share_my_location">Chia sẻ Vị trí của tôi</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">General settings</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">Information</string>
     <string name="prefs_group_route">Điều hướng</string>
     <!-- Setting name which enables or disables zoom buttons on the map screen. -->
     <string name="pref_zoom_title">Nút + và - trên bản đồ</string>
@@ -227,6 +246,8 @@
     <string name="pref_map_auto_zoom">Ống dòm tự động</string>
     <string name="placepage_distance">Khoảng cách</string>
     <string name="search_show_on_map">Xem trên bản đồ</string>
+    <!-- Menu button -->
+    <string name="menu">Menu</string>
     <!-- Text in menu -->
     <string name="website">Trang web</string>
     <!-- Text in About menu, opens Organic Maps news website -->
@@ -327,14 +348,41 @@
     <string name="gray">Xám</string>
     <!-- blue gray color -->
     <string name="blue_gray">Xám xanh da trời</string>
+    <!-- place preview title -->
+    <string name="info">Thông tin</string>
+    <!-- Prints version number in About dialog -->
+    <string name="version">Phiên bản Organic Maps: %s</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Giao diện</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_light">Sáng</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Tối</string>
+    <!-- Title for "Other" section in TTS settings. -->
+    <string name="pref_tts_other_section_title">Khác</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Tặng bản đồ miễn phí không có quảng cáo cho hàng triệu người dùng!</string>
+    <!-- Button in the About screen -->
+    <string name="report_incorrect_map_bug">Báo cáo hoặc sửa dữ liệu bản đồ không chính xác</string>
+    <!-- Button in the About screen -->
+    <string name="volunteer">Tình nguyện</string>
+    <!-- "Social media" section header in the About screen -->
+    <string name="follow_us">Theo dõi và liên hệ với chúng tôi:</string>
+    <!-- Alert text -->
+    <string name="email_error_body">Trình khách email này chưa được thiết lập. Bạn vui lòng cấu hình nó hoặc sử dụng một cách khác để liên hệ với chúng tôi tại %s</string>
+    <!-- Alert title -->
+    <string name="email_error_title">Lỗi gửi thư</string>
+    <!-- Settings item title -->
+    <string name="pref_calibration_title">Chuẩn hóa la bàn</string>
+    <!-- Downloaded maps category -->
+    <string name="downloader_available_maps">Đã có</string>
+    <string name="downloader_search_results">Đã tìm thấy</string>
+    <!-- Status of outdated country in the list -->
+    <string name="downloader_status_outdated">Cập nhật</string>
+    <!-- Status of failed country in the list -->
+    <string name="downloader_status_failed">Thất bại</string>
+    <!-- bookmark button text -->
+    <string name="bookmark">yer i̇mi</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Khi đi theo tuyến đường, hãy lưu ý:</string>
@@ -365,6 +413,8 @@
     <string name="not_now">Lúc khác</string>
     <string name="dialog_routing_download_and_build_cross_route">Bạn có muốn tải về bản đồ và tạo một tuyến đường tối ưu hơn kéo dài trên nhiều hơn một bản đồ?</string>
     <string name="dialog_routing_download_cross_route">Tải về bản đồ để tạo tuyến đường tối ưu hơn mà đi qua cạnh của bản đồ này.</string>
+    <string name="dialog_routing_download_files">Tải xuống các tệp yêu cầu</string>
+    <string name="dialog_routing_download_and_update_all">Tải về và cập nhật tất cả các bản đồ và các thông tin tuyến đường dọc theo lộ trình dự kiến để tính toán tuyến đường.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Để bắt đầu tìm kiếm và tạo đường đi, vui lòng tải về bản đồ, và bạn sẽ không cần đến kết nối Internet nữa.</string>
@@ -381,6 +431,10 @@
     <string name="search_history_title">Lịch sử tìm kiếm</string>
     <string name="search_history_text">Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.</string>
     <string name="clear_search">Xóa Lịch sử Tìm kiếm</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Vị trí của bạn</string>
     <string name="p2p_start">Bắt đầu</string>
     <string name="p2p_from_here">Từ</string>
@@ -421,6 +475,8 @@
     <string name="day_off_today">Nghỉ hôm nay</string>
     <string name="day_off">Ngày nghỉ</string>
     <string name="today">Hôm nay</string>
+    <string name="opens_in">Opens in %s</string>
+    <string name="closes_in">Closes in %s</string>
     <string name="closed">Đã đóng</string>
     <string name="edit_opening_hours">Sửa giờ làm việc</string>
     <string name="no_osm_account">Bạn chưa có tài khoản tại OpenStreetMap ư?</string>
@@ -442,13 +498,18 @@
     <string name="building">Xây dựng</string>
     <!-- Text field to enter non-existing street name, below list of known streets around -->
     <string name="add_street">Thêm con đường</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">Please enter a street name</string>
     <string name="choose_language">Đã chọn ngôn ngữ</string>
     <string name="choose_street">Đã chọn con đường</string>
     <string name="cuisine">Ẩm thực</string>
     <string name="select_cuisine">Chọn Ẩm thực</string>
     <!-- login text field -->
     <string name="email_or_username">Email hoặc tên người dùng</string>
+    <string name="editor_add_phone">Add Phone</string>
     <string name="level">Tầng</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Level: %s</string>
     <string name="downloader_delete_map_dialog">Tất cả những thay đổi của bản đồ sẽ bị xóa cùng với bản đồ đó.</string>
     <string name="downloader_update_maps">Cập nhật các bản đồ</string>
     <string name="downloader_mwm_migration_dialog">Để tạo một tuyến đường, bạn cần cập nhật tất cả các bản đồ và sau đó lập lại tuyến đường.</string>
@@ -519,11 +580,20 @@
     <string name="editor_remove_place_message">Xóa một địa điểm đã thêm?</string>
     <string name="editor_remove_place_button">Xóa</string>
     <string name="editor_place_doesnt_exist">Địa điểm không tồn tại</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">Please indicate the reason for deleting the place</string>
     <!-- Phone number error message -->
     <string name="error_enter_correct_phone">Nhập chính xác số điện thoại</string>
     <string name="error_enter_correct_web">Nhập địa chỉ trang web hợp lệ</string>
     <string name="error_enter_correct_email">Nhập email hợp lệ</string>
+    <string name="error_enter_correct_facebook_page">Enter a valid Facebook web address, account, or page name</string>
+    <string name="error_enter_correct_instagram_page">Enter a valid Instagram username or web address</string>
+    <string name="error_enter_correct_twitter_page">Enter a valid Twitter username or web address</string>
+    <string name="error_enter_correct_vk_page">Enter a valid VK username or web address</string>
+    <string name="error_enter_correct_line_page">Enter a valid LINE ID or web address</string>
     <string name="placepage_add_place_button">Thêm địa điểm vào OpenStreetMap</string>
+    <string name="osm_note_hint">Or, alternatively, leave a note to OpenStreetMap community so that someone else can add or fix a place here.</string>
+    <string name="osm_note_toast">Note will be sent to OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Bạn có muốn gửi cho toàn bộ người dùng?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
@@ -566,6 +636,7 @@
     <string name="button_plan">Kế hoạch</string>
     <string name="placepage_remove_stop">Xóa điểm dừng</string>
     <string name="placepage_add_stop">Thêm điểm dừng</string>
+    <string name="saved">Saved</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Vui lòng đăng nhập vào OpenStreetMap để tự động tải lên tất cả các chỉnh sửa bản đồ của bạn. Tìm hiểu thêm <a href="https://github.com/organicmaps/organicmaps/issues/6144">tại đây</a>.</string>
     <string name="dialog_error_storage_title">Vấn đề truy cập ổ lưu trữ</string>
@@ -606,6 +677,10 @@
     <string name="privacy_policy">Chính sách bảo mật</string>
     <string name="terms_of_use">Điều khoảng sử dụng</string>
     <string name="button_layer_traffic">Giao thông</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Hiking</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Cycling</string>
     <string name="button_layer_subway">Xe điện ngầm</string>
     <string name="layers_title">Kiểu và lớp bản đồ</string>
     <string name="bookmarks_empty_list_title">Danh sách trống</string>
@@ -633,6 +708,11 @@
     <string name="power_managment_setting_never">Không bao giờ</string>
     <string name="power_managment_setting_auto">Tự động</string>
     <string name="power_managment_setting_manual_max">Tiết kiệm năng lượng tối đa</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Bookmark names on the map</string>
+    <string name="bookmarks_text_placement_description">If there are too many bookmarks, displaying their names on the map may slow down the app.</string>
+    <string name="show_to_the_right">Show to the right</string>
+    <string name="show_at_the_bottom">Show at the bottom</string>
     <string name="enable_logging_warning_message">Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ Organic Maps.</string>
     <string name="driving_options_title">Thiết lập đi vòng</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -683,6 +763,120 @@
     <string name="moreyear_ago_sorttype">Hơn một năm trước</string>
     <string name="near_me_sorttype">Ở gần tôi</string>
     <string name="others_sorttype">Khác</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Không thể Lập Lộ trình</string>
+    <!-- Arrive routing message in navigation view -->
+    <string name="routing_arrive">Đến: %s</string>
+    <!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+    <string name="dialog_routing_download_and_update_maps">Để tạo đường đi, vui lòng tải về và cập nhật tất cả bản đồ dọc theo tuyến đường.</string>
+    <string name="editor_done_dialog_1">Bạn đã thay đổi bản đồ thế giới. Đừng giấu điều đó! Hãy cho các bạn khác biết và cùng nhau chỉnh sửa.</string>
+    <string name="share_with_friends">Chia sẻ với bạn bè</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Hiện đã đóng</string>
+    <string name="opens_tomorrow_at">Opens tomorrow at %s</string>
+    <string name="opens_dayoftheweek_at">Opens %1$s at %2$s</string>
+    <string name="opens_at">Opens at %s</string>
+    <string name="closes_at">Closes at %s</string>
+    <string name="add_opening_hours">Thêm giờ làm việc</string>
+    <string name="password_8_chars_min">Mật khẩu (tối thiểu 8 ký tự)</string>
+    <string name="invalid_username_or_password">Sai Tên người dùng hoặc Mật khẩu.</string>
+    <string name="osm_account">Tài khoản OSM</string>
+    <!-- Information text: "Last upload 11.01.2016" -->
+    <string name="last_upload">Tải lên mới nhất</string>
+    <string name="thank_you">Cảm ơn bạn</string>
+    <string name="place_name">Tên địa điểm</string>
+    <string name="phone">Điện thoại</string>
+    <string name="please_note">Xin lưu ý</string>
+    <string name="migration_download_error_dialog">Lỗi tải xuống</string>
+    <string name="editor_add_select_category">Chọn thể loại</string>
+    <string name="editor_add_select_category_popular_subtitle">Phổ biến</string>
+    <string name="editor_add_select_category_all_subtitle">Mọi thể loại</string>
+    <string name="whatsnew_editor_message_1">Nhập các địa điểm mới vào bản đồ, và trực tiếp chỉnh sửa những địa điểm hiện có trên ứng dụng.</string>
+    <string name="dialog_incorrect_feature_position">Thay đổi địa điểm</string>
+    <!-- Error dialog no space -->
+    <string name="migration_no_space_message">Để tải xuống, bạn cần thêm dung lượng. Xin xóa mọi dữ liệu không cần thiết.</string>
+    <string name="editor_sharing_title">Tôi đã cải thiện các bản đồ Organic Maps</string>
+    <string name="editor_detailed_description_hint">Nhận xét chi tiết</string>
+    <string name="editor_detailed_description">Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong Organic Maps.</string>
+    <string name="current_location_unknown_error_message">Có lỗi khi tìm kiếm địa điểm của bạn. Đảm bảo rằng thiết bị của bạn hoạt động tốt và thử lại sau.</string>
+    <string name="location_services_disabled_header">Chức năng nhận biết địa điểm bị tắt</string>
+    <string name="location_services_disabled_message">Bật truy cập định vị địa lý trong thiết lập thiết bị</string>
+    <string name="location_services_disabled_1">1. Mở Thiết lập</string>
+    <string name="location_services_disabled_2">2. Chạm mục Địa điểm</string>
+    <!-- iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) -->
+    <string name="location_services_disabled_3">3. Chọn Khi Đang Dùng Ứng dụng</string>
+    <string name="location_services_disabled_on_device_2">2. Chọn Quyền riêng tư</string>
+    <string name="location_services_disabled_on_device_3">3. Chọn Dịch vụ định vị</string>
+    <string name="location_services_disabled_on_device_4">4. Bật Dịch vụ định vị</string>
+    <string name="location_services_disabled_on_device_additional_message">Hoặc tiếp tục sử dụng Bản đồ không phải trả tiền mà không có Vị trí</string>
+    <string name="book_button">Đặt trước</string>
+    <string name="placepage_call_button">Gọi</string>
+    <string name="placepage_bookmark_name_hint">Tên Dấu Trang</string>
+    <string name="placepage_delete_bookmark_button">Xóa Dấu Trang</string>
+    <string name="editor_edits_sent_message">Ghi chú của bạn sẽ được gửi tới OpenStreetMap</string>
+    <string name="text_more_button">…thêm</string>
+    <string name="refresh">Cập nhật</string>
+    <!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+    <string name="recent_track_background_dialog_title">Tắt ghi lại tuyến đường đã đi gần đây của bạn?</string>
+    <string name="off_recent_track_background_button">Tắt</string>
+    <!-- For sharing via SMS and so on -->
+    <string name="sharing_call_action_look">Xem</string>
+    <string name="recent_track_background_dialog_message">Organic Maps sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.</string>
+    <string name="general_settings">Thiết lập chung</string>
+    <!-- "traffic" as in road congestion -->
+    <string name="traffic_update_app_message">Để hiển thị dữ liệu giao thông, ứng dụng cần phải được cập nhật.</string>
+    <string name="log_file_size">Kích thước tệp nhật ký: %s</string>
+    <string name="planning_route_remove_title">Kéo vào đây để xóa</string>
+    <string name="placepage_replace_stop">Replace Stop</string>
+    <string name="start_from_my_position">Bắt đầu từ</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part -->
+    <string name="alert_reauth_message_ios">Vui lòng đăng nhập vào OpenStreetMap để tự động tải lên tất cả các chỉnh sửa bản đồ của bạn. Tìm hiểu thêm</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part -->
+    <string name="alert_reauth_link_text_ios">tại đây</string>
+    <string name="downloader_hide_screen">Ẩn Màn hình</string>
+    <string name="downloader_percent">%1$s (%2$s / %3$s)</string>
+    <string name="downloader_process">Tải về %s…</string>
+    <string name="downloader_applying">Áp dụng %s…</string>
+    <string name="bookmarks_error_title_list_name_too_long">Tên này quá dài</string>
+    <string name="bookmarks_detect_title">Đã phát hiện tệp mới</string>
+    <string name="button_convert">Chuyển đổi</string>
+    <string name="bookmarks_convert_error_title">Lỗi</string>
+    <string name="bookmarks_convert_error_message">Một số tệp không được chuyển đổi.</string>
+    <string name="title_error_downloading_bookmarks">Đã xảy ra lỗi</string>
+    <string name="popular_place">Popular</string>
+    <string name="hide_from_map">Ẩn từ bản đồ</string>
+    <string name="tags_loading_error_subtitle">Đã xảy ra lỗi khi tải thẻ, vui lòng thử lại</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (on the right) -->
+    <string name="right">Right</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (at the bottom) -->
+    <string name="bottom">Bottom</string>
+    <string name="trip_start">Đi nào</string>
+    <string name="pick_destination">Mục đích</string>
+    <string name="follow_my_position">Định tâm</string>
+    <string name="search_results">Kết quả tìm kiếm</string>
+    <string name="then_turn">Sau đó</string>
+    <string name="redirect_route_alert">Bạn có muốn tạo lại tuyến không?</string>
+    <string name="keyboard_availability_alert">Bàn phím không khả dụng trong thời gian di chuyển</string>
+    <string name="dialog_routing_change_start_carplay">Không thể tạo tuyến đường từ địa điểm hiển tại</string>
+    <string name="dialog_routing_change_end_carplay">Không thể tạo tuyến đường tới điểm kết cuối. Hãy chọn điểm khác</string>
+    <string name="dialog_routing_check_gps_carplay">Không có tín hiệu GPS. Hãy đến vị trí có không gian mở</string>
+    <string name="dialog_routing_unable_locate_route_carplay">Không thể tạo tuyến đường. Hãy chọn những điểm khác cho tuyến đường</string>
+    <string name="dialog_routing_download_files_carplay">Để tạo tuyến đường, hãy tải xuống các bản đồ còn thiếu về thiết bị</string>
+    <string name="dialog_routing_system_error_carplay">Đã xảy ra lỗi. Khởi động lại ứng dụng</string>
+    <string name="dialog_routing_rebuild_from_current_location_carplay">Tuyến đường sẽ được tạo lại từ vị trí hiện tại của bạn</string>
+    <string name="dialog_routing_rebuild_for_vehicle_carplay">Tuyến đường sẽ được thay đổi thành tuyến dành cho xe ô tô</string>
+    <string name="not_all_shown_bookmarks_carplay">Không phải tất cả dấu trang đều được hiển thị</string>
+    <string name="switch_to_phone_bookmarks_carplay">Chuyển sang điện thoại để xem tất cả dấu trang</string>
+    <string name="speedcams_alert_title_carplay_1">Сam tốc độ</string>
+    <string name="speedcams_alert_title_carplay_2">Cảnh báo tốc độ</string>
+    <string name="download_map_carplay">Vui lòng tải xuống bản đồ trong ứng dụng Organic Maps trên thiết bị của bạn</string>
+    <string name="carplay_roundabout_exit">Lối ra %s của vòng xuyến</string>
+    <!-- iOS -->
+    <string name="sort_default">Sắp xếp theo mặc định</string>
+    <string name="sort_type">Sắp xếp theo kiểu</string>
+    <string name="sort_distance">Sắp xếp theo khoảng cách</string>
+    <string name="sort_date">Sắp xếp theo ngày</string>
+    <string name="sort_name">Sắp xếp theo tên</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Đồ ăn</string>
@@ -717,11 +911,38 @@
     <string name="elevation_profile_time">Giờ:</string>
     <string name="isolines_toast_zooms_1_10">Phóng bản đồ để nhìn rõ đường đồng mức</string>
     <string name="downloader_loading_ios">Tải xuống</string>
+    <string name="download_map_title">Download the world overview map</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">Unable to create folder and move files on internal device\'s memory or sdcard</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">Disk error</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">Connection failure</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">Disconnect USB cable</string>
     <string name="enable_keep_screen_on">Giữ màn hình luôn bật</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Khi được bật, màn hình sẽ luôn sáng khi hiển thị bản đồ.</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">Show on the lock screen</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">When enabled, the app will work on the lockscreen even when the device is locked.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Map language</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Dữ liệu bản đồ từ OpenStreetMap</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <!-- Link to OSM wiki for Editor, Profile and About pages -->
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Cảm ơn bạn đã sử dụng bản đồ do cộng đồng xây dựng của chúng tôi!</string>
     <!-- App tip #01 -->
@@ -812,8 +1033,127 @@
     <string name="nav_auto">Tự động điều hướng</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Theo hệ thống</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Share Track</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Delete %s?</string>
+    <string name="elevation_profile_diff_level">Mức độ phức tạp</string>
+    <string name="elevation_profile_diff_level_easy">Dễ</string>
+    <string name="elevation_profile_diff_level_moderate">Trung bình</string>
+    <string name="elevation_profile_diff_level_hard">Khó</string>
+    <string name="downloader_updating_ios">Cập nhật</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_title">Cập nhật các bản đồ đã tải về của bạn</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_message">Cập nhật bản đồ để cập nhật thông tin về các đối tượng trên đó</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_size">Cập nhật (%s)</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_later">Cập nhật thủ công sau</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Delete Track</string>
+    <!-- The track deletion confirmaion alert message. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Bạn có chắc chắn muốn xóa bản nhạc này không?</string>
+    <!-- Placeholder for track name input on track edit screen -->
+    <string name="placepage_track_name_hint">Track Name</string>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Move</string>
+    <!-- edit track screen title -->
+    <string name="track_title">Dấu chân</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Thay đổi màu sắc</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Ẩn bản nhạc</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Hiển thị bản nhạc</string>
+    <!-- Main screen title "Map" displayed in the navigation back button's menu. -->
+    <string name="map">Bản đồ</string>
+    <!-- Message for the bug report alert. -->
+    <string name="bugreport_alert_message">Bạn có muốn gửi báo cáo lỗi cho nhà phát triển không?\nChúng tôi dựa vào người dùng của mình vì Bản đồ không phải trả tiền không tự động thu thập bất kỳ thông tin lỗi nào. Cảm ơn bạn trước vì đã ủng hộ Organic Maps!</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_title">Kích hoạt đồng bộ hóa iCloud</string>
+    <!-- Message for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_message">Đồng bộ hóa iCloud là một tính năng thử nghiệm đang được phát triển. Đảm bảo rằng bạn đã tạo bản sao lưu tất cả dấu trang và bản nhạc của mình.</string>
+    <!-- Title for the "iCloud Is Disabled" alert. -->
+    <string name="icloud_disabled_title">iCloud bị vô hiệu hóa</string>
+    <!-- Message for the "iCloud is Disabled" alert. -->
+    <string name="icloud_disabled_message">Vui lòng bật iCloud trong cài đặt thiết bị của bạn để sử dụng tính năng này.</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button. -->
+    <string name="enable">Cho phép</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Backup" action button. -->
+    <string name="backup">Hỗ trợ</string>
+    <!-- Title for the "iCloud synchronization failure" alert. -->
+    <string name="icloud_synchronization_error_alert_title">Lỗi đồng bộ hóa iCloud</string>
+    <!-- iCloud error message: Failed to synchronize due to connection error -->
+    <string name="icloud_synchronization_error_connection_error">Lỗi: Không đồng bộ được do lỗi kết nối</string>
+    <!-- iCloud error message: Failed to synchronize due to iCloud quota exceeded -->
+    <string name="icloud_synchronization_error_quota_exceeded">Lỗi: Không thể đồng bộ hóa do vượt quá hạn ngạch iCloud</string>
+    <!-- iCloud error message: iCloud is not available -->
+    <string name="icloud_synchronization_error_cloud_is_unavailable">Lỗi: iCloud không khả dụng</string>
+    <!-- Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. -->
+    <string name="bookmarks_recently_deleted">Danh sách đã xóa gần đây</string>
+    <!-- Title for the "Clear" button on the Recently Deleted Lists screen. -->
+    <string name="clear">Xóa</string>
+    <!-- Title for the "Delete All" button on the Recently Deleted Lists screen. -->
+    <string name="delete_all">Xóa hết</string>
+    <!-- Title for the "Recover" button on the Recently Deleted Lists screen. -->
+    <string name="recover">Khôi phục</string>
+    <!-- Title for the "Recover All" button on the Recently Deleted Lists screen. -->
+    <string name="recover_all">Khôi phục tất cả</string>
+    <!-- OpenStreetMap contribution section on the PlacePage. -->
+    <string name="contribute_to_osm">Đóng góp cho OpenStreetMap</string>
+    <string name="contribute_to_osm_add_place">Thêm địa điểm</string>
+    <string name="contribute_to_osm_update_map">Cập nhật bản đồ để đóng góp</string>
+    <string name="contribute_to_osm_update_map_description">Bạn cần cập nhật bản đồ %s lên phiên bản mới nhất trước khi có thể đóng góp cho dữ liệu OpenStreetMap</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Vị trí của Tôi</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Các Địa chỉ của Tôi</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Internal private storage</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Internal shared storage</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SD card</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">External shared storage</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Mã bưu chính</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Điểm bản đồ</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">dặm</string>
+    <!-- A unit of measure -->
+    <string name="ft">ft</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">To display routes, maps must be updated.</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Lối ra</string>
+    <string name="core_entrance">Lối vào</string>
+    <string name="subway_data_unavailable">Bản đồ tàu điện ngầm không khả dụng</string>
+    <string name="you">Bạn</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Vùng đã tải về màu tím</string>
+
+    <!-- SECTION: 3d touch strings -->
+    <!-- Used in home screen quick actions. -->
+    <string name="route">Tuyến đường</string>
 
     <!-- SECTION: gps strings -->
+    <!-- Needed to explain why we always require access to GPS coordinates, and not only when the app is active. -->
+    <string name="NSLocationAlwaysUsageDescription">Xác định vị trí hiện tại ở trạng thái nền là cần thiết để tận hưởng đầy đủ chức năng của ứng dụng. Nó được sử dụng trong các tùy chọn để đi theo tuyến đường và lưu đường đi gần đây của bạn</string>
+    <!-- Needed to explain why we require access to GPS coordinates when the app is active. -->
+    <string name="NSLocationWhenInUseUsageDescription">Xác định vị trí hiện tại được sử dụng trong các tùy chọn theo tuyến đường và lưu đường đi gần đây của bạn.</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Đăng nhập bằng mật khẩu</string>
     <!-- Login to OSM button text -->

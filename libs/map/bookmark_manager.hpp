@@ -410,8 +410,8 @@ public:
   void SetElevationMyPositionChangedCallback(ElevationMyPositionChangedCallback const & cb);
 
   using TracksFilter = std::function<bool(Track const * track)>;
-  Track::TrackSelectionInfo FindNearestTrack(m2::RectD const & touchRect,
-                                             TracksFilter const & tracksFilter = nullptr) const;
+  Track::TrackSelectionInfo FindNearestVisibleTrack(m2::RectD const & touchRect,
+                                                    TracksFilter const & tracksFilter = nullptr) const;
   Track::TrackSelectionInfo GetTrackSelectionInfo(kml::TrackId const & trackId) const;
 
   void SetTrackSelectionInfo(Track::TrackSelectionInfo const & trackSelectionInfo, bool notifyListeners);

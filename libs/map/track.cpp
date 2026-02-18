@@ -169,6 +169,11 @@ float Track::GetWidth(size_t layerIndex) const
   return static_cast<float>(m_data.m_layers[layerIndex].m_lineWidth);
 }
 
+bool Track::IsVisible() const
+{
+  return m_data.m_visible;
+}
+
 float Track::GetDepth(size_t layerIndex) const
 {
   return layerIndex * 10;

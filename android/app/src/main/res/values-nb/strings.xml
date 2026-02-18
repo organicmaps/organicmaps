@@ -100,6 +100,16 @@
     <string name="measurement_units">Måleenheter</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Velg mellom miles og kilometer</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">Avbryt nedlasting</string>
+    <!-- Leave Review dialog - Review button -->
+    <string name="leave_a_review">Legg inn en vurdering</string>
+    <!-- Settings/Downloader - 3G download warning dialog confirm button -->
+    <string name="use_cellular_data">Ja</string>
+    <!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+    <string name="country_status_download_without_size">Last ned kart</string>
+    <!-- "Bookmark Lists" dialog title -->
+    <string name="bookmark_sets">Bokmerk sett</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
@@ -338,14 +348,41 @@
     <string name="gray">Grå</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gråblå</string>
+    <!-- place preview title -->
+    <string name="info">Informasjon</string>
+    <!-- Prints version number in About dialog -->
+    <string name="version">Organic Maps versjon: %s</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Utseende</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_light">Lys</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Mørke</string>
+    <!-- Title for "Other" section in TTS settings. -->
+    <string name="pref_tts_other_section_title">Andre</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Gi gratis kart uten reklame til millioner av brukere!</string>
+    <!-- Button in the About screen -->
+    <string name="report_incorrect_map_bug">Rapportere eller korrigere feil kartdata</string>
+    <!-- Button in the About screen -->
+    <string name="volunteer">Frivillig arbeid</string>
+    <!-- "Social media" section header in the About screen -->
+    <string name="follow_us">Følg og kontakt oss:</string>
+    <!-- Alert text -->
+    <string name="email_error_body">E-postklienten har ikke blitt konfigurert. Konfigurer den eller bruk en annen måte å kontakte oss på %s</string>
+    <!-- Alert title -->
+    <string name="email_error_title">Feil ved sending av e-post</string>
+    <!-- Settings item title -->
+    <string name="pref_calibration_title">Kompasskalibrering</string>
+    <!-- Downloaded maps category -->
+    <string name="downloader_available_maps">Tilgjengelig</string>
+    <string name="downloader_search_results">Funnet</string>
+    <!-- Status of outdated country in the list -->
+    <string name="downloader_status_outdated">Oppdatering</string>
+    <!-- Status of failed country in the list -->
+    <string name="downloader_status_failed">Mislyktes</string>
+    <!-- bookmark button text -->
+    <string name="bookmark">bokmerk</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Husk følgende når du følger ruten:</string>
@@ -376,6 +413,8 @@
     <string name="not_now">Ikke nå</string>
     <string name="dialog_routing_download_and_build_cross_route">Vil du laste ned kartet og lage en mer optimal rute som går over flere kart?</string>
     <string name="dialog_routing_download_cross_route">Last ned kartet for å opprette en mer optimal rute som går utenfor dette kartet.</string>
+    <string name="dialog_routing_download_files">Last ned nødvendige filer</string>
+    <string name="dialog_routing_download_and_update_all">Last ned og oppdater all kart- og ruteinformasjon langs den foreslåtte veien for å beregne ruten.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Last vennligst ned kartet for å begynne å søke og opprette ruter - så slipper du i fremtiden å være avhengig av å ha internettforbindelse.</string>
@@ -392,6 +431,10 @@
     <string name="search_history_title">Søkehistorikk</string>
     <string name="search_history_text">Vis de siste søkene raskt.</string>
     <string name="clear_search">Tøm søkehistorikk</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Din beliggenhet</string>
     <string name="p2p_start">Start</string>
     <string name="p2p_from_here">Fra</string>
@@ -722,6 +765,120 @@
     <string name="moreyear_ago_sorttype">Mer enn ett år siden</string>
     <string name="near_me_sorttype">Nær meg</string>
     <string name="others_sorttype">Andre</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Mislykket ruteplanlegging</string>
+    <!-- Arrive routing message in navigation view -->
+    <string name="routing_arrive">Ankomme: %s</string>
+    <!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+    <string name="dialog_routing_download_and_update_maps">Hvis du vil oppprette en rute, last ned og oppdater alle kartene langs ruten.</string>
+    <string name="editor_done_dialog_1">Du har endret verdenskartet. Ikke skjul denne! Fortell vennene dine, og rediger det sammen.</string>
+    <string name="share_with_friends">Del med venner</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Lukket nå</string>
+    <string name="opens_tomorrow_at">Åpner i morgen klokka %s</string>
+    <string name="opens_dayoftheweek_at">Åpner %1$s klokka %2$s</string>
+    <string name="opens_at">Åpner klokka %s</string>
+    <string name="closes_at">Stenger %s</string>
+    <string name="add_opening_hours">Legg til åpningstider</string>
+    <string name="password_8_chars_min">Passord (minimum 8 tegn)</string>
+    <string name="invalid_username_or_password">Ugyldig brukernavn eller passord.</string>
+    <string name="osm_account">OSM-konto</string>
+    <!-- Information text: "Last upload 11.01.2016" -->
+    <string name="last_upload">Siste opplasting</string>
+    <string name="thank_you">Takk skal du ha</string>
+    <string name="place_name">Stedsnavn</string>
+    <string name="phone">Telefon</string>
+    <string name="please_note">Vær oppmerksom på at</string>
+    <string name="migration_download_error_dialog">Nedlastningsfeil</string>
+    <string name="editor_add_select_category">Velg kategori</string>
+    <string name="editor_add_select_category_popular_subtitle">Populære</string>
+    <string name="editor_add_select_category_all_subtitle">Alle kategorier</string>
+    <string name="whatsnew_editor_message_1">Legg til nye steder i kartet og rediger eksisterende steder direkte fra appen.</string>
+    <string name="dialog_incorrect_feature_position">Endre plassering</string>
+    <!-- Error dialog no space -->
+    <string name="migration_no_space_message">Du må frigjøre mer lagringsplass for å laste ned. Slett unødvendig data.</string>
+    <string name="editor_sharing_title">Jeg har forbedret Organic Maps kartene</string>
+    <string name="editor_detailed_description_hint">Detaljert kommentar</string>
+    <string name="editor_detailed_description">De foreslåtte endringene vil sendes til OpenStreetMap-gruppen. Beskriv detaljene som ikke kan redigeres i Organic Maps.</string>
+    <string name="current_location_unknown_error_message">Det oppstod en feil under søking etter plasseringen din. Kontroller at plasseringen din virker som den skal, og prøv på nytt senere.</string>
+    <string name="location_services_disabled_header">Lokalisering er deaktivert</string>
+    <string name="location_services_disabled_message">Tillat bruk av av geografisk lokalisering i enhetens innstillinger</string>
+    <string name="location_services_disabled_1">1. Åpne Innstillinger</string>
+    <string name="location_services_disabled_2">2. Trykk Lokalisering</string>
+    <!-- iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) -->
+    <string name="location_services_disabled_3">3.Velg når appen er i bruk</string>
+    <string name="location_services_disabled_on_device_2">2. Velg Personvern</string>
+    <string name="location_services_disabled_on_device_3">3. Velg Stedstjenester</string>
+    <string name="location_services_disabled_on_device_4">4. Slå på Stedstjenester</string>
+    <string name="location_services_disabled_on_device_additional_message">Eller fortsett å bruke Organic Maps uten plassering</string>
+    <string name="book_button">Bestill</string>
+    <string name="placepage_call_button">Ring</string>
+    <string name="placepage_bookmark_name_hint">Bokmerkenavn</string>
+    <string name="placepage_delete_bookmark_button">Slett bokmerke</string>
+    <string name="editor_edits_sent_message">Notatet ditt vil bli sendt til OpenStreetMap</string>
+    <string name="text_more_button">…mer</string>
+    <string name="refresh">Oppdatere</string>
+    <!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+    <string name="recent_track_background_dialog_title">Deaktivere opptak av nylig reiste rute?</string>
+    <string name="off_recent_track_background_button">Deaktiver</string>
+    <!-- For sharing via SMS and so on -->
+    <string name="sharing_call_action_look">Sjekk ut</string>
+    <string name="recent_track_background_dialog_message">Organic Maps bruker geografiske funksjoner i bakgrunnen for å registrere din nylig reiste rute.</string>
+    <string name="general_settings">Generelle innstillinger</string>
+    <!-- "traffic" as in road congestion -->
+    <string name="traffic_update_app_message">Du må oppdatere applikasjonen for å kunne se trafikkdata.</string>
+    <string name="log_file_size">Loggfilstørrelse: %s</string>
+    <string name="planning_route_remove_title">Dra hit for å fjerne</string>
+    <string name="placepage_replace_stop">Erstatt stopp</string>
+    <string name="start_from_my_position">Start fra</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part -->
+    <string name="alert_reauth_message_ios">Logg inn på OpenStreetMap for automatisk å laste opp alle kartredigeringene dine. Finn ut mer</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part -->
+    <string name="alert_reauth_link_text_ios">her</string>
+    <string name="downloader_hide_screen">Skjul skjerm</string>
+    <string name="downloader_percent">%1$s (%2$s av %3$s)</string>
+    <string name="downloader_process">Laster ned %s …</string>
+    <string name="downloader_applying">Bruker %s …</string>
+    <string name="bookmarks_error_title_list_name_too_long">Dette navnet er for langt</string>
+    <string name="bookmarks_detect_title">Nye filer oppdaget</string>
+    <string name="button_convert">Konvertere</string>
+    <string name="bookmarks_convert_error_title">Feil</string>
+    <string name="bookmarks_convert_error_message">Noen filer ble ikke konvertert.</string>
+    <string name="title_error_downloading_bookmarks">Det oppsto en feil</string>
+    <string name="popular_place">Populær</string>
+    <string name="hide_from_map">Skjul fra kart</string>
+    <string name="tags_loading_error_subtitle">Det oppsto en feil under lasting av emneknagger, prøv igjen</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (on the right) -->
+    <string name="right">Høyre</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (at the bottom) -->
+    <string name="bottom">Bunn</string>
+    <string name="trip_start">La oss begynne</string>
+    <string name="pick_destination">Destinasjon</string>
+    <string name="follow_my_position">Sentrer</string>
+    <string name="search_results">Søkeresultater</string>
+    <string name="then_turn">Deretter</string>
+    <string name="redirect_route_alert">Vil du planlegge en rute på nytt?</string>
+    <string name="keyboard_availability_alert">Tastatur er ikke tilgjengelig mens en kjører</string>
+    <string name="dialog_routing_change_start_carplay">Kan ikke planlegge rute fra din nåværende posisjon</string>
+    <string name="dialog_routing_change_end_carplay">Kan ikke planlegge rute til din nåværende posisjon. Vennligst velg en annen posisjon</string>
+    <string name="dialog_routing_check_gps_carplay">Ingen GPS-signal. Vennligst gå til et åpent område</string>
+    <string name="dialog_routing_unable_locate_route_carplay">Kan ikke planlegge rute. Vennligst spesifiser en annen posisjon for rute</string>
+    <string name="dialog_routing_download_files_carplay">For å beregne rute last ned manglende kart på enheten din</string>
+    <string name="dialog_routing_system_error_carplay">Feil oppstod. Vennligst restart appen</string>
+    <string name="dialog_routing_rebuild_from_current_location_carplay">Rute vil planlegges fra din nåværende posisjon</string>
+    <string name="dialog_routing_rebuild_for_vehicle_carplay">Rute vil oppdateres til kjørerute</string>
+    <string name="not_all_shown_bookmarks_carplay">Ikke alle bokmerker vises</string>
+    <string name="switch_to_phone_bookmarks_carplay">Bytt til telefonen for å se alle bokmerker</string>
+    <string name="speedcams_alert_title_carplay_1">Kamera-info</string>
+    <string name="speedcams_alert_title_carplay_2">Kamera-advarsel</string>
+    <string name="download_map_carplay">Vennligst last ned kart i Organic Maps appen på enheten din</string>
+    <string name="carplay_roundabout_exit">%s avkjøring</string>
+    <!-- iOS -->
+    <string name="sort_default">Sortere som standard</string>
+    <string name="sort_type">Sortere etter type</string>
+    <string name="sort_distance">Sortere etter avstand</string>
+    <string name="sort_date">Sortere etter dato</string>
+    <string name="sort_name">Sorter etter navn</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Mat</string>
@@ -776,6 +933,18 @@
     <string name="change_map_locale">Kart-språk</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Kartdata fra OpenStreetMap</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <!-- Link to OSM wiki for Editor, Profile and About pages -->
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Takk for at du bruker kartene vi har laget i fellesskap!</string>
     <!-- App tip #01 -->
@@ -870,8 +1039,123 @@
     <string name="share_track">Del spor</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Slett %s?</string>
+    <string name="elevation_profile_diff_level">Vanskelighetsgrad</string>
+    <string name="elevation_profile_diff_level_easy">Lett</string>
+    <string name="elevation_profile_diff_level_moderate">Middels</string>
+    <string name="elevation_profile_diff_level_hard">Vanskelig</string>
+    <string name="downloader_updating_ios">Oppdatering</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_title">Oppdater dine nedlastede kart</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_message">Ved å oppdatere kart holder du også informasjonen om ulike elementer oppdatert</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_size">Oppdater (%s)</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_later">Oppdater manuelt senere</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Slett rute</string>
+    <!-- The track deletion confirmaion alert message. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Er du sikker på at du vil slette dette sporet?</string>
+    <!-- Placeholder for track name input on track edit screen -->
+    <string name="placepage_track_name_hint">Rutenavn</string>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Flytt</string>
+    <!-- edit track screen title -->
+    <string name="track_title">Rute</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Endre farge</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Skjul spor</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Vis spor</string>
+    <!-- Main screen title "Map" displayed in the navigation back button's menu. -->
+    <string name="map">Kart</string>
+    <!-- Message for the bug report alert. -->
+    <string name="bugreport_alert_message">Vil du sende en feilrapport til utviklerne?\nVi er avhengige av brukerne våre, da Organic Maps ikke samler inn noen feilinformasjon automatisk. Takk på forhånd for at du støtter Organic Maps!</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_title">Aktiver iCloud-synkronisering</string>
+    <!-- Message for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_message">iCloud-synkronisering er en eksperimentell funksjon under utvikling. Sørg for at du har tatt en sikkerhetskopi av alle bokmerkene og sporene dine.</string>
+    <!-- Title for the "iCloud Is Disabled" alert. -->
+    <string name="icloud_disabled_title">iCloud er deaktivert</string>
+    <!-- Message for the "iCloud is Disabled" alert. -->
+    <string name="icloud_disabled_message">Aktiver iCloud i enhetens innstillinger for å bruke denne funksjonen.</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button. -->
+    <string name="enable">Aktivere</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Backup" action button. -->
+    <string name="backup">Sikkerhetskopiering</string>
+    <!-- Title for the "iCloud synchronization failure" alert. -->
+    <string name="icloud_synchronization_error_alert_title">iCloud-synkroniseringsfeil</string>
+    <!-- iCloud error message: Failed to synchronize due to connection error -->
+    <string name="icloud_synchronization_error_connection_error">Feil: Kunne ikke synkronisere på grunn av tilkoblingsfeil</string>
+    <!-- iCloud error message: Failed to synchronize due to iCloud quota exceeded -->
+    <string name="icloud_synchronization_error_quota_exceeded">Feil: Kunne ikke synkronisere på grunn av overskredet iCloud-kvote</string>
+    <!-- iCloud error message: iCloud is not available -->
+    <string name="icloud_synchronization_error_cloud_is_unavailable">Feil: iCloud er ikke tilgjengelig</string>
+    <!-- Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. -->
+    <string name="bookmarks_recently_deleted">Nylig slettede lister</string>
+    <!-- Title for the "Clear" button on the Recently Deleted Lists screen. -->
+    <string name="clear">Fjern</string>
+    <!-- Title for the "Delete All" button on the Recently Deleted Lists screen. -->
+    <string name="delete_all">Slett alle</string>
+    <!-- Title for the "Recover" button on the Recently Deleted Lists screen. -->
+    <string name="recover">Gjenopprette</string>
+    <!-- Title for the "Recover All" button on the Recently Deleted Lists screen. -->
+    <string name="recover_all">Gjenopprett alt</string>
+    <!-- OpenStreetMap contribution section on the PlacePage. -->
+    <string name="contribute_to_osm">Bidra til OpenStreetMap</string>
+    <string name="contribute_to_osm_add_place">Legg til sted</string>
+    <string name="contribute_to_osm_update_map">Oppdater kartet for å bidra</string>
+    <string name="contribute_to_osm_update_map_description">Du må oppdatere %s-kartet til den nyeste versjonen før du kan bidra til OpenStreetMap-dataene</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Min posisjon</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Mine steder</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Intern privat lagring</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Intern delt lagring</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SD-kort</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Ekstern delt lagring</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Postnummer</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Kartpunkt</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">fot</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">For å vise ruter må kartene være oppdaterte.</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Avslutt</string>
+    <string name="core_entrance">Inngang</string>
+    <string name="subway_data_unavailable">T-banekart er utilgjengelig</string>
+    <string name="you">Du</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Lilla nedlastede regioner</string>
+
+    <!-- SECTION: 3d touch strings -->
+    <!-- Used in home screen quick actions. -->
+    <string name="route">Rute</string>
 
     <!-- SECTION: gps strings -->
+    <!-- Needed to explain why we always require access to GPS coordinates, and not only when the app is active. -->
+    <string name="NSLocationAlwaysUsageDescription">Det er nødvendig å fastslå den gjeldende posisjonen i bakgrunnen for å utnytte appens funksjonalitet til fulle. Dette brukes når en rute skal følges og når den siste reiseruten din skal lagres.</string>
+    <!-- Needed to explain why we require access to GPS coordinates when the app is active. -->
+    <string name="NSLocationWhenInUseUsageDescription">Definerer nåværende plassering brukes i alternativene hvor man følger ruten og lagrer din nylige reiseretning.</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Logg inn med passord</string>
     <!-- Login to OSM button text -->

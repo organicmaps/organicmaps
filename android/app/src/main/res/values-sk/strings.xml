@@ -100,6 +100,16 @@
     <string name="measurement_units">Meracie jednotky</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Vyberte si míle alebo kilometre</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">Zrušiť sťahovanie</string>
+    <!-- Leave Review dialog - Review button -->
+    <string name="leave_a_review">Spätná väzba</string>
+    <!-- Settings/Downloader - 3G download warning dialog confirm button -->
+    <string name="use_cellular_data">Áno</string>
+    <!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+    <string name="country_status_download_without_size">Stiahnite si mapu</string>
+    <!-- "Bookmark Lists" dialog title -->
+    <string name="bookmark_sets">Skupiny záložiek</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
@@ -338,14 +348,41 @@
     <string name="gray">Sivá</string>
     <!-- blue gray color -->
     <string name="blue_gray">Modro sivá</string>
+    <!-- place preview title -->
+    <string name="info">Viac informácií</string>
+    <!-- Prints version number in About dialog -->
+    <string name="version">Verzia Organic Maps: %s</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Vzhľad</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_light">Svetlý</string>
     <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
     <string name="pref_appearance_dark">Tmavý</string>
+    <!-- Title for "Other" section in TTS settings. -->
+    <string name="pref_tts_other_section_title">Iný</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Darujte bezplatné mapy bez reklám miliónom používateľov!</string>
+    <!-- Button in the About screen -->
+    <string name="report_incorrect_map_bug">Nahlásenie alebo oprava nesprávnych údajov mapy</string>
+    <!-- Button in the About screen -->
+    <string name="volunteer">Dobrovoľníctvo</string>
+    <!-- "Social media" section header in the About screen -->
+    <string name="follow_us">Sledujte nás a kontaktujte nás:</string>
+    <!-- Alert text -->
+    <string name="email_error_body">Emailový klient nebol nastavený. Nakonfigurujte ho prosím alebo použite iný spôsob k tomu, abyste nás kontaktovali na %s</string>
+    <!-- Alert title -->
+    <string name="email_error_title">Chyba pri odosielaní emailu</string>
+    <!-- Settings item title -->
+    <string name="pref_calibration_title">Kalibrácia kompasu</string>
+    <!-- Downloaded maps category -->
+    <string name="downloader_available_maps">Dostupné</string>
+    <string name="downloader_search_results">Nájdených</string>
+    <!-- Status of outdated country in the list -->
+    <string name="downloader_status_outdated">Aktualizácia</string>
+    <!-- Status of failed country in the list -->
+    <string name="downloader_status_failed">Zlyhalo</string>
+    <!-- bookmark button text -->
+    <string name="bookmark">záložka</string>
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Pri sledovaní trasy majte na pamäti nasledujúce:</string>
@@ -376,6 +413,8 @@
     <string name="not_now">Nie teraz</string>
     <string name="dialog_routing_download_and_build_cross_route">Chcete si prevziať mapu a vytvoriť optimálnejšiu trasu, ktorá si vyžaduje viac ako jednu mapu?</string>
     <string name="dialog_routing_download_cross_route">Prevezmite si mapu na vytvorenie optimálnejšej trasy, ktorá prekračuje okraje tejto mapy.</string>
+    <string name="dialog_routing_download_files">Prevezmite si požadované súbory</string>
+    <string name="dialog_routing_download_and_update_all">Prevezmite si a aktualizujte všetky mapy a informácie o trase pozdĺž naplánovanej trasy na výpočet trasy.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Stiahnutím mapy už nebudete potrebovať pripojenie k internetu a môžete si začať vyhľadávať a vytvárať trasy.</string>
@@ -394,6 +433,8 @@
     <string name="clear_search">Vymazať históriu vyhľadávania</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipédia</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Vaša poloha</string>
     <string name="p2p_start">Štart</string>
     <string name="p2p_from_here">Cesta z</string>
@@ -725,6 +766,120 @@
     <string name="moreyear_ago_sorttype">Pred viac ako rokom</string>
     <string name="near_me_sorttype">Blízko mňa</string>
     <string name="others_sorttype">Iné</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Plánovanie trasy zlyhalo</string>
+    <!-- Arrive routing message in navigation view -->
+    <string name="routing_arrive">Pricestovať: %s</string>
+    <!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+    <string name="dialog_routing_download_and_update_maps">Prosím, pre vytvorenie trasy si stiahnite a aktualizujte všetky mapy pozdĺž trasy.</string>
+    <string name="editor_done_dialog_1">Zmenili ste mapu sveta. Nemusíte to skrývať! Povedzte o tom svojim priateľom a začnite ju spolu upravovať.</string>
+    <string name="share_with_friends">Zdieľaj s priateľmi</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Teraz zatvorené</string>
+    <string name="opens_tomorrow_at">Otvoria zajtra o %s</string>
+    <string name="opens_dayoftheweek_at">Otvoria v %1$s o %2$s</string>
+    <string name="opens_at">Otvárajú o %s</string>
+    <string name="closes_at">Zatvárajú o %s</string>
+    <string name="add_opening_hours">Pridať otváracie hodiny</string>
+    <string name="password_8_chars_min">Heslo (minimálne 8 znakov)</string>
+    <string name="invalid_username_or_password">Nesprávne používateľské meno alebo heslo.</string>
+    <string name="osm_account">OSM účet</string>
+    <!-- Information text: "Last upload 11.01.2016" -->
+    <string name="last_upload">Posledné nahrávanie</string>
+    <string name="thank_you">Ďakujeme Vám</string>
+    <string name="place_name">Názov miesta</string>
+    <string name="phone">Telefón</string>
+    <string name="please_note">Upozorňujeme vás, že</string>
+    <string name="migration_download_error_dialog">Chyba pri sťahovaní</string>
+    <string name="editor_add_select_category">Vybrať kategóriu</string>
+    <string name="editor_add_select_category_popular_subtitle">Obľúbené</string>
+    <string name="editor_add_select_category_all_subtitle">Všetky kategórie</string>
+    <string name="whatsnew_editor_message_1">Na mapu môžete pridávať nové miesta a upravovať tie, ktoré sú už pridané.</string>
+    <string name="dialog_incorrect_feature_position">Zmeniť polohu</string>
+    <!-- Error dialog no space -->
+    <string name="migration_no_space_message">Ak chcete pokračovať v sťahovaní, musíte uvoľniť viac miesta na ukladacom priestore. Prosím, odstráňte prebytočné dáta.</string>
+    <string name="editor_sharing_title">Vďaka mne sú mapy na Organic Maps lepšie</string>
+    <string name="editor_detailed_description_hint">Zmazaná poznámka</string>
+    <string name="editor_detailed_description">Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v Organic Maps.</string>
+    <string name="current_location_unknown_error_message">Počas vyhľadávania vašej pozície došlo k chybe. Skontrolujte, či zariadenie pracuje správne a skúste to znova.</string>
+    <string name="location_services_disabled_header">Identifikácia lokality je zablokovaná</string>
+    <string name="location_services_disabled_message">Povoliť prístup ku geolokalizácii v nastaveniach prístroja</string>
+    <string name="location_services_disabled_1">1. Otvorte Nastavenia</string>
+    <string name="location_services_disabled_2">2. Kliknite na položku Lokalita</string>
+    <!-- iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) -->
+    <string name="location_services_disabled_3">3. Vyberte si počas používania aplikácie</string>
+    <string name="location_services_disabled_on_device_2">2. Vyberte položku Ochrana osobných údajov</string>
+    <string name="location_services_disabled_on_device_3">3. Vyberte položku Služby určovania polohy</string>
+    <string name="location_services_disabled_on_device_4">4. Zapnutie lokalizačných služieb</string>
+    <string name="location_services_disabled_on_device_additional_message">Alebo pokračujte v používaní Organic Maps bez polohy</string>
+    <string name="book_button">Rezervovať</string>
+    <string name="placepage_call_button">Zavolať</string>
+    <string name="placepage_bookmark_name_hint">Názov záložky</string>
+    <string name="placepage_delete_bookmark_button">Zmazať záložku</string>
+    <string name="editor_edits_sent_message">Vaša poznámka bude odoslaná do OpenStreetMap</string>
+    <string name="text_more_button">…viac</string>
+    <string name="refresh">Aktualizovať</string>
+    <!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+    <string name="recent_track_background_dialog_title">Znemožniť nahrávanie vami nedávno precestovanej trasy?</string>
+    <string name="off_recent_track_background_button">Znemožniť</string>
+    <!-- For sharing via SMS and so on -->
+    <string name="sharing_call_action_look">Pozrite si</string>
+    <string name="recent_track_background_dialog_message">Organic Maps používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.</string>
+    <string name="general_settings">Všeobecné nastavenia</string>
+    <!-- "traffic" as in road congestion -->
+    <string name="traffic_update_app_message">Ak chcete zobraziť dopravné informácie, musíte si aktualizovať aplikáciu.</string>
+    <string name="log_file_size">Veľkosť súboru protokolu: %s</string>
+    <string name="planning_route_remove_title">Presunutím sem odstránite</string>
+    <string name="placepage_replace_stop">Nahradiť zastávku</string>
+    <string name="start_from_my_position">Začať od</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part -->
+    <string name="alert_reauth_message_ios">Prihláste sa do OpenStreetMap, aby ste mohli automaticky nahrať všetky svoje úpravy mapy. Viac informácií sa dozviete</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part -->
+    <string name="alert_reauth_link_text_ios">tade</string>
+    <string name="downloader_hide_screen">Skryť obrazovku</string>
+    <string name="downloader_percent">%1$s (%2$s z %3$s)</string>
+    <string name="downloader_process">Sťahovanie %s…</string>
+    <string name="downloader_applying">Použitie %s…</string>
+    <string name="bookmarks_error_title_list_name_too_long">Tento názov je príliš dlhý</string>
+    <string name="bookmarks_detect_title">Zistené nové súbory</string>
+    <string name="button_convert">Premeniť</string>
+    <string name="bookmarks_convert_error_title">Chyba</string>
+    <string name="bookmarks_convert_error_message">Niektoré súbory neboli konvertované.</string>
+    <string name="title_error_downloading_bookmarks">Vyskytla sa chyba</string>
+    <string name="popular_place">Obľúbené</string>
+    <string name="hide_from_map">Nezobrazovať na mape</string>
+    <string name="tags_loading_error_subtitle">Počas načítavania značiek sa vyskytla chyba, skúste to znova</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (on the right) -->
+    <string name="right">Vpravo</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (at the bottom) -->
+    <string name="bottom">Spodná časť</string>
+    <string name="trip_start">Poďme</string>
+    <string name="pick_destination">Cieľ</string>
+    <string name="follow_my_position">Vycentrovať</string>
+    <string name="search_results">Výsledky vyhľadávania</string>
+    <string name="then_turn">Potom</string>
+    <string name="redirect_route_alert">Chcete znova vytvoriť trasu?</string>
+    <string name="keyboard_availability_alert">Počas jazdy nie je klávesnica k dispozícii</string>
+    <string name="dialog_routing_change_start_carplay">Z vašej aktuálnej polohy nie je možné vytvoriť trasu</string>
+    <string name="dialog_routing_change_end_carplay">Nie je možné vytvoriť trasu do cieľa. Prosím vyberte iný bod</string>
+    <string name="dialog_routing_check_gps_carplay">Žiaden GPS signál. Presuňte sa na otvorené priestranstvo</string>
+    <string name="dialog_routing_unable_locate_route_carplay">Nie je možné vytvoriť trasu. Prosím zadajte iné body trasy</string>
+    <string name="dialog_routing_download_files_carplay">Pre vytvorenie trasy si stiahnite do zariadenia chýbajúce mapy</string>
+    <string name="dialog_routing_system_error_carplay">Vyskytla sa chyba. Prosím reštartujte aplikáciu</string>
+    <string name="dialog_routing_rebuild_from_current_location_carplay">Trasa bude obnovená z vašej aktuálnej polohy</string>
+    <string name="dialog_routing_rebuild_for_vehicle_carplay">Trasa bude upravená na jazdu autom</string>
+    <string name="not_all_shown_bookmarks_carplay">Nezobrazujú sa všetky záložky</string>
+    <string name="switch_to_phone_bookmarks_carplay">Prepnutie na telefón a zobrazenie všetkých záložiek</string>
+    <string name="speedcams_alert_title_carplay_1">Radary</string>
+    <string name="speedcams_alert_title_carplay_2">Rýchl. upozorn.</string>
+    <string name="download_map_carplay">Prosím stiahnite si mapy v aplikácii Organic Maps vo vašom zariadení</string>
+    <string name="carplay_roundabout_exit">%s výjazd</string>
+    <!-- iOS -->
+    <string name="sort_default">Zoradiť Predvolené</string>
+    <string name="sort_type">Zoradiť podľa typu</string>
+    <string name="sort_distance">Zoradiť podľa vzdialenosti</string>
+    <string name="sort_date">Zoradiť podľa dátumu</string>
+    <string name="sort_name">Zoradiť podľa názvu</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Jedlo</string>
@@ -779,6 +934,18 @@
     <string name="change_map_locale">Jazyk mapy</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Mapové údaje z OpenStreetMap</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <!-- Link to OSM wiki for Editor, Profile and About pages -->
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Ďakujeme, že používate naše mapy vytvorené komunitou!</string>
     <!-- App tip #01 -->
@@ -873,8 +1040,123 @@
     <string name="share_track">Zdieľať trať</string>
     <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
     <string name="delete_track_dialog_title">Vymazať %s?</string>
+    <string name="elevation_profile_diff_level">Úroveň obtiažnosti</string>
+    <string name="elevation_profile_diff_level_easy">Jednoduchá</string>
+    <string name="elevation_profile_diff_level_moderate">Mierna</string>
+    <string name="elevation_profile_diff_level_hard">Náročná</string>
+    <string name="downloader_updating_ios">Aktualizovanie</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_title">Aktualizujte svoje stiahnuté mapy</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_message">Aktualizácia máp udržuje informácie o objektoch na mape aktuálne</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_size">Aktualizovať (%s)</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_later">Manuálne aktualizovať neskôr</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Zmazať záznam trasy</string>
+    <!-- The track deletion confirmaion alert message. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Ste si istí, že chcete túto skladbu odstrániť?</string>
+    <!-- Placeholder for track name input on track edit screen -->
+    <string name="placepage_track_name_hint">Názov trasy</string>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Presunúť</string>
+    <!-- edit track screen title -->
+    <string name="track_title">Trasa</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Zmena farby</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Skryť stopu</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Zobraziť skladbu</string>
+    <!-- Main screen title "Map" displayed in the navigation back button's menu. -->
+    <string name="map">Mapa</string>
+    <!-- Message for the bug report alert. -->
+    <string name="bugreport_alert_message">Chcete poslať vývojárom hlásenie o chybe?\nSpoliehame sa na našich používateľov, pretože spoločnosť Organic Maps nezhromažďuje žiadne informácie o chybách automaticky. Vopred vám ďakujeme za podporu Organic Maps!</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_title">Povolenie synchronizácie iCloud</string>
+    <!-- Message for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_message">Synchronizácia s iCloudom je experimentálna funkcia, ktorá je vo vývoji. Uistite sa, že ste si vytvorili zálohu všetkých svojich záložiek a skladieb.</string>
+    <!-- Title for the "iCloud Is Disabled" alert. -->
+    <string name="icloud_disabled_title">Služba iCloud je vypnutá</string>
+    <!-- Message for the "iCloud is Disabled" alert. -->
+    <string name="icloud_disabled_message">Ak chcete túto funkciu používať, povoľte iCloud v nastaveniach zariadenia.</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button. -->
+    <string name="enable">Povolenie stránky</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Backup" action button. -->
+    <string name="backup">Zálohovanie</string>
+    <!-- Title for the "iCloud synchronization failure" alert. -->
+    <string name="icloud_synchronization_error_alert_title">Zlyhanie synchronizácie iCloud</string>
+    <!-- iCloud error message: Failed to synchronize due to connection error -->
+    <string name="icloud_synchronization_error_connection_error">Chyba: Nepodarilo sa synchronizovať z dôvodu chyby pripojenia</string>
+    <!-- iCloud error message: Failed to synchronize due to iCloud quota exceeded -->
+    <string name="icloud_synchronization_error_quota_exceeded">Chyba: Nepodarilo sa synchronizovať z dôvodu prekročenia kvóty iCloudu</string>
+    <!-- iCloud error message: iCloud is not available -->
+    <string name="icloud_synchronization_error_cloud_is_unavailable">Chyba: iCloud nie je k dispozícii</string>
+    <!-- Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. -->
+    <string name="bookmarks_recently_deleted">Nedávno odstránené zoznamy</string>
+    <!-- Title for the "Clear" button on the Recently Deleted Lists screen. -->
+    <string name="clear">Vymazať</string>
+    <!-- Title for the "Delete All" button on the Recently Deleted Lists screen. -->
+    <string name="delete_all">Odstrániť všetko</string>
+    <!-- Title for the "Recover" button on the Recently Deleted Lists screen. -->
+    <string name="recover">Obnoviť</string>
+    <!-- Title for the "Recover All" button on the Recently Deleted Lists screen. -->
+    <string name="recover_all">Obnoviť všetko</string>
+    <!-- OpenStreetMap contribution section on the PlacePage. -->
+    <string name="contribute_to_osm">Prispieť do OpenStreetMap</string>
+    <string name="contribute_to_osm_add_place">Pridať miesto</string>
+    <string name="contribute_to_osm_update_map">Aktualizovať mapu na prispievanie</string>
+    <string name="contribute_to_osm_update_map_description">Musíte aktualizovať mapu %s na najnovšiu verziu, aby ste mohli prispievať do údajov OpenStreetMap</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Moja poloha</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Moje miesta</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Interné privátne úložisko</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Interné zdieľané úložisko</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SD karta</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Externé zdieľané úložisko</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">PSČ</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Bod na mape</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">stopa</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">Na zobrazenie trás je potrebné aktualizovať mapy.</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Ukončiť</string>
+    <string name="core_entrance">Vchod | vjazd</string>
+    <string name="subway_data_unavailable">Mapa metra nie je dostupná</string>
+    <string name="you">Vy</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Fialové stiahnuté regióny</string>
+
+    <!-- SECTION: 3d touch strings -->
+    <!-- Used in home screen quick actions. -->
+    <string name="route">Trasa</string>
 
     <!-- SECTION: gps strings -->
+    <!-- Needed to explain why we always require access to GPS coordinates, and not only when the app is active. -->
+    <string name="NSLocationAlwaysUsageDescription">Definovanie súčasnej polohy na pozadí je potrebné pre plnú funkčnosť appky. Využíva sa to v možnostiach nasledovania trasy či uloženia Vašej nedávnej cesty.</string>
+    <!-- Needed to explain why we require access to GPS coordinates when the app is active. -->
+    <string name="NSLocationWhenInUseUsageDescription">Údaj o aktuálnej polohe bude použitý v možnostiach pri sledovaní trasy a pri uložení Vašej naposledy prejdenej cesty.</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Prihlásenie pomocou hesla</string>
     <!-- Login to OSM button text -->

@@ -2,10 +2,40 @@
 <resources>
 
     <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">Back</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">Cancel</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Delete</string>
+    <string name="download_maps">Download Maps</string>
+    <!-- Settings/Downloader - info for country when download fails -->
+    <string name="download_has_failed">Download has failed. Tap to try again.</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
+    <string name="downloading">Downloading…</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">Kilometers</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <string name="miles">Miles</string>
+    <!-- Update maps later button text -->
+    <string name="later">Later</string>
+    <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
+    <string name="search">Search</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+    <string name="search_map">Search Map</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">You currently have all Location Services for this device or application disabled. Please enable them in Settings.</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">Usahihi mdogo</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="precise_location_is_disabled_long_text">Ili kuhakikisha urambazaji sahihi huwezesha eneo sahihi katika mipangilio.</string>
+    <!-- View and button titles for accessibility -->
+    <string name="zoom_to_country">Show on the map</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Download has failed</string>
+    <!-- Button text for the button under the country_status_download_failed message -->
+    <string name="try_again">Try Again</string>
+    <string name="about_menu_title">About Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Bure kwa kila mtu, iliyotengenezwa na upendo</string>
     <!-- Text in About screen -->
@@ -18,47 +48,185 @@
     <string name="about_developed_by_enthusiasts">Maombi ya chanzo-wazi iliyoundwa na wanaovutia na wanaojitolea.</string>
     <!-- The button that opens system location settings -->
     <string name="location_settings">Mipangilio ya mahali</string>
+    <string name="close">Close</string>
+    <string name="unsupported_phone">The app requires hardware accelerated OpenGL. Unfortunately, your device is not supported.</string>
+    <string name="download">Download</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable">Please disconnect USB cable or insert memory card to use Organic Maps</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="not_enough_free_space_on_sdcard">Please free up some space on the SD card/USB storage first in order to use the app</string>
+    <string name="download_resources">Before you start using the app, please download the world overview map to your device.\nIt will use %s of storage.</string>
+    <string name="download_resources_continue">Go to Map</string>
+    <string name="downloading_country_can_proceed">Downloading %s. You can now\nproceed to the map.</string>
+    <string name="download_country_ask">Download %s?</string>
+    <string name="update_country_ask">Update %s?</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="pause">Pause</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="continue_button">Continue</string>
+    <!-- Show popup notification on top of the map when country download has failed. -->
+    <string name="download_country_failed">%s download has failed</string>
+    <!-- "Add new bookmark list" dialog title -->
+    <string name="add_new_set">Add a New List</string>
+    <!-- Add Bookmark list dialog - hint when the list name is empty -->
+    <string name="bookmark_set_name">Bookmark List Name</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Bookmarks</string>
+    <!-- "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. -->
+    <string name="bookmarks_and_tracks">Bookmarks and Tracks</string>
+    <!-- Add bookmark dialog - bookmark name -->
+    <string name="name">Name</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
     <string name="address">Anwani</string>
+    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+    <string name="list">List</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Settings</string>
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Hifadhi ramani kwenye</string>
+    <!-- Detailed description of Maps Storage settings button -->
+    <string name="maps_storage_summary">Select the folder to download maps to.</string>
+    <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+    <string name="maps_storage_downloaded">Downloaded maps</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%1$s free of %2$s</string>
+    <!-- Question dialog for transferring maps from one storage to another -->
+    <string name="move_maps">Move maps?</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">Error moving map files</string>
+    <!-- Ask user to wait several minutes (some long process in modal dialog). -->
+    <string name="wait_several_minutes">This can take several minutes.\nPlease wait…</string>
+    <!-- Measurement units title in settings activity -->
+    <string name="measurement_units">Measurement units</string>
+    <!-- Detailed description of Measurement Units settings button -->
+    <string name="measurement_units_summary">Choose between miles and kilometers</string>
+    <!-- Button which interrupts country download -->
+    <string name="cancel_download">Cancel Download</string>
+    <!-- Leave Review dialog - Review button -->
+    <string name="leave_a_review">Leave a Review</string>
+    <!-- Settings/Downloader - 3G download warning dialog confirm button -->
+    <string name="use_cellular_data">Yes</string>
+    <!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+    <string name="country_status_download_without_size">Download Map</string>
+    <!-- "Bookmark Lists" dialog title -->
+    <string name="bookmark_sets">Bookmark Lists</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Sehemu ya kula</string>
     <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
     <string name="category_food">Migahawani</string>
+    <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+    <string name="category_transport">Transport</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Gas</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parking</string>
     <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
     <string name="category_shopping">Manunuzi</string>
     <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
     <string name="category_secondhand">Mtumba</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Hotel</string>
+    <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+    <string name="category_tourism">Sights</string>
+    <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+    <string name="category_entertainment">Entertainment</string>
+    <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+    <string name="category_atm">ATM</string>
     <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
     <string name="category_nightlife">Shughuli za usiku</string>
     <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
     <string name="category_children">Mapumziko ya familia</string>
+    <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+    <string name="category_bank">Bank</string>
+    <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+    <string name="category_pharmacy">Pharmacy</string>
     <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
     <string name="category_hospital">Hospitali</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Toilet</string>
     <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
     <string name="category_post">Posta</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Polisi</string>
+    <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+    <string name="category_recycling">Recycling</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">Maji</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Kwa RV</string>
 
     <!-- SECTION: Other translations -->
+    <!-- Notes field in Bookmarks view -->
+    <string name="description">Notes</string>
+    <!-- Email Subject when sharing bookmark list -->
+    <string name="share_bookmarks_email_subject">Organic Maps bookmarks were shared with you</string>
+    <string name="share_bookmarks_email_body">Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don\'t have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!</string>
+    <!-- message title of loading file -->
+    <string name="load_kmz_title">Loading Bookmarks</string>
+    <!-- Kmz file successful loading -->
+    <string name="load_kmz_successful">Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.</string>
+    <!-- Kml file loading failed -->
+    <string name="load_kmz_failed">Failed to load bookmarks. The file may be corrupted or defective.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Aina ya faili haitambuliwi na programu:\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
     <string name="failed_to_open_file">Imeshindwa kufungua faili %1$s\n\n%2$s</string>
+    <!-- resource for context menu -->
+    <string name="edit">Edit</string>
+    <!-- Warning message when doing search around current position -->
+    <string name="unknown_current_position">Your location hasn\'t been determined yet</string>
+    <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+    <string name="cant_change_this_setting">Sorry, Map Storage settings are currently disabled.</string>
+    <!-- Alert message that downloading is in progress. -->
+    <string name="downloading_is_active">Map download is in progress now.</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Check out my current location in Organic Maps! %1$s or %2$s Don\'t have offline maps? Download here: https://omaps.app/get</string>
+    <!-- Subject for emailed bookmark -->
+    <string name="bookmark_share_email_subject">Hey, check out my pin in Organic Maps!</string>
+    <!-- Subject for emailed position -->
+    <string name="my_position_share_email_subject">Hey, check out my current location on the Organic Maps map!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email">Hi,\n\nI\'m here now: %1$s. Click this link %2$s or this one %3$s to see the place on the map.\n\nThanks.</string>
+    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+    <string name="share">Share</string>
+    <!-- Share by email button text, also used in editor and About. -->
+    <string name="email">Email</string>
+    <!-- Text for message when used successfully copied something -->
+    <string name="copied_to_clipboard">Copied to clipboard: %s</string>
+    <!-- Used for bookmark editing -->
+    <string name="done">Done</string>
     <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
     <string name="data_version">Data ya OpenStreetMap: %s</string>
     <!-- Confirmation for OpenStreetMap log out. -->
     <string name="osm_log_out_confirmation">Je, una uhakika unataka kuondoka kwenye akaunti yako ya OpenStreetMap?</string>
+    <!-- Title for tracks category in bookmarks manager -->
+    <string name="tracks_title">Tracks</string>
+    <!-- Length of track in cell that describes route -->
+    <string name="length">Length</string>
+    <string name="share_my_location">Share My Location</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">General settings</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">Information</string>
+    <string name="prefs_group_route">Navigation</string>
+    <!-- Setting name which enables or disables zoom buttons on the map screen. -->
+    <string name="pref_zoom_title">“+” and “-” buttons on the map</string>
+    <string name="pref_zoom_summary">Display on the map</string>
     <string name="pref_auto_night_in_navigation_title">Mtindo wa usiku unapovinjari gizani</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Night Mode</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Off</string>
+    <!-- Generic «On» string -->
+    <string name="on">On</string>
     <!-- Generic «Auto» string -->
     <string name="auto">Auto</string>
+    <!-- Settings «Map» category: «Perspective view» title -->
+    <string name="pref_map_3d_title">Perspective view</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D buildings</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
     <string name="pref_map_3d_buildings_disabled_summary">Majengo ya 3D yamezimwa katika hali ya kuokoa nishati</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
@@ -67,12 +235,29 @@
     <string name="pref_tts_street_names_title">Tangaza Majina ya Mitaa</string>
     <!-- Settings «Route» category: «Tts announce street names» description -->
     <string name="pref_tts_street_names_description">Ikiwashwa, jina la barabara au la kutoka ili kuwasha litasemwa kwa sauti.</string>
+    <!-- Settings «Route» category: «Tts language» title -->
+    <string name="pref_tts_language_title">Voice Language</string>
     <!-- Settings «Route» category: «Test Voice Directions» title -->
     <string name="pref_tts_test_voice_title">Jaribu maelekezo ya sauti (TTS, maandishi-kwa-hotuba)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Angalia mipangilio ya sauti au ya mfumo ya kubadilisha maandishi-hadi-hotuba ikiwa husikii sauti sasa.</string>
+    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <string name="pref_tts_unavailable">Not Available</string>
+    <string name="pref_map_auto_zoom">Auto zoom</string>
+    <string name="placepage_distance">Distance</string>
+    <string name="search_show_on_map">View on map</string>
+    <!-- Menu button -->
+    <string name="menu">Menu</string>
+    <!-- Text in menu -->
+    <string name="website">Website</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Habari</string>
+    <!-- Settings: Send feedback button and dialog title -->
+    <string name="feedback">Feedback</string>
+    <!-- Text in menu -->
+    <string name="rate_the_app">Rate the app</string>
+    <!-- Text in menu -->
+    <string name="help">Help</string>
     <!-- Button in the main Help dialog -->
     <string name="faq">Maswali na majibu</string>
     <!-- Button in the main menu -->
@@ -82,12 +267,71 @@
     <string name="support_organic_maps">Usaidizi Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Saidia mradi</string>
+    <!-- Button in the main Help dialog -->
+    <string name="copyright">Copyright</string>
+    <!-- Text in menu + Button in the main Help dialog. Used in home screen quick actions. -->
+    <string name="report_a_bug">Report a bug</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_recommended">Improve arrow direction by moving the phone in a figure-eight motion to calibrate the compass.</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_required">Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
     <string name="long_tap_toast">Gusa kwa muda mrefu kwenye ramani tena ili kuona kiolesura</string>
+    <!-- Update all button text -->
+    <string name="downloader_update_all_button">Update All</string>
+    <!-- Cancel all button text -->
+    <string name="downloader_cancel_all">Cancel All</string>
+    <!-- Downloaded maps list header -->
+    <string name="downloader_downloaded_subtitle">Downloaded</string>
+    <!-- Country queued for download -->
+    <string name="downloader_queued">Queued</string>
+    <string name="downloader_near_me_subtitle">Near me</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Maps</string>
+    <string name="downloader_download_all_button">Download All</string>
+    <string name="downloader_downloading">Downloading:</string>
+    <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+    <string name="downloader_delete_map_while_routing_dialog">To delete map, please stop navigation.</string>
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Routes can only be created that are fully contained within a map of a single region.</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Download map</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Retry</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_delete_map">Delete Map</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Update Map</string>
     <!-- Preference title -->
     <string name="google_play_services">Huduma za Mahali za Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Tambua kwa haraka kadirio la eneo lako kwa kutumia Bluetooth, WiFi au mtandao wa simu</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Download all of the maps along your route</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">In order to create a route, we need to download and update all the maps from your location to your destination.</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_not_enough_space">Not enough space</string>
+    <!-- location service disabled -->
+    <string name="enable_location_services">Please enable Location Services</string>
+    <string name="save">Save</string>
+    <string name="create">create</string>
+    <!-- red color -->
+    <string name="red">Red</string>
+    <!-- yellow color -->
+    <string name="yellow">Yellow</string>
+    <!-- blue color -->
+    <string name="blue">Blue</string>
+    <!-- green color -->
+    <string name="green">Green</string>
+    <!-- purple color -->
+    <string name="purple">Purple</string>
+    <!-- orange color -->
+    <string name="orange">Orange</string>
+    <!-- brown color -->
+    <string name="brown">Brown</string>
+    <!-- pink color -->
+    <string name="pink">Pink</string>
     <!-- deep purple color -->
     <string name="deep_purple">Zambarau Iliyoiva</string>
     <!-- light blue color -->
@@ -104,37 +348,211 @@
     <string name="gray">Kijivu</string>
     <!-- blue gray color -->
     <string name="blue_gray">Kijivu Buluu</string>
+    <!-- place preview title -->
+    <string name="info">Info</string>
+    <!-- Prints version number in About dialog -->
+    <string name="version">Toleo la Organic Maps: %s</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Appearance</string>
+    <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_light">Light</string>
+    <!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+    <string name="pref_appearance_dark">Dark</string>
+    <!-- Title for "Other" section in TTS settings. -->
+    <string name="pref_tts_other_section_title">Other</string>
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Zawadia mamilioni ya watumiaji ramani za bure bila matangazo!</string>
+    <!-- Button in the About screen -->
+    <string name="report_incorrect_map_bug">Ripoti au urekebishe data isiyo sahihi ya ramani</string>
+    <!-- Button in the About screen -->
+    <string name="volunteer">Kujitolea</string>
+    <!-- "Social media" section header in the About screen -->
+    <string name="follow_us">Fuata na uwasiliane nasi:</string>
+    <!-- Alert text -->
+    <string name="email_error_body">The email client has not been set up. Please configure it or contact us at %s</string>
+    <!-- Alert title -->
+    <string name="email_error_title">Error sending email</string>
+    <!-- Settings item title -->
+    <string name="pref_calibration_title">Compass calibration</string>
+    <!-- Downloaded maps category -->
+    <string name="downloader_available_maps">Available</string>
+    <string name="downloader_search_results">Found</string>
+    <!-- Status of outdated country in the list -->
+    <string name="downloader_status_outdated">Update</string>
+    <!-- Status of failed country in the list -->
+    <string name="downloader_status_failed">Failed</string>
+    <!-- bookmark button text -->
+    <string name="bookmark">bookmark</string>
 
     <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_disclaimer_title">When following the route, please keep in mind:</string>
+    <string name="dialog_routing_disclaimer_priority">— Road conditions, traffic laws, and road signs always take priority over navigation hints;</string>
+    <string name="dialog_routing_disclaimer_precision">— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— Suggested routes should only be understood as recommendations;</string>
+    <string name="dialog_routing_disclaimer_borders">— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.</string>
+    <string name="dialog_routing_disclaimer_beware">Please stay alert and safe on the roads!</string>
+    <string name="dialog_routing_check_gps">Check GPS signal</string>
+    <string name="dialog_routing_error_location_not_found">Unable to create route. Current GPS coordinates could not be identified.</string>
+    <string name="dialog_routing_location_turn_wifi">Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.</string>
+    <string name="dialog_routing_location_turn_on">Enable location services</string>
+    <string name="dialog_routing_location_unknown_turn_on">Unable to locate current GPS coordinates. Enable location services to calculate route.</string>
+    <string name="dialog_routing_unable_locate_route">Unable to locate route</string>
+    <string name="dialog_routing_cant_build_route">Unable to create route.</string>
+    <string name="dialog_routing_change_start_or_end">Please adjust your starting point or destination.</string>
+    <string name="dialog_routing_change_start">Adjust starting point</string>
+    <string name="dialog_routing_start_not_determined">Route was not created. Unable to locate starting point.</string>
+    <string name="dialog_routing_select_closer_start">Please select a starting point closer to a road.</string>
+    <string name="dialog_routing_change_end">Adjust destination</string>
+    <string name="dialog_routing_end_not_determined">Route was not created. Unable to locate the destination.</string>
+    <string name="dialog_routing_select_closer_end">Please select a destination point located closer to a road.</string>
     <string name="dialog_routing_change_intermediate">Imeshindwa kupata eneo la kati.</string>
     <string name="dialog_routing_intermediate_not_determined">Tafadhali badilisha eneo lako la kati.</string>
+    <string name="dialog_routing_system_error">System error</string>
+    <string name="dialog_routing_application_error">Unable to create route due to an application error.</string>
+    <string name="dialog_routing_try_again">Please try again</string>
+    <string name="not_now">Not Now</string>
+    <string name="dialog_routing_download_and_build_cross_route">Would you like to download the map and create a more optimal route spanning more than one map?</string>
+    <string name="dialog_routing_download_cross_route">Download additional maps to create a better route that crosses the boundaries of this map.</string>
+    <string name="dialog_routing_download_files">Download required files</string>
+    <string name="dialog_routing_download_and_update_all">Download or update all maps along the projected path to calculate a route.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
+    <string name="search_without_internet_advertisement">To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.</string>
+    <string name="search_select_map">Select Map</string>
+    <!-- «Show» context menu -->
+    <string name="show">Show</string>
+    <!-- «Hide» context menu -->
+    <string name="hide">Hide</string>
+    <string name="categories">Categories</string>
+    <string name="history">History</string>
+    <string name="search_not_found">Oops, no results found.</string>
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Pakua eneo ambalo unatafuta au jaribu kuongeza jina la mji/kijiji kilicho karibu.</string>
+    <string name="search_history_title">Search History</string>
+    <string name="search_history_text">View your recent searches.</string>
+    <string name="clear_search">Clear Search History</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="p2p_your_location">Your Location</string>
+    <string name="p2p_start">Start</string>
+    <string name="p2p_from_here">Route from</string>
+    <string name="p2p_to_here">Route to</string>
+    <string name="p2p_only_from_current">Navigation is only available from your current location.</string>
+    <string name="p2p_reroute_from_current">Do you want to plan a route from your current location?</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Next</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_from">From</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_to">To</string>
+    <string name="editor_time_add">Add Schedule</string>
+    <string name="editor_time_delete">Delete Schedule</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">All Day (24 hours)</string>
+    <string name="editor_time_open">Open</string>
+    <string name="editor_time_close">Closed</string>
+    <string name="editor_time_add_closed">Add Non-Business Hours</string>
+    <string name="editor_time_title">Business Hours</string>
+    <string name="editor_time_advanced">Advanced Mode</string>
+    <string name="editor_time_simple">Simple Mode</string>
+    <string name="editor_hours_closed">Non-Business Hours</string>
+    <string name="editor_example_values">Example Values</string>
+    <string name="editor_correct_mistake">Correct mistake</string>
     <string name="editor_add_select_location">Chagua Mahali</string>
+    <string name="editor_report_problem_desription_1">Please describe the problem in detail so that the OpenStreetMap community can fix it.</string>
+    <string name="editor_report_problem_desription_2">Or do it yourself at https://www.openstreetmap.org/</string>
+    <string name="editor_report_problem_send_button">Send</string>
+    <string name="editor_report_problem_title">Issue</string>
+    <string name="editor_report_problem_no_place_title">This place does not exist</string>
+    <string name="editor_report_problem_under_construction_title">Сlosed for maintenance</string>
+    <string name="editor_report_problem_duplicate_place_title">Duplicate place</string>
+    <string name="autodownload">Auto-download maps</string>
+    <!-- Place Page opening hours text -->
+    <string name="daily">Daily</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Closed today</string>
+    <string name="day_off">Closed</string>
+    <string name="today">Today</string>
+    <string name="opens_in">Opens in %s</string>
+    <string name="closes_in">Closes in %s</string>
+    <string name="closed">Closed</string>
+    <string name="edit_opening_hours">Edit business hours</string>
+    <string name="no_osm_account">Don\'t have an OpenStreetMap account?</string>
+    <string name="register_at_openstreetmap">Register at OpenStreetMap</string>
+    <string name="login">Login</string>
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Hujasajiliwa</string>
     <string name="login_osm">Ingia kwa OpenStreetMap</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot your password?</string>
+    <string name="logout">Log Out</string>
+    <string name="edit_place">Edit Place</string>
+    <string name="add_language">Add a language</string>
+    <string name="street">Street</string>
+    <!-- Editable House Number text field (in address block). -->
+    <string name="house_number">Building number</string>
+    <string name="details">Details</string>
     <string name="social_media">Mitandao ya Kijamii</string>
     <string name="building">Jengo</string>
+    <!-- Text field to enter non-existing street name, below list of known streets around -->
+    <string name="add_street">Add a street</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">Please enter a street name</string>
+    <string name="choose_language">Choose a language</string>
+    <string name="choose_street">Choose a street</string>
+    <string name="cuisine">Cuisine</string>
+    <string name="select_cuisine">Select cuisine</string>
+    <!-- login text field -->
+    <string name="email_or_username">Email or username</string>
+    <string name="editor_add_phone">Add Phone</string>
     <string name="level">Ghorofa</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Level: %s</string>
+    <string name="downloader_delete_map_dialog">All of your map edits will be deleted with the map.</string>
+    <string name="downloader_update_maps">Update Maps</string>
+    <string name="downloader_mwm_migration_dialog">To create a route, you need to update all maps and then plan the route again.</string>
+    <string name="downloader_search_field_hint">Find map</string>
+    <string name="common_check_internet_connection_dialog">Please make sure your device is connected to the Internet.</string>
+    <string name="downloader_no_space_title">Not enough space</string>
+    <!-- Message shown when there is not enough space to download maps -->
+    <string name="downloader_no_space_message">Please delete any unnecessary data</string>
+    <string name="editor_login_error_dialog">Login error.</string>
+    <string name="editor_profile_changes">Verified Changes</string>
     <string name="editor_focus_map_on_location">Buruta ramani ili kuweka msalaba katika eneo la mahali au biashara.</string>
+    <string name="editor_edit_place_title">Editing</string>
+    <string name="editor_add_place_title">Adding</string>
+    <string name="editor_edit_place_name_hint">Name of the place</string>
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Kama ilivyoandikwa katika lugha ya kienyeji</string>
+    <string name="editor_edit_place_category_title">Category</string>
+    <string name="detailed_problem_description">Detailed description of the issue</string>
+    <string name="editor_report_problem_other_title">Different problem</string>
+    <string name="placepage_add_business_button">Add business</string>
+    <string name="message_invalid_feature_position">No object can be located here</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %s. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">OpenStreetMap.org (OSM) ni mradi wa jumuiya wa kujenga ramani isiyolipishwa na iliyo wazi. Ndiyo chanzo kikuu cha data ya ramani katika Ramani za Kikaboni na inafanya kazi sawa na Wikipedia. Unaweza kuongeza au kubadilisha maeneo na yanapatikana kwa mamilioni ya watumiaji kote Ulimwenguni.\nJiunge na jumuiya na usaidie kutengeneza ramani bora kwa kila mtu!</string>
     <string name="login_to_make_edits_visible">Fungua akaunti ya OpenStreetMap au ingia ili kuchapisha mabadiliko yako ya ramani kwa ulimwengu.</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d of %2$d</string>
+    <string name="download_over_mobile_header">Download over a cellular network connection?</string>
+    <string name="download_over_mobile_message">This could be considerably expensive with some plans or if roaming.</string>
+    <string name="error_enter_correct_house_number">Enter a valid building number</string>
+    <string name="editor_storey_number">Number of floors (maximum of %d)</string>
+    <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+    <string name="error_enter_correct_storey_number">The number of floors must non exceed %d</string>
+    <string name="editor_zip_code">ZIP Code</string>
+    <string name="error_enter_correct_zip_code">Enter a valid ZIP code</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Kumbuka kwa wanaojitolea wa OpenStreetMap (si lazima)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
     <string name="editor_note_hint">Eleza hitilafu kwenye ramani au kile ambacho hakiwezi kuhaririwa kwa kutumia Ramani za Kikaboni</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Mabadiliko yako yanapakiwa kwenye hifadhidata ya <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> ya umma. Tafadhali usiongeze maelezo ya kibinafsi au yenye hakimiliki.</string>
+    <string name="editor_more_about_osm">More about OpenStreetMap</string>
     <string name="editor_osm_history">Historia yako ya uhariri</string>
     <string name="editor_osm_notes">Vidokezo vya data ya ramani yako</string>
     <string name="editor_operator">Mwendeshaji</string>
@@ -142,11 +560,67 @@
     <string name="operator">Mwendeshaji: %s</string>
     <string name="editor_category_unsuitable_title">Je, huwezi kupata aina inayofaa?</string>
     <string name="editor_category_unsuitable_text">Ramani za Kikaboni huruhusu kuongeza kategoria rahisi pekee, hiyo inamaanisha hakuna miji, barabara, maziwa, muhtasari wa majengo, n.k. Tafadhali ongeza kategoria kama hizo moja kwa moja kwenye <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Angalia <a href="https://organicmaps.app/faq/editing/advanced-map-editing">mwongozo wetu</a> kwa maagizo ya kina ya hatua kwa hatua.</string>
+    <string name="downloader_no_downloaded_maps_title">You haven\'t downloaded any maps</string>
+    <string name="downloader_no_downloaded_maps_message">Download maps to search and navigate offline.</string>
+    <string name="current_location_unknown_error_title">Current location is unknown.</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/h</string>
+    <string name="miles_per_hour">mph</string>
+    <string name="hour">h</string>
+    <string name="minute">min</string>
+    <string name="day">d</string>
+    <string name="second">s</string>
+    <string name="placepage_more_button">More</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="placepage_edit_bookmark_button">Edit Bookmark</string>
     <string name="placepage_personal_notes_hint">Vidokezo vya kibinafsi (maandishi au HTML)</string>
+    <string name="editor_comment_hint">Comment…</string>
+    <string name="editor_reset_edits_message">Discard all local changes?</string>
+    <string name="editor_reset_edits_button">Discard</string>
+    <string name="editor_remove_place_message">Delete added place?</string>
+    <string name="editor_remove_place_button">Delete</string>
+    <string name="editor_place_doesnt_exist">Place does not exist</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">Please indicate the reason for deleting the place</string>
+    <!-- Phone number error message -->
+    <string name="error_enter_correct_phone">Enter a valid phone number</string>
+    <string name="error_enter_correct_web">Enter a valid web address</string>
+    <string name="error_enter_correct_email">Enter a valid email</string>
+    <string name="error_enter_correct_facebook_page">Enter a valid Facebook web address, account, or page name</string>
+    <string name="error_enter_correct_instagram_page">Enter a valid Instagram username or web address</string>
+    <string name="error_enter_correct_twitter_page">Enter a valid Twitter username or web address</string>
+    <string name="error_enter_correct_vk_page">Enter a valid VK username or web address</string>
+    <string name="error_enter_correct_line_page">Enter a valid LINE ID or web address</string>
     <string name="placepage_add_place_button">Ongeza Mahali kwa OpenStreetMap</string>
+    <string name="osm_note_hint">Or, alternatively, leave a note to OpenStreetMap community so that someone else can add or fix a place here.</string>
+    <string name="osm_note_toast">Note will be sent to OpenStreetMap</string>
+    <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
+    <string name="editor_share_to_all_dialog_title">Do you want to send it to all users?</string>
+    <!-- Dialog before publishing the modifications to the public map. -->
+    <string name="editor_share_to_all_dialog_message_1">Make sure you did not enter any private or personal data.</string>
     <string name="editor_share_to_all_dialog_message_2">Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.</string>
+    <string name="navigation_stop_button">Stop</string>
     <!-- Shown as toast when starting the recent track recording -->
     <string name="track_recording">Kurekodi wimbo</string>
+    <!-- For the first routing -->
+    <string name="accept">Accept</string>
+    <!-- For the first routing -->
+    <string name="decline">Decline</string>
+    <string name="mobile_data_dialog">Use mobile internet to show detailed information?</string>
+    <string name="mobile_data_option_always">Use Always</string>
+    <string name="mobile_data_option_today">Only Today</string>
+    <string name="mobile_data_option_not_today">Do Not Use Today</string>
+    <string name="mobile_data">Mobile Internet</string>
+    <!-- NOTE to translators: please synchronize your translation with the English one. -->
+    <string name="mobile_data_description">Mobile internet is required for map update notifications and uploading edits.</string>
+    <string name="mobile_data_option_never">Never Use</string>
+    <string name="mobile_data_option_ask">Always Ask</string>
+    <string name="traffic_update_maps_text">To display traffic data, maps must be updated.</string>
+    <string name="big_font">Increase size for map labels</string>
+    <string name="traffic_update_app">Please update Organic Maps</string>
+    <!-- "traffic" as in "road congestion" -->
+    <string name="traffic_data_unavailable">Traffic data is not available</string>
+    <string name="enable_logging">Enable logging</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Maoni Jumla</string>
     <string name="prefs_languages_information">Tunatumia maagizo ya sautii ya TTS ya mfumo. Vifaa vingi vya Android vinatumia Google TTS, unaweza kuipakua au kuisasisha kwenye Google Play</string>
@@ -162,6 +636,7 @@
     <string name="button_plan">Panga</string>
     <string name="placepage_remove_stop">Ondoa eneo la kusimama</string>
     <string name="placepage_add_stop">Ongeza eneo la kusimama</string>
+    <string name="saved">Saved</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Tafadhali ingia kwenye OpenStreetMap ili kupakia kiotomatiki hariri zako zote za ramani. Pata maelezo zaidi <a href="https://github.com/organicmaps/organicmaps/issues/6144">hapa</a>.</string>
     <string name="dialog_error_storage_title">Tatizo la kufikia hifadhi</string>
@@ -188,6 +663,7 @@
     <string name="bookmarks_error_message_list_name_already_taken">Tafadhali chagua jina lingine</string>
     <string name="please_wait">Tafadhali subiri…</string>
     <string name="phone_number">Nambari ya simu</string>
+    <string name="profile">OpenStreetMap profile</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Faili %d ilipatikana. Utaiona baada ya uongofu.</item>
         <item quantity="other">Files %d zimepatikana. Utaziona baada ya uongofu.</item>
@@ -202,6 +678,10 @@
     <string name="privacy_policy">Sera ya faragha</string>
     <string name="terms_of_use">Masharti ya matumizi</string>
     <string name="button_layer_traffic">Trafiki</string>
+    <!-- Hiking routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_hiking">Hiking</string>
+    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Cycling</string>
     <string name="button_layer_subway">Njia ya chini</string>
     <string name="layers_title">Mitindo ya Ramani na Tabaka</string>
     <string name="bookmarks_empty_list_title">Orodha hii ni tupu</string>
@@ -229,6 +709,11 @@
     <string name="power_managment_setting_never">Kamwe</string>
     <string name="power_managment_setting_auto">Kiotomatiki</string>
     <string name="power_managment_setting_manual_max">Upeo wa kuhifadhi nishati</string>
+    <!-- Settings/Bookmark Text Placement -->
+    <string name="bookmarks_text_placement_title">Bookmark names on the map</string>
+    <string name="bookmarks_text_placement_description">If there are too many bookmarks, displaying their names on the map may slow down the app.</string>
+    <string name="show_to_the_right">Show to the right</string>
+    <string name="show_at_the_bottom">Show at the bottom</string>
     <string name="enable_logging_warning_message">Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.</string>
     <string name="driving_options_title">Machaguo ya njia</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -279,6 +764,120 @@
     <string name="moreyear_ago_sorttype">Zaidi ya mwaka mmoja uliopita</string>
     <string name="near_me_sorttype">Karibu yangu</string>
     <string name="others_sorttype">Nyingine</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Route Planning Failed</string>
+    <!-- Arrive routing message in navigation view -->
+    <string name="routing_arrive">Arrival at %s</string>
+    <!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+    <string name="dialog_routing_download_and_update_maps">Download and update all map along the projected path to calculate route.</string>
+    <string name="editor_done_dialog_1">You’ve changed the world map! Don\'t keep it to yourself; tell your friends and edit it together.</string>
+    <string name="share_with_friends">Share with friends</string>
+    <!-- Place Page opening hours text -->
+    <string name="closed_now">Closed now</string>
+    <string name="opens_tomorrow_at">Opens tomorrow at %s</string>
+    <string name="opens_dayoftheweek_at">Opens %1$s at %2$s</string>
+    <string name="opens_at">Opens at %s</string>
+    <string name="closes_at">Closes at %s</string>
+    <string name="add_opening_hours">Add opening hours</string>
+    <string name="password_8_chars_min">Password (8 characters minimum)</string>
+    <string name="invalid_username_or_password">Invalid username or password.</string>
+    <string name="osm_account">OSM Account</string>
+    <!-- Information text: "Last upload 11.01.2016" -->
+    <string name="last_upload">Last upload</string>
+    <string name="thank_you">Thank You</string>
+    <string name="place_name">Place Name</string>
+    <string name="phone">Phone</string>
+    <string name="please_note">Please note</string>
+    <string name="migration_download_error_dialog">Download error</string>
+    <string name="editor_add_select_category">Select category</string>
+    <string name="editor_add_select_category_popular_subtitle">Popular</string>
+    <string name="editor_add_select_category_all_subtitle">All Categories</string>
+    <string name="whatsnew_editor_message_1">Add new places to the map, and edit existing ones directly from the app.</string>
+    <string name="dialog_incorrect_feature_position">Change location</string>
+    <!-- Error dialog no space -->
+    <string name="migration_no_space_message">To download, you need more space. Please delete any unnecessary data.</string>
+    <string name="editor_sharing_title">I improved the Organic Maps maps</string>
+    <string name="editor_detailed_description_hint">Detailed comment</string>
+    <string name="editor_detailed_description">Your suggested map changes will be sent to the OpenStreetMap community. Please describe any additional details that cannot be edited in Organic Maps.</string>
+    <string name="current_location_unknown_error_message">An error occurred while determining your location. Check that your device is working properly and try again later.</string>
+    <string name="location_services_disabled_header">Location services are disabled</string>
+    <string name="location_services_disabled_message">Enable access to geolocation in the device settings</string>
+    <string name="location_services_disabled_1">1. Open Settings</string>
+    <string name="location_services_disabled_2">2. Tap Location</string>
+    <!-- iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) -->
+    <string name="location_services_disabled_3">3. Select While Using the App</string>
+    <string name="location_services_disabled_on_device_2">2. Chagua Faragha</string>
+    <string name="location_services_disabled_on_device_3">3. Chagua Huduma za Mahali</string>
+    <string name="location_services_disabled_on_device_4">4. Washa Huduma za Mahali</string>
+    <string name="location_services_disabled_on_device_additional_message">Au endelea kutumia Organic Maps bila Mahali</string>
+    <string name="book_button">Book</string>
+    <string name="placepage_call_button">Call</string>
+    <string name="placepage_bookmark_name_hint">Bookmark Name</string>
+    <string name="placepage_delete_bookmark_button">Delete Bookmark</string>
+    <string name="editor_edits_sent_message">Dokezo lako litatumwa kwa OpenStreetMap</string>
+    <string name="text_more_button">…more</string>
+    <string name="refresh">Update</string>
+    <!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
+    <string name="recent_track_background_dialog_title">Disable recording of your recently travelled route?</string>
+    <string name="off_recent_track_background_button">Disable</string>
+    <!-- For sharing via SMS and so on -->
+    <string name="sharing_call_action_look">Check out</string>
+    <string name="recent_track_background_dialog_message">Organic Maps uses your location in the background to record your recently travelled route.</string>
+    <string name="general_settings">General settings</string>
+    <!-- "traffic" as in road congestion -->
+    <string name="traffic_update_app_message">To display traffic data, the application must be updated.</string>
+    <string name="log_file_size">Ukubwa wa faili ya kumbukumbu: %s</string>
+    <string name="planning_route_remove_title">Vuta hapa ili kuondoa</string>
+    <string name="placepage_replace_stop">Replace Stop</string>
+    <string name="start_from_my_position">Anzia</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part -->
+    <string name="alert_reauth_message_ios">Tafadhali ingia kwenye OpenStreetMap ili kupakia kiotomatiki hariri zako zote za ramani. Pata maelezo zaidi</string>
+    <!-- For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part -->
+    <string name="alert_reauth_link_text_ios">hapa</string>
+    <string name="downloader_hide_screen">Ficha skrini</string>
+    <string name="downloader_percent">%1$s (%2$s kati ya %3$s)</string>
+    <string name="downloader_process">Inapakua %s…</string>
+    <string name="downloader_applying">Inatekeleza %s…</string>
+    <string name="bookmarks_error_title_list_name_too_long">Jina hili ni muda mrefu sana</string>
+    <string name="bookmarks_detect_title">Faili mpya zimegunduliwa</string>
+    <string name="button_convert">Badilisha</string>
+    <string name="bookmarks_convert_error_title">Hitilafu</string>
+    <string name="bookmarks_convert_error_message">Baadhi ya faili hazibadilishwa.</string>
+    <string name="title_error_downloading_bookmarks">Kosa limetokea</string>
+    <string name="popular_place">Popular</string>
+    <string name="hide_from_map">Ficha kwenye ramani</string>
+    <string name="tags_loading_error_subtitle">Kosa limetokea wakati wa kupakua vibandiko, tafadhali jaribu tena</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (on the right) -->
+    <string name="right">Right</string>
+    <!-- Position of the name label on the map relative to the bookmark pin (at the bottom) -->
+    <string name="bottom">Bottom</string>
+    <string name="trip_start">Twende zetu</string>
+    <string name="pick_destination">Mahali</string>
+    <string name="follow_my_position">Weka kati tena</string>
+    <string name="search_results">Matokeo ya utafutaji</string>
+    <string name="then_turn">Kisha</string>
+    <string name="redirect_route_alert">Je, unataka kuunda upya njia?</string>
+    <string name="keyboard_availability_alert">Mbao-bonye haipatikani wakati wa kuendesha gari</string>
+    <string name="dialog_routing_change_start_carplay">Haiwezi kuunda njia kutokea kwenye eneo lako la sasa</string>
+    <string name="dialog_routing_change_end_carplay">Haiwezi kuunda njia kwenda uendako. Tafadhali chagua sehemu nyingine</string>
+    <string name="dialog_routing_check_gps_carplay">Hakuna ishara ya GPS. Tafadhali sogea katika eneo jingine la wazi</string>
+    <string name="dialog_routing_unable_locate_route_carplay">Haiwezi kuunda njia. Tafadhali taja kituo kingine cha njia</string>
+    <string name="dialog_routing_download_files_carplay">Kuunda njia, pakua ramani zilizokosekana kwenye kifaa chako</string>
+    <string name="dialog_routing_system_error_carplay">Hitilafu imetokea. Tafadhali iwashe tena programu</string>
+    <string name="dialog_routing_rebuild_from_current_location_carplay">Njia itaundwa upya kutokea kwenye sehemu yako la sasa</string>
+    <string name="dialog_routing_rebuild_for_vehicle_carplay">Njia itaboreshwa kuwa ya gari</string>
+    <string name="not_all_shown_bookmarks_carplay">Sio vialamisho vyote vinavyoonyeshwa</string>
+    <string name="switch_to_phone_bookmarks_carplay">Badili utumie simu ili kuona alamisho zote</string>
+    <string name="speedcams_alert_title_carplay_1">Kam za kasi</string>
+    <string name="speedcams_alert_title_carplay_2">Onyo la kasi</string>
+    <string name="download_map_carplay">Tafadhali pakua ramani katika programu tumizi ya Organic Maps kwenye kifaa chako</string>
+    <string name="carplay_roundabout_exit">Kutoka kwa %s</string>
+    <!-- iOS -->
+    <string name="sort_default">Ainisha kwa chaguo-msingi</string>
+    <string name="sort_type">Ainisha kwa aina</string>
+    <string name="sort_distance">Ainisha kwa umbali</string>
+    <string name="sort_date">Ainisha kwa tarehe</string>
+    <string name="sort_name">Panga kwa jina</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Chakula</string>
@@ -313,11 +912,38 @@
     <string name="elevation_profile_time">Muda:</string>
     <string name="isolines_toast_zooms_1_10">Vuta karibu kutalii mistari ya kontua</string>
     <string name="downloader_loading_ios">Inapakua</string>
+    <string name="download_map_title">Download the world overview map</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">Unable to create folder and move files on internal device\'s memory or sdcard</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">Disk error</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">Connection failure</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">Disconnect USB cable</string>
     <string name="enable_keep_screen_on">Washa skrini</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Ikiwashwa, skrini itakuwa imewashwa wakati wa kuonyesha ramani.</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">Show on the lock screen</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">When enabled, the app will work on the lockscreen even when the device is locked.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Map language</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Data ya ramani kutoka OpenStreetMap</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <!-- Instagram account url for the "?" About page -->
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <!-- Include only languages supported on the website, add new translations here: https://github.com/organicmaps/website/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <!-- Link to OSM wiki for Editor, Profile and About pages -->
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
+    <string name="comma_separated_pair">%1$s, %2$s</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Asante kwa kutumia ramani zetu zilizojengwa na jumuiya!</string>
     <!-- App tip #01 -->
@@ -408,8 +1034,127 @@
     <string name="nav_auto">Urambazaji otomatiki</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Fuata mfumo</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Share Track</string>
+    <!-- Title for the dialog when deleting a track with the track name passed in %@ -->
+    <string name="delete_track_dialog_title">Delete %s?</string>
+    <string name="elevation_profile_diff_level">Usawa mgumu</string>
+    <string name="elevation_profile_diff_level_easy">Rahisi</string>
+    <string name="elevation_profile_diff_level_moderate">Wastani</string>
+    <string name="elevation_profile_diff_level_hard">Ngumu</string>
+    <string name="downloader_updating_ios">Inasasisha</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_title">Sasisha ramani zako ulizopakua</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_message">Kusasisha ramani kunaweka taarifa kuhusu vipengee ikiwa ya hivi sasa zaidi</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_size">Sasisha (%s)</string>
+    <!-- Autoupdate dialog on start -->
+    <string name="whats_new_auto_update_button_later">Sasisha mwenyewe baadaye</string>
+    <!-- Delete track button on track edit screen -->
+    <string name="placepage_delete_track_button">Delete Track</string>
+    <!-- The track deletion confirmaion alert message. -->
+    <string name="placepage_delete_track_confirmation_alert_message">Je, una uhakika unataka kufuta wimbo huu?</string>
+    <!-- Placeholder for track name input on track edit screen -->
+    <string name="placepage_track_name_hint">Track Name</string>
+    <!-- move track or bookmark from the list button text -->
+    <string name="move">Move</string>
+    <!-- edit track screen title -->
+    <string name="track_title">Track</string>
+    <!-- Text for the editing the Track's color button. -->
+    <string name="change_color">Badilisha rangi</string>
+    <!-- Text for the hiding track. -->
+    <string name="hide_track">Ficha wimbo</string>
+    <!-- Text for the showing track. -->
+    <string name="show_track">Onyesha wimbo</string>
+    <!-- Main screen title "Map" displayed in the navigation back button's menu. -->
+    <string name="map">Map</string>
+    <!-- Message for the bug report alert. -->
+    <string name="bugreport_alert_message">Je, ungependa kutuma ripoti ya hitilafu kwa wasanidi programu?\nTunategemea watumiaji wetu kwani Ramani za Kikaboni hazikusanyi maelezo yoyote ya hitilafu kiotomatiki. Asante mapema kwa kusaidia Ramani za Organic!</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_title">Washa Usawazishaji wa iCloud</string>
+    <!-- Message for the "Enable iCloud Syncronization" alert. -->
+    <string name="enable_icloud_synchronization_message">Usawazishaji wa iCloud ni kipengele cha majaribio kinachoendelezwa. Hakikisha kuwa umefanya nakala rudufu ya alamisho na nyimbo zako zote.</string>
+    <!-- Title for the "iCloud Is Disabled" alert. -->
+    <string name="icloud_disabled_title">iCloud Imezimwa</string>
+    <!-- Message for the "iCloud is Disabled" alert. -->
+    <string name="icloud_disabled_message">Tafadhali wezesha iCloud katika mipangilio ya kifaa chako ili kutumia kipengele hiki.</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Enable" action button. -->
+    <string name="enable">Wezesha</string>
+    <!-- Title for the "Enable iCloud Syncronization" alert's "Backup" action button. -->
+    <string name="backup">Hifadhi nakala</string>
+    <!-- Title for the "iCloud synchronization failure" alert. -->
+    <string name="icloud_synchronization_error_alert_title">Imeshindwa kusawazisha iCloud</string>
+    <!-- iCloud error message: Failed to synchronize due to connection error -->
+    <string name="icloud_synchronization_error_connection_error">Hitilafu: Imeshindwa kusawazisha kwa sababu ya hitilafu ya muunganisho</string>
+    <!-- iCloud error message: Failed to synchronize due to iCloud quota exceeded -->
+    <string name="icloud_synchronization_error_quota_exceeded">Hitilafu: Imeshindwa kusawazisha kwa sababu ya mgao wa iCloud uliozidishwa</string>
+    <!-- iCloud error message: iCloud is not available -->
+    <string name="icloud_synchronization_error_cloud_is_unavailable">Hitilafu: iCloud haipatikani</string>
+    <!-- Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. -->
+    <string name="bookmarks_recently_deleted">Orodha Zilizofutwa Hivi Karibuni</string>
+    <!-- Title for the "Clear" button on the Recently Deleted Lists screen. -->
+    <string name="clear">Futa</string>
+    <!-- Title for the "Delete All" button on the Recently Deleted Lists screen. -->
+    <string name="delete_all">Futa Zote</string>
+    <!-- Title for the "Recover" button on the Recently Deleted Lists screen. -->
+    <string name="recover">Rejesha</string>
+    <!-- Title for the "Recover All" button on the Recently Deleted Lists screen. -->
+    <string name="recover_all">Rejesha yote</string>
+    <!-- OpenStreetMap contribution section on the PlacePage. -->
+    <string name="contribute_to_osm">Changia kwenye OpenStreetMap</string>
+    <string name="contribute_to_osm_add_place">Ongeza mahali</string>
+    <string name="contribute_to_osm_update_map">Sasisha ramani ili kuchangia</string>
+    <string name="contribute_to_osm_update_map_description">Unahitaji kusasisha ramani ya %s hadi toleo jipya zaidi kabla ya kuchangia kwenye data ya OpenStreetMap</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">My Position</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">My Places</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Internal private storage</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Internal shared storage</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SD card</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">External shared storage</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Postal Code</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Map Point</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">ft</string>
+    <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
+    <string name="routes_update_maps_text">To display routes, maps must be updated.</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Toka</string>
+    <string name="core_entrance">Kiingilio</string>
+    <string name="subway_data_unavailable">Ramani ya njia ya chini haipatikani</string>
+    <string name="you">You</string>
+    <!-- Settings/Highlight downloaded regions on the map -->
+    <string name="show_downloaded_regions">Maeneo yaliyopakuliwa ya zambarau</string>
+
+    <!-- SECTION: 3d touch strings -->
+    <!-- Used in home screen quick actions. -->
+    <string name="route">Route</string>
 
     <!-- SECTION: gps strings -->
+    <!-- Needed to explain why we always require access to GPS coordinates, and not only when the app is active. -->
+    <string name="NSLocationAlwaysUsageDescription">Detecting location in the background is necessary to fully enjoy the functionality of the app. It is used for navigation and saving your recently traveled track.</string>
+    <!-- Needed to explain why we require access to GPS coordinates when the app is active. -->
+    <string name="NSLocationWhenInUseUsageDescription">Determining your location is necessary for navigation and for saving your recently traveled track.</string>
     <!-- Login to OSM button text -->
     <string name="login_osm_credentials">Ingia kwa nenosiri</string>
     <!-- Login to OSM button text -->
