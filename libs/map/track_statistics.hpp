@@ -34,5 +34,6 @@ private:
   bool HasNoPoints() const;
 
   geometry::PointWithAltitude m_previousPoint;
+  geometry::Altitude m_lastValidAltitude;
   double m_previousTimestamp;
 };
