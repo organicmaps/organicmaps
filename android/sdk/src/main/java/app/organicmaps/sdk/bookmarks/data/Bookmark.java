@@ -173,7 +173,8 @@ public class Bookmark extends MapObject
   }
 
   @NonNull
-  protected BookmarkInfo loadBookmarkInfo() {
+  protected BookmarkInfo loadBookmarkInfo()
+  {
     BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(mBookmarkId);
     if (info == null)
       throw new IllegalStateException("BookmarkInfo for " + mBookmarkId + " not found.");

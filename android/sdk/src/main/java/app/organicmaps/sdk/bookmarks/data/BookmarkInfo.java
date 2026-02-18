@@ -35,8 +35,8 @@ public class BookmarkInfo
   @Keep
   @SuppressWarnings("unused")
   private BookmarkInfo(@IntRange(from = 0) long categoryId, @IntRange(from = 0) long bookmarkId, @NonNull String title,
-                      @NonNull String description, @NonNull String featureType, @PredefinedColors.Color int color,
-                      int iconType, ParcelablePointD coords, double scale, @NonNull String address)
+                       @NonNull String description, @NonNull String featureType, @PredefinedColors.Color int color,
+                       int iconType, @NonNull ParcelablePointD coords, double scale, @NonNull String address)
   {
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
