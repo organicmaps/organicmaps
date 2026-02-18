@@ -3,6 +3,7 @@ package app.organicmaps.widget.placepage;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import app.organicmaps.sdk.bookmarks.data.Bookmark;
 import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
@@ -16,7 +17,8 @@ public class PlacePageViewModel extends ViewModel
   private final MutableLiveData<Integer> mPlacePageWidth = new MutableLiveData<>();
   private final MutableLiveData<Integer> mPlacePageDistanceToTop = new MutableLiveData<>();
   public boolean isAlertDialogShowing = false;
-
+  // NEW: Store the last place page state
+  private int mLastPlacePageState = BottomSheetBehavior.STATE_COLLAPSED;
   public LiveData<List<PlacePageButtons.ButtonType>> getCurrentButtons()
   {
     return mCurrentButtons;
@@ -55,5 +57,15 @@ public class PlacePageViewModel extends ViewModel
   public void setPlacePageDistanceToTop(int top)
   {
     mPlacePageDistanceToTop.setValue(top);
+  }
+  // NEW: Methods to manage last place page state
+  public int getLastPlacePageState()
+  {
+    return mLastPlacePageState;
+  }
+
+  public void setLastPlacePageState(int state)
+  {
+    mLastPlacePageState = state;
   }
 }
