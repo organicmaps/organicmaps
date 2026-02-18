@@ -31,7 +31,6 @@ struct IntersectOp
   unique_ptr<coding::CompressedBitVector> operator()(coding::DenseCBV const & a, coding::SparseCBV const & b) const
   {
     vector<uint64_t> resPos;
-    resPos.reserve(static_cast<size_t>(b.PopCount()));
     for (size_t i = 0; i < b.PopCount(); ++i)
     {
       auto pos = b.Select(i);
@@ -49,7 +48,6 @@ struct IntersectOp
   unique_ptr<coding::CompressedBitVector> operator()(coding::SparseCBV const & a, coding::SparseCBV const & b) const
   {
     vector<uint64_t> resPos;
-    resPos.reserve(static_cast<size_t>(std::min(a.PopCount(), b.PopCount())));
     set_intersection(a.Begin(), a.End(), b.Begin(), b.End(), back_inserter(resPos));
     return make_unique<coding::SparseCBV>(std::move(resPos));
   }
@@ -99,7 +97,6 @@ struct SubtractOp
   unique_ptr<coding::CompressedBitVector> operator()(coding::SparseCBV const & a, coding::DenseCBV const & b) const
   {
     vector<uint64_t> resPos;
-    resPos.reserve(static_cast<size_t>(a.PopCount()));
     copy_if(a.Begin(), a.End(), back_inserter(resPos), [&](uint64_t bit) { return !b.GetBit(bit); });
     return CompressedBitVectorBuilder::FromBitPositions(std::move(resPos));
   }
@@ -107,7 +104,6 @@ struct SubtractOp
   unique_ptr<coding::CompressedBitVector> operator()(coding::SparseCBV const & a, coding::SparseCBV const & b) const
   {
     vector<uint64_t> resPos;
-    resPos.reserve(static_cast<size_t>(a.PopCount()));
     set_difference(a.Begin(), a.End(), b.Begin(), b.End(), back_inserter(resPos));
     return CompressedBitVectorBuilder::FromBitPositions(std::move(resPos));
   }
@@ -398,8 +394,7 @@ void SparseCBV::Serialize(Writer & writer) const
 
 unique_ptr<CompressedBitVector> SparseCBV::Clone() const
 {
-  auto cbv = make_unique<SparseCBV>(m_positions);
-  return cbv;
+  return make_unique<SparseCBV>(m_positions);
 }
 
 // static
@@ -433,7 +428,6 @@ unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitGroups(vector
     return DenseCBV::BuildFromBitGroups(std::move(bitGroups));
 
   vector<uint64_t> setBits;
-  setBits.reserve(static_cast<size_t>(popCount));
   for (size_t i = 0; i < bitGroups.size(); ++i)
   {
     for (size_t j = 0; j < kBlockSize; ++j)

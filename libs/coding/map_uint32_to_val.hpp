@@ -10,7 +10,6 @@
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
-#include "base/thread_checker.hpp"
 
 #if defined(__clang__)
 #pragma clang diagnostic push
@@ -111,7 +110,6 @@ public:
   /// @{
   [[nodiscard]] bool Get(uint32_t id, Value & value)
   {
-    DECLARE_AND_CHECK_THREAD_CHECKER("MapUint32ToValue::Get is not thread safe, use GetThreadsafe instead");
     if (id >= m_ids.size() || !m_ids[id])
       return false;
 
@@ -230,8 +228,6 @@ private:
   ReadBlockCallback m_readBlockCallback;
 
   std::unordered_map<uint32_t, std::vector<Value>> m_cache;
-
-  DECLARE_THREAD_CHECKER(m_threadChecker);
 };
 
 template <typename Value>

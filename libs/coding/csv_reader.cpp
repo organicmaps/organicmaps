@@ -79,49 +79,22 @@ std::optional<std::string> CSVReader::IstreamWrapper::ReadLine()
 
 CSVReader::ReaderWrapper::ReaderWrapper(Reader const & reader) : m_reader(reader) {}
 
-void CSVReader::ReaderWrapper::FillBuffer()
-{
-  uint64_t const remaining = m_reader.Size() - m_pos;
-  size_t const toRead = std::min(static_cast<size_t>(remaining), kBufferSize);
-  m_buf.resize(toRead);
-  m_reader.Read(m_pos, m_buf.data(), toRead);
-  m_pos += toRead;
-  m_bufPos = 0;
-  m_bufEnd = toRead;
-}
-
 std::optional<std::string> CSVReader::ReaderWrapper::ReadLine()
 {
-  if (m_bufPos >= m_bufEnd && m_pos >= m_reader.Size())
-    return {};
-
   std::string line;
-  for (;;)
+  char ch = '\0';
+  while (m_pos < m_reader.Size() && ch != '\n')
   {
-    if (m_bufPos >= m_bufEnd)
-    {
-      if (m_pos >= m_reader.Size())
-        break;
-      FillBuffer();
-    }
-
-    auto const * begin = m_buf.data() + m_bufPos;
-    auto const * end = m_buf.data() + m_bufEnd;
-    auto const * nl = std::find(begin, end, '\n');
-
-    if (nl != end)
-    {
-      line.append(begin, nl);
-      m_bufPos = static_cast<size_t>(nl - m_buf.data()) + 1;
-      return line;
-    }
-
-    line.append(begin, end);
-    m_bufPos = m_bufEnd;
+    m_reader.Read(m_pos, &ch, sizeof(ch));
+    line.push_back(ch);
+    ++m_pos;
   }
 
   if (line.empty())
     return {};
+
+  if (line.back() == '\n')
+    line.pop_back();
 
   return line;
 }
