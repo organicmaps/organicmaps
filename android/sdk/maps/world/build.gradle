@@ -3,8 +3,16 @@ plugins {
 }
 
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+apply from: "${rootProject.rootDir}/groovy/publishing.gradle"
 
 android {
   namespace = 'app.organicmaps.sdk.maps.world'
   compileSdk = propCompileSdkVersion.toInteger()
 }
+
+Publish(project, [
+    'artifactId'   : 'maps-world',
+    'name'         : 'Organic Maps SDK. World Maps',
+    'description'  : 'A library that provides world maps for the app',
+    'inceptionYear': '2025'
+])

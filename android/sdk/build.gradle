@@ -3,6 +3,7 @@ plugins {
 }
 
 apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+apply from: "${rootProject.rootDir}/groovy/publishing.gradle"
 
 android {
   namespace = 'app.organicmaps.sdk'
@@ -115,3 +116,10 @@ project.afterEvaluate {
     }
   }
 }
+
+Publish(project, [
+    "artifactId"   : "sdk",
+    'name'         : 'Organic Maps SDK',
+    'description'  : 'An open-source Android library for building fully offline, privacy-respecting map and navigation applications powered by OpenStreetMap data',
+    'inceptionYear': '2025'
+])

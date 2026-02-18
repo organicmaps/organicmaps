@@ -1,0 +1,121 @@
+ext.Publish = { Project project, Map<String, Object> props ->
+  apply plugin: 'maven-publish'
+  apply plugin: 'signing'
+  apply plugin: 'org.jreleaser'
+
+  android {
+    version = rootProject.ext.versionName
+    defaultConfig {
+      aarMetadata {
+        minCompileSdk = propMinSdkVersion.toInteger()
+      }
+    }
+
+    publishing {
+      singleVariant('release') {
+        withSourcesJar()
+        withJavadocJar()
+      }
+    }
+  }
+
+  publishing {
+    publications {
+      release(MavenPublication) {
+        groupId = 'app.organicmaps'
+        artifactId = props['artifactId']
+        version = rootProject.ext.versionName
+        project.afterEvaluate {
+          from project.components.release
+        }
+        pom {
+          packaging = 'aar'
+          name = props['name']
+          description = props['description']
+          url = 'https://github.com/organicmaps/organicmaps.git'
+          inceptionYear = props['inceptionYear']
+
+          licenses {
+            license {
+              name = 'The Apache License, Version 2.0'
+              url = 'https://github.com/organicmaps/organicmaps/blob/master/LICENSE'
+              distribution = 'manual'
+            }
+            license {
+              name = 'Organic Maps Binary Data License'
+              url = 'https://github.com/organicmaps/organicmaps/blob/master/DATA_LICENSE.txt'
+              distribution = 'manual'
+            }
+          }
+
+          organization {
+            name = 'Organic Maps'
+            url = 'https://organicmaps.app'
+          }
+
+          developers {
+            developer {
+              id = 'OrganicMaps'
+              name = 'Organic Maps Team'
+              email = 'sdk@organicmaps.app'
+              organizationUrl = 'https://organicmaps.app'
+            }
+          }
+
+          scm {
+            connection = 'scm:git:git://github.com/organicmaps/organicmaps'
+            developerConnection = 'scm:git:ssh://github.com:organicmaps/organicmaps.git'
+            url = 'https://github.com/organicmaps/organicmaps.git'
+          }
+
+          ciManagement {
+            system = 'GitHub Actions'
+            url = 'https://github.com/organicmaps/organicmaps/actions'
+          }
+
+          issueManagement {
+            system = 'GitHub Issues'
+            url = 'https://github.com/organicmaps/organicmaps/issues'
+          }
+        }
+      }
+    }
+    repositories {
+      mavenLocal {
+        name = 'mavenLocal'
+        url = rootProject.layout.buildDirectory.dir('publications/mavenLocal')
+      }
+    }
+  }
+
+  jreleaser { it ->
+    gitRootSearch = true
+    it.project {
+      versionPattern = 'CALVER:YYYY.0M.0D-MICRO'
+    }
+    release {
+      github {
+        skipRelease = true
+        token = '...'
+      }
+    }
+    signing {
+      pgp {
+        active = 'ALWAYS'
+        armored = true
+      }
+    }
+    deploy {
+      maven {
+        mavenCentral {
+          sonatype {
+            active = 'ALWAYS'
+            url = 'https://central.sonatype.com/api/v1/publisher'
+            stagingRepository(rootProject.layout.buildDirectory.dir('publications/mavenLocal').get())
+            verifyPom = false
+          }
+        }
+      }
+    }
+  }
+}

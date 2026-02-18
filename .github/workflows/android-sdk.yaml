@@ -1,0 +1,89 @@
+name: Android SDK Release
+on:
+  workflow_dispatch:  # Manual trigger
+    inputs:
+      tag:
+        description: 'Release tag'
+        required: true
+        type: string
+  workflow_call: # For calling from another workflow
+    inputs:
+      tag:
+        description: 'Release tag'
+        required: true
+        type: string
+  pull_request: # TODO: For testing purposes, remove before merge
+
+env:
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
+
+jobs:
+  android-sdk-release:
+    name: Android SDK Release
+    runs-on: ubuntu-latest
+    # TODO: Commented for testing purposes, uncomment before merge
+    # environment: production
+    steps:
+      - name: Install build tools and dependencies
+        shell: bash
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build
+
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 100 # enough to get all commits for the current day
+          # TODO: Commented for testing purposes, uncomment before merge
+          # ref: 'refs/tags/${{ inputs.tag }}'
+
+# TODO: Commented for testing purposes, uncomment before merge
+#      - name: Check tag
+#        shell: bash
+#        run: |
+#          git show HEAD
+#          test -n "${{ inputs.tag }}"
+#          test "$(git tag --points-at HEAD)" = "${{ inputs.tag }}"
+
+      - name: Restore Boost submodule from cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            3party/boost
+            .git/modules/3party/boost
+          key: boost-submodule
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+# TODO: Commented for testing purposes, uncomment before merge
+#      - name: Restore release keys
+#        shell: bash
+#        run: |
+#          echo "$PRIVATE_H" | base64 -d > private.h
+#        env:
+#          PRIVATE_H: ${{ secrets.PRIVATE_H }}
+
+      - name: Configure repository
+        shell: bash
+        run: ./configure.sh
+
+      - name: Set up SDK
+        shell: bash
+        run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
+
+      - name: Publish Android SDK to local Maven repo
+        shell: bash
+        working-directory: android
+        run: ./gradlew publishSdk
+
+      - name: Prepare JReleaser configuration
+        shell: bash
+        # TODO
+        run: mkdir -p ~/.jreleaser/ && touch ~/.jreleaser/config.toml
+
+      - name: Deploy Android SDK artifacts to Maven Central
+        shell: bash
+        working-directory: android
+        run: ./gradlew jreleaserDeploy
