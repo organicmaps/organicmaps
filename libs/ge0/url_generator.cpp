@@ -135,9 +135,6 @@ std::string GenerateGeoUri(double lat, double lon, double zoom, std::string cons
   // For Google Maps compatibility, otherwise it doesn't select the point on the map, only shows the area.
   oss << "&q=" << std::setprecision(7) << lat << ',' << lon;
 
-  if (!name.empty())
-    oss << '(' << url::UrlEncode(name) << ')';
-
   return oss.str();
 }
 
