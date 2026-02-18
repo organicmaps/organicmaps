@@ -37,6 +37,7 @@ double const kArrowHeightFactor = kArrowTextureHeight / kArrowBodyHeight;
 double const kArrowAspect = kArrowTextureWidth / kArrowTextureHeight;
 
 extern std::array<float, 20> const kRouteHalfWidthInPixelCar;
+extern std::array<float, 20> const kRouteHalfWidthInPixelBicycle;
 extern std::array<float, 20> const kRouteHalfWidthInPixelTransit;
 extern std::array<float, 20> const kRouteHalfWidthInPixelOthers;
 
