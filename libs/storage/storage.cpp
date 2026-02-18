@@ -1703,27 +1703,41 @@ Progress Storage::CalculateProgress(CountriesVec const & descendants) const
   // Function calculates progress correctly ONLY if |downloadingMwm| is leaf.
 
   Progress result;
-
   auto const mwmsInQueue = GetQueuedCountries(m_downloader->GetQueue());
   for (auto const & d : descendants)
   {
+    NodeStatuses nodeStatuses;
+    GetNodeStatuses(d, nodeStatuses);
+
+    if (nodeStatuses.m_groupNode || nodeStatuses.m_status == NodeStatus::Undefined)
+      continue;
+
+    MwmSize remoteSize = GetRemoteSize(GetCountryFile(d));
     auto const downloadingIt = m_downloadingCountries.find(d);
     if (downloadingIt != m_downloadingCountries.cend())
     {
       if (!downloadingIt->second.IsUnknown())
         result.m_bytesDownloaded += downloadingIt->second.m_bytesDownloaded;
 
-      result.m_bytesTotal += GetRemoteSize(GetCountryFile(d));
+      result.m_bytesTotal += remoteSize;
     }
-    else if (mwmsInQueue.count(d) != 0)
+    else if (nodeStatuses.m_status == NodeStatus::InQueue)
     {
-      result.m_bytesTotal += GetRemoteSize(GetCountryFile(d));
+      result.m_bytesTotal += remoteSize;
     }
     else if (m_justDownloaded.count(d) != 0)
     {
-      MwmSize const localCountryFileSz = GetRemoteSize(GetCountryFile(d));
-      result.m_bytesDownloaded += localCountryFileSz;
-      result.m_bytesTotal += localCountryFileSz;
+      result.m_bytesDownloaded += remoteSize;
+      result.m_bytesTotal += remoteSize;
+    }
+    else if (nodeStatuses.m_status == NodeStatus::NotDownloaded)
+    {
+      bool const isMapInQueue = mwmsInQueue.contains(d);
+
+      result.m_bytesTotal += remoteSize;
+
+      if (IsDownloadInProgress() && !isMapInQueue)
+        result.m_bytesDownloaded += remoteSize;
     }
   }
 
