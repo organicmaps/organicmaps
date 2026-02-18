@@ -259,9 +259,6 @@ private:
 
   ThreadChecker m_threadChecker;
 
-  /// Guard preventing use-after-free in async callbacks that capture |this|.
-  std::shared_ptr<bool> m_aliveGuard = std::make_shared<bool>(true);
-
   bool m_needToStartDeferredDownloading = false;
 
   StartDownloadingCallback m_startDownloadingCallback;

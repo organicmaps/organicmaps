@@ -347,8 +347,11 @@ void Storage::GetLocalMaps(vector<LocalFilePtr> & maps) const
   for (auto const & p : m_localFilesForFakeCountries)
     maps.push_back(p.second);
 
+#ifdef DEBUG
   std::sort(maps.begin(), maps.end());
-  maps.erase(std::unique(maps.begin(), maps.end()), maps.end());
+  for (size_t i = 1; i < maps.size(); ++i)
+    ASSERT(maps[i - 1] != maps[i], ());
+#endif
 }
 
 size_t Storage::GetDownloadedFilesCount() const
@@ -1012,13 +1015,8 @@ bool Storage::CheckFailedCountries(CountriesVec const & countries) const
 
 void Storage::RunCountriesCheckAsync()
 {
-  std::weak_ptr<bool> weak = m_aliveGuard;
-
-  m_downloader->DownloadAsString(SERVER_DATAVERSION_FILE, [this, weak](std::string const & buffer)
+  m_downloader->DownloadAsString(SERVER_DATAVERSION_FILE, [this](std::string const & buffer)
   {
-    if (weak.expired())
-      return false;
-
     LOG(LDEBUG, (SERVER_DATAVERSION_FILE, "downloaded"));
 
     int64_t const dataVersion = ParseIndexAndGetDataVersion(buffer);
@@ -1028,11 +1026,8 @@ void Storage::RunCountriesCheckAsync()
     LOG(LDEBUG, ("Try download", COUNTRIES_FILE, "for", dataVersion));
 
     m_downloader->DownloadAsString(downloader::GetFileDownloadUrl(COUNTRIES_FILE, dataVersion),
-                                   [this, weak, dataVersion](std::string const & buffer)
+                                   [this, dataVersion](std::string const & buffer)
     {
-      if (weak.expired())
-        return false;
-
       LOG(LDEBUG, (COUNTRIES_FILE, "downloaded"));
 
       std::shared_ptr<Storage> storage(new Storage(7 /* dummy */));
@@ -1045,11 +1040,8 @@ void Storage::RunCountriesCheckAsync()
         ASSERT_EQUAL(storage->m_currentVersion, dataVersion, ());
 
         /// @todo Or use simple but reliable strategy: download new file and ask to restart the app?
-        GetPlatform().RunTask(Platform::Thread::Gui, [this, weak, storage, buffer = std::move(buffer)]()
-        {
-          if (!weak.expired())
-            ApplyCountries(buffer, *storage);
-        });
+        GetPlatform().RunTask(Platform::Thread::Gui,
+                              [this, storage, buffer = std::move(buffer)]() { ApplyCountries(buffer, *storage); });
       }
 
       return false;
@@ -1229,22 +1221,20 @@ void Storage::GetChildrenInGroups(CountryId const & parent, CountriesVec & downl
     }
   });
 
-  // Pre-build frequency maps to avoid O(D*N) linear scans.
-  std::unordered_map<CountryId, size_t> withoutSiblingsCnt, allDisputedCnt;
-  for (auto const & id : disputedTerritoriesWithoutSiblings)
-    ++withoutSiblingsCnt[id];
-  for (auto const & id : allDisputedTerritories)
-    ++allDisputedCnt[id];
+  size_t constexpr kAllDisputedCount = 11;
+  ASSERT_LESS(disputedTerritoriesWithoutSiblings.size(), kAllDisputedCount, ());
+  ASSERT_LESS(allDisputedTerritories.size(), kAllDisputedCount, ());
 
   CountriesVec uniqueDisputed(disputedTerritoriesWithoutSiblings.begin(), disputedTerritoriesWithoutSiblings.end());
   base::SortUnique(uniqueDisputed);
 
   for (auto const & countryId : uniqueDisputed)
   {
-    // Checks that the number of disputed territories with |countryId| in subtree with root ==
-    // |parent| is equal to the number of disputed territories without downloaded sibling
+    // Checks that the number of disputed territories with |countryId| in subtree with root == |parent|
+    // is equal to the number of disputed territories with out downloaded sibling
     // with |countryId| in subtree with root == |parent|.
-    if (withoutSiblingsCnt[countryId] == allDisputedCnt[countryId])
+    if (count(disputedTerritoriesWithoutSiblings.begin(), disputedTerritoriesWithoutSiblings.end(), countryId) ==
+        count(allDisputedTerritories.begin(), allDisputedTerritories.end(), countryId))
     {
       // |countryId| is downloaded without any other map in its group.
       downloadedChildren.push_back(countryId);

@@ -9,10 +9,7 @@
 #include "geometry/point2d.hpp"
 #include "geometry/region2d.hpp"
 
-#include "base/cache.hpp"
-
 #include <memory>
-#include <mutex>
 #include <string>
 #include <vector>
 
@@ -28,6 +25,7 @@ public:
   };
 
   CountryInfoReader();
+  /// @note Be careful here, because "lightweight" has no region's geometry cache.
   Info GetMwmInfo(m2::PointD const & pt) const;
 
 protected:
@@ -39,7 +37,5 @@ protected:
 private:
   std::unique_ptr<FilesContainerR> m_reader;
   storage::CountryNameGetter m_nameGetter;
-  mutable base::Cache<uint32_t, std::vector<m2::RegionD>> m_polyCache{3 /* logCacheSize */};
-  mutable std::mutex m_polyMutex;
 };
 }  // namespace lightweight
