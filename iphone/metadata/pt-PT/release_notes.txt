@@ -1,7 +1,27 @@
-• As rotas entre países são criadas mais rapidamente e já não causam falhas por falta de memória
-• Dados do OpenStreetMap atualizados a 25 de janeiro
-• Suporte de exportação GeoJSON para marcadores e trilhos
-• Adicionadas traduções em falta para pontes desativadas
-• Traduções corrigidas e atualizadas
+• Dados do mapa OSM de 16 de fevereiro
+• Dados da Wikipedia de 1 de fevereiro
+• As rotas de caminhada e ciclismo pretas são agora visíveis no tema escuro
+• Adicionados mais serviços automóveis: reparação, serviço e peças
+• Adicionada autenticação do navegador OSM
+• Corrigido o acesso de bicicletas em alguns tipos de estradas
+• Corrigido o cálculo da velocidade média
+• Melhorada a classificação de pesquisa para categorias
+• Adicionada cozinha uzbeque
+• Adicionados slides (zip lines) no mapa
+• Corrigidos links da Wikimedia com "?" no título
+• Corrigida a análise de ficheiros GPX com "+" nas coordenadas
 
-Obrigado a todos que contribuem, doam e apoiam o Organic Maps! Vamos construir os melhores mapas juntos!
+### Traduções
+
+• Removidos nomes de cidades duplicados em algumas regiões do mapa
+• Corrigidas as indicações de voz em hebraico
+• Corrigidos erros de digitação em coreano
+• Adicionados sinónimos de pesquisa em russo
+• Melhoradas as indicações de voz em alemão
+• Corrigida tradução em falta para túnel ferroviário desativado
+• Corrigida tradução do país em romeno
+• Adicionadas traduções em laociano e arménio
+• Adicionadas traduções arménias em falta
+• Traduções atualizadas dos colaboradores do Weblate
+
+Obrigado a todos os que contribuem, doam e apoiam o Organic Maps! Vamos construir os melhores mapas juntos!

@@ -1,10 +1,10 @@
-• Snellere routering voor lange afstanden
-• Verse OSM-kaartgegevens van 25 januari
-• GeoJSON-export
-• Uitgebreide openingstijden
-• De optie Licht/Donker thema is opgesplitst in instellingen voor Uiterlijk en Navigatie
-• Bladwijzerkleur wijzigen vanuit een lijst
-• Verbeterde landschaps-UI voor een geselecteerde plaats op de kaart
-• Niet-werkende editor voor plaatsen met ongeldige telefoonnummers gerepareerd
-• Diverse crashes en UI-fouten verholpen
+• OSM-data per 16 februari, Wikipedia per 1 februari
+• Zwarte wandel- en fietsroutes zijn nu zichtbaar in het donkere thema
+• Tokkelbanen en meer autodiensten toegevoegd: reparatie, onderhoud en onderdelen
+• Fietsroutering en berekening gemiddelde snelheid opgelost
+• Verbeterde categoriezoekfunctie
+• Oezbeekse keuken
+• Uitbreidbare openingstijden
+• Toon en gebruik MSL-hoogte voor tracks opgenomen op Android 14+
+• Import van KML, KMZ, GPX, GeoJSON vanuit WhatsApp opgelost
 …meer op omaps.org/news

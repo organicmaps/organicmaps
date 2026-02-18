@@ -1,7 +1,27 @@
-• Ülkeler arası rotalar daha hızlı oluşturuluyor ve artık hafıza yetersizliği çökmelerine neden olmuyor
-• 25 Ocak itibariyle güncellenmiş OpenStreetMap verileri
-• Yer imleri ve izler için GeoJSON dışa aktarma desteği
-• Kullanılmayan köprüler için eksik çeviriler eklendi
-• Çeviriler düzeltildi ve güncellendi
+• 16 Şubat itibarıyla OSM harita verileri
+• 1 Şubat itibarıyla Wikipedia verileri
+• Siyah yürüyüş ve bisiklet rotaları artık karanlık temada görülebiliyor
+• Daha fazla araç hizmeti eklendi: onarım, servis ve parça
+• OSM tarayıcı kimlik doğrulaması eklendi
+• Bazı yol türlerinde bisiklet erişimi düzeltildi
+• Ortalama hız hesaplaması düzeltildi
+• Kategoriler için arama sıralaması iyileştirildi
+• Özbek mutfağı eklendi
+• Haritaya teleferikler (zip lines) eklendi
+• Başlığında "?" bulunan Wikimedia bağlantıları düzeltildi
+• Koordinatlarda "+" bulunan GPX dosyalarının ayrıştırılması düzeltildi
+
+### Çeviriler
+
+• Bazı harita bölgelerinde yinelenen şehir adları kaldırıldı
+• İbranice sesli yönlendirmeler düzeltildi
+• Korece yazım hataları düzeltildi
+• Rusça arama eşanlamlıları eklendi
+• Almanca sesli yönlendirmeler iyileştirildi
+• Kullanılmayan demiryolu tüneli için eksik çeviri düzeltildi
+• Rumence ülke çevirisi düzeltildi
+• Laosca ve Ermenice çeviriler eklendi
+• Eksik Ermenice çeviriler eklendi
+• Weblate katkıda bulunanlardan çeviriler güncellendi
 
 Organic Maps'e katkıda bulunan, bağış yapan ve destekleyen herkese teşekkürler! En iyi haritaları birlikte oluşturalım!

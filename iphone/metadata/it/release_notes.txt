@@ -1,7 +1,27 @@
-• I percorsi tra paesi vengono creati più velocemente e non causano più arresti anomali per memoria insufficiente
-• Dati OpenStreetMap aggiornati al 25 gennaio
-• Supporto esportazione GeoJSON per segnalibri e tracce
-• Aggiunte traduzioni mancanti per ponti in disuso
-• Traduzioni corrette e aggiornate
+• Dati mappa OSM al 16 febbraio
+• Dati Wikipedia al 1 febbraio
+• I percorsi escursionistici e ciclabili neri sono ora visibili nel tema scuro
+• Aggiunti più servizi per auto: riparazione, assistenza e ricambi
+• Aggiunta autenticazione browser OSM
+• Risolto l'accesso alle biciclette su alcuni tipi di strade
+• Risolto il calcolo della velocità media
+• Migliorato il posizionamento della ricerca per le categorie
+• Aggiunta cucina uzbeka
+• Aggiunte teleferiche (zip line) sulla mappa
+• Risolti i link Wikimedia con "?" nel titolo
+• Risolta l'analisi dei file GPX con "+" nelle coordinate
 
-Grazie a tutti coloro che contribuiscono, donano e supportano Organic Maps! Costruiamo insieme le migliori mappe!
+### Traduzioni
+
+• Rimossi nomi di città duplicati in alcune regioni della mappa
+• Risolte le indicazioni vocali in ebraico
+• Risolti errori di battitura in coreano
+• Aggiunti sinonimi di ricerca in russo
+• Migliorate le indicazioni vocali in tedesco
+• Risolto traduzione mancante per tunnel ferroviario in disuso
+• Risolto traduzione del paese in rumeno
+• Aggiunte traduzioni in laotiano e armeno
+• Aggiunte traduzioni armene mancanti
+• Aggiornate le traduzioni dai collaboratori di Weblate
+
+Grazie a tutti coloro che contribuiscono, donano e supportano Organic Maps! Costruiamo insieme le mappe migliori!

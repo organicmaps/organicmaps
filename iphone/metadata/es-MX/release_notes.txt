@@ -1,7 +1,27 @@
-• Las rutas entre países se crean más rápido y ya no causan bloqueos por falta de memoria
-• Datos de OpenStreetMap actualizados al 25 de enero
-• Soporte de exportación GeoJSON para marcadores y rutas
-• Añadidas traducciones faltantes para puentes en desuso
-• Traducciones corregidas y actualizadas
+• Datos de mapas OSM del 16 de febrero
+• Datos de Wikipedia del 1 de febrero
+• Las rutas de senderismo y ciclismo de color negro ahora son visibles en el tema oscuro
+• Se agregaron más servicios para automóviles: reparación, servicio y refacciones
+• Se agregó autenticación del navegador OSM
+• Se corrigió el acceso de bicicletas en algunos tipos de caminos
+• Se corrigió el cálculo de la velocidad promedio
+• Se mejoró la clasificación de búsqueda por categorías
+• Se agregó cocina uzbeka
+• Se agregaron tirolesas en el mapa
+• Se corrigieron enlaces de Wikimedia con "?" en el título
+• Se corrigió el análisis de archivos GPX con "+" en las coordenadas
+
+### Traducciones
+
+• Se eliminaron nombres de ciudades duplicados en algunas regiones del mapa
+• Se corrigieron las indicaciones de voz en hebreo
+• Se corrigieron errores tipográficos en coreano
+• Se agregaron sinónimos de búsqueda en ruso
+• Se mejoraron las indicaciones de voz en alemán
+• Se corrigió la traducción faltante para túnel ferroviario en desuso
+• Se corrigió la traducción del país en rumano
+• Se agregaron traducciones al laosiano y armenio
+• Se agregaron traducciones armenias faltantes
+• Se actualizaron las traducciones de los colaboradores de Weblate
 
 ¡Gracias a todos los que contribuyen, donan y apoyan a Organic Maps! ¡Construyamos los mejores mapas juntos!

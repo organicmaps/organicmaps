@@ -1,10 +1,9 @@
-• Gyorsabb útvonaltervezés hosszú távú utakhoz
-• Friss OSM térképadatok január 25-i állapot szerint
-• GeoJSON exportálás
-• Bővített nyitvatartási idő
-• A Világos/Sötét téma opció szétválasztása Megjelenés és Navigáció beállításokra
-• Könyvjelző színének módosítása listából
-• Javított fekvő tájolású felület a térképen kiválasztott helyhez
-• Javítva a nem működő szerkesztő érvénytelen telefonszámú helyeknél
-• Számos összeomlás és felületi hiba javítva
-…továbbiak az omaps.org/news oldalon
+• OSM adatok: február 16., Wikipédia: február 1.
+• A fekete túra- és kerékpárutak mostantól láthatók a sötét témában
+• Kötélpályák és több autószerviz hozzáadva: javítás, szerviz és alkatrészek
+• Kerékpáros útvonaltervezés és átlagsebesség-számítás javítva
+• Javított kategóriakeresés
+• Üzbég konyha
+• Kibővíthető nyitvatartási idők
+• MSL magasság megjelenítése és használata rögzített nyomvonalakhoz Android 14+ rendszeren
+…több az omaps.org/news oldalon

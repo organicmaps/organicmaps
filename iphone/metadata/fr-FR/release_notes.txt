@@ -1,7 +1,27 @@
-• Les itinéraires entre pays sont créés plus rapidement et ne causent plus de plantages par manque de mémoire
-• Données OpenStreetMap mises à jour au 25 janvier
-• Support de l'exportation GeoJSON pour les signets et les traces
-• Ajout des traductions manquantes pour les ponts désaffectés
-• Traductions corrigées et mises à jour
+• Données cartographiques OSM du 16 février
+• Données Wikipédia du 1er février
+• Les itinéraires de randonnée et de vélo noirs sont désormais visibles dans le thème sombre
+• Ajout de plus de services automobiles : réparation, entretien et pièces
+• Ajout de l'authentification par navigateur OSM
+• Correction de l'accès aux vélos sur certains types de routes
+• Correction du calcul de la vitesse moyenne
+• Amélioration du classement de recherche pour les catégories
+• Ajout de la cuisine ouzbèke
+• Ajout des tyroliennes sur la carte
+• Correction des liens Wikimedia avec "?" dans le titre
+• Correction de l'analyse des fichiers GPX avec "+" dans les coordonnées
+
+### Traductions
+
+• Suppression des noms de villes en double dans certaines régions de la carte
+• Correction des instructions vocales en hébreu
+• Correction de coquilles en coréen
+• Ajout de synonymes de recherche en russe
+• Amélioration des instructions vocales en allemand
+• Correction de la traduction manquante pour le tunnel ferroviaire désaffecté
+• Correction de la traduction du pays en roumain
+• Ajout des traductions en lao et arménien
+• Ajout de traductions arméniennes manquantes
+• Mise à jour des traductions des contributeurs Weblate
 
 Merci à tous ceux qui contribuent, font des dons et soutiennent Organic Maps ! Construisons ensemble les meilleures cartes !

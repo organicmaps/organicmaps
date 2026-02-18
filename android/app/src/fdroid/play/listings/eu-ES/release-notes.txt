@@ -1,9 +1,9 @@
-• Bideratze azkarragoa herrialdeaz gaindiko ibilbide luzeetarako
-• OSM mapa datu berriak urtarrilaren 25ekoak
-• GeoJSON esportazioa
-• Ordutegi zabalagoa
-• Aplikazioaren gai argia/iluna Itxura eta Nabigazio ezarpenetan banatu da
-• Laster-markaren kolorea zerrenda batetik aldatu
-• Paisaia moduko interfazea hobetu da mapan hautatutako lekuetarako
-• Telefono-zenbaki baliogabeak dituzten lekuetarako editorea konpondu da
-…gehiago omaps.org/news
+• OSM datuak otsailaren 16koak, Wikipedia otsailaren 1ekoak
+• Ibilbide beltzak eta bizikleta ibilbideak orain ikusgai daude gai ilunean
+• Tirolinak eta auto zerbitzu gehiago gehitu dira: konponketa, zerbitzua eta piezak
+• Bizikleta bideratzea eta batez besteko abiaduraren kalkulua konpondu dira
+• Kategoria bilaketa hobetua
+• Uzbekistango sukaldaritza
+• Ordutegi zabalgarriak
+• Erakutsi eta erabili MSL altitudea Android 14+ gailuetan grabatutako ibilbideetarako
+…gehiago omaps.org/news helbidean

@@ -1,7 +1,27 @@
-• Reitit maiden välillä luodaan nopeammin eivätkä ne enää aiheuta muistin loppumisesta johtuvia kaatumisia
-• Päivitetty OpenStreetMap-aineisto 25. tammikuuta
-• GeoJSON-viennin tuki kirjanmerkeille ja jäljille
-• Lisätty puuttuvia käännöksiä käytöstä poistetuille silloille
-• Korjattu ja päivitetty käännöksiä
+• OSM-karttatiedot 16. helmikuuta alkaen
+• Wikipedia-tiedot 1. helmikuuta alkaen
+• Mustat vaellus- ja pyöräilyreitit näkyvät nyt tummassa teemassa
+• Lisätty enemmän autopalveluita: korjaus, huolto ja varaosat
+• Lisätty OSM-selainautentikointi
+• Korjattu polkupyörien pääsy joillakin tietyypeillä
+• Korjattu keskinopeuden laskenta
+• Parannettu hakusijoitusta kategorioille
+• Lisätty uzbekistanilainen keittiö
+• Lisätty köysiradat kartalle
+• Korjattu Wikimedia-linkit, joiden otsikossa on "?"
+• Korjattu GPX-tiedostojen jäsennys, joiden koordinaateissa on "+"
+
+### Käännökset
+
+• Poistettu kaksoiskappaleet kaupunkien nimistä joillakin kartta-alueilla
+• Korjattu hepreankieliset ääniopasteet
+• Korjattu korealaisia kirjoitusvirheitä
+• Lisätty venäjänkielisiä hakusynonyymejä
+• Parannettu saksankielisiä ääniopasteita
+• Korjattu puuttuva käännös käytöstä poistetulle rautatietunnelille
+• Korjattu maan käännös romaniaksi
+• Lisätty laosin ja armenian käännökset
+• Lisätty puuttuvia armeniankielisiä käännöksiä
+• Päivitetty käännöksiä Weblate-avustajilta
 
 Kiitos kaikille, jotka osallistuvat, lahjoittavat ja tukevat Organic Mapsia! Rakennetaan parhaat kartat yhdessä!

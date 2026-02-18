@@ -1,7 +1,27 @@
-• Routen zwischen Ländern werden schneller erstellt und verursachen keine Abstürze mehr aufgrund von Speichermangel
-• OpenStreetMap-Daten aktualisiert (Stand: 25. Januar)
-• GeoJSON-Export für Lesezeichen und Tracks
-• Fehlende Übersetzungen für stillgelegte Brücken hinzugefügt
-• Übersetzungen korrigiert und aktualisiert
+• OSM-Kartendaten vom 16. Februar
+• Wikipedia-Daten vom 1. Februar
+• Schwarze Wander- und Radwege sind jetzt im dunklen Design sichtbar
+• Weitere Autodienstleistungen hinzugefügt: Reparatur, Service und Teile
+• OSM-Browser-Authentifizierung hinzugefügt
+• Fahrradzugang auf einigen Straßentypen korrigiert
+• Berechnung der Durchschnittsgeschwindigkeit korrigiert
+• Verbessertes Suchranking für Kategorien
+• Usbekische Küche hinzugefügt
+• Seilrutschen auf der Karte hinzugefügt
+• Wikimedia-Links mit „?“ im Titel korrigiert
+• Parsen von GPX-Dateien mit „+“ in Koordinaten korrigiert
 
-Danke an alle, die zu Organic Maps beitragen, spenden und es unterstützen! Lasst uns gemeinsam die besten Karten bauen!
+### Übersetzungen
+
+• Doppelte Städtenamen in einigen Kartenregionen entfernt
+• Hebräische Sprachansagen korrigiert
+• Koreanische Tippfehler korrigiert
+• Russische Suchsynonyme hinzugefügt
+• Deutsche Sprachansagen verbessert
+• Fehlende Übersetzung für stillgelegten Eisenbahntunnel korrigiert
+• Länderübersetzung im Rumänischen korrigiert
+• Laotische und armenische Übersetzungen hinzugefügt
+• Fehlende armenische Übersetzungen hinzugefügt
+• Übersetzungen von Weblate-Mitwirkenden aktualisiert
+
+Vielen Dank an alle, die zu Organic Maps beitragen, spenden und es unterstützen! Lasst uns gemeinsam die besten Karten bauen!

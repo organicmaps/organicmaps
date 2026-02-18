@@ -1,10 +1,9 @@
-• Kiirem marsruutimine pikkadel maastikureisidel
-• Värsked OSM kaardiandmed seisuga 25. jaanuar
-• GeoJSON eksport
-• Laiendatud lahtiolekuajad
-• Rakenduse heleda/tumeda teema valik jaotati välimuse ja navigeerimise sätete vahel
-• Järjehoidja värvi muutmine loendist
-• Parem rõhtpaigutuse kasutajaliides valitud koha jaoks kaardil
-• Parandatud mittetöötav redaktor kehtetute telefoninumbritega kohtade jaoks
-• Parandatud mitmed kukkumised ja kasutajaliidese vead
+• OSM andmed seisuga 16. veebruar, Vikipeedia seisuga 1. veebruar
+• Mustad matka- ja jalgrattarajad on nüüd tumedas teemas nähtavad
+• Lisatud köisraudteed ja rohkem autoteenuseid: remont, hooldus ja varuosad
+• Parandatud jalgratta marsruutimine ja keskmise kiiruse arvutamine
+• Täiustatud kategooriaotsing
+• Usbeki köök
+• Laiendatavad lahtiolekuajad
+• Kuva ja kasuta MSL kõrgust salvestatud radade jaoks Android 14+
 …rohkem aadressil omaps.org/news

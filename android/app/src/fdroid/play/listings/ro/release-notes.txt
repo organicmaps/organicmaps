@@ -1,10 +1,9 @@
-• Rutare mai rapidă pentru trasee lungi
-• Date de hartă OSM recente de la 25 ianuarie
-• Export GeoJSON
-• Program de lucru extins
-• Opțiunea temă Luminoasă/Întunecată a fost împărțită în setări de Aspect și Navigare
-• Schimbarea culorii marcajului dintr-o listă
-• Interfață landscape îmbunătățită pentru un loc selectat pe hartă
-• Editor reparat pentru locuri cu numere de telefon nevalide
-• Mai multe blocări și erori de interfață reparate
-…mai multe la omaps.org/news
+• Date OSM din 16 februarie, Wikipedia din 1 februarie
+• Traseele negre de drumeții și ciclism sunt acum vizibile în tema întunecată
+• S-au adăugat tiroliene și mai multe servicii auto: reparații, service și piese
+• S-a remediat rutarea bicicletelor și calculul vitezei medii
+• Căutare categorii îmbunătățită
+• Bucătărie uzbecă
+• Ore de deschidere extensibile
+• Afișează și utilizează altitudinea MSL pentru traseele înregistrate pe Android 14+
+…mai mult la omaps.org/news

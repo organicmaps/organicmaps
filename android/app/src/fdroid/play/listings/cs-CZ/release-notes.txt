@@ -1,10 +1,10 @@
-• Rychlejší výpočet tras pro dlouhé cesty napříč zemí
-• Čerstvá data map OSM k 25. lednu
-• Export do GeoJSON
-• Rozšířená otevírací doba
-• Rozdělení volby světlého/tmavého motivu aplikace do nastavení Vzhled a Navigace
-• Změna barvy záložky ze seznamu
-• Vylepšené uživatelské rozhraní na šířku pro vybrané místo na mapě
-• Opraven nefunkční editor pro místa s neplatnými telefonními čísly
-• Opraveny různé pády a chyby v uživatelském rozhraní
+• Data OSM k 16. únoru, Wikipedia k 1. únoru
+• Černé turistické a cyklistické trasy jsou nyní viditelné v tmavém motivu
+• Přidány lanové dráhy a další autoservisy: opravy, servis a díly
+• Opraveno routování pro kola a výpočet průměrné rychlosti
+• Vylepšené vyhledávání kategorií
+• Uzbecká kuchyně
+• Rozbalitelná otevírací doba
+• Zobrazení a použití nadmořské výšky MSL pro zaznamenané trasy na Android 14+
+• Opraven import KML, KMZ, GPX, GeoJSON z WhatsApp
 …více na omaps.org/news
