@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Settings/Voice instructions/Use handsfree profile for TTS audio -->
+    <string name="pref_tts_handsfree_profile_setting">Utilitzar el perfil Bluetooth mans lliures (HFP) en lloc de l\'A2DP</string>
+    <!-- Settings/Voice instructions/Hint for handsfree profile setting -->
+    <string name="pref_tts_handsfree_profile_setting_hint">Activa si les instruccions de veu TTS no funcionen amb l\'equip de so del teu cotxe o amb un altre dispositiu Bluetooth.</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- Settings/Downloader - size string, only strings different from English should be translated -->
     <string name="mb">MB</string>

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Settings/Voice instructions/Use handsfree profile for TTS audio -->
+    <string name="pref_tts_handsfree_profile_setting">Utilizar el perfil manos libres Bluetooth (HFP) en lugar de A2DP</string>
+    <!-- Settings/Voice instructions/Hint for handsfree profile setting -->
+    <string name="pref_tts_handsfree_profile_setting_hint">Actívelo si las indicaciones de voz TTS no funcionan con el equipo de sonido de su automóvil u otro dispositivo Bluetooth.</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
     <string name="maps_storage_internal">Almacenamiento privado interno</string>

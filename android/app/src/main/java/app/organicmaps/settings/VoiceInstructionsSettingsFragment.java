@@ -52,13 +52,13 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
   private TwoStatePreference mTtsPrefStreetNames;
   @NonNull
   @SuppressWarnings("NotNullFieldNotInitialized")
-  private ListPreference mPrefLanguages;
-  @NonNull
-  @SuppressWarnings("NotNullFieldNotInitialized")
   private Preference mTtsLangInfo;
   @NonNull
   @SuppressWarnings("NotNullFieldNotInitialized")
   private Preference mTtsVoiceTest;
+  @NonNull
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  private TwoStatePreference mTtsHandsfreeProfile;
 
   private List<String> mTtsTestStringArray;
   private int mTestStringIndex;
@@ -85,6 +85,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       mTtsPrefLanguages.setVisible(false);
       mTtsPrefStreetNames.setVisible(false);
       mTtsVolume.setVisible(false);
+      mTtsHandsfreeProfile.setVisible(false);
       updateGoogleTtsInfoSummary(R.string.prefs_languages_information_off);
       mTtsVoiceTest.setVisible(false);
       return true;
@@ -94,6 +95,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     mTtsPrefLanguages.setVisible(true);
     mTtsPrefStreetNames.setVisible(true);
     mTtsVolume.setVisible(true);
+    mTtsHandsfreeProfile.setVisible(true);
     mTtsVoiceTest.setVisible(true);
 
     if (mCurrentLanguage != null && mCurrentLanguage.downloaded)
@@ -147,6 +149,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     mTtsPrefLanguages = getPreference(getString(R.string.pref_tts_language));
     mTtsPrefStreetNames = getPreference(getString(R.string.pref_tts_street_names));
     mTtsLangInfo = getPreference(getString(R.string.pref_tts_info));
+    mTtsHandsfreeProfile = getPreference(getString(R.string.pref_tts_handsfree_profile));
 
     Preference mTtsOpenSystemSettings = getPreference(getString(R.string.pref_tts_open_system_settings));
     mTtsOpenSystemSettings.setOnPreferenceClickListener(pref -> {
@@ -187,6 +190,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     initVolume();
     initTtsLangInfoLink();
     initSpeedCamerasPrefs();
+    initHandsfreeProfilePrefs();
     updateTts();
   }
 
@@ -248,6 +252,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       mTtsPrefLanguages.setVisible(false);
       mTtsPrefLanguages.setSummary(null);
       mTtsVolume.setVisible(false);
+      mTtsHandsfreeProfile.setVisible(false);
       mTtsVoiceTest.setVisible(false);
       updateGoogleTtsInfoSummary(R.string.prefs_languages_information_off);
 
@@ -281,6 +286,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     mTtsPrefLanguages.setValue(available ? mCurrentLanguage.internalCode : null);
     mTtsPrefStreetNames.setVisible(enabled && available && TtsPlayer.isEnabled());
     mTtsVolume.setVisible(enabled && available && TtsPlayer.isEnabled());
+    mTtsHandsfreeProfile.setVisible(enabled && available && TtsPlayer.isEnabled());
     mTtsVoiceTest.setVisible(enabled && available && TtsPlayer.isEnabled());
 
     if (available)
@@ -386,5 +392,14 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
   private void onSpeedCamerasPrefChanged(@NonNull SpeedCameraMode newCamMode)
   {
     Framework.setSpeedCamerasMode(newCamMode);
+  }
+
+  private void initHandsfreeProfilePrefs()
+  {
+    mTtsHandsfreeProfile.setChecked(Config.TTS.isHandsfreeProfile());
+    mTtsHandsfreeProfile.setOnPreferenceChangeListener((preference, newValue) -> {
+      Config.TTS.setHandsfreeProfile((boolean) newValue);
+      return true;
+    });
   }
 }

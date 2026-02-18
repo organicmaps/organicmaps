@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Settings/Voice instructions/Use handsfree profile for TTS audio -->
+    <string name="pref_tts_handsfree_profile_setting">Kutumia Profaili ya Bluetooth Hands-Free (HFP) badala ya A2DP</string>
+    <!-- Settings/Voice instructions/Hint for handsfree profile setting -->
+    <string name="pref_tts_handsfree_profile_setting_hint">Washa ikiwa maelekezo ya sauti ya TTS hayafanyi kazi na stereo ya gari lako au kifaa kingine cha Bluetooth.</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Toka</string>

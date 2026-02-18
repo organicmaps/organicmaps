@@ -30,7 +30,7 @@ public class MediaPlayerWrapper
     else
       mContext = context;
     mPlayer = new MediaPlayer();
-    mPlayer.setAudioAttributes(AudioFocusManager.AUDIO_ATTRIBUTES);
+    mPlayer.setAudioAttributes(AudioFocusManager.getAudioAttributes());
     mPlayer.setOnPreparedListener(this::onPrepared);
   }
 

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Settings/Voice instructions/Use handsfree profile for TTS audio -->
+    <string name="pref_tts_handsfree_profile_setting">Uża l-Profil Bluetooth Hands-Free (HFP) minflok A2DP</string>
+    <!-- Settings/Voice instructions/Hint for handsfree profile setting -->
+    <string name="pref_tts_handsfree_profile_setting_hint">Aċċiva jekk il-direzzjonijiet bil-vuċi TTS ma jaħdmux mas-stereo tal-karozza tiegħek jew ma\' apparat Bluetooth ieħor.</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">Il-Pożizzjoni Kurrenti</string>

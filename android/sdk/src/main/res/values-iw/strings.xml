@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- SECTION: Other translations -->
+    <!-- Settings/Voice instructions/Use handsfree profile for TTS audio -->
+    <string name="pref_tts_handsfree_profile_setting">להשתמש בפרופיל דיבורית Bluetooth (HFP) במקום A2DP</string>
+    <!-- Settings/Voice instructions/Hint for handsfree profile setting -->
+    <string name="pref_tts_handsfree_profile_setting_hint">הפעל אם הוראות הקול של TTS אינן פועלות עם מערכת הסטריאו ברכב או עם מכשיר Bluetooth אחר.</string>
+
     <!-- SECTION: Uncategorized -->
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">המיקום שלי</string>
