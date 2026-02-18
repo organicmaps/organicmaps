@@ -7,8 +7,16 @@ apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 android {
   namespace = 'app.organicmaps.sdk'
 
+  enableKotlin = false
+
   buildFeatures {
     buildConfig = true
+  }
+
+  packagingOptions {
+    jniLibs {
+      keepDebugSymbols += ['**/liborganicmaps.so']
+    }
   }
 
   defaultConfig {
@@ -68,10 +76,6 @@ android {
     }
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-  }
-
-  packagingOptions{
-      doNotStrip "**/liborganicmaps.so"
   }
 
   externalNativeBuild {
