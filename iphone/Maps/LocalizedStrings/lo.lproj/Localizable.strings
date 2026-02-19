@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "ຂໍ້ມູນ OpenStreetMap ທີ່ສ້າງໂດຍຊຸມຊົນ ນັບຕັ້ງແຕ່ %@. ສຶກສາເພີ່ມເຕີມກ່ຽວກັບວິທີແກ້ໄຂ ແລະ ອັບເດດແຜນທີ່ໄດ້ທີ່ OpenStreetMap.org";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "OpenStreetMap.org (OSM) ແມ່ນໂຄງການຊຸມຊົນເພື່ອສ້າງແຜນທີ່ທີ່ຟຣີ ແລະ ເປີດກວ້າງ. ມັນເປັນແຫຼ່ງຂໍ້ມູນແຜນທີ່ຫຼັກໃນ Organic Maps ແລະ ເຮັດວຽກຄ້າຍຄືກັບ Wikipedia. ທ່ານສາມາດເພີ່ມ ຫຼື ແກ້ໄຂສະຖານທີ່ ແລະ ພວກມັນຈະພ້ອມໃຫ້ຜູ້ໃຊ້ຫຼາຍລ້ານຄົນທົ່ວໂລກໄດ້ໃຊ້.\nມາເຂົ້າຮ່ວມຊຸມຊົນ ແລະ ຊ່ວຍກັນສ້າງແຜນທີ່ທີ່ດີກວ່າສຳລັບທຸກຄົນ!";
 "login_to_make_edits_visible" = "ສ້າງບັນຊີ OpenStreetMap ຫຼື ເຂົ້າສູ່ລະບົບເພື່ອເຜີຍແຜ່ການແກ້ໄຂແຜນທີ່ຂອງທ່ານໃຫ້ໂລກໄດ້ເຫັນ.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

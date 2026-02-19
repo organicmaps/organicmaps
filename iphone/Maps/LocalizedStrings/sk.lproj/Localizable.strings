@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Údaje OpenStreetMap vytvorené komunitou od %@. Viac informácií o tom, ako upravovať a aktualizovať mapu, nájdete na stránke OpenStreetMap.org";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "OpenStreetMap.org (OSM) je komunitný projekt na vytvorenie bezplatnej a otvorenej mapy. Je hlavným zdrojom mapových údajov v službe Organic Maps a funguje podobne ako Wikipédia. Môžete pridávať alebo upravovať miesta a tie sa stanú dostupnými pre milióny používateľov na celom svete.\nPridajte sa ku komunite a pomôžte vytvoriť lepšiu mapu pre všetkých!";
 "login_to_make_edits_visible" = "Vytvorte si účet OpenStreetMap alebo sa prihláste a zverejnite svoje úpravy mapy na celom svete.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

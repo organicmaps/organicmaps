@@ -28,6 +28,8 @@ using namespace osm_auth_ios;
 
 @property(weak, nonatomic) IBOutlet UILabel * changesCountLabel;
 @property(weak, nonatomic) IBOutlet UILabel * lastUpdateLabel;
+@property(weak, nonatomic) IBOutlet UITextView * descriptionTextView;
+@property(strong, nonatomic) UIImageView * logoImageView;
 
 @end
 
@@ -36,6 +38,71 @@ using namespace osm_auth_ios;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  [self setupDescriptionText];
+}
+
+- (void)viewDidLayoutSubviews
+{
+  [super viewDidLayoutSubviews];
+  [self applyTextWrapping];
+}
+
+- (void)applyTextWrapping
+{
+  if (!self.logoImageView)
+  {
+    UIImage * image = [UIImage imageNamed:@"osm_logo"];
+    self.logoImageView = [[UIImageView alloc] initWithImage:image];
+    self.logoImageView.frame = CGRectMake(5, 10, 60, 60);
+    [self.descriptionTextView addSubview:self.logoImageView];
+  }
+
+  CGRect imgFrame = self.logoImageView.frame;
+  CGRect exclusionRect =
+      CGRectMake(imgFrame.origin.x, imgFrame.origin.y, imgFrame.size.width + 7, imgFrame.size.height - 10);
+  UIBezierPath * path = [UIBezierPath bezierPathWithRect:exclusionRect];
+  self.descriptionTextView.textContainer.exclusionPaths = @[path];
+  [self.descriptionTextView.layoutManager
+      invalidateLayoutForCharacterRange:NSMakeRange(0, self.descriptionTextView.text.length)
+                   actualCharacterRange:NULL];
+  [self.descriptionTextView setNeedsLayout];
+  [self.descriptionTextView layoutIfNeeded];
+}
+
+- (void)setupDescriptionText
+{
+  NSString * text = self.descriptionTextView.text;
+
+  UIColor * textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+
+  NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+  paragraphStyle.alignment = NSTextAlignmentJustified;
+  paragraphStyle.lineSpacing = 0;
+  paragraphStyle.paragraphSpacing = 0;
+  NSMutableAttributedString * attr =
+      [[NSMutableAttributedString alloc] initWithString:text
+                                             attributes:@{
+                                               NSForegroundColorAttributeName: textColor,
+                                               NSFontAttributeName: self.descriptionTextView.font,
+                                               NSParagraphStyleAttributeName: paragraphStyle
+                                             }];
+
+  NSRange linkRange = [text rangeOfString:@"OpenStreetMap.org"];
+  if (linkRange.location != NSNotFound)
+  {
+    [attr addAttribute:NSLinkAttributeName
+                 value:[NSURL URLWithString:@"https://www.openstreetmap.org"]
+                 range:linkRange];
+  }
+
+  self.descriptionTextView.attributedText = attr;
+
+  self.descriptionTextView.linkTextAttributes = @{
+    NSForegroundColorAttributeName: UIColor.systemBlueColor,
+    NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone)
+  };
+
+  self.descriptionTextView.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -140,6 +207,17 @@ using namespace osm_auth_ios;
   [alertController addAction:[UIAlertAction actionWithTitle:kCancel style:UIAlertActionStyleCancel handler:nil]];
 
   [self presentViewController:alertController animated:YES completion:nil];
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView
+    shouldInteractWithURL:(NSURL *)URL
+                  inRange:(NSRange)characterRange
+              interaction:(UITextItemInteraction)interaction
+{
+  [[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:nil];
+  return NO;
 }
 
 @end

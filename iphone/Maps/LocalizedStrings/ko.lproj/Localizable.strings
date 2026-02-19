@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "커뮤니티에서 만든 오픈스트리트맵 데이터(%@ 기준). 지도를 편집하고 업데이트하는 방법에 대한 자세한 내용은 OpenStreetMap.org에서 확인하세요.";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "오픈스트리트맵(OSM)은 무료 오픈스트리트맵을 구축하기 위한 커뮤니티 프로젝트입니다. 오가닉 맵의 지도 데이터의 주요 소스이며 위키백과와 유사하게 작동합니다. 장소를 추가하거나 편집하면 전 세계 수백만 명의 사용자가 사용할 수 있습니다.\n커뮤니티에 참여하여 모두를 위한 더 나은 지도를 만드는 데 도움을 주세요!";
 "login_to_make_edits_visible" = "오픈스트리트맵 계정을 만들거나 로그인하여 지도 편집 내용을 전 세계에 공개하세요.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

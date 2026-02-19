@@ -1,5 +1,5 @@
 #import "MWMViewController.h"
 
-@interface MWMAuthorizationLoginViewController : MWMViewController
+@interface MWMAuthorizationLoginViewController : MWMViewController <UITextViewDelegate>
 
 @end

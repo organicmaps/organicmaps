@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "%@ tarihine ait topluluk tarafından oluşturulmuş OpenStreetMap verilerini kullanıyorsunuz. OpenStreetMap.org adresinden haritayı nasıl düzenleyebileceğiniz hakkında bilgi edinebilirsiniz";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "OpenStreetMap.org (OSM), özgür ve açık harita oluşturmayı amaçlayan topluluk projesidir. OSM, Organic Maps'teki harita verisinin ana kaynağıdır ve Vikipedi'ye benzer çalışır. Yerler ekleyebilir ya da düzenleyebilirsiniz ve bunlar tüm dünyadaki milyonlarca kullanıcıca erişilebilir.\nTopluluğa katılın ve herkes için daha iyi harita oluşturmaya yardımcı olun!";
 "login_to_make_edits_visible" = "Harita düzenlemelerinizi herkese ulaştırmak için OpenStreetMap hesabı oluşturun veya oturum açın.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

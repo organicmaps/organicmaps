@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %@. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "OpenStreetMap.org (OSM) ni mradi wa jumuiya wa kujenga ramani isiyolipishwa na iliyo wazi. Ndiyo chanzo kikuu cha data ya ramani katika Ramani za Kikaboni na inafanya kazi sawa na Wikipedia. Unaweza kuongeza au kubadilisha maeneo na yanapatikana kwa mamilioni ya watumiaji kote Ulimwenguni.\nJiunge na jumuiya na usaidie kutengeneza ramani bora kwa kila mtu!";
 "login_to_make_edits_visible" = "Fungua akaunti ya OpenStreetMap au ingia ili kuchapisha mabadiliko yako ya ramani kwa ulimwengu.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Data OpenStreetMap yang dibuat oleh komunitas pada tanggal %@. Pelajari lebih lanjut mengenai cara mengedit dan memperbarui peta di OpenStreetMap.org";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "OpenStreetMap.org (OSM) adalah sebuah proyek komunitas untuk membuat sebuah peta yang bebas dan terbuka. OSM merupakan sumber utama data peta di Organic Maps dan berfungsi mirip dengan Wikipedia. Anda dapat menambahkan atau mengedit tempat dan tempat tersebut tersedia untuk jutaan pengguna di seluruh Dunia.\nBergabunglah dengan komunitas dan bantu membuat peta yang lebih baik untuk semua orang!";
 "login_to_make_edits_visible" = "Buat akun OpenStreetMap atau masuk untuk mempublikasikan hasil editan peta Anda ke seluruh dunia.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */

@@ -536,6 +536,9 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "A közösségi OpenStreetMap adatok frissítésének időpontja: %@. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon";
+
+/* OSM explanation on Android login screen */
+"login_osm_presentation" = "Az OpenStreetMap.org (OSM) egy közösségi projekt, amelynek célja egy ingyenes és nyílt térkép létrehozása. Ez az Organic Maps alkalmazás térképadatainak fő forrása, és a Wikipédiához hasonlóan működik. Helyeket adhat hozzá vagy szerkeszthet, és azok világszerte felhasználók milliói számára válnak elérhetővé. \nCsatlakozzon a közösséghez, és segítsen egy jobb térképet készíteni mindenki számára!";
 "login_to_make_edits_visible" = "Hozzon létre egy fiókot az OpenStreetMapen, vagy jelentkezzen be, hogy közzétehesse térképszerkesztéseit a világ számára.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
