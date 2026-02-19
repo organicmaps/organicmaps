@@ -10,8 +10,7 @@
 #include <cmath>
 #include <functional>
 #include <iterator>
-#include <map>
-#include <sstream>
+#include <unordered_map>
 
 namespace ftypes
 {
@@ -21,7 +20,7 @@ namespace
 {
 class HighwayClasses
 {
-  map<uint32_t, HighwayClass> m_map;
+  std::unordered_map<uint32_t, HighwayClass> m_map;
 
 public:
   HighwayClasses()
@@ -100,9 +99,7 @@ char const * HighwayClassToString(HighwayClass const cls)
 
 string DebugPrint(HighwayClass const cls)
 {
-  stringstream out;
-  out << "[ " << HighwayClassToString(cls) << " ]";
-  return out.str();
+  return std::string{"[ "} + HighwayClassToString(cls) + " ]";
 }
 
 string DebugPrint(LocalityType const localityType)

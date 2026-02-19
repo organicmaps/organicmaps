@@ -1,9 +1,8 @@
 #pragma once
-#include "base/assert.hpp"
 
 #include <cstdint>
 #include <iostream>
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 class IndexAndTypeMapping
@@ -23,7 +22,7 @@ public:
   bool HasIndex(uint32_t t) const { return (m_map.find(t) != m_map.end()); }
 
 private:
-  using Map = std::map<uint32_t, uint32_t>;
+  using Map = std::unordered_map<uint32_t, uint32_t>;
   void Add(uint32_t ind, uint32_t type, bool isMainTypeDescription);
 
   std::vector<uint32_t> m_types;

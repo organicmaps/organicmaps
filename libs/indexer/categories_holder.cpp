@@ -133,7 +133,7 @@ void CategoriesHolder::AddCategory(Category & cat, std::vector<uint32_t> & types
 {
   if (!cat.m_synonyms.empty() && !types.empty())
   {
-    std::shared_ptr<Category> p(new Category());
+    auto p = std::make_shared<Category>();
     p->Swap(cat);
 
     for (uint32_t const t : types)

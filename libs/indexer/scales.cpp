@@ -17,6 +17,8 @@ int GetMinAllowableIn3dScale()
 
 double GetScaleLevelD(double ratio)
 {
+  if (ratio <= 0.0)
+    return 0.0;
   double const level = std::min(static_cast<double>(GetUpperScale()), std::log2(ratio) + INITIAL_LEVEL);
   return level < 0.0 ? 0.0 : level;
 }

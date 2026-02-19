@@ -1,10 +1,7 @@
 #pragma once
 
 #include "indexer/feature_decl.hpp"
-#include "indexer/feature_meta.hpp"
-#include "indexer/feature_utils.hpp"
 
-#include <functional>
 #include <string>
 #include <variant>
 #include <vector>
@@ -55,11 +52,11 @@ enum class EditingLifecycle
 
 class EditJournal
 {
-  std::list<JournalEntry> m_journal;
-  std::list<JournalEntry> m_journalHistory;
+  std::vector<JournalEntry> m_journal;
+  std::vector<JournalEntry> m_journalHistory;
 
 public:
-  std::list<JournalEntry> const & GetJournal() const;
+  std::vector<JournalEntry> const & GetJournal() const;
 
   osm::EditingLifecycle GetEditingLifecycle() const;
 
@@ -74,7 +71,7 @@ public:
   /// Clear Journal and move content to journalHistory, used after upload to OSM
   void Clear();
 
-  std::list<JournalEntry> const & GetJournalHistory() const;
+  std::vector<JournalEntry> const & GetJournalHistory() const;
 
   void AddJournalHistoryEntry(JournalEntry entry);
 

@@ -122,7 +122,7 @@ private:
   TReader m_reader;
 
   // todo(@pimenov) Why do we even need an instance? Type name is enough.
-  TValueReader const & m_valueReader;
+  TValueReader const m_valueReader;
   uint32_t m_numNodes;
 
   coding::HuffmanCoder m_huffman;

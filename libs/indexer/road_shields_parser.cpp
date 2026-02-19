@@ -609,7 +609,7 @@ public:
 
     // Remove possible leading zero.
     if (strings::IsASCIINumeric(roadNumber) && roadNumber[0] == '0')
-      roadNumber.erase(0);
+      roadNumber.erase(0, 1);
 
     if (shieldParts[0] == "MEX")
       return RoadShield(RoadShieldType::Default, roadNumber, additionalInfo);

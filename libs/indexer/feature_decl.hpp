@@ -20,7 +20,7 @@ std::string DebugPrint(GeomType type);
 
 std::string ToString(GeomType type);
 
-GeomType TypeFromString(std::string type);
+GeomType TypeFromString(std::string const & type);
 }  // namespace feature
 
 uint32_t constexpr kInvalidFeatureId = std::numeric_limits<uint32_t>::max();

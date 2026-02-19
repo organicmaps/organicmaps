@@ -169,7 +169,7 @@ private:
       // see overlay_handle.cpp::CalculateOverlayPriority()
       ASSERT(-drule::kOverlaysMaxPriority <= depth && depth < drule::kOverlaysMaxPriority, (depth));
       uint8_t rank = ft.GetRank();
-      m_priority = (static_cast<uint32_t>(depth) << 8) | rank;
+      m_priority = (static_cast<uint32_t>(depth < 0.f ? 0.f : depth) << 8) | rank;
     }
 
     // Same to dynamic displacement behaviour.
@@ -191,6 +191,7 @@ private:
 
   float CalculateDeltaForZoom(int32_t zoom) const
   {
+    ASSERT(zoom > 0 && zoom <= scales::UPPER_STYLE_SCALE, ());
     // zoom - 1 is similar to drape.
     double const worldSizeDivisor = 1 << (zoom - 1);
     return kPOIDisplacementRadiusMultiplier / worldSizeDivisor;

@@ -8,6 +8,8 @@ namespace feature
 
 uint8_t PopulationToRank(uint64_t p)
 {
+  if (p == 0)
+    return 0;
   return std::min(0xFFl, std::lround(std::log(double(p)) / std::log(1.1)));
 }
 
