@@ -117,13 +117,14 @@ void ServerApi06::CloseChangeSet(uint64_t changesetId) const
     MYTHROW(ErrorClosingChangeSet, ("CloseChangeSet request has failed:", response));
 }
 
-uint64_t ServerApi06::CreateNote(ms::LatLon const & ll, std::string const & message) const
+uint64_t ServerApi06::CreateNote(ms::LatLon const & ll, std::string const & message, bool isAnonymous) const
 {
   CHECK(!message.empty(), ("Note content should not be empty."));
   std::string const params =
       "?lat=" + strings::to_string_dac(ll.m_lat, 7) + "&lon=" + strings::to_string_dac(ll.m_lon, 7) +
       "&text=" + url::UrlEncode(message + " #organicmaps " + OMIM_OS_NAME + " " + GetPlatform().Version());
-  OsmOAuth::Response const response = m_auth.Request("/notes" + params, "POST");
+  OsmOAuth::Response const response =
+      isAnonymous ? m_auth.DirectRequest("/notes" + params, true, "POST") : m_auth.Request("/notes" + params, "POST");
   if (response.first != OsmOAuth::HTTP::OK)
     MYTHROW(ErrorAddingNote, ("Could not post a new note:", response));
   pugi::xml_document details;

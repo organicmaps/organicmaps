@@ -1116,3 +1116,5 @@
 
 /* Login to OSM button text */
 "login_osm_browser" = "Login using Browser";
+"editor_note_placeholder" = "Or, alternatively, leave a note to OpenStreetMap community so that someone else can add or fix a place here.";
+"editor_note_submit_button" = "Send";

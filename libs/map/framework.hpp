@@ -767,6 +767,7 @@ public:
   osm::NewFeatureCategories GetEditorCategories() const;
   bool RollBackChanges(FeatureID const & fid);
   void CreateNote(osm::MapObject const & mapObject, osm::Editor::NoteProblemType const type, std::string const & note);
+  void CreateStandaloneNote(ms::LatLon const & latLon, std::string const & note);
 
 private:
   settings::UsageStats m_usageStats;

@@ -8,8 +8,7 @@
 
 + (void)uploadEdits:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-  if (!osm_auth_ios::AuthorizationHaveCredentials() ||
-      Platform::EConnectionType::CONNECTION_NONE == Platform::ConnectionStatus())
+  if (Platform::EConnectionType::CONNECTION_NONE == Platform::ConnectionStatus())
   {
     completionHandler(UIBackgroundFetchResultFailed);
   }

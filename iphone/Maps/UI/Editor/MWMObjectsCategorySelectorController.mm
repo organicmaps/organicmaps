@@ -18,7 +18,8 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 @interface MWMObjectsCategorySelectorController () <UISearchBarDelegate,
                                                     UITableViewDelegate,
                                                     UITableViewDataSource,
-                                                    MWMKeyboardObserver>
+                                                    MWMKeyboardObserver,
+                                                    UITextViewDelegate>
 {}
 
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
@@ -29,6 +30,8 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 @property(nonatomic) MWMObjectsCategorySelectorDataSource * dataSource;
 @property(nonatomic, strong) UIStackView * searchResultsIsEmptyDisclaimer;
 @property(nonatomic, strong) NSLayoutConstraint * searchResultsIsEmptyDisclaimerCenterConstraint;
+@property(nonatomic, strong) UITextView * noteTextView;
+@property(nonatomic, strong) UIButton * submitButton;
 
 @end
 
@@ -96,7 +99,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 {
   UIStackView * stackView = [[UIStackView alloc] init];
   stackView.axis = UILayoutConstraintAxisVertical;
-  stackView.alignment = UIStackViewAlignmentCenter;
+  stackView.alignment = UIStackViewAlignmentFill;
   stackView.translatesAutoresizingMaskIntoConstraints = NO;
   stackView.spacing = 12;
   self.searchResultsIsEmptyDisclaimer = stackView;
@@ -124,6 +127,47 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
                                                                          options:options
                                                               documentAttributes:nil
                                                                            error:&error];
+  self.noteTextView = [[UITextView alloc] init];
+  UITextView * noteTextView = self.noteTextView;
+  noteTextView.delegate = self;
+  noteTextView.translatesAutoresizingMaskIntoConstraints = NO;
+  noteTextView.font = UIFont.regular14;
+  noteTextView.layer.cornerRadius = 8;
+  noteTextView.layer.borderWidth = 1;
+  noteTextView.textContainerInset = UIEdgeInsetsMake(10, 8, 10, 8);
+  noteTextView.scrollEnabled = YES;
+  noteTextView.textAlignment = NSTextAlignmentLeft;
+  noteTextView.text = L(@"editor_note_placeholder");
+  if (@available(iOS 13.0, *))
+    noteTextView.layer.borderColor = UIColor.separatorColor.CGColor;
+  else
+    noteTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+  if (@available(iOS 13.0, *))
+    noteTextView.backgroundColor = UIColor.secondarySystemBackgroundColor;
+  else
+    noteTextView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
+  if (@available(iOS 13.0, *))
+    noteTextView.textColor = UIColor.secondaryLabelColor;
+  else
+    noteTextView.textColor = UIColor.lightGrayColor;
+
+  [NSLayoutConstraint activateConstraints:@[[noteTextView.heightAnchor constraintGreaterThanOrEqualToConstant:80]]];
+
+  self.submitButton = [UIButton buttonWithType:UIButtonTypeSystem];
+  UIButton * submitButton = self.submitButton;
+  submitButton.enabled = NO;
+  submitButton.alpha = 0.5;
+  submitButton.translatesAutoresizingMaskIntoConstraints = NO;
+  [submitButton setTitle:L(@"editor_note_submit_button") forState:UIControlStateNormal];
+  submitButton.titleLabel.font = UIFont.bold17;
+  submitButton.layer.cornerRadius = 8;
+  submitButton.backgroundColor = UIColor.systemBlueColor;
+  [submitButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+
+  [submitButton addTarget:self action:@selector(onSubmitNoteTapped) forControlEvents:UIControlEventTouchUpInside];
+
+  [NSLayoutConstraint activateConstraints:@[[submitButton.heightAnchor constraintEqualToConstant:44]]];
+
   if (error)
   {
     LOG(LERROR, ("Error parsing HTML:", error.localizedDescription));
@@ -155,14 +199,25 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   [stackView addArrangedSubview:titleLabel];
   [stackView addArrangedSubview:subtitleTextView];
 
-  self.searchResultsIsEmptyDisclaimerCenterConstraint =
-      [stackView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor];
+  [stackView addArrangedSubview:noteTextView];
+  [stackView addArrangedSubview:submitButton];
+
   [NSLayoutConstraint activateConstraints:@[
-    [stackView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
-    self.searchResultsIsEmptyDisclaimerCenterConstraint,
+    [stackView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:24],
     [stackView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:20],
     [stackView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-20]
   ]];
+}
+
+- (void)showNotesQueuedToast
+{
+  [Toast showWithText:L(@"editor_edits_sent_message")];
+  return;
+}
+
+- (void)goBack
+{
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)onDone
@@ -315,6 +370,52 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 {
   if (!isActiveState)
     [self.dataSource search:@""];
+}
+
+#pragma mark - actions
+
+- (void)onSubmitNoteTapped
+{
+  NSString * noteText = self.noteTextView.text;
+  if (noteText.length == 0 || [noteText isEqualToString:L(@"editor_note_placeholder")])
+    return;
+
+  auto & f = GetFramework();
+  f.CreateStandaloneNote(mercator::ToLatLon(f.GetViewportCenter()), noteText.UTF8String);
+  osm_auth_ios::AuthorizationSetNeedCheck(YES);
+  [self goBack];
+  [self showNotesQueuedToast];
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+  BOOL hasText = textView.text.length > 0;
+  self.submitButton.enabled = hasText;
+  self.submitButton.alpha = hasText ? 1.0 : 0.5;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+  if ([textView.text isEqualToString:L(@"editor_note_placeholder")])
+  {
+    textView.text = @"";
+    if (@available(iOS 13.0, *))
+      textView.textColor = UIColor.labelColor;
+    else
+      textView.textColor = [UIColor blackColor];
+  }
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+  if (textView.text.length == 0)
+  {
+    textView.text = L(@"editor_note_placeholder");
+    if (@available(iOS 13.0, *))
+      textView.textColor = UIColor.secondaryLabelColor;
+    else
+      textView.textColor = UIColor.lightGrayColor;
+  }
 }
 
 @end

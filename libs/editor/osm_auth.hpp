@@ -89,9 +89,10 @@ public:
   /// @param[method] The API method, must start with a forward slash.
   Response Request(std::string const & method, std::string const & httpMethod = "GET",
                    std::string const & body = "") const;
-  /// Tokenless GET request, for convenience.
+  /// Tokenless request.
   /// @param[api] If false, request is made to m_baseUrl.
-  Response DirectRequest(std::string const & method, bool api = true) const;
+  Response DirectRequest(std::string const & method, bool api = true, std::string const & httpMethod = "GET",
+                         std::string const & body = "") const;
 
   // Getters
   std::string GetBaseUrl() const { return m_baseUrl; }

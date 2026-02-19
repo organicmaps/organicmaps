@@ -176,7 +176,8 @@ void Notes::Upload(osm::OsmOAuth const & auth)
         /// @todo It looks like a race, but we do push_back (and getters) only in other _modifying_ places.
         /// size can only increase, front is not changed and list doesn't have reallocs.
         /// As I said before, refactor in a more _natural_ way with producer-consumer on a circular buffer pattern.
-        auto const id = api.CreateNote(notes.front().m_point, notes.front().m_note);
+        bool const isAnonymous = !auth.IsAuthorized();
+        auto const id = api.CreateNote(notes.front().m_point, notes.front().m_note, isAnonymous);
         ulock.lock();
 
         LOG(LINFO, ("A note uploaded with id", id));

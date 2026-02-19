@@ -586,6 +586,9 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
 {
   m_notes->Upload(OsmOAuth::ServerAuth(oauthToken));
 
+  if (!OsmOAuth::ServerAuth(oauthToken).IsAuthorized())
+    return;
+
   if (m_isUploadingNow)
     return;
 

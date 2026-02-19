@@ -73,7 +73,7 @@ public:
   void UpdateChangeSet(uint64_t changesetId, KeyValueTags const & kvTags) const;
   void CloseChangeSet(uint64_t changesetId) const;
   /// @returns id of a created note.
-  uint64_t CreateNote(ms::LatLon const & ll, std::string const & message) const;
+  uint64_t CreateNote(ms::LatLon const & ll, std::string const & message, bool isAnonymous = false) const;
   void CloseNote(uint64_t const id) const;
 
   /// @returns OSM xml string with features in the bounding box or empty string on error.
