@@ -60,7 +60,7 @@ void TransliterateHiraganaToKatakana(UniString & s)
 
 size_t GetMaxErrorsForToken(UniString const & token)
 {
-  bool const digitsOnly = std::all_of(token.begin(), token.end(), ::isdigit);
+  bool const digitsOnly = std::all_of(token.begin(), token.end(), strings::IsASCIIDigit<UniChar>);
   if (digitsOnly)
     return 0;
   return GetMaxErrorsForTokenLength(token.size());
@@ -439,7 +439,10 @@ public:
   template <class FnT>
   bool ApplyIf(UniString const & s, FnT && fn) const
   {
-    for (size_t i = 0; i < m_strings.size(); ++i)
+    size_t const sz = m_strings.size();
+    ASSERT(sz % 2 == 0, ());
+
+    for (size_t i = 0; i < sz; ++i)
     {
       if (m_strings[i] == s)
       {

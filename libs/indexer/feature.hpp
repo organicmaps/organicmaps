@@ -145,14 +145,6 @@ public:
       i += 3;
     }
   }
-
-  template <typename Functor>
-  void ForEachTriangleEx(Functor && f, int scale)
-  {
-    f.StartPrimitive(m_triangles.size());
-    ForEachTriangle(std::forward<Functor>(f), scale);
-    f.EndPrimitive();
-  }
   //@}
 
   // No DebugPrint(f) as it requires its parameter to be const, but a feature is lazy loaded.

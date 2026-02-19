@@ -239,7 +239,7 @@ void Build(Sink & sink, Serializer const & serializer,
 
   for (auto it = data.begin(); it != data.end(); ++it)
   {
-    auto e = *it;
+    auto const & e = *it;
     if (it != data.begin() && e == prevE)
       continue;
 
@@ -257,7 +257,7 @@ void Build(Sink & sink, Serializer const & serializer,
     AppendValue(nodes.back(), e.second);
 
     prevKey = key;
-    std::swap(e, prevE);
+    prevE = e;
   }
 
   // Pop all the nodes from the stack.

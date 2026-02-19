@@ -165,10 +165,12 @@ private:
         if (depth < k.m_priority)
           depth = k.m_priority;
 
-      // @todo: make sure features are prioritised the same way as in the run-time displacer,
-      // see overlay_handle.cpp::CalculateOverlayPriority()
-      ASSERT(-drule::kOverlaysMaxPriority <= depth && depth < drule::kOverlaysMaxPriority, (depth));
-      uint8_t rank = ft.GetRank();
+      /// @note Make sure features are prioritised the same way as in the run-time displacer,
+      /// see overlay_handle.cpp::CalculateOverlayPriority()
+      depth += drule::kOverlaysMaxPriority;
+      CHECK(0 <= depth && depth < 2 * drule::kOverlaysMaxPriority, (depth));
+
+      uint8_t const rank = ft.GetRank();
       m_priority = (static_cast<uint32_t>(depth) << 8) | rank;
     }
 
@@ -191,6 +193,7 @@ private:
 
   float CalculateDeltaForZoom(int32_t zoom) const
   {
+    ASSERT(zoom > 0 && zoom <= scales::UPPER_STYLE_SCALE, ());
     // zoom - 1 is similar to drape.
     double const worldSizeDivisor = 1 << (zoom - 1);
     return kPOIDisplacementRadiusMultiplier / worldSizeDivisor;

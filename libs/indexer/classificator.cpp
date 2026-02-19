@@ -447,7 +447,11 @@ ClassifObject const * Classificator::GetObject(uint32_t type) const
 std::string Classificator::GetFullObjectName(uint32_t type) const
 {
   std::string res;
-  ForEachPathObject(type, [&res](ClassifObject const * p) { res = res + p->GetName() + '|'; });
+  ForEachPathObject(type, [&res](ClassifObject const * p)
+  {
+    res += p->GetName();
+    res += '|';
+  });
   return res;
 }
 

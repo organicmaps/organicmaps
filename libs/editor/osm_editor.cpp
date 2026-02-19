@@ -652,7 +652,7 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
             case FeatureStatus::Created:             // fallthrough
             case FeatureStatus::Modified:
             {
-              std::list<JournalEntry> const & journal = fti.m_object.GetJournal().GetJournal();
+              auto const & journal = fti.m_object.GetJournal().GetJournal();
 
               switch (fti.m_object.GetEditingLifecycle())
               {
@@ -1326,7 +1326,7 @@ bool Editor::IsFeatureUploadedImpl(FeaturesContainer const & features, MwmId con
   return info && info->m_uploadStatus == kUploaded;
 }
 
-void Editor::UpdateXMLFeatureTags(editor::XMLFeature & feature, std::list<JournalEntry> const & journal)
+void Editor::UpdateXMLFeatureTags(editor::XMLFeature & feature, std::vector<JournalEntry> const & journal)
 {
   for (JournalEntry const & entry : journal)
   {

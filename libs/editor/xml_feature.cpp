@@ -536,7 +536,7 @@ void XMLFeature::SetEditJournal(osm::EditJournal const & journal)
 {
   LOG(LDEBUG, ("Saving Journal:\n", journal.JournalToString()));
 
-  auto const insertEditJournalList = [](pugi::xml_node & xmlNode, std::list<osm::JournalEntry> const & journalList)
+  auto const insertEditJournalList = [](pugi::xml_node & xmlNode, std::vector<osm::JournalEntry> const & journalList)
   {
     xmlNode.append_attribute("version") = "1.0";
     for (osm::JournalEntry const & entry : journalList)

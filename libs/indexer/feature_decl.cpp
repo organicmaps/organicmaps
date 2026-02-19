@@ -21,7 +21,7 @@ std::string ToString(GeomType type)
   UNREACHABLE();
 }
 
-GeomType TypeFromString(std::string type)
+GeomType TypeFromString(std::string const & type)
 {
   if (type == "Point")
     return GeomType::Point;
