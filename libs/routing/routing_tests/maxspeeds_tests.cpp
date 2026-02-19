@@ -206,8 +206,8 @@ UNIT_TEST(Maxspeed_Smoke)
     TEST(maxspeed.IsValid(), ());
     TEST(!maxspeed.IsBidirectional(), ());
 
-    TEST_EQUAL(maxspeed.GetSpeedInUnits(true /* forward */), kInvalidSpeed, ());
-    TEST_EQUAL(maxspeed.GetSpeedInUnits(false /* forward */), kInvalidSpeed, ());
+    TEST_EQUAL(maxspeed.GetForward(), kInvalidSpeed, ());
+    TEST_EQUAL(maxspeed.GetBackward(), kInvalidSpeed, ());
     TEST_EQUAL(maxspeed.GetConditional(), 20, ());
   }
 
@@ -216,10 +216,10 @@ UNIT_TEST(Maxspeed_Smoke)
     TEST(maxspeed.IsValid(), ());
     TEST(!maxspeed.IsBidirectional(), ());
 
-    TEST_EQUAL(maxspeed.GetSpeedInUnits(true /* forward */), 20, ());
-    TEST_EQUAL(maxspeed.GetSpeedKmPH(true /* forward */), 20, ());
-    TEST_EQUAL(maxspeed.GetSpeedInUnits(false /* forward */), 20, ());
-    TEST_EQUAL(maxspeed.GetSpeedKmPH(false /* forward */), 20, ());
+    TEST_EQUAL(maxspeed.GetForward(), 20, ());
+    TEST_EQUAL(maxspeed.GetForward(), 20, ());
+    TEST_EQUAL(maxspeed.GetBackward(), kInvalidSpeed, ());
+    TEST_EQUAL(maxspeed.GetBackwardKmPH(), kInvalidSpeed, ());
   }
 
   {
@@ -227,10 +227,10 @@ UNIT_TEST(Maxspeed_Smoke)
     TEST(maxspeed.IsValid(), ());
     TEST(maxspeed.IsBidirectional(), ());
 
-    TEST_EQUAL(maxspeed.GetSpeedInUnits(true /* forward */), 30, ());
-    TEST_EQUAL(maxspeed.GetSpeedKmPH(true /* forward */), 30, ());
-    TEST_EQUAL(maxspeed.GetSpeedInUnits(false /* forward */), 40, ());
-    TEST_EQUAL(maxspeed.GetSpeedKmPH(false /* forward */), 40, ());
+    TEST_EQUAL(maxspeed.GetForward(), 30, ());
+    TEST_EQUAL(maxspeed.GetForward(), 30, ());
+    TEST_EQUAL(maxspeed.GetBackward(), 40, ());
+    TEST_EQUAL(maxspeed.GetBackwardKmPH(), 40, ());
   }
 }
 

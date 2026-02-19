@@ -65,28 +65,24 @@ using HighwayBasedSpeeds = base::SmallMap<HighwayType, InOutCitySpeedKMpH>;
 /// \brief Params for calculation of an approximate speed on a feature.
 struct SpeedParams
 {
-  /// @deprecated For unit tests compatibility.
-  SpeedParams(bool forward, bool inCity, Maxspeed const & maxspeed)
-    : m_maxspeed(maxspeed)
+  SpeedParams(MaxspeedType maxSpeedKmPH, bool inCity)
+    : m_maxSpeedKmPH(maxSpeedKmPH)
     , m_defSpeedKmPH(kInvalidSpeed)
     , m_inCity(inCity)
-    , m_forward(forward)
   {}
 
-  SpeedParams(Maxspeed const & maxspeed, MaxspeedType defSpeedKmPH, bool inCity)
-    : m_maxspeed(maxspeed)
+  SpeedParams(MaxspeedType maxSpeedKmPH, MaxspeedType defSpeedKmPH, bool inCity)
+    : m_maxSpeedKmPH(maxSpeedKmPH)
     , m_defSpeedKmPH(defSpeedKmPH)
     , m_inCity(inCity)
   {}
 
   // Maxspeed stored for feature, if any.
-  Maxspeed m_maxspeed;
+  MaxspeedType m_maxSpeedKmPH;
   // Default speed for this feature type in MWM, if any (kInvalidSpeed otherwise).
   MaxspeedType m_defSpeedKmPH;
   // If a corresponding feature lies inside a city of a town.
   bool m_inCity;
-  // Retrieve forward (true) or backward (false) speed.
-  bool m_forward;
 };
 
 /// \brief Speeds which are used for edge weight and ETA estimations.

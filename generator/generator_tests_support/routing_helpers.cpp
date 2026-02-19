@@ -2,19 +2,16 @@
 
 #include "testing/testing.hpp"
 
-#include "generator/gen_mwm_info.hpp"
-
 #include "routing/traffic_stash.hpp"
 
 #include "routing_common/car_model.hpp"
 
 #include "coding/file_writer.hpp"
+#include "coding/read_write_utils.hpp"
 
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/string_utils.hpp"
-
-#include <utility>
 
 namespace generator
 {
@@ -59,10 +56,10 @@ void TestGeometryLoader::Load(uint32_t featureId, RoadGeometry & road)
 
 void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed, RoadGeometry::Points const & points)
 {
-  auto const it = m_roads.find(featureId);
-  CHECK(it == m_roads.end(), ("Already contains feature", featureId));
-  m_roads[featureId] = RoadGeometry(oneWay, speed, speed, points);
-  m_roads[featureId].SetPassThroughAllowedForTests(true);
+  RoadGeometry road(oneWay, {measurement_utils::Units::Metric, MaxspeedType(speed), kInvalidSpeed}, points);
+  road.SetPassThroughAllowedForTests(true);
+
+  CHECK(m_roads.emplace(featureId, std::move(road)).second, ());
 }
 
 void TestGeometryLoader::SetPassThroughAllowed(uint32_t featureId, bool passThroughAllowed)

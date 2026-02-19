@@ -11,7 +11,7 @@ namespace generator
 {
 using measurement_utils::Units;
 
-static std::unordered_map<std::string, routing::SpeedInUnits> const kRoadCategoryToSpeed = {
+static std::unordered_map<std::string_view, routing::SpeedInUnits> const kRoadCategoryToSpeed = {
     {"AR:urban", {40, Units::Metric}},
     {"AR:urban:primary", {60, Units::Metric}},
     {"AR:urban:secondary", {60, Units::Metric}},
@@ -133,7 +133,7 @@ static std::unordered_map<std::string, routing::SpeedInUnits> const kRoadCategor
     {"UZ:motorway", {110, Units::Metric}},
 };
 
-bool RoadCategoryToSpeed(std::string const & category, routing::SpeedInUnits & speed)
+bool RoadCategoryToSpeed(std::string_view category, routing::SpeedInUnits & speed)
 {
   auto const it = kRoadCategoryToSpeed.find(category);
   if (it == kRoadCategoryToSpeed.cend())
@@ -143,7 +143,7 @@ bool RoadCategoryToSpeed(std::string const & category, routing::SpeedInUnits & s
   return true;
 }
 
-bool ParseMaxspeedTag(std::string const & maxspeedValue, routing::SpeedInUnits & speed)
+bool ParseMaxspeedTag(std::string_view maxspeedValue, routing::SpeedInUnits & speed)
 {
   if (RoadCategoryToSpeed(maxspeedValue, speed))
     return true;
@@ -201,24 +201,25 @@ bool ParseMaxspeedTag(std::string const & maxspeedValue, routing::SpeedInUnits &
   return false;
 }
 
-bool ParseMaxspeedConditionalTag(std::string const & maxspeedConditional, routing::SpeedInUnits & speed,
+bool ParseMaxspeedConditionalTag(std::string_view maxspeedConditional, routing::SpeedInUnits & speed,
                                  std::string & condition)
 {
   // Example: "110 @ (Nov - Mar)"
-  auto const atPos = maxspeedConditional.find('@');
-  if (atPos == std::string::npos)
+  size_t const atPos = maxspeedConditional.find('@');
+  if (atPos == std::string_view::npos)
     return false;
 
-  std::string speedStr = maxspeedConditional.substr(0, atPos);
-  strings::Trim(speedStr);
+  auto str = maxspeedConditional.substr(0, atPos);
+  strings::Trim(str);
 
-  if (!ParseMaxspeedTag(speedStr, speed))
+  if (!ParseMaxspeedTag(str, speed))
     return false;
 
-  std::string temp = maxspeedConditional.substr(atPos + 1);
-  strings::Trim(temp);
+  str = maxspeedConditional.substr(atPos + 1);
+  strings::Trim(str);
+
   condition.clear();
-  for (auto c : temp)
+  for (auto c : str)
     if (c != '(' && c != ')')
       condition.push_back(std::tolower(c));
 

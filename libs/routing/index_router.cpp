@@ -712,7 +712,7 @@ RouterResultCode IndexRouter::CalculateSubrouteJointsMode(IndexGraphStarter & st
   if (result != RouterResultCode::NoError)
     return result;
 
-  LOG(LDEBUG, ("Result route weight:", routingResult.m_distance));
+  LOG(LINFO, ("Result route weight:", routingResult.m_distance));
   subroute = ProcessJoints(routingResult.m_path, jointStarter);
   return result;
 }
@@ -1630,7 +1630,7 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments, bas
 
   for (size_t i = 1; i < segments.size(); ++i)
   {
-    time += starter.CalculateETA(segments[i - 1], segments[i]);
+    time += starter.CalculateETA(segments[i - 1], segments[i], static_cast<time_t>(time));
     times.emplace_back(time);
   }
 
@@ -1673,14 +1673,10 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments, bas
   }
 #endif
 
-  double currentEta = 0.0;
   for (auto & routeSegment : route.GetRouteSegments())
   {
     auto & segment = routeSegment.GetSegment();
     routeSegment.SetTransitInfo(worldGraph.GetTransitInfo(segment));
-    double segmentDuration = 0;
-    if (segment.IsRealSegment())
-      segmentDuration = starter.CalculateETAWithoutPenalty(segment);
 
     if (!m_guides.IsActive())
       routeSegment.SetRoadTypes(starter.GetRoutingOptions(segment));
@@ -1695,13 +1691,10 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments, bas
         if (m_trafficStash)
           routeSegment.SetTraffic(m_trafficStash->GetSpeedGroup(segment));
 
-        time_t startTime = m_currentTimeGetter ? m_currentTimeGetter() : 0;
-        time_t arrivalTime = startTime + static_cast<time_t>(currentEta);
-        routeSegment.SetSpeedLimit(worldGraph.GetSpeedLimit(segment, arrivalTime));
+        // No need conditional speed -> time here, since it is needed for showing mapped speed limit sign.
+        routeSegment.SetSpeedLimit(worldGraph.GetSpeedLimit(segment));
       }
     }
-
-    currentEta += segmentDuration;
 
     /// @todo By VNG: I suspect that we should convert the |segment| to a real one first, and fetch
     /// MaxSpeed, SpeedCamera, SpeedGroup, RoadTypes then, but current speed camera tests fail:

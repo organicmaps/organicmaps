@@ -278,7 +278,7 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment, EdgeEs
   return m_graph.CalcOffroadWeight(vertex.GetPointFrom(), vertex.GetPointTo(), purpose);
 }
 
-double IndexGraphStarter::CalculateETA(Segment const & from, Segment const & to) const
+double IndexGraphStarter::CalculateETA(Segment const & from, Segment const & to, time_t arrivalTime) const
 {
   // We don't distinguish fake segment weight and fake segment transit time.
   if (IsFakeSegment(to))
@@ -306,7 +306,7 @@ double IndexGraphStarter::CalculateETA(Segment const & from, Segment const & to)
   if (IsRegionsGraphMode())
     return m_regionsGraph->CalcSegmentWeight(from).GetWeight() + m_regionsGraph->CalcSegmentWeight(to).GetWeight();
 
-  return m_graph.CalculateETA(from, to);
+  return m_graph.CalculateETA(from, to, arrivalTime);
 }
 
 double IndexGraphStarter::CalculateETAWithoutPenalty(Segment const & segment) const

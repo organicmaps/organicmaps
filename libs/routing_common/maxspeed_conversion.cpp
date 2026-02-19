@@ -46,18 +46,11 @@ void Maxspeed::SetConditional(MaxspeedType speed, osmoh::OpeningHours condition)
   m_conditionalTime = std::move(condition);
 }
 
-MaxspeedType Maxspeed::GetSpeedInUnits(bool forward) const
+MaxspeedType Maxspeed::ToKmPH(MaxspeedType speedInUnits) const
 {
-  return (forward || !IsBidirectional()) ? m_forward : m_backward;
-}
-
-MaxspeedType Maxspeed::GetSpeedKmPH(bool forward) const
-{
-  auto const speedInUnits = GetSpeedInUnits(forward);
   switch (speedInUnits)
   {
-  case kInvalidSpeed:
-    return kInvalidSpeed;  // That means IsValid() returns false.
+  case kInvalidSpeed: return kInvalidSpeed;
 
   // A feature is marked as a feature without any speed limits (maxspeed=="none").
   // Should be less than CarModel::kMaxCarSpeedKMpH.
@@ -344,7 +337,8 @@ string DebugPrint(Maxspeed maxspeed)
   ostringstream oss;
   oss << "Maxspeed { m_units: " << DebugPrint(maxspeed.GetUnits())
       << ", m_forward: " << PrintMaxspeedType(maxspeed.GetForward())
-      << ", m_backward: " << PrintMaxspeedType(maxspeed.GetBackward()) << " }";
+      << ", m_backward: " << PrintMaxspeedType(maxspeed.GetBackward())
+      << ", m_conditional: " << PrintMaxspeedType(maxspeed.GetConditional()) << " }";
   return oss.str();
 }
 

@@ -70,7 +70,7 @@ public:
     return RouteWeight(ms::DistanceOnEarth(from, to));
   }
 
-  double CalculateETA(Segment const & from, Segment const & to) override { UNREACHABLE(); }
+  double CalculateETA(Segment const & from, Segment const & to, time_t arrivalTime) override { UNREACHABLE(); }
 
   double CalculateETAWithoutPenalty(Segment const & segment) override { UNREACHABLE(); }
 

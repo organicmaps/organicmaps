@@ -146,7 +146,7 @@ public:
 
   RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const;
   RouteWeight CalcGuidesSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const;
-  double CalculateETA(Segment const & from, Segment const & to) const;
+  double CalculateETA(Segment const & from, Segment const & to, time_t arrivalTime) const;
   double CalculateETAWithoutPenalty(Segment const & segment) const;
 
   /// @name For compatibility with IndexGraphStarterJoints.

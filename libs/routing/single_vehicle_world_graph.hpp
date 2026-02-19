@@ -56,7 +56,7 @@ public:
   RouteWeight CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to, NumMwmId mwmId) const override;
   RouteWeight CalcOffroadWeight(ms::LatLon const & from, ms::LatLon const & to,
                                 EdgeEstimator::Purpose purpose) const override;
-  double CalculateETA(Segment const & from, Segment const & to) override;
+  double CalculateETA(Segment const & from, Segment const & to, time_t arrivalTime) override;
   double CalculateETAWithoutPenalty(Segment const & segment) override;
 
   void ForEachTransition(NumMwmId numMwmId, bool isEnter, TransitionFnT const & fn) override;
@@ -67,7 +67,7 @@ public:
   RoutingOptions GetRoutingOptions(Segment const & segment) override;
 
   std::vector<RouteSegment::SpeedCamera> GetSpeedCamInfo(Segment const & segment) override;
-  SpeedInUnits GetSpeedLimit(Segment const & segment, time_t time) override;
+  SpeedInUnits GetSpeedLimit(Segment const & segment) override;
 
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) override { return m_loader->GetIndexGraph(numMwmId); }
 

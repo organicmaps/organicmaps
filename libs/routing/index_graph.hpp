@@ -128,8 +128,7 @@ public:
   /// I suppose :) its time when user will be at the end of |from| (|to| if \a isOutgoing == false) segment.
   /// @return Transition weight + |to| (|from| if \a isOutgoing == false) segment's weight.
   RouteWeight CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool isOutgoing, Segment const & from,
-                                  Segment const & to,
-                                  std::optional<RouteWeight const> const & prevWeight = std::nullopt) const;
+                                  Segment const & to, std::optional<RouteWeight> const & prevWeight) const;
 
   template <typename T>
   void SetCurrentTimeGetter(T && t)

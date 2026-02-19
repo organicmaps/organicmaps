@@ -4,7 +4,6 @@
 
 #include "platform/measurement_utils.hpp"
 
-#include <cstdint>
 #include <string>
 
 namespace generator
@@ -19,16 +18,16 @@ namespace generator
 /// \note If the method returns true the field |speed| may be filled with |kNoneMaxSpeed| value.
 /// It means no speed limits for the |category|. It is currently the case for some road categories
 /// in Germany.
-bool RoadCategoryToSpeed(std::string const & category, routing::SpeedInUnits & speed);
+bool RoadCategoryToSpeed(std::string_view category, routing::SpeedInUnits & speed);
 
 /// \brief Tries to convert the value of tag maxspeed to speed in appropriate units.
 /// \returns false in case of error and true if the conversion is successful.
 /// \note speed.m_speed will be filled with kNoneMaxSpeed or kWalkMaxSpeed if
 /// maxspeedValue is equal to "none" or "walk". The value of speed.m_units does not
 /// matter in this case.
-bool ParseMaxspeedTag(std::string const & maxspeedValue, routing::SpeedInUnits & speed);
+bool ParseMaxspeedTag(std::string_view maxspeedValue, routing::SpeedInUnits & speed);
 
-bool ParseMaxspeedConditionalTag(std::string const & maxspeedConditional, routing::SpeedInUnits & speed,
+bool ParseMaxspeedConditionalTag(std::string_view maxspeedConditional, routing::SpeedInUnits & speed,
                                  std::string & condition);
 
 std::string UnitsToString(measurement_utils::Units units);
