@@ -1,4 +1,5 @@
 #include "indexer/edit_journal.hpp"
+#include "indexer/classificator.hpp"
 
 #include <algorithm>
 

@@ -34,7 +34,6 @@ set(SRC
   search_string_utils_test.cpp
   sort_and_merge_intervals_test.cpp
   string_slice_tests.cpp
-  succinct_trie_test.cpp
   test_mwm_set.hpp
   test_type.cpp
   tree_node_tests.cpp

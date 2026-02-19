@@ -165,11 +165,13 @@ private:
         if (depth < k.m_priority)
           depth = k.m_priority;
 
-      // @todo: make sure features are prioritised the same way as in the run-time displacer,
-      // see overlay_handle.cpp::CalculateOverlayPriority()
-      ASSERT(-drule::kOverlaysMaxPriority <= depth && depth < drule::kOverlaysMaxPriority, (depth));
-      uint8_t rank = ft.GetRank();
-      m_priority = (static_cast<uint32_t>(depth < 0.f ? 0.f : depth) << 8) | rank;
+      /// @note Make sure features are prioritised the same way as in the run-time displacer,
+      /// see overlay_handle.cpp::CalculateOverlayPriority()
+      depth += drule::kOverlaysMaxPriority;
+      CHECK(0 <= depth && depth < 2 * drule::kOverlaysMaxPriority, (depth));
+
+      uint8_t const rank = ft.GetRank();
+      m_priority = (static_cast<uint32_t>(depth) << 8) | rank;
     }
 
     // Same to dynamic displacement behaviour.
