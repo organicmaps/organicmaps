@@ -152,7 +152,7 @@
     <string name="description">Notlar</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Seninle paylaşılan Organic Maps yer imleri</string>
-    <string name="share_bookmarks_email_body">Merhaba! \n \nEktekiler yer imlerim, lütfen bunları Organic Maps\'te açın. Eğer uygulama kurulu değilse, şu bağlantıyla iOS ve Android aygıtınıza kurabilirsiniz: https://omaps.app/get?kmz \n \nOrganic Maps ile gezmenin tadını çıkarın!</string>
+    <string name="share_bookmarks_email_body">Merhaba! \n \nEktekiler yer imlerim, lütfen bunları Organic Maps\'te açın. Eğer uygulama kurulmamışsa, şu bağlantıyla iOS ve Android aygıtınıza kurabilirsiniz: https://omaps.app/get?kmz\n \nOrganic Maps ile gezintinin tadını çıkarın!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Yer İmleri Yükleniyor</string>
     <!-- Kmz file successful loading -->
@@ -764,7 +764,7 @@
     <string name="downloader_loading_ios">İndiriliyor</string>
     <string name="download_map_title">Dünya genel görünüm haritasını indir</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Dahili aygıtın belleğinde veya SD kartta klasör oluşturulamıyor ve dosyalar taşınamıyor</string>
+    <string name="disk_error">Aygıtın iç belleğinde ya da SD kartta klasör oluşturulamıyor ve dosyalar taşınamıyor</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error_title">Disk hatası</string>
     <!-- Used in DownloadResources startup screen -->

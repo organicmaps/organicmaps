@@ -288,8 +288,6 @@
     <string name="editor_time_from">De</string>
     <!-- Tab title in the Edit Opening Hours time picker -->
     <string name="editor_time_to">Para</string>
-    <string name="editor_time_add">Adicionar Agendamento</string>
-    <string name="editor_time_delete">Apagar Agendamento</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">O dia todo (24 horas)</string>
     <string name="editor_time_add_closed">Adicionar Horários Não Comerciais</string>
@@ -306,8 +304,6 @@
     <string name="editor_report_problem_under_construction_title">Fechado para manutenção</string>
     <string name="editor_report_problem_duplicate_place_title">Lugar duplicado</string>
     <string name="autodownload">Download automático</string>
-    <!-- Place Page opening hours text -->
-    <string name="daily">Agenda</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="edit_opening_hours">Editar horário comercial</string>
     <string name="no_osm_account">Sem conta no OpenStreetMap?</string>

@@ -77,36 +77,36 @@
 "type.amenity.fuel" = "Gas Station";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.amenity.grave_yard" = "Graveyard";
+"type.amenity.grave_yard" = "Groblje";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.amenity.grave_yard.christian" = "Christian Graveyard";
-"type.amenity.hospital" = "Hospital";
-"type.amenity.hunting_stand" = "Hunting Stand";
-"type.amenity.ice_cream" = "Ice Cream";
-"type.amenity.internet_cafe" = "Internet Cafe";
-"type.amenity.kindergarten" = "Kindergarten";
-"type.amenity.library" = "Library";
-"type.amenity.loading_dock" = "Loading Dock";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.amenity.marketplace" = "Marketplace";
-"type.amenity.motorcycle_parking" = "Motorcycle Parking";
-"type.amenity.nightclub" = "Nightclub";
-"type.amenity.nursing_home" = "Nursing Home";
-"type.amenity.parking" = "Parking";
-"type.amenity.parking.fee" = "Parking";
-"type.amenity.parking.multi.storey" = "Multi Storey Parking";
-"type.amenity.parking.multi.storey.fee" = "Multi Storey Parking";
-"type.amenity.parking.no.access" = "Private Parking";
-"type.amenity.parking.permissive" = "Private Parking";
-"type.amenity.parking.private" = "Private Parking";
-"type.amenity.parking.park_and_ride" = "Park And Ride Parking";
-"type.amenity.parking.underground" = "Underground Parking";
-"type.amenity.parking.underground.fee" = "Underground Parking";
-"type.amenity.parking.underground.private" = "Private Underground Parking";
-"type.amenity.parking.street_side" = "Street-Side Parking";
-"type.amenity.parking.street_side.fee" = "Street-Side Parking";
-"type.amenity.parking.street_side.private" = "Private Street-Side Parking";
+"type.amenity.grave_yard.christian" = "Kršćansko groblje";
+"type.amenity.hospital" = "Bolnica";
+"type.amenity.hunting_stand" = "Lovački štand";
+"type.amenity.ice_cream" = "Sladoled";
+"type.amenity.internet_cafe" = "Internet kafić";
+"type.amenity.kindergarten" = "Dječji vrtić";
+"type.amenity.library" = "Knjižnica";
+"type.amenity.loading_dock" = "Utovarna rampa";
+"type.amenity.luggage_locker" = "Ormarić za prtljagu";
+"type.amenity.marketplace" = "Tržnica";
+"type.amenity.motorcycle_parking" = "Parkiralište za motore";
+"type.amenity.nightclub" = "Noćni klub";
+"type.amenity.nursing_home" = "Starački dom";
+"type.amenity.parking" = "Parkiralište";
+"type.amenity.parking.fee" = "Parkiralište";
+"type.amenity.parking.multi.storey" = "Višekatno parkiralište";
+"type.amenity.parking.multi.storey.fee" = "Višekatno parkiralište";
+"type.amenity.parking.no.access" = "Privatno parkiralište";
+"type.amenity.parking.permissive" = "Privatno parkiralište";
+"type.amenity.parking.private" = "Privatno parkiralište";
+"type.amenity.parking.park_and_ride" = "Parkiralište blizu javnog prijevoza";
+"type.amenity.parking.underground" = "Podzemno parkiralište";
+"type.amenity.parking.underground.fee" = "Podzemno parkiralište";
+"type.amenity.parking.underground.private" = "Privatno podzemno parkiralište";
+"type.amenity.parking.street_side" = "Parkiralište uz cestu";
+"type.amenity.parking.street_side.fee" = "Parkiralište uz cestu";
+"type.amenity.parking.street_side.private" = "Privatno parkiralište uz cestu";
 "type.amenity.parking.lane" = "Lane Parking";
 "type.amenity.parking.lane.fee" = "Lane Parking";
 "type.amenity.parking.lane.private" = "Private Lane Parking";
@@ -274,7 +274,7 @@
 "type.craft.locksmith" = "Locksmith";
 "type.craft.metal_construction" = "Metal Worker";
 "type.craft.painter" = "House Painter";
-"type.craft.photographer" = "Photographer";
+"type.craft.photographer" = "Fotograf";
 "type.shop.camera" = "Camera Shop";
 "type.craft.plumber" = "Plumber";
 "type.craft.sawmill" = "Sawmill";
@@ -340,7 +340,7 @@
 "type.cuisine.mediterranean" = "Mediterranean";
 "type.cuisine.mexican" = "Mexican";
 "type.cuisine.moroccan" = "Moroccan";
-"type.cuisine.noodles" = "Noodles";
+"type.cuisine.noodles" = "Rezanci";
 "type.cuisine.oriental" = "East Asian";
 "type.cuisine.pancake" = "Pancake";
 "type.cuisine.pasta" = "Pasta";
@@ -388,7 +388,7 @@
 "type.entrance.exit" = "Exit";
 "type.fee.yes" = "$";
 "type.fee.no" = "Free";
-"type.healthcare.laboratory" = "Medical Laboratory";
+"type.healthcare.laboratory" = "Medicinski laboratorij";
 "type.healthcare.physiotherapist" = "Physiotherapist";
 "type.healthcare.alternative" = "Alternative Medicine";
 "type.healthcare.audiologist" = "Audiologist";
@@ -718,10 +718,10 @@
 "type.landuse.brownfield" = "Brownfield";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.landuse.cemetery" = "Cemetery";
+"type.landuse.cemetery" = "Groblje";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.landuse.cemetery.christian" = "Christian Cemetery";
+"type.landuse.cemetery.christian" = "Kršćansko groblje";
 "type.landuse.religious" = "Churchyard";
 "type.landuse.churchyard" = "Churchyard";
 "type.landuse.commercial" = "Commercial Area";
@@ -803,7 +803,7 @@
 "type.man_made.pier" = "Pier";
 "type.man_made.pipeline" = "Pipeline";
 "type.man_made.pipeline.overground" = "Overground Pipeline";
-"type.man_made.silo" = "Silo";
+"type.man_made.silo" = "Silos";
 "type.man_made.storage_tank" = "Storage Tank";
 "type.man_made.surveillance" = "Surveillance Camera";
 "type.man_made.tower" = "Tower";
@@ -938,17 +938,17 @@
 "type.power.generator" = "Power Generator";
 "type.power.generator.solar" = "Solar Generator";
 "type.power.generator.wind" = "Wind Generator";
-"type.power.generator.gas" = "Gas Turbine Power Plant";
-"type.power.generator.hydro" = "Hydroelectric Power Plant";
+"type.power.generator.gas" = "Plinska elektrana";
+"type.power.generator.hydro" = "Hidroelektrana";
 "type.power.line" = "Power Line";
 "type.power.line.underground" = "Underground Power Line";
 "type.power.minor_line" = "Minor Power Line";
-"type.power.plant" = "Power Plant";
-"type.power.plant.coal" = "Coal Power Plant";
-"type.power.plant.gas" = "Gas Turbine Power Plant";
-"type.power.plant.hydro" = "Hydroelectric Power Plant";
-"type.power.plant.solar" = "Solar Power Plant";
-"type.power.plant.wind" = "Wind Power Plant";
+"type.power.plant" = "Elektrana";
+"type.power.plant.coal" = "Elektrana na ugljen";
+"type.power.plant.gas" = "Plinska elektrana";
+"type.power.plant.hydro" = "Hidroelektrana";
+"type.power.plant.solar" = "Solarna elektrana";
+"type.power.plant.wind" = "Vjetroelektrana";
 "type.power.station" = "Power Station";
 "type.power.substation" = "Substation";
 

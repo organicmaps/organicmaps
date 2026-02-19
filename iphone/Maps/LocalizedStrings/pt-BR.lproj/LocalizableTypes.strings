@@ -486,7 +486,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Túnel para pedestres";
-"type.highway.primary" = "Estrada primária";
+"type.highway.primary" = "Estrada";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary.bridge" = "Ponte";
@@ -607,7 +607,7 @@
 "type.area_highway.motorway" = "Rodovia";
 "type.area_highway.path" = "Caminho";
 "type.area_highway.pedestrian" = "Rua pedonal";
-"type.area_highway.primary" = "Estrada primária";
+"type.area_highway.primary" = "Estrada";
 "type.area_highway.residential" = "Rua residencial";
 "type.area_highway.secondary" = "Estrada secundária";
 "type.area_highway.service" = "Estrada de serviço";

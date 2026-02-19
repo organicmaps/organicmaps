@@ -33,12 +33,58 @@
     <string name="type.amenity.bureau_de_change">Mjenjačnica</string>
     <string name="type.amenity.bus_station">Autobusna stanica</string>
     <string name="type.amenity.cafe">Kafić</string>
+    <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
+    <string name="type.amenity.grave_yard">Groblje</string>
+    <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
+    <string name="type.amenity.grave_yard.christian">Kršćansko groblje</string>
+    <string name="type.amenity.hospital">Bolnica</string>
+    <string name="type.amenity.hunting_stand">Lovački štand</string>
+    <string name="type.amenity.ice_cream">Sladoled</string>
+    <string name="type.amenity.internet_cafe">Internet kafić</string>
+    <string name="type.amenity.kindergarten">Dječji vrtić</string>
+    <string name="type.amenity.library">Knjižnica</string>
+    <string name="type.amenity.loading_dock">Utovarna rampa</string>
+    <string name="type.amenity.luggage_locker">Ormarić za prtljagu</string>
+    <string name="type.amenity.marketplace">Tržnica</string>
+    <string name="type.amenity.motorcycle_parking">Parkiralište za motore</string>
+    <string name="type.amenity.nightclub">Noćni klub</string>
+    <string name="type.amenity.nursing_home">Starački dom</string>
+    <string name="type.amenity.parking">Parkiralište</string>
+    <string name="type.amenity.parking.fee">Parkiralište</string>
+    <string name="type.amenity.parking.multi.storey">Višekatno parkiralište</string>
+    <string name="type.amenity.parking.multi.storey.fee">Višekatno parkiralište</string>
+    <string name="type.amenity.parking.no.access">Privatno parkiralište</string>
+    <string name="type.amenity.parking.permissive">Privatno parkiralište</string>
+    <string name="type.amenity.parking.private">Privatno parkiralište</string>
+    <string name="type.amenity.parking.park_and_ride">Parkiralište blizu javnog prijevoza</string>
+    <string name="type.amenity.parking.underground">Podzemno parkiralište</string>
+    <string name="type.amenity.parking.underground.fee">Podzemno parkiralište</string>
+    <string name="type.amenity.parking.underground.private">Privatno podzemno parkiralište</string>
+    <string name="type.amenity.parking.street_side">Parkiralište uz cestu</string>
+    <string name="type.amenity.parking.street_side.fee">Parkiralište uz cestu</string>
+    <string name="type.amenity.parking.street_side.private">Privatno parkiralište uz cestu</string>
 
     <!-- SECTION: Types: Recycling -->
     <string name="type.barrier.block">Blok</string>
+    <string name="type.craft.photographer">Fotograf</string>
+    <string name="type.cuisine.noodles">Rezanci</string>
     <string name="type.cuisine.uzbek">Uzbečka</string>
+    <string name="type.healthcare.laboratory">Medicinski laboratorij</string>
 
     <!-- SECTION: Types: Historic -->
+    <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
+    <string name="type.landuse.cemetery">Groblje</string>
+    <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
+    <string name="type.landuse.cemetery.christian">Kršćansko groblje</string>
+    <string name="type.man_made.silo">Silos</string>
+    <string name="type.power.generator.gas">Plinska elektrana</string>
+    <string name="type.power.generator.hydro">Hidroelektrana</string>
+    <string name="type.power.plant">Elektrana</string>
+    <string name="type.power.plant.coal">Elektrana na ugljen</string>
+    <string name="type.power.plant.gas">Plinska elektrana</string>
+    <string name="type.power.plant.hydro">Hidroelektrana</string>
+    <string name="type.power.plant.solar">Solarna elektrana</string>
+    <string name="type.power.plant.wind">Vjetroelektrana</string>
     <string name="type.railway.disused.tunnel">Nekorišteni željeznički tunel</string>
     <string name="type.barrier.jersey_barrier">Blok</string>
     <string name="type.barrier.debris">Ruševina</string>

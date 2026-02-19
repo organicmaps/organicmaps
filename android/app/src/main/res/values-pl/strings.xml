@@ -590,9 +590,9 @@
     <string name="transliteration_title">Transkrypcja na alfabet łaciński</string>
     <string name="learn_more">Dowiedz się więcej</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Użyj funkcji wyszukiwania lub dotknij mapy, aby dodać punkt początkowy trasy</string>
+    <string name="routing_add_start_point">Użyj wyszukiwarki, wybierz zakładkę lub dotknij mapy, aby dodać punkt początkowy trasy</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Użyj funkcji wyszukiwania lub dotknij mapy, aby dodać punkt docelowy</string>
+    <string name="routing_add_finish_point">Użyj wyszukiwarki, wybierz zakładkę lub dotknij mapy, aby dodać punkt docelowy</string>
     <string name="planning_route_manage_route">Zarządzaj trasą</string>
     <string name="button_plan">Zaplanuj</string>
     <string name="placepage_remove_stop">Usuń postój</string>
@@ -837,7 +837,7 @@
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Przyznaj uprawnienia</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">Turystyka piesza</string>
+    <string name="button_layer_outdoor">Aktywność outdoorowa</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">Przeglądarka internetowa jest niedostępna</string>
     <string name="volume">Głośność</string>
