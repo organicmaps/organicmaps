@@ -12,22 +12,22 @@ android {
   }
 
   defaultConfig {
+    // Vulkan diagnostics
+    enableVulkanDiagnostics = project.findProperty('enableVulkanDiagnostics') ?: 'OFF'
+    enableVulkanDiagnosticsMessages = project.findProperty('enableVulkanDiagnosticsMessages') ?: 'OFF'
+    enableTrace = project.findProperty('enableTrace') ?: 'OFF'
+
+    buildTypes {
+      debug {
+        enableVulkanDiagnostics = 'ON'
+        enableVulkanDiagnosticsMessages = 'ON'
+        enableTrace = 'ON'
+      }
+    }
+
     externalNativeBuild {
-      def pchFlag = 'OFF'
-      if (project.hasProperty('pch')) pchFlag = 'ON'
-
-      def njobs = ''
-      if (project.hasProperty('njobs')) njobs = project.getProperty('njobs')
-
-      def enableVulkanDiagnostics = 'OFF'
-      if (project.hasProperty('enableVulkanDiagnostics')) {
-        enableVulkanDiagnostics = project.getProperty('enableVulkanDiagnostics')
-      }
-
-      def enableTrace = 'OFF'
-      if (project.hasProperty('enableTrace')) {
-        enableTrace = project.getProperty('enableTrace')
-      }
+      def pchFlag = project.hasProperty('pch') ? 'ON' : 'OFF'
+      def njobs = project.findProperty('njobs') ?: ''
 
       cmake {
         cppFlags '-fexceptions', '-frtti'
@@ -37,7 +37,8 @@ android {
         arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static',
             '-DSKIP_TESTS=ON', '-DSKIP_TOOLS=ON', "-DUSE_PCH=$pchFlag",
             "-DNJOBS=$njobs", "-DENABLE_VULKAN_DIAGNOSTICS=$enableVulkanDiagnostics",
-            "-DENABLE_TRACE=$enableTrace"
+            "-DENABLE_TRACE=$enableTrace",
+            "-DENABLE_VULKAN_DEBUG_DIAGNOSTICS_MESSAGES=$enableVulkanDiagnosticsMessages"
         targets 'organicmaps'
       }
     }
