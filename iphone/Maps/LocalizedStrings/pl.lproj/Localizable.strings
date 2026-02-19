@@ -947,7 +947,7 @@
 "car_continue_in_the_car" = "Do ekranu samochodu";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Turystyka piesza";
+"button_layer_outdoor" = "Aktywność outdoorowa";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Eksportuj wszystkie zakładki i ścieżki";

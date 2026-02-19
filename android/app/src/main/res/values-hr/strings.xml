@@ -55,9 +55,9 @@
     <string name="disconnect_usb_cable">Isključite USB kabel ili umetnite memorijsku karticu kako biste koristili Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Prvo oslobodite prostor na SD kartici/USB memoriji kako biste mogli koristiti aplikaciju</string>
-    <string name="download_resources">Prije što počnete koristiti aplikaciju, molim vas preuzmite svijetsku preglednu kartu na vaš uređaj.\nIskoristit če %s od memorije.</string>
+    <string name="download_resources">Prije nego što počnete koristiti aplikaciju, preuzmite svjetsku preglednu kartu na vaš uređaj.\nIskoristit će %s memorije.</string>
     <string name="download_resources_continue">Prikaži kartu</string>
-    <string name="downloading_country_can_proceed">Preuzimanje %s. Sada možete\nnastaviti na kartu.</string>
+    <string name="downloading_country_can_proceed">Preuzima se %s. Sada možete\nnastaviti na kartu.</string>
     <string name="download_country_ask">Preuzmi %s?</string>
     <string name="update_country_ask">Ažurirati %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -90,7 +90,7 @@
     <string name="description">Bilješke</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Organic Maps zabilješke su s tobom dijeljene</string>
-    <string name="share_bookmarks_email_body">Zdravo! \n \nU privitku su moje zabilješke; otvori ih u aplikaciji Organic Maps. Ako nije instalirana, možeš je preuzeti ovdje: https://omaps.app/get?kmz \n \nUživaj u putovanju s Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Zdravo! \n \nU privitku su moje zabilješke; otvori ih u aplikaciji Organic Maps. Ako nije instalirana, možeš je preuzeti na: https://omaps.app/get?kmz \n \nUživaj u putovanju s Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Učitavanje zabilješki</string>
     <!-- Kmz file successful loading -->

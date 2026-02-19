@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Zdravo! \n \nU privitku su moje zabilješke; otvori ih u aplikaciji Organic Maps. Ako nije instalirana, možeš je preuzeti ovdje: https://omaps.app/get?kmz \n \nUživaj u putovanju s Organic Maps!";
+"share_bookmarks_email_body" = "Zdravo! \n \nU privitku su moje zabilješke; otvori ih u aplikaciji Organic Maps. Ako nije instalirana, možeš je preuzeti na: https://omaps.app/get?kmz \n \nUživaj u putovanju s Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Učitavanje zabilješki";
