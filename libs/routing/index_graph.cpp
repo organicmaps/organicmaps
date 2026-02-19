@@ -4,23 +4,17 @@
 #include "routing/routing_options.hpp"
 #include "routing/world_graph.hpp"
 
-#include "platform/settings.hpp"
-
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
-#include "base/exception.hpp"
-#include "base/timer.hpp"
 
 #include <algorithm>
 #include <cstdlib>
 #include <iterator>
 #include <limits>
-#include <utility>
 
 namespace routing
 {
 using namespace base;
-using namespace std;
 
 bool IsUTurn(Segment const & u, Segment const & v)
 {
@@ -33,7 +27,7 @@ bool IsBoarding(bool prevIsFerry, bool nextIsFerry)
   return !prevIsFerry && nextIsFerry;
 }
 
-IndexGraph::IndexGraph(shared_ptr<Geometry> geometry, shared_ptr<EdgeEstimator> estimator,
+IndexGraph::IndexGraph(std::shared_ptr<Geometry> geometry, std::shared_ptr<EdgeEstimator> estimator,
                        RoutingOptions routingOptions)
   : m_geometry(std::move(geometry))
   , m_estimator(std::move(estimator))
@@ -163,8 +157,8 @@ void IndexGraph::GetEdgeListImpl(astar::VertexData<JointSegment, RouteWeight> co
                           parents);
 }
 
-optional<JointEdge> IndexGraph::GetJointEdgeByLastPoint(Segment const & parent, Segment const & firstChild,
-                                                        bool isOutgoing, uint32_t lastPoint) const
+std::optional<JointEdge> IndexGraph::GetJointEdgeByLastPoint(Segment const & parent, Segment const & firstChild,
+                                                             bool isOutgoing, uint32_t lastPoint) const
 {
   SegmentListT const possibleChildren = {firstChild};
   PointIdListT const lastPoints = {lastPoint};
@@ -187,10 +181,10 @@ void IndexGraph::Build(uint32_t numJoints)
   m_jointIndex.Build(m_roadIndex, numJoints);
 }
 
-void IndexGraph::Import(vector<Joint> const & joints)
+void IndexGraph::Import(std::vector<Joint> const & joints)
 {
   m_roadIndex.Import(joints);
-  CHECK_LESS_OR_EQUAL(joints.size(), numeric_limits<uint32_t>::max(), ());
+  CHECK_LESS_OR_EQUAL(joints.size(), std::numeric_limits<uint32_t>::max(), ());
   Build(checked_cast<uint32_t>(joints.size()));
 }
 
@@ -211,7 +205,7 @@ void IndexGraph::SetRestrictions(RestrictionVec && restrictions)
   }
 }
 
-void IndexGraph::SetUTurnRestrictions(vector<RestrictionUTurn> && noUTurnRestrictions)
+void IndexGraph::SetUTurnRestrictions(std::vector<RestrictionUTurn> && noUTurnRestrictions)
 {
   for (auto const & noUTurn : noUTurnRestrictions)
     if (noUTurn.m_viaIsFirstPoint)
@@ -414,7 +408,7 @@ IndexGraph::PenaltyData IndexGraph::GetRoadPenaltyData(Segment const & segment) 
 }
 
 RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose, Segment const & u, Segment const & v,
-                                     optional<RouteWeight> const & prevWeight) const
+                                     std::optional<RouteWeight> const & prevWeight) const
 {
   auto const & fromPenaltyData = GetRoadPenaltyData(u);
   auto const & toPenaltyData = GetRoadPenaltyData(v);
@@ -510,15 +504,14 @@ bool IndexGraph::IsUTurnAndRestricted(Segment const & parent, Segment const & ch
 }
 
 RouteWeight IndexGraph::CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool isOutgoing, Segment const & from,
-                                            Segment const & to,
-                                            std::optional<RouteWeight const> const & prevWeight) const
+                                            Segment const & to, std::optional<RouteWeight> const & prevWeight) const
 {
   auto const & segment = isOutgoing ? to : from;
   auto const & road = GetRoadGeometry(segment.GetFeatureId());
 
   time_t arrivalTime = 0;
-  if (m_currentTimeGetter)
-    arrivalTime = m_currentTimeGetter() + (prevWeight ? static_cast<time_t>(prevWeight->GetWeight()) : 0);
+  if (m_currentTimeGetter && prevWeight)
+    arrivalTime = m_currentTimeGetter() + prevWeight->GetWeight();
 
   auto const weight = RouteWeight(m_estimator->CalcSegmentWeight(segment, road, purpose, arrivalTime));
   auto const penalties = GetPenalties(purpose, isOutgoing ? from : to, isOutgoing ? to : from, prevWeight);

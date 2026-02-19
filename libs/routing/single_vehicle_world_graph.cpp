@@ -154,14 +154,16 @@ RouteWeight SingleVehicleWorldGraph::CalcOffroadWeight(ms::LatLon const & from, 
   return RouteWeight(m_estimator->CalcOffroad(from, to, purpose));
 }
 
-double SingleVehicleWorldGraph::CalculateETA(Segment const & from, Segment const & to)
+double SingleVehicleWorldGraph::CalculateETA(Segment const & from, Segment const & to, time_t arrivalTime)
 {
   /// @todo Crutch, for example we can loose ferry penalty here (no twin segments), @see Russia_CrossMwm_Ferry.
   if (from.GetMwmId() != to.GetMwmId())
     return CalculateETAWithoutPenalty(to);
 
   auto & indexGraph = m_loader->GetIndexGraph(from.GetMwmId());
-  return indexGraph.CalculateEdgeWeight(EdgeEstimator::Purpose::ETA, true /* isOutgoing */, from, to).GetWeight();
+  return indexGraph
+      .CalculateEdgeWeight(EdgeEstimator::Purpose::ETA, true /* isOutgoing */, from, to, RouteWeight(arrivalTime))
+      .GetWeight();
 }
 
 double SingleVehicleWorldGraph::CalculateETAWithoutPenalty(Segment const & segment)
@@ -181,12 +183,10 @@ vector<RouteSegment::SpeedCamera> SingleVehicleWorldGraph::GetSpeedCamInfo(Segme
   return m_loader->GetSpeedCameraInfo(segment);
 }
 
-SpeedInUnits SingleVehicleWorldGraph::GetSpeedLimit(Segment const & segment, time_t time)
+SpeedInUnits SingleVehicleWorldGraph::GetSpeedLimit(Segment const & segment)
 {
   ASSERT(segment.IsRealSegment(), ());
-  return GetIndexGraph(segment.GetMwmId())
-      .GetGeometry()
-      .GetSavedMaxspeed(segment.GetFeatureId(), segment.IsForward(), time);
+  return GetIndexGraph(segment.GetMwmId()).GetGeometry().GetSavedMaxspeed(segment.GetFeatureId(), segment.IsForward());
 }
 
 RoadGeometry const & SingleVehicleWorldGraph::GetRoadGeometry(NumMwmId mwmId, uint32_t featureId)

@@ -85,7 +85,7 @@ public:
   virtual RouteWeight CalcOffroadWeight(ms::LatLon const & from, ms::LatLon const & to,
                                         EdgeEstimator::Purpose purpose) const = 0;
 
-  virtual double CalculateETA(Segment const & from, Segment const & to) = 0;
+  virtual double CalculateETA(Segment const & from, Segment const & to, time_t arrivalTime) = 0;
   virtual double CalculateETAWithoutPenalty(Segment const & segment) = 0;
 
   using TransitionFnT = std::function<void(Segment const &)>;
@@ -112,7 +112,6 @@ public:
 
   virtual std::vector<RouteSegment::SpeedCamera> GetSpeedCamInfo(Segment const & segment);
   virtual SpeedInUnits GetSpeedLimit(Segment const & segment);
-  virtual SpeedInUnits GetSpeedLimit(Segment const & segment, time_t time = 0);
 
   virtual IndexGraph & GetIndexGraph(NumMwmId numMwmId) = 0;
   virtual CrossMwmGraph & GetCrossMwmGraph();

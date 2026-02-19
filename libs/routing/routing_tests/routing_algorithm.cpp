@@ -3,16 +3,11 @@
 #include "routing/base/astar_algorithm.hpp"
 #include "routing/base/astar_graph.hpp"
 
-#include "routing/maxspeeds.hpp"
-#include "routing/routing_helpers.hpp"
-
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
 
 #include <cmath>
-#include <cstdint>
-#include <vector>
 
 namespace routing_test
 {
@@ -119,8 +114,8 @@ public:
     {
       ASSERT_EQUAL(v, e.GetStartJunction(), ());
 
-      double const speedMPS = measurement_utils::KmphToMps(
-          m_roadGraph.GetSpeedKMpH(e, {true /* forward */, false /* in city */, Maxspeed()}));
+      double const speedMPS =
+          measurement_utils::KmphToMps(m_roadGraph.GetSpeedKMpH(e, {kInvalidSpeed, false /* in city */}));
       adj.emplace_back(e.GetEndJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
     }
   }
@@ -138,8 +133,8 @@ public:
     {
       ASSERT_EQUAL(v, e.GetEndJunction(), ());
 
-      double const speedMPS = measurement_utils::KmphToMps(
-          m_roadGraph.GetSpeedKMpH(e, {true /* forward */, false /* in city */, Maxspeed()}));
+      double const speedMPS =
+          measurement_utils::KmphToMps(m_roadGraph.GetSpeedKMpH(e, {kInvalidSpeed, false /* in city */}));
       adj.emplace_back(e.GetStartJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
     }
   }

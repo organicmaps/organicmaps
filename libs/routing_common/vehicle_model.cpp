@@ -143,11 +143,9 @@ SpeedKMpH VehicleModel::GetTypeSpeedImpl(FeatureTypes const & types, SpeedParams
   SpeedKMpH speed;
   if (hwType)
   {
-    if (isCar && params.m_maxspeed.IsValid())
+    if (isCar && params.m_maxSpeedKmPH != kInvalidSpeed)
     {
-      MaxspeedType const s = params.m_maxspeed.GetSpeedKmPH(params.m_forward);
-      ASSERT(s != kInvalidSpeed, (*hwType, params.m_forward, params.m_maxspeed));
-      speed = {static_cast<double>(s)};
+      speed = {static_cast<double>(params.m_maxSpeedKmPH)};
 
       // Looks like a crutch, limit surface factor if maxspeed is set.
       /// @see USA_UseDirt_WithMaxspeed test.

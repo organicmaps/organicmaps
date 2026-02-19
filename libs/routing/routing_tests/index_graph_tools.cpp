@@ -96,15 +96,13 @@ void ZeroGeometryLoader::Load(uint32_t featureId, routing::RoadGeometry & road)
 {
   // Any valid road will do.
   auto const points = routing::RoadGeometry::Points({{0.0, 0.0}, {0.0, 1.0}});
+
+  Maxspeed maxspeed(measurement_utils::Units::Metric, 1, kInvalidSpeed);
   auto const it = m_featureIdToMaxspeed.find(featureId);
   if (it != m_featureIdToMaxspeed.end())
-  {
-    Maxspeed maxspeed = it->second;
-    road = RoadGeometry(true, maxspeed.GetForward(), maxspeed.GetForward(), points);
-    road.SetMaxspeed(maxspeed);
-    return;
-  }
-  road = RoadGeometry(true /* oneWay */, 1.0 /* weightSpeedKMpH */, 1.0 /* etaSpeedKMpH */, points);
+    maxspeed = it->second;
+
+  road = RoadGeometry(true /* oneWay */, maxspeed, points);
 }
 
 // TestIndexGraphLoader ----------------------------------------------------------------------------

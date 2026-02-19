@@ -213,32 +213,27 @@ public:
   bool operator==(Maxspeed const & rhs) const;
 
   void SetUnits(measurement_utils::Units units) { m_units = units; }
+  measurement_utils::Units GetUnits() const { return m_units; }
+
   void SetForward(MaxspeedType forward) { m_forward = forward; }
   void SetConditional(MaxspeedType speed, osmoh::OpeningHours condition);
 
-  measurement_utils::Units GetUnits() const { return m_units; }
   MaxspeedType GetForward() const { return m_forward; }
   MaxspeedType GetBackward() const { return m_backward; }
   MaxspeedType GetConditional() const { return m_conditionalSpeed; }
   osmoh::OpeningHours const & GetConditionalTime() const { return m_conditionalTime; }
 
   bool IsValid() const { return m_forward != kInvalidSpeed || m_conditionalSpeed != kInvalidSpeed; }
-  /// \returns true if Maxspeed is considered as Bidirectional(). It means different
-  /// speed is set for forward and backward direction. Otherwise returns false. It means
-  /// |m_forward| speed should be used for the both directions.
   bool IsBidirectional() const { return m_backward != kInvalidSpeed; }
   bool HasConditional() const { return m_conditionalSpeed != kInvalidSpeed && m_conditionalTime.IsValid(); }
 
-  /// \brief returns speed according to |m_units|. |kInvalidSpeed|, |kNoneMaxSpeed| or
-  /// |kWalkMaxSpeed| may be returned.
-  MaxspeedType GetSpeedInUnits(bool forward) const;
-
-  /// \brief returns speed in km per hour. If it's not valid |kInvalidSpeed| is
-  /// returned. Otherwise forward or backward speed in km per hour is returned. |kNoneMaxSpeed| and
-  /// |kWalkMaxSpeed| are converted to some numbers.
-  MaxspeedType GetSpeedKmPH(bool forward) const;
+  MaxspeedType GetForwardKmPH() const { return ToKmPH(m_forward); }
+  MaxspeedType GetBackwardKmPH() const { return ToKmPH(m_backward); }
+  MaxspeedType GetConditionalKmPH() const { return ToKmPH(m_conditionalSpeed); }
 
 private:
+  MaxspeedType ToKmPH(MaxspeedType speedInUnits) const;
+
   measurement_utils::Units m_units = measurement_utils::Units::Metric;
   // Speed in km per hour or mile per hour depends on |m_units|.
   MaxspeedType m_forward = kInvalidSpeed;

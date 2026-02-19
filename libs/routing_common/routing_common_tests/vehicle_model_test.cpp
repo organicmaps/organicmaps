@@ -11,8 +11,6 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_data.hpp"
 
-#include "platform/measurement_utils.hpp"
-
 #include "base/math.hpp"
 
 namespace vehicle_model_test
@@ -78,7 +76,7 @@ public:
   uint32_t path, footway, cycleway, yesBicycle, yesFoot;
   uint32_t oneway, pavedGood, pavedBad, unpavedGood, unpavedBad;
 
-  static SpeedParams DefaultParams() { return {{}, kInvalidSpeed, false /* inCity */}; }
+  static SpeedParams DefaultParams() { return {kInvalidSpeed, false /* inCity */}; }
 };
 
 class VehicleModelStub : public VehicleModel
@@ -112,9 +110,9 @@ void CheckSpeedWithParams(initializer_list<uint32_t> const & types, SpeedParams 
 
 void CheckSpeed(initializer_list<uint32_t> const & types, InOutCitySpeedKMpH const & expectedSpeed)
 {
-  SpeedParams const inCity(true /* forward */, true /* in city */, Maxspeed());
+  SpeedParams const inCity(kInvalidSpeed, true /* in city */);
   CheckSpeedWithParams(types, inCity, expectedSpeed.m_inCity);
-  SpeedParams const outCity(true /* forward */, false /* in city */, Maxspeed());
+  SpeedParams const outCity(kInvalidSpeed, false /* in city */);
   CheckSpeedWithParams(types, outCity, expectedSpeed.m_outCity);
 }
 
@@ -208,28 +206,19 @@ UNIT_CLASS_TEST(VehicleModelTest, SpeedFactor)
 
 UNIT_CLASS_TEST(VehicleModelTest, MaxspeedFactor)
 {
-  auto constexpr units = measurement_utils::Units::Metric;
-
-  Maxspeed const maxspeed90 = Maxspeed(units, 90, kInvalidSpeed);
+  MaxspeedType const maxspeed90 = 90;
 
   // pavedBad == unpavedBad for the roads with explicitly defined speeds.
-  CheckSpeedWithParams({secondary, unpavedBad}, SpeedParams(true /* forward */, false /* in city */, maxspeed90),
-                       SpeedKMpH(36.0, 45.0));
-  CheckSpeedWithParams({secondary, pavedBad}, SpeedParams(true /* forward */, false /* in city */, maxspeed90),
-                       SpeedKMpH(36.0, 45.0));
+  CheckSpeedWithParams({secondary, unpavedBad}, SpeedParams(maxspeed90, false /* in city */), SpeedKMpH(36.0, 45.0));
+  CheckSpeedWithParams({secondary, pavedBad}, SpeedParams(maxspeed90, false /* in city */), SpeedKMpH(36.0, 45.0));
 
-  CheckSpeedWithParams({primary, pavedGood}, SpeedParams(true /* forward */, false /* in city */, maxspeed90),
-                       SpeedKMpH(72.0, 81.0));
+  CheckSpeedWithParams({primary, pavedGood}, SpeedParams(maxspeed90, false /* in city */), SpeedKMpH(72.0, 81.0));
 
-  Maxspeed const maxspeed9070 = Maxspeed(units, 90, 70);
-  CheckSpeedWithParams({primary, pavedGood}, SpeedParams(true /* forward */, false /* in city */, maxspeed9070),
-                       SpeedKMpH(72.0, 81.0));
-  CheckSpeedWithParams({primary, pavedGood}, SpeedParams(false /* forward */, false /* in city */, maxspeed9070),
-                       SpeedKMpH(56.0, 63.0));
+  MaxspeedType const maxspeed70 = 70;
+  CheckSpeedWithParams({primary, pavedGood}, SpeedParams(maxspeed70, false /* in city */), SpeedKMpH(56.0, 63.0));
 
-  Maxspeed const maxspeed60 = Maxspeed(units, 60, kInvalidSpeed);
-  CheckSpeedWithParams({residential, pavedGood}, SpeedParams(true /* forward */, false /* in city */, maxspeed60),
-                       SpeedKMpH(24.0, 27.0));
+  MaxspeedType const maxspeed60 = 60;
+  CheckSpeedWithParams({residential, pavedGood}, SpeedParams(maxspeed60, false /* in city */), SpeedKMpH(24.0, 27.0));
 }
 
 namespace
@@ -269,7 +258,7 @@ UNIT_CLASS_TEST(VehicleModelTest, CarModel_TrackVsGravelTertiary)
   // Obvious that gravel tertiary (moreover with maxspeed=60kmh) should be better than track.
 
   {
-    SpeedParams p2({measurement_utils::Units::Metric, 60, 60}, kInvalidSpeed, false /* inCity */);
+    SpeedParams p2(60 /* maxSpeedKmPH */, false /* inCity */);
     TEST_LESS_SPEED(model.GetSpeed(h1, p), model.GetSpeed(h2, p2));
   }
 
