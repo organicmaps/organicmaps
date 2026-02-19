@@ -340,10 +340,10 @@ void DenseCBV::Serialize(Writer & writer) const
 
 unique_ptr<CompressedBitVector> DenseCBV::Clone() const
 {
-  DenseCBV * cbv = new DenseCBV();
+  auto cbv = make_unique<DenseCBV>();
   cbv->m_popCount = m_popCount;
   cbv->m_bitGroups = m_bitGroups;
-  return unique_ptr<CompressedBitVector>(cbv);
+  return cbv;
 }
 
 SparseCBV::SparseCBV(vector<uint64_t> const & setBits) : m_positions(setBits)
@@ -394,9 +394,7 @@ void SparseCBV::Serialize(Writer & writer) const
 
 unique_ptr<CompressedBitVector> SparseCBV::Clone() const
 {
-  SparseCBV * cbv = new SparseCBV();
-  cbv->m_positions = m_positions;
-  return unique_ptr<CompressedBitVector>(cbv);
+  return make_unique<SparseCBV>(m_positions);
 }
 
 // static
@@ -436,7 +434,7 @@ unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitGroups(vector
       if (((bitGroups[i] >> j) & 1) > 0)
         setBits.push_back(kBlockSize * i + j);
   }
-  return make_unique<SparseCBV>(setBits);
+  return make_unique<SparseCBV>(std::move(setBits));
 }
 
 std::string DebugPrint(CompressedBitVector::StorageStrategy strat)

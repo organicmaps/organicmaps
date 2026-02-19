@@ -81,23 +81,22 @@ CSVReader::ReaderWrapper::ReaderWrapper(Reader const & reader) : m_reader(reader
 
 std::optional<std::string> CSVReader::ReaderWrapper::ReadLine()
 {
-  std::vector<char> line;
+  std::string line;
   char ch = '\0';
   while (m_pos < m_reader.Size() && ch != '\n')
   {
     m_reader.Read(m_pos, &ch, sizeof(ch));
-    line.emplace_back(ch);
+    line.push_back(ch);
     ++m_pos;
   }
 
   if (line.empty())
     return {};
 
-  auto end = std::end(line);
   if (line.back() == '\n')
-    --end;
+    line.pop_back();
 
-  return std::string(std::begin(line), end);
+  return line;
 }
 
 CSVReader::DefaultReader::DefaultReader(std::string const & filename) : m_stream(filename)

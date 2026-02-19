@@ -65,7 +65,6 @@ set(SRC
   sparse_vector.hpp
   streams.hpp
   streams_common.hpp
-  streams_sink.hpp
   string_utf8_multilang.cpp
   string_utf8_multilang.hpp
   succinct_mapper.hpp

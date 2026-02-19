@@ -56,15 +56,10 @@ private:
   {
     m_offset = 0;
     m_size = count;
-    m_data.reset(new char[m_size], Deleter());
+    m_data.reset(new char[m_size]);
   }
 
   size_t m_offset, m_size;
 
-  struct Deleter
-  {
-    void operator()(char * p) { delete[] p; }
-  };
-
-  std::shared_ptr<char> m_data;
+  std::shared_ptr<char[]> m_data;
 };

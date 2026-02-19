@@ -51,7 +51,7 @@ public:
   SparseVector<Value> Build()
   {
     // Shrink memory as a primary goal of this component.
-    if (m_values.capacity() / double(m_values.size()) > 1.4)
+    if (!m_values.empty() && m_values.capacity() / double(m_values.size()) > 1.4)
       std::vector<Value>(m_values).swap(m_values);
 
     return SparseVector<Value>(std::move(m_values), m_bitsBuilder);
