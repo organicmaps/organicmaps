@@ -2,6 +2,7 @@
 
 #include "geometry/mercator.hpp"
 
+#include <sstream>
 #include "coding/string_utf8_multilang.hpp"
 #include "kml/serdes_geojson.hpp"
 
@@ -245,7 +246,7 @@ UNIT_TEST(GeoJson_Parse_UMapOptions)
   std::string const & umapOptionsStr = umapOptionsIt->second;
   glz::generic umapOptionsJson;
   auto const parseResult = glz::read_json(umapOptionsJson, umapOptionsStr);
-  TEST_EQUAL(parseResult, glz::error_code::none, ("Should be able to parse stored _umap_options JSON"));
+  TEST(parseResult == glz::error_code::none, ("Should be able to parse stored _umap_options JSON"));
 
   TEST(umapOptionsJson.is_object(), ("_umap_options should be an object"));
   auto const & umapObj = umapOptionsJson.get_object();
@@ -270,7 +271,7 @@ UNIT_TEST(GeoJson_Parse_UMapOptions)
   std::string const & trackUmapOptionsStr = trackUmapOptionsIt->second;
   glz::generic trackUmapOptionsJson;
   auto const trackParseResult = glz::read_json(trackUmapOptionsJson, trackUmapOptionsStr);
-  TEST_EQUAL(trackParseResult, glz::error_code::none, ("Should be able to parse stored track _umap_options JSON"));
+  TEST(trackParseResult == glz::error_code::none, ("Should be able to parse stored track _umap_options JSON"));
 
   TEST(trackUmapOptionsJson.is_object(), ("track _umap_options should be an object"));
   auto const & trackUmapObj = trackUmapOptionsJson.get_object();

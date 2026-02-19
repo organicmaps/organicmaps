@@ -116,7 +116,8 @@ TimeZoneDb const & GetTimeZoneDb()
   std::string buffer;
   GetPlatform().GetReader(TIMEZONE_INFO_FILE)->ReadAsString(buffer);
   if (auto const ec = glz::read_json(*tzdb, buffer); ec.ec != glz::error_code::none)
-    LOG(LERROR, ("Failed to load timezone database. ec:", ec.ec, "custom_error_message:", ec.custom_error_message));
+    LOG(LERROR, ("Failed to load timezone database. ec:", glz::format_error(ec.ec),
+                 "custom_error_message:", ec.custom_error_message));
 
   for (auto & tz : tzdb->timezones | std::views::values)
   {

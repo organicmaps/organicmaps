@@ -404,13 +404,18 @@ std::vector<std::vector<double>> ConvertPoints2GeoJsonCoords(std::vector<geometr
   return coordinates;
 }
 
-// Options for Glaze Json writer
 struct GeoJsonOpts : glz::opts
 {
   static constexpr std::string_view float_format = "{:.10g}";
 };
 
-void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
+struct GeoJsonOptsPrettify : GeoJsonOpts
+{
+  static constexpr bool prettify = true;
+  static constexpr auto indentation_width = 2;
+};
+
+void GeoJsonWriter::Write(FileData const & fileData, bool minimizeOutput)
 {
   using namespace geojson;
 
@@ -506,26 +511,14 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimize_output)
 
   GeoJsonData const geoJsonData{.features = std::move(geoJsonFeatures), .properties = std::nullopt};
 
-  // Export to GeoJson string.
-  glz::error_ctx error;
   std::string buffer;
-
-  if (minimize_output)
-  {
-    GeoJsonOpts constexpr opts{glz::opts{.prettify = false}};
-    error = glz::write<opts>(geoJsonData, buffer);
-  }
-  else
-  {
-    GeoJsonOpts constexpr opts{glz::opts{.prettify = true, .indentation_width = 2}};
-    error = glz::write<opts>(geoJsonData, buffer);
-  }
+  static constexpr GeoJsonOpts opts{};
+  static constexpr GeoJsonOptsPrettify prettyOpts{};
+  auto const error =
+      minimizeOutput ? glz::write<opts>(geoJsonData, buffer) : glz::write<prettyOpts>(geoJsonData, buffer);
 
   if (error)
-  {
-    std::string const err = glz::format_error(error, buffer);
-    MYTHROW(WriteGeoJsonException, ("Could not write to GeoJson: " + err));
-  }
+    MYTHROW(WriteGeoJsonException, ("Could not write to GeoJson: " + glz::format_error(error)));
 
   // Write GeoJson.
   this->m_writer << buffer;
