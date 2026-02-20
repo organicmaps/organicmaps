@@ -321,7 +321,7 @@ bool EatPrefix(std::string & s, std::string const & prefix)
     return false;
 
   CHECK_LESS_OR_EQUAL(prefix.size(), s.size(), ());
-  s = s.substr(prefix.size());
+  s.erase(0, prefix.size());
   return true;
 }
 
@@ -331,7 +331,7 @@ bool EatSuffix(std::string & s, std::string const & suffix)
     return false;
 
   CHECK_LESS_OR_EQUAL(suffix.size(), s.size(), ());
-  s = s.substr(0, s.size() - suffix.size());
+  s.erase(s.size() - suffix.size(), suffix.size());
   return true;
 }
 

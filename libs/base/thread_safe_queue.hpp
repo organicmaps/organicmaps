@@ -1,5 +1,6 @@
 #pragma once
 
+#include "base/macros.hpp"
 #include <condition_variable>
 #include <mutex>
 #include <queue>
@@ -11,11 +12,7 @@ class ThreadSafeQueue
 {
 public:
   ThreadSafeQueue() = default;
-  ThreadSafeQueue(ThreadSafeQueue const & other)
-  {
-    std::lock_guard<std::mutex> lk(other.m_mutex);
-    m_queue = other.m_queue;
-  }
+  DISALLOW_COPY_AND_MOVE(ThreadSafeQueue);
 
   void Push(T const & value)
   {

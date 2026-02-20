@@ -14,13 +14,13 @@ public:
   using ContentType = T const;
   using ValueType = std::shared_ptr<ContentType>;
 
-  AtomicSharedPtr() = default;
+  AtomicSharedPtr() : m_wrapped(std::make_shared<ContentType>()) {}
 
-  void Set(ValueType value) noexcept { atomic_store(&m_wrapped, value); }
-  ValueType Get() const noexcept { return atomic_load(&m_wrapped); }
+  void Set(ValueType value) noexcept { std::atomic_store(&m_wrapped, std::move(value)); }
+  ValueType Get() const noexcept { return std::atomic_load(&m_wrapped); }
 
 private:
-  ValueType m_wrapped = std::make_shared<ContentType>();
+  ValueType m_wrapped;
 
   DISALLOW_COPY_AND_MOVE(AtomicSharedPtr);
 };

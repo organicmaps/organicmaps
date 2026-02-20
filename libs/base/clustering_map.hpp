@@ -118,13 +118,26 @@ private:
 
   Entry & GetRoot(Key const & key)
   {
-    auto & entry = GetEntry(key);
-    if (entry.m_root == key)
-      return entry;
-
-    auto & root = GetRoot(entry.m_root);
-    entry.m_root = root.m_root;
-    return root;
+    // Iterative path find + path compression to avoid stack overflow on deep chains.
+    Key cur = key;
+    while (true)
+    {
+      auto & entry = GetEntry(cur);
+      if (entry.m_root == cur)
+      {
+        // Compress path: walk from key to root, pointing everything directly at root.
+        Key k = key;
+        while (k != cur)
+        {
+          auto & e = GetEntry(k);
+          Key next = e.m_root;
+          e.m_root = cur;
+          k = next;
+        }
+        return entry;
+      }
+      cur = entry.m_root;
+    }
   }
 
   Entry & GetEntry(Key const & key)
