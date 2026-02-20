@@ -63,8 +63,6 @@ set(SRC
   simple_dense_coding.cpp
   simple_dense_coding.hpp
   sparse_vector.hpp
-  streams.hpp
-  streams_common.hpp
   string_utf8_multilang.cpp
   string_utf8_multilang.hpp
   succinct_mapper.hpp
