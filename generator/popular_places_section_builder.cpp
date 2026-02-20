@@ -116,7 +116,7 @@ void BuildPopularPlacesFromDescriptions(std::string const & mwmFile)
   auto readerPtr = value->m_cont.GetReader(DESCRIPTIONS_FILE_TAG);
   descriptions::Deserializer deserializer;
 
-  std::vector<int8_t> langPriority;
+  LangsBufferT langPriority;
   langPriority.push_back(StringUtf8Multilang::kEnglishCode);
 
   BuildPopularPlacesImpl(mwmFile, [&](FeatureType &, uint32_t featureId)

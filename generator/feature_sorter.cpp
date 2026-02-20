@@ -392,7 +392,7 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
     RegionData regionData;
     ReadRegionData(name, regionData);
     {
-      std::vector<int8_t> langCodes;
+      LangsBufferT langCodes;
       regionData.GetLanguages(langCodes);
       if (langCodes.empty())
         LOG(LWARNING, ("No info (languages) for region:", name));

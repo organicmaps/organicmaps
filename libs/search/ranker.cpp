@@ -951,7 +951,7 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
     if (lang == StringUtf8Multilang::kDefaultCode)
     {
       auto const mwmInfo = f.GetID().m_mwmId.GetInfo();
-      vector<int8_t> mwmLangCodes;
+      LangsBufferT mwmLangCodes;
       mwmInfo->GetRegionData().GetLanguages(mwmLangCodes);
       for (auto const l : mwmLangCodes)
         updateScore(l, s, false /* force */);

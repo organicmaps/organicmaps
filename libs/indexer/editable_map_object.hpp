@@ -141,10 +141,10 @@ public:
   void LogDiffInJournal(EditableMapObject const & unedited_emo);
 
   /// Check whether langCode can be used as default name.
-  static bool CanUseAsDefaultName(int8_t const langCode, std::vector<int8_t> const & nativeMwmLanguages);
+  static bool CanUseAsDefaultName(int8_t const langCode, LangsBufferT const & nativeMwmLanguages);
 
   /// See comment for NamesDataSource class.
-  static NamesDataSource GetNamesDataSource(FeatureNames const & source, std::vector<int8_t> const & nativeMwmLanguages,
+  static NamesDataSource GetNamesDataSource(FeatureNames const & source, LangsBufferT const & nativeMwmLanguages,
                                             int8_t const userLanguage);
 
   /// Compares editable fields connected with feature ignoring street.

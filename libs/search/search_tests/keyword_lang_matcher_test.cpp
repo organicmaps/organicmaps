@@ -26,7 +26,7 @@ KeywordLangMatcher CreateMatcher(string const & query)
   KeywordLangMatcher matcher(kNumTestTiers);
 
   {
-    vector<vector<int8_t>> langPriorities(kNumTestTiers);
+    vector<LangsBufferT> langPriorities(kNumTestTiers);
     langPriorities[0].push_back(LANG_HIGH_PRIORITY);
     // langPriorities[1] is intentionally left empty.
     langPriorities[2].push_back(LANG_SOME);

@@ -3392,7 +3392,7 @@ void Framework::FillDescriptions(FeatureType & ft, place_page::Info & info) cons
   if (osmDescriptionValue.empty())
     return;
 
-  buffer_vector<int8_t, 4> langCodes;
+  LangsBufferT langCodes;
   for (auto const & lang : languages::GetSystemPreferred())
   {
     auto const code = StringUtf8Multilang::GetLangIndex(languages::Normalize(lang));

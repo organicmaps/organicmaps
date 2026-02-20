@@ -1,5 +1,3 @@
-#include "generator/utils.hpp"
-
 #include "search/search_quality/helpers.hpp"
 
 #include "search/categories_cache.hpp"
@@ -8,7 +6,6 @@
 #include "search/reverse_geocoder.hpp"
 
 #include "storage/country_info_getter.hpp"
-#include "storage/storage.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -282,7 +279,7 @@ void PrintHeader()
 
 void PrintMwmMetadata(feature::RegionData const & data)
 {
-  std::vector<int8_t> langs;
+  LangsBufferT langs;
   data.GetLanguages(langs);
   std::string langsStr;
   for (auto const & l : langs)

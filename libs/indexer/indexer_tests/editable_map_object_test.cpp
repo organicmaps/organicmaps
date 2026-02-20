@@ -235,7 +235,7 @@ UNIT_TEST(EditableMapObject_ValidateName)
 UNIT_TEST(EditableMapObject_CanUseAsDefaultName)
 {
   EditableMapObject emo;
-  vector<int8_t> const nativeMwmLanguages{GetLangCode("de"), GetLangCode("fr")};
+  LangsBufferT const nativeMwmLanguages{GetLangCode("de"), GetLangCode("fr")};
 
   TEST(EditableMapObject::CanUseAsDefaultName(GetLangCode("de"), nativeMwmLanguages),
        ("Check possibility to use Mwm language code"));
@@ -281,7 +281,7 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
   names.Add("it", "It name");
   emo.SetName(names);
 
-  vector<int8_t> nativeMwmLanguages = {GetLangCode("de"), GetLangCode("fr")};
+  LangsBufferT nativeMwmLanguages = {GetLangCode("de"), GetLangCode("fr")};
 
   auto const namesDataSource =
       EditableMapObject::GetNamesDataSource(emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("ko"));
@@ -291,7 +291,7 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
   TEST_EQUAL(namesDataSource.names[0].m_code, GetLangCode("default"), ("Default is always first in the list"));
 
   {
-    vector<int8_t> nativeMwmLanguages = {GetLangCode("de"), GetLangCode("fr")};
+    LangsBufferT nativeMwmLanguages = {GetLangCode("de"), GetLangCode("fr")};
 
     auto const namesDataSource =
         EditableMapObject::GetNamesDataSource(emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("fr"));
@@ -299,7 +299,7 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
     TEST_EQUAL(namesDataSource.mandatoryNamesCount, 1, ("Mandatory names count should always be 1"));
   }
   {
-    vector<int8_t> nativeMwmLanguages = {GetLangCode("fr"), GetLangCode("en")};
+    LangsBufferT nativeMwmLanguages = {GetLangCode("fr"), GetLangCode("en")};
 
     auto const namesDataSource =
         EditableMapObject::GetNamesDataSource(emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("fr"));
@@ -307,7 +307,7 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
     TEST_EQUAL(namesDataSource.mandatoryNamesCount, 1, ("Mandatory names count should always be 1"));
   }
   {
-    vector<int8_t> nativeMwmLanguages = {GetLangCode("en"), GetLangCode("en")};
+    LangsBufferT nativeMwmLanguages = {GetLangCode("en"), GetLangCode("en")};
 
     auto const namesDataSource =
         EditableMapObject::GetNamesDataSource(emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("en"));

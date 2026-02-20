@@ -285,7 +285,7 @@ string_view GetLocalizedCafeType(unordered_map<uint32_t, StringUtf8Multilang> co
 
 optional<Sample> GenerateRequest(FeatureType & ft, search::ReverseGeocoder const & coder,
                                  unordered_map<uint32_t, StringUtf8Multilang> const & typesTranslations,
-                                 vector<int8_t> const & mwmLangCodes, RequestType requestType)
+                                 LangsBufferT const & mwmLangCodes, RequestType requestType)
 {
   string street;
   string cafeStr;
@@ -408,7 +408,7 @@ int main(int argc, char * argv[])
     MwmSet::MwmId const mwmId(mwmInfo);
     LOG(LINFO, ("Start generation for", mwmId));
 
-    vector<int8_t> mwmLangCodes;
+    LangsBufferT mwmLangCodes;
     mwmInfo->GetRegionData().GetLanguages(mwmLangCodes);
 
     auto handle = dataSource.GetMwmHandleById(mwmId);

@@ -56,7 +56,7 @@ int GetFeatureViewportScale(FeatureID const & fid, TypesHolder const & types);
 // Returns following languages given |lang|:
 // - |lang|;
 // - languages that we know are similar to |lang|;
-std::vector<int8_t> GetSimilar(int8_t deviceLang);
+LangsBufferT GetSimilar(int8_t deviceLang);
 
 struct NameParamsIn
 {
@@ -147,7 +147,7 @@ bool GetPreferredName(StringUtf8Multilang const & src, int8_t deviceLang, std::s
 /// - languages that we know are similar to device language;
 /// - international language code;
 /// - english language code;
-std::vector<int8_t> GetDescriptionLangPriority(RegionData const & regionData, int8_t const deviceLang);
+LangsBufferT GetDescriptionLangPriority(RegionData const & regionData, int8_t const deviceLang);
 
 // Returns vector of cuisines readable names from classificator.
 std::vector<std::string> GetCuisines(TypesHolder const & types);
