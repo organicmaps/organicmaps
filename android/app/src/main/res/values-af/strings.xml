@@ -23,6 +23,8 @@
     <string name="search">Soek</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Soek op die kaart</string>
+    <!-- Placeholder text for search box to clarify that the search does not look for places outside downloaded maps -->
+    <string name="search_hint">Soek in afgelaaide kaarte</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Alle liggingsdienste vir hierdie toestel of toepassing is tans gedeaktiveer. Aktiveer dit asb. in Instellings.</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->

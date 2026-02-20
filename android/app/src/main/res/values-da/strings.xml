@@ -23,6 +23,8 @@
     <string name="search">Søg</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Søg på kort</string>
+    <!-- Placeholder text for search box to clarify that the search does not look for places outside downloaded maps -->
+    <string name="search_hint">Søg i downloadede kort</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Du har deaktiveret alle placeringstjenester for denne enhed eller applikation. Slå dem venligst til i Indstillinger.</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->

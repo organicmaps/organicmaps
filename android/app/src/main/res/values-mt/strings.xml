@@ -23,6 +23,8 @@
     <string name="search">Fittex</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Fittex fuq il-mappa</string>
+    <!-- Placeholder text for search box to clarify that the search does not look for places outside downloaded maps -->
+    <string name="search_hint">Fittex fil-mappijiet mniżżla</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Bħalissa għandek kull Servizzi tal-Lokażżjoni fuq dan l-apparat jew l-applikazzjoni mitfijin. Jekk jogħġbok erġa ixgħelhom ġos-Settings.</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->

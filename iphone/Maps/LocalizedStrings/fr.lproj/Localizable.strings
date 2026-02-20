@@ -25,6 +25,9 @@
 /* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "Recherche";
 
+/* Placeholder text for search box to clarify that the search does not look for places outside downloaded maps */
+"search_hint" = "Recherche dans les cartes téléchargées";
+
 /* View and button titles for accessibility */
 "zoom_to_country" = "Voir sur la carte";
 

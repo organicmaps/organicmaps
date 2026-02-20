@@ -23,6 +23,8 @@
     <string name="search">खोज</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">मानचित्र पर खोजें</string>
+    <!-- Placeholder text for search box to clarify that the search does not look for places outside downloaded maps -->
+    <string name="search_hint">डाउनलोड किए गए मानचित्रों में खोजें</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">वर्तमान में आपके पास इस डिवाइस या एप्लिकेशन के लिए सभी स्थान सेवाएँ अक्षम हैं। कृपया उन्हें सेटिंग्स में सक्षम करें।</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
