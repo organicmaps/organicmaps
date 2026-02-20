@@ -385,6 +385,11 @@ public class PlacePageController
     mCustomPeekHeightAnimator = ValueAnimator.ofInt(initialHeight, peekHeight);
     mCustomPeekHeightAnimator.setInterpolator(new FastOutSlowInInterpolator());
     mCustomPeekHeightAnimator.addUpdateListener(valueAnimator -> {
+      if (!isAdded())
+      {
+        valueAnimator.cancel();
+        return;
+      }
       int value = (Integer) valueAnimator.getAnimatedValue();
       // Make sure the place page can reach the animated peek height to prevent jumps
       // maxHeight does not take the navbar height into account so we manually add it
@@ -745,6 +750,17 @@ public class PlacePageController
     super.onResume();
     if (mPlacePageBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN && !Framework.nativeHasPlacePageInfo())
       mViewModel.setMapObject(null);
+  }
+
+  @Override
+  public void onDestroyView()
+  {
+    if (mCustomPeekHeightAnimator != null)
+    {
+      mCustomPeekHeightAnimator.cancel();
+      mCustomPeekHeightAnimator = null;
+    }
+    super.onDestroyView();
   }
 
   @Override
