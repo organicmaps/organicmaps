@@ -19,8 +19,8 @@ public:
   template <typename Iter>
   hash_type Init(Iter it, uint64_t windowSize)
   {
-    ASSERT_GREATER(m_windowSize, 0, ());
     m_windowSize = windowSize;
+    ASSERT_GREATER(m_windowSize, 0, ());
     m_removeMultiplier = math::PowUint(m_multiplier, m_windowSize - 1);
 #ifdef DEBUG
     while (!m_queue.empty())

@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <functional>
 #include <unordered_map>
+#include <utility>
 
 #ifdef __clang__
 #pragma clang diagnostic push
@@ -26,7 +27,7 @@ public:
 
   /// \param capacity maximum size of the cache in number of items.
   /// \param loader Function which is called if it's necessary to load a new item for the cache.
-  FifoCache(size_t capacity, Loader const & loader) : m_fifo(capacity), m_capacity(capacity), m_loader(loader) {}
+  FifoCache(size_t capacity, Loader loader) : m_fifo(capacity), m_capacity(capacity), m_loader(std::move(loader)) {}
 
   /// \brief Loads value, if it's necessary, by |key| with |m_loader|, puts it to cache and
   /// returns the reference to the value to |m_map|.

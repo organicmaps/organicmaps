@@ -4,6 +4,8 @@
 #include <mutex>
 #include <queue>
 
+#include "base/macros.hpp"
+
 namespace threads
 {
 template <typename T>
@@ -11,11 +13,7 @@ class ThreadSafeQueue
 {
 public:
   ThreadSafeQueue() = default;
-  ThreadSafeQueue(ThreadSafeQueue const & other)
-  {
-    std::lock_guard<std::mutex> lk(other.m_mutex);
-    m_queue = other.m_queue;
-  }
+  DISALLOW_COPY_AND_MOVE(ThreadSafeQueue);
 
   void Push(T const & value)
   {

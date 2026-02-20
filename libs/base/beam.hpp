@@ -103,7 +103,7 @@ public:
     bool operator<(Entry const & rhs) const { return m_value > rhs.m_value; }
   };
 
-  explicit HeapBeam(size_t capacity) : m_capacity(capacity), m_size(0) { m_entries.reserve(m_capacity); }
+  explicit HeapBeam(size_t capacity) : m_capacity(capacity) { m_entries.reserve(m_capacity); }
 
   // Tries to add a key-value pair to the beam. Evicts the entry with the lowest
   // value if the insertion would result in an overspill.
@@ -114,21 +114,20 @@ public:
     if (PREDICT_FALSE(m_capacity == 0))
       return;
 
-    if (PREDICT_FALSE(m_size < m_capacity))
+    if (PREDICT_FALSE(m_entries.size() < m_capacity))
     {
       m_entries.emplace_back(key, value);
-      ++m_size;
-      std::push_heap(m_entries.begin(), m_entries.begin() + m_size);
+      std::push_heap(m_entries.begin(), m_entries.begin() + m_entries.size());
       return;
     }
 
-    ASSERT_GREATER(m_size, 0, ());
+    ASSERT_GREATER(m_entries.size(), 0, ());
     if (value < m_entries.front().m_value)
       return;
 
-    std::pop_heap(m_entries.begin(), m_entries.begin() + m_size);
-    m_entries[m_size - 1] = Entry(key, value);
-    std::push_heap(m_entries.begin(), m_entries.begin() + m_size);
+    std::pop_heap(m_entries.begin(), m_entries.begin() + m_entries.size());
+    m_entries.back() = Entry(key, value);
+    std::push_heap(m_entries.begin(), m_entries.begin() + m_entries.size());
   }
 
   // Calls |fn| for all entries currently held in the beam.
@@ -146,7 +145,6 @@ public:
 
 private:
   size_t m_capacity;
-  size_t m_size;
   std::vector<Entry> m_entries;
 };
 }  // namespace base
