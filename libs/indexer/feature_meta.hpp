@@ -230,7 +230,7 @@ public:
   }
 
   void SetLanguages(std::vector<std::string> const & codes);
-  void GetLanguages(std::vector<int8_t> & langs) const;
+  void GetLanguages(LangsBufferT & langs) const;
   bool HasLanguage(int8_t const lang) const;
   bool IsSingleLanguage(int8_t const lang) const;
 

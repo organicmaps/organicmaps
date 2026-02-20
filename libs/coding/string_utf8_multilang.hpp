@@ -28,6 +28,8 @@ void ReadNonEmpty(TSource & src, std::string & s)
 }
 }  // namespace rw
 
+using LangsBufferT = buffer_vector<int8_t, 8>;
+
 // A class to store strings in multiple languages.
 // May be used e.g. to store several translations of a feature's name.
 //
@@ -206,7 +208,7 @@ public:
   }
 
   /// @return Best matching translation by language priority (in the given order) or empty if no match.
-  std::string_view GetBestString(buffer_vector<int8_t, 4> const & preferredLangs) const;
+  std::string_view GetBestString(LangsBufferT const & preferredLangs) const;
   /// @return First string.
   std::string_view GetFirstString() const;
 

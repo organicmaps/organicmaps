@@ -3,6 +3,7 @@
 #include "descriptions/header.hpp"
 
 #include "coding/dd_vector.hpp"
+#include "coding/string_utf8_multilang.hpp"
 #include "coding/text_storage.hpp"
 
 #include "base/assert.hpp"
@@ -10,10 +11,8 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
-#include <map>
 #include <memory>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace descriptions
@@ -141,7 +140,7 @@ private:
 class Deserializer
 {
 public:
-  using LangPriorities = std::vector<LangCode>;
+  using LangPriorities = LangsBufferT;
 
   template <typename Reader>
   std::string Deserialize(Reader & reader, FeatureIndex featureIndex, LangPriorities const & langPriority)

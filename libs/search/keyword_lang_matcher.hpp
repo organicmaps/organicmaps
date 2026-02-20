@@ -2,6 +2,8 @@
 
 #include "search/keyword_matcher.hpp"
 
+#include "coding/string_utf8_multilang.hpp"
+
 #include "base/string_utils.hpp"
 
 #include <string>
@@ -35,7 +37,7 @@ public:
   explicit KeywordLangMatcher(size_t maxLanguageTiers);
 
   // Defines the languages in the |tier| to be exactly |languages|.
-  void SetLanguages(size_t const tier, std::vector<int8_t> && languages);
+  void SetLanguages(size_t const tier, LangsBufferT && languages);
 
   // Calls |fn| on every language in every tier. Does not make a distinction
   // between languages in different tiers.
@@ -58,7 +60,7 @@ public:
 private:
   int CalcLangScore(int8_t lang) const;
 
-  std::vector<std::vector<int8_t>> m_languagePriorities;
+  std::vector<LangsBufferT> m_languagePriorities;
   KeywordMatcher m_keywordMatcher;
 };
 }  // namespace search

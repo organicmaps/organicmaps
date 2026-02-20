@@ -14,7 +14,7 @@ void RunTestSamples(std::function<void(std::string_view, RegionData &)> const & 
 
   rd.Clear();
   getter("Canada", rd);
-  std::vector<int8_t> langs;
+  LangsBufferT langs;
   rd.GetLanguages(langs);
   TEST_EQUAL(langs[0], StringUtf8Multilang::GetLangIndex("en"), ());
 

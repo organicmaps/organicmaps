@@ -18,7 +18,7 @@ struct RawDescription
 };
 
 template <typename Reader>
-std::string GetDescription(Reader & reader, FeatureIndex fid, std::vector<int8_t> const & langPriority)
+std::string GetDescription(Reader & reader, FeatureIndex fid, LangsBufferT const & langPriority)
 {
   Deserializer des;
   return des.Deserialize(reader, fid, langPriority);

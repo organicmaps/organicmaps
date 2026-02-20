@@ -1,21 +1,13 @@
 #include "keyword_lang_matcher.hpp"
 
-#include "indexer/search_delimiters.hpp"
-#include "indexer/search_string_utils.hpp"
-
 #include "base/assert.hpp"
-#include "base/stl_helpers.hpp"
 
-#include <algorithm>
 #include <limits>
-#include <sstream>
-
-using namespace std;
 
 namespace search
 {
 // KeywordLangMatcher::Score ----------------------------------------------------------------------
-KeywordLangMatcher::Score::Score() : m_langScore(numeric_limits<int>::min()) {}
+KeywordLangMatcher::Score::Score() : m_langScore(std::numeric_limits<int>::min()) {}
 
 KeywordLangMatcher::Score::Score(KeywordMatcher::Score const & score, int langScore)
   : m_parentScore(score)
@@ -44,7 +36,7 @@ KeywordLangMatcher::KeywordLangMatcher(size_t maxLanguageTiers) : m_languagePrio
   ASSERT_LESS(maxLanguageTiers, 10, ());
 }
 
-void KeywordLangMatcher::SetLanguages(size_t tier, std::vector<int8_t> && languages)
+void KeywordLangMatcher::SetLanguages(size_t tier, LangsBufferT && languages)
 {
   ASSERT_LESS(tier, m_languagePriorities.size(), ());
   m_languagePriorities[tier] = std::move(languages);
@@ -63,7 +55,7 @@ int KeywordLangMatcher::CalcLangScore(int8_t lang) const
   return -numTiers;
 }
 
-KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang, string_view name) const
+KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang, std::string_view name) const
 {
   return Score(m_keywordMatcher.CalcScore(name), CalcLangScore(lang));
 }
@@ -80,10 +72,8 @@ KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang, strings::Un
 }
 
 // Functions ---------------------------------------------------------------------------------------
-string DebugPrint(KeywordLangMatcher::Score const & score)
+std::string DebugPrint(KeywordLangMatcher::Score const & score)
 {
-  ostringstream ss;
-  ss << "KLM::Score(" << DebugPrint(score.m_parentScore) << ", LS=" << score.m_langScore << ")";
-  return ss.str();
+  return "KLM::Score(" + DebugPrint(score.m_parentScore) + ", LS=" + std::to_string(score.m_langScore) + ")";
 }
 }  // namespace search

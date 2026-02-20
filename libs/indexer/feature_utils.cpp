@@ -24,7 +24,7 @@ using StrUtf8 = StringUtf8Multilang;
 
 void GetMwmLangName(feature::RegionData const & regionData, StrUtf8 const & src, string_view & out)
 {
-  vector<int8_t> mwmLangCodes;
+  LangsBufferT mwmLangCodes;
   regionData.GetLanguages(mwmLangCodes);
 
   for (auto const code : mwmLangCodes)
@@ -34,7 +34,7 @@ void GetMwmLangName(feature::RegionData const & regionData, StrUtf8 const & src,
 
 bool GetTransliteratedName(RegionData const & regionData, StrUtf8 const & src, string & out)
 {
-  vector<int8_t> mwmLangCodes;
+  LangsBufferT mwmLangCodes;
   regionData.GetLanguages(mwmLangCodes);
 
   auto const & translator = Transliteration::Instance();
@@ -52,7 +52,7 @@ bool GetTransliteratedName(RegionData const & regionData, StrUtf8 const & src, s
   return false;
 }
 
-bool GetBestName(StrUtf8 const & src, vector<int8_t> const & priorityList, string_view & out)
+bool GetBestName(StrUtf8 const & src, LangsBufferT const & priorityList, string_view & out)
 {
   size_t bestIndex = priorityList.size();
 
@@ -93,9 +93,9 @@ bool IsNativeLang(feature::RegionData const & regionData, int8_t deviceLang)
   return false;
 }
 
-vector<int8_t> MakeLanguagesPriorityList(int8_t deviceLang, bool preferDefault)
+LangsBufferT MakeLanguagesPriorityList(int8_t deviceLang, bool preferDefault)
 {
-  vector<int8_t> langPriority = {deviceLang};
+  LangsBufferT langPriority = {deviceLang};
   if (preferDefault)
     langPriority.push_back(StrUtf8::kDefaultCode);
 
@@ -110,7 +110,8 @@ vector<int8_t> MakeLanguagesPriorityList(int8_t deviceLang, bool preferDefault)
         langPriority.push_back(l);
   }
 
-  langPriority.insert(langPriority.cend(), {StrUtf8::kInternationalCode, StrUtf8::kEnglishCode});
+  langPriority.push_back(StrUtf8::kInternationalCode);
+  langPriority.push_back(StrUtf8::kEnglishCode);
 
   return langPriority;
 }
@@ -304,9 +305,9 @@ int GetFeatureViewportScale(FeatureID const & fid, TypesHolder const & types)
   return scale;
 }
 
-vector<int8_t> GetSimilar(int8_t lang)
+LangsBufferT GetSimilar(int8_t lang)
 {
-  vector<int8_t> langs = {lang};
+  LangsBufferT langs = {lang};
 
   if (auto const * similar = StrUtf8::GetSimilarLanguages(lang))
   {
@@ -335,9 +336,9 @@ void GetPreferredNames(NameParamsIn const & in, NameParamsOut & out)
   if (!GetBestName(in.src, primaryCodes, out.primary) && in.allowTranslit)
     GetTransliteratedName(in.regionData, in.src, out.transliterated);
 
-  vector<int8_t> secondaryCodes = {StrUtf8::kDefaultCode, StrUtf8::kInternationalCode};
+  LangsBufferT secondaryCodes = {StrUtf8::kDefaultCode, StrUtf8::kInternationalCode};
 
-  vector<int8_t> mwmLangCodes;
+  LangsBufferT mwmLangCodes;
   in.regionData.GetLanguages(mwmLangCodes);
   secondaryCodes.insert(secondaryCodes.end(), mwmLangCodes.begin(), mwmLangCodes.end());
 
@@ -365,7 +366,7 @@ int8_t GetNameForSearchOnBooking(RegionData const & regionData, StrUtf8 const & 
   if (src.GetString(StrUtf8::kDefaultCode, name))
     return StrUtf8::kDefaultCode;
 
-  vector<int8_t> mwmLangs;
+  LangsBufferT mwmLangs;
   regionData.GetLanguages(mwmLangs);
 
   for (auto mwmLang : mwmLangs)
@@ -388,7 +389,7 @@ bool GetPreferredName(StrUtf8 const & src, int8_t deviceLang, string_view & out)
   return GetBestName(src, priorityList, out);
 }
 
-vector<int8_t> GetDescriptionLangPriority(RegionData const & regionData, int8_t const deviceLang)
+LangsBufferT GetDescriptionLangPriority(RegionData const & regionData, int8_t const deviceLang)
 {
   bool const preferDefault = IsNativeLang(regionData, deviceLang);
   return MakeLanguagesPriorityList(deviceLang, preferDefault);

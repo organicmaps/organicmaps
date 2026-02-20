@@ -85,7 +85,7 @@ NamesDataSource EditableMapObject::GetNamesDataSource()
   if (!mwmInfo)
     return NamesDataSource();
 
-  vector<int8_t> mwmLanguages;
+  LangsBufferT mwmLanguages;
   mwmInfo->GetRegionData().GetLanguages(mwmLanguages);
 
   auto const userLangCode = StringUtf8Multilang::GetLangIndex(languages::GetCurrentMapLanguage());
@@ -94,7 +94,7 @@ NamesDataSource EditableMapObject::GetNamesDataSource()
 }
 
 // static
-NamesDataSource EditableMapObject::GetNamesDataSource(FeatureNames const & source, vector<int8_t> const & mwmLanguages,
+NamesDataSource EditableMapObject::GetNamesDataSource(FeatureNames const & source, LangsBufferT const & mwmLanguages,
                                                       int8_t const userLangCode)
 {
   NamesDataSource result;
@@ -173,7 +173,7 @@ void EditableMapObject::SetName(string_view name, int8_t langCode)
 }
 
 // static
-bool EditableMapObject::CanUseAsDefaultName(int8_t const lang, vector<int8_t> const & mwmLanguages)
+bool EditableMapObject::CanUseAsDefaultName(int8_t const lang, LangsBufferT const & mwmLanguages)
 {
   for (auto const & mwmLang : mwmLanguages)
   {

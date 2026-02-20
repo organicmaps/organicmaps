@@ -226,7 +226,7 @@ void RegionData::SetLanguages(vector<string> const & codes)
   MetadataBase::Set(RegionData::Type::RD_LANGUAGES, value);
 }
 
-void RegionData::GetLanguages(vector<int8_t> & langs) const
+void RegionData::GetLanguages(LangsBufferT & langs) const
 {
   for (auto const lang : Get(RegionData::Type::RD_LANGUAGES))
     langs.push_back(lang);

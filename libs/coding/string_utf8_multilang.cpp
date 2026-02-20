@@ -375,7 +375,7 @@ bool StringUtf8Multilang::GetString(int8_t lang, std::string_view & utf8s) const
   return false;
 }
 
-std::string_view StringUtf8Multilang::GetBestString(buffer_vector<int8_t, 4> const & langs) const
+std::string_view StringUtf8Multilang::GetBestString(LangsBufferT const & langs) const
 {
   size_t langIdx = langs.size() + 1;
   std::string_view res;

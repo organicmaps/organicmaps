@@ -8,7 +8,6 @@
 #include <map>
 #include <mutex>
 #include <string>
-#include <vector>
 
 class DataSource;
 
@@ -20,7 +19,7 @@ class Loader
 public:
   explicit Loader(DataSource const & dataSource) : m_dataSource(dataSource) {}
 
-  std::string GetWikiDescription(FeatureID const & featureId, std::vector<int8_t> const & langPriority);
+  std::string GetWikiDescription(FeatureID const & featureId, LangsBufferT const & langPriority);
 
   void OnMwmDeregistered(platform::LocalCountryFile const & countryFile);
   void Clear();
