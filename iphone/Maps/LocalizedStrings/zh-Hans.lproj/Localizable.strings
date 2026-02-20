@@ -1116,3 +1116,6 @@
 
 /* Login to OSM button text */
 "login_osm_browser" = "使用浏览器登录";
+
+/* Editor section title that shows recently used categories (types of objects) when adding a place on the map */
+"editor_add_select_category_recent_subtitle" = "最近使用";
