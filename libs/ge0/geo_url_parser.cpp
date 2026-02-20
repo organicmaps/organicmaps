@@ -311,8 +311,18 @@ bool OpenStreetMapParser::Parse(url::Url const & url, GeoURLInfo & info) const
 {
   info.Reset();
 
-  auto const * mapV = url.GetParamValue("map");
-  return (mapV && MatchLatLonZoom(*mapV, m_regex, 2, 3, 1, info));
+  auto const * queryParam = url.GetParamValue("query");
+  if (!queryParam || queryParam->empty())
+    queryParam = url.GetParamValue("q");
+
+  if (queryParam && !queryParam->empty())
+  {
+    info.m_query = *queryParam;
+    return true;
+  }
+
+  auto const * mapParam = url.GetParamValue("map");
+  return mapParam && MatchLatLonZoom(*mapParam, m_regex, 2, 3, 1, info);
 }
 
 GeoURLInfo::GeoURLInfo()
