@@ -749,7 +749,7 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
          setGroupId:(MWMMarkGroupID)groupId
               color:(UIColor *)color
               title:(NSString *)title
-             description:(NSString *)description
+        description:(NSString *)description
 {
   ASSERT_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
   auto const currentGroupId = self.bm.GetTrack(trackId)->GetGroupId();
@@ -782,7 +782,6 @@ static FileType convertFileTypeToCore(MWMFileType fileType)
 
   if (newColor != currentColor)
     track->SetColor(newColor);
-    
 }
 
 - (void)moveTrack:(MWMTrackID)trackId toGroupId:(MWMMarkGroupID)groupId
