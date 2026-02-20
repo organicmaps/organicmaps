@@ -29,6 +29,10 @@ public:
 
   static RoutingOptions LoadCarOptionsFromSettings();
   static void SaveCarOptionsToSettings(RoutingOptions options);
+  static RoutingOptions LoadPedestrianOptionsFromSettings();
+  static void SavePedestrianOptionsToSettings(RoutingOptions options);
+  static RoutingOptions LoadBicycleOptionsFromSettings();
+  static void SaveBicycleOptionsToSettings(RoutingOptions options);
 
   void Add(Road type);
   void Remove(Road type);
