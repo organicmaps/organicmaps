@@ -39,6 +39,7 @@ final class PlacePagePreviewViewController: UIViewController {
   private var distance: String?
   private var speedAndAltitude: String?
   private var heading: CGFloat?
+  private var currentCoordinates: String?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -65,9 +66,24 @@ final class PlacePagePreviewViewController: UIViewController {
 
   func updateViews() {
     if placePagePreviewData.isMyPosition {
-      if let speedAndAltitude = speedAndAltitude {
-        subtitleLabel.text = speedAndAltitude
-      }
+      if let coordinates = currentCoordinates {
+           let subtitleString = NSMutableAttributedString()
+           
+           if let speedAndAltitude = speedAndAltitude, !speedAndAltitude.isEmpty {
+             subtitleString.append(NSAttributedString(string: speedAndAltitude + " • "))
+           }
+           
+           subtitleString.append(NSAttributedString(
+             string: coordinates,
+             attributes: [.foregroundColor: UIColor.blackSecondaryText(),
+                          .font: UIFont.emojiRegular14()]))
+           
+           subtitleLabel.attributedText = subtitleString
+           subtitleContainerView.isHidden = false
+         } else if let speedAndAltitude = speedAndAltitude {
+           subtitleLabel.text = speedAndAltitude
+           subtitleContainerView.isHidden = false
+         }
     } else {
       let subtitleString = NSMutableAttributedString()
 //      if placePagePreviewData.isPopular {
@@ -123,7 +139,19 @@ final class PlacePagePreviewViewController: UIViewController {
 
   func updateSpeedAndAltitude(_ speedAndAltitude: String) {
     self.speedAndAltitude = speedAndAltitude
-    subtitleLabel?.text = speedAndAltitude
+    
+    if placePagePreviewData?.isMyPosition == true, isViewLoaded {
+      updateViews()
+    } else {
+      subtitleLabel?.text = speedAndAltitude
+    }
+  }
+  func updateCoordinates(_ coordinates: String) {
+    self.currentCoordinates = coordinates
+    
+    guard isViewLoaded, placePagePreviewData?.isMyPosition == true else { return }
+    
+    updateViews()
   }
 
   @IBAction func onLongPressAdress(_ sender: UILongPressGestureRecognizer) {
