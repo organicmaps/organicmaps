@@ -667,7 +667,7 @@ void Framework::FillTrackInfo(Track const & track, m2::PointD const & trackPoint
 
   auto const openingMode = m_routingManager.IsRoutingActive() || track.GetDescription().empty()
                              ? place_page::OpeningMode::Preview
-                             : place_page::OpeningMode::PreviewPlus;
+                             : place_page::OpeningMode::Full;
   info.SetOpeningMode(openingMode);
 
   info.SetMercator(trackPoint);
