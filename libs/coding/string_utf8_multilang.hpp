@@ -7,7 +7,6 @@
 
 #include <string>
 #include <string_view>
-#include <vector>
 
 namespace rw
 {
@@ -94,6 +93,7 @@ public:
   static std::string_view GetLangNameByCode(int8_t langCode);
   /// @returns nullptr if langCode is invalid.
   static Lang::TransliteratorsList const * GetTransliteratorsIdsByCode(int8_t langCode);
+  static std::array<int8_t, 2> const * GetSimilarLanguages(int8_t langCode);
 
   static std::string GetOSMTagByCode(uint8_t const langCode);
   static uint8_t GetCodeByOSMTag(std::string const & name);

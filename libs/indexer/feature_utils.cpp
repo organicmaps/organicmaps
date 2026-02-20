@@ -14,9 +14,6 @@
 
 #include "base/control_flow.hpp"
 
-#include <unordered_map>
-#include <utility>
-
 namespace feature
 {
 using namespace std;
@@ -24,11 +21,6 @@ using namespace std;
 namespace
 {
 using StrUtf8 = StringUtf8Multilang;
-
-int8_t GetIndex(string const & lang)
-{
-  return StrUtf8::GetLangIndex(lang);
-}
 
 void GetMwmLangName(feature::RegionData const & regionData, StrUtf8 const & src, string_view & out)
 {
@@ -86,29 +78,17 @@ bool GetBestName(StrUtf8 const & src, vector<int8_t> const & priorityList, strin
   return bestIndex < priorityList.size();
 }
 
-vector<int8_t> GetSimilarLanguages(int8_t lang)
-{
-  static unordered_map<int8_t, vector<int8_t>> const kSimilarLanguages = {
-      {GetIndex("be"), {GetIndex("ru")}},
-      {GetIndex("ja"), {GetIndex("ja_kana"), GetIndex("ja_rm")}},
-      {GetIndex("ko"), {GetIndex("ko_rm")}},
-      {GetIndex("zh"), {GetIndex("zh_pinyin")}}};
-
-  auto const it = kSimilarLanguages.find(lang);
-  if (it != kSimilarLanguages.cend())
-    return it->second;
-
-  return {};
-}
-
 bool IsNativeLang(feature::RegionData const & regionData, int8_t deviceLang)
 {
   if (regionData.HasLanguage(deviceLang))
     return true;
 
-  for (auto const lang : GetSimilarLanguages(deviceLang))
-    if (regionData.HasLanguage(lang))
-      return true;
+  if (auto const * similar = StrUtf8::GetSimilarLanguages(deviceLang))
+  {
+    for (int8_t l : *similar)
+      if (l != StrUtf8::kUnsupportedLanguageCode && regionData.HasLanguage(l))
+        return true;
+  }
 
   return false;
 }
@@ -123,8 +103,13 @@ vector<int8_t> MakeLanguagesPriorityList(int8_t deviceLang, bool preferDefault)
   // Add ru lang for descriptions/rendering tests.
   // langPriority.push_back(StrUtf8::GetLangIndex("ru"));
 
-  auto const similarLangs = GetSimilarLanguages(deviceLang);
-  langPriority.insert(langPriority.cend(), similarLangs.cbegin(), similarLangs.cend());
+  if (auto const * similar = StrUtf8::GetSimilarLanguages(deviceLang))
+  {
+    for (int8_t l : *similar)
+      if (l != StrUtf8::kUnsupportedLanguageCode)
+        langPriority.push_back(l);
+  }
+
   langPriority.insert(langPriority.cend(), {StrUtf8::kInternationalCode, StrUtf8::kEnglishCode});
 
   return langPriority;
@@ -299,9 +284,9 @@ static constexpr std::string_view kMountainSymbol = "▲";
 static constexpr std::string_view kDrinkingWaterYes = "🚰";
 static constexpr std::string_view kDrinkingWaterNo = "🚱";
 
-NameParamsIn::NameParamsIn(StringUtf8Multilang const & src_, RegionData const & regionData_,
-                           std::string_view deviceLang_, bool allowTranslit_)
-  : NameParamsIn(src_, regionData_, StringUtf8Multilang::GetLangIndex(deviceLang_), allowTranslit_)
+NameParamsIn::NameParamsIn(StrUtf8 const & src_, RegionData const & regionData_, std::string_view deviceLang_,
+                           bool allowTranslit_)
+  : NameParamsIn(src_, regionData_, StrUtf8::GetLangIndex(deviceLang_), allowTranslit_)
 {}
 
 bool NameParamsIn::IsNativeOrSimilarLang() const
@@ -323,8 +308,13 @@ vector<int8_t> GetSimilar(int8_t lang)
 {
   vector<int8_t> langs = {lang};
 
-  auto const similarLangs = GetSimilarLanguages(lang);
-  langs.insert(langs.cend(), similarLangs.cbegin(), similarLangs.cend());
+  if (auto const * similar = StrUtf8::GetSimilarLanguages(lang))
+  {
+    for (int8_t l : *similar)
+      if (l != StrUtf8::kUnsupportedLanguageCode)
+        langs.push_back(l);
+  }
+
   return langs;
 }
 
@@ -370,10 +360,10 @@ void GetReadableName(NameParamsIn const & in, NameParamsOut & out)
 }
 
 /*
-int8_t GetNameForSearchOnBooking(RegionData const & regionData, StringUtf8Multilang const & src, string & name)
+int8_t GetNameForSearchOnBooking(RegionData const & regionData, StrUtf8 const & src, string & name)
 {
-  if (src.GetString(StringUtf8Multilang::kDefaultCode, name))
-    return StringUtf8Multilang::kDefaultCode;
+  if (src.GetString(StrUtf8::kDefaultCode, name))
+    return StrUtf8::kDefaultCode;
 
   vector<int8_t> mwmLangs;
   regionData.GetLanguages(mwmLangs);
@@ -384,15 +374,15 @@ int8_t GetNameForSearchOnBooking(RegionData const & regionData, StringUtf8Multil
       return mwmLang;
   }
 
-  if (src.GetString(StringUtf8Multilang::kEnglishCode, name))
-    return StringUtf8Multilang::kEnglishCode;
+  if (src.GetString(StrUtf8::kEnglishCode, name))
+    return StrUtf8::kEnglishCode;
 
   name.clear();
-  return StringUtf8Multilang::kUnsupportedLanguageCode;
+  return StrUtf8::kUnsupportedLanguageCode;
 }
 */
 
-bool GetPreferredName(StringUtf8Multilang const & src, int8_t deviceLang, string_view & out)
+bool GetPreferredName(StrUtf8 const & src, int8_t deviceLang, string_view & out)
 {
   auto const priorityList = MakeLanguagesPriorityList(deviceLang, true /* preferDefault */);
   return GetBestName(src, priorityList, out);

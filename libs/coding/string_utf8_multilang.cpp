@@ -130,7 +130,7 @@ constexpr uint32_t LangHash(std::string_view s)
 
 struct LangHashEntry
 {
-  std::string_view code{};
+  std::string_view code;
   int8_t index = StringUtf8Multilang::kUnsupportedLanguageCode;
 };
 
@@ -139,7 +139,7 @@ constexpr size_t kHashMask = kHashTableSize - 1;
 
 using LangHashTable = std::array<LangHashEntry, kHashTableSize>;
 
-consteval LangHashTable BuildLangHashTable()
+constexpr LangHashTable kLangHashTable = [] consteval
 {
   LangHashTable table{};
   for (size_t i = 0; i < kLanguages.size(); ++i)
@@ -156,11 +156,9 @@ consteval LangHashTable BuildLangHashTable()
     table[slot].index = static_cast<int8_t>(i);
   }
   return table;
-}
+}();
 
-constexpr LangHashTable kLangHashTable = BuildLangHashTable();
-
-int8_t LookupLangIndex(std::string_view lang)
+constexpr int8_t LookupLangIndex(std::string_view lang)
 {
   uint32_t slot = LangHash(lang) & kHashMask;
   for (;;)
@@ -219,6 +217,38 @@ StringUtf8Multilang::Lang::TransliteratorsList const * StringUtf8Multilang::GetT
     return nullptr;
 
   return &kLanguages[langCode].m_transliteratorsIds;
+}
+
+namespace
+{
+
+struct SimilarLangsEntry
+{
+  int8_t code;
+  std::array<int8_t, 2> val;
+};
+
+using SimilarLangsArray = std::array<SimilarLangsEntry, 4>;
+
+constexpr SimilarLangsArray kSimilarLangs = [] consteval
+{
+  int8_t constexpr nolang = StringUtf8Multilang::kUnsupportedLanguageCode;
+  return SimilarLangsArray{{
+      {LookupLangIndex("be"), {LookupLangIndex("ru"), nolang}},
+      {LookupLangIndex("ja"), {LookupLangIndex("ja_kana"), LookupLangIndex("ja_rm")}},
+      {LookupLangIndex("ko"), {LookupLangIndex("ko_rm"), nolang}},
+      {LookupLangIndex("zh"), {LookupLangIndex("zh_pinyin"), nolang}},
+  }};
+}();
+
+}  // namespace
+
+std::array<int8_t, 2> const * StringUtf8Multilang::GetSimilarLanguages(int8_t langCode)
+{
+  for (auto const & e : kSimilarLangs)
+    if (e.code == langCode)
+      return &e.val;
+  return nullptr;
 }
 
 std::string StringUtf8Multilang::GetOSMTagByCode(uint8_t const langCode)
