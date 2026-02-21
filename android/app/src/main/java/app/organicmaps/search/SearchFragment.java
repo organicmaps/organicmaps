@@ -177,9 +177,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   private final LastPosition mLastPosition = new LastPosition();
   private boolean mSearchRunning;
-  private String mInitialQuery;
-  @Nullable
-  private String mInitialLocale;
 
   private final ActivityResultLauncher<Intent> startVoiceRecognitionForResult =
       registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -213,12 +210,26 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private final Observer<Boolean> mSearchEnabledObserver = new Observer<>() {
     public void onChanged(Boolean enabled)
     {
-      if (enabled != null && !enabled)
+      if (enabled == null)
+        return;
+
+      if (!enabled)
       {
         if (mToolbarController.hasQuery())
           mToolbarController.clear();
         mSearchViewModel.setSearchQuery(null);
         mSearchViewModel.setLastResults(null);
+      }
+      else
+      {
+        final String query = mSearchViewModel.getSearchQuery();
+        if (query != null && !query.isEmpty())
+        {
+          // Skip if the toolbar already has this query (e.g. restored from cache on rotation).
+          if (!query.equals(getQuery()))
+            setQuery(query, false);
+          mSearchViewModel.setSearchQuery(null);
+        }
       }
     }
   };
@@ -363,7 +374,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
     final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
 
-    //    readArguments();
     updateFrames();
     updateResultsPlaceholder();
 
@@ -391,11 +401,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   {
     super.onResume();
     MwmApplication.from(requireContext()).getLocationHelper().addListener(mLocationListener);
-    if (mInitialQuery != null && !mInitialQuery.isEmpty())
-    {
-      setQuery(mInitialQuery, false);
-      mInitialQuery = null;
-    }
   }
 
   @Override
@@ -438,16 +443,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   void setQuery(String text, boolean isCategory)
   {
     mToolbarController.setQuery(text, isCategory);
-  }
-
-  private void readArguments()
-  {
-    if (mSearchViewModel.getSearchQuery() != null && !mSearchViewModel.getSearchQuery().isEmpty())
-    {
-      mInitialQuery = mSearchViewModel.getSearchQuery();
-      mSearchViewModel.setSearchQuery(null);
-    }
-    //    mInitialLocale = arguments.getString(SearchActivity.EXTRA_LOCALE);
   }
 
   private boolean tryRecognizeHiddenCommand(@NonNull String query)
@@ -511,10 +506,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       SearchRecents.add(query, requireContext());
     mLastQueryTimestamp = System.nanoTime();
 
-    SearchEngine.INSTANCE.searchInteractive(
-        query, isCategory(),
-        !TextUtils.isEmpty(mInitialLocale) ? mInitialLocale : Language.getKeyboardLocale(requireContext()),
-        mLastQueryTimestamp, false /* isMapAndTable */);
+    SearchEngine.INSTANCE.searchInteractive(query, isCategory(), Language.getKeyboardLocale(requireContext()),
+                                            mLastQueryTimestamp, false /* isMapAndTable */);
 
     SearchEngine.INSTANCE.setQuery(query);
     Utils.navigateToParent(requireActivity());
@@ -543,7 +536,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private boolean isTabletSearch()
   {
     // TODO @yunitsky Implement more elegant solution.
-    return requireActivity() instanceof MwmActivity;
+    return getResources().getBoolean(R.bool.tabletLayout);
   }
 
   private void runSearch()
@@ -560,8 +553,24 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     }
     else
     {
-      if (!SearchEngine.INSTANCE.search(requireContext(), getQuery(), isCategory(), mLastQueryTimestamp,
-                                        mLastPosition.valid, mLastPosition.lat, mLastPosition.lon))
+      boolean hasLocation = mLastPosition.valid;
+      double lat = mLastPosition.lat;
+      double lon = mLastPosition.lon;
+
+      // Fall back to the last known location if the fragment's listener hasn't received a fix yet.
+      if (!hasLocation)
+      {
+        final Location saved = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
+        if (saved != null)
+        {
+          hasLocation = true;
+          lat = saved.getLatitude();
+          lon = saved.getLongitude();
+        }
+      }
+
+      if (!SearchEngine.INSTANCE.search(requireContext(), getQuery(), isCategory(), mLastQueryTimestamp, hasLocation,
+                                        lat, lon))
       {
         return;
       }
