@@ -414,9 +414,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     startActivity(intent);
   }
 
-  private void showSearch(String query)
+  public void showSearch(String query)
   {
     closeSearchToolbar(false, true);
+    // currently mIsTabletLayout is always set to false,
+    // whenever we decide to support search on tablets differently,
+    // we should consider refactoring this check and use search fragment instead of activity
+    // because SearchActivity will not work as intended
     if (mIsTabletLayout)
     {
       final Bundle args = new Bundle();

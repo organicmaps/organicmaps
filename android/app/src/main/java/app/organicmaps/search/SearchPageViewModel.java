@@ -59,8 +59,9 @@ public class SearchPageViewModel extends ViewModel
 
   public void setSearchEnabled(boolean enabled, @Nullable String query)
   {
-    mSearchEnabled.setValue(enabled);
+    // Set query before firing LiveData so observers read the correct value synchronously.
     mSearchQuery = query;
+    mSearchEnabled.setValue(enabled);
   }
 
   @Nullable
