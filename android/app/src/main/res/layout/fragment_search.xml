@@ -87,6 +87,11 @@
           android:visibility="gone"
           tools:visibility="visible"
           tools:background="#20FF0000" />
+        <app.organicmaps.widget.SearchShimmerView
+          android:id="@+id/search_shimmer"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:visibility="gone" />
       </FrameLayout>
 
       <!-- Country download suggest fragment -->
