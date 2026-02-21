@@ -46,6 +46,8 @@ public class SearchToolbarController extends ToolbarController implements View.O
         mSkipNextTextChange = false;
         return;
       }
+      // Reset category flag when user manually types/edits the query
+      mFromCategory = false;
       final boolean isEmpty = TextUtils.isEmpty(s);
       mBackPressedCallback.setEnabled(!isEmpty);
       updateViewsVisibility(isEmpty);
