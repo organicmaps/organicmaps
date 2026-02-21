@@ -270,13 +270,54 @@
     </ExtendedData>
   </Placemark>
   <Placemark>
+    <name>Хочу побывать</name>
+    <description>Test bookmark description</description>
+    <TimeStamp>
+        <when>1970-01-01T00:26:40Z</when>
+        <modified>1970-01-01T00:40:00Z</modified>
+    </TimeStamp>
+    <styleUrl>#placemark-red</styleUrl>
+    <Point><coordinates>-80.12702,25.79145</coordinates></Point>
+    <ExtendedData xmlns:mwm="https://omaps.app">
+      <mwm:name>
+        <mwm:lang code="ru">Маями</mwm:lang>
+        <mwm:lang code="default">Miami Beach</mwm:lang>
+      </mwm:name>
+      <mwm:description>
+        <mwm:lang code="ru">Отличное место для солнечных ванн</mwm:lang>
+        <mwm:lang code="default">Nice place to tan</mwm:lang>
+      </mwm:description>
+      <mwm:featureTypes>
+        <mwm:value>historic-castle</mwm:value>
+        <mwm:value>historic-memorial</mwm:value>
+      </mwm:featureTypes>
+      <mwm:customName>
+        <mwm:lang code="en">Place I want to visit</mwm:lang>
+        <mwm:lang code="default">Хочу побывать</mwm:lang>
+      </mwm:customName>
+      <mwm:scale>15</mwm:scale>
+      <mwm:boundTracks>
+        <mwm:value>0</mwm:value>
+      </mwm:boundTracks>
+      <mwm:visibility>1</mwm:visibility>
+      <mwm:nearestToponym>Miami</mwm:nearestToponym>
+      <mwm:minZoom>10</mwm:minZoom>
+      <mwm:properties>
+        <mwm:value key="om_property1">value1</mwm:value>
+        <mwm:value key="om_property2">value2</mwm:value>
+        <mwm:value key="score">A</mwm:value>
+      </mwm:properties>
+      <mwm:compilations>1,3,5</mwm:compilations>
+    </ExtendedData>
+  </Placemark>
+  <Placemark>
     <name>Test track</name>
     <description>Test track description</description>
     <Style><LineStyle>
       <color>FF0000FF</color>
       <width>6</width>
     </LineStyle></Style>
-    <TimeStamp><when>1970-01-01T00:15:00Z</when></TimeStamp>
+    <TimeStamp><when>1970-01-01T00:15:00Z</when><modified>1970-01-01T00:20:00Z</modified></TimeStamp>
     <LineString><coordinates>45.9242,49.326859,1 45.2244,48.941288,2 45.1964,49.401948,3</coordinates></LineString>
     <ExtendedData xmlns:mwm="https://omaps.app">
       <mwm:name>

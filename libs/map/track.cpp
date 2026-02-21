@@ -174,6 +174,17 @@ float Track::GetDepth(size_t layerIndex) const
   return layerIndex * 10;
 }
 
+kml::Timestamp Track::GetEditTimestamp() const
+{
+  return m_data.m_editTimestamp;
+}
+
+void Track::SetEditTimestamp(kml::Timestamp ts)
+{
+  m_isDirty = true;
+  m_data.m_editTimestamp = ts;
+}
+
 void Track::ForEachGeometry(GeometryFnT && fn) const
 {
   for (auto const & line : m_data.m_geometry.m_lines)

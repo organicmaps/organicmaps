@@ -323,9 +323,9 @@ struct BookmarkData
   {
     return m_id == data.m_id && m_name == data.m_name && m_description == data.m_description &&
            m_color == data.m_color && m_icon == data.m_icon && m_viewportScale == data.m_viewportScale &&
-           IsEqual(m_timestamp, data.m_timestamp) && m_point.EqualDxDy(data.m_point, kMwmPointAccuracy) &&
-           m_featureTypes == data.m_featureTypes && m_customName == data.m_customName &&
-           m_boundTracks == data.m_boundTracks && m_visible == data.m_visible &&
+           IsEqual(m_timestamp, data.m_timestamp) && IsEqual(m_editTimestamp, data.m_editTimestamp) &&
+           m_point.EqualDxDy(data.m_point, kMwmPointAccuracy) && m_featureTypes == data.m_featureTypes &&
+           m_customName == data.m_customName && m_boundTracks == data.m_boundTracks && m_visible == data.m_visible &&
            m_nearestToponym == data.m_nearestToponym && m_minZoom == data.m_minZoom &&
            m_compilations == data.m_compilations && m_properties == data.m_properties;
   }
@@ -351,6 +351,8 @@ struct BookmarkData
   uint8_t m_viewportScale = 0;
   // Creation timestamp.
   Timestamp m_timestamp = {};
+  // Modification timestamp.
+  Timestamp m_editTimestamp = {};
   // Coordinates in mercator.
   m2::PointD m_point;
   // Bound tracks (vector contains local track ids).
@@ -441,8 +443,9 @@ struct TrackData
   {
     return m_id == data.m_id && m_localId == data.m_localId && m_name == data.m_name &&
            m_description == data.m_description && m_layers == data.m_layers && IsEqual(m_timestamp, data.m_timestamp) &&
-           m_geometry == data.m_geometry && m_visible == data.m_visible &&
-           m_nearestToponyms == data.m_nearestToponyms && m_properties == data.m_properties;
+           IsEqual(m_editTimestamp, data.m_editTimestamp) && m_geometry == data.m_geometry &&
+           m_visible == data.m_visible && m_nearestToponyms == data.m_nearestToponyms &&
+           m_properties == data.m_properties;
   }
 
   bool operator!=(TrackData const & data) const { return !operator==(data); }
@@ -459,6 +462,8 @@ struct TrackData
   std::vector<TrackLayer> m_layers;
   // Creation timestamp.
   Timestamp m_timestamp = {};
+  // Last modification timestamp.
+  Timestamp m_editTimestamp = {};
   MultiGeometry m_geometry;
   // Visibility.
   bool m_visible = true;

@@ -70,26 +70,48 @@ kml::FileData GenerateKmlFileData()
   result.m_categoryData.m_languageCodes = {1, 2, 8};
   result.m_categoryData.m_properties = {{"property1", "value1"}, {"property2", "value2"}};
 
-  kml::BookmarkData bookmarkData;
-  bookmarkData.m_name[kDefaultLang] = "Test bookmark";
-  bookmarkData.m_name[kRuLang] = "Тестовая метка";
-  bookmarkData.m_description[kDefaultLang] = "Test bookmark description";
-  bookmarkData.m_description[kRuLang] = "Тестовое описание метки";
-  bookmarkData.m_featureTypes = {718, 715};
-  bookmarkData.m_customName[kDefaultLang] = "Мое любимое место";
-  bookmarkData.m_customName[kEnLang] = "My favorite place";
-  bookmarkData.m_color = {kml::PredefinedColor::Blue, 0};
-  bookmarkData.m_icon = kml::BookmarkIcon::None;
-  bookmarkData.m_viewportScale = 15;
-  bookmarkData.m_timestamp = kml::TimestampClock::from_time_t(800);
-  bookmarkData.m_point = m2::PointD(45.9242, 56.8679);
-  bookmarkData.m_boundTracks = {0};
-  bookmarkData.m_visible = false;
-  bookmarkData.m_nearestToponym = "12345";
-  bookmarkData.m_minZoom = 10;
-  bookmarkData.m_properties = {{"bm_property1", "value1"}, {"bm_property2", "value2"}, {"score", "5"}};
-  bookmarkData.m_compilations = {1, 2, 3, 4, 5};
-  result.m_bookmarksData.emplace_back(std::move(bookmarkData));
+  kml::BookmarkData bookmarkData1;
+  bookmarkData1.m_name[kDefaultLang] = "Test bookmark";
+  bookmarkData1.m_name[kRuLang] = "Тестовая метка";
+  bookmarkData1.m_description[kDefaultLang] = "Test bookmark description";
+  bookmarkData1.m_description[kRuLang] = "Тестовое описание метки";
+  bookmarkData1.m_featureTypes = {718, 715};
+  bookmarkData1.m_customName[kDefaultLang] = "Мое любимое место";
+  bookmarkData1.m_customName[kEnLang] = "My favorite place";
+  bookmarkData1.m_color = {kml::PredefinedColor::Blue, 0};
+  bookmarkData1.m_icon = kml::BookmarkIcon::None;
+  bookmarkData1.m_viewportScale = 15;
+  bookmarkData1.m_timestamp = kml::TimestampClock::from_time_t(800);
+  bookmarkData1.m_point = m2::PointD(45.9242, 56.8679);
+  bookmarkData1.m_boundTracks = {0};
+  bookmarkData1.m_visible = false;
+  bookmarkData1.m_nearestToponym = "12345";
+  bookmarkData1.m_minZoom = 10;
+  bookmarkData1.m_properties = {{"bm_property1", "value1"}, {"bm_property2", "value2"}, {"score", "5"}};
+  bookmarkData1.m_compilations = {1, 2, 3, 4, 5};
+  result.m_bookmarksData.emplace_back(std::move(bookmarkData1));
+
+  kml::BookmarkData bookmarkData2;
+  bookmarkData2.m_name[kDefaultLang] = "Miami Beach";
+  bookmarkData2.m_name[kRuLang] = "Маями";
+  bookmarkData2.m_description[kDefaultLang] = "Nice place to tan";
+  bookmarkData2.m_description[kRuLang] = "Отличное место для солнечных ванн";
+  bookmarkData2.m_featureTypes = {718, 715};
+  bookmarkData2.m_customName[kDefaultLang] = "Хочу побывать";
+  bookmarkData2.m_customName[kEnLang] = "Place I want to visit";
+  bookmarkData2.m_color = {kml::PredefinedColor::Red, 0};
+  bookmarkData2.m_icon = kml::BookmarkIcon::None;
+  bookmarkData2.m_viewportScale = 15;
+  bookmarkData2.m_timestamp = kml::TimestampClock::from_time_t(1600);
+  bookmarkData2.m_editTimestamp = kml::TimestampClock::from_time_t(2400);
+  bookmarkData2.m_point = m2::PointD(-80.12702, 26.709375);
+  bookmarkData2.m_boundTracks = {0};
+  bookmarkData2.m_visible = true;
+  bookmarkData2.m_nearestToponym = "Miami";
+  bookmarkData2.m_minZoom = 10;
+  bookmarkData2.m_properties = {{"om_property1", "value1"}, {"om_property2", "value2"}, {"score", "A"}};
+  bookmarkData2.m_compilations = {1, 3, 5};
+  result.m_bookmarksData.emplace_back(std::move(bookmarkData2));
 
   kml::TrackData trackData;
   trackData.m_localId = 0;
@@ -100,6 +122,7 @@ kml::FileData GenerateKmlFileData()
   trackData.m_layers = {{6.0, {kml::PredefinedColor::None, 0xff0000ff}},
                         {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
   trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
+  trackData.m_editTimestamp = kml::TimestampClock::from_time_t(1200);
 
   trackData.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}});
 
@@ -349,6 +372,11 @@ UNIT_TEST(Kml_Deserialization_Bin_File)
 UNIT_TEST(Kml_Serialization_Bin_File)
 {
   auto data = GenerateKmlFileData();
+  // KMB format doesn't have 'editTimestamp' field. Let's erase this field.
+  for (auto & bookmark : data.m_bookmarksData)
+    bookmark.m_editTimestamp = kml::Timestamp();
+  for (auto & track : data.m_tracksData)
+    track.m_editTimestamp = kml::Timestamp();
 
   std::string const kmbFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kmb");
   SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmbFile));

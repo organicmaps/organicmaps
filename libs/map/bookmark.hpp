@@ -51,6 +51,9 @@ public:
   kml::Timestamp GetTimeStamp() const;
   void SetTimeStamp(kml::Timestamp timeStamp);
 
+  kml::Timestamp GetEditTimeStamp() const;
+  void SetEditTimeStamp(kml::Timestamp timeStamp);
+
   uint8_t GetScale() const;
   void SetScale(uint8_t scale);
 
