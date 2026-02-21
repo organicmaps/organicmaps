@@ -15,7 +15,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,7 +23,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.downloader.CountrySuggestFragment;
@@ -40,12 +38,10 @@ import app.organicmaps.sdk.search.SearchResult;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
-import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.SearchToolbarController;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
@@ -155,6 +151,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   }
 
   private View mResultsFrame;
+  private View mTabFrame;
+  private View mPages;
+  private View mAppBar;
   private PlaceholderView mResultsPlaceholder;
   private SearchPageViewModel mSearchViewModel;
 
@@ -219,18 +218,19 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
           mToolbarController.clear();
         mSearchViewModel.setSearchQuery(null);
         mSearchViewModel.setLastResults(null);
+        return;
       }
-      else
+
+      final String query = mSearchViewModel.getSearchQuery();
+      if (query == null || query.isEmpty())
+        return;
+      if (query.equals(getQuery()))
       {
-        final String query = mSearchViewModel.getSearchQuery();
-        if (query != null && !query.isEmpty())
-        {
-          // Skip if the toolbar already has this query (e.g. restored from cache on rotation).
-          if (!query.equals(getQuery()))
-            setQuery(query, false);
-          mSearchViewModel.setSearchQuery(null);
-        }
+        mSearchViewModel.setSearchQuery(null);
+        return;
       }
+      setQuery(query, false);
+      mSearchViewModel.setSearchQuery(null);
     }
   };
 
@@ -274,18 +274,31 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private void updateFrames()
   {
     final boolean hasQuery = mToolbarController.hasQuery();
-    Toolbar toolbar = mToolbarController.getToolbar();
-    AppBarLayout.LayoutParams lp = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-    lp.setScrollFlags(0); // keep toolbar always visible
-    toolbar.setLayoutParams(lp);
 
     UiUtils.showIf(hasQuery, mResultsFrame);
+    UiUtils.showIf(!hasQuery, mTabFrame);
+    UiUtils.showIf(!hasQuery, mPages);
     if (hasQuery)
       hideDownloadSuggest();
     else if (doShowDownloadSuggest())
       showDownloadSuggest();
     else
       hideDownloadSuggest();
+
+    updatePeekHeight();
+  }
+
+  private void updatePeekHeight()
+  {
+    if (mAppBar == null)
+      return;
+
+    mAppBar.post(() -> {
+      int height = mAppBar.getHeight();
+      if (!mToolbarController.hasQuery() && mTabFrame.getVisibility() == View.VISIBLE)
+        height += mTabFrame.getHeight();
+      mSearchViewModel.setToolbarHeight(height);
+    });
   }
 
   private void updateResultsPlaceholder()
@@ -313,13 +326,14 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mSearchFragmentListener = (SearchFragmentListener) getParentFragment();
 
     ViewGroup root = (ViewGroup) view;
-    View mTabFrame = root.findViewById(R.id.tab_frame);
-    ViewPager pager = mTabFrame.findViewById(R.id.pages);
+    ViewPager pager = root.findViewById(R.id.pages);
+    mPages = pager;
 
     mToolbarController = new ToolbarController(view);
     if (savedInstanceState != null)
       mToolbarController.skipNextTextChange();
     TabLayout tabLayout = root.findViewById(R.id.tabs);
+    mTabFrame = root.findViewById(R.id.tab_frame);
     mResultsFrame = root.findViewById(R.id.results_frame);
     RecyclerView mResults = mResultsFrame.findViewById(R.id.recycler);
     setRecyclerScrollListener(mResults);
@@ -352,25 +366,13 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       updateResultsPlaceholder();
     }
 
-    mSearchViewModel.getSearchPageLastState().observe(requireActivity(), mBottomSheetStateObserver);
+    mSearchViewModel.getSearchPageLastState().observe(getViewLifecycleOwner(), mBottomSheetStateObserver);
 
     if (Config.isSearchHistoryEnabled())
       tabLayout.setVisibility(View.VISIBLE);
     else
       tabLayout.setVisibility(View.GONE);
-
-    // Measure and report toolbar height for collapsed state peek height
-    View appBarLayout = root.findViewById(R.id.app_bar);
-    View tabsDivider = root.findViewById(R.id.tabs_divider);
-    TabLayout finalTabLayout = tabLayout;
-    // Use appBarLayout for measurement as it includes the toolbar with proper margins
-    appBarLayout.post(() -> {
-      int appBarHeight = appBarLayout.getHeight();
-      int tabLayoutHeight = finalTabLayout.getVisibility() == View.VISIBLE ? finalTabLayout.getHeight() : 0;
-      int dividerHeight =
-          tabsDivider != null && tabsDivider.getVisibility() == View.VISIBLE ? tabsDivider.getHeight() : 0;
-      mSearchViewModel.setToolbarHeight(appBarHeight + tabLayoutHeight + dividerHeight);
-    });
+    mAppBar = root.findViewById(R.id.app_bar);
 
     final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
 
@@ -417,7 +419,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mSearchViewModel.setLastResults(mSearchAdapter.getResults());
     mSearchViewModel.setSearchQuery(TextUtils.isEmpty(getQuery()) ? null : getQuery());
     mToolbarController.detach();
-    mSearchViewModel.getSearchPageLastState().removeObserver(mBottomSheetStateObserver);
     mSearchViewModel.getSearchEnabled().removeObserver(mSearchEnabledObserver);
   }
 
@@ -533,12 +534,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     updateSearchView();
   }
 
-  private boolean isTabletSearch()
-  {
-    // TODO @yunitsky Implement more elegant solution.
-    return getResources().getBoolean(R.bool.tabletLayout);
-  }
-
   private void runSearch()
   {
     // The previous search should be cancelled before the new one is started, since previous search
@@ -546,35 +541,26 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     SearchEngine.INSTANCE.cancel();
 
     mLastQueryTimestamp = System.nanoTime();
-    if (isTabletSearch())
-    {
-      SearchEngine.INSTANCE.searchInteractive(requireContext(), getQuery(), isCategory(), mLastQueryTimestamp,
-                                              true /* isMapAndTable */);
-    }
-    else
-    {
-      boolean hasLocation = mLastPosition.valid;
-      double lat = mLastPosition.lat;
-      double lon = mLastPosition.lon;
 
-      // Fall back to the last known location if the fragment's listener hasn't received a fix yet.
-      if (!hasLocation)
-      {
-        final Location saved = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
-        if (saved != null)
-        {
-          hasLocation = true;
-          lat = saved.getLatitude();
-          lon = saved.getLongitude();
-        }
-      }
+    boolean hasLocation = mLastPosition.valid;
+    double lat = mLastPosition.lat;
+    double lon = mLastPosition.lon;
 
-      if (!SearchEngine.INSTANCE.search(requireContext(), getQuery(), isCategory(), mLastQueryTimestamp, hasLocation,
-                                        lat, lon))
+    // Fall back to the last known location if the fragment's listener hasn't received a fix yet.
+    if (!hasLocation)
+    {
+      final Location saved = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
+      if (saved != null)
       {
-        return;
+        hasLocation = true;
+        lat = saved.getLatitude();
+        lon = saved.getLongitude();
       }
     }
+
+    // Always use interactive search so that results are highlighted on the map.
+    SearchEngine.INSTANCE.searchInteractive(getQuery(), isCategory(), Language.getKeyboardLocale(requireContext()),
+                                            mLastQueryTimestamp, true /* isMapAndTable */, hasLocation, lat, lon);
 
     mSearchRunning = true;
     mToolbarController.showProgress(true);
