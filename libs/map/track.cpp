@@ -191,6 +191,16 @@ void Track::ForEachGeometry(GeometryFnT && fn) const
   }
 }
 
+std::string Track::GetTitle() const
+{
+  return GetName();
+}
+
+int Track::GetMinTitleZoom() const
+{
+  return 13;
+}
+
 void Track::Attach(kml::MarkGroupId groupId)
 {
   ASSERT_EQUAL(m_groupID, kml::kInvalidMarkGroupId, ());

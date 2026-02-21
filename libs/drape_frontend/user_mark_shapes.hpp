@@ -63,6 +63,10 @@ struct UserLineRenderParams
   DepthLayer m_depthLayer = DepthLayer::UserLineLayer;
   std::vector<LineLayer> m_layers;
   std::vector<m2::SharedSpline> m_splines;
+  bool m_hasTitle = false;
+  std::string m_title;
+  int m_minTitleZoom = 13;  // Use kMinTrackTitleZoom from user_mark_shapes.cpp
+  kml::TrackId m_trackId = kml::kInvalidTrackId;
 };
 
 using UserMarksRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<UserMarkRenderParams>>;
