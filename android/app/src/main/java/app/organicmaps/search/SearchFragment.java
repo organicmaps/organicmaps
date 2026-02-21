@@ -41,6 +41,7 @@ import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.PlaceholderView;
+import app.organicmaps.widget.SearchShimmerView;
 import app.organicmaps.widget.SearchToolbarController;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.tabs.TabLayout;
@@ -155,6 +156,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private View mPages;
   private View mAppBar;
   private PlaceholderView mResultsPlaceholder;
+  private SearchShimmerView mShimmerView;
   private SearchPageViewModel mSearchViewModel;
 
   @NonNull
@@ -308,6 +310,15 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     UiUtils.showIf(show, mResultsPlaceholder);
   }
 
+  private void hideShimmer()
+  {
+    if (mShimmerView != null)
+    {
+      mShimmerView.stopShimmer();
+      UiUtils.hide(mShimmerView);
+    }
+  }
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
@@ -339,6 +350,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     setRecyclerScrollListener(mResults);
     mResultsPlaceholder = mResultsFrame.findViewById(R.id.placeholder);
     mResultsPlaceholder.setContent(R.string.search_not_found, R.string.search_not_found_query);
+    mShimmerView = mResultsFrame.findViewById(R.id.search_shimmer);
     mSearchAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
 
                                                {
@@ -409,6 +421,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   public void onPause()
   {
     MwmApplication.from(requireContext()).getLocationHelper().removeListener(mLocationListener);
+    hideShimmer();
     super.onPause();
   }
 
@@ -524,6 +537,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   {
     mSearchRunning = false;
     mToolbarController.showProgress(false);
+    hideShimmer();
     updateFrames();
     updateResultsPlaceholder();
   }
@@ -565,6 +579,12 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     mSearchRunning = true;
     mToolbarController.showProgress(true);
 
+    if (SearchShimmerView.isSupported() && mSearchAdapter.getItemCount() == 0)
+    {
+      UiUtils.show(mShimmerView);
+      mShimmerView.startShimmer();
+    }
+
     updateFrames();
   }
 
@@ -592,6 +612,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   private void refreshSearchResults(@NonNull SearchResult[] results)
   {
     mSearchRunning = true;
+    hideShimmer();
     updateFrames();
     mSearchAdapter.refreshData(results);
     mSearchViewModel.setLastResults(results);

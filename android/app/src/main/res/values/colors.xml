@@ -122,4 +122,7 @@
   <color name="donation_highlight">#1F000000</color>
   <color name="donation_action_light">#FFE082</color>
   <color name="donation_action_dark">#FFB300</color>
+  <!-- Shimmer -->
+  <color name="shimmer_bar">#1E000000</color>
+  <color name="shimmer_highlight">#44FFFFFF</color>
 </resources>
