@@ -1,10 +1,10 @@
-• Nopeampi reititys pitkille matkoille
-• Tuoreet OSM-karttatiedot 25. tammikuuta alkaen
-• GeoJSON-vienti
-• Laajennetut aukioloajat
-• Sovelluksen vaalea/tumma teema jaettu Ulkoasu- ja Navigointi-asetuksiin
-• Kirjanmerkin värin vaihtaminen luettelosta
-• Parempi vaakanäkymä valitulle paikalle kartalla
-• Korjattu toimimaton muokkain paikoissa, joissa on virheellinen puhelinnumero
-• Korjattu useita kaatumisia ja käyttöliittymävirheitä
+• OSM-tiedot 16. helmikuuta, Wikipedia 1. helmikuuta
+• Mustat vaellus- ja pyöräilyreitit näkyvät nyt tummassa teemassa
+• Lisätty köysiradat ja lisää autopalveluita: korjaus, huolto ja varaosat
+• Korjattu pyöräilyreititys ja keskinopeuden laskenta
+• Parannettu kategoriahaku
+• Uzbekistanilainen keittiö
+• Laajennettavat aukioloajat
+• Näytä ja käytä MSL-korkeutta tallennetuille reiteille Android 14+ -laitteissa
+• Korjattu KML, KMZ, GPX, GeoJSON -tuonti WhatsAppista
 …lisää osoitteessa omaps.org/news

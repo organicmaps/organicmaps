@@ -1,7 +1,27 @@
-• Rutele între țări sunt create mai rapid și nu mai cauzează blocaje din cauza lipsei de memorie
-• Date OpenStreetMap actualizate la 25 ianuarie
-• Suport export GeoJSON pentru marcaje și trasee
-• S-au adăugat traduceri lipsă pentru podurile dezafectate
-• Traduceri corectate și actualizate
+• Datele hărții OSM din 16 februarie
+• Datele Wikipedia din 1 februarie
+• Traseele de drumeție și ciclism negre sunt acum vizibile în tema întunecată
+• S-au adăugat mai multe servicii auto: reparații, service și piese
+• S-a adăugat autentificarea browser-ului OSM
+• S-a corectat accesul bicicletelor pe unele tipuri de drumuri
+• S-a corectat calculul vitezei medii
+• S-a îmbunătățit clasamentul de căutare pentru categorii
+• S-a adăugat bucătăria uzbecă
+• S-au adăugat tiroliene pe hartă
+• S-au corectat legăturile Wikimedia cu „?” în titlu
+• S-a corectat analiza fișierelor GPX cu „+” în coordonate
+
+### Traduceri
+
+• S-au eliminat numele de orașe duplicate în unele regiuni ale hărții
+• S-au corectat indicațiile vocale în ebraică
+• S-au corectat greșelile de tipar în coreeană
+• S-au adăugat sinonime de căutare în rusă
+• S-au îmbunătățit indicațiile vocale în germană
+• S-a corectat traducerea lipsă pentru tunelul feroviar dezafectat
+• S-a corectat traducerea țării în română
+• S-au adăugat traduceri în laoțiană și armeană
+• S-au adăugat traduceri lipsă în armeană
+• S-au actualizat traducerile de la colaboratorii Weblate
 
 Mulțumim tuturor celor care contribuie, donează și susțin Organic Maps! Să construim împreună cele mai bune hărți!

@@ -1,7 +1,27 @@
-• Trasy między krajami są tworzone szybciej i nie powodują już awarii z powodu braku pamięci
-• Zaktualizowane dane OpenStreetMap na dzień 25 stycznia
-• Obsługa eksportu GeoJSON dla zakładek i śladów
-• Dodano brakujące tłumaczenia dla nieużywanych mostów
-• Poprawiono i zaktualizowano tłumaczenia
+• Dane mapy OSM z 16 lutego
+• Dane Wikipedii z 1 lutego
+• Czarne szlaki piesze i rowerowe są teraz widoczne w ciemnym motywie
+• Dodano więcej usług samochodowych: naprawa, serwis i części
+• Dodano uwierzytelnianie przeglądarki OSM
+• Poprawiono dostęp dla rowerów na niektórych typach dróg
+• Poprawiono obliczanie średniej prędkości
+• Ulepszono ranking wyszukiwania dla kategorii
+• Dodano kuchnię uzbecką
+• Dodano zjazdy tyrolskie (zip lines) na mapie
+• Naprawiono linki Wikimedia ze znakiem „?” w tytule
+• Naprawiono parsowanie plików GPX ze znakiem „+” we współrzędnych
 
-Dziękujemy wszystkim, którzy pomagają, przekazują datki i wspierają Organic Maps! Zbudujmy razem najlepsze mapy!
+### Tłumaczenia
+
+• Usunięto zduplikowane nazwy miast w niektórych regionach mapy
+• Poprawiono hebrajskie wskazówki głosowe
+• Poprawiono koreańskie literówki
+• Dodano rosyjskie synonimy wyszukiwania
+• Ulepszono niemieckie wskazówki głosowe
+• Poprawiono brakujące tłumaczenie dla nieczynnego tunelu kolejowego
+• Poprawiono tłumaczenie kraju w języku rumuńskim
+• Dodano tłumaczenia na laotański i ormiański
+• Dodano brakujące tłumaczenia ormiańskie
+• Zaktualizowano tłumaczenia od współpracowników Weblate
+
+Dziękujemy wszystkim, którzy pomagają, przekazują darowizny i wspierają Organic Maps! Zbudujmy razem najlepsze mapy!

@@ -1,6 +1,27 @@
-• Routes between countries are created faster and no longer cause out-of-memory crashes
-• Updated OpenStreetMap data as of January 25
-• GeoJSON export support for bookmarks and tracks
-• Fixed and updated translations
+• OSM map data as of February 16
+• Wikipedia data as of February 1
+• Black hiking and cycling routes are now visible in the dark theme
+• Added more car services: repair, service, and parts
+• Added OSM browser authentication
+• Fixed bicycle access on some road types
+• Fixed average speed calculation
+• Improved search ranking for categories
+• Added Uzbek cuisine
+• Added zip lines on the map
+• Fixed Wikimedia links with "?" in the title
+• Fixed parsing of GPX files with "+" in coordinates
+
+### Translations
+
+• Removed duplicate city names in some map regions
+• Fixed Hebrew voice directions
+• Fixed Korean typos
+• Added Russian search synonyms
+• Improved German voice directions
+• Fixed missing translation for disused railway tunnel
+• Fixed country translation in Romanian
+• Added Lao and Armenian translations
+• Added missing Armenian translations
+• Updated translations from Weblate contributors
 
 Thanks to everyone who is contributing, donating and supporting Organic Maps! Let's build the best maps together!

@@ -1,7 +1,27 @@
-• Rutter mellan länder skapas snabbare och orsakar inte längre krascher på grund av minnesbrist
-• Uppdaterad OpenStreetMap-data per den 25 januari
-• GeoJSON-exportstöd för bokmärken och spår
-• Lade till saknade översättningar för nedlagda broar
-• Rättade och uppdaterade översättningar
+• OSM-kartdata från 16 februari
+• Wikipedia-data från 1 februari
+• Svarta vandrings- och cykelleder är nu synliga i det mörka temat
+• Lade till fler biltjänster: reparation, service och delar
+• Lade till OSM-webbläsarautentisering
+• Fixade cykeltillgång på vissa vägtyper
+• Fixade beräkning av medelhastighet
+• Förbättrad sökranking för kategorier
+• Lade till uzbekiskt kök
+• Lade till ziplines på kartan
+• Fixade Wikimedia-länkar med "?" i titeln
+• Fixade tolkning av GPX-filer med "+" i koordinater
+
+### Översättningar
+
+• Tog bort dubbla stadsnamn i vissa kartregioner
+• Fixade hebreiska röstanvisningar
+• Fixade koreanska stavfel
+• Lade till ryska söksynonymer
+• Förbättrade tyska röstanvisningar
+• Fixade saknad översättning för nedlagd järnvägstunnel
+• Fixade landöversättning på rumänska
+• Lade till laotiska och armeniska översättningar
+• Lade till saknade armeniska översättningar
+• Uppdaterade översättningar från Weblate-bidragsgivare
 
 Tack till alla som bidrar, donerar och stödjer Organic Maps! Låt oss bygga de bästa kartorna tillsammans!

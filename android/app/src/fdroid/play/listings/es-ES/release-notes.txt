@@ -1,9 +1,9 @@
-• Rutas más rápidas para trayectos largos
-• Datos de mapas OSM actualizados al 25 de enero
-• Exportación a GeoJSON
-• Horarios de apertura ampliados
-• Se ha dividido la opción de tema Claro/Oscuro en los ajustes de Apariencia y Navegación
-• Cambio de color de marcadores desde una lista
-• Interfaz horizontal mejorada para lugares seleccionados en el mapa
-• Corregido el editor que no funcionaba para lugares con números de teléfono no válidos
+• Datos de OSM a 16 de febrero, Wikipedia a 1 de febrero
+• Las rutas de senderismo y ciclismo negras ahora son visibles en el tema oscuro
+• Se añadieron tirolesas y más servicios para automóviles: reparación, servicio y repuestos
+• Se corrigió el enrutamiento de bicicletas y el cálculo de la velocidad media
+• Búsqueda de categorías mejorada
+• Cocina uzbeka
+• Horarios de apertura expandibles
+• Mostrar y usar la altitud MSL para rutas grabadas en Android 14+
 …más en omaps.org/news

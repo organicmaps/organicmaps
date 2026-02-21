@@ -1,10 +1,9 @@
-• Rýchlejšie plánovanie trás pre dlhé cesty
-• Čerstvé údaje mapy OSM k 25. januáru
-• Export GeoJSON
-• Rozšírené otváracie hodiny
-• Rozdelenie voľby svetlej/tmavej témy aplikácie do nastavení Vzhľad a Navigácia
-• Zmena farby záložky zo zoznamu
-• Vylepšené používateľské rozhranie na šírku pre vybrané miesto na mape
-• Opravený nefunkčný editor pre miesta s neplatnými telefónnymi číslami
-• Opravené viaceré pády a chyby v používateľskom rozhraní
+• Dáta OSM k 16. februáru, Wikipedia k 1. februáru
+• Čierne turistické a cyklistické trasy sú teraz viditeľné v tmavej téme
+• Pridané lanové dráhy a ďalšie autoservisy: opravy, servis a diely
+• Opravené cyklistické trasovanie a výpočet priemernej rýchlosti
+• Vylepšené vyhľadávanie kategórií
+• Uzbecká kuchyňa
+• Rozbaľovacie otváracie hodiny
+• Zobraziť a používať nadmorskú výšku MSL pre zaznamenané trasy v systéme Android 14+
 …viac na omaps.org/news

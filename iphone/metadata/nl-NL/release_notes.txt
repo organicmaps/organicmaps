@@ -1,7 +1,27 @@
-• Routes tussen landen worden sneller aangemaakt en veroorzaken geen crashes meer door geheugentekort
-• OpenStreetMap-gegevens bijgewerkt tot 25 januari
-• GeoJSON-exportondersteuning voor bladwijzers en sporen
-• Ontbrekende vertalingen toegevoegd voor ongebruikte bruggen
-• Vertalingen gecorrigeerd en bijgewerkt
+• OSM-kaartgegevens van 16 februari
+• Wikipedia-gegevens van 1 februari
+• Zwarte wandel- en fietsroutes zijn nu zichtbaar in het donkere thema
+• Meer auto-services toegevoegd: reparatie, onderhoud en onderdelen
+• OSM-browserauthenticatie toegevoegd
+• Fietstoegang op sommige wegtypen gecorrigeerd
+• Berekening van gemiddelde snelheid gecorrigeerd
+• Zoekranking voor categorieën verbeterd
+• Oezoe-keuken toegevoegd
+• Tokkelbanen toegevoegd op de kaart
+• Wikimedia-links met "?" in de titel gecorrigeerd
+• Parsen van GPX-bestanden met "+" in coördinaten gecorrigeerd
+
+### Vertalingen
+
+• Dubbele stadsnamen in sommige kaartregio's verwijderd
+• Hebreeuwse spraakbegeleiding gecorrigeerd
+• Koreaanse typefouten gecorrigeerd
+• Russische zoeksynoniemen toegevoegd
+• Duitse spraakbegeleiding verbeterd
+• Ontbrekende vertaling voor buiten gebruik gestelde spoortunnel gecorrigeerd
+• Landvertaling in het Roemeens gecorrigeerd
+• Laotiaanse en Armeense vertalingen toegevoegd
+• Ontbrekende Armeense vertalingen toegevoegd
+• Vertalingen van Weblate-bijdragers bijgewerkt
 
 Bedankt aan iedereen die bijdraagt, doneert en Organic Maps steunt! Laten we samen de beste kaarten bouwen!

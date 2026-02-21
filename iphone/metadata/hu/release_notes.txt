@@ -1,7 +1,27 @@
-• Az országok közötti útvonalak gyorsabban jönnek létre, és nem okoznak többé memóriahiba miatti összeomlást
-• Frissített OpenStreetMap adatok január 25-i állapot szerint
-• GeoJSON export támogatás a könyvjelzőkhöz és nyomvonalakhoz
-• Hiányzó fordítások hozzáadva a használaton kívüli hidakhoz
-• Javított és frissített fordítások
+• OSM térképadatok február 16-i állapota
+• Wikipédia adatok február 1-i állapota
+• A fekete túra- és kerékpárútvonalak mostantól láthatók sötét módban
+• További autós szolgáltatások hozzáadva: javítás, szerviz és alkatrészek
+• OSM böngésző hitelesítés hozzáadva
+• Kerékpáros hozzáférés javítva egyes úttípusokon
+• Átlagsebesség-számítás javítva
+• Kategóriák keresési rangsorolásának javítása
+• Üzbég konyha hozzáadva
+• Drótkötélpályák (zip lines) hozzáadva a térképhez
+• Wikimedia linkek javítása, amelyek címében „?” szerepel
+• GPX fájlok elemzésének javítása, amelyek koordinátáiban „+” szerepel
+
+### Fordítások
+
+• Dupla városnevek eltávolítása egyes térképrégiókban
+• Héber hangutasítások javítása
+• Koreai elírások javítása
+• Orosz keresési szinonimák hozzáadva
+• Német hangutasítások javítása
+• Hiányzó fordítás javítása a használaton kívüli vasúti alagúthoz
+• Országnév fordításának javítása román nyelven
+• Laoszi és örmény fordítások hozzáadva
+• Hiányzó örmény fordítások hozzáadva
+• Fordítások frissítése a Weblate közreműködőitől
 
 Köszönjük mindenkinek, aki hozzájárul, adományoz és támogatja az Organic Maps-et! Építsük együtt a legjobb térképeket!

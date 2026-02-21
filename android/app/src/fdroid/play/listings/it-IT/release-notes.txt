@@ -1,9 +1,9 @@
-• Calcolo del percorso più veloce per lunghi viaggi
-• Dati mappa OSM aggiornati al 25 gennaio
-• Esportazione GeoJSON
-• Orari di apertura estesi
-• L'opzione tema chiaro/scuro è stata divisa nelle impostazioni Aspetto e Navigazione
-• Modifica colore dei segnalibri da un elenco
-• Interfaccia orizzontale migliorata per un luogo selezionato sulla mappa
-• Corretto l'editor non funzionante per luoghi con numeri di telefono non validi
+• Dati OSM al 16 febbraio, Wikipedia al 1 febbraio
+• I percorsi escursionistici e ciclabili neri sono ora visibili nel tema scuro
+• Aggiunte teleferiche e più servizi auto: riparazione, assistenza e ricambi
+• Corretto il calcolo del percorso per biciclette e della velocità media
+• Ricerca per categoria migliorata
+• Cucina uzbeka
+• Orari di apertura espandibili
+• Mostra e usa l'altitudine MSL per le tracce registrate su Android 14+
 …altro su omaps.org/news

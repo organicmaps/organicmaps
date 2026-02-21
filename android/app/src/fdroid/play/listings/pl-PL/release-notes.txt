@@ -1,10 +1,10 @@
-• Szybsze wyznaczanie tras na długich dystansach
-• Świeże dane map OSM z 25 stycznia
-• Eksport GeoJSON
-• Rozszerzone godziny otwarcia
-• Podział opcji jasnego/ciemnego motywu na ustawienia Wyglądu i Nawigacji
-• Zmiana koloru zakładki z listy
-• Ulepszony poziomy interfejs dla wybranego miejsca na mapie
-• Naprawiono niedziałający edytor dla miejsc z nieprawidłowymi numerami telefonów
-• Naprawiono kilka awarii i błędów interfejsu
+• Dane OSM z 16 lutego, Wikipedia z 1 lutego
+• Czarne szlaki piesze i rowerowe są teraz widoczne w ciemnym motywie
+• Dodano tyrolki i więcej usług samochodowych: naprawa, serwis i części
+• Poprawiono wyznaczanie tras rowerowych i obliczanie średniej prędkości
+• Ulepszone wyszukiwanie kategorii
+• Kuchnia uzbecka
+• Rozwijane godziny otwarcia
+• Pokaż i używaj wysokości MSL dla nagranych śladów na Androidzie 14+
+• Naprawiono import KML, KMZ, GPX, GeoJSON z WhatsAppa
 …więcej na omaps.org/news

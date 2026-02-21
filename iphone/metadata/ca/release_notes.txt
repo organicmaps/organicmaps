@@ -1,7 +1,27 @@
-• Les rutes entre països es creen més ràpidament i ja no causen problemes de memòria
-• Dades d'OpenStreetMap actualitzades a 25 de gener
-• Suport per a l'exportació GeoJSON per a marcadors i rutes
-• Afegides traduccions mancants per a ponts en desús
-• Traduccions corregides i actualitzades
+• Dades del mapa OSM del 16 de febrer
+• Dades de la Viquipèdia de l'1 de febrer
+• Les rutes de senderisme i ciclisme negres ara són visibles al tema fosc
+• S'han afegit més serveis per a cotxes: reparació, servei i recanvis
+• S'ha afegit l'autenticació del navegador OSM
+• S'ha corregit l'accés de bicicletes en alguns tipus de carreteres
+• S'ha corregit el càlcul de la velocitat mitjana
+• Millora del rànquing de cerca per categories
+• S'ha afegit cuina uzbeka
+• S'han afegit tirolines al mapa
+• S'han corregit els enllaços de Wikimedia amb "?" al títol
+• S'ha corregit l'anàlisi de fitxers GPX amb "+" a les coordenades
 
-Gràcies a tothom qui contribueix, fa donatius i dóna suport a Organic Maps! Construïm els millors mapes junts!
+### Traduccions
+
+• S'han eliminat noms de ciutats duplicats en algunes regions del mapa
+• S'han corregit les indicacions de veu en hebreu
+• S'han corregit errors tipogràfics en coreà
+• S'han afegit sinònims de cerca en rus
+• Millora de les indicacions de veu en alemany
+• S'ha corregit la traducció que faltava per al túnel ferroviari en desús
+• S'ha corregit la traducció del país en romanès
+• S'han afegit traduccions al laosià i a l'armeni
+• S'han afegit traduccions armènies que faltaven
+• S'han actualitzat les traduccions dels col·laboradors de Weblate
+
+Gràcies a tothom que contribueix, fa donacions i dóna suport a Organic Maps! Construïm els millors mapes junts!

@@ -1,7 +1,27 @@
-• Trasy mezi zeměmi se vytvářejí rychleji a nezpůsobují pády kvůli nedostatku paměti
-• Aktualizována data OpenStreetMap k 25. lednu
-• Podpora exportu GeoJSON pro záložky a stopy
-• Přidány chybějící překlady pro nepoužívané mosty
-• Opraveny a aktualizovány překlady
+• Data mapy OSM k 16. únoru
+• Data Wikipedie k 1. únoru
+• Černé turistické a cyklistické trasy jsou nyní viditelné v tmavém motivu
+• Přidány další služby pro automobily: opravy, servis a díly
+• Přidáno ověřování prohlížeče OSM
+• Opraven přístup cyklistů na některých typech silnic
+• Opraven výpočet průměrné rychlosti
+• Vylepšeno hodnocení vyhledávání pro kategorie
+• Přidána uzbecká kuchyně
+• Přidány lanové dráhy (zip lines) na mapu
+• Opraveny odkazy Wikimedia s „?“ v názvu
+• Opraveno parsování souborů GPX s „+“ v souřadnicích
+
+### Překlady
+
+• Odstraněna duplicitní jména měst v některých regionech mapy
+• Opraveny hebrejské hlasové pokyny
+• Opraveny korejské překlepy
+• Přidána ruská synonyma vyhledávání
+• Vylepšeny německé hlasové pokyny
+• Opraven chybějící překlad pro nepoužívaný železniční tunel
+• Opraven překlad země v rumunštině
+• Přidány laoské a arménské překlady
+• Přidány chybějící arménské překlady
+• Aktualizovány překlady od přispěvatelů Weblate
 
 Díky všem, kteří přispívají, darují a podporují Organic Maps! Pojďme společně vytvořit ty nejlepší mapy!

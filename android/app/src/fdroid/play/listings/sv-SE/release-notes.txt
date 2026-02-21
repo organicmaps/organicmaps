@@ -1,11 +1,10 @@
-• Snabbare ruttberäkning för långa resor
-• Färska OSM-kartdata från 25 januari
-• GeoJSON-export
-• Utökade öppettider
-• Delade upp appens ljust/mörkt tema-alternativ i Utseende- och Navigeringsinställningar
-• Ändra bokmärkesfärg från en lista
-• Förbättrat liggande gränssnitt för en vald plats på kartan
-• Fixade en icke-fungerande redigerare för platser med ogiltiga telefonnummer
-• Fixade flera krascher och UI-fel
-• Fixade felet "Inte tillräckligt med ledigt utrymme"
+• OSM-data per den 16 februari, Wikipedia per den 1 februari
+• Svarta vandrings- och cykelleder är nu synliga i mörkt tema
+• Lade till ziplines och fler biltjänster: reparation, service och delar
+• Fixade cykelruttning och beräkning av medelhastighet
+• Förbättrad kategorisökning
+• Uzbekiskt kök
+• Expanderbara öppettider
+• Visa och använd MSL-höjd för inspelade spår på Android 14+
+• Fixade import av KML, KMZ, GPX, GeoJSON från WhatsApp
 …mer på omaps.org/news
