@@ -60,9 +60,16 @@ struct LineLayer
 struct UserLineRenderParams
 {
   int m_minZoom = 1;
+  
   DepthLayer m_depthLayer = DepthLayer::UserLineLayer;
   std::vector<LineLayer> m_layers;
   std::vector<m2::SharedSpline> m_splines;
+    
+    
+  bool m_hasTitle = false;
+  std::string m_title;
+  int m_minTitleZoom = 13;
+  kml::MarkId m_markId = kml::kInvalidMarkId;
 };
 
 using UserMarksRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<UserMarkRenderParams>>;

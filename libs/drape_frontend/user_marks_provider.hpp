@@ -116,6 +116,10 @@ public:
 
   using GeometryFnT = std::function<void(std::vector<m2::PointD> &&)>;
   virtual void ForEachGeometry(GeometryFnT && fn) const = 0;
+  virtual bool HasTitle() const = 0;
+  virtual std::string GetTitle() const = 0;
+  virtual int GetMinTitleZoom() const = 0;
+
 
 private:
   kml::TrackId m_id;
