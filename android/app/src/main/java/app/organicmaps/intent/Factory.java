@@ -44,6 +44,17 @@ public class Factory
     public boolean process(@NonNull Intent intent, @NonNull MwmActivity activity)
     {
       // See KML/KMZ/KMB intent filters in manifest.
+      final Uri intentData = intent.getData();
+      if (intentData != null)
+      {
+        String path = intentData.getPath();
+        String host = intentData.getHost();
+        boolean isOsmHost = host != null && (host.equals("openstreetmap.org") || host.endsWith(".openstreetmap.org"));
+        boolean isWebPath = path != null && (path.equals("/search") || path.equals("/") || path.isEmpty());
+
+        if (isOsmHost && isWebPath)
+          return false;
+      }
       final List<Uri> uris;
       if (Intent.ACTION_VIEW.equals(intent.getAction()))
         uris = Collections.singletonList(intent.getData());
@@ -60,7 +71,7 @@ public class Factory
       final File tempDir = new File(StorageUtils.getTempPath(app));
       final ContentResolver resolver = activity.getContentResolver();
       ThreadPool.getStorage().execute(() -> BookmarkManager.INSTANCE.importBookmarksFiles(resolver, uris, tempDir));
-      return false;
+      return true;
     }
   }
 
@@ -74,6 +85,22 @@ public class Factory
       final Uri uri = intent.getData();
       if (uri == null)
         return false;
+
+      final String host = uri.getHost();
+      final String path = uri.getPath();
+      final boolean isOsmSearchUrl =
+          "www.openstreetmap.org".equals(host) && ("/search".equals(path) || "/".equals(path) || path == null);
+      if (isOsmSearchUrl)
+      {
+        String searchQuery = uri.getQueryParameter("query");
+        if (searchQuery == null)
+          searchQuery = uri.getQueryParameter("q");
+        if (searchQuery != null && !searchQuery.isEmpty())
+        {
+          target.showSearch(searchQuery);
+          return true;
+        }
+      }
 
       switch (Framework.nativeParseAndSetApiUrl(uri.toString()))
       {
