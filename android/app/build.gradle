@@ -67,7 +67,11 @@ project.ext.appName = 'Organic Maps'
 android {
   namespace = 'app.organicmaps'
 
-  enableKotlin = false
+  if (googleFirebaseServicesEnabled) {
+    enableKotlin = true
+  } else {
+    enableKotlin = false
+  }
 
   buildFeatures {
     dataBinding = true
