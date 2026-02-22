@@ -1,12 +1,10 @@
 #include "qt/qt_common/qtoglcontext.hpp"
 
 #include "base/assert.hpp"
-#include "base/logging.hpp"
-#include "base/macros.hpp"
-#include "base/math.hpp"
 
 #include "drape/gl_functions.hpp"
 
+#include <bit>
 #include <memory>
 
 namespace qt
@@ -60,8 +58,8 @@ void QtRenderOGLContext::Resize(uint32_t w, uint32_t h)
   // This function can't be called inside BeginRendering - EndRendering.
   std::lock_guard lock(m_frameMutex);
 
-  auto const nw = static_cast<int>(math::NextPowOf2(w));
-  auto const nh = static_cast<int>(math::NextPowOf2(h));
+  auto const nw = static_cast<int>(std::bit_ceil(w));
+  auto const nh = static_cast<int>(std::bit_ceil(h));
 
   if (nw <= m_width && nh <= m_height && m_backFrame != nullptr)
   {
