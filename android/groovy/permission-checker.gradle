@@ -2,9 +2,8 @@ import java.util.regex.Pattern
 import javax.inject.Inject
 
 abstract class CheckApkPermissions extends DefaultTask {
-  // lazy-set in doFirst, not considered for caching/up-to-date
-  @Internal
-  File apkPath
+  @InputDirectory
+  abstract DirectoryProperty getApkDirectory()
 
   @Input
   abstract ListProperty<Pattern> getAllowedPermissions()
@@ -17,12 +16,17 @@ abstract class CheckApkPermissions extends DefaultTask {
 
   @TaskAction
   void execute() {
+    def apkDir = apkDirectory.get().asFile
+    def apkFile = apkDir.listFiles()?.find { it.name.endsWith('.apk') }
+    if (!apkFile)
+      throw new GradleException("APK not found in ${apkDir}")
+
     // Get permissions from APK
     def output = new ByteArrayOutputStream()
     def errorOutput = new ByteArrayOutputStream()
     execOperations.exec { spec ->
       spec.commandLine(aapt2Executable.get().absolutePath)
-      spec.args("dump", "permissions", apkPath.absolutePath)
+      spec.args("dump", "permissions", apkFile.absolutePath)
       spec.ignoreExitValue = true
       spec.standardOutput = output
       spec.errorOutput = errorOutput
@@ -50,7 +54,7 @@ abstract class CheckApkPermissions extends DefaultTask {
     }
 
     if (!unexpectedPermissions.isEmpty() || !missingPermissions.isEmpty()) {
-      println "Checking APK: ${apkPath.name}"
+      println "Checking APK: ${apkFile.name}"
       println "Found permissions: ${foundPermissions}"
       println "Allowed permissions: ${allowedPermissions.get()}"
       println "Unexpected permissions: ${unexpectedPermissions}"
@@ -72,25 +76,21 @@ ext.registerCheckApkPermissionsTasks = { Project project, List<String> allowedPe
     def capitalizedVariantName = variantName.capitalize()
     def taskName = "check${capitalizedVariantName}ApkPermissions"
 
-    // Pre-compute APK output path from non-lazy variant identity properties
-    def flavorPath = variant.productFlavors.collect { it.second }.join('/')
-    def buildTypePath = variant.buildType ?: ''
+    def singleArtifactApk = Class.forName(
+        'com.android.build.api.artifact.SingleArtifact$APK',
+        true, variant.getClass().getClassLoader()
+    ).getDeclaredField('INSTANCE').get(null)
+    def apkArtifact = variant.artifacts.get(singleArtifactApk)
 
     project.tasks.register(taskName, CheckApkPermissions) { task ->
       group = "verification"
       description = "Checks that the ${variantName} APK only contains allowed permissions"
-      dependsOn "assemble${capitalizedVariantName}"
 
+      task.apkDirectory.set(apkArtifact)
       task.allowedPermissions = project.objects.listProperty(Pattern).value(
           allowedPermissions.collect { it instanceof Pattern ? it : Pattern.compile(it) }
       )
       task.aapt2Executable = project.androidComponents.sdkComponents.aapt2.get().executable.getAsFile()
-      doFirst {
-        def apkDir = new File(project.layout.buildDirectory.get().asFile, "outputs/apk/${flavorPath}/${buildTypePath}")
-        apkPath = project.fileTree(apkDir).matching { include '*.apk' }.files.find()
-        if (!apkPath)
-          throw new GradleException("APK not found for ${variantName} in ${apkDir}")
-      }
     }
 
     // Automatically run after assemble<Variant> when such task exists.
