@@ -664,6 +664,12 @@ void Framework::FillTrackInfo(Track const & track, m2::PointD const & trackPoint
   info.SetTrackId(track.GetId());
   info.SetBookmarkCategoryId(track.GetGroupId());
   info.SetBookmarkCategoryName(GetBookmarkManager().GetCategoryName(track.GetGroupId()));
+
+  auto const openingMode = m_routingManager.IsRoutingActive() || track.GetDescription().empty()
+                             ? place_page::OpeningMode::Preview
+                             : place_page::OpeningMode::Full;
+  info.SetOpeningMode(openingMode);
+
   info.SetMercator(trackPoint);
   info.SetTitlesForTrack(track);
 }
