@@ -96,7 +96,13 @@ m2::PointD GetPointForTurn(IRoutingResult const & result, size_t outgoingSegment
     curDistanceMeters += distanceMeters;
     curTimeSeconds += CalcEstimatedTimeToPass(distanceMeters, segments[nextIndex.m_segmentIndex].m_highwayClass);
 
-    if (curTimeSeconds > kMaxTimeSeconds || ++count >= maxPointsCount || curDistanceMeters > maxDistMeters)
+    // Don't stop until we've accumulated a minimum distance from the junction.
+    // This prevents micro-segments near the junction from dominating the angle calculation.
+    // Fix: https://github.com/organicmaps/organicmaps/issues/12157
+    double constexpr kMinTurnPointDistMeters = 3.0;
+    bool const farEnough = curDistanceMeters >= kMinTurnPointDistMeters;
+    if (farEnough &&
+        (curTimeSeconds > kMaxTimeSeconds || ++count >= maxPointsCount || curDistanceMeters > maxDistMeters))
       return nextPoint;
 
     point = nextPoint;
