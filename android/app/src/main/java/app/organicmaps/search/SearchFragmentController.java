@@ -48,6 +48,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   // These variables are used to determine if the touch event is a tap or a drag
   static AtomicReference<Float> mInitialX = new AtomicReference<>((float) 0);
   static AtomicReference<Float> mInitialY = new AtomicReference<>((float) 0);
+  private boolean mHiddenByPlacePage = false;
 
   private final BottomSheetBehavior.BottomSheetCallback mDefaultBottomSheetCallback =
       new BottomSheetBehavior.BottomSheetCallback() {
@@ -59,8 +60,17 @@ public class SearchFragmentController extends Fragment implements SearchFragment
 
           PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
 
-          if (PlacePageUtils.isHiddenState(newState) && mPlacePageViewModel.getMapObject().getValue() == null)
-            mViewModel.setSearchEnabled(false, null);
+          if (PlacePageUtils.isHiddenState(newState))
+          {
+            if (mHiddenByPlacePage)
+            {
+              mHiddenByPlacePage = false;
+            }
+            else if (mPlacePageViewModel.getMapObject().getValue() == null)
+            {
+              mViewModel.setSearchEnabled(false, null);
+            }
+          }
           // we do not save the state if search page is hiding
           if (newState == BottomSheetBehavior.STATE_EXPANDED || newState == BottomSheetBehavior.STATE_HALF_EXPANDED
               || newState == BottomSheetBehavior.STATE_COLLAPSED)
@@ -107,6 +117,7 @@ public class SearchFragmentController extends Fragment implements SearchFragment
         // Hide search when place page is opened
         if (mFrameLayoutBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN)
         {
+          mHiddenByPlacePage = true;
           mViewModel.setSearchPageLastState(mFrameLayoutBottomSheetBehavior.getState());
           mFrameLayoutBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         }
