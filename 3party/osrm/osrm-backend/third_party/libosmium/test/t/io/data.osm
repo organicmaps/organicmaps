@@ -1,4 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<osm version="0.6" generator="testdata" upload="false">
-    <node id="1" version="1" timestamp="2014-01-01T00:00:00Z" uid="1" user="test" changeset="1" lon="1.02" lat="1.02"/>
-</osm>
