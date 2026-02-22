@@ -1,6 +1,7 @@
 package app.organicmaps.sdk.util.log;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -261,21 +262,9 @@ public final class LogsManager
     if (manager != null)
     {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-      {
         ImplApi23.appendActiveNetworkInfo(sb, manager);
-      }
-      else 
-      {
-        final android.net.NetworkInfo activeNetworkInfo = manager.getActiveNetworkInfo();
-        if (activeNetworkInfo != null)
-        {
-          sb.append("\n\tActive Network: ").append(activeNetworkInfo.toString());
-        }
-        else
-        {
-          sb.append("\n\tNo active network.");
-        }
-      }
+      else
+        ImplApi21.appendActiveNetworkInfo(sb, manager);
     }
     sb.append("\nLocation providers:");
     final LocationManager locMngr =
@@ -334,19 +323,35 @@ public final class LogsManager
     return log.toString();
   }
 
-  @RequiresApi(Build.VERSION_CODES.M)
-  private static class ImplApi23 
+  @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+  private static class ImplApi21
   {
-    private static void appendActiveNetworkInfo(@NonNull StringBuilder sb, @NonNull ConnectivityManager manager) 
+    @SuppressWarnings("deprecation")
+    public static void appendActiveNetworkInfo(@NonNull StringBuilder sb, @NonNull ConnectivityManager manager)
+    {
+      final android.net.NetworkInfo activeNetworkInfo = manager.getActiveNetworkInfo();
+      if (activeNetworkInfo != null)
+        sb.append("\n\tActive Network: ").append(activeNetworkInfo.toString());
+      else
+        sb.append("\n\tNo active network.");
+    }
+  }
+
+  @RequiresApi(Build.VERSION_CODES.M)
+  private static class ImplApi23
+  {
+    private static void appendActiveNetworkInfo(@NonNull StringBuilder sb, @NonNull ConnectivityManager manager)
     {
       final Network activeNetwork = manager.getActiveNetwork();
-      if (activeNetwork != null) 
+      if (activeNetwork != null)
       {
         final NetworkCapabilities cap = manager.getNetworkCapabilities(activeNetwork);
-        sb.append("\n\tActive Network id=").append(activeNetwork.toString())
-          .append("\n").append(cap != null ? cap.toString() : "null");
-      } 
-      else 
+        sb.append("\n\tActive Network id=")
+            .append(activeNetwork.toString())
+            .append("\n")
+            .append(cap != null ? cap.toString() : "null");
+      }
+      else
       {
         sb.append("\n\tNo active network.");
       }
