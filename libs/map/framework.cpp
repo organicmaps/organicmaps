@@ -1205,7 +1205,7 @@ void Framework::MemoryWarning()
 {
   LOG(LINFO, ("MemoryWarning"));
   ClearAllCaches();
-  SharedBufferManager::instance().clearReserved();
+  SharedBufferManager::Instance().ClearReserved();
 }
 
 void Framework::EnterBackground()

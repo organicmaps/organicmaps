@@ -4,12 +4,9 @@ namespace dp
 {
 AttributeBufferMutator::~AttributeBufferMutator()
 {
-  SharedBufferManager & mng = SharedBufferManager::instance();
-  for (size_t i = 0; i < m_array.size(); ++i)
-  {
-    TBufferNode & node = m_array[i];
-    mng.freeSharedBuffer(node.second, node.first);
-  }
+  SharedBufferManager & mng = SharedBufferManager::Instance();
+  for (auto & [buffer, _] : m_array)
+    mng.FreeSharedBuffer(std::move(buffer));
 }
 
 void AttributeBufferMutator::AddMutation(BindingInfo const & info, MutateRegion region, ref_ptr<void> data)
@@ -19,7 +16,7 @@ void AttributeBufferMutator::AddMutation(BindingInfo const & info, MutateRegion 
 
 void * AttributeBufferMutator::AllocateMutationBuffer(size_t byteCount)
 {
-  m_array.emplace_back(SharedBufferManager::instance().reserveSharedBuffer(byteCount), byteCount);
-  return &((*m_array.back().first)[0]);
+  m_array.push_back(make_pair(SharedBufferManager::Instance().ReserveSharedBuffer(byteCount), byteCount));
+  return m_array.back().first->data();
 }
 }  // namespace dp

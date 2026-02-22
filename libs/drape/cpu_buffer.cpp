@@ -1,24 +1,21 @@
 #include "drape/cpu_buffer.hpp"
 
 #include "base/assert.hpp"
-#include "base/math.hpp"
-#include "base/shared_buffer_manager.hpp"
 
 #include <cstring>
 
 namespace dp
 {
-CPUBuffer::CPUBuffer(uint8_t elementSize, uint32_t capacity) : TBase(elementSize, capacity)
-{
-  uint32_t memorySize = math::NextPowOf2(GetCapacity() * GetElementSize());
-  m_memory = SharedBufferManager::instance().reserveSharedBuffer(memorySize);
-  m_memoryCursor = NonConstData();
-}
+CPUBuffer::CPUBuffer(uint8_t elementSize, uint32_t capacity)
+  : TBase(elementSize, capacity)
+  , m_memoryCursor(NonConstData())
+  , m_memory(SharedBufferManager::Instance().ReserveSharedBuffer(GetCapacity() * GetElementSize()))
+{}
 
 CPUBuffer::~CPUBuffer()
 {
   m_memoryCursor = nullptr;
-  SharedBufferManager::instance().freeSharedBuffer(m_memory->size(), m_memory);
+  SharedBufferManager::Instance().FreeSharedBuffer(std::move(m_memory));
 }
 
 void CPUBuffer::UploadData(void const * data, uint32_t elementCount)
@@ -51,12 +48,12 @@ uint32_t CPUBuffer::GetCurrentElementNumber() const
 
 unsigned char const * CPUBuffer::Data() const
 {
-  return &((*m_memory)[0]);
+  return m_memory->data();
 }
 
 unsigned char * CPUBuffer::NonConstData()
 {
-  return &((*m_memory)[0]);
+  return m_memory->data();
 }
 
 unsigned char * CPUBuffer::GetCursor() const
