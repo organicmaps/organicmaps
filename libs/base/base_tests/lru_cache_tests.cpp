@@ -3,7 +3,7 @@
 #include "base/lru_cache.hpp"
 
 #include <cstddef>
-#include <map>
+#include <functional>
 
 template <typename Key, typename Value>
 class LruCacheTest
@@ -28,94 +28,6 @@ private:
   LruCache<Key, Value> m_cache;
   Loader m_loader;
 };
-
-template <typename Key, typename Value>
-class LruCacheKeyAgeTest
-{
-public:
-  void InsertKey(Key const & key) { m_keyAge.InsertKey(key); }
-  void UpdateAge(Key const & key) { m_keyAge.UpdateAge(key); }
-  Key const & GetLruKey() const { return m_keyAge.GetLruKey(); }
-  void RemoveLru() { m_keyAge.RemoveLru(); }
-  bool IsValid() const { return m_keyAge.IsValidForTesting(); }
-
-  size_t GetAge() const { return m_keyAge.m_age; }
-  std::map<size_t, Key> const & GetAgeToKey() const { return m_keyAge.m_ageToKey; }
-  std::unordered_map<Key, size_t> const & GetKeyToAge() const { return m_keyAge.m_keyToAge; }
-
-private:
-  typename LruCache<Key, Value>::KeyAge m_keyAge;
-};
-
-template <typename Key, typename Value>
-void TestAge(LruCacheKeyAgeTest<Key, Value> const & keyAge, size_t expectedAge,
-             std::map<size_t, Key> const & expectedAgeToKey, std::unordered_map<Key, size_t> const & expectedKeyToAge)
-{
-  TEST(keyAge.IsValid(), ());
-  TEST_EQUAL(keyAge.GetAge(), expectedAge, ());
-  TEST_EQUAL(keyAge.GetAgeToKey(), expectedAgeToKey, ());
-  TEST_EQUAL(keyAge.GetKeyToAge(), expectedKeyToAge, ());
-}
-
-UNIT_TEST(LruCacheAgeTest)
-{
-  using Key = int;
-  using Value = double;
-  LruCacheKeyAgeTest<Key, Value> age;
-
-  TEST_EQUAL(age.GetAge(), 0, ());
-  TEST(age.GetAgeToKey().empty(), ());
-  TEST(age.GetKeyToAge().empty(), ());
-
-  age.InsertKey(10);
-  {
-    std::map<size_t, Key> const expectedAgeToKey({{1 /* age */, 10 /* key */}});
-    std::unordered_map<Key, size_t> const expectedKeyToAge({{10 /* key */, 1 /* age */}});
-    TestAge(age, 1 /* cache age */, expectedAgeToKey, expectedKeyToAge);
-  }
-
-  age.InsertKey(9);
-  {
-    std::map<size_t, Key> const expectedAgeToKey({{1, 10}, {2, 9}});
-    std::unordered_map<Key, size_t> const expectedKeyToAge({{10, 1}, {9, 2}});
-    TestAge(age, 2 /* cache age */, expectedAgeToKey, expectedKeyToAge);
-  }
-
-  age.RemoveLru();
-  {
-    std::map<size_t, Key> const expectedAgeToKey({{2, 9}});
-    std::unordered_map<Key, size_t> const expectedKeyToAge({{9, 2}});
-    TestAge(age, 2 /* cache age */, expectedAgeToKey, expectedKeyToAge);
-  }
-
-  age.InsertKey(11);
-  {
-    std::map<size_t, Key> const expectedAgeToKey({{2, 9}, {3, 11}});
-    std::unordered_map<Key, size_t> const expectedKeyToAge({{9, 2}, {11, 3}});
-    TestAge(age, 3 /* cache age */, expectedAgeToKey, expectedKeyToAge);
-  }
-
-  age.UpdateAge(9);
-  {
-    std::map<size_t, Key> const expectedAgeToKey({{4, 9}, {3, 11}});
-    std::unordered_map<Key, size_t> const expectedKeyToAge({{9, 4}, {11, 3}});
-    TestAge(age, 4 /* cache age */, expectedAgeToKey, expectedKeyToAge);
-  }
-
-  age.RemoveLru();
-  {
-    std::map<size_t, Key> const expectedAgeToKey({{4, 9}});
-    std::unordered_map<Key, size_t> const expectedKeyToAge({{9, 4}});
-    TestAge(age, 4 /* cache age */, expectedAgeToKey, expectedKeyToAge);
-  }
-
-  age.InsertKey(12);
-  {
-    std::map<size_t, Key> const expectedAgeToKey({{4, 9}, {5, 12}});
-    std::unordered_map<Key, size_t> const expectedKeyToAge({{9, 4}, {12, 5}});
-    TestAge(age, 5 /* cache age */, expectedAgeToKey, expectedKeyToAge);
-  }
-}
 
 UNIT_TEST(LruCacheSmokeTest)
 {
@@ -171,4 +83,40 @@ UNIT_TEST(LruCacheLoaderCallsTest)
   shouldLoadBeCalled = false;
   cache.GetValue(1);
   TEST(cache.IsValid(), ());
+}
+
+UNIT_TEST(LruCacheEvictionOrder)
+{
+  using Key = int;
+  using Value = int;
+  // Verify that the LRU element is actually the one evicted.
+  LruCacheTest<Key, Value> cache(2 /* maxCacheSize */, [](Key k, Value & v) { v = k; });
+  cache.GetValue(1);  // cache: [1]
+  cache.GetValue(2);  // cache: [2, 1]
+  cache.GetValue(1);  // cache: [1, 2] — 1 refreshed to front
+  TEST(cache.IsValid(), ());
+
+  // Adding 3 should evict 2 (the LRU), not 1.
+  bool loaderCalled = false;
+  auto checkLoader = [&loaderCalled](Key k, Value & v)
+  {
+    loaderCalled = true;
+    v = k;
+  };
+
+  LruCacheTest<Key, Value> cache2(2, checkLoader);
+  cache2.GetValue(1);
+  cache2.GetValue(2);
+  cache2.GetValue(1);  // refresh 1
+  loaderCalled = false;
+  cache2.GetValue(1);  // should be cached
+  TEST(!loaderCalled, ());
+  cache2.GetValue(3);  // evicts 2
+  TEST(loaderCalled, ());
+  loaderCalled = false;
+  cache2.GetValue(1);  // still cached
+  TEST(!loaderCalled, ());
+  cache2.GetValue(2);  // was evicted, must reload
+  TEST(loaderCalled, ());
+  TEST(cache2.IsValid(), ());
 }
