@@ -29,7 +29,7 @@ void ForEachMwmTmp(std::string const & temporaryMwmPath, ToDo && toDo, size_t th
   {
     auto countryName = filename;
     strings::ReplaceLast(countryName, DATA_FILE_EXTENSION_TMP, "");
-    pool.SubmitWork(std::forward<ToDo>(toDo), countryName, base::JoinPath(temporaryMwmPath, filename));
+    pool.SubmitWork(toDo, std::move(countryName), base::JoinPath(temporaryMwmPath, filename));
   }
 }
 

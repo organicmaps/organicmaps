@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <thread>
 #include <vector>
 
@@ -27,7 +28,7 @@ private:
 };
 
 // This class can be used in thread pools to store std::packaged_task<> objects.
-// std::packaged_task<> isn’t copyable so we have to use std::move().
+// std::packaged_task<> isn't copyable so we have to use std::move().
 // This idea is borrowed from the book C++ Concurrency in action by Anthony Williams (Chapter 9).
 class FunctionWrapper
 {
