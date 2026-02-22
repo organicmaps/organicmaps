@@ -1,4 +1,4 @@
-#include "qt/search_panel.hpp"
+#include "qt/dev_search_panel.hpp"
 #include "qt/draw_widget.hpp"
 
 #include "search/search_params.hpp"
@@ -24,7 +24,7 @@
 
 namespace qt
 {
-SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
+DevSearchPanel::DevSearchPanel(DrawWidget * drawWidget, QWidget * parent)
   : QWidget(parent)
   , m_pDrawWidget(drawWidget)
   , m_clearIcon(":/ui/x.png")
@@ -33,7 +33,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   , m_timestamp(0)
 {
   m_pEditor = new QLineEdit(this);
-  connect(m_pEditor, &QLineEdit::textChanged, this, &SearchPanel::OnSearchTextChanged);
+  connect(m_pEditor, &QLineEdit::textChanged, this, &DevSearchPanel::OnSearchTextChanged);
 
   m_pTable = new QTableWidget(0, 4 /*columns*/, this);
   m_pTable->setFocusPolicy(Qt::NoFocus);
@@ -44,14 +44,14 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   m_pTable->horizontalHeader()->setVisible(false);
   m_pTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
-  connect(m_pTable, &QTableWidget::cellClicked, this, &SearchPanel::OnSearchPanelItemClicked);
+  connect(m_pTable, &QTableWidget::cellClicked, this, &DevSearchPanel::OnSearchPanelItemClicked);
 
   m_pClearButton = new QPushButton(this);
-  connect(m_pClearButton, &QAbstractButton::pressed, this, &SearchPanel::OnClearButton);
+  connect(m_pClearButton, &QAbstractButton::pressed, this, &DevSearchPanel::OnClearButton);
   m_pClearButton->setVisible(false);
   m_pClearButton->setFocusPolicy(Qt::NoFocus);
   m_pAnimationTimer = new QTimer(this);
-  connect(m_pAnimationTimer, &QTimer::timeout, this, &SearchPanel::OnAnimationTimer);
+  connect(m_pAnimationTimer, &QTimer::timeout, this, &DevSearchPanel::OnAnimationTimer);
 
   QButtonGroup * searchModeButtons = new QButtonGroup(this);
   QGroupBox * groupBox = new QGroupBox();
@@ -69,7 +69,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
 
   m_isCategory = new QCheckBox(tr("Category request"));
   m_isCategory->setCheckState(Qt::Unchecked);
-  connect(m_isCategory, &QCheckBox::stateChanged, std::bind(&SearchPanel::RunSearch, this));
+  connect(m_isCategory, &QCheckBox::stateChanged, std::bind(&DevSearchPanel::RunSearch, this));
 
   QHBoxLayout * requestLayout = new QHBoxLayout();
   requestLayout->addWidget(m_pEditor);
@@ -92,20 +92,20 @@ QTableWidgetItem * CreateItem(std::string const & s)
 }
 }  // namespace
 
-void SearchPanel::ClearTable()
+void DevSearchPanel::ClearTable()
 {
   m_pTable->clear();
   m_pTable->setRowCount(0);
 }
 
-void SearchPanel::ClearResults()
+void DevSearchPanel::ClearResults()
 {
   ClearTable();
   m_results.Clear();
   GetFramework().GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
 }
 
-void SearchPanel::StartBusyIndicator()
+void DevSearchPanel::StartBusyIndicator()
 {
   if (!m_pAnimationTimer->isActive())
     m_pAnimationTimer->start(200 /* milliseconds */);
@@ -114,13 +114,13 @@ void SearchPanel::StartBusyIndicator()
   m_pClearButton->setVisible(true);
 }
 
-void SearchPanel::StopBusyIndicator()
+void DevSearchPanel::StopBusyIndicator()
 {
   m_pAnimationTimer->stop();
   m_pClearButton->setIcon(m_clearIcon);
 }
 
-void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results results)
+void DevSearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results results)
 {
   CHECK(m_threadChecker.CalledOnOriginalThread(), ());
 
@@ -175,7 +175,7 @@ void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results 
     StopBusyIndicator();
 }
 
-bool SearchPanel::Try3dModeCmd(std::string const & str)
+bool DevSearchPanel::Try3dModeCmd(std::string const & str)
 {
   bool const is3dModeOn = (str == "?3d");
   bool const is3dBuildingsOn = (str == "?b3d");
@@ -190,7 +190,7 @@ bool SearchPanel::Try3dModeCmd(std::string const & str)
   return true;
 }
 
-bool SearchPanel::TryTrafficSimplifiedColorsCmd(std::string const & str)
+bool DevSearchPanel::TryTrafficSimplifiedColorsCmd(std::string const & str)
 {
   bool const simplifiedMode = (str == "?tc:simp");
   bool const normalMode = (str == "?tc:norm");
@@ -205,7 +205,7 @@ bool SearchPanel::TryTrafficSimplifiedColorsCmd(std::string const & str)
   return true;
 }
 
-std::string SearchPanel::GetCurrentInputLocale()
+std::string DevSearchPanel::GetCurrentInputLocale()
 {
   /// @DebugNote
   // Hardcode search input language.
@@ -219,7 +219,7 @@ std::string SearchPanel::GetCurrentInputLocale()
   return res;
 }
 
-void SearchPanel::OnSearchTextChanged(QString const & str)
+void DevSearchPanel::OnSearchTextChanged(QString const & str)
 {
   // Pass input query as-is without any normalization.
   // Otherwise № -> No, and it's unexpectable for the search index.
@@ -284,7 +284,7 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   }
 }
 
-void SearchPanel::OnSearchModeChanged(int mode)
+void DevSearchPanel::OnSearchModeChanged(int mode)
 {
   auto const newMode = static_cast<search::Mode>(mode);
   switch (newMode)
@@ -301,14 +301,14 @@ void SearchPanel::OnSearchModeChanged(int mode)
   RunSearch();
 }
 
-void SearchPanel::RunSearch()
+void DevSearchPanel::RunSearch()
 {
   auto const text = m_pEditor->text();
   m_pEditor->setText(QString());
   m_pEditor->setText(text);
 }
 
-void SearchPanel::OnSearchPanelItemClicked(int row, int)
+void DevSearchPanel::OnSearchPanelItemClicked(int row, int)
 {
   ASSERT_EQUAL(m_results.GetCount(), static_cast<size_t>(m_pTable->rowCount()), ());
 
@@ -325,12 +325,12 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
   }
 }
 
-void SearchPanel::hideEvent(QHideEvent *)
+void DevSearchPanel::hideEvent(QHideEvent *)
 {
   GetFramework().GetSearchAPI().CancelSearch(search::Mode::Everywhere);
 }
 
-void SearchPanel::OnAnimationTimer()
+void DevSearchPanel::OnAnimationTimer()
 {
   static int angle = 0;
 
@@ -343,12 +343,12 @@ void SearchPanel::OnAnimationTimer()
   m_pClearButton->setIcon(QIcon(m_busyIcon.transformed(transform)));
 }
 
-void SearchPanel::OnClearButton()
+void DevSearchPanel::OnClearButton()
 {
   m_pEditor->setText("");
 }
 
-Framework & SearchPanel::GetFramework() const
+Framework & DevSearchPanel::GetFramework() const
 {
   return m_pDrawWidget->GetFramework();
 }

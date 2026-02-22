@@ -23,6 +23,8 @@ set(SRC
   build_style/run_tests.h
   create_feature_dialog.cpp
   create_feature_dialog.hpp
+  dev_search_panel.cpp
+  dev_search_panel.hpp
   draw_widget.cpp
   draw_widget.hpp
   editor_dialog.cpp
@@ -56,11 +58,13 @@ set(SRC
   ruler.hpp
   screenshoter.cpp
   screenshoter.hpp
-  search_panel.cpp
-  search_panel.hpp
   selection.hpp
   update_dialog.cpp
   update_dialog.hpp
+  user_search_panel/search_item.cpp
+  user_search_panel/search_item.hpp
+  user_search_panel/user_search_panel.cpp
+  user_search_panel/user_search_panel.hpp
 )
 
 omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${RES_SOURCES} ${SRC})
