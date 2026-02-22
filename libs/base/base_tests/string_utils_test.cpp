@@ -988,6 +988,145 @@ UNIT_TEST(Normalize_Arabic)
   }
 }
 
+UNIT_TEST(Normalize_NewerDigits)
+{
+  {
+    // Adlam digits (Unicode 9.0, U+1E950-1E959)
+    strings::UniChar const s[] = {0x1E950, 0x1E955, 0x1E959};
+    strings::UniString us(std::begin(s), std::end(s));
+    strings::NormalizeInplace(us);
+    TEST_EQUAL(strings::ToUtf8(us), "059", ());
+  }
+
+  {
+    // Hanifi Rohingya digits (Unicode 11.0, U+10D30-10D39)
+    strings::UniChar const s[] = {0x10D31, 0x10D32, 0x10D33};
+    strings::UniString us(std::begin(s), std::end(s));
+    strings::NormalizeInplace(us);
+    TEST_EQUAL(strings::ToUtf8(us), "123", ());
+  }
+
+  {
+    // Kawi digits (Unicode 15.0, U+11F50-11F59)
+    strings::UniChar const s[] = {0x11F54, 0x11F52, 0x11F50};
+    strings::UniString us(std::begin(s), std::end(s));
+    strings::NormalizeInplace(us);
+    TEST_EQUAL(strings::ToUtf8(us), "420", ());
+  }
+
+  {
+    // Nag Mundari digits (Unicode 15.0, U+1E4F0-1E4F9)
+    strings::UniChar const s[] = {0x1E4F7, 0x1E4F8, 0x1E4F9};
+    strings::UniString us(std::begin(s), std::end(s));
+    strings::NormalizeInplace(us);
+    TEST_EQUAL(strings::ToUtf8(us), "789", ());
+  }
+}
+
+UNIT_TEST(Normalize_MathAlphanumeric)
+{
+  // Mathematical Alphanumeric Symbols (Unicode 3.1, Plane 1)
+  // Bold A -> A, Bold a -> a, Bold 0 -> 0
+  strings::UniChar const s[] = {0x1D400, 0x1D41A, 0x1D7CE};
+  strings::UniString us(std::begin(s), std::end(s));
+  strings::NormalizeInplace(us);
+  TEST_EQUAL(strings::ToUtf8(us), "Aa0", ());
+}
+
+UNIT_TEST(Normalize_EnclosedAndCompat)
+{
+  {
+    // SQUARE DJ (Unicode 6.0, U+1F190) -> "DJ"
+    strings::UniChar const s[] = {0x1F190};
+    strings::UniString us(std::begin(s), std::end(s));
+    strings::NormalizeInplace(us);
+    TEST_EQUAL(strings::ToUtf8(us), "DJ", ());
+  }
+
+  {
+    // SQUARE ERA NAME REIWA (Unicode 12.1, U+32FF) -> CJK 令和
+    strings::UniChar const s[] = {0x32FF};
+    strings::UniString us(std::begin(s), std::end(s));
+    strings::NormalizeInplace(us);
+    strings::UniChar const expected[] = {0x4EE4, 0x548C};
+    strings::UniString exp(std::begin(expected), std::end(expected));
+    TEST_EQUAL(us, exp, ());
+  }
+
+  {
+    // VULGAR FRACTION ZERO THIRDS (Unicode 6.1, U+2189) -> "0⁄3"
+    strings::UniChar const s[] = {0x2189};
+    strings::UniString us(std::begin(s), std::end(s));
+    strings::NormalizeInplace(us);
+    strings::UniChar const expected[] = {0x30, 0x2044, 0x33};
+    strings::UniString exp(std::begin(expected), std::end(expected));
+    TEST_EQUAL(us, exp, ());
+  }
+
+  {
+    // CJK COMPATIBILITY IDEOGRAPH-2F800 (Plane 2, U+2F800) -> U+4E3D
+    strings::UniChar const s[] = {0x2F800};
+    strings::UniString us(std::begin(s), std::end(s));
+    strings::NormalizeInplace(us);
+    strings::UniChar const expected[] = {0x4E3D};
+    strings::UniString exp(std::begin(expected), std::end(expected));
+    TEST_EQUAL(us, exp, ());
+  }
+}
+
+UNIT_TEST(Normalize_SuperscriptSubscript)
+{
+  // Superscript and subscript characters -> ASCII equivalents
+  // ⁰ⁱ⁴₀ₐ -> "i40a" (superscript 0, superscript i, superscript 4, subscript 0, subscript a)
+  strings::UniChar const s[] = {0x2070, 0x2071, 0x2074, 0x2080, 0x2090};
+  strings::UniString us(std::begin(s), std::end(s));
+  strings::NormalizeInplace(us);
+  TEST_EQUAL(strings::ToUtf8(us), "0i40a", ());
+}
+
+UNIT_TEST(NormalizeChar)
+{
+  {
+    // ASCII passthrough
+    strings::UniChar buf[strings::kMaxNormalizedLen];
+    size_t const n = strings::NormalizeChar('A', buf);
+    TEST_EQUAL(n, 1, ());
+    TEST_EQUAL(buf[0], static_cast<strings::UniChar>('A'), ());
+  }
+
+  {
+    // Single-char mapping: Polish ł (U+0142) -> l
+    strings::UniChar buf[strings::kMaxNormalizedLen];
+    size_t const n = strings::NormalizeChar(0x0142, buf);
+    TEST_EQUAL(n, 1, ());
+    TEST_EQUAL(buf[0], static_cast<strings::UniChar>('l'), ());
+  }
+
+  {
+    // Strip: Arabic Tatweel (U+0640) -> removed
+    strings::UniChar buf[strings::kMaxNormalizedLen];
+    size_t const n = strings::NormalizeChar(0x0640, buf);
+    TEST_EQUAL(n, 0, ());
+  }
+
+  {
+    // Multi-char: DOUBLE QUESTION MARK (U+2047) -> "??"
+    strings::UniChar buf[strings::kMaxNormalizedLen];
+    size_t const n = strings::NormalizeChar(0x2047, buf);
+    TEST_EQUAL(n, 2, ());
+    TEST_EQUAL(buf[0], static_cast<strings::UniChar>('?'), ());
+    TEST_EQUAL(buf[1], static_cast<strings::UniChar>('?'), ());
+  }
+
+  {
+    // Identity: character with no mapping (e.g. U+4E00, CJK ideograph)
+    strings::UniChar buf[strings::kMaxNormalizedLen];
+    size_t const n = strings::NormalizeChar(0x4E00, buf);
+    TEST_EQUAL(n, 1, ());
+    TEST_EQUAL(buf[0], static_cast<strings::UniChar>(0x4E00), ());
+  }
+}
+
 UNIT_TEST(UniStringToUtf8)
 {
   char constexpr utf8Text[] = "У нас исходники хранятся в Utf8!";
