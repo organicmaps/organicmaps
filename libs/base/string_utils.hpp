@@ -89,6 +89,12 @@ UniString MakeLowerCase(UniString s);
 /// For implementation @see base/normalize_unicode.cpp
 void NormalizeInplace(UniString & s);
 
+/// Allocation-free single-character normalization. Writes result into out[].
+/// Returns the number of characters written (0 = stripped, 1+ = mapping).
+/// @param out must have space for at least kMaxNormalizedLen characters.
+static constexpr size_t kMaxNormalizedLen = 18;
+size_t NormalizeChar(UniChar c, UniChar * out);
+
 UniString Normalize(UniString s);
 std::string Normalize(std::string const & s);
 

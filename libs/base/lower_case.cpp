@@ -945,18 +945,38 @@ size_t CountNormLowerSymbols(UniString const & s, UniString const & lowStr)
   while (lowIdx < lowSize)
   {
     if (sIdx == size)
-      return 0;  // low_s has more length than s
+      return 0;  // lowStr has more length than s
 
-    UniString strCharNorm;
-    strCharNorm.push_back(s[sIdx++]);
-    MakeLowerCaseInplace(strCharNorm);
-    NormalizeInplace(strCharNorm);
+    // Lower-case the character (allocation-free).
+    UniChar const orig = s[sIdx++];
+    UniChar lowerBuf[3];  // full case folding produces at most 3 chars
+    size_t lowerCount;
 
-    for (size_t i = 0; i < strCharNorm.size(); ++i)
-      if (lowIdx >= lowSize)
-        return sIdx;
-      else if (lowStr[lowIdx++] != strCharNorm[i])
-        return 0;
+    UniChar const lc = LowerUniChar(orig);
+    if (lc != 0)
+    {
+      lowerBuf[0] = lc;
+      lowerCount = 1;
+    }
+    else
+    {
+      lowerCount = w(orig, lowerBuf);
+    }
+
+    // Normalize each lower-cased character and compare (allocation-free).
+    for (size_t li = 0; li < lowerCount; ++li)
+    {
+      UniChar normBuf[kMaxNormalizedLen];
+      size_t const normCount = NormalizeChar(lowerBuf[li], normBuf);
+
+      for (size_t ni = 0; ni < normCount; ++ni)
+      {
+        if (lowIdx >= lowSize)
+          return sIdx;
+        if (lowStr[lowIdx++] != normBuf[ni])
+          return 0;
+      }
+    }
   }
 
   return sIdx;
