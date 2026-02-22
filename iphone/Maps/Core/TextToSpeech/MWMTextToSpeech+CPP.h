@@ -9,6 +9,7 @@
 // * name in bcp47;
 // * localized name;
 - (std::vector<std::pair<std::string, std::string>>)availableLanguages;
+- (std::vector<std::pair<std::string, std::string>>)availableVoicesForCurrentLanguage;
 - (std::pair<std::string, std::string>)standardLanguage;
 
 @end

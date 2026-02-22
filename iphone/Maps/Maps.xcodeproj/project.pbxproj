@@ -387,6 +387,7 @@
 		99F8B4C623B644A6009FF0B4 /* MapStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F8B4C523B644A6009FF0B4 /* MapStyleSheet.swift */; };
 		99F9A0E52462CA0E00AE21E0 /* DownloadAllView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F9A0E42462CA0E00AE21E0 /* DownloadAllView.swift */; };
 		99F9A0E72462CA1700AE21E0 /* DownloadAllView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99F9A0E62462CA1700AE21E0 /* DownloadAllView.xib */; };
+		9C6018B72F4A1B3700CFE60C /* MWMTTSVoiceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9C6018B62F4A1B3700CFE60C /* MWMTTSVoiceViewController.mm */; };
 		A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A630D1E8207CA95900976DEA /* Localizable.stringsdict */; };
 		AA1C7E3E269A2DD600BAADF2 /* EditTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C7E3D269A2DD600BAADF2 /* EditTrackViewController.swift */; };
 		AC79C8922A65AB9500594C24 /* UIColor+hexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC79C8912A65AB9500594C24 /* UIColor+hexString.swift */; };
@@ -1305,6 +1306,8 @@
 		99F8B4C523B644A6009FF0B4 /* MapStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStyleSheet.swift; sourceTree = "<group>"; };
 		99F9A0E42462CA0E00AE21E0 /* DownloadAllView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadAllView.swift; sourceTree = "<group>"; };
 		99F9A0E62462CA1700AE21E0 /* DownloadAllView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadAllView.xib; sourceTree = "<group>"; };
+		9C6018B52F4A1B3700CFE60C /* MWMTTSVoiceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTTSVoiceViewController.h; sourceTree = "<group>"; };
+		9C6018B62F4A1B3700CFE60C /* MWMTTSVoiceViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTTSVoiceViewController.mm; sourceTree = "<group>"; };
 		A630D1E9207CA95900976DEA /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D1EB207CA96700976DEA /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = cs; path = cs.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D1EC207CA96D00976DEA /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = da; path = da.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -4047,6 +4050,8 @@
 		F6E2FD361E097BA00083EBEC /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				9C6018B52F4A1B3700CFE60C /* MWMTTSVoiceViewController.h */,
+				9C6018B62F4A1B3700CFE60C /* MWMTTSVoiceViewController.mm */,
 				FAB7A8912E3E9BFA009D238F /* BookmarksTextPlacementController.h */,
 				FAB7A8922E3E9BFA009D238F /* BookmarksTextPlacementController.mm */,
 				F6E2FD371E097BA00083EBEC /* Cells */,
@@ -4914,6 +4919,7 @@
 				993DF10523F6BDB100AC231A /* UINavigationItem+StyleStyle.swift in Sources */,
 				ED4F4F3B2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift in Sources */,
 				4726254921C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift in Sources */,
+				9C6018B72F4A1B3700CFE60C /* MWMTTSVoiceViewController.mm in Sources */,
 				039371B62C5B68CD00708377 /* UIFont+monospaced.swift in Sources */,
 				447DB4BC2BA78282000DF4C2 /* MWMOsmReauthAlert.mm in Sources */,
 				340475711E081A4600C92850 /* MWMSettings.mm in Sources */,
