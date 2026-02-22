@@ -10,15 +10,24 @@ namespace dp
 {
 struct GlyphImage
 {
-  ~GlyphImage() { ASSERT_NOT_EQUAL(m_data.use_count(), 1, ("Probably you forgot to call Destroy()")); }
+  GlyphImage() = default;
+  GlyphImage(uint32_t w, uint32_t h, SharedBufferManager::shared_buffer_ptr_t d)
+    : m_width(w)
+    , m_height(h)
+    , m_data(std::move(d))
+  {}
+  ~GlyphImage() { ASSERT(!m_data, ("Probably you forgot to call Destroy()")); }
+  GlyphImage(GlyphImage const &) = delete;
+  GlyphImage & operator=(GlyphImage const &) = delete;
+  GlyphImage(GlyphImage &&) noexcept = default;
+  GlyphImage & operator=(GlyphImage &&) noexcept = default;
 
-  // TODO(AB): Get rid of manual call to Destroy.
   void Destroy()
   {
-    if (m_data != nullptr)
+    if (m_data)
     {
-      SharedBufferManager::instance().freeSharedBuffer(m_data->size(), m_data);
-      m_data = nullptr;
+      auto const sz = m_data->size();
+      SharedBufferManager::instance().freeSharedBuffer(sz, std::move(m_data));
     }
   }
 
@@ -54,7 +63,7 @@ using TGlyphs = buffer_vector<GlyphFontAndId, 50>;
 
 struct Glyph
 {
-  Glyph(GlyphImage && image, GlyphFontAndId key) : m_image(image), m_key(key) {}
+  Glyph(GlyphImage && image, GlyphFontAndId key) : m_image(std::move(image)), m_key(key) {}
 
   GlyphImage m_image;
   GlyphFontAndId m_key;

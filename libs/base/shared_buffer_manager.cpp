@@ -22,7 +22,7 @@ SharedBufferManager::shared_buffer_ptr_t SharedBufferManager::reserveSharedBuffe
   auto & bucket = m_pool[normalized];
 
   if (bucket.empty())
-    return std::make_shared<shared_buffer_t>(normalized);
+    return std::make_unique<shared_buffer_t>(normalized);
 
   auto result = std::move(bucket.back());
   bucket.pop_back();
