@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?><!-- A single shimmer placeholder row mimicking item_search_result.xml -->
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:minHeight="@dimen/search_item_height"
+  android:orientation="vertical"
+  android:padding="@dimen/margin_base">
+  <!-- Title bar -->
+  <app.organicmaps.widget.ShimmerBarView
+    android:layout_width="200dp"
+    android:layout_height="14dp" />
+  <!-- Description bar -->
+  <app.organicmaps.widget.ShimmerBarView
+    android:layout_width="140dp"
+    android:layout_height="10dp"
+    android:layout_marginTop="@dimen/margin_quarter" />
+  <!-- Region / distance bar -->
+  <app.organicmaps.widget.ShimmerBarView
+    android:layout_width="100dp"
+    android:layout_height="10dp"
+    android:layout_marginTop="@dimen/margin_quarter" />
+</LinearLayout>
+
+

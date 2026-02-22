@@ -30,6 +30,7 @@
     <attr name="accentButtonBackground" format="reference" />
     <attr name="accentButtonTextColor" format="color" />
     <attr name="accentButtonTextColorDisabled" format="color" />
+    <attr name="colorAccentTransparent" format="color" />
     <attr name="redButtonBackground" format="reference" />
     <attr name="redButtonTextColor" format="color" />
     <attr name="redButtonTextColorDisabled" format="color" />
@@ -48,7 +49,8 @@
     <attr name="transitRulerBackground" format="color" />
     <attr name="colorBtnHighlight" format="color" />
     <attr name="transitStepDivider" format="reference" />
-    <attr name="colorAccentTransparent" format="reference" />
+    <attr name="textSearchField" format="color" />
+    <attr name="textSearchFieldHint" format="color" />
   </declare-styleable>
   <declare-styleable name="ThemeAttrs.Downloader">
     <attr name="status_done" format="reference" />

@@ -41,12 +41,21 @@ public class SearchToolbarController extends ToolbarController implements View.O
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count)
     {
+      if (mSkipNextTextChange)
+      {
+        mSkipNextTextChange = false;
+        return;
+      }
+      // Reset category flag when user manually types/edits the query
+      mFromCategory = false;
       final boolean isEmpty = TextUtils.isEmpty(s);
       mBackPressedCallback.setEnabled(!isEmpty);
       updateViewsVisibility(isEmpty);
       SearchToolbarController.this.onTextChanged(s.toString());
     }
   };
+
+  private boolean mSkipNextTextChange = false;
 
   private final OnBackPressedCallback mBackPressedCallback = new OnBackPressedCallback(false) {
     @Override
@@ -75,7 +84,7 @@ public class SearchToolbarController extends ToolbarController implements View.O
       return (isSearchDown || isSearchAction) && onStartSearchClick();
     });
     mProgress = mSearchContainer.findViewById(R.id.progress);
-    mVoiceInput = mSearchContainer.findViewById(R.id.voice_input);
+    mVoiceInput = root.findViewById(R.id.voice_input);
     mVoiceInput.setOnClickListener(this);
 
     showProgress(false);
@@ -226,5 +235,24 @@ public class SearchToolbarController extends ToolbarController implements View.O
   public OnBackPressedCallback getBackPressedCallback()
   {
     return mBackPressedCallback;
+  }
+
+  public void skipNextTextChange()
+  {
+    mSkipNextTextChange = true;
+  }
+
+  public void setQuerySilently(CharSequence query, boolean fromCategory)
+  {
+    mFromCategory = fromCategory;
+    mQuery.removeTextChangedListener(mTextWatcher);
+    mQuery.setText(query);
+    if (!TextUtils.isEmpty(query))
+      mQuery.setSelection(query.length());
+    mQuery.addTextChangedListener(mTextWatcher);
+  }
+  public void setQuerySilently(CharSequence query)
+  {
+    setQuerySilently(query, false);
   }
 }

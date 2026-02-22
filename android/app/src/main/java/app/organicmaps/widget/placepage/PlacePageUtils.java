@@ -16,7 +16,7 @@ import java.util.List;
 
 public class PlacePageUtils
 {
-  static void updateMapViewport(@NonNull View parent, int placePageDistanceToTop, int viewportMinHeight)
+  public static void updateMapViewport(@NonNull View parent, int placePageDistanceToTop, int viewportMinHeight)
   {
     parent.post(() -> {
       // Because of the post(), this lambda is called after the car.SurfaceRenderer.onStableAreaChanged() and breaks the
@@ -29,12 +29,12 @@ public class PlacePageUtils
     });
   }
 
-  static boolean isSettlingState(@BottomSheetBehavior.State int state)
+  public static boolean isSettlingState(@BottomSheetBehavior.State int state)
   {
     return state == BottomSheetBehavior.STATE_SETTLING;
   }
 
-  static boolean isDraggingState(@BottomSheetBehavior.State int state)
+  public static boolean isDraggingState(@BottomSheetBehavior.State int state)
   {
     return state == BottomSheetBehavior.STATE_DRAGGING;
   }
@@ -49,7 +49,7 @@ public class PlacePageUtils
     return state == BottomSheetBehavior.STATE_EXPANDED;
   }
 
-  static boolean isHiddenState(@BottomSheetBehavior.State int state)
+  public static boolean isHiddenState(@BottomSheetBehavior.State int state)
   {
     return state == BottomSheetBehavior.STATE_HIDDEN;
   }

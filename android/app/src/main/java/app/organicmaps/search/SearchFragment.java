@@ -1,6 +1,5 @@
 package app.organicmaps.search;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,22 +9,22 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.downloader.CountrySuggestFragment;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
@@ -41,21 +40,21 @@ import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
-import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.widget.PlaceholderView;
+import app.organicmaps.widget.SearchShimmerView;
 import app.organicmaps.widget.SearchToolbarController;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SearchFragment extends BaseMwmFragment implements SearchListener, CategoriesAdapter.CategoriesUiListener
+public class SearchFragment extends Fragment implements SearchListener, CategoriesAdapter.CategoriesUiListener
 {
   private long mLastQueryTimestamp;
   @NonNull
   private final List<HiddenCommand> mHiddenCommands = new ArrayList<>();
+  private SearchFragmentListener mSearchFragmentListener;
 
   private static class LastPosition
   {
@@ -76,6 +75,15 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
     public ToolbarController(View root)
     {
       super(root, SearchFragment.this.requireActivity());
+      ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), null);
+    }
+
+    @Override
+    public void setQuery(CharSequence query)
+    {
+      super.setQuery(query);
+      if (query != "")
+        mSearchFragmentListener.onSearchClicked();
     }
 
     @Override
@@ -87,6 +95,7 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
       if (TextUtils.isEmpty(query))
       {
         mSearchAdapter.clear();
+        mSearchViewModel.setLastResults(null);
         stopSearch();
         return;
       }
@@ -95,7 +104,7 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
       {
         mSearchAdapter.clear();
         stopSearch();
-        closeSearch();
+        requireActivity().finish();
         return;
       }
 
@@ -106,6 +115,7 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
     protected boolean onStartSearchClick()
     {
       deactivate();
+      mSearchFragmentListener.onSearchClicked();
       return true;
     }
 
@@ -142,8 +152,12 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   }
 
   private View mResultsFrame;
+  private View mTabFrame;
+  private View mPages;
+  private View mAppBar;
   private PlaceholderView mResultsPlaceholder;
-  private ExtendedFloatingActionButton mShowOnMapFab;
+  private SearchShimmerView mShimmerView;
+  private SearchPageViewModel mSearchViewModel;
 
   @NonNull
   private SearchToolbarController mToolbarController;
@@ -164,10 +178,6 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
 
   private final LastPosition mLastPosition = new LastPosition();
   private boolean mSearchRunning;
-  private String mInitialQuery;
-  @Nullable
-  private String mInitialLocale;
-  private boolean mInitialSearchOnMap = false;
 
   private final ActivityResultLauncher<Intent> startVoiceRecognitionForResult =
       registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -181,6 +191,56 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
 
       if (!TextUtils.isEmpty(getQuery()))
         mSearchAdapter.notifyDataSetChanged();
+    }
+  };
+
+  private final OnBackPressedCallback mOnBackPressedCallback = new OnBackPressedCallback(true) {
+    @Override
+    public void handleOnBackPressed()
+    {
+      if (!onBackPressed())
+      {
+        // Temporarily disable this callback and re-dispatch the back press to let activity handle it
+        setEnabled(false);
+        requireActivity().getOnBackPressedDispatcher().onBackPressed();
+        setEnabled(true);
+      }
+    }
+  };
+
+  private final Observer<Boolean> mSearchEnabledObserver = new Observer<>() {
+    public void onChanged(Boolean enabled)
+    {
+      if (enabled == null)
+        return;
+
+      if (!enabled)
+      {
+        if (mToolbarController.hasQuery())
+          mToolbarController.clear();
+        mSearchViewModel.setSearchQuery(null);
+        mSearchViewModel.setLastResults(null);
+        return;
+      }
+
+      final String query = mSearchViewModel.getSearchQuery();
+      if (query == null || query.isEmpty())
+        return;
+      if (query.equals(getQuery()))
+      {
+        mSearchViewModel.setSearchQuery(null);
+        return;
+      }
+      setQuery(query, false);
+      mSearchViewModel.setSearchQuery(null);
+    }
+  };
+
+  private final Observer<Integer> mBottomSheetStateObserver = new Observer<>() {
+    public void onChanged(Integer state)
+    {
+      if (state != BottomSheetBehavior.STATE_EXPANDED)
+        mToolbarController.deactivate();
     }
   };
 
@@ -216,21 +276,31 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   private void updateFrames()
   {
     final boolean hasQuery = mToolbarController.hasQuery();
-    Toolbar toolbar = mToolbarController.getToolbar();
-    AppBarLayout.LayoutParams lp = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-    lp.setScrollFlags(hasQuery ? AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
-                                     | AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
-                               : 0);
-    toolbar.setLayoutParams(lp);
 
     UiUtils.showIf(hasQuery, mResultsFrame);
-    UiUtils.showIf(hasQuery, mShowOnMapFab);
+    UiUtils.showIf(!hasQuery, mTabFrame);
+    UiUtils.showIf(!hasQuery, mPages);
     if (hasQuery)
       hideDownloadSuggest();
     else if (doShowDownloadSuggest())
       showDownloadSuggest();
     else
       hideDownloadSuggest();
+
+    updatePeekHeight();
+  }
+
+  private void updatePeekHeight()
+  {
+    if (mAppBar == null)
+      return;
+
+    mAppBar.post(() -> {
+      int height = mAppBar.getHeight();
+      if (!mToolbarController.hasQuery() && mTabFrame.getVisibility() == View.VISIBLE)
+        height += mTabFrame.getHeight();
+      mSearchViewModel.setToolbarHeight(height);
+    });
   }
 
   private void updateResultsPlaceholder()
@@ -238,6 +308,15 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
     final boolean show = !mSearchRunning && mSearchAdapter.getItemCount() == 0 && mToolbarController.hasQuery();
 
     UiUtils.showIf(show, mResultsPlaceholder);
+  }
+
+  private void hideShimmer()
+  {
+    if (mShimmerView != null)
+    {
+      mShimmerView.stopShimmer();
+      UiUtils.hide(mShimmerView);
+    }
   }
 
   @Override
@@ -252,27 +331,26 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   {
     super.onViewCreated(view, savedInstanceState);
     mSearchAdapter = new SearchAdapter(this);
-    readArguments();
+    mSearchViewModel = new ViewModelProvider(requireActivity()).get(SearchPageViewModel.class);
+    requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), mOnBackPressedCallback);
+
+    mSearchFragmentListener = (SearchFragmentListener) getParentFragment();
 
     ViewGroup root = (ViewGroup) view;
-    View mTabFrame = root.findViewById(R.id.tab_frame);
-    ViewPager pager = mTabFrame.findViewById(R.id.pages);
+    ViewPager pager = root.findViewById(R.id.pages);
+    mPages = pager;
 
     mToolbarController = new ToolbarController(view);
+    if (savedInstanceState != null)
+      mToolbarController.skipNextTextChange();
     TabLayout tabLayout = root.findViewById(R.id.tabs);
-
-    if (Config.isSearchHistoryEnabled())
-      tabLayout.setVisibility(View.VISIBLE);
-    else
-      tabLayout.setVisibility(View.GONE);
-
-    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
-
+    mTabFrame = root.findViewById(R.id.tab_frame);
     mResultsFrame = root.findViewById(R.id.results_frame);
     RecyclerView mResults = mResultsFrame.findViewById(R.id.recycler);
     setRecyclerScrollListener(mResults);
     mResultsPlaceholder = mResultsFrame.findViewById(R.id.placeholder);
     mResultsPlaceholder.setContent(R.string.search_not_found, R.string.search_not_found_query);
+    mShimmerView = mResultsFrame.findViewById(R.id.search_shimmer);
     mSearchAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
 
                                                {
@@ -282,16 +360,36 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
                                                    updateResultsPlaceholder();
                                                  }
                                                });
-    mShowOnMapFab = root.findViewById(R.id.show_on_map_fab);
-    mShowOnMapFab.setOnClickListener(v -> showAllResultsOnMap());
 
     mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
     mResults.setAdapter(mSearchAdapter);
 
+    // Restore cached results (query is restored by view state; we only need to repopulate the list).
+    final SearchResult[] cachedResults = mSearchViewModel.getLastResults();
+    if (cachedResults != null)
+    {
+      final String cachedQuery = mSearchViewModel.getSearchQuery();
+      if (!TextUtils.isEmpty(cachedQuery))
+        mToolbarController.setQuerySilently(cachedQuery, false);
+      mSearchAdapter.refreshData(cachedResults);
+      mSearchRunning = false;
+      mToolbarController.showProgress(false);
+      updateFrames();
+      updateResultsPlaceholder();
+    }
+
+    mSearchViewModel.getSearchPageLastState().observe(getViewLifecycleOwner(), mBottomSheetStateObserver);
+
+    if (Config.isSearchHistoryEnabled())
+      tabLayout.setVisibility(View.VISIBLE);
+    else
+      tabLayout.setVisibility(View.GONE);
+    mAppBar = root.findViewById(R.id.app_bar);
+
+    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
+
     updateFrames();
     updateResultsPlaceholder();
-    ViewCompat.setOnApplyWindowInsetsListener(
-        mResults, new WindowInsetUtils.ScrollableContentInsetsListener(mResults, mShowOnMapFab));
 
     mToolbarController.activate();
 
@@ -303,9 +401,6 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
       pager.setCurrentItem(lastSelectedTabPosition);
 
     tabAdapter.setTabSelectedListener(tab -> mToolbarController.deactivate());
-
-    if (mInitialSearchOnMap)
-      showAllResultsOnMap();
   }
 
   @Override
@@ -313,23 +408,20 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   {
     super.onStart();
     mToolbarController.attach(requireActivity());
+    mSearchViewModel.getSearchEnabled().observe(getViewLifecycleOwner(), mSearchEnabledObserver);
   }
 
   public void onResume()
   {
     super.onResume();
     MwmApplication.from(requireContext()).getLocationHelper().addListener(mLocationListener);
-    if (mInitialQuery != null)
-    {
-      setQuery(mInitialQuery, false);
-      mInitialQuery = null;
-    }
   }
 
   @Override
   public void onPause()
   {
     MwmApplication.from(requireContext()).getLocationHelper().removeListener(mLocationListener);
+    hideShimmer();
     super.onPause();
   }
 
@@ -337,7 +429,10 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   public void onStop()
   {
     super.onStop();
+    mSearchViewModel.setLastResults(mSearchAdapter.getResults());
+    mSearchViewModel.setSearchQuery(TextUtils.isEmpty(getQuery()) ? null : getQuery());
     mToolbarController.detach();
+    mSearchViewModel.getSearchEnabled().removeObserver(mSearchEnabledObserver);
   }
 
   @Override
@@ -362,17 +457,6 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   void setQuery(String text, boolean isCategory)
   {
     mToolbarController.setQuery(text, isCategory);
-  }
-
-  private void readArguments()
-  {
-    final Bundle arguments = getArguments();
-    if (arguments == null)
-      return;
-
-    mInitialQuery = arguments.getString(SearchActivity.EXTRA_QUERY);
-    mInitialLocale = arguments.getString(SearchActivity.EXTRA_LOCALE);
-    mInitialSearchOnMap = arguments.getBoolean(SearchActivity.EXTRA_SEARCH_ON_MAP);
   }
 
   private boolean tryRecognizeHiddenCommand(@NonNull String query)
@@ -421,9 +505,6 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
     }
 
     mToolbarController.deactivate();
-
-    if (requireActivity() instanceof SearchActivity)
-      Utils.navigateToParent(requireActivity());
   }
 
   void showAllResultsOnMap()
@@ -439,10 +520,8 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
       SearchRecents.add(query, requireContext());
     mLastQueryTimestamp = System.nanoTime();
 
-    SearchEngine.INSTANCE.searchInteractive(
-        query, isCategory(),
-        !TextUtils.isEmpty(mInitialLocale) ? mInitialLocale : Language.getKeyboardLocale(requireContext()),
-        mLastQueryTimestamp, false /* isMapAndTable */);
+    SearchEngine.INSTANCE.searchInteractive(query, isCategory(), Language.getKeyboardLocale(requireContext()),
+                                            mLastQueryTimestamp, false /* isMapAndTable */);
 
     SearchEngine.INSTANCE.setQuery(query);
     Utils.navigateToParent(requireActivity());
@@ -458,6 +537,7 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   {
     mSearchRunning = false;
     mToolbarController.showProgress(false);
+    hideShimmer();
     updateFrames();
     updateResultsPlaceholder();
   }
@@ -468,12 +548,6 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
     updateSearchView();
   }
 
-  private boolean isTabletSearch()
-  {
-    // TODO @yunitsky Implement more elegant solution.
-    return requireActivity() instanceof MwmActivity;
-  }
-
   private void runSearch()
   {
     // The previous search should be cancelled before the new one is started, since previous search
@@ -481,22 +555,35 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
     SearchEngine.INSTANCE.cancel();
 
     mLastQueryTimestamp = System.nanoTime();
-    if (isTabletSearch())
+
+    boolean hasLocation = mLastPosition.valid;
+    double lat = mLastPosition.lat;
+    double lon = mLastPosition.lon;
+
+    // Fall back to the last known location if the fragment's listener hasn't received a fix yet.
+    if (!hasLocation)
     {
-      SearchEngine.INSTANCE.searchInteractive(requireContext(), getQuery(), isCategory(), mLastQueryTimestamp,
-                                              true /* isMapAndTable */);
-    }
-    else
-    {
-      if (!SearchEngine.INSTANCE.search(requireContext(), getQuery(), isCategory(), mLastQueryTimestamp,
-                                        mLastPosition.valid, mLastPosition.lat, mLastPosition.lon))
+      final Location saved = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
+      if (saved != null)
       {
-        return;
+        hasLocation = true;
+        lat = saved.getLatitude();
+        lon = saved.getLongitude();
       }
     }
 
+    // Always use interactive search so that results are highlighted on the map.
+    SearchEngine.INSTANCE.searchInteractive(getQuery(), isCategory(), Language.getKeyboardLocale(requireContext()),
+                                            mLastQueryTimestamp, true /* isMapAndTable */, hasLocation, lat, lon);
+
     mSearchRunning = true;
     mToolbarController.showProgress(true);
+
+    if (SearchShimmerView.isSupported() && mSearchAdapter.getItemCount() == 0)
+    {
+      UiUtils.show(mShimmerView);
+      mShimmerView.startShimmer();
+    }
 
     updateFrames();
   }
@@ -525,12 +612,14 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
   private void refreshSearchResults(@NonNull SearchResult[] results)
   {
     mSearchRunning = true;
+    hideShimmer();
     updateFrames();
     mSearchAdapter.refreshData(results);
+    mSearchViewModel.setLastResults(results);
+    mSearchViewModel.setSearchQuery(getQuery());
     mToolbarController.showProgress(true);
   }
 
-  @Override
   public boolean onBackPressed()
   {
     if (mToolbarController.hasQuery())
@@ -539,25 +628,16 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
       return true;
     }
 
-    boolean isSearchActivity = requireActivity() instanceof SearchActivity;
     mToolbarController.deactivate();
     if (RoutingController.get().isWaitingPoiPick())
     {
       RoutingController.get().onPoiSelected(null);
-      if (isSearchActivity)
-        closeSearch();
-      return !isSearchActivity;
+      return true;
     }
 
-    if (isSearchActivity)
-      closeSearch();
-    return isSearchActivity;
-  }
-
-  private void closeSearch()
-  {
-    final Activity activity = requireActivity();
-    activity.finish();
+    if (mSearchFragmentListener.getBackPressedCallback())
+      return true;
+    return false;
   }
 
   public void setRecyclerScrollListener(RecyclerView recycler)
@@ -628,5 +708,17 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
     @Override
     void executeInternal()
     {}
+  }
+
+  interface SearchFragmentListener
+  {
+    boolean getBackPressedCallback();
+    void onSearchClicked();
+  }
+
+  public void activateToolbar()
+  {
+    if (mToolbarController != null)
+      mToolbarController.activate();
   }
 }
