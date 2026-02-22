@@ -41,8 +41,8 @@ bool TranslatorsPool::Finish()
     queue.Push(p.get_future());
   }
 
-  base::ComputationalThreadPool pool(queue.Size() / 2 + 1);
   CHECK_GREATER_OR_EQUAL(queue.Size(), 1, ());
+  base::ComputationalThreadPool pool(queue.Size() / 2 + 1);
   while (queue.Size() != 1)
   {
     std::future<TranslatorPtr> left;
