@@ -8,8 +8,8 @@ namespace dp
 {
 CPUBuffer::CPUBuffer(uint8_t elementSize, uint32_t capacity)
   : TBase(elementSize, capacity)
-  , m_memoryCursor(NonConstData())
   , m_memory(SharedBufferManager::Instance().ReserveSharedBuffer(GetCapacity() * GetElementSize()))
+  , m_memoryCursor(NonConstData())
 {}
 
 CPUBuffer::~CPUBuffer()
