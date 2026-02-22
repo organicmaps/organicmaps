@@ -103,7 +103,7 @@ UniString NormalizeAndSimplifyString(std::string_view s)
     case 0x0111: c = 'd'; break;
     // Replace small turkish dotless 'ı' with dotted 'i'.  Our own
     // invented hack to avoid well-known Turkish I-letter bug.
-    case 0x0131: c = 'i'; break;
+    case 0x0131:  // fallthrough
     // Replace capital turkish dotted 'İ' with dotted lowercased 'i'.
     // Here we need to handle this case manually too, because default
     // unicode-compliant implementation of MakeLowerCase converts 'İ'

@@ -1,3 +1,4 @@
+#include "base/string_utils.hpp"
 #include "testing/testing.hpp"
 
 #include "base/dfa_helpers.hpp"
@@ -9,8 +10,8 @@
 
 namespace levenshtein_dfa_test
 {
-using namespace std;
-using namespace strings;
+using strings::LevenshteinDFA, strings::PrefixDFAModifier;
+using strings::MakeUniString, strings::UniString;
 
 enum class Status
 {
@@ -39,7 +40,7 @@ struct Result
   size_t m_prefixErrorsMade = 0;
 };
 
-string DebugPrint(Status status)
+std::string DebugPrint(Status status)
 {
   switch (status)
   {
@@ -50,9 +51,9 @@ string DebugPrint(Status status)
   UNREACHABLE();
 }
 
-string DebugPrint(Result const & result)
+std::string DebugPrint(Result const & result)
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "Result [ ";
   os << "status: " << DebugPrint(result.m_status) << ", ";
   os << "errorsMade: " << result.m_errorsMade << ", ";
@@ -60,7 +61,7 @@ string DebugPrint(Result const & result)
   return os.str();
 }
 
-Result GetResult(LevenshteinDFA const & dfa, std::string const & s)
+Result GetResult(strings::LevenshteinDFA const & dfa, std::string const & s)
 {
   auto it = dfa.Begin();
   DFAMove(it, s);
@@ -190,11 +191,11 @@ UNIT_TEST(LevenshteinDFA_ErrorsMade)
   }
 
   {
-    vector<UniString> const allowedMisprints = {MakeUniString("yj")};
+    std::vector<UniString> const allowedMisprints = {MakeUniString("yj")};
     size_t const prefixSize = 1;
     size_t const maxErrors = 1;
-    string const str = "yekaterinburg";
-    vector<pair<string, Result>> const queries = {
+    std::string const str = "yekaterinburg";
+    std::vector<std::pair<std::string, Result>> const queries = {
         {"yekaterinburg", Result(Status::Accepts, 0 /* errorsMade */, 0 /* prefixErrorsMade */)},
         {"ekaterinburg", Result(Status::Accepts, 1 /* errorsMade */, 1 /* prefixErrorsMade */)},
         {"jekaterinburg", Result(Status::Accepts, 1 /* errorsMade */, 1 /* prefixErrorsMade */)},
@@ -256,10 +257,10 @@ UNIT_TEST(LevenshteinDFA_PrefixDFAModifier)
 
 UNIT_TEST(LevenshteinDFA_PrefixDFASmoke)
 {
-  vector<char> const kAlphabet = {'a', 'b', 'c'};
-  vector<string> sources;
-  vector<string> queries;
-  auto generate = [](vector<char> const & alphabet, size_t size, vector<string> & result)
+  std::vector<char> const kAlphabet = {'a', 'b', 'c'};
+  std::vector<std::string> sources;
+  std::vector<std::string> queries;
+  auto generate = [](std::vector<char> const & alphabet, size_t size, std::vector<std::string> & result)
   {
     result.clear();
     result.resize(math::PowUint(alphabet.size(), size));

@@ -1,20 +1,17 @@
 #pragma once
 
 #include "base/buffer_vector.hpp"
-#include "base/checked_cast.hpp"
 
 #include <algorithm>
 #include <cerrno>
 #include <charconv>
 #include <cstdint>
 #include <cstdlib>
-#include <iomanip>
 #include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <system_error>
-#include <type_traits>
 
 #include <utf8/unchecked.h>
 
@@ -34,12 +31,13 @@ public:
 
   using value_type = UniChar;
 
-  UniString() = default;
-  explicit UniString(size_t n) : BaseT(n) {}
-  UniString(size_t n, UniChar c) { resize(n, c); }
+  constexpr UniString() = default;
+  constexpr explicit UniString(size_t n) : BaseT(n) {}
+  constexpr explicit UniString(UniChar const * s) : BaseT(s, s + std::char_traits<UniChar>::length(s)) {}
+  constexpr UniString(size_t n, UniChar c) { resize(n, c); }
 
   template <typename Iter>
-  UniString(Iter b, Iter e) : BaseT(b, e)
+  constexpr UniString(Iter b, Iter e) : BaseT(b, e)
   {}
 
   bool IsEqualAscii(char const * s) const;
