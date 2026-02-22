@@ -347,7 +347,7 @@ public class Holders
     void bind(@NonNull SectionPosition position, @NonNull BookmarkListAdapter.SectionsDataSource sectionsDataSource)
     {
       final long bookmarkId = sectionsDataSource.getBookmarkId(position);
-      BookmarkInfo bookmark = new BookmarkInfo(sectionsDataSource.getCategory().getId(), bookmarkId);
+      BookmarkInfo bookmark = BookmarkManager.INSTANCE.getBookmarkInfo(bookmarkId);
       mName.setText(bookmark.getName());
       final Location loc = MwmApplication.from(mIcon.getContext()).getLocationHelper().getSavedLocation();
 

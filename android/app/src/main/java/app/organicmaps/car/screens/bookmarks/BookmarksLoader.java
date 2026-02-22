@@ -131,7 +131,7 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
     for (int i = 0; i < mBookmarksListSize && i < bookmarksIds.size(); ++i)
     {
       final long id = bookmarksIds.get(i);
-      bookmarks[i] = new BookmarkInfo(mBookmarkCategory.getId(), id);
+      bookmarks[i] = BookmarkManager.INSTANCE.getBookmarkInfo(id);
     }
 
     mBookmarkLoaderTask = ThreadPool.getWorker().submit(() -> {
