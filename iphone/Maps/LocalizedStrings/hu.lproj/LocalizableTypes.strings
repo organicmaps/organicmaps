@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Cím/háztömb";
 "type.addr_interpolation.even" = "Cím/háztömb";
 "type.addr_interpolation.odd" = "Cím/háztömb";
@@ -137,10 +133,6 @@
 "type.amenity.prison" = "Börtön";
 "type.amenity.pub" = "Kocsma";
 "type.amenity.public_bookcase" = "Nyilvános könyvespolc";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Hulladékudvar";
 "type.amenity.recycling" = "Szelektív hulladékgyűjtés";
 "type.amenity.recycling.container" = "Szelektív hulladékgyűjtő konténer";
@@ -398,10 +390,6 @@
 "type.healthcare.psychotherapist" = "Pszichoterápia";
 "type.healthcare.sample_collection" = "Mintavételgyűjtő központ";
 "type.healthcare.speech_therapist" = "Logopédia";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Közút";
 "type.highway.bridleway" = "Lovaglóút";
 
@@ -618,10 +606,6 @@
 "type.area_highway.unclassified" = "Egyéb közút";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Történelmi objektum";
 "type.historic.aircraft" = "Történelmi repülőgép";
 "type.historic.anchor" = "Történelmi horgony";

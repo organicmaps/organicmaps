@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Annulla";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Elenchi di luoghi preferiti";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Dove mangiare";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Per camper";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato Organic Maps. Oppure, se non ce l'hai, scarica l'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "preferito";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Quando segui il percorso, ricorda che:";
 "dialog_routing_disclaimer_priority" = "— Le condizioni stradali, il codice della strada e la segnaletica hanno sempre la precedenza sulle indicazioni del navigatore;";
 "dialog_routing_disclaimer_precision" = "— La mappa potrebbe essere imprecisa e il percorso suggerito potrebbe non essere sempre quello ottimale per raggiungere la destinazione;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Scarica altre mappe per creare un percorso migliore che attraversi i confini di questa mappa.";
 "dialog_routing_download_files" = "Scarica i file necessari";
 "dialog_routing_download_and_update_all" = "Per calcolare il percorso, scarica e aggiorna tutte le mappe lungo l'itinerario previsto.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Mostra";
@@ -859,10 +839,6 @@
 "sort_distance" = "Ordina per distanza";
 "sort_date" = "Ordina per data";
 "sort_name" = "Ordina per nome";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Cibo";
 "tourist_places" = "Luoghi turistici";
 "museums" = "Musei";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Aggiorna la mappa per contribuire";
 "contribute_to_osm_update_map_description" = "Devi aggiornare la mappa %@ all'ultima versione prima di poter contribuire ai dati di OpenStreetMap";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "La mia posizione";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Regioni scaricate in viola";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Accesso con password";

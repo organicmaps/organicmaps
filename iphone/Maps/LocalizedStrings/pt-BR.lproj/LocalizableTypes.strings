@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Endereço/Bloco";
 "type.addr_interpolation.even" = "Endereço/Bloco";
 "type.addr_interpolation.odd" = "Endereço/Bloco";
@@ -137,10 +133,6 @@
 "type.amenity.prison" = "Prisão";
 "type.amenity.pub" = "Bar ou boteco";
 "type.amenity.public_bookcase" = "Biblioteca livre";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Centro de reciclagem";
 "type.amenity.recycling" = "Contêiner de reciclagem";
 "type.amenity.recycling.container" = "Contêiner de reciclagem";
@@ -398,10 +390,6 @@
 "type.healthcare.psychotherapist" = "Psicoterapia";
 "type.healthcare.sample_collection" = "Amostragem";
 "type.healthcare.speech_therapist" = "Terapia da fala";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Rodovia";
 "type.highway.bridleway" = "Caminho para cavaleiros";
 
@@ -618,10 +606,6 @@
 "type.area_highway.unclassified" = "Via Local ou Estrada Vicinal";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Objeto histórico";
 "type.historic.aircraft" = "Aeronaves Históricas";
 "type.historic.anchor" = "Âncora Histórica";

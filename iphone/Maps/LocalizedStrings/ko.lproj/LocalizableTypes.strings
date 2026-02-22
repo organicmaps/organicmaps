@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "주소/블록";
 "type.addr_interpolation.even" = "주소/블록";
 "type.addr_interpolation.odd" = "주소/블록";
@@ -137,10 +133,6 @@
 "type.amenity.prison" = "감옥";
 "type.amenity.pub" = "술집";
 "type.amenity.public_bookcase" = "도서 교환";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "재활용센터";
 "type.amenity.recycling" = "재활용 쓰레기통";
 "type.amenity.recycling.container" = "재활용 쓰레기통";
@@ -398,10 +390,6 @@
 "type.healthcare.psychotherapist" = "심리치료";
 "type.healthcare.sample_collection" = "견본 추출";
 "type.healthcare.speech_therapist" = "대화 요법";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -618,10 +606,6 @@
 "type.area_highway.unclassified" = "거리";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "역사적 물건";
 "type.historic.aircraft" = "\"역사적인 항공기\"";
 "type.historic.anchor" = "역사적인 앵커";

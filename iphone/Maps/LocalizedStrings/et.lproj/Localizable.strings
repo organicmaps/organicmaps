@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Katkesta";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Järjehoidjate loetelud";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Söögikohad";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Haagiselamud";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Tere!\n\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOSi või Androidi seadmesse, järgides seda linki: https:omaps.appget?kmz\n\nNaudi reisimist Organic Mapsiga!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "järjehoidja";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Teekonda järgides palun pea meeles:";
 "dialog_routing_disclaimer_priority" = "- Teeolud, liikluseeskirjad ja liiklusmärgid omavad alati prioriteeti tee juhatamise ees;";
 "dialog_routing_disclaimer_precision" = "- Kaart võib olla ebatäpne ja soovitatud teekond ei pruugi alati olla optimaalne viis sihtkohta jõudmiseks;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Laadi alla täiendavad kaardid, et luua parem, selle kaardi piire ületav teekond.";
 "dialog_routing_download_files" = "Laadi alla vajalikud failid";
 "dialog_routing_download_and_update_all" = "Marsruudi arvutamiseks laadi alla ja värskenda kogu kavandatud teekonna kaart ja marsruuditeave.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Näita";
@@ -859,10 +839,6 @@
 "sort_distance" = "Järjesta kauguse alusel";
 "sort_date" = "Järjesta kuupäeva alusel";
 "sort_name" = "Järjesta nime alusel";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Toit";
 "tourist_places" = "Vaatamisväärsused";
 "museums" = "Muuseumid";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Uuenda kaarti, et panustada";
 "contribute_to_osm_update_map_description" = "Enne OpenStreetMap andmetesse panustamist peate uuendama %@ kaardi uusimale versioonile";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Minu asukoht";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Lillad allalaaditud piirkonnad";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Sisselogimine parooliga";

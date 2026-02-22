@@ -1,31 +1,15 @@
 
-
-/********** Strings **********/
-
-
 /* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "Iskanje";
 
 /* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
 "bookmarks_and_tracks" = "Zaznamki in sledi";
 
-
-/********** Other translations **********/
-
-
 /* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
 "report_a_bug" = "Prijavi napako";
 
-
-/********** 3d touch strings **********/
-
-
 /* Used in home screen quick actions. */
 "route" = "Pot";
-
-
-/********** gps strings **********/
-
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "Zaznavanje lokacije v ozadju je potrebno za polno funkcionalnost aplikacije. Uporablja se za navigacijo in shranjevanje vaše nedavne sledi.";

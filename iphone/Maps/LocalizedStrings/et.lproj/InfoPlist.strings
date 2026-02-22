@@ -1,31 +1,15 @@
 
-
-/********** Strings **********/
-
-
 /* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "Otsi";
 
 /* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
 "bookmarks_and_tracks" = "Järjehoidjad ja rajad";
 
-
-/********** Other translations **********/
-
-
 /* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
 "report_a_bug" = "Teata veast";
 
-
-/********** 3d touch strings **********/
-
-
 /* Used in home screen quick actions. */
 "route" = "Marsruut";
-
-
-/********** gps strings **********/
-
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "Rakenduse funktsionaalsuse täielikuks nautimiseks on vaja asukoha tuvastamist taustal. Seda kasutatakse navigeerimiseks ja hiljuti reisitud tee salvestamiseks.";

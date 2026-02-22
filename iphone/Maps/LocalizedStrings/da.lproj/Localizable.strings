@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Annuller";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Bogmærkelister";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Spisesteder";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Til RV";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hej!\n\nVedhæftet er mine bogmærker; åbn dem venligst i Organic Maps. Hvis du ikke har den installeret, kan du downloade den her: https://omaps.app/get?kmz\n \nGod rejse med Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "bogmærke";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Når du følger ruten, skal du være opmærksom på følgende:";
 "dialog_routing_disclaimer_priority" = "— Vejforhold, færdselsregler og skiltning skal altid prioriteres højere end navigationsanvisninger;";
 "dialog_routing_disclaimer_precision" = "— Kortet kan være unøjagtigt, og den foreslåede rute er ikke nødvendigvis altid den bedste måde at nå destinationen på;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Download yderligere kort for at planlægge en mere optimal rute, der strækker sig ud over dette korts grænser.";
 "dialog_routing_download_files" = "Download de nødvendige filer";
 "dialog_routing_download_and_update_all" = "Download og opdatér alle kort og ruteoplysninger for at beregne en rute.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Vis";
@@ -859,10 +839,6 @@
 "sort_distance" = "Sort (Afs)";
 "sort_date" = "Sort (dato)";
 "sort_name" = "Sorter efter navn";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Mad";
 "tourist_places" = "Seværdigheder";
 "museums" = "Museer";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Opdater kortet for at bidrage";
 "contribute_to_osm_update_map_description" = "Du skal opdatere %@-kortet til den nyeste version, før du kan bidrage til OpenStreetMap-dataene";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Min position";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Lilla downloadede regioner";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Login med adgangskode";

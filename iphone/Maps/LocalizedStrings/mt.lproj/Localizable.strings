@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Ikkanċella";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Listi tal-Bookmark";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Għażel fejn tiekol";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Faċilitajiet tal-RV";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Helow!\n\nMehmuża huma il-bookmarks; iftaħhom ġo Organic Maps. Jekk mhuwiex installat tista tniżżlu min hawn: https://omaps.app/get?kmz\n\nĦu pjaċir ivvjaġġa ġo Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "bookmark";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Meta ssegwi r-rotta, jekk jogħġbok żomm f’ moħħok:";
 "dialog_routing_disclaimer_priority" = "— Il-kundizzjonijiet tat-toroq, il-liġijiet tat-traffiku, u s-sinjali tat-toroq dejjem jieħdu preċedenza fuq il-ħjiel tan-navigazzjoni;";
 "dialog_routing_disclaimer_precision" = "— Il-mappa tista ’ma tkunx preċiża, u r-rotta ssuġġerita mhux dejjem tista’ tkun l-aħjar mod biex tasal fid-destinazzjoni;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Niżżel mapep addizzjonali biex toħloq rotta aħjar li taqsam il-konfini ta ’din il-mappa.";
 "dialog_routing_download_files" = "Niżżel il-fajls meħtieġa";
 "dialog_routing_download_and_update_all" = "Niżżel jew aġġorna l-mapep kollha tul il-mogħdija projettata biex tikkalkula rotta.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Uri";
@@ -859,10 +839,6 @@
 "sort_distance" = "Sort by distance";
 "sort_date" = "Sort by date";
 "sort_name" = "Sort by name";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Ikel";
 "tourist_places" = "Siti";
 "museums" = "Mużewijiet";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Aġġorna l-mappa biex tikkontribwixxi";
 "contribute_to_osm_update_map_description" = "Trid taġġorna l-mappa %@ għall-aħħar verżjoni qabel ma tkun tista' tikkontribwixxi għad-data ta' OpenStreetMap";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Il-Pożizzjoni Kurrenti";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Reġjuni mniżżla vjola";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Login bil-password";

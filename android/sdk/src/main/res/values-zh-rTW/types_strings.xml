@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">地址/區塊</string>
     <string name="type.addr_interpolation.even">地址/區塊</string>
@@ -135,7 +134,6 @@
     <string name="type.amenity.prison">監獄</string>
     <string name="type.amenity.pub">酒館</string>
     <string name="type.amenity.public_bookcase">書架</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">回收中心</string>
     <string name="type.amenity.recycling">回收箱</string>
@@ -381,7 +379,6 @@
     <string name="type.healthcare.psychotherapist">心理治療</string>
     <string name="type.healthcare.sample_collection">採樣</string>
     <string name="type.healthcare.speech_therapist">言語治療</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">道路</string>
     <string name="type.highway.bridleway">馬道</string>
@@ -548,7 +545,6 @@
     <string name="type.area_highway.track">土路</string>
     <string name="type.area_highway.trunk">主幹道</string>
     <string name="type.area_highway.unclassified">道路</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">歷史地點</string>
     <string name="type.historic.aircraft">歷史悠久的飛機</string>
@@ -594,7 +590,7 @@
     <string name="type.historic.wayside_cross">路旁十字架</string>
     <string name="type.historic.wayside_shrine">路旁神龕</string>
     <string name="type.historic.wreck">沉船</string>
-    <string name="type.internet_access">互聯網</string>
+    <string name="type.internet_access">網際網路</string>
     <string name="type.internet_access.wlan">無線網路</string>
     <string name="type.junction">交叉口</string>
     <string name="type.junction.circular">環形交叉口</string>
@@ -1427,4 +1423,6 @@
     <string name="type.craft.watchmaker">鐘錶匠</string>
     <string name="type.xmas_feature.market">聖誕市場</string>
     <string name="type.xmas_feature.tree">聖誕樹</string>
+    <string name="type.highway.world_level">道路世界等級</string>
+    <string name="type.highway.world_towns_level">道路城鎮等級</string>
 </resources>

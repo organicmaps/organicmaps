@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Otkaži";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Popisi zabilješki";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Where to eat";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "RV Facilities";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Zdravo! \n \nU privitku su moje zabilješke; otvori ih u aplikaciji Organic Maps. Ako nije instalirana, možeš je preuzeti na: https://omaps.app/get?kmz \n \nUživaj u putovanju s Organic Maps!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "zabilješka";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Prilikom praćenja rute, imajte sljedeće na umu:";
 "dialog_routing_disclaimer_priority" = "– Uvjeti na cesti, prometni propisi i prometni znakovi uvijek imaju prednost pred navigacijskim savjetima;";
 "dialog_routing_disclaimer_precision" = "– Karta može biti netočna, a predložena ruta možda nije uvijek najoptimalniji način za dolazak do odredišta;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Download additional maps to create a better route that crosses the boundaries of this map.";
 "dialog_routing_download_files" = "Download required files";
 "dialog_routing_download_and_update_all" = "Download or update all maps along the projected path to calculate a route.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Prikaži";
@@ -859,10 +839,6 @@
 "sort_distance" = "Sort by distance";
 "sort_date" = "Sort by date";
 "sort_name" = "Sort by name";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Hrana";
 "tourist_places" = "Atrakcije";
 "museums" = "Muzeji";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Update the Map to Contribute";
 "contribute_to_osm_update_map_description" = "You need to update the %@ map to the latest version before you can contribute to the OpenStreetMap data";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Moja pozicija";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Ljubičaste preuzete regije";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Prijava s lozinkom";

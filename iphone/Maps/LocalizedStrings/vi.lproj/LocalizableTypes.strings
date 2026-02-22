@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Địa chỉ/Khối";
 "type.addr_interpolation.even" = "Địa chỉ/Khối";
 "type.addr_interpolation.odd" = "Địa chỉ/Khối";
@@ -137,10 +133,6 @@
 "type.amenity.prison" = "Nhà tù";
 "type.amenity.pub" = "Quán rượu";
 "type.amenity.public_bookcase" = "Kệ sách";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Trung tâm tái sinh";
 "type.amenity.recycling" = "Thùng rác";
 "type.amenity.recycling.container" = "Thùng rác";
@@ -398,10 +390,6 @@
 "type.healthcare.psychotherapist" = "Tâm lý trị liệu";
 "type.healthcare.sample_collection" = "lấy mẫu";
 "type.healthcare.speech_therapist" = "Ngôn ngữ trị liệu";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -618,10 +606,6 @@
 "type.area_highway.unclassified" = "Phố";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Đối tượng lịch sử";
 "type.historic.aircraft" = "Máy bay lịch sử";
 "type.historic.anchor" = "Mỏ Neo lịch sử";

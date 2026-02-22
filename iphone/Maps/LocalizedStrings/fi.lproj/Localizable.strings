@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Peruuta";
 
@@ -84,10 +80,6 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Kirjanmerkkivalikoimat";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Missä syödä";
 
@@ -153,10 +145,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Karavaanaritilat";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hei! \n\nLiitteenä ovat kirjamerkkini; Avaa ne Organic Maps -sovelluksessa. Mikäli sinulla ei ole vielä sovellusta asennettuna, voit ladata sen osoitteesta: https://omaps.app/get?kmz \n\nNauti matkustamisesta Organic Maps:n kanssa!";
 
 /* message title of loading file */
@@ -403,10 +391,6 @@
 
 /* bookmark button text */
 "bookmark" = "kirjanmerkki";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Muista seuraavat asiat seuratessasi reittiä:";
 "dialog_routing_disclaimer_priority" = "— Tien kunnon, liikennesääntöjen ja tiekylttien noudattaminen on aina ensisijaista verrattuna navigointisovelluksen ohjeisiin;";
 "dialog_routing_disclaimer_precision" = "— Kartta saattaa olla epätarkka, joten ehdotettu reitti ei välttämättä ole paras mahdollinen tapa päästä määränpäähän;";
@@ -435,10 +419,6 @@
 "dialog_routing_download_cross_route" = "Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.";
 "dialog_routing_download_files" = "Lataa tarvittavat tiedostot";
 "dialog_routing_download_and_update_all" = "Lataa ja päivitä kaikki suunnitellun reitin kartta- ja reititystiedot, jotta reitin voi laskea.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Näytä";
@@ -859,10 +839,6 @@
 "sort_distance" = "Järjestä etäisyyden mukaan";
 "sort_date" = "Järjestä päivämäärän mukaan";
 "sort_name" = "Lajittele nimen mukaan";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Ruoka";
 "tourist_places" = "Nähtävyydet";
 "museums" = "Museot";
@@ -1067,10 +1043,6 @@
 "contribute_to_osm_update_map" = "Päivitä kartta osallistuaksesi";
 "contribute_to_osm_update_map_description" = "Sinun täytyy päivittää %@-kartta uusimpaan versioon ennen kuin voit osallistua OpenStreetMapin tietoihin";
 
-
-/********** Uncategorized **********/
-
-
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Sijaintini";
 
@@ -1106,10 +1078,6 @@
 
 /* Settings/Highlight downloaded regions on the map */
 "show_downloaded_regions" = "Violetit ladatut alueet";
-
-
-/********** gps strings **********/
-
 
 /* Login to OSM button text */
 "login_osm_credentials" = "Kirjaudu sisään salasanalla";

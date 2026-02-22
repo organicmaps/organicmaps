@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "ที่อยู่/บล็อค";
 "type.addr_interpolation.even" = "ที่อยู่/บล็อค";
 "type.addr_interpolation.odd" = "ที่อยู่/บล็อค";
@@ -137,10 +133,6 @@
 "type.amenity.prison" = "คุก";
 "type.amenity.pub" = "ผับ";
 "type.amenity.public_bookcase" = "ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "ศูนย์รีไซเคิล";
 "type.amenity.recycling" = "บรรจุภัณฑ์รีไซเคิล";
 "type.amenity.recycling.container" = "บรรจุภัณฑ์รีไซเคิล";
@@ -398,10 +390,6 @@
 "type.healthcare.psychotherapist" = "จิตบำบัด";
 "type.healthcare.sample_collection" = "การสุ่มตัวอย่าง";
 "type.healthcare.speech_therapist" = "การบำบัดด้วยการพูด";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -618,10 +606,6 @@
 "type.area_highway.unclassified" = "ถนน";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "วัตถุประวัติศาสตร์";
 "type.historic.aircraft" = "เครื่องบินประวัติศาสตร์";
 "type.historic.anchor" = "ผู้ประกาศข่าวประวัติศาสตร์";

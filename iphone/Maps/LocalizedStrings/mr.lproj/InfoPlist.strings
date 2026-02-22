@@ -1,31 +1,15 @@
 
-
-/********** Strings **********/
-
-
 /* View and button titles for accessibility. Also used in iPhone home screen quick actions. */
 "search" = "शोधा";
 
 /* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
 "bookmarks_and_tracks" = "खूणपत्रे आणि ट्रॅक";
 
-
-/********** Other translations **********/
-
-
 /* Text in menu + Button in the main Help dialog. Used in home screen quick actions. */
 "report_a_bug" = "त्रुटी कळवा";
 
-
-/********** 3d touch strings **********/
-
-
 /* Used in home screen quick actions. */
 "route" = "मार्ग";
-
-
-/********** gps strings **********/
-
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "ऍपच्या कार्यक्षमतेचा पूर्णपणे आनंद घेण्यासाठी पार्श्वभूमीतील स्थान जाणणे आवश्यक आहे. मार्गनिर्देशनासाठी व अलीकडे प्रवास केलेला मार्ग जतन करण्यासाठी ह्याचा उपयोग होतो.";
