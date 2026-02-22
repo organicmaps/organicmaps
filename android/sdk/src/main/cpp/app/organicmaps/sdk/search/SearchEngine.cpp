@@ -335,6 +335,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeShowResult(JNI
   g_framework->NativeFramework()->ShowSearchResult(g_results[index]);
 }
 
+JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeSelectResult(JNIEnv * env, jclass clazz, jint index)
+{
+  g_framework->NativeFramework()->SelectSearchResult(g_results[index], true /* animation */);
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelInteractiveSearch(JNIEnv * env, jclass clazz)
 {
   g_framework->NativeFramework()->GetSearchAPI().CancelSearch(search::Mode::Viewport);

@@ -191,6 +191,13 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   }
 
   @MainThread
+  public void selectResult(int index)
+  {
+    // Do not clear mQuery here to preserve interactive search highlights on the map.
+    nativeSelectResult(index);
+  }
+
+  @MainThread
   public void updateViewportWithLastResults()
   {
     nativeUpdateViewportWithLastResults();
@@ -224,6 +231,8 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   private static native boolean nativeRunSearchInBookmarks(byte[] bytes, long categoryId, long timestamp);
 
   private static native void nativeShowResult(int index);
+
+  private static native void nativeSelectResult(int index);
 
   private static native void nativeCancelInteractiveSearch();
 
