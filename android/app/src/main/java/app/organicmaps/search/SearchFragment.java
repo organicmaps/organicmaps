@@ -38,8 +38,7 @@ import app.organicmaps.sdk.search.SearchResult;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
-import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.Utils;
+import app.organicmaps.sdk.util.log.Logger;import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.SearchShimmerView;
 import app.organicmaps.widget.SearchToolbarController;
@@ -448,6 +447,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   private String getQuery()
   {
+    Logger.d("kavi", "getQuery: " + mToolbarController.getQuery());
     return mToolbarController.getQuery();
   }
   private boolean isCategory()
@@ -488,7 +488,6 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     final String query = getQuery();
     if (Config.isSearchHistoryEnabled())
       SearchRecents.add(query, requireContext());
-    SearchEngine.INSTANCE.cancel();
     SearchEngine.INSTANCE.setQuery(query);
 
     if (RoutingController.get().isWaitingPoiPick())
@@ -501,31 +500,12 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     }
     else
     {
-      SearchEngine.INSTANCE.showResult(resultIndex);
+      SearchEngine.INSTANCE.selectResult(resultIndex);
     }
 
     mToolbarController.deactivate();
   }
 
-  void showAllResultsOnMap()
-  {
-    SearchEngine.INSTANCE.updateViewportWithLastResults();
-
-    // The previous search should be cancelled before the new one is started, since previous search
-    // results are no longer needed.
-    SearchEngine.INSTANCE.cancel();
-
-    final String query = getQuery();
-    if (Config.isSearchHistoryEnabled())
-      SearchRecents.add(query, requireContext());
-    mLastQueryTimestamp = System.nanoTime();
-
-    SearchEngine.INSTANCE.searchInteractive(query, isCategory(), Language.getKeyboardLocale(requireContext()),
-                                            mLastQueryTimestamp, false /* isMapAndTable */);
-
-    SearchEngine.INSTANCE.setQuery(query);
-    Utils.navigateToParent(requireActivity());
-  }
 
   private void onSearchEnd()
   {
