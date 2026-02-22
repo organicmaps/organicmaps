@@ -21,6 +21,8 @@ public:
 
   void ClearReserved();
 
+  // Rounds up the requested size to the nearest power of 2 (for better buffer reuse)
+  // and returns a buffer of that size from the pool if available, or creates a new one if not.
   shared_buffer_ptr_t ReserveSharedBuffer(size_t s);
   void FreeSharedBuffer(size_t s, shared_buffer_ptr_t buf);
 

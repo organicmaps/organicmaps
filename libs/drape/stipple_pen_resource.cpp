@@ -187,16 +187,16 @@ void StipplePenIndex::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_
   //    LOG(LERROR, ("Multiple stipple pen texture uploads are not supported"));
   m_uploadCalled = true;
 
-  uint32_t height = 0;
+  size_t height = 0;
   for (auto const & n : pendingNodes)
     height += n.second.GetSize().y;
 
-  uint32_t const reserveBufferSize = math::NextPowOf2(height * kMaxStipplePenLength);
-
+  auto const reserveBufferSize = height * kMaxStipplePenLength;
   SharedBufferManager & mng = SharedBufferManager::Instance();
-  SharedBufferManager::shared_buffer_ptr_t ptr = mng.ReserveSharedBuffer(reserveBufferSize);
+  // Rounds up the requested size to the nearest power of 2.
+  auto ptr = mng.ReserveSharedBuffer(reserveBufferSize);
   uint8_t * rawBuffer = SharedBufferManager::GetRawPointer(ptr);
-  memset(rawBuffer, 0, reserveBufferSize);
+  memset(rawBuffer, 0, ptr->size());
 
   uint8_t * pixels = rawBuffer;
   for (auto const & n : pendingNodes)
