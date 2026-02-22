@@ -193,8 +193,8 @@ void StipplePenIndex::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_
 
   uint32_t const reserveBufferSize = math::NextPowOf2(height * kMaxStipplePenLength);
 
-  SharedBufferManager & mng = SharedBufferManager::instance();
-  SharedBufferManager::shared_buffer_ptr_t ptr = mng.reserveSharedBuffer(reserveBufferSize);
+  SharedBufferManager & mng = SharedBufferManager::Instance();
+  SharedBufferManager::shared_buffer_ptr_t ptr = mng.ReserveSharedBuffer(reserveBufferSize);
   uint8_t * rawBuffer = SharedBufferManager::GetRawPointer(ptr);
   memset(rawBuffer, 0, reserveBufferSize);
 
@@ -207,7 +207,7 @@ void StipplePenIndex::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_
 
   texture->UploadData(context, 0, pendingNodes.front().first.minY(), kMaxStipplePenLength, height, make_ref(rawBuffer));
 
-  mng.freeSharedBuffer(reserveBufferSize, std::move(ptr));
+  mng.FreeSharedBuffer(reserveBufferSize, std::move(ptr));
 }
 
 void StipplePenTexture::ReservePattern(PenPatternT const & pattern)

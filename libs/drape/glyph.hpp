@@ -27,7 +27,7 @@ struct GlyphImage
     if (m_data)
     {
       auto const sz = m_data->size();
-      SharedBufferManager::instance().freeSharedBuffer(sz, std::move(m_data));
+      SharedBufferManager::Instance().FreeSharedBuffer(sz, std::move(m_data));
     }
   }
 
